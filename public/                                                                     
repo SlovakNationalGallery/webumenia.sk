@@ -1,0 +1,12 @@
+[10-Mar-2014 15:33:41 UTC] PHP Fatal error:  Using $this when not in object context in /Users/igorko/Sites/sng/webumenia/app/routes.php on line 40
+[10-Mar-2014 15:34:31 UTC] PHP Parse error:  syntax error, unexpected '->' (T_OBJECT_OPERATOR) in /Users/igorko/Sites/sng/webumenia/app/routes.php on line 40
+[10-Mar-2014 15:35:24 UTC] PHP Fatal error:  Using $this when not in object context in /Users/igorko/Sites/sng/webumenia/app/routes.php on line 58
+[10-Mar-2014 15:35:43 UTC] PHP Fatal error:  Call to a member function nest() on a non-object in /Users/igorko/Sites/sng/webumenia/app/routes.php on line 58
+[10-Mar-2014 15:36:15 UTC] PHP Fatal error:  Function name must be a string in /Users/igorko/Sites/sng/webumenia/app/routes.php on line 58
+[10-Mar-2014 15:36:16 UTC] PHP Fatal error:  Function name must be a string in /Users/igorko/Sites/sng/webumenia/app/routes.php on line 58
+[10-Mar-2014 15:38:12 UTC] PHP Fatal error:  Call to a member function nest() on a non-object in /Users/igorko/Sites/sng/webumenia/app/routes.php on line 58
+[10-Mar-2014 15:38:13 UTC] PHP Fatal error:  Call to a member function nest() on a non-object in /Users/igorko/Sites/sng/webumenia/app/routes.php on line 58
+[10-Mar-2014 15:38:38 UTC] PHP Fatal error:  Call to a member function nest() on a non-object in /Users/igorko/Sites/sng/webumenia/app/routes.php on line 59
+[13-Mar-2014 14:11:22] PHP Notice:  Use of undefined constant __DIR__ - assumed '__DIR__' in /Users/igorko/Sites/sng/webumenia/public/index.php on line 21
+[13-Mar-2014 14:11:22] PHP Warning:  require(__DIR__/../bootstrap/autoload.php) [<a href='function.require'>function.require</a>]: failed to open stream: No such file or directory in /Users/igorko/Sites/sng/webumenia/public/index.php on line 21
+[13-Mar-2014 14:11:22] PHP Fatal error:  require() [<a href='function.require'>function.require</a>]: Failed opening required '__DIR__/../bootstrap/autoload.php' (include_path='.:/Applications/MAMP/bin/php/php5.2.17/lib/php') in /Users/igorko/Sites/sng/webumenia/public/index.php on line 21
