@@ -25,6 +25,9 @@ public String getImagePath(final String workArtId, final String imgFileName) {
 
 */
 
+define("IMAGES_DIR", "images/");
+define("ARTWORKS_DIR", "diela/");
+
 function intval32bits($value)
 {
     $value = ($value & 0xFFFFFFFF);
@@ -51,7 +54,7 @@ function hashcode($s) {
 }
 
 
-function getImagePath($workArtId) {
+function getImagePath($workArtId, $full=false) {
     // $workArtId = "this: "; // 110331228 -> 3420268100
 	$levels = 3;
     $dirsPerLevel = 100 ;
@@ -70,8 +73,9 @@ function getImagePath($workArtId) {
 	$trans = array(":" => "_", " " => "_");
     $file = strtr($workArtId, $trans);
 
-    $result_path = "$path/$file/$file.jpeg";
-
+    $image_suffix= ($full) ? '' : '-th1';
+    $result_path = IMAGES_DIR . ARTWORKS_DIR . "$path/$file/$file$image_suffix.jpeg";
+    if (!file_exists( $result_path)) $result_path = IMAGES_DIR . '/no-image'.$image_suffix.'.jpeg';
 	return $result_path;
 	 
 }
@@ -217,22 +221,25 @@ function getImagePath($workArtId) {
                     <div class="sixteen columns">
                         <p>Počet nádených diel: <?php echo $data->response->numFound; ?></p>
 
-	                    <dl class="Zebra_Accordion" id="Zebra_Accordion1">
+	                    <?php /* ?>
+                        <dl class="Zebra_Accordion" id="Zebra_Accordion1">
 	                        <dt style="margin-top:0px;">Zobraziť odpoveť</dt>
 	                        <dd>
 	                            <pre><?php print_r($data); ?></pre>
 	                        </dd>
 	                    </dl>
+                        <?php */ ?>
 
-                    </div>
+                   
 
                     <ul class="grid cs-style-3">
                     	<?php foreach ($data->response->docs as $key => $item) { ?>
                         <!-- dielo-->
-                        <a href="images/diela/<?php echo getImagePath($item->id); ?>" data-source="http://webumenia.sk/web/guest/detail/-/detail/id/SVK:SNG.O_754/" title="<?php echo $item->firstAuthor .' : '. $item->ti[0] ?>">
-                        <li class="four columns painting ">
+                        
+                        <a href="<?php echo getImagePath($item->id, true); ?>"  title="<?php echo $item->firstAuthor .' : '. $item->ti[0] ?>">
+                        <li class="painting">
                             <figure>
-                                <img src="images/diela/<?php echo getImagePath($item->id); ?>" alt="painting"/>
+                                <img src="<?php echo getImagePath($item->id); ?>" alt="painting"/>
                                 <figcaption>
                                     <h5 class="white"><?php echo $item->firstAuthor ?></h5>
                                     <span><?php echo $item->ti[0] ?></span>
@@ -240,9 +247,12 @@ function getImagePath($workArtId) {
                             </figure>
                         </li>
                         </a>
+                        
                         <!-- /dielo-->                    		
                     	<?php } ?>                        
                     </ul>
+
+                     </div>
                     
                 </div>
             </section>
@@ -268,69 +278,66 @@ function getImagePath($workArtId) {
 	========= -->
 	
     <!-- easing lib -->
+    <script src="js/jquery.row-grid.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $(".grid").rowGrid({itemSelector: ".painting", minMargin: 10, maxMargin: 25, firstItemClass: "first-item"});
+    });
+    </script>
+
+    <!-- easing lib -->
     <script src="js/jquery.easing.min.js"></script>
-
-
-        <script src="js/jquery.scrollTo.js"></script>
-        <!-- One page Nav -->
-        <script src="js/jquery.nav.js"></script>
-        <script>
-        $(document).ready(function() {
-            $('.page').onePageNav({
-                changeHash: false,
-                filter: ':not(.external)',
-                scrollOffset: 0,
-            });
+    <script src="js/jquery.scrollTo.js"></script>
+    <!-- One page Nav -->
+    <script src="js/jquery.nav.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('.page').onePageNav({
+            changeHash: false,
+            filter: ':not(.external)',
+            scrollOffset: 0,
         });
-        </script>
+    });
+    </script>
 
-        <!-- magnific-popup  -->
-        <script src="js/jquery.magnific-popup.min.js"></script>
-        <script>
-        $(document).ready(function() {
+    <!-- magnific-popup  -->
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script>
+    $(document).ready(function() {
 
-            $('.grid').magnificPopup({
-              delegate: 'a',
-              type: 'image',
-              closeOnContentClick: false,
-              closeBtnInside: false,
-              mainClass: 'mfp-with-zoom mfp-img-mobile',
-              fixedContentPos: false,
-              image: {
-                verticalFit: true,
-                titleSrc: function(item) {
-                  return item.el.attr('title') + ' &middot; <a class="image-source-link" href="'+item.el.attr('data-source')+'" target="_blank">webumenia</a>';
-                }
-              },
-              gallery: {
-                enabled: true
-              },
-              zoom: {
-                enabled: true,
-                duration: 300, // don't foget to change the duration also in CSS
-                opener: function(element) {
-                  return element.find('img');
-                }
-              }
-            });
-
-
-            $('.popup-gmaps').magnificPopup({
-              disableOn: 700,
-              type: 'iframe',
-              mainClass: 'mfp-fade',
-              removalDelay: 160,
-              preloader: false,
-              fixedContentPos: false
-            });
-
+        $('.grid').magnificPopup({
+          delegate: 'a',
+          type: 'image',
+          closeOnContentClick: false,
+          closeBtnInside: false,
+          mainClass: 'mfp-with-zoom mfp-img-mobile',
+          fixedContentPos: false,
+          image: {
+            verticalFit: true,
+            titleSrc: function(item) {
+              return item.el.attr('title') + ' &middot; <a class="image-source-link" href="'+item.el.attr('data-source')+'" target="_blank">webumenia</a>';
+            }
+          },
+          gallery: {
+            enabled: true
+          },
+          zoom: {
+            enabled: true,
+            duration: 300, // don't foget to change the duration also in CSS
+            opener: function(element) {
+              return element.find('img');
+            }
+          }
         });
-        
 
-        </script>
 
-        <!-- Retina Display -->
-        <script src="js/retina.js"></script>        
+    });
+    
+
+    </script>
+
+    <!-- Retina Display -->
+    <script src="js/retina.js"></script>        
 
 </body>
 </html>

@@ -489,16 +489,18 @@ nav select {background-image:url(../images/icons/menu@2x.png);}
 .close-profile-overlay:hover{-webkit-transition: all 0.4s ease;-moz-transition: all 0.5s ease;-ms-transition: all 0.5s ease;-o-transition: all 0.5s ease;transition: all 0.5s ease;background: #46A2DE;color:#fff;}
 
 
-.grid *, .grid *:after, .grid *:before {-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}
+/*.grid *, .grid *:after, .grid *:before {-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;}*/
 .grid {
 	margin-top: 20px;
 	list-style: none;
 	text-align: center;
+	/*width: 940px;*/
 }
 
 .grid li {
 	display: inline-block;
 	text-align: left;
+	margin: 10px;
 	position: relative;
 }
 
@@ -507,10 +509,11 @@ nav select {background-image:url(../images/icons/menu@2x.png);}
 	position: relative;
 }
 
-.grid figure img {
-	max-width: 100%;
-	display: block;
-	position: relative;
+.grid  img {
+	/*max-width: 100%;*/
+	/*display: block;*/
+	/*height: 200px;*/
+	/*position: relative;*/
 }
 
 .grid figcaption {

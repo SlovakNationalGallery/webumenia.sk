@@ -27,7 +27,7 @@ searchable=true
 
 */
 	// $url = "http://127.0.0.1:8080/solr/select/?q=withImages%3Atrue&start=0&rows=10&wt=json";
-	$url = "http://127.0.0.1:8080/solr/select/?q=withImages%3Atrue&start=0&rows=4&wt=json";
+	$url = "http://127.0.0.1:8080/solr/select/?q=withImages%3Atrue&start=0&rows=16&wt=json";
 	 
 	$content = file_get_contents($url);
 	if($content) {
