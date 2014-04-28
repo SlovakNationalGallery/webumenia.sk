@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
 public String getImagePath(final String workArtId, final String imgFileName) {
         Validate.notEmpty(workArtId);
@@ -77,67 +77,67 @@ function getImagePath($workArtId, $full=false) {
     $result_path = IMAGES_DIR . ARTWORKS_DIR . "$path/$file/$file$image_suffix.jpeg";
     if (!file_exists( $result_path)) $result_path = IMAGES_DIR . '/no-image'.$image_suffix.'.jpeg';
 	return $result_path;
-	 
+
 }
  ?>
 
 <!DOCTYPE HTML>
 <head>
-	<!-- ========= 
- 	Title and Metas 
+	<!-- =========
+ 	Title and Metas
 	========= -->
 	<meta charset="utf-8">
 	<title>Webumenia.test</title>
     <meta name="keywords" content="sng, mednansky, mednyanzsky, strážky">
 	<meta name="author" content="Slovenská národná galéria">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <!-- ========= 
-	Favicons 
+
+    <!-- =========
+	Favicons
     ========= -->
     <link rel="shortcut icon" href="images/favicon.png">
-	
-    <!-- ========= 
-    Fonts 
+
+    <!-- =========
+    Fonts
     ========= -->
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" type="text/css" href="css/magnific-popup.css" />
 
-    
-    <!-- ========= 
+
+    <!-- =========
   	CSS
 	========= -->
     <link rel="stylesheet" href="css/base.css">
 	<link rel="stylesheet" href="css/skeleton.css">
 	<link rel="stylesheet" href="css/style.css">
-    <!-- Media Queries -->  
+    <!-- Media Queries -->
     <link rel="stylesheet" href="css/media.css">
-	
-    <!-- ========= 
+
+    <!-- =========
   	JS
 	========= -->
-	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>  
+	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/ui/jquery-ui-git.js"></script>
     <!-- Sticky Nav -->
-    
+
   	<script>
 		$(window).scroll(function(){
             if ($(this).scrollTop() > 650) {
                 $('nav').slideDown();
-    			
+
             } else {
                 $('nav').slideUp();
-    			
+
             }
-   		}); 	 
+   		});
   	</script>
 
     <!-- accordion -->
 	<script type="text/javascript" src="js/zebra_accordion.js"></script>
 
 	<!-- custom jquery -->
-	<script type="text/javascript" src="js/graphicgeeks.js"></script> 
+	<script type="text/javascript" src="js/graphicgeeks.js"></script>
     <script src="js/modernizr.custom.js"></script>
     <!--[if lt IE 9]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -153,30 +153,30 @@ function getImagePath($workArtId, $full=false) {
       ga('send', 'pageview');
 
     </script>
-    
+
 </head>
 
 <body>
-    
-	<!-- START OF DIV -->  
+
+	<!-- START OF DIV -->
 	<div class="page" >
 
             <!-- NAVIGATION -->
             <nav>
                 <div class="container">
                     <div class="sixteen columns">
-                        <!-- NAVIGATION - list -->  
+                        <!-- NAVIGATION - list -->
                         <ul id="onepagenav">
                             <li><a href="#homepage">Domov</a></li>
                             <li><a href="#about">O webeumenia</a></li>
-                        </ul>   
-                        <!-- NAVIGATION - list -->  
+                        </ul>
+                        <!-- NAVIGATION - list -->
                     </div>
                 </div>
             </nav>
             <!-- NAVIGATION -->
-        	
-            
+
+
             <!-- MODULE : HOMEPAGE -->
 			<section id="homepage">
 				<div class="container">
@@ -186,17 +186,17 @@ function getImagePath($workArtId, $full=false) {
                             <h1 class="intro-nadpis">Web umenia</h1>
                             <h2>Test 0.1</h2>
                         </div>
-                        <!-- HOMEPAGE - bigtext -->                     
+                        <!-- HOMEPAGE - bigtext -->
 					</div>
 				</div>
 			</section>
 			<!-- MODULE : HOMEPAGE -->
-                        
+
 
             <!-- MODULE : OBRAZKY -->
             <section id="painting" class="section-container">
                 <div class="container">
-                   
+
                     <div class="two columns">
                         &nbsp;
                     </div>
@@ -204,7 +204,7 @@ function getImagePath($workArtId, $full=false) {
                     <div class="ten columns">
                         <div class="field">
                             <input type="text" name="name" id="name" class="text-label left">
-                        </div>                        
+                        </div>
                     </div>
                     <div class="two columns">
                         <div class="field">
@@ -217,7 +217,7 @@ function getImagePath($workArtId, $full=false) {
                     </div>
 
                     <div class="clear"></div>
-                    
+
                     <div class="sixteen columns">
                         <p>Počet nádených diel: <?php echo $data->response->numFound; ?></p>
 
@@ -230,12 +230,12 @@ function getImagePath($workArtId, $full=false) {
 	                    </dl>
                         <?php */ ?>
 
-                   
+
 
                     <ul class="grid cs-style-3">
                     	<?php foreach ($data->response->docs as $key => $item) { ?>
                         <!-- dielo-->
-                        
+
                         <a href="<?php echo getImagePath($item->id, true); ?>"  title="<?php echo $item->firstAuthor .' : '. $item->ti[0] ?>">
                         <li class="painting">
                             <figure>
@@ -247,13 +247,13 @@ function getImagePath($workArtId, $full=false) {
                             </figure>
                         </li>
                         </a>
-                        
-                        <!-- /dielo-->                    		
-                    	<?php } ?>                        
+
+                        <!-- /dielo-->
+                    	<?php } ?>
                     </ul>
 
                      </div>
-                    
+
                 </div>
             </section>
             <!-- MODULE : OBRAZKY -->
@@ -268,21 +268,29 @@ function getImagePath($workArtId, $full=false) {
                     </div>
                 </div>
             </footer>
-            <!-- MODULE : FOOTER -->      
+            <!-- MODULE : FOOTER -->
 		<!-- </div> -->
-	</div>    
-	<!-- END OF DIV -->    
-		
-	<!-- ========= 
+	</div>
+	<!-- END OF DIV -->
+
+	<!-- =========
   	JS
 	========= -->
-	
+
     <!-- easing lib -->
     <script src="js/jquery.row-grid.min.js"></script>
     <script>
     $(document).ready(function() {
         $(".grid").rowGrid({itemSelector: ".painting", minMargin: 10, maxMargin: 25, firstItemClass: "first-item"});
     });
+
+    $(window).scroll(function() {
+         if($(window).scrollTop() + $(window).height() == $(document).height()) {
+            $(".container").append("<div class='item'><img src='path/to/image' width='140' height='100' /></div>");
+            $(".container").rowGrid("appended");
+         }
+    });
+
     </script>
 
     <!-- easing lib -->
@@ -332,12 +340,12 @@ function getImagePath($workArtId, $full=false) {
 
 
     });
-    
+
 
     </script>
 
     <!-- Retina Display -->
-    <script src="js/retina.js"></script>        
+    <script src="js/retina.js"></script>
 
 </body>
 </html>
