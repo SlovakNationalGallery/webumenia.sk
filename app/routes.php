@@ -18,6 +18,9 @@ Route::get('/', function()
 
 
 
+Route::get('/spice_harvester', 'SpiceHarvesterController@index');
+
+
 Route::get('/solr', function()
 {
 
