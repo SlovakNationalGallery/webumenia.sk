@@ -97,6 +97,7 @@ class SpiceHarvesterController extends \BaseController {
 		$harvest->initiated = date('Y:m:d H:i:s');
 		$harvest->save();
 
+
 		dd($harvest::STATUS_COMPLETED);
 
 	}
