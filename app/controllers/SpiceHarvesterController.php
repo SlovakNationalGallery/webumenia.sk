@@ -9,7 +9,8 @@ class SpiceHarvesterController extends \BaseController {
 	 */
 	public function index()
 	{
-		echo 'spice harvester';
+		$harvests = SpiceHarvesterHarvest::orderBy('created_at', 'DESC')->paginate(3);
+        return View::make('harvests.index')->with('harvests', $harvests);
 	}
 
 	/**
@@ -74,6 +75,30 @@ class SpiceHarvesterController extends \BaseController {
 	public function destroy($id)
 	{
 		//
+	}	
+
+	/**
+	 * Launch the harvest process
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function launch($id)
+	{
+		$harvest = SpiceHarvesterHarvest::find($id);
+		$harvest->start_from = date("Y-m-d H:i:s");
+
+		if ($harvest->status == SpiceHarvesterHarvest::STATUS_COMPLETED) {
+            $harvest->start_from = $harvest->initiated;
+        } else {
+            $harvest->start_from = null;
+        }
+		
+		$harvest->initiated = date('Y:m:d H:i:s');
+		$harvest->save();
+
+		dd($harvest::STATUS_COMPLETED);
+
 	}
 
 }

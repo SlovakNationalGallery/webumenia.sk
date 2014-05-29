@@ -91,10 +91,16 @@ Route::get('/oai', function()
 	$client = new \Phpoaipmh\Client('http://www.webumenia.sk/oai-pmh');
     $myEndpoint = new \Phpoaipmh\Endpoint($client);
 
+    $results = $myEndpoint->listMetadataFormats();
+    foreach($results as $item) {
+        var_dump($item);
+    }
+
     //recs will be a Phpoaipmh\ResponseList object
     // $formats = $myEndpoint->listMetadataFormats();
     // print_r($formats); die();
-    $recs = $myEndpoint->listIdentifiers('oai_dc');
+    $recs = $myEndpoint->listIdentifiers('oai_dc', NULL, NULL, 'Europeana SNG');
+    // dd($recs);
     // print_r($recs); die();
     $rec = $recs->nextItem(); var_dump($rec); die();
 
@@ -109,4 +115,20 @@ Route::get('/oai', function()
     die();
 
 	return View::make('webumenia', array('data' => $result));
+});
+
+
+
+Route::get('login', 'AuthController@getLogin');
+Route::post('login', 'AuthController@postLogin');
+
+
+Route::group(array('before' => 'auth'), function(){
+
+	Route::get('admin', 'AdminController@index');
+	Route::get('logout', 'AuthController@logout');
+	Route::get('harvests/launch/{id}', 'SpiceHarvesterController@launch');
+	Route::resource('harvests', 'SpiceHarvesterController');
+	// Route::resource('posts', "PostController");
+
 });

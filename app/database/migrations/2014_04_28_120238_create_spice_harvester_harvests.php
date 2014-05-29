@@ -35,7 +35,7 @@ class CreateSpiceHarvesterHarvests extends Migration {
 			$table->string('set_spec');
 			$table->string('set_name');
 			$table->string('set_description');
-			$table->string('status');
+			$table->enum('status', array('queued','in progress','completed','error','deleted','killed'))->default('queued');
 			$table->string('status_messages');
 			$table->dateTime('initiated');
 			$table->dateTime('completed');
