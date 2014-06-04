@@ -86,20 +86,52 @@ class SpiceHarvesterController extends \BaseController {
 	public function launch($id)
 	{
 		$harvest = SpiceHarvesterHarvest::find($id);
-		$harvest->start_from = date("Y-m-d H:i:s");
+		$harvest::$datum = date("Y-m-d H:i:s");
 
 		if ($harvest->status == SpiceHarvesterHarvest::STATUS_COMPLETED) {
-            $harvest->start_from = $harvest->initiated;
+            $harvest::$datum = $harvest->initiated;
         } else {
-            $harvest->start_from = null;
+            $harvest::$datum = null;
         }
 		
+		$harvest->status = $harvest::STATUS_QUEUED;
 		$harvest->initiated = date('Y:m:d H:i:s');
 		$harvest->save();
+
+		// inicializacia
+
+        
+        $collectionMetadata = array(
+            'metadata' => array(
+                'public' => 'public',
+                'featured' => 'featured',
+            ),);
+        $collectionMetadata['elementTexts']['Dublin Core']['Title'][]
+            = array('text' => (string) $harvest->set_name, 'html' => false); 
+        $collectionMetadata['elementTexts']['Dublin Core']['Description'][]
+            = array('text' => (string) $harvest->set_Description, 'html' => false); 
+        
+        // $this->_collection = $this->_insertCollection($collectionMetadata);
+
+
+		$harvest->status = $harvest::STATUS_IN_PROGRESS;
+
+//		$resumptionToken = $this->_harvestRecords();
+		//-------toto bude samostatna metoda _harvestRecords
+		$client = new \Phpoaipmh\Client($harvest->base_url);
+	    $myEndpoint = new \Phpoaipmh\Endpoint($client);
+
+	    $rec = $myEndpoint->getRecord('SVK:SNG.G_3671', $harvest->metadata_prefix);
+	    $myRec = $rec->GetRecord;
+	    dd($myRec->record->metadata->children($harvest->metadata_prefix, 1)->dc->children('dc', 1));
+
+
+
 
 
 		dd($harvest::STATUS_COMPLETED);
 
 	}
+
 
 }

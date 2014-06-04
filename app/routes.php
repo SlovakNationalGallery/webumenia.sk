@@ -93,23 +93,27 @@ Route::get('/oai', function()
 
     $results = $myEndpoint->listMetadataFormats();
     foreach($results as $item) {
-        var_dump($item);
+        // var_dump($item);
     }
 
-    //recs will be a Phpoaipmh\ResponseList object
-    // $formats = $myEndpoint->listMetadataFormats();
-    // print_r($formats); die();
-    $recs = $myEndpoint->listIdentifiers('oai_dc', NULL, NULL, 'Europeana SNG');
+    $rec = $myEndpoint->getRecord('SVK:SNG.G_3671', 'oai_dc');
+    $myRec = $rec->GetRecord;
+    dd($myRec->record->metadata->children('oai_dc', 1)->dc->children('dc', 1));
+    // dd($myRec->metadata->children('oai_dc', 1));
+    // $rNode->metadata->children('oai_dc', 1)->dc->children('dc', 1));
+
+
+    // $recs = $myEndpoint->listIdentifiers('oai_dc', '2014-03-17', NULL, 'Europeana SNG');
+    $recs = $myEndpoint->listRecords('ese', '2014-03-17', NULL, 'Europeana SNG');
     // dd($recs);
-    // print_r($recs); die();
-    $rec = $recs->nextItem(); var_dump($rec); die();
+    $rec = $recs->nextItem(); dd($rec); 
 
     //nextItem will continue retrieving items even across HTTP requests.
     //You can keep running this loop through the *entire* collection you
     //are harvesting.  It returns a SimpleXMLElement object, or false when
     //there are no more records.
     while($rec = $recs->nextItem()) {
-        var_dump($rec);
+        var_dump($rec->metadata);
     }
 
     die();

@@ -9,14 +9,16 @@ class SpiceHarvesterHarvest extends Eloquent {
     const STATUS_DELETED     = 'deleted';
     const STATUS_KILLED      = 'killed';
 
-    protected $appends = array('start_from');
+
+    protected $appends = array('from');
+    public static $datum;
 
 	public function records()
     {
         return $this->hasMany('SpiceHarvesterRecords');
     }
 
- 	public function getStartFromAttribute()
+ 	public function getFromAttribute()
     {
         return $this->start_from;
     }    
