@@ -24,9 +24,9 @@ class CreateSpiceHarvesterRecords extends Migration {
 		{
 				$table->increments('id');
 				$table->integer('harvest_id');
-				$table->integer('item_id');
-				$table->integer('identifier');
-				//$table->dateTime('datestamp');
+				$table->string('item_id');
+				$table->string('identifier');
+				$table->dateTime('datestamp');
 				$table->timestamps();
 
 		});        

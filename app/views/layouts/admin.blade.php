@@ -76,6 +76,9 @@
                             <a href="{{ URL::to('admin') }}"><i class="fa fa-dashboard fa-fw"></i> Úvod</a>
                         </li>
                         <li>
+                            <a href="{{ URL::to('items') }}"><i class="fa fa-picture-o fa-fw"></i> Diela</a>
+                        </li>
+                        <li>
                             <a href="{{ URL::to('harvests') }}"><i class="fa fa-download fa-fw"></i> Spice Harvester</a>
                         </li>
                     </ul>

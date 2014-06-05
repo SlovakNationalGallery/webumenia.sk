@@ -2,7 +2,7 @@
 
 @section('title')
 @parent
-- Spice Harvester
+- diela
 @stop
 
 @section('content')
@@ -10,7 +10,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">Spice Harvester</h1>
+        <h1 class="page-header">Diela</h1>
 
         @if (Session::has('message'))
             <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{{ Session::get('message') }}</div>
@@ -25,7 +25,7 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Harvests
+                Diela
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -33,22 +33,22 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>URL</th>
-                            <th>Set</th>
-                            <th>Metadata Prefix</th>
-                            <th>Status</th>
+                            <th>Názov</th>
+                            <th>Autor</th>
+                            <th>Dátum</th>
+                            <th>výtvarný druh</th>
                             <th>Akcie</th>
                         </tr>
                     </thead>
                     <tbody>
-						@foreach($harvests as $h)
+						@foreach($items as $i)
 			            <tr>
-			                <td>{{ $h->id }}</td>
-			                <td>{{ $h->base_url }}</td>
-			                <td>{{ $h->set_name }}</td>
-			                <td>{{ $h->metadata_prefix }}</td>
-			                <td>{{ $h->status . ' ' . date("d. m. Y",strtotime($h->updated_at)) }}</td>
-			                <td>{{ link_to_action('SpiceHarvesterController@launch', 'Spustiť', array($h->id), array('class' => 'btn btn-default')) }}</td>
+			                <td>{{ $i->id }}</td>
+			                <td>{{ $i->title }}</td>
+			                <td>{{ $i->authorName }}</td>
+			                <td>{{ $i->dating }}</td>
+			                <td>{{ $i->workType }}</td>
+			                <td>{{ link_to_action('ItemsController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-default')) }}</td>
 			            </tr>
 						@endforeach
                     </tbody>

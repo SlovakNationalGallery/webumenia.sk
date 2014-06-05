@@ -44,6 +44,7 @@ searchable=true
 		$result = json_decode($content);
 		// var_dump($result); die();
 	}
+	dd($result);
 
 
 	return View::make('solr', array('data' => $result));
@@ -65,7 +66,6 @@ Route::post('/solr', function()
 		$result = json_decode($content);
 		// var_dump($result); die();
 	}
-
 	// return $layout->nest('content', 'test',array('data' => $result));
 	return View::make('solr', array('data' => $result));
 });
@@ -96,15 +96,42 @@ Route::get('/oai', function()
         // var_dump($item);
     }
 
-    $rec = $myEndpoint->getRecord('SVK:SNG.G_3671', 'oai_dc');
+    // $rec = $myEndpoint->getRecord('SVK:SNG.G_3671', 'oai_dc');
+    $rec = $myEndpoint->getRecord('SVK:SNG.G_3178', 'oai_dc');
     $myRec = $rec->GetRecord;
-    dd($myRec->record->metadata->children('oai_dc', 1)->dc->children('dc', 1));
+
+    $OAI_DC_NAMESPACE = 'http://www.openarchives.org/OAI/2.0/oai_dc/';
+    $DUBLIN_CORE_NAMESPACE_ELEMTS = 'http://purl.org/dc/elements/1.1/';
+    $DUBLIN_CORE_NAMESPACE_TERMS = 'http://purl.org/dc/terms/';
+
+    dd($myRec->record);
+
+	$dcElements = $myRec->record
+                    ->metadata
+                    ->children($OAI_DC_NAMESPACE)
+                    ->children($DUBLIN_CORE_NAMESPACE_ELEMTS);
+
+	$dcTerms = $myRec->record
+                    ->metadata
+                    ->children($OAI_DC_NAMESPACE)
+                    ->children($DUBLIN_CORE_NAMESPACE_TERMS);
+
+
+
+	
+
+		    // $dcMetadata = array_merge($dcElements, $dcTerms);            
+    var_dump($dcElements);
+    dd($dcTerms);
+
+
+    // dd($myRec->record->metadata->children('oai_dc', 1)->dc->children('dc', 1));
     // dd($myRec->metadata->children('oai_dc', 1));
     // $rNode->metadata->children('oai_dc', 1)->dc->children('dc', 1));
 
 
     // $recs = $myEndpoint->listIdentifiers('oai_dc', '2014-03-17', NULL, 'Europeana SNG');
-    $recs = $myEndpoint->listRecords('ese', '2014-03-17', NULL, 'Europeana SNG');
+    $recs = $myEndpoint->listRecords('oai_dc', '2014-03-17', NULL, 'Europeana SNG');
     // dd($recs);
     $rec = $recs->nextItem(); dd($rec); 
 
@@ -133,6 +160,7 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('logout', 'AuthController@logout');
 	Route::get('harvests/launch/{id}', 'SpiceHarvesterController@launch');
 	Route::resource('harvests', 'SpiceHarvesterController');
+	Route::resource('items', 'ItemsController');
 	// Route::resource('posts', "PostController");
 
 });
