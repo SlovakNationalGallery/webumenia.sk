@@ -27,21 +27,24 @@ class CreateItemsTable extends Migration {
 		Schema::create('items', function(Blueprint $table)
 		{
 			$table->string('id')->unique();
-			$table->string('authorName');
+			$table->string('author');
 			$table->string('title');
-			$table->string('workType');
-			$table->string('workLevel');
+			$table->string('work_type');
+			$table->string('work_level');
 			$table->string('topic');
+			$table->string('measurement');
 			$table->string('dating');
-			$table->string('dateEarliest');
-			$table->string('dateLatest');
+			$table->string('date_earliest')->nullable();
+			$table->string('date_latest')->nullable();
 			$table->string('medium');
 			$table->string('technique');
 			$table->string('inscription');
-			$table->string('stateEdition');
+			$table->string('state_edition')->nullable();
 			$table->string('integrity');
-			$table->string('integrityWork');
-			$table->string('itemType');
+			$table->string('integrity_work');
+			$table->string('gallery');
+			$table->string('img_url')->nullable();
+			$table->string('item_type');
 			$table->boolean('featured');
 			$table->timestamps();
 		});		

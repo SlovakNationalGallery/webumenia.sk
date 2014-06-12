@@ -97,14 +97,15 @@ Route::get('/oai', function()
     }
 
     // $rec = $myEndpoint->getRecord('SVK:SNG.G_3671', 'oai_dc');
-    $rec = $myEndpoint->getRecord('SVK:SNG.G_3178', 'oai_dc');
+    // $rec = $myEndpoint->getRecord('SVK:SNG.G_3178', 'oai_dc');
+    $rec = $myEndpoint->getRecord('SVK:SNG.F_102', 'oai_dc');
     $myRec = $rec->GetRecord;
 
     $OAI_DC_NAMESPACE = 'http://www.openarchives.org/OAI/2.0/oai_dc/';
     $DUBLIN_CORE_NAMESPACE_ELEMTS = 'http://purl.org/dc/elements/1.1/';
     $DUBLIN_CORE_NAMESPACE_TERMS = 'http://purl.org/dc/terms/';
 
-    dd($myRec->record);
+    // dd($myRec->record);
 
 	$dcElements = $myRec->record
                     ->metadata

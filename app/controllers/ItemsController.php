@@ -9,7 +9,8 @@ class ItemsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$items = Item::orderBy('created_at', 'DESC')->get();
+		$items = Item::orderBy('created_at', 'DESC')->paginate(20);
+		// $items = Item::orderBy('created_at', 'DESC')->get();
         return View::make('items.index')->with('items', $items);
 		
 	}

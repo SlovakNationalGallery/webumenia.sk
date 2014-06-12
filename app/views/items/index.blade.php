@@ -54,6 +54,8 @@
                     </tbody>
                 </table>
 
+                <div class="text-center"><?php echo $items->links(); ?></div>
+
 
             </div>
             <!-- /.panel-body -->

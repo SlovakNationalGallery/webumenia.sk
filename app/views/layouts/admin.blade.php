@@ -18,6 +18,7 @@
         <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         {{ HTML::style('css/styles.css') }}
         {{ HTML::style('css/sb-admin.css') }}
+        {{ HTML::style('css/ladda-themeless.min.css') }}
         {{ HTML::script('js/modernizr.custom.js') }}
 
 </head>
@@ -107,6 +108,8 @@
 
     {{ HTML::script('js/bootstrap.min.js') }}
     {{ HTML::script('js/bootstrap-datepicker.js') }}
+    {{ HTML::script('js/spin.min.js') }}
+    {{ HTML::script('js/ladda.min.js') }}
 
     <script>
     $(document).ready(function() {
@@ -114,6 +117,8 @@
             format: "yyyy-mm-dd",
             language: "sk"
         });
+
+        Ladda.bind( '.ladda-button');
     });
     </script>
 

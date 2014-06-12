@@ -17,8 +17,8 @@ class HarvestsTableSeeder extends Seeder {
             [
                 'base_url' => 'http://www.webumenia.sk/oai-pmh/',
                 'metadata_prefix' => 'oai_dc',
-                'set_spec' => 'Europeana SNG',
-                'set_name' => 'Europeana SNG',
+                'set_spec' => 'Dve_krajiny',
+                'set_name' => 'Dve krajiny',
                 'set_description' => '',
                 'initiated' => $now,
                 'created_at' => $now,
