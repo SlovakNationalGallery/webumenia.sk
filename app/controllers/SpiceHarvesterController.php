@@ -11,7 +11,6 @@ class SpiceHarvesterController extends \BaseController {
     const DUBLIN_CORE_NAMESPACE_ELEMTS = 'http://purl.org/dc/elements/1.1/';
     const DUBLIN_CORE_NAMESPACE_TERMS = 'http://purl.org/dc/terms/';
 
-    private $start_from;
 
 	/**
 	 * Display a listing of the resource.
@@ -105,13 +104,12 @@ class SpiceHarvesterController extends \BaseController {
 
 		$harvest = SpiceHarvesterHarvest::find($id);
 
+        $start_from = null;
+
 		if ($harvest->status == SpiceHarvesterHarvest::STATUS_COMPLETED) {
-            $this->start_from = $harvest->initiated;
-        } else {
-            $this->start_from = null;
-        }
-		// $this->start_from = '2014-03-17'; //docasne, nech ich nieje 100000
-		
+            $start_from = $harvest->initiated;
+        } 
+
 		$harvest->status = $harvest::STATUS_QUEUED;
 		$harvest->initiated = date('Y:m:d H:i:s');
 		$harvest->save();
@@ -125,30 +123,13 @@ class SpiceHarvesterController extends \BaseController {
 		$client = new \Phpoaipmh\Client($harvest->base_url);
 	    $myEndpoint = new \Phpoaipmh\Endpoint($client);
 
-	    $recs = $myEndpoint->listRecords($harvest->metadata_prefix, $this->start_from, NULL, $harvest->set_spec);
+	    $recs = $myEndpoint->listRecords($harvest->metadata_prefix, $start_from, NULL, $harvest->set_spec);
 	    $dt = new \DateTime;
 
 	    while($rec = $recs->nextItem()) {
-	    	/*
-	    	if (empty($first_record_id)) {
-	    		$first_record_id = $rec->header->identifier;
-	    	} else {
-	    		if ($first_record_id == $rec->header->identifier) {
-					var_dump($rec);
-					$totalTime = round((microtime(true)-$timeStart));
-	    			dd('narazil po ' . $processed_items . ' zaznamoch a trvalo to ' . $totalTime);
-	    		}
-	    	}
-			*/
-
 	    	$processed_items++;
-	    	/*
-	    	var_dump("#$processed_items : {$rec->header->identifier} <br />\n");
-	    	if ($processed_items > 200) {die();}
-	    	*/
-
+	    	
 	    	if (!$this->isDeletedRecord($rec)) {
-
 
 				$existingRecord = SpiceHarvesterRecord::where('identifier', '=', $rec->header->identifier)->first();
 
@@ -162,10 +143,7 @@ class SpiceHarvesterController extends \BaseController {
 		            $this->insertItem($id, $rec);
 		            $new_items++;
 		        }
-
    	    	}
-
-
 	    }
 
 	    $harvest->status = SpiceHarvesterHarvest::STATUS_COMPLETED;
@@ -173,9 +151,8 @@ class SpiceHarvesterController extends \BaseController {
 
 	    $totalTime = round((microtime(true)-$timeStart));
 
-	    Session::flash('message', 'Spracovaných bolo ' . $processed_items . 'diel. Z toho pribudlo ' . $new_items . ' nvých diel a ' . $new_items . ' bolo upravených. Celé to trvalo ' . $totalTime . 's' );
+	    Session::flash('message', 'Spracovaných bolo ' . $processed_items . ' diel. Z toho pribudlo ' . $new_items . ' nvých diel a ' . $new_items . ' bolo upravených. Trvalo to ' . $totalTime . 's' );
 	    return Redirect::route('harvests.index');
-	    
 	}
 
 
