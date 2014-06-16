@@ -189,7 +189,6 @@ class SpiceHarvesterController extends \BaseController {
     	$itemAttributes = $this->mapAttributes($rec);
 	    $item = Item::create($itemAttributes);
 
-
 		// Insert the record after the item is saved
 	    $record = new SpiceHarvesterRecord();
 	    $record->harvest_id = $harvest_id;
@@ -198,46 +197,19 @@ class SpiceHarvesterController extends \BaseController {
 	    $record->datestamp = $rec->header->datestamp;
 	    $record->save();
 
-    	/*
       
-        // If there are files, insert one file at a time so the file objects can 
-        // be released individually.
-        if (isset($fileMetadata['files'])) {
-            
-            // The default file transfer type is URL.
-            $fileTransferType = isset($fileMetadata['file_transfer_type']) 
-                              ? $fileMetadata['file_transfer_type'] 
-                              : 'Url';
-            
-            // The default option is ignore invalid files.
-            $fileOptions = isset($fileMetadata['file_ingest_options']) 
-                         ? $fileMetadata['file_ingest_options'] 
-                         : array('ignore_invalid_files' => true);
-            
-            // Prepare the files value for one-file-at-a-time iteration.
-            $files = array($fileMetadata['files']);
-            
-            foreach ($files as $file) {
-                $fileOb = insert_files_for_item(
-                    $item, 
-                    $fileTransferType, 
-                    $file, 
-                    $fileOptions);   
-                   _log($fileOb);
-                   $fileObject= $fileOb;//$fileOb[0];
-                   if(!empty($file['metadata'])){
-                       $fileObject->addElementTextsByArray($file['metadata']);
-                   $fileObject->save();
-                   }
-                  
-                // Release the File object from memory. 
-                release_object($fileObject);
-            }
+        // Upload image given by url
+
+        if (!empty($itemAttributes['img_url'])) {
+
+        	$file = $itemAttributes['img_url'];
+        	$data = file_get_contents($file);
+         	if ($new_file = $item->getImagePath()) {
+	            file_put_contents($new_file, $data);
+         	}
         }
         
-        // Release the Item object from memory.
-        release_object($item);
-        */
+
         return true;
     }
     
