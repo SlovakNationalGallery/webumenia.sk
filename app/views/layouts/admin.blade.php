@@ -19,6 +19,7 @@
         {{ HTML::style('css/styles.css') }}
         {{ HTML::style('css/sb-admin.css') }}
         {{ HTML::style('css/ladda-themeless.min.css') }}
+        {{ HTML::style('css/bootstrap-wysihtml5.css') }}
         {{ HTML::script('js/modernizr.custom.js') }}
 
 </head>
@@ -80,6 +81,9 @@
                             <a href="{{ URL::to('items') }}"><i class="fa fa-picture-o fa-fw"></i> Diela</a>
                         </li>
                         <li>
+                            <a href="{{ URL::to('collections') }}"><i class="fa fa-th-list fa-fw"></i> Kolekcie</a>
+                        </li>
+                        <li>
                             <a href="{{ URL::to('harvests') }}"><i class="fa fa-download fa-fw"></i> Spice Harvester</a>
                         </li>
                     </ul>
@@ -110,6 +114,8 @@
     {{ HTML::script('js/bootstrap-datepicker.js') }}
     {{ HTML::script('js/spin.min.js') }}
     {{ HTML::script('js/ladda.min.js') }}
+    {{ HTML::script('js/wysihtml5-0.3.0.min.js') }}
+    {{ HTML::script('js/bootstrap3-wysihtml5.js') }}
 
     <script>
     $(document).ready(function() {
@@ -119,6 +125,19 @@
         });
 
         Ladda.bind( '.ladda-button');
+
+        $('.wysiwyg').wysihtml5({
+            "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
+            "emphasis": true, //Italics, bold, etc. Default true
+            "lists": false, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+            "html": true, //Button which allows you to edit the generated HTML. Default false
+            "link": false, //Button to insert a link. Default true
+            "image": false, //Button to insert an image. Default true,
+            "color": false, //Button to change color of font  
+            "blockquote": false, //Blockquote  
+            "size": 'sm' //default: none, other options are xs, sm, lg
+        });
+
     });
     </script>
 

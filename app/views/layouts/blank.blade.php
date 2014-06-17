@@ -23,37 +23,6 @@
 </head>
 
 <body>
-	@if (Auth::check())
-		<nav class="navbar navbar-custom navbar-fixed-top top-nav-collapse" role="navigation">
-				<div class="container">
-						<div class="navbar-header page-scroll">
-								<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-										<i class="fa fa-bars"></i>
-								</button>
-								<a class="logo" href="{{{ URL::to('') }}}"><img src="/img/bavlna_logo.svg" alt="BAVLNA" /></a>
-						</div>
-
-						<!-- Collect the nav links, forms, and other content for toggling -->
-						<div class="collapse navbar-collapse navbar-main-collapse">
-								<ul class="nav navbar-nav">
-										<li class="{{ Request::is( 'posts') ? 'active' : '' }}">
-												<a href="{{{ URL::to('posts') }}}">Novinky</a>
-										</li>
-										<li class="">
-												<a href="{{{ URL::to('/') }}}"></a>
-										</li>
-										<li class="">
-												<a href="{{{ URL::to('logout') }}}">Odhlásiť sa</a>
-										</li>
-								</ul>
-						</div>
-						<!-- /.navbar-collapse -->
-				</div>
-				<!-- /.container -->
-		</nav>
-	@endif
-
-
 		<!-- Content -->
 		@yield('content')
 
