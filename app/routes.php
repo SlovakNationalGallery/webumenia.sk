@@ -77,9 +77,20 @@ Route::get('/oai/test', function()
 	// return 'OAI-PMH test';
 
 	$client = new \Phpoaipmh\Client('http://www.webumenia.sk/oai-pmh');
+	// $client = new \Phpoaipmh\Client('http://lawspace.stmarytx.edu/oai-pmh-repository/request');
     $myEndpoint = new \Phpoaipmh\Endpoint($client);
 
-    $result = $myEndpoint->identify();
+	$recs = $myEndpoint->listIdentifiers('oai_dc', null, null, null);
+
+	$i = 0;
+    while($rec = $recs->nextItem()) {
+        $i++;
+        var_dump($rec);
+        echo "<br />";
+        if ($i > 1300) dd('<b>PROBLEM</b>');
+    }
+
+    dd();
     return var_dump($result);
 });
 
@@ -151,9 +162,10 @@ Route::get('/oai', function()
 
 
 
-Route::get('login', 'AuthController@getLogin');
-Route::post('login', 'AuthController@postLogin');
-
+Route::group(array('before' => 'guest'), function(){
+	Route::get('login', 'AuthController@getLogin');
+	Route::post('login', 'AuthController@postLogin');
+});
 
 Route::group(array('before' => 'auth'), function(){
 
@@ -161,7 +173,8 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('logout', 'AuthController@logout');
 	Route::get('harvests/launch/{id}', 'SpiceHarvesterController@launch');
 	Route::resource('harvests', 'SpiceHarvesterController');
-	Route::resource('items', 'ItemsController');
-	// Route::resource('posts', "PostController");
+	Route::resource('item', 'ItemController');
+	Route::post('collection/fill', 'CollectionController@fill');
+	Route::resource('collection', 'CollectionController');
 
 });

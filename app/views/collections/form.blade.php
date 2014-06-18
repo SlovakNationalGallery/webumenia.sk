@@ -4,9 +4,9 @@
 
 <div class="col-md-12">
 	@if(isset($collection))
-	    {{ Form::model($collection, ['route' => ['collection.update', $collection->id], 'method' => 'patch', 'files'=>true]) }}
+	    {{ Form::model($collection, ['route' => ['collection.update', $collection->id], 'method' => 'patch']) }}
 	@else
-	    {{ Form::open(['route' => 'collection.store', 'files'=>true]) }}
+	    {{ Form::open(['route' => 'collection.store']) }}
 	@endif
 
 	@if (Session::has('message'))

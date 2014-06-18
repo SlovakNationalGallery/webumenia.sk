@@ -120,4 +120,24 @@ class CollectionController extends \BaseController {
 		return Redirect::route('collections.index');
 	}
 
+	/**
+	 * Fill the collection with items
+	 *
+	 * @param  
+	 * @return Response
+	 */
+	public function fill()
+	{
+
+		if ($collection = Collection::find(Input::get('collection'))) {
+			$items = Input::get('ids');
+			foreach ($items as $item_id) {
+				$collection->items()->attach($item_id);
+			}
+			return Redirect::route('item.index')->withMessage('Do kolekcie ' . $collection->name . ' bolo pridaných ' . count($items) . ' diel');
+		} else {
+			return Redirect::route('item.index')->withMessage('Chyba: zvolená kolekcia nebola nájdená. ');
+		}
+	}
+
 }

@@ -24,8 +24,9 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
+            {{ Form::open(['url' => 'collection/fill']) }}
             <div class="panel-heading">
-                Diela
+                Pridať vybraté do kolekcie: {{ Form::select('collection', $collections); }} &nbsp;  {{ Form::submit('Pridať', array('class' => 'btn btn-default')) }} 
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -46,9 +47,7 @@
 			            <tr>
                             <td>
                                 <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="{{ $i->id }}">
-                                    </label>
+                                    {{ Form::checkbox('ids[]', $i->id) }}
                                 </div>
                             </td>
 			                <td>{{ $i->id }}</td>
@@ -67,6 +66,7 @@
 
             </div>
             <!-- /.panel-body -->
+            {{Form::close() }}
         </div>
         <!-- /.panel -->
     </div>

@@ -78,10 +78,10 @@
                             <a href="{{ URL::to('admin') }}"><i class="fa fa-dashboard fa-fw"></i> Úvod</a>
                         </li>
                         <li>
-                            <a href="{{ URL::to('items') }}"><i class="fa fa-picture-o fa-fw"></i> Diela</a>
+                            <a href="{{ URL::to('item') }}"><i class="fa fa-picture-o fa-fw"></i> Diela</a>
                         </li>
                         <li>
-                            <a href="{{ URL::to('collections') }}"><i class="fa fa-th-list fa-fw"></i> Kolekcie</a>
+                            <a href="{{ URL::to('collection') }}"><i class="fa fa-th-list fa-fw"></i> Kolekcie</a>
                         </li>
                         <li>
                             <a href="{{ URL::to('harvests') }}"><i class="fa fa-download fa-fw"></i> Spice Harvester</a>
