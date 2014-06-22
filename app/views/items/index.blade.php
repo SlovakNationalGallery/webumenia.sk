@@ -55,7 +55,7 @@
 			                <td>{{ $i->author }}</td>
 			                <td>{{ $i->dating }}</td>
 			                <td>{{ $i->work_type }}</td>
-			                <td>{{ link_to_action('ItemController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-default')) }}</td>
+			                <td class="action">{{ link_to_action('ItemController@show', 'Detail', array($i->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', )) }}&nbsp;{{ link_to_action('ItemController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) }}</td>
 			            </tr>
 						@endforeach
                     </tbody>
@@ -74,5 +74,23 @@
 </div>
 <!-- /.row -->
 
+<!-- Modal -->
+<div tabindex="-1" class="modal fade" id="detailModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal">×</button>
+                    <h3>Modal header</h3>
+
+            </div>
+            <div class="modal-body">
+                <p>My modal content here…</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @stop

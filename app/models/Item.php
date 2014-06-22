@@ -36,7 +36,7 @@ class Item extends Eloquent {
 		$levels = 1;
 	    $dirsPerLevel = 100;
 
-	    $transformedWorkArtID = $this->hashcode($this->id);
+	    $transformedWorkArtID = $this->hashcode((string)$this->id);
 		$workArtIdInt = abs($this->intval32bits($transformedWorkArtID));
 	    $tmpValue = $workArtIdInt;
 	    $dirsInLevels = array();
@@ -54,14 +54,26 @@ class Item extends Eloquent {
 		$trans = array(":" => "_", " " => "_");
 	    $file = strtr($this->id, $trans);
 
-	    $result_path = public_path() . self::ARTWORKS_DIR .  "$galleryDir/$path/$file/";
+	    $relative_path = self::ARTWORKS_DIR . "$galleryDir/$path/$file/";
+	    $full_path =  public_path() . $relative_path;
 
-	    if (!file_exists($result_path)) {
-	    	mkdir($result_path, 0777, true);
+	    // ak priecinky este neexistuju - vytvor ich
+	    if ($full && !file_exists($full_path)) {
+	    	mkdir($full_path, 0777, true);
 	    }
 
-	    // if (!file_exists( $result_path)) $result_path = IMAGES_DIR . '/no-image'.$image_suffix.'.jpeg';
-		return $result_path . "$file.jpeg";
+	    // dd($full_path . "$file.jpeg");
+	    if ($full) {
+	    	$result_path = $full_path . "$file.jpeg";
+	    } else {
+		    if (file_exists($full_path . "$file.jpeg")) {
+		    	$result_path =  $relative_path . "$file.jpeg";
+		    } else {
+		    	$result_path =  self::ARTWORKS_DIR . "no-image.jpg";
+		    }
+	    }
+
+		return $result_path;
 	}
 
 	private function intval32bits($value)

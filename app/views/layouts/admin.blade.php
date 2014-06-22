@@ -138,6 +138,16 @@
             "size": 'sm' //default: none, other options are xs, sm, lg
         });
 
+        $('body').on('hidden.bs.modal', '.modal', function () {
+            $(this).removeData('bs.modal');
+        });
+
+        $('.btn-detail').click(function( event ){  
+            $('#detailModal').modal({modal:true,remote:($(this).attr('href'))});
+            event.preventDefault();
+        });    
+
+
     });
     </script>
 

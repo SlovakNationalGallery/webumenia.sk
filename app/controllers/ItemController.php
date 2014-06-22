@@ -12,8 +12,7 @@ class ItemController extends \BaseController {
 		$items = Item::orderBy('created_at', 'DESC')->paginate(20);
 		// $collections = Collection::orderBy('order', 'ASC')->get();
 		$collections = Collection::lists('name', 'id');
-        return View::make('items.index', array('items' => $items, 'collections' => $collections));
-		
+        return View::make('items.index', array('items' => $items, 'collections' => $collections));		
 	}
 
 	/**
@@ -44,7 +43,8 @@ class ItemController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		$item = Item::find($id);
+        return View::make('items.show')->with('item', $item);
 	}
 
 	/**

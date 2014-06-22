@@ -25,7 +25,7 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <a href="{{ route('collection.create') }}" class="btn btn-default"><i class="fa fa-plus"></i> Vytvoriť</a>
+                <a href="{{ route('collection.create') }}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Vytvoriť</a>
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -46,7 +46,7 @@
 			                <td>{{ $i->name }}</td>
 			                <td>{{ $i->items()->count(); }}</td>
 			                <td>{{ $i->created_at }}</td>
-			                <td>{{ link_to_action('CollectionController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-default')) }}</td>
+			                <td>{{ link_to_action('CollectionController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) }}</td>
 			            </tr>
 						@endforeach
                     </tbody>

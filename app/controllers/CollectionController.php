@@ -45,7 +45,7 @@ class CollectionController extends \BaseController {
 			$collection->text = Input::get('text');
 			$collection->save();
 
-			return Redirect::route('collections.index');
+			return Redirect::route('collection.index');
 		}
 
 		return Redirect::back()->withInput()->withErrors($v);
@@ -75,7 +75,7 @@ class CollectionController extends \BaseController {
 
 		if(is_null($collection))
 		{
-			return Redirect::route('collections.index');
+			return Redirect::route('collection.index');
 		}
 
         return View::make('collections.form')->with('collection', $collection);
@@ -102,7 +102,7 @@ class CollectionController extends \BaseController {
 			$collection->save();
 
 			Session::flash('message', 'Kolekcia bola upravená');
-			return Redirect::route('collections.index');
+			return Redirect::route('collection.index');
 		}
 
 		return Redirect::back()->withErrors($v);
@@ -117,7 +117,7 @@ class CollectionController extends \BaseController {
 	public function destroy($id)
 	{
 		Collection::find($id)->delete();
-		return Redirect::route('collections.index');
+		return Redirect::route('collection.index');
 	}
 
 	/**

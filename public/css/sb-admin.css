@@ -327,3 +327,8 @@ table.dataTable thead .sorting:after {
 .show-grid {
     margin: 15px 0;
 }
+
+/* ___________ CUSTOM ___________*/
+td.action {
+    white-space:nowrap;
+}

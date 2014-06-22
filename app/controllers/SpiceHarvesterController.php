@@ -204,7 +204,8 @@ class SpiceHarvesterController extends \BaseController {
 
         	$file = $itemAttributes['img_url'];
         	$data = file_get_contents($file);
-         	if ($new_file = $item->getImagePath()) {
+        	$full = true;
+         	if ($new_file = $item->getImagePath($full)) {
 	            file_put_contents($new_file, $data);
          	}
         }
