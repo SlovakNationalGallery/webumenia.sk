@@ -64,15 +64,17 @@
                 <div class="sidebar-collapse">
                     <ul class="nav" id="side-menu">
                         <li class="sidebar-search">
+                            {{ Form::open(['url' => 'search']) }}
                             <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
+                                {{ Form::text('search', Input::old('search'), array('class' => 'form-control', 'placeholder' => 'Hľadať...')) }}
                                 <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
+                                <button class="btn btn-default" type="submit">
                                     <i class="fa fa-search"></i>
                                 </button>
                             </span>
                             </div>
                             <!-- /input-group -->
+                            {{Form::close() }}
                         </li>
                         <li>
                             <a href="{{ URL::to('admin') }}"><i class="fa fa-dashboard fa-fw"></i> Úvod</a>

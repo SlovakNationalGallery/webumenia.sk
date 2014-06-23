@@ -173,6 +173,7 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('logout', 'AuthController@logout');
 	Route::get('harvests/launch/{id}', 'SpiceHarvesterController@launch');
 	Route::resource('harvests', 'SpiceHarvesterController');
+	Route::post('search', 'ItemController@search');
 	Route::resource('item', 'ItemController');
 	Route::post('collection/fill', 'CollectionController@fill');
 	Route::resource('collection', 'CollectionController');

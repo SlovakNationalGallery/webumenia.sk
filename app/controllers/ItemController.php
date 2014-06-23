@@ -16,6 +16,21 @@ class ItemController extends \BaseController {
 	}
 
 	/**
+	 * Find and display a listing
+	 *
+	 * @return Response
+	 */
+	public function search()
+	{
+
+		$input = Input::get('search');
+		$results = Item::where('title', 'LIKE', '%'.$input.'%')->orWhere('author', 'LIKE', '%'.$input.'%')->paginate(20);
+
+		$collections = Collection::lists('name', 'id');
+        return View::make('items.index', array('items' => $results, 'collections' => $collections));		
+	}
+
+	/**
 	 * Show the form for creating a new resource.
 	 *
 	 * @return Response
