@@ -1,0 +1,122 @@
+// Variables
+
+@primary: #76791b;
+@dark: #555954;
+@light: #fff;
+@red: #76791b;
+
+@icon-font-path:  "../fonts/";
+@nav-link-padding: 10px 0;
+@grid-gutter-width:         20px;
+@container-large-desktop:      ((940px + @grid-gutter-width));
+
+//** Modal backdrop background color
+@modal-backdrop-bg:           #cf000f;
+//** Modal backdrop opacity
+@modal-backdrop-opacity:      .5;
+//** Background color of modal content area
+@modal-content-bg:                             transparent;
+//** Modal content border color
+@modal-content-border-color:                   transparent;
+//** Modal content border color **for IE8**
+@modal-content-fallback-border-color:          transparent;
+
+@border-radius-base:        0;
+@border-radius-large:       0;
+@border-radius-small:       0;
+
+@table-border-color: #333;
+@table-bg-hover: darken(#555954, 5%);
+
+// LESS
+
+body {
+    width: 100%;
+    height: 100%;
+    font-family: Minion,Helvetica,Arial,sans-serif;
+    color: @light;
+    background-color: @dark;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+// Typhography
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0 0 20px;
+    // text-transform: uppercase;
+    font-family: "dederon_s_d_otbold",Dederon,Arial,sans-serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+a {
+    color: @light;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+a:hover,
+a:focus {
+    text-decoration: none;
+    color: @primary;
+}
+
+.light {
+    font-weight: 400;
+}
+
+ // Navigation
+.navbar-nav {
+float: right;
+margin: 5px 0;
+}
+.navbar-custom li {
+margin: 0px 10px;
+float: right;
+}
+.navbar-custom li a {
+padding: 5px 20px;
+}
+
+
+ // Full Page Image Intro Section
+
+ .intro {
+    display: table;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    text-align: center;
+    color: @light;
+    background: url(../images/vizual-bg.jpg) no-repeat bottom center scroll;
+    background-color: @dark;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+.intro-body {
+    display: table-cell;
+    vertical-align: top;
+    padding-top: 70px;
+}
+
+.intro-text {
+    font-family: "dederon_s_d_otbold",Dederon,Arial,sans-serif;
+    font-size: 24px;
+    letter-spacing: 8px;
+    line-height: 46px;
+
+}
+

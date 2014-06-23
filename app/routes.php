@@ -13,7 +13,9 @@
 
 Route::get('/', function()
 {
-	return '<html><body><a href="/solr">SOLR test</a><br> <a href="/oai/test">OAI test</a></body></html>';
+	// return '<html><body><a href="/solr">SOLR test</a><br> <a href="/oai/test">OAI test</a></body></html>';
+	$items = Item::orderBy('created_at', 'DESC')->paginate(20);
+	return View::make('intro', array('items'=>$items));
 });
 
 
