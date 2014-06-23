@@ -33,7 +33,7 @@
             	<table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th><input type="checkbox" id="selectall"></th>
                             <th>Id</th>
                             <th>Názov</th>
                             <th>Autor</th>
@@ -47,7 +47,7 @@
 			            <tr>
                             <td>
                                 <div class="checkbox">
-                                    {{ Form::checkbox('ids[]', $i->id) }}
+                                    {{ Form::checkbox('ids[]', $i->id, null,  array('class' => 'selectedId')) }}
                                 </div>
                             </td>
 			                <td>{{ $i->id }}</td>

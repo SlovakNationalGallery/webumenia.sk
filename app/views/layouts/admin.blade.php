@@ -168,6 +168,17 @@
         });    
 
 
+        // select all feature
+        $('#selectall').click(function () {
+            console.log('vyselektuj vsekty!');
+            $('.selectedId').prop('checked', this.checked);
+        });
+
+        $('.selectedId').change(function () {
+            var check = ($('.selectedId').filter(":checked").length == $('.selectedId').length);
+            $('#selectall').prop("checked", check);
+        });        
+
     });
     </script>
 
