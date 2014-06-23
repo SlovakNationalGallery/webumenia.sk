@@ -46,7 +46,10 @@
 			                <td>{{ $i->name }}</td>
 			                <td>{{ $i->items()->count(); }}</td>
 			                <td>{{ $i->created_at }}</td>
-			                <td>{{ link_to_action('CollectionController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) }}</td>
+			                <td>
+                                {{ link_to_action('CollectionController@show', 'Detail', array($i->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', )) }} 
+                                {{ link_to_action('CollectionController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) }}
+                            </td>
 			            </tr>
 						@endforeach
                     </tbody>

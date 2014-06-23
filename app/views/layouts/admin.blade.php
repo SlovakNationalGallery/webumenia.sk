@@ -107,6 +107,24 @@
     </div>
     <!-- /#wrapper -->
 
+    <!-- Modal -->
+    <div tabindex="-1" class="modal fade" id="detailModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal">×</button>
+                        <h3>Modal header</h3>
+
+                </div>
+                <div class="modal-body">
+                    <p>Modal content here…</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Core JavaScript Files -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
