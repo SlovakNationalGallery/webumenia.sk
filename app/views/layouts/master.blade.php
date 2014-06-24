@@ -58,52 +58,55 @@
 
 <body id="page-top">
 
-		<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
-				<div class="container">
-						<div class="navbar-header page-scroll">
-								<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-										<i class="fa fa-bars"></i>
-								</button>
-						</div>
+	<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+	    <div class="container">
+	        <div class="navbar-header page-scroll">
+	            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+	                <i class="fa fa-bars"></i>
+	            </button>
+	            <a class="navbar-brand" href="#page-top">
+	                <img src="/images/logo_sng.svg" alt="SNG">
+	            </a>
+	        </div>
 
-						<!-- Collect the nav links, forms, and other content for toggling -->
-						<div class="collapse navbar-collapse navbar-main-collapse">
-								<ul class="nav navbar-nav">
-										<li class="{{ Request::is( '') ? 'active' : '' }}">
-												<a href="{{{ URL::to('') }}}">Úvod</a>
-										</li>
-										<li class="{{ Request::is( 'catalog') ? 'active' : '' }}">
-												<a href="{{{ URL::to('catalog') }}}">Vystavené diela</a>
-										</li>
-										<li class="{{ Request::is( 'info') ? 'active' : '' }}">
-												<a href="{{{ URL::to('info') }}}">Informácie</a>
-										</li>
-								</ul>
-						</div>
-						<!-- /.navbar-collapse -->
-				</div>
-				<!-- /.container -->
-		</nav>
-
-		<!-- Content -->
-		@yield('content')
+	        <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+	            <ul class="nav navbar-nav">
+						<li class="{{ Request::is('') ? 'active' : '' }}">
+								<a href="{{{ URL::to('') }}}">Úvod</a>
+						</li>
+						<li class="{{ Request::is( 'catalog') ? 'active' : '' }}">
+								<a href="{{{ URL::to('catalog') }}}">Vystavené diela</a>
+						</li>
+						<li class="{{ Request::is( 'info') ? 'active' : '' }}">
+								<a href="{{{ URL::to('info') }}}">Informácie</a>
+						</li>
+	            </ul>
+	        </div>
+	        <!-- /.navbar-collapse -->
+	    </div>
+	    <!-- /.container -->
+	</nav>
 
 
-		<!-- Core JavaScript Files -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-		<!-- Google Maps API Key - You will need to use your own API key to use the map feature -->
-		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
 
-		{{ HTML::script('js/jquery-ui-1.10.3.custom.min.js') }}
-		{{ HTML::script('js/jquery.mousewheel.min.js') }}
-		{{ HTML::script('js/jquery.kinetic.min.js') }}
-		{{ HTML::script('js/jquery.smoothdivscroll-1.3-min.js') }}
-		{{ HTML::script('js/jquery.magnific-popup.min.js') }}
+	<!-- Content -->
+	@yield('content')
 
-		{{ HTML::script('js/bootstrap.min.js') }}
-		{{ HTML::script('js/grid.js') }}
-		{{ HTML::script('js/bavlna.js') }}
 
-	</body>
+	<!-- Core JavaScript Files -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+	<!-- Google Maps API Key - You will need to use your own API key to use the map feature -->
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
+
+	{{ HTML::script('js/jquery-ui-1.10.3.custom.min.js') }}
+	{{ HTML::script('js/jquery.mousewheel.min.js') }}
+	{{ HTML::script('js/jquery.kinetic.min.js') }}
+	{{ HTML::script('js/jquery.smoothdivscroll-1.3-min.js') }}
+	{{ HTML::script('js/jquery.magnific-popup.min.js') }}
+
+	{{ HTML::script('js/bootstrap.min.js') }}
+	{{ HTML::script('js/dvekrajiny.js') }}
+
+</body>
 </html>
