@@ -5,7 +5,8 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.1.*",
-		"caseyamcl/Phpoaipmh": "dev-master"
+		"caseyamcl/Phpoaipmh": "dev-master",
+		"intervention/image": "2.*"		
 	},
 	"autoload": {
 		"classmap": [

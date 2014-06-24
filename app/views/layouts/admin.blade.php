@@ -16,7 +16,7 @@
 
         <!-- CSS are placed here -->
         <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        {{ HTML::style('css/styles.css') }}
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
         {{ HTML::style('css/sb-admin.css') }}
         {{ HTML::style('css/ladda-themeless.min.css') }}
         {{ HTML::style('css/bootstrap-wysihtml5.css') }}

@@ -2,7 +2,7 @@
 
 @section('title')
 @parent
-- úvod
+- {{ $collection->name }}
 @stop
 
 @section('content')
@@ -28,7 +28,10 @@
             	<div class="col-xs-12">
             		<h3>Diela: </h3>
             	</div>
-            	@foreach ($collection->items as $item)
+            	@foreach ($collection->items as $i=>$item)
+                    @if ($i%3==0)
+                        <br style="clear: both">
+                    @endif
 	                <div class="col-md-4 col-sm-6 col-xs-12">
 	                	<a href="{{ URL::to('sekcia/' . $collection->id) }}">
 	                		<img src="{{ $item->getImagePath(); }}" class="img-responsive">	                		
