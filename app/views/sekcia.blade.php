@@ -29,10 +29,10 @@
             		<h3>Diela: </h3>
             	</div>
             	@foreach ($collection->items as $i=>$item)
-                    @if ($i%3==0)
+                    @if ($i%2==0)
                         <br style="clear: both">
                     @endif
-	                <div class="col-md-4 col-sm-6 col-xs-12">
+	                <div class="col-md-6 col-sm-6 col-xs-12">
 	                	<a href="{{ URL::to('sekcia/' . $collection->id) }}">
 	                		<img src="{{ $item->getImagePath(); }}" class="img-responsive">	                		
 	                	</a>

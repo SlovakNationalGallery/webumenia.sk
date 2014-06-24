@@ -72,7 +72,7 @@
 	        <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
 	            <ul class="nav navbar-nav">
 						<li class="{{ Request::is('') ? 'active' : '' }}">
-								<a href="{{{ URL::to('') }}}">Úvod</a>
+								<a href="{{{ URL::to('/') }}}">Úvod</a>
 						</li>
 						<li class="{{ Request::is( 'catalog') ? 'active' : '' }}">
 								<a href="{{{ URL::to('catalog') }}}">Vystavené diela</a>

@@ -19,7 +19,7 @@ Route::get('/', function()
 		$path = '/images/sekcie2/';
 		$filename = $collection->id . '.jpeg';
 		if (!file_exists(public_path() . 'images/sekcie/' . $filename)) {
-			Image::make(public_path() . $path . $filename)->fit(500, 400)->save('images/sekcie/' . $filename);		
+			Image::make(public_path() . $path . $filename)->fit(500, 200)->save('images/sekcie/' . $filename);		
 		}
 	}
 

@@ -46,6 +46,7 @@ h6, img.xko {
 }
 
 h1 {
+    margin-top: 10px;
     letter-spacing: 6px;
     font-size: 36px;
     text-transform: uppercase;
@@ -54,7 +55,29 @@ h2 {
     letter-spacing: 4px;
     font-size: 24px;
 }
+h3 {
+    letter-spacing: 3px;
+    font-size: 16px;
+    text-transform: uppercase;
+}
 
+@media(min-width: @screen-md-min) {
+    h1 {
+        font-size: 56px;
+        margin-top: 25px;
+    }
+    h2 { font-size: 36px; }
+    h3 { font-size: 24px; }
+}
+
+@media(min-width: @screen-lg-min) {
+    h1 {
+        font-size: 64px;
+        margin-top: 45px;
+    }
+    h2 { font-size: 42px; }
+    h3 { font-size: 28px; }
+}
 
 a {
     color: @dark;
@@ -119,7 +142,7 @@ a:focus {
     color: @light;
 }
 
-@media(min-width:767px) {
+@media(min-width: @screen-sm-min) {
     .navbar {
         padding: 20px 0;
         border-bottom: 0;
@@ -160,12 +183,6 @@ a:focus {
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
-
-    h3 {
-        letter-spacing: 3px;
-        font-size: 16px;
-        text-transform: uppercase;
-    }
 }
 
 .intro-body {
@@ -223,7 +240,7 @@ a:focus {
     margin-top: @grid-gutter-width;
 }
 
-@media(min-width:767px) {
+@media(min-width: @screen-sm-min) {
     #map {
         height: 400px;
     }

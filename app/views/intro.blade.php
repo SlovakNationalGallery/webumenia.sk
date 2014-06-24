@@ -44,6 +44,20 @@
     </div>
 </section>
 
-<div id="map"></div>
+<section class="map content-section">
+    <div class="map-body">
+        <div class="container">
+            <div class="row">
+            	<div class="col-xs-12">
+            		<h3>Diela na mape: </h3>
+            	</div>
+            	<div id="map"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 @stop
