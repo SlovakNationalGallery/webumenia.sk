@@ -9,7 +9,7 @@
 
 		<title>
 			@section('title')
-			Dve krajiny - obraz Slovenska  - 19. storočie X súčastnosť
+			Dve krajiny - obraz Slovenska  - 19. storočie x súčastnosť
 			@show
 		</title>
 
@@ -64,25 +64,10 @@
 	            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
 	                <i class="fa fa-bars"></i>
 	            </button>
-	            <a class="navbar-brand" href="{{ URL::to('') }}">
+	            <a class="navbar-brand" href="http://www.sng.sk">
 	                <i class="icon-sng"></i>
 	            </a>
 	        </div>
-
-	        <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-	            <ul class="nav navbar-nav">
-						<li class="{{ Request::is('') ? 'active' : '' }}">
-								<a href="{{{ URL::to('/') }}}">Úvod</a>
-						</li>
-						<li class="{{ Request::is( 'catalog') ? 'active' : '' }}">
-								<a href="{{{ URL::to('catalog') }}}">Vystavené diela</a>
-						</li>
-						<li class="{{ Request::is( 'info') ? 'active' : '' }}">
-								<a href="{{{ URL::to('info') }}}">Informácie</a>
-						</li>
-	            </ul>
-	        </div>
-	        <!-- /.navbar-collapse -->
 	    </div>
 	    <!-- /.container -->
 	</nav>
@@ -100,11 +85,6 @@
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
 
 	{{ HTML::script('js/jquery-ui-1.10.3.custom.min.js') }}
-	{{ HTML::script('js/jquery.mousewheel.min.js') }}
-	{{ HTML::script('js/jquery.kinetic.min.js') }}
-	{{ HTML::script('js/jquery.smoothdivscroll-1.3-min.js') }}
-	{{ HTML::script('js/jquery.magnific-popup.min.js') }}
-
 	{{ HTML::script('js/bootstrap.min.js') }}
 	{{ HTML::script('js/dvekrajiny.js') }}
 

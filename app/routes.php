@@ -13,17 +13,26 @@
 
 Route::get('/', function()
 {
+	define('LAUNCH_DATE', '2014-07-03 18:00');
+
+	$launch_date = strtotime(LAUNCH_DATE);
+
 	$collections = Collection::orderBy('order', 'ASC')->with('items')->get();
 
 	foreach ($collections as $i => $collection) {
 		$path = '/images/sekcie2/';
 		$filename = $collection->id . '.jpeg';
 		if (!file_exists(public_path() . 'images/sekcie/' . $filename)) {
-			Image::make(public_path() . $path . $filename)->fit(500, 200)->save('images/sekcie/' . $filename);		
+			Image::make(public_path() . $path . $filename)->fit(500, 300)->save('images/sekcie/' . $filename);		
 		}
 	}
 
-	return View::make('intro', array('collections'=>$collections));
+	$template = 'intro';
+	if ($launch_date > time() && !Auth::check()) {
+		$template = 'comming';
+	}
+
+	return View::make($template, array('collections'=>$collections));
 });
 
 Route::get('sekcia/{id}', function($id)

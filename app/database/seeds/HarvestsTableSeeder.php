@@ -20,6 +20,8 @@ class HarvestsTableSeeder extends Seeder {
                 'set_spec' => 'Dve_krajiny',
                 'set_name' => 'Dve krajiny',
                 'set_description' => '',
+                'status' => 'queued',
+                'status_messages' => '',
                 'initiated' => $now,
                 'created_at' => $now,
                 'updated_at' => $now

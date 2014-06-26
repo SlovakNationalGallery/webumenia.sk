@@ -38,7 +38,7 @@ class CreateSpiceHarvesterHarvests extends Migration {
 			$table->enum('status', array('queued','in progress','completed','error','deleted','killed'))->default('queued');
 			$table->string('status_messages');
 			$table->dateTime('initiated');
-			$table->dateTime('completed');
+			$table->dateTime('completed')->nullable();
 			$table->timestamps();
 		});
 	}
