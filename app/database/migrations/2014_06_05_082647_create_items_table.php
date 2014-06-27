@@ -39,6 +39,9 @@ class CreateItemsTable extends Migration {
 			$table->string('medium');
 			$table->string('technique');
 			$table->string('inscription');
+			$table->string('place');
+			$table->float('lat');
+			$table->float('lng');
 			$table->string('state_edition')->nullable();
 			$table->string('integrity');
 			$table->string('integrity_work');

@@ -18,6 +18,7 @@ class Item extends Eloquent {
 		'medium',
 		'technique',
 		'inscription',
+		'place',
 		'state_edition',
 		'integrity',
 		'integrity_work',

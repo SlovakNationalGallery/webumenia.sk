@@ -143,6 +143,7 @@ class SpiceHarvesterController extends \BaseController {
 		            $this->insertItem($id, $rec);
 		            $new_items++;
 		        }
+
    	    	}
 	    }
 
@@ -249,6 +250,7 @@ class SpiceHarvesterController extends \BaseController {
 	                    ->children(self::OAI_DC_NAMESPACE)
 	                    ->children(self::DUBLIN_CORE_NAMESPACE_ELEMTS);
 
+
 		$dcTerms = $rec->metadata
 	                    ->children(self::OAI_DC_NAMESPACE)
 	                    ->children(self::DUBLIN_CORE_NAMESPACE_TERMS);
@@ -258,22 +260,28 @@ class SpiceHarvesterController extends \BaseController {
 
 	    $attributes['id'] = $rec->header->identifier;
 	    $attributes['title'] = $dcElements->title;
-	    $attributes['author'] = implode("; ", (array)$dcElements->creator);
+	    $attributes['author'] = $this->serialize($dcElements->creator);
 	    $attributes['work_type'] = $type[0];
 	    $attributes['work_level'] = $type[1];
-	    $attributes['topic'] = $dcElements->subject;
+	    $attributes['topic'] = $this->serialize($dcElements->subject);
+	    $attributes['place'] = $this->serialize($dcElements->{'subject.place'});
 	    $attributes['measurement'] = $dcTerms->extent;
 	    $attributes['dating'] = $dcTerms->created;
-	    $dating = explode('-', $dcTerms->created);
+	    $dating = explode('/', $dcTerms->created);
 	    $attributes['date_earliest'] = (!empty($dating[0])) ? $dating[0] : null;
 	    $attributes['date_latest'] = (!empty($dating[1])) ? $dating[1] : null;
 	    $attributes['medium'] = $dcElements->{'format.medium'}; // http://stackoverflow.com/questions/6531380/php-simplexml-with-dot-character-in-element-in-xml
-	    $attributes['technique'] = $dcElements->format;
-	    $attributes['inscription'] = implode("; ", (array)$dcElements->description);
+	    $attributes['technique'] = $this->serialize($dcElements->format);
+	    $attributes['inscription'] = $this->serialize($dcElements->description);
 	    $attributes['state_edition'] =  (!empty($type[2])) ? $type[2] : null;
 	    $attributes['gallery'] = $dcTerms->provenance;
 	    $attributes['img_url'] = (!empty($identifier[1]) && (strpos($identifier[1], 'http') === 0)) ? $identifier[1] : null; //ak nieje prazdne a zacina 'http'
 
 	    return $attributes;
+    }
+
+    private function serialize($attribute)
+    {
+    	return implode("; ", (array)$attribute);
     }
 }

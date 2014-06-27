@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'url' => 'http://www.webumenia.sk',
+	'url' => 'http://dvekrajiny.sng.sk',
 
 	/*
 	|--------------------------------------------------------------------------
