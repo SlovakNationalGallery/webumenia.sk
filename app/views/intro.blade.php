@@ -15,7 +15,7 @@
                     <p class="intro-text">
                     	<h1>DVE KRAJINY</h1>
                     	<h2>OBRAZ SLOVENSKA</h2>
-                    	<h3>19. storočie X súčasnosť</h3>
+                    	<h3>19. storočie <i class="icon-versus"></i> súčasnosť</h3>
                     </p>
                 </div>
             </div>

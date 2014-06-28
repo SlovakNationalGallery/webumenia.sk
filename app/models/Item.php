@@ -27,6 +27,8 @@ class Item extends Eloquent {
 		'item_type',
 	);
 
+    protected $appends = array('measurements');
+
 	public $incrementing = false;
 
 	protected $guarded = array('featured');
@@ -77,6 +79,10 @@ class Item extends Eloquent {
 		return $result_path;
 	}
 
+	public function getDetailUrl() {
+		return URL::to('dielo/' . $this->id);
+	}
+
 	private function intval32bits($value)
 	{
 	    $value = ($value & 0xFFFFFFFF);
@@ -85,6 +91,35 @@ class Item extends Eloquent {
 	        $value = -((~$value & 0xFFFFFFFF) + 1);
 
 	    return $value;
+	}
+
+	public function getAuthorAttribute($value)
+	{
+		$authors = $this->authors;
+		return implode(', ', $authors);
+	}
+
+	public function getAuthorsAttribute($value)
+	{
+		$authors_array = explode('; ', $this->attributes['author']);
+		$authors = array();
+		foreach ($authors_array as $author) {
+			$authors[] = preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $author);
+		}
+
+		return $authors;
+	}
+
+	public function getMeasurementsAttribute($value)
+	{
+		$measurements_array = explode(';', $this->attributes['measurement']);
+		$measurements = array();
+		foreach ($measurements_array as $measurement) {
+			$measurement = explode(' ', $measurement, 2);
+			$measurements[$measurement[0]] = $measurement[1];
+		}
+
+		return $measurements;
 	}
 
 

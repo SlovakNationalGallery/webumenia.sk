@@ -43,9 +43,6 @@ Route::get('sekcia/{id}', function($id)
 
 
 
-Route::get('/spice_harvester', 'SpiceHarvesterController@index');
-
-
 Route::get('/solr', function()
 {
 
@@ -193,6 +190,14 @@ Route::group(array('before' => 'guest'), function(){
 });
 
 Route::group(array('before' => 'auth'), function(){
+
+	Route::get('dielo/{id}', function($id)
+	{
+		$item = Item::find($id);
+		return View::make('dielo', array('item'=>$item));
+	});
+
+
 
 	Route::get('admin', 'AdminController@index');
 	Route::get('logout', 'AuthController@logout');

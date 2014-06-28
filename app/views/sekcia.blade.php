@@ -33,8 +33,8 @@
                         <br style="clear: both">
                     @endif
 	                <div class="col-md-6 col-sm-6 col-xs-12">
-	                	<a href="{{ URL::to('sekcia/' . $collection->id) }}">
-	                		<img src="{{ $item->getImagePath(); }}" class="img-responsive">	                		
+	                	<a href="{{ $item->getDetailUrl() }}">
+	                		<img src="{{ $item->getImagePath() }}" class="img-responsive">	                		
 	                	</a>
                         <div class="item-title">
                             {{ $item->author }} <br />
