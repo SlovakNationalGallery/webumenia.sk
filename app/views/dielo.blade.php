@@ -12,8 +12,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 text-center">
-                    <h1 class="uppercase">{{ $item->title }}</h1>
-                    <h2 class="uppercase">{{ $item->author }}</h2>
+                    <h2 class="uppercase">{{ $item->title }}</h2>
                 </div>
             </div>
             <div class="row">
@@ -25,6 +24,10 @@
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
+                                <tr>
+                                    <td class="atribut">autor:</td>
+                                    <td>{{ $item->author; }}</td>
+                                </tr>
                                 <tr>
                                     <td class="atribut">datovanie:</td>
                                     <td>{{ $item->dating; }}</td>
@@ -43,6 +46,12 @@
                                     <td class="atribut">žáner:</td>
                                     <td>{{ $item->topic; }}</td>
                                 </tr>
+                                @if (!empty($item->place))
+                                <tr>
+                                    <td class="atribut">motív:</td>
+                                    <td>{{ $item->subject; }}</td>
+                                </tr>
+                                @endif
                                 @foreach ($item->measurements as $key => $measurement)
                                     <tr>
                                         <td class="atribut">{{ $key }}:</td>
@@ -61,6 +70,12 @@
                                     <td class="atribut">značenie:</td>
                                     <td>{{ $item->inscription; }}</td>
                                 </tr>
+                                @if (!empty($item->place))
+                                <tr>
+                                    <td class="atribut">geografická oblasť:</td>
+                                    <td>{{ $item->place; }}</td>
+                                </tr>
+                                @endif
                                 <tr>
                                     <td class="atribut">stupeň spracovania:</td>
                                     <td>{{ $item->state_edition; }}</td>

@@ -11,6 +11,7 @@ class Item extends Eloquent {
 		'work_type',
 		'work_level',
 		'topic',
+		'subject',
 		'measurement',
 		'dating',
 		'date_earliest',

@@ -27,6 +27,13 @@ class UsersTableSeeder extends Seeder {
                 'password' => Hash::make('esenge123'),
                 'created_at' => $now,
                 'updated_at' => $now
+            ],
+            [
+                'username' => 'press',
+                'email' => '',
+                'password' => Hash::make('sng'),
+                'created_at' => $now,
+                'updated_at' => $now
             ]
         ];
 

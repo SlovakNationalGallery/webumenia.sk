@@ -42,6 +42,10 @@
 								<td>{{ $item->topic; }}</td>
 							</tr>
 							<tr>
+								<td>motív:</td>
+								<td>{{ $item->subject; }}</td>
+							</tr>
+							<tr>
 								<td>miery:</td>
 								<td>{{ $item->measurement; }}</td>
 							</tr>
@@ -68,6 +72,10 @@
 							<tr>
 								<td>značenie:</td>
 								<td>{{ $item->inscription; }}</td>
+							</tr>
+							<tr>
+								<td>geografická oblasť:</td>
+								<td>{{ $item->place; }} <br>Latitude : {{ $item->lat }} | Longitude : {{ $item->lng }}</td>
 							</tr>
 							<tr>
 								<td>stupeň spracovania:</td>

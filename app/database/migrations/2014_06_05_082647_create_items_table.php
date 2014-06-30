@@ -32,6 +32,7 @@ class CreateItemsTable extends Migration {
 			$table->string('work_type');
 			$table->string('work_level');
 			$table->string('topic');
+			$table->string('subject');
 			$table->string('measurement');
 			$table->string('dating');
 			$table->string('date_earliest')->nullable();
@@ -39,16 +40,18 @@ class CreateItemsTable extends Migration {
 			$table->string('medium');
 			$table->string('technique');
 			$table->string('inscription');
-			$table->string('place');
-			$table->float('lat');
-			$table->float('lng');
+			$table->string('place')->nullable();
+			$table->float('lat')->nullable();
+			$table->float('lng')->nullable();
 			$table->string('state_edition')->nullable();
 			$table->string('integrity');
 			$table->string('integrity_work');
 			$table->string('gallery');
 			$table->string('img_url')->nullable();
+			$table->string('img_server_url')->nullable();
 			$table->string('item_type');
 			$table->boolean('featured');
+			$table->boolean('publish')->default(true);
 			$table->timestamps();
 		});		
 

@@ -24,7 +24,7 @@ class ItemController extends \BaseController {
 	{
 
 		$input = Input::get('search');
-		$results = Item::where('title', 'LIKE', '%'.$input.'%')->orWhere('author', 'LIKE', '%'.$input.'%')->paginate(20);
+		$results = Item::where('title', 'LIKE', '%'.$input.'%')->orWhere('author', 'LIKE', '%'.$input.'%')->orWhere('id', 'LIKE', '%'.$input.'%')->paginate(20);
 
 		$collections = Collection::lists('name', 'id');
         return View::make('items.index', array('items' => $results, 'collections' => $collections));		
@@ -37,7 +37,7 @@ class ItemController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+        return View::make('items.form');
 	}
 
 	/**
@@ -70,7 +70,14 @@ class ItemController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		$item = Item::find($id);
+
+		if(is_null($item))
+		{
+			return Redirect::route('item.index');
+		}
+
+        return View::make('items.form')->with('item', $item);
 	}
 
 	/**

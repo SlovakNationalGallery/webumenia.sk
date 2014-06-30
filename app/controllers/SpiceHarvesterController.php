@@ -135,10 +135,10 @@ class SpiceHarvesterController extends \BaseController {
 
 		        if ($existingRecord) {
 		            // ak sa zmenil datestamp, update item - inak ignorovat
-		            if($existingRecord->datestamp != $rec->header->datestamp) {
+		            // if( $existingRecord->datestamp != $rec->header->datestamp) {
 		                $this->updateItem($existingRecord, $rec);
 		                $updated_items++;
-		            }
+		            // }
 		        } else {
 		            $this->insertItem($id, $rec);
 		            $new_items++;
@@ -152,7 +152,7 @@ class SpiceHarvesterController extends \BaseController {
 
 	    $totalTime = round((microtime(true)-$timeStart));
 
-	    Session::flash('message', 'Spracovaných bolo ' . $processed_items . ' diel. Z toho pribudlo ' . $new_items . ' nvých diel a ' . $new_items . ' bolo upravených. Trvalo to ' . $totalTime . 's' );
+	    Session::flash('message', 'Spracovaných bolo ' . $processed_items . ' diel. Z toho pribudlo ' . $new_items . ' nvých diel a ' . $updated_items . ' bolo upravených. Trvalo to ' . $totalTime . 's' );
 	    return Redirect::route('harvests.index');
 	}
 
@@ -167,7 +167,7 @@ class SpiceHarvesterController extends \BaseController {
     {
         if (isset($rec->header->attributes()->status) 
             && $rec->header->attributes()->status == 'deleted') {
-            return true;
+	        return true;
         }
         return false;
     }
@@ -258,18 +258,35 @@ class SpiceHarvesterController extends \BaseController {
 	    $type = (array)$dcElements->type;
 	    $identifier = (array)$dcElements->identifier;
 
+	    $topic=array(); // zaner - krajina s figuralnou kompoziciou / veduta
+	    $subject=array(); // objekt - dome/les/
+
+	    foreach ($dcElements->subject as $key => $value) {
+	    	if ($this->starts_with_upper($value)) {
+	    		$subject[] = mb_strtolower($value, "UTF-8");
+	    	} else {
+	    		$topic[] =$value;
+	    	}
+	    }
+
 	    $attributes['id'] = $rec->header->identifier;
 	    $attributes['title'] = $dcElements->title;
 	    $attributes['author'] = $this->serialize($dcElements->creator);
 	    $attributes['work_type'] = $type[0];
 	    $attributes['work_level'] = $type[1];
-	    $attributes['topic'] = $this->serialize($dcElements->subject);
+	    $attributes['topic'] = $this->serialize($topic);
+	    $attributes['subject'] = $this->serialize($subject);
 	    $attributes['place'] = $this->serialize($dcElements->{'subject.place'});
 	    $attributes['measurement'] = $dcTerms->extent;
-	    $attributes['dating'] = $dcTerms->created;
+	    
 	    $dating = explode('/', $dcTerms->created);
 	    $attributes['date_earliest'] = (!empty($dating[0])) ? $dating[0] : null;
-	    $attributes['date_latest'] = (!empty($dating[1])) ? $dating[1] : null;
+	    $attributes['date_latest'] = (!empty($dating[1])) ? $dating[1] : $attributes['date_earliest'];
+	    if ($attributes['date_earliest'] == $attributes['date_latest']) {
+	    	$attributes['dating'] = $dating[0];
+	    } else {
+	    	$attributes['dating'] = $dcTerms->created;
+	    }
 	    $attributes['medium'] = $dcElements->{'format.medium'}; // http://stackoverflow.com/questions/6531380/php-simplexml-with-dot-character-in-element-in-xml
 	    $attributes['technique'] = $this->serialize($dcElements->format);
 	    $attributes['inscription'] = $this->serialize($dcElements->description);
@@ -284,4 +301,9 @@ class SpiceHarvesterController extends \BaseController {
     {
     	return implode("; ", (array)$attribute);
     }
+
+    private function starts_with_upper($str) {
+	    $chr = mb_substr($str, 0, 1, "UTF-8");
+	    return mb_strtolower($chr, "UTF-8") != $chr;
+	}
 }
