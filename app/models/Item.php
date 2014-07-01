@@ -25,8 +25,15 @@ class Item extends Eloquent {
 		'integrity_work',
 		'gallery',
 		'img_url',
+		'iipimg_url',
 		'item_type',
 	);
+
+	public static $rules = array(
+		'author' => 'required',
+		'title' => 'required',
+		'dating' => 'required',
+		);
 
     protected $appends = array('measurements');
 
@@ -94,11 +101,13 @@ class Item extends Eloquent {
 	    return $value;
 	}
 
+	/*
 	public function getAuthorAttribute($value)
 	{
 		$authors = $this->authors;
 		return implode(', ', $authors);
 	}
+	*/
 
 	public function getAuthorsAttribute($value)
 	{

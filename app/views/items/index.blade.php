@@ -26,6 +26,7 @@
         <div class="panel panel-default">
             {{ Form::open(['url' => 'collection/fill']) }}
             <div class="panel-heading">
+                <a href="{{ route('item.create') }}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Vytvoriť</a><br>
                 Pridať vybraté do kolekcie: {{ Form::select('collection', $collections); }} &nbsp;  {{ Form::submit('Pridať', array('class' => 'btn btn-default')) }} 
             </div>
             <!-- /.panel-heading -->

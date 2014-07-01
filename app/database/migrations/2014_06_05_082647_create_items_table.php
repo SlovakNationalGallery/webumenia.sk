@@ -29,6 +29,7 @@ class CreateItemsTable extends Migration {
 			$table->string('id')->unique();
 			$table->string('author');
 			$table->string('title');
+			$table->text('description');
 			$table->string('work_type');
 			$table->string('work_level');
 			$table->string('topic');
@@ -48,7 +49,7 @@ class CreateItemsTable extends Migration {
 			$table->string('integrity_work');
 			$table->string('gallery');
 			$table->string('img_url')->nullable();
-			$table->string('img_server_url')->nullable();
+			$table->string('iipimg_url')->nullable();
 			$table->string('item_type');
 			$table->boolean('featured');
 			$table->boolean('publish')->default(true);

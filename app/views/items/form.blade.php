@@ -22,6 +22,14 @@
 	@endif
 
 </div>
+@if(isset($new_id))    	
+<div class="col-md-12">
+	<div class="form-group">
+	{{ Form::label('id', 'Identifikátor') }}
+    {{ Form::text('id', $new_id, array('class' => 'form-control', 'readonly')) }}
+	</div>
+</div>
+@endif
 <div class="col-md-12">
 	<div class="form-group">
 	{{ Form::label('title', 'Názov') }}
@@ -146,6 +154,12 @@
 	<div class="form-group">
 	{{ Form::label('gallery', 'galéria') }}
 	{{ Form::text('gallery', Input::old('gallery'), array('class' => 'form-control')) }}
+	</div>
+</div>
+<div class="col-md-12">
+	<div class="form-group">
+	{{ Form::label('iipimg_url', 'IIPImage url') }}
+	{{ Form::text('iipimg_url', Input::old('iipimg_url'), array('class' => 'form-control')) }}
 	</div>
 </div>
 <div class="col-md-12">

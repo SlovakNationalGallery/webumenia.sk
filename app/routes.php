@@ -13,7 +13,7 @@
 
 Route::get('/', function()
 {
-	define('LAUNCH_DATE', '2014-07-03 18:00');
+	define('LAUNCH_DATE', '2014-07-03 08:00');
 
 	$launch_date = strtotime(LAUNCH_DATE);
 

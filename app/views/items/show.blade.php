@@ -98,6 +98,10 @@
 								<td><a href="{{ $item->img_url; }}" target="_blank">{{ $item->img_url; }}</a></td>
 							</tr>
 							<tr>
+								<td>IIPImage url:</td>
+								<td><a href="{{ $item->iipimg_url; }}" target="_blank">{{ $item->iipimg_url; }}</a></td>
+							</tr>
+							<tr>
 								<td>obrázok:</td>
 								<td><img src="{{ $item->getImagePath(); }}" alt="náhľad" class="img-responsive" ></td>
 							</tr>

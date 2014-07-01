@@ -37,7 +37,10 @@ class ItemController extends \BaseController {
 	 */
 	public function create()
 	{
-        return View::make('items.form');
+        $prefix = 'SVK:PVC.';  // PVC = private collection
+        $pocet = Item::where('id', 'LIKE', $prefix.'%')->count();
+        $new_id = $prefix . ($pocet+1);
+        return View::make('items.form', array('new_id'=>$new_id));
 	}
 
 	/**
@@ -47,8 +50,26 @@ class ItemController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
-	}
+		$input = Input::all();
+
+		$rules = Item::$rules;
+		$rules['primary_image'] = 'required|image';
+
+		$v = Validator::make($input, $rules);
+
+		if ($v->passes()) {
+			
+			$item = new Item;
+			$item->fill($input);
+			$item->save();
+
+			if (Input::hasFile('primary_image')) {
+				$this->uploadImage($item);
+			}
+
+			return Redirect::route('item.index');
+		}
+		return Redirect::back()->withInput()->withErrors($v);	}
 
 	/**
 	 * Display the specified resource.
@@ -88,8 +109,26 @@ class ItemController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
-	}
+		$v = Validator::make(Input::all(), Item::$rules);
+
+		if($v->passes())
+		{
+			$input = array_except(Input::all(), array('_method'));
+
+			$item = Item::find($id);
+			$item->fill($input);
+			$item->save();
+
+			// ulozit primarny obrazok. do databazy netreba ukladat. nazov=id
+			if (Input::hasFile('primary_image')) {
+				$this->uploadImage($item);
+			}
+
+			Session::flash('message', 'Dielo ' .$id. ' bolo upravené');
+			return Redirect::route('item.index');
+		}
+
+		return Redirect::back()->withErrors($v);	}
 
 	/**
 	 * Remove the specified resource from storage.
@@ -100,6 +139,20 @@ class ItemController extends \BaseController {
 	public function destroy($id)
 	{
 		//
+	}
+
+	private function uploadImage($item) {
+		$error_messages = array();
+		$primary_image = Input::file('primary_image');
+		$full = true;
+		$filename = $item->getImagePath($full);
+		$uploaded_image = Image::make($primary_image->getRealPath());
+		if ($uploaded_image->width() > $uploaded_image->height()) {
+			$uploaded_image->widen(800);
+		} else {
+			$uploaded_image->heighten(800);
+		}
+		$uploaded_image->save($filename);
 	}
 
 }
