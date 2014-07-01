@@ -30,6 +30,10 @@
 								<td>{{ $item->title }}</td>
 							</tr>
 							<tr>
+								<td>popis:</td>
+								<td>{{ nl2br($item->description) }}</td>
+							</tr>
+							<tr>
 								<td>výtvarný druh:</td>
 								<td>{{ $item->work_type; }}</td>
 							</tr>

@@ -8,6 +8,7 @@ class Item extends Eloquent {
 		'id',
 		'author',
 		'title',
+		'description',
 		'work_type',
 		'work_level',
 		'topic',
@@ -124,9 +125,11 @@ class Item extends Eloquent {
 	{
 		$measurements_array = explode(';', $this->attributes['measurement']);
 		$measurements = array();
-		foreach ($measurements_array as $measurement) {
-			$measurement = explode(' ', $measurement, 2);
-			$measurements[$measurement[0]] = $measurement[1];
+		if (!empty($this->attributes['measurement'])) {
+			foreach ($measurements_array as $measurement) {
+				$measurement = explode(' ', $measurement, 2);
+				$measurements[$measurement[0]] = $measurement[1];
+			}			
 		}
 
 		return $measurements;

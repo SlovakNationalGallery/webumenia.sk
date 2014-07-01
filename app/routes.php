@@ -22,7 +22,7 @@ Route::get('/', function()
 	foreach ($collections as $i => $collection) {
 		$path = '/images/sekcie2/';
 		$filename = $collection->id . '.jpeg';
-		if (!file_exists(public_path() . 'images/sekcie/' . $filename)) {
+		if (!file_exists(public_path() . '/images/sekcie/' . $filename)) {
 			Image::make(public_path() . $path . $filename)->fit(500, 300)->save('images/sekcie/' . $filename);		
 		}
 	}
@@ -39,6 +39,11 @@ Route::get('sekcia/{id}', function($id)
 {
 	$collection = Collection::find($id);
 	return View::make('sekcia', array('collection'=>$collection));
+});
+
+Route::get('informacie', function()
+{
+	return View::make('informacie');
 });
 
 

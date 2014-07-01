@@ -6,7 +6,8 @@
 	"require": {
 		"laravel/framework": "4.1.*",
 		"caseyamcl/Phpoaipmh": "dev-master",
-		"intervention/image": "2.*"		
+		"intervention/image": "2.*",
+		"orangehill/iseed": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

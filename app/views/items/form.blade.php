@@ -44,8 +44,8 @@
 </div>
 <div class="col-md-12">
 	<div class="form-group">
-	{{ Form::label('text', 'Text') }}
-	{{ Form::textarea('text', Input::old('text'), array('class' => 'form-control wysiwyg')) }}	
+	{{ Form::label('description', 'Popis') }}
+	{{ Form::textarea('description', Input::old('description'), array('class' => 'form-control wysiwyg')) }}	
 	</div>
 </div>
 <div class="col-md-12">
