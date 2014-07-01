@@ -77,8 +77,8 @@
 						<li class="{{ Request::is( 'catalog') ? 'active' : '' }}">
 								<a href="{{{ URL::to('catalog') }}}">Vystavené diela</a>
 						</li>
-						<li class="{{ Request::is( 'info') ? 'active' : '' }}">
-								<a href="{{{ URL::to('info') }}}">Informácie</a>
+						<li class="{{ Request::is( 'informacie') ? 'active' : '' }}">
+								<a href="{{{ URL::to('informacie') }}}">Informácie</a>
 						</li>
 	            </ul>
 	        </div>

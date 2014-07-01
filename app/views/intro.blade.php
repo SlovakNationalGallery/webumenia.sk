@@ -12,11 +12,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    <p class="intro-text">
+                    <div class="intro-text">
                     	<h1>DVE KRAJINY</h1>
                     	<h2>OBRAZ SLOVENSKA</h2>
                     	<h3>19. storočie <i class="icon-versus"></i> súčasnosť</h3>
-                    </p>
+                    </div>
                 </div>
             </div>
         </div>
