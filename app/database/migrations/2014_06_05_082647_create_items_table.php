@@ -42,8 +42,8 @@ class CreateItemsTable extends Migration {
 			$table->string('technique');
 			$table->string('inscription');
 			$table->string('place')->nullable();
-			$table->float('lat')->nullable();
-			$table->float('lng')->nullable();
+			$table->decimal('lat',10,7)->nullable();
+			$table->decimal('lng',10,7)->nullable();
 			$table->string('state_edition')->nullable();
 			$table->string('integrity');
 			$table->string('integrity_work');

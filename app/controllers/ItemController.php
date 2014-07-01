@@ -181,6 +181,28 @@ class ItemController extends \BaseController {
 
 	}
 
+	public function geodata() {
+		$items = Item::where('place', '!=', '')->get();
+		$i = 0;
+		foreach ($items as $item) {
+			if (!empty($item->place)) {
+				$geoname = Ipalaus\Geonames\Eloquent\Name::where('name', 'like', $item->place)->first();
+				//ak nevratil, skusim podla alternate_names
+				if (empty($geoname)) {
+					$geoname = Ipalaus\Geonames\Eloquent\Name::where('alternate_names', 'like', '%'.$item->place.'%')->first();
+				}
+
+				if (!empty($geoname)) {
+					$item->lat = $geoname->latitude;
+					$item->lng = $geoname->longitude;
+					$item->save();
+					$i++;
+				}
+			}
+		}
+		return Redirect::route('item.index')->withMessage('Pre ' . $i . ' diel bola nastavená zemepisná šírka a výška.');
+	}
+
 	private function uploadImage($item) {
 		$error_messages = array();
 		$primary_image = Input::file('primary_image');
