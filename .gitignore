@@ -3,7 +3,6 @@
 /app/config/local/*
 /app/config/staging/*
 composer.phar
-composer.lock
 .env.local.php
 .env.php
 .DS_Store
