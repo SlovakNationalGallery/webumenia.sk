@@ -112,6 +112,7 @@
 
             </div>            <!-- /modal-body -->
             <div class="modal-footer">
+				<a href="{{ $item->getDetailUrl() }}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Zobraziť na webe</a>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Zavrieť</button>
             </div>            <!-- /modal-footer -->
 </body>

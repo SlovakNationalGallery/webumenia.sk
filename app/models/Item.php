@@ -35,7 +35,7 @@ class Item extends Eloquent {
 		'dating' => 'required',
 		);
 
-    protected $appends = array('measurements');
+    // protected $appends = array('measurements');
 
 	public $incrementing = false;
 

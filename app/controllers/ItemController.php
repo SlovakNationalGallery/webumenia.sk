@@ -37,7 +37,7 @@ class ItemController extends \BaseController {
 	 */
 	public function create()
 	{
-        $prefix = 'SVK:PVC.';  // PVC = private collection
+        $prefix = 'SVK:TMP.';  // TMP = temporary
         $pocet = Item::where('id', 'LIKE', $prefix.'%')->count();
         $new_id = $prefix . ($pocet+1);
         return View::make('items.form', array('new_id'=>$new_id));
@@ -139,6 +139,46 @@ class ItemController extends \BaseController {
 	public function destroy($id)
 	{
 		//
+	}
+
+	public function backup() 
+	{
+		$sqlstring = "";
+		$table = 'items';
+		$newline = "\n";
+
+		$prefix = 'SVK:TMP.'; 
+		$items = Item::where('id', 'LIKE', $prefix.'%')->get();
+		foreach ($items as $key => $item) {
+			$item_data = $item->toArray();
+			
+			$keys = array();
+      		$values = array();
+			foreach ($item_data as $key => $value) {
+				$keys[] = "`" . $key . "`";
+				if($value === NULL) {
+			        $value = "NULL";
+			    }
+			    elseif($value === "" OR $value === false) {
+					$value = '""';
+				}
+				elseif(!is_numeric($value)) {
+					DB::connection()->getPdo()->quote($value);
+					$value = "\"$value\"";
+				}
+				$values[] = $value;
+			}
+			$sqlstring  .= "INSERT INTO `" . $table . "` ( "
+						.  implode(", ",$keys)
+						.    " ){$newline}\tVALUES ( "
+						.  implode(", ",$values)
+						.    " );" . $newline;
+
+		}
+		$filename = date('Y-m-d-H-i').'_'.$table.'.sql';
+		File::put( app_path() .'/database/backups/' . $filename, $sqlstring);
+		return Redirect::route('item.index')->withMessage('Záloha ' . $filename . ' bola vytvorená.');
+
 	}
 
 	private function uploadImage($item) {
