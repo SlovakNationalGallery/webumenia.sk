@@ -28,7 +28,7 @@ $env = $app->detectEnvironment(array(
 
 	'local' => array('igorovmcbookpro', 'IgorovMacbookPro.local', '*.local'),
 	'staging' => array('sngweb'),
-
+	'production' => array('sng-02'),
 ));
 
 /*

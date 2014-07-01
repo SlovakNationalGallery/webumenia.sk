@@ -107,6 +107,7 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Orangehill\Iseed\IseedServiceProvider',
+		'Ipalaus\Geonames\GeonamesServiceProvider',
 	),
 
 	/*
