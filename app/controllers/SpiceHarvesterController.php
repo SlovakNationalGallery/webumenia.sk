@@ -200,17 +200,9 @@ class SpiceHarvesterController extends \BaseController {
 
       
         // Upload image given by url
-
         if (!empty($itemAttributes['img_url'])) {
-
-        	$file = $itemAttributes['img_url'];
-        	$data = file_get_contents($file);
-        	$full = true;
-         	if ($new_file = $item->getImagePath($full)) {
-	            file_put_contents($new_file, $data);
-         	}
-        }
-        
+        	$this->downloadImage($item, $itemAttributes['img_url']);
+        }        
 
         return true;
     }
@@ -230,11 +222,16 @@ class SpiceHarvesterController extends \BaseController {
     	$item->fill($itemAttributes);
     	$item->save();
 
+        // Upload image given by url
+        if (!empty($itemAttributes['img_url'])) {
+        	$this->downloadImage($item, $itemAttributes['img_url']);
+        }        
         
         // Update the datestamp stored in the database for this record.
 	    $existingRecord->datestamp = $rec->header->datestamp;
 	    // $existingRecord->updated_at =  date('Y-m-d H:i:s'); //toto by sa malo diat automaticky
 	    $existingRecord->save();
+
 
         return true;
     }
@@ -305,5 +302,17 @@ class SpiceHarvesterController extends \BaseController {
     private function starts_with_upper($str) {
 	    $chr = mb_substr($str, 0, 1, "UTF-8");
 	    return mb_strtolower($chr, "UTF-8") != $chr;
+	}
+
+	private function downloadImage($item, $img_url)
+	{
+    	$file = $img_url;
+    	$data = file_get_contents($file);
+    	$full = true;
+     	if ($new_file = $item->getImagePath($full)) {
+            file_put_contents($new_file, $data);
+            return true;
+     	}
+     	return false;
 	}
 }
