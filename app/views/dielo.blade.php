@@ -24,10 +24,15 @@
                         @if (!empty($item->iipimg_url))
                             </a>
                         @endif
-                        <a href="{{ $item->getImagePath() }}" class="btn btn-default btn-outline pull-left uppercase sans"><i class="fa fa-download"></i> stiahnuť obrázok</a>
-                        @if (!empty($item->iipimg_url))
-                           <a href="{{ URL::to('dielo/' . $item->id . '/zoom') }}" class="btn btn-default btn-outline pull-right uppercase sans"><i class="fa fa-search-plus"></i> deep zoom obrázku</a>
-                        @endif    
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <a href="{{ $item->getImagePath() }}" class="btn btn-default btn-outline  uppercase sans"><i class="fa fa-download"></i> stiahnuť obrázok</a>
+                                @if (!empty($item->iipimg_url))
+                                   <a href="{{ URL::to('dielo/' . $item->id . '/zoom') }}" class="btn btn-default btn-outline  uppercase sans"><i class="fa fa-search-plus"></i> deep zoom obrázku</a>
+                                @endif    
+                            </div>
+                        </div>
+                        
                         
                 </div>
                 <div class="col-md-4 text-left">
@@ -112,7 +117,7 @@
                                 @endif
                                 @if (!empty($item->gallery))
                                 <tr>
-                                    <td class="atribut">inštitúcia / majiteľ:</td>
+                                    <td class="atribut">inštitúcia /<br> majiteľ:</td>
                                     <td>{{ $item->gallery; }}</td>
                                 </tr>
                                 @endif
