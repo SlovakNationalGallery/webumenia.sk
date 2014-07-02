@@ -152,7 +152,7 @@ class SpiceHarvesterController extends \BaseController {
 
 	    $totalTime = round((microtime(true)-$timeStart));
 
-	    Session::flash('message', 'Spracovaných bolo ' . $processed_items . ' diel. Z toho pribudlo ' . $new_items . ' nvých diel a ' . $updated_items . ' bolo upravených. Trvalo to ' . $totalTime . 's' );
+	    Session::flash('message', 'Spracovaných bolo ' . $processed_items . ' diel. Z toho pribudlo ' . $new_items . ' nových diel a ' . $updated_items . ' bolo upravených. Trvalo to ' . $totalTime . 's' );
 	    return Redirect::route('harvests.index');
 	}
 
@@ -290,6 +290,13 @@ class SpiceHarvesterController extends \BaseController {
 	    $attributes['state_edition'] =  (!empty($type[2])) ? $type[2] : null;
 	    $attributes['gallery'] = $dcTerms->provenance;
 	    $attributes['img_url'] = (!empty($identifier[1]) && (strpos($identifier[1], 'http') === 0)) ? $identifier[1] : null; //ak nieje prazdne a zacina 'http'
+
+	    if (!empty($identifier[3]) && (strpos($identifier[3], 'http') === 0)) {
+	    	$iip_resolver = substr($identifier[3], 0, strpos( $identifier[3], '?'));
+	    	$iip_url = file_get_contents($iip_resolver);
+	    	$iip_url = substr($iip_url, strpos( $iip_url, '?FIF=')+5);
+	    	$attributes['iipimg_url'] = $iip_url;
+	    }
 
 	    return $attributes;
     }
