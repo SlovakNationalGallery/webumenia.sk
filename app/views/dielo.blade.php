@@ -56,12 +56,6 @@
                                     <td>{{ $item->work_type; }}</td>
                                 </tr>
                                 @endif
-                                @if (!empty($item->work_level))
-                                <tr>
-                                    <td class="atribut">stupeň spracovania:</td>
-                                    <td>{{ $item->work_level; }}</td>
-                                </tr>
-                                @endif
                                 @if (!empty($item->topic))
                                 <tr>
                                     <td class="atribut">žáner:</td>
@@ -125,7 +119,7 @@
                             </tbody>
                         </table>
                         @if (!empty($item->lat) && !empty($item->lng)) 
-                            <div class="small-map"></div>
+                            <div id="small-map"></div>
                         @endif
                     </div>
                 </div>
@@ -137,4 +131,72 @@
 
 <!-- <div id="map"></div> -->
 
+@stop
+
+
+@section('javascript')
+
+@if (!empty($item->lat) && !empty($item->lng)) 
+<script type="text/javascript">
+    var map;
+    $(document).ready(function(){
+        map = new GMaps({
+            el: '#small-map',
+            lat: 48.705862, 
+            lng: 19.855629,
+            zoom: 6, 
+            zoomControl : true,
+            zoomControlOpt: {
+                style : "SMALL",
+                position: "TOP_LEFT"
+            },
+            panControl : false,
+            streetViewControl : false,
+            mapTypeControl: false,
+            overviewMapControl: false,
+            scrollwheel: false,
+            scaleControl: false
+            });
+        var styles = [
+            {
+              stylers: [
+                { hue: "#484224" },
+                { saturation: -20 }
+              ]
+            }, {
+                featureType: "road",
+                elementType: "geometry",
+                stylers: [
+                    { lightness: 100 },
+                    { visibility: "off" }
+              ]
+            }, {
+                featureType: "road",
+                elementType: "labels",
+                stylers: [
+                    { visibility: "off" }
+              ]
+            }
+        ];
+        
+        map.addStyle({
+            styledMapName:"Styled Map",
+            styles: light_style,
+            mapTypeId: "map_style"  
+        });
+        
+        map.setStyle("map_style");   
+
+        map.addMarker({
+            lat: {{ $item->lat }},
+            lng: {{ $item->lng }},
+            title: 'Značka pre dielo {{ $item->title }}',
+            infoWindow: {
+              content: '<p>{{ $item->place }}</p>'
+            }
+        });
+
+    });
+</script>
+@endif
 @stop

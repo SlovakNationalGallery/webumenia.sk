@@ -104,9 +104,13 @@
 	{{ HTML::script('js/jquery.kinetic.min.js') }}
 	{{ HTML::script('js/jquery.smoothdivscroll-1.3-min.js') }}
 	{{ HTML::script('js/jquery.magnific-popup.min.js') }}
+	{{ HTML::script('js/gmaps.js') }}
 
 	{{ HTML::script('js/bootstrap.min.js') }}
 	{{ HTML::script('js/dvekrajiny.js') }}
+
+	<!-- Content -->
+	@yield('javascript')
 
 </body>
 </html>

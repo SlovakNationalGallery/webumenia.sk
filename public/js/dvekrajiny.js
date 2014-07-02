@@ -1,12 +1,122 @@
 //jQuery to collapse the navbar on scroll
 $(window).scroll(function() {
-    if ($(".navbar").offset().top > 150) {
+    if ($(".navbar").offset().top > 50) {
         $(".navbar-fixed-top").addClass("top-nav-collapse");
     } else {
         $(".navbar-fixed-top").removeClass("top-nav-collapse");
     }
 });
 
+var light_style = [
+    {
+        "elementType": "all",
+        "featureType": "water",
+        "stylers": [
+            {
+                "hue": "#e9ebed"
+            },
+            {
+                "saturation": -78
+            },
+            {
+                "lightness": 67
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "elementType": "all",
+        "featureType": "landscape",
+        "stylers": [
+            {
+                "hue": "#ffffff"
+            },
+            {
+                "saturation": -100
+            },
+            {
+                "lightness": 100
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "elementType": "geometry",
+        "featureType": "road",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "elementType": "all",
+        "featureType": "poi",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "elementType": "geometry",
+        "featureType": "road.local",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "elementType": "all",
+        "featureType": "transit",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "elementType": "all",
+        "featureType": "administrative.locality",
+        "stylers": [
+            {
+                "hue": "#ffffff"
+            },
+            {
+                "saturation": 7
+            },
+            {
+                "lightness": 0
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "elementType": "labels",
+        "featureType": "road",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "elementType": "labels",
+        "featureType": "road.arterial",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    }
+];
 
 //Google Map Skin - Get more at http://snazzymaps.com/
 var myOptions = {
@@ -14,7 +124,7 @@ var myOptions = {
     region: 'SK',
     center: new google.maps.LatLng(48.575862, 19.125629),
     mapTypeId: google.maps.MapTypeId.TERRAIN,
-    disableDefaultUI: false,
+    disableDefaultUI: true,
     styles: [{
         "featureType": "water",
         "elementType": "geometry",
@@ -125,9 +235,30 @@ var myOptions = {
     }]
 };
 
-var map = new google.maps.Map(document.getElementById('map'), myOptions);
+var mapOptions = {
+    center: new google.maps.LatLng(48.705862, 19.925629), //slovensko ??    
+    zoom: 7, // How zoomed in you want the map to start at (always required)
+    minZoom: 5, // Minimum zoom level allowed (0-20)
+    maxZoom: 12, // Maximum soom level allowed (0-20)
+    zoomControl:true, // Set to true if using zoomControlOptions below, or false to remove all zoom controls.
+    zoomControlOptions: {
+        style:google.maps.ZoomControlStyle.DEFAULT // DEFAULT or SMALL - Change to SMALL to force just the + and - buttons.
+    },
+    // The latitude and longitude to center the map (always required)
+    scrollwheel: false,
+    panControl:false, 
+    mapTypeControl:false,
+    streetViewControl:false,
+    overviewMapControl:false,
+    rotateControl:false,
 
-var image = '/images/x.png';
+    // How you would like to style the map. 
+    // This is where you would paste any style found on Snazzy Maps.
+    styles: light_style
+};
+
+// var map = new google.maps.Map(document.getElementById('map'), myOptions);
+var map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
 var items = [
   ['Dielo 1', 48.14858,17.13099, 4],
@@ -151,7 +282,7 @@ function setMarkers(map, locations) {
   // increase in the X direction to the right and in
   // the Y direction down.
   var image = {
-    url: '/images/x.png',
+    url: '/images/x.svg',
     size: new google.maps.Size(30, 30),
     origin: new google.maps.Point(0,0),
     anchor: new google.maps.Point(0, 30)
@@ -174,19 +305,3 @@ function setMarkers(map, locations) {
   }
 }
 
-
-
-var myLatlng = new google.maps.LatLng(48.14858,17.13099);
-var marker = new google.maps.Marker({
-    position: myLatlng,
-    map: map,
-    title:"pokus",
-    icon: image
-});
-var myLatlng = new google.maps.LatLng(48.14858,17.13099);
-var marker = new google.maps.Marker({
-    position: myLatlng,
-    map: map,
-    title:"pokus",
-    icon: image
-});

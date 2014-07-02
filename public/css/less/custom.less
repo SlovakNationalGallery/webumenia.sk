@@ -192,6 +192,10 @@ a:focus {
 
     &.intro404 {
         background: url(../images/vizual-404.jpg) no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
     }
 }
 
@@ -244,7 +248,7 @@ a:focus {
 }
 
 .img-dielo {
-    margin-bottom: 15px;
+    margin: 0 auto 15px auto;
 }
 
 #map {
@@ -276,4 +280,9 @@ a:focus {
 .atribut {
     color: #888;
     font-style: italic;
+}
+
+#small-map {
+    width: 100%;
+    height: 200px;
 }
