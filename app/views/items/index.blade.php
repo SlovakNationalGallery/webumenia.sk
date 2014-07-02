@@ -64,7 +64,14 @@
                     </tbody>
                 </table>
 
-                <div class="text-center"><?php echo $items->links(); ?></div>
+                <div class="text-center">
+                    @if (!empty($search))
+                        {{ $items->appends(array('search' => $search))->links() }}
+                    @else
+                        {{ $items->links() }}
+                    @endif
+                    
+                </div>
 
 
             </div>

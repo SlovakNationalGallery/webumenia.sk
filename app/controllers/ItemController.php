@@ -23,11 +23,11 @@ class ItemController extends \BaseController {
 	public function search()
 	{
 
-		$input = Input::get('search');
-		$results = Item::where('title', 'LIKE', '%'.$input.'%')->orWhere('author', 'LIKE', '%'.$input.'%')->orWhere('id', 'LIKE', '%'.$input.'%')->paginate(20);
+		$search = Input::get('search');
+		$results = Item::where('title', 'LIKE', '%'.$search.'%')->orWhere('author', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%')->paginate(20);
 
 		$collections = Collection::lists('name', 'id');
-        return View::make('items.index', array('items' => $results, 'collections' => $collections));		
+        return View::make('items.index', array('items' => $results, 'collections' => $collections, 'search' => $search));		
 	}
 
 	/**

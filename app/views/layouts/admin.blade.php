@@ -64,9 +64,9 @@
                 <div class="sidebar-collapse">
                     <ul class="nav" id="side-menu">
                         <li class="sidebar-search">
-                            {{ Form::open(['url' => 'search']) }}
+                            {{ Form::open(['url' => 'search',  'method' => 'get']) }}
                             <div class="input-group custom-search-form">
-                                {{ Form::text('search', Input::old('search'), array('class' => 'form-control', 'placeholder' => 'Hľadať...')) }}
+                                {{ Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => 'Hľadať...')) }}
                                 <span class="input-group-btn">
                                 <button class="btn btn-default" type="submit">
                                     <i class="fa fa-search"></i>
