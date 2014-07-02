@@ -21,6 +21,8 @@ class Item extends Eloquent {
 		'technique',
 		'inscription',
 		'place',
+		'lat',
+		'lng',
 		'state_edition',
 		'integrity',
 		'integrity_work',

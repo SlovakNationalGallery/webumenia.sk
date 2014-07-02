@@ -17,8 +17,18 @@
             </div>
             <div class="row">
                 <div class="col-md-8 text-center">
-                        <img src="{{ $item->getImagePath() }}" class="img-responsive">
-                        <p>identifikátor: {{ $item->id }}</p>
+                        @if (!empty($item->iipimg_url))
+                            <a href="{{ URL::to('dielo/' . $item->id . '/zoom') }}">
+                        @endif    
+                        <img src="{{ $item->getImagePath() }}" class="img-responsive img-dielo">
+                        @if (!empty($item->iipimg_url))
+                            </a>
+                        @endif
+                        <a href="{{ $item->getImagePath() }}" class="btn btn-default btn-outline pull-left uppercase sans"><i class="fa fa-download"></i> stiahnuť obrázok</a>
+                        @if (!empty($item->iipimg_url))
+                           <a href="{{ URL::to('dielo/' . $item->id . '/zoom') }}" class="btn btn-default btn-outline pull-right uppercase sans"><i class="fa fa-search-plus"></i> deep zoom obrázku</a>
+                        @endif    
+                        
                 </div>
                 <div class="col-md-4 text-left">
                     <div class="table-responsive">

@@ -27,6 +27,9 @@
             <div class="row">
             	<div class="col-xs-12">
             		<h3>Diela: </h3>
+                    @if ($collection->items->count() == 0)
+                        <p class="text-center">Momentálne žiadne diela</p>
+                    @endif
             	</div>
             	@foreach ($collection->items as $i=>$item)
                     @if ($i%2==0)
@@ -41,8 +44,6 @@
                             <strong>{{ $item->title }}</strong><br>
                             <em>{{ $item->dating }}</em>
                         </div>
-                        
-	                    
 	                </div>	
             	@endforeach
             </div>
@@ -50,6 +51,17 @@
     </div>
 </section>
 
-<div id="map"></div>
+<section class="map content-section">
+    <div class="map-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3>Diela na mape: </h3>
+                </div>
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
+</section>
 
 @stop
