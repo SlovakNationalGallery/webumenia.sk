@@ -13,7 +13,7 @@
 
 Route::get('/', function()
 {
-	define('LAUNCH_DATE', '2014-07-03 08:00');
+	define('LAUNCH_DATE', '2014-07-02 10:00');
 
 	$launch_date = strtotime(LAUNCH_DATE);
 
@@ -23,7 +23,7 @@ Route::get('/', function()
 		$path = '/images/sekcie2/';
 		$filename = $collection->id . '.jpeg';
 		if (!file_exists(public_path() . '/images/sekcie/' . $filename)) {
-			Image::make(public_path() . $path . $filename)->fit(500, 300)->save('images/sekcie/' . $filename);		
+			Image::make(public_path() . $path . $filename)->fit(500, 300)->save('images/sekcie/' . $filename);
 		}
 	}
 

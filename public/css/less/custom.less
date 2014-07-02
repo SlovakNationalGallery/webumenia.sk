@@ -110,41 +110,46 @@ a:focus {
     
     a {
         color: @light;
+        -webkit-transition: background .3s ease-in-out;
+        -moz-transition: background .3s ease-in-out;
+        transition: background .3s ease-in-out;        
     }
-    a:hover {
+    a:hover, a:focus, a.active {
         color: @primary;
+        outline: 0;
+        background-color: rgba(255,255,255,.8);        
     }
 
     &.dark-text {
         a {
             color: @dark;
         }
-        a:hover {
+        a:hover, a:focus, a.active {
             color: @primary;
         }
 
     }
 
+    a.navbar-brand, a.navbar-brand:hover {
+        background: none;
+    }
 }
 
-
 .navbar-custom .nav li a {
-    -webkit-transition: background .3s ease-in-out;
-    -moz-transition: background .3s ease-in-out;
-    transition: background .3s ease-in-out;
 }
 
 .navbar-custom .nav li a:hover,
 .navbar-custom .nav li a:focus,
 .navbar-custom .nav li.active {
-    outline: 0;
-    background-color: rgba(255,255,255,.8);
 }
 
 .navbar-toggle {
     padding: 4px 6px;
     font-size: 16px;
     color: @light;
+    -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
+    -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
+    transition: background .5s ease-in-out,padding .5s ease-in-out;
 }
 
 @media(min-width: @screen-sm-min) {
@@ -161,6 +166,14 @@ a:focus {
     .top-nav-collapse {
         padding: 0;
         background-color: @light;
+        a {
+            color: @dark;
+        }
+        a:hover {
+            color: @primary;
+            background-color: rgba(0,0,0,.8);
+        }
+
     }
 }
 

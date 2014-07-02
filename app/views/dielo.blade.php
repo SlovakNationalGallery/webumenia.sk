@@ -36,7 +36,7 @@
                             <thead>
                                 <tr>
                                     <td class="atribut">autor:</td>
-                                    <td>{{ $item->author; }}</td>
+                                    <td>{{ implode('<br> ', $item->authors);}}</td>
                                 </tr>
                                 <tr>
                                     <td class="atribut">datovanie:</td>
@@ -65,7 +65,7 @@
                                 @if (!empty($item->subject))
                                 <tr>
                                     <td class="atribut">motív:</td>
-                                    <td>{{ $item->subject; }}</td>
+                                    <td>{{ implode(', ', $item->subjects);}}</td>
                                 </tr>
                                 @endif
                                 @if (!empty($item->technique))
@@ -190,6 +190,7 @@
         map.addMarker({
             lat: {{ $item->lat }},
             lng: {{ $item->lng }},
+            // icon: "/images/x.map.svg",            
             title: 'Značka pre dielo {{ $item->title }}',
             infoWindow: {
               content: '<p>{{ $item->place }}</p>'

@@ -123,6 +123,12 @@ class Item extends Eloquent {
 		return $authors;
 	}
 
+	public function getSubjectsAttribute($value)
+	{
+		$subjects_array = explode('; ', $this->attributes['subject']);
+		return $subjects_array;
+	}
+
 	public function getMeasurementsAttribute($value)
 	{
 		$measurements_array = explode(';', $this->attributes['measurement']);
