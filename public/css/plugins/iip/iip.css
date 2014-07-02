@@ -120,7 +120,7 @@
   padding: 0;
   border: 0;
   position: absolute;
-  cursor: crosshair;
+  cursor: move;
   display: block;
 }
 .iipmooviewer .canvas img.hidden{
