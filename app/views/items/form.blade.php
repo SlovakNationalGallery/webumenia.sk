@@ -116,8 +116,8 @@
 </div>
 <div class="col-md-12">
 	<div class="form-group">
-	{{ Form::label('location', 'geografická oblasť') }}
-	{{ Form::text('location', Input::old('location'), array('class' => 'form-control')) }}
+	{{ Form::label('place', 'geografická oblasť') }}
+	{{ Form::text('place', Input::old('place'), array('class' => 'form-control')) }}
 	</div>
 </div>
 <div class="col-md-6">
