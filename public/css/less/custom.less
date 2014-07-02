@@ -120,15 +120,6 @@ a:focus {
         background-color: rgba(255,255,255,.8);        
     }
 
-    &.dark-text {
-        a {
-            color: @dark;
-        }
-        a:hover, a:focus, a.active {
-            color: @primary;
-        }
-
-    }
 
     a.navbar-brand, a.navbar-brand:hover {
         background: none;
@@ -161,6 +152,17 @@ a:focus {
         -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
         -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
         transition: background .5s ease-in-out,padding .5s ease-in-out;
+
+        &.dark-text {
+            a {
+                color: @dark;
+            }
+            a:hover, a:focus, a.active {
+                color: @primary;
+            }
+
+        }
+        
     }
 
     .top-nav-collapse {
@@ -284,7 +286,7 @@ a:focus {
 
 .item {
     .btn {
-        margin-bottom: 10px;
+        margin-bottom: 10px auto;
     }
 }
 
