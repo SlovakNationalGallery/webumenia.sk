@@ -118,7 +118,8 @@
                                 @endif
                             </tbody>
                         </table>
-                        @if (!empty($item->lat) && !empty($item->lng)) 
+                        @if (!empty($item->lat) && ($item->lat > 0)) 
+                        {{ dd($item->lat) }}
                             <div id="small-map"></div>
                         @endif
                     </div>
@@ -136,7 +137,7 @@
 
 @section('javascript')
 
-@if (!empty($item->lat) && !empty($item->lng)) 
+@if (!empty($item->lat) && ($item->lat > 0)) 
 <script type="text/javascript">
     var map;
     $(document).ready(function(){
