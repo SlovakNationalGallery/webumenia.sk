@@ -106,14 +106,17 @@
                                     <td>{{ $item->integrity_work; }}</td>
                                 </tr>
                                 @endif
-                                @if (!empty($item->tbod))
+                                @if (!empty($item->gallery))
                                 <tr>
-                                    <td class="atribut">galéria:</td>
+                                    <td class="atribut">inštitúcia / majiteľ:</td>
                                     <td>{{ $item->gallery; }}</td>
                                 </tr>
                                 @endif
                             </tbody>
                         </table>
+                        @if (!empty($item->lat) && !empty($item->lng)) 
+                            <div class="small-map"></div>
+                        @endif
                     </div>
                 </div>
             </div>

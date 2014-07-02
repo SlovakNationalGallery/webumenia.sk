@@ -209,6 +209,7 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('harvests/launch/{id}', 'SpiceHarvesterController@launch');
 	Route::resource('harvests', 'SpiceHarvesterController');
 	Route::get('item/backup', 'ItemController@backup');
+	Route::get('item/geodata', 'ItemController@geodata');
 	Route::post('search', 'ItemController@search');
 	Route::resource('item', 'ItemController');
 	Route::post('collection/fill', 'CollectionController@fill');
