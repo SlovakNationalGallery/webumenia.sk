@@ -186,10 +186,10 @@ class ItemController extends \BaseController {
 		$i = 0;
 		foreach ($items as $item) {
 			if (!empty($item->place)) {
-				$geoname = Ipalaus\Geonames\Eloquent\Name::where('name', 'like', $item->place)->first();
+				$geoname = Ipalaus\Geonames\Eloquent\Name::where('name', 'like', $item->place)->orderBy('population', 'desc')->first();
 				//ak nevratil, skusim podla alternate_names
 				if (empty($geoname)) {
-					$geoname = Ipalaus\Geonames\Eloquent\Name::where('alternate_names', 'like', '%'.$item->place.'%')->first();
+					$geoname = Ipalaus\Geonames\Eloquent\Name::where('alternate_names', 'like', '%'.$item->place.'%')->orderBy('population', 'desc')->first();
 				}
 
 				if (!empty($geoname)) {
