@@ -251,14 +251,14 @@ a:focus {
     margin: 0 auto 15px auto;
 }
 
-#map {
+#map, #big-map {
     width: 100%;
     height: 200px;
     margin-top: @grid-gutter-width;
 }
 
 @media(min-width: @screen-sm-min) {
-    #map {
+    #map, #big-map {
         height: 400px;
     }
 }
@@ -286,3 +286,6 @@ a:focus {
     width: 100%;
     height: 200px;
 }
+
+.gm-style{font-family: @font-family-sans-serif; font-weight:400;text-decoration:none}
+.gm-style-iw {padding-top: 10px;}

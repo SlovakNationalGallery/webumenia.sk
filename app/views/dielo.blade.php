@@ -119,7 +119,6 @@
                             </tbody>
                         </table>
                         @if (!empty($item->lat) && ($item->lat > 0)) 
-                        {{ dd($item->lat) }}
                             <div id="small-map"></div>
                         @endif
                     </div>

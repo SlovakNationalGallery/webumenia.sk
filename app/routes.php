@@ -27,12 +27,14 @@ Route::get('/', function()
 		}
 	}
 
+	$items = Item::where('lat', '>', '0')->get();
+
 	$template = 'intro';
 	if ($launch_date > time() && !Auth::check()) {
 		$template = 'comming';
 	}
 
-	return View::make($template, array('collections'=>$collections));
+	return View::make($template, array('collections'=>$collections, 'items'=>$items));
 });
 
 Route::get('dielo/{id}/zoom', function($id)
