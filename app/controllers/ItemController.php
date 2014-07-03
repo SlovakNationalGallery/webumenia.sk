@@ -177,7 +177,7 @@ class ItemController extends \BaseController {
 		}
 		$filename = date('Y-m-d-H-i').'_'.$table.'.sql';
 		File::put( app_path() .'/database/backups/' . $filename, $sqlstring);
-		return Redirect::route('item.index')->withMessage('Záloha ' . $filename . ' bola vytvorená.');
+		return Redirect::back()->withMessage('Záloha ' . $filename . ' bola vytvorená.');
 
 	}
 
@@ -200,7 +200,7 @@ class ItemController extends \BaseController {
 				}
 			}
 		}
-		return Redirect::route('item.index')->withMessage('Pre ' . $i . ' diel bola nastavená zemepisná šírka a výška.');
+		return Redirect::back()->withMessage('Pre ' . $i . ' diel bola nastavená zemepisná šírka a výška.');
 	}
 
 	private function uploadImage($item) {
@@ -238,7 +238,7 @@ class ItemController extends \BaseController {
 				// $collection->items()->attach($item_id);
 			}
 		}		
-		return Redirect::route('item.index')->withMessage('Bolo zmazaných ' . count($items) . ' diel');
+		return Redirect::back()->withMessage('Bolo zmazaných ' . count($items) . ' diel');
 	}
 
 }

@@ -134,9 +134,9 @@ class CollectionController extends \BaseController {
 			foreach ($items as $item_id) {
 				$collection->items()->attach($item_id);
 			}
-			return Redirect::route('item.index')->withMessage('Do kolekcie ' . $collection->name . ' bolo pridaných ' . count($items) . ' diel');
+			return Redirect::back()->withMessage('Do kolekcie ' . $collection->name . ' bolo pridaných ' . count($items) . ' diel');
 		} else {
-			return Redirect::route('item.index')->withMessage('Chyba: zvolená kolekcia nebola nájdená. ');
+			return Redirect::back()->withMessage('Chyba: zvolená kolekcia nebola nájdená. ');
 		}
 	}
 
