@@ -48,7 +48,10 @@
 			                <td>{{ $h->set_name }}</td>
 			                <td>{{ $h->metadata_prefix }}</td>
 			                <td>{{ $h->status . ' ' . date("d. m. Y",strtotime($h->updated_at)) }}</td>
-			                <td>{{ link_to_action('SpiceHarvesterController@launch', 'Spustiť', array($h->id), array('class' => 'btn btn-primary ladda-button', 'data-style'=>'expand-right')) }}</td>
+			                <td>
+                                {{ link_to_action('SpiceHarvesterController@orphaned', 'Zobraziť odobrané zo setu', array($h->id), array('class' => 'btn btn-danger ladda-button', 'data-style'=>'expand-right')) }}
+                                {{ link_to_action('SpiceHarvesterController@launch', 'Spustiť', array($h->id), array('class' => 'btn btn-primary ladda-button', 'data-style'=>'expand-right')) }} 
+                            </td>
 			            </tr>
 						@endforeach
                     </tbody>

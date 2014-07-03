@@ -85,7 +85,45 @@ class SpiceHarvesterController extends \BaseController {
 	public function destroy($id)
 	{
 		//
-	}	
+	}
+
+	public function orphaned($id)
+	{
+		$processed_items = 0;
+	    $removed_items = 0;
+	    $timeStart = microtime(true);
+        $start_from = null;
+
+		$harvest = SpiceHarvesterHarvest::find($id);
+		$client = new \Phpoaipmh\Client($harvest->base_url);
+	    $myEndpoint = new \Phpoaipmh\Endpoint($client);
+
+	    $items = Item::where('id', 'NOT LIKE', 'SVK:TMP%')->get();
+	    $items_to_remove = array();
+
+	    foreach ($items as $item) {
+	    	$processed_items++;
+	    	$remove_id = true;
+	    	$rec = $myEndpoint->getRecord($item->id, $harvest->metadata_prefix);
+	    	if (!empty($rec)) {	    		
+		    	$setSpecs = (array) $rec->GetRecord->record->header->setSpec;
+		    	// if ($setSpec==$harvest->set_spec) {
+		    	if (in_array($harvest->set_spec, $setSpecs)) {
+		    		$remove_id = false;		
+		    	} 
+	    	}
+	    	if ($remove_id) {
+	    		$items_to_remove[] = $item->id;
+	    	}
+	    }
+	    
+		$collections = Collection::lists('name', 'id');
+		$items = Item::whereIn('id', $items_to_remove)->paginate('50');
+
+		Session::flash('message', 'Našlo sa ' .count($items_to_remove). ' diel, ktoré sa už nenachádzajú v OAI sete ' . $harvest->set_name . ':');		
+        return View::make('items.index', array('items' => $items, 'collections' => $collections));		
+
+	}
 
 	/**
 	 * Launch the harvest process
@@ -99,8 +137,6 @@ class SpiceHarvesterController extends \BaseController {
 	    $new_items = 0;
 	    $updated_items = 0;
 	    $timeStart = microtime(true);
-
-	    $first_record_id = '';
 
 		$harvest = SpiceHarvesterHarvest::find($id);
 

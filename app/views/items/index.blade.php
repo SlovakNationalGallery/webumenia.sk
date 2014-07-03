@@ -28,8 +28,9 @@
             <div class="panel-heading">
                 <a href="{{ route('item.create') }}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Vytvoriť</a>
                 <a href="{{ URL::to('item/backup') }}" class="btn btn-primary btn-outline"><i class="fa fa-floppy-o"></i> Zazálohovať</a> 
-                <a href="{{ URL::to('item/geodata') }}" class="btn btn-primary btn-outline"><i class="fa fa-globe"></i> Doplniť geo dáta</a><br>
-                Pridať vybraté do kolekcie: {{ Form::select('collection', $collections); }} &nbsp;  {{ Form::submit('Pridať', array('class' => 'btn btn-default')) }} 
+                <a href="{{ URL::to('item/geodata') }}" class="btn btn-primary btn-outline"><i class="fa fa-globe"></i> Doplniť geo dáta</a></div>
+                <div class="panel-heading">
+                Akcie pre vybraté: {{ Form::select('collection', $collections); }} {{ Form::submit('Pridať do kolekcie', array('class' => 'btn btn-info btn-xs btn-outline')) }} | <a href="#" id="deleteSelected" class="btn btn-danger btn-xs btn-outline">Zmazať</a>
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -87,4 +88,34 @@
 </div>
 <!-- /.row -->
 
+<!-- Modal -->
+<div tabindex="-1" class="modal fade" id="confirm" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-body">
+                Naozaj ich zmazať?
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-danger" id="delete">Zmazať</button>
+                <button type="button" data-dismiss="modal" class="btn btn-default">Naspäť</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@stop
+
+{{-- script --}}
+@section('script')
+<script>
+$('#deleteSelected').on('click', function(e){
+    var $form=$(this).closest('form');
+    e.preventDefault();
+    $('#confirm').modal({  })
+        .one('click', '#delete', function (e) {
+            $form.attr("action","{{ URL::to('item/destroySelected') }}");
+            $form.trigger('submit');
+        });
+});
+</script>
 @stop

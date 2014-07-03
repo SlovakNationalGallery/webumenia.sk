@@ -45,6 +45,11 @@ class Item extends Eloquent {
 	protected $guarded = array('featured');
 
 
+	public function collections()
+    {
+        return $this->belongsToMany('Collection', 'collection_item', 'item_id', 'collection_id');
+    }
+
 	public function getImagePath($full=false) {
 
 		$levels = 1;

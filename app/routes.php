@@ -78,9 +78,11 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('admin', 'AdminController@index');
 	Route::get('logout', 'AuthController@logout');
 	Route::get('harvests/launch/{id}', 'SpiceHarvesterController@launch');
+	Route::get('harvests/orphaned/{id}', 'SpiceHarvesterController@orphaned');
 	Route::resource('harvests', 'SpiceHarvesterController');
 	Route::get('item/backup', 'ItemController@backup');
 	Route::get('item/geodata', 'ItemController@geodata');
+	Route::post('item/destroySelected', 'ItemController@destroySelected');
 	Route::get('search', 'ItemController@search');
 	Route::resource('item', 'ItemController');
 	Route::post('collection/fill', 'CollectionController@fill');

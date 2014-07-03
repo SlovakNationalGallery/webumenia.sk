@@ -217,4 +217,28 @@ class ItemController extends \BaseController {
 		$uploaded_image->save($filename);
 	}
 
+	/**
+	 * Fill the collection with items
+	 *
+	 * @param  
+	 * @return Response
+	 */
+	public function destroySelected()
+	{
+		$items = Input::get('ids');
+		if (!empty($items) > 0) {
+			foreach ($items as $item_id) {
+				$item = Item::find($item_id);
+				$image = $item->getImagePath(true); // fullpath, disable no image
+				if ($image) {
+					@unlink($image); 
+				}
+				$item->collections()->detach();
+				$item->delete();
+				// $collection->items()->attach($item_id);
+			}
+		}		
+		return Redirect::route('item.index')->withMessage('Bolo zmazaných ' . count($items) . ' diel');
+	}
+
 }

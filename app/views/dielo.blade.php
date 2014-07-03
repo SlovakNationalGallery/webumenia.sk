@@ -29,7 +29,7 @@
                                 <a href="{{ $item->getImagePath() }}" class="btn btn-default btn-outline  uppercase sans"><i class="fa fa-download"></i> stiahnuť obrázok</a>
                                 @if (!empty($item->iipimg_url))
                                    <a href="{{ URL::to('dielo/' . $item->id . '/zoom') }}" class="btn btn-default btn-outline  uppercase sans"><i class="fa fa-search-plus"></i> deep zoom obrázku</a>
-                                @endif    
+                                @endif
                             </div>
                         </div>
                         
@@ -49,13 +49,19 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @if (!empty($item->measurement))
+                                <tr>
+                                    <td class="atribut">rozmer:</td>
+                                    <td>{{  implode(' x ', $item->measurements) }}</td>
+                                </tr>
+                                @endif
                                 @if (!empty($item->description))
                                 <tr>
                                     <td class="atribut">popis:</td>
                                     <td>{{  nl2br($item->description) }}</td>
                                 </tr>
                                 @endif
-                                @if (!empty($item->t))
+                                @if (!empty($item->work_type))
                                 <tr>
                                     <td class="atribut">výtvarný druh:</td>
                                     <td>{{ $item->work_type; }}</td>

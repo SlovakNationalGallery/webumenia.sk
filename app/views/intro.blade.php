@@ -2,7 +2,7 @@
 
 @section('title')
 @parent
-- obraz Slovenska  - 19. storočie X súčasnosť
+- obraz Slovenska - 19. storočie × súčasnosť
 @stop
 
 @section('content')
