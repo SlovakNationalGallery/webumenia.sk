@@ -2,7 +2,7 @@
 
 @section('title')
 @parent
-- {{ $item->name }}
+- {{ $item->title }}
 @stop
 
 @section('content')
