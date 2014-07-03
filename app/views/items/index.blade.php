@@ -58,7 +58,10 @@
 			                <td>{{ $i->author }}</td>
 			                <td>{{ $i->dating }}</td>
 			                <td>{{ $i->work_type }}</td>
-			                <td class="action">{{ link_to_action('ItemController@show', 'Detail', array($i->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', )) }}&nbsp;{{ link_to_action('ItemController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) }}</td>
+			                <td class="action">
+                                {{ link_to_action('ItemController@show', 'Detail', array($i->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', )) }}&nbsp;{{ link_to_action('ItemController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) }} 
+                                <a href="{{ $i->getDetailUrl() }}" class="btn btn-success btn-xs btn-outline" target="_blank">Na webe</a>
+                            </td>
 			            </tr>
 						@endforeach
                     </tbody>
