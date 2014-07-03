@@ -48,6 +48,22 @@ Route::get('dielo/{id}/zoom', function($id)
 	return View::make('zoom', array('item'=>$item));
 });
 
+Route::get('dielo/{id}/downloadImage', function($id)
+{
+	$item = Item::find($id);
+
+	if (empty($item)) {
+		App::abort(404);
+	}
+
+	$pathToFile = $item->getImagePath(true);
+	if (!file_exists($pathToFile)) {
+		App::abort(404);
+	}
+
+	return Response::download($pathToFile);
+});
+
 Route::get('dielo/{id}', function($id)
 {
 	$item = Item::find($id);

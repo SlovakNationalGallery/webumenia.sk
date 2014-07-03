@@ -26,7 +26,9 @@
                         @endif
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <a href="{{ $item->getImagePath() }}" class="btn btn-default btn-outline  uppercase sans"><i class="fa fa-download"></i> stiahnuť obrázok</a>
+                                @if (strpos($item->getImagePath(),'no-image') == false)
+                                <a href="{{ URL::to('dielo/' . $item->id . '/downloadImage')  }}" class="btn btn-default btn-outline  uppercase sans"><i class="fa fa-download"></i> stiahnuť obrázok</a>
+                                @endif
                                 @if (!empty($item->iipimg_url))
                                    <a href="{{ URL::to('dielo/' . $item->id . '/zoom') }}" class="btn btn-default btn-outline  uppercase sans"><i class="fa fa-search-plus"></i> deep zoom obrázku</a>
                                 @endif
