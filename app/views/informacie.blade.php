@@ -2,7 +2,7 @@
 
 @section('title')
 @parent
-- informácie o výstave
+| informácie o výstave
 @stop
 
 @section('content')

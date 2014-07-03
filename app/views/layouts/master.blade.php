@@ -9,7 +9,7 @@
 
 		<title>
 			@section('title')
-			Dve krajiny - obraz Slovenska  - 19. storočie X súčasnosť
+			Dve krajiny 
 			@show
 		</title>
 

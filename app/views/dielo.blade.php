@@ -2,7 +2,7 @@
 
 @section('title')
 @parent
-- {{ $item->title }}
+| {{ implode(', ', $item->authors)}} - {{ $item->title }}
 @stop
 
 @section('content')

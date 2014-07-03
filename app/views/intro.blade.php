@@ -2,7 +2,7 @@
 
 @section('title')
 @parent
-- úvod
+- obraz Slovenska  - 19. storočie X súčasnosť
 @stop
 
 @section('content')

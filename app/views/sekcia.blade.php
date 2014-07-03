@@ -2,7 +2,7 @@
 
 @section('title')
 @parent
-- {{ $collection->name }}
+| {{ $collection->name }}
 @stop
 
 @section('content')
