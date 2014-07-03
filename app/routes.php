@@ -108,5 +108,5 @@ Route::group(array('before' => 'auth'), function(){
 
 App::missing(function($exception)
 {
-    return Response::view('errors.missing', array(), 404);
+    return Response::view('errors.missing', array('transparent_menu'=>true), 404);
 });

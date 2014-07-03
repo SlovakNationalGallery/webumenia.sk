@@ -5,7 +5,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="Online výstava Dve krajiny - obraz Slovenska - 19. storočie x súčastnosť">
-		<meta name="author" content="SNG, Igor Rjabinin">
+		<meta name="author" content="lab.SNG, Igor Rjabinin">
 
 		<title>
 			@section('title')
@@ -58,7 +58,7 @@
 
 <body id="page-top">
 
-	<nav class="navbar navbar-custom navbar-fixed-top {{ Request::is('/') ? '' : 'dark-text' }}" role="navigation">
+	<nav class="navbar navbar-custom navbar-fixed-top {{ (Request::is('/') || $transparent_menu) ? '' : 'dark-text' }}" role="navigation">
 	    <div class="container">
 	        <div class="navbar-header page-scroll">
 	            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
@@ -94,6 +94,11 @@
 	<!-- Content -->
 	@yield('content')
 
+	<div class="footer">
+      <div class="container">
+        <p class="text-muted text-center">Vyrobil a spravuje <a href="http://lab.sng.sk" target="_blank" class="sans">lab.SNG</a></p>
+      </div>
+    </div>
 
 	<!-- Core JavaScript Files -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>

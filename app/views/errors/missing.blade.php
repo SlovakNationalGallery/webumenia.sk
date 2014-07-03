@@ -1,4 +1,4 @@
-@extends('layouts.docasna')
+@extends('layouts.master')
 
 @section('title')
 ERROR 404 - Not Found

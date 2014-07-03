@@ -57,9 +57,6 @@
     </div>
 </section>
 
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-
 @stop
 
 @section('javascript')
