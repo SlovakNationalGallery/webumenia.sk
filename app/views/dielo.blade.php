@@ -2,6 +2,7 @@
 
 @section('og')
 <meta property="og:title" content="{{ implode(', ', $item->authors)}} - {{ $item->title }}" />
+<meta property="og:description" content="{{ $item->work_type; }}, datovanie: {{ $item->dating }}, rozmer: {{  implode(' x ', $item->measurements) }}" />
 <meta property="og:type" content="object" />
 <meta property="og:url" content="{{ Request::url() }}" />
 <meta property="og:image" content="{{ URL::to( $item->getImagePath() ) }}" />

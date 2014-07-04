@@ -2,6 +2,7 @@
 
 @section('og')
 <meta property="og:title" content="{{ $collection->name }}" />
+<meta property="og:description" content="{{ $collection->text }}" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="{{ Request::url() }}" />
 <meta property="og:image" content="{{ URL::to('images/sekcie/' . $collection->id . '.jpeg') }}" />
