@@ -36,6 +36,16 @@
 		<meta name="msapplication-square310x310logo" content="/mstile-310x310.png" />
 		<!--  /favicons-->
 
+		<!--  Open Graph protocol -->
+		@section('og')
+		<meta property="og:title" content="DVE KRAJINY. Obraz Slovenska: 19. storočie × súčasnosť" />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="{{ Request::url() }}" />
+		<meta property="og:image" content="{{ URL::to('/images/vizual-og.jpg') }}" />
+		<meta property="og:site_name" content="DVE KRAJINY" />
+		@show
+		<!--  Open Graph protocol -->
+
 		<!-- CSS are placed here -->
 		<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 		{{ HTML::style('css/styles.css') }}
