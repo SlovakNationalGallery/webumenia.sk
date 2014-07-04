@@ -22,7 +22,7 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 text-center">
                         <img src="/images/x.svg" alt="x" class="xko">
-                    	<h2 class="uppercase">{{ $collection->name }}</h2 class="uppercase">
+                    	<h2 class="uppercase bottom-space">{{ $collection->name }}</h2>
                         <p>{{ nl2br($collection->text) }}</p>
                 </div>
             </div>

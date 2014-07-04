@@ -21,7 +21,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 text-center">
-                    <h2 class="uppercase">{{ $item->title }}</h2>
+                    <h2 class="uppercase bottom-space">{{ $item->title }}</h2>
                 </div>
             </div>
             <div class="row">

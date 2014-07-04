@@ -43,6 +43,10 @@ h6, img.xko {
     // text-transform: uppercase;
     font-family: "dederon_s_d_otbold",Dederon,Arial,sans-serif;
     font-weight: 700;
+
+    &.bottom-space {
+        margin-bottom: 40px;
+    }
 }
 
 h1 {
@@ -319,4 +323,21 @@ a:focus {
         font-size: 12px;
         margin: 0;  
     }
+}
+
+.info {
+    a {
+        border-bottom: lighten(@primary, 60%) solid 1px; 
+        &:hover, &:active {
+            border-bottom: #000 solid 1px; 
+        }
+    }
+    .atribut {
+        font-style: normal;
+        color: @primary;
+    }
+}
+
+p.medium {
+    font-size: 17px;
 }
