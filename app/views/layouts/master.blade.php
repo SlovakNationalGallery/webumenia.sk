@@ -58,7 +58,7 @@
 
 <body id="page-top">
 
-	<nav class="navbar navbar-custom navbar-fixed-top {{ (Request::is('/') || $transparent_menu) ? '' : 'dark-text' }}" role="navigation">
+	<nav class="navbar navbar-custom navbar-fixed-top {{ (Request::is('/') || isSet($transparent_menu)) ? '' : 'dark-text' }}" role="navigation">
 	    <div class="container">
 	        <div class="navbar-header page-scroll">
 	            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
