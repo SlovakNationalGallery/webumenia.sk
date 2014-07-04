@@ -43,7 +43,7 @@
                                 @endif
                             </div>
                             @if (!empty($item->description))
-                            <div class="col-md-12 text-left medium description">
+                            <div class="col-md-12 text-left medium description bottom-space">
                                 {{  nl2br($item->description) }}
                             </div>
                             @endif

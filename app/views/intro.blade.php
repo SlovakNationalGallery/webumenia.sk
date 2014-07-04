@@ -7,7 +7,7 @@
 
 @section('content')
 
-<section class="intro">
+<section class="intro content-section ">
     <div class="intro-body">
         <div class="container">
             <div class="row">
