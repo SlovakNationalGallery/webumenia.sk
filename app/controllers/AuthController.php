@@ -22,7 +22,7 @@ class AuthController extends BaseController {
 			$credentials = array('username' => Input::get('username'), 'password' => Input::get('password'));
 
 			if(Auth::attempt($credentials)){				
-				return Redirect::to('/');
+				return Redirect::back();
 			} else {
 				return Redirect::back()->withInput()->withErrors($v);
 			}

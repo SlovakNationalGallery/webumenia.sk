@@ -140,8 +140,10 @@ class Item extends Eloquent {
 		$measurements = array();
 		if (!empty($this->attributes['measurement'])) {
 			foreach ($measurements_array as $measurement) {
-				$measurement = explode(' ', $measurement, 2);
-				$measurements[$measurement[0]] = $measurement[1];
+				if (!empty($measurement)) {				
+					$measurement = explode(' ', $measurement, 2);
+					$measurements[$measurement[0]] = $measurement[1];
+				}
 			}			
 		}
 

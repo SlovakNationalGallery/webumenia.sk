@@ -42,9 +42,12 @@
                                    <a href="{{ URL::to('dielo/' . $item->id . '/zoom') }}" class="btn btn-default btn-outline  uppercase sans"><i class="fa fa-search-plus"></i> deep zoom obrázku</a>
                                 @endif
                             </div>
+                            @if (!empty($item->description))
+                            <div class="col-md-12 text-left medium description">
+                                {{  nl2br($item->description) }}
+                            </div>
+                            @endif
                         </div>
-                        
-                        
                 </div>
                 <div class="col-md-4 text-left">
                     <div class="table-responsive">
@@ -64,12 +67,6 @@
                                 <tr>
                                     <td class="atribut">rozmer:</td>
                                     <td>{{  implode(' x ', $item->measurements) }}</td>
-                                </tr>
-                                @endif
-                                @if (!empty($item->description))
-                                <tr>
-                                    <td class="atribut">popis:</td>
-                                    <td>{{  nl2br($item->description) }}</td>
                                 </tr>
                                 @endif
                                 @if (!empty($item->work_type))
