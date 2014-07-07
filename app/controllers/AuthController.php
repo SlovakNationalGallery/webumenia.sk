@@ -22,7 +22,8 @@ class AuthController extends BaseController {
 			$credentials = array('username' => Input::get('username'), 'password' => Input::get('password'));
 
 			if(Auth::attempt($credentials)){				
-				return Redirect::back();
+				return Redirect::intended('/admin');
+				// return Redirect::back();
 			} else {
 				return Redirect::back()->withInput()->withErrors($v);
 			}
