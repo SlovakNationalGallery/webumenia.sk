@@ -70,7 +70,8 @@ Route::get('dielo/{id}', function($id)
 	if (empty($item)) {
 		App::abort(404);
 	}
-	return View::make('dielo', array('item'=>$item));
+	$collection = $item->collections->first();
+	return View::make('dielo', array('item'=>$item, 'collection' => $collection ));
 });
 
 Route::get('sekcia/{id}', function($id)

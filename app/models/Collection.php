@@ -13,4 +13,9 @@ class Collection extends Eloquent {
         return $this->belongsToMany('Item', 'collection_item', 'collection_id', 'item_id');
     }
 
+    public function getUrl()
+    {
+    	return URL::to('sekcia/' . $this->attributes['id']);
+    }
+
 }

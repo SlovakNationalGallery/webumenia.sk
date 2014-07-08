@@ -106,7 +106,7 @@ a:focus {
 .navbar {
     margin-bottom: 0;
     text-transform: uppercase;
-    background-color: @primary;
+    background-color: @dark;
     
     a {
         color: @light;
@@ -115,7 +115,7 @@ a:focus {
         transition: background .3s ease-in-out;        
     }
     a:hover, a:focus, a.active {
-        color: @primary;
+        color: @dark;
         outline: 0;
         background-color: rgba(255,255,255,.8);        
     }
@@ -285,9 +285,14 @@ a:focus {
 }
 
 .item-title {
-    background-color: #f3f3f3;
     padding: 10px;
     margin-bottom: @grid-gutter-width;
+    -webkit-transition: background .3s ease-in-out;
+    -moz-transition: background .3s ease-in-out;
+    transition: background .3s ease-in-out;        
+    &:hover {
+        background-color: #f3f3f3;
+    }
 }
 
 .item {
@@ -344,4 +349,11 @@ p.medium {
 
 .bottom-space {
     margin-bottom: 40px;
+}
+
+.navbar .navbar-brand{
+    text-transform: none;
+    &.text-small{
+        font-size: 16px;
+    }
 }

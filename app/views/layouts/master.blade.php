@@ -78,6 +78,9 @@
 	            <a class="navbar-brand" href="{{ URL::to('') }}">
 	                <i class="icon-sng"></i>
 	            </a>
+	            @if (Request::is('dielo/*') && isSet($item))
+	            	 <a href="{{ $collection->getUrl() }}" class="navbar-brand text-small hidden-xs hidden-sm">/&nbsp; {{ $collection->name }}</a>
+	            @endif
 	        </div>
 
 	        <div class="collapse navbar-collapse navbar-right navbar-main-collapse">

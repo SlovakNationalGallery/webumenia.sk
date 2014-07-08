@@ -235,7 +235,6 @@ class ItemController extends \BaseController {
 				}
 				$item->collections()->detach();
 				$item->delete();
-				// $collection->items()->attach($item_id);
 			}
 		}		
 		return Redirect::back()->withMessage('Bolo zmazaných ' . count($items) . ' diel');

@@ -23,7 +23,7 @@
                 <div class="col-md-8 col-md-offset-2 text-center">
                         <img src="/images/x.svg" alt="x" class="xko">
                     	<h2 class="uppercase bottom-space">{{ $collection->name }}</h2>
-                        <p>{{ nl2br($collection->text) }}</p>
+                        <p>{{ $collection->text }}</p>
                 </div>
             </div>
         </div>
@@ -49,9 +49,8 @@
 	                		<img src="{{ $item->getImagePath() }}" class="img-responsive">	                		
 	                	</a>
                         <div class="item-title">
-                            {{ $item->author }} <br />
-                            <strong>{{ $item->title }}</strong><br>
-                            <em>{{ $item->dating }}</em>
+                            <strong>{{ $item->title }}</strong>, <em>{{ $item->getDatingFormated() }}</em><br>
+                            {{ implode(', ', $item->authors) }}
                         </div>
 	                </div>	
             	@endforeach

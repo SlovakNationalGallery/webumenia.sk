@@ -36,15 +36,15 @@
                         <div class="row">
                             <div class="col-md-12 text-center">
                                 @if (strpos($item->getImagePath(),'no-image') == false)
-                                <a href="{{ URL::to('dielo/' . $item->id . '/downloadImage')  }}" class="btn btn-default btn-outline  uppercase sans"><i class="fa fa-download"></i> stiahnuť obrázok</a>
+                                <a href="{{ URL::to('dielo/' . $item->id . '/downloadImage')  }}" class="btn btn-default btn-outline  uppercase sans"><i class="fa fa-download"></i> stiahnuť </a>
                                 @endif
                                 @if (!empty($item->iipimg_url))
-                                   <a href="{{ URL::to('dielo/' . $item->id . '/zoom') }}" class="btn btn-default btn-outline  uppercase sans"><i class="fa fa-search-plus"></i> deep zoom obrázku</a>
+                                   <a href="{{ URL::to('dielo/' . $item->id . '/zoom') }}" class="btn btn-default btn-outline  uppercase sans"><i class="fa fa-search-plus"></i> zoom obrázku</a>
                                 @endif
                             </div>
                             @if (!empty($item->description))
                             <div class="col-md-12 text-left medium description bottom-space">
-                                {{  nl2br($item->description) }}
+                                {{  $item->description }}
                             </div>
                             @endif
                         </div>
@@ -55,18 +55,18 @@
                             <thead>
                                 <tr>
                                     <td class="atribut">autor:</td>
-                                    <td>{{ implode('<br> ', $item->authors);}}</td>
+                                    <td><strong>{{ implode('<br> ', $item->authors);}}</strong></td>
                                 </tr>
                                 <tr>
                                     <td class="atribut">datovanie:</td>
-                                    <td>{{ $item->dating; }}</td>
+                                    <td>{{ $item->getDatingFormated(); }}</td>
                                 </tr>
                             </thead>
                             <tbody>
                                 @if (!empty($item->measurement))
                                 <tr>
                                     <td class="atribut">rozmer:</td>
-                                    <td>{{  implode(' x ', $item->measurements) }}</td>
+                                    <td>{{  implode(' &times; ', $item->measurements) }}</td>
                                 </tr>
                                 @endif
                                 @if (!empty($item->work_type))
@@ -85,6 +85,12 @@
                                 <tr>
                                     <td class="atribut">motív:</td>
                                     <td>{{ implode(', ', $item->subjects);}}</td>
+                                </tr>
+                                @endif
+                                @if (!empty($collection))
+                                <tr class="hidden-xs hidden-sm">
+                                    <td class="atribut">sekcia:</td>
+                                    <td><a href="{{ $collection->getUrl() }}">{{ mb_strtolower($collection->name, 'UTF-8') }}</a></td>
                                 </tr>
                                 @endif
                                 @if (!empty($item->technique))

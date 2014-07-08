@@ -150,6 +150,10 @@ class Item extends Eloquent {
 		return $measurements;
 	}
 
+	public function getDatingFormated() {
+		$trans = array("/" => "&ndash;");
+		return strtr($this->attributes['dating'], $trans);
+	}
 
 
 	/**

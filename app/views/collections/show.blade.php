@@ -27,7 +27,7 @@
 							</tr>
 							<tr>
 								<td>text:</td>
-								<td>{{ nl2br($collection->text) }}</td>
+								<td>{{ $collection->text }}</td>
 							</tr>
 							@foreach ($collection->items as $item)
 							<tr>

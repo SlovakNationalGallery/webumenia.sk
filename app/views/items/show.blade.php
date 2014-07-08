@@ -31,7 +31,7 @@
 							</tr>
 							<tr>
 								<td>popis:</td>
-								<td>{{ nl2br($item->description) }}</td>
+								<td>{{ $item->description }}</td>
 							</tr>
 							<tr>
 								<td>výtvarný druh:</td>
