@@ -78,7 +78,7 @@
 	            <a class="navbar-brand" href="{{ URL::to('') }}">
 	                <i class="icon-sng"></i>
 	            </a>
-	            @if (Request::is('dielo/*') && isSet($item))
+	            @if (Request::is('dielo/*') && isSet($collection))
 	            	 <a href="{{ $collection->getUrl() }}" class="navbar-brand text-small hidden-xs hidden-sm">/&nbsp; {{ $collection->name }}</a>
 	            @endif
 	        </div>
