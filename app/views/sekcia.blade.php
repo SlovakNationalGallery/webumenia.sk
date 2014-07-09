@@ -49,8 +49,13 @@
 	                		<img src="{{ $item->getImagePath() }}" class="img-responsive">	                		
 	                	</a>
                         <div class="item-title">
+                            @if (!empty($item->iipimg_url))
+                                <div class="pull-right"><a href="{{ URL::to('dielo/' . $item->id . '/zoom') }}" data-toggle="tooltip" data-placement="left" title="Zoom obrázku"><i class="fa fa-search-plus"></i></a></div>
+                            @endif    
+                            <a href="{{ $item->getDetailUrl() }}">                        
                             <strong>{{ $item->title }}</strong>, <em>{{ $item->getDatingFormated() }}</em><br>
                             {{ implode(', ', $item->authors) }}
+                            </a>
                         </div>
 	                </div>	
             	@endforeach
@@ -79,6 +84,8 @@
 <script type="text/javascript">
     var map;
     $(document).ready(function(){
+        $("[data-toggle='tooltip']").tooltip();
+
         map = new GMaps({
             el: '#big-map',
             lat: 48.705862, 

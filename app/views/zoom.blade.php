@@ -87,7 +87,7 @@
 
  <body>
    <div id="viewer"></div>
-   <a class="btn btn-default btn-outline return" href="{{ $item->getDetailUrl() }}" role="button"><i class="fa fa-arrow-left"></i> naspäť</a>
+   <a class="btn btn-default btn-outline return" href="{{ URL::previous() }}" role="button"><i class="fa fa-arrow-left"></i> naspäť</a>
  </body>
 
 </html>

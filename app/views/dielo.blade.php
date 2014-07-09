@@ -27,7 +27,7 @@
             <div class="row">
                 <div class="col-md-8 text-center">
                         @if (!empty($item->iipimg_url))
-                            <a href="{{ URL::to('dielo/' . $item->id . '/zoom') }}">
+                            <a href="{{ URL::to('dielo/' . $item->id . '/zoom') }}" data-toggle="tooltip" data-placement="top" title="Zoom obrázku">
                         @endif    
                         <img src="{{ $item->getImagePath() }}" class="img-responsive img-dielo">
                         @if (!empty($item->iipimg_url))
@@ -88,7 +88,7 @@
                                 </tr>
                                 @endif
                                 @if (!empty($collection))
-                                <tr class="hidden-xs hidden-sm">
+                                <tr>
                                     <td class="atribut">sekcia:</td>
                                     <td><a href="{{ $collection->getUrl() }}">{{ mb_strtolower($collection->name, 'UTF-8') }}</a></td>
                                 </tr>
@@ -165,6 +165,9 @@
 <script type="text/javascript">
     var map;
     $(document).ready(function(){
+
+        $("[data-toggle='tooltip']").tooltip();
+        
         map = new GMaps({
             el: '#small-map',
             lat: 48.705862, 
