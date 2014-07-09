@@ -20,8 +20,8 @@
     <div class="item-body">
         <div class="container">
             <div class="row">
-                <div class="col-md-8 col-md-offset-2 text-center">
-                    <h2 class="uppercase bottom-space">{{ $item->title }}</h2>
+                <div class="col-md-10 col-md-offset-1 text-center">
+                    <h2 class="uppercase bottom-space nadpis-dielo">{{ $item->title }}</h2>
                 </div>
             </div>
             <div class="row">
@@ -167,7 +167,7 @@
     $(document).ready(function(){
 
         $("[data-toggle='tooltip']").tooltip();
-        
+
         map = new GMaps({
             el: '#small-map',
             lat: 48.705862, 
