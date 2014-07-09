@@ -38,9 +38,9 @@
             <div class="row">
                 <div class="col-md-6">
                     <p><strong class="atribut">Termín:</strong> 3. júl - 19. október 2014</p>
-                    <p><strong class="atribut">Koncepcia:</strong> Matrin Čičo, Katarína Bajcurová</p>
+                    <p><strong class="atribut">Koncepcia:</strong> Martin Čičo, Katarína Bajcurová</p>
                     <p><strong class="atribut">Kurátori:</strong> Lucia Almášiová, Katarína Beňová, Petra Hanáková, Aurel Hrabušický, Lucia G. Stachová</p>
-                    <p><strong class="atribut">Miesto:</strong> Slovenská národá galéria, Esterházyho palác, 2. a 3. poschodie, Námestie  Ľ. Štúra 4, Bratislava</p>
+                    <p><strong class="atribut">Miesto:</strong> Slovenská národná galéria, Esterházyho palác, 2. a 3. poschodie, Námestie  Ľ. Štúra 4, Bratislava</p>
                     
                     <p><strong class="atribut">Otváracie hodiny:</strong></p>
 
