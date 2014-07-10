@@ -58,7 +58,8 @@ class ItemController extends \BaseController {
 		$v = Validator::make($input, $rules);
 
 		if ($v->passes()) {
-			
+
+			$input = array_filter($input, 'strlen');
 			$item = new Item;
 			$item->fill($input);
 			$item->save();
@@ -114,6 +115,7 @@ class ItemController extends \BaseController {
 		if($v->passes())
 		{
 			$input = array_except(Input::all(), array('_method'));
+			$input = array_filter($input, 'strlen');
 
 			$item = Item::find($id);
 			$item->fill($input);
@@ -185,7 +187,7 @@ class ItemController extends \BaseController {
 		$items = Item::where('place', '!=', '')->get();
 		$i = 0;
 		foreach ($items as $item) {
-			if (!empty($item->place)) {
+			if (!empty($item->place) && (empty($item->lat))) {
 				$geoname = Ipalaus\Geonames\Eloquent\Name::where('name', 'like', $item->place)->orderBy('population', 'desc')->first();
 				//ak nevratil, skusim podla alternate_names
 				if (empty($geoname)) {

@@ -171,4 +171,14 @@ class Item extends Eloquent {
 	    return $sum;
 	}
 
+	public function setLat($value)
+	{
+	    $this->attributes['lat'] = $value ?: null;
+	}
+
+	public function setLng($value)
+	{
+	    $this->attributes['lng'] = $value ?: null;
+	}
+
 }
