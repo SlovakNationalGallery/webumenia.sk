@@ -83,7 +83,7 @@
                                 @endif
                                 @if (!empty($item->subject))
                                 <tr>
-                                    <td class="atribut">motív:</td>
+                                    <td class="atribut">tagy:</td>
                                     <td>{{ implode(', ', $item->subjects);}}</td>
                                 </tr>
                                 @endif
@@ -93,7 +93,7 @@
                                     <td><a href="{{ $collection->getUrl() }}">{{ mb_strtolower($collection->name, 'UTF-8') }}</a></td>
                                 </tr>
                                 @endif
-                                @if (!empty($item->technique))
+                                @if (!empty($item->medium))
                                 <tr>
                                     <td class="atribut">materiál:</td>
                                     <td>{{ $item->medium; }}</td>
