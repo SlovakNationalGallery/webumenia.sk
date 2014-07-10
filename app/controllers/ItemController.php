@@ -234,6 +234,9 @@ class ItemController extends \BaseController {
 					@unlink($image); 
 				}
 				$item->collections()->detach();
+
+				SpiceHarvesterRecord::where('identifier', '=', $item_id)->delete();
+				
 				$item->delete();
 			}
 		}		

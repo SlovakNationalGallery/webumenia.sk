@@ -2,8 +2,7 @@
 
 class SpiceHarvesterRecord extends Eloquent {
 
-	use SoftDeletingTrait;
-	protected $dates = ['deleted_at'];
+	protected $softDelete = true; 
 
 	public function harvest()
     {

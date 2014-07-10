@@ -136,6 +136,7 @@ class SpiceHarvesterController extends \BaseController {
 		$processed_items = 0;
 	    $new_items = 0;
 	    $updated_items = 0;
+	    $skipped_items = 0;
 	    $timeStart = microtime(true);
 
 		$harvest = SpiceHarvesterHarvest::find($id);
@@ -165,20 +166,27 @@ class SpiceHarvesterController extends \BaseController {
 	    while($rec = $recs->nextItem()) {
 	    	$processed_items++;
 	    	
-	    	if (!$this->isDeletedRecord($rec)) {
+	    	if (!$this->isDeletedRecord($rec)) { //ak je v sete oznaceny ako zmazany
 
-				$existingRecord = SpiceHarvesterRecord::where('identifier', '=', $rec->header->identifier)->first();
+	    		//ak bol zmazany v tu v databaze, ale nachadza sa v OAI sete
+	    		$is_deleted_record = SpiceHarvesterRecord::onlyTrashed()->where('identifier', '=', $rec->header->identifier)->count();
+	    		if ($is_deleted_record > 0) {
+	    			$skipped_items++;
+	    		//inak insert alebo update
+	    		} else {
+					$existingRecord = SpiceHarvesterRecord::where('identifier', '=', $rec->header->identifier)->first();
 
-		        if ($existingRecord) {
-		            // ak sa zmenil datestamp, update item - inak ignorovat
-		            // if( $existingRecord->datestamp != $rec->header->datestamp) {
-		                $this->updateItem($existingRecord, $rec);
-		                $updated_items++;
-		            // }
-		        } else {
-		            $this->insertItem($id, $rec);
-		            $new_items++;
-		        }
+			        if ($existingRecord) {
+			            // ak sa zmenil datestamp, update item - inak ignorovat
+			            // if( $existingRecord->datestamp != $rec->header->datestamp) {
+			                $this->updateItem($existingRecord, $rec);
+			                $updated_items++;
+			            // }
+			        } else {
+			            $this->insertItem($id, $rec);
+			            $new_items++;
+			        }
+			    }
 
    	    	}
 	    }
@@ -188,7 +196,7 @@ class SpiceHarvesterController extends \BaseController {
 
 	    $totalTime = round((microtime(true)-$timeStart));
 
-	    Session::flash('message', 'Spracovaných bolo ' . $processed_items . ' diel. Z toho pribudlo ' . $new_items . ' nových diel a ' . $updated_items . ' bolo upravených. Trvalo to ' . $totalTime . 's' );
+	    Session::flash('message', 'Spracovaných bolo ' . $processed_items . ' diel. Z toho pribudlo ' . $new_items . ' nových diel,  ' . $updated_items . ' bolo upravených a ' . $skipped_items . ' bolo preskočených. Trvalo to ' . $totalTime . 's' );
 	    return Redirect::route('harvests.index');
 	}
 

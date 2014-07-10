@@ -50,7 +50,7 @@
                         </div>
                 </div>
                 <div class="col-md-4 text-left">
-                    <div class="table-responsive">
+
                         <table class="table">
                             <thead>
                                 <tr>
@@ -143,10 +143,10 @@
                                 @endif
                             </tbody>
                         </table>
-                        @if (!empty($item->lat) && ($item->lat > 0)) 
-                            <div id="small-map"></div>
-                        @endif
-                    </div>
+
+                    @if (!empty($item->lat) && ($item->lat > 0)) 
+                        <div id="small-map"></div>
+                    @endif
                 </div>
             </div>
         </div>
