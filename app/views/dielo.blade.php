@@ -105,18 +105,6 @@
                                     <td>{{ $item->technique; }}</td>
                                 </tr>
                                 @endif
-                                @if (!empty($item->inscription))
-                                <tr>
-                                    <td class="atribut">značenie:</td>
-                                    <td>{{ $item->inscription; }}</td>
-                                </tr>
-                                @endif
-                                @if (!empty($item->place))
-                                <tr>
-                                    <td class="atribut">geografická oblasť:</td>
-                                    <td>{{ $item->place; }}</td>
-                                </tr>
-                                @endif
                                 @if (!empty($item->integrity))
                                 <tr>
                                     <td class="atribut">stupeň spracovania:</td>
@@ -135,10 +123,22 @@
                                     <td>{{ $item->integrity_work; }}</td>
                                 </tr>
                                 @endif
+                                @if (!empty($item->inscription))
+                                <tr>
+                                    <td class="atribut">značenie:</td>
+                                    <td>{{ $item->inscription; }}</td>
+                                </tr>
+                                @endif
                                 @if (!empty($item->gallery))
                                 <tr>
                                     <td class="atribut">inštitúcia /<br> majiteľ:</td>
                                     <td>{{ $item->gallery; }}</td>
+                                </tr>
+                                @endif
+                                @if (!empty($item->place))
+                                <tr>
+                                    <td class="atribut">geografická oblasť:</td>
+                                    <td>{{ $item->place; }}</td>
                                 </tr>
                                 @endif
                             </tbody>
