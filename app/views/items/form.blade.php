@@ -68,7 +68,7 @@
 </div>
 <div class="col-md-12">
 	<div class="form-group">
-	{{ Form::label('subject', 'motív') }}
+	{{ Form::label('subject', 'tagy') }}
 	{{ Form::text('subject', Input::old('subject'), array('class' => 'form-control')) }}
 	</div>
 </div>

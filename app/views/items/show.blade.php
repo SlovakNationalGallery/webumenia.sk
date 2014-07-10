@@ -46,7 +46,7 @@
 								<td>{{ $item->topic; }}</td>
 							</tr>
 							<tr>
-								<td>motív:</td>
+								<td>tagy:</td>
 								<td>{{ $item->subject; }}</td>
 							</tr>
 							<tr>
