@@ -54,7 +54,8 @@
                             @endif    
                             <a href="{{ $item->getDetailUrl() }}">                        
                             <strong>{{ $item->title }}</strong>, <em>{{ $item->getDatingFormated() }}</em><br>
-                            {{ implode(', ', $item->authors) }}
+                            <em>{{ implode(', ', $item->authors) }}</em><br>
+                            <span class="">{{ $item->gallery }}</span>
                             </a>
                         </div>
 	                </div>	
