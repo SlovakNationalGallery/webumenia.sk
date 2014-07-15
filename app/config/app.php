@@ -108,6 +108,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Orangehill\Iseed\IseedServiceProvider',
 		'Ipalaus\Geonames\GeonamesServiceProvider',
+		'Dinesh\Bugonemail\BugonemailServiceProvider',
 	),
 
 	/*
