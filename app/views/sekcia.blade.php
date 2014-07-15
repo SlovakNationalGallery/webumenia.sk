@@ -52,9 +52,10 @@
                             @if (!empty($item->iipimg_url))
                                 <div class="pull-right"><a href="{{ URL::to('dielo/' . $item->id . '/zoom') }}" data-toggle="tooltip" data-placement="left" title="Zoom obrázku"><i class="fa fa-search-plus"></i></a></div>
                             @endif    
-                            <a href="{{ $item->getDetailUrl() }}">                        
+                            <a href="{{ $item->getDetailUrl() }}">
+                                <em>{{ implode(', ', $item->authors) }}</em><br>
                             <strong>{{ $item->title }}</strong>, <em>{{ $item->getDatingFormated() }}</em><br>
-                            <em>{{ implode(', ', $item->authors) }}</em><br>
+                            
                             <span class="">{{ $item->gallery }}</span>
                             </a>
                         </div>
