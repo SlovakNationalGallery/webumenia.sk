@@ -133,6 +133,7 @@ class SpiceHarvesterController extends \BaseController {
 	 */
 	public function launch($id)
 	{
+		$reindex = Input::get('reindex', false);
 		$processed_items = 0;
 	    $new_items = 0;
 	    $updated_items = 0;
@@ -143,7 +144,7 @@ class SpiceHarvesterController extends \BaseController {
 
         $start_from = null;
 
-		if ($harvest->status == SpiceHarvesterHarvest::STATUS_COMPLETED) {
+		if ($harvest->status == SpiceHarvesterHarvest::STATUS_COMPLETED && !$reindex) {
             $start_from = $harvest->initiated;
         } 
 
