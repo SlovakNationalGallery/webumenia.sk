@@ -338,7 +338,12 @@ class SpiceHarvesterController extends \BaseController {
 
 	    if (!empty($identifier[3]) && (strpos($identifier[3], 'http') === 0)) {
 	    	$iip_resolver = $identifier[3];
-	    	$iip_url = file_get_contents($iip_resolver);
+	    	
+	    	$str = file_get_contents($iip_resolver);
+	    	$str = strip_tags($str, '<br>'); //zrusi vsetky html tagy okrem <br>
+			$iip_urls = explode('<br>', $str); //rozdeli do pola podla <br>
+			asort($iip_urls); // zoradi pole podla poradia - aby na zaciatku boli predne strany (1_2, 2_2 ... )
+			$iip_url = reset($iip_urls); // vrati prvy obrazok z pola - docasne - kym neumoznime viacero obrazkov k dielu
 	    	$iip_url = substr($iip_url, strpos( $iip_url, '?FIF=')+5);
 	    	$iip_url = substr($iip_url, 0, strpos( $iip_url, '.jp2')+4);
 	    	$attributes['iipimg_url'] = $iip_url;
