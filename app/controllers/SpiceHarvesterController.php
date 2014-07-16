@@ -336,9 +336,10 @@ class SpiceHarvesterController extends \BaseController {
 	    $attributes['img_url'] = (!empty($identifier[1]) && (strpos($identifier[1], 'http') === 0)) ? $identifier[1] : null; //ak nieje prazdne a zacina 'http'
 
 	    if (!empty($identifier[3]) && (strpos($identifier[3], 'http') === 0)) {
-	    	$iip_resolver = $identifier[3]; //substr($identifier[3], 0, strpos( $identifier[3], '?'));
+	    	$iip_resolver = $identifier[3];
 	    	$iip_url = file_get_contents($iip_resolver);
 	    	$iip_url = substr($iip_url, strpos( $iip_url, '?FIF=')+5);
+	    	$iip_url = substr($iip_url, 0, strpos( $iip_url, '.jp2')+4);
 	    	$attributes['iipimg_url'] = $iip_url;
 	    }
 
