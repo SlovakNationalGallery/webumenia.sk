@@ -90,7 +90,7 @@
                                 @if (!empty($collection))
                                 <tr>
                                     <td class="atribut">sekcia:</td>
-                                    <td><a href="{{ $collection->getUrl() }}">{{ mb_strtolower($collection->name, 'UTF-8') }}</a></td>
+                                    <td><a href="{{ $collection->getUrl() }}">{{ $collection->name }}</a></td>
                                 </tr>
                                 @endif
                                 @if (!empty($item->medium))
@@ -126,7 +126,7 @@
                                 @if (!empty($item->inscription))
                                 <tr>
                                     <td class="atribut">značenie:</td>
-                                    <td>{{ $item->inscription; }}</td>
+                                    <td><div class="znacenie">{{ implode('<br> ', $item->makeArray($item->inscription));}}</div></td>
                                 </tr>
                                 @endif
                                 @if (!empty($item->gallery))
@@ -160,13 +160,30 @@
 
 
 @section('javascript')
+{{ HTML::script('js/readmore.min.js') }}
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        $('.znacenie').readmore({
+            moreLink: '<a href="#"><i class="fa fa-chevron-down"></i> zobraziť viac</a>',
+            lessLink: '<a href="#"><i class="fa fa-chevron-up"></i> skryť</a>',
+            maxHeight: 40,
+            afterToggle: function(trigger, element, expanded) {
+              if(! expanded) { // The "Close" link was clicked
+                $('html, body').animate( { scrollTop: element.offset().top }, {duration: 100 } );
+              }
+            }
+        });
+
+        $("[data-toggle='tooltip']").tooltip();
+
+    });
+</script>
 
 @if (!empty($item->lat) && ($item->lat > 0)) 
 <script type="text/javascript">
     var map;
     $(document).ready(function(){
-
-        $("[data-toggle='tooltip']").tooltip();
 
         map = new GMaps({
             el: '#small-map',

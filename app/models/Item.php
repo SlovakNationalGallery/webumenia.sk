@@ -119,7 +119,7 @@ class Item extends Eloquent {
 
 	public function getAuthorsAttribute($value)
 	{
-		$authors_array = explode('; ', $this->attributes['author']);
+		$authors_array = $this->makeArray($this->attributes['author']);
 		$authors = array();
 		foreach ($authors_array as $author) {
 			$authors[] = preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $author);
@@ -130,7 +130,8 @@ class Item extends Eloquent {
 
 	public function getSubjectsAttribute($value)
 	{
-		$subjects_array = explode('; ', $this->attributes['subject']);
+		$subjects_array = $this->makeArray($this->attributes['subject']);
+		dd($subjects_array);
 		return $subjects_array;
 	}
 
@@ -179,6 +180,10 @@ class Item extends Eloquent {
 	public function setLng($value)
 	{
 	    $this->attributes['lng'] = $value ?: null;
+	}
+
+	public function makeArray($str) {
+		return explode('; ', $str);
 	}
 
 }

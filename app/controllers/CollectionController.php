@@ -12,7 +12,6 @@ class CollectionController extends \BaseController {
 		$collections = Collection::orderBy('order', 'ASC')->with('items')->paginate(20);
 		// $collections = Item::orderBy('created_at', 'DESC')->get();
         return View::make('collections.index')->with('collections', $collections);
-		
 	}
 
 	/**
