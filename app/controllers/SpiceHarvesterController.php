@@ -312,6 +312,7 @@ class SpiceHarvesterController extends \BaseController {
 	    }
 
 	    $attributes['id'] = $rec->header->identifier;
+	    $attributes['identifier'] = (!empty($identifier[2])) ? $identifier[2] : '';	    
 	    $attributes['title'] = $dcElements->title;
 	    $attributes['author'] = $this->serialize($dcElements->creator);
 	    $attributes['work_type'] = $type[0];

@@ -135,6 +135,12 @@
                                     <td>{{ $item->gallery; }}</td>
                                 </tr>
                                 @endif
+                                @if (!empty($item->identifier))
+                                <tr>
+                                    <td class="atribut">identifikátor:</td>
+                                    <td>{{ $item->identifier; }}</td>
+                                </tr>
+                                @endif
                                 @if (!empty($item->place))
                                 <tr>
                                     <td class="atribut">geografická oblasť:</td>

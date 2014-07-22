@@ -6,6 +6,7 @@ class Item extends Eloquent {
 
 	protected $fillable = array(
 		'id',
+		'identifier',
 		'author',
 		'title',
 		'description',
@@ -131,7 +132,6 @@ class Item extends Eloquent {
 	public function getSubjectsAttribute($value)
 	{
 		$subjects_array = $this->makeArray($this->attributes['subject']);
-		dd($subjects_array);
 		return $subjects_array;
 	}
 

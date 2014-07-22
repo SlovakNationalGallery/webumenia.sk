@@ -17,7 +17,7 @@
 	                    <thead>
 							<tr>
 								<td>identifikátor:</td>
-								<td>{{ $item->id }}</td>
+								<td>{{ $item->identifier }}</td>
 							</tr>
 						</thead>
 						<tbody>

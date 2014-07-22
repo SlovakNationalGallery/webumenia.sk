@@ -25,11 +25,17 @@
 @if(isset($new_id))    	
 <div class="col-md-12">
 	<div class="form-group">
-	{{ Form::label('id', 'Identifikátor') }}
+	{{ Form::label('id', 'Id') }}
     {{ Form::text('id', $new_id, array('class' => 'form-control', 'readonly')) }}
 	</div>
 </div>
 @endif
+<div class="col-md-12">
+	<div class="form-group">
+	{{ Form::label('identifier', 'Identifikátor') }}
+	{{ Form::text('identifier', Input::old('identifier'), array('class' => 'form-control')) }}
+	</div>
+</div>
 <div class="col-md-12">
 	<div class="form-group">
 	{{ Form::label('title', 'Názov') }}
