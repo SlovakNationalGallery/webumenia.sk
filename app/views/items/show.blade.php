@@ -16,7 +16,7 @@
 	                <table class="table">
 	                    <thead>
 							<tr>
-								<td>identifikátor:</td>
+								<td>inventárne číslo:</td>
 								<td>{{ $item->identifier }}</td>
 							</tr>
 						</thead>

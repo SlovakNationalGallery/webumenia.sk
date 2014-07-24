@@ -2,7 +2,8 @@
 
 @section('og')
 <meta property="og:title" content="{{ implode(', ', $item->authors)}} - {{ $item->title }}" />
-<meta property="og:description" content="{{ $item->work_type; }}, datovanie: {{ $item->dating }}, rozmer: {{  implode(' x ', $item->measurements) }}" />
+
+<meta property="og:description" content="{{ $item->work_type; }}, datovanie: {{ $item->dating }}, rozmer: {{  implode(' x ', $item->measurements[0]) }}" />
 <meta property="og:type" content="object" />
 <meta property="og:url" content="{{ Request::url() }}" />
 <meta property="og:image" content="{{ URL::to( $item->getImagePath() ) }}" />
@@ -66,7 +67,11 @@
                                 @if (!empty($item->measurement))
                                 <tr>
                                     <td class="atribut">rozmer:</td>
-                                    <td>{{  implode(' &times; ', $item->measurements) }}</td>
+                                    <td>
+                                        @foreach ($item->measurements as $measurement)
+                                            {{  implode(' &times; ', $measurement) }}<br>
+                                        @endforeach
+                                    </td>
                                 </tr>
                                 @endif
                                 @if (!empty($item->work_type))
@@ -137,7 +142,7 @@
                                 @endif
                                 @if (!empty($item->identifier))
                                 <tr>
-                                    <td class="atribut">identifikátor:</td>
+                                    <td class="atribut">inventárne číslo:</td>
                                     <td>{{ $item->identifier; }}</td>
                                 </tr>
                                 @endif

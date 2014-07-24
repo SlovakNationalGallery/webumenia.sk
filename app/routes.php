@@ -44,7 +44,6 @@ Route::get('dielo/{id}/zoom', function($id)
 	if (empty($item->iipimg_url)) {
 		App::abort(404);
 	}
-
 	return View::make('zoom', array('item'=>$item));
 });
 

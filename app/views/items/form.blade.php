@@ -32,25 +32,25 @@
 @endif
 <div class="col-md-12">
 	<div class="form-group">
-	{{ Form::label('identifier', 'Identifikátor') }}
+	{{ Form::label('identifier', 'inventárne číslo') }}
 	{{ Form::text('identifier', Input::old('identifier'), array('class' => 'form-control')) }}
 	</div>
 </div>
 <div class="col-md-12">
 	<div class="form-group">
-	{{ Form::label('title', 'Názov') }}
+	{{ Form::label('title', 'názov') }}
 	{{ Form::text('title', Input::old('title'), array('class' => 'form-control')) }}
 	</div>
 </div>
 <div class="col-md-12">
 	<div class="form-group">
-	{{ Form::label('author', 'Autor') }}
+	{{ Form::label('author', 'autor') }}
 	{{ Form::text('author', Input::old('author'), array('class' => 'form-control')) }}
 	</div>
 </div>
 <div class="col-md-12">
 	<div class="form-group">
-	{{ Form::label('description', 'Popis') }}
+	{{ Form::label('description', 'popis') }}
 	{{ Form::textarea('description', Input::old('description'), array('class' => 'form-control wysiwyg')) }}	
 	</div>
 </div>

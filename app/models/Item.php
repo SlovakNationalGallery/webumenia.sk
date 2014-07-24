@@ -139,15 +139,20 @@ class Item extends Eloquent {
 	{
 		$measurements_array = explode(';', $this->attributes['measurement']);
 		$measurements = array();
+		$measurements[0] = array();
+		$i = -1;
 		if (!empty($this->attributes['measurement'])) {
-			foreach ($measurements_array as $measurement) {
+			foreach ($measurements_array as $key=>$measurement) {
+				if ($key%2 == 0) {
+					$i++;
+					$measurements[$i] = array();
+				}
 				if (!empty($measurement)) {				
 					$measurement = explode(' ', $measurement, 2);
-					$measurements[$measurement[0]] = $measurement[1];
+					$measurements[$i][$measurement[0]] = $measurement[1];
 				}
 			}			
 		}
-
 		return $measurements;
 	}
 
