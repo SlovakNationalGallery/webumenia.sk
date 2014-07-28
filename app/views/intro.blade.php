@@ -123,7 +123,7 @@
                     icon: "/images/x.map.svg",
                     title: 'Značka pre dielo {{ $item->title }}',
                     infoWindow: {
-                      content: '<p><a href="{{ $item->getDetailUrl() }}">{{ $item->title }}</a></p>'
+                      content: '<p class="text-center"><a href="{{ $item->getDetailUrl() }}"><img src="{{ $item->getImagePath() }}" /><br><em>{{ implode(', ', $item->authors) }}</em><br><strong>{{ $item->title }}</strong>, <em>{{ $item->getDatingFormated() }}</em></a></p>'
                     }
                 });
             @endif
