@@ -81,6 +81,12 @@ Route::get('sekcia/{id}', function($id)
 	return View::make('sekcia', array('collection'=>$collection));
 });
 
+Route::get('katalog', function()
+{
+	$items = Item::orderBy('created_at', 'DESC')->paginate(24);
+	return View::make('katalog', array('items'=>$items));
+});
+
 Route::get('informacie', function()
 {
 	return View::make('informacie');

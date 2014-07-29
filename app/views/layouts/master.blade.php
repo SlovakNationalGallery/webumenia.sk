@@ -89,8 +89,8 @@
 								<a href="{{{ URL::to('/') }}}">Úvod</a>
 						</li>
 						@if (Auth::check())
-						<li class="{{ Request::is( 'catalog') ? 'active' : '' }}">
-								<a href="{{{ URL::to('catalog') }}}">Vystavené diela</a>
+						<li class="{{ Request::is( 'katalog') ? 'active' : '' }}">
+								<a href="{{{ URL::to('katalog') }}}">Vystavené diela</a>
 						</li>
 						@endif
 						<li class="{{ Request::is( 'informacie') ? 'active' : '' }}">
