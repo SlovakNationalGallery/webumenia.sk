@@ -21,9 +21,13 @@
             </div>
         </div>
     </div>
+    <div class="scroll-to">
+        <a href="#sekcie" class="btn btn-circle btn-outline btn-default"><i class="fa fa-chevron-down" ></i></a>
+    </div>
+
 </section>
 
-<section class="collections content-section">
+<section class="collections content-section" id="sekcie">
     <div class="collections-body">
         <div class="container">
             <div class="row">
@@ -65,6 +69,14 @@
 <script type="text/javascript">
     var map;
     $(document).ready(function(){
+
+        $('.scroll-to a').click(function(){
+            $('html, body').animate({
+                scrollTop: $( $.attr(this, 'href') ).offset().top
+            }, 500);
+            return false;
+        });
+
         map = new GMaps({
             el: '#big-map',
             lat: 48.705862, 
