@@ -27,17 +27,15 @@
                 <div class="col-sm-3">
                     <h3>Filter: </h3>
                 </div>
-            	<div class="col-sm-9">
+            	<div class="col-sm-9 container-item">
             		<h3>Diela: </h3>
                     @if ($items->count() == 0)
                         <p class="text-center">Momentálne žiadne diela</p>
                     @endif
 
+                    <div id="iso">
                 	@foreach ($items as $i=>$item)
-                        @if ($i%2==0)
-                            <br style="clear: both">
-                        @endif
-    	                <div class="col-md-6 col-sm-6 col-xs-12">
+    	                <div class="col-md-6 col-sm-6 col-xs-12 item">
     	                	<a href="{{ $item->getDetailUrl() }}">
     	                		<img src="{{ $item->getImagePath() }}" class="img-responsive">	                		
     	                	</a>
@@ -54,6 +52,9 @@
                             </div>
     	                </div>	
                 	@endforeach
+
+                    </div>
+                    {{ $items->links() }}
                 </div>
 
             </div>
@@ -61,89 +62,48 @@
     </div>
 </section>
 
-<section class="map content-section">
-    <div class="map-body">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h3>Diela na mape: </h3>
-                </div>
-                <div id="big-map"></div>
-            </div>
-        </div>
-    </div>
-</section>
 
 @stop
 
 @section('javascript')
 
 <script type="text/javascript">
-    var map;
-    $(document).ready(function(){
-        $("[data-toggle='tooltip']").tooltip();
 
-        map = new GMaps({
-            el: '#big-map',
-            lat: 48.705862, 
-            lng: 19.855629,
-            zoom: 7, 
-            zoomControl : true,
-            zoomControlOpt: {
-                style : "SMALL",
-                position: "TOP_LEFT"
-            },
-            panControl : false,
-            streetViewControl : false,
-            mapTypeControl: false,
-            overviewMapControl: false,
-            scrollwheel: false,
-            scaleControl: false
-            });
-        var styles = [
-            {
-              stylers: [
-                { hue: "#484224" },
-                { saturation: -20 }
-              ]
-            }, {
-                featureType: "road",
-                elementType: "geometry",
-                stylers: [
-                    { lightness: 100 },
-                    { visibility: "off" }
-              ]
-            }, {
-                featureType: "road",
-                elementType: "labels",
-                stylers: [
-                    { visibility: "off" }
-              ]
+$(document).ready(function(){
+
+    var $container = $('#iso');
+       
+    // az ked su obrazky nacitane aplikuj isotope
+    $container.imagesLoaded(function () {
+        $container.isotope({
+            itemSelector : '.item',
+            masonry: {
+                isFitWidth: true,
+                gutter: 20
             }
-        ];
-        
-        map.addStyle({
-            styledMapName:"Styled Map",
-            styles: styles,
-            mapTypeId: "map_style"  
         });
-        
-        map.setStyle("map_style");
-
-        @foreach ($items as $item)
-            @if (!empty($item->lat) && ($item->lat > 0))
-                map.addMarker({
-                    lat: {{ $item->lat }},
-                    lng: {{ $item->lng }},
-                    icon: "/images/x.map.svg",
-                    title: 'Značka pre dielo {{ $item->title }}',
-                    infoWindow: {
-                      content: '<p class="text-center"><a href="{{ $item->getDetailUrl() }}"><img src="{{ $item->getImagePath() }}" /><br><em>{{ implode(', ', $item->authors) }}</em><br><strong>{{ $item->title }}</strong>, <em>{{ $item->getDatingFormated() }}</em></a></p>'
-                    }
-                });
-            @endif
-        @endforeach
-
     });
+ 
+
+$container.infinitescroll({
+    navSelector     : ".pagination",
+    nextSelector    : ".pagination a:last",
+    itemSelector    : ".item",
+    debug           : true,
+    dataType        : 'html',
+    path: function(index) {
+        return "?page=" + index;
+    }
+}, function(newElements, data, url){
+    var $newElems = jQuery( newElements ).hide(); 
+    $newElems.imagesLoaded(function(){
+        $newElems.fadeIn();
+        $container.isotope( 'appended', $newElems );
+    });
+});
+
+
+});
+
 </script>
 @stop

@@ -126,6 +126,10 @@
 	{{ HTML::script('js/jquery.smoothdivscroll-1.3-min.js') }}
 	{{ HTML::script('js/jquery.magnific-popup.min.js') }}
 	{{ HTML::script('js/gmaps.js') }}
+	{{ HTML::script('js/imagesloaded.min.js') }}
+	{{ HTML::script('js/jquery.infinitescroll.min.js') }}
+	{{ HTML::script('js/jquery.isotope.min.js') }}
+	{{ HTML::script('js/jquery.isotope.sloppy-masonry.min.js') }}
 
 	{{ HTML::script('js/bootstrap.min.js') }}
 	{{ HTML::script('js/dvekrajiny.js') }}
