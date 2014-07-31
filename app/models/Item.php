@@ -191,4 +191,40 @@ class Item extends Eloquent {
 		return explode('; ', $str);
 	}
 
+	public static function listValues($attribute, $delimiter = ';', $only_first = false)
+	{
+		//najskor over, ci $attribute je zo zoznamu povolenych 
+		$unformated_list = Item::select(DB::raw($attribute . ', count(*) AS pocet'))
+		->groupBy($attribute)
+		->orderBy('pocet', 'desc')
+		->whereNotNull($attribute)
+		->where($attribute, '!=', '')
+		->lists($attribute, 'pocet');
+
+		$queries = DB::getQueryLog();
+		// dd($unformated_list);
+		dd(end($queries));
+
+		$formated_list=array();
+		foreach ($unformated_list as $key => $value) {
+			$values = explode($delimiter, $value);
+			if ($only_first) {
+				$single_value = trim($values[0]);
+				if (!isSet($formated_list[$single_value])) $formated_list[$single_value] = 0;
+				$formated_list[$single_value] += $key;
+			} else {
+				foreach ($values as $single_value) {
+					$single_value = trim($single_value);
+					if (!isSet($formated_list[$single_value])) $formated_list[$single_value] = 0;
+					$formated_list[$single_value] += $key;
+				}
+			}
+			// $single_value = (str_contains($value, ',')) ? substr($value, 0, strpos( $value, ',')) : $value;
+		}
+
+		return $formated_list;
+
+	}
+
+
 }
