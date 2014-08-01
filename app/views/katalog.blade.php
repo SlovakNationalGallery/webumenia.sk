@@ -12,8 +12,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 text-center">
-                        <img src="/images/x.svg" alt="x" class="xko">
-                    	<h2 class="uppercase bottom-space">vystavené diela</h2>
+                    @if (!empty($search))
+                        <h1 class="uppercase">&bdquo;{{ $search }}&ldquo;</h1>
+                        <h2 class="uppercase bottom-space">{{ $items->getTotal() }} nájdených diel</h2>                        
+                    @else
+                        <img src="/images/x.svg" alt="x" class="xko">                        
+                        <h2 class="uppercase bottom-space">vystavené diela</h2>
+                    @endif
                 </div>
             </div>
         </div>
@@ -26,22 +31,22 @@
             <div class="row bottom-space">
                 <!-- <h3>Filter: </h3> -->
                 {{ Form::open() }}
+                <div  class="col-sm-3">
+                        <h4>Autor: </h4>                        
+                        {{ Form::select('author', array('default' => '') + $authors, null, array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Vyber autora...')) }}
+                 </div>
+                <div  class="col-sm-3">
+                        <h4>Výtvarný druh: </h4>
+                        {{ Form::select('work_type', array('default' => '') + $work_types, null, array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Vyber výtvarný druh...')) }}
+                </div>
+                <div  class="col-sm-3">
+                        <h4>Tagy: </h4>
+                        {{ Form::select('tags', array('default' => '') + $tags, Input::old('tags'), array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Vyber tagy...')) }}
+                </div>
                 <div class="col-sm-3">
                         <h4>Rok:</h4> 
                         <b>1790</b> <input id="year-range" type="text" class="span2" value="" data-slider-min="1790"
                          data-slider-max="2014" data-slider-step="5" data-slider-value="[1790,2014]"/> <b>2014</b>
-                </div>
-                <div  class="col-sm-3">
-                        <h4>Autor: </h4>                        
-                        {{ Form::select('author', $authors, null, array('class'=> 'chosen-select form-control')) }}
-                 </div>
-                <div  class="col-sm-3">
-                        <h4>Výtvarný druh: </h4>
-                        {{ Form::select('work_type', $work_types, null, array('class'=> 'chosen-select form-control')) }}
-                </div>
-                <div  class="col-sm-3">
-                        <h4>Tagy: </h4>
-                        {{ Form::select('tags', $tags, Input::old('tags'), array('class'=> 'chosen-select form-control', 'multiple'=>'multiple')) }}
                 </div>
                  {{ Form::close() }}
             </div>
@@ -94,8 +99,14 @@
 $(document).ready(function(){
 
     $("#year-range").slider({});
-    $(".chosen-select").chosen({});
+    $(".chosen-select").chosen({})
 
+    $(".chosen-select").change(function() {
+        $(this).closest('form').submit();
+        console.log('hit');
+    });
+
+chosen-select
 
     var $container = $('#iso');
        

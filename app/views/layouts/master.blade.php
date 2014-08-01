@@ -5,7 +5,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="Výstava Slovenskej národnej galérie s názvom DVE KRAJINY (Obraz Slovenska: 19. storočie x súčasnosť) v Esterházyho paláci predstavuje multižánrový výber diel zo zbierok 35 galérií, múzeí, inštitúcií a súkromých majiteľov. Venuje sa rozvoju stvárňovania slovenskej krajiny od počiatku tejto disciplíny v 19. storočí až na prah moderny. Webstránka dvekrajiny.sng.sk sprístupňuje vybrané diela z výstavy online vo vysokom rozlíšení.">
-		<meta name="author" content="lab.SNG, Igor Rjabinin">
+		<meta name="author" content="lab.SNG">
 
 		<title>
 			@section('title')
@@ -84,6 +84,8 @@
 	        </div>
 
 	        <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+
+
 	            <ul class="nav navbar-nav">
 						<li class="{{ Request::is( 'sekcie') ? 'active' : '' }}">
 								<a href="{{{ URL::to('sekcie') }}}" class="dropdown-toggle" data-toggle="dropdown">Sekcie <span class="caret"></span></a>
@@ -99,7 +101,16 @@
 						<li class="{{ Request::is( 'informacie') ? 'active' : '' }}">
 								<a href="{{{ URL::to('informacie') }}}">Informácie</a>
 						</li>
+						<!-- <li class="{{ Request::is( 'informacie') ? 'active' : '' }}">
+								<a href="{{{ URL::to('informacie') }}}"><i class="fa fa-search"></i></a>
+						</li> -->
 	            </ul>
+
+				{{ Form::open(['url' => 'katalog', 'method' => 'get', 'class' => 'navbar-form navbar-right right-inner-addon']) }}
+							<i class="fa fa-search"></i>
+							{{ Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => 'Hľadať...')) }}
+				{{Form::close() }}
+                
 	        </div>
 	        <!-- /.navbar-collapse -->
 	    </div>

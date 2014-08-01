@@ -81,20 +81,28 @@ Route::get('sekcia/{id}', function($id)
 	return View::make('sekcia', array('collection'=>$collection));
 });
 
-Route::get('katalog', function()
+// Route::get('katalog', function()
+Route::match(array('GET', 'POST'), 'katalog', function()	
 {
+	$search = null;
 
 	$authors = Item::listValues('author');
 	$work_types = Item::listValues('work_type', ',', true);
 	$tags = Item::listValues('subject');
-
-	$items = Item::orderBy('created_at', 'DESC')->paginate(12);
+	
+	if (Input::has('search')) {
+		$search = Input::get('search');
+		$items = Item::where('title', 'LIKE', '%'.$search.'%')->orWhere('author', 'LIKE', '%'.$search.'%')->orWhere('subject', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%')->orderBy('created_at', 'DESC')->paginate(12);
+	} else {
+		$items = Item::orderBy('created_at', 'DESC')->paginate(12);
+	}
 
 	return View::make('katalog', array(
 		'items'=>$items, 
 		'authors'=>$authors, 
 		'work_types'=>$work_types, 
 		'tags'=>$tags, 
+		'search'=>$search, 
 		));
 });
 
@@ -118,7 +126,7 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('item/backup', 'ItemController@backup');
 	Route::get('item/geodata', 'ItemController@geodata');
 	Route::post('item/destroySelected', 'ItemController@destroySelected');
-	Route::get('search', 'ItemController@search');
+	Route::get('item/search', 'ItemController@search');
 	Route::resource('item', 'ItemController');
 	Route::post('collection/fill', 'CollectionController@fill');
 	Route::resource('collection', 'CollectionController');
