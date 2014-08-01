@@ -2,7 +2,7 @@
 
 @section('title')
 @parent
-| katalóg diel
+| vystavené diela
 @stop
 
 @section('content')
@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 text-center">
                         <img src="/images/x.svg" alt="x" class="xko">
-                    	<h2 class="uppercase bottom-space">katalóg diel</h2>
+                    	<h2 class="uppercase bottom-space">vystavené diela</h2>
                 </div>
             </div>
         </div>
@@ -32,17 +32,17 @@
                          data-slider-max="2014" data-slider-step="5" data-slider-value="[1790,2014]"/> <b>2014</b>
                 </div>
                 <div  class="col-sm-3">
-                        <h4>Tagy: </h4>
-                        {{ Form::select('tags', $tags, Input::old('tags'), array('class'=> 'chosen-select form-control')) }}
-                 </div>
-                <div  class="col-sm-3">
                         <h4>Autor: </h4>                        
                         {{ Form::select('author', $authors, null, array('class'=> 'chosen-select form-control')) }}
                  </div>
                 <div  class="col-sm-3">
                         <h4>Výtvarný druh: </h4>
                         {{ Form::select('work_type', $work_types, null, array('class'=> 'chosen-select form-control')) }}
-                 </div>
+                </div>
+                <div  class="col-sm-3">
+                        <h4>Tagy: </h4>
+                        {{ Form::select('tags', $tags, Input::old('tags'), array('class'=> 'chosen-select form-control', 'multiple'=>'multiple')) }}
+                </div>
                  {{ Form::close() }}
             </div>
             <div class="row">

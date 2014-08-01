@@ -85,14 +85,17 @@
 
 	        <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
 	            <ul class="nav navbar-nav">
-						<li class="{{ Request::is('') ? 'active' : '' }}">
-								<a href="{{{ URL::to('/') }}}">Úvod</a>
+						<li class="{{ Request::is( 'sekcie') ? 'active' : '' }}">
+								<a href="{{{ URL::to('sekcie') }}}" class="dropdown-toggle" data-toggle="dropdown">Sekcie <span class="caret"></span></a>
+								<ul class="dropdown-menu" role="menu">
+									@foreach (Collection::orderBy('order', 'ASC')->with('items')->get() as $i => $collection)
+										<li><a href="{{ URL::to('sekcia/' . $collection->id) }}">{{ $collection->name }}</a></li>
+									@endforeach
+						        </ul>
 						</li>
-						@if (Auth::check())
 						<li class="{{ Request::is( 'katalog') ? 'active' : '' }}">
-								<a href="{{{ URL::to('katalog') }}}">Vystavené diela</a>
+								<a href="{{{ URL::to('katalog') }}}">Diela</a>
 						</li>
-						@endif
 						<li class="{{ Request::is( 'informacie') ? 'active' : '' }}">
 								<a href="{{{ URL::to('informacie') }}}">Informácie</a>
 						</li>
