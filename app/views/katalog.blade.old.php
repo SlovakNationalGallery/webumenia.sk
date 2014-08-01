@@ -23,30 +23,26 @@
 <section class="catalog content-section">
     <div class="catalog-body">
         <div class="container">
-            <div class="row bottom-space">
-                <!-- <h3>Filter: </h3> -->
-                {{ Form::open() }}
-                <div class="col-sm-3">
-                        <h4>Rok:</h4> 
-                        <b>1790</b> <input id="year-range" type="text" class="span2" value="" data-slider-min="1790"
-                         data-slider-max="2014" data-slider-step="5" data-slider-value="[1790,2014]"/> <b>2014</b>
-                </div>
-                <div  class="col-sm-3">
-                        <h4>Tagy: </h4>
-                        {{ Form::select('tags', $tags, Input::old('tags'), array('class'=> 'chosen-select form-control')) }}
-                 </div>
-                <div  class="col-sm-3">
-                        <h4>Autor: </h4>                        
-                        {{ Form::select('author', $authors, null, array('class'=> 'chosen-select form-control')) }}
-                 </div>
-                <div  class="col-sm-3">
-                        <h4>Výtvarný druh: </h4>
-                        {{ Form::select('work_type', $work_types, null, array('class'=> 'chosen-select form-control')) }}
-                 </div>
-                 {{ Form::close() }}
-            </div>
             <div class="row">
-            	<div class="col-sm-12 container-item">
+                <div class="col-sm-3">
+                    <h3>Filter: </h3>
+                    <div class="row">    
+                        Rok: <b>1790</b> <input id="year-range" type="text" class="span2" value="" data-slider-min="1790"
+                         data-slider-max="2014" data-slider-step="5" data-slider-value="[1790,2014]"/> <b>2014</b>
+                     </div>
+                    <div class="row">    
+                        Tagy: 
+                        <select data-placeholder="Vyber..." multiple class="chosen-select form-control">
+                            <option value="hrad">hrad</option>
+                            <option value="les">les</option>
+                            <option value="ľudia">ľudia</option>
+                            <option value="mesto">mesto</option>
+                            <option value="rieka">rieka</option>
+                        </select>
+                     </div>
+
+                </div>
+            	<div class="col-sm-9 container-item">
             		<h3>Diela: </h3>
                     @if ($items->count() == 0)
                         <p class="text-center">Momentálne žiadne diela</p>

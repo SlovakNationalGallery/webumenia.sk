@@ -83,8 +83,19 @@ Route::get('sekcia/{id}', function($id)
 
 Route::get('katalog', function()
 {
-	$items = Item::orderBy('created_at', 'DESC')->paginate(24);
-	return View::make('katalog', array('items'=>$items));
+
+	$authors = Item::listValues('author');
+	$work_types = Item::listValues('work_type', ',', true);
+	$tags = Item::listValues('subject');
+
+	$items = Item::orderBy('created_at', 'DESC')->paginate(12);
+
+	return View::make('katalog', array(
+		'items'=>$items, 
+		'authors'=>$authors, 
+		'work_types'=>$work_types, 
+		'tags'=>$tags, 
+		));
 });
 
 Route::get('informacie', function()

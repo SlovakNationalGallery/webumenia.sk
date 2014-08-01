@@ -194,35 +194,35 @@ class Item extends Eloquent {
 	public static function listValues($attribute, $delimiter = ';', $only_first = false)
 	{
 		//najskor over, ci $attribute je zo zoznamu povolenych 
+		if (!in_array($attribute, array('author', 'work_type', 'subject'))) return false;
+
 		$unformated_list = Item::select(DB::raw($attribute . ', count(*) AS pocet'))
 		->groupBy($attribute)
 		->orderBy('pocet', 'desc')
 		->whereNotNull($attribute)
 		->where($attribute, '!=', '')
-		->lists($attribute, 'pocet');
-
-		$queries = DB::getQueryLog();
-		// dd($unformated_list);
-		dd(end($queries));
+		->remember(30)
+		->get();
 
 		$formated_list=array();
-		foreach ($unformated_list as $key => $value) {
-			$values = explode($delimiter, $value);
+		foreach ($unformated_list as $result) {
+			$values = explode($delimiter, $result->$attribute);
 			if ($only_first) {
 				$single_value = trim($values[0]);
 				if (!isSet($formated_list[$single_value])) $formated_list[$single_value] = 0;
-				$formated_list[$single_value] += $key;
+				$formated_list[$single_value] += $result->pocet;
 			} else {
 				foreach ($values as $single_value) {
 					$single_value = trim($single_value);
+					if ($attribute=='author') $single_value = preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $single_value);
 					if (!isSet($formated_list[$single_value])) $formated_list[$single_value] = 0;
-					$formated_list[$single_value] += $key;
+					$formated_list[$single_value] += $result->pocet;
 				}
 			}
-			// $single_value = (str_contains($value, ',')) ? substr($value, 0, strpos( $value, ',')) : $value;
 		}
+		arsort($formated_list);
 
-		return $formated_list;
+		return array_keys($formated_list);
 
 	}
 
