@@ -27,7 +27,7 @@ class ItemController extends \BaseController {
 		$results = Item::where('title', 'LIKE', '%'.$search.'%')->orWhere('author', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%')->paginate(20);
 
 		$collections = Collection::lists('name', 'id');
-        return View::make('items.index', array('items' => $results, 'collections' => $collections, 'search' => $search));		
+        return View::make('items.index', array('items' => $results, 'collections' => $collections, 'search' => $search));
 	}
 
 	/**

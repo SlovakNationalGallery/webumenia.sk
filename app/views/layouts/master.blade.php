@@ -92,6 +92,7 @@
 								<ul class="dropdown-menu" role="menu">
 									@foreach (Collection::orderBy('order', 'ASC')->with('items')->get() as $i => $collection)
 										<li><a href="{{ URL::to('sekcia/' . $collection->id) }}">{{ $collection->name }}</a></li>
+										<li class="separator"></li>
 									@endforeach
 						        </ul>
 						</li>

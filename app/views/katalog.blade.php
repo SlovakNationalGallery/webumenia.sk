@@ -31,19 +31,24 @@
             <div class="row bottom-space">
                 <!-- <h3>Filter: </h3> -->
                 {{ Form::open() }}
+                <div  class="col-sm-1">
+                        <a class="btn btn-danger btn-xs btn-outline" href="{{ URL::to('katalog')}}"><i class="fa fa-times"></i> zrušiť filter</a>
+                        <!-- {{ Form::hidden('search', @$search); }} -->
+
+                 </div>
                 <div  class="col-sm-3">
                         <h4>Autor: </h4>                        
-                        {{ Form::select('author', array('default' => '') + $authors, null, array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Vyber autora...')) }}
+                        {{ Form::select('author', array('' => '') + $authors, @$input['author'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Vyber autora...')) }}
                  </div>
                 <div  class="col-sm-3">
                         <h4>Výtvarný druh: </h4>
-                        {{ Form::select('work_type', array('default' => '') + $work_types, null, array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Vyber výtvarný druh...')) }}
+                        {{ Form::select('work_type', array('' => '') + $work_types,  @$input['work_type'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Vyber výtvarný druh...')) }}
                 </div>
                 <div  class="col-sm-3">
                         <h4>Tagy: </h4>
-                        {{ Form::select('tags', array('default' => '') + $tags, Input::old('tags'), array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Vyber tagy...')) }}
+                        {{ Form::select('subject', array('' => '') + $tags, @$input['subject'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Vyber tagy...')) }}
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                         <h4>Rok:</h4> 
                         <b>1790</b> <input id="year-range" type="text" class="span2" value="" data-slider-min="1790"
                          data-slider-max="2014" data-slider-step="5" data-slider-value="[1790,2014]"/> <b>2014</b>
@@ -103,10 +108,7 @@ $(document).ready(function(){
 
     $(".chosen-select").change(function() {
         $(this).closest('form').submit();
-        console.log('hit');
     });
-
-chosen-select
 
     var $container = $('#iso');
        

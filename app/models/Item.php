@@ -213,8 +213,7 @@ class Item extends Eloquent {
 				$formated_list[$single_value] += $result->pocet;
 			} else {
 				foreach ($values as $single_value) {
-					$single_value = trim($single_value);
-					if ($attribute=='author') $single_value = preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $single_value);
+					$single_value = trim($single_value);					
 					if (!isSet($formated_list[$single_value])) $formated_list[$single_value] = 0;
 					$formated_list[$single_value] += $result->pocet;
 				}
@@ -222,7 +221,14 @@ class Item extends Eloquent {
 		}
 		arsort($formated_list);
 
-		return array_keys($formated_list);
+		$return_list = array();
+		foreach ($formated_list as $key => $value) {
+			$single_value = $key;
+			if ($attribute=='author') $single_value = preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $key);
+			$return_list[$key] = "$single_value ($value)";
+		}
+
+		return $return_list;
 
 	}
 

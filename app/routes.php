@@ -84,18 +84,42 @@ Route::get('sekcia/{id}', function($id)
 // Route::get('katalog', function()
 Route::match(array('GET', 'POST'), 'katalog', function()	
 {
-	$search = null;
+	$search = Input::get('search', null);
+	$input = Input::all();
 
 	$authors = Item::listValues('author');
 	$work_types = Item::listValues('work_type', ',', true);
 	$tags = Item::listValues('subject');
-	
+
+	/*
 	if (Input::has('search')) {
-		$search = Input::get('search');
-		$items = Item::where('title', 'LIKE', '%'.$search.'%')->orWhere('author', 'LIKE', '%'.$search.'%')->orWhere('subject', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%')->orderBy('created_at', 'DESC')->paginate(12);
+		$search = Input::get('search', null);
+		// $items = Item::where('title', 'LIKE', '%'.$search.'%')->orWhere('author', 'LIKE', '%'.$search.'%')->orWhere('subject', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%')->orderBy('created_at', 'DESC')->paginate(12);
 	} else {
 		$items = Item::orderBy('created_at', 'DESC')->paginate(12);
 	}
+	*/
+	// dd($input);
+	$items = Item::where(function($query) use ($search, $input) {
+                /** @var $query Illuminate\Database\Query\Builder  */
+                if (!empty($search)) {
+                	$query->where('title', 'LIKE', '%'.$search.'%')->orWhere('author', 'LIKE', '%'.$search.'%')->orWhere('subject', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%');
+                } 
+
+                if(!empty($input['author'])) {
+                	$query->where('author', 'LIKE', '%'.$input['author'].'%');
+                }
+                if(!empty($input['work_type'])) {
+                	// dd($input['work_type']);
+                	$query->where('work_type', 'LIKE', '%'.$input['work_type'].'%');
+                }
+                if(!empty($input['subject'])) {
+                	$query->where('subject', 'LIKE', '%'.$input['subject'].'%');
+                }
+
+                return $query;
+            })
+           ->orderBy('created_at', 'DESC')->paginate(12);	
 
 	return View::make('katalog', array(
 		'items'=>$items, 
@@ -103,6 +127,7 @@ Route::match(array('GET', 'POST'), 'katalog', function()
 		'work_types'=>$work_types, 
 		'tags'=>$tags, 
 		'search'=>$search, 
+		'input'=>$input, 
 		));
 });
 
