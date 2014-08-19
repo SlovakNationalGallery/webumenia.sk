@@ -86,6 +86,7 @@ Route::match(array('GET', 'POST'), 'katalog', function()
 {
 	$search = Input::get('search', null);
 	$input = Input::all();
+	// dd($input);
 
 	$authors = Item::listValues('author');
 	$work_types = Item::listValues('work_type', ',', true);
@@ -115,6 +116,11 @@ Route::match(array('GET', 'POST'), 'katalog', function()
                 }
                 if(!empty($input['subject'])) {
                 	$query->where('subject', 'LIKE', '%'.$input['subject'].'%');
+                }
+                if(!empty($input['year-range'])) {
+                	$range = explode(',', $input['year-range']);
+                	// dd("where('date_earliest', '>', $range[0])->where('date_latest', '<', $range[1])");
+                	$query->where('date_earliest', '>', $range[0])->where('date_latest', '<', $range[1]);
                 }
 
                 return $query;

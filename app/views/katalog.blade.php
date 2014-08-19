@@ -50,14 +50,14 @@
                 </div>
                 <div class="col-sm-2">
                         <h4>Rok:</h4> 
-                        <b>1790</b> <input id="year-range" type="text" class="span2" value="" data-slider-min="1790"
-                         data-slider-max="2014" data-slider-step="5" data-slider-value="[1790,2014]"/> <b>2014</b>
+                        <b>1790</b> <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="1790"
+                         data-slider-max="2014" data-slider-step="5" data-slider-value="[{{ $input['year-range'] or '1790,2014' }}]"/> <b>2014</b>
                 </div>
                  {{ Form::close() }}
             </div>
             <div class="row">
             	<div class="col-sm-12 container-item">
-            		<h3>Diela: </h3>
+            		<h3>Diela ({{ $items->getTotal() }}): </h3>
                     @if ($items->count() == 0)
                         <p class="text-center">Momentálne žiadne diela</p>
                     @endif
@@ -103,7 +103,12 @@
 
 $(document).ready(function(){
 
-    $("#year-range").slider({});
+    $("#year-range").slider({
+        value: [1800, 1900]
+    }).on('slideStop', function(event) {
+        $(this).closest('form').submit();
+    });
+
     $(".chosen-select").chosen({})
 
     $(".chosen-select").change(function() {
