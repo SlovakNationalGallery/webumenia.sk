@@ -51,15 +51,22 @@ Route::get('dielo/{id}/downloadImage', function($id)
 {
 	$item = Item::find($id);
 
-	if (empty($item)) {
+	if (empty($item) || !$item->isFreeDownload()) {
 		App::abort(404);
 	}
 
-	$pathToFile = $item->getImagePath(true);
-	if (!file_exists($pathToFile)) {
-		App::abort(404);
-	}
+	$pathToFile = 'http://dvekrajiny.sng.sk/images/sekcie/2.jpeg';
 
+	$item->download();
+	
+	// $pathToFile = 'http://imi.sng.cust.eea.sk/publicIS/fcgi-bin/iipsrv.fcgi?FIF=' . $item->iipimg_url . '&CVT=JPG';
+	// dd($pathToFile);
+
+	// $item->downloadBig($pathToFile);
+ 	
+ // 	$headers = array(
+ //              'Content-Type: image/jpeg',
+ //            );	
 	return Response::download($pathToFile);
 });
 

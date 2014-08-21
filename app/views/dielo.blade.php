@@ -36,7 +36,7 @@
                         @endif
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                @if (strpos($item->getImagePath(),'no-image') == false)
+                                @if ($item->isFreeDownload())
                                 <a href="{{ URL::to('dielo/' . $item->id . '/downloadImage')  }}" class="btn btn-default btn-outline  uppercase sans"><i class="fa fa-download"></i> stiahnuť </a>
                                 @endif
                                 @if (!empty($item->iipimg_url))
