@@ -101,12 +101,12 @@ Route::match(array('GET', 'POST'), 'katalog', function()
 	}
 	*/
 	// dd($input);
+
 	$items = Item::where(function($query) use ($search, $input) {
                 /** @var $query Illuminate\Database\Query\Builder  */
                 if (!empty($search)) {
                 	$query->where('title', 'LIKE', '%'.$search.'%')->orWhere('author', 'LIKE', '%'.$search.'%')->orWhere('subject', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%');
-                } 
-
+                }
                 if(!empty($input['author'])) {
                 	$query->where('author', 'LIKE', '%'.$input['author'].'%');
                 }

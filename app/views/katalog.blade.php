@@ -2,7 +2,7 @@
 
 @section('title')
 @parent
-| vystavené diela
+| všetky diela
 @stop
 
 @section('content')
@@ -14,10 +14,10 @@
                 <div class="col-md-8 col-md-offset-2 text-center">
                     @if (!empty($search))
                         <h1 class="uppercase">&bdquo;{{ $search }}&ldquo;</h1>
-                        <h2 class="uppercase bottom-space">{{ $items->getTotal() }} nájdených diel</h2>                        
+                        <!-- <h2 class="uppercase bottom-space">{{ $items->getTotal() }} nájdených diel</h2>                         -->
                     @else
-                        <img src="/images/x.svg" alt="x" class="xko">                        
-                        <h2 class="uppercase bottom-space">vystavené diela</h2>
+                        <!-- <img src="/images/x.svg" alt="x" class="xko"> -->
+                        <!-- <h2 class="uppercase bottom-space">vystavené diela</h2> -->
                     @endif
                 </div>
             </div>
@@ -50,14 +50,15 @@
                 </div>
                 <div class="col-sm-2">
                         <h4>Rok:</h4> 
-                        <b>1790</b> <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="1790"
-                         data-slider-max="2014" data-slider-step="5" data-slider-value="[{{ $input['year-range'] or '1790,2014' }}]"/> <b>2014</b>
+                        <b>1790</b> 
+                        <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="1790" data-slider-max="2014" data-slider-step="5" data-slider-value="[{{ !empty($input['year-range']) ? $input['year-range'] : '1790,2014' }}]"/> 
+                        <b>2014</b>
                 </div>
                  {{ Form::close() }}
             </div>
             <div class="row">
             	<div class="col-sm-12 container-item">
-            		<h3>Diela ({{ $items->getTotal() }}): </h3>
+            		<h3>Nájdené diela (počet: {{ $items->getTotal() }}): </h3>
                     @if ($items->count() == 0)
                         <p class="text-center">Momentálne žiadne diela</p>
                     @endif
