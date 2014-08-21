@@ -125,7 +125,7 @@ Route::match(array('GET', 'POST'), 'katalog', function()
 
                 return $query;
             })
-           ->orderBy('created_at', 'DESC')->paginate(12);	
+           ->orderBy('created_at', 'DESC')->paginate(12);
 
 	return View::make('katalog', array(
 		'items'=>$items, 

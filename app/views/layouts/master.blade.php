@@ -96,7 +96,7 @@
 									@endforeach
 						        </ul>
 						</li>
-						<li class="{{ Request::is( 'katalog') ? 'active' : '' }}">
+						<li class="{{ Request::is('katalog') ? 'active' : '' }}">
 								<a href="{{{ URL::to('katalog') }}}">Diela</a>
 						</li>
 						<li class="{{ Request::is( 'informacie') ? 'active' : '' }}">

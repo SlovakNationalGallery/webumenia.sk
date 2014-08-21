@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 text-center">
                     @if (!empty($search))
-                        <h1 class="uppercase">&bdquo;{{ $search }}&ldquo;</h1>
+                        <!-- <h1 class="uppercase">&bdquo;{{ $search }}&ldquo;</h1> -->
                         <!-- <h2 class="uppercase bottom-space">{{ $items->getTotal() }} nájdených diel</h2>                         -->
                     @else
                         <!-- <img src="/images/x.svg" alt="x" class="xko"> -->
@@ -34,7 +34,6 @@
                 <div  class="col-sm-1">
                         <a class="btn btn-danger btn-xs btn-outline" href="{{ URL::to('katalog')}}"><i class="fa fa-times"></i> zrušiť filter</a>
                         <!-- {{ Form::hidden('search', @$search); }} -->
-
                  </div>
                 <div  class="col-sm-3">
                         <h4>Autor: </h4>                        
@@ -58,7 +57,11 @@
             </div>
             <div class="row">
             	<div class="col-sm-12 container-item">
-            		<h3>Nájdené diela (počet: {{ $items->getTotal() }}): </h3>
+                    @if (!empty($search))
+                        <h3>Nájdené diela pre &bdquo;{{ $search }}&ldquo; ({{ $items->getTotal() }}) </h3> 
+                    @else
+                		<h3>Nájdené diela ({{ $items->getTotal() }}) </h3>
+                    @endif
                     @if ($items->count() == 0)
                         <p class="text-center">Momentálne žiadne diela</p>
                     @endif
@@ -84,7 +87,9 @@
                 	@endforeach
 
                     </div>
-                    {{ $items->links() }}
+                    <div class="col-sm-12 text-center">
+                        {{ $items->appends(Input::all())->links() }}
+                    </div>
                 </div>
 
             </div>
@@ -130,28 +135,29 @@ $(document).ready(function(){
     });
  
 
-$container.infinitescroll({
-    navSelector     : ".pagination",
-    nextSelector    : ".pagination a:last",
-    itemSelector    : ".item",
-    debug           : true,
-    dataType        : 'html',
-    path: function(index) {
-        return "?page=" + index;
-    },
-    bufferPx     : 200,
-    loading: {
-        img: '/images/ajax-loader.gif',
-        msgText: "<em>Loading the next set of posts...</em>",
-        finishedMsg: 'A to je všetko'
-    }
-}, function(newElements, data, url){
-    var $newElems = jQuery( newElements ).hide(); 
-    $newElems.imagesLoaded(function(){
-        $newElems.fadeIn();
-        $container.isotope( 'appended', $newElems );
-    });
-});
+// $container.infinitescroll({
+//     navSelector     : ".pagination",
+//     nextSelector    : ".pagination a:last",
+//     itemSelector    : ".item",
+//     debug           : false,
+//     dataType        : 'html',
+//     donetext        : 'boli načítané všetky diela',
+//     path: function(index) {
+//         return "?page=" + index;
+//     },
+//     bufferPx     : 200,
+//     loading: {
+//         img: '/images/ajax-loader.gif',
+//         msgText: "<em>Loading the next set of posts...</em>",
+//         finishedMsg: 'A to je všetko'
+//     }
+// }, function(newElements, data, url){
+//     var $newElems = jQuery( newElements ).hide(); 
+//     $newElems.imagesLoaded(function(){
+//         $newElems.fadeIn();
+//         $container.isotope( 'appended', $newElems );
+//     });
+// });
 
 
 });
