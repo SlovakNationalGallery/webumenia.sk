@@ -47,7 +47,21 @@ Route::get('dielo/{id}/zoom', function($id)
 	return View::make('zoom', array('item'=>$item));
 });
 
-Route::get('dielo/{id}/downloadImage', function($id)
+Route::get('dielo/{id}/objednat', function($id)
+{
+	$item = Item::find($id);
+
+	if (empty($item) || !$item->isForReproduction()) {
+		App::abort(404);
+	}
+
+	Session::push('cart', $item->id);
+	Session::flash('message', "Dielo <b>" . implode(', ', $item->authors) . " – $item->title</b> (".$item->getDatingFormated().") bolo pridané do košíka.");
+	return Redirect::back();
+
+});
+
+Route::get('dielo/{id}/stiahnut', function($id)
 {
 	$item = Item::find($id);
 
@@ -58,16 +72,8 @@ Route::get('dielo/{id}/downloadImage', function($id)
 	$pathToFile = 'http://dvekrajiny.sng.sk/images/sekcie/2.jpeg';
 
 	$item->download();
-	
-	// $pathToFile = 'http://imi.sng.cust.eea.sk/publicIS/fcgi-bin/iipsrv.fcgi?FIF=' . $item->iipimg_url . '&CVT=JPG';
-	// dd($pathToFile);
 
-	// $item->downloadBig($pathToFile);
- 	
- // 	$headers = array(
- //              'Content-Type: image/jpeg',
- //            );	
-	return Response::download($pathToFile);
+	// return Response::download($pathToFile);
 });
 
 Route::get('dielo/{id}', function($id)

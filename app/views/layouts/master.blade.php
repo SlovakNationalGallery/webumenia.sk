@@ -102,6 +102,11 @@
 						<li class="{{ Request::is( 'informacie') ? 'active' : '' }}">
 								<a href="{{{ URL::to('informacie') }}}">Informácie</a>
 						</li>
+						@if (Session::has('cart') && count(Session::get('cart'))>0)
+						<li class="{{ Request::is( 'informacie') ? 'active' : '' }}">
+								<a href="{{ URL::to('order')}}" class=""><i class="fa fa-shopping-cart"></i><span class="badge badge-notify">{{ count(Session::get('cart')) }}</span></a>
+						</li>
+						@endif
 						<!-- <li class="{{ Request::is( 'informacie') ? 'active' : '' }}">
 								<a href="{{{ URL::to('informacie') }}}"><i class="fa fa-search"></i></a>
 						</li> -->

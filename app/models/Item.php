@@ -237,6 +237,11 @@ class Item extends Eloquent {
 		return ($this->attributes['free_download'] && !empty($this->attributes['iipimg_url']));
 	}
 
+	public function isForReproduction()
+	{
+		return ($this->attributes['gallery'] == 'Slovenská národná galéria, SNG');
+	}
+
 	public function download() {
 
 		$url = 'http://imi.sng.cust.eea.sk/publicIS/fcgi-bin/iipsrv.fcgi?FIF=' . $this->attributes['iipimg_url'] . '&CVT=JPG';

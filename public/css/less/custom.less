@@ -4,7 +4,7 @@
 @primary: #484224;
 @dark: #555954;
 @light: #fff;
-@red: #76791b;
+@red: #ce2525;
 
 @icon-font-path:  "../fonts/";
 
@@ -125,10 +125,10 @@ a:focus {
         -moz-transition: background .3s ease-in-out;
         transition: background .3s ease-in-out;        
     }
-    a:hover, a:focus, a.active {
+    a:hover, a:focus, .active a {
         color: @dark;
         outline: 0;
-        background-color: rgba(255,255,255,.8);        
+        // background-color: #eee;        
     }
     .dropdown-menu a {
         text-transform: none !important;
@@ -450,4 +450,17 @@ p.medium {
         pointer-events: none;
     }
 
+}
+
+.badge-notify {
+   position:relative;
+   top: -15px;
+   left: 0px;
+   background: @red;
+   // font-family: @font-family-sans-serif;
+   // padding: 3px 5px 5px 7px;
+   padding: 3px 6px 5px 6px;
+   min-width: 20px;
+   text-align: center;
+   // font-size: 12px;
 }

@@ -21,6 +21,9 @@
     <div class="item-body">
         <div class="container">
             <div class="row">
+                @if (Session::has('message'))
+                    <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{{ Session::get('message') }}</div>
+                @endif
                 <div class="col-md-10 col-md-offset-1 text-center">
                     <h2 class="uppercase bottom-space nadpis-dielo">{{ $item->title }}</h2>
                 </div>
@@ -36,11 +39,15 @@
                         @endif
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                @if ($item->isFreeDownload())
-                                <a href="{{ URL::to('dielo/' . $item->id . '/downloadImage')  }}" class="btn btn-default btn-outline  uppercase sans"><i class="fa fa-download"></i> stiahnuť </a>
-                                @endif
                                 @if (!empty($item->iipimg_url))
                                    <a href="{{ URL::to('dielo/' . $item->id . '/zoom') }}" class="btn btn-default btn-outline  uppercase sans"><i class="fa fa-search-plus"></i> zoom obrázku</a>
+                                @endif
+                                @if ($item->isForReproduction())
+                                    <a href="{{ URL::to('dielo/' . $item->id . '/objednat')  }}" class="btn btn-default btn-outline  uppercase sans"><i class="fa fa-shopping-cart"></i> objednať reprodukciu </a>
+                                @endif
+                                @if ($item->isFreeDownload())
+                                <!-- <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.<br> -->
+                                <a href="{{ URL::to('dielo/' . $item->id . '/stiahnut')  }}" class="btn btn-default btn-outline  uppercase sans"><i class="fa fa-download"></i> stiahnuť </a>
                                 @endif
                             </div>
                             @if (!empty($item->description))
