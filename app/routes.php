@@ -150,6 +150,7 @@ Route::match(array('GET', 'POST'), 'katalog', function()
             })
            ->orderBy('created_at', 'DESC')->paginate(12);
 
+
 	return View::make('katalog', array(
 		'items'=>$items, 
 		'authors'=>$authors, 

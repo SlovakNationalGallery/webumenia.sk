@@ -28,9 +28,9 @@
 <section class="catalog content-section">
     <div class="catalog-body">
         <div class="container">
+                {{ Form::open() }}
             <div class="row">
                 <!-- <h3>Filter: </h3> -->
-                {{ Form::open() }}
                 <div  class="col-sm-3">
                         <h4>Autor: </h4>                        
                         {{ Form::select('author', array('' => '') + $authors, @$input['author'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Vyber autora...')) }}
@@ -59,8 +59,8 @@
                         <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="1790" data-slider-max="2014" data-slider-step="5" data-slider-value="[{{ !empty($input['year-range']) ? $input['year-range'] : '1790,2014' }}]"/> 
                         <b>2014</b>
                 </div>
-                 {{ Form::close() }}
             </div>
+                 {{ Form::close() }}
             <div class="row">
             	<div class="col-sm-12 container-item">
                     @if (!empty($search))
@@ -94,7 +94,7 @@
 
                     </div>
                     <div class="col-sm-12 text-center">
-                        {{ $items->appends(Input::all())->links() }}
+                        {{ $items->appends(@Input::except('page'))->links() }}
                     </div>
                 </div>
 
@@ -138,32 +138,26 @@ $(document).ready(function(){
         spravGrid($container);
     });
 
-
-
-// $container.infinitescroll({
-//     navSelector     : ".pagination",
-//     nextSelector    : ".pagination a:last",
-//     itemSelector    : ".item",
-//     debug           : false,
-//     dataType        : 'html',
-//     donetext        : 'boli načítané všetky diela',
-//     path: function(index) {
-//         return "?page=" + index;
-//     },
-//     bufferPx     : 200,
-//     loading: {
-//         img: '/images/ajax-loader.gif',
-//         msgText: "<em>Loading the next set of posts...</em>",
-//         finishedMsg: 'A to je všetko'
-//     }
-// }, function(newElements, data, url){
-//     var $newElems = jQuery( newElements ).hide(); 
-//     $newElems.imagesLoaded(function(){
-//         $newElems.fadeIn();
-//         $container.isotope( 'appended', $newElems );
-//     });
-// });
-
+    $container.infinitescroll({
+        navSelector     : ".pagination",
+        nextSelector    : ".pagination a:last",
+        itemSelector    : ".item",
+        debug           : false,
+        dataType        : 'html',
+        donetext        : 'boli načítané všetky diela',
+        path            : undefined,
+        bufferPx     : 200,
+        loading: {
+            msgText: "<em>Načítavam ďalšie diela...</em>",
+            finishedMsg: 'A to je všetko'
+        }
+    }, function(newElements, data, url){
+        var $newElems = jQuery( newElements ).hide(); 
+        $newElems.imagesLoaded(function(){
+            $newElems.fadeIn();
+            $container.isotope( 'appended', $newElems );
+        });
+    });
 
 });
 
