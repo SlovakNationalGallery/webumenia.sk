@@ -104,7 +104,7 @@
 						</li>
 						@if (Session::has('cart') && count(Session::get('cart'))>0)
 						<li class="{{ Request::is( 'informacie') ? 'active' : '' }}">
-								<a href="{{ URL::to('order')}}" class=""><i class="fa fa-shopping-cart"></i><span class="badge badge-notify">{{ count(Session::get('cart')) }}</span></a>
+								<a href="{{ URL::to('objednavka')}}" class=""><i class="fa fa-shopping-cart"></i><span class="badge badge-notify">{{ count(Session::get('cart')) }}</span></a>
 						</li>
 						@endif
 						<!-- <li class="{{ Request::is( 'informacie') ? 'active' : '' }}">

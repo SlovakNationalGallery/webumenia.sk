@@ -45,9 +45,9 @@
                                 @if ($item->isForReproduction())
                                     <a href="{{ URL::to('dielo/' . $item->id . '/objednat')  }}" class="btn btn-default btn-outline  uppercase sans"><i class="fa fa-shopping-cart"></i> objednať reprodukciu </a>
                                 @endif
-                                @if ($item->isFreeDownload())
-                                <!-- <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.<br> -->
+                                @if ($item->isFreeDownload())                                
                                 <a href="{{ URL::to('dielo/' . $item->id . '/stiahnut')  }}" class="btn btn-default btn-outline  uppercase sans"><i class="fa fa-download"></i> stiahnuť </a>
+                                <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="/images/licencia.png" /></a>
                                 @endif
                             </div>
                             @if (!empty($item->description))
@@ -63,7 +63,13 @@
                             <thead>
                                 <tr>
                                     <td class="atribut">autor:</td>
-                                    <td><strong>{{ implode('<br> ', $item->authors);}}</strong></td>
+                                    <td>
+                                        <strong>
+                                        @foreach ($item->authors as $author_unformated => $author)
+                                            <a href="{{ URL::to('katalog?author=' . $author_unformated) }}">{{ $author }}</a><br>
+                                        @endforeach
+                                        </strong>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td class="atribut">datovanie:</td>
@@ -84,7 +90,7 @@
                                 @if (!empty($item->work_type))
                                 <tr>
                                     <td class="atribut">výtvarný druh:</td>
-                                    <td>{{ $item->work_type; }}</td>
+                                    <td><a href="{{ URL::to('katalog?work_type=' . $item->work_type) }}">{{ $item->work_type; }}</a></td>
                                 </tr>
                                 @endif
                                 @if (!empty($item->topic))
@@ -96,7 +102,11 @@
                                 @if (!empty($item->subject))
                                 <tr>
                                     <td class="atribut">tagy:</td>
-                                    <td>{{ implode(', ', $item->subjects);}}</td>
+                                    <td>
+                                    @foreach ($item->subjects as $subject)
+                                        <a href="{{URL::to('katalog?subject=' . $subject)}}" class="btn btn-default btn-xs btn-outline">{{ $subject }}</a>
+                                    @endforeach
+                                    </td>
                                 </tr>
                                 @endif
                                 @if (!empty($collection))
@@ -144,7 +154,7 @@
                                 @if (!empty($item->gallery))
                                 <tr>
                                     <td class="atribut">inštitúcia /<br> majiteľ:</td>
-                                    <td>{{ $item->gallery; }}</td>
+                                    <td><a href="{{ URL::to('katalog?gallery=' . $item->gallery) }}">{{ $item->gallery; }}</a></td>
                                 </tr>
                                 @endif
                                 @if (!empty($item->identifier))

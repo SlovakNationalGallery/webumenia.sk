@@ -109,6 +109,7 @@ return array(
 		'Orangehill\Iseed\IseedServiceProvider',
 		'Ipalaus\Geonames\GeonamesServiceProvider',
 		'Dinesh\Bugonemail\BugonemailServiceProvider',
+		'Former\FormerServiceProvider',
 	),
 
 	/*
@@ -175,6 +176,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 		'Image' => 'Intervention\Image\ImageManagerStatic',
+		'Former' => 'Former\Facades\Former',
 	),
 
 );

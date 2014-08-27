@@ -37,6 +37,12 @@ Route::get('/', function()
 	return View::make($template, array('collections'=>$collections, 'items'=>$items));
 });
 
+Route::get('objednavka', function()
+{
+	$items = Item::find(Session::get('cart',array()));
+	return View::make('objednavka', array('items'=>$items));
+});
+
 Route::get('dielo/{id}/zoom', function($id)
 {
 	$item = Item::find($id);
@@ -104,6 +110,7 @@ Route::match(array('GET', 'POST'), 'katalog', function()
 	$authors = Item::listValues('author');
 	$work_types = Item::listValues('work_type', ',', true);
 	$tags = Item::listValues('subject');
+	$galleries = Item::listValues('gallery');
 
 	/*
 	if (Input::has('search')) {
@@ -130,6 +137,9 @@ Route::match(array('GET', 'POST'), 'katalog', function()
                 if(!empty($input['subject'])) {
                 	$query->where('subject', 'LIKE', '%'.$input['subject'].'%');
                 }
+                if(!empty($input['gallery'])) {
+                	$query->where('gallery', 'LIKE', '%'.$input['gallery'].'%');
+                }
                 if(!empty($input['year-range'])) {
                 	$range = explode(',', $input['year-range']);
                 	// dd("where('date_earliest', '>', $range[0])->where('date_latest', '<', $range[1])");
@@ -145,6 +155,7 @@ Route::match(array('GET', 'POST'), 'katalog', function()
 		'authors'=>$authors, 
 		'work_types'=>$work_types, 
 		'tags'=>$tags, 
+		'galleries'=>$galleries, 
 		'search'=>$search, 
 		'input'=>$input, 
 		));

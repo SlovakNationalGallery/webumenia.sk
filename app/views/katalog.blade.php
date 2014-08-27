@@ -28,13 +28,9 @@
 <section class="catalog content-section">
     <div class="catalog-body">
         <div class="container">
-            <div class="row bottom-space">
+            <div class="row">
                 <!-- <h3>Filter: </h3> -->
                 {{ Form::open() }}
-                <div  class="col-sm-1">
-                        <a class="btn btn-danger btn-xs btn-outline" href="{{ URL::to('katalog')}}"><i class="fa fa-times"></i> zrušiť filter</a>
-                        <!-- {{ Form::hidden('search', @$search); }} -->
-                 </div>
                 <div  class="col-sm-3">
                         <h4>Autor: </h4>                        
                         {{ Form::select('author', array('' => '') + $authors, @$input['author'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Vyber autora...')) }}
@@ -47,7 +43,17 @@
                         <h4>Tagy: </h4>
                         {{ Form::select('subject', array('' => '') + $tags, @$input['subject'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Vyber tagy...')) }}
                 </div>
-                <div class="col-sm-2">
+                <div  class="col-sm-3">
+                        <h4>Inštitúcia / majiteľ: </h4>
+                        {{ Form::select('gallery', array('' => '') + $galleries, @$input['gallery'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Vyber inštitúciu / majiteľa...')) }}
+                </div>
+            </div>
+            <div class="row bottom-space">
+                <div  class="col-sm-3">
+                        <a class="btn btn-danger btn-xs btn-outline" href="{{ URL::to('katalog')}}"><i class="fa fa-times"></i> zrušiť filter</a>
+                        <!-- {{ Form::hidden('search', @$search); }} -->
+                 </div>
+                <div class="col-sm-9">
                         <h4>Rok:</h4> 
                         <b>1790</b> 
                         <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="1790" data-slider-max="2014" data-slider-step="5" data-slider-value="[{{ !empty($input['year-range']) ? $input['year-range'] : '1790,2014' }}]"/> 

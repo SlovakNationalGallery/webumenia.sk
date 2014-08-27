@@ -123,10 +123,14 @@ class Item extends Eloquent {
 		$authors_array = $this->makeArray($this->attributes['author']);
 		$authors = array();
 		foreach ($authors_array as $author) {
-			$authors[] = preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $author);
+			$authors[$author] = preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $author);
 		}
-
 		return $authors;
+	}
+
+	public function getAuthorFormated($value)
+	{
+		return preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $this->attributes['author']);
 	}
 
 	public function getSubjectsAttribute($value)
@@ -194,7 +198,7 @@ class Item extends Eloquent {
 	public static function listValues($attribute, $delimiter = ';', $only_first = false)
 	{
 		//najskor over, ci $attribute je zo zoznamu povolenych 
-		if (!in_array($attribute, array('author', 'work_type', 'subject'))) return false;
+		if (!in_array($attribute, array('author', 'work_type', 'subject', 'gallery'))) return false;
 
 		$unformated_list = Item::select(DB::raw($attribute . ', count(*) AS pocet'))
 		->groupBy($attribute)
