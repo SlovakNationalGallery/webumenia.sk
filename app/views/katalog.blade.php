@@ -125,15 +125,14 @@ $(document).ready(function(){
        
     // az ked su obrazky nacitane aplikuj isotope
     $container.imagesLoaded(function () {
-        $container.isotope({
-            itemSelector : '.item',
-            masonry: {
-                isFitWidth: true,
-                gutter: 20
-            }
-        });
+        spravGrid($container);
     });
- 
+
+    $( window ).resize(function() {
+        spravGrid($container);
+    });
+
+
 
 // $container.infinitescroll({
 //     navSelector     : ".pagination",
@@ -161,6 +160,17 @@ $(document).ready(function(){
 
 
 });
+
+function spravGrid($container) {
+    $container.isotope({
+        itemSelector : '.item',
+        masonry: {
+            isFitWidth: true,
+            gutter: 20
+        }
+    });
+} 
+
 
 </script>
 @stop
