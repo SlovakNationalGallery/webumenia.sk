@@ -135,8 +135,8 @@
     </div>
 
 	<div id="top">
-	    <a href="#page-top" title="Vrátiť sa hore">
-	        <i class="icon-chevron-up"></i>
+	    <a href="#page-top" title="Návrat hore" class="btn btn-default"  data-toggle="tooltip" data-placement="top">
+	        <i class="fa fa-angle-up"></i>
 	    </a>
 	</div>
 

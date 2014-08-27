@@ -5,7 +5,23 @@ $(window).scroll(function() {
     } else {
         $(".navbar-fixed-top").removeClass("top-nav-collapse");
     }
+
+    if ($("#top").offset().top > $(window).height() + 500) {
+        $("#top").fadeIn();
+    } else {
+        $("#top").fadeOut();
+    }
 });
+
+$(document).ready(function(){
+    $("[data-toggle='tooltip']").tooltip();
+    
+    $('#top a').click(function(){
+        $('html,body').animate({scrollTop:0},'slow');return false;
+    });
+
+});
+
 
 var light_style = [
     {
