@@ -161,16 +161,5 @@ $(document).ready(function(){
 
 });
 
-function spravGrid($container) {
-    $container.isotope({
-        itemSelector : '.item',
-        masonry: {
-            isFitWidth: true,
-            gutter: 20
-        }
-    });
-} 
-
-
 </script>
 @stop

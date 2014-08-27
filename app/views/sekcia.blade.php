@@ -39,28 +39,29 @@
                     @if ($collection->items->count() == 0)
                         <p class="text-center">Momentálne žiadne diela</p>
                     @endif
-            	</div>
-            	@foreach ($collection->items as $i=>$item)
-                    @if ($i%2==0)
-                        <br style="clear: both">
-                    @endif
-	                <div class="col-md-6 col-sm-6 col-xs-12">
-	                	<a href="{{ $item->getDetailUrl() }}">
-	                		<img src="{{ $item->getImagePath() }}" class="img-responsive">	                		
-	                	</a>
-                        <div class="item-title">
-                            @if (!empty($item->iipimg_url))
-                                <div class="pull-right"><a href="{{ URL::to('dielo/' . $item->id . '/zoom') }}" data-toggle="tooltip" data-placement="left" title="Zoom obrázku"><i class="fa fa-search-plus"></i></a></div>
-                            @endif    
+                    <div id="iso">
+                    @foreach ($collection->items as $i=>$item)
+                        <div class="col-md-6 col-sm-6 col-xs-12 item">
                             <a href="{{ $item->getDetailUrl() }}">
-                                <em>{{ implode(', ', $item->authors) }}</em><br>
-                            <strong>{{ $item->title }}</strong>, <em>{{ $item->getDatingFormated() }}</em><br>
-                            
-                            <span class="">{{ $item->gallery }}</span>
+                                <img src="{{ $item->getImagePath() }}" class="img-responsive">                          
                             </a>
-                        </div>
-	                </div>	
-            	@endforeach
+                            <div class="item-title">
+                                @if (!empty($item->iipimg_url))
+                                    <div class="pull-right"><a href="{{ URL::to('dielo/' . $item->id . '/zoom') }}" data-toggle="tooltip" data-placement="left" title="Zoom obrázku"><i class="fa fa-search-plus"></i></a></div>
+                                @endif    
+                                <a href="{{ $item->getDetailUrl() }}">
+                                    <em>{{ implode(', ', $item->authors) }}</em><br>
+                                <strong>{{ $item->title }}</strong>, <em>{{ $item->getDatingFormated() }}</em><br>
+                                
+                                <span class="">{{ $item->gallery }}</span>
+                                </a>
+                            </div>
+                        </div>  
+                    @endforeach
+                    </div>
+                    <div class="col-sm-12 text-center">
+                    </div>
+                </div>                    
             </div>
         </div>
     </div>
@@ -86,8 +87,20 @@
 <script type="text/javascript">
     var map;
     $(document).ready(function(){
-        $("[data-toggle='tooltip']").tooltip();
 
+        var $container = $('#iso');
+           
+        // az ked su obrazky nacitane aplikuj isotope
+        $container.imagesLoaded(function () {
+            spravGrid($container);
+        });
+
+        $( window ).resize(function() {
+            spravGrid($container);
+        });
+
+
+            
         map = new GMaps({
             el: '#big-map',
             lat: 48.705862, 
