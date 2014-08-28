@@ -218,7 +218,7 @@ class Item extends Eloquent {
                 }
                 if(!empty($input['work_type'])) {
                 	// dd($input['work_type']);
-                	$query->where('work_type', 'LIKE', $input['work_type']);
+                	$query->where('work_type', 'LIKE', $input['work_type'].'%');
                 }
                 if(!empty($input['subject'])) {
                 	$query->where('subject', 'LIKE', '%'.$input['subject'].'%');
