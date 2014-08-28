@@ -221,7 +221,9 @@ class Item extends Eloquent {
                 	$query->where('work_type', 'LIKE', $input['work_type'].'%');
                 }
                 if(!empty($input['subject']) && $attribute!='subject') {
-                	$query->where('subject', 'LIKE', '%'.$input['subject'].'%');
+                	//tieto 2 query su tu kvoli situaciam, aby nenaslo pre kucove slovo napr. "les" aj diela s klucovy slovom "pleso"
+                	$query->where('subject', 'LIKE', '%'.$input['subject'].';%');
+                	$query->orWhere('subject', 'LIKE', '%'.$input['subject'].'');
                 }
                 if(!empty($input['gallery']) && $attribute!='gallery') {
                 	$query->where('gallery', 'LIKE', '%'.$input['gallery'].'%');
