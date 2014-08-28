@@ -75,8 +75,6 @@ Route::get('dielo/{id}/stiahnut', function($id)
 		App::abort(404);
 	}
 
-	$pathToFile = 'http://dvekrajiny.sng.sk/images/sekcie/2.jpeg';
-
 	$item->download();
 
 	// return Response::download($pathToFile);
@@ -132,7 +130,7 @@ Route::match(array('GET', 'POST'), 'katalog', function()
                 }
                 if(!empty($input['work_type'])) {
                 	// dd($input['work_type']);
-                	$query->where('work_type', 'LIKE', '%'.$input['work_type'].'%');
+                	$query->where('work_type', 'LIKE', $input['work_type']);
                 }
                 if(!empty($input['subject'])) {
                 	$query->where('subject', 'LIKE', '%'.$input['subject'].'%');

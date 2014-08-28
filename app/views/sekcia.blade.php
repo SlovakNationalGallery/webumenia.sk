@@ -35,7 +35,6 @@
         <div class="container">
             <div class="row">
             	<div class="col-xs-12">
-            		<h3>Diela: </h3>
                     @if ($collection->items->count() == 0)
                         <p class="text-center">Momentálne žiadne diela</p>
                     @endif

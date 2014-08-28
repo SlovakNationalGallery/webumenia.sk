@@ -200,11 +200,40 @@ class Item extends Eloquent {
 		//najskor over, ci $attribute je zo zoznamu povolenych 
 		if (!in_array($attribute, array('author', 'work_type', 'subject', 'gallery'))) return false;
 
+		$search = Input::get('search', null);
+		$input = Input::all();
+
 		$unformated_list = Item::select(DB::raw($attribute . ', count(*) AS pocet'))
 		->groupBy($attribute)
 		->orderBy('pocet', 'desc')
 		->whereNotNull($attribute)
 		->where($attribute, '!=', '')
+		->where(function($query) use ($search, $input) {
+                /** @var $query Illuminate\Database\Query\Builder  */
+                if (!empty($search)) {
+                	$query->where('title', 'LIKE', '%'.$search.'%')->orWhere('author', 'LIKE', '%'.$search.'%')->orWhere('subject', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%');
+                }
+                if(!empty($input['author'])) {
+                	$query->where('author', 'LIKE', '%'.$input['author'].'%');
+                }
+                if(!empty($input['work_type'])) {
+                	// dd($input['work_type']);
+                	$query->where('work_type', 'LIKE', $input['work_type']);
+                }
+                if(!empty($input['subject'])) {
+                	$query->where('subject', 'LIKE', '%'.$input['subject'].'%');
+                }
+                if(!empty($input['gallery'])) {
+                	$query->where('gallery', 'LIKE', '%'.$input['gallery'].'%');
+                }
+                if(!empty($input['year-range'])) {
+                	$range = explode(',', $input['year-range']);
+                	// dd("where('date_earliest', '>', $range[0])->where('date_latest', '<', $range[1])");
+                	$query->where('date_earliest', '>', $range[0])->where('date_latest', '<', $range[1]);
+                }
+
+                return $query;
+            })
 		->remember(30)
 		->get();
 
@@ -249,6 +278,7 @@ class Item extends Eloquent {
 	public function download() {
 
 		$url = 'http://imi.sng.cust.eea.sk/publicIS/fcgi-bin/iipsrv.fcgi?FIF=' . $this->attributes['iipimg_url'] . '&CVT=JPG';
+		dd($url);
 		$filename = $this->attributes['id'].'.jpg';
 
 	    set_time_limit(0);
