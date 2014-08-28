@@ -208,22 +208,22 @@ class Item extends Eloquent {
 		->orderBy('pocet', 'desc')
 		->whereNotNull($attribute)
 		->where($attribute, '!=', '')
-		->where(function($query) use ($search, $input) {
+		->where(function($query) use ($search, $input, $attribute) {
                 /** @var $query Illuminate\Database\Query\Builder  */
                 if (!empty($search)) {
                 	$query->where('title', 'LIKE', '%'.$search.'%')->orWhere('author', 'LIKE', '%'.$search.'%')->orWhere('subject', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%');
                 }
-                if(!empty($input['author'])) {
+                if(!empty($input['author']) && $attribute!='author') {
                 	$query->where('author', 'LIKE', '%'.$input['author'].'%');
                 }
-                if(!empty($input['work_type'])) {
+                if(!empty($input['work_type']) && $attribute!='work_type') {
                 	// dd($input['work_type']);
                 	$query->where('work_type', 'LIKE', $input['work_type'].'%');
                 }
-                if(!empty($input['subject'])) {
+                if(!empty($input['subject']) && $attribute!='subject') {
                 	$query->where('subject', 'LIKE', '%'.$input['subject'].'%');
                 }
-                if(!empty($input['gallery'])) {
+                if(!empty($input['gallery']) && $attribute!='gallery') {
                 	$query->where('gallery', 'LIKE', '%'.$input['gallery'].'%');
                 }
                 if(!empty($input['year-range'])) {
