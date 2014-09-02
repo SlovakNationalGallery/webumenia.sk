@@ -3,13 +3,9 @@
 class Order extends Eloquent {
 
     public static $rules = array(
-        'organization' => 'required',
-        'contactPerson' => 'required',
+        'name' => 'required',
         'email' => 'email|required',
-        'kindOfPurpose' => 'required',
-        'purpose' => 'required',
-        'medium' => 'required',
-        'numOfCopies' => 'numeric',
+        'format' => 'required',
         );
 
 

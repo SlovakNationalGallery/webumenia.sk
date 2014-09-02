@@ -176,7 +176,12 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 		'Image' => 'Intervention\Image\ImageManagerStatic',
-		'Former' => 'Former\Facades\Former',
+        'Former' => 'Former\Facades\Former',
+	),
+
+	'jira_auth' => array(
+		'user' => 'your_user',
+		'pass' => 'your_pass',
 	),
 
 );

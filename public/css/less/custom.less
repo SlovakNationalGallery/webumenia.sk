@@ -19,6 +19,13 @@
 
 @font-family-base:        @font-family-serif;
 
+@input-border: #888;
+@state-success-bg: @input-border;
+
+@state-success-text:             #555;
+@state-success-bg:               #c8ddf1;
+@state-success-border:           darken(spin(@state-success-bg, -10), 5%);
+
 // LESS
 
 body {
@@ -315,13 +322,13 @@ a:focus {
     .btn {
         margin: 10px 5px 20px 5px;
     }
+}
 
-    table a:not(.btn):not(.readmore-js-toggle) {
-        border-bottom: 1px solid #ccc;
+table a:not(.btn):not(.readmore-js-toggle), .underline {
+    border-bottom: 1px solid #ccc;
 
-        &:hover {
-            border-bottom: 1px solid #000;
-        }
+    &:hover {
+        border-bottom: 1px solid #000;
     }
 }
 

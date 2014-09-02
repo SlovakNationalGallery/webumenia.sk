@@ -43,31 +43,66 @@ Route::get('objednavka', function()
 	return View::make('objednavka', array('items'=>$items));
 });
 
-Route::get('testobj', function()
+Route::post('objednavka', function()
 {
 
-	$client = new GuzzleHttp\Client();
-	$res = $client->post('http://jira.sng.sk/rest/cedvu/latest/order/create', [
-	    'auth' =>  ['cedvu','Hada8iejei'],
-		'body' => [
-			'pids' => 'SVK:SNG.OP_12',
-			'organization' => 'dvekrajiny - test',
-			'contactPerson' => 'dvekrajiny - test',
-			'email' => 'igor.rjabinin@sng.sk',
-			'kindOfPurpose' => 'Súkromný',
-			'purpose' => 'dvekrajiny - test',
-			'medium' => 'Iné',
-			'address' => '',
-			'phone' => '',
-			'ico' => '',
-			'dic' => '',
-			'numOfCopies' => '1'
-	    ]    
-	]);
-	dd($res->getStatusCode());           // 200
+	$input = Input::all();
 
-	dd($response);
+	$rules = Order::$rules;
+	$v = Validator::make($input, $rules);
 
+	if ($v->passes()) {
+		
+		$order = new Order;
+		$order->name = Input::get('name');
+		$order->address = Input::get('address');
+		$order->email = Input::get('email');
+		$order->phone = Input::get('phone');
+		$order->format = Input::get('format');
+		$order->note = Input::get('note');
+		$order->save();
+
+		$item_ids = explode(', ', Input::get('pids'));
+
+		foreach ($item_ids as $item_id) {
+			$order->items()->attach($item_id);
+		}
+
+		//poslat objednavku do Jiry
+		$client = new GuzzleHttp\Client();
+		$res = $client->post('http://jira.sng.sk/rest/cedvu/latest/order/create', [
+		    'auth' =>  [Config::get('app.jira_auth.user'), Config::get('app.jira_auth.pass')],
+			'body' => [
+				'pids' => Input::get('pids'),
+				'organization' => $order->name,
+				'contactPerson' => $order->name,
+				'email' => $order->email,
+				'kindOfPurpose' => 'Súkromný',
+				'purpose' => $order->format . "\n" . $order->note,
+				'medium' => 'Iné',
+				'address' => $order->address,
+				'phone' => $order->phone,
+				'ico' => '',
+				'dic' => '',
+				'numOfCopies' => '1'
+		    ]    
+		]);
+		if ($res->getStatusCode()==200) {
+			Session::forget('cart');			
+			return Redirect::to('dakujeme');
+		} else {
+			Session::flash('message', "Nastal problém pri uložení vašej objednávky. Prosím kontaktujte lab@sng.sk. ");
+			return Redirect::back()->withInput();
+		}
+	}
+
+	return Redirect::back()->withInput()->withErrors($v);
+
+});
+
+Route::get('dakujeme', function()
+{
+	return View::make('dakujeme');
 });
 
 Route::get('dielo/{id}/zoom', function($id)
@@ -90,6 +125,20 @@ Route::get('dielo/{id}/objednat', function($id)
 
 	Session::push('cart', $item->id);
 	Session::flash('message', "Dielo <b>" . implode(', ', $item->authors) . " – $item->title</b> (".$item->getDatingFormated().") bolo pridané do košíka.");
+	return Redirect::back();
+
+});
+
+Route::get('dielo/{id}/odstranit', function($id)
+{
+	$item = Item::find($id);
+
+	if (empty($item)) {
+		App::abort(404);
+	}
+
+	Session::put('cart', array_diff(Session::get('cart'), [$item->id]));
+	Session::flash('message', "Dielo <b>" . implode(', ', $item->authors) . " – $item->title</b> (".$item->getDatingFormated().") bolo odstránené z košíka.");
 	return Redirect::back();
 
 });

@@ -14,9 +14,13 @@
     <div class="collection-body">
         <div class="container">
             <div class="row">
+                @if (Session::has('message'))
+                    <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{{ Session::get('message') }}</div>
+                @endif
                 <div class="col-md-8 col-md-offset-2 text-center">
                         <img src="/images/x.svg" alt="x" class="xko">
                     	<h2 class="uppercase bottom-space">Objednávka</h2>
+                        <p>K vybraným dielam zo zbierok SNG ponúkame možnosť objednať si tlač kvalitných reprodukcií na papieri xx (pozn. doplniť typ papiera). Po výbere diel, vyplnení údajov a odoslaní objednávky vás bude kontaktovať pracovník SNG s podrobnejšími informáciami. Momentálne je možné vyzdvihnúť si diela len osobne v Kníhkupectve <a href="https://goo.gl/maps/3Uf4S" target="_blank" class="underline">Ex Libris v priestoroch SNG na Námestí Ľ. Štúra 4</a> v Bratislave. </p>
                 </div>
             </div>
         </div>
@@ -35,66 +39,51 @@
   Former::open('objednavka')->class('form-bordered form-horizontal')->id('order')->rules(Order::$rules);
 }}
 
-<div class="form-group required has-feedback"><label for="pids" class="control-label col-lg-2 col-sm-4">Diela objednávky<sup>*</sup></label>
+<div class="form-group required has-feedback"><label for="pids" class="control-label col-lg-2 col-sm-4">Diela objednávky</label>
     <div class="col-lg-10 col-sm-8">
             @if ($items->count() == 0)
                 <p class="text-center">Nemáte v košíku žiadne diela</p>
             @endif
 
             @foreach ($items as $i=>$item)
-               
-                    <a href="{{ $item->getDetailUrl() }}">
-                        <img src="{{ $item->getImagePath() }}" class="img-responsive pull-left" style="max-width: 100px; ">
+                <div class="media">
+                    <a href="{{ $item->getDetailUrl() }}" class="pull-left">
+                        <img src="{{ $item->getImagePath() }}" class="media-object" style="max-width: 80px; ">
                     </a>
-                    <div class="clearfix"></div>
-                    <div class="item-title">                            
+                    <div class="media-body">                           
                         <a href="{{ $item->getDetailUrl() }}">
-                            <strong>{{ implode(', ', $item->authors) }} &ndash; {{ $item->title }}</strong> (<em>{{ $item->getDatingFormated() }}</em>)
-                        </a>
+                            <em>{{ implode(', ', $item->authors) }}</em> <br> <strong>{{ $item->title }}</strong> (<em>{{ $item->getDatingFormated() }}</em>)
+                        </a><br>
+                        <span class="item"><a href="{{ URL::to('dielo/' . $item->id . '/odstranit') }}" class="underline"><i class="fa fa-times"></i> odstrániť</a></span>
                     </div>
+                </div>
             @endforeach                    
     </div>
 </div>
 
-{{ Former::hidden('pids')->value('haha'); }}
-{{ Former::textarea('organization')->label('Organizácia, osoba')->required(); }}
-{{ Former::text('contactPerson')->label('Kontaktná osoba')->required(); }}
-{{ Former::text('email')->label('E-mail kontaktnej osoby')->required(); }}
-{{ 
-  Former::select('kindOfPurpose')->label('Účel použitia')->options(array('Žiadne',
-'Komerčný' => array("value" => 'Komerčný' ),
-'Vedecký' => array("value" => 'Vedecký' ),
-'Súkromný' => array("value" => 'Súkromný' ),
-'Edukačný' => array("value" => 'Edukačný' ),
-'Výstava' => array("value" => 'Výstava' )))->required();
- }}
+{{ Former::hidden('pids')->value(implode(', ', Session::get('cart'))); }}
+{{ Former::text('name')->label('Meno')->required(); }}
+{{ Former::text('address')->label('Adresa'); }}
+{{ Former::text('email')->label('E-mail')->required(); }}
+{{ Former::text('phone')->label('Telefón'); }}
 
 
-{{ Former::textarea('purpose')->label('Účel')->required(); }}
-{{ Former::select('medium')->label('Médium')->required()->options(array(
-'Žiadne' => array('name' => 'medium', 'value'=>''), 
-'Publikácia' => array('name' => 'medium', 'value'=>'Publikácia'), 
-'Monografia' => array('name' => 'medium', 'value'=>'Monografia'), 
-'Film' => array('name' => 'medium', 'value'=>'Film'), 
-'Článok' => array('name' => 'medium', 'value'=>'Článok'), 
-'Kalendár' => array('name' => 'medium', 'value'=>'Kalendár'), 
-'Iné' => array('name' => 'medium', 'value'=>'Iné'), 
+{{ Former::select('format')->label('Formát')->required()->options(array(
+    'do formátu A4 :' => array(
+        'do A4: samostatná reprodukcia 25 €/ks' => array('value'=>'samostatná reprodukcia 25 €/ks'), 
+        'do A4: reprodukcia s paspartou 35 €/ks' => array('value'=>'reprodukcia s paspartou 35 €/ks'), 
+        'do A4: s paspartou a rámom 40 €/ks' => array('value'=>'s paspartou a rámom 40 €/ks'), 
+        ),
+    'od A4 do A3+ :' => array(
+        'do A3+: samostatná reprodukcia 35 €/ks' => array('value'=>'samostatná reprodukcia 35 €/ks'), 
+        'do A3+: reprodukcia s paspartou 50 €/ks' => array('value'=>'reprodukcia s paspartou 50 €/ks'), 
+        'do A3+: s paspartou a rámom 60 €/ks' => array('value'=>'s paspartou a rámom 60 €/ks'), 
+        )
 )); }}
 
+{{ Former::textarea('note')->label('Poznámka'); }}
 
-{{ Former::text('address')->label('Adresa'); }}
-{{ Former::text('phone')->label('Telefón'); }}
-{{ Former::text('ico')->label('IČO'); }}
-{{ Former::text('dic')->label('DIČ'); }}
-{{ 
-Former::radios('no-dph')->label('Som platca DPH')
-  ->radios(array(
-    'Áno' => array('name' => 'o-dph', 'value' => '0'),
-    'Nie' => array('name' => 'o-dph', 'value' => '1'),
-  ))->inline()->required();
-}}
 
-{{ Former::select('numOfCopies')->label('Náklad')->options(array(1,2,3,4,5,6,7))->help('Počet kusov'); }}
 
 
 {{ Former::actions(Form::submit('Objednať', array('class'=>'btn btn-primary')) ) }}
