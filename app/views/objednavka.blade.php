@@ -32,7 +32,7 @@
 
 
 {{
-  Former::open('order')->class('form-bordered form-horizontal')->id('order')->rules(Order::$rules);
+  Former::open('objednavka')->class('form-bordered form-horizontal')->id('order')->rules(Order::$rules);
 }}
 
 <div class="form-group required has-feedback"><label for="pids" class="control-label col-lg-2 col-sm-4">Diela objednávky<sup>*</sup></label>
@@ -56,7 +56,7 @@
     </div>
 </div>
 
-{{ Former::hidden('pids')->label('Diela objednávky')->required(); }}
+{{ Former::hidden('pids')->value('haha'); }}
 {{ Former::textarea('organization')->label('Organizácia, osoba')->required(); }}
 {{ Former::text('contactPerson')->label('Kontaktná osoba')->required(); }}
 {{ Former::text('email')->label('E-mail kontaktnej osoby')->required(); }}
@@ -94,7 +94,6 @@ Former::radios('no-dph')->label('Som platca DPH')
   ))->inline()->required();
 }}
 
-{{ Former::text('numOfCopies')->label('Náklad')->required(); }}
 {{ Former::select('numOfCopies')->label('Náklad')->options(array(1,2,3,4,5,6,7))->help('Počet kusov'); }}
 
 

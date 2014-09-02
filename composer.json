@@ -10,7 +10,8 @@
 		"orangehill/iseed": "dev-master",
 		"ipalaus/geonames": "0.2.*",
 		"dinesh/bugonemail": "dev-master",
-		"anahkiasen/former": "3.4.*"
+		"anahkiasen/former": "3.4.*",
+		"guzzlehttp/guzzle": "4.*"
 	},
 	"autoload": {
 		"classmap": [

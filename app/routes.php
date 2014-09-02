@@ -43,6 +43,33 @@ Route::get('objednavka', function()
 	return View::make('objednavka', array('items'=>$items));
 });
 
+Route::get('testobj', function()
+{
+
+	$client = new GuzzleHttp\Client();
+	$res = $client->post('http://jira.sng.sk/rest/cedvu/latest/order/create', [
+	    'auth' =>  ['cedvu','Hada8iejei'],
+		'body' => [
+			'pids' => 'SVK:SNG.OP_12',
+			'organization' => 'dvekrajiny - test',
+			'contactPerson' => 'dvekrajiny - test',
+			'email' => 'igor.rjabinin@sng.sk',
+			'kindOfPurpose' => 'Súkromný',
+			'purpose' => 'dvekrajiny - test',
+			'medium' => 'Iné',
+			'address' => '',
+			'phone' => '',
+			'ico' => '',
+			'dic' => '',
+			'numOfCopies' => '1'
+	    ]    
+	]);
+	dd($res->getStatusCode());           // 200
+
+	dd($response);
+
+});
+
 Route::get('dielo/{id}/zoom', function($id)
 {
 	$item = Item::find($id);
