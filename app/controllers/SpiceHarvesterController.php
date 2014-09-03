@@ -320,16 +320,14 @@ class SpiceHarvesterController extends \BaseController {
 	    $attributes['topic'] = $this->serialize($topic);
 	    $attributes['subject'] = $this->serialize($subject);
 	    $attributes['place'] = $this->serialize($dcElements->{'subject.place'});
-	    $attributes['measurement'] = $dcTerms->extent;
-	    
-	    $dating = explode('/', $dcTerms->created);
+	    // $trans = array(", " => ";", "šírka" => "", "výška" => "", "()" => "");
+	    $trans = array(", " => ";", "; " => ";", "()" => "");
+	    $attributes['measurement'] = trim(strtr($dcTerms->extent, $trans));
+	    $dating = explode('/', $dcTerms->created[0]);
+	    $dating_text = (!empty($dcTerms->created[1])) ? end((explode(', ', $dcTerms->created[1]))) : $dcTerms->created[0];
 	    $attributes['date_earliest'] = (!empty($dating[0])) ? $dating[0] : null;
 	    $attributes['date_latest'] = (!empty($dating[1])) ? $dating[1] : $attributes['date_earliest'];
-	    if ($attributes['date_earliest'] == $attributes['date_latest']) {
-	    	$attributes['dating'] = $dating[0];
-	    } else {
-	    	$attributes['dating'] = $dcTerms->created;
-	    }
+	    $attributes['dating'] = $dating_text;
 	    $attributes['medium'] = $dcElements->{'format.medium'}; // http://stackoverflow.com/questions/6531380/php-simplexml-with-dot-character-in-element-in-xml
 	    $attributes['technique'] = $this->serialize($dcElements->format);
 	    $attributes['inscription'] = $this->serialize($dcElements->description);

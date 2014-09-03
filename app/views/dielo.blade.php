@@ -77,7 +77,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @if (!empty($item->measurement))
+                                @if (!empty($item->measurements))
                                 <tr>
                                     <td class="atribut">rozmer:</td>
                                     <td>

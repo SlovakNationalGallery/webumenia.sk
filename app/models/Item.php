@@ -161,8 +161,10 @@ class Item extends Eloquent {
 	}
 
 	public function getDatingFormated() {
-		$trans = array("/" => "&ndash;");
-		return strtr($this->attributes['dating'], $trans);
+
+		$trans = array("/" => "&ndash;", "-" => "&ndash;", "okolo" => "");
+		$formated = strtr($this->attributes['dating'], $trans);
+		return (str_contains($this->attributes['dating'], 'okolo')) ? 'okolo ' . $formated : $formated;
 	}
 
 
