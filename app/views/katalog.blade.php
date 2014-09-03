@@ -48,9 +48,9 @@
                         {{ Form::select('gallery', array('' => '') + $galleries, @$input['gallery'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Vyber inštitúciu / majiteľa...')) }}
                 </div>
             </div>
-            <div class="row bottom-space">
+            <div class="row bottom-space" style="padding-top: 20px;">
                 <div  class="col-sm-3">
-                        <a class="btn btn-danger btn-xs btn-outline" href="{{ URL::to('katalog')}}"><i class="fa fa-times"></i> zrušiť filter</a>
+                        <p><a class="btn btn-primary" href="{{ URL::to('katalog')}}">zobraziť všetky diela</a></p>
                         <!-- {{ Form::hidden('search', @$search); }} -->
                  </div>
                 <div class="col-sm-9">

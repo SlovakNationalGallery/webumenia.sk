@@ -70,14 +70,14 @@
 
 {{ Former::select('format')->label('Formát')->required()->options(array(
     'do formátu A4 :' => array(
-        'do A4: samostatná reprodukcia 25 €/ks' => array('value'=>'samostatná reprodukcia 25 €/ks'), 
-        'do A4: reprodukcia s paspartou 35 €/ks' => array('value'=>'reprodukcia s paspartou 35 €/ks'), 
-        'do A4: s paspartou a rámom 40 €/ks' => array('value'=>'s paspartou a rámom 40 €/ks'), 
+        'do A4: samostatná reprodukcia 25 €/ks' => array('value'=>'samostatná reprodukcia (25 €/ks)'), 
+        'do A4: reprodukcia s paspartou 35 €/ks' => array('value'=>'reprodukcia s paspartou (35 €/ks)'), 
+        'do A4: s paspartou a rámom 40 €/ks' => array('value'=>'s paspartou a rámom (40 €/ks)'), 
         ),
     'od A4 do A3+ :' => array(
-        'do A3+: samostatná reprodukcia 35 €/ks' => array('value'=>'samostatná reprodukcia 35 €/ks'), 
-        'do A3+: reprodukcia s paspartou 50 €/ks' => array('value'=>'reprodukcia s paspartou 50 €/ks'), 
-        'do A3+: s paspartou a rámom 60 €/ks' => array('value'=>'s paspartou a rámom 60 €/ks'), 
+        'do A3+: samostatná reprodukcia 35 €/ks' => array('value'=>'samostatná reprodukcia (35 €/ks)'), 
+        'do A3+: reprodukcia s paspartou 50 €/ks' => array('value'=>'reprodukcia s paspartou (50 €/ks)'), 
+        'do A3+: s paspartou a rámom 60 €/ks' => array('value'=>'s paspartou a rámom (60 €/ks)'), 
         )
 )); }}
 

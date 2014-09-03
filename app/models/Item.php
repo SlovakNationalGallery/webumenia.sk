@@ -280,7 +280,6 @@ class Item extends Eloquent {
 	public function download() {
 
 		$url = 'http://imi.sng.cust.eea.sk/publicIS/fcgi-bin/iipsrv.fcgi?FIF=' . $this->attributes['iipimg_url'] . '&CVT=JPG';
-		dd($url);
 		$filename = $this->attributes['id'].'.jpg';
 
 	    set_time_limit(0);
