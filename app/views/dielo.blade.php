@@ -186,7 +186,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header text-center">
-                <img src="{{ URL::asset('images/license/cc.logo.svg') }}" alt="Creative Commons">
+                <img src="{{ URL::asset('images/license/cc.svg') }}" alt="Creative Commons">
             </div>
             <div class="modal-body">
                 <p>Vami zvolené dielo by sa malo začať stahovať v krátkom čase.</p>
@@ -197,7 +197,7 @@
                     <li>vlastná tvorba (digitálna úprava reprodukcie, využitie jej časti pre animáciu alebo koláž)</li>
                     <li>vzdelávanie (vloženie obrázku na vlastnú webstránku, použitie na Wikipedii či ako súčasť prezentácie)</li>
                 </ul>    
-                <p><a class="underline" href="{{ URL::to('katalog?free_download=1') }}">Všetky voľne stiahnuteľné diela nájdete tu.</a></p>
+                <p><a class="underline" href="{{ URL::to('creative-commons') }}">Všetky voľne stiahnuteľné diela nájdete tu.</a></p>
             </div>
             <div class="modal-footer">
                 <div class="text-center"><button type="button" data-dismiss="modal" class="btn btn-default btn-outline uppercase sans">Zavrieť</button></div>
@@ -258,7 +258,7 @@
             });
             return false; //this is critical to stop the click event which will trigger a normal file download!
         });
-        
+
 // $(document).on("click", "#download", function() {
 //         $.fileDownload($(this).attr('href'), {
 //             preparingMessageHtml: "We are preparing your report, please wait...",

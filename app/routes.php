@@ -241,6 +241,16 @@ Route::match(array('GET', 'POST'), 'katalog', function()
 		));
 });
 
+Route::get('creative-commons', function()
+{
+	$items = Item::where('free_download', '=', '1')->orderBy('created_at', 'DESC')->paginate(12);
+
+	return View::make('katalog', array(
+		'items'=>$items, 
+		'cc'=>true, 
+		));
+});
+
 Route::get('informacie', function()
 {
 	return View::make('informacie');

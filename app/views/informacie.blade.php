@@ -81,11 +81,46 @@
                     </table>
 
                     <p><a href="http://www.sng.sk/sk/uvod/navsteva-sng/vstupne" taget="_blank">Vstup zdarma</a></p>
-                    
+                    <h3 class="text-center visible-xs visible-sm"><i class="icon-versus"></i></h3>
                 </div>
                 <div class="col-md-6">
-                    <img src="{{URL::to('/images/partneri/placeholder.png')}}" class="img-responsive" alt="">
-                    <div class="row" style="margin-top: 30px">
+                    <p><strong class="atribut">Katalóg DVE KRAJINY</strong></p>
+                    <p><strong class="atribut">Dizajn:</strong> Ján Šicko</p>
+                    <p><strong class="atribut">Vydala:</strong> Slovenská národná galéria</p>
+                    <p><strong class="atribut">Cena:</strong> 20 €</p>
+                    <p>Dostupný v kníhkupectve <a href="https://goo.gl/maps/3Uf4S" target="_blank" class="underline">Ex Libris v priestoroch SNG na Námestí Ľ. Štúra 4</a> v Bratislave.</p>
+
+                    <a href="http://www.sng.sk/sk/uvod/vystavy/aktualne/dve-krajiny/katalog" target="_blank"><img src="{{URL::to('/images/katalog.jpg')}}" class="img-responsive" alt="Katalóg DVE KRAJINY"></a>
+
+                </div>
+
+            </div>
+            <hr>
+            <div class="row">
+                <!-- stahovanie -->
+                <div class="col-md-6">
+                    <h4>Sťahovanie obrázkov</h4>
+                    <div class="text-center"><img src="{{ URL::asset('images/license/cc.svg') }}" class="img-responsive"  style="max-width: 250px; padding-bottom: 20px" alt="Creative Commons"></div>
+                    <p>Digitálne reprodukcie diel SNG na tejto stránke sú sprístupnené pod licenciou <a class="underline" href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs" target="_blank">Creative Commons BY-NC-SA 4.0</a>. Môžete si ich voľne stiahnuť vo vysokom rozlíšení. Reprodukcie sa môžu ľubovoľne využívať na nekomerčné účely - kopírovať, zdieľať či upravovať. Pri ďalšom šírení obrázkov je potrebné použiť rovnakú licenciu <em>(CC BY-NC-SA)</em> a uviesť odkaz na webstránku <a class="underline" href="http://dvekrajiny.sng.sk">http://dvekrajiny.sng.sk</a> s citáciou diela (autor, názov, rok vzniku, vlastník diela).</p>
+                    <p>Príklady využitia reprodukcií:</p>
+                    <ul>
+                        <li>tlač na nekomerčné účely (plagáty, pohľadnice alebo tričká)</li>
+                        <li>vlastná tvorba (digitálna úprava reprodukcie, využitie jej časti pre animáciu alebo koláž)</li>
+                        <li>vzdelávanie (vloženie obrázku na vlastnú webstránku, použitie na Wikipedii či ako súčasť prezentácie)</li>
+                    </ul>    
+                    <p><a class="underline" href="{{ URL::to('creative-commons') }}">Všetky voľne stiahnuteľné diela nájdete tu.</a></p>
+                    
+                </div>
+                <h3 class="text-center visible-xs visible-sm"><i class="icon-versus"></i></h3>
+                <!-- reprodukcie -->
+                <div class="col-md-6">
+                    <h4>Tlač reprodukcií</h4>
+                    <p>K <a href="{{ URL::to('katalog?gallery=Slovenská%20národná%20galéria,%20SNG') }}">vybraným dielam zo zbierok SNG</a> ponúkame možnosť objednať si reprodukcie v archívnej kvalite na fineartových papieroch. Po výbere diel, vyplnení údajov a odoslaní objednávky vás bude kontaktovať pracovník SNG s podrobnejšími informáciami. </p>
+                    <p class="bottom-space">Momentálne je možné vyzdvihnúť si diela len osobne v kníhkupectve <a href="https://goo.gl/maps/3Uf4S" target="_blank" class="underline">Ex Libris v priestoroch SNG na Námestí Ľ. Štúra 4</a> v Bratislave. </p>
+
+                    <h3 class="text-center"><i class="icon-versus"></i></h3>
+
+                    <div class="row" style="margin-top: 50px">
                         <div class="col-md-6">
                             <p style="margin-bottom: 20px"><strong class="atribut">Generálny partner:</strong></p>
                             <a href="http://www.seas.sk" target="_blank"><img src="{{ URL::to('/images/partneri/enel.png') }}" alt="enel"></a>
@@ -95,10 +130,10 @@
                             <a href="https://www.jtbanka.sk" target="_blank"><img src="{{ URL::to('/images/partneri/ja-a-ty.png') }}" alt="banka ja a ty"></a>
                         </div>
                     </div>
-
                 </div>
 
             </div>
+
         </div>
     </div>
 </section>

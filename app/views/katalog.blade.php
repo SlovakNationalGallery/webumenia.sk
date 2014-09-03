@@ -12,12 +12,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 text-center">
-                    @if (!empty($search))
-                        <!-- <h1 class="uppercase">&bdquo;{{ $search }}&ldquo;</h1> -->
-                        <!-- <h2 class="uppercase bottom-space">{{ $items->getTotal() }} nájdených diel</h2>                         -->
-                    @else
-                        <!-- <img src="/images/x.svg" alt="x" class="xko"> -->
-                        <!-- <h2 class="uppercase bottom-space">vystavené diela</h2> -->
+                    @if (!empty($cc))
+                        <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs" target="_blank"><img src="{{ URL::asset('images/license/cc.svg') }}" alt="Creative Commons" ></a>
+                        <h1>Voľné diela</h1>                        
                     @endif
                 </div>
             </div>
@@ -28,7 +25,8 @@
 <section class="catalog content-section">
     <div class="catalog-body">
         <div class="container">
-                {{ Form::open() }}
+            @if (empty($cc))
+            {{ Form::open() }}
             <div class="row">
                 <!-- <h3>Filter: </h3> -->
                 <div  class="col-sm-3">
@@ -61,7 +59,8 @@
                         <b>2014</b>
                 </div>
             </div>
-                 {{ Form::close() }}
+             {{ Form::close() }}
+             @endif
             <div class="row">
             	<div class="col-sm-12 container-item">
                     @if (!empty($search))
