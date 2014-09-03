@@ -167,6 +167,12 @@ class Item extends Eloquent {
 		return (str_contains($this->attributes['dating'], 'okolo')) ? 'okolo ' . $formated : $formated;
 	}
 
+	public function getWorkTypesAttribute() {
+
+		
+		return (explode(', ', $this->attributes['work_type']));
+	}
+
 
 	/**
 	* Same as java String.hashcode()

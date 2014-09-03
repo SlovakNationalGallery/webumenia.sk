@@ -89,7 +89,15 @@
                                 @if (!empty($item->work_type))
                                 <tr>
                                     <td class="atribut">výtvarný druh:</td>
-                                    <td><a href="{{ URL::to('katalog?work_type=' . $item->work_type) }}">{{ $item->work_type; }}</a></td>
+                                    <td>
+                                        @foreach ($item->work_types as $i => $work_type)
+                                            @if ($i == 0)
+                                                <a href="{{ URL::to('katalog?work_type=' . $work_type) }}">{{ $work_type }}</a><br>
+                                            @else
+                                                {{ $work_type }}<br>
+                                            @endif
+                                        @endforeach
+                                    </td>
                                 </tr>
                                 @endif
                                 @if (!empty($item->topic))
