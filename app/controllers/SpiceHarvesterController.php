@@ -335,17 +335,22 @@ class SpiceHarvesterController extends \BaseController {
 	    $attributes['gallery'] = $dcTerms->provenance;
 	    $attributes['img_url'] = (!empty($identifier[1]) && (strpos($identifier[1], 'http') === 0)) ? $identifier[1] : null; //ak nieje prazdne a zacina 'http'
 
+	    $attributes['iipimg_url'] = NULL; // by default
 	    if (!empty($identifier[3]) && (strpos($identifier[3], 'http') === 0)) {
 	    	$iip_resolver = $identifier[3];
-	    	
-	    	$str = file_get_contents($iip_resolver);
-	    	$str = strip_tags($str, '<br>'); //zrusi vsetky html tagy okrem <br>
-			$iip_urls = explode('<br>', $str); //rozdeli do pola podla <br>
-			asort($iip_urls); // zoradi pole podla poradia - aby na zaciatku boli predne strany (1_2, 2_2 ... )
-			$iip_url = reset($iip_urls); // vrati prvy obrazok z pola - docasne - kym neumoznime viacero obrazkov k dielu
-	    	$iip_url = substr($iip_url, strpos( $iip_url, '?FIF=')+5);
-	    	$iip_url = substr($iip_url, 0, strpos( $iip_url, '.jp2')+4);
-	    	$attributes['iipimg_url'] = $iip_url;
+	    	$str = @file_get_contents($iip_resolver);
+	    	if ($str != FALSE) {
+
+		    	$str = strip_tags($str, '<br>'); //zrusi vsetky html tagy okrem <br>
+				$iip_urls = explode('<br>', $str); //rozdeli do pola podla <br>
+				asort($iip_urls); // zoradi pole podla poradia - aby na zaciatku boli predne strany (1_2, 2_2 ... )
+				$iip_url = reset($iip_urls); // vrati prvy obrazok z pola - docasne - kym neumoznime viacero obrazkov k dielu
+		    	if (str_contains($iip_url, '.jp2')) { //fix: vracia blbosti. napr linky na obrazky na webumenia. ber to vazne len ak odkazuje na .jp2
+			    	$iip_url = substr($iip_url, strpos( $iip_url, '?FIF=')+5);
+			    	$iip_url = substr($iip_url, 0, strpos( $iip_url, '.jp2')+4);
+			    	$attributes['iipimg_url'] = $iip_url;	    		
+		    	}
+		    }
 	    }
 
 	    return $attributes;
