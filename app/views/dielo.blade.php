@@ -46,7 +46,7 @@
                                     <a href="{{ URL::to('dielo/' . $item->id . '/objednat')  }}" class="btn btn-default btn-outline  uppercase sans"><i class="fa fa-shopping-cart"></i> objednať reprodukciu </a>
                                 @endif
                                 @if ($item->isFreeDownload())                                
-                                <a href="{{ URL::to('dielo/' . $item->id . '/stiahnut')  }}" class="btn btn-default btn-outline  uppercase sans"><i class="fa fa-download"></i> stiahnuť </a>
+                                <a href="{{ URL::to('dielo/' . $item->id . '/stiahnut')  }}" class="btn btn-default btn-outline  uppercase sans" id="download"><i class="fa fa-download"></i> stiahnuť </a>
                                 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="/images/licencia.png" /></a>
                                 @endif
                             </div>
@@ -181,6 +181,47 @@
     </div>
 </section>
 
+<!-- Modal -->
+<div tabindex="-1" class="modal fade" id="license" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <img src="{{ URL::asset('images/license/cc.logo.svg') }}" alt="Creative Commons">
+            </div>
+            <div class="modal-body">
+                <p>Vami zvolené dielo by sa malo začať stahovať v krátkom čase.</p>
+                <p>Digitálne reprodukcie diel SNG na tejto stránke sú sprístupnené pod licenciou <a class="underline" href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs" target="_blank">Creative Commons BY-NC-SA 4.0</a>. Môžete si ich voľne stiahnuť vo vysokom rozlíšení. Reprodukcie sa môžu ľubovoľne využívať na nekomerčné účely - kopírovať, zdieľať či upravovať. Pri ďalšom šírení obrázkov je potrebné použiť rovnakú licenciu <em>(CC BY-NC-SA)</em> a uviesť odkaz na webstránku <a class="underline" href="http://dvekrajiny.sng.sk">http://dvekrajiny.sng.sk</a> s citáciou diela (autor, názov, rok vzniku, vlastník diela).</p>
+                <p>Príklady využitia reprodukcií:</p>
+                <ul>
+                    <li>tlač na nekomerčné účely (plagáty, pohľadnice alebo tričká)</li>
+                    <li>vlastná tvorba (digitálna úprava reprodukcie, využitie jej časti pre animáciu alebo koláž)</li>
+                    <li>vzdelávanie (vloženie obrázku na vlastnú webstránku, použitie na Wikipedii či ako súčasť prezentácie)</li>
+                </ul>    
+                <p><a class="underline" href="{{ URL::to('katalog?free_download=1') }}">Všetky voľne stiahnuteľné diela nájdete tu.</a></p>
+            </div>
+            <div class="modal-footer">
+                <div class="text-center"><button type="button" data-dismiss="modal" class="btn btn-default btn-outline uppercase sans">Zavrieť</button></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div tabindex="-1" class="modal fade" id="downloadfail" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                Nastala chyba
+            </div>
+            <div class="modal-body">
+                <p>Vami zvolené dielo nebolo možné v tomto momente stiahnuť. Skúste to prosím neskôr.</p>
+                <p>Pokiaľ problém pretrváva, kontaktujte nás na <a href="mailto:lab@sng.sk">lab@sng.sk</a></p>
+            </div>
+            <div class="modal-footer">
+                <div class="text-center"><button type="button" data-dismiss="modal" class="btn btn-default btn-outline uppercase sans">Zavrieť</button></div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- <div id="map"></div> -->
 
@@ -189,6 +230,7 @@
 
 @section('javascript')
 {{ HTML::script('js/readmore.min.js') }}
+{{ HTML::script('js/jquery.fileDownload.js') }}
 <script type="text/javascript">
     $(document).ready(function(){
 
@@ -202,6 +244,29 @@
               }
             }
         });
+
+        $('#download').on('click', function(e){
+     
+            $('#license').modal({})
+            $.fileDownload($(this).attr('href'), {
+                successCallback: function(url) {     
+                },
+                failCallback: function(responseHtml, url) {
+                    $('#license').modal('hide');
+                    $('#downloadfail').modal('show');
+                }
+            });
+            return false; //this is critical to stop the click event which will trigger a normal file download!
+        });
+        
+// $(document).on("click", "#download", function() {
+//         $.fileDownload($(this).attr('href'), {
+//             preparingMessageHtml: "We are preparing your report, please wait...",
+//             failMessageHtml: "There was a problem generating your report, please try again."
+//         });
+//         return false; //this is critical to stop the click event which will trigger a normal file download!
+//     });
+
     });
 </script>
 

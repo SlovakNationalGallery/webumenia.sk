@@ -281,6 +281,7 @@ class Item extends Eloquent {
 
 	public function download() {
 
+		header('Set-Cookie: fileDownload=true; path=/');
 		$url = 'http://imi.sng.cust.eea.sk/publicIS/fcgi-bin/iipsrv.fcgi?FIF=' . $this->attributes['iipimg_url'] . '&CVT=JPG';
 		$filename = $this->attributes['id'].'.jpg';
 

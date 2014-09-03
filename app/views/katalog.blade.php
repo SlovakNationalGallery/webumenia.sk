@@ -50,6 +50,7 @@
             </div>
             <div class="row bottom-space" style="padding-top: 20px;">
                 <div  class="col-sm-3">
+                        <h4>&nbsp;</h4> 
                         <p><a class="btn btn-primary" href="{{ URL::to('katalog')}}">zobraziť všetky diela</a></p>
                         <!-- {{ Form::hidden('search', @$search); }} -->
                  </div>

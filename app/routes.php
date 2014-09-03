@@ -221,6 +221,9 @@ Route::match(array('GET', 'POST'), 'katalog', function()
                 	// dd("where('date_earliest', '>', $range[0])->where('date_latest', '<', $range[1])");
                 	$query->where('date_earliest', '>', $range[0])->where('date_latest', '<', $range[1]);
                 }
+                if(!empty($input['free_download'])) {
+                	$query->where('free_download', '=', '1')->whereNotNull('iipimg_url');
+                }
 
                 return $query;
             })
