@@ -20,7 +20,7 @@
                 <div class="col-md-8 col-md-offset-2 text-center">
                         <img src="/images/x.svg" alt="x" class="xko">
                     	<h2 class="uppercase bottom-space">Ďakujeme!</h2>
-                        <p>Dovoľujeme si Vám oznámiť, že Vaša žiadosť o poskytnutie reprodukcií zbierkových predmetov Slovenskej národnej galérie a súhlas SNG s ich použitím pre uvedený účel bola prijatá. V priebehu nasledujúcich 30 dní Vás budeme kontaktovať. Zatiaľ Vás žiadame o trpezlivosť a prajeme pekný zvyšok dňa! </p>
+                        <p>Dovoľujeme si Vám oznámiť, že Vaša objednávka bola prijatá. V priebehu nasledujúcich dní Vás budeme kontaktovať. Zatiaľ Vás žiadame o trpezlivosť a prajeme pekný zvyšok dňa! </p>
                         <a href="{{ URL::to('/') }}" class="btn btn-default btn-outline  uppercase sans">návrat na úvod</a>
                 </div>
             </div>
