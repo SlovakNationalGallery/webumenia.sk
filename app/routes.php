@@ -210,8 +210,7 @@ Route::match(array('GET', 'POST'), 'katalog', function()
                 }
                 if(!empty($input['subject'])) {
                 	//tieto 2 query su tu kvoli situaciam, aby nenaslo pre kucove slovo napr. "les" aj diela s klucovy slovom "pleso"
-                	$query->where('subject', 'LIKE', '%'.$input['subject'].';%');
-                	$query->orWhere('subject', 'LIKE', '%'.$input['subject'].'');
+                	$query->whereRaw('( subject LIKE "%'.$input['subject'].';%" OR subject LIKE "%'.$input['subject'].'" )');
                 }
                 if(!empty($input['gallery'])) {
                 	$query->where('gallery', 'LIKE', '%'.$input['gallery'].'%');
@@ -229,6 +228,9 @@ Route::match(array('GET', 'POST'), 'katalog', function()
             })
            ->orderBy('created_at', 'DESC')->paginate(12);
 
+	$queries = DB::getQueryLog();
+	$last_query = end($queries);
+	// dd($last_query);
 
 	return View::make('katalog', array(
 		'items'=>$items, 

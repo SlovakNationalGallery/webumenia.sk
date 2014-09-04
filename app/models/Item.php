@@ -168,7 +168,7 @@ class Item extends Eloquent {
 	}
 
 	public function getWorkTypesAttribute() {
-		
+
 		return (explode(', ', $this->attributes['work_type']));
 	}
 
@@ -229,8 +229,7 @@ class Item extends Eloquent {
                 }
                 if(!empty($input['subject']) && $attribute!='subject') {
                 	//tieto 2 query su tu kvoli situaciam, aby nenaslo pre kucove slovo napr. "les" aj diela s klucovy slovom "pleso"
-                	$query->where('subject', 'LIKE', '%'.$input['subject'].';%');
-                	$query->orWhere('subject', 'LIKE', '%'.$input['subject'].'');
+                	$query->whereRaw('( subject LIKE "%'.$input['subject'].';%" OR subject LIKE "%'.$input['subject'].'" )');
                 }
                 if(!empty($input['gallery']) && $attribute!='gallery') {
                 	$query->where('gallery', 'LIKE', '%'.$input['gallery'].'%');
@@ -310,12 +309,11 @@ class Item extends Eloquent {
 	    header('Connection: close');
 	    echo $r;
 
-
 	    // Finish off, like Laravel would
-	    Event::fire('laravel.done', array($response));
-	    $response->foundation->finish();
+	    // Event::fire('laravel.done', array($response));
+	    // $response->foundation->finish();
 
-	    exit;
+	    exit;    
 	}
 
 }

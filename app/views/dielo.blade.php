@@ -92,12 +92,12 @@
                                     <td>
                                         @foreach ($item->work_types as $i => $work_type)
                                             @if ($i == 0)
-                                                <a href="{{ URL::to('katalog?work_type=' . $work_type) }}">{{ $work_type }}</a> &rsaquo; 
+                                                <a href="{{ URL::to('katalog?work_type=' . $work_type) }}">{{ $work_type }}</a>
                                             @else
-                                                {{ $work_type }} 
-                                                @if (count($item->work_types) > ($i+1))
-                                                     &rsaquo; 
-                                                @endif
+                                                {{ $work_type }}
+                                            @endif
+                                            @if (count($item->work_types) > ($i+1))
+                                                 &rsaquo; 
                                             @endif
                                         @endforeach
                                     </td>
@@ -205,7 +205,7 @@
                 <img src="{{ URL::asset('images/license/cc.svg') }}" alt="Creative Commons">
             </div>
             <div class="modal-body">
-                <p>Vami zvolené dielo by sa malo začať stahovať v krátkom čase.</p>
+                <p><strong>Vami zvolené dielo by sa malo začať v krátkom čase automaticky sťahovať.</strong></p>
                 <p>Digitálne reprodukcie diel SNG na tejto stránke sú sprístupnené pod licenciou <a class="underline" href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs" target="_blank">Creative Commons BY-NC-SA 4.0</a>. Môžete si ich voľne stiahnuť vo vysokom rozlíšení. Reprodukcie sa môžu ľubovoľne využívať na nekomerčné účely - kopírovať, zdieľať či upravovať. Pri ďalšom šírení obrázkov je potrebné použiť rovnakú licenciu <em>(CC BY-NC-SA)</em> a uviesť odkaz na webstránku <a class="underline" href="http://dvekrajiny.sng.sk">http://dvekrajiny.sng.sk</a> s citáciou diela (autor, názov, rok vzniku, vlastník diela).</p>
                 <p>Príklady využitia reprodukcií:</p>
                 <ul>

@@ -335,7 +335,7 @@ class SpiceHarvesterController extends \BaseController {
 	    $attributes['gallery'] = $dcTerms->provenance;
 	    $attributes['img_url'] = (!empty($identifier[1]) && (strpos($identifier[1], 'http') === 0)) ? $identifier[1] : null; //ak nieje prazdne a zacina 'http'
 
-	    $attributes['iipimg_url'] = NULL; // by default
+	    // $attributes['iipimg_url'] = NULL; // by default
 	    if (!empty($identifier[3]) && (strpos($identifier[3], 'http') === 0)) {
 	    	$iip_resolver = $identifier[3];
 	    	$str = @file_get_contents($iip_resolver);
