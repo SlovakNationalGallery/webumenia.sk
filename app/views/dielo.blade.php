@@ -92,9 +92,12 @@
                                     <td>
                                         @foreach ($item->work_types as $i => $work_type)
                                             @if ($i == 0)
-                                                <a href="{{ URL::to('katalog?work_type=' . $work_type) }}">{{ $work_type }}</a><br>
+                                                <a href="{{ URL::to('katalog?work_type=' . $work_type) }}">{{ $work_type }}</a> &rsaquo; 
                                             @else
-                                                {{ $work_type }}<br>
+                                                {{ $work_type }} 
+                                                @if (count($item->work_types) > ($i+1))
+                                                     &rsaquo; 
+                                                @endif
                                             @endif
                                         @endforeach
                                     </td>

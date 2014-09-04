@@ -85,7 +85,7 @@
 
 
 
-{{ Former::actions(Form::submit('Objednať', array('class'=>'btn btn-primary')) ) }}
+{{ Former::actions(Form::submit('Objednať', array('class'=>'btn btn-default btn-outline  uppercase sans')) ) }}
 
 
 {{Former::close();}}

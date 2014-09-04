@@ -168,7 +168,6 @@ class Item extends Eloquent {
 	}
 
 	public function getWorkTypesAttribute() {
-
 		
 		return (explode(', ', $this->attributes['work_type']));
 	}

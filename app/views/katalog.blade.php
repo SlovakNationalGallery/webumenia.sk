@@ -7,56 +7,55 @@
 
 @section('content')
 
-<section class="content-section top-section">
+<section class="top-section">
     <div class="catalog-body">
         <div class="container">
+        @if (!empty($cc))
             <div class="row">
-                <div class="col-md-8 col-md-offset-2 text-center">
-                    @if (!empty($cc))
+                <div class="col-md-8 col-md-offset-2 text-center bottom-space">
                         <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs" target="_blank"><img src="{{ URL::asset('images/license/cc.svg') }}" alt="Creative Commons" ></a>
                         <h1>Voľné diela</h1>                        
-                    @endif
                 </div>
             </div>
+        @endif
         </div>
     </div>
 </section>
 
-<section class="catalog content-section">
+<section class="catalog">
     <div class="catalog-body">
         <div class="container">
             @if (empty($cc))
-            {{ Form::open() }}
+            {{ Form::open(array('id'=>'filter')) }}
             <div class="row">
                 <!-- <h3>Filter: </h3> -->
                 <div  class="col-sm-3">
-                        <h4>Autor: </h4>                        
-                        {{ Form::select('author', array('' => '') + $authors, @$input['author'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Vyber autora...')) }}
+                        {{ Form::select('author', array('' => '') + $authors, @$input['author'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Autor')) }}
                  </div>
                 <div  class="col-sm-3">
-                        <h4>Výtvarný druh: </h4>
-                        {{ Form::select('work_type', array('' => '') + $work_types,  @$input['work_type'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Vyber výtvarný druh...')) }}
+                        {{ Form::select('work_type', array('' => '') + $work_types,  @$input['work_type'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Výtvarný druh')) }}
                 </div>
                 <div  class="col-sm-3">
-                        <h4>Tagy: </h4>
-                        {{ Form::select('subject', array('' => '') + $tags, @$input['subject'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Vyber tagy...')) }}
+                        {{ Form::select('subject', array('' => '') + $tags, @$input['subject'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Tagy')) }}
                 </div>
                 <div  class="col-sm-3">
-                        <h4>Inštitúcia / majiteľ: </h4>
-                        {{ Form::select('gallery', array('' => '') + $galleries, @$input['gallery'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Vyber inštitúciu / majiteľa...')) }}
+                        {{ Form::select('gallery', array('' => '') + $galleries, @$input['gallery'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Inštitúcia / majiteľ')) }}
                 </div>
             </div>
             <div class="row bottom-space" style="padding-top: 20px;">
                 <div  class="col-sm-3">
-                        <h4>&nbsp;</h4> 
-                        <p><a class="btn btn-primary" href="{{ URL::to('katalog')}}">zobraziť všetky diela</a></p>
+                        
+                        <p><a class="btn btn-default btn-outline  uppercase sans" href="{{ URL::to('katalog')}}">zobraziť všetky diela</a></p>
                         <!-- {{ Form::hidden('search', @$search); }} -->
-                 </div>
-                <div class="col-sm-9">
-                        <h4>Rok:</h4> 
-                        <b>1790</b> 
+                </div>
+                <div class="col-sm-1 text-right year-range">
+                        <b class="sans" id="from_year">{{ !empty($input['year-range']) ? reset((explode(',', $input['year-range']))) : '1790' }}</b> 
+                </div>
+                <div class="col-sm-7 year-range">
                         <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="1790" data-slider-max="2014" data-slider-step="5" data-slider-value="[{{ !empty($input['year-range']) ? $input['year-range'] : '1790,2014' }}]"/> 
-                        <b>2014</b>
+                </div>
+                <div class="col-sm-1 text-left year-range">
+                        <b class="sans" id="until_year">{{ !empty($input['year-range']) ? end((explode(',', $input['year-range']))) : '2014' }}</b>
                 </div>
             </div>
              {{ Form::close() }}
@@ -116,12 +115,17 @@
 $(document).ready(function(){
 
     $("#year-range").slider({
-        value: [1800, 1900]
+        value: [1800, 1900],
+        tooltip: 'hide'
     }).on('slideStop', function(event) {
         $(this).closest('form').submit();
+    }).on('slide', function(event) {
+        var rozsah = $("#year-range").val().split(',');
+        $('#from_year').html(rozsah[0]);
+        $('#until_year').html(rozsah[1]);
     });
 
-    $(".chosen-select").chosen({})
+    $(".chosen-select").chosen({allow_single_deselect: true})
 
     $(".chosen-select").change(function() {
         $(this).closest('form').submit();
