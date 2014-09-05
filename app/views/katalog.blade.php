@@ -1,9 +1,20 @@
 @extends('layouts.master')
 
+@if (!empty($cc))
+@section('og')
+<meta property="og:title" content="voľné diela s licenciou Creative Commons" />
+<meta property="og:description" content="Digitálne reprodukcie diel SNG na tejto stránke sú sprístupnené pod licenciou Creative Commons BY-NC-SA 4.0. Môžete si ich voľne stiahnuť vo vysokom rozlíšení. Reprodukcie sa môžu ľubovoľne využívať na nekomerčné účely - kopírovať, zdieľať či upravovať. Pri ďalšom šírení obrázkov je potrebné použiť rovnakú licenciu (CC BY-NC-SA) a uviesť odkaz na webstránku http://dvekrajiny.sng.sk s citáciou diela (autor, názov, rok vzniku, vlastník diela)." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{{ Request::url() }}" />
+<meta property="og:image" content="{{ URL::to('images/cc-og.jpg') }}" />
+<meta property="og:site_name" content="DVE KRAJINY" />
+@stop
+@endif
+
 @section('title')
 @parent
 @if (!empty($cc))
-| voľné diela s licenciou creative commons
+| voľné diela s licenciou Creative Commons
 @else
 | všetky diela
 @endif
@@ -18,7 +29,8 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 text-center bottom-space">
                         <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs" target="_blank"><img src="{{ URL::asset('images/license/cc.svg') }}" alt="Creative Commons" ></a>
-                        <h1>Voľné diela</h1>                        
+                        <h1>Voľné diela</h1>    
+                        <p>Digitálne reprodukcie diel SNG na tejto stránke sú sprístupnené pod licenciou <a class="underline" href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs" target="_blank">Creative Commons BY-NC-SA 4.0</a>. Môžete si ich voľne stiahnuť vo vysokom rozlíšení. Reprodukcie sa môžu ľubovoľne využívať na nekomerčné účely - kopírovať, zdieľať či upravovať. Pri ďalšom šírení obrázkov je potrebné použiť rovnakú licenciu <em>(CC BY-NC-SA)</em> a uviesť odkaz na webstránku <a class="underline" href="http://dvekrajiny.sng.sk">http://dvekrajiny.sng.sk</a> s citáciou diela (autor, názov, rok vzniku, vlastník diela).</p>                    
                 </div>
             </div>
         @endif
