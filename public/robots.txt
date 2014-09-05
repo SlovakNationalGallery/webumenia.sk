@@ -1,2 +1,5 @@
 User-agent: *
-Disallow:
+Disallow: */zoom
+Disallow: */objednat
+Disallow: */stiahnut
+Disallow: /objednavka
