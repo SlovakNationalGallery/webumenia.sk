@@ -123,9 +123,10 @@ Route::get('dielo/{id}/objednat', function($id)
 		App::abort(404);
 	}
 
-	Session::push('cart', $item->id);
+	if (!in_array($item->id, Session::get('cart', array()))) Session::push('cart', $item->id);
+	
 	Session::flash('message', "Dielo <b>" . implode(', ', $item->authors) . " – $item->title</b> (".$item->getDatingFormated().") bolo pridané do košíka.");
-	return Redirect::back();
+	return Redirect::to($item->getDetailUrl());
 
 });
 
@@ -136,7 +137,6 @@ Route::get('dielo/{id}/odstranit', function($id)
 	if (empty($item)) {
 		App::abort(404);
 	}
-
 	Session::put('cart', array_diff(Session::get('cart'), [$item->id]));
 	Session::flash('message', "Dielo <b>" . implode(', ', $item->authors) . " – $item->title</b> (".$item->getDatingFormated().") bolo odstránené z košíka.");
 	return Redirect::back();
