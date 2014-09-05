@@ -23,7 +23,7 @@
                 <div class="col-md-8 col-md-offset-2 text-center">
                         <img src="/images/x.svg" alt="x" class="xko">
                     	<h2 class="uppercase bottom-space">{{ $collection->name }}</h2>
-                        <p>{{ $collection->text }}</p>
+                        <p>{{ $collection->text }}</p>                        
                 </div>
             </div>
         </div>

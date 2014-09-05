@@ -21,10 +21,17 @@
             </div>
         </div>
     </div>
-    <div class="scroll-to">
+    <div class="scroll-to hidden-xs">
         <a href="#sekcie" class="btn btn-circle btn-outline btn-default"><i class="fa fa-chevron-down" ></i></a>
     </div>
-
+    <!-- HOMEPAGE - share -->
+    <div class="shareon-container">
+    <div class="container text-right">
+        <div class="fb-like" data-href="http://dvekrajiny.sng.sk/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>&nbsp;
+        <a href="https://twitter.com/share" class="twitter-share-button" data-count="true">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    </div>
+    </div>
 </section>
 
 <section class="collections content-section" id="sekcie">
@@ -72,7 +79,7 @@
 
         $('.scroll-to a').click(function(){
             $('html, body').animate({
-                scrollTop: $( $.attr(this, 'href') ).offset().top
+                scrollTop: $( $.attr(this, 'href') ).offset().top - 50
             }, 500);
             return false;
         });

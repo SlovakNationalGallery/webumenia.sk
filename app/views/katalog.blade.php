@@ -2,7 +2,11 @@
 
 @section('title')
 @parent
+@if (!empty($cc))
+| voľné diela s licenciou creative commons
+@else
 | všetky diela
+@endif
 @stop
 
 @section('content')
