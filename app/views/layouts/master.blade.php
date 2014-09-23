@@ -121,7 +121,7 @@
 
 				{{ Form::open(['url' => 'katalog', 'method' => 'get', 'class' => 'navbar-form navbar-right right-inner-addon']) }}
 							<i class="fa fa-search"></i>
-							{{ Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => 'Hľadať...')) }}
+							{{ Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => 'Hľadať...', 'id'=>'search')) }}
 				{{Form::close() }}
                 
 	        </div>
@@ -161,6 +161,14 @@
 
 	{{ HTML::script('js/bootstrap.min.js') }}
 	{{ HTML::script('js/dvekrajiny.js') }}
+
+	<script>
+	  function initializeSearchD() {
+	    Searchd.monitor("#search", "{{ Config::get('app.searchd_id') }}", {queryPlaceholder: 'Hľadať...'});
+	  }
+	</script>
+	<script async src="http://d3nr6w5i9vqvic.cloudfront.net/assets/collector.js" onload="initializeSearchD();"></script>
+
 
 	<!-- Content -->
 	@yield('javascript')

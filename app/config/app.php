@@ -184,4 +184,6 @@ return array(
 		'pass' => 'your_pass',
 	),
 
+	'searchd_id' => 'your_id',
+
 );

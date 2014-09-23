@@ -79,7 +79,7 @@
             <div class="row">
             	<div class="col-sm-12 container-item">
                     @if (!empty($search))
-                        <h3>Nájdené diela pre &bdquo;{{ $search }}&ldquo; ({{ $items->getTotal() }}) </h3> 
+                        <h3>Nájdené diela pre &bdquo;{{ $search }}&ldquo; (<span data-searchd-total-hits>{{ $items->getTotal() }}</span>) </h3> 
                     @else
                 		<h3>Nájdené diela ({{ $items->getTotal() }}) </h3>
                     @endif
@@ -97,11 +97,12 @@
                                 @if (!empty($item->iipimg_url))
                                     <div class="pull-right"><a href="{{ URL::to('dielo/' . $item->id . '/zoom') }}" data-toggle="tooltip" data-placement="left" title="Zoom obrázku"><i class="fa fa-search-plus"></i></a></div>
                                 @endif    
-                                <a href="{{ $item->getDetailUrl() }}">
+                                <a href="{{ $item->getDetailUrl() }}" {{ (!empty($search))  ? 
+                                    'data-searchd-result="title/'.$item->id.'" data-searchd-title="'.implode(', ', $item->authors).' - '. $item->title.'"' 
+                                    : '' }}>
                                     <em>{{ implode(', ', $item->authors) }}</em><br>
-                                <strong>{{ $item->title }}</strong>, <em>{{ $item->getDatingFormated() }}</em><br>
-                                
-                                <span class="">{{ $item->gallery }}</span>
+                                    <strong>{{ $item->title }}</strong>, <em>{{ $item->getDatingFormated() }}</em><br>
+                                    <span class="">{{ $item->gallery }}</span>
                                 </a>
                             </div>
     	                </div>	
