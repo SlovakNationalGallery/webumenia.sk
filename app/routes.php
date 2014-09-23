@@ -17,15 +17,16 @@ Route::get('/', function()
 
 	$launch_date = strtotime(LAUNCH_DATE);
 
-	$collections = Collection::orderBy('order', 'ASC')->with('items')->get();
+	$collections = Collection::orderBy('order', 'ASC')->get();
 
+	/*
 	foreach ($collections as $i => $collection) {
 		$path = '/images/sekcie2/';
 		$filename = $collection->id . '.jpeg';
 		if (!file_exists(public_path() . '/images/sekcie/' . $filename)) {
 			Image::make(public_path() . $path . $filename)->fit(500, 300)->save('images/sekcie/' . $filename);
 		}
-	}
+	} */
 
 	$items = Item::where('lat', '>', '0')->get();
 

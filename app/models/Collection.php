@@ -18,4 +18,12 @@ class Collection extends Eloquent {
     	return URL::to('sekcia/' . $this->attributes['id']);
     }
 
+    public function getShortTextAttribute($value)
+    {
+        $string = strip_tags($this->attributes['text']);
+        $string = $string;
+        $string = substr($string, 0, 160);
+        return substr($string, 0, strrpos($string, ' ')) . " ...";
+    }
+
 }

@@ -4,7 +4,9 @@
 <head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="description" content="Výstava Slovenskej národnej galérie s názvom DVE KRAJINY (Obraz Slovenska: 19. storočie x súčasnosť) v Esterházyho paláci predstavuje multižánrový výber diel zo zbierok 35 galérií, múzeí, inštitúcií a súkromých majiteľov. Venuje sa rozvoju stvárňovania slovenskej krajiny od počiatku tejto disciplíny v 19. storočí až na prah moderny. Webstránka dvekrajiny.sng.sk sprístupňuje vybrané diela z výstavy online vo vysokom rozlíšení.">
+		@section('description')
+		<meta name="description" content="Výstava Slovenskej národnej galérie s názvom DVE KRAJINY (Obraz Slovenska: 19. storočie x súčasnosť) sa venuje rozvoju stvárňovania slovenskej krajiny od počiatku tejto disciplíny v 19. storočí až na prah moderny. Webstránka dvekrajiny.sng.sk sprístupňuje vybrané diela z výstavy online vo vysokom rozlíšení.">
+		@show
 		<meta name="author" content="lab.SNG">
 
 		<title>

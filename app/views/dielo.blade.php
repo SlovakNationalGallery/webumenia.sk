@@ -15,6 +15,10 @@
 | {{ implode(', ', $item->authors)}} - {{ $item->title }}
 @stop
 
+@section('description')
+    <meta name="description" content="{{ $item->work_type; }}, datovanie: {{ $item->dating }}, rozmer: {{  implode(' x ', $item->measurements[0]) }}">
+@stop
+
 @section('content')
 
 <section class="item content-section top-section">

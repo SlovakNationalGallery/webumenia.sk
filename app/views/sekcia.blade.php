@@ -14,6 +14,11 @@
 | {{ $collection->name }}
 @stop
 
+@section('description')
+<meta name="description" content="{{ $collection->shortText }}">
+@stop
+
+
 @section('content')
 
 <section class="collection content-section top-section">
@@ -42,7 +47,7 @@
                     @foreach ($collection->items as $i=>$item)
                         <div class="col-md-6 col-sm-6 col-xs-12 item">
                             <a href="{{ $item->getDetailUrl() }}">
-                                <img src="{{ $item->getImagePath() }}" class="img-responsive">                          
+                                <img src="{{ $item->getImagePath() }}" class="img-responsive" alt="{{implode(', ', $item->authors)}} - {{ $item->title }}">                          
                             </a>
                             <div class="item-title">
                                 @if (!empty($item->iipimg_url))
