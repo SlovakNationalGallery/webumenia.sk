@@ -11,7 +11,8 @@
 		"ipalaus/geonames": "0.2.*",
 		"dinesh/bugonemail": "dev-master",
 		"anahkiasen/former": "3.4.*",
-		"guzzlehttp/guzzle": "4.*"
+		"guzzlehttp/guzzle": "4.*",
+		"elasticsearch/elasticsearch": "dev-master"		
 	},
 	"autoload": {
 		"classmap": [

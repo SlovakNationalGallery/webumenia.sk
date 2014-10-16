@@ -311,7 +311,7 @@ class SpiceHarvesterController extends \BaseController {
 	    	}
 	    }
 
-	    $attributes['id'] = $rec->header->identifier;
+	    $attributes['id'] = (string)$rec->header->identifier;
 	    $attributes['identifier'] = (!empty($identifier[2])) ? $identifier[2] : '';	    
 	    $attributes['title'] = $dcElements->title;
 	    $attributes['author'] = $this->serialize($dcElements->creator);
@@ -351,6 +351,13 @@ class SpiceHarvesterController extends \BaseController {
 			    	$attributes['iipimg_url'] = $iip_url;	    		
 		    	}
 		    }
+	    }
+	    
+	    // pretypovat SimpleXMLElement na string
+	    foreach ($attributes as $key=>$attribute) {
+	    	if (is_object($attribute)) {
+	    		$attributes[$key] = (string) $attribute;
+	    	}
 	    }
 
 	    return $attributes;

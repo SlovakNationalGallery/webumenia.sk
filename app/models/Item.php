@@ -46,6 +46,35 @@ class Item extends Eloquent {
 	protected $guarded = array('featured');
 
 
+	// ELASTIC SEARCH INDEX
+	public static function boot()
+	{
+	    parent::boot();
+
+	    static::created(function($item)
+	    {
+	        $client = new Elasticsearch\Client();
+	        $item->index();
+	    });
+
+	    static::updated(function($item)
+	    {
+	        $client = new Elasticsearch\Client();
+	        $item->index();
+
+	    });
+
+	    static::deleted(function($item)
+	    {
+	        $client = new Elasticsearch\Client();
+	        $client->delete([
+	        	'index' => 'dvekrajiny',
+	        	'type' => 'item',
+	        	'id' => $item->id,
+        	]);
+	    });
+	}
+
 	public function collections()
     {
         return $this->belongsToMany('Collection', 'collection_item', 'item_id', 'collection_id');
@@ -314,6 +343,31 @@ class Item extends Eloquent {
 	    // $response->foundation->finish();
 
 	    exit;    
+	}
+
+	public  function index() {
+	        $client = new Elasticsearch\Client();
+	        $data = [
+	        	'identifier' => $this->attributes['identifier'],
+	        	'title' => $this->attributes['title'],
+	        	'author' => $this->makeArray($this->attributes['author']),
+				'body' => strip_tags($this->attributes['description']),	        	'work_type' => $this->work_types,
+	        	'topic' => $this->attributes['topic'],
+	        	'subject' => $this->makeArray($this->attributes['subject']),
+	        	'place' => $this->makeArray($this->attributes['place']),
+	        	'measurement' => $this->measurments,
+	        	'date_earliest' => $this->attributes['date_earliest'],
+	        	'date_latest' => $this->attributes['date_latest'],
+	        	'medium' => $this->attributes['medium'],
+	        	'technique' => $this->makeArray($this->attributes['technique']),
+	        	'gallery' => $this->attributes['gallery'],
+	        ];
+	        return $client->index([
+	        	'index' => 'dvekrajiny',
+	        	'type' => 'item',
+	        	'id' => $this->attributes['id'],
+	        	'body' =>$data,
+        	]);		
 	}
 
 }

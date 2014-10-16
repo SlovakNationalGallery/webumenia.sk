@@ -28,6 +28,7 @@
             <div class="panel-heading">
                 <a href="{{ route('item.create') }}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Vytvoriť</a>
                 <a href="{{ URL::to('item/backup') }}" class="btn btn-primary btn-outline"><i class="fa fa-floppy-o"></i> Zazálohovať</a> 
+                <a href="{{ URL::to('item/reindex') }}" class="btn btn-primary btn-outline"><i class="fa fa-refresh"></i> Reindexovať search</a>
                 <a href="{{ URL::to('item/geodata') }}" class="btn btn-primary btn-outline"><i class="fa fa-globe"></i> Doplniť geo dáta</a></div>
                 <div class="panel-heading">
                 Akcie pre vybraté: {{ Form::select('collection', $collections); }} {{ Form::submit('Pridať do kolekcie', array('class' => 'btn btn-info btn-xs btn-outline')) }} | <a href="#" id="deleteSelected" class="btn btn-danger btn-xs btn-outline">Zmazať</a>

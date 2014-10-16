@@ -245,4 +245,15 @@ class ItemController extends \BaseController {
 		return Redirect::back()->withMessage('Bolo zmazaných ' . count($items) . ' diel');
 	}
 
+	public function reindex()
+	{
+		$items = Item::get();
+		$i = 0;
+		foreach ($items as $item) {
+			$item->index();
+			$i++;
+		}
+		return Redirect::back()->withMessage('Bolo reindexovaných ' . $i . ' diel');
+	}
+
 }
