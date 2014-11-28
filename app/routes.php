@@ -187,17 +187,29 @@ Route::match(array('GET', 'POST'), 'katalog', function()
 	$tags = Item::listValues('subject');
 	$galleries = Item::listValues('gallery');
 
-	/*
+	
 	if (Input::has('search')) {
 		$search = Input::get('search', null);
-		// $items = Item::where('title', 'LIKE', '%'.$search.'%')->orWhere('author', 'LIKE', '%'.$search.'%')->orWhere('subject', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%')->orderBy('created_at', 'DESC')->paginate(12);
+		$client = new Elasticsearch\Client();
+		$body['query']['match']['_all'] = $search;
+		$body['size'] = 12;
+		$body['from'] = (Paginator::getCurrentPage()-1) * 12;
+		$result = $client->search([
+	        	'index' => 'dvekrajiny',
+	        	'type' => 'item',
+	        	'body' => $body,
+        	]);
+		$ids = array();
+		foreach ($result['hits']['hits'] as $key => $hit) {
+			$ids[] = $hit['_id'];
+		}
+		// dd($result);
+		$items = Item::whereIn('id', $ids)
+		    ->orderBy(DB::raw('FIELD(`id`, "'.implode('", "', $ids).'")'))
+		    ->paginate(12);
 	} else {
-		$items = Item::orderBy('created_at', 'DESC')->paginate(12);
-	}
-	*/
-	// dd($input);
 
-	$items = Item::where(function($query) use ($search, $input) {
+		$items = Item::where(function($query) use ($search, $input) {
                 /** @var $query Illuminate\Database\Query\Builder  */
                 if (!empty($search)) {
                 	$query->where('title', 'LIKE', '%'.$search.'%')->orWhere('author', 'LIKE', '%'.$search.'%')->orWhere('subject', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%');
@@ -228,6 +240,7 @@ Route::match(array('GET', 'POST'), 'katalog', function()
                 return $query;
             })
            ->orderBy('created_at', 'DESC')->paginate(12);
+	}
 
 	$queries = DB::getQueryLog();
 	$last_query = end($queries);
