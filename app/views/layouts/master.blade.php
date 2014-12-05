@@ -11,7 +11,7 @@
 
 		<title>
 			@section('title')
-			Dve krajiny 
+			Web umenia 
 			@show
 		</title>
 
@@ -40,7 +40,7 @@
 
 		<!--  Open Graph protocol -->
 		@section('og')
-		<meta property="og:title" content="DVE KRAJINY. Obraz Slovenska: 19. storočie × súčasnosť" />
+		<meta property="og:title" content="Web umenia" />
 		<meta property="og:description" content="Výstava Slovenskej národnej galérie s názvom DVE KRAJINY (Obraz Slovenska: 19. storočie x súčasnosť) v Esterházyho paláci predstavuje multižánrový výber diel zo zbierok 35 galérií, múzeí, inštitúcií a súkromých majiteľov. Venuje sa rozvoju stvárňovania slovenskej krajiny od počiatku tejto disciplíny v 19. storočí až na prah moderny. Webstránka dvekrajiny.sng.sk sprístupňuje vybrané diela z výstavy online vo vysokom rozlíšení." />
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content="{{ Request::url() }}" />

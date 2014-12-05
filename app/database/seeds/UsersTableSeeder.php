@@ -17,21 +17,21 @@ class UsersTableSeeder extends Seeder {
             [
                 'username' => 'admin',
                 'email' => 'lab@sng.sk',
-                'password' => Hash::make('mednyanszky2411'),
+                'password' => Hash::make('admin'),
                 'created_at' => $now,
                 'updated_at' => $now
             ],
             [
                 'username' => 'sng',
                 'email' => 'info@sng.sk',
-                'password' => Hash::make('esenge123'),
+                'password' => Hash::make('sng'),
                 'created_at' => $now,
                 'updated_at' => $now
             ],
             [
                 'username' => 'press',
                 'email' => '',
-                'password' => Hash::make('sng'),
+                'password' => Hash::make('press'),
                 'created_at' => $now,
                 'updated_at' => $now
             ]

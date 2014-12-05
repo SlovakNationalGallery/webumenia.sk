@@ -7,7 +7,7 @@
 <meta property="og:type" content="object" />
 <meta property="og:url" content="{{ Request::url() }}" />
 <meta property="og:image" content="{{ URL::to( $item->getImagePath() ) }}" />
-<meta property="og:site_name" content="DVE KRAJINY" />
+<meta property="og:site_name" content="Web umenia" />
 @stop
 
 @section('title')

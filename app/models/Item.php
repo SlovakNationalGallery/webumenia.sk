@@ -3,6 +3,7 @@
 class Item extends Eloquent {
 
     const ARTWORKS_DIR = '/images/diela/';
+    const ES_TYPE = 'item';
 
 	protected $fillable = array(
 		'id',
@@ -68,8 +69,8 @@ class Item extends Eloquent {
 	    {
 	        $client = new Elasticsearch\Client();
 	        $client->delete([
-	        	'index' => 'dvekrajiny',
-	        	'type' => 'item',
+	        	'index' => Config::get('app.elasticsearch.index'),
+	        	'type' => self::ES_TYPE,
 	        	'id' => $item->id,
         	]);
 	    });
@@ -361,11 +362,11 @@ class Item extends Eloquent {
 	        	'date_latest' => $this->attributes['date_latest'],
 	        	'medium' => $this->attributes['medium'],
 	        	'technique' => $this->makeArray($this->attributes['technique']),
-	        	'gallery' => $this->attributes['gallery'],
+	        	'gallery' => $this->attributes['gallery']
 	        ];
 	        return $client->index([
-	        	'index' => 'dvekrajiny',
-	        	'type' => 'item',
+	        	'index' => Config::get('app.elasticsearch.index'),
+	        	'type' =>  self::ES_TYPE,
 	        	'id' => $this->attributes['id'],
 	        	'body' =>$data,
         	]);		

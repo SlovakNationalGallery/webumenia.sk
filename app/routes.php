@@ -13,29 +13,7 @@
 
 Route::get('/', function()
 {
-	define('LAUNCH_DATE', '2014-07-02 10:00');
-
-	$launch_date = strtotime(LAUNCH_DATE);
-
-	$collections = Collection::orderBy('order', 'ASC')->get();
-
-	/*
-	foreach ($collections as $i => $collection) {
-		$path = '/images/sekcie2/';
-		$filename = $collection->id . '.jpeg';
-		if (!file_exists(public_path() . '/images/sekcie/' . $filename)) {
-			Image::make(public_path() . $path . $filename)->fit(500, 300)->save('images/sekcie/' . $filename);
-		}
-	} */
-
-	$items = Item::where('lat', '>', '0')->get();
-
-	$template = 'intro';
-	if ($launch_date > time() && !Auth::check()) {
-		$template = 'comming';
-	}
-
-	return View::make($template, array('collections'=>$collections, 'items'=>$items));
+	return Redirect::to('katalog');
 });
 
 Route::get('objednavka', function()

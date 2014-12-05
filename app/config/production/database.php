@@ -6,8 +6,8 @@ return array(
 
   'mysql' => array(
     'host'      => 'localhost',
-    'database'  => 'dvekrajiny',
-    'username'  => 'dvekrajiny',
+    'database'  => '',
+    'username'  => '',
     'password'  => '',
   ),
 

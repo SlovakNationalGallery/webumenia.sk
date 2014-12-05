@@ -27,8 +27,8 @@ $app = new Illuminate\Foundation\Application;
 $env = $app->detectEnvironment(array(
 	'staging' => array('sngweb'),
 	'production' => array('sng-02'),
-	'local' => array('*'),
-	// 'local' => array('igorovmcbookpro', 'IgorovMacbookPro.local', '*.local'),
+	// 'local' => array('*'),
+	'local' => array('*.local'),
 ));
 
 /*

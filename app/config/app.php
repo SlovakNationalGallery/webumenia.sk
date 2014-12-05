@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'url' => 'http://dvekrajiny.sng.sk',
+	'url' => 'http://www.webumenia.sk',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -185,5 +185,9 @@ return array(
 	),
 
 	'searchd_id' => 'your_id',
+
+	'elasticsearch' => array(
+		'index' => 'webumenia',
+	),
 
 );
