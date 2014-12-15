@@ -173,8 +173,8 @@ Route::match(array('GET', 'POST'), 'katalog', function()
 		$body['size'] = 12;
 		$body['from'] = (Paginator::getCurrentPage()-1) * 12;
 		$result = $client->search([
-	        	'index' => 'dvekrajiny',
-	        	'type' => 'item',
+	        	'index' => Config::get('app.elasticsearch.index'),
+	        	'type' => Item::ES_TYPE,
 	        	'body' => $body,
         	]);
 		$ids = array();
