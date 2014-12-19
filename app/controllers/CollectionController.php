@@ -116,7 +116,7 @@ class CollectionController extends \BaseController {
 	public function destroy($id)
 	{
 		Collection::find($id)->delete();
-		return Redirect::route('collection.index');
+		return Redirect::route('collection.index')->with('message', 'Kolekcia bola zmazaná');;
 	}
 
 	/**
