@@ -66,6 +66,7 @@ return array(
 	*/
 
 	'key' => 'j78zC48Z94kvo50Tox78IzLayPkGeQM5',
+	'cipher' => MCRYPT_RIJNDAEL_128,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -110,6 +111,7 @@ return array(
 		'Ipalaus\Geonames\GeonamesServiceProvider',
 		'Dinesh\Bugonemail\BugonemailServiceProvider',
 		'Former\FormerServiceProvider',
+		'Iverberk\Larasearch\LarasearchServiceProvider',
 	),
 
 	/*

@@ -13,6 +13,13 @@ class SpiceHarvesterHarvest extends Eloquent {
     protected $appends = array('from');
     public static $datum;
 
+    public static $rules = array(
+        'base_url' => 'required',
+        'metadata_prefix' => 'required',
+        'set_spec' => 'required',
+        'set_name' => 'required'
+        );
+
 	public function records()
     {
         return $this->hasMany('SpiceHarvesterRecords');

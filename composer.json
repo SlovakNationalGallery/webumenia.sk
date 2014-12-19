@@ -4,15 +4,15 @@
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.1.*",
+		"laravel/framework": "4.2.*",
 		"caseyamcl/Phpoaipmh": "dev-master",
-		"intervention/image": "2.*",
+		"intervention/image": "dev-master",
 		"orangehill/iseed": "dev-master",
-		"ipalaus/geonames": "0.2.*",
+		"ipalaus/geonames": "dev-master",
 		"dinesh/bugonemail": "dev-master",
-		"anahkiasen/former": "3.4.*",
-		"guzzlehttp/guzzle": "4.*",
-		"elasticsearch/elasticsearch": "dev-master"		
+		"anahkiasen/former": "dev-master",
+		"guzzlehttp/guzzle": "dev-master",
+		"iverberk/larasearch": "0.6.*"
 	},
 	"autoload": {
 		"classmap": [

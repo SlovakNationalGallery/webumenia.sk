@@ -30,7 +30,7 @@ class SpiceHarvesterController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		return View::make('harvests.form');
 	}
 
 	/**
@@ -40,7 +40,25 @@ class SpiceHarvesterController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$input = Input::all();
+
+		$rules = SpiceHarvesterHarvest::$rules;
+		$v = Validator::make($input, $rules);
+
+		if ($v->passes()) {
+			
+			$harvest = new SpiceHarvesterHarvest;
+			$harvest->base_url = Input::get('base_url');
+			$harvest->metadata_prefix = Input::get('metadata_prefix');
+			$harvest->set_spec = Input::get('set_spec');
+			$harvest->set_name = Input::get('set_name');
+			$harvest->set_description = Input::get('set_description');
+			$harvest->save();
+
+			return Redirect::route('harvests.index');
+		}
+
+		return Redirect::back()->withInput()->withErrors($v);
 	}
 
 	/**
