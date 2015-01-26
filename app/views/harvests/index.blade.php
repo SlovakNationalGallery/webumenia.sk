@@ -49,6 +49,12 @@
 			                <td>{{ $h->metadata_prefix }}</td>
 			                <td>{{ $h->status . ' ' . date("d. m. Y",strtotime($h->updated_at)) }}</td>
 			                <td>
+                                {{ Form::open(array('method' => 'DELETE', 'route' => array('harvests.destroy', $h->id), 'class' => 'visible-xs-inline form-inline')) }}
+                                {{ link_to_action('SpiceHarvesterController@show', 'Detail', array($h->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', )) }} 
+                                {{ link_to_action('SpiceHarvesterController@edit', 'Upraviť', array($h->id), array('class' => 'btn btn-primary btn-xs btn-outline')) }}
+                                    {{ Form::submit('Zmazať', array('class' => 'btn btn-danger btn-xs btn-outline')) }}
+                                {{ Form::close() }}
+                                <br>
                                 {{ link_to_action('SpiceHarvesterController@orphaned', 'Zobraziť odobrané zo setu', array($h->id), array('class' => 'btn btn-danger ladda-button', 'data-style'=>'expand-right')) }}
                                 {{ link_to_action('SpiceHarvesterController@launch', 'Reindex', array($h->id, 'reindex'=>true), array('class' => 'btn btn-default ladda-button', 'data-style'=>'expand-right')) }} 
                                 {{ link_to_action('SpiceHarvesterController@launch', 'Spustiť', array($h->id), array('class' => 'btn btn-primary ladda-button', 'data-style'=>'expand-right')) }} 

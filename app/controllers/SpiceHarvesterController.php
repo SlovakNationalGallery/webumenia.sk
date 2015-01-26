@@ -69,7 +69,8 @@ class SpiceHarvesterController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		$harvest = SpiceHarvesterHarvest::find($id);
+        return View::make('harvests.show')->with('harvest', $harvest);
 	}
 
 	/**
@@ -80,7 +81,14 @@ class SpiceHarvesterController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		$harvest = SpiceHarvesterHarvest::find($id);
+
+		if(is_null($harvest))
+		{
+			return Redirect::route('harvest.index');
+		}
+
+        return View::make('harvests.form')->with('harvest', $harvest);
 	}
 
 	/**
@@ -91,7 +99,25 @@ class SpiceHarvesterController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$v = Validator::make(Input::all(), SpiceHarvesterHarvest::$rules);
+
+		if($v->passes())
+		{
+			$input = array_except(Input::all(), array('_method'));
+
+			$harvest = SpiceHarvesterHarvest::find($id);
+			$harvest->base_url = Input::get('base_url');
+			$harvest->metadata_prefix = Input::get('metadata_prefix');
+			$harvest->set_spec = Input::get('set_spec');
+			$harvest->set_name = Input::get('set_name');
+			$harvest->set_description = Input::get('set_description');
+			$harvest->save();
+
+			Session::flash('message', 'Harvest <code>'.$harvest->set_spec.'</code> bol upravený');
+			return Redirect::route('harvests.index');
+		}
+
+		return Redirect::back()->withErrors($v);
 	}
 
 	/**
@@ -102,7 +128,10 @@ class SpiceHarvesterController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$harvest = SpiceHarvesterHarvest::find($id);
+		$set_spec = $harvest->set_spec;
+		$harvest->delete();
+		return Redirect::route('harvests.index')->with('message', 'Harvest <code>'.$set_spec.'</code>  bol zmazaný');;
 	}
 
 	public function orphaned($id)
