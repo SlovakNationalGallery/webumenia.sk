@@ -181,7 +181,7 @@ Route::match(array('GET', 'POST'), 'katalog', function()
 		foreach ($result['hits']['hits'] as $key => $hit) {
 			$ids[] = $hit['_id'];
 		}
-		// dd($result);
+		if (empty($ids)) $ids[] = 0; // aby nezahlasilo chybu ked nic nenajde
 		$items = Item::whereIn('id', $ids)
 		    ->orderBy(DB::raw('FIELD(`id`, "'.implode('", "', $ids).'")'))
 		    ->paginate(12);
