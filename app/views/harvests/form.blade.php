@@ -52,6 +52,12 @@
 	{{ Form::textarea('set_description', Input::old('set_description'), array('class' => 'form-control')) }}	
 	</div>
 </div>
+<div class="col-md-12">
+	<div class="form-group">
+	{{ Form::label('collection_id', 'Kolekcia') }}
+	{{ Form::select('collection_id', [null=>'žiadna'] + Collection::lists('name','id'), Input::old('collection_id'), array('class' => 'form-control')) }}
+	</div>
+</div>
 
 <div class="col-md-12 text-center">
 	{{ Form::submit('Uložiť', array('class' => 'btn btn-default')) }} &nbsp; 

@@ -53,6 +53,8 @@ class SpiceHarvesterController extends \BaseController {
 			$harvest->set_spec = Input::get('set_spec');
 			$harvest->set_name = Input::get('set_name');
 			$harvest->set_description = Input::get('set_description');
+			$collection = Collection::find(Input::get('collection_id'));
+			if ($collection->count()) $harvest->collection()->associate($collection);			
 			$harvest->save();
 
 			return Redirect::route('harvests.index');
@@ -70,6 +72,7 @@ class SpiceHarvesterController extends \BaseController {
 	public function show($id)
 	{
 		$harvest = SpiceHarvesterHarvest::find($id);
+		$harvest->load('collection');
         return View::make('harvests.show')->with('harvest', $harvest);
 	}
 
@@ -111,6 +114,9 @@ class SpiceHarvesterController extends \BaseController {
 			$harvest->set_spec = Input::get('set_spec');
 			$harvest->set_name = Input::get('set_name');
 			$harvest->set_description = Input::get('set_description');
+			// $collection = Collection::find(Input::get('collection_id'));
+			// if ($collection->count()) $harvest->collection()->associate($collection);
+			$harvest->collection_id = Input::get('collection_id');
 			$harvest->save();
 
 			Session::flash('message', 'Harvest <code>'.$harvest->set_spec.'</code> bol upravený');
@@ -203,7 +209,6 @@ class SpiceHarvesterController extends \BaseController {
 		$harvest->status = $harvest::STATUS_IN_PROGRESS;
 		$harvest->save();
 
-
 		//--- nazacat samostatnu metodu?
 		$client = new \Phpoaipmh\Client($harvest->base_url);
 	    $myEndpoint = new \Phpoaipmh\Endpoint($client);
@@ -238,6 +243,13 @@ class SpiceHarvesterController extends \BaseController {
 
    	    	}
 	    }
+
+		if ($harvest->collection) {
+			$collection = $harvest->collection;
+			foreach ($harvest->records as $i => $record) {
+				$collection->items()->attach($record->item_id);
+			}
+		}
 
 	    $harvest->status = SpiceHarvesterHarvest::STATUS_COMPLETED;
 	    $harvest->save();

@@ -22,6 +22,10 @@
 						</thead>
 						<tbody>
 							<tr>
+								<td>typ:</td>
+								<td>{{ $collection->type }}</td>
+							</tr>
+							<tr>
 								<td>názov:</td>
 								<td>{{ $collection->name }}</td>
 							</tr>

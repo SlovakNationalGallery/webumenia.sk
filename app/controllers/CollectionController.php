@@ -42,6 +42,7 @@ class CollectionController extends \BaseController {
 			$collection->name = Input::get('name');
 			$collection->type = Input::get('type');
 			$collection->text = Input::get('text');
+			$collection->order = Collection::max('order') + 1;
 			$collection->save();
 
 			return Redirect::route('collection.index');
@@ -98,9 +99,10 @@ class CollectionController extends \BaseController {
 			$collection->name = Input::get('name');
 			$collection->type = Input::get('type');
 			$collection->text = Input::get('text');
+			$collection->order = Input::get('order');
 			$collection->save();
 
-			Session::flash('message', 'Kolekcia bola upravená');
+			Session::flash('message', 'Kolekcia <code>'.$collection->name.'</code> bola upravená');
 			return Redirect::route('collection.index');
 		}
 

@@ -22,7 +22,12 @@ class SpiceHarvesterHarvest extends Eloquent {
 
 	public function records()
     {
-        return $this->hasMany('SpiceHarvesterRecords');
+        return $this->hasMany('SpiceHarvesterRecord', 'harvest_id');
+    }
+
+    public function collection()
+    {
+        return $this->belongsTo('Collection');
     }
 
  	public function getFromAttribute()

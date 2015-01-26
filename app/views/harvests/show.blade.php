@@ -42,12 +42,20 @@
 								<td>{{ $harvest->set_description }}</td>
 							</tr>
 							<tr>
+								<td>Kolekcia:</td>
+								<td>{{ (count($harvest->collection)) ? $harvest->collection->name : 'žiadna' }}</td>
+							</tr>
+							<tr>
 								<td>Harvest vytvorený:</td>
 								<td>{{ $harvest->created_at }}</td>
 							</tr>
 							<tr>
 								<td>Naposledy spustený:</td>
 								<td>{{ $harvest->initiated }}</td>
+							</tr>							
+							<tr>
+								<td>Naposledy skompletizovaný:</td>
+								<td>{{ $harvest->completed }}</td>
 							</tr>							
 	                    </tbody>
 	                </table>
