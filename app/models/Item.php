@@ -2,6 +2,8 @@
 
 class Item extends Eloquent {
 
+	use Iverberk\Larasearch\Traits\SearchableTrait;
+
     const ARTWORKS_DIR = '/images/diela/';
     const ES_TYPE = 'item';
 
@@ -64,6 +66,14 @@ class Item extends Eloquent {
 	        $item->index();
 
 	    });
+
+		static::deleting(function($item) {
+			$image = $item->getImagePath(true); // fullpath, disable no image
+			if ($image) {
+				@unlink($image); 
+			}
+			$item->collections()->detach();
+        });	    
 
 	    static::deleted(function($item)
 	    {

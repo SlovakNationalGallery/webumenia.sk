@@ -54,7 +54,7 @@ class SpiceHarvesterController extends \BaseController {
 			$harvest->set_name = Input::get('set_name');
 			$harvest->set_description = Input::get('set_description');
 			$collection = Collection::find(Input::get('collection_id'));
-			if ($collection->count()) $harvest->collection()->associate($collection);			
+			if ($collection) $harvest->collection()->associate($collection);			
 			$harvest->save();
 
 			return Redirect::route('harvests.index');
@@ -136,6 +136,10 @@ class SpiceHarvesterController extends \BaseController {
 	{
 		$harvest = SpiceHarvesterHarvest::find($id);
 		$set_spec = $harvest->set_spec;
+		foreach ($harvest->records as $i => $record) {
+			Item::destroy($record->item_id);
+			$record->delete();
+		}		
 		$harvest->delete();
 		return Redirect::route('harvests.index')->with('message', 'Harvest <code>'.$set_spec.'</code>  bol zmazaný');;
 	}
