@@ -57,6 +57,14 @@
 								<td>Naposledy skompletizovaný:</td>
 								<td>{{ $harvest->completed }}</td>
 							</tr>							
+							<tr>
+								<td>Status:</td>
+								<td>{{ $harvest->status }}</td>
+							</tr>							
+							<tr>
+								<td>Status správa:</td>
+								<td>{{ nl2br($harvest->status_messages) }}</td>
+							</tr>							
 	                    </tbody>
 	                </table>
 	            </div>

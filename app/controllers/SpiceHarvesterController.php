@@ -202,25 +202,28 @@ class SpiceHarvesterController extends \BaseController {
         $start_from = null;
 
 		if ($harvest->status == SpiceHarvesterHarvest::STATUS_COMPLETED && !$reindex) {
-            $start_from = $harvest->initiated;
+            $start_from = new DateTime($harvest->initiated);
+            $start_from = $start_from;
         } 
 
 		$harvest->status = $harvest::STATUS_QUEUED;
-		$harvest->initiated = date('Y:m:d H:i:s');
+		$harvest->initiated = date('Y-m-d H:i:s');
 		$harvest->save();
 
 
 		$harvest->status = $harvest::STATUS_IN_PROGRESS;
+		$harvest->status_messages = '';
 		$harvest->save();
 
 		//--- nazacat samostatnu metodu?
 		$client = new \Phpoaipmh\Client($harvest->base_url);
 	    $myEndpoint = new \Phpoaipmh\Endpoint($client);
-
-	    $recs = $myEndpoint->listRecords($harvest->metadata_prefix, $start_from, NULL, $harvest->set_spec);
+	    
+    	$recs = $myEndpoint->listRecords($harvest->metadata_prefix, $start_from, NULL, $harvest->set_spec);
 	    $dt = new \DateTime;
-
-	    while($rec = $recs->nextItem()) {
+	    
+	    try {
+	    foreach($recs as $rec) {
 	    	$processed_items++;
 	    	
 	    	if (!$this->isDeletedRecord($rec)) { //ak je v sete oznaceny ako zmazany
@@ -247,6 +250,12 @@ class SpiceHarvesterController extends \BaseController {
 
    	    	}
 	    }
+        } catch (\Phpoaipmh\Exception\MalformedResponseException $e) {
+            // $harvest->status = SpiceHarvesterHarvest::STATUS_ERROR; 
+            // tuto chybu vrati, ak ziadne records niesu - cize harvest moze pokracovat dalej
+            $harvest->status_messages = $e->getMessage() . "\n";
+        }
+
 
 		if ($harvest->collection) {
 			$collection = $harvest->collection;
@@ -255,12 +264,16 @@ class SpiceHarvesterController extends \BaseController {
 			}
 		}
 
+	    $totalTime = round((microtime(true)-$timeStart));
+	    $message = 'Spracovaných bolo ' . $processed_items . ' diel. Z toho pribudlo ' . $new_items . ' nových diel,  ' . $updated_items . ' bolo upravených a ' . $skipped_items . ' bolo preskočených. Trvalo to ' . $totalTime . 's';
+
 	    $harvest->status = SpiceHarvesterHarvest::STATUS_COMPLETED;
+	    $harvest->status_messages .= $message;
+		$harvest->completed = date('Y-m-d H:i:s');
 	    $harvest->save();
 
-	    $totalTime = round((microtime(true)-$timeStart));
 
-	    Session::flash('message', 'Spracovaných bolo ' . $processed_items . ' diel. Z toho pribudlo ' . $new_items . ' nových diel,  ' . $updated_items . ' bolo upravených a ' . $skipped_items . ' bolo preskočených. Trvalo to ' . $totalTime . 's' );
+	    Session::flash('message', $message);
 	    return Redirect::route('harvests.index');
 	}
 
