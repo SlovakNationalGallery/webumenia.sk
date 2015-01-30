@@ -45,7 +45,7 @@
                     @endif
                     <div id="iso">
                     @foreach ($collection->items as $i=>$item)
-                        <div class="col-md-6 col-sm-6 col-xs-12 item">
+                        <div class="col-md-3 col-sm-4 col-xs-12 item">
                             <a href="{{ $item->getDetailUrl() }}">
                                 <img src="{{ $item->getImagePath() }}" class="img-responsive" alt="{{implode(', ', $item->authors)}} - {{ $item->title }}">                          
                             </a>
