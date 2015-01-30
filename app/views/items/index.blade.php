@@ -73,7 +73,7 @@
                     @if (!empty($search))
                         {{ $items->appends(array('search' => $search))->links() }}
                     @else
-                        {{ $items->links() }}
+                        {{ ($items->count()!=0) ? $items->links() : '' }}
                     @endif
                     
                 </div>

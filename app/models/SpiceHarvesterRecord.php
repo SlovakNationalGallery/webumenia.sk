@@ -11,4 +11,9 @@ class SpiceHarvesterRecord extends Eloquent {
     {
         return $this->belongsTo('SpiceHarvesterHarvest', 'harvest_id');
     }
+
+	public function item()
+    {
+        return $this->belongsTo('Item', 'item_id');
+    }
 }

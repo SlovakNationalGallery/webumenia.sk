@@ -155,13 +155,12 @@ class SpiceHarvesterController extends \BaseController {
 		$client = new \Phpoaipmh\Client($harvest->base_url);
 	    $myEndpoint = new \Phpoaipmh\Endpoint($client);
 
-	    $items = Item::where('id', 'NOT LIKE', 'SVK:TMP%')->get();
 	    $items_to_remove = array();
 
-	    foreach ($items as $item) {
+	    foreach ($harvest->records as $i => $record) {
 	    	$processed_items++;
 	    	$remove_id = true;
-	    	$rec = $myEndpoint->getRecord($item->id, $harvest->metadata_prefix);
+	    	$rec = $myEndpoint->getRecord($record->item_id, $harvest->metadata_prefix);
 	    	if (!empty($rec)) {	    		
 		    	$setSpecs = (array) $rec->GetRecord->record->header->setSpec;
 		    	// if ($setSpec==$harvest->set_spec) {
@@ -170,13 +169,16 @@ class SpiceHarvesterController extends \BaseController {
 		    	} 
 	    	}
 	    	if ($remove_id) {
-	    		$items_to_remove[] = $item->id;
+	    		$items_to_remove[] = $record->item_id;
 	    	}
 	    }
 	    
 		$collections = Collection::lists('name', 'id');
-		$items = Item::whereIn('id', $items_to_remove)->paginate('50');
-
+		if (count($items_to_remove)) {
+			$items = Item::whereIn('id', $items_to_remove)->paginate('50');
+		} else {
+			$items = Item::where('id','=',0);
+		}
 		Session::flash('message', 'Našlo sa ' .count($items_to_remove). ' diel, ktoré sa už nenachádzajú v OAI sete ' . $harvest->set_name . ':');		
         return View::make('items.index', array('items' => $items, 'collections' => $collections));		
 
@@ -203,7 +205,7 @@ class SpiceHarvesterController extends \BaseController {
 
 		if ($harvest->status == SpiceHarvesterHarvest::STATUS_COMPLETED && !$reindex) {
             $start_from = new DateTime($harvest->initiated);
-            $start_from = $start_from;
+            $start_from->sub(new DateInterval('P1D'));
         } 
 
 		$harvest->status = $harvest::STATUS_QUEUED;
