@@ -111,7 +111,7 @@ return array(
 		'Ipalaus\Geonames\GeonamesServiceProvider',
 		'Dinesh\Bugonemail\BugonemailServiceProvider',
 		'Former\FormerServiceProvider',
-		'Iverberk\Larasearch\LarasearchServiceProvider',
+		'Fadion\Bouncy\BouncyServiceProvider'
 	),
 
 	/*

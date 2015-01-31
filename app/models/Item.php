@@ -1,8 +1,11 @@
 <?php
+use Fadion\Bouncy\BouncyTrait;
 
 class Item extends Eloquent {
 
-	use Iverberk\Larasearch\Traits\SearchableTrait;
+	use BouncyTrait;
+	// protected $indexName = 'webumenia';
+    protected $typeName = 'item';
 
     const ARTWORKS_DIR = '/images/diela/';
     const ES_TYPE = 'item';
@@ -48,6 +51,16 @@ class Item extends Eloquent {
 
 	protected $guarded = array('featured');
 
+	protected $mappingProperties = array(
+		'title' => [
+		  'type' => 'string',
+		  "analyzer" => "standard",
+		],
+		'author' => [
+		  'type' => 'string',
+		  "analyzer" => "standard",
+		],
+	);
 
 	// ELASTIC SEARCH INDEX
 	public static function boot()
@@ -203,8 +216,8 @@ class Item extends Eloquent {
 	public function getDatingFormated() {
 
 		$trans = array("/" => "&ndash;", "-" => "&ndash;", "okolo" => "");
-		$formated = strtr($this->attributes['dating'], $trans);
-		return (str_contains($this->attributes['dating'], 'okolo')) ? 'okolo ' . $formated : $formated;
+		$formated = strtr($this->dating, $trans);
+		return (str_contains($this->dating, 'okolo')) ? 'okolo ' . $formated : $formated;
 	}
 
 	public function getWorkTypesAttribute() {
@@ -239,7 +252,7 @@ class Item extends Eloquent {
 	}
 
 	public function makeArray($str) {
-		return explode('; ', $str);
+		return (is_array($str)) ? $str : explode('; ', $str);
 	}
 
 	public static function listValues($attribute, $delimiter = ';', $only_first = false)

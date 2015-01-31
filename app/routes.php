@@ -167,24 +167,18 @@ Route::match(array('GET', 'POST'), 'katalog', function()
 
 	
 	if (Input::has('search')) {
-		$search = Input::get('search', null);
-		$client = new Elasticsearch\Client();
-		$body['query']['match']['_all'] = $search;
-		$body['size'] = 12;
-		$body['from'] = (Paginator::getCurrentPage()-1) * 12;
-		$result = $client->search([
-	        	'index' => Config::get('app.elasticsearch.index'),
-	        	'type' => Item::ES_TYPE,
-	        	'body' => $body,
-        	]);
-		$ids = array();
-		foreach ($result['hits']['hits'] as $key => $hit) {
-			$ids[] = $hit['_id'];
-		}
-		if (empty($ids)) $ids[] = 0; // aby nezahlasilo chybu ked nic nenajde
-		$items = Item::whereIn('id', $ids)
-		    ->orderBy(DB::raw('FIELD(`id`, "'.implode('", "', $ids).'")'))
-		    ->paginate(12);
+		$search = Input::get('search', '');
+		$params = [
+		    'query' => [
+		        'match' => [
+		            '_all' => $search
+		        ]
+		    ],
+		    'size' => 100
+		];
+
+		$items = Item::search($params)->paginate(18);
+
 	} else {
 
 		$items = Item::where(function($query) use ($search, $input) {
@@ -217,7 +211,7 @@ Route::match(array('GET', 'POST'), 'katalog', function()
 
                 return $query;
             })
-           ->orderBy('created_at', 'DESC')->paginate(12);
+           ->orderBy('created_at', 'DESC')->paginate(18);
 	}
 
 	$queries = DB::getQueryLog();
@@ -237,7 +231,7 @@ Route::match(array('GET', 'POST'), 'katalog', function()
 
 Route::get('creative-commons', function()
 {
-	$items = Item::where('free_download', '=', '1')->orderBy('created_at', 'DESC')->paginate(12);
+	$items = Item::where('free_download', '=', '1')->orderBy('created_at', 'DESC')->paginate(18);
 
 	return View::make('katalog', array(
 		'items'=>$items, 

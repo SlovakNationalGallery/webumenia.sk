@@ -12,7 +12,7 @@
 		"dinesh/bugonemail": "dev-master",
 		"anahkiasen/former": "dev-master",
 		"guzzlehttp/guzzle": "dev-master",
-		"iverberk/larasearch": "0.6.*"
+		"fadion/bouncy": "dev-master"
 	},
 	"autoload": {
 		"classmap": [
