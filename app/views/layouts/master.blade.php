@@ -123,7 +123,7 @@
 
 				{{ Form::open(['url' => 'katalog', 'method' => 'get', 'class' => 'navbar-form navbar-right right-inner-addon']) }}
 							<i class="fa fa-search"></i>
-							{{ Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => 'Hľadať...', 'id'=>'search')) }}
+							{{ Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => 'Hľadať...', 'id'=>'search', 'autocomplete'=>'off')) }}
 				{{Form::close() }}
                 
 	        </div>
@@ -160,10 +160,9 @@
 	{{ HTML::script('js/jquery.infinitescroll.min.js') }}
 	{{ HTML::script('js/jquery.isotope.min.js') }}
 	{{ HTML::script('js/jquery.isotope.sloppy-masonry.min.js') }}
-
 	{{ HTML::script('js/bootstrap.min.js') }}
-	{{ HTML::script('js/dvekrajiny.js') }}
-
+	{{ HTML::script('js/typeahead.bundle.min.js') }}
+	{{ HTML::script('js/webumenia.js') }}
 	<script>
 	  function initializeSearchD() {
 	    Searchd.monitor("#search", "{{ Config::get('app.searchd_id') }}", {queryPlaceholder: 'Hľadať...'});

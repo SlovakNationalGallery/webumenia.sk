@@ -1,3 +1,23 @@
+var authors = ['Martin Benka', 'Ladislav Mednyánszky', 'Mikuláš Galanda', 'Ľudovít Čordák', 'Pavol Poljak', 'Ruský ikonopisec', 'Ferdinand Katona', 'Peter Michal Bohúň'];
+var items = new Bloodhound({
+  datumTokenizer: function (d) {
+            return Bloodhound.tokenizers.whitespace(d.value);
+        },
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  prefetch: '/data/items.json',
+  remote: {
+    url: '/katalog/suggestions?search=%QUERY',
+    filter: function (items) {
+            return $.map(items.results, function (item) {
+                return {
+                    value: item.author + ': ' + item.title
+                };
+            });
+        }
+    }
+});
+
+
 //jQuery to collapse the navbar on scroll
 $(window).scroll(function() {
     if ($(".navbar").offset().top > 50) {
@@ -18,6 +38,15 @@ $(document).ready(function(){
     
     $('#top a').click(function(){
         $('html,body').animate({scrollTop:0},'slow');return false;
+    });
+
+    items.initialize();
+
+    $('#search').typeahead(null,
+    {
+      name: 'items',
+      displayKey: 'value',
+      source: items.ttAdapter()
     });
 
 });
