@@ -10,7 +10,8 @@ var items = new Bloodhound({
     filter: function (items) {
             return $.map(items.results, function (item) {
                 return {
-                    value: item.author + ': ' + item.title
+                    value: item.author + ': ' + item.title,
+                    id: item.id
                 };
             });
         }
@@ -42,11 +43,19 @@ $(document).ready(function(){
 
     items.initialize();
 
-    $('#search').typeahead(null,
+    $('#search').typeahead(
+    {
+      hint: true,
+      highlight: true,
+      minLength: 3
+    },
     {
       name: 'items',
       displayKey: 'value',
       source: items.ttAdapter()
+    }).bind("typeahead:selected", function(obj, datum, name) {
+        console.log(datum.id);
+        window.location.href = "/dielo/" + datum.id;
     });
 
 });

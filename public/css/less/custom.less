@@ -123,7 +123,7 @@ a:focus {
 
 .navbar {
     margin-bottom: 0;
-    text-transform: uppercase;
+    
     background-color: @dark;
     
     a, .dropdown-menu a {
@@ -150,6 +150,7 @@ a:focus {
 }
 
 .navbar-custom .nav li a {
+    text-transform: uppercase;
 }
 
 .navbar-custom .nav li a:hover,
@@ -459,11 +460,16 @@ p.medium {
         padding-right: 10px;    
     }
 
+    input[type=submit] {
+        position: absolute; left: -9999px
+    }
+
     i {
         position: absolute;
         right: 15px;
         padding: 10px 12px;
         pointer-events: none;
+        z-index: 1000;
     }
 
 }

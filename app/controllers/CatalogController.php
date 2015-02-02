@@ -96,7 +96,10 @@ class CatalogController extends \BaseController {
 		// $data['items'] = array();
 		foreach ($result['hits']['hits'] as $key => $hit) {
 			$data['count']++;
-			$data['results'][] = $hit['_source'];
+			$data['results'][] = array_merge(
+				['id' => $hit['_id']],
+				$hit['_source']
+			) ;
 		}
 
 	    return Response::json($data);	
