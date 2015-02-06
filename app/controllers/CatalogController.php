@@ -82,14 +82,24 @@ class CatalogController extends \BaseController {
 	 	$q = (Input::has('search')) ? Input::get('search') : 'null';
 
 		$client = new Elasticsearch\Client();
-		$body['query']['bool']['should']['match']['_all'] = $q;
-		$body['size'] = 50;
-		$body['from'] = 0;
+
 		$result = $client->search([
 	        	'index' => Config::get('app.elasticsearch.index'),
 	        	'type' => Item::ES_TYPE,
-	        	'body' => $body,
-        	]);
+	        	'body'  => array(
+	                'query' => array(
+	                    'multi_match' => array(
+	                        'query'  	=> $q,
+	                        'type' 		=> 'cross_fields',
+							'fuzziness' =>  1.1,
+							// 'slop'		=>  2,
+        	                'fields' 	=> array("author", "title"),
+	                        'operator' 	=> 'and'
+	                    ),
+	                ),
+	                'size' => '10',
+	            ),        	
+	      	]);
 		$data = array();
 		$data['results'] = array();
 		$data['count'] = 0;

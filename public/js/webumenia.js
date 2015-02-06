@@ -5,6 +5,7 @@ var items = new Bloodhound({
         },
   queryTokenizer: Bloodhound.tokenizers.whitespace,
   prefetch: '/data/items.json',
+  limit: 10,
   remote: {
     url: '/katalog/suggestions?search=%QUERY',
     filter: function (items) {
@@ -47,7 +48,7 @@ $(document).ready(function(){
     {
       hint: true,
       highlight: true,
-      minLength: 3
+      minLength: 2      
     },
     {
       name: 'items',
