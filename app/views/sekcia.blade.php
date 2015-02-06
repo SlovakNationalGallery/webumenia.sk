@@ -26,9 +26,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 text-center">
-                        <img src="/images/x.svg" alt="x" class="xko">
-                    	<h2 class="uppercase bottom-space">{{ $collection->name }}</h2>
-                        <p>{{ $collection->text }}</p>                        
+                        <h2 class="uppercase">{{ $collection->name }}</h2>
+                    	<p class="bottom-space">počet diel <b>{{ $collection->items()->count() }}</b> &nbsp;|&nbsp; vytvorené <b>{{ $collection->created_at->format('d. m. Y') }}</b></p>
+                        <p class="text-left bottom-space">{{ $collection->text }}</p>                        
                 </div>
             </div>
         </div>
