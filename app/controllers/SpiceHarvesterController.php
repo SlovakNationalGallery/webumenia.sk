@@ -262,7 +262,9 @@ class SpiceHarvesterController extends \BaseController {
 		if ($harvest->collection) {
 			$collection = $harvest->collection;
 			foreach ($harvest->records as $i => $record) {
-				$collection->items()->attach($record->item_id);
+				if (!$collection->items->contains($record->item_id)) {
+				    $collection->items()->attach($record->item_id);
+				}
 			}
 		}
 

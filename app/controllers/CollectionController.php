@@ -133,7 +133,9 @@ class CollectionController extends \BaseController {
 		if ($collection = Collection::find(Input::get('collection'))) {
 			$items = Input::get('ids');
 			foreach ($items as $item_id) {
-				$collection->items()->attach($item_id);
+				if (!$collection->items->contains($item_id)) {
+				    $collection->items()->attach($item_id);
+				}
 			}
 			return Redirect::back()->withMessage('Do kolekcie ' . $collection->name . ' bolo pridaných ' . count($items) . ' diel');
 		} else {
