@@ -1,4 +1,3 @@
-var authors = ['Martin Benka', 'Ladislav Mednyánszky', 'Mikuláš Galanda', 'Ľudovít Čordák', 'Pavol Poljak', 'Ruský ikonopisec', 'Ferdinand Katona', 'Peter Michal Bohúň'];
 var items = new Bloodhound({
   datumTokenizer: function (d) {
             return Bloodhound.tokenizers.whitespace(d.value);
