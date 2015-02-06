@@ -28,7 +28,7 @@
                 <div class="col-md-8 col-md-offset-2 text-center">
                         <h2 class="uppercase">{{ $collection->name }}</h2>
                     	<p class="bottom-space">počet diel <b>{{ $collection->items()->count() }}</b> &nbsp;|&nbsp; vytvorené <b>{{ $collection->created_at->format('d. m. Y') }}</b></p>
-                        <p class="text-left bottom-space">{{ $collection->text }}</p>                        
+                        <p class="text-left bottom-space description">{{ $collection->text }}</p>                        
                 </div>
             </div>
         </div>
