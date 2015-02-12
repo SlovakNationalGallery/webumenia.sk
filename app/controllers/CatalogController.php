@@ -16,14 +16,76 @@ class CatalogController extends \BaseController {
 		
 		if (Input::has('search')) {
 			$search = Input::get('search', '');
-			$params = [
-			    'query' => [
-			        'match' => [
-			            '_all' => $search
-			        ]
-			    ],
-			    'size' => 100
-			];
+			$json_params = '
+				{
+				  "query": {
+				  "bool": {
+				    "should": [
+				      { "match": {
+				          "author": {
+				            "query": "'.$search.'",
+				            "boost": 3
+				          }
+				        }
+				      },
+
+				      { "match": { "title":          "'.$search.'" }},
+				      { "match": { "title.stemmed": "'.$search.'" }},
+				      { "match": { 
+				        "title.stemmed": { 
+				          "query": "'.$search.'",  
+				          "analyzer" : "slovencina_synonym" 
+				        }
+				      }
+				      },
+
+				      { "match": {
+				          "subject.folded": {
+				            "query": "'.$search.'",
+				            "boost": 1
+				          }
+				        }
+				      },
+
+				      { "match": {
+				          "description": {
+				            "query": "'.$search.'",
+				            "boost": 1
+				          }
+				        }
+				      },
+				      { "match": {
+				          "description.stemmed": {
+				            "query": "'.$search.'",
+				            "boost": 0.9
+				          }
+				        }
+				      },
+				      { "match": {
+				          "description.stemmed": {
+				            "query": "'.$search.'",
+				            "analyzer" : "slovencina_synonym",
+				            "boost": 0.5
+				          }
+				        }
+				      },
+
+				      { "match": {
+				          "place.folded": {
+				            "query": "'.$search.'",
+				            "boost": 1
+				          }
+				        }
+				      }
+
+
+				    ]
+				  }
+				  },
+				  "size": 1000
+				}
+			';
+			$params = json_decode($json_params, true);
 
 			$items = Item::search($params)->paginate(18);
 
@@ -93,7 +155,7 @@ class CatalogController extends \BaseController {
 	                        'type' 		=> 'cross_fields',
 							'fuzziness' =>  1.1,
 							// 'slop'		=>  2,
-        	                'fields' 	=> array("author", "title"),
+        	                'fields' 	=> array("author.suggest", "title.suggest"),
 	                        'operator' 	=> 'and'
 	                    ),
 	                ),

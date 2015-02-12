@@ -5,10 +5,10 @@ class Item extends Eloquent {
 
 	use BouncyTrait;
 	// protected $indexName = 'webumenia';
-    protected $typeName = 'item';
+    protected $typeName = 'items';
 
     const ARTWORKS_DIR = '/images/diela/';
-    const ES_TYPE = 'item';
+    const ES_TYPE = 'items';
 
 	protected $fillable = array(
 		'id',
@@ -375,7 +375,7 @@ class Item extends Eloquent {
 	        	'identifier' => $this->attributes['identifier'],
 	        	'title' => $this->attributes['title'],
 	        	'author' => $this->makeArray($this->attributes['author']),
-				'body' => (!empty($this->attributes['description'])) ? strip_tags($this->attributes['description']) : '',	        	
+				'description' => (!empty($this->attributes['description'])) ? strip_tags($this->attributes['description']) : '',	        	
 				'work_type' => $this->work_types,
 	        	'topic' => $this->attributes['topic'],
 	        	'subject' => $this->makeArray($this->attributes['subject']),
