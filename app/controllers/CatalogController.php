@@ -143,17 +143,14 @@ class CatalogController extends \BaseController {
 	{
 	 	$q = (Input::has('search')) ? Input::get('search') : 'null';
 
-		$client = new Elasticsearch\Client();
-
-		$result = $client->search([
-	        	'index' => Config::get('app.elasticsearch.index'),
+		$result = Elastic::search([
 	        	'type' => Item::ES_TYPE,
 	        	'body'  => array(
 	                'query' => array(
 	                    'multi_match' => array(
 	                        'query'  	=> $q,
 	                        'type' 		=> 'cross_fields',
-							'fuzziness' =>  1.1,
+							// 'fuzziness' =>  2,
 							// 'slop'		=>  2,
         	                'fields' 	=> array("author.suggest", "title.suggest"),
 	                        'operator' 	=> 'and'
@@ -162,6 +159,7 @@ class CatalogController extends \BaseController {
 	                'size' => '10',
 	            ),        	
 	      	]);
+
 		$data = array();
 		$data['results'] = array();
 		$data['count'] = 0;

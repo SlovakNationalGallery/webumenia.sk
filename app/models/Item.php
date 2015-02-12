@@ -4,11 +4,12 @@ use Fadion\Bouncy\BouncyTrait;
 class Item extends Eloquent {
 
 	use BouncyTrait;
-	// protected $indexName = 'webumenia';
-    protected $typeName = 'items';
 
     const ARTWORKS_DIR = '/images/diela/';
     const ES_TYPE = 'items';
+
+	// protected $indexName = 'webumenia';
+    protected $typeName = self::ES_TYPE;
 
 	protected $fillable = array(
 		'id',

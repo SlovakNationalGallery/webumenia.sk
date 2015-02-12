@@ -42,7 +42,8 @@
     <div class="catalog-body">
         <div class="container">
             @if (empty($cc))
-            {{ Form::open(array('id'=>'filter')) }}
+            {{ Form::open(array('id'=>'filter', 'method' => 'get')) }}
+            {{ Form::hidden('search', @$search) }}
             <div class="row">
                 <!-- <h3>Filter: </h3> -->
                 <div  class="col-sm-3">

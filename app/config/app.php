@@ -179,6 +179,7 @@ return array(
 		'View'            => 'Illuminate\Support\Facades\View',
 		'Image' => 'Intervention\Image\ImageManagerStatic',
         'Former' => 'Former\Facades\Former',
+        'Elastic' => 'Fadion\Bouncy\Facades\Elastic',
 	),
 
 	'jira_auth' => array(
