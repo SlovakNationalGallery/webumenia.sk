@@ -23,9 +23,9 @@ class CatalogController extends \BaseController {
 							  "bool": {
 							    "should": [
 							      { "match": {
-							          "author": {
+							          "author.folded": {
 							            "query": "'.$search.'",
-							            "boost": 3
+							            "boost": 10
 							          }
 							        }
 							      },
