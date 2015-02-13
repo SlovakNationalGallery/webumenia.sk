@@ -256,73 +256,37 @@ class Item extends Eloquent {
 		return (is_array($str)) ? $str : explode('; ', $str);
 	}
 
-	public static function listValues($attribute, $delimiter = ';', $only_first = false)
+	public static function listValues($attribute, $search_params)
 	{
 		//najskor over, ci $attribute je zo zoznamu povolenych 
 		if (!in_array($attribute, array('author', 'work_type', 'subject', 'gallery'))) return false;
-
-		$search = Input::get('search', null);
-		$input = Input::all();
-
-		$unformated_list = Item::select(DB::raw($attribute . ', count(*) AS pocet'))
-		->groupBy($attribute)
-		->orderBy('pocet', 'desc')
-		->whereNotNull($attribute)
-		->where($attribute, '!=', '')
-		->where(function($query) use ($search, $input, $attribute) {
-                /** @var $query Illuminate\Database\Query\Builder  */
-                if (!empty($search)) {
-                	$query->where('title', 'LIKE', '%'.$search.'%')->orWhere('author', 'LIKE', '%'.$search.'%')->orWhere('subject', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%');
-                }
-                if(!empty($input['author']) && $attribute!='author') {
-                	$query->where('author', 'LIKE', '%'.$input['author'].'%');
-                }
-                if(!empty($input['work_type']) && $attribute!='work_type') {
-                	// dd($input['work_type']);
-                	$query->where('work_type', 'LIKE', $input['work_type'].'%');
-                }
-                if(!empty($input['subject']) && $attribute!='subject') {
-                	//tieto 2 query su tu kvoli situaciam, aby nenaslo pre kucove slovo napr. "les" aj diela s klucovy slovom "pleso"
-                	$query->whereRaw('( subject LIKE "%'.$input['subject'].';%" OR subject LIKE "%'.$input['subject'].'" )');
-                }
-                if(!empty($input['gallery']) && $attribute!='gallery') {
-                	$query->where('gallery', 'LIKE', '%'.$input['gallery'].'%');
-                }
-                if(!empty($input['year-range'])) {
-                	$range = explode(',', $input['year-range']);
-                	// dd("where('date_earliest', '>', $range[0])->where('date_latest', '<', $range[1])");
-                	$query->where('date_earliest', '>', $range[0])->where('date_latest', '<', $range[1]);
-                }
-
-                return $query;
-            })
-		->remember(30)
-		->get();
-
-		$formated_list=array();
-		foreach ($unformated_list as $result) {
-			$values = explode($delimiter, $result->$attribute);
-			if ($only_first) {
-				$single_value = trim($values[0]);
-				if (!isSet($formated_list[$single_value])) $formated_list[$single_value] = 0;
-				$formated_list[$single_value] += $result->pocet;
-			} else {
-				foreach ($values as $single_value) {
-					$single_value = trim($single_value);					
-					if (!isSet($formated_list[$single_value])) $formated_list[$single_value] = 0;
-					$formated_list[$single_value] += $result->pocet;
-				}
-			}
+		$json_params = '
+		{
+		 "aggs" : { 
+		    "'.$attribute.'" : {
+		        "terms" : {
+		          "field" : "'.$attribute.'",
+		          "size": 1000
+		        }
+		    }
 		}
-		arsort($formated_list);
+		}
+		';
+		$params = array_merge(json_decode($json_params, true), $search_params);
+		$result = Elastic::search([
+	        	'search_type' => 'count',
+	        	'type' => Item::ES_TYPE,
+	        	'body'  => $params       	
+	      	]);
+		$buckets = $result['aggregations'][$attribute]['buckets'];
 
 		$return_list = array();
-		foreach ($formated_list as $key => $value) {
-			$single_value = $key;
-			if ($attribute=='author') $single_value = preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $key);
-			$return_list[$key] = "$single_value ($value)";
+		foreach ($buckets as $bucket) {
+			// dd($bucket);
+			$single_value = $bucket['key'];
+			if ($attribute=='author') $single_value = preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $single_value);
+			$return_list[$bucket['key']] = "$single_value ({$bucket['doc_count']})";
 		}
-
 		return $return_list;
 
 	}

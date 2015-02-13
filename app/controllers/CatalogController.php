@@ -6,127 +6,113 @@ class CatalogController extends \BaseController {
 	{
 		$search = Input::get('search', null);
 		$input = Input::all();
-		// dd($input);
+		$params = array();
 
-		$authors = Item::listValues('author');
-		$work_types = Item::listValues('work_type', ',', true);
-		$tags = Item::listValues('subject');
-		$galleries = Item::listValues('gallery');
+		if (!empty($input)) {
+			
+			$params["size"] = 1000;
 
-		
-		if (Input::has('search')) {
-			$search = Input::get('search', '');
-			$json_params = '
-				{
-				  "query": {
-				  "bool": {
-				    "should": [
-				      { "match": {
-				          "author": {
-				            "query": "'.$search.'",
-				            "boost": 3
-				          }
-				        }
-				      },
+			if (Input::has('search')) {
+				$search = Input::get('search', '');
+				$json_params = '
+					{
+					  "query": {
+					  	"filtered" : {
+					  	  "query": {
+							  "bool": {
+							    "should": [
+							      { "match": {
+							          "author": {
+							            "query": "'.$search.'",
+							            "boost": 3
+							          }
+							        }
+							      },
 
-				      { "match": { "title":          "'.$search.'" }},
-				      { "match": { "title.stemmed": "'.$search.'" }},
-				      { "match": { 
-				        "title.stemmed": { 
-				          "query": "'.$search.'",  
-				          "analyzer" : "slovencina_synonym" 
-				        }
-				      }
-				      },
+							      { "match": { "title":          "'.$search.'" }},
+							      { "match": { "title.stemmed": "'.$search.'" }},
+							      { "match": { 
+							        "title.stemmed": { 
+							          "query": "'.$search.'",  
+							          "analyzer" : "slovencina_synonym" 
+							        }
+							      }
+							      },
 
-				      { "match": {
-				          "subject.folded": {
-				            "query": "'.$search.'",
-				            "boost": 1
-				          }
-				        }
-				      },
+							      { "match": {
+							          "subject.folded": {
+							            "query": "'.$search.'",
+							            "boost": 1
+							          }
+							        }
+							      },
 
-				      { "match": {
-				          "description": {
-				            "query": "'.$search.'",
-				            "boost": 1
-				          }
-				        }
-				      },
-				      { "match": {
-				          "description.stemmed": {
-				            "query": "'.$search.'",
-				            "boost": 0.9
-				          }
-				        }
-				      },
-				      { "match": {
-				          "description.stemmed": {
-				            "query": "'.$search.'",
-				            "analyzer" : "slovencina_synonym",
-				            "boost": 0.5
-				          }
-				        }
-				      },
+							      { "match": {
+							          "description": {
+							            "query": "'.$search.'",
+							            "boost": 1
+							          }
+							        }
+							      },
+							      { "match": {
+							          "description.stemmed": {
+							            "query": "'.$search.'",
+							            "boost": 0.9
+							          }
+							        }
+							      },
+							      { "match": {
+							          "description.stemmed": {
+							            "query": "'.$search.'",
+							            "analyzer" : "slovencina_synonym",
+							            "boost": 0.5
+							          }
+							        }
+							      },
 
-				      { "match": {
-				          "place.folded": {
-				            "query": "'.$search.'",
-				            "boost": 1
-				          }
-				        }
-				      }
+							      { "match": {
+							          "place.folded": {
+							            "query": "'.$search.'",
+							            "boost": 1
+							          }
+							        }
+							      }
 
 
-				    ]
-				  }
-				  },
-				  "size": 1000
-				}
-			';
-			$params = json_decode($json_params, true);
+							    ]
+							  }
+							}
+						}
+					  },
+					  "size": 1000
+					}
+				';
+				$params = json_decode($json_params, true);
+
+			}
+	        if(!empty($input['author'])) { $params["query"]["filtered"]["filter"]["and"][]["term"]["author"] = $input['author']; }
+	        if(!empty($input['work_type'])) { $params["query"]["filtered"]["filter"]["and"][]["term"]["work_type"] = $input['work_type']; }
+	        if(!empty($input['subject'])) { $params["query"]["filtered"]["filter"]["and"][]["term"]["subject"] = $input['subject']; }
+	        if(!empty($input['gallery'])) { $params["query"]["filtered"]["filter"]["and"][]["term"]["gallery"] = $input['gallery']; }
+            if(!empty($input['year-range'])) {
+            	$range = explode(',', $input['year-range']);
+            	$params["query"]["filtered"]["filter"]["and"][]["range"]["date_earliest"]["gte"] = $range[0];
+            	$params["query"]["filtered"]["filter"]["and"][]["range"]["date_latest"]["lte"] = $range[1];
+            }
 
 			$items = Item::search($params)->paginate(18);
-
 		} else {
-
-			$items = Item::where(function($query) use ($search, $input) {
-	                /** @var $query Illuminate\Database\Query\Builder  */
-	                if (!empty($search)) {
-	                	$query->where('title', 'LIKE', '%'.$search.'%')->orWhere('author', 'LIKE', '%'.$search.'%')->orWhere('subject', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%');
-	                }
-	                if(!empty($input['author'])) {
-	                	$query->where('author', 'LIKE', '%'.$input['author'].'%');
-	                }
-	                if(!empty($input['work_type'])) {
-	                	// dd($input['work_type']);
-	                	$query->where('work_type', 'LIKE', $input['work_type'].'%');
-	                }
-	                if(!empty($input['subject'])) {
-	                	//tieto 2 query su tu kvoli situaciam, aby nenaslo pre kucove slovo napr. "les" aj diela s klucovy slovom "pleso"
-	                	$query->whereRaw('( subject LIKE "%'.$input['subject'].';%" OR subject LIKE "%'.$input['subject'].'" )');
-	                }
-	                if(!empty($input['gallery'])) {
-	                	$query->where('gallery', 'LIKE', '%'.$input['gallery'].'%');
-	                }
-	                if(!empty($input['year-range'])) {
-	                	$range = explode(',', $input['year-range']);
-	                	// dd("where('date_earliest', '>', $range[0])->where('date_latest', '<', $range[1])");
-	                	$query->where('date_earliest', '>', $range[0])->where('date_latest', '<', $range[1]);
-	                }
-	                if(!empty($input['free_download'])) {
-	                	$query->where('free_download', '=', '1')->whereNotNull('iipimg_url');
-	                }
-
-	                return $query;
-	            })
-	           ->orderBy('created_at', 'DESC')->paginate(18);
+			$items = Item::orderBy('created_at', 'DESC')->paginate(18);
 		}
+
+		$authors = Item::listValues('author', $params);
+		$work_types = Item::listValues('work_type', $params);
+		$tags = Item::listValues('subject', $params);
+		$galleries = Item::listValues('gallery', $params);
+		
 
 		$queries = DB::getQueryLog();
 		$last_query = end($queries);
-		// dd($last_query);
 
 		return View::make('katalog', array(
 			'items'=>$items, 
