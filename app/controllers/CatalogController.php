@@ -90,10 +90,12 @@ class CatalogController extends \BaseController {
 				$params = json_decode($json_params, true);
 
 			}
-	        if(!empty($input['author'])) { $params["query"]["filtered"]["filter"]["and"][]["term"]["author"] = $input['author']; }
-	        if(!empty($input['work_type'])) { $params["query"]["filtered"]["filter"]["and"][]["term"]["work_type"] = $input['work_type']; }
-	        if(!empty($input['subject'])) { $params["query"]["filtered"]["filter"]["and"][]["term"]["subject"] = $input['subject']; }
-	        if(!empty($input['gallery'])) { $params["query"]["filtered"]["filter"]["and"][]["term"]["gallery"] = $input['gallery']; }
+
+			foreach ($input as $filter => $value) {
+				if (in_array($filter, Item::$filterable) && !empty($value)) {
+					$params["query"]["filtered"]["filter"]["and"][]["term"][$filter] = $value;
+				}
+			}
             if(!empty($input['year-range'])) {
             	$range = explode(',', $input['year-range']);
             	$params["query"]["filtered"]["filter"]["and"][]["range"]["date_earliest"]["gte"] = $range[0];

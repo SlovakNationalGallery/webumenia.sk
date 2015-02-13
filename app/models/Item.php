@@ -11,6 +11,13 @@ class Item extends Eloquent {
 	// protected $indexName = 'webumenia';
     protected $typeName = self::ES_TYPE;
 
+	public static $filterable = array(
+		'author',
+		'work_type',
+		'subject',
+		'gallery'
+	);
+
 	protected $fillable = array(
 		'id',
 		'identifier',
@@ -259,7 +266,7 @@ class Item extends Eloquent {
 	public static function listValues($attribute, $search_params)
 	{
 		//najskor over, ci $attribute je zo zoznamu povolenych 
-		if (!in_array($attribute, array('author', 'work_type', 'subject', 'gallery'))) return false;
+		if (!in_array($attribute, self::$filterable)) return false;
 		$json_params = '
 		{
 		 "aggs" : { 
