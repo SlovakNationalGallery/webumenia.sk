@@ -7,11 +7,12 @@ class CatalogController extends \BaseController {
 		$search = Input::get('search', null);
 		$input = Input::all();
 		$params = array();
+		$params["size"] = 1000;
+		$params["sort"][] = "_score";
+		$params["sort"][] = ["created_at"=>["order"=>"desc"]];
 
 		if (!empty($input)) {
 			
-			$params["size"] = 1000;
-
 			if (Input::has('search')) {
 				$search = Input::get('search', '');
 				$json_params = '
@@ -101,11 +102,10 @@ class CatalogController extends \BaseController {
             	$params["query"]["filtered"]["filter"]["and"][]["range"]["date_earliest"]["gte"] = $range[0];
             	$params["query"]["filtered"]["filter"]["and"][]["range"]["date_latest"]["lte"] = $range[1];
             }
+			
+		} 
 
-			$items = Item::search($params)->paginate(18);
-		} else {
-			$items = Item::orderBy('created_at', 'DESC')->paginate(18);
-		}
+		$items = Item::search($params);
 
 		$authors = Item::listValues('author', $params);
 		$work_types = Item::listValues('work_type', $params);

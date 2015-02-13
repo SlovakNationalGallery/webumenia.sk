@@ -357,7 +357,9 @@ class Item extends Eloquent {
 	        	'date_latest' => $this->attributes['date_latest'],
 	        	'medium' => $this->attributes['medium'],
 	        	'technique' => $this->makeArray($this->attributes['technique']),
-	        	'gallery' => $this->attributes['gallery']
+	        	'gallery' => $this->attributes['gallery'],
+	        	'created_at' => $this->attributes['created_at'],
+	        	'free_download' => $this->attributes['free_download'],
 	        ];
 	        return $client->index([
 	        	'index' => Config::get('app.elasticsearch.index'),

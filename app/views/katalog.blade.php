@@ -80,14 +80,14 @@
             <div class="row">
             	<div class="col-sm-12 container-item">
                     @if (!empty($search))
-                        <h3>Nájdené diela pre &bdquo;{{ $search }}&ldquo; (<span data-searchd-total-hits>{{ $items->getTotal() }}</span>) </h3> 
+                        <h3>Nájdené diela pre &bdquo;{{ $search }}&ldquo; (<span data-searchd-total-hits>{{ $items->total() }}</span>) </h3> 
                     @else
-                		<h3>Nájdené diela ({{ $items->getTotal() }}) </h3>
+                		<h3>Nájdené diela ({{ $items->total() }}) </h3>
                     @endif
                     @if ($items->count() == 0)
                         <p class="text-center">Momentálne žiadne diela</p>
                     @endif
-
+                    <?php $items = $items->paginate(18) ?>
                     <div id="iso">
                 	@foreach ($items as $i=>$item)
     	                <div class="col-md-3 col-sm-4 col-xs-12 item">
