@@ -25,7 +25,7 @@ class CatalogController extends \BaseController {
 							      { "match": {
 							          "author.folded": {
 							            "query": "'.$search.'",
-							            "boost": 10
+							            "boost": 5
 							          }
 							        }
 							      },
@@ -151,13 +151,23 @@ class CatalogController extends \BaseController {
 		$data = array();
 		$data['results'] = array();
 		$data['count'] = 0;
+		
 		// $data['items'] = array();
 		foreach ($result['hits']['hits'] as $key => $hit) {
+
+			$authors = array();
+			foreach ($hit['_source']['author'] as $author) {
+				$authors[] = preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $author);
+			}
+
 			$data['count']++;
-			$data['results'][] = array_merge(
-				['id' => $hit['_id']],
-				$hit['_source']
-			) ;
+			$params = array(
+				'id' => $hit['_id'],
+				'title' => $hit['_source']['title'],
+				'author' => $authors,
+				'image' => Item::getImagePathForId($hit['_id'], false, 70)
+			);
+			$data['results'][] = array_merge($params) ;
 		}
 
 	    return Response::json($data);	

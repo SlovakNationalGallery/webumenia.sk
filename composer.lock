@@ -110,12 +110,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/caseyamcl/phpoaipmh.git",
-                "reference": "7c9a832c0df905d7736eba986fd1faab0839869d"
+                "reference": "a22b61e2667c977268633c3773a2908395aadd42"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/caseyamcl/phpoaipmh/zipball/7c9a832c0df905d7736eba986fd1faab0839869d",
-                "reference": "7c9a832c0df905d7736eba986fd1faab0839869d",
+                "url": "https://api.github.com/repos/caseyamcl/phpoaipmh/zipball/a22b61e2667c977268633c3773a2908395aadd42",
+                "reference": "a22b61e2667c977268633c3773a2908395aadd42",
                 "shasum": ""
             },
             "require": {
@@ -161,7 +161,7 @@
                 "OAI",
                 "OAI-PMH"
             ],
-            "time": "2014-11-17 01:48:31"
+            "time": "2015-02-18 02:15:12"
         },
         {
             "name": "classpreloader/classpreloader",

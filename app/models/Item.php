@@ -113,16 +113,26 @@ class Item extends Eloquent {
     }
 
 	public function getImagePath($full=false) {
+		return self::getImagePathForId($this->id, $full);
+
+	}
+
+	public function getDetailUrl() {
+		return URL::to('dielo/' . $this->id);
+	}
+
+	public static function getImagePathForId($id, $full = false, $resize = false)
+	{
 
 		$levels = 1;
 	    $dirsPerLevel = 100;
 
-	    $transformedWorkArtID = $this->hashcode((string)$this->id);
-		$workArtIdInt = abs($this->intval32bits($transformedWorkArtID));
+	    $transformedWorkArtID = self::hashcode((string)$id);
+		$workArtIdInt = abs(self::intval32bits($transformedWorkArtID));
 	    $tmpValue = $workArtIdInt;
 	    $dirsInLevels = array();
 
-	    $galleryDir = substr($this->id, 4, 3);
+	    $galleryDir = substr($id, 4, 3);
 
 	    for ($i = 0; $i < $levels; $i++) {
 	            $dirsInLevels[$i] = $tmpValue % $dirsPerLevel;
@@ -133,7 +143,7 @@ class Item extends Eloquent {
 
 		// adresar obrazkov workartu sa bude volat presne ako id, kde je ':' nahradena '_'
 		$trans = array(":" => "_", " " => "_");
-	    $file = strtr($this->id, $trans);
+	    $file = strtr($id, $trans);
 
 	    $relative_path = self::ARTWORKS_DIR . "$galleryDir/$path/$file/";
 	    $full_path =  public_path() . $relative_path;
@@ -149,6 +159,14 @@ class Item extends Eloquent {
 	    } else {
 		    if (file_exists($full_path . "$file.jpeg")) {
 		    	$result_path =  $relative_path . "$file.jpeg";
+
+		    	if ($resize) {		    		
+		    		if (!file_exists($full_path . "$file.$resize.jpeg")) {
+		    			$img = Image::make( $full_path . "$file.jpeg")->fit($resize)->sharpen(7);
+		    			$img->save($full_path . "$file.$resize.jpeg");		    			
+		    		}
+		    		$result_path = $relative_path . "$file.$resize.jpeg";
+		    	}
 		    } else {
 		    	$result_path =  self::ARTWORKS_DIR . "no-image.jpg";
 		    }
@@ -157,11 +175,7 @@ class Item extends Eloquent {
 		return $result_path;
 	}
 
-	public function getDetailUrl() {
-		return URL::to('dielo/' . $this->id);
-	}
-
-	private function intval32bits($value)
+	private static function intval32bits($value)
 	{
 	    $value = ($value & 0xFFFFFFFF);
 
@@ -237,7 +251,7 @@ class Item extends Eloquent {
 	/**
 	* Same as java String.hashcode()
 	*/
-	private function hashcode($s) {
+	private static function hashcode($s) {
 	    $len = strLen($s);
 	    $sum = 0;
 	    for ($i = 0; $i < $len; $i++) {

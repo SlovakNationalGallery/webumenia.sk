@@ -130,26 +130,33 @@
   .tt-suggestion {
     //item
     display: block;
-    padding: 3px 20px;
+    padding: 7px 10px;
     clear: both;
     font-weight: normal;
     line-height: @line-height-base;
     color: @dropdown-link-color;
+    border-bottom: 1px solid #cecece;
+
+    &:last-child {
+      border: none;
+    }
 
     &.tt-cursor {
       //item selected
       cursor: pointer;
       text-decoration: none;
       outline: 0;
-      background-color: @dropdown-link-hover-bg;
-      color: @dropdown-link-hover-color;
+      background-color: @dark; //@dropdown-link-hover-bg;
+      color: @light; // @dropdown-link-hover-color;
       a {
         //link in item selected
-        color: @dropdown-link-hover-color;
+        color: @light; //@dropdown-link-hover-color;
       }
     }
     p {
       margin: 0;
     }
+
+    img.preview { float: left; margin-right: 7px; width: 35px; height: 35px; }
   }
 }
