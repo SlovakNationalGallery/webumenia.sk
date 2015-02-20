@@ -7,7 +7,7 @@ class CatalogController extends \BaseController {
 		$search = Input::get('search', null);
 		$input = Input::all();
 		$params = array();
-		$params["size"] = 1000;
+		$params["size"] = 100;
 		$params["sort"][] = "_score";
 		$params["sort"][] = ["created_at"=>["order"=>"desc"]];
 
@@ -85,7 +85,7 @@ class CatalogController extends \BaseController {
 							}
 						}
 					  },
-					  "size": 1000
+					  "size": 100
 					}
 				';
 				$params = json_decode($json_params, true);
