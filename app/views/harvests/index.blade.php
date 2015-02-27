@@ -33,6 +33,7 @@
                     <thead>
                         <tr>
                             <th>#</th>
+                            <th>Typ</th>
                             <th>URL</th>
                             <th>Set</th>
                             <th>Metadata Prefix</th>
@@ -44,6 +45,7 @@
 						@foreach($harvests as $h)
 			            <tr>
 			                <td>{{ $h->id }}</td>
+                            <td>{{ $h::$types[$h->type] }}</td>
 			                <td>{{ $h->base_url }}</td>
 			                <td>{{ $h->set_name }}</td>
 			                <td>{{ $h->metadata_prefix }}</td>
@@ -64,6 +66,9 @@
                     </tbody>
                 </table>
 
+                <div class="text-center">
+                    {{ $harvests->appends(@Input::except('page'))->links() }}
+                </div>
 
             </div>
             <!-- /.panel-body -->

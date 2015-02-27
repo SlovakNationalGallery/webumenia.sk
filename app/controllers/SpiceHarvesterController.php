@@ -19,7 +19,7 @@ class SpiceHarvesterController extends \BaseController {
 	 */
 	public function index()
 	{
-		$harvests = SpiceHarvesterHarvest::orderBy('created_at', 'DESC')->paginate(3);
+		$harvests = SpiceHarvesterHarvest::orderBy('created_at', 'DESC')->paginate(10);
         return View::make('harvests.index')->with('harvests', $harvests);
 	}
 
@@ -49,12 +49,17 @@ class SpiceHarvesterController extends \BaseController {
 			
 			$harvest = new SpiceHarvesterHarvest;
 			$harvest->base_url = Input::get('base_url');
+			$harvest->type = Input::get('type');
 			$harvest->metadata_prefix = Input::get('metadata_prefix');
 			$harvest->set_spec = Input::get('set_spec');
 			$harvest->set_name = Input::get('set_name');
 			$harvest->set_description = Input::get('set_description');
 			$collection = Collection::find(Input::get('collection_id'));
 			if ($collection) $harvest->collection()->associate($collection);			
+			if (Input::has('username') && Input::has('password')) {
+				$harvest->username = Input::get('username');
+				$harvest->password = Input::get('password');				
+			}
 			$harvest->save();
 
 			return Redirect::route('harvests.index');
@@ -110,6 +115,11 @@ class SpiceHarvesterController extends \BaseController {
 
 			$harvest = SpiceHarvesterHarvest::find($id);
 			$harvest->base_url = Input::get('base_url');
+			$harvest->type = Input::get('type');
+			if (Input::has('username') && Input::has('password')) {
+				$harvest->username = Input::get('username');
+				$harvest->password = Input::get('password');				
+			}
 			$harvest->metadata_prefix = Input::get('metadata_prefix');
 			$harvest->set_spec = Input::get('set_spec');
 			$harvest->set_name = Input::get('set_name');
@@ -205,7 +215,7 @@ class SpiceHarvesterController extends \BaseController {
 
 		if ($harvest->status == SpiceHarvesterHarvest::STATUS_COMPLETED && !$reindex) {
             $start_from = new DateTime($harvest->initiated);
-            $start_from->sub(new DateInterval('P1D'));
+            // $start_from->sub(new DateInterval('P1D'));
         } 
 
 		$harvest->status = $harvest::STATUS_QUEUED;
@@ -217,35 +227,45 @@ class SpiceHarvesterController extends \BaseController {
 		$harvest->status_messages = '';
 		$harvest->save();
 
-		//--- nazacat samostatnu metodu?
-		$client = new \Phpoaipmh\Client($harvest->base_url);
+		//--- nazacat samostatnu metodu
+		$guzzleAdapter = null;
+		if ($harvest->username && $harvest->password) {
+			$gclient = new GuzzleHttp\Client(['defaults' =>  ['auth' =>  [$harvest->username, $harvest->password]]]);
+			$guzzleAdapter = new \Phpoaipmh\HttpAdapter\GuzzleAdapter($gclient);			
+		}
+		$client = new \Phpoaipmh\Client($harvest->base_url, $guzzleAdapter);
 	    $myEndpoint = new \Phpoaipmh\Endpoint($client);
-	    
-    	$recs = $myEndpoint->listRecords($harvest->metadata_prefix, $start_from, NULL, $harvest->set_spec);
+
+    	$recs = $myEndpoint->listRecords($harvest->metadata_prefix, $start_from, null, $harvest->set_spec);
 	    $dt = new \DateTime;
-	    
+
+	    //zmaz potom
+	    // $rec = $myEndpoint->getRecord(1330, $harvest->metadata_prefix)->GetRecord->record; //med=6478
+	    // $this->insertRecord($id, $rec, $harvest->type);
+	    //zmaz potom
+	    // dd('staci');
 	    try {
 	    foreach($recs as $rec) {
 	    	$processed_items++;
-	    	
+
 	    	if (!$this->isDeletedRecord($rec)) { //ak je v sete oznaceny ako zmazany
 
 	    		//ak bol zmazany v tu v databaze, ale nachadza sa v OAI sete
-	    		$is_deleted_record = SpiceHarvesterRecord::onlyTrashed()->where('identifier', '=', $rec->header->identifier)->count();
+	    		$is_deleted_record = SpiceHarvesterRecord::onlyTrashed()->where('identifier', '=', $rec->header->identifier)->where('type', '=', $harvest->type)->count();
 	    		if ($is_deleted_record > 0) {
 	    			$skipped_items++;
 	    		//inak insert alebo update
 	    		} else {
-					$existingRecord = SpiceHarvesterRecord::where('identifier', '=', $rec->header->identifier)->first();
+					$existingRecord = SpiceHarvesterRecord::where('identifier', '=', $rec->header->identifier)->where('type', '=', $harvest->type)->first();
 
 			        if ($existingRecord) {
 			            // ak sa zmenil datestamp, update item - inak ignorovat
 			            // if( $existingRecord->datestamp != $rec->header->datestamp) {
-			                $this->updateItem($existingRecord, $rec);
+			                $this->updateRecord($existingRecord, $rec, $harvest->type);
 			                $updated_items++;
 			            // }
 			        } else {
-			            $this->insertItem($id, $rec);
+			            $this->insertRecord($id, $rec, $harvest->type);
 			            $new_items++;
 			        }
 			    }
@@ -309,24 +329,64 @@ class SpiceHarvesterController extends \BaseController {
      * @param SimpleXMLElement $rec OAI PMH record
      * @return true
      */
-    private function insertItem($harvest_id, $rec) {
+    private function insertRecord($harvest_id, $rec, $type) {
 
-    	// Insert the item
-    	$itemAttributes = $this->mapAttributes($rec);
-	    $item = Item::create($itemAttributes);
+    	switch ($type) {
+    		case 'item':
+		    	$attributes = $this->mapItemAttributes($rec);
+			    $item = Item::create($attributes);
+    			break;
+    		case 'author':
+		    	// $nationality = Nationality::firstOrNew(['id' => ])
+		    	$attributes = $this->mapAuthorAttributes($rec);
+			    $author = Authority::create($attributes);
+			    if (!empty($attributes['nationalities'])) {
+				    foreach ($attributes['nationalities'] as $key => $nationality) {
+				    	$nationality = Nationality::firstOrNew($nationality);
+				    	$nationality = $author->nationalities()->save($nationality);
+				    }
+				}
+			    if (!empty($attributes['roles'])) {
+				    foreach ($attributes['roles'] as $key => $role) {
+				    	$role['authority_id'] = $author->id;
+				    	$role = AuthorityRole::firstOrCreate($role);
+				    }
+				}
+			    if (!empty($attributes['names'])) {
+				    foreach ($attributes['names'] as $key => $name) {
+				    	$name['authority_id'] = $author->id;
+				    	$name = AuthorityName::firstOrCreate($name);
+				    }
+				}
+			    if (!empty($attributes['events'])) {
+				    foreach ($attributes['events'] as $key => $event) {
+				    	$event['authority_id'] = $author->id;
+				    	$event = AuthorityEvent::firstOrCreate($event);
+				    }
+				}
+			    if (!empty($attributes['relationships'])) {
+				    foreach ($attributes['relationships'] as $key => $relationship) {
+				    	$relationship['authority_id'] = $author->id;
+				    	$relationship = AuthorityRelationship::firstOrCreate($relationship);
+				    }
+				}
+
+    			break;
+    	}
 
 		// Insert the record after the item is saved
 	    $record = new SpiceHarvesterRecord();
 	    $record->harvest_id = $harvest_id;
-	    $record->item_id = $itemAttributes['id'];
+	    $record->type = $type;
+	    $record->item_id = $attributes['id'];
 	    $record->identifier = $rec->header->identifier;
 	    $record->datestamp = $rec->header->datestamp;
 	    $record->save();
 
       
         // Upload image given by url
-        if (!empty($itemAttributes['img_url'])) {
-        	$this->downloadImage($item, $itemAttributes['img_url']);
+        if (!empty($attributes['img_url'])) {
+        	$this->downloadImage($item, $attributes['img_url']);
         }        
 
         return true;
@@ -339,13 +399,23 @@ class SpiceHarvesterController extends \BaseController {
      * @param SimpleXML $rec OAI PMH record
      * @return true
      */
-    private function updateItem($existingRecord, $rec) {
+    private function updateRecord($existingRecord, $rec, $type) {
 
     	// Update the item
-    	$itemAttributes = $this->mapAttributes($rec);
-    	$item = Item::where('id', '=', $rec->header->identifier)->first();
-    	$item->fill($itemAttributes);
-    	$item->save();
+    	switch ($type) {
+    		case 'item':
+		    	$itemAttributes = $this->mapItemAttributes($rec);
+			    $item = Item::where('id', '=', $rec->header->identifier)->first();
+			    $item->fill($itemAttributes);
+			    $item->save();
+    			break;
+    		case 'author':
+		    	$authorAttributes = $this->mapAuthorAttributes($rec);
+			    $author = Authority::where('id', '=', $rec->header->identifier)->first();
+			    $author->fill($authorAttributes);
+			    $author->save();
+    			break;
+    	}
 
         // Upload image given by url
         if (!empty($itemAttributes['img_url'])) {
@@ -362,9 +432,96 @@ class SpiceHarvesterController extends \BaseController {
     }
 
     /**
-     * Map attributes from OAI to internal schema
+     * Map attributes from OAI to author schema
      */
-    private function mapAttributes($rec)
+    private function mapAuthorAttributes($rec)
+    {
+		$vendorDir = base_path() . '/vendor';
+	    // include($vendorDir . '/imsop/simplexml_debug/src/simplexml_dump.php');
+	    // include($vendorDir . '/imsop/simplexml_debug/src/simplexml_tree.php');
+
+    	$attributes = array();
+// simplexml_tree($rec);  dd();
+		$rec->registerXPathNamespace('cedvu', 'http://www.webumenia.sk#');
+		$rec->registerXPathNamespace('ulan', 'http://e-culture.multimedian.nl/ns/getty/ulan');
+		$rec->registerXPathNamespace('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns');
+		$rec->registerXPathNamespace('vp', 'http://e-culture.multimedian.nl/ns/getty/vp');
+		$metadata = $rec->metadata->children('cedvu', true)->Vocabulary->children('vp', true)->Subject;
+
+		$attributes['id'] = (int)$this->parseId((string)$metadata->attributes('rdf', true)->about);
+		$attributes['type'] = (string)$metadata->Record_Type;
+		$attributes['type_organization'] = (string)$metadata->Record_Type_Organization;
+		$attributes['name'] = (string)$metadata->attributes('vp', true)->labelPreferred;
+		$attributes['sex'] = (string)$metadata->Biographies->Preferred_Biography->Sex;
+		$biography = $this->parseBiography((string)$metadata->Biographies->Preferred_Biography->Biography_Text);
+		if (strpos($biography, 'http')!== false) {			
+			preg_match_all('!https?://\S+!', $biography, $matches);
+			$attributes['links']= $matches[0];
+			$biography = ''; // vymazat bio
+		}
+		$attributes['biography'] = $biography;
+		$attributes['birth_place'] = $this->trimAfter((string)$metadata->Biographies->Preferred_Biography->Birth_Place);
+		$attributes['birth_date'] = (string)$metadata->Biographies->Preferred_Biography->Birth_Date;
+		$attributes['death_place'] = $this->trimAfter((string)$metadata->Biographies->Preferred_Biography->Death_Place);
+		$attributes['death_date'] = (string)$metadata->Biographies->Preferred_Biography->Death_Date;
+		$attributes['nationalities'] = array();
+		foreach ($metadata->Nationalities->Preferred_Nationality as $key => $nationality) {
+			$attributes['nationalities'][] = [
+				'id' => (int)$this->parseId((string)$nationality->attributes('rdf', true)->resource),
+				'code' => (string)$nationality->Nationality_Code,
+				// 'prefered' => true,
+			];
+		}
+		$attributes['roles'] = array();
+		foreach ($metadata->Roles->Preferred_Role as $key => $role) {
+			$attributes['roles'][] = [
+				'role' => $this->trimAfter((string)$role->Role_ID),
+				// 'prefered' => true,
+			];
+		}
+		$attributes['names'] = array();
+		foreach ($metadata->Terms->Preferred_Term as $key => $term) {
+			$attributes['names'][] = [
+				'name' => (string)$term->Term_Text,
+				'prefered' => true,
+			];
+		}
+		foreach ($metadata->Terms->{'Non-Preferred_Term'} as $key => $term) {
+			$attributes['names'][] = [
+				'name' => (string)$term->Term_Text,
+				'prefered' => false,
+			];
+		}
+		$attributes['events'] = array();
+		foreach ($metadata->Events->{'Non-Preferred_Event'} as $key => $event) {
+			$attributes['events'][] = [
+				'id' => (int)$event->attributes('rdf', true)->resource,
+				'event' => (string)$event->Event_ID,
+				'place' => $this->trimAfter((string)$event->Place),
+				'prefered' => false,
+				'start_date' => (string)$event->Event_Date->Start_Date,
+				'end_date' => (string)$event->Event_Date->End_Date,
+			];
+		}
+		foreach ($metadata->Associative_Relationships->Associative_Relationship as $key => $relationship) {
+			$name = (string)$relationship->{'Non-Preferred_Parent'};
+			if (!empty($name)) {
+				$attributes['relationships'][] = [
+					'type' => (string)$relationship->Relationship_Type,
+					'name' => (string)$relationship->{'Non-Preferred_Parent'},
+					'realted_authority_id' => (int)$this->parseId((string)$relationship->{'Non-Preferred_Parent'}->attributes('rdf', true)->resource),
+					// 'prefered' => true,
+				];
+			}
+		}
+
+	    return $attributes;
+    }
+
+    /**
+     * Map attributes from OAI to item schema
+     */
+    private function mapItemAttributes($rec)
     {
     	$attributes = array();
 
@@ -464,4 +621,24 @@ class SpiceHarvesterController extends \BaseController {
      	}
      	return false;
 	}
+
+	private function parseId ( $string, $delimiter=':' )
+	{
+	    return substr($string, strrpos($string, $delimiter) + ( (strrpos($string, $delimiter)!== false) ? strlen($delimiter) : 0));
+	}
+
+	private function trimAfter ( $string, $delimiter='/' )
+	{
+	    $parts = explode($delimiter, $string);
+	    return $parts[0];
+	    // return substr($string, 0, strpos($string, $delimiter));
+	}
+
+	private function parseBiography ( $string )
+	{
+	    $bio = $this->parseId($string, '(ZNÁMY)');
+	    return $bio;
+	}
+
+
 }

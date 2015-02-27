@@ -160,7 +160,7 @@ class Item extends Eloquent {
 		    if (file_exists($full_path . "$file.jpeg")) {
 		    	$result_path =  $relative_path . "$file.jpeg";
 
-		    	if ($resize) {		    		
+		    	if ($resize) {
 		    		if (!file_exists($full_path . "$file.$resize.jpeg")) {
 		    			$img = Image::make( $full_path . "$file.jpeg")->fit($resize)->sharpen(7);
 		    			$img->save($full_path . "$file.$resize.jpeg");		    			

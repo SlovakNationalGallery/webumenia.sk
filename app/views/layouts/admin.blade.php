@@ -83,6 +83,9 @@
                             <a href="{{ URL::to('item') }}"><i class="fa fa-picture-o fa-fw"></i> Diela</a>
                         </li>
                         <li>
+                            <a href="{{ URL::to('authority') }}"><i class="fa fa-user fa-fw"></i> Autority</a>
+                        </li>
+                        <li>
                             <a href="{{ URL::to('collection') }}"><i class="fa fa-th-list fa-fw"></i> Kolekcie</a>
                         </li>
                         <li>

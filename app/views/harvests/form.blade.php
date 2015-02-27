@@ -24,8 +24,26 @@
 </div>
 <div class="col-md-12">
 	<div class="form-group">
+	{{ Form::label('type', 'Typ') }}
+	{{ Form::select('type', SpiceHarvesterHarvest::$types, Input::old('type'), array('class' => 'form-control')) }}
+	</div>
+</div>
+<div class="col-md-12">
+	<div class="form-group">
 	{{ Form::label('base_url', 'URL') }}
 	{{ Form::text('base_url', Input::old('base_url'), array('class' => 'form-control')) }}
+	</div>
+</div>
+<div class="col-md-6">
+	<div class="form-group">
+	{{ Form::label('username', 'Username (ak vyžaduje autentifikáciu)') }}
+	{{ Form::text('username', Input::old('username'), array('class' => 'form-control')) }}
+	</div>
+</div>
+<div class="col-md-6">
+	<div class="form-group">
+	{{ Form::label('password', 'Heslo (ak vyžaduje autentifikáciu)') }}
+	{{ Form::text('password', Input::old('password'), array('class' => 'form-control')) }}
 	</div>
 </div>
 <div class="col-md-12">
@@ -34,15 +52,15 @@
 	{{ Form::text('metadata_prefix', Input::old('metadata_prefix'), array('class' => 'form-control')) }}
 	</div>
 </div>
-<div class="col-md-12">
+<div class="col-md-6">
 	<div class="form-group">
-	{{ Form::label('set_name', 'Názov setu') }}
+	{{ Form::label('set_name', 'set_name') }}
 	{{ Form::text('set_name', Input::old('set_name'), array('class' => 'form-control')) }}
 	</div>
 </div>
-<div class="col-md-12">
+<div class="col-md-6">
 	<div class="form-group">
-	{{ Form::label('set_spec', 'Špecifikácia setu') }}
+	{{ Form::label('set_spec', 'set_spec') }}
 	{{ Form::text('set_spec', Input::old('set_spec'), array('class' => 'form-control')) }}
 	</div>
 </div>

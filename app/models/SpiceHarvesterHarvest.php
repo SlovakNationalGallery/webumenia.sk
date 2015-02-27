@@ -9,6 +9,7 @@ class SpiceHarvesterHarvest extends Eloquent {
     const STATUS_DELETED     = 'deleted';
     const STATUS_KILLED      = 'killed';
 
+    public static $types = ['item' => 'Dielo', 'author' => 'Autorita'];
 
     protected $appends = array('from');
     public static $datum;
@@ -16,8 +17,6 @@ class SpiceHarvesterHarvest extends Eloquent {
     public static $rules = array(
         'base_url' => 'required',
         'metadata_prefix' => 'required',
-        'set_spec' => 'required',
-        'set_name' => 'required'
         );
 
 	public function records()
@@ -34,4 +33,5 @@ class SpiceHarvesterHarvest extends Eloquent {
     {
         return $this->start_from;
     }    
+
 }
