@@ -107,6 +107,11 @@ class Item extends Eloquent {
 	    });
 	}
 
+	public function authorities()
+    {
+        return $this->belongsToMany('Authority', 'authority_item', 'item_id', 'authority_id');
+    }
+
 	public function collections()
     {
         return $this->belongsToMany('Collection', 'collection_item', 'item_id', 'collection_id');

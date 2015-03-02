@@ -58,7 +58,6 @@ $(document).ready(function(){
       source: items.ttAdapter(),
       templates: {
           suggestion: function (data) {
-            console.log(data);
               return '<p><img src="'+data.image+'" class="preview" /><em>' + data.author + '</em><br> ' + data.title + '</p>';
           }
       }

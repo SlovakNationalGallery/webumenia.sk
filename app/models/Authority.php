@@ -3,7 +3,7 @@ use Fadion\Bouncy\BouncyTrait;
 
 class Authority extends Eloquent {
 
-	use BouncyTrait;
+	// use BouncyTrait;
 
 	protected $table = 'authorities';
 

@@ -335,6 +335,7 @@ class SpiceHarvesterController extends \BaseController {
     		case 'item':
 		    	$attributes = $this->mapItemAttributes($rec);
 			    $item = Item::create($attributes);
+			    $item->authorities()->sync($itemAttributes['authority_ids']);
     			break;
     		case 'author':
 		    	// $nationality = Nationality::firstOrNew(['id' => ])
@@ -407,6 +408,7 @@ class SpiceHarvesterController extends \BaseController {
 		    	$itemAttributes = $this->mapItemAttributes($rec);
 			    $item = Item::where('id', '=', $rec->header->identifier)->first();
 			    $item->fill($itemAttributes);
+			    $item->authorities()->sync($itemAttributes['authority_ids']);
 			    $item->save();
     			break;
     		case 'author':
@@ -551,7 +553,17 @@ class SpiceHarvesterController extends \BaseController {
 	    $attributes['id'] = (string)$rec->header->identifier;
 	    $attributes['identifier'] = (!empty($identifier[2])) ? $identifier[2] : '';	    
 	    $attributes['title'] = $dcElements->title;
-	    $attributes['author'] = $this->serialize($dcElements->creator);
+	    $authors = array();
+	    $authority_ids = array();
+	    foreach ($dcElements->creator as $key => $creator) {
+		    if (strpos($creator, 'urn:')!==false) {
+		    	$authority_ids[] = (int)$this->parseId($creator);
+		    } else {
+		    	$authors[] = $creator;
+		    }
+	    }
+	    $attributes['authority_ids'] = $authority_ids;
+	    $attributes['author'] = $this->serialize($authors);
 	    $attributes['work_type'] = $type[0];
 	    $attributes['work_level'] = $type[1];
 	    $attributes['topic'] = $this->serialize($topic);
