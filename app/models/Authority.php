@@ -98,6 +98,11 @@ class Authority extends Eloquent {
         return $this->hasMany('AuthorityRelationship');
     }
 
+    public function links()
+    {
+        return $this->morphMany('Link', 'linkable');
+    }    
+
 
 	public  function index() {
 		/*
