@@ -88,3 +88,10 @@ require app_path().'/filters.php';
 
 require app_path().'/events.php';
 
+/*
+|--------------------------------------------------------------------------
+| Require The Custom Helpers File
+|--------------------------------------------------------------------------
+*/
+
+require app_path().'/helpers.php';

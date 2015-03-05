@@ -200,7 +200,7 @@ class AuthorityController extends \BaseController {
 				}
 			}
 		}
-		return Redirect::back()->withMessage('Pre ' . $i . ' diel bola nastavená zemepisná šírka a výška.');
+		return Redirect::back()->withMessage('Pre ' . $i . ' autorít bola nastavená zemepisná šírka a výška.');
 	}
 
 	private function uploadImage($authority) {
@@ -240,7 +240,7 @@ class AuthorityController extends \BaseController {
 				$authority->delete();
 			}
 		}		
-		return Redirect::back()->withMessage('Bolo zmazaných ' . count($authorities) . ' diel');
+		return Redirect::back()->withMessage('Bolo zmazaných ' . count($authorities) . ' autorít');
 	}
 
 	public function reindex()
@@ -251,7 +251,7 @@ class AuthorityController extends \BaseController {
 			$authority->index();
 			$i++;
 		}
-		return Redirect::back()->withMessage('Bolo reindexovaných ' . $i . ' diel');
+		return Redirect::back()->withMessage('Bolo reindexovaných ' . $i . ' autorít');
 	}
 
 }

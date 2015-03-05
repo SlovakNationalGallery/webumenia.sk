@@ -132,8 +132,8 @@ class Item extends Eloquent {
 		$levels = 1;
 	    $dirsPerLevel = 100;
 
-	    $transformedWorkArtID = self::hashcode((string)$id);
-		$workArtIdInt = abs(self::intval32bits($transformedWorkArtID));
+	    $transformedWorkArtID = hashcode((string)$id);
+		$workArtIdInt = abs(intval32bits($transformedWorkArtID));
 	    $tmpValue = $workArtIdInt;
 	    $dirsInLevels = array();
 
@@ -178,16 +178,6 @@ class Item extends Eloquent {
 	    }
 
 		return $result_path;
-	}
-
-	private static function intval32bits($value)
-	{
-	    $value = ($value & 0xFFFFFFFF);
-
-	    if ($value & 0x80000000)
-	        $value = -((~$value & 0xFFFFFFFF) + 1);
-
-	    return $value;
 	}
 
 	/*
@@ -250,22 +240,6 @@ class Item extends Eloquent {
 	public function getWorkTypesAttribute() {
 
 		return (explode(', ', $this->attributes['work_type']));
-	}
-
-
-	/**
-	* Same as java String.hashcode()
-	*/
-	private static function hashcode($s) {
-	    $len = strLen($s);
-	    $sum = 0;
-	    for ($i = 0; $i < $len; $i++) {
-	        $char = ord($s[$i]);
-	        $sum = (($sum<<5)-$sum)+$char;
-	        $sum = $sum & 0xffffffff; // Convert to 32bit integer
-	    }
-
-	    return $sum;
 	}
 
 	public function setLat($value)
