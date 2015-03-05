@@ -21,8 +21,10 @@ class Authority extends Eloquent {
 		'biography',
 		'birth_place',
 		'birth_date',
+		'birth_year',
 		'death_place',
 		'death_date',
+		'death_year',
 	);
 
 	protected $guarded = array();

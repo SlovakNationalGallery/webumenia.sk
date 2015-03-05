@@ -189,7 +189,7 @@ class SpiceHarvesterController extends \BaseController {
 		} else {
 			$items = Item::where('id','=',0);
 		}
-		Session::flash('message', 'Našlo sa ' .count($items_to_remove). ' diel, ktoré sa už nenachádzajú v OAI sete ' . $harvest->set_name . ':');		
+		Session::flash('message', 'Našlo sa ' .count($items_to_remove). ' záznamov, ktoré sa už nenachádzajú v OAI sete ' . $harvest->set_name . ':');		
         return View::make('items.index', array('items' => $items, 'collections' => $collections));		
 
 	}
@@ -289,7 +289,7 @@ class SpiceHarvesterController extends \BaseController {
 		}
 
 	    $totalTime = round((microtime(true)-$timeStart));
-	    $message = 'Spracovaných bolo ' . $processed_items . ' diel. Z toho pribudlo ' . $new_items . ' nových diel,  ' . $updated_items . ' bolo upravených a ' . $skipped_items . ' bolo preskočených. Trvalo to ' . $totalTime . 's';
+	    $message = 'Spracovaných bolo ' . $processed_items . ' záznamov. Z toho pribudlo ' . $new_items . ' nových záznamov,  ' . $updated_items . ' bolo upravených a ' . $skipped_items . ' bolo preskočených. Trvalo to ' . $totalTime . 's';
 
 	    $harvest->status = SpiceHarvesterHarvest::STATUS_COMPLETED;
 	    $harvest->status_messages .= $message;
@@ -335,17 +335,19 @@ class SpiceHarvesterController extends \BaseController {
     		case 'item':
 		    	$attributes = $this->mapItemAttributes($rec);
 			    $item = Item::create($attributes);
-			    $item->authorities()->sync($itemAttributes['authority_ids']);
+			    $item->authorities()->sync($attributes['authority_ids']);
     			break;
     		case 'author':
 		    	// $nationality = Nationality::firstOrNew(['id' => ])
 		    	$attributes = $this->mapAuthorAttributes($rec);
 			    $author = Authority::create($attributes);
 			    if (!empty($attributes['nationalities'])) {
+			    	$nationality_ids = array();
 				    foreach ($attributes['nationalities'] as $key => $nationality) {
-				    	$nationality = Nationality::firstOrNew($nationality);
-				    	$nationality = $author->nationalities()->save($nationality);
+				    	$nationality = Nationality::firstOrCreate($nationality);
+				    	$nationality_ids[] = $nationality['id'];
 				    }
+				    $nationality = $author->nationalities()->sync($nationality_ids);
 				}
 			    if (!empty($attributes['roles'])) {
 				    foreach ($attributes['roles'] as $key => $role) {
@@ -371,7 +373,15 @@ class SpiceHarvesterController extends \BaseController {
 				    	$relationship = AuthorityRelationship::firstOrCreate($relationship);
 				    }
 				}
-
+			    if (!empty($attributes['links'])) {
+				    foreach ($attributes['links'] as $key => $url) {
+				    	$link = new Link();
+				    	$link->url = $url;
+				    	$url_parts = parse_url($url);
+				    	$link->label = $url_parts['host'];
+				    	$author->links()->save($link);
+				    }
+				}
     			break;
     	}
 
@@ -405,23 +415,33 @@ class SpiceHarvesterController extends \BaseController {
     	// Update the item
     	switch ($type) {
     		case 'item':
-		    	$itemAttributes = $this->mapItemAttributes($rec);
+		    	$attributes = $this->mapItemAttributes($rec);
 			    $item = Item::where('id', '=', $rec->header->identifier)->first();
-			    $item->fill($itemAttributes);
-			    $item->authorities()->sync($itemAttributes['authority_ids']);
+			    $item->fill($attributes);
+			    $item->authorities()->sync($attributes['authority_ids']);
 			    $item->save();
     			break;
     		case 'author':
-		    	$authorAttributes = $this->mapAuthorAttributes($rec);
+		    	$attributes = $this->mapAuthorAttributes($rec);
 			    $author = Authority::where('id', '=', $rec->header->identifier)->first();
-			    $author->fill($authorAttributes);
+			    $author->fill($attributes);
+			    if (!empty($attributes['links'])) {
+				    foreach ($attributes['links'] as $key => $url) {
+				    	// dd($url);
+				    	$link = new Link();
+				    	$link->url = $url;
+				    	$url_parts = parse_url($url);
+				    	$link->label = $url_parts['host'];
+				    	$author->links()->save($link);
+				    }
+				}
 			    $author->save();
     			break;
     	}
 
         // Upload image given by url
-        if (!empty($itemAttributes['img_url'])) {
-        	$this->downloadImage($item, $itemAttributes['img_url']);
+        if (!empty($attributes['img_url'])) {
+        	$this->downloadImage($item, $attributes['img_url']);
         }        
         
         // Update the datestamp stored in the database for this record.
@@ -462,10 +482,16 @@ class SpiceHarvesterController extends \BaseController {
 			$biography = ''; // vymazat bio
 		}
 		$attributes['biography'] = $biography;
-		$attributes['birth_place'] = $this->trimAfter((string)$metadata->Biographies->Preferred_Biography->Birth_Place);
-		$attributes['birth_date'] = (string)$metadata->Biographies->Preferred_Biography->Birth_Date;
-		$attributes['death_place'] = $this->trimAfter((string)$metadata->Biographies->Preferred_Biography->Death_Place);
-		$attributes['death_date'] = (string)$metadata->Biographies->Preferred_Biography->Death_Date;
+		if (!empty($metadata->Biographies->Preferred_Biography->Birth_Place))
+			$attributes['birth_place'] = $this->trimAfter((string)$metadata->Biographies->Preferred_Biography->Birth_Place);
+		if (!empty($metadata->Biographies->Preferred_Biography->Birth_Date))
+			$attributes['birth_year'] = $this->parseYear($metadata->Biographies->Preferred_Biography->Birth_Date);
+			$attributes['birth_date'] = (string)$metadata->Biographies->Preferred_Biography->Birth_Date;
+		if (!empty($metadata->Biographies->Preferred_Biography->Death_Place))
+			$attributes['death_place'] = $this->trimAfter((string)$metadata->Biographies->Preferred_Biography->Death_Place);
+		if (!empty($metadata->Biographies->Preferred_Biography->Death_Date))
+			$attributes['death_year'] = $this->parseYear($metadata->Biographies->Preferred_Biography->Death_Date);
+			$attributes['death_date'] = (string)$metadata->Biographies->Preferred_Biography->Death_Date;
 		$attributes['nationalities'] = array();
 		foreach ($metadata->Nationalities->Preferred_Nationality as $key => $nationality) {
 			$attributes['nationalities'][] = [
@@ -650,6 +676,21 @@ class SpiceHarvesterController extends \BaseController {
 	{
 	    $bio = $this->parseId($string, '(ZNÁMY)');
 	    return $bio;
+	}
+
+	private function parseDate ( $string )
+	{
+	    $result = null;
+	    if (substr_count($string, '.')==2) {
+	    	if ($date = DateTime::createFromFormat('d.m.Y|', $string))
+	    		$result = $date->format('Y-m-d');
+	    }
+	    return $result;
+	}
+
+	private function parseYear ( $string )
+	{
+	    return (int)end((explode('.', $string)));
 	}
 
 
