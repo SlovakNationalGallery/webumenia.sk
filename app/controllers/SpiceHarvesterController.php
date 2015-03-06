@@ -239,11 +239,8 @@ class SpiceHarvesterController extends \BaseController {
     	$recs = $myEndpoint->listRecords($harvest->metadata_prefix, $start_from, null, $harvest->set_spec);
 	    $dt = new \DateTime;
 
-	    //zmaz potom
-	    // $rec = $myEndpoint->getRecord(1330, $harvest->metadata_prefix)->GetRecord->record; //med=6478
-	    // $this->insertRecord($id, $rec, $harvest->type);
-	    //zmaz potom
-	    // dd('staci');
+	    $collection = $harvest->collection;
+
 	    try {
 	    foreach($recs as $rec) {
 	    	$processed_items++;
@@ -251,12 +248,13 @@ class SpiceHarvesterController extends \BaseController {
 	    	if (!$this->isDeletedRecord($rec)) { //ak je v sete oznaceny ako zmazany
 
 	    		//ak bol zmazany v tu v databaze, ale nachadza sa v OAI sete
-	    		$is_deleted_record = SpiceHarvesterRecord::onlyTrashed()->where('identifier', '=', $rec->header->identifier)->where('type', '=', $harvest->type)->count();
+	    		$rec_id = (string)$rec->header->identifier;
+	    		$is_deleted_record = SpiceHarvesterRecord::onlyTrashed()->where('identifier', '=', $rec_id)->where('type', '=', $harvest->type)->count();
 	    		if ($is_deleted_record > 0) {
 	    			$skipped_items++;
 	    		//inak insert alebo update
 	    		} else {
-					$existingRecord = SpiceHarvesterRecord::where('identifier', '=', $rec->header->identifier)->where('type', '=', $harvest->type)->first();
+					$existingRecord = SpiceHarvesterRecord::where('identifier', '=', $rec_id)->where('type', '=', $harvest->type)->first();
 
 			        if ($existingRecord) {
 			            // ak sa zmenil datestamp, update item - inak ignorovat
@@ -268,6 +266,11 @@ class SpiceHarvesterController extends \BaseController {
 			            $this->insertRecord($id, $rec, $harvest->type);
 			            $new_items++;
 			        }
+
+			        // ak je zvolena kolekcia - hned do nej pridat
+			        if ($harvest->collection) {
+			        	$collection->items()->sync([$rec_id], false);
+			        }
 			    }
 
    	    	}
@@ -277,16 +280,6 @@ class SpiceHarvesterController extends \BaseController {
             // tuto chybu vrati, ak ziadne records niesu - cize harvest moze pokracovat dalej
             $harvest->status_messages = $e->getMessage() . "\n";
         }
-
-
-		if ($harvest->collection) {
-			$collection = $harvest->collection;
-			foreach ($harvest->records as $i => $record) {
-				if (!$collection->items->contains($record->item_id)) {
-				    $collection->items()->attach($record->item_id);
-				}
-			}
-		}
 
 	    $totalTime = round((microtime(true)-$timeStart));
 	    $message = 'Spracovaných bolo ' . $processed_items . ' záznamov. Z toho pribudlo ' . $new_items . ' nových záznamov,  ' . $updated_items . ' bolo upravených a ' . $skipped_items . ' bolo preskočených. Trvalo to ' . $totalTime . 's';

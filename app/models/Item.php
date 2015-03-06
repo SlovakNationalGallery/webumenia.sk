@@ -352,7 +352,7 @@ class Item extends Eloquent {
 	        	'technique' => $this->makeArray($this->attributes['technique']),
 	        	'gallery' => $this->attributes['gallery'],
 	        	'created_at' => $this->attributes['created_at'],
-	        	'free_download' => $this->attributes['free_download'],
+	        	'free_download' => (!empty($this->attributes['free_download'])) ? $this->attributes['free_download'] : false,
 	        ];
 	        return $client->index([
 	        	'index' => Config::get('app.elasticsearch.index'),
