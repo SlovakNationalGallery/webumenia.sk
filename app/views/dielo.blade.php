@@ -125,8 +125,14 @@
                                 @endif
                                 @if (!empty($collection))
                                 <tr>
-                                    <td class="atribut">sekcia:</td>
-                                    <td><a href="{{ $collection->getUrl() }}">{{ $collection->name }}</a></td>
+                                    <td class="atribut">kolekcie:</td>
+                                    <td>
+                                        <div class="expandable">
+                                        @foreach ($item->collections as $collection)
+                                            <a href="{{ $collection->getUrl() }}">{{ $collection->name }}</a><br>
+                                        @endforeach
+                                        </div>
+                                    </td>
                                 </tr>
                                 @endif
                                 @if (!empty($item->medium))
@@ -162,7 +168,7 @@
                                 @if (!empty($item->inscription))
                                 <tr>
                                     <td class="atribut">značenie:</td>
-                                    <td><div class="znacenie">{{ implode('<br> ', $item->makeArray($item->inscription));}}</div></td>
+                                    <td><div class="expandable">{{ implode('<br> ', $item->makeArray($item->inscription));}}</div></td>
                                 </tr>
                                 @endif
                                 @if (!empty($item->gallery))
@@ -261,7 +267,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
 
-        $('.znacenie').readmore({
+        $('.expandable').readmore({
             moreLink: '<a href="#"><i class="fa fa-chevron-down"></i> zobraziť viac</a>',
             lessLink: '<a href="#"><i class="fa fa-chevron-up"></i> skryť</a>',
             maxHeight: 40,

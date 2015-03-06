@@ -140,7 +140,7 @@ class CatalogController extends \BaseController {
 	                        'type' 		=> 'cross_fields',
 							// 'fuzziness' =>  2,
 							// 'slop'		=>  2,
-        	                'fields' 	=> array("author.suggest", "title.suggest"),
+        	                'fields' 	=> array("title.suggest", "author.suggest"),
 	                        'operator' 	=> 'and'
 	                    ),
 	                ),

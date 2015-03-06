@@ -336,12 +336,14 @@ class Item extends Eloquent {
 
 	public  function index() {
 	        $client = new Elasticsearch\Client();
+	        $work_types = $this->work_types;
+			$main_work_type = reset($work_types);
 	        $data = [
 	        	'identifier' => $this->attributes['identifier'],
 	        	'title' => $this->attributes['title'],
 	        	'author' => $this->makeArray($this->attributes['author']),
 				'description' => (!empty($this->attributes['description'])) ? strip_tags($this->attributes['description']) : '',	        	
-				'work_type' => $this->work_types,
+				'work_type' => $main_work_type, // ulozit iba prvu hodnotu
 	        	'topic' => $this->attributes['topic'],
 	        	'subject' => $this->makeArray($this->attributes['subject']),
 	        	'place' => $this->makeArray($this->attributes['place']),
@@ -349,7 +351,7 @@ class Item extends Eloquent {
 	        	'date_earliest' => $this->attributes['date_earliest'],
 	        	'date_latest' => $this->attributes['date_latest'],
 	        	'medium' => $this->attributes['medium'],
-	        	'technique' => $this->makeArray($this->attributes['technique']),
+	        	'technique' => $this->makeArray($this->attributes['technique']), 
 	        	'gallery' => $this->attributes['gallery'],
 	        	'created_at' => $this->attributes['created_at'],
 	        	'free_download' => (!empty($this->attributes['free_download'])) ? $this->attributes['free_download'] : false,
