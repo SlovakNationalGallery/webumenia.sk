@@ -163,6 +163,9 @@ Route::get('autori', function()
 Route::match(array('GET', 'POST'), 'katalog', 'CatalogController@index');
 Route::match(array('GET', 'POST'), 'katalog/suggestions', 'CatalogController@getSuggestions');
 
+// Route::match(array('GET', 'POST'), 'autori', 'AuthorController@index');
+Route::match(array('GET', 'POST'), 'autori/suggestions', 'AuthorController@getSuggestions');
+
 Route::get('creative-commons', function()
 {
 	$items = Item::where('free_download', '=', '1')->orderBy('created_at', 'DESC')->paginate(18);

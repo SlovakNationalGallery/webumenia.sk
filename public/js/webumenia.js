@@ -3,8 +3,7 @@ var items = new Bloodhound({
             return Bloodhound.tokenizers.whitespace(d.value);
         },
   queryTokenizer: Bloodhound.tokenizers.whitespace,
-  prefetch: '/data/items.json',
-  limit: 10,
+  limit: 8,
   remote: {
     url: '/katalog/suggestions?search=%QUERY',
     filter: function (items) {
@@ -15,6 +14,28 @@ var items = new Bloodhound({
                     title: item.title,
                     image: item.image,
                     value: item.author + ': ' + item.title
+                };
+            });
+        }
+    }
+});
+var authors = new Bloodhound({
+  datumTokenizer: function (d) {
+            return Bloodhound.tokenizers.whitespace(d.value);
+        },
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  limit: 3,
+  remote: {
+    url: '/autori/suggestions?search=%QUERY',
+    filter: function (authors) {
+            return $.map(authors.results, function (author) {
+                return {
+                    id: author.id,
+                    name: author.name,
+                    birth_year: author.birth_year,
+                    death_year: author.death_year,
+                    image: author.image,
+                    value: author.name + ' (' + author.birth_year + ' - ' + author.death_year + ' )'
                 };
             });
         }
@@ -45,6 +66,7 @@ $(document).ready(function(){
     });
 
     items.initialize();
+    authors.initialize();
 
     $('#search').typeahead(
     {
@@ -53,10 +75,22 @@ $(document).ready(function(){
       minLength: 2      
     },
     {
+      name: 'authors',
+      displayKey: 'value',
+      source: authors.ttAdapter(),
+      templates: {
+          header: '<h3 class="suggest-type-name">Autori</h3>',
+          suggestion: function (data) {
+              return '<p><img src="'+data.image+'" class="preview img-circle" />' + data.name + '<br> (' + data.birth_year + ' &ndash; ' + data.death_year + ')</p>';
+          }
+      }
+    },
+    {
       name: 'items',
       displayKey: 'value',
       source: items.ttAdapter(),
       templates: {
+          header: '<h3 class="suggest-type-name">Diela</h3>',
           suggestion: function (data) {
               return '<p><img src="'+data.image+'" class="preview" /><em>' + data.author + '</em><br> ' + data.title + '</p>';
           }
