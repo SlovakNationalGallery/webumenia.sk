@@ -180,7 +180,19 @@
         $('.selectedId').change(function () {
             var check = ($('.selectedId').filter(":checked").length == $('.selectedId').length);
             $('#selectall').prop("checked", check);
-        });        
+        });   
+
+
+        var links_count = $('.form_link').length;
+
+        $("a#add_link").click(function(e){
+            e.preventDefault();
+            $('#external_links').append('<div class="col-md-5"><div class="form-group"><label for="url">URL</label> <input class="form-control linkpicker" placeholder="http://" name="links['+links_count+'][url]" type="text">  </div></div>');
+            $('#external_links').append('<div class="col-md-5"><div class="form-group"><label for="label">Zobrazená adresa</label><input class="form-control" placeholder="wikipédia" name="links['+links_count+'][label]" type="text"></div></div>');
+            links_count++;
+        });
+     
+
 
     });
     </script>

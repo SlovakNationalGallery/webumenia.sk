@@ -423,8 +423,7 @@ class SpiceHarvesterController extends \BaseController {
 				    	// dd($url);
 				    	$link = new Link();
 				    	$link->url = $url;
-				    	$url_parts = parse_url($url);
-				    	$link->label = $url_parts['host'];
+				    	$link->label = Link::parse($url);
 				    	$author->links()->save($link);
 				    }
 				}

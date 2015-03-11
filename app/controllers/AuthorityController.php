@@ -109,22 +109,36 @@ class AuthorityController extends \BaseController {
 	public function update($id)
 	{
 		$v = Validator::make(Input::all(), Authority::$rules);
-
 		if($v->passes())
 		{
 			$input = array_except(Input::all(), array('_method'));
-			$input = array_filter($input, 'strlen');
+			$input = array_filter($input); //, 'strlen'
 
 			$authority = Authority::find($id);
 			$authority->fill($input);
 			$authority->save();
+			// dd(Input::get('links'));
+			foreach (Input::get('links') as $link) {
+				$validation = Validator::make($link, Link::$rules);
+				if($validation->passes()) {
+					if (empty($link['label'])) $link['label'] = Link::parse($link['url']);	
 
-			// ulozit primarny obrazok. do databazy netreba ukladat. nazov=id
-			if (Input::hasFile('primary_image')) {
-				$this->uploadImage($authority);
+					if (!empty($link['id'])) {
+						$new_link = Link::updateOrCreate(['id'=>$link['id']], $link);
+					} else {
+						$new_link = new Link($link);
+						$new_link->save();					
+						$authority->links()->save($new_link);						
+					}
+				}
 			}
 
-			Session::flash('message', 'Dielo ' .$id. ' bolo upravené');
+			// ulozit primarny obrazok. do databazy netreba ukladat. nazov=id
+			// if (Input::hasFile('primary_image')) {
+			// 	$this->uploadImage($authority);
+			// }
+
+			Session::flash('message', 'Autorita ' .$id. ' bola upravená');
 			return Redirect::route('authority.index');
 		}
 
@@ -140,6 +154,19 @@ class AuthorityController extends \BaseController {
 	{
 		//
 	}
+
+	/**
+	 * Remove the link
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroyLink($link_id)
+	{
+		Link::find($link_id)->delete();
+		return Redirect::back()->with('message', 'Externý odkaz bol zmazaný');
+	}
+
 
 	public function backup() 
 	{
