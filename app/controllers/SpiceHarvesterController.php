@@ -333,7 +333,7 @@ class SpiceHarvesterController extends \BaseController {
     		case 'author':
 		    	// $nationality = Nationality::firstOrNew(['id' => ])
 		    	$attributes = $this->mapAuthorAttributes($rec);
-			    $author = Authority::create($attributes);
+			    $author = Authority::updateOrCreate(['id' => $attributes['id']], $attributes);
 			    if (!empty($attributes['nationalities'])) {
 			    	$nationality_ids = array();
 				    foreach ($attributes['nationalities'] as $key => $nationality) {
@@ -421,10 +421,12 @@ class SpiceHarvesterController extends \BaseController {
 			    if (!empty($attributes['links'])) {
 				    foreach ($attributes['links'] as $key => $url) {
 				    	// dd($url);
-				    	$link = new Link();
-				    	$link->url = $url;
-				    	$link->label = Link::parse($url);
-				    	$author->links()->save($link);
+				    	if(Link::where('url', '=', $url)->where('linkable_id', '=', $author->id)->count()==0){
+					    	$link = new Link();
+					    	$link->url = $url;
+					    	$link->label = Link::parse($url);
+					    	$author->links()->save($link);
+					    }
 				    }
 				}
 			    $author->save();

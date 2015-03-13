@@ -119,18 +119,37 @@
     <!-- /.panel -->
 </div>
 
+<div class="col-lg-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Obrázok
+        </div>
+        <div class="panel-body">
+            <div class="row">
 
-<div class="col-md-12">
-	@if(isset($authority))
-	<div class="primary-image">
-		aktuálny:<br>
-		<img src="{{ $authority->getImagePath() }}" alt="">
-	</div>
-	@endif
-	<div class="form-group">
-	{{ Form::label('primary_image', 'obrázok') }}
-	{{ Form::file('primary_image') }}
-	</div>
+				<div class="col-md-offset-3 col-md-6 text-center">
+				<div id="image-editor" style="position: static">
+				  <div class="cropit-image-preview-container">
+				    <div class="cropit-image-preview"></div>
+				  </div>
+				  
+				      <div class="image-size-label">&nbsp;</div>
+				      <div class="form-group">
+				      <input type="text" class="cropit-image-zoom-input" min="0" max="1" step="0.01" data-slider-min="0" data-slider-max="1" data-slider-step="0.01" data-slider-value="0">
+				      </div>
+				  
+				  <input type="file" class="cropit-image-input" />
+				  <a class="btn btn-success btn-outline select-image-btn"><i class="fa fa-picture-o"></i> zvoliť obrázok</a>
+				  {{ Form::hidden('primary_image', null, ['id' => 'primary_image']) }}
+				</div>
+				</div>
+
+            </div> 
+            <!-- /.row (nested) -->
+        </div>
+        <!-- /.panel-body -->
+    </div>
+    <!-- /.panel -->
 </div>
 
 <div class="col-md-12 text-center">
@@ -140,4 +159,47 @@
 </div>
 
 <div class="clear">&nbsp;</div>
+@stop
+
+@section('script')
+
+{{ HTML::script('js/bootstrap-slider.min.js') }}
+{{ HTML::script('js/jquery.cropit.min.js') }}
+
+<script>
+$(document).ready(function(){
+	$(".cropit-image-zoom-input").slider({
+	    tooltip: 'hide'
+	});
+
+	$('#image-editor').cropit({
+	  imageBackground: true,
+	  imageBackgroundBorderWidth: 20
+	  @if (isset($authority) && $authority->has_image)
+		  ,imageState: {
+		    src: '{{ $authority->getImagePath() }}'
+	  }
+	  @endif
+	});
+
+	$('.select-image-btn').click(function() {
+	  $('.cropit-image-input').click();
+	});
+
+	$('form').submit(function(e) {
+      var self = this;
+      e.preventDefault();
+	  var imageData = $('#image-editor').cropit('export', {
+		  type: 'image/jpeg',
+		  quality: .9
+		});
+	  $('#primary_image').val(imageData);
+	  self.submit();
+	});
+
+
+
+});
+
+</script>
 @stop

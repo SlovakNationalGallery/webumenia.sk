@@ -134,9 +134,9 @@ class AuthorityController extends \BaseController {
 			}
 
 			// ulozit primarny obrazok. do databazy netreba ukladat. nazov=id
-			// if (Input::hasFile('primary_image')) {
-			// 	$this->uploadImage($authority);
-			// }
+			if (Input::has('primary_image')) {
+				$this->uploadImage($authority);
+			}
 
 			Session::flash('message', 'Autorita ' .$id. ' bola upravená');
 			return Redirect::route('authority.index');
@@ -232,16 +232,19 @@ class AuthorityController extends \BaseController {
 
 	private function uploadImage($authority) {
 		$error_messages = array();
-		$primary_image = Input::file('primary_image');
+//
+		$img = Input::get('primary_image');
+		$img = str_replace('data:image/jpeg;base64,', '', $img);
+	$img = str_replace(' ', '+', $img);
+	$data = base64_decode($img);
+		//make sure you are the owner and have the rights to write content
+//
 		$full = true;
 		$filename = $authority->getImagePath($full);
-		$uploaded_image = Image::make($primary_image->getRealPath());
-		if ($uploaded_image->width() > $uploaded_image->height()) {
-			$uploaded_image->widen(800);
-		} else {
-			$uploaded_image->heighten(800);
+		if (file_put_contents($filename, $data)) {
+			$authority->has_image = true;
+			$authority->save();
 		}
-		$uploaded_image->save($filename);
 	}
 
 	/**

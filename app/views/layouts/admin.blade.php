@@ -130,8 +130,7 @@
     </div>
 
     <!-- Core JavaScript Files -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 
     {{ HTML::script('js/bootstrap.min.js') }}
     {{ HTML::script('js/bootstrap-datepicker.js') }}

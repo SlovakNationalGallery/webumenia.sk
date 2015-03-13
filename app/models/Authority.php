@@ -107,8 +107,8 @@ class Authority extends Eloquent {
     public function getPlacesAttribute()
     {
         $places = array_merge([
-        	$this->attributes['birth_place'], 
-        	$this->attributes['death_place']
+        	$this->birth_place, 
+        	$this->death_place
         	], $this->events->lists('place'));
 
         return array_values(array_filter(array_unique($places)));
@@ -117,7 +117,7 @@ class Authority extends Eloquent {
 
 	public function getImagePath($full=false) {
 		
-		return ($this->attributes['has_image']) ? self::getImagePathForId($this->id, $full) : self::ARTWORKS_DIR . "no-image.jpg";;
+		return ($this->attributes['has_image'] || $full) ? self::getImagePathForId($this->id, $full) : self::ARTWORKS_DIR . "no-image.jpg";;
 
 	}
 
@@ -191,9 +191,9 @@ class Authority extends Eloquent {
 			'nationality' => $this->nationalities->lists('code'),
         	'place' => $this->places,
         	'role' => $this->roles->lists('role'),
-        	'birth_year' => $this->attributes['birth_year'],
-        	'death_year' => $this->attributes['death_year'],
-        	'has_image' => $this->attributes['has_image'],
+        	'birth_year' => $this->birth_year,
+        	'death_year' => $this->death_year,
+        	'has_image' => $this->has_image,
         	'created_at' => $this->attributes['created_at'],
         ];
         return Elastic::index([
