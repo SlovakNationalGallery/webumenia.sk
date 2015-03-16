@@ -127,8 +127,8 @@
         <div class="panel-body">
             <div class="row">
 
-				<div class="col-md-offset-3 col-md-6 text-center">
-				<div id="image-editor" style="position: static">
+				<div class="col-md-offset-4 col-md-4 text-center">
+				<div id="image-editor">
 				  <div class="cropit-image-preview-container">
 				    <div class="cropit-image-preview"></div>
 				  </div>

@@ -310,6 +310,10 @@ PUT /webumenia/_mapping/authorities
         "index": "not_analyzed",
         "format" : "yyyy"
       },
+      "sex": {
+        "type": "string",
+        "index": "not_analyzed"
+      },
       "has_image": {
         "type": "boolean"
       },

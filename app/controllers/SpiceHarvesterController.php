@@ -465,10 +465,10 @@ class SpiceHarvesterController extends \BaseController {
 		$metadata = $rec->metadata->children('cedvu', true)->Vocabulary->children('vp', true)->Subject;
 
 		$attributes['id'] = (int)$this->parseId((string)$metadata->attributes('rdf', true)->about);
-		$attributes['type'] = (string)$metadata->Record_Type;
+		$attributes['type'] = mb_strtolower((string)$metadata->Record_Type, "UTF-8");
 		$attributes['type_organization'] = (string)$metadata->Record_Type_Organization;
 		$attributes['name'] = (string)$metadata->attributes('vp', true)->labelPreferred;
-		$attributes['sex'] = (string)$metadata->Biographies->Preferred_Biography->Sex;
+		$attributes['sex'] = mb_strtolower((string)$metadata->Biographies->Preferred_Biography->Sex, "UTF-8");
 		$biography = $this->parseBiography((string)$metadata->Biographies->Preferred_Biography->Biography_Text);
 		if (strpos($biography, 'http')!== false) {			
 			preg_match_all('!https?://\S+!', $biography, $matches);

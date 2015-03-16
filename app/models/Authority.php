@@ -122,7 +122,8 @@ class Authority extends Eloquent {
 
 	public function getImagePath($full=false) {
 		
-		return ($this->attributes['has_image'] || $full) ? self::getImagePathForId($this->id, $full) : self::ARTWORKS_DIR . "no-image.jpg";;
+		return self::getImagePathForId($this->id, $this->attributes['has_image'], $this->attributes['sex'], $full);
+		// : self::ARTWORKS_DIR . "no-image.jpg";;
 
 	}
 
@@ -130,8 +131,9 @@ class Authority extends Eloquent {
 		return URL::to('autor/' . $this->id);
 	}
 
-	public static function getImagePathForId($id, $full = false, $resize = false)
+	public static function getImagePathForId($id, $has_image, $sex = 'male', $full = false, $resize = false)
 	{
+		if (!$has_image && !$full) return self::getNoImage($sex);
 
 		$levels = 1;
 	    $dirsPerLevel = 100;
@@ -184,8 +186,15 @@ class Authority extends Eloquent {
 		return $result_path;
 	}
 
+	private static function getNoImage($sex = 'male') {
+		$filename = 'no-image-' . $sex . '.jpeg';
+		return self::ARTWORKS_DIR . $filename;
+	}
+
 	public  function index() {
-		
+		if ($this->attributes['type'] != 'person') {
+			return false;
+		}
         $client = new Elasticsearch\Client();
         $data = [
         	'identifier' => $this->attributes['id'],
@@ -198,6 +207,7 @@ class Authority extends Eloquent {
         	'role' => $this->roles->lists('role'),
         	'birth_year' => $this->birth_year,
         	'death_year' => $this->death_year,
+        	'sex' => $this->sex,
         	'has_image' => $this->has_image,
         	'created_at' => $this->attributes['created_at'],
         	'items_count' => $this->items->count(),

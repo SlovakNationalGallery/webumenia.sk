@@ -345,10 +345,10 @@ td.action {
 .cropit-image-preview {
   background-color: #f8f8f8;
   background-size: cover;
-  border-radius: 400px;
+  border-radius: 300px;
   margin-top: 7px;
-  width: 400px;
-  height: 400px;
+  width: 300px;
+  height: 300px;
   cursor: move;
 }
 

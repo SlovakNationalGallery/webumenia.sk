@@ -167,7 +167,7 @@ class AuthorController extends \BaseController {
 				'name' => $name,
 				'birth_year' => $hit['_source']['birth_year'],
 				'death_year' => $hit['_source']['death_year'],
-				'image' => Authority::getImagePathForId($hit['_id'], false, 70)
+				'image' => Authority::getImagePathForId($hit['_id'], $hit['_source']['has_image'], $hit['_source']['sex'],  false, 70)
 			);
 			$data['results'][] = array_merge($params) ;
 		}
