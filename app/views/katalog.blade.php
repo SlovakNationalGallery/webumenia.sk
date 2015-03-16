@@ -133,7 +133,7 @@
 $(document).ready(function(){
 
     $("#year-range").slider({
-        value: [1800, 1900],
+        // value: [1800, 1900],
         tooltip: 'hide'
     }).on('slideStop', function(event) {
         $(this).closest('form').submit();

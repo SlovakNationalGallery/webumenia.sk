@@ -275,7 +275,7 @@ class Item extends Eloquent {
 		$params = array_merge(json_decode($json_params, true), $search_params);
 		$result = Elastic::search([
 	        	'search_type' => 'count',
-	        	'type' => Item::ES_TYPE,
+	        	'type' => self::ES_TYPE,
 	        	'body'  => $params       	
 	      	]);
 		$buckets = $result['aggregations'][$attribute]['buckets'];

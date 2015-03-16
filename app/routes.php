@@ -153,17 +153,11 @@ Route::get('sekcia/{id}', function($id)
 	return View::make('sekcia', array('collection'=>$collection));
 });
 
-Route::get('autori', function()
-{
-	$authorities = Authority::orderBy('name')->paginate(20);
-	return View::make('autori', array('authorities'=>$authorities));
-});
+Route::controller('katalog', 'CatalogController');
+// Route::match(array('GET', 'POST'), 'katalog', 'CatalogController@index');
+// Route::match(array('GET', 'POST'), 'katalog/suggestions', 'CatalogController@getSuggestions');
 
-// Route::get('katalog', function()
-Route::match(array('GET', 'POST'), 'katalog', 'CatalogController@index');
-Route::match(array('GET', 'POST'), 'katalog/suggestions', 'CatalogController@getSuggestions');
-
-// Route::match(array('GET', 'POST'), 'autori', 'AuthorController@index');
+Route::match(array('GET', 'POST'), 'autori', 'AuthorController@index');
 Route::match(array('GET', 'POST'), 'autori/suggestions', 'AuthorController@getSuggestions');
 
 Route::get('creative-commons', function()

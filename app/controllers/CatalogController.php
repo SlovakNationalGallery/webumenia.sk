@@ -2,7 +2,7 @@
 
 class CatalogController extends \BaseController {
 
-	public function index()
+	public function getIndex()
 	{
 		$search = Input::get('search', null);
 		$input = Input::all();

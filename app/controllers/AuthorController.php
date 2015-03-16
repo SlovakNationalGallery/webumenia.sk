@@ -9,7 +9,9 @@ class AuthorController extends \BaseController {
 		$params = array();
 		$params["size"] = 100;
 		$params["sort"][] = "_score";
-		$params["sort"][] = ["created_at"=>["order"=>"desc"]];
+		// $params["sort"][] = ["created_at"=>["order"=>"desc"]];
+		$params["sort"][] = ["items_count"=>["order"=>"desc"]];
+		$params["sort"][] = ["has_image"=>["order"=>"desc"]];
 
 		if (!empty($input)) {
 			
@@ -93,36 +95,30 @@ class AuthorController extends \BaseController {
 			}
 
 			foreach ($input as $filter => $value) {
-				if (in_array($filter, Item::$filterable) && !empty($value)) {
+				if (in_array($filter, Authority::$filterable) && !empty($value)) {
 					$params["query"]["filtered"]["filter"]["and"][]["term"][$filter] = $value;
 				}
 			}
             if(!empty($input['year-range'])) {
             	$range = explode(',', $input['year-range']);
-            	$params["query"]["filtered"]["filter"]["and"][]["range"]["date_earliest"]["gte"] = $range[0];
-            	$params["query"]["filtered"]["filter"]["and"][]["range"]["date_latest"]["lte"] = $range[1];
+            	$params["query"]["filtered"]["filter"]["and"][]["range"]["birth_year"]["gte"] = $range[0];
+            	$params["query"]["filtered"]["filter"]["and"][]["range"]["death_year"]["lte"] = $range[1];
             }
 			
 		} 
 
-		$items = Item::search($params);
+		$authors = Authority::search($params);
 
-		$authors = Item::listValues('author', $params);
-		$work_types = Item::listValues('work_type', $params);
-		$tags = Item::listValues('subject', $params);
-		$galleries = Item::listValues('gallery', $params);
-		
-
-		$queries = DB::getQueryLog();
-		$last_query = end($queries);
-
-		return View::make('katalog', array(
-			'items'=>$items, 
+		// $authors = Authority::listValues('author', $params);
+		$roles = Authority::listValues('role', $params);
+		$nationalities = Authority::listValues('nationality', $params);
+		// $galleries = Authority::listValues('gallery', $params);
+		// dd($roles);
+		return View::make('autori', array(
 			'authors'=>$authors, 
-			'work_types'=>$work_types, 
-			'tags'=>$tags, 
-			'galleries'=>$galleries, 
 			'search'=>$search, 
+			'roles'=>$roles, 
+			'nationalities'=>$nationalities, 
 			'input'=>$input, 
 			));
 	}

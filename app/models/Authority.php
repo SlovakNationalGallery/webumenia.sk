@@ -13,6 +13,11 @@ class Authority extends Eloquent {
 	// protected $indexName = 'webumenia';
     protected $typeName = self::ES_TYPE;
 
+	public static $filterable = array(
+		'role',
+		'nationality',
+	);
+
 	protected $fillable = array(
 		'id',
 		'type',
@@ -108,6 +113,12 @@ class Authority extends Eloquent {
     {
         return $this->morphMany('Link', 'linkable');
     }    
+
+	public function getFormatedNameAttribute()
+    {
+        return preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $this->name);
+    }
+
 
     public function getPlacesAttribute()
     {
@@ -218,6 +229,41 @@ class Authority extends Eloquent {
         	'id' => $this->attributes['id'],
         	'body' =>$data,
     	]);     	
+	}
+
+	public static function listValues($attribute, $search_params)
+	{
+		//najskor over, ci $attribute je zo zoznamu povolenych 
+		if (!in_array($attribute, self::$filterable)) return false;
+		$json_params = '
+		{
+		 "aggs" : { 
+		    "'.$attribute.'" : {
+		        "terms" : {
+		          "field" : "'.$attribute.'",
+		          "size": 1000
+		        }
+		    }
+		}
+		}
+		';
+		$params = array_merge(json_decode($json_params, true), $search_params);
+		$result = Elastic::search([
+	        	'search_type' => 'count',
+	        	'type' => self::ES_TYPE,
+	        	'body'  => $params       	
+	      	]);
+		$buckets = $result['aggregations'][$attribute]['buckets'];
+
+		$return_list = array();
+		foreach ($buckets as $bucket) {
+			// dd($bucket);
+			$single_value = $bucket['key'];
+			// if ($attribute=='author') $single_value = preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $single_value);
+			$return_list[$bucket['key']] = "$single_value ({$bucket['doc_count']})";
+		}
+		return $return_list;
+
 	}
 
 }
