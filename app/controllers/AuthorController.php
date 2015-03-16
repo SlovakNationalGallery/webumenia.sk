@@ -145,6 +145,10 @@ class AuthorController extends \BaseController {
 	                    ),
 	                ),
 	                'size' => '10',
+	                'sort' => [
+	                	'items_count' => ['order' => 'desc'],
+	                	'has_image' => ['order' => 'desc'],
+	                ]
 	            ),        	
 	      	]);
 

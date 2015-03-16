@@ -313,6 +313,9 @@ PUT /webumenia/_mapping/authorities
       "has_image": {
         "type": "boolean"
       },
+      "items_count": {
+        "type": "integer"
+      },
       "created_at" : {
         "type": "date",
         "index": "not_analyzed",

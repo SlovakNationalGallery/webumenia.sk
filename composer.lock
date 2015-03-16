@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/formers/former.git",
-                "reference": "458b739107c5ba9c025ec1e63e995330b7e50e36"
+                "reference": "1e413972291ecb2f9473220b7e1239a3bcc631d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/formers/former/zipball/458b739107c5ba9c025ec1e63e995330b7e50e36",
-                "reference": "458b739107c5ba9c025ec1e63e995330b7e50e36",
+                "url": "https://api.github.com/repos/formers/former/zipball/1e413972291ecb2f9473220b7e1239a3bcc631d9",
+                "reference": "1e413972291ecb2f9473220b7e1239a3bcc631d9",
                 "shasum": ""
             },
             "require": {
@@ -36,6 +36,11 @@
                 "phpunit/phpunit": "~4"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.5.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Former\\": [
@@ -63,7 +68,7 @@
                 "foundation",
                 "laravel"
             ],
-            "time": "2015-03-04 19:44:59"
+            "time": "2015-03-09 11:42:48"
         },
         {
             "name": "anahkiasen/html-object",
@@ -400,16 +405,16 @@
         },
         {
             "name": "filp/whoops",
-            "version": "1.1.3",
+            "version": "1.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "a85fab9a98f1f9b8ebcdbe71733f0d910e5b9adf"
+                "reference": "dcce91553e2e056857f1ea844949e9a8a71b613d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/a85fab9a98f1f9b8ebcdbe71733f0d910e5b9adf",
-                "reference": "a85fab9a98f1f9b8ebcdbe71733f0d910e5b9adf",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/dcce91553e2e056857f1ea844949e9a8a71b613d",
+                "reference": "dcce91553e2e056857f1ea844949e9a8a71b613d",
                 "shasum": ""
             },
             "require": {
@@ -454,7 +459,7 @@
                 "whoops",
                 "zf2"
             ],
-            "time": "2014-10-26 09:05:09"
+            "time": "2015-02-17 15:50:31"
         },
         {
             "name": "guzzle/guzzle",
@@ -713,12 +718,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Intervention/image.git",
-                "reference": "68b0f68e06d9399fba8ca45bad1e9816c057774e"
+                "reference": "e58192bb1efd7dc26c2bac9ab8ab49b0cbb4552a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Intervention/image/zipball/68b0f68e06d9399fba8ca45bad1e9816c057774e",
-                "reference": "68b0f68e06d9399fba8ca45bad1e9816c057774e",
+                "url": "https://api.github.com/repos/Intervention/image/zipball/e58192bb1efd7dc26c2bac9ab8ab49b0cbb4552a",
+                "reference": "e58192bb1efd7dc26c2bac9ab8ab49b0cbb4552a",
                 "shasum": ""
             },
             "require": {
@@ -761,7 +766,7 @@
                 "thumbnail",
                 "watermark"
             ],
-            "time": "2015-02-20 15:44:29"
+            "time": "2015-03-11 22:03:31"
         },
         {
             "name": "ipalaus/geonames",
@@ -1026,16 +1031,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.13.0",
+            "version": "1.13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "c41c218e239b50446fd883acb1ecfd4b770caeae"
+                "reference": "c31a2c4e8db5da8b46c74cf275d7f109c0f249ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/c41c218e239b50446fd883acb1ecfd4b770caeae",
-                "reference": "c41c218e239b50446fd883acb1ecfd4b770caeae",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/c31a2c4e8db5da8b46c74cf275d7f109c0f249ac",
+                "reference": "c31a2c4e8db5da8b46c74cf275d7f109c0f249ac",
                 "shasum": ""
             },
             "require": {
@@ -1095,20 +1100,20 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2015-03-05 01:12:12"
+            "time": "2015-03-09 09:58:04"
         },
         {
             "name": "nesbot/carbon",
-            "version": "1.16.0",
+            "version": "1.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "9b7665041754eaa9bb2622349bc9adbc1cf61cb8"
+                "reference": "a1dd1ad9abfc8b3c4d8768068e6c71d293424e86"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/9b7665041754eaa9bb2622349bc9adbc1cf61cb8",
-                "reference": "9b7665041754eaa9bb2622349bc9adbc1cf61cb8",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/a1dd1ad9abfc8b3c4d8768068e6c71d293424e86",
+                "reference": "a1dd1ad9abfc8b3c4d8768068e6c71d293424e86",
                 "shasum": ""
             },
             "require": {
@@ -1141,7 +1146,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2015-03-04 04:50:11"
+            "time": "2015-03-08 14:05:44"
         },
         {
             "name": "nikic/php-parser",

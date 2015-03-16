@@ -99,6 +99,11 @@ class Authority extends Eloquent {
         return $this->hasMany('AuthorityRelationship');
     }
 
+	public function items()
+    {
+        return $this->belongsToMany('Item');
+    }
+
     public function links()
     {
         return $this->morphMany('Link', 'linkable');
@@ -195,6 +200,7 @@ class Authority extends Eloquent {
         	'death_year' => $this->death_year,
         	'has_image' => $this->has_image,
         	'created_at' => $this->attributes['created_at'],
+        	'items_count' => $this->items->count(),
         ];
         return Elastic::index([
         	'index' => Config::get('app.elasticsearch.index'),
