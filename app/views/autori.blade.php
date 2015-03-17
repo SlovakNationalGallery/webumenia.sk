@@ -74,7 +74,7 @@
                                 </a>
                             </div>
                             <div>
-                                {{ $author->birth_year }} {{ $author->birth_palce }} 
+                                {{ $author->birth_year }} {{ $author->birth_place }} 
                                 @if ($author->death_year)
                                     &ndash; {{ $author->death_year }} {{ $author->death_place }} 
                                 @endif
