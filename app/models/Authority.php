@@ -218,6 +218,8 @@ class Authority extends Eloquent {
         	'role' => $this->roles->lists('role'),
         	'birth_year' => $this->birth_year,
         	'death_year' => $this->death_year,
+        	'birth_place' => $this->birth_place,
+        	'death_place' => $this->death_place,
         	'sex' => $this->sex,
         	'has_image' => $this->has_image,
         	'created_at' => $this->attributes['created_at'],

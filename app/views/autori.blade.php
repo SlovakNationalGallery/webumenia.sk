@@ -74,15 +74,13 @@
                                 </a>
                             </div>
                             <div>
-                                {{ $author->birth_year }} {{ $author->birth_place }} 
+                                {{ $author->birth_year }} {{ $author->birth_palce }} 
                                 @if ($author->death_year)
                                     &ndash; {{ $author->death_year }} {{ $author->death_place }} 
                                 @endif
                             </div>
                             <div>
-                                @foreach ($author->roles as $role)
-                                    {{$role->role }} 
-                                @endforeach
+                                {{ implode(", ", $author->roles->lists('role')) }}
                             </div>
                             <div>
                                 <a href="{{ url_to('katalog', ['author' => $author->name]) }}"><strong>{{ $author->items->count() }}</strong></a> diel
@@ -92,7 +90,7 @@
                         <div class="col-sm-5" >
                             <div class="artworks-preview">
                             @foreach ($author->items->slice(0,5) as $item)
-                                <img src="{{ $item->getImagePath() }}" class="img-responsive-width" alt="{{implode(', ', $item->authors)}} - {{ $item->title }}">
+                                <a href="{{ $item->getDetailUrl() }}"><img data-lazy="{{ $item->getImagePath() }}" class="img-responsive-width" ></a>
                             @endforeach
                             </div>
     	                </div>
@@ -115,7 +113,7 @@
 
 {{ HTML::script('js/bootstrap-slider.min.js') }}
 {{ HTML::script('js/chosen.jquery.min.js') }}
-{{ HTML::script('js/slick.min.js') }}
+{{ HTML::script('js/slick.js') }}
 
 <script type="text/javascript">
 
@@ -139,35 +137,36 @@ $(document).ready(function(){
     });
 
     $('.artworks-preview').slick({
-        // dots: true,
-        lazyLoad: 'ondemand',
+        dots: false,
+        lazyLoad: 'progressive',
         infinite: true,
         speed: 300,
         slidesToShow: 1,
-        // centerMode: true,
-        variableWidth: true
+        slide: 'a',
+        centerMode: false,
+        variableWidth: true,
     });
 
-    $container.infinitescroll({
-        navSelector     : ".pagination",
-        nextSelector    : ".pagination a:last",
-        authorSelector    : ".author",
-        debug           : false,
-        dataType        : 'html',
-        donetext        : 'boli načítaní všetci autori',
-        path            : undefined,
-        bufferPx     : 200,
-        loading: {
-            msgText: "<em>Načítavam ďalších autorov...</em>",
-            finishedMsg: 'A to je všetko'
-        }
-    }, function(newElements, data, url){
-        var $newElems = jQuery( newElements ).hide(); 
-        $newElems.imagesLoaded(function(){
-            $newElems.fadeIn();
-            $container.isotope( 'appended', $newElems );
-        });
-    });
+    // $container.infinitescroll({
+    //     navSelector     : ".pagination",
+    //     nextSelector    : ".pagination a:last",
+    //     authorSelector    : ".author",
+    //     debug           : false,
+    //     dataType        : 'html',
+    //     donetext        : 'boli načítaní všetci autori',
+    //     path            : undefined,
+    //     bufferPx     : 200,
+    //     loading: {
+    //         msgText: "<em>Načítavam ďalších autorov...</em>",
+    //         finishedMsg: 'A to je všetko'
+    //     }
+    // }, function(newElements, data, url){
+    //     var $newElems = jQuery( newElements ).hide(); 
+    //     $newElems.imagesLoaded(function(){
+    //         $newElems.fadeIn();
+    //         $container.isotope( 'appended', $newElems );
+    //     });
+    // });
 
 });
 

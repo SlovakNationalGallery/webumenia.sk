@@ -22,10 +22,9 @@ class AuthorityController extends \BaseController {
 	{
 
 		$search = Input::get('search');
-		$results = Authority::where('title', 'LIKE', '%'.$search.'%')->orWhere('author', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%')->paginate(20);
+		$results = Authority::where('name', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%')->paginate(20);
 
-		$collections = Collection::lists('name', 'id');
-        return View::make('authorities.index', array('authorities' => $results, 'collections' => $collections, 'search' => $search));
+        return View::make('authorities.index', array('authorities' => $results, 'search' => $search));
 	}
 
 	/**

@@ -64,7 +64,8 @@
                 <div class="sidebar-collapse">
                     <ul class="nav" id="side-menu">
                         <li class="sidebar-search">
-                            {{ Form::open(['url' => 'item/search',  'method' => 'get']) }}
+                            <?php $search_request = (Request::is( 'authority')) ? 'authority' : 'item' ?>
+                            {{ Form::open(['url' => $search_request.'/search',  'method' => 'get']) }}
                             <div class="input-group custom-search-form">
                                 {{ Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => 'Hľadať...')) }}
                                 <span class="input-group-btn">
