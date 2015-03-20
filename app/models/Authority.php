@@ -112,7 +112,15 @@ class Authority extends Eloquent {
     public function links()
     {
         return $this->morphMany('Link', 'linkable');
-    }    
+    }
+
+    public function getCollectionsCountAttribute()
+    {
+	    $collections = $this->join('authority_item', 'authority_item.authority_id', '=', 'authorities.id')->join('collection_item', 'collection_item.item_id', '=', 'authority_item.item_id')->where('authorities.id', '=', $this->id)->select('collection_item.collection_id')->distinct()->get();
+	    return $collections->count();
+    }
+
+
 
 	public function getFormatedNameAttribute()
     {
@@ -144,10 +152,14 @@ class Authority extends Eloquent {
 
 	public function getDescription($html = false)
 	{
-		$description = $this->birth_year . $this->formatPlace($this->birth_place);
+		$description = ($html) ? '&#x2734; ' : '';
+		$description .= ($html) ? $this->birth_date : $this->birth_year;
+		$description .= $this->formatPlace($this->birth_place);
 		if ($this->death_year) {
 			$description .= ($html) ? ' &ndash; ' : ' - '; 
-			$description .= $this->death_year . $this->formatPlace($this->death_place);
+			$description .= ($html) ? '&#x271D; ' : '';
+			$description .= ($html) ? $this->death_date : $this->death_year;
+			$description .= $this->formatPlace($this->death_place);
 		}
 		return $description;
 	}

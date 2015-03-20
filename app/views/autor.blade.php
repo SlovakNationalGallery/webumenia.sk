@@ -32,29 +32,35 @@
                 <div class="col-sm-10">
                     <div class="">
                             <h3>{{ $author->formatedName }}</h3>
+                            @if ( $author->names->count() > 0)
+                                <p>príp.  <em>{{ implode("</em>, <em>", $author->names->lists('name')) }}</em></p>
+                            @endif
+                            
                     </div>
                     <p>
                         {{ $author->getDescription(true) }}
                     </p>
                     <p>
-                        {{ implode(", ", $author->roles->lists('role')) }}
+                        @foreach ($author->roles as $i=>$role)
+                            <a href="{{ url_to('autori', ['role' => $role->role]) }}">{{ $role->role }}</a>{{ ($i+1 < $author->roles->count()) ? ', ' : '' }}
+                        @endforeach
+                        {{-- {{ implode(", ", $author->roles->lists('role')) }} --}}
                     </p>
                     <p>
                         <a href="{{ url_to('katalog', ['author' => $author->name]) }}"><strong>{{ $author->items->count() }}</strong></a> diel
+                        v <strong>{{ $author->collections_count }}</strong> kolekciách
                     </p>
 
                 </div>
 
             </div>{{-- row --}}
             <div class="row">   
-                @if (!empty($author->biography))
                 <div class="col-md-12 text-left description bottom-space">
                     {{  $author->biography }}
                 </div>
-                @endif                
             </div>{{-- row --}}
             <div class="row" id="iso">   
-                @foreach ($author->items->slice(0,12) as $i=>$item)
+                @foreach ($author->items->slice(0,9) as $i=>$item)
                     <div class="col-md-4 col-sm-6 col-xs-12 item">
                         <a href="{{ $item->getDetailUrl() }}">
                             <img src="{{ $item->getImagePath() }}" class="img-responsive" alt="{{implode(', ', $item->authors)}} - {{ $item->title }}">                         

@@ -179,6 +179,7 @@ class AuthorController extends \BaseController {
 		}
 		$author->view_count += 1; 
 		$author->save();
+
 		return View::make('autor', array('author'=>$author));
 
 	}
