@@ -32,7 +32,7 @@
                         {{ Form::select('place', array('' => '') + $places,  @$input['place'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Miesto')) }}
                 </div>
             </div>
-            <div class="row bottom-space" style="padding-top: 20px;">
+            <div class="row" style="padding-top: 20px;">
                 <div  class="col-sm-3">
                         
                         <p><a class="btn btn-default btn-outline  uppercase sans" href="{{ URL::to('autori')}}">zobraziť všetkých autorov</a></p>
@@ -46,6 +46,14 @@
                 </div>
                 <div class="col-sm-1 text-left year-range">
                         <b class="sans" id="until_year">{{ !empty($input['year-range']) ? end((explode(',', $input['year-range']))) : '2014' }}</b>
+                </div>
+            </div>
+            <div class="row bottom-space" style="padding-top: 20px;">
+                <div  class="col-sm-12 text-center alphabet sans">
+                    @foreach (range('A', 'Z') as $char)
+                        <a href="{{ url_to('autori', ['first-letter' => $char]) }}" class="{{ (Input::get('first-letter')==$char) ? 'active' : '' }}" rel="{{ $char }}">{{ $char }}</a> &nbsp;
+                    @endforeach
+                    {{ Form::hidden('first-letter', @$input['first-letter'], ['id'=>'first-letter']) }}
                 </div>
             </div>
              {{ Form::close() }}
@@ -136,6 +144,12 @@ $(document).ready(function(){
     $(".chosen-select").chosen({allow_single_deselect: true})
 
     $(".chosen-select").change(function() {
+        $(this).closest('form').submit();
+    });
+
+    $(".alphabet a").click(function(e) {
+        e.preventDefault();
+        $('#first-letter').val($(this).attr('rel'));
         $(this).closest('form').submit();
     });
 

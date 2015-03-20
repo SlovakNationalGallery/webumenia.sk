@@ -104,6 +104,9 @@ class AuthorController extends \BaseController {
             	$params["query"]["filtered"]["filter"]["and"][]["range"]["birth_year"]["gte"] = $range[0];
             	$params["query"]["filtered"]["filter"]["and"][]["range"]["death_year"]["lte"] = $range[1];
             }
+            if(!empty($input['first-letter'])) {
+            	$params["query"]["filtered"]["filter"]["and"][]["prefix"]["name"] = $input['first-letter'];
+            }
 			
 		} 
 
