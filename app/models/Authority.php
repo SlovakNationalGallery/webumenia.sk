@@ -16,6 +16,7 @@ class Authority extends Eloquent {
 	public static $filterable = array(
 		'role',
 		'nationality',
+		'place',
 	);
 
 	protected $fillable = array(
@@ -128,7 +129,7 @@ class Authority extends Eloquent {
     }
 
 
-    public function getPlacesAttribute()
+    public function getPlacesAttribute($html = false)
     {
         $places = array_merge([
         	$this->birth_place, 

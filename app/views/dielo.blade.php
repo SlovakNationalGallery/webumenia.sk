@@ -68,8 +68,15 @@
                                     <td class="atribut">autor:</td>
                                     <td>
                                         <strong>
+                                        <?php  $ahutorhities=array(); ?>
+                                        @foreach ($item->authorities as $i => $authority)
+                                            <a href="{{ $authority->getDetailUrl() }}">{{ $authority->formated_name }}</a><br>
+                                            <?php  $ahutorhities[]= $authority->name; ?>
+                                        @endforeach
                                         @foreach ($item->authors as $author_unformated => $author)
-                                            <a href="{{ URL::to('katalog?author=' . $author_unformated) }}">{{ $author }}</a><br>
+                                            @if (!in_array($author_unformated, $ahutorhities))
+                                                <a href="{{ url_to('katalog', ['author' => $author_unformated]) }}">{{ $author }}</a><br>
+                                            @endif
                                         @endforeach
                                         </strong>
                                     </td>

@@ -28,6 +28,9 @@
                 <div  class="col-sm-3">
                         {{ Form::select('nationality', array('' => '') + $nationalities, @$input['nationality'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Príslušnosť')) }}
                 </div>
+                <div  class="col-sm-3">
+                        {{ Form::select('place', array('' => '') + $places,  @$input['place'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Miesto')) }}
+                </div>
             </div>
             <div class="row bottom-space" style="padding-top: 20px;">
                 <div  class="col-sm-3">
@@ -65,7 +68,7 @@
     	                		<img src="{{ $author->getImagePath() }}" class="img-responsive img-circle" alt="{{ $author->name }}">	                		
     	                	</a>
                         </div>
-                        <div class="col-sm-5">
+                        <div class="col-sm-4">
                             <div class="author-title">
                                 <a href="{{ $author->getDetailUrl() }}" {{ (!empty($search))  ? 
                                     'data-searchd-result="title/'.$author->id.'" data-searchd-title="'. $author->formatedName.'"' 
@@ -87,9 +90,9 @@
                             </div>
 
                         </div>
-                        <div class="col-sm-5" >
+                        <div class="col-sm-6" >
                             <div class="artworks-preview">
-                            @foreach ($author->items->slice(0,5) as $item)
+                            @foreach ($author->items->slice(0,7) as $item)
                                 <a href="{{ $item->getDetailUrl() }}"><img data-lazy="{{ $item->getImagePath() }}" class="img-responsive-width" ></a>
                             @endforeach
                             </div>
@@ -139,7 +142,7 @@ $(document).ready(function(){
     $('.artworks-preview').slick({
         dots: false,
         lazyLoad: 'progressive',
-        infinite: true,
+        infinite: false,
         speed: 300,
         slidesToShow: 1,
         slide: 'a',

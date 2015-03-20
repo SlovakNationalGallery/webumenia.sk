@@ -112,13 +112,14 @@ class AuthorController extends \BaseController {
 		// $authors = Authority::listValues('author', $params);
 		$roles = Authority::listValues('role', $params);
 		$nationalities = Authority::listValues('nationality', $params);
-		// $galleries = Authority::listValues('gallery', $params);
+		$places = Authority::listValues('place', $params);
 		// dd($roles);
 		return View::make('autori', array(
 			'authors'=>$authors, 
 			'search'=>$search, 
 			'roles'=>$roles, 
 			'nationalities'=>$nationalities, 
+			'places'=>$places, 
 			'input'=>$input, 
 			));
 	}

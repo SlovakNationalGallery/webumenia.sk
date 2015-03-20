@@ -96,7 +96,11 @@ $(document).ready(function(){
           }
       }
     }).bind("typeahead:selected", function(obj, datum, name) {
-        window.location.href = "/dielo/" + datum.id;
+        if (name = 'authors') {
+            window.location.href = "/autor/" + datum.id;
+        } else {
+            window.location.href = "/dielo/" + datum.id;
+        }
     });
 
 });
