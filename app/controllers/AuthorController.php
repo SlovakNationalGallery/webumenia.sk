@@ -2,7 +2,7 @@
 
 class AuthorController extends \BaseController {
 
-	public function index()
+	public function getIndex()
 	{
 		$search = Input::get('search', null);
 		$input = Input::all();
@@ -169,6 +169,18 @@ class AuthorController extends \BaseController {
 		}
 
 	    return Response::json($data);	
+	}
+
+	public function getDetail($id)
+	{
+		$author = Authority::find($id);
+		if (empty($author)) {
+			App::abort(404);
+		}
+		$author->view_count += 1; 
+		$author->save();
+		return View::make('autor', array('author'=>$author));
+
 	}
 
 

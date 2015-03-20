@@ -32,8 +32,8 @@ var authors = new Bloodhound({
                 return {
                     id: author.id,
                     name: author.name,
-                    birth_year: author.birth_year,
-                    death_year: author.death_year,
+                    birth_year: author.birth_year || "",
+                    death_year: author.death_year || "",
                     image: author.image,
                     value: author.name + ' (' + author.birth_year + ' - ' + author.death_year + ' )'
                 };

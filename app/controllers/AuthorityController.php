@@ -22,7 +22,7 @@ class AuthorityController extends \BaseController {
 	{
 
 		$search = Input::get('search');
-		$results = Authority::where('name', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%')->paginate(20);
+		$results = Authority::where('name', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%')->orderBy('view_count', '')->paginate(20);
 
         return View::make('authorities.index', array('authorities' => $results, 'search' => $search));
 	}

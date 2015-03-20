@@ -142,6 +142,26 @@ class Authority extends Eloquent {
 		return URL::to('autor/' . $this->id);
 	}
 
+	public function getDescription($html = false)
+	{
+		$description = $this->birth_year . $this->formatPlace($this->birth_place);
+		if ($this->death_year) {
+			$description .= ($html) ? ' &ndash; ' : ' - '; 
+			$description .= $this->death_year . $this->formatPlace($this->death_place);
+		}
+		return $description;
+	}
+
+	private function formatPlace($place)
+	{
+		if (empty($place)) {
+			return '';
+		} else {
+			return ' (' . $place . ')';
+		}
+
+	}
+
 	public static function getImagePathForId($id, $has_image, $sex = 'male', $full = false, $resize = false)
 	{
 		if (!$has_image && !$full) return self::getNoImage($sex);
