@@ -96,16 +96,16 @@ class AuthorController extends \BaseController {
 
 			foreach ($input as $filter => $value) {
 				if (in_array($filter, Authority::$filterable) && !empty($value)) {
-					$params["query"]["filtered"]["filter"]["and"][]["term"][$filter] = $value;
+					$params["query"]["filtered"]["filter"]["bool"]["must"][]["term"][$filter] = $value;
 				}
 			}
             if(!empty($input['year-range'])) {
             	$range = explode(',', $input['year-range']);
-            	$params["query"]["filtered"]["filter"]["and"][]["range"]["birth_year"]["gte"] = $range[0];
-            	$params["query"]["filtered"]["filter"]["and"][]["range"]["death_year"]["lte"] = $range[1];
+            	$params["query"]["filtered"]["filter"]["bool"]["must"][]["range"]["birth_year"]["gte"] = $range[0];
+            	$params["query"]["filtered"]["filter"]["bool"]["must"][]["range"]["death_year"]["lte"] = $range[1];
             }
             if(!empty($input['first-letter'])) {
-            	$params["query"]["filtered"]["filter"]["and"][]["prefix"]["name"] = $input['first-letter'];
+            	$params["query"]["filtered"]["filter"]["bool"]["must"][]["prefix"]["name"] = $input['first-letter'];
             }
 			
 		} 
