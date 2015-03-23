@@ -12,7 +12,8 @@
 		"dinesh/bugonemail": "dev-master",
 		"anahkiasen/former": "dev-master",
 		"guzzlehttp/guzzle": "dev-master",
-		"fadion/bouncy": "dev-master"
+		"fadion/bouncy": "dev-master",
+		"barryvdh/laravel-debugbar": "~1.8"
 	},
 	"autoload": {
 		"classmap": [
