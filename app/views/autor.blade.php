@@ -33,7 +33,7 @@
                     <div class="">
                             <h3>{{ $author->formatedName }}</h3>
                             @if ( $author->names->count() > 0)
-                                <p>príp.  <em>{{ implode("</em>, <em>", $author->names->lists('name')) }}</em></p>
+                                <p>príp.  <em>{{ implode("</em>, <em>", $author->formatedNames) }}</em></p>
                             @endif
                             
                     </div>
@@ -49,8 +49,8 @@
                     <p>
                         <a href="{{ url_to('katalog', ['author' => $author->name]) }}"><strong>{{ $author->items->count() }}</strong></a> diel
                         v <strong>{{ $author->collections_count }}</strong> kolekciách
+                        &nbsp; <strong>{{ $author->view_count }}</strong> videní
                     </p>
-
                 </div>
 
             </div>{{-- row --}}
@@ -59,6 +59,16 @@
                     {{  $author->biography }}
                 </div>
             </div>{{-- row --}}
+            @if ( $author->relationships->count() > 0)
+            <div class="row">   
+                <div class="col-md-12 text-left relationships bottom-space">
+                    Vzťahy: 
+                    @foreach ($author->relationships as $i=>$relationship)
+                        <strong>{{ Authority::formatName($relationship->name) }}</strong> ({{ $relationship->type }}){{ ($i+1 < $author->relationships->count()) ? ', ' : '' }}
+                    @endforeach
+                </div>
+            </div>{{-- row --}}
+            @endif
             <div class="row" id="iso">   
                 @foreach ($author->items->slice(0,9) as $i=>$item)
                     <div class="col-md-4 col-sm-6 col-xs-12 item">

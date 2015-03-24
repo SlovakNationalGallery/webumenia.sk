@@ -125,9 +125,18 @@ class Authority extends Eloquent {
 
 	public function getFormatedNameAttribute()
     {
-        return preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $this->name);
+        return self::formatName($this->name);
     }
 
+    public function getFormatedNamesAttribute()
+    {
+    	$names = $this->names->lists('name');
+		$return_names = array();
+		foreach ($names as $name) {
+			$return_names[] = self::formatName($name);
+		}
+		return $return_names;
+    }
 
     public function getPlacesAttribute($html = false)
     {
@@ -264,6 +273,15 @@ class Authority extends Eloquent {
         	'id' => $this->attributes['id'],
         	'body' =>$data,
     	]);     	
+	}
+
+	public static function sliderMin() {
+		$min_year = DB::table($table)->min('birth_year');
+		return $min_year;
+	}
+
+	public static function formatName($name) {
+		return preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $name);
 	}
 
 	public static function listValues($attribute, $search_params)

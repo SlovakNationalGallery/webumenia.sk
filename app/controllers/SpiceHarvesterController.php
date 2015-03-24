@@ -429,6 +429,12 @@ class SpiceHarvesterController extends \BaseController {
 					    }
 				    }
 				}
+			    if (!empty($attributes['names'])) {
+				    foreach ($attributes['names'] as $key => $name) {
+				    	$name['authority_id'] = $author->id;
+				    	$name = AuthorityName::firstOrCreate($name);
+				    }
+				}
 			    $author->save();
     			break;
     	}
@@ -502,12 +508,13 @@ class SpiceHarvesterController extends \BaseController {
 			];
 		}
 		$attributes['names'] = array();
-		foreach ($metadata->Terms->Preferred_Term as $key => $term) {
-			$attributes['names'][] = [
-				'name' => (string)$term->Term_Text,
-				'prefered' => true,
-			];
-		}
+		// * preferovane nepridavame - ukladame len "alternative names" *
+		// foreach ($metadata->Terms->Preferred_Term as $key => $term) {
+		// 	$attributes['names'][] = [
+		// 		'name' => (string)$term->Term_Text,
+		// 		'prefered' => true,
+		// 	];
+		// }
 		foreach ($metadata->Terms->{'Non-Preferred_Term'} as $key => $term) {
 			$attributes['names'][] = [
 				'name' => (string)$term->Term_Text,
@@ -669,7 +676,7 @@ class SpiceHarvesterController extends \BaseController {
 	private function parseBiography ( $string )
 	{
 	    $bio = $this->parseId($string, '(ZNÁMY)');
-	    return $bio;
+	    return (!empty($bio)) ? $bio : '';
 	}
 
 	private function parseDate ( $string )
