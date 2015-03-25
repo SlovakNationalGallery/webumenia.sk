@@ -32,6 +32,8 @@ class Authority extends Eloquent {
 		'death_place',
 		'death_date',
 		'death_year',
+		'image_source_url',
+		'image_source_label',
 	);
 
 	protected $with = array('roles', 'nationalities', 'names');

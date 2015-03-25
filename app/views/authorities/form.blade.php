@@ -79,7 +79,7 @@
         				</div>
         				<div class="col-md-5">
         					<div class="form-group">
-        					{{ Form::label('label', 'Zobrazená adresa') }}
+        					{{ Form::label('label', 'Zobrazený text') }}
         					{{ Form::text('links['.$i.'][label]', $link->label, array('class' => 'form-control', 'placeholder' => 'wikipédia')) }}
         					</div>
         				</div>
@@ -125,23 +125,39 @@
             Obrázok
         </div>
         <div class="panel-body">
+	        <div class="row">
+				<div class="col-md-5 col-md-offset-1">
+					<div class="form-group">
+					{{ Form::label('image_source_url', 'Zdroj obrázku (URL)') }}
+					{{ Form::text('image_source_url', Input::old('image_source_url'), array('class' => 'form-control form_link', 'placeholder' => 'http://')) }}
+					</div>
+				</div>
+				<div class="col-md-5">
+					<div class="form-group">
+					{{ Form::label('image_source_label', 'Zdroj obrázku (Zobrazený text)') }}
+					{{ Form::text('image_source_label', Input::old('image_source_label'), array('class' => 'form-control', 'placeholder' => 'wikipédia')) }}
+					</div>
+				</div>
+	        </div>
+            <!-- /.row (nested) -->
             <div class="row">
 
 				<div class="col-md-offset-4 col-md-4 text-center">
-				<div id="image-editor">
-				  <div class="cropit-image-preview-container">
-				    <div class="cropit-image-preview"></div>
-				  </div>
-				  
-				      <div class="image-size-label">&nbsp;</div>
-				      <div class="form-group">
-				      <input type="text" class="cropit-image-zoom-input" min="0" max="1" step="0.01" data-slider-min="0" data-slider-max="1" data-slider-step="0.01" data-slider-value="0">
-				      </div>
-				  
-				  <input type="file" class="cropit-image-input" />
-				  <a class="btn btn-success btn-outline select-image-btn"><i class="fa fa-picture-o"></i> zvoliť obrázok</a>
-				  {{ Form::hidden('primary_image', null, ['id' => 'primary_image']) }}
-				</div>
+					<div id="image-editor">
+						<div class="cropit-image-preview-container">
+							<div class="cropit-image-preview"></div>
+						</div>
+					  
+						<div class="image-size-label">&nbsp;</div>
+						<div class="form-group" style="padding: 0 15px">
+							<input type="text" class="cropit-image-zoom-input" min="0" max="1" step="0.01" data-slider-min="0" data-slider-max="1" data-slider-step="0.01" data-slider-value="0">
+						</div>
+
+						<input type="file" class="cropit-image-input" />
+						<a class="btn btn-success btn-outline select-image-btn"><i class="fa fa-picture-o"></i> nahrať obrázok</a>
+						{{ Form::hidden('primary_image', null, ['id' => 'primary_image']) }}
+						
+					</div>
 				</div>
 
             </div> 
