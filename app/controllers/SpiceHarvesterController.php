@@ -202,6 +202,7 @@ class SpiceHarvesterController extends \BaseController {
 	 */
 	public function launch($id)
 	{
+		Debugbar::disable();
 		$reindex = Input::get('reindex', false);
 		$processed_items = 0;
 	    $new_items = 0;
@@ -416,6 +417,7 @@ class SpiceHarvesterController extends \BaseController {
     			break;
     		case 'author':
 		    	$attributes = $this->mapAuthorAttributes($rec);
+		    	unset($attributes['biography']); //neprepisovat biografiu - chceme nechat tu co sme rucne vyplnili
 			    $author = Authority::where('id', '=', $rec->header->identifier)->first();
 			    $author->fill($attributes);
 			    if (!empty($attributes['links'])) {

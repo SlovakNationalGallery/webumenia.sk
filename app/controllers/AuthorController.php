@@ -14,7 +14,6 @@ class AuthorController extends \BaseController {
 		$params["sort"][] = ["has_image"=>["order"=>"desc"]];
 
 		if (!empty($input)) {
-			
 			if (Input::has('search')) {
 				$search = Input::get('search', '');
 				$json_params = '
@@ -107,10 +106,13 @@ class AuthorController extends \BaseController {
             if(!empty($input['first-letter'])) {
             	$params["query"]["filtered"]["filter"]["bool"]["must"][]["prefix"]["name"] = $input['first-letter'];
             }
-			
 		} 
 
-		$authors = Authority::search($params);
+		Debugbar::addMeasure('now', LARAVEL_START, microtime(true));
+		$authors = null;
+		Debugbar::measure('Elastic-search', function() use (&$authors, $params) {			
+			$authors = Authority::search($params);
+		});
 
 		// $authors = Authority::listValues('author', $params);
 		$roles = Authority::listValues('role', $params);
