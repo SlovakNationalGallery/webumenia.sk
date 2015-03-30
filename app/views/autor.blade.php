@@ -74,7 +74,7 @@
                 <div class="col-md-12 text-left events bottom-space">
                     Pôsobenie: 
                     @foreach ($author->events as $i=>$event)
-                        <strong>{{ $event->place }}</strong> ({{ Authority::formatMultiAttribute($event->event) }}){{ ($i+1 < $author->events->count()) ? ', ' : '' }}
+                        <strong><a href="{{ url_to('autori', ['place' => $event->place]) }}">{{ $event->place }}</a></strong> ({{ Authority::formatMultiAttribute($event->event) }}){{ ($i+1 < $author->events->count()) ? ', ' : '' }}
                     @endforeach
                 </div>
             </div>{{-- row --}}

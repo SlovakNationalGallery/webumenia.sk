@@ -278,8 +278,20 @@ class Authority extends Eloquent {
 	}
 
 	public static function sliderMin() {
-		$min_year = self::min('birth_year');
-		return $min_year;
+		$table_name = with(new static)->getTable();
+		if (Cache::has($table_name.'.slider_min')) {
+			$slider_min =  Cache::get($table_name.'.slider_min');
+		}
+		else {
+			$min_year = self::min('birth_year');
+			$slider_min = floor($min_year / 100)*100;
+			Cache::put($table_name.'.slider_min', $slider_min, 60);
+		}
+		return $slider_min;
+	}
+
+	public static function sliderMax() {
+		return date('Y');
 	}
 
 	public static function formatName($name) {

@@ -37,13 +37,13 @@
             </div>
             <div class="row" style="padding-top: 20px;">
                 <div class="col-sm-1 text-right year-range">
-                        <b class="sans" id="from_year">{{ !empty($input['year-range']) ? reset((explode(',', $input['year-range']))) : '1500' }}</b> 
+                        <b class="sans" id="from_year">{{ !empty($input['year-range']) ? reset((explode(',', $input['year-range']))) : Authority::sliderMin() }}</b> 
                 </div>
                 <div class="col-sm-10 year-range">
-                        <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="1500" data-slider-max="2014" data-slider-step="5" data-slider-value="[{{ !empty($input['year-range']) ? $input['year-range'] : '1500,2014' }}]"/> 
+                        <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="{{ Authority::sliderMin() }}" data-slider-max="{{ Authority::sliderMax() }}" data-slider-step="5" data-slider-value="[{{ !empty($input['year-range']) ? $input['year-range'] : Authority::sliderMin().','.Authority::sliderMax() }}]"/> 
                 </div>
                 <div class="col-sm-1 text-left year-range">
-                        <b class="sans" id="until_year">{{ !empty($input['year-range']) ? end((explode(',', $input['year-range']))) : '2014' }}</b>
+                        <b class="sans" id="until_year">{{ !empty($input['year-range']) ? end((explode(',', $input['year-range']))) : Authority::sliderMax() }}</b>
                 </div>
             </div>
             <div class="row bottom-space" style="padding-top: 20px;">
