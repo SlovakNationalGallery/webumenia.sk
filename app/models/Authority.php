@@ -278,12 +278,19 @@ class Authority extends Eloquent {
 	}
 
 	public static function sliderMin() {
-		$min_year = DB::table($table)->min('birth_year');
+		$min_year = self::min('birth_year');
 		return $min_year;
 	}
 
 	public static function formatName($name) {
 		return preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $name);
+	}
+
+	/* pre atributy vo viacerych jazykoch
+	napr. "štúdium/study" alebo "učiteľ/teacher" */
+	public static function formatMultiAttribute($atttribute, $index=0) {
+		$atttribute = explode('/', $atttribute);
+		return $atttribute[$index];
 	}
 
 	public static function listValues($attribute, $search_params)

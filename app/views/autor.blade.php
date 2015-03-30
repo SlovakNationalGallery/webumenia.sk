@@ -64,7 +64,17 @@
                 <div class="col-md-12 text-left relationships bottom-space">
                     Vzťahy: 
                     @foreach ($author->relationships as $i=>$relationship)
-                        <strong>{{ Authority::formatName($relationship->name) }}</strong> ({{ $relationship->type }}){{ ($i+1 < $author->relationships->count()) ? ', ' : '' }}
+                        <strong>{{ Authority::formatName($relationship->name) }}</strong> ({{ Authority::formatMultiAttribute($relationship->type) }}){{ ($i+1 < $author->relationships->count()) ? ', ' : '' }}
+                    @endforeach
+                </div>
+            </div>{{-- row --}}
+            @endif
+            @if ( $author->events->count() > 0)
+            <div class="row">   
+                <div class="col-md-12 text-left events bottom-space">
+                    Pôsobenie: 
+                    @foreach ($author->events as $i=>$event)
+                        <strong>{{ $event->place }}</strong> ({{ Authority::formatMultiAttribute($event->event) }}){{ ($i+1 < $author->events->count()) ? ', ' : '' }}
                     @endforeach
                 </div>
             </div>{{-- row --}}
