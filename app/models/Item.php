@@ -187,6 +187,23 @@ class Item extends Eloquent {
 		return implode(', ', $authors);
 	}
 	*/
+	
+	public static function sliderMin() {
+		$table_name = with(new static)->getTable();
+		if (Cache::has($table_name.'.slider_min')) {
+			$slider_min =  Cache::get($table_name.'.slider_min');
+		}
+		else {
+			$min_year = self::min('date_earliest');
+			$slider_min = floor($min_year / 100)*100;
+			Cache::put($table_name.'.slider_min', $slider_min, 60);
+		}
+		return $slider_min;
+	}
+
+	public static function sliderMax() {
+		return date('Y');
+	}
 
 	public function getAuthorsAttribute($value)
 	{

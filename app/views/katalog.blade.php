@@ -66,13 +66,13 @@
                         <!-- {{ Form::hidden('search', @$search); }} -->
                 </div>
                 <div class="col-sm-1 text-right year-range">
-                        <b class="sans" id="from_year">{{ !empty($input['year-range']) ? reset((explode(',', $input['year-range']))) : '1790' }}</b> 
+                        <b class="sans" id="from_year">{{ !empty($input['year-range']) ? reset((explode(',', $input['year-range']))) : Item::sliderMin() }}</b> 
                 </div>
                 <div class="col-sm-7 year-range">
-                        <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="1790" data-slider-max="2014" data-slider-step="5" data-slider-value="[{{ !empty($input['year-range']) ? $input['year-range'] : '1790,2014' }}]"/> 
+                        <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="{{ Item::sliderMin() }}" data-slider-max="{{ Item::sliderMax() }}" data-slider-step="5" data-slider-value="[{{ !empty($input['year-range']) ? $input['year-range'] : Item::sliderMin().','.Item::sliderMax() }}]"/> 
                 </div>
                 <div class="col-sm-1 text-left year-range">
-                        <b class="sans" id="until_year">{{ !empty($input['year-range']) ? end((explode(',', $input['year-range']))) : '2014' }}</b>
+                        <b class="sans" id="until_year">{{ !empty($input['year-range']) ? end((explode(',', $input['year-range']))) : Item::sliderMax() }}</b>
                 </div>
             </div>
              {{ Form::close() }}
