@@ -162,25 +162,28 @@ class Authority extends Eloquent {
 		return URL::to('autor/' . $this->id);
 	}
 
-	public function getDescription($html = false)
+	public function getDescription($html = false, $links = false)
 	{
 		$description = ($html) ? '&#x2734; ' : '';
 		$description .= ($html) ? $this->birth_date : $this->birth_year;
-		$description .= $this->formatPlace($this->birth_place);
+		$description .= $this->formatPlace($this->birth_place, $links);
 		if ($this->death_year) {
 			$description .= ($html) ? ' &ndash; ' : ' - '; 
 			$description .= ($html) ? '&#x271D; ' : '';
 			$description .= ($html) ? $this->death_date : $this->death_year;
-			$description .= $this->formatPlace($this->death_place);
+			$description .= $this->formatPlace($this->death_place, $links);
 		}
 		return $description;
 	}
 
-	private function formatPlace($place)
+	private function formatPlace($place, $links = false)
 	{
 		if (empty($place)) {
 			return '';
 		} else {
+			if ($links) {
+				$place = '<a href="'.url_to('autori', ['place' => $place]).'">'.$place.'</a>';
+			}
 			return ' (' . $place . ')';
 		}
 

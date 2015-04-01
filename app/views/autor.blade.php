@@ -38,7 +38,7 @@
                             
                     </div>
                     <p>
-                        {{ $author->getDescription(true) }}
+                        {{ $author->getDescription(true, true) }}
                     </p>
                     <p>
                         @foreach ($author->roles as $i=>$role)
