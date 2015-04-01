@@ -123,7 +123,11 @@ class Authority extends Eloquent {
 	    return $collections->count();
     }
 
-
+    public function getTagsAttribute()
+    {
+	    $collections = $this->join('authority_item', 'authority_item.authority_id', '=', 'authorities.id')->join('collection_item', 'collection_item.item_id', '=', 'authority_item.item_id')->where('authorities.id', '=', $this->id)->select('collection_item.collection_id')->distinct()->get();
+	    return $collections->count();
+    }
 
 	public function getFormatedNameAttribute()
     {
@@ -166,17 +170,17 @@ class Authority extends Eloquent {
 	{
 		$description = ($html) ? '&#x2734; ' : '';
 		$description .= ($html) ? $this->birth_date : $this->birth_year;
-		$description .= $this->formatPlace($this->birth_place, $links);
+		$description .= self::formatPlace($this->birth_place, $links);
 		if ($this->death_year) {
 			$description .= ($html) ? ' &ndash; ' : ' - '; 
 			$description .= ($html) ? '&#x271D; ' : '';
 			$description .= ($html) ? $this->death_date : $this->death_year;
-			$description .= $this->formatPlace($this->death_place, $links);
+			$description .= self::formatPlace($this->death_place, $links);
 		}
 		return $description;
 	}
 
-	private function formatPlace($place, $links = false)
+	private static function formatPlace($place, $links = false)
 	{
 		if (empty($place)) {
 			return '';
@@ -184,7 +188,7 @@ class Authority extends Eloquent {
 			if ($links) {
 				$place = '<a href="'.url_to('autori', ['place' => $place]).'">'.$place.'</a>';
 			}
-			return ' (' . $place . ')';
+			return add_brackets($place);
 		}
 
 	}

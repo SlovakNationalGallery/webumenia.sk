@@ -33,3 +33,12 @@
 		$queryString = http_build_query($params);
 		return URL::to($to).'?'.$queryString;
 	}
+
+	function add_brackets($str)
+	{
+		if (empty($str)) {
+			return '';
+		} else {
+			return ' (' . $str . ')';
+		}		
+	}

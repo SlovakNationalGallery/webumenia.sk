@@ -70,11 +70,11 @@
             </div>{{-- row --}}
             @endif
             @if ( $author->events->count() > 0)
-            <div class="row">   
+            <div class="row">
                 <div class="col-md-12 text-left events bottom-space">
                     Pôsobenie: 
                     @foreach ($author->events as $i=>$event)
-                        <strong><a href="{{ url_to('autori', ['place' => $event->place]) }}">{{ $event->place }}</a></strong> ({{ Authority::formatMultiAttribute($event->event) }}){{ ($i+1 < $author->events->count()) ? ', ' : '' }}
+                        <strong><a href="{{ url_to('autori', ['place' => $event->place]) }}">{{ $event->place }}</a></strong> {{ add_brackets(Authority::formatMultiAttribute($event->event)) }}{{ ($i+1 < $author->events->count()) ? ', ' : '' }}
                     @endforeach
                 </div>
             </div>{{-- row --}}
