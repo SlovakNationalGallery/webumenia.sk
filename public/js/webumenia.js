@@ -81,7 +81,15 @@ $(document).ready(function(){
       templates: {
           header: '<h3 class="suggest-type-name">Autori</h3>',
           suggestion: function (data) {
-              return '<p><img src="'+data.image+'" class="preview img-circle" />' + data.name + '<br> (' + data.birth_year + ' &ndash; ' + data.death_year + ')</p>';
+            var format_years = '';
+            if (data.birth_year) {
+                format_years += '(&#x2734; ' + data.birth_year;
+                if (data.death_year) {
+                    format_years += '  &ndash; &#x271D; ' + data.death_year;
+                }
+                format_years += ')';
+            }
+            return '<p><img src="'+data.image+'" class="preview img-circle" />' + data.name + '<br> ' + format_years + '</p>';
           }
       }
     },
@@ -96,7 +104,7 @@ $(document).ready(function(){
           }
       }
     }).bind("typeahead:selected", function(obj, datum, name) {
-        if (name = 'authors') {
+        if (name == 'authors') {
             window.location.href = "/autor/" + datum.id;
         } else {
             window.location.href = "/dielo/" + datum.id;
