@@ -79,26 +79,16 @@
                 </div>
             </div>{{-- row --}}
             @endif
-            <div class="row" id="iso">   
-                @foreach ($author->items->slice(0,9) as $i=>$item)
-                    <div class="col-md-4 col-sm-6 col-xs-12 item">
-                        <a href="{{ $item->getDetailUrl() }}">
-                            <img src="{{ $item->getImagePath() }}" class="img-responsive" alt="{{implode(', ', $item->authors)}} - {{ $item->title }}">                         
-                        </a>
-                        <div class="item-title">
-                            @if (!empty($item->iipimg_url))
-                                <div class="pull-right"><a href="{{ URL::to('dielo/' . $item->id . '/zoom') }}" data-toggle="tooltip" data-placement="left" title="Zoom obrázku"><i class="fa fa-search-plus"></i></a></div>
-                            @endif    
-                            <a href="{{ $item->getDetailUrl() }}" {{ (!empty($search))  ? 
-                                'data-searchd-result="title/'.$item->id.'" data-searchd-title="'.implode(', ', $item->authors).' - '. $item->title.'"' 
-                                : '' }}>
-                                <em>{{ implode(', ', $item->authors) }}</em><br>
-                                <strong>{{ $item->title }}</strong>, <em>{{ $item->getDatingFormated() }}</em><br>
-                                <span class="">{{ $item->gallery }}</span>
-                            </a>
-                        </div>
+            <div class="row" >   
+                    <div class="col-xs-12 ">
+                    <h4>DIELA:</h4>
+                            <div class="artworks-preview large">
+                            @foreach ($author->items->slice(0,9) as $item)
+                                <a href="{{ $item->getDetailUrl() }}"><img data-lazy="{{ $item->getImagePath() }}" class="img-responsive-width large" ></a>
+                            @endforeach
+                            </div>
+
                     </div>  
-                @endforeach    
             </div>{{-- row --}}
             <div class="row">
                 <div class="col-sm-12 text-center">
@@ -116,6 +106,8 @@
 
 @section('javascript')
 {{ HTML::script('js/readmore.min.js') }}
+{{ HTML::script('js/slick.js') }}
+
 <script type="text/javascript">
     $(document).ready(function(){
 
@@ -130,12 +122,17 @@
             }
         });
 
-        var $container = $('#iso');
-           
-        // az ked su obrazky nacitane aplikuj isotope
-        $container.imagesLoaded(function () {
-            spravGrid($container);
+        $('.artworks-preview').slick({
+            dots: false,
+            lazyLoad: 'progressive',
+            infinite: false,
+            speed: 300,
+            slidesToShow: 1,
+            slide: 'a',
+            centerMode: false,
+            variableWidth: true,
         });
+
 
     });
 </script>
