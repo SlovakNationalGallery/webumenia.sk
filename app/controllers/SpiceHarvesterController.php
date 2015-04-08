@@ -257,7 +257,7 @@ class SpiceHarvesterController extends \BaseController {
 	    		} else {
 					$existingRecord = SpiceHarvesterRecord::where('identifier', '=', $rec_id)->where('type', '=', $harvest->type)->first();
 
-			        if ($existingRecord) {
+			        if ($existingRecord) {	    			
 			            // ak sa zmenil datestamp, update item - inak ignorovat
 			            // if( $existingRecord->datestamp != $rec->header->datestamp) {
 			                $this->updateRecord($existingRecord, $rec, $harvest->type);
@@ -405,7 +405,6 @@ class SpiceHarvesterController extends \BaseController {
      * @return true
      */
     private function updateRecord($existingRecord, $rec, $type) {
-
     	// Update the item
     	switch ($type) {
     		case 'item':
@@ -417,6 +416,7 @@ class SpiceHarvesterController extends \BaseController {
     			break;
     		case 'author':
 		    	$attributes = $this->mapAuthorAttributes($rec);
+    			//if (6478 == $rec->header->identifier) dd($attributes);
 		    	unset($attributes['biography']); //neprepisovat biografiu - chceme nechat tu co sme rucne vyplnili
 			    $author = Authority::where('id', '=', $rec->header->identifier)->first();
 			    $author->fill($attributes);
@@ -435,6 +435,16 @@ class SpiceHarvesterController extends \BaseController {
 				    foreach ($attributes['names'] as $key => $name) {
 				    	$name['authority_id'] = $author->id;
 				    	$name = AuthorityName::firstOrCreate($name);
+				    }
+				}
+			    if (!empty($attributes['relationships'])) {
+				    foreach ($attributes['relationships'] as $key => $relationship) {
+				    	$related_autrhority = Authority::where('id', '=', $relationship['realted_authority_id'])->first();
+				    	if (!is_null($related_autrhority)) {
+				    		$relationship['authority_id'] = $author->id;
+				    		$relationship['name'] = $related_autrhority->name;
+				    		$authority_relationship = AuthorityRelationship::firstOrCreate($relationship);				    		
+				    	}
 				    }
 				}
 			    $author->save();
@@ -534,16 +544,12 @@ class SpiceHarvesterController extends \BaseController {
 				'end_date' => (string)$event->Event_Date->End_Date,
 			];
 		}
+		$attributes['relationships'] = array();
 		foreach ($metadata->Associative_Relationships->Associative_Relationship as $key => $relationship) {
-			$name = (string)$relationship->{'Non-Preferred_Parent'};
-			if (!empty($name)) {
-				$attributes['relationships'][] = [
-					'type' => (string)$relationship->Relationship_Type,
-					'name' => (string)$relationship->{'Non-Preferred_Parent'},
-					'realted_authority_id' => (int)$this->parseId((string)$relationship->{'Non-Preferred_Parent'}->attributes('rdf', true)->resource),
-					// 'prefered' => true,
-				];
-			}
+			$attributes['relationships'][] = [
+				'type' => (string)$relationship->Relationship_Type,
+				'realted_authority_id' => (int)$this->parseId((string)$relationship->Related_Subject_ID)
+			];
 		}
 
 	    return $attributes;
@@ -695,6 +701,5 @@ class SpiceHarvesterController extends \BaseController {
 	{
 	    return (int)end((explode('.', $string)));
 	}
-
 
 }
