@@ -7,13 +7,14 @@
 		"laravel/framework": "4.2.*",
 		"caseyamcl/Phpoaipmh": "dev-master",
 		"intervention/image": "dev-master",
-		"orangehill/iseed": "dev-master",
+		"orangehill/iseed": "1.1",
 		"ipalaus/geonames": "dev-master",
 		"dinesh/bugonemail": "dev-master",
 		"anahkiasen/former": "dev-master",
 		"guzzlehttp/guzzle": "dev-master",
 		"fadion/bouncy": "dev-master",
-		"barryvdh/laravel-debugbar": "~1.8"
+		"barryvdh/laravel-debugbar": "~1.8",
+		"rtconner/laravel-tagging": "~0.5"
 	},
 	"autoload": {
 		"classmap": [

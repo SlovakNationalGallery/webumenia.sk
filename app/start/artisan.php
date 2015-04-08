@@ -11,4 +11,5 @@
 |
 */
 
+Artisan::add(new MigrateTags);
 DB::disableQueryLog();

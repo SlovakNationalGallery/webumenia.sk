@@ -4,6 +4,7 @@ use Fadion\Bouncy\BouncyTrait;
 class Item extends Eloquent {
 
 	use BouncyTrait;
+	use Conner\Tagging\TaggableTrait;
 
     const ARTWORKS_DIR = '/images/diela/';
     const ES_TYPE = 'items';
@@ -187,7 +188,7 @@ class Item extends Eloquent {
 		return implode(', ', $authors);
 	}
 	*/
-	
+
 	public static function sliderMin() {
 		$table_name = with(new static)->getTable();
 		if (Cache::has($table_name.'.slider_min')) {
