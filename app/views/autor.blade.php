@@ -83,7 +83,7 @@
             <div class="row">
                 <div class="col-md-12 text-left links bottom-space">
                     Externé odkazy: 
-                    <?php foreach ($author->links as $i=>$link) $links[] = '<a href="'.$link->url .'">'.$link->label.'</a>'; ?>
+                    <?php foreach ($author->links as $i=>$link) $links[] = '<a href="'.$link->url .'" target="_blank">'.$link->label.'</a>'; ?>
                     {{ implode(", ", $links) }}
                 </div>
             </div>{{-- row --}}
