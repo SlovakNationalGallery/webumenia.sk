@@ -119,14 +119,19 @@ class Authority extends Eloquent {
 
     public function getCollectionsCountAttribute()
     {
-	    $collections = $this->join('authority_item', 'authority_item.authority_id', '=', 'authorities.id')->join('collection_item', 'collection_item.item_id', '=', 'authority_item.item_id')->where('authorities.id', '=', $this->id)->select('collection_item.collection_id')->distinct()->get();
+	    $collections = $this->join('authority_item', 'authority_item.authority_id', '=', 'authorities.id')->join('collection_item', 'collection_item.item_id', '=', 'authority_item.item_id')->where('authorities.id', '=', $this->id)->select('collection_item.collection_id')->distinct()->remember(30)->get();
 	    return $collections->count();
     }
 
     public function getTagsAttribute()
     {
-	    $collections = $this->join('authority_item', 'authority_item.authority_id', '=', 'authorities.id')->join('collection_item', 'collection_item.item_id', '=', 'authority_item.item_id')->where('authorities.id', '=', $this->id)->select('collection_item.collection_id')->distinct()->get();
-	    return $collections->count();
+	    // return true;
+	    $tags = $this->join('authority_item', 'authority_item.authority_id', '=', 'authorities.id')
+	    					->join('tagging_tagged', function($join) {
+						    	$join->on('tagging_tagged.taggable_id', '=', 'authority_item.item_id');
+						    	$join->on('tagging_tagged.taggable_type', '=', DB::raw("'Item'"));
+						    })->where('authorities.id', '=', $this->id)->groupBy('tagging_tagged.tag_name')->select('tagging_tagged.tag_name', DB::raw('count(tagging_tagged.tag_name) as pocet'))->orderBy('pocet', 'desc')->limit(10)->remember(30)->get();
+	    return $tags->lists('tag_name', 'pocet');
     }
 
 	public function getFormatedNameAttribute()
@@ -163,7 +168,11 @@ class Authority extends Eloquent {
 	}
 
 	public function getDetailUrl() {
-		return URL::to('autor/' . $this->id);
+		return self::detailUrl($this->id);
+	}
+
+	public static function detailUrl($authority_id) {
+		return URL::to('autor/' . $authority_id);
 	}
 
 	public function getDescription($html = false, $links = false)

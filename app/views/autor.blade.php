@@ -64,7 +64,7 @@
                 <div class="col-md-12 text-left relationships bottom-space">
                     Vzťahy: 
                     @foreach ($author->relationships as $i=>$relationship)
-                        <strong>{{ Authority::formatName($relationship->name) }}</strong> ({{ Authority::formatMultiAttribute($relationship->type) }}){{ ($i+1 < $author->relationships->count()) ? ', ' : '' }}
+                        <a href="{{ $author::detailUrl($relationship->realted_authority_id) }}"><strong>{{ Authority::formatName($relationship->name) }}</strong></a> ({{ Authority::formatMultiAttribute($relationship->type) }}){{ ($i+1 < $author->relationships->count()) ? ', ' : '' }}
                     @endforeach
                 </div>
             </div>{{-- row --}}
@@ -76,6 +76,24 @@
                     @foreach ($author->events as $i=>$event)
                         <strong><a href="{{ url_to('autori', ['place' => $event->place]) }}">{{ $event->place }}</a></strong> {{ add_brackets(Authority::formatMultiAttribute($event->event)) }}{{ ($i+1 < $author->events->count()) ? ', ' : '' }}
                     @endforeach
+                </div>
+            </div>{{-- row --}}
+            @endif
+            @if ( $author->links->count() > 0)
+            <div class="row">
+                <div class="col-md-12 text-left links bottom-space">
+                    Externé odkazy: 
+                    <?php foreach ($author->links as $i=>$link) $links[] = '<a href="'.$link->url .'">'.$link->label.'</a>'; ?>
+                    {{ implode(", ", $links) }}
+                </div>
+            </div>{{-- row --}}
+            @endif
+            @if ( $author->tags)
+            <div class="row">
+                <div class="col-md-12 text-left tags bottom-space">
+                    Tagy: 
+                    <?php foreach ($author->tags as $i=>$tag) $tags[] = '<a href="'.url_to('katalog', ['tags' => $tag]) .'">'.$tag.'</a>'; ?>
+                    {{ implode(", ", $tags) }}
                 </div>
             </div>{{-- row --}}
             @endif
