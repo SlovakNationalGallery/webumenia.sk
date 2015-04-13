@@ -124,8 +124,8 @@
                                 <tr>
                                     <td class="atribut">tagy:</td>
                                     <td>
-                                    @foreach ($item->subjects as $subject)
-                                        <a href="{{URL::to('katalog?subject=' . $subject)}}" class="btn btn-default btn-xs btn-outline">{{ $subject }}</a>
+                                    @foreach ($item->tagNames() as $tag)
+                                        <a href="{{URL::to('katalog?tag=' . $tag)}}" class="btn btn-default btn-xs btn-outline">{{ $tag }}</a>
                                     @endforeach
                                     </td>
                                 </tr>

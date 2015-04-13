@@ -53,7 +53,7 @@
                         {{ Form::select('work_type', array('' => '') + $work_types,  @$input['work_type'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Výtvarný druh')) }}
                 </div>
                 <div  class="col-sm-3">
-                        {{ Form::select('subject', array('' => '') + $tags, @$input['subject'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Tagy')) }}
+                        {{ Form::select('tag', array('' => '') + $tags, @$input['tag'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Tagy')) }}
                 </div>
                 <div  class="col-sm-3">
                         {{ Form::select('gallery', array('' => '') + $galleries, @$input['gallery'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Inštitúcia / majiteľ')) }}

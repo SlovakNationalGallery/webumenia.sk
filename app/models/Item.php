@@ -15,7 +15,7 @@ class Item extends Eloquent {
 	public static $filterable = array(
 		'author',
 		'work_type',
-		'subject',
+		'tag',
 		'gallery'
 	);
 
@@ -363,7 +363,7 @@ class Item extends Eloquent {
 				'description' => (!empty($this->attributes['description'])) ? strip_tags($this->attributes['description']) : '',	        	
 				'work_type' => $main_work_type, // ulozit iba prvu hodnotu
 	        	'topic' => $this->attributes['topic'],
-	        	'subject' => $this->makeArray($this->attributes['subject']),
+	        	'tag' => $this->tagNames(),
 	        	'place' => $this->makeArray($this->attributes['place']),
 	        	'measurement' => $this->measurments,
 	        	'date_earliest' => $this->attributes['date_earliest'],

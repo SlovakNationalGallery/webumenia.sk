@@ -41,7 +41,7 @@ class CatalogController extends \BaseController {
 							      },
 
 							      { "match": {
-							          "subject.folded": {
+							          "tag.folded": {
 							            "query": "'.$search.'",
 							            "boost": 1
 							          }
@@ -109,7 +109,7 @@ class CatalogController extends \BaseController {
 
 		$authors = Item::listValues('author', $params);
 		$work_types = Item::listValues('work_type', $params);
-		$tags = Item::listValues('subject', $params);
+		$tags = Item::listValues('tag', $params);
 		$galleries = Item::listValues('gallery', $params);
 		
 
