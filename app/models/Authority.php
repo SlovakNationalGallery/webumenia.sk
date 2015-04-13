@@ -131,7 +131,7 @@ class Authority extends Eloquent {
 						    	$join->on('tagging_tagged.taggable_id', '=', 'authority_item.item_id');
 						    	$join->on('tagging_tagged.taggable_type', '=', DB::raw("'Item'"));
 						    })->where('authorities.id', '=', $this->id)->groupBy('tagging_tagged.tag_name')->select('tagging_tagged.tag_name', DB::raw('count(tagging_tagged.tag_name) as pocet'))->orderBy('pocet', 'desc')->limit(10)->remember(30)->get();
-	    return $tags->lists('tag_name', 'pocet');
+	    return $tags->lists('tag_name');
     }
 
 	public function getFormatedNameAttribute()

@@ -92,8 +92,10 @@
             <div class="row">
                 <div class="col-md-12 text-left tags bottom-space">
                     Tagy: 
-                    <?php foreach ($author->tags as $i=>$tag) $tags[] = '<a href="'.url_to('katalog', ['tags' => $tag]) .'">'.$tag.'</a>'; ?>
-                    {{ implode(", ", $tags) }}
+                    @foreach ($author->tags as $tag)
+                        <a href="{{URL::to('katalog?tag=' . $tag)}}" class="btn btn-default btn-xs btn-outline">{{ $tag }}</a>
+                    @endforeach
+
                 </div>
             </div>{{-- row --}}
             @endif
