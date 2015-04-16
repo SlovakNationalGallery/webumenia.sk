@@ -112,6 +112,7 @@ return array(
 		'Dinesh\Bugonemail\BugonemailServiceProvider',
 		'Former\FormerServiceProvider',
 		'Fadion\Bouncy\BouncyServiceProvider',
+		'Maatwebsite\Excel\ExcelServiceProvider',
 	),
 
 	/*
@@ -180,6 +181,7 @@ return array(
 		'Image' => 'Intervention\Image\ImageManagerStatic',
         'Former' => 'Former\Facades\Former',
         'Elastic' => 'Fadion\Bouncy\Facades\Elastic',
+        'Excel' => 'Maatwebsite\Excel\Facades\Excel',
 	),
 
 	'jira_auth' => array(
