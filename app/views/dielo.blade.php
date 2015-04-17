@@ -120,7 +120,7 @@
                                     <td>{{ $item->topic; }}</td>
                                 </tr>
                                 @endif
-                                @if (!empty($item->subject))
+                                @if ($item->tagNames() )
                                 <tr>
                                     <td class="atribut">tagy:</td>
                                     <td>
