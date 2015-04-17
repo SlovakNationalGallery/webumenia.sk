@@ -113,6 +113,7 @@ return array(
 		'Former\FormerServiceProvider',
 		'Fadion\Bouncy\BouncyServiceProvider',
 		'Maatwebsite\Excel\ExcelServiceProvider',
+		'Conner\Tagging\TaggingServiceProvider',
 	),
 
 	/*

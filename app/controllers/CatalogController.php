@@ -47,6 +47,13 @@ class CatalogController extends \BaseController {
 							          }
 							        }
 							      },
+							      { "match": {
+							          "tag.stemmed": {
+							            "query": "'.$search.'",
+							            "boost": 1
+							          }
+							        }
+							      },
 
 							      { "match": {
 							          "description": {
