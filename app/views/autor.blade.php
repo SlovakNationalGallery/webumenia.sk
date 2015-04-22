@@ -24,7 +24,7 @@
 <section class="author content-section top-section">
     <div class="author-body">
         <div class="container">
-
+            <div class="attributes">
             <div class="row">   
                 <div class="col-sm-2">
                         <img src="{{ $author->getImagePath() }}" class="img-responsive img-circle" alt="{{ $author->name }}">                           
@@ -99,6 +99,7 @@
                 </div>
             </div>{{-- row --}}
             @endif
+            </div>{{-- /attributes --}}
             <div class="row" >   
                     <div class="col-xs-12 ">
                     <h4>DIELA:</h4>
