@@ -86,7 +86,7 @@
 	                <i class="fa fa-bars"></i>
 	            </button>
 	            <a class="navbar-brand" href="{{ URL::to('') }}">
-	                <i class="icon-sng"></i>
+	                <b>web umenia</b>
 	            </a>
 	            @if (Request::is('dielo/*') && isSet($collection))
 	            	 <a href="{{ $collection->getUrl() }}" class="navbar-brand text-small hidden-xs hidden-sm">/&nbsp; {{ $collection->name }}</a>
@@ -98,7 +98,7 @@
 
 	            <ul class="nav navbar-nav">
 						<li class="{{ Request::is( 'sekcie') ? 'active' : '' }}">
-								<a href="{{{ URL::to('sekcie') }}}" class="dropdown-toggle" data-toggle="dropdown">Sekcie <span class="caret"></span></a>
+								<a href="{{{ URL::to('sekcie') }}}" class="dropdown-toggle" data-toggle="dropdown">sekcie <span class="caret"></span></a>
 								<ul class="dropdown-menu" role="menu">
 									@foreach (Collection::orderBy('order', 'ASC')->with('items')->get() as $i => $collection)
 										<li><a href="{{ URL::to('sekcia/' . $collection->id) }}">{{ $collection->name }}</a></li>
@@ -107,13 +107,13 @@
 						        </ul>
 						</li>
 						<li class="{{ Request::is('katalog') ? 'active' : '' }}">
-								<a href="{{{ URL::to('katalog') }}}">Diela</a>
+								<a href="{{{ URL::to('katalog') }}}">diela</a>
 						</li>
 						<li class="{{ Request::is('autori') ? 'active' : '' }}">
-								<a href="{{{ URL::to('autori') }}}">Autori</a>
+								<a href="{{{ URL::to('autori') }}}">autori</a>
 						</li>
 						<li class="{{ Request::is( 'informacie') ? 'active' : '' }}">
-								<a href="{{{ URL::to('informacie') }}}">Informácie</a>
+								<a href="{{{ URL::to('informacie') }}}">informácie</a>
 						</li>
 						@if (Session::has('cart') && count(Session::get('cart'))>0)
 						<li class="{{ Request::is( 'informacie') ? 'active' : '' }}">

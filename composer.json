@@ -15,7 +15,8 @@
 		"fadion/bouncy": "dev-master",
 		"barryvdh/laravel-debugbar": "~1.8",
 		"rtconner/laravel-tagging": "~0.5",
-		"maatwebsite/excel": "~1.3.0"
+		"maatwebsite/excel": "~1.3.0",
+		"pda/pheanstalk": "~2.0"
 	},
 	"autoload": {
 		"classmap": [

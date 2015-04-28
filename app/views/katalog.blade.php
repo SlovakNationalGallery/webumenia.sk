@@ -160,7 +160,7 @@ $(document).ready(function(){
         spravGrid($container);
     });
     
-    /*$container.infinitescroll({
+    $container.infinitescroll({
         navSelector     : ".pagination",
         nextSelector    : ".pagination a:last",
         itemSelector    : ".item",
@@ -179,7 +179,7 @@ $(document).ready(function(){
             $newElems.fadeIn();
             $container.isotope( 'appended', $newElems );
         });
-    }); */
+    });
 
 });
 
