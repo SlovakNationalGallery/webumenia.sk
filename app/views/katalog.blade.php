@@ -87,7 +87,7 @@
                     @if ($items->count() == 0)
                         <p class="text-center">Momentálne žiadne diela</p>
                     @endif
-                    <?php $items = $items->paginate(18) ?>
+                    <?php // $items = $items->paginate(18) ?>
                     <div id="iso">
                 	@foreach ($items as $i=>$item)
     	                <div class="col-md-3 col-sm-4 col-xs-12 item">
@@ -111,7 +111,7 @@
 
                     </div>
                     <div class="col-sm-12 text-center">
-                        {{ $items->appends(@Input::except('page'))->links() }}
+                        {{ $paginator->appends(@Input::except('page'))->links() }}
                     </div>
                 </div>
 
@@ -159,8 +159,8 @@ $(document).ready(function(){
     $( window ).resize(function() {
         spravGrid($container);
     });
-
-    $container.infinitescroll({
+    
+    /*$container.infinitescroll({
         navSelector     : ".pagination",
         nextSelector    : ".pagination a:last",
         itemSelector    : ".item",
@@ -179,7 +179,7 @@ $(document).ready(function(){
             $newElems.fadeIn();
             $container.isotope( 'appended', $newElems );
         });
-    });
+    }); */
 
 });
 

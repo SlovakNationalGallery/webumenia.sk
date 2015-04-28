@@ -6,8 +6,14 @@ class CatalogController extends \BaseController {
 	{
 		$search = Input::get('search', null);
 		$input = Input::all();
+
+		$per_page = 18;
+		$page = \Input::get(Paginator::getPageName(), 1);
+		$offset = ($page * $per_page) - $per_page;	
+
 		$params = array();
-		$params["size"] = 100;
+		$params["from"] = $offset;
+		$params["size"] = $per_page;
 		$params["sort"][] = "_score";
 		$params["sort"][] = ["created_at"=>["order"=>"desc"]];
 
@@ -113,6 +119,7 @@ class CatalogController extends \BaseController {
 		} 
 
 		$items = Item::search($params);
+		$paginator = Paginator::make($items->all(), $items->total(), $per_page);
 
 		$authors = Item::listValues('author', $params);
 		$work_types = Item::listValues('work_type', $params);
@@ -131,6 +138,7 @@ class CatalogController extends \BaseController {
 			'galleries'=>$galleries, 
 			'search'=>$search, 
 			'input'=>$input, 
+			'paginator'=>$paginator, 
 			));
 	}
 

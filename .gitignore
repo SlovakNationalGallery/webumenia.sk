@@ -20,3 +20,5 @@ app/database/migrations/2014_07_01_193727_create_geonames_continents.php
 app/database/migrations/2014_07_01_193728_geonames_timezones_new_columns.php
 app/database/migrations/2014_07_01_193729_geonames_admin_divisions_longer_code.php
 app/database/migrations/2014_07_01_193730_geonames_defaults_and_nullables.php
+public/images/autori/*
+!public/images/autori/no-image*.jpeg

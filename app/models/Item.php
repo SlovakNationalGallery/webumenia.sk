@@ -78,14 +78,14 @@ class Item extends Eloquent {
 
 	    static::created(function($item)
 	    {
-	        $client = new Elasticsearch\Client();
-	        $item->index();
+	        // $client = new Elasticsearch\Client();
+	        // $item->index();
 	    });
 
 	    static::updated(function($item)
 	    {
-	        $client = new Elasticsearch\Client();
-	        $item->index();
+	        // $client = new Elasticsearch\Client();
+	        // $item->index();
 
 	    });
 
