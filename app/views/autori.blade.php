@@ -66,7 +66,6 @@
                     @if ($authors->count() == 0)
                         <p class="text-center">Momentálne žiadni autori</p>
                     @endif
-                    <?php $authors = $authors->paginate(18) ?>
                 	@foreach ($authors as $i=>$author)
                      <div class="row author">   
     	                <div class="col-sm-2">
@@ -106,7 +105,7 @@
                     </div>
                 	@endforeach
                     <div class="col-sm-12 text-center">
-                        {{ $authors->appends(@Input::except('page'))->links() }}
+                        {{ $paginator->appends(@Input::except('page'))->links() }}
                     </div>
                 </div>
 

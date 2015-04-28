@@ -4,10 +4,16 @@ class AuthorController extends \BaseController {
 
 	public function getIndex()
 	{
+		$per_page = 18;
+		$page = \Input::get(Paginator::getPageName(), 1);
+		$offset = ($page * $per_page) - $per_page;	
+
 		$search = Input::get('search', null);
 		$input = Input::all();
+
 		$params = array();
-		$params["size"] = 100;
+		$params["from"] = $offset;
+		$params["size"] = $per_page;
 		$params["sort"][] = "_score";
 		// $params["sort"][] = ["created_at"=>["order"=>"desc"]];
 		$params["sort"][] = ["items_count"=>["order"=>"desc"]];
@@ -118,6 +124,9 @@ class AuthorController extends \BaseController {
 			$authors = Authority::search($params);
 		});
 
+		$paginator = Paginator::make($authors->all(), $authors->total(), $per_page);
+
+
 		// $authors = Authority::listValues('author', $params);
 		$roles = Authority::listValues('role', $params);
 		$nationalities = Authority::listValues('nationality', $params);
@@ -130,6 +139,7 @@ class AuthorController extends \BaseController {
 			'nationalities'=>$nationalities, 
 			'places'=>$places, 
 			'input'=>$input, 
+			'paginator'=>$paginator, 
 			));
 	}
 
