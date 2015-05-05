@@ -52,6 +52,9 @@ class OaiPmhHarvest extends Command {
         	return;
         }
         $this->comment("Spúšťa sa harvest pre set {$harvest->set_name}.");
+
+        App::make('SpiceHarvesterController')->launch($id);
+        $this->comment("Dokoncene");
 	}
 
 	/**

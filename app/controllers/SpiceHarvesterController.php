@@ -409,7 +409,8 @@ class SpiceHarvesterController extends \BaseController {
     	switch ($type) {
     		case 'item':
 		    	$attributes = $this->mapItemAttributes($rec);
-			    $item = Item::where('id', '=', $rec->header->identifier)->first();
+			    // $item = Item::where('id', '=', $rec->header->identifier)->first();
+			    $item = Item::firstOrCreate(['id' => $rec->header->identifier]);
 			    $item->fill($attributes);
 			    $item->authorities()->sync($attributes['authority_ids']);
 			    $item->save();
