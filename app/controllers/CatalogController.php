@@ -155,7 +155,7 @@ class CatalogController extends \BaseController {
 	                        'type' 		=> 'cross_fields',
 							// 'fuzziness' =>  2,
 							// 'slop'		=>  2,
-        	                'fields' 	=> array("title.suggest", "author.suggest"),
+        	                'fields' 	=> array("identifier", "title.suggest", "author.suggest"),
 	                        'operator' 	=> 'and'
 	                    ),
 	                ),
