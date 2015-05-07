@@ -391,7 +391,7 @@ class SpiceHarvesterController extends \BaseController {
       
         // Upload image given by url
         if (!empty($attributes['img_url'])) {
-        	$this->downloadImage($item, $attributes['img_url']);
+        	// $this->downloadImage($item, $attributes['img_url']);
         }        
 
         return true;
@@ -578,6 +578,8 @@ class SpiceHarvesterController extends \BaseController {
 	    $topic=array(); // zaner - krajina s figuralnou kompoziciou / veduta
 	    $subject=array(); // objekt - dome/les/
 
+	try {
+
 	    foreach ($dcElements->subject as $key => $value) {
 	    	if ($this->starts_with_upper($value)) {
 	    		$subject[] = mb_strtolower($value, "UTF-8");
@@ -600,8 +602,9 @@ class SpiceHarvesterController extends \BaseController {
 	    }
 	    $attributes['authority_ids'] = $authority_ids;
 	    $attributes['author'] = $this->serialize($authors);
-	    $attributes['work_type'] = $type[0];
-	    $attributes['work_level'] = $type[1];
+	    if (!empty($type[0])) $attributes['work_type'] = $type[0];
+	    if (!empty($type[1])) $attributes['work_level'] = $type[1];
+	    
 	    $attributes['topic'] = $this->serialize($topic);
 	    $attributes['subject'] = $this->serialize($subject);
 	    $attributes['place'] = $this->serialize($dcElements->{'subject.place'});
@@ -637,6 +640,11 @@ class SpiceHarvesterController extends \BaseController {
 		    	}
 		    }
 	    }
+	} catch (Exception $e) {
+		Log::error('Identifier: ' . $identifier);
+		Log::error('Message: ' . $e->getMessage());
+		die();
+	}
 	    
 	    // pretypovat SimpleXMLElement na string
 	    foreach ($attributes as $key=>$attribute) {
