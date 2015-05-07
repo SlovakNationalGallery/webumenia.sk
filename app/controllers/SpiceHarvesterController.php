@@ -11,7 +11,7 @@ class SpiceHarvesterController extends \BaseController {
     const DUBLIN_CORE_NAMESPACE_ELEMTS = 'http://purl.org/dc/elements/1.1/';
     const DUBLIN_CORE_NAMESPACE_TERMS = 'http://purl.org/dc/terms/';
 
-
+    protected $exclude_prefix = array('x', 'z');
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -246,7 +246,7 @@ class SpiceHarvesterController extends \BaseController {
 	    foreach($recs as $rec) {
 	    	$processed_items++;
 
-	    	if (!$this->isDeletedRecord($rec)) { //ak je v sete oznaceny ako zmazany
+	    	if (!$this->isDeletedRecord($rec) && !$this->isExcludedRecord($rec)) { //ak je v sete oznaceny ako zmazany
 
 	    		//ak bol zmazany v tu v databaze, ale nachadza sa v OAI sete
 	    		$rec_id = (string)$rec->header->identifier;
@@ -306,6 +306,23 @@ class SpiceHarvesterController extends \BaseController {
     {
         if (isset($rec->header->attributes()->status) 
             && $rec->header->attributes()->status == 'deleted') {
+	        return true;
+        }
+        return false;
+    }
+
+    /**
+     * Return whether the record ID is excluded from harvest
+     * 
+     * @param SimpleXMLIterator The record object
+     * @return bool
+     */
+    private function isExcludedRecord($rec)
+    {
+        $rec_id = (string)$rec->header->identifier;
+        $rec_id_porefix = substr($rec_id, strpos( $rec_id, '.')+1, 1);
+        $rec_id_porefix = mb_strtolower($rec_id_porefix, "UTF-8");
+        if ( in_array($rec_id_porefix, $this->exclude_prefix) ) {
 	        return true;
         }
         return false;
@@ -391,7 +408,7 @@ class SpiceHarvesterController extends \BaseController {
       
         // Upload image given by url
         if (!empty($attributes['img_url'])) {
-        	// $this->downloadImage($item, $attributes['img_url']);
+        	$this->downloadImage($item, $attributes['img_url']);
         }        
 
         return true;
