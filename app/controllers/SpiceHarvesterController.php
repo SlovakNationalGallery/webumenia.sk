@@ -12,6 +12,8 @@ class SpiceHarvesterController extends \BaseController {
     const DUBLIN_CORE_NAMESPACE_TERMS = 'http://purl.org/dc/terms/';
 
     protected $exclude_prefix = array('x', 'z');
+    protected $log;
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -202,6 +204,10 @@ class SpiceHarvesterController extends \BaseController {
 	 */
 	public function launch($id)
 	{
+		$logFile = 'oai_harvest.log';
+		$this->log = new Monolog\Logger('oai_harvest');
+		$this->log->pushHandler(new Monolog\Handler\StreamHandler(storage_path().'/logs/'.$logFile, Monolog\Logger::WARNING));
+
 		Debugbar::disable();
 		$reindex = Input::get('reindex', false);
 		$processed_items = 0;
@@ -686,7 +692,13 @@ class SpiceHarvesterController extends \BaseController {
 	private function downloadImage($item, $img_url)
 	{
     	$file = $img_url;
-    	$data = file_get_contents($file);
+    	try {
+    		$data = file_get_contents($file);
+    	} catch (Exception $e) {
+    		$this->log->addError($img_url . ': ' . $e->getMessage());	
+    		return false;
+    	}
+    	
     	$full = true;
      	if ($new_file = $item->getImagePath($full)) {
             file_put_contents($new_file, $data);
