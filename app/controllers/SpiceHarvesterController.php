@@ -328,7 +328,7 @@ class SpiceHarvesterController extends \BaseController {
     	switch ($type) {
     		case 'item':
 		    	$attributes = $this->mapItemAttributes($rec);
-			    $item = Item::create($attributes);
+		    	$item = Item::updateOrCreate(['id' => $attributes['id']], $attributes);
 			    $item->authorities()->sync($attributes['authority_ids']);
     			break;
     		case 'author':
