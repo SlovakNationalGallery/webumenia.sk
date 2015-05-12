@@ -14,10 +14,10 @@
 
 @table-border-color:            #eee;
 
-@font-family-sans-serif:   "dederon_s_d_otbold", Helvetica, Arial, sans-serif;
-@font-family-serif:       "Minion",Georgia, "Times New Roman", Times, serif;
+@font-family-sans-serif:   "GTWalsheim", sans-serif;
+@font-family-serif:       "Minion", Georgia, "Times New Roman", Times, serif;
 
-@font-family-base:        @font-family-serif;
+@font-family-base:        @font-family-sans-serif;
 
 @input-border: #888;
 @state-success-bg: @input-border;
@@ -50,8 +50,8 @@ h5,
 h6, img.xko {
     margin: 0 0 20px;
     // text-transform: uppercase;
-    font-family: "dederon_s_d_otbold",Dederon,Arial,sans-serif;
-    font-weight: 700;
+    font-family: @font-family-sans-serif;
+    font-weight: bold;
 }
 
 h1 {
@@ -123,8 +123,8 @@ a:focus {
 
 .navbar {
     margin-bottom: 0;
-    
     background-color: @dark;
+    font-family: @font-family-sans-serif;
     
     a, .dropdown-menu a {
         color: @light;
@@ -147,10 +147,6 @@ a:focus {
     a.navbar-brand, a.navbar-brand:hover {
         background: none;
     }
-}
-
-.navbar-custom .nav li a {
-    text-transform: uppercase;
 }
 
 .navbar-custom .nav li a:hover,
