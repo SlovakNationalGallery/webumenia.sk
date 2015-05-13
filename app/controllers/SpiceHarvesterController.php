@@ -414,7 +414,7 @@ class SpiceHarvesterController extends \BaseController {
       
         // Upload image given by url
         if (!empty($attributes['img_url'])) {
-        	$this->downloadImage($item, $attributes['img_url']);
+        	// $this->downloadImage($item, $attributes['img_url']);
         }        
 
         return true;
