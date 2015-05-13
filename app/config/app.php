@@ -114,6 +114,7 @@ return array(
 		'Fadion\Bouncy\BouncyServiceProvider',
 		'Maatwebsite\Excel\ExcelServiceProvider',
 		'Conner\Tagging\TaggingServiceProvider',
+		'Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider',
 	),
 
 	/*

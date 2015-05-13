@@ -201,6 +201,7 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('authority/reindex', 'AuthorityController@reindex');
 	Route::resource('authority', 'AuthorityController');
 
+	Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 });
 
 App::missing(function($exception)

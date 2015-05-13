@@ -92,6 +92,9 @@
                         <li>
                             <a href="{{ URL::to('harvests') }}"><i class="fa fa-download fa-fw"></i> Spice Harvester</a>
                         </li>
+                        <li>
+                            <a href="{{ URL::to('logs') }}" target="_blank"><i class="fa fa-exclamation-triangle fa-fw"></i> Logy</a>
+                        </li>
                     </ul>
                     <!-- /#side-menu -->
                 </div>
