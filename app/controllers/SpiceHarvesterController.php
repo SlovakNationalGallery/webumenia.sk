@@ -219,6 +219,7 @@ class SpiceHarvesterController extends \BaseController {
 		$harvest = SpiceHarvesterHarvest::find($id);
 
         $start_from = null;
+        // $start_from = new DateTime('2014-01-01'); //docasne
 
 		if ($harvest->status == SpiceHarvesterHarvest::STATUS_COMPLETED && !$reindex) {
             $start_from = new DateTime($harvest->initiated);
@@ -244,6 +245,7 @@ class SpiceHarvesterController extends \BaseController {
 	    $myEndpoint = new \Phpoaipmh\Endpoint($client);
 
     	$recs = $myEndpoint->listRecords($harvest->metadata_prefix, $start_from, null, $harvest->set_spec);
+    	echo "celkovy pocet: ". $recs->getTotalRecordsInCollection() . "\n";
 	    $dt = new \DateTime;
 
 	    $collection = $harvest->collection;
@@ -251,6 +253,7 @@ class SpiceHarvesterController extends \BaseController {
 	    try {
 	    foreach($recs as $rec) {
 	    	$processed_items++;
+	    	if ($processed_items % 100 == 0) echo date('h:i:s'). " " . $processed_items . "\n";
 
 	    	if (!$this->isDeletedRecord($rec) && !$this->isExcludedRecord($rec)) { //ak je v sete oznaceny ako zmazany
 
@@ -596,7 +599,7 @@ class SpiceHarvesterController extends \BaseController {
 	                    ->children(self::DUBLIN_CORE_NAMESPACE_TERMS);
 
 	    $type = (array)$dcElements->type;
-	    $identifier = (array)$dcElements->identifier;
+	    $identifiers = (array)$dcElements->identifier;
 
 	    $topic=array(); // zaner - krajina s figuralnou kompoziciou / veduta
 	    $subject=array(); // objekt - dome/les/
@@ -611,8 +614,20 @@ class SpiceHarvesterController extends \BaseController {
 	    	}
 	    }
 
+	    foreach ($identifiers as $identifier) {
+	    	if ($identifier!=(string)$rec->header->identifier) {
+	    		//identifikator
+	    		if ($this->starts_with_upper($identifier))
+	    			$attributes['identifier'] = $identifier;  
+	    		if (strpos($identifier,'getimage') !== false)
+	    			$attributes['img_url'] = $identifier;  
+	    		if (strpos($identifier,'L2_WEB') !== false)
+	    			$attributes['iipimg_url'] = $this->resolveIIPUrl($identifier);   		
+	    	}
+	    	
+	    }
+
 	    $attributes['id'] = (string)$rec->header->identifier;
-	    $attributes['identifier'] = (!empty($identifier[2])) ? $identifier[2] : '';	    
 	    $attributes['title'] = $dcElements->title;
 	    $authors = array();
 	    $authority_ids = array();
@@ -644,25 +659,6 @@ class SpiceHarvesterController extends \BaseController {
 	    $attributes['inscription'] = $this->serialize($dcElements->description);
 	    $attributes['state_edition'] =  (!empty($type[2])) ? $type[2] : null;
 	    $attributes['gallery'] = $dcTerms->provenance;
-	    $attributes['img_url'] = (!empty($identifier[1]) && (strpos($identifier[1], 'http') === 0)) ? $identifier[1] : null; //ak nieje prazdne a zacina 'http'
-
-	    // $attributes['iipimg_url'] = NULL; // by default
-	    if (!empty($identifier[3]) && (strpos($identifier[3], 'http') === 0)) {
-	    	$iip_resolver = $identifier[3];
-	    	$str = @file_get_contents($iip_resolver);
-	    	if ($str != FALSE) {
-
-		    	$str = strip_tags($str, '<br>'); //zrusi vsetky html tagy okrem <br>
-				$iip_urls = explode('<br>', $str); //rozdeli do pola podla <br>
-				asort($iip_urls); // zoradi pole podla poradia - aby na zaciatku boli predne strany (1_2, 2_2 ... )
-				$iip_url = reset($iip_urls); // vrati prvy obrazok z pola - docasne - kym neumoznime viacero obrazkov k dielu
-		    	if (str_contains($iip_url, '.jp2')) { //fix: vracia blbosti. napr linky na obrazky na webumenia. ber to vazne len ak odkazuje na .jp2
-			    	$iip_url = substr($iip_url, strpos( $iip_url, '?FIF=')+5);
-			    	$iip_url = substr($iip_url, 0, strpos( $iip_url, '.jp2')+4);
-			    	$attributes['iipimg_url'] = $iip_url;	    		
-		    	}
-		    }
-	    }
 	} catch (Exception $e) {
 		Log::error('Identifier: ' . $identifier);
 		Log::error('Message: ' . $e->getMessage());
@@ -738,6 +734,24 @@ class SpiceHarvesterController extends \BaseController {
 	private function parseYear ( $string )
 	{
 	    return (int)end((explode('.', $string)));
+	}
+
+	private function resolveIIPUrl( $iip_resolver )
+	{
+    	$str = @file_get_contents($iip_resolver);
+    	if ($str != FALSE) {
+
+	    	$str = strip_tags($str, '<br>'); //zrusi vsetky html tagy okrem <br>
+			$iip_urls = explode('<br>', $str); //rozdeli do pola podla <br>
+			asort($iip_urls); // zoradi pole podla poradia - aby na zaciatku boli predne strany (1_2, 2_2 ... )
+			$iip_url = reset($iip_urls); // vrati prvy obrazok z pola - docasne - kym neumoznime viacero obrazkov k dielu
+	    	if (str_contains($iip_url, '.jp2')) { //fix: vracia blbosti. napr linky na obrazky na webumenia. ber to vazne len ak odkazuje na .jp2
+		    	$iip_url = substr($iip_url, strpos( $iip_url, '?FIF=')+5);
+		    	$iip_url = substr($iip_url, 0, strpos( $iip_url, '.jp2')+4);
+		    	return $iip_url;	    		
+	    	}
+	    }
+	    return null;
 	}
 
 }
