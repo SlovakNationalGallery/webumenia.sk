@@ -144,6 +144,9 @@ PUT /webumenia/_mapping/items
       "technique": {
         "type": "string"
       },
+      "dating": {
+        "type": "string"
+      },
       "date_earliest": {
         "type": "date",
         "index": "not_analyzed",
@@ -198,9 +201,14 @@ PUT /webumenia/_mapping/items
         "index": "not_analyzed",
         "format" : "yyyy-MM-dd HH:mm:ss"
       },
+      "has_image" : {
+        "type": "boolean"
+      },
+      "has_iip" : {
+        "type": "boolean"
+      },
       "free_download" : {
-        "type": "boolean",
-        "index": "not_analyzed"
+        "type": "boolean"
       }
     }
   }

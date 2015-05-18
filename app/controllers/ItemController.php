@@ -247,12 +247,17 @@ class ItemController extends \BaseController {
 
 	public function reindex()
 	{
-		$items = Item::get();
 		$i = 0;
-		foreach ($items as $item) {
-			$item->index();
-			$i++;
-		}
+
+		Item::chunk(200, function($items) use (&$i)
+		{
+		    foreach ($items as $item)
+		    {
+		        $item->index();
+				$i++;
+		    }
+		});
+		
 		return Redirect::back()->withMessage('Bolo reindexovaných ' . $i . ' diel');
 	}
 

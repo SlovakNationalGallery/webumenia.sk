@@ -366,13 +366,15 @@ class Item extends Eloquent {
 	        	'tag' => $this->tagNames(),
 	        	'place' => $this->makeArray($this->attributes['place']),
 	        	'measurement' => $this->measurments,
+	        	'dating' => $this->dating,
 	        	'date_earliest' => $this->attributes['date_earliest'],
 	        	'date_latest' => $this->attributes['date_latest'],
 	        	'medium' => $this->attributes['medium'],
 	        	'technique' => $this->makeArray($this->attributes['technique']), 
 	        	'gallery' => $this->attributes['gallery'],
 	        	'created_at' => $this->attributes['created_at'],
-	        	'free_download' => (!empty($this->attributes['free_download'])) ? $this->attributes['free_download'] : false,
+	        	'has_image' => $this->has_image,
+	        	'has_iip' => (!empty($this->attributes['iipimg_url'])) ? $this->attributes['iipimg_url'] : false,
 	        ];
 	        return $client->index([
 	        	'index' => Config::get('app.elasticsearch.index'),
