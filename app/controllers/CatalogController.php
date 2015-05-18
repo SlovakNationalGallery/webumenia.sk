@@ -16,6 +16,7 @@ class CatalogController extends \BaseController {
 		$params["size"] = $per_page;
 		$params["sort"][] = "_score";
 		$params["sort"][] = ["has_image"=>["order"=>"desc"]];
+		$params["sort"][] = ["has_iip"=>["order"=>"desc"]];
 		$params["sort"][] = ["created_at"=>["order"=>"desc"]];
 
 		if (!empty($input)) {
