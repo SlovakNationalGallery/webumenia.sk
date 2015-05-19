@@ -112,7 +112,10 @@ class CatalogController extends \BaseController {
 					$params["query"]["filtered"]["filter"]["and"][]["term"][$filter] = $value;
 				}
 			}
-            if(!empty($input['year-range'])) {
+            if(
+            	!empty($input['year-range']) &&
+            	$input['year-range']!=Item::sliderMin().','.Item::sliderMax() //nezmenena hodnota
+            ) {
             	$range = explode(',', $input['year-range']);
             	$params["query"]["filtered"]["filter"]["and"][]["range"]["date_earliest"]["gte"] = $range[0];
             	$params["query"]["filtered"]["filter"]["and"][]["range"]["date_latest"]["lte"] = $range[1];

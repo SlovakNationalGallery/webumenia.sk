@@ -16,7 +16,9 @@ class Item extends Eloquent {
 		'author',
 		'work_type',
 		'tag',
-		'gallery'
+		'gallery',
+		'has_image',
+		'has_iip',
 	);
 
 	protected $fillable = array(

@@ -617,12 +617,13 @@ class SpiceHarvesterController extends \BaseController {
 	    foreach ($identifiers as $identifier) {
 	    	if ($identifier!=(string)$rec->header->identifier) {
 	    		//identifikator
-	    		if ($this->starts_with_upper($identifier))
+	    		if ($this->starts_with_upper($identifier)) {
 	    			$attributes['identifier'] = $identifier;  
-	    		if (strpos($identifier,'getimage') !== false)
+	    		} elseif (strpos($identifier,'getimage') !== false) {
 	    			$attributes['img_url'] = $identifier;  
-	    		if (strpos($identifier,'L2_WEB') !== false)
+	    		} elseif (strpos($identifier,'L2_WEB') !== false) {
 	    			$attributes['iipimg_url'] = $this->resolveIIPUrl($identifier);   		
+	    		}
 	    	}
 	    	
 	    }

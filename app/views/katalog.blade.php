@@ -58,6 +58,19 @@
                 <div  class="col-sm-3">
                         {{ Form::select('gallery', array('' => '') + $galleries, @$input['gallery'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Inštitúcia / majiteľ')) }}
                 </div>
+                <div  class="col-sm-3">
+                        <div class="checkbox">
+                            <label>
+                              {{ Form::checkbox('has_image', '1', @$input['has_image']) }} len diela s obrázkami
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                              {{ Form::checkbox('has_iip', '1', @$input['has_iip']) }} len diela so zoom
+                            </label>
+                        </div>
+                        
+                </div>
             </div>
             <div class="row bottom-space" style="padding-top: 20px;">
                 <div  class="col-sm-3">
@@ -145,7 +158,7 @@ $(document).ready(function(){
 
     $(".chosen-select").chosen({allow_single_deselect: true})
 
-    $(".chosen-select").change(function() {
+    $(".chosen-select, input[type='checkbox']").change(function() {
         $(this).closest('form').submit();
     });
 
