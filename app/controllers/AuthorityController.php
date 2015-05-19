@@ -274,12 +274,13 @@ class AuthorityController extends \BaseController {
 
 	public function reindex()
 	{
-		$authorities = Authority::get();
 		$i = 0;
-		foreach ($authorities as $authority) {
-			$authority->index();
-			$i++;
-		}
+		Authority::chunk(200, function($authorities) use (&$i) {
+			foreach ($authorities as $authority) {
+				$authority->index();
+				$i++;
+			}
+		});
 		return Redirect::back()->withMessage('Bolo reindexovaných ' . $i . ' autorít');
 	}
 
