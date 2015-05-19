@@ -91,13 +91,13 @@
                                 {{ implode(", ", $author->roles->lists('role')) }}
                             </div>
                             <div>
-                                <a href="{{ url_to('katalog', ['author' => $author->name]) }}"><strong>{{ $author->items->count() }}</strong></a> diel
+                                <a href="{{ url_to('katalog', ['author' => $author->name]) }}"><strong>{{ $author->items_count }}</strong></a> diel
                             </div>
 
                         </div>
                         <div class="col-sm-6" >
                             <div class="artworks-preview">
-                            @foreach ($author->items->slice(0,7) as $item)
+                            @foreach ($author->previewItems as $item)
                                 <a href="{{ $item->getDetailUrl() }}"><img data-lazy="{{ $item->getImagePath() }}" class="img-responsive-width" ></a>
                             @endforeach
                             </div>

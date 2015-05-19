@@ -104,7 +104,7 @@
                     <div class="col-xs-12 ">
                     <h4>DIELA:</h4>
                             <div class="artworks-preview large">
-                            @foreach ($author->items->slice(0,9) as $item)
+                            @foreach ($author->previewItems as $item)
                                 <a href="{{ $item->getDetailUrl() }}"><img data-lazy="{{ $item->getImagePath() }}" class="img-responsive-width large" ></a>
                             @endforeach
                             </div>
