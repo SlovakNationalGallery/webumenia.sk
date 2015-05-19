@@ -114,7 +114,7 @@ class Authority extends Eloquent {
 
 	public function previewItems()
     {
-        return $this->belongsToMany('Item')->where('has_image', '=', 1)->orderBy('view_count', 'desc')->limit(10);
+        return $this->belongsToMany('Item')->where('publish', '=', 1)->orderBy('has_image', 'desc')->orderBy('view_count', 'desc')->limit(10);
     }
 
     public function links()
