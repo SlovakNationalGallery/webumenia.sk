@@ -97,7 +97,7 @@
                         </div>
                         <div class="col-sm-6" >
                             <div class="artworks-preview">
-                            @foreach ($author->previewItems as $item)
+                            @foreach ($author->getPreviewItems() as $item)
                                 <a href="{{ $item->getDetailUrl() }}"><img data-lazy="{{ $item->getImagePath() }}" class="img-responsive-width" ></a>
                             @endforeach
                             </div>

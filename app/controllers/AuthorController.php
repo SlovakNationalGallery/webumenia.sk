@@ -16,7 +16,7 @@ class AuthorController extends \BaseController {
 		$params["size"] = $per_page;
 		$params["sort"][] = "_score";
 		// $params["sort"][] = ["created_at"=>["order"=>"desc"]];
-		$params["sort"][] = ["items_count"=>["order"=>"desc"]];
+		$params["sort"][] = ["items_with_images_count"=>["order"=>"desc"]];
 		$params["sort"][] = ["has_image"=>["order"=>"desc"]];
 
 		if (!empty($input)) {
@@ -123,7 +123,7 @@ class AuthorController extends \BaseController {
 		Debugbar::measure('Elastic-search', function() use (&$authors, $params) {			
 			$authors = Authority::search($params);
 		});
-
+		$authors->load('roles');
 		$paginator = Paginator::make($authors->all(), $authors->total(), $per_page);
 
 

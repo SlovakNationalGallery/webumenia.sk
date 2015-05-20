@@ -117,14 +117,20 @@ class Authority extends Eloquent {
     	$params = array();
     	$params["size"] = 10;
     	$params["sort"][] = "_score";
-    	$params["sort"][] = ["has_image"=>["order"=>"desc"]];
-    	$params["sort"][] = ["has_iip"=>["order"=>"desc"]];
     	$params["sort"][] = ["created_at"=>["order"=>"desc"]];
+    	$params["query"] = [
+    		"bool"=> [
+    			"must" => [
+    				["term"=> [ "authority_id" => $this->attributes['id']]]
+    			],
+    			"should" => [
+    				["term"=> [ "has_image" => true ]],
+    				["term"=> [ "has_iip" => true ]]
+    			]
+    		]
+    	];
     	return Item::search($params);
-
         // return $this->belongsToMany('Item')->where('publish', '=', 1)->where('publish', '=', 1)->orderBy('has_image', 'desc')->orderBy('view_count', 'desc')->limit(10)->remember(5);
-        // return $this->belongsToMany('Item')->where('publish', '=', 1)->orderBy('view_count', 'desc')->limit(10);
-
     }
 
     public function links()
