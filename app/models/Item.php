@@ -19,6 +19,7 @@ class Item extends Eloquent {
 		'gallery',
 		'has_image',
 		'has_iip',
+		'is_free',
 	);
 
 	protected $fillable = array(
@@ -311,6 +312,35 @@ class Item extends Eloquent {
 
 	}
 
+	/**
+	 * ci je dielo volne
+	 * autor min 70 rokov po smrti - alebo je autor neznamy
+	 */
+	public function isFree()
+	{
+		foreach ($this->authorities as $authority) {
+			if (empty($authority->death_year)) {
+				return false;
+			} else {
+				$death = cedvuDatetime($authority->death_date);
+				$years = $death->diffInYears(Carbon::now());
+				if ($years < 70) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
+	private function relatedAuthorityIds()
+	{
+		$ids=array();
+		foreach ($this->authorities as $authority) {
+			$ids[] = $authority->id;
+		}
+		return $ids;
+	}
+
 	public function isFreeDownload()
 	{
 		return ($this->attributes['free_download'] && !empty($this->attributes['iipimg_url']));
@@ -320,6 +350,11 @@ class Item extends Eloquent {
 	{
 		return ($this->attributes['gallery'] == 'Slovenská národná galéria, SNG');
 	}
+
+	public function scopeHasImage($query)
+    {
+        return $query->where('has_image', '=', 1);
+    }
 
 	public function download() {
 
@@ -375,8 +410,11 @@ class Item extends Eloquent {
 	        	'technique' => $this->makeArray($this->attributes['technique']), 
 	        	'gallery' => $this->attributes['gallery'],
 	        	'created_at' => $this->attributes['created_at'],
-	        	'has_image' => $this->has_image,
-	        	'has_iip' => (!empty($this->attributes['iipimg_url'])) ? $this->attributes['iipimg_url'] : false,
+	        	'has_image' => (bool)$this->attributes['has_image'],
+	        	'has_iip' => (bool)$this->attributes['iipimg_url'],
+	        	'is_free' => $this->isFree(),
+	        	'free_download' => $this->isFreeDownload(),
+	        	'authority_id' => $this->relatedAuthorityIds(),
 	        ];
 	        return $client->index([
 	        	'index' => Config::get('app.elasticsearch.index'),

@@ -249,12 +249,15 @@ class ItemController extends \BaseController {
 	{
 		$i = 0;
 
-		Item::chunk(200, function($items) use (&$i)
-		{
+		Item::chunk(200, function($items) use (&$i) {
+			$items->load('authorities');
 		    foreach ($items as $item)
 		    {
 		        $item->index();
 				$i++;
+				if (App::runningInConsole()) {
+					if ($i % 100 == 0) echo date('h:i:s'). " " . $i . "\n";
+				}
 		    }
 		});
 		

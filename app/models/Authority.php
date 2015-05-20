@@ -112,9 +112,19 @@ class Authority extends Eloquent {
         return $this->belongsToMany('Item');
     }
 
-	public function previewItems()
+	public function getPreviewItems()
     {
-        return $this->belongsToMany('Item')->where('publish', '=', 1)->orderBy('has_image', 'desc')->orderBy('view_count', 'desc')->limit(10);
+    	$params = array();
+    	$params["size"] = 10;
+    	$params["sort"][] = "_score";
+    	$params["sort"][] = ["has_image"=>["order"=>"desc"]];
+    	$params["sort"][] = ["has_iip"=>["order"=>"desc"]];
+    	$params["sort"][] = ["created_at"=>["order"=>"desc"]];
+    	return Item::search($params);
+
+        // return $this->belongsToMany('Item')->where('publish', '=', 1)->where('publish', '=', 1)->orderBy('has_image', 'desc')->orderBy('view_count', 'desc')->limit(10)->remember(5);
+        // return $this->belongsToMany('Item')->where('publish', '=', 1)->orderBy('view_count', 'desc')->limit(10);
+
     }
 
     public function links()
@@ -289,6 +299,7 @@ class Authority extends Eloquent {
         	'has_image' => $this->has_image,
         	'created_at' => $this->attributes['created_at'],
         	'items_count' => $this->items->count(),
+        	'items_with_images_count' => $this->items()->hasImage()->count(),
         ];
         return Elastic::index([
         	'index' => Config::get('app.elasticsearch.index'),

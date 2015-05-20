@@ -42,3 +42,18 @@
 			return ' (' . $str . ')';
 		}		
 	}
+
+	/**
+	 * akceptuje datum narodenia/umrtia vo formate [dd.[mm.[yyyy]]]
+	 */
+	function cedvuDatetime($date)
+	{
+		if (empty($date)) return false;
+		$parts = explode('.', $date);
+		$date = implode('-', array_reverse($parts));
+		for ($i=count($parts); $i < 3; $i++) { 
+			$date = $date.'-01';
+		}
+		
+		return Carbon::parse($date);
+	}

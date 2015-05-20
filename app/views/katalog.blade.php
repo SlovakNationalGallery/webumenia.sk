@@ -69,6 +69,11 @@
                               {{ Form::checkbox('has_iip', '1', @$input['has_iip']) }} len diela so zoom
                             </label>
                         </div>
+                        <div class="checkbox">
+                            <label>
+                              {{ Form::checkbox('is_free', '1', @$input['is_free']) }} len voľné diela
+                            </label>
+                        </div>
                         
                 </div>
             </div>

@@ -276,9 +276,13 @@ class AuthorityController extends \BaseController {
 	{
 		$i = 0;
 		Authority::chunk(200, function($authorities) use (&$i) {
+			$authorities->load('items');
 			foreach ($authorities as $authority) {
 				$authority->index();
 				$i++;
+				if (App::runningInConsole()) {
+					if ($i % 100 == 0) echo date('h:i:s'). " " . $i . "\n";
+				}
 			}
 		});
 		return Redirect::back()->withMessage('Bolo reindexovaných ' . $i . ' autorít');

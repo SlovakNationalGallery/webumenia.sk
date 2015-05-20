@@ -184,6 +184,7 @@ return array(
         'Former' => 'Former\Facades\Former',
         'Elastic' => 'Fadion\Bouncy\Facades\Elastic',
         'Excel' => 'Maatwebsite\Excel\Facades\Excel',
+        'Carbon' => 'Carbon\Carbon',
 	),
 
 	'jira_auth' => array(
