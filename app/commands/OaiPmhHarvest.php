@@ -51,6 +51,11 @@ class OaiPmhHarvest extends Command {
         	$this->error("Nenašiel sa set pre dané ID.");
         	return;
         }
+        $reindex =$this->option('reindex');
+        if ($reindex) {
+        	$this->info("Je zapnutý reindex celého setu. Bude to trvať dlhšie.");
+        	Input::merge(array('reindex' => true));
+        }
         $this->comment("Spúšťa sa harvest pre set {$harvest->set_name}.");
 
         App::make('SpiceHarvesterController')->launch($id);
@@ -78,6 +83,7 @@ class OaiPmhHarvest extends Command {
 	{
 		return array(
 			array('id', null, InputOption::VALUE_OPTIONAL, 'Spice Harvester harvest ID.', null),
+			array('reindex', null, InputOption::VALUE_OPTIONAL, 'Re-harvest all records.', false),
 		);
 	}
 
