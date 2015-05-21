@@ -49,6 +49,7 @@ class Item extends Eloquent {
 		'img_url',
 		'iipimg_url',
 		'item_type',
+		'publish',
 	);
 
 	public static $rules = array(
