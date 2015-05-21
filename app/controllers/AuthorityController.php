@@ -285,7 +285,12 @@ class AuthorityController extends \BaseController {
 				}
 			}
 		});
-		return Redirect::back()->withMessage('Bolo reindexovaných ' . $i . ' autorít');
+		$message = 'Bolo reindexovaných ' . $i . ' autorít';
+		if (App::runningInConsole()) {
+			echo $message; return true;
+		} 
+		return Redirect::back()->withMessage($message);
+
 	}
 
 }

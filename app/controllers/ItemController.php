@@ -260,8 +260,11 @@ class ItemController extends \BaseController {
 				}
 		    }
 		});
-		
-		return Redirect::back()->withMessage('Bolo reindexovaných ' . $i . ' diel');
+		$message = 'Bolo reindexovaných ' . $i . ' diel';
+		if (App::runningInConsole()) {
+			echo $message; return true;
+		} 
+		return Redirect::back()->withMessage($message);
 	}
 
 }

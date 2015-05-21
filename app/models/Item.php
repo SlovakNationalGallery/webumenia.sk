@@ -81,14 +81,14 @@ class Item extends Eloquent {
 
 	    static::created(function($item)
 	    {
-	        // $client = new Elasticsearch\Client();
-	        // $item->index();
+	        $client = new Elasticsearch\Client();
+	        $item->index();
 	    });
 
 	    static::updated(function($item)
 	    {
-	        // $client = new Elasticsearch\Client();
-	        // $item->index();
+	        $client = new Elasticsearch\Client();
+	        $item->index();
 
 	    });
 
@@ -347,7 +347,7 @@ class Item extends Eloquent {
 
 	public function isFreeDownload()
 	{
-		return ($this->attributes['free_download'] && !empty($this->attributes['iipimg_url']));
+		return ($this->isFree() && !empty($this->attributes['iipimg_url']));
 	}
 
 	public function isForReproduction()
@@ -414,10 +414,10 @@ class Item extends Eloquent {
 	        	'technique' => $this->makeArray($this->attributes['technique']), 
 	        	'gallery' => $this->attributes['gallery'],
 	        	'created_at' => $this->attributes['created_at'],
-	        	'has_image' => (bool)$this->attributes['has_image'],
-	        	'has_iip' => (bool)$this->attributes['iipimg_url'],
+	        	'has_image' => (bool)$this->has_image,
+	        	'has_iip' => (bool)$this->iipimg_url,
 	        	'is_free' => $this->isFree(),
-	        	'free_download' => $this->isFreeDownload(),
+	        	// 'free_download' => $this->isFreeDownload(), // staci zapnut is_free + has_iip
 	        	'authority_id' => $this->relatedAuthorityIds(),
 	        ];
 	        return $client->index([

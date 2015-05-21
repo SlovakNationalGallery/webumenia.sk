@@ -221,8 +221,8 @@ class SpiceHarvesterController extends \BaseController {
         $start_from = null;
         // $start_from = new DateTime('2014-01-01'); //docasne
 
-		if ($harvest->status == SpiceHarvesterHarvest::STATUS_COMPLETED && !$reindex) {
-            $start_from = new DateTime($harvest->initiated);
+		if (($harvest->status == SpiceHarvesterHarvest::STATUS_COMPLETED || $harvest->status == SpiceHarvesterHarvest::STATUS_IN_PROGRESS) && !$reindex) {
+            $start_from = new DateTime($harvest->completed);
             // $start_from->sub(new DateInterval('P1D'));
         } 
 
@@ -245,7 +245,9 @@ class SpiceHarvesterController extends \BaseController {
 	    $myEndpoint = new \Phpoaipmh\Endpoint($client);
 
     	$recs = $myEndpoint->listRecords($harvest->metadata_prefix, $start_from, null, $harvest->set_spec);
-    	echo "celkovy pocet: ". $recs->getTotalRecordsInCollection() . "\n";
+    	if (App::runningInConsole()) {
+    		echo "celkovy pocet: ". $recs->getTotalRecordsInCollection() . "\n";
+    	}
 	    $dt = new \DateTime;
 
 	    $collection = $harvest->collection;
@@ -253,7 +255,9 @@ class SpiceHarvesterController extends \BaseController {
 	    try {
 	    foreach($recs as $rec) {
 	    	$processed_items++;
-	    	if ($processed_items % 100 == 0) echo date('h:i:s'). " " . $processed_items . "\n";
+	    	if (App::runningInConsole()) {
+		    	if ($processed_items % 100 == 0) echo date('h:i:s'). " " . $processed_items . "\n";
+		    }
 
 	    	if (!$this->isDeletedRecord($rec) && !$this->isExcludedRecord($rec)) { //ak je v sete oznaceny ako zmazany
 
@@ -269,12 +273,20 @@ class SpiceHarvesterController extends \BaseController {
 			        if ($existingRecord) {	    			
 			            // ak sa zmenil datestamp, update item - inak ignorovat
 			            // if( $existingRecord->datestamp != $rec->header->datestamp) {
-			                $this->updateRecord($existingRecord, $rec, $harvest->type);
-			                $updated_items++;
+			                if ($this->updateRecord($existingRecord, $rec, $harvest->type)) {
+			                	$updated_items++;	
+			                } else {
+			                	$skipped_items++;
+			                }
+			                
 			            // }
 			        } else {
-			            $this->insertRecord($id, $rec, $harvest->type);
-			            $new_items++;
+			            if ($this->insertRecord($id, $rec, $harvest->type)) {
+			            	$new_items++;	
+			            } else {
+			            	$skipped_items++;
+			            }
+			            
 			        }
 
 			        // ak je zvolena kolekcia - hned do nej pridat
@@ -299,6 +311,9 @@ class SpiceHarvesterController extends \BaseController {
 		$harvest->completed = date('Y-m-d H:i:s');
 	    $harvest->save();
 
+	    if (App::runningInConsole()) {
+			echo $message . "\n"; return true;	
+		}
 
 	    Session::flash('message', $message);
 	    return Redirect::route('harvests.index');
@@ -354,6 +369,7 @@ class SpiceHarvesterController extends \BaseController {
     	switch ($type) {
     		case 'item':
 		    	$attributes = $this->mapItemAttributes($rec);
+		    	if(isSet($attributes['publish']) && $attributes['publish']==0) return false;
 		    	$item = Item::updateOrCreate(['id' => $attributes['id']], $attributes);
 			    $item->authorities()->sync($attributes['authority_ids']);
     			break;
@@ -417,7 +433,7 @@ class SpiceHarvesterController extends \BaseController {
       
         // Upload image given by url
         if (!empty($attributes['img_url'])) {
-        	// $this->downloadImage($item, $attributes['img_url']);
+        	$this->downloadImage($item, $attributes['img_url']);
         }        
 
         return true;
@@ -435,6 +451,7 @@ class SpiceHarvesterController extends \BaseController {
     	switch ($type) {
     		case 'item':
 		    	$attributes = $this->mapItemAttributes($rec);
+		    	if(isSet($attributes['publish']) && $attributes['publish']==0) return false;
 			    // $item = Item::where('id', '=', $rec->header->identifier)->first();
 			    $item = Item::firstOrCreate(['id' => $rec->header->identifier]);
 			    $item->fill($attributes);
@@ -660,6 +677,7 @@ class SpiceHarvesterController extends \BaseController {
 	    $attributes['inscription'] = $this->serialize($dcElements->description);
 	    $attributes['state_edition'] =  (!empty($type[2])) ? $type[2] : null;
 	    $attributes['gallery'] = $dcTerms->provenance;
+	    if (isSet($dcElements->rights[0])) $attributes['publish'] = (int)$dcElements->rights[0];
 	} catch (Exception $e) {
 		Log::error('Identifier: ' . $identifier);
 		Log::error('Message: ' . $e->getMessage());
