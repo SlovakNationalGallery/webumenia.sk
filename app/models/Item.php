@@ -318,9 +318,13 @@ class Item extends Eloquent {
 	 */
 	public function isFree()
 	{
+		$copyright_length = 70; // 70 rokov po smrti autora
+		$limit_according_item_dating = $copyright_length + 60; // 60 = 80 (max_life_lenght) - 20 (start_of_publishing)
 		foreach ($this->authorities as $authority) {
 			if (empty($authority->death_year)) {
-				return false;
+				if ((date('Y') - $this->attributes['date_latest']) < $limit_according_item_dating) {
+					return false;	
+				}
 			} else {
 				$death = cedvuDatetime($authority->death_date);
 				$years = $death->diffInYears(Carbon::now());

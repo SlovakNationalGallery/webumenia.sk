@@ -7,6 +7,14 @@ class CatalogController extends \BaseController {
 		$search = Input::get('search', null);
 		$input = Input::all();
 
+		//ak zada presne ID
+		if (strpos($search, ':')!==false) {
+			$item = Item::find($search);
+			if ($item) {
+				return Redirect::to($item->getDetailUrl());
+			}
+		}
+
 		$per_page = 18;
 		$page = \Input::get(Paginator::getPageName(), 1);
 		$offset = ($page * $per_page) - $per_page;	
@@ -30,6 +38,15 @@ class CatalogController extends \BaseController {
 					  	  "query": {
 							  "bool": {
 							    "should": [
+
+							      { "match": {
+							          "identifier": {
+							            "query": "'.$search.'",
+							            "boost": 10
+							          }
+							        }
+							      },
+
 							      { "match": {
 							          "author.folded": {
 							            "query": "'.$search.'",
