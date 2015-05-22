@@ -110,9 +110,9 @@ class AuthorController extends \BaseController {
             	$input['year-range']!=Authority::sliderMin().','.Authority::sliderMax() //nezmenena hodnota
             ) {
             	$range = explode(',', $input['year-range']);
-            	$params["query"]["filtered"]["filter"]["bool"]["should"][]["range"]["death_year"]["gte"] = (int)$range[0];
+            	$params["query"]["filtered"]["filter"]["bool"]["should"][]["range"]["death_year"]["gte"] = (string)$range[0];
             	$params["query"]["filtered"]["filter"]["bool"]["should"][]["missing"]["field"] = "death_year";
-            	$params["query"]["filtered"]["filter"]["bool"]["must"][]["range"]["birth_year"]["lte"] = (int)$range[1];
+            	$params["query"]["filtered"]["filter"]["bool"]["must"][]["range"]["birth_year"]["lte"] = (string)$range[1];
             }
             if(!empty($input['first-letter'])) {
             	$params["query"]["filtered"]["filter"]["bool"]["must"][]["prefix"]["name"] = $input['first-letter'];
