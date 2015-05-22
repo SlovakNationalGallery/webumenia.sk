@@ -302,7 +302,7 @@ class Authority extends Eloquent {
         	'birth_place' => $this->birth_place,
         	'death_place' => $this->death_place,
         	'sex' => $this->sex,
-        	'has_image' => $this->has_image,
+        	'has_image' => (boolean)$this->has_image,
         	'created_at' => $this->attributes['created_at'],
         	'items_count' => $this->items->count(),
         	'items_with_images_count' => $this->items()->hasImage()->count(),

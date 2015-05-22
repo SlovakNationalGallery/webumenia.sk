@@ -17,6 +17,7 @@ class AuthorController extends \BaseController {
 		$params["sort"][] = "_score";
 		// $params["sort"][] = ["created_at"=>["order"=>"desc"]];
 		$params["sort"][] = ["items_with_images_count"=>["order"=>"desc"]];
+		$params["sort"][] = ["items_count"=>["order"=>"desc"]];
 		$params["sort"][] = ["has_image"=>["order"=>"desc"]];
 
 		if (!empty($input)) {
