@@ -35,11 +35,7 @@
         <!--  /favicons-->
 
         <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        {{ HTML::style('css/styles.css') }}
-        {{ HTML::style('css/plugins/iip/iip.css') }}
-        <!--[if lt IE 10]>
-            {{ HTML::style('css/plugins/iip/ie.css') }}
-        <![endif]-->
+        {{ HTML::style('css/style.css') }}
 
   <!-- Basic example style for a 100% view -->
   <style type="text/css">
@@ -47,6 +43,7 @@
       height: 100%;
       padding: 0;
       margin: 0;
+      background-color: #000;
     }
     div#viewer{
       height: 100%;
@@ -57,37 +54,70 @@
       left: 0;
       margin: 0;
       padding: 0;
-    }   
+    }
   </style>
-
-
-  <script src="//ajax.googleapis.com/ajax/libs/mootools/1.4.5/mootools-yui-compressed.js"></script>
-  {{ HTML::script('js/iipmooviewer-2.0-min.js') }}
-
-<!--[if lt IE 7]>
-  <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE7.js">IE7_PNG_SUFFIX = ".png";</script>
-<![endif]-->
-
-  <script type="text/javascript">
-
-    var server = '/fcgi-bin/iipsrv.fcgi';
-    var image = '{{ $item->iipimg_url }}';
-    var credit = '&copy; {{ $item->gallery }}';
-
-    new IIPMooViewer( "viewer", {
-        prefix: '/images/iip/',
-        server: server,
-        image: image,
-        credit: credit
-    });
-
-  </script>
 
  </head>
 
- <body>
+ <body id="zoomed">
    <div id="viewer"></div>
    <a class="btn btn-default btn-outline return" href="{{ URL::previous() }}" role="button"><i class="fa fa-arrow-left"></i> naspäť</a>
+    <div id="toolbarDiv">
+            <a id="zoom-in" href="#zoom-in" title="Zoom in"><i class="fa fa-plus"></i></a> 
+            <a id="zoom-out" href="#zoom-out" title="Zoom out"><i class="fa fa-minus"></i></a>
+            <a id="home" href="#home" title="Go home"><i class="fa fa-home"></i></a> 
+            <a id="full-page" href="#full-page" title="Toggle full page"><i class="fa fa-expand"></i></a> 
+    </div>
+    
+    <div class="credit">&copy; {{ $item->gallery }}</div>
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+   {{ HTML::script('js/openseadragon.js') }}
+
+   <script type="text/javascript">
+   $("document").ready(function()
+   {
+     var server = '/fcgi-bin/iipsrv.fcgi';
+     var image = '{{ $item->iipimg_url }}';
+     // var viewer1;
+
+     viewer = OpenSeadragon({
+       id: "viewer",
+       prefixUrl: "/images/openseadragon/",
+       toolbar:        "toolbarDiv",
+       zoomInButton:   "zoom-in",
+       zoomOutButton:  "zoom-out",
+       homeButton:     "home",
+       fullPageButton: "full-page",
+       // nextButton:     "next",
+       // previousButton: "previous",
+       showNavigator:  false,
+       // navigatorPosition: "ABSOLUTE",
+       // navigatorTop:      "40px",
+       // navigatorRight:     "10px",
+       // navigatorHeight:   "120px",
+       // navigatorWidth:    "145px",
+       tileSources: server + "?DeepZoom=" + image + ".dzi",
+       visibilityRatio: 1,
+       minZoomLevel: 1,
+       defaultZoomLevel: 0
+     });
+
+     document.oncontextmenu = function() {$('#zoom-out').click(); return false;};
+
+     $(document).mousedown(function(e){ 
+      if( e.button == 2 ) { 
+        viewer.viewport.zoomBy(0.45); //0.9 * 0.5
+        return false; 
+      } 
+      return true; 
+     }); 
+
+   });
+
+   </script>
+
+
  </body>
 
 </html>
