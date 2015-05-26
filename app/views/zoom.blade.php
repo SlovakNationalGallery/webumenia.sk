@@ -4,8 +4,8 @@
 <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Online výstava Dve krajiny - obraz Slovenska - 19. storočie x súčastnosť">
-        <meta name="author" content="SNG, Igor Rjabinin">
+        <meta name="author" content="lab.SNG">
+        <meta name="robots" content="noindex, nofollow">
 
         <title>
             {{ $item->title }} | zoom
@@ -61,14 +61,13 @@
 
  <body id="zoomed">
    <div id="viewer"></div>
-   <a class="btn btn-default btn-outline return" href="{{ URL::previous() }}" role="button"><i class="fa fa-arrow-left"></i> naspäť</a>
-    <div id="toolbarDiv">
+   <div id="toolbarDiv">
             <a id="zoom-in" href="#zoom-in" title="Zoom in"><i class="fa fa-plus"></i></a> 
             <a id="zoom-out" href="#zoom-out" title="Zoom out"><i class="fa fa-minus"></i></a>
             <a id="home" href="#home" title="Go home"><i class="fa fa-home"></i></a> 
             <a id="full-page" href="#full-page" title="Toggle full page"><i class="fa fa-expand"></i></a> 
-    </div>
-    
+   </div>
+   <a class="btn btn-default btn-outline return" href="{{ URL::previous() }}" role="button"><i class="fa fa-arrow-left"></i> naspäť</a>    
     <div class="credit">&copy; {{ $item->gallery }}</div>
 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -79,7 +78,6 @@
    {
      var server = '/fcgi-bin/iipsrv.fcgi';
      var image = '{{ $item->iipimg_url }}';
-     // var viewer1;
 
      viewer = OpenSeadragon({
        id: "viewer",
