@@ -220,6 +220,20 @@
         </div>
     </div>
 </section>
+<section class="more-items content-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h4>Súvisiace obrazy:</h4>
+                <div class="artworks-preview large">
+                @foreach ($more_items as $item)
+                    <a href="{{ $item->getDetailUrl() }}"><img data-lazy="{{ $item->getImagePath() }}" class="img-responsive-width large" ></a>
+                @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!-- Modal -->
 <div tabindex="-1" class="modal fade" id="license" role="dialog">
@@ -269,6 +283,7 @@
 
 
 @section('javascript')
+{{ HTML::script('js/slick.js') }}
 {{ HTML::script('js/readmore.min.js') }}
 {{ HTML::script('js/jquery.fileDownload.js') }}
 <script type="text/javascript">
@@ -297,6 +312,17 @@
                 }
             });
             return false; //this is critical to stop the click event which will trigger a normal file download!
+        });
+
+        $('.artworks-preview').slick({
+            dots: false,
+            lazyLoad: 'progressive',
+            infinite: false,
+            speed: 300,
+            slidesToShow: 1,
+            slide: 'a',
+            centerMode: false,
+            variableWidth: true,
         });
 
 // $(document).on("click", "#download", function() {
