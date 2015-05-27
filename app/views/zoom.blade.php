@@ -103,6 +103,10 @@
 
      document.oncontextmenu = function() {$('#zoom-out').click(); return false;};
 
+     $(document).dblclick(function() {
+       viewer.viewport.goHome();
+     });
+
      $(document).mousedown(function(e){ 
       if( e.button == 2 ) { 
         viewer.viewport.zoomBy(0.45); //0.9 * 0.5
