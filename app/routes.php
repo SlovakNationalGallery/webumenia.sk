@@ -265,9 +265,11 @@ App::missing(function($exception)
         		   					$replace_pairs = ['"' => '', '\"' => '', '“' => ''];
         		   					$value = strtr($value, $replace_pairs);
         		   					$parts = explode(' ', $value);
-        		   					$last_name = array_pop($parts);
-        		   					$value = $last_name . ', ' . implode(' ', $parts);
-        		   					$apply_filters[$filter] = $value;
+        		   					if (count($parts) > 1) {
+	        		   					$last_name = array_pop($parts);
+	        		   					$value = $last_name . ', ' . implode(' ', $parts);
+	        		   					$apply_filters[$filter] = $value;
+	        		   				}
         		   					break;
         		   			}
         		   		}

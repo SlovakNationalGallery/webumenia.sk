@@ -103,9 +103,9 @@
 
      document.oncontextmenu = function() {$('#zoom-out').click(); return false;};
 
-     $(document).dblclick(function() {
-       viewer.viewport.goHome();
-     });
+     // $(document).dblclick(function() {
+     //   viewer.viewport.goHome();
+     // });
 
      $(document).mousedown(function(e){ 
       if( e.button == 2 ) { 
