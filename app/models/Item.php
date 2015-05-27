@@ -131,6 +131,43 @@ class Item extends Eloquent {
 		return URL::to('dielo/' . $this->id);
 	}
 
+	public function moreLikeThis($size = 10) {
+		$params = array();
+		$params["size"] = $size;
+		// $params["sort"][] = "_score";
+		// $params["sort"][] = "has_image";
+		$params["query"] = [
+			"bool"=> [
+				"must" => [
+					["more_like_this"=> [ 
+						"fields" => [
+							"author","title.stemmed","description.stemmed", "tag"
+						],
+						"ids" => [$this->attributes['id']],
+						"min_term_freq" => 1,
+						"percent_terms_to_match" => 0.5,
+						"min_word_length" => 2,
+						]
+					]
+				],
+				"should" => [
+					// ["match"=> [ 
+					// 	"author" => $this->attributes['author'],
+					// 	],
+					// ],
+					["terms"=> [ "authority_id" => $this->relatedAuthorityIds() ] ],
+					["term"=> [ "has_image" => [
+							"value" => true,
+							"boost" => 10
+							] 
+					] ],
+					["term"=> [ "has_iip" => true ]]
+				]
+			]
+		];
+		return self::search($params);
+	}
+
 	public static function getImagePathForId($id, $full = false, $resize = false)
 	{
 

@@ -144,8 +144,8 @@ Route::get('dielo/{id}', function($id)
 	$item->view_count += 1; 
 	$item->save();
 
-	// $more_items = null;
-	$more_items = Item::moreLikeThis(['author','title','description', 'tag'],[$item->id])->limit(20);
+	// $more_items = Item::moreLikeThis(['author','title.stemmed','description.stemmed', 'tag', 'place'],[$item->id])->limit(20);
+	$more_items = $item->moreLikeThis(20);
 
 	$collection = $item->collections->first();
 	return View::make('dielo', array('item'=>$item, 'collection' => $collection, 'more_items' => $more_items ));
