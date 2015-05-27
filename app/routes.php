@@ -236,6 +236,10 @@ App::missing(function($exception)
         $parts = explode('/', $uri);
         $action = $parts[2];
         switch ($action) {
+        	case 'about':
+    			return Redirect::to('informacie', 301);
+        		break;
+        	
         	case 'detail':
         		$id = $parts[6];
         		$item = Item::find($id);
