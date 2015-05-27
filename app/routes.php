@@ -210,5 +210,48 @@ Route::group(array('before' => 'auth'), function(){
 
 App::missing(function($exception)
 {
+    if (Request::is('web/guest/*'))
+    {
+        $work_type_lookup = [
+        	'fotografia' => 'photo',
+        	'grafika' => 'graphic',
+        	'kresba' => 'drawing',
+        	'maliarstvo' => 'painting',
+        	'sochárstvo' => 'sculpture',
+        	'úžitkové umenie' => 'graphic_design',
+        	'úžitkové umenie' => 'aplplied_arts',
+        	'iné médiá' => 'ine_media',
+        	'umelecké remeslo' => 'umelecke_remeslo',
+        ];
+        $uri = Request::path();
+        $parts = explode('/', $uri);
+        $action = $parts[2];
+        switch ($action) {
+        	case 'detail':
+        		$id = $parts[6];
+        		$item = Item::find($id);
+        		if ($item){
+        			return Redirect::to($item->getDetailUrl(), 301);
+        		}
+        		break;
+        	
+        	case 'search':
+        		$query = array_pop($parts);
+        		$query = urldecode(str_replace("query=", "", $query));
+        		$query = preg_replace("/(\w+):/", "", $query); // vymaze slova konciace dvojbodkou. napr "au:"
+        		$query = trim(preg_replace('/[^\da-z ]/i', "", $query)); // necha iba alfanumericke znaky + medzeru
+        		return Redirect::to('katalog?search=' . urlencode($query), 301);
+        		break;
+        	
+        	case (in_array($action, $work_type_lookup)):
+        		$work_type = array_search($action, $work_type_lookup);
+        		return Redirect::to(URL::to('katalog?work_type=' . $work_type), 301);
+        		break;
+        	
+        	default:
+        		# code...
+        		break;
+        }
+    }
     return Response::view('errors.missing', array('transparent_menu'=>true), 404);
 });
