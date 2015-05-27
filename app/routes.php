@@ -217,6 +217,10 @@ App::missing(function($exception)
     	}
     } elseif (Request::is('web/guest/*'))
     {
+        $filter_lookup = [
+        	'author' => 'au',
+        	'work_type' => 'wt',
+        ];
         $work_type_lookup = [
         	'fotografia' => 'photo',
         	'grafika' => 'graphic',
@@ -243,8 +247,37 @@ App::missing(function($exception)
         	case 'search':
         		$query = array_pop($parts);
         		$query = urldecode($query);
-        		$query = preg_replace("/(\w+)[:=]/", " ", $query); // vymaze slova konciace "=" alebo ":" -> napr "au:"
-        		$query = trim(preg_replace('/[^\da-z ]/i', "", $query)); // necha iba alfanumericke znaky + medzeru
+        		$query = preg_replace("/(\w+)[=]/", " ", $query); // vymaze slova konciace "=" alebo ":" -> napr "au:"
+        		if (preg_match_all('/\s*([^:]+):(.*)/', $query, $matches)) {
+        		   $apply_filters = array();
+        		   $filters = array_combine ( $matches[1], $matches[2] );
+        		   foreach ($filters as $filter => $value) {
+        		   		if (in_array($filter, $filter_lookup)) {
+        		   			$filter = array_search($filter, $filter_lookup);
+        		   			switch ($filter) {
+        		   				case 'work_type':
+        		   					$parts = explode(', ', $value);
+        		   					$value = reset($parts);
+        		   					$value = str_to_alphanumeric($value);
+        		   					$apply_filters[$filter] = $value;
+        		   					break;
+        		   				case 'author':
+        		   					$replace_pairs = ['"' => '', '\"' => '', '“' => ''];
+        		   					$value = strtr($value, $replace_pairs);
+        		   					$parts = explode(' ', $value);
+        		   					$last_name = array_pop($parts);
+        		   					$value = $last_name . ', ' . implode(' ', $parts);
+        		   					$apply_filters[$filter] = $value;
+        		   					break;
+        		   			}
+        		   		}
+        		   }
+        		   if (!empty($apply_filters)) {
+        		   		return Redirect::to('katalog?' . http_build_query($apply_filters), 301);
+        		   }
+        		   $query = implode(' ', $filters);
+        		}
+        		$query = $value = str_to_alphanumeric($query, ' ');
         		return Redirect::to('katalog?search=' . urlencode($query), 301);
         		break;
         	
