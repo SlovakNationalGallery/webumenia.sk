@@ -141,7 +141,7 @@ class Item extends Eloquent {
 				"must" => [
 					["more_like_this"=> [ 
 						"fields" => [
-							"author","title.stemmed","description.stemmed", "tag"
+							"author.folded","title.stemmed","description.stemmed", "tag"
 						],
 						"ids" => [$this->attributes['id']],
 						"min_term_freq" => 1,
@@ -155,7 +155,7 @@ class Item extends Eloquent {
 					// 	"author" => $this->attributes['author'],
 					// 	],
 					// ],
-					["terms"=> [ "authority_id" => $this->relatedAuthorityIds() ] ],
+					// ["terms"=> [ "authority_id" => $this->relatedAuthorityIds() ] ],
 					["term"=> [ "has_image" => [
 							"value" => true,
 							"boost" => 10
