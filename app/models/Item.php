@@ -141,7 +141,7 @@ class Item extends Eloquent {
 				"must" => [
 					["more_like_this"=> [ 
 						"fields" => [
-							"author.folded","title.stemmed","description.stemmed", "tag"
+							"author.folded","title","title.stemmed","description.stemmed", "tag.folded", "place", "technique"
 						],
 						"ids" => [$this->attributes['id']],
 						"min_term_freq" => 1,
