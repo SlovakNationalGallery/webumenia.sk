@@ -237,8 +237,8 @@ App::missing(function($exception)
         	
         	case 'search':
         		$query = array_pop($parts);
-        		$query = urldecode(str_replace("query=", "", $query));
-        		$query = preg_replace("/(\w+):/", "", $query); // vymaze slova konciace dvojbodkou. napr "au:"
+        		$query = urldecode($query);
+        		$query = preg_replace("/(\w+)[:=]/", " ", $query); // vymaze slova konciace "=" alebo ":" -> napr "au:"
         		$query = trim(preg_replace('/[^\da-z ]/i', "", $query)); // necha iba alfanumericke znaky + medzeru
         		return Redirect::to('katalog?search=' . urlencode($query), 301);
         		break;
