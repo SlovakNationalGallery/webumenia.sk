@@ -210,7 +210,12 @@ Route::group(array('before' => 'auth'), function(){
 
 App::missing(function($exception)
 {
-    if (Request::is('web/guest/*'))
+    if (Request::is('cedvuweb/image/*')) {
+    	$id = Input::get('id');
+    	if (!empty($id)) {
+    		return Redirect::to(Item::getImagePathForId($id), 301);
+    	}
+    } elseif (Request::is('web/guest/*'))
     {
         $work_type_lookup = [
         	'fotografia' => 'photo',
