@@ -17,6 +17,8 @@ class Item extends Eloquent {
 		'work_type',
 		'tag',
 		'gallery',
+		'topic',
+		'technique',
 		'has_image',
 		'has_iip',
 		'is_free',

@@ -5,6 +5,9 @@
 @dark: #555954;
 @light: #fff;
 @red: #ce2525;
+@light-grey: #f2f2f2;
+@grey: #999999;
+@dark-grey: #282828;
 
 @icon-font-path:  "../fonts/";
 
@@ -25,6 +28,11 @@
 @state-success-text:             #555;
 @state-success-bg:               #c8ddf1;
 @state-success-border:           darken(spin(@state-success-bg, -10), 5%);
+
+@navbar-first-height: 50px;
+
+@checkbox-size: 30px;
+@checkbox-font-family: 'icomoon';
 
 // LESS
 
@@ -121,81 +129,60 @@ a:focus {
 
  // Navigation
 
-.navbar {
-    margin-bottom: 0;
-    background-color: @dark;
-    font-family: @font-family-sans-serif;
-    
+.navbar {    
+    background-color: @light;
+
     a, .dropdown-menu a {
-        color: @light;
         -webkit-transition: background .3s ease-in-out;
         -moz-transition: background .3s ease-in-out;
         transition: background .3s ease-in-out;        
     }
-    a:hover, a:focus, .active a {
-        color: @dark;
-        outline: 0;
-        // background-color: #eee;        
-    }
-    .dropdown-menu a {
-        color: @dark;
-        text-transform: none !important;
-        padding: 10px 15px;
-    }
-
-
     a.navbar-brand, a.navbar-brand:hover {
         background: none;
     }
-}
 
-.navbar-custom .nav li a:hover,
-.navbar-custom .nav li a:focus,
-.navbar-custom .nav li.active {
+    .navbar-header { 
+        text-align: center; 
+        // float: none;
+        width: 100%;
+        min-height: @navbar-first-height;
+        vertical-align: middle;
+        .navbar-form { display: inline-block;}
+        // a.navbar-brand {vertical-align: middle !important;}
+    }
+
+    .navbar-nav, .navbar-brand {
+        display: block;
+        float: none;
+        height: 20px;
+    }
+
+    .navbar-collapse {
+        text-align: center;
+        clear: left; //supne menu na druhy riadok
+    }
 }
 
 .navbar-toggle {
     padding: 4px 6px;
     font-size: 16px;
-    color: @light;
-    -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
-    -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
-    transition: background .5s ease-in-out,padding .5s ease-in-out;
+    color: @dark;
 }
 
-@media(min-width: @screen-sm-min) {
+@media(min-width: @screen-xs-min) {
+
     .navbar {
-        padding: 20px 0;
+        padding: 10px 0 20px;
         border-bottom: 0;
         letter-spacing: 1px;
-        background: 0 0;
+        // background: 0 0;
         -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
         -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
         transition: background .5s ease-in-out,padding .5s ease-in-out;
-
-        &.dark-text {
-            a {
-                color: @dark;
-            }
-            a:hover, a:focus, a.active {
-                color: @primary;
-            }
-
+        
+        .navbar-nav, .navbar-brand {
+            display: inline-block;
         }
-
-    }
-
-    .top-nav-collapse {
-        padding: 0;
-        background-color: @light;
-        a {
-            color: @dark;
-        }
-        a:hover {
-            color: @primary;
-            background-color: rgba(0,0,0,.8);
-        }
-
     }
 }
 
@@ -435,11 +422,75 @@ p.medium {
 
 
 // ISOTOPE
+section.filters {
+    background-color: @light-grey;
+    a.readmore-js-toggle {color: @grey; position: relative; top: -8px;
+      &:hover {color: @dark}
+    }
 
+    .chosen-container, select { margin-bottom: 20px; }
+
+    .checkbox {margin-top: 0}
+    .checkbox label {display: block; padding-left: 7px;  padding-top: 0px;}
+
+    input[type=checkbox] {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      -ms-appearance: none;
+      -o-appearance: none;
+      appearance: none;
+      position: relative;
+      float: right;
+      top: -10px;
+      width: @checkbox-size;
+      height: @checkbox-size;
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+      outline: none;
+      position: relative;
+      margin-right: 0;
+      z-index: 1000;
+      font-family: @checkbox-font-family;
+      color: @grey;
+    }
+
+    input[type=checkbox]:hover { color: darken(@grey, 10%); }
+
+    input[type=checkbox]:checked { color: @primary; }
+
+    input[type=checkbox]::before {
+      width: @checkbox-size;
+      height: @checkbox-size;
+      position: absolute;
+      content: '\e117';
+      display: inline-block;
+      font-size: 26.66667px;
+      text-align: center;
+      line-height: @checkbox-size;
+    }
+
+    input[type=checkbox]:checked::before {
+      width: @checkbox-size;
+      height: @checkbox-size;
+      position: absolute;
+      content: '\e116';
+      display: inline-block;
+      font-size: 26.66667px;
+      text-align: center;
+      line-height: @checkbox-size;
+    }
+
+}
 .catalog {
+    h4 {
+      display: inline-block;
+      font-weight: normal;
+      margin-right: 30px;
+    }
     .pagination {
-        // display: none;
-        // visibility: hidden;
+        display: none;
+        visibility: hidden;
     }
 }
 

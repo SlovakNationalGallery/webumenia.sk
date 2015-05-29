@@ -5,7 +5,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		@section('description')
-		<meta name="description" content="Výstava Slovenskej národnej galérie s názvom DVE KRAJINY (Obraz Slovenska: 19. storočie x súčasnosť) sa venuje rozvoju stvárňovania slovenskej krajiny od počiatku tejto disciplíny v 19. storočí až na prah moderny. Webstránka dvekrajiny.sng.sk sprístupňuje vybrané diela z výstavy online vo vysokom rozlíšení.">
+		<meta name="description" content="On-line katalóg výtvarných diel zo slovenských zbierkotvorných galérií.">
 		@show
 		<meta name="author" content="lab.SNG">
 
@@ -16,32 +16,13 @@
 		</title>
 
 		<!--  favicons-->
-		<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/apple-touch-icon-57x57.png" />
-		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/apple-touch-icon-114x114.png" />
-		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/apple-touch-icon-72x72.png" />
-		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144x144.png" />
-		<link rel="apple-touch-icon-precomposed" sizes="60x60" href="/apple-touch-icon-60x60.png" />
-		<link rel="apple-touch-icon-precomposed" sizes="120x120" href="/apple-touch-icon-120x120.png" />
-		<link rel="apple-touch-icon-precomposed" sizes="76x76" href="/apple-touch-icon-76x76.png" />
-		<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/apple-touch-icon-152x152.png" />
-		<link rel="icon" type="image/png" href="/favicon-196x196.png" sizes="196x196" />
-		<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-		<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
-		<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
-		<link rel="icon" type="image/png" href="/favicon-128.png" sizes="128x128" />
-		<meta name="application-name" content="&nbsp;"/>
-		<meta name="msapplication-TileColor" content="#FFFFFF" />
-		<meta name="msapplication-TileImage" content="/mstile-144x144.png" />
-		<meta name="msapplication-square70x70logo" content="/mstile-70x70.png" />
-		<meta name="msapplication-square150x150logo" content="/mstile-150x150.png" />
-		<meta name="msapplication-wide310x150logo" content="/mstile-310x150.png" />
-		<meta name="msapplication-square310x310logo" content="/mstile-310x310.png" />
+		@include('includes.favicons')
 		<!--  /favicons-->
 
 		<!--  Open Graph protocol -->
 		@section('og')
 		<meta property="og:title" content="Web umenia" />
-		<meta property="og:description" content="Výstava Slovenskej národnej galérie s názvom DVE KRAJINY (Obraz Slovenska: 19. storočie x súčasnosť) v Esterházyho paláci predstavuje multižánrový výber diel zo zbierok 35 galérií, múzeí, inštitúcií a súkromých majiteľov. Venuje sa rozvoju stvárňovania slovenskej krajiny od počiatku tejto disciplíny v 19. storočí až na prah moderny. Webstránka dvekrajiny.sng.sk sprístupňuje vybrané diela z výstavy online vo vysokom rozlíšení." />
+		<meta property="og:description" content="On-line katalóg výtvarných diel zo slovenských zbierkotvorných galérií." />
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content="{{ Request::url() }}" />
 		<meta property="og:image" content="{{ URL::to('/images/vizual-og.jpg') }}" />
@@ -79,58 +60,54 @@
 	  fjs.parentNode.insertBefore(js, fjs);
 	}(document, 'script', 'facebook-jssdk'));</script>
 
-	<nav class="navbar navbar-custom navbar-fixed-top {{ (Request::is('/') || isSet($transparent_menu)) ? '' : 'dark-text' }}" role="navigation">
+	<nav class="navbar navbar-fixed-top {{-- navbar-static-top --}} {{ (Request::is('/') || isSet($transparent_menu)) ? '' : 'dark-text' }}" role="navigation">
 	    <div class="container">
 	        <div class="navbar-header page-scroll">
 	            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
 	                <i class="fa fa-bars"></i>
 	            </button>
 	            <a class="navbar-brand" href="{{ URL::to('') }}">
-	                <b>web umenia</b>
+	                web
+	            </a>
+	            {{ Form::open(['url' => 'katalog', 'method' => 'get', 'class' => 'navbar-form right-inner-addon']) }}
+	            			<i class="fa fa-search"></i>
+	            			{{ Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => 'Hľadať...', 'id'=>'search', 'autocomplete'=>'off')) }}
+	            			{{  Form::submit('submit'); }}
+	            {{Form::close() }}
+	            <a class="navbar-brand" href="{{ URL::to('') }}">
+	                umenia
 	            </a>
 	            @if (Request::is('dielo/*') && isSet($collection))
 	            	 <a href="{{ $collection->getUrl() }}" class="navbar-brand text-small hidden-xs hidden-sm">/&nbsp; {{ $collection->name }}</a>
 	            @endif
 	        </div>
 
-	        <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-
-
+	        <div class="collapse navbar-collapse navbar-main-collapse">
 	            <ul class="nav navbar-nav">
-						<li class="{{ Request::is( 'sekcie') ? 'active' : '' }}">
-								<a href="{{{ URL::to('sekcie') }}}" class="dropdown-toggle" data-toggle="dropdown">sekcie <span class="caret"></span></a>
-								<ul class="dropdown-menu" role="menu">
-									@foreach (Collection::orderBy('order', 'ASC')->with('items')->get() as $i => $collection)
-										<li><a href="{{ URL::to('sekcia/' . $collection->id) }}">{{ $collection->name }}</a></li>
-										<li class="separator"></li>
-									@endforeach
-						        </ul>
-						</li>
 						<li class="{{ Request::is('katalog') ? 'active' : '' }}">
-								<a href="{{{ URL::to('katalog') }}}">diela</a>
+								<a href="{{{ URL::to('katalog') }}}">Diela</a>
+						</li>
+						<li class="{{ Request::is( 'kolekcie') ? 'active' : '' }}">
+								<a href="{{{ URL::to('kolekcie') }}}">Kolekcie</a>
 						</li>
 						<li class="{{ Request::is('autori') ? 'active' : '' }}">
-								<a href="{{{ URL::to('autori') }}}">autori</a>
+								<a href="{{{ URL::to('autori') }}}">Autori</a>
+						</li>
+						<li class="{{ Request::is('clanky') ? 'active' : '' }}">
+								<a href="{{{ URL::to('clanky') }}}">Články</a>
+						</li>
+						<li class="{{ Request::is('galerie') ? 'active' : '' }}">
+								<a href="{{{ URL::to('galerie') }}}">Galérie</a>
 						</li>
 						<li class="{{ Request::is( 'informacie') ? 'active' : '' }}">
-								<a href="{{{ URL::to('informacie') }}}">informácie</a>
+								<a href="{{{ URL::to('informacie') }}}">Informácie</a>
 						</li>
 						@if (Session::has('cart') && count(Session::get('cart'))>0)
 						<li class="{{ Request::is( 'informacie') ? 'active' : '' }}">
 								<a href="{{ URL::to('objednavka')}}" class=""><i class="fa fa-shopping-cart"></i><span class="badge badge-notify">{{ count(Session::get('cart')) }}</span></a>
 						</li>
 						@endif
-						<!-- <li class="{{ Request::is( 'informacie') ? 'active' : '' }}">
-								<a href="{{{ URL::to('informacie') }}}"><i class="fa fa-search"></i></a>
-						</li> -->
 	            </ul>
-
-				{{ Form::open(['url' => 'katalog', 'method' => 'get', 'class' => 'navbar-form navbar-right right-inner-addon']) }}
-							<i class="fa fa-search"></i>
-							{{ Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => 'Hľadať...', 'id'=>'search', 'autocomplete'=>'off')) }}
-							{{  Form::submit('submit'); }}
-				{{Form::close() }}
-                
 	        </div>
 	        <!-- /.navbar-collapse -->
 	    </div>

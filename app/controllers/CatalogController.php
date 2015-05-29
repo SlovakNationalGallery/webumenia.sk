@@ -147,6 +147,8 @@ class CatalogController extends \BaseController {
 		$work_types = Item::listValues('work_type', $params);
 		$tags = Item::listValues('tag', $params);
 		$galleries = Item::listValues('gallery', $params);
+		$topics = Item::listValues('topic', $params);
+		$techniques = Item::listValues('technique', $params);
 		
 
 		$queries = DB::getQueryLog();
@@ -158,6 +160,8 @@ class CatalogController extends \BaseController {
 			'work_types'=>$work_types, 
 			'tags'=>$tags, 
 			'galleries'=>$galleries, 
+			'topics'=>$topics, 
+			'techniques'=>$techniques, 
 			'search'=>$search, 
 			'input'=>$input, 
 			'paginator'=>$paginator, 

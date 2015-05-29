@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class="scroll-to hidden-xs">
-        <a href="#sekcie" class="btn btn-circle btn-outline btn-default"><i class="fa fa-chevron-down" ></i></a>
+        <a href="#kolekcie" class="btn btn-circle btn-outline btn-default"><i class="fa fa-chevron-down" ></i></a>
     </div>
     <!-- HOMEPAGE - share -->
     <div class="shareon-container">
@@ -34,17 +34,17 @@
     </div>
 </section>
 
-<section class="collections content-section" id="sekcie">
+<section class="collections content-section" id="kolekcie">
     <div class="collections-body">
         <div class="container">
             <div class="row">
             	<div class="col-xs-12">
-            		<h3>Výstavné sekcie: </h3>
+            		<h3>Výstavné kolekcie: </h3>
             	</div>
             	@foreach ($collections as $collection)
 	                <div class="col-md-4 col-sm-6 col-xs-12">
 	                	<a href="{{ URL::to('sekcia/' . $collection->id) }}" class="featured-collection">
-	                		<img src="{{ URL::to('images/sekcie/' . $collection->id . '.jpeg') }}" class="img-responsive" alt="{{ $collection->name }}">
+	                		<img src="{{ URL::to('images/kolekcie/' . $collection->id . '.jpeg') }}" class="img-responsive" alt="{{ $collection->name }}">
 	                		<h4 class="title">{{ $collection->name }}</h4>
 	                	</a>
 	                    

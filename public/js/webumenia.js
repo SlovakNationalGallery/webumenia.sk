@@ -45,11 +45,11 @@ var authors = new Bloodhound({
 
 //jQuery to collapse the navbar on scroll
 $(window).scroll(function() {
-    if ($(".navbar").offset().top > 50) {
-        $(".navbar-fixed-top").addClass("top-nav-collapse");
-    } else {
-        $(".navbar-fixed-top").removeClass("top-nav-collapse");
-    }
+    // if ($(".navbar").offset().top > 50) {
+    //     $(".navbar-fixed-top").addClass("top-nav-collapse");
+    // } else {
+    //     $(".navbar-fixed-top").removeClass("top-nav-collapse");
+    // }
 
     if ($("#top").offset().top > $(window).height() + 500) {
         $("#top").fadeIn();
@@ -67,7 +67,7 @@ $(document).ready(function(){
 
     items.initialize();
     authors.initialize();
-
+    
     $('#search').typeahead(
     {
       hint: true,
