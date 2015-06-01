@@ -24,11 +24,10 @@
             <div class="col-md-4 text-center">
                 <ul class="list-unstyled lead">
                     <li><a href="{{ URL::to('katalog?gallery=Slovenská národná galéria, SNG') }}">Slovenská národná galéria</a></li>
-                    <li><a href="{{ URL::to('katalog?gallery=Galéria mesta Bratislavy, GMB') }}">Oravská galéria</a></li>
-                    <li><a href="{{ URL::to('katalog?gallery=Oravská galéria, OGD') }}">Dolný Kubín</a></li>
-                    <li><a href="{{ URL::to('katalog?gallery=Východoslovenská galéria, VSG') }}">Galérie umenia Nové Zámky Ernesta Zmetáka</a></li>
-                    <li><a href="{{ URL::to('katalog?gallery=Galéria Miloša Alexandra Bazovského, GBT') }}">Liptovská galéria Petra Michala Bohúňa</a></li>
-                    <li><a href="{{ URL::to('katalog?gallery=Liptovská galéria Petra Michala Bohúňa, GPB') }}">Galéria mesta Bratislavy</a></li>
+                    <li><a href="{{ URL::to('katalog?gallery=Oravská galéria, OGD') }}">Oravská galéria Dolný Kubín</a></li>
+                    <li><a href="{{ URL::to('katalog?gallery=Galéria umenia Ernesta Zmetáka, GNZ') }}">Galérie umenia Nové Zámky Ernesta Zmetáka</a></li>
+                    <li><a href="{{ URL::to('katalog?gallery=Liptovská galéria Petra Michala Bohúňa, GPB') }}">Liptovská galéria Petra Michala Bohúňa</a></li>
+                    <li><a href="{{ URL::to('katalog?gallery=Galéria mesta Bratislavy, GMB') }}">Galéria mesta Bratislavy</a></li>
                 </ul>
             </div>
             <div class="col-md-4 text-center">
