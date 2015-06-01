@@ -224,10 +224,10 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h4>Súvisiace obrazy:</h4>
-                <div class="artworks-preview large">
+                <h4>súvisiace diela</h4>
+                <div class="artworks-preview ">
                 @foreach ($more_items as $item)
-                    <a href="{{ $item->getDetailUrl() }}"><img data-lazy="{{ $item->getImagePath() }}" class="img-responsive-width large" ></a>
+                    <a href="{{ $item->getDetailUrl() }}"><img data-lazy="{{ $item->getImagePath() }}" class="img-responsive-width " ></a>
                 @endforeach
                 </div>
             </div>

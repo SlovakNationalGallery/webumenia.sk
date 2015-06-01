@@ -6,8 +6,10 @@
 @light: #fff;
 @red: #ce2525;
 @light-grey: #f2f2f2;
+@mid-grey: #dedede;
 @grey: #999999;
 @dark-grey: #282828;
+@primary-color: #66ccf4;
 
 @icon-font-path:  "../fonts/";
 
@@ -30,10 +32,13 @@
 @state-success-border:           darken(spin(@state-success-bg, -10), 5%);
 
 @navbar-first-height: 50px;
+@nav-link-padding:                          10px 15px;
 
 @checkbox-size: 30px;
 @checkbox-font-family: 'icomoon';
 
+@input-border-focus:             @primary-color;
+@input-color-placeholder:        @primary-color;
 // LESS
 
 body {
@@ -139,6 +144,7 @@ a:focus {
     }
     a.navbar-brand, a.navbar-brand:hover {
         background: none;
+        font-weight: 600;
     }
 
     .navbar-header { 
@@ -192,7 +198,7 @@ a:focus {
 }
 
 .top-section {
-    padding-top: 130px;
+    padding-top: 10px;
 }
 
 
@@ -424,7 +430,7 @@ p.medium {
 // ISOTOPE
 section.filters {
     background-color: @light-grey;
-    a.readmore-js-toggle {color: @grey; position: relative; top: -8px;
+    a.readmore-js-toggle {color: @grey; position: relative; top: 15px;
       &:hover {color: @dark}
     }
 
@@ -482,7 +488,8 @@ section.filters {
     }
 
 }
-.catalog {
+section.catalog {
+    // background-color: @mid-grey;
     h4 {
       display: inline-block;
       font-weight: normal;
@@ -499,7 +506,7 @@ section.filters {
     width: 100%;
 }
  
-input#search { min-width: 260px; }
+input#search { min-width: 425px; }
 
 .right-inner-addon {
     position: relative;
@@ -537,10 +544,21 @@ input#search { min-width: 260px; }
 
 #top {
     position: fixed;
-    bottom: 35px;
-    right: 25px;
+    bottom: 0px;
+    left: 50%;
+    margin-left: -20px;
     z-index: 99999;
     display: none;
+    
+    a.btn {
+      background-color: @grey;
+      border: none;
+      font-size: 18px;
+      color: @light;
+      &:hover {
+        background-color: @dark;
+      }
+    }
 }
 
 .cc-icons {
@@ -680,3 +698,7 @@ input#search { min-width: 260px; }
     }
     .credit:hover{ opacity: 0.9; }
 }
+
+a.dropdown-toggle {cursor: pointer;}
+
+.navbar-brand.first-part {margin-left: 20px !important; padding-right: 0;}

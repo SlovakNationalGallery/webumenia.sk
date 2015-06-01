@@ -60,21 +60,21 @@
 	  fjs.parentNode.insertBefore(js, fjs);
 	}(document, 'script', 'facebook-jssdk'));</script>
 
-	<nav class="navbar navbar-fixed-top {{-- navbar-static-top --}} {{ (Request::is('/') || isSet($transparent_menu)) ? '' : 'dark-text' }}" role="navigation">
+	<nav class="navbar {{-- navbar-fixed-top --}} {{-- navbar-static-top --}} {{ (Request::is('/') || isSet($transparent_menu)) ? '' : 'dark-text' }}" role="navigation">
 	    <div class="container">
 	        <div class="navbar-header page-scroll">
 	            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
 	                <i class="fa fa-bars"></i>
 	            </button>
-	            <a class="navbar-brand" href="{{ URL::to('') }}">
+	            <a class="navbar-brand first-part" href="{{ URL::to('') }}">
 	                web
 	            </a>
 	            {{ Form::open(['url' => 'katalog', 'method' => 'get', 'class' => 'navbar-form right-inner-addon']) }}
 	            			<i class="fa fa-search"></i>
-	            			{{ Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => 'Hľadať...', 'id'=>'search', 'autocomplete'=>'off')) }}
+	            			{{ Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => 'Hľadať diela, autorov...', 'id'=>'search', 'autocomplete'=>'off')) }}
 	            			{{  Form::submit('submit'); }}
 	            {{Form::close() }}
-	            <a class="navbar-brand" href="{{ URL::to('') }}">
+	            <a class="navbar-brand second-part" href="{{ URL::to('') }}">
 	                umenia
 	            </a>
 	            @if (Request::is('dielo/*') && isSet($collection))
@@ -100,7 +100,7 @@
 								<a href="{{{ URL::to('galerie') }}}">Galérie</a>
 						</li>
 						<li class="{{ Request::is( 'informacie') ? 'active' : '' }}">
-								<a href="{{{ URL::to('informacie') }}}">Informácie</a>
+								<a href="{{{ URL::to('informacie') }}}">Info</a>
 						</li>
 						@if (Session::has('cart') && count(Session::get('cart'))>0)
 						<li class="{{ Request::is( 'informacie') ? 'active' : '' }}">
@@ -127,7 +127,7 @@
 
 	<div id="top">
 	    <a href="#page-top" title="návrat hore" class="btn btn-default"  data-toggle="tooltip" data-placement="top">
-	        <i class="fa fa-angle-up"></i>
+	        <i class="icon-arrow-up"></i>
 	    </a>
 	</div>
 
@@ -147,7 +147,7 @@
 	{{ HTML::script('js/webumenia.js') }}
 	<script>
 	  function initializeSearchD() {
-	    Searchd.monitor("#search", "{{ Config::get('app.searchd_id') }}", {queryPlaceholder: 'Hľadať...'});
+	    Searchd.monitor("#search", "{{ Config::get('app.searchd_id') }}", {queryPlaceholder: 'Hľadať diela, autorov...'});
 	  }
 	</script>
 	<script async src="http://d3nr6w5i9vqvic.cloudfront.net/assets/collector.js" onload="initializeSearchD();"></script>

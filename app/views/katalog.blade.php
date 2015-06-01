@@ -39,45 +39,45 @@
 </section>
 
 <section class="filters">
-    <div class="container content-section">
+    <div class="container content-section"><div class="expandable">
             @if (empty($cc))
             {{ Form::open(array('id'=>'filter', 'method' => 'get')) }}
             {{ Form::hidden('search', @$search) }}
             <div class="row">
                 <!-- <h3>Filter: </h3> -->
-                <div  class="col-sm-4">
+                <div  class="col-md-4 col-xs-6">
                         {{ Form::select('author', array('' => '') + $authors, @$input['author'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'autor')) }}
                  </div>
-                <div  class="col-sm-4">
+                <div  class="col-md-4 col-xs-6">
                         {{ Form::select('work_type', array('' => '') + $work_types,  @$input['work_type'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'výtvarný druh')) }}
                 </div>
-                <div  class="col-sm-4">
+                <div  class="col-md-4 col-xs-6">
                         {{ Form::select('tag', array('' => '') + $tags, @$input['tag'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'tagy')) }}
                 </div>
-                <div  class="col-sm-4">
+                <div  class="col-md-4 col-xs-6">
                         {{ Form::select('gallery', array('' => '') + $galleries, @$input['gallery'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'inštitúcia / majiteľ')) }}
                 </div>
-                <div  class="col-sm-4">
+                <div  class="col-md-4 col-xs-6">
                         {{ Form::select('topic', array('' => '') + $topics, @$input['topic'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'žáner')) }}
                 </div>
-                <div  class="col-sm-4">
+                <div  class="col-md-4 col-xs-6">
                         {{ Form::select('technique', array('' => '') + $techniques, @$input['technique'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'technika')) }}
                 </div>
-                <div class="col-sm-4">
+                <div class="col-md-4 col-xs-6">
                         <div class="checkbox">
                             <label>
                               {{ Form::checkbox('has_image', '1', @$input['has_image']) }} len diela s obrázkami
                             </label>
                         </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-md-4 col-xs-6">
                         <div class="checkbox">
                             <label>
                               {{ Form::checkbox('has_iip', '1', @$input['has_iip']) }} len diela so zoom
                             </label>
                         </div>
                 </div>
-                <div class="col-sm-4">                        
+                <div class="col-md-4 col-xs-6">                        
                         <div class="checkbox">
                             <label>
                               {{ Form::checkbox('is_free', '1', @$input['is_free']) }} len voľné diela
@@ -98,12 +98,12 @@
             </div>
              {{ Form::close() }}
              @endif
-    </div>
+    </div></div>
 </section>
 <section class="catalog">
     <div class="container content-section">
             <div class="row">
-            	<div class="col-sm-12 container-item">
+            	<div class="col-xs-6">
                     @if (!empty($search))
                         <h4 class="inline">Nájdené diela pre &bdquo;{{ $search }}&ldquo; (<span data-searchd-total-hits>{{ $items->total() }}</span>) </h4> 
                     @else
@@ -116,11 +116,28 @@
                     @if (count(Input::all()) > 0)
                         <a class="btn btn-default btn-outline  uppercase sans" href="{{ URL::to('katalog')}}">zrušiť filtre</a>
                     @endif
-
+                </div>
+                <div class="col-xs-6 text-right">
+                    <div class="dropdown">
+                      <a class="dropdown-toggle" type="button" id="dropdownSortBy" data-toggle="dropdown" aria-expanded="true">
+                        podľa dátumu pridania
+                        <span class="caret"></span>
+                      </a>
+                      <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownSortBy">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">dátumu pridania</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">autora</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">diela</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">počet videní</a></li>
+                      </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
                     <?php // $items = $items->paginate(18) ?>
                     <div id="iso">
                 	@foreach ($items as $i=>$item)
-    	                <div class="col-md-3 col-sm-4 col-xs-12 item">
+    	                <div class="col-md-3 col-sm-4 col-xs-6 item">
     	                	<a href="{{ $item->getDetailUrl() }}">
     	                		<img src="{{ $item->getImagePath() }}" class="img-responsive" alt="{{implode(', ', $item->authors)}} - {{ $item->title }}">	                		
     	                	</a>
@@ -132,7 +149,8 @@
                                     'data-searchd-result="title/'.$item->id.'" data-searchd-title="'.implode(', ', $item->authors).' - '. $item->title.'"' 
                                     : '' }}>
                                     <em>{{ implode(', ', $item->authors) }}</em><br>
-                                    <strong>{{ $item->title }}</strong>, <em>{{ $item->getDatingFormated() }}</em>
+                                    <strong>{{ $item->title }}</strong><br>
+                                    <em>{{ $item->getDatingFormated() }}</em>
                                     {{-- <br><span class="">{{ $item->gallery }}</span> --}}
                                 </a>
                             </div>
@@ -161,11 +179,11 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-    // $('.filters .content-section').readmore({
+    // $('.expandable').readmore({
     //     moreLink: '<a href="#" class="text-center">viac možností <i class="icon-arrow-down"></i></a>',
     //     lessLink: '<a href="#" class="text-center">menej možností <i class="icon-arrow-up"></i></a>',
-    //     maxHeight: 85,
-    //     // blockCSS: 'display: inline-block;',
+    //     maxHeight: 40,
+    //     // blockCSS: 'display: block;',
     //     // embedCSS: false,
     //     afterToggle: function(trigger, element, expanded) {
     //       // if(! expanded) { // The "Close" link was clicked
