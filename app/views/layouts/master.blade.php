@@ -64,9 +64,9 @@
 	    <div class="container">
 	        <div class="navbar-header page-scroll">
 	            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-	                <i class="fa fa-bars"></i>
+	                <i class="fa fa-bars fa-2x"></i>
 	            </button>
-	            <a class="navbar-brand first-part" href="{{ URL::to('') }}">
+	            <a class="navbar-brand hidden-xs first-part" href="{{ URL::to('') }}">
 	                web
 	            </a>
 	            {{ Form::open(['url' => 'katalog', 'method' => 'get', 'class' => 'navbar-form right-inner-addon']) }}
@@ -74,7 +74,7 @@
 	            			{{ Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => 'Hľadať diela, autorov...', 'id'=>'search', 'autocomplete'=>'off')) }}
 	            			{{  Form::submit('submit'); }}
 	            {{Form::close() }}
-	            <a class="navbar-brand second-part" href="{{ URL::to('') }}">
+	            <a class="navbar-brand hidden-xs second-part" href="{{ URL::to('') }}">
 	                umenia
 	            </a>
 	            @if (Request::is('dielo/*') && isSet($collection))
@@ -87,18 +87,18 @@
 						<li class="{{ Request::is('katalog') ? 'active' : '' }}">
 								<a href="{{{ URL::to('katalog') }}}">Diela</a>
 						</li>
-						<li class="{{ Request::is( 'kolekcie') ? 'active' : '' }}">
+						{{-- <li class="{{ Request::is( 'kolekcie') ? 'active' : '' }}">
 								<a href="{{{ URL::to('kolekcie') }}}">Kolekcie</a>
-						</li>
+						</li> --}}
 						<li class="{{ Request::is('autori') ? 'active' : '' }}">
 								<a href="{{{ URL::to('autori') }}}">Autori</a>
 						</li>
-						<li class="{{ Request::is('clanky') ? 'active' : '' }}">
+						{{-- <li class="{{ Request::is('clanky') ? 'active' : '' }}">
 								<a href="{{{ URL::to('clanky') }}}">Články</a>
 						</li>
 						<li class="{{ Request::is('galerie') ? 'active' : '' }}">
 								<a href="{{{ URL::to('galerie') }}}">Galérie</a>
-						</li>
+						</li> --}}
 						<li class="{{ Request::is( 'informacie') ? 'active' : '' }}">
 								<a href="{{{ URL::to('informacie') }}}">Info</a>
 						</li>

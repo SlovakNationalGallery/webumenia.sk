@@ -21,15 +21,25 @@
 
 @section('content')
 
-<section class="item content-section top-section">
+<section class="item top-section">
     <div class="item-body">
         <div class="container">
             <div class="row">
                 @if (Session::has('message'))
                     <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{{ Session::get('message') }}</div>
                 @endif
-                <div class="col-md-10 col-md-offset-1 text-center">
-                    <h2 class="uppercase bottom-space nadpis-dielo">{{ $item->title }}</h2>
+                <div class="col-md-10 col-md-offset-1 text-center bottom-space">
+                    <h2 class="nadpis-dielo">{{ $item->title }}</h2>
+                    <?php  $authorities=array(); ?>
+                    @foreach ($item->authorities as $i => $authority)
+                        <h3><a href="{{ $authority->getDetailUrl() }}">{{ $authority->formated_name }}</a></h3>
+                        <?php  $authorities[]= $authority->name; ?>
+                    @endforeach
+                    @foreach ($item->authors as $author_unformated => $author)
+                        @if (!in_array($author_unformated, $authorities))
+                            <h3><a href="{{ url_to('katalog', ['author' => $author_unformated]) }}">{{ $author }}</a></h3>
+                        @endif
+                    @endforeach
                 </div>
             </div>
             <div class="row">
@@ -63,29 +73,6 @@
                 <div class="col-md-4 text-left">
 
                         <table class="table">
-                            <thead>
-                                <tr>
-                                    <td class="atribut">autor:</td>
-                                    <td>
-                                        <strong>
-                                        <?php  $ahutorhities=array(); ?>
-                                        @foreach ($item->authorities as $i => $authority)
-                                            <a href="{{ $authority->getDetailUrl() }}">{{ $authority->formated_name }}</a><br>
-                                            <?php  $ahutorhities[]= $authority->name; ?>
-                                        @endforeach
-                                        @foreach ($item->authors as $author_unformated => $author)
-                                            @if (!in_array($author_unformated, $ahutorhities))
-                                                <a href="{{ url_to('katalog', ['author' => $author_unformated]) }}">{{ $author }}</a><br>
-                                            @endif
-                                        @endforeach
-                                        </strong>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="atribut">datovanie:</td>
-                                    <td>{{ $item->getDatingFormated(); }}</td>
-                                </tr>
-                            </thead>
                             <tbody>
                                 @if (!empty($item->measurements))
                                 <tr>
@@ -180,7 +167,7 @@
                                 @endif
                                 @if (!empty($item->gallery))
                                 <tr>
-                                    <td class="atribut">inštitúcia /<br> majiteľ:</td>
+                                    <td class="atribut">galéria:</td>
                                     <td><a href="{{ URL::to('katalog?gallery=' . $item->gallery) }}">{{ $item->gallery; }}</a></td>
                                 </tr>
                                 @endif
@@ -192,8 +179,9 @@
                                 @endif
                                 @if ($item->isFreeDownload())
                                 <tr>
-                                    <td class="atribut">licencia obrázku:</td>
-                                    <td><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs" target="_blank" class="no-border"><img alt="Creative Commons License" style="border-width:0; padding-top: 2px;"  src="/images/license/by-nc-sa.svg" title="Creative Commons BY-NC-SA 4.0" data-toggle="tooltip"></a></td>
+                                    <td class="atribut">licencia:</td>
+                                    {{-- <td><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs" target="_blank" class="no-border"><img alt="Creative Commons License" style="border-width:0; padding-top: 2px;"  src="/images/license/by-nc-sa.svg" title="Creative Commons BY-NC-SA 4.0" data-toggle="tooltip"></a></td> --}}
+                                    <td><a rel="license" href="{{URL::to('katalog?is_free=' . '1')}}" target="_blank" class="no-border license" title="Public Domain" data-toggle="tooltip"><img alt="Creative Commons License" style="height: 20px; width: auto"  src="/images/license/zero.svg" > voľné dielo</a></td>
                                 </tr>                                    
                                 @endif
                                 @if (!empty($item->place))
