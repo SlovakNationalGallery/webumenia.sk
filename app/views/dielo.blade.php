@@ -32,12 +32,12 @@
                     <h2 class="nadpis-dielo">{{ $item->title }}</h2>
                     <?php  $authorities=array(); ?>
                     @foreach ($item->authorities as $i => $authority)
-                        <h3><a href="{{ $authority->getDetailUrl() }}">{{ $authority->formated_name }}</a></h3>
+                        <h3><a class="underline" href="{{ $authority->getDetailUrl() }}">{{ $authority->formated_name }}</a></h3>
                         <?php  $authorities[]= $authority->name; ?>
                     @endforeach
                     @foreach ($item->authors as $author_unformated => $author)
                         @if (!in_array($author_unformated, $authorities))
-                            <h3><a href="{{ url_to('katalog', ['author' => $author_unformated]) }}">{{ $author }}</a></h3>
+                            <h3><a class="underline" href="{{ url_to('katalog', ['author' => $author_unformated]) }}">{{ $author }}</a></h3>
                         @endif
                     @endforeach
                 </div>

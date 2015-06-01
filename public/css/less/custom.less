@@ -136,6 +136,7 @@ a:focus {
 
 .navbar {    
     background-color: @light;
+    margin-bottom: 0;
 
     a, .dropdown-menu a {
         -webkit-transition: background .3s ease-in-out;
@@ -170,6 +171,7 @@ a:focus {
 
 .navbar-toggle {
     margin: 10px 0 0 0;
+    padding: 10px 0;
     // font-size: 16px;
     color: @dark;
 }
@@ -177,7 +179,7 @@ a:focus {
 @media(min-width: @screen-xs-min) {
 
     .navbar {
-        padding: 10px 0 10px;
+        padding: 10px 0 0px;
         border-bottom: 0;
         letter-spacing: 1px;
         // background: 0 0;
@@ -314,6 +316,7 @@ a.license { vertical-align: middle}
       color: @dark-grey;
       font-weight: 600;
       font-size: 36px;
+      margin-top: 0px;
     }
     .btn {
         margin: 10px 5px 20px 5px;
