@@ -57,7 +57,7 @@ class OaiPmhDownloadImages extends Command {
 			$items->load('authorities');
 		    foreach ($items as $item)
 		    {
-		        if ($this->downloadImage($item)) {
+		        if ($item::hasImageForId($item->id) || $this->downloadImage($item)) {
 		        	$i++;
 		        	$item->has_image = true;
 		        	$item->save();

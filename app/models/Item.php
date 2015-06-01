@@ -224,6 +224,11 @@ class Item extends Eloquent {
 		return $result_path;
 	}
 
+	public static function hasImageForId($id)
+	{
+		$image = self::getImagePathForId($id);
+		return !str_contains($image, 'no-image');
+	}
 	/*
 	public function getAuthorAttribute($value)
 	{
