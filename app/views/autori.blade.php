@@ -182,22 +182,22 @@ $(document).ready(function(){
         variableWidth: true,
     });
 
-    var $container = $('.autori');
+    // var $container = $('.autori');
 
-    $container.infinitescroll({
-        navSelector     : ".pagination",
-        nextSelector    : ".pagination a:last",
-        authorSelector    : ".author",
-        debug           : true,
-        dataType        : 'html',
-        donetext        : 'boli načítaní všetci autori',
-        path            : undefined,
-        bufferPx     : 200,
-        loading: {
-            msgText: "<em>Načítavam ďalších autorov...</em>",
-            finishedMsg: 'A to je všetko'
-        }
-    });
+    // $container.infinitescroll({
+    //     navSelector     : ".pagination",
+    //     nextSelector    : ".pagination a:last",
+    //     authorSelector    : ".author",
+    //     debug           : true,
+    //     dataType        : 'html',
+    //     donetext        : 'boli načítaní všetci autori',
+    //     path            : undefined,
+    //     bufferPx     : 200,
+    //     loading: {
+    //         msgText: "<em>Načítavam ďalších autorov...</em>",
+    //         finishedMsg: 'A to je všetko'
+    //     }
+    // });
 
 });
 
