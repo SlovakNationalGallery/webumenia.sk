@@ -217,7 +217,7 @@ class Item extends Eloquent {
 		    		$result_path = $relative_path . "$file.$resize.jpeg";
 		    	}
 		    } else {
-		    	$result_path =  self::ARTWORKS_DIR . "no-image.jpg";
+		    	$result_path =  self::getNoImage($id);
 		    }
 	    }
 
@@ -229,6 +229,30 @@ class Item extends Eloquent {
 		$image = self::getImagePathForId($id);
 		return !str_contains($image, 'no-image');
 	}
+
+	public static function getNoImage($id)
+	{
+		$allowed_work_types = array(
+			'g', //grafika
+			'k', //kresba
+			'o', //obraz
+			'p', //plastika / socha
+			'im', //ine media
+			'up-dk', //fotografia
+			'up-p', //graficky dizaj
+			'up-f', //uzitkove umenie
+			'up-t', //sperk
+		);
+		if (preg_match('~\.(.*?)_~', $id, $work_type)) {
+			$work_type = mb_strtolower($work_type[1], "UTF-8");
+			if (in_array($work_type, $allowed_work_types)) {
+				return self::ARTWORKS_DIR . "no-image-{$work_type}.jpg";
+			}
+		}
+		return self::ARTWORKS_DIR . "no-image.jpg";
+	}
+
+
 	/*
 	public function getAuthorAttribute($value)
 	{
