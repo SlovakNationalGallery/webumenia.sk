@@ -55,6 +55,15 @@ html {
 
 // Typhography
 
+h2 {
+  color: @dark-grey;
+  font-weight: 600;
+  font-size: 36px;
+  margin-top: 0px;
+}
+
+strong {font-weight: 600;}
+
 // h1,
 // h2,
 // h3,
@@ -312,12 +321,6 @@ a.license { vertical-align: middle}
 }
 
 .item {
-    h2 {
-      color: @dark-grey;
-      font-weight: 600;
-      font-size: 36px;
-      margin-top: 0px;
-    }
     .btn {
         margin: 10px 5px 20px 5px;
     }
@@ -374,6 +377,8 @@ table a:not(.btn):not(.readmore-js-toggle):not(.no-border), .attributes a:not(.b
 }
 
 .info {
+    strong {color: @dark-grey;}
+    ul.lead li {margin-bottom: 10px; }
     a {
         border-bottom: lighten(@primary, 60%) solid 1px; 
         &:hover, &:active {
@@ -384,6 +389,9 @@ table a:not(.btn):not(.readmore-js-toggle):not(.no-border), .attributes a:not(.b
         font-style: normal;
         color: @primary;
     }
+}
+.mozete {
+  h4 {font-weight: 600; color: @dark-grey; }
 }
 
 p.medium {
@@ -440,8 +448,9 @@ p.medium {
 
 
 // ISOTOPE
+section.info, section.filters { background-color: @light-grey; }
+
 section.filters {
-    background-color: @light-grey;
     a.readmore-js-toggle {color: @grey; position: relative; top: 15px;
       &:hover {color: @dark}
     }

@@ -55,7 +55,7 @@
                         {{ Form::select('tag', array('' => '') + $tags, @$input['tag'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'tagy')) }}
                 </div>
                 <div  class="col-md-4 col-xs-6">
-                        {{ Form::select('gallery', array('' => '') + $galleries, @$input['gallery'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'inštitúcia / majiteľ')) }}
+                        {{ Form::select('gallery', array('' => '') + $galleries, @$input['gallery'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'galéria')) }}
                 </div>
                 <div  class="col-md-4 col-xs-6">
                         {{ Form::select('topic', array('' => '') + $topics, @$input['topic'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'žáner')) }}

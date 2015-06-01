@@ -7,71 +7,70 @@
 
 @section('content')
 
-<section class="info ">
-    <div class="info-body">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="intro-text text-center">
-                        <h1>Web umenia</h1>
-                        <h2>databáza výtvarných diel</h2>
-                        <h3 class='bottom-space'>v zbierkach verejných galérií</h3>
-                    </div>
-                </div>
-                <div class="col-md-6">
-
-                    <p class="medium">Web umenia je on-line katalóg s informáciami a digitálnymi fotografiami výtvarných diel zo slovenských zbierkotvorných galérií, ktorý návštevníkom umožňuje ich jednoduché vyhľadávanie a prezeranie. Zapojeným galériám dáva možnosť otvoriť verejnosti svoje zbierky, z ktorých býva vystavovaná len malá časť diel a väčšina zostava skrytá v depozitároch. Momentálne sú zastúpené diela z fondov Slovenskej národnej galérie, časť diel z Oravskej galérie a reprezentatívny výber z Galérie mesta Bratislavy.</p>
-
-                    <p class="medium">Základom Webu umenia sú popisné údaje o výtvarnom diele, jeho fotografie a používateľský obsah v podobe tagov. Údaje a fotografie výtvarných diel sú automaticky preberané a pravidelne aktualizované zo systému CEDVU (Centrálna evidencia diel výtvarného umenia), kam ich vkladajú zamestnanci jednotlivých galérií. Vo viacerých prípadoch nie sú záznamy úplné - niektoré údaje môžu chýbať, rovnako sa môžu vyskytnúť nepresnosti. Pred publikovaním je preto nutné si správnosť údajov overiť.</p>
-
-                    <h3 class="text-center visible-xs visible-sm"><i class="icon-versus"></i></h3>
-                </div>
-                <div class="col-md-6">
-                    <p class="lead">Na fotografie výtvarných diel a samotné diela sa vzťahujú autorské práva, pre informácie o možnostiach ich využitia je potrebné kontaktovať príslušné oddelenie galérie (Kontakt) a získať predchádzajúci súhlas autora diela, resp. jeho dediča či jeho práva zastupujúcej inštitúcie. Preberanie fotografií a ich zverejňovanie na iných stránkach je bez predošlého súhlasu galérie zakázané, odporúčame použiť odkazovanie na stránky s dielom, alebo vkladanie odkazu na fotografiu.</p>
-                    <h3 class="text-center"><i class="icon-versus"></i></h3>
-                    <p class="lead">Vytvoril a spravuje tím <a href="http://lab.sng.sk">lab.SNG</a></p>
-                </div>
+<section class="info">
+    <div class="container">
+        <div class="row content-section">
+            <div class="col-md-12 text-center">
+                    <h2>Čo je web umenia?</h2>
             </div>
-            <hr>
-            <div class="row">
-                <!-- stahovanie -->
-                <div class="col-md-6">
-                    <h4>Sťahovanie obrázkov</h4>
-                    <div class="text-center"><img src="{{ URL::asset('images/license/cc.svg') }}" class="img-responsive"  style="max-width: 250px; padding-bottom: 20px" alt="Creative Commons"></div>
-                    <p>Digitálne reprodukcie diel SNG na tejto stránke sú sprístupnené pod licenciou <a class="underline" href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs" target="_blank">Creative Commons BY-NC-SA 4.0</a>. Môžete si ich voľne stiahnuť vo vysokom rozlíšení. Reprodukcie sa môžu ľubovoľne využívať na nekomerčné účely - kopírovať, zdieľať či upravovať. Pri ďalšom šírení obrázkov je potrebné použiť rovnakú licenciu <em>(CC BY-NC-SA)</em> a uviesť odkaz na webstránku <a class="underline" href="http://dvekrajiny.sng.sk">http://dvekrajiny.sng.sk</a> s citáciou diela (autor, názov, rok vzniku, vlastník diela).</p>
-                    <p>Príklady využitia reprodukcií:</p>
-                    <ul>
-                        <li>tlač na nekomerčné účely (plagáty, pohľadnice alebo tričká)</li>
-                        <li>vlastná tvorba (digitálna úprava reprodukcie, využitie jej časti pre animáciu alebo koláž)</li>
-                        <li>vzdelávanie (vloženie obrázku na vlastnú webstránku, použitie na Wikipedii či ako súčasť prezentácie)</li>
-                    </ul>    
-                    <p><a class="underline" href="{{ URL::to('creative-commons') }}">Všetky voľne stiahnuteľné diela nájdete tu.</a></p>
-                    
-                </div>
-                <h3 class="text-center visible-xs visible-sm"><i class="icon-versus"></i></h3>
-                <!-- reprodukcie -->
-                <div class="col-md-6">
-                    <h4>Tlač reprodukcií</h4>
-                    <p>K <a href="{{ URL::to('katalog?gallery=Slovenská%20národná%20galéria,%20SNG') }}">vybraným dielam zo zbierok SNG</a> ponúkame možnosť objednať si reprodukcie v archívnej kvalite na fineartových papieroch. Po výbere diel, vyplnení údajov a odoslaní objednávky vás bude kontaktovať pracovník SNG s podrobnejšími informáciami. </p>
-                    <p class="bottom-space">Momentálne je možné vyzdvihnúť si diela len osobne v kníhkupectve <a href="https://goo.gl/maps/3Uf4S" target="_blank" class="underline">Ex Libris v priestoroch SNG na Námestí Ľ. Štúra 4</a> v Bratislave. </p>
+        </div>
+        <div class="row bottom-space">
+            <div class="col-md-4">
 
-                    <h3 class="text-center"><i class="icon-versus"></i></h3>
+                <p class="lead">Web umenia je <strong>on-line katalóg</strong> výtvarných diel zo zbierok <strong>slovenských galérií</strong>.</p>
 
-                    <div class="row" style="margin-top: 50px">
-                        <div class="col-md-6">
-                            <p style="margin-bottom: 20px"><strong class="atribut">Generálny partner:</strong></p>
-                            <a href="http://www.seas.sk" target="_blank"><img src="{{ URL::to('/images/partneri/enel.png') }}" alt="enel"></a>
-                        </div>
-                        <div class="col-md-6">
-                            <p style="margin-bottom: 20px"><strong class="atribut">Voľný vstup vďaka:</strong></p>
-                            <a href="https://www.jtbanka.sk" target="_blank"><img src="{{ URL::to('/images/partneri/ja-a-ty.png') }}" alt="banka ja a ty"></a>
-                        </div>
-                    </div>
-                </div>
+                <p>Nájdete tu základné informácie o dielach a ich autoroch, ale aj pôvodné články, videá a kolekcie. Údaje a digitálne reprodukcie sú preberané a pravidelne aktualizované zo systému CEDVU (Centrálna evidencia diel výtvarného umenia), kam ich vkladajú zamestnanci jednotlivých galérií. Vo viacerých prípadoch nie sú záznamy úplné aniektoré údaje môžu chýba, rovnako sa môžu vyskytnú nepresnosti. Pred publikovaním je preto nutné si správnosť údajov overiť.</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <ul class="list-unstyled lead">
+                    <li><a href="{{ URL::to('katalog?gallery=Slovenská národná galéria, SNG') }}">Slovenská národná galéria</a></li>
+                    <li><a href="{{ URL::to('katalog?gallery=Galéria mesta Bratislavy, GMB') }}">Oravská galéria</a></li>
+                    <li><a href="{{ URL::to('katalog?gallery=Oravská galéria, OGD') }}">Dolný Kubín</a></li>
+                    <li><a href="{{ URL::to('katalog?gallery=Východoslovenská galéria, VSG') }}">Galérie umenia Nové Zámky Ernesta Zmetáka</a></li>
+                    <li><a href="{{ URL::to('katalog?gallery=Galéria Miloša Alexandra Bazovského, GBT') }}">Liptovská galéria Petra Michala Bohúňa</a></li>
+                    <li><a href="{{ URL::to('katalog?gallery=Liptovská galéria Petra Michala Bohúňa, GPB') }}">Galéria mesta Bratislavy</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4 text-center">
+                <img src="/images/galerie-na-mape.png" alt="Galérie na mape" class="img-responsive" style="margin-top: 10px" />
+            </div>
+        </div>
+    </div>
+</section>
+<section class="mozete">
+    <div class="container">
+        <div class="row content-section">
+            <!-- stahovanie -->
+            <div class="col-md-4">
+                <h4>Sťahovať diela a využívať ich</h4>
+                <ul>
+                    <li>Digitálne reprodukcie diel SNG na tejto stránke sú sprístupnené ako verejné vlastníctvo (public domain). Môžete si ich vone stiahnuť vo vysokom rozlíšení a využíva na súkromné aj komerné účely - kopírova, zdiea i upravova. </li>
 
+                    <li>Pri ďalšom šírení prosíme uviesť meno autora, názov, majiteľa diela a zdroj (webummenia.sk) </li>
+
+                    <li>Ak plánujete využiť reprodukcie na komerčné účely, prosím informujte o vašich plánoch vopred, vieme vám poradiť.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-4">
+                <h4>napríklad</h4>
+                <ul>
+                    <li>tlač (plagáty, pohľadnice alebo tričká)</li>
+
+                    <li>vlastná tvorba (digitálna úprava reprodukcie, využitie jej asti pre animáciu alebo koláž)</li>
+
+                    <li>vzdelávanie (vloženie obrázku na vlastnú webstránku, použitie na Wikipedii i ako súhlas prezentácie)</li>
+                </ul>
+            </div>
+
+            <div class="col-md-4">
+                <h4>Objednať si kvalitné reprodukcie</h4>
+                <p>K vybraným dielam zo zbierok SNG ponúkame možnos objedna si reprodukcie v archívnej kvalite na fineartových papieroch. Po výbere diel, 
+vyplnení údajov a odoslaní objednávky vás bude kontaktova pracovník SNG s podrobnejšími informáciami. Momentálne je možné vyzdvihnú si diela len osobne v kníhkupectve Ex Libris v priestoroch SNG na Námestí. Štúra 4 v Bratislave.</p>
             </div>
 
         </div>
+
     </div>
 </section>
 &nbsp;
