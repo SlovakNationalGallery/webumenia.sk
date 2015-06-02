@@ -129,6 +129,7 @@
       			<a href="https://vimeo.com/webumeniask" target="_blank" data-toggle="tooltip" title="vimeo"><i class="fa fa-vimeo-square fa-lg"></i></a>
       			<a href="https://sk.pinterest.com/webumeniask/" target="_blank" data-toggle="tooltip" title="pinterest"><i class="fa fa-pinterest fa-lg"></i></a>
       			<a href="https://twitter.com/webumeniask" target="_blank" data-toggle="tooltip" title="twitter"><i class="fa fa-twitter fa-lg"></i></a>
+      			<a href="https://instagram.com/web_umenia/" target="_blank" data-toggle="tooltip" title="instagram"><i class="fa fa-instagram fa-lg"></i></a>
       			<a href="https://github.com/SlovakNationalGallery" target="_blank" data-toggle="tooltip" title="github"><i class="fa fa-github fa-lg"></i></a>
       		</div>
       		<div class="col-xs-6">

@@ -288,12 +288,7 @@
         $('.expandable').readmore({
             moreLink: '<a href="#"><i class="fa fa-chevron-down"></i> zobraziť viac</a>',
             lessLink: '<a href="#"><i class="fa fa-chevron-up"></i> skryť</a>',
-            maxHeight: 40,
-            afterToggle: function(trigger, element, expanded) {
-              if(! expanded) { // The "Close" link was clicked
-                $('html, body').animate( { scrollTop: element.offset().top }, {duration: 100 } );
-              }
-            }
+            maxHeight: 40
         });
 
         $('#download').on('click', function(e){
