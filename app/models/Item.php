@@ -353,9 +353,11 @@ class Item extends Eloquent {
 	}
 
 	public function makeArray($str) {
+		if (is_array($str)) {
+			return $str;
+		} 
 		$str = trim($str);
-		if (empty($str)) return array();
-		return (is_array($str)) ? $str : explode('; ', $str);
+		return (empty($str)) ? array() : explode('; ', $str);
 	}
 
 	public static function listValues($attribute, $search_params)
