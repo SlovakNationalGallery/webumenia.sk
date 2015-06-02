@@ -101,10 +101,14 @@
                                     </td>
                                 </tr>
                                 @endif
-                                @if (!empty($item->topic))
+                                @if (!empty($item->topics))
                                 <tr>
                                     <td class="atribut">žáner:</td>
-                                    <td>{{ $item->topic; }}</td>
+                                    <td>
+                                    @foreach ($item->topics as $topic)
+                                        <a href="{{ URL::to('katalog?topic=' . $topic) }}">{{ $topic }}</a><br>
+                                    @endforeach
+                                    </td>
                                 </tr>
                                 @endif
                                 @if ($item->tagNames() )
@@ -135,10 +139,14 @@
                                     <td>{{ $item->medium; }}</td>
                                 </tr>
                                 @endif
-                                @if (!empty($item->technique))
+                                @if (!empty($item->techniques))
                                 <tr>
                                     <td class="atribut">technika:</td>
-                                    <td>{{ $item->technique; }}</td>
+                                    <td>
+                                    @foreach ($item->techniques as $technique)
+                                        <a href="{{ URL::to('katalog?technique=' . $technique) }}">{{ $technique }}</a><br>
+                                    @endforeach
+                                    </td>
                                 </tr>
                                 @endif
                                 @if (!empty($item->integrity))

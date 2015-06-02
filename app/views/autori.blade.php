@@ -71,7 +71,7 @@
                 @endif
             </div>
             <div class="col-xs-6 text-right">
-                <div class="dropdown">
+                {{-- <div class="dropdown">
                   <a class="dropdown-toggle" type="button" id="dropdownSortBy" data-toggle="dropdown" aria-expanded="true">
                     podľa dátumu pridania
                     <span class="caret"></span>
@@ -82,7 +82,7 @@
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="#">diela</a></li>
                     <li role="presentation"><a role="menuitem" tabindex="-1" href="#">počet videní</a></li>
                   </ul>
-                </div>
+                </div> --}}
             </div>
         </div>
         <div class="autori">

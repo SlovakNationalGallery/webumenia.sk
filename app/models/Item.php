@@ -299,6 +299,16 @@ class Item extends Eloquent {
 		return $subjects_array;
 	}
 
+	public function getTopicsAttribute($value)
+	{
+		return $this->makeArray($this->attributes['topic']);
+	}
+
+	public function getTechniquesAttribute($value)
+	{
+		return $this->makeArray($this->attributes['technique']);
+	}
+
 	public function getMeasurementsAttribute($value)
 	{
 		$measurements_array = explode(';', $this->attributes['measurement']);
@@ -343,6 +353,8 @@ class Item extends Eloquent {
 	}
 
 	public function makeArray($str) {
+		$str = trim($str);
+		if (empty($str)) return array();
 		return (is_array($str)) ? $str : explode('; ', $str);
 	}
 
@@ -472,7 +484,7 @@ class Item extends Eloquent {
 	        	'author' => $this->makeArray($this->attributes['author']),
 				'description' => (!empty($this->attributes['description'])) ? strip_tags($this->attributes['description']) : '',	        	
 				'work_type' => $main_work_type, // ulozit iba prvu hodnotu
-	        	'topic' => $this->attributes['topic'],
+	        	'topic' => $this->makeArray($this->attributes['topic']),
 	        	'tag' => $this->tagNames(),
 	        	'place' => $this->makeArray($this->attributes['place']),
 	        	'measurement' => $this->measurments,

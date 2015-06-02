@@ -142,6 +142,7 @@ PUT /webumenia/_mapping/items
         }
       },
       "technique": {
+        "index": "not_analyzed",
         "type": "string"
       },
       "dating": {
