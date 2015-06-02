@@ -18,8 +18,7 @@
                     <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{{ Session::get('message') }}</div>
                 @endif
                 <div class="col-md-8 col-md-offset-2 text-center">
-                        <img src="/images/x.svg" alt="x" class="xko">
-                    	<h2 class="uppercase bottom-space">Objednávka</h2>
+                    	<h2 class="bottom-space">Objednávka</h2>
                         <p>K vybraným dielam zo zbierok SNG ponúkame možnosť objednať si reprodukcie v archívnej kvalite na fineartových papieroch. Po výbere diel, vyplnení údajov a odoslaní objednávky vás bude kontaktovať pracovník SNG s podrobnejšími informáciami. Momentálne je možné vyzdvihnúť si diela len osobne v kníhkupectve <a href="https://goo.gl/maps/3Uf4S" target="_blank" class="underline">Ex Libris v priestoroch SNG na Námestí Ľ. Štúra 4</a> v Bratislave. </p>
                 </div>
             </div>
@@ -60,7 +59,7 @@
     </div>
 </div>
 
-{{ Former::hidden('pids')->value(implode(', ', Session::get('cart'))); }}
+{{ Former::hidden('pids')->value(implode(', ', Session::get('cart',array()))); }}
 {{ Former::text('name')->label('Meno')->required(); }}
 {{ Former::text('address')->label('Adresa'); }}
 {{ Former::text('email')->label('E-mail')->required(); }}
