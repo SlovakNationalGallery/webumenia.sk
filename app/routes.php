@@ -222,15 +222,15 @@ App::missing(function($exception)
         	'work_type' => 'wt',
         ];
         $work_type_lookup = [
-        	'fotografia' => 'photo',
-        	'grafika' => 'graphic',
-        	'kresba' => 'drawing',
-        	'maliarstvo' => 'painting',
-        	'sochárstvo' => 'sculpture',
-        	'úžitkové umenie' => 'graphic_design',
-        	'úžitkové umenie' => 'aplplied_arts',
-        	'iné médiá' => 'ine_media',
-        	'umelecké remeslo' => 'umelecke_remeslo',
+        	'photo' => 'fotografia',
+        	'graphic' => 'grafika',
+        	'drawing' => 'kresba',
+        	'painting' => 'maliarstvo',
+        	'sculpture' => 'sochárstvo',
+        	'graphic_design' => 'úžitkové umenie',
+        	'aplplied_arts' => 'úžitkové umenie',
+        	'ine_media' => 'iné médiá',
+        	'umelecke_remeslo' => 'umelecké remeslo',
         ];
         $uri = Request::path();
         $parts = explode('/', $uri);
@@ -291,8 +291,8 @@ App::missing(function($exception)
         		return Redirect::to('katalog?search=' . urlencode($query), 301);
         		break;
         	
-        	case (in_array($action, $work_type_lookup)):
-        		$work_type = array_search($action, $work_type_lookup);
+        	case (array_key_exists($action, $work_type_lookup)):
+        		$work_type = $work_type_lookup[$action];
         		return Redirect::to(URL::to('katalog?work_type=' . $work_type), 301);
         		break;
         	
