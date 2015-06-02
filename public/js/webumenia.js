@@ -59,7 +59,11 @@ $(window).scroll(function() {
 });
 
 $(document).ready(function(){
-    $("[data-toggle='tooltip']").tooltip();
+    var is_touch_device = 'ontouchstart' in document.documentElement;
+
+    if (!is_touch_device) {
+        $("[data-toggle='tooltip']").tooltip();
+    }
     
     $('#top a').click(function(){
         $('html,body').animate({scrollTop:0},'slow');return false;
