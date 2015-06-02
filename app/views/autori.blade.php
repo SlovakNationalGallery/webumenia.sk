@@ -88,12 +88,12 @@
         <div class="autori">
     	@foreach ($authors as $i=>$author)
          <div class="row author">   
-            <div class="col-sm-2">
+            <div class="col-sm-2 col-xs-4">
             	<a href="{{ $author->getDetailUrl() }}">
             		<img src="{{ $author->getImagePath() }}" class="img-responsive img-circle" alt="{{ $author->name }}">	                		
             	</a>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-4 col-xs-8">
                 <div class="author-title">
                     <a href="{{ $author->getDetailUrl() }}" {{ (!empty($search))  ? 
                         'data-searchd-result="title/'.$author->id.'" data-searchd-title="'. $author->formatedName.'"' 
@@ -115,6 +115,7 @@
                 </div>
 
             </div>
+            <div class="clearfix visible-xs bottom-space"></div>
             <div class="col-sm-6" >
                 <div class="artworks-preview">
                 @foreach ($author->getPreviewItems() as $item)
