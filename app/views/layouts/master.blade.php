@@ -61,6 +61,12 @@
 	  fjs.parentNode.insertBefore(js, fjs);
 	}(document, 'script', 'facebook-jssdk'));</script>
 
+	@if (App::environment() != 'production')
+		<div class="alert alert-warning text-center" role="alert">
+		  Táto verzia webu je pre účely testovania a postupne sa mení a vylepšuje. Budeme vďační, ak nám prípadné chyby (alebo pripomienky) <a href="mailto:lab@sng.sk" class="alert-link">nahlásite</a>.
+		</div>
+	@endif
+
 	<nav class="navbar {{-- navbar-fixed-top --}} {{-- navbar-static-top --}} {{ (Request::is('/') || isSet($transparent_menu)) ? '' : 'dark-text' }}" role="navigation">
 	    <div class="container">
 	        <div class="navbar-header page-scroll">
