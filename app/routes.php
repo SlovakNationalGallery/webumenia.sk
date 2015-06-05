@@ -151,10 +151,10 @@ Route::get('dielo/{id}', function($id)
 	return View::make('dielo', array('item'=>$item, 'collection' => $collection, 'more_items' => $more_items ));
 });
 
-Route::get('sekcia/{id}', function($id)
+Route::get('kolekcia/{id}', function($id)
 {
 	$collection = Collection::find($id);
-	return View::make('sekcia', array('collection'=>$collection));
+	return View::make('kolekcia', array('collection'=>$collection));
 });
 
 Route::controller('katalog', 'CatalogController');

@@ -43,7 +43,7 @@
             	</div>
             	@foreach ($collections as $collection)
 	                <div class="col-md-4 col-sm-6 col-xs-12">
-	                	<a href="{{ URL::to('sekcia/' . $collection->id) }}" class="featured-collection">
+	                	<a href="{{ URL::to('kolekcia/' . $collection->id) }}" class="featured-collection">
 	                		<img src="{{ URL::to('images/kolekcie/' . $collection->id . '.jpeg') }}" class="img-responsive" alt="{{ $collection->name }}">
 	                		<h4 class="title">{{ $collection->name }}</h4>
 	                	</a>

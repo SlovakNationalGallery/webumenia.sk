@@ -219,15 +219,14 @@ a:focus {
 
  // Full Page Image Intro Section
 
- .intro {
+ .header-image {
     display: table;
     width: 100%;
-    height: 100%;
+    height: 70%;
     padding: 0;
     text-align: center;
-    color: @light;
-    background: url(../images/vizual-bg.jpg) no-repeat bottom center scroll;
-    background-color: @dark;
+    color: @dark;
+    background: @light-grey no-repeat center center scroll;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -242,22 +241,19 @@ a:focus {
     }
 }
 
-.intro-body {
+.header-body {
     display: table-cell;
-    vertical-align: top;
-    padding-top: 70px;
+    vertical-align: middle;
+    padding-bottom: 70px;
+    
+    h1 {
+      letter-spacing: 1px;
+      color: @primary;
+      font-size: 86px;
+      font-weight: 600;
+    }
 }
 
-.info-body {
-    padding-top: 70px;
-}
-
-.intro-text {
-}
-
-.intro-footer {
-   margin-top: 40px;
-}
 
 .featured-collection {
     display: inline-block;

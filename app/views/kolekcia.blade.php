@@ -21,13 +21,39 @@
 
 @section('content')
 
-<section class="collection content-section top-section">
+@if ($collection->hasHeaderImage())
+<section class="header-image" style="background-image: url({{ $collection->getHeaderImage() }}); text-shadow:0px 2px 0px #f4dec6;">
+@else
+<section class="header-image">
+@endif
+    <div class="header-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center">
+                        <h1>{{ $collection->name }}</h1>
+                        <p class="bottom-space">počet diel <b>{{ $collection->items()->count() }}</b> &nbsp;|&nbsp; vytvorené <b>{{ $collection->created_at->format('d. m. Y') }}</b></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- share -->
+    {{-- <div class="shareon-container">
+        <div class="container text-right">
+            <div class="fb-like" data-href="http://dvekrajiny.sng.sk/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+            &nbsp;
+            <a href="https://twitter.com/share" class="twitter-share-button" data-count="true">Tweet</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    </div>
+    </div> --}}
+</section>
+
+<section class="collection content-section">
     <div class="collection-body">
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 text-center">
-                        <h2 class="uppercase">{{ $collection->name }}</h2>
-                    	<p class="bottom-space">počet diel <b>{{ $collection->items()->count() }}</b> &nbsp;|&nbsp; vytvorené <b>{{ $collection->created_at->format('d. m. Y') }}</b></p>
                         <p class="text-left bottom-space description">{{ $collection->text }}</p>                        
                 </div>
             </div>
@@ -55,9 +81,9 @@
                                 @endif    
                                 <a href="{{ $item->getDetailUrl() }}">
                                     <em>{{ implode(', ', $item->authors) }}</em><br>
-                                <strong>{{ $item->title }}</strong>, <em>{{ $item->getDatingFormated() }}</em><br>
+                                <strong>{{ $item->title }}</strong><br> <em>{{ $item->getDatingFormated() }}</em>
                                 
-                                <span class="">{{ $item->gallery }}</span>
+                                {{-- <span class="">{{ $item->gallery }}</span> --}}
                                 </a>
                             </div>
                         </div>  
@@ -70,7 +96,7 @@
         </div>
     </div>
 </section>
-
+{{-- 
 <section class="map content-section">
     <div class="map-body">
         <div class="container">
@@ -83,6 +109,7 @@
         </div>
     </div>
 </section>
+ --}}
 
 @stop
 
@@ -104,7 +131,7 @@
         });
 
 
-            
+{{-- 
         map = new GMaps({
             el: '#big-map',
             lat: 48.705862, 
@@ -165,6 +192,7 @@
                 });
             @endif
         @endforeach
+ --}}        
 
     });
 </script>

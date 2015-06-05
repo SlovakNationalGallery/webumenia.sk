@@ -84,9 +84,11 @@
 	            <a class="navbar-brand hidden-xs second-part" href="{{ URL::to('') }}">
 	                umenia
 	            </a>
+	            {{-- 
 	            @if (Request::is('dielo/*') && isSet($collection))
 	            	 <a href="{{ $collection->getUrl() }}" class="navbar-brand text-small hidden-xs hidden-sm">/&nbsp; {{ $collection->name }}</a>
 	            @endif
+	             --}}
 	        </div>
 
 	        <div class="collapse navbar-collapse navbar-main-collapse">
@@ -106,6 +108,9 @@
 						<li class="{{ Request::is('galerie') ? 'active' : '' }}">
 								<a href="{{{ URL::to('galerie') }}}">Galérie</a>
 						</li> --}}
+						<li class="{{ Request::is( 'kolekcia/24') ? 'active' : '' }}">
+								<a href="{{{ URL::to('kolekcia/24') }}}">Slavín</a>
+						</li>
 						<li class="{{ Request::is( 'informacie') ? 'active' : '' }}">
 								<a href="{{{ URL::to('informacie') }}}">Info</a>
 						</li>
