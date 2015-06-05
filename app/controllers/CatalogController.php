@@ -116,11 +116,10 @@ class CatalogController extends \BaseController {
 							  }
 							}
 						}
-					  },
-					  "size": 100
+					  }
 					}
 				';
-				$params = json_decode($json_params, true);
+				$params = array_merge($params, json_decode($json_params, true));
 
 			}
 

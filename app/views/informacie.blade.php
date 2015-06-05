@@ -47,7 +47,7 @@
 
                     <li>Pri ďalšom šírení prosíme uviesť meno autora, názov, majiteľa diela a zdroj (webummenia.sk) </li>
 
-                    <li>Ak plánujete využiť reprodukcie na komerčné účely, prosím informujte o vašich plánoch vopred, vieme vám poradiť.</li>
+                    <li>Ak plánujete využiť reprodukcie na komerčné účely, prosím informujte o vašich plánoch vopred, naši odborníci vám vedia poradiť.</li>
                 </ul>
             </div>
 

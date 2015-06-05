@@ -11,7 +11,7 @@
 		"ipalaus/geonames": "dev-master",
 		"dinesh/bugonemail": "dev-master",
 		"anahkiasen/former": "dev-master",
-		"guzzlehttp/guzzle": "dev-master",
+		"guzzlehttp/guzzle": "~5.0",
 		"fadion/bouncy": "dev-master",
 		"barryvdh/laravel-debugbar": "~1.8",
 		"rtconner/laravel-tagging": "~0.5",

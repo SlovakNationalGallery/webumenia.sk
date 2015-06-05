@@ -160,6 +160,9 @@
                     </div>
                     <div class="col-sm-12 text-center">
                         {{ $paginator->appends(@Input::except('page'))->links() }}
+                        @if ($paginator->getLastPage() > 1)
+                            <a class="btn btn-default btn-outline  sans" id="next" href="{{ URL::to('katalog')}}">zobraziť viac</a>
+                        @endif
                     </div>
                 </div>
 
@@ -230,7 +233,9 @@ $(document).ready(function(){
         path            : undefined,
         bufferPx     : 200,
         loading: {
-            msgText: "<em>Načítavam ďalšie diela...</em>",
+            // msgText: "<em>Načítavam ďalšie diela...</em>",
+            msgText: '<i class="fa fa-refresh fa-spin fa-lg"></i> načítavam ďalšie diela...',
+            img: '/images/transparent.gif',
             finishedMsg: 'A to je všetko'
         }
     }, function(newElements, data, url){
@@ -240,6 +245,15 @@ $(document).ready(function(){
             $container.isotope( 'appended', $newElems );
         });
     });
+
+    $(window).unbind('.infscr'); //kill scroll binding
+
+    $('a#next').click(function(){
+        $container.infinitescroll('retrieve');
+     return false;
+    });
+
+
 
 });
 

@@ -244,14 +244,10 @@
             </div>
             <div class="modal-body">
                 <p><strong>Vami zvolené dielo by sa malo začať v krátkom čase automaticky sťahovať.</strong></p>
-                <p>Digitálne reprodukcie diel SNG na tejto stránke sú sprístupnené pod licenciou <a class="underline" href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs" target="_blank">Creative Commons BY-NC-SA 4.0</a>. Môžete si ich voľne stiahnuť vo vysokom rozlíšení. Reprodukcie sa môžu ľubovoľne využívať na nekomerčné účely - kopírovať, zdieľať či upravovať. Pri ďalšom šírení obrázkov je potrebné použiť rovnakú licenciu <em>(CC BY-NC-SA)</em> a uviesť odkaz na webstránku <a class="underline" href="http://dvekrajiny.sng.sk">http://dvekrajiny.sng.sk</a> s citáciou diela (autor, názov, rok vzniku, vlastník diela).</p>
-                <p>Príklady využitia reprodukcií:</p>
-                <ul>
-                    <li>tlač na nekomerčné účely (plagáty, pohľadnice alebo tričká)</li>
-                    <li>vlastná tvorba (digitálna úprava reprodukcie, využitie jej časti pre animáciu alebo koláž)</li>
-                    <li>vzdelávanie (vloženie obrázku na vlastnú webstránku, použitie na Wikipedii či ako súčasť prezentácie)</li>
-                </ul>    
-                <p><a class="underline" href="{{ URL::to('creative-commons') }}">Všetky voľne stiahnuteľné diela nájdete tu.</a></p>
+                <p>Digitálne reprodukcie diel SNG na tejto stránke sú sprístupnené ako <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" class="underline">verejné vlastníctvo (public domain)</a>. Môžete si ich voľne stiahnuť vo vysokom rozlíšení a využívať na súkromné aj komerné účely &ndash; kopírovať, zdieľať i upravovať.</p>
+                <p>Pri ďalšom šírení prosíme uviesť meno autora, názov, majiteľa diela a zdroj <code>{{ $item->getDetailUrl() }}</code></p>
+                <p>Ak plánujete využiť reprodukcie na komerčné účely, prosím informujte o vašich plánoch vopred, naši odborníci vám vedia poradiť.</p>  
+                <p><a class="underline" href="{{ URL::to('katalog?is_free=' . '1') }}">Všetky voľne stiahnuteľné diela nájdete tu.</a></p>
             </div>
             <div class="modal-footer">
                 <div class="text-center"><button type="button" data-dismiss="modal" class="btn btn-default btn-outline uppercase sans">Zavrieť</button></div>
