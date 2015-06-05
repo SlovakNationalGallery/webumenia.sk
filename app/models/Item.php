@@ -331,10 +331,18 @@ class Item extends Eloquent {
 	}
 
 	public function getDatingFormated() {
-
-		$trans = array("/" => "&ndash;", "-" => "&ndash;", "okolo" => "");
-		$formated = strtr($this->dating, $trans);
-		return (str_contains($this->dating, 'okolo')) ? 'okolo ' . $formated : $formated;
+		$count_digits = preg_match_all( "/[0-9]/", $this->dating);
+		if (($count_digits<2) && !empty($this->date_earliest)) {
+			$formated = $this->date_earliest;
+			if (!empty($this->date_latest) && $this->date_latest!=$this->date_earliest) {
+				$formated .= "&ndash;" . $this->date_latest;
+			}
+			return $formated;
+		}
+		$trans = array("/" => "&ndash;", "-" => "&ndash;");
+		$formated = preg_replace('/^([0-9]*) \s*([a-zA-Z]*)$/', '$2 $1', $this->dating);
+		$formated = strtr($formated, $trans);
+		return $formated;
 	}
 
 	public function getWorkTypesAttribute() {

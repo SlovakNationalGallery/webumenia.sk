@@ -74,6 +74,10 @@
 
                         <table class="table">
                             <tbody>
+                                <tr>
+                                    <td class="atribut">datovanie:</td>
+                                    <td>{{ $item->getDatingFormated(); }}</td>
+                                </tr>
                                 @if (!empty($item->measurements))
                                 <tr>
                                     <td class="atribut">rozmer:</td>
