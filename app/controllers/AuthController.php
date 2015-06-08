@@ -21,7 +21,8 @@ class AuthController extends BaseController {
 		{
 			$credentials = array('username' => Input::get('username'), 'password' => Input::get('password'));
 
-			if(Auth::attempt($credentials)){				
+			if(Auth::attempt($credentials)){	
+				Session::put('debugbar', true);	
 				return Redirect::intended('/admin');
 				// return Redirect::back();
 			} else {
@@ -34,7 +35,7 @@ class AuthController extends BaseController {
 
 	public function logout()
 	{
-
+		Session::put('debugbar', false);			
 		Auth::logout();
 		return Redirect::to('/');
 	}
