@@ -24,6 +24,14 @@ class Item extends Eloquent {
 		'is_free',
 	);
 
+	public static $sortable = array(
+		'created_at' => 'dátumu pridania',
+		'title' => 'názvu',
+		'author' => 'autora',
+		'date_earliest' => 'datovania',
+		'view_count' => 'počtu videní',
+	);
+
 	protected $fillable = array(
 		'id',
 		'identifier',
@@ -517,6 +525,27 @@ class Item extends Eloquent {
 	        	'id' => $this->attributes['id'],
 	        	'body' =>$data,
         	]);		
+	}
+
+	public static function getSortedLabel($sort_by=null){
+		if ($sort_by==null) {
+			$sort_by = Input::get('sort_by');
+		}
+
+		if (array_key_exists($sort_by, self::$sortable)) {
+			$sort_by = Input::get('sort_by');
+		} else {
+			$sort_by = "created_at";
+		}
+
+		$label = self::$sortable[$sort_by];
+
+		if (Input::has('search') && head(self::$sortable)==$label ) {
+			return 'relevancie';
+		}
+
+		return $label;
+
 	}
 
 }

@@ -517,14 +517,19 @@ section.filters {
     }
 
 }
-// section.authors,
+section.authors,
 section.catalog {
     // background-color: @mid-grey;
     h4 {
-      display: inline-block;
+      display: inline;
       font-weight: normal;
       margin-right: 30px;
     }
+    .btn > i {vertical-align: -13%} 
+}
+
+//zatial rusit pagination len v katalogu
+section.catalog {
     .pagination {
         display: none;
         visibility: hidden;
@@ -661,8 +666,16 @@ section.catalog {
     }
 }
 
-.author .description {
-    margin: 40px 0;
+.author{
+  border-top: 1px solid @light-grey;
+  &:first-child {
+    border-top: none;
+  }
+  padding: 20px 0;
+  strong {color: @dark-grey; }
+   .description {
+      margin: 40px 0;
+  }
 }
 
 .alphabet {
@@ -750,3 +763,5 @@ a.dropdown-toggle {cursor: pointer;}
 }
 
 #infscr-loading { position: fixed; bottom: 80px;}
+
+.btn.inline {display: inline-block;}

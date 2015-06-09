@@ -48,6 +48,7 @@
                     <a href="{{ url_to('autori', ['first-letter' => $char]) }}" class="{{ (Input::get('first-letter')==$char) ? 'active' : '' }}" rel="{{ $char }}">{{ $char }}</a> &nbsp;
                 @endforeach
                 {{ Form::hidden('first-letter', @$input['first-letter'], ['id'=>'first-letter']) }}
+                {{ Form::hidden('sort_by', @$input['sort_by'], ['id'=>'sort_by']) }}
             </div>
         </div>
          {{ Form::close() }}
@@ -55,8 +56,8 @@
     </div>
 </section>
 <section class="authors">
-    <div class="container content-section">
-        <div class="row">
+    <div class="container">
+        <div class="row content-section">
         	<div class="col-xs-6">
                 @if (!empty($search))
                     <h4 class="inline">Nájdení autori pre &bdquo;{{ $search }}&ldquo; (<span data-searchd-total-hits>{{ $authors->total() }}</span>) </h4> 
@@ -67,22 +68,21 @@
                     <p class="text-center">Momentálne žiadni autori</p>
                 @endif
                 @if (count(Input::all()) > 0)
-                    <a class="btn btn-default btn-outline  uppercase sans" href="{{ URL::to('autori')}}">zrušiť filtre</a>
+                    <a class="btn btn-sm btn-default btn-outline  sans" href="{{ URL::to('autori')}}">zrušiť filtre <i class="icon-cross"></i></a>
                 @endif
             </div>
             <div class="col-xs-6 text-right">
-                {{-- <div class="dropdown">
+                <div class="dropdown">
                   <a class="dropdown-toggle" type="button" id="dropdownSortBy" data-toggle="dropdown" aria-expanded="true">
-                    podľa dátumu pridania
+                    podľa {{ Authority::$sortable[$sort_by]; }}
                     <span class="caret"></span>
                   </a>
-                  <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownSortBy">
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">dátumu pridania</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">autora</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">diela</a></li>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">počet videní</a></li>
+                  <ul class="dropdown-menu dropdown-menu-right dropdown-menu-sort" role="menu" aria-labelledby="dropdownSortBy">
+                    @foreach (Authority::$sortable as $sort=>$label)
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#" rel="{{ $sort }}">{{ $label }}</a></li>
+                    @endforeach
                   </ul>
-                </div> --}}
+                </div>
             </div>
         </div>
         <div class="autori">
@@ -108,7 +108,10 @@
                     @endif
                 </div>
                 <div>
-                    {{ implode(", ", $author->roles->lists('role')) }}
+                    @foreach ($author->roles as $i=>$role)
+                        <a href="{{ url_to('autori', ['role' => $role->role]) }}"><strong>{{ $role->role }}</strong></a>{{ ($i+1 < $author->roles->count()) ? ', ' : '' }}
+                    @endforeach
+
                 </div>
                 <div>
                     <a href="{{ url_to('katalog', ['author' => $author->name]) }}"><strong>{{ $author->items_count }}</strong></a> diel
@@ -170,6 +173,12 @@ $(document).ready(function(){
         e.preventDefault();
         $('#first-letter').val($(this).attr('rel'));
         $(this).closest('form').submit();
+    });
+
+    $(".dropdown-menu-sort a").click(function(e) {
+        e.preventDefault();
+        $('#sort_by').val($(this).attr('rel'));
+        $('#filter').submit();
     });
 
     $('.artworks-preview').slick({

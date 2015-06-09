@@ -59,6 +59,6 @@
 	}
 
 	function str_to_alphanumeric( $string , $replace_with = '')
-	    {
-	        return trim(preg_replace("/[^[:alnum:][:space:]]/ui", $replace_with, $string));
-	    }
+    {
+        return trim(preg_replace("/[^[:alnum:][:space:]]/ui", $replace_with, $string));
+    }

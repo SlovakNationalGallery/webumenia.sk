@@ -19,6 +19,14 @@ class Authority extends Eloquent {
 		'place',
 	);
 
+	public static $sortable = array(
+		'name' => 'mena',
+		'items_count' => 'počtu diel',
+		'birth_year' => 'roku narodenia',
+		'items_with_images_count' => 'počtu diel s obrázkom',
+		// 'created_at' => 'počtu diel',
+	);
+
 	protected $fillable = array(
 		'id',
 		'type',

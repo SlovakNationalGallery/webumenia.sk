@@ -107,8 +107,13 @@ PUT /webumenia/_mapping/items
       },
       "title": {
         "type": "string",
-        "analyzer": "ascii_folding",
+        "index": "not_analyzed",
         "fields": {
+          "folded": { 
+            "type":     "string",
+            "index_analyzer": "ascii_folding",
+            "search_analyzer": "ascii_folding"
+          },
           "stemmed": { 
             "type":     "string",
             "index_analyzer": "slovencina",

@@ -15,22 +15,35 @@ class CatalogController extends \BaseController {
 			}
 		}
 
+		if (Input::has('sort_by') && array_key_exists(Input::get('sort_by'), Item::$sortable)) {
+			$sort_by = Input::get('sort_by');
+		} else {
+			$sort_by = "created_at";
+		}
+
+		$sort_order = ($sort_by == 'author' || $sort_by == 'title') ? 'asc' : 'desc';
+
 		$per_page = 18;
 		$page = \Input::get(Paginator::getPageName(), 1);
-		$offset = ($page * $per_page) - $per_page;	
+		$offset = ($page * $per_page) - $per_page;
 
 		$params = array();
 		$params["from"] = $offset;
 		$params["size"] = $per_page;
-		$params["sort"][] = "_score";
-		$params["sort"][] = ["has_image"=>["order"=>"desc"]];
-		$params["sort"][] = ["has_iip"=>["order"=>"desc"]];
-		$params["sort"][] = ["created_at"=>["order"=>"desc"]];
+
+		if (!Input::has('sort_by') || $sort_by=='created_at') {
+			$params["sort"][] = "_score";
+			$params["sort"][] = ["has_image"=>["order"=>"desc"]];
+			$params["sort"][] = ["has_iip"=>["order"=>"desc"]];
+			$params["sort"][] = ["created_at"=>["order"=>"desc"]];
+		} else {
+			$params["sort"][] = ["$sort_by"=>["order"=>"$sort_order"]];
+		}
 
 		if (!empty($input)) {
 			
 			if (Input::has('search')) {
-				$search = Input::get('search', '');
+				$search = str_to_alphanumeric(Input::get('search', ''));
 				$json_params = '
 					{
 					  "query": {
@@ -56,6 +69,7 @@ class CatalogController extends \BaseController {
 							      },
 
 							      { "match": { "title":          "'.$search.'" }},
+							      { "match": { "title.folded":          "'.$search.'" }},
 							      { "match": { "title.stemmed": "'.$search.'" }},
 							      { "match": { 
 							        "title.stemmed": { 
@@ -119,6 +133,7 @@ class CatalogController extends \BaseController {
 					  }
 					}
 				';
+
 				$params = array_merge($params, json_decode($json_params, true));
 
 			}
@@ -138,7 +153,6 @@ class CatalogController extends \BaseController {
             }
 			
 		} 
-
 		$items = Item::search($params);
 		$paginator = Paginator::make($items->all(), $items->total(), $per_page);
 
@@ -162,6 +176,7 @@ class CatalogController extends \BaseController {
 			'topics'=>$topics, 
 			'techniques'=>$techniques, 
 			'search'=>$search, 
+			'sort_by'=>$sort_by,
 			'input'=>$input, 
 			'paginator'=>$paginator, 
 			));
@@ -169,7 +184,7 @@ class CatalogController extends \BaseController {
 
 	public function getSuggestions()
 	{
-	 	$q = (Input::has('search')) ? Input::get('search') : 'null';
+	 	$q = (Input::has('search')) ? str_to_alphanumeric(Input::get('search')) : 'null';
 
 		$result = Elastic::search([
 	        	'type' => Item::ES_TYPE,

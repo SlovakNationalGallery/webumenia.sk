@@ -1,20 +1,9 @@
 @extends('layouts.master')
 
-@if (!empty($cc))
-@section('og')
-<meta property="og:title" content="voľné diela s licenciou Creative Commons" />
-<meta property="og:description" content="Digitálne reprodukcie diel SNG na tejto stránke sú sprístupnené pod licenciou Creative Commons BY-NC-SA 4.0. Môžete si ich voľne stiahnuť vo vysokom rozlíšení. Reprodukcie sa môžu ľubovoľne využívať na nekomerčné účely - kopírovať, zdieľať či upravovať. Pri ďalšom šírení obrázkov je potrebné použiť rovnakú licenciu (CC BY-NC-SA) a uviesť odkaz na webstránku http://dvekrajiny.sng.sk s citáciou diela (autor, názov, rok vzniku, vlastník diela)." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="{{ Request::url() }}" />
-<meta property="og:image" content="{{ URL::to('images/cc-og.jpg') }}" />
-<meta property="og:site_name" content="DVE KRAJINY" />
-@stop
-@endif
-
 @section('title')
 @parent
-@if (!empty($cc))
-| voľné diela s licenciou Creative Commons
+@if (!empty($search))
+| výsledky vyhľadávania pre "{{$search}}"
 @else
 | všetky diela
 @endif
@@ -25,22 +14,12 @@
 <section class="top-section">
     <div class="catalog-body">
         <div class="container">
-        @if (!empty($cc))
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2 text-center bottom-space">
-                        <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs" target="_blank"><img src="{{ URL::asset('images/license/cc.svg') }}" alt="Creative Commons" ></a>
-                        <h1>Voľné diela</h1>    
-                        <p>Digitálne reprodukcie diel SNG na tejto stránke sú sprístupnené pod licenciou <a class="underline" href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs" target="_blank">Creative Commons BY-NC-SA 4.0</a>. Môžete si ich voľne stiahnuť vo vysokom rozlíšení. Reprodukcie sa môžu ľubovoľne využívať na nekomerčné účely - kopírovať, zdieľať či upravovať. Pri ďalšom šírení obrázkov je potrebné použiť rovnakú licenciu <em>(CC BY-NC-SA)</em> a uviesť odkaz na webstránku <a class="underline" href="http://dvekrajiny.sng.sk">http://dvekrajiny.sng.sk</a> s citáciou diela (autor, názov, rok vzniku, vlastník diela).</p>                    
-                </div>
-            </div>
-        @endif
         </div>
     </div>
 </section>
 
 <section class="filters">
     <div class="container content-section"><div class="expandable">
-            @if (empty($cc))
             {{ Form::open(array('id'=>'filter', 'method' => 'get')) }}
             {{ Form::hidden('search', @$search) }}
             <div class="row">
@@ -96,13 +75,13 @@
                         <span class="sans" id="until_year">{{ !empty($input['year-range']) ? end((explode(',', $input['year-range']))) : Item::sliderMax() }}</span>
                 </div>
             </div>
-             {{ Form::close() }}
-             @endif
+            {{ Form::hidden('sort_by', @$input['sort_by'], ['id'=>'sort_by']) }}
+            {{ Form::close() }}
     </div></div>
 </section>
 <section class="catalog">
     <div class="container content-section">
-            <div class="row">
+            <div class="row content-section">
             	<div class="col-xs-6">
                     @if (!empty($search))
                         <h4 class="inline">Nájdené diela pre &bdquo;{{ $search }}&ldquo; (<span data-searchd-total-hits>{{ $items->total() }}</span>) </h4> 
@@ -118,18 +97,17 @@
                     @endif
                 </div>
                 <div class="col-xs-6 text-right">
-                    {{-- <div class="dropdown">
+                    <div class="dropdown">
                       <a class="dropdown-toggle" type="button" id="dropdownSortBy" data-toggle="dropdown" aria-expanded="true">
-                        podľa dátumu pridania
+                        podľa {{ Item::getSortedLabel(); }}
                         <span class="caret"></span>
                       </a>
-                      <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownSortBy">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">dátumu pridania</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">autora</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">diela</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">počet videní</a></li>
+                      <ul class="dropdown-menu dropdown-menu-right dropdown-menu-sort" role="menu" aria-labelledby="dropdownSortBy">
+                        @foreach (Item::$sortable as $sort=>$label)
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#" rel="{{ $sort }}">{{ $label }}</a></li>
+                        @endforeach
                       </ul>
-                    </div> --}}
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -210,6 +188,12 @@ $(document).ready(function(){
 
     $(".chosen-select, input[type='checkbox']").change(function() {
         $(this).closest('form').submit();
+    });
+
+    $(".dropdown-menu-sort a").click(function(e) {
+        e.preventDefault();
+        $('#sort_by').val($(this).attr('rel'));
+        $('#filter').submit();
     });
 
     var $container = $('#iso');

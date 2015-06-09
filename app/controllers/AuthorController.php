@@ -11,12 +11,22 @@ class AuthorController extends \BaseController {
 		$search = Input::get('search', null);
 		$input = Input::all();
 
+
+		if (Input::has('sort_by') && array_key_exists(Input::get('sort_by'), Authority::$sortable)) {
+			$sort_by = Input::get('sort_by');
+		} else {
+			$sort_by = "items_with_images_count";
+		}
+
+		$sort_order = ($sort_by == 'name') ? 'asc' : 'desc';
+
 		$params = array();
 		$params["from"] = $offset;
 		$params["size"] = $per_page;
+
 		$params["sort"][] = "_score";
 		// $params["sort"][] = ["created_at"=>["order"=>"desc"]];
-		$params["sort"][] = ["items_with_images_count"=>["order"=>"desc"]];
+		$params["sort"][] = ["$sort_by"=>["order"=>$sort_order]];
 		$params["sort"][] = ["items_count"=>["order"=>"desc"]];
 		$params["sort"][] = ["has_image"=>["order"=>"desc"]];
 
@@ -97,7 +107,6 @@ class AuthorController extends \BaseController {
 					}
 				';
 				$params = json_decode($json_params, true);
-
 			}
 
 			foreach ($input as $filter => $value) {
@@ -136,6 +145,7 @@ class AuthorController extends \BaseController {
 		return View::make('autori', array(
 			'authors'=>$authors, 
 			'search'=>$search, 
+			'sort_by'=>$sort_by,
 			'roles'=>$roles, 
 			'nationalities'=>$nationalities, 
 			'places'=>$places, 
@@ -146,7 +156,7 @@ class AuthorController extends \BaseController {
 
 	public function getSuggestions()
 	{
-	 	$q = (Input::has('search')) ? Input::get('search') : 'null';
+	 	$q = (Input::has('search')) ? str_to_alphanumeric(Input::get('search')) : 'null';
 
 		$result = Elastic::search([
 	        	'type' => Authority::ES_TYPE,
