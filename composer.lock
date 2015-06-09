@@ -416,12 +416,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/fadion/Bouncy.git",
-                "reference": "c5d4b878c4c8c08037808326d31a4117e5cebe6e"
+                "reference": "040f0837eddbb37f85c05b9cb2e753ee1dc99946"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fadion/Bouncy/zipball/c5d4b878c4c8c08037808326d31a4117e5cebe6e",
-                "reference": "c5d4b878c4c8c08037808326d31a4117e5cebe6e",
+                "url": "https://api.github.com/repos/fadion/Bouncy/zipball/040f0837eddbb37f85c05b9cb2e753ee1dc99946",
+                "reference": "040f0837eddbb37f85c05b9cb2e753ee1dc99946",
                 "shasum": ""
             },
             "require": {
@@ -453,7 +453,7 @@
                 "eloquent",
                 "laravel"
             ],
-            "time": "2015-05-05 19:46:59"
+            "time": "2015-06-05 19:10:22"
         },
         {
             "name": "filp/whoops",
@@ -773,12 +773,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Intervention/image.git",
-                "reference": "1f33a7c6c5847ddaa4c0c347be375d38ee4c2f43"
+                "reference": "f388f8cbdecb28e960d257c975dc9b5254c4c7ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Intervention/image/zipball/1f33a7c6c5847ddaa4c0c347be375d38ee4c2f43",
-                "reference": "1f33a7c6c5847ddaa4c0c347be375d38ee4c2f43",
+                "url": "https://api.github.com/repos/Intervention/image/zipball/f388f8cbdecb28e960d257c975dc9b5254c4c7ba",
+                "reference": "f388f8cbdecb28e960d257c975dc9b5254c4c7ba",
                 "shasum": ""
             },
             "require": {
@@ -821,7 +821,7 @@
                 "thumbnail",
                 "watermark"
             ],
-            "time": "2015-05-14 08:43:38"
+            "time": "2015-06-05 13:31:06"
         },
         {
             "name": "ipalaus/geonames",
@@ -2006,23 +2006,23 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.4.0",
+            "version": "v5.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "31454f258f10329ae7c48763eb898a75c39e0a9f"
+                "reference": "0697e6aa65c83edf97bb0f23d8763f94e3f11421"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/31454f258f10329ae7c48763eb898a75c39e0a9f",
-                "reference": "31454f258f10329ae7c48763eb898a75c39e0a9f",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/0697e6aa65c83edf97bb0f23d8763f94e3f11421",
+                "reference": "0697e6aa65c83edf97bb0f23d8763f94e3f11421",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "mockery/mockery": "~0.9.1"
+                "mockery/mockery": "~0.9.1,<0.9.4"
             },
             "type": "library",
             "extra": {
@@ -2051,10 +2051,11 @@
             "description": "Swiftmailer, free feature-rich PHP mailer",
             "homepage": "http://swiftmailer.org",
             "keywords": [
+                "email",
                 "mail",
                 "mailer"
             ],
-            "time": "2015-03-14 06:06:39"
+            "time": "2015-06-06 14:19:39"
         },
         {
             "name": "symfony/browser-kit",
