@@ -165,15 +165,9 @@ Route::match(array('GET', 'POST'), 'autori', 'AuthorController@getIndex');
 Route::match(array('GET', 'POST'), 'autori/suggestions', 'AuthorController@getSuggestions');
 Route::get('autor/{id}', 'AuthorController@getDetail');
 
-Route::get('creative-commons', function()
-{
-	$items = Item::where('free_download', '=', '1')->orderBy('created_at', 'DESC')->paginate(18);
-
-	return View::make('katalog', array(
-		'items'=>$items, 
-		'cc'=>true, 
-	));
-});
+Route::match(array('GET', 'POST'), 'clanky', 'ClanokController@getIndex');
+// Route::match(array('GET', 'POST'), 'clanky/suggestions', 'ClanokController@getSuggestions');
+Route::get('clanok/{slug}', 'ClanokController@getDetail');
 
 Route::get('informacie', function()
 {

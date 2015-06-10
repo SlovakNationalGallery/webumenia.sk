@@ -242,6 +242,14 @@ a:focus {
     background-size: cover;
     -o-background-size: cover;
 
+    h1 {
+      letter-spacing: 1px;
+      color: inherit;
+      font-size: 86px;
+      font-weight: 600;
+    }
+    h2 { color: inherit; }
+
     &.intro404 {
         background: url(../images/vizual-404.jpg) no-repeat center center scroll;
         -webkit-background-size: cover;
@@ -255,13 +263,6 @@ a:focus {
     display: table-cell;
     vertical-align: middle;
     padding-bottom: 70px;
-    
-    h1 {
-      letter-spacing: 1px;
-      color: @primary;
-      font-size: 86px;
-      font-weight: 600;
-    }
 }
 
 
@@ -477,7 +478,7 @@ p.medium {
 
 
 // ISOTOPE
-section.info, section.filters { background-color: @light-grey; }
+section.info, section.filters, section.light-grey { background-color: @light-grey; }
 
 section.filters {
     a.readmore-js-toggle {color: @grey; position: relative; top: 15px;

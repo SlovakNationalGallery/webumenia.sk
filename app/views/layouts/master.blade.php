@@ -73,7 +73,7 @@
 	            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
 	                <i class="fa fa-bars fa-2x"></i>
 	            </button>
-	            <a class="navbar-brand hidden-xs first-part" href="{{ URL::to('') }}">
+	            <a class="navbar-brand no-border hidden-xs first-part" href="{{ URL::to('') }}">
 	                web
 	            </a>
 	            {{ Form::open(['url' => 'katalog', 'method' => 'get', 'class' => 'navbar-form right-inner-addon']) }}
@@ -81,7 +81,7 @@
 	            			{{ Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => 'Hľadať diela, autorov...', 'id'=>'search', 'autocomplete'=>'off')) }}
 	            			{{  Form::submit('submit'); }}
 	            {{Form::close() }}
-	            <a class="navbar-brand hidden-xs second-part" href="{{ URL::to('') }}">
+	            <a class="navbar-brand no-border hidden-xs second-part" href="{{ URL::to('') }}">
 	                umenia
 	            </a>
 	            {{-- 
