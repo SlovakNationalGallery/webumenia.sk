@@ -37,7 +37,7 @@
 
 </section>
 
-<section class="article summary light-grey content-section">
+{{-- <section class="article summary light-grey content-section">
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 ">
@@ -45,12 +45,15 @@
                 </div>
             </div>
         </div>
-</section>
+</section> --}}
 <section class="article content-section">
     <div class="article-body">
         <div class="container">
             <div class="row">
-                <div class="col-md-8 col-md-offset-2 lead attributes">
+                <div class="col-md-4 lead attributes">
+                    {{ $article->summary }}
+                </div>
+                <div class="col-md-6 attributes">
                     {{ $article->content }}
                 </div>
             </div>

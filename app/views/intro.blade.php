@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <div class="intro-text">
-                    	<h1>DVE KRAJINY</h1>
+                    	<h1>web umenia</h1>
                     	<h2>OBRAZ SLOVENSKA</h2>
                     	<h3>19. storočie <i class="icon-versus"></i> súčasnosť</h3>
                     </div>

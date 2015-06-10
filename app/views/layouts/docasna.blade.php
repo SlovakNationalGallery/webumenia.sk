@@ -4,12 +4,12 @@
 <head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="description" content="Online výstava Dve krajiny - obraz Slovenska - 19. storočie x súčastnosť">
+		<meta name="description" content="Online výstava web umenia - obraz Slovenska - 19. storočie x súčastnosť">
 		<meta name="author" content="SNG, Igor Rjabinin">
 
 		<title>
 			@section('title')
-			Dve krajiny - obraz Slovenska  - 19. storočie x súčastnosť
+			web umenia - obraz Slovenska  - 19. storočie x súčastnosť
 			@show
 		</title>
 

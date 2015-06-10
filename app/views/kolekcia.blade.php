@@ -6,7 +6,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="{{ Request::url() }}" />
 <meta property="og:image" content="{{ URL::to('images/kolekcie/' . $collection->id . '.jpeg') }}" />
-<meta property="og:site_name" content="DVE KRAJINY" />
+<meta property="og:site_name" content="web umenia" />
 @stop
 
 @section('title')
