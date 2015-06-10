@@ -16,7 +16,7 @@ class Collection extends Eloquent {
 
     public function getUrl()
     {
-    	return URL::to('sekcia/' . $this->attributes['id']);
+    	return URL::to('kolekcia/' . $this->attributes['id']);
     }
 
     public function getShortTextAttribute($value)
