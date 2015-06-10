@@ -24,11 +24,22 @@ class AuthorController extends \BaseController {
 		$params["from"] = $offset;
 		$params["size"] = $per_page;
 
-		$params["sort"][] = "_score";
-		// $params["sort"][] = ["created_at"=>["order"=>"desc"]];
-		$params["sort"][] = ["$sort_by"=>["order"=>$sort_order]];
-		$params["sort"][] = ["items_count"=>["order"=>"desc"]];
-		$params["sort"][] = ["has_image"=>["order"=>"desc"]];
+		if ($sort_by=='random') {
+			$random = json_decode('
+				{"_script": {
+				    "script": "Math.random() * 200000",
+				    "type": "number",
+				    "params": {},
+				    "order": "asc"
+				 }}', true);
+			$params["sort"][] = $random;			
+		} else {
+			$params["sort"][] = "_score";
+			// $params["sort"][] = ["created_at"=>["order"=>"desc"]];
+			$params["sort"][] = ["$sort_by"=>["order"=>$sort_order]];
+			$params["sort"][] = ["items_count"=>["order"=>"desc"]];
+			$params["sort"][] = ["has_image"=>["order"=>"desc"]];
+		}
 
 		if (!empty($input)) {
 			if (Input::has('search')) {

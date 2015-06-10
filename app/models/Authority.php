@@ -24,6 +24,7 @@ class Authority extends Eloquent {
 		'items_count' => 'počtu diel',
 		'birth_year' => 'roku narodenia',
 		'items_with_images_count' => 'počtu diel s obrázkom',
+		'random' => 'náhodne'
 		// 'created_at' => 'počtu diel',
 	);
 

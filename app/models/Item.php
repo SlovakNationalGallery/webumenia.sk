@@ -30,6 +30,7 @@ class Item extends Eloquent {
 		'author' => 'autora',
 		'date_earliest' => 'datovania',
 		'view_count' => 'počtu videní',
+		'random' => 'náhodne'
 	);
 
 	protected $fillable = array(

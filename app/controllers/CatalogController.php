@@ -37,7 +37,18 @@ class CatalogController extends \BaseController {
 			$params["sort"][] = ["has_iip"=>["order"=>"desc"]];
 			$params["sort"][] = ["created_at"=>["order"=>"desc"]];
 		} else {
-			$params["sort"][] = ["$sort_by"=>["order"=>"$sort_order"]];
+			if ($sort_by=='random') {
+				$random = json_decode('
+					{"_script": {
+					    "script": "Math.random() * 200000",
+					    "type": "number",
+					    "params": {},
+					    "order": "asc"
+					 }}', true);
+				$params["sort"][] = $random;			
+			} else {
+				$params["sort"][] = ["$sort_by"=>["order"=>"$sort_order"]];	
+			}
 		}
 
 		if (!empty($input)) {
