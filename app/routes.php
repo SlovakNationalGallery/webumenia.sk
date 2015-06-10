@@ -177,7 +177,8 @@ Route::get('creative-commons', function()
 
 Route::get('informacie', function()
 {
-	return View::make('informacie');
+	$items = Item::forReproduction()->hasImage()->limit(20)->orderByRaw("RAND()")->get();
+	return View::make('informacie', ['items' => $items]);
 });
 
 Route::group(array('before' => 'guest'), function(){

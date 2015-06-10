@@ -460,6 +460,11 @@ class Item extends Eloquent {
         return $query->where('has_image', '=', 1);
     }
 
+    public function scopeForReproduction($query)
+    {
+        return $query->where('gallery', '=', 'Slovenská národná galéria, SNG');
+    }
+
 	public function download() {
 
 		header('Set-Cookie: fileDownload=true; path=/');

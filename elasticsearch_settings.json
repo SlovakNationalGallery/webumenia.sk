@@ -364,3 +364,6 @@ PUT /webumenia/_mapping/authorities
     }
   }
 }
+
+// do konfigu nutne pridat
+script.disable_dynamic: false
