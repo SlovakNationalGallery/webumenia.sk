@@ -28,18 +28,12 @@
                 @if (Session::has('message'))
                     <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{{ Session::get('message') }}</div>
                 @endif
-                <div class="col-md-10 col-md-offset-1 text-center bottom-space">
+                <div class="col-md-10 col-md-offset-1 text-center content-section">
                     <h2 class="nadpis-dielo">{{ $item->title }}</h2>
                     <?php  $authorities=array(); ?>
-                    @foreach ($item->authorities as $i => $authority)
-                        <h3><a class="underline" href="{{ $authority->getDetailUrl() }}">{{ $authority->formated_name }}</a></h3>
-                        <?php  $authorities[]= $authority->name; ?>
-                    @endforeach
-                    @foreach ($item->authors as $author_unformated => $author)
-                        @if (!in_array($author_unformated, $authorities))
-                            <h3><a class="underline" href="{{ url_to('katalog', ['author' => $author_unformated]) }}">{{ $author }}</a></h3>
-                        @endif
-                    @endforeach
+                    <h3 class="inline">
+                    {{ implode(', ', $item->getAuthorsWithLinks()) }}
+                    </h3>
                 </div>
             </div>
             <div class="row">
@@ -54,13 +48,13 @@
                         <div class="row">
                             <div class="col-md-12 text-center">
                                 @if (!empty($item->iipimg_url))
-                                   <a href="{{ URL::to('dielo/' . $item->id . '/zoom') }}" class="btn btn-default btn-outline  uppercase sans"><i class="fa fa-search-plus"></i> zoom obrázku</a>
+                                   <a href="{{ URL::to('dielo/' . $item->id . '/zoom') }}" class="btn btn-default btn-outline  sans"><i class="fa fa-search-plus"></i> zoom obrázku</a>
                                 @endif
                                 @if ($item->isForReproduction())
-                                    <a href="{{ URL::to('dielo/' . $item->id . '/objednat')  }}" class="btn btn-default btn-outline  uppercase sans"><i class="fa fa-shopping-cart"></i> objednať reprodukciu </a>
+                                    <a href="{{ URL::to('dielo/' . $item->id . '/objednat')  }}" class="btn btn-default btn-outline  sans"><i class="fa fa-shopping-cart"></i> objednať reprodukciu </a>
                                 @endif
                                 @if ($item->isFreeDownload())                                
-                                    <a href="{{ URL::to('dielo/' . $item->id . '/stiahnut')  }}" class="btn btn-default btn-outline  uppercase sans" id="download"><i class="fa fa-download"></i> stiahnuť </a>
+                                    <a href="{{ URL::to('dielo/' . $item->id . '/stiahnut')  }}" class="btn btn-default btn-outline  sans" id="download"><i class="fa fa-download"></i> stiahnuť </a>
                                 @endif
                             </div>
                             @if (!empty($item->description))

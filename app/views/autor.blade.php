@@ -21,103 +21,115 @@
 
 @section('content')
 
-<section class="author content-section top-section">
-    <div class="author-body">
-        <div class="container">
-            <div class="attributes">
+<section class="author detail content-section">
+    <div class="container">
+        <div class="attributes">
             <div class="row">   
-                <div class="col-sm-2">
-                        <img src="{{ $author->getImagePath() }}" class="img-responsive img-circle" alt="{{ $author->name }}">                           
+                <div class="col-sm-4 text-center extra-padding top-space">
+                        <img src="{{ $author->getImagePath() }}" class="img-responsive img-circle" alt="{{ $author->name }}">     
+                        <p class="content-section">
+                            <a href="{{ url_to('katalog', ['author' => $author->name]) }}"><strong>{{ $author->items->count() }}</strong></a> diel <br>
+                            v <strong>{{ $author->collections_count }}</strong> kolekciách <br>
+                            &nbsp; <strong>{{ $author->view_count }}</strong> videní
+                        </p>
+                        @if ( $author->tags)
+                            <div class="tags">
+                                <h5>Tagy: </h5>
+                                @foreach ($author->tags as $tag)
+                                    <a href="{{URL::to('katalog?tag=' . $tag)}}" class="btn btn-default btn-xs btn-outline">{{ $tag }}</a>
+                                @endforeach
+                            </div>
+                        @endif                
                 </div>
-                <div class="col-sm-10">
-                    <div class="">
-                            <h3>{{ $author->formatedName }}</h3>
-                            @if ( $author->names->count() > 0)
-                                <p>príp.  <em>{{ implode("</em>, <em>", $author->formatedNames) }}</em></p>
-                            @endif
-                            
-                    </div>
-                    <p>
+                <div class="col-sm-8 popis">
+                    <a href="{{ str_contains(URL::previous(), '/autori') ?  URL::previous() : URL::to('/autori') }} " class="inherit no-border"><i class="icon-arrow-left"></i> zoznam autorov</a>
+                    <h2>{{ $author->formatedName }}</h2>
+                    @if ( $author->names->count() > 0)
+                        <p class="lead">príp.  <em>{{ implode("</em>, <em>", $author->formatedNames) }}</em></p>
+                    @endif
+                    <p class="lead">
                         {{ $author->getDescription(true, true) }}
                     </p>
-                    <p>
+                    <p class="lead">
                         @foreach ($author->roles as $i=>$role)
-                            <a href="{{ url_to('autori', ['role' => $role->role]) }}">{{ $role->role }}</a>{{ ($i+1 < $author->roles->count()) ? ', ' : '' }}
+                            <a href="{{ url_to('autori', ['role' => $role->role]) }}"><strong>{{ $role->role }}</strong></a>{{ ($i+1 < $author->roles->count()) ? ', ' : '' }}
                         @endforeach
                         {{-- {{ implode(", ", $author->roles->lists('role')) }} --}}
                     </p>
-                    <p>
-                        <a href="{{ url_to('katalog', ['author' => $author->name]) }}"><strong>{{ $author->items->count() }}</strong></a> diel
-                        v <strong>{{ $author->collections_count }}</strong> kolekciách
-                        &nbsp; <strong>{{ $author->view_count }}</strong> videní
-                    </p>
-                </div>
 
-            </div>{{-- row --}}
-            <div class="row">   
-                <div class="col-md-12 text-left description bottom-space">
-                    {{  $author->biography }}
-                </div>
-            </div>{{-- row --}}
-            @if ( $author->relationships->count() > 0)
-            <div class="row">   
-                <div class="col-md-12 text-left relationships bottom-space">
-                    Vzťahy: 
-                    @foreach ($author->relationships as $i=>$relationship)
-                        <a href="{{ $author::detailUrl($relationship->realted_authority_id) }}"><strong>{{ Authority::formatName($relationship->name) }}</strong></a> ({{ Authority::formatMultiAttribute($relationship->type) }}){{ ($i+1 < $author->relationships->count()) ? ', ' : '' }}
-                    @endforeach
-                </div>
-            </div>{{-- row --}}
-            @endif
-            @if ( $author->events->count() > 0)
-            <div class="row">
-                <div class="col-md-12 text-left events bottom-space">
-                    Pôsobenie: 
-                    @foreach ($author->events as $i=>$event)
-                        <strong><a href="{{ url_to('autori', ['place' => $event->place]) }}">{{ $event->place }}</a></strong> {{ add_brackets(Authority::formatMultiAttribute($event->event)) }}{{ ($i+1 < $author->events->count()) ? ', ' : '' }}
-                    @endforeach
-                </div>
-            </div>{{-- row --}}
-            @endif
-            @if ( $author->links->count() > 0)
-            <div class="row">
-                <div class="col-md-12 text-left links bottom-space">
-                    Externé odkazy: 
-                    <?php foreach ($author->links as $i=>$link) $links[] = '<a href="'.$link->url .'" target="_blank">'.$link->label.'</a>'; ?>
-                    {{ implode(", ", $links) }}
-                </div>
-            </div>{{-- row --}}
-            @endif
-            @if ( $author->tags)
-            <div class="row">
-                <div class="col-md-12 text-left tags bottom-space">
-                    Tagy: 
-                    @foreach ($author->tags as $tag)
-                        <a href="{{URL::to('katalog?tag=' . $tag)}}" class="btn btn-default btn-xs btn-outline">{{ $tag }}</a>
-                    @endforeach
+                    {{-- @if ( $author->biography) --}}
+                    <div class="text-left biography">
+                        {{  $author->biography }}
+                    </div>
+                    {{-- @endif --}}
 
-                </div>
-            </div>{{-- row --}}
-            @endif
-            </div>{{-- /attributes --}}
-            <div class="row" >   
-                    <div class="col-xs-12 ">
-                    <h4>DIELA:</h4>
-                            <div class="artworks-preview large">
-                            @foreach ($author->getPreviewItems() as $item)
-                                <a href="{{ $item->getDetailUrl() }}"><img data-lazy="{{ $item->getImagePath() }}" class="img-responsive-width large" ></a>
+                    @if ( $author->events->count() > 0)
+                        <div class="events">
+                            <h5 class="top-space">Pôsobenie</h5> 
+                            @foreach ($author->events as $i=>$event)
+                                <strong><a href="{{ url_to('autori', ['place' => $event->place]) }}">{{ $event->place }}</a></strong> {{ add_brackets(Authority::formatMultiAttribute($event->event)) }}{{ ($i+1 < $author->events->count()) ? ', ' : '' }}
                             @endforeach
-                            </div>
+                        </div>
+                    @endif
+                    @if ( $author->links->count() > 0)
+                        <div class="links">
+                            <h5 class="top-space">Externé odkazy</h5>
+                            <?php foreach ($author->links as $i=>$link) $links[] = '<a href="'.$link->url .'" target="_blank">'.$link->label.'</a>'; ?>
+                            {{ implode(", ", $links) }}
+                        </div>
+                    @endif
 
-                    </div>  
-            </div>{{-- row --}}
-            <div class="row">
-                <div class="col-sm-12 text-center">
-                    <a href="{{ url_to('katalog', ['author' => $author->name]) }}" class="btn btn-default btn-outline uppercase sans" >zobraziť všetkých {{ $author->items->count() }} diel <i class="fa fa-chevron-right "></i></a>
+                    @if ( $author->relationships->count() > 0)
+                    <h5 class="top-space">Vzťahy</h5>
+                    <table class="table table-condensed relationships">
+                        <thead>
+                            <tr>
+                            @foreach ($author->getAssociativeRelationships() as $type=>$relationships)
+                                <th>{{ $type }}</th>
+                            @endforeach
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            @foreach ($author->getAssociativeRelationships() as $type=>$relationships)
+                                <td>
+                                @foreach ($relationships as $relationship)
+                                    <a href="{{ $relationship['id'] }}" class="no-border"><strong>{{ $relationship['name'] }}</strong> <i class="icon-arrow-right"></i></a> <br>
+                                @endforeach
+                                </td>
+                            @endforeach
+                            </tr>                            
+                        </tbody>
+                    </table>
+                    @endif
                 </div>
-            </div>
+            </div>{{-- row --}}
+        </div> {{-- /attributes --}} 
+    </div>
+</section>
 
+<section class="author preview detail">
+    <div class="container">
+        <div class="row content-section">   
+            <div class="col-xs-12 text-center">
+                <h3>Diela</h3>
+            </div>  
+        </div>{{-- row --}}
+        <div class="row">   
+            <div class="col-xs-12">
+                <div class="artworks-preview large">
+                    @foreach ($author->getPreviewItems() as $item)
+                        <a href="{{ $item->getDetailUrl() }}"><img data-lazy="{{ $item->getImagePath() }}" class="img-responsive-width large" ></a>
+                    @endforeach
+                </div>
+            </div>  
+        </div>{{-- row --}}
+        <div class="row content-section">
+            <div class="col-sm-12 text-center">
+                <a href="{{ url_to('katalog', ['author' => $author->name]) }}" class="btn btn-default btn-outline sans" >zobraziť všetkých <strong>{{ $author->items->count() }}</strong> diel <i class="fa fa-chevron-right "></i></a>
+            </div>
         </div>
+
     </div>
 </section>
 

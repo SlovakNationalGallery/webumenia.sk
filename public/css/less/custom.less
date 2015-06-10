@@ -36,6 +36,7 @@
 @state-success-border:           darken(spin(@state-success-bg, -10), 5%);
 
 @navbar-first-height: 50px;
+@nav-link-hover-bg: none;
 @nav-link-padding:                          10px 15px;
 
 @checkbox-size: 30px;
@@ -43,6 +44,8 @@
 
 @input-border-focus:             @primary-color;
 @input-color-placeholder:        @primary-color;
+
+@font-size-large:         ceil((@font-size-base * 1.10)); // ~18px
 
 // LESS
 
@@ -153,9 +156,16 @@ a:focus {
     margin-bottom: 0;
 
     a, .dropdown-menu a {
-        -webkit-transition: background .3s ease-in-out;
-        -moz-transition: background .3s ease-in-out;
-        transition: background .3s ease-in-out;        
+        -webkit-transition: border .3s ease-in-out;
+        -moz-transition: border .3s ease-in-out;
+        transition: border .3s ease-in-out;
+        border-bottom: 2px solid @light;
+        &:hover, &:active {
+          border-bottom: 2px solid @dark-grey;
+        }
+    }
+    li.active a {
+      border-bottom: 2px solid @dark-grey;
     }
     a.navbar-brand, a.navbar-brand:hover {
         background: none;
@@ -350,6 +360,10 @@ table a:not(.btn):not(.readmore-js-toggle):not(.no-border), .attributes a:not(.b
     font-family: @font-family-sans-serif;
 }
 
+.inherit {
+  color: inherit;
+}
+
 .atribut {
     color: #888;
     font-style: italic;
@@ -408,6 +422,10 @@ p.medium {
 
 .bottom-space {
     margin-bottom: 20px;
+}
+
+.top-space {
+    margin-top: 20px;
 }
 
 .navbar .navbar-brand{
@@ -656,9 +674,9 @@ section.catalog {
     overflow: hidden;
     max-height: 165px;
     &.large {
-       max-height: 300px; 
+       max-height: 200px; 
        .img-responsive-width {
-            max-height: 300px; 
+            max-height: 200px; 
        }
     }
     img {
@@ -673,9 +691,40 @@ section.catalog {
   }
   padding: 20px 0;
   strong {color: @dark-grey; }
-   .description {
+  .description {
       margin: 40px 0;
   }
+}
+.author.detail {
+  background-color: @light-grey;
+  color: @grey;
+  h2 {margin-top: 40px;}
+  h5 {font-size: @font-size-large; font-weight: 600;}
+  .popis h5 {margin-bottom: 4px;}
+  .lead {font-size: @font-size-large; margin-bottom: 10px;}
+  .img-responsive {margin: auto}
+  .biography {margin: 30px 0;}
+  .tags .btn {margin-bottom: 5px;}
+  table {
+    th {font-weight: 600; padding-bottom: 0}
+    th, td {padding-left: 0 !important; border: none !important;}
+  }
+  .relationships a {
+    i {color: transparent; .transition(color .15s ease-in-out); }
+    &:hover i {color: inherit;}
+  }
+}
+.author.preview {
+  background-color: @light; //@mid-grey;
+}
+.extra-padding {padding: 0 20px; }
+
+@media(min-width: @screen-md-min) and (max-width: @screen-md-max) {
+  .extra-padding {padding: 0 40px; }
+}
+
+@media(min-width: @screen-lg-min) {
+  .extra-padding {padding: 0 80px; }
 }
 
 .alphabet {
@@ -764,4 +813,5 @@ a.dropdown-toggle {cursor: pointer;}
 
 #infscr-loading { position: fixed; bottom: 80px;}
 
+.inline {display: inline; }
 .btn.inline {display: inline-block;}

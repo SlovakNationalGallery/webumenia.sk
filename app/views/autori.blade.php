@@ -7,13 +7,6 @@
 
 @section('content')
 
-<section class="top-section">
-    <div class="catalog-body">
-        <div class="container">
-        </div>
-    </div>
-</section>
-
 <section class="filters">
     <div class="container content-section">
         @if (empty($cc))

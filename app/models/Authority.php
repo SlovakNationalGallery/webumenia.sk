@@ -206,7 +206,7 @@ class Authority extends Eloquent {
 
 	public function getDescription($html = false, $links = false)
 	{
-		$description = ($html) ? '&#x2734; ' : '';
+		$description = ($html) ? '* ' : '';
 		$description .= ($html) ? $this->birth_date : $this->birth_year;
 		$description .= self::formatPlace($this->birth_place, $links);
 		if ($this->death_year) {
@@ -226,7 +226,8 @@ class Authority extends Eloquent {
 			if ($links) {
 				$place = '<a href="'.url_to('autori', ['place' => $place]).'">'.$place.'</a>';
 			}
-			return add_brackets($place);
+			return ' '.$place;
+			// return add_brackets($place);
 		}
 
 	}
@@ -384,6 +385,17 @@ class Authority extends Eloquent {
 		}
 		return $return_list;
 
+	}
+
+	public function getAssociativeRelationships() {
+		$associative_relationships = array();
+		foreach ($this->relationships as $i=>$relationship) {
+			$associative_relationships[self::formatMultiAttribute($relationship->type)][] = [
+				'id' => $relationship->realted_authority_id,
+				'name' => self::formatName($relationship->name)
+				];
+		}
+		return $associative_relationships;
 	}
 
 }

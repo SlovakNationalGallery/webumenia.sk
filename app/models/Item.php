@@ -492,6 +492,22 @@ class Item extends Eloquent {
 	    exit;    
 	}
 
+	public function getAuthorsWithLinks() {
+		$used_authorities = array();
+		$authorities_with_link = array();
+		foreach ($this->authorities as $i => $authority) {
+			$authorities_with_link[] = '<a class="underline" href="'. $authority->getDetailUrl() .'">'. $authority->formated_name .'</a>';
+			$used_authorities[]= trim($authority->name, ', ');
+		}
+		foreach ($this->authors as $author_unformated => $author) {
+		    if (!in_array($author_unformated, $used_authorities)) {
+		        $authorities_with_link[] = '<a class="underline" href="'. url_to('katalog', ['author' => $author_unformated]) .'">'. $author .'</a>';
+		    }
+		}
+
+		return $authorities_with_link;
+	}
+
 	public  function index() {
 	        $client = new Elasticsearch\Client();
 	        $work_types = $this->work_types;

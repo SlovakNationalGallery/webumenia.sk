@@ -93,13 +93,13 @@
 
 	        <div class="collapse navbar-collapse navbar-main-collapse">
 	            <ul class="nav navbar-nav">
-						<li class="{{ Request::is('katalog') ? 'active' : '' }}">
+						<li class="{{ (Request::is('katalog') || Request::is('dielo/*')) ? 'active' : '' }}">
 								<a href="{{{ URL::to('katalog') }}}">Diela</a>
 						</li>
 						{{-- <li class="{{ Request::is( 'kolekcie') ? 'active' : '' }}">
 								<a href="{{{ URL::to('kolekcie') }}}">Kolekcie</a>
 						</li> --}}
-						<li class="{{ Request::is('autori') ? 'active' : '' }}">
+						<li class="{{ (Request::is('autori') || Request::is('autor/*')) ? 'active' : '' }}">
 								<a href="{{{ URL::to('autori') }}}">Autori</a>
 						</li>
 						{{-- <li class="{{ Request::is('clanky') ? 'active' : '' }}">
