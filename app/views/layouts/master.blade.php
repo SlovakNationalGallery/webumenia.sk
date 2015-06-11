@@ -105,9 +105,9 @@
 						<li class="{{ (Request::is('clanky') || Request::is('clanok/*')) ? 'active' : '' }}">
 								<a href="{{{ URL::to('clanky') }}}">Články</a>
 						</li>
-						<li class="{{ Request::is('galerie') ? 'active' : '' }}">
+						{{-- <li class="{{ Request::is('galerie') ? 'active' : '' }}">
 								<a href="{{{ URL::to('galerie') }}}">Galérie</a>
-						</li>
+						</li> --}}
 						<li class="{{ Request::is( 'kolekcia/24') ? 'active' : '' }}">
 								<a href="{{{ URL::to('kolekcia/24') }}}">Slavín</a>
 						</li>
