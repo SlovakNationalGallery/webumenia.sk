@@ -13,7 +13,9 @@
 
 Route::get('/', function()
 {
-	return Redirect::to('katalog');
+	$articles = Article::promoted()->published()->orderBy('published_date', 'desc')->get();
+	return View::make('intro', array('articles'=>$articles));
+	// return Redirect::to('katalog');
 });
 
 Route::get('objednavka', function()

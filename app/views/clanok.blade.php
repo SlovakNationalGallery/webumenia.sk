@@ -26,7 +26,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 text-center">
-                        <h2>{{ $article->category->name }}</h2>
+                        @if ($article->category)
+                            <h2>{{ $article->category->name }}</h2>
+                        @endif
                         <h1>{{ $article->title }}</h1>
                         <p class="bottom-space">vytvorené <b>{{ $article->published_date }}</b></p>
                 </div>

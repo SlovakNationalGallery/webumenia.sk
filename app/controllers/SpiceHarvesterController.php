@@ -773,4 +773,8 @@ class SpiceHarvesterController extends \BaseController {
 	    return null;
 	}
 
+	private function processUrl($url) {
+		return str_replace('www.webumenia', 'stary.webumenia', $url);
+	}
+
 }
