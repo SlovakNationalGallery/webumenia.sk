@@ -17,16 +17,16 @@
         <div class="row bottom-space">
             <div class="col-md-4">
 
-                <p class="lead">Web umenia je <strong>on-line katalóg</strong> výtvarných diel zo zbierok <strong>slovenských galérií</strong>.</p>
+                <p class="lead">Web umenia je <strong>on-line katalóg</strong> výtvarných diel zo zbierok <strong>slovenských galérií</strong> evidovaných v Centrálnej evidencii diel výtvarného umenia. </p>
 
-                <p>Nájdete tu základné informácie o dielach a ich autoroch, ale aj pôvodné články, videá a kolekcie. Údaje a digitálne reprodukcie sú preberané a pravidelne aktualizované zo systému CEDVU (Centrálna evidencia diel výtvarného umenia), kam ich vkladajú zamestnanci jednotlivých galérií. Vo viacerých prípadoch nie sú záznamy úplné a niektoré údaje môžu chýba, rovnako sa môžu vyskytnúť nepresnosti. Pred publikovaním je preto nutné si správnosť údajov overiť.</p>
+                <p>Nájdete tu základné informácie o dielach a ich autoroch, ale aj pôvodné články, videá a kolekcie.Údaje a digitálne reprodukcie sú preberané a pravidelne aktualizované zo systému CEDVU (Centrálna evidencia diel výtvarného umenia), kam ich vkladajú zamestnanci jednotlivých galérií.</p>
             </div>
             <div class="col-md-4 text-center">
                 <ul class="list-unstyled lead">
                     <li><a href="{{ URL::to('katalog?gallery=Slovenská národná galéria, SNG') }}">Slovenská národná galéria</a></li>
-                    <li><a href="{{ URL::to('katalog?gallery=Oravská galéria, OGD') }}">Oravská galéria Dolný Kubín</a></li>
-                    <li><a href="{{ URL::to('katalog?gallery=Galéria umenia Ernesta Zmetáka, GNZ') }}">Galérie umenia Nové Zámky Ernesta Zmetáka</a></li>
-                    <li><a href="{{ URL::to('katalog?gallery=Liptovská galéria Petra Michala Bohúňa, GPB') }}">Liptovská galéria Petra Michala Bohúňa</a></li>
+                    <li><a href="{{ URL::to('katalog?gallery=Oravská galéria, OGD') }}">Oravská galéria v Dolnom Kubíne</a></li>
+                    <li><a href="{{ URL::to('katalog?gallery=Galéria umenia Ernesta Zmetáka, GNZ') }}">Galéria umenia Ernesta Zmetáka v Nových Zámkoch</a></li>
+                    <li><a href="{{ URL::to('katalog?gallery=Liptovská galéria Petra Michala Bohúňa, GPB') }}">Liptovská galéria Petra Michala Bohúňa v Liptovskom Mikuláši</a></li>
                     <li><a href="{{ URL::to('katalog?gallery=Galéria mesta Bratislavy, GMB') }}">Galéria mesta Bratislavy</a></li>
                 </ul>
             </div>
@@ -48,11 +48,11 @@
             <div class="col-md-4">
                 <h4>Sťahovať diela a využívať ich</h4>
                 <ul>
-                    <li>Digitálne reprodukcie diel SNG na tejto stránke sú sprístupnené ako <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank"><strong>verejné vlastníctvo (public domain)</strong></a>. Môžete si ich voľne stiahnuť <strong>vo vysokom rozlíšení</strong> a využívať na súkromné aj komerné účely - kopírovať, zdieľať i upravovať. </li>
+                    <li>Digitálne reprodukcie autorskoprávne voľných diel SNG na tejto stránke sú sprístupnené ako <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank"><strong>verejné vlastníctvo (public domain)</strong></a>. Môžete si ich voľne stiahnuť <strong>vo vysokom rozlíšení</strong> a využívať na súkromné aj komerčné účely - kopírovať, zdieľať či upravovať. </li>
 
-                    <li>Pri ďalšom šírení <strong>prosíme uviesť</strong> meno autora, názov, majiteľa diela a zdroj (webummenia.sk) </li>
+                    <li>Pri ďalšom šírení <strong>prosíme uviesť</strong> uviesť meno autora, názov, inštitúciu a zdroj (<a href="http://www.webumenia.sk">webumenia.sk</a>) </li>
 
-                    <li>Ak plánujete využiť reprodukcie na <strong>komerčné účely</strong>, prosím informujte o vašich plánoch vopred, naši odborníci vám vedia poradiť.</li>
+                    <li>Ak plánujete využiť reprodukcie na <strong>komerčné účely</strong>, prosím informujte nás o vašich plánoch vopred, vieme vám poradiť.</li>
                 </ul>
             </div>
 
@@ -63,19 +63,19 @@
 
                     <li><strong>vlastná tvorba</strong> (digitálna úprava reprodukcie, využitie jej časti pre animáciu alebo koláž)</li>
 
-                    <li><strong>vzdelávanie</strong> (vloženie obrázku na vlastnú webstránku, použitie na Wikipedii i ako súhlas prezentácie)</li>
+                    <li><strong>vzdelávanie</strong> (vloženie obrázku na vlastnú webstránku, použitie na Wikipedii či ako súčasť prezentácie)</li>
                 </ul>
             </div>
 
             <div class="col-md-4">
                 <h4>Objednať si kvalitné reprodukcie</h4>
-                <p>K vybraným dielam zo zbierok SNG ponúkame možnosť objednať si reprodukcie v archívnej kvalite na fineartových papieroch. Po výbere diel, vyplnení údajov a odoslaní objednávky vás bude kontaktovať pracovník SNG s podrobnejšími informáciami. Momentálne je možné vyzdvihnúť si diela len osobne v kníhkupectve <a href="http://www.sng.sk/sk/uvod/navsteva-sng/sluzby/knihkupectvo-ex-libris" target="blank" class="strong">Ex Libris v priestoroch SNG</a> na <a href="https://goo.gl/maps/k0sBz" target="_blank" class="strong">Námestí. Štúra 4 v Bratislave</a>.</p>
+                <p>K vybraným dielam zo zbierok SNG ponúkame možnosť objednať si reprodukcie v archívnej kvalite na fineartových papieroch. Po výbere diela, vyplnení údajov a odoslaní objednávky vás bude kontaktovať pracovník SNG s podrobnejšími informáciami. Momentálne je možné vyzdvihnúť si diela len osobne v kníhkupectve <a href="http://www.sng.sk/sk/uvod/navsteva-sng/sluzby/knihkupectvo-ex-libris" target="blank" class="strong">Ex Libris v priestoroch SNG</a> na <a href="https://goo.gl/maps/k0sBz" target="_blank" class="strong">Námestí. Štúra 4 v Bratislave</a>.</p>
             </div>
 
         </div>
         <div class="row top-space">
             <div class="col-md-12">
-                <a href="{{ URL::to('katalog?is_free=' . '1') }}" class="inherit lead pull-left no-border"><i class="icon-arrow-right"></i> &nbsp; voľne stiahnutelné diela</a>
+                <a href="{{ URL::to('katalog?is_free=' . '1') }}" class="inherit lead pull-left no-border"><i class="icon-arrow-right"></i> &nbsp; voľné diela na stiahnutie</a>
 
                 <a href="#" data-toggle="modal" data-target="#priceList" class="inherit lead pull-right no-border"><i class="icon-arrow-right"></i> &nbsp; cenník reprodukcií</a>
             </div>
@@ -103,6 +103,17 @@
             <div class="col-sm-12 text-center">
                 <a href="{{ url_to('katalog', ['gallery' => 'Slovenská národná galéria, SNG']) }}" class="btn btn-default btn-outline sans" >zobraziť všetkých <strong>{{ Item::forReproduction()->count() }}</strong>  <i class="fa fa-chevron-right "></i></a>
             </div>
+        </div>
+    </div>
+</section>
+
+<section class="mozete more-items">
+    <div class="container">
+        <div class="row top-space bottom-space">   
+            <div class="col-md-offset-2 col-md-8 text-center">
+                <h3>Spojte sa s nami</h3>
+                <p>Podmienkou pre zverejnenie diel a ďalšich autorov na Web umenia je ich zastúpenie v zbierkach registrovaných galérií. Diela zo súkromných zbierok a iných zdrojov aktuálne nezverejňujeme. Sme však otvorení iným formám spolupráce, čoskoro zverejníme časť výtvarných diel ako otvorené dáta. Ak viete napríklad o niektorom z autorov viac informácií, alebo ste na jeho profile u nás nenašli fotografiu, budeme radi ak nám pomôžete pri ich doplnení. Napíšte nám na <a href="mailto:lab@sng.sk">lab@sng.sk</a>, spojíme sa s vami.</p>
+            </div>  
         </div>
     </div>
 </section>
