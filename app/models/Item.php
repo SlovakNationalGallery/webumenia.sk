@@ -428,7 +428,7 @@ class Item extends Eloquent {
 			} else {
 				$death = cedvuDatetime($authority->death_date);
 				$years = $death->diffInYears(Carbon::now());
-				if ($years < 70) {
+				if ($years < $copyright_length) {
 					return false;
 				}
 			}
