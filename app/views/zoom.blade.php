@@ -115,6 +115,11 @@
       return true; 
      }); 
 
+     $('a.return').click(function(){
+            parent.history.back();
+            return false;
+      });
+
    });
 
    </script>
