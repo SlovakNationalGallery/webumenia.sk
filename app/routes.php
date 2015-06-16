@@ -11,6 +11,11 @@
 |
 */
 
+Route::get('leto', function()
+{
+	return Redirect::to('kolekcia/25');
+});
+
 Route::get('/', function()
 {
 	$articles = Article::promoted()->published()->orderBy('published_date', 'desc')->get();
