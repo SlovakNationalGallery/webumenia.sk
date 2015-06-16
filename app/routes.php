@@ -136,7 +136,8 @@ Route::get('dielo/{id}/stiahnut', function($id)
 	if (empty($item) || !$item->isFreeDownload()) {
 		App::abort(404);
 	}
-
+	$item->download_count += 1; 
+	$item->save();
 	$item->download();
 
 	// return Response::download($pathToFile);
@@ -158,12 +159,6 @@ Route::get('dielo/{id}', function($id)
 	return View::make('dielo', array('item'=>$item, 'collection' => $collection, 'more_items' => $more_items ));
 });
 
-Route::get('kolekcia/{id}', function($id)
-{
-	$collection = Collection::find($id);
-	return View::make('kolekcia', array('collection'=>$collection));
-});
-
 Route::controller('katalog', 'CatalogController');
 // Route::match(array('GET', 'POST'), 'katalog', 'CatalogController@index');
 // Route::match(array('GET', 'POST'), 'katalog/suggestions', 'CatalogController@getSuggestions');
@@ -175,6 +170,10 @@ Route::get('autor/{id}', 'AuthorController@getDetail');
 Route::match(array('GET', 'POST'), 'clanky', 'ClanokController@getIndex');
 // Route::match(array('GET', 'POST'), 'clanky/suggestions', 'ClanokController@getSuggestions');
 Route::get('clanok/{slug}', 'ClanokController@getDetail');
+
+Route::match(array('GET', 'POST'), 'kolekcie', 'KolekciaController@getIndex');
+// Route::match(array('GET', 'POST'), 'kolekcie/suggestions', 'KolekciaController@getSuggestions');
+Route::get('kolekcia/{slug}', 'KolekciaController@getDetail');
 
 Route::get('informacie', function()
 {

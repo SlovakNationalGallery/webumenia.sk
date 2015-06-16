@@ -159,8 +159,8 @@ class CatalogController extends \BaseController {
             	$input['year-range']!=Item::sliderMin().','.Item::sliderMax() //nezmenena hodnota
             ) {
             	$range = explode(',', $input['year-range']);
-            	$params["query"]["filtered"]["filter"]["and"][]["range"]["date_earliest"]["gte"] = $range[0];
-            	$params["query"]["filtered"]["filter"]["and"][]["range"]["date_latest"]["lte"] = $range[1];
+            	$params["query"]["filtered"]["filter"]["and"][]["range"]["date_earliest"]["gte"] = (isSet($range[0])) ? $range[0] : Item::sliderMin();
+            	$params["query"]["filtered"]["filter"]["and"][]["range"]["date_latest"]["lte"] = (isSet($range[1])) ? $range[1] : Item::sliderMax();
             }
 			
 		} 

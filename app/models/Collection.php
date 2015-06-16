@@ -1,6 +1,6 @@
 <?php
 
-class Collection extends Eloquent {
+class Collection extends \Eloquent {
 
     const ARTWORKS_DIR = '/images/kolekcie/';
 
@@ -9,9 +9,20 @@ class Collection extends Eloquent {
         'text' => 'required',
         );
 
-	public function items()
+    public static $sortable = array(
+        'created_at' => 'dátumu vytvorenia',
+        'name' => 'názvu',
+    );
+    
+    public function items()
     {
         return $this->belongsToMany('Item', 'collection_item', 'collection_id', 'item_id');
+    }
+
+    public function getPreviewItems()
+    {
+        
+        return $this->items()->limit(10)->get();
     }
 
     public function getUrl()
@@ -19,12 +30,12 @@ class Collection extends Eloquent {
     	return URL::to('kolekcia/' . $this->attributes['id']);
     }
 
-    public function getShortTextAttribute($value)
+    public function getShortTextAttribute($string, $length = 160)
     {
-        $string = strip_tags($this->attributes['text']);
-        $string = $string;
-        $string = substr($string, 0, 160);
-        return substr($string, 0, strrpos($string, ' ')) . " ...";
+        $striped_string = strip_tags(br2nl($string));
+        $string = $striped_string;
+        $string = substr($string, 0, $length);
+        return ($striped_string > $string) ? substr($string, 0, strrpos($string, ' ')) . " ..." : $string;
     }
 
     public function hasHeaderImage() {
@@ -39,6 +50,19 @@ class Collection extends Eloquent {
         $relative_path = self::ARTWORKS_DIR . $id . '.jpg';
         $path = ($full) ? public_path() . $relative_path : $relative_path;
         return $path;
+    }
+
+    public function scopePublished($query)
+    {
+        return $query->where('publish', '=', 1);
+    }
+
+    public function getTitleColorAttribute($value) {        
+        return (!empty($value)) ? $value : '#fff';
+    }
+
+    public function getTitleShadowAttribute($value) {        
+        return (!empty($value)) ? $value : '#777';
     }
 
 }

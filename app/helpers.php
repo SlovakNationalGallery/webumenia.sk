@@ -62,3 +62,7 @@
     {
         return trim(preg_replace("/[^[:alnum:][:space:]]/ui", $replace_with, $string));
     }
+
+    function br2nl($html) {
+    	return preg_replace('#<br\s*/?>#i', "\n", $html);
+    }

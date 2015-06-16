@@ -96,9 +96,9 @@
 						<li class="{{ (Request::is('katalog') || Request::is('dielo/*')) ? 'active' : '' }}">
 								<a href="{{{ URL::to('katalog') }}}">Diela</a>
 						</li>
-						{{-- <li class="{{ Request::is( 'kolekcie') ? 'active' : '' }}">
+						<li class="{{ (Request::is( 'kolekcie') || Request::is('kolekcia/*')) ? 'active' : '' }}">
 								<a href="{{{ URL::to('kolekcie') }}}">Kolekcie</a>
-						</li> --}}
+						</li>
 						<li class="{{ (Request::is('autori') || Request::is('autor/*')) ? 'active' : '' }}">
 								<a href="{{{ URL::to('autori') }}}">Autori</a>
 						</li>
@@ -108,9 +108,9 @@
 						{{-- <li class="{{ Request::is('galerie') ? 'active' : '' }}">
 								<a href="{{{ URL::to('galerie') }}}">Galérie</a>
 						</li> --}}
-						<li class="{{ Request::is( 'kolekcia/24') ? 'active' : '' }}">
+						{{-- <li class="{{ Request::is( 'kolekcia/24') ? 'active' : '' }}">
 								<a href="{{{ URL::to('kolekcia/24') }}}">Slavín</a>
-						</li>
+						</li> --}}
 						<li class="{{ Request::is( 'informacie') ? 'active' : '' }}">
 								<a href="{{{ URL::to('informacie') }}}">Info</a>
 						</li>

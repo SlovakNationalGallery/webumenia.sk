@@ -40,6 +40,7 @@
                         <tr>
                             <th><input type="checkbox" id="selectall"></th>
                             <th>Id</th>
+                            <th>Náhľad</th>
                             <th>Názov</th>
                             <th>Autor</th>
                             <th>Dátum</th>
@@ -56,6 +57,7 @@
                                 </div>
                             </td>
 			                <td>{{ $i->id }}</td>
+                            <td class="text-center"><img src="{{ $i->getImagePath() }}" alt="" class="img-responsive nahlad"></td>
 			                <td>{{ $i->title }}</td>
 			                <td>{{ $i->author }}</td>
 			                <td>{{ $i->dating }}</td>

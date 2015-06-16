@@ -20,6 +20,7 @@
         {{ HTML::style('css/sb-admin.css') }}
         {{ HTML::style('css/ladda-themeless.min.css') }}
         {{ HTML::style('css/bootstrap-wysihtml5.css') }}
+        {{ HTML::style('css/bootstrap-colorpicker.min.css') }}
         {{ HTML::script('js/modernizr.custom.js') }}
 
 </head>
@@ -142,6 +143,7 @@
     {{ HTML::script('js/ladda.min.js') }}
     {{ HTML::script('js/wysihtml5-0.3.0.min.js') }}
     {{ HTML::script('js/bootstrap3-wysihtml5.js') }}
+    {{ HTML::script('js/bootstrap-colorpicker.min.js') }}
 
     <script>
     $(document).ready(function() {
@@ -194,6 +196,13 @@
             $('#external_links').append('<div class="col-md-5"><div class="form-group"><label for="label">Zobrazená adresa</label><input class="form-control" placeholder="wikipédia" name="links['+links_count+'][label]" type="text"></div></div>');
             links_count++;
         });
+
+        $('.colorpicker-component').colorpicker();
+     
+        // $('.colorpicker').colorpicker().on('changeColor', function(ev){
+        //   // console.log('farba:' + ev.color.toHex());
+        //   $(this).prev('span').css('color',ev.color.toHex());
+        // });
      
 
 

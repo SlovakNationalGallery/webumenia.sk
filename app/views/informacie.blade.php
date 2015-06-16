@@ -39,7 +39,7 @@
 <section class="mozete">
     <div class="container">
         <div class="row content-section">
-            <div class="col-md-12 text-center grey">
+            <div class="col-md-12 text-center mid-grey">
                     <h2 class="inherit">U nás môžete</h2>
             </div>
         </div>
@@ -92,9 +92,9 @@
         </div>
         <div class="row">
             <div class="col-xs-12">
-                <div class="artworks-preview ">
+                <div class="artworks-preview">
                 @foreach ($items as $item)
-                    <a href="{{ $item->getDetailUrl() }}"><img data-lazy="{{ $item->getImagePath() }}" class="img-responsive-width " ></a>
+                    <a href="{{ $item->getDetailUrl() }}" class="no-border"><img data-lazy="{{ $item->getImagePath() }}" class="img-responsive-width " ></a>
                 @endforeach
                 </div>
             </div>

@@ -22,7 +22,7 @@
 @section('content')
 
 @if ($collection->hasHeaderImage())
-<section class="header-image" style="background-image: url({{ $collection->getHeaderImage() }}); text-shadow:0px 2px 0px #f4dec6;">
+<section class="header-image" style="background-image: url({{ $collection->getHeaderImage() }}); text-shadow:0px 1px 0px {{ $collection->title_shadow }}; color: {{ $collection->title_color }}">
 @else
 <section class="header-image">
 @endif
