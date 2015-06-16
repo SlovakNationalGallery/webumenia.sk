@@ -24,7 +24,13 @@ class ItemController extends \BaseController {
 	{
 
 		$search = Input::get('search');
-		$results = Item::where('title', 'LIKE', '%'.$search.'%')->orWhere('author', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%')->paginate(20);
+		if (str_contains($search, ';')) {
+
+			$ids = explode(';', str_replace(" ","",$search));
+			$results = Item::whereIn('id', $ids)->paginate(20);
+		} else {
+			$results = Item::where('title', 'LIKE', '%'.$search.'%')->orWhere('author', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%')->paginate(20);
+		}
 
 		$collections = Collection::lists('name', 'id');
         return View::make('items.index', array('items' => $results, 'collections' => $collections, 'search' => $search));
