@@ -2,10 +2,10 @@
 
 @section('og')
 <meta property="og:title" content="{{ $collection->name }}" />
-<meta property="og:description" content="{{ strip_tags($collection->text) }}" />
+<meta property="og:description" content="{{ $collection->getShortTextAttribute($collection->text, 500) }}" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="{{ Request::url() }}" />
-<meta property="og:image" content="{{ URL::to('images/kolekcie/' . $collection->id . '.jpeg') }}" />
+<meta property="og:image" content="{{ URL::to($collection->getHeaderImage()) }}" />
 <meta property="og:site_name" content="web umenia" />
 @stop
 
@@ -15,7 +15,7 @@
 @stop
 
 @section('description')
-<meta name="description" content="{{ $collection->shortText }}">
+<meta name="description" content="{{ $collection->getShortTextAttribute($collection->text, 350) }}">
 @stop
 
 
@@ -111,6 +111,12 @@
 </section>
  --}}
 
+ <div class="container text-center">
+     <div class="fb-like" data-href="{{ $collection->getUrl() }}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+     &nbsp;
+     <a href="https://twitter.com/share" class="twitter-share-button" data-count="true">Tweet</a>
+     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+ </div>
 @stop
 
 @section('javascript')
