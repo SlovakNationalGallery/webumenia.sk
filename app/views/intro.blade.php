@@ -18,6 +18,17 @@
 
       <div class="carousel-inner" role="listbox">
 
+        @if (strtotime('2015-06-18 11:00') < time())     
+        <div class="item active ">
+            <a href="/clanok/biedermeier" class="header-image text-center" style="background-image: url(/images/clanky/vystava-biedermeier.jpg); text-shadow:0px 1px 0px #777; color: #fff">
+                <div class="header-body">
+                    <h2>výstava</h2>
+                    <h1>BIEDERMEIER<br>19. VI. → 1. XI. 2015</h1>
+                </div>
+            </a>
+        </div>
+        @endif
+
         <div class="item active ">
             <a href="/kolekcia/25" class="header-image text-center" style="background-image: url(/images/kolekcie/leto.jpg); text-shadow:0px 1px 0px #777; color: #fff">
                 <div class="header-body">
@@ -58,7 +69,7 @@
     <div class="articles-body">
         <div class="container">
             <div class="row">
-            	@foreach ($articles as $article)
+            	@foreach ($articles as $i=>$article)
 	                <div class="col-sm-6 col-xs-12 bottom-space">
 	                	<a href="{{ $article->getUrl() }}" class="featured-article">
 	                		<img src="{{ $article->getThumbnailImage() }}" class="img-responsive" alt="{{ $article->title }}">
@@ -74,7 +85,10 @@
                         </p>
                         <p class="meta">{{$article->published_date}} / {{$article->author}}</p>
 	                    
-	                </div>	
+	                </div>
+                    @if ($i%2 == 1)
+                        <div class="clearfix"></div>
+                    @endif
             	@endforeach
             </div>
         </div>
