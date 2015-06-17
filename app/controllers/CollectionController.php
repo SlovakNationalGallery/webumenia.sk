@@ -155,6 +155,9 @@ class CollectionController extends \BaseController {
 
 		if ($collection = Collection::find(Input::get('collection'))) {
 			$items = Input::get('ids');
+			if (!is_array($items)) {
+				$items = explode(';', str_replace(" ","",$items));
+			}
 			foreach ($items as $item_id) {
 				if (!$collection->items->contains($item_id)) {
 				    $collection->items()->attach($item_id);
@@ -164,6 +167,12 @@ class CollectionController extends \BaseController {
 		} else {
 			return Redirect::back()->withMessage('Chyba: zvolená kolekcia nebola nájdená. ');
 		}
+	}
+
+	public function detach($collection_id, $item_id) {
+		$collection = Collection::find($collection_id);
+		$collection->items()->detach($item_id);
+		return Redirect::back()->withMessage('Z kolekcie ' . $collection->name . ' bolo odstrádené ' . count($item_id) . ' dielo');
 	}
 
 	private function uploadMainImage($collection) {

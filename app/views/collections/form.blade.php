@@ -81,6 +81,19 @@
 <div class="col-md-12">
 	<h2>Diela</h2>
 	@if(isset($collection))
+
+	{{ Form::open(['url' => 'collection/fill']) }}
+	<div class="col-md-5"  id="types">
+		<div class="form-group">
+		{{ Form::text('ids', @$input['ids'], array('class'=> 'form-control', 'placeholder' => 'ID (oddelene bodkociarkou)')) }}
+		{{ Form::hidden('collection', $collection->id) }}
+		</div>
+	</div>
+	<div class="col-md-1 text-right">
+		<button type="submit" class="btn btn-default" id="add_event"><i class="fa fa-plus"></i> pridať</button>
+	</div>
+	{{Form::close() }}
+
 	<table class="table table-striped">
 		@foreach ($collection->items as $item)
 		<tr>
@@ -92,7 +105,7 @@
 			<td class="text-left">
 				<a href="#"><i class="fa fa-arrow-up"></i></a>
 				<a href="#"><i class="fa fa-arrow-down"></i></a>
-				<a href="#">zmazať</a>
+				<a href="{{ URL::to('collection/'.$collection->id.'/detach/'.$item->id) }}">zmazať</a>
 
 			</td>
 		</tr>
