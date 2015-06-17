@@ -35,6 +35,13 @@ class CategoriesTableSeeder extends Seeder {
                 // 'created_at' => $now,
                 // 'updated_at' => $now
             ],
+            [
+                'id' => 4,
+                'name' => 'výstava',
+                'order' => 4,
+                // 'created_at' => $now,
+                // 'updated_at' => $now
+            ],
 
         ];
 
