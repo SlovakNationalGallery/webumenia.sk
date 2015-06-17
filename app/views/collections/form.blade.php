@@ -106,6 +106,7 @@
 				<a href="#"><i class="fa fa-arrow-up"></i></a>
 				<a href="#"><i class="fa fa-arrow-down"></i></a>
 				<a href="{{ URL::to('collection/'.$collection->id.'/detach/'.$item->id) }}">zmazať</a>
+				<a href="{{ $item->getDetailUrl() }}" class="btn btn-success btn-xs btn-outline" target="_blank">na webe</a>
 
 			</td>
 		</tr>
