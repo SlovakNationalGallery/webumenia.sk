@@ -420,6 +420,14 @@ class Item extends Eloquent {
 	{
 		$copyright_length = 71; // 70 rokov po smrti autora
 		$limit_according_item_dating = $copyright_length + 60; // 60 = 80 (max_life_lenght) - 20 (start_of_publishing)
+		if (!(
+			$this->attributes['gallery'] == 'Slovenská národná galéria, SNG' || 
+			$this->attributes['gallery'] == 'Oravská galéria, OGD' ||
+			$this->attributes['gallery'] == 'Liptovská galéria Petra Michala Bohúňa, GPB' ||
+			$this->attributes['gallery'] == 'Galéria umenia Ernesta Zmetáka, GNZ'
+		)) {
+			return false;
+		}
 		foreach ($this->authorities as $authority) {
 			if (empty($authority->death_year)) {
 				if ((date('Y') - $this->attributes['date_latest']) < $limit_according_item_dating) {
