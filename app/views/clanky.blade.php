@@ -11,7 +11,7 @@
     <div class="articles-body">
         <div class="container">
             <div class="row">
-            	@foreach ($articles as $article)
+            	@foreach ($articles as $i=>$article)
 	                <div class="col-sm-6 col-xs-12 bottom-space">
 	                	<a href="{{ $article->getUrl() }}" class="featured-article">
 	                		<img src="{{ $article->getThumbnailImage() }}" class="img-responsive" alt="{{ $article->title }}">
@@ -26,8 +26,10 @@
                         (<a href="{{ $article->getUrl() }}">viac</a>)
                         </p>
                         <p class="meta">{{$article->published_date}} / {{$article->author}}</p>
-	                    
-	                </div>	
+	                </div>
+                    @if ($i%2 == 1)
+                        <div class="clearfix"></div>
+                    @endif
             	@endforeach
             </div>
         </div>
