@@ -9,7 +9,7 @@ class CollectionController extends \BaseController {
 	 */
 	public function index()
 	{
-		$collections = Collection::orderBy('order', 'ASC')->with('items')->paginate(20);
+		$collections = Collection::orderBy('created_at', 'desc')->with('items')->paginate(20);
 		// $collections = Item::orderBy('created_at', 'DESC')->get();
         return View::make('collections.index')->with('collections', $collections);
 	}
@@ -42,8 +42,19 @@ class CollectionController extends \BaseController {
 			$collection->name = Input::get('name');
 			$collection->type = Input::get('type');
 			$collection->text = Input::get('text');
+			$collection->publish = Input::get('publish', false);
+			if (Input::has('title_color')) {
+				$collection->title_color = Input::get('title_color');
+			}
+			if (Input::has('title_shadow')) {
+				$collection->title_shadow = Input::get('title_shadow');
+			}
 			$collection->order = Collection::max('order') + 1;
 			$collection->save();
+
+			if (Input::hasFile('main_image')) {
+				$this->uploadMainImage($collection);
+			}
 
 			return Redirect::route('collection.index');
 		}
@@ -99,8 +110,20 @@ class CollectionController extends \BaseController {
 			$collection->name = Input::get('name');
 			$collection->type = Input::get('type');
 			$collection->text = Input::get('text');
+			$collection->text = Input::get('text');
+			$collection->publish = Input::get('publish', false);
+			if (Input::has('title_color')) {
+				$collection->title_color = Input::get('title_color');
+			}
+			if (Input::has('title_shadow')) {
+				$collection->title_shadow = Input::get('title_shadow');
+			}
 			$collection->order = Input::get('order');
 			$collection->save();
+
+			if (Input::hasFile('main_image')) {
+				$this->uploadMainImage($collection);
+			}
 
 			Session::flash('message', 'Kolekcia <code>'.$collection->name.'</code> bola upravená');
 			return Redirect::route('collection.index');
@@ -141,6 +164,14 @@ class CollectionController extends \BaseController {
 		} else {
 			return Redirect::back()->withMessage('Chyba: zvolená kolekcia nebola nájdená. ');
 		}
+	}
+
+	private function uploadMainImage($collection) {
+		$main_image = Input::file('main_image');
+		$uploaded_image = Image::make($main_image->getRealPath());
+		$uploaded_image->widen(1200);
+		$filename = $collection->getHeaderImage(true);
+		$uploaded_image->save($filename);
 	}
 
 }

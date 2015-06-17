@@ -32,20 +32,22 @@
             	<table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Poradie</th>
+                            <th>ID</th>
                             <th>Názov</th>
                             <th>Počet diel</th>
                             <th>Dátum</th>
+                            <th>Publikovať</th>
                             <th>Akcie</th>
                         </tr>
                     </thead>
                     <tbody>
 						@foreach($collections as $i)
 			            <tr>
-			                <td>{{ $i->order }}</td>
+			                <td>{{ $i->id }}</td>
 			                <td>{{ $i->name }}</td>
 			                <td>{{ $i->items()->count(); }}</td>
-			                <td>{{ $i->created_at }}</td>
+                            <td>{{ $i->created_at }}</td>
+			                <td class="text-center">{{ $i->publish }}</td>
 			                <td>
                                 {{ link_to_action('CollectionController@show', 'Detail', array($i->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', )) }} 
                                 {{ link_to_action('CollectionController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) }}

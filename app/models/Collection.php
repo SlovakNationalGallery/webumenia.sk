@@ -42,8 +42,8 @@ class Collection extends \Eloquent {
         return file_exists(self::getHeaderImageForId($this->id, true));
     }
 
-    public function getHeaderImage() {
-        return self::getHeaderImageForId($this->id);
+    public function getHeaderImage($full = false) {
+        return self::getHeaderImageForId($this->id, $full);
     }
 
     public  static function getHeaderImageForId($id, $full = false) {

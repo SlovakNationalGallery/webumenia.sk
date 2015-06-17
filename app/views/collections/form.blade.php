@@ -4,9 +4,9 @@
 
 <div class="col-md-12">
 	@if(isset($collection))
-	    {{ Form::model($collection, ['route' => ['collection.update', $collection->id], 'method' => 'patch']) }}
+	    {{ Form::model($collection, ['route' => ['collection.update', $collection->id], 'method' => 'patch', 'files'=>true]) }}
 	@else
-	    {{ Form::open(['route' => 'collection.store']) }}
+	    {{ Form::open(['route' => 'collection.store', 'files'=>true]) }}
 	@endif
 
 	@if (Session::has('message'))
@@ -58,15 +58,29 @@
 		</div>
 	</div>
 </div>
-<div class="col-md-12">
+<div class="col-md-6">
 	<div class="form-group">
 		{{ Form::label('main_image', 'Obrázok') }}
 		{{ Form::file('main_image') }}
-		<p>šírka: 1400px<br>formát: JPG (vysoka kompresia ~50-60%)</p>
+		<p>obrazok bude automaticky zmenseny na sirku 1400px</p>
+		<p>šírka min: 1400px<br>formát: JPG (vysoka kompresia ~50-60%)</p>
 	</div>
 </div>
+<div class="col-md-6">
+	<div class="form-group checkbox">
+		{{ Form::label('publish', 'Publikovať') }}
+		{{ Form::checkbox('publish', '1', @$input['publish']) }}
+	</div>
+</div>
+<div class="col-md-12 text-center">
+	{{ Form::submit('Uložiť', array('class' => 'btn btn-default')) }} &nbsp; 
+	{{ link_to_route('collection.index', 'Zrušiť', null, array('class' => 'btn btn-default')) }}
+	{{Form::close() }}
+</div>
+
 <div class="col-md-12">
 	<h2>Diela</h2>
+	@if(isset($collection))
 	<table class="table table-striped">
 		@foreach ($collection->items as $item)
 		<tr>
@@ -84,12 +98,11 @@
 		</tr>
 		@endforeach
 	</table>
+	@else
+	    <p>Diela sa dajú pridávať až po vytvorení kolekcie</p>
+	@endif
 </div>
-<div class="col-md-12 text-center">
-	{{ Form::submit('Uložiť', array('class' => 'btn btn-default')) }} &nbsp; 
-	{{ link_to_route('collection.index', 'Zrušiť', null, array('class' => 'btn btn-default')) }}
-	{{Form::close() }}
-</div>
+
 <div class="clearfix"></div>
 
 
