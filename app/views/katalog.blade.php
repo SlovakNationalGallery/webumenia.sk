@@ -58,14 +58,14 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-1 text-right year-range">
+                <div class="col-xs-6 col-sm-1 text-left text-sm-right year-range">
                         <span class="sans" id="from_year">{{ !empty($input['year-range']) ? reset((explode(',', $input['year-range']))) : Item::sliderMin() }}</span> 
                 </div>
-                <div class="col-sm-10 year-range">
-                        <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="{{ Item::sliderMin() }}" data-slider-max="{{ Item::sliderMax() }}" data-slider-step="5" data-slider-value="[{{ !empty($input['year-range']) ? $input['year-range'] : Item::sliderMin().','.Item::sliderMax() }}]"/> 
-                </div>
-                <div class="col-sm-1 text-left year-range">
+                <div class="col-xs-6 col-sm-1 col-sm-push-10 text-right text-sm-left year-range">
                         <span class="sans" id="until_year">{{ !empty($input['year-range']) ? end((explode(',', $input['year-range']))) : Item::sliderMax() }}</span>
+                </div>
+                <div class="col-sm-10 col-sm-pull-1 year-range">
+                        <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="{{ Item::sliderMin() }}" data-slider-max="{{ Item::sliderMax() }}" data-slider-step="5" data-slider-value="[{{ !empty($input['year-range']) ? $input['year-range'] : Item::sliderMin().','.Item::sliderMax() }}]"/> 
                 </div>
             </div>
             {{ Form::hidden('sort_by', @$input['sort_by'], ['id'=>'sort_by']) }}
