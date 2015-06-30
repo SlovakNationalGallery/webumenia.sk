@@ -17,23 +17,23 @@
             {{ Form::hidden('search', @$search) }}
             <div class="row">
                 <!-- <h3>Filter: </h3> -->
-                <div  class="col-md-4 col-xs-6">
-                        {{ Form::select('author', array('' => '') + $authors, @$input['author'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'autor')) }}
+                <div  class="col-md-4 col-xs-6 bottom-space">
+                        {{ Form::select('author', array('' => '') + $authors, @$input['author'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'autor')) }}
                  </div>
-                <div  class="col-md-4 col-xs-6">
-                        {{ Form::select('work_type', array('' => '') + $work_types,  @$input['work_type'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'výtvarný druh')) }}
+                <div  class="col-md-4 col-xs-6 bottom-space">
+                        {{ Form::select('work_type', array('' => '') + $work_types,  @$input['work_type'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'výtvarný druh')) }}
                 </div>
-                <div  class="col-md-4 col-xs-6">
-                        {{ Form::select('tag', array('' => '') + $tags, @$input['tag'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'tagy')) }}
+                <div  class="col-md-4 col-xs-6 bottom-space">
+                        {{ Form::select('tag', array('' => '') + $tags, @$input['tag'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'tagy')) }}
                 </div>
-                <div  class="col-md-4 col-xs-6">
-                        {{ Form::select('gallery', array('' => '') + $galleries, @$input['gallery'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'galéria')) }}
+                <div  class="col-md-4 col-xs-6 bottom-space">
+                        {{ Form::select('gallery', array('' => '') + $galleries, @$input['gallery'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'galéria')) }}
                 </div>
-                <div  class="col-md-4 col-xs-6">
-                        {{ Form::select('topic', array('' => '') + $topics, @$input['topic'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'žáner')) }}
+                <div  class="col-md-4 col-xs-6 bottom-space">
+                        {{ Form::select('topic', array('' => '') + $topics, @$input['topic'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'žáner')) }}
                 </div>
-                <div  class="col-md-4 col-xs-6">
-                        {{ Form::select('technique', array('' => '') + $techniques, @$input['technique'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'technika')) }}
+                <div  class="col-md-4 col-xs-6 bottom-space">
+                        {{ Form::select('technique', array('' => '') + $techniques, @$input['technique'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'technika')) }}
                 </div>
                 <div class="col-md-4 col-xs-6">
                         <div class="checkbox">
@@ -147,7 +147,7 @@
 @section('javascript')
 
 {{ HTML::script('js/bootstrap-slider.min.js') }}
-{{ HTML::script('js/chosen.jquery.min.js') }}
+{{ HTML::script('js/selectize.min.js') }}
 {{ HTML::script('js/readmore.min.js') }}
 
 <script type="text/javascript">
@@ -177,9 +177,27 @@ $(document).ready(function(){
         $('#until_year').html(rozsah[1]);
     });
 
-    $(".chosen-select").chosen({allow_single_deselect: true})
+    // $(".custom-select").chosen({allow_single_deselect: true})
+    $(".custom-select").selectize({
+        plugins: ['remove_button'],
+         // maxItems: 2,
+        maxItems: 1,
+        placeholder: $(this).attr('data-placeholder'),
+        mode: 'multi',
+        render: {
+                 // option: function(data, escape) {
+                 //     return '<div class="option">' +
+                 //             '<span class="title">' + escape(data.value) + '</span>' +
+                 //             '<span class="url">' + escape(data.value) + '</span>' +
+                 //         '</div>';
+                 // },
+                 item: function(data, escape) {
+                     return '<div class="item">'  + '<span class="color">'+this.settings.placeholder+': </span>' +  data.text.replace(/\(.*?\)/g, "") + '</div>';
+            }
+        }
+    });
 
-    $(".chosen-select, input[type='checkbox']").change(function() {
+    $(".custom-select, input[type='checkbox']").change(function() {
         $(this).closest('form').submit();
     });
 
