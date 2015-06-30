@@ -14,14 +14,14 @@
         {{ Form::hidden('search', @$search) }}
         <div class="row">
             <!-- <h3>Filter: </h3> -->
-            <div  class="col-md-4 col-xs-6">
-                    {{ Form::select('role', array('' => '') + $roles,  @$input['role'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Rola')) }}
+            <div  class="col-md-4 col-xs-6 bottom-space">
+                    {{ Form::select('role', array('' => '') + $roles,  @$input['role'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'Rola')) }}
             </div>
-            <div  class="col-md-4 col-xs-6">
-                    {{ Form::select('nationality', array('' => '') + $nationalities, @$input['nationality'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Príslušnosť')) }}
+            <div  class="col-md-4 col-xs-6 bottom-space">
+                    {{ Form::select('nationality', array('' => '') + $nationalities, @$input['nationality'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'Príslušnosť')) }}
             </div>
-            <div  class="col-md-4 col-xs-6">
-                    {{ Form::select('place', array('' => '') + $places,  @$input['place'], array('class'=> 'chosen-select form-control', 'data-placeholder' => 'Miesto')) }}
+            <div  class="col-md-4 col-xs-6 bottom-space">
+                    {{ Form::select('place', array('' => '') + $places,  @$input['place'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'Miesto')) }}
             </div>
         </div>
         <div class="row">
@@ -31,7 +31,7 @@
             <div class="col-xs-6 col-sm-1 col-sm-push-10 text-right text-sm-left year-range">
                     <b class="sans" id="until_year">{{ !empty($input['year-range']) ? end((explode(',', $input['year-range']))) : Authority::sliderMax() }}</b>
             </div>
-            <div class="col-sm-10 year-range">
+            <div class="col-sm-10 col-sm-pull-1 year-range">
                     <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="{{ Authority::sliderMin() }}" data-slider-max="{{ Authority::sliderMax() }}" data-slider-step="5" data-slider-value="[{{ !empty($input['year-range']) ? $input['year-range'] : Authority::sliderMin().','.Authority::sliderMax() }}]"/> 
             </div>
         </div>
@@ -138,7 +138,7 @@
 @section('javascript')
 
 {{ HTML::script('js/bootstrap-slider.min.js') }}
-{{ HTML::script('js/chosen.jquery.min.js') }}
+{{ HTML::script('js/selectize.min.js') }}
 {{ HTML::script('js/slick.js') }}
 
 <script type="text/javascript">
@@ -156,9 +156,26 @@ $(document).ready(function(){
         $('#until_year').html(rozsah[1]);
     });
 
-    $(".chosen-select").chosen({allow_single_deselect: true})
+    $(".custom-select").selectize({
+        plugins: ['remove_button'],
+         // maxItems: 2,
+        maxItems: 1,
+        placeholder: $(this).attr('data-placeholder'),
+        mode: 'multi',
+        render: {
+                 // option: function(data, escape) {
+                 //     return '<div class="option">' +
+                 //             '<span class="title">' + escape(data.value) + '</span>' +
+                 //             '<span class="url">' + escape(data.value) + '</span>' +
+                 //         '</div>';
+                 // },
+                 item: function(data, escape) {
+                     return '<div class="item">'  + '<span class="color">'+this.settings.placeholder+': </span>' +  data.text.replace(/\(.*?\)/g, "") + '</div>';
+            }
+        }
+    });
 
-    $(".chosen-select").change(function() {
+    $(".custom-select").change(function() {
         $(this).closest('form').submit();
     });
 

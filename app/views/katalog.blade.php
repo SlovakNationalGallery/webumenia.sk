@@ -37,22 +37,25 @@
                 </div>
                 <div class="col-md-4 col-xs-6">
                         <div class="checkbox">
-                            <label>
-                              {{ Form::checkbox('has_image', '1', @$input['has_image']) }} len diela s obrázkami
+                            {{ Form::checkbox('has_image', '1', @$input['has_image'], ['id'=>'has_image']) }}
+                            <label for="has_image">
+                              len diela s obrázkami
                             </label>
                         </div>
                 </div>
                 <div class="col-md-4 col-xs-6">
                         <div class="checkbox">
-                            <label>
-                              {{ Form::checkbox('has_iip', '1', @$input['has_iip']) }} len diela so zoom
+                            {{ Form::checkbox('has_iip', '1', @$input['has_iip'], ['id'=>'has_iip']) }}
+                            <label for="has_iip">
+                              len diela so zoom
                             </label>
                         </div>
                 </div>
                 <div class="col-md-4 col-xs-6">                        
                         <div class="checkbox">
-                            <label>
-                              {{ Form::checkbox('is_free', '1', @$input['is_free']) }} len voľné diela
+                            {{ Form::checkbox('is_free', '1', @$input['is_free'], ['id'=>'is_free']) }}
+                            <label for="is_free">
+                              len voľné diela
                             </label>
                         </div>
                 </div>
@@ -147,6 +150,7 @@
 @section('javascript')
 
 {{ HTML::script('js/bootstrap-slider.min.js') }}
+{{-- {{ HTML::script('js/bootstrap-checkbox.js') }} --}}
 {{ HTML::script('js/selectize.min.js') }}
 {{ HTML::script('js/readmore.min.js') }}
 
@@ -165,6 +169,8 @@ $(document).ready(function(){
     //       // }
     //     }
     // });
+    
+    // $('.checkbox').checkbox();
 
     $("#year-range").slider({
         // value: [1800, 1900],
