@@ -198,4 +198,6 @@ return array(
 		'index' => 'webumenia',
 	),
 
+	'old_url' => 'http://stary.webumenia.sk',
+
 );

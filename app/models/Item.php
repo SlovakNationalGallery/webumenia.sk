@@ -142,6 +142,11 @@ class Item extends Eloquent {
 		return URL::to('dielo/' . $this->id);
 	}
 
+	public function getOaiUrl()
+	{
+		return Config::get('app.old_url').'/oai-pmh-new/?verb=GetRecord&metadataPrefix=oai_dc&identifier='.$this->id;
+	}
+
 	public function moreLikeThis($size = 10) {
 		$params = array();
 		$params["size"] = $size;
