@@ -35,7 +35,7 @@ var authors = new Bloodhound({
                     birth_year: author.birth_year || "",
                     death_year: author.death_year || "",
                     image: author.image,
-                    value: author.name + ' (' + author.birth_year + ' - ' + author.death_year + ' )'
+                    value: author.name
                 };
             });
         }
