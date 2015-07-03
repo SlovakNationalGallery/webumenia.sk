@@ -210,7 +210,7 @@ class Authority extends Eloquent {
 		return URL::to('autor/' . $authority_id);
 	}
 
-	public function getDescription($html = false, $links = false)
+	public function getDescription($html = false, $links = false, $include_roles = false)
 	{
 		$description = ($html) ? '* ' : '';
 		$description .= ($html) ? $this->birth_date : $this->birth_year;
@@ -220,6 +220,12 @@ class Authority extends Eloquent {
 			$description .= ($html) ? '&#x271D; ' : '';
 			$description .= ($html) ? $this->death_date : $this->death_year;
 			$description .= self::formatPlace($this->death_place, $links);
+		}
+		if ($include_roles) {
+			$roles = array();
+			foreach ($this->roles as $i=>$role) $roles[] = $role->role;
+			if ($roles) $description .= '. Role: ' . implode(', ', $roles);
+			
 		}
 		return $description;
 	}

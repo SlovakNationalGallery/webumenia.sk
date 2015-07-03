@@ -3,7 +3,7 @@
 @section('og')
 <meta property="og:title" content="{{ $author->formatedName }}" />
 
-<meta property="og:description" content="{{ $author->getDescription() }}" />
+<meta property="og:description" content="{{ $author->getDescription(false, false, true) }}" />
 <meta property="og:type" content="object" />
 <meta property="og:url" content="{{ Request::url() }}" />
 <meta property="og:image" content="{{ URL::to( $author->getImagePath() ) }}" />
@@ -16,7 +16,7 @@
 @stop
 
 @section('description')
-    <meta name="description" content="{{ $author->getDescription() }}">
+    <meta name="description" content="{{ $author->getDescription(false, false, true) }}">
 @stop
 
 @section('content')
