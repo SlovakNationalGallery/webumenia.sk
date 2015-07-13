@@ -5,6 +5,7 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.2.*",
+		"doctrine/dbal": "~2.3",
 		"caseyamcl/Phpoaipmh": "dev-master",
 		"intervention/image": "dev-master",
 		"orangehill/iseed": "1.1",

@@ -113,7 +113,7 @@ class Authority extends Eloquent {
 
 	public function relationships()
     {
-        return $this->hasMany('AuthorityRelationship');
+        return $this->belongsToMany('Authority', 'authority_relationships', 'authority_id', 'related_authority_id')->withPivot('type');;
     }
 
 	public function items()
@@ -402,8 +402,8 @@ class Authority extends Eloquent {
 	public function getAssociativeRelationships() {
 		$associative_relationships = array();
 		foreach ($this->relationships as $i=>$relationship) {
-			$associative_relationships[self::formatMultiAttribute($relationship->type)][] = [
-				'id' => $relationship->realted_authority_id,
+			$associative_relationships[self::formatMultiAttribute($relationship->pivot->type)][] = [
+				'id' => $relationship->id,
 				'name' => self::formatName($relationship->name)
 				];
 		}
