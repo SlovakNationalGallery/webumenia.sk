@@ -192,6 +192,7 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('logout', 'AuthController@logout');
 	Route::get('harvests/launch/{id}', 'SpiceHarvesterController@launch');
 	Route::get('harvests/orphaned/{id}', 'SpiceHarvesterController@orphaned');
+	Route::get('harvests/{record_id}/refreshRecord/', 'SpiceHarvesterController@refreshRecord');
 	Route::resource('harvests', 'SpiceHarvesterController');
 	Route::get('item/backup', 'ItemController@backup');
 	Route::get('item/geodata', 'ItemController@geodata');

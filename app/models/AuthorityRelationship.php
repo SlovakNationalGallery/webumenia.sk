@@ -5,7 +5,7 @@ class AuthorityRelationship extends Eloquent {
 	public $timestamps = false;
 	protected $fillable = array(
 			'authority_id',
-			'realted_authority_id',
+			'related_authority_id',
 			'name',
 			'type',
 		);

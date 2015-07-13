@@ -235,14 +235,7 @@ class SpiceHarvesterController extends \BaseController {
 		$harvest->status_messages = '';
 		$harvest->save();
 
-		//--- nazacat samostatnu metodu
-		$guzzleAdapter = null;
-		if ($harvest->username && $harvest->password) {
-			$gclient = new GuzzleHttp\Client(['defaults' =>  ['auth' =>  [$harvest->username, $harvest->password]]]);
-			$guzzleAdapter = new \Phpoaipmh\HttpAdapter\GuzzleAdapter($gclient);			
-		}
-		$client = new \Phpoaipmh\Client($harvest->base_url, $guzzleAdapter);
-	    $myEndpoint = new \Phpoaipmh\Endpoint($client);
+	    $myEndpoint = $this->getEndpoint($harvest); 
 
     	$recs = $myEndpoint->listRecords($harvest->metadata_prefix, $start_from, null, $harvest->set_spec);
     	if (App::runningInConsole()) {
@@ -317,6 +310,22 @@ class SpiceHarvesterController extends \BaseController {
 
 	    Session::flash('message', $message);
 	    return Redirect::route('harvests.index');
+	}
+
+	public function refreshRecord($record_id)
+	{
+		$record = SpiceHarvesterRecord::find($record_id);
+		$harvest = $record->harvest;
+		$myEndpoint = $this->getEndpoint($harvest); 
+		$rec = $myEndpoint->getRecord($record->item_id, $harvest->metadata_prefix);
+		$vendorDir = base_path() . '/vendor'; include($vendorDir . '/imsop/simplexml_debug/src/simplexml_dump.php'); include($vendorDir . '/imsop/simplexml_debug/src/simplexml_tree.php');
+		// simplexml_tree($rec->GetRecord->record);  dd();
+		// foreach($recs->GetRecord as $rec) {
+			$this->updateRecord($record, $rec->GetRecord->record, $harvest->type);
+		// }
+		$message = 'Pre záznam boli úspešne načítané dáta z OAI';
+		Session::flash('message', $message);
+		return Redirect::back();
 	}
 
 
@@ -464,7 +473,43 @@ class SpiceHarvesterController extends \BaseController {
 		    	unset($attributes['biography']); //neprepisovat biografiu - chceme nechat tu co sme rucne vyplnili
 			    $author = Authority::where('id', '=', $rec->header->identifier)->first();
 			    $author->fill($attributes);
-			    if (!empty($attributes['links'])) {
+				if (!empty($attributes['nationalities'])) {
+			    	$nationality_ids = array();
+				    foreach ($attributes['nationalities'] as $key => $nationality) {
+				    	$nationality = Nationality::firstOrCreate($nationality);
+				    	$nationality_ids[] = $nationality['id'];
+				    }
+				    $nationality = $author->nationalities()->sync($nationality_ids);
+				}
+				if (!empty($attributes['roles'])) {
+				    foreach ($attributes['roles'] as $key => $role) {
+				    	$role['authority_id'] = $author->id;
+				    	$role = AuthorityRole::firstOrCreate($role);
+				    }
+				}				
+			    if (!empty($attributes['names'])) {
+				    foreach ($attributes['names'] as $key => $name) {
+				    	$name['authority_id'] = $author->id;
+				    	$name = AuthorityName::firstOrCreate($name);
+				    }
+				}
+				if (!empty($attributes['events'])) {
+				    foreach ($attributes['events'] as $key => $event) {
+				    	$event['authority_id'] = $author->id;
+				    	$event = AuthorityEvent::updateOrCreate(['id'=>$event['id']], $event);
+				    }
+				}
+			    if (!empty($attributes['relationships'])) {
+				    foreach ($attributes['relationships'] as $key => $relationship) {
+				    	$related_autrhority = Authority::where('id', '=', $relationship['related_authority_id'])->first();
+				    	if (!is_null($related_autrhority)) {
+				    		$relationship['authority_id'] = $author->id;
+				    		// $relationship['name'] = $related_autrhority->name;
+				    		$authority_relationship = AuthorityRelationship::firstOrCreate($relationship);				    		
+				    	}
+				    }
+				}
+				if (!empty($attributes['links'])) {
 				    foreach ($attributes['links'] as $key => $url) {
 				    	// dd($url);
 				    	if(Link::where('url', '=', $url)->where('linkable_id', '=', $author->id)->count()==0){
@@ -473,22 +518,6 @@ class SpiceHarvesterController extends \BaseController {
 					    	$link->label = Link::parse($url);
 					    	$author->links()->save($link);
 					    }
-				    }
-				}
-			    if (!empty($attributes['names'])) {
-				    foreach ($attributes['names'] as $key => $name) {
-				    	$name['authority_id'] = $author->id;
-				    	$name = AuthorityName::firstOrCreate($name);
-				    }
-				}
-			    if (!empty($attributes['relationships'])) {
-				    foreach ($attributes['relationships'] as $key => $relationship) {
-				    	$related_autrhority = Authority::where('id', '=', $relationship['realted_authority_id'])->first();
-				    	if (!is_null($related_autrhority)) {
-				    		$relationship['authority_id'] = $author->id;
-				    		$relationship['name'] = $related_autrhority->name;
-				    		$authority_relationship = AuthorityRelationship::firstOrCreate($relationship);				    		
-				    	}
 				    }
 				}
 			    $author->save();
@@ -514,12 +543,10 @@ class SpiceHarvesterController extends \BaseController {
      */
     private function mapAuthorAttributes($rec)
     {
-		$vendorDir = base_path() . '/vendor';
-	    // include($vendorDir . '/imsop/simplexml_debug/src/simplexml_dump.php');
-	    // include($vendorDir . '/imsop/simplexml_debug/src/simplexml_tree.php');
+		// $vendorDir = base_path() . '/vendor'; include($vendorDir . '/imsop/simplexml_debug/src/simplexml_dump.php'); include($vendorDir . '/imsop/simplexml_debug/src/simplexml_tree.php');
 
     	$attributes = array();
-// simplexml_tree($rec);  dd();
+		// simplexml_tree($rec);  dd();
 		$rec->registerXPathNamespace('cedvu', 'http://www.webumenia.sk#');
 		$rec->registerXPathNamespace('ulan', 'http://e-culture.multimedian.nl/ns/getty/ulan');
 		$rec->registerXPathNamespace('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns');
@@ -592,7 +619,7 @@ class SpiceHarvesterController extends \BaseController {
 		foreach ($metadata->Associative_Relationships->Associative_Relationship as $key => $relationship) {
 			$attributes['relationships'][] = [
 				'type' => (string)$relationship->Relationship_Type,
-				'realted_authority_id' => (int)$this->parseId((string)$relationship->Related_Subject_ID)
+				'related_authority_id' => (int)$this->parseId((string)$relationship->Related_Subject_ID)
 			];
 		}
 
@@ -775,6 +802,19 @@ class SpiceHarvesterController extends \BaseController {
 
 	private function processUrl($url) {
 		return str_replace('www.webumenia', 'stary.webumenia', $url);
+	}
+
+	private function getEndpoint($harvest)
+	{
+		//--- nazacat samostatnu metodu
+		$guzzleAdapter = null;
+		if ($harvest->username && $harvest->password) {
+			$gclient = new GuzzleHttp\Client(['defaults' =>  ['auth' =>  [$harvest->username, $harvest->password]]]);
+			$guzzleAdapter = new \Phpoaipmh\HttpAdapter\GuzzleAdapter($gclient);			
+		}
+		$client = new \Phpoaipmh\Client($harvest->base_url, $guzzleAdapter);
+		$endpoint = new \Phpoaipmh\Endpoint($client);		
+		return $endpoint;
 	}
 
 }

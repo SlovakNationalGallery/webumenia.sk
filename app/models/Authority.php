@@ -121,6 +121,11 @@ class Authority extends Eloquent {
         return $this->belongsToMany('Item');
     }
 
+    public function record()
+    {
+    	return $this->hasOne('SpiceHarvesterRecord', 'item_id');
+    }
+
 	public function getPreviewItems()
     {
     	$params = array();
