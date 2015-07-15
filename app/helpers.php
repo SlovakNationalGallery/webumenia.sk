@@ -66,3 +66,12 @@
     function br2nl($html) {
     	return preg_replace('#<br\s*/?>#i', "\n", $html);
     }
+
+    /**
+     * uzavrie retazec do daneho paru znakov (), '', "" atd...
+     * ak je prazdny, vrati prazdny retazec
+     */
+    function str_enclose($str, $enclose_with='()')
+    {
+    	return ($str) ? $enclose_with[0] . $str . $enclose_with[1] : '';
+    }

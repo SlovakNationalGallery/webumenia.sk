@@ -183,6 +183,10 @@
 
 <div class="col-md-12 text-center">
 	{{ Form::submit('Uložiť', array('class' => 'btn btn-default')) }} &nbsp; 
+	@if(isset($item))
+		<a href="{{URL::to('harvests/'.$item->record->id.'/refreshRecord')}}" class="btn btn-warning">Obnoviť z OAI</a>
+		&nbsp; 
+	@endif
 	{{ link_to_route('item.index', 'Zrušiť', null, array('class' => 'btn btn-default')) }}
 	{{Form::close() }}
 </div>

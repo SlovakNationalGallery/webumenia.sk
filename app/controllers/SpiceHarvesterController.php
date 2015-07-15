@@ -318,7 +318,7 @@ class SpiceHarvesterController extends \BaseController {
 		$harvest = $record->harvest;
 		$myEndpoint = $this->getEndpoint($harvest); 
 		$rec = $myEndpoint->getRecord($record->item_id, $harvest->metadata_prefix);
-		$vendorDir = base_path() . '/vendor'; include($vendorDir . '/imsop/simplexml_debug/src/simplexml_dump.php'); include($vendorDir . '/imsop/simplexml_debug/src/simplexml_tree.php');
+		// $vendorDir = base_path() . '/vendor'; include($vendorDir . '/imsop/simplexml_debug/src/simplexml_dump.php'); include($vendorDir . '/imsop/simplexml_debug/src/simplexml_tree.php');
 		// simplexml_tree($rec->GetRecord->record);  dd();
 		// foreach($recs->GetRecord as $rec) {
 			$this->updateRecord($record, $rec->GetRecord->record, $harvest->type);
@@ -464,7 +464,7 @@ class SpiceHarvesterController extends \BaseController {
 			    // $item = Item::where('id', '=', $rec->header->identifier)->first();
 			    $item = Item::firstOrCreate(['id' => $rec->header->identifier]);
 			    $item->fill($attributes);
-			    $item->authorities()->sync($attributes['authority_ids']);
+			    $item->authorities()->sync($attributes['authorities']);
 			    $item->save();
     			break;
     		case 'author':
@@ -631,6 +631,8 @@ class SpiceHarvesterController extends \BaseController {
      */
     private function mapItemAttributes($rec)
     {
+		$vendorDir = base_path() . '/vendor'; include($vendorDir . '/imsop/simplexml_debug/src/simplexml_dump.php'); include($vendorDir . '/imsop/simplexml_debug/src/simplexml_tree.php');
+
     	$attributes = array();
 
 		$dcElements = $rec->metadata
@@ -676,13 +678,21 @@ class SpiceHarvesterController extends \BaseController {
 	    $attributes['title'] = $dcElements->title;
 	    $authors = array();
 	    $authority_ids = array();
+	    $authorities = array();
 	    foreach ($dcElements->creator as $key => $creator) {
 		    if (strpos($creator, 'urn:')!==false) {
 		    	$authority_ids[] = (int)$this->parseId($creator);
 		    } else {
-		    	$authors[] = $creator;
+		    	$authors[] = (string)$creator;
 		    }
 	    }
+	    $i = 0;
+	    foreach ($dcElements->{'creator.role'} as $role) {
+		    	$authorities[ $authority_ids[$i] ]['role'] = (string)$role;
+		    	$authorities[ $authority_ids[$i] ]['name'] = $authors[$i];
+		    	$i++;
+	    }
+	    $attributes['authorities'] = $authorities;
 	    $attributes['authority_ids'] = $authority_ids;
 	    $attributes['author'] = $this->serialize($authors);
 	    if (!empty($type[0])) $attributes['work_type'] = $type[0];
@@ -693,7 +703,9 @@ class SpiceHarvesterController extends \BaseController {
 	    $attributes['place'] = $this->serialize($dcElements->{'subject.place'});
 	    // $trans = array(", " => ";", "šírka" => "", "výška" => "", "()" => "");
 	    $trans = array(", " => ";", "; " => ";", "()" => "");
-	    $attributes['measurement'] = trim(strtr($dcTerms->extent, $trans));
+	    $attributes['measurement'] = trim($dcTerms->extent);
+	    // $attributes['measurement'] = trim(strtr($dcTerms->extent, $trans));
+	    // dd($attributes['measurement']);
 	    $dating = explode('/', $dcTerms->created[0]);
 	    $dating_text = (!empty($dcTerms->created[1])) ? end((explode(', ', $dcTerms->created[1]))) : $dcTerms->created[0];
 	    $attributes['date_earliest'] = (!empty($dating[0])) ? $dating[0] : null;
@@ -705,6 +717,18 @@ class SpiceHarvesterController extends \BaseController {
 	    $attributes['state_edition'] =  (!empty($type[2])) ? $type[2] : null;
 	    $attributes['gallery'] = $dcTerms->provenance;
 	    if (isSet($dcElements->rights[0])) $attributes['publish'] = (int)$dcElements->rights[0];
+		$related = (string)$dcElements->{'relation.isPartOf'};
+		$related_parts = explode(':', $related);
+		$attributes['relationship_type'] = array_shift($related_parts);
+		if($related_parts) {
+			$attributes['related_work'] = trim(preg_replace('/\s*\([^)]*\)/', '', $related_parts[0]));
+			preg_match('#\((.*?)\)#',  $related_parts[0], $match); 
+			$related_work_order = $match[1];
+			$related_work_order_parts = explode('/', $related_work_order);
+			$attributes['related_work_order'] = array_shift($related_work_order_parts);
+			$attributes['related_work_total'] = array_shift($related_work_order_parts);			// dd($attributes['related_work_total']);
+		}
+		
 	} catch (Exception $e) {
 		Log::error('Identifier: ' . $identifier);
 		Log::error('Message: ' . $e->getMessage());

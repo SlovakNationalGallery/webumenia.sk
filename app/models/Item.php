@@ -54,8 +54,10 @@ class Item extends Eloquent {
 		'lat',
 		'lng',
 		'state_edition',
-		'integrity',
-		'integrity_work',
+		'relationship_type',
+		'related_work',
+		'related_work_order',
+		'related_work_total',
 		'gallery',
 		'img_url',
 		'iipimg_url',
@@ -131,6 +133,11 @@ class Item extends Eloquent {
 	public function collections()
     {
         return $this->belongsToMany('Collection', 'collection_item', 'item_id', 'collection_id');
+    }
+
+    public function record()
+    {
+    	return $this->hasOne('SpiceHarvesterRecord', 'item_id');
     }
 
 	public function getImagePath($full=false) {
@@ -337,7 +344,12 @@ class Item extends Eloquent {
 				}
 				if (!empty($measurement)) {				
 					$measurement = explode(' ', $measurement, 2);
-					$measurements[$i][$measurement[0]] = $measurement[1];
+					if (isSet($measurement[1])) {
+						$measurements[$i][$measurement[0]] = $measurement[1];
+					} else {
+						$measurements[$i][] = $measurement[0];
+					}
+
 				}
 			}			
 		}
