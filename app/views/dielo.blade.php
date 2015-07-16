@@ -3,7 +3,7 @@
 @section('og')
 <meta property="og:title" content="{{ implode(', ', $item->authors)}} - {{ $item->title }}" />
 
-<meta property="og:description" content="{{ $item->work_type; }}, datovanie: {{ $item->dating }}, rozmer: {{  implode(' x ', $item->measurements[0]) }}" />
+<meta property="og:description" content="{{ $item->work_type; }}, datovanie: {{ $item->dating }}, rozmer: {{  implode(' x ', $item->measurements) }}" />
 <meta property="og:type" content="object" />
 <meta property="og:url" content="{{ Request::url() }}" />
 <meta property="og:image" content="{{ URL::to( $item->getImagePath() ) }}" />
@@ -16,7 +16,7 @@
 @stop
 
 @section('description')
-    <meta name="description" content="{{ $item->work_type; }}, datovanie: {{ $item->dating }}, rozmer: {{  implode(' x ', $item->measurements[0]) }}">
+    <meta name="description" content="{{ $item->work_type; }}, datovanie: {{ $item->dating }}, rozmer: {{  implode(' x ', $item->measurements) }}">
 @stop
 
 @section('content')
@@ -77,7 +77,8 @@
                                     <td class="atribut">rozmer:</td>
                                     <td>
                                         @foreach ($item->measurements as $measurement)
-                                            {{  implode(' &times; ', $measurement) }}<br>
+                                        {{--     {{  implode(' &times; ', $measurement) }}<br> --}}
+                                         {{ $measurement }}<br> 
                                         @endforeach
                                     </td>
                                 </tr>
@@ -196,8 +197,32 @@
                                     <td>{{ $item->place; }}</td>
                                 </tr>
                                 @endif
+                                @if (!empty($item->related_work))
+                                <tr>
+                                    <td class="atribut">{{ $item->relationship_type; }}:</td>
+                                    <td>
+                                        <a href="{{ URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->authorities()->first()->name) }}">{{ $item->related_work }}</a> 
+                                        @if ($item->related_work_order)
+                                            ({{ $item->related_work_order }}/{{ $item->related_work_total }})
+                                        @endif                                        
+                                    </td>
+                                </tr>
+                                @endif
                             </tbody>
                         </table>
+                        
+                    <div>
+                    @if (!empty($item->related_work))
+                        <div style="position: relative; padding: 0 10px;">
+                        <?php $related_tems = Item::where('related_work', '=', $item->related_work)->where('author', '=', $item->author)->orderBy('related_work_order')->get() ?>
+                        <div class="artworks-preview small">
+                        @foreach ($related_tems as $item)
+                            <a href="{{ $item->getDetailUrl() }}"><img data-lazy="{{ $item->getImagePath() }}" class="img-responsive-width " ></a>
+                        @endforeach
+                        </div>
+                        </div>
+                    @endif
+                    </div>
 
                     @if (!empty($item->lat) && ($item->lat > 0)) 
                         <div id="small-map"></div>

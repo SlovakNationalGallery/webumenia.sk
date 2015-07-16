@@ -185,6 +185,10 @@ PUT /webumenia/_mapping/items
         "type": "string",
         "index": "not_analyzed"
       },
+      "related_work": {
+        "type": "string",
+        "index": "not_analyzed"
+      },
       "view_count": {
         "type": "integer",
         "index": "not_analyzed"
@@ -367,3 +371,16 @@ PUT /webumenia/_mapping/authorities
 
 // do konfigu nutne pridat
 script.disable_dynamic: false
+
+// PUT
+PUT /webumenia/_mapping/items
+{
+   "items": {
+    "properties": {
+      "related_work": {
+        "type": "string",
+        "index": "not_analyzed"
+      }
+    }
+  }
+}

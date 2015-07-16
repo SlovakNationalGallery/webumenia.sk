@@ -723,16 +723,18 @@ class SpiceHarvesterController extends \BaseController {
 		if($related_parts) {
 			$attributes['related_work'] = trim(preg_replace('/\s*\([^)]*\)/', '', $related_parts[0]));
 			preg_match('#\((.*?)\)#',  $related_parts[0], $match); 
-			$related_work_order = $match[1];
-			$related_work_order_parts = explode('/', $related_work_order);
-			$attributes['related_work_order'] = array_shift($related_work_order_parts);
-			$attributes['related_work_total'] = array_shift($related_work_order_parts);			// dd($attributes['related_work_total']);
+			if (isSet($match[1])) {
+				$related_work_order = $match[1];
+				$related_work_order_parts = explode('/', $related_work_order);
+				$attributes['related_work_order'] = array_shift($related_work_order_parts);
+				$attributes['related_work_total'] = array_shift($related_work_order_parts);			// dd($attributes['related_work_total']);
+			}
 		}
 		
 	} catch (Exception $e) {
 		Log::error('Identifier: ' . $identifier);
 		Log::error('Message: ' . $e->getMessage());
-		die();
+		die('nastala chyba. pozri log.');
 	}
 	    
 	    // pretypovat SimpleXMLElement na string

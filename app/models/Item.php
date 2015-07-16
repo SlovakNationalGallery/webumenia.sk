@@ -22,6 +22,7 @@ class Item extends Eloquent {
 		'has_image',
 		'has_iip',
 		'is_free',
+		'related_work'
 	);
 
 	public static $sortable = array(
@@ -127,7 +128,7 @@ class Item extends Eloquent {
 
 	public function authorities()
     {
-        return $this->belongsToMany('Authority', 'authority_item', 'item_id', 'authority_id');
+        return $this->belongsToMany('Authority', 'authority_item', 'item_id', 'authority_id')->withPivot('role');
     }
 
 	public function collections()
@@ -332,28 +333,31 @@ class Item extends Eloquent {
 
 	public function getMeasurementsAttribute($value)
 	{
-		$measurements_array = explode(';', $this->attributes['measurement']);
-		$measurements = array();
-		$measurements[0] = array();
-		$i = -1;
-		if (!empty($this->attributes['measurement'])) {
-			foreach ($measurements_array as $key=>$measurement) {
-				if ($key%2 == 0) {
-					$i++;
-					$measurements[$i] = array();
-				}
-				if (!empty($measurement)) {				
-					$measurement = explode(' ', $measurement, 2);
-					if (isSet($measurement[1])) {
-						$measurements[$i][$measurement[0]] = $measurement[1];
-					} else {
-						$measurements[$i][] = $measurement[0];
-					}
+		$trans = array("; " => ";", "()" => "");
+	    return explode(';', strtr($this->attributes['measurement'], $trans));
 
-				}
-			}			
-		}
-		return $measurements;
+		// $measurements_array = explode(';', $this->attributes['measurement']);
+		// $measurements = array();
+		// $measurements[0] = array();
+		// $i = -1;
+		// if (!empty($this->attributes['measurement'])) {
+		// 	foreach ($measurements_array as $key=>$measurement) {
+		// 		if ($key%2 == 0) {
+		// 			$i++;
+		// 			$measurements[$i] = array();
+		// 		}
+		// 		if (!empty($measurement)) {				
+		// 			$measurement = explode(' ', $measurement, 2);
+		// 			if (isSet($measurement[1])) {
+		// 				$measurements[$i][$measurement[0]] = $measurement[1];
+		// 			} else {
+		// 				$measurements[$i][] = $measurement[0];
+		// 			}
+
+		// 		}
+		// 	}
+		// }
+		// return $measurements;
 	}
 
 	public function getDatingFormated() {
@@ -526,8 +530,14 @@ class Item extends Eloquent {
 	public function getAuthorsWithLinks() {
 		$used_authorities = array();
 		$authorities_with_link = array();
-		foreach ($this->authorities as $i => $authority) {
-			$authorities_with_link[] = '<a class="underline" href="'. $authority->getDetailUrl() .'">'. $authority->formated_name .'</a>';
+		$not_authorities_with_link = array();
+		foreach ($this->authorities as $authority) {
+			if ($authority->pivot->role != 'autor/author') {
+				$not_authorities_with_link[] = '<a class="underline" href="'. $authority->getDetailUrl() .'">'. $authority->formated_name .'</a>'			
+					.' &ndash; ' . Authority::formatMultiAttribute($authority->pivot->role);
+			} else {
+				$authorities_with_link[] = '<a class="underline" href="'. $authority->getDetailUrl() .'">'. $authority->formated_name .'</a>';				
+			}
 			$used_authorities[]= trim($authority->name, ', ');
 		}
 		foreach ($this->authors as $author_unformated => $author) {
@@ -536,7 +546,7 @@ class Item extends Eloquent {
 		    }
 		}
 
-		return $authorities_with_link;
+		return array_merge($authorities_with_link, $not_authorities_with_link);
 	}
 
 	public  function index() {
@@ -564,6 +574,7 @@ class Item extends Eloquent {
 	        	'has_iip' => (bool)$this->iipimg_url,
 	        	'is_free' => $this->isFree(),
 	        	// 'free_download' => $this->isFreeDownload(), // staci zapnut is_free + has_iip
+	        	'related_work' => $this->related_work,
 	        	'authority_id' => $this->relatedAuthorityIds(),
 	        ];
 	        return $client->index([
