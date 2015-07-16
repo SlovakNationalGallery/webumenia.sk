@@ -631,7 +631,7 @@ class SpiceHarvesterController extends \BaseController {
      */
     private function mapItemAttributes($rec)
     {
-		$vendorDir = base_path() . '/vendor'; include($vendorDir . '/imsop/simplexml_debug/src/simplexml_dump.php'); include($vendorDir . '/imsop/simplexml_debug/src/simplexml_tree.php');
+		// $vendorDir = base_path() . '/vendor'; include($vendorDir . '/imsop/simplexml_debug/src/simplexml_dump.php'); include($vendorDir . '/imsop/simplexml_debug/src/simplexml_tree.php');
 
     	$attributes = array();
 
