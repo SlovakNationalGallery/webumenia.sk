@@ -617,10 +617,13 @@ class SpiceHarvesterController extends \BaseController {
 		}
 		$attributes['relationships'] = array();
 		foreach ($metadata->Associative_Relationships->Associative_Relationship as $key => $relationship) {
-			$attributes['relationships'][] = [
-				'type' => (string)$relationship->Relationship_Type,
-				'related_authority_id' => (int)$this->parseId((string)$relationship->Related_Subject_ID)
-			];
+			$related_authority_id = (int)$this->parseId((string)$relationship->Related_Subject_ID);
+			if ($related_authority_id) {
+				$attributes['relationships'][$related_authority_id] = [
+					'type' => (string)$relationship->Relationship_Type,
+					'related_authority_id' => $related_authority_id
+				];				
+			}
 		}
 
 	    return $attributes;

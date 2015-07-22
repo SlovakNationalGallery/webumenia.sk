@@ -221,7 +221,7 @@ class Item extends Eloquent {
 
 	    // ak priecinky este neexistuju - vytvor ich
 	    if ($full && !file_exists($full_path)) {
-	    	mkdir($full_path, 0777, true);
+	    	mkdir($full_path, 0775, true);
 	    }
 
 	    // dd($full_path . "$file.jpeg");
