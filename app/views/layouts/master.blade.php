@@ -37,6 +37,7 @@
 		{{ HTML::style('css/magnific-popup.css') }}
         {{ HTML::script('js/modernizr.custom.js') }}
 
+		@if (App::environment() == 'production')
 		<script>
 		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -47,6 +48,7 @@
 		  ga('send', 'pageview');
 
 		</script>
+		@endif
 
 
 </head>
@@ -63,7 +65,7 @@
 
 	@if (App::environment() != 'production')
 		<div class="alert alert-warning text-center" role="alert">
-		  Táto verzia webu je pre účely testovania a postupne sa mení a vylepšuje. Budeme vďační, ak nám prípadné chyby (alebo pripomienky) <a href="mailto:lab@sng.sk" class="alert-link">nahlásite</a>.
+		  Pozor! Toto nieje ostrý web. Prostredie: <strong>{{ App::environment() }}</strong>
 		</div>
 	@endif
 

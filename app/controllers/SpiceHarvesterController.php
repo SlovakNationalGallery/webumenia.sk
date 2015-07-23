@@ -729,11 +729,16 @@ class SpiceHarvesterController extends \BaseController {
 			if (isSet($match[1])) {
 				$related_work_order = $match[1];
 				$related_work_order_parts = explode('/', $related_work_order);
-				$attributes['related_work_order'] = array_shift($related_work_order_parts);
-				$attributes['related_work_total'] = array_shift($related_work_order_parts);			// dd($attributes['related_work_total']);
+				$related_work_order = array_shift($related_work_order_parts);
+				$related_work_total = array_shift($related_work_order_parts);
+				if (!is_numeric($related_work_order)) {
+					$attributes['related_work'] = $related_work_order;
+				} else {
+					$attributes['related_work_order'] = (int)$related_work_order;
+					$attributes['related_work_total'] = (int)$related_work_total;
+				}
 			}
 		}
-		
 	} catch (Exception $e) {
 		Log::error('Identifier: ' . $identifier);
 		Log::error('Message: ' . $e->getMessage());
