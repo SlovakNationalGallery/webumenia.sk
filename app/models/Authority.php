@@ -83,7 +83,7 @@ class Authority extends Eloquent {
 	    static::deleted(function($item)
 	    {
 	        Elastic::delete([
-	        	'index' => Config::get('app.elasticsearch.index'),
+	        	'index' => Config::get('fadion/bouncy::config.index'),
 	        	'type' => self::ES_TYPE,
 	        	'id' => $item->id,
         	]);
@@ -334,7 +334,7 @@ class Authority extends Eloquent {
         	'items_with_images_count' => $this->items()->hasImage()->count(),
         ];
         return Elastic::index([
-        	'index' => Config::get('app.elasticsearch.index'),
+        	'index' => Config::get('fadion/bouncy::config.index'),
         	'type' =>  self::ES_TYPE,
         	'id' => $this->attributes['id'],
         	'body' =>$data,

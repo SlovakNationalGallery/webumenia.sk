@@ -139,11 +139,7 @@ class AuthorController extends \BaseController {
             }
 		} 
 
-		Debugbar::addMeasure('now', LARAVEL_START, microtime(true));
-		$authors = null;
-		Debugbar::measure('Elastic-search', function() use (&$authors, $params) {			
-			$authors = Authority::search($params);
-		});
+		$authors = Authority::search($params);
 		$authors->load('roles');
 		$paginator = Paginator::make($authors->all(), $authors->total(), $per_page);
 
@@ -170,6 +166,7 @@ class AuthorController extends \BaseController {
 	 	$q = (Input::has('search')) ? str_to_alphanumeric(Input::get('search')) : 'null';
 
 		$result = Elastic::search([
+				'index' => Config::get('fadion/bouncy::config.index'),
 	        	'type' => Authority::ES_TYPE,
 	        	'body'  => array(
 	                'query' => array(

@@ -198,6 +198,7 @@ class CatalogController extends \BaseController {
 	 	$q = (Input::has('search')) ? str_to_alphanumeric(Input::get('search')) : 'null';
 
 		$result = Elastic::search([
+				'index' => Config::get('fadion/bouncy::config.index'),
 	        	'type' => Item::ES_TYPE,
 	        	'body'  => array(
 	                'query' => array(

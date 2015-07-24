@@ -119,7 +119,7 @@ class Item extends Eloquent {
 	    {
 	        $client = new Elasticsearch\Client();
 	        $client->delete([
-	        	'index' => Config::get('app.elasticsearch.index'),
+	        	'index' => Config::get('fadion/bouncy::config.index'),
 	        	'type' => self::ES_TYPE,
 	        	'id' => $item->id,
         	]);
@@ -578,7 +578,7 @@ class Item extends Eloquent {
 	        	'authority_id' => $this->relatedAuthorityIds(),
 	        ];
 	        return $client->index([
-	        	'index' => Config::get('app.elasticsearch.index'),
+	        	'index' => Config::get('fadion/bouncy::config.index'),
 	        	'type' =>  self::ES_TYPE,
 	        	'id' => $this->attributes['id'],
 	        	'body' =>$data,
