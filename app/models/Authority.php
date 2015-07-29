@@ -319,7 +319,7 @@ class Authority extends Eloquent {
         	'name' => $this->attributes['name'],
         	'alternative_name' => $this->names->lists('name'),
         	'related_name' => $this->relationships->lists('name'),
-			'biography' => (!empty($this->attributes['biography'])) ? strip_tags($this->attributes['biography']) : '',	        	
+			'biography' => (!empty($this->attributes['biography'])) ? strip_tags($this->attributes['biography']) : '',
 			'nationality' => $this->nationalities->lists('code'),
         	'place' => $this->places,
         	'role' => $this->roles->lists('role'),

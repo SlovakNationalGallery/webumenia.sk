@@ -481,6 +481,8 @@ class SpiceHarvesterController extends \BaseController {
 				    }
 				    $nationality = $author->nationalities()->sync($nationality_ids);
 				}
+				$roles_to_remove = $this->get_obsolete_attributes($author->roles->lists('role', 'id'), $attributes['roles']);
+				AuthorityRole::destroy(array_keys($roles_to_remove));
 				if (!empty($attributes['roles'])) {
 				    foreach ($attributes['roles'] as $key => $role) {
 				    	$role['authority_id'] = $author->id;
@@ -493,6 +495,8 @@ class SpiceHarvesterController extends \BaseController {
 				    	$name = AuthorityName::firstOrCreate($name);
 				    }
 				}
+				$events_to_remove = $this->get_obsolete_attributes($author->events->lists('event', 'id'), $attributes['events']);
+				AuthorityEvent::destroy(array_keys($events_to_remove));
 				if (!empty($attributes['events'])) {
 				    foreach ($attributes['events'] as $key => $event) {
 				    	$event['authority_id'] = $author->id;
@@ -849,6 +853,22 @@ class SpiceHarvesterController extends \BaseController {
 		$client = new \Phpoaipmh\Client($harvest->base_url, $guzzleAdapter);
 		$endpoint = new \Phpoaipmh\Endpoint($client);		
 		return $endpoint;
+	}
+
+	/**
+	 * return array(ids to remove)
+	 */
+	private function get_obsolete_attributes($db_array, $oai_array) {
+		//first in array is id/or value to check
+		foreach ($db_array as $id=>$db_attribute) {
+			foreach ($oai_array as $oai_attribute) {
+				if (in_array($db_attribute, $oai_attribute)) {
+					unset($db_array[$id]);
+				}
+			}
+		}
+
+		return $db_array;
 	}
 
 }
