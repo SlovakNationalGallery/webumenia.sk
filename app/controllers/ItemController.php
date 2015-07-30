@@ -121,7 +121,8 @@ class ItemController extends \BaseController {
 		if($v->passes())
 		{
 			$input = array_except(Input::all(), array('_method'));
-			$input = array_filter($input, 'strlen');
+			// $input = array_filter($input, 'strlen');
+			$input = array_map(function($e) { return $e ?: null; }, Input::all()); //prazdne hodnoty zmeni na null
 
 			$item = Item::find($id);
 			$item->fill($input);
