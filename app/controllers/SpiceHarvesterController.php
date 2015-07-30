@@ -240,7 +240,9 @@ class SpiceHarvesterController extends \BaseController {
     	$recs = $myEndpoint->listRecords($harvest->metadata_prefix, $start_from, null, $harvest->set_spec);
     	if (App::runningInConsole()) {
 		    try {
-    			echo "spusta sa od : ". $start_from->format('Y-m-d H:i:s') . "\n";
+    			if (!$reindex) {
+    				echo "spusta sa od : ". $start_from->format('Y-m-d H:i:s') . "\n";
+    			}
     			echo "celkovy pocet: ". $recs->getTotalRecordsInCollection() . "\n";
 	        } catch (\Phpoaipmh\Exception\MalformedResponseException $e) {
 	            // tuto chybu vrati, ak ziadne records niesu - cize harvest moze pokracovat dalej
