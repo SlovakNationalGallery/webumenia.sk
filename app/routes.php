@@ -177,7 +177,7 @@ Route::get('kolekcia/{slug}', 'KolekciaController@getDetail');
 
 Route::get('informacie', function()
 {
-	$items = Item::forReproduction()->hasImage()->limit(20)->orderByRaw("RAND()")->get();
+	$items = Item::forReproduction()->hasImage()->hasZoom()->limit(20)->orderByRaw("RAND()")->get();
 	return View::make('informacie', ['items' => $items]);
 });
 

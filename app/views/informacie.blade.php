@@ -87,7 +87,7 @@
     <div class="container">
         <div class="row top-space bottom-space">   
             <div class="col-xs-12 text-center">
-                <h3>Reprodukcie pre vás</h3>
+                <h3>Vyberte si reprodukcie</h3>
             </div>  
         </div>
         <div class="row">

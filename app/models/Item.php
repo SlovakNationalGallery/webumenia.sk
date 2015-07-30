@@ -489,6 +489,11 @@ class Item extends Eloquent {
         return $query->where('has_image', '=', 1);
     }
 
+	public function scopeHasZoom($query)
+    {
+        return $query->where('iipimg_url', 'NOT LIKE', '');
+    }
+
     public function scopeForReproduction($query)
     {
         return $query->where('gallery', '=', 'Slovenská národná galéria, SNG');

@@ -52,7 +52,10 @@
                         <a href="{{ $item->getDetailUrl() }}">
                             <em>{{ implode(', ', $item->authors) }}</em> <br> <strong>{{ $item->title }}</strong> (<em>{{ $item->getDatingFormated() }}</em>)
                         </a><br>
-                        <span class="item"><a href="{{ URL::to('dielo/' . $item->id . '/odstranit') }}" class="underline"><i class="fa fa-times"></i> odstrániť</a></span>
+                        <p class="item"><a href="{{ URL::to('dielo/' . $item->id . '/odstranit') }}" class="underline"><i class="fa fa-times"></i> odstrániť</a></span>
+                        @if (empty($item->iipimg_url))
+                            <br><span class="bg-warning">Toto dielo momentálne nemáme zdigitalizované v dostatočnej kvalite, vybavenie objednávky preto môže trvať dlhšie ako zvyčajne.</span>
+                        @endif
                     </div>
                 </div>
             @endforeach                    
@@ -76,7 +79,10 @@
         'do A3+: samostatná reprodukcia 35 €/ks' => array('value'=>'samostatná reprodukcia (35 €/ks)'), 
         'do A3+: reprodukcia s paspartou 50 €/ks' => array('value'=>'reprodukcia s paspartou (50 €/ks)'), 
         'do A3+: s paspartou a rámom 60 €/ks' => array('value'=>'s paspartou a rámom (60 €/ks)'), 
-        )
+        ),
+    'na stiahnutie :' => array(
+        'digitálna reprodukcia' => array('value'=>'digitálna reprodukcia')
+        ),
 )); }}
 
 {{ Former::textarea('note')->label('Poznámka'); }}
