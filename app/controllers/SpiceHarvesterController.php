@@ -223,7 +223,7 @@ class SpiceHarvesterController extends \BaseController {
 
 		if (($harvest->status == SpiceHarvesterHarvest::STATUS_COMPLETED || $harvest->status == SpiceHarvesterHarvest::STATUS_IN_PROGRESS) && !$reindex) {
             $start_from = new DateTime($harvest->completed);
-            // $start_from->sub(new DateInterval('P1D'));
+            $start_from->sub(new DateInterval('P1D')); //pre istotu o den menej
         } 
 
 		$harvest->status = $harvest::STATUS_QUEUED;
