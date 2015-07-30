@@ -239,7 +239,13 @@ class SpiceHarvesterController extends \BaseController {
 
     	$recs = $myEndpoint->listRecords($harvest->metadata_prefix, $start_from, null, $harvest->set_spec);
     	if (App::runningInConsole()) {
-    		echo "celkovy pocet: ". $recs->getTotalRecordsInCollection() . "\n";
+		    try {
+    			echo "celkovy pocet: ". $recs->getTotalRecordsInCollection() . "\n";
+	        } catch (\Phpoaipmh\Exception\MalformedResponseException $e) {
+	            // tuto chybu vrati, ak ziadne records niesu - cize harvest moze pokracovat dalej
+	            echo "celkovy pocet: 0" . "\n";
+	            $harvest->status_messages = $e->getMessage() . "\n";
+	        }
     	}
 	    $dt = new \DateTime;
 
