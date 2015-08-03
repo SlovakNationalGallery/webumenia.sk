@@ -315,6 +315,12 @@ class Item extends Eloquent {
 		return preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $this->attributes['author']);
 	}
 
+	public function getFirstAuthorAttribute($value)
+    {
+        $authors_array = $this->makeArray($this->attributes['author']);
+        return reset($authors_array);
+    }
+
 	public function getSubjectsAttribute($value)
 	{
 		$subjects_array = $this->makeArray($this->attributes['subject']);

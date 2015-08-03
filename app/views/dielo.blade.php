@@ -199,9 +199,10 @@
                                 @endif
                                 @if (!empty($item->related_work))
                                 <tr>
-                                    <td class="atribut">{{ $item->relationship_type; }}:</td>
+                                    <td class="atribut">{{ $item->relationship_type }}:</td>
+
                                     <td>
-                                        <a href="{{ URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->authorities()->first()->name) }}">{{ $item->related_work }}</a> 
+                                        <a href="{{ URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) }}">{{ $item->related_work }}</a> 
                                         @if ($item->related_work_order)
                                             ({{ $item->related_work_order }}/{{ $item->related_work_total }})
                                         @endif                                        
