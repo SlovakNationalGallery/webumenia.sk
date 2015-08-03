@@ -211,6 +211,12 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 });
 
+App::error(function(Exception $exception)
+{
+    Log::error($exception);
+    return Response::view('errors.fatal', array(), 500);
+});
+
 App::missing(function($exception)
 {
     if (Request::is('cedvuweb/image/*')) {
@@ -304,5 +310,8 @@ App::missing(function($exception)
         		break;
         }
     }
-    return Response::view('errors.missing', array('transparent_menu'=>true), 404);
+
+  	$item = Item::forReproduction()->hasImage()->hasZoom()->limit(20)->orderByRaw("RAND()")->first();
+    return Response::view('errors.missing', ['item' => $item], 404);
 });
+
