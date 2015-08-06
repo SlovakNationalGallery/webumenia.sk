@@ -617,4 +617,20 @@ class Item extends Eloquent {
 
 	}
 
+	public static function random($size = 1) {
+		$params = array();
+		$random = json_decode('
+			{"_script": {
+			    "script": "Math.random() * 200000",
+			    "type": "number",
+			    "params": {},
+			    "order": "asc"
+			 }}', true);
+		$params["sort"][] = $random;
+		$params["query"]["filtered"]["filter"]["and"][]["term"]["has_image"] = true;
+		$params["query"]["filtered"]["filter"]["and"][]["term"]["has_iip"] = true;
+		$params["size"] = $size;
+		return self::search($params);
+	}
+
 }

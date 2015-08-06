@@ -177,7 +177,9 @@ Route::get('kolekcia/{slug}', 'KolekciaController@getDetail');
 
 Route::get('informacie', function()
 {
-	$items = Item::forReproduction()->hasImage()->hasZoom()->limit(20)->orderByRaw("RAND()")->get();
+	// $items = Item::forReproduction()->hasImage()->hasZoom()->limit(20)->orderByRaw("RAND()")->get();
+	$items = Item::random(20);
+
 	return View::make('informacie', ['items' => $items]);
 });
 
@@ -213,6 +215,7 @@ Route::group(array('before' => 'auth'), function(){
 
 App::error(function(Exception $exception)
 {
+    if (Config::get('app.debug')) return;
     Log::error($exception);
     return Response::view('errors.fatal', array(), 500);
 });
@@ -311,7 +314,8 @@ App::missing(function($exception)
         }
     }
 
-  	$item = Item::forReproduction()->hasImage()->hasZoom()->limit(20)->orderByRaw("RAND()")->first();
+  	// $item = Item::forReproduction()->hasImage()->hasZoom()->limit(20)->orderByRaw("RAND()")->first();
+  	$item = Item::random()->first();
     return Response::view('errors.missing', ['item' => $item], 404);
 });
 
