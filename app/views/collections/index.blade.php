@@ -34,6 +34,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Názov</th>
+                            <th>Autor</th>
                             <th>Počet diel</th>
                             <th>Dátum</th>
                             <th>Publikovať</th>
@@ -44,7 +45,8 @@
 						@foreach($collections as $i)
 			            <tr>
 			                <td>{{ $i->id }}</td>
-			                <td>{{ $i->name }}</td>
+                            <td>{{ $i->name }}</td>
+			                <td>{{ $i->user->name }}</td>
 			                <td>{{ $i->items()->count(); }}</td>
                             <td>{{ $i->created_at }}</td>
 			                <td class="text-center">{{ $i->publish }}</td>

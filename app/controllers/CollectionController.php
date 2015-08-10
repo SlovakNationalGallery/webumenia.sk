@@ -9,7 +9,7 @@ class CollectionController extends \BaseController {
 	 */
 	public function index()
 	{
-		$collections = Collection::orderBy('created_at', 'desc')->with('items')->paginate(20);
+		$collections = Collection::orderBy('created_at', 'desc')->with(['user'])->paginate(20);
 		// $collections = Item::orderBy('created_at', 'DESC')->get();
         return View::make('collections.index')->with('collections', $collections);
 	}
@@ -50,6 +50,7 @@ class CollectionController extends \BaseController {
 				$collection->title_shadow = Input::get('title_shadow');
 			}
 			$collection->order = Collection::max('order') + 1;
+			$collection->user_id = Auth::user()->id;
 			$collection->save();
 
 			if (Input::hasFile('main_image')) {

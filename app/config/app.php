@@ -115,6 +115,7 @@ return array(
 		'Maatwebsite\Excel\ExcelServiceProvider',
 		'Conner\Tagging\TaggingServiceProvider',
 		'Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider',
+		'Zizaco\Entrust\EntrustServiceProvider',
 	),
 
 	/*
@@ -185,6 +186,7 @@ return array(
         'Elastic' => 'Fadion\Bouncy\Facades\Elastic',
         'Excel' => 'Maatwebsite\Excel\Facades\Excel',
         'Carbon' => 'Carbon\Carbon',
+        'Entrust'    => 'Zizaco\Entrust\EntrustFacade',
 	),
 
 	'jira_auth' => array(

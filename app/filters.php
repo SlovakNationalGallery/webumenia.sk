@@ -78,3 +78,10 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+Entrust::routeNeedsRole( 'harvests*', 'admin', Redirect::to('admin'), false );
+Entrust::routeNeedsRole( 'item*', 'admin', Redirect::to('admin'), false );
+Entrust::routeNeedsRole( 'authority*', 'admin', Redirect::to('admin'), false );
+Entrust::routeNeedsRole( 'logs*', 'admin', Redirect::to('admin'), false );
+
+Entrust::routeNeedsRole( 'collection*', ['admin', 'editor'], Redirect::to('admin'), false );

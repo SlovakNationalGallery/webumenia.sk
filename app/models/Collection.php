@@ -19,6 +19,11 @@ class Collection extends \Eloquent {
         return $this->belongsToMany('Item', 'collection_item', 'collection_id', 'item_id');
     }
 
+    public function user()
+    {
+        return $this->belongsTo('User');
+    }
+
     public function getPreviewItems()
     {
         

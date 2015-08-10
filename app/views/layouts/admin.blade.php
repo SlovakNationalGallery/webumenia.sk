@@ -81,21 +81,31 @@
                         <li>
                             <a href="{{ URL::to('admin') }}"><i class="fa fa-dashboard fa-fw"></i> Úvod</a>
                         </li>
+                        @if (Entrust::hasRole('admin'))
                         <li>
                             <a href="{{ URL::to('item') }}"><i class="fa fa-picture-o fa-fw"></i> Diela</a>
                         </li>
+                        @endif
+                        @if (Entrust::hasRole('admin'))
                         <li>
                             <a href="{{ URL::to('authority') }}"><i class="fa fa-user fa-fw"></i> Autority</a>
                         </li>
+                        @endif
+                        @if (Entrust::hasRole('admin') || Entrust::hasRole('editor'))
                         <li>
                             <a href="{{ URL::to('collection') }}"><i class="fa fa-th-list fa-fw"></i> Kolekcie</a>
                         </li>
+                        @endif
+                        @if (Entrust::hasRole('admin'))
                         <li>
                             <a href="{{ URL::to('harvests') }}"><i class="fa fa-download fa-fw"></i> Spice Harvester</a>
                         </li>
+                        @endif
+                        @if (Entrust::hasRole('admin'))
                         <li>
                             <a href="{{ URL::to('logs') }}" target="_blank"><i class="fa fa-exclamation-triangle fa-fw"></i> Logy</a>
                         </li>
+                        @endif
                     </ul>
                     <!-- /#side-menu -->
                 </div>
