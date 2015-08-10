@@ -61,6 +61,18 @@
                             <div class="col-md-12 text-left medium description bottom-space">
                                 {{  $item->description }}
                             </div>
+
+                                @if ($item->description_source)
+                                    @if ($item->description_user_id)
+                                        {{-- Autor popisu: --}} {{ $item->descriptionUser->name }} &#9679; 
+                                    @endif
+                                    @if ($item->description_source_link)
+                                        {{-- Zdroj: --}}
+                                        <a href="{{ $item->description_source_link }}" target="_blank">{{ $item->description_source }}</a>
+                                    @else
+                                        {{ $item->description_source }}
+                                    @endif     
+                                @endif
                             @endif
                         </div>
                 </div>

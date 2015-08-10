@@ -40,6 +40,9 @@ class Item extends Eloquent {
 		'author',
 		'title',
 		'description',
+		'description_user_id',
+		'description_source',
+		'description_source_link',
 		'work_type',
 		'work_level',
 		'topic',
@@ -124,6 +127,11 @@ class Item extends Eloquent {
 	        	'id' => $item->id,
         	]);
 	    });
+	}
+
+	public function descriptionUser()
+	{
+	    return $this->belongsTo('User', 'description_user_id');
 	}
 
 	public function authorities()

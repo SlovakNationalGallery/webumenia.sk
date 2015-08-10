@@ -54,6 +54,24 @@
 	{{ Form::textarea('description', Input::old('description'), array('class' => 'form-control wysiwyg')) }}	
 	</div>
 </div>
+<div class="col-md-4">
+	<div class="form-group">
+	{{ Form::label('description_user_id', 'popis - autor') }}
+	{{ Form::select('description_user_id', User::lists('name','id'), Auth::user()->id, array('class' => 'form-control')) }}
+	</div>
+</div>
+<div class="col-md-4">
+	<div class="form-group">
+	{{ Form::label('description_source', 'popis - zdroj') }}
+	{{ Form::text('description_source', Input::old('description_source'), array('class' => 'form-control')) }}
+	</div>
+</div>
+<div class="col-md-4">
+	<div class="form-group">
+	{{ Form::label('description_source_link', 'popis - link na zdroj') }}
+	{{ Form::text('description_source_link', Input::old('description_source_link'), array('class' => 'form-control', 'placeholder' => 'http://')) }}
+	</div>
+</div>
 <div class="col-md-12">
 	<div class="form-group">
 	{{ Form::label('work_type', 'výtvarný druh') }}
