@@ -99,6 +99,7 @@
                 <div class="collection-meta grey">
                    {{--  {{ $collection->author }} &#9679;  --}}
                     {{ $collection->created_at->format('d. m. Y') }} &#9679; 
+                    {{ $collection->user->name }} &#9679; 
                     {{ $collection->items->count() }} diel
                 </div>
                 <div>

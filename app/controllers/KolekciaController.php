@@ -12,7 +12,7 @@ class KolekciaController extends \BaseController {
 		}
 		$sort_order = ($sort_by == 'name') ? 'asc' : 'desc';
 
-		$collections = Collection::published()->orderBy($sort_by, $sort_order)->paginate($per_page);
+		$collections = Collection::published()->with('user')->orderBy($sort_by, $sort_order)->paginate($per_page);
 		return View::make('kolekcie', array('collections'=>$collections, 'sort_by'=>$sort_by));
 	}
 
