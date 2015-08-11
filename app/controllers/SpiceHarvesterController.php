@@ -504,7 +504,7 @@ class SpiceHarvesterController extends \BaseController {
 				    	$name = AuthorityName::firstOrCreate($name);
 				    }
 				}
-				$events_to_remove = $this->get_obsolete_attributes($author->events->lists('event', 'id'), $attributes['events']);
+				$events_to_remove = $this->get_obsolete_attributes($author->events->lists('id', 'id'), $attributes['events']);
 				AuthorityEvent::destroy(array_keys($events_to_remove));
 				if (!empty($attributes['events'])) {
 				    foreach ($attributes['events'] as $key => $event) {
