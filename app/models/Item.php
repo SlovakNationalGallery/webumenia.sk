@@ -463,20 +463,27 @@ class Item extends Eloquent {
 		)) {
 			return false;
 		}
+		//ak je autor viac ako 71rokov po smrti
 		foreach ($this->authorities as $authority) {
-			if (empty($authority->death_year)) {
-				if ((date('Y') - $this->attributes['date_latest']) < $limit_according_item_dating) {
-					return false;	
-				}
-			} else {
-				$death = cedvuDatetime($authority->death_date);
+			if (!empty($authority->death_year)) {
+				$death = cedvuDatetime($authority->death_year);
 				$years = $death->diffInYears(Carbon::now());
-				if ($years < $copyright_length) {
-					return false;
+				if ($years > $copyright_length) {
+					return true;
 				}
 			}
 		}
-		return true;
+		//ak je autor neznamy 
+		if (stripos($this->attributes['author'], 'neznámy') !== FALSE) {
+			return true;
+		}
+
+		//ak je dielo naozaj stare
+		if ((date('Y') - $this->attributes['date_latest']) > $limit_according_item_dating) {
+			return true;
+		}
+
+		return false;
 	}
 	
 	private function relatedAuthorityIds()
@@ -625,7 +632,7 @@ class Item extends Eloquent {
 
 	}
 
-	public static function random($size = 1) {
+	public static function random($size = 1, $custom_parameters = []) {
 		$params = array();
 		$random = json_decode('
 			{"_script": {
@@ -637,6 +644,9 @@ class Item extends Eloquent {
 		$params["sort"][] = $random;
 		$params["query"]["filtered"]["filter"]["and"][]["term"]["has_image"] = true;
 		$params["query"]["filtered"]["filter"]["and"][]["term"]["has_iip"] = true;
+		foreach ($custom_parameters as $attribute => $value) {
+			$params["query"]["filtered"]["filter"]["and"][]["term"][$attribute] = $value;
+		}
 		$params["size"] = $size;
 		return self::search($params);
 	}

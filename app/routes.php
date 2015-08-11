@@ -178,7 +178,7 @@ Route::get('kolekcia/{slug}', 'KolekciaController@getDetail');
 Route::get('informacie', function()
 {
 	// $items = Item::forReproduction()->hasImage()->hasZoom()->limit(20)->orderByRaw("RAND()")->get();
-	$items = Item::random(20);
+	$items = Item::random(20, ["gallery" => "Slovenská národná galéria, SNG"]);
 
 	return View::make('informacie', ['items' => $items]);
 });
