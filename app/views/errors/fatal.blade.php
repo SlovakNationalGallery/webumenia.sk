@@ -14,12 +14,13 @@ ERROR 500 - Fatal Error
                     <div class="text-center">
                         {{-- <h1>ERROR 500</h1> --}}
                         <h2 class="top-margin">NASTALA CHYBA</h2>
-                        <p>Prepáčte, ale táto stránka je z technických príčin dočasne nedostupá.</p>
-                        <h3><a href="{{URL::to('/')}}">návrat <i class="icon-versus"></i> domov</a></h3>
-                        <img src="/images/errors/error.fatal.jpeg" alt="Oznámenie: NedorozUMENIE">
+                        <p>Prepáčte, ale táto stránka je z technických príčin dočasne nedostupná.</p>
+                        <a href="/dielo/SVK:SNG.K_17703"><img src="/images/errors/error.fatal.jpeg" alt="Oznámenie: NedorozUMENIE" class="img-responsive img-dielo"></a>
                         <p>
                             <a href="/dielo/SVK:SNG.K_17703">Július Koller &ndash; Oznámenie: NedorozUMENIE</a>
                         </p>
+
+                        <h3><a href="{{URL::to('/')}}">návrat <i class="icon-versus"></i> domov</a></h3>
                         
                     </div>
                 </div>
