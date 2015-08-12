@@ -58,11 +58,11 @@
                                 @endif
                             </div>
                             @if (!empty($item->description))
-                            <div class="col-md-12 text-left medium description bottom-space">
+                            <div class="col-md-12 text-left medium description bottom-space underline">
                                 {{  $item->description }}
-                            </div>
 
                                 @if ($item->description_source)
+                                    <p>
                                     @if ($item->description_user_id)
                                         {{-- Autor popisu: --}} {{ $item->descriptionUser->name }} &#9679; 
                                     @endif
@@ -71,8 +71,10 @@
                                         <a href="{{ $item->description_source_link }}" target="_blank">{{ $item->description_source }}</a>
                                     @else
                                         {{ $item->description_source }}
-                                    @endif     
+                                    @endif
+                                    </p>
                                 @endif
+                            </div>
                             @endif
                         </div>
                 </div>

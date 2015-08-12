@@ -430,9 +430,10 @@ class Item extends Eloquent {
 		';
 		$params = array_merge(json_decode($json_params, true), $search_params);
 		$result = Elastic::search([
+	        	'index' => Config::get('fadion/bouncy::config.index'),
 	        	'search_type' => 'count',
 	        	'type' => self::ES_TYPE,
-	        	'body'  => $params       	
+	        	'body'  => $params   	
 	      	]);
 		$buckets = $result['aggregations'][$attribute]['buckets'];
 

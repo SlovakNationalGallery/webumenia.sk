@@ -32,7 +32,7 @@
                 <div class="col-md-8 col-md-offset-2 text-center">
                         <h1>{{ $collection->name }}</h1>
                         <p class="bottom-space">
-                            vytvoril <b>{{ $collection->user->name }}</b> &nbsp;|&nbsp; 
+                            <b>{{ $collection->user->name }}</b> &nbsp;|&nbsp; 
                             počet diel <b>{{ $collection->items()->count() }}</b> &nbsp;|&nbsp; 
                             vytvorené <b>{{ $collection->created_at->format('d. m. Y') }}</b>
                         </p>
