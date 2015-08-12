@@ -14,12 +14,21 @@
           <li data-target="#webumeniaCarousel" data-slide-to="0" class="active"></li>
           <li data-target="#webumeniaCarousel" data-slide-to="1"></li>
           <li data-target="#webumeniaCarousel" data-slide-to="2"></li>
+          <li data-target="#webumeniaCarousel" data-slide-to="3"></li>
         </ol>
 
       <div class="carousel-inner" role="listbox">
 
-        @if (strtotime('2015-06-18 11:00') < time())     
         <div class="item active ">
+            <a href="/kolekcia/34" class="header-image text-center" style="background-image: url(/images/kolekcie/34.jpg); text-shadow:0px 1px 0px #777; color: #fff">
+                <div class="header-body">
+                    <h2>kolekcia</h2>
+                    <h1>Zbierka grófa Jána Pállfyho v SNG</h1>
+                </div>
+            </a>
+        </div>
+
+        <div class="item">
             <a href="/clanok/biedermeier" class="header-image text-center" style="background-image: url(/images/clanky/vystava-biedermeier.jpg); text-shadow:0px 1px 0px #777; color: #fff">
                 <div class="header-body">
                     <h2>výstava</h2>
@@ -27,9 +36,8 @@
                 </div>
             </a>
         </div>
-        @endif
 
-        <div class="item active ">
+        <div class="item">
             <a href="/kolekcia/25" class="header-image text-center" style="background-image: url(/images/kolekcie/leto.jpg); text-shadow:0px 1px 0px #777; color: #fff">
                 <div class="header-body">
                     <h1>Leto</h1>
@@ -39,21 +47,10 @@
         </div>
 
         <div class="item">
-            <a href="/clanok/pribehy-umenia-slavin" class="header-image text-center" style="background-image: url(/images/clanky/pribehy_slavin.jpg); text-shadow:0px 1px 0px #777; color: #fff">
+            <a href="katalog?search=&amp;tag=kojenie" class="header-image text-center" style="background-image: url(/images/kolekcie/kojenie.jpg); text-shadow:0px 1px 0px #777; color: #fff">
                 <div class="header-body">
-                    <h2>príbehy umenia</h2>
-                    <h1>Slavín</h1>
-                </div>
-            </a>
-        </div>
-
-        <div class="item">
-            <a href="/katalog?search=&author=&work_type=kresba&tag=&gallery=Slovenská+národná+galéria%2C+SNG&topic=&technique=akvarel&has_iip=1&year-range=600%2C2015" class="header-image text-center" style="background-image: url(/images/kolekcie/nosorozec.jpg); text-shadow:0px 1px 0px #777; color: #fff">
-                <div class="header-body">
-                    <h2>výtvarný druh: kresba<br>
-                    +<br>
-                    technika: akvarel<br>
-                    </h2>
+                    <h1>Kojenie</h1>
+                    <h2>intímne pohľady na matku s dieťaťom vo výtvarnom umení</h2>
                 </div>
             </a>
         </div>
