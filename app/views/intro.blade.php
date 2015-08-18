@@ -24,7 +24,7 @@
                 <div class="header-body">
                     <h2>kolekcia</h2>
                     <h1>Zbierka grófa Jána Pállfyho </h1>
-                    <h2>v Slovenskej národnej galérií</h2>
+                    <h2>v Slovenskej národnej galérii</h2>
                 </div>
             </a>
         </div>
