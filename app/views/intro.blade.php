@@ -23,7 +23,7 @@
             <a href="/kolekcia/34" class="header-image text-center" style="background-image: url(/images/kolekcie/34.jpg); text-shadow:0px 1px 0px #777; color: #fff">
                 <div class="header-body">
                     <h2>kolekcia</h2>
-                    <h1>Zbierka grófa Jána Pállfyho </h1>
+                    <h1>Zbierka grófa Jána Pálffyho </h1>
                     <h2>v Slovenskej národnej galérii</h2>
                 </div>
             </a>
