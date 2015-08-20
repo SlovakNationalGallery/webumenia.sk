@@ -471,9 +471,7 @@ class SpiceHarvesterController extends \BaseController {
     		case 'item':
 		    	$attributes = $this->mapItemAttributes($rec);
 		    	if(isSet($attributes['publish']) && $attributes['publish']==0) return false;
-			    // $item = Item::where('id', '=', $rec->header->identifier)->first();
-			    $item = Item::firstOrCreate(['id' => $rec->header->identifier]);
-			    $item->fill($attributes);
+			    $item = Item::updateOrCreate(['id' => $attributes['id']], $attributes);
 			    $item->authorities()->sync($attributes['authorities']);
 			    $item->save();
     			break;
