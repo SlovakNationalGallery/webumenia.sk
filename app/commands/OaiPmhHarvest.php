@@ -56,6 +56,12 @@ class OaiPmhHarvest extends Command {
         	$this->info("Je zapnutý reindex celého setu. Bude to trvať dlhšie.");
         	Input::merge(array('reindex' => true));
         }
+        if ($this->option('start_date')) {
+        	Input::merge(array('start_date' => $this->option('start_date')));
+        }
+        if ($this->option('end_date')) {
+        	Input::merge(array('end_date' => $this->option('end_date')));
+        }
         $this->comment("Spúšťa sa harvest pre set {$harvest->set_name}.");
 
         App::make('SpiceHarvesterController')->launch($id);
@@ -84,6 +90,8 @@ class OaiPmhHarvest extends Command {
 		return array(
 			array('id', null, InputOption::VALUE_OPTIONAL, 'Spice Harvester harvest ID.', null),
 			array('reindex', null, InputOption::VALUE_OPTIONAL, 'Re-harvest all records.', false),
+			array('start_date', null, InputOption::VALUE_OPTIONAL, 'Specify start date in YYYY-MM-DD.', null),
+			array('end_date', null, InputOption::VALUE_OPTIONAL, 'Specify end date in YYYY-MM-DD.', null),
 		);
 	}
 

@@ -161,7 +161,7 @@ class SpiceHarvesterController extends \BaseController {
 		$processed_items = 0;
 	    $removed_items = 0;
 	    $timeStart = microtime(true);
-        $start_from = null;
+        $from = null;
 
 		$harvest = SpiceHarvesterHarvest::find($id);
 		$client = new \Phpoaipmh\Client($harvest->base_url);
@@ -218,12 +218,13 @@ class SpiceHarvesterController extends \BaseController {
 
 		$harvest = SpiceHarvesterHarvest::find($id);
 
-        $start_from = null;
-        // $start_from = new DateTime('2014-01-01'); //docasne
+        $from = (Input::has('start_date')) ? new DateTime(Input::get('start_date')) : null;
+        $until = (Input::has('end_date')) ? new DateTime(Input::get('end_date')) : null;
+        // $from = new DateTime('2014-01-01'); //docasne
 
-		if (($harvest->status == SpiceHarvesterHarvest::STATUS_COMPLETED || $harvest->status == SpiceHarvesterHarvest::STATUS_IN_PROGRESS) && !$reindex) {
-            $start_from = new DateTime($harvest->completed);
-            $start_from->sub(new DateInterval('P1D')); //pre istotu o den menej
+        if (!$from && (($harvest->status == SpiceHarvesterHarvest::STATUS_COMPLETED || $harvest->status == SpiceHarvesterHarvest::STATUS_IN_PROGRESS) && !$reindex)) {
+            $from = new DateTime($harvest->completed);
+            $from->sub(new DateInterval('P1D')); //pre istotu o den menej
         } 
 
 		$harvest->status = $harvest::STATUS_QUEUED;
@@ -237,11 +238,11 @@ class SpiceHarvesterController extends \BaseController {
 
 	    $myEndpoint = $this->getEndpoint($harvest); 
 
-    	$recs = $myEndpoint->listRecords($harvest->metadata_prefix, $start_from, null, $harvest->set_spec);
+    	$recs = $myEndpoint->listRecords($harvest->metadata_prefix, $from, $until, $harvest->set_spec);
     	if (App::runningInConsole()) {
 		    try {
     			if (!$reindex) {
-    				echo "spusta sa od : ". $start_from->format('Y-m-d H:i:s') . "\n";
+    				echo "spusta sa od : ". $from->format('Y-m-d H:i:s') . "\n";
     			}
     			echo "celkovy pocet: ". $recs->getTotalRecordsInCollection() . "\n";
 	        } catch (\Phpoaipmh\Exception\MalformedResponseException $e) {
