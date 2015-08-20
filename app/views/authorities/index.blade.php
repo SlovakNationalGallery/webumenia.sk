@@ -111,7 +111,7 @@ $('#deleteSelected').on('click', function(e){
     e.preventDefault();
     $('#confirm').modal({  })
         .one('click', '#delete', function (e) {
-            $form.attr("action","{{ URL::to('item/destroySelected') }}");
+            $form.attr("action","{{ URL::to('authority/destroySelected') }}");
             $form.trigger('submit');
         });
 });

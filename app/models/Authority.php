@@ -62,30 +62,38 @@ class Authority extends Eloquent {
 	{
 	    parent::boot();
 
-	    static::created(function($item)
+	    static::created(function($authority)
 	    {
-	        $item->index();
+	        $authority->index();
 	    });
 
-	    static::updated(function($item)
+	    static::updated(function($authority)
 	    {
-	        $item->index();
+	        $authority->index();
 
 	    });
 
-		static::deleting(function($item) {
-			$image = $item->getImagePath(true); // fullpath, disable no image
+		static::deleting(function($authority) {
+			$image = $authority->getImagePath(true); // fullpath, disable no image
 			if ($image) {
 				@unlink($image); 
 			}
+
+			$authority->nationalities()->detach();
+			$authority->relationships()->detach();
+			$authority->items()->detach();
+			$authority->roles()->delete();
+			$authority->names()->delete();
+			$authority->events()->delete();
+
         });	    
 
-	    static::deleted(function($item)
+	    static::deleted(function($authority)
 	    {
 	        Elastic::delete([
 	        	'index' => Config::get('fadion/bouncy::config.index'),
 	        	'type' => self::ES_TYPE,
-	        	'id' => $item->id,
+	        	'id' => $authority->id,
         	]);
 	    });
 	}

@@ -259,14 +259,9 @@ class AuthorityController extends \BaseController {
 		if (!empty($authorities) > 0) {
 			foreach ($authorities as $authority_id) {
 				$authority = Authority::find($authority_id);
-				$image = $authority->getImagePath(true); // fullpath, disable no image
-				if ($image) {
-					@unlink($image); 
-				}
-				$authority->collections()->detach();
 
 				SpiceHarvesterRecord::where('identifier', '=', $authority_id)->delete();
-				
+
 				$authority->delete();
 			}
 		}		

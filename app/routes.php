@@ -208,6 +208,7 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('authority/destroyLink/{link_id}', 'AuthorityController@destroyLink');
 	Route::get('authority/search', 'AuthorityController@search');
 	Route::get('authority/reindex', 'AuthorityController@reindex');
+	Route::post('authority/destroySelected', 'AuthorityController@destroySelected');
 	Route::resource('authority', 'AuthorityController');
 
 	Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
