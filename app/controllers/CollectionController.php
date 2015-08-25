@@ -9,7 +9,11 @@ class CollectionController extends \BaseController {
 	 */
 	public function index()
 	{
-		$collections = Collection::orderBy('created_at', 'desc')->with(['user'])->paginate(20);
+		if (Entrust::hasRole('admin')) {
+			$collections = Collection::orderBy('created_at', 'desc')->with(['user'])->paginate(20);
+		} else {
+			$collections = Collection::where('user_id', '=', Auth::user()->id)->orderBy('created_at', 'desc')->with(['user'])->paginate(20);
+		}
 		// $collections = Item::orderBy('created_at', 'DESC')->get();
         return View::make('collections.index')->with('collections', $collections);
 	}
@@ -50,7 +54,12 @@ class CollectionController extends \BaseController {
 				$collection->title_shadow = Input::get('title_shadow');
 			}
 			$collection->order = Collection::max('order') + 1;
-			$collection->user_id = Auth::user()->id;
+			if (Input::has('user_id') && Entrust::hasRole('admin')) {
+				$collection->user_id = Input::get('user_id');
+			} else {
+				$collection->user_id = Auth::user()->id;
+			}
+			
 			$collection->save();
 
 			if (Input::hasFile('main_image')) {
@@ -113,6 +122,11 @@ class CollectionController extends \BaseController {
 			$collection->text = Input::get('text');
 			$collection->text = Input::get('text');
 			$collection->publish = Input::get('publish', false);
+			
+			if (Input::has('user_id') && Entrust::hasRole('admin')) {
+				$collection->user_id = Input::get('user_id');
+			} 
+
 			if (Input::has('title_color')) {
 				$collection->title_color = Input::get('title_color');
 			}

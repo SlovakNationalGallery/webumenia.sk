@@ -22,6 +22,14 @@
 	@endif
 
 </div>
+@if (Entrust::hasRole('admin'))
+<div class="col-md-4">
+	<div class="form-group">
+	{{ Form::label('user_id', 'autor') }}
+	{{ Form::select('user_id', User::lists('name','id'), Input::old('user_id', (isSet($collection)) ? $collection->user_id : Auth::user()->id), array('class' => 'form-control')) }}
+	</div>
+</div>
+@endif
 <div class="col-md-12">
 	<div class="form-group">
 	{{ Form::label('type', 'Typ') }}
