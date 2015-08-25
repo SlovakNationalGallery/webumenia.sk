@@ -76,14 +76,14 @@
                     <div id="iso">
                     @foreach ($collection->items as $i=>$item)
                         <div class="col-md-3 col-sm-4 col-xs-12 item">
-                            <a href="{{ $item->getDetailUrl() }}">
+                            <a href="{{ $item->getDetailUrl(['collection' => $collection->id]) }}">
                                 <img src="{{ $item->getImagePath() }}" class="img-responsive" alt="{{implode(', ', $item->authors)}} - {{ $item->title }}">                          
                             </a>
                             <div class="item-title">
                                 @if (!empty($item->iipimg_url))
                                     <div class="pull-right"><a href="{{ URL::to('dielo/' . $item->id . '/zoom') }}" data-toggle="tooltip" data-placement="left" title="Zoom obrázku"><i class="fa fa-search-plus"></i></a></div>
                                 @endif    
-                                <a href="{{ $item->getDetailUrl() }}">
+                                <a href="{{ $item->getDetailUrl(['collection' => $collection->id]) }}">
                                     <em>{{ implode(', ', $item->authors) }}</em><br>
                                 <strong>{{ $item->title }}</strong><br> <em>{{ $item->getDatingFormated() }}</em>
                                 

@@ -19,6 +19,11 @@
     <meta name="description" content="{{ $item->work_type; }}, datovanie: {{ $item->dating }}, rozmer: {{  implode(' x ', $item->measurements) }}">
 @stop
 
+@section('link')
+    <link rel="canonical" href="{{ $item->getDetailUrl() }}">
+@stop
+
+
 @section('content')
 
 <section class="item top-section">
@@ -46,6 +51,15 @@
                             </a>
                         @endif
                         <div class="row">
+                            <div class="col-sm-12">
+                                @if ($previous)
+                                    <a href="{{ Item::find($previous)->getDetailUrl() }}" id="left" class="nav-arrow left">&larr;<span class="sr-only">predchádzajúce dielo</span></a>
+                                @endif
+                                @if ($next)
+                                    <a href="{{ Item::find($next)->getDetailUrl() }}" id="right" class="nav-arrow right">&rarr;<span class="sr-only">nasledujúce dielo</span></a>             
+                                @endif
+                            </div>
+
                             <div class="col-md-12 text-center">
                                 @if (!empty($item->iipimg_url))
                                    <a href="{{ URL::to('dielo/' . $item->id . '/zoom') }}" class="btn btn-default btn-outline  sans"><i class="fa fa-search-plus"></i> zoom obrázku</a>
@@ -134,7 +148,7 @@
                                     </td>
                                 </tr>
                                 @endif
-                                @if (!empty($collection))
+                                @if ($item->collections->count())
                                 <tr>
                                     <td class="atribut">kolekcie:</td>
                                     <td>
@@ -317,6 +331,29 @@
 {{ HTML::script('js/readmore.min.js') }}
 {{ HTML::script('js/jquery.fileDownload.js') }}
 <script type="text/javascript">
+
+    function leftArrowPressed() {
+        var left=document.getElementById("left");
+        if (left) location.href = left.href;
+    }
+
+    function rightArrowPressed() {
+        var right=document.getElementById("right");
+        if (right) location.href = right.href;
+    }
+
+    document.onkeydown = function(evt) {
+        evt = evt || window.event;
+        switch (evt.keyCode) {
+            case 37:
+                leftArrowPressed();
+                break;
+            case 39:
+                rightArrowPressed();
+                break;
+        }
+    };
+
     $(document).ready(function(){
 
         $('.expandable').readmore({

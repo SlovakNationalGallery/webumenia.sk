@@ -30,6 +30,8 @@
 		@show
 		<!--  Open Graph protocol -->
 
+		@yield('link')
+
 		<!-- CSS are placed here -->
 		<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 		{{ HTML::style('css/style.css') }}

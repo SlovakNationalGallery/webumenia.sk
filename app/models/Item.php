@@ -154,8 +154,15 @@ class Item extends Eloquent {
 
 	}
 
-	public function getDetailUrl() {
-		return URL::to('dielo/' . $this->id);
+	public function getDetailUrl($params = []) {
+		$url = URL::to('dielo/' . $this->id);
+		if (Input::has('collection')) {
+			$params = ['collection' => (int)Input::get('collection')];
+		}
+		if ($params) {
+			$url .= '?' . http_build_query($params);
+		}
+		return $url;
 	}
 
 	public function getOaiUrl()

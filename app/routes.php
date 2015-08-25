@@ -151,12 +151,22 @@ Route::get('dielo/{id}', function($id)
 	}
 	$item->view_count += 1; 
 	$item->save();
+	$previous = $next = false;
 
 	// $more_items = Item::moreLikeThis(['author','title.stemmed','description.stemmed', 'tag', 'place'],[$item->id])->limit(20);
 	$more_items = $item->moreLikeThis(30);
 
-	$collection = $item->collections->first();
-	return View::make('dielo', array('item'=>$item, 'collection' => $collection, 'more_items' => $more_items ));
+	if (Input::has('collection')) {
+		$collection = Collection::find((int)Input::get('collection'));
+		if (!empty($collection)) {
+			// dd($collection->name);
+			$items = $collection->items->lists('id');
+			$previous = getPrevVal($items, $id);
+			$next = getNextVal($items, $id);
+		}
+	}
+
+	return View::make('dielo', array('item'=>$item, 'more_items' => $more_items, 'previous' => $previous, 'next' => $next ));
 });
 
 Route::controller('katalog', 'CatalogController');

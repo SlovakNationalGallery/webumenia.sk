@@ -75,3 +75,41 @@
     {
     	return ($str) ? $enclose_with[0] . $str . $enclose_with[1] : '';
     }
+
+    function getNextVal(&$array, $curr_val)
+    {
+        $next = false;
+        reset($array);
+
+        do
+        {
+            $tmp_val = current($array);
+            $res = next($array);
+        } while ( ($tmp_val != $curr_val) && $res );
+
+        if( $res )
+        {
+            $next = current($array);
+        }
+
+        return $next;
+    }
+
+    function getPrevVal(&$array, $curr_val)
+    {
+        end($array);
+        $prev = false;
+
+        do
+        {
+            $tmp_val = current($array);
+            $res = prev($array);
+        } while ( ($tmp_val != $curr_val) && $res );
+
+        if( $res )
+        {
+            $prev = current($array);
+        }
+
+        return $prev;
+    }
