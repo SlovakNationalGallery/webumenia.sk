@@ -204,6 +204,7 @@ Route::group(array('before' => 'auth'), function(){
 	Route::resource('item', 'ItemController');
 	Route::get('collection/{collection_id}/detach/{item_id}', 'CollectionController@detach');
 	Route::post('collection/fill', 'CollectionController@fill');
+	Route::post('collection/sort', 'CollectionController@sort');
 	Route::resource('collection', 'CollectionController');
 	Route::resource('user', 'UserController');
 	Route::get('authority/destroyLink/{link_id}', 'AuthorityController@destroyLink');

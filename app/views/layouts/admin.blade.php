@@ -161,6 +161,8 @@
     {{ HTML::script('js/wysihtml5-0.3.0.min.js') }}
     {{ HTML::script('js/bootstrap3-wysihtml5.js') }}
     {{ HTML::script('js/bootstrap-colorpicker.min.js') }}
+    {{ HTML::script('js/plugins/Sortable.min.js') }}
+
 
     <script>
     $(document).ready(function() {

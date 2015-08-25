@@ -100,26 +100,27 @@
 	<div class="col-md-1 text-right">
 		<button type="submit" class="btn btn-default" id="add_event"><i class="fa fa-plus"></i> pridať</button>
 	</div>
+	<div class="col-md-6 text-center"><span class="hidden loader"><i class="fa fa-refresh fa-spin fa-lg"></i> čakaj</span></div>
 	{{Form::close() }}
-
-	<table class="table table-striped">
+	
+	<div class="clearfix"></div>
+	
+	<ul class="list-group" id="sortable" data-entity="item"  data-id="{{ $collection->id }}">
 		@foreach ($collection->items as $item)
-		<tr>
-			<td class="text-center"><img src="{{ $item->getImagePath(); }}" alt="náhľad" class="img-responsive nahlad" ></td>
-			<td>{{ $item->id }}</td>
-			<td class="text-left">
+		<li class="list-group-item vertical-center" data-id="{{ $item->id }}">
+				<i class="fa fa-bars sortable-handle"></i>
+				<img src="{{ $item->getImagePath(); }}" alt="náhľad" class="nahlad" >
+				{{ $item->id }}
 				<a href="{{ URL::to('item/' . $item->id . '/edit' ) }}">{{ $item->author }} - {{ $item->title }}</a>
-			</td>
-			<td class="text-left">
-				<a href="#"><i class="fa fa-arrow-up"></i></a>
-				<a href="#"><i class="fa fa-arrow-down"></i></a>
-				<a href="{{ URL::to('collection/'.$collection->id.'/detach/'.$item->id) }}">zmazať</a>
+			<span class="pull-right vertical-center">
+			    {{-- <a href="#"><i class="fa fa-arrow-up"></i></a> --}}
+				{{-- <a href="#"><i class="fa fa-arrow-down"></i></a> --}}
+				<a href="{{ URL::to('collection/'.$collection->id.'/detach/'.$item->id) }}" class="btn btn-danger btn-xs btn-outline" >zmazať</a>
 				<a href="{{ $item->getDetailUrl() }}" class="btn btn-success btn-xs btn-outline" target="_blank">na webe</a>
-
-			</td>
-		</tr>
+			</span>
+		</li>
 		@endforeach
-	</table>
+	</ul>
 	@else
 	    <p>Diela sa dajú pridávať až po vytvorení kolekcie</p>
 	@endif
@@ -128,4 +129,46 @@
 <div class="clearfix"></div>
 
 
+@stop
+
+@section('script')
+@if (isSet($collection))
+<script>
+
+	Sortable.create(sortable, {
+	  handle: '.sortable-handle',
+	  ghostClass: "sortable-ghost", 
+	  animation: 150,
+	  dataIdAttr: 'data-id',
+
+	  onEnd: function () {
+	      $('.loader').removeClass('hidden');
+
+	      $.post('/collection/sort', {
+	          // entity: this.attr('data-entity'),
+	          entity: $('#sortable').attr('data-entity'),
+	          id: $('#sortable').attr('data-id'),
+	          ids: this.toArray()
+	      }, function (data) {
+	          if('success'==data.result){
+	              // for (id in data.orders) {
+	                  // var order = data.orders[id],
+	                      // $list = $('#sortable[data-entity=' + data.entity + '] .list-group-item[data-id=' + id + ']').attr('data-order', order);
+	              // }
+	              // $('#sortable[data-entity=' + data.entity + ']').each(function () {
+	                  // var $list = $(this);
+	                  // LarakitManager.sort($list);
+	              // });
+	          } else {
+
+	          }
+	          // larakit_toastr(data);
+	          $('.loader').addClass('hidden');
+	      });
+	  }
+
+	});
+
+</script>
+@endif
 @stop

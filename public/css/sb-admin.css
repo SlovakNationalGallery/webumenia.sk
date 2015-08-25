@@ -368,3 +368,12 @@ input.cropit-image-input {
 img.nahlad {
     max-height: 50px;
 }
+
+
+.vertical-center {
+  vertical-align: middle !important;
+}
+
+.sortable-handle {
+    margin-right: 10px; cursor: move;
+}

@@ -16,7 +16,7 @@ class Collection extends \Eloquent {
     
     public function items()
     {
-        return $this->belongsToMany('Item', 'collection_item', 'collection_id', 'item_id');
+        return $this->belongsToMany('Item', 'collection_item', 'collection_id', 'item_id')->withPivot('order')->orderBy('order', 'asc');
     }
 
     public function user()

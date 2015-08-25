@@ -198,4 +198,34 @@ class CollectionController extends \BaseController {
 		$uploaded_image->save($filename);
 	}
 
+	public function sort()
+	{
+
+		    $entity     = \Input::get('entity');
+		    $model_name = \Str::studly($entity);
+		    // $model  = $model_name::find(\Input::get('id'));
+		    $collection  = Collection::find(\Input::get('id'));
+
+		    $ids        = (array)\Input::get('ids');
+		    $order      = 0;
+		    $ordered_items = [];
+		    // $orders     = [];
+
+		    foreach ($ids as $id) {
+	            $ordered_items[$id] = ['order' => $order];
+	            $order++;
+		    }
+
+		    $collection->items()->sync($ordered_items);
+
+		    $response =  [
+		        'result'  => 'success',
+		        'message' => 'poradie zmenene',
+		        'entity'  => $entity,
+		        // 'orders'  => $orders,
+		    ];
+
+		    return Response::json( $response );
+	}
+
 }
