@@ -57,7 +57,7 @@
 <div class="col-md-4">
 	<div class="form-group">
 	{{ Form::label('description_user_id', 'popis - autor') }}
-	{{ Form::select('description_user_id', User::lists('name','id'), Auth::user()->id, array('class' => 'form-control')) }}
+	{{ Form::select('description_user_id', User::lists('name','id'), Input::old('description_user_id', (isSet($item)) ? $item->description_user_id : Auth::user()->id), array('class' => 'form-control')) }}
 	</div>
 </div>
 <div class="col-md-4">
