@@ -21,6 +21,8 @@
         {{ HTML::style('css/ladda-themeless.min.css') }}
         {{ HTML::style('css/bootstrap-wysihtml5.css') }}
         {{ HTML::style('css/bootstrap-colorpicker.min.css') }}
+        {{ HTML::style('css/plugins/selectize.css') }}
+        {{ HTML::style('css/plugins/selectize.bootstrap3.css') }}
         {{ HTML::script('js/modernizr.custom.js') }}
 
 </head>
@@ -99,6 +101,11 @@
                         @if (Entrust::hasRole('admin'))
                         <li>
                             <a href="{{ URL::to('harvests') }}"><i class="fa fa-download fa-fw"></i> Spice Harvester</a>
+                        </li>
+                        @endif
+                        @if (Entrust::hasRole('admin'))
+                        <li>
+                            <a href="{{ URL::to('user') }}"><i class="fa fa-male fa-fw"></i> Užívatelia</a>
                         </li>
                         @endif
                         @if (Entrust::hasRole('admin'))
