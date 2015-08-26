@@ -4,7 +4,7 @@ class ClanokController extends \BaseController {
 
 	public function getIndex()
 	{
-		$articles = Article::promoted()->published()->orderBy('published_date', 'desc')->get();
+		$articles = Article::published()->orderBy('published_date', 'desc')->get();
 		return View::make('clanky', array('articles'=>$articles));
 	}
 
