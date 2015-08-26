@@ -216,6 +216,7 @@ Route::group(array('before' => 'auth'), function(){
 	Route::post('collection/fill', 'CollectionController@fill');
 	Route::post('collection/sort', 'CollectionController@sort');
 	Route::resource('collection', 'CollectionController');
+	Route::resource('article', 'ArticleController');
 	Route::resource('user', 'UserController');
 	Route::get('authority/destroyLink/{link_id}', 'AuthorityController@destroyLink');
 	Route::get('authority/search', 'AuthorityController@search');

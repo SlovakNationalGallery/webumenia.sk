@@ -7,8 +7,10 @@ class Article extends Eloquent {
     const ARTWORKS_DIR = '/images/clanky/';
 
     public static $rules = array(
-        'name' => 'required',
-        'text' => 'required',
+        'slug' => 'required',
+        'title' => 'required',
+        'summary' => 'required',
+        'content' => 'required',
         );
 
     // public function items()

@@ -100,6 +100,11 @@
                         @endif
                         @if (Entrust::hasRole('admin'))
                         <li>
+                            <a href="{{ URL::to('article') }}"><i class="fa fa-newspaper-o fa-fw"></i> Články</a>
+                        </li>
+                        @endif
+                        @if (Entrust::hasRole('admin'))
+                        <li>
                             <a href="{{ URL::to('harvests') }}"><i class="fa fa-download fa-fw"></i> Spice Harvester</a>
                         </li>
                         @endif
