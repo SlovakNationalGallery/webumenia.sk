@@ -65,6 +65,9 @@ class Authority extends Eloquent {
 	    static::created(function($authority)
 	    {
 	        $authority->index();
+	        foreach ($authority->items as $item) {
+	        	$item->index();
+	        }
 	    });
 
 	    static::updated(function($authority)
