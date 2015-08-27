@@ -201,7 +201,7 @@
 
 <div class="col-md-12 text-center">
 	{{ Form::submit('Uložiť', array('class' => 'btn btn-default')) }} &nbsp; 
-	@if(isset($item))
+	@if(isset($item) && $item->record)
 		<a href="{{URL::to('harvests/'.$item->record->id.'/refreshRecord')}}" class="btn btn-warning">Obnoviť z OAI</a>
 		&nbsp; 
 	@endif
