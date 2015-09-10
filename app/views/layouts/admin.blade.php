@@ -167,6 +167,7 @@
     {{ HTML::script('js/bootstrap3-wysihtml5.js') }}
     {{ HTML::script('js/bootstrap-colorpicker.min.js') }}
     {{ HTML::script('js/plugins/Sortable.min.js') }}
+    {{ HTML::script('js/plugins/speakingurl.min.js') }}
 
 
     <script>

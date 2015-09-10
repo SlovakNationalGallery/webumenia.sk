@@ -19,7 +19,26 @@
 
       <div class="carousel-inner" role="listbox">
 
-        <div class="item active ">
+        <div class="item active">
+            <a href="/katalog?search=jese%C5%88&author=&work_type=maliarstvo&tag=&gallery=&topic=&technique=&has_image=1&year-range=600%2C2015&sort_by=" class="header-image text-center" style="background-image: url(/images/kolekcie/jesen.jpg); text-shadow:0px 1px 0px #777; color: #fff">
+                <div class="header-body">
+                    <h1>Jeseň</h1>
+                    <h3>farby a nálady jesene na plátnach maliarov</h3>
+                </div>
+            </a>
+        </div>
+
+        <div class="item">
+            <a href="/kolekcia/35" class="header-image text-center" style="background-image: url(/images/kolekcie/barok-a-hudba-cover.jpg); text-shadow:0px 1px 0px #777; color: #fff">
+                <div class="header-body">
+                    <h2>kolekcia</h2>
+                    <h1>Barok a hudba</h1>
+                    <h2>Kolekcia k rovnomennej výstave SNG z roku 1992</h2>
+                </div>
+            </a>
+        </div>
+
+        <div class="item">
             <a href="/kolekcia/34" class="header-image text-center" style="background-image: url(/images/kolekcie/34.jpg); text-shadow:0px 1px 0px #777; color: #fff">
                 <div class="header-body">
                     <h2>kolekcia</h2>
@@ -34,24 +53,6 @@
                 <div class="header-body">
                     <h2>výstava</h2>
                     <h1>BIEDERMEIER<br>19. VI. → 1. XI. 2015</h1>
-                </div>
-            </a>
-        </div>
-
-        <div class="item">
-            <a href="/kolekcia/25" class="header-image text-center" style="background-image: url(/images/kolekcie/leto.jpg); text-shadow:0px 1px 0px #777; color: #fff">
-                <div class="header-body">
-                    <h1>Leto</h1>
-                    <h3>37 pohľadov na najteplejšie mesiace roku</h3>
-                </div>
-            </a>
-        </div>
-
-        <div class="item">
-            <a href="katalog?search=&amp;tag=kojenie" class="header-image text-center" style="background-image: url(/images/kolekcie/kojenie.jpg); text-shadow:0px 1px 0px #777; color: #fff">
-                <div class="header-body">
-                    <h1>Kojenie</h1>
-                    <h2>intímne pohľady na matku s dieťaťom vo výtvarnom umení</h2>
                 </div>
             </a>
         </div>

@@ -128,6 +128,16 @@ $(document).ready(function(){
         mode: 'multi'
     });
 
+    @if(!isset($article))
+    $("#title").keyup(function(){
+            var text = $(this).val();
+            slug = getSlug(text);
+            console.log("slug: " + slug);
+            $("#slug").val(slug);        
+    });
+    @endif
+
+
 });
 
 </script>
