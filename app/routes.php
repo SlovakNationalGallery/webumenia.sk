@@ -246,6 +246,7 @@ App::missing(function($exception)
         $filter_lookup = [
         	'author' => 'au',
         	'work_type' => 'wt',
+        	'topic' => 'to',
         ];
         $work_type_lookup = [
         	'photo' => 'fotografia',
@@ -259,6 +260,9 @@ App::missing(function($exception)
         	'umelecke_remeslo' => 'umelecké remeslo',
         ];
         $uri = Request::path();
+        $params = http_build_query(Input::all()); 
+        $uri = (!$params) ? $uri : $uri.'/'.$params;
+        $uri = str_replace('results?', 'results/', $uri);
         $parts = explode('/', $uri);
         $action = $parts[2];
         switch ($action) {
@@ -281,7 +285,9 @@ App::missing(function($exception)
         	case 'search':
         		$query = array_pop($parts);
         		$query = urldecode($query);
-        		$query = preg_replace("/(\w+)[=]/", " ", $query); // vymaze slova konciace "=" alebo ":" -> napr "au:"
+        		parse_str($query, $output);
+        		// $query = preg_replace("/(\w+)[=]/", " ", $query); // vymaze slova konciace "=" alebo ":" -> napr "au:"
+        		$query = (isSet($output['query'])) ? $output['query'] : '';
         		if (preg_match_all('/\s*([^:]+):(.*)/', $query, $matches)) {
         		   $apply_filters = array();
         		   $filters = array_combine ( $matches[1], $matches[2] );
@@ -304,6 +310,11 @@ App::missing(function($exception)
 	        		   					$value = $last_name . ', ' . implode(' ', $parts);
 	        		   					$apply_filters[$filter] = $value;
 	        		   				}
+        		   					break;
+        		   				default:
+        		   					$replace_pairs = ['"' => '', '\"' => '', '“' => ''];
+        		   					$value = strtr($value, $replace_pairs);
+        		   					$apply_filters[$filter] = $value;
         		   					break;
         		   			}
         		   		}
