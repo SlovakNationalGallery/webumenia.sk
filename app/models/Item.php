@@ -461,7 +461,7 @@ class Item extends Eloquent {
 	 */
 	public function isFree()
 	{
-		$copyright_length = 71; // 70 rokov po smrti autora
+		$copyright_length = 70; // 70 rokov po smrti autora
 		$limit_according_item_dating = $copyright_length + 60; // 60 = 80 (max_life_lenght) - 20 (start_of_publishing)
 		if (!(
 			$this->attributes['gallery'] == 'Slovenská národná galéria, SNG' || 
@@ -474,8 +474,9 @@ class Item extends Eloquent {
 		//ak je autor viac ako 71rokov po smrti
 		foreach ($this->authorities as $authority) {
 			if (!empty($authority->death_year)) {
-				$death = cedvuDatetime($authority->death_year);
-				$years = $death->diffInYears(Carbon::now());
+				// $death = cedvuDatetime($authority->death_year);
+				// $years = $death->diffInYears(Carbon::now());
+				$years = date('Y') - $authority->death_year; // podla zakona sa rata volne dielo, ak je autor viac adko 70 rokov po smrti - od zaciatku nasledujuceho roka (1.1.) - co osetruje tento lame vypocet
 				if ($years > $copyright_length) {
 					return true;
 				}
