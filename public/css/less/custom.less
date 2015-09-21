@@ -863,7 +863,7 @@ a.dropdown-toggle {cursor: pointer;}
     border: none;
 }
 
-#infscr-loading { position: fixed; bottom: 80px;}
+#infscr-loading { position: fixed; bottom: 80px; left: 50%; margin-left: -10px; ;text-align: center; z-index: 10; transition: none;}
 
 .inline {display: inline; }
 .btn.inline {display: inline-block;}
@@ -904,4 +904,27 @@ a.nav-arrow {
         background-color: @light-grey;
 
     }
+}
+
+#next svg {
+  width: 100px; height: 100px;
+  & path {
+    fill: none;
+    stroke: @dark-grey;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+  }
+  & text {
+    fill: @primary-color;
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+  }
+  &:hover path{
+    stroke: darken(@primary-color,  20%);
+  }
+  &:hover text{
+    fill: darken(@primary-color,  20%);
+  }
 }
