@@ -149,6 +149,7 @@ Route::get('dielo/{id}', function($id)
 	if (empty($item)) {
 		App::abort(404);
 	}
+	$item->timestamps = false;
 	$item->view_count += 1; 
 	$item->save();
 	$previous = $next = false;
