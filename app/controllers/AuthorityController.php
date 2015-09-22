@@ -9,7 +9,7 @@ class AuthorityController extends \BaseController {
 	 */
 	public function index()
 	{
-		$authorities = Authority::orderBy('created_at', 'DESC')->paginate(100);
+		$authorities = Authority::orderBy('updated_at', 'DESC')->paginate(100);
         return View::make('authorities.index', array('authorities' => $authorities));
 	}
 
