@@ -163,8 +163,8 @@
     {{ HTML::script('js/bootstrap-datepicker.js') }}
     {{ HTML::script('js/spin.min.js') }}
     {{ HTML::script('js/ladda.min.js') }}
-    {{ HTML::script('js/wysihtml5-0.3.0.min.js') }}
-    {{ HTML::script('js/bootstrap3-wysihtml5.js') }}
+    {{ HTML::script('ckeditor/ckeditor.js') }}
+    {{ HTML::script('ckeditor/adapters/jquery.js') }}
     {{ HTML::script('js/bootstrap-colorpicker.min.js') }}
     {{ HTML::script('js/plugins/Sortable.min.js') }}
     {{ HTML::script('js/plugins/speakingurl.min.js') }}
@@ -179,17 +179,12 @@
 
         Ladda.bind( '.ladda-button');
 
-        $('.wysiwyg').wysihtml5({
-            "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
-            "emphasis": true, //Italics, bold, etc. Default true
-            "lists": false, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
-            "html": true, //Button which allows you to edit the generated HTML. Default false
-            "link": false, //Button to insert a link. Default true
-            "image": false, //Button to insert an image. Default true,
-            "color": false, //Button to change color of font  
-            "blockquote": false, //Blockquote  
-            "size": 'sm' //default: none, other options are xs, sm, lg
+        var csrf = '{{csrf_token()}}';
+        $( '.wysiwyg' ).ckeditor({
+            language: 'sk',
+            filebrowserUploadUrl: '/uploader?csrf_token='+csrf
         });
+
 
         $('body').on('hidden.bs.modal', '.modal', function () {
             $(this).removeData('bs.modal');

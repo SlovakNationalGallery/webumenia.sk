@@ -36,6 +36,7 @@ class CatalogController extends \BaseController {
 			$params["sort"][] = ["has_image"=>["order"=>"desc"]];
 			$params["sort"][] = ["has_iip"=>["order"=>"desc"]];
 			$params["sort"][] = ["updated_at"=>["order"=>"desc"]];
+			$params["sort"][] = ["created_at"=>["order"=>"desc"]];
 		} else {
 			if ($sort_by=='random') {
 				$random = json_decode('

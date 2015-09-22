@@ -224,6 +224,7 @@ Route::group(array('before' => 'auth'), function(){
 	Route::get('authority/reindex', 'AuthorityController@reindex');
 	Route::post('authority/destroySelected', 'AuthorityController@destroySelected');
 	Route::resource('authority', 'AuthorityController');
+	Route::match(['get','post'],'uploader','FileuploaderController@upload');
 
 	Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 });
