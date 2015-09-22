@@ -18,7 +18,7 @@ class CatalogController extends \BaseController {
 		if (Input::has('sort_by') && array_key_exists(Input::get('sort_by'), Item::$sortable)) {
 			$sort_by = Input::get('sort_by');
 		} else {
-			$sort_by = "created_at";
+			$sort_by = "updated_at";
 		}
 
 		$sort_order = ($sort_by == 'author' || $sort_by == 'title') ? 'asc' : 'desc';
@@ -31,11 +31,11 @@ class CatalogController extends \BaseController {
 		$params["from"] = $offset;
 		$params["size"] = $per_page;
 
-		if (!Input::has('sort_by') || $sort_by=='created_at') {
+		if (!Input::has('sort_by') || $sort_by=='updated_at') {
 			$params["sort"][] = "_score";
 			$params["sort"][] = ["has_image"=>["order"=>"desc"]];
 			$params["sort"][] = ["has_iip"=>["order"=>"desc"]];
-			$params["sort"][] = ["created_at"=>["order"=>"desc"]];
+			$params["sort"][] = ["updated_at"=>["order"=>"desc"]];
 		} else {
 			if ($sort_by=='random') {
 				$random = json_decode('

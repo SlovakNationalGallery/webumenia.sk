@@ -26,6 +26,7 @@ class Item extends Eloquent {
 	);
 
 	public static $sortable = array(
+		'updated_at' => 'poslednej zmeny',
 		'created_at' => 'dátumu pridania',
 		'title' => 'názvu',
 		'author' => 'autora',
@@ -615,6 +616,7 @@ class Item extends Eloquent {
 	        	'medium' => $this->attributes['medium'],
 	        	'technique' => $this->makeArray($this->attributes['technique']), 
 	        	'gallery' => $this->attributes['gallery'],
+	        	'updated_at' => $this->attributes['updated_at'],
 	        	'created_at' => $this->attributes['created_at'],
 	        	'has_image' => (bool)$this->has_image,
 	        	'has_iip' => (bool)$this->iipimg_url,
@@ -639,7 +641,7 @@ class Item extends Eloquent {
 		if (array_key_exists($sort_by, self::$sortable)) {
 			$sort_by = Input::get('sort_by');
 		} else {
-			$sort_by = "created_at";
+			$sort_by = "updated_at";
 		}
 
 		$label = self::$sortable[$sort_by];

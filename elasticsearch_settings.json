@@ -211,6 +211,11 @@ PUT /webumenia/_mapping/items
         "index": "not_analyzed",
         "format" : "yyyy-MM-dd HH:mm:ss"
       },
+      "updated_at" : {
+        "type": "date",
+        "index": "not_analyzed",
+        "format" : "yyyy-MM-dd HH:mm:ss"
+      },
       "has_image" : {
         "type": "boolean"
       },
