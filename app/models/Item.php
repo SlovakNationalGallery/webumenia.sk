@@ -624,6 +624,7 @@ class Item extends Eloquent {
 	        	// 'free_download' => $this->isFreeDownload(), // staci zapnut is_free + has_iip
 	        	'related_work' => $this->related_work,
 	        	'authority_id' => $this->relatedAuthorityIds(),
+	        	'view_count' => $this->view_count,
 	        ];
 	        return $client->index([
 	        	'index' => Config::get('fadion/bouncy::config.index'),
