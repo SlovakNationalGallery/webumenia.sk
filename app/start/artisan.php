@@ -16,4 +16,5 @@ Artisan::add(new ImportTags);
 Artisan::add(new OaiPmhHarvest);
 Artisan::add(new OaiPmhDownloadImages);
 Artisan::add(new TestMemory);
+Artisan::add(new ReindexElasticsearch);
 DB::disableQueryLog();
