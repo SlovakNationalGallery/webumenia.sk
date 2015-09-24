@@ -263,7 +263,7 @@ class ItemController extends \BaseController {
 		        $item->index();
 				$i++;
 				if (App::runningInConsole()) {
-					if ($i % 1000 == 0) echo date('h:i:s'). " " . $i . "\n";
+					if ($i % 100 == 0) echo date('h:i:s'). " " . $i . "\n";
 				}
 		    }
 		});
