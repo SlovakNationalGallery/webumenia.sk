@@ -150,23 +150,10 @@ a:focus {
 }
 
  // Navigation
-
 .navbar {    
     background-color: @light;
     margin-bottom: 0;
 
-    a, .dropdown-menu a {
-        -webkit-transition: border .3s ease-in-out;
-        -moz-transition: border .3s ease-in-out;
-        transition: border .3s ease-in-out;
-        border-bottom: 2px solid @light;
-        &:hover, &:active {
-          border-bottom: 2px solid @dark-grey;
-        }
-    }
-    li.active a {
-      border-bottom: 2px solid @dark-grey;
-    }
     a.navbar-brand, a.navbar-brand:hover {
         background: none;
         font-weight: 600;
@@ -190,6 +177,34 @@ a:focus {
     .navbar-collapse {
         text-align: center;
         clear: left; //supne menu na druhy riadok
+    }
+}
+
+@media(min-width: @screen-sm-min) {
+    .navbar {    
+        a, .dropdown-menu a {
+            -webkit-transition: border .3s ease-in-out;
+            -moz-transition: border .3s ease-in-out;
+            transition: border .3s ease-in-out;
+            border-bottom: 2px solid @light;
+            &:hover, &:active {
+              border-bottom: 2px solid @dark-grey;
+            }
+        }
+        li.active a {
+          border-bottom: 2px solid @dark-grey;
+        }
+    }
+}
+
+@media(max-width: @screen-xs-max) {
+    .navbar {    
+        a, .dropdown-menu a {
+        }
+        li.active a {
+          background: @light-grey;
+          color: @dark-grey;
+        }
     }
 }
 
@@ -263,6 +278,12 @@ a:focus {
     }
 }
 
+@media(max-width: @screen-xs-max) {
+  .header-image {
+    h1 { font-size: 42px; }
+  }
+}
+
 #webumeniaCarousel {
   height: 70% !important;
   .item,.active{height:100%;}
@@ -288,6 +309,13 @@ a:focus {
     vertical-align: middle;
     padding-bottom: 70px;
 }
+
+@media(max-width: @screen-xs-max) {
+  .header-body {
+      padding-bottom: 0px;
+  }
+}
+
 
 .articles {
   h4 {
