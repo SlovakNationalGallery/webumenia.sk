@@ -13,9 +13,11 @@
             <div class="row">
             	@foreach ($articles as $i=>$article)
 	                <div class="col-sm-6 col-xs-12 bottom-space">
-	                	<a href="{{ $article->getUrl() }}" class="featured-article">
-	                		<img src="{{ $article->getThumbnailImage() }}" class="img-responsive" alt="{{ $article->title }}">
-	                	</a>
+                        @if ($article->main_image)
+    	                	<a href="{{ $article->getUrl() }}" class="featured-article">
+    	                		<img src="{{ $article->getThumbnailImage() }}" class="img-responsive" alt="{{ $article->title }}">
+    	                	</a>
+                        @endif
                         <a href="{{ $article->getUrl() }}"><h4 class="title">
                             @if ($article->category)
                                 {{ $article->category->name }}:

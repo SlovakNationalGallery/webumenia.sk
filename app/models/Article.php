@@ -37,12 +37,16 @@ class Article extends Eloquent {
     }
 
     public function getHeaderImage($full=false) {
+        if (empty($this->attributes['main_image'])) return false;
+        
         $relative_path = self::ARTWORKS_DIR . $this->attributes['main_image'];
         $path = ($full) ? public_path() . $relative_path : $relative_path;
         return $path;
     }
 
     public function getThumbnailImage($full=false) {
+        if (empty($this->attributes['main_image'])) return false;
+
         $preview_image = substr($this->attributes['main_image'], 0, strrpos($this->attributes['main_image'], ".")); //zmaze priponu
         $preview_image .= '.thumbnail.jpg';
         $relative_path = self::ARTWORKS_DIR . $preview_image;
