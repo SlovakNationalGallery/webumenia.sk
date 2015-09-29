@@ -38,7 +38,7 @@ class Article extends Eloquent {
 
     public function getHeaderImage($full=false) {
         if (empty($this->attributes['main_image'])) return false;
-        
+
         $relative_path = self::ARTWORKS_DIR . $this->attributes['main_image'];
         $path = ($full) ? public_path() . $relative_path : $relative_path;
         return $path;
@@ -77,6 +77,16 @@ class Article extends Eloquent {
     public function scopePromoted($query)
     {
         return $query->where('promote', '=', 1);
+    }
+
+    public function setPublishAttribute($value)
+    {
+        if ($value) {
+            $current_time = Carbon\Carbon::now();
+            $this->attributes['published_date'] = $current_time->toDateTimeString();
+        }
+
+        $this->attributes['publish'] = (bool)$value;
     }
 
 }
