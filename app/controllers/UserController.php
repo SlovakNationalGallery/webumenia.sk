@@ -40,8 +40,6 @@ class UserController extends \BaseController {
 		$v = Validator::make($input, $rules);
 
 		if ($v->passes()) {
-
-			dd('ok');
 			
 			$user = new User;
 			$user->username = Input::get('username');
