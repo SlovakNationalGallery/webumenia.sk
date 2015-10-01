@@ -57,8 +57,8 @@
     <div class="collection-body">
         <div class="container">
             <div class="row">
-                <div class="col-md-8 col-md-offset-2 text-center">
-                        <p class="text-left bottom-space description">{{ $collection->text }}</p>                        
+                <div class="col-md-8 col-md-offset-2 bottom-space description">
+                       {{ $collection->text }}
                 </div>
             </div>
         </div>

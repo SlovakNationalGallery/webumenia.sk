@@ -1,8 +1,8 @@
 @extends('layouts.master')
 
 @section('title')
+Informácie | 
 @parent
-| informácie o výstave
 @stop
 
 @section('content')
