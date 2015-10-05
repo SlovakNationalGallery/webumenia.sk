@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('og')
-<meta property="og:title" content="{{ implode(', ', $item->authors)}} - {{ $item->title }}" />
+<meta property="og:title" content="{{ $item->getTitleWithAuthors() }}" />
 
 <meta property="og:description" content="{{ $item->work_type; }}, datovanie: {{ $item->dating }}, rozmer: {{  implode(' x ', $item->measurements) }}" />
 <meta property="og:type" content="object" />
@@ -46,7 +46,7 @@
                         @if (!empty($item->iipimg_url))
                             <a href="{{ URL::to('dielo/' . $item->id . '/zoom') }}" data-toggle="tooltip" data-placement="top" title="Zoom obrázku">
                         @endif    
-                        <img src="{{ $item->getImagePath() }}" class="img-responsive img-dielo">
+                        <img src="{{ $item->getImagePath() }}" class="img-responsive img-dielo" alt="{{ $item->getTitleWithAuthors() }}">
                         @if (!empty($item->iipimg_url))
                             </a>
                         @endif
@@ -246,7 +246,7 @@
                         <?php $related_tems = Item::where('related_work', '=', $item->related_work)->where('author', '=', $item->author)->orderBy('related_work_order')->get() ?>
                         <div class="artworks-preview small">
                         @foreach ($related_tems as $item)
-                            <a href="{{ $item->getDetailUrl() }}"><img data-lazy="{{ $item->getImagePath() }}" class="img-responsive-width " ></a>
+                            <a href="{{ $item->getDetailUrl() }}"><img data-lazy="{{ $item->getImagePath() }}" class="img-responsive-width " alt="{{ $item->getTitleWithAuthors() }} "></a>
                         @endforeach
                         </div>
                         </div>
@@ -275,7 +275,7 @@
                 <h4>súvisiace diela</h4>
                 <div class="artworks-preview ">
                 @foreach ($more_items as $item)
-                    <a href="{{ $item->getDetailUrl() }}"><img data-lazy="{{ $item->getImagePath() }}" class="img-responsive-width " ></a>
+                    <a href="{{ $item->getDetailUrl() }}"><img data-lazy="{{ $item->getImagePath() }}" class="img-responsive-width " alt="{{ $item->getTitleWithAuthors() }} "></a>
                 @endforeach
                 </div>
             </div>

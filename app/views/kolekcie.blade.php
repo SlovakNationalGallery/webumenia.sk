@@ -110,7 +110,7 @@
             <div class="col-sm-6" >
                 <div class="artworks-preview">
                 @foreach ($collection->getPreviewItems() as $item)
-                    <a href="{{ $item->getDetailUrl(['collection' => $collection->id]) }}"><img data-lazy="{{ $item->getImagePath() }}" class="img-responsive-width" ></a>
+                    <a href="{{ $item->getDetailUrl(['collection' => $collection->id]) }}"><img data-lazy="{{ $item->getImagePath() }}" class="img-responsive-width" alt="{{ $item->getTitleWithAuthors() }} " ></a>
                 @endforeach
                 </div>
             </div>

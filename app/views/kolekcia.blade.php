@@ -77,7 +77,7 @@
                     @foreach ($collection->items as $i=>$item)
                         <div class="col-md-3 col-sm-4 col-xs-12 item">
                             <a href="{{ $item->getDetailUrl(['collection' => $collection->id]) }}">
-                                <img src="{{ $item->getImagePath() }}" class="img-responsive" alt="{{implode(', ', $item->authors)}} - {{ $item->title }}">                          
+                                <img src="{{ $item->getImagePath() }}" class="img-responsive" alt="{{ $item->getTitleWithAuthors() }} ">                          
                             </a>
                             <div class="item-title">
                                 @if (!empty($item->iipimg_url))

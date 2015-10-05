@@ -609,6 +609,11 @@ class Item extends Eloquent {
 		return array_merge($authorities_with_link, $not_authorities_with_link);
 	}
 
+	public function getTitleWithAuthors($html = false) {
+		$dash = ($html) ? ' &ndash; ' : ' - ';
+		return implode(', ', $this->authors)  . $dash .  $this->title;
+	}
+
 	public  function index() {
 	        $client = new Elasticsearch\Client();
 	        $work_types = $this->work_types;
