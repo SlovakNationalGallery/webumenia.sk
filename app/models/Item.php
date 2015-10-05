@@ -464,6 +464,8 @@ class Item extends Eloquent {
 	{
 		$copyright_length = 70; // 70 rokov po smrti autora
 		$limit_according_item_dating = $copyright_length + 60; // 60 = 80 (max_life_lenght) - 20 (start_of_publishing)
+		
+		// skontrolovat, ci dielo patri institucii, ktora povoluje "volne diela"
 		if (!(
 			$this->attributes['gallery'] == 'Slovenská národná galéria, SNG' || 
 			$this->attributes['gallery'] == 'Oravská galéria, OGD' ||
@@ -472,17 +474,28 @@ class Item extends Eloquent {
 		)) {
 			return false;
 		}
+		
 		//ak je autor viac ako 71rokov po smrti
-		foreach ($this->authorities as $authority) {
+		$authors_are_free = array();
+		foreach ($this->authorities as $i=>$authority) {
+			$authors_are_free[$i] = false;
 			if (!empty($authority->death_year)) {
 				// $death = cedvuDatetime($authority->death_year);
 				// $years = $death->diffInYears(Carbon::now());
 				$years = date('Y') - $authority->death_year; // podla zakona sa rata volne dielo, ak je autor viac adko 70 rokov po smrti - od zaciatku nasledujuceho roka (1.1.) - co osetruje tento lame vypocet
 				if ($years > $copyright_length) {
-					return true;
+					$authors_are_free[$i] = true;
 				}
 			}
 		}
+		if (!empty($authors_are_free)) {
+			if (count(array_unique($authors_are_free)) === 1 && end($authors_are_free) == true) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
 		//ak je autor neznamy 
 		if (stripos($this->attributes['author'], 'neznámy') !== FALSE) {
 			return true;
