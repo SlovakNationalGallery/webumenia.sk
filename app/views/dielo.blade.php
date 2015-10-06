@@ -11,8 +11,8 @@
 @stop
 
 @section('title')
+{{ $item->getTitleWithAuthors() }} } 
 @parent
-| {{ implode(', ', $item->authors)}} - {{ $item->title }}
 @stop
 
 @section('description')

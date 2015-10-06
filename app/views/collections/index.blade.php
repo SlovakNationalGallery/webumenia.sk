@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 
 @section('title')
+kolekcie | 
 @parent
-- diela
 @stop
 
 @section('content')

@@ -4,8 +4,8 @@
 @stop
 
 @section('title')
+objednávka | 
 @parent
-| objednávka
 @stop
 
 @section('content')

@@ -4,8 +4,8 @@
 @stop
 
 @section('title')
+ďakujeme | 
 @parent
-| ďakujeme
 @stop
 
 @section('content')

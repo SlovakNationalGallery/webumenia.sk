@@ -1,8 +1,8 @@
 @extends('layouts.master')
 
 @section('title')
+autori |
 @parent
-| autori
 @stop
 
 @section('content')

@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 
 @section('title')
+Spice Harvester | 
 @parent
-- Spice Harvester
 @stop
 
 @section('content')

@@ -1,12 +1,12 @@
 @extends('layouts.master')
 
 @section('title')
-@parent
 @if (!empty($search))
-| výsledky vyhľadávania pre "{{$search}}"
+výsledky vyhľadávania pre "{{$search}}" |
 @else
-| všetky diela
+diela | 
 @endif
+@parent
 @stop
 
 @section('content')

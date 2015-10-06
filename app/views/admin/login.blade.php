@@ -1,8 +1,8 @@
 @extends('layouts.blank')
 
 @section('title')
+login | 
 @parent
-- login
 @stop
 
 @section('content')

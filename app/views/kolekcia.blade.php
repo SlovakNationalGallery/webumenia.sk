@@ -10,8 +10,8 @@
 @stop
 
 @section('title')
+{{ $collection->name }} | 
 @parent
-| {{ $collection->name }}
 @stop
 
 @section('description')

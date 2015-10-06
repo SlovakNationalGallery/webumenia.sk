@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 
 @section('title')
+diela | 
 @parent
-- diela
 @stop
 
 @section('content')

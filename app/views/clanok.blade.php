@@ -10,8 +10,8 @@
 @stop
 
 @section('title')
+{{ $article->title }} | 
 @parent
-| {{ $article->title }}
 @stop
 
 @section('description')

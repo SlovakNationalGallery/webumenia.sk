@@ -11,8 +11,8 @@
 @stop
 
 @section('title')
+{{ $author->formatedName }} |
 @parent
-| {{ $author->formatedName }}
 @stop
 
 @section('description')

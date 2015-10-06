@@ -1,8 +1,8 @@
 @extends('layouts.master')
 
 @section('title')
+články | 
 @parent
-| články
 @stop
 
 @section('content')

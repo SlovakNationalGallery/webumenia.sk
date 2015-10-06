@@ -1,8 +1,8 @@
 @extends('layouts.master')
 
 @section('title')
+kolekcie | 
 @parent
-| kolekcie
 @stop
 
 @section('content')

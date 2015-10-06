@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 
 @section('title')
+admin | 
 @parent
-- login
 @stop
 
 @section('content')
