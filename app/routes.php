@@ -243,7 +243,7 @@ App::missing(function($exception)
     	if (!empty($id)) {
     		return Redirect::to(Item::getImagePathForId($id), 301);
     	}
-    } elseif (Request::is('web/guest/*') || Request::is('web/ogd/*') || Request::is('web/gmb/*'))
+    } elseif (Request::is('web/guest/*') || Request::is('web/ogd/*') || Request::is('web/gmb/*') || Request::is('web/gnz/*'))
     {
         $filter_lookup = [
         	'author' => 'au',
