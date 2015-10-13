@@ -14,9 +14,10 @@ class Authority extends Eloquent {
     protected $typeName = self::ES_TYPE;
 
 	public static $filterable = array(
-		'role',
-		'nationality',
-		'place',
+		'rola' => 'role',
+		'príslušnosť' => 'nationality',
+		'miesto' => 'place',
+		'meno začína na' => 'first-letter',
 	);
 
 	public static $sortable = array(

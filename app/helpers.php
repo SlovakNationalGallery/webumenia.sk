@@ -122,3 +122,25 @@
             throw new \Exception('The file "'.$path.'" cannot be found in the public folder');
         }
     }
+
+    function getTitleWithFilters($model, $input, $end_with = '') {
+        $title_parts = array();
+        $separator = ' &bull; ';
+        foreach ($model::$filterable as $label=>$filter) {
+            if (!empty($input[$filter])){
+                if ($input[$filter] == '1') {
+                    $title_parts[] = $label;
+                } else {
+                    if ($filter == 'author') $input[$filter] = preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $input[$filter]); //otoc meno a priezvisko
+                    $title_parts[] = $label . ': ' . $input[$filter];   
+                }
+            }
+        }
+        if (isSet($input['year-range'])) {
+            $range = explode(',', $input['year-range']);
+            if($range[0] > $model::sliderMin()) $title_parts[] = 'po' . ': ' . $range[0];
+            if($range[1] < $model::sliderMax()) $title_parts[] = 'do' . ': ' . $range[1];
+        }
+        if (empty($title_parts)) $end_with = '';
+        return implode($separator, $title_parts) . $end_with;
+    }

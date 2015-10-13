@@ -1,12 +1,16 @@
 @extends('layouts.master')
 
 @section('title')
-@if (!empty($search))
-výsledky vyhľadávania pre "{{$search}}" |
-@else
-diela | 
-@endif
-@parent
+
+    @if (empty($input))
+        diela
+    @elseif (!empty($search))
+        výsledky vyhľadávania pre "{{$search}}"
+    @else
+        {{ getTitleWithFilters('Item', $input) }}
+    @endif
+    | 
+    @parent
 @stop
 
 @section('content')

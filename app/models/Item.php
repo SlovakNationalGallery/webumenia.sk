@@ -13,16 +13,16 @@ class Item extends Eloquent {
     protected $typeName = self::ES_TYPE;
 
 	public static $filterable = array(
-		'author',
-		'work_type',
-		'tag',
-		'gallery',
-		'topic',
-		'technique',
-		'has_image',
-		'has_iip',
-		'is_free',
-		'related_work'
+		'autor' => 'author',
+		'výtvarný druh' => 'work_type',
+		'tagy' => 'tag',
+		'galéria' => 'gallery',
+		'žáner' => 'topic',
+		'technika' => 'technique',
+		'len diela s obrázkom' => 'has_image',
+		'len diela so zoom' => 'has_iip',
+		'len voľné diela' => 'is_free',
+		'zo súboru' => 'related_work'
 	);
 
 	public static $sortable = array(

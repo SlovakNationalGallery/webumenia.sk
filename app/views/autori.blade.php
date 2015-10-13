@@ -1,7 +1,8 @@
 @extends('layouts.master')
 
 @section('title')
-autori |
+{{ getTitleWithFilters('Authority', $input, ' | ') }}
+autori |  
 @parent
 @stop
 

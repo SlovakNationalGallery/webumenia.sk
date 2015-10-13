@@ -11,7 +11,7 @@
 @stop
 
 @section('title')
-{{ $item->getTitleWithAuthors() }} } 
+{{ $item->getTitleWithAuthors() }} | 
 @parent
 @stop
 
