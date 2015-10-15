@@ -136,10 +136,14 @@
                 }
             }
         }
+        // fazety, ktore niesu typu "term" treba zadefinovat osobitne, pretoze niesu vo $filterable
         if (isSet($input['year-range'])) {
             $range = explode(',', $input['year-range']);
             if($range[0] > $model::sliderMin()) $title_parts[] = 'po' . ': ' . $range[0];
             if($range[1] < $model::sliderMax()) $title_parts[] = 'do' . ': ' . $range[1];
+        }
+        if (isSet($input['first-letter'])) {
+            $title_parts[] = 'začína sa na' . ': "' . $input['first-letter'] . '"';
         }
         if (empty($title_parts)) $end_with = '';
         return implode($separator, $title_parts) . $end_with;

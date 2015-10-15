@@ -17,7 +17,6 @@ class Authority extends Eloquent {
 		'rola' => 'role',
 		'príslušnosť' => 'nationality',
 		'miesto' => 'place',
-		'meno začína na' => 'first-letter',
 	);
 
 	public static $sortable = array(
