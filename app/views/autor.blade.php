@@ -34,7 +34,7 @@
                         </p>
                         @if ( $author->tags)
                             <div class="tags">
-                                <h5>Tagy: </h5>
+                                <h4>Tagy: </h4>
                                 @foreach ($author->tags as $tag)
                                     <a href="{{URL::to('katalog?tag=' . $tag)}}" class="btn btn-default btn-xs btn-outline">{{ $tag }}</a>
                                 @endforeach
@@ -43,7 +43,7 @@
                 </div>
                 <div class="col-sm-8 popis">
                     <a href="{{ str_contains(URL::previous(), '/autori') ?  URL::previous() : URL::to('/autori') }} " class="inherit no-border"><i class="icon-arrow-left"></i> zoznam autorov</a>
-                    <h2>{{ $author->formatedName }}</h2>
+                    <h1>{{ $author->formatedName }}</h1>
                     @if ( $author->names->count() > 0)
                         <p class="lead">príp.  <em>{{ implode("</em>, <em>", $author->formatedNames) }}</em></p>
                     @endif
@@ -65,7 +65,7 @@
 
                     @if ( $author->events->count() > 0)
                         <div class="events">
-                            <h5 class="top-space">Pôsobenie</h5> 
+                            <h4 class="top-space">Pôsobenie</h4> 
                             @foreach ($author->events as $i=>$event)
                                 <strong><a href="{{ url_to('autori', ['place' => $event->place]) }}">{{ $event->place }}</a></strong> {{ add_brackets(Authority::formatMultiAttribute($event->event)) }}{{ ($i+1 < $author->events->count()) ? ', ' : '' }}
                             @endforeach
@@ -73,14 +73,14 @@
                     @endif
                     @if ( $author->links->count() > 0)
                         <div class="links">
-                            <h5 class="top-space">Externé odkazy</h5>
+                            <h4 class="top-space">Externé odkazy</h4>
                             <?php foreach ($author->links as $i=>$link) $links[] = '<a href="'.$link->url .'" target="_blank">'.$link->label.'</a>'; ?>
                             {{ implode(", ", $links) }}
                         </div>
                     @endif
 
                     @if ( $author->relationships->count() > 0)
-                    <h5 class="top-space">Vzťahy</h5>
+                    <h4 class="top-space">Vzťahy</h4>
                     <table class="table table-condensed relationships">
                         <thead>
                             <tr>

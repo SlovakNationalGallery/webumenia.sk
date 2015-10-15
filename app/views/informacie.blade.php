@@ -11,7 +11,7 @@ Informácie |
     <div class="container">
         <div class="row content-section">
             <div class="col-md-12 text-center">
-                    <h2>Čo je web umenia?</h2>
+                    <h1>Čo je web umenia?</h1>
             </div>
         </div>
         <div class="row bottom-space">
@@ -123,7 +123,7 @@ Informácie |
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header text-center">
-                <h2>cenník reprodukcií</h2>
+                <h1>cenník reprodukcií</h1>
             </div>
             <div class="modal-body">
                 

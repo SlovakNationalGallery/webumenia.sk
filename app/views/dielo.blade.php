@@ -34,11 +34,11 @@
                     <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{{ Session::get('message') }}</div>
                 @endif
                 <div class="col-md-10 col-md-offset-1 text-center content-section">
-                    <h2 class="nadpis-dielo">{{ $item->title }}</h2>
+                    <h1 class="nadpis-dielo">{{ $item->title }}</h1>
                     <?php  $authorities=array(); ?>
-                    <h3 class="inline">
+                    <h2 class="inline">
                     {{ implode(', ', $item->getAuthorsWithLinks()) }}
-                    </h3>
+                    </h2>
                 </div>
             </div>
             <div class="row">

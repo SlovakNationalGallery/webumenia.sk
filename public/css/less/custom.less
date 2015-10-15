@@ -46,6 +46,10 @@
 @input-color-placeholder:        @primary-color;
 
 @font-size-large:         ceil((@font-size-base * 1.10)); // ~18px
+@font-size-h1:            floor((@font-size-base * 2.6)); // ~36px
+// @font-size-h1:            floor((@font-size-base * 2.15)); // ~30px
+@font-size-h2:            ceil((@font-size-base * 1.7)); // ~24px
+
 
 // LESS
 
@@ -63,10 +67,10 @@ html {
 
 // Typhography
 
-h2 {
+h1 {
   color: @dark-grey;
   font-weight: 600;
-  font-size: 36px;
+  // font-size: 36px;
   margin-top: 0px;
 }
 
@@ -267,7 +271,7 @@ a:focus {
       font-weight: 600;
 
     }
-    h2 { color: inherit; }
+    h2 { color: inherit; font-size: @font-size-h1; font-weight: 600; }
 
     &.intro404 {
         background: url(../images/vizual-404.jpg) no-repeat center center scroll;
@@ -467,6 +471,7 @@ table a:not(.btn):not(.readmore-js-toggle):not(.no-border), .attributes a:not(.b
 }
 
 .info, .mozete {
+    h2 { font-size: @font-size-h1; font-weight: 600; }
     strong, .strong {color: @dark-grey;}
     color: @grey;
     ul li {margin-bottom: 15px; }
@@ -778,9 +783,9 @@ section.catalog {
 .author.detail {
   background-color: @light-grey;
   color: @grey;
-  h2 {margin-top: 40px;}
-  h5 {font-size: @font-size-large; font-weight: 600;}
-  .popis h5 {margin-bottom: 4px;}
+  h1 {margin-top: 40px;}
+  h4 {font-size: @font-size-large; font-weight: 600;}
+  .popis h4 {margin-bottom: 4px;}
   .lead {font-size: @font-size-large; margin-bottom: 10px;}
   .img-responsive {margin: auto}
   .biography {margin: 30px 0;}
