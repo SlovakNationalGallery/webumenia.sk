@@ -2,12 +2,11 @@
 
 @section('title')
 
-    @if (empty($input))
-        diela
-    @elseif (!empty($search))
+    @if (!empty($search))
         výsledky vyhľadávania pre "{{$search}}"
     @else
-        {{ getTitleWithFilters('Item', $input) }}
+        {{ getTitleWithFilters('Item', $input, ' | ') }}
+        diela
     @endif
     | 
     @parent
@@ -43,7 +42,7 @@
                         <div class="checkbox">
                             {{ Form::checkbox('has_image', '1', @$input['has_image'], ['id'=>'has_image']) }}
                             <label for="has_image">
-                              len diela s obrázkami
+                              len s obrázkom
                             </label>
                         </div>
                 </div>
@@ -51,7 +50,7 @@
                         <div class="checkbox">
                             {{ Form::checkbox('has_iip', '1', @$input['has_iip'], ['id'=>'has_iip']) }}
                             <label for="has_iip">
-                              len diela so zoom
+                              len so zoom
                             </label>
                         </div>
                 </div>
@@ -59,7 +58,7 @@
                         <div class="checkbox">
                             {{ Form::checkbox('is_free', '1', @$input['is_free'], ['id'=>'is_free']) }}
                             <label for="is_free">
-                              len voľné diela
+                              len voľné
                             </label>
                         </div>
                 </div>
