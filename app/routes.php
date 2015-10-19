@@ -136,6 +136,7 @@ Route::get('dielo/{id}/stiahnut', function($id)
 	if (empty($item) || !$item->isFreeDownload()) {
 		App::abort(404);
 	}
+	$item->timestamps = false;
 	$item->download_count += 1; 
 	$item->save();
 	$item->download();
