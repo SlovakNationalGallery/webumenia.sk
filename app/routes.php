@@ -274,6 +274,8 @@ App::missing(function($exception)
         		break;
         	
         	case 'about':
+        	case 'contact':
+        	case 'help':
     			return Redirect::to('informacie', 301);
         		break;
         	
