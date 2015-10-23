@@ -119,7 +119,7 @@
             <div class="col-xs-12">
                 <div class="artworks-preview large">
                     @foreach ($author->getPreviewItems() as $item)
-                        <a href="{{ $item->getDetailUrl() }}"><img data-lazy="{{ $item->getImagePath() }}" class="img-responsive-width large" alt="{{ $item->getTitleWithAuthors() }} " title="{{ $item->getTitleWithAuthors() }} "></a>
+                        <a href="{{ $item->getUrl() }}"><img data-lazy="{{ $item->getImagePath() }}" class="img-responsive-width large" alt="{{ $item->getTitleWithAuthors() }} " title="{{ $item->getTitleWithAuthors() }} "></a>
                     @endforeach
                 </div>
             </div>  

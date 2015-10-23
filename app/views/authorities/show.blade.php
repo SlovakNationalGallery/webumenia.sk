@@ -116,7 +116,7 @@
 
             </div>            <!-- /modal-body -->
             <div class="modal-footer">
-				<a href="{{ $item->getDetailUrl() }}" class="btn btn-default">Zobraziť na webe</a>
+				<a href="{{ $item->getUrl() }}" class="btn btn-default">Zobraziť na webe</a>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Zavrieť</button>
             </div>            <!-- /modal-footer -->
 </body>

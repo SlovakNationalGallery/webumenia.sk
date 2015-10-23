@@ -155,7 +155,7 @@ class Item extends Eloquent {
 
 	}
 
-	public function getDetailUrl($params = []) {
+	public function getUrl($params = []) {
 		$url = URL::to('dielo/' . $this->id);
 		if (Input::has('collection')) {
 			$params = ['collection' => (int)Input::get('collection')];
@@ -582,10 +582,10 @@ class Item extends Eloquent {
 		$not_authorities_with_link = array();
 		foreach ($this->authorities as $authority) {
 			if ($authority->pivot->role != 'autor/author') {
-				$not_authorities_with_link[] = '<a class="underline" href="'. $authority->getDetailUrl() .'">'. $authority->formated_name .'</a>'			
+				$not_authorities_with_link[] = '<a class="underline" href="'. $authority->getUrl() .'">'. $authority->formated_name .'</a>'			
 					.' &ndash; ' . Authority::formatMultiAttribute($authority->pivot->role);
 			} else {
-				$authorities_with_link[] = '<a class="underline" href="'. $authority->getDetailUrl() .'">'. $authority->formated_name .'</a>';				
+				$authorities_with_link[] = '<a class="underline" href="'. $authority->getUrl() .'">'. $authority->formated_name .'</a>';				
 			}
 			$used_authorities[]= trim($authority->name, ', ');
 		}

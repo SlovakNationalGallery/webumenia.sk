@@ -116,6 +116,7 @@ return array(
 		'Conner\Tagging\TaggingServiceProvider',
 		'Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider',
 		'Zizaco\Entrust\EntrustServiceProvider',
+		'Roumen\Sitemap\SitemapServiceProvider',
 	),
 
 	/*

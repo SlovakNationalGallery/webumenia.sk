@@ -20,20 +20,20 @@
       <div class="carousel-inner" role="listbox">
 
         <div class="item active">
-            <a href="/katalog?search=jese%C5%88&author=&work_type=maliarstvo&tag=&gallery=&topic=&technique=&has_image=1&year-range=600%2C2015&sort_by=" class="header-image text-center" style="background-image: url(/images/kolekcie/jesen.jpg); text-shadow:0px 1px 0px #777; color: #fff">
+            <a href="/kolekcia/42" class="header-image text-center" style="background-image: url(/images/kolekcie/42.jpg); text-shadow:0px 1px 0px #777; color: #fff">
                 <div class="header-body">
-                    <h1>Jeseň</h1>
-                    <h3>farby a nálady jesene na plátnach maliarov</h3>
+                    <h2>kolekcia</h2>
+                    <h1>Portréty Habsburgovcov</h1>
+                    <h2>v zbierkach GMB</h2>
                 </div>
             </a>
         </div>
 
-        <div class="item">
-            <a href="/kolekcia/35" class="header-image text-center" style="background-image: url(/images/kolekcie/barok-a-hudba-cover.jpg); text-shadow:0px 1px 0px #777; color: #fff">
+        <div class="item ">
+            <a href="/katalog?search=jese%C5%88&author=&work_type=maliarstvo&tag=&gallery=&topic=&technique=&has_image=1&year-range=600%2C2015&sort_by=" class="header-image text-center" style="background-image: url(/images/kolekcie/jesen.jpg); text-shadow:0px 1px 0px #777; color: #fff">
                 <div class="header-body">
-                    <h2>kolekcia</h2>
-                    <h1>Barok a hudba</h1>
-                    <h2>Kolekcia k rovnomennej výstave SNG z roku 1992</h2>
+                    <h1>Jeseň</h1>
+                    <h3>farby a nálady jesene na plátnach maliarov</h3>
                 </div>
             </a>
         </div>

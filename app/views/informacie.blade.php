@@ -94,7 +94,7 @@ Informácie |
             <div class="col-xs-12">
                 <div class="artworks-preview">
                 @foreach ($items as $item)
-                    <a href="{{ $item->getDetailUrl() }}" class="no-border"><img data-lazy="{{ $item->getImagePath() }}" class="img-responsive-width " alt="{{ $item->getTitleWithAuthors() }} " title="{{ $item->getTitleWithAuthors() }} " ></a>
+                    <a href="{{ $item->getUrl() }}" class="no-border"><img data-lazy="{{ $item->getImagePath() }}" class="img-responsive-width " alt="{{ $item->getTitleWithAuthors() }} " title="{{ $item->getTitleWithAuthors() }} " ></a>
                 @endforeach
                 </div>
             </div>

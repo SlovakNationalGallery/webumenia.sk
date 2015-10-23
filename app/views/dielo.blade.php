@@ -20,7 +20,7 @@
 @stop
 
 @section('link')
-    <link rel="canonical" href="{{ $item->getDetailUrl() }}">
+    <link rel="canonical" href="{{ $item->getUrl() }}">
 @stop
 
 
@@ -53,10 +53,10 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 @if ($previous)
-                                    <a href="{{ Item::find($previous)->getDetailUrl() }}" id="left" class="nav-arrow left">&larr;<span class="sr-only">predchádzajúce dielo</span></a>
+                                    <a href="{{ Item::find($previous)->getUrl() }}" id="left" class="nav-arrow left">&larr;<span class="sr-only">predchádzajúce dielo</span></a>
                                 @endif
                                 @if ($next)
-                                    <a href="{{ Item::find($next)->getDetailUrl() }}" id="right" class="nav-arrow right">&rarr;<span class="sr-only">nasledujúce dielo</span></a>             
+                                    <a href="{{ Item::find($next)->getUrl() }}" id="right" class="nav-arrow right">&rarr;<span class="sr-only">nasledujúce dielo</span></a>             
                                 @endif
                             </div>
 
@@ -246,7 +246,7 @@
                         <?php $related_tems = Item::where('related_work', '=', $item->related_work)->where('author', '=', $item->author)->orderBy('related_work_order')->get() ?>
                         <div class="artworks-preview small">
                         @foreach ($related_tems as $item)
-                            <a href="{{ $item->getDetailUrl() }}"><img data-lazy="{{ $item->getImagePath() }}" class="img-responsive-width " alt="{{ $item->getTitleWithAuthors() }} "></a>
+                            <a href="{{ $item->getUrl() }}"><img data-lazy="{{ $item->getImagePath() }}" class="img-responsive-width " alt="{{ $item->getTitleWithAuthors() }} "></a>
                         @endforeach
                         </div>
                         </div>
@@ -258,7 +258,7 @@
                     @endif
 
                     <div class="share">
-                        <div class="fb-like" data-href="{{ $item->getDetailUrl() }}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" style="height:20px; vertical-align: top;"></div> &nbsp;
+                        <div class="fb-like" data-href="{{ $item->getUrl() }}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" style="height:20px; vertical-align: top;"></div> &nbsp;
                         <a href="https://twitter.com/share" class="twitter-share-button" style="float: right; text-align: right" >Tweet</a>
                         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
                         </script>
@@ -275,7 +275,7 @@
                 <h4>súvisiace diela</h4>
                 <div class="artworks-preview ">
                 @foreach ($more_items as $item)
-                    <a href="{{ $item->getDetailUrl() }}"><img data-lazy="{{ $item->getImagePath() }}" class="img-responsive-width " alt="{{ $item->getTitleWithAuthors() }} "></a>
+                    <a href="{{ $item->getUrl() }}"><img data-lazy="{{ $item->getImagePath() }}" class="img-responsive-width " alt="{{ $item->getTitleWithAuthors() }} "></a>
                 @endforeach
                 </div>
             </div>
@@ -293,7 +293,7 @@
             <div class="modal-body">
                 <p><strong>Vami zvolené dielo by sa malo začať v krátkom čase automaticky sťahovať.</strong></p>
                 <p>Digitálne reprodukcie diel SNG na tejto stránke sú sprístupnené ako <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" class="underline">verejné vlastníctvo (public domain)</a>. Môžete si ich voľne stiahnuť vo vysokom rozlíšení a využívať na súkromné aj komerné účely &ndash; kopírovať, zdieľať i upravovať.</p>
-                <p>Pri ďalšom šírení prosíme uviesť meno autora, názov, majiteľa diela a zdroj <code>{{ $item->getDetailUrl() }}</code></p>
+                <p>Pri ďalšom šírení prosíme uviesť meno autora, názov, majiteľa diela a zdroj <code>{{ $item->getUrl() }}</code></p>
                 <p>Ak plánujete využiť reprodukcie na komerčné účely, prosím informujte o vašich plánoch vopred, naši odborníci vám vedia poradiť.</p>  
                 <p><a class="underline" href="{{ URL::to('katalog?is_free=' . '1') }}">Všetky voľne stiahnuteľné diela nájdete tu.</a></p>
             </div>

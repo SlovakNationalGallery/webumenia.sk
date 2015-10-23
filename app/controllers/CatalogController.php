@@ -11,7 +11,7 @@ class CatalogController extends \BaseController {
 		if (strpos($search, ':')!==false) {
 			$item = Item::find($search);
 			if ($item) {
-				return Redirect::to($item->getDetailUrl());
+				return Redirect::to($item->getUrl());
 			}
 		}
 

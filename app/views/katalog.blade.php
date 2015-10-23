@@ -115,14 +115,14 @@
                     <div id="iso">
                 	@foreach ($items as $i=>$item)
     	                <div class="col-md-3 col-sm-4 col-xs-6 item">
-    	                	<a href="{{ $item->getDetailUrl() }}">
+    	                	<a href="{{ $item->getUrl() }}">
     	                		<img src="{{ $item->getImagePath() }}" class="img-responsive" alt="{{ $item->getTitleWithAuthors() }} ">	                		
     	                	</a>
                             <div class="item-title">
                                 @if ($item->has_iip)
                                     <div class="pull-right"><a href="{{ URL::to('dielo/' . $item->id . '/zoom') }}" data-toggle="tooltip" data-placement="left" title="Zoom obrázku"><i class="fa fa-search-plus"></i></a></div>
                                 @endif    
-                                <a href="{{ $item->getDetailUrl() }}" {{ (!empty($search))  ? 
+                                <a href="{{ $item->getUrl() }}" {{ (!empty($search))  ? 
                                     'data-searchd-result="title/'.$item->id.'" data-searchd-title="'.implode(', ', $item->authors).' - '. $item->title.'"' 
                                     : '' }}>
                                     <em>{{ implode(', ', $item->authors) }}</em><br>

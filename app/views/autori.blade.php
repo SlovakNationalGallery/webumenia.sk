@@ -83,13 +83,13 @@ autori |
     	@foreach ($authors as $i=>$author)
          <div class="row author">   
             <div class="col-sm-2 col-xs-4">
-            	<a href="{{ $author->getDetailUrl() }}">
+            	<a href="{{ $author->getUrl() }}">
             		<img src="{{ $author->getImagePath() }}" class="img-responsive img-circle" alt="{{ $author->name }}">	                		
             	</a>
             </div>
             <div class="col-sm-4 col-xs-8">
                 <div class="author-title">
-                    <a href="{{ $author->getDetailUrl() }}" {{ (!empty($search))  ? 
+                    <a href="{{ $author->getUrl() }}" {{ (!empty($search))  ? 
                         'data-searchd-result="title/'.$author->id.'" data-searchd-title="'. $author->formatedName.'"' 
                         : '' }}>
                         <strong>{{ $author->formatedName }}</strong>
@@ -116,7 +116,7 @@ autori |
             <div class="col-sm-6" >
                 <div class="artworks-preview">
                 @foreach ($author->getPreviewItems() as $item)
-                    <a href="{{ $item->getDetailUrl() }}"><img data-lazy="{{ $item->getImagePath() }}" class="img-responsive-width" alt="{{ $item->getTitleWithAuthors() }} " title="{{ $item->getTitleWithAuthors() }} "></a>
+                    <a href="{{ $item->getUrl() }}"><img data-lazy="{{ $item->getImagePath() }}" class="img-responsive-width" alt="{{ $item->getTitleWithAuthors() }} " title="{{ $item->getTitleWithAuthors() }} "></a>
                 @endforeach
                 </div>
             </div>

@@ -112,7 +112,7 @@ Route::get('dielo/{id}/objednat', function($id)
 	if (!in_array($item->id, Session::get('cart', array()))) Session::push('cart', $item->id);
 	
 	Session::flash('message', "Dielo <b>" . implode(', ', $item->authors) . " – $item->title</b> (".$item->getDatingFormated().") bolo pridané do košíka.");
-	return Redirect::to($item->getDetailUrl());
+	return Redirect::to($item->getUrl());
 
 });
 
@@ -283,7 +283,7 @@ App::missing(function($exception)
         		$id = $parts[6];
         		$item = Item::find($id);
         		if ($item){
-        			return Redirect::to($item->getDetailUrl(), 301);
+        			return Redirect::to($item->getUrl(), 301);
         		}
         		break;
         	

@@ -45,11 +45,11 @@ objednávka |
 
             @foreach ($items as $i=>$item)
                 <div class="media">
-                    <a href="{{ $item->getDetailUrl() }}" class="pull-left">
+                    <a href="{{ $item->getUrl() }}" class="pull-left">
                         <img src="{{ $item->getImagePath() }}" class="media-object" style="max-width: 80px; ">
                     </a>
                     <div class="media-body">                           
-                        <a href="{{ $item->getDetailUrl() }}">
+                        <a href="{{ $item->getUrl() }}">
                             <em>{{ implode(', ', $item->authors) }}</em> <br> <strong>{{ $item->title }}</strong> (<em>{{ $item->getDatingFormated() }}</em>)
                         </a><br>
                         <p class="item"><a href="{{ URL::to('dielo/' . $item->id . '/odstranit') }}" class="underline"><i class="fa fa-times"></i> odstrániť</a></span>

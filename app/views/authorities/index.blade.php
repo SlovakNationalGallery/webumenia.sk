@@ -58,7 +58,7 @@ autority |
 			                <td>{{ $a->place }}</td>
 			                <td class="action">
                                 {{ link_to_action('AuthorityController@edit', 'Upraviť', array($a->id), array('class' => 'btn btn-primary btn-xs btn-outline')) }}    
-                                <a href="{{ $a->getDetailUrl() }}" class="btn btn-success btn-xs btn-outline" target="_blank">Na webe</a>     
+                                <a href="{{ $a->getUrl() }}" class="btn btn-success btn-xs btn-outline" target="_blank">Na webe</a>     
                                 <a href="{{ $a->getOaiUrl() }}" class="btn btn-warning btn-xs btn-outline" target="_blank">OAI záznam</a>                             
                             </td>
 			            </tr>

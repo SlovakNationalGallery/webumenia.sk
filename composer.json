@@ -13,13 +13,14 @@
 		"dinesh/bugonemail": "dev-master",
 		"anahkiasen/former": "dev-master",
 		"guzzlehttp/guzzle": "~5.0",
-		"fadion/bouncy": "dev-master",
+		"fadion/bouncy": "dev-master#0b7dddbcf0f24d5a725b196e9f7b588ac37006bc",
 		"barryvdh/laravel-debugbar": "~1.8",
 		"rtconner/laravel-tagging": "~0.5",
 		"maatwebsite/excel": "~1.3.0",
 		"pda/pheanstalk": "~2.0",
 		"rap2hpoutre/laravel-log-viewer": "0.2.*",
-		"zizaco/entrust": "1.2.*@dev"
+		"zizaco/entrust": "1.2.*@dev",
+		"roumen/sitemap": "2.4.*"
 	},
 	"autoload": {
 		"classmap": [

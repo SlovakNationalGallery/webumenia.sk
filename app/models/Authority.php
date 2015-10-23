@@ -213,7 +213,7 @@ class Authority extends Eloquent {
 
 	}
 
-	public function getDetailUrl() {
+	public function getUrl() {
 		return self::detailUrl($this->id);
 	}
 
