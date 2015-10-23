@@ -142,7 +142,7 @@
             if($range[0] > $model::sliderMin()) $title_parts[] = 'po' . ': ' . $range[0];
             if($range[1] < $model::sliderMax()) $title_parts[] = 'do' . ': ' . $range[1];
         }
-        if (isSet($input['first-letter'])) {
+        if (!empty($input['first-letter'])) {
             $title_parts[] = 'začína sa na' . ': "' . $input['first-letter'] . '"';
         }
         if (empty($title_parts)) $end_with = '';
