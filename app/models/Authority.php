@@ -185,6 +185,11 @@ class Authority extends Eloquent {
         return self::formatName($this->name);
     }
 
+	public function getTitleAttribute()
+    {
+        return self::formatName($this->name);
+    }
+
     public function getFormatedNamesAttribute()
     {
     	$names = $this->names->lists('name');

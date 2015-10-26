@@ -112,15 +112,21 @@ class MakeSitemap extends Command {
 		$model::chunk(200, function($entries) use (&$sitemap, &$i, &$sitemap_count, &$model, &$priority, &$freq) {
 		    foreach ($entries as $entry)
 		    {
-		        $sitemap->add($entry->getUrl(), $entry->updated_at, $priority, $freq);
-				$i++;
-				if ($i >= $this->max_entries) {
-					$sitemap_name = 'sitemap-' . str_plural(strtolower($model)) . '-' . ($sitemap_count+1);
-					$sitemap->store('xml', $sitemap_name );
-					$this->addSitemap($sitemap_name);
-					$sitemap = App::make("sitemap"); // vytvori nanovo
-					$sitemap_count++;
-					$i = 0;
+		        if (($model != 'Authority') || ($entry->type == 'person')) { // ak autority, tak len personalne
+			        $images = [];
+			        if (isSet($entry->has_image)) {
+			        	$images[] = ['url' => URL::to($entry->getImagePath()), 'title' => $entry->title];
+			        }
+			        $sitemap->add($entry->getUrl(), $entry->updated_at, $priority, $freq, $images);
+					$i++;
+					if ($i >= $this->max_entries) {
+						$sitemap_name = 'sitemap-' . str_plural(strtolower($model)) . '-' . ($sitemap_count+1);
+						$sitemap->store('xml', $sitemap_name);
+						$this->addSitemap($sitemap_name);
+						$sitemap = App::make("sitemap"); // vytvori nanovo
+						$sitemap_count++;
+						$i = 0;
+					}
 				}
 		    }
 		});
