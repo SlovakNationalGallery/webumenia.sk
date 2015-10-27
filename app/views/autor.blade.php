@@ -21,12 +21,12 @@
 
 @section('content')
 
-<section class="author detail content-section">
+<section class="author detail content-section" itemscope itemtype="http://schema.org/Person">
     <div class="container">
         <div class="attributes">
             <div class="row">   
                 <div class="col-sm-4 text-center extra-padding top-space">
-                        <img src="{{ $author->getImagePath() }}" class="img-responsive img-circle" alt="{{ $author->name }}">     
+                        <img src="{{ $author->getImagePath() }}" class="img-responsive img-circle" alt="{{ $author->name }}"  itemprop="image">     
                         <p class="content-section">
                             <a href="{{ url_to('katalog', ['author' => $author->name]) }}"><strong>{{ $author->items->count() }}</strong></a> diel <br>
                             v <strong>{{ $author->collections_count }}</strong> kolekciách <br>
@@ -43,7 +43,7 @@
                 </div>
                 <div class="col-sm-8 popis">
                     <a href="{{ str_contains(URL::previous(), '/autori') ?  URL::previous() : URL::to('/autori') }} " class="inherit no-border"><i class="icon-arrow-left"></i> zoznam autorov</a>
-                    <h1>{{ $author->formatedName }}</h1>
+                    <h1 itemprop="name">{{ $author->formatedName }}</h1>
                     @if ( $author->names->count() > 0)
                         <p class="lead">príp.  <em>{{ implode("</em>, <em>", $author->formatedNames) }}</em></p>
                     @endif
@@ -52,7 +52,7 @@
                     </p>
                     <p class="lead">
                         @foreach ($author->roles as $i=>$role)
-                            <a href="{{ url_to('autori', ['role' => $role->role]) }}"><strong>{{ $role->role }}</strong></a>{{ ($i+1 < $author->roles->count()) ? ', ' : '' }}
+                            <a href="{{ url_to('autori', ['role' => $role->role]) }}"><strong itemprop="jobTitle">{{ $role->role }}</strong></a>{{ ($i+1 < $author->roles->count()) ? ', ' : '' }}
                         @endforeach
                         {{-- {{ implode(", ", $author->roles->lists('role')) }} --}}
                     </p>
@@ -94,7 +94,7 @@
                             @foreach ($author->getAssociativeRelationships() as $type=>$relationships)
                                 <td>
                                 @foreach ($relationships as $relationship)
-                                    <a href="{{ $relationship['id'] }}" class="no-border"><strong>{{ $relationship['name'] }}</strong> <i class="icon-arrow-right"></i></a> <br>
+                                    <a href="{{ $relationship['id'] }}" class="no-border"><strong itemprop="knows">{{ $relationship['name'] }}</strong> <i class="icon-arrow-right"></i></a> <br>
                                 @endforeach
                                 </td>
                             @endforeach

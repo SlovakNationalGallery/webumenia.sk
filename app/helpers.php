@@ -148,3 +148,7 @@
         if (empty($title_parts)) $end_with = '';
         return implode($separator, $title_parts) . $end_with;
     }
+
+    function addMicrodata($value, $itemprop) {
+        return '<span itemprop="'.$itemprop.'">'.$value.'</span>';
+    } 

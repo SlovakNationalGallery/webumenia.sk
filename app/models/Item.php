@@ -585,7 +585,7 @@ class Item extends Eloquent {
 				$not_authorities_with_link[] = '<a class="underline" href="'. $authority->getUrl() .'">'. $authority->formated_name .'</a>'			
 					.' &ndash; ' . Authority::formatMultiAttribute($authority->pivot->role);
 			} else {
-				$authorities_with_link[] = '<a class="underline" href="'. $authority->getUrl() .'">'. $authority->formated_name .'</a>';				
+				$authorities_with_link[] = '<span itemprop="creator" itemscope itemtype="http://schema.org/Person"><a class="underline" href="'. $authority->getUrl() .'" itemprop="sameAs"><span itemprop="name">'. $authority->formated_name .'</span></a></span>';				
 			}
 			$used_authorities[]= trim($authority->name, ', ');
 		}

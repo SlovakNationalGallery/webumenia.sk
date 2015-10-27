@@ -25,7 +25,7 @@
 
 @section('content')
 
-<section class="item top-section">
+<section class="item top-section" itemscope itemtype="http://schema.org/VisualArtwork">
     <div class="item-body">
         <div class="container">
             <div class="row">
@@ -33,8 +33,7 @@
                     <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{{ Session::get('message') }}</div>
                 @endif
                 <div class="col-md-10 col-md-offset-1 text-center content-section">
-                    <h1 class="nadpis-dielo">{{ $item->title }}</h1>
-                    <?php  $authorities=array(); ?>
+                    <h1 class="nadpis-dielo" itemprop="name">{{ $item->title }}</h1>
                     <h2 class="inline">
                     {{ implode(', ', $item->getAuthorsWithLinks()) }}
                     </h2>
@@ -45,7 +44,7 @@
                         @if (!empty($item->iipimg_url))
                             <a href="{{ URL::to('dielo/' . $item->id . '/zoom') }}" data-toggle="tooltip" data-placement="top" title="Zoom obrázku">
                         @endif    
-                        <img src="{{ $item->getImagePath() }}" class="img-responsive img-dielo" alt="{{ $item->getTitleWithAuthors() }}">
+                        <img src="{{ $item->getImagePath() }}" class="img-responsive img-dielo" alt="{{ $item->getTitleWithAuthors() }}" itemprop="image">
                         @if (!empty($item->iipimg_url))
                             </a>
                         @endif
@@ -71,7 +70,7 @@
                                 @endif
                             </div>
                             @if (!empty($item->description))
-                            <div class="col-md-12 text-left medium description bottom-space underline">
+                            <div class="col-md-12 text-left medium description bottom-space underline" itemprop="description">
                                 {{  $item->description }}
 
                                 @if ($item->description_source)
@@ -97,7 +96,7 @@
                             <tbody>
                                 <tr>
                                     <td class="atribut">datovanie:</td>
-                                    <td>{{ $item->getDatingFormated(); }}</td>
+                                    <td><time itemprop="dateCreated" datetime="{{ $item->date_earliest }}">{{ $item->getDatingFormated(); }}</time></td>
                                 </tr>
                                 @if (!empty($item->measurements))
                                 <tr>
@@ -116,7 +115,7 @@
                                     <td>
                                         @foreach ($item->work_types as $i => $work_type)
                                             @if ($i == 0)
-                                                <a href="{{ URL::to('katalog?work_type=' . $work_type) }}">{{ $work_type }}</a>
+                                                <a href="{{ URL::to('katalog?work_type=' . $work_type) }}">{{ addMicrodata($work_type, "artform") }}</a>
                                             @else
                                                 {{ $work_type }}
                                             @endif
@@ -162,7 +161,7 @@
                                 @if (!empty($item->medium))
                                 <tr>
                                     <td class="atribut">materiál:</td>
-                                    <td>{{ $item->medium; }}</td>
+                                    <td>{{ addMicrodata($item->medium, "artMedium") }}</td>
                                 </tr>
                                 @endif
                                 @if (!empty($item->techniques))
@@ -229,7 +228,7 @@
                                     <td class="atribut">{{ $item->relationship_type }}:</td>
 
                                     <td>
-                                        <a href="{{ URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) }}">{{ $item->related_work }}</a> 
+                                        <a href="{{ URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) }}" itemprop="isPartOf">{{ $item->related_work }}</a> 
                                         @if ($item->related_work_order)
                                             ({{ $item->related_work_order }}/{{ $item->related_work_total }})
                                         @endif                                        

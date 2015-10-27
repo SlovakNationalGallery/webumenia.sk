@@ -234,13 +234,13 @@ class Authority extends Eloquent {
 	public function getDescription($html = false, $links = false, $include_roles = false)
 	{
 		$description = ($html) ? '* ' : '';
-		$description .= ($html) ? $this->birth_date : $this->birth_year;
-		$description .= self::formatPlace($this->birth_place, $links);
+		$description .= ($html) ? addMicrodata($this->birth_date,'birthDate') : $this->birth_year;
+		$description .= ($html) ? self::formatPlace($this->birth_place, $links,'birthPlace') : self::formatPlace($this->birth_place, $links);
 		if ($this->death_year) {
 			$description .= ($html) ? ' &ndash; ' : ' - '; 
 			$description .= ($html) ? '&#x271D; ' : '';
-			$description .= ($html) ? $this->death_date : $this->death_year;
-			$description .= self::formatPlace($this->death_place, $links);
+			$description .= ($html) ? addMicrodata($this->death_date,'deathDate') : $this->death_year;
+			$description .= ($html) ? self::formatPlace($this->death_place, $links,'deathPlace') : self::formatPlace($this->death_place, $links);
 		}
 		if ($include_roles) {
 			$roles = array();
@@ -251,13 +251,14 @@ class Authority extends Eloquent {
 		return $description;
 	}
 
-	private static function formatPlace($place, $links = false)
+	private static function formatPlace($place, $links = false, $itemprop = NULL)
 	{
 		if (empty($place)) {
 			return '';
 		} else {
 			if ($links) {
-				$place = '<a href="'.url_to('autori', ['place' => $place]).'">'.$place.'</a>';
+				$prop = ($itemprop) ? 'itemprop="'.$itemprop.'"' : '';
+				$place = '<a href="'.url_to('autori', ['place' => $place]).'" '.$prop.'>'.$place.'</a>';
 			}
 			return ' '.$place;
 			// return add_brackets($place);
