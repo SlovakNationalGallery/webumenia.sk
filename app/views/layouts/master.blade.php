@@ -20,6 +20,8 @@
 		<!--  /favicons-->
 
 		<!--  Open Graph protocol -->
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:site" content="@webumeniaSK" />
 		@section('og')
 		<meta property="og:title" content="Web umenia" />
 		<meta property="og:description" content="Web umenia je on-line katalóg výtvarných diel zo zbierok slovenských galérií. Nájdete tu základné informácie o dielach a ich autoroch, ale aj pôvodné články, videá a kolekcie." />

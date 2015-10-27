@@ -2,7 +2,6 @@
 
 @section('og')
 <meta property="og:title" content="{{ $item->getTitleWithAuthors() }}" />
-
 <meta property="og:description" content="{{ $item->work_type; }}, datovanie: {{ $item->dating }}, rozmer: {{  implode(' x ', $item->measurements) }}" />
 <meta property="og:type" content="object" />
 <meta property="og:url" content="{{ Request::url() }}" />
