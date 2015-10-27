@@ -54,7 +54,6 @@
 		</script>
 		@endif
 
-
 </head>
 
 <body id="page-top">
