@@ -114,7 +114,7 @@ class MakeSitemap extends Command {
 		    {
 		        if (($model != 'Authority') || ($entry->type == 'person')) { // ak autority, tak len personalne
 			        $images = [];
-			        if (isSet($entry->has_image)) {
+			        if ($entry->has_image) {
 			        	$images[] = ['url' => URL::to($entry->getImagePath()), 'title' => $entry->title];
 			        }
 			        $sitemap->add($entry->getUrl(), $entry->updated_at, $priority, $freq, $images);
