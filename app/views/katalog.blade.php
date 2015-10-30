@@ -12,6 +12,10 @@
     @parent
 @stop
 
+@section('link')
+    @include('includes.pagination_links', ['paginator' => $paginator])
+@stop
+
 @section('content')
 
 <section class="filters">

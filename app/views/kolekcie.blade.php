@@ -5,6 +5,10 @@ kolekcie |
 @parent
 @stop
 
+@section('link')
+    @include('includes.pagination_links', ['paginator' => $collections])
+@stop
+
 @section('content')
 
 {{-- <section class="filters">
