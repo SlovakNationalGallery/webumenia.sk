@@ -53,7 +53,7 @@
 
 		</script>
 		@endif
-
+		{{ HTML::script('js/scroll-frame-head.js') }}
 </head>
 
 <body id="page-top">

@@ -165,6 +165,7 @@
 {{-- {{ HTML::script('js/bootstrap-checkbox.js') }} --}}
 {{ HTML::script('js/selectize.min.js') }}
 {{ HTML::script('js/readmore.min.js') }}
+{{ HTML::script('js/scroll-frame.js') }}
 
 <script type="text/javascript">
 
@@ -250,6 +251,7 @@ $(document).ready(function(){
             finishedMsg: 'A to je všetko'
         }
     }, function(newElements, data, url){
+        history.replaceState({infiniteScroll:true}, null, url);
         var $newElems = jQuery( newElements ).hide(); 
         $newElems.imagesLoaded(function(){
             $newElems.fadeIn();
@@ -258,6 +260,8 @@ $(document).ready(function(){
     });
 
     $(window).unbind('.infscr'); //kill scroll binding
+
+    scrollFrame('.item');
 
 
     $('a#next').click(function(){
