@@ -5,6 +5,10 @@
 @parent
 @stop
 
+@section('link')
+    <link rel="canonical" href="{{ getCanonicalUrl() }}">
+@stop
+
 @section('content')
 
 <section class="articles light-grey content-section">

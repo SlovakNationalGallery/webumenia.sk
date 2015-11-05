@@ -151,4 +151,29 @@
 
     function addMicrodata($value, $itemprop) {
         return '<span itemprop="'.$itemprop.'">'.$value.'</span>';
-    } 
+    }
+
+    function getCanonicalUrl()
+    {
+        $unwanted_params = [
+            'tag',
+            'sort_by',
+            'year-range',
+            'has_image',
+            'has_iip',
+            'is_free',
+            'first_letter',
+        ];
+
+        $url = Request::url();
+        $params = array_filter(Input::except($unwanted_params), 'strlen'); //vyhodi nechcene a prazdne parametre
+
+        if (!empty($params)) {
+            $params = array_slice($params, 0, 1); //necha iba prvy parameter v poli
+            if (Input::has('page')) {
+                $params['page'] = Input::get('page');
+            }
+            $url .=  '?' . http_build_query($params);
+        }
+        return $url;
+    }

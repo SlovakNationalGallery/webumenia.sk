@@ -14,6 +14,7 @@
 
 @section('link')
     @include('includes.pagination_links', ['paginator' => $paginator])
+    <link rel="canonical" href="{{ getCanonicalUrl() }}">
 @stop
 
 @section('content')
@@ -185,6 +186,19 @@ $(document).ready(function(){
     
     // $('.checkbox').checkbox();
 
+    $("form").submit(function()
+    {
+        $(this).find('input[name], select[name]').each(function(){
+            if (!$(this).val()){
+                $(this).data('name', $(this).attr('name'));
+                $(this).removeAttr('name');
+            }
+        });
+        if ( $('#year-range').val()=='{{Item::sliderMin()}},{{Item::sliderMax()}}' ) {
+            $('#year-range').attr("disabled", true);
+        }
+    });
+
     $("#year-range").slider({
         // value: [1800, 1900],
         tooltip: 'hide'
@@ -217,7 +231,8 @@ $(document).ready(function(){
     });
 
     $(".custom-select, input[type='checkbox']").change(function() {
-        $(this).closest('form').submit();
+        var form = $(this).closest('form');
+        form.submit();
     });
 
     $(".dropdown-menu-sort a").click(function(e) {

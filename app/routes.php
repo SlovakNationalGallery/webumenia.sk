@@ -101,6 +101,16 @@ Route::get('dielo/{id}/zoom', function($id)
 	return View::make('zoom', array('item'=>$item));
 });
 
+Route::get('dielo/{id}/skicar', function($id)
+{
+	$item = Item::find($id);
+
+	if (empty($item->iipimg_url)) {
+		App::abort(404);
+	}
+	return View::make('skicar', array('item'=>$item));
+});
+
 Route::get('dielo/{id}/objednat', function($id)
 {
 	$item = Item::find($id);

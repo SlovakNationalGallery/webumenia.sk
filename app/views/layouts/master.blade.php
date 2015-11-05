@@ -165,10 +165,6 @@
 	<!-- Core JavaScript Files -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-	<!-- Google Maps API Key - You will need to use your own API key to use the map feature -->
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
-
-	{{ HTML::script('js/gmaps.js') }}
 	{{ HTML::script('js/imagesloaded.min.js') }}
 	{{ HTML::script('js/jquery.infinitescroll.min.js') }}
 	{{ HTML::script('js/jquery.isotope.min.js') }}

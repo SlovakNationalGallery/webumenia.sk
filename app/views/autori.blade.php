@@ -8,6 +8,7 @@ autori |
 
 @section('link')
     @include('includes.pagination_links', ['paginator' => $paginator])
+    <link rel="canonical" href="{{ getCanonicalUrl() }}">
 @stop
 
 @section('content')
@@ -149,6 +150,18 @@ autori |
 <script type="text/javascript">
 
 $(document).ready(function(){
+    $("form").submit(function()
+    {
+        $(this).find('input[name], select[name]').each(function(){
+            if (!$(this).val()){
+                $(this).data('name', $(this).attr('name'));
+                $(this).removeAttr('name');
+            }
+        });
+        if ( $('#year-range').val()=='{{Authority::sliderMin()}},{{Authority::sliderMax()}}' ) {
+            $('#year-range').attr("disabled", true);
+        }
+    });
 
     $("#year-range").slider({
         // value: [1500, 2014],
