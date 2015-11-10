@@ -34,7 +34,7 @@
         <meta name="msapplication-square310x310logo" content="/mstile-310x310.png" />
         <!--  /favicons-->
 
-        <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         {{ HTML::style('css/style.css') }}
 
   <!-- Basic example style for a 100% view -->
@@ -67,8 +67,15 @@
             <a id="home" href="#home" title="Go home"><i class="fa fa-home"></i></a> 
             <a id="full-page" href="#full-page" title="Toggle full page"><i class="fa fa-expand"></i></a> 
    </div>
-   <a class="btn btn-default btn-outline return" href="{{ URL::previous() }}" role="button"><i class="fa fa-arrow-left"></i> naspäť</a>    
-    <div class="credit">&copy; {{ $item->gallery }}</div>
+   <a class="btn btn-default btn-outline return" href="{{ $item->getUrl() }}" role="button"><i class="fa fa-arrow-left"></i> naspäť</a>
+    <div class="credit">
+      @if ($item->isFree())
+        <img alt="Creative Commons License" style="height: 20px; width: auto; vertical-align: bottom;" src="/images/license/zero-invert.svg">
+         voľné dielo
+      @else
+        &copy; {{ $item->gallery }}
+      @endif
+    </div>
 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
    {{ HTML::script('js/openseadragon.js') }}
@@ -116,10 +123,13 @@
      }); 
 
      $('a.return').click(function(){
-            parent.history.back();
-            return false;
+            if (document.referrer.split('/')[2] === window.location.host) {
+              parent.history.back();
+              return false;
+            } else {
+              window.location.href = '{{ $item->getUrl() }}'; 
+            }
       });
-
    });
 
    </script>
