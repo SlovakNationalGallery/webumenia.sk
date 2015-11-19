@@ -173,8 +173,14 @@ Route::get('dielo/{id}', function($id)
 		if (!empty($collection)) {
 			// dd($collection->name);
 			$items = $collection->items->lists('id');
-			$previous = getPrevVal($items, $id);
-			$next = getNextVal($items, $id);
+			$previousId = getPrevVal($items, $id);
+			if ($previousId) {
+				$previous = Item::find($previousId)->getUrl(['collection' => $collection->id]);
+			}
+			$nextId = getNextVal($items, $id);
+			if ($nextId) {
+				$next = Item::find($nextId)->getUrl(['collection' => $collection->id]);
+			}
 		}
 	}
 

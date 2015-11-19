@@ -51,10 +51,10 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 @if ($previous)
-                                    <a href="{{ Item::find($previous)->getUrl() }}" id="left" class="nav-arrow left">&larr;<span class="sr-only">predchádzajúce dielo</span></a>
+                                    <a href="{{ $previous }}" id="left" class="nav-arrow left">&larr;<span class="sr-only">predchádzajúce dielo</span></a>
                                 @endif
                                 @if ($next)
-                                    <a href="{{ Item::find($next)->getUrl() }}" id="right" class="nav-arrow right">&rarr;<span class="sr-only">nasledujúce dielo</span></a>             
+                                    <a href="{{ $next }}" id="right" class="nav-arrow right">&rarr;<span class="sr-only">nasledujúce dielo</span></a>             
                                 @endif
                             </div>
 

@@ -157,9 +157,6 @@ class Item extends Eloquent {
 
 	public function getUrl($params = []) {
 		$url = URL::to('dielo/' . $this->id);
-		if (Input::has('collection')) {
-			$params = ['collection' => (int)Input::get('collection')];
-		}
 		if ($params) {
 			$url .= '?' . http_build_query($params);
 		}
