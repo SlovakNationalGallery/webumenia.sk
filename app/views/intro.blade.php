@@ -44,6 +44,15 @@
       <div class="carousel-inner" role="listbox">
 
         <div class="item active">
+            <a href="/kolekcia/45" class="header-image text-center" style="background-image: url(/images/kolekcie/jarmoky.jpg); text-shadow:0px 1px 0px #777; color: #fff">
+                <div class="header-body">
+                    <h2>kolekcia</h2>
+                    <h1>Jarmočná jeseň</h1>
+                </div>
+            </a>
+        </div>
+
+        <div class="item">
             <a href="/kolekcia/42" class="header-image text-center" style="background-image: url(/images/kolekcie/42.jpg); text-shadow:0px 1px 0px #777; color: #fff">
                 <div class="header-body">
                     <h2>kolekcia</h2>
@@ -68,15 +77,6 @@
                     <h2>kolekcia</h2>
                     <h1>Zbierka grófa Jána Pálffyho </h1>
                     <h2>v Slovenskej národnej galérii</h2>
-                </div>
-            </a>
-        </div>
-
-        <div class="item">
-            <a href="/clanok/biedermeier" class="header-image text-center" style="background-image: url(/images/clanky/vystava-biedermeier.jpg); text-shadow:0px 1px 0px #777; color: #fff">
-                <div class="header-body">
-                    <h2>výstava</h2>
-                    <h1>BIEDERMEIER<br>19. VI. → 1. XI. 2015</h1>
                 </div>
             </a>
         </div>
