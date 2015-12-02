@@ -36,6 +36,7 @@
 
         <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         {{ HTML::style('css/style.css') }}
+        {{-- {{ HTML::style('css/skicar.css') }} --}}
 
   <!-- Basic example style for a 100% view -->
   <style type="text/css">
@@ -43,7 +44,7 @@
       height: 100%;
       padding: 0;
       margin: 0;
-      background-color: #000;
+      background-color: #fff;
     }
     div#viewer{
       height: 100%;
@@ -55,6 +56,8 @@
       margin: 0;
       padding: 0;
     }
+
+    #zoomed .return, #zoomed #toolbarDiv a, #zoomed .credit { background: #fff; color: #000; }
   </style>
 
  </head>
@@ -68,26 +71,54 @@
             <a id="full-page" href="#full-page" title="Toggle full page"><i class="fa fa-expand"></i></a> 
    </div>
    <a class="btn btn-default btn-outline return" href="{{ URL::previous() }}" role="button"><i class="fa fa-arrow-left"></i> naspäť</a>    
-    <div class="credit">aktualna_strana / celkovy_pocet</div>
+    <div class="credit" id="currentpage"></div>
 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
    {{ HTML::script('js/openseadragon.js') }}
 
    <script type="text/javascript">
+    var rotationChecked = false;
+
    $("document").ready(function()
    {
+     
+
      var server = '/fcgi-bin/iipsrv.fcgi';
      var image = '{{ $item->iipimg_url }}';
 
-    <?php $related_tems = Item::where('related_work', '=', $item->related_work)->where('author', '=', $item->author)->orderBy('related_work_order')->get() ?>
-
     var images = [
-    @foreach ($related_tems as $item)
+    @foreach ($related_items as $item)
         '/fcgi-bin/iipsrv.fcgi?DeepZoom={{ $item->iipimg_url }}.dzi',
     @endforeach
     ];
 
-     
+    var pocet = {{ count($related_items) }};
+
+
+    function getPreviousPage() {
+        if (viewer.currentPage() > 0) {
+           rotationChecked = false;
+           viewer.goToPage(viewer.currentPage() - 1); 
+        }
+    };
+
+    function getNextPage() {
+         if (viewer.currentPage() < pocet) {
+            rotationChecked = false;
+            viewer.goToPage(viewer.currentPage() + 1); 
+         }
+    };
+
+    function rotateToFill() {
+      // rotationChecked = true;
+      console.log('kontrolujem');
+      if (viewer.source.dimensions.x< viewer.source.dimensions.y) {
+        viewer.viewport.setRotation(90);
+        viewer.viewport.zoomBy(viewer.source.dimensions.y/viewer.source.dimensions.x, '', true);
+      }
+    };
+
+
 
      viewer = OpenSeadragon({
        id: "viewer",
@@ -97,6 +128,7 @@
        zoomOutButton:  "zoom-out",
        homeButton:     "home",
        fullPageButton: "full-page",
+       // immediateRender: true, //odporucane pre mobile devides
        // nextButton:     "next",
        // previousButton: "previous",
        showNavigator:  false,
@@ -110,6 +142,7 @@
        visibilityRatio: 1,
        minZoomLevel: 1,
        defaultZoomLevel: 0,
+       // debugMode:  true,
     // collectionMode:       true,
     // collectionRows:       1, 
     // collectionTileSize:   1024,
@@ -117,6 +150,46 @@
      });
 
      document.oncontextmenu = function() {$('#zoom-out').click(); return false;};
+
+     document.getElementById('currentpage').innerHTML = ( viewer.currentPage() + 1 ) + ' / {{ count($related_items) }}';
+     // rotateToFill();
+
+     viewer.addHandler('page', function (event) {
+               document.getElementById('currentpage').innerHTML = ( event.page + 1 ) + ' / {{ count($related_items) }}';
+               rotateToFill();
+           });
+
+     viewer.addHandler('tile-drawn', function () {
+            if (!rotationChecked) {
+              // rotateToFill();
+            }
+            
+           });
+
+     viewer.addHandler('canvas-drag-end', function(event, info) {
+       viewer.container.clientWidth;
+       var deltaX = event.position.x - (viewer.container.clientWidth/2);
+       var deltaY = event.position.y - (viewer.container.clientHeight/2);
+       // console.log(event);
+       var treshold = 100;
+       if (deltaX > treshold || deltaY > treshold) {
+          getPreviousPage();
+       }
+       else if (deltaX < -treshold || deltaY < -treshold) {
+          getNextPage();
+       }
+     });
+
+     viewer.addHandler('canvas-drag', function(event, info) {
+       // console.log(event);
+       // var treshold = 30;
+       // if (event.delta.x > treshold || event.delta.y > treshold) {
+       //    getPreviousPage();
+       // }
+       // else if (event.delta.x < -treshold || event.delta.y < -treshold) {
+       //    getNextPage();
+       // }
+     });
 
      // $(document).dblclick(function() {
      //   viewer.viewport.goHome();
@@ -135,6 +208,25 @@
             return false;
       });
 
+     // posuvanie sipkou vlavo/vpravo
+
+     document.onkeydown = function(evt) {
+         evt = evt || window.event;
+         switch (evt.keyCode) {
+             case 37:
+                 getPreviousPage();
+                 break;
+             case 39:
+                 getNextPage();
+                 break;
+         }
+     };
+
+     // $(document).on('swipeleft',  function(){ getPreviousPage(); })
+     //               .on('swiperight', function(){ getNextPage(); })
+     //               .on('swipeup',    function(){ getPreviousPage(); })
+     //               .on('swipedown',  function(){ getNextPage(); });
+   
    });
 
    </script>

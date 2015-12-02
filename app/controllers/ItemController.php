@@ -147,7 +147,8 @@ class ItemController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		Item::find($id)->delete();
+		return Redirect::route('item.index')->with('message', 'Dielo bolo zmazané');;
 	}
 
 	public function backup() 
