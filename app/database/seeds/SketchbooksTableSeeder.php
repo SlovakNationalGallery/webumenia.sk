@@ -18,6 +18,8 @@ class SketchbooksTableSeeder extends Seeder {
             $sketchbook->item_id = $item->id;
             $sketchbook->title = implode(', ', $item->authors)  . ' / ' .  $item->date_latest;
             $sketchbook->order = $i;
+            $sketchbook->width = $item->width;
+            $sketchbook->height = $item->height;
             // $sketchbook->generated_at = date("Y-m-d H:i:s");
             $sketchbook->save();
         }

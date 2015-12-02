@@ -379,6 +379,29 @@ class Item extends Eloquent {
 		// return $measurements;
 	}
 
+	public function getWidthAttribute($value)
+	{
+	    return $this->getMeasurementForDimension('šírka');
+	}
+
+	public function getHeightAttribute($value)
+	{
+	    return $this->getMeasurementForDimension('výška');
+	}
+
+	private function getMeasurementForDimension($dimension)
+	{
+		$value = null;
+		$trans = array("; " => ";", ", " => ";", "()" => "");
+	    $measurements =  explode(';', strtr($this->attributes['measurement'], $trans));
+	    foreach ($measurements as $measurement) {
+	    	if (str_contains($measurement, $dimension)) {
+	    		$value = preg_replace("/[^0-9\.]/","",$measurement);
+	    	}
+	    }
+	    return $value;
+	}
+
 	public function getDatingFormated() {
 		$count_digits = preg_match_all( "/[0-9]/", $this->dating);
 		if (($count_digits<2) && !empty($this->date_earliest)) {

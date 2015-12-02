@@ -17,6 +17,8 @@ class CreateSketchbooksTable extends Migration {
 			$table->increments('id');
 			$table->string('item_id');
 			$table->string('title');
+			$table->decimal('width', 6, 2);
+			$table->decimal('height', 6, 2);
 			$table->string('file')->nullable();
 			$table->integer('order');
 			$table->boolean('publish')->default(0);
