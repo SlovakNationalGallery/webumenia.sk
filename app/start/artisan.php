@@ -18,4 +18,5 @@ Artisan::add(new OaiPmhDownloadImages);
 Artisan::add(new TestMemory);
 Artisan::add(new ReindexElasticsearch);
 Artisan::add(new MakeSitemap);
+Artisan::add(new MakeSketchbook);
 DB::disableQueryLog();

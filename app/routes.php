@@ -102,9 +102,8 @@ Route::get('dielo/{id}/zoom', function($id)
 });
 
 
+Route::get('skicare', 'SkicareController@index');
 Route::get('dielo/{id}/skicar', 'SkicareController@getZoom');
-
-
 Route::get('dielo/{id}/skicar/vytvor', 'SkicareController@downloadAllPages');
 
 Route::get('dielo/{id}/objednat', function($id)

@@ -6,7 +6,7 @@ class Sketchbook extends Eloquent {
     
     public function item()
     {
-        return $this->hasOne('Item');
+        return $this->belongsTo('Item');
     }
 
     public function scopePublished($query)
