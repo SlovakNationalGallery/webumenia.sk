@@ -92,8 +92,9 @@
 </div>
 <div class="col-md-12">
 	<div class="form-group">
-	{{ Form::label('subject', 'tagy') }}
-	{{ Form::text('subject', Input::old('subject'), array('class' => 'form-control')) }}
+	{{ Form::label('tags', 'tagy') }}
+	{{ Form::select('tags[]', Item::allTags()->lists('name','name'), (isSet($item)) ? $item->tagNames() : [], ['id' => 'tags', 'multiple' => 'multiple']) }}
+
 	</div>
 </div>
 <div class="col-md-12">
@@ -210,4 +211,23 @@
 </div>
 
 <div class="clear">&nbsp;</div>
+@stop
+
+@section('script')
+
+{{ HTML::script('js/selectize.min.js') }}
+
+<script>
+$(document).ready(function(){
+	
+    $("#tags").selectize({
+        plugins: ['remove_button'],
+        persist: false,
+	    create: true,
+	    createOnBlur: true
+    });
+
+});
+
+</script>
 @stop

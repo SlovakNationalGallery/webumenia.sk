@@ -128,6 +128,11 @@ class ItemController extends \BaseController {
 			$item->fill($input);
 			$item->save();
 
+			if (Input::has('tags')) {
+				$item->reTag(Input::get('tags', []));
+				$item->index(); //pre istotu. lebo ak sa nic ine nezmeni, tak nepreindexuje
+			}
+
 			// ulozit primarny obrazok. do databazy netreba ukladat. nazov=id
 			if (Input::hasFile('primary_image')) {
 				$this->uploadImage($item);

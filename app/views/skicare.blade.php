@@ -10,6 +10,8 @@ skicare |
 <style type="text/css">
   body {margin: 0 !important; padding: 0 !important;}
   #skicare {
+  	display: -webkit-box;
+  	display: -webkit-flex;
     display: flex;
       align-items: center;
       /*justify-content: center;*/
@@ -28,6 +30,7 @@ skicare |
 	  /*border: 1px solid red;*/
 	  margin: auto 10px;
 	  /*flex:1;*/
+	   -webkit-flex: none;
 	  flex:none;
   }
   #skicare .skicar img {
