@@ -238,6 +238,7 @@ Route::group(array('before' => 'auth'), function(){
 	Route::resource('authority', 'AuthorityController');
 	Route::match(['get','post'],'uploader','FileuploaderController@upload');
 
+	Route::resource('sketchbook', 'SketchbookController');
 	Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 });
 

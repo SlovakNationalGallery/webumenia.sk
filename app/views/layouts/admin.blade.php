@@ -23,6 +23,7 @@
         {{ HTML::style('css/bootstrap-colorpicker.min.css') }}
         {{ HTML::style('css/plugins/selectize.css') }}
         {{ HTML::style('css/plugins/selectize.bootstrap3.css') }}
+        {{ HTML::style('css/plugins/bootstrap-switch.css') }}
         {{ HTML::script('js/modernizr.custom.js') }}
 
 </head>
@@ -115,6 +116,11 @@
                         @endif
                         @if (Entrust::hasRole('admin'))
                         <li>
+                            <a href="{{ URL::to('sketchbook') }}"><i class="fa fa-book fa-fw"></i> Skicáre</a>
+                        </li>
+                        @endif
+                        @if (Entrust::hasRole('admin'))
+                        <li>
                             <a href="{{ URL::to('logs') }}" target="_blank"><i class="fa fa-exclamation-triangle fa-fw"></i> Logy</a>
                         </li>
                         @endif
@@ -168,6 +174,7 @@
     {{ HTML::script('js/bootstrap-colorpicker.min.js') }}
     {{ HTML::script('js/plugins/Sortable.min.js') }}
     {{ HTML::script('js/plugins/speakingurl.min.js') }}
+    {{ HTML::script('js/plugins/bootstrap-switch.min.js') }}
 
 
     <script>
@@ -223,6 +230,8 @@
         //   // console.log('farba:' + ev.color.toHex());
         //   $(this).prev('span').css('color',ev.color.toHex());
         // });
+
+        $(".switch").bootstrapSwitch();
      
 
 
