@@ -37,7 +37,15 @@ class MakeSketchbook extends Command {
 	 */
 	public function fire()
 	{
-		if ( ! $id =$this->option('id'))
+        $ids = [];
+        $id = null;
+
+        $all =$this->option('all');
+
+        if ($all) {
+        	$this->info("Je zapnutý all celého setu. Bude to trvať dlhšie.");
+        	$ids = Sketchbook::lists('id');
+        } elseif ( ! $id =$this->option('id'))
         {
             $sketchbooks = Sketchbook::orderBy('order', 'ASC')->get();
             $this->info("Dostupné skicare:");
@@ -47,16 +55,15 @@ class MakeSketchbook extends Command {
             }
             $id = $this->ask('Zadaj ID skicáru, ktorý sa má vygenerovať:');
         }
-        $sketchbook = Sketchbook::find($id);
-        if (!$sketchbook) {
-        	$this->error("Nenašiel sa skicár pre dané ID.");
-        	return;
+
+        if(!in_array($id, $ids)){
+            array_push($ids, $id);
         }
 
-        $this->comment("Generuje sa sketchbook pre {$sketchbook->title}.");
+        foreach ($ids as $id) {
+	        $this->makeSketchbook($id);
+        }
 
-        App::make('SkicareController')->downloadAllPages($id);
-        // App::make('SkicareController')->downloadAllPages($sketchbook->item_id);
         $this->comment("Dokoncene");	
     }
 
@@ -81,7 +88,21 @@ class MakeSketchbook extends Command {
 	{
 		return array(
 			array('id', null, InputOption::VALUE_OPTIONAL, 'Item ID.', null),
+			array('all', null, InputOption::VALUE_OPTIONAL, 'Make all available sketchbooks.', false),
 		);
+	}
+
+	private function makeSketchbook($id)
+	{
+		$sketchbook = Sketchbook::find($id);
+		if (!$sketchbook) {
+			$this->error("Nenašiel sa skicár pre dané ID.");
+			return;
+		}
+
+		$this->comment("Generuje sa sketchbook pre {$sketchbook->title}.");
+
+		App::make('SkicareController')->downloadAllPages($id);
 	}
 
 }

@@ -1,13 +1,33 @@
 <?php
 
+use Conner\Tagging\TaggingUtil;
+
 class SkicareController extends \BaseController {
 
 	public function index()
 	{
 		$sketchbooks = Sketchbook::orderBy('order', 'asc')->get();
 		$max_height = Sketchbook::max('height');
-		// dd($max_height);
 		return View::make('skicare', ['sketchbooks' => $sketchbooks , 'max_height'=>$max_height]);
+	}
+
+	public function getList()
+	{
+		$sketchbooks = Sketchbook::published()->orderBy('order', 'asc')->with('Item')->get();
+
+		$sketchbooks_list = [];
+		foreach ($sketchbooks as $sketchbook) {
+			$sketchbooks_list[] = [
+				'item_id' => $sketchbook->item_id,
+				'title' => $sketchbook->title,
+				'width' => $sketchbook->width,
+				'height' => $sketchbook->height,
+				'file' => TaggingUtil::slug($sketchbook->file), //$sketchbook->file,
+				'preview' => asset($sketchbook->item->getImagePath()),
+			];
+		}
+
+		return Response::json($sketchbooks_list);
 	}
 
 	public function getZoom($id)
@@ -38,10 +58,7 @@ class SkicareController extends \BaseController {
 	    $folder_name = $item->id . ' ' . $sketchbook->title; 
 	    $folder_name = strtr($folder_name, $trans);
 
-		$path = storage_path() . '/skicare/' . $folder_name;
-		if(!File::exists($path)) {
-		    File::makeDirectory($path);
-		}
+		$path = $sketchbook->getPath($create = true);
 		// dd($path);
 
 		$pages = Item::where('related_work', '=', $item->related_work)->where('author', '=', $item->author)->orderBy('related_work_order')->get();
@@ -66,7 +83,7 @@ class SkicareController extends \BaseController {
 
 		$out=array();
 		$err = 0;
-		$pdf_name = strtr($sketchbook->title, $trans) . '.pdf';
+		$pdf_name = TaggingUtil::slug($sketchbook->title) . '.pdf';
 		$run = exec('convert  '.$path.'/* '.$path. '/' . $pdf_name,$out,$err);
 		echo implode ("\n",$out);
 

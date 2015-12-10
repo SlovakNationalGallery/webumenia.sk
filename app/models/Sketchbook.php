@@ -1,5 +1,7 @@
 <?php
 
+use Conner\Tagging\TaggingUtil;
+
 class Sketchbook extends Eloquent {
 
     // const ARTWORKS_DIR = '/images/skicare/';
@@ -40,13 +42,11 @@ class Sketchbook extends Eloquent {
     	return ( File::exists($this->getPath() . $value )) ? $value : false;
     }
 
-    private function getPath()
+    public function getPath($create = false)
     {
-		$trans = array(":" => "_", " / " => "_", " " => "_");
-	    $folder_name = $this->item_id . ' ' . $this->title; 
-	    $folder_name = strtr($folder_name, $trans);
+	    $folder_name = $this->id; 
     	$path = storage_path() . '/skicare/' . $folder_name . '/';
-    	if(!File::exists($path)) {
+    	if(!File::exists($path) && $create) {
     	    File::makeDirectory($path);
     	}
     	return $path;

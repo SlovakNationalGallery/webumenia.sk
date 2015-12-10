@@ -35,6 +35,7 @@ skicare |
   }
   #skicare .skicar img {
   	/*max-height: 300px;*/
+    height: 100%;
   }
   .big {
   	font-size: 36px;
@@ -46,7 +47,7 @@ skicare |
 @foreach ($sketchbooks as $i=>$sketchbook)
 	<a class="skicar" href="{{ $sketchbook->file }}" style="height: {{ ($sketchbook->height / $max_height)*90 }}%; width: auto;">
 	<span class="big">#{{ ($i+1) }}</span><br>
-	<img src="{{ $sketchbook->item->getImagePath() }}" class="img-responsive" style="height: {{ ($sketchbook->height / $max_height)*100 }}%; width: auto;" >
+	<img src="{{ $sketchbook->item->getImagePath() }}" class="img-responsive" >
 	{{-- <br> --}}
 	<span class="title">{{ $sketchbook->title }}</span>
 	</a>
