@@ -68,7 +68,11 @@ class SkicareController extends \BaseController {
 			if (App::runningInConsole()) {
 				echo date('h:i:s'). " strana " . ($i+1) ."/" . $pocet_stran . "\n";
 			}
-			$is_horizontal = (Image::make($item->getImagePath(true))->width()==800) ? true : false;
+			if ($item->has_image) {
+				$is_horizontal = (Image::make($item->getImagePath(true))->width()==800) ? true : false;
+			} else {
+				$is_horizontal = (isset($is_horizontal)) ? $is_horizontal : $is_globaly_horizontal;
+			}
 			$rot = ($is_globaly_horizontal != $is_horizontal) ? '&ROT=90' : '';
 			$image_url = 'http://imi.sng.cust.eea.sk/publicIS/fcgi-bin/iipsrv.fcgi?FIF=' . $item->iipimg_url . $rot . '&CVT=JPG';
 			$images[] = $image_url;
