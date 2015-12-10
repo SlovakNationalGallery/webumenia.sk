@@ -163,6 +163,20 @@ class Item extends Eloquent {
 		return $url;
 	}
 
+	public function downloadImage()
+	{
+    	$file = $this->img_url;
+		$data = file_get_contents($file);
+
+    	$full = true;
+     	if ($new_file = $this->getImagePath($full)) {
+            file_put_contents($new_file, $data);
+            return true;
+     	}
+
+     	return false;
+	}	
+
 	public function getOaiUrl()
 	{
 		return Config::get('app.old_url').'/oai-pmh-new/?verb=GetRecord&metadataPrefix=oai_dc&identifier='.$this->id;
