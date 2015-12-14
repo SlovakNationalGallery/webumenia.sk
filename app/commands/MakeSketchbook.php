@@ -43,7 +43,7 @@ class MakeSketchbook extends Command {
         $all =$this->option('all');
 
         if ($all) {
-        	$this->info("Je zapnutý all celého setu. Bude to trvať dlhšie.");
+        	$this->info("Je zapnuté sťahovanie všetkých skicárov. Bude to trvať dlhšie.");
         	$ids = Sketchbook::lists('id');
         } elseif ( ! $id =$this->option('id'))
         {
@@ -60,8 +60,8 @@ class MakeSketchbook extends Command {
             array_push($ids, $id);
         }
 
-        foreach ($ids as $id) {
-	        $this->makeSketchbook($id);
+        foreach ($ids as $i=>$id) {
+        	if ( $i >= 0) $this->makeSketchbook($id);
         }
 
         $this->comment("Dokoncene");	

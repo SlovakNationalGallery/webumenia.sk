@@ -166,6 +166,10 @@ class Item extends Eloquent {
 	public function downloadImage()
 	{
     	$file = $this->img_url;
+    	if (empty($file)) {
+    		return false;
+    	}
+
 		$data = file_get_contents($file);
 
     	$full = true;
