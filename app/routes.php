@@ -45,6 +45,8 @@ Route::post('objednavka', function()
 		$order->email = Input::get('email');
 		$order->phone = Input::get('phone');
 		$order->format = Input::get('format');
+		$order->purpose_kind = Input::get('purpose_kind');
+		$order->purpose = Input::get('purpose');
 		$order->note = Input::get('note');
 		$order->save();
 
@@ -63,8 +65,8 @@ Route::post('objednavka', function()
 				'organization' => $order->name,
 				'contactPerson' => $order->name,
 				'email' => $order->email,
-				'kindOfPurpose' => 'Súkromný',
-				'purpose' => $order->format . "\n" . $order->note,
+				'kindOfPurpose' => $order->purpose_kind,
+				'purpose' => $order->purpose . "\n" . $order->format . "\n" . $order->note,
 				'medium' => 'Iné',
 				'address' => $order->address,
 				'phone' => $order->phone,

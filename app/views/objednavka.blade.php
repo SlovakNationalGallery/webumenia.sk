@@ -17,6 +17,9 @@ objednávka |
                 @if (Session::has('message'))
                     <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{{ Session::get('message') }}</div>
                 @endif
+                @if (strtotime('now') < strtotime('2015-12-24'))
+                    <div class="alert alert-warning text-center" role="alert">Predvianočné objednávky tlačených reprodukcií boli už uzavreté. Vaša objednávka bude vybavená najskôr v januári 2016.</div>
+                @endif
                 <div class="col-md-8 col-md-offset-2 text-center">
                     	<h2 class="bottom-space">Objednávka</h2>
                         <p>K vybraným dielam zo zbierok SNG ponúkame možnosť objednať si reprodukcie v archívnej kvalite na fineartových papieroch. Po výbere diel, vyplnení údajov a odoslaní objednávky vás bude kontaktovať pracovník SNG s podrobnejšími informáciami. Momentálne je možné vyzdvihnúť si diela len osobne v kníhkupectve <a href="https://goo.gl/maps/3Uf4S" target="_blank" class="underline">Ex Libris v priestoroch SNG na Námestí Ľ. Štúra 4</a> v Bratislave. </p>
@@ -85,13 +88,16 @@ objednávka |
         ),
 )); }}
 
+{{-- ak digitalna --}}
+<div id="ucel">
+{{ Former::select('purpose_kind')->label('Účel')->required()->options(Order::$availablePurposeKinds); }}
+{{ Former::textarea('purpose')->label('Účel - podrobnejšie informácie'); }}
+</div>
+{{-- /ak digitalna --}}
+
 {{ Former::textarea('note')->label('Poznámka'); }}
 
-
-
-
 {{ Former::actions(Form::submit('Objednať', array('class'=>'btn btn-default btn-outline  uppercase sans')) ) }}
-
 
 {{Former::close();}}
 
@@ -109,15 +115,25 @@ objednávka |
 <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.bootstrapvalidator/0.5.0/js/bootstrapValidator.min.js"></script>
 
 <script type="text/javascript">
-        $('#order').bootstrapValidator({
-                    feedbackIcons: {
-                        valid: 'fa fa-check',
-                        invalid: 'fa fa-times',
-                        validating: 'fa fa-refresh'                    
-                    },
-                    live: 'enabled',
-            submitButtons: 'input[type="submit"]'
-        });
+    $('#order').bootstrapValidator({
+                feedbackIcons: {
+                    valid: 'fa fa-check',
+                    invalid: 'fa fa-times',
+                    validating: 'fa fa-refresh'                    
+                },
+                live: 'enabled',
+        submitButtons: 'input[type="submit"]'
+    });
+
+    $("#ucel").hide();
+
+    $("#format").change(function(){
+        if( $('#format').val() == 'digitálna reprodukcia')  {
+            $("#ucel").show();
+        } else {
+            $("#ucel").hide();
+        }
+    });        
 
 </script>
 @stop

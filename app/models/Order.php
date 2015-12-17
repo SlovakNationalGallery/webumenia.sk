@@ -8,6 +8,14 @@ class Order extends Eloquent {
         'format' => 'required',
         );
 
+    public static $availablePurposeKinds = array(
+    	'Súkromný' => 'súkromný',
+    	'Komerčný' => 'komerčný',
+    	'Výskumný' => 'výskumný',
+    	'Edukačný' => 'edukačný',
+    	'Výstava' => 'výstava'
+    );
+
 
 	public function items()
     {
