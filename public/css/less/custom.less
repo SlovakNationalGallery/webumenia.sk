@@ -280,6 +280,14 @@ a:focus {
         background-size: cover;
         -o-background-size: cover;
     }
+
+    a {
+      color: @light;
+      border-bottom: 1px solid transparent;
+      &:hover {
+        border-bottom: 1px solid @light;
+      }
+    }
 }
 
 @media(max-width: @screen-xs-max) {

@@ -30,7 +30,10 @@
                             <h2>{{ $article->category->name }}</h2>
                         @endif
                         <h1>{{ $article->title }}</h1>
-                        <p class="bottom-space">vytvorené <b>{{ $article->published_date }}</b></p>
+                        <p class="bottom-space">
+                            <b><a href="{{ url_to( 'clanky', ['author' => $article->author ]) }}">{{ $article->author }}</a></b> &nbsp;|&nbsp; 
+                            vytvorené <b>{{ $article->published_date }}</b>
+                        </p>
                 </div>
 
             </div>

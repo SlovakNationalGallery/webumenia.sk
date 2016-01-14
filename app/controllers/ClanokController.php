@@ -4,7 +4,11 @@ class ClanokController extends \BaseController {
 
 	public function getIndex()
 	{
-		$articles = Article::published()->orderBy('published_date', 'desc')->get();
+		$articles = Article::published()->orderBy('published_date', 'desc');
+		if (Input::has('author')) {
+			$articles = $articles->where('author', 'LIKE', Input::get('author'));
+		}
+		$articles = $articles->get();
 		return View::make('clanky', array('articles'=>$articles));
 	}
 
