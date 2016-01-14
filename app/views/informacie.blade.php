@@ -20,6 +20,16 @@ Informácie |
                 <p class="lead">Web umenia je <strong>on-line katalóg</strong> výtvarných diel zo zbierok <strong>slovenských galérií</strong> evidovaných v&nbsp;Centrálnej evidencii diel výtvarného umenia. </p>
 
                 <p>Nájdete tu základné informácie o dielach a ich autoroch, ale aj pôvodné články, videá a kolekcie.Údaje a digitálne reprodukcie sú preberané a pravidelne aktualizované zo systému CEDVU (Centrálna evidencia diel výtvarného umenia), kam ich vkladajú zamestnanci jednotlivých galérií.</p>
+
+                <p>
+                    kolektív <a href="http://lab.sng.sk/" target="_blank">lab.SNG</a>
+                </p>
+                <ul class="list-lab">
+                    <li>Michal Čudrnák - vedúci lab.SNG, autor článkov</li>
+                    <li>Lukáš Štepanovský - editor obsahu, autor článkov</li>
+                    <li>Igor Rjabinin - vývojár</li>
+                    <li>Braňo Matis - grafický dizajnér</li>
+                </ul>
             </div>
             <div class="col-md-4 text-center">
                 <ul class="list-unstyled lead">
