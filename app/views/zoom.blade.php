@@ -43,7 +43,7 @@
       height: 100%;
       padding: 0;
       margin: 0;
-      background-color: #000;
+      background-color: #fff;
     }
     div#viewer{
       height: 100%;
@@ -62,10 +62,14 @@
  <body id="zoomed">
    <div id="viewer"></div>
    <div id="toolbarDiv">
-            <a id="zoom-in" href="#zoom-in" title="Zoom in"><i class="fa fa-plus"></i></a> 
-            <a id="zoom-out" href="#zoom-out" title="Zoom out"><i class="fa fa-minus"></i></a>
-            <a id="home" href="#home" title="Go home"><i class="fa fa-home"></i></a> 
-            <a id="full-page" href="#full-page" title="Toggle full page"><i class="fa fa-expand"></i></a> 
+            <a id="zoom-in" href="#zoom-in" title="zoom in"><i class="fa fa-plus"></i></a> 
+            <a id="zoom-out" href="#zoom-out" title="zoom out"><i class="fa fa-minus"></i></a>
+            <a id="home" href="#home" title="zoom to fit"><i class="fa fa-home"></i></a> 
+            <a id="full-page" href="#full-page" title="zobraz fullscreen"><i class="fa fa-expand"></i></a> 
+            @if ($related_items)
+              <a id="previous" href="#previous" title="predchádzajúce súvisiace dielo"><i class="fa fa-arrow-left"></i></a> 
+              <a id="next" href="#next" title="nasledujúce súvisiace dielo"><i class="fa fa-arrow-right"></i></a> 
+            @endif
    </div>
    <a class="btn btn-default btn-outline return" href="{{ $item->getUrl() }}" role="button"><i class="fa fa-arrow-left"></i> naspäť</a>
     <div class="credit">
@@ -85,6 +89,30 @@
    {
      var server = '/fcgi-bin/iipsrv.fcgi';
      var image = '{{ $item->iipimg_url }}';
+     var initial = {{ ($related_items) ? array_search($item->iipimg_url, $related_items ) : 0}};
+
+     var images = [
+     @foreach ($related_items as $url)
+         '/fcgi-bin/iipsrv.fcgi?DeepZoom={{ $url }}.dzi',
+     @endforeach
+     ];
+
+     var pocet = {{ count($related_items) }};
+
+
+     function getPreviousPage() {
+         if (viewer.currentPage() > 0) {
+            rotationChecked = false;
+            viewer.goToPage(viewer.currentPage() - 1); 
+         }
+     };
+
+     function getNextPage() {
+          if (viewer.currentPage() < pocet) {
+             rotationChecked = false;
+             viewer.goToPage(viewer.currentPage() + 1); 
+          }
+     };
 
      viewer = OpenSeadragon({
        id: "viewer",
@@ -94,18 +122,30 @@
        zoomOutButton:  "zoom-out",
        homeButton:     "home",
        fullPageButton: "full-page",
-       // nextButton:     "next",
-       // previousButton: "previous",
+       nextButton:     "next",
+       previousButton: "previous",
        showNavigator:  false,
        // navigatorPosition: "ABSOLUTE",
        // navigatorTop:      "40px",
        // navigatorRight:     "10px",
        // navigatorHeight:   "120px",
        // navigatorWidth:    "145px",
-       tileSources: server + "?DeepZoom=" + image + ".dzi",
+       // tileSources: server + "?DeepZoom=" + image + ".dzi",
        visibilityRatio: 1,
-       minZoomLevel: 1,
-       defaultZoomLevel: 0
+       minZoomLevel: 0,
+       defaultZoomLevel: 0,
+    @if (empty($related_items))
+      tileSources: server + "?DeepZoom=" + image + ".dzi"
+    @else
+       tileSources: images,
+       autoHideControls:       true,
+       controlsFadeDelay:       1000,  //ZOOM/HOME/FULL/SEQUENCE
+       controlsFadeLength:      500,  //ZOOM/HOME/FULL/SEQUENCE
+       sequenceMode: true,
+       showReferenceStrip: true,
+       referenceStripSizeRatio: 0.1,
+       initialPage: initial
+    @endif
      });
 
      document.oncontextmenu = function() {$('#zoom-out').click(); return false;};
@@ -130,6 +170,19 @@
               window.location.href = '{{ $item->getUrl() }}'; 
             }
       });
+
+     document.onkeydown = function(evt) {
+         evt = evt || window.event;
+         switch (evt.keyCode) {
+             case 37:
+                 getPreviousPage();
+                 break;
+             case 39:
+                 getNextPage();
+                 break;
+         }
+     };
+
    });
 
    </script>

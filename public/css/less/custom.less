@@ -834,13 +834,13 @@ section.catalog {
       margin: 20px;
       left: 0;
       top: 0;
-      color: #fff;
-      background: #222;
+      color: @dark-grey;
+      background: @light;
       opacity: 0.7;
       /*border: none;*/
       &:hover {
         background-color: @light;
-        color: @dark;
+        color: @dark-grey;
         opacity: 0.9;
       }
     }
@@ -854,9 +854,9 @@ section.catalog {
         z-index: 1000000;
         a {
             display: inline-block;
-            color: @light;
+            color: @dark-grey;
             font-size: 18px;
-            background: #222;
+            background: @light;
             opacity: 0.6;
             padding: 4px 7px 2px;
             margin-left: 5px;
@@ -866,14 +866,18 @@ section.catalog {
         }
     }
 
+    .referencestrip {
+      background: #fff !important;
+    }
+
     .credit {
       position: absolute;
       margin: 20px;
       padding: 10px;
       right: 0;
       bottom: 0;
-      color: #fff;
-      background: #222;
+      color: @dark-grey;
+      background: @light;
       /*font-weight: normal;*/
       vertical-align: bottom;
       opacity: 0.6;
