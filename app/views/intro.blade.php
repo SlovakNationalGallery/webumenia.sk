@@ -64,11 +64,10 @@
         </div>
 
         <div class="item">
-            <a href="/kolekcia/34" class="header-image text-center" style="background-image: url(/images/kolekcie/34.jpg); text-shadow:0px 1px 0px #777; color: #fff">
+            <a href="/kolekcia/49" class="header-image text-center" style="background-image: url(/images/kolekcie/49.jpg); text-shadow:0px 1px 0px #777; color: #fff">
                 <div class="header-body">
                     <h2>kolekcia</h2>
-                    <h1>Zbierka grófa Jána Pálffyho </h1>
-                    <h2>v Slovenskej národnej galérii</h2>
+                    <h1>Ona je madona</h1>
                 </div>
             </a>
         </div>
