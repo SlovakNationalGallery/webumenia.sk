@@ -19,6 +19,7 @@ var items = new Bloodhound({
         }
     }
 });
+
 var authors = new Bloodhound({
   datumTokenizer: function (d) {
             return Bloodhound.tokenizers.whitespace(d.value);
@@ -36,6 +37,28 @@ var authors = new Bloodhound({
                     death_year: author.death_year || "",
                     image: author.image,
                     value: author.name
+                };
+            });
+        }
+    }
+});
+
+var articles = new Bloodhound({
+  datumTokenizer: function (d) {
+            return Bloodhound.tokenizers.whitespace(d.value);
+        },
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  limit: 3,
+  remote: {
+    url: '/clanky/suggestions?search=%QUERY',
+    filter: function (articles) {
+            return $.map(articles.results, function (article) {
+                return {
+                    author: article.author,
+                    title: article.title,
+                    url: article.url,
+                    image: article.image,
+                    value: article.author + ': ' + article.title
                 };
             });
         }
@@ -71,6 +94,7 @@ $(document).ready(function(){
 
     items.initialize();
     authors.initialize();
+    articles.initialize();
     
     $('#search').typeahead(
     {
@@ -107,11 +131,29 @@ $(document).ready(function(){
               return '<p><img src="'+data.image+'" class="preview" /><em>' + data.author + '</em><br> ' + data.title + '</p>';
           }
       }
+    },
+    {
+      name: 'articles',
+      displayKey: 'value',
+      source: articles.ttAdapter(),
+      templates: {
+          header: '<h3 class="suggest-type-name">Články</h3>',
+          suggestion: function (data) {
+              return '<p><img src="'+data.image+'" class="preview" /><em>' + data.author + '</em><br> ' + data.title + '</p>';
+          }
+      }
     }).bind("typeahead:selected", function(obj, datum, name) {
-        if (name == 'authors') {
-            window.location.href = "/autor/" + datum.id;
-        } else {
-            window.location.href = "/dielo/" + datum.id;
+        switch (name) {
+            case 'authors': 
+                window.location.href = "/autor/" + datum.id;
+                break;
+            case 'articles':
+                // console.log(datum);
+                // throw new Error(obj);
+                window.location.href = datum.url;
+                break;
+            default:
+                window.location.href = "/dielo/" + datum.id;
         }
     });
 

@@ -196,7 +196,7 @@ Route::match(array('GET', 'POST'), 'autori/suggestions', 'AuthorController@getSu
 Route::get('autor/{id}', 'AuthorController@getDetail');
 
 Route::match(array('GET', 'POST'), 'clanky', 'ClanokController@getIndex');
-// Route::match(array('GET', 'POST'), 'clanky/suggestions', 'ClanokController@getSuggestions');
+Route::match(array('GET', 'POST'), 'clanky/suggestions', 'ClanokController@getSuggestions');
 Route::get('clanok/{slug}', 'ClanokController@getDetail');
 
 Route::match(array('GET', 'POST'), 'kolekcie', 'KolekciaController@getIndex');

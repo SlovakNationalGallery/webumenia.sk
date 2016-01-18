@@ -40,8 +40,25 @@ class Article extends Eloquent {
         if (empty($this->attributes['main_image'])) return false;
 
         $relative_path = self::ARTWORKS_DIR . $this->attributes['main_image'];
+        if (!file_exists(public_path() . $relative_path)) {
+            $relative_path = self::ARTWORKS_DIR . 'no-image.jpg';
+        }
         $path = ($full) ? public_path() . $relative_path : $relative_path;
         return $path;
+    }
+
+    public function getResizedImage($resize) {
+        $file = substr($this->attributes['main_image'], 0, strrpos($this->attributes['main_image'], "."));
+        $full_path = public_path() .  self::ARTWORKS_DIR;
+
+        if (!file_exists($full_path . "$file.$resize.jpg")) {
+            $img = Image::make( $this->getHeaderImage(true) )->fit($resize)->sharpen(7);
+            $img->save($full_path . "$file.$resize.jpg");                      
+        }
+        $result_path = self::ARTWORKS_DIR .  "$file.$resize.jpg";
+
+        return $result_path;
+
     }
 
     public function getThumbnailImage($full=false) {
