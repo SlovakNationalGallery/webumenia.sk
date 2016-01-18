@@ -30,5 +30,29 @@ class KolekciaController extends \BaseController {
 
 	}
 
+	public function getSuggestions()
+	{
+	 	$q = (Input::has('search')) ? str_to_alphanumeric(Input::get('search')) : 'null';
+
+		$result = Collection::published()->where('name', 'like', '%'.$q.'%')->limit(5)->get();
+
+		$data = array();
+		$data['results'] = array();
+		$data['count'] = 0;
+		
+		foreach ($result as $key => $hit) {
+			$data['count']++;
+			$params = array(
+				'name' => $hit->name,
+				'author' => $hit->user->name,
+				'items' => $hit->items->count(),
+				'url' => $hit->getUrl(),
+				'image' => $hit->getResizedImage(70),
+			);
+			$data['results'][] = array_merge($params) ;
+		}
+
+	    return Response::json($data);	
+	}
 
 }

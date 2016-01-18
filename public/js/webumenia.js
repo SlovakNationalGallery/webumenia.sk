@@ -65,6 +65,29 @@ var articles = new Bloodhound({
     }
 });
 
+var collections = new Bloodhound({
+  datumTokenizer: function (d) {
+            return Bloodhound.tokenizers.whitespace(d.value);
+        },
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  limit: 3,
+  remote: {
+    url: '/kolekcie/suggestions?search=%QUERY',
+    filter: function (collections) {
+            return $.map(collections.results, function (collection) {
+                return {
+                    author: collection.author,
+                    name: collection.name,
+                    items: collection.items,
+                    url: collection.url,
+                    image: collection.image,
+                    value: collection.name
+                };
+            });
+        }
+    }
+});
+
 
 //jQuery to collapse the navbar on scroll
 $(window).scroll(function() {
@@ -95,6 +118,7 @@ $(document).ready(function(){
     items.initialize();
     authors.initialize();
     articles.initialize();
+    collections.initialize();
     
     $('#search').typeahead(
     {
@@ -142,14 +166,26 @@ $(document).ready(function(){
               return '<p><img src="'+data.image+'" class="preview" /><em>' + data.author + '</em><br> ' + data.title + '</p>';
           }
       }
+    },
+    {
+      name: 'collections',
+      displayKey: 'value',
+      source: collections.ttAdapter(),
+      templates: {
+          header: '<h3 class="suggest-type-name">Kolekcie</h3>',
+          suggestion: function (data) {
+              return '<p><img src="'+data.image+'" class="preview" /><em>' + data.author + '</em><br> ' + data.name + '<em> (' + data.items + ' diel)</em>' + '</p>';
+          }
+      }
     }).bind("typeahead:selected", function(obj, datum, name) {
         switch (name) {
             case 'authors': 
                 window.location.href = "/autor/" + datum.id;
                 break;
             case 'articles':
-                // console.log(datum);
-                // throw new Error(obj);
+                window.location.href = datum.url;
+                break;
+            case 'collections':
                 window.location.href = datum.url;
                 break;
             default:

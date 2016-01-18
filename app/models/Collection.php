@@ -57,6 +57,22 @@ class Collection extends \Eloquent {
         return $path;
     }
 
+    public function getResizedImage($resize) {
+        $file =  $this->id;
+        $full_path = public_path() .  self::ARTWORKS_DIR;
+        if (!file_exists($full_path . "$file.$resize.jpg")) {
+            try {
+                $img = Image::make( $this->getHeaderImage(true) )->fit($resize)->sharpen(7);
+            } catch  (Exception $e)  {
+                $img = Image::make( public_path() . self::ARTWORKS_DIR . 'no-image.jpg' )->fit($resize)->sharpen(7);                
+            }
+
+            $img->save($full_path . "$file.$resize.jpg");                      
+        }
+        $result_path = self::ARTWORKS_DIR .  "$file.$resize.jpg";
+        return $result_path;
+    }
+
     public function scopePublished($query)
     {
         return $query->where('publish', '=', 1);
