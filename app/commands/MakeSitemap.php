@@ -112,6 +112,10 @@ class MakeSitemap extends Command {
 		$model::chunk(200, function($entries) use (&$sitemap, &$i, &$sitemap_count, &$model, &$priority, &$freq) {
 		    foreach ($entries as $entry)
 		    {
+		        // preskocit clanky a kolekcie, ktore niesu vypublikovane
+		        if ( ($model == 'Article' || $model == 'Collection') && (!$entry->publish) ) {
+		        	continue;
+		        }
 		        if (($model != 'Authority') || ($entry->type == 'person')) { // ak autority, tak len personalne
 			        $images = [];
 			        if ($entry->has_image) {

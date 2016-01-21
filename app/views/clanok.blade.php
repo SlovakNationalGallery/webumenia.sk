@@ -1,6 +1,9 @@
 @extends('layouts.master')
 
 @section('og')
+@if (!$article->publish)
+    <meta name="robots" content="noindex, nofollow">
+@endif
 <meta property="og:title" content="{{ $article->title }}" />
 <meta property="og:description" content="{{ strip_tags($article->summary) }}" />
 <meta property="og:type" content="website" />

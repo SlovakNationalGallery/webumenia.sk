@@ -1,6 +1,9 @@
 @extends('layouts.master')
 
 @section('og')
+@if (!$collection->publish)
+    <meta name="robots" content="noindex, nofollow">
+@endif
 <meta property="og:title" content="{{ $collection->name }}" />
 <meta property="og:description" content="{{ $collection->getShortTextAttribute($collection->text, 500) }}" />
 <meta property="og:type" content="website" />
