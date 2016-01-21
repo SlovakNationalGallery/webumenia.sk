@@ -31,7 +31,7 @@
                         @endif
                         <h1>{{ $article->title }}</h1>
                         <p class="bottom-space">
-                            <b><a href="{{ url_to( 'clanky', ['author' => $article->author ]) }}">{{ $article->author }}</a></b> &nbsp;|&nbsp; 
+                            <b><a href="{{ url_to( 'clanky', ['author' => $article->author ]) }}" style="text-shadow:0px 1px 0px {{ $article->title_shadow }}; color: {{ $article->title_color }}">{{ $article->author }}</a></b> &nbsp;|&nbsp; 
                             vytvorené <b>{{ $article->published_date }}</b>
                         </p>
                 </div>
