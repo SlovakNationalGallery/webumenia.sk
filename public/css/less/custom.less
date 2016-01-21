@@ -876,10 +876,25 @@ section.catalog {
     }
 
     .referencestrip {
-      background: #fff !important;
+      // background: #fff !important;
+      background: transparent !important;
+      // opacity: 0.9;
+      // -webkit-transition: opacity 0.5s ease-in-out;
+      // -moz-transition: opacity 0.5s ease-in-out;
+      // -o-transition: opacity 0.5s ease-in-out;
+      // -ms-transition: opacity 0.5s ease-in-out;
+      // transition: opacity 0.5s ease-in-out;
+      & > div {
+        background: rgba(255, 255, 255, 0.8) !important;
+        // background: transparent !important;
+        &:hover {
+          background: rgba(255, 255, 255, 1.0) !important;
+        }
+      }
+      & textarea {resize: none;}
     }
 
-    .credit {
+    .currentpage, .credit {
       position: absolute;
       margin: 20px;
       padding: 10px;
@@ -901,7 +916,8 @@ section.catalog {
       -ms-transition: opacity 0.5s ease-in-out;
       transition: opacity 0.5s ease-in-out;
     }
-    .credit:hover{ opacity: 0.9; }
+    .currentpage:hover, .credit:hover{ opacity: 0.9; }
+    .currentpage { right: 50%; width: 80px; margin-right: -40px; text-align: center; }
 }
 
 a.dropdown-toggle {cursor: pointer;}

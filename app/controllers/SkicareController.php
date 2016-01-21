@@ -59,7 +59,7 @@ class SkicareController extends \BaseController {
 	    $folder_name = strtr($folder_name, $trans);
 
 		$path = $sketchbook->getPath($create = true);
-		system("rm -rf ".escapeshellarg($path.'/*')); //zmaz vsetko v priecinku
+		// system("rm -rf ".escapeshellarg($path.'/*')); //zmaz vsetko v priecinku
 
 		// dd($path);
 
@@ -72,7 +72,7 @@ class SkicareController extends \BaseController {
 			if (App::runningInConsole()) {
 				echo date('h:i:s'). " strana " . ($i+1) ."/" . $pocet_stran . " ". $item->id . "\n";
 			}
-			// $item->downloadImage(); 
+			$item->downloadImage(); 
 			if ($item->has_image) {
 				$is_horizontal = (Image::make($item->getImagePath(true))->width()==800) ? true : false;
 			} else {
@@ -107,7 +107,7 @@ class SkicareController extends \BaseController {
 		$err = 0;
 		$pdf_name = $sketchbook->id . '-' . TaggingUtil::slug($sketchbook->title) . '.pdf';
 
-		// $run = exec('convert  '.$path.'/* '.$path. '/' . $pdf_name,$out,$err);
+		$run = exec('convert  '.$path.'/*.jpg '.$path. '/' . $pdf_name,$out,$err);
 		// echo implode ("\n",$out);
 
 		$sketchbook->generated_at = date("Y-m-d H:i:s");

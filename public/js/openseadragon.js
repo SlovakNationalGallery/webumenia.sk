@@ -14044,7 +14044,7 @@ $.ReferenceStrip = function ( options ) {
 
     $.setElementTouchActionNone( this.element );
 
-    $.setElementOpacity( this.element, 0.8 );
+    $.setElementOpacity( this.element, 0.9 );
 
     this.viewer = viewer;
     this.innerTracker = new $.MouseTracker( {

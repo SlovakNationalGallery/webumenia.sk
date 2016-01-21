@@ -61,7 +61,7 @@
 
  <body id="zoomed">
    <div id="viewer"></div>
-   <div id="toolbarDiv">
+   <div id="toolbarDiv" class="autohide">
             <a id="zoom-in" href="#zoom-in" title="zoom in"><i class="fa fa-plus"></i></a> 
             <a id="zoom-out" href="#zoom-out" title="zoom out"><i class="fa fa-minus"></i></a>
             <a id="home" href="#home" title="zoom to fit"><i class="fa fa-home"></i></a> 
@@ -72,6 +72,11 @@
             @endif
    </div>
    <a class="btn btn-default btn-outline return" href="{{ $item->getUrl() }}" role="button"><i class="fa fa-arrow-left"></i> naspäť</a>
+
+    @if ($related_items)
+      <div class="autohide"><div class="currentpage"><span id="index">{{ array_search($item->iipimg_url, $related_items ) + 1 }}</span> / {{ count($related_items) }}</div></div>
+    @endif
+
     <div class="credit">
       @if ($item->isFree())
         <img alt="Creative Commons License" style="height: 20px; width: auto; vertical-align: bottom;" src="/images/license/zero-invert.svg">
@@ -138,15 +143,20 @@
       tileSources: server + "?DeepZoom=" + image + ".dzi"
     @else
        tileSources: images,
-       autoHideControls:       true,
+       autoHideControls:       false,
        controlsFadeDelay:       1000,  //ZOOM/HOME/FULL/SEQUENCE
        controlsFadeLength:      500,  //ZOOM/HOME/FULL/SEQUENCE
        sequenceMode: true,
        showReferenceStrip: true,
-       referenceStripSizeRatio: 0.1,
+       referenceStripSizeRatio: 0.07,
+       referenceStripScroll: 'vertical',
        initialPage: initial
     @endif
      });
+
+      viewer.addHandler('page', function (event) {
+          $('.currentpage #index').html( event.page + 1 );
+      });
 
      document.oncontextmenu = function() {$('#zoom-out').click(); return false;};
 
@@ -180,8 +190,33 @@
              case 39:
                  getNextPage();
                  break;
+             case 38: //up arrow
+                 getPreviousPage();
+                 break;
+             case 40: //down arrow
+                 getNextPage();
+                 break;
          }
      };
+
+
+     // skryvanie pri neaktivite 
+
+     var interval = 1;
+     var timeoutval = 3; //3 sekund
+
+     setInterval(function(){
+        if(interval == timeoutval){
+            $('.autohide, .referencestrip').fadeOut(); 
+            interval = 1;
+        }
+        interval = interval+1;
+     },1000);
+
+     $(document).bind('mousemove keydown', function() {
+         $('.autohide, .referencestrip').fadeIn();
+         interval = 1;
+     });
 
    });
 
