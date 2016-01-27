@@ -79,7 +79,7 @@
 
     <div class="credit">
       @if ($item->isFree())
-        <img alt="Creative Commons License" style="height: 20px; width: auto; vertical-align: bottom;" src="/images/license/zero-invert.svg">
+        <img alt="Creative Commons License" style="height: 20px; width: auto; vertical-align: bottom;" src="/images/license/zero.svg">
          voľné dielo
       @else
         &copy; {{ $item->gallery }}
