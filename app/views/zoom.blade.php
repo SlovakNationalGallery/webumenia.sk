@@ -3,7 +3,7 @@
 
 <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta name="author" content="lab.SNG">
         <meta name="robots" content="noindex, nofollow">
 
@@ -61,6 +61,7 @@
 
  <body id="zoomed">
    <div id="viewer"></div>
+
    <div id="toolbarDiv" class="autohide">
             <a id="zoom-in" href="#zoom-in" title="zoom in"><i class="fa fa-plus"></i></a> 
             <a id="zoom-out" href="#zoom-out" title="zoom out"><i class="fa fa-minus"></i></a>
@@ -92,6 +93,7 @@
    <script type="text/javascript">
    $("document").ready(function()
    {
+
      var server = '/fcgi-bin/iipsrv.fcgi';
      var image = '{{ $item->iipimg_url }}';
      var initial = {{ ($related_items) ? array_search($item->iipimg_url, $related_items ) : 0}};
@@ -104,6 +106,19 @@
 
      var pocet = {{ count($related_items) }};
 
+     var isLoaded = false;
+
+
+     function shortenCopyright() {
+         if ($(window).width() < 960) {
+            var text = $('.credit').text();
+            if (text.indexOf('©') > -1) {
+              text = text.replace('©', '');
+              var parts = text.split(",");
+              $('.credit').text('© ' + parts.pop());
+            }
+         }
+     };
 
      function getPreviousPage() {
          if (viewer.currentPage() > 0) {
@@ -118,6 +133,29 @@
              viewer.goToPage(viewer.currentPage() + 1); 
           }
      };
+
+     function changePage(event) {
+          if (event.type == 'touchend' || event.type == 'mouseup') {
+            var deltaX = event.pageX - (viewer.container.clientWidth/2);
+            var deltaY = event.pageY - (viewer.container.clientHeight/2);
+            console.log('deltaX: ' + deltaX);
+            console.log('deltaY: ' + deltaY);
+            var treshold = 5;
+            if (deltaX > treshold) {
+               getPreviousPage();
+            }
+            else if (deltaX < -treshold) {
+               getNextPage();
+            }
+          }
+
+          // if (deltaX > treshold || deltaY > treshold) {
+          //    getPreviousPage();
+          // }
+          // else if (deltaX < -treshold || deltaY < -treshold) {
+          //    getNextPage();
+          // }
+    };
 
      viewer = OpenSeadragon({
        id: "viewer",
@@ -151,12 +189,16 @@
        referenceStripSizeRatio: 0.07,
        referenceStripScroll: 'vertical',
        initialPage: initial
+       // panHorizontal: false,
+       // panVertical: false
     @endif
      });
 
       viewer.addHandler('page', function (event) {
+          isLoaded = false;
           $('.currentpage #index').html( event.page + 1 );
       });
+
 
      document.oncontextmenu = function() {$('#zoom-out').click(); return false;};
 
@@ -199,7 +241,6 @@
          }
      };
 
-
      // skryvanie pri neaktivite 
 
      var interval = 1;
@@ -217,6 +258,38 @@
          $('.autohide, .referencestrip').fadeIn();
          interval = 1;
      });
+
+     viewer.addHandler('canvas-click', function (event) {
+         $('.autohide, .referencestrip').fadeIn();
+        interval = 1;
+     });
+
+     viewer.addHandler('canvas-drag-end', changePage(event) );
+
+     viewer.addHandler('zoom', function () {
+         if (!isLoaded) return;
+  
+         if (viewer.viewport.getZoom() > viewer.viewport.getHomeZoom() ) {
+            // viewer.panHorizontal = true;
+            viewer.removeHandler('canvas-drag-end');
+         } else {
+            // viewer.panHorizontal = false;
+            viewer.addHandler('canvas-drag-end', changePage(event) );
+         }
+     });
+
+
+     viewer.addHandler('tile-drawn', function () {
+            isLoaded = true;
+            
+           });
+
+    $( window ).resize(function() {
+        shortenCopyright();
+    });
+
+    shortenCopyright();
+
 
    });
 

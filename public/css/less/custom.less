@@ -922,6 +922,14 @@ section.catalog {
     .currentpage { right: 50%; width: 80px; margin-right: -40px; text-align: center; }
 }
 
+@media(max-width: @screen-xs-max) {
+    #zoomed {
+        #toolbarDiv {
+          display: none !important;
+        }
+    }
+}
+
 a.dropdown-toggle {cursor: pointer;}
 
 .navbar-brand.first-part {margin-left: 20px !important; padding-right: 0;}

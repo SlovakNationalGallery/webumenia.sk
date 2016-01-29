@@ -14364,7 +14364,7 @@ function loadPanels( strip, viewerSize, scroll ) {
                 animationTime:          0
             } );
 
-            miniViewer.displayRegion           = $.makeNeutralElement( "textarea" );
+            miniViewer.displayRegion           = $.makeNeutralElement( "span" );
             miniViewer.displayRegion.id        = element.id + '-displayregion';
             miniViewer.displayRegion.className = 'displayregion';
 
