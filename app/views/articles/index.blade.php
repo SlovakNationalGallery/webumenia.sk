@@ -36,8 +36,8 @@
                             <th>Titulok</th>
                             <th>Kategória</th>
                             <th>Autor</th>
-                            <th>Dátum</th>
-                            <th>Publikovať</th>
+                            <th>Dátum vytvorenia</th>
+                            <th style="min-width: 100px;">Publikovať</th>
                             <th>Na titulke</th>
                             <th>Akcie</th>
                         </tr>
@@ -50,8 +50,8 @@
                             <td>{{ ($i->category) ? $i->category->name : '' }}</td>
 			                <td>{{ $i->author }}</td>
                             <td>{{ $i->created_at }}</td>
-                            <td class="text-center">{{ $i->publish }}</td>
-			                <td class="text-center">{{ $i->promote }}</td>
+                            <td class="text-center">{{ ($i->publish) ? '<i class="fa fa-check text-success"></i>' . '<br><small>od '. $i->published_date .'</small>' : '' }}</td>
+			                <td class="text-center">{{ ($i->promote) ? '<i class="fa fa-check text-success"></i>' : ''  }}</td>
 			                <td>
                                 {{ link_to_action('ArticleController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) }}
                                 <a href="{{ $i->getUrl() }}" class="btn btn-success btn-xs btn-outline" target="_blank">Na webe</a>
