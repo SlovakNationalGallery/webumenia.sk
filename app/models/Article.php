@@ -102,7 +102,7 @@ class Article extends Eloquent {
 
     public function setPublishAttribute($value)
     {
-        if ($value) {
+        if ($value && empty($this->attributes['published_date']) ) {
             $current_time = Carbon\Carbon::now();
             $this->attributes['published_date'] = $current_time->toDateTimeString();
         }
