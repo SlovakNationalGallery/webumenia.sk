@@ -38,12 +38,22 @@
           <li data-target="#webumeniaCarousel" data-slide-to="0" class="active"></li>
           <li data-target="#webumeniaCarousel" data-slide-to="1"></li>
           <li data-target="#webumeniaCarousel" data-slide-to="2"></li>
-          {{-- <li data-target="#webumeniaCarousel" data-slide-to="3"></li> --}}
+          <li data-target="#webumeniaCarousel" data-slide-to="3"></li>
         </ol>
 
       <div class="carousel-inner" role="listbox">
 
         <div class="item active">
+            <a href="/kolekcia/47" class="header-image text-center" style="background-image: url(/images/intro/skicare.jpg); text-shadow:0px 1px 0px #777; color: #fff">
+                <div class="header-body">
+                    <h2>kolekcia</h2>
+                    <h1>Skicáre</h1>
+                    <h2>Uchovávanie sveta</h2>
+                </div>
+            </a>
+        </div>
+
+        <div class="item">
             <a href="/kolekcia/50" class="header-image text-center" style="background-image: url(/images/intro/zima.jpg); text-shadow:0px 1px 0px #777; color: #fff">
                 <div class="header-body">
                     <h2>kolekcia</h2>
