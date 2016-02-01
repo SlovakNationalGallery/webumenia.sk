@@ -232,6 +232,7 @@ a:focus {
         
         .navbar-nav, .navbar-brand {
             display: inline-block;
+            margin-bottom: -4px;
         }
     }
 }
@@ -359,7 +360,8 @@ a:focus {
         transition: opacity .5s ease-in-out,padding .5s ease-in-out;
 
     }
-
+    
+    &:hover { border: 0 }
     &:hover > .img-responsive{
         opacity: 0.5;
     }
@@ -690,6 +692,7 @@ section.catalog {
    padding: 3px 6px 5px 6px;
    min-width: 20px;
    text-align: center;
+   margin-bottom: -10px; //oprava odsadenia sposobeneho paddingom
    // font-size: 12px;
 }
 
