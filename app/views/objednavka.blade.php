@@ -112,7 +112,8 @@ objednávka |
 @stop
 
 @section('javascript')
-<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.bootstrapvalidator/0.5.0/js/bootstrapValidator.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
+{{ HTML::script('js/jquery.bootstrapvalidator/sk_SK.js') }}
 
 <script type="text/javascript">
     $('#order').bootstrapValidator({
@@ -122,7 +123,8 @@ objednávka |
                     validating: 'fa fa-refresh'                    
                 },
                 live: 'enabled',
-        submitButtons: 'input[type="submit"]'
+                submitButtons: 'input[type="submit"]',
+                locale: 'sk_SK'
     });
 
     $("#ucel").hide();
