@@ -120,9 +120,7 @@ class ArticleController extends \BaseController {
 			$article->author = Input::get('author');
 			$article->title = Input::get('title');
 			$article->slug = Input::get('slug');
-			if (Input::has('category_id')) {
-				$article->category_id = Input::get('category_id');
-			}
+			$article->category_id = Input::get('category_id', null);
 			$article->summary = Input::get('summary');
 			$article->content = Input::get('content');
 			$article->publish = Input::get('publish', false);
