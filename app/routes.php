@@ -101,7 +101,7 @@ Route::get('dielo/{id}/zoom', function($id)
 		App::abort(404);
 	}
 
-	$related_items = (!empty($item->related_work)) ? Item::where('related_work', '=', $item->related_work)->where('author', '=', $item->author)->orderBy('related_work_order')->lists('iipimg_url') : [];
+	$related_items = (!empty($item->related_work)) ? Item::where('related_work', '=', $item->related_work)->where('author', '=', $item->author)->whereNotNull('iipimg_url')->orderBy('related_work_order')->lists('iipimg_url') : [];
 
 	return View::make('zoom', array('item'=>$item, 'related_items'=>$related_items));
 });
