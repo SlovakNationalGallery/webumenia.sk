@@ -36,6 +36,10 @@ Route::post('objednavka', function()
 
 	$rules = Order::$rules;
 	$v = Validator::make($input, $rules);
+	$v->sometimes('purpose', 'required|max:1500', function($input)
+	{
+	    return $input->format == 'digitálna reprodukcia';
+	});
 
 	if ($v->passes()) {
 		

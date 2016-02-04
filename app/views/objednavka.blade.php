@@ -82,7 +82,7 @@ objednávka |
         'do A3+: samostatná reprodukcia 35 €/ks' => array('value'=>'samostatná reprodukcia (35 €/ks)'), 
         'do A3+: reprodukcia s paspartou 50 €/ks' => array('value'=>'reprodukcia s paspartou (50 €/ks)'), 
         'do A3+: s paspartou a rámom 60 €/ks' => array('value'=>'s paspartou a rámom (60 €/ks)'), 
-        ),
+        ),  
     'na stiahnutie :' => array(
         'digitálna reprodukcia' => array('value'=>'digitálna reprodukcia')
         ),
@@ -95,7 +95,7 @@ objednávka |
         <strong>V prípade záujmu o tlač výtvarných diel môžete využiť objednávku na tlačenú reprodukciu, kde výrobu a úpravu výtlačku zabezpečuje SNG.</strong>
     </div>
 {{ Former::select('purpose_kind')->label('Účel')->required()->options(Order::$availablePurposeKinds); }}
-{{ Former::textarea('purpose')->label('Účel - podrobnejšie informácie'); }}
+{{ Former::textarea('purpose')->label('Účel - podrobnejšie informácie')->required(); }}
 </div>
 {{-- /ak digitalna --}}
 
@@ -120,6 +120,7 @@ objednávka |
 {{ HTML::script('js/jquery.bootstrapvalidator/sk_SK.js') }}
 
 <script type="text/javascript">
+
     $('#order').bootstrapValidator({
                 feedbackIcons: {
                     valid: 'fa fa-check',
@@ -128,18 +129,30 @@ objednávka |
                 },
                 live: 'enabled',
                 submitButtons: 'input[type="submit"]',
-                locale: 'sk_SK'
-    });
+                locale: 'sk_SK',
+                excluded: [':disabled', ':hidden', ':not(:visible)']
+    })
+    .on('change', '#format', function() {
+            var isDigital = $(this).val() == 'digitálna reprodukcia';
+            $('#order').bootstrapValidator('enableFieldValidators', 'purpose', isDigital);
+        });
 
-    $("#ucel").hide();
-
-    $("#format").change(function(){
+    function tooglePurpose() {
         if( $('#format').val() == 'digitálna reprodukcia')  {
             $("#ucel").show();
+            $("#purpose").attr("disabled", false);
         } else {
-            $("#ucel").hide();
+            $("#ucel").hide();        
+            $("#purpose").attr("disabled", true);
         }
-    });        
+    } 
+
+    tooglePurpose();
+
+    $("#format").change(function(){
+        tooglePurpose()
+    });
+
 
 </script>
 @stop
