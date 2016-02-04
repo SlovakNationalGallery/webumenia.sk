@@ -14173,10 +14173,10 @@ $.extend( $.ReferenceStrip.prototype, $.EventSource.prototype, $.Viewer.prototyp
 
         if ( this.currentSelected !== element ) {
             if ( this.currentSelected ) {
-                this.currentSelected.style.background = '#fff';
+                this.currentSelected.className = '';
             }
             this.currentSelected = element;
-            this.currentSelected.style.background = '#ddd';
+            this.currentSelected.className = 'selected';
 
             if ( 'horizontal' == this.scroll ) {
                 //right left

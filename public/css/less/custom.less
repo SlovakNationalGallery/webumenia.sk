@@ -883,6 +883,7 @@ section.catalog {
     .referencestrip {
       // background: #fff !important;
       background: transparent !important;
+      min-width: 50px !important;
       // opacity: 0.9;
       // -webkit-transition: opacity 0.5s ease-in-out;
       // -moz-transition: opacity 0.5s ease-in-out;
@@ -891,9 +892,13 @@ section.catalog {
       // transition: opacity 0.5s ease-in-out;
       & > div {
         background: rgba(255, 255, 255, 0.8) !important;
+        min-width: 50px !important;
         // background: transparent !important;
         &:hover {
           background: rgba(255, 255, 255, 1.0) !important;
+        }
+        &.selected {
+          border: 1px solid @primary-color !important;
         }
       }
       & textarea {resize: none;}
