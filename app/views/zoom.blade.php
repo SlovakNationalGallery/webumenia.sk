@@ -177,6 +177,7 @@
        visibilityRatio: 1,
        minZoomLevel: 0,
        defaultZoomLevel: 0,
+       autoResize: false,
     @if (empty($related_items))
       tileSources: server + "?DeepZoom=" + image + ".dzi"
     @else
@@ -197,6 +198,13 @@
       viewer.addHandler('page', function (event) {
           isLoaded = false;
           $('.currentpage #index').html( event.page + 1 );
+      });
+
+      window.addEventListener('resize', function() {
+        var newSize = new OpenSeadragon.Point(window.innerWidth, window.innerHeight);
+        viewer.viewport.resize(newSize, false);
+        viewer.viewport.goHome(true);
+        viewer.forceRedraw();
       });
 
 
