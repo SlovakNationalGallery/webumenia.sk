@@ -40,7 +40,7 @@ class Article extends Eloquent {
         if (empty($this->attributes['main_image'])) return false;
 
         $relative_path = self::ARTWORKS_DIR . $this->attributes['main_image'];
-        if (!file_exists(public_path() . $relative_path)) {
+        if (!file_exists(public_path() . $relative_path) && !$full) {
             $relative_path = self::ARTWORKS_DIR . 'no-image.jpg';
         }
         $path = ($full) ? public_path() . $relative_path : $relative_path;
