@@ -177,7 +177,7 @@
 	    Searchd.monitor("#search", "{{ Config::get('app.searchd_id') }}", {queryPlaceholder: 'Hľadať diela, autorov...'});
 	  }
 	</script>
-	<script async src="http://d3nr6w5i9vqvic.cloudfront.net/assets/collector.js" onload="initializeSearchD();"></script>
+	<script async src="https://cdn.searchd.co/collector.js" onload="initializeSearchD();"></script>
 
 
 	<!-- Content -->
