@@ -8,12 +8,13 @@ class CatalogController extends \BaseController {
 		$input = Input::all();
 
 		//ak zada presne ID
-		if (strpos($search, ':')!==false) {
+		if (strpos($search, 'SVK:')!==false) {
 			$item = Item::find($search);
 			if ($item) {
 				return Redirect::to($item->getUrl());
 			}
 		}
+		$search = trim(preg_replace("/(grid|table)Layout.*/", "", $search)); // zdedene zo zaindexovanych url zo stareho webu
 
 		if (Input::has('sort_by') && array_key_exists(Input::get('sort_by'), Item::$sortable)) {
 			$sort_by = Input::get('sort_by');
@@ -55,7 +56,7 @@ class CatalogController extends \BaseController {
 		if (!empty($input)) {
 			
 			if (Input::has('search')) {
-				$search = str_to_alphanumeric(Input::get('search', ''));
+				$search = str_to_alphanumeric($search);
 				$json_params = '
 					{
 					  "query": {
