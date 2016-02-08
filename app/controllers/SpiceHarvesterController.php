@@ -659,7 +659,7 @@ class SpiceHarvesterController extends \BaseController {
 	                    ->children(self::OAI_DC_NAMESPACE)
 	                    ->children(self::DUBLIN_CORE_NAMESPACE_TERMS);
 
-	    $type = (array)$dcElements->type;
+	    $type = (array)$dcElements->xpath('//dc:type[@xml:lang="slk"]');
 	    $identifiers = (array)$dcElements->identifier;
 
 	    $topic=array(); // zaner - krajina s figuralnou kompoziciou / veduta
@@ -667,7 +667,7 @@ class SpiceHarvesterController extends \BaseController {
 
 	try {
 
-	    foreach ($dcElements->subject as $key => $value) {
+	    foreach ($dcElements->xpath('//dc:subject[@xml:lang="slk"]') as $key => $value) {
 	    	if ($this->starts_with_upper($value)) {
 	    		$subject[] = mb_strtolower($value, "UTF-8");
 	    	} else {
@@ -726,8 +726,8 @@ class SpiceHarvesterController extends \BaseController {
 	    $attributes['date_earliest'] = (!empty($dating[0])) ? $dating[0] : null;
 	    $attributes['date_latest'] = (!empty($dating[1])) ? $dating[1] : $attributes['date_earliest'];
 	    $attributes['dating'] = $dating_text;
-	    $attributes['medium'] = $dcElements->{'format.medium'}; // http://stackoverflow.com/questions/6531380/php-simplexml-with-dot-character-in-element-in-xml
-	    $attributes['technique'] = $this->serialize($dcElements->format);
+	    $attributes['medium'] = $this->serialize( $dcElements->xpath('//dc:format.medium[@xml:lang="slk"]') ); // http://stackoverflow.com/questions/6531380/php-simplexml-with-dot-character-in-element-in-xml
+	    $attributes['technique'] = $this->serialize( $dcElements->xpath('//dc:format[@xml:lang="slk"]') );
 	    $attributes['inscription'] = $this->serialize($dcElements->description);
 	    $attributes['state_edition'] =  (!empty($type[2])) ? $type[2] : null;
 	    $attributes['gallery'] = $dcTerms->provenance;
@@ -763,7 +763,6 @@ class SpiceHarvesterController extends \BaseController {
 	    		$attributes[$key] = (string) $attribute;
 	    	}
 	    }
-
 	    return $attributes;
     }
 

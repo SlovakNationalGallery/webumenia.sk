@@ -363,6 +363,11 @@ class Item extends Eloquent {
 		return $this->makeArray($this->attributes['topic']);
 	}
 
+	public function getMediumsAttribute($value)
+	{
+		return $this->makeArray($this->attributes['medium']);
+	}
+
 	public function getTechniquesAttribute($value)
 	{
 		return $this->makeArray($this->attributes['technique']);

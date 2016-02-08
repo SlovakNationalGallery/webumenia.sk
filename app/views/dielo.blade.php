@@ -158,10 +158,14 @@
                                     </td>
                                 </tr>
                                 @endif
-                                @if (!empty($item->medium))
+                                @if (!empty($item->mediums))
                                 <tr>
                                     <td class="atribut">materiál:</td>
-                                    <td>{{ addMicrodata($item->medium, "artMedium") }}</td>
+                                    <td>
+                                    @foreach ($item->mediums as $medium)
+                                        {{ addMicrodata($medium, "artMedium") }}<br>
+                                    @endforeach
+                                    </td>
                                 </tr>
                                 @endif
                                 @if (!empty($item->techniques))
