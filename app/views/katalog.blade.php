@@ -83,7 +83,7 @@
             {{ Form::close() }}
     </div></div>
 </section>
-<section class="catalog">
+<section class="catalog" data-searchd-engine="{{ Config::get('app.searchd_id') }}">
     <div class="container content-section">
             <div class="row content-section">
             	<div class="col-xs-6">

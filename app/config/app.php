@@ -196,6 +196,7 @@ return array(
 	),
 
 	'searchd_id' => 'your_id',
+	'searchd_id_autocomplete' => 'your_id',
 
 	'elasticsearch' => array(
 		'index' => 'webumenia',

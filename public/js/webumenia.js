@@ -141,7 +141,7 @@ $(document).ready(function(){
                 }
                 format_years += ')';
             }
-            return '<p><img src="'+data.image+'" class="preview img-circle" />' + data.name + '<br> ' + format_years + '</p>';
+            return '<p  data-searchd-result="title/'+data.id+'" data-searchd-title="'+data.value+'"><img src="'+data.image+'" class="preview img-circle" />' + data.name + '<br> ' + format_years + '</p>';
           }
       }
     },
@@ -152,7 +152,7 @@ $(document).ready(function(){
       templates: {
           header: '<h3 class="suggest-type-name">Diela</h3>',
           suggestion: function (data) {
-              return '<p><img src="'+data.image+'" class="preview" /><em>' + data.author + '</em><br> ' + data.title + '</p>';
+              return '<p  data-searchd-result="title/'+data.id+'" data-searchd-title="'+data.value+'"><img src="'+data.image+'" class="preview" /><em>' + data.author + '</em><br> ' + data.title + '</p>';
           }
       }
     },
@@ -163,7 +163,7 @@ $(document).ready(function(){
       templates: {
           header: '<h3 class="suggest-type-name">Články</h3>',
           suggestion: function (data) {
-              return '<p><img src="'+data.image+'" class="preview" /><em>' + data.author + '</em><br> ' + data.title + '</p>';
+              return '<p  data-searchd-result="title/'+data.id+'" data-searchd-title="'+data.value+'"><img src="'+data.image+'" class="preview" /><em>' + data.author + '</em><br> ' + data.title + '</p>';
           }
       }
     },
@@ -174,7 +174,7 @@ $(document).ready(function(){
       templates: {
           header: '<h3 class="suggest-type-name">Kolekcie</h3>',
           suggestion: function (data) {
-              return '<p><img src="'+data.image+'" class="preview" /><em>' + data.author + '</em><br> ' + data.name + '<em> (' + data.items + ' diel)</em>' + '</p>';
+              return '<p  data-searchd-result="title/'+data.id+'" data-searchd-title="'+data.value+'"><img src="'+data.image+'" class="preview" /><em>' + data.author + '</em><br> ' + data.name + '<em> (' + data.items + ' diel)</em>' + '</p>';
           }
       }
     }).bind("typeahead:selected", function(obj, datum, name) {

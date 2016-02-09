@@ -81,7 +81,7 @@
 	            <a class="navbar-brand no-border hidden-xs first-part" href="{{ URL::to('') }}">
 	                web
 	            </a>
-	            {{ Form::open(['url' => 'katalog', 'method' => 'get', 'class' => 'navbar-form right-inner-addon']) }}
+	            {{ Form::open(['url' => 'katalog', 'method' => 'get', 'class' => 'navbar-form right-inner-addon', 'data-searchd-engine' => Config::get('app.searchd_id_autocomplete')]) }}
 	            			<i class="fa fa-search"></i>
 	            			{{ Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => 'Hľadať diela, autorov...', 'id'=>'search', 'autocomplete'=>'off')) }}
 	            			{{  Form::submit('submit'); }}
@@ -172,13 +172,16 @@
 	{{ HTML::script('js/bootstrap.min.js') }}
 	{{ HTML::script('js/typeahead.bundle.min.js') }}
 	{{ HTML::script('js/webumenia.js') }}
-	<script>
-	  function initializeSearchD() {
-	    Searchd.monitor("#search", "{{ Config::get('app.searchd_id') }}", {queryPlaceholder: 'Hľadať diela, autorov...'});
-	  }
-	</script>
-	<script async src="https://cdn.searchd.co/collector.js" onload="initializeSearchD();"></script>
 
+	@if (App::environment('production'))
+		<script>
+		  function initializeSearchD() {
+		          Searchd.monitorSearch("search", "{{ Config::get('app.searchd_id') }}", {queryPlaceholder: 'Hľadať diela, autorov...'});
+		          Searchd.monitorAutocomplete("search", "{{ Config::get('app.searchd_id_autocomplete') }}");
+		      }
+		</script>
+		<script async src="https://cdn.searchd.co/assets/collector.js" onload="initializeSearchD();"></script>
+	@endif
 
 	<!-- Content -->
 	@yield('javascript')
