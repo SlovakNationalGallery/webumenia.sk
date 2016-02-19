@@ -204,6 +204,7 @@ class SpiceHarvesterController extends \BaseController {
 	 */
 	public function launch($id)
 	{
+		// $vendorDir = base_path() . '/vendor'; include($vendorDir . '/imsop/simplexml_debug/src/simplexml_dump.php'); include($vendorDir . '/imsop/simplexml_debug/src/simplexml_tree.php');
 		$logFile = 'oai_harvest.log';
 		$this->log = new Monolog\Logger('oai_harvest');
 		$this->log->pushHandler(new Monolog\Handler\StreamHandler(storage_path().'/logs/'.$logFile, Monolog\Logger::WARNING));
@@ -389,6 +390,7 @@ class SpiceHarvesterController extends \BaseController {
     		case 'item':
 		    	$attributes = $this->mapItemAttributes($rec);
 		    	if(isSet($attributes['publish']) && $attributes['publish']==0) return false;
+		    	if(empty($attributes['work_type'])) dd('undefined work_type for ' . $attributes['id'] );
 		    	$item = Item::updateOrCreate(['id' => $attributes['id']], $attributes);
 			    $item->authorities()->sync($attributes['authority_ids']);
     			break;
@@ -659,7 +661,6 @@ class SpiceHarvesterController extends \BaseController {
 	                    ->children(self::OAI_DC_NAMESPACE)
 	                    ->children(self::DUBLIN_CORE_NAMESPACE_TERMS);
 
-	    $type = (array)$dcElements->xpath('//dc:type[@xml:lang="slk"]');
 	    $identifiers = (array)$dcElements->identifier;
 
 	    $topic=array(); // zaner - krajina s figuralnou kompoziciou / veduta
@@ -710,8 +711,9 @@ class SpiceHarvesterController extends \BaseController {
 	    $attributes['authorities'] = $authorities;
 	    $attributes['authority_ids'] = $authority_ids;
 	    $attributes['author'] = $this->serialize($authors);
-	    if (!empty($type[0])) $attributes['work_type'] = $type[0];
-	    if (!empty($type[1])) $attributes['work_level'] = $type[1];
+	    $attributes['work_type'] = $this->serialize($dcElements->xpath('//dc:type[@xml:lang="slk"]'), ', ');
+	    // if (!empty($type[0])) $attributes['work_type'] = $type[0];
+	    // if (!empty($type[1])) $attributes['work_level'] = $type[1];
 	    
 	    $attributes['topic'] = $this->serialize($topic);
 	    $attributes['subject'] = $this->serialize($subject);
@@ -729,7 +731,7 @@ class SpiceHarvesterController extends \BaseController {
 	    $attributes['medium'] = $this->serialize( $dcElements->xpath('//dc:format.medium[@xml:lang="slk"]') ); // http://stackoverflow.com/questions/6531380/php-simplexml-with-dot-character-in-element-in-xml
 	    $attributes['technique'] = $this->serialize( $dcElements->xpath('//dc:format[@xml:lang="slk"]') );
 	    $attributes['inscription'] = $this->serialize($dcElements->description);
-	    $attributes['state_edition'] =  (!empty($type[2])) ? $type[2] : null;
+	    // $attributes['state_edition'] =  (!empty($type[2])) ? $type[2] : null;
 	    $attributes['gallery'] = $dcTerms->provenance;
 	    if (isSet($dcElements->rights[0])) $attributes['publish'] = (int)$dcElements->rights[0];
 		$related = (string)$dcElements->{'relation.isPartOf'};
@@ -766,9 +768,9 @@ class SpiceHarvesterController extends \BaseController {
 	    return $attributes;
     }
 
-    private function serialize($attribute)
+    private function serialize($attribute, $delimiter = "; ")
     {
-    	return implode("; ", (array)$attribute);
+    	return implode($delimiter, (array)$attribute);
     }
 
     private function starts_with_upper($str) {
