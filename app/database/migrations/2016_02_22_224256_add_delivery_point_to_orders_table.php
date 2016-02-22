@@ -14,7 +14,7 @@ class AddDeliveryPointToOrdersTable extends Migration {
 	{
 		Schema::table('orders', function($table)
 		{
-			$table->string('delivery_point')->default('Kníhkupectvo Ex Libris v SNG');
+			$table->string('delivery_point')->nullable();
 		});
 	}
 

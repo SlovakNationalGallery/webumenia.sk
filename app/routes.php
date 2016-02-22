@@ -40,6 +40,10 @@ Route::post('objednavka', function()
 	{
 	    return $input->format == 'digitálna reprodukcia';
 	});
+	$v->sometimes('delivery_point', 'required', function($input)
+	{
+	    return $input->format != 'digitálna reprodukcia';
+	});
 
 	if ($v->passes()) {
 		
@@ -51,7 +55,7 @@ Route::post('objednavka', function()
 		$order->format = Input::get('format');
 		$order->purpose_kind = Input::get('purpose_kind');
 		$order->purpose = Input::get('purpose');
-		$order->delivery_point = Input::get('delivery_point');
+		$order->delivery_point = Input::get('delivery_point', null);
 		$order->note = Input::get('note');
 		$order->save();
 

@@ -100,10 +100,14 @@ objednávka |
 </div>
 {{-- /ak digitalna --}}
 
+{{-- ak nie digitalna --}}
+<div id="miesto_odberu">
 {{ Former::select('delivery_point')->label('Miesto osobného odberu')->required()->options(array(
         'Kníhkupectvo Ex Libris v SNG' => array('value'=>'Kníhkupectvo Ex Libris v SNG'), 
         'Zvolenský zámok' => array('value'=>'Zvolenský zámok'), 
 )); }}
+</div>
+{{-- /ak nie digitalna --}}
 
 {{ Former::textarea('note')->label('Poznámka'); }}
 
@@ -147,9 +151,13 @@ objednávka |
         if( $('#format').val() == 'digitálna reprodukcia')  {
             $("#ucel").show();
             $("#purpose").attr("disabled", false);
+            $("#miesto_odberu").hide();
+            $("#delivery_point").attr("disabled", true);
         } else {
             $("#ucel").hide();        
             $("#purpose").attr("disabled", true);
+            $("#miesto_odberu").show();
+            $("#delivery_point").attr("disabled", false);
         }
     } 
 
