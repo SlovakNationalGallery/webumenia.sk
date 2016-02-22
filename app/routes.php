@@ -51,6 +51,7 @@ Route::post('objednavka', function()
 		$order->format = Input::get('format');
 		$order->purpose_kind = Input::get('purpose_kind');
 		$order->purpose = Input::get('purpose');
+		$order->delivery_point = Input::get('delivery_point');
 		$order->note = Input::get('note');
 		$order->save();
 
@@ -70,7 +71,7 @@ Route::post('objednavka', function()
 				'contactPerson' => $order->name,
 				'email' => $order->email,
 				'kindOfPurpose' => $order->purpose_kind,
-				'purpose' => $order->purpose . "\n" . $order->format . "\n" . $order->note,
+				'purpose' => $order->purpose . "\n" . $order->format . "\n" . $order->delivery_point . "\n" . $order->note,
 				'medium' => 'Iné',
 				'address' => $order->address,
 				'phone' => $order->phone,
@@ -147,11 +148,11 @@ Route::get('dielo/{id}/stiahnut', function($id)
 {
 	$item = Item::find($id);
 
-	if (empty($item) || !$item->isFreeDownload()) {
-		App::abort(404);
-	}
-	$item->timestamps = false;
-	$item->download_count += 1; 
+	// if (empty($item) || !$item->isFreeDownload()) {
+	// 	App::abort(404);
+	// }
+	// $item->timestamps = false;
+	// $item->download_count += 1; 
 	$item->save();
 	$item->download();
 

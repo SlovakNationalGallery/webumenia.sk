@@ -6,6 +6,7 @@ class Order extends Eloquent {
         'name' => 'required',
         'email' => 'email|required',
         'format' => 'required',
+        'delivery_point' => 'required',
         );
 
     public static $availablePurposeKinds = array(

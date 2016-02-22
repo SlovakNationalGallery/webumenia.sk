@@ -22,7 +22,8 @@ objednávka |
                 @endif
                 <div class="col-md-8 col-md-offset-2 text-center">
                     	<h2 class="bottom-space">Objednávka</h2>
-                        <p>K vybraným dielam zo zbierok SNG ponúkame možnosť objednať si reprodukcie v archívnej kvalite na fineartových papieroch. Po výbere diel, vyplnení údajov a odoslaní objednávky vás bude kontaktovať pracovník SNG s podrobnejšími informáciami. Momentálne je možné vyzdvihnúť si diela len osobne v kníhkupectve <a href="https://goo.gl/maps/3Uf4S" target="_blank" class="underline">Ex Libris v priestoroch SNG na Námestí Ľ. Štúra 4</a> v Bratislave. </p>
+                        <p>K vybraným dielam zo zbierok SNG ponúkame možnosť objednať si reprodukcie v archívnej kvalite na fineartových papieroch. Po výbere diel, vyplnení údajov a odoslaní objednávky vás bude kontaktovať pracovník SNG s podrobnejšími informáciami. 
+                        Momentálne je možné vyzdvihnúť si diela len osobne v&nbsp;kníhkupectve <a href="https://goo.gl/maps/3Uf4S" target="_blank" class="underline">Ex Libris v priestoroch SNG na Námestí Ľ. Štúra 4 v Bratislave</a>  alebo v pokladni <a href="https://goo.gl/maps/MPRy6Qdwm8s" target="_blank" class="underline">Zvolenského zámku - Námestie SNP 594/1</a>. </p>
                 </div>
             </div>
         </div>
@@ -98,6 +99,11 @@ objednávka |
 {{ Former::textarea('purpose')->label('Účel - podrobnejšie informácie')->required(); }}
 </div>
 {{-- /ak digitalna --}}
+
+{{ Former::select('delivery_point')->label('Miesto osobného odberu')->required()->options(array(
+        'Kníhkupectvo Ex Libris v SNG' => array('value'=>'Kníhkupectvo Ex Libris v SNG'), 
+        'Zvolenský zámok' => array('value'=>'Zvolenský zámok'), 
+)); }}
 
 {{ Former::textarea('note')->label('Poznámka'); }}
 
