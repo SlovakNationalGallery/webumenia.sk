@@ -219,6 +219,8 @@ class ItemController extends \BaseController {
 	}
 
 	private function uploadImage($item) {
+		$item->removeImage();
+		
 		$error_messages = array();
 		$primary_image = Input::file('primary_image');
 		$full = true;

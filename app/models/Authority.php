@@ -77,11 +77,8 @@ class Authority extends Eloquent {
 	    });
 
 		static::deleting(function($authority) {
-			$image = $authority->getImagePath(true); // fullpath, disable no image
-			if ($image) {
-				@unlink($image); 
-			}
 
+			$authority->removeImage();
 			$authority->nationalities()->detach();
 			$authority->relationships()->detach();
 			$authority->items()->detach();
@@ -216,6 +213,12 @@ class Authority extends Eloquent {
 		return self::getImagePathForId($this->id, $this->attributes['has_image'], $this->attributes['sex'], $full);
 		// : self::ARTWORKS_DIR . "no-image.jpg";;
 
+	}
+
+	public function removeImage()
+	{
+		$dir = dirname( $this->getImagePath(true) ); 
+		return File::cleanDirectory($dir);
 	}
 
 	public function getUrl() {

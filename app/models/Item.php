@@ -112,10 +112,7 @@ class Item extends Eloquent {
 	    });
 
 		static::deleting(function($item) {
-			$image = $item->getImagePath(true); // fullpath, disable no image
-			if ($image) {
-				@unlink($image); 
-			}
+			$item->removeImage();
 			$item->collections()->detach();
         });	    
 
@@ -153,6 +150,12 @@ class Item extends Eloquent {
 	public function getImagePath($full=false) {
 		return self::getImagePathForId($this->id, $full);
 
+	}
+
+	public function removeImage()
+	{
+		$dir = dirname( $this->getImagePath(true) ); 
+		return File::cleanDirectory($dir);
 	}
 
 	public function getUrl($params = []) {

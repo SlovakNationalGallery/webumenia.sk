@@ -232,13 +232,14 @@ class AuthorityController extends \BaseController {
 
 	private function uploadImage($authority) {
 		$error_messages = array();
-//
+
 		$img = Input::get('primary_image');
 		$img = str_replace('data:image/jpeg;base64,', '', $img);
-	$img = str_replace(' ', '+', $img);
-	$data = base64_decode($img);
-		//make sure you are the owner and have the rights to write content
-//
+		$img = str_replace(' ', '+', $img);
+		$data = base64_decode($img);
+
+		$authority->removeImage();
+
 		$full = true;
 		$filename = $authority->getImagePath($full);
 		if (file_put_contents($filename, $data)) {
