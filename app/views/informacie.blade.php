@@ -23,6 +23,9 @@ Informácie |
 
             </div>
             <div class="col-md-4 text-center">
+                <img srcset="/images/galerie-na-mape.png 1x, /images/galerie-na-mape@2x.png 2x" src="" alt="Galérie na mape" class="img-responsive" style="margin: 20px auto" />
+            </div>
+            <div class="col-md-4 text-center">
                 <ul class="list-unstyled lead">
                     <li><a href="{{ URL::to('katalog?gallery=Slovenská národná galéria, SNG') }}">Slovenská národná galéria</a></li>
                     <li><a href="{{ URL::to('katalog?gallery=Oravská galéria, OGD') }}">Oravská galéria v Dolnom Kubíne</a></li>
@@ -30,9 +33,6 @@ Informácie |
                     <li><a href="{{ URL::to('katalog?gallery=Liptovská galéria Petra Michala Bohúňa, GPB') }}">Liptovská galéria Petra Michala Bohúňa v Liptovskom Mikuláši</a></li>
                     <li><a href="{{ URL::to('katalog?gallery=Galéria mesta Bratislavy, GMB') }}">Galéria mesta Bratislavy</a></li>
                 </ul>
-            </div>
-            <div class="col-md-4 text-center">
-                <img src="/images/galerie-na-mape.png" alt="Galérie na mape" class="img-responsive" style="margin-top: 10px" />
             </div>
         </div>
     </div>
