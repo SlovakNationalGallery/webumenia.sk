@@ -22,6 +22,8 @@ app/database/migrations/2014_07_01_193729_geonames_admin_divisions_longer_code.p
 app/database/migrations/2014_07_01_193730_geonames_defaults_and_nullables.php
 public/images/autori/*
 !public/images/autori/no-image*.jpeg
+public/images/diela/*
+!public/images/diela/no-image*.jpeg
 memorytest.php
 public/fonts/GT-Walsheim
 public/images/kolekcie
