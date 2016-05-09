@@ -20,7 +20,8 @@
 		"pda/pheanstalk": "~2.0",
 		"rap2hpoutre/laravel-log-viewer": "0.2.*",
 		"zizaco/entrust": "1.2.*@dev",
-		"roumen/sitemap": "2.4.*"
+		"roumen/sitemap": "2.4.*",
+		"google/recaptcha": "^1.1"
 	},
 	"autoload": {
 		"classmap": [

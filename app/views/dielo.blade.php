@@ -140,9 +140,39 @@
                                 <tr>
                                     <td class="atribut">tagy:</td>
                                     <td>
+                                    
+                                    <!-- list of existing tags -->
                                     @foreach ($item->tagNames() as $tag)
                                         <a href="{{URL::to('katalog?tag=' . $tag)}}" class="btn btn-default btn-xs btn-outline">{{ $tag }}</a>
                                     @endforeach
+                                    
+                                    <!-- user input for new tags -->
+                                    <div>
+                                        <button id="btn-add-tags" class="btn btn-default btn-outline sans">
+                                            <i class="fa fa-plus"></i> pridať ďalšie tagy
+                                        </button>
+                                    </div>
+            
+                                    <div class="ui-adding-user-tags" style="display: none">
+                                        <!-- open Form to update item -->
+                                        {{ Form::open(['url' => 'dielo/'.$item->id.'/addTags']) }}
+                                        <div class="form-group">
+                                        {{ Form::select(
+                                            'tags[]', 
+                                            Item::allTags()->lists('name','name'), 
+                                            [], 
+                                            ['id' => 'tags', 'multiple' => 'multiple', 'class' => 'testclass', 'data-test' => 'test']
+                                        ) }}
+                                        </div>
+                                        
+                                        <!-- ReCapcha -->
+                                        <div class="g-recaptcha" data-sitekey="6LeGGxwTAAAAABFMcXQSw187zEhZBh8R5Jw6HplV"></div>
+
+                                        <!-- form submit button to save user tags -->
+                                        {{ Form::submit('Uložiť svoje tagy', array('class' => 'btn btn-default')) }}    
+                                        {{ Form::close() }}    
+                                    </div>
+                                    
                                     </td>
                                 </tr>
                                 @endif
@@ -332,6 +362,9 @@
 {{ HTML::script('js/slick.js') }}
 {{ HTML::script('js/readmore.min.js') }}
 {{ HTML::script('js/jquery.fileDownload.js') }}
+{{ HTML::script('js/selectize.min.js') }}
+{{ HTML::script('https://www.google.com/recaptcha/api.js') }}
+
 
 @if (!empty($item->lat) && ($item->lat > 0)) 
     <!-- Google Maps API Key - You will need to use your own API key to use the map feature -->
@@ -472,4 +505,24 @@
     });
 </script>
 @endif
+
+<script>
+// user tags 
+$(document).ready(function(){
+    
+    $("#tags").selectize({
+        plugins: ['remove_button'],
+        persist: false,
+        create: true,
+        createOnBlur: true
+    });
+    $("#btn-add-tags").click(function (event) {
+        event.preventDefault();
+        $(this).slideToggle("slow");
+        $(".ui-adding-user-tags").slideToggle("slow");
+    });
+});
+    
+
+</script>
 @stop

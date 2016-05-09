@@ -163,6 +163,28 @@ Route::get('dielo/{id}/stiahnut', function($id)
 	// return Response::download($pathToFile);
 });
 
+Route::post('dielo/{id}/addTags', function($id)
+{
+	$item = Item::find($id);
+	$newTags = Input::get('tags');
+
+	// validate that user is human with recaptcha
+	$secret = '6LeGGxwTAAAAAEu6-glsHHUFgEJS7Pk3BT3BITTs';
+	$recaptcha = new \ReCaptcha\ReCaptcha($secret);
+	$resp = $recaptcha->verify($_POST['g-recaptcha-response'], $_SERVER['REMOTE_ADDR']);
+	if ($resp->isSuccess()) {
+	    // add new tags
+	    foreach ($newTags as $newTag) {
+			$item->tag($newTag);
+		}
+	} else {
+		// validation unsuccessful
+	    return Redirect::to($item->getUrl());
+	}
+	
+	return Redirect::to($item->getUrl());
+});
+
 Route::get('dielo/{id}', function($id)
 {
 	$item = Item::find($id);
