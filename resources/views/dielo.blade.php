@@ -166,9 +166,16 @@
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_tag') }}:</td>
                                     <td>
+
+                                    <!-- list of existing tags -->
                                     @foreach ($item->tagNames() as $tag)
                                         <a href="{!!URL::to('katalog?tag=' . $tag)!!}" class="btn btn-default btn-xs btn-outline">{!! $tag !!}</a>
                                     @endforeach
+
+                                    @if (Auth::check())
+                                        @include('includes.add_tags_form')
+                                    @endif
+
                                     </td>
                                 </tr>
                                 @endif
@@ -383,8 +390,12 @@
 {!! Html::script('js/readmore.min.js') !!}
 {!! Html::script('js/jquery.fileDownload.js') !!}
 
-{!! Html::script('js/slick.js') !!}
-{!! Html::script('js/components/artwork_carousel.js') !!}
+{{ HTML::script('js/slick.js') }}
+{{ HTML::script('js/readmore.min.js') }}
+
+{{ HTML::script('js/selectize.min.js') }}
+{{-- @TODO bring this back when opened to public --}}
+{{-- {{ HTML::script('https://www.google.com/recaptcha/api.js') }} --}}
 
 @if (!empty($item->lat) && ($item->lat > 0))
     <!-- Google Maps API Key - You will need to use your own API key to use the map feature -->
@@ -514,4 +525,9 @@
     });
 </script>
 @endif
+
+@if (Auth::check())
+    @include('includes.add_tags_form_js')
+@endif
+
 @stop
