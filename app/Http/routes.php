@@ -238,12 +238,12 @@ Route::get('informacie', function () {
     return View::make('informacie', ['items' => $items]);
 });
 
-Route::group(array('before' => 'guest'), function () {
+Route::group(array('middleware' => 'guest'), function () {
     Route::get('login', 'AuthController@getLogin');
     Route::post('login', 'AuthController@postLogin');
 });
 
-Route::group(array('before' => 'auth'), function () {
+Route::group(array('middleware' => 'auth'), function () {
 
     Route::get('admin', 'AdminController@index');
     Route::get('logout', 'AuthController@logout');
