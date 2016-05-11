@@ -1,6 +1,8 @@
 <?php
 
-class Category extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class Category extends Model
 {
 
     public function articles()

@@ -1,9 +1,11 @@
 <?php
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SpiceHarvesterRecord extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class SpiceHarvesterRecord extends Model
 {
-    use SoftDeletingTrait;
+    use SoftDeletes;
 
     protected $softDelete = true;
     protected $dates = ['deleted_at'];

@@ -2,7 +2,9 @@
 
 use Conner\Tagging\TaggingUtil;
 
-class Sketchbook extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class Sketchbook extends Model
 {
 
     // const ARTWORKS_DIR = '/images/skicare/';

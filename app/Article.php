@@ -1,6 +1,8 @@
 <?php
 
-class Article extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class Article extends Model
 {
 
     use Conner\Tagging\TaggableTrait;

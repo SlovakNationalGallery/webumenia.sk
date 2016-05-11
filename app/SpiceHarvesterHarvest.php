@@ -1,6 +1,8 @@
 <?php
 
-class SpiceHarvesterHarvest extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class SpiceHarvesterHarvest extends Model
 {
 
     const STATUS_QUEUED      = 'queued';

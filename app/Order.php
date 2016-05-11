@@ -1,6 +1,8 @@
 <?php
 
-class Order extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class Order extends Model
 {
 
     public static $rules = array(

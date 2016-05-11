@@ -1,7 +1,9 @@
 <?php
 use Fadion\Bouncy\BouncyTrait;
 
-class Authority extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class Authority extends Model
 {
 
     use BouncyTrait;

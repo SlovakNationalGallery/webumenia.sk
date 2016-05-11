@@ -1,6 +1,8 @@
 <?php
 
-class Nationality extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class Nationality extends Model
 {
 
     protected $fillable = array(

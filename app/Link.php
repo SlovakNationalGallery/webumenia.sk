@@ -1,5 +1,7 @@
 <?php
-class Link extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class Link extends Model
 {
 
     protected $fillable = array(

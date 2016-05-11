@@ -1,7 +1,9 @@
 <?php
 use Fadion\Bouncy\BouncyTrait;
 
-class Item extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class Item extends Model
 {
 
     use BouncyTrait;

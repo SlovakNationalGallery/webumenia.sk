@@ -1,6 +1,8 @@
 <?php
 
-class Slide extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class Slide extends Model
 {
 
     const ARTWORKS_DIR = '/images/intro/';

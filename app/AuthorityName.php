@@ -1,6 +1,8 @@
 <?php
 
-class AuthorityName extends Eloquent
+use Illuminate\Database\Eloquent\Model;
+
+class AuthorityName extends Model
 {
     protected $table = 'authority_names';
     public $timestamps = false;
