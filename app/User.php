@@ -1,10 +1,12 @@
 <?php
 
-use Illuminate\Auth\UserInterface;
-use Illuminate\Auth\Reminders\RemindableInterface;
 use Zizaco\Entrust\HasRole;
 
-class User extends Eloquent implements UserInterface, RemindableInterface
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+class User extends Eloquent implements AuthenticatableContract, CanResetPasswordContract
 {
 
     use HasRole;
@@ -22,6 +24,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface
      * @var array
      */
     protected $hidden = array('password');
+
+    protected $fillable = ['name', 'email', 'password'];
 
     public static $rules = array(
         'name' => 'required',
