@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: */zoom
+Disallow: */objednat
+Disallow: */stiahnut
+Disallow: */objednat
+Disallow: /objednavka
