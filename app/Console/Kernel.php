@@ -12,7 +12,15 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
+        'App\Console\Commands\OaiPmhHarvest',
+        'App\Console\Commands\ReindexElasticsearch',
+        'App\Console\Commands\MakeSitemap',
+        'App\Console\Commands\TestMemory',
+        'App\Console\Commands\MakeSketchbook',
+        'App\Console\Commands\ImportTags',
         'App\Console\Commands\Inspire',
+        'App\Console\Commands\OaiPmhDownloadImages',
+        'App\Console\Commands\MigrateTags',
     ];
 
     /**
