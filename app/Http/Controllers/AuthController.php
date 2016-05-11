@@ -6,7 +6,7 @@ class AuthController extends Controller
 
     public function getLogin()
     {
-        return View::make('admin.login', array('showLogin'=>true));
+        return view('admin.login', array('showLogin'=>true));
     }
 
     public function postLogin()
@@ -30,13 +30,13 @@ class AuthController extends Controller
             }
         }
         
-        return Redirect::to('login')->withErrors($v);
+        return redirect('login')->withErrors($v);
     }
 
     public function logout()
     {
         Session::put('debugbar', false);
         Auth::logout();
-        return Redirect::to('/');
+        return redirect('/');
     }
 }

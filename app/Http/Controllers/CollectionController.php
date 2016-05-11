@@ -16,7 +16,7 @@ class CollectionController extends \BaseController
             $collections = Collection::where('user_id', '=', Auth::user()->id)->orderBy('created_at', 'desc')->with(['user'])->paginate(20);
         }
         // $collections = Item::orderBy('created_at', 'DESC')->get();
-        return View::make('collections.index')->with('collections', $collections);
+        return view('collections.index')->with('collections', $collections);
     }
 
     /**
@@ -26,7 +26,7 @@ class CollectionController extends \BaseController
      */
     public function create()
     {
-        return View::make('collections.form');
+        return view('collections.form');
     }
 
     /**
@@ -82,7 +82,7 @@ class CollectionController extends \BaseController
     public function show($id)
     {
         $collection = Collection::find($id);
-        return View::make('collections.show')->with('collection', $collection);
+        return view('collections.show')->with('collection', $collection);
     }
 
     /**
@@ -99,7 +99,7 @@ class CollectionController extends \BaseController
             return Redirect::route('collection.index');
         }
 
-        return View::make('collections.form')->with('collection', $collection);
+        return view('collections.form')->with('collection', $collection);
     }
 
     /**

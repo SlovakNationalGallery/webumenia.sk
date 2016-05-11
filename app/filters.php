@@ -60,7 +60,7 @@ Route::filter('auth.basic', function () {
 Route::filter('guest', function () {
 
     if (Auth::check()) {
-        return Redirect::to('/');
+        return redirect('/');
     }
 });
 
@@ -82,9 +82,9 @@ Route::filter('csrf', function () {
     }
 });
 
-Entrust::routeNeedsRole('harvests*', 'admin', Redirect::to('admin'), false);
-Entrust::routeNeedsRole('item*', 'admin', Redirect::to('admin'), false);
-Entrust::routeNeedsRole('authority*', 'admin', Redirect::to('admin'), false);
-Entrust::routeNeedsRole('logs*', 'admin', Redirect::to('admin'), false);
+Entrust::routeNeedsRole('harvests*', 'admin', redirect('admin'), false);
+Entrust::routeNeedsRole('item*', 'admin', redirect('admin'), false);
+Entrust::routeNeedsRole('authority*', 'admin', redirect('admin'), false);
+Entrust::routeNeedsRole('logs*', 'admin', redirect('admin'), false);
 
-Entrust::routeNeedsRole('collection*', ['admin', 'editor'], Redirect::to('admin'), false);
+Entrust::routeNeedsRole('collection*', ['admin', 'editor'], redirect('admin'), false);

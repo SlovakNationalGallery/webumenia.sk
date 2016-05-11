@@ -11,7 +11,7 @@ class AuthorityController extends \BaseController
     public function index()
     {
         $authorities = Authority::orderBy('updated_at', 'DESC')->paginate(100);
-        return View::make('authorities.index', array('authorities' => $authorities));
+        return view('authorities.index', array('authorities' => $authorities));
     }
 
     /**
@@ -25,7 +25,7 @@ class AuthorityController extends \BaseController
         $search = Input::get('search');
         $results = Authority::where('name', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%')->orderBy('view_count', '')->paginate(20);
 
-        return View::make('authorities.index', array('authorities' => $results, 'search' => $search));
+        return view('authorities.index', array('authorities' => $results, 'search' => $search));
     }
 
     /**
@@ -38,7 +38,7 @@ class AuthorityController extends \BaseController
         $prefix = 'TMP.';  // TMP = temporary
         $pocet = Authority::where('id', 'LIKE', $prefix.'%')->count();
         $new_id = $prefix . ($pocet+1);
-        return View::make('authorities.form', array('new_id'=>$new_id));
+        return view('authorities.form', array('new_id'=>$new_id));
     }
 
     /**
@@ -80,7 +80,7 @@ class AuthorityController extends \BaseController
     public function show($id)
     {
         $authority = Authority::find($id);
-        return View::make('authorities.show')->with('authority', $authority);
+        return view('authorities.show')->with('authority', $authority);
     }
 
     /**
@@ -97,7 +97,7 @@ class AuthorityController extends \BaseController
             return Redirect::route('authority.index');
         }
 
-        return View::make('authorities.form')->with('authority', $authority);
+        return view('authorities.form')->with('authority', $authority);
     }
 
     /**

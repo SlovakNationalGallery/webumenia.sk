@@ -13,7 +13,7 @@
 
 Route::get('leto', function () {
 
-    return Redirect::to('kolekcia/25');
+    return redirect('kolekcia/25');
 });
 
 Route::get('/', function () {
@@ -21,7 +21,7 @@ Route::get('/', function () {
     $slides = Slide::published()->orderBy('id', 'desc')->get();
     $articles = Article::promoted()->published()->orderBy('published_date', 'desc')->get();
 
-    return View::make('intro', [
+    return view('intro', [
         'slides'=>$slides,
         'articles'=>$articles,
     ]);
@@ -42,7 +42,7 @@ Route::get('slideClicked', function () {
 Route::get('objednavka', function () {
 
     $items = Item::find(Session::get('cart', array()));
-    return View::make('objednavka', array('items'=>$items));
+    return view('objednavka', array('items'=>$items));
 });
 
 Route::post('objednavka', function () {
@@ -102,7 +102,7 @@ Route::post('objednavka', function () {
         ]);
         if ($res->getStatusCode()==200) {
             Session::forget('cart');
-            return Redirect::to('dakujeme');
+            return redirect('dakujeme');
         } else {
             Session::flash('message', "Nastal problém pri uložení vašej objednávky. Prosím kontaktujte lab@sng.sk. ");
             return Redirect::back()->withInput();
@@ -115,7 +115,7 @@ Route::post('objednavka', function () {
 
 Route::get('dakujeme', function () {
 
-    return View::make('dakujeme');
+    return view('dakujeme');
 });
 
 Route::get('dielo/{id}/zoom', function ($id) {
@@ -128,7 +128,7 @@ Route::get('dielo/{id}/zoom', function ($id) {
 
     $related_items = (!empty($item->related_work)) ? Item::where('related_work', '=', $item->related_work)->where('author', '=', $item->author)->whereNotNull('iipimg_url')->orderBy('related_work_order')->lists('iipimg_url') : [];
 
-    return View::make('zoom', array('item'=>$item, 'related_items'=>$related_items));
+    return view('zoom', array('item'=>$item, 'related_items'=>$related_items));
 });
 
 
@@ -149,7 +149,7 @@ Route::get('dielo/{id}/objednat', function ($id) {
     }
     
     Session::flash('message', "Dielo <b>" . implode(', ', $item->authors) . " – $item->title</b> (".$item->getDatingFormated().") bolo pridané do košíka.");
-    return Redirect::to($item->getUrl());
+    return redirect($item->getUrl());
 
 });
 
@@ -211,7 +211,7 @@ Route::get('dielo/{id}', function ($id) {
         }
     }
 
-    return View::make('dielo', array('item'=>$item, 'more_items' => $more_items, 'previous' => $previous, 'next' => $next ));
+    return view('dielo', array('item'=>$item, 'more_items' => $more_items, 'previous' => $previous, 'next' => $next ));
 });
 
 Route::controller('katalog', 'CatalogController');
@@ -235,7 +235,7 @@ Route::get('informacie', function () {
     // $items = Item::forReproduction()->hasImage()->hasZoom()->limit(20)->orderByRaw("RAND()")->get();
     $items = Item::random(20, ["gallery" => "Slovenská národná galéria, SNG"]);
 
-    return View::make('informacie', ['items' => $items]);
+    return view('informacie', ['items' => $items]);
 });
 
 Route::group(array('middleware' => 'guest'), function () {
@@ -290,7 +290,7 @@ App::missing(function ($exception) {
     if (Request::is('cedvuweb/image/*')) {
         $id = Input::get('id');
         if (!empty($id)) {
-            return Redirect::to(Item::getImagePathForId($id), 301);
+            return redirect(Item::getImagePathForId($id), 301);
         }
     } elseif (Request::is('web/guest/*') || Request::is('web/ogd/*') || Request::is('web/gmb/*') || Request::is('web/gnz/*')) {
         $filter_lookup = [
@@ -317,20 +317,20 @@ App::missing(function ($exception) {
         $action = $parts[2];
         switch ($action) {
             case 'home':
-                return Redirect::to('/', 301);
+                return redirect('/', 301);
                 break;
             
             case 'about':
             case 'contact':
             case 'help':
-                return Redirect::to('informacie', 301);
+                return redirect('informacie', 301);
                 break;
             
             case 'detail':
                 $id = $parts[6];
                 $item = Item::find($id);
                 if ($item) {
-                    return Redirect::to($item->getUrl(), 301);
+                    return redirect($item->getUrl(), 301);
                 }
                 break;
             
@@ -372,17 +372,17 @@ App::missing(function ($exception) {
                         }
                     }
                     if (!empty($apply_filters)) {
-                        return Redirect::to('katalog?' . http_build_query($apply_filters), 301);
+                        return redirect('katalog?' . http_build_query($apply_filters), 301);
                     }
                     $query = implode(' ', $filters);
                 }
                 $query = $value = str_to_alphanumeric($query, ' ');
-                return Redirect::to('katalog?search=' . urlencode($query), 301);
+                return redirect('katalog?search=' . urlencode($query), 301);
                 break;
             
             case (array_key_exists($action, $work_type_lookup)):
                 $work_type = $work_type_lookup[$action];
-                return Redirect::to(URL::to('katalog?work_type=' . $work_type), 301);
+                return redirect(URL::to('katalog?work_type=' . $work_type), 301);
                 break;
             
             default:

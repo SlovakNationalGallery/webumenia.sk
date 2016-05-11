@@ -14,7 +14,7 @@ class SlideController extends \BaseController
         Carbon::setToStringFormat('d.m.Y H:i');
 
         $slides = Slide::orderBy('id', 'desc')->get();
-        return View::make('slides.index')->with('slides', $slides);
+        return view('slides.index')->with('slides', $slides);
     }
 
     /**
@@ -24,7 +24,7 @@ class SlideController extends \BaseController
      */
     public function create()
     {
-        return View::make('slides.form');
+        return view('slides.form');
     }
 
     /**
@@ -68,7 +68,7 @@ class SlideController extends \BaseController
     public function show($id)
     {
         $slide = Slide::find($id);
-        return View::make('slides.show')->with('slide', $slide);
+        return view('slides.show')->with('slide', $slide);
     }
 
     /**
@@ -85,7 +85,7 @@ class SlideController extends \BaseController
             return Redirect::route('slide.index');
         }
 
-        return View::make('slides.form')->with('slide', $slide);
+        return view('slides.form')->with('slide', $slide);
     }
 
     /**

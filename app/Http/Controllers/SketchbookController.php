@@ -11,7 +11,7 @@ class SketchbookController extends \BaseController
     public function index()
     {
         $sketchbooks = Sketchbook::orderBy('order', 'asc')->get();
-        return View::make('sketchbooks.index')->with('sketchbooks', $sketchbooks);
+        return view('sketchbooks.index')->with('sketchbooks', $sketchbooks);
     }
 
     /**
@@ -22,7 +22,7 @@ class SketchbookController extends \BaseController
     public function create()
     {
         $roles = Role::orderBy('name', 'asc')->lists('name', 'id');
-        return View::make('sketchbooks.form')->with('roles', $roles);
+        return view('sketchbooks.form')->with('roles', $roles);
     }
 
     /**
@@ -66,7 +66,7 @@ class SketchbookController extends \BaseController
     public function show($id)
     {
         $sketchbook = Sketchbook::find($id);
-        return View::make('sketchbooks.show')->with('sketchbook', $sketchbook);
+        return view('sketchbooks.show')->with('sketchbook', $sketchbook);
     }
 
     /**
@@ -84,7 +84,7 @@ class SketchbookController extends \BaseController
         }
 
         $roles = Role::orderBy('name', 'asc')->lists('name', 'id');
-        return View::make('sketchbooks.form')->with('sketchbook', $sketchbook)->with('roles', $roles);
+        return view('sketchbooks.form')->with('sketchbook', $sketchbook)->with('roles', $roles);
     }
 
     /**

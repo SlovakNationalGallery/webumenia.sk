@@ -13,7 +13,7 @@ class ItemController extends \BaseController
         $items = Item::orderBy('updated_at', 'DESC')->paginate(100);
         // $collections = Collection::orderBy('order', 'ASC')->get();
         $collections = Collection::lists('name', 'id');
-        return View::make('items.index', array('items' => $items, 'collections' => $collections));
+        return view('items.index', array('items' => $items, 'collections' => $collections));
     }
 
     /**
@@ -34,7 +34,7 @@ class ItemController extends \BaseController
         }
 
         $collections = Collection::lists('name', 'id');
-        return View::make('items.index', array('items' => $results, 'collections' => $collections, 'search' => $search));
+        return view('items.index', array('items' => $results, 'collections' => $collections, 'search' => $search));
     }
 
     /**
@@ -47,7 +47,7 @@ class ItemController extends \BaseController
         $prefix = 'SVK:TMP.';  // TMP = temporary
         $pocet = Item::where('id', 'LIKE', $prefix.'%')->count();
         $new_id = $prefix . ($pocet+1);
-        return View::make('items.form', array('new_id'=>$new_id));
+        return view('items.form', array('new_id'=>$new_id));
     }
 
     /**
@@ -89,7 +89,7 @@ class ItemController extends \BaseController
     public function show($id)
     {
         $item = Item::find($id);
-        return View::make('items.show')->with('item', $item);
+        return view('items.show')->with('item', $item);
     }
 
     /**
@@ -106,7 +106,7 @@ class ItemController extends \BaseController
             return Redirect::route('item.index');
         }
 
-        return View::make('items.form')->with('item', $item);
+        return view('items.form')->with('item', $item);
     }
 
     /**

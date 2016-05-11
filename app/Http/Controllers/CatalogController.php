@@ -12,7 +12,7 @@ class CatalogController extends \BaseController
         if (strpos($search, 'SVK:')!==false) {
             $item = Item::find($search);
             if ($item) {
-                return Redirect::to($item->getUrl());
+                return redirect($item->getUrl());
             }
         }
         $search = trim(preg_replace("/(grid|table)Layout.*/", "", $search)); // zdedene zo zaindexovanych url zo stareho webu
@@ -180,7 +180,7 @@ class CatalogController extends \BaseController
         $queries = DB::getQueryLog();
         $last_query = end($queries);
 
-        return View::make('katalog', array(
+        return view('katalog', array(
             'items'=>$items,
             'authors'=>$authors,
             'work_types'=>$work_types,

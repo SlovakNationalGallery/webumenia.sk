@@ -31,7 +31,7 @@ class SpiceHarvesterController extends \BaseController
     public function index()
     {
         $harvests = SpiceHarvesterHarvest::orderBy('created_at', 'DESC')->paginate(10);
-        return View::make('harvests.index')->with('harvests', $harvests);
+        return view('harvests.index')->with('harvests', $harvests);
     }
 
     /**
@@ -41,7 +41,7 @@ class SpiceHarvesterController extends \BaseController
      */
     public function create()
     {
-        return View::make('harvests.form');
+        return view('harvests.form');
     }
 
     /**
@@ -91,7 +91,7 @@ class SpiceHarvesterController extends \BaseController
     {
         $harvest = SpiceHarvesterHarvest::find($id);
         $harvest->load('collection');
-        return View::make('harvests.show')->with('harvest', $harvest);
+        return view('harvests.show')->with('harvest', $harvest);
     }
 
     /**
@@ -108,7 +108,7 @@ class SpiceHarvesterController extends \BaseController
             return Redirect::route('harvest.index');
         }
 
-        return View::make('harvests.form')->with('harvest', $harvest);
+        return view('harvests.form')->with('harvest', $harvest);
     }
 
     /**
@@ -202,7 +202,7 @@ class SpiceHarvesterController extends \BaseController
             $items = Item::where('id', '=', 0);
         }
         Session::flash('message', 'Našlo sa ' .count($items_to_remove). ' záznamov, ktoré sa už nenachádzajú v OAI sete ' . $harvest->set_name . ':');
-        return View::make('items.index', array('items' => $items, 'collections' => $collections));
+        return view('items.index', array('items' => $items, 'collections' => $collections));
 
     }
 

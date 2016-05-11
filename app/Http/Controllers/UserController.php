@@ -12,7 +12,7 @@ class UserController extends \BaseController
     {
         $users = User::orderBy('created_at', 'desc')->with(['roles'])->paginate(20);
         // $users = Item::orderBy('created_at', 'DESC')->get();
-        return View::make('users.index')->with('users', $users);
+        return view('users.index')->with('users', $users);
     }
 
     /**
@@ -23,7 +23,7 @@ class UserController extends \BaseController
     public function create()
     {
         $roles = Role::orderBy('name', 'asc')->lists('name', 'id');
-        return View::make('users.form')->with('roles', $roles);
+        return view('users.form')->with('roles', $roles);
     }
 
     /**
@@ -68,7 +68,7 @@ class UserController extends \BaseController
     public function show($id)
     {
         $user = User::find($id);
-        return View::make('users.show')->with('user', $user);
+        return view('users.show')->with('user', $user);
     }
 
     /**
@@ -86,7 +86,7 @@ class UserController extends \BaseController
         }
 
         $roles = Role::orderBy('name', 'asc')->lists('name', 'id');
-        return View::make('users.form')->with('user', $user)->with('roles', $roles);
+        return view('users.form')->with('user', $user)->with('roles', $roles);
     }
 
     /**

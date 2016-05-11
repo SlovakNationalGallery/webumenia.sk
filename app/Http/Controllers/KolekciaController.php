@@ -14,7 +14,7 @@ class KolekciaController extends \BaseController
         $sort_order = ($sort_by == 'name') ? 'asc' : 'desc';
 
         $collections = Collection::published()->with('user')->orderBy($sort_by, $sort_order)->paginate($per_page);
-        return View::make('kolekcie', array('collections'=>$collections, 'sort_by'=>$sort_by));
+        return view('kolekcie', array('collections'=>$collections, 'sort_by'=>$sort_by));
     }
 
     public function getDetail($id)
@@ -27,7 +27,7 @@ class KolekciaController extends \BaseController
         $collection->view_count += 1;
         $collection->save();
 
-        return View::make('kolekcia', array('collection'=>$collection));
+        return view('kolekcia', array('collection'=>$collection));
 
     }
 

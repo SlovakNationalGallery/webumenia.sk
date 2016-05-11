@@ -16,7 +16,7 @@ class ArticleController extends \BaseController
             // $articles = Article::where('user_id', '=', Auth::user()->id)->orderBy('created_at', 'desc')->paginate(20);
         }
         // $articles = Item::orderBy('created_at', 'DESC')->get();
-        return View::make('articles.index')->with('articles', $articles);
+        return view('articles.index')->with('articles', $articles);
     }
 
     /**
@@ -26,7 +26,7 @@ class ArticleController extends \BaseController
      */
     public function create()
     {
-        return View::make('articles.form');
+        return view('articles.form');
     }
 
     /**
@@ -82,7 +82,7 @@ class ArticleController extends \BaseController
     public function show($id)
     {
         $article = Article::find($id);
-        return View::make('articles.show')->with('article', $article);
+        return view('articles.show')->with('article', $article);
     }
 
     /**
@@ -99,7 +99,7 @@ class ArticleController extends \BaseController
             return Redirect::route('article.index');
         }
 
-        return View::make('articles.form')->with('article', $article);
+        return view('articles.form')->with('article', $article);
     }
 
     /**

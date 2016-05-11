@@ -10,7 +10,7 @@ class ClanokController extends \BaseController
             $articles = $articles->where('author', 'LIKE', Input::get('author'));
         }
         $articles = $articles->get();
-        return View::make('clanky', array('articles'=>$articles));
+        return view('clanky', array('articles'=>$articles));
     }
 
     public function getSuggestions()
@@ -49,7 +49,7 @@ class ClanokController extends \BaseController
         $article->view_count += 1;
         $article->save();
 
-        return View::make('clanok', array('article'=>$article));
+        return view('clanok', array('article'=>$article));
 
     }
 }

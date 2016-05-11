@@ -17,7 +17,7 @@ class FileuploaderController extends \BaseController
             $validation = Validator::make($input, $rules);
      
             if ($validation->fails()) {
-                return Response::make($validation->messages(), 400);
+                return response($validation->messages(), 400);
             }
      
             $file = Input::file('upload');

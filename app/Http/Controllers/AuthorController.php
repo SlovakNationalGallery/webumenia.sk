@@ -149,7 +149,7 @@ class AuthorController extends \BaseController
         $nationalities = Authority::listValues('nationality', $params);
         $places = Authority::listValues('place', $params);
         // dd($roles);
-        return View::make('autori', array(
+        return view('autori', array(
             'authors'=>$authors,
             'search'=>$search,
             'sort_by'=>$sort_by,
@@ -219,7 +219,7 @@ class AuthorController extends \BaseController
         $author->view_count += 1;
         $author->save();
 
-        return View::make('autor', array('author'=>$author));
+        return view('autor', array('author'=>$author));
 
     }
 }

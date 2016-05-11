@@ -9,7 +9,7 @@ class SkicareController extends \BaseController
     {
         $sketchbooks = Sketchbook::orderBy('order', 'asc')->get();
         $max_height = Sketchbook::max('height');
-        return View::make('skicare', ['sketchbooks' => $sketchbooks , 'max_height'=>$max_height]);
+        return view('skicare', ['sketchbooks' => $sketchbooks , 'max_height'=>$max_height]);
     }
 
     public function getList()
@@ -41,7 +41,7 @@ class SkicareController extends \BaseController
 
         $related_items = Item::where('related_work', '=', $item->related_work)->where('author', '=', $item->author)->orderBy('related_work_order')->get();
 
-        return View::make('skicar', array('item'=>$item, 'related_items'=>$related_items));
+        return view('skicar', array('item'=>$item, 'related_items'=>$related_items));
     }
 
     public function downloadAllPages($id)
@@ -120,6 +120,6 @@ class SkicareController extends \BaseController
         if (App::runningInConsole()) {
             return true;
         }
-        // return View::make('skicar', array('item'=>$item));
+        // return view('skicar', array('item'=>$item));
     }
 }
