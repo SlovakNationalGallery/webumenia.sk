@@ -1,6 +1,7 @@
 <?php
 
-class Article extends Eloquent {
+class Article extends Eloquent
+{
 
     use Conner\Tagging\TaggableTrait;
     
@@ -18,14 +19,14 @@ class Article extends Eloquent {
  //        return $this->belongsToMany('Item', 'collection_item', 'collection_id', 'item_id');
  //    }
 
-	public function category()
+    public function category()
     {
         return $this->belongsTo('Category');
     }
 
     public function getUrl()
     {
-    	return URL::to('clanok/' . $this->attributes['slug']);
+        return URL::to('clanok/' . $this->attributes['slug']);
     }
 
     public function getShortTextAttribute($string, $length = 160)
@@ -36,8 +37,11 @@ class Article extends Eloquent {
         return substr($string, 0, strrpos($string, ' ')) . " ...";
     }
 
-    public function getHeaderImage($full=false) {
-        if (empty($this->attributes['main_image'])) return false;
+    public function getHeaderImage($full = false)
+    {
+        if (empty($this->attributes['main_image'])) {
+            return false;
+        }
 
         $relative_path = self::ARTWORKS_DIR . $this->attributes['main_image'];
         if (!file_exists(public_path() . $relative_path) && !$full) {
@@ -47,13 +51,14 @@ class Article extends Eloquent {
         return $path;
     }
 
-    public function getResizedImage($resize) {
+    public function getResizedImage($resize)
+    {
         $file = substr($this->attributes['main_image'], 0, strrpos($this->attributes['main_image'], "."));
         $full_path = public_path() .  self::ARTWORKS_DIR;
 
         if (!file_exists($full_path . "$file.$resize.jpg")) {
-            $img = Image::make( $this->getHeaderImage(true) )->fit($resize)->sharpen(7);
-            $img->save($full_path . "$file.$resize.jpg");                      
+            $img = Image::make($this->getHeaderImage(true))->fit($resize)->sharpen(7);
+            $img->save($full_path . "$file.$resize.jpg");
         }
         $result_path = self::ARTWORKS_DIR .  "$file.$resize.jpg";
 
@@ -61,8 +66,11 @@ class Article extends Eloquent {
 
     }
 
-    public function getThumbnailImage($full=false) {
-        if (empty($this->attributes['main_image'])) return false;
+    public function getThumbnailImage($full = false)
+    {
+        if (empty($this->attributes['main_image'])) {
+            return false;
+        }
 
         $preview_image = substr($this->attributes['main_image'], 0, strrpos($this->attributes['main_image'], ".")); //zmaze priponu
         $preview_image .= '.thumbnail.jpg';
@@ -71,22 +79,25 @@ class Article extends Eloquent {
         if (!file_exists($full_path)) {
             try {
                 Image::make($this->getHeaderImage(true))->fit(600, 250)->save($full_path);
-            } catch  (Exception $e)  {
+            } catch (Exception $e) {
                 
             }
         }
         return $relative_path;
     }
 
-    public function getPublishedDateAttribute($value) {        
+    public function getPublishedDateAttribute($value)
+    {
         return Carbon::parse($value)->format('d. m. Y'); //Change the format to whichever you desire
     }
 
-    public function getTitleColorAttribute($value) {        
+    public function getTitleColorAttribute($value)
+    {
         return (!empty($value)) ? $value : '#fff';
     }
 
-    public function getTitleShadowAttribute($value) {        
+    public function getTitleShadowAttribute($value)
+    {
         return (!empty($value)) ? $value : '#777';
     }
 
@@ -102,12 +113,11 @@ class Article extends Eloquent {
 
     public function setPublishAttribute($value)
     {
-        if ($value && empty($this->attributes['published_date']) ) {
+        if ($value && empty($this->attributes['published_date'])) {
             $current_time = Carbon\Carbon::now();
             $this->attributes['published_date'] = $current_time->toDateTimeString();
         }
 
         $this->attributes['publish'] = (bool)$value;
     }
-
 }

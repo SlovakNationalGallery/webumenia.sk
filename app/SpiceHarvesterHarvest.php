@@ -1,6 +1,7 @@
 <?php
 
-class SpiceHarvesterHarvest extends Eloquent {
+class SpiceHarvesterHarvest extends Eloquent
+{
 
     const STATUS_QUEUED      = 'queued';
     const STATUS_IN_PROGRESS = 'in progress';
@@ -19,7 +20,7 @@ class SpiceHarvesterHarvest extends Eloquent {
         'metadata_prefix' => 'required',
         );
 
-	public function records()
+    public function records()
     {
         return $this->hasMany('SpiceHarvesterRecord', 'harvest_id');
     }
@@ -29,9 +30,8 @@ class SpiceHarvesterHarvest extends Eloquent {
         return $this->belongsTo('Collection');
     }
 
- 	public function getFromAttribute()
+    public function getFromAttribute()
     {
         return $this->start_from;
-    }    
-
+    }
 }

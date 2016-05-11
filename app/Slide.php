@@ -1,28 +1,29 @@
 <?php
 
-class Slide extends Eloquent {
+class Slide extends Eloquent
+{
 
     const ARTWORKS_DIR = '/images/intro/';
     
-	protected $fillable = [
-				'title',
+    protected $fillable = [
+                'title',
                 'subtitle',
-				'url',
-				'publish',
-	];
+                'url',
+                'publish',
+    ];
 
-	public static $rules = [
-		'title' => 'required',
-		'publish' => 'boolean',
+    public static $rules = [
+        'title' => 'required',
+        'publish' => 'boolean',
         'image' => 'image|image_size:>=1200,*',
-	];
+    ];
 
     public static function boot()
     {
         parent::boot();
-        static::deleting(function($item) {
+        static::deleting(function ($item) {
             $item->removeImage();
-        });     
+        });
     }
 
     public function scopePublished($query)
@@ -32,17 +33,17 @@ class Slide extends Eloquent {
 
     public function getImagePathAttribute()
     {
-    	return asset( self::ARTWORKS_DIR . '/' . $this->id . '/' . $this->image . '.jpg');
+        return asset(self::ARTWORKS_DIR . '/' . $this->id . '/' . $this->image . '.jpg');
     }
 
     public function getPath($create = false)
     {
-	    $folder_name = $this->id; 
-    	$path = public_path() .  self::ARTWORKS_DIR . $folder_name . '/';
-    	if(!File::exists($path) && $create) {
-    	    File::makeDirectory($path);
-    	}
-    	return $path;
+        $folder_name = $this->id;
+        $path = public_path() .  self::ARTWORKS_DIR . $folder_name . '/';
+        if (!File::exists($path) && $create) {
+            File::makeDirectory($path);
+        }
+        return $path;
     }
 
     public function removeImage()
@@ -50,5 +51,4 @@ class Slide extends Eloquent {
         $dir = $this->getPath();
         return File::cleanDirectory($dir);
     }
-
 }

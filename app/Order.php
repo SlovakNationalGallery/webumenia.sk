@@ -1,6 +1,7 @@
 <?php
 
-class Order extends Eloquent {
+class Order extends Eloquent
+{
 
     public static $rules = array(
         'name' => 'required',
@@ -9,17 +10,16 @@ class Order extends Eloquent {
         );
 
     public static $availablePurposeKinds = array(
-    	'Súkromný' => 'súkromný',
-    	'Komerčný' => 'komerčný',
-    	'Výskumný' => 'výskumný',
-    	'Edukačný' => 'edukačný',
-    	'Výstava' => 'výstava'
+        'Súkromný' => 'súkromný',
+        'Komerčný' => 'komerčný',
+        'Výskumný' => 'výskumný',
+        'Edukačný' => 'edukačný',
+        'Výstava' => 'výstava'
     );
 
 
-	public function items()
+    public function items()
     {
         return $this->belongsToMany('Item', 'order_item', 'order_id', 'item_id');
     }
-
 }

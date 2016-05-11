@@ -1,6 +1,7 @@
 <?php
 
-class Collection extends \Eloquent {
+class Collection extends \Eloquent
+{
 
     const ARTWORKS_DIR = '/images/kolekcie/';
 
@@ -32,7 +33,7 @@ class Collection extends \Eloquent {
 
     public function getUrl()
     {
-    	return URL::to('kolekcia/' . $this->attributes['id']);
+        return URL::to('kolekcia/' . $this->attributes['id']);
     }
 
     public function getShortTextAttribute($string, $length = 160)
@@ -43,31 +44,35 @@ class Collection extends \Eloquent {
         return ($striped_string > $string) ? substr($string, 0, strrpos($string, ' ')) . " ..." : $string;
     }
 
-    public function hasHeaderImage() {
+    public function hasHeaderImage()
+    {
         return file_exists(self::getHeaderImageForId($this->id, true));
     }
 
-    public function getHeaderImage($full = false) {
+    public function getHeaderImage($full = false)
+    {
         return self::getHeaderImageForId($this->id, $full);
     }
 
-    public  static function getHeaderImageForId($id, $full = false) {
+    public static function getHeaderImageForId($id, $full = false)
+    {
         $relative_path = self::ARTWORKS_DIR . $id . '.jpg';
         $path = ($full) ? public_path() . $relative_path : $relative_path;
         return $path;
     }
 
-    public function getResizedImage($resize) {
+    public function getResizedImage($resize)
+    {
         $file =  $this->id;
         $full_path = public_path() .  self::ARTWORKS_DIR;
         if (!file_exists($full_path . "$file.$resize.jpg")) {
             try {
-                $img = Image::make( $this->getHeaderImage(true) )->fit($resize)->sharpen(7);
-            } catch  (Exception $e)  {
-                $img = Image::make( public_path() . self::ARTWORKS_DIR . 'no-image.jpg' )->fit($resize)->sharpen(7);                
+                $img = Image::make($this->getHeaderImage(true))->fit($resize)->sharpen(7);
+            } catch (Exception $e) {
+                $img = Image::make(public_path() . self::ARTWORKS_DIR . 'no-image.jpg')->fit($resize)->sharpen(7);
             }
 
-            $img->save($full_path . "$file.$resize.jpg");                      
+            $img->save($full_path . "$file.$resize.jpg");
         }
         $result_path = self::ARTWORKS_DIR .  "$file.$resize.jpg";
         return $result_path;
@@ -78,12 +83,13 @@ class Collection extends \Eloquent {
         return $query->where('publish', '=', 1);
     }
 
-    public function getTitleColorAttribute($value) {        
+    public function getTitleColorAttribute($value)
+    {
         return (!empty($value)) ? $value : '#fff';
     }
 
-    public function getTitleShadowAttribute($value) {        
+    public function getTitleShadowAttribute($value)
+    {
         return (!empty($value)) ? $value : '#777';
     }
-
 }

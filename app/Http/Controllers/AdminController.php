@@ -1,9 +1,10 @@
 <?php
 
-class AdminController extends BaseController {
+class AdminController extends BaseController
+{
 
-	public function index()
-	{
-		return View::make('admin.index');
-	}
+    public function index()
+    {
+        return View::make('admin.index');
+    }
 }

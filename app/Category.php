@@ -1,10 +1,10 @@
 <?php
 
-class Category extends Eloquent {
+class Category extends Eloquent
+{
 
-	public function articles()
+    public function articles()
     {
         return $this->hasMany('Article');
     }
-
 }

@@ -2,7 +2,7 @@
 
 return array(
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| Default Queue Driver
 	|--------------------------------------------------------------------------
@@ -15,9 +15,9 @@ return array(
 	|
 	*/
 
-	'default' => 'sync',
+    'default' => 'sync',
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| Queue Connections
 	|--------------------------------------------------------------------------
@@ -28,41 +28,41 @@ return array(
 	|
 	*/
 
-	'connections' => array(
+    'connections' => array(
 
-		'sync' => array(
-			'driver' => 'sync',
-		),
+        'sync' => array(
+            'driver' => 'sync',
+        ),
 
-		'beanstalkd' => array(
-			'driver' => 'beanstalkd',
-			'host'   => 'localhost',
-			'queue'  => 'default',
-		),
+        'beanstalkd' => array(
+            'driver' => 'beanstalkd',
+            'host'   => 'localhost',
+            'queue'  => 'default',
+        ),
 
-		'sqs' => array(
-			'driver' => 'sqs',
-			'key'    => 'your-public-key',
-			'secret' => 'your-secret-key',
-			'queue'  => 'your-queue-url',
-			'region' => 'us-east-1',
-		),
+        'sqs' => array(
+            'driver' => 'sqs',
+            'key'    => 'your-public-key',
+            'secret' => 'your-secret-key',
+            'queue'  => 'your-queue-url',
+            'region' => 'us-east-1',
+        ),
 
-		'iron' => array(
-			'driver'  => 'iron',
-			'project' => 'your-project-id',
-			'token'   => 'your-token',
-			'queue'   => 'your-queue-name',
-		),
+        'iron' => array(
+            'driver'  => 'iron',
+            'project' => 'your-project-id',
+            'token'   => 'your-token',
+            'queue'   => 'your-queue-name',
+        ),
 
-		'redis' => array(
-			'driver' => 'redis',
-			'queue'  => 'default',
-		),
+        'redis' => array(
+            'driver' => 'redis',
+            'queue'  => 'default',
+        ),
 
-	),
+    ),
 
-	/*
+    /*
 	|--------------------------------------------------------------------------
 	| Failed Queue Jobs
 	|--------------------------------------------------------------------------
@@ -73,10 +73,10 @@ return array(
 	|
 	*/
 
-	'failed' => array(
+    'failed' => array(
 
-		'database' => 'mysql', 'table' => 'failed_jobs',
+        'database' => 'mysql', 'table' => 'failed_jobs',
 
-	),
+    ),
 
 );

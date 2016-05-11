@@ -1,14 +1,15 @@
-<?php 
-class Link extends Eloquent {
+<?php
+class Link extends Eloquent
+{
 
-	protected $fillable = array(
-		'url',
-		'label',
-	);
+    protected $fillable = array(
+        'url',
+        'label',
+    );
 
-	public static $rules = array(
-		'url' => 'url|required',
-	);
+    public static $rules = array(
+        'url' => 'url|required',
+    );
 
     public function linkable()
     {
@@ -17,8 +18,7 @@ class Link extends Eloquent {
 
     public static function parse($url)
     {
-    	$url_parts = parse_url($url);
-    	return $url_parts['host'];
+        $url_parts = parse_url($url);
+        return $url_parts['host'];
     }
-
 }
