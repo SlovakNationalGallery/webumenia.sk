@@ -1,8 +1,8 @@
 <?php
 
-return array(
+return [
 
-    /*
+	/*
 	|--------------------------------------------------------------------------
 	| Default Authentication Driver
 	|--------------------------------------------------------------------------
@@ -15,9 +15,9 @@ return array(
 	|
 	*/
 
-    'driver' => 'eloquent',
+	'driver' => 'eloquent',
 
-    /*
+	/*
 	|--------------------------------------------------------------------------
 	| Authentication Model
 	|--------------------------------------------------------------------------
@@ -28,9 +28,9 @@ return array(
 	|
 	*/
 
-    'model' => 'User',
+	'model' => 'App\User',
 
-    /*
+	/*
 	|--------------------------------------------------------------------------
 	| Authentication Table
 	|--------------------------------------------------------------------------
@@ -41,31 +41,27 @@ return array(
 	|
 	*/
 
-    'table' => 'users',
+	'table' => 'users',
 
-    /*
+	/*
 	|--------------------------------------------------------------------------
-	| Password Reminder Settings
+	| Password Reset Settings
 	|--------------------------------------------------------------------------
 	|
-	| Here you may set the settings for password reminders, including a view
-	| that should be used as your password reminder e-mail. You will also
-	| be able to set the name of the table that holds the reset tokens.
+	| Here you may set the options for resetting passwords including the view
+	| that is your password reset e-mail. You can also set the name of the
+	| table that maintains all of the reset tokens for your application.
 	|
-	| The "expire" time is the number of minutes that the reminder should be
+	| The expire time is the number of minutes that the reset token should be
 	| considered valid. This security feature keeps tokens short-lived so
 	| they have less time to be guessed. You may change this as needed.
 	|
 	*/
 
-    'reminder' => array(
+	'password' => [
+		'email' => 'emails.password',
+		'table' => 'password_resets',
+		'expire' => 60,
+	],
 
-        'email' => 'emails.auth.reminder',
-
-        'table' => 'password_reminders',
-
-        'expire' => 60,
-
-    ),
-
-);
+];
