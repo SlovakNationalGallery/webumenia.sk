@@ -4,21 +4,21 @@
 @if (!$collection->publish)
     <meta name="robots" content="noindex, nofollow">
 @endif
-<meta property="og:title" content="{{ $collection->name }}" />
-<meta property="og:description" content="{{ $collection->getShortTextAttribute($collection->text, 500) }}" />
+<meta property="og:title" content="{!! $collection->name !!}" />
+<meta property="og:description" content="{!! $collection->getShortTextAttribute($collection->text, 500) !!}" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="{{ Request::url() }}" />
-<meta property="og:image" content="{{ URL::to($collection->getHeaderImage()) }}" />
+<meta property="og:url" content="{!! Request::url() !!}" />
+<meta property="og:image" content="{!! URL::to($collection->getHeaderImage()) !!}" />
 <meta property="og:site_name" content="web umenia" />
 @stop
 
 @section('title')
-{{ $collection->name }} | 
+{!! $collection->name !!} | 
 @parent
 @stop
 
 @section('description')
-<meta name="description" content="{{ $collection->getShortTextAttribute($collection->text, 350) }}">
+<meta name="description" content="{!! $collection->getShortTextAttribute($collection->text, 350) !!}">
 @stop
 
 
@@ -27,17 +27,17 @@
 <div class="webumeniaCarousel">
 
 @if ($collection->hasHeaderImage())
-<div class="header-image" style="background-image: url({{ $collection->getHeaderImage() }}); color: {{ $collection->title_color }}">
+<div class="header-image" style="background-image: url({!! $collection->getHeaderImage() !!}); color: {!! $collection->title_color !!}">
 @else
 <div class="header-image">
 @endif
     <div class="outer-box">
         <div class="inner-box">
-            <h1>{{ $collection->name }}</h1>
+            <h1>{!! $collection->name !!}</h1>
             <p class="bottom-space">
-                {{ $collection->items()->count() }} diel &nbsp;&middot;&nbsp; 
-                {{ $collection->user->name }} &nbsp;&middot;&nbsp; 
-                {{ $collection->created_at->format('d. m. Y') }}
+                {!! $collection->items()->count() !!} diel &nbsp;&middot;&nbsp; 
+                {!! $collection->user->name !!} &nbsp;&middot;&nbsp; 
+                {!! $collection->created_at->format('d. m. Y') !!}
             </p>
         </div>
     </div>
@@ -59,7 +59,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 bottom-space description">
-                       {{ $collection->text }}
+                       {!! $collection->text !!}
                 </div>
             </div>
         </div>
@@ -77,18 +77,18 @@
                     <div id="iso">
                     @foreach ($collection->items as $i=>$item)
                         <div class="col-md-3 col-sm-4 col-xs-12 item">
-                            <a href="{{ $item->getUrl(['collection' => $collection->id]) }}">
-                                <img src="{{ $item->getImagePath() }}" class="img-responsive" alt="{{ $item->getTitleWithAuthors() }} ">                          
+                            <a href="{!! $item->getUrl(['collection' => $collection->id]) !!}">
+                                <img src="{!! $item->getImagePath() !!}" class="img-responsive" alt="{!! $item->getTitleWithAuthors() !!} ">                          
                             </a>
                             <div class="item-title">
                                 @if (!empty($item->iipimg_url))
-                                    <div class="pull-right"><a href="{{ URL::to('dielo/' . $item->id . '/zoom') }}" data-toggle="tooltip" data-placement="left" title="Zoom obrázku"><i class="fa fa-search-plus"></i></a></div>
+                                    <div class="pull-right"><a href="{!! URL::to('dielo/' . $item->id . '/zoom') !!}" data-toggle="tooltip" data-placement="left" title="Zoom obrázku"><i class="fa fa-search-plus"></i></a></div>
                                 @endif    
-                                <a href="{{ $item->getUrl(['collection' => $collection->id]) }}">
-                                    <em>{{ implode(', ', $item->authors) }}</em><br>
-                                <strong>{{ $item->title }}</strong><br> <em>{{ $item->getDatingFormated() }}</em>
+                                <a href="{!! $item->getUrl(['collection' => $collection->id]) !!}">
+                                    <em>{!! implode(', ', $item->authors) !!}</em><br>
+                                <strong>{!! $item->title !!}</strong><br> <em>{!! $item->getDatingFormated() !!}</em>
                                 
-                                {{-- <span class="">{{ $item->gallery }}</span> --}}
+                                {{-- <span class="">{!! $item->gallery !!}</span> --}}
                                 </a>
                             </div>
                         </div>  
@@ -117,7 +117,7 @@
  --}}
 
  <div class="container text-center">
-     <div class="fb-like" data-href="{{ $collection->getUrl() }}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+     <div class="fb-like" data-href="{!! $collection->getUrl() !!}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
      &nbsp;
      <a href="https://twitter.com/share" class="twitter-share-button" data-count="true">Tweet</a>
      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
@@ -193,12 +193,12 @@
         @foreach ($collection->items as $item)
             @if (!empty($item->lat) && ($item->lat > 0))
                 map.addMarker({
-                    lat: {{ $item->lat }},
-                    lng: {{ $item->lng }},
+                    lat: {!! $item->lat !!},
+                    lng: {!! $item->lng !!},
                     icon: "/images/x.map.svg",
-                    title: 'Značka pre dielo {{ $item->title }}',
+                    title: 'Značka pre dielo {!! $item->title !!}',
                     infoWindow: {
-                      content: '<p class="text-center"><a href="{{ $item->getUrl() }}"><img src="{{ $item->getImagePath() }}" /><br><em>{{ implode(', ', $item->authors) }}</em><br><strong>{{ $item->title }}</strong>, <em>{{ $item->getDatingFormated() }}</em></a></p>'
+                      content: '<p class="text-center"><a href="{!! $item->getUrl() !!}"><img src="{!! $item->getImagePath() !!}" /><br><em>{!! implode(', ', $item->authors) !!}</em><br><strong>{!! $item->title !!}</strong>, <em>{!! $item->getDatingFormated() !!}</em></a></p>'
                     }
                 });
             @endif

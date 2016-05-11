@@ -13,7 +13,7 @@
         <h1 class="page-header">Carousel</h1>
 
         @if (Session::has('message'))
-            <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{{ Session::get('message') }}</div>
+            <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
         @endif
 
     </div>
@@ -25,7 +25,7 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <a href="{{ route('slide.create') }}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Vytvoriť</a>
+                <a href="{!! route('slide.create') !!}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Vytvoriť</a>
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -44,24 +44,24 @@
                     <tbody>
 						@foreach($slides as $i)
 			            <tr>
-			                <td>{{ $i->id }}</td>
-                            <td class="text-center"><img src="{{ $i->image_path }}" alt="" class="img-responsive nahlad"></td>
+			                <td>{!! $i->id !!}</td>
+                            <td class="text-center"><img src="{!! $i->image_path !!}" alt="" class="img-responsive nahlad"></td>
                             <td>
-                                {{ $i->title }}<br>
-                                {{ $i->subtitle }}
+                                {!! $i->title !!}<br>
+                                {!! $i->subtitle !!}
                             </td>
                             <td>
-                                {{ $i->created_at }}
+                                {!! $i->created_at !!}
                             </td>
-                            <td  class="text-center">{{ ($i->publish) ? '<i class="fa fa-check text-success"></i>' : '' }}</td>
+                            <td  class="text-center">{!! ($i->publish) ? '<i class="fa fa-check text-success"></i>' : '' !!}</td>
                             <td  class="text-center">
-                                {{ $i->click_count }}
+                                {!! $i->click_count !!}
                             </td>
 			                <td>
-                                {{ link_to_action('SlideController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) }}
-                                {{ Form::open(array('method' => 'DELETE', 'route' => array('slide.destroy', $i->id), 'class' => 'visible-xs-inline')) }}
-                                    {{ Form::submit('Zmazať', array('class' => 'btn btn-danger btn-xs btn-outline')) }}
-                                {{ Form::close() }}
+                                {!! link_to_action('SlideController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}
+                                {!! Form::open(array('method' => 'DELETE', 'route' => array('slide.destroy', $i->id), 'class' => 'visible-xs-inline')) !!}
+                                    {!! Form::submit('Zmazať', array('class' => 'btn btn-danger btn-xs btn-outline')) !!}
+                                {!! Form::close() !!}
                             </td>
 			            </tr>
 						@endforeach

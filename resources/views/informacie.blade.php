@@ -27,11 +27,11 @@ Informácie |
             </div>
             <div class="col-md-4 text-center">
                 <ul class="list-unstyled lead">
-                    <li><a href="{{ URL::to('katalog?gallery=Slovenská národná galéria, SNG') }}">Slovenská národná galéria</a></li>
-                    <li><a href="{{ URL::to('katalog?gallery=Oravská galéria, OGD') }}">Oravská galéria v Dolnom Kubíne</a></li>
-                    <li><a href="{{ URL::to('katalog?gallery=Galéria umenia Ernesta Zmetáka, GNZ') }}">Galéria umenia Ernesta Zmetáka v Nových Zámkoch</a></li>
-                    <li><a href="{{ URL::to('katalog?gallery=Liptovská galéria Petra Michala Bohúňa, GPB') }}">Liptovská galéria Petra Michala Bohúňa v Liptovskom Mikuláši</a></li>
-                    <li><a href="{{ URL::to('katalog?gallery=Galéria mesta Bratislavy, GMB') }}">Galéria mesta Bratislavy</a></li>
+                    <li><a href="{!! URL::to('katalog?gallery=Slovenská národná galéria, SNG') !!}">Slovenská národná galéria</a></li>
+                    <li><a href="{!! URL::to('katalog?gallery=Oravská galéria, OGD') !!}">Oravská galéria v Dolnom Kubíne</a></li>
+                    <li><a href="{!! URL::to('katalog?gallery=Galéria umenia Ernesta Zmetáka, GNZ') !!}">Galéria umenia Ernesta Zmetáka v Nových Zámkoch</a></li>
+                    <li><a href="{!! URL::to('katalog?gallery=Liptovská galéria Petra Michala Bohúňa, GPB') !!}">Liptovská galéria Petra Michala Bohúňa v Liptovskom Mikuláši</a></li>
+                    <li><a href="{!! URL::to('katalog?gallery=Galéria mesta Bratislavy, GMB') !!}">Galéria mesta Bratislavy</a></li>
                 </ul>
             </div>
         </div>
@@ -76,7 +76,7 @@ Informácie |
         </div>
         <div class="row top-space">
             <div class="col-md-12">
-                <a href="{{ URL::to('katalog?is_free=' . '1') }}" class="inherit lead pull-left no-border"><i class="icon-arrow-right"></i> &nbsp; voľné diela na stiahnutie</a>
+                <a href="{!! URL::to('katalog?is_free=' . '1') !!}" class="inherit lead pull-left no-border"><i class="icon-arrow-right"></i> &nbsp; voľné diela na stiahnutie</a>
 
                 <a href="#" data-toggle="modal" data-target="#priceList" class="inherit lead pull-right no-border"><i class="icon-arrow-right"></i> &nbsp; cenník reprodukcií</a>
             </div>
@@ -95,14 +95,14 @@ Informácie |
             <div class="col-xs-12">
                 <div class="artworks-preview">
                 @foreach ($items as $item)
-                    <a href="{{ $item->getUrl() }}" class="no-border"><img data-lazy="{{ $item->getImagePath() }}" class="img-responsive-width " alt="{{ $item->getTitleWithAuthors() }} " title="{{ $item->getTitleWithAuthors() }} " ></a>
+                    <a href="{!! $item->getUrl() !!}" class="no-border"><img data-lazy="{!! $item->getImagePath() !!}" class="img-responsive-width " alt="{!! $item->getTitleWithAuthors() !!} " title="{!! $item->getTitleWithAuthors() !!} " ></a>
                 @endforeach
                 </div>
             </div>
         </div>
         <div class="row content-section">
             <div class="col-sm-12 text-center">
-                <a href="{{ url_to('katalog', ['gallery' => 'Slovenská národná galéria, SNG']) }}" class="btn btn-default btn-outline sans" >zobraziť všetkých <strong>{{ Item::forReproduction()->count() }}</strong>  <i class="fa fa-chevron-right "></i></a>
+                <a href="{!! url_to('katalog', ['gallery' => 'Slovenská národná galéria, SNG']) !!}" class="btn btn-default btn-outline sans" >zobraziť všetkých <strong>{!! Item::forReproduction()->count() !!}</strong>  <i class="fa fa-chevron-right "></i></a>
             </div>
         </div>
     </div>
@@ -195,7 +195,7 @@ Informácie |
 @stop
 
 @section('javascript')
-{{ HTML::script('js/slick.js') }}
+{!! HTML::script('js/slick.js') !!}
 <script type="text/javascript">
     $(document).ready(function(){
 

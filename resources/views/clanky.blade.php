@@ -6,7 +6,7 @@
 @stop
 
 @section('link')
-    <link rel="canonical" href="{{ getCanonicalUrl() }}">
+    <link rel="canonical" href="{!! getCanonicalUrl() !!}">
 @stop
 
 @section('content')
@@ -18,20 +18,20 @@
             	@foreach ($articles as $i=>$article)
 	                <div class="col-sm-6 col-xs-12 bottom-space">
                         @if ($article->main_image)
-    	                	<a href="{{ $article->getUrl() }}" class="featured-article">
-    	                		<img src="{{ $article->getThumbnailImage() }}" class="img-responsive" alt="{{ $article->title }}">
+    	                	<a href="{!! $article->getUrl() !!}" class="featured-article">
+    	                		<img src="{!! $article->getThumbnailImage() !!}" class="img-responsive" alt="{!! $article->title !!}">
     	                	</a>
                         @endif
-                        <a href="{{ $article->getUrl() }}"><h4 class="title">
+                        <a href="{!! $article->getUrl() !!}"><h4 class="title">
                             @if ($article->category)
-                                {{ $article->category->name }}:
+                                {!! $article->category->name !!}:
                             @endif
-                            {{ $article->title }}
+                            {!! $article->title !!}
                         </h4></a>
-                        <p class="attributes">{{ $article->getShortTextAttribute($article->summary, 250) }}
-                        (<a href="{{ $article->getUrl() }}">viac</a>)
+                        <p class="attributes">{!! $article->getShortTextAttribute($article->summary, 250) !!}
+                        (<a href="{!! $article->getUrl() !!}">viac</a>)
                         </p>
-                        <p class="meta">{{$article->published_date}} / {{$article->author}}</p>
+                        <p class="meta">{!!$article->published_date!!} / {!!$article->author!!}</p>
 	                </div>
                     @if ($i%2 == 1)
                         <div class="clearfix"></div>

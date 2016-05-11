@@ -3,9 +3,9 @@
 @section('title')
 
     @if (!empty($search))
-        výsledky vyhľadávania pre "{{$search}}"
+        výsledky vyhľadávania pre "{!!$search!!}"
     @else
-        {{ getTitleWithFilters('Item', $input, ' | ') }}
+        {!! getTitleWithFilters('Item', $input, ' | ') !!}
         diela
     @endif
     | 
@@ -14,38 +14,38 @@
 
 @section('link')
     @include('includes.pagination_links', ['paginator' => $paginator])
-    <link rel="canonical" href="{{ getCanonicalUrl() }}">
+    <link rel="canonical" href="{!! getCanonicalUrl() !!}">
 @stop
 
 @section('content')
 
 <section class="filters">
     <div class="container content-section"><div class="expandable">
-            {{ Form::open(array('id'=>'filter', 'method' => 'get')) }}
-            {{ Form::hidden('search', @$search) }}
+            {!! Form::open(array('id'=>'filter', 'method' => 'get')) !!}
+            {!! Form::hidden('search', @$search) !!}
             <div class="row">
                 <!-- <h3>Filter: </h3> -->
                 <div  class="col-md-4 col-xs-6 bottom-space">
-                        {{ Form::select('author', array('' => '') + $authors, @$input['author'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'autor')) }}
+                        {!! Form::select('author', array('' => '') + $authors, @$input['author'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'autor')) !!}
                  </div>
                 <div  class="col-md-4 col-xs-6 bottom-space">
-                        {{ Form::select('work_type', array('' => '') + $work_types,  @$input['work_type'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'výtvarný druh')) }}
+                        {!! Form::select('work_type', array('' => '') + $work_types,  @$input['work_type'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'výtvarný druh')) !!}
                 </div>
                 <div  class="col-md-4 col-xs-6 bottom-space">
-                        {{ Form::select('tag', array('' => '') + $tags, @$input['tag'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'tagy')) }}
+                        {!! Form::select('tag', array('' => '') + $tags, @$input['tag'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'tagy')) !!}
                 </div>
                 <div  class="col-md-4 col-xs-6 bottom-space">
-                        {{ Form::select('gallery', array('' => '') + $galleries, @$input['gallery'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'galéria')) }}
+                        {!! Form::select('gallery', array('' => '') + $galleries, @$input['gallery'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'galéria')) !!}
                 </div>
                 <div  class="col-md-4 col-xs-6 bottom-space">
-                        {{ Form::select('topic', array('' => '') + $topics, @$input['topic'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'žáner')) }}
+                        {!! Form::select('topic', array('' => '') + $topics, @$input['topic'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'žáner')) !!}
                 </div>
                 <div  class="col-md-4 col-xs-6 bottom-space">
-                        {{ Form::select('technique', array('' => '') + $techniques, @$input['technique'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'technika')) }}
+                        {!! Form::select('technique', array('' => '') + $techniques, @$input['technique'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'technika')) !!}
                 </div>
                 <div class="col-md-4 col-xs-6">
                         <div class="checkbox">
-                            {{ Form::checkbox('has_image', '1', @$input['has_image'], ['id'=>'has_image']) }}
+                            {!! Form::checkbox('has_image', '1', @$input['has_image'], ['id'=>'has_image']) !!}
                             <label for="has_image">
                               len s obrázkom
                             </label>
@@ -53,7 +53,7 @@
                 </div>
                 <div class="col-md-4 col-xs-6">
                         <div class="checkbox">
-                            {{ Form::checkbox('has_iip', '1', @$input['has_iip'], ['id'=>'has_iip']) }}
+                            {!! Form::checkbox('has_iip', '1', @$input['has_iip'], ['id'=>'has_iip']) !!}
                             <label for="has_iip">
                               len so zoom
                             </label>
@@ -61,7 +61,7 @@
                 </div>
                 <div class="col-md-4 col-xs-6">                        
                         <div class="checkbox">
-                            {{ Form::checkbox('is_free', '1', @$input['is_free'], ['id'=>'is_free']) }}
+                            {!! Form::checkbox('is_free', '1', @$input['is_free'], ['id'=>'is_free']) !!}
                             <label for="is_free">
                               len voľné
                             </label>
@@ -70,45 +70,45 @@
             </div>
             <div class="row">
                 <div class="col-xs-6 col-sm-1 text-left text-sm-right year-range">
-                        <span class="sans" id="from_year">{{ !empty($input['year-range']) ? reset((explode(',', $input['year-range']))) : Item::sliderMin() }}</span> 
+                        <span class="sans" id="from_year">{!! !empty($input['year-range']) ? reset((explode(',', $input['year-range']))) : Item::sliderMin() !!}</span> 
                 </div>
                 <div class="col-xs-6 col-sm-1 col-sm-push-10 text-right text-sm-left year-range">
-                        <span class="sans" id="until_year">{{ !empty($input['year-range']) ? end((explode(',', $input['year-range']))) : Item::sliderMax() }}</span>
+                        <span class="sans" id="until_year">{!! !empty($input['year-range']) ? end((explode(',', $input['year-range']))) : Item::sliderMax() !!}</span>
                 </div>
                 <div class="col-sm-10 col-sm-pull-1 year-range">
-                        <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="{{ Item::sliderMin() }}" data-slider-max="{{ Item::sliderMax() }}" data-slider-step="5" data-slider-value="[{{ !empty($input['year-range']) ? $input['year-range'] : Item::sliderMin().','.Item::sliderMax() }}]"/> 
+                        <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="{!! Item::sliderMin() !!}" data-slider-max="{!! Item::sliderMax() !!}" data-slider-step="5" data-slider-value="[{!! !empty($input['year-range']) ? $input['year-range'] : Item::sliderMin().','.Item::sliderMax() !!}]"/> 
                 </div>
             </div>
-            {{ Form::hidden('sort_by', @$input['sort_by'], ['id'=>'sort_by']) }}
-            {{ Form::close() }}
+            {!! Form::hidden('sort_by', @$input['sort_by'], ['id'=>'sort_by']) !!}
+            {!! Form::close() !!}
     </div></div>
 </section>
-<section class="catalog" data-searchd-engine="{{ Config::get('app.searchd_id') }}">
+<section class="catalog" data-searchd-engine="{!! Config::get('app.searchd_id') !!}">
     <div class="container content-section">
             <div class="row content-section">
             	<div class="col-xs-6">
                     @if (!empty($search))
-                        <h4 class="inline">Nájdené diela pre &bdquo;{{ $search }}&ldquo; (<span data-searchd-total-hits>{{ $items->total() }}</span>) </h4> 
+                        <h4 class="inline">Nájdené diela pre &bdquo;{!! $search !!}&ldquo; (<span data-searchd-total-hits>{!! $items->total() !!}</span>) </h4> 
                     @else
-                		<h4 class="inline">{{ $items->total() }} diel </h4>
+                		<h4 class="inline">{!! $items->total() !!} diel </h4>
                     @endif
                     @if ($items->count() == 0)
                         <p class="text-center">Momentálne žiadne diela</p>
                     @endif
 
                     @if (count(Input::all()) > 0)
-                        <a class="btn btn-sm btn-default btn-outline  sans" href="{{ URL::to('katalog')}}">zrušiť filtre  <i class="icon-cross"></i></a>
+                        <a class="btn btn-sm btn-default btn-outline  sans" href="{!! URL::to('katalog')!!}">zrušiť filtre  <i class="icon-cross"></i></a>
                     @endif
                 </div>
                 <div class="col-xs-6 text-right">
                     <div class="dropdown">
                       <a class="dropdown-toggle" type="button" id="dropdownSortBy" data-toggle="dropdown" aria-expanded="true">
-                        podľa {{ Item::getSortedLabel(); }}
+                        podľa {!! Item::getSortedLabel(); !!}
                         <span class="caret"></span>
                       </a>
                       <ul class="dropdown-menu dropdown-menu-right dropdown-menu-sort" role="menu" aria-labelledby="dropdownSortBy">
                         @foreach (Item::$sortable as $sort=>$label)
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#" rel="{{ $sort }}">{{ $label }}</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#" rel="{!! $sort !!}">{!! $label !!}</a></li>
                         @endforeach
                       </ul>
                     </div>
@@ -120,20 +120,20 @@
                     <div id="iso">
                 	@foreach ($items as $i=>$item)
     	                <div class="col-md-3 col-sm-4 col-xs-6 item">
-    	                	<a href="{{ $item->getUrl() }}">
-    	                		<img src="{{ $item->getImagePath() }}" class="img-responsive" alt="{{ $item->getTitleWithAuthors() }} ">	                		
+    	                	<a href="{!! $item->getUrl() !!}">
+    	                		<img src="{!! $item->getImagePath() !!}" class="img-responsive" alt="{!! $item->getTitleWithAuthors() !!} ">	                		
     	                	</a>
                             <div class="item-title">
                                 @if ($item->has_iip)
-                                    <div class="pull-right"><a href="{{ URL::to('dielo/' . $item->id . '/zoom') }}" data-toggle="tooltip" data-placement="left" title="Zoom obrázku"><i class="fa fa-search-plus"></i></a></div>
+                                    <div class="pull-right"><a href="{!! URL::to('dielo/' . $item->id . '/zoom') !!}" data-toggle="tooltip" data-placement="left" title="Zoom obrázku"><i class="fa fa-search-plus"></i></a></div>
                                 @endif    
-                                <a href="{{ $item->getUrl() }}" {{ (!empty($search))  ? 
+                                <a href="{!! $item->getUrl() !!}" {!! (!empty($search))  ? 
                                     'data-searchd-result="title/'.$item->id.'" data-searchd-title="'.implode(', ', $item->authors).' - '. $item->title.'"' 
-                                    : '' }}>
-                                    <em>{{ implode(', ', $item->authors) }}</em><br>
-                                    <strong>{{ $item->title }}</strong><br>
-                                    <em>{{ $item->getDatingFormated() }}</em>
-                                    {{-- <br><span class="">{{ $item->gallery }}</span> --}}
+                                    : '' !!}>
+                                    <em>{!! implode(', ', $item->authors) !!}</em><br>
+                                    <strong>{!! $item->title !!}</strong><br>
+                                    <em>{!! $item->getDatingFormated() !!}</em>
+                                    {{-- <br><span class="">{!! $item->gallery !!}</span> --}}
                                 </a>
                             </div>
     	                </div>	
@@ -141,9 +141,9 @@
 
                     </div>
                     <div class="col-sm-12 text-center">
-                        {{ $paginator->appends(@Input::except('page'))->links() }}
+                        {!! $paginator->appends(@Input::except('page'))->links() !!}
                         @if (($paginator->getLastPage() > 1) && !( Input::get('page', 1) > $paginator->getLastPage() ))
-                            <a id="next" href="{{ URL::to('katalog')}}"><svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve"> <path d="M0.492,8.459v83.427c4.124,0.212,7.409,3.497,7.622,7.622h83.357
+                            <a id="next" href="{!! URL::to('katalog')!!}"><svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve"> <path d="M0.492,8.459v83.427c4.124,0.212,7.409,3.497,7.622,7.622h83.357
         c0.22-4.265,3.719-7.664,8.036-7.664V8.571c-4.46,0-8.079-3.617-8.079-8.079H8.157C8.157,4.774,4.755,8.239,0.492,8.459z"/>
 <text text-anchor="middle" alignment-baseline="middle" x="50" y="50">
     ukáž viac
@@ -162,11 +162,11 @@
 
 @section('javascript')
 
-{{ HTML::script('js/bootstrap-slider.min.js') }}
-{{-- {{ HTML::script('js/bootstrap-checkbox.js') }} --}}
-{{ HTML::script('js/selectize.min.js') }}
-{{ HTML::script('js/readmore.min.js') }}
-{{ HTML::script('js/scroll-frame.js') }}
+{!! HTML::script('js/bootstrap-slider.min.js') !!}
+{{-- {!! HTML::script('js/bootstrap-checkbox.js') !!} --}}
+{!! HTML::script('js/selectize.min.js') !!}
+{!! HTML::script('js/readmore.min.js') !!}
+{!! HTML::script('js/scroll-frame.js') !!}
 
 <script type="text/javascript">
 
@@ -194,7 +194,7 @@ $(document).ready(function(){
                 $(this).removeAttr('name');
             }
         });
-        if ( $('#year-range').val()=='{{Item::sliderMin()}},{{Item::sliderMax()}}' ) {
+        if ( $('#year-range').val()=='{!!Item::sliderMin()!!},{!!Item::sliderMax()!!}' ) {
             $('#year-range').attr("disabled", true);
         }
     });

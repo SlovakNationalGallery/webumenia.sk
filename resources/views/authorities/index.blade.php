@@ -13,7 +13,7 @@ autority |
         <h1 class="page-header">Autority</h1>
 
         @if (Session::has('message'))
-            <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{{ Session::get('message') }}</div>
+            <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
         @endif
 
     </div>
@@ -24,10 +24,10 @@ autority |
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
-            {{ Form::open(['url' => 'collection/fill']) }}
+            {!! Form::open(['url' => 'collection/fill']) !!}
             <div class="panel-heading">
-                <a href="{{ route('authority.create') }}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Vytvoriť</a>
-                <a href="{{ URL::to('authority/reindex') }}" class="btn btn-primary btn-outline"><i class="fa fa-refresh"></i> Reindexovať search</a>
+                <a href="{!! route('authority.create') !!}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Vytvoriť</a>
+                <a href="{!! URL::to('authority/reindex') !!}" class="btn btn-primary btn-outline"><i class="fa fa-refresh"></i> Reindexovať search</a>
                 <div class="panel-heading">
                 Akcie pre vybraté: <a href="#" id="deleteSelected" class="btn btn-danger btn-xs btn-outline">Zmazať</a>
             </div>
@@ -49,17 +49,17 @@ autority |
 			            <tr>
                             <td>
                                 <div class="checkbox">
-                                    {{ Form::checkbox('ids[]', $a->id, null,  array('class' => 'selectedId')) }}
+                                    {!! Form::checkbox('ids[]', $a->id, null,  array('class' => 'selectedId')) !!}
                                 </div>
                             </td>
-			                <td>{{ $a->id }}</td>
-			                <td>{{ $a->type }}</td>
-			                <td>{{ $a->name }}</td>
-			                <td>{{ $a->place }}</td>
+			                <td>{!! $a->id !!}</td>
+			                <td>{!! $a->type !!}</td>
+			                <td>{!! $a->name !!}</td>
+			                <td>{!! $a->place !!}</td>
 			                <td class="action">
-                                {{ link_to_action('AuthorityController@edit', 'Upraviť', array($a->id), array('class' => 'btn btn-primary btn-xs btn-outline')) }}    
-                                <a href="{{ $a->getUrl() }}" class="btn btn-success btn-xs btn-outline" target="_blank">Na webe</a>     
-                                <a href="{{ $a->getOaiUrl() }}" class="btn btn-warning btn-xs btn-outline" target="_blank">OAI záznam</a>                             
+                                {!! link_to_action('AuthorityController@edit', 'Upraviť', array($a->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}    
+                                <a href="{!! $a->getUrl() !!}" class="btn btn-success btn-xs btn-outline" target="_blank">Na webe</a>     
+                                <a href="{!! $a->getOaiUrl() !!}" class="btn btn-warning btn-xs btn-outline" target="_blank">OAI záznam</a>                             
                             </td>
 			            </tr>
 						@endforeach
@@ -68,9 +68,9 @@ autority |
 
                 <div class="text-center">
                     @if (!empty($search))
-                        {{ $authorities->appends(array('search' => $search))->links() }}
+                        {!! $authorities->appends(array('search' => $search))->links() !!}
                     @else
-                        {{ ($authorities->count()!=0) ? $authorities->links() : '' }}
+                        {!! ($authorities->count()!=0) ? $authorities->links() : '' !!}
                     @endif
                     
                 </div>
@@ -78,7 +78,7 @@ autority |
 
             </div>
             <!-- /.panel-body -->
-            {{Form::close() }}
+            {!!Form::close() !!}
         </div>
         <!-- /.panel -->
     </div>
@@ -111,7 +111,7 @@ $('#deleteSelected').on('click', function(e){
     e.preventDefault();
     $('#confirm').modal({  })
         .one('click', '#delete', function (e) {
-            $form.attr("action","{{ URL::to('authority/destroySelected') }}");
+            $form.attr("action","{!! URL::to('authority/destroySelected') !!}");
             $form.trigger('submit');
         });
 });

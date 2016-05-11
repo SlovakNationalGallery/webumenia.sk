@@ -13,7 +13,7 @@
         <h1 class="page-header">Články</h1>
 
         @if (Session::has('message'))
-            <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{{ Session::get('message') }}</div>
+            <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
         @endif
 
     </div>
@@ -25,7 +25,7 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <a href="{{ route('article.create') }}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Vytvoriť</a>
+                <a href="{!! route('article.create') !!}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Vytvoriť</a>
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -45,19 +45,19 @@
                     <tbody>
 						@foreach($articles as $i)
 			            <tr>
-			                <td>{{ $i->id }}</td>
-                            <td>{{ $i->title }}</td>
-                            <td>{{ ($i->category) ? $i->category->name : '' }}</td>
-			                <td>{{ $i->author }}</td>
-                            <td>{{ $i->created_at }}</td>
-                            <td class="text-center">{{ ($i->publish) ? '<i class="fa fa-check text-success"></i>' . '<br><small>od '. $i->published_date .'</small>' : '' }}</td>
-			                <td class="text-center">{{ ($i->promote) ? '<i class="fa fa-check text-success"></i>' : ''  }}</td>
+			                <td>{!! $i->id !!}</td>
+                            <td>{!! $i->title !!}</td>
+                            <td>{!! ($i->category) ? $i->category->name : '' !!}</td>
+			                <td>{!! $i->author !!}</td>
+                            <td>{!! $i->created_at !!}</td>
+                            <td class="text-center">{!! ($i->publish) ? '<i class="fa fa-check text-success"></i>' . '<br><small>od '. $i->published_date .'</small>' : '' !!}</td>
+			                <td class="text-center">{!! ($i->promote) ? '<i class="fa fa-check text-success"></i>' : ''  !!}</td>
 			                <td>
-                                {{ link_to_action('ArticleController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) }}
-                                <a href="{{ $i->getUrl() }}" class="btn btn-success btn-xs btn-outline" target="_blank">Na webe</a>
-                                {{ Form::open(array('method' => 'DELETE', 'route' => array('article.destroy', $i->id), 'class' => 'visible-xs-inline')) }}
-                                    {{ Form::submit('Zmazať', array('class' => 'btn btn-danger btn-xs btn-outline')) }}
-                                {{ Form::close() }}
+                                {!! link_to_action('ArticleController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}
+                                <a href="{!! $i->getUrl() !!}" class="btn btn-success btn-xs btn-outline" target="_blank">Na webe</a>
+                                {!! Form::open(array('method' => 'DELETE', 'route' => array('article.destroy', $i->id), 'class' => 'visible-xs-inline')) !!}
+                                    {!! Form::submit('Zmazať', array('class' => 'btn btn-danger btn-xs btn-outline')) !!}
+                                {!! Form::close() !!}
 
                             </td>
 			            </tr>

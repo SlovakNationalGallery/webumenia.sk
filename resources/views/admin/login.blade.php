@@ -13,27 +13,27 @@ login |
 				<h3 class="panel-title">Prosím prihláste sa</h3>
 			</div>
 			<div class="panel-body">
-				{{ Form::open(array('action' => 'AuthController@postLogin', 'method' => 'post', 'id' => 'loginForm')) }}
+				{!! Form::open(array('action' => 'AuthController@postLogin', 'method' => 'post', 'id' => 'loginForm')) !!}
 					@if($errors->any())
 		                <div class="alert alert-danger">
 		                    <a href="#" class="close" data-dismiss="alert">&times;</a>
-		                    {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+		                    {!! implode('', $errors->all('<li class="error">:message</li>')) !!}
 		                </div>
 		            @endif
 					<fieldset>
 						<div class="form-group">
-			                {{ Form::text('username', '', array('class' => 'form-control', 'placeholder'=>'username')) }}
+			                {!! Form::text('username', '', array('class' => 'form-control', 'placeholder'=>'username')) !!}
 						</div>
 						<div class="form-group">
-	                		{{ Form::password('password', array('class' => 'form-control', 'placeholder'=>'heslo')) }}
+	                		{!! Form::password('password', array('class' => 'form-control', 'placeholder'=>'heslo')) !!}
 						<div class="checkbox">
 							<label>
 								<input name="remember" type="checkbox" value="Remember Me">Zapamätať</label>
 						</div>
 						<!-- Change this to a button or input when using this as a form -->
-						{{ Form::submit('Prihlásiť', array('class' => 'btn btn-lg btn-success btn-block')) }}
+						{!! Form::submit('Prihlásiť', array('class' => 'btn btn-lg btn-success btn-block')) !!}
 					</fieldset>
-				{{ Form::close() }}
+				{!! Form::close() !!}
 			</div>
 		</div>
 	</div>

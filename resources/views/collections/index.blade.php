@@ -13,7 +13,7 @@ kolekcie |
         <h1 class="page-header">Kolekcie</h1>
 
         @if (Session::has('message'))
-            <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{{ Session::get('message') }}</div>
+            <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
         @endif
 
     </div>
@@ -25,7 +25,7 @@ kolekcie |
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <a href="{{ route('collection.create') }}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Vytvoriť</a>
+                <a href="{!! route('collection.create') !!}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Vytvoriť</a>
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -44,19 +44,19 @@ kolekcie |
                     <tbody>
 						@foreach($collections as $i)
 			            <tr>
-			                <td>{{ $i->id }}</td>
-                            <td>{{ $i->name }}</td>
-			                <td>{{ $i->user->name }}</td>
-			                <td>{{ $i->items()->count(); }}</td>
-                            <td>{{ $i->created_at }}</td>
-			                <td class="text-center">{{ $i->publish }}</td>
+			                <td>{!! $i->id !!}</td>
+                            <td>{!! $i->name !!}</td>
+			                <td>{!! $i->user->name !!}</td>
+			                <td>{!! $i->items()->count(); !!}</td>
+                            <td>{!! $i->created_at !!}</td>
+			                <td class="text-center">{!! $i->publish !!}</td>
 			                <td>
-                                {{ link_to_action('CollectionController@show', 'Detail', array($i->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', )) }} 
-                                {{ link_to_action('CollectionController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) }}
-                                <a href="{{ $i->getUrl() }}" class="btn btn-success btn-xs btn-outline" target="_blank">Na webe</a>
-                                {{ Form::open(array('method' => 'DELETE', 'route' => array('collection.destroy', $i->id), 'class' => 'visible-xs-inline')) }}
-                                    {{ Form::submit('Zmazať', array('class' => 'btn btn-danger btn-xs btn-outline')) }}
-                                {{ Form::close() }}
+                                {!! link_to_action('CollectionController@show', 'Detail', array($i->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', )) !!} 
+                                {!! link_to_action('CollectionController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}
+                                <a href="{!! $i->getUrl() !!}" class="btn btn-success btn-xs btn-outline" target="_blank">Na webe</a>
+                                {!! Form::open(array('method' => 'DELETE', 'route' => array('collection.destroy', $i->id), 'class' => 'visible-xs-inline')) !!}
+                                    {!! Form::submit('Zmazať', array('class' => 'btn btn-danger btn-xs btn-outline')) !!}
+                                {!! Form::close() !!}
 
                             </td>
 			            </tr>

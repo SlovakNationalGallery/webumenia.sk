@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <title>Detail {{ $article->id }}</title>  
+  <title>Detail {!! $article->id !!}</title>  
 </head>
 <body>
             <div class="modal-header">
@@ -17,27 +17,27 @@
 	                    <thead>
 							<tr>
 								<td>identifikátor:</td>
-								<td>{{ $article->id }}</td>
+								<td>{!! $article->id !!}</td>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td>typ:</td>
-								<td>{{ $article->type }}</td>
+								<td>{!! $article->type !!}</td>
 							</tr>
 							<tr>
 								<td>názov:</td>
-								<td>{{ $article->name }}</td>
+								<td>{!! $article->name !!}</td>
 							</tr>
 							<tr>
 								<td>text:</td>
-								<td>{{ $article->text }}</td>
+								<td>{!! $article->text !!}</td>
 							</tr>
 							@foreach ($article->items as $item)
 							<tr>
-								<td><img src="{{ $item->getImagePath(); }}" alt="náhľad" class="img-responsive" ></td>
+								<td><img src="{!! $item->getImagePath(); !!}" alt="náhľad" class="img-responsive" ></td>
 								<td>
-									<a href="{{ URL::to('item/' . $item->id . '/edit' ) }}">{{ $item->author }} - {{ $item->title }}</a>
+									<a href="{!! URL::to('item/' . $item->id . '/edit' ) !!}">{!! $item->author !!} - {!! $item->title !!}</a>
 								</td>
 							</tr>
 							@endforeach

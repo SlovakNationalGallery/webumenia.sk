@@ -45,11 +45,11 @@ skicare |
 
 <div id="skicare">
 @foreach ($sketchbooks as $i=>$sketchbook)
-	<a class="skicar" href="{{ $sketchbook->item->getUrl(); }}" style="height: {{ ($sketchbook->height / $max_height)*90 }}%; width: auto;">
-	<span class="big">#{{ ($i+1) }}</span><br>
-	<img src="{{ $sketchbook->item->getImagePath() }}" class="img-responsive" >
+	<a class="skicar" href="{!! $sketchbook->item->getUrl(); !!}" style="height: {!! ($sketchbook->height / $max_height)*90 !!}%; width: auto;">
+	<span class="big">#{!! ($i+1) !!}</span><br>
+	<img src="{!! $sketchbook->item->getImagePath() !!}" class="img-responsive" >
 	{{-- <br> --}}
-	<span class="title">{{ $sketchbook->title }}</span>
+	<span class="title">{!! $sketchbook->title !!}</span>
 	</a>
 
 @endforeach

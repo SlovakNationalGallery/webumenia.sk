@@ -26,8 +26,8 @@
 		<meta property="og:title" content="Web umenia" />
 		<meta property="og:description" content="Web umenia je on-line katalóg výtvarných diel zo zbierok slovenských galérií. Nájdete tu základné informácie o dielach a ich autoroch, ale aj pôvodné články, videá a kolekcie." />
 		<meta property="og:type" content="website" />
-		<meta property="og:url" content="{{ Request::url() }}" />
-		<meta property="og:image" content="{{ URL::to('/images/og-image.jpg') }}" />
+		<meta property="og:url" content="{!! Request::url() !!}" />
+		<meta property="og:image" content="{!! URL::to('/images/og-image.jpg') !!}" />
 		<meta property="og:site_name" content="web umenia" />
 		@show
 		<!--  Open Graph protocol -->
@@ -36,16 +36,16 @@
 
 		<!-- CSS are placed here -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-		<link rel="stylesheet" type="text/css" href="{{ asset_timed('css/style.css') }}" />
-		{{ HTML::style('css/slick-theme.css') }}
-		{{ HTML::style('css/magnific-popup.css') }}
+		<link rel="stylesheet" type="text/css" href="{!! asset_timed('css/style.css') !!}" />
+		{!! HTML::style('css/slick-theme.css') !!}
+		{!! HTML::style('css/magnific-popup.css') !!}
 
 		<script>
 		    document.createElement( "picture" );
 		</script>
-		{{ HTML::script('js/picturefill.min.js') }}
+		{!! HTML::script('js/picturefill.min.js') !!}
 		
-        {{ HTML::script('js/modernizr.custom.js') }}
+        {!! HTML::script('js/modernizr.custom.js') !!}
 
 		@if (App::environment() == 'production')
 		<script>
@@ -59,7 +59,7 @@
 
 		</script>
 		@endif
-		{{ HTML::script('js/scroll-frame-head.js') }}
+		{!! HTML::script('js/scroll-frame-head.js') !!}
 </head>
 
 <body id="page-top">
@@ -74,60 +74,60 @@
 
 	@if (App::environment() != 'production')
 		<div class="alert alert-warning text-center" role="alert">
-		  Pozor! Toto nieje ostrý web. Prostredie: <strong>{{ App::environment() }}</strong>
+		  Pozor! Toto nieje ostrý web. Prostredie: <strong>{!! App::environment() !!}</strong>
 		</div>
 	@endif
 
-	<nav class="navbar {{-- navbar-fixed-top --}} {{-- navbar-static-top --}} {{ (Request::is('/') || isSet($transparent_menu)) ? '' : 'dark-text' }}" role="navigation">
+	<nav class="navbar {{-- navbar-fixed-top --}} {{-- navbar-static-top --}} {!! (Request::is('/') || isSet($transparent_menu)) ? '' : 'dark-text' !!}" role="navigation">
 	    <div class="container">
 	        <div class="navbar-header page-scroll">
 	            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
 	                <i class="fa fa-bars fa-2x"></i>
 	            </button>
-	            <a class="navbar-brand no-border hidden-xs first-part" href="{{ URL::to('') }}">
+	            <a class="navbar-brand no-border hidden-xs first-part" href="{!! URL::to('') !!}">
 	                web
 	            </a>
-	            {{ Form::open(['url' => 'katalog', 'method' => 'get', 'class' => 'navbar-form right-inner-addon', 'data-searchd-engine' => Config::get('app.searchd_id_autocomplete')]) }}
+	            {!! Form::open(['url' => 'katalog', 'method' => 'get', 'class' => 'navbar-form right-inner-addon', 'data-searchd-engine' => Config::get('app.searchd_id_autocomplete')]) !!}
 	            			<i class="fa fa-search"></i>
-	            			{{ Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => 'Hľadať diela, autorov...', 'id'=>'search', 'autocomplete'=>'off')) }}
-	            			{{  Form::submit('submit'); }}
-	            {{Form::close() }}
-	            <a class="navbar-brand no-border hidden-xs second-part" href="{{ URL::to('') }}">
+	            			{!! Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => 'Hľadať diela, autorov...', 'id'=>'search', 'autocomplete'=>'off')) !!}
+	            			{!!  Form::submit('submit'); !!}
+	            {!!Form::close() !!}
+	            <a class="navbar-brand no-border hidden-xs second-part" href="{!! URL::to('') !!}">
 	                umenia
 	            </a>
 	            {{-- 
 	            @if (Request::is('dielo/*') && isSet($collection))
-	            	 <a href="{{ $collection->getUrl() }}" class="navbar-brand text-small hidden-xs hidden-sm">/&nbsp; {{ $collection->name }}</a>
+	            	 <a href="{!! $collection->getUrl() !!}" class="navbar-brand text-small hidden-xs hidden-sm">/&nbsp; {!! $collection->name !!}</a>
 	            @endif
 	             --}}
 	        </div>
 
 	        <div class="collapse navbar-collapse navbar-main-collapse">
 	            <ul class="nav navbar-nav">
-						<li class="{{ (Request::is('katalog') || Request::is('dielo/*')) ? 'active' : '' }}">
+						<li class="{!! (Request::is('katalog') || Request::is('dielo/*')) ? 'active' : '' !!}">
 								<a href="{{{ URL::to('katalog') }}}">Diela</a>
 						</li>
-						<li class="{{ (Request::is( 'kolekcie') || Request::is('kolekcia/*')) ? 'active' : '' }}">
+						<li class="{!! (Request::is( 'kolekcie') || Request::is('kolekcia/*')) ? 'active' : '' !!}">
 								<a href="{{{ URL::to('kolekcie') }}}">Kolekcie</a>
 						</li>
-						<li class="{{ (Request::is('autori') || Request::is('autor/*')) ? 'active' : '' }}">
+						<li class="{!! (Request::is('autori') || Request::is('autor/*')) ? 'active' : '' !!}">
 								<a href="{{{ URL::to('autori') }}}">Autori</a>
 						</li>
-						<li class="{{ (Request::is('clanky') || Request::is('clanok/*')) ? 'active' : '' }}">
+						<li class="{!! (Request::is('clanky') || Request::is('clanok/*')) ? 'active' : '' !!}">
 								<a href="{{{ URL::to('clanky') }}}">Články</a>
 						</li>
-						{{-- <li class="{{ Request::is('galerie') ? 'active' : '' }}">
+						{{-- <li class="{!! Request::is('galerie') ? 'active' : '' !!}">
 								<a href="{{{ URL::to('galerie') }}}">Galérie</a>
 						</li> --}}
-						{{-- <li class="{{ Request::is( 'kolekcia/24') ? 'active' : '' }}">
+						{{-- <li class="{!! Request::is( 'kolekcia/24') ? 'active' : '' !!}">
 								<a href="{{{ URL::to('kolekcia/24') }}}">Slavín</a>
 						</li> --}}
-						<li class="{{ Request::is( 'informacie') ? 'active' : '' }}">
+						<li class="{!! Request::is( 'informacie') ? 'active' : '' !!}">
 								<a href="{{{ URL::to('informacie') }}}">Info</a>
 						</li>
 						@if (Session::has('cart') && count(Session::get('cart'))>0)
-						<li class="{{ Request::is( 'objednavka') ? 'active' : '' }}">
-								<a href="{{ URL::to('objednavka')}}" class=""><i class="fa fa-shopping-cart"></i><span class="badge badge-notify">{{ count(Session::get('cart')) }}</span></a>
+						<li class="{!! Request::is( 'objednavka') ? 'active' : '' !!}">
+								<a href="{!! URL::to('objednavka')!!}" class=""><i class="fa fa-shopping-cart"></i><span class="badge badge-notify">{!! count(Session::get('cart')) !!}</span></a>
 						</li>
 						@endif
 	            </ul>
@@ -172,19 +172,19 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 	<script src="https://npmcdn.com/flickity@1.1/dist/flickity.pkgd.min.js"></script>
-	{{ HTML::script('js/imagesloaded.min.js') }}
-	{{ HTML::script('js/jquery.infinitescroll.min.js') }}
-	{{ HTML::script('js/jquery.isotope.min.js') }}
-	{{ HTML::script('js/jquery.isotope.sloppy-masonry.min.js') }}
-	{{ HTML::script('js/bootstrap.min.js') }}
-	{{ HTML::script('js/typeahead.bundle.min.js') }}
-	{{ HTML::script('js/webumenia.js') }}
+	{!! HTML::script('js/imagesloaded.min.js') !!}
+	{!! HTML::script('js/jquery.infinitescroll.min.js') !!}
+	{!! HTML::script('js/jquery.isotope.min.js') !!}
+	{!! HTML::script('js/jquery.isotope.sloppy-masonry.min.js') !!}
+	{!! HTML::script('js/bootstrap.min.js') !!}
+	{!! HTML::script('js/typeahead.bundle.min.js') !!}
+	{!! HTML::script('js/webumenia.js') !!}
 
 	@if (App::environment('production'))
 		<script>
 		  function initializeSearchD() {
-		          Searchd.monitorSearch("#search", "{{ Config::get('app.searchd_id') }}", {queryPlaceholder: 'Hľadať diela, autorov...'});
-		          Searchd.monitorAutocomplete("#search", "{{ Config::get('app.searchd_id_autocomplete') }}");
+		          Searchd.monitorSearch("#search", "{!! Config::get('app.searchd_id') !!}", {queryPlaceholder: 'Hľadať diela, autorov...'});
+		          Searchd.monitorAutocomplete("#search", "{!! Config::get('app.searchd_id_autocomplete') !!}");
 		      }
 		</script>
 		<script async src="https://cdn.searchd.co/assets/collector.js" onload="initializeSearchD();"></script>

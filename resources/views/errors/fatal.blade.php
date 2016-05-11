@@ -20,7 +20,7 @@ ERROR 500 - Fatal Error
                             <a href="/dielo/SVK:SNG.K_17703">Július Koller &ndash; Oznámenie: NedorozUMENIE</a>
                         </p>
 
-                        <h3><a href="{{URL::to('/')}}">návrat <i class="icon-versus"></i> domov</a></h3>
+                        <h3><a href="{!!URL::to('/')!!}">návrat <i class="icon-versus"></i> domov</a></h3>
                         
                     </div>
                 </div>

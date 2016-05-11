@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <title>Detail {{ $item->id; }}</title>  
+  <title>Detail {!! $item->id; !!}</title>  
 </head>
 <body>
             <div class="modal-header">
@@ -17,97 +17,97 @@
 	                    <thead>
 							<tr>
 								<td>inventárne číslo:</td>
-								<td>{{ $item->identifier }}</td>
+								<td>{!! $item->identifier !!}</td>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td>autor:</td>
-								<td>{{ $item->author }}</td>
+								<td>{!! $item->author !!}</td>
 							</tr>
 							<tr>
 								<td>názov:</td>
-								<td>{{ $item->title }}</td>
+								<td>{!! $item->title !!}</td>
 							</tr>
 							<tr>
 								<td>popis:</td>
-								<td>{{ $item->description }}</td>
+								<td>{!! $item->description !!}</td>
 							</tr>
 							<tr>
 								<td>výtvarný druh:</td>
-								<td>{{ $item->work_type; }}</td>
+								<td>{!! $item->work_type; !!}</td>
 							</tr>
 							<tr>
 								<td>stupeň spracovania:</td>
-								<td>{{ $item->work_level; }}</td>
+								<td>{!! $item->work_level; !!}</td>
 							</tr>
 							<tr>
 								<td>žáner:</td>
-								<td>{{ $item->topic; }}</td>
+								<td>{!! $item->topic; !!}</td>
 							</tr>
 							<tr>
 								<td>tagy:</td>
-								<td>{{ $item->subject; }}</td>
+								<td>{!! $item->subject; !!}</td>
 							</tr>
 							<tr>
 								<td>miery:</td>
-								<td>{{ $item->measurement; }}</td>
+								<td>{!! $item->measurement; !!}</td>
 							</tr>
 							<tr>
 								<td>datovanie:</td>
-								<td>{{ $item->dating; }}</td>
+								<td>{!! $item->dating; !!}</td>
 							</tr>
 							<tr>
 								<td>datovanie najskôr:</td>
-								<td>{{ $item->date_earliest; }}</td>
+								<td>{!! $item->date_earliest; !!}</td>
 							</tr>
 							<tr>
 								<td>datovanie najneskôr:</td>
-								<td>{{ $item->date_latest; }}</td>
+								<td>{!! $item->date_latest; !!}</td>
 							</tr>
 							<tr>
 								<td>materiál:</td>
-								<td>{{ $item->medium; }}</td>
+								<td>{!! $item->medium; !!}</td>
 							</tr>
 							<tr>
 								<td>technika:</td>
-								<td>{{ $item->technique; }}</td>
+								<td>{!! $item->technique; !!}</td>
 							</tr>
 							<tr>
 								<td>značenie:</td>
-								<td>{{ $item->inscription; }}</td>
+								<td>{!! $item->inscription; !!}</td>
 							</tr>
 							<tr>
 								<td>geografická oblasť:</td>
-								<td>{{ $item->place; }} <br>Latitude : {{ $item->lat }} | Longitude : {{ $item->lng }}</td>
+								<td>{!! $item->place; !!} <br>Latitude : {!! $item->lat !!} | Longitude : {!! $item->lng !!}</td>
 							</tr>
 							<tr>
 								<td>stupeň spracovania:</td>
-								<td>{{ $item->state_edition; }}</td>
+								<td>{!! $item->state_edition; !!}</td>
 							</tr>
 							<tr>
 								<td>stupeň integrity:</td>
-								<td>{{ $item->integrity; }}</td>
+								<td>{!! $item->integrity; !!}</td>
 							</tr>
 							<tr>
 								<td>integrita s dielami:</td>
-								<td>{{ $item->integrity_work; }}</td>
+								<td>{!! $item->integrity_work; !!}</td>
 							</tr>
 							<tr>
 								<td>galéria:</td>
-								<td>{{ $item->gallery; }}</td>
+								<td>{!! $item->gallery; !!}</td>
 							</tr>
 							<tr>
 								<td>url s obrázkom:</td>
-								<td><a href="{{ $item->img_url; }}" target="_blank">{{ $item->img_url; }}</a></td>
+								<td><a href="{!! $item->img_url; !!}" target="_blank">{!! $item->img_url; !!}</a></td>
 							</tr>
 							<tr>
 								<td>IIPImage url:</td>
-								<td><a href="{{ $item->iipimg_url; }}" target="_blank">{{ $item->iipimg_url; }}</a></td>
+								<td><a href="{!! $item->iipimg_url; !!}" target="_blank">{!! $item->iipimg_url; !!}</a></td>
 							</tr>
 							<tr>
 								<td>obrázok:</td>
-								<td><img src="{{ $item->getImagePath(); }}" alt="náhľad" class="img-responsive" ></td>
+								<td><img src="{!! $item->getImagePath(); !!}" alt="náhľad" class="img-responsive" ></td>
 							</tr>
 	                    </tbody>
 	                </table>
@@ -116,7 +116,7 @@
 
             </div>            <!-- /modal-body -->
             <div class="modal-footer">
-				<a href="{{ $item->getUrl() }}" class="btn btn-default">Zobraziť na webe</a>
+				<a href="{!! $item->getUrl() !!}" class="btn btn-default">Zobraziť na webe</a>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Zavrieť</button>
             </div>            <!-- /modal-footer -->
 </body>

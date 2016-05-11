@@ -8,7 +8,7 @@
         <meta name="robots" content="noindex, nofollow">
 
         <title>
-            {{ $item->title }} | zoom
+            {!! $item->title !!} | zoom
         </title>
 
         <!--  favicons-->
@@ -35,8 +35,8 @@
         <!--  /favicons-->
 
         <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        {{ HTML::style('css/style.css') }}
-        {{-- {{ HTML::style('css/skicar.css') }} --}}
+        {!! HTML::style('css/style.css') !!}
+        {{-- {!! HTML::style('css/skicar.css') !!} --}}
 
   <!-- Basic example style for a 100% view -->
   <style type="text/css">
@@ -70,11 +70,11 @@
             <a id="home" href="#home" title="Go home"><i class="fa fa-home"></i></a> 
             <a id="full-page" href="#full-page" title="Toggle full page"><i class="fa fa-expand"></i></a> 
    </div>
-   <a class="btn btn-default btn-outline return" href="{{ URL::previous() }}" role="button"><i class="fa fa-arrow-left"></i> naspäť</a>    
+   <a class="btn btn-default btn-outline return" href="{!! URL::previous() !!}" role="button"><i class="fa fa-arrow-left"></i> naspäť</a>    
     <div class="credit" id="currentpage"></div>
 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-   {{ HTML::script('js/openseadragon.js') }}
+   {!! HTML::script('js/openseadragon.js') !!}
 
    <script type="text/javascript">
     var rotationChecked = false;
@@ -84,15 +84,15 @@
      
 
      var server = '/fcgi-bin/iipsrv.fcgi';
-     var image = '{{ $item->iipimg_url }}';
+     var image = '{!! $item->iipimg_url !!}';
 
     var images = [
     @foreach ($related_items as $item)
-        '/fcgi-bin/iipsrv.fcgi?DeepZoom={{ $item->iipimg_url }}.dzi',
+        '/fcgi-bin/iipsrv.fcgi?DeepZoom={!! $item->iipimg_url !!}.dzi',
     @endforeach
     ];
 
-    var pocet = {{ count($related_items) }};
+    var pocet = {!! count($related_items) !!};
 
 
     function getPreviousPage() {
@@ -151,11 +151,11 @@
 
      document.oncontextmenu = function() {$('#zoom-out').click(); return false;};
 
-     document.getElementById('currentpage').innerHTML = ( viewer.currentPage() + 1 ) + ' / {{ count($related_items) }}';
+     document.getElementById('currentpage').innerHTML = ( viewer.currentPage() + 1 ) + ' / {!! count($related_items) !!}';
      // rotateToFill();
 
      viewer.addHandler('page', function (event) {
-               document.getElementById('currentpage').innerHTML = ( event.page + 1 ) + ' / {{ count($related_items) }}';
+               document.getElementById('currentpage').innerHTML = ( event.page + 1 ) + ' / {!! count($related_items) !!}';
                rotateToFill();
            });
 

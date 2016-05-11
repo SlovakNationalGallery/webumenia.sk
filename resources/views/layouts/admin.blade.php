@@ -17,14 +17,14 @@
         <!-- CSS are placed here -->
         <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-        {{ HTML::style('css/sb-admin.css') }}
-        {{ HTML::style('css/ladda-themeless.min.css') }}
-        {{ HTML::style('css/bootstrap-wysihtml5.css') }}
-        {{ HTML::style('css/bootstrap-colorpicker.min.css') }}
-        {{ HTML::style('css/plugins/selectize.css') }}
-        {{ HTML::style('css/plugins/selectize.bootstrap3.css') }}
-        {{ HTML::style('css/plugins/bootstrap-switch.css') }}
-        {{ HTML::script('js/modernizr.custom.js') }}
+        {!! HTML::style('css/sb-admin.css') !!}
+        {!! HTML::style('css/ladda-themeless.min.css') !!}
+        {!! HTML::style('css/bootstrap-wysihtml5.css') !!}
+        {!! HTML::style('css/bootstrap-colorpicker.min.css') !!}
+        {!! HTML::style('css/plugins/selectize.css') !!}
+        {!! HTML::style('css/plugins/selectize.bootstrap3.css') !!}
+        {!! HTML::style('css/plugins/bootstrap-switch.css') !!}
+        {!! HTML::script('js/modernizr.custom.js') !!}
 
 </head>
 
@@ -40,14 +40,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ URL::to('admin') }}">WEBUMENIA Admin</a>
+                <a class="navbar-brand" href="{!! URL::to('admin') !!}">WEBUMENIA Admin</a>
             </div>
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i>  {{ Auth::user()->name }} <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-user fa-fw"></i>  {!! Auth::user()->name !!} <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="#"><i class="fa fa-user fa-fw"></i> Profil</a>
@@ -55,7 +55,7 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Nastavenia</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="{{ URL::to('logout') }}"><i class="fa fa-sign-out fa-fw"></i> Odhlásiť</a>
+                        <li><a href="{!! URL::to('logout') !!}"><i class="fa fa-sign-out fa-fw"></i> Odhlásiť</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -69,9 +69,9 @@
                     <ul class="nav" id="side-menu">
                         <li class="sidebar-search">
                             <?php $search_request = (Request::is( 'authority')) ? 'authority' : 'item' ?>
-                            {{ Form::open(['url' => $search_request.'/search',  'method' => 'get']) }}
+                            {!! Form::open(['url' => $search_request.'/search',  'method' => 'get']) !!}
                             <div class="input-group custom-search-form">
-                                {{ Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => 'Hľadať...')) }}
+                                {!! Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => 'Hľadať...')) !!}
                                 <span class="input-group-btn">
                                 <button class="btn btn-default" type="submit">
                                     <i class="fa fa-search"></i>
@@ -79,54 +79,54 @@
                             </span>
                             </div>
                             <!-- /input-group -->
-                            {{Form::close() }}
+                            {!!Form::close() !!}
                         </li>
                         <li>
-                            <a href="{{ URL::to('admin') }}"><i class="fa fa-dashboard fa-fw"></i> Úvod</a>
+                            <a href="{!! URL::to('admin') !!}"><i class="fa fa-dashboard fa-fw"></i> Úvod</a>
                         </li>
                         @if (Entrust::hasRole('admin'))
                         <li>
-                            <a href="{{ URL::to('item') }}"><i class="fa fa-picture-o fa-fw"></i> Diela</a>
+                            <a href="{!! URL::to('item') !!}"><i class="fa fa-picture-o fa-fw"></i> Diela</a>
                         </li>
                         @endif
                         @if (Entrust::hasRole('admin'))
                         <li>
-                            <a href="{{ URL::to('authority') }}"><i class="fa fa-user fa-fw"></i> Autority</a>
+                            <a href="{!! URL::to('authority') !!}"><i class="fa fa-user fa-fw"></i> Autority</a>
                         </li>
                         @endif
                         @if (Entrust::hasRole('admin') || Entrust::hasRole('editor'))
                         <li>
-                            <a href="{{ URL::to('collection') }}"><i class="fa fa-th-list fa-fw"></i> Kolekcie</a>
+                            <a href="{!! URL::to('collection') !!}"><i class="fa fa-th-list fa-fw"></i> Kolekcie</a>
                         </li>
                         @endif
                         @if (Entrust::hasRole('admin'))
                         <li>
-                            <a href="{{ URL::to('article') }}"><i class="fa fa-newspaper-o fa-fw"></i> Články</a>
+                            <a href="{!! URL::to('article') !!}"><i class="fa fa-newspaper-o fa-fw"></i> Články</a>
                         </li>
                         @endif
                         @if (Entrust::hasRole('admin'))
                         <li>
-                            <a href="{{ URL::to('slide') }}"><i class="fa fa-exchange fa-fw"></i> Carousel</a>
+                            <a href="{!! URL::to('slide') !!}"><i class="fa fa-exchange fa-fw"></i> Carousel</a>
                         </li>
                         @endif
                         @if (Entrust::hasRole('admin'))
                         <li>
-                            <a href="{{ URL::to('sketchbook') }}"><i class="fa fa-book fa-fw"></i> Skicáre</a>
+                            <a href="{!! URL::to('sketchbook') !!}"><i class="fa fa-book fa-fw"></i> Skicáre</a>
                         </li>
                         @endif
                         @if (Entrust::hasRole('admin'))
                         <li>
-                            <a href="{{ URL::to('harvests') }}"><i class="fa fa-download fa-fw"></i> Spice Harvester</a>
+                            <a href="{!! URL::to('harvests') !!}"><i class="fa fa-download fa-fw"></i> Spice Harvester</a>
                         </li>
                         @endif
                         @if (Entrust::hasRole('admin'))
                         <li>
-                            <a href="{{ URL::to('user') }}"><i class="fa fa-male fa-fw"></i> Užívatelia</a>
+                            <a href="{!! URL::to('user') !!}"><i class="fa fa-male fa-fw"></i> Užívatelia</a>
                         </li>
                         @endif
                         @if (Entrust::hasRole('admin'))
                         <li>
-                            <a href="{{ URL::to('logs') }}" target="_blank"><i class="fa fa-exclamation-triangle fa-fw"></i> Logy</a>
+                            <a href="{!! URL::to('logs') !!}" target="_blank"><i class="fa fa-exclamation-triangle fa-fw"></i> Logy</a>
                         </li>
                         @endif
                     </ul>
@@ -170,16 +170,16 @@
     <!-- Core JavaScript Files -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 
-    {{ HTML::script('js/bootstrap.min.js') }}
-    {{ HTML::script('js/bootstrap-datepicker.js') }}
-    {{ HTML::script('js/spin.min.js') }}
-    {{ HTML::script('js/ladda.min.js') }}
-    {{ HTML::script('ckeditor/ckeditor.js') }}
-    {{ HTML::script('ckeditor/adapters/jquery.js') }}
-    {{ HTML::script('js/bootstrap-colorpicker.min.js') }}
-    {{ HTML::script('js/plugins/Sortable.min.js') }}
-    {{ HTML::script('js/plugins/speakingurl.min.js') }}
-    {{ HTML::script('js/plugins/bootstrap-switch.min.js') }}
+    {!! HTML::script('js/bootstrap.min.js') !!}
+    {!! HTML::script('js/bootstrap-datepicker.js') !!}
+    {!! HTML::script('js/spin.min.js') !!}
+    {!! HTML::script('js/ladda.min.js') !!}
+    {!! HTML::script('ckeditor/ckeditor.js') !!}
+    {!! HTML::script('ckeditor/adapters/jquery.js') !!}
+    {!! HTML::script('js/bootstrap-colorpicker.min.js') !!}
+    {!! HTML::script('js/plugins/Sortable.min.js') !!}
+    {!! HTML::script('js/plugins/speakingurl.min.js') !!}
+    {!! HTML::script('js/plugins/bootstrap-switch.min.js') !!}
 
 
     <script>
@@ -191,7 +191,7 @@
 
         Ladda.bind( '.ladda-button');
 
-        var csrf = '{{csrf_token()}}';
+        var csrf = '{!!csrf_token()!!}';
         $( '.wysiwyg' ).ckeditor({
             language: 'sk',
             filebrowserUploadUrl: '/uploader?csrf_token='+csrf

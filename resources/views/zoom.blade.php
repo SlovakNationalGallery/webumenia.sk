@@ -8,7 +8,7 @@
         <meta name="robots" content="noindex, nofollow">
 
         <title>
-            {{ $item->title }} | zoom
+            {!! $item->title !!} | zoom
         </title>
 
         <!--  favicons-->
@@ -35,7 +35,7 @@
         <!--  /favicons-->
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-        {{ HTML::style('css/style.css') }}
+        {!! HTML::style('css/style.css') !!}
 
   <!-- Basic example style for a 100% view -->
   <style type="text/css">
@@ -72,10 +72,10 @@
               <a id="next" href="#next" title="nasledujúce súvisiace dielo"><i class="fa fa-arrow-right"></i></a> 
             @endif
    </div>
-   <a class="btn btn-default btn-outline return" href="{{ $item->getUrl() }}" role="button"><i class="fa fa-arrow-left"></i> naspäť</a>
+   <a class="btn btn-default btn-outline return" href="{!! $item->getUrl() !!}" role="button"><i class="fa fa-arrow-left"></i> naspäť</a>
 
     @if ($related_items)
-      <div class="autohide"><div class="currentpage"><span id="index">{{ array_search($item->iipimg_url, $related_items ) + 1 }}</span> / {{ count($related_items) }}</div></div>
+      <div class="autohide"><div class="currentpage"><span id="index">{!! array_search($item->iipimg_url, $related_items ) + 1 !!}</span> / {!! count($related_items) !!}</div></div>
     @endif
 
     <div class="credit">
@@ -83,28 +83,28 @@
         <img alt="Creative Commons License" style="height: 20px; width: auto; vertical-align: bottom;" src="/images/license/zero.svg">
          voľné dielo
       @else
-        &copy; {{ $item->gallery }}
+        &copy; {!! $item->gallery !!}
       @endif
     </div>
 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-   {{ HTML::script('js/openseadragon.js') }}
+   {!! HTML::script('js/openseadragon.js') !!}
 
    <script type="text/javascript">
    $("document").ready(function()
    {
 
      var server = '/fcgi-bin/iipsrv.fcgi';
-     var image = '{{ $item->iipimg_url }}';
-     var initial = {{ ($related_items) ? array_search($item->iipimg_url, $related_items ) : 0}};
+     var image = '{!! $item->iipimg_url !!}';
+     var initial = {!! ($related_items) ? array_search($item->iipimg_url, $related_items ) : 0!!};
 
      var images = [
      @foreach ($related_items as $url)
-         '/fcgi-bin/iipsrv.fcgi?DeepZoom={{ $url }}.dzi',
+         '/fcgi-bin/iipsrv.fcgi?DeepZoom={!! $url !!}.dzi',
      @endforeach
      ];
 
-     var pocet = {{ count($related_items) }};
+     var pocet = {!! count($related_items) !!};
 
      var isLoaded = false;
 
@@ -227,7 +227,7 @@
               parent.history.back();
               return false;
             } else {
-              window.location.href = '{{ $item->getUrl() }}'; 
+              window.location.href = '{!! $item->getUrl() !!}'; 
             }
       });
 
