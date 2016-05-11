@@ -1,7 +1,11 @@
 <?php
 
-use Zizaco\Entrust\HasRole;
 
+
+
+namespace App;
+
+use Zizaco\Entrust\HasRole;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;

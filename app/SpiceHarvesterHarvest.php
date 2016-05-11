@@ -1,5 +1,9 @@
 <?php
 
+
+
+namespace App;
+
 use Illuminate\Database\Eloquent\Model;
 
 class SpiceHarvesterHarvest extends Model

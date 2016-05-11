@@ -1,5 +1,18 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use Zizaco\Entrust\EntrustFacade;
+use App\Collection;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
+use Intervention\Image\ImageManagerStatic;
+use Illuminate\Support\Facades\Response;
+
+
 class CollectionController extends \BaseController
 {
 

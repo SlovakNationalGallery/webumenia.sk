@@ -1,5 +1,16 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use Zizaco\Entrust\EntrustFacade;
+use App\Article;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
+use Intervention\Image\ImageManagerStatic;
+
+
 class ArticleController extends \BaseController
 {
 

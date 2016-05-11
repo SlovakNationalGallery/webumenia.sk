@@ -1,5 +1,16 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use Carbon\Carbon;
+use App\Slide;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
+use Intervention\Image\ImageManagerStatic;
+
+
 class SlideController extends \BaseController
 {
 

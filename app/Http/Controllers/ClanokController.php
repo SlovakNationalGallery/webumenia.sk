@@ -1,5 +1,13 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use App\Article;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\App;
+
+
 class ClanokController extends \BaseController
 {
 

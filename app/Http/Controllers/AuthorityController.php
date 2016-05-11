@@ -1,5 +1,19 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use App\Authority;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
+use App\Link;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use App\SpiceHarvesterRecord;
+use Illuminate\Support\Facades\App;
+
+
 class AuthorityController extends \BaseController
 {
 

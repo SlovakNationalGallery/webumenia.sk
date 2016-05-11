@@ -1,5 +1,16 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use App\Sketchbook;
+use App\Role;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
+use App\Item;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
+
+
 class SketchbookController extends \BaseController
 {
 

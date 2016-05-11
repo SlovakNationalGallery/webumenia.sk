@@ -1,5 +1,27 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use App\SpiceHarvesterHarvest;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
+use App\Collection;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
+use App\Item;
+use Barryvdh\Debugbar\Facade;
+use Illuminate\Support\Facades\App;
+use App\SpiceHarvesterRecord;
+use App\Authority;
+use App\Nationality;
+use App\AuthorityRole;
+use App\AuthorityName;
+use App\AuthorityEvent;
+use App\AuthorityRelationship;
+use App\Link;
+use Illuminate\Support\Facades\Log;
+
+
 class SpiceHarvesterController extends \BaseController
 {
 

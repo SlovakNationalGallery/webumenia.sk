@@ -1,5 +1,20 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use App\Item;
+use App\Collection;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use Intervention\Image\ImageManagerStatic;
+use App\SpiceHarvesterRecord;
+use Illuminate\Support\Facades\App;
+
+
 class ItemController extends \BaseController
 {
 

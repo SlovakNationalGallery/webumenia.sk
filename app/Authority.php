@@ -1,6 +1,17 @@
 <?php
-use Fadion\Bouncy\BouncyTrait;
 
+
+
+namespace App;
+
+use Fadion\Bouncy\Facades\Elastic;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\URL;
+use Intervention\Image\ImageManagerStatic;
+use Illuminate\Support\Facades\Cache;
+use Fadion\Bouncy\BouncyTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Authority extends Model

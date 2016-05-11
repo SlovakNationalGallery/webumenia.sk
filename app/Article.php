@@ -1,5 +1,12 @@
 <?php
 
+
+
+namespace App;
+
+use Illuminate\Support\Facades\URL;
+use Intervention\Image\ImageManagerStatic;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model

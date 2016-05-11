@@ -1,5 +1,14 @@
 <?php
 
+
+
+namespace App\Http\Controllers;
+
+use App\Sketchbook;
+use Illuminate\Support\Facades\Response;
+use App\Item;
+use Illuminate\Support\Facades\App;
+use Intervention\Image\ImageManagerStatic;
 use Conner\Tagging\TaggingUtil;
 
 class SkicareController extends \BaseController

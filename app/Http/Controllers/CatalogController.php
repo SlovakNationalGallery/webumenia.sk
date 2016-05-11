@@ -1,5 +1,15 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use Illuminate\Support\Facades\Input;
+use App\Item;
+use Illuminate\Support\Facades\DB;
+use Fadion\Bouncy\Facades\Elastic;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Response;
+
+
 class CatalogController extends \BaseController
 {
 

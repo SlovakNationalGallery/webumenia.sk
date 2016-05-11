@@ -1,5 +1,15 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use Illuminate\Support\Facades\Input;
+use App\Authority;
+use Fadion\Bouncy\Facades\Elastic;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\App;
+
+
 class AuthorController extends \BaseController
 {
 

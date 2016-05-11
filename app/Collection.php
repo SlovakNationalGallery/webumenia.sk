@@ -1,5 +1,11 @@
 <?php
 
+namespace App;
+
+use Illuminate\Support\Facades\URL;
+use Intervention\Image\ImageManagerStatic;
+
+
 class Collection extends \Eloquent
 {
 

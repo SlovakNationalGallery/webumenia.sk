@@ -1,7 +1,12 @@
 <?php
 
-use Conner\Tagging\TaggingUtil;
 
+
+
+namespace App;
+
+use Illuminate\Support\Facades\File;
+use Conner\Tagging\TaggingUtil;
 use Illuminate\Database\Eloquent\Model;
 
 class Sketchbook extends Model

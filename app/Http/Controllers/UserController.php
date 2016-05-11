@@ -1,5 +1,16 @@
 <?php
 
+namespace App\Http\Controllers;
+
+use App\User;
+use App\Role;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
+
+
 class UserController extends \BaseController
 {
 

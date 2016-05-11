@@ -1,5 +1,10 @@
 <?php
 
+
+
+namespace App;
+
+use Illuminate\Support\Facades\File;
 use Illuminate\Database\Eloquent\Model;
 
 class Slide extends Model
