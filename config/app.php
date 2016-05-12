@@ -13,7 +13,7 @@ return array(
     |
     */
 
-    'debug' => false,
+    'debug' => true,
 
     'log' => 'daily',
 
@@ -102,13 +102,10 @@ return array(
         'Illuminate\Translation\TranslationServiceProvider',
         'Illuminate\Validation\ValidationServiceProvider',
         'Illuminate\View\ViewServiceProvider',
-        // 'Orangehill\Iseed\IseedServiceProvider',
-        // 'Ipalaus\Geonames\GeonamesServiceProvider',
-        'Dinesh\Bugonemail\BugonemailServiceProvider',
         'Former\FormerServiceProvider',
         'Fadion\Bouncy\BouncyServiceProvider',
         'Maatwebsite\Excel\ExcelServiceProvider',
-        'Conner\Tagging\TaggingServiceProvider',
+        'Conner\Tagging\Providers\TaggingServiceProvider',
         'Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider',
         'Zizaco\Entrust\EntrustServiceProvider',
         'Roumen\Sitemap\SitemapServiceProvider',
@@ -124,7 +121,7 @@ return array(
         'App\Providers\BusServiceProvider',
         'App\Providers\ConfigServiceProvider',
         'App\Providers\EventServiceProvider',
-        'App\Providers\RouteServiceProvider'
+        'App\Providers\RouteServiceProvider',
     ),
 
     /*

@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App;
 
 use Fadion\Bouncy\Facades\Elastic;
@@ -9,14 +7,12 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\URL;
-use Intervention\Image\ImageManagerStatic;
 use Illuminate\Support\Facades\Cache;
 use Fadion\Bouncy\BouncyTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Authority extends Model
 {
-
     use BouncyTrait;
 
     protected $table = 'authorities';
@@ -38,7 +34,7 @@ class Authority extends Model
         'items_count' => 'počtu diel',
         'birth_year' => 'roku narodenia',
         'items_with_images_count' => 'počtu diel s obrázkom',
-        'random' => 'náhodne'
+        'random' => 'náhodne',
         // 'created_at' => 'počtu diel',
     );
 
@@ -69,15 +65,14 @@ class Authority extends Model
 
     public $incrementing = false;
 
-
     // ELASTIC SEARCH INDEX
-    
+
     public static function boot()
     {
         parent::boot();
 
         static::created(function ($authority) {
-        
+
             $authority->index();
             foreach ($authority->items as $item) {
                 $item->index();
@@ -85,7 +80,7 @@ class Authority extends Model
         });
 
         static::updated(function ($authority) {
-        
+
             $authority->index();
 
         });
@@ -103,7 +98,7 @@ class Authority extends Model
         });
 
         static::deleted(function ($authority) {
-        
+
             Elastic::delete([
                 'index' => Config::get('fadion/bouncy::config.index'),
                 'type' => self::ES_TYPE,
@@ -111,7 +106,6 @@ class Authority extends Model
             ]);
         });
     }
-    
 
     public function nationalities()
     {
@@ -136,7 +130,6 @@ class Authority extends Model
     public function relationships()
     {
         return $this->belongsToMany('Authority', 'authority_relationships', 'authority_id', 'related_authority_id')->withPivot('type');
-        ;
     }
 
     public function items()
@@ -152,22 +145,22 @@ class Authority extends Model
     public function getPreviewItems()
     {
         $params = array();
-        $params["size"] = 10;
-        $params["sort"][] = "_score";
-        $params["sort"][] = ["created_at"=>["order"=>"desc"]];
-        $params["query"] = [
-            "bool"=> [
-                "must" => [
-                    ["term"=> [ "authority_id" => $this->attributes['id']]]
+        $params['size'] = 10;
+        $params['sort'][] = '_score';
+        $params['sort'][] = ['created_at' => ['order' => 'desc']];
+        $params['query'] = [
+            'bool' => [
+                'must' => [
+                    ['term' => ['authority_id' => $this->attributes['id']]],
                 ],
-                "should" => [
-                    ["term"=> [ "has_image" => true ]],
-                    ["term"=> [ "has_iip" => true ]]
-                ]
-            ]
+                'should' => [
+                    ['term' => ['has_image' => true]],
+                    ['term' => ['has_iip' => true]],
+                ],
+            ],
         ];
+
         return Item::search($params);
-        // return $this->belongsToMany('Item')->where('publish', '=', 1)->where('publish', '=', 1)->orderBy('has_image', 'desc')->orderBy('view_count', 'desc')->limit(10)->remember(5);
     }
 
     public function links()
@@ -177,19 +170,27 @@ class Authority extends Model
 
     public function getCollectionsCountAttribute()
     {
-        $collections = $this->join('authority_item', 'authority_item.authority_id', '=', 'authorities.id')->join('collection_item', 'collection_item.item_id', '=', 'authority_item.item_id')->where('authorities.id', '=', $this->id)->select('collection_item.collection_id')->distinct()->remember(30)->get();
-        return $collections->count();
+        if (!Cache::has('authority_collections_count')) {
+            $authority_collections_count = $this->join('authority_item', 'authority_item.authority_id', '=', 'authorities.id')->join('collection_item', 'collection_item.item_id', '=', 'authority_item.item_id')->where('authorities.id', '=', $this->id)->select('collection_item.collection_id')->distinct()->count();
+            Cache::put('authority_collections_count', $authority_collections_count, 60);
+        }
+
+        return Cache::get('authority_collections_count');
     }
 
     public function getTagsAttribute()
     {
-        // return true;
-        $tags = $this->join('authority_item', 'authority_item.authority_id', '=', 'authorities.id')
+        if (!Cache::has('authority_tags')) {
+            $tags = $this->join('authority_item', 'authority_item.authority_id', '=', 'authorities.id')
                             ->join('tagging_tagged', function ($join) {
                                 $join->on('tagging_tagged.taggable_id', '=', 'authority_item.item_id');
                                 $join->on('tagging_tagged.taggable_type', '=', DB::raw("'Item'"));
-                            })->where('authorities.id', '=', $this->id)->groupBy('tagging_tagged.tag_name')->select('tagging_tagged.tag_name', DB::raw('count(tagging_tagged.tag_name) as pocet'))->orderBy('pocet', 'desc')->limit(10)->remember(30)->get();
-        return $tags->lists('tag_name');
+                            })->where('authorities.id', '=', $this->id)->groupBy('tagging_tagged.tag_name')->select('tagging_tagged.tag_name', DB::raw('count(tagging_tagged.tag_name) as pocet'))->orderBy('pocet', 'desc')->limit(10)->get();
+            $authority_tags = $tags->lists('tag_name');
+            Cache::put('authority_tags', $authority_tags, 60);
+        }
+
+        return Cache::get('authority_tags');
     }
 
     public function getFormatedNameAttribute()
@@ -209,6 +210,7 @@ class Authority extends Model
         foreach ($names as $name) {
             $return_names[] = self::formatName($name);
         }
+
         return $return_names;
     }
 
@@ -216,24 +218,22 @@ class Authority extends Model
     {
         $places = array_merge([
             $this->birth_place,
-            $this->death_place
+            $this->death_place,
             ], $this->events->lists('place'));
 
         return array_values(array_filter(array_unique($places)));
     }
 
-
     public function getImagePath($full = false)
     {
-        
         return self::getImagePathForId($this->id, $this->attributes['has_image'], $this->attributes['sex'], $full);
         // : self::ARTWORKS_DIR . "no-image.jpg";;
-
     }
 
     public function removeImage()
     {
         $dir = dirname($this->getImagePath(true));
+
         return File::cleanDirectory($dir);
     }
 
@@ -249,7 +249,7 @@ class Authority extends Model
 
     public static function detailUrl($authority_id)
     {
-        return URL::to('autor/' . $authority_id);
+        return URL::to('autor/'.$authority_id);
     }
 
     public function getDescription($html = false, $links = false, $include_roles = false)
@@ -269,10 +269,10 @@ class Authority extends Model
                 $roles[] = $role->role;
             }
             if ($roles) {
-                $description .= '. Role: ' . implode(', ', $roles);
+                $description .= '. Role: '.implode(', ', $roles);
             }
-            
         }
+
         return $description;
     }
 
@@ -285,10 +285,10 @@ class Authority extends Model
                 $prop = ($itemprop) ? 'itemprop="'.$itemprop.'"' : '';
                 $place = '<a href="'.url_to('autori', ['place' => $place]).'" '.$prop.'>'.$place.'</a>';
             }
+
             return ' '.$place;
             // return add_brackets($place);
         }
-
     }
 
     public static function getImagePathForId($id, $has_image, $sex = 'male', $full = false, $resize = false)
@@ -300,26 +300,26 @@ class Authority extends Model
         $levels = 1;
         $dirsPerLevel = 100;
 
-        $transformedWorkArtID = hashcode((string)$id);
+        $transformedWorkArtID = hashcode((string) $id);
         $workArtIdInt = abs(intval32bits($transformedWorkArtID));
         $tmpValue = $workArtIdInt;
         $dirsInLevels = array();
 
         $galleryDir = substr($id, 4, 3);
 
-        for ($i = 0; $i < $levels; $i++) {
-                $dirsInLevels[$i] = $tmpValue % $dirsPerLevel;
-                $tmpValue = $tmpValue / $dirsPerLevel;
+        for ($i = 0; $i < $levels; ++$i) {
+            $dirsInLevels[$i] = $tmpValue % $dirsPerLevel;
+            $tmpValue = $tmpValue / $dirsPerLevel;
         }
 
-        $path = implode("/", $dirsInLevels);
+        $path = implode('/', $dirsInLevels);
 
         // adresar obrazkov workartu sa bude volat presne ako id, kde je ':' nahradena '_'
-        $trans = array(":" => "_", " " => "_");
+        $trans = array(':' => '_', ' ' => '_');
         $file = strtr($id, $trans);
 
-        $relative_path = self::ARTWORKS_DIR . "$galleryDir/$path/$file/";
-        $full_path =  public_path() . $relative_path;
+        $relative_path = self::ARTWORKS_DIR."$galleryDir/$path/$file/";
+        $full_path = public_path().$relative_path;
 
         // ak priecinky este neexistuju - vytvor ich
         if ($full && !file_exists($full_path)) {
@@ -328,20 +328,20 @@ class Authority extends Model
 
         // dd($full_path . "$file.jpeg");
         if ($full) {
-            $result_path = $full_path . "$file.jpeg";
+            $result_path = $full_path."$file.jpeg";
         } else {
-            if (file_exists($full_path . "$file.jpeg")) {
-                $result_path =  $relative_path . "$file.jpeg";
+            if (file_exists($full_path."$file.jpeg")) {
+                $result_path = $relative_path."$file.jpeg";
 
                 if ($resize) {
-                    if (!file_exists($full_path . "$file.$resize.jpeg")) {
-                        $img = Image::make($full_path . "$file.jpeg")->fit($resize)->sharpen(7);
-                        $img->save($full_path . "$file.$resize.jpeg");
+                    if (!file_exists($full_path."$file.$resize.jpeg")) {
+                        $img = Image::make($full_path."$file.jpeg")->fit($resize)->sharpen(7);
+                        $img->save($full_path."$file.$resize.jpeg");
                     }
-                    $result_path = $relative_path . "$file.$resize.jpeg";
+                    $result_path = $relative_path."$file.$resize.jpeg";
                 }
             } else {
-                $result_path =  self::ARTWORKS_DIR . "no-image.jpg";
+                $result_path = self::ARTWORKS_DIR.'no-image.jpg';
             }
         }
 
@@ -350,8 +350,9 @@ class Authority extends Model
 
     private static function getNoImage($sex = 'male')
     {
-        $filename = 'no-image-' . $sex . '.jpeg';
-        return self::ARTWORKS_DIR . $filename;
+        $filename = 'no-image-'.$sex.'.jpeg';
+
+        return self::ARTWORKS_DIR.$filename;
     }
 
     public function index()
@@ -374,29 +375,31 @@ class Authority extends Model
             'birth_place' => $this->birth_place,
             'death_place' => $this->death_place,
             'sex' => $this->sex,
-            'has_image' => (boolean)$this->has_image,
+            'has_image' => (boolean) $this->has_image,
             'created_at' => $this->attributes['created_at'],
             'items_count' => $this->items->count(),
             'items_with_images_count' => $this->items()->hasImage()->count(),
         ];
+
         return Elastic::index([
             'index' => Config::get('fadion/bouncy::config.index'),
-            'type' =>  self::ES_TYPE,
+            'type' => self::ES_TYPE,
             'id' => $this->attributes['id'],
-            'body' =>$data,
+            'body' => $data,
         ]);
     }
 
     public static function sliderMin()
     {
-        $table_name = with(new static)->getTable();
+        $table_name = with(new static())->getTable();
         if (Cache::has($table_name.'.slider_min')) {
-            $slider_min =  Cache::get($table_name.'.slider_min');
+            $slider_min = Cache::get($table_name.'.slider_min');
         } else {
             $min_year = self::min('birth_year');
-            $slider_min = floor($min_year / 100)*100;
+            $slider_min = floor($min_year / 100) * 100;
             Cache::put($table_name.'.slider_min', $slider_min, 60);
         }
+
         return $slider_min;
     }
 
@@ -411,10 +414,11 @@ class Authority extends Model
     }
 
     /* pre atributy vo viacerych jazykoch
-	napr. "štúdium/study" alebo "učiteľ/teacher" */
+    napr. "štúdium/study" alebo "učiteľ/teacher" */
     public static function formatMultiAttribute($atttribute, $index = 0)
     {
         $atttribute = explode('/', $atttribute);
+
         return $atttribute[$index];
     }
 
@@ -440,7 +444,7 @@ class Authority extends Model
         $result = Elastic::search([
                 'search_type' => 'count',
                 'type' => self::ES_TYPE,
-                'body'  => $params
+                'body' => $params,
             ]);
         $buckets = $result['aggregations'][$attribute]['buckets'];
 
@@ -451,8 +455,8 @@ class Authority extends Model
             // if ($attribute=='author') $single_value = preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $single_value);
             $return_list[$bucket['key']] = "$single_value ({$bucket['doc_count']})";
         }
-        return $return_list;
 
+        return $return_list;
     }
 
     public function getAssociativeRelationships()
@@ -461,9 +465,10 @@ class Authority extends Model
         foreach ($this->relationships as $i => $relationship) {
             $associative_relationships[self::formatMultiAttribute($relationship->pivot->type)][] = [
                 'id' => $relationship->id,
-                'name' => self::formatName($relationship->name)
+                'name' => self::formatName($relationship->name),
                 ];
         }
+
         return $associative_relationships;
     }
 
@@ -471,9 +476,10 @@ class Authority extends Model
     {
         $params = array();
         foreach ($custom_parameters as $attribute => $value) {
-            $params["query"]["filtered"]["filter"]["and"][]["term"][$attribute] = $value;
+            $params['query']['filtered']['filter']['and'][]['term'][$attribute] = $value;
         }
         $authorities = self::search($params);
+
         return $authorities->total();
     }
 }

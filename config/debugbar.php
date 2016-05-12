@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Config;
-
 return array(
 
     /*
@@ -10,11 +8,11 @@ return array(
      |--------------------------------------------------------------------------
      |
      | Debugbar is enabled by default, when debug is set to true in app.php.
+     | You can override the value by setting enable to true or false instead of null.
      |
      */
 
-    // 'enabled' => Config::get('app.debug'),
-    'enabled' => Session::get('debugbar', false),
+    'enabled' => null,
 
     /*
      |--------------------------------------------------------------------------
@@ -65,14 +63,14 @@ return array(
 
     /*
      |--------------------------------------------------------------------------
-     | Capture Console Commands
+     | Clockwork integration
      |--------------------------------------------------------------------------
      |
-     | The Debugbar can listen to Artisan commands. You can view them with the browse button in the Debugbar.
+     | The Debugbar can emulate the Clockwork headers, so you can use the Chrome
+     | Extension, without the server-side code. It uses Debugbar collectors instead.
      |
      */
-
-    'capture_console' => false,
+    'clockwork' => false,
 
     /*
      |--------------------------------------------------------------------------
@@ -102,7 +100,8 @@ return array(
         'files'           => false, // Show the included files
         'config'          => false, // Display config settings
         'auth'            => false, // Display Laravel authentication status
-        'session'         => false, // Display session data in a separate tab
+        'gate'            => false, // Display Laravel Gate checks
+        'session'         => true,  // Display session data
     ),
 
     /*
@@ -154,5 +153,17 @@ return array(
      */
 
     'inject' => true,
+
+    /*
+     |--------------------------------------------------------------------------
+     | DebugBar route prefix
+     |--------------------------------------------------------------------------
+     |
+     | Sometimes you want to set route prefix to be used by DebugBar to load
+     | its resources from. Usually the need comes from misconfigured web server or
+     | from trying to overcome bugs like this: http://trac.nginx.org/nginx/ticket/97
+     |
+     */
+    'route_prefix' => '_debugbar',
 
 );

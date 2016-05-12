@@ -9,28 +9,26 @@ use Fadion\Bouncy\Facades\Elastic;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Response;
 
-
-class CatalogController extends \BaseController
+class CatalogController extends Controller
 {
-
     public function getIndex()
     {
         $search = Input::get('search', null);
         $input = Input::all();
 
         //ak zada presne ID
-        if (strpos($search, 'SVK:')!==false) {
+        if (strpos($search, 'SVK:') !== false) {
             $item = Item::find($search);
             if ($item) {
                 return redirect($item->getUrl());
             }
         }
-        $search = trim(preg_replace("/(grid|table)Layout.*/", "", $search)); // zdedene zo zaindexovanych url zo stareho webu
+        $search = trim(preg_replace('/(grid|table)Layout.*/', '', $search)); // zdedene zo zaindexovanych url zo stareho webu
 
         if (Input::has('sort_by') && array_key_exists(Input::get('sort_by'), Item::$sortable)) {
             $sort_by = Input::get('sort_by');
         } else {
-            $sort_by = "updated_at";
+            $sort_by = 'updated_at';
         }
 
         $sort_order = ($sort_by == 'author' || $sort_by == 'title') ? 'asc' : 'desc';
@@ -40,17 +38,17 @@ class CatalogController extends \BaseController
         $offset = ($page * $per_page) - $per_page;
 
         $params = array();
-        $params["from"] = $offset;
-        $params["size"] = $per_page;
+        $params['from'] = $offset;
+        $params['size'] = $per_page;
 
-        if (!Input::has('sort_by') || $sort_by=='updated_at') {
-            $params["sort"][] = "_score";
-            $params["sort"][] = ["has_image"=>["order"=>"desc"]];
-            $params["sort"][] = ["has_iip"=>["order"=>"desc"]];
-            $params["sort"][] = ["updated_at"=>["order"=>"desc"]];
-            $params["sort"][] = ["created_at"=>["order"=>"desc"]];
+        if (!Input::has('sort_by') || $sort_by == 'updated_at') {
+            $params['sort'][] = '_score';
+            $params['sort'][] = ['has_image' => ['order' => 'desc']];
+            $params['sort'][] = ['has_iip' => ['order' => 'desc']];
+            $params['sort'][] = ['updated_at' => ['order' => 'desc']];
+            $params['sort'][] = ['created_at' => ['order' => 'desc']];
         } else {
-            if ($sort_by=='random') {
+            if ($sort_by == 'random') {
                 $random = json_decode('
 					{"_script": {
 					    "script": "Math.random() * 200000",
@@ -58,14 +56,13 @@ class CatalogController extends \BaseController
 					    "params": {},
 					    "order": "asc"
 					 }}', true);
-                $params["sort"][] = $random;
+                $params['sort'][] = $random;
             } else {
-                $params["sort"][] = ["$sort_by"=>["order"=>"$sort_order"]];
+                $params['sort'][] = ["$sort_by" => ['order' => "$sort_order"]];
             }
         }
 
         if (!empty($input)) {
-            
             if (Input::has('search')) {
                 $search = str_to_alphanumeric($search);
                 $json_params = '
@@ -159,22 +156,20 @@ class CatalogController extends \BaseController
 				';
 
                 $params = array_merge($params, json_decode($json_params, true));
-
             }
 
             foreach ($input as $filter => $value) {
                 if (in_array($filter, Item::$filterable) && !empty($value)) {
-                    $params["query"]["filtered"]["filter"]["and"][]["term"][$filter] = $value;
+                    $params['query']['filtered']['filter']['and'][]['term'][$filter] = $value;
                 }
             }
             if (!empty($input['year-range']) &&
-                $input['year-range']!=Item::sliderMin().','.Item::sliderMax() //nezmenena hodnota
+                $input['year-range'] != Item::sliderMin().','.Item::sliderMax() //nezmenena hodnota
             ) {
                 $range = explode(',', $input['year-range']);
-                $params["query"]["filtered"]["filter"]["and"][]["range"]["date_earliest"]["gte"] = (isset($range[0])) ? $range[0] : Item::sliderMin();
-                $params["query"]["filtered"]["filter"]["and"][]["range"]["date_latest"]["lte"] = (isset($range[1])) ? $range[1] : Item::sliderMax();
+                $params['query']['filtered']['filter']['and'][]['range']['date_earliest']['gte'] = (isset($range[0])) ? $range[0] : Item::sliderMin();
+                $params['query']['filtered']['filter']['and'][]['range']['date_latest']['lte'] = (isset($range[1])) ? $range[1] : Item::sliderMax();
             }
-            
         }
         $items = Item::search($params);
         $paginator = Paginator::make($items->all(), $items->total(), $per_page);
@@ -185,23 +180,22 @@ class CatalogController extends \BaseController
         $galleries = Item::listValues('gallery', $params);
         $topics = Item::listValues('topic', $params);
         $techniques = Item::listValues('technique', $params);
-        
 
         $queries = DB::getQueryLog();
         $last_query = end($queries);
 
         return view('katalog', array(
-            'items'=>$items,
-            'authors'=>$authors,
-            'work_types'=>$work_types,
-            'tags'=>$tags,
-            'galleries'=>$galleries,
-            'topics'=>$topics,
-            'techniques'=>$techniques,
-            'search'=>$search,
-            'sort_by'=>$sort_by,
-            'input'=>$input,
-            'paginator'=>$paginator,
+            'items' => $items,
+            'authors' => $authors,
+            'work_types' => $work_types,
+            'tags' => $tags,
+            'galleries' => $galleries,
+            'topics' => $topics,
+            'techniques' => $techniques,
+            'search' => $search,
+            'sort_by' => $sort_by,
+            'input' => $input,
+            'paginator' => $paginator,
             ));
     }
 
@@ -212,15 +206,15 @@ class CatalogController extends \BaseController
         $result = Elastic::search([
                 'index' => Config::get('fadion/bouncy::config.index'),
                 'type' => Item::ES_TYPE,
-                'body'  => array(
+                'body' => array(
                     'query' => array(
                         'multi_match' => array(
-                            'query'     => $q,
-                            'type'      => 'cross_fields',
+                            'query' => $q,
+                            'type' => 'cross_fields',
                             // 'fuzziness' =>  2,
                             // 'slop'		=>  2,
-                            'fields'    => array("identifier", "title.suggest", "author.suggest"),
-                            'operator'  => 'and'
+                            'fields' => array('identifier', 'title.suggest', 'author.suggest'),
+                            'operator' => 'and',
                         ),
                     ),
                     'size' => '10',
@@ -230,23 +224,22 @@ class CatalogController extends \BaseController
         $data = array();
         $data['results'] = array();
         $data['count'] = 0;
-        
+
         // $data['items'] = array();
         foreach ($result['hits']['hits'] as $key => $hit) {
-
             $authors = array();
             foreach ($hit['_source']['author'] as $author) {
                 $authors[] = preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $author);
             }
 
-            $data['count']++;
+            ++$data['count'];
             $params = array(
                 'id' => $hit['_id'],
                 'title' => $hit['_source']['title'],
                 'author' => $authors,
-                'image' => Item::getImagePathForId($hit['_id'], false, 70)
+                'image' => Item::getImagePathForId($hit['_id'], false, 70),
             );
-            $data['results'][] = array_merge($params) ;
+            $data['results'][] = array_merge($params);
         }
 
         return Response::json($data);

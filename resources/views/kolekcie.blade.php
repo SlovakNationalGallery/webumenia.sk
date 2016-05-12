@@ -123,7 +123,7 @@ kolekcie |
     	@endforeach
         <div class="row">
             <div class="col-sm-12 text-center">
-                {!! $collections->appends(@Input::except('page'))->links() !!}
+                {!! $collections->appends(@Input::except('page'))->render() !!}
             </div>
         </div>
         </div>{{-- kolekcie --}}

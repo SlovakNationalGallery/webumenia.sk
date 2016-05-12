@@ -65,7 +65,7 @@
                     </tbody>
                 </table>
 
-                <div class="text-center"><?php echo $articles->links(); ?></div>
+                <div class="text-center"><?php echo $articles->render(); ?></div>
 
 
             </div>

@@ -50,7 +50,7 @@
     <div class="intro-body">
         <div class="container">
             <p class="lead tagline text-center">
-                Web umenia je on-line katalóg <strong><a href="/katalog">{!! formatNum(Item::amount()) !!}</a></strong> výtvarných diel<br>
+                Web umenia je on-line katalóg <strong><a href="/katalog">{!! formatNum(App\Item::amount()) !!}</a></strong> výtvarných diel<br>
                 {!! Subtitle::random() !!}</p>
         </div>
     </div>

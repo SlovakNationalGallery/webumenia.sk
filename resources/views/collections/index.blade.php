@@ -64,7 +64,7 @@ kolekcie |
                     </tbody>
                 </table>
 
-                <div class="text-center"><?php echo $collections->links(); ?></div>
+                <div class="text-center"><?php echo $collections->render(); ?></div>
 
 
             </div>

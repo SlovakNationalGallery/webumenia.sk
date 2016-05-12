@@ -68,9 +68,9 @@ autority |
 
                 <div class="text-center">
                     @if (!empty($search))
-                        {!! $authorities->appends(array('search' => $search))->links() !!}
+                        {!! $authorities->appends(array('search' => $search))->render() !!}
                     @else
-                        {!! ($authorities->count()!=0) ? $authorities->links() : '' !!}
+                        {!! ($authorities->count()!=0) ? $authorities->render() : '' !!}
                     @endif
                     
                 </div>

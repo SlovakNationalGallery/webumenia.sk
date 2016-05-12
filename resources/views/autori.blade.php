@@ -129,7 +129,7 @@ autori |
     	@endforeach
         <div class="row">
             <div class="col-sm-12 text-center">
-                {!! $paginator->appends(@Input::except('page'))->links() !!}
+                {!! $paginator->appends(@Input::except('page'))->render() !!}
             </div>
         </div>
         </div>{{-- autori --}}

@@ -58,7 +58,7 @@
                     </tbody>
                 </table>
 
-                <div class="text-center"><?php echo $users->links(); ?></div>
+                <div class="text-center"><?php echo $users->render(); ?></div>
 
 
             </div>

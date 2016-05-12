@@ -77,9 +77,9 @@ diela |
 
                 <div class="text-center">
                     @if (!empty($search))
-                        {!! $items->appends(array('search' => $search))->links() !!}
+                        {!! $items->appends(array('search' => $search))->render() !!}
                     @else
-                        {!! ($items->count()!=0) ? $items->links() : '' !!}
+                        {!! ($items->count()!=0) ? $items->render() : '' !!}
                     @endif
                     
                 </div>

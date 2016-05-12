@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
 
-    use Conner\Tagging\TaggableTrait;
+    use \Conner\Tagging\Taggable;
     
     const ARTWORKS_DIR = '/images/clanky/';
 
