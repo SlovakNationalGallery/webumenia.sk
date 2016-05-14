@@ -85,9 +85,9 @@ class Article extends Model
         $preview_image .= '.thumbnail.jpg';
         $relative_path = self::ARTWORKS_DIR . $preview_image;
         $full_path = public_path() . $relative_path;
-        if (!file_exists($full_path)) {
+        if (!file_exists($full_path) && file_exists($this->getHeaderImage(true))) {
             try {
-                Image::make($this->getHeaderImage(true))->fit(600, 250)->save($full_path);
+                \Image::make($this->getHeaderImage(true))->fit(600, 250)->save($full_path);
             } catch (Exception $e) {
                 
             }

@@ -9,14 +9,17 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\App;
 
+use Illuminate\Pagination\Paginator;
 
-class AuthorController extends \BaseController
+class AuthorController extends Controller
 {
 
     public function getIndex()
     {
         $per_page = 18;
-        $page = \Input::get(Paginator::getPageName(), 1);
+        $page = \Input::get('page', 1);
+        // $page = Paginator::resolveCurrentPage();
+        // dd($page);
         $offset = ($page * $per_page) - $per_page;
 
         $search = Input::get('search', null);
@@ -151,7 +154,7 @@ class AuthorController extends \BaseController
 
         $authors = Authority::search($params);
         $authors->load('roles');
-        $paginator = Paginator::make($authors->all(), $authors->total(), $per_page);
+        $paginator = new Paginator($authors->all(), $authors->total(), $per_page);
 
 
         // $authors = Authority::listValues('author', $params);

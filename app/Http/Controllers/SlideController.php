@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Redirect;
 use Intervention\Image\ImageManagerStatic;
 
 
-class SlideController extends \BaseController
+class SlideController extends Controller
 {
 
 

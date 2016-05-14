@@ -162,11 +162,11 @@
 
 @section('javascript')
 
-{!! HTML::script('js/bootstrap-slider.min.js') !!}
-{{-- {!! HTML::script('js/bootstrap-checkbox.js') !!} --}}
-{!! HTML::script('js/selectize.min.js') !!}
-{!! HTML::script('js/readmore.min.js') !!}
-{!! HTML::script('js/scroll-frame.js') !!}
+{!! Html::script('js/bootstrap-slider.min.js') !!}
+{{-- {!! Html::script('js/bootstrap-checkbox.js') !!} --}}
+{!! Html::script('js/selectize.min.js') !!}
+{!! Html::script('js/readmore.min.js') !!}
+{!! Html::script('js/scroll-frame.js') !!}
 
 <script type="text/javascript">
 

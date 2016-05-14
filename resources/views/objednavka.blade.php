@@ -127,7 +127,7 @@ objednávka |
 
 @section('javascript')
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
-{!! HTML::script('js/jquery.bootstrapvalidator/sk_SK.js') !!}
+{!! Html::script('js/jquery.bootstrapvalidator/sk_SK.js') !!}
 
 <script type="text/javascript">
 

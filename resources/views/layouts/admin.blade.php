@@ -17,14 +17,14 @@
         <!-- CSS are placed here -->
         <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-        {!! HTML::style('css/sb-admin.css') !!}
-        {!! HTML::style('css/ladda-themeless.min.css') !!}
-        {!! HTML::style('css/bootstrap-wysihtml5.css') !!}
-        {!! HTML::style('css/bootstrap-colorpicker.min.css') !!}
-        {!! HTML::style('css/plugins/selectize.css') !!}
-        {!! HTML::style('css/plugins/selectize.bootstrap3.css') !!}
-        {!! HTML::style('css/plugins/bootstrap-switch.css') !!}
-        {!! HTML::script('js/modernizr.custom.js') !!}
+        {!! Html::style('css/sb-admin.css') !!}
+        {!! Html::style('css/ladda-themeless.min.css') !!}
+        {!! Html::style('css/bootstrap-wysihtml5.css') !!}
+        {!! Html::style('css/bootstrap-colorpicker.min.css') !!}
+        {!! Html::style('css/plugins/selectize.css') !!}
+        {!! Html::style('css/plugins/selectize.bootstrap3.css') !!}
+        {!! Html::style('css/plugins/bootstrap-switch.css') !!}
+        {!! Html::script('js/modernizr.custom.js') !!}
 
 </head>
 
@@ -170,16 +170,16 @@
     <!-- Core JavaScript Files -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 
-    {!! HTML::script('js/bootstrap.min.js') !!}
-    {!! HTML::script('js/bootstrap-datepicker.js') !!}
-    {!! HTML::script('js/spin.min.js') !!}
-    {!! HTML::script('js/ladda.min.js') !!}
-    {!! HTML::script('ckeditor/ckeditor.js') !!}
-    {!! HTML::script('ckeditor/adapters/jquery.js') !!}
-    {!! HTML::script('js/bootstrap-colorpicker.min.js') !!}
-    {!! HTML::script('js/plugins/Sortable.min.js') !!}
-    {!! HTML::script('js/plugins/speakingurl.min.js') !!}
-    {!! HTML::script('js/plugins/bootstrap-switch.min.js') !!}
+    {!! Html::script('js/bootstrap.min.js') !!}
+    {!! Html::script('js/bootstrap-datepicker.js') !!}
+    {!! Html::script('js/spin.min.js') !!}
+    {!! Html::script('js/ladda.min.js') !!}
+    {!! Html::script('ckeditor/ckeditor.js') !!}
+    {!! Html::script('ckeditor/adapters/jquery.js') !!}
+    {!! Html::script('js/bootstrap-colorpicker.min.js') !!}
+    {!! Html::script('js/plugins/Sortable.min.js') !!}
+    {!! Html::script('js/plugins/speakingurl.min.js') !!}
+    {!! Html::script('js/plugins/bootstrap-switch.min.js') !!}
 
 
     <script>

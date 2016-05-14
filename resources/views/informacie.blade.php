@@ -195,7 +195,7 @@ Informácie |
 @stop
 
 @section('javascript')
-{!! HTML::script('js/slick.js') !!}
+{!! Html::script('js/slick.js') !!}
 <script type="text/javascript">
     $(document).ready(function(){
 

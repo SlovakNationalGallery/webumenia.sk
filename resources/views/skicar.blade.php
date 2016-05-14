@@ -35,8 +35,8 @@
         <!--  /favicons-->
 
         <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        {!! HTML::style('css/style.css') !!}
-        {{-- {!! HTML::style('css/skicar.css') !!} --}}
+        {!! Html::style('css/style.css') !!}
+        {{-- {!! Html::style('css/skicar.css') !!} --}}
 
   <!-- Basic example style for a 100% view -->
   <style type="text/css">
@@ -74,7 +74,7 @@
     <div class="credit" id="currentpage"></div>
 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-   {!! HTML::script('js/openseadragon.js') !!}
+   {!! Html::script('js/openseadragon.js') !!}
 
    <script type="text/javascript">
     var rotationChecked = false;

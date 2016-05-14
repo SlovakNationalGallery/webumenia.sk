@@ -37,15 +37,15 @@
 		<!-- CSS are placed here -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<link rel="stylesheet" type="text/css" href="{!! asset_timed('css/style.css') !!}" />
-		{!! HTML::style('css/slick-theme.css') !!}
-		{!! HTML::style('css/magnific-popup.css') !!}
+		{!! Html::style('css/slick-theme.css') !!}
+		{!! Html::style('css/magnific-popup.css') !!}
 
 		<script>
 		    document.createElement( "picture" );
 		</script>
-		{!! HTML::script('js/picturefill.min.js') !!}
+		{!! Html::script('js/picturefill.min.js') !!}
 		
-        {!! HTML::script('js/modernizr.custom.js') !!}
+        {!! Html::script('js/modernizr.custom.js') !!}
 
 		@if (App::environment() == 'production')
 		<script>
@@ -59,7 +59,7 @@
 
 		</script>
 		@endif
-		{!! HTML::script('js/scroll-frame-head.js') !!}
+		{!! Html::script('js/scroll-frame-head.js') !!}
 </head>
 
 <body id="page-top">
@@ -172,13 +172,13 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 	<script src="https://npmcdn.com/flickity@1.1/dist/flickity.pkgd.min.js"></script>
-	{!! HTML::script('js/imagesloaded.min.js') !!}
-	{!! HTML::script('js/jquery.infinitescroll.min.js') !!}
-	{!! HTML::script('js/jquery.isotope.min.js') !!}
-	{!! HTML::script('js/jquery.isotope.sloppy-masonry.min.js') !!}
-	{!! HTML::script('js/bootstrap.min.js') !!}
-	{!! HTML::script('js/typeahead.bundle.min.js') !!}
-	{!! HTML::script('js/webumenia.js') !!}
+	{!! Html::script('js/imagesloaded.min.js') !!}
+	{!! Html::script('js/jquery.infinitescroll.min.js') !!}
+	{!! Html::script('js/jquery.isotope.min.js') !!}
+	{!! Html::script('js/jquery.isotope.sloppy-masonry.min.js') !!}
+	{!! Html::script('js/bootstrap.min.js') !!}
+	{!! Html::script('js/typeahead.bundle.min.js') !!}
+	{!! Html::script('js/webumenia.js') !!}
 
 	@if (App::environment('production'))
 		<script>

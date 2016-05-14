@@ -22,7 +22,7 @@ use App\Link;
 use Illuminate\Support\Facades\Log;
 
 
-class SpiceHarvesterController extends \BaseController
+class SpiceHarvesterController extends Controller
 {
 
     const OAI_DATE_FORMAT = 'Y-m-d';

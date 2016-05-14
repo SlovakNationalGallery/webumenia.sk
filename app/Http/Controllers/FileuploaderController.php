@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 
 
-class FileuploaderController extends \BaseController
+class FileuploaderController extends Controller
 {
 
     public function upload()

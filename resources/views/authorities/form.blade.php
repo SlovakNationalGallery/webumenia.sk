@@ -182,8 +182,8 @@
 
 @section('script')
 
-{!! HTML::script('js/bootstrap-slider.min.js') !!}
-{!! HTML::script('js/jquery.cropit.min.js') !!}
+{!! Html::script('js/bootstrap-slider.min.js') !!}
+{!! Html::script('js/jquery.cropit.min.js') !!}
 
 <script>
 $(document).ready(function(){

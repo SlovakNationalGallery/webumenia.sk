@@ -143,9 +143,9 @@ autori |
 
 @section('javascript')
 
-{!! HTML::script('js/bootstrap-slider.min.js') !!}
-{!! HTML::script('js/selectize.min.js') !!}
-{!! HTML::script('js/slick.js') !!}
+{!! Html::script('js/bootstrap-slider.min.js') !!}
+{!! Html::script('js/selectize.min.js') !!}
+{!! Html::script('js/slick.js') !!}
 
 <script type="text/javascript">
 

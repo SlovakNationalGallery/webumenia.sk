@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Response;
 
 
-class KolekciaController extends \BaseController
+class KolekciaController extends Controller
 {
 
     public function getIndex()

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Session;
 use Intervention\Image\ImageManagerStatic;
 
 
-class ArticleController extends \BaseController
+class ArticleController extends Controller
 {
 
     /**

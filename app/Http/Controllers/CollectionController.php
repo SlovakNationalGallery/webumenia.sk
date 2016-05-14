@@ -13,7 +13,7 @@ use Intervention\Image\ImageManagerStatic;
 use Illuminate\Support\Facades\Response;
 
 
-class CollectionController extends \BaseController
+class CollectionController extends Controller
 {
 
     /**

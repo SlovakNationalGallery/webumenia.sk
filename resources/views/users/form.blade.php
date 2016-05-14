@@ -73,7 +73,7 @@
 
 @section('script')
 
-{!! HTML::script('js/selectize.min.js') !!}
+{!! Html::script('js/selectize.min.js') !!}
 
 <script>
 $(document).ready(function(){

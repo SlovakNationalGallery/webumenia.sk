@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\App;
 use Intervention\Image\ImageManagerStatic;
 use Conner\Tagging\TaggingUtil;
 
-class SkicareController extends \BaseController
+class SkicareController extends Controller
 {
 
     public function index()

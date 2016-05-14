@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\App;
 
 
-class ClanokController extends \BaseController
+class ClanokController extends Controller
 {
 
     public function getIndex()

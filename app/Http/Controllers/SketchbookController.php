@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 
 
-class SketchbookController extends \BaseController
+class SketchbookController extends Controller
 {
 
     /**

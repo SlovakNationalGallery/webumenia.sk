@@ -23,12 +23,12 @@ class Collection extends \Eloquent
     
     public function items()
     {
-        return $this->belongsToMany('Item', 'collection_item', 'collection_id', 'item_id')->withPivot('order')->orderBy('order', 'asc');
+        return $this->belongsToMany('App\Item', 'collection_item', 'collection_id', 'item_id')->withPivot('order')->orderBy('order', 'asc');
     }
 
     public function user()
     {
-        return $this->belongsTo('User');
+        return $this->belongsTo('App\User');
     }
 
     public function getPreviewItems()

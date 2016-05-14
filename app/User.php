@@ -5,17 +5,17 @@
 
 namespace App;
 
-use Zizaco\Entrust\HasRole;
+use Zizaco\Entrust\Traits\EntrustUserTrait;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract
+class User extends Model implements AuthenticatableContract
 {
 
-    use HasRole;
+    use EntrustUserTrait;
 
     /**
      * The database table used by the model.

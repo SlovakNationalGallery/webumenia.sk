@@ -14,7 +14,7 @@ use App\SpiceHarvesterRecord;
 use Illuminate\Support\Facades\App;
 
 
-class AuthorityController extends \BaseController
+class AuthorityController extends Controller
 {
 
     /**

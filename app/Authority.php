@@ -109,37 +109,37 @@ class Authority extends Model
 
     public function nationalities()
     {
-        return $this->belongsToMany('Nationality')->withPivot('prefered');
+        return $this->belongsToMany('App\Nationality')->withPivot('prefered');
     }
 
     public function roles()
     {
-        return $this->hasMany('AuthorityRole');
+        return $this->hasMany('App\AuthorityRole');
     }
 
     public function names()
     {
-        return $this->hasMany('AuthorityName');
+        return $this->hasMany('App\AuthorityName');
     }
 
     public function events()
     {
-        return $this->hasMany('AuthorityEvent');
+        return $this->hasMany('App\AuthorityEvent');
     }
 
     public function relationships()
     {
-        return $this->belongsToMany('Authority', 'authority_relationships', 'authority_id', 'related_authority_id')->withPivot('type');
+        return $this->belongsToMany('App\Authority', 'authority_relationships', 'authority_id', 'related_authority_id')->withPivot('type');
     }
 
     public function items()
     {
-        return $this->belongsToMany('Item');
+        return $this->belongsToMany('App\Item');
     }
 
     public function record()
     {
-        return $this->hasOne('SpiceHarvesterRecord', 'item_id');
+        return $this->hasOne('App\SpiceHarvesterRecord', 'item_id');
     }
 
     public function getPreviewItems()

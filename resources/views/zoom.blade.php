@@ -35,7 +35,7 @@
         <!--  /favicons-->
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-        {!! HTML::style('css/style.css') !!}
+        {!! Html::style('css/style.css') !!}
 
   <!-- Basic example style for a 100% view -->
   <style type="text/css">
@@ -88,7 +88,7 @@
     </div>
 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-   {!! HTML::script('js/openseadragon.js') !!}
+   {!! Html::script('js/openseadragon.js') !!}
 
    <script type="text/javascript">
    $("document").ready(function()
