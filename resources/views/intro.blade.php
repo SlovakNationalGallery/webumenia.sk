@@ -51,7 +51,7 @@
         <div class="container">
             <p class="lead tagline text-center">
                 Web umenia je on-line katalóg <strong><a href="/katalog">{!! formatNum(App\Item::amount()) !!}</a></strong> výtvarných diel<br>
-                {!! Subtitle::random() !!}</p>
+                {!! App\Subtitle::random() !!}</p>
         </div>
     </div>
 </section>

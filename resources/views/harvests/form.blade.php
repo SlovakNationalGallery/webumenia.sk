@@ -73,7 +73,7 @@
 <div class="col-md-12">
 	<div class="form-group">
 	{!! Form::label('collection_id', 'Kolekcia') !!}
-	{!! Form::select('collection_id', [null=>'žiadna'] + Collection::lists('name','id'), Input::old('collection_id'), array('class' => 'form-control')) !!}
+	{!! Form::select('collection_id', [null=>'žiadna'] + App\Collection::lists('name','id'), Input::old('collection_id'), array('class' => 'form-control')) !!}
 	</div>
 </div>
 

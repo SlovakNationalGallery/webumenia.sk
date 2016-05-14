@@ -245,7 +245,7 @@
                     <div>
                     @if (!empty($item->related_work))
                         <div style="position: relative; padding: 0 10px;">
-                        <?php $related_tems = Item::where('related_work', '=', $item->related_work)->where('author', '=', $item->author)->orderBy('related_work_order')->get() ?>
+                        <?php $related_tems = App\Item::where('related_work', '=', $item->related_work)->where('author', '=', $item->author)->orderBy('related_work_order')->get() ?>
                         <div class="artworks-preview small">
                         @foreach ($related_tems as $item)
                             <a href="{!! $item->getUrl() !!}"><img data-lazy="{!! $item->getImagePath() !!}" class="img-responsive-width " alt="{!! $item->getTitleWithAuthors() !!} "></a>

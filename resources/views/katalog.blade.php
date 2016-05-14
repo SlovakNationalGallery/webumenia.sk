@@ -5,7 +5,7 @@
     @if (!empty($search))
         výsledky vyhľadávania pre "{!!$search!!}"
     @else
-        {!! getTitleWithFilters('Item', $input, ' | ') !!}
+        {!! getTitleWithFilters('App\Item', $input, ' | ') !!}
         diela
     @endif
     | 
@@ -70,13 +70,13 @@
             </div>
             <div class="row">
                 <div class="col-xs-6 col-sm-1 text-left text-sm-right year-range">
-                        <span class="sans" id="from_year">{!! !empty($input['year-range']) ? reset((explode(',', $input['year-range']))) : Item::sliderMin() !!}</span> 
+                        <span class="sans" id="from_year">{!! !empty($input['year-range']) ? reset((explode(',', $input['year-range']))) : App\Item::sliderMin() !!}</span> 
                 </div>
                 <div class="col-xs-6 col-sm-1 col-sm-push-10 text-right text-sm-left year-range">
-                        <span class="sans" id="until_year">{!! !empty($input['year-range']) ? end((explode(',', $input['year-range']))) : Item::sliderMax() !!}</span>
+                        <span class="sans" id="until_year">{!! !empty($input['year-range']) ? end((explode(',', $input['year-range']))) : App\Item::sliderMax() !!}</span>
                 </div>
                 <div class="col-sm-10 col-sm-pull-1 year-range">
-                        <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="{!! Item::sliderMin() !!}" data-slider-max="{!! Item::sliderMax() !!}" data-slider-step="5" data-slider-value="[{!! !empty($input['year-range']) ? $input['year-range'] : Item::sliderMin().','.Item::sliderMax() !!}]"/> 
+                        <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="{!! App\Item::sliderMin() !!}" data-slider-max="{!! App\Item::sliderMax() !!}" data-slider-step="5" data-slider-value="[{!! !empty($input['year-range']) ? $input['year-range'] : App\Item::sliderMin().','.App\Item::sliderMax() !!}]"/> 
                 </div>
             </div>
             {!! Form::hidden('sort_by', @$input['sort_by'], ['id'=>'sort_by']) !!}
@@ -103,11 +103,11 @@
                 <div class="col-xs-6 text-right">
                     <div class="dropdown">
                       <a class="dropdown-toggle" type="button" id="dropdownSortBy" data-toggle="dropdown" aria-expanded="true">
-                        podľa {!! Item::getSortedLabel(); !!}
+                        podľa {!! App\Item::getSortedLabel(); !!}
                         <span class="caret"></span>
                       </a>
                       <ul class="dropdown-menu dropdown-menu-right dropdown-menu-sort" role="menu" aria-labelledby="dropdownSortBy">
-                        @foreach (Item::$sortable as $sort=>$label)
+                        @foreach (App\Item::$sortable as $sort=>$label)
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="#" rel="{!! $sort !!}">{!! $label !!}</a></li>
                         @endforeach
                       </ul>
@@ -194,7 +194,7 @@ $(document).ready(function(){
                 $(this).removeAttr('name');
             }
         });
-        if ( $('#year-range').val()=='{!!Item::sliderMin()!!},{!!Item::sliderMax()!!}' ) {
+        if ( $('#year-range').val()=='{!!App\Item::sliderMin()!!},{!!App\Item::sliderMax()!!}' ) {
             $('#year-range').attr("disabled", true);
         }
     });

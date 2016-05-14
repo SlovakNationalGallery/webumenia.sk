@@ -102,7 +102,7 @@ Informácie |
         </div>
         <div class="row content-section">
             <div class="col-sm-12 text-center">
-                <a href="{!! url_to('katalog', ['gallery' => 'Slovenská národná galéria, SNG']) !!}" class="btn btn-default btn-outline sans" >zobraziť všetkých <strong>{!! Item::forReproduction()->count() !!}</strong>  <i class="fa fa-chevron-right "></i></a>
+                <a href="{!! url_to('katalog', ['gallery' => 'Slovenská národná galéria, SNG']) !!}" class="btn btn-default btn-outline sans" >zobraziť všetkých <strong>{!! App\Item::forReproduction()->count() !!}</strong>  <i class="fa fa-chevron-right "></i></a>
             </div>
         </div>
     </div>
