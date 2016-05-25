@@ -114,16 +114,11 @@ class Item extends Model
         parent::boot();
 
         static::created(function ($item) {
-        
-            $client = new Elasticsearch\Client();
             $item->index();
         });
 
         static::updated(function ($item) {
-        
-            $client = new Elasticsearch\Client();
             $item->index();
-
         });
 
         static::deleting(function ($item) {
@@ -132,10 +127,8 @@ class Item extends Model
         });
 
         static::deleted(function ($item) {
-        
-            $client = new Elasticsearch\Client();
-            $client->delete([
-                'index' => Config::get('fadion/bouncy::config.index'),
+             $this->getElasticClient()->delete([
+                // 'index' => Config::get('bouncy.index'),
                 'type' => self::ES_TYPE,
                 'id' => $item->id,
             ]);
@@ -144,22 +137,22 @@ class Item extends Model
 
     public function descriptionUser()
     {
-        return $this->belongsTo('User', 'description_user_id');
+        return $this->belongsTo('App\User', 'description_user_id');
     }
 
     public function authorities()
     {
-        return $this->belongsToMany('Authority', 'authority_item', 'item_id', 'authority_id')->withPivot('role');
+        return $this->belongsToMany('App\Authority', 'authority_item', 'item_id', 'authority_id')->withPivot('role');
     }
 
     public function collections()
     {
-        return $this->belongsToMany('Collection', 'collection_item', 'item_id', 'collection_id');
+        return $this->belongsToMany('App\Collection', 'collection_item', 'item_id', 'collection_id');
     }
 
     public function record()
     {
-        return $this->hasOne('SpiceHarvesterRecord', 'item_id');
+        return $this->hasOne('App\SpiceHarvesterRecord', 'item_id');
     }
 
     public function getImagePath($full = false)
@@ -508,7 +501,7 @@ class Item extends Model
 		';
         $params = array_merge(json_decode($json_params, true), $search_params);
         $result = Elastic::search([
-                'index' => Config::get('fadion/bouncy::config.index'),
+                // 'index' => Config::get('bouncy.index'),
                 'search_type' => 'count',
                 'type' => self::ES_TYPE,
                 'body'  => $params
@@ -691,7 +684,7 @@ class Item extends Model
 
     public function index()
     {
-            $client = new Elasticsearch\Client();
+            $client =  $this->getElasticClient();
             $work_types = $this->work_types;
             $main_work_type = reset($work_types);
             $data = [
@@ -720,8 +713,9 @@ class Item extends Model
                 'authority_id' => $this->relatedAuthorityIds(),
                 'view_count' => $this->view_count,
             ];
+
             return $client->index([
-                'index' => Config::get('fadion/bouncy::config.index'),
+                'index' => Config::get('bouncy.index'),
                 'type' =>  self::ES_TYPE,
                 'id' => $this->attributes['id'],
                 'body' =>$data,

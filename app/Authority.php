@@ -100,7 +100,7 @@ class Authority extends Model
         static::deleted(function ($authority) {
 
             Elastic::delete([
-                'index' => Config::get('fadion/bouncy::config.index'),
+                'index' => Config::get('bouncy.index'),
                 'type' => self::ES_TYPE,
                 'id' => $authority->id,
             ]);
@@ -165,7 +165,7 @@ class Authority extends Model
 
     public function links()
     {
-        return $this->morphMany('Link', 'linkable');
+        return $this->morphMany('App\Link', 'linkable');
     }
 
     public function getCollectionsCountAttribute()
@@ -360,7 +360,7 @@ class Authority extends Model
         if ($this->attributes['type'] != 'person') {
             return false;
         }
-        $client = new Elasticsearch\Client();
+        $client =  $this->getElasticClient();
         $data = [
             'identifier' => $this->attributes['id'],
             'name' => $this->attributes['name'],
@@ -382,7 +382,7 @@ class Authority extends Model
         ];
 
         return Elastic::index([
-            'index' => Config::get('fadion/bouncy::config.index'),
+            'index' => Config::get('bouncy.index'),
             'type' => self::ES_TYPE,
             'id' => $this->attributes['id'],
             'body' => $data,

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\App;
 
 use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class AuthorController extends Controller
 {
@@ -152,9 +153,14 @@ class AuthorController extends Controller
             }
         }
 
-        $authors = Authority::search($params);
+        $authors = Authority::search($params); //->paginate($per_page);
         $authors->load('roles');
-        $paginator = new Paginator($authors->all(), $authors->total(), $per_page);
+
+        $path   = '/' . \Request::path();
+        // dd($path);
+        $page   = Paginator::resolveCurrentPage() ?: 1;
+        $paginator = new LengthAwarePaginator($authors->all(), $authors->total(), $per_page, $page, ['path' => $path]);
+        // dd($paginator);
 
 
         // $authors = Authority::listValues('author', $params);
@@ -179,7 +185,7 @@ class AuthorController extends Controller
         $q = (Input::has('search')) ? str_to_alphanumeric(Input::get('search')) : 'null';
 
         $result = Elastic::search([
-                'index' => Config::get('fadion/bouncy::config.index'),
+                'index' => Config::get('bouncy.index'),
                 'type' => Authority::ES_TYPE,
                 'body'  => array(
                     'query' => array(

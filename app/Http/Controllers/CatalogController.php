@@ -9,6 +9,9 @@ use Fadion\Bouncy\Facades\Elastic;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Response;
 
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
+
 class CatalogController extends Controller
 {
     public function getIndex()
@@ -34,7 +37,7 @@ class CatalogController extends Controller
         $sort_order = ($sort_by == 'author' || $sort_by == 'title') ? 'asc' : 'desc';
 
         $per_page = 18;
-        $page = \Input::get(Paginator::getPageName(), 1);
+        $page   = Paginator::resolveCurrentPage() ?: 1;
         $offset = ($page * $per_page) - $per_page;
 
         $params = array();
@@ -172,7 +175,9 @@ class CatalogController extends Controller
             }
         }
         $items = Item::search($params);
-        $paginator = Paginator::make($items->all(), $items->total(), $per_page);
+        $path   = '/' . \Request::path();
+
+        $paginator = new LengthAwarePaginator($items->all(), $items->total(), $per_page, $page, ['path' => $path]);
 
         $authors = Item::listValues('author', $params);
         $work_types = Item::listValues('work_type', $params);
@@ -204,7 +209,7 @@ class CatalogController extends Controller
         $q = (Input::has('search')) ? str_to_alphanumeric(Input::get('search')) : 'null';
 
         $result = Elastic::search([
-                'index' => Config::get('fadion/bouncy::config.index'),
+                'index' => Config::get('bouncy.index'),
                 'type' => Item::ES_TYPE,
                 'body' => array(
                     'query' => array(

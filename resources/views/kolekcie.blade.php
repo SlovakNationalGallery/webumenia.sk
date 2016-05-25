@@ -62,9 +62,9 @@ kolekcie |
         <div class="row content-section">
         	<div class="col-xs-6">
                 @if (!empty($search))
-                    <h4 class="inline">Nájdené kolekcie pre &bdquo;{!! $search !!}&ldquo; (<span>{!! $collections->getTotal() !!}</span>) </h4> 
+                    <h4 class="inline">Nájdené kolekcie pre &bdquo;{!! $search !!}&ldquo; (<span>{!! $collections->total() !!}</span>) </h4> 
                 @else
-            		<h4 class="inline">{!! $collections->getTotal() !!} kolekcií</h4>
+            		<h4 class="inline">{!! $collections->total() !!} kolekcií</h4>
                 @endif
                 @if ($collections->count() == 0)
                     <p class="text-center">Momentálne žiadne kolekcie</p>
@@ -123,7 +123,7 @@ kolekcie |
     	@endforeach
         <div class="row">
             <div class="col-sm-12 text-center">
-                {!! $collections->appends(@Input::except('page'))->render() !!}
+                {!! $collections->appends(@Request::except('page'))->render() !!}
             </div>
         </div>
         </div>{{-- kolekcie --}}

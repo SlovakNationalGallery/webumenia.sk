@@ -142,7 +142,7 @@
                     </div>
                     <div class="col-sm-12 text-center">
                         {!! $paginator->appends(@Input::except('page'))->render() !!}
-                        @if (($paginator->getLastPage() > 1) && !( Input::get('page', 1) > $paginator->getLastPage() ))
+                        @if ($paginator->hasMorePages() )
                             <a id="next" href="{!! URL::to('katalog')!!}"><svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve"> <path d="M0.492,8.459v83.427c4.124,0.212,7.409,3.497,7.622,7.622h83.357
         c0.22-4.265,3.719-7.664,8.036-7.664V8.571c-4.46,0-8.079-3.617-8.079-8.079H8.157C8.157,4.774,4.755,8.239,0.492,8.459z"/>
 <text text-anchor="middle" alignment-baseline="middle" x="50" y="50">
