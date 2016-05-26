@@ -14,6 +14,7 @@
 use App\Article;
 use App\Item;
 use App\Slide;
+use App\Order;
 
 Route::get('leto', function () {
 

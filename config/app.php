@@ -13,7 +13,9 @@ return array(
     |
     */
 
-    'debug' => true,
+    'env' => env('APP_ENV', 'production'),
+
+    'debug' => env('APP_DEBUG', false),
 
     'log' => 'daily',
 
@@ -68,7 +70,7 @@ return array(
     |
     */
 
-    'key' => 'j78zC48Z94kvo50Tox78IzLayPkGeQM5',
+    'key' => env('APP_KEY'),
     'cipher' => MCRYPT_RIJNDAEL_128,
 
     /*

@@ -2,6 +2,7 @@
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -37,6 +38,16 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        if($e instanceof NotFoundHttpException)
+        {
+            $item = \App\Item::random()->first();
+            return response()->view('errors.missing', ['item' => $item], 404);
+        }
+
+        if (!config('app.debug') && app()->environment() == 'production') {
+            return response()->view('errors.fatal', [], 500);
+        }
+
         return parent::render($request, $e);
     }
 }

@@ -38,7 +38,7 @@ objednávka |
 
 
 {!!
-  Former::open('objednavka')->class('form-bordered form-horizontal')->id('order')->rules(Order::$rules);
+  Former::open('objednavka')->class('form-bordered form-horizontal')->id('order')->rules(App\Order::$rules);
 !!}
 
 <div class="form-group required has-feedback"><label for="pids" class="control-label col-lg-2 col-sm-4">Diela objednávky</label>
@@ -95,7 +95,7 @@ objednávka |
         Autorský zákon nám neumožňuje poskytovať digitálne reprodukcie <abbr title="neprešlo 70 rokov od smrti autora" data-toggle="tooltip">autorsky chránených diel</abbr> na všeobecné súkromné účely (napr. ako dekoráciu). Na základe Vami uvedených informácií vytvorí SNG písomný súhlas s využitím digitálnej reprodukcie iba na predmetný účel &ndash; je to legislatívna ochrana tak pre Vás ako aj pre nás.<br>
         <strong>V prípade záujmu o tlač výtvarných diel môžete využiť objednávku na tlačenú reprodukciu, kde výrobu a úpravu výtlačku zabezpečuje SNG.</strong>
     </div>
-{!! Former::select('purpose_kind')->label('Účel')->required()->options(Order::$availablePurposeKinds); !!}
+{!! Former::select('purpose_kind')->label('Účel')->required()->options(App\Order::$availablePurposeKinds); !!}
 {!! Former::textarea('purpose')->label('Účel - podrobnejšie informácie')->required(); !!}
 </div>
 {{-- /ak digitalna --}}
