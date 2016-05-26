@@ -1,5 +1,11 @@
 <?php
 
+use Illuminate\Database\Seeder;
+use Illuminate\Database\Eloquent\Model;
+
+use App\User;
+use App\Role;
+
 class RolesTableSeeder extends Seeder
 {
     /**
@@ -8,7 +14,11 @@ class RolesTableSeeder extends Seeder
     public function run()
     {
 
-        // DB::table('roles')->truncate();
+        Eloquent::unguard();
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('roles')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
 
         $admin = new Role();
         $admin->name = 'admin';

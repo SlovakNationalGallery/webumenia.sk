@@ -93,10 +93,7 @@
 <div class="col-md-12">
 	<div class="form-group">
 	{!! Form::label('tags', 'tagy') !!}
-	{!! Form::select('tags[]', 	  <div class="drag-and-resize">
-	     Toto bude fotka
-	  </div>
-::allTags()->lists('name','name'), (isSet($item)) ? $item->tagNames() : [], ['id' => 'tags', 'multiple' => 'multiple']) !!}
+	{!! Form::select('tags[]', App\Item::existingTags()->lists('name','name'), (isSet($item)) ? $item->tagNames() : [], ['id' => 'tags', 'multiple' => 'multiple']) !!}
 
 	</div>
 </div>
