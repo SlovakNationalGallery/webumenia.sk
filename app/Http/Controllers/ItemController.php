@@ -245,7 +245,7 @@ class ItemController extends Controller
         $primary_image = Input::file('primary_image');
         $full = true;
         $filename = $item->getImagePath($full);
-        $uploaded_image = Image::make($primary_image->getRealPath());
+        $uploaded_image = \Image::make($primary_image->getRealPath());
         if ($uploaded_image->width() > $uploaded_image->height()) {
             $uploaded_image->widen(800);
         } else {

@@ -23,7 +23,7 @@ class CollectionController extends Controller
      */
     public function index()
     {
-        if (Entrust::hasRole('admin')) {
+        if (\Entrust::hasRole('admin')) {
             $collections = Collection::orderBy('created_at', 'desc')->with(['user'])->paginate(20);
         } else {
             $collections = Collection::where('user_id', '=', Auth::user()->id)->orderBy('created_at', 'desc')->with(['user'])->paginate(20);
@@ -68,7 +68,7 @@ class CollectionController extends Controller
                 $collection->title_shadow = Input::get('title_shadow');
             }
             $collection->order = Collection::max('order') + 1;
-            if (Input::has('user_id') && Entrust::hasRole('admin')) {
+            if (Input::has('user_id') && \Entrust::hasRole('admin')) {
                 $collection->user_id = Input::get('user_id');
             } else {
                 $collection->user_id = Auth::user()->id;
@@ -135,7 +135,7 @@ class CollectionController extends Controller
             $collection->text = Input::get('text');
             $collection->publish = Input::get('publish', false);
             
-            if (Input::has('user_id') && Entrust::hasRole('admin')) {
+            if (Input::has('user_id') && \Entrust::hasRole('admin')) {
                 $collection->user_id = Input::get('user_id');
             }
 
