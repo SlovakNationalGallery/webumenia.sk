@@ -25,7 +25,7 @@
 <div class="col-md-12">
 	<div class="form-group">
 	{!! Form::label('type', 'Typ') !!}
-	{!! Form::select('type', SpiceHarvesterHarvest::$types, Input::old('type'), array('class' => 'form-control')) !!}
+	{!! Form::select('type', App\SpiceHarvesterHarvest::$types, Input::old('type'), array('class' => 'form-control')) !!}
 	</div>
 </div>
 <div class="col-md-12">

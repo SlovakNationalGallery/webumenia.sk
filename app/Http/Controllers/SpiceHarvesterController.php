@@ -41,8 +41,8 @@ class SpiceHarvesterController extends Controller
     public function __construct()
     {
         $logFile = 'oai_harvest.log';
-        $this->log = new Monolog\Logger('oai_harvest');
-        $this->log->pushHandler(new Monolog\Handler\StreamHandler(storage_path().'/logs/'.$logFile, Monolog\Logger::WARNING));
+        $this->log = new \Monolog\Logger('oai_harvest');
+        $this->log->pushHandler(new \Monolog\Handler\StreamHandler(storage_path().'/logs/'.$logFile, \Monolog\Logger::WARNING));
     }
 
     /**
