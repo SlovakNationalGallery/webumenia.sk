@@ -137,22 +137,22 @@ class Item extends Model
 
     public function descriptionUser()
     {
-        return $this->belongsTo('App\User', 'description_user_id');
+        return $this->belongsTo(\App\User::class, 'description_user_id');
     }
 
     public function authorities()
     {
-        return $this->belongsToMany('App\Authority', 'authority_item', 'item_id', 'authority_id')->withPivot('role');
+        return $this->belongsToMany(\App\Authority::class, 'authority_item', 'item_id', 'authority_id')->withPivot('role');
     }
 
     public function collections()
     {
-        return $this->belongsToMany('App\Collection', 'collection_item', 'item_id', 'collection_id');
+        return $this->belongsToMany(\App\Collection::class, 'collection_item', 'item_id', 'collection_id');
     }
 
     public function record()
     {
-        return $this->hasOne('App\SpiceHarvesterRecord', 'item_id');
+        return $this->hasOne(\App\SpiceHarvesterRecord::class, 'item_id');
     }
 
     public function getImagePath($full = false)
