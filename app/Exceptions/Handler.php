@@ -38,8 +38,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        if($e instanceof NotFoundHttpException)
-        {
+        if ($e instanceof NotFoundHttpException) {
             $item = \App\Item::random()->first();
             return response()->view('errors.missing', ['item' => $item], 404);
         }

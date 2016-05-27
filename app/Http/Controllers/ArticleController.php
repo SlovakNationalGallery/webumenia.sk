@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\ImageManagerStatic;
 
-
 class ArticleController extends Controller
 {
 

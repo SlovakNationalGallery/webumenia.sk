@@ -21,7 +21,6 @@ use App\AuthorityRelationship;
 use App\Link;
 use Illuminate\Support\Facades\Log;
 
-
 class SpiceHarvesterController extends Controller
 {
 

@@ -131,7 +131,7 @@ class Item extends Model
                 // 'index' => Config::get('bouncy.index'),
                 'type' => self::ES_TYPE,
                 'id' => $item->id,
-            ]);
+             ]);
         });
     }
 

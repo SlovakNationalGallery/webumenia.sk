@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\File;
 use App\SpiceHarvesterRecord;
 use Illuminate\Support\Facades\App;
 
-
 class AuthorityController extends Controller
 {
 
