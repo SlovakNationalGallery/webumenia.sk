@@ -86,6 +86,7 @@ return array(
 
     'providers' => array(
 
+        Illuminate\Broadcasting\BroadcastServiceProvider::class,
         'Illuminate\Foundation\Providers\ArtisanServiceProvider',
         'Illuminate\Auth\AuthServiceProvider',
         'Illuminate\Cache\CacheServiceProvider',
