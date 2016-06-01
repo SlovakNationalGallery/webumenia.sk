@@ -7,7 +7,7 @@
     ],
     "license": "MIT",
     "require": {
-        "laravel/framework": "5.1.*",
+        "laravel/framework": "5.2.*",
         "caseyamcl/Phpoaipmh": "dev-master",
         "intervention/image": "dev-master",
         "guzzlehttp/guzzle": "dev-master",
@@ -52,7 +52,9 @@
         "preferred-install": "dist"
     },
     "require-dev": {
-        "phpunit/phpunit": "~4.0"
+        "phpunit/phpunit": "~4.0",
+        "symfony/dom-crawler": "~3.0",
+        "symfony/css-selector": "~3.0"
     },
     "autoload-dev": {
         "classmap": [
