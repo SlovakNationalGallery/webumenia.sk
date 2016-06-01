@@ -15,7 +15,7 @@
         "rtconner/laravel-tagging": "~2.1",
         "maatwebsite/excel": "~2.1.0",
         "rap2hpoutre/laravel-log-viewer": "dev-master",
-        "zizaco/entrust": "1.4.1",
+        "zizaco/entrust": "5.2.x-dev",
         "roumen/sitemap": "dev-master",
         "cviebrock/image-validator": "dev-master",
         "anahkiasen/former": "^4.0",
