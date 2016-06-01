@@ -249,10 +249,20 @@ Route::group(array('middleware' => 'guest'), function () {
     Route::post('login', 'AuthController@postLogin');
 });
 
-Route::group(array('middleware' => 'auth'), function () {
+Route::group(['middleware' => ['auth', 'role:admin|editor']], function () {
 
     Route::get('admin', 'AdminController@index');
     Route::get('logout', 'AuthController@logout');
+    Route::get('collection/{collection_id}/detach/{item_id}', 'CollectionController@detach');
+    Route::post('collection/fill', 'CollectionController@fill');
+    Route::post('collection/sort', 'CollectionController@sort');
+    Route::resource('collection', 'CollectionController');
+    Route::resource('user', 'UserController');
+    Route::match(['get', 'post'], 'uploader', 'FileuploaderController@upload');
+});
+
+Route::group(['middleware' => ['auth', 'role:admin']], function () {
+    Route::resource('article', 'ArticleController');
     Route::get('harvests/launch/{id}', 'SpiceHarvesterController@launch');
     Route::get('harvests/orphaned/{id}', 'SpiceHarvesterController@orphaned');
     Route::get('harvests/{record_id}/refreshRecord/', 'SpiceHarvesterController@refreshRecord');
@@ -264,19 +274,11 @@ Route::group(array('middleware' => 'auth'), function () {
     Route::get('item/search', 'ItemController@search');
     Route::get('item/reindex', 'ItemController@reindex');
     Route::resource('item', 'ItemController');
-    Route::get('collection/{collection_id}/detach/{item_id}', 'CollectionController@detach');
-    Route::post('collection/fill', 'CollectionController@fill');
-    Route::post('collection/sort', 'CollectionController@sort');
-    Route::resource('collection', 'CollectionController');
-    Route::resource('article', 'ArticleController');
-    Route::resource('user', 'UserController');
     Route::get('authority/destroyLink/{link_id}', 'AuthorityController@destroyLink');
     Route::get('authority/search', 'AuthorityController@search');
     Route::get('authority/reindex', 'AuthorityController@reindex');
     Route::post('authority/destroySelected', 'AuthorityController@destroySelected');
     Route::resource('authority', 'AuthorityController');
-    Route::match(['get', 'post'], 'uploader', 'FileuploaderController@upload');
-
     Route::resource('sketchbook', 'SketchbookController');
     Route::resource('slide', 'SlideController');
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
@@ -405,10 +407,3 @@ Route::group(array('middleware' => 'auth'), function () {
 
 //     return Response::view('errors.missing', ['item' => $item], 404);
 // });
-
-Entrust::routeNeedsRole('harvests*', 'admin', redirect('admin'), false);
-Entrust::routeNeedsRole('item*', 'admin', redirect('admin'), false);
-Entrust::routeNeedsRole('authority*', 'admin', redirect('admin'), false);
-Entrust::routeNeedsRole('logs*', 'admin', redirect('admin'), false);
-
-Entrust::routeNeedsRole('collection*', ['admin', 'editor'], redirect('admin'), false);

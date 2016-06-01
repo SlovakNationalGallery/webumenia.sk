@@ -1,21 +1,12 @@
 <?php
 
-
-
-
 namespace App;
 
 use Zizaco\Entrust\Traits\EntrustUserTrait;
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-use Illuminate\Foundation\Auth\Access\Authorizable;
-use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 
-class User extends Model implements AuthenticatableContract
+class User extends Authenticatable
 {
 
     use EntrustUserTrait;
@@ -27,14 +18,18 @@ class User extends Model implements AuthenticatableContract
      */
     protected $table = 'users';
 
+    protected $fillable = [
+        'name', 'email', 'password',
+    ];
+
     /**
-     * The attributes excluded from the model's JSON form.
+     * The attributes that should be hidden for arrays.
      *
      * @var array
      */
-    protected $hidden = array('password');
-
-    protected $fillable = ['name', 'email', 'password'];
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 
     public static $rules = array(
         'name' => 'required',
@@ -43,49 +38,4 @@ class User extends Model implements AuthenticatableContract
         'password' => 'min:6',
     );
 
-
-    /**
-     * Get the unique identifier for the user.
-     *
-     * @return mixed
-     */
-    public function getAuthIdentifier()
-    {
-        return $this->getKey();
-    }
-
-    /**
-     * Get the password for the user.
-     *
-     * @return string
-     */
-    public function getAuthPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * Get the e-mail address where password reminders are sent.
-     *
-     * @return string
-     */
-    public function getReminderEmail()
-    {
-        return $this->email;
-    }
-
-    public function getRememberToken()
-    {
-        return $this->remember_token;
-    }
-
-    public function setRememberToken($value)
-    {
-        $this->remember_token = $value;
-    }
-
-    public function getRememberTokenName()
-    {
-        return 'remember_token';
-    }
 }

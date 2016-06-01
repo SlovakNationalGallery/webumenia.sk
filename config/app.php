@@ -2,6 +2,9 @@
 
 return array(
 
+    'env' => env('APP_ENV', 'production'),
+
+
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode
@@ -87,11 +90,9 @@ return array(
     'providers' => array(
 
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
-        Illuminate\Foundation\Providers\ArtisanServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Cache\CacheServiceProvider::class,
         Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
-        Illuminate\Routing\ControllerServiceProvider::class,
         Illuminate\Cookie\CookieServiceProvider::class,
         Illuminate\Database\DatabaseServiceProvider::class,
         Illuminate\Encryption\EncryptionServiceProvider::class,
@@ -110,7 +111,7 @@ return array(
         'Maatwebsite\Excel\ExcelServiceProvider',
         'Conner\Tagging\Providers\TaggingServiceProvider',
         'Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider',
-        'Zizaco\Entrust\EntrustServiceProvider',
+        Zizaco\Entrust\EntrustServiceProvider::class,
         'Roumen\Sitemap\SitemapServiceProvider',
         'Cviebrock\ImageValidator\ImageValidatorServiceProvider',
         'Barryvdh\Debugbar\ServiceProvider',
@@ -187,9 +188,8 @@ return array(
         'Elastic' => 'Fadion\Bouncy\Facades\Elastic',
         'Excel' => 'Maatwebsite\Excel\Facades\Excel',
         'Carbon' => 'Carbon\Carbon',
-        'Entrust' => 'Zizaco\Entrust\EntrustFacade',
+        'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
         'Debugbar' => 'Barryvdh\Debugbar\Facade',
-        'Bus' => Illuminate\Support\Facades\Bus::class,
         'Storage' => Illuminate\Support\Facades\Storage::class,
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
