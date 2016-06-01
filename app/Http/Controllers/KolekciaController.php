@@ -7,7 +7,6 @@ use App\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Response;
 
-
 class KolekciaController extends Controller
 {
 

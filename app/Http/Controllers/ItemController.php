@@ -14,7 +14,6 @@ use Intervention\Image\ImageManagerStatic;
 use App\SpiceHarvesterRecord;
 use Illuminate\Support\Facades\App;
 
-
 class ItemController extends Controller
 {
 

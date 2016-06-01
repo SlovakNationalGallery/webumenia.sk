@@ -109,37 +109,37 @@ class Authority extends Model
 
     public function nationalities()
     {
-        return $this->belongsToMany('App\Nationality')->withPivot('prefered');
+        return $this->belongsToMany(\App\Nationality::class)->withPivot('prefered');
     }
 
     public function roles()
     {
-        return $this->hasMany('App\AuthorityRole');
+        return $this->hasMany(\App\AuthorityRole::class);
     }
 
     public function names()
     {
-        return $this->hasMany('App\AuthorityName');
+        return $this->hasMany(\App\AuthorityName::class);
     }
 
     public function events()
     {
-        return $this->hasMany('App\AuthorityEvent');
+        return $this->hasMany(\App\AuthorityEvent::class);
     }
 
     public function relationships()
     {
-        return $this->belongsToMany('App\Authority', 'authority_relationships', 'authority_id', 'related_authority_id')->withPivot('type');
+        return $this->belongsToMany(\App\Authority::class, 'authority_relationships', 'authority_id', 'related_authority_id')->withPivot('type');
     }
 
     public function items()
     {
-        return $this->belongsToMany('App\Item');
+        return $this->belongsToMany(\App\Item::class);
     }
 
     public function record()
     {
-        return $this->hasOne('App\SpiceHarvesterRecord', 'item_id');
+        return $this->hasOne(\App\SpiceHarvesterRecord::class, 'item_id');
     }
 
     public function getPreviewItems()
@@ -165,7 +165,7 @@ class Authority extends Model
 
     public function links()
     {
-        return $this->morphMany('App\Link', 'linkable');
+        return $this->morphMany(\App\Link::class, 'linkable');
     }
 
     public function getCollectionsCountAttribute()

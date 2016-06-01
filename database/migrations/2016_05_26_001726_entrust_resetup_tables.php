@@ -2,7 +2,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class EntrustSetupTables extends Migration
+class EntrustResetupTables extends Migration
 {
     /**
      * Run the migrations.

@@ -10,7 +10,6 @@ use App\Item;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 
-
 class SketchbookController extends Controller
 {
 

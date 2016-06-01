@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Intervention\Image\ImageManagerStatic;
 
-
 class SlideController extends Controller
 {
 

@@ -21,7 +21,6 @@ use App\AuthorityRelationship;
 use App\Link;
 use Illuminate\Support\Facades\Log;
 
-
 class SpiceHarvesterController extends Controller
 {
 
@@ -905,7 +904,7 @@ class SpiceHarvesterController extends Controller
         //--- nazacat samostatnu metodu
         $guzzleAdapter = null;
         if ($harvest->username && $harvest->password) {
-            $gclient = new GuzzleHttp\Client(['defaults' =>  ['auth' =>  [$harvest->username, $harvest->password]]]);
+            $gclient = new \GuzzleHttp\Client(['defaults' =>  ['auth' =>  [$harvest->username, $harvest->password]]]);
             $guzzleAdapter = new \Phpoaipmh\HttpAdapter\GuzzleAdapter($gclient);
         }
         $client = new \Phpoaipmh\Client($harvest->base_url, $guzzleAdapter);
