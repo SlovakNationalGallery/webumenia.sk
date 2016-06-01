@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('CACHE_DRIVER', 'file'),
+    'default' => env('CACHE_DRIVER', 'array'), //temp fix for entrust - https://github.com/Zizaco/entrust/issues/541 - should use redis or memcached
 
     /*
     |--------------------------------------------------------------------------

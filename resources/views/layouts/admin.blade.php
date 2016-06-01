@@ -15,7 +15,7 @@
 
 
         <!-- CSS are placed here -->
-        <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <script src="https://use.fontawesome.com/73587c90bb.js"></script>
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
         {!! Html::style('css/sb-admin.css') !!}
         {!! Html::style('css/ladda-themeless.min.css') !!}

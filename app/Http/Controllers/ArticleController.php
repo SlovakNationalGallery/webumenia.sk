@@ -23,7 +23,7 @@ class ArticleController extends Controller
         if (\Entrust::hasRole('admin')) {
             $articles = Article::orderBy('created_at', 'desc')->paginate(20);
         } else {
-            // $articles = Article::where('user_id', '=', Auth::user()->id)->orderBy('created_at', 'desc')->paginate(20);
+            // $articles = Article::where('user_id', '=', \Auth::user()->id)->orderBy('created_at', 'desc')->paginate(20);
         }
         // $articles = Item::orderBy('created_at', 'DESC')->get();
         return view('articles.index')->with('articles', $articles);
