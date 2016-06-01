@@ -16,7 +16,7 @@ class SpiceHarvesterRecord extends Model
 
     public function harvest()
     {
-        return $this->belongsTo('SpiceHarvesterHarvest', 'harvest_id');
+        return $this->belongsTo('App\SpiceHarvesterHarvest', 'harvest_id');
     }
 
     public function item()

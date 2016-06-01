@@ -28,7 +28,7 @@ class SpiceHarvesterHarvest extends Model
 
     public function records()
     {
-        return $this->hasMany('SpiceHarvesterRecord', 'harvest_id');
+        return $this->hasMany('App\SpiceHarvesterRecord', 'harvest_id');
     }
 
     public function collection()

@@ -12,6 +12,7 @@
 */
 
 use App\Article;
+use App\Collection;
 use App\Item;
 use App\Slide;
 use App\Order;
