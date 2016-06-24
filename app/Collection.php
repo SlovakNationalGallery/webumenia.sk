@@ -72,9 +72,9 @@ class Collection extends \Eloquent
         $full_path = public_path() .  self::ARTWORKS_DIR;
         if (!file_exists($full_path . "$file.$resize.jpg")) {
             try {
-                $img = Image::make($this->getHeaderImage(true))->fit($resize)->sharpen(7);
+                $img = \Image::make($this->getHeaderImage(true))->fit($resize)->sharpen(7);
             } catch (Exception $e) {
-                $img = Image::make(public_path() . self::ARTWORKS_DIR . 'no-image.jpg')->fit($resize)->sharpen(7);
+                $img = \Image::make(public_path() . self::ARTWORKS_DIR . 'no-image.jpg')->fit($resize)->sharpen(7);
             }
 
             $img->save($full_path . "$file.$resize.jpg");

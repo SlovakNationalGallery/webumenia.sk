@@ -66,7 +66,7 @@ class Article extends Model
         $full_path = public_path() .  self::ARTWORKS_DIR;
 
         if (!file_exists($full_path . "$file.$resize.jpg")) {
-            $img = Image::make($this->getHeaderImage(true))->fit($resize)->sharpen(7);
+            $img = \Image::make($this->getHeaderImage(true))->fit($resize)->sharpen(7);
             $img->save($full_path . "$file.$resize.jpg");
         }
         $result_path = self::ARTWORKS_DIR .  "$file.$resize.jpg";
