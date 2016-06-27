@@ -1,18 +1,17 @@
-# Web Umenia 2
+# Web Umenia
 
-_This is Laravel5 migration branch._
+_This is development branch._
 
-This is the repository of new version of portal "web umenia" (web of art). The site is entirely open source and community involvement is encouraged.
-
-Demo version -> [dvekrajiny.sng.sk](http://dvekrajiny.sng.sk)
+This is the repository of portal [www.webumenia.sk](http://www.webumenia.sk). 
+The site is entirely open source and community involvement is encouraged.
 
 
 ## Requirements
 
-This software is build upon [Laravel4 framework](http://laravel.com/).
+This software is built with [Laravel5 framework](http://laravel.com/).
 
 It requires
-* PHP 5.4+
+* PHP 5.5.9+
 * MySQL
 * Elasticsearch
 
