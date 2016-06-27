@@ -249,4 +249,25 @@ class CatalogController extends Controller
 
         return Response::json($data);
     }
+
+    public function getRandom()
+    {
+        $item = Item::random()->first();
+        $result_item = [
+            'id' => $item->id,
+            'identifier' => $item->identifier,
+            'title' => $item->title,
+            'author' => $item->author,
+            'description' => $item->description,
+            'dating' => $item->dating,
+            'medium' => $item->medium,
+            'technique' => $item->technique,
+            'gallery' => $item->gallery,
+            'url' => $item->getUrl(),
+            'img_url' => \URL::to($item->getImagePath()),
+        ];
+
+        return response()->json($result_item);
+    }
+
 }
