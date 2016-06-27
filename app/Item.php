@@ -278,7 +278,7 @@ class Item extends Model
 
                 if ($resize) {
                     if (!file_exists($full_path . "$file.$resize.jpeg")) {
-                        $img = Image::make($full_path . "$file.jpeg")->fit($resize)->sharpen(7);
+                        $img = \Image::make($full_path . "$file.jpeg")->fit($resize)->sharpen(7);
                         $img->save($full_path . "$file.$resize.jpeg");
                     }
                     $result_path = $relative_path . "$file.$resize.jpeg";

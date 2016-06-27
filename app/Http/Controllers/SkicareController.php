@@ -100,7 +100,7 @@ class SkicareController extends Controller
                     echo " CHYBA " . $item->id . " chybny ZOOM " . "\n";
                 }
 
-                // $img = Image::make($image_url)->save($path . '/' . sprintf("%02d", $i+1) . '.jpg');
+                // $img = \Image::make($image_url)->save($path . '/' . sprintf("%02d", $i+1) . '.jpg');
                 // $img->destroy();
             } else {
                 echo " CHYBA " . $item->id . " chyba zoom " . "\n";

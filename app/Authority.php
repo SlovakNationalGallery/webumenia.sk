@@ -219,7 +219,7 @@ class Authority extends Model
         $places = array_merge([
             $this->birth_place,
             $this->death_place,
-            ], $this->events->lists('place'));
+            ], $this->events->lists('place')->all());
 
         return array_values(array_filter(array_unique($places)));
     }
@@ -335,7 +335,7 @@ class Authority extends Model
 
                 if ($resize) {
                     if (!file_exists($full_path."$file.$resize.jpeg")) {
-                        $img = Image::make($full_path."$file.jpeg")->fit($resize)->sharpen(7);
+                        $img = \Image::make($full_path."$file.jpeg")->fit($resize)->sharpen(7);
                         $img->save($full_path."$file.$resize.jpeg");
                     }
                     $result_path = $relative_path."$file.$resize.jpeg";

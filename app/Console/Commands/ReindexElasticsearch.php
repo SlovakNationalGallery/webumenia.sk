@@ -56,7 +56,7 @@ class ReindexElasticsearch extends Command
         foreach ($type as $t) {
             if (in_array($t, $this->available_types)) {
                 $this->info("Spúšťam reindex pre typ: " . $t);
-                $controller = ucfirst(str_singular($t));
+                $controller = '\App\Http\Controllers\\'.ucfirst(str_singular($t));
                 App::make($controller . 'Controller')->reindex();
             } else {
                 $this->error('Neznámy typ');
