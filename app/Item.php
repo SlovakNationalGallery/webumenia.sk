@@ -214,8 +214,8 @@ class Item extends Model
                         ],
                         "ids" => [$this->attributes['id']],
                         "min_term_freq" => 1,
-                        "percent_terms_to_match" => 0.5,
-                        "min_word_length" => 2,
+                        "minimum_should_match" => 3,
+                        "min_word_length" => 3,
                         ]
                     ]
                 ],

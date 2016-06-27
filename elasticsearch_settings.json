@@ -95,12 +95,11 @@ PUT /webumenia/_mapping/items
           },
           "stemmed": { 
             "type":     "string",
-            "index_analyzer": "slovencina",
-            "search_analyzer": "slovencina"
+            "analyzer": "slovencina"
           },
           "suggest": { 
             "type":     "string",
-            "index_analyzer": "autocomplete",
+            "analyzer": "autocomplete",
             "search_analyzer": "ascii_folding"
           }
         }
@@ -111,17 +110,15 @@ PUT /webumenia/_mapping/items
         "fields": {
           "folded": { 
             "type":     "string",
-            "index_analyzer": "ascii_folding",
-            "search_analyzer": "ascii_folding"
+            "analyzer": "ascii_folding"
           },
           "stemmed": { 
             "type":     "string",
-            "index_analyzer": "slovencina",
-            "search_analyzer": "slovencina"
+            "analyzer": "slovencina"
           },
           "suggest": { 
             "type":     "string",
-            "index_analyzer": "autocomplete",
+            "analyzer": "autocomplete",
             "search_analyzer": "ascii_folding"
           }
         }
@@ -195,6 +192,7 @@ PUT /webumenia/_mapping/items
       },
       "place": {
         "type": "string",
+        "index": "not_analyzed",
         "fields": {
           "folded": {
             "type": "string",
@@ -259,7 +257,7 @@ PUT /webumenia/_mapping/authorities
           },
           "suggest": { 
             "type":     "string",
-            "index_analyzer": "autocomplete",
+            "analyzer": "autocomplete",
             "search_analyzer": "ascii_folding"
           }
         }
@@ -274,7 +272,7 @@ PUT /webumenia/_mapping/authorities
           },
           "suggest": { 
             "type":     "string",
-            "index_analyzer": "autocomplete",
+            "analyzer": "autocomplete",
             "search_analyzer": "ascii_folding"
           }
         }
@@ -289,7 +287,7 @@ PUT /webumenia/_mapping/authorities
           },
           "suggest": { 
             "type":     "string",
-            "index_analyzer": "autocomplete",
+            "analyzer": "autocomplete",
             "search_analyzer": "ascii_folding"
           }
         }
