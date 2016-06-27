@@ -1,0 +1,8 @@
+- stop node
+
+- add this line to elasticsearch.yml configuration file
+  "script.engine.groovy.inline.search: on"
+  
+- remove all data (on mac "/usr/local/var/elasticsearch/{cluster.name}/*")
+
+

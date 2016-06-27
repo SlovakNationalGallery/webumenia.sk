@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         \App\Console\Commands\OaiPmhHarvest::class,
         \App\Console\Commands\ReindexElasticsearch::class,
+        \App\Console\Commands\SetupElasticsearch::class,
         \App\Console\Commands\MakeSitemap::class,
         \App\Console\Commands\TestMemory::class,
         \App\Console\Commands\MakeSketchbook::class,

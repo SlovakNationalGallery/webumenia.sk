@@ -46,22 +46,12 @@ class ReindexElasticsearch extends Command
     public function fire()
     {
         if (!$type = $this->argument('type')) {
-            $this->info("Dostupné ES typy:");
-            foreach ($this->available_types as $available_type) {
-                echo " * [$available_type] \n";
-            }
-            $type[] = $this->ask('Zadaj názov typu, ktorý sa má reindexovať z databázy:');
+            $type = $this->choice('Which type to reindex?', $this->available_types);
         }
 
-        foreach ($type as $t) {
-            if (in_array($t, $this->available_types)) {
-                $this->info("Spúšťam reindex pre typ: " . $t);
-                $controller = '\App\Http\Controllers\\'.ucfirst(str_singular($t));
-                App::make($controller . 'Controller')->reindex();
-            } else {
-                $this->error('Neznámy typ');
-            }
-        }
+        $this->info("Spúšťam reindex pre typ: " . $type);
+        $controller = '\App\Http\Controllers\\'.ucfirst(str_singular($type));
+        App::make($controller . 'Controller')->reindex();
 
         $this->comment("Dokoncene");
     }
