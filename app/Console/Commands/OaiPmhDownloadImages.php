@@ -54,8 +54,8 @@ class OaiPmhDownloadImages extends Command
         }
 
         $logFile = 'image_download.log';
-        $this->log = new Monolog\Logger('image_download');
-        $this->log->pushHandler(new Monolog\Handler\StreamHandler(storage_path().'/logs/'.$logFile, Monolog\Logger::WARNING));
+        $this->log = new \Monolog\Logger('image_download');
+        $this->log->pushHandler(new \Monolog\Handler\StreamHandler(storage_path().'/logs/'.$logFile, \Monolog\Logger::WARNING));
 
         $i = 0;
 
