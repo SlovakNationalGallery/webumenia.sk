@@ -798,7 +798,7 @@ class SpiceHarvesterController extends Controller
                     }
                 }
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             Log::error('Identifier: ' . $identifier);
             Log::error('Message: ' . $e->getMessage());
             die('nastala chyba. pozri log.');
@@ -829,8 +829,10 @@ class SpiceHarvesterController extends Controller
         $file = $img_url;
         try {
             $data = file_get_contents($file);
-        } catch (Exception $e) {
-            $this->log->addError($img_url . ': ' . $e->getMessage());
+        } catch (\Exception $e) {
+            if (!str_contains($e->getMessage(), '403 Forbidden')) {
+                $this->log->addError($img_url . ': ' . $e->getMessage());                
+            }
             return false;
         }
         

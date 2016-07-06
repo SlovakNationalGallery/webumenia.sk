@@ -66,7 +66,7 @@ class ImportTags extends Command
                 }
 
             });
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->error('Error: '.  $e->getMessage());
             die();
         }

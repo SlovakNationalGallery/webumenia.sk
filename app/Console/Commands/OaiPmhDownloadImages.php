@@ -109,7 +109,7 @@ class OaiPmhDownloadImages extends Command
         $file = $item->img_url;
         try {
             $data = file_get_contents($file);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->log->addError($item->img_url . ': ' . $e->getMessage());
             return false;
         }

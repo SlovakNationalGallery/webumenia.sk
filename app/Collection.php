@@ -73,7 +73,7 @@ class Collection extends \Eloquent
         if (!file_exists($full_path . "$file.$resize.jpg")) {
             try {
                 $img = \Image::make($this->getHeaderImage(true))->fit($resize)->sharpen(7);
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $img = \Image::make(public_path() . self::ARTWORKS_DIR . 'no-image.jpg')->fit($resize)->sharpen(7);
             }
 
