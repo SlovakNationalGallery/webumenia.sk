@@ -16,10 +16,10 @@ class MakeSitemap extends Command
 
     protected $max_entries = 50000; // max entries per sitemap. according google spec max is 50 000
     protected $available_models = [
-        'Item',
-        'Authority',
         'Article',
-        'Collection'
+        'Authority',
+        'Collection',
+        'Item',
     ];
 
     /**
@@ -116,10 +116,11 @@ class MakeSitemap extends Command
         $i = 0;
         $sitemap_count = 0;
         $sitemap = App::make("sitemap");
+        $namespaced_model = '\App\\'. $model;
 
-        $model::chunk(200, function ($entries) use (&$sitemap, &$i, &$sitemap_count, &$model, &$priority, &$freq) {
+        $namespaced_model::chunk(200, function ($entries) use (&$sitemap, &$i, &$sitemap_count, &$model, &$priority, &$freq) {
             foreach ($entries as $entry) {
-            // preskocit clanky a kolekcie, ktore niesu vypublikovane
+                // preskocit clanky a kolekcie, ktore niesu vypublikovane
                 if (($model == 'Article' || $model == 'Collection') && (!$entry->publish)) {
                     continue;
                 }
@@ -153,7 +154,7 @@ class MakeSitemap extends Command
 
     private function getLastModified($file)
     {
-        $fileLastModTime = filemtime(app_path() . '/views/' . $file);
+        $fileLastModTime = filemtime(resource_path() . '/views/' . $file);
         return Carbon::createFromTimeStamp($fileLastModTime);
     }
 }
