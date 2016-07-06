@@ -110,6 +110,6 @@ class MakeSketchbook extends Command
 
         $this->comment("Generuje sa sketchbook pre {$sketchbook->title}.");
 
-        App::make('SkicareController')->downloadAllPages($id);
+        App::make('\App\Http\Controllers\SkicareController')->downloadAllPages($id);
     }
 }

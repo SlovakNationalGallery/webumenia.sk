@@ -86,7 +86,7 @@ class SpiceHarvesterController extends Controller
             $harvest->set_spec = Input::get('set_spec');
             $harvest->set_name = Input::get('set_name');
             $harvest->set_description = Input::get('set_description');
-            $collection = Collection::find(Input::get('collection_id'));
+            $collection = collect::find(Input::get('collection_id'));
             if ($collection) {
                 $harvest->collection()->associate($collection);
             }
@@ -156,7 +156,7 @@ class SpiceHarvesterController extends Controller
             $harvest->set_spec = Input::get('set_spec');
             $harvest->set_name = Input::get('set_name');
             $harvest->set_description = Input::get('set_description');
-            // $collection = Collection::find(Input::get('collection_id'));
+            // $collection = \Collection::find(Input::get('collection_id'));
             // if ($collection->count()) $harvest->collection()->associate($collection);
             $harvest->collection_id = Input::get('collection_id');
             $harvest->save();
@@ -216,7 +216,7 @@ class SpiceHarvesterController extends Controller
             }
         }
         
-        $collections = Collection::lists('name', 'id');
+        $collections = \Collection::lists('name', 'id');
         if (count($items_to_remove)) {
             $items = Item::whereIn('id', $items_to_remove)->paginate('50');
         } else {
@@ -236,7 +236,7 @@ class SpiceHarvesterController extends Controller
     public function launch($id)
     {
         // $vendorDir = base_path() . '/vendor'; include($vendorDir . '/imsop/simplexml_debug/src/simplexml_dump.php'); include($vendorDir . '/imsop/simplexml_debug/src/simplexml_tree.php');
-        Debugbar::disable();
+        \Debugbar::disable();
         $reindex = Input::get('reindex', false);
         $processed_items = 0;
         $new_items = 0;
@@ -246,13 +246,13 @@ class SpiceHarvesterController extends Controller
 
         $harvest = SpiceHarvesterHarvest::find($id);
 
-        $from = (Input::has('start_date')) ? new DateTime(Input::get('start_date')) : null;
-        $until = (Input::has('end_date')) ? new DateTime(Input::get('end_date')) : null;
-        // $from = new DateTime('2014-01-01'); //docasne
+        $from = (Input::has('start_date')) ? new \Carbon(Input::get('start_date')) : null;
+        $until = (Input::has('end_date')) ? new \Carbon(Input::get('end_date')) : null;
+        // $from = new \Carbon('2014-01-01'); //docasne
 
         if (!$from && (($harvest->status == SpiceHarvesterHarvest::STATUS_COMPLETED || $harvest->status == SpiceHarvesterHarvest::STATUS_IN_PROGRESS) && !$reindex)) {
-            $from = new DateTime($harvest->completed);
-            $from->sub(new DateInterval('P1D')); //pre istotu o den menej
+            $from = new \Carbon($harvest->completed);
+            $from->sub(new \Carbon\CarbonInterval('P1D')); //pre istotu o den menej
         }
 
         $harvest->status = $harvest::STATUS_QUEUED;

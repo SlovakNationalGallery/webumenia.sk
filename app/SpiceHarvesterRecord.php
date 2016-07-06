@@ -21,6 +21,6 @@ class SpiceHarvesterRecord extends Model
 
     public function item()
     {
-        return $this->belongsTo('Item', 'item_id');
+        return $this->belongsTo('App\Item', 'item_id');
     }
 }

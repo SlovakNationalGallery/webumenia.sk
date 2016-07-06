@@ -33,7 +33,7 @@ class SpiceHarvesterHarvest extends Model
 
     public function collection()
     {
-        return $this->belongsTo('Collection');
+        return $this->belongsTo('App\Collection');
     }
 
     public function getFromAttribute()

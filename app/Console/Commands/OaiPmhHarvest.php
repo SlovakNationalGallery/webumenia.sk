@@ -71,7 +71,7 @@ class OaiPmhHarvest extends Command
         }
         $this->comment("Spúšťa sa harvest pre set {$harvest->set_name}.");
 
-        App::make('SpiceHarvesterController')->launch($id);
+        App::make('\App\Http\Controllers\SpiceHarvesterController')->launch($id);
         $this->comment("Dokoncene");
     }
 
