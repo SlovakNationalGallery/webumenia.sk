@@ -82,7 +82,7 @@ class TestMemory extends Command
         echo "try allocating {$megabyte} megabyte...";
         try {
             $dummy = str_repeat("-", 1048576*$megabyte);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
 

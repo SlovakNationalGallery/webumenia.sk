@@ -96,7 +96,7 @@ class SkicareController extends Controller
                 try {
                     $data = file_get_contents($image_url);
                     file_put_contents($path . '/' . sprintf("%02d", $i+1) . '.jpg', $data);
-                } catch (Exception $ex) {
+                } catch (\Exception $ex) {
                     echo " CHYBA " . $item->id . " chybny ZOOM " . "\n";
                 }
 

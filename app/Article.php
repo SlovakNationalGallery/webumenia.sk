@@ -88,7 +88,7 @@ class Article extends Model
         if (!file_exists($full_path) && file_exists($this->getHeaderImage(true))) {
             try {
                 \Image::make($this->getHeaderImage(true))->fit(600, 250)->save($full_path);
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 
             }
         }
