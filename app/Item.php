@@ -688,6 +688,7 @@ class Item extends Model
             $work_types = $this->work_types;
             $main_work_type = reset($work_types);
             $data = [
+                'id' => $this->attributes['id'],
                 'identifier' => $this->attributes['identifier'],
                 'title' => $this->attributes['title'],
                 'author' => $this->makeArray($this->attributes['author']),

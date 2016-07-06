@@ -146,6 +146,10 @@ class SetupElasticsearch extends Command
         {
           "items": {
             "properties": {
+              "id": {
+                "type": "string",
+                "index": "not_analyzed"
+              },
               "identifier": {
                 "type": "string",
                 "index": "not_analyzed"
@@ -316,6 +320,10 @@ class SetupElasticsearch extends Command
         {
           "authorities": {
             "properties": {
+              "id": {
+                "type": "string",
+                "index": "not_analyzed"
+              },
               "identifier": {
                 "type": "string",
                 "index": "not_analyzed"

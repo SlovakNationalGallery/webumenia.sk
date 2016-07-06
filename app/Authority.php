@@ -362,6 +362,7 @@ class Authority extends Model
         }
         $client =  $this->getElasticClient();
         $data = [
+            'id' => $this->attributes['id'],
             'identifier' => $this->attributes['id'],
             'name' => $this->attributes['name'],
             'alternative_name' => $this->names->lists('name'),
