@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App\Console\Commands;
 
 use Illuminate\Support\Facades\App;
@@ -17,9 +15,7 @@ class ReindexElasticsearch extends Command
      *
      * @var string
      */
-    protected $name = 'es:reindex';
-
-    protected $available_types = ['items', 'authorities'];
+    protected $signature = 'es:reindex {type?}';
 
     /**
      * The console command description.
@@ -27,6 +23,8 @@ class ReindexElasticsearch extends Command
      * @var string
      */
     protected $description = 'Reindex elasticsearch from database.';
+
+    protected $available_types = ['items', 'authorities'];
 
     /**
      * Create a new command instance.
@@ -56,27 +54,4 @@ class ReindexElasticsearch extends Command
         $this->comment("Dokoncene");
     }
 
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return array(
-            array('type', InputOption::VALUE_OPTIONAL, 'ElasticSearch type [items|authorities].', null),
-        );
-    }
-
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return array(
-            // array('example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null),
-        );
-    }
 }
