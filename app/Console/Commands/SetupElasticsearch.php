@@ -39,6 +39,12 @@ class SetupElasticsearch extends Command
     {
         $client = new \GuzzleHttp\Client(['http_errors' => false]);
 
+        $host = 'localhost:9200';
+        $hosts = config('elasticsearch.hosts');
+        if (!empty($hosts)) {
+          $host = reset($hosts);
+          $this->comment('Your ES host is: ' . $host);
+        }
         $index_name = 'webumenia';
         $index_name = $this->ask('What is the index name?', $index_name);
         if (!$index_name) {
@@ -46,12 +52,12 @@ class SetupElasticsearch extends Command
         }
 
 
-        $res = $client->head('http://localhost:9200/'.$index_name);
+        $res = $client->head('http://'.$host.'/'.$index_name);
 
         if ($res->getStatusCode() == 200) {
             if ($this->confirm('It already exist. Do you want to delete it? [y|N]')) {
                 $this->comment('Removing...');
-                $res = $client->delete('http://localhost:9200/'.$index_name);
+                $res = $client->delete('http://'.$host.'/'.$index_name);
                 echo $res->getBody() . "\n";
             }
         } 
@@ -131,7 +137,7 @@ class SetupElasticsearch extends Command
         ';
 
         $this->comment('Creating...');
-        $res = $client->put('http://localhost:9200/'.$index_name, [
+        $res = $client->put('http://'.$host.'/'.$index_name, [
             'json' => json_decode($json_params_create_index, true),
         ]);
         echo $res->getBody() . "\n";
@@ -305,7 +311,7 @@ class SetupElasticsearch extends Command
         ';
 
         $this->comment('Creating type "items"...');
-        $res = $client->put('http://localhost:9200/'.$index_name .'/_mapping/items', [
+        $res = $client->put('http://'.$host.'/'.$index_name .'/_mapping/items', [
             'json' => json_decode($json_params_create_items, true),
         ]);
         echo $res->getBody() . "\n";
@@ -459,7 +465,7 @@ class SetupElasticsearch extends Command
         ';
 
         $this->comment('Creating type "authorities"...');
-        $res = $client->put('http://localhost:9200/'.$index_name .'/_mapping/authorities', [
+        $res = $client->put('http://'.$host.'/'.$index_name .'/_mapping/authorities', [
             'json' => json_decode($json_params_create_authorities, true),
         ]);
         echo $res->getBody() . "\n";
