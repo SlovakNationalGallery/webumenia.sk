@@ -17,7 +17,7 @@ Informácie |
         <div class="row bottom-space vertical-align">
             <div class="col-md-4">
 
-                <p class="lead">Web umenia je <strong>on-line katalóg</strong> výtvarných diel zo zbierok <strong>slovenských galérií</strong> evidovaných v&nbsp;Centrálnej evidencii diel výtvarného umenia. </p>
+                <p class="lead">Web umenia je <strong>on-line katalóg</strong> výtvarných diel zo zbierok <strong>slovenských galérií</strong> evidovaných v&nbsp;<a class="unstyled" href="http://www.sng.sk/sk/zbierky/centralny-katalog-diel" target="_blank">Centrálnej evidencii diel výtvarného umenia</a>. </p>
 
                 <p>Nájdete tu základné informácie o dielach a ich autoroch, ale aj pôvodné články, videá a kolekcie.Údaje a digitálne reprodukcie sú preberané a pravidelne aktualizované zo systému CEDVU (Centrálna evidencia diel výtvarného umenia), kam ich vkladajú zamestnanci jednotlivých galérií.</p>
 
@@ -30,8 +30,10 @@ Informácie |
                     <li><a href="{!! URL::to('katalog?gallery=Slovenská národná galéria, SNG') !!}">Slovenská národná galéria</a></li>
                     <li><a href="{!! URL::to('katalog?gallery=Oravská galéria, OGD') !!}">Oravská galéria v Dolnom Kubíne</a></li>
                     <li><a href="{!! URL::to('katalog?gallery=Galéria umenia Ernesta Zmetáka, GNZ') !!}">Galéria umenia Ernesta Zmetáka v Nových Zámkoch</a></li>
-                    <li><a href="{!! URL::to('katalog?gallery=Liptovská galéria Petra Michala Bohúňa, GPB') !!}">Liptovská galéria Petra Michala Bohúňa v Liptovskom Mikuláši</a></li>
+                    <li><a href="{!! URL::to('katalog?gallery=Liptovská galéria Petra Michala Bohúňa, GPB') !!}">Liptovská galéria Petra Michala Bohúňa v&nbsp;Liptovskom Mikuláši</a></li>
                     <li><a href="{!! URL::to('katalog?gallery=Galéria mesta Bratislavy, GMB') !!}">Galéria mesta Bratislavy</a></li>
+                    <li><a href="{!! URL::to('katalog?gallery=Galéria+Miloša+Alexandra+Bazovského, GBT') !!}">Galéria Miloša Alexandra Bazovského v Trenčíne</a></li>
+                    <li><a href="{!! URL::to('katalog?gallery=Nitrianska+galéria, NGN') !!}">Nitrianska galéria</a></li>
                 </ul>
             </div>
         </div>
@@ -47,7 +49,7 @@ Informácie |
         <div class="row ">
             <!-- stahovanie -->
             <div class="col-md-4">
-                <h4>Sťahovať diela a využívať ich</h4>
+                <h4>Sťahovať voľné diela</h4>
                 <ul class="fa-ul">
                     <li><span class="fa-li">&sect;</span>Digitálne reprodukcie autorskoprávne voľných diel SNG na tejto stránke sú sprístupnené ako <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank"><strong>verejné vlastníctvo (public domain)</strong></a>. Môžete si ich voľne stiahnuť <strong>vo vysokom rozlíšení</strong> a využívať na súkromné aj komerčné účely - kopírovať, zdieľať či upravovať. </li>
 
@@ -58,7 +60,7 @@ Informácie |
             </div>
 
             <div class="col-md-4">
-                <h4>napríklad</h4>
+                <h4>Využívať voľné diela</h4>
                 <ul class="fa-ul">
                     <li><i class="fa-li icon-arrow-right"></i><strong>tlač</strong> (plagáty, pohľadnice alebo tričká)</li>
 
@@ -140,6 +142,7 @@ Informácie |
                     <li><strong>Michal Čudrnák</strong> vedúci lab.SNG, autor článkov</li>
                     <li><strong>Lukáš Štepanovský</strong> editor obsahu, autor článkov</li>
                     <li><strong>Igor Rjabinin</strong> vývojár</li>
+                    <li><strong>Philo van Kemenade</strong> vývojár</li>
                     <li><strong>Braňo Matis</strong> grafický dizajnér</li>
                 </ul>
 

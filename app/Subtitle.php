@@ -15,7 +15,7 @@ class Subtitle
 
     public static function fromGalleries()
     {
-        return 'zo zbierok <strong><a href="/informacie">'. formatNum(5) .'</a></strong> slovenských galérií';
+        return 'zo zbierok <strong><a href="/informacie">'. formatNum(7) .'</a></strong> slovenských galérií';
     }
 
     public static function fromAuthors()
