@@ -1,7 +1,5 @@
 # Web Umenia
 
-_This is development branch._
-
 This is the repository of portal [www.webumenia.sk](http://www.webumenia.sk). 
 The site is entirely open source and community involvement is encouraged.
 
