@@ -172,20 +172,20 @@ Route::get('dielo/{id}/odstranit', function ($id) {
 
 });
 
-Route::get('dielo/{id}/stiahnut', function ($id) {
+Route::get('dielo/{id}/stiahnut', ['middleware' => 'throttle:5,1', function ($id) {
 
     $item = Item::find($id);
 
-    // if (empty($item) || !$item->isFreeDownload()) {
-    // 	App::abort(404);
-    // }
-    // $item->timestamps = false;
-    // $item->download_count += 1;
+    if (empty($item) || !$item->isFreeDownload()) {
+    	App::abort(404);
+    }
+    $item->timestamps = false;
+    $item->download_count += 1;
     $item->save();
     $item->download();
 
     // return Response::download($pathToFile);
-});
+}]);
 
 Route::get('dielo/{id}', function ($id) {
 

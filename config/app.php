@@ -125,6 +125,7 @@ return array(
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        'GrahamCampbell\Throttle\ThrottleServiceProvider',
     ),
 
     /*
@@ -193,6 +194,7 @@ return array(
         'Storage' => Illuminate\Support\Facades\Storage::class,
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
+        'Throttle' => 'GrahamCampbell\Throttle\Facades\Throttle',
     ),
 
     'jira_auth' => array(
