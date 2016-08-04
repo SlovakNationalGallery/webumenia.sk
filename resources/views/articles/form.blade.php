@@ -27,9 +27,9 @@
 	<div class="form-group">
 	{!! Form::label('category_id', 'Kategória') !!}
 	@if (isSet($article))
-		{!! Form::select('category_id', [''=>''] + App\Category::lists('name', 'id'), Input::old('category_id'), array('class' => 'select', 'multiple' => true)) !!}
+		{!! Form::select('category_id', [''=>''] + App\Category::lists('name', 'id')->toArray(), Input::old('category_id'), array('class' => 'select', 'multiple' => true)) !!}
 	@else
-		{!! Form::select('category_id', [''=>''] + App\Category::lists('name', 'id'), [], array('class' => 'select')) !!}
+		{!! Form::select('category_id', [''=>''] + App\Category::lists('name', 'id')->toArray(), [], array('class' => 'select')) !!}
 	@endif
 	</div>
 
