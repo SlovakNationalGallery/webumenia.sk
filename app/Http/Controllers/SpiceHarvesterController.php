@@ -904,12 +904,12 @@ class SpiceHarvesterController extends Controller
     private function getEndpoint($harvest)
     {
         //--- nazacat samostatnu metodu
-        $guzzleAdapter = null;
+        $adapter = null;
         if ($harvest->username && $harvest->password) {
-            $gclient = new \GuzzleHttp\Client(['defaults' =>  ['auth' =>  [$harvest->username, $harvest->password]]]);
-            $guzzleAdapter = new \Phpoaipmh\HttpAdapter\GuzzleAdapter($gclient);
+            $client = new \GuzzleHttp\Client(['auth' =>  [$harvest->username, $harvest->password]]);
+            $adapter = new \Phpoaipmh\HttpAdapter\GuzzleAdapter($client);
         }
-        $client = new \Phpoaipmh\Client($harvest->base_url, $guzzleAdapter);
+        $client = new \Phpoaipmh\Client($harvest->base_url, $adapter);
         $endpoint = new \Phpoaipmh\Endpoint($client);
         return $endpoint;
     }
