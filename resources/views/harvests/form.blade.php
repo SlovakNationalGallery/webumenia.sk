@@ -31,7 +31,7 @@
 <div class="col-md-12">
 	<div class="form-group">
 	{!! Form::label('base_url', 'URL') !!}
-	{!! Form::text('base_url', Input::old('base_url'), array('class' => 'form-control')) !!}
+	{!! Form::text('base_url', Input::old('base_url'), array('class' => 'form-control', 'placeholder' => 'http://')) !!}
 	</div>
 </div>
 <div class="col-md-6">

@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Response;
 
 class CollectionController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -54,8 +53,7 @@ class CollectionController extends Controller
         $v = Validator::make($input, $rules);
 
         if ($v->passes()) {
-            
-            $collection = new Collection;
+            $collection = new Collection();
             $collection->name = Input::get('name');
             $collection->type = Input::get('type');
             $collection->text = Input::get('text');
@@ -72,7 +70,7 @@ class CollectionController extends Controller
             } else {
                 $collection->user_id = Auth::user()->id;
             }
-            
+
             $collection->save();
 
             if (Input::hasFile('main_image')) {
@@ -88,19 +86,22 @@ class CollectionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function show($id)
     {
         $collection = Collection::find($id);
+
         return view('collections.show')->with('collection', $collection);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function edit($id)
@@ -117,7 +118,8 @@ class CollectionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function update($id)
@@ -133,7 +135,7 @@ class CollectionController extends Controller
             $collection->text = Input::get('text');
             $collection->text = Input::get('text');
             $collection->publish = Input::get('publish', false);
-            
+
             if (Input::has('user_id') && \Entrust::hasRole('admin')) {
                 $collection->user_id = Input::get('user_id');
             }
@@ -152,6 +154,7 @@ class CollectionController extends Controller
             }
 
             Session::flash('message', 'Kolekcia <code>'.$collection->name.'</code> bola upravená');
+
             return Redirect::route('collection.index');
         }
 
@@ -161,36 +164,38 @@ class CollectionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return Response
      */
     public function destroy($id)
     {
         Collection::find($id)->delete();
+
         return Redirect::route('collection.index')->with('message', 'Kolekcia bola zmazaná');
-        ;
     }
 
     /**
-     * Fill the collection with items
+     * Fill the collection with items.
      *
      * @param
+     *
      * @return Response
      */
     public function fill()
     {
-
         if ($collection = Collection::find(Input::get('collection'))) {
             $items = Input::get('ids');
             if (!is_array($items)) {
-                $items = explode(';', str_replace(" ", "", $items));
+                $items = explode(';', str_replace(' ', '', $items));
             }
             foreach ($items as $item_id) {
                 if (!$collection->items->contains($item_id)) {
                     $collection->items()->attach($item_id);
                 }
             }
-            return Redirect::back()->withMessage('Do kolekcie ' . $collection->name . ' bolo pridaných ' . count($items) . ' diel');
+
+            return Redirect::back()->withMessage('Do kolekcie '.$collection->name.' bolo pridaných '.count($items).' diel');
         } else {
             return Redirect::back()->withMessage('Chyba: zvolená kolekcia nebola nájdená. ');
         }
@@ -200,7 +205,8 @@ class CollectionController extends Controller
     {
         $collection = Collection::find($collection_id);
         $collection->items()->detach($item_id);
-        return Redirect::back()->withMessage('Z kolekcie ' . $collection->name . ' bolo odstrádené ' . count($item_id) . ' dielo');
+
+        return Redirect::back()->withMessage('Z kolekcie '.$collection->name.' bolo odstrádené '.count($item_id).' dielo');
     }
 
     private function uploadMainImage($collection)
@@ -214,31 +220,30 @@ class CollectionController extends Controller
 
     public function sort()
     {
+        $entity = \Input::get('entity');
+        $model_name = studly_case($entity);
+        // $model  = $model_name::find(\Input::get('id'));
+        $collection = Collection::find(\Input::get('id'));
 
-            $entity     = \Input::get('entity');
-            $model_name = \Str::studly($entity);
-            // $model  = $model_name::find(\Input::get('id'));
-            $collection  = Collection::find(\Input::get('id'));
-
-            $ids        = (array)\Input::get('ids');
-            $order      = 0;
-            $ordered_items = [];
-            // $orders     = [];
+        $ids = (array) \Input::get('ids');
+        $order = 0;
+        $ordered_items = [];
+        // $orders     = [];
 
         foreach ($ids as $id) {
             $ordered_items[$id] = ['order' => $order];
-            $order++;
+            ++$order;
         }
 
-            $collection->items()->sync($ordered_items);
+        $collection->items()->sync($ordered_items);
 
-            $response =  [
-                'result'  => 'success',
-                'message' => 'poradie zmenene',
-                'entity'  => $entity,
-                // 'orders'  => $orders,
-            ];
+        $response = [
+            'result' => 'success',
+            'message' => 'poradie zmenene',
+            'entity' => $entity,
+            // 'orders'  => $orders,
+        ];
 
-            return Response::json($response);
+        return response()->json($response);
     }
 }
