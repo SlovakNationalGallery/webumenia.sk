@@ -216,7 +216,7 @@ class SpiceHarvesterController extends Controller
             }
         }
         
-        $collections = \Collection::lists('name', 'id');
+        $collections = \Collection::lists('name', 'id')->toArray();
         if (count($items_to_remove)) {
             $items = Item::whereIn('id', $items_to_remove)->paginate('50');
         } else {
@@ -530,7 +530,7 @@ class SpiceHarvesterController extends Controller
                     }
                     $nationality = $author->nationalities()->sync($nationality_ids);
                 }
-                $roles_to_remove = $this->get_obsolete_attributes($author->roles->lists('role', 'id'), $attributes['roles']);
+                $roles_to_remove = $this->get_obsolete_attributes($author->roles->lists('role', 'id')->toArray(), $attributes['roles']);
                 AuthorityRole::destroy(array_keys($roles_to_remove));
                 if (!empty($attributes['roles'])) {
                     foreach ($attributes['roles'] as $key => $role) {
@@ -544,7 +544,7 @@ class SpiceHarvesterController extends Controller
                         $name = AuthorityName::firstOrCreate($name);
                     }
                 }
-                $events_to_remove = $this->get_obsolete_attributes($author->events->lists('id', 'id'), $attributes['events']);
+                $events_to_remove = $this->get_obsolete_attributes($author->events->lists('id', 'id')->toArray(), $attributes['events']);
                 AuthorityEvent::destroy(array_keys($events_to_remove));
                 if (!empty($attributes['events'])) {
                     foreach ($attributes['events'] as $key => $event) {
