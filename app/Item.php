@@ -33,6 +33,7 @@ class Item extends Model
         'tagy' => 'tag',
         'galéria' => 'gallery',
         'žáner' => 'topic',
+        'materiál' => 'medium',
         'technika' => 'technique',
         'len s obrázkom' => 'has_image',
         'len so zoom' => 'has_iip',
