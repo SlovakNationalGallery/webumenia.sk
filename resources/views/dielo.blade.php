@@ -163,7 +163,7 @@
                                     <td class="atribut">materiál:</td>
                                     <td>
                                     @foreach ($item->mediums as $medium)
-                                        {!! addMicrodata($medium, "artMedium") !!}<br>
+                                        <a href="{!! URL::to('katalog?medium=' . $medium) !!}">{!! addMicrodata($medium, "artMedium") !!}</a><br>
                                     @endforeach
                                     </td>
                                 </tr>
