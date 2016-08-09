@@ -198,8 +198,8 @@ return array(
     ),
 
     'jira_auth' => array(
-        'user' => 'your_user',
-        'pass' => 'your_pass',
+        'user' => env('JIRA_USER'),
+        'pass' => env('JIRA_PASSWORD'),
     ),
 
     'searchd_id' => 'your_id',
