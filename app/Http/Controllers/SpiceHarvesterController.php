@@ -780,7 +780,8 @@ class SpiceHarvesterController extends Controller
                 $attributes['publish'] = (int)$dcElements->rights[0];
             }
             $related = (string)$dcElements->{'relation.isPartOf'};
-            $related_parts = explode(':', $related);
+            // isPartOf - expected format is "relationship_type:related_work"
+            $related_parts = explode(':', $related, 2); // limit by 2, because "related_work" can contain ":"
             $attributes['relationship_type'] = array_shift($related_parts);
             if ($related_parts) {
                 $attributes['related_work'] = trim(preg_replace('/\s*\([^)]*\)/', '', $related_parts[0]));

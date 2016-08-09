@@ -244,14 +244,16 @@
                         
                     <div>
                     @if (!empty($item->related_work))
+                        <?php $related_items = App\Item::where('related_work', '=', $item->related_work)->where('author', '=', $item->author)->orderBy('related_work_order')->get() ?>
+                        @if ($related_items->count() > 1)
                         <div style="position: relative; padding: 0 10px;">
-                        <?php $related_tems = App\Item::where('related_work', '=', $item->related_work)->where('author', '=', $item->author)->orderBy('related_work_order')->get() ?>
                         <div class="artworks-preview small">
-                        @foreach ($related_tems as $item)
+                        @foreach ($related_items as $item)
                             <a href="{!! $item->getUrl() !!}"><img data-lazy="{!! $item->getImagePath() !!}" class="img-responsive-width " alt="{!! $item->getTitleWithAuthors() !!} "></a>
                         @endforeach
                         </div>
                         </div>
+                        @endif
                     @endif
                     </div>
 
