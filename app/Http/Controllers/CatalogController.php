@@ -38,6 +38,8 @@ class CatalogController extends Controller
 
         $per_page = 18;
         $page   = Paginator::resolveCurrentPage() ?: 1;
+        $max_pages = floor(50000/$per_page); // ES max_result_window = 50000
+        if ($page > $max_pages) $page = $max_pages;
         $offset = ($page * $per_page) - $per_page;
 
         $params = array();
