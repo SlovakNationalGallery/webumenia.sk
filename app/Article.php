@@ -123,7 +123,7 @@ class Article extends Model
     public function setPublishAttribute($value)
     {
         if ($value && empty($this->attributes['published_date'])) {
-            $current_time = Carbon\Carbon::now();
+            $current_time = Carbon::now();
             $this->attributes['published_date'] = $current_time->toDateTimeString();
         }
 
