@@ -204,8 +204,7 @@ Route::get('dielo/{id}', function ($id) {
     if (Input::has('collection')) {
         $collection = Collection::find((int) Input::get('collection'));
         if (!empty($collection)) {
-            // dd($collection->name);
-            $items = $collection->items->lists('id');
+            $items = $collection->items->lists('id')->all();
             $previousId = getPrevVal($items, $id);
             if ($previousId) {
                 $previous = Item::find($previousId)->getUrl(['collection' => $collection->id]);
