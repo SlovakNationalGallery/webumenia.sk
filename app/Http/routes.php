@@ -17,6 +17,18 @@ use App\Item;
 use App\Slide;
 use App\Order;
 
+Route::group(['domain' => 'media.webumenia.{tld}'], function () {
+    Route::get('/', function ($tld) {
+        return "webumenia media server";
+    });
+    Route::get('{id}', function ($tld, $id) {
+        $item = Item::find($id);
+        if ($item) {
+            return config('app.url') . $item->getImagePath();
+        }
+    });
+});
+
 Route::get('leto', function () {
 
     return redirect('kolekcia/25');
@@ -283,126 +295,3 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 });
 
-// App::error(function (Exception $exception) {
-
-//     if (Config::get('app.debug')) {
-//         return;
-//     }
-//     Log::error($exception);
-
-//     return Response::view('errors.fatal', array(), 500);
-// });
-
-// App::missing(function ($exception) {
-
-//     if (Request::is('cedvuweb/image/*')) {
-//         $id = Input::get('id');
-//         if (!empty($id)) {
-//             return redirect(Item::getImagePathForId($id), 301);
-//         }
-//     } elseif (Request::is('web/guest/*') || Request::is('web/ogd/*') || Request::is('web/gmb/*') || Request::is('web/gnz/*')) {
-//         $filter_lookup = [
-//             'author' => 'au',
-//             'work_type' => 'wt',
-//             'topic' => 'to',
-//         ];
-//         $work_type_lookup = [
-//             'photo' => 'fotografia',
-//             'graphic' => 'grafika',
-//             'drawing' => 'kresba',
-//             'painting' => 'maliarstvo',
-//             'sculpture' => 'sochárstvo',
-//             'graphic_design' => 'úžitkové umenie',
-//             'aplplied_arts' => 'úžitkové umenie',
-//             'ine_media' => 'iné médiá',
-//             'umelecke_remeslo' => 'umelecké remeslo',
-//         ];
-//         $uri = Request::path();
-//         $params = http_build_query(Input::all());
-//         $uri = (!$params) ? $uri : $uri.'/'.$params;
-//         $uri = str_replace('results?', 'results/', $uri);
-//         $parts = explode('/', $uri);
-//         $action = $parts[2];
-//         switch ($action) {
-//             case 'home':
-//                 return redirect('/', 301);
-//                 break;
-
-//             case 'about':
-//             case 'contact':
-//             case 'help':
-//                 return redirect('informacie', 301);
-//                 break;
-
-//             case 'detail':
-//                 $id = $parts[6];
-//                 $item = Item::find($id);
-//                 if ($item) {
-//                     return redirect($item->getUrl(), 301);
-//                 }
-//                 break;
-
-//             case 'search':
-//                 $query = array_pop($parts);
-//                 $query = urldecode($query);
-//                 parse_str($query, $output);
-//                 // $query = preg_replace("/(\w+)[=]/", " ", $query); // vymaze slova konciace "=" alebo ":" -> napr "au:"
-//                 $query = (isset($output['query'])) ? $output['query'] : '';
-//                 if (preg_match_all('/\s*([^:]+):(.*)/', $query, $matches)) {
-//                     $apply_filters = array();
-//                     $filters = array_combine($matches[1], $matches[2]);
-//                     foreach ($filters as $filter => $value) {
-//                         if (in_array($filter, $filter_lookup)) {
-//                             $filter = array_search($filter, $filter_lookup);
-//                             switch ($filter) {
-//                                 case 'work_type':
-//                                     $parts = explode(', ', $value);
-//                                     $value = reset($parts);
-//                                     $value = str_to_alphanumeric($value);
-//                                     $apply_filters[$filter] = $value;
-//                                     break;
-//                                 case 'author':
-//                                     $replace_pairs = ['"' => '', '\"' => '', '“' => ''];
-//                                     $value = strtr($value, $replace_pairs);
-//                                     $parts = explode(' ', $value);
-//                                     if (count($parts) > 1) {
-//                                         $last_name = array_pop($parts);
-//                                         $value = $last_name.', '.implode(' ', $parts);
-//                                         $apply_filters[$filter] = $value;
-//                                     }
-//                                     break;
-//                                 default:
-//                                     $replace_pairs = ['"' => '', '\"' => '', '“' => ''];
-//                                     $value = strtr($value, $replace_pairs);
-//                                     $apply_filters[$filter] = $value;
-//                                     break;
-//                             }
-//                         }
-//                     }
-//                     if (!empty($apply_filters)) {
-//                         return redirect('katalog?'.http_build_query($apply_filters), 301);
-//                     }
-//                     $query = implode(' ', $filters);
-//                 }
-//                 $query = $value = str_to_alphanumeric($query, ' ');
-
-//                 return redirect('katalog?search='.urlencode($query), 301);
-//                 break;
-
-//             case array_key_exists($action, $work_type_lookup):
-//                 $work_type = $work_type_lookup[$action];
-
-//                 return redirect(URL::to('katalog?work_type='.$work_type), 301);
-//                 break;
-
-//             default:
-//                 # code...
-//                 break;
-//         }
-//     }
-
-//     // $item = Item::forReproduction()->hasImage()->hasZoom()->limit(20)->orderByRaw("RAND()")->first();
-//     $item = Item::random()->first();
-
-//     return Response::view('errors.missing', ['item' => $item], 404);
-// });
