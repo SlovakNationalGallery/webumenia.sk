@@ -80,7 +80,6 @@ class ItemController extends Controller
 
         if ($v->passes()) {
 
-            $input = array_filter($input, 'strlen');
             $item = new Item;
             $item->fill($input);
             $item->save();
