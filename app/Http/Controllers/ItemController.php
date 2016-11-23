@@ -59,8 +59,9 @@ class ItemController extends Controller
     public function create()
     {
         $prefix = 'SVK:TMP.';  // TMP = temporary
-        $pocet = Item::where('id', 'LIKE', $prefix.'%')->count();
-        $new_id = $prefix . ($pocet+1);
+        $last_item = Item::where('id', 'LIKE', $prefix.'%')->orderBy('created_at', 'desc')->first();
+        $last_number = (int)str_replace($prefix, '', $last_item->id);
+        $new_id = $prefix . ($last_number+1);
         return view('items.form', array('new_id'=>$new_id));
     }
 
