@@ -31,7 +31,7 @@ Here are the steps for installation on a local machine.
 5. Run the migration with `php artisan migrate --seed` 
 6. Login to admin at `http://yourlocalhost/admin` using default credentials `admin`/`admin`
 
-You can now fill artoworks by adding them manually or importing using the "spice harvester" (harvests using OAI PMH).
+You can now fill artworks by adding them manually or importing using the "spice harvester" (harvests using OAI-PMH protocol).
 
 This application uses [IIPImage server](http://iipimage.sourceforge.net/) for zoomable (and downloadable) images.
 
