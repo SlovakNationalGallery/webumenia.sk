@@ -86,7 +86,7 @@ class SpiceHarvesterController extends Controller
             $harvest->set_spec = Input::get('set_spec');
             $harvest->set_name = Input::get('set_name');
             $harvest->set_description = Input::get('set_description');
-            $collection = collect::find(Input::get('collection_id'));
+            $collection = Collection::find(Input::get('collection_id'));
             if ($collection) {
                 $harvest->collection()->associate($collection);
             }
