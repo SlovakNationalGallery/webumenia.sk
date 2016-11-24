@@ -33,6 +33,7 @@ class User extends Authenticatable
 
     public static $rules = array(
         'name' => 'required',
+        'roles' => 'required',
         'email' => 'email|required',
         'username' => 'required',
         'password' => 'min:6',
