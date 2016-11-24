@@ -26,7 +26,7 @@
 	<div class="form-group">
 	{!! Form::label('roles', 'Skupina') !!}
 	@if (isSet($user))
-		{!! Form::select('roles', $roles, $user->roles->lists('id'), array('class' => 'select', 'multiple' => true)) !!}
+		{!! Form::select('roles', $roles, $user->roles->lists('id')->toArray(), array('class' => 'select', 'multiple' => true)) !!}
 	@else
 		{!! Form::select('roles', $roles, [], array('class' => 'select', 'multiple' => true)) !!}
 	@endif
