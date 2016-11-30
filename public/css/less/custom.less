@@ -814,13 +814,14 @@ section.catalog {
     }
 }
 
-.author, .collection{
+.author, .collection, .order{
   border-top: 1px solid @light-grey;
   &:first-child {
     border-top: none;
   }
   padding: 20px 0;
   strong {color: @dark-grey; }
+  .alert strong { color: inherit; }
   p.description, .description > p {
       // margin: 40px 0;
   }
