@@ -18,7 +18,7 @@ objednávka |
                     <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
                 @endif
                 @if (strtotime('now') < strtotime('2016-12-24'))
-                    <div class="alert alert-warning text-center" role="alert"><strong>Upozornenie:</strong> Objednávky tlačených reprodukcií zadané po 6. decembri 2016 už nestihnú byť realizované do Vianoc. <br>Tlačené reprodukcie si môžete v kníhkupectve Exlibris SNG vyzdvihnúť do 23.12 alebo po 27.12.</div>
+                    <div class="alert alert-warning text-center" role="alert"><strong>Upozornenie:</strong> Objednávky tlačených reprodukcií zadané po 6. decembri 2016 už nestihnú byť realizované do Vianoc. <br>Tlačené reprodukcie si môžete v kníhkupectve Exlibris SNG vyzdvihnúť do 23.12. alebo po 27.12.</div>
                 @endif
                 <div class="col-md-8 col-md-offset-2 text-center">
                     	<h2 class="bottom-space">Objednávka</h2>
