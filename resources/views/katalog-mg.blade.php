@@ -92,11 +92,11 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-12" style="margin-left: -15px; margin-right: -15px; padding:0 !important; width: 735px !important;">
                     <?php // $items = $items->paginate(18) ?>
                     <div id="iso">
                 	@foreach ($items as $i=>$item)
-    	                <div class="col-md-3 col-sm-4 col-xs-6 item">
+    	                <div class="col-md-4 col-sm-4 col-xs-6 item">
     	                	<a href="{!! $item->getUrl() !!}">
     	                		<img src="{!! $item->getImagePath() !!}" class="img-responsive" alt="{!! $item->getTitleWithAuthors() !!} ">	                		
     	                	</a>
@@ -110,7 +110,6 @@
                                     <em>{!! implode(', ', $item->authors) !!}</em><br>
                                     <strong>{!! $item->title !!}</strong><br>
                                     <em>{!! $item->getDatingFormated() !!}</em>
-                                    {{-- <br><span class="">{!! $item->gallery !!}</span> --}}
                                 </a>
                             </div>
     	                </div>	
