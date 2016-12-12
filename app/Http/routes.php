@@ -232,6 +232,7 @@ Route::get('dielo/{id}', function ($id) {
 });
 
 Route::controller('katalog', 'CatalogController');
+Route::get('mg', 'CatalogController@getMg');
 // Route::match(array('GET', 'POST'), 'katalog', 'CatalogController@index');
 // Route::match(array('GET', 'POST'), 'katalog/suggestions', 'CatalogController@getSuggestions');
 
