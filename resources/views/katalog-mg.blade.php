@@ -45,12 +45,13 @@
                 </div>
 
             </div>
+            @php ($year_range = explode(',', Input::get('year-range','')))
             <div class="row">
                 <div class="col-xs-6 col-sm-1 text-left text-sm-right year-range">
-                        <span class="sans" id="from_year">{!! !empty($input['year-range']) ? reset((explode(',', $input['year-range']))) : App\Item::sliderMin() !!}</span> 
+                        <span class="sans" id="from_year">{!! !empty($input['year-range']) ? $year_range[0] : App\Item::sliderMin() !!}</span> 
                 </div>
                 <div class="col-xs-6 col-sm-1 col-sm-push-10 text-right text-sm-left year-range">
-                        <span class="sans" id="until_year">{!! !empty($input['year-range']) ? end((explode(',', $input['year-range']))) : App\Item::sliderMax() !!}</span>
+                        <span class="sans" id="until_year">{!! !empty($input['year-range']) ? $year_range[1] : App\Item::sliderMax() !!}</span>
                 </div>
                 <div class="col-sm-10 col-sm-pull-1 year-range">
                         <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="{!! App\Item::sliderMin() !!}" data-slider-max="{!! App\Item::sliderMax() !!}" data-slider-step="5" data-slider-value="[{!! !empty($input['year-range']) ? $input['year-range'] : App\Item::sliderMin().','.App\Item::sliderMax() !!}]"/> 
@@ -74,7 +75,7 @@
                     @endif
 
                     @if (count(Input::all()) > 0)
-                        <a class="btn btn-sm btn-default btn-outline  sans" href="{!! URL::to('katalog')!!}">zrušiť filtre  <i class="icon-cross"></i></a>
+                        <a class="btn btn-sm btn-default btn-outline  sans" href="{!! URL::to('/')!!}">zrušiť filtre  <i class="icon-cross"></i></a>
                     @endif
                 </div>
                 <div class="col-xs-6 text-right">
