@@ -29,6 +29,19 @@ Route::group(['domain' => 'media.webumenia.{tld}'], function () {
     });
 });
 
+Route::group(['domain' => 'sbirky.moravska-galerie.{tld}'], function () {
+
+    Route::get('/', 'CatalogController@getMg');
+
+    Route::get('{id}', function ($tld, $id) {
+        $item = Item::find($id);
+        if ($item) {
+            return config('app.url') . $item->getImagePath();
+        }
+    });
+
+});
+
 Route::get('leto', function () {
 
     return redirect('kolekcia/25');
@@ -232,7 +245,7 @@ Route::get('dielo/{id}', function ($id) {
 });
 
 Route::controller('katalog', 'CatalogController');
-Route::get('mg', 'CatalogController@getMg');
+
 // Route::match(array('GET', 'POST'), 'katalog', 'CatalogController@index');
 // Route::match(array('GET', 'POST'), 'katalog/suggestions', 'CatalogController@getSuggestions');
 
