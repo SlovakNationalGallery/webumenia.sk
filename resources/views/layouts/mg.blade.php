@@ -60,6 +60,12 @@
   		
   		{!! Html::script('js/scroll-frame-head.js') !!}
 
+      <style type="text/css">
+          * {
+            font-family: Arial, sans-serif;
+          }
+      </style>
+
 </head>
 
 <body>
