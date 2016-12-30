@@ -98,7 +98,7 @@
                                     <td class="atribut">datovanie:</td>
                                     <td><time itemprop="dateCreated" datetime="{!! $item->date_earliest !!}">{!! $item->getDatingFormated(); !!}</time></td>
                                 </tr>
-                                @if (!empty($item->measurements))
+                                @if (!empty($item->measurement))
                                 <tr>
                                     <td class="atribut">rozmer:</td>
                                     <td>

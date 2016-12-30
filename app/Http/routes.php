@@ -29,15 +29,15 @@ Route::group(['domain' => 'media.webumenia.{tld}'], function () {
     });
 });
 
+// Route::group(['domain' => 'sbirky.moravska-galerie.{tld}'], function () {
+
+//     Route::get('/', function ($tld) {
+//       return 'V přípravě';
+//     });
+
+// });
+
 Route::group(['domain' => 'sbirky.moravska-galerie.{tld}'], function () {
-
-    Route::get('/', function ($tld) {
-      return 'V přípravě';
-    });
-
-});
-
-Route::group(['domain' => 'test.sbirky.moravska-galerie.{tld}'], function () {
 
     Config::set('request.domain', 'mg');
 
