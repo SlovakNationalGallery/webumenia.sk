@@ -31,14 +31,23 @@ Route::group(['domain' => 'media.webumenia.{tld}'], function () {
 
 Route::group(['domain' => 'sbirky.moravska-galerie.{tld}'], function () {
 
-    Route::get('/', 'CatalogController@getMg');
-
-    Route::get('{id}', function ($tld, $id) {
-        $item = Item::find($id);
-        if ($item) {
-            return config('app.url') . $item->getImagePath();
-        }
+    Route::get('/', function ($tld) {
+      return 'V přípravě';
     });
+
+});
+
+Route::group(['domain' => 'test.sbirky.moravska-galerie.{tld}'], function () {
+
+    Config::set('request.domain', 'mg');
+
+
+    Route::get('/', function () {
+        // dd(\Request::all());
+        return redirect('katalog')->with(\Request::all());
+    });
+
+    Route::get('katalog', 'CatalogController@getMg');
 
 });
 

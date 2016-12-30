@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends((Config::get('request.domain') == 'mg') ? 'layouts.mg' : 'layouts.master')
 
 @section('og')
 <meta property="og:title" content="{!! $item->getTitleWithAuthors() !!}" />
