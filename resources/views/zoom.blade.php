@@ -72,7 +72,9 @@
               <a id="next" href="#next" title="nasledujúce súvisiace dielo"><i class="fa fa-arrow-right"></i></a> 
             @endif
    </div>
-   <a class="btn btn-default btn-outline return" href="{!! $item->getUrl() !!}" role="button"><i class="fa fa-arrow-left"></i> naspäť</a>
+   @if (!Request::has('noreturn'))
+     <a class="btn btn-default btn-outline return" href="{!! $item->getUrl() !!}" role="button"><i class="fa fa-arrow-left"></i> naspäť</a>
+   @endif
 
     @if ($related_items)
       <div class="autohide"><div class="currentpage"><span id="index">{!! array_search($item->iipimg_url, $related_items ) + 1 !!}</span> / {!! count($related_items) !!}</div></div>
