@@ -116,7 +116,15 @@
                         @endif
                         @if (Entrust::hasRole('admin'))
                         <li>
-                            <a href="{!! URL::to('harvests') !!}"><i class="fa fa-download fa-fw"></i> Spice Harvester</a>
+                            <a href="#"><i class="fa fa-download fa-fw"></i> Import<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="{!! URL::to('harvests') !!}">Spice Harvester</a>
+                                </li>
+                                <li>
+                                    <a href="{!! URL::to('imports') !!}">CSV Import</a>
+                                </li>
+                            </ul>
                         </li>
                         @endif
                         @if (Entrust::hasRole('admin'))
@@ -169,8 +177,10 @@
 
     <!-- Core JavaScript Files -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-
     {!! Html::script('js/bootstrap.min.js') !!}
+    {!! Html::script('js/plugins/metisMenu/jquery.metisMenu.js') !!}
+    <script src="{!! asset_timed('js/sb-admin.js') !!}"></script>
+
     {!! Html::script('js/bootstrap-datepicker.js') !!}
     {!! Html::script('js/spin.min.js') !!}
     {!! Html::script('js/ladda.min.js') !!}
