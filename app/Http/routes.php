@@ -301,6 +301,8 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('harvests/orphaned/{id}', 'SpiceHarvesterController@orphaned');
     Route::get('harvests/{record_id}/refreshRecord/', 'SpiceHarvesterController@refreshRecord');
     Route::resource('harvests', 'SpiceHarvesterController');
+    Route::get('imports/launch/{id}', 'ImportController@launch');
+    Route::resource('imports', 'ImportController');
     Route::get('item/backup', 'ItemController@backup');
     Route::get('item/geodata', 'ItemController@geodata');
     Route::post('item/destroySelected', 'ItemController@destroySelected');

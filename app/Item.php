@@ -753,6 +753,7 @@ class Item extends Model
         $random = json_decode('
 			{"_script": {
 			    "script": "Math.random() * 200000",
+                "lang" : "groovy",
 			    "type": "number",
 			    "params": {},
 			    "order": "asc"
