@@ -16,6 +16,10 @@ CSV Imports |
             <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
         @endif
 
+        @if (Session::has('error'))
+            <div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>Error: </strong>{!! Session::get('error') !!}</div>
+        @endif
+
     </div>
     <!-- /.col-lg-12 -->
 </div>

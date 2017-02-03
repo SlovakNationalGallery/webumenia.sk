@@ -459,8 +459,17 @@ class Item extends Model
 
     public function getWorkTypesAttribute()
     {
-
         return (explode(', ', $this->attributes['work_type']));
+    }
+
+    public function setMediumAttribute($value)
+    {
+        $this->attributes['medium'] = $value ?: '';
+    }
+
+    public function setTechniqueAttribute($value)
+    {
+        $this->attributes['technique'] = $value ?: '';
     }
 
     public function setLat($value)

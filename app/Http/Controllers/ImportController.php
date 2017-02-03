@@ -7,7 +7,13 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 
 use App\Http\Requests;
+use Barryvdh\Debugbar\Facade;
+use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
+
+use App\Item;
 use App\Import;
+use App\ImportRecord;
 // use App\Collection;
 
 class ImportController extends Controller
@@ -106,7 +112,6 @@ class ImportController extends Controller
             $input = array_except(Input::all(), array('_method'));
 
             $import = Import::find($id);
-            $import = new Import;
             $import->name = Input::get('name');
             // $import->type = Input::get('type');
             // $collection = Collection::find(Input::get('collection_id'));
@@ -115,7 +120,13 @@ class ImportController extends Controller
             // }
             $import->save();
 
-            Session::flash('message', 'Import <code>'.$import->set_spec.'</code> bol upravený');
+            if (Input::hasFile('file')) {
+                $file = Input::file('file');
+                return $this->launch($import, $file);
+            }
+
+
+            \Session::flash('message', 'Import <code>'.$import->name.'</code> bol upravený');
             return redirect()->route('imports.index');
         }
 
@@ -136,4 +147,101 @@ class ImportController extends Controller
         return redirect()->route('imports.index')->with('message', 'Import <code>'.$name.'</code>  bol zmazaný');
         ;
     }
+
+	/**
+	 * Launch the import
+	 *
+	 * @param  /App/Import $import
+	 * @param  CSV file $file
+	 * @return Response
+	 */
+	public function launch($import, $file)
+	{
+
+		\Debugbar::disable();
+		$processed_items = 0;
+	    $new_items = 0;
+	    $updated_items = 0;
+	    $skipped_items = 0;
+	    $timeStart = microtime(true);
+
+		$last_import_record = $import->lastRecord;
+
+        $start_from = null;
+        $reindex = false; // docasne. chcelo by to checkbox
+
+		if ($last_import_record && ($last_import_record->status == Import::STATUS_COMPLETED || $last_import_record->status == Import::STATUS_IN_PROGRESS) && !$reindex) {
+            $start_from = $last_import_record->completed_at;
+            // $start_from->sub(new DateInterval('P1D'));
+        }
+
+        $this_import_record = new ImportRecord;
+        $this_import_record->import_id = $import->id;
+
+		$this_import_record->status = $import::STATUS_IN_PROGRESS;
+        $this_import_record->started_at = date('Y-m-d H:i:s');
+		$this_import_record->filename = $file->getClientOriginalName();
+		$this_import_record->save();
+
+
+        // \Excel::filter('chunk')->load($file)->chunk(250, function($results)
+        // {
+        //     foreach($results as $row)
+        //     {
+        //         dd($row);
+        //     }
+        // });
+
+        try {
+            \Excel::load(Input::file('file'), function ($reader) use (&$this_import_record) {
+                foreach ($reader->toArray() as $row) {
+                    // dd($row)
+                    $gallery = 'Moravská galerie v Brně, MG';
+                    $prefix = 'CZK:MG.';
+                    $suffix = ($row['lomeni_s'] != '_') ? '-' . $row['lomeni_s'] : '';
+                    $id = $prefix . $row['rada_s'] . '_' . (int)$row['porc_s'] . $suffix;
+                    $identifier = $row['rada_s'] . (int)$row['porc_s'] . $suffix;
+
+                    
+                    $item = Item::firstOrNew(['id' => $id]);
+                    $item->identifier = $identifier;
+                    $item->gallery = $gallery;
+                    $item->acquisition_date = $row['rokakv'];
+                    $item->author = ($row['autor']) ? $row['autor'] : 'Neznámy autor';
+                    $item->copyright_expires = $row['datexp'];
+                    $item->dating = $row['datace'];
+                    $item->date_earliest = $row['rokod'];
+                    $item->date_latest = $row['do'];
+                    $item->place = $row['mistovz'];
+                    $item->title = $row['titul'];
+                    $medium = ($row['matspec']) ? ($row['material'] . ', ' . $row['matspec']) : $row['material'];
+                    $item->medium = $medium;
+                    $technique = ($row['techspec']) ? ($row['technika'] . ', ' . $row['techspec']) : $row['technika'];
+                    $item->technique = $technique;
+                    $item->topic = ($row['namet']) ? $row['namet'] : '';
+                    $item->inscription = $row['sign'];
+                    $work_type = (isSet(Import::$cz_work_types[$row['rada_s']])) ? Import::$cz_work_types[$row['rada_s']] : 'maliarstvo';
+                    $item->work_type = $work_type;
+                    // este budu miry
+                    $item->save();
+                    $this_import_record->imported_items++;
+                    $this_import_record->save();
+                };
+                $this_import_record->status = $import::STATUS_COMPLETED;
+            },  'ISO-8859-2');
+            \Session::flash('message', $this_import_record->imported_items . ' records imported successfully.');
+            return redirect(route('imports.index'));
+        } catch (\Exception $e) {
+            $this_import_record->status = $import::STATUS_ERROR;
+            \Session::flash('error', $e->getMessage());
+            // return redirect(route('imports.index'));
+        }
+
+        $this_import_record->completed_at = date('Y-m-d H:i:s');
+        $this_import_record->save();
+        return redirect(route('imports.index'));
+
+
+	}
+
 }
