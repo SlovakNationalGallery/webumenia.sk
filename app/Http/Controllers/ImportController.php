@@ -165,7 +165,7 @@ class ImportController extends Controller
 	    $skipped_items = 0;
 	    $timeStart = microtime(true);
 
-		$last_import_record = $import->lastRecord;
+		$last_import_record = $import->lastRecord();
 
         $start_from = null;
         $reindex = false; // docasne. chcelo by to checkbox
