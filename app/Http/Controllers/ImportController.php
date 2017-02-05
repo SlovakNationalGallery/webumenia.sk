@@ -227,19 +227,24 @@ class ImportController extends Controller
                     $this_import_record->imported_items++;
                     $this_import_record->save();
                 };
-                $this_import_record->status = $import::STATUS_COMPLETED;
+                $this_import_record->status = Import::STATUS_COMPLETED;
+                $this_import_record->completed_at = date('Y-m-d H:i:s');
+                $this_import_record->save();
+
             },  'ISO-8859-2');
             \Session::flash('message', $this_import_record->imported_items . ' records imported successfully.');
             return redirect(route('imports.index'));
         } catch (\Exception $e) {
-            $this_import_record->status = $import::STATUS_ERROR;
+            $this_import_record->status = Import::STATUS_ERROR;
+            $this_import_record->completed_at = date('Y-m-d H:i:s');
+            $this_import_record->save();
             \Session::flash('error', $e->getMessage());
             // return redirect(route('imports.index'));
         }
 
-        $this_import_record->completed_at = date('Y-m-d H:i:s');
-        $this_import_record->save();
-        return redirect(route('imports.index'));
+        // $this_import_record->completed_at = date('Y-m-d H:i:s');
+        // $this_import_record->save();
+        // return redirect(route('imports.index'));
 
 
 	}
