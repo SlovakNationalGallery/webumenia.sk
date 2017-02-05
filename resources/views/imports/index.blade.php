@@ -38,6 +38,7 @@ CSV Imports |
                         <tr>
                             <th>#</th>
                             <th>Názov</th>
+                            <th>Súbor</th>
                             <th>Status</th>
                             <th>Posledný </th>
                             <th>Akcie</th>
@@ -48,17 +49,15 @@ CSV Imports |
 			            <tr>
 			                <td>{!! $i->id !!}</td>
                             <td>{!! $i->name !!}</td>
-			                <td>{!! ($i->record) ? $i->record->status : '' !!}</td>
-			                <td>{!! ($i->record) ? date("d. m. Y h:m",strtotime($i->record->completed_at)) : '' !!}</td>
+                            <td>{!! ($i->lastRecord()) ? $i->lastRecord()->filename : '' !!}</td>
+			                <td>{!! ($i->lastRecord()) ? $i->lastRecord()->status : '' !!}</td>
+			                <td>{!! ($i->lastRecord() && $i->lastRecord()->completed_at) ? date("d. m. Y h:m",strtotime($i->lastRecord()->completed_at)) : '' !!}</td>
 			                <td>
                                 {!! Form::open(array('method' => 'DELETE', 'route' => array('imports.destroy', $i->id), 'class' => 'visible-xs-inline form-inline')) !!}
                                 {!! link_to_action('ImportController@show', 'Detail', array($i->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', )) !!} 
                                 {!! link_to_action('ImportController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}
                                     {!! Form::submit('Zmazať', array('class' => 'btn btn-danger btn-xs btn-outline')) !!}
                                 {!! Form::close() !!}
-                                <br>
-                                {!! link_to_action('ImportController@launch', 'Reindex', array($i->id, 'reindex'=>true), array('class' => 'btn btn-default ladda-button', 'data-style'=>'expand-right')) !!} 
-                                {!! link_to_action('ImportController@launch', 'Spustiť', array($i->id), array('class' => 'btn btn-primary ladda-button', 'data-style'=>'expand-right')) !!} 
                             </td>
 			            </tr>
 						@endforeach

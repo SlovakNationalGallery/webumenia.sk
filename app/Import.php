@@ -36,10 +36,9 @@ class Import extends Model
         return $this->hasMany('App\ImportRecord');
     }
 
-    // Category model
     public function lastRecord()
     {
-      return $this->hasOne('App\ImportRecord')->latest();
+      return $this->records->last();
     }
 
 }
