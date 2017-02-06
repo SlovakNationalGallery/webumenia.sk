@@ -225,7 +225,7 @@ class ImportController extends Controller
                     $item->technique = $technique;
                     $item->topic = ($row['namet']) ? $row['namet'] : '';
                     $item->inscription = $row['sign'];
-                    $work_type = (isSet(Import::$cz_work_types[$row['rada_s']])) ? Import::$cz_work_types[$row['rada_s']] : 'maliarstvo';
+                    $work_type = Import::getWorkType($row['rada_s'], $row['skupina']);
                     $item->work_type = $work_type;
                     // este budu miry
                     $item->save();

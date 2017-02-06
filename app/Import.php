@@ -27,6 +27,18 @@ class Import extends Model
         'P' =>  'sochárstvo',
         ];
 
+    public static $cz_work_types_spec = [
+        'Bi' => 'úžitková, ilustrácia, knižná',
+        'Dř' => 'drevo',
+        'Gu' => 'úžitková',
+        'Ji' => 'iné',
+        'Ke' => 'keramika',
+        'Ko' => 'kov',
+        'Sk' => 'sklo',
+        'Šp' => 'šperk',
+        'Te' => 'textil',
+        ];
+
     public static $rules = array(
         'name' => 'required',
     );
@@ -39,6 +51,18 @@ class Import extends Model
     public function lastRecord()
     {
       return $this->records->last();
+    }
+
+    public static function getWorkType($rada, $skupina)
+    {
+        $work_type = (self::$cz_work_types[$rada]) ? self::$cz_work_types[$rada] : 'maliarstvo';
+        if (self::$cz_work_types_spec[$skupina]) {
+            if ($skupina == 'Gu') {
+                $work_type = 'grafika';
+            }
+            $work_type .= ', ' . self::$cz_work_types_spec[$skupina];
+        }
+        return $work_type;
     }
 
 }
