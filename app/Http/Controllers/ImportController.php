@@ -182,7 +182,7 @@ class ImportController extends Controller
 
 		$this_import_record->status = $import::STATUS_IN_PROGRESS;
         $this_import_record->started_at = date('Y-m-d H:i:s');
-		$this_import_record->filename = $file->getClientOriginalName();
+		$this_import_record->filename = (is_array($file)) ? $file['basename'] : $file->getClientOriginalName();
 		$this_import_record->save();
 
 
@@ -195,7 +195,8 @@ class ImportController extends Controller
         // });
 
         try {
-            \Excel::load(Input::file('file'), function ($reader) use (&$this_import_record) {
+            $file = (is_array($file)) ? storage_path('app/' . $file['path']) : $file;
+            \Excel::load($file, function ($reader) use (&$this_import_record) {
                 foreach ($reader->toArray() as $row) {
                     // dd($row)
                     $gallery = 'Moravská galerie v Brně, MG';

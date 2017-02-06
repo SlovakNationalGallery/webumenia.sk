@@ -62,6 +62,14 @@ class ImportCsv extends Command
             $this->error("Nenašiel sa set pre dané ID.");
             return;
         }
+
+        $files = \Storage::listContents('import/' . $import->dir_path);
+        $csv_files = array_filter($files, function ($object) { return $object['extension'] === 'csv'; });
+
+        foreach ($csv_files as $file) {
+            $this->comment("Spúšťa sa import pre {$file['path']}.");
+            App::make('\App\Http\Controllers\ImportController')->launch($import, $file);
+        }
         // $reindex =$this->option('reindex');
         // if ($reindex) {
         //     $this->info("Je zapnutý reindex celého importu. Bude to trvať dlhšie.");
@@ -73,9 +81,7 @@ class ImportCsv extends Command
         // if ($this->option('end_date')) {
         //     Input::merge(array('end_date' => $this->option('end_date')));
         // }
-        $this->comment("Spúšťa sa import pre {$import->name}.");
 
-        App::make('\App\Http\Controllers\ImportController')->launch($id);
         $this->comment("Dokoncene");
     }
 
