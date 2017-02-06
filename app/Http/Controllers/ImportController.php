@@ -196,7 +196,7 @@ class ImportController extends Controller
             \Excel::load(Input::file('file'), function ($reader) use (&$this_import_record) {
                 foreach ($reader->toArray() as $row) {
                     // dd($row)
-                    $gallery = 'Moravská galerie v Brně, MG';
+                    $gallery = 'Moravská galerie, MG';
                     $prefix = 'CZK:MG.';
                     $suffix = ($row['lomeni_s'] != '_') ? '-' . $row['lomeni_s'] : '';
                     $id = $prefix . $row['rada_s'] . '_' . (int)$row['porc_s'] . $suffix;
