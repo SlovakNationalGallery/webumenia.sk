@@ -196,11 +196,16 @@ class ImportController extends Controller
             \Excel::load(Input::file('file'), function ($reader) use (&$this_import_record) {
                 foreach ($reader->toArray() as $row) {
                     // dd($row)
-                    $gallery = 'Moravská galerie, MG';
+                    $gallery = 'Moravská galerie v Brně, MG';
                     $prefix = 'CZK:MG.';
-                    $suffix = ($row['lomeni_s'] != '_') ? '-' . $row['lomeni_s'] : '';
-                    $id = $prefix . $row['rada_s'] . '_' . (int)$row['porc_s'] . $suffix;
-                    $identifier = $row['rada_s'] . (int)$row['porc_s'] . $suffix;
+                    $id = $prefix . $row['rada_s'] . '_' . (int)$row['porc_s'];
+                    $identifier = $row['rada_s'] . ' ' . (int)$row['porc_s'];
+
+                    $suffix = ($row['lomeni_s'] != '_') ? $row['lomeni_s'] : '';
+                    if ($suffix) {
+                        $id .= '-' . $suffix;
+                        $identifier .= '/' .$suffix;
+                    }
 
                     
                     $item = Item::firstOrNew(['id' => $id]);
@@ -231,7 +236,7 @@ class ImportController extends Controller
                 $this_import_record->completed_at = date('Y-m-d H:i:s');
                 $this_import_record->save();
 
-            },  'ISO-8859-2');
+            },  'Windows-1250');
             \Session::flash('message', $this_import_record->imported_items . ' records imported successfully.');
             return redirect(route('imports.index'));
         } catch (\Exception $e) {
