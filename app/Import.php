@@ -53,6 +53,11 @@ class Import extends Model
       return $this->records->last();
     }
 
+    public function setDirPath($value)
+    {
+        $this->attributes['dir_path'] = $value ?: null;
+    }
+
     public static function getWorkType($rada, $skupina)
     {
         $work_type = (self::$cz_work_types[$rada]) ? self::$cz_work_types[$rada] : 'maliarstvo';

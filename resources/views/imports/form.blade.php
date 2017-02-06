@@ -39,6 +39,16 @@
 
 <div class="col-md-12">
 	<div class="form-group">
+	{!! Form::label('dir_path', 'Priečinok (nepovinné)') !!}
+	<div class="input-group">
+		<div class="input-group-addon">/storage/import/</div>
+		{!! Form::text('dir_path', Input::old('dir_path'), array('class' => 'form-control', 'placeholder' => '')) !!}
+	</div>
+	</div>
+</div>
+
+<div class="col-md-12">
+	<div class="form-group">
 	{!! Form::label('file', 'CSV súbor') !!}
 	{!! Form::file('file') !!}
 	</div>

@@ -56,6 +56,7 @@ class ImportController extends Controller
             
             $import = new Import;
             $import->name = Input::get('name');
+            $import->dir_path = Input::get('dir_path');
             // $import->type = Input::get('type');
             // $collection = Collection::find(Input::get('collection_id'));
             // if ($collection) {
@@ -113,6 +114,7 @@ class ImportController extends Controller
 
             $import = Import::find($id);
             $import->name = Input::get('name');
+            $import->dir_path = Input::get('dir_path');
             // $import->type = Input::get('type');
             // $collection = Collection::find(Input::get('collection_id'));
             // if ($collection) {
