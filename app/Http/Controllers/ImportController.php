@@ -194,19 +194,27 @@ class ImportController extends Controller
         //     }
         // });
 
+        $images = null;
+        if ($import->dir_path) {
+            $image_dir = basename($this_import_record->filename, '.csv');
+            $images = \Storage::listContents('import/' . $import->dir_path . '/' . $image_dir);
+        }
+
         try {
             $file = (is_array($file)) ? storage_path('app/' . $file['path']) : $file;
-            \Excel::load($file, function ($reader) use (&$this_import_record) {
+
+            \Excel::load($file, function ($reader) use (&$this_import_record, &$images) {
                 foreach ($reader->toArray() as $row) {
-                    // dd($row)
-                    $gallery = 'Moravská galerie v Brně, MG';
+                    $gallery = 'Moravská galerie, MG';
                     $prefix = 'CZK:MG.';
                     $id = $prefix . $row['rada_s'] . '_' . (int)$row['porc_s'];
                     $identifier = $row['rada_s'] . ' ' . (int)$row['porc_s'];
+                    $image_file = $row['rada_s'] . str_pad($row['porc_s'], 6, "0", STR_PAD_LEFT);
 
                     $suffix = ($row['lomeni_s'] != '_') ? $row['lomeni_s'] : '';
                     if ($suffix) {
                         $id .= '-' . $suffix;
+                        $image_file .= '-' . $suffix;
                         $identifier .= '/' .$suffix;
                     }
 
@@ -231,7 +239,24 @@ class ImportController extends Controller
                     $work_type = Import::getWorkType($row['rada_s'], $row['skupina']);
                     $item->work_type = $work_type;
                     // este budu miry
+
+                    if ($images) {
+                        $item_image_files = array_filter($images, function ($object) use ($image_file) { 
+                            return (
+                                $object['type'] === 'file' && 
+                                ($object['extension'] === 'jpg' || $object['extension'] === 'JPG') &&
+                                strpos($object['filename'], $image_file) === 0
+                                ); 
+                        });
+                        if (!empty($item_image_files)) {
+                            $item_image_file = reset($item_image_files);
+                            $this->uploadImage($item, $item_image_file);
+                            $item->has_image = true;
+                        }
+                    }
+
                     $item->save();
+
                     $this_import_record->imported_items++;
                     $this_import_record->save();
                 };
@@ -250,11 +275,33 @@ class ImportController extends Controller
             // return redirect(route('imports.index'));
         }
 
-        // $this_import_record->completed_at = date('Y-m-d H:i:s');
-        // $this_import_record->save();
-        // return redirect(route('imports.index'));
+        $this_import_record->completed_at = date('Y-m-d H:i:s');
+        $this_import_record->save();
+        
 
+        if (App::runningInConsole()) {
+            echo \Session::get('message') . "\n";
+            return true;
+        }
+        
+        return redirect(route('imports.index'));
 
 	}
+
+    private function uploadImage($item, $file)
+    {
+        $item->removeImage();
+        
+        $error_messages = array();
+        $full = true;
+        $filename = $item->getImagePath($full);
+        $uploaded_image = \Image::make(storage_path('app/' . $file['path']));
+        if ($uploaded_image->width() > $uploaded_image->height()) {
+            $uploaded_image->widen(800);
+        } else {
+            $uploaded_image->heighten(800);
+        }
+        return $uploaded_image->save($filename);
+    }
 
 }

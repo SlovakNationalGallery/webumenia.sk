@@ -64,7 +64,7 @@ class ImportCsv extends Command
         }
 
         $files = \Storage::listContents('import/' . $import->dir_path);
-        $csv_files = array_filter($files, function ($object) { return $object['extension'] === 'csv'; });
+        $csv_files = array_filter($files, function ($object) { return (isSet($object['extension']) && $object['extension'] === 'csv'); });
 
         foreach ($csv_files as $file) {
             $this->comment("Spúšťa sa import pre {$file['path']}.");
