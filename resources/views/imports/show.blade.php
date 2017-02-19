@@ -22,26 +22,36 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td>name:</td>
+								<td>názov:</td>
 								<td>{!! $import->name !!}</td>
 							</tr>
+							@if ($import->settings)
 							<tr>
 								<td>settings:</td>
 								<td>{!! $import->settings !!}</td>
 							</tr>
+							@endif
+							@if ($import->mapping)
 							<tr>
 								<td>mapping:</td>
 								<td>{!! $import->mapping !!}</td>
 							</tr>
+							@endif
+							@if ($import->dir_path)
 							<tr>
-								<td>Vytvorený:</td>
-								<td>{!! $import->created_at !!}</td>
+								<td>priečinok:</td>
+								<td>{!! $import->dir_path !!}</td>
 							</tr>
+							@endif
 							<tr>
-								<td>Naposledy spustený:</td>
-								<td>{!! $import->initiated !!}</td>
+								<td>vytvorený:</td>
+								<td>{!! ($import->created_at) ? $import->created_at->format('d.m.Y h:i') : '' !!}</td>
 							</tr>
 							{{--  
+							<tr>
+								<td>Naposledy spustený:</td>
+								<td>{!! ($import->lastRecord) ? $import->initiated->format('d.m.Y h:i') : '' !!}</td>
+							</tr>
 							<tr>
 								<td>Naposledy skompletizovaný:</td>
 								<td>{!! $import->completed !!}</td>
@@ -56,6 +66,35 @@
 							</tr>							
 							--}}							
 	                    </tbody>
+	                </table>
+
+	                <h4 class="modal-title top-space">História</h4>
+
+	                <table class="table table-condensed top-space">
+	                	<thead>
+	                		<tr>
+	                			<th>súbor</th>
+	                			<th>status</th>
+	                			<th>začiatok</th>
+	                			<th>koniec</th>
+	                			<th># importovaných</th>
+	                		</tr>
+	                	</thead>
+	                	@foreach ($import->records as $record)
+	                		@if ($record->status=='error')
+	                			<tr class="danger">
+	                		@elseif ($record->status=='in progress')
+	                			<tr class="warning">
+	                		@else
+	                			<tr>
+	                		@endif
+	                			<td>{{ $record->filename }}</td>
+	                			<td>{{ $record->status }}</td>
+	                			<td>{{ ($record->started_at) ? $record->started_at->format('d.m.Y h:i') : '' }}</td>
+	                			<td>{{ ($record->completed_at) ? $record->completed_at->format('d.m.Y h:i') : '' }}</td>
+	                			<td class="text-right">{{ $record->imported_items }}</td>
+	                		</tr>
+	                	@endforeach
 	                </table>
 	            </div>
 

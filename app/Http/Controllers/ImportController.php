@@ -78,7 +78,10 @@ class ImportController extends Controller
      */
     public function show($id)
     {
-        $import = Import::find($id);
+        $import = Import::with(['records' => function($query) {
+            $query->orderBy('id', 'desc');
+            $query->take(10);
+        }])->find($id);
         return view('imports.show')->with('import', $import);
     }
 
@@ -279,7 +282,7 @@ class ImportController extends Controller
         $this_import_record->save();
         
 
-        if (App::runningInConsole()) {
+        if (\App::runningInConsole()) {
             echo \Session::get('message') . "\n";
             return true;
         }
