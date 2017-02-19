@@ -283,10 +283,19 @@ Route::group(array('middleware' => 'guest'), function () {
     Route::post('login', 'AuthController@postLogin');
 });
 
-Route::group(['middleware' => ['auth', 'role:admin|editor']], function () {
+Route::group(['middleware' => ['auth', 'role:admin|editor|import']], function () {
 
     Route::get('admin', 'AdminController@index');
     Route::get('logout', 'AuthController@logout');
+
+    Route::get('harvests/{record_id}/refreshRecord/', 'SpiceHarvesterController@refreshRecord');
+    Route::get('imports/launch/{id}', 'ImportController@launch');
+    Route::resource('imports', 'ImportController');
+
+});
+
+Route::group(['middleware' => ['auth', 'role:admin|editor']], function () {
+
     Route::get('collection/{collection_id}/detach/{item_id}', 'CollectionController@detach');
     Route::post('collection/fill', 'CollectionController@fill');
     Route::post('collection/sort', 'CollectionController@sort');
@@ -299,10 +308,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::resource('article', 'ArticleController');
     Route::get('harvests/launch/{id}', 'SpiceHarvesterController@launch');
     Route::get('harvests/orphaned/{id}', 'SpiceHarvesterController@orphaned');
-    Route::get('harvests/{record_id}/refreshRecord/', 'SpiceHarvesterController@refreshRecord');
     Route::resource('harvests', 'SpiceHarvesterController');
-    Route::get('imports/launch/{id}', 'ImportController@launch');
-    Route::resource('imports', 'ImportController');
     Route::get('item/backup', 'ItemController@backup');
     Route::get('item/geodata', 'ItemController@geodata');
     Route::post('item/destroySelected', 'ItemController@destroySelected');

@@ -94,7 +94,7 @@
                             <a href="{!! URL::to('authority') !!}"><i class="fa fa-user fa-fw"></i> Autority</a>
                         </li>
                         @endif
-                        @if (Entrust::hasRole('admin') || Entrust::hasRole('editor'))
+                        @if (Entrust::hasRole(['admin', 'editor']))
                         <li>
                             <a href="{!! URL::to('collection') !!}"><i class="fa fa-th-list fa-fw"></i> Kolekcie</a>
                         </li>
@@ -114,13 +114,15 @@
                             <a href="{!! URL::to('sketchbook') !!}"><i class="fa fa-book fa-fw"></i> Skicáre</a>
                         </li>
                         @endif
-                        @if (Entrust::hasRole('admin'))
+                        @if (Entrust::hasRole(['admin', 'import']))
                         <li>
                             <a href="#"><i class="fa fa-download fa-fw"></i> Import<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                                @if (Entrust::hasRole(['admin']))
                                 <li>
                                     <a href="{!! URL::to('harvests') !!}">Spice Harvester</a>
                                 </li>
+                                @endif                                
                                 <li>
                                     <a href="{!! URL::to('imports') !!}">CSV Import</a>
                                 </li>
