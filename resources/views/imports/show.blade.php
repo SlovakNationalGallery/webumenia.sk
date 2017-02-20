@@ -77,7 +77,7 @@
 	                			<th>status</th>
 	                			<th>začiatok</th>
 	                			<th>koniec</th>
-	                			<th># importovaných</th>
+	                			<th># diel</th>
 	                		</tr>
 	                	</thead>
 	                	@foreach ($import->records as $record)
@@ -89,7 +89,12 @@
 	                			<tr>
 	                		@endif
 	                			<td>{{ $record->filename }}</td>
-	                			<td>{{ $record->status }}</td>
+	                			<td>
+	                				{{ $record->status }}
+	                				@if ($record->error_message)
+	                					<i class="fa fa-exclamation-triangle text-danger pointer" aria-hidden="true" data-toggle="popover" data-content="{{ $record->error_message }}"></i>
+	                				@endif
+	                			</td>
 	                			<td>{{ ($record->started_at) ? $record->started_at->format('d.m.Y h:i') : '' }}</td>
 	                			<td>{{ ($record->completed_at) ? $record->completed_at->format('d.m.Y h:i') : '' }}</td>
 	                			<td class="text-right">{{ $record->imported_items }}</td>
@@ -103,5 +108,11 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Zavrieť</button>
             </div>            <!-- /modal-footer -->
+
+<script type="text/javascript">
+	$(function () {
+	  $('[data-toggle="popover"]').popover()
+	});
+</script>
 </body>
 </html>

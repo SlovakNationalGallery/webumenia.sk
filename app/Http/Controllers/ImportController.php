@@ -272,6 +272,7 @@ class ImportController extends Controller
             return redirect(route('imports.index'));
         } catch (\Exception $e) {
             $this_import_record->status = Import::STATUS_ERROR;
+            $this_import_record->error_message = $e->getMessage();
             $this_import_record->completed_at = date('Y-m-d H:i:s');
             $this_import_record->save();
             \Session::flash('error', $e->getMessage());
