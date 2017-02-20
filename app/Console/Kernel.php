@@ -33,7 +33,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('inspire')
-                 ->hourly();
+        $schedule->command('csv:import --id=1')
+                 ->daily()
+                 ->sendOutputTo(storage_path() . "/logs/csv-import.log");
     }
 }
