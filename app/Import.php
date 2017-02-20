@@ -60,8 +60,8 @@ class Import extends Model
 
     public static function getWorkType($rada, $skupina)
     {
-        $work_type = (self::$cz_work_types[$rada]) ? self::$cz_work_types[$rada] : 'maliarstvo';
-        if (self::$cz_work_types_spec[$skupina]) {
+        $work_type = (isSet(self::$cz_work_types[$rada])) ? self::$cz_work_types[$rada] : 'maliarstvo';
+        if (isSet(self::$cz_work_types_spec[$skupina])) {
             if ($skupina == 'Gu') {
                 $work_type = 'grafika';
             }
