@@ -291,7 +291,8 @@ Route::group(['middleware' => ['auth', 'role:admin|editor|import']], function ()
     Route::get('harvests/{record_id}/refreshRecord/', 'SpiceHarvesterController@refreshRecord');
     Route::get('imports/launch/{id}', 'ImportController@launch');
     Route::resource('imports', 'ImportController');
-
+    Route::get('item/search', 'ItemController@search');
+    Route::resource('item', 'ItemController');
 });
 
 Route::group(['middleware' => ['auth', 'role:admin|editor']], function () {
@@ -313,9 +314,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('item/geodata', 'ItemController@geodata');
     Route::post('item/destroySelected', 'ItemController@destroySelected');
     Route::post('item/refreshSelected', 'ItemController@refreshSelected');
-    Route::get('item/search', 'ItemController@search');
     Route::get('item/reindex', 'ItemController@reindex');
-    Route::resource('item', 'ItemController');
     Route::get('authority/destroyLink/{link_id}', 'AuthorityController@destroyLink');
     Route::get('authority/search', 'AuthorityController@search');
     Route::get('authority/reindex', 'AuthorityController@reindex');

@@ -24,7 +24,11 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::orderBy('updated_at', 'DESC')->paginate(100);
+        $items = Item::orderBy('updated_at', 'DESC');
+        if (\Entrust::hasRole('import')) {
+            $items->where('gallery', '=', 'Moravská galerie, MG');
+        }
+        $items = $items->paginate(50);
         // $collections = Collection::orderBy('order', 'ASC')->get();
         $collections = Collection::lists('name', 'id');
         return view('items.index', array('items' => $items, 'collections' => $collections));
@@ -42,10 +46,16 @@ class ItemController extends Controller
         if (str_contains($search, ';')) {
 
             $ids = explode(';', str_replace(" ", "", $search));
-            $results = Item::whereIn('id', $ids)->paginate(20);
+            $results = Item::whereIn('id', $ids);
         } else {
-            $results = Item::where('title', 'LIKE', '%'.$search.'%')->orWhere('author', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%')->paginate(20);
+            $results = Item::where('title', 'LIKE', '%'.$search.'%')->orWhere('author', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%');
         }
+
+        if (\Entrust::hasRole('import')) {
+            $results->where('gallery', '=', 'Moravská galerie, MG');
+        }
+
+        $results = $results->paginate(20);
 
         $collections = Collection::lists('name', 'id');
         return view('items.index', array('items' => $results, 'collections' => $collections, 'search' => $search));

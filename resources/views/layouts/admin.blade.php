@@ -84,7 +84,7 @@
                         <li>
                             <a href="{!! URL::to('admin') !!}"><i class="fa fa-dashboard fa-fw"></i> Úvod</a>
                         </li>
-                        @if (Entrust::hasRole('admin'))
+                        @if (Entrust::hasRole(['admin', 'import']))
                         <li>
                             <a href="{!! URL::to('item') !!}"><i class="fa fa-picture-o fa-fw"></i> Diela</a>
                         </li>
