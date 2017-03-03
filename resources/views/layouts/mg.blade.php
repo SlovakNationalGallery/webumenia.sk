@@ -96,6 +96,11 @@
   </div>
 
 
+  <div id="top">
+      <a href="#page-top" title="návrat hore" class="btn btn-default"  data-toggle="tooltip" data-placement="top">
+          <i class="icon-arrow-up"></i>
+      </a>
+  </div>
 
 
 	<!-- Core JavaScript Files -->
