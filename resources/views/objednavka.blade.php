@@ -24,6 +24,9 @@ objednávka |
                     	<h2 class="bottom-space">Objednávka</h2>
                         <p>K vybraným dielam zo zbierok SNG ponúkame možnosť objednať si reprodukcie v archívnej kvalite na fineartových papieroch. Po výbere diel, vyplnení údajov a odoslaní objednávky vás bude kontaktovať pracovník SNG s podrobnejšími informáciami. 
                         Momentálne je možné vyzdvihnúť si diela len osobne v&nbsp;kníhkupectve <a href="https://goo.gl/maps/3Uf4S" target="_blank" class="underline">Ex Libris v priestoroch SNG na Námestí Ľ. Štúra 4 v Bratislave</a>  alebo v pokladni <a href="https://goo.gl/maps/MPRy6Qdwm8s" target="_blank" class="underline">Zvolenského zámku - Námestie SNP 594/1</a>. </p>
+                        <div class="alert alert-info  top-space" role="alert">
+                            <strong>Ospravedlňujeme sa</strong>, z technických dôvodov sme museli <strong>dočasne pozastaviť objednávky tlačených reprodukcií s paspartou alebo rámom</strong>. Samostatnú tlačenú reprodukciu si však môžete objednať aj naďalej. Ďakujeme za pochopenie.
+                        </div>
                 </div>
             </div>
         </div>
@@ -70,9 +73,9 @@ objednávka |
 {!! Former::text('name')->label('Meno')->required(); !!}
 {!! Former::text('address')->label('Adresa'); !!}
 {!! Former::text('email')->label('E-mail')->required(); !!}
-{!! Former::text('phone')->label('Telefón'); !!}
+{!! Former::text('phone')->label('Telefón')->required(); !!}
 
-
+{{-- 
 {!! Former::select('format')->label('Formát')->required()->options(array(
     'do formátu A4 :' => array(
         'do A4: samostatná reprodukcia 25 €/ks' => array('value'=>'samostatná reprodukcia (25 €/ks)'), 
@@ -84,6 +87,17 @@ objednávka |
         'do A3+: reprodukcia s paspartou 50 €/ks' => array('value'=>'reprodukcia s paspartou (50 €/ks)'), 
         'do A3+: s paspartou a rámom 60 €/ks' => array('value'=>'s paspartou a rámom (60 €/ks)'), 
         ),  
+    'na stiahnutie :' => array(
+        'digitálna reprodukcia' => array('value'=>'digitálna reprodukcia')
+        ),
+)); !!}
+ --}}
+
+{!! Former::select('format')->label('Formát')->required()->options(array(
+    'tlačená reprodukcia :' => array(
+        'do A4: samostatná reprodukcia 25 €/ks' => array('value'=>'do formátu A4 (24 €/ks)'), 
+        'do A3+: samostatná reprodukcia 35 €/ks' => array('value'=>'do formátu A3+ (35 €/ks)'),
+        ),
     'na stiahnutie :' => array(
         'digitálna reprodukcia' => array('value'=>'digitálna reprodukcia')
         ),
