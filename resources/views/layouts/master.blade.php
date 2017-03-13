@@ -105,25 +105,22 @@
 	        <div class="collapse navbar-collapse navbar-main-collapse">
 	            <ul class="nav navbar-nav">
 						<li class="{!! (Request::is('katalog') || Request::is('dielo/*')) ? 'active' : '' !!}">
-								<a href="{{{ URL::to('katalog') }}}">Diela</a>
+								<a href="{{{ URL::to('katalog') }}}">{{ utrans('general.artworks') }}</a>
 						</li>
 						<li class="{!! (Request::is( 'kolekcie') || Request::is('kolekcia/*')) ? 'active' : '' !!}">
-								<a href="{{{ URL::to('kolekcie') }}}">Kolekcie</a>
+								<a href="{{{ URL::to('kolekcie') }}}">{{ utrans('general.collections') }}</a>
 						</li>
 						<li class="{!! (Request::is('autori') || Request::is('autor/*')) ? 'active' : '' !!}">
-								<a href="{{{ URL::to('autori') }}}">Autori</a>
+								<a href="{{{ URL::to('autori') }}}">{{ utrans('general.authors') }}</a>
 						</li>
 						<li class="{!! (Request::is('clanky') || Request::is('clanok/*')) ? 'active' : '' !!}">
-								<a href="{{{ URL::to('clanky') }}}">Články</a>
+								<a href="{{{ URL::to('clanky') }}}">{{ utrans('general.articles') }}</a>
 						</li>
 						{{-- <li class="{!! Request::is('galerie') ? 'active' : '' !!}">
-								<a href="{{{ URL::to('galerie') }}}">Galérie</a>
-						</li> --}}
-						{{-- <li class="{!! Request::is( 'kolekcia/24') ? 'active' : '' !!}">
-								<a href="{{{ URL::to('kolekcia/24') }}}">Slavín</a>
+								<a href="{{{ URL::to('galerie') }}}">{{ utrans('general.galleries') }}</a>
 						</li> --}}
 						<li class="{!! Request::is( 'informacie') ? 'active' : '' !!}">
-								<a href="{{{ URL::to('informacie') }}}">Info</a>
+								<a href="{{{ URL::to('informacie') }}}">{{ utrans('general.info') }}</a>
 						</li>
 						@if (Session::has('cart') && count(Session::get('cart'))>0)
 						<li class="{!! Request::is( 'objednavka') ? 'active' : '' !!}">
