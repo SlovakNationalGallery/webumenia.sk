@@ -17,5 +17,6 @@ return array(
     'articles' => 'articles',
     'galleries' => 'galleries',
     'info' => 'info',
+    'language' => 'language',
 
 );

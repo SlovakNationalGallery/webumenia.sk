@@ -17,5 +17,6 @@ return array(
     'articles' => 'články',
     'galleries' => 'galerie',
     'info' => 'info',
+    'language' => 'jazyk',
 
 );

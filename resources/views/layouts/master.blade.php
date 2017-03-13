@@ -127,6 +127,20 @@
 								<a href="{!! URL::to('objednavka')!!}" class=""><i class="fa fa-shopping-cart"></i><span class="badge badge-notify">{!! count(Session::get('cart')) !!}</span></a>
 						</li>
 						@endif
+						<li role="presentation" class="dropdown">
+						    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+						      {{ utrans('general.language') }} <span class="caret"></span>
+						    </a>
+						    <ul class="dropdown-menu language-bar-chooser">
+						      @foreach(LaravelLocalization::getLocalesOrder() as $localeCode => $properties)
+						              <li>
+						                  <a rel="alternate" hreflang="{{$localeCode}}" href="{{LaravelLocalization::getLocalizedURL($localeCode) }}">
+						                      {{ $properties['native'] }}
+						                  </a>
+						              </li>
+						       @endforeach
+						    </ul>
+						 </li>
 	            </ul>
 	        </div>
 	        <!-- /.navbar-collapse -->
