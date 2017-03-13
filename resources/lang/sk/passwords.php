@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Password Reset Language Lines
+    | Password Reminder Language Lines
     |--------------------------------------------------------------------------
     |
     | The following language lines are the default lines which match reasons
@@ -13,10 +13,10 @@ return [
     |
     */
 
-    'password' => 'Passwords must be at least six characters and match the confirmation.',
-    'reset' => 'Your password has been reset!',
-    'sent' => 'We have e-mailed your password reset link!',
-    'token' => 'This password reset token is invalid.',
-    'user' => "We can't find a user with that e-mail address.",
+    'password' => 'Heslo sa musí zhodovať a obsahovať najmenej šesť znakov.',
+    'reset'    => 'Heslo bolo zmenené!',
+    'sent'     => 'Pripomienka k zmene hesla bola odoslaná!',
+    'token'    => 'Klúč pre obnovu hesla je neplatný.',
+    'user'     => 'Nepodarilo sa nájsť používateľa s touto e-mailovou adresou.',
 
 ];

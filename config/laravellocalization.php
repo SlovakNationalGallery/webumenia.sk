@@ -201,7 +201,7 @@ return [
         //'yo'          => ['name' => 'Yoruba',                 'script' => 'Latn', 'native' => 'Èdè Yorùbá', 'regional' => 'yo_NG'],
         //'de-AT'       => ['name' => 'Austrian German',        'script' => 'Latn', 'native' => 'Österreichisches Deutsch', 'regional' => 'de_AT'],
         //'is'          => ['name' => 'Icelandic',              'script' => 'Latn', 'native' => 'íslenska', 'regional' => 'is_IS'],
-        //'cs'          => ['name' => 'Czech',                  'script' => 'Latn', 'native' => 'čeština', 'regional' => 'cs_CZ'],
+        'cs'          => ['name' => 'Czech',                  'script' => 'Latn', 'native' => 'čeština', 'regional' => 'cs_CZ'],
         //'bas'         => ['name' => 'Basa',                   'script' => 'Latn', 'native' => 'Ɓàsàa', 'regional' => ''],
         //'mas'         => ['name' => 'Masai',                  'script' => 'Latn', 'native' => 'ɔl-Maa', 'regional' => ''],
         //'haw'         => ['name' => 'Hawaiian',               'script' => 'Latn', 'native' => 'ʻŌlelo Hawaiʻi', 'regional' => ''],
@@ -312,6 +312,6 @@ return [
     // If you want to display the locales in particular order in the language selector you should write the order here. 
     //CAUTION: Please consider using the appropriate locale code otherwise it will not work
     //Example: 'localesOrder' => ['es','en'],
-    'localesOrder' => ['sk','en'],
+    'localesOrder' => ['sk','cs','en'],
 
 ];
