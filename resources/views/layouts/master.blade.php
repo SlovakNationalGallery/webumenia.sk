@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="sk">
+<html lang="{{ LaravelLocalization::getCurrentLocale() }}">
 
 <head>
 		<meta charset="utf-8">
@@ -105,31 +105,42 @@
 	        <div class="collapse navbar-collapse navbar-main-collapse">
 	            <ul class="nav navbar-nav">
 						<li class="{!! (Request::is('katalog') || Request::is('dielo/*')) ? 'active' : '' !!}">
-								<a href="{{{ URL::to('katalog') }}}">Diela</a>
+								<a href="{{{ URL::to('katalog') }}}">{{ utrans('general.artworks') }}</a>
 						</li>
 						<li class="{!! (Request::is( 'kolekcie') || Request::is('kolekcia/*')) ? 'active' : '' !!}">
-								<a href="{{{ URL::to('kolekcie') }}}">Kolekcie</a>
+								<a href="{{{ URL::to('kolekcie') }}}">{{ utrans('general.collections') }}</a>
 						</li>
 						<li class="{!! (Request::is('autori') || Request::is('autor/*')) ? 'active' : '' !!}">
-								<a href="{{{ URL::to('autori') }}}">Autori</a>
+								<a href="{{{ URL::to('autori') }}}">{{ utrans('general.authors') }}</a>
 						</li>
 						<li class="{!! (Request::is('clanky') || Request::is('clanok/*')) ? 'active' : '' !!}">
-								<a href="{{{ URL::to('clanky') }}}">Články</a>
+								<a href="{{{ URL::to('clanky') }}}">{{ utrans('general.articles') }}</a>
 						</li>
 						{{-- <li class="{!! Request::is('galerie') ? 'active' : '' !!}">
-								<a href="{{{ URL::to('galerie') }}}">Galérie</a>
-						</li> --}}
-						{{-- <li class="{!! Request::is( 'kolekcia/24') ? 'active' : '' !!}">
-								<a href="{{{ URL::to('kolekcia/24') }}}">Slavín</a>
+								<a href="{{{ URL::to('galerie') }}}">{{ utrans('general.galleries') }}</a>
 						</li> --}}
 						<li class="{!! Request::is( 'informacie') ? 'active' : '' !!}">
-								<a href="{{{ URL::to('informacie') }}}">Info</a>
+								<a href="{{{ URL::to('informacie') }}}">{{ utrans('general.info') }}</a>
 						</li>
 						@if (Session::has('cart') && count(Session::get('cart'))>0)
 						<li class="{!! Request::is( 'objednavka') ? 'active' : '' !!}">
 								<a href="{!! URL::to('objednavka')!!}" class=""><i class="fa fa-shopping-cart"></i><span class="badge badge-notify">{!! count(Session::get('cart')) !!}</span></a>
 						</li>
 						@endif
+						<li role="presentation" class="dropdown">
+						    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+						      {{ utrans('general.language') }} <span class="caret"></span>
+						    </a>
+						    <ul class="dropdown-menu language-bar-chooser">
+						      @foreach(LaravelLocalization::getLocalesOrder() as $localeCode => $properties)
+						              <li>
+						                  <a rel="alternate" hreflang="{{$localeCode}}" href="{{LaravelLocalization::getLocalizedURL($localeCode) }}">
+						                      {{ $properties['native'] }}
+						                  </a>
+						              </li>
+						       @endforeach
+						    </ul>
+						 </li>
 	            </ul>
 	        </div>
 	        <!-- /.navbar-collapse -->
