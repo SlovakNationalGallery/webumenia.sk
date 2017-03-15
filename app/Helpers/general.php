@@ -201,3 +201,10 @@ function formatNum($num, $decimals = 0)
 {
     return number_format($num, $decimals, ',', ' ');
 }
+
+function isValidURL($url)
+{
+    $headers = @get_headers($url);
+    if(strpos($headers[0],'200')===false)return false;
+    return true;
+}

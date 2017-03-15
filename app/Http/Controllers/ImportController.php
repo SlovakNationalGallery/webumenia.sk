@@ -255,6 +255,15 @@ class ImportController extends Controller
                             $item_image_file = reset($item_image_files);
                             $this->uploadImage($item, $item_image_file);
                             $item->has_image = true;
+
+                            // detect DeepZoom at IIP - if it's hq (high quality) image
+                            if (strpos($item_image_file['filename'], 'hq') !== false) {
+                                $iip_img = '/MG/DrevoHQ/jp2/'.$item_image_file['filename'].'.jp2'; // @TODO: change this!
+                                $iip_url = 'http://www.webumenia.sk/fcgi-bin/iipsrv.fcgi?DeepZoom='. $iip_img;
+                                if (isValidURL($iip_url)) {
+                                    $item->iipimg_url = $iip_img;
+                                }
+                            }
                         }
                     }
 
