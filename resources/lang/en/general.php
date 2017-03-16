@@ -18,5 +18,6 @@ return array(
     'galleries' => 'galleries',
     'info' => 'info',
     'language' => 'language',
+    'made_by' => 'made by',
 
 );

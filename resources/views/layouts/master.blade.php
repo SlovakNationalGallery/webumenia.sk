@@ -166,7 +166,7 @@
       			<a href="https://github.com/SlovakNationalGallery" target="_blank" data-toggle="tooltip" title="github"><i class="fa fa-github fa-lg"></i></a>
       		</div>
       		<div class="col-xs-6">
-      			<p class="text-muted text-right">Vyrobil a spravuje <a href="http://lab.sng.sk" target="_blank" class="sans">lab.SNG</a></p>
+      			<p class="text-muted text-right">{{ utrans('general.made_by') }} <a href="http://lab.sng.sk" target="_blank" class="sans">lab.SNG</a></p>
       		</div>
       	</div>
         

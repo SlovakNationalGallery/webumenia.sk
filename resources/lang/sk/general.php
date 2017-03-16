@@ -18,5 +18,6 @@ return array(
     'galleries' => 'galérie',
     'info' => 'info',
     'language' => 'jazyk',
+    'made_by' => 'vyrobil a spravuje',
 
 );
