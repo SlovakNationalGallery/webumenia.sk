@@ -15,22 +15,22 @@ class Subtitle
 
     public static function fromGalleries()
     {
-        return 'zo zbierok <strong><a href="/informacie">'. formatNum(7) .'</a></strong> slovenských galérií';
+        return trans('intro.from_galleries_start').' <strong><a href="/informacie">'. formatNum(7) .'</a></strong> '.trans('intro.from_galleries_end');
     }
 
     public static function fromAuthors()
     {
-        return 'od <strong><a href="/autori">'. formatNum(Authority::amount()) .'</a></strong> autorov';
+        return trans('intro.from_authors_start').' <strong><a href="/autori">'. formatNum(Authority::amount()) .'</a></strong> '.trans('intro.from_authors_end');
     }
 
     public static function inHightRes()
     {
-        return 'z toho <strong><a href="/katalog?has_iip=1">'. formatNum(Item::amount(['has_iip'=>true])) .'</a></strong> vo vysokom rozlíšení';
+        return trans('intro.in_high_res_start').' <strong><a href="/katalog?has_iip=1">'. formatNum(Item::amount(['has_iip'=>true])) .'</a></strong> '.trans('intro.in_high_res_end');
     }
 
     public static function areFree()
     {
-        return 'z toho <strong><a href="/katalog?is_free=1">'. formatNum(Item::amount(['is_free'=>true])) .'</a></strong> autorsky voľných';
+        return trans('intro.are_free_start').' <strong><a href="/katalog?is_free=1">'. formatNum(Item::amount(['is_free'=>true])) .'</a></strong> '.trans('intro.are_free_end');
     }
 
     // public static function fromWorkType()
