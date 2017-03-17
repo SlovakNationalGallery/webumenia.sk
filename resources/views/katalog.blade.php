@@ -103,7 +103,7 @@
                 <div class="col-xs-6 text-right">
                     <div class="dropdown">
                       <a class="dropdown-toggle" type="button" id="dropdownSortBy" data-toggle="dropdown" aria-expanded="true">
-                        {{ trans('katalog.catalog_sort_by') }} {!! App\Item::getSortedLabel(); !!}
+                        {{ trans('general.sort_by') }} {!! App\Item::getSortedLabel(); !!}
                         <span class="caret"></span>
                       </a>
                       <ul class="dropdown-menu dropdown-menu-right dropdown-menu-sort" role="menu" aria-labelledby="dropdownSortBy">

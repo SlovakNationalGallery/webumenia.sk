@@ -22,7 +22,6 @@ return array(
     'filters_has_image' => 'len s obrázkom',
     'filters_has_iip' => 'len so zoom',
     'filters_is_free' => 'len voľné',
-    'catalog_sort_by' => 'podľa',
     'catalog_found_artworks' => 'nájdené diela pre',
     'catalog_artworks' => 'diel',
     'catalog_no_artworks' => 'momentálne žiadne diela',
