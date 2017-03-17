@@ -23,9 +23,9 @@ return array(
     'filters_has_iip' => 'len so zoom',
     'filters_is_free' => 'len voľné',
     'catalog_sort_by' => 'podľa',
-    'catalog_found_works' => 'nájdené diela pre',
-    'catalog_works' => 'diel',
-    'catalog_no_works' => 'momentálne žiadne diela',
+    'catalog_found_artworks' => 'nájdené diela pre',
+    'catalog_artworks' => 'diel',
+    'catalog_no_artworks' => 'momentálne žiadne diela',
     'catalog_clear_filters' => 'zrušiť filtre',
     'catalog_show_more' => 'ukáž viac',
 
