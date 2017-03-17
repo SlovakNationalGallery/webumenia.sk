@@ -89,7 +89,7 @@
 	            </a>
 	            {!! Form::open(['url' => 'katalog', 'method' => 'get', 'class' => 'navbar-form right-inner-addon', 'data-searchd-engine' => Config::get('app.searchd_id_autocomplete')]) !!}
 	            			<i class="fa fa-search"></i>
-	            			{!! Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => 'Hľadať diela, autorov...', 'id'=>'search', 'autocomplete'=>'off')) !!}
+	            			{!! Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => utrans('general.search_placeholder'), 'id'=>'search', 'autocomplete'=>'off')) !!}
 	            			{!!  Form::submit('submit'); !!}
 	            {!!Form::close() !!}
 	            <a class="navbar-brand no-border hidden-xs second-part" href="{!! URL::to('') !!}">

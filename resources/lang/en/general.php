@@ -19,5 +19,6 @@ return array(
     'info' => 'info',
     'language' => 'language',
     'made_by' => 'made by',
+    'search_placeholder' => 'Search for artworks, authors...',
 
 );
