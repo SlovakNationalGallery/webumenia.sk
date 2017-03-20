@@ -27,5 +27,6 @@ return array(
     'catalog_no_artworks' => 'currently no artworks',
     'catalog_clear_filters' => 'clear filters',
     'catalog_show_more' => 'show more',
+    'item_zoom' => 'zoom image',
 
-);                  
+);

@@ -27,5 +27,6 @@ return array(
     'catalog_no_artworks' => 'momentálne žiadne diela',
     'catalog_clear_filters' => 'zrušiť filtre',
     'catalog_show_more' => 'ukáž viac',
+    'item_zoom' => 'zoom obrázku',
 
-);                  
+);
