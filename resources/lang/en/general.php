@@ -12,5 +12,6 @@ return array(
     */
 
     'sort_by' => 'sort by',
+    'clear_filters' => 'zrušiť filtre',
 
 );
