@@ -20,5 +20,6 @@ return array(
     'language' => 'jazyk',
     'made_by' => 'vyrobil a spravuje',
     'search_placeholder' => 'Hľadať diela, autorov...',
+    'sort_by' => 'podľa',
 
 );

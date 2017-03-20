@@ -20,5 +20,6 @@ return array(
     'language' => 'language',
     'made_by' => 'made by',
     'search_placeholder' => 'Search for artworks, authors...',
+    'sort_by' => 'sort by',
 
 );
