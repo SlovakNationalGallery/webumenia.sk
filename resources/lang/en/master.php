@@ -11,6 +11,14 @@ return array(
     |
     */
 
-    'sort_by' => 'podľa',
-    
+    'artworks' => 'artworks',
+    'collections' => 'collections',
+    'authors' => 'authors',
+    'articles' => 'articles',
+    'galleries' => 'galleries',
+    'info' => 'info',
+    'language' => 'language',
+    'made_by' => 'made by',
+    'search_placeholder' => 'Search for artworks, authors...',
+
 );

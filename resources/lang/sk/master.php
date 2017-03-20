@@ -11,6 +11,14 @@ return array(
     |
     */
 
-    'sort_by' => 'sort by',
-
+    'artworks' => 'diela',
+    'collections' => 'kolekcie',
+    'authors' => 'autori',
+    'articles' => 'články',
+    'galleries' => 'galérie',
+    'info' => 'info',
+    'language' => 'jazyk',
+    'made_by' => 'vyrobil a spravuje',
+    'search_placeholder' => 'Hľadať diela, autorov...',
+    
 );
