@@ -11,6 +11,7 @@ return array(
     |
     */
 
+    'close' => 'zavrieť',
     'sort_by' => 'sort by',
     'clear_filters' => 'zrušiť filtre',
 
