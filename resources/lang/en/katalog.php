@@ -6,9 +6,6 @@ return array(
     |--------------------------------------------------------------------------
     | Language Lines for katalog.blade.php template
     |--------------------------------------------------------------------------
-    |
-    | Translated terms, that are common for the whole webumenia
-    |
     */
 
     'title_searched' => 'search results for',
