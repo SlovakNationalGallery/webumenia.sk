@@ -14,4 +14,4 @@ return array(
     'collections_no_collections' => 'momentálne žiadne kolekcie',
     'collections_artworks' => 'diel',
 
-);                  
+);
