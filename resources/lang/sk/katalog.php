@@ -23,6 +23,5 @@ return array(
     'catalog_artworks' => 'diel',
     'catalog_no_artworks' => 'momentálne žiadne diela',
     'catalog_show_more' => 'ukáž viac',
-    'item_zoom' => 'zoom obrázku',
 
 );

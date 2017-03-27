@@ -2,7 +2,7 @@
 
 @section('og')
 <meta property="og:title" content="{!! $item->getTitleWithAuthors() !!}" />
-<meta property="og:description" content="{!! $item->work_type; !!}, datovanie: {!! $item->dating !!}, rozmer: {!!  implode(' x ', $item->measurements) !!}" />
+<meta property="og:description" content="{!! $item->work_type; !!}, {{ trans('dielo.item_attr_dating') }}: {!! $item->dating !!}, {{ trans('dielo.item_attr_measurements') }}: {!!  implode(' x ', $item->measurements) !!}" />
 <meta property="og:type" content="object" />
 <meta property="og:url" content="{!! Request::url() !!}" />
 <meta property="og:image" content="{!! URL::to( $item->getImagePath() ) !!}" />
@@ -15,7 +15,7 @@
 @stop
 
 @section('description')
-    <meta name="description" content="{!! $item->work_type; !!}, datovanie: {!! $item->dating !!}, rozmer: {!!  implode(' x ', $item->measurements) !!}">
+    <meta name="description" content="{!! $item->work_type; !!}, {{ trans('dielo.item_attr_dating') }}: {!! $item->dating !!}, {{ trans('dielo.item_attr_measurements') }}: {!!  implode(' x ', $item->measurements) !!}">
 @stop
 
 @section('link')
@@ -42,7 +42,7 @@
             <div class="row">
                 <div class="col-md-8 text-center">
                         @if (!empty($item->iipimg_url))
-                            <a href="{!! URL::to('dielo/' . $item->id . '/zoom') !!}" data-toggle="tooltip" data-placement="top" title="Zoom obrázku">
+                            <a href="{!! URL::to('dielo/' . $item->id . '/zoom') !!}" data-toggle="tooltip" data-placement="top" title="{{ utrans('general.item_zoom') }}">
                         @endif    
                         <img src="{!! $item->getImagePath() !!}" class="img-responsive img-dielo" alt="{!! $item->getTitleWithAuthors() !!}" itemprop="image">
                         @if (!empty($item->iipimg_url))
@@ -51,22 +51,22 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 @if ($previous)
-                                    <a href="{!! $previous !!}" id="left" class="nav-arrow left">&larr;<span class="sr-only">predchádzajúce dielo</span></a>
+                                    <a href="{!! $previous !!}" id="left" class="nav-arrow left">&larr;<span class="sr-only">{{ trans('dielo.item_previous-work') }}</span></a>
                                 @endif
                                 @if ($next)
-                                    <a href="{!! $next !!}" id="right" class="nav-arrow right">&rarr;<span class="sr-only">nasledujúce dielo</span></a>             
+                                    <a href="{!! $next !!}" id="right" class="nav-arrow right">&rarr;<span class="sr-only">{{ trans('dielo.item_next-work') }}</span></a>             
                                 @endif
                             </div>
 
                             <div class="col-md-12 text-center">
                                 @if (!empty($item->iipimg_url))
-                                   <a href="{!! URL::to('dielo/' . $item->id . '/zoom') !!}" class="btn btn-default btn-outline  sans"><i class="fa fa-search-plus"></i> zoom obrázku</a>
+                                   <a href="{!! URL::to('dielo/' . $item->id . '/zoom') !!}" class="btn btn-default btn-outline  sans"><i class="fa fa-search-plus"></i> {{ trans('general.item_zoom') }}</a>
                                 @endif
                                 @if ($item->isForReproduction())
-                                    <a href="{!! URL::to('dielo/' . $item->id . '/objednat')  !!}" class="btn btn-default btn-outline  sans"><i class="fa fa-shopping-cart"></i> objednať reprodukciu </a>
+                                    <a href="{!! URL::to('dielo/' . $item->id . '/objednat')  !!}" class="btn btn-default btn-outline  sans"><i class="fa fa-shopping-cart"></i> {{ trans('dielo.item_order') }} </a>
                                 @endif
                                 @if ($item->isFreeDownload())                                
-                                    <a href="{!! URL::to('dielo/' . $item->id . '/stiahnut')  !!}" class="btn btn-default btn-outline  sans" id="download"><i class="fa fa-download"></i> stiahnuť </a>
+                                    <a href="{!! URL::to('dielo/' . $item->id . '/stiahnut')  !!}" class="btn btn-default btn-outline  sans" id="download"><i class="fa fa-download"></i> {{ trans('dielo.item_download') }} </a>
                                 @endif
                             </div>
                             @if (!empty($item->description))
@@ -95,12 +95,12 @@
                         <table class="table">
                             <tbody>
                                 <tr>
-                                    <td class="atribut">datovanie:</td>
+                                    <td class="atribut">{{ trans('dielo.item_attr_dating') }}:</td>
                                     <td><time itemprop="dateCreated" datetime="{!! $item->date_earliest !!}">{!! $item->getDatingFormated(); !!}</time></td>
                                 </tr>
                                 @if (!empty($item->measurements))
                                 <tr>
-                                    <td class="atribut">rozmer:</td>
+                                    <td class="atribut">{{ trans('dielo.item_attr_measurements') }}:</td>
                                     <td>
                                         @foreach ($item->measurements as $measurement)
                                         {{--     {!!  implode(' &times; ', $measurement) !!}<br> --}}
@@ -111,7 +111,7 @@
                                 @endif
                                 @if (!empty($item->work_type))
                                 <tr>
-                                    <td class="atribut">výtvarný druh:</td>
+                                    <td class="atribut">{{ trans('dielo.item_attr_work_type') }}:</td>
                                     <td>
                                         @foreach ($item->work_types as $i => $work_type)
                                             @if ($i == 0)
@@ -128,7 +128,7 @@
                                 @endif
                                 @if (!empty($item->topics))
                                 <tr>
-                                    <td class="atribut">žáner:</td>
+                                    <td class="atribut">{{ trans('dielo.item_attr_topic') }}:</td>
                                     <td>
                                     @foreach ($item->topics as $topic)
                                         <a href="{!! URL::to('katalog?topic=' . $topic) !!}">{!! $topic !!}</a><br>
@@ -138,7 +138,7 @@
                                 @endif
                                 @if ($item->tagNames() )
                                 <tr>
-                                    <td class="atribut">tagy:</td>
+                                    <td class="atribut">{{ trans('dielo.item_attr_tag') }}:</td>
                                     <td>
                                     @foreach ($item->tagNames() as $tag)
                                         <a href="{!!URL::to('katalog?tag=' . $tag)!!}" class="btn btn-default btn-xs btn-outline">{!! $tag !!}</a>
@@ -148,7 +148,7 @@
                                 @endif
                                 @if ($item->collections->count())
                                 <tr>
-                                    <td class="atribut">kolekcie:</td>
+                                    <td class="atribut">{{ trans('dielo.item_attr_collections') }}:</td>
                                     <td>
                                         <div class="expandable">
                                         @foreach ($item->collections as $collection)
@@ -160,7 +160,7 @@
                                 @endif
                                 @if (!empty($item->mediums))
                                 <tr>
-                                    <td class="atribut">materiál:</td>
+                                    <td class="atribut">{{ trans('dielo.item_attr_medium') }}:</td>
                                     <td>
                                     @foreach ($item->mediums as $medium)
                                         <a href="{!! URL::to('katalog?medium=' . $medium) !!}">{!! addMicrodata($medium, "artMedium") !!}</a><br>
@@ -170,7 +170,7 @@
                                 @endif
                                 @if (!empty($item->techniques))
                                 <tr>
-                                    <td class="atribut">technika:</td>
+                                    <td class="atribut">{{ trans('dielo.item_attr_technique') }}:</td>
                                     <td>
                                     @foreach ($item->techniques as $technique)
                                         <a href="{!! URL::to('katalog?technique=' . $technique) !!}">{!! $technique !!}</a><br>
@@ -180,50 +180,50 @@
                                 @endif
                                 @if (!empty($item->integrity))
                                 <tr>
-                                    <td class="atribut">stupeň spracovania:</td>
+                                    <td class="atribut">{{ trans('dielo.item_attr_state_edition') }}:</td>
                                     <td>{!! $item->state_edition; !!}</td>
                                 </tr>
                                 @endif
                                 @if (!empty($item->integrity))
                                 <tr>
-                                    <td class="atribut">stupeň integrity:</td>
+                                    <td class="atribut">{{ trans('dielo.item_attr_integrity') }}:</td>
                                     <td>{!! $item->integrity; !!}</td>
                                 </tr>
                                 @endif
                                 @if (!empty($item->integrity_work))
                                 <tr>
-                                    <td class="atribut">integrita s dielami:</td>
+                                    <td class="atribut">{{ trans('dielo.item_attr_integrity_work') }}:</td>
                                     <td>{!! $item->integrity_work; !!}</td>
                                 </tr>
                                 @endif
                                 @if (!empty($item->inscription))
                                 <tr>
-                                    <td class="atribut">značenie:</td>
+                                    <td class="atribut">{{ trans('dielo.item_attr_inscription') }}:</td>
                                     <td><div class="expandable">{!! implode('<br> ', $item->makeArray($item->inscription));!!}</div></td>
                                 </tr>
                                 @endif
                                 @if (!empty($item->gallery))
                                 <tr>
-                                    <td class="atribut">galéria:</td>
+                                    <td class="atribut">{{ trans('dielo.item_attr_gallery') }}:</td>
                                     <td><a href="{!! URL::to('katalog?gallery=' . $item->gallery) !!}">{!! $item->gallery; !!}</a></td>
                                 </tr>
                                 @endif
                                 @if (!empty($item->identifier))
                                 <tr>
-                                    <td class="atribut">inventárne číslo:</td>
+                                    <td class="atribut">{{ trans('dielo.item_attr_identifier') }}:</td>
                                     <td>{!! $item->identifier; !!}</td>
                                 </tr>
                                 @endif
                                 @if ($item->isFreeDownload())
                                 <tr>
-                                    <td class="atribut">licencia:</td>
+                                    <td class="atribut">{{ trans('dielo.item_attr_licence') }}:</td>
                                     {{-- <td><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs" target="_blank" class="no-border"><img alt="Creative Commons License" style="border-width:0; padding-top: 2px;"  src="/images/license/by-nc-sa.svg" title="Creative Commons BY-NC-SA 4.0" data-toggle="tooltip"></a></td> --}}
                                     <td><a rel="license" href="{!!URL::to('katalog?is_free=' . '1')!!}" target="_blank" class="no-border license" title="Public Domain" data-toggle="tooltip"><img alt="Creative Commons License" style="height: 20px; width: auto"  src="/images/license/zero.svg" > voľné dielo</a></td>
                                 </tr>                                    
                                 @endif
                                 @if (!empty($item->place))
                                 <tr>
-                                    <td class="atribut">geografická oblasť:</td>
+                                    <td class="atribut">{{ trans('dielo.item_attr_place') }}:</td>
                                     <td>{!! $item->place; !!}</td>
                                 </tr>
                                 @endif
@@ -276,7 +276,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h4>súvisiace diela</h4>
+                <h4>{{ trans('dielo.more-items_related-artworks') }}</h4>
                 <div class="artworks-preview ">
                 @foreach ($more_items as $item)
                     <a href="{!! $item->getUrl() !!}"><img data-lazy="{!! $item->getImagePath() !!}" class="img-responsive-width " alt="{!! $item->getTitleWithAuthors() !!} "></a>
@@ -295,14 +295,10 @@
                 <img src="{!! URL::asset('images/license/cc.svg') !!}" alt="Creative Commons">
             </div>
             <div class="modal-body">
-                <p><strong>Vami zvolené dielo by sa malo začať v krátkom čase automaticky sťahovať.</strong></p>
-                <p>Digitálne reprodukcie diel SNG na tejto stránke sú sprístupnené ako <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" class="underline">verejné vlastníctvo (public domain)</a>. Môžete si ich voľne stiahnuť vo vysokom rozlíšení a využívať na súkromné aj komerné účely &ndash; kopírovať, zdieľať i upravovať.</p>
-                <p>Pri ďalšom šírení prosíme uviesť meno autora, názov, majiteľa diela a zdroj <code>{!! $item->getUrl() !!}</code></p>
-                <p>Ak plánujete využiť reprodukcie na komerčné účely, prosím informujte o vašich plánoch vopred, naši odborníci vám vedia poradiť.</p>  
-                <p><a class="underline" href="{!! URL::to('katalog?is_free=' . '1') !!}">Všetky voľne stiahnuteľné diela nájdete tu.</a></p>
+                {!! trans('dielo.modal_license_body-content', ['item_url' => $item->getUrl(), 'free_url' => URL::to('katalog?is_free=1')] ) !!}
             </div>
             <div class="modal-footer">
-                <div class="text-center"><button type="button" data-dismiss="modal" class="btn btn-default btn-outline uppercase sans">Zavrieť</button></div>
+                <div class="text-center"><button type="button" data-dismiss="modal" class="btn btn-default btn-outline uppercase sans">{{ trans('general.close') }}</button></div>
             </div>
         </div>
     </div>
@@ -312,14 +308,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header text-center">
-                Nastala chyba
+                {{ trans('dielo.modal_downloadfail_header-content') }}
             </div>
             <div class="modal-body">
-                <p>Vami zvolené dielo nebolo možné v tomto momente stiahnuť. Skúste to prosím neskôr.</p>
-                <p>Pokiaľ problém pretrváva, kontaktujte nás na <a href="mailto:lab@sng.sk">lab@sng.sk</a></p>
+                {{ trans('dielo.modal_downloadfail_body-content') }}
             </div>
             <div class="modal-footer">
-                <div class="text-center"><button type="button" data-dismiss="modal" class="btn btn-default btn-outline uppercase sans">Zavrieť</button></div>
+                <div class="text-center"><button type="button" data-dismiss="modal" class="btn btn-default btn-outline uppercase sans">{{ trans('general.close') }}</button></div>
             </div>
         </div>
     </div>

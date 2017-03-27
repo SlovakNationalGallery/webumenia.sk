@@ -23,6 +23,5 @@ return array(
     'catalog_artworks' => 'artworks',
     'catalog_no_artworks' => 'currently no artworks',
     'catalog_show_more' => 'show more',
-    'item_zoom' => 'zoom image',
 
 );

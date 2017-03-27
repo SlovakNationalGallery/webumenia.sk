@@ -11,8 +11,9 @@ return array(
     |
     */
 
-    'close' => 'zavrieť',
+    'item_zoom' => 'zoom artwork',
+    'close' => 'close',
     'sort_by' => 'sort by',
-    'clear_filters' => 'zrušiť filtre',
+    'clear_filters' => 'clear filters',
 
 );
