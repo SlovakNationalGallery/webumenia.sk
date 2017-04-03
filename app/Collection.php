@@ -7,8 +7,11 @@ use Intervention\Image\ImageManagerStatic;
 
 class Collection extends \Eloquent
 {
-
+    use \Dimsav\Translatable\Translatable;
+        
     const ARTWORKS_DIR = '/images/kolekcie/';
+
+    public $translatedAttributes = ['name','type', 'text'];
 
     public static $rules = array(
         'name' => 'required',
