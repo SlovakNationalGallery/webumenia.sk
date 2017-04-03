@@ -31,7 +31,7 @@
 </div>
 @endif
 
-<!-- preklad -->
+<!-- translatable -->
 <div class="col-md-12">
 
 	<!-- Nav tabs -->
@@ -64,28 +64,7 @@
 	</div>
 
 </div>
-
-<!-- preklad -->
-{{-- 
-<div class="col-md-12">
-	<div class="form-group">
-	{!! Form::label('type', 'Typ') !!}
-	{!! Form::select('type', ['sekcia'=>'sekcia'], Input::old('type'), array('class' => 'form-control')) !!}
-	</div>
-</div>
-<div class="col-md-12">
-	<div class="form-group">
-	{!! Form::label('name', 'Názov') !!}
-	{!! Form::text('name', Input::old('name'), array('class' => 'form-control')) !!}
-	</div>
-</div>
-<div class="col-md-12">
-	<div class="form-group">
-	{!! Form::label('text', 'Text') !!}
-	{!! Form::textarea('text', Input::old('text'), array('class' => 'form-control wysiwyg')) !!}	
-	</div>
-</div>
- --}}
+<!-- /translatable -->
 
 <div class="col-md-6">
 	<div class="form-group">
