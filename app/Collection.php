@@ -7,13 +7,22 @@ use Intervention\Image\ImageManagerStatic;
 
 class Collection extends \Eloquent
 {
-
+    use \Dimsav\Translatable\Translatable;
+        
     const ARTWORKS_DIR = '/images/kolekcie/';
 
+    public $translatedAttributes = ['name','type', 'text'];
+
     public static $rules = array(
-        'name' => 'required',
-        'text' => 'required',
-        );
+        'sk.name' => 'required',
+        'sk.text' => 'required',
+
+        'en.name' => 'required',
+        'en.text' => 'required',
+
+        'cs.name' => 'required',
+        'cs.text' => 'required',
+    );
 
     public static $sortable = array(
         'created_at' => 'dátumu vytvorenia',

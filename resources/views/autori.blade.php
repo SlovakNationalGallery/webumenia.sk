@@ -2,7 +2,7 @@
 
 @section('title')
 {!! getTitleWithFilters('App\Authority', $input, ' | ') !!}
-autori |  
+{{ trans('autori.title') }} |  
 @parent
 @stop
 
@@ -21,13 +21,13 @@ autori |
         <div class="row">
             <!-- <h3>Filter: </h3> -->
             <div  class="col-md-4 col-xs-6 bottom-space">
-                    {!! Form::select('role', array('' => '') + $roles,  @$input['role'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'Rola')) !!}
+                    {!! Form::select('role', array('' => '') + $roles,  @$input['role'], array('class'=> 'custom-select form-control', 'data-placeholder' => utrans('autori.filters_role') )) !!}
             </div>
             <div  class="col-md-4 col-xs-6 bottom-space">
-                    {!! Form::select('nationality', array('' => '') + $nationalities, @$input['nationality'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'Príslušnosť')) !!}
+                    {!! Form::select('nationality', array('' => '') + $nationalities, @$input['nationality'], array('class'=> 'custom-select form-control', 'data-placeholder' => utrans('autori.filters_nationality'))) !!}
             </div>
             <div  class="col-md-4 col-xs-6 bottom-space">
-                    {!! Form::select('place', array('' => '') + $places,  @$input['place'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'Miesto')) !!}
+                    {!! Form::select('place', array('' => '') + $places,  @$input['place'], array('class'=> 'custom-select form-control', 'data-placeholder' => utrans('autori.filters_place'))) !!}
             </div>
         </div>
         <div class="row">
@@ -59,21 +59,21 @@ autori |
         <div class="row content-section">
         	<div class="col-xs-6">
                 @if (!empty($search))
-                    <h4 class="inline">Nájdení autori pre &bdquo;{!! $search !!}&ldquo; (<span data-searchd-total-hits>{!! $authors->total() !!}</span>) </h4> 
+                    <h4 class="inline">{{ utrans('autori.authors_found') }} &bdquo;{!! $search !!}&ldquo; (<span data-searchd-total-hits>{!! $authors->total() !!}</span>) </h4> 
                 @else
-            		<h4 class="inline">{!! $authors->total() !!} autorov</h4>
+            		<h4 class="inline">{!! $authors->total() !!} {{ trans('autori.authors_counted') }}</h4>
                 @endif
                 @if ($authors->count() == 0)
-                    <p class="text-center">Momentálne žiadni autori</p>
+                    <p class="text-center">{{ utrans('autori.authors_none') }}</p>
                 @endif
                 @if (count(Input::all()) > 0)
-                    <a class="btn btn-sm btn-default btn-outline  sans" href="{!! URL::to('autori')!!}">zrušiť filtre <i class="icon-cross"></i></a>
+                    <a class="btn btn-sm btn-default btn-outline  sans" href="{!! URL::to('autori')!!}">{{ trans('general.clear_filters') }} <i class="icon-cross"></i></a>
                 @endif
             </div>
             <div class="col-xs-6 text-right">
                 <div class="dropdown">
                   <a class="dropdown-toggle" type="button" id="dropdownSortBy" data-toggle="dropdown" aria-expanded="true">
-                    podľa {!! App\Authority::$sortable[$sort_by]; !!}
+                    {{ trans('general.sort_by') }} {!! App\Authority::$sortable[$sort_by]; !!}
                     <span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-right dropdown-menu-sort" role="menu" aria-labelledby="dropdownSortBy">

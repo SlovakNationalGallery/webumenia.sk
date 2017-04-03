@@ -89,7 +89,7 @@
 	            </a>
 	            {!! Form::open(['url' => 'katalog', 'method' => 'get', 'class' => 'navbar-form right-inner-addon', 'data-searchd-engine' => Config::get('app.searchd_id_autocomplete')]) !!}
 	            			<i class="fa fa-search"></i>
-	            			{!! Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => 'Hľadať diela, autorov...', 'id'=>'search', 'autocomplete'=>'off')) !!}
+	            			{!! Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => utrans('master.search_placeholder'), 'id'=>'search', 'autocomplete'=>'off')) !!}
 	            			{!!  Form::submit('submit'); !!}
 	            {!!Form::close() !!}
 	            <a class="navbar-brand no-border hidden-xs second-part" href="{!! URL::to('') !!}">
@@ -105,22 +105,22 @@
 	        <div class="collapse navbar-collapse navbar-main-collapse">
 	            <ul class="nav navbar-nav">
 						<li class="{!! (Request::is('katalog') || Request::is('dielo/*')) ? 'active' : '' !!}">
-								<a href="{{{ URL::to('katalog') }}}">{{ utrans('general.artworks') }}</a>
+								<a href="{{{ URL::to('katalog') }}}">{{ utrans('master.artworks') }}</a>
 						</li>
 						<li class="{!! (Request::is( 'kolekcie') || Request::is('kolekcia/*')) ? 'active' : '' !!}">
-								<a href="{{{ URL::to('kolekcie') }}}">{{ utrans('general.collections') }}</a>
+								<a href="{{{ URL::to('kolekcie') }}}">{{ utrans('master.collections') }}</a>
 						</li>
 						<li class="{!! (Request::is('autori') || Request::is('autor/*')) ? 'active' : '' !!}">
-								<a href="{{{ URL::to('autori') }}}">{{ utrans('general.authors') }}</a>
+								<a href="{{{ URL::to('autori') }}}">{{ utrans('master.authors') }}</a>
 						</li>
 						<li class="{!! (Request::is('clanky') || Request::is('clanok/*')) ? 'active' : '' !!}">
-								<a href="{{{ URL::to('clanky') }}}">{{ utrans('general.articles') }}</a>
+								<a href="{{{ URL::to('clanky') }}}">{{ utrans('master.articles') }}</a>
 						</li>
 						{{-- <li class="{!! Request::is('galerie') ? 'active' : '' !!}">
-								<a href="{{{ URL::to('galerie') }}}">{{ utrans('general.galleries') }}</a>
+								<a href="{{{ URL::to('galerie') }}}">{{ utrans('master.galleries') }}</a>
 						</li> --}}
 						<li class="{!! Request::is( 'informacie') ? 'active' : '' !!}">
-								<a href="{{{ URL::to('informacie') }}}">{{ utrans('general.info') }}</a>
+								<a href="{{{ URL::to('informacie') }}}">{{ utrans('master.info') }}</a>
 						</li>
 						@if (Session::has('cart') && count(Session::get('cart'))>0)
 						<li class="{!! Request::is( 'objednavka') ? 'active' : '' !!}">
@@ -129,7 +129,7 @@
 						@endif
 						<li role="presentation" class="dropdown">
 						    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-						      {{ utrans('general.language') }} <span class="caret"></span>
+						      {{ utrans('master.language') }} <span class="caret"></span>
 						    </a>
 						    <ul class="dropdown-menu language-bar-chooser">
 						      @foreach(LaravelLocalization::getLocalesOrder() as $localeCode => $properties)
@@ -166,7 +166,7 @@
       			<a href="https://github.com/SlovakNationalGallery" target="_blank" data-toggle="tooltip" title="github"><i class="fa fa-github fa-lg"></i></a>
       		</div>
       		<div class="col-xs-6">
-      			<p class="text-muted text-right">Vyrobil a spravuje <a href="http://lab.sng.sk" target="_blank" class="sans">lab.SNG</a></p>
+      			<p class="text-muted text-right">{{ utrans('master.made_by') }} <a href="http://lab.sng.sk" target="_blank" class="sans">lab.SNG</a></p>
       		</div>
       	</div>
         
@@ -174,7 +174,7 @@
     </div>
 
 	<div id="top">
-	    <a href="#page-top" title="návrat hore" class="btn btn-default"  data-toggle="tooltip" data-placement="top">
+	    <a href="#page-top" title="{{ trans('master.to_top') }}" class="btn btn-default"  data-toggle="tooltip" data-placement="top">
 	        <i class="icon-arrow-up"></i>
 	    </a>
 	</div>

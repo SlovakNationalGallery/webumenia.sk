@@ -7,16 +7,13 @@ return array(
     | General Language Lines
     |--------------------------------------------------------------------------
     |
-    | Translated terms, that are common for the whole webumenia
+    | Translated terms, that are reused in multiple templates
     |
     */
 
-    'artworks' => 'diela',
-    'collections' => 'kolekcie',
-    'authors' => 'autori',
-    'articles' => 'články',
-    'galleries' => 'galérie',
-    'info' => 'info',
-    'language' => 'jazyk',
-
+    'item_zoom' => 'zoom obrázku',
+    'close' => 'zavrieť',
+    'sort_by' => 'podľa',
+    'clear_filters' => 'zrušiť filtre',
+    
 );

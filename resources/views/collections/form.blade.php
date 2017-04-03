@@ -30,24 +30,42 @@
 	</div>
 </div>
 @endif
+
+<!-- translatable -->
 <div class="col-md-12">
-	<div class="form-group">
-	{!! Form::label('type', 'Typ') !!}
-	{!! Form::select('type', ['sekcia'=>'sekcia'], Input::old('type'), array('class' => 'form-control')) !!}
+
+	<!-- Nav tabs -->
+	<ul class="nav nav-tabs top-space" role="tablist">
+		@foreach (\Config::get('translatable.locales') as $i=>$locale)
+			<li role="presentation" class="{{ ($i==0) ? 'active' : '' }}"><a href="#{{ $locale }}" aria-controls="{{ $locale }}" role="tab" data-toggle="tab">{{ strtoupper($locale) }}</a></li>
+		@endforeach
+	</ul>
+
+	<div class="tab-content top-space">
+		@foreach (\Config::get('translatable.locales') as $i=>$locale)
+	    <div role="tabpanel" class="tab-pane  {{ ($i==0) ? 'active' : '' }}" id="{{ $locale }}">
+					<div class="form-group">
+					{{ Form::label($locale . "[name]", 'Názov') }}
+					{{ Form::text($locale . "[name]", isset($collection) ? @$collection->translate($locale)->name : '', array('class' => 'form-control')) }}
+					</div>
+
+					<div class="form-group">
+					{{ Form::label($locale . "[type]", 'Typ') }}
+					{{ Form::text($locale . "[type]", isset($collection) ? @$collection->translate($locale)->type : '', array('class' => 'form-control')) }}
+					</div>
+
+					<div class="form-group">
+					{{ Form::label($locale . "[text]", 'Text') }}
+					{{ Form::textarea($locale . "[text]", isset($collection) ? @$collection->translate($locale)->text : '', array('class' => 'form-control wysiwyg', 'rows'=>'12')) }}	
+					</div>
+
+			</div>
+		@endforeach
 	</div>
+
 </div>
-<div class="col-md-12">
-	<div class="form-group">
-	{!! Form::label('name', 'Názov') !!}
-	{!! Form::text('name', Input::old('name'), array('class' => 'form-control')) !!}
-	</div>
-</div>
-<div class="col-md-12">
-	<div class="form-group">
-	{!! Form::label('text', 'Text') !!}
-	{!! Form::textarea('text', Input::old('text'), array('class' => 'form-control wysiwyg')) !!}	
-	</div>
-</div>
+<!-- /translatable -->
+
 <div class="col-md-6">
 	<div class="form-group">
 		{!! Form::label('title_color', 'Farba nadpisu') !!}

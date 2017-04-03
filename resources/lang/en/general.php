@@ -11,12 +11,9 @@ return array(
     |
     */
 
-    'artworks' => 'artworks',
-    'collections' => 'collections',
-    'authors' => 'authors',
-    'articles' => 'articles',
-    'galleries' => 'galleries',
-    'info' => 'info',
-    'language' => 'language',
+    'item_zoom' => 'zoom artwork',
+    'close' => 'close',
+    'sort_by' => 'sort by',
+    'clear_filters' => 'clear filters',
 
 );

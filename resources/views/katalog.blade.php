@@ -3,10 +3,10 @@
 @section('title')
 
     @if (!empty($search))
-        výsledky vyhľadávania pre "{!!$search!!}"
+        {{ trans('katalog.title_searched') }} "{!!$search!!}"
     @else
         {!! getTitleWithFilters('App\Item', $input, ' | ') !!}
-        diela
+        {{ trans('katalog.title_not_searched') }}
     @endif
     | 
     @parent
@@ -26,28 +26,28 @@
             <div class="row">
                 <!-- <h3>Filter: </h3> -->
                 <div  class="col-md-4 col-xs-6 bottom-space">
-                        {!! Form::select('author', array('' => '') + $authors, @$input['author'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'autor')) !!}
+                        {!! Form::select('author', array('' => '') + $authors, @$input['author'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_author'))) !!}
                  </div>
                 <div  class="col-md-4 col-xs-6 bottom-space">
-                        {!! Form::select('work_type', array('' => '') + $work_types,  @$input['work_type'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'výtvarný druh')) !!}
+                        {!! Form::select('work_type', array('' => '') + $work_types,  @$input['work_type'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_work_type'))) !!}
                 </div>
                 <div  class="col-md-4 col-xs-6 bottom-space">
-                        {!! Form::select('tag', array('' => '') + $tags, @$input['tag'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'tagy')) !!}
+                        {!! Form::select('tag', array('' => '') + $tags, @$input['tag'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_tag'))) !!}
                 </div>
                 <div  class="col-md-4 col-xs-6 bottom-space">
-                        {!! Form::select('gallery', array('' => '') + $galleries, @$input['gallery'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'galéria')) !!}
+                        {!! Form::select('gallery', array('' => '') + $galleries, @$input['gallery'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_gallery'))) !!}
                 </div>
                 <div  class="col-md-4 col-xs-6 bottom-space">
-                        {!! Form::select('topic', array('' => '') + $topics, @$input['topic'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'žáner')) !!}
+                        {!! Form::select('topic', array('' => '') + $topics, @$input['topic'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_topic'))) !!}
                 </div>
                 <div  class="col-md-4 col-xs-6 bottom-space">
-                        {!! Form::select('technique', array('' => '') + $techniques, @$input['technique'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'technika')) !!}
+                        {!! Form::select('technique', array('' => '') + $techniques, @$input['technique'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_technique'))) !!}
                 </div>
                 <div class="col-md-4 col-xs-6">
                         <div class="checkbox">
                             {!! Form::checkbox('has_image', '1', @$input['has_image'], ['id'=>'has_image']) !!}
                             <label for="has_image">
-                              len s obrázkom
+                              {{ trans('katalog.filters_has_image') }}
                             </label>
                         </div>
                 </div>
@@ -55,7 +55,7 @@
                         <div class="checkbox">
                             {!! Form::checkbox('has_iip', '1', @$input['has_iip'], ['id'=>'has_iip']) !!}
                             <label for="has_iip">
-                              len so zoom
+                              {{ trans('katalog.filters_has_iip') }}
                             </label>
                         </div>
                 </div>
@@ -63,7 +63,7 @@
                         <div class="checkbox">
                             {!! Form::checkbox('is_free', '1', @$input['is_free'], ['id'=>'is_free']) !!}
                             <label for="is_free">
-                              len voľné
+                              {{ trans('katalog.filters_is_free') }}
                             </label>
                         </div>
                 </div>
@@ -88,22 +88,22 @@
             <div class="row content-section">
             	<div class="col-xs-6">
                     @if (!empty($search))
-                        <h4 class="inline">Nájdené diela pre &bdquo;{!! $search !!}&ldquo; (<span data-searchd-total-hits>{!! $items->total() !!}</span>) </h4> 
+                        <h4 class="inline">{{ utrans('katalog.catalog_found_artworks') }} &bdquo;{!! $search !!}&ldquo; (<span data-searchd-total-hits>{!! $items->total() !!}</span>) </h4> 
                     @else
-                		<h4 class="inline">{!! $items->total() !!} diel </h4>
+                		<h4 class="inline">{!! $items->total() !!} {{ trans('katalog.catalog_artworks') }} </h4>
                     @endif
                     @if ($items->count() == 0)
-                        <p class="text-center">Momentálne žiadne diela</p>
+                        <p class="text-center">{{ utrans('katalog.catalog_no_artworks') }}</p>
                     @endif
 
                     @if (count(Input::all()) > 0)
-                        <a class="btn btn-sm btn-default btn-outline  sans" href="{!! URL::to('katalog')!!}">zrušiť filtre  <i class="icon-cross"></i></a>
+                        <a class="btn btn-sm btn-default btn-outline  sans" href="{!! URL::to('katalog')!!}">{{ trans('general.clear_filters') }}  <i class="icon-cross"></i></a>
                     @endif
                 </div>
                 <div class="col-xs-6 text-right">
                     <div class="dropdown">
                       <a class="dropdown-toggle" type="button" id="dropdownSortBy" data-toggle="dropdown" aria-expanded="true">
-                        podľa {!! App\Item::getSortedLabel(); !!}
+                        {{ trans('general.sort_by') }} {!! App\Item::getSortedLabel(); !!}
                         <span class="caret"></span>
                       </a>
                       <ul class="dropdown-menu dropdown-menu-right dropdown-menu-sort" role="menu" aria-labelledby="dropdownSortBy">
@@ -125,7 +125,7 @@
     	                	</a>
                             <div class="item-title">
                                 @if ($item->has_iip)
-                                    <div class="pull-right"><a href="{!! URL::to('dielo/' . $item->id . '/zoom') !!}" data-toggle="tooltip" data-placement="left" title="Zoom obrázku"><i class="fa fa-search-plus"></i></a></div>
+                                    <div class="pull-right"><a href="{!! URL::to('dielo/' . $item->id . '/zoom') !!}" data-toggle="tooltip" data-placement="left" title="{{ utrans('general.item_zoom') }}"><i class="fa fa-search-plus"></i></a></div>
                                 @endif    
                                 <a href="{!! $item->getUrl() !!}" {!! (!empty($search))  ? 
                                     'data-searchd-result="title/'.$item->id.'" data-searchd-title="'.implode(', ', $item->authors).' - '. $item->title.'"' 
@@ -146,7 +146,7 @@
                             <a id="next" href="{!! URL::to('katalog')!!}"><svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve"> <path d="M0.492,8.459v83.427c4.124,0.212,7.409,3.497,7.622,7.622h83.357
         c0.22-4.265,3.719-7.664,8.036-7.664V8.571c-4.46,0-8.079-3.617-8.079-8.079H8.157C8.157,4.774,4.755,8.239,0.492,8.459z"/>
 <text text-anchor="middle" alignment-baseline="middle" x="50" y="50">
-    ukáž viac
+    {{ trans('katalog.catalog_show_more') }}
   </text>
    </svg></a>
                         @endif
