@@ -127,6 +127,7 @@ return array(
         App\Providers\RouteServiceProvider::class,
         'GrahamCampbell\Throttle\ThrottleServiceProvider',
         Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
+        Dimsav\Translatable\TranslatableServiceProvider::class,
     ),
 
     /*
