@@ -26,6 +26,23 @@ class CreateCollectionTranslationsTable extends Migration
             $table->unique(['collection_id','locale']);
             $table->foreign('collection_id')->references('id')->on('collections')->onDelete('cascade');
         });
+
+        $default_locale = 'sk';
+
+        $collections = DB::table('collections')->get();
+        $collection_translations = [];
+        foreach ($collections as $collection) {
+            $collection_translations[] = 
+                [
+                    'collection_id' => $collection->id, 
+                    'locale' => $default_locale, 
+                    'name' => $collection->name, 
+                    'type' => $collection->type, 
+                    'text' => $collection->text, 
+                ];
+        }
+        
+        DB::table('collection_translations')->insert( $collection_translations );
     }
 
     /**
