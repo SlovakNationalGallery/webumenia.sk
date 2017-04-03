@@ -14,8 +14,8 @@ class Collection extends \Eloquent
     public $translatedAttributes = ['name','type', 'text'];
 
     public static $rules = array(
-        'name' => 'required',
-        'text' => 'required',
+        // 'name' => 'required',
+        // 'text' => 'required',
         );
 
     public static $sortable = array(
