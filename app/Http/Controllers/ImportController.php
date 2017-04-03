@@ -16,6 +16,8 @@ use App\Import;
 use App\ImportRecord;
 // use App\Collection;
 
+use App\Http\Controllers\MyValueBinder;
+
 class ImportController extends Controller
 {
     
@@ -189,25 +191,42 @@ class ImportController extends Controller
 		$this_import_record->save();
 
 
-        // \Excel::filter('chunk')->load($file)->chunk(250, function($results)
-        // {
-        //     foreach($results as $row)
-        //     {
-        //         dd($row);
-        //     }
-        // });
-
         $images = null;
         if ($import->dir_path) {
             $image_dir = basename($this_import_record->filename, '.csv');
             $images = \Storage::listContents('import/' . $import->dir_path . '/' . $image_dir);
         }
 
-        try {
-            $file = (is_array($file)) ? storage_path('app/' . $file['path']) : $file;
 
-            \Excel::load($file, function ($reader) use (&$this_import_record, &$images) {
-                foreach ($reader->toArray() as $row) {
+        $file = (is_array($file)) ? storage_path('app/' . $file['path']) : $file;
+
+        // \Excel::filter('chunk')->load($file)->chunk(250, function($results) use (&$this_import_record, &$images)
+        // {
+        //     foreach($results as $row)
+        //     {
+        //         $row = $row->toArray();
+        //         dd($row);
+
+        //     }
+        // });
+
+
+
+        // try {
+            $myValueBinder = new MyValueBinder();
+
+            \Excel::load($file)->chunk(250, function($results) use (&$this_import_record, &$images)
+            {
+                foreach($results as $row)
+                {
+                    $row = $row->toArray();
+                    // array_walk(
+                    //     $row,
+                    //     function (&$entry) {
+                    //         $entry = iconv('CP1250', 'UTF-8', $entry);
+                    //     }
+                    // );
+                    dd($row);
                     $gallery = 'Moravská galerie, MG';
                     $prefix = 'CZK:MG.';
                     $id = $prefix . $row['rada_s'] . '_' . (int)$row['porc_s'];
@@ -271,22 +290,24 @@ class ImportController extends Controller
 
                     $this_import_record->imported_items++;
                     $this_import_record->save();
-                };
-                $this_import_record->status = Import::STATUS_COMPLETED;
-                $this_import_record->completed_at = date('Y-m-d H:i:s');
-                $this_import_record->save();
+                }; //foreach
+            }); // excel reader
 
-            },  'Windows-1250');
-            \Session::flash('message', $this_import_record->imported_items . ' records imported successfully.');
-            return redirect(route('imports.index'));
-        } catch (\Exception $e) {
-            $this_import_record->status = Import::STATUS_ERROR;
-            $this_import_record->error_message = $e->getMessage();
+            $this_import_record->status = Import::STATUS_COMPLETED;
             $this_import_record->completed_at = date('Y-m-d H:i:s');
             $this_import_record->save();
-            \Session::flash('error', $e->getMessage());
-            // return redirect(route('imports.index'));
-        }
+
+            // },  'Windows-1250');
+            \Session::flash('message', $this_import_record->imported_items . ' records imported successfully.');
+            return redirect(route('imports.index'));
+        // } catch (\Exception $e) {
+        //     $this_import_record->status = Import::STATUS_ERROR;
+        //     $this_import_record->error_message = $e->getMessage();
+        //     $this_import_record->completed_at = date('Y-m-d H:i:s');
+        //     $this_import_record->save();
+        //     \Session::flash('error', $e->getMessage());
+        //     // return redirect(route('imports.index'));
+        // }
 
         $this_import_record->completed_at = date('Y-m-d H:i:s');
         $this_import_record->save();
