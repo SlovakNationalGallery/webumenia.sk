@@ -9,14 +9,11 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Requests;
 use Barryvdh\Debugbar\Facade;
 use Carbon\Carbon;
-use Maatwebsite\Excel\Facades\Excel;
 
 use App\Item;
 use App\Import;
 use App\ImportRecord;
-// use App\Collection;
-
-use App\Http\Controllers\MyValueBinder;
+use League\Csv\Reader;
 
 class ImportController extends Controller
 {
@@ -200,114 +197,110 @@ class ImportController extends Controller
 
         $file = (is_array($file)) ? storage_path('app/' . $file['path']) : $file;
 
-        // \Excel::filter('chunk')->load($file)->chunk(250, function($results) use (&$this_import_record, &$images)
-        // {
-        //     foreach($results as $row)
-        //     {
-        //         $row = $row->toArray();
-        //         dd($row);
+        $func = function ($row) {
+            return array_map('w1250_to_utf8', $row);
+        };
 
-        //     }
-        // });
+        $csv = Reader::createFromPath($file);
 
+        $csv->setDelimiter(';');
+        $csv->setEnclosure('"');
+        $csv->setEscape("\\");
+        $csv->setNewline("\r\n");
 
+        $headers = $csv->fetchOne(0);
+        $headers = array_map('w1250_to_utf8', $headers);
+        $headers = array_map('remove_accents', $headers);
 
-        // try {
-            $myValueBinder = new MyValueBinder();
+        $records = $csv->setOffset(1)->fetchAssoc($headers, $func);
 
-            \Excel::load($file)->chunk(250, function($results) use (&$this_import_record, &$images)
-            {
-                foreach($results as $row)
-                {
-                    $row = $row->toArray();
-                    // array_walk(
-                    //     $row,
-                    //     function (&$entry) {
-                    //         $entry = iconv('CP1250', 'UTF-8', $entry);
-                    //     }
-                    // );
-                    dd($row);
-                    $gallery = 'Moravská galerie, MG';
-                    $prefix = 'CZK:MG.';
-                    $id = $prefix . $row['rada_s'] . '_' . (int)$row['porc_s'];
-                    $identifier = $row['rada_s'] . ' ' . (int)$row['porc_s'];
-                    $image_file = $row['rada_s'] . str_pad($row['porc_s'], 6, "0", STR_PAD_LEFT);
+        try {
 
-                    $suffix = ($row['lomeni_s'] != '_') ? $row['lomeni_s'] : '';
-                    if ($suffix) {
-                        $id .= '-' . $suffix;
-                        $image_file .= '-' . $suffix;
-                        $identifier .= '/' .$suffix;
-                    }
+            foreach ($records as $index => $row) {
 
-                    
-                    $item = Item::firstOrNew(['id' => $id]);
-                    $item->identifier = $identifier;
-                    $item->gallery = $gallery;
-                    $item->acquisition_date = $row['rokakv'];
-                    $item->author = ($row['autor']) ? $row['autor'] : 'Neznámy autor';
-                    $item->copyright_expires = $row['datexp'];
-                    $item->dating = $row['datace'];
-                    $item->date_earliest = $row['rokod'];
-                    $item->date_latest = $row['do'];
-                    $item->place = $row['mistovz'];
-                    $item->title = $row['titul'];
-                    $medium = ($row['matspec']) ? ($row['material'] . ', ' . $row['matspec']) : $row['material'];
-                    $item->medium = $medium;
-                    $technique = ($row['techspec']) ? ($row['technika'] . ', ' . $row['techspec']) : $row['technika'];
-                    $item->technique = $technique;
-                    $item->topic = ($row['namet']) ? $row['namet'] : '';
-                    $item->inscription = $row['sign'];
-                    $work_type = Import::getWorkType($row['rada_s'], $row['skupina']);
-                    $item->work_type = $work_type;
-                    // este budu miry
+                $row = array_map(function($value) {
+                   return $value === "" ? NULL : $value;
+                }, $row);
 
-                    if ($images) {
-                        $item_image_files = array_filter($images, function ($object) use ($image_file) { 
-                            return (
-                                $object['type'] === 'file' && 
-                                ($object['extension'] === 'jpg' || $object['extension'] === 'JPG') &&
-                                strpos($object['filename'], $image_file) === 0
-                                ); 
-                        });
-                        if (!empty($item_image_files)) {
-                            $item_image_file = reset($item_image_files);
-                            $this->uploadImage($item, $item_image_file);
-                            $item->has_image = true;
+                $gallery = 'Moravská galerie, MG';
+                $prefix = 'CZE:MG.';
+                $id = $prefix . $row['Rada_S'] . '_' . (int)$row['PorC_S'];
+                $identifier = $row['Rada_S'] . ' ' . (int)$row['PorC_S'];
+                $image_file = $row['Rada_S'] . str_pad($row['PorC_S'], 6, "0", STR_PAD_LEFT);
 
-                            // detect DeepZoom at IIP - if it's hq (high quality) image
-                            if (strpos($item_image_file['filename'], 'hq') !== false) {
-                                $iip_img = '/MG/DrevoHQ/jp2/'.$item_image_file['filename'].'.jp2'; // @TODO: change this!
-                                $iip_url = 'http://www.webumenia.sk/fcgi-bin/iipsrv.fcgi?DeepZoom='. $iip_img;
-                                if (isValidURL($iip_url)) {
-                                    $item->iipimg_url = $iip_img;
-                                }
+                $suffix = ($row['Lomeni_S'] != '_') ? $row['Lomeni_S'] : '';
+                if ($suffix) {
+                    $id .= '-' . $suffix;
+                    $image_file .= '-' . $suffix;
+                    $identifier .= '/' .$suffix;
+                }
+
+                
+                $item = Item::firstOrNew(['id' => $id]);
+                $item->identifier = $identifier;
+                $item->gallery = $gallery;
+                $item->acquisition_date = $row['RokAkv'];
+                $item->author = ($row['Autor']) ? $row['Autor'] : 'Neznámy autor';
+                $item->copyright_expires = $row['DatExp'];
+                $item->dating = $row['Datace'];
+                $item->date_earliest = $row['RokOd'];
+                $item->date_latest = $row['Do'];
+                $item->place = $row['MistoVz'];
+                $item->title = $row['Titul'];
+                $medium = ($row['MatSpec']) ? ($row['Material'] . ', ' . $row['MatSpec']) : $row['Material'];
+                $item->medium = $medium;
+                $technique = ($row['TechSpec']) ? ($row['Technika'] . ', ' . $row['TechSpec']) : $row['Technika'];
+                $item->technique = $technique;
+                $item->topic = ($row['Namet']) ? $row['Namet'] : '';
+                $item->inscription = $row['Sign'];
+                $work_type = Import::getWorkType($row['Rada_S'], $row['Skupina']);
+                $item->work_type = $work_type;
+                // este budu miry
+
+                if ($images) {
+                    $item_image_files = array_filter($images, function ($object) use ($image_file) { 
+                        return (
+                            $object['type'] === 'file' && 
+                            ($object['extension'] === 'jpg' || $object['extension'] === 'JPG') &&
+                            strpos($object['filename'], $image_file) === 0
+                            ); 
+                    });
+                    if (!empty($item_image_files)) {
+                        $item_image_file = reset($item_image_files);
+                        $this->uploadImage($item, $item_image_file);
+                        $item->has_image = true;
+
+                        // detect DeepZoom at IIP - if it's hq (high quality) image
+                        if (strpos($item_image_file['filename'], 'hq') !== false) {
+                            $iip_img = '/MG/DrevoHQ/jp2/'.$item_image_file['filename'].'.jp2'; // @TODO: change this!
+                            $iip_url = 'http://www.webumenia.sk/fcgi-bin/iipsrv.fcgi?DeepZoom='. $iip_img;
+                            if (isValidURL($iip_url)) {
+                                $item->iipimg_url = $iip_img;
                             }
                         }
                     }
+                }
 
-                    $item->save();
+                $item->save();
 
-                    $this_import_record->imported_items++;
-                    $this_import_record->save();
-                }; //foreach
-            }); // excel reader
+                $this_import_record->imported_items++;
+                $this_import_record->save();
+            }
 
             $this_import_record->status = Import::STATUS_COMPLETED;
             $this_import_record->completed_at = date('Y-m-d H:i:s');
             $this_import_record->save();
 
-            // },  'Windows-1250');
             \Session::flash('message', $this_import_record->imported_items . ' records imported successfully.');
             return redirect(route('imports.index'));
-        // } catch (\Exception $e) {
-        //     $this_import_record->status = Import::STATUS_ERROR;
-        //     $this_import_record->error_message = $e->getMessage();
-        //     $this_import_record->completed_at = date('Y-m-d H:i:s');
-        //     $this_import_record->save();
-        //     \Session::flash('error', $e->getMessage());
-        //     // return redirect(route('imports.index'));
-        // }
+        } catch (\Exception $e) {
+            $this_import_record->status = Import::STATUS_ERROR;
+            $this_import_record->error_message = $e->getMessage();
+            $this_import_record->completed_at = date('Y-m-d H:i:s');
+            $this_import_record->save();
+            \Session::flash('error', $e->getMessage());
+            // return redirect(route('imports.index'));
+        }
 
         $this_import_record->completed_at = date('Y-m-d H:i:s');
         $this_import_record->save();
@@ -320,7 +313,7 @@ class ImportController extends Controller
         
         return redirect(route('imports.index'));
 
-	}
+    }
 
     private function uploadImage($item, $file)
     {
