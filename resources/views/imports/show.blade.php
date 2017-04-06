@@ -95,8 +95,8 @@
 	                					<i class="fa fa-exclamation-triangle text-danger pointer" aria-hidden="true" data-toggle="popover" data-content="{{ $record->error_message }}"></i>
 	                				@endif
 	                			</td>
-	                			<td>{{ ($record->started_at) ? $record->started_at->format('d.m.Y h:i') : '' }}</td>
-	                			<td>{{ ($record->completed_at) ? $record->completed_at->format('d.m.Y h:i') : '' }}</td>
+	                			<td>{{ ($record->started_at) ? $record->started_at->format('d.m.Y G:i') : '' }}</td>
+	                			<td>{{ ($record->completed_at) ? $record->completed_at->format('d.m.Y G:i') : '' }}</td>
 	                			<td class="text-right">{{ $record->imported_items }}</td>
 	                		</tr>
 	                	@endforeach
