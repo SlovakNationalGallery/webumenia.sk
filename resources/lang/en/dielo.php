@@ -13,7 +13,7 @@ return array(
     'item_order'         => 'order reproductions',
     'item_download'      => 'download',
     
-    'item_attr_dating'         => 'datovanie',
+    'item_attr_dating'         => 'dating',
     'item_attr_measurements'   => 'rozmer',
     'item_attr_work_type'      => 'výtvarný druh',
     'item_attr_topic'          => 'žáner',
