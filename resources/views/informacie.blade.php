@@ -177,17 +177,22 @@ Informácie |
                             <td class="text-right">35 €</td>
                         </tr>
                         <tr>
-                            <td><strong>reprodukcia s paspartou</strong></td>
+                            <td><strong><s>reprodukcia s paspartou</s></strong><sup class="text-danger">*</sup></td>
                             <td class="text-right">35 €</td>
                             <td class="text-right">50 €</td>
                         </tr>
                         <tr>
-                            <td><strong>s paspartou a rámom</strong></td>
+                            <td><strong><s>s paspartou a rámom</s></strong><sup class="text-danger">*</sup></td>
                             <td class="text-right">40 €</td>
                             <td class="text-right">60 €</td>
                         </tr>
                     </tbody>
                 </table>
+
+                <p>
+                    <sup class="text-danger">*</sup> Z technických dôvodov dočasne pozastavené
+                </p>
+
             </div>
             <div class="modal-footer">
                 <div class="text-center"><button type="button" data-dismiss="modal" class="btn btn-default btn-outline sans">zavrieť</button></div>

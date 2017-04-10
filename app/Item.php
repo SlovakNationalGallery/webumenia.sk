@@ -128,9 +128,9 @@ class Item extends Model
         });
 
         static::deleted(function ($item) {
-             $this->getElasticClient()->delete([
-                // 'index' => Config::get('bouncy.index'),
-                'type' => self::ES_TYPE,
+             $item->getElasticClient()->delete([
+                'index' => Config::get('bouncy.index'),
+                'type' => $item::ES_TYPE,
                 'id' => $item->id,
              ]);
         });
@@ -502,7 +502,7 @@ class Item extends Model
 		';
         $params = array_merge(json_decode($json_params, true), $search_params);
         $result = Elastic::search([
-                // 'index' => Config::get('bouncy.index'),
+                'index' => Config::get('bouncy.index'),
                 'search_type' => 'count',
                 'type' => self::ES_TYPE,
                 'body'  => $params

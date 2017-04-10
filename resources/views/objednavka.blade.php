@@ -25,7 +25,7 @@ objednávka |
                         <p>K vybraným dielam zo zbierok SNG ponúkame možnosť objednať si reprodukcie v archívnej kvalite na fineartových papieroch. Po výbere diel, vyplnení údajov a odoslaní objednávky vás bude kontaktovať pracovník SNG s podrobnejšími informáciami. 
                         Momentálne je možné vyzdvihnúť si diela len osobne v&nbsp;kníhkupectve <a href="https://goo.gl/maps/3Uf4S" target="_blank" class="underline">Ex Libris v priestoroch SNG na Námestí Ľ. Štúra 4 v Bratislave</a>  alebo v pokladni <a href="https://goo.gl/maps/MPRy6Qdwm8s" target="_blank" class="underline">Zvolenského zámku - Námestie SNP 594/1</a>. </p>
                         <div class="alert alert-info  top-space" role="alert">
-                            <strong>Ospravedlňujeme sa</strong>, z technických dôvodov sme museli <strong>dočasne pozastaviť objednávky tlačených reprodukcií s paspartou alebo rámom</strong>. Samostatnú tlačenú reprodukciu si však môžete objednať aj naďalej. Ďakujeme za pochopenie.
+                            <strong>Ospravedlňujeme sa</strong>, z technických dôvodov sme museli <strong>dočasne pozastaviť objednávky tlačených reprodukcií s&nbsp;paspartou alebo rámom</strong>. Samostatnú tlačenú reprodukciu si však môžete objednať aj&nbsp;naďalej. <br>Ďakujeme za&nbsp;pochopenie.
                         </div>
                 </div>
             </div>
