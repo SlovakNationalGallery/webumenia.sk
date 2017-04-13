@@ -11,9 +11,10 @@ return array(
     |
     */
 
-    'item_zoom' => 'zoom obrázku',
-    'close' => 'zavrieť',
-    'sort_by' => 'podľa',
+    'item_zoom'     => 'zoom obrázku',
+    'close'         => 'zavrieť',
+    'sort_by'       => 'podľa',
     'clear_filters' => 'zrušiť filtre',
+    'artworks'      => 'diela',
 
 );

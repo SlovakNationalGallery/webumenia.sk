@@ -11,9 +11,10 @@ return array(
     |
     */
 
-    'item_zoom' => 'zoom artwork',
-    'close' => 'close',
-    'sort_by' => 'sort by',
+    'item_zoom'     => 'zoom artwork',
+    'close'         => 'close',
+    'sort_by'       => 'sort by',
     'clear_filters' => 'clear filters',
+    'artworks'      => 'artworks',
 
 );
