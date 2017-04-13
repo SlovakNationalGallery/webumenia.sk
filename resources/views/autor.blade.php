@@ -32,7 +32,7 @@
                             v <strong>{!! $author->collections_count !!}</strong> kolekciách <br>
                             &nbsp; <strong>{!! $author->view_count !!}</strong> videní
                         </p>
-                        @if ( $author->tags)
+                        @if ( count($author->tags) > 0)
                             <div class="tags">
                                 <h4>Tagy: </h4>
                                 @foreach ($author->tags as $tag)
