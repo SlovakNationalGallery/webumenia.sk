@@ -11,15 +11,15 @@ return array(
     |
     */
 
-    'artworks' => 'diela',
-    'collections' => 'kolekcie',
-    'authors' => 'autori',
-    'articles' => 'články',
-    'galleries' => 'galérie',
-    'info' => 'info',
-    'language' => 'jazyk',
-    'made_by' => 'vyrobil a spravuje',
+    'artworks'           => 'diela',
+    'collections'        => 'kolekcie',
+    'authors'            => 'autori',
+    'articles'           => 'články',
+    'galleries'          => 'galérie',
+    'info'               => 'info',
+    'language'           => 'jazyk',
+    'made_by'            => 'vyrobil a spravuje',
     'search_placeholder' => 'Hľadať diela, autorov...',
-    'to_top' => 'návrat hore',
+    'to_top'             => 'návrat hore',
     
 );
