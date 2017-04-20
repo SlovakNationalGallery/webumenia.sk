@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-ERROR 500 - Fatal Error
+{{ trans('fatal.title') }}
 @stop
 
 @section('content')
@@ -13,14 +13,14 @@ ERROR 500 - Fatal Error
                 <div class="col-md-8 col-md-offset-2 content-section">
                     <div class="text-center">
                         {{-- <h1>ERROR 500</h1> --}}
-                        <h2 class="top-margin">NASTALA CHYBA</h2>
-                        <p>Prepáčte, ale táto stránka je z technických príčin dočasne nedostupná.</p>
+                        <h2 class="top-margin uppercase">{{ trans('fatal.h2') }}</h2>
+                        <p>{{ trans('fatal.paragraph') }}</p>
                         <a href="/dielo/SVK:SNG.K_17703"><img src="/images/errors/error.fatal.jpeg" alt="Oznámenie: NedorozUMENIE" class="img-responsive img-dielo"></a>
                         <p>
-                            <a href="/dielo/SVK:SNG.K_17703">Július Koller &ndash; Oznámenie: NedorozUMENIE</a>
+                            <a href="/dielo/SVK:SNG.K_17703">{!! trans('fatal.image_caption') !!}</a>
                         </p>
 
-                        <h3><a href="{!!URL::to('/')!!}">návrat <i class="icon-versus"></i> domov</a></h3>
+                        <h3><a href="{!!URL::to('/')!!}" class="btn btn-default btn-lg btn-outline sans"> {{ trans('general.return_home') }}</a></h3>
                         
                     </div>
                 </div>
