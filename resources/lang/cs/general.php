@@ -14,6 +14,7 @@ return array(
     'item_zoom'        => 'zoom obrázku',
     'close'            => 'zavrieť',
     'back'             => 'naspäť',
+    'return_home'      => 'návrat domov',
     'sort_by'          => 'podľa',
     'clear_filters'    => 'zrušiť filtre',
     'public_domain'    => 'voľné dielo',
