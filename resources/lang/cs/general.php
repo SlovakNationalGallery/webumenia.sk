@@ -11,11 +11,13 @@ return array(
     |
     */
 
-    'item_zoom'     => 'zoom obrázku',
-    'close'         => 'zavrieť',
-    'sort_by'       => 'podľa',
-    'clear_filters' => 'zrušiť filtre',
-    'artworks'      => 'diela',
+    'item_zoom'        => 'zoom obrázku',
+    'close'            => 'zavrieť',
+    'back'             => 'naspäť',
+    'sort_by'          => 'podľa',
+    'clear_filters'    => 'zrušiť filtre',
+    'public_domain'    => 'voľné dielo',
+    'artworks'         => 'diela',
     'artworks_counted' => '{0}    :artworks_count diel
                           |{1}    :artworks_count dielo
                           |[2,4]  :artworks_count diela

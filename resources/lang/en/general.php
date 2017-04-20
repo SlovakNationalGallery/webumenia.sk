@@ -11,11 +11,13 @@ return array(
     |
     */
 
-    'item_zoom'     => 'zoom artwork',
-    'close'         => 'close',
-    'sort_by'       => 'sort by',
-    'clear_filters' => 'clear filters',
-    'artworks'      => 'artworks',
+    'item_zoom'        => 'zoom artwork',
+    'close'            => 'close',
+    'back'             => 'back',
+    'sort_by'          => 'sort by',
+    'clear_filters'    => 'clear filters',
+    'public_domain'    => 'public domain',
+    'artworks'         => 'artworks',
     'artworks_counted' => '{0}    :artworks_count artworks
                           |{1}    :artworks_count artwork
                           |[2,Inf]:artworks_count artworks',
