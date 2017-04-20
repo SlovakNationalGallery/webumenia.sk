@@ -5,7 +5,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		@section('description')
-		<meta name="description" content="Web umenia je on-line katalóg výtvarných diel zo zbierok slovenských galérií. Nájdete tu základné informácie o dielach a ich autoroch, ale aj pôvodné články, videá a kolekcie.">
+		<meta name="description" content="{{ trans('master.meta_description') }}">
 		@show
 		<meta name="author" content="lab.SNG">
 
@@ -24,7 +24,7 @@
 		<meta name="twitter:site" content="@webumeniaSK" />
 		@section('og')
 		<meta property="og:title" content="Web umenia" />
-		<meta property="og:description" content="Web umenia je on-line katalóg výtvarných diel zo zbierok slovenských galérií. Nájdete tu základné informácie o dielach a ich autoroch, ale aj pôvodné články, videá a kolekcie." />
+		<meta property="og:description" content="{{ trans('master.meta_description') }}" />
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content="{!! Request::url() !!}" />
 		<meta property="og:image" content="{!! URL::to('/images/og-image-'.random_int(1, 2).'.jpg') !!}" />
