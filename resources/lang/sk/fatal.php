@@ -4,7 +4,7 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
-    | Language Lines for fatal.php template
+    | Language Lines for fatal.blade.php template
     |--------------------------------------------------------------------------
     */
 

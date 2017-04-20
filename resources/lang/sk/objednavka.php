@@ -8,9 +8,9 @@ return array(
     |--------------------------------------------------------------------------
     */
     
-    'title'          => 'objednávka',
-    'order_alert'    => '<strong>Upozornenie:</strong> Objednávky tlačených reprodukcií zadané po 6. decembri 2016 už nestihnú byť realizované do Vianoc. <br>Tlačené reprodukcie si môžete v kníhkupectve Exlibris SNG vyzdvihnúť do 23.12. alebo po 27.12.',
-    'order_content'  => '<h2 class="bottom-space">Objednávka</h2>
+    'title'         => 'objednávka',
+    'order_alert'   => '<strong>Upozornenie:</strong> Objednávky tlačených reprodukcií zadané po 6. decembri 2016 už nestihnú byť realizované do Vianoc. <br>Tlačené reprodukcie si môžete v kníhkupectve Exlibris SNG vyzdvihnúť do 23.12. alebo po 27.12.',
+    'order_content' => '<h2 class="bottom-space">Objednávka</h2>
                         <p>K vybraným dielam zo zbierok SNG ponúkame možnosť objednať si reprodukcie v archívnej kvalite na fineartových papieroch. Po výbere diel, vyplnení údajov a odoslaní objednávky vás bude kontaktovať pracovník SNG s podrobnejšími informáciami. Momentálne je možné vyzdvihnúť si diela len osobne v&nbsp;kníhkupectve <a href="https://goo.gl/maps/3Uf4S" target="_blank" class="underline">Ex Libris v priestoroch SNG na Námestí Ľ. Štúra 4 v Bratislave</a>  alebo v pokladni <a href="https://goo.gl/maps/MPRy6Qdwm8s" target="_blank" class="underline">Zvolenského zámku - Námestie SNP 594/1</a>. </p>
                         <div class="alert alert-info  top-space" role="alert">
                             <strong>Ospravedlňujeme sa</strong>, z technických dôvodov sme museli <strong>dočasne pozastaviť objednávky tlačených reprodukcií s paspartou alebo rámom</strong>. Samostatnú tlačenú reprodukciu si však môžete objednať aj naďalej. Ďakujeme za pochopenie.

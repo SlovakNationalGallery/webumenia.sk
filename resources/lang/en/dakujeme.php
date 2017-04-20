@@ -4,7 +4,7 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
-    | Language Lines for dakujeme.php template
+    | Language Lines for dakujeme.blade.php template
     |--------------------------------------------------------------------------
     */
 

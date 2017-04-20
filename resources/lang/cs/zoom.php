@@ -4,9 +4,9 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
-    | Language Lines for zoom.php template
+    | Language Lines for zoom.blade.php template
     |--------------------------------------------------------------------------
     */
 
-    'title' 	=> 'zoom',
+    'title'     => 'zoom',
 );
