@@ -218,7 +218,7 @@
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_licence') }}:</td>
                                     {{-- <td><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs" target="_blank" class="no-border"><img alt="Creative Commons License" style="border-width:0; padding-top: 2px;"  src="/images/license/by-nc-sa.svg" title="Creative Commons BY-NC-SA 4.0" data-toggle="tooltip"></a></td> --}}
-                                    <td><a rel="license" href="{!!URL::to('katalog?is_free=' . '1')!!}" target="_blank" class="no-border license" title="Public Domain" data-toggle="tooltip"><img alt="Creative Commons License" style="height: 20px; width: auto"  src="/images/license/zero.svg" > voľné dielo</a></td>
+                                    <td><a rel="license" href="{!!URL::to('katalog?is_free=' . '1')!!}" target="_blank" class="no-border license" title="Public Domain" data-toggle="tooltip"><img alt="Creative Commons License" style="height: 20px; width: auto"  src="/images/license/zero.svg" > {{ trans('general.public_domain') }}</a></td>
                                 </tr>                                    
                                 @endif
                                 @if (!empty($item->place))
