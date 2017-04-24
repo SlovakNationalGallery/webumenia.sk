@@ -292,7 +292,16 @@ class SpiceHarvesterController extends Controller
                     }
                 }
 
-                if (!$this->isDeletedRecord($rec) && !$this->isExcludedRecord($rec)) { //ak je v sete oznaceny ako zmazany
+                if ($this->isDeletedRecord($rec)) {
+                    $rec_id = (string)$rec->header->identifier;
+                    $existingRecord = SpiceHarvesterRecord::where('identifier', '=', $rec_id)->where('type', '=', $harvest->type)->first();
+
+                    if ($existingRecord) {
+                        $item = $existingRecord->item;
+                        $item->delete();
+                        $existingRecord->delete();
+                    }
+                } else if {!$this->isExcludedRecord($rec)) { //ak je v sete oznaceny ako zmazany
 
                     //ak bol zmazany v tu v databaze, ale nachadza sa v OAI sete
                     $rec_id = (string)$rec->header->identifier;
