@@ -417,7 +417,7 @@ return array(
 
         'encoding'                => array(
 
-            'input'  => 'CP1250', //'Windows-1252',
+            'input'  => 'UTF-8'
             'output' => 'UTF-8'
 
         ),
