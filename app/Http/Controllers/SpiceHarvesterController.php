@@ -298,10 +298,12 @@ class SpiceHarvesterController extends Controller
 
                     if ($existingRecord) {
                         $item = $existingRecord->item;
-                        $item->delete();
+                        if ($item) {
+                            $item->delete();
+                        }
                         $existingRecord->delete();
                     }
-                } else if {!$this->isExcludedRecord($rec)) { //ak je v sete oznaceny ako zmazany
+                } else if (!$this->isExcludedRecord($rec)) { //ak je v sete oznaceny ako zmazany
 
                     //ak bol zmazany v tu v databaze, ale nachadza sa v OAI sete
                     $rec_id = (string)$rec->header->identifier;
