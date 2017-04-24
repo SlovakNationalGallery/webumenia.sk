@@ -242,6 +242,7 @@ class SpiceHarvesterController extends Controller
         $new_items = 0;
         $updated_items = 0;
         $skipped_items = 0;
+        $deleted_items = 0;
         $timeStart = microtime(true);
 
         $harvest = SpiceHarvesterHarvest::find($id);
@@ -292,7 +293,19 @@ class SpiceHarvesterController extends Controller
                     }
                 }
 
-                if (!$this->isDeletedRecord($rec) && !$this->isExcludedRecord($rec)) { //ak je v sete oznaceny ako zmazany
+                if ($this->isDeletedRecord($rec)) {
+                    $rec_id = (string)$rec->header->identifier;
+                    $existingRecord = SpiceHarvesterRecord::where('identifier', '=', $rec_id)->where('type', '=', $harvest->type)->first();
+
+                    if ($existingRecord) {
+                        $item = $existingRecord->item;
+                        if ($item) {
+                            $item->delete();
+                            $deleted_items++;
+                        }
+                        $existingRecord->delete();
+                    }
+                } else if (!$this->isExcludedRecord($rec)) { //ak je v sete oznaceny ako zmazany
 
                     //ak bol zmazany v tu v databaze, ale nachadza sa v OAI sete
                     $rec_id = (string)$rec->header->identifier;
@@ -337,7 +350,12 @@ class SpiceHarvesterController extends Controller
         }
 
         $totalTime = round((microtime(true)-$timeStart));
-        $message = 'Spracovaných bolo ' . $processed_items . ' záznamov. Z toho pribudlo ' . $new_items . ' nových záznamov,  ' . $updated_items . ' bolo upravených a ' . $skipped_items . ' bolo preskočených. Trvalo to ' . $totalTime . 's';
+        $message = 'Spracovaných bolo ' . $processed_items . ' záznamov.' . "\n" .
+            $new_items . ' nových záznamov  ' . "\n" .
+            $updated_items . ' bolo upravených ' . "\n" . 
+            $deleted_items . ' bolo zmazaných ' . "\n" . 
+            $skipped_items . ' bolo preskočených. ' . "\n" . 
+            'Trvalo to ' . $totalTime . 's';
 
         $harvest->status = SpiceHarvesterHarvest::STATUS_COMPLETED;
         $harvest->status_messages .= $message;
