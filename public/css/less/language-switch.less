@@ -20,6 +20,9 @@
     .caret {
       display: none;
     }
+    @media(min-width: @screen-sm-min) {
+        top: -45px;
+    }
   }
 
   .triangle-top-left:before {
@@ -36,6 +39,9 @@
   ul.dropdown-menu {
     position: absolute;
     top: 42px;
+    @media(min-width: @screen-sm-min) {
+      top: -3px;
+    }
     right: -10px !important;
     width: 30px;
     left: initial;
