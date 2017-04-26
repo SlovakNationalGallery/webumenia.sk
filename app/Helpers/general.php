@@ -375,3 +375,7 @@ function remove_accents($string) {
 
     return $string;
 }
+
+function empty_to_null($value) {
+    return $value === "" ? NULL : $value;
+}

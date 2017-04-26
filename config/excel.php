@@ -417,7 +417,7 @@ return array(
 
         'encoding'                => array(
 
-            'input'  => 'UTF-8'
+            'input'  => 'UTF-8',
             'output' => 'UTF-8'
 
         ),

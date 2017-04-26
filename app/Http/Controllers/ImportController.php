@@ -197,7 +197,7 @@ class ImportController extends Controller
 
         $file = (is_array($file)) ? storage_path('app/' . $file['path']) : $file;
 
-        $func = function ($row) {
+        $convert_encoding_func = function ($row) {
             return array_map('w1250_to_utf8', $row);
         };
 
@@ -212,15 +212,13 @@ class ImportController extends Controller
         $headers = array_map('w1250_to_utf8', $headers);
         $headers = array_map('remove_accents', $headers);
 
-        $records = $csv->setOffset(1)->fetchAssoc($headers, $func);
+        $records = $csv->setOffset(1)->fetchAssoc($headers, $convert_encoding_func);
 
         try {
 
             foreach ($records as $index => $row) {
 
-                $row = array_map(function($value) {
-                   return $value === "" ? NULL : $value;
-                }, $row);
+                $row = array_map('empty_to_null', $row);
 
                 $gallery = 'Moravská galerie, MG';
                 $prefix = 'CZE:MG.';
@@ -255,7 +253,7 @@ class ImportController extends Controller
                 $item->inscription = $row['Sign'];
                 $work_type = Import::getWorkType($row['Rada_S'], $row['Skupina']);
                 $item->work_type = $work_type;
-                // este budu miry
+                // add dimiensions, etc...
 
                 if ($images) {
                     $item_image_files = array_filter($images, function ($object) use ($image_file) { 
