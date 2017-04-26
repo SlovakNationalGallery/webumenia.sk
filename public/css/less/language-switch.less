@@ -23,6 +23,12 @@
     @media(min-width: @screen-sm-min) {
         top: -45px;
     }
+
+    // disable border-bottom hover state
+    // border-bottom: none;
+    // &:hover, &:active, &:focus {
+    //   border-bottom: none;
+    // }
   }
 
   .triangle-top-left:before {
@@ -51,14 +57,20 @@
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
     border-color: @light-grey;
+
+    // disable default shadow
+    box-shadow: none;
+
     &>li>a {
       padding: 5px;
       line-height: 1;
       font-weight: 600;
       border-top: 1px solid #f0f0f0;
-    }
-    &>li>a:hover, &>li>a:focus {
-      background-color: @light-grey;
+      border-bottom: none;
+      &:hover, &:active, &:focus {
+        background-color: @light-grey;
+        border-bottom: none;
+      }
     }
   }
 }
