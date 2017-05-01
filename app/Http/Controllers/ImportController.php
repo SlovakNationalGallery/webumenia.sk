@@ -267,6 +267,8 @@ class ImportController extends Controller
                         $item_image_file = reset($item_image_files);
                         $this->uploadImage($item, $item_image_file);
                         $item->has_image = true;
+                        $this_import_record->imported_images++;
+
 
                         // detect DeepZoom at IIP - if it's hq (high quality) image
                         if (strpos($item_image_file['filename'], 'hq') !== false) {
