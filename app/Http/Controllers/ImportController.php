@@ -259,7 +259,8 @@ class ImportController extends Controller
                     $item_image_files = array_filter($images, function ($object) use ($image_file) { 
                         return (
                             $object['type'] === 'file' && 
-                            ($object['extension'] === 'jpg' || $object['extension'] === 'JPG') &&
+                            ($object['extension'] === 'jpg' || $object['extension'] === 'JPG' || 
+                                $object['extension'] === 'jpeg' || $object['extension'] === 'JPEG') &&
                             strpos($object['filename'], $image_file) === 0
                             ); 
                     });
