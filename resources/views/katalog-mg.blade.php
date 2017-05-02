@@ -72,16 +72,16 @@
             <div class="row content-section">
             	<div class="col-xs-6">
                     @if (!empty($search))
-                        <h4 class="inline">Nájdené diela pre &bdquo;{!! $search !!}&ldquo; (<span data-searchd-total-hits>{!! $items->total() !!}</span>) </h4> 
+                        <h4 class="inline">{{ utrans('katalog.catalog_found_artworks') }} &bdquo;{!! $search !!}&ldquo; (<span data-searchd-total-hits>{!! $items->total() !!}</span>) </h4> 
                     @else
-                		<h4 class="inline">{!! $items->total() !!} diel </h4>
+                        <h4 class="inline">{!! $items->total() !!} {{ trans('katalog.catalog_artworks') }} </h4>
                     @endif
                     @if ($items->count() == 0)
-                        <p class="text-center">Momentálne žiadne diela</p>
+                        <p class="text-center">{{ utrans('katalog.catalog_no_artworks') }}</p>
                     @endif
 
                     @if (count(Input::all()) > 0)
-                        <a class="btn btn-sm btn-default btn-outline  sans" href="{!! URL::to('/')!!}">zrušiť filtre  <i class="icon-cross"></i></a>
+                        <a class="btn btn-sm btn-default btn-outline  sans" href="{!! URL::to('/')!!}">{{ trans('general.clear_filters') }}  <i class="icon-cross"></i></a>
                     @endif
                 </div>
                 <div class="col-xs-6 text-right">

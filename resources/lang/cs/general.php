@@ -12,8 +12,8 @@ return array(
     */
 
     'item_zoom' => 'zoom obrázku',
-    'close' => 'zavrieť',
-    'sort_by' => 'podľa',
-    'clear_filters' => 'zrušiť filtre',
+    'close' => 'zavřít',
+    'sort_by' => 'podle',
+    'clear_filters' => 'zrušit filtry',
 
 );
