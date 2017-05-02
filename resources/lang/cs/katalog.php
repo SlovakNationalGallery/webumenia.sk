@@ -8,20 +8,20 @@ return array(
     |--------------------------------------------------------------------------
     */
 
-    'title_searched' => 'výsledky vyhľadávania pre',
-    'title_not_searched' => 'diela',
+    'title_searched' => 'výsledky vyhledávání pro',
+    'title_not_searched' => 'díla',
     'filters_author' => 'autor',
     'filters_work_type' => 'výtvarný druh',
     'filters_tag' => 'tagy',
-    'filters_gallery' => 'galéria',
-    'filters_topic' => 'žáner',
+    'filters_gallery' => 'galerie',
+    'filters_topic' => 'žánr',
     'filters_technique' => 'technika',
-    'filters_has_image' => 'len s obrázkom',
-    'filters_has_iip' => 'len so zoom',
-    'filters_is_free' => 'len voľné',
-    'catalog_found_artworks' => 'nájdené diela pre',
-    'catalog_artworks' => 'diel',
-    'catalog_no_artworks' => 'momentálne žiadne diela',
-    'catalog_show_more' => 'ukáž viac',
+    'filters_has_image' => 'jen s obrázkem',
+    'filters_has_iip' => 'jen se zoom',
+    'filters_is_free' => 'jen volné',
+    'catalog_found_artworks' => 'nalezena díla pro',
+    'catalog_artworks' => 'díl',
+    'catalog_no_artworks' => 'momentálně žádné díla',
+    'catalog_show_more' => 'ukaž více',
 
 );
