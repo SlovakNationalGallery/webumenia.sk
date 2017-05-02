@@ -237,7 +237,6 @@ class CatalogController extends Controller
         $params = array();
         $params['from'] = $offset;
         $params['size'] = $per_page;
-        $params['query']['filtered']['filter']['and'][]['term']['gallery'] = "Moravská galerie, MG";
 
         if (!Input::has('sort_by') || $sort_by == 'updated_at') {
             $params['sort'][] = '_score';
@@ -369,6 +368,9 @@ class CatalogController extends Controller
                 $params['query']['filtered']['filter']['and'][]['range']['date_latest']['lte'] = (isset($range[1])) ? $range[1] : Item::sliderMax();
             }
         }
+
+        $params['query']['filtered']['filter']['and'][]['term']['gallery'] = "Moravská galerie, MG";
+
         $items = Item::search($params);
         $path   = '/' . \Request::path();
 
