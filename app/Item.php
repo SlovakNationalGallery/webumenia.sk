@@ -35,6 +35,7 @@ class Item extends Model
         'žáner' => 'topic',
         'materiál' => 'medium',
         'technika' => 'technique',
+        'lokalita' => 'place',
         'len s obrázkom' => 'has_image',
         'len so zoom' => 'has_iip',
         'len voľné' => 'is_free',

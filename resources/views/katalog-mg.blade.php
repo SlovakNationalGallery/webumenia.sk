@@ -15,17 +15,23 @@
             {!! Form::hidden('search', @$search) !!}
             <div class="row">
                 <!-- <h3>Filter: </h3> -->
-                <div  class="col-md-6 col-xs-6 bottom-space">
+                <div  class="col-md-4 col-xs-6 bottom-space">
                         {!! Form::select('author', array('' => '') + $authors, @$input['author'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_author'))) !!}
                  </div>
-                <div  class="col-md-6 col-xs-6 bottom-space">
+                <div  class="col-md-4 col-xs-6 bottom-space">
                         {!! Form::select('work_type', array('' => '') + $work_types,  @$input['work_type'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_work_type'))) !!}
                 </div>
-                <div  class="col-md-6 col-xs-6 bottom-space">
+                <div  class="col-md-4 col-xs-6 bottom-space">
                         {!! Form::select('topic', array('' => '') + $topics, @$input['topic'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_topic'))) !!}
                 </div>
-                <div  class="col-md-6 col-xs-6 bottom-space">
+                <div  class="col-md-4 col-xs-6 bottom-space">
                         {!! Form::select('technique', array('' => '') + $techniques, @$input['technique'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_technique'))) !!}
+                </div>
+                <div  class="col-md-4 col-xs-6 bottom-space">
+                        {!! Form::select('medium', array('' => '') + $mediums, @$input['medium'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_medium'))) !!}
+                </div>
+                <div  class="col-md-4 col-xs-6 bottom-space">
+                        {!! Form::select('place', array('' => '') + $places, @$input['place'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_place'))) !!}
                 </div>
                 <div class="col-md-6 col-xs-6">
                         <div class="checkbox">

@@ -380,6 +380,8 @@ class CatalogController extends Controller
         $galleries = Item::listValues('gallery', $params);
         $topics = Item::listValues('topic', $params);
         $techniques = Item::listValues('technique', $params);
+        $mediums = Item::listValues('medium', $params);
+        $places = Item::listValues('place', $params);
 
         $queries = DB::getQueryLog();
         $last_query = end($queries);
@@ -388,14 +390,16 @@ class CatalogController extends Controller
             'items' => $items,
             'authors' => $authors,
             'work_types' => $work_types,
-            'tags' => $tags,
-            'galleries' => $galleries,
+            // 'tags' => $tags,
+            // 'galleries' => $galleries,
             'topics' => $topics,
             'techniques' => $techniques,
             'search' => $search,
             'sort_by' => $sort_by,
             'input' => $input,
             'paginator' => $paginator,
+            'mediums' => $mediums,
+            'places' => $places,
             ));
     }
 

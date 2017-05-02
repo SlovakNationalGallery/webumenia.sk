@@ -16,6 +16,8 @@ return array(
     'filters_gallery' => 'galéria',
     'filters_topic' => 'žáner',
     'filters_technique' => 'technika',
+    'filters_medium' => 'materiál',
+    'filters_place' => 'miesto vzniku',
     'filters_has_image' => 'len s obrázkom',
     'filters_has_iip' => 'len so zoom',
     'filters_is_free' => 'len voľné',
