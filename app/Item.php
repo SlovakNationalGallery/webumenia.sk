@@ -236,6 +236,11 @@ class Item extends Model
                 ]
             ]
         ];
+
+        if (Config::get('request.domain') == 'mg') {
+            $params['query']['bool']['must'][1]['term']['gallery'] = "Moravská galerie, MG";
+        }
+
         return self::search($params);
     }
 
