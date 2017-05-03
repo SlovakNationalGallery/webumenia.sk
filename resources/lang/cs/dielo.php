@@ -16,7 +16,7 @@ return array(
     'item_attr_dating'         => 'datace',
     'item_attr_measurements'   => 'rozměry',
     'item_attr_work_type'      => 'výtvarný druh',
-    'item_attr_topic'          => 'žánr, ale dle našich dat bychom tuto kategorii raději nazvali "námět"',
+    'item_attr_topic'          => 'námět',
     'item_attr_tag'            => 'tagy',
     'item_attr_collections'    => 'kolekce',
     'item_attr_medium'         => 'materiál',
