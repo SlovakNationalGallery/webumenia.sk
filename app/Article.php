@@ -11,10 +11,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
+    use \Dimsav\Translatable\Translatable;
+
 
     use \Conner\Tagging\Taggable;
     
     const ARTWORKS_DIR = '/images/clanky/';
+    
+    public $translatedAttributes = ['title', 'summary', 'content'];
+
 
     public static $rules = array(
         'slug' => 'required',
