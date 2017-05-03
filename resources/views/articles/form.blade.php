@@ -23,6 +23,40 @@
 
 </div>
 
+<!-- translatable -->
+<div class="col-md-12">
+
+	<!-- Nav tabs -->
+	<ul class="nav nav-tabs top-space" role="tablist">
+		@foreach (\Config::get('translatable.locales') as $i=>$locale)
+			<li role="presentation" class="{{ ($i==0) ? 'active' : '' }}"><a href="#{{ $locale }}" aria-controls="{{ $locale }}" role="tab" data-toggle="tab">{{ strtoupper($locale) }}</a></li>
+		@endforeach
+	</ul>
+
+	<div class="tab-content top-space">
+		@foreach (\Config::get('translatable.locales') as $i=>$locale)
+	    	<div role="tabpanel" class="tab-pane  {{ ($i==0) ? 'active' : '' }}" id="{{ $locale }}">
+				<div class="form-group">
+				{{ Form::label($locale . "[title]", 'Názov') }}
+				{{ Form::text($locale . "[title]", isset($article) ? @$article->translate($locale)->title : '', array('class' => 'form-control')) }}
+				</div>
+
+				<div class="form-group">
+				{{ Form::label($locale . "[summary]", 'Anotácia') }}
+				{{ Form::textarea($locale . "[summary]", isset($article) ? @$article->translate($locale)->summary : '', array('class' => 'form-control wysiwyg', 'rows'=>'6')) }}
+				</div>
+
+				<div class="form-group">
+				{{ Form::label($locale . "[content]", 'Text') }}
+				{{ Form::textarea($locale . "[content]", isset($article) ? @$article->translate($locale)->content : '', array('class' => 'form-control wysiwyg', 'rows'=>'12')) }}	
+				</div>
+			</div>
+		@endforeach
+	</div>
+
+</div>
+<!-- /translatable -->
+
 <div class="col-md-12">
 	<div class="form-group">
 	{!! Form::label('category_id', 'Kategória') !!}
@@ -42,26 +76,8 @@
 </div>
 <div class="col-md-12">
 	<div class="form-group">
-	{!! Form::label('title', 'Názov') !!}
-	{!! Form::text('title', Input::old('title'), array('class' => 'form-control')) !!}
-	</div>
-</div>
-<div class="col-md-12">
-	<div class="form-group">
 	{!! Form::label('slug', 'URL Slug') !!}
 	{!! Form::text('slug', Input::old('slug'), array('class' => 'form-control')) !!}
-	</div>
-</div>
-<div class="col-md-12">
-	<div class="form-group">
-	{!! Form::label('summary', 'Anotácia') !!}
-	{!! Form::textarea('summary', Input::old('summary'), array('class' => 'form-control wysiwyg')) !!}	
-	</div>
-</div>
-<div class="col-md-12">
-	<div class="form-group">
-	{!! Form::label('content', 'Text') !!}
-	{!! Form::textarea('content', Input::old('content'), array('class' => 'form-control wysiwyg')) !!}	
 	</div>
 </div>
 <div class="col-md-6">
