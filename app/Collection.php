@@ -16,12 +16,6 @@ class Collection extends \Eloquent
     public static $rules = array(
         'sk.name' => 'required',
         'sk.text' => 'required',
-
-        'en.name' => 'required',
-        'en.text' => 'required',
-
-        'cs.name' => 'required',
-        'cs.text' => 'required',
     );
 
     public static $sortable = array(

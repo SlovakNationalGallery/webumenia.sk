@@ -27,16 +27,7 @@ class Article extends Model
         'sk.title'   => 'required',
         'sk.summary' => 'required',
         'sk.content' => 'required',
-
-        'en.title'   => 'required',
-        'en.summary' => 'required',
-        'en.content' => 'required',
-
-        'cs.title'   => 'required',
-        'cs.summary' => 'required',
-        'cs.content' => 'required',
-
-        );
+    );
 
     // public function items()
  //    {
