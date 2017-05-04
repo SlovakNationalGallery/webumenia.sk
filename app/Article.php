@@ -22,16 +22,19 @@ class Article extends Model
 
 
     public static $rules = array(
-        'slug' => 'required',
+        'slug'       => 'required',
 
-        // 'sk.title' => 'required',
-        // 'sk.summary' => 'required',
+        'sk.title'   => 'required',
+        'sk.summary' => 'required',
+        'sk.content' => 'required',
 
-        // 'en.title' => 'required',
-        // 'en.summary' => 'required',
+        'en.title'   => 'required',
+        'en.summary' => 'required',
+        'en.content' => 'required',
 
-        // 'cs.title' => 'required',
-        // 'cs.summary' => 'required',
+        'cs.title'   => 'required',
+        'cs.summary' => 'required',
+        'cs.content' => 'required',
 
         );
 
