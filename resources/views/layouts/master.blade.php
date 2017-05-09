@@ -89,7 +89,7 @@
                         @foreach(LaravelLocalization::getLocalesOrder() as $localeCode => $properties)
                             @if ($localeCode != App::getLocale())
                                 <li>
-                                    <a class="uppercase" rel="alternate" hreflang="{{$localeCode}}" href="{{ LaravelLocalization::getNonLocalizedURL(Request::url()).$localeCode }}">
+                                    <a class="uppercase" rel="alternate" hreflang="{{$localeCode}}" href="{{LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
                                       {{ $localeCode }}
                                     </a>
                                 </li>

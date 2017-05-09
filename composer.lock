@@ -1512,16 +1512,16 @@
         },
         {
             "name": "mcamara/laravel-localization",
-            "version": "1.2.3",
+            "version": "v1.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mcamara/laravel-localization.git",
-                "reference": "beb1244a4ce2fe793f37696ec0d89eed015f385e"
+                "reference": "29f9ea25bbb97888aa4e0c0e36787b0f80b9920f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mcamara/laravel-localization/zipball/beb1244a4ce2fe793f37696ec0d89eed015f385e",
-                "reference": "beb1244a4ce2fe793f37696ec0d89eed015f385e",
+                "url": "https://api.github.com/repos/mcamara/laravel-localization/zipball/29f9ea25bbb97888aa4e0c0e36787b0f80b9920f",
+                "reference": "29f9ea25bbb97888aa4e0c0e36787b0f80b9920f",
                 "shasum": ""
             },
             "require": {
@@ -1557,7 +1557,7 @@
                 "localization",
                 "php"
             ],
-            "time": "2017-02-18 20:52:38"
+            "time": "2017-04-25 15:27:29"
         },
         {
             "name": "monolog/monolog",
