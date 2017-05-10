@@ -10,7 +10,7 @@ return array(
 
     'title'            => 'ERROR 404 - Not Found',
     'h1'               => 'ERROR 404',
-    'h2'               => 'stránku nenašlo',
-    'paragraph_item'   => 'No toto! Na tejto adrese nič nie je, ale môžete si pozrieť napríklad toto dielo:',
-    'paragraph_noitem' => 'No toto! Na tejto adrese nič nie je.',
+    'h2'               => 'The page was not found',
+    'paragraph_item'   => 'Oh no! This address does not exist, but you can enjoy this random artwork:',
+    'paragraph_noitem' => 'Oh no! This address does not exist.',
 );
