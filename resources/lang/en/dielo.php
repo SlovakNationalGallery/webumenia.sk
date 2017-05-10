@@ -15,7 +15,7 @@ return array(
     
     'item_attr_dating'         => 'date',
     'item_attr_measurements'   => 'dimensions',
-    'item_attr_work_type'      => 'art type',
+    'item_attr_work_type'      => 'medium',
     'item_attr_topic'          => 'genre',
     'item_attr_tag'            => 'tags',
     'item_attr_collections'    => 'in collections',
