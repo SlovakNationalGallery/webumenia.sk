@@ -9,7 +9,7 @@ return array(
     */
 
     'definition_start'     => 'web umenia is an online catalog of',
-    'definition_end'       => 'artworkds',
+    'definition_end'       => 'artworks',
     'from_galleries_start' => 'from the collections of',
     'from_galleries_end'   => 'Slovak galleries',
     'from_authors_start'   => 'by',
