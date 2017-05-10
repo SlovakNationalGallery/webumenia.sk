@@ -19,10 +19,10 @@ return array(
                      |[2,Inf]<strong>:view_count</strong> views',
     
     'tags'            => 'tags',
-    'back-to-artists' => 'zoznam autorov',
-    'places'          => 'Pôsobenie',
-    'links'           => 'Externé odkazy',
-    'relationships'   => 'Vzťahy',
+    'back-to-artists' => 'back to artists page',
+    'places'          => 'Places of activity',
+    'links'           => 'External links',
+    'relationships'   => 'Relationships',
     
     'button_show-all-artworks' => '{1}    show <strong>:artworks_count</strong> artwork
                                   |[2,Inf]show all <strong>:artworks_count</strong> artworks',
