@@ -13,7 +13,7 @@ return array(
     'from_galleries_start' => 'from the collections of',
     'from_galleries_end'   => 'Slovak galleries',
     'from_authors_start'   => 'by',
-    'from_authors_end'     => 'authors',
+    'from_authors_end'     => 'artists',
     'in_high_res_start'    => 'of which',
     'in_high_res_end'      => 'in high resolution',
     'are_free_start'       => 'of which',
