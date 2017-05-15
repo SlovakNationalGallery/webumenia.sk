@@ -79,7 +79,7 @@ class ImportController extends Controller
     {
         $import = Import::with(['records' => function($query) {
             $query->orderBy('id', 'desc');
-            $query->take(10);
+            $query->take(50);
         }])->find($id);
         return view('imports.show')->with('import', $import);
     }
