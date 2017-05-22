@@ -25,6 +25,8 @@ return array(
     'places'          => 'Pôsobenie',
     'links'           => 'Externé odkazy',
     'relationships'   => 'Vzťahy',
+
+    'artworks_by_artist' => 'diela autora',
     
     'button_show-all-artworks' => '{1}    zobraziť <strong>:artworks_count</strong> dielo
                                   |[2,4]  zobraziť všetky <strong>:artworks_count</strong> diela

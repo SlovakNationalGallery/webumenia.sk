@@ -114,7 +114,7 @@
     <div class="container">
         <div class="row content-section">   
             <div class="col-xs-12 text-center">
-                <h3>{{ utrans('general.artworks') }}</h3>
+                <h3>{{ utrans('autor.artworks_by_artist') }}</h3>
             </div>  
         </div>{{-- row --}}
         <div class="row">   
