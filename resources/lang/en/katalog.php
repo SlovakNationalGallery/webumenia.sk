@@ -13,7 +13,7 @@ return array(
     'filters_author'         => 'artist',
     'filters_work_type'      => 'work type',
     'filters_tag'            => 'tags',
-    'filters_gallery'        => 'gallery',
+    'filters_gallery'        => 'institution',
     'filters_topic'          => 'genre',
     'filters_technique'      => 'technique',
     'filters_has_image'      => 'only with image',
