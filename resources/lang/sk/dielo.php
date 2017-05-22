@@ -18,7 +18,7 @@ return array(
     'item_attr_work_type'      => 'výtvarný druh',
     'item_attr_topic'          => 'žáner',
     'item_attr_tag'            => 'tagy',
-    'item_attr_collections'    => 'kolekcie',
+    'item_attr_collections'    => 'v kolekciách',
     'item_attr_medium'         => 'materiál',
     'item_attr_technique'      => 'technika',
     'item_attr_state_edition'  => 'stupeň spracovania',
