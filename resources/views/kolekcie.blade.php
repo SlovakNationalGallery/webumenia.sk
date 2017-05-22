@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-kolekcie | 
+{{ trans('kolekcie.title') }} | 
 @parent
 @stop
 
