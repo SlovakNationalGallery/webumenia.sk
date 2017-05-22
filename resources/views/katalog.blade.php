@@ -263,7 +263,7 @@ $(document).ready(function(){
         loading: {
             msgText: '<i class="fa fa-refresh fa-spin fa-lg"></i>',
             img: '/images/transparent.gif',
-            finishedMsg: 'A to je všetko'
+            finishedMsg: '{{ utrans('katalog.catalog_finished') }}'
         }
     }, function(newElements, data, url){
         history.replaceState({infiniteScroll:true}, null, url);

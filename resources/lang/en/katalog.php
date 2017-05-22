@@ -23,5 +23,6 @@ return array(
     'catalog_artworks'       => 'artworks',
     'catalog_no_artworks'    => 'currently no artworks',
     'catalog_show_more'      => 'show more',
+    'catalog_finished'       => "that's all",
 
 );
