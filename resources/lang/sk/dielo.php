@@ -14,7 +14,7 @@ return array(
     'item_download'      => 'stiahnuť',
     
     'item_attr_dating'         => 'datovanie',
-    'item_attr_measurements'   => 'rozmer',
+    'item_attr_measurements'   => 'miery',
     'item_attr_work_type'      => 'výtvarný druh',
     'item_attr_topic'          => 'žáner',
     'item_attr_tag'            => 'tagy',
