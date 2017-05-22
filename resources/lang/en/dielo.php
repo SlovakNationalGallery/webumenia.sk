@@ -25,7 +25,7 @@ return array(
     'item_attr_integrity'      => 'stage of integrity',
     'item_attr_integrity_work' => 'in a series with',
     'item_attr_inscription'    => 'inscription',
-    'item_attr_gallery'        => 'owner',
+    'item_attr_gallery'        => 'institution',
     'item_attr_identifier'     => 'inventory number',
     'item_attr_licence'        => 'licence',
     'item_attr_place'          => 'geographic location',
