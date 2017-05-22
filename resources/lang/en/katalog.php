@@ -10,7 +10,7 @@ return array(
 
     'title_searched'         => 'search results for',
     'title_not_searched'     => 'artworks',
-    'filters_author'         => 'author',
+    'filters_author'         => 'artist',
     'filters_work_type'      => 'medium',
     'filters_tag'            => 'tags',
     'filters_gallery'        => 'gallery',
