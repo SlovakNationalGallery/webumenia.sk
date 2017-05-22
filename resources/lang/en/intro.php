@@ -17,6 +17,6 @@ return array(
     'in_high_res_start'    => 'of which',
     'in_high_res_end'      => 'in high resolution',
     'are_free_start'       => 'of which',
-    'are_free_end'         => 'public domain',
+    'are_free_end'         => 'in public domain',
 
 );
