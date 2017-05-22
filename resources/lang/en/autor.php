@@ -20,9 +20,9 @@ return array(
     
     'tags'            => 'tags',
     'back-to-artists' => 'back to artists page',
-    'places'          => 'Places of activity',
-    'links'           => 'External links',
-    'relationships'   => 'Relationships',
+    'places'          => 'has been active in',
+    'links'           => 'external links',
+    'relationships'   => 'relationships',
     
     'button_show-all-artworks' => '{1}    show <strong>:artworks_count</strong> artwork
                                   |[2,Inf]show all <strong>:artworks_count</strong> artworks',
