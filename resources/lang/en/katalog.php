@@ -11,7 +11,7 @@ return array(
     'title_searched'         => 'search results for',
     'title_not_searched'     => 'artworks',
     'filters_author'         => 'artist',
-    'filters_work_type'      => 'medium',
+    'filters_work_type'      => 'work type',
     'filters_tag'            => 'tags',
     'filters_gallery'        => 'gallery',
     'filters_topic'          => 'genre',
