@@ -231,7 +231,7 @@
                 'default': 'Prosím zadajte správne MEID číslo'
             },
             notEmpty: {
-                'default': 'Toto pole nesmie byť prázdne'
+                'default': 'Tento údaj je povinný'
             },
             numeric: {
                 'default': 'Prosím zadajte číselnú hodnotu'
