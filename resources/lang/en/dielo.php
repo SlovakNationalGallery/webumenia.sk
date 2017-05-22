@@ -33,7 +33,7 @@ return array(
     'more-items_related-artworks' => 'related artworks',
 
     'modal_license_body-content'        => '<p><strong>Your selected artwork should start downloading automatically.</strong></p>
-                                            <p>Downloadable digital reproductions of artworks on Web umenia are available as <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" class="underline">public domain</a>. You can download them in high resolution and use them for both private and commercial use &ndash; copy, share and modify.</p>
+                                            <p>Downloadable digital reproductions of artworks on Web umenia are available as <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" class="underline">public domain</a>. You can download them in high resolution and use them for both private and commercial use &ndash; i.e. copy, modify and share freely.</p>
                                             <p>When sharing, please include the artist name, artwork title, owner and the source <code>:item_url</code></p>
                                             <p>If you intend to use the reproduction for commercial purpose, please inform us in advance, our experts can offer advice.</p>  
                                             <p><a class="underline" href=":free_url">You can find all downloadable artworks here.</a></p>',
