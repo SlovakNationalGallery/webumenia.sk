@@ -16,6 +16,8 @@ return array(
     'back'             => 'naspäť',
     'return_home'      => 'návrat domov',
     'more'             => 'viac',
+    'show_more'        => 'zobraziť viac',
+    'show_less'        => 'skryť',
     'sort_by'          => 'podľa',
     'clear_filters'    => 'zrušiť filtre',
     'public_domain'    => 'voľné dielo',

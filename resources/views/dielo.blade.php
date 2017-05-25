@@ -363,8 +363,8 @@
     $(document).ready(function(){
 
         $('.expandable').readmore({
-            moreLink: '<a href="#"><i class="fa fa-chevron-down"></i> zobraziť viac</a>',
-            lessLink: '<a href="#"><i class="fa fa-chevron-up"></i> skryť</a>',
+            moreLink: '<a href="#"><i class="fa fa-chevron-down"></i> {{ trans("general.show_more") }}</a>',
+            lessLink: '<a href="#"><i class="fa fa-chevron-up"></i> {{ trans("general.show_less") }}</a>',
             maxHeight: 40
         });
 
