@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-články | 
+{{ trans('clanky.title') }} | 
 @parent
 @stop
 
