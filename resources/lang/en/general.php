@@ -15,6 +15,7 @@ return array(
     'close'            => 'close',
     'back'             => 'back',
     'return_home'      => 'back to home page',
+    'more'             => 'more',
     'sort_by'          => 'sort by',
     'clear_filters'    => 'clear filters',
     'public_domain'    => 'public domain',
