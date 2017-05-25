@@ -136,8 +136,14 @@
 @stop
 
 @section('javascript')
+
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
-{!! Html::script('js/jquery.bootstrapvalidator/sk_SK.js') !!}
+{{-- default language en_US is bundled with bootstrapValidator.min.js --}}
+@if (App::getLocale() == 'sk')
+    {!! Html::script('js/jquery.bootstrapvalidator/sk_SK.js') !!}
+@elseif (App::getLocale() == 'cs')    
+    {!! Html::script('js/jquery.bootstrapvalidator/cs_CZ.js') !!}
+@endif
 
 <script type="text/javascript">
 
