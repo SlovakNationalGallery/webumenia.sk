@@ -36,7 +36,7 @@
 
     <!-- CSS are placed here -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="{!! asset_timed('css/style.css') !!}" />
+    <link rel="stylesheet" type="text/css" href="{!! asset_timed('css/mg.css') !!}" />
     {!! Html::style('css/slick-theme.css') !!}
     {!! Html::style('css/magnific-popup.css') !!}
 
@@ -72,12 +72,6 @@
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));</script>
 
-  @if (App::environment() != 'production')
-    <div class="alert alert-warning text-center" role="alert">
-      Pozor! Toto nieje ostrý web. Prostredie: <strong>{!! App::environment() !!}</strong>
-    </div>
-  @endif
-
   <nav class="navbar {{-- navbar-fixed-top --}} {{-- navbar-static-top --}} {!! (Request::is('/') || isSet($transparent_menu)) ? '' : 'dark-text' !!}" role="navigation">
       <div class="container">
           <div class="navbar-header page-scroll">
@@ -88,8 +82,7 @@
                   MORAVSKÁ GALERIE
               </a>
               {!! Form::open(['url' => 'katalog', 'method' => 'get', 'class' => 'navbar-form right-inner-addon', 'data-searchd-engine' => Config::get('app.searchd_id_autocomplete')]) !!}
-                    <i class="fa fa-search"></i>
-                    {!! Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => utrans('master.search_placeholder'), 'id'=>'search', 'autocomplete'=>'off')) !!}
+                    {!! Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => 'hledej', 'id'=>'search', 'autocomplete'=>'off')) !!}
                     {!!  Form::submit('submit'); !!}
               {!!Form::close() !!}
               <a class="navbar-brand no-border hidden-xs second-part" href="{!! URL::to('') !!}">

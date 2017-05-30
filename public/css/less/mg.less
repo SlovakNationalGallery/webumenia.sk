@@ -1,0 +1,35 @@
+// out: ../mg.css, compress: true
+
+@import "bootstrap/bootstrap.less";
+@import "responsive-align.less";
+@import "fonts.less";
+@import "bootstrap-slider.less";
+@import "awesome-bootstrap-checkbox.less";
+@import "selectize/selectize.bootstrap3.less";
+@import "typeahead.less";
+@import "flickity.less";
+@import "custom.less";
+
+@dark: #ffffff;
+@dark-grey: #c2c4c4;
+@light: #2b2e31;
+@primary: @dark-grey;
+@input-bg: @primary;
+@input-color: @light;
+@input-color-placeholder: lighten(@input-color, 20%);
+@input-bg-disabled: lighten(@input-color, 20%);
+@selectize-color-text: @input-color;
+@table-border-color: transparent;
+
+section.info, section.filters, section.light-grey { background-color: @light; }
+
+input.tt-input {
+    background-color: @input-bg !important;
+}
+
+.item .table td { color: @dark-grey; }
+
+.item .table td.atribut {
+    color: @dark;
+    font-style: normal;
+}
