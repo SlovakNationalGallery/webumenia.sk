@@ -34,3 +34,21 @@ input.tt-input {
     color: @dark;
     font-style: normal;
 }
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:   @input-color-placeholder;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:   @input-color-placeholder;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:   @input-color-placeholder;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:   @input-color-placeholder;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+   color:   @input-color-placeholder;
+}
