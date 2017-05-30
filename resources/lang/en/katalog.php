@@ -25,4 +25,12 @@ return array(
     'catalog_show_more'      => 'show more',
     'catalog_finished'       => "that's all",
 
+    // in model item.sortable
+    'sortable_updated_at'    => 'last updated',
+    'sortable_created_at'    => 'date added',
+    'sortable_title'         => 'title',
+    'sortable_author'        => 'artist',
+    'sortable_date_earliest' => 'date',
+    'sortable_view_count'    => 'views',
+    'sortable_random'        => 'random',
 );
