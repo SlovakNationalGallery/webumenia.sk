@@ -39,4 +39,8 @@ return array(
     'form_delivery-point_zvolen'   => 'Zvolenský zámok',
     'form_note'                    => 'Poznámka',
     'form_order'                   => 'Objednať',
+
+    // in routes.php
+    'message_add_order'            => 'Dielo :artwork_description bolo pridané do košíka.', 
+    'message_remove_order'         => 'Dielo :artwork_description bolo odstránené z košíka.', 
 );

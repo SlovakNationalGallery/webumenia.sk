@@ -41,4 +41,8 @@ return array(
     'form_delivery-point_zvolen'   => 'Zvolen castle, Zvolen',
     'form_note'                    => 'Note (Comment)',
     'form_order'                   => 'Place order',
+
+    // in routes.php
+    'message_add_order'            => 'The artwork :artwork_description has been added to your cart.', 
+    'message_remove_order'         => 'The artwork :artwork_description has been removed from your cart.', 
 );
