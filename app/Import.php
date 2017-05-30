@@ -25,19 +25,25 @@ class Import extends Model
         'K' =>  'kresba',
         'O' =>  'maliarstvo',
         'P' =>  'sochárstvo',
-        ];
+    ];
 
     public static $cz_work_types_spec = [
-        'Bi' => 'úžitková, ilustrácia, knižná',
-        'Dř' => 'drevo',
-        'Gu' => 'úžitková',
-        'Ji' => 'iné',
+        'Ar' => 'architektura',
+        'Bi' => 'bibliofilie a staré tisky',
+        'Dř' => 'dřevo',
+        'Fo' => 'fotografie',
+        'Gr' => 'grafika',
+        'Gu' => 'grafický design',
+        'Ji' => 'jiné',
         'Ke' => 'keramika',
-        'Ko' => 'kov',
+        'Ko' => 'kovy',
+        'Kr' => 'kresba',
+        'Ob' => 'obrazy',
         'Sk' => 'sklo',
-        'Šp' => 'šperk',
+        'So' => 'sochy',
+        'Šp' => 'šperky',
         'Te' => 'textil',
-        ];
+    ];
 
     public static $rules = array(
         'name' => 'required',
@@ -60,13 +66,15 @@ class Import extends Model
 
     public static function getWorkType($rada, $skupina)
     {
-        $work_type = (isSet(self::$cz_work_types[$rada])) ? self::$cz_work_types[$rada] : 'maliarstvo';
-        if (isSet(self::$cz_work_types_spec[$skupina])) {
-            if ($skupina == 'Gu') {
-                $work_type = 'grafika';
-            }
-            $work_type .= ', ' . self::$cz_work_types_spec[$skupina];
-        }
+        // $work_type = (isSet(self::$cz_work_types[$rada])) ? self::$cz_work_types[$rada] : 'maliarstvo';
+        // if (isSet(self::$cz_work_types_spec[$skupina])) {
+        //     if ($skupina == 'Gu') {
+        //         $work_type = 'grafika';
+        //     }
+        //     $work_type .= ', ' . self::$cz_work_types_spec[$skupina];
+        // }
+
+        $work_type = (isSet(self::$cz_work_types_spec[$skupina])) ? self::$cz_work_types_spec[$skupina] : 'obrazy';
         return $work_type;
     }
 
