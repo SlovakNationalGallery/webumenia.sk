@@ -202,7 +202,7 @@
                                     <td><div class="expandable">{!! implode('<br> ', $item->makeArray($item->inscription));!!}</div></td>
                                 </tr>
                                 @endif
-                                @if (!empty($item->gallery))
+                                @if (!empty($item->gallery) && Config::get('request.domain') != 'mg')
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_gallery') }}:</td>
                                     <td><a href="{!! URL::to('katalog?gallery=' . $item->gallery) !!}">{!! $item->gallery; !!}</a></td>
