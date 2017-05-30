@@ -780,6 +780,11 @@ class Item extends Model
             $params["query"]["filtered"]["filter"]["and"][]["term"][$attribute] = $value;
         }
         $params["size"] = $size;
+
+        if (Config::get('request.domain') == 'mg') {
+            $params['query']['filtered']['filter']["and"][]["term"]["gallery"] = "Moravská galerie, MG";
+        }
+
         return self::search($params);
     }
 
