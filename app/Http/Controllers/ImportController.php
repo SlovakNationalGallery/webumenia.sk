@@ -189,6 +189,8 @@ class ImportController extends Controller
 
 
         $images = null;
+        $image_dir = '';
+
         if ($import->dir_path) {
             $image_dir = basename($this_import_record->filename, '.csv');
             $images = \Storage::listContents('import/' . $import->dir_path . '/' . $image_dir);
@@ -279,7 +281,7 @@ class ImportController extends Controller
 
                             // detect DeepZoom at IIP - if it's hq (high quality) image
                             if (strpos($item_image_file['filename'], 'hq') !== false) {
-                                $iip_img = '/MG/DrevoHQ/jp2/'.$item_image_file['filename'].'.jp2'; // @TODO: change this!
+                                $iip_img = 'MGHQ/'. $image_dir .'/'.$item_image_file['filename'].'.jp2';
                                 $iip_url = 'http://www.webumenia.sk/fcgi-bin/iipsrv.fcgi?DeepZoom='. $iip_img;
                                 if (isValidURL($iip_url)) {
                                     $item->iipimg_url = $iip_img;
