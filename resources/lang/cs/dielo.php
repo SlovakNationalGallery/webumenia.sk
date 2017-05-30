@@ -28,7 +28,7 @@ return array(
     'item_attr_gallery'        => 'galerie',
     'item_attr_identifier'     => 'inventární číslo',
     'item_attr_licence'        => 'licence',
-    'item_attr_place'          => 'geografická oblast',
+    'item_attr_place'          => 'místo vzniku',
     
     'more-items_related-artworks' =>  'související díla',
     'modal_license_body-content'        => '<p><strong>Vámi zvolené dílo by se mělo v krátkém čase začít automaticky stahovat.</strong></p>
