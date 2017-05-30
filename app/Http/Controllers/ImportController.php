@@ -226,7 +226,7 @@ class ImportController extends Controller
                 if (empty($row['PorC_S']) || !is_numeric($row['PorC_S'])) {
                     $this_import_record->wrong_items++;
                     // echo($id . ' ' . $row['Rada_S']. $row['PorC_S'] . "\n");
-                } else {
+                } elseif ($row['Plus2T']!='ODPIS') {
 
                     $gallery = 'Moravská galerie, MG';
                     $prefix = 'CZE:MG.';
@@ -262,6 +262,9 @@ class ImportController extends Controller
                     $work_type = Import::getWorkType($row['Rada_S'], $row['Skupina']);
                     $item->work_type = $work_type;
                     // add dimiensions, etc...
+
+                    $item->measurement = Import::getMeasurement($row['Sluz']);
+                    $item->state_edition = $row['Puvodnost'];
 
                     if ($images) {
                         $item_image_files = array_filter($images, function ($object) use ($image_file) { 

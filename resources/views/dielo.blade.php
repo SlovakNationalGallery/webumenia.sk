@@ -178,7 +178,7 @@
                                     </td>
                                 </tr>
                                 @endif
-                                @if (!empty($item->integrity))
+                                @if (!empty($item->state_edition))
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_state_edition') }}:</td>
                                     <td>{!! $item->state_edition; !!}</td>

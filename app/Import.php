@@ -45,6 +45,14 @@ class Import extends Model
         'Te' => 'textil',
     ];
 
+    public static $cz_measurement_replacements = [
+        'v=' => 'výška ',
+        's=' => 'šírka ',
+        'h=' => 'dĺžka ',
+        ';' => ';',
+        'cm' => ' cm',
+    ];
+
     public static $rules = array(
         'name' => 'required',
     );
@@ -76,6 +84,11 @@ class Import extends Model
 
         $work_type = (isSet(self::$cz_work_types_spec[$skupina])) ? self::$cz_work_types_spec[$skupina] : 'obrazy';
         return $work_type;
+    }
+
+    public static function getMeasurement($sluz)
+    {
+        return (!empty($sluz) && $sluz!= '=') ? strtr($sluz, self::$cz_measurement_replacements)  : '';
     }
 
 }
