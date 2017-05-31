@@ -43,7 +43,7 @@ return array(
     'more-items_connect_col1_p'          => 'if you wish to sumbit an artwork to be published, it has to be included in a collection of a registered institution. We do not publish artworks from private property or other sources at this time.'  ,
     'more-items_connect_col2_lead'       => 'we are open to other forms of <strong>cooperation</strong>.',
     'more-items_connect_col2_p'          => 'If you have more information about an artist or an artwork, or wish to provide a photograph for artist profile, correct some mistake or offer research material, contact us at <a href="mailto:lab@sng.sk">lab@sng.sk</a>.',
-    'more-items_connect_col3_lead'       => 'web umenia is run <br><strong><a href="http://lab.sng.sk/" target="_blank" class="strong">lab.SNG</a> team</strong>',
+    'more-items_connect_col3_lead'       => 'web umenia is brought to you by the <br><strong><a href="http://lab.sng.sk/" target="_blank" class="strong">lab.SNG</a> team</strong>',
     'more-items_connect_col3_ul-content' => '<li><strong>Michal Čudrnák</strong> lab.SNG team leader, author of articles</li>
                                              <li><strong>Lukáš Štepanovský</strong> content editor, author of articles</li>
                                              <li><strong>Igor Rjabinin</strong> developer</li>
