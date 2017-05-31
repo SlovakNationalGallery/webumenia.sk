@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="sk">
+<html lang="{{ LaravelLocalization::getCurrentLocale() }}">
 
 <head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		@section('description')
-		<meta name="description" content="Web umenia je on-line katalóg výtvarných diel zo zbierok slovenských galérií. Nájdete tu základné informácie o dielach a ich autoroch, ale aj pôvodné články, videá a kolekcie.">
+		<meta name="description" content="{{ trans('master.meta_description') }}">
 		@show
 		<meta name="author" content="lab.SNG">
 
@@ -24,7 +24,7 @@
 		<meta name="twitter:site" content="@webumeniaSK" />
 		@section('og')
 		<meta property="og:title" content="Web umenia" />
-		<meta property="og:description" content="Web umenia je on-line katalóg výtvarných diel zo zbierok slovenských galérií. Nájdete tu základné informácie o dielach a ich autoroch, ale aj pôvodné články, videá a kolekcie." />
+		<meta property="og:description" content="{{ trans('master.meta_description') }}" />
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content="{!! Request::url() !!}" />
 		<meta property="og:image" content="{!! URL::to('/images/og-image-'.random_int(1, 2).'.jpg') !!}" />
@@ -73,7 +73,7 @@
 	}(document, 'script', 'facebook-jssdk'));</script>
 
 	@if (App::environment() != 'production')
-		<div class="alert alert-warning text-center" role="alert">
+		<div id="alert-non-production" class="alert alert-warning text-center" role="alert">
 		  Pozor! Toto nieje ostrý web. Prostredie: <strong>{!! App::environment() !!}</strong>
 		</div>
 	@endif
@@ -81,15 +81,31 @@
 	<nav class="navbar {{-- navbar-fixed-top --}} {{-- navbar-static-top --}} {!! (Request::is('/') || isSet($transparent_menu)) ? '' : 'dark-text' !!}" role="navigation">
 	    <div class="container">
 	        <div class="navbar-header page-scroll">
-	            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-	                <i class="fa fa-bars fa-2x"></i>
-	            </button>
+	            <div class="langswitch-wrapper">
+                    <a class="dropdown-toggle langswitch-toggle uppercase triangle-top-left" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                      {{ App::getLocale() }} <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        @foreach(LaravelLocalization::getLocalesOrder() as $localeCode => $properties)
+                            @if ($localeCode != App::getLocale())
+                                <li>
+                                    <a class="uppercase" rel="alternate" hreflang="{{$localeCode}}" href="{{LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                      {{ $localeCode }}
+                                    </a>
+                                </li>
+                            @endif
+                        @endforeach
+                    </ul>
+                </div>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars fa-2x"></i>
+                </button>
 	            <a class="navbar-brand no-border hidden-xs first-part" href="{!! URL::to('') !!}">
 	                web
 	            </a>
 	            {!! Form::open(['url' => 'katalog', 'method' => 'get', 'class' => 'navbar-form right-inner-addon', 'data-searchd-engine' => Config::get('app.searchd_id_autocomplete')]) !!}
 	            			<i class="fa fa-search"></i>
-	            			{!! Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => 'Hľadať diela, autorov...', 'id'=>'search', 'autocomplete'=>'off')) !!}
+	            			{!! Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => utrans('master.search_placeholder'), 'id'=>'search', 'autocomplete'=>'off')) !!}
 	            			{!!  Form::submit('submit'); !!}
 	            {!!Form::close() !!}
 	            <a class="navbar-brand no-border hidden-xs second-part" href="{!! URL::to('') !!}">
@@ -105,25 +121,22 @@
 	        <div class="collapse navbar-collapse navbar-main-collapse">
 	            <ul class="nav navbar-nav">
 						<li class="{!! (Request::is('katalog') || Request::is('dielo/*')) ? 'active' : '' !!}">
-								<a href="{{{ URL::to('katalog') }}}">Diela</a>
+								<a href="{{{ URL::to('katalog') }}}">{{ utrans('master.artworks') }}</a>
 						</li>
 						<li class="{!! (Request::is( 'kolekcie') || Request::is('kolekcia/*')) ? 'active' : '' !!}">
-								<a href="{{{ URL::to('kolekcie') }}}">Kolekcie</a>
+								<a href="{{{ URL::to('kolekcie') }}}">{{ utrans('master.collections') }}</a>
 						</li>
 						<li class="{!! (Request::is('autori') || Request::is('autor/*')) ? 'active' : '' !!}">
-								<a href="{{{ URL::to('autori') }}}">Autori</a>
+								<a href="{{{ URL::to('autori') }}}">{{ utrans('master.authors') }}</a>
 						</li>
 						<li class="{!! (Request::is('clanky') || Request::is('clanok/*')) ? 'active' : '' !!}">
-								<a href="{{{ URL::to('clanky') }}}">Články</a>
+								<a href="{{{ URL::to('clanky') }}}">{{ utrans('master.articles') }}</a>
 						</li>
 						{{-- <li class="{!! Request::is('galerie') ? 'active' : '' !!}">
-								<a href="{{{ URL::to('galerie') }}}">Galérie</a>
-						</li> --}}
-						{{-- <li class="{!! Request::is( 'kolekcia/24') ? 'active' : '' !!}">
-								<a href="{{{ URL::to('kolekcia/24') }}}">Slavín</a>
+								<a href="{{{ URL::to('galerie') }}}">{{ utrans('master.galleries') }}</a>
 						</li> --}}
 						<li class="{!! Request::is( 'informacie') ? 'active' : '' !!}">
-								<a href="{{{ URL::to('informacie') }}}">Info</a>
+								<a href="{{{ URL::to('informacie') }}}">{{ utrans('master.info') }}</a>
 						</li>
 						@if (Session::has('cart') && count(Session::get('cart'))>0)
 						<li class="{!! Request::is( 'objednavka') ? 'active' : '' !!}">
@@ -155,7 +168,7 @@
       			<a href="https://github.com/SlovakNationalGallery" target="_blank" data-toggle="tooltip" title="github"><i class="fa fa-github fa-lg"></i></a>
       		</div>
       		<div class="col-xs-6">
-      			<p class="text-muted text-right">Vyrobil a spravuje <a href="http://lab.sng.sk" target="_blank" class="sans">lab.SNG</a></p>
+      			<p class="text-muted text-right">{{ utrans('master.made_by') }} <a href="http://lab.sng.sk" target="_blank" class="sans">lab.SNG</a></p>
       		</div>
       	</div>
         
@@ -163,7 +176,7 @@
     </div>
 
 	<div id="top">
-	    <a href="#page-top" title="návrat hore" class="btn btn-default"  data-toggle="tooltip" data-placement="top">
+	    <a href="#page-top" title="{{ trans('master.to_top') }}" class="btn btn-default"  data-toggle="tooltip" data-placement="top">
 	        <i class="icon-arrow-up"></i>
 	    </a>
 	</div>

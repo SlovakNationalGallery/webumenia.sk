@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-Informácie | 
+{{ utrans('informacie.title') }} | 
 @parent
 @stop
 
@@ -11,15 +11,14 @@ Informácie |
     <div class="container">
         <div class="row content-section">
             <div class="col-md-12 text-center">
-                    <h1>Čo je web umenia?</h1>
+                    <h1>{{ utrans('informacie.info_heading') }}</h1>
             </div>
         </div>
         <div class="row bottom-space vertical-align">
             <div class="col-md-4">
 
-                <p class="lead">Web umenia je <strong>on-line katalóg</strong> výtvarných diel zo zbierok <strong>slovenských galérií</strong> evidovaných v&nbsp;<a class="unstyled" href="http://www.sng.sk/sk/zbierky/centralny-katalog-diel" target="_blank">Centrálnej evidencii diel výtvarného umenia</a>. </p>
-
-                <p>Nájdete tu základné informácie o dielach a ich autoroch, ale aj pôvodné články, videá a kolekcie.Údaje a digitálne reprodukcie sú preberané a pravidelne aktualizované zo systému CEDVU (Centrálna evidencia diel výtvarného umenia), kam ich vkladajú zamestnanci jednotlivých galérií.</p>
+                <p class="lead">{!! utrans('informacie.info_p_lead') !!}</p>
+                <p>{!! utrans('informacie.info_p') !!}</p>
 
             </div>
             <div class="col-md-4 text-center">
@@ -27,13 +26,13 @@ Informácie |
             </div>
             <div class="col-md-4 text-center">
                 <ul class="list-unstyled lead">
-                    <li><a href="{!! URL::to('katalog?gallery=Slovenská národná galéria, SNG') !!}">Slovenská národná galéria</a></li>
-                    <li><a href="{!! URL::to('katalog?gallery=Oravská galéria, OGD') !!}">Oravská galéria v Dolnom Kubíne</a></li>
-                    <li><a href="{!! URL::to('katalog?gallery=Galéria umenia Ernesta Zmetáka, GNZ') !!}">Galéria umenia Ernesta Zmetáka v Nových Zámkoch</a></li>
-                    <li><a href="{!! URL::to('katalog?gallery=Liptovská galéria Petra Michala Bohúňa, GPB') !!}">Liptovská galéria Petra Michala Bohúňa v&nbsp;Liptovskom Mikuláši</a></li>
-                    <li><a href="{!! URL::to('katalog?gallery=Galéria mesta Bratislavy, GMB') !!}">Galéria mesta Bratislavy</a></li>
-                    <li><a href="{!! URL::to('katalog?gallery=Galéria+Miloša+Alexandra+Bazovského, GBT') !!}">Galéria Miloša Alexandra Bazovského v Trenčíne</a></li>
-                    <li><a href="{!! URL::to('katalog?gallery=Nitrianska+galéria, NGN') !!}">Nitrianska galéria</a></li>
+                    <li><a href="{!! URL::to('katalog?gallery=Slovenská národná galéria, SNG') !!}">{{ utrans('informacie.info_gallery_SNG') }}</a></li>
+                    <li><a href="{!! URL::to('katalog?gallery=Oravská galéria, OGD') !!}">{{ utrans('informacie.info_gallery_OGD') }}</a></li>
+                    <li><a href="{!! URL::to('katalog?gallery=Galéria umenia Ernesta Zmetáka, GNZ') !!}">{{ utrans('informacie.info_gallery_GNZ') }}</a></li>
+                    <li><a href="{!! URL::to('katalog?gallery=Liptovská galéria Petra Michala Bohúňa, GPB') !!}">{{ utrans('informacie.info_gallery_GPB') }}</a></li>
+                    <li><a href="{!! URL::to('katalog?gallery=Galéria mesta Bratislavy, GMB') !!}">{{ utrans('informacie.info_gallery_GMB') }}</a></li>
+                    <li><a href="{!! URL::to('katalog?gallery=Galéria+Miloša+Alexandra+Bazovského, GBT') !!}">{{ utrans('informacie.info_gallery_GBT') }}</a></li>
+                    <li><a href="{!! URL::to('katalog?gallery=Nitrianska+galéria, NGN') !!}">{{ utrans('informacie.info_gallery_NGN') }}</a></li>
                 </ul>
             </div>
         </div>
@@ -43,44 +42,40 @@ Informácie |
     <div class="container">
         <div class="row content-section">
             <div class="col-md-12 text-center mid-grey">
-                    <h2 class="inherit">U nás môžete</h2>
+                    <h2 class="inherit">{{ utrans('informacie.mozete_heading') }}</h2>
             </div>
         </div>
         <div class="row ">
-            <!-- stahovanie -->
+
             <div class="col-md-4">
-                <h4>Sťahovať voľné diela</h4>
+                <h4>{{ utrans('informacie.mozete_col_stahovat_heading') }}</h4>
                 <ul class="fa-ul">
-                    <li><span class="fa-li">&sect;</span>Digitálne reprodukcie autorskoprávne voľných diel SNG na tejto stránke sú sprístupnené ako <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank"><strong>verejné vlastníctvo (public domain)</strong></a>. Môžete si ich voľne stiahnuť <strong>vo vysokom rozlíšení</strong> a využívať na súkromné aj komerčné účely - kopírovať, zdieľať či upravovať. </li>
-
-                    <li><span class="fa-li">&sect;</span>Pri ďalšom šírení <strong>prosíme uviesť</strong> uviesť meno autora, názov, inštitúciu a zdroj (<a href="http://www.webumenia.sk">webumenia.sk</a>) </li>
-
-                    <li><span class="fa-li">&sect;</span>Ak plánujete využiť reprodukcie na <strong>komerčné účely</strong>, prosím informujte nás o vašich plánoch vopred, vieme vám poradiť.</li>
+                    <li><span class="fa-li">&sect;</span>{!! utrans('informacie.mozete_col_stahovat_li_1') !!}</li>
+                    <li><span class="fa-li">&sect;</span>{!! utrans('informacie.mozete_col_stahovat_li_2') !!}</li>
+                    <li><span class="fa-li">&sect;</span>{!! utrans('informacie.mozete_col_stahovat_li_3') !!}</li>
                 </ul>
             </div>
 
             <div class="col-md-4">
-                <h4>Využívať voľné diela</h4>
+                <h4>{{ utrans('informacie.mozete_col_vyuzivat_heading') }}</h4>
                 <ul class="fa-ul">
-                    <li><i class="fa-li icon-arrow-right"></i><strong>tlač</strong> (plagáty, pohľadnice alebo tričká)</li>
-
-                    <li><i class="fa-li icon-arrow-right"></i><strong>vlastná tvorba</strong> (digitálna úprava reprodukcie, využitie jej časti pre animáciu alebo koláž)</li>
-
-                    <li><i class="fa-li icon-arrow-right"></i><strong>vzdelávanie</strong> (vloženie obrázku na vlastnú webstránku, použitie na Wikipedii či ako súčasť prezentácie)</li>
+                    <li><i class="fa-li icon-arrow-right"></i>{!! utrans('informacie.mozete_col_vyuzivat_li_1') !!}</li>
+                    <li><i class="fa-li icon-arrow-right"></i>{!! utrans('informacie.mozete_col_vyuzivat_li_2') !!}</li>
+                    <li><i class="fa-li icon-arrow-right"></i>{!! utrans('informacie.mozete_col_vyuzivat_li_3') !!}</li>
                 </ul>
             </div>
 
             <div class="col-md-4">
-                <h4>Objednať si kvalitné reprodukcie</h4>
-                <p>K vybraným dielam zo zbierok SNG ponúkame možnosť objednať si reprodukcie v archívnej kvalite na fineartových papieroch. Po výbere diela, vyplnení údajov a odoslaní objednávky vás bude kontaktovať pracovník SNG s podrobnejšími informáciami. Momentálne je možné vyzdvihnúť si diela len osobne v kníhkupectve <a href="http://www.sng.sk/sk/uvod/navsteva-sng/sluzby/knihkupectvo-ex-libris" target="blank" class="strong">Ex&nbsp;Libris v priestoroch SNG</a> na <a href="https://goo.gl/maps/k0sBz" target="_blank" class="strong">Námestí. Štúra 4 v Bratislave</a> alebo v pokladni <a href="http://www.sng.sk/sk/uvod/vysunute-pracoviska/zvolen" target="blank" class="strong">Zvolenského zámku</a> - <a href="https://goo.gl/maps/MPRy6Qdwm8s" target="_blank" target="blank" class="strong">Námestie SNP 594/1</a>.</p>
+                <h4>{{ utrans('informacie.mozete_col_objednat_heading') }}</h4>
+                <p>{!! utrans('informacie.mozete_col_objednat_p') !!}</p>
             </div>
 
         </div>
         <div class="row top-space">
             <div class="col-md-12">
-                <a href="{!! URL::to('katalog?is_free=' . '1') !!}" class="inherit lead pull-left no-border"><i class="icon-arrow-right"></i> &nbsp; voľné diela na stiahnutie</a>
+                <a href="{!! URL::to('katalog?is_free=' . '1') !!}" class="inherit lead pull-left no-border"><i class="icon-arrow-right"></i> &nbsp; {{ trans('informacie.mozete_free_artworks') }}</a>
 
-                <a href="#" data-toggle="modal" data-target="#priceList" class="inherit lead pull-right no-border"><i class="icon-arrow-right"></i> &nbsp; cenník reprodukcií</a>
+                <a href="#" data-toggle="modal" data-target="#priceList" class="inherit lead pull-right no-border"><i class="icon-arrow-right"></i> &nbsp; {{ trans('informacie.general_reproduction_prices') }}</a>
             </div>
         </div>
 
@@ -90,7 +85,7 @@ Informácie |
     <div class="container">
         <div class="row top-space bottom-space">   
             <div class="col-xs-12 text-center">
-                <h3>Vyberte si reprodukcie</h3>
+                <h3>{{ utrans('informacie.more-items_heading') }}</h3>
             </div>  
         </div>
         <div class="row">
@@ -104,7 +99,7 @@ Informácie |
         </div>
         <div class="row content-section">
             <div class="col-sm-12 text-center">
-                <a href="{!! url_to('katalog', ['gallery' => 'Slovenská národná galéria, SNG']) !!}" class="btn btn-default btn-outline sans" >zobraziť všetkých <strong>{!! App\Item::forReproduction()->count() !!}</strong>  <i class="fa fa-chevron-right "></i></a>
+                <a href="{!! url_to('katalog', ['gallery' => 'Slovenská národná galéria, SNG']) !!}" class="btn btn-default btn-outline sans" >{{ trans('informacie.more-items_button') }} <strong>{!! App\Item::forReproduction()->count() !!}</strong>  <i class="fa fa-chevron-right "></i></a>
             </div>
         </div>
     </div>
@@ -114,38 +109,33 @@ Informácie |
     <div class="container">
         <div class="row content-section"><!-- top-space bottom-space -->
             <div class="col-md-12 text-center mid-grey">
-                    <h2>Spojte sa s nami</h2>
+                <h2>{{ utrans('informacie.more-items_connect_heading') }}</h2>
             </div>
         </div>
         <div class="row bottom-space">
             <div class="col-md-4">
                 <p class="lead">
-                    Zverejňujeme výtvarné diela <br>zo zbierok <strong>slovenských galérií</strong>.
+                    {!! utrans('informacie.more-items_connect_col1_lead') !!}
                 </p>
                 <p>
-                    Podmienkou pre zverejnenie diel a ďalšich autorov na Web umenia je ich zastúpenie v zbierkach registrovaných galérií. Diela zo súkromných zbierok a iných zdrojov aktuálne nezverejňujeme. 
+                    {!! utrans('informacie.more-items_connect_col1_p') !!}
                 </p>
             </div>
             <div class="col-md-4">
                 <p class="lead">
-                    Sme otvorení <strong>ďalším <br>formám&nbsp;spolupráce</strong>.
+                    {!! utrans('informacie.more-items_connect_col2_lead') !!}
                 </p>
-                <p>
-                    Sme však otvorení iným formám spolupráce, čoskoro zverejníme časť výtvarných diel ako otvorené dáta. Ak viete napríklad o niektorom z autorov viac informácií, alebo ste na jeho profile u nás nenašli fotografiu, budeme radi ak nám pomôžete pri ich doplnení. Napíšte nám na <a href="mailto:lab@sng.sk">lab@sng.sk</a>, spojíme sa s vami.
+                <p> 
+                    {!! utrans('informacie.more-items_connect_col2_p') !!}
                 </p>
             </div>  
             <div class="col-md-4">
                 <p class="lead">
-                    Web umenia realizuje <br>kolektív <strong><a href="http://lab.sng.sk/" target="_blank" class="strong">lab.SNG</a></strong>
+                    {!! utrans('informacie.more-items_connect_col3_lead') !!}
                 </p>
                 <ul class="list-lab list-unstyled">
-                    <li><strong>Michal Čudrnák</strong> vedúci lab.SNG, autor článkov</li>
-                    <li><strong>Lukáš Štepanovský</strong> editor obsahu, autor článkov</li>
-                    <li><strong>Igor Rjabinin</strong> vývojár</li>
-                    <li><strong>Philo van Kemenade</strong> vývojár</li>
-                    <li><strong>Braňo Matis</strong> grafický dizajnér</li>
+                    {!! trans('informacie.more-items_connect_col3_ul-content') !!}
                 </ul>
-
             </div>  
         </div>
     </div>
@@ -156,41 +146,18 @@ Informácie |
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header text-center">
-                <h1>cenník reprodukcií</h1>
+                <h1>{{ trans('informacie.general_reproduction_prices') }}</h1>
             </div>
             <div class="modal-body">
                 
-                <p>Ceny sú len orientačné</p>
+                <p>{{ utrans('informacie.modal_disclaimer') }}</p>
 
                 <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th class="text-right">do formátu A4</th>
-                            <th class="text-right">od A4 do A3+</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>samostatná reprodukcia</strong></td>
-                            <td class="text-right">25 €</td>
-                            <td class="text-right">35 €</td>
-                        </tr>
-                        <tr>
-                            <td><strong>reprodukcia s paspartou</strong></td>
-                            <td class="text-right">35 €</td>
-                            <td class="text-right">50 €</td>
-                        </tr>
-                        <tr>
-                            <td><strong>s paspartou a rámom</strong></td>
-                            <td class="text-right">40 €</td>
-                            <td class="text-right">60 €</td>
-                        </tr>
-                    </tbody>
+                    {!! utrans('informacie.modal_table-content') !!}
                 </table>
             </div>
             <div class="modal-footer">
-                <div class="text-center"><button type="button" data-dismiss="modal" class="btn btn-default btn-outline sans">zavrieť</button></div>
+                <div class="text-center"><button type="button" data-dismiss="modal" class="btn btn-default btn-outline sans">{{ trans('general.close') }}</button></div>
             </div>
         </div>
     </div>
