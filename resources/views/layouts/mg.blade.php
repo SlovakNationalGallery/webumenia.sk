@@ -79,15 +79,12 @@
                   <i class="fa fa-bars fa-2x"></i>
               </button>
               <a class="navbar-brand no-border hidden-xs first-part" href="{!! URL::to('') !!}">
-                  MORAVSKÁ GALERIE
+                  <img src="/images/mg/logo.svg" alt="MORAVSKÁ GALERIE - SBÍRKA ON–LINE">
               </a>
               {!! Form::open(['url' => 'katalog', 'method' => 'get', 'class' => 'navbar-form right-inner-addon', 'data-searchd-engine' => Config::get('app.searchd_id_autocomplete')]) !!}
                     {!! Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => 'hledej', 'id'=>'search', 'autocomplete'=>'off')) !!}
                     {!!  Form::submit('submit'); !!}
               {!!Form::close() !!}
-              <a class="navbar-brand no-border hidden-xs second-part" href="{!! URL::to('') !!}">
-                  SBÍRKA ON–LINE
-              </a>
               {{-- 
               @if (Request::is('dielo/*') && isSet($collection))
                  <a href="{!! $collection->getUrl() !!}" class="navbar-brand text-small hidden-xs hidden-sm">/&nbsp; {!! $collection->name !!}</a>
@@ -99,9 +96,6 @@
               <ul class="nav navbar-nav">
                 <li class="{!! (Request::is('katalog') || Request::is('dielo/*')) ? 'active' : '' !!}">
                     <a href="{{{ URL::to('katalog') }}}">{{ utrans('master.artworks') }}</a>
-                </li>
-                <li class="{!! (Request::is('autori') || Request::is('autor/*')) ? 'active' : '' !!}">
-                    <a href="{{{ URL::to('autori') }}}">{{ utrans('master.authors') }}</a>
                 </li>
                 <li class="{!! Request::is( 'informacie') ? 'active' : '' !!}">
                     <a href="{{{ URL::to('informacie') }}}">{{ utrans('master.info') }}</a>

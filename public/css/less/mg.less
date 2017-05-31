@@ -14,6 +14,7 @@
 @dark-grey: #c2c4c4;
 @light: #2b2e31;
 @primary: @dark-grey;
+@primary-color: lighten(@light, 30%);
 @input-bg: @primary;
 @input-color: @light;
 @input-color-placeholder: lighten(@input-color, 20%);
@@ -51,4 +52,20 @@ input.tt-input {
 }
 ::-ms-input-placeholder { /* Microsoft Edge */
    color:   @input-color-placeholder;
+}
+
+
+.navbar .navbar-brand {
+    width: 700px;
+    margin-left: 0 !important;
+    margin-top: 30px;
+}
+
+.navbar {    
+    .navbar-header { 
+        text-align: left; 
+        width: 100%;
+        min-height: @navbar-first-height;
+        vertical-align: bottom;
+    }
 }
