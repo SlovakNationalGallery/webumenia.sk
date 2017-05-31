@@ -23,7 +23,7 @@
                     </div>
                 @endif
                 <div class="col-md-8 col-md-offset-2 text-center">
-                        {!! trans('objednavka.order_content') !!}
+                    {!! trans('objednavka.order_content') !!}
                 </div>
             </div>
         </div>
