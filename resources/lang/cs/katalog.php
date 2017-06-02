@@ -22,7 +22,7 @@ return array(
     'filters_has_iip' => 'jen se zoom',
     'filters_is_free' => 'jen volné',
     'catalog_found_artworks' => 'nalezena díla pro',
-    'catalog_artworks' => 'díl',
+    'catalog_artworks' => 'děl',
     'catalog_no_artworks' => 'momentálně žádné díla',
     'catalog_show_more' => 'ukaž více',
 

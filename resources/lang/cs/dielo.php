@@ -21,7 +21,7 @@ return array(
     'item_attr_collections'    => 'kolekce',
     'item_attr_medium'         => 'materiál',
     'item_attr_technique'      => 'technika',
-    'item_attr_state_edition'  => 'stupeň zpracování',
+    'item_attr_state_edition'  => 'původnost', //'stupeň zpracování',
     'item_attr_integrity'      => 'stupeň integrity',
     'item_attr_integrity_work' => 'integrita s díly',
     'item_attr_inscription'    => 'značení',
