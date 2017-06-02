@@ -155,6 +155,11 @@
                 <table class="table table-striped">
                     {!! utrans('informacie.modal_table-content') !!}
                 </table>
+
+                <p>
+                    <sup class="text-danger">*</sup> Z technických dôvodov dočasne pozastavené
+                </p>
+
             </div>
             <div class="modal-footer">
                 <div class="text-center"><button type="button" data-dismiss="modal" class="btn btn-default btn-outline sans">{{ trans('general.close') }}</button></div>

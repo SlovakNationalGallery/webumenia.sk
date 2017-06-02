@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-články | 
+{{ trans('clanky.title') }} | 
 @parent
 @stop
 
@@ -29,7 +29,7 @@
                             {!! $article->title !!}
                         </h4></a>
                         <p class="attributes">{!! $article->getShortTextAttribute($article->summary, 250) !!}
-                        (<a href="{!! $article->getUrl() !!}">viac</a>)
+                        (<a href="{!! $article->getUrl() !!}">{{ trans('general.more') }}</a>)
                         </p>
                         <p class="meta">{!!$article->published_date!!} / {!!$article->author!!}</p>
 	                </div>

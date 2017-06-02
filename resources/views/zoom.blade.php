@@ -8,7 +8,7 @@
         <meta name="robots" content="noindex, nofollow">
 
         <title>
-            {!! $item->title !!} | zoom
+            {!! $item->title !!} | {{ trans('zoom.title') }}
         </title>
 
         <!--  favicons-->
@@ -73,7 +73,7 @@
             @endif
    </div>
    @if (!Request::has('noreturn'))
-     <a class="btn btn-default btn-outline return" href="{!! $item->getUrl() !!}" role="button"><i class="fa fa-arrow-left"></i> naspäť</a>
+     <a class="btn btn-default btn-outline return" href="{!! $item->getUrl() !!}" role="button"><i class="fa fa-arrow-left"></i> {{ trans('general.back') }}</a>
    @endif
 
     @if ($related_items)
@@ -83,7 +83,7 @@
     <div class="credit">
       @if ($item->isFree())
         <img alt="Creative Commons License" style="height: 20px; width: auto; vertical-align: bottom;" src="/images/license/zero.svg">
-         voľné dielo
+         {{ trans('general.public_domain') }}
       @else
         &copy; {!! $item->gallery !!}
       @endif

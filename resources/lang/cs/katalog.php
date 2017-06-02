@@ -25,5 +25,14 @@ return array(
     'catalog_artworks' => 'děl',
     'catalog_no_artworks' => 'momentálně žádné díla',
     'catalog_show_more' => 'ukaž více',
+    'catalog_finished'       => 'to je vše',
 
+    // in model item.sortable
+    'sortable_updated_at'    => 'poslední změny',
+    'sortable_created_at'    => 'data přidání',
+    'sortable_title'         => 'názvu',
+    'sortable_author'        => 'autora',
+    'sortable_date_earliest' => 'datování',
+    'sortable_view_count'    => 'počtu vidění',
+    'sortable_random'        => 'náhodně',
 );
