@@ -306,6 +306,10 @@ class Item extends Model
 
     public static function getNoImage($id)
     {
+        if (Config::get('request.domain') == 'mg') {
+            return "/images/mg/no-image.jpg";
+        }
+
         $allowed_work_types = array(
             'g', //grafika
             'k', //kresba
