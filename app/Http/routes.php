@@ -50,6 +50,12 @@ Route::group(['domain' => 'sbirky.moravska-galerie.{tld}'], function () {
 
     Route::get('katalog', 'CatalogController@getMg');
 
+    
+    Route::get('informacie', function () {
+        $items = Item::random(20, ['gallery' => 'Slovenská národná galéria, SNG']);
+        return view('informacie-mg', ['items' => $items]);
+    });
+
 });
 
 Route::group([
