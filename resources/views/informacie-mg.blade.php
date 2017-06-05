@@ -18,7 +18,7 @@
 
                     <p>Prostřednictvím této webové stránky prezentuje Moravská galerie v Brně veřejnosti své sbírky obsahující téměř 200 tisíc uměleckých předmětů nejrůznějšího charakteru. Zařazuje se tak po bok světových galerií a muzeí, které poskytují on-line veřejnosti informace o svých sbírkách umění, jež schraňují.</p>
 
-                    <p><a href="#">Více informací o sbírkách Moravské galerie v Brně</a></p>
+                    <p><a href="http://www.moravska-galerie.cz/moravska-galerie/o-galerii/sbirky.aspx">Více informací o sbírkách Moravské galerie v Brně</a></p>
 
                 </div>
                 <div class="col-md-6 attributes">
@@ -32,9 +32,9 @@
 
                     <h3>Co Moravská galerie dále umožňuje?</h3>
 
-                    <p>V případě zájmu o publikování některého z našich sbírkových předmětů nebo využití jejich fotografií pro další účely je možné objednat tiskovou kvalitu obrazové dokumentace s licencí k užití. Více informací naleznete v sekci <a href="#">Repropráva</a>.</p>
+                    <p>V případě zájmu o publikování některého z našich sbírkových předmětů nebo využití jejich fotografií pro další účely je možné objednat tiskovou kvalitu obrazové dokumentace s licencí k užití. Více informací naleznete v sekci <a href="http://www.moravska-galerie.cz/moravska-galerie/sluzby/reproprava.aspx">Repropráva</a>.</p>
 
-                    <p>Odborníkům, studentům a badatelům nabízíme možnost osobní prohlídky vybraných předmětů. Vzhledem k provozním a časovým možnostem našich pracovníků je třeba sjednat termín vždy dopředu. Více informací naleznete v sekci <a href="#">Badatelské návštěvy</a>.</p>
+                    <p>Odborníkům, studentům a badatelům nabízíme možnost osobní prohlídky vybraných předmětů. Vzhledem k provozním a časovým možnostem našich pracovníků je třeba sjednat termín vždy dopředu. Více informací naleznete v sekci <a href="http://www.moravska-galerie.cz/moravska-galerie/o-galerii/sbirky/badatelske-navstevy.aspx">Badatelské návštěvy</a>.</p>
 
                     <p>Pro instituce, které se zabývají výstavní činností a prezentací umění, umožňujeme zapůjčení sbírkových předmětů na krátkodobé výstavy i do stálých expozic. Zapůjčení však podléhá procesu schvalování na základě oficiální písemné žádosti zaslané na sekretariát Moravské galerie v Brně.</p>
 
