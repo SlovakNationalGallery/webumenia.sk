@@ -32,7 +32,7 @@ return array(
     'mozete_col_vyuzivat_li_1'     => '<strong>print</strong> (posters, postcards, flyers, apparel)',
     'mozete_col_vyuzivat_li_2'     => '<strong>original creation</strong> (digital edits of reproductions, use in animation or collage)',
     'mozete_col_vyuzivat_li_3'     => '<strong>education</strong> (use in educational materials or websites, insert into Wikipedia or a presentation)    ',
-    'mozete_col_objednat_heading'  => 'Order high quality print',
+    'mozete_col_objednat_heading'  => 'Order high quality prints',
     'mozete_col_objednat_p'        => 'We offer printed reproductions of selected artworks from the collections of the Slovak National Gallery on fine art paper. You will recieve an e-mail with more detailed information after placing the order. Printed reproductions can only be picked up at one of our pick up locations: <a href="http://www.sng.sk/en/bratislava/visiting-us/how-to-find-us/ex-libris-bookshop" target="_blank" class="underline">Ex Libris Bookshop in the Esterházy Palace, Námestie Ľudovíta Štúra 4, Bratislava</a> or at the cash desk in <a href="http://www.sng.sk/en/zvolen/visiting-us/how-to-find-us" target="_blank" class="underline">Castle Zvolen, SNP Square 594/1, Zvolen</a>.',
     'mozete_free_artworks'         => 'artworks available for download',
     
