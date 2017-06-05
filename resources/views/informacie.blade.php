@@ -77,10 +77,12 @@ Informácie |
 
         </div>
         <div class="row top-space">
-            <div class="col-md-12">
+            <div class="col-md-4 dib">
                 <a href="{!! URL::to('katalog?is_free=' . '1') !!}" class="inherit lead pull-left no-border"><i class="icon-arrow-right"></i> &nbsp; voľné diela na stiahnutie</a>
-
-                <a href="#" data-toggle="modal" data-target="#priceList" class="inherit lead pull-right no-border"><i class="icon-arrow-right"></i> &nbsp; cenník reprodukcií</a>
+            </div>
+            <div class="col-md-4 dib"></div>
+            <div class="col-md-4 dib">
+                <a href="#" data-toggle="modal" data-target="#priceList" class="inherit lead pull-left no-border"><i class="icon-arrow-right"></i> &nbsp; cenník reprodukcií</a>
             </div>
         </div>
 
