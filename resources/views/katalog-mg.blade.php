@@ -9,6 +9,21 @@
 
 @section('content')
 
+<div class="mgCarousel">
+    @foreach ($slides as $slide)
+        <div class="gallery-cell" style="background-image: url({!! $slide->image_path !!})">
+            <a href="{!! $slide->url !!}" class="outer-box" data-id="{!! $slide->id !!}" >
+                <div class="inner-box">
+                    <h1 class="circle">{!! $slide->title !!}</h1>
+                    @if ($slide->subtitle)
+                        <h2>{!! $slide->subtitle !!}</h2>
+                    @endif
+                </div>
+            </a>
+        </div>
+    @endforeach
+</div>
+
 <section class="filters">
     <div class="container content-section"><div class="expandable">
             {!! Form::open(array('id'=>'filter', 'method' => 'get')) !!}
@@ -269,6 +284,20 @@ $(document).ready(function(){
         return false;
     });
 
+    var $carousel = $('.mgCarousel').flickity({
+      wrapAround: true,
+      percentPosition: false
+    });
+    $carousel.children('.flickity-page-dots').css('left',  parseInt($('.flickity-slider').css('transform').split(',')[4]) );
+
+    $carousel.on( 'staticClick', function( event, pointer, cellElement, cellIndex ) {
+        event.preventDefault();
+        var $link = $( cellElement ).find('a');
+        var url = $link.attr('href');
+        var id = $link.data('id');
+        $.get('/slideClicked', {'id': id});
+
+    });
 
 
 });

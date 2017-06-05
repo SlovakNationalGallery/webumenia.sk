@@ -388,6 +388,27 @@ class CatalogController extends Controller
         $queries = DB::getQueryLog();
         $last_query = end($queries);
 
+        $slides = collect([
+            new \App\Slide([
+                'title' => 'Sbírky<br> starého<br> umění',
+                'subtitle' => '',
+                'image_path' => asset('images/mg/intro/A000002.jpg'),
+                'url' => '#',
+            ]),
+            new \App\Slide([
+                'title' => 'Sbírky<br> moderního<br> umění',
+                'subtitle' => '',
+                'image_path' => asset('images/mg/intro/A002757.jpg'),
+                'url' => '#',
+            ]),
+            new \App\Slide([
+                'title' => 'Sbírky<br> užitého<br> umění',
+                'subtitle' => '',
+                'image_path' => asset('images/mg/intro/U032421.jpg'),
+                'url' => '#',
+            ]),
+        ]);
+
         return view('katalog-mg', array(
             'items' => $items,
             'authors' => $authors,
@@ -402,7 +423,8 @@ class CatalogController extends Controller
             'paginator' => $paginator,
             'mediums' => $mediums,
             'places' => $places,
-            ));
+            'slides' => $slides,
+        ));
     }
 
     public function getSuggestions()
