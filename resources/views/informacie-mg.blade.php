@@ -41,6 +41,18 @@
                     <h3>Spojte se s námi</h3>
 
                     <p>Budeme rádi za Vaše připomínky, náměty, či dotazy, které prosím směřujte na adresu: <a href="mailto:katalog@moravska-galerie.cz">katalog@moravska-galerie.cz</a>.</p>
+
+                    <div class="tiraz">
+                        <p>Tiráž</p>
+
+                        <p>Katalog sbírek Moravské galerie byl vytvořen s podporou Ministerstva kultury <br>a ve spolupráci se specialisty z lab.SNG. <br>
+                        Katalog sbírek využívá zdrojový kód <a href="http://www.webumenia.sk/" target="_blank">Webu umenia</a> – open source projektu Slovenské národní galérie.</p>
+
+                        <p>
+                        Editor obsahu: Miroslav Divina<br>
+                        Technická správa webu: <a href="http://lab.sng.sk" target="_blank">lab.SNG</a> – Michal Čudrnák, Igor Rjabinin<br>
+                        Grafické řešení: Lukáš Kijonka a Michal Krůl, Kolektiv.studio</p>
+                    </div>
                 </div>
             </div>
         </div>
