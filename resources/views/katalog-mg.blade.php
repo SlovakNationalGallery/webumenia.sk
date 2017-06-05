@@ -9,20 +9,22 @@
 
 @section('content')
 
-<div class="mgCarousel">
-    @foreach ($slides as $slide)
-        <div class="gallery-cell" style="background-image: url({!! $slide->image_path !!})">
-            <a href="{!! $slide->url !!}" class="outer-box" data-id="{!! $slide->id !!}" >
-                <div class="inner-box">
-                    <h1 class="circle">{!! $slide->title !!}</h1>
-                    @if ($slide->subtitle)
-                        <h2>{!! $slide->subtitle !!}</h2>
-                    @endif
-                </div>
-            </a>
-        </div>
-    @endforeach
-</div>
+@if (!count(Input::all()))
+    <div class="mgCarousel">
+        @foreach ($slides as $slide)
+            <div class="gallery-cell" style="background-image: url({!! $slide->image_path !!})">
+                <a href="{!! $slide->url !!}" class="outer-box" data-id="{!! $slide->id !!}" >
+                    <div class="inner-box">
+                        <h1 class="circle">{!! $slide->title !!}</h1>
+                        @if ($slide->subtitle)
+                            <h2>{!! $slide->subtitle !!}</h2>
+                        @endif
+                    </div>
+                </a>
+            </div>
+        @endforeach
+    </div>
+@endif
 
 <section class="filters">
     <div class="container content-section"><div class="expandable">
@@ -284,6 +286,7 @@ $(document).ready(function(){
         return false;
     });
 
+    
     var $carousel = $('.mgCarousel').flickity({
       wrapAround: true,
       percentPosition: false
