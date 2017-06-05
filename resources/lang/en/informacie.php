@@ -13,7 +13,7 @@ return array(
     'title' => 'information',
 
     'info_heading'       => 'what is web umenia?',
-    'info_p_lead'        => 'Web umenia is an <strong>on-line catalog</strong> of artworks from the collections of <strong>slovak galleries</strong> registered in the <a class="unstyled" href="http://www.sng.sk/sk/zbierky/centralny-katalog-diel" target="_blank">Central database of fine Arts</a>.',
+    'info_p_lead'        => 'Web umenia is an <strong>on-line catalog</strong> of artworks from the collections of <strong>Slovak galleries</strong> registered in the <a class="unstyled" href="http://www.sng.sk/sk/zbierky/centralny-katalog-diel" target="_blank">Central database of fine Arts</a>.',
     'info_p'             => 'Here you can find information about artworks and artists as well as articles and thematic collections. Information and digital images are pulled from the CEDVU system (Central database of fine Arts), where they are inserted and regularly updated by the curators.',
     'info_gallery_SNG'   => 'Slovak National Gallery',
     'info_gallery_OGD'   => 'The Orava Gallery in Dolný Kubín',
