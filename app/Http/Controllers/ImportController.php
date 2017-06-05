@@ -253,7 +253,7 @@ class ImportController extends Controller
                     $item->date_latest = $row['Do'];
                     $item->place = $row['MistoVz'];
                     $item->title = ($row['Titul']) ? $row['Titul'] : 'bez názvu';
-                    $medium = ($row['MatSpec']) ? ($row['Material'] . ', ' . $row['MatSpec']) : $row['Material'];
+                    $medium = ($row['Material'] && $row['MatSpec']) ? ($row['Material'] . ', ' . $row['MatSpec']) : $row['Material'];
                     $item->medium = $medium;
                     $technique = ($row['TechSpec']) ? ($row['Technika'] . ', ' . $row['TechSpec']) : $row['Technika'];
                     $item->technique = $technique;
