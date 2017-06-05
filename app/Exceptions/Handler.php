@@ -51,6 +51,11 @@ class Handler extends ExceptionHandler
             }
 
             $item = Item::random()->first();
+            if (\Config::get('request.domain') == 'mg') {
+                return response()->view('errors.missing-mg', ['item' => $item], 404);
+            }
+
+
             return response()->view('errors.missing', ['item' => $item], 404);
         }
 
