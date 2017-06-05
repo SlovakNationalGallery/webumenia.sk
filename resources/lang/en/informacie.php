@@ -44,8 +44,8 @@ return array(
     'more-items_connect_col2_lead'       => 'we are open to other forms of <strong>cooperation</strong>.',
     'more-items_connect_col2_p'          => 'If you have more information about an artist or artwork, or wish to provide a photograph for an artist profile, correct some mistake or offer research material, contact us at <a href="mailto:lab@sng.sk">lab@sng.sk</a>.',
     'more-items_connect_col3_lead'       => 'web umenia is brought to you by the <br><strong><a href="http://lab.sng.sk/" target="_blank" class="strong">lab.SNG</a> team</strong>',
-    'more-items_connect_col3_ul-content' => '<li><strong>Michal Čudrnák</strong> lab.SNG team leader, author of articles</li>
-                                             <li><strong>Lukáš Štepanovský</strong> content editor, author of articles</li>
+    'more-items_connect_col3_ul-content' => '<li><strong>Michal Čudrnák</strong> lab.SNG team leader, article author</li>
+                                             <li><strong>Lukáš Štepanovský</strong> content editor, article author</li>
                                              <li><strong>Igor Rjabinin</strong> developer</li>
                                              <li><strong>Philo van Kemenade</strong> developer</li>
                                              <li><strong>Gabriel Balkó</strong> quality control, content editor</li>
