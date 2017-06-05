@@ -19,7 +19,7 @@ return array(
     'show_more'        => 'zobrazit více',
     'show_less'        => 'skrýt',
     'sort_by'          => 'podle',
-    'clear_filters'    => 'zrušiť filtre',
+    'clear_filters'    => 'zrušit filtre',
     'public_domain'    => 'volné dílo',
     'artworks'         => 'díla',
     'artworks_counted' => '{0}    :artworks_count děl

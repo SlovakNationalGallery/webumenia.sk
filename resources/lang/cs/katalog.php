@@ -33,6 +33,6 @@ return array(
     'sortable_title'         => 'názvu',
     'sortable_author'        => 'autora',
     'sortable_date_earliest' => 'datování',
-    'sortable_view_count'    => 'počtu vidění',
+    'sortable_view_count'    => 'počtu zobrazení',
     'sortable_random'        => 'náhodně',
 );
