@@ -50,7 +50,7 @@
                 <div  class="col-md-4 col-xs-6 bottom-space">
                         {!! Form::select('place', array('' => '') + $places, @$input['place'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_place'))) !!}
                 </div>
-                <div class="col-md-6 col-xs-6">
+                <div class="col-md-2 col-md-offset-4 col-xs-4 col-xs-offset-2 ">
                         <div class="checkbox">
                             {!! Form::checkbox('has_image', '1', @$input['has_image'], ['id'=>'has_image']) !!}
                             <label for="has_image">
@@ -58,7 +58,7 @@
                             </label>
                         </div>
                 </div>
-                <div class="col-md-6 col-xs-6">
+                <div class="col-md-2 col-xs-4 ">
                         <div class="checkbox">
                             {!! Form::checkbox('has_iip', '1', @$input['has_iip'], ['id'=>'has_iip']) !!}
                             <label for="has_iip">
