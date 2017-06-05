@@ -82,7 +82,7 @@ class Import extends Model
         //     $work_type .= ', ' . self::$cz_work_types_spec[$skupina];
         // }
 
-        $work_type = (isSet(self::$cz_work_types_spec[$skupina])) ? self::$cz_work_types_spec[$skupina] : 'obrazy';
+        $work_type = (isSet(self::$cz_work_types_spec[$skupina])) ? self::$cz_work_types_spec[$skupina] : 'nespecifikované';
         return $work_type;
     }
 
