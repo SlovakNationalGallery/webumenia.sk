@@ -26,13 +26,13 @@
 
                     <p>Jedná se o kompletní on-line zveřejnění sbírek Moravské galerie v Brně. Webová stránka umožňuje uživateli vyhledávat sbírkové předměty, dle autora, techniky, výtvarného žánru, materiálu, námětu a také místa vzniku. Přehledný on-line katalog bude postupně doplňován o další fotografie, zpřesňující informace a články, rovněž nové sbírkové předměty, které Moravská galerie průběžně získává pro své sbírky.</p>
 
-                    <h3>Jaké jsou pravidla užívání obrazových materiálů z on-line katalogu sbírek?</h3>
+                    <h3>Jaká jsou pravidla užívání obrazových materiálů z on-line katalogu sbírek?</h3>
 
                     <p>Katalog zpřístupňuje základní obrazovou dokumentaci sbírkových předmětů spravovaných Moravskou galerií v Brně. Uživatel může obrazovou dokumentaci dále užívat pro badatelské účely, vlastní účely, studijní práce (s citačním odkazem na zdroj). Pro jakékoliv další užití, zejména publikačního a komerčního charakteru, je nutné kontaktovat Moravskou galerii.</p>
 
                     <h3>Co Moravská galerie dále umožňuje?</h3>
 
-                    <p>V případě zájmu o publikování některého z našich sbírkových předmětů nebo využití jejich fotografií pro další účely je možné objednat tiskovou kvalitu obrazové dokumentace s licencí k užití. Více informací naleznete v sekci <a href="http://www.moravska-galerie.cz/moravska-galerie/sluzby/reproprava.aspx">Repropráva</a>.</p>
+                    <p>V případě zájmu o publikování sbírkových předmětů nebo využití fotografií pro další účely je možné objednat tiskovou kvalitu obrazové dokumentace s licencí k užití. Více informací naleznete v sekci <a href="http://www.moravska-galerie.cz/moravska-galerie/sluzby/reproprava.aspx">Repropráva</a>.</p>
 
                     <p>Odborníkům, studentům a badatelům nabízíme možnost osobní prohlídky vybraných předmětů. Vzhledem k provozním a časovým možnostem našich pracovníků je třeba sjednat termín vždy dopředu. Více informací naleznete v sekci <a href="http://www.moravska-galerie.cz/moravska-galerie/o-galerii/sbirky/badatelske-navstevy.aspx">Badatelské návštěvy</a>.</p>
 
@@ -40,12 +40,11 @@
 
                     <h3>Spojte se s námi</h3>
 
-                    <p>Budeme rádi za Vaše připomínky, náměty, či dotazy, které prosím směřujte na adresu: <a href="mailto:katalog@moravska-galerie.cz">katalog@moravska-galerie.cz</a>.</p>
+                    <p>Budeme rádi za Vaše připomínky, náměty, či dotazy, které zasílejte na adresu: <a href="mailto:katalog@moravska-galerie.cz">katalog@moravska-galerie.cz</a>.</p>
 
                     <div class="tiraz">
-                        <p>Tiráž</p>
-
-                        <p>Katalog sbírek Moravské galerie byl vytvořen s podporou Ministerstva kultury <br>a ve spolupráci se specialisty z <a href="http://lab.sng.sk" target="_blank">lab.SNG</a>. <br>
+                    
+                        <p>Katalog sbírek Moravské galerie byl vytvořen s podporou Ministerstva kultury České republiky <br>a ve spolupráci se specialisty z <a href="http://lab.sng.sk" target="_blank">lab.SNG</a>. <br>
                         Katalog sbírek využívá zdrojový kód <a href="http://www.webumenia.sk/" target="_blank">Webu umenia</a> – open source projektu Slovenské národní galérie.</p>
 
                         <p>
