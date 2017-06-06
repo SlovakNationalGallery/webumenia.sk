@@ -407,6 +407,18 @@ class CatalogController extends Controller
                 'image_path' => asset('images/mg/intro/U032421.jpg'),
                 'url' => '#',
             ]),
+            new \App\Slide([
+                'title' => 'Sbírka <br>grafického <br>designu',
+                'subtitle' => '',
+                'image_path' => asset('images/mg/intro/GD017252.jpg'),
+                'url' => '#',
+            ]),
+            new \App\Slide([
+                'title' => 'Kolekce <br>Bienále <br>Brno',
+                'subtitle' => '',
+                'image_path' => asset('images/mg/intro/GD016245.jpg'),
+                'url' => '#',
+            ]),
         ]);
 
         return view('katalog-mg', array(
