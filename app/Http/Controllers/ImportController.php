@@ -261,7 +261,12 @@ class ImportController extends Controller
                     $item->inscription = $row['Sign'];
                     $work_type = Import::getWorkType($row['Rada_S'], $row['Skupina']);
                     $item->work_type = $work_type;
-                    // add dimiensions, etc...
+                    
+                    // detect bienale
+                    if (strpos( $row['Okolnosti'], 'BB' ) !== false ) {
+                        $item->relationship_type = 'ze souboru';
+                        $item->related_work = 'Bienále Brno';
+                    }
 
                     $item->measurement = Import::getMeasurement($row['Sluz']);
                     $item->state_edition = $row['Puvodnost'];

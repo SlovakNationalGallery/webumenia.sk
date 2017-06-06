@@ -411,13 +411,13 @@ class CatalogController extends Controller
                 'title' => 'Sbírka <br>grafického <br>designu',
                 'subtitle' => '',
                 'image_path' => asset('images/mg/intro/GD017252.jpg'),
-                'url' => 'http://sbirky.moravska-galerie.cz/katalog?work_type=grafick%C3%BD+design',
+                'url' => '/katalog?work_type=grafick%C3%BD+design',
             ]),
             new \App\Slide([
                 'title' => 'Kolekce <br>Bienále <br>Brno',
                 'subtitle' => '',
                 'image_path' => asset('images/mg/intro/GD016245.jpg'),
-                'url' => '#',
+                'url' => '/katalog?related_work=Bienále%20Brno',
             ]),
         ]);
 
