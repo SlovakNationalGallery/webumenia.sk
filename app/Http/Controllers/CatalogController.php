@@ -443,7 +443,7 @@ class CatalogController extends Controller
     {
         $q = (Input::has('search')) ? str_to_alphanumeric(Input::get('search')) : 'null';
 
-        $result = Elastic::search([
+        $params = [
                 'index' => Config::get('bouncy.index'),
                 'type' => Item::ES_TYPE,
                 'body' => array(
@@ -452,14 +452,20 @@ class CatalogController extends Controller
                             'query' => $q,
                             'type' => 'cross_fields',
                             // 'fuzziness' =>  2,
-                            // 'slop'		=>  2,
+                            // 'slop'       =>  2,
                             'fields' => array('identifier', 'title.suggest', 'author.suggest'),
                             'operator' => 'and',
                         ),
                     ),
                     'size' => '10',
                 ),
-            ]);
+        ];
+
+        if (Config::get('request.domain') == 'mg') {
+            $params['body']['filter']['term'] = ['gallery' => 'Moravská galerie, MG'];
+        }
+
+        $result = Elastic::search($params);
 
         $data = array();
         $data['results'] = array();

@@ -140,7 +140,7 @@
   {!! Html::script('js/jquery.isotope.sloppy-masonry.min.js') !!}
   {!! Html::script('js/bootstrap.min.js') !!}
   {!! Html::script('js/typeahead.bundle.min.js') !!}
-  {!! Html::script('js/webumenia.js') !!}
+  {!! Html::script('js/mg.js') !!}
 
   @if (App::environment('production'))
     <script>
