@@ -56,6 +56,18 @@ Route::group(['domain' => 'sbirky.moravska-galerie.{tld}'], function () {
         return view('informacie-mg', ['items' => $items]);
     });
 
+    Route::get('dielo/{id}/zoom', function ($tld, $id) {
+
+        $item = Item::find($id);
+
+        if (empty($item->iipimg_url)) {
+            App::abort(404);
+        }
+
+        $related_items = (!empty($item->related_work)) ? Item::where('related_work', '=', $item->related_work)->where('author', '=', $item->author)->whereNotNull('iipimg_url')->orderBy('related_work_order')->lists('iipimg_url')->toArray() : [];
+        return view('zoom-mg', array('item' => $item, 'related_items' => $related_items));
+    });
+
 });
 
 Route::group([
