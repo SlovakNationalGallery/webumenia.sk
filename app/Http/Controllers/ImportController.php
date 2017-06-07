@@ -288,14 +288,14 @@ class ImportController extends Controller
 
 
                             // detect DeepZoom at IIP - if it's hq (high quality) image
-                            if (strpos($item_image_file['filename'], 'hq') !== false) {
+                            // if (strpos($item_image_file['filename'], 'hq') !== false) {
                                 $iip_img = 'MGHQ/'. $image_dir .'/'.$item_image_file['filename'].'.jp2';
                                 $iip_url = 'http://www.webumenia.sk/fcgi-bin/iipsrv.fcgi?DeepZoom='. $iip_img;
                                 if (isValidURL($iip_url)) {
                                     $item->iipimg_url = $iip_img;
                                     $this_import_record->imported_iip++;
                                 }
-                            }
+                            // }
                         }
                     }
 
