@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @section('description')
-    <meta name="description" content="Web umenia je on-line katalóg výtvarných diel zo zbierok slovenských galérií. Nájdete tu základné informácie o dielach a ich autoroch, ale aj pôvodné články, videá a kolekcie.">
+    <meta name="description" content="Kompletní on-line zveřejnění sbírek Moravské galerie v Brně. Webová stránka umožňuje uživateli vyhledávat sbírkové předměty dle autora, techniky, výtvarného žánru, materiálu, námětu a také místa vzniku">
     @show
     <meta name="author" content="lab.SNG">
 
@@ -20,15 +20,13 @@
     <!--  /favicons-->
 
     <!--  Open Graph protocol -->
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@webumeniaSK" />
     @section('og')
     <meta property="og:title" content="Moravská galerie v Brně" />
-    <meta property="og:description" content="Web umenia je on-line katalóg výtvarných diel zo zbierok slovenských galérií. Nájdete tu základné informácie o dielach a ich autoroch, ale aj pôvodné články, videá a kolekcie." />
+    <meta property="og:description" content="Kompletní on-line zveřejnění sbírek Moravské galerie v Brně. Webová stránka umožňuje uživateli vyhledávat sbírkové předměty dle autora, techniky, výtvarného žánru, materiálu, námětu a také místa vzniku" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{!! Request::url() !!}" />
-    <meta property="og:image" content="{!! URL::to('/images/og-image-'.random_int(1, 2).'.jpg') !!}" />
-    <meta property="og:site_name" content="web umenia" />
+    {{-- <meta property="og:image" content="{!! URL::to('/images/og-image-'.random_int(1, 2).'.jpg') !!}" /> --}}
+    <meta property="og:site_name" content="Moravská galerie | sbírky on-line" />
     @show
     <!--  Open Graph protocol -->
 
