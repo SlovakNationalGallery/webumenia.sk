@@ -38,7 +38,7 @@ return array(
     
     'more-items_heading'                 => 'Artworks available for print',
     'more-items_button'                  => 'show all',
-    'more-items_connect_heading'         => 'contact us',
+    'more-items_connect_heading'         => 'get in touch',
     'more-items_connect_col1_lead'       => 'we publish artworks from <br>the collections of <strong>slovak galleries and museums</strong>.',
     'more-items_connect_col1_p'          => 'if you wish to sumbit an artwork to be published, it has to be included in a collection of a registered institution. We do not publish artworks from private property or other sources at this time.'  ,
     'more-items_connect_col2_lead'       => 'we are open to other forms of <strong>cooperation</strong>.',
