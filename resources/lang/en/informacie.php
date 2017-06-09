@@ -13,8 +13,8 @@ return array(
     'title' => 'information',
 
     'info_heading'       => 'what is web umenia?',
-    'info_p_lead'        => 'Web umenia is an <strong>on-line catalog</strong> of artworks from the collections of <strong>Slovak galleries</strong> registered in the <a class="unstyled" href="http://www.sng.sk/sk/zbierky/centralny-katalog-diel" target="_blank">Central database of fine Arts</a>.',
-    'info_p'             => 'Here you can find information about artworks and artists as well as articles and thematic collections. Information and digital images are pulled from the CEDVU system (Central database of fine Arts), where they are inserted and regularly updated by the curators.',
+    'info_p_lead'        => 'Web umenia is an <strong>on-line catalog</strong> of artworks from the collections of <strong>Slovak galleries</strong> registered in the <a class="unstyled" href="http://www.sng.sk/en/collections/central-catalogue" target="_blank">Central Register of Artworks</a>.',
+    'info_p'             => 'Here you can find information about artworks and artists as well as articles and thematic collections. Information and digital images are pulled from the CEDVU system (Central Register of Artworks), where they are inserted and regularly updated by the curators.',
     'info_gallery_SNG'   => 'Slovak National Gallery',
     'info_gallery_OGD'   => 'The Orava Gallery in Dolný Kubín',
     'info_gallery_GNZ'   => 'The Art Gallery of Ernest Zmeták in Nové Zámky',
@@ -28,12 +28,12 @@ return array(
     'mozete_col_stahovat_li_1'     => 'Digital reproductions of <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank"><strong>public domain</strong></a> arwtorks from several gallery collections are available for download in <strong>high resolution</strong> for both personal and commercial use - i.e. copy, modify and share freely. ',
     'mozete_col_stahovat_li_2'     => 'When sharing, <strong>please include the artist name, artwork title, owner and the source</strong> (<a href="http://www.webumenia.sk">webumenia.sk</a>) ',
     'mozete_col_stahovat_li_3'     => 'If you intend to use the reproduction for <strong>commercial purpose</strong>, please inform us in advance, we can offer advice.',
-    'mozete_col_vyuzivat_heading'  => 'Use artworks in Public Domain',
-    'mozete_col_vyuzivat_li_1'     => '<strong>print</strong> (posters, postcards, flyers, apparel)',
-    'mozete_col_vyuzivat_li_2'     => '<strong>original creation</strong> (digital edits of reproductions, use in animation or collage)',
-    'mozete_col_vyuzivat_li_3'     => '<strong>education</strong> (use in educational materials or websites, insert into Wikipedia or a presentation)    ',
+    'mozete_col_vyuzivat_heading'  => 'Reuse artworks in Public Domain, e.g.:',
+    'mozete_col_vyuzivat_li_1'     => '<strong>printed</strong> posters, postcards, flyers, apparel, etc',
+    'mozete_col_vyuzivat_li_2'     => '<strong>creative reuse</strong> like remixes, collages or animations',
+    'mozete_col_vyuzivat_li_3'     => '<strong>educational materials</strong> including books, websites and presentations',
     'mozete_col_objednat_heading'  => 'Order high quality prints',
-    'mozete_col_objednat_p'        => 'We offer printed reproductions of selected artworks from the collections of the Slovak National Gallery on fine art paper. You will recieve an e-mail with more detailed information after placing the order. Printed reproductions can only be picked up at one of our pick up locations: <a href="http://www.sng.sk/en/bratislava/visiting-us/how-to-find-us/ex-libris-bookshop" target="_blank" class="underline">Ex Libris Bookshop in the Esterházy Palace, Námestie Ľudovíta Štúra 4, Bratislava</a> or at the cash desk in <a href="http://www.sng.sk/en/zvolen/visiting-us/how-to-find-us" target="_blank" class="underline">Castle Zvolen, SNP Square 594/1, Zvolen</a>.',
+    'mozete_col_objednat_p'        => 'We offer printed reproductions of selected artworks from the collections of the Slovak National Gallery on fine art paper.<br/><br/>You will recieve an e-mail with more detailed information after placing the order. Printed reproductions can only be picked up at one of our pick up locations: <a href="http://www.sng.sk/en/bratislava/visiting-us/how-to-find-us/ex-libris-bookshop" target="_blank" class="underline">Ex Libris Bookshop in the Esterházy Palace, Námestie Ľudovíta Štúra 4, Bratislava</a> or at the cash desk in <a href="http://www.sng.sk/en/zvolen/visiting-us/how-to-find-us" target="_blank" class="underline">Castle Zvolen, SNP Square 594/1, Zvolen</a>.',
     'mozete_free_artworks'         => 'artworks available for download',
     
     'more-items_heading'                 => 'Artworks available for print',
@@ -42,7 +42,7 @@ return array(
     'more-items_connect_col1_lead'       => 'we publish artworks from <br>the collections of <strong>slovak galleries and museums</strong>.',
     'more-items_connect_col1_p'          => 'if you wish to sumbit an artwork to be published, it has to be included in a collection of a registered institution. We do not publish artworks from private property or other sources at this time.'  ,
     'more-items_connect_col2_lead'       => 'we are open to other forms of <strong>cooperation</strong>.',
-    'more-items_connect_col2_p'          => 'If you have more information about an artist or artwork, or wish to provide a photograph for an artist profile, correct some mistake or offer research material, contact us at <a href="mailto:lab@sng.sk">lab@sng.sk</a>.',
+    'more-items_connect_col2_p'          => 'If you wish to provide more information about an artwork or an artist (biographical information, photograph for artist profile), correct some mistake or offer research material, please contact us at <a href="mailto:lab@sng.sk">lab@sng.sk</a>.',
     'more-items_connect_col3_lead'       => 'web umenia is brought to you by the <br><strong><a href="http://lab.sng.sk/" target="_blank" class="strong">lab.SNG</a> team</strong>',
     'more-items_connect_col3_ul-content' => '<li><strong>Michal Čudrnák</strong> lab.SNG team leader, article author</li>
                                              <li><strong>Lukáš Štepanovský</strong> content editor, article author</li>
