@@ -399,13 +399,13 @@ class CatalogController extends Controller
                 'title' => 'Sbírky<br> moderního<br> umění',
                 'subtitle' => '',
                 'image_path' => asset('images/mg/intro/A002757.jpg'),
-                'url' => '/katalog?work_type=obrazy&year-range=1900%2C2017',
+                'url' => '/katalog?work_type=obrazy&has_image=1&year-range=1900%2C2017&sort_by=date_earliest',
             ]),
             new \App\Slide([
                 'title' => 'Sbírky<br> užitého<br> umění',
                 'subtitle' => '',
                 'image_path' => asset('images/mg/intro/U032421.jpg'),
-                'url' => '/katalog?work_type=obrazy&has_image=1&year-range=1900%2C2017&sort_by=date_earliest',
+                'url' => '/katalog?work_type=d%C5%99evo',
             ]),
             new \App\Slide([
                 'title' => 'Sbírka <br>grafického <br>designu',
