@@ -17,9 +17,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
-    use BouncyTrait;
     use \Conner\Tagging\Taggable;
-    use \Dimsav\Translatable\Translatable;
+    use \Dimsav\Translatable\Translatable, BouncyTrait {
+        BouncyTrait::save as saveBouncyTrait;
+        \Dimsav\Translatable\Translatable::save insteadof BouncyTrait;
+    }
 
     const ARTWORKS_DIR = '/images/diela/';
     const ES_TYPE = 'items';
