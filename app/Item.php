@@ -17,12 +17,31 @@ use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
-
     use BouncyTrait;
     use \Conner\Tagging\Taggable;
+    use \Dimsav\Translatable\Translatable;
 
     const ARTWORKS_DIR = '/images/diela/';
     const ES_TYPE = 'items';
+
+    public $translatedAttributes = [
+        'title', 
+        'description', 
+        'work_type', 
+        'work_level', 
+        'topic', 
+        'subject', 
+        'measurement', 
+        'dating', 
+        'medium', 
+        'technique', 
+        'inscription', 
+        'place', 
+        'state_edition', 
+        'gallery', 
+        'relationship_type', 
+        'related_work'
+    ];
 
     // protected $indexName = 'webumenia';
     protected $typeName = self::ES_TYPE;
