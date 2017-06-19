@@ -23,7 +23,7 @@ return array(
     'filters_is_free' => 'jen volné',
     'catalog_found_artworks' => 'nalezena díla pro',
     'catalog_artworks' => 'děl',
-    'catalog_no_artworks' => 'momentálně žádné díla',
+    'catalog_no_artworks' => 'momentálně žádná díla',
     'catalog_show_more' => 'ukaž více',
     'catalog_finished'       => 'to je vše',
 

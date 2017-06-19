@@ -24,7 +24,7 @@
                 <div class="col-md-6 attributes">
                     <h3>Co je on-line katalog sbírek?</h3>
 
-                    <p>Jedná se o kompletní on-line zveřejnění sbírek Moravské galerie v Brně. Webová stránka umožňuje uživateli vyhledávat sbírkové předměty, dle autora, techniky, výtvarného žánru, materiálu, námětu a také místa vzniku. Přehledný on-line katalog bude postupně doplňován o další fotografie, zpřesňující informace a články, rovněž nové sbírkové předměty, které Moravská galerie průběžně získává pro své sbírky.</p>
+                    <p>Jedná se o kompletní on-line zveřejnění sbírek Moravské galerie v Brně. Webová stránka umožňuje uživateli vyhledávat sbírkové předměty dle autora, techniky, výtvarného žánru, materiálu, námětu a také místa vzniku. Přehledný on-line katalog bude postupně doplňován o další fotografie, zpřesňující informace a články, rovněž nové sbírkové předměty, které Moravská galerie průběžně získává pro své sbírky.</p>
 
                     <h3>Jaká jsou pravidla užívání obrazových materiálů z on-line katalogu sbírek?</h3>
 
