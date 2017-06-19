@@ -16,7 +16,7 @@
     </title>
 
     <!--  favicons-->
-    @include('includes.favicons')
+    <link rel="icon" href="{!! URL::to('/images/mg/favicon.ico') !!}" sizes="16x16">
     <!--  /favicons-->
 
     <!--  Open Graph protocol -->
@@ -25,7 +25,7 @@
     <meta property="og:description" content="Kompletní on-line zveřejnění sbírek Moravské galerie v Brně. Webová stránka umožňuje uživateli vyhledávat sbírkové předměty dle autora, techniky, výtvarného žánru, materiálu, námětu a také místa vzniku" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{!! Request::url() !!}" />
-    {{-- <meta property="og:image" content="{!! URL::to('/images/og-image-'.random_int(1, 2).'.jpg') !!}" /> --}}
+    <meta property="og:image" content="{!! URL::to('/images/mg/og-image.jpg') !!}" />
     <meta property="og:site_name" content="Moravská galerie | sbírky on-line" />
     @show
     <!--  Open Graph protocol -->
