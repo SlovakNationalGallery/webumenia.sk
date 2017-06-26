@@ -83,6 +83,15 @@ class ItemController extends Controller
 
             $item = new Item;
             $item->fill($input);
+
+            // store translatable attributes
+            foreach (\Config::get('translatable.locales') as $i=>$locale) {
+                foreach ($item->translatedAttributes as $attribute) {
+                    $item->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
+                }
+            }
+
+            // TODO: $item->save() throws `Undefined index: work_type` (also for other attribute keys) from item->index()
             $item->save();
 
             if (Input::hasFile('primary_image')) {

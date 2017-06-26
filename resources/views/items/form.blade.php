@@ -4,13 +4,13 @@
 
 <div class="col-md-12">
 	@if(isset($item))
-	    {!! Form::model($item, ['route' => ['item.update', $item->id], 'method' => 'patch', 'files'=>true]) !!}
+		{!! Form::model($item, ['route' => ['item.update', $item->id], 'method' => 'patch', 'files'=>true]) !!}
 	@else
-	    {!! Form::open(['route' => 'item.store', 'files'=>true]) !!}
+		{!! Form::open(['route' => 'item.store', 'files'=>true]) !!}
 	@endif
 
 	@if (Session::has('message'))
-	    <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
+		<div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
 	@endif
 
 
@@ -26,10 +26,97 @@
 <div class="col-md-12">
 	<div class="form-group">
 	{!! Form::label('id', 'Id') !!}
-    {!! Form::text('id', $new_id, array('class' => 'form-control', 'readonly')) !!}
+	{!! Form::text('id', $new_id, array('class' => 'form-control', 'readonly')) !!}
 	</div>
 </div>
 @endif
+
+<!-- translatable -->
+<div class="col-md-12">
+
+	<!-- Nav tabs -->
+	<ul class="nav nav-tabs top-space" role="tablist">
+		@foreach (\Config::get('translatable.locales') as $i=>$locale)
+			<li role="presentation" class="{{ ($i==0) ? 'active' : '' }}"><a href="#{{ $locale }}" aria-controls="{{ $locale }}" role="tab" data-toggle="tab">{{ strtoupper($locale) }}</a></li>
+		@endforeach
+	</ul>
+
+	<div class="tab-content top-space">
+		@foreach (\Config::get('translatable.locales') as $i=>$locale)
+			<div role="tabpanel" class="tab-pane  {{ ($i==0) ? 'active' : '' }}" id="{{ $locale }}">
+				
+				<div class="form-group">
+				{{ Form::label($locale."[title]", 'Názov '.strtoupper($locale)) }}
+				{{ Form::text($locale."[title]", isset($item) ? @$item->translate($locale)->title : '', array('class' => 'form-control')) }}
+				</div>
+
+				<div class="form-group">
+				{{ Form::label($locale."[description]", 'Popis '.strtoupper($locale)) }}
+				{{ Form::textarea($locale."[description]", isset($item) ? @$item->translate($locale)->description : '', array('class' => 'form-control wysiwyg')) }}	
+				</div>
+							
+				<div class="form-group">
+				{{ Form::label($locale."[work_type]", 'Výtvarný druh '.strtoupper($locale)) }}
+				{{ Form::text($locale."[work_type]", isset($item) ? @$item->translate($locale)->work_type : '', array('class' => 'form-control')) }}
+				</div>
+							
+				<div class="form-group">
+				{{ Form::label($locale."[work_level]", 'Stupeň spracovania '.strtoupper($locale)) }}
+				{{ Form::text($locale."[work_level]", isset($item) ? @$item->translate($locale)->work_level : '', array('class' => 'form-control')) }}
+				</div>
+
+				<div class="form-group">
+				{{ Form::label($locale."[topic]", 'Žáner '.strtoupper($locale)) }}
+				{{ Form::text($locale."[topic]", isset($item) ? @$item->translate($locale)->topic : '', array('class' => 'form-control')) }}
+				</div>
+				
+				<div class="form-group">
+				{{ Form::label($locale."[measurement]", 'Miery '.strtoupper($locale)) }}
+				{{ Form::text($locale."[measurement]", isset($item) ? @$item->translate($locale)->measurement : '', array('class' => 'form-control')) }}
+				</div>
+				
+				<div class="form-group">
+				{{ Form::label($locale."[dating]", 'Datovanie '.strtoupper($locale)) }}
+				{{ Form::text($locale."[dating]", isset($item) ? @$item->translate($locale)->dating : '', array('class' => 'form-control')) }}
+				</div>
+				
+				<div class="form-group">
+				{{ Form::label($locale."[medium]", 'Materiál '.strtoupper($locale)) }}
+				{{ Form::text($locale."[medium]", isset($item) ? @$item->translate($locale)->medium : '', array('class' => 'form-control')) }}
+				</div>
+				
+				<div class="form-group">
+				{{ Form::label($locale."[technique]", 'Technika '.strtoupper($locale)) }}
+				{{ Form::text($locale."[technique]", isset($item) ? @$item->translate($locale)->technique : '', array('class' => 'form-control')) }}
+				</div>
+				
+				<div class="form-group">
+				{{ Form::label($locale."[inscription]", 'Značenie '.strtoupper($locale)) }}
+				{{ Form::text($locale."[inscription]", isset($item) ? @$item->translate($locale)->inscription : '', array('class' => 'form-control')) }}
+				</div>
+				
+				<div class="form-group">
+				{{ Form::label($locale."[place]", 'Geografická oblasť '.strtoupper($locale)) }}
+				{{ Form::text($locale."[place]", isset($item) ? @$item->translate($locale)->place : '', array('class' => 'form-control')) }}
+				</div>
+				
+				<div class="form-group">
+				{{ Form::label($locale."[state_edition]", 'Stupeň spracovania '.strtoupper($locale)) }}
+				{{ Form::text($locale."[state_edition]", isset($item) ? @$item->translate($locale)->state_edition : '', array('class' => 'form-control')) }}
+				</div>
+				
+				<div class="form-group">
+				{{ Form::label($locale."[gallery]", 'Galéria '.strtoupper($locale)) }}
+				{{ Form::text($locale."[gallery]", isset($item) ? @$item->translate($locale)->gallery : '', array('class' => 'form-control')) }}
+				</div>
+
+			</div>
+		@endforeach
+	</div>
+
+</div>
+<!-- /translatable -->
+
 <div class="col-md-12">
 	<div class="form-group">
 	{!! Form::label('identifier', 'inventárne číslo') !!}
@@ -38,20 +125,8 @@
 </div>
 <div class="col-md-12">
 	<div class="form-group">
-	{!! Form::label('title', 'názov') !!}
-	{!! Form::text('title', Input::old('title'), array('class' => 'form-control')) !!}
-	</div>
-</div>
-<div class="col-md-12">
-	<div class="form-group">
 	{!! Form::label('author', 'autor') !!}
 	{!! Form::text('author', Input::old('author'), array('class' => 'form-control')) !!}
-	</div>
-</div>
-<div class="col-md-12">
-	<div class="form-group">
-	{!! Form::label('description', 'popis') !!}
-	{!! Form::textarea('description', Input::old('description'), array('class' => 'form-control wysiwyg')) !!}	
 	</div>
 </div>
 <div class="col-md-4">
@@ -74,39 +149,9 @@
 </div>
 <div class="col-md-12">
 	<div class="form-group">
-	{!! Form::label('work_type', 'výtvarný druh') !!}
-	{!! Form::text('work_type', Input::old('work_type'), array('class' => 'form-control')) !!}
-	</div>
-</div>
-<div class="col-md-12">
-	<div class="form-group">
-	{!! Form::label('work_level', 'stupeň spracovania') !!}
-	{!! Form::text('work_level', Input::old('work_level'), array('class' => 'form-control')) !!}
-	</div>
-</div>
-<div class="col-md-12">
-	<div class="form-group">
-	{!! Form::label('topic', 'žáner') !!}
-	{!! Form::text('topic', Input::old('topic'), array('class' => 'form-control')) !!}
-	</div>
-</div>
-<div class="col-md-12">
-	<div class="form-group">
 	{!! Form::label('tags', 'tagy') !!}
 	{!! Form::select('tags[]', App\Item::existingTags()->lists('name','name'), (isSet($item)) ? $item->tagNames() : [], ['id' => 'tags', 'multiple' => 'multiple']) !!}
 
-	</div>
-</div>
-<div class="col-md-12">
-	<div class="form-group">
-	{!! Form::label('measurement', 'miery') !!}
-	{!! Form::text('measurement', Input::old('measurement'), array('class' => 'form-control')) !!}
-	</div>
-</div>
-<div class="col-md-12">
-	<div class="form-group">
-	{!! Form::label('dating', 'datovanie') !!}
-	{!! Form::text('dating', Input::old('dating'), array('class' => 'form-control')) !!}
 	</div>
 </div>
 <div class="col-md-12">
@@ -119,30 +164,6 @@
 	<div class="form-group">
 	{!! Form::label('date_latest', 'datovanie najneskôr') !!}
 	{!! Form::text('date_latest', Input::old('date_latest'), array('class' => 'form-control')) !!}
-	</div>
-</div>
-<div class="col-md-12">
-	<div class="form-group">
-	{!! Form::label('medium', 'materiál') !!}
-	{!! Form::text('medium', Input::old('medium'), array('class' => 'form-control')) !!}
-	</div>
-</div>
-<div class="col-md-12">
-	<div class="form-group">
-	{!! Form::label('technique', 'technika') !!}
-	{!! Form::text('technique', Input::old('technique'), array('class' => 'form-control')) !!}
-	</div>
-</div>
-<div class="col-md-12">
-	<div class="form-group">
-	{!! Form::label('inscription', 'značenie') !!}
-	{!! Form::text('inscription', Input::old('inscription'), array('class' => 'form-control')) !!}
-	</div>
-</div>
-<div class="col-md-12">
-	<div class="form-group">
-	{!! Form::label('place', 'geografická oblasť') !!}
-	{!! Form::text('place', Input::old('place'), array('class' => 'form-control')) !!}
 	</div>
 </div>
 <div class="col-md-6">
@@ -159,12 +180,6 @@
 </div>
 <div class="col-md-12">
 	<div class="form-group">
-	{!! Form::label('state_edition', 'stupeň spracovania') !!}
-	{!! Form::text('state_edition', Input::old('state_edition'), array('class' => 'form-control')) !!}
-	</div>
-</div>
-<div class="col-md-12">
-	<div class="form-group">
 	{!! Form::label('integrity', 'stupeň integrity') !!}
 	{!! Form::text('integrity', Input::old('integrity'), array('class' => 'form-control')) !!}
 	</div>
@@ -173,12 +188,6 @@
 	<div class="form-group">
 	{!! Form::label('integrity_work', 'integrita s dielami') !!}
 	{!! Form::text('integrity_work', Input::old('integrity_work'), array('class' => 'form-control')) !!}
-	</div>
-</div>
-<div class="col-md-12">
-	<div class="form-group">
-	{!! Form::label('gallery', 'galéria') !!}
-	{!! Form::text('gallery', Input::old('gallery'), array('class' => 'form-control')) !!}
 	</div>
 </div>
 <div class="col-md-12">
@@ -220,12 +229,12 @@
 <script>
 $(document).ready(function(){
 	
-    $("#tags").selectize({
-        plugins: ['remove_button'],
-        persist: false,
-	    create: true,
-	    createOnBlur: true
-    });
+	$("#tags").selectize({
+		plugins: ['remove_button'],
+		persist: false,
+		create: true,
+		createOnBlur: true
+	});
 
 });
 

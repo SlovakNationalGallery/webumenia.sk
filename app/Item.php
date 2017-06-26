@@ -109,9 +109,9 @@ class Item extends Model
 
     public static $rules = array(
         'author' => 'required',
-        'title' => 'required',
-        'dating' => 'required',
-        );
+        'sk.title'  => 'required',
+        'sk.dating' => 'required',
+    );
 
     // protected $appends = array('measurements');
 
