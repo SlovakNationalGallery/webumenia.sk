@@ -16,7 +16,14 @@
     </title>
 
     <!--  favicons-->
-    <link rel="icon" href="{!! URL::to('/images/mg/favicon.ico') !!}" sizes="16x16">
+    <link rel="apple-touch-icon" sizes="180x180" href="{!! URL::to('/images/mg/apple-touch-icon.png') !!}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{!! URL::to('/images/mg/favicon-32x32.png') !!}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{!! URL::to('/images/mg/favicon-16x16.png') !!}">
+    <link rel="manifest" href="{!! URL::to('/images/mg/manifest.json') !!}">
+    <link rel="mask-icon" href="{!! URL::to('/images/mg/safari-pinned-tab.svg" color="#5bbad5') !!}">
+    <link rel="shortcut icon" href="{!! URL::to('/images/mg/favicon.ico') !!}">
+    <meta name="msapplication-config" content="{!! URL::to('/images/mg/browserconfig.xml') !!}">
+    <meta name="theme-color" content="#ffffff">
     <!--  /favicons-->
 
     <!--  Open Graph protocol -->
@@ -25,7 +32,7 @@
     <meta property="og:description" content="Kompletní on-line zveřejnění sbírek Moravské galerie v Brně. Webová stránka umožňuje uživateli vyhledávat sbírkové předměty dle autora, techniky, výtvarného žánru, materiálu, námětu a také místa vzniku" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{!! Request::url() !!}" />
-    <meta property="og:image" content="{!! URL::to('/images/mg/og-image.jpg') !!}" />
+    <meta property="og:image" content="{!! URL::to('/images/mg/og-image.png') !!}" />
     <meta property="og:site_name" content="Moravská galerie | sbírky on-line" />
     @show
     <!--  Open Graph protocol -->
