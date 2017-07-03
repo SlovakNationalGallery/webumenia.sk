@@ -56,11 +56,6 @@ class ImportController extends Controller
             $import = new Import;
             $import->name = Input::get('name');
             $import->dir_path = Input::get('dir_path');
-            // $import->type = Input::get('type');
-            // $collection = Collection::find(Input::get('collection_id'));
-            // if ($collection) {
-            //     $import->collection()->associate($collection);
-            // }
             $import->save();
 
             return redirect()->route('imports.index');
