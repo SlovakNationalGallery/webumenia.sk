@@ -31,8 +31,8 @@ return array(
         */
         'settings' => array(
 
-            'memoryCacheSize' => '32MB',
-            'cacheTime'       => 600
+            'memoryCacheSize' => '64MB',
+            'cacheTime'       => 1200
 
         ),
 
@@ -106,7 +106,7 @@ return array(
     |
     */
 
-    'creator'    => 'Maatwebsite',
+    'creator'    => 'lab.SNG',
 
     'csv'        => array(
         /*
@@ -347,7 +347,7 @@ return array(
         |--------------------------------------------------------------------------
         */
 
-        'enabled'    => array()
+        'enabled'    => array('chunk')
     ),
 
     'import'     => array(
@@ -431,7 +431,7 @@ return array(
         |
         */
 
-        'calculate'               => true,
+        'calculate'               => false,
 
         /*
         |--------------------------------------------------------------------------

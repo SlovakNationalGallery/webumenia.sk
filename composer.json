@@ -24,7 +24,8 @@
         "php": ">=5.5.9",
         "graham-campbell/throttle": "^5.2",
         "mcamara/laravel-localization": "1.2.*",
-        "dimsav/laravel-translatable": "6.*"
+        "dimsav/laravel-translatable": "6.*",
+        "league/csv": "^8.1"
     },
     "autoload": {
         "classmap": [
