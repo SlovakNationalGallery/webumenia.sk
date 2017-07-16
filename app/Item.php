@@ -480,8 +480,7 @@ class Item extends Model
 
     public function getWorkTypesAttribute()
     {
-
-        return (explode(', ', $this->attributes['work_type']));
+        return (explode(', ', $this->work_type));
     }
 
     public function setLat($value)
@@ -713,7 +712,7 @@ class Item extends Model
             $data = [
                 'id' => $this->attributes['id'],
                 'identifier' => $this->attributes['identifier'],
-                'title' => $this->attributes['title'],
+                'title' => $this->title,
                 'author' => $this->makeArray($this->attributes['author']),
                 'description' => (!empty($this->attributes['description'])) ? strip_tags($this->attributes['description']) : '',
                 'work_type' => $main_work_type, // ulozit iba prvu hodnotu
