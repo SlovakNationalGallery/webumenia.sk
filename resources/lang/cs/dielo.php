@@ -32,7 +32,7 @@ return array(
     
     'more-items_related-artworks' =>  'související díla',
     'modal_license_body-content'        => '<p><strong>Vámi zvolené dílo by se mělo v krátkém čase začít automaticky stahovat.</strong></p>
-                                            <p>Digitální reprodukce děl SNG na této stránce jsou přístupné jako <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" class="underline">verejné vlastníctvo (public domain)</a>. Můžete si je volně stáhnout ve vysokém rozlišení a využívat k soukromým i komerčním účelům &ndash; kopírovat, sdílet i upravovat.</p>
+                                            <p>Digitální reprodukce volných děl na této stránce jsou přístupné jako <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" class="underline">verejné vlastníctvo (public domain)</a>. Můžete si je volně stáhnout ve vysokém rozlišení a využívat k soukromým i komerčním účelům &ndash; kopírovat, sdílet i upravovat.</p>
                                             <p>Při dalším šíření prosíme uvést jméno autora, název, majitele díla a zdroj <code>:item_url</code></p>
                                             <p>Pokud plánujete využít reprodukce ke komerčním účelům, prosíme informujte o Vašich plánech dopředu, naši odborníci Vám mohou poradit. </p>
                                             <p><a class="underline" href=":free_url">Všechna díla volná ke stažení najdete zde.</a></p>', 
