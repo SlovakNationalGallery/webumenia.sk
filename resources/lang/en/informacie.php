@@ -22,6 +22,7 @@ return array(
     'info_gallery_GMB'   => 'Bratislava City Gallery',
     'info_gallery_GBT'   => 'The Gallery of Miloš Alexander Bazovský in Trenčín',
     'info_gallery_NGN'   => 'Nitra Gallery',
+    'info_gallery_GUS'   => 'Gallery of Spis Artists',
 
     'mozete_heading'               => 'Web Umenia allows you to',
     'mozete_col_stahovat_heading'  => 'Download artworks in Public Domain',
