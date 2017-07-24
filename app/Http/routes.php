@@ -37,7 +37,10 @@ Route::group(['domain' => 'media.webumenia.{tld}'], function () {
 
 // });
 
-Route::group(['domain' => 'sbirky.moravska-galerie.{tld}'], function () {
+Route::group([
+    'domain' => 'sbirky.moravska-galerie.{tld}',
+    'domain' => 'test.sbirky.moravska-galerie.{tld}'
+    ], function () {
 
     Config::set('app.locale', 'cs');
     Config::set('request.domain', 'mg');
