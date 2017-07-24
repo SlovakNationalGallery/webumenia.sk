@@ -77,5 +77,5 @@ return array(
                                         <td class="text-right">60 €</td>
                                     </tr>
                                 </tbody>',
-
+    'modal_unavailable'         => 'z technických dôvodov dočasne pozastavené',
 );

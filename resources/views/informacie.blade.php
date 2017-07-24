@@ -160,7 +160,7 @@
                 </table>
 
                 <p>
-                    <sup class="text-danger">*</sup> Z technických dôvodov dočasne pozastavené
+                    <sup class="text-danger">*</sup> {!! utrans('informacie.modal_unavailable') !!}
                 </p>
 
             </div>
