@@ -14,7 +14,7 @@ return array(
 
     'info_heading'       => 'čo je web umenia?',
     'info_p_lead'        => 'Web umenia je <strong>on-line katalóg</strong> výtvarných diel zo zbierok <strong>slovenských galérií</strong> evidovaných v&nbsp;<a class="unstyled" href="http://www.sng.sk/sk/zbierky/centralny-katalog-diel" target="_blank">Centrálnej evidencii diel výtvarného umenia</a>.',
-    'info_p'             => 'Nájdete tu základné informácie o dielach a ich autoroch, ale aj pôvodné články, videá a kolekcie. Údaje a digitálne reprodukcie sú preberané a pravidelne aktualizované zo systému CEDVU (Centrálna evidencia diel výtvarného umenia), kam ich vkladajú zamestnanci jednotlivých galérií.',
+    'info_p'             => 'Nájdete tu základné informácie o dielach a ich autoroch, ale aj pôvodné články, videá a kolekcie. Údaje o dielach a ich digitálne reprodukcie sú preberané a pravidelne aktualizované zo systému CEDVU (Centrálna evidencia diel výtvarného umenia), kam ich vkladajú zamestnanci jednotlivých galérií.',
     'info_gallery_SNG'   => 'Slovenská národná galéria',
     'info_gallery_OGD'   => 'Oravská galéria v Dolnom Kubíne',
     'info_gallery_GNZ'   => 'Galéria umenia Ernesta Zmetáka v Nových Zámkoch',
@@ -41,7 +41,7 @@ return array(
     'more-items_button'                  => 'zobraziť všetkých',
     'more-items_connect_heading'         => 'spojte sa s nami',
     'more-items_connect_col1_lead'       => 'zverejňujeme výtvarné diela <br>zo zbierok <strong>slovenských galérií</strong>.',
-    'more-items_connect_col1_p'          => 'podmienkou pre zverejnenie diel a ďalších autorov na Web umenia je ich zastúpenie v zbierkach registrovaných galérií. Diela zo súkromných zbierok a iných zdrojov aktuálne nezverejňujeme. '  ,
+    'more-items_connect_col1_p'          => 'podmienkou pre zverejnenie diel a ďalších autorov na Web umenia je ich zastúpenie v zbierkach registrovaných galérií. Diela zo súkromných zbierok a z iných zdrojov aktuálne nezverejňujeme. '  ,
     'more-items_connect_col2_lead'       => 'sme otvorení <strong>ďalším <br>formám&nbsp;spolupráce</strong>.',
     'more-items_connect_col2_p'          => 'Ak viete o niektorom z diel alebo autorov viac informácií, alebo ste na jeho profile u nás nenašli fotografiu, budeme radi ak nám pomôžete pri ich doplnení. Napíšte nám na <a href="mailto:lab@sng.sk">lab@sng.sk</a>, spojíme sa s vami.',
     'more-items_connect_col3_lead'       => 'web umenia realizuje <br>kolektív <strong><a href="http://lab.sng.sk/" target="_blank" class="strong">lab.SNG</a></strong>',
