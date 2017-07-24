@@ -24,7 +24,7 @@ return array(
     'info_gallery_NGN'   => 'Nitra Gallery',
     'info_gallery_GUS'   => 'Gallery of Spiš Artists',
 
-    'mozete_heading'               => 'Web Umenia allows you to',
+    'mozete_heading'               => 'On Web Umenia you can',
     'mozete_col_stahovat_heading'  => 'Download artworks in Public Domain',
     'mozete_col_stahovat_li_1'     => 'Digital reproductions of <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank"><strong>public domain</strong></a> arwtorks from several gallery collections are available for download in <strong>high resolution</strong> for both personal and commercial use - i.e. copy, modify and share freely. ',
     'mozete_col_stahovat_li_2'     => 'When sharing, <strong>please include the artist name, artwork title, owner and the source</strong> (<a href="http://www.webumenia.sk">webumenia.sk</a>) ',
