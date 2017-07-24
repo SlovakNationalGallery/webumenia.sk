@@ -67,12 +67,12 @@ return array(
                                         <td class="text-right">35 €</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>reproduction with frame</strong></td>
+                                        <td><strong><s>reproduction with frame</s></strong><sup class="text-danger">*</sup></td>
                                         <td class="text-right">35 €</td>
                                         <td class="text-right">50 €</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>reproduction with mount and frame</strong></td>
+                                        <td><strong><s>reproduction with mount and frame</s></strong><sup class="text-danger">*</sup></td>
                                         <td class="text-right">40 €</td>
                                         <td class="text-right">60 €</td>
                                     </tr>
