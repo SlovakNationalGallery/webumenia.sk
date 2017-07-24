@@ -10,7 +10,7 @@ return array(
 
     'general_reproduction_prices'  => 'ceník reprodukcí',
     
-    'title' => 'informácie',
+    'title' => 'informace',
 
     'info_heading'       => 'co je web umenia?',
     'info_p_lead'        => 'Web umenia je <strong>on-line katalóg</strong> výtvarných děl ze sbírek <strong>slovenských galerií</strong> evidovaných v&nbsp;<a class="unstyled" href="http://www.sng.sk/sk/zbierky/centralny-katalog-diel" target="_blank">Centrální evidenci děl výtvarného umění</a>.',
