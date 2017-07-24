@@ -30,7 +30,7 @@ class Import extends Model
     public static $cz_work_types_spec = [
         'Ar' => 'architektura',
         'Bi' => 'bibliofilie a staré tisky',
-        'Dř' => 'dřevo',
+        'Dř' => 'dřevo, nábytek a design',
         'Fo' => 'fotografie',
         'Gr' => 'grafika',
         'Gu' => 'grafický design',
