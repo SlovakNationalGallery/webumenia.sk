@@ -241,7 +241,7 @@ class ImportController extends Controller
                     $item->identifier = $identifier;
                     $item->gallery = $gallery;
                     $item->acquisition_date = $row['RokAkv'];
-                    $item->author = ($row['Autor']) ? $row['Autor'] : 'Neurčený autor';
+                    $item->author = ($row['Autor']) ? $row['Autor'] : 'neurčený autor';
                     $item->copyright_expires = $row['DatExp'];
                     $item->dating = $row['Datace'];
                     $item->date_earliest = $row['RokOd'];
