@@ -57,22 +57,22 @@ return array(
                                     <tr>
                                         <th></th>
                                         <th class="text-right">A4 size</th>
-                                        <th class="text-right">A3+ size</th>
+                                        <th class="text-right">from A4 to A3+</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><strong>reproduction without mount and frame</strong></td>
+                                        <td><strong>reproduction without passepartout and frame</strong></td>
                                         <td class="text-right">25 €</td>
                                         <td class="text-right">35 €</td>
                                     </tr>
                                     <tr>
-                                        <td><strong><s>reproduction with frame</s></strong><sup class="text-danger">*</sup></td>
+                                        <td><strong><s>reproduction in passepartout</s></strong><sup class="text-danger">*</sup></td>
                                         <td class="text-right">35 €</td>
                                         <td class="text-right">50 €</td>
                                     </tr>
                                     <tr>
-                                        <td><strong><s>reproduction with mount and frame</s></strong><sup class="text-danger">*</sup></td>
+                                        <td><strong><s>reproduction in passepartout and frame</s></strong><sup class="text-danger">*</sup></td>
                                         <td class="text-right">40 €</td>
                                         <td class="text-right">60 €</td>
                                     </tr>

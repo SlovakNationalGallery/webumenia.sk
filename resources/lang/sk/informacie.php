@@ -72,7 +72,7 @@ return array(
                                         <td class="text-right">50 €</td>
                                     </tr>
                                     <tr>
-                                        <td><strong><s>s paspartou a rámom</s></strong><sup class="text-danger">*</sup></td>
+                                        <td><strong><s>reprodukcia s paspartou a rámom</s></strong><sup class="text-danger">*</sup></td>
                                         <td class="text-right">40 €</td>
                                         <td class="text-right">60 €</td>
                                     </tr>
