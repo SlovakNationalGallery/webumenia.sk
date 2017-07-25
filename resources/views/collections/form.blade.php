@@ -74,12 +74,14 @@
 		<p>šírka min: 1400px<br>formát: JPG (vysoka kompresia ~50-60%)</p>
 	</div>
 </div>
+@if (Entrust::hasRole('admin'))
 <div class="col-md-6">
 	<div class="form-group checkbox">
 		{!! Form::label('publish', 'Publikovať') !!}
 		{!! Form::checkbox('publish', '1', @$input['publish']) !!}
 	</div>
 </div>
+@endif
 <div class="col-md-12 text-center">
 	{!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp; 
 	{!! link_to_route('collection.index', 'Zrušiť', null, array('class' => 'btn btn-default')) !!}
