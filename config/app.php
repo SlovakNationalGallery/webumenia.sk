@@ -126,6 +126,7 @@ return array(
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         'GrahamCampbell\Throttle\ThrottleServiceProvider',
+        Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
     ),
 
     /*
@@ -195,6 +196,7 @@ return array(
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
         'Throttle' => 'GrahamCampbell\Throttle\Facades\Throttle',
+        'LaravelLocalization'   => Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
     ),
 
     'jira_auth' => array(

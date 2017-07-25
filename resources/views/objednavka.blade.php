@@ -4,7 +4,7 @@
 @stop
 
 @section('title')
-objednávka | 
+{{ trans('objednavka.title') }} | 
 @parent
 @stop
 
@@ -18,15 +18,12 @@ objednávka |
                     <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
                 @endif
                 @if (strtotime('now') < strtotime('2016-12-24'))
-                    <div class="alert alert-warning text-center" role="alert"><strong>Upozornenie:</strong> Objednávky tlačených reprodukcií zadané po 6. decembri 2016 už nestihnú byť realizované do Vianoc. <br>Tlačené reprodukcie si môžete v kníhkupectve Exlibris SNG vyzdvihnúť do 23.12. alebo po 27.12.</div>
+                    <div class="alert alert-warning text-center" role="alert">
+                        {!! trans('objednavka.order_alert') !!}
+                    </div>
                 @endif
                 <div class="col-md-8 col-md-offset-2 text-center">
-                    	<h2 class="bottom-space">Objednávka</h2>
-                        <p>K vybraným dielam zo zbierok SNG ponúkame možnosť objednať si reprodukcie v archívnej kvalite na fineartových papieroch. Po výbere diel, vyplnení údajov a odoslaní objednávky vás bude kontaktovať pracovník SNG s podrobnejšími informáciami. 
-                        Momentálne je možné vyzdvihnúť si diela len osobne v&nbsp;kníhkupectve <a href="https://goo.gl/maps/3Uf4S" target="_blank" class="underline">Ex Libris v priestoroch SNG na Námestí Ľ. Štúra 4 v Bratislave</a>  alebo v pokladni <a href="https://goo.gl/maps/MPRy6Qdwm8s" target="_blank" class="underline">Zvolenského zámku - Námestie SNP 594/1</a>. </p>
-                        <div class="alert alert-info  top-space" role="alert">
-                            <strong>Ospravedlňujeme sa</strong>, z technických dôvodov sme museli <strong>dočasne pozastaviť objednávky tlačených reprodukcií s&nbsp;paspartou alebo rámom</strong>. Samostatnú tlačenú reprodukciu si však môžete objednať aj&nbsp;naďalej. <br>Ďakujeme za&nbsp;pochopenie.
-                        </div>
+                    {!! trans('objednavka.order_content') !!}
                 </div>
             </div>
         </div>
@@ -44,10 +41,10 @@ objednávka |
   Former::open('objednavka')->class('form-bordered form-horizontal')->id('order')->rules(App\Order::$rules);
 !!}
 
-<div class="form-group required has-feedback"><label for="pids" class="control-label col-lg-2 col-sm-4">Diela objednávky</label>
+<div class="form-group required has-feedback"><label for="pids" class="control-label col-lg-2 col-sm-4">{{ trans('objednavka.form_title') }}</label>
     <div class="col-lg-10 col-sm-8">
             @if ($items->count() == 0)
-                <p class="text-center">Nemáte v košíku žiadne diela</p>
+                <p class="text-center">{{ trans('objednavka.order_none') }}</p>
             @endif
 
             @foreach ($items as $i=>$item)
@@ -59,9 +56,9 @@ objednávka |
                         <a href="{!! $item->getUrl() !!}">
                             <em>{!! implode(', ', $item->authors) !!}</em> <br> <strong>{!! $item->title !!}</strong> (<em>{!! $item->getDatingFormated() !!}</em>)
                         </a><br>
-                        <p class="item"><a href="{!! URL::to('dielo/' . $item->id . '/odstranit') !!}" class="underline"><i class="fa fa-times"></i> odstrániť</a></span>
+                        <p class="item"><a href="{!! URL::to('dielo/' . $item->id . '/odstranit') !!}" class="underline"><i class="fa fa-times"></i> {{ trans('objednavka.order_remove') }}</a></span>
                         @if (empty($item->iipimg_url))
-                            <br><span class="bg-warning">Toto dielo momentálne nemáme zdigitalizované v dostatočnej kvalite, vybavenie objednávky preto môže trvať dlhšie ako zvyčajne.</span>
+                            <br><span class="bg-warning">{{ trans('objednavka.order_warning') }}</span>
                         @endif
                     </div>
                 </div>
@@ -70,10 +67,10 @@ objednávka |
 </div>
 
 {!! Former::hidden('pids')->value(implode(', ', Session::get('cart',array()))); !!}
-{!! Former::text('name')->label('Meno')->required(); !!}
-{!! Former::text('address')->label('Adresa'); !!}
-{!! Former::text('email')->label('E-mail')->required(); !!}
-{!! Former::text('phone')->label('Telefón')->required(); !!}
+{!! Former::text('name')->label(trans('objednavka.form_name'))->required(); !!}
+{!! Former::text('address')->label(trans('objednavka.form_address')); !!}
+{!! Former::text('email')->label(trans('objednavka.form_email'))->required(); !!}
+{!! Former::text('phone')->label(trans('objednavka.form_phone'))->required(); !!}
 
 {{-- 
 {!! Former::select('format')->label('Formát')->required()->options(array(
@@ -93,39 +90,38 @@ objednávka |
 )); !!}
  --}}
 
-{!! Former::select('format')->label('Formát')->required()->options(array(
-    'tlačená reprodukcia :' => array(
-        'do A4: samostatná reprodukcia 25 €/ks' => array('value'=>'do formátu A4 (24 €/ks)'), 
-        'do A3+: samostatná reprodukcia 35 €/ks' => array('value'=>'do formátu A3+ (35 €/ks)'),
+{!! Former::select('format')->label(trans('objednavka.form_format'))->required()->options(array(
+    trans('objednavka.form_format_for-print') => array(
+        'do A4: samostatná reprodukcia 25 €/ks' => array('value'=>trans('objednavka.form_format_a4')), 
+        'do A3+: samostatná reprodukcia 35 €/ks' => array('value'=>trans('objednavka.form_format_a3')),
         ),
-    'na stiahnutie :' => array(
-        'digitálna reprodukcia' => array('value'=>'digitálna reprodukcia')
+    trans('objednavka.form_format_for-download') => array(
+        'digitálna reprodukcia' => array('value'=>trans('objednavka.form_format_digital'))
         ),
 )); !!}
 
 {{-- ak digitalna --}}
 <div id="ucel">
     <div class="alert alert-info col-lg-offset-2 col-md-offset-4" role="alert">
-        Autorský zákon nám neumožňuje poskytovať digitálne reprodukcie <abbr title="neprešlo 70 rokov od smrti autora" data-toggle="tooltip">autorsky chránených diel</abbr> na všeobecné súkromné účely (napr. ako dekoráciu). Na základe Vami uvedených informácií vytvorí SNG písomný súhlas s využitím digitálnej reprodukcie iba na predmetný účel &ndash; je to legislatívna ochrana tak pre Vás ako aj pre nás.<br>
-        <strong>V prípade záujmu o tlač výtvarných diel môžete využiť objednávku na tlačenú reprodukciu, kde výrobu a úpravu výtlačku zabezpečuje SNG.</strong>
+        {!! trans('objednavka.form_purpose-alert') !!}
     </div>
-{!! Former::select('purpose_kind')->label('Účel')->required()->options(App\Order::$availablePurposeKinds); !!}
-{!! Former::textarea('purpose')->label('Účel - podrobnejšie informácie')->required(); !!}
+{!! Former::select('purpose_kind')->label(trans('objednavka.form_purpose-label'))->required()->options(App\Order::$availablePurposeKinds); !!}
+{!! Former::textarea('purpose')->label(trans('objednavka.form_purpose-info'))->required(); !!}
 </div>
 {{-- /ak digitalna --}}
 
 {{-- ak nie digitalna --}}
 <div id="miesto_odberu">
-{!! Former::select('delivery_point')->label('Miesto osobného odberu')->required()->options(array(
-        'Kníhkupectvo Ex Libris v SNG' => array('value'=>'Kníhkupectvo Ex Libris v SNG'), 
-        'Zvolenský zámok' => array('value'=>'Zvolenský zámok'), 
+{!! Former::select('delivery_point')->label(trans('objednavka.form_delivery-point'))->required()->options(array(
+        trans('objednavka.form_delivery-point_exlibris') => array('value'=>'Kníhkupectvo Ex Libris v SNG'), 
+        trans('objednavka.form_delivery-point_zvolen') => array('value'=>'Zvolenský zámok'), 
 )); !!}
 </div>
 {{-- /ak nie digitalna --}}
 
-{!! Former::textarea('note')->label('Poznámka'); !!}
+{!! Former::textarea('note')->label(trans('objednavka.form_note')); !!}
 
-{!! Former::actions(Form::submit('Objednať', array('class'=>'btn btn-default btn-outline  uppercase sans')) ) !!}
+{!! Former::actions(Form::submit(trans('objednavka.form_order'), array('class'=>'btn btn-default btn-outline  uppercase sans')) ) !!}
 
 {!!Former::close();!!}
 
@@ -140,8 +136,14 @@ objednávka |
 @stop
 
 @section('javascript')
+
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
-{!! Html::script('js/jquery.bootstrapvalidator/sk_SK.js') !!}
+{{-- default language en_US is bundled with bootstrapValidator.min.js --}}
+@if (App::getLocale() == 'sk')
+    {!! Html::script('js/jquery.bootstrapvalidator/sk_SK.js') !!}
+@elseif (App::getLocale() == 'cs')    
+    {!! Html::script('js/jquery.bootstrapvalidator/cs_CZ.js') !!}
+@endif
 
 <script type="text/javascript">
 

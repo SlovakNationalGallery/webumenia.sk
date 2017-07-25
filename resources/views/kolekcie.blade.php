@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-kolekcie | 
+{{ trans('kolekcie.title') }} | 
 @parent
 @stop
 
@@ -62,12 +62,12 @@ kolekcie |
         <div class="row content-section">
         	<div class="col-xs-6">
                 @if (!empty($search))
-                    <h4 class="inline">Nájdené kolekcie pre &bdquo;{!! $search !!}&ldquo; (<span>{!! $collections->total() !!}</span>) </h4> 
+                    <h4 class="inline">{{ utrans('kolekcie.collections_found_collections') }} &bdquo;{!! $search !!}&ldquo; (<span>{!! $collections->total() !!}</span>) </h4> 
                 @else
-            		<h4 class="inline">{!! $collections->total() !!} kolekcií</h4>
+            		<h4 class="inline">{!! $collections->total() !!} {{ trans('kolekcie.collections_collections') }}</h4>
                 @endif
                 @if ($collections->count() == 0)
-                    <p class="text-center">Momentálne žiadne kolekcie</p>
+                    <p class="text-center">{{ utrans('kolekcie.collections_no_results') }}</p>
                 @endif
                 {{--  @if (count(Input::all()) > 0)
                     <a class="btn btn-sm btn-default btn-outline  sans" href="{!! URL::to('kolekcie')!!}">zrušiť filtre <i class="icon-cross"></i></a>
@@ -76,7 +76,7 @@ kolekcie |
             <div class="col-xs-6 text-right">
                 <div class="dropdown">
                   <a class="dropdown-toggle" type="button" id="dropdownSortBy" data-toggle="dropdown" aria-expanded="true">
-                    podľa {!! App\Collection::$sortable[$sort_by]; !!}
+                    {{ trans('general.sort_by') }} {!! App\Collection::$sortable[$sort_by]; !!}
                     <span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-right dropdown-menu-sort" role="menu" aria-labelledby="dropdownSortBy">
@@ -105,7 +105,7 @@ kolekcie |
                    {{--  {!! $collection->author !!} &nbsp;&middot;&nbsp; --}}
                     {!! $collection->created_at->format('d. m. Y') !!} &nbsp;&middot;&nbsp;
                     {!! $collection->user->name !!} &nbsp;&middot;&nbsp;
-                    {!! $collection->items->count() !!} diel
+                    {!! $collection->items->count() !!} {{ trans('kolekcie.collections_artworks') }}
                 </div>
                 <div>
                     {!! $collection->getShortTextAttribute($collection->text, 350) !!}
