@@ -57,7 +57,7 @@ Route::group(['domain' => '{subdomain}.moravska-galerie.{tld}'], function () {
         return view('informacie-mg', ['items' => $items]);
     });
 
-    Route::get('dielo/{id}/zoom', function ($tld, $id) {
+    Route::get('dielo/{id}/zoom', function ($subdomain, $tld, $id) {
 
         $item = Item::find($id);
 
