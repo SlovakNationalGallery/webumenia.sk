@@ -28,7 +28,8 @@ return array(
 
     'artworks_by_artist' => 'diela autora',
     
-    'button_show-all-artworks' => '{1}    zobraziť <strong>:artworks_count</strong> dielo
+    'button_show-all-artworks' => '{0}    zobraziť <strong>0</strong> diel
+                                  |{1}    zobraziť <strong>:artworks_count</strong> dielo
                                   |[2,4]  zobraziť všetky <strong>:artworks_count</strong> diela
                                   |[5,Inf]zobraziť všetkých <strong>:artworks_count</strong> diel',
 );
