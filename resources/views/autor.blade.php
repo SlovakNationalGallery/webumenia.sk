@@ -110,6 +110,7 @@
     </div>
 </section>
 
+@if ($author->items->count() > 0)
 <section class="author preview detail">
     <div class="container">
         <div class="row content-section">   
@@ -134,6 +135,8 @@
 
     </div>
 </section>
+@endif
+
 
 
 @stop
