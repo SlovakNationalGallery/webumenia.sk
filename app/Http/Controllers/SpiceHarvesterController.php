@@ -783,9 +783,13 @@ class SpiceHarvesterController extends Controller
             $trans = array(", " => ";", "; " => ";", "()" => "");
             $attributes['measurement'] = trim($dcTerms->extent);
             // $attributes['measurement'] = trim(strtr($dcTerms->extent, $trans));
-            // dd($attributes['measurement']);
             $dating = explode('/', $dcTerms->created[0]);
-            $dating_text = (!empty($dcTerms->created[1])) ? end((explode(', ', $dcTerms->created[1]))) : $dcTerms->created[0];
+            if (!empty($dcTerms->created[1])) {
+                $dating_text_array = explode(', ', $dcTerms->created[1]);
+                $dating_text = end($dating_text_array);
+            } else {
+                $dating_text = $dcTerms->created[0];
+            }            
             $attributes['date_earliest'] = (!empty($dating[0])) ? $dating[0] : null;
             $attributes['date_latest'] = (!empty($dating[1])) ? $dating[1] : $attributes['date_earliest'];
             $attributes['dating'] = $dating_text;
