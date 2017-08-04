@@ -23,6 +23,11 @@
 
 <section class="author detail content-section" itemscope itemtype="http://schema.org/Person">
     <div class="container">
+        
+        {{-- @if ( ! $author->hasTranslation(App::getLocale()) )
+            @include('includes.message_untranslated')
+        @endif --}}
+
         <div class="attributes">
             <div class="row">   
                 <div class="col-sm-4 text-center extra-padding top-space">

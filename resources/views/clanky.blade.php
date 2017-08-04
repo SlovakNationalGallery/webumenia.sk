@@ -11,6 +11,17 @@
 
 @section('content')
 
+<div class="container">
+    <div class="row">
+        @foreach ($articles as $i=>$article)
+            @if ( ! $article->hasTranslation(App::getLocale()) )
+                @include('includes.message_untranslated')
+                @break
+            @endif
+        @endforeach
+    </div>
+</div>
+
 <section class="articles light-grey content-section">
     <div class="articles-body">
         <div class="container">

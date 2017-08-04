@@ -19,6 +19,17 @@
 
 @section('content')
 
+<div class="container">
+    <div class="row">
+        @foreach ($items as $i=>$item)
+            @if ( ! $item->hasTranslation(App::getLocale()) )
+                @include('includes.message_untranslated')
+                @break
+            @endif
+        @endforeach
+    </div>
+</div>
+
 <section class="filters">
     <div class="container content-section"><div class="expandable">
             {!! Form::open(array('id'=>'filter', 'method' => 'get')) !!}

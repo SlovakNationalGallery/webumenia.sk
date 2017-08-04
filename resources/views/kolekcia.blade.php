@@ -24,6 +24,12 @@
 
 @section('content')
 
+<div class="container">
+    @if ( ! $collection->hasTranslation(App::getLocale()) )
+        @include('includes.message_untranslated')
+    @endif
+</div>
+
 <div class="webumeniaCarousel">
 
 @if ($collection->hasHeaderImage())

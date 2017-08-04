@@ -59,6 +59,16 @@
 {!! Form::close() !!}
 <section class="collections">
     <div class="container">
+        
+        <div class="row">
+            @foreach ($collections as $i=>$collection)
+                @if ( ! $collection->hasTranslation(App::getLocale()) )
+                    @include('includes.message_untranslated')
+                    @break
+                @endif
+            @endforeach
+        </div>
+
         <div class="row content-section">
         	<div class="col-xs-6">
                 @if (!empty($search))

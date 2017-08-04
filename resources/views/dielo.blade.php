@@ -32,6 +32,11 @@
                 @if (Session::has('message'))
                     <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
                 @endif
+                
+                @if ( ! $item->hasTranslation(App::getLocale()) )
+                    @include('includes.message_untranslated')
+                @endif
+
                 <div class="col-md-10 col-md-offset-1 text-center content-section">
                     <h1 class="nadpis-dielo" itemprop="name">{!! $item->title !!}</h1>
                     <h2 class="inline">
