@@ -4,22 +4,20 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
-    | General Language Lines
+    | Language Lines for master.blade.php template
     |--------------------------------------------------------------------------
-    |
-    | Translated terms, that are common for the whole webumenia
-    |
     */
 
-    'artworks' => 'díla',
-    'collections' => 'kolekce',
-    'authors' => 'autoři',
-    'articles' => 'články',
-    'galleries' => 'galerie',
-    'info' => 'info',
-    'language' => 'jazyk',
-    'made_by' => 'vyrobil a spravuje',
+    'meta_description'   => 'Web umenia je on-line katalóg výtvarných diel zo zbierok slovenských galérií. Nájdete tu základné informácie o dielach a ich autoroch, ale aj pôvodné články, videá a kolekcie.',
+    'artworks'           => 'díla',
+    'collections'        => 'kolekce',
+    'authors'            => 'autoři',
+    'articles'           => 'články',
+    'galleries'          => 'galerie',
+    'info'               => 'info',
+    'language'           => 'jazyk',
+    'made_by'            => 'vyrobil a spravuje',
     'search_placeholder' => 'Hľadať diela, autorov...',
-    'to_top' => 'návrat hore',
+    'to_top'             => 'návrat hore',
 
 );

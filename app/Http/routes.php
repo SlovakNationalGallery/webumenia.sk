@@ -170,7 +170,7 @@ function()
             Session::push('cart', $item->id);
         }
 
-        Session::flash('message', 'Dielo <b>'.implode(', ', $item->authors)." – $item->title</b> (".$item->getDatingFormated().') bolo pridané do košíka.');
+        Session::flash( 'message', trans('objednavka.message_add_order', ['artwork_description' => '<b>'.$item->getTitleWithAuthors().'</b> ('.$item->getDatingFormated().')']) );
 
         return redirect($item->getUrl());
 
@@ -184,7 +184,7 @@ function()
             App::abort(404);
         }
         Session::put('cart', array_diff(Session::get('cart'), [$item->id]));
-        Session::flash('message', 'Dielo <b>'.implode(', ', $item->authors)." – $item->title</b> (".$item->getDatingFormated().') bolo odstránené z košíka.');
+        Session::flash('message', trans('objednavka.message_remove_order', ['artwork_description' => '<b>'.$item->getTitleWithAuthors().'</b> ('.$item->getDatingFormated().')']) );
 
         return Redirect::back();
 

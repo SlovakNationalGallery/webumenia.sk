@@ -33,6 +33,7 @@
                     <li><a href="{!! URL::to('katalog?gallery=Galéria mesta Bratislavy, GMB') !!}">{{ utrans('informacie.info_gallery_GMB') }}</a></li>
                     <li><a href="{!! URL::to('katalog?gallery=Galéria+Miloša+Alexandra+Bazovského, GBT') !!}">{{ utrans('informacie.info_gallery_GBT') }}</a></li>
                     <li><a href="{!! URL::to('katalog?gallery=Nitrianska+galéria, NGN') !!}">{{ utrans('informacie.info_gallery_NGN') }}</a></li>
+                    <li><a href="{!! URL::to('katalog?gallery=Galéria umelcov Spiša, GUS') !!}">{{ utrans('informacie.info_gallery_GUS') }}</a></li>
                 </ul>
             </div>
         </div>
@@ -72,10 +73,12 @@
 
         </div>
         <div class="row top-space">
-            <div class="col-md-12">
+            <div class="col-md-4 dib">
                 <a href="{!! URL::to('katalog?is_free=' . '1') !!}" class="inherit lead pull-left no-border"><i class="icon-arrow-right"></i> &nbsp; {{ trans('informacie.mozete_free_artworks') }}</a>
-
-                <a href="#" data-toggle="modal" data-target="#priceList" class="inherit lead pull-right no-border"><i class="icon-arrow-right"></i> &nbsp; {{ trans('informacie.general_reproduction_prices') }}</a>
+            </div>
+            <div class="col-md-4 dib"></div>
+            <div class="col-md-4 dib">
+                <a href="#" data-toggle="modal" data-target="#priceList" class="inherit lead pull-left no-border"><i class="icon-arrow-right"></i> &nbsp; {{ trans('informacie.general_reproduction_prices') }}</a>
             </div>
         </div>
 
@@ -155,6 +158,11 @@
                 <table class="table table-striped">
                     {!! utrans('informacie.modal_table-content') !!}
                 </table>
+
+                <p>
+                    <sup class="text-danger">*</sup> {!! utrans('informacie.modal_unavailable') !!}
+                </p>
+
             </div>
             <div class="modal-footer">
                 <div class="text-center"><button type="button" data-dismiss="modal" class="btn btn-default btn-outline sans">{{ trans('general.close') }}</button></div>

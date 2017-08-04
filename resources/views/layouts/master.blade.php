@@ -5,7 +5,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		@section('description')
-		<meta name="description" content="Web umenia je on-line katalóg výtvarných diel zo zbierok slovenských galérií. Nájdete tu základné informácie o dielach a ich autoroch, ale aj pôvodné články, videá a kolekcie.">
+		<meta name="description" content="{{ trans('master.meta_description') }}">
 		@show
 		<meta name="author" content="lab.SNG">
 
@@ -24,7 +24,7 @@
 		<meta name="twitter:site" content="@webumeniaSK" />
 		@section('og')
 		<meta property="og:title" content="Web umenia" />
-		<meta property="og:description" content="Web umenia je on-line katalóg výtvarných diel zo zbierok slovenských galérií. Nájdete tu základné informácie o dielach a ich autoroch, ale aj pôvodné články, videá a kolekcie." />
+		<meta property="og:description" content="{{ trans('master.meta_description') }}" />
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content="{!! Request::url() !!}" />
 		<meta property="og:image" content="{!! URL::to('/images/og-image-'.random_int(1, 2).'.jpg') !!}" />
@@ -73,7 +73,7 @@
 	}(document, 'script', 'facebook-jssdk'));</script>
 
 	@if (App::environment() != 'production')
-		<div class="alert alert-warning text-center" role="alert">
+		<div id="alert-non-production" class="alert alert-warning text-center" role="alert">
 		  Pozor! Toto nieje ostrý web. Prostredie: <strong>{!! App::environment() !!}</strong>
 		</div>
 	@endif
@@ -81,9 +81,25 @@
 	<nav class="navbar {{-- navbar-fixed-top --}} {{-- navbar-static-top --}} {!! (Request::is('/') || isSet($transparent_menu)) ? '' : 'dark-text' !!}" role="navigation">
 	    <div class="container">
 	        <div class="navbar-header page-scroll">
-	            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-	                <i class="fa fa-bars fa-2x"></i>
-	            </button>
+	            <div class="langswitch-wrapper">
+                    <a class="dropdown-toggle langswitch-toggle uppercase triangle-top-left" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                      {{ App::getLocale() }} <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        @foreach(LaravelLocalization::getLocalesOrder() as $localeCode => $properties)
+                            @if ($localeCode != App::getLocale())
+                                <li>
+                                    <a class="uppercase" rel="alternate" hreflang="{{$localeCode}}" href="{{LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                      {{ $localeCode }}
+                                    </a>
+                                </li>
+                            @endif
+                        @endforeach
+                    </ul>
+                </div>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    <i class="fa fa-bars fa-2x"></i>
+                </button>
 	            <a class="navbar-brand no-border hidden-xs first-part" href="{!! URL::to('') !!}">
 	                web
 	            </a>
@@ -127,20 +143,6 @@
 								<a href="{!! URL::to('objednavka')!!}" class=""><i class="fa fa-shopping-cart"></i><span class="badge badge-notify">{!! count(Session::get('cart')) !!}</span></a>
 						</li>
 						@endif
-						<li role="presentation" class="dropdown">
-						    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-						      {{ utrans('master.language') }} <span class="caret"></span>
-						    </a>
-						    <ul class="dropdown-menu language-bar-chooser">
-						      @foreach(LaravelLocalization::getLocalesOrder() as $localeCode => $properties)
-						              <li>
-						                  <a rel="alternate" hreflang="{{$localeCode}}" href="{{LaravelLocalization::getLocalizedURL($localeCode) }}">
-						                      {{ $properties['native'] }}
-						                  </a>
-						              </li>
-						       @endforeach
-						    </ul>
-						 </li>
 	            </ul>
 	        </div>
 	        <!-- /.navbar-collapse -->
