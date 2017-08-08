@@ -183,7 +183,7 @@
 
 	<!-- Core JavaScript Files -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 	<script src="https://unpkg.com/flickity@1.1/dist/flickity.pkgd.min.js"></script>
 	{!! Html::script('js/imagesloaded.min.js') !!}
 	{!! Html::script('js/jquery.infinitescroll.min.js') !!}
