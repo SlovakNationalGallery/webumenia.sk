@@ -104,7 +104,7 @@ function()
 
             //poslat objednavku do Jiry
             $client = new GuzzleHttp\Client();
-            $res = $client->post('http://jira.sng.sk/rest/cedvu/latest/order/create', [
+            $res = $client->post('https://jira.sng.sk/rest/cedvu/latest/order/create', [
                 'auth' => [Config::get('app.jira_auth.user'), Config::get('app.jira_auth.pass')],
                 'form_params' => [
                     'pids' => Input::get('pids'),
