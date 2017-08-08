@@ -22,6 +22,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\Inspire::class,
         \App\Console\Commands\OaiPmhDownloadImages::class,
         \App\Console\Commands\MigrateTags::class,
+        \App\Console\Commands\ImportCsv::class,
     ];
 
     /**
@@ -32,7 +33,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('inspire')
-                 ->hourly();
+        $schedule->command('csv:import --id=1')
+                 ->daily()
+                 ->sendOutputTo(storage_path() . "/logs/csv-import.log");
     }
 }

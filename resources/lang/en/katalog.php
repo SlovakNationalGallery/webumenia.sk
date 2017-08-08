@@ -16,6 +16,8 @@ return array(
     'filters_gallery'        => 'institution',
     'filters_topic'          => 'genre',
     'filters_technique'      => 'technique',
+    'filters_medium'         => 'material',
+    'filters_place'          => 'place of origin',
     'filters_has_image'      => 'only with image',
     'filters_has_iip'        => 'only zoomable',
     'filters_is_free'        => 'only public domain',

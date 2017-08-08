@@ -29,6 +29,48 @@ Route::group(['domain' => 'media.webumenia.{tld}'], function () {
     });
 });
 
+// Route::group(['domain' => 'sbirky.moravska-galerie.{tld}'], function () {
+
+//     Route::get('/', function ($tld) {
+//       return 'V přípravě';
+//     });
+
+// });
+
+Route::pattern('subdomain', '(test.sbirky|sbirky)');
+Route::group(['domain' => '{subdomain}.moravska-galerie.{tld}'], function () {
+
+    Config::set('app.locale', 'cs');
+    Config::set('request.domain', 'mg');
+
+
+    Route::get('/', function () {
+        // dd(\Request::all());
+        return redirect('katalog')->with(\Request::all());
+    });
+
+    Route::get('katalog', 'CatalogController@getMg');
+
+    
+    Route::get('informacie', function () {
+        $items = Item::random(20, ['gallery' => 'Slovenská národná galéria, SNG']);
+        return view('informacie-mg', ['items' => $items]);
+    });
+
+    Route::get('dielo/{id}/zoom', function ($subdomain, $tld, $id) {
+
+        $item = Item::find($id);
+
+        if (empty($item->iipimg_url)) {
+            App::abort(404);
+        }
+
+        $related_items = (!empty($item->related_work)) ? Item::where('related_work', '=', $item->related_work)->where('author', '=', $item->author)->whereNotNull('iipimg_url')->orderBy('related_work_order')->lists('iipimg_url')->toArray() : [];
+        return view('zoom-mg', array('item' => $item, 'related_items' => $related_items));
+    });
+
+});
+
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
     'middleware' => [ 'localeSessionRedirect', 'localizationRedirect' ]
@@ -267,10 +309,21 @@ Route::group(array('middleware' => 'guest'), function () {
     Route::post('login', 'AuthController@postLogin');
 });
 
-Route::group(['middleware' => ['auth', 'role:admin|editor']], function () {
+Route::group(['middleware' => ['auth', 'role:admin|editor|import']], function () {
 
     Route::get('admin', 'AdminController@index');
     Route::get('logout', 'AuthController@logout');
+
+    Route::get('harvests/{record_id}/refreshRecord/', 'SpiceHarvesterController@refreshRecord');
+    Route::get('imports/launch/{id}', 'ImportController@launch');
+    Route::resource('imports', 'ImportController');
+    Route::get('item/search', 'ItemController@search');
+    Route::resource('item', 'ItemController');
+    Route::post('item/destroySelected', 'ItemController@destroySelected');
+});
+
+Route::group(['middleware' => ['auth', 'role:admin|editor']], function () {
+
     Route::get('collection/{collection_id}/detach/{item_id}', 'CollectionController@detach');
     Route::post('collection/fill', 'CollectionController@fill');
     Route::post('collection/sort', 'CollectionController@sort');
@@ -283,15 +336,11 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::resource('article', 'ArticleController');
     Route::get('harvests/launch/{id}', 'SpiceHarvesterController@launch');
     Route::get('harvests/orphaned/{id}', 'SpiceHarvesterController@orphaned');
-    Route::get('harvests/{record_id}/refreshRecord/', 'SpiceHarvesterController@refreshRecord');
     Route::resource('harvests', 'SpiceHarvesterController');
     Route::get('item/backup', 'ItemController@backup');
     Route::get('item/geodata', 'ItemController@geodata');
-    Route::post('item/destroySelected', 'ItemController@destroySelected');
     Route::post('item/refreshSelected', 'ItemController@refreshSelected');
-    Route::get('item/search', 'ItemController@search');
     Route::get('item/reindex', 'ItemController@reindex');
-    Route::resource('item', 'ItemController');
     Route::get('authority/destroyLink/{link_id}', 'AuthorityController@destroyLink');
     Route::get('authority/search', 'AuthorityController@search');
     Route::get('authority/reindex', 'AuthorityController@reindex');

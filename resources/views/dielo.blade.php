@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends((Config::get('request.domain') == 'mg') ? 'layouts.mg' : 'layouts.master')
 
 @section('og')
 <meta property="og:title" content="{!! $item->getTitleWithAuthors() !!}" />
@@ -98,7 +98,7 @@
                                     <td class="atribut">{{ trans('dielo.item_attr_dating') }}:</td>
                                     <td><time itemprop="dateCreated" datetime="{!! $item->date_earliest !!}">{!! $item->getDatingFormated(); !!}</time></td>
                                 </tr>
-                                @if (!empty($item->measurements))
+                                @if (!empty($item->measurement))
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_measurements') }}:</td>
                                     <td>
@@ -178,7 +178,7 @@
                                     </td>
                                 </tr>
                                 @endif
-                                @if (!empty($item->integrity))
+                                @if (!empty($item->state_edition))
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_state_edition') }}:</td>
                                     <td>{!! $item->state_edition; !!}</td>
@@ -202,7 +202,7 @@
                                     <td><div class="expandable">{!! implode('<br> ', $item->makeArray($item->inscription));!!}</div></td>
                                 </tr>
                                 @endif
-                                @if (!empty($item->gallery))
+                                @if (!empty($item->gallery) && Config::get('request.domain') != 'mg')
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_gallery') }}:</td>
                                     <td><a href="{!! URL::to('katalog?gallery=' . $item->gallery) !!}">{!! $item->gallery; !!}</a></td>

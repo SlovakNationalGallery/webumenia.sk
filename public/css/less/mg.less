@@ -1,0 +1,120 @@
+// out: ../mg.css, compress: true
+
+@import "bootstrap/bootstrap.less";
+@import "responsive-align.less";
+@import "fonts-mg.less";
+@import "bootstrap-slider.less";
+@import "awesome-bootstrap-checkbox.less";
+@import "selectize/selectize.bootstrap3.less";
+@import "typeahead.less";
+@import "flickity.less";
+@import "custom.less";
+
+@dark: #ffffff;
+@grey: #cccccc;
+@dark-grey: #c2c4c4;
+@light: #2b2e31;
+@primary: @dark-grey;
+@primary-color: lighten(@light, 30%);
+@input-bg: @primary;
+@input-color: @light;
+@input-color-placeholder: lighten(@input-color, 20%);
+@input-bg-disabled: lighten(@input-color, 20%);
+@selectize-color-text: @input-color;
+@table-border-color: transparent;
+@font-family-sans-serif:   "kolektiv_grotesk", sans-serif;
+
+section.info, section.filters, section.light-grey { background-color: @light; }
+
+input.tt-input {
+    background-color: @input-bg !important;
+}
+
+.item .table td { color: @dark-grey; }
+
+.item .table td.atribut {
+    color: @dark;
+    font-style: normal;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:   @input-color-placeholder;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:   @input-color-placeholder;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:   @input-color-placeholder;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:   @input-color-placeholder;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+   color:   @input-color-placeholder;
+}
+
+
+.navbar .navbar-brand {
+    width: 700px;
+    margin-left: 0 !important;
+    margin-top: 30px;
+}
+
+.navbar {    
+    .navbar-header { 
+        text-align: left; 
+        width: 100%;
+        min-height: @navbar-first-height;
+        vertical-align: bottom;
+    }
+}
+
+.content-section {
+  max-width: 100%;
+}
+
+.pl-50 {
+  padding-left: 50px;
+}
+
+.info {
+  .lead, h3 {
+    color: #fff;
+    font-size: 20px;
+  }
+  h3, p {
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+  .tiraz {
+    margin-top: 100px;
+    max-width: 400px;
+    font-size: 13px;
+  }
+}
+
+h1.circle {
+  width: 270px;
+  height: 270px;
+  background-color: #fff200;
+  border-radius: 50%;
+  color: #ef4036;
+  font-size: 32px;
+  text-align: center;
+  line-height: 34px;
+  padding: 80px 0;
+  text-transform: uppercase;
+  -webkit-transform: rotate(-30deg);
+  -moz-transform: rotate(-30deg);
+  -o-transform: rotate(-30deg);
+  -ms-transform: rotate(-30deg);
+  transform: rotate(-30deg);
+  margin-left: 100px;
+}
+
+.mgCarousel {
+  height: 320px;
+  overflow: hidden;
+}

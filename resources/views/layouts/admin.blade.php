@@ -84,7 +84,7 @@
                         <li>
                             <a href="{!! URL::to('admin') !!}"><i class="fa fa-dashboard fa-fw"></i> Úvod</a>
                         </li>
-                        @if (Entrust::hasRole('admin'))
+                        @if (Entrust::hasRole(['admin', 'import']))
                         <li>
                             <a href="{!! URL::to('item') !!}"><i class="fa fa-picture-o fa-fw"></i> Diela</a>
                         </li>
@@ -94,7 +94,7 @@
                             <a href="{!! URL::to('authority') !!}"><i class="fa fa-user fa-fw"></i> Autority</a>
                         </li>
                         @endif
-                        @if (Entrust::hasRole('admin') || Entrust::hasRole('editor'))
+                        @if (Entrust::hasRole(['admin', 'editor']))
                         <li>
                             <a href="{!! URL::to('collection') !!}"><i class="fa fa-th-list fa-fw"></i> Kolekcie</a>
                         </li>
@@ -114,9 +114,19 @@
                             <a href="{!! URL::to('sketchbook') !!}"><i class="fa fa-book fa-fw"></i> Skicáre</a>
                         </li>
                         @endif
-                        @if (Entrust::hasRole('admin'))
+                        @if (Entrust::hasRole(['admin', 'import']))
                         <li>
-                            <a href="{!! URL::to('harvests') !!}"><i class="fa fa-download fa-fw"></i> Spice Harvester</a>
+                            <a href="#"><i class="fa fa-download fa-fw"></i> Import<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                @if (Entrust::hasRole(['admin']))
+                                <li>
+                                    <a href="{!! URL::to('harvests') !!}">Spice Harvester</a>
+                                </li>
+                                @endif                                
+                                <li>
+                                    <a href="{!! URL::to('imports') !!}">CSV Import</a>
+                                </li>
+                            </ul>
                         </li>
                         @endif
                         @if (Entrust::hasRole('admin'))
@@ -150,7 +160,7 @@
 
     <!-- Modal -->
     <div tabindex="-1" class="modal fade" id="detailModal" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal">×</button>
@@ -169,8 +179,10 @@
 
     <!-- Core JavaScript Files -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-
     {!! Html::script('js/bootstrap.min.js') !!}
+    {!! Html::script('js/plugins/metisMenu/jquery.metisMenu.js') !!}
+    <script src="{!! asset_timed('js/sb-admin.js') !!}"></script>
+
     {!! Html::script('js/bootstrap-datepicker.js') !!}
     {!! Html::script('js/spin.min.js') !!}
     {!! Html::script('js/ladda.min.js') !!}

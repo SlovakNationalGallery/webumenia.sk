@@ -32,7 +32,7 @@ class Sketchbook extends Model
 
     public function item()
     {
-        return $this->belongsTo('Item');
+        return $this->belongsTo('App\Item');
     }
 
     public function scopePublished($query)

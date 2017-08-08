@@ -12,19 +12,19 @@ return array(
     */
 
     'item_zoom'        => 'zoom obrázku',
-    'close'            => 'zavrieť',
-    'back'             => 'naspäť',
-    'return_home'      => 'návrat domov',
-    'more'             => 'viac',
-    'show_more'        => 'zobraziť viac',
-    'show_less'        => 'skryť',
-    'sort_by'          => 'podľa',
-    'clear_filters'    => 'zrušiť filtre',
-    'public_domain'    => 'voľné dielo',
-    'artworks'         => 'diela',
-    'artworks_counted' => '{0}    :artworks_count diel
-                          |{1}    :artworks_count dielo
-                          |[2,4]  :artworks_count diela
-                          |[5,Inf]:artworks_count diel',
+    'close'            => 'zavřít',
+    'back'             => 'zpět',
+    'return_home'      => 'návrat domů',
+    'more'             => 'více',
+    'show_more'        => 'zobrazit více',
+    'show_less'        => 'skrýt',
+    'sort_by'          => 'podle',
+    'clear_filters'    => 'zrušit filtry',
+    'public_domain'    => 'volné dílo',
+    'artworks'         => 'díla',
+    'artworks_counted' => '{0}    :artworks_count děl
+                          |{1}    :artworks_count dílo
+                          |[2,4]  :artworks_count díla
+                          |[5,Inf]:artworks_count děl',
 
 );

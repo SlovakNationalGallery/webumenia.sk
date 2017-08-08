@@ -35,6 +35,7 @@ class Item extends Model
         'žáner' => 'topic',
         'materiál' => 'medium',
         'technika' => 'technique',
+        'lokalita' => 'place',
         'len s obrázkom' => 'has_image',
         'len so zoom' => 'has_iip',
         'len voľné' => 'is_free',
@@ -235,6 +236,11 @@ class Item extends Model
                 ]
             ]
         ];
+
+        if (Config::get('request.domain') == 'mg') {
+            $params['query']['bool']['must'][1]['term']['gallery'] = "Moravská galerie, MG";
+        }
+
         return self::search($params);
     }
 
@@ -300,6 +306,10 @@ class Item extends Model
 
     public static function getNoImage($id)
     {
+        if (Config::get('request.domain') == 'mg') {
+            return "/images/mg/no-image.jpg";
+        }
+
         $allowed_work_types = array(
             'g', //grafika
             'k', //kresba
@@ -459,8 +469,17 @@ class Item extends Model
 
     public function getWorkTypesAttribute()
     {
-
         return (explode(', ', $this->attributes['work_type']));
+    }
+
+    public function setMediumAttribute($value)
+    {
+        $this->attributes['medium'] = $value ?: '';
+    }
+
+    public function setTechniqueAttribute($value)
+    {
+        $this->attributes['technique'] = $value ?: '';
     }
 
     public function setLat($value)
@@ -473,13 +492,26 @@ class Item extends Model
         $this->attributes['lng'] = $value ?: null;
     }
 
-    public function makeArray($str)
+    public function makeArray($str, $clean = false)
     {
         if (is_array($str)) {
             return $str;
         }
-        $str = trim($str);
+        $str = ($clean) ? $this->clean($str) : trim($str);
         return (empty($str)) ? array() : explode('; ', $str);
+    }
+
+    public function clean($str)
+    {
+        $chars_to_remove = [
+            ' (?)' => '',
+            '(?)' => '',
+            '[?]' => '',
+            '?' => '',
+        ];
+
+        $str = trim($str);
+        return strtr($str, $chars_to_remove);
     }
 
     public static function listValues($attribute, $search_params)
@@ -690,22 +722,25 @@ class Item extends Model
             $client =  $this->getElasticClient();
             $work_types = $this->work_types;
             $main_work_type = reset($work_types);
+
+            $clean = true;
+
             $data = [
                 'id' => $this->attributes['id'],
                 'identifier' => $this->attributes['identifier'],
                 'title' => $this->attributes['title'],
-                'author' => $this->makeArray($this->attributes['author']),
+                'author' => $this->makeArray($this->attributes['author'], $clean),
                 'description' => (!empty($this->attributes['description'])) ? strip_tags($this->attributes['description']) : '',
                 'work_type' => $main_work_type, // ulozit iba prvu hodnotu
-                'topic' => $this->makeArray($this->attributes['topic']),
+                'topic' => $this->makeArray($this->attributes['topic'], $clean),
                 'tag' => $this->tagNames(),
-                'place' => $this->makeArray($this->attributes['place']),
+                'place' => $this->makeArray($this->attributes['place'], $clean),
                 'measurement' => $this->measurments,
                 'dating' => $this->dating,
                 'date_earliest' => $this->attributes['date_earliest'],
                 'date_latest' => $this->attributes['date_latest'],
-                'medium' => $this->attributes['medium'],
-                'technique' => $this->makeArray($this->attributes['technique']),
+                'medium' => $this->clean($this->attributes['medium']),
+                'technique' => $this->makeArray($this->attributes['technique'], $clean),
                 'gallery' => $this->attributes['gallery'],
                 'updated_at' => $this->attributes['updated_at'],
                 'created_at' => $this->attributes['created_at'],
@@ -754,6 +789,7 @@ class Item extends Model
         $random = json_decode('
 			{"_script": {
 			    "script": "Math.random() * 200000",
+                "lang" : "groovy",
 			    "type": "number",
 			    "params": {},
 			    "order": "asc"
@@ -765,6 +801,11 @@ class Item extends Model
             $params["query"]["filtered"]["filter"]["and"][]["term"][$attribute] = $value;
         }
         $params["size"] = $size;
+
+        if (Config::get('request.domain') == 'mg') {
+            $params['query']['filtered']['filter']["and"][]["term"]["gallery"] = "Moravská galerie, MG";
+        }
+
         return self::search($params);
     }
 
