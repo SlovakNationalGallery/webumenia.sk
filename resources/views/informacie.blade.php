@@ -33,6 +33,7 @@
                     <li><a href="{!! URL::to('katalog?gallery=Galéria mesta Bratislavy, GMB') !!}">{{ utrans('informacie.info_gallery_GMB') }}</a></li>
                     <li><a href="{!! URL::to('katalog?gallery=Galéria+Miloša+Alexandra+Bazovského, GBT') !!}">{{ utrans('informacie.info_gallery_GBT') }}</a></li>
                     <li><a href="{!! URL::to('katalog?gallery=Nitrianska+galéria, NGN') !!}">{{ utrans('informacie.info_gallery_NGN') }}</a></li>
+                    <li><a href="{!! URL::to('katalog?gallery=Stredoslovenská galéria, SGB') !!}">{{ utrans('informacie.info_gallery_SGB') }}</a></li>
                     <li><a href="{!! URL::to('katalog?gallery=Galéria umelcov Spiša, GUS') !!}">{{ utrans('informacie.info_gallery_GUS') }}</a></li>
                 </ul>
             </div>
