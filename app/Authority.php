@@ -13,12 +13,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Authority extends Model
 {
-    use BouncyTrait;
+    use \Dimsav\Translatable\Translatable, BouncyTrait {
+        BouncyTrait::save as saveBouncyTrait;
+        \Dimsav\Translatable\Translatable::save insteadof BouncyTrait;
+    }
+
 
     protected $table = 'authorities';
 
     const ARTWORKS_DIR = '/images/autori/';
     const ES_TYPE = 'authorities';
+
+    public $translatedAttributes = ['type_organization', 'biography', 'birth_place', 'death_place'];
 
     // protected $indexName = 'webumenia';
     protected $typeName = self::ES_TYPE;
