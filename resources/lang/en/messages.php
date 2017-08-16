@@ -11,5 +11,5 @@ return array(
     |
     */
 
-    'no_translation'        => 'The current page may not have all elements translated yet',
+    'no_translation'        => "Some elements on this page haven't yet been translated to English.",
 );
