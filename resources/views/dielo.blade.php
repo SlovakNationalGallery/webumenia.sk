@@ -22,8 +22,17 @@
     <link rel="canonical" href="{!! $item->getUrl() !!}">
 @stop
 
-
 @section('content')
+
+@if ( ! $item->hasTranslation(App::getLocale()) )
+    <section>
+        <div class="container top-section">
+            <div class="row">
+                @include('includes.message_untranslated')
+            </div>
+        </div>
+    </section>
+@endif
 
 <section class="item top-section" itemscope itemtype="http://schema.org/VisualArtwork">
     <div class="item-body">
@@ -32,11 +41,6 @@
                 @if (Session::has('message'))
                     <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
                 @endif
-                
-                @if ( ! $item->hasTranslation(App::getLocale()) )
-                    @include('includes.message_untranslated')
-                @endif
-
                 <div class="col-md-10 col-md-offset-1 text-center content-section">
                     <h1 class="nadpis-dielo" itemprop="name">{!! $item->title !!}</h1>
                     <h2 class="inline">

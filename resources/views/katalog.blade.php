@@ -19,17 +19,6 @@
 
 @section('content')
 
-<div class="container">
-    <div class="row">
-        @foreach ($items as $i=>$item)
-            @if ( ! $item->hasTranslation(App::getLocale()) )
-                @include('includes.message_untranslated')
-                @break
-            @endif
-        @endforeach
-    </div>
-</div>
-
 <section class="filters">
     <div class="container content-section"><div class="expandable">
             {!! Form::open(array('id'=>'filter', 'method' => 'get')) !!}
@@ -94,6 +83,20 @@
             {!! Form::close() !!}
     </div></div>
 </section>
+
+@foreach ($items as $i=>$item)
+    @if ( ! $item->hasTranslation(App::getLocale()) )
+        <section>
+            <div class="container content-section">
+                <div class="row">
+                    @include('includes.message_untranslated')
+                    @break
+                </div>
+            </div>
+        </section>
+    @endif
+@endforeach
+
 <section class="catalog" data-searchd-engine="{!! Config::get('app.searchd_id') !!}">
     <div class="container content-section">
             <div class="row content-section">

@@ -21,13 +21,18 @@
 
 @section('content')
 
+@if ( ! $author->hasTranslation(App::getLocale()) )
+    <section>
+        <div class="container top-section">
+            <div class="row">
+                @include('includes.message_untranslated')
+            </div>
+        </div>
+    </section>
+@endif
+
 <section class="author detail content-section" itemscope itemtype="http://schema.org/Person">
     <div class="container">
-        
-        {{-- @if ( ! $author->hasTranslation(App::getLocale()) )
-            @include('includes.message_untranslated')
-        @endif --}}
-
         <div class="attributes">
             <div class="row">   
                 <div class="col-sm-4 text-center extra-padding top-space">

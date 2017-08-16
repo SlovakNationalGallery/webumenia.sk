@@ -12,6 +12,19 @@
 
 @section('content')
 
+@foreach ($collections as $i=>$collection)
+    @if ( ! $collection->hasTranslation(App::getLocale()) )
+        <section>
+            <div class="container top-section">
+                <div class="row">
+                    @include('includes.message_untranslated')
+                    @break
+                </div>
+            </div>
+        </section>
+    @endif
+@endforeach
+
 {{-- <section class="filters">
     <div class="container content-section">
         @if (empty($cc))
@@ -59,16 +72,6 @@
 {!! Form::close() !!}
 <section class="collections">
     <div class="container">
-        
-        <div class="row">
-            @foreach ($collections as $i=>$collection)
-                @if ( ! $collection->hasTranslation(App::getLocale()) )
-                    @include('includes.message_untranslated')
-                    @break
-                @endif
-            @endforeach
-        </div>
-
         <div class="row content-section">
         	<div class="col-xs-6">
                 @if (!empty($search))

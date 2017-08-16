@@ -18,16 +18,6 @@
         @if (empty($cc))
         {!! Form::open(array('id'=>'filter', 'method' => 'get')) !!}
         {!! Form::hidden('search', @$search) !!}
-
-        {{-- <div class="row">
-            @foreach ($authors as $i=>$author)
-                @if ( ! $author->hasTranslation(App::getLocale()) )
-                    @include('includes.message_untranslated')
-                    @break
-                @endif
-            @endforeach
-        </div> --}}
-
         <div class="row">
             <!-- <h3>Filter: </h3> -->
             <div  class="col-md-4 col-xs-6 bottom-space">
@@ -64,6 +54,20 @@
          @endif
     </div>
 </section>
+
+@foreach ($authors as $i=>$author)
+    @if ( ! $author->hasTranslation(App::getLocale()) )
+        <section>
+            <div class="container content-section">
+                <div class="row">
+                    @include('includes.message_untranslated')
+                    @break
+                </div>
+            </div>
+        </section>
+    @endif
+@endforeach
+
 <section class="authors">
     <div class="container">
         <div class="row content-section">
