@@ -59,7 +59,7 @@
 @foreach ($articles as $i=>$article)
     @if ( ! $article->hasTranslation(App::getLocale()) )
         <section>
-            <div class="container top-section">
+            <div class="container content-section">
                 <div class="row">
                     @include('includes.message_untranslated')
                     @break
