@@ -12,14 +12,14 @@ return array(
     */
 
     // in models: item, collection
-    'created_at'    => 'date added',
-    'title'         => 'title',
-    // in model item
-    'updated_at'    => 'last updated',
-    'author'        => 'artist',
-    'date_earliest' => 'date',
-    'view_count'    => 'views',
-    'random'        => 'random',
+    'created_at'              => 'date added',
+    'title'                   => 'title',
+    // in model item          
+    'updated_at'              => 'last updated',
+    'author'                  => 'artist',
+    'date_earliest'           => 'date',
+    'view_count'              => 'views',
+    'random'                  => 'random',
     // in model authority
     'name'                    => 'name',
     'items_count'             => 'artworks count',
