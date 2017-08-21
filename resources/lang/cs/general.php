@@ -26,5 +26,13 @@ return array(
                           |{1}    :artworks_count dielo
                           |[2,4]  :artworks_count diela
                           |[5,Inf]:artworks_count diel',
-
+    
+    // in models: item.sortable, collection.sortable
+    'sortable_updated_at'    => 'poslednej zmeny',
+    'sortable_created_at'    => 'dátumu pridania',
+    'sortable_title'         => 'názvu',
+    'sortable_author'        => 'autora',
+    'sortable_date_earliest' => 'datovania',
+    'sortable_view_count'    => 'počtu videní',
+    'sortable_random'        => 'náhodne',
 );

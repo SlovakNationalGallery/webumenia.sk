@@ -63,13 +63,13 @@ class Item extends Model
     );
 
     public static $sortable = array(
-        'updated_at'    => 'katalog.sortable_updated_at',
-        'created_at'    => 'katalog.sortable_created_at',
-        'title'         => 'katalog.sortable_title',
-        'author'        => 'katalog.sortable_author',
-        'date_earliest' => 'katalog.sortable_date_earliest',
-        'view_count'    => 'katalog.sortable_view_count',
-        'random'        => 'katalog.sortable_random',
+        'updated_at'    => 'general.sortable_updated_at',
+        'created_at'    => 'general.sortable_created_at',
+        'title'         => 'general.sortable_title',
+        'author'        => 'general.sortable_author',
+        'date_earliest' => 'general.sortable_date_earliest',
+        'view_count'    => 'general.sortable_view_count',
+        'random'        => 'general.sortable_random',
     );
 
     protected $fillable = array(

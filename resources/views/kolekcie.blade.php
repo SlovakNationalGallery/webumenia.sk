@@ -89,12 +89,12 @@
             <div class="col-xs-6 text-right">
                 <div class="dropdown">
                   <a class="dropdown-toggle" type="button" id="dropdownSortBy" data-toggle="dropdown" aria-expanded="true">
-                    {{ trans('general.sort_by') }} {!! App\Collection::$sortable[$sort_by]; !!}
+                    {{ trans('general.sort_by') }} {!! trans(App\Collection::$sortable[$sort_by]) !!}
                     <span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-right dropdown-menu-sort" role="menu" aria-labelledby="dropdownSortBy">
-                    @foreach (App\Collection::$sortable as $sort=>$label)
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#" rel="{!! $sort !!}">{!! $label !!}</a></li>
+                    @foreach (App\Collection::$sortable as $sort=>$labelKey)
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#" rel="{!! $sort !!}">{!! trans($labelKey) !!}</a></li>
                     @endforeach
                   </ul>
                 </div>

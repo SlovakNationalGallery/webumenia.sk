@@ -19,8 +19,8 @@ class Collection extends \Eloquent
     );
 
     public static $sortable = array(
-        'created_at' => 'dátumu vytvorenia',
-        'name' => 'názvu',
+        'created_at' => 'general.sortable_created_at',
+        'name'       => 'general.sortable_title',
     );
     
     public function items()
