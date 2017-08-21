@@ -92,7 +92,9 @@
                   </a>
                   <ul class="dropdown-menu dropdown-menu-right dropdown-menu-sort" role="menu" aria-labelledby="dropdownSortBy">
                     @foreach (App\Authority::$sortable as $sort=>$labelKey)
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#" rel="{!! $sort !!}">{!! trans($labelKey) !!}</a></li>
+                        @if ($sort != $sort_by)
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#" rel="{!! $sort !!}">{!! trans($labelKey) !!}</a></li>
+                        @endif
                     @endforeach
                   </ul>
                 </div>
