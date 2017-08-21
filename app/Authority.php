@@ -36,12 +36,11 @@ class Authority extends Model
     );
 
     public static $sortable = array(
-        'name' => 'mena',
-        'items_count' => 'počtu diel',
-        'birth_year' => 'roku narodenia',
-        'items_with_images_count' => 'počtu diel s obrázkom',
-        'random' => 'náhodne',
-        // 'created_at' => 'počtu diel',
+        'name'                    => 'sortable.name',
+        'birth_year'              => 'sortable.birth_year',
+        'items_count'             => 'sortable.items_count',
+        'items_with_images_count' => 'sortable.items_with_images_count',
+        'random'                  => 'sortable.random',
     );
 
     protected $fillable = array(

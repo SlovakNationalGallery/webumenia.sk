@@ -25,13 +25,4 @@ return array(
     'artworks_counted' => '{0}    :artworks_count artworks
                           |{1}    :artworks_count artwork
                           |[2,Inf]:artworks_count artworks',
-
-    // in models: item.sortable, collection.sortable
-    'sortable_updated_at'    => 'last updated',
-    'sortable_created_at'    => 'date added',
-    'sortable_title'         => 'title',
-    'sortable_author'        => 'artist',
-    'sortable_date_earliest' => 'date',
-    'sortable_view_count'    => 'views',
-    'sortable_random'        => 'random',
 );
