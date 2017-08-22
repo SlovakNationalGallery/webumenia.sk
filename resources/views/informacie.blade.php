@@ -25,15 +25,50 @@
                 <img srcset="/images/galerie-na-mape.png 1x, /images/galerie-na-mape@2x.png 2x" src="" alt="Galérie na mape" class="img-responsive" style="margin: 20px auto 40px" />
             </div>
             <div class="col-md-4 text-center">
+                @php
+                    $galleries = [
+                        [
+                            'lang_string' => 'informacie.info_gallery_SNG',
+                            'url'         => 'katalog?gallery=Slovenská národná galéria, SNG',
+                        ],
+                        [
+                            'lang_string' => 'informacie.info_gallery_OGD',
+                            'url'         => 'katalog?gallery=Oravská galéria, OGD',
+                        ],
+                        [
+                            'lang_string' => 'informacie.info_gallery_GNZ',
+                            'url'         => 'katalog?gallery=Galéria umenia Ernesta Zmetáka, GNZ',
+                        ],
+                        [
+                            'lang_string' => 'informacie.info_gallery_GPB',
+                            'url'         => 'katalog?gallery=Liptovská galéria Petra Michala Bohúňa, GPB',
+                        ],
+                        [
+                            'lang_string' => 'informacie.info_gallery_GMB',
+                            'url'         => 'katalog?gallery=Galéria mesta Bratislavy, GMB',
+                        ],
+                        [
+                            'lang_string' => 'informacie.info_gallery_GBT',
+                            'url'         => 'katalog?gallery=Galéria+Miloša+Alexandra+Bazovského, GBT',
+                        ],
+                        [
+                            'lang_string' => 'informacie.info_gallery_NGN',
+                            'url'         => 'katalog?gallery=Nitrianska+galéria, NGN',
+                        ],
+                        [
+                            'lang_string' => 'informacie.info_gallery_SGB',
+                            'url'         => 'katalog?gallery=Stredoslovenská galéria, SGB',
+                        ],
+                        [
+                            'lang_string' => 'informacie.info_gallery_GUS',
+                            'url'         => 'katalog?gallery=Galéria umelcov Spiša, GUS',
+                        ],
+                    ]
+                @endphp
                 <ul class="list-unstyled lead">
-                    <li><a href="{!! URL::to('katalog?gallery=Slovenská národná galéria, SNG') !!}">{{ utrans('informacie.info_gallery_SNG') }}</a></li>
-                    <li><a href="{!! URL::to('katalog?gallery=Oravská galéria, OGD') !!}">{{ utrans('informacie.info_gallery_OGD') }}</a></li>
-                    <li><a href="{!! URL::to('katalog?gallery=Galéria umenia Ernesta Zmetáka, GNZ') !!}">{{ utrans('informacie.info_gallery_GNZ') }}</a></li>
-                    <li><a href="{!! URL::to('katalog?gallery=Liptovská galéria Petra Michala Bohúňa, GPB') !!}">{{ utrans('informacie.info_gallery_GPB') }}</a></li>
-                    <li><a href="{!! URL::to('katalog?gallery=Galéria mesta Bratislavy, GMB') !!}">{{ utrans('informacie.info_gallery_GMB') }}</a></li>
-                    <li><a href="{!! URL::to('katalog?gallery=Galéria+Miloša+Alexandra+Bazovského, GBT') !!}">{{ utrans('informacie.info_gallery_GBT') }}</a></li>
-                    <li><a href="{!! URL::to('katalog?gallery=Nitrianska+galéria, NGN') !!}">{{ utrans('informacie.info_gallery_NGN') }}</a></li>
-                    <li><a href="{!! URL::to('katalog?gallery=Galéria umelcov Spiša, GUS') !!}">{{ utrans('informacie.info_gallery_GUS') }}</a></li>
+                    @foreach ($galleries as $gallery)
+                        <li><a href="{!! URL::to($gallery['url']) !!}">{{ utrans($gallery['lang_string']) }}</a></li>
+                    @endforeach
                 </ul>
             </div>
         </div>

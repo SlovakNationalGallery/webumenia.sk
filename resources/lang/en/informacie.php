@@ -22,6 +22,7 @@ return array(
     'info_gallery_GMB'   => 'Bratislava City Gallery',
     'info_gallery_GBT'   => 'The Gallery of Miloš Alexander Bazovský in Trenčín',
     'info_gallery_NGN'   => 'Nitra Gallery',
+    'info_gallery_SGB'   => 'Central Slovak Gallery',
     'info_gallery_GUS'   => 'Gallery of Spiš Artists',
 
     'mozete_heading'               => 'On Web Umenia you can',
