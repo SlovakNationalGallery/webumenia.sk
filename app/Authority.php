@@ -483,4 +483,9 @@ class Authority extends Model
 
         return $authorities->total();
     }
+
+    public function setBiographyAttribute($value)
+    {
+        $this->attributes['biography'] = ($value) ?: '';
+    }
 }
