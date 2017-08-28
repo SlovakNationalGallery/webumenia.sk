@@ -15,7 +15,7 @@ class Subtitle
 
     public static function fromGalleries()
     {
-        return trans('intro.from_galleries_start').' <strong><a href="/informacie">'. formatNum(7) .'</a></strong> '.trans('intro.from_galleries_end');
+        return trans('intro.from_galleries_start').' <strong><a href="/informacie">'. formatNum(9) .'</a></strong> '.trans('intro.from_galleries_end');
     }
 
     public static function fromAuthors()
