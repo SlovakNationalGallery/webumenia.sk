@@ -109,6 +109,10 @@ class Item extends Model
         ],
     );
 
+    protected $casts = array(
+        'color_descriptor' => 'json',
+    );
+
     // ELASTIC SEARCH INDEX
     public static function boot()
     {
@@ -198,6 +202,29 @@ class Item extends Model
     public function getOaiUrl()
     {
         return Config::get('app.old_url').'/oai-pmh/?verb=GetRecord&metadataPrefix=oai_dc&identifier='.$this->id;
+    }
+
+    public function similarByColor($size = 10)
+    {
+        $params = [
+            'size' => $size,
+            'sort' => [
+                '_score' => 'asc'
+            ],
+            'query' => [
+                'function_score' => [
+                    'script_score' => [
+                        'script_file' => 'image_similarity',
+                        'lang' => 'groovy',
+                        'params' => [
+                            'query_feature' => $this->color_descriptor
+                        ]
+                    ]
+                ]
+            ]
+        ];
+
+        return self::search($params);
     }
 
     public function moreLikeThis($size = 10)
@@ -716,6 +743,7 @@ class Item extends Model
                 'related_work' => $this->related_work,
                 'authority_id' => $this->relatedAuthorityIds(),
                 'view_count' => $this->view_count,
+                'color_descriptor' => $this->color_descriptor,
             ];
 
             return $client->index([

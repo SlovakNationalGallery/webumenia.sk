@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "92824632a0b4d9d2c9068e201b9030d8",
-    "content-hash": "88e453670a569808bb9caa408087c06b",
+    "hash": "3a65a0e1083faa05d3eff407ca6e1ab2",
+    "content-hash": "f8cfdb6aabd15e142dbb0c8102216ab4",
     "packages": [
         {
             "name": "anahkiasen/former",
@@ -177,7 +177,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/caseyamcl/phpoaipmh/zipball/be80f668c56b0c71cafaa3ee269cd6e945e1c871",
+                "url": "https://api.github.com/repos/caseyamcl/phpoaipmh/zipball/475df9e4ebc11812f7a216a9c21a72218035415b",
                 "reference": "be80f668c56b0c71cafaa3ee269cd6e945e1c871",
                 "shasum": ""
             },
@@ -745,7 +745,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/1739e8b94e058421d4da8b66887c52ee523f7d45",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/dfd01d60a38cf7e16b3456d4b1d7c10033b929c0",
                 "reference": "1739e8b94e058421d4da8b66887c52ee523f7d45",
                 "shasum": ""
             },
@@ -926,7 +926,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Intervention/image/zipball/b29b7946d6fc282a767fa281e64c03fc64decce1",
+                "url": "https://api.github.com/repos/Intervention/image/zipball/4581c28cdcb6067dca2b27ea8b76842ca79ddf90",
                 "reference": "b29b7946d6fc282a767fa281e64c03fc64decce1",
                 "shasum": ""
             },
@@ -1306,6 +1306,62 @@
             "description": "HTML and Form Builders for the Laravel Framework",
             "homepage": "http://laravelcollective.com",
             "time": "2017-05-21 18:02:21"
+        },
+        {
+            "name": "league/color-extractor",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rastislav-chynoransky/color-extractor.git",
+                "reference": "b69bbb3b805310404218d759daa2c1577c884634"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rastislav-chynoransky/color-extractor/zipball/b69bbb3b805310404218d759daa2c1577c884634",
+                "reference": "b69bbb3b805310404218d759daa2c1577c884634",
+                "shasum": ""
+            },
+            "require": {
+                "ext-gd": "*",
+                "php": ">=5.4.0"
+            },
+            "replace": {
+                "matthecat/colorextractor": "*"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "~2",
+                "phpunit/phpunit": "~5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mathieu Lechat",
+                    "email": "math.lechat@gmail.com",
+                    "homepage": "http://matthecat.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Extract colors from an image as a human would do.",
+            "homepage": "https://github.com/thephpleague/color-extractor",
+            "keywords": [
+                "color",
+                "extract",
+                "human",
+                "image",
+                "palette"
+            ],
+            "support": {
+                "source": "https://github.com/rastislav-chynoransky/color-extractor/tree/master"
+            },
+            "time": "2017-06-15 21:34:45"
         },
         {
             "name": "league/flysystem",
@@ -2174,7 +2230,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rap2hpoutre/laravel-log-viewer/zipball/971243e8a98c4f68c50df3c2b714517ad9fc90ab",
+                "url": "https://api.github.com/repos/rap2hpoutre/laravel-log-viewer/zipball/499263bc8459d3a9ac3950130ca169ce327f40d7",
                 "reference": "971243e8a98c4f68c50df3c2b714517ad9fc90ab",
                 "shasum": ""
             },
@@ -2217,12 +2273,12 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/RoumenDamianoff/laravel-sitemap.git",
-                "reference": "43747375a1dc19b11aa52442c99628a8d104c0f7"
+                "url": "https://github.com/Laravelium/laravel-sitemap.git",
+                "reference": "bdb122ef54788b75a9c6f77fa2bc230fcdf9e4ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RoumenDamianoff/laravel-sitemap/zipball/43747375a1dc19b11aa52442c99628a8d104c0f7",
+                "url": "https://api.github.com/repos/Laravelium/laravel-sitemap/zipball/bdb122ef54788b75a9c6f77fa2bc230fcdf9e4ba",
                 "reference": "43747375a1dc19b11aa52442c99628a8d104c0f7",
                 "shasum": ""
             },
@@ -2258,7 +2314,7 @@
                 "generator",
                 "laravel"
             ],
-            "time": "2016-10-06 06:13:52"
+            "time": "2017-08-25 18:39:20"
         },
         {
             "name": "rtconner/laravel-tagging",
@@ -4553,7 +4609,8 @@
         "fadion/bouncy": 20,
         "rap2hpoutre/laravel-log-viewer": 20,
         "zizaco/entrust": 20,
-        "roumen/sitemap": 20
+        "roumen/sitemap": 20,
+        "league/color-extractor": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

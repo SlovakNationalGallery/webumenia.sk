@@ -304,6 +304,9 @@ class SetupElasticsearch extends Command
               "authority_id" : {
                 "type": "string",
                 "index": "not_analyzed"
+              },
+              "color_descriptor" : {
+                "type": "float"
               }
             }
           }

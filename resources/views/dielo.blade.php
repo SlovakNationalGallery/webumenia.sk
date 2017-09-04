@@ -272,15 +272,31 @@
         </div>
     </div>
 </section>
+
+<section class="more-items content-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h4>{{ trans('dielo.more-items_related-artworks') }} (podľa farby)</h4>
+                <div class="artworks-preview ">
+                    @foreach ($similar_by_color as $item)
+                        <a href="{!! $item->getUrl() !!}"><img data-lazy="{!! $item->getImagePath() !!}" class="img-responsive-width " alt="{!! $item->getTitleWithAuthors() !!} "></a>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="more-items content-section">
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
                 <h4>{{ trans('dielo.more-items_related-artworks') }}</h4>
                 <div class="artworks-preview ">
-                @foreach ($more_items as $item)
-                    <a href="{!! $item->getUrl() !!}"><img data-lazy="{!! $item->getImagePath() !!}" class="img-responsive-width " alt="{!! $item->getTitleWithAuthors() !!} "></a>
-                @endforeach
+                    @foreach ($more_items as $item)
+                        <a href="{!! $item->getUrl() !!}"><img data-lazy="{!! $item->getImagePath() !!}" class="img-responsive-width " alt="{!! $item->getTitleWithAuthors() !!} "></a>
+                    @endforeach
                 </div>
             </div>
         </div>

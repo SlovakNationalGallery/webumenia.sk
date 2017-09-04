@@ -6,6 +6,10 @@
         "laravel"
     ],
     "license": "MIT",
+    "repositories": [{
+        "type": "vcs",
+        "url": "https://github.com/rastislav-chynoransky/color-extractor.git"
+    }],
     "require": {
         "laravel/framework": "5.2.*",
         "caseyamcl/Phpoaipmh": "dev-master",
@@ -25,7 +29,8 @@
         "graham-campbell/throttle": "^5.2",
         "mcamara/laravel-localization": "1.2.*",
         "dimsav/laravel-translatable": "6.*",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "league/color-extractor": "dev-master"
     },
     "autoload": {
         "classmap": [

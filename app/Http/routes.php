@@ -218,6 +218,7 @@ function()
 
         // $more_items = Item::moreLikeThis(['author','title.stemmed','description.stemmed', 'tag', 'place'],[$item->id])->limit(20);
         $more_items = $item->moreLikeThis(30);
+        $similar_by_color = $item->similarByColor(30);
 
         if (Input::has('collection')) {
             $collection = Collection::find((int) Input::get('collection'));
@@ -234,7 +235,13 @@ function()
             }
         }
 
-        return view('dielo', array('item' => $item, 'more_items' => $more_items, 'previous' => $previous, 'next' => $next));
+        return view('dielo', compact(
+            'item',
+            'more_items',
+            'similar_by_color',
+            'previous',
+            'next'
+        ));
     });
 
     Route::controller('katalog', 'CatalogController');
