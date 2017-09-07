@@ -11,7 +11,7 @@ class SetupElasticsearch extends Command
      *
      * @var string
      */
-    protected $signature = 'es:setup';
+    protected $signature = 'es:setup {lang=sk}';
 
     /**
      * The console command description.
@@ -37,6 +37,8 @@ class SetupElasticsearch extends Command
      */
     public function handle()
     {
+        $this->comment('setting up ES index for locale '.$this->argument('lang'));
+
         $client = new \GuzzleHttp\Client(['http_errors' => false]);
 
         $host = 'localhost:9200';
@@ -45,274 +47,50 @@ class SetupElasticsearch extends Command
           $host = reset($hosts);
           $this->comment('Your ES host is: ' . $host);
         }
+
         $index_name = 'webumenia';
         $index_name = $this->ask('What is the index name?', $index_name);
-        if (!$index_name) {
-            $index_name = 'webumenia';
-        }
 
 
         $res = $client->head('http://'.$host.'/'.$index_name);
 
         if ($res->getStatusCode() == 200) {
-            if ($this->confirm('It already exist. Do you want to delete it? [y|N]')) {
+            if ($this->confirm("An index with that name already exists.\n Do you want to delete the current index?\n [y|N]")) {
                 $this->comment('Removing...');
                 $res = $client->delete('http://'.$host.'/'.$index_name);
                 echo $res->getBody() . "\n";
             }
-        } 
+        }         
+
+        switch ($this->argument('lang')) {
+            case 'sk':
+                $json_params_create_index_str       = file_get_contents('app/Console/Commands/SetupElasticsearch/json_params_create_index_sk.json');
+                $json_params_create_items_str       = file_get_contents('app/Console/Commands/SetupElasticsearch/json_params_create_items_sk.json');
+                $json_params_create_authorities_str = file_get_contents('app/Console/Commands/SetupElasticsearch/json_params_create_authorities_sk.json');
+                break;
+            case 'en':
+                exit("No params for EN yet...");
+            default:
+                exit("Unknown language specified: {$this->argument('lang')}" );
+        }
 
         // ********* INDEX
 
-        $json_params_create_index = '
-        {
-          "settings": {
-            "analysis": {
-              "filter": {
-                "autocomplete_filter": {
-                  "type": "edge_ngram",
-                  "min_gram": 2,
-                  "max_gram": 20
-                },
-                "lemmagen_filter_sk": {
-                  "type": "lemmagen",
-                  "lexicon": "sk"
-                },
-                "synonym_filter": {
-                  "type": "synonym",
-                  "synonyms_path": "synonyms/sk_SK.txt",
-                  "ignore_case": true
-                },
-                "stopwords_SK": {
-                  "type": "stop",
-                  "stopwords_path": "stop-words/stop-words-slovak.txt",
-                  "ignore_case": true
-                }
-              },
-              "analyzer": {
-                "slovencina_synonym": {
-                  "type": "custom",
-                  "tokenizer": "standard",
-                  "filter": [
-                    "stopwords_SK",
-                    "lemmagen_filter_sk",
-                    "lowercase",
-                    "stopwords_SK",
-                    "synonym_filter",
-                    "asciifolding"
-                  ]
-                },
-                "slovencina": {
-                  "type": "custom",
-                  "tokenizer": "standard",
-                  "filter": [
-                    "stopwords_SK",
-                    "lemmagen_filter_sk",
-                    "lowercase",
-                    "stopwords_SK",
-                    "asciifolding"
-                  ]
-                },
-                "autocomplete": {
-                  "type": "custom",
-                  "tokenizer": "standard",
-                  "filter": [
-                    "lowercase",
-                    "asciifolding",
-                    "autocomplete_filter"
-                  ]
-                },
-                "ascii_folding": {
-                  "type": "custom",
-                  "tokenizer": "standard",
-                  "filter": [
-                    "lowercase",
-                    "asciifolding"
-                  ]
-                }
-              }
-            }
-          }
-        }
-        ';
-
-        $this->comment('Creating...');
+        $this->comment('Creating index...');
         $res = $client->put('http://'.$host.'/'.$index_name, [
-            'json' => json_decode($json_params_create_index, true),
+            'json' => json_decode($json_params_create_index_str, true),
         ]);
         echo $res->getBody() . "\n";
 
         if ($res->getStatusCode() == 200) {
             $this->info('Index ' . $index_name . ' was created');
         }
-
+      
         // ********* ITEMS
-
-        $json_params_create_items = '
-        {
-          "items": {
-            "properties": {
-              "id": {
-                "type": "string",
-                "index": "not_analyzed"
-              },
-              "identifier": {
-                "type": "string",
-                "index": "not_analyzed"
-              },
-              "author": {
-                "type": "string",
-                "index": "not_analyzed",
-                "fields": {
-                  "folded": {
-                    "type": "string",
-                    "analyzer": "ascii_folding"
-                  },
-                  "stemmed": { 
-                    "type":     "string",
-                    "analyzer": "slovencina"
-                  },
-                  "suggest": { 
-                    "type":     "string",
-                    "analyzer": "autocomplete",
-                    "search_analyzer": "ascii_folding"
-                  }
-                }
-              },
-              "title": {
-                "type": "string",
-                "index": "not_analyzed",
-                "fields": {
-                  "folded": { 
-                    "type":     "string",
-                    "analyzer": "ascii_folding"
-                  },
-                  "stemmed": { 
-                    "type":     "string",
-                    "analyzer": "slovencina"
-                  },
-                  "suggest": { 
-                    "type":     "string",
-                    "analyzer": "autocomplete",
-                    "search_analyzer": "ascii_folding"
-                  }
-                }
-              },
-              "description": {
-                "type": "string",
-                "analyzer": "ascii_folding",
-                "fields": {
-                  "stemmed": { 
-                    "type":     "string",
-                    "analyzer": "slovencina"
-                  }
-                }
-              },
-              "topic": {
-                "type": "string",
-                "index": "not_analyzed",
-                "fields": {
-                  "folded": {
-                    "type": "string",
-                    "analyzer": "ascii_folding"
-                  }
-                }
-              },
-              "technique": {
-                "index": "not_analyzed",
-                "type": "string"
-              },
-              "dating": {
-                "type": "string"
-              },
-              "date_earliest": {
-                "type": "date",
-                "index": "not_analyzed",
-                "format" : "yyyy"
-              },
-              "date_latest": {
-                "type": "date",
-                "index": "not_analyzed",
-                "format" : "yyyy"
-              },
-              "gallery": {
-                "type": "string",
-                "index": "not_analyzed"
-              },
-              "tag": {
-                "type": "string",
-                "index": "not_analyzed",
-                "fields": {
-                  "folded": {
-                    "type": "string",
-                    "analyzer": "ascii_folding"
-                  },
-                  "stemmed": { 
-                    "type":     "string",
-                    "analyzer": "slovencina"
-                  }
-                }
-              },
-              "work_type": {
-                "type": "string",
-                "index": "not_analyzed"
-              },
-              "related_work": {
-                "type": "string",
-                "index": "not_analyzed"
-              },
-              "view_count": {
-                "type": "integer",
-                "index": "not_analyzed"
-              },
-              "place": {
-                "type": "string",
-                "index": "not_analyzed",
-                "fields": {
-                  "folded": {
-                    "type": "string",
-                    "analyzer": "ascii_folding"
-                  }
-                }
-              },
-              "medium": {
-                "type": "string",
-                "index": "not_analyzed"
-              },
-              "created_at" : {
-                "type": "date",
-                "index": "not_analyzed",
-                "format" : "yyyy-MM-dd HH:mm:ss"
-              },
-              "updated_at" : {
-                "type": "date",
-                "index": "not_analyzed",
-                "format" : "yyyy-MM-dd HH:mm:ss"
-              },
-              "has_image" : {
-                "type": "boolean"
-              },
-              "has_iip" : {
-                "type": "boolean"
-              },
-              "is_free" : {
-                "type": "boolean"
-              },
-              "free_download" : {
-                "type": "boolean"
-              },
-              "authority_id" : {
-                "type": "string",
-                "index": "not_analyzed"
-              }
-            }
-          }
-        }
-        ';
-
+        
         $this->comment('Creating type "items"...');
         $res = $client->put('http://'.$host.'/'.$index_name .'/_mapping/items', [
-            'json' => json_decode($json_params_create_items, true),
+            'json' => json_decode($json_params_create_items_str, true),
         ]);
         echo $res->getBody() . "\n";
 
@@ -322,151 +100,9 @@ class SetupElasticsearch extends Command
 
         // ********* AUTHORITIES
 
-        $json_params_create_authorities = '
-        {
-          "authorities": {
-            "properties": {
-              "id": {
-                "type": "string",
-                "index": "not_analyzed"
-              },
-              "identifier": {
-                "type": "string",
-                "index": "not_analyzed"
-              },
-              "type": {
-                "type": "string",
-                "index": "not_analyzed"
-              },
-              "name": {
-                "type": "string",
-                "index": "not_analyzed",
-                "fields": {
-                  "folded": {
-                    "type": "string",
-                    "analyzer": "ascii_folding"
-                  },
-                  "suggest": { 
-                    "type":     "string",
-                    "analyzer": "autocomplete",
-                    "search_analyzer": "ascii_folding"
-                  }
-                }
-              },
-              "alternative_name": {
-                "type": "string",
-                "index": "not_analyzed",
-                "fields": {
-                  "folded": {
-                    "type": "string",
-                    "analyzer": "ascii_folding"
-                  },
-                  "suggest": { 
-                    "type":     "string",
-                    "analyzer": "autocomplete",
-                    "search_analyzer": "ascii_folding"
-                  }
-                }
-              },
-              "related_name": {
-                "type": "string",
-                "index": "not_analyzed",
-                "fields": {
-                  "folded": {
-                    "type": "string",
-                    "analyzer": "ascii_folding"
-                  },
-                  "suggest": { 
-                    "type":     "string",
-                    "analyzer": "autocomplete",
-                    "search_analyzer": "ascii_folding"
-                  }
-                }
-              },
-              "biography": {
-                "type": "string",
-                "analyzer": "ascii_folding",
-                "fields": {
-                  "stemmed": { 
-                    "type":     "string",
-                    "analyzer": "slovencina"
-                  }
-                }
-              },
-              "nationality": {
-                "type": "string",
-                "index": "not_analyzed",
-                "fields": {
-                  "folded": {
-                    "type": "string",
-                    "analyzer": "ascii_folding"
-                  }
-                }
-              },
-              "place": {
-                "type": "string",
-                "index": "not_analyzed",
-                "fields": {
-                  "folded": {
-                    "type": "string",
-                    "analyzer": "ascii_folding"
-                  }
-                }
-              },
-              "role": {
-                "type": "string",
-                "index": "not_analyzed",
-                "fields": {
-                  "folded": {
-                    "type": "string",
-                    "analyzer": "ascii_folding"
-                  }
-                }
-              },
-              "birth_year": {
-                "type": "date",
-                "index": "not_analyzed",
-                "format" : "yyyy"
-              },
-              "death_year": {
-                "type": "date",
-                "index": "not_analyzed",
-                "format" : "yyyy"
-              },
-              "birth_place": {
-                "type": "string",
-                "index": "not_analyzed"
-              },
-              "death_place": {
-                "type": "string",
-                "index": "not_analyzed"
-              },
-              "sex": {
-                "type": "string",
-                "index": "not_analyzed"
-              },
-              "has_image": {
-                "type": "boolean"
-              },
-              "items_count": {
-                "type": "integer"
-              },
-              "items_with_images_count": {
-                "type": "integer"
-              },
-              "created_at" : {
-                "type": "date",
-                "index": "not_analyzed",
-                "format" : "yyyy-MM-dd HH:mm:ss"
-              }
-            }
-          }
-        }
-        ';
-
         $this->comment('Creating type "authorities"...');
         $res = $client->put('http://'.$host.'/'.$index_name .'/_mapping/authorities', [
-            'json' => json_decode($json_params_create_authorities, true),
+            'json' => json_decode($json_params_create_authorities_str, true),
         ]);
         echo $res->getBody() . "\n";
 
@@ -474,10 +110,7 @@ class SetupElasticsearch extends Command
             $this->info('Type "authorities" was created');
         }
 
+
         $this->info('Done');
-
-
-
-
     }
 }

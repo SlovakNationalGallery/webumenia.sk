@@ -1,0 +1,69 @@
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "autocomplete_filter": {
+          "type": "edge_ngram",
+          "min_gram": 2,
+          "max_gram": 20
+        },
+        "lemmagen_filter_sk": {
+          "type": "lemmagen",
+          "lexicon": "sk"
+        },
+        "synonym_filter": {
+          "type": "synonym",
+          "synonyms_path": "synonyms/sk_SK.txt",
+          "ignore_case": true
+        },
+        "stopwords_SK": {
+          "type": "stop",
+          "stopwords_path": "stop-words/stop-words-slovak.txt",
+          "ignore_case": true
+        }
+      },
+      "analyzer": {
+        "slovencina_synonym": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "stopwords_SK",
+            "lemmagen_filter_sk",
+            "lowercase",
+            "stopwords_SK",
+            "synonym_filter",
+            "asciifolding"
+          ]
+        },
+        "slovencina": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "stopwords_SK",
+            "lemmagen_filter_sk",
+            "lowercase",
+            "stopwords_SK",
+            "asciifolding"
+          ]
+        },
+        "autocomplete": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "asciifolding",
+            "autocomplete_filter"
+          ]
+        },
+        "ascii_folding": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "asciifolding"
+          ]
+        }
+      }
+    }
+  }
+}
