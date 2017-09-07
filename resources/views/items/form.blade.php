@@ -163,18 +163,34 @@
 	{!! Form::text('state_edition', Input::old('state_edition'), array('class' => 'form-control')) !!}
 	</div>
 </div>
-<div class="col-md-12">
+
+<div class="clearfix"></div>
+
+<div class="col-md-5">
 	<div class="form-group">
-	{!! Form::label('integrity', 'stupeň integrity') !!}
-	{!! Form::text('integrity', Input::old('integrity'), array('class' => 'form-control')) !!}
+	{{ Form::label('relationship_type', 'typ integrity') }}
+	{{ Form::text('relationship_type', Input::old('relationship_type'), array('class' => 'form-control', 'placeholder' => 'zo súboru / z cyklu / z albumu / ...')) }}
 	</div>
 </div>
-<div class="col-md-12">
+<div class="col-md-5">
 	<div class="form-group">
-	{!! Form::label('integrity_work', 'integrita s dielami') !!}
-	{!! Form::text('integrity_work', Input::old('integrity_work'), array('class' => 'form-control')) !!}
+	{{ Form::label('related_work', 'názov integrity') }}
+	{{ Form::text('related_work', Input::old('related_work'), array('class' => 'form-control', 'placeholder' => 'Ecce vita')) }}
 	</div>
 </div>
+<div class="col-md-1">
+	<div class="form-group">
+	{{ Form::label('related_work_order', 'poradie') }}
+	{{ Form::text('related_work_order', Input::old('related_work_order'), array('class' => 'form-control')) }}
+	</div>
+</div>
+<div class="col-md-1">
+	<div class="form-group">
+	{{ Form::label('related_work_total', 'z počtu') }}
+	{{ Form::text('related_work_total', Input::old('related_work_total'), array('class' => 'form-control')) }}
+	</div>
+</div>
+
 <div class="col-md-12">
 	<div class="form-group">
 	{!! Form::label('gallery', 'galéria') !!}
