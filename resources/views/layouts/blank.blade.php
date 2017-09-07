@@ -15,10 +15,10 @@
 
 
 		<!-- CSS are placed here -->
-		<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 		{!! Html::style('css/styles.css') !!}
 		{!! Html::style('css/sb-admin.css') !!}
-        {!! Html::script('js/modernizr.custom.js') !!}
+    {!! Html::script('js/modernizr.custom.js') !!}
 
 </head>
 
@@ -30,7 +30,7 @@
 
 		<!-- Core JavaScript Files -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 
 		{!! Html::script('js/bootstrap.min.js') !!}
 		{!! Html::script('js/bootstrap-datepicker.js') !!}
