@@ -211,3 +211,12 @@ function mb_ucfirst($str) {
     $str = mb_strtoupper(mb_substr($str, 0, 1)) . mb_substr($str, 1);
     return $str;
 }
+
+function convertEmptyStringsToNull($array) {
+    $array = array_map(function ($e) {
+        return $e ?: null;
+
+    }, $array);
+
+    return $array;
+}

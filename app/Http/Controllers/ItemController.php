@@ -299,7 +299,7 @@ class ItemController extends Controller
         if (!empty($items) > 0) {
             foreach ($items as $item_id) {
                 $item = Item::find($item_id);
-                App::make('SpiceHarvesterController')->refreshSingleRecord($item->record->id);
+                App::make('\App\Http\Controllers\SpiceHarvesterController')->refreshSingleRecord($item->record->id);
             }
         }
         return Redirect::back()->withMessage('Pre ' . count($items) . ' diel boli načítané dáta z OAI');

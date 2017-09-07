@@ -191,7 +191,7 @@
 
 <div class="col-md-12 text-center">
   {!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp; 
-  @if(isset($authority))
+  @if(isset($authority) && $authority->record)
     <a href="{!!URL::to('harvests/'.$authority->record->id.'/refreshRecord')!!}" class="btn btn-warning">Obnoviť z OAI</a>
   @endif
   {!! link_to_route('authority.index', 'Zrušiť', null, array('class' => 'btn btn-default')) !!}
@@ -207,39 +207,35 @@
 {!! Html::script('js/jquery.cropit.min.js') !!}
 
 <script>
-  $(document).ready(function(){
-    $(".cropit-image-zoom-input").slider({
-      tooltip: 'hide'
-    });
+$(document).ready(function(){
+  $(".cropit-image-zoom-input").slider({
+    tooltip: 'hide'
+  });
 
-    $('#image-editor').cropit({
-      imageBackground: true,
-      imageBackgroundBorderWidth: 20
-      @if (isset($authority) && $authority->has_image)
+  $('#image-editor').cropit({
+    imageBackground: true,
+    imageBackgroundBorderWidth: 20
+    @if (isset($authority) && $authority->has_image)
       ,imageState: {
         src: '{!! $authority->getImagePath() !!}'
-      }
-      @endif
-    });
-
-    $('.select-image-btn').click(function() {
-      $('.cropit-image-input').click();
-    });
-
-    $('form').submit(function(e) {
-      var self = this;
-      e.preventDefault();
-      var imageData = $('#image-editor').cropit('export', {
-        type: 'image/jpeg',
-        quality: .9
-      });
-      $('#primary_image').val(imageData);
-      self.submit();
-    });
-
-
-
+    }
+    @endif
   });
+
+  $('.select-image-btn').click(function() {
+    $('.cropit-image-input').click();
+  });
+
+  $('form').submit(function(e) {
+    var imageData = $('#image-editor').cropit('export', {
+      type: 'image/jpeg',
+      quality: .9
+    });
+    $('#primary_image').val(imageData);
+      return true;
+  });
+  
+});
 
 </script>
 @stop

@@ -64,14 +64,17 @@ class AuthorityController extends Controller
         $input = Input::all();
 
         $rules = Authority::$rules;
-        $rules['primary_image'] = 'required|image';
+        // $rules['primary_image'] = 'required|image'; 
 
         $v = Validator::make($input, $rules);
 
         if ($v->passes()) {
 
-            $input = array_filter($input, 'strlen');
+            $input = convertEmptyStringsToNull($input);
+
             $authority = new Authority;
+
+            $authority->type = 'person';
             
             // not sure if OK to fill all input like this before setting translated attributes
             $authority->fill($input);
@@ -134,11 +137,8 @@ class AuthorityController extends Controller
         $v = Validator::make(Input::all(), Authority::$rules);
         if ($v->passes()) {
             $input = array_except(Input::all(), array('_method'));
-            // $input = array_filter($input); //, 'strlen'
-            $input = array_map(function ($e) {
-                return $e ?: null;
 
-            }, Input::all());
+            $input = convertEmptyStringsToNull(Input::all());
 
             $authority = Authority::find($id);
             $authority->fill($input);
