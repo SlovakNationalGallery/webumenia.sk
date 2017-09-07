@@ -134,7 +134,7 @@ function()
 
         return Redirect::back()->withInput()->withErrors($v);
 
-    });
+    })->name('objednavka.post');
 
     Route::get('dakujeme', function () {
 
