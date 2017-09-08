@@ -239,6 +239,13 @@
                                     </td>
                                 </tr>
                                 @endif
+
+                                @foreach($colors_used as $color_used => $amount)
+                                <tr>
+                                    <td class="atribut" style="background-color:{!! $color_used !!};"></td>
+                                    <td>{{ $amount }}</td>
+                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                         
@@ -273,6 +280,7 @@
     </div>
 </section>
 
+@if ($similar_by_color)
 <section class="more-items content-section">
     <div class="container">
         <div class="row">
@@ -287,6 +295,7 @@
         </div>
     </div>
 </section>
+@endif
 
 <section class="more-items content-section">
     <div class="container">
