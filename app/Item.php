@@ -206,6 +206,10 @@ class Item extends Model
 
     public function similarByColor($size = 10)
     {
+        if (!$this->color_descriptor) {
+            throw new \RuntimeException;
+        }
+
         $params = [
             'size' => $size,
             'sort' => [

@@ -52,6 +52,11 @@ class DescribeItemColors extends Command
                     continue;
                 }
 
+                if (!@getimagesize($filename)) {
+                    Log::warning(sprintf("File '%s' is not valid image", $filename));
+                    continue;
+                }
+
                 $item->color_descriptor = $this->descriptor->describe($filename);
                 $item->save();
             }

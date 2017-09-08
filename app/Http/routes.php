@@ -218,7 +218,6 @@ function()
 
         // $more_items = Item::moreLikeThis(['author','title.stemmed','description.stemmed', 'tag', 'place'],[$item->id])->limit(20);
         $more_items = $item->moreLikeThis(30);
-        $similar_by_color = $item->similarByColor(30);
 
         if (Input::has('collection')) {
             $collection = Collection::find((int) Input::get('collection'));
@@ -235,10 +234,31 @@ function()
             }
         }
 
+        $similar_by_color = [];
+        $colors_used = [];
+
+        if ($item->color_descriptor) {
+            $similar_by_color = $item->similarByColor(30);
+
+            for ($i = 0; $i < count($item->color_descriptor) / 4; $i++) {
+                $amount = $item->color_descriptor[4 * $i + 3];
+                if (!$amount) {
+                    break;
+                }
+                $L = $item->color_descriptor[4 * $i];
+                $a = $item->color_descriptor[4 * $i + 1];
+                $b = $item->color_descriptor[4 * $i + 2];
+                $rgb = \League\ColorExtractor\Color::labToRgb(['L' => $L, 'a' => $a, 'b' => $b]);
+                $key = "rgb({$rgb['R']}, {$rgb['G']}, {$rgb['B']})";
+                $colors_used[$key] = round($amount * $amount, 2) . " %";
+            }
+        }
+
         return view('dielo', compact(
             'item',
             'more_items',
             'similar_by_color',
+            'colors_used',
             'previous',
             'next'
         ));
