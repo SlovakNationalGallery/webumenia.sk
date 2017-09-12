@@ -18,7 +18,7 @@ class SetupElasticsearch extends Command
      *
      * @var string
      */
-    protected $description = 'Create Elasticsearch index and types with proper mapping.';
+    protected $description = 'Create Elasticsearch index and types with proper mapping for specified locale.';
 
     /**
      * Create a new command instance.
@@ -69,7 +69,10 @@ class SetupElasticsearch extends Command
                 $json_params_create_authorities_str = file_get_contents('app/Console/Commands/SetupElasticsearch/json_params_create_authorities_sk.json');
                 break;
             case 'en':
-                exit("No params for EN yet...");
+                $json_params_create_index_str       = file_get_contents('app/Console/Commands/SetupElasticsearch/json_params_create_index_en.json');
+                $json_params_create_items_str       = file_get_contents('app/Console/Commands/SetupElasticsearch/json_params_create_items_en.json');
+                $json_params_create_authorities_str = file_get_contents('app/Console/Commands/SetupElasticsearch/json_params_create_authorities_en.json');
+                break;
             default:
                 exit("Unknown language specified: {$this->argument('lang')}" );
         }
