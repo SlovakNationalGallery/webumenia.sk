@@ -11,12 +11,12 @@
           "type": "lemmagen",
           "lexicon": "sk"
         },
-        "synonym_filter": {
+        "synonym_filter_sk": {
           "type": "synonym",
           "synonyms_path": "synonyms/sk_SK.txt",
           "ignore_case": true
         },
-        "stopwords_SK": {
+        "stopwords_filter_sk": {
           "type": "stop",
           "stopwords_path": "stop-words/stop-words-slovak.txt",
           "ignore_case": true
@@ -27,11 +27,11 @@
           "type": "custom",
           "tokenizer": "standard",
           "filter": [
-            "stopwords_SK",
+            "stopwords_filter_sk",
             "lemmagen_filter_sk",
             "lowercase",
-            "stopwords_SK",
-            "synonym_filter",
+            "stopwords_filter_sk",
+            "synonym_filter_sk",
             "asciifolding"
           ]
         },
@@ -39,10 +39,10 @@
           "type": "custom",
           "tokenizer": "standard",
           "filter": [
-            "stopwords_SK",
+            "stopwords_filter_sk",
             "lemmagen_filter_sk",
             "lowercase",
-            "stopwords_SK",
+            "stopwords_filter_sk",
             "asciifolding"
           ]
         },
