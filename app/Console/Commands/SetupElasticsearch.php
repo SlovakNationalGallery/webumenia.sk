@@ -48,7 +48,7 @@ class SetupElasticsearch extends Command
           $this->comment('Your ES host is: ' . $host);
         }
 
-        $index_name = 'webumenia';
+        $index_name = 'webumenia_'.$this->argument('lang');
         $index_name = $this->ask('What is the index name?', $index_name);
 
 
