@@ -81,25 +81,16 @@
 	<nav class="navbar {{-- navbar-fixed-top --}} {{-- navbar-static-top --}} {!! (Request::is('/') || isSet($transparent_menu)) ? '' : 'dark-text' !!}" role="navigation">
 	    <div class="container">
 	        <div class="navbar-header page-scroll">
-	            <div class="langswitch-wrapper">
-                    <a class="dropdown-toggle langswitch-toggle uppercase triangle-top-left" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                      {{ App::getLocale() }} <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        @foreach(LaravelLocalization::getLocalesOrder() as $localeCode => $properties)
-                            @if ($localeCode != App::getLocale())
-                                <li>
-                                    <a class="uppercase" rel="alternate" hreflang="{{$localeCode}}" href="{{LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                                      {{ $localeCode }}
-                                    </a>
-                                </li>
-                            @endif
-                        @endforeach
-                    </ul>
-                </div>
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                    <i class="fa fa-bars fa-2x"></i>
-                </button>
+              
+              @include('components.langswitch', [
+                'currentLocale' => App::getLocale(),
+                'localesOrdered' => LaravelLocalization::getLocalesOrder(),
+                'localizedURLs' => getLocalizedURLArray(),
+              ])
+
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                  <i class="fa fa-bars fa-2x"></i>
+              </button>
 	            <a class="navbar-brand no-border hidden-xs first-part" href="{!! URL::to('') !!}">
 	                web
 	            </a>

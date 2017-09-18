@@ -35,7 +35,8 @@
             "App\\": "app/"
         },
         "files": [
-            "app/Helpers/general.php"
+            "app/Helpers/general.php",
+            "app/Helpers/i18n.php"
         ]
     },
     "scripts": {
