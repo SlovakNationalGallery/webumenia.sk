@@ -8,11 +8,11 @@ return array(
     |--------------------------------------------------------------------------
     */
 
-    'title' => 'autori',
-    'filters_role' => 'rola',
+    'title'               => 'autori',
+    'filters_role'        => 'rola',
     'filters_nationality' => 'príslušnosť',
-    'filters_place' => 'miesto',
-    'authors_found' => 'nájdení autori pre',
-    'authors_counted' => 'autorov',
-    'authors_none' => 'momentálne žiadni autori',
+    'filters_place'       => 'miesto',
+    'authors_found'       => 'nájdení autori pre',
+    'authors_counted'     => 'autorov',
+    'authors_none'        => 'momentálne žiadni autori',
 );

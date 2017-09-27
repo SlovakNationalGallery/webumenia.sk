@@ -16,6 +16,7 @@ class Slide extends Model
                 'title',
                 'subtitle',
                 'url',
+                'image_path',
                 'publish',
     ];
 
@@ -40,7 +41,7 @@ class Slide extends Model
 
     public function getImagePathAttribute()
     {
-        return asset(self::ARTWORKS_DIR . '/' . $this->id . '/' . $this->image . '.jpg');
+        return ( array_key_exists('image_path', $this->attributes)) ? $this->attributes['image_path'] : asset(self::ARTWORKS_DIR . '/' . $this->id . '/' . $this->image . '.jpg');
     }
 
     public function getPath($create = false)

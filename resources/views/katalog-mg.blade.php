@@ -9,37 +9,60 @@
 
 @section('content')
 
+@if (!count(Input::all()))
+    <div class="mgCarousel">
+        @foreach ($slides as $slide)
+            <div class="gallery-cell" style="background-image: url({!! $slide->image_path !!})">
+                <a href="{!! $slide->url !!}" class="outer-box" data-id="{!! $slide->id !!}" >
+                    <div class="inner-box">
+                        <h1 class="circle">{!! $slide->title !!}</h1>
+                        @if ($slide->subtitle)
+                            <h2>{!! $slide->subtitle !!}</h2>
+                        @endif
+                    </div>
+                </a>
+            </div>
+        @endforeach
+    </div>
+@endif
+
 <section class="filters">
     <div class="container content-section"><div class="expandable">
             {!! Form::open(array('id'=>'filter', 'method' => 'get')) !!}
             {!! Form::hidden('search', @$search) !!}
             <div class="row">
                 <!-- <h3>Filter: </h3> -->
-                <div  class="col-md-6 col-xs-6 bottom-space">
-                        {!! Form::select('author', array('' => '') + $authors, @$input['author'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'autor')) !!}
+                <div  class="col-md-4 col-xs-6 bottom-space">
+                        {!! Form::select('author', array('' => '') + $authors, @$input['author'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_author'))) !!}
                  </div>
-                <div  class="col-md-6 col-xs-6 bottom-space">
-                        {!! Form::select('work_type', array('' => '') + $work_types,  @$input['work_type'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'výtvarný druh')) !!}
+                <div  class="col-md-4 col-xs-6 bottom-space">
+                        {!! Form::select('work_type', array('' => '') + $work_types,  @$input['work_type'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_work_type'))) !!}
                 </div>
-                <div  class="col-md-6 col-xs-6 bottom-space">
-                        {!! Form::select('topic', array('' => '') + $topics, @$input['topic'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'žáner')) !!}
+                <div  class="col-md-4 col-xs-6 bottom-space">
+                        {!! Form::select('topic', array('' => '') + $topics, @$input['topic'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_topic'))) !!}
                 </div>
-                <div  class="col-md-6 col-xs-6 bottom-space">
-                        {!! Form::select('technique', array('' => '') + $techniques, @$input['technique'], array('class'=> 'custom-select form-control', 'data-placeholder' => 'technika')) !!}
+                <div  class="col-md-4 col-xs-6 bottom-space">
+                        {!! Form::select('technique', array('' => '') + $techniques, @$input['technique'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_technique'))) !!}
                 </div>
-                <div class="col-md-6 col-xs-6">
+                <div  class="col-md-4 col-xs-6 bottom-space">
+                        {!! Form::select('medium', array('' => '') + $mediums, @$input['medium'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_medium'))) !!}
+                </div>
+                <div  class="col-md-4 col-xs-6 bottom-space">
+                        {!! Form::select('place', array('' => '') + $places, @$input['place'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_place'))) !!}
+                </div>
+                <div class="col-md-2 col-md-offset-4 col-xs-4 col-xs-offset-2 ">
                         <div class="checkbox">
                             {!! Form::checkbox('has_image', '1', @$input['has_image'], ['id'=>'has_image']) !!}
                             <label for="has_image">
-                              len s obrázkom
+                              {{ trans('katalog.filters_has_image') }}
                             </label>
                         </div>
                 </div>
-                <div class="col-md-6 col-xs-6">
+                <div class="col-md-2 col-xs-4 ">
                         <div class="checkbox">
                             {!! Form::checkbox('has_iip', '1', @$input['has_iip'], ['id'=>'has_iip']) !!}
                             <label for="has_iip">
-                              len so zoom
+                              {{ trans('katalog.filters_has_iip') }}
                             </label>
                         </div>
                 </div>
@@ -62,42 +85,42 @@
     </div></div>
 </section>
 <section class="catalog" data-searchd-engine="{!! Config::get('app.searchd_id') !!}">
-    <div class="container content-section">
+    <div class="container">
             <div class="row content-section">
             	<div class="col-xs-6">
                     @if (!empty($search))
-                        <h4 class="inline">Nájdené diela pre &bdquo;{!! $search !!}&ldquo; (<span data-searchd-total-hits>{!! $items->total() !!}</span>) </h4> 
+                        <h4 class="inline">{{ utrans('katalog.catalog_found_artworks') }} &bdquo;{!! $search !!}&ldquo; (<span data-searchd-total-hits>{!! $items->total() !!}</span>) </h4> 
                     @else
-                		<h4 class="inline">{!! $items->total() !!} diel </h4>
+                        <h4 class="inline">{!! $items->total() !!} {{ trans('katalog.catalog_artworks') }} </h4>
                     @endif
                     @if ($items->count() == 0)
-                        <p class="text-center">Momentálne žiadne diela</p>
+                        <p class="text-center">{{ utrans('katalog.catalog_no_artworks') }}</p>
                     @endif
 
                     @if (count(Input::all()) > 0)
-                        <a class="btn btn-sm btn-default btn-outline  sans" href="{!! URL::to('/')!!}">zrušiť filtre  <i class="icon-cross"></i></a>
+                        <a class="btn btn-sm btn-default btn-outline  sans" href="{!! URL::to('/')!!}">{{ trans('general.clear_filters') }}  <i class="icon-cross"></i></a>
                     @endif
                 </div>
                 <div class="col-xs-6 text-right">
                     <div class="dropdown">
                       <a class="dropdown-toggle" type="button" id="dropdownSortBy" data-toggle="dropdown" aria-expanded="true">
-                        podľa {!! App\Item::getSortedLabel(); !!}
+                        {{ trans('general.sort_by') }} {!! trans(App\Item::getSortedLabelKey()) !!}
                         <span class="caret"></span>
                       </a>
                       <ul class="dropdown-menu dropdown-menu-right dropdown-menu-sort" role="menu" aria-labelledby="dropdownSortBy">
-                        @foreach (App\Item::$sortable as $sort=>$label)
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#" rel="{!! $sort !!}">{!! $label !!}</a></li>
+                        @foreach (App\Item::$sortable as $sort=>$labelKey)
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#" rel="{!! $sort !!}">{!! trans($labelKey) !!}</a></li>
                         @endforeach
                       </ul>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-12" style="margin-left: -15px; margin-right: -15px; padding:0 !important; width: 735px !important;">
+                <div class="col-sm-12">
                     <?php // $items = $items->paginate(18) ?>
                     <div id="iso">
                 	@foreach ($items as $i=>$item)
-    	                <div class="col-md-4 col-sm-4 col-xs-6 item">
+    	                <div class="col-md-3 col-sm-4 col-xs-6 item">
     	                	<a href="{!! $item->getUrl() !!}">
     	                		<img src="{!! $item->getImagePath() !!}" class="img-responsive" alt="{!! $item->getTitleWithAuthors() !!} ">	                		
     	                	</a>
@@ -123,7 +146,7 @@
                             <a id="next" href="{!! URL::to('katalog')!!}"><svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve"> <path d="M0.492,8.459v83.427c4.124,0.212,7.409,3.497,7.622,7.622h83.357
         c0.22-4.265,3.719-7.664,8.036-7.664V8.571c-4.46,0-8.079-3.617-8.079-8.079H8.157C8.157,4.774,4.755,8.239,0.492,8.459z"/>
 <text text-anchor="middle" alignment-baseline="middle" x="50" y="50">
-    ukáž viac
+    {{ trans('katalog.catalog_show_more') }}
   </text>
    </svg></a>
                         @endif
@@ -240,7 +263,7 @@ $(document).ready(function(){
         loading: {
             msgText: '<i class="fa fa-refresh fa-spin fa-lg"></i>',
             img: '/images/transparent.gif',
-            finishedMsg: 'A to je všetko'
+            finishedMsg: 'A to je vše'
         }
     }, function(newElements, data, url){
         history.replaceState({infiniteScroll:true}, null, url);
@@ -263,6 +286,21 @@ $(document).ready(function(){
         return false;
     });
 
+    
+    var $carousel = $('.mgCarousel').flickity({
+      wrapAround: true,
+      percentPosition: false
+    });
+    $carousel.children('.flickity-page-dots').css('left',  parseInt($('.flickity-slider').css('transform').split(',')[4]) );
+
+    $carousel.on( 'staticClick', function( event, pointer, cellElement, cellIndex ) {
+        event.preventDefault();
+        var $link = $( cellElement ).find('a');
+        var url = $link.attr('href');
+        var id = $link.data('id');
+        $.get('/slideClicked', {'id': id});
+
+    });
 
 
 });

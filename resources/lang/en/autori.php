@@ -8,11 +8,11 @@ return array(
     |--------------------------------------------------------------------------
     */
 
-    'title' => 'artists',
-    'filters_role' => 'role',
+    'title'               => 'artists',
+    'filters_role'        => 'role',
     'filters_nationality' => 'nationality',
-    'filters_place' => 'location',
-    'authors_found' => 'artists found for',
-    'authors_counted' => 'artists',
-    'authors_none' => 'currently no artists',
+    'filters_place'       => 'location',
+    'authors_found'       => 'artists found for',
+    'authors_counted'     => 'artists',
+    'authors_none'        => 'currently no artists',
 );

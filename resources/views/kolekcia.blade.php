@@ -35,7 +35,7 @@
         <div class="inner-box">
             <h1>{!! $collection->name !!}</h1>
             <p class="bottom-space">
-                {!! $collection->items()->count() !!} diel &nbsp;&middot;&nbsp; 
+                {{ trans_choice('general.artworks_counted', $collection->items()->count(), ['artworks_count' => $collection->items()->count()]) }} &nbsp;&middot;&nbsp; 
                 {!! $collection->user->name !!} &nbsp;&middot;&nbsp; 
                 {!! $collection->created_at->format('d. m. Y') !!}
             </p>

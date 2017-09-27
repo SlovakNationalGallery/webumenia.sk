@@ -24,6 +24,7 @@ app/database/migrations/2014_07_01_193730_geonames_defaults_and_nullables.php
 public/images/autori/*
 !public/images/autori/no-image*.jpeg
 public/fonts/GT-Walsheim
+public/fonts/kolektiv-grotesk
 public/images/kolekcie/*
 public/images/clanky/*
 caste_prikazy.txt

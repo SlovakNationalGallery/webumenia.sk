@@ -8,10 +8,10 @@ return array(
     |--------------------------------------------------------------------------
     */
 
-    'title' => 'collections',
+    'title'                         => 'collections',
     'collections_found_collections' => 'found collections for',
-    'collections_collections' => 'collections',
-    'collections_no_collections' => 'currently no collections',
-    'collections_artworks' => 'artworks',
+    'collections_collections'       => 'collections',
+    'collections_no_collections'    => 'currently no collections',
+    'collections_artworks'          => 'artworks',
 
 );

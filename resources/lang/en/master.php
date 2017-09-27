@@ -4,22 +4,20 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
-    | General Language Lines
+    | Language Lines for master.blade.php template
     |--------------------------------------------------------------------------
-    |
-    | Translated terms, that are reused in multiple templates
-    |
     */
 
-    'artworks' => 'artworks',
-    'collections' => 'collections',
-    'authors' => 'authors',
-    'articles' => 'articles',
-    'galleries' => 'galleries',
-    'info' => 'info',
-    'language' => 'language',
-    'made_by' => 'made by',
-    'search_placeholder' => 'Search for artworks, authors...',
-    'to_top' => 'back to top',
+    'meta_description'   => 'Web umenia is an on-line catalog of artworks from collections of Slovak galleries. Here you can find information about artworks and artists as well as articles and thematic collections.',
+    'artworks'           => 'artworks',
+    'collections'        => 'collections',
+    'authors'            => 'artists',
+    'articles'           => 'articles',
+    'galleries'          => 'galleries',
+    'info'               => 'info',
+    'language'           => 'language',
+    'made_by'            => 'made by',
+    'search_placeholder' => 'Search for artworks, artists...',
+    'to_top'             => 'back to top',
 
 );

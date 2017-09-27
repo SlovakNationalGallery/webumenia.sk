@@ -237,7 +237,6 @@ class CatalogController extends Controller
         $params = array();
         $params['from'] = $offset;
         $params['size'] = $per_page;
-        $params['query']['filtered']['filter']['and'][]['term']['gallery'] = "Moravská galerie, MG";
 
         if (!Input::has('sort_by') || $sort_by == 'updated_at') {
             $params['sort'][] = '_score';
@@ -369,6 +368,9 @@ class CatalogController extends Controller
                 $params['query']['filtered']['filter']['and'][]['range']['date_latest']['lte'] = (isset($range[1])) ? $range[1] : Item::sliderMax();
             }
         }
+
+        $params['query']['filtered']['filter']['and'][]['term']['gallery'] = "Moravská galerie, MG";
+
         $items = Item::search($params);
         $path   = '/' . \Request::path();
 
@@ -380,30 +382,68 @@ class CatalogController extends Controller
         $galleries = Item::listValues('gallery', $params);
         $topics = Item::listValues('topic', $params);
         $techniques = Item::listValues('technique', $params);
+        $mediums = Item::listValues('medium', $params);
+        $places = Item::listValues('place', $params);
 
         $queries = DB::getQueryLog();
         $last_query = end($queries);
+
+        $slides = collect([
+            new \App\Slide([
+                'title' => 'Sbírky<br> starého<br> umění',
+                'subtitle' => '',
+                'image_path' => asset('images/mg/intro/A000002.jpg'),
+                'url' => '/katalog?work_type=obrazy&year-range=-500%2C1900',
+            ]),
+            new \App\Slide([
+                'title' => 'Sbírky<br> moderního<br> umění',
+                'subtitle' => '',
+                'image_path' => asset('images/mg/intro/A002757.jpg'),
+                'url' => '/katalog?work_type=obrazy&has_image=1&year-range=1900%2C2017&sort_by=date_earliest',
+            ]),
+            new \App\Slide([
+                'title' => 'Sbírky<br> užitého<br> umění',
+                'subtitle' => '',
+                'image_path' => asset('images/mg/intro/U032421.jpg'),
+                'url' => '/katalog?work_type=d%C5%99evo',
+            ]),
+            new \App\Slide([
+                'title' => 'Sbírka <br>grafického <br>designu',
+                'subtitle' => '',
+                'image_path' => asset('images/mg/intro/GD017252.jpg'),
+                'url' => '/katalog?work_type=grafick%C3%BD+design',
+            ]),
+            new \App\Slide([
+                'title' => 'Kolekce <br>Bienále <br>Brno',
+                'subtitle' => '',
+                'image_path' => asset('images/mg/intro/GD016245.jpg'),
+                'url' => '/katalog?related_work=Bienále%20Brno',
+            ]),
+        ]);
 
         return view('katalog-mg', array(
             'items' => $items,
             'authors' => $authors,
             'work_types' => $work_types,
-            'tags' => $tags,
-            'galleries' => $galleries,
+            // 'tags' => $tags,
+            // 'galleries' => $galleries,
             'topics' => $topics,
             'techniques' => $techniques,
             'search' => $search,
             'sort_by' => $sort_by,
             'input' => $input,
             'paginator' => $paginator,
-            ));
+            'mediums' => $mediums,
+            'places' => $places,
+            'slides' => $slides,
+        ));
     }
 
     public function getSuggestions()
     {
         $q = (Input::has('search')) ? str_to_alphanumeric(Input::get('search')) : 'null';
 
-        $result = Elastic::search([
+        $params = [
                 'index' => Config::get('bouncy.index'),
                 'type' => Item::ES_TYPE,
                 'body' => array(
@@ -412,14 +452,20 @@ class CatalogController extends Controller
                             'query' => $q,
                             'type' => 'cross_fields',
                             // 'fuzziness' =>  2,
-                            // 'slop'		=>  2,
+                            // 'slop'       =>  2,
                             'fields' => array('identifier', 'title.suggest', 'author.suggest'),
                             'operator' => 'and',
                         ),
                     ),
                     'size' => '10',
                 ),
-            ]);
+        ];
+
+        if (Config::get('request.domain') == 'mg') {
+            $params['body']['filter']['term'] = ['gallery' => 'Moravská galerie, MG'];
+        }
+
+        $result = Elastic::search($params);
 
         $data = array();
         $data['results'] = array();

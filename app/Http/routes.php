@@ -37,8 +37,10 @@ Route::group(['domain' => 'media.webumenia.{tld}'], function () {
 
 // });
 
-Route::group(['domain' => 'sbirky.moravska-galerie.{tld}'], function () {
+Route::pattern('subdomain', '(test.sbirky|sbirky)');
+Route::group(['domain' => '{subdomain}.moravska-galerie.{tld}'], function () {
 
+    Config::set('app.locale', 'cs');
     Config::set('request.domain', 'mg');
 
 
@@ -48,6 +50,24 @@ Route::group(['domain' => 'sbirky.moravska-galerie.{tld}'], function () {
     });
 
     Route::get('katalog', 'CatalogController@getMg');
+
+    
+    Route::get('informacie', function () {
+        $items = Item::random(20, ['gallery' => 'Slovenská národná galéria, SNG']);
+        return view('informacie-mg', ['items' => $items]);
+    });
+
+    Route::get('dielo/{id}/zoom', function ($subdomain, $tld, $id) {
+
+        $item = Item::find($id);
+
+        if (empty($item->iipimg_url)) {
+            App::abort(404);
+        }
+
+        $related_items = (!empty($item->related_work)) ? Item::where('related_work', '=', $item->related_work)->where('author', '=', $item->author)->whereNotNull('iipimg_url')->orderBy('related_work_order')->lists('iipimg_url')->toArray() : [];
+        return view('zoom-mg', array('item' => $item, 'related_items' => $related_items));
+    });
 
 });
 
@@ -192,7 +212,7 @@ function()
             Session::push('cart', $item->id);
         }
 
-        Session::flash('message', 'Dielo <b>'.implode(', ', $item->authors)." – $item->title</b> (".$item->getDatingFormated().') bolo pridané do košíka.');
+        Session::flash( 'message', trans('objednavka.message_add_order', ['artwork_description' => '<b>'.$item->getTitleWithAuthors().'</b> ('.$item->getDatingFormated().')']) );
 
         return redirect($item->getUrl());
 
@@ -206,7 +226,7 @@ function()
             App::abort(404);
         }
         Session::put('cart', array_diff(Session::get('cart'), [$item->id]));
-        Session::flash('message', 'Dielo <b>'.implode(', ', $item->authors)." – $item->title</b> (".$item->getDatingFormated().') bolo odstránené z košíka.');
+        Session::flash('message', trans('objednavka.message_remove_order', ['artwork_description' => '<b>'.$item->getTitleWithAuthors().'</b> ('.$item->getDatingFormated().')']) );
 
         return Redirect::back();
 
@@ -299,6 +319,7 @@ Route::group(['middleware' => ['auth', 'role:admin|editor|import']], function ()
     Route::resource('imports', 'ImportController');
     Route::get('item/search', 'ItemController@search');
     Route::resource('item', 'ItemController');
+    Route::post('item/destroySelected', 'ItemController@destroySelected');
 });
 
 Route::group(['middleware' => ['auth', 'role:admin|editor']], function () {
@@ -318,7 +339,6 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::resource('harvests', 'SpiceHarvesterController');
     Route::get('item/backup', 'ItemController@backup');
     Route::get('item/geodata', 'ItemController@geodata');
-    Route::post('item/destroySelected', 'ItemController@destroySelected');
     Route::post('item/refreshSelected', 'ItemController@refreshSelected');
     Route::get('item/reindex', 'ItemController@reindex');
     Route::get('authority/destroyLink/{link_id}', 'AuthorityController@destroyLink');

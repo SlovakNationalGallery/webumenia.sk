@@ -55,7 +55,7 @@ class ImportCsv extends Command
                 }
                 echo "\n";
             }
-            $id = $this->ask('Zadaj ID importu, ktorý sa má spustiť:');
+            $id = $this->ask('Zadaj ID importu, ktorý sa má spustiť');
         }
         $import = Import::find($id);
         if (!$import) {

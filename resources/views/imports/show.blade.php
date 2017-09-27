@@ -77,7 +77,10 @@
 	                			<th>status</th>
 	                			<th>začiatok</th>
 	                			<th>koniec</th>
-	                			<th># diel</th>
+	                			<th class="text-right"># diel</th>
+	                			<th class="text-right"># chybných diel</th>
+	                			<th class="text-right"># obrázkov</th>
+	                			<th class="text-right"># IIP obrázkov</th>
 	                		</tr>
 	                	</thead>
 	                	@foreach ($import->records as $record)
@@ -98,6 +101,9 @@
 	                			<td>{{ ($record->started_at) ? $record->started_at->format('d.m.Y G:i') : '' }}</td>
 	                			<td>{{ ($record->completed_at) ? $record->completed_at->format('d.m.Y G:i') : '' }}</td>
 	                			<td class="text-right">{{ $record->imported_items }}</td>
+	                			<td class="text-right">{{ $record->wrong_items }}</td>
+	                			<td class="text-right">{{ $record->imported_images }}</td>
+	                			<td class="text-right">{{ $record->imported_iip }}</td>
 	                		</tr>
 	                	@endforeach
 	                </table>

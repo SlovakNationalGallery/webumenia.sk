@@ -178,7 +178,7 @@
                                     </td>
                                 </tr>
                                 @endif
-                                @if (!empty($item->integrity))
+                                @if (!empty($item->state_edition))
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_state_edition') }}:</td>
                                     <td>{!! $item->state_edition; !!}</td>
@@ -202,7 +202,7 @@
                                     <td><div class="expandable">{!! implode('<br> ', $item->makeArray($item->inscription));!!}</div></td>
                                 </tr>
                                 @endif
-                                @if (!empty($item->gallery))
+                                @if (!empty($item->gallery) && Config::get('request.domain') != 'mg')
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_gallery') }}:</td>
                                     <td><a href="{!! URL::to('katalog?gallery=' . $item->gallery) !!}">{!! $item->gallery; !!}</a></td>
@@ -218,7 +218,7 @@
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_licence') }}:</td>
                                     {{-- <td><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs" target="_blank" class="no-border"><img alt="Creative Commons License" style="border-width:0; padding-top: 2px;"  src="/images/license/by-nc-sa.svg" title="Creative Commons BY-NC-SA 4.0" data-toggle="tooltip"></a></td> --}}
-                                    <td><a rel="license" href="{!!URL::to('katalog?is_free=' . '1')!!}" target="_blank" class="no-border license" title="Public Domain" data-toggle="tooltip"><img alt="Creative Commons License" style="height: 20px; width: auto"  src="/images/license/zero.svg" > voľné dielo</a></td>
+                                    <td><a rel="license" href="{!!URL::to('katalog?is_free=' . '1')!!}" target="_blank" class="no-border license" title="Public Domain" data-toggle="tooltip"><img alt="Creative Commons License" style="height: 20px; width: auto"  src="/images/license/zero.svg" > {{ trans('general.public_domain') }}</a></td>
                                 </tr>                                    
                                 @endif
                                 @if (!empty($item->place))
@@ -363,8 +363,8 @@
     $(document).ready(function(){
 
         $('.expandable').readmore({
-            moreLink: '<a href="#"><i class="fa fa-chevron-down"></i> zobraziť viac</a>',
-            lessLink: '<a href="#"><i class="fa fa-chevron-up"></i> skryť</a>',
+            moreLink: '<a href="#"><i class="fa fa-chevron-down"></i> {{ trans("general.show_more") }}</a>',
+            lessLink: '<a href="#"><i class="fa fa-chevron-up"></i> {{ trans("general.show_less") }}</a>',
             maxHeight: 40
         });
 
