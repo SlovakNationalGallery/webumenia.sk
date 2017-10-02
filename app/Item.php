@@ -213,16 +213,13 @@ class Item extends Model
         $params = [
             'size' => $size,
             'sort' => [
-                '_score' => 'asc'
+                '_score' => 'desc'
             ],
             'query' => [
-                'function_score' => [
-                    'script_score' => [
-                        'script_file' => 'image_similarity',
-                        'lang' => 'groovy',
-                        'params' => [
-                            'query_feature' => $this->color_descriptor
-                        ]
+                'descriptor' => [
+                    'color_descriptor' => [
+                        'hash' => 'LSH',
+                        'descriptor' => $this->color_descriptor
                     ]
                 ]
             ]
