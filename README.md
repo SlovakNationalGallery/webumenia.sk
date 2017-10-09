@@ -8,7 +8,7 @@ Web Umenia offers a user-friendly functionality to search and expore art from co
 
 Digital reproductions of public domain arwtorks from several collections are available for download in high resolution for both personal and commercial use
 
-Art organisation with digitized artworks organised in a Collection Management System can easily publish their art via CSV imports. If you would like to know more about using Web Umenia in your organisation, contact us via [lab@sng.sk](mailto:lab@sng.sk)
+Art organisation with digitized artworks organised in a Collection Management System can easily publish their art via CSV imports or OAI-PMH harvests. If you would like to know more about using Web Umenia in your organisation, contact us via [lab@sng.sk](mailto:lab@sng.sk)
 
 Developers interested to build applications on top of Web Umenia can use our API. See our [wiki on GitHub](https://github.com/SlovakNationalGallery/web-umenia-2/wiki/ElasticSearch-Public-API) for more info.
 
