@@ -6,7 +6,7 @@ Web Umenia is initiated by [lab.SNG](http://lab.sng.sk/): the digital R&D lab of
 
 Web Umenia offers a user-friendly functionality to search and expore art from collections of multiple galleries and museums.
 
-Public domain artworks are licenced under Creative Commons and can be freely downloaded at high resolution.
+Digital reproductions of public domain arwtorks from several collections are available for download in high resolution for both personal and commercial use
 
 Art organisation with digitized artworks organised in a Collection Management System can easily publish their art via CSV imports. If you would like to know more about using Web Umenia in your organisation, contact us via [lab@sng.sk](mailto:lab@sng.sk)
 
