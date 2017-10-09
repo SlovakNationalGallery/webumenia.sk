@@ -225,7 +225,22 @@ class Item extends Model
             ]
         ];
 
-        return self::search($params);
+        $start = microtime(true);
+        $items = self::search($params);
+        $seconds = microtime(true) - $start;
+
+
+        if ($seconds < 0.001) {
+            $duration = round($seconds * 1000000) . 'μs';
+        } elseif ($seconds < 1) {
+            $duration = round($seconds * 1000, 2) . 'ms';
+        } else {
+            $duration = round($seconds, 2) . 's';
+        }
+
+        \Debugbar::info($duration);
+
+        return $items;
     }
 
     public function moreLikeThis($size = 10)

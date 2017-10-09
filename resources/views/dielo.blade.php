@@ -242,8 +242,8 @@
 
                                 @foreach($colors_used as $color_used => $amount)
                                 <tr>
-                                    <td class="atribut" style="background-color:{!! $color_used !!};"></td>
-                                    <td>{{ $amount }}</td>
+                                    <td class="atribut" style="background-color:{{ $color_used }};"></td>
+                                    <td><a href="/katalog?color={{ urlencode($color_used) }}">{{ $amount }}</a></td>
                                 </tr>
                                 @endforeach
                             </tbody>

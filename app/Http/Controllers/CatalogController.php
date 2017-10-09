@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Response;
 
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
+use League\ColorExtractor\Color;
 
 class CatalogController extends Controller
 {
@@ -176,6 +177,26 @@ class CatalogController extends Controller
                 $params['query']['filtered']['filter']['and'][]['range']['date_latest']['lte'] = (isset($range[1])) ? $range[1] : Item::sliderMax();
             }
         }
+
+        if (Input::has('color')) {
+
+            $int = Color::fromHexToInt($input['color']);
+            $lab = Color::intColorToLab($int);
+            $block = [$lab['L'], $lab['a'], $lab['b'], sqrt(100)];
+
+            $descriptor = [];
+            for ($i = 0; $i < 6; $i++) {
+                $descriptor = array_merge($descriptor, $block);
+            }
+
+            $params['query']['descriptor'] = [
+                'color_descriptor' => [
+                    'hash' => 'LSH',
+                    'descriptor' => $descriptor,
+                ]
+            ];
+        }
+
         $items = Item::search($params);
         $path   = '/' . \Request::path();
 

@@ -58,6 +58,7 @@ class DescribeItemColors extends Command
                 }
 
                 $item->color_descriptor = $this->descriptor->describe($filename);
+
                 $item->save();
             }
         });
