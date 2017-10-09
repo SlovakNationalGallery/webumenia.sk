@@ -553,12 +553,12 @@ class Item extends Model
         
         // skontrolovat, ci dielo patri institucii, ktora povoluje "volne diela"
         if (!(
-            $this->attributes['gallery'] == 'Slovenská národná galéria, SNG' ||
-            $this->attributes['gallery'] == 'Oravská galéria, OGD' ||
-            $this->attributes['gallery'] == 'Liptovská galéria Petra Michala Bohúňa, GPB' ||
-            $this->attributes['gallery'] == 'Galéria umenia Ernesta Zmetáka, GNZ' ||
-            $this->attributes['gallery'] == 'Galéria Miloša Alexandra Bazovského, GBT'  ||
-            $this->attributes['gallery'] == 'Galéria umelcov Spiša, GUS'
+            $this->gallery == 'Slovenská národná galéria, SNG' ||
+            $this->gallery == 'Oravská galéria, OGD' ||
+            $this->gallery == 'Liptovská galéria Petra Michala Bohúňa, GPB' ||
+            $this->gallery == 'Galéria umenia Ernesta Zmetáka, GNZ' ||
+            $this->gallery == 'Galéria Miloša Alexandra Bazovského, GBT'  ||
+            $this->gallery == 'Galéria umelcov Spiša, GUS'
         )) {
             return false;
         }
@@ -711,24 +711,24 @@ class Item extends Model
             $work_types = $this->work_types;
             $main_work_type = reset($work_types);
             $data = [
-                'id' => $this->attributes['id'],
-                'identifier' => $this->attributes['identifier'],
+                'id' => $this->id,
+                'identifier' => $this->identifier,
                 'title' => $this->title,
-                'author' => $this->makeArray($this->attributes['author']),
-                'description' => (!empty($this->attributes['description'])) ? strip_tags($this->attributes['description']) : '',
+                'author' => $this->makeArray($this->author),
+                'description' => (!empty($this->description)) ? strip_tags($this->description) : '',
                 'work_type' => $main_work_type, // ulozit iba prvu hodnotu
-                'topic' => $this->makeArray($this->attributes['topic']),
+                'topic' => $this->makeArray($this->topic),
                 'tag' => $this->tagNames(),
-                'place' => $this->makeArray($this->attributes['place']),
+                'place' => $this->makeArray($this->place),
                 'measurement' => $this->measurments,
                 'dating' => $this->dating,
-                'date_earliest' => $this->attributes['date_earliest'],
-                'date_latest' => $this->attributes['date_latest'],
-                'medium' => $this->attributes['medium'],
-                'technique' => $this->makeArray($this->attributes['technique']),
-                'gallery' => $this->attributes['gallery'],
-                'updated_at' => $this->attributes['updated_at'],
-                'created_at' => $this->attributes['created_at'],
+                'date_earliest' => $this->date_earliest,
+                'date_latest' => $this->date_latest,
+                'medium' => $this->medium,
+                'technique' => $this->makeArray($this->technique),
+                'gallery' => $this->gallery,
+                'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
+                'created_at' => $this->created_at->format('Y-m-d H:i:s'),
                 'has_image' => (bool)$this->has_image,
                 'has_iip' => (bool)$this->iipimg_url,
                 'is_free' => $this->isFree(),

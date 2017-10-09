@@ -110,6 +110,16 @@
 				{{ Form::text($locale."[gallery]", isset($item) ? @$item->translate($locale)->gallery : '', array('class' => 'form-control')) }}
 				</div>
 
+				<div class="form-group">
+				{{ Form::label($locale."[related_work]", 'Názov integrity '.strtoupper($locale)) }}
+				{{ Form::text($locale."[related_work]", isset($item) ? @$item->translate($locale)->related_work : '', array('class' => 'form-control')) }}
+				</div>
+
+				<div class="form-group">
+				{{ Form::label($locale."[subject]", 'Objekt '.strtoupper($locale)) }}
+				{{ Form::text($locale."[subject]", isset($item) ? @$item->translate($locale)->subject : '', array('class' => 'form-control')) }}
+				</div>
+
 			</div>
 		@endforeach
 	</div>
@@ -193,12 +203,6 @@
 	{{ Form::text('relationship_type', Input::old('relationship_type'), array('class' => 'form-control', 'placeholder' => 'zo súboru / z cyklu / z albumu / ...')) }}
 	</div>
 </div>
-<div class="col-md-5">
-	<div class="form-group">
-	{{ Form::label('related_work', 'názov integrity') }}
-	{{ Form::text('related_work', Input::old('related_work'), array('class' => 'form-control', 'placeholder' => 'Ecce vita')) }}
-	</div>
-</div>
 <div class="col-md-1">
 	<div class="form-group">
 	{{ Form::label('related_work_order', 'poradie') }}
@@ -211,6 +215,8 @@
 	{{ Form::text('related_work_total', Input::old('related_work_total'), array('class' => 'form-control')) }}
 	</div>
 </div>
+
+<div class="clearfix"></div>
 
 <div class="col-md-12">
 	<div class="form-group">

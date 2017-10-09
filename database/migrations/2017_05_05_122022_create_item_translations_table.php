@@ -30,8 +30,8 @@ class CreateItemTranslationsTable extends Migration
             $table->string('medium');
             $table->string('technique');
             $table->string('inscription');
-            $table->string('place');
-            $table->string('state_edition');
+            $table->string('place')->nullable();
+            $table->string('state_edition')->nullable();
             $table->string('gallery');
             $table->string('relationship_type');
             $table->string('related_work');
