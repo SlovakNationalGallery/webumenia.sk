@@ -238,7 +238,7 @@ function()
         $colors_used = [];
 
         if ($item->color_descriptor) {
-            $similar_by_color = $item->similarByColor(30);
+            $similar_by_color = $item->similarByColor(100);
 
             for ($i = 0; $i < count($item->color_descriptor) / 4; $i++) {
                 $amount = $item->color_descriptor[4 * $i + 3];
@@ -249,8 +249,9 @@ function()
                 $a = $item->color_descriptor[4 * $i + 1];
                 $b = $item->color_descriptor[4 * $i + 2];
                 $rgb = \League\ColorExtractor\Color::labToRgb(['L' => $L, 'a' => $a, 'b' => $b]);
-                $key = "rgb({$rgb['R']}, {$rgb['G']}, {$rgb['B']})";
-                $colors_used[$key] = round($amount * $amount, 2) . " %";
+                $int = \League\ColorExtractor\Color::fromRgbToInt(['r' => $rgb['R'], 'g' => $rgb['G'], 'b' => $rgb['B']]);
+                $hex = \League\ColorExtractor\Color::fromIntToHex($int);
+                $colors_used[$hex] = round($amount * $amount, 2) . " %";
             }
         }
 
