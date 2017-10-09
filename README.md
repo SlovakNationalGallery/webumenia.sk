@@ -2,7 +2,7 @@
 
 [Web umenia](http://www.webumenia.sk) is an open platform to explore digitized art collections from public galleries and museums. 
 
-Web Umenia is initiated by [lab.SNG](http://lab.sng.sk/): the digital R&D lab of the Slovak National Gallery. We are working with public art organisations to make their art accessible and explorable online so curious people around the world can learn more about works of art and the context they've been created in.
+Web Umenia is developed by [lab.SNG](http://lab.sng.sk/): the digital R&D lab of the Slovak National Gallery. We are working with public art organisations to make their art accessible and explorable online so curious people around the world can learn more about works of art and the context they've been created in.
 
 Web Umenia offers a user-friendly functionality to search and expore art from collections of multiple galleries and museums.
 
