@@ -16,18 +16,36 @@ class Import extends Model
     const STATUS_DELETED     = 'deleted';
     const STATUS_KILLED      = 'killed';
 
-    public static $cz_work_types = [
-        'Ar' => 'architektúra',
-        'F' =>  'fotografia',
-        'G' =>  'grafika',
-        'U' =>  'úžitkové umenie',
-        'M' =>  'iné médiá',
-        'K' =>  'kresba',
-        'O' =>  'maliarstvo',
-        'P' =>  'sochárstvo',
+    public static $inv_rady = [
+        'A'      => 'malba',
+        'Ar'     => 'architektura',
+        'B'      => 'kresba',
+        'BF'     => 'bibliofilie a knižní vazba',
+        'C'      => 'grafika',
+        'E'      => 'sochy',
+        'ES'     => 'výtv.um. (sb. Eduarda Sýkory)',
+        'F'      => 'fotografie',
+        'G'      => 'grafika',
+        'GD'     => 'grafický design',
+        'GDPM'   => 'pomocný materiál',
+        'GDR'    => 'grafický design Riedl',
+        'GDR_PM' => 'GDR pomocný materiál',
+        'K'      => 'kresby',
+        'M'      => 'obrazy, kresby (Gomperzova s)',
+        'MM'     => 'výtv. um. (sb.Matice moravské)',
+        'N'      => 'pro nevidomé',
+        'O'      => 'obrazy',
+        'P'      => 'plastiky',
+        'SD'     => 'soukr.dep.:obr,sochy,gr,kres.',
+        'SDK'    => 'stát.dep.kreseb',
+        'SDR'    => 'Státní deponát rytina',
+        'ST'     => 'staré tisky',
+        'STD'    => 'stát.dep.:obrazy, sochy, kresb',
+        'U'      => 'užité umění',
+        'Z'      => 'převody:obr.,sochy, kresby',
     ];
 
-    public static $cz_work_types_spec = [
+    public static $skupiny = [
         'Ar' => 'architektura',
         'Bi' => 'bibliofilie a staré tisky',
         'Dř' => 'dřevo, nábytek a design',
@@ -99,18 +117,33 @@ class Import extends Model
         $this->attributes['dir_path'] = $value ?: null;
     }
 
-    public static function getWorkType($rada, $skupina)
+    public static function getWorkType($skupina, $podskupina = '', $predmet = '')
     {
-        // $work_type = (isSet(self::$cz_work_types[$rada])) ? self::$cz_work_types[$rada] : 'maliarstvo';
-        // if (isSet(self::$cz_work_types_spec[$skupina])) {
-        //     if ($skupina == 'Gu') {
-        //         $work_type = 'grafika';
-        //     }
-        //     $work_type .= ', ' . self::$cz_work_types_spec[$skupina];
+        $work_types = [];
+
+        // if (isSet(self::$inv_rady[$rada])) {
+        //     $work_types[] = self::$inv_rady[$rada];
         // }
 
-        $work_type = (isSet(self::$cz_work_types_spec[$skupina])) ? self::$cz_work_types_spec[$skupina] : 'nespecifikované';
-        return $work_type;
+        if (isSet(self::$skupiny[$skupina]) &&
+            array_search(self::$skupiny[$skupina], $work_types) === false) {
+            $work_types[] = self::$skupiny[$skupina];
+        }
+
+        if (!empty($podskupina) && array_search($podskupina, $work_types) === false) {
+            $work_types[] = $podskupina;
+        }
+
+        if (!empty($predmet) && array_search($predmet, $work_types) === false) {
+            $work_types[] = $predmet;
+        }
+
+        // fallback
+        if (empty($work_types)) {
+            $work_types[] = 'nespecifikované';
+        }
+
+        return implode(', ', $work_types);
     }
 
     public static function getMeasurement($sluz)

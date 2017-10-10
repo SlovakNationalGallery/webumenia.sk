@@ -254,7 +254,7 @@ class ImportController extends Controller
                     $item->technique = $technique;
                     $item->topic = ($row['Namet']) ? $row['Namet'] : '';
                     $item->inscription = $row['Sign'];
-                    $work_type = Import::getWorkType($row['Rada_S'], $row['Skupina']);
+                    $work_type = Import::getWorkType($row['Skupina'], $row['Podskup'], $row['Predmet']);
                     $item->work_type = $work_type;
                     
                     // detect bienale
