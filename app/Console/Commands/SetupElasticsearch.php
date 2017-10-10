@@ -62,7 +62,7 @@ class SetupElasticsearch extends Command
 
       // $this->test_function();
 
-      $this->info("\nDone");
+      $this->info("\nDone 🎉");
     }
 
     public function test_function()
@@ -79,7 +79,7 @@ class SetupElasticsearch extends Command
       $res = $client->head('http://'.$host.'/'.$index_name);
 
       if ($res->getStatusCode() == 200) {
-          if ($this->confirm("An index with that name already exists.\n Do you want to delete the current index?\n [y|N]")) {
+          if ($this->confirm("❗ An index with that name already exists❗\n Do you want to delete the current index?\n [y|N]")) {
               $this->comment('Removing...');
               $res = $client->delete('http://'.$host.'/'.$index_name);
               echo $res->getBody() . "\n";
