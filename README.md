@@ -1,7 +1,18 @@
-# Web Umenia
+# Welcome
 
-This is the repository of portal [www.webumenia.sk](http://www.webumenia.sk). 
-The site is entirely open source and community involvement is encouraged.
+[Web umenia](http://www.webumenia.sk) is an open platform to explore digitized art collections from public galleries and museums. 
+
+Web Umenia is developed by [lab.SNG](http://lab.sng.sk/): the digital R&D lab of the Slovak National Gallery. We are working with public art organisations to make their art accessible and explorable online so curious people around the world can learn more about works of art and the context they've been created in.
+
+Web Umenia offers a user-friendly functionality to search and expore art from collections of multiple galleries and museums.
+
+Digital reproductions of public domain arwtorks from several collections are available for download in high resolution for both personal and commercial use
+
+Art organisation with digitized artworks organised in a Collection Management System can easily publish their art via CSV imports or OAI-PMH harvests. If you would like to know more about using Web Umenia in your organisation, contact us via [lab@sng.sk](mailto:lab@sng.sk)
+
+Developers interested to build applications on top of Web Umenia can use our API. See our [wiki on GitHub](https://github.com/SlovakNationalGallery/web-umenia-2/wiki/ElasticSearch-Public-API) for more info.
+
+# Tech setup
 
 ## Requirements
 
