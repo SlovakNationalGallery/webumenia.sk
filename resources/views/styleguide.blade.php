@@ -15,11 +15,9 @@ Styleguide |
 
             <script>
                 function toggle_source(event) {
+            event.preventDefault();
                     $(event.target).parent().find('pre.js-source').toggleClass('hidden');
-                    console.log($(event.target).parent().find('pre.js-source'))
-                    
                     var txt = $(event.target).parent().find('pre.js-source').hasClass('hidden') ? '<i class="fa fa-code"></i> Show source' : '<i class="fa fa-code"></i> Hide source';
-                    // console.log(txt)
                     $(event.target).html(txt);
                 }
             </script>
