@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [1.2.7] - 2017-10-13
+### Changed
+- License info to MIT in README
+- Typos in README
+
 ## [1.2.6] - 2017-10-11
 ### Added
 - Welcome section to README
