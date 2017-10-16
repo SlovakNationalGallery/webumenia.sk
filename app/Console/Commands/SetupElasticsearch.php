@@ -51,10 +51,10 @@ class SetupElasticsearch extends Command
             $this->setup_all_locales($client, $host);
             break;
           case 'sk':
-            $this->setup_sk_locale($client, $host);
+            $this->setup_for_locale($client, $host, 'sk');
             break;
           case 'en':
-            $this->setup_en_locale($client, $host);
+            $this->setup_for_locale($client, $host, 'en');
             break;
           default:
               exit("Unknown language specified: {$this->argument('lang')}" );
@@ -124,35 +124,21 @@ class SetupElasticsearch extends Command
     public function setup_all_locales($client, $host)
     {
       $this->comment('setting up ES index for all locales...');
-      $this->setup_sk_locale($client, $host);
-      $this->setup_en_locale($client, $host);
+      $this->setup_for_locale($client, $host, 'sk');
+      $this->setup_for_locale($client, $host, 'en');
     }
 
-    public function setup_sk_locale($client, $host)
+    public function setup_for_locale($client, $host, $locale_str)
     {
-      $this->comment("\nsetting up ES index for locale: sk");
-      $index_name = $this->get_index_name($client, $host, 'sk');
+      $this->comment("\nsetting up ES index for locale: $locale_str");
+      $index_name = $this->get_index_name($client, $host, $locale_str);
 
-      $json_params_create_index_str       = file_get_contents('app/Console/Commands/SetupElasticsearch/json_params_create_index_sk.json');
-      $json_params_create_items_str       = file_get_contents('app/Console/Commands/SetupElasticsearch/json_params_create_items_sk.json');
-      $json_params_create_authorities_str = file_get_contents('app/Console/Commands/SetupElasticsearch/json_params_create_authorities_sk.json');
+      $json_params_create_index_str       = file_get_contents("app/Console/Commands/SetupElasticsearch/$locale_str/index.json");
+      $json_params_create_items_str       = file_get_contents("app/Console/Commands/SetupElasticsearch/$locale_str/items.json");
+      $json_params_create_authorities_str = file_get_contents("app/Console/Commands/SetupElasticsearch/$locale_str/authorities.json");
 
       $this->create_index($client, $host, $index_name, $json_params_create_index_str);
       $this->create_items($client, $host, $index_name, $json_params_create_items_str);
       $this->create_authorities($client, $host, $index_name, $json_params_create_authorities_str);      
-    }
-
-    public function setup_en_locale($client, $host)
-    {
-      $this->comment("\nsetting up ES index for locale: en");
-      $index_name = $this->get_index_name($client, $host, 'en');
-
-      $json_params_create_index_str       = file_get_contents('app/Console/Commands/SetupElasticsearch/json_params_create_index_en.json');
-      $json_params_create_items_str       = file_get_contents('app/Console/Commands/SetupElasticsearch/json_params_create_items_en.json');
-      $json_params_create_authorities_str = file_get_contents('app/Console/Commands/SetupElasticsearch/json_params_create_authorities_en.json');
-
-      $this->create_index($client, $host, $index_name, $json_params_create_index_str);
-      $this->create_items($client, $host, $index_name, $json_params_create_items_str);
-      $this->create_authorities($client, $host, $index_name, $json_params_create_authorities_str);
     }
 }
