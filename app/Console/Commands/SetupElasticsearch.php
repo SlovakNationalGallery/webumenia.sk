@@ -60,14 +60,7 @@ class SetupElasticsearch extends Command
               exit("Unknown language specified: {$this->argument('lang')}" );
       }
 
-      // $this->test_function();
-
       $this->info("\nDone 🎉");
-    }
-
-    public function test_function()
-    {
-      $this->info('Test');
     }
 
     public function get_index_name($client, $host, $locale_str)
