@@ -569,7 +569,8 @@ class Item extends Model
             $this->attributes['gallery'] == 'Oravská galéria, OGD' ||
             $this->attributes['gallery'] == 'Liptovská galéria Petra Michala Bohúňa, GPB' ||
             $this->attributes['gallery'] == 'Galéria umenia Ernesta Zmetáka, GNZ' ||
-            $this->attributes['gallery'] == 'Galéria Miloša Alexandra Bazovského, GBT'
+            $this->attributes['gallery'] == 'Galéria Miloša Alexandra Bazovského, GBT'  ||
+            $this->attributes['gallery'] == 'Galéria umelcov Spiša, GUS'
         )) {
             return false;
         }

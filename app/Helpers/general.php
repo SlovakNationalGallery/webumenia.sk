@@ -379,3 +379,12 @@ function remove_accents($string) {
 function empty_to_null($value) {
     return $value === "" ? NULL : $value;
 }
+
+function convertEmptyStringsToNull($array) {
+    $array = array_map(function ($e) {
+        return $e ?: null;
+
+    }, $array);
+
+    return $array;
+}
