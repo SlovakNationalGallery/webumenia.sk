@@ -77,8 +77,8 @@ class SetupElasticsearch extends Command
     $json_params_create_authorities_str = file_get_contents("$BASE_PATH/$locale_str/authorities.json");
 
     $this->create_index($client, $host, $index_name, $json_params_create_index_str);
-    $this->create_items($client, $host, $index_name, $json_params_create_items_str);
-    $this->create_authorities($client, $host, $index_name, $json_params_create_authorities_str);      
+    $this->create_mapping($client, $host, $index_name, 'items'      , $json_params_create_items_str);
+    $this->create_mapping($client, $host, $index_name, 'authorities', $json_params_create_authorities_str);
   }
 
   public function get_index_name($client, $host, $locale_str)
@@ -111,30 +111,17 @@ class SetupElasticsearch extends Command
         $this->info('Index ' . $index_name . ' was created');
     }
   }
-  
-  public function create_items($client, $host, $index_name, $items_params_str)
+
+  public function create_mapping($client, $host, $index_name, $mapping_name, $mapping_params_str)
   {
-    $this->comment('Creating type "items"...');
-    $res = $client->put('http://'.$host.'/'.$index_name .'/_mapping/items', [
-        'json' => json_decode($items_params_str, true),
+    $this->comment("Creating type $mapping_name...");
+    $res = $client->put("http://$host/$index_name/_mapping/$mapping_name", [
+        'json' => json_decode($mapping_params_str, true),
     ]);
     echo $res->getBody() . "\n";
 
     if ($res->getStatusCode() == 200) {
-        $this->info('Type "items" was created');
-    }
-  }
-
-  public function create_authorities($client, $host, $index_name, $authorities_params_str)
-  {
-    $this->comment('Creating type "authorities"...');
-    $res = $client->put('http://'.$host.'/'.$index_name .'/_mapping/authorities', [
-        'json' => json_decode($authorities_params_str, true),
-    ]);
-    echo $res->getBody() . "\n";
-
-    if ($res->getStatusCode() == 200) {
-        $this->info('Type "authorities" was created');
+        $this->info("Type $mapping_name was created");
     }
   }
 }
