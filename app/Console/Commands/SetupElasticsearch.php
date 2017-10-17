@@ -52,32 +52,19 @@ class SetupElasticsearch extends Command
     $available_locales = array_map('basename', glob($BASE_PATH ."/*", GLOB_ONLYDIR));
 
     // let user select from available locales
-    array_unshift($available_locales, 'all');
-    $selected_locale = $this->choice('Which locale(s) do you want to setup?', $available_locales, 0);
+    $locale_options = array_merge(['all'], $available_locales);
+    $selected_locale = $this->choice('Which locale(s) do you want to set up?', $locale_options, 0);
 
-    switch ($selected_locale) {
-        case 'all':
-          $this->setup_all_locales($client, $host, $BASE_PATH);
-          break;
-        case 'sk':
-          $this->setup_for_locale($client, $host, $BASE_PATH, 'sk');
-          break;
-        case 'en':
-          $this->setup_for_locale($client, $host, $BASE_PATH, 'en');
-          break;
-        default:
-          $this->info('default case');
-          exit("Unknown language specified: $selected_locale" );
+    if ($selected_locale == 'all') {
+      foreach ($available_locales as $key => $locale) {
+        $this->setup_for_locale($client, $host, $BASE_PATH, $locale);  
+      }
+    }
+    else {
+      $this->setup_for_locale($client, $host, $BASE_PATH, $selected_locale);
     }
 
     $this->info("\nDone 🎉");
-  }
-
-  public function setup_all_locales($client, $host, $BASE_PATH)
-  {
-    $this->comment('setting up ES index for all locales...');
-    $this->setup_for_locale($client, $host, $BASE_PATH, 'sk');
-    $this->setup_for_locale($client, $host, $BASE_PATH, 'en');
   }
 
   public function setup_for_locale($client, $host, $BASE_PATH, $locale_str)
