@@ -29,13 +29,14 @@ Route::group(['domain' => 'media.webumenia.{tld}'], function () {
     });
 });
 
-// Route::group(['domain' => 'sbirky.moravska-galerie.{tld}'], function () {
+Route::group(['domain' => 'e-vystavy.pamatniknarodnihopisemnictvi.{tld}'], function () {
 
-//     Route::get('/', function ($tld) {
-//       return 'V přípravě';
-//     });
+    Route::get('/', function ($tld) {
+      return view('pnp/temporary');
+    });
 
-// });
+});
+
 
 Route::pattern('subdomain', '(test.sbirky|sbirky)');
 Route::group(['domain' => '{subdomain}.moravska-galerie.{tld}'], function () {
@@ -51,7 +52,7 @@ Route::group(['domain' => '{subdomain}.moravska-galerie.{tld}'], function () {
 
     Route::get('katalog', 'CatalogController@getMg');
 
-    
+
     Route::get('informacie', function () {
         $items = Item::random(20, ['gallery' => 'Slovenská národná galéria, SNG']);
         return view('informacie-mg', ['items' => $items]);
@@ -74,8 +75,8 @@ Route::group(['domain' => '{subdomain}.moravska-galerie.{tld}'], function () {
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
     'middleware' => [ 'localeSessionRedirect', 'localizationRedirect' ]
-], 
-function() 
+],
+function()
 {
     Route::get('leto', function () {
 
