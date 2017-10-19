@@ -32,6 +32,7 @@ Route::group(['domain' => 'media.webumenia.{tld}'], function () {
 Route::group(['domain' => 'e-vystavy.pamatniknarodnihopisemnictvi.{tld}'], function () {
 
     Route::get('/', function ($tld) {
+      \Debugbar::disable();
       return view('pnp/temporary');
     });
 
