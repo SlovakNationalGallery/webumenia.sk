@@ -30,7 +30,7 @@
     }
 
     div.center-container img {
-      width: 70%;
+      width: 60%;
       height: auto;
     }
 
