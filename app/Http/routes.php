@@ -29,52 +29,6 @@ Route::group(['domain' => 'media.webumenia.{tld}'], function () {
     });
 });
 
-Route::group(['domain' => 'e-vystavy.pamatniknarodnihopisemnictvi.{tld}'], function () {
-
-    Route::get('/', function ($tld) {
-      \Debugbar::disable();
-      return view('pnp/temporary');
-    });
-
-    Route::get('katalog', 'CatalogController@getPnp');
-
-});
-
-
-Route::pattern('subdomain', '(test.sbirky|sbirky)');
-Route::group(['domain' => '{subdomain}.moravska-galerie.{tld}'], function () {
-
-    Config::set('app.locale', 'cs');
-    Config::set('request.domain', 'mg');
-
-
-    Route::get('/', function () {
-        // dd(\Request::all());
-        return redirect('katalog')->with(\Request::all());
-    });
-
-    Route::get('katalog', 'CatalogController@getMg');
-
-
-    Route::get('informacie', function () {
-        $items = Item::random(20, ['gallery' => 'Slovenská národná galéria, SNG']);
-        return view('informacie-mg', ['items' => $items]);
-    });
-
-    Route::get('dielo/{id}/zoom', function ($subdomain, $tld, $id) {
-
-        $item = Item::find($id);
-
-        if (empty($item->iipimg_url)) {
-            App::abort(404);
-        }
-
-        $related_items = (!empty($item->related_work)) ? Item::where('related_work', '=', $item->related_work)->where('author', '=', $item->author)->whereNotNull('iipimg_url')->orderBy('related_work_order')->lists('iipimg_url')->toArray() : [];
-        return view('zoom-mg', array('item' => $item, 'related_items' => $related_items));
-    });
-
-});
-
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
     'middleware' => [ 'localeSessionRedirect', 'localizationRedirect' ]
@@ -355,3 +309,67 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 });
 
+
+// **********************
+// other instances below:
+// **********************
+
+Route::group(['domain' => 'e-vystavy.pamatniknarodnihopisemnictvi.{tld}'], function () {
+
+    Config::set('request.domain', 'pnp');
+
+    Route::get('/', function ($tld) {
+      \Debugbar::disable();
+      Config::set('request.domain', 'pnp');
+      return view('pnp/temporary');
+    });
+
+    Route::get('katalog', 'CatalogController@getPnp');
+
+});
+
+
+Route::pattern('subdomain', '(test.sbirky|sbirky)');
+Route::group(['domain' => '{subdomain}.moravska-galerie.{tld}'], function () {
+
+    Config::set('app.locale', 'cs');
+    // Config::set('request.domain', 'mg');
+
+
+    Route::get('/', function () {
+        return redirect('katalog')->with(\Request::all());
+    });
+
+    Route::get('katalog', 'CatalogController@getMg');
+
+
+    Route::get('informacie', function () {
+        $items = Item::random(20, ['gallery' => 'Slovenská národná galéria, SNG']);
+        return view('informacie-mg', ['items' => $items]);
+    });
+
+    Route::get('dielo/{id}/zoom', function ($subdomain, $tld, $id) {
+
+        $item = Item::find($id);
+
+        if (empty($item->iipimg_url)) {
+            App::abort(404);
+        }
+
+        $related_items = (!empty($item->related_work)) ? Item::where('related_work', '=', $item->related_work)->where('author', '=', $item->author)->whereNotNull('iipimg_url')->orderBy('related_work_order')->lists('iipimg_url')->toArray() : [];
+        return view('zoom-mg', array('item' => $item, 'related_items' => $related_items));
+    });
+
+    Route::get('dielo/{id}/zoom', function ($subdomain, $tld, $id) {
+
+        $item = Item::find($id);
+
+        if (empty($item->iipimg_url)) {
+            App::abort(404);
+        }
+
+        $related_items = (!empty($item->related_work)) ? Item::where('related_work', '=', $item->related_work)->where('author', '=', $item->author)->whereNotNull('iipimg_url')->orderBy('related_work_order')->lists('iipimg_url')->toArray() : [];
+        return view('zoom-mg', array('item' => $item, 'related_items' => $related_items));
+    });
+
+});
