@@ -1,0 +1,139 @@
+{
+  "authorities": {
+    "properties": {
+      "id": {
+        "type": "string",
+        "index": "not_analyzed"
+      },
+      "identifier": {
+        "type": "string",
+        "index": "not_analyzed"
+      },
+      "type": {
+        "type": "string",
+        "index": "not_analyzed"
+      },
+      "name": {
+        "type": "string",
+        "index": "not_analyzed",
+        "fields": {
+          "folded": {
+            "type": "string",
+            "analyzer": "ascii_folding"
+          },
+          "suggest": { 
+            "type":     "string",
+            "analyzer": "autocomplete",
+            "search_analyzer": "ascii_folding"
+          }
+        }
+      },
+      "alternative_name": {
+        "type": "string",
+        "index": "not_analyzed",
+        "fields": {
+          "folded": {
+            "type": "string",
+            "analyzer": "ascii_folding"
+          },
+          "suggest": { 
+            "type":     "string",
+            "analyzer": "autocomplete",
+            "search_analyzer": "ascii_folding"
+          }
+        }
+      },
+      "related_name": {
+        "type": "string",
+        "index": "not_analyzed",
+        "fields": {
+          "folded": {
+            "type": "string",
+            "analyzer": "ascii_folding"
+          },
+          "suggest": { 
+            "type":     "string",
+            "analyzer": "autocomplete",
+            "search_analyzer": "ascii_folding"
+          }
+        }
+      },
+      "biography": {
+        "type": "string",
+        "analyzer": "ascii_folding",
+        "fields": {
+          "stemmed": { 
+            "type":     "string",
+            "analyzer": "slovencina"
+          }
+        }
+      },
+      "nationality": {
+        "type": "string",
+        "index": "not_analyzed",
+        "fields": {
+          "folded": {
+            "type": "string",
+            "analyzer": "ascii_folding"
+          }
+        }
+      },
+      "place": {
+        "type": "string",
+        "index": "not_analyzed",
+        "fields": {
+          "folded": {
+            "type": "string",
+            "analyzer": "ascii_folding"
+          }
+        }
+      },
+      "role": {
+        "type": "string",
+        "index": "not_analyzed",
+        "fields": {
+          "folded": {
+            "type": "string",
+            "analyzer": "ascii_folding"
+          }
+        }
+      },
+      "birth_year": {
+        "type": "date",
+        "index": "not_analyzed",
+        "format" : "yyyy"
+      },
+      "death_year": {
+        "type": "date",
+        "index": "not_analyzed",
+        "format" : "yyyy"
+      },
+      "birth_place": {
+        "type": "string",
+        "index": "not_analyzed"
+      },
+      "death_place": {
+        "type": "string",
+        "index": "not_analyzed"
+      },
+      "sex": {
+        "type": "string",
+        "index": "not_analyzed"
+      },
+      "has_image": {
+        "type": "boolean"
+      },
+      "items_count": {
+        "type": "integer"
+      },
+      "items_with_images_count": {
+        "type": "integer"
+      },
+      "created_at" : {
+        "type": "date",
+        "index": "not_analyzed",
+        "format" : "yyyy-MM-dd HH:mm:ss"
+      }
+    }
+  }
+}

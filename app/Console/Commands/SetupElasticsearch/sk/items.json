@@ -1,0 +1,159 @@
+{
+  "items": {
+    "properties": {
+      "id": {
+        "type": "string",
+        "index": "not_analyzed"
+      },
+      "identifier": {
+        "type": "string",
+        "index": "not_analyzed"
+      },
+      "author": {
+        "type": "string",
+        "index": "not_analyzed",
+        "fields": {
+          "folded": {
+            "type": "string",
+            "analyzer": "ascii_folding"
+          },
+          "stemmed": { 
+            "type":     "string",
+            "analyzer": "slovencina"
+          },
+          "suggest": { 
+            "type":     "string",
+            "analyzer": "autocomplete",
+            "search_analyzer": "ascii_folding"
+          }
+        }
+      },
+      "title": {
+        "type": "string",
+        "index": "not_analyzed",
+        "fields": {
+          "folded": { 
+            "type":     "string",
+            "analyzer": "ascii_folding"
+          },
+          "stemmed": { 
+            "type":     "string",
+            "analyzer": "slovencina"
+          },
+          "suggest": { 
+            "type":     "string",
+            "analyzer": "autocomplete",
+            "search_analyzer": "ascii_folding"
+          }
+        }
+      },
+      "description": {
+        "type": "string",
+        "analyzer": "ascii_folding",
+        "fields": {
+          "stemmed": { 
+            "type":     "string",
+            "analyzer": "slovencina"
+          }
+        }
+      },
+      "topic": {
+        "type": "string",
+        "index": "not_analyzed",
+        "fields": {
+          "folded": {
+            "type": "string",
+            "analyzer": "ascii_folding"
+          }
+        }
+      },
+      "technique": {
+        "index": "not_analyzed",
+        "type": "string"
+      },
+      "dating": {
+        "type": "string"
+      },
+      "date_earliest": {
+        "type": "date",
+        "index": "not_analyzed",
+        "format" : "yyyy"
+      },
+      "date_latest": {
+        "type": "date",
+        "index": "not_analyzed",
+        "format" : "yyyy"
+      },
+      "gallery": {
+        "type": "string",
+        "index": "not_analyzed"
+      },
+      "tag": {
+        "type": "string",
+        "index": "not_analyzed",
+        "fields": {
+          "folded": {
+            "type": "string",
+            "analyzer": "ascii_folding"
+          },
+          "stemmed": { 
+            "type":     "string",
+            "analyzer": "slovencina"
+          }
+        }
+      },
+      "work_type": {
+        "type": "string",
+        "index": "not_analyzed"
+      },
+      "related_work": {
+        "type": "string",
+        "index": "not_analyzed"
+      },
+      "view_count": {
+        "type": "integer",
+        "index": "not_analyzed"
+      },
+      "place": {
+        "type": "string",
+        "index": "not_analyzed",
+        "fields": {
+          "folded": {
+            "type": "string",
+            "analyzer": "ascii_folding"
+          }
+        }
+      },
+      "medium": {
+        "type": "string",
+        "index": "not_analyzed"
+      },
+      "created_at" : {
+        "type": "date",
+        "index": "not_analyzed",
+        "format" : "yyyy-MM-dd HH:mm:ss"
+      },
+      "updated_at" : {
+        "type": "date",
+        "index": "not_analyzed",
+        "format" : "yyyy-MM-dd HH:mm:ss"
+      },
+      "has_image" : {
+        "type": "boolean"
+      },
+      "has_iip" : {
+        "type": "boolean"
+      },
+      "is_free" : {
+        "type": "boolean"
+      },
+      "free_download" : {
+        "type": "boolean"
+      },
+      "authority_id" : {
+        "type": "string",
+        "index": "not_analyzed"
+      }
+    }
+  }
+}
