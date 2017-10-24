@@ -12,6 +12,12 @@ Art organisation with digitized artworks organised in a Collection Management Sy
 
 Developers interested to build applications on top of Web umenia can use our API. See our [wiki on GitHub](https://github.com/SlovakNationalGallery/web-umenia-2/wiki/ElasticSearch-Public-API) for more info.
 
+# Contributing
+
+We greatly encourage others to get involved! See [our contributing guidelines](CONTRIBUTING.md) for more info about different ways to contribute to Web umenia.
+
+We are committed to providing a welcoming and inspiring community for all and expect others who participate in the project to honour our [code of conduct](CODE_OF_CONDUCT.md).
+
 # Tech setup
 
 ## Requirements
