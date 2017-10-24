@@ -237,7 +237,7 @@ function()
         return view('dielo', array('item' => $item, 'more_items' => $more_items, 'previous' => $previous, 'next' => $next));
     });
 
-    Route::get('styleguide', function () {
+    Route::get('patternlib', function () {
         $COMPONENT_BASE_PATH = '../resources/views/components/';
         
         // get json file names
@@ -270,7 +270,7 @@ function()
             $components_json[$index]['source_code'] = htmlspecialchars(file_get_contents(substr($file_paths[$index], 0, -5).'.blade.php'));
         }
 
-        return view('styleguide', [
+        return view('patternlib', [
             'components' => $components_json
         ]);
     });

@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-Styleguide |
+Pattern Library |
 @parent
 @stop
 
