@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+### Added
+- CONTRIBUTING.md
+- CODE_OF_CONDUCT.md
+
 ## [1.2.7] - 2017-10-13
 ### Changed
 - License info to MIT in README
