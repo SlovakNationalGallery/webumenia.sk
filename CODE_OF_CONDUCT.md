@@ -1,4 +1,4 @@
-# Contributor Covenant Code of Conduct
+# Web umenia Code of Conduct
 
 ## Our Pledge
 
