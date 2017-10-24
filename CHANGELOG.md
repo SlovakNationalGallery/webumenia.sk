@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [1.2.8] - 2017-10-24
 ### Added
 - CONTRIBUTING.md
 - CODE_OF_CONDUCT.md
