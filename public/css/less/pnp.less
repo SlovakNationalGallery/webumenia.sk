@@ -10,6 +10,7 @@
 @import "flickity.less";
 @import "custom.less";
 
+@black: #000;
 @grey: #cccccc;
 @dark-grey: #c2c4c4;
 @primary: @dark-grey;
@@ -22,13 +23,25 @@
 @table-border-color: transparent;
 @font-family-sans-serif:   "Source Sans Pro Regular", sans-serif;
 
+/* Utility classes */
+
+.black {
+  color: @black;
+}
+
+/* Background image */
 
 body {
-    background-image: url('/images/pnp/bg.jpg');
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-position: top center;
+  background-image: url('/images/pnp/bg.jpg');
+  background-repeat: no-repeat;
+  background-size: 150%;
+  background-position: center top -30px;
+  
+  @media(min-width: @screen-xs-min) {
+    background-size: 130%;
+    background-position: center top -60px;  
 
+  }
 }
 
 section.info, section.filters, section.light-grey { background-color: @light; }

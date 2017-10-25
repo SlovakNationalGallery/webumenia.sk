@@ -13,15 +13,14 @@
 <section class="intro content-section">
     <div class="intro-body">
         <div class="container">
-            <p class="lead tagline text-center">
+            <h1 class="text-center black">
                 Wenceslaus Hollar Bohemus<br>
-                — řeč jehly a rydla —<br>
-            </p>
-
-            <p class="lead text-center">
+                — řeč jehly a rydla —
+            </h1>
+            <h2 class="text-center black">
                 virtuální kolekce děl jednoho <br>
                 z nejvýznamnějších barokních rytců
-            </p>
+            </h2>
         </div>
     </div>
 </section>
