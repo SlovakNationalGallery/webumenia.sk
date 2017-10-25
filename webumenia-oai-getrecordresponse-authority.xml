@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><?xml-stylesheet type='text/xsl' href='/oai-pmh/static/Celestial.xsl'?><OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd http://e-culture.multimedian.nl/ns/getty/ulan# http://e-culture.multimedian.nl/ns/getty/ulan#"><responseDate>2017-10-19T09:50:44.980Z</responseDate><request verb="GetRecord" identifier="1074" metadataPrefix="ulan">http://stary.webumenia.sk/oai-pmh/authority/authorized</request><GetRecord><record><header><identifier>1074</identifier><datestamp>2016-06-07T15:41:49Z</datestamp></header><metadata><cedvu:Vocabulary xmlns:cedvu="http://www.webumenia.sk#" xmlns:ulan="http://e-culture.multimedian.nl/ns/getty/ulan#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:vp="http://e-culture.multimedian.nl/ns/getty/vp#" Date="19.10.2017" Title="Union List of Artist Names of CEDVU">
+   <vp:Subject rdf:about="urn:svk:psi:per:sng:0000001074" vp:Subject_ID="1074" vp:labelPreferred="Bonnet, Louis Marin">
+      <cedvu:ID rdf:resource="CEDVU_ID (autorita)">urn:svk:psi:per:sng:0000001074</cedvu:ID>
+      <cedvu:ID rdf:resource="CAIR_ID (autorita)"/>
+      <vp:Record_Type rdf:resource="P">Person</vp:Record_Type>
+      <vp:Biographies>
+         <vp:Preferred_Biography>
+            <vp:Biography_Text>https://fr.wikipedia.org/wiki/Louis-Marin_Bonnet</vp:Biography_Text>
+            <vp:Birth_Place rdf:resource="urn:svk:psi:poj:sng:tvu:0000012097">Paríž/Paris</vp:Birth_Place>
+            <vp:Birth_Date>1736</vp:Birth_Date>
+            <vp:Death_Place rdf:resource="urn:svk:psi:poj:sng:tvu:0001449029">Saint Mandé</vp:Death_Place>
+            <vp:Death_Date>12.10.1793</vp:Death_Date>
+            <vp:Sex rdf:resource="0">Male</vp:Sex>
+         </vp:Preferred_Biography>
+      </vp:Biographies>
+      <vp:Nationalities>
+         <vp:Preferred_Nationality rdf:resource="urn:svk:psi:per:sng:0000012095">
+            <vp:Nationality_Code>Francúzsko</vp:Nationality_Code>
+         </vp:Preferred_Nationality>
+         <vp:Non-Preferred_Nationality rdf:resource="urn:svk:psi:per:sng:0001505420">
+            <vp:Nationality_Code>France</vp:Nationality_Code>
+         </vp:Non-Preferred_Nationality>
+      </vp:Nationalities>
+      <vp:Roles>
+         <vp:Preferred_Role>
+            <vp:Role_ID>rytec/engraver</vp:Role_ID>
+         </vp:Preferred_Role>
+         <vp:Preferred_Role>
+            <vp:Role_ID>kresliar/draftsman</vp:Role_ID>
+         </vp:Preferred_Role>
+         <vp:Preferred_Role>
+            <vp:Role_ID>maliar/painter</vp:Role_ID>
+         </vp:Preferred_Role>
+      </vp:Roles>
+      <vp:Terms>
+         <vp:Preferred_Term>
+            <vp:Term_Text>Bonnet, Louis Marin</vp:Term_Text>
+         </vp:Preferred_Term>
+      </vp:Terms>
+      <vp:Events/>
+      <vp:Associative_Relationships/>
+   </vp:Subject>
+</cedvu:Vocabulary></metadata></record></GetRecord></OAI-PMH>

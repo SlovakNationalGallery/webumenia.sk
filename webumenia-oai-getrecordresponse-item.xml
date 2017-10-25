@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type='text/xsl' href='/oai-pmh/static/Celestial.xsl'?>
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+   <responseDate>2017-10-19T09:41:35.743Z</responseDate>
+   <request verb="GetRecord" identifier="SVK:SNG.UP-DK_4368" metadataPrefix="oai_dc">http://stary.webumenia.sk/oai-pmh/authorized</request>
+   <GetRecord>
+      <record>
+         <header>
+            <identifier>SVK:SNG.UP-DK_4368</identifier>
+            <datestamp>2017-10-16T14:34:44.291Z</datestamp>
+            <setSpec>SNG</setSpec>
+         </header>
+         <metadata>
+            <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:su="java:com.eea.cm.sng.util.StringUtil" xmlns:cv="java:com.eea.cm.sng.xslt.ControlledVocabularyManager" xmlns:vra="http://simile.mit.edu/2003/10/ontologies/vraCore3" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:sng="http://www.sng.sk/cedvu#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+               <dc:title>Nápisy</dc:title>
+               <dc:title.translated xml:lang="eng">Inscriptions</dc:title.translated>
+               <dc:creator>urn:svk:psi:per:sng:0000000503</dc:creator>
+               <dc:creator>Bartoš, Juraj</dc:creator>
+               <dc:creator.role>autor/author</dc:creator.role>
+               <dc:description>vpredu na dolnom okraji v strede tlač Juraj Bartoš 1967</dc:description>
+               <dc:type xml:lang="slk">fotografia</dc:type>
+               <dc:type xml:lang="cze">fotografie</dc:type>
+               <dc:type xml:lang="eng">photography</dc:type>
+               <dc:type>DEF</dc:type>
+               <dc:type>zväčšenina</dc:type>
+               <dc:format xml:lang="slk">čiernobiela fotografia</dc:format>
+               <dc:format xml:lang="cze">fotografie, černobílá</dc:format>
+               <dc:format xml:lang="eng">black-and-white photography</dc:format>
+               <dc:format.medium xml:lang="slk">papier, fotografický</dc:format.medium>
+               <dc:format.medium xml:lang="eng">photographic paper</dc:format.medium>
+               <dc:format.medium xml:lang="cze">papír fotografický</dc:format.medium>
+               <dcterms:extent>výška 45.8 cm, šírka 30.4 cm ()</dcterms:extent>
+               <dcterms:created>1967/1967</dcterms:created>
+               <dcterms:created>20. storočie, 2. polovica, 1967</dcterms:created>
+               <dcterms:created>2009/2009</dcterms:created>
+               <dcterms:created>21. storočie, 1. polovica, 2009</dcterms:created>
+               <dcterms:provenance>Slovenská národná galéria, SNG</dcterms:provenance>
+               <dc:identifier>SVK:SNG.UP-DK_4368</dc:identifier>
+               <dc:type>Image</dc:type>
+               <dc:identifier>http://www.webumenia.sk/oai-pmh/getimage/SVK:SNG.UP-DK_4368</dc:identifier>
+               <dc:identifier>UP-DK 4368</dc:identifier>
+               <dc:identifier linktype="web master">http://www.webumenia.sk:8080/webutils/resolveurl/SVK:SNG.UP-DK_4368/IMAGES</dc:identifier>
+               <dc:identifier linktype="web master">http://www.webumenia.sk:8080/webutils/resolveurl/SVK:SNG.UP-DK_4368/L2_WEB</dc:identifier>
+               <dc:rights>1</dc:rights>
+               <dc:rights>publikovať/public</dc:rights>
+               <dc:relation.isPartOf>zo súboru:Nápisy</dc:relation.isPartOf>
+            </oai_dc:dc>
+         </metadata>
+      </record>
+   </GetRecord>
+</OAI-PMH>
