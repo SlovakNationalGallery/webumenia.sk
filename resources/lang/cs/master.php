@@ -20,4 +20,9 @@ return array(
     'search_placeholder' => 'hledat díla, autorů ...',
     'to_top' => 'návrat nahoru',
 
+    'intro' => 'úvod',
+    'author' => 'autor',
+    'sections' => 'sekce',
+    'exhibition' => 'výstava',
+
 );

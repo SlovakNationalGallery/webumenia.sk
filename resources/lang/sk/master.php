@@ -19,5 +19,10 @@ return array(
     'made_by'            => 'vyrobil a spravuje',
     'search_placeholder' => 'Hľadať diela, autorov...',
     'to_top'             => 'návrat hore',
-    
+
+    'intro' => 'úvod',
+    'author' => 'autor',
+    'sections' => 'sekcie',
+    'exhibition' => 'výstava',
+
 );

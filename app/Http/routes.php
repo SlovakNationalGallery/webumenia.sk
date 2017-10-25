@@ -43,6 +43,16 @@ Route::group(['domain' => 'e-vystavy.pamatniknarodnihopisemnictvi.{tld}'], funct
       return view('pnp/temporary');
     });
 
+    Route::get('intro', function () {
+
+        $collections = Collection::orderBy('id', 'desc')->take(6)->get();
+
+        return view('pnp/intro', [
+            'collections' => $collections,
+        ]);
+    });
+
+
     Route::get('katalog', 'CatalogController@getPnp');
 
 });

@@ -20,4 +20,9 @@ return array(
     'search_placeholder' => 'Search for artworks, artists...',
     'to_top'             => 'back to top',
 
+    'intro' => 'intro',
+    'author' => 'author',
+    'sections' => 'sections',
+    'exhibition' => 'exhibition',
+
 );
