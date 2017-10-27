@@ -44,14 +44,14 @@ Route::group(['domain' => 'e-vystavy.pamatniknarodnihopisemnictvi.{tld}'], funct
     });
 
     Route::get('intro', function () {
-
         $collections = Collection::whereIn('id', [50, 51, 52, 54])->orderBy('id', 'asc')->get();
-
-        return view('pnp/intro', [
-            'collections' => $collections,
-        ]);
+        return view('pnp/intro', ['collections' => $collections]);
     });
 
+    Route::get('sections', function () {
+        $collections = Collection::whereIn('id', [50, 51, 52, 54])->orderBy('id', 'asc')->get();
+        return view('pnp/intro', ['collections' => $collections]);
+    });
 
     Route::get('autor', function () {
         $author = App\Authority::find(4024);
