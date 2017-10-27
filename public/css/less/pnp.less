@@ -2,7 +2,7 @@
 
 @import "bootstrap/bootstrap.less";
 @import "responsive-align.less";
-// @import "fonts-mg.less";
+@import "fonts-pnp.less";
 @import "bootstrap-slider.less";
 @import "awesome-bootstrap-checkbox.less";
 @import "selectize/selectize.bootstrap3.less";
@@ -12,16 +12,17 @@
 
 @black: #000;
 @grey: #cccccc;
-@dark-grey: #c2c4c4;
+@dark-grey: #373734;
 @primary: @dark-grey;
 @primary-color: lighten(@light, 30%);
-@input-bg: @primary;
-@input-color: @light;
+@input-bg: @light;
+@input-color: @black;
 @input-color-placeholder: lighten(@input-color, 20%);
 @input-bg-disabled: lighten(@input-color, 20%);
 @selectize-color-text: @input-color;
 @table-border-color: transparent;
 @font-family-sans-serif:   "Source Sans Pro Regular", sans-serif;
+@font-family-serif:   "jannon_t_moderne_ot", serif;
 
 /* Utility classes */
 
@@ -36,10 +37,10 @@ body {
   background-repeat: no-repeat;
   background-size: 150%;
   background-position: center top -30px;
-  
+
   @media(min-width: @screen-xs-min) {
-    background-size: 130%;
-    background-position: center top -60px;  
+    background-size: 110%;
+    background-position: center -150px;
 
   }
 }
@@ -80,8 +81,26 @@ input.tt-input {
    background-color: transparent;
    background: transparent;
    border-color: transparent;
+   ul.nav {
+    vertical-align: bottom;
+    margin-top: 20px;
+   }
+   li a {
+    color: @black;
+    border-bottom: none;
+    font-weight: bold;
+    &:hover, &:active, &.active {
+      border-bottom: none;
+      color: @dark-grey;
+    }
+   }
 }
 
+@media (min-width: 768px) {
+  .navbar-form {
+      max-width: 250px;
+  }
+}
 
 .content-section {
   max-width: 100%;
@@ -137,4 +156,22 @@ h1.circle {
     padding: 0;
   }
 
+}
+
+h1, h2, h3, h4 {
+  font-family: @font-family-serif;
+  color: @black;
+}
+
+
+.intro.content-section {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+@media (max-width: 767px) {
+  .navbar li.active a {
+      background: transparent;
+      color: @black;
+    }
 }

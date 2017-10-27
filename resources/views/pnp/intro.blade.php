@@ -17,9 +17,9 @@
                 Wenceslaus Hollar Bohemus<br>
                 — řeč jehly a rydla —
             </h1>
-            <h2 class="text-center black">
+            <h2 class="text-center black"><em>
                 virtuální kolekce děl jednoho <br>
-                z nejvýznamnějších barokních rytců
+                z nejvýznamnějších barokních rytců</em>
             </h2>
         </div>
     </div>
