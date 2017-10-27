@@ -78,8 +78,8 @@
               </button>
               <div class="collapse navbar-collapse navbar-main-collapse">
                   <ul class="nav navbar-nav">
-                    <li class="{!! (Request::is('/') || Request::is('intro')) ? 'active' : '' !!}">
-                        <a href="{{{ URL::to('intro') }}}">{{ utrans('master.intro') }}</a>
+                    <li class="{!! (Request::is('/') || Request::is('uvod')) ? 'active' : '' !!}">
+                        <a href="{{{ URL::to('uvod') }}}">{{ utrans('master.intro') }}</a>
                     </li>
                     <li class="{!! (Request::is('autor')) ? 'active' : '' !!}">
                         <a href="{{{ URL::to('autor') }}}">{{ utrans('master.author') }}</a>

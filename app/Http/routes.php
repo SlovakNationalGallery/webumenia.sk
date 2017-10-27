@@ -53,7 +53,54 @@ Route::group(['domain' => 'e-vystavy.pamatniknarodnihopisemnictvi.{tld}'], funct
     });
 
 
+    Route::get('autor', function () {
+        $author = App\Authority::find(4024);
+        return view('pnp/autor', array('author'=>$author));
+    });
+
+    Route::get('uvod', function () {
+        $article = App\Article::find(7);
+        return view('pnp/clanok', array('article'=>$article));
+    });
+
+    Route::get('vystava', function () {
+        $article = App\Article::find(8);
+        return view('pnp/clanok', array('article'=>$article));
+    });
+
     Route::get('katalog', 'CatalogController@getPnp');
+
+    Route::get('dielo/{id}', function ($tld, $id) {
+
+        $item = Item::find($id);
+        if (empty($item)) {
+            App::abort(404);
+        }
+        $item->timestamps = false;
+        $item->view_count += 1;
+        $item->save();
+        $previous = $next = false;
+
+        // $more_items = Item::moreLikeThis(['author','title.stemmed','description.stemmed', 'tag', 'place'],[$item->id])->limit(20);
+        $more_items = $item->moreLikeThis(30);
+
+        if (Input::has('collection')) {
+            $collection = Collection::find((int) Input::get('collection'));
+            if (!empty($collection)) {
+                $items = $collection->items->lists('id')->all();
+                $previousId = getPrevVal($items, $id);
+                if ($previousId) {
+                    $previous = Item::find($previousId)->getUrl(['collection' => $collection->id]);
+                }
+                $nextId = getNextVal($items, $id);
+                if ($nextId) {
+                    $next = Item::find($nextId)->getUrl(['collection' => $collection->id]);
+                }
+            }
+        }
+
+        return view('pnp/dielo', array('item' => $item, 'more_items' => $more_items, 'previous' => $previous, 'next' => $next));
+    });
 
 });
 
