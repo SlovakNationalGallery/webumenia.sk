@@ -614,7 +614,7 @@ class CatalogController extends Controller
         $queries = DB::getQueryLog();
         $last_query = end($queries);
 
-        return view('katalog-pnp', array(
+        return view('pnp/katalog', array(
             'items' => $items,
             'authors' => $authors,
             'work_types' => $work_types,

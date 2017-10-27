@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.pnp')
 
 
 
@@ -15,53 +15,16 @@
             {!! Form::hidden('search', @$search) !!}
             <div class="row">
                 <!-- <h3>Filter: </h3> -->
-                <div  class="col-md-4 col-xs-6 bottom-space">
-                        {!! Form::select('author', array('' => '') + $authors, @$input['author'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_author'))) !!}
-                 </div>
-                <div  class="col-md-4 col-xs-6 bottom-space">
-                        {!! Form::select('work_type', array('' => '') + $work_types,  @$input['work_type'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_work_type'))) !!}
-                </div>
-                <div  class="col-md-4 col-xs-6 bottom-space">
+                <div  class="col-md-4 col-xs-6">
                         {!! Form::select('topic', array('' => '') + $topics, @$input['topic'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_topic'))) !!}
                 </div>
-                <div  class="col-md-4 col-xs-6 bottom-space">
+                <div  class="col-md-4 col-xs-6">
                         {!! Form::select('technique', array('' => '') + $techniques, @$input['technique'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_technique'))) !!}
                 </div>
-                <div  class="col-md-4 col-xs-6 bottom-space">
+                <div  class="col-md-4 col-xs-6">
                         {!! Form::select('medium', array('' => '') + $mediums, @$input['medium'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_medium'))) !!}
                 </div>
-                <div  class="col-md-4 col-xs-6 bottom-space">
-                        {!! Form::select('place', array('' => '') + $places, @$input['place'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_place'))) !!}
-                </div>
-                <div class="col-md-2 col-md-offset-4 col-xs-4 col-xs-offset-2 ">
-                        <div class="checkbox">
-                            {!! Form::checkbox('has_image', '1', @$input['has_image'], ['id'=>'has_image']) !!}
-                            <label for="has_image">
-                              {{ trans('katalog.filters_has_image') }}
-                            </label>
-                        </div>
-                </div>
-                <div class="col-md-2 col-xs-4 ">
-                        <div class="checkbox">
-                            {!! Form::checkbox('has_iip', '1', @$input['has_iip'], ['id'=>'has_iip']) !!}
-                            <label for="has_iip">
-                              {{ trans('katalog.filters_has_iip') }}
-                            </label>
-                        </div>
-                </div>
 
-            </div>
-            @php ($year_range = explode(',', Input::get('year-range','')))
-            <div class="row">
-                <div class="col-xs-6 col-sm-1 text-left text-sm-right year-range">
-                        <span class="sans" id="from_year">{!! !empty($input['year-range']) ? $year_range[0] : App\Item::sliderMin() !!}</span>
-                </div>
-                <div class="col-xs-6 col-sm-1 col-sm-push-10 text-right text-sm-left year-range">
-                        <span class="sans" id="until_year">{!! !empty($input['year-range']) ? $year_range[1] : App\Item::sliderMax() !!}</span>
-                </div>
-                <div class="col-sm-10 col-sm-pull-1 year-range">
-                        <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="{!! App\Item::sliderMin() !!}" data-slider-max="{!! App\Item::sliderMax() !!}" data-slider-step="5" data-slider-value="[{!! !empty($input['year-range']) ? $input['year-range'] : App\Item::sliderMin().','.App\Item::sliderMax() !!}]"/>
-                </div>
             </div>
             {!! Form::hidden('sort_by', @$input['sort_by'], ['id'=>'sort_by']) !!}
             {!! Form::close() !!}
@@ -153,20 +116,6 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-    // $('.expandable').readmore({
-    //     moreLink: '<a href="#" class="text-center">viac možností <i class="icon-arrow-down"></i></a>',
-    //     lessLink: '<a href="#" class="text-center">menej možností <i class="icon-arrow-up"></i></a>',
-    //     maxHeight: 40,
-    //     // blockCSS: 'display: block;',
-    //     // embedCSS: false,
-    //     afterToggle: function(trigger, element, expanded) {
-    //       // if(! expanded) { // The "Close" link was clicked
-    //         // $('html, body').animate( { scrollTop: element.offset().top }, {duration: 100 } );
-    //       // }
-    //     }
-    // });
-
-    // $('.checkbox').checkbox();
 
     $("form").submit(function()
     {
@@ -179,17 +128,6 @@ $(document).ready(function(){
         if ( $('#year-range').val()=='{!!App\Item::sliderMin()!!},{!!App\Item::sliderMax()!!}' ) {
             $('#year-range').attr("disabled", true);
         }
-    });
-
-    $("#year-range").slider({
-        // value: [1800, 1900],
-        tooltip: 'hide'
-    }).on('slideStop', function(event) {
-        $(this).closest('form').submit();
-    }).on('slide', function(event) {
-        var rozsah = $("#year-range").val().split(',');
-        $('#from_year').html(rozsah[0]);
-        $('#until_year').html(rozsah[1]);
     });
 
     // $(".custom-select").chosen({allow_single_deselect: true})
@@ -266,22 +204,6 @@ $(document).ready(function(){
         $container.infinitescroll('bind');
         $container.infinitescroll('retrieve');
         return false;
-    });
-
-
-    var $carousel = $('.mgCarousel').flickity({
-      wrapAround: true,
-      percentPosition: false
-    });
-    $carousel.children('.flickity-page-dots').css('left',  parseInt($('.flickity-slider').css('transform').split(',')[4]) );
-
-    $carousel.on( 'staticClick', function( event, pointer, cellElement, cellIndex ) {
-        event.preventDefault();
-        var $link = $( cellElement ).find('a');
-        var url = $link.attr('href');
-        var id = $link.data('id');
-        $.get('/slideClicked', {'id': id});
-
     });
 
 

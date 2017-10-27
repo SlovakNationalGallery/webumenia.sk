@@ -45,7 +45,7 @@ body {
   }
 }
 
-section.info, section.filters, section.light-grey { background-color: @light; }
+section.info, section.filters, section.light-grey { background-color: transparent; }
 
 input.tt-input {
     background-color: @input-bg !important;
@@ -174,4 +174,12 @@ h1, h2, h3, h4 {
       background: transparent;
       color: @black;
     }
+}
+
+#next svg text {
+    fill: @black;
+}
+
+#next svg:hover path {
+    stroke: @dark-grey;
 }
