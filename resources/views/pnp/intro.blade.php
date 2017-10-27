@@ -25,24 +25,20 @@
     </div>
 </section>
 
-<section class="articles content-section">
+<section class="articles content-section black">
     <div class="articles-body">
         <div class="container">
             <div class="row">
             	@foreach ($collections as $i=>$collection)
 	                <div class="col-sm-6 col-xs-12 bottom-space">
 	                	<a href="{!! $collection->getUrl() !!}" class="featured-collection">
-	                		<img src="{!! $collection->getHeaderImage() !!}" class="img-responsive" alt="{!! $collection->title !!}">
+	                		<img src="{!! $collection->getHeaderImage() !!}" class="img-responsive bottom-space" alt="{!! $collection->title !!}">
 	                	</a>
                         <a href="{!! $collection->getUrl() !!}">
                         <h4 class="title">
                             {!! $collection->name !!}
                         </h4>
                         </a>
-                        <p class="attributes">
-                            {!! $collection->getShortTextAttribute($collection->text, 350) !!}
-                        (<a href="{!! $collection->getUrl() !!}">{{ trans('general.more') }}</a>)
-                        </p>
 	                </div>
                     @if ($i%2 == 1)
                         <div class="clearfix"></div>
