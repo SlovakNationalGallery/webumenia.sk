@@ -45,7 +45,7 @@ Route::group(['domain' => 'e-vystavy.pamatniknarodnihopisemnictvi.{tld}'], funct
 
     Route::get('intro', function () {
 
-        $collections = Collection::orderBy('id', 'desc')->take(6)->get();
+        $collections = Collection::whereIn('id', [50, 51, 52, 54])->orderBy('id', 'asc')->get();
 
         return view('pnp/intro', [
             'collections' => $collections,

@@ -30,7 +30,7 @@
         <div class="container">
             <div class="row">
             	@foreach ($collections as $i=>$collection)
-	                <div class="col-sm-4 col-xs-12 bottom-space">
+	                <div class="col-sm-6 col-xs-12 bottom-space">
 	                	<a href="{!! $collection->getUrl() !!}" class="featured-collection">
 	                		<img src="{!! $collection->getHeaderImage() !!}" class="img-responsive" alt="{!! $collection->title !!}">
 	                	</a>
@@ -44,7 +44,7 @@
                         (<a href="{!! $collection->getUrl() !!}">{{ trans('general.more') }}</a>)
                         </p>
 	                </div>
-                    @if ($i%3 == 2)
+                    @if ($i%2 == 1)
                         <div class="clearfix"></div>
                     @endif
             	@endforeach
