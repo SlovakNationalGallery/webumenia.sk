@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @section('description')
-    <meta name="description" content="irtuální kolekce děl jednoho ">
+    <meta name="description" content="Virtuální výstava děl jednoho z nejvýznamnějších barokního rytců a kreslířů 17. století">
     @show
     <meta name="author" content="lab.SNG">
 
@@ -22,7 +22,7 @@
     <!--  Open Graph protocol -->
     @section('og')
     <meta property="og:title" content="Wenceslaus Hollar Bohemus – Řeč jehly a rydla" />
-    <meta property="og:description" content="z nejvýznamnějších barokních rytců" />
+    <meta property="og:description" content="Virtuální výstava děl jednoho z nejvýznamnějších barokního rytců a kreslířů 17. století" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{!! Request::url() !!}" />
     <meta property="og:image" content="{!! URL::to('/images/pnp/og-image.png') !!}" />
