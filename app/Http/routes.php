@@ -53,6 +53,14 @@ Route::group(['domain' => 'e-vystavy.pamatniknarodnihopisemnictvi.{tld}'], funct
         return view('pnp/intro', ['collections' => $collections]);
     });
 
+    Route::get('kolekcia/{id}', function ($tld, $id) {
+        $collection = Collection::find($id);
+        if (empty($collection)) {
+            App::abort(404);
+        }
+        return view('pnp/kolekcia', array('collection'=>$collection));
+    });
+
     Route::get('autor', function () {
         $author = App\Authority::find(4024);
         return view('pnp/autor', array('author'=>$author));
