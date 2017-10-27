@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @section('description')
-    <meta name="description" content="Kompletní on-line zveřejnění sbírek Moravské galerie v Brně. Webová stránka umožňuje uživateli vyhledávat sbírkové předměty dle autora, techniky, výtvarného žánru, materiálu, námětu a také místa vzniku">
+    <meta name="description" content="irtuální kolekce děl jednoho ">
     @show
     <meta name="author" content="lab.SNG">
 
@@ -21,12 +21,12 @@
 
     <!--  Open Graph protocol -->
     @section('og')
-    <meta property="og:title" content="Moravská galerie v Brně" />
-    <meta property="og:description" content="Kompletní on-line zveřejnění sbírek Moravské galerie v Brně. Webová stránka umožňuje uživateli vyhledávat sbírkové předměty dle autora, techniky, výtvarného žánru, materiálu, námětu a také místa vzniku" />
+    <meta property="og:title" content="Wenceslaus Hollar Bohemus – Řeč jehly a rydla" />
+    <meta property="og:description" content="z nejvýznamnějších barokních rytců" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{!! Request::url() !!}" />
-    <meta property="og:image" content="{!! URL::to('/images/mg/og-image.png') !!}" />
-    <meta property="og:site_name" content="Moravská galerie | sbírky on-line" />
+    <meta property="og:image" content="{!! URL::to('/images/pnp/og-image.png') !!}" />
+    <meta property="og:site_name" content="Wenceslaus Hollar Bohemus – Řeč jehly a rydla" />
     @show
     <!--  Open Graph protocol -->
 
