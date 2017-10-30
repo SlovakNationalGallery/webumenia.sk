@@ -16,7 +16,14 @@
     </title>
 
     <!--  favicons-->
-
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/pnp/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/pnp/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/pnp/favicon-16x16.png">
+    <link rel="manifest" href="/images/pnp/manifest.json">
+    <link rel="mask-icon" href="/images/pnp/safari-pinned-tab.svg" color="#fef200">
+    <link rel="shortcut icon" href="/images/pnp/favicon.ico">
+    <meta name="msapplication-config" content="/images/pnp/browserconfig.xml">
+    <meta name="theme-color" content="#fef200">
     <!--  /favicons-->
 
     <!--  Open Graph protocol -->
@@ -25,7 +32,7 @@
     <meta property="og:description" content="Virtuální výstava děl jednoho z nejvýznamnějších barokního rytců a kreslířů 17. století" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{!! Request::url() !!}" />
-    <meta property="og:image" content="{!! URL::to('/images/pnp/og-image.png') !!}" />
+    <meta property="og:image" content="{!! URL::to('/images/pnp/og-image.jpg') !!}" />
     <meta property="og:site_name" content="Wenceslaus Hollar Bohemus – Řeč jehly a rydla" />
     @show
     <!--  Open Graph protocol -->
@@ -46,15 +53,13 @@
         {!! Html::script('js/modernizr.custom.js') !!}
 
     @if (App::environment() == 'production')
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-19030232-9"></script>
     <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-      ga('create', 'UA-100423580-1', 'auto');
-      ga('send', 'pageview');
-
+      gtag('config', 'UA-19030232-9');
     </script>
     @endif
     {!! Html::script('js/scroll-frame-head.js') !!}
