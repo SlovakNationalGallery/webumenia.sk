@@ -120,7 +120,7 @@
         <div class="row">
           <div class="col-xs-6"></div>
           <div class="col-xs-6">
-            <p class="text-muted text-right">{{ utrans('master.made_by') }} <a href="http://lab.sng.sk" target="_blank" class="sans">lab.SNG</a></p>
+            <p class="text-muted text-right">&copy; <a href="http://www.pamatniknarodnihopisemnictvi.cz/" target="_blank" class="sans">Památník národního písemnictví</a>,  <a href="http://lab.sng.sk" target="_blank" class="sans">lab.SNG</a></p>
           </div>
         </div>
 
