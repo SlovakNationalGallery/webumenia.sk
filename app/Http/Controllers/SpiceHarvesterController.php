@@ -731,6 +731,7 @@ class SpiceHarvesterController extends Controller
         $subject=array(); // objekt - dome/les/
 
         try {
+            $localesPresent = $this->get_locales_present_in_record($rec);
 
             foreach ($rec->xpath('.//dc:subject[@xml:lang="slk"]') as $key => $value) {
                 if ($this->starts_with_upper($value)) {
@@ -837,6 +838,17 @@ class SpiceHarvesterController extends Controller
             }
         }
         return $attributes;
+    }
+
+    private function get_locales_present_in_record($rec)
+    {
+        $elementsWithLangAttr = $rec->xpath('.//*[@xml:lang]/@xml:lang');
+        $allLangs = array_map(function ($element)
+        {
+            return (string)$element['lang'];
+        }, $elementsWithLangAttr);
+        $uniqueLangs = array_unique($allLangs);
+        return $uniqueLangs;
     }
 
     private function serialize($attribute, $delimiter = "; ")
