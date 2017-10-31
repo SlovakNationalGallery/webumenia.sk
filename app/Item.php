@@ -367,7 +367,7 @@ class Item extends Model
         return $authors;
     }
 
-    public function getAuthorFormated($value)
+    public function getAuthorFormated()
     {
         return preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $this->attributes['author']);
     }
@@ -522,7 +522,7 @@ class Item extends Model
         }
         $json_params = '
 		{
-		 "aggs" : { 
+		 "aggs" : {
 		    "'.$attribute.'" : {
 		        "terms" : {
 		          "field" : "'.$attribute.'",
@@ -562,7 +562,7 @@ class Item extends Model
     {
         $copyright_length = 70; // 70 rokov po smrti autora
         $limit_according_item_dating = $copyright_length + 60; // 60 = 80 (max_life_lenght) - 20 (start_of_publishing)
-        
+
         // skontrolovat, ci dielo patri institucii, ktora povoluje "volne diela"
         if (!(
             $this->attributes['gallery'] == 'Slovenská národná galéria, SNG' ||
@@ -574,7 +574,7 @@ class Item extends Model
         )) {
             return false;
         }
-        
+
         //ak je autor viac ako 71rokov po smrti
         $authors_are_free = array();
         foreach ($this->authorities as $i => $authority) {
@@ -608,7 +608,7 @@ class Item extends Model
 
         return false;
     }
-    
+
     private function relatedAuthorityIds()
     {
         $ids=array();

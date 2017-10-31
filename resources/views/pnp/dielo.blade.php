@@ -35,7 +35,7 @@
                 <div class="col-md-10 col-md-offset-1 text-center content-section">
                     <h1 class="nadpis-dielo" itemprop="name">{!! $item->title !!}</h1>
                     <h2 class="inline">
-                    {!! implode(', ', $item->getAuthorsWithLinks()) !!}
+                    <a href="/autor">{!! $item->getAuthorFormated() !!}</a>
                     </h2>
                 </div>
             </div>
