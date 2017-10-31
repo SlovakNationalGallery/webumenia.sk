@@ -41,6 +41,7 @@
 
     <!-- CSS are placed here -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&amp;subset=latin-ext" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{!! asset_timed('css/pnp.css') !!}" />
     {!! Html::style('css/slick-theme.css') !!}
     {!! Html::style('css/magnific-popup.css') !!}
