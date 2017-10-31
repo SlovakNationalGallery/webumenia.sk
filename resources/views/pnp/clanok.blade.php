@@ -33,8 +33,7 @@
             @endif
             <h1>{!! $article->title !!}</h1>
             <p class="bottom-space">
-                <a href="{!! url_to( 'clanky', ['author' => $article->author ]) !!}" style="color: {!! $article->title_color !!}">{!! $article->author !!}</a> &nbsp;&middot;&nbsp;
-                {!! $article->published_date !!}
+                <a href="{!! url_to( 'clanky', ['author' => $article->author ]) !!}" style="color: {!! $article->title_color !!}">{!! $article->author !!}</a>
             </p>
         </div>
     </div>
