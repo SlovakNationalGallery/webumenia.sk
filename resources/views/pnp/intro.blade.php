@@ -31,8 +31,8 @@
             <div class="row">
             	@foreach ($collections as $i=>$collection)
 	                <div class="col-sm-6 col-xs-12 bottom-space">
-	                	<a href="{!! $collection->getUrl() !!}" class="featured-collection">
-	                		<img src="{!! $collection->getHeaderImage() !!}" class="img-responsive bottom-space" alt="{!! $collection->title !!}">
+	                	<a href="{!! $collection->getUrl() !!}" class="featured-article bottom-space">
+	                		<img src="{!! $collection->getHeaderImage() !!}" class="img-responsive " alt="{!! $collection->title !!}">
 	                	</a>
                         <a href="{!! $collection->getUrl() !!}">
                         <h4 class="title">
