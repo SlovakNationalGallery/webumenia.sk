@@ -29,6 +29,11 @@
     <div class="articles-body">
         <div class="container">
             <div class="row">
+                <div class="col-sm-12">
+                    <h4 class="bottom-space">Sekce výstavy:</h4>
+                </div>
+            </div>
+            <div class="row">
             	@foreach ($collections as $i=>$collection)
 	                <div class="col-sm-6 col-xs-12 bottom-space">
 	                	<a href="{!! $collection->getUrl() !!}" class="featured-article bottom-space">
