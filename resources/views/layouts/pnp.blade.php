@@ -66,7 +66,7 @@
     {!! Html::script('js/scroll-frame-head.js') !!}
 </head>
 
-<body id="page-top">
+<body id="page-top" class="{{ (isSet($show_bg) && $show_bg == true) ? 'show_bg' : '' }}">
 <div id="fb-root"></div>
   <script>(function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
