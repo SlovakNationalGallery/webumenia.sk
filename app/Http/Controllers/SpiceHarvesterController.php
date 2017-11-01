@@ -734,7 +734,7 @@ class SpiceHarvesterController extends Controller
 
             // title
             // <dc:title.translated xml:lang="eng"> (Title cze/eng/slk)
-            $attributes['sk']['title'] = (string)$dcElements->title;
+            $attributes['sk']['title'] = $this->serialize($rec->xpath('.//dc:title') ?: NULL);
             $attributes['en']['title'] = $this->serialize($rec->xpath('.//dc:title.translated[@xml:lang="eng"]') ?: NULL);
             $attributes['cs']['title'] = $this->serialize($rec->xpath('.//dc:title.translated[@xml:lang="cze"]') ?: NULL);
 
