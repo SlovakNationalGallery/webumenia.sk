@@ -727,40 +727,76 @@ class SpiceHarvesterController extends Controller
 
         $identifiers = (array)$dcElements->identifier;
 
-        $topic=array(); // zaner - krajina s figuralnou kompoziciou / veduta
-        $subject=array(); // objekt - dome/les/
+        
 
         try {
             $localesPresent = $this->get_locales_present_in_record($rec);
 
-            foreach ($rec->xpath('.//dc:subject[@xml:lang="slk"]') as $key => $value) {
-                if ($this->starts_with_upper($value)) {
-                    $subject[] = mb_strtolower($value, "UTF-8");
-                } else {
-                    $topic[] =$value;
-                }
-            }
-
-            foreach ($identifiers as $identifier) {
-                if ($identifier!=(string)$rec->header->identifier) {
-                    //identifikator
-                    if ($this->starts_with_upper($identifier)) {
-                        $attributes['identifier'] = $identifier;
-                    } elseif (strpos($identifier, 'getimage') !== false) {
-                        $attributes['img_url'] = $identifier;
-                    } elseif (strpos($identifier, 'L2_WEB') !== false) {
-                        $attributes['iipimg_url'] = $this->resolveIIPUrl($identifier);
-                    }
-                }
-            
-            }
-
-            $attributes['id'] = (string)$rec->header->identifier;
-            // 1. title
+            // title
             // <dc:title.translated xml:lang="eng"> (Title cze/eng/slk)
             $attributes['sk']['title'] = (string)$dcElements->title;
             $attributes['en']['title'] = $this->serialize($rec->xpath('.//dc:title.translated[@xml:lang="eng"]') ?: NULL);
             $attributes['cs']['title'] = $this->serialize($rec->xpath('.//dc:title.translated[@xml:lang="cze"]') ?: NULL);
+
+            // work_type
+            // <dc:type xml:lang="eng"> (worktype cze/eng/slk)
+            $attributes['sk']['work_type'] = $this->serialize($rec->xpath('.//dc:type[@xml:lang="slk"]'), ', ');
+            $attributes['en']['work_type'] = $this->serialize($rec->xpath('.//dc:type[@xml:lang="eng"]'), ', ');
+            $attributes['cs']['work_type'] = $this->serialize($rec->xpath('.//dc:type[@xml:lang="cze"]'), ', ');
+
+            // technique
+            // <dc:format xml:lang="cze"> (technique cze/eng/slk)
+            $attributes['sk']['technique'] = $this->serialize($rec->xpath('.//dc:format[@xml:lang="slk"]'));
+            $attributes['en']['technique'] = $this->serialize($rec->xpath('.//dc:format[@xml:lang="eng"]'));
+            $attributes['cs']['technique'] = $this->serialize($rec->xpath('.//dc:format[@xml:lang="cze"]'));
+            
+            // medium
+            // <dc:format.medium xml:lang="cze"> (material cze/eng/slk)
+            // http://stackoverflow.com/questions/6531380/php-simplexml-with-dot-character-in-element-in-xml
+            $attributes['sk']['medium'] = $this->serialize($rec->xpath('.//dc:format.medium[@xml:lang="slk"]'));
+            $attributes['en']['medium'] = $this->serialize($rec->xpath('.//dc:format.medium[@xml:lang="eng"]'));
+            $attributes['cs']['medium'] = $this->serialize($rec->xpath('.//dc:format.medium[@xml:lang="cze"]'));
+
+            // 6. subject, topic
+            $topicSK = array(); // zaner - krajina s figuralnou kompoziciou / veduta
+            $subjectSK = array(); // objekt - dome/les/
+            foreach ($rec->xpath('.//dc:subject[@xml:lang="slk"]') as $key => $value) {
+                if ($this->starts_with_upper($value)) {
+                    $subjectSK[] = mb_strtolower($value, "UTF-8");
+                } else {
+                    $topicSK[] =$value;
+                }
+            }
+            $attributes['sk']['topic'] = $this->serialize($topicSK);
+            $attributes['sk']['subject'] = $this->serialize($subjectSK);
+
+            $topicEN = array(); // zaner - krajina s figuralnou kompoziciou / veduta
+            $subjectEN = array(); // objekt - dome/les/
+            foreach ($rec->xpath('.//dc:subject[@xml:lang="eng"]') as $key => $value) {
+                if ($this->starts_with_upper($value)) {
+                    $subjectEN[] = mb_strtolower($value, "UTF-8");
+                } else {
+                    $topicEN[] =$value;
+                }
+            }
+            $attributes['en']['topic'] = $this->serialize($topicEN);
+            $attributes['en']['subject'] = $this->serialize($subjectEN);
+
+            $topicCS = array(); // zaner - krajina s figuralnou kompoziciou / veduta
+            $subjectCS = array(); // objekt - dome/les/
+            foreach ($rec->xpath('.//dc:subject[@xml:lang="cze"]') as $key => $value) {
+                if ($this->starts_with_upper($value)) {
+                    $subjectCS[] = mb_strtolower($value, "UTF-8");
+                } else {
+                    $topicCS[] =$value;
+                }
+            }
+            $attributes['cs']['topic'] = $this->serialize($topicCS);
+            $attributes['cs']['subject'] = $this->serialize($subjectCS);
+
+            dd($attributes);
+
+            // 7. authorities, authority_ids, author, authories.role, authories.name
             $authors = array();
             $authority_ids = array();
             $authorities = array();
@@ -780,12 +816,22 @@ class SpiceHarvesterController extends Controller
             $attributes['authorities'] = $authorities;
             $attributes['authority_ids'] = $authority_ids;
             $attributes['author'] = $this->serialize($authors);
-            $attributes['work_type'] = $this->serialize($rec->xpath('.//dc:type[@xml:lang="slk"]'), ', ');
-            // if (!empty($type[0])) $attributes['work_type'] = $type[0];
-            // if (!empty($type[1])) $attributes['work_level'] = $type[1];
-        
-            $attributes['topic'] = $this->serialize($topic);
-            $attributes['subject'] = $this->serialize($subject);
+
+            // identifier, img_url, iipimg_url
+            foreach ($identifiers as $identifier) {
+                if ($identifier!=(string)$rec->header->identifier) {
+                    //identifikator
+                    if ($this->starts_with_upper($identifier)) {
+                        $attributes['identifier'] = $identifier;
+                    } elseif (strpos($identifier, 'getimage') !== false) {
+                        $attributes['img_url'] = $identifier;
+                    } elseif (strpos($identifier, 'L2_WEB') !== false) {
+                        $attributes['iipimg_url'] = $this->resolveIIPUrl($identifier);
+                    }
+                }
+            }
+
+            $attributes['id'] = (string)$rec->header->identifier;            
             $attributes['place'] = $this->serialize($dcElements->{'subject.place'});
             // $trans = array(", " => ";", "šírka" => "", "výška" => "", "()" => "");
             $trans = array(", " => ";", "; " => ";", "()" => "");
@@ -801,8 +847,6 @@ class SpiceHarvesterController extends Controller
             $attributes['date_earliest'] = (!empty($dating[0])) ? $dating[0] : null;
             $attributes['date_latest'] = (!empty($dating[1])) ? $dating[1] : $attributes['date_earliest'];
             $attributes['dating'] = $dating_text;
-            $attributes['medium'] = $this->serialize($rec->xpath('.//dc:format.medium[@xml:lang="slk"]')); // http://stackoverflow.com/questions/6531380/php-simplexml-with-dot-character-in-element-in-xml
-            $attributes['technique'] = $this->serialize($rec->xpath('.//dc:format[@xml:lang="slk"]'));
             $attributes['inscription'] = $this->serialize($dcElements->description);
             // $attributes['state_edition'] =  (!empty($type[2])) ? $type[2] : null;
             $attributes['gallery'] = $dcTerms->provenance;
