@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type='text/xsl' href='/oai-pmh/static/Celestial.xsl'?>
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+   <responseDate>2017-11-01T12:34:54.210Z</responseDate>
+   <request verb="GetRecord" identifier="SVK:GMB.C_10702" metadataPrefix="oai_dc">http://stary.webumenia.sk/oai-pmh/</request>
+   <GetRecord>
+      <record>
+         <header>
+            <identifier>SVK:GMB.C_10702</identifier>
+            <datestamp>2016-07-20T08:33:22.21Z</datestamp>
+            <setSpec>GMBvolne</setSpec>
+            <setSpec>GMB</setSpec>
+            <setSpec>Dve_krajiny</setSpec>
+         </header>
+         <metadata>
+            <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:su="java:com.eea.cm.sng.util.StringUtil" xmlns:cv="java:com.eea.cm.sng.xslt.ControlledVocabularyManager" xmlns:vra="http://simile.mit.edu/2003/10/ontologies/vraCore3" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:sng="http://www.sng.sk/cedvu#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+               <dc:title>Oravský Podzámok</dc:title>
+               <dc:creator>urn:svk:psi:per:sng:0000011019</dc:creator>
+               <dc:creator>Troitzsch, G.A.</dc:creator>
+               <dc:creator.role>autor/author</dc:creator.role>
+               <dc:creator>urn:svk:psi:per:sng:0000005685</dc:creator>
+               <dc:creator>Laufberger, Ferdinand</dc:creator>
+               <dc:creator.role>autor/author</dc:creator.role>
+               <dc:subject xml:lang="slk">veduta</dc:subject>
+               <dc:subject.place xml:lang="slk">Oravský Podzámok</dc:subject.place>
+               <dc:subject xml:lang="slk">Hrad</dc:subject>
+               <dc:subject xml:lang="slk">Les</dc:subject>
+               <dc:subject xml:lang="slk">Rieka</dc:subject>
+               <dc:description>vpravo dole G.A.Troitzsch sc.</dc:description>
+               <dc:description>vľavo dole F.Laufberger del.</dc:description>
+               <dc:description>pod obrazom Arva-Varallya (Arvaer...Ungarn)</dc:description>
+               <dc:type xml:lang="slk">grafika, voľná</dc:type>
+               <dc:type>originál</dc:type>
+               <dc:format xml:lang="slk">rytina, oceľoryt</dc:format>
+               <dc:format.medium xml:lang="slk">papier</dc:format.medium>
+               <dc:format.medium xml:lang="eng">paper</dc:format.medium>
+               <dcterms:extent>výška 20.2 cm, šírka 16.2 cm, výška 24.0 cm, šírka 17.8 cm ()</dcterms:extent>
+               <dcterms:created>1860/1870</dcterms:created>
+               <dcterms:created>19. storočie, 2. polovica, 1860-1870</dcterms:created>
+               <dcterms:provenance>Galéria mesta Bratislavy, GMB</dcterms:provenance>
+               <dc:identifier>SVK:GMB.C_10702</dc:identifier>
+               <dc:type>Image</dc:type>
+               <dc:identifier>http://www.webumenia.sk/oai-pmh/getimage/SVK:GMB.C_10702</dc:identifier>
+               <dc:identifier>C 10702</dc:identifier>
+               <dc:identifier linktype="web master">http://www.webumenia.sk:8080/webutils/resolveurl/SVK:GMB.C_10702/IMAGES</dc:identifier>
+               <dc:identifier linktype="web master">http://www.webumenia.sk:8080/webutils/resolveurl/SVK:GMB.C_10702/L2_WEB</dc:identifier>
+               <dc:rights>1</dc:rights>
+               <dc:rights>publikovať/public</dc:rights>
+               <dc:relation.isPartOf>samostatné dielo</dc:relation.isPartOf>
+            </oai_dc:dc>
+         </metadata>
+      </record>
+   </GetRecord>
+</OAI-PMH>
