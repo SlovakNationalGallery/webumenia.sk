@@ -730,7 +730,12 @@ class SpiceHarvesterController extends Controller
         
 
         try {
-            $localesPresent = $this->get_locales_present_in_record($rec);
+            $langsPresent = $this->get_langs_present_in_record($rec);
+            $localeForLang = [
+                "slk" => "sk",
+                "eng" => "en",
+                "cze" => "cs",
+            ];
 
             // title
             // <dc:title.translated xml:lang="eng"> (Title cze/eng/slk)
@@ -757,42 +762,28 @@ class SpiceHarvesterController extends Controller
             $attributes['en']['medium'] = $this->serialize($rec->xpath('.//dc:format.medium[@xml:lang="eng"]'));
             $attributes['cs']['medium'] = $this->serialize($rec->xpath('.//dc:format.medium[@xml:lang="cze"]'));
 
-            // 6. subject, topic
-            $topicSK = array(); // zaner - krajina s figuralnou kompoziciou / veduta
-            $subjectSK = array(); // objekt - dome/les/
-            foreach ($rec->xpath('.//dc:subject[@xml:lang="slk"]') as $key => $value) {
-                if ($this->starts_with_upper($value)) {
-                    $subjectSK[] = mb_strtolower($value, "UTF-8");
-                } else {
-                    $topicSK[] =$value;
-                }
-            }
-            $attributes['sk']['topic'] = $this->serialize($topicSK);
-            $attributes['sk']['subject'] = $this->serialize($subjectSK);
+            foreach ($langsPresent as $key => $lang) {
+                $locale = $localeForLang[$lang];
 
-            $topicEN = array(); // zaner - krajina s figuralnou kompoziciou / veduta
-            $subjectEN = array(); // objekt - dome/les/
-            foreach ($rec->xpath('.//dc:subject[@xml:lang="eng"]') as $key => $value) {
-                if ($this->starts_with_upper($value)) {
-                    $subjectEN[] = mb_strtolower($value, "UTF-8");
-                } else {
-                    $topicEN[] =$value;
-                }
-            }
-            $attributes['en']['topic'] = $this->serialize($topicEN);
-            $attributes['en']['subject'] = $this->serialize($subjectEN);
+                // subject, topic
+                // 'topic': zaner - krajina s figuralnou kompoziciou / veduta
+                // 'subject': objekt - dome/les/
+                $subjectElems = $rec->xpath(".//dc:subject[@xml:lang='$lang']");
+                $subjectStrings = array_map('strval', $subjectElems);
 
-            $topicCS = array(); // zaner - krajina s figuralnou kompoziciou / veduta
-            $subjectCS = array(); // objekt - dome/les/
-            foreach ($rec->xpath('.//dc:subject[@xml:lang="cze"]') as $key => $value) {
-                if ($this->starts_with_upper($value)) {
-                    $subjectCS[] = mb_strtolower($value, "UTF-8");
-                } else {
-                    $topicCS[] =$value;
-                }
+                $subjects = array_filter(
+                    $subjectStrings, 
+                    function ($stringValue) { return $this->starts_with_upper($stringValue); }
+                );
+                $topics = array_filter(
+                    $subjectStrings, 
+                    function ($stringValue) { return !$this->starts_with_upper($stringValue); }
+                );
+
+                $attributes[$locale]['topic'] = $this->serialize($topics);
+                $attributes[$locale]['subject'] = $this->serialize($subjects);
             }
-            $attributes['cs']['topic'] = $this->serialize($topicCS);
-            $attributes['cs']['subject'] = $this->serialize($subjectCS);
+            
 
             dd($attributes);
 
@@ -888,14 +879,11 @@ class SpiceHarvesterController extends Controller
         return $attributes;
     }
 
-    private function get_locales_present_in_record($rec)
+    private function get_langs_present_in_record($rec)
     {
         $elementsWithLangAttr = $rec->xpath('.//*[@xml:lang]/@xml:lang');
-        $allLangs = array_map(function ($element)
-        {
-            return (string)$element['lang'];
-        }, $elementsWithLangAttr);
-        $uniqueLangs = array_unique($allLangs);
+        $allLangStrings = array_map('strval', $elementsWithLangAttr);
+        $uniqueLangs = array_unique($allLangStrings);
         return $uniqueLangs;
     }
 
