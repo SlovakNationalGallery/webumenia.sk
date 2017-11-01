@@ -746,7 +746,7 @@ class SpiceHarvesterController extends Controller
 
                 // title
                 if ($locale != 'sk') {
-                    $attributes[$locale]['title'] = $this->serialize($rec->xpath(".//dc:title.translated[@xml:lang='$lang']") ?: NULL);
+                    $attributes[$locale]['title'] = $this->serialize($rec->xpath(".//dc:title.translated[@xml:lang='$lang']"));
                 }
 
                 // work_type
