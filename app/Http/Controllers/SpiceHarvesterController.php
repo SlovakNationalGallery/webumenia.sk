@@ -727,50 +727,42 @@ class SpiceHarvesterController extends Controller
 
         $identifiers = (array)$dcElements->identifier;
 
-        
-
         try {
-            $langsPresent = $this->get_langs_present_in_record($rec);
+            
+            /**
+             * Map translatable elements for languages present in record
+             */
+
             $localeForLang = [
                 "slk" => "sk",
                 "eng" => "en",
                 "cze" => "cs",
             ];
 
-            // title
-            // <dc:title.translated xml:lang="eng"> (Title cze/eng/slk)
-            $attributes['sk']['title'] = $this->serialize($rec->xpath('.//dc:title') ?: NULL);
-            $attributes['en']['title'] = $this->serialize($rec->xpath('.//dc:title.translated[@xml:lang="eng"]') ?: NULL);
-            $attributes['cs']['title'] = $this->serialize($rec->xpath('.//dc:title.translated[@xml:lang="cze"]') ?: NULL);
-
-            // work_type
-            // <dc:type xml:lang="eng"> (worktype cze/eng/slk)
-            $attributes['sk']['work_type'] = $this->serialize($rec->xpath('.//dc:type[@xml:lang="slk"]'), ', ');
-            $attributes['en']['work_type'] = $this->serialize($rec->xpath('.//dc:type[@xml:lang="eng"]'), ', ');
-            $attributes['cs']['work_type'] = $this->serialize($rec->xpath('.//dc:type[@xml:lang="cze"]'), ', ');
-
-            // technique
-            // <dc:format xml:lang="cze"> (technique cze/eng/slk)
-            $attributes['sk']['technique'] = $this->serialize($rec->xpath('.//dc:format[@xml:lang="slk"]'));
-            $attributes['en']['technique'] = $this->serialize($rec->xpath('.//dc:format[@xml:lang="eng"]'));
-            $attributes['cs']['technique'] = $this->serialize($rec->xpath('.//dc:format[@xml:lang="cze"]'));
-            
-            // medium
-            // <dc:format.medium xml:lang="cze"> (material cze/eng/slk)
-            // http://stackoverflow.com/questions/6531380/php-simplexml-with-dot-character-in-element-in-xml
-            $attributes['sk']['medium'] = $this->serialize($rec->xpath('.//dc:format.medium[@xml:lang="slk"]'));
-            $attributes['en']['medium'] = $this->serialize($rec->xpath('.//dc:format.medium[@xml:lang="eng"]'));
-            $attributes['cs']['medium'] = $this->serialize($rec->xpath('.//dc:format.medium[@xml:lang="cze"]'));
+            $langsPresent = $this->get_langs_present_in_record($rec);
 
             foreach ($langsPresent as $key => $lang) {
                 $locale = $localeForLang[$lang];
+
+                // title
+                if ($locale != 'sk') {
+                    $attributes[$locale]['title'] = $this->serialize($rec->xpath(".//dc:title.translated[@xml:lang='$lang']") ?: NULL);
+                }
+
+                // work_type
+                $attributes[$locale]['work_type'] = $this->serialize($rec->xpath(".//dc:type[@xml:lang='$lang']"), ', ');
+                
+                // technique
+                $attributes[$locale]['technique'] = $this->serialize($rec->xpath(".//dc:format[@xml:lang='$lang']"));
+                
+                // medium
+                $attributes[$locale]['medium'] = $this->serialize($rec->xpath(".//dc:format.medium[@xml:lang='$lang']"));
 
                 // subject, topic
                 // 'topic': zaner - krajina s figuralnou kompoziciou / veduta
                 // 'subject': objekt - dome/les/
                 $subjectElems = $rec->xpath(".//dc:subject[@xml:lang='$lang']");
                 $subjectStrings = array_map('strval', $subjectElems);
-
                 $subjects = array_filter(
                     $subjectStrings, 
                     function ($stringValue) { return $this->starts_with_upper($stringValue); }
@@ -779,15 +771,15 @@ class SpiceHarvesterController extends Controller
                     $subjectStrings, 
                     function ($stringValue) { return !$this->starts_with_upper($stringValue); }
                 );
-
                 $attributes[$locale]['topic'] = $this->serialize($topics);
                 $attributes[$locale]['subject'] = $this->serialize($subjects);
             }
             
-
-            dd($attributes);
-
-            // 7. authorities, authority_ids, author, authories.role, authories.name
+            // TODO: map translated values
+            // Q: do slash separated values get stored? e.g. autor/author
+            // Q: isn't storing 'authorities','authority_ids','author' duplicating data?
+            // <dc:creator.role> - Role (ie. "workshop of" only slk/eng)
+            // authorities, authority_ids, author, authories.role, authories.name
             $authors = array();
             $authority_ids = array();
             $authorities = array();
@@ -807,6 +799,13 @@ class SpiceHarvesterController extends Controller
             $attributes['authorities'] = $authorities;
             $attributes['authority_ids'] = $authority_ids;
             $attributes['author'] = $this->serialize($authors);
+
+            /**
+             * Map non-translatable SK elements
+             */
+
+            // sk title
+            $attributes['sk']['title'] = $this->serialize($rec->xpath('.//dc:title') ?: NULL);
 
             // identifier, img_url, iipimg_url
             foreach ($identifiers as $identifier) {
@@ -864,6 +863,12 @@ class SpiceHarvesterController extends Controller
                     }
                 }
             }
+
+            // TODO filter empty attributes & make it work for nested arrays 
+            // e.g. $a = ['cs' => ['title' => '']]
+            // $input = array_filter($input, 'strlen');
+            dd($attributes);
+            
         } catch (\Exception $e) {
             Log::error('Identifier: ' . (isSet($identifier))?:'unknown-identifier');
             Log::error('Message: ' . $e->getMessage());
