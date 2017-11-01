@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type='text/xsl' href='/oai-pmh/static/Celestial.xsl'?>
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+   <responseDate>2017-11-01T11:40:31.396Z</responseDate>
+   <request verb="GetRecord" identifier="SVK:SNG.O_5225" metadataPrefix="oai_dc">http://stary.webumenia.sk/oai-pmh/authorized</request>
+   <GetRecord>
+      <record>
+         <header>
+            <identifier>SVK:SNG.O_5225</identifier>
+            <datestamp>2017-03-06T15:42:47.69Z</datestamp>
+            <setSpec>SNG</setSpec>
+         </header>
+         <metadata>
+            <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:su="java:com.eea.cm.sng.util.StringUtil" xmlns:cv="java:com.eea.cm.sng.xslt.ControlledVocabularyManager" xmlns:vra="http://simile.mit.edu/2003/10/ontologies/vraCore3" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:sng="http://www.sng.sk/cedvu#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+               <dc:title>Sen hôr</dc:title>
+               <dc:title.translated xml:lang="eng">Dream of Mountains</dc:title.translated>
+               <dc:creator>urn:svk:psi:per:sng:0000000101</dc:creator>
+               <dc:creator>Alexy, Janko</dc:creator>
+               <dc:creator.role>autor/author</dc:creator.role>
+               <dc:subject xml:lang="slk">figurálna kompozícia</dc:subject>
+               <dc:subject xml:lang="cze">figurální</dc:subject>
+               <dc:subject xml:lang="eng">figurative composition</dc:subject>
+               <dc:description>vľavo dole J.Alexy</dc:description>
+               <dc:type xml:lang="slk">maliarstvo</dc:type>
+               <dc:type xml:lang="eng">painting</dc:type>
+               <dc:type>DEF</dc:type>
+               <dc:type>originál</dc:type>
+               <dc:format xml:lang="eng">oil</dc:format>
+               <dc:format xml:lang="slk">olej</dc:format>
+               <dc:format.medium xml:lang="cze">plátno</dc:format.medium>
+               <dc:format.medium xml:lang="slk">plátno</dc:format.medium>
+               <dc:format.medium xml:lang="eng">canvas</dc:format.medium>
+               <dcterms:extent>výška 135.5 cm, šírka 169.0 cm ()</dcterms:extent>
+               <dcterms:created>1936/1936</dcterms:created>
+               <dcterms:created>20. storočie, 1. polovica, 1936</dcterms:created>
+               <dcterms:provenance>Slovenská národná galéria, SNG</dcterms:provenance>
+               <dc:identifier>SVK:SNG.O_5225</dc:identifier>
+               <dc:type>Image</dc:type>
+               <dc:identifier>http://www.webumenia.sk/oai-pmh/getimage/SVK:SNG.O_5225</dc:identifier>
+               <dc:identifier>O 5225</dc:identifier>
+               <dc:identifier linktype="web master">http://www.webumenia.sk:8080/webutils/resolveurl/SVK:SNG.O_5225/IMAGES</dc:identifier>
+               <dc:identifier linktype="web master">http://www.webumenia.sk:8080/webutils/resolveurl/SVK:SNG.O_5225/L2_WEB</dc:identifier>
+               <dc:rights>1</dc:rights>
+               <dc:rights>publikovať/public</dc:rights>
+               <dc:relation.isPartOf>samostatné dielo</dc:relation.isPartOf>
+            </oai_dc:dc>
+         </metadata>
+      </record>
+   </GetRecord>
+</OAI-PMH>
