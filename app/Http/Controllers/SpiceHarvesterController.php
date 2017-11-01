@@ -773,6 +773,9 @@ class SpiceHarvesterController extends Controller
                 );
                 $attributes[$locale]['topic'] = $this->serialize($topics);
                 $attributes[$locale]['subject'] = $this->serialize($subjects);
+                
+                // filter empty strings caused by non present attributes for given lang
+                $attributes[$locale] = array_filter($attributes[$locale]);
             }
             
             // TODO: map translated values
@@ -863,12 +866,6 @@ class SpiceHarvesterController extends Controller
                     }
                 }
             }
-
-            // TODO filter empty attributes & make it work for nested arrays 
-            // e.g. $a = ['cs' => ['title' => '']]
-            // $input = array_filter($input, 'strlen');
-            dd($attributes);
-            
         } catch (\Exception $e) {
             Log::error('Identifier: ' . (isSet($identifier))?:'unknown-identifier');
             Log::error('Message: ' . $e->getMessage());
