@@ -778,7 +778,7 @@ class SpiceHarvesterController extends Controller
                 $attributes[$locale] = array_filter($attributes[$locale]);
             }
             
-            // TODO: map translated values
+            // TODO?: map translated values
             // Q: do slash separated values get stored? e.g. autor/author
             // Q: isn't storing 'authorities','authority_ids','author' duplicating data?
             // <dc:creator.role> - Role (ie. "workshop of" only slk/eng)
@@ -869,7 +869,7 @@ class SpiceHarvesterController extends Controller
         } catch (\Exception $e) {
             Log::error('Identifier: ' . (isSet($identifier))?:'unknown-identifier');
             Log::error('Message: ' . $e->getMessage());
-            die('nastala chyba. pozri log.');
+            die('Encountered an error, see logs via admin interface for details');
         }
         
         // pretypovat SimpleXMLElement na string
