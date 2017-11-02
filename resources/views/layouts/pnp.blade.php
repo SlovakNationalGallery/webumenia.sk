@@ -91,7 +91,7 @@
                         <a href="{{{ URL::to('autor') }}}">{{ utrans('master.author') }}</a>
                     </li>
                     <li class="{!! (Request::is('katalog') || Request::is('dielo/*')) ? 'active' : '' !!}">
-                        <a href="{{{ URL::to('katalog') }}}">{{ utrans('master.artworks') }}</a>
+                        <a href="{{{ URL::to('katalog') }}}">{{ utrans('master.catalog') }}</a>
                     </li>
                     <li class="{!! (Request::is( 'kolekcie') || Request::is('kolekcia/*')) ? 'active' : '' !!}">
                         <a href="{{{ URL::to('sections') }}}">{{ utrans('master.sections') }}</a>
