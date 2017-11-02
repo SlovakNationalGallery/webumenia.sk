@@ -36,21 +36,17 @@ Route::group(['domain' => 'media.webumenia.{tld}'], function () {
 Route::group(['domain' => 'e-vystavy.pamatniknarodnihopisemnictvi.{tld}'], function () {
 
     // Config::set('request.domain', 'pnp');
-
-    Route::get('/', function ($tld) {
       \Debugbar::disable();
-      Config::set('request.domain', 'pnp');
-      return view('pnp/temporary');
-    });
 
-    Route::get('intro', function () {
+    // Route::get('/', function ($tld) {
+    //   \Debugbar::disable();
+    //   Config::set('request.domain', 'pnp');
+    //   return view('pnp/temporary');
+    // });
+
+    Route::get('/', function () {
         $collections = Collection::whereIn('id', [50, 51, 52, 54])->orderBy('id', 'asc')->get();
         return view('pnp/intro', ['collections' => $collections, 'show_bg' => true]);
-    });
-
-    Route::get('sections', function () {
-        $collections = Collection::whereIn('id', [50, 51, 52, 54])->orderBy('id', 'asc')->get();
-        return view('pnp/intro', ['collections' => $collections]);
     });
 
     Route::get('kolekcia/{id}', function ($tld, $id) {

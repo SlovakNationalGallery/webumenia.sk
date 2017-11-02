@@ -84,7 +84,10 @@
               </button>
               <div class="collapse navbar-collapse navbar-main-collapse">
                   <ul class="nav navbar-nav">
-                    <li class="{!! (Request::is('/') || Request::is('zivot-a-dilo')) ? 'active' : '' !!}">
+                    <li class="{!! (Request::is('/') || Request::is('kolekcia/*')) ? 'active' : '' !!}">
+                        <a href="{{{ URL::to('/') }}}">{{ utrans('master.intro') }}</a>
+                    </li>
+                    <li class="{!! (Request::is('zivot-a-dilo')) ? 'active' : '' !!}">
                         <a href="{{{ URL::to('zivot-a-dilo') }}}">Život a dílo</a>
                     </li>
                     <li class="{!! (Request::is('autor')) ? 'active' : '' !!}">
@@ -92,9 +95,6 @@
                     </li>
                     <li class="{!! (Request::is('katalog') || Request::is('dielo/*')) ? 'active' : '' !!}">
                         <a href="{{{ URL::to('katalog') }}}">{{ utrans('master.catalog') }}</a>
-                    </li>
-                    <li class="{!! (Request::is( 'kolekcie') || Request::is('kolekcia/*')) ? 'active' : '' !!}">
-                        <a href="{{{ URL::to('sections') }}}">{{ utrans('master.sections') }}</a>
                     </li>
                     <li class="{!! Request::is( 'vystava') ? 'active' : '' !!}">
                         <a href="{{{ URL::to('vystava') }}}">{{ utrans('master.exhibition') }}</a>
