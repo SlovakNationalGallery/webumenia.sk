@@ -34,7 +34,7 @@
                         <p class="lead">příp.  <em>{!! implode("</em>, <em>", $author->formatedNames) !!}</em></p>
                     @endif
                     <p class="lead">
-                        {!! $author->getDescription(true, true) !!}
+                        {!! $author->getDescription(true, false) !!}
                     </p>
 
                     {{-- @if ( $author->biography) --}}
