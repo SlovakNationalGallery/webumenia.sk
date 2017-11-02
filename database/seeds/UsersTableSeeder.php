@@ -12,8 +12,8 @@ class UsersTableSeeder extends Seeder {
 	public function run()
 	{
 
-        DB::table('users')->truncate();
-        
+        // DB::table('users')->truncate();
+
         $now = date("Y-m-d H:i:s");
 
         $users = [
