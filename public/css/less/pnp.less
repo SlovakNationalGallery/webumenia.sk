@@ -23,6 +23,7 @@
 @table-border-color: transparent;
 @font-family-sans-serif:   "Source Sans Pro", sans-serif;
 @font-family-serif:   "jannon_t_moderne_ot", serif;
+@navbar-first-height: 72px;
 
 /* Utility classes */
 
@@ -89,9 +90,9 @@ input.tt-input {
     color: @black;
     border-bottom: none;
     font-weight: bold;
+    border-bottom: 2px solid transparent;
     &:hover, &:active, &.active {
-      border-bottom: none;
-      color: @dark-grey;
+      border-bottom-color: @primary;
     }
    }
 }
