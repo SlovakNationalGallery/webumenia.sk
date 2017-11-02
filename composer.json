@@ -16,7 +16,7 @@
         "maatwebsite/excel": "~2.1.0",
         "rap2hpoutre/laravel-log-viewer": "dev-master",
         "zizaco/entrust": "5.2.x-dev",
-        "roumen/sitemap": "dev-master",
+        "roumen/sitemap": "2.6.*",
         "cviebrock/image-validator": "^2.1",
         "anahkiasen/former": "^4.0",
         "laravelcollective/html": "~5.0",
@@ -26,7 +26,8 @@
         "mcamara/laravel-localization": "1.2.*",
         "dimsav/laravel-translatable": "6.*",
         "league/csv": "^8.1",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "doctrine/dbal": "^2.5"
     },
     "autoload": {
         "classmap": [
