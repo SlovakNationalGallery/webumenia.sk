@@ -628,6 +628,8 @@ class CatalogController extends Controller
             'paginator' => $paginator,
             'mediums' => $mediums,
             'places' => $places,
+            'slider_min' => 1600,
+            'slider_max' => 1700,
         ));
     }
 

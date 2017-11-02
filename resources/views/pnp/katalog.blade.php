@@ -15,14 +15,19 @@
             {!! Form::hidden('search', @$search) !!}
             <div class="row">
                 <!-- <h3>Filter: </h3> -->
-                <div  class="col-md-4 col-xs-6">
-                        {!! Form::select('topic', array('' => '') + $topics, @$input['topic'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_topic'))) !!}
+                <div class="col-md-4">
+                    {!! Form::select('topic', array('' => '') + $topics, @$input['topic'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_topic'))) !!}
                 </div>
-                <div  class="col-md-4 col-xs-6">
-                        {!! Form::select('technique', array('' => '') + $techniques, @$input['technique'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_technique'))) !!}
-                </div>
-                <div  class="col-md-4 col-xs-6">
-                        {!! Form::select('medium', array('' => '') + $mediums, @$input['medium'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_medium'))) !!}
+                <div class="col-md-8">
+                    <div class="col-xs-6 col-sm-1 text-left text-sm-right year-range">
+                            <span class="sans" id="from_year">{!! !empty($input['year-range']) ? reset((explode(',', $input['year-range']))) : $slider_min !!}</span>
+                    </div>
+                    <div class="col-xs-6 col-sm-1 col-sm-push-10 text-right text-sm-left year-range">
+                            <span class="sans" id="until_year">{!! !empty($input['year-range']) ? end((explode(',', $input['year-range']))) : $slider_max !!}</span>
+                    </div>
+                    <div class="col-sm-10 col-sm-pull-1 year-range">
+                            <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="{!! $slider_min !!}" data-slider-max="{!! $slider_max !!}" data-slider-step="5" data-slider-value="[{!! !empty($input['year-range']) ? $input['year-range'] : $slider_min.','.$slider_max !!}]"/>
+                    </div>
                 </div>
 
             </div>
@@ -125,9 +130,20 @@ $(document).ready(function(){
                 $(this).removeAttr('name');
             }
         });
-        if ( $('#year-range').val()=='{!!App\Item::sliderMin()!!},{!!App\Item::sliderMax()!!}' ) {
+        if ( $('#year-range').val()=='{!!$slider_min!!},{!!$slider_max!!}' ) {
             $('#year-range').attr("disabled", true);
         }
+    });
+
+    $("#year-range").slider({
+        // value: [1800, 1900],
+        tooltip: 'hide'
+    }).on('slideStop', function(event) {
+        $(this).closest('form').submit();
+    }).on('slide', function(event) {
+        var rozsah = $("#year-range").val().split(',');
+        $('#from_year').html(rozsah[0]);
+        $('#until_year').html(rozsah[1]);
     });
 
     // $(".custom-select").chosen({allow_single_deselect: true})
