@@ -655,9 +655,8 @@ class CatalogController extends Controller
                 ),
         ];
 
-        if (Config::get('request.domain') == 'mg') {
-            $params['body']['filter']['term'] = ['gallery' => 'Moravská galerie, MG'];
-        }
+        // add because of PNP
+        $params['body']['filter']['term'] = ['gallery' => 'Památník národního písemnictví, PNP'];
 
         $result = Elastic::search($params);
 
