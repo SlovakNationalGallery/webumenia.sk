@@ -66,7 +66,7 @@ Route::group(['domain' => 'e-vystavy.pamatniknarodnihopisemnictvi.{tld}'], funct
         return view('pnp/autor', array('author'=>$author));
     });
 
-    Route::get('uvod', function () {
+    Route::get('zivot-a-dilo', function () {
         $article = App\Article::find(7);
         return view('pnp/clanok', array('article'=>$article));
     });
