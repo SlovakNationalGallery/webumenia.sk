@@ -32,7 +32,7 @@ return array(
 
     'more-items_related-artworks' =>  'související díla',
     'modal_license_body-content'        => '<p><strong>Vámi zvolené dílo by se mělo v krátkém čase začít automaticky stahovat.</strong></p>
-                                            <p>Digitální reprodukce volných děl na této stránce jsou přístupné jako <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" class="underline">verejné vlastníctvo (public domain)</a>. Můžete si je volně stahovat ve vysokém rozlišení pouze pro soukromé užití.</p>
+                                            <p>Digitální reprodukce volných děl na této stránce jsou přístupné jako <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" class="underline">veřejné vlastnictví (public domain)</a>. Můžete si je volně stahovat ve vysokém rozlišení pouze pro soukromé užití.</p>
                                             <p>Při dalším šíření prosíme uvést jméno autora, název, majitele díla a zdroj <code>:item_url</code></p>',
     'modal_downloadfail_header-content' => 'Nastala chyba',
     'modal_downloadfail_body-content'   => '<p>Vámi zvolené dílo nebylo nyní možné stáhnout. Zkuste to prosím později.</p>  =
