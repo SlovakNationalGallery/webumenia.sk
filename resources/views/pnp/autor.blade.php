@@ -43,45 +43,6 @@
                     </div>
                     {{-- @endif --}}
 
-                    @if ( $author->events->count() > 0)
-                        <div class="events">
-                            <h4 class="top-space">{{ utrans('autor.places') }}</h4>
-                            @foreach ($author->events as $i=>$event)
-                                {!! $event->place !!} {!! add_brackets(App\Authority::formatMultiAttribute($event->event)) !!}{{ ($i+1 < $author->events->count()) ? ', ' : '' }}
-                            @endforeach
-                        </div>
-                    @endif
-                    @if ( $author->links->count() > 0)
-                        <div class="links">
-                            <h4 class="top-space">{{ utrans('autor.links') }}</h4>
-                            <?php foreach ($author->links as $i=>$link) $links[] = '<a href="'.$link->url .'" target="_blank">'.$link->label.'</a>'; ?>
-                            {!! implode(", ", $links) !!}
-                        </div>
-                    @endif
-
-                    @if ( $author->relationships->count() > 0)
-                    <h4 class="top-space">{{ utrans('autor.relationships') }}</h4>
-                    <table class="table table-condensed relationships">
-                        <thead>
-                            <tr>
-                            @foreach ($author->getAssociativeRelationships() as $type=>$relationships)
-                                <th>{!! $type !!}</th>
-                            @endforeach
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                            @foreach ($author->getAssociativeRelationships() as $type=>$relationships)
-                                <td>
-                                @foreach ($relationships as $relationship)
-                                    <a href="{!! $relationship['id'] !!}" class="no-border"><strong itemprop="knows">{!! $relationship['name'] !!}</strong> <i class="icon-arrow-right"></i></a> <br>
-                                @endforeach
-                                </td>
-                            @endforeach
-                            </tr>
-                        </tbody>
-                    </table>
-                    @endif
                 </div>
             </div>{{-- row --}}
         </div> {{-- /attributes --}}
