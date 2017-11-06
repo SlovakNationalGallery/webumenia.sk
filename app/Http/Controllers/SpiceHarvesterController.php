@@ -624,28 +624,47 @@ class SpiceHarvesterController extends Controller
         $rec->registerXPathNamespace('vp', 'http://e-culture.multimedian.nl/ns/getty/vp');
         $metadata = $rec->metadata->children('cedvu', true)->Vocabulary->children('vp', true)->Subject;
 
-        $attributes['id'] = (int)$this->parseId((string)$metadata->attributes('rdf', true)->about);
-        $attributes['type'] = mb_strtolower((string)$metadata->Record_Type, "UTF-8");
-        $attributes['type_organization'] = (string)$metadata->Record_Type_Organization;
-        $attributes['name'] = (string)$metadata->attributes('vp', true)->labelPreferred;
-        $attributes['sex'] = mb_strtolower((string)$metadata->Biographies->Preferred_Biography->Sex, "UTF-8");
+        /**
+         * Map translatable elements
+         */
+        if (!empty($metadata->Biographies->Preferred_Biography->Birth_Place)) {
+            $attributes['sk']['birth_place'] = $this->trimAfter((string)$metadata->Biographies->Preferred_Biography->Birth_Place);
+        }
+        
+        if (!empty($metadata->Biographies->Preferred_Biography->Death_Place)) {
+            $attributes['sk']['death_place'] = $this->trimAfter((string)$metadata->Biographies->Preferred_Biography->Death_Place);
+        }
+        
+        $attributes['sk']['type_organization'] = (string)$metadata->Record_Type_Organization;
+        
         $biography = $this->parseBiography((string)$metadata->Biographies->Preferred_Biography->Biography_Text);
         if (strpos($biography, 'http')!== false) {
             preg_match_all('!https?://\S+!', $biography, $matches);
             $attributes['links']= $matches[0];
             $biography = ''; // vymazat bio
         }
-        $attributes['biography'] = $biography;
-        if (!empty($metadata->Biographies->Preferred_Biography->Birth_Place)) {
-            $attributes['birth_place'] = $this->trimAfter((string)$metadata->Biographies->Preferred_Biography->Birth_Place);
+        $attributes['sk']['biography'] = $biography;
+
+        /**
+         * Map non-translatable SK elements
+         */
+        $attributes['nationalities'] = array();
+        foreach ($metadata->Nationalities->Preferred_Nationality as $key => $nationality) {
+            $attributes['nationalities'][] = [
+                'id' => (int)$this->parseId((string)$nationality->attributes('rdf', true)->resource),
+                'code' => (string)$nationality->Nationality_Code,
+                // 'prefered' => true,
+            ];
         }
+
+        $attributes['id'] = (int)$this->parseId((string)$metadata->attributes('rdf', true)->about);
+        $attributes['type'] = mb_strtolower((string)$metadata->Record_Type, "UTF-8");
+        $attributes['name'] = (string)$metadata->attributes('vp', true)->labelPreferred;
+        $attributes['sex'] = mb_strtolower((string)$metadata->Biographies->Preferred_Biography->Sex, "UTF-8");
         if (!empty($metadata->Biographies->Preferred_Biography->Birth_Date)) {
             $attributes['birth_year'] = $this->parseYear($metadata->Biographies->Preferred_Biography->Birth_Date);
         }
             $attributes['birth_date'] = (string)$metadata->Biographies->Preferred_Biography->Birth_Date;
-        if (!empty($metadata->Biographies->Preferred_Biography->Death_Place)) {
-            $attributes['death_place'] = $this->trimAfter((string)$metadata->Biographies->Preferred_Biography->Death_Place);
-        }
         if (!empty($metadata->Biographies->Preferred_Biography->Death_Date)) {
             $attributes['death_year'] = $this->parseYear($metadata->Biographies->Preferred_Biography->Death_Date);
         }
