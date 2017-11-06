@@ -802,6 +802,44 @@ class SpiceHarvesterController extends Controller
                 $attributes[$locale] = array_filter($attributes[$locale]);
             }
             
+            $attributes['sk']['title'] = $this->serialize($rec->xpath('.//dc:title') ?: NULL);
+            $attributes['sk']['measurement'] = trim($dcTerms->extent);
+            $attributes['sk']['inscription'] = $this->serialize($dcElements->description);
+            $attributes['sk']['place'] = $this->serialize($dcElements->{'subject.place'});
+            $attributes['sk']['gallery'] = $dcTerms->provenance;
+
+            $dating = explode('/', $dcTerms->created[0]);
+            if (!empty($dcTerms->created[1])) {
+                $dating_text_array = explode(', ', $dcTerms->created[1]);
+                $dating_text = end($dating_text_array);
+            } else {
+                $dating_text = $dcTerms->created[0];
+            }            
+            $attributes['date_earliest'] = (!empty($dating[0])) ? $dating[0] : null;
+            $attributes['date_latest'] = (!empty($dating[1])) ? $dating[1] : $attributes['date_earliest'];
+            $attributes['sk']['dating'] = $dating_text;
+
+            $related = (string)$dcElements->{'relation.isPartOf'};
+            // isPartOf - expected format is "relationship_type:related_work"
+            $related_parts = explode(':', $related, 2); // limit by 2, because "related_work" can contain ":"
+            $attributes['sk']['relationship_type'] = array_shift($related_parts);
+            if ($related_parts) {
+                $attributes['sk']['related_work'] = trim(preg_replace('/\s*\([^)]*\)/', '', $related_parts[0]));
+                preg_match('#\((.*?)\)#', $related_parts[0], $match);
+                if (isset($match[1])) {
+                    $related_work_order = $match[1];
+                    $related_work_order_parts = explode('/', $related_work_order);
+                    $related_work_order = array_shift($related_work_order_parts);
+                    $related_work_total = array_shift($related_work_order_parts);
+                    if (!is_numeric($related_work_order)) {
+                        $attributes['sk']['related_work'] = $related_work_order;
+                    } else {
+                        $attributes['related_work_order'] = (int)$related_work_order;
+                        $attributes['related_work_total'] = (int)$related_work_total;
+                    }
+                }
+            }
+            
             // TODO?: map translated values
             // Q: do slash separated values get stored? e.g. autor/author
             // Q: isn't storing 'authorities','authority_ids','author' duplicating data?
@@ -831,9 +869,6 @@ class SpiceHarvesterController extends Controller
              * Map non-translatable SK elements
              */
 
-            // sk title
-            $attributes['sk']['title'] = $this->serialize($rec->xpath('.//dc:title') ?: NULL);
-
             // identifier, img_url, iipimg_url
             $identifiers = (array)$dcElements->identifier;
             foreach ($identifiers as $identifier) {
@@ -850,46 +885,9 @@ class SpiceHarvesterController extends Controller
             }
 
             $attributes['id'] = (string)$rec->header->identifier;            
-            $attributes['place'] = $this->serialize($dcElements->{'subject.place'});
-            // $trans = array(", " => ";", "šírka" => "", "výška" => "", "()" => "");
-            $trans = array(", " => ";", "; " => ";", "()" => "");
-            $attributes['measurement'] = trim($dcTerms->extent);
-            // $attributes['measurement'] = trim(strtr($dcTerms->extent, $trans));
-            $dating = explode('/', $dcTerms->created[0]);
-            if (!empty($dcTerms->created[1])) {
-                $dating_text_array = explode(', ', $dcTerms->created[1]);
-                $dating_text = end($dating_text_array);
-            } else {
-                $dating_text = $dcTerms->created[0];
-            }            
-            $attributes['date_earliest'] = (!empty($dating[0])) ? $dating[0] : null;
-            $attributes['date_latest'] = (!empty($dating[1])) ? $dating[1] : $attributes['date_earliest'];
-            $attributes['dating'] = $dating_text;
-            $attributes['inscription'] = $this->serialize($dcElements->description);
             // $attributes['state_edition'] =  (!empty($type[2])) ? $type[2] : null;
-            $attributes['gallery'] = $dcTerms->provenance;
             if (isset($dcElements->rights[0])) {
                 $attributes['publish'] = (int)$dcElements->rights[0];
-            }
-            $related = (string)$dcElements->{'relation.isPartOf'};
-            // isPartOf - expected format is "relationship_type:related_work"
-            $related_parts = explode(':', $related, 2); // limit by 2, because "related_work" can contain ":"
-            $attributes['relationship_type'] = array_shift($related_parts);
-            if ($related_parts) {
-                $attributes['related_work'] = trim(preg_replace('/\s*\([^)]*\)/', '', $related_parts[0]));
-                preg_match('#\((.*?)\)#', $related_parts[0], $match);
-                if (isset($match[1])) {
-                    $related_work_order = $match[1];
-                    $related_work_order_parts = explode('/', $related_work_order);
-                    $related_work_order = array_shift($related_work_order_parts);
-                    $related_work_total = array_shift($related_work_order_parts);
-                    if (!is_numeric($related_work_order)) {
-                        $attributes['related_work'] = $related_work_order;
-                    } else {
-                        $attributes['related_work_order'] = (int)$related_work_order;
-                        $attributes['related_work_total'] = (int)$related_work_total;
-                    }
-                }
             }
         } catch (\Exception $e) {
             Log::error('Identifier: ' . (isSet($identifier))?:'unknown-identifier');
