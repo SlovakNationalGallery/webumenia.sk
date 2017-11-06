@@ -661,14 +661,17 @@ class SpiceHarvesterController extends Controller
         $attributes['type'] = mb_strtolower((string)$metadata->Record_Type, "UTF-8");
         $attributes['name'] = (string)$metadata->attributes('vp', true)->labelPreferred;
         $attributes['sex'] = mb_strtolower((string)$metadata->Biographies->Preferred_Biography->Sex, "UTF-8");
+        
         if (!empty($metadata->Biographies->Preferred_Biography->Birth_Date)) {
             $attributes['birth_year'] = $this->parseYear($metadata->Biographies->Preferred_Biography->Birth_Date);
         }
-            $attributes['birth_date'] = (string)$metadata->Biographies->Preferred_Biography->Birth_Date;
+        $attributes['birth_date'] = (string)$metadata->Biographies->Preferred_Biography->Birth_Date;
+        
         if (!empty($metadata->Biographies->Preferred_Biography->Death_Date)) {
             $attributes['death_year'] = $this->parseYear($metadata->Biographies->Preferred_Biography->Death_Date);
         }
-            $attributes['death_date'] = (string)$metadata->Biographies->Preferred_Biography->Death_Date;
+        $attributes['death_date'] = (string)$metadata->Biographies->Preferred_Biography->Death_Date;
+        
         $attributes['nationalities'] = array();
         foreach ($metadata->Nationalities->Preferred_Nationality as $key => $nationality) {
             $attributes['nationalities'][] = [
@@ -677,6 +680,7 @@ class SpiceHarvesterController extends Controller
                 // 'prefered' => true,
             ];
         }
+
         $attributes['roles'] = array();
         foreach ($metadata->Roles->Preferred_Role as $key => $role) {
             $attributes['roles'][] = [
@@ -684,6 +688,7 @@ class SpiceHarvesterController extends Controller
                 // 'prefered' => true,
             ];
         }
+
         $attributes['names'] = array();
         // * preferovane nepridavame - ukladame len "alternative names" *
         // foreach ($metadata->Terms->Preferred_Term as $key => $term) {
@@ -698,6 +703,7 @@ class SpiceHarvesterController extends Controller
                 'prefered' => false,
             ];
         }
+
         $attributes['events'] = array();
         foreach ($metadata->Events->{'Non-Preferred_Event'} as $key => $event) {
             $attributes['events'][] = [
@@ -709,6 +715,7 @@ class SpiceHarvesterController extends Controller
                 'end_date' => (string)$event->Event_Date->End_Date,
             ];
         }
+        
         $attributes['relationships'] = array();
         foreach ($metadata->Associative_Relationships->Associative_Relationship as $key => $relationship) {
             $related_authority_id = (int)$this->parseId((string)$relationship->Related_Subject_ID);
@@ -947,7 +954,6 @@ class SpiceHarvesterController extends Controller
     {
         $parts = explode($delimiter, $string);
         return $parts[0];
-        // return substr($string, 0, strpos($string, $delimiter));
     }
 
     private function parseBiography($string)
