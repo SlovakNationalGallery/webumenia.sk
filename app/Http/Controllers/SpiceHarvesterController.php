@@ -725,8 +725,6 @@ class SpiceHarvesterController extends Controller
                         ->children(self::OAI_DC_NAMESPACE)
                         ->children(self::DUBLIN_CORE_NAMESPACE_TERMS);
 
-        $identifiers = (array)$dcElements->identifier;
-
         try {
             
             /**
@@ -811,6 +809,7 @@ class SpiceHarvesterController extends Controller
             $attributes['sk']['title'] = $this->serialize($rec->xpath('.//dc:title') ?: NULL);
 
             // identifier, img_url, iipimg_url
+            $identifiers = (array)$dcElements->identifier;
             foreach ($identifiers as $identifier) {
                 if ($identifier!=(string)$rec->header->identifier) {
                     //identifikator
