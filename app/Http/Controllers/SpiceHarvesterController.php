@@ -839,12 +839,11 @@ class SpiceHarvesterController extends Controller
                     }
                 }
             }
+
+            /**
+             * Map non-translatable SK elements
+             */
             
-            // TODO?: map translated values
-            // Q: do slash separated values get stored? e.g. autor/author
-            // Q: isn't storing 'authorities','authority_ids','author' duplicating data?
-            // <dc:creator.role> - Role (ie. "workshop of" only slk/eng)
-            // authorities, authority_ids, author, authories.role, authories.name
             $authors = array();
             $authority_ids = array();
             $authorities = array();
@@ -865,11 +864,6 @@ class SpiceHarvesterController extends Controller
             $attributes['authority_ids'] = $authority_ids;
             $attributes['author'] = $this->serialize($authors);
 
-            /**
-             * Map non-translatable SK elements
-             */
-
-            // identifier, img_url, iipimg_url
             $identifiers = (array)$dcElements->identifier;
             foreach ($identifiers as $identifier) {
                 if ($identifier!=(string)$rec->header->identifier) {
