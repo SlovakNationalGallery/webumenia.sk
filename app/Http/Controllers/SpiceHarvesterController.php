@@ -624,107 +624,115 @@ class SpiceHarvesterController extends Controller
         $rec->registerXPathNamespace('vp', 'http://e-culture.multimedian.nl/ns/getty/vp');
         $metadata = $rec->metadata->children('cedvu', true)->Vocabulary->children('vp', true)->Subject;
 
-        /**
-         * Map translatable elements
-         */
-        if (!empty($metadata->Biographies->Preferred_Biography->Birth_Place)) {
-            $attributes['sk']['birth_place'] = $this->trimAfter((string)$metadata->Biographies->Preferred_Biography->Birth_Place);
-        }
-        
-        if (!empty($metadata->Biographies->Preferred_Biography->Death_Place)) {
-            $attributes['sk']['death_place'] = $this->trimAfter((string)$metadata->Biographies->Preferred_Biography->Death_Place);
-        }
-        
-        $attributes['sk']['type_organization'] = (string)$metadata->Record_Type_Organization;
-        
-        $biography = $this->parseBiography((string)$metadata->Biographies->Preferred_Biography->Biography_Text);
-        if (strpos($biography, 'http')!== false) {
-            preg_match_all('!https?://\S+!', $biography, $matches);
-            $attributes['links']= $matches[0];
-            $biography = ''; // vymazat bio
-        }
-        $attributes['sk']['biography'] = $biography;
+        try {
 
-        /**
-         * Map non-translatable SK elements
-         */
-        $attributes['nationalities'] = array();
-        foreach ($metadata->Nationalities->Preferred_Nationality as $key => $nationality) {
-            $attributes['nationalities'][] = [
-                'id' => (int)$this->parseId((string)$nationality->attributes('rdf', true)->resource),
-                'code' => (string)$nationality->Nationality_Code,
-                // 'prefered' => true,
-            ];
-        }
+            /**
+             * Map translatable elements
+             */
+            if (!empty($metadata->Biographies->Preferred_Biography->Birth_Place)) {
+                $attributes['sk']['birth_place'] = $this->trimAfter((string)$metadata->Biographies->Preferred_Biography->Birth_Place);
+            }
+            
+            if (!empty($metadata->Biographies->Preferred_Biography->Death_Place)) {
+                $attributes['sk']['death_place'] = $this->trimAfter((string)$metadata->Biographies->Preferred_Biography->Death_Place);
+            }
+            
+            $attributes['sk']['type_organization'] = (string)$metadata->Record_Type_Organization;
+            
+            $biography = $this->parseBiography((string)$metadata->Biographies->Preferred_Biography->Biography_Text);
+            if (strpos($biography, 'http')!== false) {
+                preg_match_all('!https?://\S+!', $biography, $matches);
+                $attributes['links']= $matches[0];
+                $biography = ''; // vymazat bio
+            }
+            $attributes['sk']['biography'] = $biography;
 
-        $attributes['id'] = (int)$this->parseId((string)$metadata->attributes('rdf', true)->about);
-        $attributes['type'] = mb_strtolower((string)$metadata->Record_Type, "UTF-8");
-        $attributes['name'] = (string)$metadata->attributes('vp', true)->labelPreferred;
-        $attributes['sex'] = mb_strtolower((string)$metadata->Biographies->Preferred_Biography->Sex, "UTF-8");
-        
-        if (!empty($metadata->Biographies->Preferred_Biography->Birth_Date)) {
-            $attributes['birth_year'] = $this->parseYear($metadata->Biographies->Preferred_Biography->Birth_Date);
-        }
-        $attributes['birth_date'] = (string)$metadata->Biographies->Preferred_Biography->Birth_Date;
-        
-        if (!empty($metadata->Biographies->Preferred_Biography->Death_Date)) {
-            $attributes['death_year'] = $this->parseYear($metadata->Biographies->Preferred_Biography->Death_Date);
-        }
-        $attributes['death_date'] = (string)$metadata->Biographies->Preferred_Biography->Death_Date;
-        
-        $attributes['nationalities'] = array();
-        foreach ($metadata->Nationalities->Preferred_Nationality as $key => $nationality) {
-            $attributes['nationalities'][] = [
-                'id' => (int)$this->parseId((string)$nationality->attributes('rdf', true)->resource),
-                'code' => (string)$nationality->Nationality_Code,
-                // 'prefered' => true,
-            ];
-        }
-
-        $attributes['roles'] = array();
-        foreach ($metadata->Roles->Preferred_Role as $key => $role) {
-            $attributes['roles'][] = [
-                'role' => $this->trimAfter((string)$role->Role_ID),
-                // 'prefered' => true,
-            ];
-        }
-
-        $attributes['names'] = array();
-        // * preferovane nepridavame - ukladame len "alternative names" *
-        // foreach ($metadata->Terms->Preferred_Term as $key => $term) {
-        // 	$attributes['names'][] = [
-        // 		'name' => (string)$term->Term_Text,
-        // 		'prefered' => true,
-        // 	];
-        // }
-        foreach ($metadata->Terms->{'Non-Preferred_Term'} as $key => $term) {
-            $attributes['names'][] = [
-                'name' => (string)$term->Term_Text,
-                'prefered' => false,
-            ];
-        }
-
-        $attributes['events'] = array();
-        foreach ($metadata->Events->{'Non-Preferred_Event'} as $key => $event) {
-            $attributes['events'][] = [
-                'id' => (int)$event->attributes('rdf', true)->resource,
-                'event' => (string)$event->Event_ID,
-                'place' => $this->trimAfter((string)$event->Place),
-                'prefered' => false,
-                'start_date' => (string)$event->Event_Date->Start_Date,
-                'end_date' => (string)$event->Event_Date->End_Date,
-            ];
-        }
-        
-        $attributes['relationships'] = array();
-        foreach ($metadata->Associative_Relationships->Associative_Relationship as $key => $relationship) {
-            $related_authority_id = (int)$this->parseId((string)$relationship->Related_Subject_ID);
-            if ($related_authority_id) {
-                $attributes['relationships'][$related_authority_id] = [
-                    'type' => (string)$relationship->Relationship_Type,
-                    'related_authority_id' => $related_authority_id
+            /**
+             * Map non-translatable SK elements
+             */
+            $attributes['nationalities'] = array();
+            foreach ($metadata->Nationalities->Preferred_Nationality as $key => $nationality) {
+                $attributes['nationalities'][] = [
+                    'id' => (int)$this->parseId((string)$nationality->attributes('rdf', true)->resource),
+                    'code' => (string)$nationality->Nationality_Code,
+                    // 'prefered' => true,
                 ];
             }
+
+            $attributes['id'] = (int)$this->parseId((string)$metadata->attributes('rdf', true)->about);
+            $attributes['type'] = mb_strtolower((string)$metadata->Record_Type, "UTF-8");
+            $attributes['name'] = (string)$metadata->attributes('vp', true)->labelPreferred;
+            $attributes['sex'] = mb_strtolower((string)$metadata->Biographies->Preferred_Biography->Sex, "UTF-8");
+            
+            if (!empty($metadata->Biographies->Preferred_Biography->Birth_Date)) {
+                $attributes['birth_year'] = $this->parseYear($metadata->Biographies->Preferred_Biography->Birth_Date);
+            }
+            $attributes['birth_date'] = (string)$metadata->Biographies->Preferred_Biography->Birth_Date;
+            
+            if (!empty($metadata->Biographies->Preferred_Biography->Death_Date)) {
+                $attributes['death_year'] = $this->parseYear($metadata->Biographies->Preferred_Biography->Death_Date);
+            }
+            $attributes['death_date'] = (string)$metadata->Biographies->Preferred_Biography->Death_Date;
+            
+            $attributes['nationalities'] = array();
+            foreach ($metadata->Nationalities->Preferred_Nationality as $key => $nationality) {
+                $attributes['nationalities'][] = [
+                    'id' => (int)$this->parseId((string)$nationality->attributes('rdf', true)->resource),
+                    'code' => (string)$nationality->Nationality_Code,
+                    // 'prefered' => true,
+                ];
+            }
+
+            $attributes['roles'] = array();
+            foreach ($metadata->Roles->Preferred_Role as $key => $role) {
+                $attributes['roles'][] = [
+                    'role' => $this->trimAfter((string)$role->Role_ID),
+                    // 'prefered' => true,
+                ];
+            }
+
+            $attributes['names'] = array();
+            // * preferovane nepridavame - ukladame len "alternative names" *
+            // foreach ($metadata->Terms->Preferred_Term as $key => $term) {
+            // 	$attributes['names'][] = [
+            // 		'name' => (string)$term->Term_Text,
+            // 		'prefered' => true,
+            // 	];
+            // }
+            foreach ($metadata->Terms->{'Non-Preferred_Term'} as $key => $term) {
+                $attributes['names'][] = [
+                    'name' => (string)$term->Term_Text,
+                    'prefered' => false,
+                ];
+            }
+
+            $attributes['events'] = array();
+            foreach ($metadata->Events->{'Non-Preferred_Event'} as $key => $event) {
+                $attributes['events'][] = [
+                    'id' => (int)$event->attributes('rdf', true)->resource,
+                    'event' => (string)$event->Event_ID,
+                    'place' => $this->trimAfter((string)$event->Place),
+                    'prefered' => false,
+                    'start_date' => (string)$event->Event_Date->Start_Date,
+                    'end_date' => (string)$event->Event_Date->End_Date,
+                ];
+            }
+            
+            $attributes['relationships'] = array();
+            foreach ($metadata->Associative_Relationships->Associative_Relationship as $key => $relationship) {
+                $related_authority_id = (int)$this->parseId((string)$relationship->Related_Subject_ID);
+                if ($related_authority_id) {
+                    $attributes['relationships'][$related_authority_id] = [
+                        'type' => (string)$relationship->Relationship_Type,
+                        'related_authority_id' => $related_authority_id
+                    ];
+                }
+            }
+            
+        } catch (\Exception $e) {
+            Log::error('Identifier: ' . (isSet($identifier))?:'unknown-identifier');
+            Log::error('Message: ' . $e->getMessage());
+            die('Encountered an error, see logs via admin interface for details');
         }
 
         return $attributes;
