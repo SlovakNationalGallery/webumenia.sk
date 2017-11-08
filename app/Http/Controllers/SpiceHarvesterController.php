@@ -629,13 +629,9 @@ class SpiceHarvesterController extends Controller
             /**
              * Map translatable elements
              */
-            if (!empty($metadata->Biographies->Preferred_Biography->Birth_Place)) {
-                $attributes['sk']['birth_place'] = $this->trimAfter((string)$metadata->Biographies->Preferred_Biography->Birth_Place);
-            }
+            $attributes['sk']['birth_place'] = $this->trimAfter((string)$metadata->Biographies->Preferred_Biography->Birth_Place);
             
-            if (!empty($metadata->Biographies->Preferred_Biography->Death_Place)) {
-                $attributes['sk']['death_place'] = $this->trimAfter((string)$metadata->Biographies->Preferred_Biography->Death_Place);
-            }
+            $attributes['sk']['death_place'] = $this->trimAfter((string)$metadata->Biographies->Preferred_Biography->Death_Place);
             
             $attributes['sk']['type_organization'] = (string)$metadata->Record_Type_Organization;
             
@@ -646,6 +642,9 @@ class SpiceHarvesterController extends Controller
                 $biography = ''; // vymazat bio
             }
             $attributes['sk']['biography'] = $biography;
+
+            // filter empty strings caused by non present attributes for given lang
+            $attributes['sk'] = array_filter($attributes['sk']);
 
             /**
              * Map non-translatable SK elements
