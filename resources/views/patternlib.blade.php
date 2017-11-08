@@ -1,8 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-Pattern Library |
-@parent
+Pattern Library | @parent
 @stop
 
 @section('link')
@@ -13,14 +12,15 @@ Pattern Library |
 
 @section('content')
 
-    <script>
-        function toggle_source(event) {
-            event.preventDefault();
-            $(event.target).parent().find('pre.js-source').toggleClass('hidden');                    
-            var txt = $(event.target).parent().find('pre.js-source').hasClass('hidden') ? '<i class="fa fa-code"></i> Show source' : '<i class="fa fa-code"></i> Hide source';
-            $(event.target).html(txt);
-        }
-    </script>
+<script>
+    function toggle_source(event) {
+        event.preventDefault();
+        $(event.target).parent().find('pre.js-source').toggleClass('hidden');                    
+        var txt = $(event.target).parent().find('pre.js-source').hasClass('hidden') ? '<i class="fa fa-code"></i> Show source' : '<i class="fa fa-code"></i> Hide source';
+        $(event.target).html(txt);
+    }
+</script>
+
 <section>
     <div class="container">
         <h1>Pattern Library</h1>
