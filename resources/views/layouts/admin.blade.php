@@ -168,7 +168,7 @@
     </div>
 
     <!-- Core JavaScript Files -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
     {!! Html::script('js/bootstrap.min.js') !!}
     {!! Html::script('js/bootstrap-datepicker.js') !!}

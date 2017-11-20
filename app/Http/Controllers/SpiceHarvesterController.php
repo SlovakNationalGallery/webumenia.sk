@@ -711,6 +711,9 @@ class SpiceHarvesterController extends Controller
     {
         // $vendorDir = base_path() . '/vendor'; include($vendorDir . '/imsop/simplexml_debug/src/simplexml_dump.php'); include($vendorDir . '/imsop/simplexml_debug/src/simplexml_tree.php');
 
+        $rec->registerXPathNamespace('oai_dc', self::OAI_DC_NAMESPACE);
+        $rec->registerXPathNamespace('dc', self::DUBLIN_CORE_NAMESPACE_ELEMTS);
+
         $attributes = array();
 
         $dcElements = $rec->metadata
@@ -729,7 +732,7 @@ class SpiceHarvesterController extends Controller
 
         try {
 
-            foreach ($dcElements->xpath('//dc:subject[@xml:lang="slk"]') as $key => $value) {
+            foreach ($rec->xpath('.//dc:subject[@xml:lang="slk"]') as $key => $value) {
                 if ($this->starts_with_upper($value)) {
                     $subject[] = mb_strtolower($value, "UTF-8");
                 } else {
@@ -772,7 +775,7 @@ class SpiceHarvesterController extends Controller
             $attributes['authorities'] = $authorities;
             $attributes['authority_ids'] = $authority_ids;
             $attributes['author'] = $this->serialize($authors);
-            $attributes['work_type'] = $this->serialize($dcElements->xpath('//dc:type[@xml:lang="slk"]'), ', ');
+            $attributes['work_type'] = $this->serialize($rec->xpath('.//dc:type[@xml:lang="slk"]'), ', ');
             // if (!empty($type[0])) $attributes['work_type'] = $type[0];
             // if (!empty($type[1])) $attributes['work_level'] = $type[1];
         
@@ -783,14 +786,18 @@ class SpiceHarvesterController extends Controller
             $trans = array(", " => ";", "; " => ";", "()" => "");
             $attributes['measurement'] = trim($dcTerms->extent);
             // $attributes['measurement'] = trim(strtr($dcTerms->extent, $trans));
-            // dd($attributes['measurement']);
             $dating = explode('/', $dcTerms->created[0]);
-            $dating_text = (!empty($dcTerms->created[1])) ? end((explode(', ', $dcTerms->created[1]))) : $dcTerms->created[0];
+            if (!empty($dcTerms->created[1])) {
+                $dating_text_array = explode(', ', $dcTerms->created[1]);
+                $dating_text = end($dating_text_array);
+            } else {
+                $dating_text = $dcTerms->created[0];
+            }            
             $attributes['date_earliest'] = (!empty($dating[0])) ? $dating[0] : null;
             $attributes['date_latest'] = (!empty($dating[1])) ? $dating[1] : $attributes['date_earliest'];
             $attributes['dating'] = $dating_text;
-            $attributes['medium'] = $this->serialize($dcElements->xpath('//dc:format.medium[@xml:lang="slk"]')); // http://stackoverflow.com/questions/6531380/php-simplexml-with-dot-character-in-element-in-xml
-            $attributes['technique'] = $this->serialize($dcElements->xpath('//dc:format[@xml:lang="slk"]'));
+            $attributes['medium'] = $this->serialize($rec->xpath('.//dc:format.medium[@xml:lang="slk"]')); // http://stackoverflow.com/questions/6531380/php-simplexml-with-dot-character-in-element-in-xml
+            $attributes['technique'] = $this->serialize($rec->xpath('.//dc:format[@xml:lang="slk"]'));
             $attributes['inscription'] = $this->serialize($dcElements->description);
             // $attributes['state_edition'] =  (!empty($type[2])) ? $type[2] : null;
             $attributes['gallery'] = $dcTerms->provenance;
@@ -818,7 +825,7 @@ class SpiceHarvesterController extends Controller
                 }
             }
         } catch (\Exception $e) {
-            Log::error('Identifier: ' . $identifier);
+            Log::error('Identifier: ' . (isSet($identifier))?:'unknown-identifier');
             Log::error('Message: ' . $e->getMessage());
             die('nastala chyba. pozri log.');
         }

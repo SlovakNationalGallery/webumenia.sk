@@ -38,7 +38,7 @@
 
 
 {!!
-  Former::open('objednavka')->class('form-bordered form-horizontal')->id('order')->rules(App\Order::$rules);
+  Former::open()->route('objednavka.post')->class('form-bordered form-horizontal')->id('order')->rules(App\Order::$rules);
 !!}
 
 <div class="form-group required has-feedback"><label for="pids" class="control-label col-lg-2 col-sm-4">{{ trans('objednavka.form_title') }}</label>

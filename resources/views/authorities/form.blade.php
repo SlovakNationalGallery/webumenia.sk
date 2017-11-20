@@ -170,7 +170,7 @@
 
 <div class="col-md-12 text-center">
 	{!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp; 
-	@if(isset($authority))
+	@if(isset($authority) && $authority->record)
 		<a href="{!!URL::to('harvests/'.$authority->record->id.'/refreshRecord')!!}" class="btn btn-warning">Obnoviť z OAI</a>
 	@endif
 	{!! link_to_route('authority.index', 'Zrušiť', null, array('class' => 'btn btn-default')) !!}
@@ -206,14 +206,12 @@ $(document).ready(function(){
 	});
 
 	$('form').submit(function(e) {
-      var self = this;
-      e.preventDefault();
 	  var imageData = $('#image-editor').cropit('export', {
 		  type: 'image/jpeg',
 		  quality: .9
 		});
 	  $('#primary_image').val(imageData);
-	  self.submit();
+      return true;
 	});
 
 

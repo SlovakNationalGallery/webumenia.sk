@@ -113,9 +113,8 @@
 
                 </div>
                 <div>
-                    <a href="{!! url_to('katalog', ['author' => $author->name]) !!}"><strong>{!! $author->items_count !!}</strong></a> diel
+                    {!! trans_choice('autor.artworks', $author->items_count, ['artworks_url' => url_to('katalog', ['author' => $author->name]), 'artworks_count' => $author->items_count]) !!}
                 </div>
-
             </div>
             <div class="clearfix visible-xs bottom-space"></div>
             <div class="col-sm-6" >
