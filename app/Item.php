@@ -716,6 +716,7 @@ class Item extends Model
                 'is_free' => $this->isFree(),
                 // 'free_download' => $this->isFreeDownload(), // staci zapnut is_free + has_iip
                 'related_work' => $this->related_work,
+                'gallery_collection' => $this->gallery_collection,
                 'authority_id' => $this->relatedAuthorityIds(),
                 'view_count' => $this->view_count,
             ];
