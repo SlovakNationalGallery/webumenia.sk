@@ -97,10 +97,10 @@ class CatalogController extends Controller
 							      { "match": { "title":          "'.$search.'" }},
 							      { "match": { "title.folded":          "'.$search.'" }},
 							      { "match": { "title.stemmed": "'.$search.'" }},
-							      { "match": { 
-							        "title.stemmed": { 
-							          "query": "'.$search.'",  
-							          "analyzer" : "slovencina_synonym" 
+							      { "match": {
+							        "title.stemmed": {
+							          "query": "'.$search.'",
+							          "analyzer" : "slovencina_synonym"
 							        }
 							      }
 							      },
@@ -182,9 +182,8 @@ class CatalogController extends Controller
         $paginator = new LengthAwarePaginator($items->all(), $items->total(), $per_page, $page, ['path' => $path]);
 
         $authors = Item::listValues('author', $params);
-        $work_types = Item::listValues('work_type', $params);
-        $tags = Item::listValues('tag', $params);
-        $galleries = Item::listValues('gallery', $params);
+        $mediums = Item::listValues('medium', $params);
+        $gallery_collections = Item::listValues('gallery_collection', $params);
         $topics = Item::listValues('topic', $params);
         $techniques = Item::listValues('technique', $params);
 
@@ -194,10 +193,8 @@ class CatalogController extends Controller
         return view('katalog', array(
             'items' => $items,
             'authors' => $authors,
-            'work_types' => $work_types,
-            'tags' => $tags,
-            'galleries' => $galleries,
-            'topics' => $topics,
+            'mediums' => $mediums,
+            'gallery_collections' => $gallery_collections,
             'techniques' => $techniques,
             'search' => $search,
             'sort_by' => $sort_by,

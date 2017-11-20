@@ -533,18 +533,6 @@ class Item extends Model
         $copyright_length = 70; // 70 rokov po smrti autora
         $limit_according_item_dating = $copyright_length + 60; // 60 = 80 (max_life_lenght) - 20 (start_of_publishing)
 
-        // skontrolovat, ci dielo patri institucii, ktora povoluje "volne diela"
-        if (!(
-            $this->attributes['gallery'] == 'Slovenská národná galéria, SNG' ||
-            $this->attributes['gallery'] == 'Oravská galéria, OGD' ||
-            $this->attributes['gallery'] == 'Liptovská galéria Petra Michala Bohúňa, GPB' ||
-            $this->attributes['gallery'] == 'Galéria umenia Ernesta Zmetáka, GNZ' ||
-            $this->attributes['gallery'] == 'Galéria Miloša Alexandra Bazovského, GBT'  ||
-            $this->attributes['gallery'] == 'Galéria umelcov Spiša, GUS'
-        )) {
-            return false;
-        }
-
         //ak je autor viac ako 71rokov po smrti
         $authors_are_free = array();
         foreach ($this->authorities as $i => $authority) {
