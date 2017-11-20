@@ -46,7 +46,7 @@ return array(
     |
     */
 
-    'timezone' => 'Europe/Bratislava',
+    'timezone' => 'Europe/Prague',
 
     /*
     |--------------------------------------------------------------------------
@@ -59,7 +59,7 @@ return array(
     |
     */
 
-    'locale' => 'sk',
+    'locale' => 'cs',
     'fallback_locale' => 'en',
 
     /*
