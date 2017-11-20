@@ -160,6 +160,10 @@ class NgImporter extends AbstractImporter {
         return 0;
     }
 
+    protected function hydrateGalleryCollection(array $record) {
+        return isset(self::$cz_gallery_collection_spec[$record['Sbírka']]) ? self::$cz_gallery_collection_spec[$record['Sbírka']] : null;
+    }
+
     /**
      * @param string $author
      * @return string

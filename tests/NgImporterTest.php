@@ -39,6 +39,7 @@ class NgImporterTest extends TestCase
             'popis rozměru (např. s rámem, se soklem, celý papír apod.)' => 'celkovo',
             'Datování (určené)' => '1998 - 2003',
             'Kolekce (budova)' => 'Veletržní palác',
+            'Sbírka' => 'SGK',
         ];
         $records = new \ArrayIterator([$data]);
 
@@ -63,6 +64,7 @@ class NgImporterTest extends TestCase
             'measurement' => 'šířka 1 cm; výška 2 cm; hloubka 3 cm',
             'date_earliest' => 1998,
             'date_latest' => 2003,
+            'gallery_collection' => 'Sbírka grafiky a kresby',
         ];
 
         foreach ($expected as $key => $value) {

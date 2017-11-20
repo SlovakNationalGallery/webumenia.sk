@@ -38,7 +38,8 @@ class Item extends Model
         'len s obrázkom' => 'has_image',
         'len so zoom' => 'has_iip',
         'len voľné' => 'is_free',
-        'zo súboru' => 'related_work'
+        'zo súboru' => 'related_work',
+        'gallery_collection' => 'gallery_collection',
     );
 
     public static $sortable = array(
@@ -84,6 +85,7 @@ class Item extends Model
         'iipimg_url',
         'item_type',
         'publish',
+        'gallery_collection',
     );
 
     public static $rules = array(
@@ -490,7 +492,7 @@ class Item extends Model
         }
         $json_params = '
 		{
-		 "aggs" : { 
+		 "aggs" : {
 		    "'.$attribute.'" : {
 		        "terms" : {
 		          "field" : "'.$attribute.'",
@@ -530,7 +532,7 @@ class Item extends Model
     {
         $copyright_length = 70; // 70 rokov po smrti autora
         $limit_according_item_dating = $copyright_length + 60; // 60 = 80 (max_life_lenght) - 20 (start_of_publishing)
-        
+
         // skontrolovat, ci dielo patri institucii, ktora povoluje "volne diela"
         if (!(
             $this->attributes['gallery'] == 'Slovenská národná galéria, SNG' ||
@@ -542,7 +544,7 @@ class Item extends Model
         )) {
             return false;
         }
-        
+
         //ak je autor viac ako 71rokov po smrti
         $authors_are_free = array();
         foreach ($this->authorities as $i => $authority) {
@@ -576,7 +578,7 @@ class Item extends Model
 
         return false;
     }
-    
+
     private function relatedAuthorityIds()
     {
         $ids=array();
