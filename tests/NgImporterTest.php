@@ -7,10 +7,34 @@ use App\Import;
 use App\Importers\NgImporter;
 use App\Repositories\CsvRepository;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Support\Facades\DB;
 
 class NgImporterTest extends TestCase
 {
-    use DatabaseMigrations;
+    public function setUp() {
+        parent::setUp();
+        $this->artisan('migrate');
+    }
+
+    public function tearDown() {
+        $tables = DB::select('SHOW TABLES');
+
+        $droplist = [];
+        $colname = 'Tables_in_' . env('DB_DATABASE');
+        foreach($tables as $table) {
+            $droplist[] = $table->$colname;
+        }
+        $droplist = implode(',', $droplist);
+
+        DB::beginTransaction();
+        //turn off referential integrity
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        DB::statement("DROP TABLE $droplist");
+        //turn referential integrity back on
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+        DB::commit();
+        parent::tearDown();
+    }
 
     public function testImport() {
         $collection = new Collection();
@@ -40,6 +64,10 @@ class NgImporterTest extends TestCase
             'Datování (určené)' => '1998 - 2003',
             'Kolekce (budova)' => 'Veletržní palác',
             'Sbírka' => 'SGK',
+            'OSA 1' => '1998',
+            'OSA 2' => '2003',
+            'Materiál' => 'material',
+            'Technika' => 'technika'
         ];
         $records = new \ArrayIterator([$data]);
 

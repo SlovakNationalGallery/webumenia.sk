@@ -23,8 +23,10 @@ class NgImporter extends AbstractImporter {
         'Datace' => 'dating',
         'Technika' => 'technique',
         'Materiál' => 'medium',
-        'Inventární čís.' => 'identifier',
+        'Ivent. číslo' => 'identifier',
         'Popis' => 'description',
+        'OSA 1' => 'date_earliest',
+        'OSA 2' => 'date_latest',
     ];
 
     protected $defaults = [
@@ -57,7 +59,7 @@ class NgImporter extends AbstractImporter {
 
 
     protected function getItemId(array $record) {
-        $key = 'Inventární čís.';
+        $key = 'Ivent. číslo';
         $id = $record[$key];
         $id = strtr($id, ' ', '_');
 
@@ -65,7 +67,7 @@ class NgImporter extends AbstractImporter {
     }
 
     protected function getItemImageFilename(array $record) {
-        $key = 'Inventární čís.';
+        $key = 'Ivent. číslo';
         $filename = $record[$key];
         $filename = strtr($filename, ' ', '_');
 
@@ -115,7 +117,16 @@ class NgImporter extends AbstractImporter {
         $key1 = 'značeno kde (umístění v díle)';
         $key2 = 'Značeno (jak např. letopočet, signatura, monogram)';
 
-        return sprintf('%s: %s', $record[$key1], $record[$key2]);
+        $inscription = [];
+        if ($record[$key1] !== null) {
+            $inscription[] = $record[$key1];
+        }
+
+        if ($record[$key2] !== null) {
+            $inscription[] = $record[$key2];
+        }
+
+        return implode(': ', $inscription);
     }
 
     protected function hydrateMeasurement(array $record) {
@@ -138,26 +149,6 @@ class NgImporter extends AbstractImporter {
         }
 
         return implode('; ', $measurement);
-    }
-
-    protected function hydrateDateEarliest(array $record) {
-        if (preg_match_all('/(\d{4})/', $record['Datování (určené)'], $matches)) {
-            if (isset($matches[1][0])) {
-                return $matches[1][0];
-            }
-        }
-
-        return 0;
-    }
-
-    protected function hydrateDateLatest(array $record) {
-        if (preg_match_all('/(\d{4})/', $record['Datování (určené)'], $matches)) {
-            if (isset($matches[1][count($matches) - 1])) {
-                return $matches[1][count($matches) - 1];
-            }
-        }
-
-        return 0;
     }
 
     protected function hydrateGalleryCollection(array $record) {
