@@ -11,7 +11,7 @@
 
 		<title>
 			@section('title')
-			Web umenia
+			Národní galerie v Praze - sbírky
 			@show
 		</title>
 
@@ -23,12 +23,12 @@
 		<meta name="twitter:card" content="summary" />
 		<meta name="twitter:site" content="@webumeniaSK" />
 		@section('og')
-		<meta property="og:title" content="Web umenia" />
+		<meta property="og:title" content="Národní galerie v Praze - sbírky" />
 		<meta property="og:description" content="{{ trans('master.meta_description') }}" />
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content="{!! Request::url() !!}" />
 		<meta property="og:image" content="{!! URL::to('/images/og-image-'.random_int(1, 2).'.jpg') !!}" />
-		<meta property="og:site_name" content="web umenia" />
+		<meta property="og:site_name" content="Národní galerie v Praze - sbírky" />
 		@show
 		<!--  Open Graph protocol -->
 
@@ -100,22 +100,15 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                     <i class="fa fa-bars fa-2x"></i>
                 </button>
-	            <a class="navbar-brand no-border hidden-xs first-part" href="{!! URL::to('') !!}">
-	                web
+	            <a class="navbar-brand no-border hidden-xs" href="{!! URL::to('') !!}">
+	                {{-- národní galerie --}}
+                    <img src="{{ asset('images/logo.svg') }}" class="brand-image">
 	            </a>
 	            {!! Form::open(['url' => 'katalog', 'method' => 'get', 'class' => 'navbar-form right-inner-addon', 'data-searchd-engine' => Config::get('app.searchd_id_autocomplete')]) !!}
 	            			<i class="fa fa-search"></i>
 	            			{!! Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => utrans('master.search_placeholder'), 'id'=>'search', 'autocomplete'=>'off')) !!}
 	            			{!!  Form::submit('submit'); !!}
 	            {!!Form::close() !!}
-	            <a class="navbar-brand no-border hidden-xs second-part" href="{!! URL::to('') !!}">
-	                umenia
-	            </a>
-	            {{--
-	            @if (Request::is('dielo/*') && isSet($collection))
-	            	 <a href="{!! $collection->getUrl() !!}" class="navbar-brand text-small hidden-xs hidden-sm">/&nbsp; {!! $collection->name !!}</a>
-	            @endif
-	             --}}
 	        </div>
 
 	        <div class="collapse navbar-collapse navbar-main-collapse">

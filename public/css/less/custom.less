@@ -1,15 +1,15 @@
 // Variables
 
 // @primary: #76791b;
-@primary: #484224;
+@primary: #ed1b2e; // NG red color from logo
 @dark: #555954;
 @light: #fff;
 @red: #ce2525;
 @light-grey: #f0f0f0;
 @mid-grey: #cdcdcd;
 @grey: #969696;
-@dark-grey: #5b5d5c;
-@primary-color: #66ccf4;
+@dark-grey: gray;
+@primary-color: #ed1b2e;
 @shadow-color: #777;
 
 @link-color: @primary;
@@ -24,7 +24,7 @@
 
 @table-border-color:            #eee;
 
-@font-family-sans-serif:   "GTWalsheim", sans-serif;
+@font-family-sans-serif:   "Arial", sans-serif;
 @font-family-serif:       "Minion", Georgia, "Times New Roman", Times, serif;
 
 @font-family-base:        @font-family-sans-serif;
@@ -36,7 +36,8 @@
 @state-success-bg:               #c8ddf1;
 @state-success-border:           darken(spin(@state-success-bg, -10), 5%);
 
-@navbar-first-height: 50px;
+// @navbar-first-height: 50px;
+@navbar-first-height: 120px;
 @nav-link-hover-bg: none;
 @nav-link-padding:                          10px 15px;
 
@@ -113,7 +114,7 @@ strong {font-weight: 600;}
 //         font-size: 56px;
 //         margin-top: 25px;
 //     }
-//     h2 { font-size: 36px; 
+//     h2 { font-size: 36px;
 //         &.nadpis-dielo {
 //             font-size: 32px;
 //         }
@@ -126,7 +127,7 @@ strong {font-weight: 600;}
 //         font-size: 64px;
 //         margin-top: 45px;
 //     }
-//     h2 { 
+//     h2 {
 //         font-size: 42px; §
 //         &.nadpis-dielo {
 //             font-size: 36px;
@@ -163,17 +164,21 @@ a:focus {
 }
 
  // Navigation
-.navbar {    
+.navbar {
     background-color: @light;
     margin-bottom: 0;
 
     a.navbar-brand, a.navbar-brand:hover {
         background: none;
         font-weight: 600;
+        img {
+          width: 350px;
+           max-width: 100%;
+        }
     }
 
-    .navbar-header { 
-        text-align: center; 
+    .navbar-header {
+        text-align: center;
         // float: none;
         width: 100%;
         min-height: @navbar-first-height;
@@ -194,24 +199,24 @@ a:focus {
 }
 
 @media(min-width: @screen-sm-min) {
-    .navbar {    
+    .navbar {
         a, .dropdown-menu a {
             -webkit-transition: border .3s ease-in-out;
             -moz-transition: border .3s ease-in-out;
             transition: border .3s ease-in-out;
-            border-bottom: 2px solid @light;
+            border-bottom: 5px solid @light;
             &:hover, &:active {
-              border-bottom: 2px solid @dark-grey;
+              border-bottom: 5px solid @dark-grey;
             }
         }
         li.active a {
-          border-bottom: 2px solid @dark-grey;
+          border-bottom: 5px solid @dark-grey;
         }
     }
 }
 
 @media(max-width: @screen-xs-max) {
-    .navbar {    
+    .navbar {
         a, .dropdown-menu a {
         }
         li.active a {
@@ -231,17 +236,18 @@ a:focus {
 @media(min-width: @screen-xs-min) {
 
     .navbar {
-        padding: 40px 0 0px;
+        padding: 10px 0 0px;
         border-bottom: 0;
         letter-spacing: 1px;
         // background: 0 0;
         -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
         -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
         transition: background .5s ease-in-out,padding .5s ease-in-out;
-        
+
         .navbar-nav, .navbar-brand {
             display: inline-block;
-            margin-bottom: -4px;
+            // margin-bottom: -4px;
+            height: 65px;
         }
     }
 }
@@ -295,7 +301,7 @@ a:focus {
 
   text-shadow:0px 1px 0px @shadow-color;
   background: @dark-grey;
-  background-position:center;background-size:cover; 
+  background-position:center;background-size:cover;
 
   .outer-box {
     display: table;
@@ -338,9 +344,9 @@ p.tagline {
     color: @dark-grey;
   }
   a {
-    border-bottom: 2px solid transparent;
+    border-bottom: 5px solid transparent;
     &:hover {
-      border-bottom: 2px solid @dark-grey;
+      border-bottom: 5px solid @dark-grey;
       // text-decoration: underline;
     }
   }
@@ -392,7 +398,7 @@ p.tagline {
         transition: opacity .5s ease-in-out,padding .5s ease-in-out;
 
     }
-    
+
     &:hover { border: 0 }
     &:hover > .img-responsive{
         opacity: 0.5;
@@ -405,11 +411,11 @@ p.tagline {
         bottom: 10px;
         left: 20px;
         right: 20px;
-        text-shadow: 0 0 5px rgba(0,0,0,0.125);     
+        text-shadow: 0 0 5px rgba(0,0,0,0.125);
         text-transform: uppercase;
         letter-spacing: 3px;
         line-height: 24px;
-    }   
+    }
 
     &:hover > h4 {
        color: @light;
@@ -440,7 +446,7 @@ a.license { vertical-align: middle}
     margin-bottom: 10px;
     -webkit-transition: background .3s ease-in-out;
     -moz-transition: background .3s ease-in-out;
-    transition: background .3s ease-in-out;        
+    transition: background .3s ease-in-out;
     &:hover {
         // background-color: #f3f3f3;
     }
@@ -489,7 +495,7 @@ table a:not(.btn):not(.readmore-js-toggle):not(.no-border), .attributes a:not(.b
     height: 200px;
 }
 
-.gm-style{    
+.gm-style{
     font-family: @font-family-serif; font-weight:bold;text-decoration:none;
     em {
         font-weight: normal;
@@ -503,13 +509,13 @@ table a:not(.btn):not(.readmore-js-toggle):not(.no-border), .attributes a:not(.b
 }
 
 .footer {
-    padding: 10px; 
+    padding: 10px;
     .fa {
       margin-right: 10px;
     }
     p {
         font-size: 12px;
-        margin: 0;  
+        margin: 0;
     }
 }
 
@@ -526,11 +532,11 @@ table a:not(.btn):not(.readmore-js-toggle):not(.no-border), .attributes a:not(.b
       font-size: 16px;
       line-height: 24px;
     }
-    ul.list-lab li {margin-bottom: 0} 
+    ul.list-lab li {margin-bottom: 0}
     a {
-        border-bottom: lighten(@primary, 60%) solid 1px; 
+        border-bottom: lighten(@primary, 60%) solid 1px;
         &:hover, &:active {
-            border-bottom: #000 solid 1px; 
+            border-bottom: #000 solid 1px;
         }
     }
     .atribut {
@@ -587,7 +593,7 @@ p.medium {
         border-radius: 25px;
         font-size: 18px;
         line-height: 1.33;
-    }  
+    }
 }
 
 .btn-outline {
@@ -610,7 +616,7 @@ section.filters {
     }
 
     .chosen-container, select { margin-bottom: 20px; }
-   
+
     .checkbox {margin-top: 0}
     /*
     .checkbox label {display: block; padding-left: 7px;  padding-top: 0px;}
@@ -673,7 +679,7 @@ section.catalog {
       font-weight: normal;
       margin-right: 30px;
     }
-    .btn > i {vertical-align: -13%} 
+    .btn > i {vertical-align: -13%}
 }
 
 //zatial rusit pagination len v katalogu
@@ -691,21 +697,21 @@ section.catalog {
       div[class^="col"]{padding-left:7px; padding-right:7px;}
     }
 }
- 
-.navbar-form { 
+
+.navbar-form {
   display: inline-block;
-  width: 80%; 
+  width: 80%;
   input#search {width: 100%;}
 }
 @media(min-width: @screen-sm-min) {
-  .navbar-form { max-width: 425px; } 
+  .navbar-form { max-width: 350px; }
 }
 
 .right-inner-addon {
     position: relative;
-    
+
     input {
-        padding-right: 10px; 
+        padding-right: 10px;
     }
 
     input[type=submit] {
@@ -743,7 +749,7 @@ section.catalog {
     margin-left: -20px;
     z-index: 99999;
     display: none;
-    
+
     a.btn {
       background-color: @grey;
       border: none;
@@ -766,7 +772,7 @@ section.catalog {
     .btn {
         width: 100%;
     }
-    .year-range {        
+    .year-range {
         padding-top: 6px;
     }
 }
@@ -805,15 +811,15 @@ section.catalog {
     overflow: hidden;
     max-height: 165px;
     &.large {
-       max-height: 200px; 
+       max-height: 200px;
        .img-responsive-width {
-            max-height: 200px; 
+            max-height: 200px;
        }
     }
     &.small {
-       max-height: 100px; 
+       max-height: 100px;
        .img-responsive-width {
-            max-height: 100px; 
+            max-height: 100px;
             width: auto;
        }
     }
@@ -871,12 +877,12 @@ section.catalog {
         font-size: 14px;
         padding: 2px 4px;
         border: 2px solid transparent;
-        &.active, &:hover { border: 2px solid }    
+        &.active, &:hover { border: 2px solid }
     }
-    
+
 }
 
-// ********** zooom ********** 
+// ********** zooom **********
 #zoomed {
     overflow: hidden;
 
@@ -1063,7 +1069,7 @@ label sup {
   padding-left: 2px;
 }
 
-@media (min-width: @screen-md-min) { 
+@media (min-width: @screen-md-min) {
     .row.vertical-align {
         display: flex;
         align-items: center;
