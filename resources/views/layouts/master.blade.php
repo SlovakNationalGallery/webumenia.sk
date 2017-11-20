@@ -11,7 +11,7 @@
 
 		<title>
 			@section('title')
-			Web umenia 
+			Web umenia
 			@show
 		</title>
 
@@ -44,7 +44,7 @@
 		    document.createElement( "picture" );
 		</script>
 		{!! Html::script('js/picturefill.min.js') !!}
-		
+
         {!! Html::script('js/modernizr.custom.js') !!}
 
 		@if (App::environment() == 'production')
@@ -111,7 +111,7 @@
 	            <a class="navbar-brand no-border hidden-xs second-part" href="{!! URL::to('') !!}">
 	                umenia
 	            </a>
-	            {{-- 
+	            {{--
 	            @if (Request::is('dielo/*') && isSet($collection))
 	            	 <a href="{!! $collection->getUrl() !!}" class="navbar-brand text-small hidden-xs hidden-sm">/&nbsp; {!! $collection->name !!}</a>
 	            @endif
@@ -126,15 +126,6 @@
 						<li class="{!! (Request::is( 'kolekcie') || Request::is('kolekcia/*')) ? 'active' : '' !!}">
 								<a href="{{{ URL::to('kolekcie') }}}">{{ utrans('master.collections') }}</a>
 						</li>
-						<li class="{!! (Request::is('autori') || Request::is('autor/*')) ? 'active' : '' !!}">
-								<a href="{{{ URL::to('autori') }}}">{{ utrans('master.authors') }}</a>
-						</li>
-						<li class="{!! (Request::is('clanky') || Request::is('clanok/*')) ? 'active' : '' !!}">
-								<a href="{{{ URL::to('clanky') }}}">{{ utrans('master.articles') }}</a>
-						</li>
-						{{-- <li class="{!! Request::is('galerie') ? 'active' : '' !!}">
-								<a href="{{{ URL::to('galerie') }}}">{{ utrans('master.galleries') }}</a>
-						</li> --}}
 						<li class="{!! Request::is( 'informacie') ? 'active' : '' !!}">
 								<a href="{{{ URL::to('informacie') }}}">{{ utrans('master.info') }}</a>
 						</li>
@@ -171,7 +162,7 @@
       			<p class="text-muted text-right">{{ utrans('master.made_by') }} <a href="http://lab.sng.sk" target="_blank" class="sans">lab.SNG</a></p>
       		</div>
       	</div>
-        
+
       </div>
     </div>
 
