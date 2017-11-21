@@ -46,7 +46,7 @@
     @endforeach
 </div>
 
-<section class="collections content-section">
+<section class="collections content-section top-space">
     <div class="collections-body">
         <div class="container">
             <div class="row">
@@ -82,7 +82,7 @@
     </div>
 </section>
 
-<div class="container text-center top-space">
+<div class="container text-center">
     <div class="fb-like" data-href="{!! Config::get('app.url') !!}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
     &nbsp;
     <a href="https://twitter.com/share" class="twitter-share-button" data-count="true">Tweet</a>
