@@ -37,6 +37,8 @@ class NgImporter extends AbstractImporter {
         'gallery' => '',
         'description' => '',
         'title' => '',
+        'technique' => '',
+        'medium' => '',
     ];
 
     protected static $cz_gallery_collection_spec = [
@@ -92,7 +94,6 @@ class NgImporter extends AbstractImporter {
         return $item;
     }
 
-
     protected function hydrateAuthor(array $record) {
         $keys = [
             'Autor (jméno příjmení, příp. Anonym)',
@@ -138,11 +139,11 @@ class NgImporter extends AbstractImporter {
         $units = 'jednotky';
 
         $units_suffix = $record[$units] !== null ? sprintf(' %s', $record[$units]) : '';
-        if ($record[$width] !== null) {
-            $measurement[] = sprintf('šířka %s%s', $record[$width], $units_suffix);
-        }
         if ($record[$height] !== null) {
             $measurement[] = sprintf('výška %s%s', $record[$height], $units_suffix);
+        }
+        if ($record[$width] !== null) {
+            $measurement[] = sprintf('šířka %s%s', $record[$width], $units_suffix);
         }
         if ($record[$depth] !== null) {
             $measurement[] = sprintf('hloubka %s%s', $record[$depth], $units_suffix);
