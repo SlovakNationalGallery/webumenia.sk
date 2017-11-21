@@ -32,22 +32,24 @@ Route::group(['domain' => 'media.webumenia.{tld}'], function () {
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
     'middleware' => [ 'localeSessionRedirect', 'localizationRedirect' ]
-], 
-function() 
+],
+function()
 {
-    Route::get('leto', function () {
-
-        return redirect('kolekcia/25');
-    });
-
     Route::get('/', function () {
 
         $slides = Slide::published()->orderBy('id', 'desc')->get();
-        $articles = Article::promoted()->published()->orderBy('published_date', 'desc')->get();
+
+        $collection = Collection::find(1);
+
+        if (empty($collection)) {
+            $items = Item::take(20)->get();
+        } else {
+            $items=$collection->items();
+        }
 
         return view('intro', [
             'slides' => $slides,
-            'articles' => $articles,
+            'items'=>$items,
         ]);
     });
 

@@ -42,45 +42,41 @@
                     @endif
                 </div>
             </a>
-        </div>        
+        </div>
     @endforeach
 </div>
 
-<section class="intro light-grey content-section">
-    <div class="intro-body">
-        <div class="container">
-            <p class="lead tagline text-center">
-                {{ utrans('intro.definition_start') }} <strong><a href="/katalog">{!! formatNum(App\Item::amount()) !!}</a></strong> {{ trans('intro.definition_end') }}<br>
-                {!! App\Subtitle::random() !!}</p>
-        </div>
-    </div>
-</section>
-
-<section class="articles content-section">
-    <div class="articles-body">
+<section class="collections content-section">
+    <div class="collections-body">
         <div class="container">
             <div class="row">
-            	@foreach ($articles as $i=>$article)
-	                <div class="col-sm-6 col-xs-12 bottom-space">
-	                	<a href="{!! $article->getUrl() !!}" class="featured-article">
-	                		<img src="{!! $article->getThumbnailImage() !!}" class="img-responsive" alt="{!! $article->title !!}">
-	                	</a>
-                        <a href="{!! $article->getUrl() !!}"><h4 class="title">
-                            @if ($article->category)
-                                {!! $article->category->name !!}:
-                            @endif
-                            {!! $article->title !!}
-                        </h4></a>
-                        <p class="attributes">{!! $article->getShortTextAttribute($article->summary, 250) !!}
-                        (<a href="{!! $article->getUrl() !!}">{{ trans('general.more') }}</a>)
-                        </p>
-                        <p class="meta">{!!$article->published_date!!} / {!!$article->author!!}</p>
-	                    
-	                </div>
-                    @if ($i%2 == 1)
-                        <div class="clearfix"></div>
+                <div class="col-xs-12">
+                    @if ($items->count() == 0)
+                        <p class="text-center">{{ utrans('katalog.catalog_no_artworks') }}</p>
                     @endif
-            	@endforeach
+                    <div id="iso">
+                    @foreach ($items as $i=>$item)
+                        <div class="col-md-3 col-sm-4 col-xs-12 item">
+                            <a href="{!! $item->getUrl() !!}">
+                                <img src="{!! $item->getImagePath() !!}" class="img-responsive" alt="{!! $item->getTitleWithAuthors() !!} ">
+                            </a>
+                            <div class="item-title">
+                                @if (!empty($item->iipimg_url))
+                                    <div class="pull-right"><a href="{!! URL::to('dielo/' . $item->id . '/zoom') !!}" data-toggle="tooltip" data-placement="left" title="Zoom obrázku"><i class="fa fa-search-plus"></i></a></div>
+                                @endif
+                                <a href="{!! $item->getUrl() !!}">
+                                    <em>{!! implode(', ', $item->authors) !!}</em><br>
+                                <strong>{!! $item->title !!}</strong><br> <em>{!! $item->getDatingFormated() !!}</em>
+
+                                {{-- <span class="">{!! $item->gallery !!}</span> --}}
+                                </a>
+                            </div>
+                        </div>
+                    @endforeach
+                    </div>
+                    <div class="col-sm-12 text-center">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -102,6 +98,7 @@ $(document).ready(function(){
     var $carousel = $('.webumeniaCarousel').flickity({
       wrapAround: true,
       percentPosition: false,
+      autoPlay: 4000, // 4 seconds
       // setGallerySize: false,
       // resize: false,
       arrowShape: 'M42.7 15.5c1.1 0 2.1 0.4 2.9 1.2s1.2 1.8 1.2 2.9c0 1.2-0.4 2.1-1.2 2.9L23.7 44.5h64.5c1.1 0 2.1 0.4 2.9 1.2 0.8 0.8 1.2 1.8 1.2 2.9s-0.4 2.1-1.2 2.9c-0.8 0.8-1.8 1.2-2.9 1.2h-64.5l21.9 21.9c0.8 0.8 1.2 1.8 1.2 2.9 0 1.1-0.4 2.1-1.2 2.9 -0.8 0.8-1.8 1.2-2.9 1.2 -1.2 0-2.1-0.4-2.9-1.2L10.8 51.6c-0.8-0.8-1.2-1.8-1.2-2.9 0-1.1 0.4-2.1 1.2-2.9l29-29c0.8-0.8 1.8-1.2 2.9-1.2V15.5z'
@@ -117,15 +114,29 @@ $(document).ready(function(){
 
     });
 
+    // grid
+    var $container = $('#iso');
+
+    // az ked su obrazky nacitane aplikuj isotope
+    $container.imagesLoaded(function () {
+        spravGrid($container);
+    });
+
+    $( window ).resize(function() {
+        spravGrid($container);
+    });
+
 });
 
 $(window).on('resize',function() {
     if ( $( ".flickity-slider" ).length ) {
         setTimeout(function(){
           $('.webumeniaCarousel').children('.flickity-page-dots').css('left',  parseInt($('.flickity-slider').css('transform').split(',')[4]) );
-        }, 200);            
+        }, 200);
     }
 });
+
+
 
 </script>
 @stop
