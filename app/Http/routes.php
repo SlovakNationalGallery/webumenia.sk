@@ -44,7 +44,7 @@ function()
         if (empty($collection)) {
             $items = Item::take(20)->get();
         } else {
-            $items=$collection->items();
+            $items=$collection->items;
         }
 
         return view('intro', [
