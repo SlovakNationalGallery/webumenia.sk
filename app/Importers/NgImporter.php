@@ -20,7 +20,6 @@ class NgImporter extends AbstractImporter {
     protected $mapping = [
         'Název díla' => 'title',
         'z cyklu' => 'related_work',
-        'Datace' => 'dating',
         'Technika' => 'technique',
         'Materiál' => 'medium',
         'Ivent. číslo' => 'identifier',
@@ -154,6 +153,10 @@ class NgImporter extends AbstractImporter {
 
     protected function hydrateGalleryCollection(array $record) {
         return isset(self::$cz_gallery_collection_spec[$record['Sbírka']]) ? self::$cz_gallery_collection_spec[$record['Sbírka']] : null;
+    }
+
+    protected function hydrateDating(array $record) {
+        return $record['Datace'] !== null ? $record['Datace'] : $record['Datování (určené)'];
     }
 
     /**

@@ -44,7 +44,7 @@ class NgImporterTest extends TestCase
         $collection->save();
 
         $data = [
-            'Inventární čís.' => 'Vm 1168',
+            'Ivent. číslo' => 'Vm 1168',
             'Značeno (jak např. letopočet, signatura, monogram)' => 'Podpis: Namaloval Čchi Chuang. Pečeť: Starý Paj.',
             'značeno kde (umístění v díle)' => 'vlevo nahoře',
             'Autor (jméno příjmení, příp. Anonym)' => 'Prezývka, vlastným menom Meno',
@@ -61,7 +61,8 @@ class NgImporterTest extends TestCase
             'jednotky_0' => 'm',
             'Rozměr 2' => 'druhý rozmer',
             'popis rozměru (např. s rámem, se soklem, celý papír apod.)' => 'celkovo',
-            'Datování (určené)' => '1998 - 2003',
+            'Datace' => 'datace',
+            'Datování (určené)' => 'datovani',
             'Kolekce (budova)' => 'Veletržní palác',
             'Sbírka' => 'SGK',
             'OSA 1' => '1998',
@@ -89,10 +90,11 @@ class NgImporterTest extends TestCase
             'identifier' => 'Vm 1168',
             'inscription' => 'vlevo nahoře: Podpis: Namaloval Čchi Chuang. Pečeť: Starý Paj.',
             'author' => 'Prezývka (vlastným menom Meno); Ďalší autor (autorka); Tretí autor',
-            'measurement' => 'šířka 1 cm; výška 2 cm; hloubka 3 cm',
+            'measurement' => 'výška 2 cm; šířka 1 cm; hloubka 3 cm',
             'date_earliest' => 1998,
             'date_latest' => 2003,
             'gallery_collection' => 'Sbírka grafiky a kresby',
+            'dating' => 'datace',
         ];
 
         foreach ($expected as $key => $value) {
