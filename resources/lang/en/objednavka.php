@@ -7,17 +7,15 @@ return array(
     | Language Lines for objednavka.blade.php template
     |--------------------------------------------------------------------------
     */
-    
+
     'title'         => 'Reproduction order',
-    'order_alert'   => '<strong>Warning:</strong> Orders completed after December 6th will not be realized before Christmas.<br>You can pick up your printed reproductions in Ex Libris SNG bookstore until December 23rd or after December 27th.',
+    'order_alert'   => '<strong> Warning: </strong><br> Printed canvas or frame prints to be made into Christmas holidays can be ordered until <strong> 8th December</strong>. Orders created after this date will be made after the holidays.<br>
+        Separate prints (without mount and frame) to be made into Christmas holidays can be ordered until <strong> 15th December</strong>. Orders created after this date will be made after the holidays.',
     'order_content' => '<h2 class="bottom-space">Reproduction order</h2>
                         <p class="lead">We offer high quality printed or digital reproductions of selected artworks from the collections of the Slovak National Gallery.</p>
                         <p>After selecting the artworks you want, please select either printed or digital format. If you want both printed and digital reproductions, please create a separate order for each. You will recieve an e-mail with more detailed information after placing the order. </p>
                         <p>Printed reproductions can only be picked up at one of our pick up locations: <a href="http://www.sng.sk/en/bratislava/visiting-us/how-to-find-us/ex-libris-bookshop" target="_blank" class="underline">Ex Libris Bookshop in the Esterházy Palace, Námestie Ľudovíta Štúra 4, Bratislava</a>  or at the cash desk in <a href="http://www.sng.sk/en/zvolen/visiting-us/how-to-find-us" target="_blank" class="underline">Castle Zvolen, SNP Square 594/1, Zvolen</a>.</p>
-                        <p>We provide digital reproductions of <abbr title="less than 70 years has followed the death of the artist" data-toggle="tooltip">copyright protected artworks</abbr> only for special purposes (educational, scientific, promotional, private), which can be specified in the order form below.</p>
-                        <div class="alert alert-info  top-space" role="alert">
-                            For technical reasons, the orders of printed reproductions with mount and frame are temporarily disabled. <strong>You can still order printed reproductions without mount or frame</strong>. We apologize for the inconvenience.
-                        </div>',
+                        <p>We provide digital reproductions of <abbr title="less than 70 years has followed the death of the artist" data-toggle="tooltip">copyright protected artworks</abbr> only for special purposes (educational, scientific, promotional, private), which can be specified in the order form below.</p>',
     'order_none'    => 'Your cart is empty',
     'order_remove'  => 'Remove',
     'order_warning' => 'We do not have this artwork digitized in a sufficient quality, printing the reproduction may take more time than usual.',
@@ -43,6 +41,6 @@ return array(
     'form_order'                   => 'Place order',
 
     // in routes.php
-    'message_add_order'            => 'The artwork :artwork_description has been added to your cart.', 
-    'message_remove_order'         => 'The artwork :artwork_description has been removed from your cart.', 
+    'message_add_order'            => 'The artwork :artwork_description has been added to your cart.',
+    'message_remove_order'         => 'The artwork :artwork_description has been removed from your cart.',
 );

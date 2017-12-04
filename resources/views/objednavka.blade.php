@@ -4,7 +4,7 @@
 @stop
 
 @section('title')
-{{ trans('objednavka.title') }} | 
+{{ trans('objednavka.title') }} |
 @parent
 @stop
 
@@ -17,7 +17,7 @@
                 @if (Session::has('message'))
                     <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
                 @endif
-                @if (strtotime('now') < strtotime('2016-12-24'))
+                @if (strtotime('now') < strtotime('2017-12-24'))
                     <div class="alert alert-warning text-center" role="alert">
                         {!! trans('objednavka.order_alert') !!}
                     </div>
@@ -52,7 +52,7 @@
                     <a href="{!! $item->getUrl() !!}" class="pull-left">
                         <img src="{!! $item->getImagePath() !!}" class="media-object" style="max-width: 80px; ">
                     </a>
-                    <div class="media-body">                           
+                    <div class="media-body">
                         <a href="{!! $item->getUrl() !!}">
                             <em>{!! implode(', ', $item->authors) !!}</em> <br> <strong>{!! $item->title !!}</strong> (<em>{!! $item->getDatingFormated() !!}</em>)
                         </a><br>
@@ -62,7 +62,7 @@
                         @endif
                     </div>
                 </div>
-            @endforeach                    
+            @endforeach
     </div>
 </div>
 
@@ -72,33 +72,35 @@
 {!! Former::text('email')->label(trans('objednavka.form_email'))->required(); !!}
 {!! Former::text('phone')->label(trans('objednavka.form_phone'))->required(); !!}
 
-{{-- 
+
 {!! Former::select('format')->label('Formát')->required()->options(array(
     'do formátu A4 :' => array(
-        'do A4: samostatná reprodukcia 25 €/ks' => array('value'=>'samostatná reprodukcia (25 €/ks)'), 
-        'do A4: reprodukcia s paspartou 35 €/ks' => array('value'=>'reprodukcia s paspartou (35 €/ks)'), 
-        'do A4: s paspartou a rámom 40 €/ks' => array('value'=>'s paspartou a rámom (40 €/ks)'), 
+        'do A4: samostatná reprodukcia 25 €/ks' => array('value'=>'samostatná reprodukcia (25 €/ks)'),
+        'do A4: reprodukcia s paspartou 35 €/ks' => array('value'=>'reprodukcia s paspartou (35 €/ks)'),
+        'do A4: s paspartou a rámom 40 €/ks' => array('value'=>'s paspartou a rámom (40 €/ks)'),
         ),
     'od A4 do A3+ :' => array(
-        'do A3+: samostatná reprodukcia 35 €/ks' => array('value'=>'samostatná reprodukcia (35 €/ks)'), 
-        'do A3+: reprodukcia s paspartou 50 €/ks' => array('value'=>'reprodukcia s paspartou (50 €/ks)'), 
-        'do A3+: s paspartou a rámom 60 €/ks' => array('value'=>'s paspartou a rámom (60 €/ks)'), 
-        ),  
+        'do A3+: samostatná reprodukcia 35 €/ks' => array('value'=>'samostatná reprodukcia (35 €/ks)'),
+        'do A3+: reprodukcia s paspartou 50 €/ks' => array('value'=>'reprodukcia s paspartou (50 €/ks)'),
+        'do A3+: s paspartou a rámom 60 €/ks' => array('value'=>'s paspartou a rámom (60 €/ks)'),
+        ),
     'na stiahnutie :' => array(
         'digitálna reprodukcia' => array('value'=>'digitálna reprodukcia')
         ),
 )); !!}
- --}}
 
-{!! Former::select('format')->label(trans('objednavka.form_format'))->required()->options(array(
+{{-- {!! Former::select('format')->label(trans('objednavka.form_format'))->required()->options(array(
     trans('objednavka.form_format_for-print') => array(
-        'do A4: samostatná reprodukcia 25 €/ks' => array('value'=>trans('objednavka.form_format_a4')), 
+        'do A4: samostatná reprodukcia 25 €/ks' => array(
+            'value'=>trans('objednavka.form_format_a4')
+        ),
         'do A3+: samostatná reprodukcia 35 €/ks' => array('value'=>trans('objednavka.form_format_a3')),
         ),
     trans('objednavka.form_format_for-download') => array(
         'digitálna reprodukcia' => array('value'=>trans('objednavka.form_format_digital'))
         ),
 )); !!}
+ --}}
 
 {{-- ak digitalna --}}
 <div id="ucel">
@@ -113,8 +115,8 @@
 {{-- ak nie digitalna --}}
 <div id="miesto_odberu">
 {!! Former::select('delivery_point')->label(trans('objednavka.form_delivery-point'))->required()->options(array(
-        trans('objednavka.form_delivery-point_exlibris') => array('value'=>'Kníhkupectvo Ex Libris v SNG'), 
-        trans('objednavka.form_delivery-point_zvolen') => array('value'=>'Zvolenský zámok'), 
+        trans('objednavka.form_delivery-point_exlibris') => array('value'=>'Kníhkupectvo Ex Libris v SNG'),
+        trans('objednavka.form_delivery-point_zvolen') => array('value'=>'Zvolenský zámok'),
 )); !!}
 </div>
 {{-- /ak nie digitalna --}}
@@ -141,7 +143,7 @@
 {{-- default language en_US is bundled with bootstrapValidator.min.js --}}
 @if (App::getLocale() == 'sk')
     {!! Html::script('js/jquery.bootstrapvalidator/sk_SK.js') !!}
-@elseif (App::getLocale() == 'cs')    
+@elseif (App::getLocale() == 'cs')
     {!! Html::script('js/jquery.bootstrapvalidator/cs_CZ.js') !!}
 @endif
 
@@ -151,7 +153,7 @@
                 feedbackIcons: {
                     valid: 'fa fa-check',
                     invalid: 'fa fa-times',
-                    validating: 'fa fa-refresh'                    
+                    validating: 'fa fa-refresh'
                 },
                 live: 'enabled',
                 submitButtons: 'input[type="submit"]',
@@ -170,12 +172,12 @@
             $("#miesto_odberu").hide();
             $("#delivery_point").attr("disabled", true);
         } else {
-            $("#ucel").hide();        
+            $("#ucel").hide();
             $("#purpose").attr("disabled", true);
             $("#miesto_odberu").show();
             $("#delivery_point").attr("disabled", false);
         }
-    } 
+    }
 
     tooglePurpose();
 
