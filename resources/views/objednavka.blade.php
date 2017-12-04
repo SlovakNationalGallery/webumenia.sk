@@ -73,21 +73,33 @@
 {!! Former::text('phone')->label(trans('objednavka.form_phone'))->required(); !!}
 
 
-{!! Former::select('format')->label('Formát')->required()->options(array(
-    'do formátu A4 :' => array(
-        'do A4: samostatná reprodukcia 25 €/ks' => array('value'=>'samostatná reprodukcia (25 €/ks)'),
-        'do A4: reprodukcia s paspartou 35 €/ks' => array('value'=>'reprodukcia s paspartou (35 €/ks)'),
-        'do A4: s paspartou a rámom 40 €/ks' => array('value'=>'s paspartou a rámom (40 €/ks)'),
-        ),
-    'od A4 do A3+ :' => array(
-        'do A3+: samostatná reprodukcia 35 €/ks' => array('value'=>'samostatná reprodukcia (35 €/ks)'),
-        'do A3+: reprodukcia s paspartou 50 €/ks' => array('value'=>'reprodukcia s paspartou (50 €/ks)'),
-        'do A3+: s paspartou a rámom 60 €/ks' => array('value'=>'s paspartou a rámom (60 €/ks)'),
-        ),
-    'na stiahnutie :' => array(
-        'digitálna reprodukcia' => array('value'=>'digitálna reprodukcia')
-        ),
-)); !!}
+{!! Former::select('format')->label('Formát')->required()->options([
+    trans('objednavka.form_format_for-print_a4') => [
+        'do A4: samostatná reprodukcia 25 €/ks' => [
+            'value'=> trans('objednavka.form_format_standalone') . ' (25 €/ks)'
+        ],
+        'do A4: reprodukcia s paspartou 35 €/ks' => [
+            'value'=> trans('objednavka.form_format_with_mounting') . ' (35 €/ks)'
+        ],
+        'do A4: s paspartou a rámom 40 €/ks' => [
+            'value'=> trans('objednavka.form_format_with_mounting_and_framing') . ' (40 €/ks)'
+        ],
+    ],
+    trans('objednavka.form_format_for-print_a3') => [
+        'do A3+: samostatná reprodukcia 35 €/ks' => [
+            'value'=> trans('objednavka.form_format_standalone') . ' (35 €/ks)'
+        ],
+        'do A3+: reprodukcia s paspartou 50 €/ks' => [
+            'value'=> trans('objednavka.form_format_with_mounting') . ' (50 €/ks)'
+        ],
+        'do A3+: s paspartou a rámom 60 €/ks' => [
+            'value'=> trans('objednavka.form_format_with_mounting_and_framing') . ' (60 €/ks)'
+        ],
+    ],
+    trans('objednavka.form_format_for-download') => [
+            'digitálna reprodukcia' => ['value'=>trans('objednavka.form_format_digital')]
+    ],
+]); !!}
 
 {{-- {!! Former::select('format')->label(trans('objednavka.form_format'))->required()->options(array(
     trans('objednavka.form_format_for-print') => array(
