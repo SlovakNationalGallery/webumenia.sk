@@ -9,8 +9,9 @@ return array(
     */
 
     'title'         => 'Reproduction order',
-    'order_alert'   => '<strong> Warning: </strong><br> Printed canvas or frame prints to be made into Christmas holidays can be ordered until <strong> 8th December</strong>. Orders created after this date will be made after the holidays.<br>
-        Separate prints (without mount and frame) to be made into Christmas holidays can be ordered until <strong> 15th December</strong>. Orders created after this date will be made after the holidays.',
+    'order_alert'   => '<strong> Warning: </strong><br> If you wish a reproduction <strong>with a passe-partout or a frame</strong> to be ready before Christmas, make sure to place your order <strong>before December 8th</strong>.<br>
+
+        For a reproduction <strong>without a frame or a passe-partout</strong> to be ready before Christmas, place an order <strong>before December 15th</strong>.',
     'order_content' => '<h2 class="bottom-space">Reproduction order</h2>
                         <p class="lead">We offer high quality printed or digital reproductions of selected artworks from the collections of the Slovak National Gallery.</p>
                         <p>After selecting the artworks you want, please select either printed or digital format. If you want both printed and digital reproductions, please create a separate order for each. You will recieve an e-mail with more detailed information after placing the order. </p>
