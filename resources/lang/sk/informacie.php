@@ -9,7 +9,7 @@ return array(
     */
 
     'general_reproduction_prices'  => 'cenník reprodukcií',
-    
+
     'title' => 'informácie',
 
     'info_heading'       => 'čo je web umenia?',
@@ -37,7 +37,7 @@ return array(
     'mozete_col_objednat_heading'  => 'Objednať si kvalitné reprodukcie',
     'mozete_col_objednat_p'        => 'K vybraným dielam zo zbierok SNG ponúkame možnosť objednať si reprodukcie v archívnej kvalite na fineartových papieroch. Po výbere diela, vyplnení údajov a odoslaní objednávky vás bude kontaktovať pracovník SNG s podrobnejšími informáciami. Momentálne je možné vyzdvihnúť si diela len osobne v kníhkupectve <a href="http://www.sng.sk/sk/uvod/navsteva-sng/sluzby/knihkupectvo-ex-libris" target="blank" class="strong">Ex&nbsp;Libris v priestoroch SNG</a> na <a href="https://goo.gl/maps/k0sBz" target="_blank" class="strong">Námestí Ľ. Štúra 4 v Bratislave</a> alebo v pokladni <a href="http://www.sng.sk/sk/uvod/vysunute-pracoviska/zvolen" target="blank" class="strong">Zvolenského zámku</a> - <a href="https://goo.gl/maps/MPRy6Qdwm8s" target="_blank" target="blank" class="strong">Námestie SNP 594/1</a>.',
     'mozete_free_artworks'         => 'voľné diela na stiahnutie',
-    
+
     'more-items_heading'                 => 'vyberte si reprodukcie',
     'more-items_button'                  => 'zobraziť všetkých',
     'more-items_connect_heading'         => 'spojte sa s nami',
@@ -52,7 +52,7 @@ return array(
                                              <li><strong>Philo van Kemenade</strong> vývojár</li>
                                              <li><strong>Gabriel Balkó</strong> kontrolór kvality, editor obsahu</li>
                                              <li><strong>Braňo Matis</strong> grafický dizajnér</li>',
-    
+
     'modal_disclaimer'      => 'ceny sú len orientačné',
     'modal_table-content'   => '<thead>
                                     <tr>
@@ -68,12 +68,12 @@ return array(
                                         <td class="text-right">35 €</td>
                                     </tr>
                                     <tr>
-                                        <td><strong><s>reprodukcia s paspartou</s></strong><sup class="text-danger">*</sup></td>
+                                        <td><strong>reprodukcia s paspartou</strong></td>
                                         <td class="text-right">35 €</td>
                                         <td class="text-right">50 €</td>
                                     </tr>
                                     <tr>
-                                        <td><strong><s>reprodukcia s paspartou a rámom</s></strong><sup class="text-danger">*</sup></td>
+                                        <td><strong>reprodukcia s paspartou a rámom</strong></td>
                                         <td class="text-right">40 €</td>
                                         <td class="text-right">60 €</td>
                                     </tr>
