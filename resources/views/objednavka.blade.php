@@ -76,24 +76,24 @@
 {!! Former::select('format')->label('Formát')->required()->options([
     trans('objednavka.form_format_for-print_a4') => [
         'do A4: samostatná reprodukcia 25 €/ks' => [
-            'value'=> trans('objednavka.form_format_standalone') . ' (25 €/ks)'
+            'value'=> trans('objednavka.form_format_standalone') . ' (25 €/'.trans('objednavka.form_piece').')'
         ],
         'do A4: reprodukcia s paspartou 35 €/ks' => [
-            'value'=> trans('objednavka.form_format_with_mounting') . ' (35 €/ks)'
+            'value'=> trans('objednavka.form_format_with_mounting') . ' (35 €/'.trans('objednavka.form_piece').')'
         ],
         'do A4: s paspartou a rámom 40 €/ks' => [
-            'value'=> trans('objednavka.form_format_with_mounting_and_framing') . ' (40 €/ks)'
+            'value'=> trans('objednavka.form_format_with_mounting_and_framing') . ' (40 €/'.trans('objednavka.form_piece').')'
         ],
     ],
     trans('objednavka.form_format_for-print_a3') => [
         'do A3+: samostatná reprodukcia 35 €/ks' => [
-            'value'=> trans('objednavka.form_format_standalone') . ' (35 €/ks)'
+            'value'=> trans('objednavka.form_format_standalone') . ' (35 €/'.trans('objednavka.form_piece').')'
         ],
         'do A3+: reprodukcia s paspartou 50 €/ks' => [
-            'value'=> trans('objednavka.form_format_with_mounting') . ' (50 €/ks)'
+            'value'=> trans('objednavka.form_format_with_mounting') . ' (50 €/'.trans('objednavka.form_piece').')'
         ],
         'do A3+: s paspartou a rámom 60 €/ks' => [
-            'value'=> trans('objednavka.form_format_with_mounting_and_framing') . ' (60 €/ks)'
+            'value'=> trans('objednavka.form_format_with_mounting_and_framing') . ' (60 €/'.trans('objednavka.form_piece').')'
         ],
     ],
     trans('objednavka.form_format_for-download') => [
