@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - Importer module
 - Czech language translations
+- Pattern Library at /patternlib
 
 ## [1.2.9] - 2017-12-05
 ### Changed
