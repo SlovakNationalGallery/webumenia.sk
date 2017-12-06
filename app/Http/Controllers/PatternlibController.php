@@ -10,12 +10,12 @@ class PatternlibController extends Controller
     {            
         // get json file names
         $file_names = array();
-        $handle=opendir(self::COMPONENT_BASE_PATH);
-        while (false !== ($file_name = readdir($handle))):
-            if(ends_with($file_name, '.json')):
+        $handle = opendir(self::COMPONENT_BASE_PATH);
+        while (false !== ($file_name = readdir($handle))) {
+            if (ends_with($file_name, '.json')) {
                 $file_names[] = $file_name;
-            endif;
-        endwhile;
+            }
+        }
         sort($file_names);
 
         // add base path
