@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 class PatternlibController extends Controller
 {
+    const COMPONENT_BASE_PATH = '../resources/views/components/';
+
     public function getIndex()
-    {
-        $COMPONENT_BASE_PATH = '../resources/views/components/';
-            
+    {            
         // get json file names
         $file_names = array();
-        $handle=opendir($COMPONENT_BASE_PATH);
+        $handle=opendir(self::COMPONENT_BASE_PATH);
         while (false !== ($file_name = readdir($handle))):
             if(substr($file_name, -5) == '.json'):
                 $file_names[] = $file_name;
@@ -21,7 +21,7 @@ class PatternlibController extends Controller
         // add base path
         $file_paths = array();
         foreach ($file_names as $index => $file_name) {
-            $file_paths[$index] = $COMPONENT_BASE_PATH.$file_name;
+            $file_paths[$index] = self::COMPONENT_BASE_PATH.$file_name;
         }
 
         // decode json
