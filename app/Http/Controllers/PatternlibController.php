@@ -12,7 +12,7 @@ class PatternlibController extends Controller
         $file_names = array();
         $handle=opendir(self::COMPONENT_BASE_PATH);
         while (false !== ($file_name = readdir($handle))):
-            if(substr($file_name, -5) == '.json'):
+            if(ends_with($file_name, '.json')):
                 $file_names[] = $file_name;
             endif;
         endwhile;
