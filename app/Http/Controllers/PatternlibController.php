@@ -35,7 +35,7 @@ class PatternlibController extends Controller
         // add attributes
         foreach ($components_json as $index => $component) {
             $components_json[$index]['include_path'] = 'components.'.substr($file_names[$index], 0, -5);
-            $components_json[$index]['source_code'] = htmlspecialchars(file_get_contents(substr($file_paths[$index], 0, -5).'.blade.php'));
+            $components_json[$index]['source_code'] = file_get_contents(substr($file_paths[$index], 0, -5).'.blade.php');
         }
 
         return view('patternlib', [
