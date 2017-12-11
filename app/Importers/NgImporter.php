@@ -38,6 +38,7 @@ class NgImporter extends AbstractImporter {
         'title' => '',
         'technique' => '',
         'medium' => '',
+        'has_rights' => 0,
     ];
 
     protected static $cz_gallery_collection_spec = [
@@ -157,6 +158,10 @@ class NgImporter extends AbstractImporter {
 
     protected function hydrateDating(array $record) {
         return $record['Datace'] !== null ? $record['Datace'] : $record['Datování (určené)'];
+    }
+
+    protected function hydrateHasRights(array $record) {
+        return ($record['Práva'] == 'Ano') ? 1 : 0;
     }
 
     /**

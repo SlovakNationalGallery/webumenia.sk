@@ -44,6 +44,7 @@ class NgImporterTest extends TestCase
         $collection->save();
 
         $data = [
+            'Práva' => 'Ano',
             'Ivent. číslo - zobrazované' => 'Vm 1168',
             'Ivent. číslo - pracovní' => 'Vm 1168',
             'Značeno (jak např. letopočet, signatura, monogram)' => 'Podpis: Namaloval Čchi Chuang. Pečeť: Starý Paj.',
@@ -96,6 +97,7 @@ class NgImporterTest extends TestCase
             'date_latest' => 2003,
             'gallery_collection' => 'Sbírka grafiky a kresby',
             'dating' => 'datace',
+            'has_rights' => 1,
         ];
 
         foreach ($expected as $key => $value) {

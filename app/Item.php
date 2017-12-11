@@ -86,6 +86,7 @@ class Item extends Model
         'item_type',
         'publish',
         'gallery_collection',
+        'has_rights',
     );
 
     public static $rules = array(
