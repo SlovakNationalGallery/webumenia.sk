@@ -22,7 +22,7 @@ class NgImporter extends AbstractImporter {
         'z cyklu' => 'related_work',
         'Technika' => 'technique',
         'Materiál' => 'medium',
-        'Ivent. číslo' => 'identifier',
+        'Ivent. číslo - zobrazované' => 'identifier',
         'Popis' => 'description',
         'OSA 1' => 'date_earliest',
         'OSA 2' => 'date_latest',
@@ -60,7 +60,7 @@ class NgImporter extends AbstractImporter {
 
 
     protected function getItemId(array $record) {
-        $key = 'Ivent. číslo';
+        $key = 'Ivent. číslo - zobrazované';
         $id = $record[$key];
         $id = strtr($id, ' ', '_');
 
@@ -68,7 +68,7 @@ class NgImporter extends AbstractImporter {
     }
 
     protected function getItemImageFilename(array $record) {
-        $key = 'Ivent. číslo';
+        $key = 'Ivent. číslo - zobrazované';
         $filename = $record[$key];
         $filename = strtr($filename, ' ', '_');
 

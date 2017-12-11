@@ -44,7 +44,8 @@ class NgImporterTest extends TestCase
         $collection->save();
 
         $data = [
-            'Ivent. číslo' => 'Vm 1168',
+            'Ivent. číslo - zobrazované' => 'Vm 1168',
+            'Ivent. číslo - pracovní' => 'Vm 1168',
             'Značeno (jak např. letopočet, signatura, monogram)' => 'Podpis: Namaloval Čchi Chuang. Pečeť: Starý Paj.',
             'značeno kde (umístění v díle)' => 'vlevo nahoře',
             'Autor (jméno příjmení, příp. Anonym)' => 'Prezývka, vlastným menom Meno',
