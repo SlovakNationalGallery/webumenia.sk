@@ -10,7 +10,7 @@
 @stop
 
 @section('title')
-{!! $item->getTitleWithAuthors() !!} | 
+{!! $item->getTitleWithAuthors() !!} |
 @parent
 @stop
 
@@ -43,7 +43,7 @@
                 <div class="col-md-8 text-center">
                         @if (!empty($item->iipimg_url))
                             <a href="{!! URL::to('dielo/' . $item->id . '/zoom') !!}" data-toggle="tooltip" data-placement="top" title="{{ utrans('general.item_zoom') }}">
-                        @endif    
+                        @endif
                         <img src="{!! $item->getImagePath() !!}" class="img-responsive img-dielo" alt="{!! $item->getTitleWithAuthors() !!}" itemprop="image">
                         @if (!empty($item->iipimg_url))
                             </a>
@@ -54,18 +54,19 @@
                                     <a href="{!! $previous !!}" id="left" class="nav-arrow left">&larr;<span class="sr-only">{{ trans('dielo.item_previous-work') }}</span></a>
                                 @endif
                                 @if ($next)
-                                    <a href="{!! $next !!}" id="right" class="nav-arrow right">&rarr;<span class="sr-only">{{ trans('dielo.item_next-work') }}</span></a>             
+                                    <a href="{!! $next !!}" id="right" class="nav-arrow right">&rarr;<span class="sr-only">{{ trans('dielo.item_next-work') }}</span></a>
                                 @endif
                             </div>
 
                             <div class="col-md-12 text-center">
+                                &nbsp;
                                 @if (!empty($item->iipimg_url))
                                    <a href="{!! URL::to('dielo/' . $item->id . '/zoom') !!}" class="btn btn-default btn-outline  sans"><i class="fa fa-search-plus"></i> {{ trans('general.item_zoom') }}</a>
                                 @endif
                                 @if ($item->isForReproduction())
                                     <a href="{!! URL::to('dielo/' . $item->id . '/objednat')  !!}" class="btn btn-default btn-outline  sans"><i class="fa fa-shopping-cart"></i> {{ trans('dielo.item_order') }} </a>
                                 @endif
-                                @if ($item->isFreeDownload())                                
+                                @if ($item->isFreeDownload())
                                     <a href="{!! URL::to('dielo/' . $item->id . '/stiahnut')  !!}" class="btn btn-default btn-outline  sans" id="download"><i class="fa fa-download"></i> {{ trans('dielo.item_download') }} </a>
                                 @endif
                             </div>
@@ -76,7 +77,7 @@
                                 @if ($item->description_source)
                                     <p>
                                     @if ($item->description_user_id)
-                                        {{-- Autor popisu: --}} {!! $item->descriptionUser->name !!} &#9679; 
+                                        {{-- Autor popisu: --}} {!! $item->descriptionUser->name !!} &#9679;
                                     @endif
                                     @if ($item->description_source_link)
                                         {{-- Zdroj: --}}
@@ -104,7 +105,7 @@
                                     <td>
                                         @foreach ($item->measurements as $measurement)
                                         {{--     {!!  implode(' &times; ', $measurement) !!}<br> --}}
-                                         {!! $measurement !!}<br> 
+                                         {!! $measurement !!}<br>
                                         @endforeach
                                     </td>
                                 </tr>
@@ -120,7 +121,7 @@
                                                 {!! $work_type !!}
                                             @endif
                                             @if (count($item->work_types) > ($i+1))
-                                                 &rsaquo; 
+                                                 &rsaquo;
                                             @endif
                                         @endforeach
                                     </td>
@@ -214,12 +215,17 @@
                                     <td>{!! $item->identifier; !!}</td>
                                 </tr>
                                 @endif
-                                @if ($item->isFreeDownload())
+                                @if ($item->isFreeDownload() || !$item->has_rights)
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_licence') }}:</td>
-                                    {{-- <td><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs" target="_blank" class="no-border"><img alt="Creative Commons License" style="border-width:0; padding-top: 2px;"  src="/images/license/by-nc-sa.svg" title="Creative Commons BY-NC-SA 4.0" data-toggle="tooltip"></a></td> --}}
-                                    <td><a rel="license" href="{!!URL::to('katalog?is_free=' . '1')!!}" target="_blank" class="no-border license" title="Public Domain" data-toggle="tooltip"><img alt="Creative Commons License" style="height: 20px; width: auto"  src="/images/license/zero.svg" > {{ trans('general.public_domain') }}</a></td>
-                                </tr>                                    
+                                    <td>
+                                        @if (!$item->has_rights)
+                                            autorsky chranené dílo
+                                            <p class="small"><i>Vzhledem k omezením autorských práv nelze tento obrázek zvětšit, zobrazit na celou obrazovku nebo stáhnout.</i></p>
+                                        @else
+                                            <a rel="license" href="{!!URL::to('katalog?is_free=' . '1')!!}" target="_blank" class="no-border license" title="Public Domain" data-toggle="tooltip"><img alt="Creative Commons License" style="height: 20px; width: auto"  src="/images/license/zero.svg" > {{ trans('general.public_domain') }}</a></td>
+                                        @endif
+                                </tr>
                                 @endif
                                 @if (!empty($item->place))
                                 <tr>
@@ -232,16 +238,16 @@
                                     <td class="atribut">{!! $item->relationship_type !!}:</td>
 
                                     <td>
-                                        <a href="{!! URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) !!}" itemprop="isPartOf">{!! $item->related_work !!}</a> 
+                                        <a href="{!! URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) !!}" itemprop="isPartOf">{!! $item->related_work !!}</a>
                                         @if ($item->related_work_order)
                                             ({!! $item->related_work_order !!}/{!! $item->related_work_total !!})
-                                        @endif                                        
+                                        @endif
                                     </td>
                                 </tr>
                                 @endif
                             </tbody>
                         </table>
-                        
+
                     <div>
                     @if (!empty($item->related_work))
                         <?php $related_items = App\Item::where('related_work', '=', $item->related_work)->where('author', '=', $item->author)->orderBy('related_work_order')->get() ?>
@@ -257,7 +263,7 @@
                     @endif
                     </div>
 
-                    @if (!empty($item->lat) && ($item->lat > 0)) 
+                    @if (!empty($item->lat) && ($item->lat > 0))
                         <div id="small-map"></div>
                     @endif
 
@@ -330,7 +336,7 @@
 {!! Html::script('js/readmore.min.js') !!}
 {!! Html::script('js/jquery.fileDownload.js') !!}
 
-@if (!empty($item->lat) && ($item->lat > 0)) 
+@if (!empty($item->lat) && ($item->lat > 0))
     <!-- Google Maps API Key - You will need to use your own API key to use the map feature -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
     {!! Html::script('js/gmaps.js') !!}
@@ -369,10 +375,10 @@
         });
 
         $('#download').on('click', function(e){
-     
+
             $('#license').modal({})
             $.fileDownload($(this).attr('href'), {
-                successCallback: function(url) {     
+                successCallback: function(url) {
                 },
                 failCallback: function(responseHtml, url) {
                     $('#license').modal('hide');
@@ -404,16 +410,16 @@
     });
 </script>
 
-@if (!empty($item->lat) && ($item->lat > 0)) 
+@if (!empty($item->lat) && ($item->lat > 0))
 <script type="text/javascript">
     var map;
     $(document).ready(function(){
 
         map = new GMaps({
             el: '#small-map',
-            lat: 48.705862, 
+            lat: 48.705862,
             lng: 19.855629,
-            zoom: 6, 
+            zoom: 6,
             zoomControl : true,
             zoomControlOpt: {
                 style : "SMALL",
@@ -447,19 +453,19 @@
               ]
             }
         ];
-        
+
         map.addStyle({
             styledMapName:"Styled Map",
             styles: light_style,
-            mapTypeId: "map_style"  
+            mapTypeId: "map_style"
         });
-        
-        map.setStyle("map_style");   
+
+        map.setStyle("map_style");
 
         map.addMarker({
             lat: {!! $item->lat !!},
             lng: {!! $item->lng !!},
-            // icon: "/images/x.map.svg",            
+            // icon: "/images/x.map.svg",
             title: 'Značka pre dielo {!! $item->title !!}',
             infoWindow: {
               content: '<p>{!! $item->place !!}</p>'
