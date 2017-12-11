@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddImportedImagesToImportRecordsTable extends Migration
+class AddClassNameToImportsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,8 @@ class AddImportedImagesToImportRecordsTable extends Migration
      */
     public function up()
     {
-        Schema::table('import_records', function($table)
-        {
-            $table->integer('imported_images')->default(0);
+        Schema::table('imports', function (Blueprint $table) {
+            $table->string('class_name');
         });
     }
 
@@ -25,10 +24,8 @@ class AddImportedImagesToImportRecordsTable extends Migration
      */
     public function down()
     {
-        Schema::table('import_records', function($table)
-        {
-            $table->dropColumn('imported_images');
+        Schema::table('imports', function (Blueprint $table) {
+            $table->dropColumn('class_name');
         });
     }
-
 }

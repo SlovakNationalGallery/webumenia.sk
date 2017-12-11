@@ -1,9 +1,26 @@
-.langswitch-wrapper {
-  position: relative;
+/* Specific Positioning */
+.navbar-header .langswitch-wrapper {
   @media(min-width: @screen-sm-min) {
     position: absolute;
     right: 10%;
   }
+  
+  .langswitch-toggle {
+    @media(min-width: @screen-sm-min) {
+      top: -45px;
+    }
+  }
+
+  ul.dropdown-menu {
+    @media(min-width: @screen-sm-min) {
+      top: -3px;
+    }
+  }
+}
+
+/* General Component Styling */
+.langswitch-wrapper {
+  position: relative;
   .langswitch-toggle {
     position: relative;
     width: 30px;
@@ -24,15 +41,6 @@
     .caret {
       display: none;
     }
-    @media(min-width: @screen-sm-min) {
-        top: -45px;
-    }
-
-    // disable border-bottom hover state
-    // border-bottom: none;
-    // &:hover, &:active, &:focus {
-    //   border-bottom: none;
-    // }
   }
 
   .triangle-top-left:before {
@@ -49,9 +57,6 @@
   ul.dropdown-menu {
     position: absolute;
     top: 42px;
-    @media(min-width: @screen-sm-min) {
-      top: -3px;
-    }
     right: -10px !important;
     width: 30px;
     left: initial;

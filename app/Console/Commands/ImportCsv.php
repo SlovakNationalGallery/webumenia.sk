@@ -5,8 +5,7 @@
 namespace App\Console\Commands;
 
 use App\Import;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\App;
+use App\Repositories\CsvRepository;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -63,12 +62,24 @@ class ImportCsv extends Command
             return;
         }
 
+        // @todo register importers as services
+        try {
+            $reflection = new \ReflectionClass($import->class_name);
+            if (!$reflection->isInstantiable()) {
+                throw new \Exception('Class is not instantiable');
+            }
+            $importer = new $import->class_name(new CsvRepository());
+        } catch (\Exception $e) {
+            $this->error("Nenašiel sa importer pre dané ID.");
+            return;
+        }
+
         $files = \Storage::listContents('import/' . $import->dir_path);
         $csv_files = array_filter($files, function ($object) { return (isSet($object['extension']) && $object['extension'] === 'csv'); });
 
         foreach ($csv_files as $file) {
             $this->comment("Spúšťa sa import pre {$file['path']}.");
-            App::make('\App\Http\Controllers\ImportController')->launch($import, $file);
+            $importer->import($import, $file);
         }
         // $reindex =$this->option('reindex');
         // if ($reindex) {

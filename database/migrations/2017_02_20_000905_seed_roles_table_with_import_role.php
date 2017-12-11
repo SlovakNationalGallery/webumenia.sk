@@ -12,11 +12,15 @@ class SeedRolesTableWithImportRole extends Migration
      */
     public function up()
     {
-        if ( \App\Role::where('name','=','import')->count() != 1 ) {
-            \Artisan::call( 'db:seed', [
-                   '--class' => 'ImportRoleTableSeeder',
-                   '--force' => true ]
-               );
+        if (!DB::table('roles')->where('name', 'import')->exists()) {
+            $now = new \DateTime();
+
+            DB::table('roles')->insert([
+                'name' => 'import',
+                'description' => 'User can launch import',
+                'created_at' => $now,
+                'updated_at' => $now
+            ]);
         }
     }
 
@@ -27,6 +31,6 @@ class SeedRolesTableWithImportRole extends Migration
      */
     public function down()
     {
-        
+
     }
 }
