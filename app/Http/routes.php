@@ -239,6 +239,8 @@ function()
         return view('dielo', array('item' => $item, 'more_items' => $more_items, 'previous' => $previous, 'next' => $next));
     });
 
+    Route::controller('patternlib', 'PatternlibController');
+
     Route::controller('katalog', 'CatalogController');
     // Route::match(array('GET', 'POST'), 'katalog', 'CatalogController@index');
     // Route::match(array('GET', 'POST'), 'katalog/suggestions', 'CatalogController@getSuggestions');
