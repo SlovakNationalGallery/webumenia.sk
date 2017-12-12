@@ -218,8 +218,12 @@ function()
         $item->save();
         $previous = $next = false;
 
-        // $more_items = Item::moreLikeThis(['author','title.stemmed','description.stemmed', 'tag', 'place'],[$item->id])->limit(20);
-        $more_items = $item->moreLikeThis(30);
+        // $more_items = $item->moreLikeThis(30);
+        $more_items = [];
+        $collection = $item->collections->first();
+        if ($collection) {
+            $more_items = $collection->items()->where('id', '!=', $item->id)->inRandomOrder()->take(10)->get();
+        }
 
         if (Input::has('collection')) {
             $collection = Collection::find((int) Input::get('collection'));

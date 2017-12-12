@@ -278,6 +278,7 @@
         </div>
     </div>
 </section>
+@if ($more_items)
 <section class="more-items content-section">
     <div class="container">
         <div class="row">
@@ -292,6 +293,8 @@
         </div>
     </div>
 </section>
+@endif
+
 
 <!-- Modal -->
 <div tabindex="-1" class="modal fade" id="license" role="dialog">
