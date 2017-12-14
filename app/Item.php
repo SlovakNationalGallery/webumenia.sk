@@ -539,41 +539,21 @@ class Item extends Model
      */
     public function isFree()
     {
-        $copyright_length = 70; // 70 rokov po smrti autora
-        $limit_according_item_dating = $copyright_length + 60; // 60 = 80 (max_life_lenght) - 20 (start_of_publishing)
 
-        //ak je autor viac ako 71rokov po smrti
-        $authors_are_free = array();
-        foreach ($this->authorities as $i => $authority) {
-            $authors_are_free[$i] = false;
-            if (!empty($authority->death_year)) {
-                // $death = cedvuDatetime($authority->death_year);
-                // $years = $death->diffInYears(Carbon::now());
-                $years = date('Y') - $authority->death_year; // podla zakona sa rata volne dielo, ak je autor viac adko 70 rokov po smrti - od zaciatku nasledujuceho roka (1.1.) - co osetruje tento lame vypocet
-                if ($years > $copyright_length) {
-                    $authors_are_free[$i] = true;
-                }
-            }
-        }
-        if (!empty($authors_are_free)) {
-            if (count(array_unique($authors_are_free)) === 1 && end($authors_are_free) == true) {
-                return true;
-            } else {
-                return false;
-            }
+        $not_free_ids = [
+            'CZE:NG.K_53502',
+            'CZE:NG.O_13050',
+        ];
+
+        if (!$this->has_rights) {
+            return false;
         }
 
-        //ak je autor neznamy
-        if (stripos($this->attributes['author'], 'neznámy') !== false) {
-            return true;
+        if (in_array($this->id, $not_free_ids)) {
+            return false;
         }
 
-        //ak je dielo naozaj stare
-        if ((date('Y') - $this->attributes['date_latest']) > $limit_according_item_dating) {
-            return true;
-        }
-
-        return false;
+        return true;
     }
 
     private function relatedAuthorityIds()
