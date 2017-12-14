@@ -61,7 +61,7 @@ class NgImporter extends AbstractImporter {
 
 
     protected function getItemId(array $record) {
-        $key = 'Ivent. číslo - zobrazované';
+        $key = 'Ivent. číslo - pracovní';
         $id = $record[$key];
         $id = strtr($id, ' ', '_');
 
@@ -69,7 +69,7 @@ class NgImporter extends AbstractImporter {
     }
 
     protected function getItemImageFilename(array $record) {
-        $key = 'Ivent. číslo - zobrazované';
+        $key = 'Ivent. číslo - pracovní';
         $filename = $record[$key];
         $filename = strtr($filename, ' ', '_');
 
