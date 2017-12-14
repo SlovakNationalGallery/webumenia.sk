@@ -47,6 +47,11 @@
                             'description' => 'Umění 19. 20. a 21. století',
                             'url'         => 'kolekcia/5',
                         ],
+                        [
+                            'name'        => 'Palác Kinských',
+                            'description' => 'Umění Asie',
+                            'url'         => 'kolekcia/6',
+                        ],
                     ]
                 @endphp
                 <ul class="list-unstyled lead">
