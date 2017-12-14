@@ -97,7 +97,7 @@
                             <tbody>
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_dating') }}:</td>
-                                    <td><time itemprop="dateCreated" datetime="{!! $item->date_earliest !!}">{!! $item->getDatingFormated(); !!}</time></td>
+                                    <td><time itemprop="dateCreated" datetime="{!! $item->date_earliest !!}">{!! $item->dating; !!}</time></td>
                                 </tr>
                                 @if (!empty($item->measurements))
                                 <tr>
