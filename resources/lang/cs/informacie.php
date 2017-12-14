@@ -12,9 +12,9 @@ return array(
 
     'title' => 'informace',
 
-    'info_heading'       => 'co je web umenia?',
-    'info_p_lead'        => 'Web umenia je <strong>on-line katalóg</strong> výtvarných děl ze sbírek <strong>slovenských galerií</strong> evidovaných v&nbsp;<a class="unstyled" href="http://www.sng.sk/sk/zbierky/centralny-katalog-diel" target="_blank">Centrální evidenci děl výtvarného umění</a>.',
-    'info_p'             => 'Najdete zde základní informace o dílech a jejich autorech, ale i původní články, videa a kolekce. Údaje o dílech a digitální reprodukce jsou převzaty a pravidelně aktualizovány ze systému CEDVU (Centrální evidence děl výtvarného umění), kam je vkládají zaměstnanci jednotlivých galerií.',
+    'info_heading'       => 'Sbírky Národní galerie v Praze',
+    'info_p_lead'        => 'Sbírky Národní galerie v Praze skrývají mnohá bohatství a umělecké skvosty. Některá z nich znáte ze stálých expozic, nyní je možné se s výběrem těch nejzajímavějších z nich seznámit i on-line.',
+        'info_p'             => 'Národní galerie v Praze spouští první část veřejné prezentace sbírkových předmětů, najdete zde základní informace o dílech, jejich autorech a především kvalitní fotografie. Jedná se o výběr děl, který budeme dále rozšiřovat. Obrázky, které mají volná autorská práva, můžete prohlížet ve vysokém rozlišení a je tak možné prohlížet obrázky i s detaily.',
     'info_gallery_SNG'   => 'Slovenská národná galéria',
     'info_gallery_OGD'   => 'Oravská galéria v Dolním Kubíně',
     'info_gallery_GNZ'   => 'Galéria umenia Ernesta Zmetáka v Nových Zámcích',
