@@ -27,8 +27,8 @@ return array(
 
     'mozete_heading'               => 'U nás lze',
     'mozete_col_stahovat_heading'  => 'Stahovat volná díla',
-    'mozete_col_stahovat_li_1'     => 'Digitální reprodukce autorsky právně volných děl SNG na této stránce jsou zpřístupněné jako <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank"><strong>veřejné vlastnictví (public domain)</strong></a>. Můžete si je volně stáhnout <strong>ve vysokém rozlišení</strong> a využívat jak na soukromé, tak i komerční účely – kopírovat, sdílet nebo upravovat.',
-    'mozete_col_stahovat_li_2'     => 'Při dalším šíření <strong>prosíme uvést jméno autora, název, instituci a zdroj</strong> (<a href="http://www.webumenia.sk">webumenia.sk</a>)',
+    'mozete_col_stahovat_li_1'     => 'Digitální reprodukce autorsky právně volných děl na této stránce jsou zpřístupněné jako <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank"><strong>veřejné vlastnictví (public domain)</strong></a>. Můžete si je volně stáhnout <strong>ve vysokém rozlišení</strong> a využívat jak na soukromé, tak i komerční účely – kopírovat, sdílet nebo upravovat.',
+    'mozete_col_stahovat_li_2'     => 'Při dalším šíření <strong>prosíme uvést jméno autora, název, instituci a zdroj</strong>',
     'mozete_col_stahovat_li_3'     => 'Plánujete-li využít reprodukce na <strong>komerční účely</strong>, prosím, informujte nás o vašich plánech předem, umíme vám poradit.',
     'mozete_col_vyuzivat_heading'  => 'Využívat volná díla',
     'mozete_col_vyuzivat_li_1'     => '<strong>tisk</strong> (plakáty, pohlednice nebo trička)',

@@ -28,7 +28,7 @@ return array(
     'mozete_heading'               => 'On Web Umenia you can',
     'mozete_col_stahovat_heading'  => 'Download artworks in Public Domain',
     'mozete_col_stahovat_li_1'     => 'Digital reproductions of <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank"><strong>public domain</strong></a> arwtorks from several gallery collections are available for download in <strong>high resolution</strong> for both personal and commercial use - i.e. copy, modify and share freely. ',
-    'mozete_col_stahovat_li_2'     => 'When sharing, <strong>please include the artist name, artwork title, owner and the source</strong> (<a href="http://www.webumenia.sk">webumenia.sk</a>) ',
+    'mozete_col_stahovat_li_2'     => 'When sharing, <strong>please include the artist name, artwork title, owner and the source</strong>',
     'mozete_col_stahovat_li_3'     => 'If you intend to use the reproductions for <strong>commercial purpose</strong>, please inform us in advance, we can offer advice.',
     'mozete_col_vyuzivat_heading'  => 'Reuse artworks in Public Domain, e.g.:',
     'mozete_col_vyuzivat_li_1'     => '<strong>printed</strong> posters, postcards, flyers, apparel, etc.',

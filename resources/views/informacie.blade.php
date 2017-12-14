@@ -75,7 +75,7 @@
         </div>
         <div class="row ">
 
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <h4>{{ utrans('informacie.mozete_col_stahovat_heading') }}</h4>
                 <ul class="fa-ul">
                     <li><span class="fa-li">&sect;</span>{!! utrans('informacie.mozete_col_stahovat_li_1') !!}</li>
@@ -84,18 +84,13 @@
                 </ul>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <h4>{{ utrans('informacie.mozete_col_vyuzivat_heading') }}</h4>
                 <ul class="fa-ul">
                     <li><i class="fa-li icon-arrow-right"></i>{!! utrans('informacie.mozete_col_vyuzivat_li_1') !!}</li>
                     <li><i class="fa-li icon-arrow-right"></i>{!! utrans('informacie.mozete_col_vyuzivat_li_2') !!}</li>
                     <li><i class="fa-li icon-arrow-right"></i>{!! utrans('informacie.mozete_col_vyuzivat_li_3') !!}</li>
                 </ul>
-            </div>
-
-            <div class="col-md-4">
-                <h4>{{ utrans('informacie.mozete_col_objednat_heading') }}</h4>
-                <p>{!! utrans('informacie.mozete_col_objednat_p') !!}</p>
             </div>
 
         </div>
