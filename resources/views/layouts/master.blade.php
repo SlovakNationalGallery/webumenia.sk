@@ -100,7 +100,7 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                     <i class="fa fa-bars fa-2x"></i>
                 </button>
-	            <a class="navbar-brand no-border hidden-xs" href="{!! URL::to('') !!}">
+	            <a class="navbar-brand no-border hidden-xs" href="http://www.ngprague.cz/">
 	                {{-- národní galerie --}}
                     <img src="{{ asset('images/logo.svg') }}" class="brand-image">
 	            </a>
@@ -113,6 +113,9 @@
 
 	        <div class="collapse navbar-collapse navbar-main-collapse">
 	            <ul class="nav navbar-nav">
+                        <li class="{!! (Request::is('/')) ? 'active' : '' !!}">
+                                <a href="{{{ URL::to('/') }}}">{{ utrans('master.intro') }}</a>
+                        </li>
 						<li class="{!! (Request::is('katalog') || Request::is('dielo/*')) ? 'active' : '' !!}">
 								<a href="{{{ URL::to('katalog') }}}">{{ utrans('master.artworks') }}</a>
 						</li>

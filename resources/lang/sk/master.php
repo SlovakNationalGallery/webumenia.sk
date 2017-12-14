@@ -9,6 +9,7 @@ return array(
     */
 
     'meta_description'   => 'Web umenia je on-line katalóg výtvarných diel zo zbierok slovenských galérií. Nájdete tu základné informácie o dielach a ich autoroch, ale aj pôvodné články, videá a kolekcie.',
+    'intro'              => 'úvod',
     'artworks'           => 'diela',
     'collections'        => 'kolekcie',
     'authors'            => 'autori',
@@ -19,5 +20,5 @@ return array(
     'made_by'            => 'vyrobil a spravuje',
     'search_placeholder' => 'Hľadať diela, autorov...',
     'to_top'             => 'návrat hore',
-    
+
 );
