@@ -81,6 +81,7 @@
 	<nav class="navbar {{-- navbar-fixed-top --}} {{-- navbar-static-top --}} {!! (Request::is('/') || isSet($transparent_menu)) ? '' : 'dark-text' !!}" role="navigation">
 	    <div class="container">
 	        <div class="navbar-header page-scroll">
+                {{--
 	            <div class="langswitch-wrapper">
                     <a class="dropdown-toggle langswitch-toggle uppercase triangle-top-left" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                       {{ App::getLocale() }} <span class="caret"></span>
@@ -97,6 +98,7 @@
                         @endforeach
                     </ul>
                 </div>
+                 --}}
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                     <i class="fa fa-bars fa-2x"></i>
                 </button>
