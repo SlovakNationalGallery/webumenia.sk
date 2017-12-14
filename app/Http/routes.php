@@ -32,7 +32,7 @@ function()
         if (empty($collection)) {
             $items = Item::inRandomOrder()->take(20)->get();
         } else {
-            $items=$collection->items;
+            $items=$collection->items()->inRandomOrder()->get();
         }
 
         return view('intro', [
