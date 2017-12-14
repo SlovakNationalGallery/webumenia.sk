@@ -59,7 +59,7 @@
                     </div>
             </div>
 
-            {!! Form::hidden('sort_by', @$input['sort_by'], ['id'=>'sort_by']) !!}
+            {!! Form::hidden('sort_by', $sort_by, ['id'=>'sort_by']) !!}
             {!! Form::close() !!}
     </div></div>
 </section>

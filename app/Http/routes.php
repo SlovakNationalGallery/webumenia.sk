@@ -17,18 +17,6 @@ use App\Item;
 use App\Slide;
 use App\Order;
 
-Route::group(['domain' => 'media.webumenia.{tld}'], function () {
-    Route::get('/', function ($tld) {
-        return "webumenia media server";
-    });
-    Route::get('{id}', function ($tld, $id) {
-        $item = Item::find($id);
-        if ($item) {
-            return config('app.url') . $item->getImagePath();
-        }
-    });
-});
-
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
     'middleware' => [ 'localeSessionRedirect', 'localizationRedirect' ]
@@ -42,7 +30,7 @@ function()
         $collection = Collection::find(1);
 
         if (empty($collection)) {
-            $items = Item::take(20)->get();
+            $items = Item::inRandomOrder()->take(20)->get();
         } else {
             $items=$collection->items;
         }

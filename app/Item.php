@@ -715,7 +715,7 @@ class Item extends Model
         if (array_key_exists($sort_by, self::$sortable)) {
             $sort_by = Input::get('sort_by');
         } else {
-            $sort_by = "updated_at";
+            $sort_by = "random";
         }
 
         $labelKey = self::$sortable[$sort_by];
