@@ -19,11 +19,7 @@
     <div class="container">
         <div class="row content-section">
         	<div class="col-xs-6">
-                @if (!empty($search))
-                    <h4 class="inline">{{ utrans('kolekcie.collections_found_collections') }} &bdquo;{!! $search !!}&ldquo; (<span>{!! $collections->total() !!}</span>) </h4>
-                @else
-            		<h4 class="inline">{!! $collections->total() !!} {{ trans('kolekcie.collections_collections') }}</h4>
-                @endif
+        		<h4 class="inline">{!! $collections->total() !!} {{ trans_choice('kolekcie.collections_collections', $collections->total(), ['collections_count' => $collections->total()] )}}</h4>
                 @if ($collections->count() == 0)
                     <p class="text-center">{{ utrans('kolekcie.collections_no_results') }}</p>
                 @endif

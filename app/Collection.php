@@ -16,10 +16,10 @@ class Collection extends \Eloquent
         );
 
     public static $sortable = array(
-        'created_at' => 'dátumu vytvorenia',
+        'created_at' => 'data vytvoření',
         'name' => 'názvu',
     );
-    
+
     public function items()
     {
         return $this->belongsToMany(\App\Item::class, 'collection_item', 'collection_id', 'item_id')->withPivot('order')->orderBy('order', 'asc');
@@ -32,7 +32,7 @@ class Collection extends \Eloquent
 
     public function getPreviewItems()
     {
-        
+
         return $this->items()->limit(10)->get();
     }
 
