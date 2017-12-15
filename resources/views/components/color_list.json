@@ -4,15 +4,23 @@
         "colors": [
             {
                 "hex": "#00FF00",
-                "amount": "48.78%"
+                "amount": "50%"
             },
             {
                 "hex": "#FF0000",
-                "amount": "41.22%"
+                "amount": "30%"
             },
             {
                 "hex": "#0000FF",
                 "amount": "10%"
+            },
+            {
+                "hex": "#FF00FF",
+                "amount": "7%"
+            },
+            {
+                "hex": "#00FFFF",
+                "amount": "3%"
             }
         ]
     },
