@@ -301,6 +301,24 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
+                <h4>{{ trans('dielo.more-items_similar-colors') }}</h4>
+                {{-- demo data --}}
+                @php
+                    $colors_used = array(
+                        array("hex" => "#00FF00", "amount" => "50%"),
+                        array("hex" => "#FF0000", "amount" => "30%"),
+                        array("hex" => "#0000FF", "amount" => "10%"),
+                        array("hex" => "#FF00FF", "amount" => "7%"),
+                        array("hex" => "#00FFFF", "amount" => "3%")
+                    );
+                @endphp
+                @include('components.color_list', ['colors' => $colors_used])
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
                 <h4>{{ trans('dielo.more-items_related-artworks') }}</h4>
                 <div class="artworks-preview ">
                     @foreach ($more_items as $item)
