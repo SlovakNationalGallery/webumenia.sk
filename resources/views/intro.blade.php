@@ -13,12 +13,10 @@
     "logo": " {!! asset('images/logo.png') !!}",
     "url": "{!! URL::to('') !!}",
     "sameAs" : [
-        "https://www.facebook.com/webumenia.sk",
-        "https://twitter.com/webumeniask",
-        "http://webumenia.tumblr.com/",
-        "https://vimeo.com/webumeniask",
-        "https://sk.pinterest.com/webumeniask/",
-        "https://instagram.com/web_umenia/"
+        "https://www.facebook.com/NGvPraze",
+        "https://twitter.com/narodnigalerie",
+        "https://www.instagram.com/ngprague/",
+        "https://www.youtube.com/channel/UCeYULpYNcpUJxSeK2FpDpsg"
     ],
     "potentialAction": {
       "@type": "SearchAction",

@@ -64,13 +64,13 @@
 
 <body id="page-top">
 <div id="fb-root"></div>
-	<script>(function(d, s, id) {
-	  var js, fjs = d.getElementsByTagName(s)[0];
-	  if (d.getElementById(id)) return;
-	  js = d.createElement(s); js.id = id;
-	  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=1429726730641216&version=v2.0";
-	  fjs.parentNode.insertBefore(js, fjs);
-	}(document, 'script', 'facebook-jssdk'));</script>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.11&appId=2085312731692823';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 	@if (App::environment() != 'production')
 		<div id="alert-non-production" class="alert alert-warning text-center" role="alert">
@@ -148,13 +148,10 @@
       <div class="container">
       	<div class="row">
       		<div class="col-xs-6">
-      			<a href="https://www.facebook.com/webumenia.sk" target="_blank" data-toggle="tooltip" title="facebook"><i class="fa fa-facebook fa-lg"></i></a>
-      			<a href="http://webumenia.tumblr.com/" target="_blank" data-toggle="tooltip" title="tumblr"><i class="fa fa-tumblr fa-lg"></i></a>
-      			<a href="https://vimeo.com/webumeniask" target="_blank" data-toggle="tooltip" title="vimeo"><i class="fa fa-vimeo-square fa-lg"></i></a>
-      			<a href="https://sk.pinterest.com/webumeniask/" target="_blank" data-toggle="tooltip" title="pinterest"><i class="fa fa-pinterest fa-lg"></i></a>
-      			<a href="https://twitter.com/webumeniask" target="_blank" data-toggle="tooltip" title="twitter"><i class="fa fa-twitter fa-lg"></i></a>
-      			<a href="https://instagram.com/web_umenia/" target="_blank" data-toggle="tooltip" title="instagram"><i class="fa fa-instagram fa-lg"></i></a>
-      			<a href="https://github.com/SlovakNationalGallery" target="_blank" data-toggle="tooltip" title="github"><i class="fa fa-github fa-lg"></i></a>
+      			<a href="https://www.facebook.com/NGvPraze" target="_blank" data-toggle="tooltip" title="facebook"><i class="fa fa-facebook fa-lg"></i></a>
+      			<a href="https://twitter.com/narodnigalerie" target="_blank" data-toggle="tooltip" title="twitter"><i class="fa fa-twitter fa-lg"></i></a>
+                <a href="https://www.instagram.com/ngprague/" target="_blank" data-toggle="tooltip" title="instagram"><i class="fa fa-instagram fa-lg"></i></a>
+      			<a href="https://www.youtube.com/channel/UCeYULpYNcpUJxSeK2FpDpsg" target="_blank" data-toggle="tooltip" title="youtube"><i class="fa fa-youtube fa-lg"></i></a>
       		</div>
       		<div class="col-xs-6">
       			<p class="text-muted text-right">{{ utrans('master.made_by') }} <a href="http://lab.sng.sk" target="_blank" class="sans">lab.SNG</a></p>
