@@ -313,9 +313,17 @@
                     );
                 @endphp
                 @include('components.color_list', ['colors' => $colors_used])
+                <div class="artworks-preview ">
+                @foreach ($more_items as $item)
+                    <a href="{!! $item->getUrl() !!}"><img data-lazy="{!! $item->getImagePath() !!}" class="img-responsive-width " alt="{!! $item->getTitleWithAuthors() !!} "></a>
+                @endforeach
+                </div>
             </div>
         </div>
     </div>
+</section>
+
+<section class="more-items content-section light-grey">
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
