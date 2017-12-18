@@ -255,11 +255,15 @@ abstract class AbstractImporter implements IImporter {
     protected function uploadImage(Item $item, $path) {
         $uploaded_image = \Image::make($path);
 
-        // todo do not resize image here
+        // @TODO do not resize image here
         if ($uploaded_image->width() > $uploaded_image->height()) {
-            $uploaded_image->widen($this->image_max_size);
+            $uploaded_image->widen(800, function ($constraint) {
+                $constraint->upsize();
+            });
         } else {
-            $uploaded_image->heighten($this->image_max_size);
+            $uploaded_image->heighten(800, function ($constraint) {
+                $constraint->upsize();
+            });
         }
 
         $item->removeImage();
