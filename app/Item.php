@@ -32,14 +32,14 @@ class Item extends Model
         'výtvarný druh' => 'work_type',
         'tagy' => 'tag',
         'galéria' => 'gallery',
-        'žáner' => 'topic',
+        'námět' => 'topic',
         'materiál' => 'medium',
         'technika' => 'technique',
-        'len s obrázkom' => 'has_image',
-        'len so zoom' => 'has_iip',
-        'len voľné' => 'is_free',
-        'zo súboru' => 'related_work',
-        'gallery_collection' => 'gallery_collection',
+        'jen s obrázkem' => 'has_image',
+        'jen se zoom' => 'has_iip',
+        'jen volné' => 'is_free',
+        'z cyklu' => 'related_work',
+        'sbírky' => 'gallery_collection',
     );
 
     public static $sortable = array(
