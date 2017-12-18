@@ -56,7 +56,6 @@
                     </a>
                 </div>
                 <div class="collection-meta grey">
-                    {!! $collection->created_at->format('d. m. Y') !!} &nbsp;&middot;&nbsp;
                     {{ trans_choice('general.artworks_counted', $collection->items()->count(), ['artworks_count' => $collection->items->count()]) }}
                 </div>
                 <div>
