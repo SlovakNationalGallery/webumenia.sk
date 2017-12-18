@@ -12,6 +12,9 @@ All notable changes to this project will be documented in this file[^1].
 ### Changed
 - Enabled reproduction orders with mounting / framing
 
+### Fixed
+- Database seeders
+
 ## [1.2.8] - 2017-10-24
 ### Added
 - CONTRIBUTING.md
