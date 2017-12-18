@@ -256,6 +256,11 @@ function()
 
         return view('informacie', ['items' => $items]);
     });
+
+    Route::get('500', function () {
+        abort(500);
+    });
+
 });
 
 Route::group(array('middleware' => 'guest'), function () {
