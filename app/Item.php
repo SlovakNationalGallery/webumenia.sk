@@ -454,6 +454,11 @@ class Item extends Model
 
     public function getDatingFormated()
     {
+
+        if ($this->dating) {
+            return $this->dating;
+        }
+
         $count_digits = preg_match_all("/[0-9]/", $this->dating);
         if (($count_digits<2) && !empty($this->date_earliest)) {
             $formated = $this->date_earliest;
