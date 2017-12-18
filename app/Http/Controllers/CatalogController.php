@@ -31,7 +31,7 @@ class CatalogController extends Controller
         if (Input::has('sort_by') && array_key_exists(Input::get('sort_by'), Item::$sortable)) {
             $sort_by = Input::get('sort_by');
         } else {
-            $sort_by = 'random';
+            $sort_by = 'view_count';
         }
 
         $sort_order = ($sort_by == 'author' || $sort_by == 'title') ? 'asc' : 'desc';
