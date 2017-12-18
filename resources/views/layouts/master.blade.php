@@ -21,7 +21,7 @@
 
 		<!--  Open Graph protocol -->
 		<meta name="twitter:card" content="summary" />
-		<meta name="twitter:site" content="@webumeniaSK" />
+		<meta name="twitter:site" content="@narodnigalerie" />
 		@section('og')
 		<meta property="og:title" content="Národní galerie v Praze - sbírky" />
 		<meta property="og:description" content="{{ trans('master.meta_description') }}" />
@@ -48,16 +48,13 @@
         {!! Html::script('js/modernizr.custom.js') !!}
 
 		@if (App::environment() == 'production')
-		<script>
-		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-		  ga('create', 'UA-19030232-8', 'auto');
-		  ga('send', 'pageview');
-
-		</script>
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111403294-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'UA-111403294-1');
+        </script>
 		@endif
 		{!! Html::script('js/scroll-frame-head.js') !!}
 </head>
