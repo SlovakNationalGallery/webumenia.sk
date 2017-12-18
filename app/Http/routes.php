@@ -210,7 +210,7 @@ function()
         $more_items = [];
         $collection = $item->collections->first();
         if ($collection) {
-            $more_items = $collection->items()->where('id', '!=', $item->id)->inRandomOrder()->take(10)->get();
+            $more_items = Item::where('gallery_collection', 'like', $item->gallery_collection)->inRandomOrder()->take(10)->get();
         }
 
         if (Input::has('collection')) {
