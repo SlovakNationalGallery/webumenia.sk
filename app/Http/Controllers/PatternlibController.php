@@ -33,12 +33,13 @@ class PatternlibController extends Controller
         }
 
         // hydrate attributes
-        foreach ($components as $index => $component) {
-            $components[$index] = self::hydrateIncludePath($components[$index], $file_names[$index]);
-            $components[$index] = self::hydrateSourceCode($components[$index], $file_paths[$index]);
-            $components[$index] = self::hydrateData($components[$index]);
-            $components[$index] = self::hydrateIncludePathJs($components[$index]);
+        foreach ($components as $index => &$component) {
+            $component = $this->hydrateIncludePath($component, $file_names[$index]);
+            $component = $this->hydrateSourceCode($component, $file_paths[$index]);
+            $component = $this->hydrateData($component);
+            $component = $this->hydrateIncludePathJs($component);
         }
+        unset($component); // unset reference to &$component
 
         return view('patternlib', [
             'components' => $components
