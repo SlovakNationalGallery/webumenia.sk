@@ -1,0 +1,14 @@
+{
+    "name": "Artwork carousel",
+    "data": {
+        "class_names": "artworks-preview"
+    },
+    "data_calls" : {
+        "items": "use App\\Item; return Item::find('SVK:SNG.A_1694-8')->moreLikeThis(10);"
+    },
+    "include_js": true,
+    "data_js": {
+        "slick_query": ".artworks-preview"
+    },
+    "usage_notes": "A carousel to show previews of artworks. Has size variants via class names 'small' and 'large'."
+}
