@@ -239,13 +239,6 @@
                                     </td>
                                 </tr>
                                 @endif
-
-                                @foreach($colors_used as $color_used => $amount)
-                                <tr>
-                                    <td class="atribut" style="background-color:{{ $color_used }};"></td>
-                                    <td><a href="/katalog?color={{ urlencode($color_used) }}">{{ $amount }}</a></td>
-                                </tr>
-                                @endforeach
                             </tbody>
                         </table>
                         
@@ -280,24 +273,29 @@
     </div>
 </section>
 
-@if ($similar_by_color)
-<section class="more-items content-section">
+@if ($colors_used || $similar_by_color)
+<section class="content-section">
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h4>{{ trans('dielo.more-items_related-artworks') }} (podľa farby)</h4>
+                <h4>{{ trans('dielo.more-items_similar-colors') }}</h4>
+                @if ($colors_used)
+                @include('components.color_list', ['colors' => $colors_used])
+                @endif
+                @if ($similar_by_color)
                 <div class="artworks-preview ">
-                    @foreach ($similar_by_color as $item)
-                        <a href="{!! $item->getUrl() !!}"><img data-lazy="{!! $item->getImagePath() !!}" class="img-responsive-width " alt="{!! $item->getTitleWithAuthors() !!} "></a>
-                    @endforeach
+                @foreach ($similar_by_color as $item)
+                    <a href="{!! $item->getUrl() !!}"><img data-lazy="{!! $item->getImagePath() !!}" class="img-responsive-width " alt="{!! $item->getTitleWithAuthors() !!} "></a>
+                @endforeach
                 </div>
+                @endif
             </div>
         </div>
     </div>
 </section>
 @endif
 
-<section class="more-items content-section">
+<section class="more-items content-section light-grey">
     <div class="container">
         <div class="row">
             <div class="col-xs-12">

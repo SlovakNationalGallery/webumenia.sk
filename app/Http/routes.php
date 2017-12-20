@@ -241,18 +241,35 @@ function()
             $similar_by_color = $item->similarByColor(100);
 
             for ($i = 0; $i < count($item->color_descriptor) / 4; $i++) {
-                $amount = $item->color_descriptor[4 * $i + 3];
-                if (!$amount) {
-                    break;
+                $amount_sqrt = $item->color_descriptor[4 * $i + 3];
+                if (!$amount_sqrt) {
+                    continue;
                 }
+                $amount = $amount_sqrt * $amount_sqrt;
                 $L = $item->color_descriptor[4 * $i];
                 $a = $item->color_descriptor[4 * $i + 1];
                 $b = $item->color_descriptor[4 * $i + 2];
                 $rgb = \League\ColorExtractor\Color::labToRgb(['L' => $L, 'a' => $a, 'b' => $b]);
                 $int = \League\ColorExtractor\Color::fromRgbToInt(['r' => $rgb['R'], 'g' => $rgb['G'], 'b' => $rgb['B']]);
                 $hex = \League\ColorExtractor\Color::fromIntToHex($int);
-                $colors_used[$hex] = round($amount * $amount, 2) . " %";
+                $colors_used[$hex] = [
+                    'hex' => $hex,
+                    'amount' => $amount
+                ];
             }
+
+            $amount_sum = array_sum(array_column($colors_used, 'amount'));
+            foreach ($colors_used as $hex => $color_used) {
+                $colors_used[$hex]['amount'] = sprintf("%.3f%%", $colors_used[$hex]['amount'] * 100 / $amount_sum, 3);
+            }
+
+            uasort($colors_used, function ($a, $b) {
+                if ($a['amount'] == $b['amount']) {
+                    return-0;
+                }
+
+                return $a['amount'] < $b['amount'] ? 1 : -1;
+            });
         }
 
         return view('dielo', compact(

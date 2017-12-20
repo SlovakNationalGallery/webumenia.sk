@@ -34,7 +34,7 @@ Pattern Library | @parent
                 <div class="panel-body">
                     <h4>Component</h4>
                     <div class="clearfix">
-                        <div class="pull-left">
+                        <div class="{{ $component["wrapper_classes"] or '' }}">
                             @include($component['include_path'], $component['data'])
                         </div>
                     </div>

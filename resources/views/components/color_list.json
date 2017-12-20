@@ -1,0 +1,28 @@
+{
+    "name": "Color list",
+    "data": {
+        "colors": [
+            {
+                "hex": "#00FF00",
+                "amount": "50%"
+            },
+            {
+                "hex": "#FF0000",
+                "amount": "30%"
+            },
+            {
+                "hex": "#0000FF",
+                "amount": "10%"
+            },
+            {
+                "hex": "#FF00FF",
+                "amount": "7%"
+            },
+            {
+                "hex": "#00FFFF",
+                "amount": "3%"
+            }
+        ]
+    },
+    "usage_notes": "displays a list of colors"
+}
