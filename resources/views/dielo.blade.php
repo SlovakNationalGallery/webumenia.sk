@@ -247,11 +247,10 @@
                         <?php $related_items = App\Item::where('related_work', '=', $item->related_work)->where('author', '=', $item->author)->orderBy('related_work_order')->get() ?>
                         @if ($related_items->count() > 1)
                         <div style="position: relative; padding: 0 10px;">
-                        <div class="artworks-preview small">
-                        @foreach ($related_items as $item)
-                            <a href="{!! $item->getUrl() !!}"><img data-lazy="{!! $item->getImagePath() !!}" class="img-responsive-width " alt="{!! $item->getTitleWithAuthors() !!} "></a>
-                        @endforeach
-                        </div>
+                            @include('components.artwork_carousel', [
+                                'class_names' => "artworks-preview small",
+                                'items' => $related_items,
+                            ])
                         </div>
                         @endif
                     @endif
@@ -277,11 +276,10 @@
         <div class="row">
             <div class="col-xs-12">
                 <h4>{{ trans('dielo.more-items_related-artworks') }}</h4>
-                <div class="artworks-preview ">
-                @foreach ($more_items as $item)
-                    <a href="{!! $item->getUrl() !!}"><img data-lazy="{!! $item->getImagePath() !!}" class="img-responsive-width " alt="{!! $item->getTitleWithAuthors() !!} "></a>
-                @endforeach
-                </div>
+                @include('components.artwork_carousel', [
+                    'class_names' => "artworks-preview",
+                    'items' => $more_items,
+                ])
             </div>
         </div>
     </div>
@@ -326,9 +324,10 @@
 
 
 @section('javascript')
-{!! Html::script('js/slick.js') !!}
 {!! Html::script('js/readmore.min.js') !!}
 {!! Html::script('js/jquery.fileDownload.js') !!}
+
+@include('components.artwork_carousel_js', ['slick_query' => '.artworks-preview'])
 
 @if (!empty($item->lat) && ($item->lat > 0)) 
     <!-- Google Maps API Key - You will need to use your own API key to use the map feature -->
@@ -380,17 +379,6 @@
                 }
             });
             return false; //this is critical to stop the click event which will trigger a normal file download!
-        });
-
-        $('.artworks-preview').slick({
-            dots: false,
-            lazyLoad: 'progressive',
-            infinite: false,
-            speed: 300,
-            slidesToShow: 1,
-            slide: 'a',
-            centerMode: false,
-            variableWidth: true,
         });
 
 // $(document).on("click", "#download", function() {
