@@ -9,7 +9,7 @@ return array(
     */
 
     'general_reproduction_prices'  => 'reproduction pricing',
-    
+
     'title' => 'information',
 
     'info_heading'       => 'what is web umenia?',
@@ -37,7 +37,7 @@ return array(
     'mozete_col_objednat_heading'  => 'Order high quality prints',
     'mozete_col_objednat_p'        => 'We offer printed reproductions of selected artworks from the collections of the Slovak National Gallery on fine art paper.<br/><br/>You will recieve an e-mail with more detailed information after placing the order. Printed reproductions can only be picked up at one of our pick-up locations: <a href="http://www.sng.sk/en/bratislava/visiting-us/how-to-find-us/ex-libris-bookshop" target="_blank" class="underline">Ex Libris Bookshop in the Esterházy Palace, Námestie Ľudovíta Štúra 4, Bratislava</a> or at the cash desk in <a href="http://www.sng.sk/en/zvolen/visiting-us/how-to-find-us" target="_blank" class="underline">Castle Zvolen, SNP Square 594/1, Zvolen</a>.',
     'mozete_free_artworks'         => 'artworks available for download',
-    
+
     'more-items_heading'                 => 'Artworks available for print',
     'more-items_button'                  => 'show all',
     'more-items_connect_heading'         => 'get in touch',
@@ -52,7 +52,7 @@ return array(
                                              <li><strong>Philo van Kemenade</strong> developer</li>
                                              <li><strong>Gabriel Balkó</strong> quality control, content editor</li>
                                              <li><strong>Braňo Matis</strong> graphic designer</li>',
-    
+
     'modal_disclaimer'      => 'prices are subject to change',
     'modal_table-content'   => '<thead>
                                     <tr>
@@ -68,12 +68,12 @@ return array(
                                         <td class="text-right">35 €</td>
                                     </tr>
                                     <tr>
-                                        <td><strong><s>reproduction in passepartout</s></strong><sup class="text-danger">*</sup></td>
+                                        <td><strong>reproduction in passepartout</strong></td>
                                         <td class="text-right">35 €</td>
                                         <td class="text-right">50 €</td>
                                     </tr>
                                     <tr>
-                                        <td><strong><s>reproduction in passepartout and frame</s></strong><sup class="text-danger">*</sup></td>
+                                        <td><strong>reproduction in passepartout and frame</strong></td>
                                         <td class="text-right">40 €</td>
                                         <td class="text-right">60 €</td>
                                     </tr>

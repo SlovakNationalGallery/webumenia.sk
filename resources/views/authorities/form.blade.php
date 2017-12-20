@@ -206,14 +206,12 @@ $(document).ready(function(){
 	});
 
 	$('form').submit(function(e) {
-      var self = this;
-      e.preventDefault();
 	  var imageData = $('#image-editor').cropit('export', {
 		  type: 'image/jpeg',
 		  quality: .9
 		});
 	  $('#primary_image').val(imageData);
-	  self.submit();
+      return true;
 	});
 
 

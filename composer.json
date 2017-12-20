@@ -30,6 +30,7 @@
         "mcamara/laravel-localization": "1.2.*",
         "dimsav/laravel-translatable": "6.*",
         "predis/predis": "^1.1",
+        "doctrine/dbal": "^2.5",
         "league/color-extractor": "dev-master"
     },
     "autoload": {
@@ -40,7 +41,8 @@
             "App\\": "app/"
         },
         "files": [
-            "app/Helpers/general.php"
+            "app/Helpers/general.php",
+            "app/Helpers/i18n.php"
         ]
     },
     "scripts": {
