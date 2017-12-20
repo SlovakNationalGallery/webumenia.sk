@@ -120,11 +120,10 @@
         </div>{{-- row --}}
         <div class="row">   
             <div class="col-xs-12">
-                <div class="artworks-preview large">
-                    @foreach ($author->getPreviewItems() as $item)
-                        <a href="{!! $item->getUrl() !!}"><img data-lazy="{!! $item->getImagePath() !!}" class="img-responsive-width large" alt="{!! $item->getTitleWithAuthors() !!} " title="{!! $item->getTitleWithAuthors() !!} "></a>
-                    @endforeach
-                </div>
+                @include('components.artwork_carousel', [
+                    'class_names' => "artworks-preview large",
+                    'items' => $author->getPreviewItems(),
+                ])
             </div>  
         </div>{{-- row --}}
         <div class="row content-section">
@@ -144,7 +143,8 @@
 
 @section('javascript')
 {!! Html::script('js/readmore.min.js') !!}
-{!! Html::script('js/slick.js') !!}
+
+@include('components.artwork_carousel_js', ['slick_query' => '.artworks-preview'])
 
 <script type="text/javascript">
     $(document).ready(function(){
@@ -159,18 +159,6 @@
               }
             }
         });
-
-        $('.artworks-preview').slick({
-            dots: false,
-            lazyLoad: 'progressive',
-            infinite: false,
-            speed: 300,
-            slidesToShow: 1,
-            slide: 'a',
-            centerMode: false,
-            variableWidth: true,
-        });
-
 
     });
 </script>
