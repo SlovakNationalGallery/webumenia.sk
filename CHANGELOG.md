@@ -8,6 +8,9 @@ All notable changes to this project will be documented in this file[^1].
 - Pattern Library at /patternlib
 - Tests setup
 
+### Changed
+- fixed featured-article image container width bug
+
 ## [1.2.9] - 2017-12-05
 ### Changed
 - Enabled reproduction orders with mounting / framing
