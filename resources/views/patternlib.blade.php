@@ -51,6 +51,15 @@ Pattern Library | @parent
                             <h4>Usage notes</h4> 
                             <p>{{$component['usage_notes']}}</p>
 
+                            @if (isset($component['worked_on_this']))
+                                <h4>Worked on this</h4> 
+                                <p>
+                                    @foreach ($component['worked_on_this'] as $developer)
+                                        <span class="btn btn-default btn-xs btn-outline">{{ $developer }}</span>
+                                    @endforeach
+                                </p>
+                            @endif
+
                             <a href="#" class="btn btn-default btn-outline sans" onclick="toggle_source(event);"><i class="fa fa-code"></i> Show source</a>
                             <pre class="js-source pre-scrollable hidden"><code class="html">{{$component['source_code']}}</code></pre>
                         </div>
