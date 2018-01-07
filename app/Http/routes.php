@@ -16,6 +16,7 @@ use App\Collection;
 use App\Item;
 use App\Slide;
 use App\Order;
+use App\Color;
 
 Route::group(['domain' => 'media.webumenia.{tld}'], function () {
     Route::get('/', function ($tld) {
@@ -239,19 +240,17 @@ function()
 
         if ($item->color_descriptor) {
             $similar_by_color = $item->similarByColor(100);
-
-            for ($i = 0; $i < count($item->color_descriptor) / 4; $i++) {
-                $amount = $item->color_descriptor[4 * $i + 3];
-                if (!$amount) {
-                    break;
+            $colors_used = $item->getColorsUsed(Color::TYPE_HEX);
+            uasort($colors_used, function ($a, $b) {
+                if ($a['amount'] == $b['amount']) {
+                    return 0;
                 }
-                $L = $item->color_descriptor[4 * $i];
-                $a = $item->color_descriptor[4 * $i + 1];
-                $b = $item->color_descriptor[4 * $i + 2];
-                $rgb = \League\ColorExtractor\Color::labToRgb(['L' => $L, 'a' => $a, 'b' => $b]);
-                $int = \League\ColorExtractor\Color::fromRgbToInt(['r' => $rgb['R'], 'g' => $rgb['G'], 'b' => $rgb['B']]);
-                $hex = \League\ColorExtractor\Color::fromIntToHex($int);
-                $colors_used[$hex] = round($amount * $amount, 2) . " %";
+                return $a['amount'] < $b['amount'] ? 1 : -1;
+            });
+            $amount_sum = array_sum(array_column($colors_used, 'amount'));
+            foreach ($colors_used as $hex => $color_used) {
+                $colors_used[$hex]['amount'] = sprintf("%.3f%%", $colors_used[$hex]['amount'] * 100 / $amount_sum, 3);
+                $colors_used[$hex]['hex'] = $colors_used[$hex]['color']->getValue();
             }
         }
 
