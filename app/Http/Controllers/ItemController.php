@@ -304,10 +304,6 @@ class ItemController extends Controller
         Item::chunk(200, function ($items) use (&$i) {
             $items->load('authorities');
             foreach ($items as $item) {
-                if (!$item->color_descriptor) {
-                    continue;
-                }
-
                 $item->index();
                 $i++;
                 if (App::runningInConsole()) {
