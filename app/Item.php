@@ -225,22 +225,7 @@ class Item extends Model
             ]
         ];
 
-        $start = microtime(true);
-        $items = self::search($params);
-        $seconds = microtime(true) - $start;
-
-
-        if ($seconds < 0.001) {
-            $duration = round($seconds * 1000000) . 'μs';
-        } elseif ($seconds < 1) {
-            $duration = round($seconds * 1000, 2) . 'ms';
-        } else {
-            $duration = round($seconds, 2) . 's';
-        }
-
-        \Debugbar::info($duration);
-
-        return $items;
+        return self::search($params);
     }
 
     public function moreLikeThis($size = 10)
@@ -820,5 +805,32 @@ class Item extends Model
         }
         $items = self::search($params);
         return $items->total();
+    }
+
+    public function getColorsUsed($type = null) {
+        $colors_used = [];
+
+        for ($i = 0; $i < count($this->color_descriptor) / 4; $i++) {
+            $amount_sqrt = $this->color_descriptor[4 * $i + 3];
+            if (!$amount_sqrt) {
+                continue;
+            }
+            $amount = $amount_sqrt * $amount_sqrt;
+            $L = $this->color_descriptor[4 * $i];
+            $a = $this->color_descriptor[4 * $i + 1];
+            $b = $this->color_descriptor[4 * $i + 2];
+            $color = new Color(['L' => $L, 'a' => $a, 'b' => $b], Color::TYPE_LAB);
+
+            if ($type !== null) {
+                $color = $color->convertTo($type);
+            }
+
+            $colors_used[$color->getValue()] = [
+                'color' => $color,
+                'amount' => $amount
+            ];
+        }
+
+        return $colors_used;
     }
 }
