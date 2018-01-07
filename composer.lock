@@ -1716,12 +1716,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rastislav-chynoransky/color-extractor.git",
-                "reference": "b69bbb3b805310404218d759daa2c1577c884634"
+                "reference": "52fdbde671c3906c8de8b3a7060dd8c257c81a93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rastislav-chynoransky/color-extractor/zipball/b69bbb3b805310404218d759daa2c1577c884634",
-                "reference": "b69bbb3b805310404218d759daa2c1577c884634",
+                "url": "https://api.github.com/repos/rastislav-chynoransky/color-extractor/zipball/52fdbde671c3906c8de8b3a7060dd8c257c81a93",
+                "reference": "52fdbde671c3906c8de8b3a7060dd8c257c81a93",
                 "shasum": ""
             },
             "require": {
@@ -1764,7 +1764,7 @@
             "support": {
                 "source": "https://github.com/rastislav-chynoransky/color-extractor/tree/master"
             },
-            "time": "2017-06-15T21:34:45+00:00"
+            "time": "2018-01-07T15:01:12+00:00"
         },
         {
             "name": "league/flysystem",
