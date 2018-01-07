@@ -10,7 +10,10 @@ use Illuminate\Support\Facades\Log;
 
 class DescribeItemColors extends Command
 {
-    protected $signature = 'color_descriptors:create {--all} {i?} {n?}';
+    protected $signature = 'color_descriptors:create '
+                         . '{--all : force description of already processed items} '
+                         . '{i? : i-th cluster of items that will be processed} '
+                         . '{n? : number of clusters of items}';
 
     protected $description = 'Create color descriptors.';
 
