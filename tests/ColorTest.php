@@ -9,7 +9,7 @@ use App\Color;
 class ColorTest extends TestCase
 {
     public function testIncorrectInt() {
-        $this->assertException(\RuntimeException::class, 'Value must be integer', function () {
+        $this->assertException(\InvalidArgumentException::class, 'Value must be integer', function () {
             new Color('incorrect', Color::TYPE_INT);
         });
     }

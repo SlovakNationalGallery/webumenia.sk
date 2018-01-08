@@ -146,7 +146,7 @@ class Color
         ];
 
         if (!isset($validators[$type])) {
-            throw new \RuntimeException('Unknown color type');
+            throw new \InvalidArgumentException('Unknown color type');
         }
 
         $validators[$type]($value);
@@ -154,13 +154,13 @@ class Color
 
     protected static function validateInt($value) {
         if (!is_int($value)) {
-            throw new \RuntimeException('Value must be integer');
+            throw new \InvalidArgumentException('Value must be integer');
         }
     }
 
     protected static function validateHex($value) {
         if (!is_string($value)) {
-            throw new \RuntimeException('Value must be string');
+            throw new \InvalidArgumentException('Value must be string');
         }
     }
 
@@ -183,17 +183,17 @@ class Color
 
     protected static function validateArray($value, $keys) {
         if (!is_array($value)) {
-            throw new \RuntimeException('Value must be array');
+            throw new \InvalidArgumentException('Value must be array');
         }
 
         foreach ($keys as $key) {
             if (!array_key_exists($key, $value)) {
-                throw new \RuntimeException(sprintf('Array must have %s indices', implode(', ', $keys)));
+                throw new \InvalidArgumentException(sprintf('Array must have %s indices', implode(', ', $keys)));
             }
         }
 
         if (count($value) > count($keys)) {
-            throw new \RuntimeException(sprintf('Array must have only %s indices', implode(', ', $keys)));
+            throw new \InvalidArgumentException(sprintf('Array must have only %s indices', implode(', ', $keys)));
         }
     }
 }
