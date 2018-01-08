@@ -94,33 +94,9 @@ class Color
      * @return static
      */
     public function convertTo($type) {
+        $path = $this->findConversionPath($type);
+
         $value = $this->value;
-        $visited = [];
-        $path = [$this->type];
-
-        while (true) {
-            $conversions = static::$conversion_mapping[end($path)];
-
-            if (isset($conversions[$type])) {
-                $path[] = $type;
-                break;
-            }
-
-            $keys = array_keys($conversions);
-            $keys = array_diff($keys, $visited);
-
-            if ($keys) {
-                $visited[] = $path[] = reset($keys);
-                continue;
-            }
-
-            if (!$path) {
-                throw new \Exception('Cannot convert to specified type');
-            }
-
-            array_pop($path);
-        }
-
         for ($i = 0; $i < count($path) - 1; $i++) {
             $conversion = static::$conversion_mapping[$path[$i]][$path[$i + 1]];
             $value = $conversion($value);
@@ -150,6 +126,33 @@ class Color
         }
 
         $validators[$type]($value);
+    }
+
+    protected function findConversionPath($type) {
+        $visited = $path = [$this->type];
+
+        while (true) {
+            $conversions = static::$conversion_mapping[end($path)];
+
+            if (isset($conversions[$type])) {
+                $path[] = $type;
+                return $path;
+            }
+
+            $keys = array_keys($conversions);
+            $keys = array_diff($keys, $visited);
+
+            if ($keys) {
+                $visited[] = $path[] = reset($keys);
+                continue;
+            }
+
+            if (!$path) {
+                throw new \Exception('Cannot convert to specified type');
+            }
+
+            array_pop($path);
+        }
     }
 
     protected static function validateInt($value) {
