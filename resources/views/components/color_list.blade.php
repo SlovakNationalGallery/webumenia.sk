@@ -1,8 +1,10 @@
-<div class="colorlist">
+<ul class="colorlist">
   @foreach ($colors as $color)
-    <div 
+    <li 
       class="colorlist-item" 
       style="background-color: {{$color["hex"]}}; width: {{$color["amount"]}}"
-      title="{{$color["hex"]}}"></div>
+      title="{{$color["hex"]}}">
+      <a href="{!! URL::to('katalog?color=' . substr($color["hex"], 1)) !!}"></a>
+    </li>
   @endforeach
-</div>
+</ul>
