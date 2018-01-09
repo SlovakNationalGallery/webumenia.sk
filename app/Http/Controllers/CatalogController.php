@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Color;
 use Illuminate\Support\Facades\Input;
 use App\Item;
 use Illuminate\Support\Facades\DB;
@@ -11,7 +12,6 @@ use Illuminate\Support\Facades\Response;
 
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
-use League\ColorExtractor\Color;
 
 class CatalogController extends Controller
 {
@@ -179,22 +179,25 @@ class CatalogController extends Controller
         }
 
         if (Input::has('color')) {
+            try {
+                $hex = new Color($input['color'], Color::TYPE_HEX);
+                $lab = $hex->convertTo(Color::TYPE_LAB);
 
-            $int = Color::fromHexToInt($input['color']);
-            $lab = Color::intColorToLab($int);
-            $block = [$lab['L'], $lab['a'], $lab['b'], sqrt(100)];
+                $value = $lab->getValue();
+                $block = [$value['L'], $value['a'], $value['b'], sqrt(100)];
 
-            $descriptor = [];
-            for ($i = 0; $i < 6; $i++) {
-                $descriptor = array_merge($descriptor, $block);
-            }
+                $descriptor = [];
+                for ($i = 0; $i < config('colordescriptor.colorCount'); $i++) {
+                    $descriptor = array_merge($descriptor, $block);
+                }
 
-            $params['query']['descriptor'] = [
-                'color_descriptor' => [
-                    'hash' => 'LSH',
-                    'descriptor' => $descriptor,
-                ]
-            ];
+                $params['query']['descriptor'] = [
+                    'color_descriptor' => [
+                        'hash' => 'LSH',
+                        'descriptor' => $descriptor,
+                    ]
+                ];
+            } catch (\InvalidArgumentException $e) {}
         }
 
         $items = Item::search($params);
