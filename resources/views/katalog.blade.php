@@ -79,6 +79,13 @@
                         <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="{!! App\Item::sliderMin() !!}" data-slider-max="{!! App\Item::sliderMax() !!}" data-slider-step="5" data-slider-value="[{!! !empty($input['year-range']) ? $input['year-range'] : App\Item::sliderMin().','.App\Item::sliderMax() !!}]"/> 
                 </div>
             </div>
+            @if ($color)
+            <div class="row">
+                <div class="col-sm-12">
+                    @include('components.color_list', ['colors' => [array('hex' => '#'.$color, "amount" => "100%")]])
+                </div>
+            </div>
+            @endif
             {!! Form::hidden('sort_by', @$input['sort_by'], ['id'=>'sort_by']) !!}
             {!! Form::close() !!}
     </div></div>

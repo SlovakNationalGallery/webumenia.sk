@@ -179,7 +179,10 @@ class CatalogController extends Controller
         }
 
         if (Input::has('color')) {
+            // get color used for filter
+            $color = $input['color'];
 
+            // build color descriptor
             $int = Color::fromHexToInt($input['color']);
             $lab = Color::intColorToLab($int);
             $block = [$lab['L'], $lab['a'], $lab['b'], sqrt(100)];
@@ -195,6 +198,8 @@ class CatalogController extends Controller
                     'descriptor' => $descriptor,
                 ]
             ];
+        } else {
+            $color = false;
         }
 
         $items = Item::search($params);
@@ -220,6 +225,7 @@ class CatalogController extends Controller
             'galleries' => $galleries,
             'topics' => $topics,
             'techniques' => $techniques,
+            'color' => $color,
             'search' => $search,
             'sort_by' => $sort_by,
             'input' => $input,
