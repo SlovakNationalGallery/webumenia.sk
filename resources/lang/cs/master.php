@@ -8,7 +8,7 @@ return array(
     |--------------------------------------------------------------------------
     */
 
-    'meta_description'   => 'Web umenia je on-line katalóg výtvarných diel zo zbierok slovenských galérií. Nájdete tu základné informácie o dielach a ich autoroch, ale aj pôvodné články, videá a kolekcie.',
+    'meta_description'   => 'Sbírky Národní galerie v Praze skrývají mnohá bohatství a umělecké skvosty. Některá z nich znáte ze stálých expozic, nyní je možné se s výběrem těch nejzajímavějších z nich seznámit i on-line.',
     'intro'              => 'úvod',
     'artworks'           => 'díla',
     'collections'        => 'kolekce',
