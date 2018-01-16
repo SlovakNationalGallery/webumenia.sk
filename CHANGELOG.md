@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Fixed
 - Prevent upsize when uploading item image
+- Featured-article image container width bug
 
 ## [1.2.9] - 2017-12-05
 ### Changed
