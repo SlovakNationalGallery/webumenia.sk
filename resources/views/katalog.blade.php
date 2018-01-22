@@ -83,6 +83,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     @include('components.color_list', ['colors' => [array('hex' => '#'.$color, "amount" => "100%")]])
+                    <input type="hidden" name="color" value="{{$color}}" />
                 </div>
             </div>
             @endif
