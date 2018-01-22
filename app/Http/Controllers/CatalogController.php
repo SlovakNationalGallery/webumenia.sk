@@ -55,14 +55,14 @@ class CatalogController extends Controller
             $params['sort'][] = ['created_at' => ['order' => 'desc']];
         } else {
             if ($sort_by == 'random') {
-                $random = json_decode('
-					{"_script": {
-					    "script": "Math.random() * 200000",
-					    "type": "number",
-					    "params": {},
-					    "order": "asc"
-					 }}', true);
-                $params['sort'][] = $random;
+                $params['sort'][] = [
+                    '_script' => [
+                        'script' => 'Math.random() * 200000',
+                        'type' => 'number',
+                        'params' => [],
+                        'order' => 'asc',
+                    ]
+                ];
             } else {
                 $params['sort'][] = ["$sort_by" => ['order' => "$sort_order"]];
             }
@@ -71,110 +71,58 @@ class CatalogController extends Controller
         if (!empty($input)) {
             if (Input::has('search')) {
                 $search = str_to_alphanumeric($search);
-                $json_params = '
-					{
-					  "query": {
-					  	"filtered" : {
-					  	  "query": {
-							  "bool": {
-							    "should": [
 
-							      { "match": {
-							          "identifier": {
-							            "query": "'.$search.'",
-							            "boost": 10
-							          }
-							        }
-							      },
+                $should_match = [
+                    'identifier' => [
+                        'query' => $search,
+                        'boost' => 10,
+                    ],
+                    'author.folded' => [
+                        'query' => $search,
+                        'boost' => 5,
+                    ],
+                    'title' => $search,
+                    'title.folded' => $search,
+                    'title.stemmed' => $search,
+                    'title.stemmed' => [
+                        'query' => $search,
+                        'analyzer' => 'slovencina_synonym',
+                    ],
+                    'tag.folded' => $search,
+                    'tag.stemmed' => $search,
+                    'place.folded' => $search,
+                    'description' =>  $search,
+                    'description.stemmed' => [
+                        'query' => $search,
+                        'boost' => 0.9,
+                    ],
+                    'description.stemmed' => [
+                        'query' => $search,
+                        'analyzer' => 'slovencina_synonym',
+                        'boost' => 0.5,
+                    ],
+                ];
 
-							      { "match": {
-							          "author.folded": {
-							            "query": "'.$search.'",
-							            "boost": 5
-							          }
-							        }
-							      },
+                $should = [];
+                foreach ($should_match as $key => $match) {
+                    $should[] = ['match' => [$key => $match]];
+                }
 
-							      { "match": { "title":          "'.$search.'" }},
-							      { "match": { "title.folded":          "'.$search.'" }},
-							      { "match": { "title.stemmed": "'.$search.'" }},
-							      { "match": { 
-							        "title.stemmed": { 
-							          "query": "'.$search.'",  
-							          "analyzer" : "slovencina_synonym" 
-							        }
-							      }
-							      },
-
-							      { "match": {
-							          "tag.folded": {
-							            "query": "'.$search.'",
-							            "boost": 1
-							          }
-							        }
-							      },
-							      { "match": {
-							          "tag.stemmed": {
-							            "query": "'.$search.'",
-							            "boost": 1
-							          }
-							        }
-							      },
-
-							      { "match": {
-							          "description": {
-							            "query": "'.$search.'",
-							            "boost": 1
-							          }
-							        }
-							      },
-							      { "match": {
-							          "description.stemmed": {
-							            "query": "'.$search.'",
-							            "boost": 0.9
-							          }
-							        }
-							      },
-							      { "match": {
-							          "description.stemmed": {
-							            "query": "'.$search.'",
-							            "analyzer" : "slovencina_synonym",
-							            "boost": 0.5
-							          }
-							        }
-							      },
-
-							      { "match": {
-							          "place.folded": {
-							            "query": "'.$search.'",
-							            "boost": 1
-							          }
-							        }
-							      }
-
-
-							    ]
-							  }
-							}
-						}
-					  }
-					}
-				';
-
-                $params = array_merge($params, json_decode($json_params, true));
+                $params['query']['bool']['should'] = $should;
+                $params['query']['bool']['minimum_should_match'] = 1;
             }
 
             foreach ($input as $filter => $value) {
                 if (in_array($filter, Item::$filterable) && !empty($value)) {
-                    $params['query']['filtered']['filter']['and'][]['term'][$filter] = $value;
+                    $params['query']['bool']['filter']['and'][]['term'][$filter] = $value;
                 }
             }
             if (!empty($input['year-range']) &&
                 $input['year-range'] != Item::sliderMin().','.Item::sliderMax() //nezmenena hodnota
             ) {
                 $range = explode(',', $input['year-range']);
-                $params['query']['filtered']['filter']['and'][]['range']['date_earliest']['gte'] = (isset($range[0])) ? $range[0] : Item::sliderMin();
-                $params['query']['filtered']['filter']['and'][]['range']['date_latest']['lte'] = (isset($range[1])) ? $range[1] : Item::sliderMax();
+                $params['query']['bool']['filter']['and'][]['range']['date_earliest']['gte'] = (isset($range[0])) ? $range[0] : Item::sliderMin();
+                $params['query']['bool']['filter']['and'][]['range']['date_latest']['lte'] = (isset($range[1])) ? $range[1] : Item::sliderMax();
             }
         }
 
@@ -191,12 +139,14 @@ class CatalogController extends Controller
                     $descriptor = array_merge($descriptor, $block);
                 }
 
-                $params['query']['descriptor'] = [
+                $params['query']['bool']['should'][]['descriptor'] = [
                     'color_descriptor' => [
                         'hash' => 'LSH',
                         'descriptor' => $descriptor,
                     ]
                 ];
+
+                $params['min_score'] = pow(10, -4);
             } catch (\InvalidArgumentException $e) {}
         }
 
