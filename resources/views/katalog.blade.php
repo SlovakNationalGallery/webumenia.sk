@@ -82,8 +82,8 @@
             @if ($color)
             <div class="row">
                 <div class="col-sm-12">
-                    @include('components.color_list', ['colors' => [array('hex' => '#'.$color, "amount" => "100%")]])
-                    <input type="hidden" name="color" value="{{$color}}" />
+                    @include('components.color_list', ['colors' => [array('hex' => '#'.$color, "amount" => "100%")], 'include_clear' => true])
+                    {!! Form::hidden('color', @$input['color'], ['id'=>'color']) !!}
                 </div>
             </div>
             @endif
@@ -246,6 +246,13 @@ $(document).ready(function(){
     $(".dropdown-menu-sort a").click(function(e) {
         e.preventDefault();
         $('#sort_by').val($(this).attr('rel'));
+        $('#filter').submit();
+    });
+
+    // clear color filter
+    $(".colorlist>a.clear").click(function(e){
+        e.preventDefault();
+        $('input#color').val('');
         $('#filter').submit();
     });
 

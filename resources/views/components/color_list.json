@@ -22,7 +22,8 @@
                 "hex": "#00FFFF",
                 "amount": "3%"
             }
-        ]
+        ],
+        "include_clear": true
     },
     "usage_notes": "displays a list of colors"
 }

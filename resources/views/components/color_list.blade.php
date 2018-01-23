@@ -7,4 +7,8 @@
       <a href="{!! URL::to('katalog?color=' . substr($color["hex"], 1)) !!}"></a>
     </li>
   @endforeach
+  @if ( ! empty($include_clear) )
+    <a href="#" class="clear">×</a>
+    <div class="clear-rect"></div>
+  @endif
 </ul>
