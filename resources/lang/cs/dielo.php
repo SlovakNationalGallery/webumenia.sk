@@ -34,7 +34,7 @@ return array(
     'modal_license_body-content'        => '<p><strong>Vámi zvolené dílo by se mělo v krátkém čase začít automaticky stahovat.</strong></p>
                                             <p>Digitální reprodukce volných děl na této stránce jsou přístupné jako <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" class="underline">public domain (veřejné vlastnictví)</a>. Můžete si je volně stáhnout ve vysokém rozlišení a využívat k soukromým i komerčním účelům &ndash; kopírovat, sdílet i upravovat.</p>
                                             <p>Při dalším šíření prosíme uvést jméno autora, název, majitele díla a zdroj <code>:item_url</code></p>
-                                            <p>Pokud plánujete využít reprodukce ke komerčním účelům, prosíme informujte o Vašich plánech dopředu, naši odborníci Vám mohou poradit. </p>
+                                            <p>Plánujete-li využít reprodukce pro publikační či komerční účely, prosím, informujte nás o vašich plánech předem na email <a href="mailto:registr@ngprague.cz">registr@ngprague.cz</a>. V případě užití reprodukcí v publikacích žádáme o zaslání alespoň dvou výtisků dané publikace. </p>
                                             <p><a class="underline" href=":free_url">Všechna díla volná ke stažení najdete zde.</a></p>',
     'modal_downloadfail_header-content' => 'Nastala chyba',
     'modal_downloadfail_body-content'   => '<p>Vámi zvolené dílo nebylo nyní možné stáhnout. Zkuste to prosím později.</p>  =
