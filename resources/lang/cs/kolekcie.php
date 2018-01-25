@@ -8,13 +8,13 @@ return array(
     |--------------------------------------------------------------------------
     */
 
-    'title'                         => 'kolekcie',
-    'collections_found_collections' => 'nájdené kolekcie pre',
-    'collections_collections'       => '{0} kolekcí
-                                         |{4} kolekce
-                                         |[5,Inf] kolekcí',
+    'title'                         => 'tematické celky',
+    'collections_found_collections' => 'nájdené tematické celky pro',
+    'collections_collections'       => '{0} tematických celků
+                                         |{4} tematické celky
+                                         |[5,Inf] tematických celků',
 
-    'collections_no_collections'    => 'momentálne žiadne kolekcie',
+    'collections_no_collections'    => 'momentálne žádné tematické celky',
     'collections_artworks'          => 'diel',
 
 );

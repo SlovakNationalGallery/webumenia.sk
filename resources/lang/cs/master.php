@@ -11,7 +11,7 @@ return array(
     'meta_description'   => 'Sbírky Národní galerie v Praze skrývají mnohá bohatství a umělecké skvosty. Některá z nich znáte ze stálých expozic, nyní je možné se s výběrem těch nejzajímavějších z nich seznámit i on-line.',
     'intro'              => 'úvod',
     'artworks'           => 'díla',
-    'collections'        => 'kolekce',
+    'collections'        => 'tematické celky',
     'authors'            => 'autoři',
     'articles'           => 'články',
     'galleries'          => 'galerie',

@@ -18,7 +18,7 @@ return array(
     'item_attr_work_type'      => 'výtvarný druh',
     'item_attr_topic'          => 'námět',
     'item_attr_tag'            => 'tagy',
-    'item_attr_collections'    => 'kolekce',
+    'item_attr_collections'    => 'tematické celky',
     'item_attr_medium'         => 'materiál',
     'item_attr_technique'      => 'technika',
     'item_attr_state_edition'  => 'původnost', //'stupeň zpracování',
