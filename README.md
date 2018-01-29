@@ -1,11 +1,28 @@
-# Web Umenia
+# Welcome
 
-This is the repository of portal [www.webumenia.sk](http://www.webumenia.sk). 
-The site is entirely open source and community involvement is encouraged.
+[Web umenia](http://www.webumenia.sk) is an open platform to explore digitized art collections from public galleries and museums. 
+
+Web umenia is developed by [lab.SNG](http://lab.sng.sk/): the digital R&D lab of the Slovak National Gallery. We are working with public art organisations to make their art accessible and explorable online so curious people around the world can learn more about works of art and the context they've been created in.
+
+Web umenia offers a user-friendly way to search and explore art from collections of multiple galleries and museums.
+
+Digital reproductions of public domain artworks from several collections are available for download in high resolution for both personal and commercial use
+
+Art organisation with digitized artworks organised in a Collection Management System can easily publish their art via CSV imports or OAI-PMH harvests. If you would like to know more about using Web umenia in your organisation, contact us via [lab@sng.sk](mailto:lab@sng.sk)
+
+Developers interested to build applications on top of Web umenia can use our API. See our [wiki on GitHub](https://github.com/SlovakNationalGallery/web-umenia-2/wiki/ElasticSearch-Public-API) for more info.
+
+# Contributing
+
+We greatly encourage others to get involved! See [our contributing guidelines](CONTRIBUTING.md) for more info about different ways to contribute to Web umenia.
+
+We are committed to providing a welcoming and inspiring community for all and expect others who participate in the project to honour our [code of conduct](CODE_OF_CONDUCT.md).
+
+# Tech setup
 
 ## Requirements
 
-This software is built with [Laravel5 framework](http://laravel.com/).
+This software is built with the [Laravel5 framework](http://laravel.com/).
 
 It requires
 * PHP 5.5.9+
@@ -39,7 +56,7 @@ You can now fill artworks by adding them manually or importing using the "spice 
 
 This application uses [IIPImage server](http://iipimage.sourceforge.net/) for zoomable (and downloadable) images.
 
-IIPImage must be seen localy, what can be achieved using a ProxyForwarding.
+IIPImage must be seen locally, what can be achieved using a ProxyForwarding.
 
 To enable image server for default oai set (Europeana), put this lines of code into your virtualhost setup:
 
@@ -51,8 +68,8 @@ ProxyPassReverse /fcgi-bin/iipsrv.fcgi http://imi.sng.cust.eea.sk/publicIS/fcgi-
 
 ### Updating Elastic Search
 
-* neccesary steps are specified in the file `ES2_migration_steps.txt`
-* command to generate ES2 compatibile index:
+* necessary steps are specified in the file `ES2_migration_steps.txt`
+* command to generate ES2 compatible index:
 `php artisan es:setup`
 * command to reindex data to the index
 `php artisan es:reindex`
@@ -63,4 +80,4 @@ This project is maintained by [lab.SNG](http://lab.sng.sk). If you have any ques
 
 ## License
 
-This is free software released into the [public domain](http://unlicense.org/). Please see [License File](LICENSE) for more information.
+Source code in this repository is licensed under the MIT license. Please see the [License File](LICENSE) for more information.

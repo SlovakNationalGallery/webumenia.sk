@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-{{ utrans('informacie.title') }} | 
+{{ utrans('informacie.title') }} |
 @parent
 @stop
 
@@ -121,10 +121,10 @@
 </section>
 <section class="mozete more-items">
     <div class="container">
-        <div class="row top-space bottom-space">   
+        <div class="row top-space bottom-space">
             <div class="col-xs-12 text-center">
                 <h3>{{ utrans('informacie.more-items_heading') }}</h3>
-            </div>  
+            </div>
         </div>
         <div class="row">
             <div class="col-xs-12">
@@ -163,10 +163,10 @@
                 <p class="lead">
                     {!! utrans('informacie.more-items_connect_col2_lead') !!}
                 </p>
-                <p> 
+                <p>
                     {!! utrans('informacie.more-items_connect_col2_p') !!}
                 </p>
-            </div>  
+            </div>
             <div class="col-md-4">
                 <p class="lead">
                     {!! utrans('informacie.more-items_connect_col3_lead') !!}
@@ -174,7 +174,7 @@
                 <ul class="list-lab list-unstyled">
                     {!! trans('informacie.more-items_connect_col3_ul-content') !!}
                 </ul>
-            </div>  
+            </div>
         </div>
     </div>
 </section>
@@ -187,16 +187,18 @@
                 <h1>{{ trans('informacie.general_reproduction_prices') }}</h1>
             </div>
             <div class="modal-body">
-                
+
                 <p>{{ utrans('informacie.modal_disclaimer') }}</p>
 
                 <table class="table table-striped">
                     {!! utrans('informacie.modal_table-content') !!}
                 </table>
 
+                {{--
                 <p>
                     <sup class="text-danger">*</sup> {!! utrans('informacie.modal_unavailable') !!}
                 </p>
+                 --}}
 
             </div>
             <div class="modal-footer">

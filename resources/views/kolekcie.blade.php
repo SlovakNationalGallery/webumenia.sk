@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-{{ trans('kolekcie.title') }} | 
+{{ trans('kolekcie.title') }} |
 @parent
 @stop
 
@@ -44,10 +44,10 @@
         </div>
         <div class="row">
             <div class="col-sm-1 text-right year-range">
-                    <b class="sans" id="from_year">{!! !empty($input['year-range']) ? reset((explode(',', $input['year-range']))) : App\Collection::sliderMin() !!}</b> 
+                    <b class="sans" id="from_year">{!! !empty($input['year-range']) ? reset((explode(',', $input['year-range']))) : App\Collection::sliderMin() !!}</b>
             </div>
             <div class="col-sm-10 year-range">
-                    <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="{!! App\Collection::sliderMin() !!}" data-slider-max="{!! App\Collection::sliderMax() !!}" data-slider-step="5" data-slider-value="[{!! !empty($input['year-range']) ? $input['year-range'] : App\Collection::sliderMin().','.App\Collection::sliderMax() !!}]"/> 
+                    <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="{!! App\Collection::sliderMin() !!}" data-slider-max="{!! App\Collection::sliderMax() !!}" data-slider-step="5" data-slider-value="[{!! !empty($input['year-range']) ? $input['year-range'] : App\Collection::sliderMin().','.App\Collection::sliderMax() !!}]"/>
             </div>
             <div class="col-sm-1 text-left year-range">
                     <b class="sans" id="until_year">{!! !empty($input['year-range']) ? end((explode(',', $input['year-range']))) : App\Collection::sliderMax() !!}</b>
@@ -75,7 +75,7 @@
         <div class="row content-section">
         	<div class="col-xs-6">
                 @if (!empty($search))
-                    <h4 class="inline">{{ utrans('kolekcie.collections_found_collections') }} &bdquo;{!! $search !!}&ldquo; (<span>{!! $collections->total() !!}</span>) </h4> 
+                    <h4 class="inline">{{ utrans('kolekcie.collections_found_collections') }} &bdquo;{!! $search !!}&ldquo; (<span>{!! $collections->total() !!}</span>) </h4>
                 @else
             		<h4 class="inline">{!! $collections->total() !!} {{ trans('kolekcie.collections_collections') }}</h4>
                 @endif
@@ -104,10 +104,10 @@
         </div>
         <div class="kolekcie">
     	@foreach ($collections as $i=>$collection)
-         <div class="row collection">   
+         <div class="row collection">
             {{-- <div class="col-sm-2 col-xs-4">
             	<a href="{!! $collection->getUrl() !!}">
-            		<img src="{!! $collection->getHeaderImage() !!}" class="img-responsive pentagon" alt="{!! $collection->name !!}">	                		
+            		<img src="{!! $collection->getHeaderImage() !!}" class="img-responsive pentagon" alt="{!! $collection->name !!}">
             	</a>
             </div> --}}
             <div class="col-sm-6 col-xs-12">
@@ -174,24 +174,6 @@ $(document).ready(function(){
         $('#sort_by').val($(this).attr('rel'));
         $('#filter').submit();
     });
-
-
-    // var $container = $('.kolekcie');
-
-    // $container.infinitescroll({
-    //     navSelector     : ".pagination",
-    //     nextSelector    : ".pagination a:last",
-    //     collectionSelector    : ".collection",
-    //     debug           : true,
-    //     dataType        : 'html',
-    //     donetext        : 'boli načítaní všetci kolekcie',
-    //     path            : undefined,
-    //     bufferPx     : 200,
-    //     loading: {
-    //         msgText: "<em>Načítavam ďalších kolekcií...</em>",
-    //         finishedMsg: 'A to je všetko'
-    //     }
-    // });
 
 });
 
