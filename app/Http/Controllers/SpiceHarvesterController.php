@@ -78,7 +78,7 @@ class SpiceHarvesterController extends Controller
         $v = Validator::make($input, $rules);
 
         if ($v->passes()) {
-            
+
             $harvest = new SpiceHarvesterHarvest;
             $harvest->base_url = Input::get('base_url');
             $harvest->type = Input::get('type');
@@ -215,7 +215,7 @@ class SpiceHarvesterController extends Controller
                 $items_to_remove[] = $record->item_id;
             }
         }
-        
+
         $collections = \Collection::lists('name', 'id')->toArray();
         if (count($items_to_remove)) {
             $items = Item::whereIn('id', $items_to_remove)->paginate('50');
@@ -324,7 +324,7 @@ class SpiceHarvesterController extends Controller
                             } else {
                                 $skipped_items++;
                             }
-                            
+
                             // }
                         } else {
                             if ($this->insertRecord($id, $rec, $harvest->type)) {
@@ -332,7 +332,7 @@ class SpiceHarvesterController extends Controller
                             } else {
                                 $skipped_items++;
                             }
-                        
+
                         }
 
                         // ak je zvolena kolekcia - hned do nej pridat
@@ -352,9 +352,9 @@ class SpiceHarvesterController extends Controller
         $totalTime = round((microtime(true)-$timeStart));
         $message = 'Spracovaných bolo ' . $processed_items . ' záznamov.' . "\n" .
             $new_items . ' nových záznamov  ' . "\n" .
-            $updated_items . ' bolo upravených ' . "\n" . 
-            $deleted_items . ' bolo zmazaných ' . "\n" . 
-            $skipped_items . ' bolo preskočených. ' . "\n" . 
+            $updated_items . ' bolo upravených ' . "\n" .
+            $deleted_items . ' bolo zmazaných ' . "\n" .
+            $skipped_items . ' bolo preskočených. ' . "\n" .
             'Trvalo to ' . $totalTime . 's';
 
         $harvest->status = SpiceHarvesterHarvest::STATUS_COMPLETED;
@@ -505,7 +505,7 @@ class SpiceHarvesterController extends Controller
         $record->datestamp = $rec->header->datestamp;
         $record->save();
 
-      
+
         // Upload image given by url
         if (!empty($attributes['img_url'])) {
             $this->downloadImage($item, $attributes['img_url']);
@@ -513,7 +513,7 @@ class SpiceHarvesterController extends Controller
 
         return true;
     }
-    
+
     /**
      * Method for updating an item
      *
@@ -599,7 +599,7 @@ class SpiceHarvesterController extends Controller
         if (!empty($attributes['img_url'])) {
             $this->downloadImage($item, $attributes['img_url']);
         }
-        
+
         // Update the datestamp stored in the database for this record.
         $existingRecord->datestamp = $rec->header->datestamp;
         // $existingRecord->updated_at =  date('Y-m-d H:i:s'); //toto by sa malo diat automaticky
@@ -624,17 +624,17 @@ class SpiceHarvesterController extends Controller
         $rec->registerXPathNamespace('vp', 'http://e-culture.multimedian.nl/ns/getty/vp');
         $metadata = $rec->metadata->children('cedvu', true)->Vocabulary->children('vp', true)->Subject;
 
-        try {
+        // try {
 
             /**
              * Map translatable elements
              */
             $attributes['sk']['birth_place'] = $this->trimAfter((string)$metadata->Biographies->Preferred_Biography->Birth_Place);
-            
+
             $attributes['sk']['death_place'] = $this->trimAfter((string)$metadata->Biographies->Preferred_Biography->Death_Place);
-            
+
             $attributes['sk']['type_organization'] = (string)$metadata->Record_Type_Organization;
-            
+
             $biography = $this->parseBiography((string)$metadata->Biographies->Preferred_Biography->Biography_Text);
             if (strpos($biography, 'http')!== false) {
                 preg_match_all('!https?://\S+!', $biography, $matches);
@@ -662,17 +662,19 @@ class SpiceHarvesterController extends Controller
             $attributes['type'] = mb_strtolower((string)$metadata->Record_Type, "UTF-8");
             $attributes['name'] = (string)$metadata->attributes('vp', true)->labelPreferred;
             $attributes['sex'] = mb_strtolower((string)$metadata->Biographies->Preferred_Biography->Sex, "UTF-8");
-            
-            if (!empty($metadata->Biographies->Preferred_Biography->Birth_Date)) {
-                $attributes['birth_year'] = $this->parseYear($metadata->Biographies->Preferred_Biography->Birth_Date);
+
+            $birth_date = (string)$metadata->Biographies->Preferred_Biography->Birth_Date;
+            if (!empty($birth_date)) {
+                $attributes['birth_year'] = $this->parseYear($birth_date);
             }
-            $attributes['birth_date'] = (string)$metadata->Biographies->Preferred_Biography->Birth_Date;
-            
-            if (!empty($metadata->Biographies->Preferred_Biography->Death_Date)) {
-                $attributes['death_year'] = $this->parseYear($metadata->Biographies->Preferred_Biography->Death_Date);
+            $attributes['birth_date'] = $birth_date;
+
+            $death_date = (string)$metadata->Biographies->Preferred_Biography->Death_Date;
+            if (!empty($death_date)) {
+                $attributes['death_year'] = $this->parseYear($death_date);
             }
-            $attributes['death_date'] = (string)$metadata->Biographies->Preferred_Biography->Death_Date;
-            
+            $attributes['death_date'] = (string)$death_date;
+
             $attributes['nationalities'] = array();
             foreach ($metadata->Nationalities->Preferred_Nationality as $key => $nationality) {
                 $attributes['nationalities'][] = [
@@ -716,7 +718,7 @@ class SpiceHarvesterController extends Controller
                     'end_date' => (string)$event->Event_Date->End_Date,
                 ];
             }
-            
+
             $attributes['relationships'] = array();
             foreach ($metadata->Associative_Relationships->Associative_Relationship as $key => $relationship) {
                 $related_authority_id = (int)$this->parseId((string)$relationship->Related_Subject_ID);
@@ -727,12 +729,12 @@ class SpiceHarvesterController extends Controller
                     ];
                 }
             }
-            
-        } catch (\Exception $e) {
-            Log::error('Identifier: ' . (isSet($identifier))?:'unknown-identifier');
-            Log::error('Message: ' . $e->getMessage());
-            die('Encountered an error, see logs via admin interface for details');
-        }
+
+        // } catch (\Exception $e) {
+        //     Log::error('Identifier: ' . (isSet($identifier))?:'unknown-identifier');
+        //     Log::error('Message: ' . $e->getMessage());
+        //     die('Encountered an error, see logs via admin interface for details');
+        // }
 
         return $attributes;
     }
@@ -759,7 +761,7 @@ class SpiceHarvesterController extends Controller
                         ->children(self::DUBLIN_CORE_NAMESPACE_TERMS);
 
         try {
-            
+
             /**
              * Map translatable elements for languages present in record
              */
@@ -782,10 +784,10 @@ class SpiceHarvesterController extends Controller
 
                 // work_type
                 $attributes[$locale]['work_type'] = $this->serialize($rec->xpath(".//dc:type[@xml:lang='$lang']"), ', ');
-                
+
                 // technique
                 $attributes[$locale]['technique'] = $this->serialize($rec->xpath(".//dc:format[@xml:lang='$lang']"));
-                
+
                 // medium
                 $attributes[$locale]['medium'] = $this->serialize($rec->xpath(".//dc:format.medium[@xml:lang='$lang']"));
 
@@ -795,20 +797,20 @@ class SpiceHarvesterController extends Controller
                 $subjectElems = $rec->xpath(".//dc:subject[@xml:lang='$lang']");
                 $subjectStrings = array_map('strval', $subjectElems);
                 $subjects = array_filter(
-                    $subjectStrings, 
+                    $subjectStrings,
                     function ($stringValue) { return $this->starts_with_upper($stringValue); }
                 );
                 $topics = array_filter(
-                    $subjectStrings, 
+                    $subjectStrings,
                     function ($stringValue) { return !$this->starts_with_upper($stringValue); }
                 );
                 $attributes[$locale]['topic'] = $this->serialize($topics);
                 $attributes[$locale]['subject'] = $this->serialize($subjects);
-                
+
                 // filter empty strings caused by non present attributes for given lang
                 $attributes[$locale] = array_filter($attributes[$locale]);
             }
-            
+
             $attributes['sk']['title'] = $this->serialize($rec->xpath('.//dc:title') ?: NULL);
             $attributes['sk']['measurement'] = trim($dcTerms->extent);
             $attributes['sk']['inscription'] = $this->serialize($dcElements->description);
@@ -821,7 +823,7 @@ class SpiceHarvesterController extends Controller
                 $dating_text = end($dating_text_array);
             } else {
                 $dating_text = $dcTerms->created[0];
-            }            
+            }
             $attributes['date_earliest'] = (!empty($dating[0])) ? $dating[0] : null;
             $attributes['date_latest'] = (!empty($dating[1])) ? $dating[1] : $attributes['date_earliest'];
             $attributes['sk']['dating'] = $dating_text;
@@ -850,7 +852,7 @@ class SpiceHarvesterController extends Controller
             /**
              * Map non-translatable SK elements
              */
-            
+
             $authors = array();
             $authority_ids = array();
             $authorities = array();
@@ -885,7 +887,7 @@ class SpiceHarvesterController extends Controller
                 }
             }
 
-            $attributes['id'] = (string)$rec->header->identifier;            
+            $attributes['id'] = (string)$rec->header->identifier;
             // $attributes['state_edition'] =  (!empty($type[2])) ? $type[2] : null;
             if (isset($dcElements->rights[0])) {
                 $attributes['publish'] = (int)$dcElements->rights[0];
@@ -895,7 +897,7 @@ class SpiceHarvesterController extends Controller
             Log::error('Message: ' . $e->getMessage());
             die('Encountered an error, see logs via admin interface for details');
         }
-        
+
         // pretypovat SimpleXMLElement na string
         foreach ($attributes as $key => $attribute) {
             if (is_object($attribute)) {
@@ -931,11 +933,11 @@ class SpiceHarvesterController extends Controller
             $data = file_get_contents($file);
         } catch (\Exception $e) {
             if (!str_contains($e->getMessage(), '403 Forbidden')) {
-                $this->log->addError($img_url . ': ' . $e->getMessage());                
+                $this->log->addError($img_url . ': ' . $e->getMessage());
             }
             return false;
         }
-        
+
         $full = true;
         if ($new_file = $item->getImagePath($full)) {
             file_put_contents($new_file, $data);
@@ -974,7 +976,8 @@ class SpiceHarvesterController extends Controller
 
     private function parseYear($string)
     {
-        return (int)end((explode('.', $string)));
+        $parts = explode('.', $string);
+        return (int)end($parts);
     }
 
     private function resolveIIPUrl($iip_resolver)
