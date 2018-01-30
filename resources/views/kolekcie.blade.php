@@ -71,11 +71,10 @@
             </div>
             <div class="clearfix visible-xs bottom-space"></div>
             <div class="col-sm-6" >
-                <div class="artworks-preview">
-                @foreach ($collection->getPreviewItems() as $item)
-                    <a href="{!! $item->getUrl(['collection' => $collection->id]) !!}"><img data-lazy="{!! $item->getImagePath() !!}" class="img-responsive-width" alt="{!! $item->getTitleWithAuthors() !!} " ></a>
-                @endforeach
-                </div>
+                @include('components.artwork_carousel', [
+                    'class_names' => "artworks-preview small",
+                    'items' => $collection->getPreviewItems(),
+                ])
             </div>
         </div>
     	@endforeach
@@ -95,22 +94,11 @@
 
 @section('javascript')
 
-{!! Html::script('js/slick.js') !!}
+@include('components.artwork_carousel_js', ['slick_query' => '.artworks-preview'])
 
 <script type="text/javascript">
 
 $(document).ready(function(){
-
-    $('.artworks-preview').slick({
-        dots: false,
-        lazyLoad: 'progressive',
-        infinite: false,
-        speed: 300,
-        slidesToShow: 1,
-        slide: 'a',
-        centerMode: false,
-        variableWidth: true,
-    });
 
     $(".dropdown-menu-sort a").click(function(e) {
         e.preventDefault();
