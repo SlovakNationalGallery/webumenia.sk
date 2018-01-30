@@ -239,13 +239,6 @@
                                     </td>
                                 </tr>
                                 @endif
-
-                                @foreach($colors_used as $color_used => $amount)
-                                <tr>
-                                    <td class="atribut" style="background-color:{{ $color_used }};"></td>
-                                    <td><a href="/katalog?color={{ urlencode($color_used) }}">{{ $amount }}</a></td>
-                                </tr>
-                                @endforeach
                             </tbody>
                         </table>
                         
@@ -280,48 +273,27 @@
     </div>
 </section>
 
-@if ($similar_by_color)
-<section class="more-items content-section">
+@if ($colors_used || $similar_by_color)
+<section class="content-section">
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h4>{{ trans('dielo.more-items_related-artworks') }} (podľa farby)</h4>
+                <h4>{{ trans('dielo.more-items_similar-colors') }}</h4>
+                @if ($colors_used)
+                @include('components.color_list', ['colors' => $colors_used])
+                @endif
+                @if ($similar_by_color)
                 <div class="artworks-preview ">
-                    @foreach ($similar_by_color as $item)
-                        <a href="{!! $item->getUrl() !!}"><img data-lazy="{!! $item->getImagePath() !!}" class="img-responsive-width " alt="{!! $item->getTitleWithAuthors() !!} "></a>
-                    @endforeach
+                @foreach ($similar_by_color as $item)
+                    <a href="{!! $item->getUrl() !!}"><img data-lazy="{!! $item->getImagePath() !!}" class="img-responsive-width " alt="{!! $item->getTitleWithAuthors() !!} "></a>
+                @endforeach
                 </div>
+                @endif
             </div>
         </div>
     </div>
 </section>
 @endif
-
-<section class="more-items content-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <h4>{{ trans('dielo.more-items_similar-colors') }}</h4>
-                {{-- demo data --}}
-                @php
-                    $colors_used = array(
-                        array("hex" => "#00FF00", "amount" => "50%"),
-                        array("hex" => "#FF0000", "amount" => "30%"),
-                        array("hex" => "#0000FF", "amount" => "10%"),
-                        array("hex" => "#FF00FF", "amount" => "7%"),
-                        array("hex" => "#00FFFF", "amount" => "3%")
-                    );
-                @endphp
-                @include('components.color_list', ['colors' => $colors_used])
-                <div class="artworks-preview ">
-                @foreach ($more_items as $item)
-                    <a href="{!! $item->getUrl() !!}"><img data-lazy="{!! $item->getImagePath() !!}" class="img-responsive-width " alt="{!! $item->getTitleWithAuthors() !!} "></a>
-                @endforeach
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 <section class="more-items content-section light-grey">
     <div class="container">
