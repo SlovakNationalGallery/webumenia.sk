@@ -248,7 +248,8 @@
                         @if ($related_items->count() > 1)
                         <div style="position: relative; padding: 0 10px;">
                             @include('components.artwork_carousel', [
-                                'class_names' => "artworks-preview small",
+                                'slick_target' => "artworks-preview",
+                                'slick_variant' => "small",
                                 'items' => $related_items,
                             ])
                         </div>
@@ -283,7 +284,7 @@
                 @endif
                 @if ($similar_by_color)
                     @include('components.artwork_carousel', [
-                        'class_names' => "artworks-preview",
+                        'slick_target' => "artworks-preview",
                         'items' => $similar_by_color,
                     ])
                 @endif
@@ -299,7 +300,7 @@
             <div class="col-xs-12">
                 <h4>{{ trans('dielo.more-items_related-artworks') }}</h4>
                 @include('components.artwork_carousel', [
-                    'class_names' => "artworks-preview",
+                    'slick_target' => "artworks-preview",
                     'items' => $more_items,
                 ])
             </div>
