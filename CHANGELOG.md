@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file[^1].
 - Pattern Library at /patternlib
 - Tests setup
 - color-list component on artwork detail
+- Color description
 
 ### Fixed
 - Prevent upsize when uploading item image
