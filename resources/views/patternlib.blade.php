@@ -21,32 +21,50 @@ Pattern Library | @parent
     }
 </script>
 
-<section>
+<section class="pattern-lib">
     <div class="container">
         <h1>Pattern Library</h1>
         
         @foreach ($components as $component)
+            
+            <section class="row">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">{{$component['name']}}</h2>
+                        </div>
+                        <div class="panel-body">
+                            
+                            <h4>Component</h4>
+                            <div class="clearfix">
+                                <div class="relative">
+                                    @include($component['include_path'], $component['data'])
+                                    @if (isset($component['include_path_js']))
+                                        @section('javascript')
+                                            @include($component['include_path_js'], $component['data_js'])
+                                        @append
+                                    @endif
+                                </div>
+                            </div>
 
-            <section class="panel panel-default">
-                <div class="panel-heading">
-                    <h2 class="panel-title">{{$component['name']}}</h2>
-                </div>
-                <div class="panel-body">
-                    <h4>Component</h4>
-                    <div class="clearfix">
-                        <div class="{{ $component["wrapper_classes"] or '' }}">
-                            @include($component['include_path'], $component['data'])
+                            <h4>Usage notes</h4> 
+                            <p>{{$component['usage_notes']}}</p>
+
+                            @if (isset($component['worked_on_this']))
+                                <h4>Worked on this</h4> 
+                                <p>
+                                    @foreach ($component['worked_on_this'] as $developer)
+                                        <span class="btn btn-default btn-xs btn-outline">{{ $developer }}</span>
+                                    @endforeach
+                                </p>
+                            @endif
+
+                            <a href="#" class="btn btn-default btn-outline sans" onclick="toggle_source(event);"><i class="fa fa-code"></i> Show source</a>
+                            <pre class="js-source pre-scrollable hidden"><code class="html">{{$component['source_code']}}</code></pre>
                         </div>
                     </div>
-                    
-                    <h4>Usage notes</h4> 
-                    <p>{{$component['usage_notes']}}</p>
-
-                    <a href="#" class="btn btn-default btn-outline sans" onclick="toggle_source(event);"><i class="fa fa-code"></i> Show source</a>
-                    <pre class="js-source pre-scrollable hidden"><code class="html">{{$component['source_code']}}</code></pre>
                 </div>
             </section>
-
         @endforeach
     </div>
 </section>

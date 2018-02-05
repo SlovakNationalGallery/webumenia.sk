@@ -97,6 +97,7 @@ class Color
         $path = $this->findConversionPath($type);
 
         $value = $this->value;
+
         for ($i = 0; $i < count($path) - 1; $i++) {
             $conversion = static::$conversion_mapping[$path[$i]][$path[$i + 1]];
             $value = $conversion($value);
