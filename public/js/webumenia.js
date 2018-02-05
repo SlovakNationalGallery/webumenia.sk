@@ -198,9 +198,9 @@ $(document).ready(function(){
 function spravGrid($container) {
     $container.isotope({
         itemSelector : '.item',
+        percentPosition: true,
         masonry: {
-            isFitWidth: true,
-            gutter: 20
+            columnWidth: '.item'
         }
     });
 } 

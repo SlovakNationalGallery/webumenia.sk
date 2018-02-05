@@ -186,10 +186,9 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 	<script src="https://unpkg.com/flickity@1.1/dist/flickity.pkgd.min.js"></script>
 	{!! Html::script('js/imagesloaded.min.js') !!}
-	{!! Html::script('js/jquery.infinitescroll.min.js') !!}
-	{!! Html::script('js/jquery.isotope.min.js') !!}
-	{!! Html::script('js/jquery.isotope.sloppy-masonry.min.js') !!}
-	{!! Html::script('js/bootstrap.min.js') !!}
+	{!! Html::script('js/jquery.infinitescroll.min.js') !!}  
+	{!! Html::script('js/isotope.pkgd.min.js') !!}
+  {!! Html::script('js/bootstrap.min.js') !!}
 	{!! Html::script('js/typeahead.bundle.min.js') !!}
 	{!! Html::script('js/webumenia.js') !!}
 
