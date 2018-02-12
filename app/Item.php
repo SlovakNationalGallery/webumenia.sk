@@ -156,6 +156,11 @@ class Item extends Model
         return $this->hasOne(\App\SpiceHarvesterRecord::class, 'item_id');
     }
 
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
+
     public function getImagePath($full = false)
     {
         return self::getImagePathForId($this->id, $full);

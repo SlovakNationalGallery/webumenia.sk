@@ -244,7 +244,6 @@ abstract class AbstractImporter implements IImporter {
 
     /**
      * @param Item $item
-     * @param array $record
      */
     protected function setDefaultValues(Item $item) {
         foreach ($this->defaults as $key => $default) {
@@ -283,8 +282,8 @@ abstract class AbstractImporter implements IImporter {
 
     /**
      * @param Import $import
-     * @param string $filename
-     * @param array $record
+     * @param string $csv_filename
+     * @param string $image_filename
      * @return string
      */
     protected function getItemImagePath(Import $import, $csv_filename, $image_filename) {
