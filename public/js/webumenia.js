@@ -110,7 +110,7 @@ $(document).ready(function(){
     if (!is_touch_device) {
         $("[data-toggle='tooltip']").tooltip();
     }
-    
+
     $('#top a').click(function(){
         $('html,body').animate({scrollTop:0},'slow');return false;
     });
@@ -119,12 +119,12 @@ $(document).ready(function(){
     authors.initialize();
     articles.initialize();
     collections.initialize();
-    
+
     $('#search').typeahead(
     {
       hint: true,
       highlight: true,
-      minLength: 2      
+      minLength: 2
     },
     {
       name: 'authors',
@@ -179,7 +179,7 @@ $(document).ready(function(){
       }
     }).bind("typeahead:selected", function(obj, datum, name) {
         switch (name) {
-            case 'authors': 
+            case 'authors':
                 window.location.href = "/autor/" + datum.id;
                 break;
             case 'articles':
@@ -198,12 +198,13 @@ $(document).ready(function(){
 function spravGrid($container) {
     $container.isotope({
         itemSelector : '.item',
+        horizontalOrder: true,
         percentPosition: true,
         masonry: {
-            columnWidth: '.item'
+            columnWidth: '.grid-sizer'
         }
     });
-} 
+}
 
 var light_style = [
     {

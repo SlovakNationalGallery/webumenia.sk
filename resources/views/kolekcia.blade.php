@@ -13,7 +13,7 @@
 @stop
 
 @section('title')
-{!! $collection->name !!} | 
+{!! $collection->name !!} |
 @parent
 @stop
 
@@ -35,8 +35,8 @@
         <div class="inner-box">
             <h1>{!! $collection->name !!}</h1>
             <p class="bottom-space">
-                {{ trans_choice('general.artworks_counted', $collection->items()->count(), ['artworks_count' => $collection->items()->count()]) }} &nbsp;&middot;&nbsp; 
-                {!! $collection->user->name !!} &nbsp;&middot;&nbsp; 
+                {{ trans_choice('general.artworks_counted', $collection->items()->count(), ['artworks_count' => $collection->items()->count()]) }} &nbsp;&middot;&nbsp;
+                {!! $collection->user->name !!} &nbsp;&middot;&nbsp;
                 {!! $collection->created_at->format('d. m. Y') !!}
             </p>
         </div>
@@ -75,33 +75,34 @@
                         <p class="text-center">Momentálne žiadne diela</p>
                     @endif
                     <div id="iso">
+                        <div class="col-md-3 col-sm-4 col-xs-6 grid-sizer"></div>
                     @foreach ($collection->items as $i=>$item)
                         <div class="col-md-3 col-sm-4 col-xs-12 item">
                             <a href="{!! $item->getUrl(['collection' => $collection->id]) !!}">
-                                <img src="{!! $item->getImagePath() !!}" class="img-responsive" alt="{!! $item->getTitleWithAuthors() !!} ">                          
+                                <img src="{!! $item->getImagePath() !!}" class="img-responsive" alt="{!! $item->getTitleWithAuthors() !!} ">
                             </a>
                             <div class="item-title">
                                 @if (!empty($item->iipimg_url))
                                     <div class="pull-right"><a href="{!! URL::to('dielo/' . $item->id . '/zoom') !!}" data-toggle="tooltip" data-placement="left" title="Zoom obrázku"><i class="fa fa-search-plus"></i></a></div>
-                                @endif    
+                                @endif
                                 <a href="{!! $item->getUrl(['collection' => $collection->id]) !!}">
                                     <em>{!! implode(', ', $item->authors) !!}</em><br>
                                 <strong>{!! $item->title !!}</strong><br> <em>{!! $item->getDatingFormated() !!}</em>
-                                
+
                                 {{-- <span class="">{!! $item->gallery !!}</span> --}}
                                 </a>
                             </div>
-                        </div>  
+                        </div>
                     @endforeach
                     </div>
                     <div class="col-sm-12 text-center">
                     </div>
-                </div>                    
+                </div>
             </div>
         </div>
     </div>
 </section>
-{{-- 
+{{--
 <section class="map content-section">
     <div class="map-body">
         <div class="container">
@@ -131,7 +132,7 @@
     $(document).ready(function(){
 
         var $container = $('#iso');
-           
+
         // az ked su obrazky nacitane aplikuj isotope
         $container.imagesLoaded(function () {
             spravGrid($container);
