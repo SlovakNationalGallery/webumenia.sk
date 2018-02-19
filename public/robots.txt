@@ -4,4 +4,5 @@ Disallow: */objednat
 Disallow: */stiahnut
 Disallow: */objednat
 Disallow: /objednavka
+Disallow: /patternlib
 Crawl-Delay: 5

@@ -1,6 +1,8 @@
 <?php
 
-class TestCase extends Illuminate\Foundation\Testing\TestCase
+namespace Tests;
+
+class TestCase extends \Illuminate\Foundation\Testing\TestCase
 {
     /**
      * The base URL to use while testing the application.
@@ -16,10 +18,11 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
      */
     public function createApplication()
     {
-        $unitTesting = true;
+        /** @var \Illuminate\Foundation\Application $app */
+        $app = require __DIR__ . '/../bootstrap/app.php';
+        $app->loadEnvironmentFrom('.env.testing');
+        $app->make(\Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
-        $testEnvironment = 'testing';
-
-        return require __DIR__.'/../../bootstrap/start.php';
+        return $app;
     }
 }

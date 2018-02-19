@@ -2,10 +2,22 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- Importer module
+- Czech language translations
+- Pattern Library at /patternlib
+- Tests setup
+
+### Fixed
+- Prevent upsize when uploading item image
+- Featured-article image container width bug
 
 ## [1.2.9] - 2017-12-05
 ### Changed
 - Enabled reproduction orders with mounting / framing
+
+### Fixed
+- Database seeders
 
 ## [1.2.8] - 2017-10-24
 ### Added

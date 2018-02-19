@@ -254,6 +254,7 @@ function()
 
     })->where('width', '[0-9]+')->name('dielo.nahlad');
 
+    Route::controller('patternlib', 'PatternlibController');
 
     Route::controller('katalog', 'CatalogController');
     // Route::match(array('GET', 'POST'), 'katalog', 'CatalogController@index');
