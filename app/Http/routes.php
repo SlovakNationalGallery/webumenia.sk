@@ -32,8 +32,8 @@ Route::group(['domain' => 'media.webumenia.{tld}'], function () {
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
     'middleware' => [ 'localeSessionRedirect', 'localizationRedirect' ]
-], 
-function() 
+],
+function()
 {
     Route::get('leto', function () {
 
@@ -236,6 +236,23 @@ function()
 
         return view('dielo', array('item' => $item, 'more_items' => $more_items, 'previous' => $previous, 'next' => $next));
     });
+
+    Route::get('dielo/nahlad/{id}/{width}', function ($id, $width) {
+
+        if (
+            ($width <= 800) &&
+            Item::where('id', '=', $id)->exists()
+        ) {
+            // disable resizing when requesting 800px width
+            $width = ($width == 800) ? false : $width;
+            $imagePath = public_path() . Item::getImagePathForId($id, false, $width);
+
+            return response()->file($imagePath);
+        }
+
+        return App::abort(404);
+
+    })->where('width', '[0-9]+')->name('dielo.nahlad');
 
     Route::controller('patternlib', 'PatternlibController');
 
