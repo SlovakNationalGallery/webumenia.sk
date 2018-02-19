@@ -70,16 +70,21 @@
     <div class="collections-body">
         <div class="container">
             <div class="row">
-            	<div class="col-xs-12">
+            	<div class="col-xs-12 isotope-wrapper">
                     @if ($collection->items->count() == 0)
                         <p class="text-center">Momentálne žiadne diela</p>
                     @endif
                     <div id="iso">
-                        <div class="col-md-3 col-sm-4 col-xs-6 grid-sizer"></div>
                     @foreach ($collection->items as $i=>$item)
                         <div class="col-md-3 col-sm-4 col-xs-12 item">
                             <a href="{!! $item->getUrl(['collection' => $collection->id]) !!}">
-                                <img src="{!! $item->getImagePath() !!}" class="img-responsive" alt="{!! $item->getTitleWithAuthors() !!} ">
+                                @php
+                                    list($width, $height) = getimagesize(public_path() . $item->getImagePath());
+                                @endphp
+                                <div class="ratio-box" style="padding-bottom: {{ (($height / $width) * 100) }}%;">
+
+                                <img src="{!! $item->getImagePath() !!}" class="lazyload" alt="{!! $item->getTitleWithAuthors() !!} ">
+                                </div>
                             </a>
                             <div class="item-title">
                                 @if (!empty($item->iipimg_url))
@@ -129,16 +134,16 @@
 {!! Html::script('js/slick.js') !!}
 
 <script type="text/javascript">
+    // start with isotype even before document is ready
+    $('.isotope-wrapper').each(function(){
+        var $container = $('#iso', this);
+        spravGrid($container);
+    });
+
     $(document).ready(function(){
 
-        var $container = $('#iso');
-
-        // az ked su obrazky nacitane aplikuj isotope
-        $container.imagesLoaded(function () {
-            spravGrid($container);
-        });
-
         $( window ).resize(function() {
+            var $container = $('#iso');
             spravGrid($container);
         });
 

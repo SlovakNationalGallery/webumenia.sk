@@ -115,14 +115,19 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-12 isotope-wrapper">
                     <?php // $items = $items->paginate(18) ?>
                     <div id="iso">
-                        <div class="col-md-3 col-sm-4 col-xs-6 grid-sizer"></div>
                 	@foreach ($items as $i=>$item)
     	                <div class="col-md-3 col-sm-4 col-xs-6 item">
     	                	<a href="{!! $item->getUrl() !!}">
-    	                		<img src="{!! $item->getImagePath() !!}" class="img-responsive" alt="{!! $item->getTitleWithAuthors() !!} ">
+                                @php
+                                    list($width, $height) = getimagesize(public_path() . $item->getImagePath());
+                                @endphp
+                                <div class="ratio-box" style="padding-bottom: {{ (($height / $width) * 100) }}%;">
+    	                		<img
+data-src="{!! $item->getImagePath() !!}" class="lazyload" alt="{!! $item->getTitleWithAuthors() !!} ">
+                                </div>
     	                	</a>
                             <div class="item-title">
                                 @if ($item->has_iip)
@@ -171,7 +176,14 @@
 
 <script type="text/javascript">
 
+// start with isotype even before document is ready
+$('.isotope-wrapper').each(function(){
+    var $container = $('#iso', this);
+    spravGrid($container);
+});
+
 $(document).ready(function(){
+
     // $('.expandable').readmore({
     //     moreLink: '<a href="#" class="text-center">viac možností <i class="icon-arrow-down"></i></a>',
     //     lessLink: '<a href="#" class="text-center">menej možností <i class="icon-arrow-up"></i></a>',
@@ -244,11 +256,6 @@ $(document).ready(function(){
 
     var $container = $('#iso');
 
-    // az ked su obrazky nacitane aplikuj isotope
-    $container.imagesLoaded(function () {
-        spravGrid($container);
-    });
-
     $( window ).resize(function() {
         spravGrid($container);
     });
@@ -269,10 +276,7 @@ $(document).ready(function(){
     }, function(newElements, data, url){
         history.replaceState({infiniteScroll:true}, null, url);
         var $newElems = jQuery( newElements ).hide();
-        $newElems.imagesLoaded(function(){
-            $newElems.fadeIn();
-            $container.isotope( 'appended', $newElems );
-        });
+        $container.isotope( 'appended', $newElems );
     });
 
     $(window).unbind('.infscr'); //kill scroll binding
