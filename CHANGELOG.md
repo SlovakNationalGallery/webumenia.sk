@@ -7,10 +7,20 @@ All notable changes to this project will be documented in this file[^1].
 - Czech language translations
 - Pattern Library at /patternlib
 - Tests setup
+- Route for requesting resized images
+- Lazy loading images in catalog and collection
+- Responsive image support in catalog and collection
+
+### Changed
+- Enabled reproduction orders with mounting / framing
+- Updated isotope-layout
+
 
 ### Fixed
 - Prevent upsize when uploading item image
 - Featured-article image container width bug
+- Two columns bug in iPhone6/SE
+- Artwork detail in iOS
 
 ## [1.2.9] - 2017-12-05
 ### Changed
