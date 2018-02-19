@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file[^1].
 - Czech language translations
 - Pattern Library at /patternlib
 - Tests setup
-- Route for requesting resized images
+- Route for requesting resized images at /dielo/nahlad/{id}/{width}
 - Lazy loading images in catalog and collection
 - Responsive image support in catalog and collection
 
