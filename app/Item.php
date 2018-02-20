@@ -683,11 +683,23 @@ class Item extends Model
         return $value;
     }
 
+    public function getHasIipAttribute() {
+        return !$this->getZoomableImages()->isEmpty();
+    }
+
+    public function getZoomableImages()
+    {
+        return $this->images->filter(function (Image $image) {
+            return $image->iipimg_url !== null;
+        });
+    }
+
     public function index()
     {
             $client =  $this->getElasticClient();
             $work_types = $this->work_types;
             $main_work_type = reset($work_types);
+
             $data = [
                 'id' => $this->attributes['id'],
                 'identifier' => $this->attributes['identifier'],
@@ -708,7 +720,7 @@ class Item extends Model
                 'updated_at' => $this->attributes['updated_at'],
                 'created_at' => $this->attributes['created_at'],
                 'has_image' => (bool)$this->has_image,
-                'has_iip' => (bool)$this->iipimg_url,
+                'has_iip' => (bool)$this->has_iip,
                 'is_free' => $this->isFree(),
                 // 'free_download' => $this->isFreeDownload(), // staci zapnut is_free + has_iip
                 'related_work' => $this->related_work,
@@ -721,7 +733,7 @@ class Item extends Model
                 'index' => Config::get('bouncy.index'),
                 'type' =>  self::ES_TYPE,
                 'id' => $this->attributes['id'],
-                'body' =>$data,
+                'body' => $data,
             ]);
     }
 

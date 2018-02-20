@@ -5,6 +5,9 @@ namespace App\Importers;
 
 
 use App\Collection;
+use App\Image;
+use App\Import;
+use App\ImportRecord;
 use App\Repositories\IFileRepository;
 
 class NgImporter extends AbstractImporter {
@@ -59,6 +62,9 @@ class NgImporter extends AbstractImporter {
         };
     }
 
+    protected function getItemImagePath(Import $import, $csv_filename, $image_filename) {
+        return false;
+    }
 
     protected function getItemId(array $record) {
         $key = 'Ivent. číslo - pracovní';
@@ -77,10 +83,25 @@ class NgImporter extends AbstractImporter {
     }
 
     protected function getItemIipImageUrl($csv_filename, $image_filename) {
-        return sprintf(
-            '/NG/jp2/%s.jp2',
-            $image_filename
-        );
+        return sprintf('/NG/jp2/%s', $image_filename);
+    }
+
+    protected function importSingle(array $record, Import $import, ImportRecord $import_record) {
+        $item = parent::importSingle($record, $import, $import_record);
+
+        $image_filename = $this->getItemImageFilename($record);
+        $image_paths = $this->getItemIipImagePaths($import, $image_filename);
+        $count = $item->images->count();
+        foreach ($image_paths as $path) {
+            $iipimg_url = $this->getItemIipImageUrl(null, basename($path));
+            if ($item->images->where('iipimg_url', $iipimg_url)->count()) {
+                continue;
+            }
+
+            $item->images()->save($this->createImage($iipimg_url, $count++));
+        }
+
+        return $item;
     }
 
     protected function createItem(array $record) {
@@ -92,6 +113,19 @@ class NgImporter extends AbstractImporter {
         }
 
         return $item;
+    }
+
+    /**
+     * @param string $iipimg_url
+     * @param int $order
+     * @return Image
+     */
+    protected function createImage($iipimg_url, $order) {
+        $image = new Image();
+        $image->iipimg_url = $iipimg_url;
+        $image->order = $order;
+
+        return $image;
     }
 
     protected function hydrateAuthor(array $record) {
@@ -161,7 +195,19 @@ class NgImporter extends AbstractImporter {
     }
 
     protected function hydrateHasRights(array $record) {
-        return ($record['Práva'] == 'Ano') ? 1 : 0;
+        return $record['Práva'] == 'Ano';
+    }
+
+    /**
+     * @param Import $import
+     * @param string $image_filename
+     * @return string
+     */
+    protected function getItemIipImagePaths(Import $import, $image_filename) {
+        $main = sprintf('%s/%s.jp2', $import->iip_dir_path, $image_filename);
+        $other = sprintf('%s/%s--*.jp2', $import->iip_dir_path, $image_filename);
+
+        return array_merge(glob($main), glob($other));
     }
 
     /**

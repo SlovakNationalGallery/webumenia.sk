@@ -6,7 +6,6 @@ use App\Import;
 use App\ImportRecord;
 use App\Item;
 use App\Repositories\IFileRepository;
-use Intervention\Image\Image;
 use Symfony\Component\Console\Exception\LogicException;
 
 
@@ -92,7 +91,6 @@ abstract class AbstractImporter implements IImporter {
                 continue;
             }
 
-            $item->save();
             $items[] = $item;
         }
 
@@ -114,6 +112,7 @@ abstract class AbstractImporter implements IImporter {
     protected function importSingle(array $record, Import $import, ImportRecord $import_record) {
         try {
             $item = $this->createItem($record);
+            $item->save();
             $import_record->imported_items++;
         } catch (\Exception $e) {
             $import_record->wrong_items++;
@@ -237,7 +236,6 @@ abstract class AbstractImporter implements IImporter {
 
     /**
      * @param Item $item
-     * @param array $record
      */
     protected function setDefaultValues(Item $item) {
         foreach ($this->defaults as $key => $default) {
@@ -250,7 +248,6 @@ abstract class AbstractImporter implements IImporter {
     /**
      * @param Item $item
      * @param string $path
-     * @return Image
      */
     protected function uploadImage(Item $item, $path) {
         $uploaded_image = \Image::make($path);
@@ -276,8 +273,8 @@ abstract class AbstractImporter implements IImporter {
 
     /**
      * @param Import $import
-     * @param string $filename
-     * @param array $record
+     * @param string $csv_filename
+     * @param string $image_filename
      * @return string
      */
     protected function getItemImagePath(Import $import, $csv_filename, $image_filename) {
