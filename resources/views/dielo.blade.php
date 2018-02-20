@@ -71,7 +71,7 @@
                                 @endif
                             </div>
                             @if (!empty($item->description))
-                            <div class="col-md-12 text-left medium description bottom-space underline" itemprop="description">
+                            <div class="col-md-12 text-left medium description bottom-space underline expandable-long" itemprop="description">
                                 {!!  $item->description !!}
 
                                 @if ($item->description_source)
@@ -375,6 +375,12 @@
             moreLink: '<a href="#"><i class="fa fa-chevron-down"></i> {{ trans("general.show_more") }}</a>',
             lessLink: '<a href="#"><i class="fa fa-chevron-up"></i> {{ trans("general.show_less") }}</a>',
             maxHeight: 40
+        });
+
+        $('.expandable-long').readmore({
+            moreLink: '<a href="#"><i class="fa fa-chevron-down"></i> {{ trans("general.show_more") }}</a>',
+            lessLink: '<a href="#"><i class="fa fa-chevron-up"></i> {{ trans("general.show_less") }}</a>',
+            maxHeight: 160
         });
 
         $('#download').on('click', function(e){
