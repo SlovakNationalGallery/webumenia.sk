@@ -245,7 +245,8 @@ function()
         ) {
             // disable resizing when requesting 800px width
             $width = ($width == 800) ? false : $width;
-            $imagePath = public_path() . Item::getImagePathForId($id, false, $width);
+            $resize_method = 'widen';
+            $imagePath = public_path() . Item::getImagePathForId($id, false, $width, $resize_method);
 
             return response()->file($imagePath);
         }

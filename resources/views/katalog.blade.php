@@ -124,7 +124,7 @@
                                 @php
                                     list($width, $height) = getimagesize(public_path() . $item->getImagePath());
                                 @endphp
-                                <div class="ratio-box" style="padding-bottom: {{ (($height / $width) * 100) }}%;">
+                                <div class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%;">
     	                		<img
                                     data-sizes="auto"
                                     data-src="{!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'600']) !!}"
