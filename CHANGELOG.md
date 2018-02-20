@@ -14,7 +14,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Changed
 - Enabled reproduction orders with mounting / framing
 - Updated isotope-layout
-
+- Link to Public domain statement on CC website
 
 ### Fixed
 - Prevent upsize when uploading item image
