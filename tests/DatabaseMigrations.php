@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 trait DatabaseMigrations
 {
     use \Illuminate\Foundation\Testing\DatabaseMigrations {
-        DatabaseMigrations::runDatabaseMigrations as parentRunDatabaseMigrations;
+        \Illuminate\Foundation\Testing\DatabaseMigrations::runDatabaseMigrations as parentRunDatabaseMigrations;
     }
 
     /**
