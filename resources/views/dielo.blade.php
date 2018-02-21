@@ -371,15 +371,18 @@
 
     $(document).ready(function(){
 
+        var moreLinkText = '<a href="#"><i class="fa fa-chevron-down"></i> {{ trans("general.show_more") }}</a>';
+        var lessLinkText = '<a href="#"><i class="fa fa-chevron-up"></i> {{ trans("general.show_less") }}</a>';
+
         $('.expandable').readmore({
-            moreLink: '<a href="#"><i class="fa fa-chevron-down"></i> {{ trans("general.show_more") }}</a>',
-            lessLink: '<a href="#"><i class="fa fa-chevron-up"></i> {{ trans("general.show_less") }}</a>',
+            moreLink: moreLinkText,
+            lessLink: lessLinkText,
             maxHeight: 40
         });
 
         $('.expandable-long').readmore({
-            moreLink: '<a href="#"><i class="fa fa-chevron-down"></i> {{ trans("general.show_more") }}</a>',
-            lessLink: '<a href="#"><i class="fa fa-chevron-up"></i> {{ trans("general.show_less") }}</a>',
+            moreLink: moreLinkText,
+            lessLink: lessLinkText,
             maxHeight: 160
         });
 
