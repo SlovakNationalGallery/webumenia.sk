@@ -8,10 +8,20 @@ All notable changes to this project will be documented in this file[^1].
 - Pattern Library at /patternlib
 - Tests setup
 - Option to run all importers
+- Route for requesting resized images at /dielo/nahlad/{id}/{width}
+- Lazy loading images in catalog and collection
+- Responsive image support in catalog and collection
+
+### Changed
+- Enabled reproduction orders with mounting / framing
+- Updated isotope-layout
+- Link to Public domain statement on CC website
 
 ### Fixed
 - Prevent upsize when uploading item image
 - Featured-article image container width bug
+- Two columns bug in iPhone6/SE
+- Artwork detail in iOS
 
 ## [1.2.9] - 2017-12-05
 ### Changed
