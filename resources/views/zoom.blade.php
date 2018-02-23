@@ -67,7 +67,7 @@
             <a id="zoom-out" href="#zoom-out" title="zoom out"><i class="fa fa-minus"></i></a>
             <a id="home" href="#home" title="zoom to fit"><i class="fa fa-home"></i></a> 
             <a id="full-page" href="#full-page" title="zobraz fullscreen"><i class="fa fa-expand"></i></a> 
-            @if ($related_items)
+            @if ($item->images->count() > 1)
               <a id="previous" href="#previous" title="predchádzajúce súvisiace dielo"><i class="fa fa-arrow-left"></i></a> 
               <a id="next" href="#next" title="nasledujúce súvisiace dielo"><i class="fa fa-arrow-right"></i></a> 
             @endif
@@ -76,8 +76,8 @@
      <a class="btn btn-default btn-outline return" href="{!! $item->getUrl() !!}" role="button"><i class="fa fa-arrow-left"></i> {{ trans('general.back') }}</a>
    @endif
 
-    @if ($related_items)
-      <div class="autohide"><div class="currentpage"><span id="index">{!! array_search($item->iipimg_url, $related_items ) + 1 !!}</span> / {!! count($related_items) !!}</div></div>
+    @if ($item->images->count() > 1)
+      <div class="autohide"><div class="currentpage"><span id="index">1</span> / {!! $item->images->count() !!}</div></div>
     @endif
 
     <div class="credit">
@@ -95,18 +95,13 @@
    <script type="text/javascript">
    $("document").ready(function()
    {
-
      var server = '/fcgi-bin/iipsrv.fcgi';
-     var image = '{!! $item->iipimg_url !!}';
-     var initial = {!! ($related_items) ? array_search($item->iipimg_url, $related_items ) : 0!!};
 
      var images = [
-     @foreach ($related_items as $url)
-         '/fcgi-bin/iipsrv.fcgi?DeepZoom={!! $url !!}.dzi',
+     @foreach ($item->images as $image)
+         server + '?DeepZoom={!! $image->iipimg_url !!}.dzi',
      @endforeach
      ];
-
-     var pocet = {!! count($related_items) !!};
 
      var isLoaded = false;
 
@@ -130,7 +125,7 @@
      };
 
      function getNextPage() {
-          if (viewer.currentPage() < pocet) {
+          if (viewer.currentPage() < images.length) {
              rotationChecked = false;
              viewer.goToPage(viewer.currentPage() + 1); 
           }
@@ -180,9 +175,6 @@
        minZoomLevel: 0,
        defaultZoomLevel: 0,
        autoResize: false,
-    @if (empty($related_items))
-      tileSources: server + "?DeepZoom=" + image + ".dzi"
-    @else
        tileSources: images,
        autoHideControls:       false,
        controlsFadeDelay:       1000,  //ZOOM/HOME/FULL/SEQUENCE
@@ -191,10 +183,8 @@
        showReferenceStrip: true,
        referenceStripSizeRatio: 0.07,
        referenceStripScroll: 'vertical',
-       initialPage: initial
        // panHorizontal: false,
        // panVertical: false
-    @endif
      });
 
       viewer.addHandler('page', function (event) {

@@ -135,7 +135,7 @@ function()
 
         $item = Item::find($id);
 
-        if (empty($item->iipimg_url)) {
+        if (!$item->has_iip) {
             App::abort(404);
         }
 
