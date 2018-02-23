@@ -164,14 +164,6 @@ class Item extends Model
         return $this->hasMany(Image::class);
     }
 
-    public function getIipimgUrlAttribute($value)
-    {
-        if (!$this->has_rights) return null;
-
-        return $value;
-
-    }
-
     public function getImagePath($full = false)
     {
         return self::getImagePathForId($this->id, $full);
@@ -684,7 +676,13 @@ class Item extends Model
     }
 
     public function getHasIipAttribute() {
+        if (!$this->is_iip_allowed) return false;
+
         return !$this->getZoomableImages()->isEmpty();
+    }
+
+    public function getIsIipAllowedAttribute() {
+        return $this->has_rights;
     }
 
     public function getZoomableImages()
