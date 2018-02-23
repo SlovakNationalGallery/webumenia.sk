@@ -78,6 +78,12 @@
 		</div>
 	@endif
 
+    @if (true)
+        <div class="alert alert-danger text-center" role="alert">
+          Ospravedlňujeme sa, ale z technických príčin nie je <strong>dočasne dostupná funkcia zoom</strong>
+        </div>
+    @endif
+
 	<nav class="navbar {{-- navbar-fixed-top --}} {{-- navbar-static-top --}} {!! (Request::is('/') || isSet($transparent_menu)) ? '' : 'dark-text' !!}" role="navigation">
 	    <div class="container">
 	        <div class="navbar-header page-scroll">
