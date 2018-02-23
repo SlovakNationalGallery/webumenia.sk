@@ -6,105 +6,142 @@ use App\Collection;
 use App\Import;
 use App\Importers\NgImporter;
 use App\Repositories\CsvRepository;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Support\Facades\DB;
+
+
 
 class NgImporterTest extends TestCase
 {
-    public function setUp() {
-        parent::setUp();
-        $this->artisan('migrate');
+    use \Tests\DatabaseMigrations;
+
+    public function testId() {
+        $data = $this->fakeData(['Ivent. číslo - pracovní' => 'A 0001']);
+        $items = $this->importSingle($data);
+        $this->assertEquals('CZE:NG.A_0001', $items[0]->id);
     }
 
-    public function tearDown() {
-        $tables = DB::select('SHOW TABLES');
-
-        $droplist = [];
-        $colname = 'Tables_in_' . env('DB_DATABASE');
-        foreach($tables as $table) {
-            $droplist[] = $table->$colname;
-        }
-        $droplist = implode(',', $droplist);
-
-        DB::beginTransaction();
-        //turn off referential integrity
-        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-        DB::statement("DROP TABLE $droplist");
-        //turn referential integrity back on
-        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
-        DB::commit();
-        parent::tearDown();
+    public function testIdentifier() {
+        $data = $this->fakeData(['Ivent. číslo - zobrazované' => 'B 0002']);
+        $items = $this->importSingle($data);
+        $this->assertEquals('B 0002', $items[0]->identifier);
     }
 
-    public function testImport() {
+    public function testInscription() {
+        $data = $this->fakeData([
+            'Značeno (jak např. letopočet, signatura, monogram)' => 'Podpis: Namaloval Čchi Chuang. Pečeť: Starý Paj.',
+            'značeno kde (umístění v díle)' => 'vlevo nahoře',
+        ]);
+        $items = $this->importSingle($data);
+        $this->assertEquals('vlevo nahoře: Podpis: Namaloval Čchi Chuang. Pečeť: Starý Paj.', $items[0]->inscription);
+    }
+
+    public function testAuthor() {
+        $data = $this->fakeData([
+            'Autor (jméno příjmení, příp. Anonym)' => 'Prezývka, vlastným menom Meno',
+            'Autor 2' => 'Ďalší autor, autorka',
+            'Autor 3' => 'Tretí autor',
+        ]);
+        $items = $this->importSingle($data);
+        $this->assertEquals('Prezývka (vlastným menom Meno); Ďalší autor (autorka); Tretí autor', $items[0]->author);
+    }
+
+    public function testMeasurement() {
+        $data = $this->fakeData([
+            'šířka' => '1',
+            'výška' => '2',
+            'hloubka' => '3',
+            'jednotky' => 'cm',
+        ]);
+        $items = $this->importSingle($data);
+        $this->assertEquals('výška 2 cm; šířka 1 cm; hloubka 3 cm', $items[0]->measurement);
+    }
+
+    public function testDateEarliest() {
+        $data = $this->fakeData(['OSA 1' => '1998']);
+        $items = $this->importSingle($data);
+        $this->assertEquals('1998', $items[0]->date_earliest);
+    }
+
+    public function testDateLatest() {
+        $data = $this->fakeData(['OSA 2' => '2003']);
+        $items = $this->importSingle($data);
+        $this->assertEquals('2003', $items[0]->date_latest);
+    }
+
+    public function testGalleryCollection() {
+        $data = $this->fakeData(['Sbírka' => 'SGK']);
+        $items = $this->importSingle($data);
+        $this->assertEquals('Sbírka grafiky a kresby', $items[0]->gallery_collection);
+    }
+
+    public function testDating() {
+        $data = $this->fakeData(['Datace' => 'datace']);
+        $items = $this->importSingle($data);
+        $this->assertEquals('datace', $items[0]->dating);
+    }
+
+    public function testHasRights() {
+        $data = $this->fakeData(['Práva' => 'Ano']);
+        $items = $this->importSingle($data);
+        $this->assertEquals('1', $items[0]->has_rights);
+    }
+
+    public function testCollectionsName() {
         $collection = new Collection();
         $collection->name = 'Veletržní palác';
         $collection->type = 'type';
         $collection->order = 1;
         $collection->save();
 
-        $data = [
-            'Práva' => 'Ano',
-            'Ivent. číslo - zobrazované' => 'Vm 1168',
-            'Ivent. číslo - pracovní' => 'Vm 1168',
-            'Značeno (jak např. letopočet, signatura, monogram)' => 'Podpis: Namaloval Čchi Chuang. Pečeť: Starý Paj.',
-            'značeno kde (umístění v díle)' => 'vlevo nahoře',
-            'Autor (jméno příjmení, příp. Anonym)' => 'Prezývka, vlastným menom Meno',
-            'Autor 2' => 'Ďalší autor, autorka',
-            'Autor 3' => 'Tretí autor',
-            'Čistý rozměr (bez rámu, pasparty apod)' => '',
-            'šířka' => '1',
-            'výška' => '2',
-            'hloubka' => '3',
-            'jednotky' => 'cm',
-            'šířka_0' => '4',
-            'výška_0' => '5',
-            'hloubka_0' => '6',
-            'jednotky_0' => 'm',
-            'Rozměr 2' => 'druhý rozmer',
-            'popis rozměru (např. s rámem, se soklem, celý papír apod.)' => 'celkovo',
-            'Datace' => 'datace',
-            'Datování (určené)' => 'datovani',
-            'Kolekce (budova)' => 'Veletržní palác',
-            'Sbírka' => 'SGK',
-            'OSA 1' => '1998',
-            'OSA 2' => '2003',
-            'Materiál' => 'material',
-            'Technika' => 'technika'
-        ];
-        $records = new \ArrayIterator([$data]);
+        $data = $this->fakeData(['Kolekce (budova)' => 'Veletržní palác']);
+        $items = $this->importSingle($data);
+        $this->assertCount(1, $items[0]->collections);
+        $this->assertEquals('Veletržní palác', $items[0]->collections[0]->name);
+    }
 
+    protected function importSingle(array $data) {
+        $records = new \ArrayIterator([$data]);
         $repositoryMock = $this->getMock(CsvRepository::class);
         $repositoryMock->method('getFiltered')->willReturn($records);
 
-        $this->importer = new NgImporter($repositoryMock);
-
+        $importer = new NgImporter($repositoryMock);
         $importMock = $this->getMock(Import::class, ['getAttribute']);
         $importMock->method('getAttribute')->willReturn(1);
         $file = ['basename' => '', 'path' => ''];
-
-        $items = $this->importer->import($importMock, $file);
+        $items = $importer->import($importMock, $file);
 
         $this->assertCount(1, $items);
 
-        $expected = [
-            'id' => 'CZE:NG.Vm_1168',
-            'identifier' => 'Vm 1168',
-            'inscription' => 'vlevo nahoře: Podpis: Namaloval Čchi Chuang. Pečeť: Starý Paj.',
-            'author' => 'Prezývka (vlastným menom Meno); Ďalší autor (autorka); Tretí autor',
-            'measurement' => 'výška 2 cm; šířka 1 cm; hloubka 3 cm',
-            'date_earliest' => 1998,
-            'date_latest' => 2003,
-            'gallery_collection' => 'Sbírka grafiky a kresby',
-            'dating' => 'datace',
-            'has_rights' => 1,
+        return $items;
+    }
+
+    protected function fakeData(array $data) {
+        return $data + [
+            'Práva' => $this->faker->word,
+            'Ivent. číslo - zobrazované' => $this->faker->bothify('?? ??'),
+            'Ivent. číslo - pracovní' => $this->faker->bothify('?? ??'),
+            'Značeno (jak např. letopočet, signatura, monogram)' => $this->faker->sentence,
+            'značeno kde (umístění v díle)' => $this->faker->sentence,
+            'Autor (jméno příjmení, příp. Anonym)' => $this->faker->name,
+            'Autor 2' => $this->faker->name,
+            'Autor 3' => $this->faker->name,
+            'šířka' => $this->faker->randomNumber,
+            'výška' => $this->faker->randomNumber,
+            'hloubka' => $this->faker->randomNumber,
+            'jednotky' => $this->faker->word,
+            'šířka_0' => $this->faker->randomNumber,
+            'výška_0' => $this->faker->randomNumber,
+            'hloubka_0' => $this->faker->randomNumber,
+            'jednotky_0' => $this->faker->word,
+            'Rozměr 2' => $this->faker->word,
+            'popis rozměru (např. s rámem, se soklem, celý papír apod.)' => $this->faker->sentence,
+            'Datace' => $this->faker->year,
+            'Datování (určené)' => $this->faker->year,
+            'Kolekce (budova)' => $this->faker->word,
+            'Sbírka' => $this->faker->word,
+            'OSA 1' => $this->faker->year,
+            'OSA 2' => $this->faker->year,
+            'Materiál' => $this->faker->word,
+            'Technika' => $this->faker->word,
         ];
-
-        foreach ($expected as $key => $value) {
-            $this->assertEquals($value, $items[0]->$key);
-        }
-
-        $this->assertCount(1, $items[0]->collections);
-        $this->assertEquals($collection->name, $items[0]->collections[0]->name);
     }
 }

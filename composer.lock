@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a267c3e2f742d5f4548c13bb6a46bad2",
+    "content-hash": "9cbc8cd3b0bedc60abdb72a3af607578",
     "packages": [
         {
             "name": "anahkiasen/former",
@@ -223,7 +223,7 @@
                 "OAI",
                 "OAI-PMH"
             ],
-            "time": "2016-09-18 00:44:25"
+            "time": "2016-09-18T00:44:25+00:00"
         },
         {
             "name": "classpreloader/classpreloader",
@@ -582,6 +582,56 @@
             "time": "2015-08-20T21:46:55+00:00"
         },
         {
+            "name": "fzaninotto/faker",
+            "version": "v1.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fzaninotto/Faker.git",
+                "reference": "d3ed4cc37051c1ca52d22d76b437d14809fc7e0d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/d3ed4cc37051c1ca52d22d76b437d14809fc7e0d",
+                "reference": "d3ed4cc37051c1ca52d22d76b437d14809fc7e0d",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.3.3 || ^7.0"
+            },
+            "require-dev": {
+                "ext-intl": "*",
+                "phpunit/phpunit": "^4.0 || ^5.0",
+                "squizlabs/php_codesniffer": "^1.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Faker\\": "src/Faker/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "François Zaninotto"
+                }
+            ],
+            "description": "Faker is a PHP library that generates fake data for you.",
+            "keywords": [
+                "data",
+                "faker",
+                "fixtures"
+            ],
+            "time": "2017-08-15T16:48:10+00:00"
+        },
+        {
             "name": "graham-campbell/throttle",
             "version": "v5.3.0",
             "source": {
@@ -798,7 +848,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2017-05-15 08:45:24"
+            "time": "2017-05-15T08:45:24+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -976,7 +1026,7 @@
                 "thumbnail",
                 "watermark"
             ],
-            "time": "2017-04-29 17:52:04"
+            "time": "2017-04-29T17:52:04+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",
@@ -1954,6 +2004,7 @@
                 "xls",
                 "xlsx"
             ],
+            "abandoned": "phpoffice/phpspreadsheet",
             "time": "2015-05-01T07:00:55+00:00"
         },
         {
@@ -2267,7 +2318,7 @@
                 "logging",
                 "lumen"
             ],
-            "time": "2017-05-28 15:51:16"
+            "time": "2017-05-28T15:51:16+00:00"
         },
         {
             "name": "roumen/sitemap",
@@ -2315,7 +2366,7 @@
                 "generator",
                 "laravel"
             ],
-            "time": "2016-10-06 06:13:52"
+            "time": "2016-10-06T06:13:52+00:00"
         },
         {
             "name": "rtconner/laravel-tagging",
@@ -3424,7 +3475,7 @@
                 "permission",
                 "roles"
             ],
-            "time": "2016-12-29 06:25:06"
+            "time": "2016-12-29T06:25:06+00:00"
         }
     ],
     "packages-dev": [

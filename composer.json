@@ -26,7 +26,8 @@
         "mcamara/laravel-localization": "1.2.*",
         "dimsav/laravel-translatable": "6.*",
         "predis/predis": "^1.1",
-        "league/csv": "^8.0"
+        "league/csv": "^8.0",
+        "fzaninotto/faker": "^1.7"
     },
     "autoload": {
         "classmap": [
@@ -63,6 +64,9 @@
         "symfony/css-selector": "~3.0"
     },
     "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        },
         "classmap": [
             "tests/TestCase.php"
         ]
