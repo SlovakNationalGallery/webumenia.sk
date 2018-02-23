@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file[^1].
 - Czech language translations
 - Pattern Library at /patternlib
 - Tests setup
+- Option to run all importers
 
 ### Fixed
 - Prevent upsize when uploading item image
