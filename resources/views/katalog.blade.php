@@ -289,7 +289,12 @@ $(document).ready(function(){
 
     $(window).unbind('.infscr'); //kill scroll binding
 
-    scrollFrame('.item a');
+
+    // fix artwork detail on iOS https://github.com/artsy/scroll-frame/issues/30
+    if (!isMobileSafari() && !isIE()) {
+      scrollFrame('.item a');
+    }
+
 
     $('a#next').click(function(){
         $(this).fadeOut();

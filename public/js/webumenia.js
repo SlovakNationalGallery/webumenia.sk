@@ -312,3 +312,7 @@ var light_style = [
         ]
     }
 ];
+
+function isIE() { return navigator.userAgent.match(/Edge\/|Trident\/|MSIE /); }
+
+function isMobileSafari() { return navigator.userAgent.match(/(iPod|iPhone|iPad)/); }
