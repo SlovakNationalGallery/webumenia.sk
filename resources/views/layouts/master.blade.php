@@ -187,7 +187,7 @@
 	{!! Html::script('js/jquery.infinitescroll.min.js') !!}
     {!! Html::script('js/bootstrap.min.js') !!}
 	{!! Html::script('js/typeahead.bundle.min.js') !!}
-	{!! Html::script('js/webumenia.js') !!}
+    <script src="{!! asset_timed('js/webumenia.js') !!}"></script>
 
 	<!-- Content -->
 	@yield('javascript')
