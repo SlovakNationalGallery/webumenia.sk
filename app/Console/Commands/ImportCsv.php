@@ -60,30 +60,40 @@ class ImportCsv extends Command
             }
             $id = $this->ask('Zadaj ID importu, ktorý sa má spustiť');
         }
-        $import = Import::find($id);
-        if (!$import) {
-            $this->error("Nenašiel sa set pre dané ID.");
-            return;
-        }
 
-        // @todo register importers as services
-        try {
-            $reflection = new \ReflectionClass($import->class_name);
-            if (!$reflection->isInstantiable()) {
-                throw new \Exception('Class is not instantiable');
+        if ($id == '*') {
+            $imports = Import::all();
+        } else {
+            $imports = [Import::find($id)];
+
+            if (!$imports[0]) {
+                $this->error("Nenašiel sa set pre dané ID.");
+                return;
             }
-            $importer = new $import->class_name(new CsvRepository());
-        } catch (\Exception $e) {
-            $this->error("Nenašiel sa importer pre dané ID.");
-            return;
         }
 
-        $files = \Storage::listContents('import/' . $import->dir_path);
-        $csv_files = array_filter($files, function ($object) { return (isSet($object['extension']) && $object['extension'] === 'csv'); });
+        foreach ($imports as $import) {
+            try {
+                // @todo register importers as services
+                $reflection = new \ReflectionClass($import->class_name);
+                if (!$reflection->isInstantiable()) {
+                    throw new \Exception('Class is not instantiable');
+                }
+                $importer = new $import->class_name(new CsvRepository());
+            } catch (\Exception $e) {
+                $this->error(sprintf("Nenašiel sa importer pre ID %s.", $import->id));
+                continue;
+            }
 
-        foreach ($csv_files as $file) {
-            $this->comment("Spúšťa sa import pre {$file['path']}.");
-            $importer->import($import, $file);
+            $files = \Storage::listContents('import/' . $import->dir_path);
+            $csv_files = array_filter($files, function ($object) {
+                return (isSet($object['extension']) && $object['extension'] === 'csv');
+            });
+
+            foreach ($csv_files as $file) {
+                $this->comment("Spúšťa sa import pre {$file['path']}.");
+                $importer->import($import, $file);
+            }
         }
         // $reindex =$this->option('reindex');
         // if ($reindex) {
