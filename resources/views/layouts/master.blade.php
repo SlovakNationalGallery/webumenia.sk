@@ -80,7 +80,7 @@
 
     @if (true)
         <div class="alert alert-danger text-center" role="alert">
-          Ospravedlňujeme sa, ale z technických príčin nie je <strong>dočasne dostupná funkcia zoom</strong>. Na oprave pracujeme, ďakujeme za trpezlivost!
+          Ospravedlňujeme sa, ale z technických príčin nie je <strong>dočasne dostupná funkcia zoom</strong>. Na oprave pracujeme, ďakujeme za trpezlivosť!
         </div>
     @endif
 
