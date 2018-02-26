@@ -238,7 +238,10 @@ class Item extends Model
         return self::search($params);
     }
 
-    public static function getImagePathForId($id, $full = false, $resize = false)
+    /**
+     * $resize_methods = fit | widen | heighten
+     */
+    public static function getImagePathForId($id, $full = false, $resize = false, $resize_method = 'fit')
     {
 
         $levels = 1;
@@ -278,11 +281,26 @@ class Item extends Model
                 $result_path =  $relative_path . "$file.jpeg";
 
                 if ($resize) {
-                    if (!file_exists($full_path . "$file.$resize.jpeg")) {
-                        $img = \Image::make($full_path . "$file.jpeg")->fit($resize)->sharpen(7);
-                        $img->save($full_path . "$file.$resize.jpeg");
+                    $method_prefix = ($resize_method == 'fit') ? '' : substr($resize_method, 0, 1);
+                    if (!file_exists($full_path . "$file.$resize$method_prefix.jpeg")) {
+                        $img = \Image::make($full_path . "$file.jpeg");
+                        switch ($resize_method) {
+                            case 'widen':
+                                $img->widen($resize);
+                                break;
+
+                            case 'heighten':
+                                $img->heighten($resize);
+                                break;
+
+                            default:
+                                $img->fit($resize);
+                                break;
+                        }
+                        $img->sharpen(5);
+                        $img->save($full_path . "$file.$resize$method_prefix.jpeg");
                     }
-                    $result_path = $relative_path . "$file.$resize.jpeg";
+                    $result_path = $relative_path . "$file.$resize$method_prefix.jpeg";
                 }
             } else {
                 $result_path =  self::getNoImage($id);
@@ -490,7 +508,7 @@ class Item extends Model
         }
         $json_params = '
 		{
-		 "aggs" : { 
+		 "aggs" : {
 		    "'.$attribute.'" : {
 		        "terms" : {
 		          "field" : "'.$attribute.'",
@@ -530,7 +548,7 @@ class Item extends Model
     {
         $copyright_length = 70; // 70 rokov po smrti autora
         $limit_according_item_dating = $copyright_length + 60; // 60 = 80 (max_life_lenght) - 20 (start_of_publishing)
-        
+
         // skontrolovat, ci dielo patri institucii, ktora povoluje "volne diela"
         if (!(
             $this->attributes['gallery'] == 'Slovenská národná galéria, SNG' ||
@@ -542,7 +560,7 @@ class Item extends Model
         )) {
             return false;
         }
-        
+
         //ak je autor viac ako 71rokov po smrti
         $authors_are_free = array();
         foreach ($this->authorities as $i => $authority) {
@@ -576,7 +594,7 @@ class Item extends Model
 
         return false;
     }
-    
+
     private function relatedAuthorityIds()
     {
         $ids=array();

@@ -11,7 +11,7 @@
 
 		<title>
 			@section('title')
-			Web umenia 
+			Web umenia
 			@show
 		</title>
 
@@ -44,7 +44,7 @@
 		    document.createElement( "picture" );
 		</script>
 		{!! Html::script('js/picturefill.min.js') !!}
-		
+
         {!! Html::script('js/modernizr.custom.js') !!}
 
 		@if (App::environment() == 'production')
@@ -87,25 +87,16 @@
 	<nav class="navbar {{-- navbar-fixed-top --}} {{-- navbar-static-top --}} {!! (Request::is('/') || isSet($transparent_menu)) ? '' : 'dark-text' !!}" role="navigation">
 	    <div class="container">
 	        <div class="navbar-header page-scroll">
-	            <div class="langswitch-wrapper">
-                    <a class="dropdown-toggle langswitch-toggle uppercase triangle-top-left" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                      {{ App::getLocale() }} <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        @foreach(LaravelLocalization::getLocalesOrder() as $localeCode => $properties)
-                            @if ($localeCode != App::getLocale())
-                                <li>
-                                    <a class="uppercase" rel="alternate" hreflang="{{$localeCode}}" href="{{LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                                      {{ $localeCode }}
-                                    </a>
-                                </li>
-                            @endif
-                        @endforeach
-                    </ul>
-                </div>
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                    <i class="fa fa-bars fa-2x"></i>
-                </button>
+
+              @include('components.langswitch', [
+                'currentLocale' => App::getLocale(),
+                'localesOrdered' => LaravelLocalization::getLocalesOrder(),
+                'localizedURLs' => getLocalizedURLArray(),
+              ])
+
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                  <i class="fa fa-bars fa-2x"></i>
+              </button>
 	            <a class="navbar-brand no-border hidden-xs first-part" href="{!! URL::to('') !!}">
 	                web
 	            </a>
@@ -117,7 +108,7 @@
 	            <a class="navbar-brand no-border hidden-xs second-part" href="{!! URL::to('') !!}">
 	                umenia
 	            </a>
-	            {{-- 
+	            {{--
 	            @if (Request::is('dielo/*') && isSet($collection))
 	            	 <a href="{!! $collection->getUrl() !!}" class="navbar-brand text-small hidden-xs hidden-sm">/&nbsp; {!! $collection->name !!}</a>
 	            @endif
@@ -177,7 +168,7 @@
       			<p class="text-muted text-right">{{ utrans('master.made_by') }} <a href="http://lab.sng.sk" target="_blank" class="sans">lab.SNG</a></p>
       		</div>
       	</div>
-        
+
       </div>
     </div>
 
@@ -189,13 +180,12 @@
 
 	<!-- Core JavaScript Files -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/4.0.1/lazysizes.min.js" async=""></script>
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 	<script src="https://unpkg.com/flickity@1.1/dist/flickity.pkgd.min.js"></script>
-	{!! Html::script('js/imagesloaded.min.js') !!}
 	{!! Html::script('js/jquery.infinitescroll.min.js') !!}
-	{!! Html::script('js/jquery.isotope.min.js') !!}
-	{!! Html::script('js/jquery.isotope.sloppy-masonry.min.js') !!}
-	{!! Html::script('js/bootstrap.min.js') !!}
+    {!! Html::script('js/bootstrap.min.js') !!}
 	{!! Html::script('js/typeahead.bundle.min.js') !!}
 	{!! Html::script('js/webumenia.js') !!}
 

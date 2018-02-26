@@ -27,7 +27,7 @@ return array(
 
     'mozete_heading'               => 'U nás môžete',
     'mozete_col_stahovat_heading'  => 'Sťahovať voľné diela',
-    'mozete_col_stahovat_li_1'     => 'Digitálne reprodukcie autorskoprávne voľných diel SNG na tejto stránke sú sprístupnené ako <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank"><strong>verejné vlastníctvo (public domain)</strong></a>. Môžete si ich voľne stiahnuť <strong>vo vysokom rozlíšení</strong> a využívať na súkromné aj komerčné účely - kopírovať, zdieľať či upravovať. ',
+    'mozete_col_stahovat_li_1'     => 'Digitálne reprodukcie autorskoprávne voľných diel SNG na tejto stránke sú sprístupnené ako <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank"><strong>verejné vlastníctvo (public domain)</strong></a>. Môžete si ich voľne stiahnuť <strong>vo vysokom rozlíšení</strong> a využívať na súkromné aj komerčné účely - kopírovať, zdieľať či upravovať. ',
     'mozete_col_stahovat_li_2'     => 'Pri ďalšom šírení <strong>prosíme uviesť meno autora, názov, inštitúciu a zdroj</strong> (<a href="http://www.webumenia.sk">webumenia.sk</a>)',
     'mozete_col_stahovat_li_3'     => 'Ak plánujete využiť reprodukcie na <strong>komerčné účely</strong>, prosím informujte nás o vašich plánoch vopred, vieme vám poradiť.',
     'mozete_col_vyuzivat_heading'  => 'Využívať voľné diela',
@@ -50,6 +50,7 @@ return array(
                                              <li><strong>Lukáš Štepanovský</strong> editor obsahu, autor článkov</li>
                                              <li><strong>Igor Rjabinin</strong> vývojár</li>
                                              <li><strong>Philo van Kemenade</strong> vývojár</li>
+                                             <li><strong>Rastislav Chynoranský</strong> vývojár</li>
                                              <li><strong>Gabriel Balkó</strong> kontrolór kvality, editor obsahu</li>
                                              <li><strong>Braňo Matis</strong> grafický dizajnér</li>',
 
