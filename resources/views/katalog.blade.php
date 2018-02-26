@@ -180,7 +180,7 @@
 {{-- {!! Html::script('js/bootstrap-checkbox.js') !!} --}}
 {!! Html::script('js/selectize.min.js') !!}
 {!! Html::script('js/readmore.min.js') !!}
-{!! Html::script('js/scroll-frame.js') !!}
+<script src="{!! asset_timed('js/scroll-frame.js') !!}"></script>
 
 <script type="text/javascript">
 
@@ -246,7 +246,7 @@ $(document).ready(function(){
                  //         '</div>';
                  // },
                  item: function(data, escape) {
-                     return '<div class="item">'  + '<span class="color">'+this.settings.placeholder+': </span>' +  data.text.replace(/\(.*?\)/g, "") + '</div>';
+                     return '<div class="selected-item">'  + '<span class="color">'+this.settings.placeholder+': </span>' +  data.text.replace(/\(.*?\)/g, "") + '</div>';
             }
         }
     });
@@ -289,8 +289,7 @@ $(document).ready(function(){
 
     $(window).unbind('.infscr'); //kill scroll binding
 
-    scrollFrame('.item');
-
+    scrollFrame('.item a');
 
     $('a#next').click(function(){
         $(this).fadeOut();
