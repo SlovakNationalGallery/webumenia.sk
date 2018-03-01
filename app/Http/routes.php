@@ -102,10 +102,7 @@ function()
                 $order->items()->attach($item_id);
             }
 
-            return redirect('dakujeme');
-
             //poslat objednavku do Jiry
-            /*
             $client = new GuzzleHttp\Client();
             $res = $client->post('https://jira.sng.sk/rest/cedvu/latest/order/create', [
                 'auth' => [Config::get('app.jira_auth.user'), Config::get('app.jira_auth.pass')],
@@ -133,7 +130,6 @@ function()
 
                 return Redirect::back()->withInput();
             }
-            */
         }
 
         return Redirect::back()->withInput()->withErrors($v);
