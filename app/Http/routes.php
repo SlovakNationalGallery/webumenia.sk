@@ -102,6 +102,7 @@ function()
                 $order->items()->attach($item_id);
             }
 
+            Session::forget('cart');
             return redirect('dakujeme');
 
             //poslat objednavku do Jiry
