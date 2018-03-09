@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [1.3.1] - 2018-03-09
+### Fixed
+- OAI-PMH harvester for translated attributes
+
 ## [1.3.0] - 2018-02-20
 ### Added
 - Importer module
