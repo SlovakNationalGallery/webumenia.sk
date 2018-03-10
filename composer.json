@@ -64,6 +64,9 @@
         "symfony/css-selector": "~3.0"
     },
     "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        },
         "classmap": [
             "tests/TestCase.php"
         ]
