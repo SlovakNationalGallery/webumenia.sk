@@ -11,5 +11,5 @@ return array(
     |
     */
 
-    'no_translation'        => "Some elements on this page haven't yet been translated to English. ¯\_(ツ)_/¯",
+    'no_translation'        => "Některé prvky na této stránce nejsou přeloženy do češtiny. ¯\_(ツ)_/¯",
 );
