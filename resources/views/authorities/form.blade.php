@@ -215,7 +215,7 @@ $(document).ready(function(){
   $('#image-editor').cropit({
     imageBackground: true,
     imageBackgroundBorderWidth: 20
-    @if (isset($authority) && $authority->has_image)
+    @if (isset($authority) && $authority->has_image && file_exists($authority->getImagePath(true)) )
       ,imageState: {
         src: '{!! $authority->getImagePath() !!}'
     }
