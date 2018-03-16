@@ -4,7 +4,7 @@
         "class_names": "artworks-preview"
     },
     "data_calls" : {
-        "items": "use App\\Item; return Item::find('SVK:SNG.A_1694-8')->moreLikeThis(10);"
+        "items": "use App\\Item; return Item::random(10, ['has_image' => 'true']);"
     },
     "include_js": true,
     "data_js": {
