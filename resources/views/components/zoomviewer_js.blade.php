@@ -118,14 +118,14 @@ $("document").ready(function()
     viewer.forceRedraw();
   });
 
-
- document.oncontextmenu = function() {$('#zoom-out').click(); return false;};
+ // zoom out instead of showing context menu on right click
+ viewer.canvas.oncontextmenu = function() {$('#zoom-out').click(); return false;};
 
  // $(document).dblclick(function() {
  //   viewer.viewport.goHome();
  // });
 
- $(document).mousedown(function(e){ 
+ $(viewer.canvas).mousedown(function(e){ 
   if( e.button == 2 ) {
     viewer.viewport.zoomBy(0.45); //0.9 * 0.5
     return false; 
@@ -173,7 +173,7 @@ $("document").ready(function()
     interval = interval+1;
  },1000);
 
- $(document).bind('mousemove keydown', function() {
+ $(viewer.canvas).bind('mousemove keydown', function() {
      $('.autohide, .referencestrip').fadeIn();
      interval = 1;
  });
