@@ -38,11 +38,15 @@ Pattern Library | @parent
                             
                             <h4>Component</h4>
                             <div class="clearfix">
-                                <div class="relative">
+                                <div class="relative {{ isset($component['wrapper_classes']) ? $component['wrapper_classes'] : '' }}">
                                     @include($component['include_path'], $component['data'])
                                     @if (isset($component['include_path_js']))
-                                        @section('javascript')
-                                            @include($component['include_path_js'], $component['data_js'])
+                                        @section('javascript')                                            
+                                            @if (isset($component['data_js']))
+                                                @include($component['include_path_js'], array_merge($component['data'], $component['data_js']))
+                                            @else
+                                                @include($component['include_path_js'], $component['data'])
+                                            @endif
                                         @append
                                     @endif
                                 </div>

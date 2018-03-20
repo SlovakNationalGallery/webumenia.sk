@@ -200,6 +200,16 @@ class Item extends Model
         return Config::get('app.old_url').'/oai-pmh/?verb=GetRecord&metadataPrefix=oai_dc&identifier='.$this->id;
     }
 
+    public function getRelatedIIPImgUrls()
+    {
+        if (!empty($this->related_work)) {
+            return Item::where('related_work', '=', $this->related_work)->where('author', '=', $this->author)->whereNotNull('iipimg_url')->orderBy('related_work_order')->lists('iipimg_url')->toArray();
+        }
+        else {
+            return [];
+        }
+    }
+
     public function moreLikeThis($size = 10)
     {
         $params = array();
