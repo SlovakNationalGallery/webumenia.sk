@@ -183,21 +183,6 @@ $("document").ready(function()
     interval = 1;
  });
 
- viewer.addHandler('canvas-drag-end', changePage(event) );
-
- viewer.addHandler('zoom', function () {
-     if (!isLoaded) return;
-
-     if (viewer.viewport.getZoom() > viewer.viewport.getHomeZoom() ) {
-        // viewer.panHorizontal = true;
-        viewer.removeHandler('canvas-drag-end');
-     } else {
-        // viewer.panHorizontal = false;
-        viewer.addHandler('canvas-drag-end', changePage(event) );
-     }
- });
-
-
  viewer.addHandler('tile-drawn', function () {
         isLoaded = true;
         
