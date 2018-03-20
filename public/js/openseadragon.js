@@ -10440,12 +10440,12 @@ var I18N = {
     },
 
     Tooltips: {
-        FullPage:       "Toggle full page",
+        FullPage:       "Toggle full screen",
         Home:           "Go home",
         ZoomIn:         "Zoom in",
         ZoomOut:        "Zoom out",
-        NextPage:       "Next page",
-        PreviousPage:   "Previous page",
+        NextPage:       "Next",
+        PreviousPage:   "Previous",
         RotateLeft:     "Rotate left",
         RotateRight:    "Rotate right"
     }
