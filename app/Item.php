@@ -107,6 +107,11 @@ class Item extends Model
         'publish',
     );
 
+    protected $dates = array(
+        'created_at',
+        'updated_at',
+    );
+
     public static $rules = array(
         'author' => 'required',
         'sk.title'  => 'required',
