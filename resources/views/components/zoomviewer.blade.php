@@ -7,8 +7,8 @@
     <a id="home" href="#home" title="zoom to fit"><i class="fa fa-home"></i></a> 
     <a id="full-page" href="#full-page" title="zobraz fullscreen"><i class="fa fa-expand"></i></a> 
     @if ($related_items)
-      <a id="previous" href="#previous" title="predchádzajúce súvisiace dielo"><i class="fa fa-arrow-left"></i></a> 
-      <a id="next" href="#next" title="nasledujúce súvisiace dielo"><i class="fa fa-arrow-right"></i></a> 
+      <a id="previous" href="#previous" title="predchádzajúce súvisiace dielo"><i class="fa fa-arrow-up"></i></a> 
+      <a id="next" href="#next" title="nasledujúce súvisiace dielo"><i class="fa fa-arrow-down"></i></a> 
     @endif
   </div>
   
