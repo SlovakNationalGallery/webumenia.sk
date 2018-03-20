@@ -49,15 +49,26 @@ class SetupElasticsearch extends Command
     }
 
     // get available locales based on directory names
-    $available_locales = array_map('basename', glob($BASE_PATH ."/*", GLOB_ONLYDIR));
+    $available_es_locales = array_map('basename', glob($BASE_PATH ."/*", GLOB_ONLYDIR));
+
+    $missing_es_locales = array_diff(config('translatable.locales'), $available_es_locales);
+    // dd($missing_es_locales);
+
+    // check if we have defined ES schema for every enabled locale for translatable models
+    if (!empty($missing_es_locales)) {
+      $this->error('ES setup configuration is missing for the following localizations: [' . implode(', ', $missing_es_locales). ']');
+      $this->error('Please add ES setup configuration or disable them in the application');
+
+      return;
+    }
 
     // let user select from available locales
-    $locale_options = array_merge(['all'], $available_locales);
+    $locale_options = array_merge(['all'], $available_es_locales);
     $selected_locale = $this->choice('Which locale(s) do you want to set up?', $locale_options, 0);
 
     if ($selected_locale == 'all') {
-      foreach ($available_locales as $key => $locale) {
-        $this->setup_for_locale($client, $host, $BASE_PATH, $locale);  
+      foreach ($available_es_locales as $key => $locale) {
+        $this->setup_for_locale($client, $host, $BASE_PATH, $locale);
       }
     }
     else {
