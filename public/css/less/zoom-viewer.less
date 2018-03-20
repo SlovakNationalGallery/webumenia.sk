@@ -62,19 +62,12 @@ body.template-zoom {
   }
 
   .referencestrip {
-    // background: #fff !important;
     background: transparent !important;
     min-width: 50px !important;
-    // opacity: 0.9;
-    // -webkit-transition: opacity 0.5s ease-in-out;
-    // -moz-transition: opacity 0.5s ease-in-out;
-    // -o-transition: opacity 0.5s ease-in-out;
-    // -ms-transition: opacity 0.5s ease-in-out;
-    // transition: opacity 0.5s ease-in-out;
+    
     & > div {
       background: rgba(255, 255, 255, 0.8) !important;
       min-width: 50px !important;
-      // background: transparent !important;
       &:hover {
         background: rgba(255, 255, 255, 1.0) !important;
       }
@@ -83,6 +76,13 @@ body.template-zoom {
       }
     }
     & textarea {resize: none;}
+  }
+
+  /* position Image Reference Strip on right side of viewer */
+  .openseadragon-container > .openseadragon-canvas + div {
+    right: 20px !important;
+    left: initial !important;
+    top: 72px !important;
   }
 
   .currentpage, .credit {
