@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Changed
+- Favicons & Open Graph tags include components
+- positioned image reference strip on right side of zoom-viewer
+
+### Added
+- zoom-viewer component
 
 ## [1.3.1] - 2018-03-09
 ### Fixed
