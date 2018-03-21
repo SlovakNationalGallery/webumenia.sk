@@ -203,7 +203,7 @@ class Item extends Model
     public function getRelatedIIPImgUrls()
     {
         if (!empty($this->related_work)) {
-            return Item::where('related_work', '=', $this->related_work)->where('author', '=', $this->author)->whereNotNull('iipimg_url')->orderBy('related_work_order')->lists('iipimg_url')->toArray();
+            return self::where('related_work', '=', $this->related_work)->where('author', '=', $this->author)->whereNotNull('iipimg_url')->orderBy('related_work_order')->lists('iipimg_url')->toArray();
         }
         else {
             return [];
