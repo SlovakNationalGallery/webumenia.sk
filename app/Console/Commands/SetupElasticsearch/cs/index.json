@@ -1,0 +1,69 @@
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "autocomplete_filter": {
+          "type": "edge_ngram",
+          "min_gram": 2,
+          "max_gram": 20
+        },
+        "lemmagen_filter_cs": {
+          "type": "lemmagen",
+          "lexicon": "cs"
+        },
+        "synonym_filter_cs": {
+          "type": "synonym",
+          "synonyms_path": "synonyms/synonyms_cz.txt",
+          "ignore_case": true
+        },
+        "stopwords_filter_cs": {
+          "type": "stop",
+          "stopwords_path": "stop-words/stop-words-czech2.txt",
+          "ignore_case": true
+        }
+      },
+      "analyzer": {
+        "cestina_synonym": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "stopwords_filter_cs",
+            "lemmagen_filter_cs",
+            "lowercase",
+            "stopwords_filter_cs",
+            "synonym_filter_cs",
+            "asciifolding"
+          ]
+        },
+        "cestina": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "stopwords_filter_cs",
+            "lemmagen_filter_cs",
+            "lowercase",
+            "stopwords_filter_cs",
+            "asciifolding"
+          ]
+        },
+        "autocomplete": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "asciifolding",
+            "autocomplete_filter"
+          ]
+        },
+        "ascii_folding": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "asciifolding"
+          ]
+        }
+      }
+    }
+  }
+}
