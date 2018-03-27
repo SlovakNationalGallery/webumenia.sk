@@ -11,7 +11,7 @@
           "type": "lemmagen",
           "lexicon": "cs"
         },
-        "synonym_filter_cs": {
+        "synonyms_filter_cs": {
           "type": "synonym",
           "synonyms_path": "synonyms/synonyms_cz.txt",
           "ignore_case": true
@@ -23,7 +23,7 @@
         }
       },
       "analyzer": {
-        "cestina_synonym": {
+        "cestina_synonyms": {
           "type": "custom",
           "tokenizer": "standard",
           "filter": [
@@ -31,7 +31,7 @@
             "lemmagen_filter_cs",
             "lowercase",
             "stopwords_filter_cs",
-            "synonym_filter_cs",
+            "synonyms_filter_cs",
             "asciifolding"
           ]
         },

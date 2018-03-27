@@ -11,7 +11,7 @@
           "type": "lemmagen",
           "lexicon": "sk"
         },
-        "synonym_filter_sk": {
+        "synonyms_filter_sk": {
           "type": "synonym",
           "synonyms_path": "synonyms/sk_SK.txt",
           "ignore_case": true
@@ -23,7 +23,7 @@
         }
       },
       "analyzer": {
-        "slovencina_synonym": {
+        "slovencina_synonyms": {
           "type": "custom",
           "tokenizer": "standard",
           "filter": [
@@ -31,7 +31,7 @@
             "lemmagen_filter_sk",
             "lowercase",
             "stopwords_filter_sk",
-            "synonym_filter_sk",
+            "synonyms_filter_sk",
             "asciifolding"
           ]
         },
