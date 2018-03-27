@@ -66,13 +66,14 @@ ProxyPass /fcgi-bin/iipsrv.fcgi http://imi.sng.cust.eea.sk/publicIS/fcgi-bin/iip
 ProxyPassReverse /fcgi-bin/iipsrv.fcgi http://imi.sng.cust.eea.sk/publicIS/fcgi-bin/iipsrv.fcgi
 ```
 
-### Updating Elastic Search
+### Setting up Elastic Search
 
 * necessary steps are specified in the file `ES2_migration_steps.txt`
 * command to generate ES2 compatible index:
 `php artisan es:setup`
 * command to reindex data to the index
 `php artisan es:reindex`
+* more info about the files and plugins used by the `es:setup` command can be found in this [Readme file](https://github.com/SlovakNationalGallery/web-umenia-2/blob/master/app/Console/Commands/SetupElasticsearch/README.md)
 
 ## Maintainer
 
