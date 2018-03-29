@@ -11,6 +11,16 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase
      */
     protected $baseUrl = 'http://localhost';
 
+    /** @var \Faker\Generator */
+    protected $faker;
+
+    public function setUp() {
+        parent::setUp();
+        if ($this->faker === null) {
+            $this->faker = \Faker\Factory::create(\App::getLocale());
+        }
+    }
+
     /**
      * Creates the application.
      *

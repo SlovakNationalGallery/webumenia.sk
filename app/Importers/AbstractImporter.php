@@ -71,7 +71,7 @@ abstract class AbstractImporter implements IImporter {
 
     public function import(Import $import, array $file)
     {
-        DB::beginTransaction();
+        \DB::beginTransaction();
 
         $import_record = $this->createImportRecord(
             $import->id,
@@ -101,10 +101,10 @@ abstract class AbstractImporter implements IImporter {
                 $import_record->imported_items++;
             }
 
-            DB::commit();
+            \DB::commit();
             $import_record->status = Import::STATUS_COMPLETED;
         } catch (\Exception $e) {
-            DB::rollback();
+            \DB::rollback();
             $import_record->status = Import::STATUS_ERROR;
             $import_record->error_message = $e->getMessage();
             $import_record->wrong_items++;
