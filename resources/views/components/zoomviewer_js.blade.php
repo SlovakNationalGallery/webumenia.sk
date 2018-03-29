@@ -4,17 +4,14 @@
 <script type="text/javascript">
   $("document").ready(function() {
 
-    var server = '/fcgi-bin/iipsrv.fcgi';
-    var image = '{!! $item->iipimg_url !!}';
-    var initial = {!! ($related_items) ? array_search($item->iipimg_url, $related_items ) : 0!!};
+    var initial = {!! $index !!};
 
     var images = [
-      @foreach ($related_items as $url)
-      '/fcgi-bin/iipsrv.fcgi?DeepZoom={!! $url !!}.dzi',
+      @foreach ($images as $image)
+      '/fcgi-bin/iipsrv.fcgi?DeepZoom={!! $image->iipimg_url !!}.dzi',
       @endforeach
     ];
 
-    var pocet = {!! count($related_items) !!};
     var isLoaded = false;
 
     function shortenCopyright() {
@@ -36,7 +33,7 @@
     };
 
     function getNextPage() {
-      if (viewer.currentPage() < pocet) {
+      if (viewer.currentPage() < images.length) {
         rotationChecked = false;
         viewer.goToPage(viewer.currentPage() + 1); 
       }
@@ -73,10 +70,8 @@
       minZoomLevel: 0,
       defaultZoomLevel: 0,
       autoResize: false,
-      @if (empty($related_items))
-      tileSources: server + "?DeepZoom=" + image + ".dzi"
-      @else
       tileSources: images,
+      @if (count($images) > 1)
       autoHideControls: false,
       controlsFadeDelay: 1000,  //ZOOM/HOME/FULL/SEQUENCE
       controlsFadeLength: 500,  //ZOOM/HOME/FULL/SEQUENCE

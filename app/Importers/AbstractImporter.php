@@ -6,7 +6,6 @@ use App\Import;
 use App\ImportRecord;
 use App\Item;
 use App\Repositories\IFileRepository;
-use Intervention\Image\Image;
 use Symfony\Component\Console\Exception\LogicException;
 
 
@@ -256,7 +255,6 @@ abstract class AbstractImporter implements IImporter {
     /**
      * @param Item $item
      * @param string $path
-     * @return Image
      */
     protected function uploadImage(Item $item, $path) {
         $uploaded_image = \Image::make($path);

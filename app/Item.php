@@ -158,7 +158,7 @@ class Item extends Model
 
     public function images()
     {
-        return $this->hasMany(Image::class);
+        return $this->hasMany(Image::class)->orderBy('order');
     }
 
     public function getImagePath($full = false)
@@ -203,16 +203,6 @@ class Item extends Model
     public function getOaiUrl()
     {
         return Config::get('app.old_url').'/oai-pmh/?verb=GetRecord&metadataPrefix=oai_dc&identifier='.$this->id;
-    }
-
-    public function getRelatedIIPImgUrls()
-    {
-        if (!empty($this->related_work)) {
-            return self::where('related_work', '=', $this->related_work)->where('author', '=', $this->author)->whereNotNull('iipimg_url')->orderBy('related_work_order')->lists('iipimg_url')->toArray();
-        }
-        else {
-            return [];
-        }
     }
 
     public function moreLikeThis($size = 10)
@@ -644,6 +634,14 @@ class Item extends Model
         return $query->where('gallery', '=', 'Slovenská národná galéria, SNG');
     }
 
+
+    public function scopeRelated($query, Item $item)
+    {
+        return $query->where('related_work', '=', $item->related_work)
+            ->where('author', '=', $item->author)
+            ->orderBy('related_work_order');
+    }
+
     public function download()
     {
 
@@ -718,11 +716,23 @@ class Item extends Model
         return implode(', ', $this->authors)  . $dash .  $this->title;
     }
 
+    public function getHasIipAttribute() {
+        return !$this->getZoomableImages()->isEmpty();
+    }
+
+    public function getZoomableImages()
+    {
+        return $this->images->filter(function (Image $image) {
+            return $image->iipimg_url !== null;
+        });
+    }
+
     public function index()
     {
             $client =  $this->getElasticClient();
             $work_types = $this->work_types;
             $main_work_type = reset($work_types);
+
             $data = [
                 'id' => $this->attributes['id'],
                 'identifier' => $this->attributes['identifier'],
@@ -743,7 +753,7 @@ class Item extends Model
                 'updated_at' => $this->attributes['updated_at'],
                 'created_at' => $this->attributes['created_at'],
                 'has_image' => (bool)$this->has_image,
-                'has_iip' => (bool)$this->iipimg_url,
+                'has_iip' => (bool)$this->has_iip,
                 'is_free' => $this->isFree(),
                 // 'free_download' => $this->isFreeDownload(), // staci zapnut is_free + has_iip
                 'related_work' => $this->related_work,
@@ -755,7 +765,7 @@ class Item extends Model
                 'index' => Config::get('bouncy.index'),
                 'type' =>  self::ES_TYPE,
                 'id' => $this->attributes['id'],
-                'body' =>$data,
+                'body' => $data,
             ]);
     }
 

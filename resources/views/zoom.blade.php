@@ -23,8 +23,8 @@
  </head>
 
  <body class="template-zoom">
-  @include('components.zoomviewer', ['item' => $item, 'related_items' => $related_items])
-  @include('components.zoomviewer_js', ['item' => $item, 'related_items' => $related_items])
+  @include('components.zoomviewer', ['item' => $item, 'images' => $images, 'index' => $index])
+  @include('components.zoomviewer_js', ['item' => $item, 'images' => $images, 'index' => $index])
  </body>
 
 </html>
