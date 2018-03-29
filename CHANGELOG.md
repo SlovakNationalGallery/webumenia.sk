@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Added
 - zoom-viewer component
+- Moravian gallery importer
 
 ## [1.3.1] - 2018-03-09
 ### Fixed
