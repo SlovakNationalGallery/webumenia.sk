@@ -61,6 +61,8 @@ return [
     */
     'fallback_locale' => 'sk',
 
+    'use_property_fallback' => true,
+
     /*
     |--------------------------------------------------------------------------
     | Translation Suffix
