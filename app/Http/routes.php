@@ -31,9 +31,9 @@ Route::group(['domain' => 'media.webumenia.{tld}'], function () {
 
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
-    'middleware' => [ 'localeSessionRedirect', 'localizationRedirect' ]
-], 
-function() 
+    'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localizeElastic' ]
+],
+function()
 {
     Route::get('leto', function () {
 
