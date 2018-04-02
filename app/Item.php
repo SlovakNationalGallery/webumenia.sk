@@ -27,21 +27,21 @@ class Item extends Model
     const ES_TYPE = 'items';
 
     public $translatedAttributes = [
-        'title', 
-        'description', 
-        'work_type', 
-        'work_level', 
-        'topic', 
-        'subject', 
-        'measurement', 
-        'dating', 
-        'medium', 
-        'technique', 
-        'inscription', 
-        'place', 
-        'state_edition', 
-        'gallery', 
-        'relationship_type', 
+        'title',
+        'description',
+        'work_type',
+        'work_level',
+        'topic',
+        'subject',
+        'measurement',
+        'dating',
+        'medium',
+        'technique',
+        'inscription',
+        'place',
+        'state_edition',
+        'gallery',
+        'relationship_type',
         'related_work'
     ];
 
@@ -515,7 +515,7 @@ class Item extends Model
         }
         $json_params = '
 		{
-		 "aggs" : { 
+		 "aggs" : {
 		    "'.$attribute.'" : {
 		        "terms" : {
 		          "field" : "'.$attribute.'",
@@ -555,7 +555,7 @@ class Item extends Model
     {
         $copyright_length = 70; // 70 rokov po smrti autora
         $limit_according_item_dating = $copyright_length + 60; // 60 = 80 (max_life_lenght) - 20 (start_of_publishing)
-        
+
         // skontrolovat, ci dielo patri institucii, ktora povoluje "volne diela"
         if (!(
             $this->gallery == 'Slovenská národná galéria, SNG' ||
@@ -567,7 +567,7 @@ class Item extends Model
         )) {
             return false;
         }
-        
+
         //ak je autor viac ako 71rokov po smrti
         $authors_are_free = array();
         foreach ($this->authorities as $i => $authority) {
@@ -601,7 +601,7 @@ class Item extends Model
 
         return false;
     }
-    
+
     private function relatedAuthorityIds()
     {
         $ids=array();
@@ -713,42 +713,49 @@ class Item extends Model
     public function index()
     {
             $client =  $this->getElasticClient();
-            $work_types = $this->work_types;
-            $main_work_type = reset($work_types);
-            $data = [
-                'id' => $this->id,
-                'identifier' => $this->identifier,
-                'title' => $this->title,
-                'author' => $this->makeArray($this->author),
-                'description' => (!empty($this->description)) ? strip_tags($this->description) : '',
-                'work_type' => $main_work_type, // ulozit iba prvu hodnotu
-                'topic' => $this->makeArray($this->topic),
-                'tag' => $this->tagNames(),
-                'place' => $this->makeArray($this->place),
-                'measurement' => $this->measurments,
-                'dating' => $this->dating,
-                'date_earliest' => $this->date_earliest,
-                'date_latest' => $this->date_latest,
-                'medium' => $this->medium,
-                'technique' => $this->makeArray($this->technique),
-                'gallery' => $this->gallery,
-                'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
-                'created_at' => $this->created_at->format('Y-m-d H:i:s'),
-                'has_image' => (bool)$this->has_image,
-                'has_iip' => (bool)$this->iipimg_url,
-                'is_free' => $this->isFree(),
-                // 'free_download' => $this->isFreeDownload(), // staci zapnut is_free + has_iip
-                'related_work' => $this->related_work,
-                'authority_id' => $this->relatedAuthorityIds(),
-                'view_count' => $this->view_count,
-            ];
+            $elastic_translatable = \App::make('ElasticTranslatableService');
 
-            return $client->index([
-                'index' => Config::get('bouncy.index'),
-                'type' =>  self::ES_TYPE,
-                'id' => $this->attributes['id'],
-                'body' =>$data,
-            ]);
+            foreach (config('translatable.locales') as $locale) {
+
+                $translated_item = $this->getTranslation($locale);
+
+                $work_types = $translated_item->work_types;
+                $main_work_type = (is_array($work_types)) ? reset($work_types) : '';
+                $data = [
+                    'id' => $translated_item->id,
+                    'identifier' => $translated_item->identifier,
+                    'title' => $translated_item->title,
+                    'author' => $this->makeArray($translated_item->author),
+                    'description' => (!empty($translated_item->description)) ? strip_tags($translated_item->description) : '',
+                    'work_type' => $main_work_type, // ulozit iba prvu hodnotu
+                    'topic' => $this->makeArray($translated_item->topic),
+                    'tag' => $this->tagNames(), // @TODO translate this
+                    'place' => $this->makeArray($translated_item->place),
+                    'measurement' => $translated_item->measurments,
+                    'dating' => $translated_item->dating,
+                    'date_earliest' => $translated_item->date_earliest,
+                    'date_latest' => $translated_item->date_latest,
+                    'medium' => $translated_item->medium,
+                    'technique' => $this->makeArray($translated_item->technique),
+                    'gallery' => $translated_item->gallery,
+                    'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
+                    'created_at' => $this->created_at->format('Y-m-d H:i:s'),
+                    'has_image' => (bool)$translated_item->has_image,
+                    'has_iip' => (bool)$translated_item->iipimg_url,
+                    'is_free' => $this->isFree(),
+                    // 'free_download' => $translated_item->isFreeDownload(), // staci zapnut is_free + has_iip
+                    'related_work' => $this->related_work,
+                    'authority_id' => $this->relatedAuthorityIds(),
+                    'view_count' => $this->view_count,
+                ];
+
+                $client->index([
+                    'index' => $elastic_translatable->getIndexForLocale($locale),
+                    'type' =>  self::ES_TYPE,
+                    'id' => $this->attributes['id'],
+                    'body' =>$data,
+                ]);
+            }
     }
 
     public static function getSortedLabelKey($sort_by = null)
