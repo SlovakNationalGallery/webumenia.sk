@@ -226,6 +226,16 @@ class Item extends Model
         return Config::get('app.old_url').'/oai-pmh/?verb=GetRecord&metadataPrefix=oai_dc&identifier='.$this->id;
     }
 
+    public function getRelatedIIPImgUrls()
+    {
+        if (!empty($this->related_work)) {
+            return self::where('related_work', '=', $this->related_work)->where('author', '=', $this->author)->whereNotNull('iipimg_url')->orderBy('related_work_order')->lists('iipimg_url')->toArray();
+        }
+        else {
+            return [];
+        }
+    }
+
     public function moreLikeThis($size = 10)
     {
         $params = array();
@@ -264,7 +274,10 @@ class Item extends Model
         return self::search($params);
     }
 
-    public static function getImagePathForId($id, $full = false, $resize = false)
+    /**
+     * $resize_methods = fit | widen | heighten
+     */
+    public static function getImagePathForId($id, $full = false, $resize = false, $resize_method = 'fit')
     {
 
         $levels = 1;
@@ -304,11 +317,26 @@ class Item extends Model
                 $result_path =  $relative_path . "$file.jpeg";
 
                 if ($resize) {
-                    if (!file_exists($full_path . "$file.$resize.jpeg")) {
-                        $img = \Image::make($full_path . "$file.jpeg")->fit($resize)->sharpen(7);
-                        $img->save($full_path . "$file.$resize.jpeg");
+                    $method_prefix = ($resize_method == 'fit') ? '' : substr($resize_method, 0, 1);
+                    if (!file_exists($full_path . "$file.$resize$method_prefix.jpeg")) {
+                        $img = \Image::make($full_path . "$file.jpeg");
+                        switch ($resize_method) {
+                            case 'widen':
+                                $img->widen($resize);
+                                break;
+
+                            case 'heighten':
+                                $img->heighten($resize);
+                                break;
+
+                            default:
+                                $img->fit($resize);
+                                break;
+                        }
+                        $img->sharpen(5);
+                        $img->save($full_path . "$file.$resize$method_prefix.jpeg");
                     }
-                    $result_path = $relative_path . "$file.$resize.jpeg";
+                    $result_path = $relative_path . "$file.$resize$method_prefix.jpeg";
                 }
             } else {
                 $result_path =  self::getNoImage($id);

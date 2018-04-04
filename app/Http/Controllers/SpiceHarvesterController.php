@@ -767,9 +767,9 @@ class SpiceHarvesterController extends Controller
              */
 
             $localeForLang = [
-                "slk" => "sk",
-                "eng" => "en",
-                "cze" => "cs",
+                "sk" => "sk",
+                "en" => "en",
+                "cs" => "cs",
             ];
 
             $langsPresent = $this->get_langs_present_in_record($rec);
@@ -815,7 +815,7 @@ class SpiceHarvesterController extends Controller
             $attributes['sk']['measurement'] = trim($dcTerms->extent);
             $attributes['sk']['inscription'] = $this->serialize($dcElements->description);
             $attributes['sk']['place'] = $this->serialize($dcElements->{'subject.place'});
-            $attributes['sk']['gallery'] = $dcTerms->provenance;
+            $attributes['sk']['gallery'] = $this->serialize($dcTerms->provenance);
 
             $dating = explode('/', $dcTerms->created[0]);
             if (!empty($dcTerms->created[1])) {

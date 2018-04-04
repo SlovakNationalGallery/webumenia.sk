@@ -1,0 +1,14 @@
+{
+    "name": "Artwork carousel",
+    "data": {
+        "class_names": "artworks-preview"
+    },
+    "data_calls" : {
+        "items": "use App\\Item; return Item::random(10, ['has_image' => 'true']);"
+    },
+    "include_js": true,
+    "data_js": {
+        "slick_query": ".artworks-preview"
+    },
+    "usage_notes": "A carousel to show previews of artworks. Has size variants via class names 'small' and 'large'."
+}

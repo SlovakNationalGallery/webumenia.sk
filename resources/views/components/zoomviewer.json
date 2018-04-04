@@ -1,0 +1,10 @@
+{
+    "name": "Zoom viewer",
+    "data_calls" : {
+      "item": "use App\\Item; return Item::find('SVK:SNG.UP-DK_1425-2');",
+      "related_items": "use App\\Item; return Item::find('SVK:SNG.UP-DK_1425-2')->getRelatedIIPImgUrls();"
+    },
+    "wrapper_classes": "h7",
+    "include_js": true,
+    "usage_notes": "A zoom viewer based on OpenSeaDragon"
+}

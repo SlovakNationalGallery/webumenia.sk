@@ -71,6 +71,8 @@ abstract class AbstractImporter implements IImporter {
 
     public function import(Import $import, array $file)
     {
+        \DB::beginTransaction();
+
         $import_record = $this->createImportRecord(
             $import->id,
             Import::STATUS_IN_PROGRESS,
@@ -85,15 +87,28 @@ abstract class AbstractImporter implements IImporter {
         );
 
         $items = [];
-        foreach ($records as $record) {
-            $item = $this->importSingle($record, $import, $import_record);
 
-            if (!$item) {
-                continue;
+        try {
+            foreach ($records as $record) {
+                $item = $this->importSingle($record, $import, $import_record);
+
+                if (!$item) {
+                    continue;
+                }
+
+                $item->save();
+                $items[] = $item;
+                $import_record->imported_items++;
             }
 
-            $item->save();
-            $items[] = $item;
+            \DB::commit();
+            $import_record->status = Import::STATUS_COMPLETED;
+        } catch (\Exception $e) {
+            \DB::rollback();
+            $import_record->status = Import::STATUS_ERROR;
+            $import_record->error_message = $e->getMessage();
+            $import_record->wrong_items++;
+            $items = [];
         }
 
         $import_record->save();
@@ -112,15 +127,7 @@ abstract class AbstractImporter implements IImporter {
      * @return Item|null
      */
     protected function importSingle(array $record, Import $import, ImportRecord $import_record) {
-        try {
-            $item = $this->createItem($record);
-            $import_record->imported_items++;
-        } catch (\Exception $e) {
-            $import_record->wrong_items++;
-            // todo log exception
-            throw $e;
-            return null;
-        }
+        $item = $this->createItem($record);
 
         $image_filename = $this->getItemImageFilename($record);
 
