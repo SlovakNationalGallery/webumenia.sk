@@ -365,34 +365,45 @@ class Authority extends Model
         if ($this->attributes['type'] != 'person') {
             return false;
         }
-        $client =  $this->getElasticClient();
-        $data = [
-            'id' => $this->attributes['id'],
-            'identifier' => $this->attributes['id'],
-            'name' => $this->attributes['name'],
-            'alternative_name' => $this->names->lists('name'),
-            'related_name' => $this->relationships->lists('name'),
-            'biography' => (!empty($this->attributes['biography'])) ? strip_tags($this->attributes['biography']) : '',
-            'nationality' => $this->nationalities->lists('code'),
-            'place' => $this->places,
-            'role' => $this->roles->lists('role'),
-            'birth_year' => $this->birth_year,
-            'death_year' => $this->death_year,
-            'birth_place' => $this->birth_place,
-            'death_place' => $this->death_place,
-            'sex' => $this->sex,
-            'has_image' => (boolean) $this->has_image,
-            'created_at' => $this->attributes['created_at'],
-            'items_count' => $this->items->count(),
-            'items_with_images_count' => $this->items()->hasImage()->count(),
-        ];
 
-        return Elastic::index([
-            'index' => Config::get('bouncy.index'),
-            'type' => self::ES_TYPE,
-            'id' => $this->attributes['id'],
-            'body' => $data,
-        ]);
+        $client =  $this->getElasticClient();
+        $elastic_translatable = \App::make('ElasticTranslatableService');
+
+        foreach (config('translatable.locales') as $locale) {
+
+            $authority_translated = $this->getTranslation($locale);
+
+            $data = [
+                // non-tanslatable attributes:
+                'id' => $this->id,
+                'identifier' => $this->id,
+                'name' => $this->name,
+                'alternative_name' => $this->names->lists('name'),
+                'related_name' => $this->relationships->lists('name'),
+                'nationality' => $this->nationalities->lists('code'),
+                'place' => $this->places,
+                'role' => $this->roles->lists('role'), // @TODO: this should be also translatable
+                'birth_year' => $this->birth_year,
+                'death_year' => $this->death_year,
+                'sex' => $this->sex,
+                'has_image' => (boolean) $this->has_image,
+                'created_at' => $this->created_at->format('Y-m-d H:i:s'),
+                'items_count' => $this->items->count(),
+                'items_with_images_count' => $this->items()->hasImage()->count(),
+
+                // tanslatable attributes:
+                'biography' => (!empty($authority_translated->biography)) ? strip_tags($authority_translated->biography) : '',
+                'birth_place' => $authority_translated->birth_place,
+                'death_place' => $authority_translated->death_place,
+            ];
+
+            $client->index([
+                'index' => $elastic_translatable->getIndexForLocale($locale),
+                'type' =>  self::ES_TYPE,
+                'id' => $this->id,
+                'body' => $data,
+            ]);
+        }
     }
 
     public static function sliderMin()
@@ -436,7 +447,7 @@ class Authority extends Model
         }
         $json_params = '
 		{
-		 "aggs" : { 
+		 "aggs" : {
 		    "'.$attribute.'" : {
 		        "terms" : {
 		          "field" : "'.$attribute.'",
