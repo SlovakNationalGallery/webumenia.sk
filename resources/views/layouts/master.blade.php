@@ -19,8 +19,13 @@
 		@include('includes.favicons')
 		<!--  /favicons-->
 		<!--  Open Graph protocol -->
-		@include('includes.og_tags')
-		<!--  Open Graph protocol -->
+    @include('includes.og_tags')
+    <!--  /Open Graph protocol -->
+    <!--  hreflangs -->
+		@include('includes.hreflangs', [
+      'localizedURLs' => getLocalizedURLArray(),
+    ])
+		<!--  /hreflangs -->
 
 		@yield('link')
 
@@ -74,7 +79,6 @@
 
               @include('components.langswitch', [
                 'currentLocale' => App::getLocale(),
-                'localesOrdered' => LaravelLocalization::getLocalesOrder(),
                 'localizedURLs' => getLocalizedURLArray(),
               ])
 
