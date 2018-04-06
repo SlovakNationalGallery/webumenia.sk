@@ -740,50 +740,55 @@ class Item extends Model
 
     public function index()
     {
-            $client =  $this->getElasticClient();
-            $elastic_translatable = \App::make('ElasticTranslatableService');
+        $client =  $this->getElasticClient();
+        $elastic_translatable = \App::make('ElasticTranslatableService');
 
-            foreach (config('translatable.locales') as $locale) {
+        foreach (config('translatable.locales') as $locale) {
 
-                $translated_item = $this->getTranslation($locale);
+            $item_translated = $this->getTranslation($locale);
 
-                $work_types = $translated_item->work_types;
-                $main_work_type = (is_array($work_types)) ? reset($work_types) : '';
-                $data = [
-                    'id' => $this->id,
-                    'identifier' => $this->identifier,
-                    'title' => $translated_item->title,
-                    'author' => $this->makeArray($this->author),
-                    'description' => (!empty($translated_item->description)) ? strip_tags($translated_item->description) : '',
-                    'work_type' => $main_work_type, // ulozit iba prvu hodnotu
-                    'topic' => $this->makeArray($translated_item->topic),
-                    'tag' => $this->tagNames(), // @TODO translate this
-                    'place' => $this->makeArray($translated_item->place),
-                    'measurement' => $translated_item->measurments,
-                    'dating' => $translated_item->dating,
-                    'date_earliest' => $this->date_earliest,
-                    'date_latest' => $this->date_latest,
-                    'medium' => $translated_item->medium,
-                    'technique' => $this->makeArray($translated_item->technique),
-                    'gallery' => $translated_item->gallery,
-                    'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
-                    'created_at' => $this->created_at->format('Y-m-d H:i:s'),
-                    'has_image' => (bool)$this->has_image,
-                    'has_iip' => (bool)$this->iipimg_url,
-                    'is_free' => $this->isFree(),
-                    // 'free_download' => $translated_item->isFreeDownload(), // staci zapnut is_free + has_iip
-                    'related_work' => $this->related_work,
-                    'authority_id' => $this->relatedAuthorityIds(),
-                    'view_count' => $this->view_count,
-                ];
+            $work_types = $item_translated->work_types;
+            $main_work_type = (is_array($work_types)) ? reset($work_types) : '';
+            $data = [
+                // non-tanslatable attributes:
+                'id' => $this->id,
+                'identifier' => $this->identifier,
+                'author' => $this->makeArray($this->author),
+                'work_type' => $main_work_type, // ulozit iba prvu hodnotu
+                'tag' => $this->tagNames(), // @TODO translate this
+                'date_earliest' => $this->date_earliest,
+                'date_latest' => $this->date_latest,
+                'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
+                'created_at' => $this->created_at->format('Y-m-d H:i:s'),
+                'has_image' => (bool)$this->has_image,
+                'has_iip' => (bool)$this->iipimg_url,
+                'is_free' => $this->isFree(),
+                // 'free_download' => $this->isFreeDownload(), // staci zapnut is_free + has_iip
+                'related_work' => $this->related_work,
+                'authority_id' => $this->relatedAuthorityIds(),
+                'view_count' => $this->view_count,
 
-                $client->index([
-                    'index' => $elastic_translatable->getIndexForLocale($locale),
-                    'type' =>  self::ES_TYPE,
-                    'id' => $this->attributes['id'],
-                    'body' =>$data,
-                ]);
-            }
+
+                // tanslatable attributes:
+                'title' => $item_translated->title,
+                'description' => (!empty($item_translated->description)) ? strip_tags($item_translated->description) : '',
+                'topic' => $this->makeArray($item_translated->topic),
+                'place' => $this->makeArray($item_translated->place),
+                'measurement' => $item_translated->measurments,
+                'dating' => $item_translated->dating,
+                'medium' => $item_translated->medium,
+                'technique' => $this->makeArray($item_translated->technique),
+                'gallery' => $item_translated->gallery,
+
+            ];
+
+            $client->index([
+                'index' => $elastic_translatable->getIndexForLocale($locale),
+                'type' =>  self::ES_TYPE,
+                'id' => $this->attributes['id'],
+                'body' =>$data,
+            ]);
+        }
     }
 
     public static function getSortedLabelKey($sort_by = null)
