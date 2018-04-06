@@ -97,10 +97,10 @@ class CatalogController extends Controller
 							      { "match": { "title":          "'.$search.'" }},
 							      { "match": { "title.folded":          "'.$search.'" }},
 							      { "match": { "title.stemmed": "'.$search.'" }},
-							      { "match": { 
-							        "title.stemmed": { 
-							          "query": "'.$search.'",  
-							          "analyzer" : "slovencina_synonym" 
+							      { "match": {
+							        "title.stemmed": {
+							          "query": "'.$search.'",
+							          "analyzer" : "slovencina_synonyms"
 							        }
 							      }
 							      },
@@ -137,7 +137,7 @@ class CatalogController extends Controller
 							      { "match": {
 							          "description.stemmed": {
 							            "query": "'.$search.'",
-							            "analyzer" : "slovencina_synonym",
+							            "analyzer" : "slovencina_synonyms",
 							            "boost": 0.5
 							          }
 							        }
