@@ -4,13 +4,6 @@ namespace Tests;
 
 class TestCase extends \Illuminate\Foundation\Testing\TestCase
 {
-    /**
-     * The base URL to use while testing the application.
-     *
-     * @var string
-     */
-    protected $baseUrl = 'http://localhost';
-
     /** @var \Faker\Generator */
     protected $faker;
 
@@ -32,6 +25,7 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase
         $app = require __DIR__ . '/../bootstrap/app.php';
         $app->loadEnvironmentFrom('.env.testing');
         $app->make(\Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+        $this->baseUrl = env('TEST_HOST', 'http://localhost');
 
         return $app;
     }
