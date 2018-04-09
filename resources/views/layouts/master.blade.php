@@ -18,18 +18,8 @@
 		<!--  favicons-->
 		@include('includes.favicons')
 		<!--  /favicons-->
-
 		<!--  Open Graph protocol -->
-		<meta name="twitter:card" content="summary" />
-		<meta name="twitter:site" content="@webumeniaSK" />
-		@section('og')
-		<meta property="og:title" content="Web umenia" />
-		<meta property="og:description" content="{{ trans('master.meta_description') }}" />
-		<meta property="og:type" content="website" />
-		<meta property="og:url" content="{!! Request::url() !!}" />
-		<meta property="og:image" content="{!! URL::to('/images/og-image-'.random_int(1, 2).'.jpg') !!}" />
-		<meta property="og:site_name" content="web umenia" />
-		@show
+		@include('includes.og_tags')
 		<!--  Open Graph protocol -->
 
 		@yield('link')
@@ -77,12 +67,6 @@
 		  Pozor! Toto nieje ostrý web. Prostredie: <strong>{!! App::environment() !!}</strong>
 		</div>
 	@endif
-
-    @if (true)
-        <div class="alert alert-danger text-center" role="alert">
-          Ospravedlňujeme sa, ale z technických príčin nie je <strong>dočasne dostupná funkcia zoom</strong>. Na oprave pracujeme, ďakujeme za trpezlivost!
-        </div>
-    @endif
 
 	<nav class="navbar {{-- navbar-fixed-top --}} {{-- navbar-static-top --}} {!! (Request::is('/') || isSet($transparent_menu)) ? '' : 'dark-text' !!}" role="navigation">
 	    <div class="container">
@@ -187,7 +171,7 @@
 	{!! Html::script('js/jquery.infinitescroll.min.js') !!}
     {!! Html::script('js/bootstrap.min.js') !!}
 	{!! Html::script('js/typeahead.bundle.min.js') !!}
-	{!! Html::script('js/webumenia.js') !!}
+    <script src="{!! asset_timed('js/webumenia.js') !!}"></script>
 
 	<!-- Content -->
 	@yield('javascript')

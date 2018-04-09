@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 trait DatabaseMigrations
 {
     use \Illuminate\Foundation\Testing\DatabaseMigrations {
-        DatabaseMigrations::runDatabaseMigrations as parentRunDatabaseMigrations;
+        \Illuminate\Foundation\Testing\DatabaseMigrations::runDatabaseMigrations as parentRunDatabaseMigrations;
     }
 
     /**
@@ -17,16 +17,12 @@ trait DatabaseMigrations
      */
     public function runDatabaseMigrations()
     {
-        $this->parentRunDatabaseMigrations();
+        $tables = DB::select('SHOW TABLES');
 
-        array_pop($this->beforeApplicationDestroyedCallbacks);
-
-        $this->beforeApplicationDestroyedCallbacks[] = function() {
-            $tables = DB::select('SHOW TABLES');
-
+        if ($tables) {
             $droplist = [];
             $colname = 'Tables_in_' . env('DB_DATABASE');
-            foreach($tables as $table) {
+            foreach ($tables as $table) {
                 $droplist[] = $table->$colname;
             }
             $droplist = implode(',', $droplist);
@@ -38,6 +34,10 @@ trait DatabaseMigrations
             //turn referential integrity back on
             DB::statement('SET FOREIGN_KEY_CHECKS = 1');
             DB::commit();
-        };
+        }
+
+        $this->parentRunDatabaseMigrations();
+
+        array_pop($this->beforeApplicationDestroyedCallbacks);
     }
 }

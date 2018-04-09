@@ -13,6 +13,7 @@
 
 use App\Article;
 use App\Collection;
+use App\Image;
 use App\Item;
 use App\Slide;
 use App\Order;
@@ -146,14 +147,29 @@ function()
 
         $item = Item::find($id);
 
-        if (empty($item->iipimg_url)) {
+        if (empty($item->has_iip)) {
             App::abort(404);
         }
 
-        $related_items = (!empty($item->related_work)) ? Item::where('related_work', '=', $item->related_work)->where('author', '=', $item->author)->whereNotNull('iipimg_url')->orderBy('related_work_order')->lists('iipimg_url')->toArray() : [];
+        $images = $item->getZoomableImages();
+        $index =  0;
+        if ($images->count() <= 1 && !empty($item->related_work)) {
+            $related_items = Item::related($item)->with('images')->get();
 
-        return view('zoom', array('item' => $item, 'related_items' => $related_items));
-    });
+            $images = collect();
+            foreach ($related_items as $related_item) {
+                if ($image = $related_item->getZoomableImages()->first()) {
+                    $images->push($image);
+                }
+            }
+
+            $index = $images->search(function (Image $image) use ($item) {
+                return $image->item->id == $item->id;
+            });
+        }
+
+        return view('zoom', array('item' => $item, 'images' => $images, 'index' => $index));
+    })->name('item.zoom');
 
     Route::get('ukaz_skicare', 'SkicareController@index');
     Route::get('skicare', 'SkicareController@getList');

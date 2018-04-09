@@ -732,7 +732,7 @@ class SpiceHarvesterController extends Controller
 
         try {
 
-            foreach ($rec->xpath('.//dc:subject[@xml:lang="slk"]') as $key => $value) {
+            foreach ($rec->xpath('.//dc:subject[@xml:lang="sk"]') as $key => $value) {
                 if ($this->starts_with_upper($value)) {
                     $subject[] = mb_strtolower($value, "UTF-8");
                 } else {
@@ -775,7 +775,7 @@ class SpiceHarvesterController extends Controller
             $attributes['authorities'] = $authorities;
             $attributes['authority_ids'] = $authority_ids;
             $attributes['author'] = $this->serialize($authors);
-            $attributes['work_type'] = $this->serialize($rec->xpath('.//dc:type[@xml:lang="slk"]'), ', ');
+            $attributes['work_type'] = $this->serialize($rec->xpath('.//dc:type[@xml:lang="sk"]'), ', ');
             // if (!empty($type[0])) $attributes['work_type'] = $type[0];
             // if (!empty($type[1])) $attributes['work_level'] = $type[1];
         
@@ -796,8 +796,8 @@ class SpiceHarvesterController extends Controller
             $attributes['date_earliest'] = (!empty($dating[0])) ? $dating[0] : null;
             $attributes['date_latest'] = (!empty($dating[1])) ? $dating[1] : $attributes['date_earliest'];
             $attributes['dating'] = $dating_text;
-            $attributes['medium'] = $this->serialize($rec->xpath('.//dc:format.medium[@xml:lang="slk"]')); // http://stackoverflow.com/questions/6531380/php-simplexml-with-dot-character-in-element-in-xml
-            $attributes['technique'] = $this->serialize($rec->xpath('.//dc:format[@xml:lang="slk"]'));
+            $attributes['medium'] = $this->serialize($rec->xpath('.//dc:format.medium[@xml:lang="sk"]')); // http://stackoverflow.com/questions/6531380/php-simplexml-with-dot-character-in-element-in-xml
+            $attributes['technique'] = $this->serialize($rec->xpath('.//dc:format[@xml:lang="sk"]'));
             $attributes['inscription'] = $this->serialize($dcElements->description);
             // $attributes['state_edition'] =  (!empty($type[2])) ? $type[2] : null;
             $attributes['gallery'] = $dcTerms->provenance;

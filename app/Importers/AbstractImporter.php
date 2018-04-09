@@ -6,7 +6,6 @@ use App\Import;
 use App\ImportRecord;
 use App\Item;
 use App\Repositories\IFileRepository;
-use Intervention\Image\Image;
 use Symfony\Component\Console\Exception\LogicException;
 
 
@@ -71,7 +70,7 @@ abstract class AbstractImporter implements IImporter {
 
     public function import(Import $import, array $file)
     {
-        DB::beginTransaction();
+        \DB::beginTransaction();
 
         $import_record = $this->createImportRecord(
             $import->id,
@@ -101,10 +100,10 @@ abstract class AbstractImporter implements IImporter {
                 $import_record->imported_items++;
             }
 
-            DB::commit();
+            \DB::commit();
             $import_record->status = Import::STATUS_COMPLETED;
         } catch (\Exception $e) {
-            DB::rollback();
+            \DB::rollback();
             $import_record->status = Import::STATUS_ERROR;
             $import_record->error_message = $e->getMessage();
             $import_record->wrong_items++;
@@ -244,7 +243,6 @@ abstract class AbstractImporter implements IImporter {
 
     /**
      * @param Item $item
-     * @param array $record
      */
     protected function setDefaultValues(Item $item) {
         foreach ($this->defaults as $key => $default) {
@@ -257,7 +255,6 @@ abstract class AbstractImporter implements IImporter {
     /**
      * @param Item $item
      * @param string $path
-     * @return Image
      */
     protected function uploadImage(Item $item, $path) {
         $uploaded_image = \Image::make($path);
@@ -283,8 +280,8 @@ abstract class AbstractImporter implements IImporter {
 
     /**
      * @param Import $import
-     * @param string $filename
-     * @param array $record
+     * @param string $csv_filename
+     * @param string $image_filename
      * @return string
      */
     protected function getItemImagePath(Import $import, $csv_filename, $image_filename) {

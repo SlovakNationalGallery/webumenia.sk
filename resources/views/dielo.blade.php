@@ -41,11 +41,11 @@
             </div>
             <div class="row">
                 <div class="col-md-8 text-center">
-                        @if (!empty($item->iipimg_url))
-                            <a href="{!! URL::to('dielo/' . $item->id . '/zoom') !!}" data-toggle="tooltip" data-placement="top" title="{{ utrans('general.item_zoom') }}">
-                        @endif    
+                        @if ($item->has_iip)
+                            <a href="{{ route('item.zoom', ['id' => $item->id]) }}" data-toggle="tooltip" data-placement="top" title="{{ utrans('general.item_zoom') }}">
+                        @endif
                         <img src="{!! $item->getImagePath() !!}" class="img-responsive img-dielo" alt="{!! $item->getTitleWithAuthors() !!}" itemprop="image">
-                        @if (!empty($item->iipimg_url))
+                        @if ($item->has_iip)
                             </a>
                         @endif
                         <div class="row">
@@ -59,8 +59,8 @@
                             </div>
 
                             <div class="col-md-12 text-center">
-                                @if (!empty($item->iipimg_url))
-                                   <a href="{!! URL::to('dielo/' . $item->id . '/zoom') !!}" class="btn btn-default btn-outline  sans"><i class="fa fa-search-plus"></i> {{ trans('general.item_zoom') }}</a>
+                                @if ($item->has_iip)
+                                   <a href="{{ route('item.zoom', ['id' => $item->id]) }}" class="btn btn-default btn-outline  sans"><i class="fa fa-search-plus"></i> {{ trans('general.item_zoom') }}</a>
                                 @endif
                                 @if ($item->isForReproduction())
                                     <a href="{!! URL::to('dielo/' . $item->id . '/objednat')  !!}" class="btn btn-default btn-outline  sans"><i class="fa fa-shopping-cart"></i> {{ trans('dielo.item_order') }} </a>

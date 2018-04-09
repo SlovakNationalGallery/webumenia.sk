@@ -150,7 +150,7 @@
     	                	</a>
                             <div class="item-title">
                                 @if ($item->has_iip)
-                                    <div class="pull-right"><a href="{!! URL::to('dielo/' . $item->id . '/zoom') !!}" data-toggle="tooltip" data-placement="left" title="{{ utrans('general.item_zoom') }}"><i class="fa fa-search-plus"></i></a></div>
+                                    <div class="pull-right"><a href="{{ route('item.zoom', ['id' => $item->id]) }}" data-toggle="tooltip" data-placement="left" title="{{ utrans('general.item_zoom') }}"><i class="fa fa-search-plus"></i></a></div>
                                 @endif
                                 <a href="{!! $item->getUrl() !!}" {!! (!empty($search))  ?
                                     'data-searchd-result="title/'.$item->id.'" data-searchd-title="'.implode(', ', $item->authors).' - '. $item->title.'"'
@@ -191,7 +191,7 @@
 {{-- {!! Html::script('js/bootstrap-checkbox.js') !!} --}}
 {!! Html::script('js/selectize.min.js') !!}
 {!! Html::script('js/readmore.min.js') !!}
-{!! Html::script('js/scroll-frame.js') !!}
+<script src="{!! asset_timed('js/scroll-frame.js') !!}"></script>
 
 <script type="text/javascript">
 
@@ -257,7 +257,7 @@ $(document).ready(function(){
                  //         '</div>';
                  // },
                  item: function(data, escape) {
-                     return '<div class="item">'  + '<span class="color">'+this.settings.placeholder+': </span>' +  data.text.replace(/\(.*?\)/g, "") + '</div>';
+                     return '<div class="selected-item">'  + '<span class="color">'+this.settings.placeholder+': </span>' +  data.text.replace(/\(.*?\)/g, "") + '</div>';
             }
         }
     });
@@ -307,7 +307,11 @@ $(document).ready(function(){
 
     $(window).unbind('.infscr'); //kill scroll binding
 
-    scrollFrame('.item');
+
+    // fix artwork detail on iOS https://github.com/artsy/scroll-frame/issues/30
+    if (!isMobileSafari() && !isIE()) {
+      scrollFrame('.item a');
+    }
 
 
     $('a#next').click(function(){

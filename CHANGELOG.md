@@ -2,9 +2,24 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
 ### Added
 - color-list component on artwork detail
 - Color description
+
+### Changed
+- Favicons & Open Graph tags include components
+- positioned image reference strip on right side of zoom-viewer
+- Zoom view showing multiple images
+
+### Added
+- zoom-viewer component
+- Moravian gallery importer
+- Multiple images per artwork
+
+## [1.3.1] - 2018-03-09
+### Fixed
+- OAI-PMH harvester for translated attributes
 
 ## [1.3.0] - 2018-02-20
 ### Added
