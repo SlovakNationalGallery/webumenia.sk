@@ -148,13 +148,13 @@
   {!! Html::script('js/mg.js') !!}
 
   @if (App::environment('production'))
-    <script>
-      function initializeSearchD() {
-              Searchd.monitorSearch("#search", "{!! Config::get('app.searchd_id') !!}", {queryPlaceholder: 'Hľadať diela, autorov...'});
-              Searchd.monitorAutocomplete("#search", "{!! Config::get('app.searchd_id_autocomplete') !!}");
-          }
-    </script>
-    <script async src="https://cdn.searchd.co/assets/collector.js" onload="initializeSearchD();"></script>
+    {{--<script>--}}
+      {{--function initializeSearchD() {--}}
+              {{--Searchd.monitorSearch("#search", "{!! Config::get('app.searchd_id') !!}", {queryPlaceholder: 'Hľadať diela, autorov...'});--}}
+              {{--Searchd.monitorAutocomplete("#search", "{!! Config::get('app.searchd_id_autocomplete') !!}");--}}
+          {{--}--}}
+    {{--</script>--}}
+    {{--<script async src="https://cdn.searchd.co/assets/collector.js" onload="initializeSearchD();"></script>--}}
   @endif
 
   <!-- Content -->
