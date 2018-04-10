@@ -3,6 +3,5 @@
     "data_calls" : {
         "article": "use App\\Article; return Article::where('slug', '=', 'uskutocnovanie-sna')->firstOrFail();"
     },
-    "worked_on_this": ["igor", "phivk"],
     "usage_notes": "A thumbnail preview of an article, to show in a list/collections of articles."
 }
