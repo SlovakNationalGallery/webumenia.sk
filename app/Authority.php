@@ -24,7 +24,13 @@ class Authority extends Model
     const ARTWORKS_DIR = '/images/autori/';
     const ES_TYPE = 'authorities';
 
-    public $translatedAttributes = ['type_organization', 'biography', 'birth_place', 'death_place'];
+    public $translatedAttributes = [
+        'type_organization',
+        'biography',
+        'roles',
+        'birth_place',
+        'death_place'
+    ];
 
     // protected $indexName = 'webumenia';
     protected $typeName = self::ES_TYPE;
@@ -58,15 +64,21 @@ class Authority extends Model
         'death_year',
         'image_source_url',
         'image_source_label',
+        'roles',
     );
 
-    protected $with = array('roles', 'nationalities', 'names');
+    protected $dates = array(
+        'created_at',
+        'updated_at',
+    );
+
+    protected $with = array('nationalities', 'names');
 
     protected $guarded = array();
 
     public static $rules = array(
         'name' => 'required',
-        );
+    );
 
     public $incrementing = false;
 
@@ -96,7 +108,6 @@ class Authority extends Model
             $authority->nationalities()->detach();
             $authority->relationships()->detach();
             $authority->items()->detach();
-            $authority->roles()->delete();
             $authority->names()->delete();
             $authority->events()->delete();
 
@@ -117,10 +128,11 @@ class Authority extends Model
         return $this->belongsToMany(\App\Nationality::class)->withPivot('prefered');
     }
 
-    public function roles()
-    {
-        return $this->hasMany(\App\AuthorityRole::class);
-    }
+    // relationship was replaced by attribute casted as Array
+    // public function roles()
+    // {
+    //     return $this->hasMany(\App\AuthorityRole::class);
+    // }
 
     public function names()
     {
@@ -269,10 +281,7 @@ class Authority extends Model
             $description .= ($html) ? self::formatPlace($this->death_place, $links, 'deathPlace') : self::formatPlace($this->death_place, $links);
         }
         if ($include_roles) {
-            $roles = array();
-            foreach ($this->roles as $i => $role) {
-                $roles[] = $role->role;
-            }
+            $roles = $this->roles;
             if ($roles) {
                 $description .= '. Role: '.implode(', ', $roles);
             }
@@ -382,7 +391,7 @@ class Authority extends Model
                 'related_name' => $this->relationships->lists('name'),
                 'nationality' => $this->nationalities->lists('code'),
                 'place' => $this->places,
-                'role' => $this->roles->lists('role'), // @TODO: this should be also translatable
+                'role' => $this->roles,
                 'birth_year' => $this->birth_year,
                 'death_year' => $this->death_year,
                 'sex' => $this->sex,

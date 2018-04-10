@@ -34,12 +34,12 @@
 <section class="author detail content-section" itemscope itemtype="http://schema.org/Person">
     <div class="container">
         <div class="attributes">
-            <div class="row">   
+            <div class="row">
                 <div class="col-sm-4 text-center extra-padding top-space">
-                        <img src="{!! $author->getImagePath() !!}" class="img-responsive img-circle" alt="{!! $author->name !!}"  itemprop="image">     
+                        <img src="{!! $author->getImagePath() !!}" class="img-responsive img-circle" alt="{!! $author->name !!}"  itemprop="image">
                         <p class="content-section">
                             {!! trans_choice('autor.artworks', $author->items->count(), ['artworks_url' => url_to('katalog', ['author' => $author->name]), 'artworks_count' => $author->items->count()]) !!}
-                            <br>                            
+                            <br>
                             {!! trans_choice('autor.collections', $author->collections_count, ['collections_count' => $author->collections_count] ) !!}
                             <br>
                             {!! trans_choice('autor.views', $author->view_count, ['view_count' => $author->view_count]) !!}
@@ -51,7 +51,7 @@
                                     <a href="{!!URL::to('katalog?tag=' . $tag)!!}" class="btn btn-default btn-xs btn-outline">{!! $tag !!}</a>
                                 @endforeach
                             </div>
-                        @endif                
+                        @endif
                 </div>
                 <div class="col-sm-8 popis">
                     <a href="{!! str_contains(URL::previous(), '/autori') ?  URL::previous() : URL::to('/autori') !!} " class="inherit no-border"><i class="icon-arrow-left"></i> {{ utrans('autor.back-to-artists') }}</a>
@@ -64,9 +64,8 @@
                     </p>
                     <p class="lead">
                         @foreach ($author->roles as $i=>$role)
-                            <a href="{!! url_to('autori', ['role' => $role->role]) !!}"><strong itemprop="jobTitle">{!! $role->role !!}</strong></a>{!! ($i+1 < $author->roles->count()) ? ', ' : '' !!}
+                            <a href="{!! url_to('autori', ['role' => $role]) !!}"><strong itemprop="jobTitle">{!! $role !!}</strong></a>{!! ($i+1 < count($author->roles)) ? ', ' : '' !!}
                         @endforeach
-                        {{-- {!! implode(", ", $author->roles->lists('role')) !!} --}}
                     </p>
 
                     {{-- @if ( $author->biography) --}}
@@ -77,7 +76,7 @@
 
                     @if ( $author->events->count() > 0)
                         <div class="events">
-                            <h4 class="top-space">{{ utrans('autor.places') }}</h4> 
+                            <h4 class="top-space">{{ utrans('autor.places') }}</h4>
                             @foreach ($author->events as $i=>$event)
                                 <strong><a href="{!! url_to('autori', ['place' => $event->place]) !!}">{!! $event->place !!}</a></strong> {!! add_brackets(App\Authority::formatMultiAttribute($event->event)) !!}{{ ($i+1 < $author->events->count()) ? ', ' : '' }}
                             @endforeach
@@ -110,31 +109,31 @@
                                 @endforeach
                                 </td>
                             @endforeach
-                            </tr>                            
+                            </tr>
                         </tbody>
                     </table>
                     @endif
                 </div>
             </div>{{-- row --}}
-        </div> {{-- /attributes --}} 
+        </div> {{-- /attributes --}}
     </div>
 </section>
 
 @if ($author->items->count() > 0)
 <section class="author preview detail">
     <div class="container">
-        <div class="row content-section">   
+        <div class="row content-section">
             <div class="col-xs-12 text-center">
                 <h3>{{ utrans('autor.artworks_by_artist') }}</h3>
-            </div>  
+            </div>
         </div>{{-- row --}}
-        <div class="row">   
+        <div class="row">
             <div class="col-xs-12">
                 @include('components.artwork_carousel', [
                     'class_names' => "artworks-preview large",
                     'items' => $author->getPreviewItems(),
                 ])
-            </div>  
+            </div>
         </div>{{-- row --}}
         <div class="row content-section">
             <div class="col-sm-12 text-center">

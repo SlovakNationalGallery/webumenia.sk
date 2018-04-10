@@ -154,7 +154,6 @@ class AuthorController extends Controller
         }
 
         $authors = Authority::search($params); //->paginate($per_page);
-        $authors->load('roles');
 
         $path   = '/' . \Request::path();
         // dd($path);
@@ -235,9 +234,10 @@ class AuthorController extends Controller
         if (empty($author)) {
             App::abort(404);
         }
+
+        $author->timestamps = false;
         $author->view_count += 1;
         $author->save();
-
         return view('autor', array('author'=>$author));
 
     }
