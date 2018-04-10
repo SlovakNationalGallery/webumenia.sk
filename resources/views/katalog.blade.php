@@ -79,6 +79,17 @@
                         <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="{!! App\Item::sliderMin() !!}" data-slider-max="{!! App\Item::sliderMax() !!}" data-slider-step="5" data-slider-value="[{!! !empty($input['year-range']) ? $input['year-range'] : App\Item::sliderMin().','.App\Item::sliderMax() !!}]"/>
                 </div>
             </div>
+            @if ($color)
+            <div class="row">
+                <div class="col-sm-12">
+                    <label for="color_filter" class="w-100 mt-10 mb-0 light">
+                        {{ utrans('katalog.filters_color') }}:
+                        @include('components.color_list', ['colors' => [array('hex' => '#'.$color, 'amount' => '100%')], 'include_clear' => true, 'id' => 'color-filter', 'class_names' => 'mt-5 mb-0'])
+                        {!! Form::hidden('color', @$input['color'], ['id'=>'color']) !!}
+                    </label>
+                </div>
+            </div>
+            @endif
             {!! Form::hidden('sort_by', @$input['sort_by'], ['id'=>'sort_by']) !!}
             {!! Form::close() !!}
     </div></div>
@@ -155,7 +166,7 @@
     	                	</a>
                             <div class="item-title">
                                 @if ($item->has_iip)
-                                    <div class="pull-right"><a href="{!! URL::to('dielo/' . $item->id . '/zoom') !!}" data-toggle="tooltip" data-placement="left" title="{{ utrans('general.item_zoom') }}"><i class="fa fa-search-plus"></i></a></div>
+                                    <div class="pull-right"><a href="{{ route('item.zoom', ['id' => $item->id]) }}" data-toggle="tooltip" data-placement="left" title="{{ utrans('general.item_zoom') }}"><i class="fa fa-search-plus"></i></a></div>
                                 @endif
                                 <a href="{!! $item->getUrl() !!}" {!! (!empty($search))  ?
                                     'data-searchd-result="title/'.$item->id.'" data-searchd-title="'.implode(', ', $item->authors).' - '. $item->title.'"'
@@ -275,6 +286,13 @@ $(document).ready(function(){
     $(".dropdown-menu-sort a").click(function(e) {
         e.preventDefault();
         $('#sort_by').val($(this).attr('rel'));
+        $('#filter').submit();
+    });
+
+    // clear color filter
+    $(".colorlist>a.clear").click(function(e){
+        e.preventDefault();
+        $('input#color').val('');
         $('#filter').submit();
     });
 

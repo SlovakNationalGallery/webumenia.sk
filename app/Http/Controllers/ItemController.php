@@ -313,7 +313,7 @@ class ItemController extends Controller
     {
         $i = 0;
 
-        Item::chunk(200, function ($items) use (&$i) {
+        Item::with('images')->chunk(200, function ($items) use (&$i) {
             $items->load('authorities');
             foreach ($items as $item) {
                 $item->index();

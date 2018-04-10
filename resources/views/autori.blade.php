@@ -135,7 +135,7 @@
             <div class="clearfix visible-xs bottom-space"></div>
             <div class="col-sm-6" >
                 @include('components.artwork_carousel', [
-                    'class_names' => "artworks-preview",
+                    'slick_target' => "artworks-preview",
                     'items' => $author->getPreviewItems(),
                 ])
             </div>

@@ -1,7 +1,9 @@
-<div class="{{$class_names}}">
-@foreach ($items as $item)
+<div class="artwork-carousel-container {{$class_names or ''}}">
+  <div class="{{$slick_target}} {{$slick_variant or ''}}">
+    @foreach ($items as $item)
     <a href="{!! $item->getUrl() !!}">
       <img data-lazy="{!! $item->getImagePath() !!}" class="img-responsive-width " alt="{!! $item->getTitleWithAuthors() !!} ">
     </a>
-@endforeach
+    @endforeach
+  </div>
 </div>

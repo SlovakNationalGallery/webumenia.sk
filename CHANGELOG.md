@@ -2,13 +2,20 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+### Added
+- color-list component on artwork detail
+- Color description
+
 ### Changed
 - Favicons & Open Graph tags include components
 - positioned image reference strip on right side of zoom-viewer
+- Zoom view showing multiple images
 
 ### Added
 - zoom-viewer component
 - Moravian gallery importer
+- Multiple images per artwork
 
 ## [1.3.1] - 2018-03-09
 ### Fixed
@@ -39,6 +46,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [1.2.9] - 2017-12-05
 ### Changed
 - Enabled reproduction orders with mounting / framing
+- Componentized Article thumbnail
 
 ### Fixed
 - Database seeders

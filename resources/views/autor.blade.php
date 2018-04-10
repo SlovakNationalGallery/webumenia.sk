@@ -130,7 +130,8 @@
         <div class="row">
             <div class="col-xs-12">
                 @include('components.artwork_carousel', [
-                    'class_names' => "artworks-preview large",
+                    'slick_target' => "artworks-preview",
+                    'slick_variant' => "large",
                     'items' => $author->getPreviewItems(),
                 ])
             </div>

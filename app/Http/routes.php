@@ -13,9 +13,11 @@
 
 use App\Article;
 use App\Collection;
+use App\Image;
 use App\Item;
 use App\Slide;
 use App\Order;
+use App\Color;
 
 Route::group(['domain' => 'media.webumenia.{tld}'], function () {
     Route::get('/', function ($tld) {
@@ -145,14 +147,29 @@ function()
 
         $item = Item::find($id);
 
-        if (empty($item->iipimg_url)) {
+        if (empty($item->has_iip)) {
             App::abort(404);
         }
 
-        $related_items = $item->getRelatedIIPImgUrls();
+        $images = $item->getZoomableImages();
+        $index =  0;
+        if ($images->count() <= 1 && !empty($item->related_work)) {
+            $related_items = Item::related($item)->with('images')->get();
 
-        return view('zoom', array('item' => $item, 'related_items' => $related_items));
-    });
+            $images = collect();
+            foreach ($related_items as $related_item) {
+                if ($image = $related_item->getZoomableImages()->first()) {
+                    $images->push($image);
+                }
+            }
+
+            $index = $images->search(function (Image $image) use ($item) {
+                return $image->item->id == $item->id;
+            });
+        }
+
+        return view('zoom', array('item' => $item, 'images' => $images, 'index' => $index));
+    })->name('item.zoom');
 
     Route::get('ukaz_skicare', 'SkicareController@index');
     Route::get('skicare', 'SkicareController@getList');
@@ -234,7 +251,36 @@ function()
             }
         }
 
-        return view('dielo', array('item' => $item, 'more_items' => $more_items, 'previous' => $previous, 'next' => $next));
+        $similar_by_color = [];
+        $colors_used = [];
+
+        if ($item->color_descriptor) {
+            $similar_by_color = $item->similarByColor(100);
+            $colors_used = $item->getColorsUsed(Color::TYPE_HEX);
+
+            uasort($colors_used, function ($a, $b) {
+                if ($a['amount'] == $b['amount']) {
+                    return 0;
+                }
+
+                return $a['amount'] < $b['amount'] ? 1 : -1;
+            });
+
+            $amount_sum = array_sum(array_column($colors_used, 'amount'));
+            foreach ($colors_used as $hex => $color_used) {
+                $colors_used[$hex]['amount'] = sprintf("%.3f%%", $colors_used[$hex]['amount'] * 100 / $amount_sum, 3);
+                $colors_used[$hex]['hex'] = $colors_used[$hex]['color']->getValue();
+            }
+        }
+
+        return view('dielo', compact(
+            'item',
+            'more_items',
+            'similar_by_color',
+            'colors_used',
+            'previous',
+            'next'
+        ));
     });
 
     Route::get('dielo/nahlad/{id}/{width}', function ($id, $width) {

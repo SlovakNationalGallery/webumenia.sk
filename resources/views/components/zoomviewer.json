@@ -1,8 +1,11 @@
 {
     "name": "Zoom viewer",
     "data_calls" : {
-      "item": "use App\\Item; return Item::find('SVK:SNG.UP-DK_1425-2');",
-      "related_items": "use App\\Item; return Item::find('SVK:SNG.UP-DK_1425-2')->getRelatedIIPImgUrls();"
+      "item": "use App\\Item; return $sample_item = Item::inRandomOrder()->first();",
+      "images": "use App\\Item; return Item::related($sample_item)->first()->getZoomableImages();"
+    },
+    "data": {
+      "index": 0
     },
     "wrapper_classes": "h7",
     "include_js": true,

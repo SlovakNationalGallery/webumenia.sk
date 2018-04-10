@@ -1711,61 +1711,60 @@
             "time": "2017-05-21T18:02:21+00:00"
         },
         {
-            "name": "league/csv",
-            "version": "8.2.2",
+            "name": "league/color-extractor",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/thephpleague/csv.git",
-                "reference": "fa8bc05f64eb6c66b96edfaf60648f022ecb5f55"
+                "url": "https://github.com/rastislav-chynoransky/color-extractor.git",
+                "reference": "52fdbde671c3906c8de8b3a7060dd8c257c81a93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/csv/zipball/fa8bc05f64eb6c66b96edfaf60648f022ecb5f55",
-                "reference": "fa8bc05f64eb6c66b96edfaf60648f022ecb5f55",
+                "url": "https://api.github.com/repos/rastislav-chynoransky/color-extractor/zipball/52fdbde671c3906c8de8b3a7060dd8c257c81a93",
+                "reference": "52fdbde671c3906c8de8b3a7060dd8c257c81a93",
                 "shasum": ""
             },
             "require": {
-                "ext-mbstring": "*",
-                "php": ">=5.5.0"
+                "ext-gd": "*",
+                "php": ">=5.4.0"
+            },
+            "replace": {
+                "matthecat/colorextractor": "*"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^1.9",
-                "phpunit/phpunit": "^4.0"
+                "friendsofphp/php-cs-fixer": "~2",
+                "phpunit/phpunit": "~5"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "8.2-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
-                    "League\\Csv\\": "src"
+                    "": "src"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "authors": [
                 {
-                    "name": "Ignace Nyamagana Butera",
-                    "email": "nyamsprod@gmail.com",
-                    "homepage": "https://github.com/nyamsprod/",
+                    "name": "Mathieu Lechat",
+                    "email": "math.lechat@gmail.com",
+                    "homepage": "http://matthecat.com",
                     "role": "Developer"
                 }
             ],
-            "description": "Csv data manipulation made easy in PHP",
-            "homepage": "http://csv.thephpleague.com",
+            "description": "Extract colors from an image as a human would do.",
+            "homepage": "https://github.com/thephpleague/color-extractor",
             "keywords": [
-                "csv",
-                "export",
-                "filter",
-                "import",
-                "read",
-                "write"
+                "color",
+                "extract",
+                "human",
+                "image",
+                "palette"
             ],
-            "time": "2017-07-12T07:18:20+00:00"
+            "support": {
+                "source": "https://github.com/rastislav-chynoransky/color-extractor/tree/master"
+            },
+            "time": "2018-01-07T15:01:12+00:00"
         },
         {
             "name": "league/flysystem",
@@ -5063,7 +5062,9 @@
         "guzzlehttp/guzzle": 20,
         "fadion/bouncy": 20,
         "rap2hpoutre/laravel-log-viewer": 20,
-        "zizaco/entrust": 20
+        "zizaco/entrust": 20,
+        "roumen/sitemap": 20,
+        "league/color-extractor": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
