@@ -109,6 +109,10 @@ class Item extends Model
         ],
     );
 
+    protected $casts = array(
+        'color_descriptor' => 'json',
+    );
+
     // ELASTIC SEARCH INDEX
     public static function boot()
     {
@@ -203,6 +207,30 @@ class Item extends Model
     public function getOaiUrl()
     {
         return Config::get('app.old_url').'/oai-pmh/?verb=GetRecord&metadataPrefix=oai_dc&identifier='.$this->id;
+    }
+
+    public function similarByColor($size = 10)
+    {
+        if (!$this->color_descriptor) {
+            throw new \RuntimeException;
+        }
+
+        $params = [
+            'size' => $size,
+            'sort' => [
+                '_score' => 'desc'
+            ],
+            'query' => [
+                'descriptor' => [
+                    'color_descriptor' => [
+                        'hash' => 'LSH',
+                        'descriptor' => $this->color_descriptor
+                    ]
+                ]
+            ]
+        ];
+
+        return self::search($params);
     }
 
     public function moreLikeThis($size = 10)
@@ -759,6 +787,7 @@ class Item extends Model
                 'related_work' => $this->related_work,
                 'authority_id' => $this->relatedAuthorityIds(),
                 'view_count' => $this->view_count,
+                'color_descriptor' => $this->color_descriptor,
             ];
 
             return $client->index([
@@ -819,5 +848,32 @@ class Item extends Model
         }
         $items = self::search($params);
         return $items->total();
+    }
+
+    public function getColorsUsed($type = null) {
+        $colors_used = [];
+
+        for ($i = 0; $i < count($this->color_descriptor) / 4; $i++) {
+            $amount_sqrt = $this->color_descriptor[4 * $i + 3];
+            if (!$amount_sqrt) {
+                continue;
+            }
+            $amount = $amount_sqrt * $amount_sqrt;
+            $L = $this->color_descriptor[4 * $i];
+            $a = $this->color_descriptor[4 * $i + 1];
+            $b = $this->color_descriptor[4 * $i + 2];
+            $color = new Color(['L' => $L, 'a' => $a, 'b' => $b], Color::TYPE_LAB);
+
+            if ($type !== null) {
+                $color = $color->convertTo($type);
+            }
+
+            $colors_used[$color->getValue()] = [
+                'color' => $color,
+                'amount' => $amount
+            ];
+        }
+
+        return $colors_used;
     }
 }

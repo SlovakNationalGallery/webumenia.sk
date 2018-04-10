@@ -67,6 +67,7 @@ class SetupElasticsearch extends Command
         $json_params_create_index = '
         {
           "settings": {
+            "index.version.created": 1070499,
             "analysis": {
               "filter": {
                 "autocomplete_filter": {
@@ -304,6 +305,10 @@ class SetupElasticsearch extends Command
               "authority_id" : {
                 "type": "string",
                 "index": "not_analyzed"
+              },
+              "color_descriptor" : {
+                "type": "descriptor",
+                "hash": "LSH"
               }
             }
           }
