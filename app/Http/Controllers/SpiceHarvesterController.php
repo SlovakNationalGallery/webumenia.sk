@@ -621,22 +621,33 @@ class SpiceHarvesterController extends Controller
             /**
              * Map translatable elements
              */
-            $attributes['sk']['birth_place'] = $this->trimAfter((string)$metadata->Biographies->Preferred_Biography->Birth_Place);
 
-            $attributes['sk']['death_place'] = $this->trimAfter((string)$metadata->Biographies->Preferred_Biography->Death_Place);
+            $langsPresent = ['sk', 'en'];
 
-            $attributes['sk']['type_organization'] = (string)$metadata->Record_Type_Organization;
+            foreach ($langsPresent as $index => $lang) {
 
-            $biography = $this->parseBiography((string)$metadata->Biographies->Preferred_Biography->Biography_Text);
-            if (strpos($biography, 'http')!== false) {
-                preg_match_all('!https?://\S+!', $biography, $matches);
-                $attributes['links']= $matches[0];
-                $biography = ''; // vymazat bio
+                $attributes[$lang]['roles'] = [];
+                foreach ($metadata->Roles->Preferred_Role as $key => $role) {
+                    $attributes[$lang]['roles'][] = $this->chooseTranslation((string)$role->Role_ID, $index);
+                }
+
+                $attributes[$lang]['birth_place'] = $this->chooseTranslation((string)$metadata->Biographies->Preferred_Biography->Birth_Place, $index);
+
+                $attributes[$lang]['death_place'] = $this->chooseTranslation((string)$metadata->Biographies->Preferred_Biography->Death_Place, $index);
+
+                $attributes[$lang]['type_organization'] = (string)$metadata->Record_Type_Organization;
+
+                $biography = $this->parseBiography((string)$metadata->Biographies->Preferred_Biography->Biography_Text);
+                if (strpos($biography, 'http')!== false) {
+                    preg_match_all('!https?://\S+!', $biography, $matches);
+                    $attributes['links']= $matches[0];
+                    $biography = ''; // vymazat bio
+                }
+                $attributes[$lang]['biography'] = $biography;
+
+                // filter empty strings caused by non present attributes for given lang
+                $attributes[$lang] = array_filter($attributes[$lang]);
             }
-            $attributes['sk']['biography'] = $biography;
-
-            // filter empty strings caused by non present attributes for given lang
-            $attributes['sk'] = array_filter($attributes['sk']);
 
             /**
              * Map non-translatable SK elements
@@ -674,11 +685,6 @@ class SpiceHarvesterController extends Controller
                     'code' => (string)$nationality->Nationality_Code,
                     // 'prefered' => true,
                 ];
-            }
-
-            $attributes['sk']['roles'] = [];
-            foreach ($metadata->Roles->Preferred_Role as $key => $role) {
-                $attributes['sk']['roles'][] = $this->trimAfter((string)$role->Role_ID);
             }
 
             $attributes['names'] = array();
@@ -944,6 +950,12 @@ class SpiceHarvesterController extends Controller
     {
         $parts = explode($delimiter, $string);
         return $parts[0];
+    }
+
+    private function chooseTranslation($string, $index, $delimiter = '/')
+    {
+        $parts = explode($delimiter, $string);
+        return (isSet($parts[$index])) ? $parts[$index] : null;
     }
 
     private function parseBiography($string)
