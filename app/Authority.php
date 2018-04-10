@@ -445,7 +445,11 @@ class Authority extends Model
     {
         $atttribute = explode('/', $atttribute);
 
-        return $atttribute[$index];
+        if (\App::getLocale() == 'en') {
+            $index = 1;
+        }
+
+        return (isSet($atttribute[$index])) ? $atttribute[$index] : null;
     }
 
     public static function listValues($attribute, $search_params)
