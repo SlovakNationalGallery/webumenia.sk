@@ -548,14 +548,6 @@ class SpiceHarvesterController extends Controller
                     }
                     $nationality = $author->nationalities()->sync($nationality_ids);
                 }
-                $roles_to_remove = $this->get_obsolete_attributes($author->roles->lists('role', 'id')->toArray(), $attributes['roles']);
-                AuthorityRole::destroy(array_keys($roles_to_remove));
-                if (!empty($attributes['roles'])) {
-                    foreach ($attributes['roles'] as $key => $role) {
-                        $role['authority_id'] = $author->id;
-                        $role = AuthorityRole::firstOrCreate($role);
-                    }
-                }
                 if (!empty($attributes['names'])) {
                     foreach ($attributes['names'] as $key => $name) {
                         $name['authority_id'] = $author->id;
@@ -684,12 +676,9 @@ class SpiceHarvesterController extends Controller
                 ];
             }
 
-            $attributes['roles'] = array();
+            $attributes['sk']['roles'] = [];
             foreach ($metadata->Roles->Preferred_Role as $key => $role) {
-                $attributes['roles'][] = [
-                    'role' => $this->trimAfter((string)$role->Role_ID),
-                    // 'prefered' => true,
-                ];
+                $attributes['sk']['roles'][] = $this->trimAfter((string)$role->Role_ID);
             }
 
             $attributes['names'] = array();
