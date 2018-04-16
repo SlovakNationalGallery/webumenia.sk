@@ -11,6 +11,8 @@ All notable changes to this project will be documented in this file[^1].
 - Favicons & Open Graph tags include components
 - positioned image reference strip on right side of zoom-viewer
 - Zoom view showing multiple images
+- made models Item, Authority, Article and Collection translatable
+- separate elastic index for each locale
 
 ### Added
 - zoom-viewer component
