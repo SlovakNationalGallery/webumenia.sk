@@ -47,7 +47,7 @@
                     <a href="{!! str_contains(URL::previous(), '/autori') ?  URL::previous() : URL::to('/autori') !!} " class="inherit no-border"><i class="icon-arrow-left"></i> {{ utrans('autor.back-to-artists') }}</a>
                     <h1 itemprop="name">{!! $author->formatedName !!}</h1>
                     @if ( $author->names->count() > 0)
-                        <p class="lead">príp.  <em>{!! implode("</em>, <em>", $author->formatedNames) !!}</em></p>
+                        <p class="lead">{{ trans('autor.alternative_names') }} <em>{!! implode("</em>, <em>", $author->formatedNames) !!}</em></p>
                     @endif
                     <p class="lead">
                         {!! $author->getDescription(true, true) !!}
