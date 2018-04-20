@@ -12,6 +12,9 @@ class WebumeniaMgImporter extends MgImporter
     /** @var Import */
     protected $import;
 
+    /** @var array */
+    protected $file;
+
     protected $defaults = [
         'gallery' => 'Moravská galerie, MG',
         'author' => 'neurčený autor',
@@ -77,7 +80,7 @@ class WebumeniaMgImporter extends MgImporter
         parent::__construct($repository);
 
         $this->filters[] = function (array $record) {
-            return $this->getItemIipImageUrl(null, $this->getItemImageFilename($record)) !== false;
+            return file_exists($this->getItemIipImagePath($this->file['basename'], $this->getItemImageFilename($record)));
         };
 
         unset($this->mapping['RokAkv'], $this->mapping['DatExp']);
@@ -85,16 +88,20 @@ class WebumeniaMgImporter extends MgImporter
 
     public function import(Import $import, array $file) {
         $this->import = $import;
+        $this->file = $file;
         return parent::import($import, $file);
     }
 
-    protected function getItemIipImageUrl($csv_filename, $image_filename) {
-        $paths = glob(sprintf(
-            '%s/%s.jp2',
+    /**
+     * @param string $csv_filename
+     * @param string $image_filename
+     * @return string
+     */
+    protected function getItemIipImagePath($csv_filename, $image_filename) {
+        return sprintf(
+            '%s/%s',
             $this->import->iip_dir_path,
-            $image_filename
-        ));
-
-        return reset($paths);
+            $this->getItemIipImageUrl($csv_filename, $image_filename)
+        );
     }
 }
