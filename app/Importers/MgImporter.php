@@ -149,7 +149,7 @@ class MgImporter extends AbstractImporter {
     }
 
     protected function hydrateWorkType(array $record) {
-        return (isset(self::$cz_work_types_spec[$record['Skupina']])) ? self::$cz_work_types_spec[$record['Skupina']] : 'nespecifikované';
+        return (isset(static::$cz_work_types_spec[$record['Skupina']])) ? static::$cz_work_types_spec[$record['Skupina']] : 'nespecifikované';
     }
 
     protected function hydrateRelationshipType(array $record) {
@@ -161,7 +161,7 @@ class MgImporter extends AbstractImporter {
     }
 
     protected function hydrateMeasurement(array $record) {
-        return (!empty($record['Služ']) && $record['Služ'] != '=') ? strtr($record['Služ'], self::$cz_measurement_replacements)  : '';
+        return (!empty($record['Služ']) && $record['Služ'] != '=') ? strtr($record['Služ'], static::$cz_measurement_replacements)  : '';
     }
 
     protected static function isBiennial(array $record) {
