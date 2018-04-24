@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [1.3.2] - 2018-04-23
+### Fixed
+- enable ArtworkCarousel to be added to article text
+
 ## [1.3.1] - 2018-03-09
 ### Fixed
 - OAI-PMH harvester for translated attributes
