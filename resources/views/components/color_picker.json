@@ -1,0 +1,9 @@
+{
+    "name": "Colour Picker",
+    "data": {
+      "id": "color-picker"
+    },
+    "include_js": true,
+    "wrapper_classes": "bg-light-grey pa4",
+    "usage_notes": "A slider element that lets a user select a color by its Hue and Luminosity values"
+}

@@ -1,16 +1,16 @@
-.pattern-lib {
-  .relative {
-    position: relative;
-  }
-  
-  /* Atomic helper classes to insert to component-wrapper via $wrapper_classes */
+/* Atomic helper classes to insert to component-wrapper via $wrapper_classes */
 
-  /* Height Scale */
-  .h1 { height: 1rem; }
-  .h2 { height: 2rem; }
-  .h3 { height: 4rem; }
-  .h4 { height: 8rem; }
-  .h5 { height: 16rem; }
-  .h6 { height: 32rem; }
-  .h7 { height: 64rem; }
+@import "_colors.less";
+
+/* Atomic helper classes from Tachyons */
+@import (less) "_spacing.css";
+@import (less) "_heights.css";
+@import (less) "_position.css";
+
+.pattern-lib {
+  
+  /* Background Colors */
+  .bg-light-grey {
+    background-color: @light-grey;
+  }
 }
