@@ -114,9 +114,19 @@
                             <a href="{!! URL::to('sketchbook') !!}"><i class="fa fa-book fa-fw"></i> Skicáre</a>
                         </li>
                         @endif
-                        @if (Entrust::hasRole('admin'))
+                        @if (Entrust::hasRole(['admin', 'import']))
                         <li>
-                            <a href="{!! URL::to('harvests') !!}"><i class="fa fa-download fa-fw"></i> Spice Harvester</a>
+                            <a href="#"><i class="fa fa-download fa-fw"></i> Import<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                @if (Entrust::hasRole(['admin']))
+                                <li>
+                                    <a href="{!! URL::to('harvests') !!}">Spice Harvester</a>
+                                </li>
+                                @endif
+                                <li>
+                                    <a href="{!! URL::to('imports') !!}">CSV Import</a>
+                                </li>
+                            </ul>
                         </li>
                         @endif
                         @if (Entrust::hasRole('admin'))
@@ -141,7 +151,7 @@
 
             <!-- Content -->
             @yield('content')
-        
+
         </div>
         <!-- /#page-wrapper -->
 
@@ -202,10 +212,10 @@
             $(this).removeData('bs.modal');
         });
 
-        $('.btn-detail').click(function( event ){  
+        $('.btn-detail').click(function( event ){
             $('#detailModal').modal({modal:true,remote:($(this).attr('href'))});
             event.preventDefault();
-        });    
+        });
 
 
         // select all feature
@@ -217,7 +227,7 @@
         $('.selectedId').change(function () {
             var check = ($('.selectedId').filter(":checked").length == $('.selectedId').length);
             $('#selectall').prop("checked", check);
-        });   
+        });
 
 
         var links_count = $('.form_link').length;
@@ -230,14 +240,14 @@
         });
 
         $('.colorpicker-component').colorpicker();
-     
+
         // $('.colorpicker').colorpicker().on('changeColor', function(ev){
         //   // console.log('farba:' + ev.color.toHex());
         //   $(this).prev('span').css('color',ev.color.toHex());
         // });
 
         $(".switch").bootstrapSwitch();
-     
+
 
 
     });

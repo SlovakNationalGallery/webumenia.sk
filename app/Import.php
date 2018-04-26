@@ -13,11 +13,12 @@ class Import extends Model
     const STATUS_IN_PROGRESS = 'in progress';
     const STATUS_COMPLETED   = 'completed';
     const STATUS_ERROR       = 'error';
-    const STATUS_DELETED     = 'deleted';
-    const STATUS_KILLED      = 'killed';
+    // const STATUS_DELETED     = 'deleted';
+    // const STATUS_KILLED      = 'killed';
 
     public static $rules = array(
         'name' => 'required',
+        'class_name' => 'required',
     );
 
     public function records()
@@ -33,5 +34,29 @@ class Import extends Model
     public function setDirPath($value)
     {
         $this->attributes['dir_path'] = $value ?: null;
+    }
+
+    public function setQueued()
+    {
+        $this->attributes['status'] = self::STATUS_QUEUED;
+    }
+
+    public function getStatusClassAttribute()
+    {
+        switch ($this->status) {
+            case self::STATUS_COMPLETED:
+                return 'success';
+                break;
+
+            case self::STATUS_IN_PROGRESS:
+                return 'warning';
+                break;
+
+            case self::STATUS_ERROR:
+                return 'danger';
+                break;
+        }
+
+        return 'default';
     }
 }

@@ -8,6 +8,7 @@ use App\Import;
 use App\Importers\AbstractImporter;
 use App\Importers\IImporter;
 use App\Repositories\CsvRepository;
+
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\App;
 use Illuminate\Console\Command;
@@ -22,7 +23,7 @@ class ImportCsv extends Command
      *
      * @var string
      */
-    protected $name = 'csv:import';
+    protected $signature = 'csv:import {--id=} {--queue}';
 
     /**
      * The console command description.
@@ -73,39 +74,8 @@ class ImportCsv extends Command
         }
 
         foreach ($imports as $import) {
-            try {
-                // @todo register importers as services
-                $reflection = new \ReflectionClass($import->class_name);
-                if (!$reflection->isInstantiable()) {
-                    throw new \Exception('Class is not instantiable');
-                }
-                $importer = new $import->class_name(new CsvRepository());
-            } catch (\Exception $e) {
-                $this->error(sprintf("Nenašiel sa importer pre ID %s.", $import->id));
-                continue;
-            }
-
-            $files = \Storage::listContents('import/' . $import->dir_path);
-            $csv_files = array_filter($files, function ($object) {
-                return (isSet($object['extension']) && $object['extension'] === 'csv');
-            });
-
-            foreach ($csv_files as $file) {
-                $this->comment("Spúšťa sa import pre {$file['path']}.");
-                $importer->import($import, $file);
-            }
+            dispatch(new \App\Jobs\ImportCsv($import));
         }
-        // $reindex =$this->option('reindex');
-        // if ($reindex) {
-        //     $this->info("Je zapnutý reindex celého importu. Bude to trvať dlhšie.");
-        //     Input::merge(array('reindex' => true));
-        // }
-        // if ($this->option('start_date')) {
-        //     Input::merge(array('start_date' => $this->option('start_date')));
-        // }
-        // if ($this->option('end_date')) {
-        //     Input::merge(array('end_date' => $this->option('end_date')));
-        // }
 
         $this->comment("Dokoncene");
     }
