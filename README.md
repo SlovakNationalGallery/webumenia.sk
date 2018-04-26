@@ -74,6 +74,20 @@ ProxyPassReverse /fcgi-bin/iipsrv.fcgi http://imi.sng.cust.eea.sk/publicIS/fcgi-
 * command to reindex data to the index
 `php artisan es:reindex`
 
+## Compiling Stylesheets
+
+We use [LESS](http://lesscss.org/) to include all of our stylesheets via one main file `public/css/less/style.less`. To compile (and compress using [less-plugin-clean-css](https://github.com/less/less-plugin-clean-css)) all styles to CSS, run from the root directory:
+
+```
+lessc public/css/less/style.less public/css/style.css --clean-css
+```
+
+For a better developer experience, use [less-watch-compiler](https://github.com/jonycheung/deadsimple-less-watch-compiler) to watch a directory for changes and automatically compile LESS into CSS. Thanks to the config file `less-watch-compiler.config.json` all you have to run (from root dir) is:
+
+```
+less-watch-compiler
+```
+
 ## Maintainer
 
 This project is maintained by [lab.SNG](http://lab.sng.sk). If you have any questions please don't hesitate to ask them by creating an issue or email us at [lab@sng.sk](mailto:lab@sng.sk).

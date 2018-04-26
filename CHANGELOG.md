@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - color-list component on artwork detail
 - Color description
+- LESS to CSS compilation
 
 ### Changed
 - Favicons & Open Graph tags include components
