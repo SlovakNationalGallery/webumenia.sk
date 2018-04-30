@@ -51,7 +51,7 @@ CSV Imports |
                             <td>{!! $i->name !!}</td>
                             <td>{!! ($i->lastRecord()) ? $i->lastRecord()->filename : '' !!}</td>
 			                <td><span class="h4"><span class="label label-{!! $i->status_class !!}">{!! $i->status !!}</span></span></td>
-			                <td>{!! ($i->completed_at) ? date("d.m.Y h:m",strtotime($i->completed_at)) : '' !!}</td>
+			                <td>{!! ($i->completed_at) ? $i->completed_at->format('d.m.Y H:i') : '' !!}</td>
 			                <td>
                                 {!! Form::open(array('method' => 'DELETE', 'route' => array('imports.destroy', $i->id), 'class' => 'visible-xs-inline form-inline')) !!}
                                 {!! link_to_action('ImportController@launch', 'Spustiť', array($i->id), array('class' => 'btn btn-success btn-xs btn-outline', )) !!}

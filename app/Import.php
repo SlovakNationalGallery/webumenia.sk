@@ -9,17 +9,24 @@ use Illuminate\Database\Eloquent\Model;
 class Import extends Model
 {
 
+    const STATUS_NEW         = 'new';
     const STATUS_QUEUED      = 'queued';
     const STATUS_IN_PROGRESS = 'in progress';
     const STATUS_COMPLETED   = 'completed';
     const STATUS_ERROR       = 'error';
-    // const STATUS_DELETED     = 'deleted';
     // const STATUS_KILLED      = 'killed';
 
     public static $rules = array(
         'name' => 'required',
         'class_name' => 'required',
     );
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'started_at',
+        'completed_at',
+    ];
 
     public function records()
     {
