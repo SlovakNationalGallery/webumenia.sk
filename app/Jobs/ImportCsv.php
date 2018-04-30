@@ -36,7 +36,7 @@ class ImportCsv extends Job implements ShouldQueue
      */
     public function handle()
     {
-        $this->import->status = $this->import::STATUS_IN_PROGRESS;
+        $this->import->status = Import::STATUS_IN_PROGRESS;
         $this->import->save();
 
         try {
@@ -46,7 +46,9 @@ class ImportCsv extends Job implements ShouldQueue
             }
             $importer = new $this->import->class_name(new CsvRepository());
         } catch (\Exception $e) {
-            $this->error("Nenašiel sa importer pre dané ID.");
+            if (\App::runningInConsole()) {
+                echo "Nenašiel sa importer pre dané ID.\n";
+            }
             return;
         }
 
@@ -57,7 +59,7 @@ class ImportCsv extends Job implements ShouldQueue
             $importer->import($this->import, $file);
         }
 
-        $this->import->status = $this->import::STATUS_COMPLETED;
+        $this->import->status = Import::STATUS_COMPLETED;
         $this->import->completed_at = date('Y-m-d H:i:s');
         $this->import->save();
 
@@ -69,7 +71,7 @@ class ImportCsv extends Job implements ShouldQueue
      * @param  Exception  $exception
      * @return void
      */
-    public function failed(Exception $exception)
+    public function failed()
     {
         // @todo - handle fail (send notification?)
 

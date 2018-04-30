@@ -158,7 +158,7 @@ class ImportController extends Controller
 
         // run in queue
         $import = Import::find($id);
-        $import->status = $import::STATUS_QUEUED;
+        $import->status = Import::STATUS_QUEUED;
         $import->started_at = date('Y-m-d H:i:s');
         $import->save();
 

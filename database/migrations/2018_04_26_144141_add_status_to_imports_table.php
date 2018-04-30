@@ -13,7 +13,7 @@ class AddStatusToImportsTable extends Migration
     public function up()
     {
         Schema::table('imports', function (Blueprint $table) {
-            $table->enum('status', array('queued','in progress','completed','error','deleted','killed'))->default('queued');
+            $table->enum('status', array('new','queued','in progress','completed','error','deleted','killed'))->default('new');
             $table->dateTime('started_at')->nullable();
             $table->dateTime('completed_at')->nullable();
         });
