@@ -59,4 +59,11 @@ class Import extends Model
 
         return 'default';
     }
+
+    public function getFilesAttribute()
+    {
+        $files = \Storage::listContents('import/' . $this->dir_path);
+        $csv_files = array_filter($files, function ($object) { return (isSet($object['extension']) && $object['extension'] === 'csv'); });
+        return $csv_files;
+    }
 }

@@ -50,10 +50,7 @@ class ImportCsv extends Job implements ShouldQueue
             return;
         }
 
-        $files = \Storage::listContents('import/' . $this->import->dir_path);
-        $csv_files = array_filter($files, function ($object) { return (isSet($object['extension']) && $object['extension'] === 'csv'); });
-
-        foreach ($csv_files as $file) {
+        foreach ($this->import->files as $file) {
             if (\App::runningInConsole()) {
                 echo "Spúšťa sa import pre {$file['path']}.\n";
             }
