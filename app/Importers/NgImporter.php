@@ -17,7 +17,8 @@ class NgImporter extends AbstractImporter {
         'enclosure' => '"',
         'escape' => '\\',
         'newline' => "\r\n",
-        'input_encoding' => 'CP1250',
+        // we use UTF-8 now. no need to convert encoding.
+        // 'input_encoding' => 'CP1250',
     ];
 
     protected $mapping = [
