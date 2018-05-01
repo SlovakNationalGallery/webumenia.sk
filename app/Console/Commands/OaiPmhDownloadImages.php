@@ -59,7 +59,7 @@ class OaiPmhDownloadImages extends Command
 
         $i = 0;
 
-        Item::where('img_url', '!=', '')->where('has_image', '=', 0)->chunk(200, function ($items) use (&$i) {
+        Item::where('img_url', '!=', '')->where('has_image', '=', 0)->chunkById(200, function ($items) use (&$i) {
             // $items->load('authorities');
             foreach ($items as $item) {
                 if ($item::hasImageForId($item->id) || $this->downloadImage($item)) {
