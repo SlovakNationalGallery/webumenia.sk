@@ -108,6 +108,10 @@ abstract class AbstractImporter implements IImporter {
         return static::$name;
     }
 
+    public function getOptions() {
+        return $this->options;
+    }
+
     /**
      * @param array $record
      * @param Import $import

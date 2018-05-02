@@ -36,6 +36,18 @@
         		Vyplniť len ak chcete nahrať nový/upravený súbor pre import.<br>
         		Ak ma rovnaký názov, automaticky sa starý prepíše.
         	</p>
+        	@if (!empty($options))
+        		<p class="help-block">
+        			@foreach ($options as $option=>$value)
+
+        				{{ $option }}: <code>{{ ($option == 'newline') ? js_add_slashes($value) : $value }}</code><br>
+        			@endforeach
+
+        			@if (empty($options['input_encoding']))
+        				input_encoding: <code>utf-8</code>
+        			@endif
+        		</p>
+        	@endif
         	</div>
 
         	@if ( isset($import) && !empty($import->files))
