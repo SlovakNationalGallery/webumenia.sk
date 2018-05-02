@@ -78,7 +78,10 @@ class OaiPmhDownloadImages extends Command
                 }
             }
         });
-        $message = 'Pre ' . $i . ' diel boli stiahnute obrazky,' . "\n" . $failures . ' diela nemajú žiadny obrázok alebo sa nepodarilo sťahovať zdroj';
+        $message = 'Pre ' . $i . ' diel boli stiahnute obrazky';
+        if ($failures > 0) {
+            $message .= "\n" . $failures . ' diela nemajú žiadny obrázok alebo sa nepodarilo sťahovať zdroj';
+        }
         $this->comment($message);
         return true;
     }
