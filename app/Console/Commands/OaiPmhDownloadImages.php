@@ -58,14 +58,17 @@ class OaiPmhDownloadImages extends Command
         $this->log->pushHandler(new \Monolog\Handler\StreamHandler(storage_path().'/logs/'.$logFile, \Monolog\Logger::WARNING));
 
         $i = 0;
+        $failures = 0;
 
-        Item::where('img_url', '!=', '')->where('has_image', '=', 0)->chunkById(200, function ($items) use (&$i) {
+        Item::where('img_url', '!=', '')->where('has_image', '=', 0)->chunkById(200, function ($items) use (&$i, &$failures) {
             // $items->load('authorities');
             foreach ($items as $item) {
                 if ($item::hasImageForId($item->id) || $this->downloadImage($item)) {
                     $i++;
                     $item->has_image = true;
                     $item->save();
+                } else {
+                    $failures++;
                 }
                 
                 if (App::runningInConsole()) {
@@ -75,7 +78,7 @@ class OaiPmhDownloadImages extends Command
                 }
             }
         });
-        $message = 'Pre ' . $i . ' diel boli stiahnute obrazky';
+        $message = 'Pre ' . $i . ' diel boli stiahnute obrazky,' . "\n" . $failures . ' diela nemajú žiadny obrázok alebo sa nepodarilo sťahovať zdroj';
         $this->comment($message);
         return true;
     }
