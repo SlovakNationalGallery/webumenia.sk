@@ -77,6 +77,8 @@ abstract class AbstractImporter implements IImporter {
             $file['basename']
         );
 
+        $import_record->save();
+
         $records = $this->repository->getFiltered(
             storage_path(sprintf('app/%s', $file['path'])),
             $this->filters,
@@ -88,12 +90,15 @@ abstract class AbstractImporter implements IImporter {
             $item = $this->importSingle($record, $import, $import_record);
 
             if (!$item) {
-                continue;
+                // continue;
+                return;
             }
 
             $items[] = $item;
         }
 
+        $import_record->status=Import::STATUS_COMPLETED;
+        $import_record->completed_at=date('Y-m-d H:i:s');
         $import_record->save();
 
         return $items;
@@ -101,6 +106,10 @@ abstract class AbstractImporter implements IImporter {
 
     public static function getName() {
         return static::$name;
+    }
+
+    public function getOptions() {
+        return $this->options;
     }
 
     /**
@@ -115,7 +124,18 @@ abstract class AbstractImporter implements IImporter {
             $item->save();
             $import_record->imported_items++;
         } catch (\Exception $e) {
+            $now = date('Y-m-d H:i:s');
+
+            $import->status=Import::STATUS_ERROR;
+            $import->completed_at=$now;
+            $import->save();
+
             $import_record->wrong_items++;
+            $import_record->status=Import::STATUS_ERROR;
+            $import_record->error_message=$e->getMessage();
+            $import_record->completed_at=$now;
+            $import_record->save();
+
             // todo log exception
             throw $e;
             return null;

@@ -268,10 +268,18 @@ Route::group(array('middleware' => 'guest'), function () {
     Route::post('login', 'AuthController@postLogin');
 });
 
-Route::group(['middleware' => ['auth', 'role:admin|editor']], function () {
-
+Route::group(['middleware' => ['auth', 'role:admin|editor|import']], function () {
     Route::get('admin', 'AdminController@index');
     Route::get('logout', 'AuthController@logout');
+    Route::get('imports/launch/{id}', 'ImportController@launch');
+    Route::resource('imports', 'ImportController');
+    Route::get('item/search', 'ItemController@search');
+    Route::resource('item', 'ItemController');
+    Route::post('item/destroySelected', 'ItemController@destroySelected');
+});
+
+Route::group(['middleware' => ['auth', 'role:admin|editor']], function () {
+
     Route::get('collection/{collection_id}/detach/{item_id}', 'CollectionController@detach');
     Route::post('collection/fill', 'CollectionController@fill');
     Route::post('collection/sort', 'CollectionController@sort');
@@ -288,13 +296,9 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::resource('harvests', 'SpiceHarvesterController');
     Route::get('item/backup', 'ItemController@backup');
     Route::get('item/geodata', 'ItemController@geodata');
-    Route::post('item/destroySelected', 'ItemController@destroySelected');
     Route::post('item/refreshSelected', 'ItemController@refreshSelected');
-    Route::get('item/search', 'ItemController@search');
     Route::get('item/reindex', 'ItemController@reindex');
-    Route::resource('item', 'ItemController');
     Route::get('authority/destroyLink/{link_id}', 'AuthorityController@destroyLink');
-    Route::get('authority/search', 'AuthorityController@search');
     Route::get('authority/reindex', 'AuthorityController@reindex');
     Route::post('authority/destroySelected', 'AuthorityController@destroySelected');
     Route::resource('authority', 'AuthorityController');

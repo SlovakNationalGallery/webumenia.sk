@@ -377,3 +377,14 @@ img.nahlad {
 .sortable-handle {
     margin-right: 10px; cursor: move;
 }
+
+.pointer {
+    cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  // Automatically set modal's width for larger viewports
+  .modal-dialog {
+    width: 700px;
+  }
+}
