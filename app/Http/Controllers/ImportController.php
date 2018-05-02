@@ -13,6 +13,7 @@ use App\Item;
 use App\Import;
 use App\ImportRecord;
 use App\Jobs\ImportCsv;
+use App\Repositories\CsvRepository;
 
 class ImportController extends Controller
 {
@@ -94,7 +95,10 @@ class ImportController extends Controller
             return redirect()->route('import.index');
         }
 
-        return view('imports.form')->with('import', $import);
+        $importer = new $import->class_name(new CsvRepository());
+        $options = $importer->getOptions();
+
+        return view('imports.form')->with(['import' => $import, 'options' => $options]);
     }
 
     /**

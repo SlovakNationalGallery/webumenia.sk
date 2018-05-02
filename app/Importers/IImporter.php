@@ -19,4 +19,9 @@ interface IImporter
      * @return string
      */
     public static function getName();
+
+    /**
+     * @return array
+     */
+    public function getOptions();
 }
