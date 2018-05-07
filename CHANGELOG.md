@@ -4,19 +4,20 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 
 ### Added
-- color-list component on artwork detail
-- Color description
 - Scheduled task to run sitemap creation
+
+## [1.4.0] - 2018-05-07
+### Added
+- Color-list component on artwork detail
+- Color description
+- Zoom-viewer component
+- Multiple images per artwork
+- Moravian gallery importer
 
 ### Changed
 - Favicons & Open Graph tags include components
-- positioned image reference strip on right side of zoom-viewer
+- Positioned image reference strip on right side of zoom-viewer
 - Zoom view showing multiple images
-
-### Added
-- zoom-viewer component
-- Moravian gallery importer
-- Multiple images per artwork
 
 ## [1.3.2] - 2018-04-23
 ### Fixed
@@ -75,6 +76,7 @@ All notable changes to this project will be documented in this file[^1].
 - LICENSE from Public Domain into MIT
 
 [Unreleased]: https://github.com/SlovakNationalGallery/web-umenia-2/compare/master...develop
+[1.4.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/67
 [1.3.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/52
 [1.2.6]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/31
 

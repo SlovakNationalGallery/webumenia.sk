@@ -162,7 +162,7 @@ class Item extends Model
 
     public function images()
     {
-        return $this->hasMany(Image::class)->orderBy('order');
+        return $this->hasMany(ItemImage::class)->orderBy('order');
     }
 
     public function getImagePath($full = false)
@@ -750,7 +750,7 @@ class Item extends Model
 
     public function getZoomableImages()
     {
-        return $this->images->filter(function (Image $image) {
+        return $this->images->filter(function (ItemImage $image) {
             return $image->iipimg_url !== null;
         });
     }
