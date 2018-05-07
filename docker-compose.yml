@@ -1,0 +1,21 @@
+version: '3'
+services:
+  web:
+    build: .
+    image: web_umenia
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/var/www
+    links:
+      - mysql
+    env_file: .env
+  mysql:
+    image: mysql
+    ports:
+      - 8889:3306
+    environment:
+      MYSQL_DATABASE: web_umeniadb
+      MYSQL_USER: web
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
