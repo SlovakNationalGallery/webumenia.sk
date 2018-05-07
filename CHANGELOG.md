@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- OAI download command now no longer skips half the downloads
+- error message added showing if and how many downloads fail
 
 ## [1.3.2] - 2018-04-23
 ### Fixed
