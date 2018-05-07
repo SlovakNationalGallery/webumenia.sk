@@ -109,6 +109,10 @@ class Item extends Model
         ],
     );
 
+    protected $casts = array(
+        'color_descriptor' => 'json',
+    );
+
     // ELASTIC SEARCH INDEX
     public static function boot()
     {
@@ -156,6 +160,11 @@ class Item extends Model
         return $this->hasOne(\App\SpiceHarvesterRecord::class, 'item_id');
     }
 
+    public function images()
+    {
+        return $this->hasMany(ItemImage::class)->orderBy('order');
+    }
+
     public function getImagePath($full = false)
     {
         return self::getImagePathForId($this->id, $full);
@@ -198,6 +207,30 @@ class Item extends Model
     public function getOaiUrl()
     {
         return Config::get('app.old_url').'/oai-pmh/?verb=GetRecord&metadataPrefix=oai_dc&identifier='.$this->id;
+    }
+
+    public function similarByColor($size = 10)
+    {
+        if (!$this->color_descriptor) {
+            throw new \RuntimeException;
+        }
+
+        $params = [
+            'size' => $size,
+            'sort' => [
+                '_score' => 'desc'
+            ],
+            'query' => [
+                'descriptor' => [
+                    'color_descriptor' => [
+                        'hash' => 'LSH',
+                        'descriptor' => $this->color_descriptor
+                    ]
+                ]
+            ]
+        ];
+
+        return self::search($params);
     }
 
     public function moreLikeThis($size = 10)
@@ -629,6 +662,14 @@ class Item extends Model
         return $query->where('gallery', '=', 'Slovenská národná galéria, SNG');
     }
 
+
+    public function scopeRelated($query, Item $item)
+    {
+        return $query->where('related_work', '=', $item->related_work)
+            ->where('author', '=', $item->author)
+            ->orderBy('related_work_order');
+    }
+
     public function download()
     {
 
@@ -703,11 +744,23 @@ class Item extends Model
         return implode(', ', $this->authors)  . $dash .  $this->title;
     }
 
+    public function getHasIipAttribute() {
+        return !$this->getZoomableImages()->isEmpty();
+    }
+
+    public function getZoomableImages()
+    {
+        return $this->images->filter(function (ItemImage $image) {
+            return $image->iipimg_url !== null;
+        });
+    }
+
     public function index()
     {
             $client =  $this->getElasticClient();
             $work_types = $this->work_types;
             $main_work_type = reset($work_types);
+
             $data = [
                 'id' => $this->attributes['id'],
                 'identifier' => $this->attributes['identifier'],
@@ -728,19 +781,20 @@ class Item extends Model
                 'updated_at' => $this->attributes['updated_at'],
                 'created_at' => $this->attributes['created_at'],
                 'has_image' => (bool)$this->has_image,
-                'has_iip' => (bool)$this->iipimg_url,
+                'has_iip' => (bool)$this->has_iip,
                 'is_free' => $this->isFree(),
                 // 'free_download' => $this->isFreeDownload(), // staci zapnut is_free + has_iip
                 'related_work' => $this->related_work,
                 'authority_id' => $this->relatedAuthorityIds(),
                 'view_count' => $this->view_count,
+                'color_descriptor' => $this->color_descriptor,
             ];
 
             return $client->index([
                 'index' => Config::get('bouncy.index'),
                 'type' =>  self::ES_TYPE,
                 'id' => $this->attributes['id'],
-                'body' =>$data,
+                'body' => $data,
             ]);
     }
 
@@ -794,5 +848,32 @@ class Item extends Model
         }
         $items = self::search($params);
         return $items->total();
+    }
+
+    public function getColorsUsed($type = null) {
+        $colors_used = [];
+
+        for ($i = 0; $i < count($this->color_descriptor) / 4; $i++) {
+            $amount_sqrt = $this->color_descriptor[4 * $i + 3];
+            if (!$amount_sqrt) {
+                continue;
+            }
+            $amount = $amount_sqrt * $amount_sqrt;
+            $L = $this->color_descriptor[4 * $i];
+            $a = $this->color_descriptor[4 * $i + 1];
+            $b = $this->color_descriptor[4 * $i + 2];
+            $color = new Color(['L' => $L, 'a' => $a, 'b' => $b], Color::TYPE_LAB);
+
+            if ($type !== null) {
+                $color = $color->convertTo($type);
+            }
+
+            $colors_used[$color->getValue()] = [
+                'color' => $color,
+                'amount' => $amount
+            ];
+        }
+
+        return $colors_used;
     }
 }

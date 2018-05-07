@@ -3,6 +3,20 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [1.4.0] - 2018-05-07
+
+### Added
+- Color-list component on artwork detail
+- Color description
+- Zoom-viewer component
+- Multiple images per artwork
+- Moravian gallery importer
+
+### Changed
+- Favicons & Open Graph tags include components
+- Positioned image reference strip on right side of zoom-viewer
+- Zoom view showing multiple images
+
 ## [1.3.2] - 2018-04-23
 ### Fixed
 - enable ArtworkCarousel to be added to article text
@@ -17,6 +31,7 @@ All notable changes to this project will be documented in this file[^1].
 - Czech language translations
 - Pattern Library at /patternlib
 - Tests setup
+- Option to run all importers
 - Route for requesting resized images at /dielo/nahlad/{id}/{width}
 - Lazy loading images in catalog and collection
 - Responsive image support in catalog and collection
@@ -35,6 +50,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [1.2.9] - 2017-12-05
 ### Changed
 - Enabled reproduction orders with mounting / framing
+- Componentized Article thumbnail
 
 ### Fixed
 - Database seeders
@@ -58,6 +74,7 @@ All notable changes to this project will be documented in this file[^1].
 - LICENSE from Public Domain into MIT
 
 [Unreleased]: https://github.com/SlovakNationalGallery/web-umenia-2/compare/master...develop
+[1.4.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/67
 [1.3.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/52
 [1.2.6]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/31
 

@@ -97,7 +97,7 @@
                             </a>
                             <div class="item-title">
                                 @if (!empty($item->iipimg_url))
-                                    <div class="pull-right"><a href="{!! URL::to('dielo/' . $item->id . '/zoom') !!}" data-toggle="tooltip" data-placement="left" title="Zoom obrázku"><i class="fa fa-search-plus"></i></a></div>
+                                    <div class="pull-right"><a href="{{ route('item.zoom', ['id' => $item->id])  }}" data-toggle="tooltip" data-placement="left" title="Zoom obrázku"><i class="fa fa-search-plus"></i></a></div>
                                 @endif
                                 <a href="{!! $item->getUrl(['collection' => $collection->id]) !!}">
                                     <em>{!! implode(', ', $item->authors) !!}</em><br>
@@ -154,18 +154,6 @@
         $( window ).resize(function() {
             var $container = $('#iso');
             spravGrid($container);
-        });
-
-        // carousel
-        $('.artworks-preview').slick({
-            dots: false,
-            lazyLoad: 'progressive',
-            infinite: false,
-            speed: 300,
-            slidesToShow: 1,
-            slide: 'a',
-            centerMode: false,
-            variableWidth: true,
         });
     });
 </script>
