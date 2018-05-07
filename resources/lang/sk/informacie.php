@@ -24,6 +24,7 @@ return array(
     'info_gallery_NGN'   => 'Nitrianska galéria',
     'info_gallery_SGB'   => 'Stredoslovenská galéria',
     'info_gallery_GUS'   => 'Galéria umelcov Spiša',
+    'info_gallery_MG'    => 'Moravská galerie',
 
     'mozete_heading'               => 'U nás môžete',
     'mozete_col_stahovat_heading'  => 'Sťahovať voľné diela',
