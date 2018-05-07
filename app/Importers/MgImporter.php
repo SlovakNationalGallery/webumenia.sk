@@ -32,7 +32,7 @@ class MgImporter extends AbstractImporter {
 
     protected $defaults = [
         'gallery' => 'Moravská galerie, MG',
-        'author' => 'neurčený autor',
+        'author' => 'Neznámy autor',
         'title' => 'bez názvu',
         'topic' => '',
         'relationship_type' => '',
@@ -91,6 +91,22 @@ class MgImporter extends AbstractImporter {
         'cm' => ' cm',
     ];
 
+    protected static $cz_technique_replacements = [
+        'tužka' => 'ceruza',
+        'zlacení' => 'zlátenie',
+        'litografie' => 'litografia',
+        'řezání' => 'rezanie',
+        'lití' => 'liatie',
+        'slepotisk' => 'slepotlač',
+        'skulptura' => '',
+        'vyřezávání' => 'vyrezávanie',
+        'rytí' => 'rytie',
+        'tepání' => 'tepanie',
+        'křída' => 'krieda',
+        'mědiryt' => 'medirytina',
+        'kresba perem, lavírování' => 'pero, lavírovanie',
+    ];
+
     protected static $name = 'mg';
 
     public function __construct(IFileRepository $repository) {
@@ -137,15 +153,16 @@ class MgImporter extends AbstractImporter {
     }
 
     protected function hydrateTechnique(array $record) {
-        return ($record['TechSpec']) ? ($record['Technika'] . ', ' . $record['TechSpec']) : $record['Technika'];
+        $technique = ($record['TechSpec']) ? ($record['Technika'] . ', ' . $record['TechSpec']) : $record['Technika'];
+        return strtr($technique, static::$cz_technique_replacements);
     }
 
     protected function hydrateWorkType(array $record) {
-        return (isset(static::$cz_work_types_spec[$record['Skupina']])) ? static::$cz_work_types_spec[$record['Skupina']] : 'nespecifikované';
+        return (isset(static::$cz_work_types_spec[$record['Skupina']])) ? static::$cz_work_types_spec[$record['Skupina']] : ''; // 
     }
 
     protected function hydrateRelationshipType(array $record) {
-        return self::isBiennial($record) ? 'ze souboru' : '';
+        return self::isBiennial($record) ? 'zo súboru' : '';
     }
 
     protected function hydrateRelatedWork(array $record) {
