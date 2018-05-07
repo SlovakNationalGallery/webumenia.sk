@@ -17,7 +17,7 @@ class WebumeniaMgImporter extends MgImporter
 
     protected $defaults = [
         'gallery' => 'Moravská galerie, MG',
-        'author' => 'neurčený autor',
+        'author' => 'Neznámy autor',
         'title' => 'bez názvu',
         'topic' => 'téma',
         'relationship_type' => 'typ vzťahu',
@@ -76,6 +76,22 @@ class WebumeniaMgImporter extends MgImporter
         'cm' => ' cm',
     ];
 
+    protected static $cz_technique_replacements = [
+        'tužka' => 'ceruza',
+        'zlacení' => 'zlátenie',
+        'litografie' => 'litografia',
+        'řezání' => 'rezanie',
+        'lití' => 'liatie',
+        'slepotisk' => 'slepotlač',
+        'skulptura' => '',
+        'vyřezávání' => 'vyrezávanie',
+        'rytí' => 'rytie',
+        'tepání' => 'tepanie',
+        'křída' => 'krieda',
+        'mědiryt' => 'medirytina',
+        'kresba perem, lavírování' => 'pero, lavírovanie',
+    ];
+
     public function __construct(IFileRepository $repository) {
         parent::__construct($repository);
 
@@ -92,4 +108,18 @@ class WebumeniaMgImporter extends MgImporter
         $this->csv_file = $file;
         return parent::import($import, $file);
     }
+
+    protected function hydrateTechnique(array $record) {
+        $technique = parent::hydrateTechnique($record);
+        return strtr($technique, static::$cz_technique_replacements);
+    }
+
+    protected function hydrateWorkType(array $record) {
+        return (isset(static::$cz_work_types_spec[$record['Skupina']])) ? static::$cz_work_types_spec[$record['Skupina']] : '';
+    }
+
+    protected function hydrateRelationshipType(array $record) {
+        return self::isBiennial($record) ? 'zo súboru' : '';
+    }
+
 }
