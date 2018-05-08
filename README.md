@@ -64,6 +64,9 @@ with docker-compose:
 	```
 	docker-compose build
 	```
+the first time you do this it will take a while, a lot of different components
+need to be fetched from remote servers. Be patient, subsequent builds won't take
+nearly as long.
 3. start the app
 	```
 	docker-compose up
