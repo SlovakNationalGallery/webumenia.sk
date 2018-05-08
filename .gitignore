@@ -30,3 +30,4 @@ caste_prikazy.txt
 public/sitemap*
 .env
 .env.testing
+data/

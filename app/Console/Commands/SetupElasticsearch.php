@@ -51,8 +51,7 @@ class SetupElasticsearch extends Command
             $index_name = 'webumenia';
         }
 
-
-        $res = $client->head('http://'.$host.'/'.$index_name);
+        $res = $client->head($host.'/'.$index_name);
 
         if ($res->getStatusCode() == 200) {
             if ($this->confirm('It already exist. Do you want to delete it? [y|N]')) {
@@ -138,7 +137,7 @@ class SetupElasticsearch extends Command
         ';
 
         $this->comment('Creating...');
-        $res = $client->put('http://'.$host.'/'.$index_name, [
+        $res = $client->put($host.'/'.$index_name, [
             'json' => json_decode($json_params_create_index, true),
         ]);
         echo $res->getBody() . "\n";
@@ -316,7 +315,7 @@ class SetupElasticsearch extends Command
         ';
 
         $this->comment('Creating type "items"...');
-        $res = $client->put('http://'.$host.'/'.$index_name .'/_mapping/items', [
+        $res = $client->put($host.'/'.$index_name .'/_mapping/items', [
             'json' => json_decode($json_params_create_items, true),
         ]);
         echo $res->getBody() . "\n";
@@ -470,7 +469,7 @@ class SetupElasticsearch extends Command
         ';
 
         $this->comment('Creating type "authorities"...');
-        $res = $client->put('http://'.$host.'/'.$index_name .'/_mapping/authorities', [
+        $res = $client->put($host.'/'.$index_name .'/_mapping/authorities', [
             'json' => json_decode($json_params_create_authorities, true),
         ]);
         echo $res->getBody() . "\n";

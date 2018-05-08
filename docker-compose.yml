@@ -4,18 +4,43 @@ services:
     build: .
     image: web_umenia
     ports:
-      - 8000:8000
+      - 8080:80
     volumes:
       - .:/var/www
+      - ./public:/var/www/html
+      - ./vhost.conf:/etc/apache2/sites-available/000-default.conf
     links:
       - mysql
+      - elasticsearch
+    depends_on:
+      - mysql
+      - elasticsearch
     env_file: .env
-  mysql:
-    image: mysql
-    ports:
-      - 8889:3306
+    # 'web' service can speak to mysql and elasticsearch services
+    # at these network addresses:
+    #  - http://mysql:3306
+    #  - http://elasticsearch:9200 
+    # so we override the standard environment variables here:
     environment:
-      MYSQL_DATABASE: web_umeniadb
-      MYSQL_USER: web
-      MYSQL_PASSWORD: password
-      MYSQL_ROOT_PASSWORD: password
+      DB_HOST: mysql
+      ES_HOST: elasticsearch
+
+  mysql:
+    image: mysql:5.6
+    ports:
+      - 3306:3306
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.2.4
+    ports:
+      - 9200:9200
+      - 9300:9300
+    volumes:
+      - ./data/elasticsearch:/usr/share/elasticsearch/data
