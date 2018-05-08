@@ -51,7 +51,11 @@ Here are the steps for installation on a local machine.
 ## Local Installation with Docker
 
 This requires docker-compose
-these steps will set up a 
+these steps will set up a linked system of 3 containers -
+	* php / apache webserver that contains our application code
+	* database container
+	* elasticsearch container
+that will communicate internally with one another
 
 1. Clone this repository.
     ```
@@ -65,31 +69,29 @@ with docker-compose:
 	docker-compose build
 	```
 the first time you do this it will take a while, a lot of different components
-need to be fetched from remote servers. Be patient, subsequent builds won't take
-nearly as long.
-3. start the app
+need to be fetched from remote servers.  
+Be patient, subsequent builds won't take nearly as long.    
+3. start the app  
 	```
 	docker-compose up
 	```
-	or
+	or  
 	```
 	docker-compose up -d
 	``` 
-	to run it in the background. You can watch the output of a component like this:
-	```
-	docker-compose logs -f web
-	```
-4. run migrations
+	to run it in the background.
+	(In this case you can watch the output of a component like this: `docker-compose logs -f web`)  
+4. run migrations  
 	```
 	docker-compose exec web php artisan migrate --seed
-	```
-5. setup elasticsearch
+	```  
+5. setup elasticsearch  
 	```
 	docker-compose exec web php artisan es:setup
-	```
-6. visit http://localhost:8080 in your browser to have a look
+	```  
+6. visit http://localhost:8080 in your browser to have a look  
 
-to stop the dockerized application: `docker-compose down`
+to stop the dockerized application: `docker-compose down`  
 
 
 ### Harvesting Data
