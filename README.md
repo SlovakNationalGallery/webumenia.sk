@@ -1,5 +1,3 @@
-# Welcome
-
 [Web umenia](http://www.webumenia.sk) is an open platform to explore digitized art collections from public galleries and museums. 
 
 Web umenia is developed by [lab.SNG](http://lab.sng.sk/): the digital R&D lab of the Slovak National Gallery. We are working with public art organisations to make their art accessible and explorable online so curious people around the world can learn more about works of art and the context they've been created in.
@@ -51,10 +49,10 @@ Here are the steps for installation on a local machine.
 ## Local Installation with Docker
 
 This requires docker-compose
-these steps will set up a linked system of 3 containers -
-	* php / apache webserver that contains our application code
-	* database container
-	* elasticsearch container
+these steps will set up a linked system of 3 containers:
+	php / apache webserver that contains our application code
+	database container
+	elasticsearch container
 that will communicate internally with one another
 
 1. Clone this repository.
@@ -68,10 +66,11 @@ with docker-compose:
 	```
 	docker-compose build
 	```
-the first time you do this it will take a while, a lot of different components
-need to be fetched from remote servers.  
-Be patient, subsequent builds won't take nearly as long.    
-3. start the app  
+	the first time you do this it will take a while, a lot of different components
+need to be fetched from remote servers.
+Be patient, subsequent builds won't take nearly as long.
+  
+4. start the app  
 	```
 	docker-compose up
 	```
@@ -81,15 +80,15 @@ Be patient, subsequent builds won't take nearly as long.
 	``` 
 	to run it in the background.
 	(In this case you can watch the output of a component like this: `docker-compose logs -f web`)  
-4. run migrations  
+5. run migrations  
 	```
 	docker-compose exec web php artisan migrate --seed
 	```  
-5. setup elasticsearch  
+6. setup elasticsearch  
 	```
 	docker-compose exec web php artisan es:setup
 	```  
-6. visit http://localhost:8080 in your browser to have a look  
+7. visit http://localhost:8080 in your browser to have a look  
 
 to stop the dockerized application: `docker-compose down`  
 
