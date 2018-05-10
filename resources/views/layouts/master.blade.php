@@ -86,7 +86,16 @@
 	            </a>
 	            {!! Form::open(['url' => 'katalog', 'method' => 'get', 'class' => 'navbar-form right-inner-addon', 'data-searchd-engine' => Config::get('app.searchd_id_autocomplete')]) !!}
 	            			<i class="fa fa-search"></i>
-	            			{!! Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => utrans('master.search_placeholder'), 'id'=>'search', 'autocomplete'=>'off')) !!}
+	            			{!! Form::text('search', @$search, [
+	            				'class' => 'form-control',
+	            				'placeholder' => utrans('master.search_placeholder'),
+	            				'id'=>'search',
+	            				'autocomplete'=>'off',
+	            				'data-autori'=> utrans('autori.title'),
+	            				'data-artworks'=> utrans('general.artworks'),
+	            				'data-clanky'=> utrans('clanky.title'),
+	            				'data-kolekcie'=> utrans('kolekcie.title'),
+	            			]) !!}
 	            			{!!  Form::submit('submit'); !!}
 	            {!!Form::close() !!}
 	            <a class="navbar-brand no-border hidden-xs second-part" href="{!! URL::to('') !!}">
