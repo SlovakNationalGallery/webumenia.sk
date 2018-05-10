@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - OAI download command now no longer skips half the downloads
 - error message added showing if and how many downloads fail
+- Display localized section titles in autocomplete
 
 ### Added
 - Scheduled task to run sitemap creation
