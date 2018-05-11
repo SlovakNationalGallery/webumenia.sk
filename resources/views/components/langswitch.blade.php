@@ -3,10 +3,10 @@
     {{ $currentLocale }} <span class="caret"></span>
   </a>
   <ul class="dropdown-menu">
-    @foreach($localesOrdered as $localeCode => $properties)
+    @foreach($localizedURLs as $localeCode => $localizedURL)
       @if ($localeCode != $currentLocale)
       <li>
-        <a class="uppercase" rel="alternate" hreflang="{{$localeCode}}" href="{{ $localizedURLs[$localeCode] }}">
+        <a class="uppercase" href="{{ $localizedURL }}">
           {{ $localeCode }}
         </a>
       </li>

@@ -24,6 +24,16 @@
 
 @section('content')
 
+@if ( ! $article->hasTranslation(App::getLocale()) )
+    <section>
+        <div class="container top-section">
+            <div class="row">
+                @include('includes.message_untranslated')
+            </div>
+        </div>
+    </section>
+@endif
+
 <div class="webumeniaCarousel">
 <div class="header-image" style="background-image: url({!! $article->getHeaderImage() !!}); text-shadow:0px 1px 0px {!! $article->title_shadow !!}; color: {!! $article->title_color !!}">
     <div class="outer-box">

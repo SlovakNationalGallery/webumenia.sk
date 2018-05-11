@@ -76,10 +76,10 @@ class AuthorController extends Controller
 
 							      { "match": { "title":          "'.$search.'" }},
 							      { "match": { "title.stemmed": "'.$search.'" }},
-							      { "match": { 
-							        "title.stemmed": { 
-							          "query": "'.$search.'",  
-							          "analyzer" : "slovencina_synonym" 
+							      { "match": {
+							        "title.stemmed": {
+							          "query": "'.$search.'",
+							          "analyzer" : "slovencina_synonyms"
 							        }
 							      }
 							      },
@@ -109,7 +109,7 @@ class AuthorController extends Controller
 							      { "match": {
 							          "description.stemmed": {
 							            "query": "'.$search.'",
-							            "analyzer" : "slovencina_synonym",
+							            "analyzer" : "slovencina_synonyms",
 							            "boost": 0.5
 							          }
 							        }
@@ -154,7 +154,6 @@ class AuthorController extends Controller
         }
 
         $authors = Authority::search($params); //->paginate($per_page);
-        $authors->load('roles');
 
         $path   = '/' . \Request::path();
         // dd($path);
@@ -209,7 +208,7 @@ class AuthorController extends Controller
         $data = array();
         $data['results'] = array();
         $data['count'] = 0;
-        
+
         // $data['items'] = array();
         foreach ($result['hits']['hits'] as $key => $hit) {
 
@@ -235,9 +234,10 @@ class AuthorController extends Controller
         if (empty($author)) {
             App::abort(404);
         }
+
+        $author->timestamps = false;
         $author->view_count += 1;
         $author->save();
-
         return view('autor', array('author'=>$author));
 
     }

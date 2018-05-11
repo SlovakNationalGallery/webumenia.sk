@@ -59,10 +59,35 @@
                     </div>
             </div>
 
-            {!! Form::hidden('sort_by', $sort_by, ['id'=>'sort_by']) !!}
+            @if ($color)
+            <div class="row">
+                <div class="col-sm-12">
+                    <label for="color_filter" class="w-100 mt-10 mb-0 light">
+                        {{ utrans('katalog.filters_color') }}:
+                        @include('components.color_list', ['colors' => [array('hex' => '#'.$color, 'amount' => '100%')], 'include_clear' => true, 'id' => 'color-filter', 'class_names' => 'mt-5 mb-0'])
+                        {!! Form::hidden('color', @$input['color'], ['id'=>'color']) !!}
+                    </label>
+                </div>
+            </div>
+            @endif
+            {!! Form::hidden('sort_by', @$input['sort_by'], ['id'=>'sort_by']) !!}
             {!! Form::close() !!}
     </div></div>
 </section>
+
+@foreach ($items as $i=>$item)
+    @if ( ! $item->hasTranslation(App::getLocale()) )
+        <section>
+            <div class="container content-section">
+                <div class="row">
+                    @include('includes.message_untranslated')
+                    @break
+                </div>
+            </div>
+        </section>
+    @endif
+@endforeach
+
 <section class="catalog" data-searchd-engine="{!! Config::get('app.searchd_id') !!}">
     <div class="container content-section">
             <div class="row content-section">
@@ -88,24 +113,39 @@
                       </a>
                       <ul class="dropdown-menu dropdown-menu-right dropdown-menu-sort" role="menu" aria-labelledby="dropdownSortBy">
                         @foreach (App\Item::$sortable as $sort=>$labelKey)
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#" rel="{!! $sort !!}">{!! trans($labelKey) !!}</a></li>
+                            @if ($sort != $sort_by)
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" rel="{!! $sort !!}">{!! trans($labelKey) !!}</a></li>
+                            @endif
                         @endforeach
                       </ul>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-12">
-                    <?php // $items = $items->paginate(18) ?>
+                <div class="col-sm-12 isotope-wrapper">
                     <div id="iso">
                 	@foreach ($items as $i=>$item)
     	                <div class="col-md-3 col-sm-4 col-xs-6 item">
     	                	<a href="{!! $item->getUrl() !!}">
-    	                		<img src="{!! $item->getImagePath() !!}" class="img-responsive" alt="{!! $item->getTitleWithAuthors() !!} ">
+                                @php
+                                    list($width, $height) = getimagesize(public_path() . $item->getImagePath());
+                                @endphp
+                                <div class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%;">
+    	                		<img
+                                    data-sizes="auto"
+                                    data-src="{!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'600']) !!}"
+                                    data-srcset="{!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'600']) !!} 600w,
+                                            {!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'220']) !!} 220w,
+                                            {!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'300']) !!} 300w,
+                                            {!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'600']) !!} 600w,
+                                            {!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'800']) !!} 800w"
+                                    class="lazyload"
+                                    alt="{!! $item->getTitleWithAuthors() !!} ">
+                                </div>
     	                	</a>
                             <div class="item-title">
                                 @if ($item->has_iip)
-                                    <div class="pull-right"><a href="{!! URL::to('dielo/' . $item->id . '/zoom') !!}" data-toggle="tooltip" data-placement="left" title="{{ utrans('general.item_zoom') }}"><i class="fa fa-search-plus"></i></a></div>
+                                    <div class="pull-right"><a href="{{ route('item.zoom', ['id' => $item->id]) }}" data-toggle="tooltip" data-placement="left" title="{{ utrans('general.item_zoom') }}"><i class="fa fa-search-plus"></i></a></div>
                                 @endif
                                 <a href="{!! $item->getUrl() !!}" {!! (!empty($search))  ?
                                     'data-searchd-result="title/'.$item->id.'" data-searchd-title="'.implode(', ', $item->authors).' - '. $item->title.'"'
@@ -145,11 +185,18 @@
 {{-- {!! Html::script('js/bootstrap-checkbox.js') !!} --}}
 {!! Html::script('js/selectize.min.js') !!}
 {!! Html::script('js/readmore.min.js') !!}
-{!! Html::script('js/scroll-frame.js') !!}
+<script src="{!! asset_timed('js/scroll-frame.js') !!}"></script>
 
 <script type="text/javascript">
 
+// start with isotype even before document is ready
+$('.isotope-wrapper').each(function(){
+    var $container = $('#iso', this);
+    spravGrid($container);
+});
+
 $(document).ready(function(){
+
     // $('.expandable').readmore({
     //     moreLink: '<a href="#" class="text-center">viac možností <i class="icon-arrow-down"></i></a>',
     //     lessLink: '<a href="#" class="text-center">menej možností <i class="icon-arrow-up"></i></a>',
@@ -204,7 +251,7 @@ $(document).ready(function(){
                  //         '</div>';
                  // },
                  item: function(data, escape) {
-                     return '<div class="item">'  + '<span class="color">'+this.settings.placeholder+': </span>' +  data.text.replace(/\(.*?\)/g, "") + '</div>';
+                     return '<div class="selected-item">'  + '<span class="color">'+this.settings.placeholder+': </span>' +  data.text.replace(/\(.*?\)/g, "") + '</div>';
             }
         }
     });
@@ -220,12 +267,14 @@ $(document).ready(function(){
         $('#filter').submit();
     });
 
-    var $container = $('#iso');
-
-    // az ked su obrazky nacitane aplikuj isotope
-    $container.imagesLoaded(function () {
-        spravGrid($container);
+    // clear color filter
+    $(".colorlist>a.clear").click(function(e){
+        e.preventDefault();
+        $('input#color').val('');
+        $('#filter').submit();
     });
+
+    var $container = $('#iso');
 
     $( window ).resize(function() {
         spravGrid($container);
@@ -247,15 +296,16 @@ $(document).ready(function(){
     }, function(newElements, data, url){
         history.replaceState({infiniteScroll:true}, null, url);
         var $newElems = jQuery( newElements ).hide();
-        $newElems.imagesLoaded(function(){
-            $newElems.fadeIn();
-            $container.isotope( 'appended', $newElems );
-        });
+        $container.isotope( 'appended', $newElems );
     });
 
     $(window).unbind('.infscr'); //kill scroll binding
 
-    scrollFrame('.item');
+
+    // fix artwork detail on iOS https://github.com/artsy/scroll-frame/issues/30
+    if (!isMobileSafari() && !isIE()) {
+      scrollFrame('.item a');
+    }
 
 
     $('a#next').click(function(){

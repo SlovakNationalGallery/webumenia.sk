@@ -31,6 +31,7 @@ return array(
     'item_attr_place'          => 'místo vzniku',
 
     'more-items_related-artworks' =>  'další díla',
+    'more-items_similar-colors' => 'vyhľadávať podľa farieb diela',
     'modal_license_body-content'        => '<p><strong>Vámi zvolené dílo by se mělo v krátkém čase začít automaticky stahovat.</strong></p>
                                             <p>Digitální reprodukce volných děl na této stránce jsou přístupné jako <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" class="underline">public domain (veřejné vlastnictví)</a>. Můžete si je volně stáhnout ve vysokém rozlišení a využívat k soukromým i komerčním účelům &ndash; kopírovat, sdílet i upravovat.</p>
                                             <p>Při dalším šíření prosíme uvést jméno autora, název, majitele díla a zdroj <code>:item_url</code></p>

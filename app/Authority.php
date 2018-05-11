@@ -13,12 +13,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class Authority extends Model
 {
-    use BouncyTrait;
+    use \Dimsav\Translatable\Translatable, BouncyTrait {
+        BouncyTrait::save as saveBouncyTrait;
+        \Dimsav\Translatable\Translatable::save insteadof BouncyTrait;
+    }
+
 
     protected $table = 'authorities';
 
     const ARTWORKS_DIR = '/images/autori/';
     const ES_TYPE = 'authorities';
+
+    public $translatedAttributes = [
+        'type_organization',
+        'biography',
+        'roles',
+        'birth_place',
+        'death_place'
+    ];
 
     // protected $indexName = 'webumenia';
     protected $typeName = self::ES_TYPE;
@@ -30,12 +42,11 @@ class Authority extends Model
     );
 
     public static $sortable = array(
-        'name' => 'mena',
-        'items_count' => 'počtu diel',
-        'birth_year' => 'roku narodenia',
-        'items_with_images_count' => 'počtu diel s obrázkom',
-        'random' => 'náhodne',
-        // 'created_at' => 'počtu diel',
+        'name'                    => 'sortable.name',
+        'birth_year'              => 'sortable.birth_year',
+        'items_count'             => 'sortable.items_count',
+        'items_with_images_count' => 'sortable.items_with_images_count',
+        'random'                  => 'sortable.random',
     );
 
     protected $fillable = array(
@@ -53,15 +64,21 @@ class Authority extends Model
         'death_year',
         'image_source_url',
         'image_source_label',
+        'roles',
     );
 
-    protected $with = array('roles', 'nationalities', 'names');
+    protected $dates = array(
+        'created_at',
+        'updated_at',
+    );
+
+    protected $with = array('nationalities', 'names');
 
     protected $guarded = array();
 
     public static $rules = array(
         'name' => 'required',
-        );
+    );
 
     public $incrementing = false;
 
@@ -91,7 +108,6 @@ class Authority extends Model
             $authority->nationalities()->detach();
             $authority->relationships()->detach();
             $authority->items()->detach();
-            $authority->roles()->delete();
             $authority->names()->delete();
             $authority->events()->delete();
 
@@ -112,10 +128,11 @@ class Authority extends Model
         return $this->belongsToMany(\App\Nationality::class)->withPivot('prefered');
     }
 
-    public function roles()
-    {
-        return $this->hasMany(\App\AuthorityRole::class);
-    }
+    // relationship was replaced by attribute casted as Array
+    // public function roles()
+    // {
+    //     return $this->hasMany(\App\AuthorityRole::class);
+    // }
 
     public function names()
     {
@@ -264,10 +281,7 @@ class Authority extends Model
             $description .= ($html) ? self::formatPlace($this->death_place, $links, 'deathPlace') : self::formatPlace($this->death_place, $links);
         }
         if ($include_roles) {
-            $roles = array();
-            foreach ($this->roles as $i => $role) {
-                $roles[] = $role->role;
-            }
+            $roles = $this->roles;
             if ($roles) {
                 $description .= '. Role: '.implode(', ', $roles);
             }
@@ -360,34 +374,45 @@ class Authority extends Model
         if ($this->attributes['type'] != 'person') {
             return false;
         }
-        $client =  $this->getElasticClient();
-        $data = [
-            'id' => $this->attributes['id'],
-            'identifier' => $this->attributes['id'],
-            'name' => $this->attributes['name'],
-            'alternative_name' => $this->names->lists('name'),
-            'related_name' => $this->relationships->lists('name'),
-            'biography' => (!empty($this->attributes['biography'])) ? strip_tags($this->attributes['biography']) : '',
-            'nationality' => $this->nationalities->lists('code'),
-            'place' => $this->places,
-            'role' => $this->roles->lists('role'),
-            'birth_year' => $this->birth_year,
-            'death_year' => $this->death_year,
-            'birth_place' => $this->birth_place,
-            'death_place' => $this->death_place,
-            'sex' => $this->sex,
-            'has_image' => (boolean) $this->has_image,
-            'created_at' => $this->attributes['created_at'],
-            'items_count' => $this->items->count(),
-            'items_with_images_count' => $this->items()->hasImage()->count(),
-        ];
 
-        return Elastic::index([
-            'index' => Config::get('bouncy.index'),
-            'type' => self::ES_TYPE,
-            'id' => $this->attributes['id'],
-            'body' => $data,
-        ]);
+        $client =  $this->getElasticClient();
+        $elastic_translatable = \App::make('ElasticTranslatableService');
+
+        foreach (config('translatable.locales') as $locale) {
+
+            $authority_translated = $this->getTranslation($locale);
+
+            $data = [
+                // non-tanslatable attributes:
+                'id' => $this->id,
+                'identifier' => $this->id,
+                'name' => $this->name,
+                'alternative_name' => $this->names->lists('name'),
+                'related_name' => $this->relationships->lists('name'),
+                'nationality' => $this->nationalities->lists('code'),
+                'place' => $this->places,
+                'role' => $this->roles,
+                'birth_year' => $this->birth_year,
+                'death_year' => $this->death_year,
+                'sex' => $this->sex,
+                'has_image' => (boolean) $this->has_image,
+                'created_at' => $this->created_at->format('Y-m-d H:i:s'),
+                'items_count' => $this->items->count(),
+                'items_with_images_count' => $this->items()->hasImage()->count(),
+
+                // tanslatable attributes:
+                'biography' => (!empty($authority_translated->biography)) ? strip_tags($authority_translated->biography) : '',
+                'birth_place' => $authority_translated->birth_place,
+                'death_place' => $authority_translated->death_place,
+            ];
+
+            $client->index([
+                'index' => $elastic_translatable->getIndexForLocale($locale),
+                'type' =>  self::ES_TYPE,
+                'id' => $this->id,
+                'body' => $data,
+            ]);
+        }
     }
 
     public static function sliderMin()
@@ -420,7 +445,11 @@ class Authority extends Model
     {
         $atttribute = explode('/', $atttribute);
 
-        return $atttribute[$index];
+        if (\App::getLocale() == 'en') {
+            $index = 1;
+        }
+
+        return (isSet($atttribute[$index])) ? $atttribute[$index] : null;
     }
 
     public static function listValues($attribute, $search_params)
@@ -431,7 +460,7 @@ class Authority extends Model
         }
         $json_params = '
 		{
-		 "aggs" : { 
+		 "aggs" : {
 		    "'.$attribute.'" : {
 		        "terms" : {
 		          "field" : "'.$attribute.'",

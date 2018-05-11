@@ -7,19 +7,22 @@ use Intervention\Image\ImageManagerStatic;
 
 class Collection extends \Eloquent
 {
-
+    use \Dimsav\Translatable\Translatable;
+        
     const ARTWORKS_DIR = '/images/kolekcie/';
 
-    public static $rules = array(
-        'name' => 'required',
-        'text' => 'required',
-        );
+    public $translatedAttributes = ['name','type', 'text'];
 
-    public static $sortable = array(
-        'created_at' => 'data vytvoření',
-        'name' => 'názvu',
+    public static $rules = array(
+        'sk.name' => 'required',
+        'sk.text' => 'required',
     );
 
+    public static $sortable = array(
+        'created_at' => 'sortable.created_at',
+        'name'       => 'sortable.title',
+    );
+    
     public function items()
     {
         return $this->belongsToMany(\App\Item::class, 'collection_item', 'collection_id', 'item_id')->withPivot('order')->orderBy('order', 'asc');
@@ -32,7 +35,7 @@ class Collection extends \Eloquent
 
     public function getPreviewItems()
     {
-
+        
         return $this->items()->limit(10)->get();
     }
 

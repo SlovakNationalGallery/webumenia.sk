@@ -8,7 +8,12 @@ function getLocalizedURLArray()
     $localesOrdered = LaravelLocalization::getLocalesOrder();;
     $localizedURLs = array();
     foreach ($localesOrdered as $localeCode => $properties) {
-        $localizedURLs[$localeCode] = LaravelLocalization::getLocalizedURL($localeCode, null, [], true);
+        if ($localeCode == config('app.locale')) {
+            $localizedURLs[$localeCode] = LaravelLocalization::getLocalizedURL(false, null, [], true);
+        }
+        else {
+            $localizedURLs[$localeCode] = LaravelLocalization::getLocalizedURL($localeCode, null, [], true);
+        }
     }
     return $localizedURLs;
 }

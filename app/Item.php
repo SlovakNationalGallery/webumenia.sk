@@ -17,12 +17,33 @@ use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
-
-    use BouncyTrait;
     use \Conner\Tagging\Taggable;
+    use \Dimsav\Translatable\Translatable, BouncyTrait {
+        BouncyTrait::save as saveBouncyTrait;
+        \Dimsav\Translatable\Translatable::save insteadof BouncyTrait;
+    }
 
     const ARTWORKS_DIR = '/images/diela/';
     const ES_TYPE = 'items';
+
+    public $translatedAttributes = [
+        'title',
+        'description',
+        'work_type',
+        'work_level',
+        'topic',
+        'subject',
+        'measurement',
+        'dating',
+        'medium',
+        'technique',
+        'inscription',
+        'place',
+        'state_edition',
+        'gallery',
+        'relationship_type',
+        'related_work'
+    ];
 
     // protected $indexName = 'webumenia';
     protected $typeName = self::ES_TYPE;
@@ -43,13 +64,13 @@ class Item extends Model
     );
 
     public static $sortable = array(
-        'updated_at'    => 'katalog.sortable_updated_at',
-        'created_at'    => 'katalog.sortable_created_at',
-        'title'         => 'katalog.sortable_title',
-        'author'        => 'katalog.sortable_author',
-        'date_earliest' => 'katalog.sortable_date_earliest',
-        'view_count'    => 'katalog.sortable_view_count',
-        'random'        => 'katalog.sortable_random',
+        'updated_at'    => 'sortable.updated_at',
+        'created_at'    => 'sortable.created_at',
+        'title'         => 'sortable.title',
+        'author'        => 'sortable.author',
+        'date_earliest' => 'sortable.date_earliest',
+        'view_count'    => 'sortable.view_count',
+        'random'        => 'sortable.random',
     );
 
     protected $fillable = array(
@@ -89,11 +110,16 @@ class Item extends Model
         'has_rights',
     );
 
+    protected $dates = array(
+        'created_at',
+        'updated_at',
+    );
+
     public static $rules = array(
         'author' => 'required',
-        'title' => 'required',
-        'dating' => 'required',
-        );
+        'sk.title'  => 'required',
+        'sk.dating' => 'required',
+    );
 
     // protected $appends = array('measurements');
 
@@ -110,6 +136,10 @@ class Item extends Model
           'type' => 'string',
           "analyzer" => "standard",
         ],
+    );
+
+    protected $casts = array(
+        'color_descriptor' => 'json',
     );
 
     // ELASTIC SEARCH INDEX
@@ -161,7 +191,7 @@ class Item extends Model
 
     public function images()
     {
-        return $this->hasMany(Image::class);
+        return $this->hasMany(Image::class)->orderBy('order');
     }
 
     public function getImagePath($full = false)
@@ -208,6 +238,30 @@ class Item extends Model
         return Config::get('app.old_url').'/oai-pmh/?verb=GetRecord&metadataPrefix=oai_dc&identifier='.$this->id;
     }
 
+    public function similarByColor($size = 10)
+    {
+        if (!$this->color_descriptor) {
+            throw new \RuntimeException;
+        }
+
+        $params = [
+            'size' => $size,
+            'sort' => [
+                '_score' => 'desc'
+            ],
+            'query' => [
+                'descriptor' => [
+                    'color_descriptor' => [
+                        'hash' => 'LSH',
+                        'descriptor' => $this->color_descriptor
+                    ]
+                ]
+            ]
+        ];
+
+        return self::search($params);
+    }
+
     public function moreLikeThis($size = 10)
     {
         $params = array();
@@ -246,7 +300,10 @@ class Item extends Model
         return self::search($params);
     }
 
-    public static function getImagePathForId($id, $full = false, $resize = false)
+    /**
+     * $resize_methods = fit | widen | heighten
+     */
+    public static function getImagePathForId($id, $full = false, $resize = false, $resize_method = 'fit')
     {
 
         $levels = 1;
@@ -286,11 +343,26 @@ class Item extends Model
                 $result_path =  $relative_path . "$file.jpeg";
 
                 if ($resize) {
-                    if (!file_exists($full_path . "$file.$resize.jpeg")) {
-                        $img = \Image::make($full_path . "$file.jpeg")->fit($resize)->sharpen(7);
-                        $img->save($full_path . "$file.$resize.jpeg");
+                    $method_prefix = ($resize_method == 'fit') ? '' : substr($resize_method, 0, 1);
+                    if (!file_exists($full_path . "$file.$resize$method_prefix.jpeg")) {
+                        $img = \Image::make($full_path . "$file.jpeg");
+                        switch ($resize_method) {
+                            case 'widen':
+                                $img->widen($resize);
+                                break;
+
+                            case 'heighten':
+                                $img->heighten($resize);
+                                break;
+
+                            default:
+                                $img->fit($resize);
+                                break;
+                        }
+                        $img->sharpen(5);
+                        $img->save($full_path . "$file.$resize$method_prefix.jpeg");
                     }
-                    $result_path = $relative_path . "$file.$resize.jpeg";
+                    $result_path = $relative_path . "$file.$resize$method_prefix.jpeg";
                 }
             } else {
                 $result_path =  self::getNoImage($id);
@@ -472,8 +544,7 @@ class Item extends Model
 
     public function getWorkTypesAttribute()
     {
-
-        return (explode(', ', $this->attributes['work_type']));
+        return (explode(', ', $this->work_type));
     }
 
     public function setLat($value)
@@ -592,6 +663,14 @@ class Item extends Model
         return $query->where('gallery', '=', 'Slovenská národná galéria, SNG');
     }
 
+
+    public function scopeRelated($query, Item $item)
+    {
+        return $query->where('related_work', '=', $item->related_work)
+            ->where('author', '=', $item->author)
+            ->orderBy('related_work_order');
+    }
+
     public function download()
     {
 
@@ -694,29 +773,26 @@ class Item extends Model
 
     public function index()
     {
-            $client =  $this->getElasticClient();
-            $work_types = $this->work_types;
-            $main_work_type = reset($work_types);
+        $client =  $this->getElasticClient();
+        $elastic_translatable = \App::make('ElasticTranslatableService');
 
+        foreach (config('translatable.locales') as $locale) {
+
+            $item_translated = $this->getTranslation($locale);
+
+            $work_types = $item_translated->work_types;
+            $main_work_type = (is_array($work_types)) ? reset($work_types) : '';
             $data = [
-                'id' => $this->attributes['id'],
-                'identifier' => $this->attributes['identifier'],
-                'title' => $this->attributes['title'],
-                'author' => $this->makeArray($this->attributes['author']),
-                'description' => (!empty($this->attributes['description'])) ? strip_tags($this->attributes['description']) : '',
+                // non-tanslatable attributes:
+                'id' => $this->id,
+                'identifier' => $this->identifier,
+                'author' => $this->makeArray($this->author),
                 'work_type' => $main_work_type, // ulozit iba prvu hodnotu
-                'topic' => $this->makeArray($this->attributes['topic']),
-                'tag' => $this->tagNames(),
-                'place' => $this->makeArray($this->attributes['place']),
-                'measurement' => $this->measurments,
-                'dating' => $this->dating,
-                'date_earliest' => $this->attributes['date_earliest'],
-                'date_latest' => $this->attributes['date_latest'],
-                'medium' => $this->attributes['medium'],
-                'technique' => $this->makeArray($this->attributes['technique']),
-                'gallery' => $this->attributes['gallery'],
-                'updated_at' => $this->attributes['updated_at'],
-                'created_at' => $this->attributes['created_at'],
+                'tag' => $this->tagNames(), // @TODO translate this
+                'date_earliest' => $this->date_earliest,
+                'date_latest' => $this->date_latest,
+                'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
+                'created_at' => $this->created_at->format('Y-m-d H:i:s'),
                 'has_image' => (bool)$this->has_image,
                 'has_iip' => (bool)$this->has_iip,
                 'is_free' => $this->isFree(),
@@ -725,14 +801,28 @@ class Item extends Model
                 'gallery_collection' => $this->gallery_collection,
                 'authority_id' => $this->relatedAuthorityIds(),
                 'view_count' => $this->view_count,
+                'color_descriptor' => $this->color_descriptor,
+
+                // tanslatable attributes:
+                'title' => $item_translated->title,
+                'description' => (!empty($item_translated->description)) ? strip_tags($item_translated->description) : '',
+                'topic' => $this->makeArray($item_translated->topic),
+                'place' => $this->makeArray($item_translated->place),
+                'measurement' => $item_translated->measurments,
+                'dating' => $item_translated->dating,
+                'medium' => $item_translated->medium,
+                'technique' => $this->makeArray($item_translated->technique),
+                'gallery' => $item_translated->gallery,
+
             ];
 
-            return $client->index([
-                'index' => Config::get('bouncy.index'),
+            $client->index([
+                'index' => $elastic_translatable->getIndexForLocale($locale),
                 'type' =>  self::ES_TYPE,
                 'id' => $this->attributes['id'],
                 'body' => $data,
             ]);
+        }
     }
 
     public static function getSortedLabelKey($sort_by = null)
@@ -785,5 +875,32 @@ class Item extends Model
         }
         $items = self::search($params);
         return $items->total();
+    }
+
+    public function getColorsUsed($type = null) {
+        $colors_used = [];
+
+        for ($i = 0; $i < count($this->color_descriptor) / 4; $i++) {
+            $amount_sqrt = $this->color_descriptor[4 * $i + 3];
+            if (!$amount_sqrt) {
+                continue;
+            }
+            $amount = $amount_sqrt * $amount_sqrt;
+            $L = $this->color_descriptor[4 * $i];
+            $a = $this->color_descriptor[4 * $i + 1];
+            $b = $this->color_descriptor[4 * $i + 2];
+            $color = new Color(['L' => $L, 'a' => $a, 'b' => $b], Color::TYPE_LAB);
+
+            if ($type !== null) {
+                $color = $color->convertTo($type);
+            }
+
+            $colors_used[$color->getValue()] = [
+                'color' => $color,
+                'amount' => $amount
+            ];
+        }
+
+        return $colors_used;
     }
 }

@@ -2,7 +2,7 @@
 
 @section('title')
 {!! getTitleWithFilters('App\Authority', $input, ' | ') !!}
-{{ trans('autori.title') }} |  
+{{ trans('autori.title') }} |
 @parent
 @stop
 
@@ -32,13 +32,13 @@
         </div>
         <div class="row">
             <div class="col-xs-6 col-sm-1 text-left text-sm-right year-range">
-                    <b class="sans" id="from_year">{!! !empty($input['year-range']) ? reset((explode(',', $input['year-range']))) : App\Authority::sliderMin() !!}</b> 
+                    <b class="sans" id="from_year">{!! !empty($input['year-range']) ? reset((explode(',', $input['year-range']))) : App\Authority::sliderMin() !!}</b>
             </div>
             <div class="col-xs-6 col-sm-1 col-sm-push-10 text-right text-sm-left year-range">
                     <b class="sans" id="until_year">{!! !empty($input['year-range']) ? end((explode(',', $input['year-range']))) : App\Authority::sliderMax() !!}</b>
             </div>
             <div class="col-sm-10 col-sm-pull-1 year-range">
-                    <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="{!! App\Authority::sliderMin() !!}" data-slider-max="{!! App\Authority::sliderMax() !!}" data-slider-step="5" data-slider-value="[{!! !empty($input['year-range']) ? $input['year-range'] : App\Authority::sliderMin().','.App\Authority::sliderMax() !!}]"/> 
+                    <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="{!! App\Authority::sliderMin() !!}" data-slider-max="{!! App\Authority::sliderMax() !!}" data-slider-step="5" data-slider-value="[{!! !empty($input['year-range']) ? $input['year-range'] : App\Authority::sliderMin().','.App\Authority::sliderMax() !!}]"/>
             </div>
         </div>
         <div class="row" style="padding-top: 20px;">
@@ -54,12 +54,26 @@
          @endif
     </div>
 </section>
+
+@foreach ($authors as $i=>$author)
+    @if ( ! $author->hasTranslation(App::getLocale()) )
+        <section>
+            <div class="container content-section">
+                <div class="row">
+                    @include('includes.message_untranslated')
+                    @break
+                </div>
+            </div>
+        </section>
+    @endif
+@endforeach
+
 <section class="authors">
     <div class="container">
         <div class="row content-section">
         	<div class="col-xs-6">
                 @if (!empty($search))
-                    <h4 class="inline">{{ utrans('autori.authors_found') }} &bdquo;{!! $search !!}&ldquo; (<span data-searchd-total-hits>{!! $authors->total() !!}</span>) </h4> 
+                    <h4 class="inline">{{ utrans('autori.authors_found') }} &bdquo;{!! $search !!}&ldquo; (<span data-searchd-total-hits>{!! $authors->total() !!}</span>) </h4>
                 @else
             		<h4 class="inline">{!! $authors->total() !!} {{ trans('autori.authors_counted') }}</h4>
                 @endif
@@ -73,12 +87,14 @@
             <div class="col-xs-6 text-right">
                 <div class="dropdown">
                   <a class="dropdown-toggle" type="button" id="dropdownSortBy" data-toggle="dropdown" aria-expanded="true">
-                    {{ trans('general.sort_by') }} {!! App\Authority::$sortable[$sort_by]; !!}
+                    {{ trans('general.sort_by') }} {!! trans(App\Authority::$sortable[$sort_by]) !!}
                     <span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-right dropdown-menu-sort" role="menu" aria-labelledby="dropdownSortBy">
-                    @foreach (App\Authority::$sortable as $sort=>$label)
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#" rel="{!! $sort !!}">{!! $label !!}</a></li>
+                    @foreach (App\Authority::$sortable as $sort=>$labelKey)
+                        @if ($sort != $sort_by)
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#" rel="{!! $sort !!}">{!! trans($labelKey) !!}</a></li>
+                        @endif
                     @endforeach
                   </ul>
                 </div>
@@ -86,29 +102,29 @@
         </div>
         <div class="autori">
     	@foreach ($authors as $i=>$author)
-         <div class="row author">   
+         <div class="row author">
             <div class="col-sm-2 col-xs-4">
             	<a href="{!! $author->getUrl() !!}">
-            		<img src="{!! $author->getImagePath() !!}" class="img-responsive img-circle" alt="{!! $author->name !!}">	                		
+            		<img src="{!! $author->getImagePath() !!}" class="img-responsive img-circle" alt="{!! $author->name !!}">
             	</a>
             </div>
             <div class="col-sm-4 col-xs-8">
                 <div class="author-title">
-                    <a href="{!! $author->getUrl() !!}" {!! (!empty($search))  ? 
-                        'data-searchd-result="title/'.$author->id.'" data-searchd-title="'. $author->formatedName.'"' 
+                    <a href="{!! $author->getUrl() !!}" {!! (!empty($search))  ?
+                        'data-searchd-result="title/'.$author->id.'" data-searchd-title="'. $author->formatedName.'"'
                         : '' !!}>
                         <strong>{!! $author->formatedName !!}</strong>
                     </a>
                 </div>
                 <div>
-                    {!! $author->birth_year !!} {!! $author->birth_place !!} 
+                    {!! $author->birth_year !!} {!! $author->birth_place !!}
                     @if ($author->death_year)
-                        &ndash; {!! $author->death_year !!} {!! $author->death_place !!} 
+                        &ndash; {!! $author->death_year !!} {!! $author->death_place !!}
                     @endif
                 </div>
                 <div>
                     @foreach ($author->roles as $i=>$role)
-                        <a href="{!! url_to('autori', ['role' => $role->role]) !!}"><strong>{!! $role->role !!}</strong></a>{!! ($i+1 < $author->roles->count()) ? ', ' : '' !!}
+                        <a href="{!! url_to('autori', ['role' => $role]) !!}"><strong>{!! $role !!}</strong></a>{!! ($i+1 < count($author->roles)) ? ', ' : '' !!}
                     @endforeach
 
                 </div>
@@ -118,11 +134,10 @@
             </div>
             <div class="clearfix visible-xs bottom-space"></div>
             <div class="col-sm-6" >
-                <div class="artworks-preview">
-                @foreach ($author->getPreviewItems() as $item)
-                    <a href="{!! $item->getUrl() !!}"><img data-lazy="{!! $item->getImagePath() !!}" class="img-responsive-width" alt="{!! $item->getTitleWithAuthors() !!} " title="{!! $item->getTitleWithAuthors() !!} "></a>
-                @endforeach
-                </div>
+                @include('components.artwork_carousel', [
+                    'slick_target' => "artworks-preview",
+                    'items' => $author->getPreviewItems(),
+                ])
             </div>
         </div>
     	@endforeach
@@ -144,7 +159,8 @@
 
 {!! Html::script('js/bootstrap-slider.min.js') !!}
 {!! Html::script('js/selectize.min.js') !!}
-{!! Html::script('js/slick.js') !!}
+
+@include('components.artwork_carousel_js', ['slick_query' => '.artworks-preview'])
 
 <script type="text/javascript">
 
@@ -206,17 +222,6 @@ $(document).ready(function(){
         e.preventDefault();
         $('#sort_by').val($(this).attr('rel'));
         $('#filter').submit();
-    });
-
-    $('.artworks-preview').slick({
-        dots: false,
-        lazyLoad: 'progressive',
-        infinite: false,
-        speed: 300,
-        slidesToShow: 1,
-        slide: 'a',
-        centerMode: false,
-        variableWidth: true,
     });
 
     // var $container = $('.autori');

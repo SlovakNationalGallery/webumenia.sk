@@ -26,5 +26,4 @@ return array(
                           |{1}    :artworks_count dílo
                           |[2,4]  :artworks_count díla
                           |[5,Inf]:artworks_count děl',
-
 );

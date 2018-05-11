@@ -61,13 +61,21 @@ class ImportCsv extends Command
             }
             $id = $this->ask('Zadaj ID importu, ktorý sa má spustiť');
         }
-        $import = Import::find($id);
-        if (!$import) {
-            $this->error("Nenašiel sa set pre dané ID.");
-            return;
+
+        if ($id == '*') {
+            $imports = Import::all();
+        } else {
+            $imports = [Import::find($id)];
+
+            if (!$imports[0]) {
+                $this->error("Nenašiel sa set pre dané ID.");
+                return;
+            }
         }
 
-        dispatch(new \App\Jobs\ImportCsv($import));
+        foreach ($imports as $import) {
+            dispatch(new \App\Jobs\ImportCsv($import));
+        }
 
         $this->comment("Dokoncene");
     }

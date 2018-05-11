@@ -1,0 +1,20 @@
+.article-thumbnail {
+    .image-container {
+        display: inline-block;
+        width: 100%;
+        height: auto;
+        position: relative;
+        background-color: @primary-color;
+        color: @light;
+
+        .img-responsive{
+            -webkit-transition: opacity .5s ease-in-out,padding .5s ease-in-out;
+            -moz-transition: opacity .5s ease-in-out,padding .5s ease-in-out;
+            transition: opacity .5s ease-in-out,padding .5s ease-in-out;
+        }
+        
+        &:hover > .img-responsive{
+            opacity: 0.5;
+        }
+    }    
+}

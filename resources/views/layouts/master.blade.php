@@ -20,17 +20,14 @@
 		<!--  /favicons-->
 
 		<!--  Open Graph protocol -->
-		<meta name="twitter:card" content="summary" />
-		<meta name="twitter:site" content="@narodnigalerie" />
-		@section('og')
-		<meta property="og:title" content="Národní galerie v Praze - sbírky" />
-		<meta property="og:description" content="{{ trans('master.meta_description') }}" />
-		<meta property="og:type" content="website" />
-		<meta property="og:url" content="{!! Request::url() !!}" />
-		<meta property="og:image" content="{!! URL::to('/images/og-image-'.random_int(1, 2).'.jpg') !!}" />
-		<meta property="og:site_name" content="Národní galerie v Praze - sbírky" />
-		@show
-		<!--  Open Graph protocol -->
+	    @include('includes.og_tags')
+	    <!--  /Open Graph protocol -->
+
+	    <!--  hreflangs -->
+		@include('includes.hreflangs', [
+	      'localizedURLs' => getLocalizedURLArray(),
+	    ])
+		<!--  /hreflangs -->
 
 		@yield('link')
 
@@ -78,24 +75,11 @@
 	<nav class="navbar {{-- navbar-fixed-top --}} {{-- navbar-static-top --}} {!! (Request::is('/') || isSet($transparent_menu)) ? '' : 'dark-text' !!}" role="navigation">
 	    <div class="container">
 	        <div class="navbar-header page-scroll">
-                {{--
-	            <div class="langswitch-wrapper">
-                    <a class="dropdown-toggle langswitch-toggle uppercase triangle-top-left" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                      {{ App::getLocale() }} <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        @foreach(LaravelLocalization::getLocalesOrder() as $localeCode => $properties)
-                            @if ($localeCode != App::getLocale())
-                                <li>
-                                    <a class="uppercase" rel="alternate" hreflang="{{$localeCode}}" href="{{LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                                      {{ $localeCode }}
-                                    </a>
-                                </li>
-                            @endif
-                        @endforeach
-                    </ul>
-                </div>
-                 --}}
+                @include('components.langswitch', [
+                  'currentLocale' => App::getLocale(),
+                  'localizedURLs' => getLocalizedURLArray(),
+                ])
+
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                     <i class="fa fa-bars fa-2x"></i>
                 </button>
@@ -175,15 +159,14 @@
 
 	<!-- Core JavaScript Files -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/4.0.1/lazysizes.min.js" async=""></script>
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 	<script src="https://unpkg.com/flickity@1.1/dist/flickity.pkgd.min.js"></script>
-	{!! Html::script('js/imagesloaded.min.js') !!}
 	{!! Html::script('js/jquery.infinitescroll.min.js') !!}
-	{!! Html::script('js/jquery.isotope.min.js') !!}
-	{!! Html::script('js/jquery.isotope.sloppy-masonry.min.js') !!}
-	{!! Html::script('js/bootstrap.min.js') !!}
+    {!! Html::script('js/bootstrap.min.js') !!}
 	{!! Html::script('js/typeahead.bundle.min.js') !!}
-	{!! Html::script('js/webumenia.js') !!}
+    <script src="{!! asset_timed('js/webumenia.js') !!}"></script>
 
 	<!-- Content -->
 	@yield('javascript')

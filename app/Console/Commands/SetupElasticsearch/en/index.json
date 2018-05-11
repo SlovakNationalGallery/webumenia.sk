@@ -1,0 +1,60 @@
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "autocomplete_filter": {
+          "type": "edge_ngram",
+          "min_gram": 2,
+          "max_gram": 20
+        },
+        "synonym_filter_en": {
+          "type": "synonym",
+          "format": "wordnet",
+          "synonyms_path": "synonyms/wn_s.pl",
+          "ignore_case": true
+        },
+        "english_stop": {
+          "type":       "stop",
+          "stopwords":  "_english_" 
+        },
+        "english_stemmer": {
+          "type":       "stemmer",
+          "language":   "light_english"
+        },
+        "english_possessive_stemmer": {
+          "type":       "stemmer",
+          "language":   "possessive_english"
+        }
+      },
+      "analyzer": {
+        "english_synonyms": {
+          "tokenizer":  "standard",
+          "filter": [
+            "english_possessive_stemmer",
+            "lowercase",
+            "english_stop",
+            "synonym_filter_en",
+            "english_stemmer"
+          ]
+        },
+        "autocomplete": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "asciifolding",
+            "autocomplete_filter"
+          ]
+        },
+        "ascii_folding": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "asciifolding"
+          ]
+        }
+      }
+    }
+  }
+}

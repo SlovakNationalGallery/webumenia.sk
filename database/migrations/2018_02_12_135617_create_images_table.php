@@ -20,11 +20,6 @@ class CreateImagesTable extends Migration
             $table->string('iipimg_url')->nullable();
             $table->integer('order')->unsigned();
             $table->timestamps();
-
-            $table->foreign('item_id')
-                ->references('id')->on('items')
-                ->onDelete('cascade');
-
             $table->unique(['item_id', 'order']);
         });
     }

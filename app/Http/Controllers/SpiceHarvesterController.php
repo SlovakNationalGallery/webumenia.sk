@@ -78,7 +78,7 @@ class SpiceHarvesterController extends Controller
         $v = Validator::make($input, $rules);
 
         if ($v->passes()) {
-            
+
             $harvest = new SpiceHarvesterHarvest;
             $harvest->base_url = Input::get('base_url');
             $harvest->type = Input::get('type');
@@ -215,7 +215,7 @@ class SpiceHarvesterController extends Controller
                 $items_to_remove[] = $record->item_id;
             }
         }
-        
+
         $collections = \Collection::lists('name', 'id')->toArray();
         if (count($items_to_remove)) {
             $items = Item::whereIn('id', $items_to_remove)->paginate('50');
@@ -324,7 +324,7 @@ class SpiceHarvesterController extends Controller
                             } else {
                                 $skipped_items++;
                             }
-                            
+
                             // }
                         } else {
                             if ($this->insertRecord($id, $rec, $harvest->type)) {
@@ -332,7 +332,7 @@ class SpiceHarvesterController extends Controller
                             } else {
                                 $skipped_items++;
                             }
-                        
+
                         }
 
                         // ak je zvolena kolekcia - hned do nej pridat
@@ -352,9 +352,9 @@ class SpiceHarvesterController extends Controller
         $totalTime = round((microtime(true)-$timeStart));
         $message = 'Spracovaných bolo ' . $processed_items . ' záznamov.' . "\n" .
             $new_items . ' nových záznamov  ' . "\n" .
-            $updated_items . ' bolo upravených ' . "\n" . 
-            $deleted_items . ' bolo zmazaných ' . "\n" . 
-            $skipped_items . ' bolo preskočených. ' . "\n" . 
+            $updated_items . ' bolo upravených ' . "\n" .
+            $deleted_items . ' bolo zmazaných ' . "\n" .
+            $skipped_items . ' bolo preskočených. ' . "\n" .
             'Trvalo to ' . $totalTime . 's';
 
         $harvest->status = SpiceHarvesterHarvest::STATUS_COMPLETED;
@@ -505,7 +505,7 @@ class SpiceHarvesterController extends Controller
         $record->datestamp = $rec->header->datestamp;
         $record->save();
 
-      
+
         // Upload image given by url
         if (!empty($attributes['img_url'])) {
             $this->downloadImage($item, $attributes['img_url']);
@@ -513,7 +513,7 @@ class SpiceHarvesterController extends Controller
 
         return true;
     }
-    
+
     /**
      * Method for updating an item
      *
@@ -547,14 +547,6 @@ class SpiceHarvesterController extends Controller
                         $nationality_ids[] = $nationality['id'];
                     }
                     $nationality = $author->nationalities()->sync($nationality_ids);
-                }
-                $roles_to_remove = $this->get_obsolete_attributes($author->roles->lists('role', 'id')->toArray(), $attributes['roles']);
-                AuthorityRole::destroy(array_keys($roles_to_remove));
-                if (!empty($attributes['roles'])) {
-                    foreach ($attributes['roles'] as $key => $role) {
-                        $role['authority_id'] = $author->id;
-                        $role = AuthorityRole::firstOrCreate($role);
-                    }
                 }
                 if (!empty($attributes['names'])) {
                     foreach ($attributes['names'] as $key => $name) {
@@ -599,7 +591,7 @@ class SpiceHarvesterController extends Controller
         if (!empty($attributes['img_url'])) {
             $this->downloadImage($item, $attributes['img_url']);
         }
-        
+
         // Update the datestamp stored in the database for this record.
         $existingRecord->datestamp = $rec->header->datestamp;
         // $existingRecord->updated_at =  date('Y-m-d H:i:s'); //toto by sa malo diat automaticky
@@ -624,82 +616,120 @@ class SpiceHarvesterController extends Controller
         $rec->registerXPathNamespace('vp', 'http://e-culture.multimedian.nl/ns/getty/vp');
         $metadata = $rec->metadata->children('cedvu', true)->Vocabulary->children('vp', true)->Subject;
 
-        $attributes['id'] = (int)$this->parseId((string)$metadata->attributes('rdf', true)->about);
-        $attributes['type'] = mb_strtolower((string)$metadata->Record_Type, "UTF-8");
-        $attributes['type_organization'] = (string)$metadata->Record_Type_Organization;
-        $attributes['name'] = (string)$metadata->attributes('vp', true)->labelPreferred;
-        $attributes['sex'] = mb_strtolower((string)$metadata->Biographies->Preferred_Biography->Sex, "UTF-8");
-        $biography = $this->parseBiography((string)$metadata->Biographies->Preferred_Biography->Biography_Text);
-        if (strpos($biography, 'http')!== false) {
-            preg_match_all('!https?://\S+!', $biography, $matches);
-            $attributes['links']= $matches[0];
-            $biography = ''; // vymazat bio
-        }
-        $attributes['biography'] = $biography;
-        if (!empty($metadata->Biographies->Preferred_Biography->Birth_Place)) {
-            $attributes['birth_place'] = $this->trimAfter((string)$metadata->Biographies->Preferred_Biography->Birth_Place);
-        }
-        if (!empty($metadata->Biographies->Preferred_Biography->Birth_Date)) {
-            $attributes['birth_year'] = $this->parseYear($metadata->Biographies->Preferred_Biography->Birth_Date);
-        }
-            $attributes['birth_date'] = (string)$metadata->Biographies->Preferred_Biography->Birth_Date;
-        if (!empty($metadata->Biographies->Preferred_Biography->Death_Place)) {
-            $attributes['death_place'] = $this->trimAfter((string)$metadata->Biographies->Preferred_Biography->Death_Place);
-        }
-        if (!empty($metadata->Biographies->Preferred_Biography->Death_Date)) {
-            $attributes['death_year'] = $this->parseYear($metadata->Biographies->Preferred_Biography->Death_Date);
-        }
-            $attributes['death_date'] = (string)$metadata->Biographies->Preferred_Biography->Death_Date;
-        $attributes['nationalities'] = array();
-        foreach ($metadata->Nationalities->Preferred_Nationality as $key => $nationality) {
-            $attributes['nationalities'][] = [
-                'id' => (int)$this->parseId((string)$nationality->attributes('rdf', true)->resource),
-                'code' => (string)$nationality->Nationality_Code,
-                // 'prefered' => true,
-            ];
-        }
-        $attributes['roles'] = array();
-        foreach ($metadata->Roles->Preferred_Role as $key => $role) {
-            $attributes['roles'][] = [
-                'role' => $this->trimAfter((string)$role->Role_ID),
-                // 'prefered' => true,
-            ];
-        }
-        $attributes['names'] = array();
-        // * preferovane nepridavame - ukladame len "alternative names" *
-        // foreach ($metadata->Terms->Preferred_Term as $key => $term) {
-        // 	$attributes['names'][] = [
-        // 		'name' => (string)$term->Term_Text,
-        // 		'prefered' => true,
-        // 	];
-        // }
-        foreach ($metadata->Terms->{'Non-Preferred_Term'} as $key => $term) {
-            $attributes['names'][] = [
-                'name' => (string)$term->Term_Text,
-                'prefered' => false,
-            ];
-        }
-        $attributes['events'] = array();
-        foreach ($metadata->Events->{'Non-Preferred_Event'} as $key => $event) {
-            $attributes['events'][] = [
-                'id' => (int)$event->attributes('rdf', true)->resource,
-                'event' => (string)$event->Event_ID,
-                'place' => $this->trimAfter((string)$event->Place),
-                'prefered' => false,
-                'start_date' => (string)$event->Event_Date->Start_Date,
-                'end_date' => (string)$event->Event_Date->End_Date,
-            ];
-        }
-        $attributes['relationships'] = array();
-        foreach ($metadata->Associative_Relationships->Associative_Relationship as $key => $relationship) {
-            $related_authority_id = (int)$this->parseId((string)$relationship->Related_Subject_ID);
-            if ($related_authority_id) {
-                $attributes['relationships'][$related_authority_id] = [
-                    'type' => (string)$relationship->Relationship_Type,
-                    'related_authority_id' => $related_authority_id
+        // try {
+
+            /**
+             * Map translatable elements
+             */
+
+            $langsPresent = ['sk', 'en'];
+
+            foreach ($langsPresent as $index => $lang) {
+
+                $attributes[$lang]['roles'] = [];
+                foreach ($metadata->Roles->Preferred_Role as $key => $role) {
+                    $attributes[$lang]['roles'][] = $this->chooseTranslation((string)$role->Role_ID, $index);
+                }
+
+                $attributes[$lang]['birth_place'] = $this->chooseTranslation((string)$metadata->Biographies->Preferred_Biography->Birth_Place, $index);
+
+                $attributes[$lang]['death_place'] = $this->chooseTranslation((string)$metadata->Biographies->Preferred_Biography->Death_Place, $index);
+
+                $attributes[$lang]['type_organization'] = (string)$metadata->Record_Type_Organization;
+
+                $biography = $this->parseBiography((string)$metadata->Biographies->Preferred_Biography->Biography_Text);
+                if (strpos($biography, 'http')!== false) {
+                    preg_match_all('!https?://\S+!', $biography, $matches);
+                    $attributes['links']= $matches[0];
+                    $biography = ''; // vymazat bio
+                }
+                $attributes[$lang]['biography'] = $biography;
+
+                // filter empty strings caused by non present attributes for given lang
+                $attributes[$lang] = array_filter($attributes[$lang]);
+            }
+
+            /**
+             * Map non-translatable SK elements
+             */
+            $attributes['nationalities'] = array();
+            foreach ($metadata->Nationalities->Preferred_Nationality as $key => $nationality) {
+                $attributes['nationalities'][] = [
+                    'id' => (int)$this->parseId((string)$nationality->attributes('rdf', true)->resource),
+                    'code' => (string)$nationality->Nationality_Code,
+                    // 'prefered' => true,
                 ];
             }
-        }
+
+            $attributes['id'] = (int)$this->parseId((string)$metadata->attributes('rdf', true)->about);
+            $attributes['type'] = mb_strtolower((string)$metadata->Record_Type, "UTF-8");
+            $attributes['name'] = (string)$metadata->attributes('vp', true)->labelPreferred;
+            $attributes['sex'] = mb_strtolower((string)$metadata->Biographies->Preferred_Biography->Sex, "UTF-8");
+
+            $birth_date = (string)$metadata->Biographies->Preferred_Biography->Birth_Date;
+            if (!empty($birth_date)) {
+                $attributes['birth_year'] = $this->parseYear($birth_date);
+            }
+            $attributes['birth_date'] = $birth_date;
+
+            $death_date = (string)$metadata->Biographies->Preferred_Biography->Death_Date;
+            if (!empty($death_date)) {
+                $attributes['death_year'] = $this->parseYear($death_date);
+            }
+            $attributes['death_date'] = (string)$death_date;
+
+            $attributes['nationalities'] = array();
+            foreach ($metadata->Nationalities->Preferred_Nationality as $key => $nationality) {
+                $attributes['nationalities'][] = [
+                    'id' => (int)$this->parseId((string)$nationality->attributes('rdf', true)->resource),
+                    'code' => (string)$nationality->Nationality_Code,
+                    // 'prefered' => true,
+                ];
+            }
+
+            $attributes['names'] = array();
+            // * preferovane nepridavame - ukladame len "alternative names" *
+            // foreach ($metadata->Terms->Preferred_Term as $key => $term) {
+            // 	$attributes['names'][] = [
+            // 		'name' => (string)$term->Term_Text,
+            // 		'prefered' => true,
+            // 	];
+            // }
+            foreach ($metadata->Terms->{'Non-Preferred_Term'} as $key => $term) {
+                $attributes['names'][] = [
+                    'name' => (string)$term->Term_Text,
+                    'prefered' => false,
+                ];
+            }
+
+            $attributes['events'] = array();
+            foreach ($metadata->Events->{'Non-Preferred_Event'} as $key => $event) {
+                $attributes['events'][] = [
+                    'id' => (int)$event->attributes('rdf', true)->resource,
+                    'event' => (string)$event->Event_ID,
+                    'place' => $this->trimAfter((string)$event->Place),
+                    'prefered' => false,
+                    'start_date' => (string)$event->Event_Date->Start_Date,
+                    'end_date' => (string)$event->Event_Date->End_Date,
+                ];
+            }
+
+            $attributes['relationships'] = array();
+            foreach ($metadata->Associative_Relationships->Associative_Relationship as $key => $relationship) {
+                $related_authority_id = (int)$this->parseId((string)$relationship->Related_Subject_ID);
+                if ($related_authority_id) {
+                    $attributes['relationships'][$related_authority_id] = [
+                        'type' => (string)$relationship->Relationship_Type,
+                        'related_authority_id' => $related_authority_id
+                    ];
+                }
+            }
+
+        // } catch (\Exception $e) {
+        //     Log::error('Identifier: ' . (isSet($identifier))?:'unknown-identifier');
+        //     Log::error('Message: ' . $e->getMessage());
+        //     die('Encountered an error, see logs via admin interface for details');
+        // }
 
         return $attributes;
     }
@@ -725,37 +755,99 @@ class SpiceHarvesterController extends Controller
                         ->children(self::OAI_DC_NAMESPACE)
                         ->children(self::DUBLIN_CORE_NAMESPACE_TERMS);
 
-        $identifiers = (array)$dcElements->identifier;
-
-        $topic=array(); // zaner - krajina s figuralnou kompoziciou / veduta
-        $subject=array(); // objekt - dome/les/
-
         try {
 
-            foreach ($rec->xpath('.//dc:subject[@xml:lang="slk"]') as $key => $value) {
-                if ($this->starts_with_upper($value)) {
-                    $subject[] = mb_strtolower($value, "UTF-8");
-                } else {
-                    $topic[] =$value;
+            /**
+             * Map translatable elements for languages present in record
+             */
+
+            $localeForLang = [
+                "sk" => "sk",
+                "en" => "en",
+                "cs" => "cs",
+            ];
+
+            $langsPresent = $this->get_langs_present_in_record($rec);
+
+            foreach ($langsPresent as $key => $lang) {
+                $locale = $localeForLang[$lang];
+
+                // title
+                if ($locale != 'sk') {
+                    $attributes[$locale]['title'] = $this->serialize($rec->xpath(".//dc:title.translated[@xml:lang='$lang']"));
                 }
+
+                // work_type
+                $attributes[$locale]['work_type'] = $this->serialize($rec->xpath(".//dc:type[@xml:lang='$lang']"), ', ');
+
+                // technique
+                $attributes[$locale]['technique'] = $this->serialize($rec->xpath(".//dc:format[@xml:lang='$lang']"));
+
+                // medium
+                $attributes[$locale]['medium'] = $this->serialize($rec->xpath(".//dc:format.medium[@xml:lang='$lang']"));
+
+                // subject, topic
+                // 'topic': zaner - krajina s figuralnou kompoziciou / veduta
+                // 'subject': objekt - dome/les/
+                $subjectElems = $rec->xpath(".//dc:subject[@xml:lang='$lang']");
+                $subjectStrings = array_map('strval', $subjectElems);
+                $subjects = array_filter(
+                    $subjectStrings,
+                    function ($stringValue) { return $this->starts_with_upper($stringValue); }
+                );
+                $topics = array_filter(
+                    $subjectStrings,
+                    function ($stringValue) { return !$this->starts_with_upper($stringValue); }
+                );
+                $attributes[$locale]['topic'] = $this->serialize($topics);
+                $attributes[$locale]['subject'] = $this->serialize($subjects);
+
+                // filter empty strings caused by non present attributes for given lang
+                $attributes[$locale] = array_filter($attributes[$locale]);
             }
 
-            foreach ($identifiers as $identifier) {
-                if ($identifier!=(string)$rec->header->identifier) {
-                    //identifikator
-                    if ($this->starts_with_upper($identifier)) {
-                        $attributes['identifier'] = $identifier;
-                    } elseif (strpos($identifier, 'getimage') !== false) {
-                        $attributes['img_url'] = $identifier;
-                    } elseif (strpos($identifier, 'L2_WEB') !== false) {
-                        $attributes['iipimg_url'] = $this->resolveIIPUrl($identifier);
+            $attributes['sk']['title'] = $this->serialize($rec->xpath('.//dc:title') ?: NULL);
+            $attributes['sk']['measurement'] = trim($dcTerms->extent);
+            $attributes['sk']['inscription'] = $this->serialize($dcElements->description);
+            $attributes['sk']['place'] = $this->serialize($dcElements->{'subject.place'});
+            $attributes['sk']['gallery'] = $this->serialize($dcTerms->provenance);
+
+            $dating = explode('/', $dcTerms->created[0]);
+            if (!empty($dcTerms->created[1])) {
+                $dating_text_array = explode(', ', $dcTerms->created[1]);
+                $dating_text = end($dating_text_array);
+            } else {
+                $dating_text = $dcTerms->created[0];
+            }
+            $attributes['date_earliest'] = (!empty($dating[0])) ? $dating[0] : null;
+            $attributes['date_latest'] = (!empty($dating[1])) ? $dating[1] : $attributes['date_earliest'];
+            $attributes['sk']['dating'] = $dating_text;
+
+            $related = (string)$dcElements->{'relation.isPartOf'};
+            // isPartOf - expected format is "relationship_type:related_work"
+            $related_parts = explode(':', $related, 2); // limit by 2, because "related_work" can contain ":"
+            $attributes['sk']['relationship_type'] = array_shift($related_parts);
+            if ($related_parts) {
+                $attributes['sk']['related_work'] = trim(preg_replace('/\s*\([^)]*\)/', '', $related_parts[0]));
+                preg_match('#\((.*?)\)#', $related_parts[0], $match);
+                if (isset($match[1])) {
+                    $related_work_order = $match[1];
+                    $related_work_order_parts = explode('/', $related_work_order);
+                    $related_work_order = array_shift($related_work_order_parts);
+                    $related_work_total = array_shift($related_work_order_parts);
+                    if (!is_numeric($related_work_order)) {
+                        $attributes['sk']['related_work'] = $related_work_order;
+                    } else {
+                        $attributes['related_work_order'] = (int)$related_work_order;
+                        $attributes['related_work_total'] = (int)$related_work_total;
                     }
                 }
-            
             }
 
-            $attributes['id'] = (string)$rec->header->identifier;
-            $attributes['title'] = $dcElements->title;
+            /**
+             * Map non-translatable SK elements
+             */
+
             $authors = array();
             $authority_ids = array();
             $authorities = array();
@@ -775,61 +867,32 @@ class SpiceHarvesterController extends Controller
             $attributes['authorities'] = $authorities;
             $attributes['authority_ids'] = $authority_ids;
             $attributes['author'] = $this->serialize($authors);
-            $attributes['work_type'] = $this->serialize($rec->xpath('.//dc:type[@xml:lang="slk"]'), ', ');
-            // if (!empty($type[0])) $attributes['work_type'] = $type[0];
-            // if (!empty($type[1])) $attributes['work_level'] = $type[1];
-        
-            $attributes['topic'] = $this->serialize($topic);
-            $attributes['subject'] = $this->serialize($subject);
-            $attributes['place'] = $this->serialize($dcElements->{'subject.place'});
-            // $trans = array(", " => ";", "šírka" => "", "výška" => "", "()" => "");
-            $trans = array(", " => ";", "; " => ";", "()" => "");
-            $attributes['measurement'] = trim($dcTerms->extent);
-            // $attributes['measurement'] = trim(strtr($dcTerms->extent, $trans));
-            $dating = explode('/', $dcTerms->created[0]);
-            if (!empty($dcTerms->created[1])) {
-                $dating_text_array = explode(', ', $dcTerms->created[1]);
-                $dating_text = end($dating_text_array);
-            } else {
-                $dating_text = $dcTerms->created[0];
-            }            
-            $attributes['date_earliest'] = (!empty($dating[0])) ? $dating[0] : null;
-            $attributes['date_latest'] = (!empty($dating[1])) ? $dating[1] : $attributes['date_earliest'];
-            $attributes['dating'] = $dating_text;
-            $attributes['medium'] = $this->serialize($rec->xpath('.//dc:format.medium[@xml:lang="slk"]')); // http://stackoverflow.com/questions/6531380/php-simplexml-with-dot-character-in-element-in-xml
-            $attributes['technique'] = $this->serialize($rec->xpath('.//dc:format[@xml:lang="slk"]'));
-            $attributes['inscription'] = $this->serialize($dcElements->description);
-            // $attributes['state_edition'] =  (!empty($type[2])) ? $type[2] : null;
-            $attributes['gallery'] = $dcTerms->provenance;
-            if (isset($dcElements->rights[0])) {
-                $attributes['publish'] = (int)$dcElements->rights[0];
-            }
-            $related = (string)$dcElements->{'relation.isPartOf'};
-            // isPartOf - expected format is "relationship_type:related_work"
-            $related_parts = explode(':', $related, 2); // limit by 2, because "related_work" can contain ":"
-            $attributes['relationship_type'] = array_shift($related_parts);
-            if ($related_parts) {
-                $attributes['related_work'] = trim(preg_replace('/\s*\([^)]*\)/', '', $related_parts[0]));
-                preg_match('#\((.*?)\)#', $related_parts[0], $match);
-                if (isset($match[1])) {
-                    $related_work_order = $match[1];
-                    $related_work_order_parts = explode('/', $related_work_order);
-                    $related_work_order = array_shift($related_work_order_parts);
-                    $related_work_total = array_shift($related_work_order_parts);
-                    if (!is_numeric($related_work_order)) {
-                        $attributes['related_work'] = $related_work_order;
-                    } else {
-                        $attributes['related_work_order'] = (int)$related_work_order;
-                        $attributes['related_work_total'] = (int)$related_work_total;
+
+            $identifiers = (array)$dcElements->identifier;
+            foreach ($identifiers as $identifier) {
+                if ($identifier!=(string)$rec->header->identifier) {
+                    //identifikator
+                    if ($this->starts_with_upper($identifier)) {
+                        $attributes['identifier'] = $identifier;
+                    } elseif (strpos($identifier, 'getimage') !== false) {
+                        $attributes['img_url'] = $identifier;
+                    } elseif (strpos($identifier, 'L2_WEB') !== false) {
+                        $attributes['iipimg_url'] = $this->resolveIIPUrl($identifier);
                     }
                 }
+            }
+
+            $attributes['id'] = (string)$rec->header->identifier;
+            // $attributes['state_edition'] =  (!empty($type[2])) ? $type[2] : null;
+            if (isset($dcElements->rights[0])) {
+                $attributes['publish'] = (int)$dcElements->rights[0];
             }
         } catch (\Exception $e) {
             Log::error('Identifier: ' . (isSet($identifier))?:'unknown-identifier');
             Log::error('Message: ' . $e->getMessage());
-            die('nastala chyba. pozri log.');
+            die('Encountered an error, see logs via admin interface for details');
         }
-        
+
         // pretypovat SimpleXMLElement na string
         foreach ($attributes as $key => $attribute) {
             if (is_object($attribute)) {
@@ -837,6 +900,14 @@ class SpiceHarvesterController extends Controller
             }
         }
         return $attributes;
+    }
+
+    private function get_langs_present_in_record($rec)
+    {
+        $elementsWithLangAttr = $rec->xpath('.//*[@xml:lang]/@xml:lang');
+        $allLangStrings = array_map('strval', $elementsWithLangAttr);
+        $uniqueLangs = array_unique($allLangStrings);
+        return $uniqueLangs;
     }
 
     private function serialize($attribute, $delimiter = "; ")
@@ -857,11 +928,11 @@ class SpiceHarvesterController extends Controller
             $data = file_get_contents($file);
         } catch (\Exception $e) {
             if (!str_contains($e->getMessage(), '403 Forbidden')) {
-                $this->log->addError($img_url . ': ' . $e->getMessage());                
+                $this->log->addError($img_url . ': ' . $e->getMessage());
             }
             return false;
         }
-        
+
         $full = true;
         if ($new_file = $item->getImagePath($full)) {
             file_put_contents($new_file, $data);
@@ -879,7 +950,12 @@ class SpiceHarvesterController extends Controller
     {
         $parts = explode($delimiter, $string);
         return $parts[0];
-        // return substr($string, 0, strpos($string, $delimiter));
+    }
+
+    private function chooseTranslation($string, $index, $delimiter = '/')
+    {
+        $parts = explode($delimiter, $string);
+        return (isSet($parts[$index])) ? $parts[$index] : null;
     }
 
     private function parseBiography($string)
@@ -901,7 +977,8 @@ class SpiceHarvesterController extends Controller
 
     private function parseYear($string)
     {
-        return (int)end((explode('.', $string)));
+        $parts = explode('.', $string);
+        return (int)end($parts);
     }
 
     private function resolveIIPUrl($iip_resolver)

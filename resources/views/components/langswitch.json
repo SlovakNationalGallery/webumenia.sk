@@ -2,14 +2,12 @@
     "name": "Language switch",
     "data": {
         "currentLocale": "sk",
-        "localesOrdered": {
-            "sk": "_properties",
-            "en": "_properties"
-        },
         "localizedURLs": {
             "sk": "#",
+            "cs": "#",
             "en": "#"
         }
     },
+    "wrapper_classes": "pull-left",
     "usage_notes": "a dropdown element to set the locale of the website"
 }
