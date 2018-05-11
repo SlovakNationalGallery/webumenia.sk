@@ -10,7 +10,7 @@ return [
     | Contains an array with the applications available locales.
     |
     */
-    'locales' => ['sk','cs','en'],
+    'locales' => ['cs','en'],
 
     /*
     |--------------------------------------------------------------------------
@@ -59,7 +59,7 @@ return [
     | set it to false.
     |
     */
-    'fallback_locale' => 'sk',
+    'fallback_locale' => 'cs',
 
     'use_property_fallback' => true,
 
