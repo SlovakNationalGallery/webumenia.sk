@@ -801,7 +801,7 @@ class Item extends Model
                 'gallery_collection' => $this->gallery_collection,
                 'authority_id' => $this->relatedAuthorityIds(),
                 'view_count' => $this->view_count,
-                'color_descriptor' => $this->color_descriptor,
+                // 'color_descriptor' => $this->color_descriptor,
 
                 // tanslatable attributes:
                 'title' => $item_translated->title,
