@@ -32,7 +32,7 @@ class CatalogController extends Controller
         if (Input::has('sort_by') && array_key_exists(Input::get('sort_by'), Item::$sortable)) {
             $sort_by = Input::get('sort_by');
         } else {
-            $sort_by = 'updated_at';
+            $sort_by = 'view_count';
         }
 
         $sort_order = ($sort_by == 'author' || $sort_by == 'title') ? 'asc' : 'desc';
@@ -47,7 +47,7 @@ class CatalogController extends Controller
         $params['from'] = $offset;
         $params['size'] = $per_page;
 
-        if (!Input::has('sort_by') || $sort_by == 'updated_at') {
+        if ($sort_by == 'updated_at') {
             $params['sort'][] = '_score';
             $params['sort'][] = ['has_image' => ['order' => 'desc']];
             $params['sort'][] = ['has_iip' => ['order' => 'desc']];
@@ -162,9 +162,8 @@ class CatalogController extends Controller
         $paginator = new LengthAwarePaginator($items->all(), $items->total(), $per_page, $page, ['path' => $path]);
 
         $authors = Item::listValues('author', $params);
-        $work_types = Item::listValues('work_type', $params);
-        $tags = Item::listValues('tag', $params);
-        $galleries = Item::listValues('gallery', $params);
+        $mediums = Item::listValues('medium', $params);
+        $gallery_collections = Item::listValues('gallery_collection', $params);
         $topics = Item::listValues('topic', $params);
         $techniques = Item::listValues('technique', $params);
 
@@ -174,9 +173,8 @@ class CatalogController extends Controller
         return view('katalog', array(
             'items' => $items,
             'authors' => $authors,
-            'work_types' => $work_types,
-            'tags' => $tags,
-            'galleries' => $galleries,
+            'mediums' => $mediums,
+            'gallery_collections' => $gallery_collections,
             'topics' => $topics,
             'techniques' => $techniques,
             'color' => $color,
