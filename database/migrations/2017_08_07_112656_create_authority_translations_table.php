@@ -28,7 +28,7 @@ class CreateAuthorityTranslationsTable extends Migration
             $table->foreign('authority_id')->references('id')->on('authorities')->onDelete('cascade');
         });
 
-        $default_locale = 'sk';
+        $default_locale = App::getLocale();
 
         $authorities = DB::table('authorities')->get();
         $authority_translations = [];

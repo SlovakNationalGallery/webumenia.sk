@@ -27,7 +27,7 @@ class CreateArticleTranslationsTable extends Migration
             $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
         });
 
-        $default_locale = 'sk';
+        $default_locale = App::getLocale();
 
         $articles = DB::table('articles')->get();
         $article_translations = [];

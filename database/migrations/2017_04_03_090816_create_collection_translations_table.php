@@ -27,7 +27,7 @@ class CreateCollectionTranslationsTable extends Migration
             $table->foreign('collection_id')->references('id')->on('collections')->onDelete('cascade');
         });
 
-        $default_locale = 'sk';
+        $default_locale = App::getLocale();
 
         $collections = DB::table('collections')->get();
         $collection_translations = [];
