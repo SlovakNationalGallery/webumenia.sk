@@ -41,7 +41,7 @@ class CreateItemTranslationsTable extends Migration
             $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
         });
 
-        $default_locale = 'sk';
+        $default_locale = App::getLocale();
 
         DB::table('items')->orderBy('id')->chunk(100, function($items) use ($default_locale) {
             $item_translations = [];
