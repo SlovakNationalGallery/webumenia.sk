@@ -236,7 +236,9 @@ abstract class AbstractImporter implements IImporter {
         foreach ($record as $key => $value) {
             if (isset($this->mapping[$key])) {
                 $mappedKey = $this->mapping[$key];
-                $item->$mappedKey = $value;
+                if (!str_contains($mappedKey, ':') || !empty($value)) {
+                    $item->{"$mappedKey"} = $value;
+                }
             }
         }
     }
