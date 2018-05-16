@@ -12,17 +12,17 @@ return array(
     */
 
     // in models: item, collection
-    'created_at'              => 'dátumu pridania',
+    'created_at'              => 'data vytvoření',
     'title'                   => 'názvu',
     // in model item
-    'updated_at'              => 'poslednej zmeny',
+    'updated_at'              => 'poslední změny',
     'author'                  => 'autora',
-    'date_earliest'           => 'datovania',
-    'view_count'              => 'počtu videní',
-    'random'                  => 'náhodne',    
+    'date_earliest'           => 'datování',
+    'view_count'              => 'počtu zobrazení',
+    'random'                  => 'náhodně',    
     // in model authority
-    'name'                    => 'mena',
-    'items_count'             => 'počtu diel',
-    'birth_year'              => 'roku narodenia',
-    'items_with_images_count' => 'počtu diel s obrázkom',
+    'name'                    => 'jména',
+    'items_count'             => 'počtu děl',
+    'birth_year'              => 'roku narození',
+    'items_with_images_count' => 'počtu děl s obrázkem',
 );
