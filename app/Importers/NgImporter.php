@@ -132,12 +132,22 @@ class NgImporter extends AbstractImporter {
         return $image;
     }
 
-    protected function hydrateAuthor(array $record) {
+    protected function hydrateAuthor(array $record, $locale = 'cs') {
         $keys = [
             'Autor (jméno příjmení, příp. Anonym)',
             'Autor 2',
             'Autor 3',
+            'Autor 4',
         ];
+
+        if ($locale == 'en') {
+            $keys = [
+                'Ang - Autor (překlad předchozího sloupce)',
+                'Ang - Autor 2 (překlad předchozího sloupce)',
+                'Ang - Autor 3 (překlad předchozího sloupce)',
+                'Ang - Autor 4 (překlad předchozího sloupce)',
+            ];
+        }
 
         $keys = array_filter($keys, function ($key) use ($record) {
             return $record[$key] !== null;
