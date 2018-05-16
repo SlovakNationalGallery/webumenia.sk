@@ -33,8 +33,8 @@ class CreateItemTranslationsTable extends Migration
             $table->string('place')->nullable();
             $table->string('state_edition')->nullable();
             $table->string('gallery');
-            $table->string('relationship_type');
-            $table->string('related_work');
+            $table->string('relationship_type')->nullable();
+            $table->string('related_work')->nullable();
             $table->string('description_source');
 
             $table->unique(['item_id','locale']);
