@@ -19,6 +19,7 @@ class CreateItemTranslationsTable extends Migration
             $table->string('locale')->index();
             
             // translatable attributes
+            $table->string('author');
             $table->string('title');
             $table->string('description');
             $table->string('work_type');
@@ -49,6 +50,7 @@ class CreateItemTranslationsTable extends Migration
                 $item_translations[] = [
                     'item_id'            => $item->id,
                     'locale'             => $default_locale,
+                    'author'              => $item->author,
                     'title'              => $item->title,
                     'description'        => $item->description,
                     'work_type'          => $item->work_type,

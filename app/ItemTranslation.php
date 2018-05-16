@@ -8,6 +8,7 @@ class ItemTranslation extends Model
 {
     public $timestamps = false;
     protected $fillable = [
+        'author', 
         'title', 
         'description', 
         'work_type', 

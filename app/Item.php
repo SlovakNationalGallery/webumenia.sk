@@ -27,6 +27,7 @@ class Item extends Model
     const ES_TYPE = 'items';
 
     public $translatedAttributes = [
+        'author',
         'title',
         'description',
         'work_type',
@@ -284,7 +285,7 @@ class Item extends Model
                 ],
                 "should" => [
                     // ["match"=> [
-                    // 	"author" => $this->attributes['author'],
+                    // 	"author" => $this->author,
                     // 	],
                     // ],
                     // ["terms"=> [ "authority_id" => $this->relatedAuthorityIds() ] ],
@@ -429,7 +430,7 @@ class Item extends Model
 
     public function getAuthorsAttribute($value)
     {
-        $authors_array = $this->makeArray($this->attributes['author']);
+        $authors_array = $this->makeArray($this->author);
         $authors = array();
         foreach ($authors_array as $author) {
             $authors[$author] = preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $author);
@@ -439,12 +440,12 @@ class Item extends Model
 
     public function getAuthorFormated($value)
     {
-        return preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $this->attributes['author']);
+        return preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $this->author);
     }
 
     public function getFirstAuthorAttribute($value)
     {
-        $authors_array = $this->makeArray($this->attributes['author']);
+        $authors_array = $this->makeArray($this->author);
         return reset($authors_array);
     }
 
