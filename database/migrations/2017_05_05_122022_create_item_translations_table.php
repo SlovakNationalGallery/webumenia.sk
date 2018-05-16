@@ -20,7 +20,7 @@ class CreateItemTranslationsTable extends Migration
             
             // translatable attributes
             $table->string('title');
-            $table->string('description');
+            $table->mediumText('description');
             $table->string('work_type');
             $table->string('work_level');
             $table->string('topic');
