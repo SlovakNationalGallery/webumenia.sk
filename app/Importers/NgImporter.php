@@ -13,7 +13,7 @@ use App\Repositories\IFileRepository;
 class NgImporter extends AbstractImporter {
 
     protected $options = [
-        'delimiter' => ';',
+        'delimiter' => ',',
         'enclosure' => '"',
         'escape' => '\\',
         'newline' => "\r\n",
