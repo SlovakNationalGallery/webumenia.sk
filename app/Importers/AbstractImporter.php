@@ -236,7 +236,18 @@ abstract class AbstractImporter implements IImporter {
         foreach ($item->getFillable() as $key) {
             $method_name = sprintf('hydrate%s', camel_case($key));
             if (method_exists($this, $method_name)) {
-                $item->$key = $this->$method_name($record);
+                // translatable attribute
+                if (in_array($key, $item->translatedAttributes)) {
+                    foreach (\Config::get('translatable.locales') as $i=>$locale) {
+                        $value = $this->$method_name($record, $locale);
+                        if ($value) {
+                            $item->translate($locale)->$key = $value;
+                        }
+                    }
+                // other attribute
+                } else {
+                    $item->$key = $this->$method_name($record);
+                }
             }
         }
     }
