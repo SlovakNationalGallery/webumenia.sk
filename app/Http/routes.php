@@ -337,14 +337,13 @@ Route::group(['middleware' => ['auth', 'role:admin|editor|import']], function ()
     Route::get('item/search', 'ItemController@search');
     Route::resource('item', 'ItemController');
     Route::post('item/destroySelected', 'ItemController@destroySelected');
-});
-
-Route::group(['middleware' => ['auth', 'role:admin|editor']], function () {
-
     Route::get('collection/{collection_id}/detach/{item_id}', 'CollectionController@detach');
     Route::post('collection/fill', 'CollectionController@fill');
     Route::post('collection/sort', 'CollectionController@sort');
     Route::resource('collection', 'CollectionController');
+});
+
+Route::group(['middleware' => ['auth', 'role:admin|editor']], function () {
     Route::resource('user', 'UserController');
     Route::match(['get', 'post'], 'uploader', 'FileuploaderController@upload');
 });
