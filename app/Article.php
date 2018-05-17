@@ -24,9 +24,9 @@ class Article extends Model
     public static $rules = array(
         'slug'       => 'required',
 
-        'sk.title'   => 'required',
-        'sk.summary' => 'required',
-        'sk.content' => 'required',
+        'cs.title'   => 'required',
+        'cs.summary' => 'required',
+        'cs.content' => 'required',
     );
 
     // public function items()

@@ -118,8 +118,8 @@ class Item extends Model
 
     public static $rules = array(
         'author' => 'required',
-        'sk.title'  => 'required',
-        'sk.dating' => 'required',
+        'cs.title'  => 'required',
+        'cs.dating' => 'required',
     );
 
     // protected $appends = array('measurements');
