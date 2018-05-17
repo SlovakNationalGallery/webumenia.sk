@@ -255,7 +255,7 @@ class CatalogController extends Controller
 
     private function getAnalyzerNameForSynonyms()
     {
-        return str_slug(LaravelLocalization::getCurrentLocaleNative()) . '_synonyms';
+        return str_slug(\LaravelLocalization::getCurrentLocaleNative()) . '_synonyms';
     }
 
 }
