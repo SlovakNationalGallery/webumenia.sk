@@ -33,6 +33,9 @@ class NgImporter extends AbstractImporter {
         // translations
         'Ang - Název díla (překlad předchozího sloupce)' => 'title:en',
         'Ang - Popis (překlad předchozího sloupce)' => 'description:en',
+        'Ang - Technika (překlad předchozího sloupce)' => 'technique:en',
+        'Ang - Materiál (překlad předchozího sloupce)' => 'medium:en',
+        'Ang - Popis (překlad předchozího sloupce)' => 'description:en',
     ];
 
     protected $defaults = [
@@ -162,9 +165,14 @@ class NgImporter extends AbstractImporter {
         return implode('; ', $authors);
     }
 
-    protected function hydrateInscription(array $record) {
+    protected function hydrateInscription(array $record, $locale = 'cs') {
         $key1 = 'značeno kde (umístění v díle)';
         $key2 = 'Značeno (jak např. letopočet, signatura, monogram)';
+
+        if ($locale == 'en') {
+            $key = 'Ang - Značeno (překlad předchozího sloupce)';
+            return $record[$key];;
+        }
 
         $inscription = [];
         if ($record[$key1] !== null) {
@@ -178,7 +186,7 @@ class NgImporter extends AbstractImporter {
         return implode(': ', $inscription);
     }
 
-    protected function hydrateMeasurement(array $record) {
+    protected function hydrateMeasurement(array $record, $locale = 'cs') {
         $measurement = [];
 
         $width = 'šířka';
@@ -188,13 +196,13 @@ class NgImporter extends AbstractImporter {
 
         $units_suffix = $record[$units] !== null ? sprintf(' %s', $record[$units]) : '';
         if ($record[$height] !== null) {
-            $measurement[] = sprintf('výška %s%s', $record[$height], $units_suffix);
+            $measurement[] = sprintf('%s %s%s', \Lang::get('dielo.height', [], $locale), $record[$height], $units_suffix);
         }
         if ($record[$width] !== null) {
-            $measurement[] = sprintf('šířka %s%s', $record[$width], $units_suffix);
+            $measurement[] = sprintf('%s %s%s', \Lang::get('dielo.width', [], $locale), $record[$width], $units_suffix);
         }
         if ($record[$depth] !== null) {
-            $measurement[] = sprintf('hloubka %s%s', $record[$depth], $units_suffix);
+            $measurement[] = sprintf('%s %s%s', \Lang::get('dielo.depth', [], $locale), $record[$depth], $units_suffix);
         }
 
         return implode('; ', $measurement);
@@ -204,7 +212,10 @@ class NgImporter extends AbstractImporter {
         return isset(self::$cz_gallery_collection_spec[$record['Sbírka']]) ? self::$cz_gallery_collection_spec[$record['Sbírka']] : null;
     }
 
-    protected function hydrateDating(array $record) {
+    protected function hydrateDating(array $record, $locale = 'cs') {
+        if ($locale == 'en') {
+            return $record['Ang - Datování NEBO Datace'];
+        }
         return $record['Datace'] !== null ? $record['Datace'] : $record['Datování (určené)'];
     }
 
