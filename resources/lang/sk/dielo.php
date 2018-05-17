@@ -30,6 +30,11 @@ return array(
     'item_attr_licence'        => 'licencia',
     'item_attr_place'          => 'geografická oblasť',
 
+    'width'  => 'šírka',
+    'height' => 'výška',
+    'depth'  => 'hĺbka',
+    'units'  => 'jednotky',
+
     'more-items_related-artworks' => 'súvisiace diela',
     'more-items_similar-colors' => 'vyhľadávať podľa farieb diela',
 

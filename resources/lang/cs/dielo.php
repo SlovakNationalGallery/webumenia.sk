@@ -30,6 +30,11 @@ return array(
     'item_attr_licence'        => 'licence',
     'item_attr_place'          => 'místo vzniku',
 
+    'width'  => 'šířka',
+    'height' => 'výška',
+    'depth'  => 'hloubka',
+    'units'  => 'jednotky',
+
     'more-items_related-artworks' =>  'další díla',
     'more-items_similar-colors' => 'vyhľadávať podľa farieb diela',
     'modal_license_body-content'        => '<p><strong>Vámi zvolené dílo by se mělo v krátkém čase začít automaticky stahovat.</strong></p>

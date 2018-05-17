@@ -30,6 +30,11 @@ return array(
     'item_attr_licence'        => 'licence',
     'item_attr_place'          => 'geographic location',
 
+    'width'  => 'width',
+    'height' => 'height',
+    'depth'  => 'depth',
+    'units'  => 'units',
+
     'more-items_related-artworks' => 'more artworks',
     'more-items_similar-colors' => 'search by similar colours',
 
