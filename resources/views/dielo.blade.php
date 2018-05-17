@@ -309,7 +309,7 @@
 @endif
 
 @if (!empty($more_items))
-<section class="more-items content-section light-grey">
+<section class="more-items content-section">
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
