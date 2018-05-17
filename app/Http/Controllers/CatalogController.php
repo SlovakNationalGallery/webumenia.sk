@@ -86,7 +86,7 @@ class CatalogController extends Controller
                     'title.stemmed' => $search,
                     'title.stemmed' => [
                         'query' => $search,
-                        'analyzer' => 'slovencina_synonyms',
+                        'analyzer' => $this->getAnalyzerNameForSynonyms(),
                     ],
                     'tag.folded' => $search,
                     'tag.stemmed' => $search,
@@ -98,7 +98,7 @@ class CatalogController extends Controller
                     ],
                     'description.stemmed' => [
                         'query' => $search,
-                        'analyzer' => 'slovencina_synonyms',
+                        'analyzer' => $this->getAnalyzerNameForSynonyms(),
                         'boost' => 0.5,
                     ],
                 ];
@@ -251,6 +251,11 @@ class CatalogController extends Controller
         ];
 
         return response()->json($result_item);
+    }
+
+    private function getAnalyzerNameForSynonyms()
+    {
+        return str_slug(LaravelLocalization::getCurrentLocaleNative()) . '_synonyms';
     }
 
 }
