@@ -24,6 +24,7 @@ return array(
     'info_gallery_NGN'   => 'Nitra Gallery',
     'info_gallery_SGB'   => 'Central Slovak Gallery',
     'info_gallery_GUS'   => 'Gallery of Spiš Artists',
+    'info_gallery_MG'    => 'Moravian Gallery',
 
     'mozete_heading'               => 'On Web Umenia you can',
     'mozete_col_stahovat_heading'  => 'Download artworks in Public Domain',

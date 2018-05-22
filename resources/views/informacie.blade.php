@@ -63,6 +63,10 @@
                             'lang_string' => 'informacie.info_gallery_GUS',
                             'url'         => 'katalog?gallery=Galéria umelcov Spiša, GUS',
                         ],
+                        [
+                            'lang_string' => 'informacie.info_gallery_MG',
+                            'url'         => 'katalog?gallery=Moravská galerie, MG',
+                        ],
                     ]
                 @endphp
                 <ul class="list-unstyled lead">
