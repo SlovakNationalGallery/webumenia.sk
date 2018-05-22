@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [1.4.1] - 2018-05-22
+### Fixed
+- fix download functionality after item_images migration
+
 ## [1.4.0] - 2018-05-07
 
 ### Added

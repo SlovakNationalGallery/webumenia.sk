@@ -186,6 +186,13 @@ class Item extends Model
         return $url;
     }
 
+    public function getIIPimgURL()
+    {
+        $itemImagesWithIIP = $this->getZoomableImages();
+        // @TODO consider order to return correct image?
+        return $itemImagesWithIIP[0]->iipimg_url;
+    }
+
     public function downloadImage()
     {
         $file = $this->img_url;
@@ -639,7 +646,7 @@ class Item extends Model
 
     public function isFreeDownload()
     {
-        return ($this->isFree() && !empty($this->attributes['iipimg_url']));
+        return ($this->isFree() && !empty($this->getZoomableImages()));
     }
 
     public function isForReproduction()
@@ -674,7 +681,8 @@ class Item extends Model
     {
 
         header('Set-Cookie: fileDownload=true; path=/');
-        $url = 'http://imi.sng.cust.eea.sk/publicIS/fcgi-bin/iipsrv.fcgi?FIF=' . $this->attributes['iipimg_url'] . '&CVT=JPG';
+        $IIPimgURL = $this->getIIPimgURL();
+        $url = 'http://imi.sng.cust.eea.sk/publicIS/fcgi-bin/iipsrv.fcgi?FIF=' . $IIPimgURL . '&CVT=JPG';
         $filename = $this->attributes['id'].'.jpg';
 
         set_time_limit(0);
