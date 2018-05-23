@@ -56,7 +56,7 @@
 
 					<div class="form-group">
 					{{ Form::label($locale . "[text]", 'Text') }}
-					{{ Form::textarea($locale . "[text]", isset($collection) ? @$collection->translate($locale)->text : '', array('class' => 'form-control wysiwyg', 'rows'=>'12')) }}	
+					{{ Form::textarea($locale . "[text]", isset($collection) ? @$collection->translate($locale)->text : '', array('class' => 'form-control wysiwyg', 'rows'=>'12')) }}
 					</div>
 
 			</div>
@@ -92,16 +92,16 @@
 		<p>šírka min: 1400px<br>formát: JPG (vysoka kompresia ~50-60%)</p>
 	</div>
 </div>
-@if (Entrust::hasRole('admin'))
+{{-- @if (Entrust::hasRole('admin')) --}}
 <div class="col-md-6">
 	<div class="form-group checkbox">
 		{!! Form::label('publish', 'Publikovať') !!}
 		{!! Form::checkbox('publish', '1', @$input['publish']) !!}
 	</div>
 </div>
-@endif
+{{-- @endif --}}
 <div class="col-md-12 text-center">
-	{!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp; 
+	{!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp;
 	{!! link_to_route('collection.index', 'Zrušiť', null, array('class' => 'btn btn-default')) !!}
 	{!!Form::close() !!}
 </div>
@@ -122,9 +122,9 @@
 	</div>
 	<div class="col-md-6 text-center"><span class="hidden loader"><i class="fa fa-refresh fa-spin fa-lg"></i> čakaj</span></div>
 	{!!Form::close() !!}
-	
+
 	<div class="clearfix"></div>
-	
+
 	<ul class="list-group" id="sortable" data-entity="item"  data-id="{!! $collection->id !!}">
 		@foreach ($collection->items as $item)
 		<li class="list-group-item vertical-center" data-id="{!! $item->id !!}">
@@ -157,7 +157,7 @@
 
 	Sortable.create(sortable, {
 	  handle: '.sortable-handle',
-	  ghostClass: "sortable-ghost", 
+	  ghostClass: "sortable-ghost",
 	  animation: 150,
 	  dataIdAttr: 'data-id',
 
