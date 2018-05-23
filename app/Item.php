@@ -43,7 +43,8 @@ class Item extends Model
         'state_edition',
         'gallery',
         'relationship_type',
-        'related_work'
+        'related_work',
+        'gallery_collection',
     ];
 
     // protected $indexName = 'webumenia';
@@ -799,7 +800,6 @@ class Item extends Model
                 'is_free' => $this->isFree(),
                 // 'free_download' => $this->isFreeDownload(), // staci zapnut is_free + has_iip
                 'related_work' => $this->related_work,
-                'gallery_collection' => $this->gallery_collection,
                 'authority_id' => $this->relatedAuthorityIds(),
                 'view_count' => $this->view_count,
                 // 'color_descriptor' => $this->color_descriptor,
@@ -814,6 +814,7 @@ class Item extends Model
                 'medium' => $item_translated->medium,
                 'technique' => $this->makeArray($item_translated->technique),
                 'gallery' => $item_translated->gallery,
+                'gallery_collection' => $item_translated->gallery_collection,
 
             ];
 

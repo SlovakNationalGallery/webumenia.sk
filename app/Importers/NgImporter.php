@@ -59,6 +59,14 @@ class NgImporter extends AbstractImporter {
         'SAA' => 'Sbírka umění Asie a Afriky',
     ];
 
+    protected static $en_gallery_collection_spec = [
+        'SGK' => 'Collection of Prints and Drawings',
+        'SMSU' => 'Collection of Modern and Contemporary Art',
+        'SUDS' => 'Collection of the Art of the 19th Century',
+        'SSU' => 'Collection of Old Masters',
+        'SAA' => 'Collection of Asian and African Art',
+    ];
+
     protected static $name = 'ng';
 
     public function __construct(IFileRepository $repository) {
@@ -208,7 +216,10 @@ class NgImporter extends AbstractImporter {
         return implode('; ', $measurement);
     }
 
-    protected function hydrateGalleryCollection(array $record) {
+    protected function hydrateGalleryCollection(array $record, $locale = 'cs') {
+        if ($locale == 'en') {
+            return isset(self::$en_gallery_collection_spec[$record['Sbírka']]) ? self::$en_gallery_collection_spec[$record['Sbírka']] : null;
+        }
         return isset(self::$cz_gallery_collection_spec[$record['Sbírka']]) ? self::$cz_gallery_collection_spec[$record['Sbírka']] : null;
     }
 

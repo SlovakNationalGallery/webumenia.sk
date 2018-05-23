@@ -79,7 +79,7 @@
                                 @endif
                             </div>
                             @if (!empty($item->description))
-                            <div class="col-md-12 text-left medium description bottom-space underline expandable-long" itemprop="description">
+                            <div class="col-md-12 text-left medium description top-space bottom-space underline expandable-long" itemprop="description">
                                 {!!  $item->description !!}
 
                                 @if ($item->description_source)
@@ -221,6 +221,14 @@
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_identifier') }}:</td>
                                     <td>{!! $item->identifier; !!}</td>
+                                </tr>
+                                @endif
+                                @if (!empty($item->gallery_collection))
+                                <tr>
+                                    <td class="atribut">{{ trans('katalog.filters_gallery_collection') }}:</td>
+                                    <td>
+                                        <a href="{!! URL::to('katalog?gallery=' . $item->gallery_collection) !!}">{!! $item->gallery_collection; !!}</a>
+                                    </td>
                                 </tr>
                                 @endif
                                 @if ($item->isFreeDownload() || !$item->has_rights)
@@ -369,7 +377,7 @@
 
 @include('components.artwork_carousel_js', ['slick_query' => '.artworks-preview'])
 
-@if (!empty($item->lat) && ($item->lat > 0)) 
+@if (!empty($item->lat) && ($item->lat > 0))
     <!-- Google Maps API Key - You will need to use your own API key to use the map feature -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
     {!! Html::script('js/gmaps.js') !!}
