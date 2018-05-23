@@ -341,6 +341,7 @@ Route::group(['middleware' => ['auth', 'role:admin|editor|import']], function ()
     Route::post('collection/fill', 'CollectionController@fill');
     Route::post('collection/sort', 'CollectionController@sort');
     Route::resource('collection', 'CollectionController');
+    Route::resource('slide', 'SlideController');
 });
 
 Route::group(['middleware' => ['auth', 'role:admin|editor']], function () {
@@ -363,7 +364,6 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::post('authority/destroySelected', 'AuthorityController@destroySelected');
     Route::resource('authority', 'AuthorityController');
     Route::resource('sketchbook', 'SketchbookController');
-    Route::resource('slide', 'SlideController');
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 });
 

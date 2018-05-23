@@ -94,7 +94,7 @@
                             <a href="{!! URL::to('authority') !!}"><i class="fa fa-user fa-fw"></i> Autority</a>
                         </li>
                         @endif
-                        @if (Entrust::hasRole(['admin', 'editor']))
+                        @if (Entrust::hasRole(['admin', 'editor', 'import']))
                         <li>
                             <a href="{!! URL::to('collection') !!}"><i class="fa fa-th-list fa-fw"></i> Kolekcie</a>
                         </li>
@@ -104,7 +104,7 @@
                             <a href="{!! URL::to('article') !!}"><i class="fa fa-newspaper-o fa-fw"></i> Články</a>
                         </li>
                         @endif
-                        @if (Entrust::hasRole('admin'))
+                        @if (Entrust::hasRole(['admin', 'import']))
                         <li>
                             <a href="{!! URL::to('slide') !!}"><i class="fa fa-exchange fa-fw"></i> Carousel</a>
                         </li>
