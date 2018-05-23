@@ -21,6 +21,7 @@ return array(
     'sort_by'          => 'podľa',
     'clear_filters'    => 'zrušiť filtre',
     'public_domain'    => 'voľné dielo',
+    'copyrighted_work' => 'autorsky chránené dielo',
     'artworks'         => 'diela',
     'artworks_counted' => '{0}    :artworks_count diel
                           |{1}    :artworks_count dielo

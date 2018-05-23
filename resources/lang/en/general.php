@@ -21,6 +21,7 @@ return array(
     'sort_by'          => 'sort by',
     'clear_filters'    => 'clear filters',
     'public_domain'    => 'public domain',
+    'copyrighted_work' => 'copyrighted work',
     'artworks'         => 'artworks',
     'artworks_counted' => '{0}    :artworks_count artworks
                           |{1}    :artworks_count artwork

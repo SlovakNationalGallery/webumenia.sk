@@ -21,6 +21,7 @@ return array(
     'sort_by'          => 'podle',
     'clear_filters'    => 'zrušit filtry',
     'public_domain'    => 'volné dílo',
+    'copyrighted_work' => 'autorsky chráněné dílo',
     'artworks'         => 'díla',
     'artworks_counted' => '{0}    :artworks_count děl
                           |{1}    :artworks_count dílo
