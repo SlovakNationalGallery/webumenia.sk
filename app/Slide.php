@@ -11,7 +11,7 @@ class Slide extends Model
 {
 
     const ARTWORKS_DIR = '/images/intro/';
-    
+
     protected $fillable = [
                 'title',
                 'subtitle',
@@ -20,7 +20,7 @@ class Slide extends Model
     ];
 
     public static $rules = [
-        'title' => 'required',
+        // 'title' => 'required',
         'publish' => 'boolean',
         'image' => 'image|image_size:>=1200,*',
     ];
