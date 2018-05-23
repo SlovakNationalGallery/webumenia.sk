@@ -14,6 +14,7 @@ return array(
     'filters_work_type'      => 'výtvarný druh',
     'filters_tag'            => 'tagy',
     'filters_gallery'        => 'galerie',
+    'filters_gallery_collection' => 'sbírka',
     'filters_topic'          => 'námět',
     'filters_technique'      => 'technika',
     'filters_medium'         => 'materiál',
