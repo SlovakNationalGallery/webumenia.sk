@@ -744,6 +744,11 @@ class Item extends Model
     }
 
     public function getHasIipAttribute() {
+
+        if (isSet($this->attributes['has_iip'])) {
+            return $this->attributes['has_iip'];
+        }
+
         if (!$this->is_iip_allowed) return false;
 
         return !$this->getZoomableImages()->isEmpty();
