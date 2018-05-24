@@ -11,7 +11,7 @@ return array(
     |
     */
 
-    'item_zoom'        => 'zoom artwork',
+    'item_zoom'        => 'zoom',
     'close'            => 'close',
     'back'             => 'back',
     'return_home'      => 'back to home page',
@@ -22,6 +22,7 @@ return array(
     'clear_filters'    => 'clear filters',
     'public_domain'    => 'public domain',
     'copyrighted_work' => 'copyrighted work',
+    'copyrighted_work_explanation' => 'Due to rights restrictions, this image cannot be downloaded.',
     'artworks'         => 'artworks',
     'artworks_counted' => '{0}    :artworks_count artworks
                           |{1}    :artworks_count artwork

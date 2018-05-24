@@ -11,7 +11,7 @@ return array(
     |
     */
 
-    'item_zoom'        => 'zoom obrázku',
+    'item_zoom'        => 'zoom',
     'close'            => 'zavřít',
     'back'             => 'zpět',
     'return_home'      => 'návrat domů',
@@ -22,6 +22,7 @@ return array(
     'clear_filters'    => 'zrušit filtry',
     'public_domain'    => 'volné dílo',
     'copyrighted_work' => 'autorsky chráněné dílo',
+    'copyrighted_work_explanation' => 'Vzhledem k omezením autorských práv nelze tento obrázek zvětšit, zobrazit na celou obrazovku nebo stáhnout.',
     'artworks'         => 'díla',
     'artworks_counted' => '{0}    :artworks_count děl
                           |{1}    :artworks_count dílo

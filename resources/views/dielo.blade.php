@@ -237,7 +237,7 @@
                                     <td>
                                         @if (!$item->has_rights)
                                             {{ trans('general.copyrighted_work') }}
-                                            <p class="small"><i>Vzhledem k omezením autorských práv nelze tento obrázek zvětšit, zobrazit na celou obrazovku nebo stáhnout.</i></p>
+                                            <p class="small"><i>{{ trans('general.copyrighted_work_explanation') }}</i></p>
                                         @else
                                             <a rel="license" href="{!!URL::to('katalog?is_free=' . '1')!!}" target="_blank" class="no-border license" title="Public Domain" data-toggle="tooltip"><img alt="Creative Commons License" style="height: 20px; width: auto"  src="/images/license/zero.svg" > {{ trans('general.public_domain') }}</a></td>
                                         @endif
