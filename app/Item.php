@@ -110,6 +110,7 @@ class Item extends Model
         'publish',
         'gallery_collection',
         'has_rights',
+        'free_download',
     );
 
     protected $dates = array(
@@ -614,21 +615,7 @@ class Item extends Model
      */
     public function isFree()
     {
-
-        $not_free_ids = [
-            'CZE:NG.K_53502',
-            'CZE:NG.O_13050',
-        ];
-
-        if (!$this->has_rights) {
-            return false;
-        }
-
-        if (in_array($this->id, $not_free_ids)) {
-            return false;
-        }
-
-        return true;
+        return $this->free_download && $this->has_rights;
     }
 
     private function relatedAuthorityIds()

@@ -231,7 +231,11 @@ class NgImporter extends AbstractImporter {
     }
 
     protected function hydrateHasRights(array $record) {
-        return $record['Práva'] == 'Ano';
+        return ($record['Práva'] != '5 - WEB + Náhled obrázku');
+    }
+
+    protected function hydrateFreeDownload(array $record) {
+        return ($record['Práva'] == '7 - WEB + ZOOM obrázku + Stažení');
     }
 
     /**

@@ -231,7 +231,7 @@
                                     </td>
                                 </tr>
                                 @endif
-                                @if ($item->isFreeDownload() || !$item->has_rights)
+                                @if ($item->isFree() || !$item->has_rights)
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_licence') }}:</td>
                                     <td>
