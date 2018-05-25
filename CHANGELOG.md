@@ -13,6 +13,10 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - removed left-over IIP image URL form field
 
+## [1.4.3] - 2018-05-25
+### Fixed
+- removed left-over IIP image URL form field
+
 ## [1.4.2] - 2018-05-25
 ### Fixed
 - make reproduction order GDPR compliant
@@ -91,6 +95,7 @@ All notable changes to this project will be documented in this file[^1].
 - LICENSE from Public Domain into MIT
 
 [Unreleased]: https://github.com/SlovakNationalGallery/web-umenia-2/compare/master...develop
+[1.4.3]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/70
 [1.4.2]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/69
 [1.4.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/67
 [1.3.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/52
