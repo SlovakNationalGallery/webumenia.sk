@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [1.4.3] - 2018-05-25
+### Fixed
+- removed left-over IIP image URL form field
+
 ## [1.4.2] - 2018-05-25
 ### Fixed
 - make reproduction order GDPR compliant
