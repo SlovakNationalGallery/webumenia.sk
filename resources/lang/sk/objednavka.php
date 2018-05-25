@@ -42,6 +42,7 @@ return array(
     'form_delivery-point_exlibris' => 'Kníhkupectvo Ex Libris v SNG',
     'form_delivery-point_zvolen'   => 'Zvolenský zámok',
     'form_note'                    => 'Poznámka',
+    'form_terms_and_conditions'    => 'súhlasím so <a href="http://www.sng.sk/sk/o-galerii/dokumenty/gdpr" class="underline" target="_blank">spracovaním osobných údajov</a> na účel vybavenia objednávky',
     'form_order'                   => 'Objednať',
 
     // in routes.php
