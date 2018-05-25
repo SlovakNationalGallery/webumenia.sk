@@ -14,7 +14,7 @@ return array(
 
     'info_heading'       => 'Sbírky Národní galerie v Praze',
     'info_p_lead'        => 'Sbírky Národní galerie v Praze skrývají mnohá bohatství a umělecké skvosty. Některá z nich znáte ze stálých expozic, nyní je možné se s výběrem těch nejzajímavějších z nich seznámit i on-line.',
-        'info_p'             => 'Národní galerie v Praze spouští první část veřejné prezentace sbírkových předmětů, najdete zde základní informace o dílech, jejich autorech a především kvalitní fotografie. Jedná se o výběr děl, který budeme dále rozšiřovat. Obrázky, které mají volná autorská práva, můžete prohlížet ve vysokém rozlišení a je tak možné prohlížet obrázky i s detaily.',
+    'info_p'             => 'Národní galerie v Praze spouští první část veřejné prezentace sbírkových předmětů, najdete zde základní informace o dílech, jejich autorech a především kvalitní fotografie. Jedná se o výběr děl, který budeme dále rozšiřovat. Obrázky, které mají volná autorská práva, můžete prohlížet ve vysokém rozlišení a je tak možné prohlížet obrázky i s detaily.',
     'info_gallery_SNG'   => 'Slovenská národná galéria',
     'info_gallery_OGD'   => 'Oravská galéria v Dolním Kubíně',
     'info_gallery_GNZ'   => 'Galéria umenia Ernesta Zmetáka v Nových Zámcích',

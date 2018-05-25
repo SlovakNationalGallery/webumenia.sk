@@ -26,7 +26,9 @@
             </div>
             <div class="col-md-4 text-center">
                 @php
-                    $galleries = [
+                    $galleries = [];
+
+                    $galleries['cs'] = [
                         [
                             'name'        => 'Klášter sv. Anežky České',
                             'description' => 'Středověké umění v Čechách<br>a střední Evropě 1200-1550',
@@ -52,10 +54,39 @@
                             'description' => 'Umění Asie',
                             'url'         => 'kolekcia/6',
                         ],
-                    ]
+                    ];
+
+                    $galleries['en'] = [
+                        [
+                            'name'        => 'Convent of St. Agnes of Bohemia',
+                            'description' => 'Medieval Art in&nbsp;Bohemia and&nbsp;Central Europe 1200–1550',
+                            'url'         => 'kolekcia/2',
+                        ],
+                        [
+                            'name'        => 'Schwarzenberg Palace',
+                            'description' => 'Art from the Rudolfine Era to the Baroque in&nbsp;Bohemia',
+                            'url'         => 'kolekcia/3',
+                        ],
+                        [
+                            'name'        => 'Sternberg Palace',
+                            'description' => 'European Art from Antiquity to Baroque',
+                            'url'         => 'kolekcia/4',
+                        ],
+                        [
+                            'name'        => 'Trade Fair Palace',
+                            'description' => 'The Art of the 19th, 20th and 21st Centuries',
+                            'url'         => 'kolekcia/5',
+                        ],
+                        [
+                            'name'        => 'Kinský Palace',
+                            'description' => 'The Art of Asia — exhibition closed',
+                            'url'         => 'kolekcia/6',
+                        ],
+                    ];
+
                 @endphp
                 <ul class="list-unstyled lead">
-                    @foreach ($galleries as $gallery)
+                    @foreach ($galleries[\App::getLocale()] as $gallery)
                         <li>
                             <a href="{!! URL::to($gallery['url']) !!}">{{ utrans($gallery['name']) }}</a>
                             <p>{!! $gallery['description'] !!}</p>
