@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Added
 - Scheduled task to run sitemap creation
+- CSV import in admin
 
 ## [1.4.3] - 2018-05-25
 ### Fixed
