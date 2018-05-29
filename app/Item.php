@@ -188,7 +188,7 @@ class Item extends Model
 
     public function images()
     {
-        return $this->hasMany(Image::class)->orderBy('order');
+        return $this->hasMany(ItemImage::class)->orderBy('order');
     }
 
     public function getImagePath($full = false)
@@ -210,6 +210,13 @@ class Item extends Model
             $url .= '?' . http_build_query($params);
         }
         return $url;
+    }
+
+    public function getIIPimgURL()
+    {
+        $itemImagesWithIIP = $this->getZoomableImages();
+        // @TODO consider order to return correct image?
+        return $itemImagesWithIIP[0]->iipimg_url;
     }
 
     public function downloadImage()
@@ -664,7 +671,7 @@ class Item extends Model
 
     public function isFreeDownload()
     {
-        return ($this->isFree() && !empty($this->attributes['iipimg_url']));
+        return ($this->isFree() && !empty($this->getZoomableImages()));
     }
 
     public function isForReproduction()
@@ -699,7 +706,8 @@ class Item extends Model
     {
 
         header('Set-Cookie: fileDownload=true; path=/');
-        $url = 'http://imi.sng.cust.eea.sk/publicIS/fcgi-bin/iipsrv.fcgi?FIF=' . $this->attributes['iipimg_url'] . '&CVT=JPG';
+        $IIPimgURL = $this->getIIPimgURL();
+        $url = 'http://imi.sng.cust.eea.sk/publicIS/fcgi-bin/iipsrv.fcgi?FIF=' . $IIPimgURL . '&CVT=JPG';
         $filename = $this->attributes['id'].'.jpg';
 
         set_time_limit(0);
@@ -775,7 +783,7 @@ class Item extends Model
 
     public function getZoomableImages()
     {
-        return $this->images->filter(function (Image $image) {
+        return $this->images->filter(function (ItemImage $image) {
             return $image->iipimg_url !== null;
         });
     }
