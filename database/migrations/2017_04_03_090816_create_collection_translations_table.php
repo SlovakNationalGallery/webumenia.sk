@@ -17,11 +17,11 @@ class CreateCollectionTranslationsTable extends Migration
             $table->increments('id');
             $table->integer('collection_id')->unsigned();
             $table->string('locale')->index();
-            
+
             //translatable attributes
             $table->string('name');
             $table->string('type');
-            $table->string('text');
+            $table->text('text');
 
             $table->unique(['collection_id','locale']);
             $table->foreign('collection_id')->references('id')->on('collections')->onDelete('cascade');
@@ -32,16 +32,16 @@ class CreateCollectionTranslationsTable extends Migration
         $collections = DB::table('collections')->get();
         $collection_translations = [];
         foreach ($collections as $collection) {
-            $collection_translations[] = 
+            $collection_translations[] =
                 [
-                    'collection_id' => $collection->id, 
-                    'locale' => $default_locale, 
-                    'name' => $collection->name, 
-                    'type' => $collection->type, 
-                    'text' => $collection->text, 
+                    'collection_id' => $collection->id,
+                    'locale' => $default_locale,
+                    'name' => $collection->name,
+                    'type' => $collection->type,
+                    'text' => $collection->text,
                 ];
         }
-        
+
         DB::table('collection_translations')->insert( $collection_translations );
     }
 
