@@ -79,7 +79,8 @@
                         ],
                         [
                             'name'        => 'Kinský Palace',
-                            'description' => 'The Art of Asia — exhibition closed',
+                            // 'description' => 'The Art of Asia — exhibition closed',
+                            'description' => '',
                             'url'         => 'kolekcia/6',
                         ],
                     ];
