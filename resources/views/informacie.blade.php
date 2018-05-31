@@ -51,7 +51,8 @@
                         ],
                         [
                             'name'        => 'Palác Kinských',
-                            'description' => 'Umění Asie',
+                            // 'description' => 'Umění Asie',
+                            'description' => '',
                             'url'         => 'kolekcia/6',
                         ],
                     ];
