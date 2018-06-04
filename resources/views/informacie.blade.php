@@ -53,7 +53,7 @@
                             'name'        => 'Palác Kinských',
                             // 'description' => 'Umění Asie',
                             'description' => '',
-                            'url'         => 'kolekcia/6',
+                            'url'         => '',
                         ],
                     ];
 
@@ -82,7 +82,7 @@
                             'name'        => 'Kinský Palace',
                             // 'description' => 'The Art of Asia — exhibition closed',
                             'description' => '',
-                            'url'         => 'kolekcia/6',
+                            'url'         => '',
                         ],
                     ];
 
@@ -90,7 +90,14 @@
                 <ul class="list-unstyled lead">
                     @foreach ($galleries[\App::getLocale()] as $gallery)
                         <li>
-                            <a href="{!! URL::to($gallery['url']) !!}">{{ utrans($gallery['name']) }}</a>
+
+                            @if (!empty($gallery['url']))
+                                <a href="{!! URL::to($gallery['url']) !!}">{{ utrans($gallery['name']) }}</a>
+                            @else
+                                <span>{{ utrans($gallery['name']) }}</span>
+
+                            @endif
+
                             <p>{!! $gallery['description'] !!}</p>
                         </li>
                     @endforeach
