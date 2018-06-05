@@ -26,6 +26,8 @@ RUN wget -O- http://wordnetcode.princeton.edu/3.0/WNprolog-3.0.tar.gz | tar xz -
 # grab extra stop-words files
 RUN wget -O config/stop-words/stop-words-czech2.txt https://sites.google.com/site/kevinbouge/stopwords-lists/stopwords_cz.txt
 
+EXPOSE 9200
+EXPOSE 9300
 
 #chyno's image plugin
 # COPY ../elasticsearch-image-2.4.1 plugins/elasticsearch-image-2.4.1
