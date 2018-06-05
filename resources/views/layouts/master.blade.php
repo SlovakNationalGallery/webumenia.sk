@@ -91,10 +91,10 @@
 	            				'placeholder' => utrans('master.search_placeholder'),
 	            				'id'=>'search',
 	            				'autocomplete'=>'off',
-	            				'data-autori'=> utrans('autori.title'),
-	            				'data-artworks'=> utrans('general.artworks'),
-	            				'data-clanky'=> utrans('clanky.title'),
-	            				'data-kolekcie'=> utrans('kolekcie.title'),
+	            				'data-artists'=> utrans('autori.title'),
+	            				'data-artworks'=> utrans('katalog.title'),
+	            				'data-articles'=> utrans('clanky.title'),
+	            				'data-collections'=> utrans('kolekcie.title'),
 	            			]) !!}
 	            			{!!  Form::submit('submit'); !!}
 	            {!!Form::close() !!}

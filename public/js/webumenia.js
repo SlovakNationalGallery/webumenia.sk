@@ -119,7 +119,7 @@ $(document).ready(function(){
     authors.initialize();
     articles.initialize();
     collections.initialize();
-    
+
     $search = $('#search');
     $search.typeahead(
     {
@@ -132,7 +132,7 @@ $(document).ready(function(){
       displayKey: 'value',
       source: authors.ttAdapter(),
       templates: {
-          header: '<h3 class="suggest-type-name">'+ $search.data('autori') +'</h3>',
+          header: '<h3 class="suggest-type-name">'+ $search.data('artists') +'</h3>',
           suggestion: function (data) {
             var format_years = '';
             if (data.birth_year) {
@@ -162,7 +162,7 @@ $(document).ready(function(){
       displayKey: 'value',
       source: articles.ttAdapter(),
       templates: {
-          header: '<h3 class="suggest-type-name">'+ $search.data('clanky') +'</h3>',
+          header: '<h3 class="suggest-type-name">'+ $search.data('articles') +'</h3>',
           suggestion: function (data) {
               return '<p  data-searchd-result="title/'+data.id+'" data-searchd-title="'+data.value+'"><img src="'+data.image+'" class="preview" /><em>' + data.author + '</em><br> ' + data.title + '</p>';
           }
@@ -173,7 +173,7 @@ $(document).ready(function(){
       displayKey: 'value',
       source: collections.ttAdapter(),
       templates: {
-          header: '<h3 class="suggest-type-name">'+ $search.data('kolekcie') +'</h3>',
+          header: '<h3 class="suggest-type-name">'+ $search.data('collections') +'</h3>',
           suggestion: function (data) {
               return '<p  data-searchd-result="title/'+data.id+'" data-searchd-title="'+data.value+'"><img src="'+data.image+'" class="preview" /><em>' + data.author + '</em><br> ' + data.name + '<em> (' + data.items + ' diel)</em>' + '</p>';
           }
