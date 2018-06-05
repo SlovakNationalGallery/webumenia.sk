@@ -1,5 +1,5 @@
 {
-    "name": "Zoom viewer",
+    "name": "ZoomViewer",
     "data_calls" : {
       "item": "use App\\Item; return $sample_item = Item::inRandomOrder()->first();",
       "images": "use App\\Item; return Item::related($sample_item)->first()->getZoomableImages();"

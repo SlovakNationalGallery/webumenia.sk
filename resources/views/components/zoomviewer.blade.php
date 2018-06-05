@@ -1,4 +1,4 @@
-<div id="zoomed">
+<div id="zoomviewer">
   <div id="viewer"></div>
 
   <div id="toolbarDiv" class="autohide">
