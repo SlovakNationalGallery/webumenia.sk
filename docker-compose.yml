@@ -40,15 +40,17 @@ services:
   elasticsearch:
     build:
       context: .
-      dockerfile: Dockerfile.elasticsearch  
+      dockerfile: Dockerfile.elasticsearch2
     image: elasticsearch
-    # image: docker.elastic.co/elasticsearch/elasticsearch:6.2.4
-    environment:
-      VERSION: 2.4.1
-      ES_HEAP_SIZE: 8g
-    ports:
-      - 9200:9200
-      - 9300:9300
     volumes:
       - ./data/elasticsearch:/usr/share/elasticsearch/data
       - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    environment:
+      http.host: "0.0.0.0"
+      transport.host: "127.0.0.1"
+      xpack.security.enabled: "false"
+      VERSION: 2.4.1
+      ES_HEAP_SIZE: 8g
+      MAX_MAP_COUNT: 262144
+    ports:
+      - "9200:9200"
