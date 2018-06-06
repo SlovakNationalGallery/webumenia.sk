@@ -86,7 +86,7 @@
 	            </a>
 
 	            @include('components.searchbar', [
-	              'search' => @$search,
+	              'search' => isSet($search) ? $search : '',
 	            ])
 
 	            <a class="navbar-brand no-border hidden-xs second-part" href="{!! URL::to('') !!}">

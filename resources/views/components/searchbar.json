@@ -1,5 +1,7 @@
 {
-    "name": "Searchbar",
-    "data": {},
-    "usage_notes": "searchbar with autocomplete functionality"
+    "name": "Search Bar",
+    "data": {
+        "search": "Ludovit Fulla"
+    },
+    "usage_notes": "Input element with autocomplete functionality. Required vendors: typeahead.js"
 }
