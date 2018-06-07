@@ -1,0 +1,28 @@
+FROM openjdk:alpine
+# use alpine, much smaller than ubuntu
+
+# just add bash here
+RUN apk -U add bash curl
+# avoid conflicts with debian host systems when mounting to host volume
+ARG ES_VERSION
+RUN wget -O- https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/$ES_VERSION/elasticsearch-$ES_VERSION.tar.gz | tar xz -C usr/share
+RUN echo "ES_VERSION=$ES_VERSION"
+
+ENV ES_HOME=/usr/share/elasticsearch-$ES_VERSION \
+    ES_JAVA_OPTS="-Xms1g -Xmx1g"
+
+USER root
+RUN set -x ; \
+	addgroup -g 1100 -S elasticsearch ; \
+	adduser -u 1100 -D -S -G elasticsearch elasticsearch && exit 0 ; exit 1
+RUN chown elasticsearch:elasticsearch -R $ES_HOME 
+USER elasticsearch
+
+
+# EXPOSE 9200 9300
+
+HEALTHCHECK --timeout=5s CMD wget -q -O - http://localhost:9200/_cat/health
+
+WORKDIR $ES_HOME
+
+CMD ${ES_HOME}/bin/elasticsearch
