@@ -99,16 +99,24 @@
 							</tr>
 							<tr>
 								<td>url s obrázkom:</td>
-								<td><a href="{!! $item->img_url; !!}" target="_blank">{!! $item->img_url; !!}</a></td>
-							</tr>
-							<tr>
-								<td>IIPImage url:</td>
-								<td><a href="{!! $item->iipimg_url; !!}" target="_blank">{!! $item->iipimg_url; !!}</a></td>
+								<td><a href="{{ $item->getImagePath() }}" target="_blank">{{ $item->getImagePath() }}</a></td>
 							</tr>
 							<tr>
 								<td>obrázok:</td>
-								<td><img src="{!! $item->getImagePath(); !!}" alt="náhľad" class="img-responsive" ></td>
+								<td><img src="{{ $item->getImagePath() }}" alt="náhľad" class="img-responsive" ></td>
 							</tr>
+							@foreach($item->getZoomableImages() as $image):
+							<tr>
+								<td colspan="2">
+									<table>
+										<tr>
+											<td>IIPImage url:</td>
+											<td><a href="{{ $image->iipimg_url }}" target="_blank">{{ $image->iipimg_url }}</a></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							@endforeach
 	                    </tbody>
 	                </table>
 	            </div>
