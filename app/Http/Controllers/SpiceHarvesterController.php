@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ItemImage;
 use App\SpiceHarvesterHarvest;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
@@ -447,6 +448,8 @@ class SpiceHarvesterController extends Controller
                 }
                 $item = Item::updateOrCreate(['id' => $attributes['id']], $attributes);
                 $item->authorities()->sync($attributes['authority_ids']);
+
+                $this->processIipImages($item, $attributes);
                 break;
             case 'author':
                 // $nationality = Nationality::firstOrNew(['id' => ])
@@ -533,6 +536,8 @@ class SpiceHarvesterController extends Controller
                 $item = Item::updateOrCreate(['id' => $attributes['id']], $attributes);
                 $item->authorities()->sync($attributes['authorities']);
                 $item->save();
+
+                $this->processIipImages($item, $attributes);
                 break;
             case 'author':
                 $attributes = $this->mapAuthorAttributes($rec);
@@ -748,7 +753,7 @@ class SpiceHarvesterController extends Controller
                     } elseif (strpos($identifier, 'getimage') !== false) {
                         $attributes['img_url'] = $identifier;
                     } elseif (strpos($identifier, 'L2_WEB') !== false) {
-                        $attributes['iipimg_url'] = $this->resolveIIPUrl($identifier);
+                        $attributes['iipimg_urls'] = $this->resolveIIPUrls($identifier);
                     }
                 }
             
@@ -901,25 +906,29 @@ class SpiceHarvesterController extends Controller
 
     private function parseYear($string)
     {
-        return (int)end((explode('.', $string)));
+        $exploded = explode('.', $string);
+        return (int)end($exploded);
     }
 
-    private function resolveIIPUrl($iip_resolver)
+    private function resolveIIPUrls($iip_resolver)
     {
         $str = @file_get_contents($iip_resolver);
         if ($str != false) {
 
             $str = strip_tags($str, '<br>'); //zrusi vsetky html tagy okrem <br>
             $iip_urls = explode('<br>', $str); //rozdeli do pola podla <br>
-            asort($iip_urls); // zoradi pole podla poradia - aby na zaciatku boli predne strany (1_2, 2_2 ... )
-            $iip_url = reset($iip_urls); // vrati prvy obrazok z pola - docasne - kym neumoznime viacero obrazkov k dielu
-            if (str_contains($iip_url, '.jp2')) { //fix: vracia blbosti. napr linky na obrazky na webumenia. ber to vazne len ak odkazuje na .jp2
+            sort($iip_urls); // zoradi pole podla poradia - aby na zaciatku boli predne strany (1_2, 2_2 ... )
+            $iip_urls = array_filter($iip_urls, function ($iip_url) {
+                return str_contains($iip_url, '.jp2'); //fix: vracia blbosti. napr linky na obrazky na webumenia. ber to vazne len ak odkazuje na .jp2
+            });
+            $iip_urls = array_map(function ($iip_url) {
                 $iip_url = substr($iip_url, strpos($iip_url, '?FIF=')+5);
                 $iip_url = substr($iip_url, 0, strpos($iip_url, '.jp2')+4);
                 return $iip_url;
-            }
+            }, $iip_urls);
+            return $iip_urls;
         }
-        return null;
+        return [];
     }
 
     private function processUrl($url)
@@ -955,5 +964,23 @@ class SpiceHarvesterController extends Controller
         }
 
         return $db_array;
+    }
+
+    private function processIipImages(Item $item, array $attributes) {
+        $order = $item->images()->max('order');
+        $order = $order !== null ? $order : 0;
+        if (isset($attributes['iipimg_urls'])) {
+            foreach ($attributes['iipimg_urls'] as $iipimg_url) {
+                if (ItemImage::where('iipimg_url', $iipimg_url)->first()) {
+                    continue;
+                }
+
+                $image = new ItemImage();
+                $image->item_id = $item->getKey();
+                $image->order = $order++;
+                $image->iipimg_url = $iipimg_url;
+                $image->save();
+            }
+        }
     }
 }
