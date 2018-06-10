@@ -134,6 +134,7 @@ return array(
          * Application Service Providers...
          */
         App\Providers\ElasticTranslatableServiceProvider::class,
+        Barryvdh\Form\ServiceProvider::class,
     ),
 
     /*
