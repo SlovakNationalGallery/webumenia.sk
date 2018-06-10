@@ -152,7 +152,7 @@ class Item extends Model
         });
 
         static::deleting(function ($item) {
-            $item->removeImage();
+            $item->deleteImage();
             $item->collections()->detach();
         });
 
@@ -195,13 +195,31 @@ class Item extends Model
         return $this->hasMany(ItemImage::class)->orderBy('order');
     }
 
+    public function getImages() {
+        return $this->images;
+    }
+
+    public function addImage(ItemImage $image) {
+        // @todo remove
+        $order = $this->images->max('order');
+        $order = $order !== null ? $order + 1 : 0;
+        $image->order = $order;
+
+        $this->images->add($image);
+        $image->item_id = $this->id;
+
+    }
+
+    public function removeImage(ItemImage $image) {
+    }
+
     public function getImagePath($full = false)
     {
         return self::getImagePathForId($this->id, $full);
 
     }
 
-    public function removeImage()
+    public function deleteImage()
     {
         $dir = dirname($this->getImagePath(true));
         return File::cleanDirectory($dir);

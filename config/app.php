@@ -135,6 +135,7 @@ return array(
          */
         App\Providers\ElasticTranslatableServiceProvider::class,
         App\Providers\ElasticsearchClientProvider::class,
+        Barryvdh\Form\ServiceProvider::class,
     ),
 
     /*

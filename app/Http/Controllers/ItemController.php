@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Forms\Types\ItemType;
 use App\Item;
 use App\Collection;
 use App\Jobs\HarvestSingleJob;
+use Barryvdh\Form\CreatesForms;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
@@ -17,6 +19,7 @@ use Illuminate\Support\Facades\App;
 
 class ItemController extends Controller
 {
+    use CreatesForms;
 
     /**
      * Display a listing of the resource.
@@ -123,13 +126,12 @@ class ItemController extends Controller
      */
     public function edit($id)
     {
-        $item = Item::find($id);
+        $item = Item::find($id) ?: abort(404);
 
-        if (is_null($item)) {
-            return Redirect::route('item.index');
-        }
-
-        return view('items.form')->with('item', $item);
+        return view('items.form', [
+            'item' => $item,
+            'form' => $this->createItemForm($item),
+        ]);
     }
 
     /**
@@ -140,6 +142,15 @@ class ItemController extends Controller
      */
     public function update($id)
     {
+        $item = Item::find($id) ?: abort(404);
+        $form = $this->createItemForm($item);
+        $form->handleRequest();
+
+        // @todo
+        if (!$form->isSubmitted() || !$form->isValid()) {
+            throw new \Exception;
+        }
+
         $v = Validator::make(Input::all(), Item::$rules);
 
         if ($v->passes()) {
@@ -150,9 +161,8 @@ class ItemController extends Controller
 
             }, Input::all()); //prazdne hodnoty zmeni na null
 
-            $item = Item::find($id);
             $item->fill($input);
-            $item->save();
+            $item->push();
 
             if (Input::has('tags')) {
                 $item->reTag(Input::get('tags', []));
@@ -247,7 +257,7 @@ class ItemController extends Controller
 
     private function uploadImage($item)
     {
-        $item->removeImage();
+        $item->deleteImage();
 
         $error_messages = array();
         $primary_image = Input::file('primary_image');
@@ -332,5 +342,12 @@ class ItemController extends Controller
             return true;
         }
         return Redirect::back()->withMessage($message);
+    }
+
+    protected function createItemForm(Item $item) {
+        return $this->createForm(ItemType::class, $item, [
+            'action' => url('item.update', $item->id),
+            'method' => 'patch',
+        ]);
     }
 }
