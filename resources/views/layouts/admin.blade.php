@@ -180,6 +180,7 @@
     {!! Html::script('js/plugins/Sortable.min.js') !!}
     {!! Html::script('js/plugins/speakingurl.min.js') !!}
     {!! Html::script('js/plugins/bootstrap-switch.min.js') !!}
+    {!! Html::script('js/forms.js') !!}
 
 
     <script>

@@ -128,6 +128,7 @@ return array(
         App\Providers\ColorDescriptorProvider::class,
         'GrahamCampbell\Throttle\ThrottleServiceProvider',
         Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
+        Barryvdh\Form\ServiceProvider::class,
     ),
 
     /*
