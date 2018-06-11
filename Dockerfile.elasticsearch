@@ -1,35 +1,49 @@
-# FROM elasticsearch:2.4.1
-FROM docker.elastic.co/elasticsearch/elasticsearch:6.2.4
+FROM openjdk:alpine
+# use alpine, much smaller than ubuntu
 
-RUN echo "version:"
-RUN echo $VERSION
+# just add bash here
+RUN apk -U add bash curl tar
+# avoid conflicts with debian host systems when mounting to host volume
+ARG ES_VERSION
+RUN wget -O- https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/$ES_VERSION/elasticsearch-$ES_VERSION.tar.gz | tar xz -C usr/share
+RUN echo "ES_VERSION=$ES_VERSION"
 
-# purpose of a custom dockerfile for elasticsearch is that we can consistently install plugins we need during build
-# instead of doing it manually
+ENV ES_HOME=/usr/share/elasticsearch-$ES_VERSION \
+    ES_JAVA_OPTS="-Xms1g -Xmx1g"
 
-# RUN ./bin/plugin install https://github.com/vhyza/elasticsearch-analysis-lemmagen/releases/download/v2.4.1/elasticsearch-analysis-lemmagen-2.4.1-plugin.zip
-# RUN ./bin/elasticsearch-plugin install https://github.com/vhyza/elasticsearch-analysis-lemmagen/releases/download/v2.4.1/elasticsearch-analysis-lemmagen-2.4.1-plugin.zip
-# RUN mkdir config/lemmagen
-# RUN wget -P config/lemmagen/ https://github.com/vhyza/lemmagen-lexicons/raw/master/free/lexicons/sk.lem
-# RUN wget -P config/lemmagen/ https://github.com/vhyza/lemmagen-lexicons/raw/master/free/lexicons/cs.lem
-# RUN wget -P config/lemmagen/ https://github.com/vhyza/lemmagen-lexicons/raw/master/free/lexicons/en.lem
+USER root
+RUN set -x ; \
+	addgroup -g 1100 -S elasticsearch ; \
+	adduser -u 1100 -D -S -G elasticsearch elasticsearch && exit 0 ; exit 1
+RUN chown elasticsearch:elasticsearch -R $ES_HOME 
+USER elasticsearch
+
+
+HEALTHCHECK --timeout=5s CMD wget -q -O - http://localhost:9200/_cat/health
+
+WORKDIR $ES_HOME
+
+# in our usual version of es (2.4.1) plugin install command is found as option to 'plugin' command in bin
+# later versions of elasticsearch have a seperate command plugin-install
+RUN ./bin/plugin install https://github.com/vhyza/elasticsearch-analysis-lemmagen/releases/download/v$ES_VERSION/elasticsearch-analysis-lemmagen-$ES_VERSION-plugin.zip
+RUN mkdir config/lemmagen
+RUN wget -P config/lemmagen/ https://github.com/vhyza/lemmagen-lexicons/raw/master/free/lexicons/sk.lem
+RUN wget -P config/lemmagen/ https://github.com/vhyza/lemmagen-lexicons/raw/master/free/lexicons/cs.lem
+RUN wget -P config/lemmagen/ https://github.com/vhyza/lemmagen-lexicons/raw/master/free/lexicons/en.lem
 
 # grab sng elasticsearch repository - will make proper directory structure inside config
 # TODO: add all these files to a repo that gets downloaded in one go to simplify
 # or even better: add the files	 to this repo and link it to the elasticsearch container as a volume
-
-# RUN wget -O- https://github.com/SlovakNationalGallery/elasticsearch-slovencina/archive/master.tar.gz | tar xz -C config --strip=1	
+RUN wget -O- https://github.com/SlovakNationalGallery/elasticsearch-slovencina/archive/master.tar.gz | tar xz -C config --strip-components=1	
 
 
 # grab extra synonym files and save them inside config/synonyms
-# RUN wget -O config/synonyms/synonyms_cz.txt -L https://sites.google.com/site/kevinbouge/synonyms-lists/synonyms_cz.txt
-# RUN wget -O- http://wordnetcode.princeton.edu/3.0/WNprolog-3.0.tar.gz | tar xz -C config/synonyms --strip=1 prolog/wn_s.pl
+RUN wget -O config/synonyms/synonyms_cz.txt https://sites.google.com/site/kevinbouge/synonyms-lists/synonyms_cz.txt
+RUN wget -O- http://wordnetcode.princeton.edu/3.0/WNprolog-3.0.tar.gz | tar xz -C config/synonyms --strip-components=1 prolog/wn_s.pl
 
 # grab extra stop-words files
-# RUN wget -O config/stop-words/stop-words-czech2.txt https://sites.google.com/site/kevinbouge/stopwords-lists/stopwords_cz.txt
+RUN wget -O config/stop-words/stop-words-czech2.txt https://sites.google.com/site/kevinbouge/stopwords-lists/stopwords_cz.txt
 
-EXPOSE 9200
-EXPOSE 9300
 
-#chyno's image plugin
-# COPY ../elasticsearch-image-2.4.1 plugins/elasticsearch-image-2.4.1
+EXPOSE 9200 9300
+CMD ${ES_HOME}/bin/elasticsearch
