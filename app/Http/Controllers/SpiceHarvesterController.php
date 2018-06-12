@@ -9,6 +9,7 @@ use App\Collection;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use App\Item;
+use App\ItemImage;
 use Barryvdh\Debugbar\Facade;
 use Illuminate\Support\Facades\App;
 use App\SpiceHarvesterRecord;
@@ -447,6 +448,8 @@ class SpiceHarvesterController extends Controller
                 }
                 $item = Item::updateOrCreate(['id' => $attributes['id']], $attributes);
                 $item->authorities()->sync($attributes['authority_ids']);
+                $item->save();
+                $images = ItemImage::create($attributes['image_attributes']);
                 break;
             case 'author':
                 // $nationality = Nationality::firstOrNew(['id' => ])
@@ -507,8 +510,8 @@ class SpiceHarvesterController extends Controller
 
       
         // Upload image given by url
-        if (!empty($attributes['img_url'])) {
-            $this->downloadImage($item, $attributes['img_url']);
+        if (!empty($attributes['image_attributes']['img_url'])) {
+            $this->downloadImage($item, $attributes['image_attributes']['img_url']);
         }
 
         return true;
@@ -533,6 +536,8 @@ class SpiceHarvesterController extends Controller
                 $item = Item::updateOrCreate(['id' => $attributes['id']], $attributes);
                 $item->authorities()->sync($attributes['authorities']);
                 $item->save();
+                $images = ItemImage::updateOrCreate(['item_id' => $attributes['id']], $attributes['image_attributes']);
+
                 break;
             case 'author':
                 $attributes = $this->mapAuthorAttributes($rec);
@@ -596,8 +601,8 @@ class SpiceHarvesterController extends Controller
         }
 
         // Upload image given by url
-        if (!empty($attributes['img_url'])) {
-            $this->downloadImage($item, $attributes['img_url']);
+        if (!empty($attributes['image_attributes']['img_url'])) {
+            $this->downloadImage($item, $attributes['image_attributes']['img_url']);
         }
         
         // Update the datestamp stored in the database for this record.
@@ -668,10 +673,10 @@ class SpiceHarvesterController extends Controller
         $attributes['names'] = array();
         // * preferovane nepridavame - ukladame len "alternative names" *
         // foreach ($metadata->Terms->Preferred_Term as $key => $term) {
-        // 	$attributes['names'][] = [
-        // 		'name' => (string)$term->Term_Text,
-        // 		'prefered' => true,
-        // 	];
+        //  $attributes['names'][] = [
+        //      'name' => (string)$term->Term_Text,
+        //      'prefered' => true,
+        //  ];
         // }
         foreach ($metadata->Terms->{'Non-Preferred_Term'} as $key => $term) {
             $attributes['names'][] = [
@@ -729,6 +734,7 @@ class SpiceHarvesterController extends Controller
 
         $topic=array(); // zaner - krajina s figuralnou kompoziciou / veduta
         $subject=array(); // objekt - dome/les/
+        $image_attributes=array();
 
         try {
 
@@ -746,9 +752,9 @@ class SpiceHarvesterController extends Controller
                     if ($this->starts_with_upper($identifier)) {
                         $attributes['identifier'] = $identifier;
                     } elseif (strpos($identifier, 'getimage') !== false) {
-                        $attributes['img_url'] = $identifier;
+                        $image_attributes['img_url'] = $identifier;
                     } elseif (strpos($identifier, 'L2_WEB') !== false) {
-                        $attributes['iipimg_url'] = $this->resolveIIPUrl($identifier);
+                        $image_attributes['iipimg_url'] = $this->resolveIIPUrl($identifier);
                     }
                 }
             
@@ -756,6 +762,8 @@ class SpiceHarvesterController extends Controller
 
             $attributes['id'] = (string)$rec->header->identifier;
             $attributes['title'] = $dcElements->title;
+            $image_attributes['title'] = $dcElements->title;
+            $image_attributes['item_id'] = $attributes['id'];
             $authors = array();
             $authority_ids = array();
             $authorities = array();
@@ -774,6 +782,7 @@ class SpiceHarvesterController extends Controller
             }
             $attributes['authorities'] = $authorities;
             $attributes['authority_ids'] = $authority_ids;
+            $attributes['image_attributes'] = $image_attributes;
             $attributes['author'] = $this->serialize($authors);
             $attributes['work_type'] = $this->serialize($rec->xpath('.//dc:type[@xml:lang="sk"]'), ', ');
             // if (!empty($type[0])) $attributes['work_type'] = $type[0];

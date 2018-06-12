@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- ItemImage model changed to properly deal with fields with unique constraints
+- arguments parsed by SpiceHarvester changed to account for new ItemImage table 
 
 ## [1.4.3] - 2018-05-25
 ### Fixed
