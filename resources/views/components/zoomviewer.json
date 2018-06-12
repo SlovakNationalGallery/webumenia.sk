@@ -1,8 +1,8 @@
 {
     "name": "ZoomViewer",
     "data_calls" : {
-      "item": "use App\\Item; return $sample_item = Item::inRandomOrder()->first();",
-      "images": "use App\\Item; return Item::related($sample_item)->first()->getZoomableImages();"
+      "item": "use App\\ItemImage; return $sample_item = ItemImage::inRandomOrder()->whereNotNull('iipimg_url')->first()->item;",
+      "images": "use App\\Item; return $sample_item->getZoomableImages();"
     },
     "data": {
       "index": 0
