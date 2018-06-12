@@ -1,5 +1,6 @@
 <div 
-  id="zoomviewer" 
+  class="zoomviewer" 
+  id="{!! $id !!}" 
   data-index="{!! $index !!}" 
   data-item-url="{!! $item->getUrl() !!}" 
   data-image-count="{!! count($images) !!}"

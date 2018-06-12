@@ -57,7 +57,7 @@
       padding: 0;
     }
 
-    #zoomviewer .return, #zoomviewer #toolbarDiv a, #zoomviewer .credit { background: #fff; color: #000; }
+    .zoomviewer .return, .zoomviewer #toolbarDiv a, .zoomviewer .credit { background: #fff; color: #000; }
   </style>
 
  </head>
