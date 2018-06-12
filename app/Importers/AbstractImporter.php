@@ -81,18 +81,31 @@ abstract class AbstractImporter implements IImporter {
         );
 
         $items = [];
+
         foreach ($records as $record) {
-            $item = $this->importSingle($record, $import, $import_record);
+            try {
+                $item = $this->importSingle($record, $import, $import_record);
+                $item->push();
+                $items[] = $item;
+                $import_record->imported_items++;
+            } catch (\Exception $e) {
+                $import->status=Import::STATUS_ERROR;
+                $import->save();
 
-            if (!$item) {
-                // continue;
-                return;
+                $import_record->wrong_items++;
+                $import_record->status=Import::STATUS_ERROR;
+                $import_record->error_message=$e->getMessage();
+
+                break;
+            } finally {
+                $import_record->save();
             }
-
-            $items[] = $item;
         }
 
-        $import_record->status=Import::STATUS_COMPLETED;
+        if ($import_record->status != Import::STATUS_ERROR) {
+            $import_record->status = Import::STATUS_COMPLETED;
+        }
+
         $import_record->completed_at=date('Y-m-d H:i:s');
         $import_record->save();
 
@@ -114,27 +127,7 @@ abstract class AbstractImporter implements IImporter {
      * @return Item|null
      */
     protected function importSingle(array $record, Import $import, ImportRecord $import_record) {
-        try {
-            $item = $this->createItem($record);
-            $item->save();
-            $import_record->imported_items++;
-        } catch (\Exception $e) {
-            $now = date('Y-m-d H:i:s');
-
-            $import->status=Import::STATUS_ERROR;
-            $import->completed_at=$now;
-            $import->save();
-
-            $import_record->wrong_items++;
-            $import_record->status=Import::STATUS_ERROR;
-            $import_record->error_message=$e->getMessage();
-            $import_record->completed_at=$now;
-            $import_record->save();
-
-            // todo log exception
-            throw $e;
-            return null;
-        }
+        $item = $this->createItem($record);
 
         $image_filename_format = $this->getItemImageFilenameFormat($record);
 

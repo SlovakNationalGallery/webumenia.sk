@@ -59,7 +59,10 @@ class ImportCsv extends Job implements ShouldQueue
             $importer->import($this->import, $file);
         }
 
-        $this->import->status = Import::STATUS_COMPLETED;
+        if ($this->import->status != Import::STATUS_ERROR) {
+            $this->import->status = Import::STATUS_COMPLETED;
+        }
+
         $this->import->completed_at = date('Y-m-d H:i:s');
         $this->import->save();
 
