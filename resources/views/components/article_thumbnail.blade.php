@@ -6,10 +6,7 @@
   @endif
   <a href="{!! $article->getUrl() !!}">
     <h4 class="title">
-      @if ($article->category)
-          {!! $article->category->name !!}:
-      @endif
-      {!! $article->title !!}
+      {!! $article->title_with_category !!}
     </h4>
   </a>
   <p class="attributes">{!! $article->getShortTextAttribute($article->summary, 250) !!}

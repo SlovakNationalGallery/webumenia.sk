@@ -5,10 +5,14 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - OAI download command now no longer skips half the downloads
 - error message added showing if and how many downloads fail
+- Display localized section titles in autocomplete
+- missing article category in autocomplete suggestions
+- exception in autocomplete if article image is missing
 
 ### Added
 - Scheduled task to run sitemap creation
 - CSV import in admin
+- Searchbar component
 
 ## [1.4.3] - 2018-05-25
 ### Fixed

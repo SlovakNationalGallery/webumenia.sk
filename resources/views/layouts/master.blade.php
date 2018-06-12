@@ -84,11 +84,11 @@
 	            <a class="navbar-brand no-border hidden-xs first-part" href="{!! URL::to('') !!}">
 	                web
 	            </a>
-	            {!! Form::open(['url' => 'katalog', 'method' => 'get', 'class' => 'navbar-form right-inner-addon', 'data-searchd-engine' => Config::get('app.searchd_id_autocomplete')]) !!}
-	            			<i class="fa fa-search"></i>
-	            			{!! Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => utrans('master.search_placeholder'), 'id'=>'search', 'autocomplete'=>'off')) !!}
-	            			{!!  Form::submit('submit'); !!}
-	            {!!Form::close() !!}
+
+	            @include('components.searchbar', [
+	              'search' => isSet($search) ? $search : '',
+	            ])
+
 	            <a class="navbar-brand no-border hidden-xs second-part" href="{!! URL::to('') !!}">
 	                umenia
 	            </a>
@@ -170,8 +170,9 @@
 	<script src="https://unpkg.com/flickity@1.1/dist/flickity.pkgd.min.js"></script>
 	{!! Html::script('js/jquery.infinitescroll.min.js') !!}
     {!! Html::script('js/bootstrap.min.js') !!}
-	{!! Html::script('js/typeahead.bundle.min.js') !!}
+    @include('components.searchbar_js')
     <script src="{!! asset_timed('js/webumenia.js') !!}"></script>
+
 
 	<!-- Content -->
 	@yield('javascript')

@@ -13,7 +13,7 @@ class Article extends Model
 {
 
     use \Conner\Tagging\Taggable;
-    
+
     const ARTWORKS_DIR = '/images/clanky/';
 
     public static $rules = array(
@@ -36,6 +36,15 @@ class Article extends Model
     public function getUrl()
     {
         return URL::to('clanok/' . $this->attributes['slug']);
+    }
+
+    public function getTitleWithCategoryAttribute()
+    {
+        $string = $this->title;
+        if ($this->category) {
+            $string = $this->category->name . ': ' . $string;
+        }
+        return $string;
     }
 
     public function getShortTextAttribute($string, $length = 160)
@@ -65,7 +74,7 @@ class Article extends Model
         $file = substr($this->attributes['main_image'], 0, strrpos($this->attributes['main_image'], "."));
         $full_path = public_path() .  self::ARTWORKS_DIR;
 
-        if (!file_exists($full_path . "$file.$resize.jpg")) {
+        if (!file_exists($full_path . "$file.$resize.jpg") && file_exists($this->getHeaderImage(true))) {
             $img = \Image::make($this->getHeaderImage(true))->fit($resize)->sharpen(7);
             $img->save($full_path . "$file.$resize.jpg");
         }
@@ -89,7 +98,7 @@ class Article extends Model
             try {
                 \Image::make($this->getHeaderImage(true))->fit(600, 250)->save($full_path);
             } catch (\Exception $e) {
-                
+
             }
         }
         return $relative_path;
