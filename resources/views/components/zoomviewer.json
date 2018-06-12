@@ -8,6 +8,5 @@
       "index": 0
     },
     "wrapper_classes": "h7",
-    "include_js": true,
     "usage_notes": "A zoom viewer based on OpenSeaDragon"
 }
