@@ -4,14 +4,12 @@
 <script type="text/javascript">
   $("document").ready(function() {
 
-    var initial = {!! $index !!};
+    var initial         = $('#zoomviewer').data('index');
+    var itemURL         = $('#zoomviewer').data('item-url');
+    var imageCount      = $('#zoomviewer').data('image-count');
+    var imageIIPImgURLs = $('#zoomviewer').data('image-iipimg-urls');
 
-    var images = [
-      @foreach ($images as $image)
-      '/fcgi-bin/iipsrv.fcgi?DeepZoom={!! $image->iipimg_url !!}.dzi',
-      @endforeach
-    ];
-
+    var imageFullIIPImgURLs = imageIIPImgURLs.map(IIPImgURL => '/fcgi-bin/iipsrv.fcgi?DeepZoom='+IIPImgURL+'.dzi')
     var isLoaded = false;
 
     function shortenCopyright() {
@@ -33,7 +31,7 @@
     };
 
     function getNextPage() {
-      if (viewer.currentPage() < images.length) {
+      if (viewer.currentPage() < imageFullIIPImgURLs.length) {
         rotationChecked = false;
         viewer.goToPage(viewer.currentPage() + 1); 
       }
@@ -55,7 +53,7 @@
       }
     };
 
-    viewer = OpenSeadragon({
+    var OSDOptions = {
       id: "viewer",
       prefixUrl: "/images/openseadragon/",
       toolbar:        "toolbarDiv",
@@ -70,18 +68,23 @@
       minZoomLevel: 0,
       defaultZoomLevel: 0,
       autoResize: false,
-      tileSources: images,
-      @if (count($images) > 1)
-      autoHideControls: false,
-      controlsFadeDelay: 1000,  //ZOOM/HOME/FULL/SEQUENCE
-      controlsFadeLength: 500,  //ZOOM/HOME/FULL/SEQUENCE
-      sequenceMode: true,
-      showReferenceStrip: true,
-      referenceStripSizeRatio: 0.07,
-      referenceStripScroll: 'vertical',
-      initialPage: initial
-      @endif
-    });
+      tileSources: imageFullIIPImgURLs
+    }
+
+    if (imageCount > 1) {
+      $.extend(OSDOptions, {
+        autoHideControls: false,
+        controlsFadeDelay: 1000,  //ZOOM/HOME/FULL/SEQUENCE
+        controlsFadeLength: 500,  //ZOOM/HOME/FULL/SEQUENCE
+        sequenceMode: true,
+        showReferenceStrip: true,
+        referenceStripSizeRatio: 0.07,
+        referenceStripScroll: 'vertical',
+        initialPage: initial
+      })
+    }
+
+    viewer = OpenSeadragon(OSDOptions);
 
     viewer.addHandler('page', function (event) {
       isLoaded = false;
@@ -111,7 +114,7 @@
         parent.history.back();
         return false;
       } else {
-        window.location.href = '{!! $item->getUrl() !!}'; 
+        window.location.href = itemURL; 
       }
     });
 

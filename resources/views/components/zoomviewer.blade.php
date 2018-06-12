@@ -1,4 +1,10 @@
-<div id="zoomviewer">
+<div 
+  id="zoomviewer" 
+  data-index="{!! $index !!}" 
+  data-item-url="{!! $item->getUrl() !!}" 
+  data-image-count="{!! count($images) !!}"
+  data-image-iipimg-urls='{!! json_encode($images->pluck('iipimg_url')->all()) !!}'
+  >
   <div id="viewer"></div>
 
   <div id="toolbarDiv" class="autohide">
