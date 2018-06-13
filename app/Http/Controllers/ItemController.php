@@ -118,10 +118,11 @@ class ItemController extends Controller
     public function edit($id)
     {
         $item = Item::find($id) ?: abort(404);
+        $form = $this->createItemForm($item);
 
         return view('items.form', [
             'item' => $item,
-            'form' => $this->createItemForm($item),
+            'form' => $form,
         ]);
     }
 
@@ -336,9 +337,15 @@ class ItemController extends Controller
     }
 
     protected function createItemForm(Item $item) {
-        return $this->createForm(ItemType::class, $item, [
-            'action' => url('item.update', $item->id),
-            'method' => 'patch',
-        ]);
+        $builder = $this->getFormFactory()->createBuilder(
+            ItemType::class,
+            $item,
+            [
+                'action' => url('item.update', $item->id),
+                'method' => 'patch',
+            ]
+        );
+
+        return $builder->getForm();
     }
 }
