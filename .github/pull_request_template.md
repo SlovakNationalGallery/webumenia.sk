@@ -12,7 +12,6 @@ Fixes # (link to Jira or GitHub issue)
 
 # Checklist:
 
-- [ ] I have updated the [CHANGELOG](/CHANGELOG.md)
-- [ ] I have assigned someone to this PR
+- [ ] I have updated the [CHANGELOG](../CHANGELOG.md)
 - [ ] I have requested at least 1 reviewer for this PR
 - [ ] I have made corresponding changes to the documentation
