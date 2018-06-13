@@ -52,6 +52,7 @@ return array(
                                              <li><strong>Igor Rjabinin</strong> vývojár</li>
                                              <li><strong>Philo van Kemenade</strong> vývojár</li>
                                              <li><strong>Rastislav Chynoranský</strong> vývojár</li>
+                                             <li><strong>Adam Juraszek</strong> vývojár</li>
                                              <li><strong>Gabriel Balkó</strong> kontrolór kvality, editor obsahu</li>
                                              <li><strong>Braňo Matis</strong> grafický dizajnér</li>',
 
