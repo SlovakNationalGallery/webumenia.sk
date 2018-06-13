@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+### Added
+- [Pull Request Template](.github/pull_request_template.md)
+
 ## [1.4.3] - 2018-05-25
 ### Fixed
 - removed left-over IIP image URL form field
