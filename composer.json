@@ -33,7 +33,8 @@
         "doctrine/dbal": "^2.5",
         "league/csv": "^8.0",
         "league/color-extractor": "dev-master",
-        "barryvdh/laravel-form-bridge": "0.3.6"
+        "barryvdh/laravel-form-bridge": "0.3.6",
+        "symfony/templating": "^3.4"
     },
     "autoload": {
         "classmap": [

@@ -10,7 +10,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ItemImageType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('iipimg_url');
     }

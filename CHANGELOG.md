@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - Duplicate authors with links
 - Authorities Search endpoint of admin fixed
+- Multiple item images form in admin
 
 ### Added
 - Remove query string from localized urls
@@ -14,6 +15,7 @@ All notable changes to this project will be documented in this file[^1].
 - daily and weekly cron jobs scheduled for harvests with appropriate cron_status
 - footer component
 - newsletter link into footer
+- Symfony forms
 
 ### Changed
 - made models Item, Authority, Article and Collection translatable

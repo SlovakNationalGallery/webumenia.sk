@@ -135,6 +135,7 @@ return array(
          */
         App\Providers\ElasticTranslatableServiceProvider::class,
         Barryvdh\Form\ServiceProvider::class,
+        App\Providers\FormServiceProvider::class,
     ),
 
     /*
@@ -204,7 +205,8 @@ return array(
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
         'Throttle' => 'GrahamCampbell\Throttle\Facades\Throttle',
-        'LaravelLocalization'   => Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
+        'LaravelLocalization' => Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
+        'FormRenderer' => App\Facades\FormRenderer::class,
     ),
 
     'jira_auth' => array(
