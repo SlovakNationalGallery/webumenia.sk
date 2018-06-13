@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Fadion\Bouncy\BouncyTrait;
 use Illuminate\Database\Eloquent\Model;
+use Symfony\Component\Validator\Constraints\Valid;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class Item extends Model
 {
@@ -138,6 +140,10 @@ class Item extends Model
         'color_descriptor' => 'json',
     );
 
+    public static function loadValidatorMetadata(ClassMetadata $metadata) {
+        $metadata->addGetterConstraint('images', new Valid());
+    }
+
     // ELASTIC SEARCH INDEX
     public static function boot()
     {
@@ -200,17 +206,16 @@ class Item extends Model
     }
 
     public function addImage(ItemImage $image) {
-        // @todo remove
-        $order = $this->images->max('order');
-        $order = $order !== null ? $order + 1 : 0;
-        $image->order = $order;
-
-        $this->images->add($image);
         $image->item_id = $this->id;
-
+        $this->images->add($image);
     }
 
     public function removeImage(ItemImage $image) {
+        $index = $this->images->search($image);
+        if ($index !== false) {
+            $this->images->forget($index);
+        }
+        $image->delete();
     }
 
     public function getImagePath($full = false)

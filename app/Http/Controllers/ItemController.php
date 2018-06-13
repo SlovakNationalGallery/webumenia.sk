@@ -13,13 +13,16 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
-use Intervention\Image\ImageManagerStatic;
 use App\SpiceHarvesterRecord;
 use Illuminate\Support\Facades\App;
+use Symfony\Component\Form\FormInterface;
 
 class ItemController extends Controller
 {
     use CreatesForms;
+
+    /** @var FormInterface */
+    protected $form;
 
     /**
      * Display a listing of the resource.
@@ -127,10 +130,11 @@ class ItemController extends Controller
     public function edit($id)
     {
         $item = Item::find($id) ?: abort(404);
+        $form = $this->getItemForm($item);
 
         return view('items.form', [
             'item' => $item,
-            'form' => $this->createItemForm($item),
+            'form' => $form,
         ]);
     }
 
@@ -143,12 +147,11 @@ class ItemController extends Controller
     public function update($id)
     {
         $item = Item::find($id) ?: abort(404);
-        $form = $this->createItemForm($item);
+        $form = $this->getItemForm($item);
         $form->handleRequest();
 
-        // @todo
         if (!$form->isSubmitted() || !$form->isValid()) {
-            throw new \Exception;
+            return $this->edit($id);
         }
 
         $v = Validator::make(Input::all(), Item::$rules);
@@ -191,7 +194,6 @@ class ItemController extends Controller
     {
         Item::find($id)->delete();
         return Redirect::route('item.index')->with('message', 'Dielo bolo zmazané');
-        ;
     }
 
     public function backup()
@@ -344,10 +346,20 @@ class ItemController extends Controller
         return Redirect::back()->withMessage($message);
     }
 
-    protected function createItemForm(Item $item) {
-        return $this->createForm(ItemType::class, $item, [
-            'action' => url('item.update', $item->id),
-            'method' => 'patch',
-        ]);
+    protected function getItemForm(Item $item) {
+        if (!$this->form) {
+            $this->form = $this->getFormFactory()
+                ->createBuilder(
+                    ItemType::class,
+                    $item,
+                    [
+                        'action' => url('item.update', $item->id),
+                        'method' => 'patch',
+                    ]
+                )
+                ->getForm();
+        }
+
+        return $this->form;
     }
 }

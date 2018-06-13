@@ -232,6 +232,7 @@
 	</div>
 </div>
 
+@php FormRenderer::setTheme($form, 'custom') @endphp
 @formWidget($form)
 
 <div class="col-md-12 text-center">
