@@ -17,6 +17,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Changed
 - Info section to include MG on map + update current lab.SNG team
+- Made ZoomViewer component embedabble in static HTML via editor
 
 ## [1.4.3] - 2018-05-25
 ### Fixed
