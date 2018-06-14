@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [1.5.0] - 2018-06-13
 ### Fixed
+- ItemImage model changed to properly deal with fields with unique constraints
+- arguments parsed by SpiceHarvester changed to account for new ItemImage table
 - OAI download command now no longer skips half the downloads
 - error message added showing if and how many downloads fail
 - Display localized section titles in autocomplete
