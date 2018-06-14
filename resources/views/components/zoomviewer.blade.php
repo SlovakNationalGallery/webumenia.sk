@@ -1,10 +1,18 @@
+@php
+  function make_full_url($partURL)
+  {
+    return '/fcgi-bin/iipsrv.fcgi?DeepZoom='.$partURL.'.dzi';
+  }
+  $IIPImgURLs = $images->pluck('iipimg_url')->all();
+  $fullIIPImgURLs = array_map('make_full_url', $IIPImgURLs)
+@endphp
 <div 
   class="zoomviewer" 
   id="{!! $id !!}" 
   data-index="{!! $index !!}" 
   data-item-url="{!! $item->getUrl() !!}" 
   data-image-count="{!! count($images) !!}"
-  data-image-iipimg-urls='{!! json_encode($images->pluck('iipimg_url')->all()) !!}'
+  data-tile-sources='{!! json_encode($fullIIPImgURLs) !!}'
   >
   <div id="viewer"></div>
 

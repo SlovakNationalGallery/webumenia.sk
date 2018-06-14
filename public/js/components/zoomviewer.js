@@ -5,9 +5,8 @@ $("document").ready(function() {
     var initial         = $(this).data('index');
     var itemURL         = $(this).data('item-url');
     var imageCount      = $(this).data('image-count');
-    var imageIIPImgURLs = $(this).data('image-iipimg-urls');
+    var tileSources     = $(this).data('tile-sources');
 
-    var imageFullIIPImgURLs = imageIIPImgURLs.map(IIPImgURL => '/fcgi-bin/iipsrv.fcgi?DeepZoom='+IIPImgURL+'.dzi')
     var isLoaded = false;
 
     function shortenCopyright() {
@@ -29,7 +28,7 @@ $("document").ready(function() {
     };
 
     function getNextPage() {
-      if (viewer.currentPage() < imageFullIIPImgURLs.length) {
+      if (viewer.currentPage() < imageCount) {
         rotationChecked = false;
         viewer.goToPage(viewer.currentPage() + 1); 
       }
@@ -66,7 +65,7 @@ $("document").ready(function() {
       minZoomLevel: 0,
       defaultZoomLevel: 0,
       autoResize: false,
-      tileSources: imageFullIIPImgURLs
+      tileSources: tileSources
     }
 
     if (imageCount > 1) {
