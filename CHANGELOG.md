@@ -5,13 +5,18 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - OAI download command now no longer skips half the downloads
 - error message added showing if and how many downloads fail
+- Display localized section titles in autocomplete
+- missing article category in autocomplete suggestions
+- exception in autocomplete if article image is missing
 
 ### Added
 - Scheduled task to run sitemap creation
+- CSV import in admin
+- Searchbar component
+- [Pull Request Template](.github/pull_request_template.md)
 
-## [1.4.3] - 2018-05-25
-### Fixed
-- removed left-over IIP image URL form field
+### Changed
+- Info section to include MG on map + update current lab.SNG team
 
 ## [1.4.3] - 2018-05-25
 ### Fixed
