@@ -211,8 +211,8 @@
 	</div>
 </div>
 
+{!! FormRenderer::setTheme($form, '') !!}
 @formWidget($form)
-{{--{!! FormRenderer::widget($form) !!}--}}
 
 <div class="col-md-12 text-center">
 	{!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp; 

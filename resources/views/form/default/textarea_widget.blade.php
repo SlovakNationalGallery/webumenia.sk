@@ -1,1 +1,1 @@
-<textarea {!! FormRenderer::block($form, 'widget_attributes') !!}>{{ $value }}</textarea>
+<textarea @include('form::widget_attributes')>{{ $value }}</textarea>

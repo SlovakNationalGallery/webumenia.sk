@@ -5,4 +5,4 @@
         @php $label = FormRenderer::humanize($name) @endphp
     @endif
 @endif
-<button type="{{ isset($type) ? $type : 'button' }}" {!! FormRenderer::block($form, 'button_attributes') !!}>{{ $label }}</button>
+<button type="{{ isset($type) ? $type : 'button' }}" @include('form::button_attributes')>{{ $label }}</button>

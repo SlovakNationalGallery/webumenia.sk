@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Providers;
-
 
 use App\Forms\BladeRendererEngine;
 use Barryvdh\Form\Extension\EloquentExtension;
@@ -12,12 +10,8 @@ use Barryvdh\Form\Extension\Http\HttpExtension;
 use Barryvdh\Form\Extension\SessionExtension;
 use Barryvdh\Form\Extension\Validation\ValidationTypeExtension;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\View\Compilers\BladeCompiler;
-use Illuminate\View\Compilers\Compiler;
-use Illuminate\View\Compilers\CompilerInterface;
-use Illuminate\View\Engines\CompilerEngine;
-use Illuminate\View\Engines\EngineInterface;
 use Illuminate\View\View;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormRenderer;
@@ -26,13 +20,25 @@ use Symfony\Component\Form\FormRendererInterface;
 use Symfony\Component\Form\Forms;
 use Symfony\Component\Form\ResolvedFormTypeFactory;
 use Symfony\Component\Templating\Loader\FilesystemLoader;
-use Symfony\Component\Templating\PhpEngine;
 use Symfony\Component\Templating\TemplateNameParser;
 
 class FormServiceProvider extends ServiceProvider
 {
     public function boot()
     {
+        $root_themes_dir = config('form.themes_dir');
+        $themes = (new Finder())->directories()->in($root_themes_dir);
+
+        $paths = [$root_themes_dir];
+        foreach ($themes as $theme) {
+            $paths[] = $theme->getRealPath();
+        }
+
+        app('view')->getFinder()->addNamespace(
+            config('form.template_namespace'),
+            $paths
+        );
+
         $this->registerViewComposer();
     }
 
@@ -74,9 +80,8 @@ class FormServiceProvider extends ServiceProvider
         $this->app->singleton(FormRendererEngineInterface::class, function () {
             return new BladeRendererEngine(
                 app('view.engine.resolver')->resolve('blade'),
-                new TemplateNameParser(),
-                new FilesystemLoader(config('form.template_path_patterns')),
-                (array)config('form.theme')
+                app('view'),
+                (array)config('form.default_theme')
             );
         });
 
@@ -94,6 +99,9 @@ class FormServiceProvider extends ServiceProvider
                     $view->with($key, $value->createView());
                 }
             }
+
+            // needed for template inheritance
+            $view->with('view_name', $view->getName());
         });
     }
 }

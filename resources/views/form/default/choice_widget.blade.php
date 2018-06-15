@@ -1,5 +1,5 @@
 @if ($expanded)
-    {!! FormRenderer::block($form, 'choice_widget_expanded') !!}
+    @include('form::choice_widget_expanded')
 @else
-    {!! FormRenderer::block($form, 'choice_widget_collapsed') !!}
+    @include('form::choice_widget_collapsed')
 @endif

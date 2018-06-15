@@ -15,7 +15,7 @@
     @endif
     <label
     @if ($label_attr)
-        {!! FormRenderer::block($form, 'attributes', ['attr' => $label_attr]) !!}
+        @include('form::attributes', ['attr' => $label_attr])
     @endif
     >{{ $label }}</label>
 @endif

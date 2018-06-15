@@ -201,6 +201,7 @@ return array(
         'Throttle' => 'GrahamCampbell\Throttle\Facades\Throttle',
         'LaravelLocalization' => Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
         'FormRenderer' => App\Facades\FormRenderer::class,
+        'FormFactory' => Barryvdh\Form\Facade\FormFactory::class,
     ),
 
     'jira_auth' => array(

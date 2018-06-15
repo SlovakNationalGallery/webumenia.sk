@@ -1,2 +1,2 @@
 @php $type = isset($type) ? $type : 'submit' @endphp
-{!! FormRenderer::block($form, 'button_widget', ['type' => $type]) !!}
+@include('form::form_widget_simple')

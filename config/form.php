@@ -1,8 +1,7 @@
 <?php
 
 return [
-    'theme' => 'default',
-    'template_path_patterns' => [
-         resource_path('views/form/%name%')
-    ],
+    'default_theme' => 'default',
+    'template_namespace' => 'form',
+    'themes_dir' => resource_path('views/form'),
 ];

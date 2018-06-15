@@ -1,7 +1,7 @@
-<div {!! FormRenderer::block($form, 'widget_container_attributes', get_defined_vars()) !!}>
+<div @include('form::widget_container_attributes')>
     @if ($form->parent === null)
-        {!! FormRenderer::errors($form, get_defined_vars()) !!}
+        {!! FormRenderer::errors($form) !!}
     @endif
-    {!! FormRenderer::block($form, 'form_rows', get_defined_vars()) !!}
-    {!! FormRenderer::rest($form, get_defined_vars()) !!}
+    @include('form::form_rows')
+    {!! FormRenderer::rest($form) !!}
 </div>
