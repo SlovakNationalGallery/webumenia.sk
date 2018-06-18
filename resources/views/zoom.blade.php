@@ -23,10 +23,9 @@
 
   {{-- JS --}}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
- </head>
-
- <body class="template-zoom">
-  @include('components.zoomviewer', ['item' => $item, 'images' => $images, 'index' => $index])
- </body>
+</head>
+<body class="template-zoom">
+  @include('components.zoomviewer', ['item' => $item, 'index' => $index, 'fullIIPImgURLs' => $fullIIPImgURLs])
+</body>
 
 </html>

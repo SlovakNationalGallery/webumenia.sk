@@ -2,7 +2,7 @@
     "name": "ZoomViewer",
     "data_calls" : {
       "item": "use App\\ItemImage; return $sample_item = ItemImage::inRandomOrder()->whereNotNull('iipimg_url')->first()->item;",
-      "images": "use App\\Item; return $sample_item->getZoomableImages();"
+      "fullIIPImgURLs": "return $sample_item->getZoomableImages()->map(function ($itemImage) { return $itemImage->getFullIIPImgURL(); });"
     },
     "data": {
       "index": 0

@@ -8,7 +8,7 @@ use App\ItemImage;
 class ZoomController extends Controller
 {
    /**
-     * Show the zoomable images for the item with specified $id
+     * Show the zoomable itemImages for the item with specified $id
      *
      * @param  int  $id
      * @return Response
@@ -21,23 +21,31 @@ class ZoomController extends Controller
             App::abort(404);
         }
 
-        $images = $item->getZoomableImages();
+        $itemImages = $item->getZoomableImages();
         $index =  0;
-        if ($images->count() <= 1 && !empty($item->related_work)) {
+        if ($itemImages->count() <= 1 && !empty($item->related_work)) {
             $related_items = Item::related($item)->with('images')->get();
 
-            $images = collect();
+            $itemImages = collect();
             foreach ($related_items as $related_item) {
                 if ($image = $related_item->getZoomableImages()->first()) {
-                    $images->push($image);
+                    $itemImages->push($image);
                 }
             }
 
-            $index = $images->search(function (ItemImage $image) use ($item) {
+            $index = $itemImages->search(function (ItemImage $image) use ($item) {
                 return $image->item->id == $item->id;
             });
         }
 
-        return view('zoom', array('item' => $item, 'images' => $images, 'index' => $index));
+        $fullIIPImgURLs = $itemImages->map(function ($itemImage) {
+            return $itemImage->getFullIIPImgURL();
+        });
+
+        return view('zoom', [
+            'item' => $item, 
+            'index' => $index, 
+            'fullIIPImgURLs' => $fullIIPImgURLs,
+        ]);
     }
 }
