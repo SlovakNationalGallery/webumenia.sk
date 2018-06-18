@@ -26,7 +26,7 @@
  </head>
 
  <body class="template-zoom">
-  @include('components.zoomviewer', ['id' => 'zoomviewer1', 'item' => $item, 'images' => $images, 'index' => $index])
+  @include('components.zoomviewer', ['item' => $item, 'images' => $images, 'index' => $index])
  </body>
 
 </html>

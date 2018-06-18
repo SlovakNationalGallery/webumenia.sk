@@ -5,7 +5,6 @@
       "images": "use App\\Item; return $sample_item->getZoomableImages();"
     },
     "data": {
-      "id": "zoomviewer1",
       "index": 0
     },
     "wrapper_classes": "h7",
