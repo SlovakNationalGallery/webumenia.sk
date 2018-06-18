@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file[^1].
 - CSV import in admin
 - Searchbar component
 - [Pull Request Template](.github/pull_request_template.md)
+- ZoomController
 
 ### Changed
 - Info section to include MG on map + update current lab.SNG team
