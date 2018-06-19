@@ -7,6 +7,6 @@
     "data": {
       "index": 0
     },
-    "wrapper_classes": "h7",
+    "wrapper_classes": "vh-75",
     "usage_notes": "A zoom viewer based on OpenSeaDragon"
 }
