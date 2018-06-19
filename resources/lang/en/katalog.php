@@ -9,7 +9,7 @@ return array(
     */
 
     'title_searched'         => 'search results for',
-    'title_not_searched'     => 'artworks',
+    'title'                  => 'artworks',
     'filters_author'         => 'artist',
     'filters_work_type'      => 'work type',
     'filters_tag'            => 'tags',

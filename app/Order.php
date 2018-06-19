@@ -13,6 +13,7 @@ class Order extends Model
         'name' => 'required',
         'email' => 'email|required',
         'format' => 'required',
+        'terms_and_conditions' => 'required',
         );
 
     public static $availablePurposeKinds = array(

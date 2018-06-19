@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddStatusToImportsTable extends Migration
+class AddStatusAndTimestampsToImportsTable extends Migration
 {
     /**
      * Run the migrations.

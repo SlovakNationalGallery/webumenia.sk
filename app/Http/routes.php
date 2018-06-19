@@ -13,7 +13,7 @@
 
 use App\Article;
 use App\Collection;
-use App\Image;
+use App\ItemImage;
 use App\Item;
 use App\Slide;
 use App\Order;
@@ -154,7 +154,7 @@ function()
                 }
             }
 
-            $index = $images->search(function (Image $image) use ($item) {
+            $index = $images->search(function (ItemImage $image) use ($item) {
                 return $image->item->id == $item->id;
             });
         }

@@ -24,6 +24,7 @@ return array(
     'info_gallery_NGN'   => 'Nitrianska galéria',
     'info_gallery_SGB'   => 'Stredoslovenská galéria',
     'info_gallery_GUS'   => 'Galéria umelcov Spiša',
+    'info_gallery_MG'    => 'Moravská galerie',
 
     'mozete_heading'               => 'U nás lze',
     'mozete_col_stahovat_heading'  => 'Stahovat volná díla',
@@ -51,6 +52,7 @@ return array(
                                              <li><strong>Igor Rjabinin</strong> vývojář</li>
                                              <li><strong>Philo van Kemenade</strong> vývojář</li>
                                              <li><strong>Rastislav Chynoranský</strong> vývojář</li>
+                                             <li><strong>Adam Juraszek</strong> vývojář</li>
                                              <li><strong>Gabriel Balkó</strong> kontrolor kvality, editor obsahu</li>
                                              <li><strong>Braňo Matis</strong> grafický designér</li>',
 

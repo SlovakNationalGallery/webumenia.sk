@@ -9,7 +9,7 @@ return array(
     */
 
     'title_searched'         => 'výsledky vyhledávání pro',
-    'title_not_searched'     => 'díla',
+    'title'                  => 'díla',
     'filters_author'         => 'autor',
     'filters_work_type'      => 'výtvarný druh',
     'filters_tag'            => 'tagy',

@@ -85,7 +85,7 @@ class NgImporter extends AbstractImporter {
         return sprintf('CZE:NG.%s', $id);
     }
 
-    protected function getItemImageFilename(array $record) {
+    protected function getItemImageFilenameFormat(array $record) {
         $key = 'Ivent. číslo - pracovní';
         $filename = $record[$key];
         $filename = strtr($filename, ' ', '_');
@@ -100,7 +100,7 @@ class NgImporter extends AbstractImporter {
     protected function importSingle(array $record, Import $import, ImportRecord $import_record) {
         $item = parent::importSingle($record, $import, $import_record);
 
-        $image_filename = $this->getItemImageFilename($record);
+        $image_filename = $this->getItemImageFilenameFormat($record);
         $image_paths = $this->getItemIipImagePaths($import, $image_filename);
         $count = $item->images->count();
         foreach ($image_paths as $path) {

@@ -24,6 +24,7 @@ return array(
     'info_gallery_NGN'   => 'Nitra Gallery',
     'info_gallery_SGB'   => 'Central Slovak Gallery',
     'info_gallery_GUS'   => 'Gallery of Spiš Artists',
+    'info_gallery_MG'    => 'Moravian Gallery',
 
     'mozete_heading'               => 'In our artwork database you can:',
     'mozete_col_stahovat_heading'  => 'download images in the public domain',
@@ -49,6 +50,7 @@ return array(
                                              <li><strong>Igor Rjabinin</strong> developer</li>
                                              <li><strong>Philo van Kemenade</strong> developer</li>
                                              <li><strong>Rastislav Chynoranský</strong> developer</li>
+                                             <li><strong>Adam Juraszek</strong> developer</li>
                                              <li><strong>Gabriel Balkó</strong> quality control, content editor</li>
                                              <li><strong>Braňo Matis</strong> graphic designer</li>',
 

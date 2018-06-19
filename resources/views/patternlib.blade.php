@@ -34,8 +34,6 @@ Pattern Library | @parent
                             <h2 class="panel-title">{{$component['name']}}</h2>
                         </div>
                         <div class="panel-body">
-                            
-                            <h4>Component</h4>
                             <div class="clearfix">
                                 <div class="relative {{ isset($component['wrapper_classes']) ? $component['wrapper_classes'] : '' }}">
                                     @include($component['include_path'], $component['data'])
@@ -51,16 +49,9 @@ Pattern Library | @parent
                                 </div>
                             </div>
 
+                            @if (isset($component['usage_notes']))
                             <h4>Usage notes</h4> 
                             <p>{{$component['usage_notes']}}</p>
-
-                            @if (isset($component['worked_on_this']))
-                                <h4>Worked on this</h4> 
-                                <p>
-                                    @foreach ($component['worked_on_this'] as $developer)
-                                        <span class="btn btn-default btn-xs btn-outline">{{ $developer }}</span>
-                                    @endforeach
-                                </p>
                             @endif
 
                             <a href="#" class="btn btn-default btn-outline sans" onclick="toggle_source(event);"><i class="fa fa-code"></i> Show source</a>
