@@ -77,10 +77,6 @@ class NgImporter extends AbstractImporter {
         };
     }
 
-    protected function getItemImagePath(Import $import, $csv_filename, $image_filename) {
-        return false;
-    }
-
     protected function getItemId(array $record) {
         $key = 'Ivent. číslo - pracovní';
         $id = $record[$key];
