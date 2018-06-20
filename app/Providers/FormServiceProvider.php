@@ -26,12 +26,15 @@ class FormServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        $root_themes_dir = config('form.themes_dir');
-        $themes = (new Finder())->directories()->in($root_themes_dir);
+        $root_theme_dirs = (array)config('form.themes_dir');
+        $paths = [];
+        foreach ($root_theme_dirs as $root_theme_dir) {
+            $themes = (new Finder())->directories()->in($root_theme_dir);
 
-        $paths = [$root_themes_dir];
-        foreach ($themes as $theme) {
-            $paths[] = $theme->getRealPath();
+            $paths[] = $root_theme_dir;
+            foreach ($themes as $theme) {
+                $paths[] = $theme->getRealPath();
+            }
         }
 
         app('view')->getFinder()->addNamespace(
