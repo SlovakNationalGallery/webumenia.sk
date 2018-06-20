@@ -1,13 +1,12 @@
 {
-    "name": "Zoom viewer",
+    "name": "ZoomViewer",
     "data_calls" : {
-      "item": "use App\\Item; return $sample_item = Item::inRandomOrder()->first();",
-      "images": "use App\\Item; return Item::related($sample_item)->first()->getZoomableImages();"
+      "item": "use App\\ItemImage; return $sample_item = ItemImage::inRandomOrder()->whereNotNull('iipimg_url')->first()->item;",
+      "fullIIPImgURLs": "return $sample_item->getZoomableImages()->map(function ($itemImage) { return $itemImage->getFullIIPImgURL(); });"
     },
     "data": {
       "index": 0
     },
-    "wrapper_classes": "h7",
-    "include_js": true,
+    "wrapper_classes": "vh-75",
     "usage_notes": "A zoom viewer based on OpenSeaDragon"
 }

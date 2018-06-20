@@ -13,7 +13,6 @@
 
 use App\Article;
 use App\Collection;
-use App\ItemImage;
 use App\Item;
 use App\Slide;
 use App\Order;
@@ -143,33 +142,7 @@ function()
         return view('dakujeme');
     });
 
-    Route::get('dielo/{id}/zoom', function ($id) {
-
-        $item = Item::find($id);
-
-        if (empty($item->has_iip)) {
-            App::abort(404);
-        }
-
-        $images = $item->getZoomableImages();
-        $index =  0;
-        if ($images->count() <= 1 && !empty($item->related_work)) {
-            $related_items = Item::related($item)->with('images')->get();
-
-            $images = collect();
-            foreach ($related_items as $related_item) {
-                if ($image = $related_item->getZoomableImages()->first()) {
-                    $images->push($image);
-                }
-            }
-
-            $index = $images->search(function (ItemImage $image) use ($item) {
-                return $image->item->id == $item->id;
-            });
-        }
-
-        return view('zoom', array('item' => $item, 'images' => $images, 'index' => $index));
-    })->name('item.zoom');
+    Route::get('dielo/{id}/zoom', 'ZoomController@getIndex')->name('item.zoom');
 
     Route::get('ukaz_skicare', 'SkicareController@index');
     Route::get('skicare', 'SkicareController@getList');
