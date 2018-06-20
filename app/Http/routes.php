@@ -65,7 +65,7 @@ function()
 
     Route::get('objednavka', function () {
 
-        $items = Item::find(Session::get('cart', array()));
+        $items = Item::with('images')->find(Session::get('cart', array()));
 
         return view('objednavka', array('items' => $items));
     });
