@@ -5,9 +5,9 @@ namespace App\Importers;
 
 
 use App\Collection;
-use App\Image;
 use App\Import;
 use App\ImportRecord;
+use App\ItemImage;
 use App\Repositories\IFileRepository;
 
 class NgImporter extends AbstractImporter {
@@ -139,7 +139,7 @@ class NgImporter extends AbstractImporter {
      * @return Image
      */
     protected function createImage($iipimg_url, $order) {
-        $image = new Image();
+        $image = new ItemImage();
         $image->iipimg_url = $iipimg_url;
         $image->order = $order;
 
