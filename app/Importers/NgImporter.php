@@ -35,7 +35,6 @@ class NgImporter extends AbstractImporter {
         'Ang - Popis (překlad předchozího sloupce)' => 'description:en',
         'Ang - Technika (překlad předchozího sloupce)' => 'technique:en',
         'Ang - Materiál (překlad předchozího sloupce)' => 'medium:en',
-        'Ang - Popis (překlad předchozího sloupce)' => 'description:en',
     ];
 
     protected $defaults = [
@@ -45,9 +44,17 @@ class NgImporter extends AbstractImporter {
         'place' => '',
         'gallery' => '',
         'description' => '',
+        'description:cs' => '',
+        'description:en' => '',
         'title' => '',
+        'title:cs' => '',
+        'title:en' => '',
         'technique' => '',
+        'technique:cs' => '',
+        'technique:en' => '',
         'medium' => '',
+        'medium:cs' => '',
+        'medium:en' => '',
         'has_rights' => 0,
     ];
 
@@ -118,7 +125,7 @@ class NgImporter extends AbstractImporter {
     protected function createItem(array $record) {
         $item = parent::createItem($record);
 
-        $collection = Collection::whereTranslation('name', $record['Kolekce (budova)'])->first();
+        $collection = Collection::whereTranslation('name', $record['Kolekce (budova)'], 'cs')->first();
         if ($collection) {
             $item->collections()->sync([$collection->id]);
         }
