@@ -227,7 +227,7 @@
                                 <tr>
                                     <td class="atribut">{{ trans('katalog.filters_gallery_collection') }}:</td>
                                     <td>
-                                        <a href="{!! URL::to('katalog?gallery=' . $item->gallery_collection) !!}">{!! $item->gallery_collection; !!}</a>
+                                        <a href="{!! URL::to('katalog?gallery_collection=' . $item->gallery_collection) !!}">{!! $item->gallery_collection; !!}</a>
                                     </td>
                                 </tr>
                                 @endif
