@@ -118,7 +118,7 @@ class NgImporter extends AbstractImporter {
     protected function createItem(array $record) {
         $item = parent::createItem($record);
 
-        $collection = Collection::where('name', $record['Kolekce (budova)'])->first();
+        $collection = Collection::whereTranslation('name', $record['Kolekce (budova)'])->first();
         if ($collection) {
             $item->collections()->sync([$collection->id]);
         }
