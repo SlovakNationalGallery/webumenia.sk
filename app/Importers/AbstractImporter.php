@@ -94,7 +94,12 @@ abstract class AbstractImporter implements IImporter {
 
                 $import_record->wrong_items++;
                 $import_record->status=Import::STATUS_ERROR;
-                $import_record->error_message=$e->getMessage() . "\n\n" . $item->toJson(JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);;
+                $error_message = $e->getMessage();
+                if (isset($item)) {
+                    $error_message .= "\n\n";
+                    $error_message .= $item->toJson(JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+                }
+                $import_record->error_message = $error_message;
 
                 break;
             } finally {
