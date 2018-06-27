@@ -39,9 +39,10 @@ class NgImporterTest extends TestCase
             'Autor (jméno příjmení, příp. Anonym)' => 'Prezývka, vlastným menom Meno',
             'Autor 2' => 'Ďalší autor, autorka',
             'Autor 3' => 'Tretí autor',
+            'Autor 4' => 'Štvrtý autor',
         ]);
         $items = $this->importSingle($data);
-        $this->assertEquals('Prezývka (vlastným menom Meno); Ďalší autor (autorka); Tretí autor', $items[0]->author);
+        $this->assertEquals('Prezývka (vlastným menom Meno); Ďalší autor (autorka); Tretí autor; Štvrtý autor', $items[0]->author);
     }
 
     public function testMeasurement() {
@@ -98,12 +99,50 @@ class NgImporterTest extends TestCase
         $this->assertEquals('Veletržní palác', $items[0]->collections[0]->name);
     }
 
+    public function testInscriptionEn() {
+        $data = $this->fakeData([
+            'Ang - Značeno (překlad předchozího sloupce)' => 'Paintedy by Shifu Qiu Ying.',
+        ]);
+        $items = $this->importSingle($data);
+        $this->assertEquals('Paintedy by Shifu Qiu Ying.', $items[0]->{'inscription:en'});
+    }
+
+    public function testAuthorEn() {
+        $data = $this->fakeData([
+            'Ang - Autor (překlad předchozího sloupce)' => 'Pseudonym, Real Name',
+            'Ang - Autor 2 (překlad předchozího sloupce)' => 'Second author',
+            'Ang - Autor 3 (překlad předchozího sloupce)' => 'Third author',
+            'Ang - Autor 4 (překlad předchozího sloupce)' => 'Fourth author',
+        ]);
+        $items = $this->importSingle($data);
+        $this->assertEquals('Pseudonym (Real Name); Second author; Third author; Fourth author', $items[0]->{'author:en'});
+    }
+
+    public function testDatingEn() {
+        $data = $this->fakeData([
+            'Ang - Datování NEBO Datace' => 'dating',
+        ]);
+        $items = $this->importSingle($data);
+        $this->assertEquals('dating', $items[0]->{'dating:en'});
+    }
+
+    public function testMeasurementEn() {
+        $data = $this->fakeData([
+            'šířka' => '1',
+            'výška' => '2',
+            'hloubka' => '3',
+            'jednotky' => 'cm',
+        ]);
+        $items = $this->importSingle($data);
+        $this->assertEquals('height 2 cm; width 1 cm; depth 3 cm', $items[0]->{'measurement:en'});
+    }
+
     protected function importSingle(array $data) {
         $records = new \ArrayIterator([$data]);
         $repositoryMock = $this->getMock(CsvRepository::class);
         $repositoryMock->method('getFiltered')->willReturn($records);
 
-        $importer = new NgImporter($repositoryMock);
+        $importer = new NgImporter($repositoryMock, ['cs', 'en']);
         $importMock = $this->getMock(Import::class, ['getAttribute']);
         $importMock->method('getAttribute')->willReturn(1);
         $file = ['basename' => '', 'path' => ''];
@@ -124,6 +163,7 @@ class NgImporterTest extends TestCase
             'Autor (jméno příjmení, příp. Anonym)' => $this->faker->name,
             'Autor 2' => $this->faker->name,
             'Autor 3' => $this->faker->name,
+            'Autor 4' => $this->faker->name,
             'šířka' => $this->faker->randomNumber,
             'výška' => $this->faker->randomNumber,
             'hloubka' => $this->faker->randomNumber,
@@ -142,6 +182,12 @@ class NgImporterTest extends TestCase
             'OSA 2' => $this->faker->year,
             'Materiál' => $this->faker->word,
             'Technika' => $this->faker->word,
+            'Ang - Značeno (překlad předchozího sloupce)' => $this->faker->sentence,
+            'Ang - Autor (překlad předchozího sloupce)' => $this->faker->name,
+            'Ang - Autor 2 (překlad předchozího sloupce)' => $this->faker->name,
+            'Ang - Autor 3 (překlad předchozího sloupce)' => $this->faker->name,
+            'Ang - Autor 4 (překlad předchozího sloupce)' => $this->faker->name,
+            'Ang - Datování NEBO Datace' => $this->faker->year,
         ];
     }
 }

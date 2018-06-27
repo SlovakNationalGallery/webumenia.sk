@@ -72,8 +72,8 @@ class NgImporter extends AbstractImporter {
 
     protected static $name = 'ng';
 
-    public function __construct(IFileRepository $repository) {
-        parent::__construct($repository);
+    public function __construct(IFileRepository $repository, array $locales) {
+        parent::__construct($repository, $locales);
 
         $this->sanitizers[] = function($value) {
             return empty_to_null($value);
@@ -157,7 +157,7 @@ class NgImporter extends AbstractImporter {
 
         if ($locale == 'en') {
             $key = 'Ang - Značeno (překlad předchozího sloupce)';
-            return $record[$key];;
+            return $record[$key];
         }
 
         $inscription = [];

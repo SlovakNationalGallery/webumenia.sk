@@ -14,16 +14,6 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase
         }
     }
 
-    /** @var \Faker\Generator */
-    protected $faker;
-
-    public function setUp() {
-        parent::setUp();
-        if ($this->faker === null) {
-            $this->faker = \Faker\Factory::create(\App::getLocale());
-        }
-    }
-
     /**
      * Creates the application.
      *

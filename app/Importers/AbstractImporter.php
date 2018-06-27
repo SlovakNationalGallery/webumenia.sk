@@ -7,7 +7,6 @@ use App\ImportRecord;
 use App\Item;
 use App\ItemImage;
 use App\Repositories\IFileRepository;
-use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Console\Exception\LogicException;
 
 
@@ -28,6 +27,9 @@ abstract class AbstractImporter implements IImporter {
     /** @var IFileRepository */
     protected $repository;
 
+    /** @var string[] */
+    protected $locales;
+
     /** @var int */
     protected $image_max_size = 800;
 
@@ -40,7 +42,7 @@ abstract class AbstractImporter implements IImporter {
     /**
      * @param IFileRepository $repository
      */
-    public function __construct(IFileRepository $repository) {
+    public function __construct(IFileRepository $repository, array $locales) {
         if (static::$name === null) {
             throw new LogicException(sprintf(
                 '%s needs to define its $name static property',
@@ -49,6 +51,7 @@ abstract class AbstractImporter implements IImporter {
         }
 
         $this->repository = $repository;
+        $this->locales = $locales;
     }
 
     /**
@@ -255,7 +258,13 @@ abstract class AbstractImporter implements IImporter {
         foreach ($item->getFillable() as $key) {
             $method_name = sprintf('hydrate%s', camel_case($key));
             if (method_exists($this, $method_name)) {
-                $item->$key = $this->$method_name($record);
+                if (in_array($key, $item->translatedAttributes)) {
+                    foreach ($this->locales as $locale) {
+                        $item->{"$key:$locale"} = $this->$method_name($record, $locale);
+                    }
+                } else {
+                    $item->$key = $this->$method_name($record);
+                }
             }
         }
     }
