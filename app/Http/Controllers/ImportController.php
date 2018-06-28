@@ -95,7 +95,7 @@ class ImportController extends Controller
             return redirect()->route('import.index');
         }
 
-        $importer = new $import->class_name(new CsvRepository());
+        $importer = new $import->class_name(new CsvRepository(), config('translatable.locales'));
         $options = $importer->getOptions();
 
         return view('imports.form')->with(['import' => $import, 'options' => $options]);
