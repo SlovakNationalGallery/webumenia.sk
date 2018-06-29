@@ -219,12 +219,6 @@
 <div class="clearfix"></div>
 
 <div class="col-md-12">
-	<div class="form-group">
-	{!! Form::label('iipimg_url', 'IIPImage url') !!}
-	{!! Form::text('iipimg_url', Input::old('iipimg_url'), array('class' => 'form-control')) !!}
-	</div>
-</div>
-<div class="col-md-12">
 	@if(isset($item))
 	<div class="primary-image">
 		aktuálny:<br>

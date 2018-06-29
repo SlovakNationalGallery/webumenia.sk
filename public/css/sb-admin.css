@@ -388,3 +388,7 @@ img.nahlad {
     width: 700px;
   }
 }
+
+.popover{
+    max-width:600px !important;
+}

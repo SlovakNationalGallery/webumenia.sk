@@ -44,7 +44,7 @@ class ImportCsv extends Job implements ShouldQueue
             if (!$reflection->isInstantiable()) {
                 throw new \Exception('Class is not instantiable');
             }
-            $importer = new $this->import->class_name(new CsvRepository());
+            $importer = new $this->import->class_name(new CsvRepository(), config('translatable.locales'));
         } catch (\Exception $e) {
             if (\App::runningInConsole()) {
                 echo "Nenašiel sa importer pre dané ID.\n";
@@ -59,7 +59,10 @@ class ImportCsv extends Job implements ShouldQueue
             $importer->import($this->import, $file);
         }
 
-        $this->import->status = Import::STATUS_COMPLETED;
+        if ($this->import->status != Import::STATUS_ERROR) {
+            $this->import->status = Import::STATUS_COMPLETED;
+        }
+
         $this->import->completed_at = date('Y-m-d H:i:s');
         $this->import->save();
 

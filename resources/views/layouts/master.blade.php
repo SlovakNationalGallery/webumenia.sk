@@ -87,20 +87,11 @@
 	                {{-- národní galerie --}}
                     <img src="{{ asset('images/logo.svg') }}" class="brand-image">
 	            </a>
-	            {!! Form::open(['url' => 'katalog', 'method' => 'get', 'class' => 'navbar-form right-inner-addon', 'data-searchd-engine' => Config::get('app.searchd_id_autocomplete')]) !!}
-	            			<i class="fa fa-search"></i>
-	            			{!! Form::text('search', @$search, [
-	            				'class' => 'form-control',
-	            				'placeholder' => utrans('master.search_placeholder'),
-	            				'id'=>'search',
-	            				'autocomplete'=>'off',
-	            				'data-autori'=> utrans('autori.title'),
-	            				'data-artworks'=> utrans('general.artworks'),
-	            				'data-clanky'=> utrans('clanky.title'),
-	            				'data-kolekcie'=> utrans('kolekcie.title'),
-	            			]) !!}
-	            			{!!  Form::submit('submit'); !!}
-	            {!!Form::close() !!}
+
+	            @include('components.searchbar', [
+	              'search' => isSet($search) ? $search : '',
+	            ])
+
 	        </div>
 
 	        <div class="collapse navbar-collapse navbar-main-collapse">
@@ -165,8 +156,9 @@
 	<script src="https://unpkg.com/flickity@1.1/dist/flickity.pkgd.min.js"></script>
 	{!! Html::script('js/jquery.infinitescroll.min.js') !!}
     {!! Html::script('js/bootstrap.min.js') !!}
-	{!! Html::script('js/typeahead.bundle.min.js') !!}
+    @include('components.searchbar_js')
     <script src="{!! asset_timed('js/webumenia.js') !!}"></script>
+
 
 	<!-- Content -->
 	@yield('javascript')

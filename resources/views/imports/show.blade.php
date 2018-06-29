@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <title>Detail {!! $import->name !!}</title>  
+  <title>Detail {!! $import->name !!}</title>
 </head>
 <body>
             <div class="modal-header">
@@ -47,7 +47,7 @@
 								<td>vytvorený:</td>
 								<td>{!! ($import->created_at) ? $import->created_at->format('d.m.Y h:i') : '' !!}</td>
 							</tr>
-							{{--  
+							{{--
 							<tr>
 								<td>Naposledy spustený:</td>
 								<td>{!! ($import->lastRecord) ? $import->initiated->format('d.m.Y h:i') : '' !!}</td>
@@ -59,12 +59,12 @@
 							<tr>
 								<td>Status:</td>
 								<td>{!! $import->status !!}</td>
-							</tr>							
+							</tr>
 							<tr>
 								<td>Status správa:</td>
 								<td>{!! nl2br($import->status_messages) !!}</td>
-							</tr>							
-							--}}							
+							</tr>
+							--}}
 	                    </tbody>
 	                </table>
 
@@ -95,7 +95,7 @@
 	                			<td>
 	                				{{ $record->status }}
 	                				@if ($record->error_message)
-	                					<i class="fa fa-exclamation-triangle text-danger pointer" aria-hidden="true" data-toggle="popover" data-content="{{ $record->error_message }}"></i>
+	                					<i class="fa fa-exclamation-triangle text-danger pointer" aria-hidden="true" data-toggle="popover" data-content="{{ nl2br($record->error_message) }}" data-html="true" data-placement="bottom"></i>
 	                				@endif
 	                			</td>
 	                			<td>{{ ($record->started_at) ? $record->started_at->format('d.m.Y G:i') : '' }}</td>

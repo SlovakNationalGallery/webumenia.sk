@@ -22,7 +22,7 @@ class ChangeInstiptionTypeInItems extends Migration {
 	 */
 	public function down()
 	{
-		DB::statement('ALTER TABLE items MODIFY COLUMN VARCHAR(15) TEXT');
+		DB::statement('ALTER TABLE items MODIFY COLUMN inscription VARCHAR(15)');
 	}
 
 }

@@ -45,6 +45,7 @@ return array(
     'form_delivery-point_exlibris' => 'Ex Libris Bookshop, SNG, Bratislava',
     'form_delivery-point_zvolen'   => 'Zvolen castle, Zvolen',
     'form_note'                    => 'Note (Comment)',
+    'form_terms_and_conditions'    => 'I agree <a href="http://www.sng.sk/en/o-galerii/dokumenty/gdpr" class="underline" target="_blank">to provide my personal information</a> for the purpose of the reproduction order processing',
     'form_order'                   => 'Place order',
 
     // in routes.php
