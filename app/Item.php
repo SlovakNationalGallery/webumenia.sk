@@ -751,15 +751,15 @@ class Item extends Model
         return implode(', ', $this->authors)  . $dash .  $this->title;
     }
 
-    public function getHasIipAttribute() {
-        return !$this->getZoomableImages()->isEmpty();
-    }
-
     public function getZoomableImages()
     {
         return $this->images->filter(function (ItemImage $image) {
             return $image->isZoomable();
         });
+    }
+
+    public function hasZoomableImages() {
+        return !$this->getZoomableImages()->isEmpty();
     }
 
     public function index()
@@ -788,7 +788,7 @@ class Item extends Model
                 'updated_at' => $this->attributes['updated_at'],
                 'created_at' => $this->attributes['created_at'],
                 'has_image' => (bool)$this->has_image,
-                'has_iip' => (bool)$this->has_iip,
+                'has_iip' => (bool)$this->hasZoomableImages(),
                 'is_free' => $this->isFree(),
                 'related_work' => $this->related_work,
                 'authority_id' => $this->relatedAuthorityIds(),
