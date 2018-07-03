@@ -184,7 +184,7 @@ function()
 
         $item = Item::find($id);
 
-        if (empty($item) || !$this->publicDownload()) {
+        if (empty($item) || !$item->publicDownload()) {
         	App::abort(404);
         }
     }]);
