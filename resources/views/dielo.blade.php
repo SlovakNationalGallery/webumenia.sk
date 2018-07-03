@@ -214,6 +214,12 @@
                                     <td>{!! $item->identifier; !!}</td>
                                 </tr>
                                 @endif
+                                @if (!empty($item->acquisition_date))
+                                    <tr>
+                                        <td class="atribut">{{ trans('dielo.item_attr_acquisition_date') }}:</td>
+                                        <td>{{ $item->acquisition_date }}</td>
+                                    </tr>
+                                @endif
                                 @if ($item->isFreeDownload())
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_licence') }}:</td>
