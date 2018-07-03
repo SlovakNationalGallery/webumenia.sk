@@ -15,6 +15,8 @@ All notable changes to this project will be documented in this file[^1].
 - Searchbar component
 - [Pull Request Template](.github/pull_request_template.md)
 - ZoomController
+- admin-editable cron_status attribute added to SpiceHarvester harvests
+- daily and weekly cron jobs scheduled for harvests with appropriate cron_status 
 
 ### Changed
 - Info section to include MG on map + update current lab.SNG team
