@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
-## [1.5.0] - 2018-06-13
+## [1.5.0] - 2018-07-04
 ### Fixed
 - ItemImage model changed to properly deal with fields with unique constraints
 - arguments parsed by SpiceHarvester changed to account for new ItemImage table
@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file[^1].
 - missing article category in autocomplete suggestions
 - exception in autocomplete if article image is missing
 - multiple item images handling
+- back button in artwork zoom
 
 ### Added
 - Scheduled task to run sitemap creation
