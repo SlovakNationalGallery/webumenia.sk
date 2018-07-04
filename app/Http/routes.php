@@ -64,7 +64,7 @@ function()
 
     Route::get('objednavka', function () {
 
-        $items = Item::find(Session::get('cart', array()));
+        $items = Item::with('images')->find(Session::get('cart', array()));
 
         return view('objednavka', array('items' => $items));
     });
@@ -184,15 +184,9 @@ function()
 
         $item = Item::find($id);
 
-        if (empty($item) || !$item->isFreeDownload()) {
+        if (empty($item) || !$item->publicDownload()) {
         	App::abort(404);
         }
-        $item->timestamps = false;
-        $item->download_count += 1;
-        $item->save();
-        $item->download();
-
-        // return Response::download($pathToFile);
     }]);
 
     Route::get('dielo/{id}', function ($id) {
@@ -293,8 +287,6 @@ function()
     Route::get('kolekcia/{slug}', 'KolekciaController@getDetail');
 
     Route::get('informacie', function () {
-
-        // $items = Item::forReproduction()->hasImage()->hasZoom()->limit(20)->orderByRaw("RAND()")->get();
         $items = Item::random(20, ['gallery' => 'Slovenská národná galéria, SNG']);
 
         return view('informacie', ['items' => $items]);
