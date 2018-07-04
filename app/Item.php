@@ -762,6 +762,11 @@ class Item extends Model
         return !$this->getZoomableImages()->isEmpty();
     }
 
+    // alias for preserving backward compatibility
+    public function getHasIipAttribute() {
+        return $this->hasZoomableImages();
+    }
+
     public function index()
     {
             $client =  $this->getElasticClient();
