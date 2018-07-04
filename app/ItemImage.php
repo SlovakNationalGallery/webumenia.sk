@@ -22,15 +22,19 @@ class ItemImage extends Model
     }
 
     public static function create(array $attributes = []) {
-    	if (array_key_exists('item_id', $attributes)) {
-    		$item_id = $attributes['item_id'];
-    		$attributes['item_id'] = $item_id;
+        if (array_key_exists('item_id', $attributes) &&
+            !array_key_exists('order', $attributes)) {
+            $item_id = $attributes['item_id'];
+            $item_id_query = static::where('item_id', $item_id);
+            $max = $item_id_query->max('order');
+            $order = $max !== null ? $max + 1 : 0;
+            $attributes['order'] = $order;
+        }
 
-    		$item_id_query = static::where('item_id', $item_id);
-    		$order = $item_id_query->count() == 0 ? 0 : $item_id_query->max('order') + 1;
-    		$attributes['order'] = $order;
-    	}
-    	$model = parent::create($attributes);
-    	return $model;
+        return parent::create($attributes);
+    }
+
+    public function isZoomable() {
+        return $this->iipimg_url !== null;
     }
 }

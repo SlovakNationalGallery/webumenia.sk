@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file[^1].
 - Display localized section titles in autocomplete
 - missing article category in autocomplete suggestions
 - exception in autocomplete if article image is missing
+- multiple item images handling
 
 ### Added
 - Scheduled task to run sitemap creation

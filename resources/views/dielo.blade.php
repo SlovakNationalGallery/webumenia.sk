@@ -65,7 +65,7 @@
                                 @if ($item->isForReproduction())
                                     <a href="{!! URL::to('dielo/' . $item->id . '/objednat')  !!}" class="btn btn-default btn-outline  sans"><i class="fa fa-shopping-cart"></i> {{ trans('dielo.item_order') }} </a>
                                 @endif
-                                @if ($item->isFreeDownload())                                
+                                @if ($item->isFree() && $item->hasZoomableImages())
                                     <a href="{!! URL::to('dielo/' . $item->id . '/stiahnut')  !!}" class="btn btn-default btn-outline  sans" id="download"><i class="fa fa-download"></i> {{ trans('dielo.item_download') }} </a>
                                 @endif
                             </div>
@@ -214,7 +214,7 @@
                                     <td>{!! $item->identifier; !!}</td>
                                 </tr>
                                 @endif
-                                @if ($item->isFreeDownload())
+                                @if ($item->isFree() && $item->hasZoomableImages())
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_licence') }}:</td>
                                     {{-- <td><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs" target="_blank" class="no-border"><img alt="Creative Commons License" style="border-width:0; padding-top: 2px;"  src="/images/license/by-nc-sa.svg" title="Creative Commons BY-NC-SA 4.0" data-toggle="tooltip"></a></td> --}}

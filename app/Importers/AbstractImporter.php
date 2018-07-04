@@ -32,9 +32,6 @@ abstract class AbstractImporter implements IImporter {
     protected $image_max_size = 800;
 
     /** @var string */
-    protected $iipimg_url_format = 'https://www.webumenia.sk/fcgi-bin/iipsrv.fcgi?DeepZoom=%s.dzi';
-
-    /** @var string */
     protected static $name;
 
     /**
@@ -165,19 +162,6 @@ abstract class AbstractImporter implements IImporter {
         }
 
         return $item;
-    }
-
-    /**
-     * @param string $remote_path
-     * @return bool
-     */
-    protected function testIipImageUrl($remote_path) {
-        $iipimg_url = sprintf(
-            $this->iipimg_url_format,
-            $remote_path
-        );
-
-        return isValidURL($iipimg_url);
     }
 
     /**
