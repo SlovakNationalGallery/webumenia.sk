@@ -448,7 +448,6 @@ class SpiceHarvesterController extends Controller
                 }
                 $item = Item::updateOrCreate(['id' => $attributes['id']], $attributes);
                 $item->authorities()->sync($attributes['authority_ids']);
-                $item->save();
                 $images = ItemImage::create($attributes['image_attributes']);
                 break;
             case 'author':
@@ -534,10 +533,8 @@ class SpiceHarvesterController extends Controller
                     return false;
                 }
                 $item = Item::updateOrCreate(['id' => $attributes['id']], $attributes);
-                $item->authorities()->sync($attributes['authorities']);
-                $item->save();
+                $item->authorities()->sync($attributes['authority_ids']);
                 $images = ItemImage::updateOrCreate(['item_id' => $attributes['id']], $attributes['image_attributes']);
-
                 break;
             case 'author':
                 $attributes = $this->mapAuthorAttributes($rec);
@@ -910,7 +907,8 @@ class SpiceHarvesterController extends Controller
 
     private function parseYear($string)
     {
-        return (int)end((explode('.', $string)));
+        $exploded = explode('.', $string);
+        return (int)end($exploded);
     }
 
     private function resolveIIPUrl($iip_resolver)

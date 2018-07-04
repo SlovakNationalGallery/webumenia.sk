@@ -67,6 +67,18 @@ function str_to_alphanumeric($string, $replace_with = '')
     return trim(preg_replace("/[^[:alnum:][:space:]-]/ui", $replace_with, $string));
 }
 
+function js_add_slashes($str) {
+    $pattern = array(
+        "/\\\\/"  , "/\n/"    , "/\r/"    , "/\"/"    ,
+        "/\'/"    , "/&/"     , "/</"     , "/>/"
+    );
+    $replace = array(
+        "\\\\\\\\", "\\n"     , "\\r"     , "\\\""    ,
+        "\\'"     , "\\x26"   , "\\x3C"   , "\\x3E"
+    );
+    return preg_replace($pattern, $replace, $str);
+}
+
 function br2nl($html)
 {
     return preg_replace('#<br\s*/?>#i', "\n", $html);

@@ -65,7 +65,7 @@ function()
 
     Route::get('objednavka', function () {
 
-        $items = Item::find(Session::get('cart', array()));
+        $items = Item::with('images')->find(Session::get('cart', array()));
 
         return view('objednavka', array('items' => $items));
     });
@@ -211,15 +211,9 @@ function()
 
         $item = Item::find($id);
 
-        if (empty($item) || !$item->isFreeDownload()) {
+        if (empty($item) || !$item->publicDownload()) {
         	App::abort(404);
         }
-        $item->timestamps = false;
-        $item->download_count += 1;
-        $item->save();
-        $item->download();
-
-        // return Response::download($pathToFile);
     }]);
 
     Route::get('dielo/{id}', function ($id) {
@@ -320,8 +314,6 @@ function()
     Route::get('kolekcia/{slug}', 'KolekciaController@getDetail');
 
     Route::get('informacie', function () {
-
-        // $items = Item::forReproduction()->hasImage()->hasZoom()->limit(20)->orderByRaw("RAND()")->get();
         $items = Item::random(20, ['gallery' => 'Slovenská národná galéria, SNG']);
 
         return view('informacie', ['items' => $items]);
@@ -333,10 +325,18 @@ Route::group(array('middleware' => 'guest'), function () {
     Route::post('login', 'AuthController@postLogin');
 });
 
-Route::group(['middleware' => ['auth', 'role:admin|editor']], function () {
-
+Route::group(['middleware' => ['auth', 'role:admin|editor|import']], function () {
     Route::get('admin', 'AdminController@index');
     Route::get('logout', 'AuthController@logout');
+    Route::get('imports/launch/{id}', 'ImportController@launch');
+    Route::resource('imports', 'ImportController');
+    Route::get('item/search', 'ItemController@search');
+    Route::resource('item', 'ItemController');
+    Route::post('item/destroySelected', 'ItemController@destroySelected');
+});
+
+Route::group(['middleware' => ['auth', 'role:admin|editor']], function () {
+
     Route::get('collection/{collection_id}/detach/{item_id}', 'CollectionController@detach');
     Route::post('collection/fill', 'CollectionController@fill');
     Route::post('collection/sort', 'CollectionController@sort');
@@ -353,13 +353,9 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::resource('harvests', 'SpiceHarvesterController');
     Route::get('item/backup', 'ItemController@backup');
     Route::get('item/geodata', 'ItemController@geodata');
-    Route::post('item/destroySelected', 'ItemController@destroySelected');
     Route::post('item/refreshSelected', 'ItemController@refreshSelected');
-    Route::get('item/search', 'ItemController@search');
     Route::get('item/reindex', 'ItemController@reindex');
-    Route::resource('item', 'ItemController');
     Route::get('authority/destroyLink/{link_id}', 'AuthorityController@destroyLink');
-    Route::get('authority/search', 'AuthorityController@search');
     Route::get('authority/reindex', 'AuthorityController@reindex');
     Route::post('authority/destroySelected', 'AuthorityController@destroySelected');
     Route::resource('authority', 'AuthorityController');

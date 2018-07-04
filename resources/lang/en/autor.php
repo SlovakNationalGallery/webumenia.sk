@@ -18,11 +18,12 @@ return array(
                      |{1}    <strong>:view_count</strong> view
                      |[2,Inf]<strong>:view_count</strong> views',
     
-    'tags'            => 'tags',
-    'back-to-artists' => 'back to artists page',
-    'places'          => 'has been active in',
-    'links'           => 'external links',
-    'relationships'   => 'relationships',
+    'tags'              => 'tags',
+    'back-to-artists'   => 'back to artists page',
+    'alternative_names' => 'alternatively',
+    'places'            => 'has been active in',
+    'links'             => 'external links',
+    'relationships'     => 'relationships',
     
     'artworks_by_artist' => 'artworks by this artist',
     

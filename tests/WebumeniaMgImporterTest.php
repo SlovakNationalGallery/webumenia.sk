@@ -121,13 +121,13 @@ class WebumeniaMgImporterTest extends TestCase
     public function testRelationshipType() {
         $data = $this->fakeData(['Okolnosti' => 'BB']);
         $items = $this->importSingle($data);
-        $this->assertEquals('ze souboru', $items[0]->relationship_type);
+        $this->assertEquals('zo súboru', $items[0]->relationship_type);
     }
 
     public function testWorkType() {
         $data = $this->fakeData(['Skupina' => 'Ar']);
         $items = $this->importSingle($data);
-        $this->assertEquals('architektura', $items[0]->work_type);
+        $this->assertEquals('architektúra', $items[0]->work_type);
     }
 
     public function testRelatedWork() {
@@ -139,7 +139,7 @@ class WebumeniaMgImporterTest extends TestCase
     public function testMeasurement() {
         $data = $this->fakeData(['Služ' => 's=4,6cm; d=6cm; a=2cm']);
         $items = $this->importSingle($data);
-        $this->assertEquals('šířka 4,6 cm; délka 6 cm; výška hlavní části 2 cm', $items[0]->measurement);
+        $this->assertEquals('šírka 4,6 cm; dĺžka 6 cm; výška hlavnej časti 2 cm', $items[0]->measurement);
     }
 
     protected function importSingle(array $data) {

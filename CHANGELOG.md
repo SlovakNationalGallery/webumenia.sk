@@ -2,9 +2,27 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [1.5.0] - 2018-07-04
 ### Fixed
 - ItemImage model changed to properly deal with fields with unique constraints
-- arguments parsed by SpiceHarvester changed to account for new ItemImage table 
+- arguments parsed by SpiceHarvester changed to account for new ItemImage table
+- OAI download command now no longer skips half the downloads
+- error message added showing if and how many downloads fail
+- Display localized section titles in autocomplete
+- missing article category in autocomplete suggestions
+- exception in autocomplete if article image is missing
+- multiple item images handling
+- back button in artwork zoom
+
+### Added
+- Scheduled task to run sitemap creation
+- CSV import in admin
+- Searchbar component
+- [Pull Request Template](.github/pull_request_template.md)
+
+### Changed
+- Info section to include MG on map + update current lab.SNG team
 
 ## [1.4.3] - 2018-05-25
 ### Fixed
@@ -19,7 +37,6 @@ All notable changes to this project will be documented in this file[^1].
 - fix download functionality after item_images migration
 
 ## [1.4.0] - 2018-05-07
-
 ### Added
 - Color-list component on artwork detail
 - Color description
@@ -89,6 +106,8 @@ All notable changes to this project will be documented in this file[^1].
 - LICENSE from Public Domain into MIT
 
 [Unreleased]: https://github.com/SlovakNationalGallery/web-umenia-2/compare/master...develop
+[1.5.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/80
+[1.4.3]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/70
 [1.4.2]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/69
 [1.4.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/67
 [1.3.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/52

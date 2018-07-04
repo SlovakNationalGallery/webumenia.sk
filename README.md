@@ -38,15 +38,16 @@ Here are the steps for installation on a local machine.
     git@github.com:SlovakNationalGallery/web-umenia-2.git webumenia/
     cd webumenia/
     ```
-2. setup database in your favourite database editor. set:
+2. Setup database in your favourite database editor. set:
     * db name
     * username
     * password
-3. configure access to your database in `/app/config/database.php` 
-4. set `.env` file. you can copy values from `.env.example`
+3. Configure access to your database in `/app/config/database.php` 
+4. Set `.env` file. you can copy values from `.env.example`
 5. Run `composer install` to fulfil required libraries. 
 6. Make sure elasticsearch is running. you can set the index name in `app/config/app.php`
 7. Run migrations to setup the database with `php artisan migrate --seed` 
+8. Start your queue listener and setup the Laravel scheduler (_optional_)
 
 ### Harvesting Data
 
