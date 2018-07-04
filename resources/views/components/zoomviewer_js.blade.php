@@ -28,14 +28,14 @@
     function getPreviousPage() {
       if (viewer.currentPage() > 0) {
         rotationChecked = false;
-        viewer.goToPage(viewer.currentPage() - 1); 
+        viewer.goToPage(viewer.currentPage() - 1);
       }
     };
 
     function getNextPage() {
       if (viewer.currentPage() < images.length) {
         rotationChecked = false;
-        viewer.goToPage(viewer.currentPage() + 1); 
+        viewer.goToPage(viewer.currentPage() + 1);
       }
     };
 
@@ -98,20 +98,27 @@
     // zoom out instead of showing context menu on right click
     viewer.canvas.oncontextmenu = function() {$('#zoom-out').click(); return false;};
 
-    $(viewer.canvas).mousedown(function(e){ 
+    $(viewer.canvas).mousedown(function(e){
       if( e.button == 2 ) {
         viewer.viewport.zoomBy(0.45); //0.9 * 0.5
-        return false; 
-      } 
-      return true; 
-    }); 
+        return false;
+      }
+      return true;
+    });
 
     $('a.return').click(function(){
+      var fallbackUrl = $(this).attr('href');
       if (document.referrer.split('/')[2] === window.location.host) {
         parent.history.back();
+
+        // fallback when opening in new tab/window and history.back() is disabled but referrer is defined
+        setTimeout(function(){
+          window.location.href = fallbackUrl;
+        }, 500);
+
         return false;
       } else {
-        window.location.href = '{!! $item->getUrl() !!}'; 
+        window.location.href = fallbackUrl;
       }
     });
 
@@ -139,7 +146,7 @@
 
     setInterval(function(){
       if(interval == timeoutval){
-        $('.autohide, .referencestrip').fadeOut(); 
+        $('.autohide, .referencestrip').fadeOut();
         interval = 1;
       }
       interval = interval+1;
