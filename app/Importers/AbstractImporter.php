@@ -156,8 +156,8 @@ abstract class AbstractImporter implements IImporter {
             $image_filename_format
         );
 
-        $order = $item->images()->max('order');
-        $order = $order !== null ? $order : 0;
+        $max = $item->images()->max('order');
+        $order = $max !== null ? $max + 1 : 0;
         foreach ($jp2_paths as $jp2_path) {
             $jp2_relative_path = $this->getImageJp2RelativePath($jp2_path);
             if ($image = ItemImage::where('iipimg_url', $jp2_relative_path)->first()) {
