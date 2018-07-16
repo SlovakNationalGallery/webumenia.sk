@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file[^1].
 - Czech language translations
 - Pattern Library at /patternlib
 - Tests setup
+- Display acquisition date in item detail
 
 ## [1.2.9] - 2017-12-05
 ### Changed
