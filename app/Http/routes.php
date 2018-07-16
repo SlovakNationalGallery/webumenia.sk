@@ -13,7 +13,6 @@
 
 use App\Article;
 use App\Collection;
-use App\ItemImage;
 use App\Item;
 use App\Slide;
 use App\Order;
@@ -65,7 +64,7 @@ function()
 
     Route::get('objednavka', function () {
 
-        $items = Item::find(Session::get('cart', array()));
+        $items = Item::with('images')->find(Session::get('cart', array()));
 
         return view('objednavka', array('items' => $items));
     });
@@ -143,33 +142,7 @@ function()
         return view('dakujeme');
     });
 
-    Route::get('dielo/{id}/zoom', function ($id) {
-
-        $item = Item::find($id);
-
-        if (empty($item->has_iip)) {
-            App::abort(404);
-        }
-
-        $images = $item->getZoomableImages();
-        $index =  0;
-        if ($images->count() <= 1 && !empty($item->related_work)) {
-            $related_items = Item::related($item)->with('images')->get();
-
-            $images = collect();
-            foreach ($related_items as $related_item) {
-                if ($image = $related_item->getZoomableImages()->first()) {
-                    $images->push($image);
-                }
-            }
-
-            $index = $images->search(function (ItemImage $image) use ($item) {
-                return $image->item->id == $item->id;
-            });
-        }
-
-        return view('zoom', array('item' => $item, 'images' => $images, 'index' => $index));
-    })->name('item.zoom');
+    Route::get('dielo/{id}/zoom', 'ZoomController@getIndex')->name('item.zoom');
 
     Route::get('ukaz_skicare', 'SkicareController@index');
     Route::get('skicare', 'SkicareController@getList');
@@ -211,15 +184,9 @@ function()
 
         $item = Item::find($id);
 
-        if (empty($item) || !$item->isFreeDownload()) {
+        if (empty($item) || !$item->publicDownload()) {
         	App::abort(404);
         }
-        $item->timestamps = false;
-        $item->download_count += 1;
-        $item->save();
-        $item->download();
-
-        // return Response::download($pathToFile);
     }]);
 
     Route::get('dielo/{id}', function ($id) {
@@ -320,8 +287,6 @@ function()
     Route::get('kolekcia/{slug}', 'KolekciaController@getDetail');
 
     Route::get('informacie', function () {
-
-        // $items = Item::forReproduction()->hasImage()->hasZoom()->limit(20)->orderByRaw("RAND()")->get();
         $items = Item::random(20, ['gallery' => 'Slovenská národná galéria, SNG']);
 
         return view('informacie', ['items' => $items]);

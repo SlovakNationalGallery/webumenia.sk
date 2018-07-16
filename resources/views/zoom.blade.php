@@ -20,11 +20,12 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   {!! Html::style('css/style.css') !!}
- </head>
 
- <body class="template-zoom">
-  @include('components.zoomviewer', ['item' => $item, 'images' => $images, 'index' => $index])
-  @include('components.zoomviewer_js', ['item' => $item, 'images' => $images, 'index' => $index])
- </body>
+  {{-- JS --}}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body class="template-zoom">
+  @include('components.zoomviewer', ['item' => $item, 'index' => $index, 'fullIIPImgURLs' => $fullIIPImgURLs])
+</body>
 
 </html>

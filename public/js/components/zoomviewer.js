@@ -1,16 +1,11 @@
-<script>window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">\x3C/script>')</script>
-{!! Html::script('js/openseadragon.js') !!}
+$("document").ready(function() {
 
-<script type="text/javascript">
-  $("document").ready(function() {
+  $('.zoomviewer').each(function () {
 
-    var initial = {!! $index !!};
-
-    var images = [
-      @foreach ($images as $image)
-      '/fcgi-bin/iipsrv.fcgi?DeepZoom={!! $image->iipimg_url !!}.dzi',
-      @endforeach
-    ];
+    var initial         = $(this).data('index');
+    var itemURL         = $(this).data('item-url');
+    var imageCount      = $(this).data('image-count');
+    var tileSources     = $(this).data('tile-sources');
 
     var isLoaded = false;
 
@@ -28,14 +23,14 @@
     function getPreviousPage() {
       if (viewer.currentPage() > 0) {
         rotationChecked = false;
-        viewer.goToPage(viewer.currentPage() - 1); 
+        viewer.goToPage(viewer.currentPage() - 1);
       }
     };
 
     function getNextPage() {
-      if (viewer.currentPage() < images.length) {
+      if (viewer.currentPage() < imageCount) {
         rotationChecked = false;
-        viewer.goToPage(viewer.currentPage() + 1); 
+        viewer.goToPage(viewer.currentPage() + 1);
       }
     };
 
@@ -55,7 +50,7 @@
       }
     };
 
-    viewer = OpenSeadragon({
+    var OSDOptions = {
       id: "viewer",
       prefixUrl: "/images/openseadragon/",
       toolbar:        "toolbarDiv",
@@ -70,18 +65,23 @@
       minZoomLevel: 0,
       defaultZoomLevel: 0,
       autoResize: false,
-      tileSources: images,
-      @if (count($images) > 1)
-      autoHideControls: false,
-      controlsFadeDelay: 1000,  //ZOOM/HOME/FULL/SEQUENCE
-      controlsFadeLength: 500,  //ZOOM/HOME/FULL/SEQUENCE
-      sequenceMode: true,
-      showReferenceStrip: true,
-      referenceStripSizeRatio: 0.07,
-      referenceStripScroll: 'vertical',
-      initialPage: initial
-      @endif
-    });
+      tileSources: tileSources
+    }
+
+    if (imageCount > 1) {
+      $.extend(OSDOptions, {
+        autoHideControls: false,
+        controlsFadeDelay: 1000,  //ZOOM/HOME/FULL/SEQUENCE
+        controlsFadeLength: 500,  //ZOOM/HOME/FULL/SEQUENCE
+        sequenceMode: true,
+        showReferenceStrip: true,
+        referenceStripSizeRatio: 0.07,
+        referenceStripScroll: 'vertical',
+        initialPage: initial
+      })
+    }
+
+    viewer = OpenSeadragon(OSDOptions);
 
     viewer.addHandler('page', function (event) {
       isLoaded = false;
@@ -98,20 +98,26 @@
     // zoom out instead of showing context menu on right click
     viewer.canvas.oncontextmenu = function() {$('#zoom-out').click(); return false;};
 
-    $(viewer.canvas).mousedown(function(e){ 
+    $(viewer.canvas).mousedown(function(e){
       if( e.button == 2 ) {
         viewer.viewport.zoomBy(0.45); //0.9 * 0.5
-        return false; 
-      } 
-      return true; 
-    }); 
+        return false;
+      }
+      return true;
+    });
 
     $('a.return').click(function(){
       if (document.referrer.split('/')[2] === window.location.host) {
         parent.history.back();
+
+        // fallback when opening in new tab/window and history.back() is disabled but referrer is defined
+        setTimeout(function(){
+          window.location.href = itemURL;
+        }, 500);
+
         return false;
       } else {
-        window.location.href = '{!! $item->getUrl() !!}'; 
+        window.location.href = itemURL;
       }
     });
 
@@ -139,7 +145,7 @@
 
     setInterval(function(){
       if(interval == timeoutval){
-        $('.autohide, .referencestrip').fadeOut(); 
+        $('.autohide, .referencestrip').fadeOut();
         interval = 1;
       }
       interval = interval+1;
@@ -164,5 +170,6 @@
     });
 
     shortenCopyright();
-  });
-</script>
+
+  })
+});
