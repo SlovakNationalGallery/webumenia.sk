@@ -1,6 +1,8 @@
 FROM php:5.6-apache
 
-COPY . /var/www
+# COPY . /var/www
+# ^^ here don't copy, use mounted volume
+
 COPY ./public /var/www/html
 COPY ./vhost.conf /etc/apache2/sites-available/000-default.conf
 
@@ -14,6 +16,7 @@ RUN docker-php-ext-install \
 	pdo_mysql \
 	gd \
 	mcrypt \
+	zip \
 	&& a2enmod rewrite
 
 RUN chown -R www-data:www-data /var/www
