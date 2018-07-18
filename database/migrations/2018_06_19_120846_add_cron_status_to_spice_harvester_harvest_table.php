@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddCronAttribute extends Migration
+class AddCronStatusToSpiceHarvesterHarvestTable extends Migration
 {
     /**
      * Run the migrations.
@@ -26,7 +26,7 @@ class AddCronAttribute extends Migration
     public function down()
     {
         Schema::table('spice_harvester_harvests', function (Blueprint $table) {
-            $table->dropColumn('status');
+            $table->dropColumn('cron_status');
             //
         });
     }
