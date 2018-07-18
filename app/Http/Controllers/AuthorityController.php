@@ -98,18 +98,6 @@ class AuthorityController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        $authority = Authority::find($id);
-        return view('authorities.show')->with('authority', $authority);
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id

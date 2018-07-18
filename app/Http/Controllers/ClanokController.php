@@ -29,13 +29,13 @@ class ClanokController extends Controller
         $data = array();
         $data['results'] = array();
         $data['count'] = 0;
-        
+
         // $data['items'] = array();
         foreach ($result as $key => $hit) {
 
             $data['count']++;
             $params = array(
-                'title' => $hit->title,
+                'title' => $hit->title_with_category,
                 'author' => $hit->author,
                 'url' => $hit->getUrl(),
                 'image' => $hit->getResizedImage(70),

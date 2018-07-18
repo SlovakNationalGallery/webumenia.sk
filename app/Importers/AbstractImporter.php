@@ -32,9 +32,6 @@ abstract class AbstractImporter implements IImporter {
     protected $image_max_size = 800;
 
     /** @var string */
-    protected $iipimg_url_format = 'https://www.webumenia.sk/fcgi-bin/iipsrv.fcgi?DeepZoom=%s.dzi';
-
-    /** @var string */
     protected static $name;
 
     /**
@@ -72,6 +69,8 @@ abstract class AbstractImporter implements IImporter {
             $file['basename']
         );
 
+        $import_record->save();
+
         $records = $this->repository->getFiltered(
             storage_path(sprintf('app/%s', $file['path'])),
             $this->filters,
@@ -80,28 +79,32 @@ abstract class AbstractImporter implements IImporter {
 
         $items = [];
 
-        try {
-            foreach ($records as $record) {
+        foreach ($records as $record) {
+            try {
                 $item = $this->importSingle($record, $import, $import_record);
-                if (!$item) {
-                    continue;
-                }
-
                 $item->push();
                 $items[] = $item;
                 $import_record->imported_items++;
+            } catch (\Exception $e) {
+                $import->status=Import::STATUS_ERROR;
+                $import->save();
+
+                $import_record->wrong_items++;
+                $import_record->status=Import::STATUS_ERROR;
+                $import_record->error_message=$e->getMessage();
+
+                break;
+            } finally {
+                $import_record->save();
             }
-
-            $import_record->status = Import::STATUS_COMPLETED;
-        } catch (\Exception $e) {
-            $import_record->status = Import::STATUS_ERROR;
-            $import_record->error_message = $e->getMessage();
-            $import_record->wrong_items++;
-
-            throw $e;
-        } finally {
-            $import_record->save();
         }
+
+        if ($import_record->status != Import::STATUS_ERROR) {
+            $import_record->status = Import::STATUS_COMPLETED;
+        }
+
+        $import_record->completed_at=date('Y-m-d H:i:s');
+        $import_record->save();
 
         return $items;
     }
@@ -110,14 +113,17 @@ abstract class AbstractImporter implements IImporter {
         return static::$name;
     }
 
+    public function getOptions() {
+        return $this->options;
+    }
+
     /**
      * @param array $record
      * @param Import $import
      * @param ImportRecord $importRecord
      * @return Item|null
      */
-    protected function importSingle(array $record, Import $import, ImportRecord $import_record)
-    {
+    protected function importSingle(array $record, Import $import, ImportRecord $import_record) {
         $item = $this->createItem($record);
 
         $image_filename_format = $this->getItemImageFilenameFormat($record);
@@ -156,19 +162,6 @@ abstract class AbstractImporter implements IImporter {
         }
 
         return $item;
-    }
-
-    /**
-     * @param string $remote_path
-     * @return bool
-     */
-    protected function testIipImageUrl($remote_path) {
-        $iipimg_url = sprintf(
-            $this->iipimg_url_format,
-            $remote_path
-        );
-
-        return isValidURL($iipimg_url);
     }
 
     /**

@@ -6,7 +6,7 @@
         {{ trans('katalog.title_searched') }} "{!!$search!!}"
     @else
         {!! getTitleWithFilters('App\Item', $input, ' | ') !!}
-        {{ trans('katalog.title_not_searched') }}
+        {{ trans('katalog.title') }}
     @endif
     |
     @parent

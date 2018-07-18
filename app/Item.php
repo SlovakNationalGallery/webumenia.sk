@@ -101,8 +101,6 @@ class Item extends Model
         'related_work_order',
         'related_work_total',
         'gallery',
-        'img_url',
-        'iipimg_url',
         'item_type',
         'publish',
     );
@@ -210,13 +208,6 @@ class Item extends Model
             $url .= '?' . http_build_query($params);
         }
         return $url;
-    }
-
-    public function getIIPimgURL()
-    {
-        $itemImagesWithIIP = $this->getZoomableImages();
-        // @TODO consider order to return correct image?
-        return $itemImagesWithIIP[0]->iipimg_url;
     }
 
     public function downloadImage()
@@ -669,11 +660,6 @@ class Item extends Model
         return $ids;
     }
 
-    public function isFreeDownload()
-    {
-        return ($this->isFree() && !empty($this->getZoomableImages()));
-    }
-
     public function isForReproduction()
     {
         return ($this->attributes['gallery'] == 'Slovenská národná galéria, SNG');
@@ -682,11 +668,6 @@ class Item extends Model
     public function scopeHasImage($query)
     {
         return $query->where('has_image', '=', 1);
-    }
-
-    public function scopeHasZoom($query)
-    {
-        return $query->where('iipimg_url', 'NOT LIKE', '');
     }
 
     public function scopeForReproduction($query)
@@ -702,12 +683,30 @@ class Item extends Model
             ->orderBy('related_work_order');
     }
 
-    public function download()
+    public function publicDownload($order = null) {
+        if (!$this->isFree()) {
+            return false;
+        }
+
+        $this->timestamps = false;
+        $this->download_count += 1;
+        $this->save();
+
+        return $this->download($order);
+    }
+
+    public function download($order = null)
     {
+        $image = $this->getZoomableImages()->first(function ($key, ItemImage $image) use ($order) {
+            return ($image->order == $order) || ($order === null);
+        });
+
+        if (!$image) {
+            return false;
+        }
 
         header('Set-Cookie: fileDownload=true; path=/');
-        $IIPimgURL = $this->getIIPimgURL();
-        $url = 'http://imi.sng.cust.eea.sk/publicIS/fcgi-bin/iipsrv.fcgi?FIF=' . $IIPimgURL . '&CVT=JPG';
+        $url = 'http://imi.sng.cust.eea.sk/publicIS/fcgi-bin/iipsrv.fcgi?FIF=' . $image->iipimg_url . '&CVT=JPG';
         $filename = $this->attributes['id'].'.jpg';
 
         set_time_limit(0);
@@ -777,15 +776,20 @@ class Item extends Model
         return implode(', ', $this->authors)  . $dash .  $this->title;
     }
 
-    public function getHasIipAttribute() {
-        return !$this->getZoomableImages()->isEmpty();
-    }
-
     public function getZoomableImages()
     {
         return $this->images->filter(function (ItemImage $image) {
-            return $image->iipimg_url !== null;
+            return $image->isZoomable();
         });
+    }
+
+    public function hasZoomableImages() {
+        return !$this->getZoomableImages()->isEmpty();
+    }
+
+    // alias for preserving backward compatibility
+    public function getHasIipAttribute() {
+        return $this->hasZoomableImages();
     }
 
     public function index()
@@ -811,9 +815,8 @@ class Item extends Model
                 'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
                 'created_at' => $this->created_at->format('Y-m-d H:i:s'),
                 'has_image' => (bool)$this->has_image,
-                'has_iip' => (bool)$this->has_iip,
+                'has_iip' => (bool)$this->hasZoomableImages(),
                 'is_free' => $this->isFree(),
-                // 'free_download' => $this->isFreeDownload(), // staci zapnut is_free + has_iip
                 'related_work' => $this->related_work,
                 'authority_id' => $this->relatedAuthorityIds(),
                 'view_count' => $this->view_count,

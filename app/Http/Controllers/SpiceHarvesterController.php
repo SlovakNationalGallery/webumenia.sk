@@ -9,6 +9,7 @@ use App\Collection;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use App\Item;
+use App\ItemImage;
 use Barryvdh\Debugbar\Facade;
 use Illuminate\Support\Facades\App;
 use App\SpiceHarvesterRecord;
@@ -447,6 +448,8 @@ class SpiceHarvesterController extends Controller
                 }
                 $item = Item::updateOrCreate(['id' => $attributes['id']], $attributes);
                 $item->authorities()->sync($attributes['authority_ids']);
+                $item->save();
+                $images = ItemImage::create($attributes['image_attributes']);
                 break;
             case 'author':
                 // $nationality = Nationality::firstOrNew(['id' => ])
@@ -507,8 +510,8 @@ class SpiceHarvesterController extends Controller
 
 
         // Upload image given by url
-        if (!empty($attributes['img_url'])) {
-            $this->downloadImage($item, $attributes['img_url']);
+        if (!empty($attributes['image_attributes']['img_url'])) {
+            $this->downloadImage($item, $attributes['image_attributes']['img_url']);
         }
 
         return true;
@@ -531,8 +534,8 @@ class SpiceHarvesterController extends Controller
                     return false;
                 }
                 $item = Item::updateOrCreate(['id' => $attributes['id']], $attributes);
-                $item->authorities()->sync($attributes['authorities']);
-                $item->save();
+                $item->authorities()->sync($attributes['authority_ids']);
+                $images = ItemImage::updateOrCreate(['item_id' => $attributes['id']], $attributes['image_attributes']);
                 break;
             case 'author':
                 $attributes = $this->mapAuthorAttributes($rec);
@@ -588,8 +591,8 @@ class SpiceHarvesterController extends Controller
         }
 
         // Upload image given by url
-        if (!empty($attributes['img_url'])) {
-            $this->downloadImage($item, $attributes['img_url']);
+        if (!empty($attributes['image_attributes']['img_url'])) {
+            $this->downloadImage($item, $attributes['image_attributes']['img_url']);
         }
 
         // Update the datestamp stored in the database for this record.
@@ -755,11 +758,17 @@ class SpiceHarvesterController extends Controller
                         ->children(self::OAI_DC_NAMESPACE)
                         ->children(self::DUBLIN_CORE_NAMESPACE_TERMS);
 
+        $identifiers = (array)$dcElements->identifier;
+
         try {
 
             /**
              * Map translatable elements for languages present in record
              */
+
+            $topic=array(); // zaner - krajina s figuralnou kompoziciou / veduta
+            $subject=array(); // objekt - dome/les/
+            $image_attributes=array();
 
             $localeForLang = [
                 "sk" => "sk",
@@ -848,6 +857,19 @@ class SpiceHarvesterController extends Controller
              * Map non-translatable SK elements
              */
 
+            foreach ($identifiers as $identifier) {
+                if ($identifier!=(string)$rec->header->identifier) {
+                    //identifikator
+                    if ($this->starts_with_upper($identifier)) {
+                        $attributes['identifier'] = $identifier;
+                    } elseif (strpos($identifier, 'getimage') !== false) {
+                        $image_attributes['img_url'] = $identifier;
+                    } elseif (strpos($identifier, 'L2_WEB') !== false) {
+                        $image_attributes['iipimg_url'] = $this->resolveIIPUrl($identifier);
+                    }
+                }
+            }
+
             $authors = array();
             $authority_ids = array();
             $authorities = array();
@@ -866,6 +888,7 @@ class SpiceHarvesterController extends Controller
             }
             $attributes['authorities'] = $authorities;
             $attributes['authority_ids'] = $authority_ids;
+            $attributes['image_attributes'] = $image_attributes;
             $attributes['author'] = $this->serialize($authors);
 
             $identifiers = (array)$dcElements->identifier;

@@ -4,8 +4,8 @@
 namespace Tests;
 
 
-use App\Image;
 use App\Item;
+use App\ItemImage;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ZoomViewTest extends TestCase
@@ -17,7 +17,7 @@ class ZoomViewTest extends TestCase
         $item = $this->createItem(['id' => uniqid()]);
         $item->save();
 
-        $image = $this->createImage([
+        $image = $this->createItemImage([
             'iipimg_url' => true
         ]);
         $image->item()->associate($item);
@@ -47,11 +47,11 @@ class ZoomViewTest extends TestCase
         ]);
         $related_item->save();
 
-        $image = $this->createImage(['iipimg_url' => true]);
+        $image = $this->createItemImage(['iipimg_url' => true]);
         $image->item()->associate($item);
         $image->save();
 
-        $related_image = $this->createImage(['iipimg_url' => true]);
+        $related_image = $this->createItemImage(['iipimg_url' => true]);
         $related_image->item()->associate($related_item);
         $related_image->save();
 
@@ -81,7 +81,7 @@ class ZoomViewTest extends TestCase
 
         $count = 2;
         for ($i = 0; $i < $count; $i++) {
-            $image = $this->createImage([
+            $image = $this->createItemImage([
                 'iipimg_url' => true,
                 'order' => $i,
             ]);
@@ -89,7 +89,7 @@ class ZoomViewTest extends TestCase
             $image->save();
         }
 
-        $related_image = $this->createImage(['iipimg_url' => true]);
+        $related_image = $this->createItemImage(['iipimg_url' => true]);
         $related_image->item()->associate($related_item);
         $related_image->save();
 
@@ -123,8 +123,8 @@ class ZoomViewTest extends TestCase
         return $item;
     }
 
-    protected function createImage(array $data = []) {
-        $image = new Image();
+    protected function createItemImage(array $data = []) {
+        $image = new ItemImage();
 
         foreach ($data as $key => $value) {
             $image->$key = $value;
