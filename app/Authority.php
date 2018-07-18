@@ -168,7 +168,7 @@ class Authority extends Model
         $params['query'] = [
             'bool' => [
                 'must' => [
-                    ['term' => ['authority_id' => $this->attributes['id']]],
+                    ['term' => ['authority_id' => $this->id]],
                 ],
                 'should' => [
                     ['term' => ['has_image' => true]],
@@ -243,7 +243,7 @@ class Authority extends Model
 
     public function getImagePath($full = false)
     {
-        return self::getImagePathForId($this->id, $this->attributes['has_image'], $this->attributes['sex'], $full);
+        return self::getImagePathForId($this->id, $this->has_image, $this->sex, $full);
         // : self::ARTWORKS_DIR . "no-image.jpg";;
     }
 
@@ -371,7 +371,7 @@ class Authority extends Model
 
     public function index()
     {
-        if ($this->attributes['type'] != 'person') {
+        if ($this->type != 'person') {
             return false;
         }
 

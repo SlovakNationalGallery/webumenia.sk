@@ -270,7 +270,7 @@ class Item extends Model
                         "fields" => [
                             "author.folded","title","title.stemmed","description.stemmed", "tag.folded", "place", "technique"
                         ],
-                        "ids" => [$this->attributes['id']],
+                        "ids" => [$this->id],
                         "min_term_freq" => 1,
                         "minimum_should_match" => 3,
                         "min_word_length" => 3,
@@ -279,7 +279,7 @@ class Item extends Model
                 ],
                 "should" => [
                     // ["match"=> [
-                    // 	"author" => $this->attributes['author'],
+                    // 	"author" => $this->author,
                     // 	],
                     // ],
                     // ["terms"=> [ "authority_id" => $this->relatedAuthorityIds() ] ],
@@ -424,7 +424,7 @@ class Item extends Model
 
     public function getAuthorsAttribute($value)
     {
-        $authors_array = $this->makeArray($this->attributes['author']);
+        $authors_array = $this->makeArray($this->author);
         $authors = array();
         foreach ($authors_array as $author) {
             $authors[$author] = preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $author);
@@ -434,46 +434,46 @@ class Item extends Model
 
     public function getAuthorFormated($value)
     {
-        return preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $this->attributes['author']);
+        return preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $this->author);
     }
 
     public function getFirstAuthorAttribute($value)
     {
-        $authors_array = $this->makeArray($this->attributes['author']);
+        $authors_array = $this->makeArray($this->author);
         return reset($authors_array);
     }
 
     public function getSubjectsAttribute($value)
     {
-        $subjects_array = $this->makeArray($this->attributes['subject']);
+        $subjects_array = $this->makeArray($this->subject);
         return $subjects_array;
     }
 
     public function getTopicsAttribute($value)
     {
-        return $this->makeArray($this->attributes['topic']);
+        return $this->makeArray($this->topic);
     }
 
     public function getMediumsAttribute($value)
     {
-        return $this->makeArray($this->attributes['medium']);
+        return $this->makeArray($this->medium);
     }
 
     public function getTechniquesAttribute($value)
     {
-        return $this->makeArray($this->attributes['technique']);
+        return $this->makeArray($this->technique);
     }
 
     public function getMeasurementsAttribute($value)
     {
         $trans = array("; " => ";", "()" => "");
-        return explode(';', strtr($this->attributes['measurement'], $trans));
+        return explode(';', strtr($this->measurement, $trans));
 
-        // $measurements_array = explode(';', $this->attributes['measurement']);
+        // $measurements_array = explode(';', $this->measurement);
         // $measurements = array();
         // $measurements[0] = array();
         // $i = -1;
-        // if (!empty($this->attributes['measurement'])) {
+        // if (!empty($this->measurement)) {
         // 	foreach ($measurements_array as $key=>$measurement) {
         // 		if ($key%2 == 0) {
         // 			$i++;
@@ -507,7 +507,7 @@ class Item extends Model
     {
         $value = null;
         $trans = array("; " => ";", ", " => ";", "()" => "");
-        $measurements =  explode(';', strtr($this->attributes['measurement'], $trans));
+        $measurements =  explode(';', strtr($this->measurement, $trans));
         foreach ($measurements as $measurement) {
             if (str_contains($measurement, $dimension)) {
                 $value = preg_replace("/[^0-9\.]/", "", $measurement);
@@ -639,12 +639,12 @@ class Item extends Model
         }
 
         //ak je autor neznamy
-        if (stripos($this->attributes['author'], 'neznámy') !== false) {
+        if (stripos($this->author, 'neznámy') !== false) {
             return true;
         }
 
         //ak je dielo naozaj stare
-        if ((date('Y') - $this->attributes['date_latest']) > $limit_according_item_dating) {
+        if ((date('Y') - $this->date_latest) > $limit_according_item_dating) {
             return true;
         }
 
@@ -662,7 +662,7 @@ class Item extends Model
 
     public function isForReproduction()
     {
-        return ($this->attributes['gallery'] == 'Slovenská národná galéria, SNG');
+        return ($this->gallery == 'Slovenská národná galéria, SNG');
     }
 
     public function scopeHasImage($query)
@@ -707,7 +707,7 @@ class Item extends Model
 
         header('Set-Cookie: fileDownload=true; path=/');
         $url = 'http://imi.sng.cust.eea.sk/publicIS/fcgi-bin/iipsrv.fcgi?FIF=' . $image->iipimg_url . '&CVT=JPG';
-        $filename = $this->attributes['id'].'.jpg';
+        $filename = $this->id.'.jpg';
 
         set_time_limit(0);
         $ch = curl_init();
@@ -750,7 +750,7 @@ class Item extends Model
             }
             $used_authorities[]= trim($authority->name, ', ');
         }
-        $authors_all = DB::table('authority_item')->where('item_id', $this->attributes['id'])->get();
+        $authors_all = DB::table('authority_item')->where('item_id', $this->id)->get();
         foreach ($authors_all as $author) {
             if (!in_array($author->name, $used_authorities) && !empty($author->name)) {
                 $link = '<a class="underline" href="'. url_to('katalog', ['author' => $author->name]) .'">'. preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $author->name) .'</a>';
@@ -838,7 +838,7 @@ class Item extends Model
             $client->index([
                 'index' => $elastic_translatable->getIndexForLocale($locale),
                 'type' =>  self::ES_TYPE,
-                'id' => $this->attributes['id'],
+                'id' => $this->id,
                 'body' => $data,
             ]);
         }
