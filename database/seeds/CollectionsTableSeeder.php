@@ -1,4 +1,7 @@
-<?php 
+<?php
+
+use Illuminate\Database\Seeder;
+
 class CollectionsTableSeeder extends Seeder {
 
 	/**

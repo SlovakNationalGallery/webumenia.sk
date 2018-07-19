@@ -195,7 +195,7 @@ class ItemController extends Controller
         $items = Item::where('id', 'LIKE', $prefix.'%')->get();
         foreach ($items as $key => $item) {
             $item_data = $item->toArray();
-            
+
             $keys = array();
             $values = array();
             foreach ($item_data as $key => $value) {
@@ -249,16 +249,20 @@ class ItemController extends Controller
     private function uploadImage($item)
     {
         $item->removeImage();
-        
+
         $error_messages = array();
         $primary_image = Input::file('primary_image');
         $full = true;
         $filename = $item->getImagePath($full);
         $uploaded_image = \Image::make($primary_image->getRealPath());
         if ($uploaded_image->width() > $uploaded_image->height()) {
-            $uploaded_image->widen(800);
+            $uploaded_image->widen(800, function ($constraint) {
+                $constraint->upsize();
+            });
         } else {
-            $uploaded_image->heighten(800);
+            $uploaded_image->heighten(800, function ($constraint) {
+                $constraint->upsize();
+            });
         }
         $uploaded_image->save($filename);
     }
@@ -282,7 +286,7 @@ class ItemController extends Controller
                 $item->collections()->detach();
 
                 SpiceHarvesterRecord::where('identifier', '=', $item_id)->delete();
-                
+
                 $item->delete();
             }
         }
@@ -311,7 +315,7 @@ class ItemController extends Controller
     {
         $i = 0;
 
-        Item::chunk(200, function ($items) use (&$i) {
+        Item::with('images')->chunk(200, function ($items) use (&$i) {
             $items->load('authorities');
             foreach ($items as $item) {
                 $item->index();

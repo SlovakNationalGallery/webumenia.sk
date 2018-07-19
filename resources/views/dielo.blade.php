@@ -41,11 +41,11 @@
             </div>
             <div class="row">
                 <div class="col-md-8 text-center">
-                        @if (!empty($item->iipimg_url))
-                            <a href="{!! URL::to('dielo/' . $item->id . '/zoom') !!}" data-toggle="tooltip" data-placement="top" title="{{ utrans('general.item_zoom') }}">
-                        @endif    
+                        @if ($item->has_iip)
+                            <a href="{{ route('item.zoom', ['id' => $item->id]) }}" data-toggle="tooltip" data-placement="top" title="{{ utrans('general.item_zoom') }}">
+                        @endif
                         <img src="{!! $item->getImagePath() !!}" class="img-responsive img-dielo" alt="{!! $item->getTitleWithAuthors() !!}" itemprop="image">
-                        @if (!empty($item->iipimg_url))
+                        @if ($item->has_iip)
                             </a>
                         @endif
                         <div class="row">
@@ -59,13 +59,13 @@
                             </div>
 
                             <div class="col-md-12 text-center">
-                                @if (!empty($item->iipimg_url))
-                                   <a href="{!! URL::to('dielo/' . $item->id . '/zoom') !!}" class="btn btn-default btn-outline  sans"><i class="fa fa-search-plus"></i> {{ trans('general.item_zoom') }}</a>
+                                @if ($item->has_iip)
+                                   <a href="{{ route('item.zoom', ['id' => $item->id]) }}" class="btn btn-default btn-outline  sans"><i class="fa fa-search-plus"></i> {{ trans('general.item_zoom') }}</a>
                                 @endif
                                 @if ($item->isForReproduction())
                                     <a href="{!! URL::to('dielo/' . $item->id . '/objednat')  !!}" class="btn btn-default btn-outline  sans"><i class="fa fa-shopping-cart"></i> {{ trans('dielo.item_order') }} </a>
                                 @endif
-                                @if ($item->isFreeDownload())                                
+                                @if ($item->isFree() && $item->hasZoomableImages())
                                     <a href="{!! URL::to('dielo/' . $item->id . '/stiahnut')  !!}" class="btn btn-default btn-outline  sans" id="download"><i class="fa fa-download"></i> {{ trans('dielo.item_download') }} </a>
                                 @endif
                             </div>
@@ -220,7 +220,7 @@
                                         <td>{{ $item->acquisition_date }}</td>
                                     </tr>
                                 @endif
-                                @if ($item->isFreeDownload())
+                                @if ($item->isFree() && $item->hasZoomableImages())
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_licence') }}:</td>
                                     {{-- <td><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs" target="_blank" class="no-border"><img alt="Creative Commons License" style="border-width:0; padding-top: 2px;"  src="/images/license/by-nc-sa.svg" title="Creative Commons BY-NC-SA 4.0" data-toggle="tooltip"></a></td> --}}
@@ -253,11 +253,11 @@
                         <?php $related_items = App\Item::where('related_work', '=', $item->related_work)->where('author', '=', $item->author)->orderBy('related_work_order')->get() ?>
                         @if ($related_items->count() > 1)
                         <div style="position: relative; padding: 0 10px;">
-                        <div class="artworks-preview small">
-                        @foreach ($related_items as $item)
-                            <a href="{!! $item->getUrl() !!}"><img data-lazy="{!! $item->getImagePath() !!}" class="img-responsive-width " alt="{!! $item->getTitleWithAuthors() !!} "></a>
-                        @endforeach
-                        </div>
+                            @include('components.artwork_carousel', [
+                                'slick_target' => "artworks-preview",
+                                'slick_variant' => "small",
+                                'items' => $related_items,
+                            ])
                         </div>
                         @endif
                     @endif
@@ -278,16 +278,37 @@
         </div>
     </div>
 </section>
-<section class="more-items content-section">
+
+@if ($colors_used || $similar_by_color)
+<section class="content-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h4>{{ trans('dielo.more-items_similar-colors') }}</h4>
+                @if ($colors_used)
+                @include('components.color_list', ['colors' => $colors_used])
+                @endif
+                @if ($similar_by_color)
+                    @include('components.artwork_carousel', [
+                        'slick_target' => "artworks-preview",
+                        'items' => $similar_by_color,
+                    ])
+                @endif
+            </div>
+        </div>
+    </div>
+</section>
+@endif
+
+<section class="more-items content-section light-grey">
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
                 <h4>{{ trans('dielo.more-items_related-artworks') }}</h4>
-                <div class="artworks-preview ">
-                @foreach ($more_items as $item)
-                    <a href="{!! $item->getUrl() !!}"><img data-lazy="{!! $item->getImagePath() !!}" class="img-responsive-width " alt="{!! $item->getTitleWithAuthors() !!} "></a>
-                @endforeach
-                </div>
+                @include('components.artwork_carousel', [
+                    'slick_target' => "artworks-preview",
+                    'items' => $more_items,
+                ])
             </div>
         </div>
     </div>
@@ -332,9 +353,10 @@
 
 
 @section('javascript')
-{!! Html::script('js/slick.js') !!}
 {!! Html::script('js/readmore.min.js') !!}
 {!! Html::script('js/jquery.fileDownload.js') !!}
+
+@include('components.artwork_carousel_js', ['slick_query' => '.artworks-preview'])
 
 @if (!empty($item->lat) && ($item->lat > 0)) 
     <!-- Google Maps API Key - You will need to use your own API key to use the map feature -->
@@ -386,17 +408,6 @@
                 }
             });
             return false; //this is critical to stop the click event which will trigger a normal file download!
-        });
-
-        $('.artworks-preview').slick({
-            dots: false,
-            lazyLoad: 'progressive',
-            infinite: false,
-            speed: 300,
-            slidesToShow: 1,
-            slide: 'a',
-            centerMode: false,
-            variableWidth: true,
         });
 
 // $(document).on("click", "#download", function() {

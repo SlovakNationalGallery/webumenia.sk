@@ -13,9 +13,11 @@
 
 use App\Article;
 use App\Collection;
+use App\ItemImage;
 use App\Item;
 use App\Slide;
 use App\Order;
+use App\Color;
 
 Route::group(['domain' => 'media.webumenia.{tld}'], function () {
     Route::get('/', function ($tld) {
@@ -74,8 +76,8 @@ Route::group(['domain' => '{subdomain}.moravska-galerie.{tld}'], function () {
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
     'middleware' => [ 'localeSessionRedirect', 'localizationRedirect' ]
-], 
-function() 
+],
+function()
 {
     Route::get('leto', function () {
 
@@ -105,7 +107,7 @@ function()
 
     Route::get('objednavka', function () {
 
-        $items = Item::find(Session::get('cart', array()));
+        $items = Item::with('images')->find(Session::get('cart', array()));
 
         return view('objednavka', array('items' => $items));
     });
@@ -187,14 +189,29 @@ function()
 
         $item = Item::find($id);
 
-        if (empty($item->iipimg_url)) {
+        if (empty($item->has_iip)) {
             App::abort(404);
         }
 
-        $related_items = (!empty($item->related_work)) ? Item::where('related_work', '=', $item->related_work)->where('author', '=', $item->author)->whereNotNull('iipimg_url')->orderBy('related_work_order')->lists('iipimg_url')->toArray() : [];
+        $images = $item->getZoomableImages();
+        $index =  0;
+        if ($images->count() <= 1 && !empty($item->related_work)) {
+            $related_items = Item::related($item)->with('images')->get();
 
-        return view('zoom', array('item' => $item, 'related_items' => $related_items));
-    });
+            $images = collect();
+            foreach ($related_items as $related_item) {
+                if ($image = $related_item->getZoomableImages()->first()) {
+                    $images->push($image);
+                }
+            }
+
+            $index = $images->search(function (ItemImage $image) use ($item) {
+                return $image->item->id == $item->id;
+            });
+        }
+
+        return view('zoom', array('item' => $item, 'images' => $images, 'index' => $index));
+    })->name('item.zoom');
 
     Route::get('ukaz_skicare', 'SkicareController@index');
     Route::get('skicare', 'SkicareController@getList');
@@ -236,15 +253,9 @@ function()
 
         $item = Item::find($id);
 
-        if (empty($item) || !$item->isFreeDownload()) {
+        if (empty($item) || !$item->publicDownload()) {
         	App::abort(404);
         }
-        $item->timestamps = false;
-        $item->download_count += 1;
-        $item->save();
-        $item->download();
-
-        // return Response::download($pathToFile);
     }]);
 
     Route::get('dielo/{id}', function ($id) {
@@ -276,8 +287,55 @@ function()
             }
         }
 
-        return view('dielo', array('item' => $item, 'more_items' => $more_items, 'previous' => $previous, 'next' => $next));
+        $similar_by_color = [];
+        $colors_used = [];
+
+        if ($item->color_descriptor) {
+            $similar_by_color = $item->similarByColor(100);
+            $colors_used = $item->getColorsUsed(Color::TYPE_HEX);
+
+            uasort($colors_used, function ($a, $b) {
+                if ($a['amount'] == $b['amount']) {
+                    return 0;
+                }
+
+                return $a['amount'] < $b['amount'] ? 1 : -1;
+            });
+
+            $amount_sum = array_sum(array_column($colors_used, 'amount'));
+            foreach ($colors_used as $hex => $color_used) {
+                $colors_used[$hex]['amount'] = sprintf("%.3f%%", $colors_used[$hex]['amount'] * 100 / $amount_sum, 3);
+                $colors_used[$hex]['hex'] = $colors_used[$hex]['color']->getValue();
+            }
+        }
+
+        return view('dielo', compact(
+            'item',
+            'more_items',
+            'similar_by_color',
+            'colors_used',
+            'previous',
+            'next'
+        ));
     });
+
+    Route::get('dielo/nahlad/{id}/{width}', function ($id, $width) {
+
+        if (
+            ($width <= 800) &&
+            Item::where('id', '=', $id)->exists()
+        ) {
+            // disable resizing when requesting 800px width
+            $width = ($width == 800) ? false : $width;
+            $resize_method = 'widen';
+            $imagePath = public_path() . Item::getImagePathForId($id, false, $width, $resize_method);
+
+            return response()->file($imagePath);
+        }
+
+        return App::abort(404);
+
+    })->where('width', '[0-9]+')->name('dielo.nahlad');
 
     Route::controller('patternlib', 'PatternlibController');
 
@@ -298,8 +356,6 @@ function()
     Route::get('kolekcia/{slug}', 'KolekciaController@getDetail');
 
     Route::get('informacie', function () {
-
-        // $items = Item::forReproduction()->hasImage()->hasZoom()->limit(20)->orderByRaw("RAND()")->get();
         $items = Item::random(20, ['gallery' => 'Slovenská národná galéria, SNG']);
 
         return view('informacie', ['items' => $items]);
@@ -312,11 +368,8 @@ Route::group(array('middleware' => 'guest'), function () {
 });
 
 Route::group(['middleware' => ['auth', 'role:admin|editor|import']], function () {
-
     Route::get('admin', 'AdminController@index');
     Route::get('logout', 'AuthController@logout');
-
-    Route::get('harvests/{record_id}/refreshRecord/', 'SpiceHarvesterController@refreshRecord');
     Route::get('imports/launch/{id}', 'ImportController@launch');
     Route::resource('imports', 'ImportController');
     Route::get('item/search', 'ItemController@search');
@@ -338,13 +391,13 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::resource('article', 'ArticleController');
     Route::get('harvests/launch/{id}', 'SpiceHarvesterController@launch');
     Route::get('harvests/orphaned/{id}', 'SpiceHarvesterController@orphaned');
+    Route::get('harvests/{record_id}/refreshRecord/', 'SpiceHarvesterController@refreshRecord');
     Route::resource('harvests', 'SpiceHarvesterController');
     Route::get('item/backup', 'ItemController@backup');
     Route::get('item/geodata', 'ItemController@geodata');
     Route::post('item/refreshSelected', 'ItemController@refreshSelected');
     Route::get('item/reindex', 'ItemController@reindex');
     Route::get('authority/destroyLink/{link_id}', 'AuthorityController@destroyLink');
-    Route::get('authority/search', 'AuthorityController@search');
     Route::get('authority/reindex', 'AuthorityController@reindex');
     Route::post('authority/destroySelected', 'AuthorityController@destroySelected');
     Route::resource('authority', 'AuthorityController');

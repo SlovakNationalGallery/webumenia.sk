@@ -114,21 +114,13 @@ class MgImporter extends AbstractImporter {
         return $id;
     }
 
-    protected function getItemImageFilename(array $record) {
+    protected function getItemImageFilenameFormat(array $record) {
         $filename = sprintf('%s%s', $record['Rada_S'], str_pad($record['PorC_S'], 6, '0', STR_PAD_LEFT));
         if ($record['Lomeni_S'] != '_') {
             $filename = sprintf('%s-%s', $filename, $record['Lomeni_S']);
         }
 
         return $filename;
-    }
-
-    protected function getItemIipImageUrl($csv_filename, $image_filename) {
-        return sprintf(
-            'MGHQ/%s/%s.jp2',
-            basename($csv_filename, '.csv'),
-            $image_filename
-        );
     }
 
     protected function hydrateIdentifier(array $record) {
@@ -149,7 +141,7 @@ class MgImporter extends AbstractImporter {
     }
 
     protected function hydrateWorkType(array $record) {
-        return (isset(self::$cz_work_types_spec[$record['Skupina']])) ? self::$cz_work_types_spec[$record['Skupina']] : 'nespecifikované';
+        return (isset(static::$cz_work_types_spec[$record['Skupina']])) ? static::$cz_work_types_spec[$record['Skupina']] : 'nespecifikované';
     }
 
     protected function hydrateRelationshipType(array $record) {
@@ -161,7 +153,7 @@ class MgImporter extends AbstractImporter {
     }
 
     protected function hydrateMeasurement(array $record) {
-        return (!empty($record['Služ']) && $record['Služ'] != '=') ? strtr($record['Služ'], self::$cz_measurement_replacements)  : '';
+        return (!empty($record['Služ']) && $record['Služ'] != '=') ? strtr($record['Služ'], static::$cz_measurement_replacements)  : '';
     }
 
     protected static function isBiennial(array $record) {

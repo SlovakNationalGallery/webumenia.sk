@@ -9,7 +9,7 @@ return array(
     */
 
     'title_searched'         => 'výsledky vyhľadávania pre',
-    'title_not_searched'     => 'diela',
+    'title'                  => 'diela',
     'filters_author'         => 'autor',
     'filters_work_type'      => 'výtvarný druh',
     'filters_tag'            => 'tagy',
@@ -21,12 +21,13 @@ return array(
     'filters_has_image'      => 'len s obrázkom',
     'filters_has_iip'        => 'len so zoom',
     'filters_is_free'        => 'len voľné',
+    'filters_color'          => 'farba',
     'catalog_found_artworks' => 'nájdené diela pre',
     'catalog_artworks'       => 'diel',
     'catalog_no_artworks'    => 'momentálne žiadne diela',
     'catalog_show_more'      => 'ukáž viac',
     'catalog_finished'       => 'to je všetko',
-    
+
     // in model item.sortable
     'sortable_updated_at'    => 'poslednej zmeny',
     'sortable_created_at'    => 'dátumu pridania',

@@ -73,13 +73,10 @@ $(document).ready(function(){
 
 function spravGrid($container) {
     $container.isotope({
-        itemSelector : '.item',
-        masonry: {
-            isFitWidth: true,
-            gutter: 20
-        }
+        itemSelector: '.item',
+        layoutMode: 'masonry'
     });
-} 
+}
 
 var light_style = [
     {
@@ -191,3 +188,7 @@ var light_style = [
         ]
     }
 ];
+
+function isIE() { return navigator.userAgent.match(/Edge\/|Trident\/|MSIE /); }
+
+function isMobileSafari() { return navigator.userAgent.match(/(iPod|iPhone|iPad)/); }

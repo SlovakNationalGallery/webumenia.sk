@@ -11,25 +11,15 @@
 
 		<title>
 			@section('title')
-			Web umenia 
+			Web umenia
 			@show
 		</title>
 
 		<!--  favicons-->
 		@include('includes.favicons')
 		<!--  /favicons-->
-
 		<!--  Open Graph protocol -->
-		<meta name="twitter:card" content="summary" />
-		<meta name="twitter:site" content="@webumeniaSK" />
-		@section('og')
-		<meta property="og:title" content="Web umenia" />
-		<meta property="og:description" content="{{ trans('master.meta_description') }}" />
-		<meta property="og:type" content="website" />
-		<meta property="og:url" content="{!! Request::url() !!}" />
-		<meta property="og:image" content="{!! URL::to('/images/og-image-'.random_int(1, 2).'.jpg') !!}" />
-		<meta property="og:site_name" content="web umenia" />
-		@show
+		@include('includes.og_tags')
 		<!--  Open Graph protocol -->
 
 		@yield('link')
@@ -44,7 +34,7 @@
 		    document.createElement( "picture" );
 		</script>
 		{!! Html::script('js/picturefill.min.js') !!}
-		
+
         {!! Html::script('js/modernizr.custom.js') !!}
 
 		@if (App::environment() == 'production')
@@ -87,7 +77,7 @@
 	<nav class="navbar {{-- navbar-fixed-top --}} {{-- navbar-static-top --}} {!! (Request::is('/') || isSet($transparent_menu)) ? '' : 'dark-text' !!}" role="navigation">
 	    <div class="container">
 	        <div class="navbar-header page-scroll">
-              
+
               @include('components.langswitch', [
                 'currentLocale' => App::getLocale(),
                 'localesOrdered' => LaravelLocalization::getLocalesOrder(),
@@ -100,15 +90,15 @@
 	            <a class="navbar-brand no-border hidden-xs first-part" href="{!! URL::to('') !!}">
 	                web
 	            </a>
-	            {!! Form::open(['url' => 'katalog', 'method' => 'get', 'class' => 'navbar-form right-inner-addon', 'data-searchd-engine' => Config::get('app.searchd_id_autocomplete')]) !!}
-	            			<i class="fa fa-search"></i>
-	            			{!! Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => utrans('master.search_placeholder'), 'id'=>'search', 'autocomplete'=>'off')) !!}
-	            			{!!  Form::submit('submit'); !!}
-	            {!!Form::close() !!}
+
+	            @include('components.searchbar', [
+	              'search' => isSet($search) ? $search : '',
+	            ])
+
 	            <a class="navbar-brand no-border hidden-xs second-part" href="{!! URL::to('') !!}">
 	                umenia
 	            </a>
-	            {{-- 
+	            {{--
 	            @if (Request::is('dielo/*') && isSet($collection))
 	            	 <a href="{!! $collection->getUrl() !!}" class="navbar-brand text-small hidden-xs hidden-sm">/&nbsp; {!! $collection->name !!}</a>
 	            @endif
@@ -168,7 +158,7 @@
       			<p class="text-muted text-right">{{ utrans('master.made_by') }} <a href="http://lab.sng.sk" target="_blank" class="sans">lab.SNG</a></p>
       		</div>
       	</div>
-        
+
       </div>
     </div>
 
@@ -180,15 +170,15 @@
 
 	<!-- Core JavaScript Files -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/4.0.1/lazysizes.min.js" async=""></script>
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 	<script src="https://unpkg.com/flickity@1.1/dist/flickity.pkgd.min.js"></script>
-	{!! Html::script('js/imagesloaded.min.js') !!}
 	{!! Html::script('js/jquery.infinitescroll.min.js') !!}
-	{!! Html::script('js/jquery.isotope.min.js') !!}
-	{!! Html::script('js/jquery.isotope.sloppy-masonry.min.js') !!}
-	{!! Html::script('js/bootstrap.min.js') !!}
-	{!! Html::script('js/typeahead.bundle.min.js') !!}
-	{!! Html::script('js/webumenia.js') !!}
+    {!! Html::script('js/bootstrap.min.js') !!}
+    @include('components.searchbar_js')
+    <script src="{!! asset_timed('js/webumenia.js') !!}"></script>
+
 
 	<!-- Content -->
 	@yield('javascript')

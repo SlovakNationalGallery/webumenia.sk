@@ -20,11 +20,12 @@ return array(
                      |[2,4]  <strong>:view_count</strong> videnia
                      |[5,Inf]<strong>:view_count</strong> videní',
     
-    'tags'            => 'tagy',
-    'back-to-artists' => 'zoznam autorov',
-    'places'          => 'Pôsobenie',
-    'links'           => 'Externé odkazy',
-    'relationships'   => 'Vzťahy',
+    'tags'              => 'tagy',
+    'back-to-artists'   => 'zoznam autorov',
+    'alternative_names' => 'příp.',
+    'places'            => 'Pôsobenie',
+    'links'             => 'Externé odkazy',
+    'relationships'     => 'Vzťahy',
 
     'artworks_by_artist' => 'diela autora',
     

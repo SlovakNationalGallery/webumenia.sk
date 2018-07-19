@@ -47,7 +47,7 @@
                     <a href="{!! str_contains(URL::previous(), '/autori') ?  URL::previous() : URL::to('/autori') !!} " class="inherit no-border"><i class="icon-arrow-left"></i> {{ utrans('autor.back-to-artists') }}</a>
                     <h1 itemprop="name">{!! $author->formatedName !!}</h1>
                     @if ( $author->names->count() > 0)
-                        <p class="lead">príp.  <em>{!! implode("</em>, <em>", $author->formatedNames) !!}</em></p>
+                        <p class="lead">{{ trans('autor.alternative_names') }} <em>{!! implode("</em>, <em>", $author->formatedNames) !!}</em></p>
                     @endif
                     <p class="lead">
                         {!! $author->getDescription(true, true) !!}
@@ -120,11 +120,11 @@
         </div>{{-- row --}}
         <div class="row">   
             <div class="col-xs-12">
-                <div class="artworks-preview large">
-                    @foreach ($author->getPreviewItems() as $item)
-                        <a href="{!! $item->getUrl() !!}"><img data-lazy="{!! $item->getImagePath() !!}" class="img-responsive-width large" alt="{!! $item->getTitleWithAuthors() !!} " title="{!! $item->getTitleWithAuthors() !!} "></a>
-                    @endforeach
-                </div>
+                @include('components.artwork_carousel', [
+                    'slick_target' => "artworks-preview",
+                    'slick_variant' => "large",
+                    'items' => $author->getPreviewItems(),
+                ])
             </div>  
         </div>{{-- row --}}
         <div class="row content-section">
@@ -144,7 +144,8 @@
 
 @section('javascript')
 {!! Html::script('js/readmore.min.js') !!}
-{!! Html::script('js/slick.js') !!}
+
+@include('components.artwork_carousel_js', ['slick_query' => '.artworks-preview'])
 
 <script type="text/javascript">
     $(document).ready(function(){
@@ -159,18 +160,6 @@
               }
             }
         });
-
-        $('.artworks-preview').slick({
-            dots: false,
-            lazyLoad: 'progressive',
-            infinite: false,
-            speed: 300,
-            slidesToShow: 1,
-            slide: 'a',
-            centerMode: false,
-            variableWidth: true,
-        });
-
 
     });
 </script>

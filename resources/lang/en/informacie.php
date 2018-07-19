@@ -24,10 +24,11 @@ return array(
     'info_gallery_NGN'   => 'Nitra Gallery',
     'info_gallery_SGB'   => 'Central Slovak Gallery',
     'info_gallery_GUS'   => 'Gallery of Spiš Artists',
+    'info_gallery_MG'    => 'Moravian Gallery',
 
     'mozete_heading'               => 'On Web Umenia you can',
     'mozete_col_stahovat_heading'  => 'Download artworks in Public Domain',
-    'mozete_col_stahovat_li_1'     => 'Digital reproductions of <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank"><strong>public domain</strong></a> arwtorks from several gallery collections are available for download in <strong>high resolution</strong> for both personal and commercial use - i.e. copy, modify and share freely. ',
+    'mozete_col_stahovat_li_1'     => 'Digital reproductions of <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank"><strong>public domain</strong></a> arwtorks from several gallery collections are available for download in <strong>high resolution</strong> for both personal and commercial use - i.e. copy, modify and share freely. ',
     'mozete_col_stahovat_li_2'     => 'When sharing, <strong>please include the artist name, artwork title, owner and the source</strong> (<a href="http://www.webumenia.sk">webumenia.sk</a>) ',
     'mozete_col_stahovat_li_3'     => 'If you intend to use the reproductions for <strong>commercial purpose</strong>, please inform us in advance, we can offer advice.',
     'mozete_col_vyuzivat_heading'  => 'Reuse artworks in Public Domain, e.g.:',
@@ -50,6 +51,8 @@ return array(
                                              <li><strong>Lukáš Štepanovský</strong> content editor, article author</li>
                                              <li><strong>Igor Rjabinin</strong> developer</li>
                                              <li><strong>Philo van Kemenade</strong> developer</li>
+                                             <li><strong>Rastislav Chynoranský</strong> developer</li>
+                                             <li><strong>Adam Juraszek</strong> developer</li>
                                              <li><strong>Gabriel Balkó</strong> quality control, content editor</li>
                                              <li><strong>Braňo Matis</strong> graphic designer</li>',
 

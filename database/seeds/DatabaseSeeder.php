@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
-
 
 class DatabaseSeeder extends Seeder {
 
@@ -17,13 +15,12 @@ class DatabaseSeeder extends Seeder {
 
 		$this->call('UsersTableSeeder');
 		$this->call('HarvestsTableSeeder');
-		$this->call('CollectionsTableSeeder');
+		// $this->call('CollectionsTableSeeder');
 		$this->call('CategoriesTableSeeder');
-		$this->call('ArticlesTableSeeder');
+		// $this->call('ArticlesTableSeeder');
 		$this->call('RolesTableSeeder');
-		$this->call('SketchbooksTableSeeder');
-		$this->call('SlidesTableSeeder');
-		$this->call('ImportRoleTableSeeder');
+		// $this->call('SketchbooksTableSeeder');
+		// $this->call('SlidesTableSeeder');
 	}
 
 }

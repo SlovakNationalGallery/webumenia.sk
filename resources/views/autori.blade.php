@@ -118,11 +118,10 @@
             </div>
             <div class="clearfix visible-xs bottom-space"></div>
             <div class="col-sm-6" >
-                <div class="artworks-preview">
-                @foreach ($author->getPreviewItems() as $item)
-                    <a href="{!! $item->getUrl() !!}"><img data-lazy="{!! $item->getImagePath() !!}" class="img-responsive-width" alt="{!! $item->getTitleWithAuthors() !!} " title="{!! $item->getTitleWithAuthors() !!} "></a>
-                @endforeach
-                </div>
+                @include('components.artwork_carousel', [
+                    'slick_target' => "artworks-preview",
+                    'items' => $author->getPreviewItems(),
+                ])
             </div>
         </div>
     	@endforeach
@@ -144,7 +143,8 @@
 
 {!! Html::script('js/bootstrap-slider.min.js') !!}
 {!! Html::script('js/selectize.min.js') !!}
-{!! Html::script('js/slick.js') !!}
+
+@include('components.artwork_carousel_js', ['slick_query' => '.artworks-preview'])
 
 <script type="text/javascript">
 
@@ -206,17 +206,6 @@ $(document).ready(function(){
         e.preventDefault();
         $('#sort_by').val($(this).attr('rel'));
         $('#filter').submit();
-    });
-
-    $('.artworks-preview').slick({
-        dots: false,
-        lazyLoad: 'progressive',
-        infinite: false,
-        speed: 300,
-        slidesToShow: 1,
-        slide: 'a',
-        centerMode: false,
-        variableWidth: true,
     });
 
     // var $container = $('.autori');
