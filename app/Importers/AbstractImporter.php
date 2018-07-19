@@ -283,7 +283,7 @@ abstract class AbstractImporter implements IImporter {
      */
     protected function getImageJpgPaths(Import $import, $csv_filename, $image_filename_format) {
         $path = storage_path(sprintf(
-            'app/import/%s/%s/%s*.{jpg,jpeg,JPG,JPEG}',
+            'app/import/%s/%s/%s.{jpg,jpeg,JPG,JPEG}',
             $import->dir_path,
             pathinfo($csv_filename, PATHINFO_FILENAME),
             $image_filename_format
@@ -300,14 +300,14 @@ abstract class AbstractImporter implements IImporter {
      */
     protected function getImageJp2Paths(Import $import, $csv_filename, $image_filename_format) {
         $path = sprintf(
-            '%s/%s/%s/%s*.jp2',
+            '%s/%s/%s/%s.jp2',
             config('importers.iip_base_path'),
             $import->iip_dir_path,
             pathinfo($csv_filename, PATHINFO_FILENAME),
             $image_filename_format
         );
 
-        return glob($path);
+        return glob($path, GLOB_BRACE);
     }
 
     /**
