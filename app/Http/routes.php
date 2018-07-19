@@ -63,12 +63,28 @@ Route::group(['domain' => '{subdomain}.moravska-galerie.{tld}'], function () {
 
         $item = Item::find($id);
 
-        if (empty($item->iipimg_url)) {
+        if (empty($item->has_iip)) {
             App::abort(404);
         }
 
-        $related_items = (!empty($item->related_work)) ? Item::where('related_work', '=', $item->related_work)->where('author', '=', $item->author)->whereNotNull('iipimg_url')->orderBy('related_work_order')->lists('iipimg_url')->toArray() : [];
-        return view('zoom-mg', array('item' => $item, 'related_items' => $related_items));
+        $images = $item->getZoomableImages();
+        $index =  0;
+        if ($images->count() <= 1 && !empty($item->related_work)) {
+            $related_items = Item::related($item)->with('images')->get();
+
+            $images = collect();
+            foreach ($related_items as $related_item) {
+                if ($image = $related_item->getZoomableImages()->first()) {
+                    $images->push($image);
+                }
+            }
+
+            $index = $images->search(function (ItemImage $image) use ($item) {
+                return $image->item->id == $item->id;
+            });
+        }
+
+        return view('zoom-mg', array('item' => $item, 'images' => $images, 'index' => $index));
     });
 
 });
