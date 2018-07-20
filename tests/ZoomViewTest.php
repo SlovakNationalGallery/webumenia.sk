@@ -6,7 +6,6 @@ namespace Tests;
 
 use App\Item;
 use App\ItemImage;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ZoomViewTest extends TestCase
 {
@@ -26,7 +25,7 @@ class ZoomViewTest extends TestCase
         $response = $this->route('get', 'item.zoom', ['id' => $item->id]);
         $data = $response->original->getData();
 
-        $this->assertCount(1, $data['images']);
+        $this->assertCount(1, $data['fullIIPImgURLs']);
         $this->assertEquals(0, $data['index']);
     }
 
@@ -58,7 +57,7 @@ class ZoomViewTest extends TestCase
         $response = $this->route('get', 'item.zoom', ['id' => $item->id]);
         $data = $response->original->getData();
 
-        $this->assertCount(2, $data['images']);
+        $this->assertCount(2, $data['fullIIPImgURLs']);
         $this->assertEquals(1, $data['index']);
     }
 
@@ -96,7 +95,7 @@ class ZoomViewTest extends TestCase
         $response = $this->route('get', 'item.zoom', ['id' => $item->id]);
         $data = $response->original->getData();
 
-        $this->assertCount($count, $data['images']);
+        $this->assertCount($count, $data['fullIIPImgURLs']);
         $this->assertEquals(0, $data['index']);
     }
 
