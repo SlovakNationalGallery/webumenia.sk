@@ -1,7 +1,8 @@
-FROM php:5.6-apache
+# FROM php:5.6-apache
+FROM php:5.6
 
 COPY ./public /var/www/html
-COPY ./vhost.conf /etc/apache2/sites-available/000-default.conf
+# COPY ./vhost.conf /etc/apache2/sites-available/000-default.conf
 
 RUN apt-get update -y && apt-get install -y \
 	libmcrypt-dev \
@@ -13,8 +14,8 @@ RUN docker-php-ext-install \
 	pdo_mysql \
 	gd \
 	mcrypt \
-	zip \
-	&& a2enmod rewrite
+	zip
+	# && a2enmod rewrite
 
 RUN chown -R www-data:www-data /var/www
 
@@ -26,6 +27,9 @@ COPY database /var/www/database
 COPY tests/TestCase.php /var/www/tests/TestCase.php
 
 WORKDIR /var/www
+
+
 RUN composer install --no-plugins --no-scripts --no-interaction
 # todo: composer stuff can be moved to 'build' docker file for local dev
 # keep this as base dockerfile without composer stuff
+# CMD ["php", "-a"]

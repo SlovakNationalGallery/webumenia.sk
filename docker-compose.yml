@@ -1,22 +1,31 @@
 version: '2'
 services:
   web:
-    build: .
-    image: web_umenia
+    image: nginx:latest
     ports:
       - "8080:80"
     volumes:
-      - .:/var/www
+      # - .:/code
+      - .:/var/www/
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+  php:
+    build: .
+    image: web_umenia
+    ports:
+      - "9000:9000"
+    volumes:
+      - .:/code
       - ./public:/var/www/html
-      - ./vhost.conf:/etc/apache2/sites-available/000-default.conf
+      # - ./vhost.conf:/etc/apache2/sites-available/000-default.conf
     # links:
     #   - mysql
     #   - elasticsearch
     depends_on:
       - mysql
       - elasticsearch
+      - web
     env_file: .env
-    # 'web' service can speak to mysql and elasticsearch services
+    # 'php' service can speak to mysql and elasticsearch services
     # at these network addresses:
     #  - http://mysql:3306
     #  - http://elasticsearch:9200 
@@ -24,6 +33,7 @@ services:
     environment:
       DB_HOST: mysql
       ES_HOST: elasticsearch
+    tty: true
 
   mysql:
     image: mysql:5.6
