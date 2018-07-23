@@ -2,7 +2,11 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- Search endpoint of admin fixed
+
 ### Added
+- Remove query string from localized urls
 - Dockerfiles for WU to run in docker
 
 ## [1.5.0] - 2018-07-04

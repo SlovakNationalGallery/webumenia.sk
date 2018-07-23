@@ -331,6 +331,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('authority/destroyLink/{link_id}', 'AuthorityController@destroyLink');
     Route::get('authority/reindex', 'AuthorityController@reindex');
     Route::post('authority/destroySelected', 'AuthorityController@destroySelected');
+    Route::get('authority/search', 'AuthorityController@search');
     Route::resource('authority', 'AuthorityController');
     Route::resource('sketchbook', 'SketchbookController');
     Route::resource('slide', 'SlideController');
