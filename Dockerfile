@@ -28,6 +28,7 @@ COPY tests/TestCase.php /var/www/tests/TestCase.php
 
 WORKDIR /var/www
 
+# EXPOSE 9000
 
 RUN composer install --no-plugins --no-scripts --no-interaction
 # todo: composer stuff can be moved to 'build' docker file for local dev

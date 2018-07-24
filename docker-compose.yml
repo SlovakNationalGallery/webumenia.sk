@@ -8,22 +8,23 @@ services:
       # - .:/code
       - .:/var/www/
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    links:
+      - php
   php:
     build: .
     image: web_umenia
-    ports:
-      - "9000:9000"
     volumes:
-      - .:/code
+      - .:/var/www
       - ./public:/var/www/html
       # - ./vhost.conf:/etc/apache2/sites-available/000-default.conf
+    ports:
+      - "9000:9000"
     # links:
     #   - mysql
     #   - elasticsearch
     depends_on:
       - mysql
       - elasticsearch
-      - web
     env_file: .env
     # 'php' service can speak to mysql and elasticsearch services
     # at these network addresses:
