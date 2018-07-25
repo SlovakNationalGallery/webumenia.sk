@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file[^1].
 - Curator of artwork in detail view
 - admin-editable cron_status attribute added to SpiceHarvester harvests
 - daily and weekly cron jobs scheduled for harvests with appropriate cron_status 
+- Refactor spice harvester
 
 ## [1.5.3] - 2018-08-14
 ### Fixed

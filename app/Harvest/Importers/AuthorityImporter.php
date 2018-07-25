@@ -1,0 +1,89 @@
+<?php
+
+namespace App\Harvest\Importers;
+
+use App\Authority;
+use App\AuthorityRelationship;
+use App\Harvest\Mappers\AuthorityEventMapper;
+use App\Harvest\Mappers\AuthorityMapper;
+use App\Harvest\Mappers\AuthorityNameMapper;
+use App\Harvest\Mappers\AuthorityNationalityMapper;
+use App\Harvest\Mappers\AuthorityRelationshipMapper;
+use App\Harvest\Mappers\AuthorityRoleMapper;
+use App\Harvest\Mappers\LinkMapper;
+use App\Harvest\Mappers\NationalityMapper;
+use App\Harvest\Mappers\RelatedAuthorityMapper;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
+class AuthorityImporter extends AbstractImporter
+{
+    protected $modelClass = Authority::class;
+
+    protected $conditions = [
+        'events' => ['event', 'place', 'start_date', 'end_date'],
+        'names' => ['name'],
+        'roles' => ['role'],
+        'links' => ['url'],
+        'nationalities' => ['id'],
+        'relationships' => ['id'],
+    ];
+
+    public function __construct(
+        AuthorityMapper $mapper,
+        AuthorityEventMapper $authorityEventMapper,
+        AuthorityNameMapper $authorityNameMapper,
+        AuthorityNationalityMapper $authorityNationalityMapper,
+        AuthorityRelationshipMapper $authorityRelationshipMapper,
+        AuthorityRoleMapper $authorityRoleMapper,
+        LinkMapper $linkMapper,
+        NationalityMapper $nationalityMapper,
+        RelatedAuthorityMapper $relatedAuthorityMapper
+    ) {
+        parent::__construct($mapper);
+        $this->mappers = [
+            'events' => $authorityEventMapper,
+            'names' => $authorityNameMapper,
+            'roles' => $authorityRoleMapper,
+            'links' => $linkMapper,
+            'nationalities' => $nationalityMapper,
+            'relationships' => $relatedAuthorityMapper,
+        ];
+        $this->pivotMappers = [
+            'nationalities' => $authorityNationalityMapper,
+            'relationships' => $authorityRelationshipMapper,
+        ];
+    }
+
+    public function getModelId(array $row) {
+        return $this->mapper->mapId($row);
+    }
+
+    protected function processBelongsToMany(Model $model, $field, array $relatedRows, $createRelated = true) {
+        $createRelated &= !in_array($field, ['relationships', 'collections']);
+        parent::processBelongsToMany($model, $field, $relatedRows, $createRelated);
+    }
+
+    protected function existsPivotRecord(Model $model, $field, Model $relatedModel) {
+        if ($field !== 'relationships') {
+            return parent::existsPivotRecord($model, $field, $relatedModel);
+        }
+
+        /** @var BelongsToMany $relation */
+        $relation = $model->$field();
+
+        $foreignKeyName = $relation->getForeignKey();
+        $foreignKeyName = explode('.', $foreignKeyName);
+        $foreignKeyName = end($foreignKeyName);
+        $otherKeyName = $relation->getOtherKey();
+        $otherKeyName = explode('.', $otherKeyName);
+        $otherKeyName = end($otherKeyName);
+
+        // where on relation inner-joins related table,
+        // but the authority doesn't have to exist yet
+        return AuthorityRelationship::where([
+            $foreignKeyName => $model->getKey(),
+            $otherKeyName => $relatedModel->getKey(),
+        ])->exists();
+    }
+}
