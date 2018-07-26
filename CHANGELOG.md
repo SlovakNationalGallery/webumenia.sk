@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [1.5.1] - 2018-07-26
+### Fixed
+- Allow Z-prefixed item ID's in spice harvester
+
 ## [1.5.0] - 2018-07-04
 ### Fixed
 - ItemImage model changed to properly deal with fields with unique constraints
@@ -106,6 +110,7 @@ All notable changes to this project will be documented in this file[^1].
 - LICENSE from Public Domain into MIT
 
 [Unreleased]: https://github.com/SlovakNationalGallery/web-umenia-2/compare/master...develop
+[1.5.1]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/93
 [1.5.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/80
 [1.4.3]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/70
 [1.4.2]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/69
