@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Added
 - Remove query string from localized urls
+- Make migrations SQLite compatible
 
 ## [1.5.0] - 2018-07-04
 ### Fixed

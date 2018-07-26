@@ -26,9 +26,11 @@ class AddImageSourceAttributesToAuthorities extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('authorities', function($table)
-		{
+		Schema::table('authorities', function($table) {
 			$table->dropColumn('image_source_url');
+		});
+
+		Schema::table('authorities', function($table) {
 			$table->dropColumn('image_source_label');
 		});
 	}

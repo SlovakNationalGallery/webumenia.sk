@@ -14,7 +14,7 @@ class AddIdenitifierToItem extends Migration {
 	{
 		Schema::table('items', function($table)
 		{
-			$table->string('identifier');
+			$table->string('identifier')->default('');
 		});
 	}
 

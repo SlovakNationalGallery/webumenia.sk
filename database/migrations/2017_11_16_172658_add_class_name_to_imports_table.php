@@ -13,7 +13,7 @@ class AddClassNameToImportsTable extends Migration
     public function up()
     {
         Schema::table('imports', function (Blueprint $table) {
-            $table->string('class_name');
+            $table->string('class_name')->default('');
         });
     }
 

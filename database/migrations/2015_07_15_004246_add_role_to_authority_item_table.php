@@ -14,7 +14,7 @@ class AddRoleToAuthorityItemTable extends Migration {
 	{
 		Schema::table('authority_item', function($table)
 		{
-			$table->string('name');
+			$table->string('name')->default('');
 			$table->string('role')->default('autor/author');
 		});
 
@@ -27,9 +27,11 @@ class AddRoleToAuthorityItemTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('authority_item', function($table)
-		{
+		Schema::table('authority_item', function($table) {
 			$table->dropColumn('name');
+		});
+
+		Schema::table('authority_item', function($table) {
 			$table->dropColumn('role');
 		});
 	}
