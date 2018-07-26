@@ -2,10 +2,8 @@ language: php
 php: '5.6'
 services:
   - elasticsearch
-  - mysql
 before_install:
   - curl -O https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/deb/elasticsearch/2.4.1/elasticsearch-2.4.1.deb && sudo dpkg -i --force-confnew elasticsearch-2.4.1.deb && sudo service elasticsearch restart
-  - mysql -e 'CREATE DATABASE webumenia_test;'
 install:
   - composer install
 before_script:

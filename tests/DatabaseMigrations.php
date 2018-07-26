@@ -2,42 +2,15 @@
 
 namespace Tests;
 
-use Illuminate\Support\Facades\DB;
-
 trait DatabaseMigrations
 {
-    use \Illuminate\Foundation\Testing\DatabaseMigrations {
-        \Illuminate\Foundation\Testing\DatabaseMigrations::runDatabaseMigrations as parentRunDatabaseMigrations;
-    }
+    public function setUp() {
+        parent::setUp();
 
-    /**
-     * Define hooks to migrate the database before and after each test.
-     *
-     * @return void
-     */
-    public function runDatabaseMigrations()
-    {
-        $tables = DB::select('SHOW TABLES');
+        try {
+            $this->artisan('migrate:rollback');
+        } catch(\PDOException $e) {}
 
-        if ($tables) {
-            $droplist = [];
-            $colname = 'Tables_in_' . env('DB_DATABASE');
-            foreach ($tables as $table) {
-                $droplist[] = $table->$colname;
-            }
-            $droplist = implode(',', $droplist);
-
-            DB::beginTransaction();
-            //turn off referential integrity
-            DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-            DB::statement("DROP TABLE $droplist");
-            //turn referential integrity back on
-            DB::statement('SET FOREIGN_KEY_CHECKS = 1');
-            DB::commit();
-        }
-
-        $this->parentRunDatabaseMigrations();
-
-        array_pop($this->beforeApplicationDestroyedCallbacks);
+        $this->artisan('migrate');
     }
 }

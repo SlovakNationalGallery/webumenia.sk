@@ -114,6 +114,13 @@ class ZoomViewTest extends TestCase
         $item->medium = '';
         $item->technique = '';
         $item->gallery = '';
+        $item->description = '';
+        $item->work_level = '';
+        $item->subject = '';
+        $item->measurement = '';
+        $item->item_type = '';
+        $item->featured = '';
+        $item->inscription = '';
 
         foreach ($data as $key => $value) {
             $item->$key = $value;
@@ -124,6 +131,8 @@ class ZoomViewTest extends TestCase
 
     protected function createItemImage(array $data = []) {
         $image = new ItemImage();
+
+        $data += ['order' => 0];
 
         foreach ($data as $key => $value) {
             $image->$key = $value;

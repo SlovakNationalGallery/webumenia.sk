@@ -10,16 +10,6 @@ class WebumeniaMgImporterTest extends TestCase
 {
     use DatabaseMigrations;
 
-    /** @var callable */
-    protected $plus2tValidator;
-
-    public function setUp() {
-        parent::setUp();
-        $this->plus2tValidator = function ($value) {
-            return $value !== 'ODPIS';
-        };
-    }
-
     public function testId() {
         $data = $this->fakeData([
             'Rada_S' => 'rada_s',
@@ -159,6 +149,10 @@ class WebumeniaMgImporterTest extends TestCase
     }
 
     protected function fakeData(array $data = []) {
+        $plus2TValidator = function ($value) {
+            return $value !== 'ODPIS';
+        };
+
         return $data + [
             'Datace' => $this->faker->sentence,
             'RokOd' => $this->faker->year,
@@ -169,7 +163,7 @@ class WebumeniaMgImporterTest extends TestCase
             'Autor' => $this->faker->name,
             'Titul' => $this->faker->sentence,
             'Námět' => $this->faker->sentence,
-            'Plus2T' => $this->faker->valid($this->plus2tValidator)->text,
+            'Plus2T' => $this->faker->valid($plus2TValidator)->text,
             'Rada_S' => $this->faker->randomLetter,
             'PorC_S' => $this->faker->randomNumber,
             'Materiál' => $this->faker->sentence,
