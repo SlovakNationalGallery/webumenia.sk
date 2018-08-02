@@ -20,6 +20,8 @@ class SetupElasticsearch extends Command
    */
   protected $description = 'Create Elasticsearch index and types with proper mapping for specified locale.';
 
+  const CONFIG_PATH = 'SetupElasticsearch';
+
   /**
    * Create a new command instance.
    *
@@ -37,7 +39,7 @@ class SetupElasticsearch extends Command
    */
   public function handle()
   {
-    $BASE_PATH = "app/Console/Commands/SetupElasticsearch";
+    $base_path = __DIR__ . "/" . self::CONFIG_PATH;
 
     $client = new \GuzzleHttp\Client(['http_errors' => false]);
 
@@ -49,7 +51,7 @@ class SetupElasticsearch extends Command
     }
 
     // get available locales based on directory names
-    $available_es_locales = array_map('basename', glob($BASE_PATH ."/*", GLOB_ONLYDIR));
+    $available_es_locales = array_map('basename', glob($base_path ."/*", GLOB_ONLYDIR));
 
     $missing_es_locales = array_diff(config('translatable.locales'), $available_es_locales);
     // dd($missing_es_locales);
@@ -68,24 +70,24 @@ class SetupElasticsearch extends Command
 
     if ($selected_locale == 'all') {
       foreach ($available_es_locales as $key => $locale) {
-        $this->setup_for_locale($client, $host, $BASE_PATH, $locale);
+        $this->setup_for_locale($client, $host, $base_path, $locale);
       }
     }
     else {
-      $this->setup_for_locale($client, $host, $BASE_PATH, $selected_locale);
+      $this->setup_for_locale($client, $host, $base_path, $selected_locale);
     }
 
     $this->info("\nDone 🎉");
   }
 
-  public function setup_for_locale($client, $host, $BASE_PATH, $locale_str)
+  public function setup_for_locale($client, $host, $base_path, $locale_str)
   {
     $this->comment("\nsetting up ES index for locale: $locale_str");
     $index_name = $this->get_index_name($client, $host, $locale_str);
 
-    $json_params_create_index_str       = file_get_contents("$BASE_PATH/$locale_str/index.json");
-    $json_params_create_items_str       = file_get_contents("$BASE_PATH/$locale_str/items.json");
-    $json_params_create_authorities_str = file_get_contents("$BASE_PATH/$locale_str/authorities.json");
+    $json_params_create_index_str       = file_get_contents("$base_path/$locale_str/index.json");
+    $json_params_create_items_str       = file_get_contents("$base_path/$locale_str/items.json");
+    $json_params_create_authorities_str = file_get_contents("$base_path/$locale_str/authorities.json");
 
     $this->create_index($client, $host, $index_name, $json_params_create_index_str);
     $this->create_mapping($client, $host, $index_name, 'items'      , $json_params_create_items_str);
