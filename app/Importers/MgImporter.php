@@ -19,15 +19,15 @@ class MgImporter extends AbstractImporter {
     protected $mapping = [
         'RokAkv' => 'acquisition_date',
         'DatExp' => 'copyright_expires',
-        'Datace' => 'dating',
+        'Datace' => 'dating:cs',
         'RokOd' => 'date_earliest',
         'Do' => 'date_latest',
-        'MístoVz' => 'place',
-        'Sign' => 'inscription',
-        'Původnost' => 'state_edition',
+        'MístoVz' => 'place:cs',
+        'Sign' => 'inscription:cs',
+        'Původnost' => 'state_edition:cs',
         'Autor' => 'author',
-        'Titul' => 'title',
-        'Námět' => 'topic',
+        'Titul' => 'title:cs',
+        'Námět' => 'topic:cs',
     ];
 
     protected $defaults = [
