@@ -678,7 +678,7 @@ class Item extends Model
 
     public function scopeRelated($query, Item $item)
     {
-        return $query->where('related_work', '=', $item->related_work)
+        return $query->whereTranslation('related_work', $item->related_work)
             ->where('author', '=', $item->author)
             ->orderBy('related_work_order');
     }
@@ -817,7 +817,6 @@ class Item extends Model
                 'has_image' => (bool)$this->has_image,
                 'has_iip' => (bool)$this->hasZoomableImages(),
                 'is_free' => $this->isFree(),
-                'related_work' => $this->related_work,
                 'authority_id' => $this->relatedAuthorityIds(),
                 'view_count' => $this->view_count,
                 'color_descriptor' => $this->color_descriptor,
@@ -832,6 +831,7 @@ class Item extends Model
                 'medium' => $item_translated->medium,
                 'technique' => $this->makeArray($item_translated->technique),
                 'gallery' => $item_translated->gallery,
+                'related_work' => $item_translated->related_work,
 
             ];
 
