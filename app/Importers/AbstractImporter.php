@@ -236,10 +236,10 @@ abstract class AbstractImporter implements IImporter {
             if (method_exists($this, $method_name)) {
                 // translatable attribute
                 if (in_array($key, $item->translatedAttributes)) {
-                    foreach (\Config::get('translatable.locales') as $i=>$locale) {
+                    foreach (config('translatable.locales') as $locale) {
                         $value = $this->$method_name($record, $locale);
                         if ($value) {
-                            $item->translate($locale)->$key = $value;
+                            $item->translateOrNew($locale)->$key = $value;
                         }
                     }
                 // other attribute

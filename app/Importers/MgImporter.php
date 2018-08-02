@@ -31,11 +31,11 @@ class MgImporter extends AbstractImporter {
     ];
 
     protected $defaults = [
-        'gallery' => 'Moravská galerie, MG',
         'author' => 'neurčený autor',
-        'title' => 'bez názvu',
-        'topic' => '',
-        'relationship_type' => '',
+        'gallery:cs' => 'Moravská galerie, MG',
+        'title:cs' => 'bez názvu',
+        'topic:cs' => '',
+        'relationship_type:cs' => '',
     ];
 
     protected static $cz_work_types_spec = [

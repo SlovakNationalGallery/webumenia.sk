@@ -16,11 +16,11 @@ class WebumeniaMgImporter extends MgImporter
     protected $csv_file;
 
     protected $defaults = [
-        'gallery' => 'Moravská galerie, MG',
         'author' => 'Neznámy autor',
-        'title' => 'bez názvu',
-        'topic' => 'téma',
-        'relationship_type' => 'typ vzťahu',
+        'gallery:sk' => 'Moravská galerie, MG',
+        'title:sk' => 'bez názvu',
+        'topic:sk' => 'téma',
+        'relationship_type:sk' => 'typ vzťahu',
     ];
 
     protected static $cz_work_types_spec = [
