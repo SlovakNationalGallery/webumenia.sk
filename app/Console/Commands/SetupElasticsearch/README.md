@@ -2,6 +2,8 @@
 
 Below is a list of plugins and files for stop words and synonyms, used by the `SetupElasticsearch` command. You can find more info about the Slovak resources in the repository [elasticsearch-slovencina](https://github.com/SlovakNationalGallery/elasticsearch-slovencina).
 
+Steps are tested for [ElasticSearch v2.4.1](https://www.elastic.co/downloads/past-releases/elasticsearch-2-4-1)
+
 ## SK
 
 - [LemmaGen Analysis for ElasticSearch](https://github.com/vhyza/elasticsearch-analysis-lemmagen)
@@ -26,4 +28,21 @@ POST /webumenia_cs/_analyze
   "analyzer": "cestina",
   "text":  "nějaký text i s diakritikou pro testování"
 }
+```
+
+## Steps to setup on Debian/Ubuntu
+
+```
+# install lemmagen plugin
+cd /usr/share/elasticsearch && bin/plugin install https://github.com/vhyza/elasticsearch-analysis-lemmagen/releases/download/v2.4.1/elasticsearch-analysis-lemmagen-2.4.1-plugin.zip
+
+# grab sng elasticsearch repository - will make proper directory structure
+cd /etc/elasticsearch && wget -O- https://github.com/SlovakNationalGallery/elasticsearch-slovencina/archive/master.tar.gz | tar xz --strip=1
+
+# grab extra synonym files
+wget -O /etc/elasticsearch/synonyms/synonyms_cz.txt https://sites.google.com/site/kevinbouge/synonyms-lists/synonyms_cz.txt
+cd /etc/elasticsearch && wget -O- http://wordnetcode.princeton.edu/3.0/WNprolog-3.0.tar.gz | tar xz -C synonyms --strip=1 prolog/wn_s.pl
+
+# grab extra stop-words files
+wget -O /etc/elasticsearch/stop-words/stop-words-czech2.txt https://sites.google.com/site/kevinbouge/stopwords-lists/stopwords_cz.txt
 ```
