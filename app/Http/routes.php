@@ -222,7 +222,15 @@ function()
         $colors_used = [];
 
         if ($item->color_descriptor) {
-            $similar_by_color = $item->similarByColor(100);
+            $ids = $item->similarByColor(100)->pluck('id');
+            $similar_by_color = Item::whereIn('id', $ids)->get();
+            $similar_by_color = $similar_by_color->filter(function (Item $i) use ($item) {
+                return (bool)$i->color_descriptor && $item->id != $i->id;
+            });
+            $similar_by_color = $similar_by_color->sort(function($a, $b) use ($ids) {
+                return $ids->search($a->id) - $ids->search($b->id);
+            });
+
             $colors_used = $item->getColorsUsed(Color::TYPE_HEX);
 
             uasort($colors_used, function ($a, $b) {
@@ -331,6 +339,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('authority/destroyLink/{link_id}', 'AuthorityController@destroyLink');
     Route::get('authority/reindex', 'AuthorityController@reindex');
     Route::post('authority/destroySelected', 'AuthorityController@destroySelected');
+    Route::get('authority/search', 'AuthorityController@search');
     Route::resource('authority', 'AuthorityController');
     Route::resource('sketchbook', 'SketchbookController');
     Route::resource('slide', 'SlideController');

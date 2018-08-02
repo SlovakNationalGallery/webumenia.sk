@@ -34,7 +34,7 @@ class SpiceHarvesterController extends Controller
     const DUBLIN_CORE_NAMESPACE_ELEMTS = 'http://purl.org/dc/elements/1.1/';
     const DUBLIN_CORE_NAMESPACE_TERMS = 'http://purl.org/dc/terms/';
 
-    protected $exclude_prefix = array('x', 'z');
+    protected $exclude_prefix = array('x');
     protected $log;
 
 
