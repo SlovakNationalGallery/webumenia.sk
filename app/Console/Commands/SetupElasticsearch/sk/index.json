@@ -1,5 +1,6 @@
 {
   "settings": {
+    "index.version.created": 107049,
     "analysis": {
       "filter": {
         "autocomplete_filter": {
