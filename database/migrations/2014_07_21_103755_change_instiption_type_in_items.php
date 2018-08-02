@@ -12,7 +12,9 @@ class ChangeInstiptionTypeInItems extends Migration {
 	 */
 	public function up()
 	{
-	    DB::statement('ALTER TABLE items MODIFY COLUMN inscription TEXT');
+		Schema::table('items', function (Blueprint $table) {
+			$table->text('inscription')->change();
+		});
 	}
 
 	/**
@@ -22,7 +24,9 @@ class ChangeInstiptionTypeInItems extends Migration {
 	 */
 	public function down()
 	{
-		DB::statement('ALTER TABLE items MODIFY COLUMN inscription VARCHAR(15)');
+		Schema::table('items', function (Blueprint $table) {
+			$table->string('inscription', 15)->change();
+		});
 	}
 
 }

@@ -29,6 +29,10 @@ class AddIipAndWrongItemsToImportRecordsTable extends Migration
         Schema::table('import_records', function($table)
         {
             $table->dropColumn('imported_iip');
+        });
+
+        Schema::table('import_records', function($table)
+        {
             $table->dropColumn('wrong_items');
         });
     }

@@ -28,7 +28,13 @@ class AddStatusAndTimestampsToImportsTable extends Migration
     {
         Schema::table('imports', function (Blueprint $table) {
             $table->dropColumn('status');
+        });
+
+        Schema::table('imports', function (Blueprint $table) {
             $table->dropColumn('started_at');
+        });
+
+        Schema::table('imports', function (Blueprint $table) {
             $table->dropColumn('completed_at');
         });
     }

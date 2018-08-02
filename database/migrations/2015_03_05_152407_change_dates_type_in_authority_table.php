@@ -12,13 +12,21 @@ class ChangeDatesTypeInAuthorityTable extends Migration {
 	 */
 	public function up()
 	{
-	    DB::statement('ALTER TABLE authorities MODIFY COLUMN birth_date VARCHAR(10)');
-	    DB::statement('ALTER TABLE authorities MODIFY COLUMN death_date VARCHAR(10)');
+		Schema::table('authorities', function (Blueprint $table) {
+			$table->string('birth_date', 10)->change();
+		});
+		Schema::table('authorities', function (Blueprint $table) {
+			$table->string('death_date', 10)->change();
+		});
 	}
 
 	public function down()
 	{
-		DB::statement('ALTER TABLE authorities MODIFY COLUMN birth_date DATE');
-		DB::statement('ALTER TABLE authorities MODIFY COLUMN death_date DATE');
+		Schema::table('authorities', function (Blueprint $table) {
+			$table->date('birth_date')->change();
+		});
+		Schema::table('authorities', function (Blueprint $table) {
+			$table->date('death_date')->change();
+		});
 	}   
 }
