@@ -19,9 +19,9 @@ class CreateCollectionTranslationsTable extends Migration
             $table->string('locale')->index();
 
             //translatable attributes
-            $table->string('name');
-            $table->string('type');
-            $table->text('text');
+            $table->string('name')->default('');
+            $table->string('type')->default('');
+            $table->text('text')->default('');
 
             $table->unique(['collection_id','locale']);
             $table->foreign('collection_id')->references('id')->on('collections')->onDelete('cascade');
@@ -43,6 +43,14 @@ class CreateCollectionTranslationsTable extends Migration
         }
 
         DB::table('collection_translations')->insert( $collection_translations );
+
+        Schema::table('collections', function($table) {
+            $table->dropColumn([
+                'name',
+                'type',
+                'text',
+            ]);
+        });
     }
 
     /**
@@ -52,6 +60,28 @@ class CreateCollectionTranslationsTable extends Migration
      */
     public function down()
     {
+        Schema::table('collections', function($table) {
+            $table->string('name')->default('');
+            $table->string('type')->default('');
+            $table->text('text')->default('');
+        });
+
+        $default_locale = App::getLocale();
+
+        $collection_translations = DB::table('collection_translations')
+                                    ->where('locale', '=', $default_locale)
+                                    ->get();
+
+        foreach ($collection_translations as $collection_translation) {
+            DB::table('collections')
+                ->where('id', $collection_translation->collection_id)
+                ->update([
+                    'name'    => $collection_translation->name,
+                    'type'    => $collection_translation->type,
+                    'text'    => $collection_translation->text,
+                ]);
+        }
+
         Schema::dropIfExists('collection_translations');
     }
 }

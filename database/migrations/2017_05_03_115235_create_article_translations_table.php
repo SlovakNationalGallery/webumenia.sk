@@ -12,16 +12,16 @@ class CreateArticleTranslationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('article_translations', function (Blueprint $table) 
+        Schema::create('article_translations', function (Blueprint $table)
         {
             $table->increments('id');
             $table->integer('article_id')->unsigned();
             $table->string('locale')->index();
 
             // translatable attributes
-            $table->string('title');
-            $table->string('summary');
-            $table->string('content');
+            $table->string('title')->default('');
+            $table->text('summary')->default('');
+            $table->text('content')->default('');
 
             $table->unique(['article_id','locale']);
             $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
@@ -42,6 +42,14 @@ class CreateArticleTranslationsTable extends Migration
         }
 
         DB::table('article_translations')->insert( $article_translations );
+
+        Schema::table('articles', function($table) {
+            $table->dropColumn([
+                'title',
+                'summary',
+                'content',
+            ]);
+        });
     }
 
 
@@ -52,6 +60,28 @@ class CreateArticleTranslationsTable extends Migration
      */
     public function down()
     {
+        Schema::table('articles', function($table) {
+            $table->string('title')->default('');
+            $table->text('summary')->default('');
+            $table->text('content')->default('');
+        });
+
+        $default_locale = App::getLocale();
+
+        $article_translations = DB::table('article_translations')
+                                    ->where('locale', '=', $default_locale)
+                                    ->get();
+
+        foreach ($article_translations as $article_translation) {
+            DB::table('articles')
+                ->where('id', $article_translation->article_id)
+                ->update([
+                    'title'      => $article_translation->title,
+                    'summary'    => $article_translation->summary,
+                    'content'    => $article_translation->content,
+                ]);
+        }
+
         Schema::dropIfExists('article_translations');
     }
 }
