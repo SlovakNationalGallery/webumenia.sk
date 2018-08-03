@@ -30,14 +30,24 @@ class AddImageColorPublishToCollectionsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('collections', function($table)
-		{
+		Schema::table('collections', function($table) {
 			$table->dropColumn('main_image');
-			$table->dropColumn('title_color');
-			$table->dropColumn('title_shadow');
-			$table->dropColumn('publish');
-			$table->dropColumn('view_count');
+		});
 
+		Schema::table('collections', function($table) {
+			$table->dropColumn('title_color');
+		});
+
+		Schema::table('collections', function($table) {
+			$table->dropColumn('title_shadow');
+		});
+
+		Schema::table('collections', function($table) {
+			$table->dropColumn('publish');
+		});
+
+		Schema::table('collections', function($table) {
+			$table->dropColumn('view_count');
 		});
 	}
 

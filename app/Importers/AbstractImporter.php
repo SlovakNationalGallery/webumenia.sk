@@ -177,6 +177,9 @@ abstract class AbstractImporter implements IImporter {
         $import_record->status = $status;
         $import_record->started_at = $started_at;
         $import_record->filename = $filename;
+        $import_record->imported_items = 0;
+        $import_record->skipped_items = 0;
+        $import_record->user_id = 0;
 
         return $import_record;
     }

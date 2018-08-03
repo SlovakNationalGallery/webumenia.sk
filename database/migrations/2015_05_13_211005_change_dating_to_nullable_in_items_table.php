@@ -12,7 +12,9 @@ class ChangeDatingToNullableInItemsTable extends Migration {
 	 */
 	public function up()
 	{
-		DB::statement('ALTER TABLE `items` MODIFY `dating` VARCHAR(255) NULL;');
+		Schema::table('items', function (Blueprint $table) {
+			$table->string('dating', 255)->nullable()->change();
+		});
 		DB::statement('UPDATE `items` SET `dating` = NULL WHERE `dating` = "";');
 	}
 
@@ -24,7 +26,9 @@ class ChangeDatingToNullableInItemsTable extends Migration {
 	public function down()
 	{
 		DB::statement('UPDATE `items` SET `dating` = "" WHERE `dating` IS NULL;');
-		DB::statement('ALTER TABLE `items` MODIFY `dating` VARCHAR(255) NOT NULL;');
+		Schema::table('items', function (Blueprint $table) {
+			$table->string('dating', 255)->change();
+		});
 	}
 
 }

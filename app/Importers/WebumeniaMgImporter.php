@@ -35,6 +35,11 @@ class WebumeniaMgImporter extends MgImporter
         'title:sk' => 'bez názvu',
         'topic:sk' => 'téma',
         'relationship_type:sk' => 'typ vzťahu',
+        'description:sk' => '',
+        'work_level:sk' => '',
+        'subject:sk' => '',
+        'item_type' => '',
+        'featured' => 0,
     ];
 
     protected static $cz_work_types_spec = [

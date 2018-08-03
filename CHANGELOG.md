@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Added
 - Remove query string from localized urls
+- Use SQLite in tests
 
 ## [1.5.2] - 2018-07-27
 ### Fixed

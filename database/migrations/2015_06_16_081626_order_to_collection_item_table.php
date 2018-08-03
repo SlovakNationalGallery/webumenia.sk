@@ -14,7 +14,7 @@ class OrderToCollectionItemTable extends Migration {
 	{
 		Schema::table('collection_item', function($table)
 		{
-			$table->integer('order');
+			$table->integer('order')->default(0);
 		});
 	}
 

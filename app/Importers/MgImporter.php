@@ -36,6 +36,11 @@ class MgImporter extends AbstractImporter {
         'title:cs' => 'bez názvu',
         'topic:cs' => '',
         'relationship_type:cs' => '',
+        'description:cs' => '',
+        'work_level:cs' => '',
+        'subject:cs' => '',
+        'item_type' => '',
+        'featured' => 0,
     ];
 
     protected static $cz_work_types_spec = [
