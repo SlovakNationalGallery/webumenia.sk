@@ -252,7 +252,10 @@ class SpiceHarvesterController extends Controller
         $until = (Input::has('end_date')) ? new \Carbon(Input::get('end_date')) : null;
         // $from = new \Carbon('2014-01-01'); //docasne
 
-        if (!$from && (($harvest->status == SpiceHarvesterHarvest::STATUS_COMPLETED || $harvest->status == SpiceHarvesterHarvest::STATUS_IN_PROGRESS) && !$reindex)) {
+        if (!$from
+             && (($harvest->status == SpiceHarvesterHarvest::STATUS_COMPLETED || $harvest->status == SpiceHarvesterHarvest::STATUS_IN_PROGRESS) && !$reindex)
+             && !empty($harvest->completed)
+        ) {
             $from = new \Carbon($harvest->completed);
             $from->sub(new \Carbon\CarbonInterval('P1D')); //pre istotu o den menej
         }
@@ -272,7 +275,7 @@ class SpiceHarvesterController extends Controller
         if (App::runningInConsole()) {
             try {
                 if (!$reindex) {
-                    echo "spusta sa od : ". $from->format('Y-m-d H:i:s') . "\n";
+                    echo "spusta sa od : ". ((!empty($from)) ? $from->format('Y-m-d H:i:s') : 'vecnosti') . "\n";
                 }
                 echo "celkovy pocet: ". $recs->getTotalRecordsInCollection() . "\n";
             } catch (\Phpoaipmh\Exception\MalformedResponseException $e) {
@@ -443,13 +446,15 @@ class SpiceHarvesterController extends Controller
                 if (isset($attributes['publish']) && $attributes['publish']==0) {
                     return false;
                 }
-                if (empty($attributes['work_type'])) {
-                    dd('undefined work_type for ' . $attributes['id']);
-                }
+                // is work_type required attribute?
+                // if (empty($attributes['sk']['work_type'])) {
+                //     dd('undefined work_type for ' . $attributes['id']);
+                // }
                 $item = Item::updateOrCreate(['id' => $attributes['id']], $attributes);
                 $item->authorities()->sync($attributes['authority_ids']);
                 $item->save();
-                $images = ItemImage::create($attributes['image_attributes']);
+                $attributes['image_attributes']['item_id'] =$attributes['id'];
+                $images = ItemImage::updateOrCreate($attributes['image_attributes']);
                 break;
             case 'author':
                 // $nationality = Nationality::firstOrNew(['id' => ])
@@ -535,7 +540,8 @@ class SpiceHarvesterController extends Controller
                 }
                 $item = Item::updateOrCreate(['id' => $attributes['id']], $attributes);
                 $item->authorities()->sync($attributes['authority_ids']);
-                $images = ItemImage::updateOrCreate(['item_id' => $attributes['id']], $attributes['image_attributes']);
+                $attributes['image_attributes']['item_id'] =$attributes['id'];
+                $images = ItemImage::updateOrCreate($attributes['image_attributes']);
                 break;
             case 'author':
                 $attributes = $this->mapAuthorAttributes($rec);
