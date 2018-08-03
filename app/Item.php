@@ -164,11 +164,16 @@ class Item extends Model
         });
 
         static::deleted(function ($item) {
-             $item->getElasticClient()->delete([
-                'index' => Config::get('bouncy.index'),
-                'type' => $item::ES_TYPE,
-                'id' => $item->id,
-             ]);
+
+            $elastic_translatable = \App::make('ElasticTranslatableService');
+
+            foreach (config('translatable.locales') as $locale) {
+                $item->getElasticClient()->delete([
+                   'index' => $elastic_translatable->getIndexForLocale($locale),
+                   'type' => $item::ES_TYPE,
+                   'id' => $item->id,
+                ]);
+            }
         });
     }
 
