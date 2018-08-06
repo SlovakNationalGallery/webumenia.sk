@@ -785,6 +785,10 @@ class SpiceHarvesterController extends Controller
             $langsPresent = $this->get_langs_present_in_record($rec);
 
             foreach ($langsPresent as $key => $lang) {
+                if (!array_key_exists($lang, $localeForLang)) {
+                    break;
+                }
+
                 $locale = $localeForLang[$lang];
 
                 // title
