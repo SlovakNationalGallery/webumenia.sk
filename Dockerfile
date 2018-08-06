@@ -1,5 +1,5 @@
 # FROM php:5.6-apache
-FROM php:5.6
+FROM php:5.6-fpm
 
 COPY ./public /var/www/html
 # COPY ./vhost.conf /etc/apache2/sites-available/000-default.conf
@@ -27,8 +27,6 @@ COPY database /var/www/database
 COPY tests/TestCase.php /var/www/tests/TestCase.php
 
 WORKDIR /var/www
-
-EXPOSE 9000
 
 RUN composer install --no-plugins --no-scripts --no-interaction
 # todo: composer stuff can be moved to 'build' docker file for local dev

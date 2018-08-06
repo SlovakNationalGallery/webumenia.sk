@@ -5,20 +5,16 @@ services:
     ports:
       - "8080:80"
     volumes:
-      # - .:/code
       - ./public:/var/www/html
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
-    links:
-      - php
   php:
     build: .
     image: web_umenia
     volumes:
       - .:/var/www
       - ./public:/var/www/html
-      # - ./vhost.conf:/etc/apache2/sites-available/000-default.conf
-    ports:
-      - "9000:9000"
+    # ports:
+    #   - "9000:9000"
     # links:
     #   - mysql
     #   - elasticsearch
@@ -34,7 +30,6 @@ services:
     environment:
       DB_HOST: mysql
       ES_HOST: elasticsearch
-    tty: true
 
   mysql:
     image: mysql:5.6
