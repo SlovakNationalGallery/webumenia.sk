@@ -44,7 +44,7 @@ class ItemController extends Controller
             $ids = explode(';', str_replace(" ", "", $search));
             $results = Item::whereIn('id', $ids)->paginate(20);
         } else {
-            $results = Item::where('title', 'LIKE', '%'.$search.'%')->orWhere('author', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%')->paginate(20);
+            $results = Item::whereTranslationLike('title', '%'.$search.'%')->orWhere('author', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%')->paginate(20);
         }
 
         $collections = Collection::listsTranslations('name')->pluck('name', 'id')->toArray();
