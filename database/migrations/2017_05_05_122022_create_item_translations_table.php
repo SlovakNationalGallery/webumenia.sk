@@ -19,23 +19,23 @@ class CreateItemTranslationsTable extends Migration
             $table->string('locale')->index();
 
             // translatable attributes
-            $table->string('title');
-            $table->mediumText('description');
-            $table->string('work_type');
-            $table->string('work_level');
-            $table->string('topic');
-            $table->string('subject');
-            $table->string('measurement');
-            $table->string('dating');
-            $table->string('medium');
-            $table->string('technique');
-            $table->string('inscription');
+            $table->string('title')->nullable();
+            $table->mediumText('description')->nullable();
+            $table->string('work_type')->nullable();
+            $table->string('work_level')->nullable();
+            $table->string('topic')->nullable();
+            $table->string('subject')->nullable();
+            $table->string('measurement')->nullable();
+            $table->string('dating')->nullable();
+            $table->string('medium')->nullable();
+            $table->string('technique')->nullable();
+            $table->string('inscription')->nullable();
             $table->string('place')->nullable();
             $table->string('state_edition')->nullable();
-            $table->string('gallery');
+            $table->string('gallery')->nullable();
             $table->string('relationship_type')->nullable();
             $table->string('related_work')->nullable();
-            $table->string('description_source');
+            $table->string('description_source')->nullable();
 
             $table->unique(['item_id','locale']);
             $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');

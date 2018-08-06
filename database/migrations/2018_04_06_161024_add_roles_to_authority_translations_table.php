@@ -16,19 +16,21 @@ class AddRolesToAuthorityTranslationsTable extends Migration
             $table->text('roles')->nullable();
         });
 
-        $default_locale = config('app.locale');
+        if (!DB::connection() instanceof \Illuminate\Database\SQLiteConnection) {
+            $default_locale = config('app.locale');
 
-        $authority_roles = DB::select('
-            SELECT authority_id, GROUP_CONCAT(CONCAT(\'"\', role, \'"\') SEPARATOR \', \') as roles
-            FROM authority_roles GROUP BY authority_id
-            ');
+            $authority_roles = DB::select('
+                SELECT authority_id, GROUP_CONCAT(CONCAT(\'"\', role, \'"\') SEPARATOR \', \') as roles
+                FROM authority_roles GROUP BY authority_id
+                ');
 
-        foreach ($authority_roles as $ar) {
-            $roles = '[' . $ar->roles . ']';
-            $result = DB::table('authority_translations')
-                ->where('authority_id', $ar->authority_id)
-                ->where('locale', $default_locale)
-                ->update(['roles' => $roles]);
+            foreach ($authority_roles as $ar) {
+                $roles = '[' . $ar->roles . ']';
+                $result = DB::table('authority_translations')
+                    ->where('authority_id', $ar->authority_id)
+                    ->where('locale', $default_locale)
+                    ->update(['roles' => $roles]);
+            }
         }
 
         Schema::drop('authority_roles');
