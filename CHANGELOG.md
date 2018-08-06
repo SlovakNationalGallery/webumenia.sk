@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Fixed
 - Search endpoint of admin fixed
+- Duplicate authors with links
 
 ### Added
 - Remove query string from localized urls
