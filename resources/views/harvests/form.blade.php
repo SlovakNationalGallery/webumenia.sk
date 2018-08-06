@@ -67,18 +67,18 @@
 <div class="col-md-12">
 	<div class="form-group">
 	{!! Form::label('set_description', 'Popis setu') !!}
-	{!! Form::textarea('set_description', Input::old('set_description'), array('class' => 'form-control')) !!}	
+	{!! Form::textarea('set_description', Input::old('set_description'), array('class' => 'form-control')) !!}
 	</div>
 </div>
 <div class="col-md-12">
 	<div class="form-group">
 	{!! Form::label('collection_id', 'Kolekcia') !!}
-	{!! Form::select('collection_id', [null=>'žiadna'] + App\Collection::lists('name','id')->toArray(), Input::old('collection_id'), array('class' => 'form-control')) !!}
+	{!! Form::select('collection_id', [null=>'žiadna'] + \App\Collection::listsTranslations('name')->pluck('name', 'id')->toArray(), Input::old('collection_id'), array('class' => 'form-control')) !!}
 	</div>
 </div>
 
 <div class="col-md-12 text-center">
-	{!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp; 
+	{!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp;
 	{!! link_to_route('harvests.index', 'Zrušiť', null, array('class' => 'btn btn-default')) !!}
 	{!!Form::close() !!}
 </div>

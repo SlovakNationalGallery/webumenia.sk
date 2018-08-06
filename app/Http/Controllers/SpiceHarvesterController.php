@@ -217,7 +217,7 @@ class SpiceHarvesterController extends Controller
             }
         }
 
-        $collections = \Collection::lists('name', 'id')->toArray();
+        $collections = Collection::listsTranslations('name')->pluck('name', 'id')->toArray();
         if (count($items_to_remove)) {
             $items = Item::whereIn('id', $items_to_remove)->paginate('50');
         } else {

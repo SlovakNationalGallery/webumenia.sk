@@ -26,7 +26,7 @@ class ItemController extends Controller
     {
         $items = Item::orderBy('updated_at', 'DESC')->paginate(100);
         // $collections = Collection::orderBy('order', 'ASC')->get();
-        $collections = Collection::lists('name', 'id');
+        $collections = Collection::listsTranslations('name')->pluck('name', 'id')->toArray();
         return view('items.index', array('items' => $items, 'collections' => $collections));
     }
 
@@ -47,7 +47,7 @@ class ItemController extends Controller
             $results = Item::where('title', 'LIKE', '%'.$search.'%')->orWhere('author', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%')->paginate(20);
         }
 
-        $collections = Collection::lists('name', 'id');
+        $collections = Collection::listsTranslations('name')->pluck('name', 'id')->toArray();
         return view('items.index', array('items' => $results, 'collections' => $collections, 'search' => $search));
     }
 
