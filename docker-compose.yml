@@ -13,11 +13,6 @@ services:
     volumes:
       - .:/var/www
       - ./public:/var/www/html
-    # ports:
-    #   - "9000:9000"
-    # links:
-    #   - mysql
-    #   - elasticsearch
     depends_on:
       - mysql
       - elasticsearch
