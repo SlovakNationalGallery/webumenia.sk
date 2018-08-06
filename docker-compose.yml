@@ -6,7 +6,7 @@ services:
       - "8080:80"
     volumes:
       # - .:/code
-      - .:/var/www/
+      - ./public:/var/www/html
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
     links:
       - php
