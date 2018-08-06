@@ -1,5 +1,8 @@
 # Welcome
 
+[![Build Status](https://travis-ci.com/SlovakNationalGallery/web-umenia-2.svg?branch=master)](https://travis-ci.com/SlovakNationalGallery/web-umenia-2)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 [Web umenia](http://www.webumenia.sk) is an open platform to explore digitized art collections from public galleries and museums.
 
 Web umenia is developed by [lab.SNG](http://lab.sng.sk/): the digital R&D lab of the Slovak National Gallery. We are working with public art organisations to make their art accessible and explorable online so curious people around the world can learn more about works of art and the context they've been created in.
