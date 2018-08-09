@@ -76,7 +76,7 @@ class NgImporter extends AbstractImporter {
         parent::__construct($repository, $locales);
 
         $this->sanitizers[] = function($value) {
-            return empty_to_null($value);
+            return empty_to_null(trim($value));
         };
     }
 
