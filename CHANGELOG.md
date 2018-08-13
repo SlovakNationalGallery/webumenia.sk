@@ -2,11 +2,12 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- OAI download command reflects changes to Item model
 
 ## [1.5.2] - 2018-07-27
 ### Fixed
 - Filter color described items in similar by color
-- OAI download command reflects changes to Item model
 
 ## [1.5.1] - 2018-07-26
 ### Fixed
