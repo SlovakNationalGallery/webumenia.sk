@@ -440,6 +440,7 @@ class SpiceHarvesterController extends Controller
         switch ($type) {
             case 'item':
                 $attributes = $this->mapItemAttributes($rec);
+
                 if (isset($attributes['publish']) && $attributes['publish']==0) {
                     return false;
                 }
@@ -712,7 +713,6 @@ class SpiceHarvesterController extends Controller
     private function mapItemAttributes($rec)
     {
         // $vendorDir = base_path() . '/vendor'; include($vendorDir . '/imsop/simplexml_debug/src/simplexml_dump.php'); include($vendorDir . '/imsop/simplexml_debug/src/simplexml_tree.php');
-
         $rec->registerXPathNamespace('oai_dc', self::OAI_DC_NAMESPACE);
         $rec->registerXPathNamespace('dc', self::DUBLIN_CORE_NAMESPACE_ELEMTS);
 
@@ -756,9 +756,11 @@ class SpiceHarvesterController extends Controller
                 }
             
             }
-
             $attributes['id'] = (string)$rec->header->identifier;
             $attributes['title'] = $dcElements->title;
+            if ($dcElements->contributor) {
+                $attributes['contributor'] = $dcElements->contributor;
+            };
             $image_attributes['title'] = $dcElements->title;
             $image_attributes['item_id'] = $attributes['id'];
             $authors = array();
