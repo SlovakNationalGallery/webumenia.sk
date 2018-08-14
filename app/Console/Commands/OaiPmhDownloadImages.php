@@ -47,10 +47,11 @@ class OaiPmhDownloadImages extends Command
     public function fire()
     {
         // $pocet = Item::where('img_url', '!=', '')->where('has_image', '=', 0)->count();
-        $pocet = Item::whereHas('images', function($q) 
+        $items_without_images_query = Item::whereHas('images', function($q) 
         {
             $q->where('img_url', '!=', '');
-        })->where('has_image', '=', 0)->count();
+        })->where('has_image', '=', 0);
+        $pocet = $items_without_images_query->count();
 
         if (! $this->confirm("Naozaj spustit stahovanie obrazkov pre {$pocet} diel? [yes|no]", true)) {
             $this->comment('Tak dovidenia.');
@@ -64,10 +65,7 @@ class OaiPmhDownloadImages extends Command
         $i = 0;
         $failures = 0;
 
-        Item::whereHas('images', function($q) 
-        {
-            $q->where('img_url', '!=', '');
-        })->where('has_image', '=', 0)->chunkById(200, function ($items) use (&$i, &$failures) {
+        $items_without_images_query->chunkById(200, function ($items) use (&$i, &$failures) {
             // $items->load('authorities');
             foreach ($items as $item) {
                 if ($item::hasImageForId($item->id) || $this->downloadImages($item)) {
@@ -120,7 +118,7 @@ class OaiPmhDownloadImages extends Command
     private function downloadImages($item)
     {
         // downloadImages returns false by default
-        $returnBoolean = false;
+        $got_image = false;
         foreach ($item->images() as $image) {
             $file = $image->$img_url;
             try {
@@ -134,7 +132,7 @@ class OaiPmhDownloadImages extends Command
             if ($new_file = $item->getImagePath($full)) {
                 file_put_contents($new_file, $data);
                 // if this succeeds we can return true
-                $returnBoolean = true;
+                $got_image = true;
             }
         };
         return $returnBoolean;    

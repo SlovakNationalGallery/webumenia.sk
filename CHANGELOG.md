@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 ### Fixed
-- OAI download command reflects changes to Item model
+- download images command
 
 ## [1.5.2] - 2018-07-27
 ### Fixed
