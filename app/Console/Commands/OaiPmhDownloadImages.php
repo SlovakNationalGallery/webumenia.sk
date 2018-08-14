@@ -135,6 +135,6 @@ class OaiPmhDownloadImages extends Command
                 $got_image = true;
             }
         };
-        return $returnBoolean;    
+        return $got_image;    
     }
 }
