@@ -26,7 +26,7 @@ return array(
     'item_attr_integrity_work' => 'integrita s dielami',
     'item_attr_inscription'    => 'značenie',
     'item_attr_gallery'        => 'inštitúcia',
-    'item_attr_contributor'        => 'kurátor',
+    'item_attr_contributor'    => 'kurátor',
     'item_attr_identifier'     => 'inventárne číslo',
     'item_attr_licence'        => 'licencia',
     'item_attr_place'          => 'geografická oblasť',
