@@ -20,7 +20,7 @@ class CreateAuthorityTranslationsTable extends Migration
 
             // translatable attributes
             $table->string('type_organization')->nullable();
-            $table->text('biography')->default('');
+            $table->text('biography')->nullable();
             $table->string('birth_place')->nullable();
             $table->string('death_place')->nullable();
 
