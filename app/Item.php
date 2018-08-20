@@ -81,8 +81,6 @@ class Item extends Model
         'related_work_order',
         'related_work_total',
         'gallery',
-        'img_url',
-        'iipimg_url',
         'item_type',
         'publish',
     );
@@ -108,6 +106,10 @@ class Item extends Model
           'type' => 'string',
           "analyzer" => "standard",
         ],
+    );
+
+    protected $casts = array(
+        'color_descriptor' => 'json',
     );
 
     // ELASTIC SEARCH INDEX
@@ -157,6 +159,11 @@ class Item extends Model
         return $this->hasOne(\App\SpiceHarvesterRecord::class, 'item_id');
     }
 
+    public function images()
+    {
+        return $this->hasMany(ItemImage::class)->orderBy('order');
+    }
+
     public function getImagePath($full = false)
     {
         return self::getImagePathForId($this->id, $full);
@@ -199,6 +206,30 @@ class Item extends Model
     public function getOaiUrl()
     {
         return Config::get('app.old_url').'/oai-pmh/?verb=GetRecord&metadataPrefix=oai_dc&identifier='.$this->id;
+    }
+
+    public function similarByColor($size = 10)
+    {
+        if (!$this->color_descriptor) {
+            throw new \RuntimeException;
+        }
+
+        $params = [
+            'size' => $size,
+            'sort' => [
+                '_score' => 'desc'
+            ],
+            'query' => [
+                'descriptor' => [
+                    'color_descriptor' => [
+                        'hash' => 'LSH',
+                        'descriptor' => $this->color_descriptor
+                    ]
+                ]
+            ]
+        ];
+
+        return self::search($params);
     }
 
     public function moreLikeThis($size = 10)
@@ -244,7 +275,10 @@ class Item extends Model
         return self::search($params);
     }
 
-    public static function getImagePathForId($id, $full = false, $resize = false)
+    /**
+     * $resize_methods = fit | widen | heighten
+     */
+    public static function getImagePathForId($id, $full = false, $resize = false, $resize_method = 'fit')
     {
 
         $levels = 1;
@@ -284,11 +318,26 @@ class Item extends Model
                 $result_path =  $relative_path . "$file.jpeg";
 
                 if ($resize) {
-                    if (!file_exists($full_path . "$file.$resize.jpeg")) {
-                        $img = \Image::make($full_path . "$file.jpeg")->fit($resize)->sharpen(7);
-                        $img->save($full_path . "$file.$resize.jpeg");
+                    $method_prefix = ($resize_method == 'fit') ? '' : substr($resize_method, 0, 1);
+                    if (!file_exists($full_path . "$file.$resize$method_prefix.jpeg")) {
+                        $img = \Image::make($full_path . "$file.jpeg");
+                        switch ($resize_method) {
+                            case 'widen':
+                                $img->widen($resize);
+                                break;
+
+                            case 'heighten':
+                                $img->heighten($resize);
+                                break;
+
+                            default:
+                                $img->fit($resize);
+                                break;
+                        }
+                        $img->sharpen(5);
+                        $img->save($full_path . "$file.$resize$method_prefix.jpeg");
                     }
-                    $result_path = $relative_path . "$file.$resize.jpeg";
+                    $result_path = $relative_path . "$file.$resize$method_prefix.jpeg";
                 }
             } else {
                 $result_path =  self::getNoImage($id);
@@ -522,7 +571,7 @@ class Item extends Model
         }
         $json_params = '
 		{
-		 "aggs" : { 
+		 "aggs" : {
 		    "'.$attribute.'" : {
 		        "terms" : {
 		          "field" : "'.$attribute.'",
@@ -562,7 +611,7 @@ class Item extends Model
     {
         $copyright_length = 70; // 70 rokov po smrti autora
         $limit_according_item_dating = $copyright_length + 60; // 60 = 80 (max_life_lenght) - 20 (start_of_publishing)
-        
+
         // skontrolovat, ci dielo patri institucii, ktora povoluje "volne diela"
         if (!(
             $this->attributes['gallery'] == 'Slovenská národná galéria, SNG' ||
@@ -574,7 +623,7 @@ class Item extends Model
         )) {
             return false;
         }
-        
+
         //ak je autor viac ako 71rokov po smrti
         $authors_are_free = array();
         foreach ($this->authorities as $i => $authority) {
@@ -608,7 +657,7 @@ class Item extends Model
 
         return false;
     }
-    
+
     private function relatedAuthorityIds()
     {
         $ids=array();
@@ -616,11 +665,6 @@ class Item extends Model
             $ids[] = $authority->id;
         }
         return $ids;
-    }
-
-    public function isFreeDownload()
-    {
-        return ($this->isFree() && !empty($this->attributes['iipimg_url']));
     }
 
     public function isForReproduction()
@@ -633,21 +677,43 @@ class Item extends Model
         return $query->where('has_image', '=', 1);
     }
 
-    public function scopeHasZoom($query)
-    {
-        return $query->where('iipimg_url', 'NOT LIKE', '');
-    }
-
     public function scopeForReproduction($query)
     {
         return $query->where('gallery', '=', 'Slovenská národná galéria, SNG');
     }
 
-    public function download()
+
+    public function scopeRelated($query, Item $item)
     {
+        return $query->where('related_work', '=', $item->related_work)
+            ->where('author', '=', $item->author)
+            ->orderBy('related_work_order');
+    }
+
+    public function publicDownload($order = null) {
+        if (!$this->isFree()) {
+            return false;
+        }
+
+        $this->timestamps = false;
+        $this->download_count += 1;
+        $this->save();
+
+        return $this->download($order);
+    }
+
+    public function download($order = null)
+    {
+        $image = $this->getZoomableImages()->first(function ($key, ItemImage $image) use ($order) {
+            return ($image->order == $order) || ($order === null);
+        });
+
+        if (!$image) {
+            return false;
+        }
 
         header('Set-Cookie: fileDownload=true; path=/');
-        $url = 'http://imi.sng.cust.eea.sk/publicIS/fcgi-bin/iipsrv.fcgi?FIF=' . $this->attributes['iipimg_url'] . '&CVT=JPG';
+        $url = 'http://imi.sng.cust.eea.sk/publicIS/fcgi-bin/iipsrv.fcgi?FIF=' . $image->iipimg_url . '&CVT=JPG';
         $filename = $this->attributes['id'].'.jpg';
 
         set_time_limit(0);
@@ -717,6 +783,22 @@ class Item extends Model
         return implode(', ', $this->authors)  . $dash .  $this->title;
     }
 
+    public function getZoomableImages()
+    {
+        return $this->images->filter(function (ItemImage $image) {
+            return $image->isZoomable();
+        });
+    }
+
+    public function hasZoomableImages() {
+        return !$this->getZoomableImages()->isEmpty();
+    }
+
+    // alias for preserving backward compatibility
+    public function getHasIipAttribute() {
+        return $this->hasZoomableImages();
+    }
+
     public function index()
     {
             $client =  $this->getElasticClient();
@@ -745,19 +827,19 @@ class Item extends Model
                 'updated_at' => $this->attributes['updated_at'],
                 'created_at' => $this->attributes['created_at'],
                 'has_image' => (bool)$this->has_image,
-                'has_iip' => (bool)$this->iipimg_url,
+                'has_iip' => (bool)$this->hasZoomableImages(),
                 'is_free' => $this->isFree(),
-                // 'free_download' => $this->isFreeDownload(), // staci zapnut is_free + has_iip
                 'related_work' => $this->related_work,
                 'authority_id' => $this->relatedAuthorityIds(),
                 'view_count' => $this->view_count,
+                'color_descriptor' => $this->color_descriptor,
             ];
 
             return $client->index([
                 'index' => Config::get('bouncy.index'),
                 'type' =>  self::ES_TYPE,
                 'id' => $this->attributes['id'],
-                'body' =>$data,
+                'body' => $data,
             ]);
     }
 
@@ -817,5 +899,32 @@ class Item extends Model
         }
         $items = self::search($params);
         return $items->total();
+    }
+
+    public function getColorsUsed($type = null) {
+        $colors_used = [];
+
+        for ($i = 0; $i < count($this->color_descriptor) / 4; $i++) {
+            $amount_sqrt = $this->color_descriptor[4 * $i + 3];
+            if (!$amount_sqrt) {
+                continue;
+            }
+            $amount = $amount_sqrt * $amount_sqrt;
+            $L = $this->color_descriptor[4 * $i];
+            $a = $this->color_descriptor[4 * $i + 1];
+            $b = $this->color_descriptor[4 * $i + 2];
+            $color = new Color(['L' => $L, 'a' => $a, 'b' => $b], Color::TYPE_LAB);
+
+            if ($type !== null) {
+                $color = $color->convertTo($type);
+            }
+
+            $colors_used[$color->getValue()] = [
+                'color' => $color,
+                'amount' => $amount
+            ];
+        }
+
+        return $colors_used;
     }
 }

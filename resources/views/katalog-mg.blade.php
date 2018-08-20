@@ -1,6 +1,16 @@
 @extends('layouts.mg')
 
+@section('title')
 
+    @if (!empty($search))
+        {{ trans('katalog.title_searched') }} "{!!$search!!}"
+    @else
+        {!! getTitleWithFilters('App\Item', $input, ' | ') !!}
+        {{ trans('katalog.title') }}
+    @endif
+    |
+    @parent
+@stop
 
 @section('link')
     @include('includes.pagination_links', ['paginator' => $paginator])
@@ -85,20 +95,20 @@
     </div></div>
 </section>
 <section class="catalog" data-searchd-engine="{!! Config::get('app.searchd_id') !!}">
-    <div class="container">
+    <div class="container content-section">
             <div class="row content-section">
             	<div class="col-xs-6">
                     @if (!empty($search))
-                        <h4 class="inline">{{ utrans('katalog.catalog_found_artworks') }} &bdquo;{!! $search !!}&ldquo; (<span data-searchd-total-hits>{!! $items->total() !!}</span>) </h4> 
+                        <h4 class="inline">{{ utrans('katalog.catalog_found_artworks') }} &bdquo;{!! $search !!}&ldquo; (<span data-searchd-total-hits>{!! $items->total() !!}</span>) </h4>
                     @else
-                        <h4 class="inline">{!! $items->total() !!} {{ trans('katalog.catalog_artworks') }} </h4>
+                		<h4 class="inline">{!! $items->total() !!} {{ trans('katalog.catalog_artworks') }} </h4>
                     @endif
                     @if ($items->count() == 0)
                         <p class="text-center">{{ utrans('katalog.catalog_no_artworks') }}</p>
                     @endif
 
                     @if (count(Input::all()) > 0)
-                        <a class="btn btn-sm btn-default btn-outline  sans" href="{!! URL::to('/')!!}">{{ trans('general.clear_filters') }}  <i class="icon-cross"></i></a>
+                        <a class="btn btn-sm btn-default btn-outline  sans" href="{!! URL::to('katalog')!!}">{{ trans('general.clear_filters') }}  <i class="icon-cross"></i></a>
                     @endif
                 </div>
                 <div class="col-xs-6 text-right">
@@ -116,27 +126,41 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-12 isotope-wrapper">
                     <?php // $items = $items->paginate(18) ?>
                     <div id="iso">
                 	@foreach ($items as $i=>$item)
     	                <div class="col-md-3 col-sm-4 col-xs-6 item">
     	                	<a href="{!! $item->getUrl() !!}">
-    	                		<img src="{!! $item->getImagePath() !!}" class="img-responsive" alt="{!! $item->getTitleWithAuthors() !!} ">	                		
+                                @php
+                                    list($width, $height) = getimagesize(public_path() . $item->getImagePath());
+                                @endphp
+                                <div class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%;">
+    	                		<img
+                                    data-sizes="auto"
+                                    data-src="{!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'600']) !!}"
+                                    data-srcset="{!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'600']) !!} 600w,
+                                            {!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'220']) !!} 220w,
+                                            {!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'300']) !!} 300w,
+                                            {!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'600']) !!} 600w,
+                                            {!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'800']) !!} 800w"
+                                    class="lazyload"
+                                    alt="{!! $item->getTitleWithAuthors() !!} ">
+                                </div>
     	                	</a>
                             <div class="item-title">
                                 @if ($item->has_iip)
-                                    <div class="pull-right"><a href="{!! URL::to('dielo/' . $item->id . '/zoom') !!}" data-toggle="tooltip" data-placement="left" title="Zoom obrázku"><i class="fa fa-search-plus"></i></a></div>
-                                @endif    
-                                <a href="{!! $item->getUrl() !!}" {!! (!empty($search))  ? 
-                                    'data-searchd-result="title/'.$item->id.'" data-searchd-title="'.implode(', ', $item->authors).' - '. $item->title.'"' 
+                                    <div class="pull-right"><a href="{{ URL::to('dielo/' . $item->id . '/zoom') }}" data-toggle="tooltip" data-placement="left" title="{{ utrans('general.item_zoom') }}"><i class="fa fa-search-plus"></i></a></div>
+                                @endif
+                                <a href="{!! $item->getUrl() !!}" {!! (!empty($search))  ?
+                                    'data-searchd-result="title/'.$item->id.'" data-searchd-title="'.implode(', ', $item->authors).' - '. $item->title.'"'
                                     : '' !!}>
                                     <em>{!! implode(', ', $item->authors) !!}</em><br>
                                     <strong>{!! $item->title !!}</strong><br>
                                     <em>{!! $item->getDatingFormated() !!}</em>
                                 </a>
                             </div>
-    	                </div>	
+    	                </div>
                 	@endforeach
 
                     </div>
@@ -165,11 +189,18 @@
 {{-- {!! Html::script('js/bootstrap-checkbox.js') !!} --}}
 {!! Html::script('js/selectize.min.js') !!}
 {!! Html::script('js/readmore.min.js') !!}
-{!! Html::script('js/scroll-frame.js') !!}
+<script src="{!! asset_timed('js/scroll-frame.js') !!}"></script>
 
 <script type="text/javascript">
 
+// start with isotype even before document is ready
+$('.isotope-wrapper').each(function(){
+    var $container = $('#iso', this);
+    spravGrid($container);
+});
+
 $(document).ready(function(){
+
     // $('.expandable').readmore({
     //     moreLink: '<a href="#" class="text-center">viac možností <i class="icon-arrow-down"></i></a>',
     //     lessLink: '<a href="#" class="text-center">menej možností <i class="icon-arrow-up"></i></a>',
@@ -182,7 +213,7 @@ $(document).ready(function(){
     //       // }
     //     }
     // });
-    
+
     // $('.checkbox').checkbox();
 
     $("form").submit(function()
@@ -224,7 +255,7 @@ $(document).ready(function(){
                  //         '</div>';
                  // },
                  item: function(data, escape) {
-                     return '<div class="item">'  + '<span class="color">'+this.settings.placeholder+': </span>' +  data.text.replace(/\(.*?\)/g, "") + '</div>';
+                     return '<div class="selected-item">'  + '<span class="color">'+this.settings.placeholder+': </span>' +  data.text.replace(/\(.*?\)/g, "") + '</div>';
             }
         }
     });
@@ -241,16 +272,11 @@ $(document).ready(function(){
     });
 
     var $container = $('#iso');
-       
-    // az ked su obrazky nacitane aplikuj isotope
-    $container.imagesLoaded(function () {
-        spravGrid($container);
-    });
 
     $( window ).resize(function() {
         spravGrid($container);
     });
-    
+
     $container.infinitescroll({
         navSelector     : ".pagination",
         nextSelector    : ".pagination a:last",
@@ -262,20 +288,21 @@ $(document).ready(function(){
         loading: {
             msgText: '<i class="fa fa-refresh fa-spin fa-lg"></i>',
             img: '/images/transparent.gif',
-            finishedMsg: 'A to je vše'
+            finishedMsg: '{{ utrans('katalog.catalog_finished') }}'
         }
     }, function(newElements, data, url){
         history.replaceState({infiniteScroll:true}, null, url);
-        var $newElems = jQuery( newElements ).hide(); 
-        $newElems.imagesLoaded(function(){
-            $newElems.fadeIn();
-            $container.isotope( 'appended', $newElems );
-        });
+        var $newElems = jQuery( newElements ).hide();
+        $container.isotope( 'appended', $newElems );
     });
 
     $(window).unbind('.infscr'); //kill scroll binding
 
-    scrollFrame('.item');
+
+    // fix artwork detail on iOS https://github.com/artsy/scroll-frame/issues/30
+    if (!isMobileSafari() && !isIE()) {
+      scrollFrame('.item a');
+    }
 
 
     $('a#next').click(function(){

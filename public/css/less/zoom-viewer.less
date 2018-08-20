@@ -1,0 +1,119 @@
+// ********** zoom template & component **********
+body.template-zoom {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+#zoomed {
+  overflow: hidden;
+
+  .return {
+    font-family: @font-family-base;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: absolute;
+    z-index: 1000001;
+    margin: 20px;
+    left: 0;
+    top: 0;
+    color: @dark-grey;
+    background: @light;
+    opacity: 0.7;
+    /*border: none;*/
+    &:hover {
+      background-color: @light;
+      color: @dark-grey;
+      opacity: 0.9;
+    }
+  }
+
+  #viewer{
+    height: 100%;
+    min-height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  #toolbarDiv {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    margin: 20px;
+    text-align: right;
+    z-index: 1000000;
+    a {
+      display: inline-block;
+      color: @dark-grey;
+      font-size: 18px;
+      background: @light;
+      opacity: 0.6;
+      padding: 4px 7px 2px;
+      margin-left: 5px;
+      vertical-align: middle;
+      &#home {display: none !important; }
+      &:hover { opacity: 0.9; }
+    }
+  }
+
+  .referencestrip {
+    background: transparent !important;
+    min-width: 50px !important;
+    
+    & > div {
+      background: rgba(255, 255, 255, 0.8) !important;
+      min-width: 50px !important;
+      &:hover {
+        background: rgba(255, 255, 255, 1.0) !important;
+      }
+      &.selected {
+        border: 1px solid @primary-color !important;
+      }
+    }
+    & textarea {resize: none;}
+  }
+
+  /* position Image Reference Strip on right side of viewer */
+  .openseadragon-container > .openseadragon-canvas + div {
+    right: 20px !important;
+    left: initial !important;
+    top: 72px !important;
+  }
+
+  .currentpage, .credit {
+    position: absolute;
+    margin: 20px;
+    padding: 10px;
+    right: 0;
+    bottom: 0;
+    color: @dark-grey;
+    background: @light;
+    /*font-weight: normal;*/
+    vertical-align: bottom;
+    opacity: 0.6;
+    font-family: @font-family-base;
+    /*text-transform: uppercase;*/
+    letter-spacing: 2px;
+    // font-size: @font-size-small;
+
+    -webkit-transition: opacity 0.5s ease-in-out;
+    -moz-transition: opacity 0.5s ease-in-out;
+    -o-transition: opacity 0.5s ease-in-out;
+    -ms-transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
+  }
+  .currentpage:hover, .credit:hover{ opacity: 0.9; }
+  .currentpage { right: 50%; width: 80px; margin-right: -40px; text-align: center; }
+}
+
+@media(max-width: @screen-xs-max) {
+    #zoomed {
+        #toolbarDiv {
+          display: none !important;
+        }
+    }
+}

@@ -57,12 +57,20 @@
                             <em>{!! implode(', ', $item->authors) !!}</em> <br> <strong>{!! $item->title !!}</strong> (<em>{!! $item->getDatingFormated() !!}</em>)
                         </a><br>
                         <p class="item"><a href="{!! URL::to('dielo/' . $item->id . '/odstranit') !!}" class="underline"><i class="fa fa-times"></i> {{ trans('objednavka.order_remove') }}</a></span>
-                        @if (empty($item->iipimg_url))
+                        @if (!$item->hasZoomableImages())
                             <br><span class="bg-warning">{{ trans('objednavka.order_warning') }}</span>
                         @endif
                     </div>
                 </div>
             @endforeach
+
+            @if($errors->any())
+                <div class="alert alert-danger">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    {!! implode('', $errors->all('<li class="error">:message</li>')) !!}
+                </div>
+            @endif
+
     </div>
 </div>
 
@@ -134,6 +142,20 @@
 {{-- /ak nie digitalna --}}
 
 {!! Former::textarea('note')->label(trans('objednavka.form_note')); !!}
+
+<div class="form-group">
+    <div class="col-lg-2 col-sm-4">&nbsp;</div>
+    <div class="col-lg-10 col-sm-8">
+        <div class="checkbox">
+            <input id="terms_and_conditions" name="terms_and_conditions" type="checkbox" value="1" required>
+            <label for="terms_and_conditions">
+              {!! trans('objednavka.form_terms_and_conditions') !!}
+              <sup>*</sup>
+            </label>
+        </div>
+    </div>
+</div>
+
 
 {!! Former::actions(Form::submit(trans('objednavka.form_order'), array('class'=>'btn btn-default btn-outline  uppercase sans')) ) !!}
 

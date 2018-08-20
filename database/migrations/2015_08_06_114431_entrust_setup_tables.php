@@ -54,20 +54,32 @@ class EntrustSetupTables extends Migration
      */
     public function down()
     {
-        Schema::table('assigned_roles', function (Blueprint $table) {
-            $table->dropForeign('assigned_roles_user_id_foreign');
-            $table->dropForeign('assigned_roles_role_id_foreign');
-        });
+        if (Schema::hasTable('assigned_roles')) {
+            Schema::table('assigned_roles', function (Blueprint $table) {
+                try {
+                    $table->dropForeign('assigned_roles_user_id_foreign');
+                } catch (\Illuminate\Database\QueryException $e) {}
+                try {
+                    $table->dropForeign('assigned_roles_role_id_foreign');
+                } catch (\Illuminate\Database\QueryException $e) {}
+            });
+        }
 
-        Schema::table('permission_role', function (Blueprint $table) {
-            $table->dropForeign('permission_role_permission_id_foreign');
-            $table->dropForeign('permission_role_role_id_foreign');
-        });
+        if (Schema::hasTable('permission_role')) {
+            Schema::table('permission_role', function (Blueprint $table) {
+                try {
+                    $table->dropForeign('permission_role_permission_id_foreign');
+                } catch (\Illuminate\Database\QueryException $e) {}
+                try {
+                    $table->dropForeign('permission_role_role_id_foreign');
+                } catch (\Illuminate\Database\QueryException $e) {}
+            });
+        }
 
-        Schema::drop('assigned_roles');
-        Schema::drop('permission_role');
-        Schema::drop('roles');
-        Schema::drop('permissions');
+        Schema::dropIfExists('assigned_roles');
+        Schema::dropIfExists('permission_role');
+        Schema::dropIfExists('roles');
+        Schema::dropIfExists('permissions');
     }
 
 }

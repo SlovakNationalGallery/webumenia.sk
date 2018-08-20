@@ -7,7 +7,7 @@
 
 @section('content')
 
-<section class="info">
+<section class="info underlined-links">
     <div class="container">
         <div class="row content-section">
             <div class="col-md-12 text-center">
@@ -63,6 +63,10 @@
                             'lang_string' => 'informacie.info_gallery_GUS',
                             'url'         => 'katalog?gallery=Galéria umelcov Spiša, GUS',
                         ],
+                        [
+                            'lang_string' => 'informacie.info_gallery_MG',
+                            'url'         => 'katalog?gallery=Moravská galerie, MG',
+                        ],
                     ]
                 @endphp
                 <ul class="list-unstyled lead">
@@ -74,7 +78,7 @@
         </div>
     </div>
 </section>
-<section class="mozete">
+<section class="mozete underlined-links">
     <div class="container">
         <div class="row content-section">
             <div class="col-md-12 text-center mid-grey">
@@ -128,11 +132,10 @@
         </div>
         <div class="row">
             <div class="col-xs-12">
-                <div class="artworks-preview">
-                @foreach ($items as $item)
-                    <a href="{!! $item->getUrl() !!}" class="no-border"><img data-lazy="{!! $item->getImagePath() !!}" class="img-responsive-width " alt="{!! $item->getTitleWithAuthors() !!} " title="{!! $item->getTitleWithAuthors() !!} " ></a>
-                @endforeach
-                </div>
+                @include('components.artwork_carousel', [
+                    'slick_target' => "artworks-preview",
+                    'items' => $items,
+                ])
             </div>
         </div>
         <div class="row content-section">
@@ -143,7 +146,7 @@
     </div>
 </section>
 
-<section class="mozete more-items">
+<section class="mozete more-items underlined-links">
     <div class="container">
         <div class="row content-section"><!-- top-space bottom-space -->
             <div class="col-md-12 text-center mid-grey">
@@ -210,22 +213,5 @@
 @stop
 
 @section('javascript')
-{!! Html::script('js/slick.js') !!}
-<script type="text/javascript">
-    $(document).ready(function(){
-
-        $('.artworks-preview').slick({
-            dots: false,
-            lazyLoad: 'progressive',
-            infinite: false,
-            speed: 300,
-            slidesToShow: 1,
-            slide: 'a',
-            centerMode: false,
-            variableWidth: true,
-        });
-
-    });
-</script>
-
+    @include('components.artwork_carousel_js', ['slick_query' => '.artworks-preview'])
 @stop

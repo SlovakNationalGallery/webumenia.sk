@@ -13,7 +13,7 @@
 @stop
 
 @section('title')
-{!! $collection->name !!} | 
+{!! $collection->name !!} |
 @parent
 @stop
 
@@ -35,8 +35,8 @@
         <div class="inner-box">
             <h1>{!! $collection->name !!}</h1>
             <p class="bottom-space">
-                {{ trans_choice('general.artworks_counted', $collection->items()->count(), ['artworks_count' => $collection->items()->count()]) }} &nbsp;&middot;&nbsp; 
-                {!! $collection->user->name !!} &nbsp;&middot;&nbsp; 
+                {{ trans_choice('general.artworks_counted', $collection->items()->count(), ['artworks_count' => $collection->items()->count()]) }} &nbsp;&middot;&nbsp;
+                {!! $collection->user->name !!} &nbsp;&middot;&nbsp;
                 {!! $collection->created_at->format('d. m. Y') !!}
             </p>
         </div>
@@ -70,7 +70,7 @@
     <div class="collections-body">
         <div class="container">
             <div class="row">
-            	<div class="col-xs-12">
+            	<div class="col-xs-12 isotope-wrapper">
                     @if ($collection->items->count() == 0)
                         <p class="text-center">Momentálne žiadne diela</p>
                     @endif
@@ -78,30 +78,45 @@
                     @foreach ($collection->items as $i=>$item)
                         <div class="col-md-3 col-sm-4 col-xs-12 item">
                             <a href="{!! $item->getUrl(['collection' => $collection->id]) !!}">
-                                <img src="{!! $item->getImagePath() !!}" class="img-responsive" alt="{!! $item->getTitleWithAuthors() !!} ">                          
+                                @php
+                                    list($width, $height) = getimagesize(public_path() . $item->getImagePath());
+                                @endphp
+                                <div class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%;">
+
+                                <img
+                                    data-sizes="auto"
+                                    data-src="{!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'600']) !!}"
+                                    data-srcset="{!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'600']) !!} 600w,
+                                            {!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'220']) !!} 220w,
+                                            {!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'300']) !!} 300w,
+                                            {!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'600']) !!} 600w,
+                                            {!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'800']) !!} 800w"
+                                    class="lazyload"
+                                    alt="{!! $item->getTitleWithAuthors() !!} ">
+                                </div>
                             </a>
                             <div class="item-title">
-                                @if (!empty($item->iipimg_url))
-                                    <div class="pull-right"><a href="{!! URL::to('dielo/' . $item->id . '/zoom') !!}" data-toggle="tooltip" data-placement="left" title="Zoom obrázku"><i class="fa fa-search-plus"></i></a></div>
-                                @endif    
+                                @if ($item->hasZoomableImages())
+                                    <div class="pull-right"><a href="{{ route('item.zoom', ['id' => $item->id])  }}" data-toggle="tooltip" data-placement="left" title="Zoom obrázku"><i class="fa fa-search-plus"></i></a></div>
+                                @endif
                                 <a href="{!! $item->getUrl(['collection' => $collection->id]) !!}">
                                     <em>{!! implode(', ', $item->authors) !!}</em><br>
                                 <strong>{!! $item->title !!}</strong><br> <em>{!! $item->getDatingFormated() !!}</em>
-                                
+
                                 {{-- <span class="">{!! $item->gallery !!}</span> --}}
                                 </a>
                             </div>
-                        </div>  
+                        </div>
                     @endforeach
                     </div>
                     <div class="col-sm-12 text-center">
                     </div>
-                </div>                    
+                </div>
             </div>
         </div>
     </div>
 </section>
-{{-- 
+{{--
 <section class="map content-section">
     <div class="map-body">
         <div class="container">
@@ -128,29 +143,17 @@
 {!! Html::script('js/slick.js') !!}
 
 <script type="text/javascript">
+    // start with isotype even before document is ready
+    $('.isotope-wrapper').each(function(){
+        var $container = $('#iso', this);
+        spravGrid($container);
+    });
+
     $(document).ready(function(){
 
-        var $container = $('#iso');
-           
-        // az ked su obrazky nacitane aplikuj isotope
-        $container.imagesLoaded(function () {
-            spravGrid($container);
-        });
-
         $( window ).resize(function() {
+            var $container = $('#iso');
             spravGrid($container);
-        });
-
-        // carousel
-        $('.artworks-preview').slick({
-            dots: false,
-            lazyLoad: 'progressive',
-            infinite: false,
-            speed: 300,
-            slidesToShow: 1,
-            slide: 'a',
-            centerMode: false,
-            variableWidth: true,
         });
     });
 </script>

@@ -22,7 +22,9 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\Inspire::class,
         \App\Console\Commands\OaiPmhDownloadImages::class,
         \App\Console\Commands\MigrateTags::class,
+        \App\Console\Commands\DescribeItemColors::class,
         \App\Console\Commands\ImportCsv::class,
+        \App\Console\Commands\DescribeItemColors::class,
     ];
 
     /**
@@ -36,5 +38,6 @@ class Kernel extends ConsoleKernel
         $schedule->command('csv:import --id=1')
                  ->daily()
                  ->sendOutputTo(storage_path() . "/logs/csv-import.log");
+        $schedule->command('sitemap:make')->daily();
     }
 }

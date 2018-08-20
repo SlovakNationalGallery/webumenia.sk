@@ -137,12 +137,11 @@
 
   <!-- Core JavaScript Files -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/4.0.1/lazysizes.min.js" async=""></script>
+  <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
   <script src="https://unpkg.com/flickity@1.1/dist/flickity.pkgd.min.js"></script>
-  {!! Html::script('js/imagesloaded.min.js') !!}
   {!! Html::script('js/jquery.infinitescroll.min.js') !!}
-  {!! Html::script('js/jquery.isotope.min.js') !!}
-  {!! Html::script('js/jquery.isotope.sloppy-masonry.min.js') !!}
   {!! Html::script('js/bootstrap.min.js') !!}
   {!! Html::script('js/typeahead.bundle.min.js') !!}
   {!! Html::script('js/mg.js') !!}

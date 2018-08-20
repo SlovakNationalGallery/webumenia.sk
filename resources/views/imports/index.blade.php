@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-CSV Imports | 
+CSV Imports |
 @parent
 @stop
 
@@ -50,12 +50,13 @@ CSV Imports |
 			                <td>{!! $i->id !!}</td>
                             <td>{!! $i->name !!}</td>
                             <td>{!! ($i->lastRecord()) ? $i->lastRecord()->filename : '' !!}</td>
-			                <td>{!! ($i->lastRecord()) ? $i->lastRecord()->status : '' !!}</td>
-			                <td>{!! ($i->lastRecord() && $i->lastRecord()->completed_at) ? date("d.m.Y h:m",strtotime($i->lastRecord()->completed_at)) : '' !!}</td>
+			                <td><span class="h4"><span class="label label-{!! $i->status_class !!}">{!! $i->status !!}</span></span></td>
+			                <td>{!! ($i->completed_at) ? $i->completed_at->format('d.m.Y H:i') : '' !!}</td>
 			                <td>
-                                {!! Form::open(array('method' => 'DELETE', 'route' => array('imports.destroy', $i->id), 'class' => 'visible-xs-inline form-inline')) !!}
-                                {!! link_to_action('ImportController@show', 'Detail', array($i->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', )) !!} 
+                                {!! link_to_action('ImportController@launch', 'Spustiť', array($i->id), array('class' => 'btn btn-success btn-xs btn-outline', )) !!}
+                                {!! link_to_action('ImportController@show', 'Detail', array($i->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', )) !!}
                                 {!! link_to_action('ImportController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}
+                                {!! Form::open(array('method' => 'DELETE', 'route' => array('imports.destroy', $i->id), 'class' => 'visible-xs-inline form-inline')) !!}
                                     {!! Form::submit('Zmazať', array('class' => 'btn btn-danger btn-xs btn-outline')) !!}
                                 {!! Form::close() !!}
                             </td>

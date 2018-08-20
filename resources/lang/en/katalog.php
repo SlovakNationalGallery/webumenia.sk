@@ -9,7 +9,7 @@ return array(
     */
 
     'title_searched'         => 'search results for',
-    'title_not_searched'     => 'artworks',
+    'title'                  => 'artworks',
     'filters_author'         => 'artist',
     'filters_work_type'      => 'work type',
     'filters_tag'            => 'tags',
@@ -21,6 +21,7 @@ return array(
     'filters_has_image'      => 'only with image',
     'filters_has_iip'        => 'only zoomable',
     'filters_is_free'        => 'only public domain',
+    'filters_color'          => 'color',
     'catalog_found_artworks' => 'found artworks for',
     'catalog_artworks'       => 'artworks',
     'catalog_no_artworks'    => 'currently no artworks',

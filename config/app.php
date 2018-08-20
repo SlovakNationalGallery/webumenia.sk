@@ -33,7 +33,7 @@ return array(
     |
     */
 
-    'url' => 'http://www.webumenia.sk',
+    'url' => env('SITE_URL', 'http://sbirky.moravska-galerie.cz/'),
 
     /*
     |--------------------------------------------------------------------------
@@ -125,6 +125,7 @@ return array(
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\ColorDescriptorProvider::class,
         'GrahamCampbell\Throttle\ThrottleServiceProvider',
         Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
         Dimsav\Translatable\TranslatableServiceProvider::class,
