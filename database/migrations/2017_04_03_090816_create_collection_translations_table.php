@@ -19,9 +19,9 @@ class CreateCollectionTranslationsTable extends Migration
             $table->string('locale')->index();
 
             //translatable attributes
-            $table->string('name')->default('');
-            $table->string('type')->default('');
-            $table->text('text')->default('');
+            $table->string('name')->nullable();
+            $table->string('type')->nullable();
+            $table->text('text')->nullable();
 
             $table->unique(['collection_id','locale']);
             $table->foreign('collection_id')->references('id')->on('collections')->onDelete('cascade');
