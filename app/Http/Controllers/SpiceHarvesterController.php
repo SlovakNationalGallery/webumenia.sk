@@ -160,6 +160,7 @@ class SpiceHarvesterController extends Controller
             // $collection = \Collection::find(Input::get('collection_id'));
             // if ($collection->count()) $harvest->collection()->associate($collection);
             $harvest->collection_id = Input::get('collection_id');
+            $harvest->cron_status = Input::get('cron_status');
             $harvest->save();
 
             Session::flash('message', 'Harvest <code>'.$harvest->set_spec.'</code> bol upravený');
