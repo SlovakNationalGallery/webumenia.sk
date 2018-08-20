@@ -96,7 +96,7 @@ class SetupElasticsearch extends Command
 
   public function get_index_name($client, $host, $locale_str)
   {
-    $default_index_name = 'webumenia_'.$locale_str;
+    $default_index_name = config('bouncy.index').'_'.$locale_str;
     $index_name = $this->ask('What is the index name?', $default_index_name);
 
     $res = $client->head('http://'.$host.'/'.$index_name);

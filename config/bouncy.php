@@ -11,7 +11,7 @@ return array(
     | else meaningful.
     |
     */
-    'index' => env('ES_INDEX', 'webumenia_sk'),
+    'index' => env('ES_INDEX', 'webumenia'),
 
     /*
     |--------------------------------------------------------------------------
