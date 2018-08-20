@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - Remove query string from localized urls
 - Use SQLite in tests
+- Curator of artwork in detail view
 
 ## [1.5.3] - 2018-08-14
 ### Fixed
