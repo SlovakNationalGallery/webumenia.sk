@@ -19,7 +19,6 @@ class Item extends Model
 {
     use \Conner\Tagging\Taggable;
     use \Dimsav\Translatable\Translatable, BouncyTrait {
-        BouncyTrait::save as saveBouncyTrait;
         \Dimsav\Translatable\Translatable::save insteadof BouncyTrait;
     }
 

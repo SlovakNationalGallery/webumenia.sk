@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\Model;
 class Authority extends Model
 {
     use \Dimsav\Translatable\Translatable, BouncyTrait {
-        BouncyTrait::save as saveBouncyTrait;
         \Dimsav\Translatable\Translatable::save insteadof BouncyTrait;
     }
 
