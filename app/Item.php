@@ -809,8 +809,7 @@ class Item extends Model
 
             $item_translated = $this->getTranslation($locale);
 
-            $work_types = $item_translated->work_types;
-            $main_work_type = (is_array($work_types)) ? reset($work_types) : '';
+            $main_work_type = reset($item_translated->work_types);
             $data = [
                 // non-tanslatable attributes:
                 'id' => $this->id,
