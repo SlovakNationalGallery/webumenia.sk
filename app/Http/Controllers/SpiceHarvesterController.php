@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\App;
 use App\SpiceHarvesterRecord;
 use App\Authority;
 use App\Nationality;
-use App\AuthorityRole;
 use App\AuthorityName;
 use App\AuthorityEvent;
 use App\AuthorityRelationship;
@@ -467,12 +466,6 @@ class SpiceHarvesterController extends Controller
                         $nationality_ids[] = $nationality['id'];
                     }
                     $nationality = $author->nationalities()->sync($nationality_ids);
-                }
-                if (!empty($attributes['roles'])) {
-                    foreach ($attributes['roles'] as $key => $role) {
-                        $role['authority_id'] = $author->id;
-                        $role = AuthorityRole::firstOrCreate($role);
-                    }
                 }
                 if (!empty($attributes['names'])) {
                     foreach ($attributes['names'] as $key => $name) {
