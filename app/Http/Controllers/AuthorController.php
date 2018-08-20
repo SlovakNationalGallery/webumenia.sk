@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-class AuthorController extends Controller
+class AuthorController extends ElasticController
 {
 
     public function getIndex()
@@ -59,80 +59,35 @@ class AuthorController extends Controller
         if (!empty($input)) {
             if (Input::has('search')) {
                 $search = Input::get('search', '');
-                $json_params = '
-					{
-					  "query": {
-					  	"filtered" : {
-					  	  "query": {
-							  "bool": {
-							    "should": [
-							      { "match": {
-							          "author.folded": {
-							            "query": "'.$search.'",
-							            "boost": 5
-							          }
-							        }
-							      },
+                $search = str_to_alphanumeric($search);
 
-							      { "match": { "title":          "'.$search.'" }},
-							      { "match": { "title.stemmed": "'.$search.'" }},
-							      { "match": {
-							        "title.stemmed": {
-							          "query": "'.$search.'",
-							          "analyzer" : "slovencina_synonyms"
-							        }
-							      }
-							      },
+                $should_match = [
+                    'name' => $search,
+                    'alternative_name' => $search,
+                    'name.folded' => $search,
+                    'biography' =>  $search,
+                    'biography.stemmed' => [
+                        'query' => $search,
+                        'boost' => 0.9,
+                    ],
+                    'biography.stemmed' => [
+                        'query' => $search,
+                        'analyzer' => $this->elastic_translatable->getAnalyzerNameForSynonyms(),
+                        'boost' => 0.5,
+                    ],
+                    'place.folded' => [
+                        'query' => $search,
+                        'boost' => 0.5,
+                    ],
+                ];
 
-							      { "match": {
-							          "subject.folded": {
-							            "query": "'.$search.'",
-							            "boost": 1
-							          }
-							        }
-							      },
+                $should = [];
+                foreach ($should_match as $key => $match) {
+                    $should[] = ['match' => [$key => $match]];
+                }
 
-							      { "match": {
-							          "description": {
-							            "query": "'.$search.'",
-							            "boost": 1
-							          }
-							        }
-							      },
-							      { "match": {
-							          "description.stemmed": {
-							            "query": "'.$search.'",
-							            "boost": 0.9
-							          }
-							        }
-							      },
-							      { "match": {
-							          "description.stemmed": {
-							            "query": "'.$search.'",
-							            "analyzer" : "slovencina_synonyms",
-							            "boost": 0.5
-							          }
-							        }
-							      },
-
-							      { "match": {
-							          "place.folded": {
-							            "query": "'.$search.'",
-							            "boost": 1
-							          }
-							        }
-							      }
-
-
-							    ]
-							  }
-							}
-						}
-					  },
-					  "size": 100
-					}
-				';
-                $params = json_decode($json_params, true);
+                $params['query']['bool']['should'] = $should;
+                $params['query']['bool']['minimum_should_match'] = 1;
             }
 
             foreach ($input as $filter => $value) {

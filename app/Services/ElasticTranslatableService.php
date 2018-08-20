@@ -34,4 +34,9 @@ class ElasticTranslatableService
         return config(['bouncy.index' => $this->getIndexForLocale($locale)]);
     }
 
+    public function getAnalyzerNameForSynonyms()
+    {
+        return str_slug(\LaravelLocalization::getCurrentLocaleNative()) . '_synonyms';
+    }
+
 }

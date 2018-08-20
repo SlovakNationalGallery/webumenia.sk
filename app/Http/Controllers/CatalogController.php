@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-class CatalogController extends Controller
+class CatalogController extends ElasticController
 {
     public function getIndex()
     {
@@ -86,7 +86,7 @@ class CatalogController extends Controller
                     'title.stemmed' => $search,
                     'title.stemmed' => [
                         'query' => $search,
-                        'analyzer' => $this->getAnalyzerNameForSynonyms(),
+                        'analyzer' => $this->elastic_translatable->getAnalyzerNameForSynonyms(),
                     ],
                     'tag.folded' => $search,
                     'tag.stemmed' => $search,
@@ -98,7 +98,7 @@ class CatalogController extends Controller
                     ],
                     'description.stemmed' => [
                         'query' => $search,
-                        'analyzer' => $this->getAnalyzerNameForSynonyms(),
+                        'analyzer' => $this->elastic_translatable->getAnalyzerNameForSynonyms(),
                         'boost' => 0.5,
                     ],
                 ];
@@ -251,11 +251,6 @@ class CatalogController extends Controller
         ];
 
         return response()->json($result_item);
-    }
-
-    private function getAnalyzerNameForSynonyms()
-    {
-        return str_slug(\LaravelLocalization::getCurrentLocaleNative()) . '_synonyms';
     }
 
 }
