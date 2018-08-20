@@ -610,13 +610,15 @@ class Item extends Model
         $limit_according_item_dating = $copyright_length + 60; // 60 = 80 (max_life_lenght) - 20 (start_of_publishing)
 
         // skontrolovat, ci dielo patri institucii, ktora povoluje "volne diela"
+        $default_locale = config('translatable.fallback_locale');
+
         if (!(
-            $this->gallery == 'Slovenská národná galéria, SNG' ||
-            $this->gallery == 'Oravská galéria, OGD' ||
-            $this->gallery == 'Liptovská galéria Petra Michala Bohúňa, GPB' ||
-            $this->gallery == 'Galéria umenia Ernesta Zmetáka, GNZ' ||
-            $this->gallery == 'Galéria Miloša Alexandra Bazovského, GBT'  ||
-            $this->gallery == 'Galéria umelcov Spiša, GUS'
+            $this->translate($default_locale)->gallery == 'Slovenská národná galéria, SNG' ||
+            $this->translate($default_locale)->gallery == 'Oravská galéria, OGD' ||
+            $this->translate($default_locale)->gallery == 'Liptovská galéria Petra Michala Bohúňa, GPB' ||
+            $this->translate($default_locale)->gallery == 'Galéria umenia Ernesta Zmetáka, GNZ' ||
+            $this->translate($default_locale)->gallery == 'Galéria Miloša Alexandra Bazovského, GBT'  ||
+            $this->translate($default_locale)->gallery == 'Galéria umelcov Spiša, GUS'
         )) {
             return false;
         }
