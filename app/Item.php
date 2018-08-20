@@ -668,7 +668,8 @@ class Item extends Model
 
     public function isForReproduction()
     {
-        return ($this->gallery == 'Slovenská národná galéria, SNG');
+        $default_locale = config('translatable.fallback_locale');
+        return ($this->translate($default_locale)->gallery == 'Slovenská národná galéria, SNG');
     }
 
     public function scopeHasImage($query)
@@ -678,7 +679,8 @@ class Item extends Model
 
     public function scopeForReproduction($query)
     {
-        return $query->where('gallery', '=', 'Slovenská národná galéria, SNG');
+        $default_locale = config('translatable.fallback_locale');
+        return $query->whereTranslation('gallery', 'Slovenská národná galéria, SNG', $default_locale);
     }
 
 
