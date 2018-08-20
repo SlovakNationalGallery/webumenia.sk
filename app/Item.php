@@ -409,7 +409,7 @@ class Item extends Model
 
     public function getAuthorFormated($value)
     {
-        return preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $this->attributes['author']);
+        return formatName($this->attributes['author']);
     }
 
     public function getFirstAuthorAttribute($value)
