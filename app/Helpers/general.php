@@ -400,3 +400,8 @@ function convertEmptyStringsToNull($array) {
     array_walk_recursive($array,'walk_empty_to_null');
     return $array;
 }
+
+function formatName($name) {
+    return preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $name);
+}
+

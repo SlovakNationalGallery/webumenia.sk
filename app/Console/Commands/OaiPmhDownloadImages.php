@@ -46,7 +46,12 @@ class OaiPmhDownloadImages extends Command
      */
     public function fire()
     {
-        $pocet = Item::where('img_url', '!=', '')->where('has_image', '=', 0)->count();
+        // $pocet = Item::where('img_url', '!=', '')->where('has_image', '=', 0)->count();
+        $items_without_images_query = Item::whereHas('images', function($q) 
+        {
+            $q->where('img_url', '!=', '');
+        })->where('has_image', '=', 0);
+        $pocet = $items_without_images_query->count();
 
         if (! $this->confirm("Naozaj spustit stahovanie obrazkov pre {$pocet} diel? [yes|no]", true)) {
             $this->comment('Tak dovidenia.');
@@ -60,10 +65,10 @@ class OaiPmhDownloadImages extends Command
         $i = 0;
         $failures = 0;
 
-        Item::where('img_url', '!=', '')->where('has_image', '=', 0)->chunkById(200, function ($items) use (&$i, &$failures) {
+        $items_without_images_query->chunkById(200, function ($items) use (&$i, &$failures) {
             // $items->load('authorities');
             foreach ($items as $item) {
-                if ($item::hasImageForId($item->id) || $this->downloadImage($item)) {
+                if ($item::hasImageForId($item->id) || $this->downloadImages($item)) {
                     $i++;
                     $item->has_image = true;
                     $item->save();
@@ -110,21 +115,26 @@ class OaiPmhDownloadImages extends Command
         );
     }
 
-    private function downloadImage($item)
+    private function downloadImages($item)
     {
-        $file = $item->img_url;
-        try {
-            $data = file_get_contents($file);
-        } catch (\Exception $e) {
-            $this->log->addError($item->img_url . ': ' . $e->getMessage());
-            return false;
-        }
-        
-        $full = true;
-        if ($new_file = $item->getImagePath($full)) {
-            file_put_contents($new_file, $data);
-            return true;
-        }
-        return false;
+        // downloadImages returns false by default
+        $got_image = false;
+        foreach ($item->images() as $image) {
+            $file = $image->$img_url;
+            try {
+                $data = file_get_contents($file);
+            } catch (\Exception $e) {
+                $this->log->addError($image->$img_url . ': ' . $e->getMessage());
+                // end the loop and downloadImages still returns false -- all or nothing
+                break;
+            }
+            $full = true;
+            if ($new_file = $item->getImagePath($full)) {
+                file_put_contents($new_file, $data);
+                // if this succeeds we can return true
+                $got_image = true;
+            }
+        };
+        return $got_image;    
     }
 }

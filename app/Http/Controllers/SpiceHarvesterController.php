@@ -159,6 +159,7 @@ class SpiceHarvesterController extends Controller
             // $collection = \Collection::find(Input::get('collection_id'));
             // if ($collection->count()) $harvest->collection()->associate($collection);
             $harvest->collection_id = Input::get('collection_id');
+            $harvest->cron_status = Input::get('cron_status');
             $harvest->save();
 
             Session::flash('message', 'Harvest <code>'.$harvest->set_spec.'</code> bol upravený');
@@ -442,6 +443,7 @@ class SpiceHarvesterController extends Controller
         switch ($type) {
             case 'item':
                 $attributes = $this->mapItemAttributes($rec);
+
                 if (isset($attributes['publish']) && $attributes['publish']==0) {
                     return false;
                 }
@@ -742,7 +744,6 @@ class SpiceHarvesterController extends Controller
     private function mapItemAttributes($rec)
     {
         // $vendorDir = base_path() . '/vendor'; include($vendorDir . '/imsop/simplexml_debug/src/simplexml_dump.php'); include($vendorDir . '/imsop/simplexml_debug/src/simplexml_tree.php');
-
         $rec->registerXPathNamespace('oai_dc', self::OAI_DC_NAMESPACE);
         $rec->registerXPathNamespace('dc', self::DUBLIN_CORE_NAMESPACE_ELEMTS);
 
@@ -833,7 +834,7 @@ class SpiceHarvesterController extends Controller
             }
             $attributes['date_earliest'] = (!empty($dating[0])) ? $dating[0] : null;
             $attributes['date_latest'] = (!empty($dating[1])) ? $dating[1] : $attributes['date_earliest'];
-            $attributes['sk']['dating'] = $dating_text;
+            $attributes['sk']['dating'] = (string)$dating_text;
 
             $related = (string)$dcElements->{'relation.isPartOf'};
             // isPartOf - expected format is "relationship_type:related_work"
@@ -872,6 +873,10 @@ class SpiceHarvesterController extends Controller
                     }
                 }
             }
+
+            if ($dcElements->contributor) {
+                $attributes['contributor'] = (string)$dcElements->contributor;
+            };
 
             $authors = array();
             $authority_ids = array();

@@ -8,6 +8,11 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - Remove query string from localized urls
 - Use SQLite in tests
+- Curator of artwork in detail view
+
+## [1.5.3] - 2018-08-14
+### Fixed
+- OAI download images command reflects changes to Item model
 
 ## [1.5.2] - 2018-07-27
 ### Fixed
@@ -35,6 +40,8 @@ All notable changes to this project will be documented in this file[^1].
 - Searchbar component
 - [Pull Request Template](.github/pull_request_template.md)
 - ZoomController
+- admin-editable cron_status attribute added to SpiceHarvester harvests
+- daily and weekly cron jobs scheduled for harvests with appropriate cron_status 
 
 ### Changed
 - Info section to include MG on map + update current lab.SNG team
@@ -124,6 +131,7 @@ All notable changes to this project will be documented in this file[^1].
 - LICENSE from Public Domain into MIT
 
 [Unreleased]: https://github.com/SlovakNationalGallery/web-umenia-2/compare/master...develop
+[1.5.3]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/97
 [1.5.2]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/94
 [1.5.1]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/93
 [1.5.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/80

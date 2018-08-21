@@ -102,6 +102,7 @@ class Item extends Model
         'gallery',
         'item_type',
         'publish',
+        'contributor',
     );
 
     protected $dates = array(
@@ -438,7 +439,7 @@ class Item extends Model
 
     public function getAuthorFormated($value)
     {
-        return preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $this->author);
+        return formatName($this->attributes['author']);
     }
 
     public function getFirstAuthorAttribute($value)

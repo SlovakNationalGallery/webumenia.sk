@@ -76,6 +76,12 @@
 	{!! Form::select('collection_id', [null=>'žiadna'] + \App\Collection::listsTranslations('name')->pluck('name', 'id')->toArray(), Input::old('collection_id'), array('class' => 'form-control')) !!}
 	</div>
 </div>
+<div class="col-md-12">
+	<div class="form-group">
+	{!! Form::label('cron_status', 'Cron Status') !!}
+	{!! Form::select('cron_status', App\SpiceHarvesterHarvest::$cron_statuses, Input::old('cron_status'), array('class' => 'form-control')) !!}
+	</div>
+</div>
 
 <div class="col-md-12 text-center">
 	{!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp;
