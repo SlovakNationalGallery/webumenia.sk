@@ -8,8 +8,8 @@ return array(
     |--------------------------------------------------------------------------
     */
 
-    'made_by'            => 'vyrobil a spravuje',
-    'subscribe'            => 'prihláste sa na odber',
-    'newsletter'            => 'newsletter-u',
+    'made_by'    => 'vyrobil a spravuje',
+    'subscribe'  => 'prihláste sa na odber',
+    'newsletter' => 'newsletter-u',
 
 );

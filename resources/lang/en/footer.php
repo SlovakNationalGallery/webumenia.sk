@@ -8,8 +8,8 @@ return array(
     |--------------------------------------------------------------------------
     */
 
-    'made_by'            => 'made by',
-    'subscribe'            => 'subscribe to our',
-    'newsletter'            => 'newsletter',
+    'made_by'    => 'made by',
+    'subscribe'  => 'subscribe to our',
+    'newsletter' => 'newsletter',
 
 );
