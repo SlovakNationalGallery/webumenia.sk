@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 ### Fixed
+- Duplicate authors with links
 - Authorities Search endpoint of admin fixed
 
 ### Added
