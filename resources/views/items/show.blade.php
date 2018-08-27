@@ -98,6 +98,10 @@
 								<td>{!! $item->gallery; !!}</td>
 							</tr>
 							<tr>
+								<td>kurátor:</td>
+								<td>{!! $item->contributor; !!}</td>
+							</tr>
+							<tr>
 								<td>url s obrázkom:</td>
 								<td><a href="{{ $item->getImagePath() }}" target="_blank">{{ $item->getImagePath() }}</a></td>
 							</tr>

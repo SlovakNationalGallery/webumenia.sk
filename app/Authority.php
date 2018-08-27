@@ -411,7 +411,7 @@ class Authority extends Model
 
     public static function formatName($name)
     {
-        return preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $name);
+        return formatName($name);
     }
 
     /* pre atributy vo viacerych jazykoch

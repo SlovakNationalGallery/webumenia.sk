@@ -38,6 +38,7 @@ Spice Harvester |
                             <th>Set</th>
                             <th>Metadata Prefix</th>
                             <th>Status</th>
+                            <th>Cron Status</th>
                             <th>Akcie</th>
                         </tr>
                     </thead>
@@ -50,6 +51,7 @@ Spice Harvester |
 			                <td>{!! $h->set_name !!}</td>
 			                <td>{!! $h->metadata_prefix !!}</td>
 			                <td>{!! $h->status . '<br>' . date("d. m. Y h:m",strtotime($h->updated_at)) !!}</td>
+                            <td>{!! $h->cron_status !!}</td>
 			                <td>
                                 {!! Form::open(array('method' => 'DELETE', 'route' => array('harvests.destroy', $h->id), 'class' => 'visible-xs-inline form-inline')) !!}
                                 {!! link_to_action('SpiceHarvesterController@show', 'Detail', array($h->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', )) !!} 
