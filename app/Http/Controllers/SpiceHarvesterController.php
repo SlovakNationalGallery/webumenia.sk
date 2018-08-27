@@ -772,8 +772,11 @@ class SpiceHarvesterController extends Controller
 
             $localeForLang = [
                 "sk" => "sk",
-                "en" => "en",
-                "cs" => "cs",
+                
+                // temporarily disable other locales 
+                // until having option "use_property_fallback" enabled
+                // "en" => "en",
+                // "cs" => "cs",
             ];
 
             $langsPresent = $this->get_langs_present_in_record($rec);
