@@ -1,0 +1,1 @@
+<textarea @include('form::widget_attributes')>{{ $value }}</textarea>

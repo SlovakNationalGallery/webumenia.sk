@@ -128,6 +128,8 @@ return array(
         App\Providers\ColorDescriptorProvider::class,
         'GrahamCampbell\Throttle\ThrottleServiceProvider',
         Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
+        Barryvdh\Form\ServiceProvider::class,
+        App\Providers\FormServiceProvider::class,
     ),
 
     /*
@@ -197,7 +199,9 @@ return array(
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
         'Throttle' => 'GrahamCampbell\Throttle\Facades\Throttle',
-        'LaravelLocalization'   => Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
+        'LaravelLocalization' => Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
+        'FormRenderer' => App\Facades\FormRenderer::class,
+        'FormFactory' => Barryvdh\Form\Facade\FormFactory::class,
     ),
 
     'jira_auth' => array(

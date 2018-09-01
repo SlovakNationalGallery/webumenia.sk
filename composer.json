@@ -32,7 +32,9 @@
         "predis/predis": "^1.1",
         "doctrine/dbal": "^2.5",
         "league/csv": "^8.0",
-        "league/color-extractor": "dev-master"
+        "league/color-extractor": "dev-master",
+        "barryvdh/laravel-form-bridge": "0.3.6",
+        "symfony/templating": "^3.4"
     },
     "autoload": {
         "classmap": [
@@ -43,7 +45,8 @@
         },
         "files": [
             "app/Helpers/general.php",
-            "app/Helpers/i18n.php"
+            "app/Helpers/i18n.php",
+            "app/Helpers/view.php"
         ]
     },
     "scripts": {
@@ -67,7 +70,7 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "~4.0",
+        "phpunit/phpunit": "~5.0",
         "symfony/dom-crawler": "~3.0",
         "symfony/css-selector": "~3.0",
         "fzaninotto/faker": "^1.7"

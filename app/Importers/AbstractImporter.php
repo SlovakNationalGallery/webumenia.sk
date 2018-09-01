@@ -271,7 +271,7 @@ abstract class AbstractImporter implements IImporter {
             });
         }
 
-        $item->removeImage();
+        $item->deleteImage();
 
         $save_as = $item->getImagePath($full = true);
         $uploaded_image->save($save_as);

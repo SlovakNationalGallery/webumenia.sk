@@ -1,0 +1,1 @@
+@include($compound ? 'form::form_widget_compound' : 'form::form_widget_simple')
