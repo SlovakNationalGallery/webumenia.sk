@@ -16,7 +16,6 @@ return array(
     'galleries'          => 'galleries',
     'info'               => 'info',
     'language'           => 'language',
-    'made_by'            => 'made by',
     'search_placeholder' => 'Search for artworks, artists...',
     'to_top'             => 'back to top',
 
