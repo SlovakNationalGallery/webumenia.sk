@@ -342,13 +342,12 @@
             !!}
 
             <div class="modal-header text-center">
-                <img src="{!! URL::asset('images/license/cc.svg') !!}" alt="Creative Commons">
+                <h2>{{ trans('dielo.item_download') }}</h2>
             </div>
             <div class="modal-body">
-                {{-- {!! trans('dielo.modal_license_body-content', ['item_url' => $item->getUrl(), 'free_url' => URL::to('katalog?is_free=1')] ) !!} --}}
 
                 <label for="download-type">{{ trans('download.choose_type') }}</label>
-                <div class="btn-group btn-group-justified top-space bottom-space" role="group" aria-label="chooseDownloadType" id="download-type">
+                <div class="btn-group btn-group-justified bottom-space" role="group" aria-label="chooseDownloadType" id="download-type">
                   <a href="#" role="button" class="btn btn-default" data-type="private">{{ utrans('download.private') }}</a>
                   <a href="#" role="button" class="btn btn-default" data-type="publication">{{ utrans('download.publication') }}</a>
                   <a href="#" role="button" class="btn btn-default" data-type="commercial">{{ utrans('download.commercial') }}</a>
