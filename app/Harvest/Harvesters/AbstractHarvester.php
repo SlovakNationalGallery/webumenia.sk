@@ -26,10 +26,16 @@ abstract class AbstractHarvester
      * @return Model[]
      */
     public function harvest(SpiceHarvesterHarvest $harvest, Result $result, \DateTime $from = null, \DateTime $to = null) {
-        $model = [];
+        $models = [];
 
-        $rows = $this->repository->getRows($harvest, $from, $to);
+        $i = 0;
+        $rows = $this->repository->getRows($harvest, $from, $to, $total);
         foreach ($rows as $row) {
+            $harvest->status_messages = sprintf(
+                trans('harvest.status_message_progress'), ++$i, $total
+            );
+            $harvest->save();
+
             $modelId = $this->importer->getModelId($row);
             if ($modelId === null) {
                 $result->incrementSkipped();
@@ -48,7 +54,7 @@ abstract class AbstractHarvester
             }
         }
 
-        return $model;
+        return $models;
     }
 
     /**

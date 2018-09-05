@@ -39,9 +39,11 @@ abstract class AbstractRepository
      * @param \DateTime $to
      * @return \Generator|array[]
      */
-    public function getRows(SpiceHarvesterHarvest $harvest, \DateTime $from = null, \DateTime $to = null) {
+    public function getRows(SpiceHarvesterHarvest $harvest, \DateTime $from = null, \DateTime $to = null, &$total = null) {
         $endpoint = $this->endpointFactory->createEndpoint($harvest);
         $records = $endpoint->listRecords($harvest->metadata_prefix, $from, $to, $harvest->set_spec);
+
+        $total = $records->getTotalRecordCount();
 
         foreach ($records as $record) {
             $row = $this->getDataRecursively($record, $this->fieldMap);

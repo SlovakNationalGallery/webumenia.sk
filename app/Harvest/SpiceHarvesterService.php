@@ -18,15 +18,6 @@ class SpiceHarvesterService
     /** @var LoggerInterface */
     protected $logger;
 
-    protected $statusMessages = [
-        'Spracovaných bolo %d záznamov.',
-        '%d nových záznamov',
-        '%d bolo upravených',
-        '%d bolo zmazaných',
-        '%d bolo preskočených.',
-        'Trvalo to %.0fs'
-    ];
-
     public function __construct(
         ItemHarvester $itemHarvester,
         AuthorityHarvester $authorityHarvester,
@@ -51,8 +42,8 @@ class SpiceHarvesterService
         $this->harvesters[$harvest->type]->harvest($harvest, $result = new Result(), $from, $to);
 
         $harvest->status = SpiceHarvesterHarvest::STATUS_COMPLETED;
-        $harvest->status_messages .= sprintf(
-            implode(PHP_EOL, $this->statusMessages),
+        $harvest->status_messages = sprintf(
+            trans('harvest.status_message_completed'),
             $result->getTotal(),
             $result->getInserted(),
             $result->getUpdated(),
