@@ -128,6 +128,18 @@ function()
 
     })->name('objednavka.post');
 
+
+
+    Route::post('download', function () {
+
+        $input = Input::all();
+        dd($input);
+
+        $rules = Download::$rules;
+        $v = Validator::make($input, $rules);
+
+    })->name('objednavka.download');
+
     Route::get('dakujeme', function () {
 
         return view('dakujeme');
