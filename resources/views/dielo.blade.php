@@ -22,8 +22,17 @@
     <link rel="canonical" href="{!! $item->getUrl() !!}">
 @stop
 
-
 @section('content')
+
+@if ( ! $item->hasTranslation(App::getLocale()) )
+    <section>
+        <div class="container top-section">
+            <div class="row">
+                @include('includes.message_untranslated')
+            </div>
+        </div>
+    </section>
+@endif
 
 <section class="item top-section" itemscope itemtype="http://schema.org/VisualArtwork">
     <div class="item-body">

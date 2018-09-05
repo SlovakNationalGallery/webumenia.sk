@@ -25,5 +25,4 @@ return array(
     'artworks_counted' => '{0}    :artworks_count artworks
                           |{1}    :artworks_count artwork
                           |[2,Inf]:artworks_count artworks',
-
 );

@@ -15,10 +15,10 @@ class CreateImportsTable extends Migration
         Schema::create('imports', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->string('name');
-            $table->text('settings'); // json -> encoding, csv separator .... 
-            $table->text('mapping'); // json -> columns mapping
-            $table->boolean('publish')->default(true); // publish on webumenia? 
+            $table->string('name')->default('');
+            $table->text('settings')->nullable(); // json -> encoding, csv separator ....
+            $table->text('mapping')->nullable(); // json -> columns mapping
+            $table->boolean('publish')->default(true); // publish on webumenia?
             $table->timestamps();
         });
 

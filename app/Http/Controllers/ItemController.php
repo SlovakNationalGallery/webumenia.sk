@@ -26,7 +26,7 @@ class ItemController extends Controller
     {
         $items = Item::orderBy('updated_at', 'DESC')->paginate(100);
         // $collections = Collection::orderBy('order', 'ASC')->get();
-        $collections = Collection::lists('name', 'id');
+        $collections = Collection::listsTranslations('name')->pluck('name', 'id')->toArray();
         return view('items.index', array('items' => $items, 'collections' => $collections));
     }
 
@@ -44,10 +44,10 @@ class ItemController extends Controller
             $ids = explode(';', str_replace(" ", "", $search));
             $results = Item::whereIn('id', $ids)->paginate(20);
         } else {
-            $results = Item::where('title', 'LIKE', '%'.$search.'%')->orWhere('author', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%')->paginate(20);
+            $results = Item::whereTranslationLike('title', '%'.$search.'%')->orWhere('author', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%')->paginate(20);
         }
 
-        $collections = Collection::lists('name', 'id');
+        $collections = Collection::listsTranslations('name')->pluck('name', 'id')->toArray();
         return view('items.index', array('items' => $results, 'collections' => $collections, 'search' => $search));
     }
 
@@ -83,6 +83,14 @@ class ItemController extends Controller
 
             $item = new Item;
             $item->fill($input);
+
+            // store translatable attributes
+            foreach (\Config::get('translatable.locales') as $i=>$locale) {
+                foreach ($item->translatedAttributes as $attribute) {
+                    $item->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
+                }
+            }
+
             $item->save();
 
             if (Input::hasFile('primary_image')) {

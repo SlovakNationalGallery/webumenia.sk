@@ -138,11 +138,11 @@ class WebumeniaMgImporterTest extends TestCase
         $repositoryMock->method('getFiltered')->willReturn($records);
 
         $importer = new WebumeniaMgImporter($repositoryMock);
-        $importMock = $this->getMock(Import::class, ['getAttribute']);
-        $importMock->method('getAttribute')->willReturn(1);
+        $import = Import::create();
         $file = ['basename' => '', 'path' => ''];
-        $items = $importer->import($importMock, $file);
+        $items = $importer->import($import, $file);
 
+        $this->assertEmpty($import->records()->first()->error_message);
         $this->assertCount(1, $items);
 
         return $items;

@@ -94,6 +94,20 @@
             {!! Form::close() !!}
     </div></div>
 </section>
+
+@foreach ($items as $i=>$item)
+    @if ( ! $item->hasTranslation(App::getLocale()) )
+        <section>
+            <div class="container content-section">
+                <div class="row">
+                    @include('includes.message_untranslated')
+                    @break
+                </div>
+            </div>
+        </section>
+    @endif
+@endforeach
+
 <section class="catalog" data-searchd-engine="{!! Config::get('app.searchd_id') !!}">
     <div class="container content-section">
             <div class="row content-section">
@@ -119,7 +133,9 @@
                       </a>
                       <ul class="dropdown-menu dropdown-menu-right dropdown-menu-sort" role="menu" aria-labelledby="dropdownSortBy">
                         @foreach (App\Item::$sortable as $sort=>$labelKey)
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#" rel="{!! $sort !!}">{!! trans($labelKey) !!}</a></li>
+                            @if ($sort != $sort_by)
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" rel="{!! $sort !!}">{!! trans($labelKey) !!}</a></li>
+                            @endif
                         @endforeach
                       </ul>
                     </div>

@@ -14,7 +14,7 @@ class ZoomController extends Controller
      * @return Response
      */
     public function getIndex($id)
-    {            
+    {
         $item = Item::find($id);
 
         if (empty($item->has_iip)) {
@@ -24,7 +24,7 @@ class ZoomController extends Controller
         $itemImages = $item->getZoomableImages();
         $index =  0;
         if ($itemImages->count() <= 1 && !empty($item->related_work)) {
-            $related_items = Item::related($item)->with('images')->get();
+            $related_items = Item::related($item, \LaravelLocalization::getCurrentLocale())->with('images')->get();
 
             $itemImages = collect();
             foreach ($related_items as $related_item) {
@@ -43,8 +43,8 @@ class ZoomController extends Controller
         });
 
         return view('zoom', [
-            'item' => $item, 
-            'index' => $index, 
+            'item' => $item,
+            'index' => $index,
             'fullIIPImgURLs' => $fullIIPImgURLs,
         ]);
     }

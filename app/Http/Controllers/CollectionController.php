@@ -54,9 +54,14 @@ class CollectionController extends Controller
 
         if ($v->passes()) {
             $collection = new Collection();
-            $collection->name = Input::get('name');
-            $collection->type = Input::get('type');
-            $collection->text = Input::get('text');
+
+            foreach (\Config::get('translatable.locales') as $i=>$locale) {
+                foreach ($collection->translatedAttributes as $attribute) {
+                    $collection->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
+                }
+            }
+
+
             $collection->publish = Input::get('publish', false);
             if (Input::has('title_color')) {
                 $collection->title_color = Input::get('title_color');
@@ -130,10 +135,13 @@ class CollectionController extends Controller
             $input = array_except(Input::all(), array('_method'));
 
             $collection = Collection::find($id);
-            $collection->name = Input::get('name');
-            $collection->type = Input::get('type');
-            $collection->text = Input::get('text');
-            $collection->text = Input::get('text');
+
+            foreach (\Config::get('translatable.locales') as $i=>$locale) {
+                foreach ($collection->translatedAttributes as $attribute) {
+                    $collection->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
+                }
+            }
+
             $collection->publish = Input::get('publish', false);
 
             if (Input::has('user_id') && \Entrust::hasRole('admin')) {

@@ -2,11 +2,6 @@
     "name": "Language switch",
     "data": {
         "currentLocale": "sk",
-        "localesOrdered": {
-            "sk": "_properties",
-            "cs": "_properties",
-            "en": "_properties"
-        },
         "localizedURLs": {
             "sk": "#",
             "cs": "#",

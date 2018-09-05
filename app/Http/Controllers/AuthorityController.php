@@ -73,8 +73,19 @@ class AuthorityController extends Controller
             $input = convertEmptyStringsToNull($input);
 
             $authority = new Authority;
+
             $authority->type = 'person';
+            
+            // not sure if OK to fill all input like this before setting translated attributes
             $authority->fill($input);
+            
+            // store translatable attributes
+            foreach (\Config::get('translatable.locales') as $i=>$locale) {
+                foreach ($authority->translatedAttributes as $attribute) {
+                    $authority->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
+                }
+            }
+
             $authority->save();
 
             if (Input::hasFile('primary_image')) {
