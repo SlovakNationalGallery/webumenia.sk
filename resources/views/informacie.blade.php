@@ -64,6 +64,10 @@
                             'url'         => 'katalog?gallery=Galéria umelcov Spiša, GUS',
                         ],
                         [
+                            'lang_string' => 'informacie.info_gallery_VSG',
+                            'url'         => 'katalog?gallery=Východoslovenská+galéria%2C+VSG',
+                        ],
+                        [
                             'lang_string' => 'informacie.info_gallery_MG',
                             'url'         => 'katalog?gallery=Moravská galerie, MG',
                         ],
