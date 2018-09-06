@@ -335,7 +335,7 @@
 
 <!-- Modal -->
 <div tabindex="-1" class="modal fade" id="downloadForm" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             {!!
               Former::open()->route('objednavka.download')->class('form-bordered form-horizontal')->id('order')->rules(App\Download::$rules);
