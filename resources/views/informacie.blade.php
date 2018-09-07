@@ -14,71 +14,27 @@
                     <h1>{{ utrans('informacie.info_heading') }}</h1>
             </div>
         </div>
-        <div class="row bottom-space vertical-align">
+        <div class="row bottom-space">
             <div class="col-md-4">
 
                 <p class="lead">{!! utrans('informacie.info_p_lead') !!}</p>
                 <p>{!! utrans('informacie.info_p') !!}</p>
 
             </div>
-            <div class="col-md-4 text-center">
-                <img srcset="/images/galerie-na-mape.png 1x, /images/galerie-na-mape@2x.png 2x" src="" alt="Galérie na mape" class="img-responsive" style="margin: 20px auto 40px" />
+            <div class="col-md-8 text-center">
+                {!! file_get_contents(public_path('images/mapa.svg')) !!}
             </div>
-            <div class="col-md-4 text-center">
-                @php
-                    $galleries = [
-                        [
-                            'lang_string' => 'informacie.info_gallery_SNG',
-                            'url'         => 'katalog?gallery=Slovenská národná galéria, SNG',
-                        ],
-                        [
-                            'lang_string' => 'informacie.info_gallery_OGD',
-                            'url'         => 'katalog?gallery=Oravská galéria, OGD',
-                        ],
-                        [
-                            'lang_string' => 'informacie.info_gallery_GNZ',
-                            'url'         => 'katalog?gallery=Galéria umenia Ernesta Zmetáka, GNZ',
-                        ],
-                        [
-                            'lang_string' => 'informacie.info_gallery_GPB',
-                            'url'         => 'katalog?gallery=Liptovská galéria Petra Michala Bohúňa, GPB',
-                        ],
-                        [
-                            'lang_string' => 'informacie.info_gallery_GMB',
-                            'url'         => 'katalog?gallery=Galéria mesta Bratislavy, GMB',
-                        ],
-                        [
-                            'lang_string' => 'informacie.info_gallery_GBT',
-                            'url'         => 'katalog?gallery=Galéria+Miloša+Alexandra+Bazovského, GBT',
-                        ],
-                        [
-                            'lang_string' => 'informacie.info_gallery_NGN',
-                            'url'         => 'katalog?gallery=Nitrianska+galéria, NGN',
-                        ],
-                        [
-                            'lang_string' => 'informacie.info_gallery_SGB',
-                            'url'         => 'katalog?gallery=Stredoslovenská galéria, SGB',
-                        ],
-                        [
-                            'lang_string' => 'informacie.info_gallery_GUS',
-                            'url'         => 'katalog?gallery=Galéria umelcov Spiša, GUS',
-                        ],
-                        [
-                            'lang_string' => 'informacie.info_gallery_VSG',
-                            'url'         => 'katalog?gallery=Východoslovenská+galéria%2C+VSG',
-                        ],
-                        [
-                            'lang_string' => 'informacie.info_gallery_MG',
-                            'url'         => 'katalog?gallery=Moravská galerie, MG',
-                        ],
-                    ]
-                @endphp
-                <ul class="list-unstyled lead">
-                    @foreach ($galleries as $gallery)
-                        <li><a href="{!! URL::to($gallery['url']) !!}">{{ utrans($gallery['lang_string']) }}</a></li>
+        </div>
+        <div class="row bottom-space galleries">
+            @foreach(array_chunk($galleries, ceil(count($galleries)/3)) as $chunk)
+                <div class="col-md-4">
+                    <ul class="list-unstyled lead">
+                    @foreach($chunk as $gallery)
+                        <li><a href="{!! URL::to($gallery['url']) !!}" id="{{ $gallery['id'] }}">{{ utrans($gallery['lang_string']) }}</a></li>
                     @endforeach
-                </ul>
-            </div>
+                    </ul>
+                </div>
+            @endforeach
         </div>
     </div>
 </section>
@@ -218,4 +174,31 @@
 
 @section('javascript')
     @include('components.artwork_carousel_js', ['slick_query' => '.artworks-preview'])
+
+    <script type="text/javascript">
+        $( ".galleries a" ).hover(function() {
+          var gallery_id = $( this ).attr('id');
+          var old_classes = $( "svg#map path."+gallery_id ).attr('class');
+          $( "svg#map path."+gallery_id ).attr('class', 'active '+old_classes);
+          $( "svg#map path."+gallery_id ).data('old_classes', old_classes);
+        }, function() {
+          var gallery_id = $( this ).attr('id');
+          var old_classes = $( "svg#map path."+gallery_id ).data('old_classes');
+          $( "svg#map path."+gallery_id ).attr('class', old_classes);
+        });
+
+
+        $( "svg#map path.cls-4" ).hover(function() {
+          var classes = $( this ).attr('class').split(/\s+/);
+          $.each( classes, function( index, class_name ){
+              // if class_name is uppercased (e.g. SNG, OGD ...) it's gallery ID
+              if (class_name === class_name.toUpperCase()) {
+                  console.log(class_name);
+                  $( ".galleries a#"+ class_name ).addClass('active');
+              }
+          });
+        }, function() {
+          $( ".galleries a" ).removeClass('active');
+        });
+    </script>
 @stop

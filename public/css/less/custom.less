@@ -509,13 +509,30 @@ table a:not(.btn):not(.readmore-js-toggle):not(.no-border), .attributes a:not(.b
     ul.list-lab li {margin-bottom: 0}
     &.underlined-links a {
         border-bottom: lighten(@primary, 60%) solid 1px;
-        &:hover, &:active {
+        &:hover, &:active, &.active {
             border-bottom: #000 solid 1px;
         }
     }
     .atribut {
         font-style: normal;
         color: @primary;
+    }
+    svg#map {
+      max-width: 600px;
+      height: auto;
+
+      .cls-4 {
+        cursor: pointer;
+        -webkit-transition: fill 0.3s;
+        transition: fill 0.3s;
+        -webkit-transition-timing-function: cubic-bezier(0.2,1,0.3,1);
+        transition-timing-function: cubic-bezier(0.2,1,0.3,1);
+
+        &:hover, &.active {
+          fill: @primary-color;
+        }
+
+      }
     }
 }
 .mozete {
