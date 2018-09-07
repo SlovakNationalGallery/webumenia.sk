@@ -16,7 +16,6 @@ return array(
     'galleries'          => 'galerie',
     'info'               => 'info',
     'language'           => 'jazyk',
-    'made_by'            => 'vyrobil a spravuje',
     'search_placeholder' => 'hledat díla, autorů ...',
     'to_top' => 'návrat nahoru',
 

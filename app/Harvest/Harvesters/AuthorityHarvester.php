@@ -3,8 +3,8 @@
 namespace App\Harvest\Harvesters;
 
 use App\Harvest\Importers\AuthorityImporter;
-use App\Harvest\Importers\Result;
 use App\Harvest\Repositories\AuthorityRepository;
+use App\Harvest\Result;
 use App\SpiceHarvesterRecord;
 
 class AuthorityHarvester extends AbstractHarvester

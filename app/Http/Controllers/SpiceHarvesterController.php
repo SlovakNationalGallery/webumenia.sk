@@ -71,7 +71,7 @@ class SpiceHarvesterController extends Controller
         $v = Validator::make($input, $rules);
 
         if ($v->passes()) {
-            
+
             $harvest = new SpiceHarvesterHarvest;
             $harvest->base_url = Input::get('base_url');
             $harvest->type = Input::get('type');
@@ -209,8 +209,8 @@ class SpiceHarvesterController extends Controller
                 $items_to_remove[] = $record->item_id;
             }
         }
-        
-        $collections = \Collection::lists('name', 'id')->toArray();
+
+        $collections = Collection::listsTranslations('name')->pluck('name', 'id')->toArray();
         if (count($items_to_remove)) {
             $items = Item::whereIn('id', $items_to_remove)->paginate('50');
         } else {

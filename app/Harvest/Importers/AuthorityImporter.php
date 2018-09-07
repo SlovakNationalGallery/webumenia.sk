@@ -9,7 +9,6 @@ use App\Harvest\Mappers\AuthorityMapper;
 use App\Harvest\Mappers\AuthorityNameMapper;
 use App\Harvest\Mappers\AuthorityNationalityMapper;
 use App\Harvest\Mappers\AuthorityRelationshipMapper;
-use App\Harvest\Mappers\AuthorityRoleMapper;
 use App\Harvest\Mappers\LinkMapper;
 use App\Harvest\Mappers\NationalityMapper;
 use App\Harvest\Mappers\RelatedAuthorityMapper;
@@ -23,7 +22,6 @@ class AuthorityImporter extends AbstractImporter
     protected $conditions = [
         'events' => ['event', 'place', 'start_date', 'end_date'],
         'names' => ['name'],
-        'roles' => ['role'],
         'links' => ['url'],
         'nationalities' => ['id'],
         'relationships' => ['id'],
@@ -35,7 +33,6 @@ class AuthorityImporter extends AbstractImporter
         AuthorityNameMapper $authorityNameMapper,
         AuthorityNationalityMapper $authorityNationalityMapper,
         AuthorityRelationshipMapper $authorityRelationshipMapper,
-        AuthorityRoleMapper $authorityRoleMapper,
         LinkMapper $linkMapper,
         NationalityMapper $nationalityMapper,
         RelatedAuthorityMapper $relatedAuthorityMapper
@@ -44,7 +41,6 @@ class AuthorityImporter extends AbstractImporter
         $this->mappers = [
             'events' => $authorityEventMapper,
             'names' => $authorityNameMapper,
-            'roles' => $authorityRoleMapper,
             'links' => $linkMapper,
             'nationalities' => $nationalityMapper,
             'relationships' => $relatedAuthorityMapper,

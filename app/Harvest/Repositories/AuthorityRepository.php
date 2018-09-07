@@ -22,10 +22,7 @@ class AuthorityRepository extends AbstractRepository
         'sex' => './/vp:Sex',
         'birth_date' => './/vp:Birth_Date',
         'death_date' => './/vp:Death_Date',
-        'roles' => [
-            null => './/vp:Role_ID',
-            'role' => '.'
-        ],
+        'roles' => './/vp:Role_ID',
         'names' => [
             null => './/vp:Term_Text',
             'name' => '.',

@@ -37,12 +37,12 @@ class AuthorityMapper extends AbstractModelMapper
 
     public function mapBiography(array $row) {
         if (!isset($row['biography'][0])) {
-            return;
+            return '';
         }
 
         $biography = str_after($row['biography'][0], '(ZNÁMY)');
         if (str_contains($biography, 'http')) {
-            return;
+            return '';
         }
 
         return $biography;
@@ -78,6 +78,15 @@ class AuthorityMapper extends AbstractModelMapper
         if (isset($row['death_date'][0])) {
             return $this->parseYear($row['death_date'][0]);
         }
+    }
+
+    public function mapRoles(array $row, $locale) {
+        $roles = [];
+        foreach ($row['roles'] as $role) {
+            $roles[] = $this->chooseTranslation($role, $locale);
+        }
+
+        return $roles ?: null;
     }
 
     /**

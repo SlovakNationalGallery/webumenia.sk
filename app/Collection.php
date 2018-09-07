@@ -7,17 +7,20 @@ use Intervention\Image\ImageManagerStatic;
 
 class Collection extends \Eloquent
 {
-
+    use \Dimsav\Translatable\Translatable;
+        
     const ARTWORKS_DIR = '/images/kolekcie/';
 
+    public $translatedAttributes = ['name','type', 'text'];
+
     public static $rules = array(
-        'name' => 'required',
-        'text' => 'required',
-        );
+        'sk.name' => 'required',
+        'sk.text' => 'required',
+    );
 
     public static $sortable = array(
-        'created_at' => 'dátumu vytvorenia',
-        'name' => 'názvu',
+        'created_at' => 'sortable.created_at',
+        'name'       => 'sortable.title',
     );
     
     public function items()

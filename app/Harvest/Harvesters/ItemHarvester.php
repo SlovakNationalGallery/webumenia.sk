@@ -3,8 +3,8 @@
 namespace App\Harvest\Harvesters;
 
 use App\Harvest\Importers\ItemImporter;
-use App\Harvest\Importers\Result;
 use App\Harvest\Repositories\ItemRepository;
+use App\Harvest\Result;
 use App\Item;
 use App\SpiceHarvesterRecord;
 use Illuminate\Support\Str;

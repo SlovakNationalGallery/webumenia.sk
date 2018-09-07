@@ -5,16 +5,15 @@ namespace Tests\Harvest\Importers;
 use App\Authority;
 use App\AuthorityRelationship;
 use App\Harvest\Importers\AuthorityImporter;
-use App\Harvest\Importers\Result;
 use App\Harvest\Mappers\AuthorityEventMapper;
 use App\Harvest\Mappers\AuthorityMapper;
 use App\Harvest\Mappers\AuthorityNameMapper;
 use App\Harvest\Mappers\AuthorityNationalityMapper;
 use App\Harvest\Mappers\AuthorityRelationshipMapper;
-use App\Harvest\Mappers\AuthorityRoleMapper;
 use App\Harvest\Mappers\LinkMapper;
 use App\Harvest\Mappers\NationalityMapper;
 use App\Harvest\Mappers\RelatedAuthorityMapper;
+use App\Harvest\Result;
 use App\Link;
 use App\Nationality;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -95,11 +94,7 @@ class AuthorityImporterTest extends TestCase
             'sex' => ['Female'],
             'birth_date' => ['02.03.1904'],
             'death_date' => ['30.11.1991'],
-            'roles' => [
-                [
-                    'role' => ['fotograf/photographer'],
-                ],
-            ],
+            'roles' => ['fotograf/photographer'],
             'names' => [
                 [
                     'name' => ['Blühová, Irena'],
@@ -149,7 +144,6 @@ class AuthorityImporterTest extends TestCase
             $authorityNameMapperMock = $this->getMock(AuthorityNameMapper::class),
             $authorityNationalityMapperMock = $this->getMock(AuthorityNationalityMapper::class),
             $authorityRelationshipMapperMock = $this->getMock(AuthorityRelationshipMapper::class),
-            $authorityRoleMapperMock = $this->getMock(AuthorityRoleMapper::class),
             $linkMapperMock = $this->getMock(LinkMapper::class),
             $nationalityMapperMock = $this->getMock(NationalityMapper::class),
             $relatedAuthorityMapperMock = $this->getMock(RelatedAuthorityMapper::class)
@@ -161,15 +155,28 @@ class AuthorityImporterTest extends TestCase
             ->with($row)
             ->willReturn([
                 'id' => 954,
-                'type' => 'Person',
-                'type_organization' => 'Zbierkotvorná galéria',
+                'type' => 'person',
                 'name' => 'Blühová, Irena',
-                'sex' => 'Female',
-                'biography' => '',
-                'birth_place' => 'Považská Bystrica',
-                'death_place' => 'Bratislava',
+                'sex' => 'female',
                 'birth_date' => '02.03.1904',
                 'death_date' => '30.11.1991',
+                'birth_year' => 1904,
+                'death_year' => 1991,
+                'roles:sk' => 'fotograf',
+                'type_organization:sk' => 'Zbierkotvorná galéria',
+                'biography:sk' => '',
+                'birth_place:sk' => 'Považská Bystrica',
+                'death_place:sk' => 'Bratislava',
+                'roles:en' => 'photographer',
+                'type_organization:en' => 'Zbierkotvorná galéria',
+                'biography:en' => '',
+                'birth_place:en' => null,
+                'death_place:en' => null,
+                'roles:cs' => null,
+                'type_organization:cs' => 'Zbierkotvorná galéria',
+                'biography:cs' => '',
+                'birth_place:cs' => null,
+                'death_place:cs' => null,
             ]);
         $authorityEventMapperMock
             ->expects($this->exactly(1))
@@ -211,14 +218,6 @@ class AuthorityImporterTest extends TestCase
                 ['type' => 'člen'],
                 ['type' => 'partner']
             );
-        $authorityRoleMapperMock
-            ->expects($this->exactly(1))
-            ->method('map')
-            ->withConsecutive([$row['roles'][0]])
-            ->willReturnOnConsecutiveCalls([
-                'role' => 'fotograf',
-                'prefered' => false,
-            ]);
         $linkMapperMock
             ->expects($this->exactly(1))
             ->method('map')

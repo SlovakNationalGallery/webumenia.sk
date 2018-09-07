@@ -22,6 +22,7 @@ class AuthorityMapperTest extends TestCase
             'sex' => ['Female'],
             'birth_date' => ['02.03.1904'],
             'death_date' => ['30.11.1991'],
+            'roles' => ['fotograf/photographer'],
         ];
 
         $mapped = $mapper->map($row);
@@ -29,16 +30,27 @@ class AuthorityMapperTest extends TestCase
         $expected = [
             'id' => 954,
             'type' => 'person',
-            'type_organization' => 'Zbierkotvorná galéria',
             'name' => 'Blühová, Irena',
             'sex' => 'female',
-            'biography' => '',
-            'birth_place' => 'Považská Bystrica',
             'birth_date' => '02.03.1904',
-            'death_place' => 'Bratislava',
             'death_date' => '30.11.1991',
             'birth_year' => 1904,
             'death_year' => 1991,
+            'roles:sk' => 'fotograf',
+            'type_organization:sk' => 'Zbierkotvorná galéria',
+            'biography:sk' => '',
+            'birth_place:sk' => 'Považská Bystrica',
+            'death_place:sk' => 'Bratislava',
+            'roles:en' => 'photographer',
+            'type_organization:en' => 'Zbierkotvorná galéria',
+            'biography:en' => '',
+            'birth_place:en' => null,
+            'death_place:en' => null,
+            'roles:cs' => null,
+            'type_organization:cs' => 'Zbierkotvorná galéria',
+            'biography:cs' => '',
+            'birth_place:cs' => null,
+            'death_place:cs' => null,
         ];
         $this->assertEquals($expected, $mapped);
     }

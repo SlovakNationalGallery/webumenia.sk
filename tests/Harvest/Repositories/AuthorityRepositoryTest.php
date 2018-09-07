@@ -39,11 +39,7 @@ class AuthorityRepositoryTest extends TestCase
             'sex' => ['Female'],
             'birth_date' => ['02.03.1904'],
             'death_date' => ['30.11.1991'],
-            'roles' => [
-                [
-                    'role' => ['fotograf/photographer'],
-                ],
-            ],
+            'roles' => ['fotograf/photographer'],
             'names' => [
                 [
                     'name' => ['Blühová, Irena'],

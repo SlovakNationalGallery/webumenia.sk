@@ -32,7 +32,7 @@ Route::group(['domain' => 'media.webumenia.{tld}'], function () {
 
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
-    'middleware' => [ 'localeSessionRedirect', 'localizationRedirect' ]
+    'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localizeElastic' ]
 ],
 function()
 {

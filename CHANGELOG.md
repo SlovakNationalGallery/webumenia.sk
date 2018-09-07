@@ -11,7 +11,9 @@ All notable changes to this project will be documented in this file[^1].
 - Use SQLite in tests
 - Curator of artwork in detail view
 - admin-editable cron_status attribute added to SpiceHarvester harvests
-- daily and weekly cron jobs scheduled for harvests with appropriate cron_status 
+- daily and weekly cron jobs scheduled for harvests with appropriate cron_status
+- footer component
+- newsletter link into footer
 - Refactor spice harvester
 
 ## [1.5.3] - 2018-08-14
@@ -73,6 +75,8 @@ All notable changes to this project will be documented in this file[^1].
 - Favicons & Open Graph tags include components
 - Positioned image reference strip on right side of zoom-viewer
 - Zoom view showing multiple images
+- made models Item, Authority, Article and Collection translatable
+- separate elastic index for each locale
 
 ## [1.3.2] - 2018-04-23
 ### Fixed

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Harvest\Importers;
+namespace App\Harvest;
 
 class Result
 {

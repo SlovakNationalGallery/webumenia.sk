@@ -23,23 +23,23 @@ class ItemMapper extends AbstractModelMapper
 
     public function mapTitle(array $row, $locale) {
         if ($locale == 'sk') {
-            return $row['title'];
+            return $row['title'] ?: null;
         }
 
-        return $this->getLocalized($row, 'title_localized', $locale);
+        return $this->getLocalized($row, 'title_translated', $locale) ?: null;
     }
 
     public function mapWorkType(array $row, $locale) {
         $work_type = $this->getLocalized($row, 'type', $locale);
-        return $this->serialize($work_type, ', ');
+        return $this->serialize($work_type, ', ') ?: null;
     }
 
     public function mapTechnique(array $row, $locale) {
-        return $this->getLocalized($row, 'format', $locale);
+        return $this->getLocalized($row, 'format', $locale) ?: null;
     }
 
     public function mapMedium(array $row, $locale) {
-        return $this->getLocalized($row, 'format_medium', $locale);
+        return $this->getLocalized($row, 'format_medium', $locale) ?: null;
     }
 
     public function mapSubject(array $row, $locale) {
@@ -47,40 +47,43 @@ class ItemMapper extends AbstractModelMapper
         $subjects = array_filter($subjects, function ($subject) {
             return starts_with_upper((string)$subject);
         });
-
-        return array_map(function ($subject) {
+        $subjects = array_map(function ($subject) {
             return Str::lower($subject);
         }, $subjects);
+
+        return $subjects ?: null;
     }
 
     public function mapTopic(array $row, $locale) {
         $topics = $this->getLocalized($row, 'subject', $locale);
-        return array_filter($topics, function ($topic) {
+        $topics = array_filter($topics, function ($topic) {
             return !starts_with_upper((string)$topic);
         });
+
+        return $topics ?: null;
     }
 
     public function mapMeasurement(array $row, $locale) {
         if ($locale == 'sk') {
-            return array_map('trim', $row['extent']);
+            return array_map('trim', $row['extent']) ?: null;
         }
     }
 
     public function mapInscription(array $row, $locale) {
         if ($locale == 'sk') {
-            return $row['description'];
+            return $row['description'] ?: null;
         }
     }
 
     public function mapPlace(array $row, $locale) {
         if ($locale == 'sk') {
-            return $row['subject_place'];
+            return $row['subject_place'] ?: null;
         }
     }
 
     public function mapGallery(array $row, $locale) {
         if ($locale == 'sk') {
-            return $row['provenance'];
+            return $row['provenance'] ?: null;
         }
     }
 
@@ -129,8 +132,6 @@ class ItemMapper extends AbstractModelMapper
         if (isset($related_parts[0])) {
             return $related_parts[0];
         }
-
-        return '';
     }
 
     public function mapRelatedWork(array $row, $locale) {
@@ -145,7 +146,7 @@ class ItemMapper extends AbstractModelMapper
 
         $related_parts = $this->getRelatedParts($row);
         if (count($related_parts) < 2) {
-            return '';
+            return;
         }
 
         return trim(preg_replace('/\s*\([^)]*\)/', '', $related_parts[1]));
@@ -169,13 +170,9 @@ class ItemMapper extends AbstractModelMapper
         return (int)$related_work_total;
     }
 
-    public function mapDescription() {
-        return '';
-    }
+    public function mapDescription() {}
 
-    public function mapWorkLevel() {
-        return '';
-    }
+    public function mapWorkLevel() {}
 
     public function mapItemType() {
         return '';

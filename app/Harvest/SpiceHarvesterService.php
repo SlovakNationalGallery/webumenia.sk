@@ -5,7 +5,6 @@ namespace App\Harvest;
 use App\Harvest\Harvesters\AbstractHarvester;
 use App\Harvest\Harvesters\AuthorityHarvester;
 use App\Harvest\Harvesters\ItemHarvester;
-use App\Harvest\Importers\Result;
 use App\SpiceHarvesterHarvest;
 use App\SpiceHarvesterRecord;
 use Psr\Log\LoggerInterface;

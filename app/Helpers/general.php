@@ -392,12 +392,12 @@ function empty_to_null($value) {
     return $value === "" ? NULL : $value;
 }
 
+function walk_empty_to_null(&$item, $key) {
+    $item = $item ?: null;
+}
+
 function convertEmptyStringsToNull($array) {
-    $array = array_map(function ($e) {
-        return $e ?: null;
-
-    }, $array);
-
+    array_walk_recursive($array,'walk_empty_to_null');
     return $array;
 }
 
