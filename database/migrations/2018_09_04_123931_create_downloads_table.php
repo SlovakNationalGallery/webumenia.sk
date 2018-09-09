@@ -26,9 +26,10 @@ class CreateDownloadsTable extends Migration
             $table->text('note')->nullable();
             $table->string('publication_name')->nullable();
             $table->string('publication_author')->nullable();
-            $table->string('publication_year')->nullable();
-            $table->string('publication_print_run')->nullable();
+            $table->integer('publication_year')->nullable();
+            $table->integer('publication_print_run')->nullable();
             // $table->boolean('gdpr')->default(false);
+            $table->string('ip')->nullable();
             $table->timestamps();
         });
     }

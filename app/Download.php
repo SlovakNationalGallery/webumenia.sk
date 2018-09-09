@@ -10,7 +10,9 @@ class Download extends Model
         'item_id' => 'required',
         'type' => 'required',
         'email' => 'email',
-        'terms_and_conditions' => 'required',
+        // 'terms_and_conditions' => 'required',
     ];
+
+    protected $guarded = ['terms_and_conditions'];
 
 }

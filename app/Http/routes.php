@@ -130,13 +130,35 @@ function()
 
 
 
-    Route::post('download', function () {
+    Route::post('download', function (\Illuminate\Http\Request $request) {
 
-        $input = Input::all();
-        dd($input);
+        $input = array_merge($request->all(), ['ip' => $request->ip()]);
+        // dd($input);
 
-        $rules = Download::$rules;
+        $rules = \App\Download::$rules;
         $v = Validator::make($input, $rules);
+
+        if ($v->passes()) {
+            $download = \App\Download::create($input);
+
+            // increment download counter
+            // download the image
+
+            $item = Item::find($request->get('item_id'));
+
+            if (empty($item) || !$item->isFreeDownload()) {
+                App::abort(404);
+            }
+            $item->timestamps = false;
+            $item->download_count += 1;
+            $item->save();
+            $item->download();
+
+            return Redirect::back()->withMessage('Stiahnute');
+        }
+
+        return Redirect::back()->withInput()->withErrors($v);
+
 
     })->name('objednavka.download');
 

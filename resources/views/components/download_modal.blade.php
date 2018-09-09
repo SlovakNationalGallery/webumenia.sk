@@ -70,11 +70,7 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-
-
-
             </div>
             <div class="modal-footer">
                 <div class="text-center">
@@ -85,7 +81,7 @@
                     <button type="button" data-dismiss="modal" class="btn btn-default btn-outline uppercase sans">{{ trans('general.close') }}</button>
                 </div>
             </div>
-            {!!Former::close();!!}
+            {!! Former::close() !!}
         </div>
     </div>
 </div>
