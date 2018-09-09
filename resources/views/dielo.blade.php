@@ -334,7 +334,7 @@
 
 
 <!-- Modal -->
-@include('includes.download_modal')
+@include('components.download_modal')
 <!-- Modal -->
 <div tabindex="-1" class="modal fade" id="downloadfail" role="dialog">
     <div class="modal-dialog">
@@ -362,6 +362,7 @@
 {!! Html::script('js/jquery.fileDownload.js') !!}
 
 @include('components.artwork_carousel_js', ['slick_query' => '.artworks-preview'])
+@include('components.download_modal_js')
 
 @if (!empty($item->lat) && ($item->lat > 0))
     <!-- Google Maps API Key - You will need to use your own API key to use the map feature -->
@@ -410,37 +411,6 @@
             maxHeight: 160
         });
 
-        $('div.form-hide').hide();
-
-        $("#download-type .btn").click(function(e){
-            e.preventDefault();
-            $('div.form-hide').fadeOut();
-            var type = $(this).data('type');
-            console.log(type);
-            // set type by button
-            $('input[name=type]').val(type);
-            // show parts according the type
-            $('div.'+type).fadeIn();
-
-            // enable download if validation pass
-            $(this).closest('form').find(':submit').prop("disabled", false);
-
-
-        });
-
-        $('#download').on('click', function(e){
-
-            // $('#license').modal({})
-            $.fileDownload($(this).attr('href'), {
-                successCallback: function(url) {
-                },
-                failCallback: function(responseHtml, url) {
-                    $('#license').modal('hide');
-                    $('#downloadfail').modal('show');
-                }
-            });
-            return false; //this is critical to stop the click event which will trigger a normal file download!
-        });
 
 // $(document).on("click", "#download", function() {
 //         $.fileDownload($(this).attr('href'), {
