@@ -12,20 +12,25 @@
 
         $("#download-type .btn").on('click', function(e){
             e.preventDefault();
-            $('div.form-hide').fadeOut();
-            $('div.form-hide :input').attr("disabled", true);
-
             var type = $(this).data('type');
-            // set type by button
-            $('input[name=type]').val(type);
-            // show parts according the type
-            $('div.'+type).fadeIn();
-            $('div.'+type+' :input').attr("disabled", false);
 
-            // enable download if validation pass
-            $(this).closest('form').find(':submit').prop("disabled", false);
+            $('div.form-hide').fadeOut().promise().done(function(){
 
+                $('div.form-hide :input').attr("disabled", true);
+                // set type by button
+                $('input[name=type]').val(type);
+                // show parts according the type
+                $('div.'+type+' :input').attr("disabled", false);
+                $('div.'+type).fadeIn();
 
+                if (type=="private") {
+                    // enable download if validation pass
+                    $(this).closest('form').find(':submit').prop("disabled", false);
+                } else {
+                    $(this).closest('form').find(':submit').prop("disabled", true);
+                }
+
+            });
         });
 
         /*
