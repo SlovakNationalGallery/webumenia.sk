@@ -13,6 +13,22 @@ class Download extends Model
         // 'terms_and_conditions' => 'required',
     ];
 
-    protected $guarded = ['terms_and_conditions'];
+    protected $fillable = [
+        'item_id',
+        'type',
+        'company',
+        'address',
+        'country',
+        'contact_person',
+        'email',
+        'phone',
+        'purpose',
+        'note',
+        'publication_name',
+        'publication_author',
+        'publication_year',
+        'publication_print_run',
+        'ip',
+    ];
 
 }
