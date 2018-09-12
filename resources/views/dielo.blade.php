@@ -260,7 +260,7 @@
                         
                     <div>
                     @if (!empty($item->related_work))
-                        <?php $related_items = App\Item::where('related_work', '=', $item->related_work)->where('author', '=', $item->author)->orderBy('related_work_order')->get() ?>
+                        <?php $related_items = App\Item::related($item)->get() ?>
                         @if ($related_items->count() > 1)
                         <div style="position: relative; padding: 0 10px;">
                             @include('components.artwork_carousel', [
