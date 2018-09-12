@@ -665,9 +665,9 @@ class Item extends Model
     }
 
 
-    public function scopeRelated($query, Item $item)
+    public function scopeRelated($query, Item $item, $locale = null)
     {
-        return $query->where('related_work', '=', $item->related_work)
+        return $query->whereTranslation('related_work', $item->related_work, $locale)
             ->where('author', '=', $item->author)
             ->orderBy('related_work_order');
     }
