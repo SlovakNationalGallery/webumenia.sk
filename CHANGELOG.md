@@ -15,6 +15,10 @@ All notable changes to this project will be documented in this file[^1].
 - footer component
 - newsletter link into footer
 
+### Changed
+- made models Item, Authority, Article and Collection translatable
+- separate elastic index for each locale
+
 ## [1.5.3] - 2018-08-14
 ### Fixed
 - OAI download images command reflects changes to Item model
@@ -74,8 +78,6 @@ All notable changes to this project will be documented in this file[^1].
 - Favicons & Open Graph tags include components
 - Positioned image reference strip on right side of zoom-viewer
 - Zoom view showing multiple images
-- made models Item, Authority, Article and Collection translatable
-- separate elastic index for each locale
 
 ## [1.3.2] - 2018-04-23
 ### Fixed
