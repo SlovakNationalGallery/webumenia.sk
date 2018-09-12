@@ -74,10 +74,8 @@
             </div>
             <div class="modal-footer">
                 <div class="text-center">
-                    {!! Form::submit(trans('dielo.item_download'), [
-                        'class'=>'btn btn-primary uppercase sans',
-                        'disabled'=>'disabled',
-                    ]) !!}
+                    <button type="submit" class="btn btn-primary uppercase sans" data-label="{{ trans('dielo.item_download') }}" disabled="disabled">{{ trans('dielo.item_download') }}</button>
+
                     <button type="button" data-dismiss="modal" class="btn btn-default btn-outline uppercase sans">{{ trans('general.close') }}</button>
                 </div>
             </div>

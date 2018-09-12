@@ -152,9 +152,7 @@ function()
             $item->timestamps = false;
             $item->download_count += 1;
             $item->save();
-            $item->download();
-
-            return Redirect::back()->withMessage('Stiahnute');
+            return $item->download();
         }
 
         return Redirect::back()->withInput()->withErrors($v);
@@ -242,7 +240,8 @@ function()
         $item->timestamps = false;
         $item->download_count += 1;
         $item->save();
-        $item->download();
+        return $item->download();
+        exit;
 
         // return Response::download($pathToFile);
     }]);

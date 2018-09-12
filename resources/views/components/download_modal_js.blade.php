@@ -33,23 +33,6 @@
             });
         });
 
-        /*
-        $('#download').on('click', function(e){
-
-            // $('#license').modal({})
-            $.fileDownload($(this).attr('href'), {
-                successCallback: function(url) {
-                },
-                failCallback: function(responseHtml, url) {
-                    $('#license').modal('hide');
-                    $('#downloadfail').modal('show');
-                }
-            });
-            return false; //this is critical to stop the click event which will trigger a normal file download!
-        });
-        */
-
-
         $('#downloadForm form').bootstrapValidator({
                     feedbackIcons: {
                         valid: 'fa fa-check',
@@ -57,9 +40,27 @@
                         validating: 'fa fa-refresh'
                     },
                     live: 'enabled',
-                    submitButtons: 'input[type="submit"]',
+                    submitButtons: 'button[type="submit"]',
                     locale: 'cs_CZ',
                     excluded: [':disabled', ':hidden', ':not(:visible)']
+        }).on('success.form.bv',function(e){
+              e.preventDefault();
+
+              var $submit_button = $('#downloadForm button[type=submit].btn-primary');
+              var submit_button_text = $submit_button.data('label');
+              console.log(submit_button_text);
+
+              $.fileDownload($(this).prop('action'), {
+                  prepareCallback: function(url) {
+                      $submit_button.html('<i class="fa fa-spinner fa-spin"></i> ' + submit_button_text);
+                  },
+                  successCallback: function(url) {
+                     $submit_button.html(submit_button_text);
+                     $('#downloadForm').modal('hide');
+                  },
+                  httpMethod: "POST",
+                  data: $(this).serialize()
+              });
         });
 
     });

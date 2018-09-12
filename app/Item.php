@@ -702,7 +702,7 @@ class Item extends Model
 
         // Finish off, like Laravel would
         // Event::fire('laravel.done', array($response));
-        // $response->foundation->finish();
+        $response->foundation->finish();
 
         exit;
     }
