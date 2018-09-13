@@ -783,22 +783,16 @@ section.catalog {
 .artworks-preview {
     width: 100%;
     overflow: hidden;
-    max-height: 165px;
+    height: 165px;
     &.large {
-       max-height: 200px;
-       .img-responsive-width {
-            max-height: 200px;
-       }
+       height: 200px;
     }
     &.small {
-       max-height: 100px;
-       .img-responsive-width {
-            max-height: 100px;
-            width: auto;
-       }
+       height: 100px;
     }
-    img {
+    a {
         margin-right: 10px;
+        display: inline-block;
     }
 }
 

@@ -17,10 +17,25 @@
 <div class="artwork-carousel-container {{$class_names or ''}}">
   <div class="{{$slick_target}} {{$slick_variant or ''}}">
     @foreach ($items as $item)
-    <a href="{!! $item->getUrl() !!}">
+
+    @php
+        list($width, $height) = getimagesize(public_path() . $item->getImagePath());
+        $width = $width * ($size / $height);
+        $height = $size;
+    @endphp
+
+    <a
+      href="{!! $item->getUrl() !!}"
+      width="{{ round($width) }}"
+      height="{{ $height }}">
+
       <img
+        width="{{ round($width) }}"
+        height="{{ $height }}"
         data-srcset="{!! route('dielo.nahlad', ['id' => $item->id, 'width'=> 0, 'height' => $size]) !!} 1x, {!! route('dielo.nahlad', ['id' => $item->id, 'width'=> 0, 'height' => ($size*2)]) !!} 2x"
-        class="img-responsive-width lazyload"
+        data-src="{!! route('dielo.nahlad', ['id' => $item->id, 'width'=> 0, 'height' => $size]) !!}"
+        class="lazyload"
+        style=""
         alt="{!! $item->getTitleWithAuthors() !!} ">
     </a>
     @endforeach
