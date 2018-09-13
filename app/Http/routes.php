@@ -299,6 +299,11 @@ function()
 
         return view('informacie', ['items' => $items]);
     });
+
+    Route::get('reprodukcie', function () {
+        $items = Item::random(20, ['gallery' => 'Slovenská národná galéria, SNG']);
+        return view('reprodukcie', ['items' => $items]);
+    });
 });
 
 Route::group(array('middleware' => 'guest'), function () {
