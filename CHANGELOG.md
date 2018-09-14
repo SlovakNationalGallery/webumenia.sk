@@ -14,12 +14,13 @@ All notable changes to this project will be documented in this file[^1].
 - daily and weekly cron jobs scheduled for harvests with appropriate cron_status
 - footer component
 - newsletter link into footer
+- VSG to the list of galleries
 
 ### Changed
-- VSG to the list of galleries
 - allow download of public-domain artworks from VSG
 - making map with galleries interactive in info section
-
+- made models Item, Authority, Article and Collection translatable
+- separate elastic index for each locale
 
 ## [1.5.3] - 2018-08-14
 ### Fixed
@@ -80,8 +81,6 @@ All notable changes to this project will be documented in this file[^1].
 - Favicons & Open Graph tags include components
 - Positioned image reference strip on right side of zoom-viewer
 - Zoom view showing multiple images
-- made models Item, Authority, Article and Collection translatable
-- separate elastic index for each locale
 
 ## [1.3.2] - 2018-04-23
 ### Fixed
