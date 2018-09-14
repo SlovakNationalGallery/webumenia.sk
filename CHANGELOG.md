@@ -7,6 +7,8 @@ All notable changes to this project will be documented in this file[^1].
 - Authorities Search endpoint of admin fixed
 
 ### Added
+- /reprodukcie route
+- ReproOffer component
 - Remove query string from localized urls
 - Use SQLite in tests
 - Curator of artwork in detail view
