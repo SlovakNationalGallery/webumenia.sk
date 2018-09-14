@@ -139,13 +139,13 @@
         </div>
         <div class="row">
             <div class="col-xs-4">
-                <img class="w-100" src="/images/reprodukcie/digirepro-1a.jpg">
-            </div>
-            <div class="col-xs-4 px-0">
-                <img class="w-100" src="/images/reprodukcie/digirepro-1b.jpg">
+                <img class="w-100" src="/images/reprodukcie/digirepro-1.jpg">
             </div>
             <div class="col-xs-4">
-                <img class="w-100" src="/images/reprodukcie/digirepro-1c.jpg">
+                <img class="w-100" src="/images/reprodukcie/digirepro-2.jpg">
+            </div>
+            <div class="col-xs-4">
+                <img class="w-100" src="/images/reprodukcie/digirepro-3.jpg">
             </div>
         </div>
     </div>
