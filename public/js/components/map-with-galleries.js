@@ -16,7 +16,6 @@ $("document").ready(function() {
     $.each( classes, function( index, class_name ){
         // if class_name is uppercased (e.g. SNG, OGD ...) it's gallery ID
         if (class_name === class_name.toUpperCase()) {
-            console.log(class_name);
             $(".galleries a#"+ class_name ).addClass('active');
         }
     });

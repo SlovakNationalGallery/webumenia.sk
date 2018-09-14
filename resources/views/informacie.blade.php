@@ -22,7 +22,7 @@
 
             </div>
             <div class="col-md-8 text-center">
-                {!! file_get_contents(public_path('images/mapa.svg')) !!}
+                {!! file_get_contents(public_path('images/map-with-galleries.svg')) !!}
             </div>
         </div>
         <div class="row bottom-space galleries">
