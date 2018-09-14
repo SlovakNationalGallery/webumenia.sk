@@ -16,7 +16,7 @@
         </div>
     </div>
 </div>
-<section class="intro content-section">
+<section class="intro content-section underlined-links">
     <div class="">
         <div class="container">
             <p class="lead text-center">
@@ -31,8 +31,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <h2 class="text-center">{{ utrans('reprodukcie.print_heading') }}</h2>
-                <div>{!! utrans('reprodukcie.print_body') !!}</div>
+                <h2 class="text-center bottom-space">{{ utrans('reprodukcie.print_heading') }}</h2>
+                <div>
+                    {!! utrans('reprodukcie.print_body') !!}
+                </div>
                 <div class="row ">
                     <div class="col-sm-6">
                         @include('components.repro_offer', [
@@ -103,13 +105,13 @@
             <div class="col-xs-12">
                 @include('components.artwork_carousel', [
                     'slick_target' => "artworks-preview",
-                    'items' => $items,
+                    'items' => $items_print,
                 ])
             </div>
         </div>
         <div class="row content-section">
             <div class="col-sm-12 text-center">
-                <a href="{!! url_to('katalog', ['gallery' => 'Slovenská národná galéria, SNG']) !!}" class="btn btn-default btn-outline sans" >{{ trans('informacie.more-items_button') }} <strong>{!! App\Item::forReproduction()->count() !!}</strong>  <i class="fa fa-chevron-right "></i></a>
+                <a href="{!! url_to('katalog', ['gallery' => 'Slovenská národná galéria, SNG']) !!}" class="btn btn-default btn-outline sans" >{{ trans('reprodukcie.more-items_button') }} <strong>{!! App\Item::forReproduction()->count() !!}</strong>  <i class="fa fa-chevron-right "></i></a>
             </div>
         </div>
     </div>
@@ -121,7 +123,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <h2 class="text-center">{{ utrans('reprodukcie.digital_heading') }}</h2>
+                <h2 class="text-center bottom-space">{{ utrans('reprodukcie.digital_heading') }}</h2>
                 <div>{!! utrans('reprodukcie.digital_body') !!}</div>
             </div>
         </div>
@@ -136,22 +138,20 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-12">
-                @include('components.artwork_carousel', [
-                    'slick_target' => "artworks-preview",
-                    'items' => $items,
-                ])
+            <div class="col-xs-4">
+                <img class="w-100" src="/images/reprodukcie/digirepro-1a.jpg">
             </div>
-        </div>
-        <div class="row content-section">
-            <div class="col-sm-12 text-center">
-                <a href="{!! url_to('katalog', ['gallery' => 'Slovenská národná galéria, SNG']) !!}" class="btn btn-default btn-outline sans" >{{ trans('informacie.more-items_button') }} <strong>{!! App\Item::forReproduction()->count() !!}</strong>  <i class="fa fa-chevron-right "></i></a>
+            <div class="col-xs-4 px-0">
+                <img class="w-100" src="/images/reprodukcie/digirepro-1b.jpg">
+            </div>
+            <div class="col-xs-4">
+                <img class="w-100" src="/images/reprodukcie/digirepro-1c.jpg">
             </div>
         </div>
     </div>
 </section>
 
-<section class="underlined-links">
+<section class="underlined-links top-space">
     <div class="container">
         <div class="row grey">
             <div class="col-md-8 col-md-offset-2">
@@ -172,13 +172,13 @@
             <div class="col-xs-12">
                 @include('components.artwork_carousel', [
                     'slick_target' => "artworks-preview",
-                    'items' => $items,
+                    'items' => $items_digital,
                 ])
             </div>
         </div>
         <div class="row content-section">
             <div class="col-sm-12 text-center">
-                <a href="{!! url_to('katalog', ['gallery' => 'Slovenská národná galéria, SNG']) !!}" class="btn btn-default btn-outline sans" >{{ trans('informacie.more-items_button') }} <strong>{!! App\Item::forReproduction()->count() !!}</strong>  <i class="fa fa-chevron-right "></i></a>
+                <a href="{!! URL::to('katalog?is_free=' . '1') !!}" class="btn btn-default btn-outline sans" >{{ trans('reprodukcie.more-items_button') }} <strong>{!! App\Item::forReproduction()->count() !!}</strong>  <i class="fa fa-chevron-right "></i></a>
             </div>
         </div>
     </div>
