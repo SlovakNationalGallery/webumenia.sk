@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -17,6 +18,7 @@ class DownloadController extends Controller
      */
     public function index()
     {
+        Carbon::setToStringFormat('d.m.Y H:i');
         $downloads = Download::orderBy('created_at', 'desc')->paginate(20);
         return view('downloads.index')->with('downloads', $downloads);
     }
@@ -30,6 +32,7 @@ class DownloadController extends Controller
      */
     public function show($id)
     {
+        Carbon::setToStringFormat('d.m.Y H:i');
         $download = Download::find($id);
 
         return view('downloads.show')->with('download', $download);

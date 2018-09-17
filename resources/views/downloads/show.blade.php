@@ -16,13 +16,13 @@
 	                <table class="table">
 	                    <thead>
 							<tr>
-								<td>identifikátor:</td>
+								<td>ID:</td>
 								<td>{!! $download->id !!}</td>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td>typ:</td>
+								<td>Typ:</td>
 								<td>{!! $download->type !!}</td>
 							</tr>
                             <tr>
@@ -70,11 +70,23 @@
 								<td>{!! $download->note !!}</td>
 							</tr>
 							<tr>
-								<td><img src="{!! $download->item->getImagePath(); !!}" alt="náhľad" class="img-responsive" ></td>
+								<td>Dielo</td>
 								<td>
-									<a href="{!! URL::to('item/' . $download->item->id . '/edit' ) !!}">{!! $download->item->author !!} - {!! $download->item->title !!}</a>
+									<img src="{!! $download->item->getImagePath(); !!}" alt="náhľad" class="img-responsive" style="max-height: 100px">
+                                    <a href="{!! $download->item->getUrl() !!}" target="_blank">
+                                        {{ $download->item->id }}<br>
+                                        {!! $download->item->getTitleWithAuthors($html = true) !!}
+                                    </a>
 								</td>
 							</tr>
+                            <tr>
+                                <td>Dátum vytvorenia:</td>
+                                <td>{{ $download->created_at }}</td>
+                            </tr>
+                            <tr>
+                                <td>IP adresa:</td>
+                                <td>{{ $download->ip }}</td>
+                            </tr>
 	                    </tbody>
 	                </table>
 	            </div>

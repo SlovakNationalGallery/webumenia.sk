@@ -30,7 +30,8 @@ stiahnutia |
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Item</th>
+                            <th>Náhľad</th>
+                            <th>Dielo</th>
                             <th>Type</th>
                             <th>Email</th>
                             <th>Dátum</th>
@@ -40,8 +41,12 @@ stiahnutia |
                     <tbody>
 						@foreach($downloads as $i)
 			            <tr>
-			                <td>{!! $i->id !!}</td>
-                            <td>{!! $i->item_id !!}</td>
+                            <td>{!! $i->id !!}</td>
+			                <td class="text-center"><img src="{!! $i->item->getImagePath(); !!}" alt="náhľad" class="img-responsive nahlad"></td>
+                            <td>
+                                {{ $i->item->id }}<br>
+                                {!! $i->item->getTitleWithAuthors($html = true) !!}
+                            </td>
 			                <td>{!! $i->type !!}</td>
 			                <td>{!! $i->email !!}</td>
                             <td>{!! $i->created_at !!}</td>
