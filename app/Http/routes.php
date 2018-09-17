@@ -376,6 +376,7 @@ Route::group(['middleware' => ['auth', 'role:admin|editor|import']], function ()
     Route::post('collection/sort', 'CollectionController@sort');
     Route::resource('collection', 'CollectionController');
     Route::resource('slide', 'SlideController');
+    Route::resource('download', 'DownloadController');
 });
 
 Route::group(['middleware' => ['auth', 'role:admin|editor']], function () {

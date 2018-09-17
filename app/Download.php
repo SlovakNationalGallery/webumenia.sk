@@ -31,4 +31,11 @@ class Download extends Model
         'ip',
     ];
 
+    public function item()
+    {
+        return $this->belongsTo(\App\Item::class);
+    }
+
+
+
 }

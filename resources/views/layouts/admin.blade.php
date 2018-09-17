@@ -128,6 +128,9 @@
                                 </li>
                             </ul>
                         </li>
+                        <li>
+                            <a href="{!! URL::to('download') !!}"><i class="fa fa-bar-chart fa-fw"></i> Prehľad sťahovania</a>
+                        </li>
                         @endif
                         @if (Entrust::hasRole('admin'))
                         <li>
