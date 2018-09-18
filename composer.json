@@ -33,7 +33,8 @@
         "fzaninotto/faker": "^1.7",
         "doctrine/dbal": "^2.5",
         "league/csv": "^8.0",
-        "league/color-extractor": "dev-master"
+        "league/color-extractor": "dev-master",
+        "yajra/laravel-datatables-oracle": "^6.0"
     },
     "autoload": {
         "classmap": [

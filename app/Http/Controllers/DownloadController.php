@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Download;
+use Yajra\Datatables\Datatables;
 
 class DownloadController extends Controller
 {
@@ -16,11 +17,23 @@ class DownloadController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
         Carbon::setToStringFormat('d.m.Y H:i');
-        $downloads = Download::orderBy('created_at', 'desc')->paginate(20);
-        return view('downloads.index')->with('downloads', $downloads);
+
+        if ($request->ajax()) {
+            $query = Download::with('item')->select('downloads.*');
+
+            return Datatables::of($query)
+                ->addColumn('actions', function ($download) {
+                    return
+                        link_to_action('DownloadController@show', 'Detail', array($download->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', )) .
+                        '&nbsp;<a href="'. $download->item->getUrl() .'" class="btn btn-success btn-xs btn-outline" target="_blank">Na webe</a>';
+                     })
+                ->make(true);
+        }
+
+        return view('downloads.index');
     }
 
     /**

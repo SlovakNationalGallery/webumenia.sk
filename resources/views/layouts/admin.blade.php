@@ -26,6 +26,9 @@
         {!! Html::style('css/plugins/bootstrap-switch.css') !!}
         {!! Html::script('js/modernizr.custom.js') !!}
 
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.18/b-1.5.2/b-html5-1.5.2/datatables.min.css"/>
+
+
 </head>
 
 <body>
@@ -211,16 +214,6 @@
         $( '.wysiwyg' ).ckeditor({
             language: 'sk',
             filebrowserUploadUrl: '/uploader?csrf_token='+csrf
-        });
-
-
-        $('body').on('hidden.bs.modal', '.modal', function () {
-            $(this).removeData('bs.modal');
-        });
-
-        $('.btn-detail').click(function( event ){
-            $('#detailModal').modal({modal:true,remote:($(this).attr('href'))});
-            event.preventDefault();
         });
 
 

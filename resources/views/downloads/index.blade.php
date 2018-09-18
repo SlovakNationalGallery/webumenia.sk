@@ -26,41 +26,19 @@ stiahnutia |
         <div class="panel panel-default">
             <!-- /.panel-heading -->
             <div class="panel-body">
-            	<table class="table table-hover">
+            	<table class="table table-hover datatable">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Náhľad</th>
-                            <th>Dielo</th>
+                            <th>ID diela</th>
+                            <th>Názov diela</th>
                             <th>Type</th>
                             <th>Email</th>
                             <th>Dátum</th>
                             <th>Akcie</th>
                         </tr>
                     </thead>
-                    <tbody>
-						@foreach($downloads as $i)
-			            <tr>
-                            <td>{!! $i->id !!}</td>
-			                <td class="text-center"><img src="{!! $i->item->getImagePath(); !!}" alt="náhľad" class="img-responsive nahlad"></td>
-                            <td>
-                                {{ $i->item->id }}<br>
-                                {!! $i->item->getTitleWithAuthors($html = true) !!}
-                            </td>
-			                <td>{!! $i->type !!}</td>
-			                <td>{!! $i->email !!}</td>
-                            <td>{!! $i->created_at !!}</td>
-			                <td>
-                                {!! link_to_action('DownloadController@show', 'Detail', array($i->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', )) !!}
-                                <a href="{!! $i->item->getUrl() !!}" class="btn btn-success btn-xs btn-outline" target="_blank">Na webe</a>
-                            </td>
-			            </tr>
-						@endforeach
-                    </tbody>
                 </table>
-
-                <div class="text-center"><?php echo $downloads->render(); ?></div>
-
             </div>
             <!-- /.panel-body -->
         </div>
@@ -71,4 +49,65 @@ stiahnutia |
 <!-- /.row -->
 
 
+@stop
+
+{{-- script --}}
+@section('script')
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.18/b-1.5.2/b-html5-1.5.2/sl-1.2.6/datatables.min.js"></script>
+
+<script>
+
+    $(document).ready(function(){
+
+        // $.fn.dataTable.moment( 'DD.MM.YYYY HH:mm' );
+
+        var table = $('.datatable').dataTable({
+            // "order" : [[ 0, "desc" ]],
+            // dom: 'Blfrtip',
+            "processing": true,
+            "serverSide": true,
+            "ajax": "",
+            "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "Všetky"] ],
+            "columns": [
+                {data: 'id', name: 'downloads.id'},
+                {data: 'item.id', name: 'item.id' },
+                {data: 'item.title', name: 'item.title' },
+                {data: 'type', name: 'downloads.type' },
+                {data: 'email', name: 'downloads.email' },
+                {data: 'created_at', name: 'downloads.created_at' },
+                { data: 'actions', name: 'actions', orderable: false, searchable: false, className: "actions text-right" }
+            ],
+            dom:
+                "<'row'<'col-sm-3'l><'col-sm-6 text-center'B><'col-sm-3'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+            buttons: [
+                    {
+                        extend: 'csv',
+                        text: 'export všetko do CSV'
+                    },
+                    {
+                        extend: 'csv',
+                        text: 'export zvolených do CSV',
+                        exportOptions: {
+                            modifier: {
+                                selected: true
+                            }
+                        }
+                    }
+                ],
+            select: true,
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Slovak.json"
+            },
+            "fnDrawCallback": function(oSettings) {
+                $(".action").prependTo(".dt-buttons");
+                initFeatures();
+            }
+        });
+
+    });
+
+</script>
 @stop
