@@ -2,7 +2,7 @@
     <h4 class="text-uppercase">{!! $title !!}</h4>
     <img class="w-100 bottom-space" src="{{$img_url}}">
     <div>{!! $description !!}</div>
-    <table>
+    <table class="table">
         <tbody>
             @foreach ($pricing_options as $pricing_option)
                 <tr>

@@ -178,7 +178,7 @@
         </div>
         <div class="row content-section">
             <div class="col-sm-12 text-center">
-                <a href="{!! URL::to('katalog?is_free=' . '1') !!}" class="btn btn-default btn-outline sans" >{{ trans('reprodukcie.more-items_button') }} <strong>{!! App\Item::forReproduction()->count() !!}</strong>  <i class="fa fa-chevron-right "></i></a>
+                <a href="{!! URL::to('katalog?is_free=' . '1') !!}" class="btn btn-default btn-outline sans" >{{ trans('reprodukcie.more-items_button') }} <strong>{!! App\Item::amount(['is_free' => true]) !!}</strong>  <i class="fa fa-chevron-right "></i></a>
             </div>
         </div>
     </div>
