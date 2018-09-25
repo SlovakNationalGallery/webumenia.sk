@@ -24,6 +24,16 @@ return array(
                               <li>Po výbere diel, vyplnení údajov a odoslaní objednávky Vám pošleme <strong>e-mail s podrobnejšími informáciami</strong> o objednávke.</li>
                               <li>Ak si chcete objednať aj tlačené aj digitálne reprodukcie, vytvorte <strong>zvlášť objednávku pre každý typ</strong>.</li>
                             </ul>',
+    'print_offer_until'                    => 'do',
+    'print_offer_per-piece'                => 'eur / kus',
+    'print_offer_standalone_title'         => 'Samostatná Tlačená Reprodukcia',
+    'print_offer_standalone_description'   => '<p>Reprodukcia je vytlačená na fine art rag (100% bavlna, pH neutrálna) alebo FineArt Baryt Photo Paper, okolo plochy diela je biely okraj (pre prípadné paspartovanie/rámovanie).</p><p>Rozmer reprodukcie zachováva pomer strán diela.</p>',
+    'print_offer_passepartout_title'       => 'Reprodukcia S Paspartou',
+    'print_offer_passepartout_description' => '<p>Reprodukcia je vytlačená na fine art rag (100% bavlna, pH neutrálna) alebo FineArt Baryt Photo Paper.</p><p>Papierová pasparta je z jednej strany otvorená a umožňuje ďalšie rámovanie.</p><p>Šírka pasparty je 5-8 cm (podľa rozmerov diela). Maximálny rozmer reprodukcie v pasparte je A3+.</p>',
+    'print_offer_framed_title'             => 'Reprodukcia S Paspartou A Rámom',
+    'print_offer_framed_description'       => '<p>Reprodukcia je vytlačená na fine art rag (100% bavlna, pH neutrálna) alebo FineArt Baryt Photo Paper.</p><p>Dielo je vsadené v pasparte a v ráme so sklom.</p><p>Rámy sú drevené, nereliéfne, v dvoch farebných verziách (svetlé, tmavé). Ak vám farba rámu nevyhovuje, odporúčame formát reprodukcie s paspartou, pripravený na svojpomocné rámovanie.</p><p>Maximálny rozmer reprodukcie v pasparte a ráme je A3+.</p>',
+    'print_offer_poster_title'             => 'Poster (Art Plagát)',
+    'print_offer_poster_description'       => '<p>Reprodukcia je vytlačená na špeciálny, vysokokvalitný, mapový papier rozmeru A1.</p><p>Momentálne ponúkame v tejto forme iba reprodukcie <a href="https://www.webumenia.sk/kolekcia/144">plagátov zo zbierok SNG</a>.</p>',
     'digital_heading'   => 'Digitálne Reprodukcie',
     'digital_body'      => '<p>Poskytnutie digitálnych reprodukcii diel posudzujeme individuálne podľa konkrétneho diela a účelu použitia.</p>
                             <p>V súvislosti s ochranou autorských práv, <strong>SNG neposkytuje digitálne reprodukcie chránených diel na všeobecné súkromné účely (dekorácia, dar)</strong>.</p>

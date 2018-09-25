@@ -38,25 +38,25 @@
                 <div class="row ">
                     <div class="col-sm-6">
                         @include('components.repro_offer', [
-                            "title" => "Samostatná Tlačená Reprodukcia",
+                            "title" => trans('reprodukcie.print_offer_standalone_title'),
                             "img_url" => "/images/reprodukcie/format-1-samostatna.jpg",
-                            "description" => "<p>Reprodukcia je vytlačená na fine art rag (100% bavlna, pH neutrálna) alebo FineArt Baryt Photo Paper, okolo plochy diela je biely okraj (pre prípadné paspartovanie/rámovanie).</p><p>Rozmer reprodukcie zachováva pomer strán diela.</p>",
+                            "description" => trans('reprodukcie.print_offer_standalone_description'),
                             "pricing_options" => [
-                                ["do <strong>A4</strong>", "(21 x 29,7 cm)",   "30 eur / ks"],
-                                ["do <strong>A3</strong>", "(32,9 x 48,3 cm)", "40 eur / ks"],
-                                ["do <strong>A2</strong>", "(42 x 59,4 cm)",   "45 eur / ks"],
-                                ["do <strong>A1</strong>", "(59,4 x 84,1 cm)", "55 eur / ks"]
+                                [trans('reprodukcie.print_offer_until')." <strong>A4</strong>", "(21 x 29,7 cm)",   "30"],
+                                [trans('reprodukcie.print_offer_until')." <strong>A3</strong>", "(32,9 x 48,3 cm)", "40"],
+                                [trans('reprodukcie.print_offer_until')." <strong>A2</strong>", "(42 x 59,4 cm)",   "45"],
+                                [trans('reprodukcie.print_offer_until')." <strong>A1</strong>", "(59,4 x 84,1 cm)", "55"]
                             ]
                         ])
                     </div>
                     <div class="col-sm-6">
                         @include('components.repro_offer', [
-                            "title" => "Reprodukcia S Paspartou",
+                            "title" => trans('reprodukcie.print_offer_passepartout_title'),
                             "img_url" => "/images/reprodukcie/format-2-pasparta.jpg",
-                            "description" => "<p>Reprodukcia je vytlačená na fine art rag (100% bavlna, pH neutrálna) alebo FineArt Baryt Photo Paper.</p><p>Papierová pasparta je z jednej strany otvorená a umožňuje ďalšie rámovanie.</p><p>Šírka pasparty je 5-8 cm (podľa rozmerov diela). Maximálny rozmer reprodukcie v pasparte je A3+.</p>",
+                            "description" => trans('reprodukcie.print_offer_passepartout_description'),
                             "pricing_options" => [
-                                ["do <strong>A4</strong>", "(21 x 29,7 cm)",    "35 eur / ks"],
-                                ["do <strong>A3+</strong>", "(32,9 x 48,3 cm)", "50 eur / ks"]
+                                [trans('reprodukcie.print_offer_until')." <strong>A4</strong>", "(21 x 29,7 cm)",    "35"],
+                                [trans('reprodukcie.print_offer_until')." <strong>A3+</strong>", "(32,9 x 48,3 cm)", "50"]
                             ]
                         ])
                     </div>
@@ -64,22 +64,22 @@
                 <div class="row ">
                     <div class="col-sm-6">
                         @include('components.repro_offer', [
-                            "title" => "Reprodukcia S Paspartou A Rámom",
+                            "title" => trans('reprodukcie.print_offer_framed_title'),
                             "img_url" => "/images/reprodukcie/format-3-ram.jpg",
-                            "description" => "<p>Reprodukcia je vytlačená na fine art rag (100% bavlna, pH neutrálna) alebo FineArt Baryt Photo Paper.</p><p>Dielo je vsadené v pasparte a v ráme so sklom.</p><p>Rámy sú drevené, nereliéfne, v dvoch farebných verziách (svetlé, tmavé). Ak vám farba rámu nevyhovuje, odporúčame formát reprodukcie s paspartou, pripravený na svojpomocné rámovanie.</p><p>Maximálny rozmer reprodukcie v pasparte a ráme je A3+.</p>",
+                            "description" => trans('reprodukcie.print_offer_framed_description'),
                             "pricing_options" => [
-                                ["do <strong>A4</strong>",  "(21 x 29,7 cm)",   "40 eur / ks"],
-                                ["do <strong>A3+</strong>", "(32,9 x 48,3 cm)", "60 eur / ks"]
+                                [trans('reprodukcie.print_offer_until')." <strong>A4</strong>",  "(21 x 29,7 cm)",   "40"],
+                                [trans('reprodukcie.print_offer_until')." <strong>A3+</strong>", "(32,9 x 48,3 cm)", "60"]
                             ]
                         ])
                     </div>
                     <div class="col-sm-6">
                         @include('components.repro_offer', [
-                            "title" => "Poster (Art Plagát)",
+                            "title" => trans('reprodukcie.print_offer_poster_title'),
                             "img_url" => "/images/reprodukcie/format-4-plagat.jpg",
-                            "description" => "<p>Reprodukcia je vytlačená na špeciálny, vysokokvalitný, mapový papier rozmeru A1.</p><p>Momentálne ponúkame v tejto forme iba reprodukcie <a href='https://www.webumenia.sk/kolekcia/144'>plagátov zo zbierok SNG</a>.</p>",
+                            "description" => trans('reprodukcie.print_offer_poster_description'),
                             "pricing_options" => [
-                                ["<strong>A1</strong>", "(60 x 90cm)", "35 eur / ks"]
+                                ["<strong>A1</strong>", "(60 x 90cm)", "35"]
                             ]
                         ])
                     </div>

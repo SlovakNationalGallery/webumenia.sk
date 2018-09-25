@@ -6,9 +6,9 @@
         <tbody>
             @foreach ($pricing_options as $pricing_option)
                 <tr>
-                    <td>{!!$pricing_option[0]!!}</strong></td>
+                    <td>{!!$pricing_option[0]!!}</td>
                     <td>{!!$pricing_option[1]!!}</td>
-                    <td><strong>{!!$pricing_option[2]!!}</strong></td>
+                    <td><strong>{!!$pricing_option[2]!!} {{trans('reprodukcie.print_offer_per-piece')}}</strong></td>
                 </tr>
             @endforeach
         </tbody>
