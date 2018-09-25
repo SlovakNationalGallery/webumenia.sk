@@ -60,6 +60,13 @@ function()
         return view('objednavka', array('items' => $items));
     });
 
+    Route::get('stiahnutie', function () {
+
+        $items = Item::find(Session::get('cart', array()));
+
+        return view('stiahnutie', array('items' => $items));
+    });
+
     Route::post('objednavka', function () {
 
         $input = Input::all();
@@ -202,7 +209,7 @@ function()
 
         $item = Item::find($id);
 
-        if (empty($item) || !$item->isForReproduction()) {
+        if (empty($item) || !$item->isFreeDownload()) {
             App::abort(404);
         }
 

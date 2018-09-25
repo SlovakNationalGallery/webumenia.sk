@@ -10,15 +10,13 @@
 
         $('div.form-hide').hide();
 
-        $("#download-type .btn").on('click', function(e){
-            e.preventDefault();
-            var type = $(this).data('type');
+        $("input[name=type]").on('click', function(e){
+            var type = $(this).val();
 
             $('div.form-hide').fadeOut().promise().done(function(){
 
                 $('div.form-hide :input').attr("disabled", true);
-                // set type by button
-                $('input[name=type]').val(type);
+
                 // show parts according the type
                 $('div.'+type+' :input').attr("disabled", false);
                 $('div.'+type).fadeIn();

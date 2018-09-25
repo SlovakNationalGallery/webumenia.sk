@@ -109,8 +109,8 @@
 								<a href="{{{ URL::to('informacie') }}}">{{ utrans('master.info') }}</a>
 						</li>
 						@if (Session::has('cart') && count(Session::get('cart'))>0)
-						<li class="{!! Request::is( 'objednavka') ? 'active' : '' !!}">
-								<a href="{!! URL::to('objednavka')!!}" class=""><i class="fa fa-shopping-cart"></i><span class="badge badge-notify">{!! count(Session::get('cart')) !!}</span></a>
+						<li class="{!! Request::is( 'stiahnutie') ? 'active' : '' !!}">
+								<a href="{!! URL::to('stiahnutie')!!}" class=""><i class="fa fa-shopping-cart"></i><span class="badge badge-notify">{!! count(Session::get('cart')) !!}</span></a>
 						</li>
 						@endif
 	            </ul>

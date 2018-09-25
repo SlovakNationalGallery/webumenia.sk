@@ -71,11 +71,13 @@
                                 @if ($item->has_iip)
                                    <a href="{{ route('item.zoom', ['id' => $item->id]) }}" class="btn btn-default btn-outline  sans"><i class="fa fa-search-plus"></i> {{ trans('general.item_zoom') }}</a>
                                 @endif
+                                {{--
                                 @if ($item->isForReproduction())
                                     <a href="{!! URL::to('dielo/' . $item->id . '/objednat')  !!}" class="btn btn-default btn-outline  sans"><i class="fa fa-shopping-cart"></i> {{ trans('dielo.item_order') }} </a>
                                 @endif
+                                 --}}
                                 @if ($item->isFreeDownload())
-                                    <a href="#" class="btn btn-default btn-outline sans"  data-toggle="modal" data-target="#downloadForm"><i class="fa fa-download"></i> {{ trans('dielo.item_download') }} </a>
+                                    <a href="{!! URL::to('dielo/' . $item->id . '/objednat')  !!}" class="btn btn-default btn-outline sans"><i class="fa fa-download"></i> {{ trans('dielo.item_download') }} </a>
                                 @endif
                             </div>
                             @if (!empty($item->description))
