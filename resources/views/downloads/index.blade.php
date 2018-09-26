@@ -30,10 +30,10 @@ stiahnutia |
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>ID diela</th>
-                            <th>Názov diela</th>
-                            <th>Type</th>
+                            <th>Typ</th>
+                            <th>Kontaktná osoba</th>
                             <th>Email</th>
+                            <th>Počet diel</th>
                             <th>Dátum</th>
                             <th>Akcie</th>
                         </tr>
@@ -63,7 +63,7 @@ stiahnutia |
         // $.fn.dataTable.moment( 'DD.MM.YYYY HH:mm' );
 
         var table = $('.datatable').dataTable({
-            // "order" : [[ 0, "desc" ]],
+            "order" : [[ 0, "desc" ]],
             // dom: 'Blfrtip',
             "processing": true,
             "serverSide": true,
@@ -71,12 +71,12 @@ stiahnutia |
             "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "Všetky"] ],
             "columns": [
                 {data: 'id', name: 'downloads.id'},
-                {data: 'item.id', name: 'item.id' },
-                {data: 'item.title', name: 'item.title' },
                 {data: 'type', name: 'downloads.type' },
+                {data: 'contact_person', name: 'downloads.contact_person' },
                 {data: 'email', name: 'downloads.email' },
+                {data: 'count', name: 'count',  searchable: false },
                 {data: 'created_at', name: 'downloads.created_at' },
-                { data: 'actions', name: 'actions', orderable: false, searchable: false, className: "actions text-right" }
+                {data: 'actions', name: 'actions', orderable: false, searchable: false, className: "actions text-right" }
             ],
             dom:
                 "<'row'<'col-sm-3'l><'col-sm-6 text-center'B><'col-sm-3'f>>" +

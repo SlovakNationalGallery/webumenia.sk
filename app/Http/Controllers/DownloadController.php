@@ -22,13 +22,16 @@ class DownloadController extends Controller
         Carbon::setToStringFormat('d.m.Y H:i');
 
         if ($request->ajax()) {
-            $query = Download::with('item')->select('downloads.*');
+            $query = Download::select([
+                'downloads.*',
+                \DB::raw('count(download_item.item_id) as count'),
+            ])->join('download_item','download_item.download_id','=','downloads.id')
+            ->groupBy('download_item.download_id');
 
             return Datatables::of($query)
                 ->addColumn('actions', function ($download) {
                     return
-                        link_to_action('DownloadController@show', 'Detail', array($download->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', )) .
-                        '&nbsp;<a href="'. $download->item->getUrl() .'" class="btn btn-success btn-xs btn-outline" target="_blank">Na webe</a>';
+                        link_to_action('DownloadController@show', 'Detail', array($download->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', ));
                      })
                 ->make(true);
         }
@@ -46,7 +49,7 @@ class DownloadController extends Controller
     public function show($id)
     {
         Carbon::setToStringFormat('d.m.Y H:i');
-        $download = Download::find($id);
+        $download = Download::find($id)->load('items');
 
         return view('downloads.show')->with('download', $download);
     }

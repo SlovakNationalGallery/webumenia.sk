@@ -69,16 +69,19 @@
 								<td>Poznámka:</td>
 								<td>{!! $download->note !!}</td>
 							</tr>
-							<tr>
-								<td>Dielo</td>
-								<td>
-									<img src="{!! $download->item->getImagePath(); !!}" alt="náhľad" class="img-responsive" style="max-height: 100px">
-                                    <a href="{!! $download->item->getUrl() !!}" target="_blank">
-                                        {{ $download->item->id }}<br>
-                                        {!! $download->item->getTitleWithAuthors($html = true) !!}
-                                    </a>
-								</td>
-							</tr>
+                            @foreach ($download->items as $item)
+                                @if (!empty($item))
+                                <tr>
+                                    <td><img src="{!! $item->getImagePath(); !!}" alt="náhľad" class="img-responsive" style="max-height: 100px"></td>
+                                    <td>
+                                        <a href="{!! $item->getUrl() !!}" target="_blank">
+                                            {{ $item->id }}<br>
+                                            {!! $item->getTitleWithAuthors($html = true) !!}
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endif
+                            @endforeach
                             <tr>
                                 <td>Dátum vytvorenia:</td>
                                 <td>{{ $download->created_at }}</td>
