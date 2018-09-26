@@ -9,6 +9,13 @@ return [
     |
     */
 
+    'title'         => 'download items',
+    'content' => '<h2 class="bottom-space">Download items</h2>
+                        <p>Downloadable digital reproductions of artworks on Online Collections are available as <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" class="underline">public domain</a>. You can download them in high resolution and use them for both private and commercial use &ndash; i.e. copy, modify and share freely.</p>',
+    'none'    => 'Your cart is empty',
+    'remove'  => 'Remove',
+
+    'form_title'  => 'Artworks',
     'choose_type' => ' Choose how to use',
     'private' => 'private',
     'publication' => 'publication',
@@ -30,5 +37,9 @@ return [
                                               Hradčanské náměstí 15; 118 00 Prague 1; Czech republic',
     'form_note'                    => 'Note',
     'form_terms_and_conditions'    => 'I agree to provide my personal information for the purpose of the registration of downloaded artworks',
+
+    'thank_you'     => 'Thank you',
+    'thank_you_paragraph' => 'Download should start automaticaly. If not, please click on the button below. Have a nice day!',
+
 
 ];
