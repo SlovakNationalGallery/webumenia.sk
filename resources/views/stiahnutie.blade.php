@@ -43,7 +43,7 @@
                         @foreach ($items as $i=>$item)
                             <div class="media">
                                 <a href="{!! $item->getUrl() !!}" class="pull-left">
-                                    <img src="{!! $item->getImagePath() !!}" class="media-object" style="max-width: 80px; ">
+                                    <img src="{!! $item->getImagePath() !!}" class="media-object" style="max-width: 80px;">
                                 </a>
                                 <div class="media-body">
                                     <a href="{!! $item->getUrl() !!}">
@@ -103,9 +103,6 @@
 
             <div class="form-group required">
                 {!! Former::hidden('pids')->value(implode(', ', Session::get('cart',array()))); !!}
-
-                {{-- {!! Former::hidden('item_id')->value($item->id); !!} --}}
-                {{-- {!! Former::hidden('type'); !!} --}}
             </div>
 
             {{-- comercial --}}

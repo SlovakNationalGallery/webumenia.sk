@@ -7,14 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Download extends Model
 {
     public static $rules = [
-        'item_id' => 'required',
         'type' => 'required',
         'email' => 'email',
         // 'terms_and_conditions' => 'required',
     ];
 
     protected $fillable = [
-        'item_id',
         'type',
         'company',
         'address',
@@ -31,9 +29,9 @@ class Download extends Model
         'ip',
     ];
 
-    public function item()
+    public function items()
     {
-        return $this->belongsTo(\App\Item::class);
+        return $this->belongsToMany(\App\Item::class, 'download_item', 'download_id', 'item_id');
     }
 
 

@@ -148,10 +148,23 @@ function()
         if ($v->passes()) {
             $download = \App\Download::create($input);
 
+            $item_ids = explode(', ', $request->input('pids'));
+
+            foreach ($item_ids as $item_id) {
+                $download->items()->attach($item_id);
+            }
+
+            Session::forget('cart');
+
+            return redirect('dakujeme_download');
+
+
             // increment download counter
             // download the image
 
-            $item = Item::find($request->get('item_id'));
+            /*
+
+            $item = Item::find($request->input('item_id'));
 
             if (empty($item) || !$item->isFreeDownload()) {
                 App::abort(404);
@@ -160,12 +173,18 @@ function()
             $item->download_count += 1;
             $item->save();
             return $item->download();
+            */
         }
 
         return Redirect::back()->withInput()->withErrors($v);
 
 
     })->name('objednavka.download');
+
+    Route::get('dakujeme_download', function () {
+
+        return view('dakujeme_download');
+    });
 
     Route::get('dakujeme', function () {
 
