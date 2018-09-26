@@ -336,8 +336,6 @@
 
 
 <!-- Modal -->
-@include('components.download_modal')
-<!-- Modal -->
 <div tabindex="-1" class="modal fade" id="downloadfail" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -364,7 +362,6 @@
 {!! Html::script('js/jquery.fileDownload.js') !!}
 
 @include('components.artwork_carousel_js', ['slick_query' => '.artworks-preview'])
-@include('components.download_modal_js')
 
 @if (!empty($item->lat) && ($item->lat > 0))
     <!-- Google Maps API Key - You will need to use your own API key to use the map feature -->

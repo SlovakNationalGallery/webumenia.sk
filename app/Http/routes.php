@@ -18,6 +18,7 @@ use App\Item;
 use App\Slide;
 use App\Order;
 use App\Color;
+use Illuminate\Contracts\Encryption\DecryptException;
 
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
@@ -156,7 +157,9 @@ function()
 
             Session::forget('cart');
 
-            return redirect('dakujeme_download');
+            $download_tracker = Crypt::encrypt($download->id);
+
+            return redirect('dakujeme_download')->with('download_tracker', $download_tracker);
 
 
             // increment download counter
@@ -181,9 +184,23 @@ function()
 
     })->name('objednavka.download');
 
-    Route::get('dakujeme_download', function () {
+    Route::get('dakujeme_download', function (\Illuminate\Http\Request $request) {
+        $download_tracker = $request->session()->get('download_tracker');
+        try {
+            $download_id = Crypt::decrypt($download_tracker);
+        } catch (DecryptException $e) {
+            // die('The payload is invalid');
+            return redirect('/');
+        }
+        $download = \App\Download::find($download_id);
 
-        return view('dakujeme_download');
+        $download_urls = [];
+
+        foreach ($download->items as $item) {
+            $download_urls[] = URL::to('dielo/' . $item->id . '/stiahnut/' . $download_tracker);
+        }
+
+        return view('dakujeme_download', ['download_urls' => $download_urls]);
     });
 
     Route::get('dakujeme', function () {
@@ -256,13 +273,23 @@ function()
 
     });
 
-    Route::get('dielo/{id}/stiahnut', ['middleware' => 'throttle:5,1', function ($id) {
+    Route::get('dielo/{id}/stiahnut/{download_tracker}', ['middleware' => 'throttle:5,1', function ($id, $download_tracker) {
 
+        $download_id = Crypt::decrypt($download_tracker);
+        $download = \App\Download::find($download_id);
         $item = Item::find($id);
+        $now = Carbon::now();
 
-        if (empty($item) || !$item->isFreeDownload()) {
+        if (
+            empty($download) ||
+            empty($item) ||
+            !$download->hasItem($item) ||
+            $download->created_at->diffInMinutes($now) > 30 ||
+            !$item->isFreeDownload()
+        ) {
         	App::abort(404);
         }
+
         $item->timestamps = false;
         $item->download_count += 1;
         $item->save();

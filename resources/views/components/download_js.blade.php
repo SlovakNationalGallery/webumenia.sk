@@ -41,24 +41,6 @@
                     submitButtons: 'button[type="submit"]',
                     locale: 'cs_CZ',
                     excluded: [':disabled', ':hidden', ':not(:visible)']
-        }).on('success.form.bv',function(e){
-              e.preventDefault();
-
-              var $submit_button = $('#downloadForm button[type=submit].btn-primary');
-              var submit_button_text = $submit_button.data('label');
-              console.log(submit_button_text);
-
-              $.fileDownload($(this).prop('action'), {
-                  prepareCallback: function(url) {
-                      $submit_button.html('<i class="fa fa-spinner fa-spin"></i> ' + submit_button_text);
-                  },
-                  successCallback: function(url) {
-                     $submit_button.html(submit_button_text);
-                     $('#downloadForm').modal('hide');
-                  },
-                  httpMethod: "POST",
-                  data: $(this).serialize()
-              });
         });
 
     });

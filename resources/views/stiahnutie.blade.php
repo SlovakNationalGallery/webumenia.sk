@@ -25,7 +25,7 @@
     </div>
 </section>
 
-<section class="order content-section">
+<section class="content-section" id="downloadForm">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
@@ -63,25 +63,8 @@
 
                 </div>
             </div>
-            {{--
-            <label for="download-type">{{ trans('download.choose_type') }}</label>
-            <div class="btn-group btn-group-justified bottom-space" role="group" aria-label="chooseDownloadType" id="download-type">
-              <a href="#" role="button" class="btn btn-default" data-type="private">{{ utrans('download.private') }}</a>
-              <a href="#" role="button" class="btn btn-default" data-type="publication">{{ utrans('download.publication') }}</a>
-              <a href="#" role="button" class="btn btn-default" data-type="commercial">{{ utrans('download.commercial') }}</a>
-            </div>
-             --}}
-             {{--
-            {!! Former::radios('type')
-                   ->radios([
-                       utrans('download.private') => ['id' => 'private', 'value' => 'private'],
-                       utrans('download.publication') => ['id' => 'publication', 'value' => 'publication'],
-                       utrans('download.commercial') => ['id' => 'commercial', 'value' => 'commercial'],
-                   ])
-                   ->stacked()
-                   ->required()
-                   ->label(trans('download.choose_type')) !!}
-                    --}}
+
+            @if ($items->count() > 0)
 
             <div class="form-group required">
                 <label for="type" class="control-label col-lg-2 col-sm-4">Zvolte a užití<sup>*</sup></label>
@@ -127,8 +110,8 @@
                         <div class="checkbox">
                             <input id="confirm_sending_prints" name="confirm_sending_prints" type="checkbox" value="1" required>
                             <label for="confirm_sending_prints">
-                              {!! trans('download.form_confirm_sending_prints') !!}
-                              <address class="dib">{!! trans('download.form_confirm_sending_prints_address') !!}</address>
+                              {!! trans('download.form_confirm_sending_prints') !!}<br>
+                              <address style="display: inline">{!! trans('download.form_confirm_sending_prints_address') !!}</address>
                               <sup>*</sup>
                             </label>
                         </div>
@@ -161,6 +144,7 @@
                 </div>
             </div>
 
+            @endif
 
             {!! Former::close() !!}
 
@@ -174,6 +158,6 @@
 
 @section('javascript')
 
-@include('components.download_modal_js')
+@include('components.download_js')
 
 @stop

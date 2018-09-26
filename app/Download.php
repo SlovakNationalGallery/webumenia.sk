@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Download extends Model
 {
     public static $rules = [
+        'pids' => 'required',
         'type' => 'required',
         'email' => 'email',
         // 'terms_and_conditions' => 'required',
@@ -32,6 +33,10 @@ class Download extends Model
     public function items()
     {
         return $this->belongsToMany(\App\Item::class, 'download_item', 'download_id', 'item_id');
+    }
+
+    public function hasItem($item) {
+        return $this->items->contains($item);
     }
 
 
