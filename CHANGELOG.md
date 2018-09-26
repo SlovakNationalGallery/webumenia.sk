@@ -3,12 +3,27 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 ### Fixed
-- Search endpoint of admin fixed
+- Duplicate authors with links
+- Authorities Search endpoint of admin fixed
 
 ### Added
 - Remove query string from localized urls
 - Use SQLite in tests
 - Dockerfiles for WU to run in docker
+- Curator of artwork in detail view
+- admin-editable cron_status attribute added to SpiceHarvester harvests
+- daily and weekly cron jobs scheduled for harvests with appropriate cron_status
+- footer component
+- newsletter link into footer
+
+### Changed
+- made models Item, Authority, Article and Collection translatable
+- separate elastic index for each locale
+
+## [1.5.3] - 2018-08-14
+### Fixed
+- OAI download images command reflects changes to Item model
+>>>>>>> develop
 
 ## [1.5.2] - 2018-07-27
 ### Fixed
@@ -123,6 +138,7 @@ All notable changes to this project will be documented in this file[^1].
 - LICENSE from Public Domain into MIT
 
 [Unreleased]: https://github.com/SlovakNationalGallery/web-umenia-2/compare/master...develop
+[1.5.3]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/97
 [1.5.2]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/94
 [1.5.1]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/93
 [1.5.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/80

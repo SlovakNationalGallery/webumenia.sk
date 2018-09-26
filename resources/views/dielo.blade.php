@@ -22,8 +22,17 @@
     <link rel="canonical" href="{!! $item->getUrl() !!}">
 @stop
 
-
 @section('content')
+
+@if ( ! $item->hasTranslation(App::getLocale()) )
+    <section>
+        <div class="container top-section">
+            <div class="row">
+                @include('includes.message_untranslated')
+            </div>
+        </div>
+    </section>
+@endif
 
 <section class="item top-section" itemscope itemtype="http://schema.org/VisualArtwork">
     <div class="item-body">
@@ -208,6 +217,13 @@
                                     <td><a href="{!! URL::to('katalog?gallery=' . $item->gallery) !!}">{!! $item->gallery; !!}</a></td>
                                 </tr>
                                 @endif
+                                @if (!empty($item->contributor))
+                                <tr>
+                                    <td class="atribut">{{ trans('dielo.item_attr_contributor') }}:</td>
+                                    <td>{!! formatName($item->contributor); !!}</td>
+                                    <!-- todo: insert href into this <a> for user to provide feedback about accuracy to forward to curator -->
+                                </tr>
+                                @endif
                                 @if (!empty($item->identifier))
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_identifier') }}:</td>
@@ -244,7 +260,7 @@
                         
                     <div>
                     @if (!empty($item->related_work))
-                        <?php $related_items = App\Item::where('related_work', '=', $item->related_work)->where('author', '=', $item->author)->orderBy('related_work_order')->get() ?>
+                        <?php $related_items = App\Item::related($item)->get() ?>
                         @if ($related_items->count() > 1)
                         <div style="position: relative; padding: 0 10px;">
                             @include('components.artwork_carousel', [

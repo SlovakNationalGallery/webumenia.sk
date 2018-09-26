@@ -20,6 +20,8 @@ class SpiceHarvesterHarvest extends Model
 
     protected $appends = array('from');
     public static $datum;
+    public static $cron_statuses = ['manual' => 'Manual', 'daily' => 'Daily', 'weekly' => 'Weekly'];
+    // public static $cron_status;
 
     public static $rules = array(
         'base_url' => 'required',

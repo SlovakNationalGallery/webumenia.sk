@@ -12,10 +12,11 @@ class UsersTableSeeder extends Seeder {
 	public function run()
 	{
 
-        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        Eloquent::unguard();
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('users')->truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
-        
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
         $now = date("Y-m-d H:i:s");
 
         $users = [
