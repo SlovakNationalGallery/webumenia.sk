@@ -38,7 +38,7 @@ return [
                                               Library; Sternberg Palace<br>
                                               Hradčanské náměstí 15; 118 00 Prague 1; Czech republic',
     'form_note'                    => 'Note',
-    'form_terms_and_conditions'    => 'I agree to provide my personal information for the purpose of the registration of downloaded artworks',
+    'form_terms_and_conditions'    => 'I agree <a href="https://www.ngprague.cz/zasady-pro-zpracovani-a-ochranu-osobnich-udaju" class="underline" target="_blank">to provide my personal information</a> for the purpose of the registration of downloaded artworks',
 
     'thank_you'     => 'Thank you',
     'thank_you_paragraph' => 'Download should start automaticaly. If not, please click on the button below. Have a nice day!',
