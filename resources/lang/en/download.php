@@ -27,6 +27,8 @@ return [
     'form_contact_person'          => 'Contact person',
     'form_email'                   => 'E-mail',
     'form_phone'                   => 'Phone',
+    'form_purpose'                 => 'Purpose',
+    'form_purpose_placeholder'     => 'Postcard, Calendar, T-shirt etc.',
     'form_publication_name'        => 'Title of the publication',
     'form_publication_author'      => 'Name of the author',
     'form_publication_year'        => 'Year of publication',

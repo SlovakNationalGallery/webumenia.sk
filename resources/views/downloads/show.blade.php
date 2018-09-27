@@ -65,6 +65,10 @@
                                 <td>Počet výtisků:</td>
                                 <td>{!! $download->publication_print_run !!}</td>
                             </tr>
+                            <tr>
+                                <td>Způsob využití:</td>
+                                <td>{!! $download->purpose !!}</td>
+                            </tr>
 							<tr>
 								<td>Poznámka:</td>
 								<td>{!! $download->note !!}</td>

@@ -96,6 +96,7 @@
                 {!! Former::text('contact_person')->label(trans('download.form_contact_person'))->required(); !!}
                 {!! Former::text('email')->label(trans('download.form_email'))->required(); !!}
                 {!! Former::text('phone')->label(trans('download.form_phone')); !!}
+                {!! Former::text('purpose')->placeholder(trans('download.form_purpose_placeholder'))->label(trans('download.form_purpose'))->required(); !!}
             </div>
 
             <div class="publication form-hide">

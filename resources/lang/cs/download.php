@@ -29,6 +29,8 @@ return [
     'form_contact_person'          => 'Kontaktní osoba',
     'form_email'                   => 'E-mail',
     'form_phone'                   => 'Telefón',
+    'form_purpose'                 => 'Způsob využití',
+    'form_purpose_placeholder'     => 'pohlednice, kalendář, tričko atd.',
     'form_publication_name'        => 'Název publikace',
     'form_publication_author'      => 'Jméno autora',
     'form_publication_year'        => 'Rok vydání',
