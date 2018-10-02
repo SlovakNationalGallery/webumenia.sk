@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Elasticsearch\Client;
 use Fadion\Bouncy\Facades\Elastic;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
@@ -515,5 +516,9 @@ class Authority extends Model
     public function setBiographyAttribute($value)
     {
         $this->attributes['biography'] = ($value) ?: '';
+    }
+
+    protected function getElasticClient() {
+        return app(Client::class);
     }
 }

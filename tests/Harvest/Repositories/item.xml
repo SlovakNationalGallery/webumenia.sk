@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type='text/xsl' href='/oai-pmh/static/Celestial.xsl'?>
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd"
+        >
+   <responseDate>2018-07-25T20:41:30.535Z</responseDate>
+   <request verb="ListRecords" metadataPrefix="oai_dc" set="Europeana SNG">http://stary.webumenia.sk/oai-pmh/</request>
+   <ListRecords>
+      <record>
+         <header>
+            <identifier>SVK:SNG.G_10044</identifier>
+            <datestamp>2017-08-28T14:00:23.769Z</datestamp>
+            <setSpec>Europeana SNG</setSpec>
+            <setSpec>SNG</setSpec>
+         </header>
+         <metadata>
+            <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+                       xmlns:su="java:com.eea.cm.sng.util.StringUtil"
+                       xmlns:cv="java:com.eea.cm.sng.xslt.ControlledVocabularyManager"
+                       xmlns:vra="http://simile.mit.edu/2003/10/ontologies/vraCore3"
+                       xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                       xmlns:dcterms="http://purl.org/dc/terms/"
+                       xmlns:sng="http://www.sng.sk/cedvu#"
+                       xmlns:dc="http://purl.org/dc/elements/1.1/"
+                    >
+               <dc:title>Flámska rodina</dc:title>
+               <dc:title.translated xml:lang="en">Flemish family</dc:title.translated>
+               <dc:creator>urn:svk:psi:per:sng:0000001922</dc:creator>
+               <dc:creator>Daullé, Jean</dc:creator>
+               <dc:creator.role>autor/author</dc:creator.role>
+               <dc:creator>urn:svk:psi:per:sng:0000010816</dc:creator>
+               <dc:creator>Teniers, David</dc:creator>
+               <dc:creator.role>autor/author</dc:creator.role>
+               <dc:contributor>Čičo, Martin</dc:contributor>
+               <dc:subject xml:lang="en">figurative composition</dc:subject>
+               <dc:subject xml:lang="sk">figurálna kompozícia</dc:subject>
+               <dc:subject xml:lang="cs">figurální</dc:subject>
+               <dc:description>vpravo dole gravé J.Daullé..</dc:description>
+               <dc:description>vľavo dole peint Teniers</dc:description>
+               <dc:type xml:lang="sk">grafika, voľná</dc:type>
+               <dc:type>DEF</dc:type>
+               <dc:type>originál</dc:type>
+               <dc:format xml:lang="en">engraving</dc:format>
+               <dc:format xml:lang="sk">rytina</dc:format>
+               <dc:format.medium xml:lang="sk">kartón, zahnedlý</dc:format.medium>
+               <dcterms:extent>šírka 50.0 cm, šírka 47.6 cm, výška 39.0 cm, výška 37.0 cm, hĺbka 5.0 cm ()</dcterms:extent>
+               <dcterms:created>1760/1760</dcterms:created>
+               <dcterms:created>18. storočie, polovica, 1760</dcterms:created>
+               <dcterms:provenance>Slovenská národná galéria, SNG</dcterms:provenance>
+               <dc:identifier>SVK:SNG.G_10044</dc:identifier>
+               <dc:type>Image</dc:type>
+               <dc:identifier>http://www.webumenia.sk/oai-pmh/getimage/SVK:SNG.G_10044</dc:identifier>
+               <dc:identifier>G 10044</dc:identifier>
+               <dc:identifier linktype="web master">http://www.webumenia.sk:8080/webutils/resolveurl/SVK:SNG.G_10044/IMAGES</dc:identifier>
+               <dc:identifier linktype="web master">http://www.webumenia.sk:8080/webutils/resolveurl/SVK:SNG.G_10044/L2_WEB</dc:identifier>
+               <dc:rights>1</dc:rights>
+               <dc:rights>publikovať/public</dc:rights>
+               <dc:relation.isPartOf>samostatné dielo</dc:relation.isPartOf>
+            </oai_dc:dc>
+         </metadata>
+      </record>
+   </ListRecords>
+</OAI-PMH>

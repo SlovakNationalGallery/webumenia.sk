@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-stylesheet type='text/xsl' href='/oai-pmh/static/Celestial.xsl'?>
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd http://e-culture.multimedian.nl/ns/getty/ulan# http://e-culture.multimedian.nl/ns/getty/ulan#">
+   <responseDate>2018-07-27T09:08:44.730Z</responseDate>
+   <request verb="ListRecords" metadataPrefix="ulan" set="Portrety_Habsburgovcov_GMB">http://stary.webumenia.sk/oai-pmh/authority</request>
+   <ListRecords>
+      <record>
+         <header>
+            <identifier>954</identifier>
+            <datestamp>2015-02-16T22:55:34Z</datestamp>
+         </header>
+         <metadata>
+            <cedvu:Vocabulary xmlns:cedvu="http://www.webumenia.sk#"
+                              xmlns:ulan="http://e-culture.multimedian.nl/ns/getty/ulan#"
+                              xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                              xmlns:vp="http://e-culture.multimedian.nl/ns/getty/vp#"
+                              Date="27.7.2018"
+                              Title="Union List of Artist Names of CEDVU">
+               <vp:Subject rdf:about="urn:svk:psi:per:sng:0000000954" vp:Subject_ID="954" vp:labelPreferred="Blühová, Irena">
+                  <cedvu:ID rdf:resource="CEDVU_ID (autorita)">urn:svk:psi:per:sng:0000000954</cedvu:ID>
+                  <cedvu:ID rdf:resource="CAIR_ID (autorita)"></cedvu:ID>
+                  <vp:Record_Type rdf:resource="P">Person</vp:Record_Type>
+                  <vp:Record_Type_Organization>Zbierkotvorná galéria</vp:Record_Type_Organization>
+                  <vp:Biographies>
+                     <vp:Preferred_Biography>
+                        <vp:Biography_Text>AUTOR: Blühová Irena (ZNÁMY)</vp:Biography_Text>
+                        <vp:Birth_Place rdf:resource="urn:svk:psi:poj:sng:tvu:0000012352">Považská Bystrica</vp:Birth_Place>
+                        <vp:Birth_Date>02.03.1904</vp:Birth_Date>
+                        <vp:Death_Place rdf:resource="urn:svk:psi:poj:sng:tvu:0000012282">Bratislava</vp:Death_Place>
+                        <vp:Death_Date>30.11.1991</vp:Death_Date>
+                        <vp:Sex rdf:resource="1">Female</vp:Sex>
+                     </vp:Preferred_Biography>
+                  </vp:Biographies>
+                  <vp:Nationalities>
+                     <vp:Preferred_Nationality rdf:resource="urn:svk:psi:per:sng:0000012277">
+                        <vp:Nationality_Code>Slovensko</vp:Nationality_Code>
+                     </vp:Preferred_Nationality>
+                  </vp:Nationalities>
+                  <vp:Roles>
+                     <vp:Preferred_Role>
+                        <vp:Role_ID>fotograf/photographer</vp:Role_ID>
+                     </vp:Preferred_Role>
+                  </vp:Roles>
+                  <vp:Terms>
+                     <vp:Preferred_Term>
+                        <vp:Term_Text>Blühová, Irena</vp:Term_Text>
+                     </vp:Preferred_Term>
+                  </vp:Terms>
+                  <vp:Events>
+                     <vp:Non-Preferred_Event rdf:resource="1000166">
+                        <vp:Event_ID>štúdium/study</vp:Event_ID>
+                        <vp:Place>Berlín</vp:Place>
+                        <vp:Event_Date>
+                           <vp:Start_Date>1931</vp:Start_Date>
+                           <vp:End_Date>1932</vp:End_Date>
+                        </vp:Event_Date>
+                     </vp:Non-Preferred_Event>
+                  </vp:Events>
+                  <vp:Associative_Relationships>
+                     <vp:Associative_Relationship>
+                        <vp:Relationship_Type>študent (osoba - inštitúcia)/student at (person to institution)</vp:Relationship_Type>
+                        <vp:Related_Subject_ID>urn:svk:psi:per:sng:0001000162</vp:Related_Subject_ID>
+                     </vp:Associative_Relationship>
+                     <vp:Associative_Relationship>
+                        <vp:Relationship_Type>člen/member</vp:Relationship_Type>
+                        <vp:Related_Subject_ID>urn:svk:psi:per:sng:0001000168</vp:Related_Subject_ID>
+                     </vp:Associative_Relationship>
+                     <vp:Associative_Relationship>
+                        <vp:Relationship_Type>partner/partner</vp:Relationship_Type>
+                        <vp:Related_Subject_ID>urn:svk:psi:per:sng:0000011680</vp:Related_Subject_ID>
+                     </vp:Associative_Relationship>
+                  </vp:Associative_Relationships>
+               </vp:Subject>
+            </cedvu:Vocabulary>
+         </metadata>
+      </record>
+   </ListRecords>
+</OAI-PMH>

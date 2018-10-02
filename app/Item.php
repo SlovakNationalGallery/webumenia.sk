@@ -4,6 +4,7 @@
 
 namespace App;
 
+use Elasticsearch\Client;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\URL;
@@ -930,5 +931,9 @@ class Item extends Model
         }
 
         return $colors_used;
+    }
+
+    protected function getElasticClient() {
+        return app(Client::class);
     }
 }

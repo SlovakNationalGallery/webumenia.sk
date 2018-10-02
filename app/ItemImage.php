@@ -17,7 +17,7 @@ class ItemImage extends Model
         'img_url',
         'iipimg_url',
         'item_id',
-        'order'
+        'order',
     ];
 
     public function item() {
@@ -29,17 +29,13 @@ class ItemImage extends Model
         return self::IIP_FULL_URL_PREFIX.$this->iipimg_url.self::IIP_FULL_URL_SUFFIX;
     }
 
-    public static function create(array $attributes = []) {
-        if (array_key_exists('item_id', $attributes) &&
-            !array_key_exists('order', $attributes)) {
-            $item_id = $attributes['item_id'];
-            $item_id_query = static::where('item_id', $item_id);
-            $max = $item_id_query->max('order');
-            $order = $max !== null ? $max + 1 : 0;
-            $attributes['order'] = $order;
+    public function save(array $options = []) {
+        if ($this->order === null) {
+            $max = $this->item->images()->max('order');
+            $this->order = $max !== null ? $max + 1 : 0;
         }
 
-        return parent::create($attributes);
+        parent::save($options);
     }
 
     public function isZoomable() {
