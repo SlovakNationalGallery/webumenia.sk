@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file[^1].
 - footer component
 - newsletter link into footer
 - Refactor spice harvester
+- Show harvest progress in admin
 
 ## [1.5.3] - 2018-08-14
 ### Fixed
