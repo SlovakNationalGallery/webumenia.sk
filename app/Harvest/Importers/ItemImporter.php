@@ -25,11 +25,4 @@ class ItemImporter extends AbstractImporter
     public function getModelId(array $row) {
         return $this->mapper->mapId($row);
     }
-
-    protected function getData(array $row) {
-        $row = parent::getData($row);
-        // do not overwrite existing biography
-        unset($row['biography']);
-        return $row;
-    }
 }

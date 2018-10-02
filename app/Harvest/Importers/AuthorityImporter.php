@@ -12,6 +12,7 @@ use App\Harvest\Mappers\AuthorityRelationshipMapper;
 use App\Harvest\Mappers\LinkMapper;
 use App\Harvest\Mappers\NationalityMapper;
 use App\Harvest\Mappers\RelatedAuthorityMapper;
+use App\Harvest\Result;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -55,6 +56,14 @@ class AuthorityImporter extends AbstractImporter
         return $this->mapper->mapId($row);
     }
 
+    protected function upsertModel(Model $model, array $row) {
+        if ($model->exists) {
+            unset($row['biography']);
+        }
+
+        parent::upsertModel($model, $row);
+    }
+
     protected function processBelongsToMany(Model $model, $field, array $relatedRows, $createRelated = true) {
         $createRelated &= !in_array($field, ['relationships', 'collections']);
         parent::processBelongsToMany($model, $field, $relatedRows, $createRelated);
@@ -75,8 +84,6 @@ class AuthorityImporter extends AbstractImporter
         $otherKeyName = explode('.', $otherKeyName);
         $otherKeyName = end($otherKeyName);
 
-        // where on relation inner-joins related table,
-        // but the authority doesn't have to exist yet
         return AuthorityRelationship::where([
             $foreignKeyName => $model->getKey(),
             $otherKeyName => $relatedModel->getKey(),

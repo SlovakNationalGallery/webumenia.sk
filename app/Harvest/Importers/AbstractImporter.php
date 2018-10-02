@@ -41,12 +41,14 @@ abstract class AbstractImporter
     public function import(array $row, Result $result) {
         $class = $this->modelClass;
         if ($model = $class::find($this->getModelId($row))) {
-            $result->incrementUpdated();
-            $this->insert($model, $row, $result);
+            $result->incrementInserted();
         } else {
             $model = new $class;
-            $this->update($model, $row, $result);
+            $result->incrementUpdated();
         }
+
+        $this->upsertModel($model, $row);
+        $this->upsertRelated($model, $row);
 
         return $model;
     }
@@ -54,32 +56,18 @@ abstract class AbstractImporter
     /**
      * @param Model $model
      * @param array $row
-     * @param Result $result
      */
-    protected function insert(Model $model, array $row, Result $result) {
-        $result->incrementInserted();
-        $this->upsert($model, $row);
-    }
-
-    /**
-     * @param Model $model
-     * @param array $row
-     * @param Result $result
-     */
-    protected function update(Model $model, array $row, Result $result) {
-        $result->incrementUpdated();
-        $this->upsert($model, $row);
-    }
-
-    /**
-     * @param Model $model
-     * @param array $row
-     */
-    protected function upsert(Model $model, array $row) {
-        $data = $this->getData($row);
+    protected function upsertModel(Model $model, array $row) {
+        $data = $this->mapper->map($row);
         $model->forceFill($data);
         $model->save();
+    }
 
+    /**
+     * @param Model $model
+     * @param array $row
+     */
+    protected function upsertRelated(Model $model, array $row) {
         $fields = array_keys($this->conditions);
         foreach ($fields as $field) {
             if (!isset($row[$field])) {
