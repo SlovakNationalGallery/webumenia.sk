@@ -8,7 +8,7 @@ return array(
     'selectorClass' => '\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector',
     'serializerClass' => '\Elasticsearch\Serializers\SmartSerializer',
     'hosts' => array(
-        env('ES_HOST', "localhost") . ":" . env('ES_PORT', "9200"),
+        "http://" . env('ES_HOST', "localhost") . ":" . env('ES_PORT', "9200"),
     ),
     'sniffOnStart' => false,
     'connectionParams' => array(),
