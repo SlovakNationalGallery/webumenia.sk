@@ -100,7 +100,7 @@ class SetupElasticsearch extends Command
 
     $index_name = $this->ask('What is the index name?', $elastic_translatable->getIndexForLocale($locale_str));
 
-    $res = $client->head('http://'.$host.'/'.$index_name);
+    $res = $client->delete('http://'.$host.'/'.$index_name);
 
     if ($res->getStatusCode() == 200) {
         if ($this->confirm("❗ An index with that name already exists❗\n Do you want to delete the current index?\n [y|N]")) {
@@ -129,7 +129,7 @@ class SetupElasticsearch extends Command
   public function create_mapping($client, $host, $index_name, $mapping_name, $mapping_params_str)
   {
     $this->comment("Creating type $mapping_name...");
-    $res = $client->put("http://$host/$index_name/_mapping/$mapping_name", [
+    $res = $client->put('http://'.$host.'/'.$index_name.'/_mapping/'.$mapping_name, [
         'json' => json_decode($mapping_params_str, true),
     ]);
     echo $res->getBody() . "\n";
