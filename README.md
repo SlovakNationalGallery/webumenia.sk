@@ -58,7 +58,9 @@ This requires docker-compose
 these steps will set up a linked system of 4 containers:
 	web service (nginx webserver)
 	php service (contains our application code)
-	database container
+	database container -- CAVEAT: don't use 'root' user for db, .env.example has sample username / password  
+		when you first build the stack the mysql dockerfile builds a new database and creates a specific user  
+		with which web_umenia accesses the db, which is as it should be. You may still access the db as 'root' yourself though
 	elasticsearch container
 that will communicate internally with one another
 
