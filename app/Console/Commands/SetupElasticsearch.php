@@ -43,7 +43,7 @@ class SetupElasticsearch extends Command
 
     $client = new \GuzzleHttp\Client(['http_errors' => false]);
 
-    $host = 'localhost:9200';
+    $host = 'http://localhost:9200';
     $hosts = config('elasticsearch.hosts');
     if (!empty($hosts)) {
       $host = reset($hosts);
@@ -100,12 +100,12 @@ class SetupElasticsearch extends Command
 
     $index_name = $this->ask('What is the index name?', $elastic_translatable->getIndexForLocale($locale_str));
 
-    $res = $client->head('http://'.$host.'/'.$index_name);
+    $res = $client->delete($host.'/'.$index_name);
 
     if ($res->getStatusCode() == 200) {
         if ($this->confirm("❗ An index with that name already exists❗\n Do you want to delete the current index?\n [y|N]")) {
             $this->comment('Removing...');
-            $res = $client->delete('http://'.$host.'/'.$index_name);
+            $res = $client->delete($host.'/'.$index_name);
             echo $res->getBody() . "\n";
         }
     }
@@ -116,7 +116,7 @@ class SetupElasticsearch extends Command
   public function create_index($client, $host, $index_name, $index_params_str)
   {
     $this->comment('Creating index...');
-    $res = $client->put('http://'.$host.'/'.$index_name, [
+    $res = $client->put($host.'/'.$index_name, [
         'json' => json_decode($index_params_str, true),
     ]);
     echo $res->getBody() . "\n";
@@ -129,7 +129,7 @@ class SetupElasticsearch extends Command
   public function create_mapping($client, $host, $index_name, $mapping_name, $mapping_params_str)
   {
     $this->comment("Creating type $mapping_name...");
-    $res = $client->put("http://$host/$index_name/_mapping/$mapping_name", [
+    $res = $client->put($host.'/'.$index_name.'/_mapping/'.$mapping_name, [
         'json' => json_decode($mapping_params_str, true),
     ]);
     echo $res->getBody() . "\n";

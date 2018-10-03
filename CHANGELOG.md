@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - Remove query string from localized urls
 - Use SQLite in tests
+- Dockerfiles for WU to run in docker
 - Curator of artwork in detail view
 - admin-editable cron_status attribute added to SpiceHarvester harvests
 - daily and weekly cron jobs scheduled for harvests with appropriate cron_status
@@ -24,6 +25,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [1.5.3] - 2018-08-14
 ### Fixed
 - OAI download images command reflects changes to Item model
+>>>>>>> develop
 
 ## [1.5.2] - 2018-07-27
 ### Fixed
