@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Item;
 use App\Collection;
+use App\Jobs\HarvestSingleJob;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
@@ -303,7 +304,7 @@ class ItemController extends Controller
         if (!empty($items) > 0) {
             foreach ($items as $item_id) {
                 $item = Item::find($item_id);
-                App::make('\App\Http\Controllers\SpiceHarvesterController')->refreshSingleRecord($item->record->id);
+                $this->dispatch(new HarvestSingleJob($item->record));
             }
         }
         return Redirect::back()->withMessage('Pre ' . count($items) . ' diel boli načítané dáta z OAI');

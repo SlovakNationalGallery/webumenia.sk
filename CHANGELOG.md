@@ -15,6 +15,8 @@ All notable changes to this project will be documented in this file[^1].
 - daily and weekly cron jobs scheduled for harvests with appropriate cron_status
 - footer component
 - newsletter link into footer
+- Refactor spice harvester
+- Show harvest progress in admin
 
 ### Changed
 - made models Item, Authority, Article and Collection translatable

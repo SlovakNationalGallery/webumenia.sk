@@ -134,6 +134,7 @@ return array(
          * Application Service Providers...
          */
         App\Providers\ElasticTranslatableServiceProvider::class,
+        App\Providers\ElasticsearchClientProvider::class,
     ),
 
     /*

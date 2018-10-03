@@ -13,6 +13,10 @@ class SpiceHarvesterRecord extends Model
 
     protected $softDelete = true;
     protected $dates = ['deleted_at'];
+    protected $fillable = [
+        'identifier',
+        'type',
+    ];
 
     public function harvest()
     {
