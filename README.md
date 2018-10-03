@@ -88,7 +88,7 @@ Be patient, subsequent builds won't take nearly as long.
 	docker-compose up -d
 	``` 
 	to run it in the background.
-	(In this case you can watch the output of a component like this: `docker-compose logs -f web`)  
+	(In this case you can watch the output of a component like this: `docker-compose logs -f php`)  
 5. run migrations  
 	```
 	docker-compose exec php php artisan migrate --seed
