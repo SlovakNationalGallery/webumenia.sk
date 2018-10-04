@@ -41,7 +41,7 @@ class ItemImage extends Model
             $this->order = $max !== null ? $max + 1 : 0;
         }
 
-        parent::save($options);
+        return parent::save($options);
     }
 
     public function isZoomable() {
