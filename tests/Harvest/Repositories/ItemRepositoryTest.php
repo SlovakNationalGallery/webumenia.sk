@@ -22,7 +22,7 @@ class ItemRepositoryTest extends TestCase
 
         $itemRepository = new ItemRepository($endpointFactoryMock);
 
-        $harvest = $this->createModel(SpiceHarvesterHarvest::class, ['base_url' => true], false);
+        $harvest = factory(SpiceHarvesterHarvest::class)->make(['base_url' => true]);
         $rows = $itemRepository->getRows($harvest);
 
         $rows = iterator_to_array($rows);
