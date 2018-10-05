@@ -2,21 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Forms\Types\ItemType;
 use App\Item;
 use App\Collection;
 use App\Jobs\HarvestSingleJob;
+use Barryvdh\Form\CreatesForms;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
-use Intervention\Image\ImageManagerStatic;
 use App\SpiceHarvesterRecord;
 use Illuminate\Support\Facades\App;
+use Symfony\Component\Form\FormInterface;
 
 class ItemController extends Controller
 {
+    use CreatesForms;
+
+    /** @var FormInterface */
+    protected $form;
 
     /**
      * Display a listing of the resource.
@@ -123,13 +129,13 @@ class ItemController extends Controller
      */
     public function edit($id)
     {
-        $item = Item::find($id);
+        $item = Item::find($id) ?: abort(404);
+        $form = $this->getItemForm($item);
 
-        if (is_null($item)) {
-            return Redirect::route('item.index');
-        }
-
-        return view('items.form')->with('item', $item);
+        return view('items.form', [
+            'item' => $item,
+            'form' => $form,
+        ]);
     }
 
     /**
@@ -140,6 +146,14 @@ class ItemController extends Controller
      */
     public function update($id)
     {
+        $item = Item::find($id) ?: abort(404);
+        $form = $this->getItemForm($item);
+        $form->handleRequest();
+
+        if (!$form->isSubmitted() || !$form->isValid()) {
+            return $this->edit($id);
+        }
+
         $v = Validator::make(Input::all(), Item::$rules);
 
         if ($v->passes()) {
@@ -150,9 +164,8 @@ class ItemController extends Controller
 
             }, Input::all()); //prazdne hodnoty zmeni na null
 
-            $item = Item::find($id);
             $item->fill($input);
-            $item->save();
+            $item->push();
 
             if (Input::has('tags')) {
                 $item->reTag(Input::get('tags', []));
@@ -181,7 +194,6 @@ class ItemController extends Controller
     {
         Item::find($id)->delete();
         return Redirect::route('item.index')->with('message', 'Dielo bolo zmazané');
-        ;
     }
 
     public function backup()
@@ -247,7 +259,7 @@ class ItemController extends Controller
 
     private function uploadImage($item)
     {
-        $item->removeImage();
+        $item->deleteImage();
 
         $error_messages = array();
         $primary_image = Input::file('primary_image');
@@ -332,5 +344,22 @@ class ItemController extends Controller
             return true;
         }
         return Redirect::back()->withMessage($message);
+    }
+
+    protected function getItemForm(Item $item) {
+        if (!$this->form) {
+            $this->form = $this->getFormFactory()
+                ->createBuilder(
+                    ItemType::class,
+                    $item,
+                    [
+                        'action' => url('item.update', $item->id),
+                        'method' => 'patch',
+                    ]
+                )
+                ->getForm();
+        }
+
+        return $this->form;
     }
 }

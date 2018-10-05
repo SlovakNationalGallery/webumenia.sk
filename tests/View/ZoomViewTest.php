@@ -12,9 +12,9 @@ class ZoomViewTest extends TestCase
     use DatabaseMigrations;
 
     public function testMultipleImages() {
-        $item = $this->createModel(Item::class);
+        $item = factory(Item::class)->create();
 
-        $image = $this->createModel(ItemImage::class, [], $save = false);
+        $image = factory(ItemImage::class)->make();
         $image->item()->associate($item);
         $image->save();
 
@@ -30,13 +30,13 @@ class ZoomViewTest extends TestCase
         $author = $this->faker->name;
         $related_items = [];
         for ($i = 0; $i < $count = 2; $i++) {
-            $item = $this->createModel(Item::class, [
+            $item = factory(Item::class)->create([
                 'related_work' => $related_work,
                 'related_work_order' => $i,
                 'author' => $author,
             ]);
 
-            $image = $this->createModel(ItemImage::class, [], $save = false);
+            $image = factory(ItemImage::class)->make();
             $image->item()->associate($item);
             $image->save();
 
@@ -53,26 +53,24 @@ class ZoomViewTest extends TestCase
     public function testPrioritizedMultipleImages() {
         $related_work = $this->faker->word;
         $author = $this->faker->name;
-        $item = $this->createModel(Item::class, [
+        $item = factory(Item::class)->create([
             'related_work' => $related_work,
             'related_work_order' => 2,
             'author' => $author,
         ]);
 
-        $related_item = $this->createModel(Item::class, [
+        $related_item = factory(Item::class)->create([
             'related_work' => $related_work,
             'related_work_order' => 1,
             'author' => $author,
         ]);
 
-        $count = 2;
-        for ($i = 0; $i < $count; $i++) {
-            $image = $this->createModel(ItemImage::class, [], $save = false);
+        factory(ItemImage::class, $count = 2)->make()->each(function (ItemImage $image) use ($item) {
             $image->item()->associate($item);
             $image->save();
-        }
+        });
 
-        $related_item_image = $this->createModel(ItemImage::class, [], $save = false);
+        $related_item_image = factory(ItemImage::class)->make();
         $related_item_image->item()->associate($related_item);
         $related_item_image->save();
 
