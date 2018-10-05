@@ -200,7 +200,9 @@
     <script>
     $(document).ready(function() {
         $('.js-form-collection').collection({
-            position_field_selector: '.js-form-order'
+            allow_up: false,
+            allow_down: false,
+            add_at_the_end: true,
         });
 
         $('.datepicker').datepicker({
