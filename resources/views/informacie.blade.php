@@ -22,7 +22,7 @@
 
             </div>
             <div class="col-md-8 text-center">
-                {!! file_get_contents(public_path('images/map-with-galleries.svg')) !!}
+                {!! file_get_contents(public_path('images/gallery-map.svg')) !!}
             </div>
         </div>
         <div class="row bottom-space galleries">
@@ -174,5 +174,5 @@
 
 @section('javascript')
     @include('components.artwork_carousel_js', ['slick_query' => '.artworks-preview'])
-    {!! Html::script('js/components/map-with-galleries.js') !!}
+    {!! Html::script('js/components/gallery-map.js') !!}
 @stop
