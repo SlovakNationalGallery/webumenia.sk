@@ -23,6 +23,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Changed
 - made models Item, Authority, Article and Collection translatable
 - separate elastic index for each locale
+- footer social icons
 
 ## [1.5.3] - 2018-08-14
 ### Fixed
