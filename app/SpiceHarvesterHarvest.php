@@ -42,4 +42,26 @@ class SpiceHarvesterHarvest extends Model
     {
         return $this->start_from;
     }
+
+    public function getStatusClassAttribute()
+    {
+        switch ($this->status) {
+            case self::STATUS_COMPLETED:
+                return 'success';
+                break;
+
+            case self::STATUS_IN_PROGRESS:
+            case self::STATUS_QUEUED:
+                return 'warning';
+                break;
+
+            case self::STATUS_ERROR:
+                return 'danger';
+                break;
+        }
+
+        return 'default';
+    }
+
+
 }
