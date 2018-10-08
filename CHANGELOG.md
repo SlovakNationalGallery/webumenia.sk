@@ -5,10 +5,12 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - Duplicate authors with links
 - Authorities Search endpoint of admin fixed
+- Multiple item images form in admin
 
 ### Added
 - Remove query string from localized urls
 - Use SQLite in tests
+- Dockerfiles for WU to run in docker
 - Curator of artwork in detail view
 - admin-editable cron_status attribute added to SpiceHarvester harvests
 - daily and weekly cron jobs scheduled for harvests with appropriate cron_status
@@ -16,10 +18,14 @@ All notable changes to this project will be documented in this file[^1].
 - newsletter link into footer
 - responsive image component
 - responsive image support with lazyloading for carousel(s) and artwork detail
+- Refactor spice harvester
+- Show harvest progress in admin
+- Symfony forms
 
 ### Changed
 - made models Item, Authority, Article and Collection translatable
 - separate elastic index for each locale
+- footer social icons
 
 ## [1.5.3] - 2018-08-14
 ### Fixed

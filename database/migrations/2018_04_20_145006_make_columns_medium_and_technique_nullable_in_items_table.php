@@ -35,10 +35,13 @@ class MakeColumnsMediumAndTechniqueNullableInItemsTable extends Migration
         }
 
         if (Schema::hasColumns('item_translations', ['medium', 'technique'])) {
-           Schema::table('item_translations', function (Blueprint $table) {
+            DB::table('item_translations')->whereNull('medium')->update(['medium' => '']);
+            DB::table('item_translations')->whereNull('technique')->update(['technique' => '']);
+
+            Schema::table('item_translations', function (Blueprint $table) {
                 $table->string('medium')->nullable(false)->change();
                 $table->string('technique')->nullable(false)->change();
-           });
+            });
         }
 
     }

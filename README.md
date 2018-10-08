@@ -52,6 +52,56 @@ Here are the steps for installation on a local machine.
 7. Run migrations to setup the database with `php artisan migrate --seed`
 8. Start your queue listener and setup the Laravel scheduler (_optional_)
 
+## Local Installation with Docker
+
+This requires docker-compose
+these steps will set up a linked system of 4 containers:
+	web service (nginx webserver)
+	php service (contains our application code)
+	database container -- CAVEAT: don't use 'root' user for db, .env.example has sample username / password  
+		when you first build the stack the mysql dockerfile builds a new database and creates a specific user  
+		with which web_umenia accesses the db, which is as it should be. You may still access the db as 'root' yourself though
+	elasticsearch container
+that will communicate internally with one another
+
+1. Clone this repository.
+    ```
+    git@github.com:SlovakNationalGallery/web-umenia-2.git webumenia/
+    cd webumenia/
+    ```
+2. create a .env file (you can use the included env.example as a base)
+3. build the whole stack (mysql, elasticsearch, laravel php app + apache server)
+with docker-compose:
+	```
+	docker-compose build
+	```
+	the first time you do this it will take a while, a lot of different components
+need to be fetched from remote servers.
+Be patient, subsequent builds won't take nearly as long.
+  
+4. start the app  
+	```
+	docker-compose up
+	```
+	or  
+	```
+	docker-compose up -d
+	``` 
+	to run it in the background.
+	(In this case you can watch the output of a component like this: `docker-compose logs -f php`)  
+5. run migrations  
+	```
+	docker-compose exec php php artisan migrate --seed
+	```  
+6. setup elasticsearch  
+	```
+	docker-compose exec php php artisan es:setup
+	```  
+7. visit http://localhost:8080 in your browser to have a look  
+
+to stop the dockerized application: `docker-compose down`  
+
+
 ### Harvesting Data
 
 You can now fill artworks by adding them manually or importing using the "spice harvester" (harvests using OAI-PMH protocol) using `php artisan oai-pmh:harvest` and choosing to harvest `1 [item] Europeana SNG`. Or login to admin at `http://yourlocalhost/admin` using default credentials `admin`/`admin` and go to `Spice Harvester` -> 'Spustit'.
