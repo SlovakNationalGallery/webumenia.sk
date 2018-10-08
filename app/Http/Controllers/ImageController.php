@@ -10,22 +10,22 @@ use App\Item;
 
 class ImageController extends Controller
 {
-    protected $max_width = 800;
+    protected $max_size_to_fit = 800; // width or height in pixels
 
     public function resize($id, $width, $height=null)
     {
         if (
-            ($width <= $this->max_width) &&
-            ($height <= $this->max_width) &&
+            ($width <= $this->max_size_to_fit) &&
+            ($height <= $this->max_size_to_fit) &&
             Item::where('id', '=', $id)->exists()
         ) {
             // disable resizing when requesting 800px width
-            $resize = ($width == $this->max_width) ? false : $width;
+            $resize = ($width == $this->max_size_to_fit) ? false : $width;
             $resize_method = 'widen';
 
             if ($height) {
                 $resize_method = 'heighten';
-                $resize = $height;
+                $resize = ($height == $this->max_size_to_fit) ? false : $height;
             }
 
             $imagePath = public_path() . Item::getImagePathForId($id, false, $resize, $resize_method);

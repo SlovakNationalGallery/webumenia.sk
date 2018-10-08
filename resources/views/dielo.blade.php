@@ -54,22 +54,25 @@
                             list($width, $height) = getimagesize(public_path() . $item->getImagePath());
                         @endphp
 
-                        @if ($item->has_iip)
-                            <a href="{{ route('item.zoom', ['id' => $item->id]) }}" data-toggle="tooltip" data-placement="top" title="{{ utrans('general.item_zoom') }}" class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%">
-                        @else
-                            <div class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%">
-                        @endif
+                        {{-- prevent upsizing by setting max-width to real width --}}
+                        <div style="max-width: {{ $width }}px; margin: 0 auto;">
+                            @if ($item->has_iip)
+                                <a href="{{ route('item.zoom', ['id' => $item->id]) }}" data-toggle="tooltip" data-placement="top" title="{{ utrans('general.item_zoom') }}" class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%">
+                            @else
+                                <div class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%">
+                            @endif
 
-                            @include('components.img_responsive', [
-                                'item' => $item,
-                                'class' => 'img-responsive img-dielo'
-                            ])
+                                @include('components.img_responsive', [
+                                    'item' => $item,
+                                    'class' => 'img-responsive img-dielo'
+                                ])
 
-                        @if ($item->has_iip)
-                            </a>
-                        @else
-                            </div>
-                        @endif
+                            @if ($item->has_iip)
+                                </a>
+                            @else
+                                </div>
+                            @endif
+                        </div>
 
                         <div class="row">
                             <div class="col-sm-12">
