@@ -16,11 +16,14 @@ All notable changes to this project will be documented in this file[^1].
 - daily and weekly cron jobs scheduled for harvests with appropriate cron_status
 - footer component
 - newsletter link into footer
+- VSG to the list of galleries
 - Refactor spice harvester
 - Show harvest progress in admin
 - Symfony forms
 
 ### Changed
+- allow download of public-domain artworks from VSG
+- making map with galleries interactive in info section
 - made models Item, Authority, Article and Collection translatable
 - separate elastic index for each locale
 - footer social icons
@@ -28,7 +31,6 @@ All notable changes to this project will be documented in this file[^1].
 ## [1.5.3] - 2018-08-14
 ### Fixed
 - OAI download images command reflects changes to Item model
->>>>>>> develop
 
 ## [1.5.2] - 2018-07-27
 ### Fixed
