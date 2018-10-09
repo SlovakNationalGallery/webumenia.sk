@@ -55,7 +55,7 @@
                         @endphp
 
                         {{-- prevent upsizing by setting max-width to real width --}}
-                        <div style="max-width: {{ $width }}px; margin: 0 auto;">
+                        <div class="img-dielo" style="max-width: {{ $width }}px;">
                             @if ($item->has_iip)
                                 <a href="{{ route('item.zoom', ['id' => $item->id]) }}" data-toggle="tooltip" data-placement="top" title="{{ utrans('general.item_zoom') }}" class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%">
                             @else
@@ -63,8 +63,7 @@
                             @endif
 
                                 @include('components.item_image_responsive', [
-                                    'item' => $item,
-                                    'class' => 'img-responsive img-dielo'
+                                    'item' => $item
                                 ])
 
                             @if ($item->has_iip)
