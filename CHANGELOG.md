@@ -18,11 +18,14 @@ All notable changes to this project will be documented in this file[^1].
 - newsletter link into footer
 - responsive image component
 - responsive image support with lazyloading for carousel(s) and artwork detail
+- VSG to the list of galleries
 - Refactor spice harvester
 - Show harvest progress in admin
 - Symfony forms
 
 ### Changed
+- allow download of public-domain artworks from VSG
+- making map with galleries interactive in info section
 - made models Item, Authority, Article and Collection translatable
 - separate elastic index for each locale
 - footer social icons
