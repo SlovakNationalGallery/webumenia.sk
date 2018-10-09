@@ -62,7 +62,7 @@
                                 <div class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%">
                             @endif
 
-                                @include('components.img_responsive', [
+                                @include('components.item_image_responsive', [
                                     'item' => $item,
                                     'class' => 'img-responsive img-dielo'
                                 ])

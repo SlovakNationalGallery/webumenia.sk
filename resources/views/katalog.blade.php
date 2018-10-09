@@ -152,7 +152,7 @@
                                     list($width, $height) = getimagesize(public_path() . $item->getImagePath());
                                 @endphp
                                 <div class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%;">
-    	                		     @include('components.img_responsive', ['item' => $item])
+    	                		     @include('components.item_image_responsive', ['item' => $item])
                                 </div>
     	                	</a>
                             <div class="item-title">
