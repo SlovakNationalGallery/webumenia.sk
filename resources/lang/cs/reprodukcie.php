@@ -7,46 +7,46 @@ return array(
     | Language Lines for reprodukcie.blade.php template
     |--------------------------------------------------------------------------
     */
-    'title'             => 'reprodukcie',
-    'lead'              => 'Na Webe umenia si môžete objednať reprodukcie<br>viac než <strong>30 000 diel</strong> zo zbierok <strong>Slovenskej národnej galérie</strong><br>v <strong>tlačenej</strong> alebo <strong>digitálnej</strong> forme.',
-    'print_heading'     => 'Tlačené Reprodukcie',
-    'print_body'        => '<p>Tlačenú reprodukciu si objednáte pomocou tlačidla objednať reprodukciu na stránke konkrétneho diela.</p>
-                           <p>Cena reprodukcie sa odvíja od zvoleného rozmeru a typu spracovania, ktoré si zvolíte pri vyplňovaní objednávky.</p>
-                           <p>Pokiaľ je dielo zdigitalizované v dostatočnej kvalite, vybavenie žiadosti môže trvať 7 až 30 dní.</p>
-                           <p>V prípade, ak dielo zdigitalizované nie je, čakacia doba sa zvyšuje o čas potrebný na jeho digitalizáciu.</p>
-                           <p>V prípade dlhšej čakacej doby Vás systém automaticky informuje pri vypĺňaní on-line objednávky.</p>
-                           <p>Momentálne je možné vyzdvihnúť si reprodukcie len osobne v <a href="https://www.sng.sk/sk/bratislava/navsteva/kde-nas-najdete/knihkupectvo-ex-libris">kníhkupectve Ex Libris</a> v priestoroch SNG na Námestí Ľ. Štúra 4 v Bratislave alebo v pokladni <a href="https://www.sng.sk/sk/zvolen/navsteva/kde-nas-najdete">Zvolenského zámku - Námestie SNP 594/1</a>.</p>',
-    'print_recommended' => 'Odporúčame',
+    'title'             => 'reprodukce',
+    'lead'              => 'Na Webu umenia si můžete objednat reprodukce<br>více než <strong>30 000 děl</strong> ze sbírek <strong>Slovenské národní galerie</strong><br>v <strong>tištěné</strong> nebo <strong>digitální</strong> podobě.',
+    'print_heading'     => 'Tištěné Reprodukce',
+    'print_body'        => '<p>Tištěnou reprodukci si objednáte pomocí tlačítka <strong>objednat reprodukci</strong> na stránce konkrétního díla. </p>
+                           <p>Cena reprodukce závisí na rozměru a typu zpracování, které si zvolíte při vyplnění objednávky.</p>
+                           <p>Tištěnou reprodukci lze objednat pouze pro <strong>díla ze sbírek Slovenské národní galerie</strong>, které jsou <strong>zdigitalizovány</strong> (s možností zoom).</p>
+                           <p>Standardní lhůta vyřízení objednávky je <strong>30 dní</strong>.</p>
+                           <p>V případě delší čekací lhůty Vás systém automaticky informuje při vyplňování on-line objednávky.</p>
+                           <p>Momentálně je možné vyzvednout reprodukce pouze osobně v <a href="https://www.sng.sk/sk/bratislava/navsteva/kde-nas-najdete/knihkupectvo-ex-libris">knihkupectví Ex Libris</a> v prostorách SNG na Náměstí Ľ. Štúra 4 v Bratislavě nebo v pokladně <a href="https://www.sng.sk/sk/zvolen/navsteva/kde-nas-najdete">Zvolenského zámku – Námestie SNP 594/1</a>.</p>',
+    'print_recommended' => 'Doporučujeme',
     'print_list'        => '<ul>
-                              <li>Výtvarné diela <strong>netlačíme v pôvodnej veľkosti</strong> aby nedošlo k zámene s originálom. Pri tlači diela zachovávame pôvodný pomer strán, farebnosť aj signatúru. Maximálny možný rozmer&nbsp;reprodukcie je dvojnásobok rozmerov originálu.</li>
-                              <li>Vhodný <strong>typ papiera a atramentu vyberajú pracovníci SNG</strong> podľa výtvarnej techniky a materiálu diela v objednávke.</li>
-                              <li>Tlačené reprodukcie je možné použiť iba na <strong>súkromný účel</strong>. V prípade záujmu použiť tlačené reprodukcie na komerčný účel (napr. ako dekoráciu reštaurácie), vybavenie objednávky prebieha podobne ako pri digitálnej reprodukcii (pozri nižšie). Použitie tlačenej reprodukcie na komerčný účel bez predošlej konzultácie so Slovenskou národnou galériou môže viesť k zmluvnej pokute.</li>
-                              <li>Po výbere diel, vyplnení údajov a odoslaní objednávky Vám pošleme <strong>e-mail s podrobnejšími informáciami</strong> o objednávke.</li>
-                              <li>Ak si chcete objednať aj tlačené aj digitálne reprodukcie, vytvorte <strong>zvlášť objednávku pre každý typ</strong>.</li>
+                              <li>Výtvarná díla <strong>netiskneme v původní velikosti</strong>, aby nedošlo k záměně s originálem. Při tisku díla zachováváme původní poměr stran, barevnost i signaturu. Maximální možný rozměr&nbsp;reprodukce je dvojnásobek rozměrů originálu.</li>
+                              <li>Vhodný <strong>typ papíru a inkoustu vybírají pracovníci SNG</strong> podle výtvarné techniky a materiálu díla v objednávce.</li>
+                              <li>Tištěné reprodukce je možné použít pouze k <strong>soukromým účelům</strong>. V případě zájmu použít tištěné reprodukce ke komerčnímu účelu (např. jako dekoraci restaurace), vyřízení objednávky probíhá obdobně jako u digitální reprodukce (viz níže). Použití tištěné reprodukce ke komerčním účelům bez předešlé konzultace se Slovenskou národní galerií může vést ke smluvní pokutě.</li>
+                              <li>Po výběru díla, vyplnění údajů a odeslání objednávky Vám pošleme <strong>e-mail s podrobnějšími informacemi</strong> o objednávce.</li>
+                              <li>•	Chcete-li si objednat nejen tištěné, ale i digitální reprodukce, udělejte <strong>zvlášť objednávku pro každý typ</strong>.</li>
                             </ul>',
     'print_offer_until'                    => 'do',
     'print_offer_per-piece'                => 'eur / kus',
-    'print_offer_standalone_title'         => 'Samostatná Tlačená Reprodukcia',
-    'print_offer_standalone_description'   => '<p>Reprodukcia je vytlačená na fine art rag (100% bavlna, pH neutrálna) alebo FineArt Baryt Photo Paper, okolo plochy diela je biely okraj (pre prípadné paspartovanie/rámovanie).</p><p>Rozmer reprodukcie zachováva pomer strán diela.</p>',
-    'print_offer_passepartout_title'       => 'Reprodukcia S Paspartou',
-    'print_offer_passepartout_description' => '<p>Reprodukcia je vytlačená na fine art rag (100% bavlna, pH neutrálna) alebo FineArt Baryt Photo Paper.</p><p>Papierová pasparta je z jednej strany otvorená a umožňuje ďalšie rámovanie.</p><p>Šírka pasparty je 5-8 cm (podľa rozmerov diela). Maximálny rozmer reprodukcie v pasparte je A3+.</p>',
-    'print_offer_framed_title'             => 'Reprodukcia S Paspartou A Rámom',
-    'print_offer_framed_description'       => '<p>Reprodukcia je vytlačená na fine art rag (100% bavlna, pH neutrálna) alebo FineArt Baryt Photo Paper.</p><p>Dielo je vsadené v pasparte a v ráme so sklom.</p><p>Rámy sú drevené, nereliéfne, v dvoch farebných verziách (svetlé, tmavé). Ak vám farba rámu nevyhovuje, odporúčame formát reprodukcie s paspartou, pripravený na svojpomocné rámovanie.</p><p>Maximálny rozmer reprodukcie v pasparte a ráme je A3+.</p>',
-    'print_offer_poster_title'             => 'Poster (Art Plagát)',
-    'print_offer_poster_description'       => '<p>Reprodukcia je vytlačená na špeciálny, vysokokvalitný, mapový papier rozmeru A1.</p><p>Momentálne ponúkame v tejto forme iba reprodukcie <a href="https://www.webumenia.sk/kolekcia/144">plagátov zo zbierok SNG</a>.</p>',
-    'digital_heading'   => 'Digitálne Reprodukcie',
-    'digital_body'      => '<p>Poskytnutie digitálnych reprodukcii diel posudzujeme individuálne podľa konkrétneho diela a účelu použitia.</p>
-                            <p>V súvislosti s ochranou autorských práv, <strong>SNG neposkytuje digitálne reprodukcie chránených diel na všeobecné súkromné účely (dekorácia, dar)</strong>.</p>
-                            <p>Na <strong>výskumný účel</strong> (školské a vedecké práce, biografie) a <strong>edukačný účel</strong> (vzdelávacie pomôcky, učebnice) poskytujeme reprodukcie zväčša bezplatne. Na <strong>komerčný účel</strong> (články v tlači, publikácie, propagačné materiály) a výstavy sa cena odvíja od viacerých faktorov a hodnotí sa individuálne.</p>
-                            <p>Pri poskytovaní diel, ktoré sú chránené autorským právom (nie sú voľné) postupuje SNG s ohľadom na licenciu, právo na použitie na základe prejavu vôle autora a s ohľadom na historický kontext vývoja autorského práva.</p>
-                            <p>SNG nedisponuje právom na neobmedzené použitie svojich zbierkových predmetov. <strong>Autorské práva môže vlastniť resp. spravovať aj iný subjekt</strong>, napr. autorská spoločnosť LITA, autori, dedičia. V takých prípadoch je potrebné konzultovať&nbsp; povolenie na použitie s príslušným subjektom.</p>
-                            <p>Čas potrebný na vybavenie objednávky závisí od autorskej situácie konkrétnych diel a môže v niektorých prípadochvyžadovať aj niekoľko týždňov. Odporúčame preto digitálne reprodukcie <strong>objednať v dostatočnom predstihu.</strong></p>',
-    'digital_examples'  => 'Príklady použitia digitálnych reprodukcii',
+    'print_offer_standalone_title'         => 'Samostatná tištěná reprodukce',
+    'print_offer_standalone_description'   => '<p>Reprodukce je vytištěna na fine art rag (100 % bavlna, pH neutrální) nebo FineArt Baryt Photo Paper, kolem plochy díla je bílý okraj (pro případné paspartování/rámování).</p><p>Rozměr reprodukce zachovává poměr stran díla.</p>',
+    'print_offer_passepartout_title'       => 'Reprodukce s paspartou',
+    'print_offer_passepartout_description' => '<p>Reprodukce je vytištěna na fine art rag (100 % bavlna, pH neutrální) nebo FineArt Baryt Photo Paper.</p><p>Papírová pasparta je z jedné strany otevřená a umožňuje další rámování.</p><p>Šířka pasparty je 5-8 cm (podle rozměrů díla). Maximální rozměr reprodukce v paspartě je A3+.</p>',
+    'print_offer_framed_title'             => 'Reprodukce s paspartou a rámem',
+    'print_offer_framed_description'       => '<p>Reprodukce je vytištěna na fine art rag (100 % bavlna, pH neutrální) nebo FineArt Baryt Photo Paper.</p><p>Dílo je vsazeno do pasparty a v rámu se sklem.</p><p>Rámy jsou dřevěné, nereliéfní, ve dvou barevných verzích (světlé, tmavé). Nevyhovuje-li vám barva rámu, doporučujeme formát reprodukce s paspartou, připravený na svépomocné rámovaní.</p><p>Maximální rozměr reprodukce v paspartě a rámu je A3+.</p>',
+    'print_offer_poster_title'             => 'Poster (Art plakát)',
+    'print_offer_poster_description'       => '<p>Reprodukce je vytištěna na speciální, vysoko kvalitní, mapový papír rozměru A1.</p><p>Momentálně nabízíme v této formě pouze reprodukce <a href="https://www.webumenia.sk/kolekcia/144">plakátů ze sbírek SNG</a>.</p>',
+    'digital_heading'   => 'Digitální reprodukce',
+    'digital_body'      => '<p>Poskytnutí digitálních reprodukcí děl posuzujeme individuálně podle konkrétního díla a účelu použití.</p>
+                            <p>V souvislosti s ochranou autorských práv <strong>SNG neposkytuje digitální reprodukce chráněných děl k všeobecným soukromým účelům (dekorace, dar)</strong>.</p>
+                            <p>K <strong>výzkumným účelům</strong> (školní a vědecké práce, biografie) a <strong>edukačním účelům</strong> (vzdělávací pomůcky, učebnice) poskytujeme reprodukce většinou bezplatně. Ke <strong>komerčním účelům</strong> (články v tisku, publikace, propagační materiály) a na výstavy se cena odvíjí od více faktorů a stanovuje se individuálně.</p>
+                            <p>Při poskytování děl, která jsou chráněna autorským právem (nejsou volná), postupuje SNG vzhledem k licenci, práva na použití na základě projevu vůle autora a vzhledem k historickému kontextu vývoje autorského práva.</p>
+                            <p>SNG nedisponuje právem na neomezené použití svých sbírkových předmětů. <strong>Autorská práva může vlastnit, resp. spravovat i jiný subjekt</strong>, např. autorská společnost LITA, autoři, dědici. V takových případech je nutno konzultovat&nbsp; povolení k použití s příslušným subjektem.</p>
+                            <p>Čas nutný k vyřízení objednávky závisí na autorské situaci konkrétních děl a v některých případech může vyžadovat i několik týdnů. Doporučujeme proto digitální reprodukce <strong>objednat s dostatečným předstihem.</strong></p>',
+    'digital_examples'  => 'Příklady použití digitálních reprodukcí',
     'digital_list'      => '<ul>
-                              <li>Každé poskytnutie digitálnej reprodukcie je <strong>podmienené podpísaním zmluvy</strong>, ktorá špecifikuje účel jej použitia.&nbsp;Odkaz na stiahnutie obrázkov zo servera SNG posielame až po obdržaní podpísanej zmluvy (odfotenej, oskenovanej alebo zaslanej poštou).</li>
-                              <li>Digitálne reprodukcie diel spravovaných inými galériami poskytujeme iba po predložení písomného súhlasu príslušnej inštitúcie. Názov galérie spravujúcej dotyčné dielo je uvedené v položke <strong>„Galéria“</strong> v informáciách o diele.</li>
-                              <li>Ak si chcete objednať aj tlačené aj digitálne reprodukcie, vytvorte <strong>zvlášť objednávku pre každý typ.</strong>       </li>
+                              <li>•	Každé poskytnutí digitální reprodukce je <strong>podmíněno podepsáním smlouvy</strong>, která specifikuje účel jejího použití.&nbsp;Odkaz na stažení obrázků ze serveru SNG posíláme až po obdržení podepsané smlouvy (nafocené, naskenované nebo zaslané poštou).</li>
+                              <li>•	Digitální reprodukce děl spravovaných jinými galeriemi poskytujeme pouze po předložení písemného souhlasu příslušné instituce. Název galerie spravující příslušné dílo je uveden v položce <strong>„Galéria“</strong> v informacích o díle.</li>
+                              <li>•	Chcete-li objednat tištěné digitální reprodukce, vytvořte <strong>samostatně objednávku pro každý typ.</strong>       </li>
                             </ul>',
-    'digital_choice'    => 'Vyberte si reprodukcie',
-    'more-items_button' => 'zobraziť všetkých'
+    'digital_choice'    => 'Zvolte si reprodukce',
+    'more-items_button' => 'zobrazit všechny'
 );
