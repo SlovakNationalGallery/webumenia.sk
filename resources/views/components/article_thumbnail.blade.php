@@ -1,7 +1,7 @@
 <div class="article-thumbnail">
   @if ($article->main_image)
     <a href="{!! $article->getUrl() !!}" class="image-container">
-      <img src="{!! $article->getThumbnailImage() !!}" class="img-responsive" alt="{!! $article->title !!}">
+      <img data-src="{!! $article->getThumbnailImage() !!}" class="img-responsive lazyload" alt="{!! $article->title !!}">
     </a>
   @endif
   <a href="{!! $article->getUrl() !!}">

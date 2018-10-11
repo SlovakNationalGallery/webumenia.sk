@@ -7,8 +7,5 @@
         "items": "return App\\Item::random(10, ['has_image' => 'true']);"
     },
     "include_js": true,
-    "data_js": {
-        "slick_query": ".artworks-preview"
-    },
     "usage_notes": "A carousel to show previews of artworks. Required $slick_target corresponds to $slick_query (passed into JS component). Optional $slick_variant can be 'small' or 'large'."
 }
