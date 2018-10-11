@@ -8,7 +8,7 @@ return array(
     |--------------------------------------------------------------------------
     */
     'title'             => 'reprodukcie',
-    'lead'              => 'Na Webe umenia si môžete objednať reprodukcie<br>viac než <strong>30 000 diel</strong> zo zbierok <strong>Slovenskej národnej galérie</strong><br>v <strong>tlačenej</strong> alebo <strong>digitálnej</strong> forme.',
+    'lead'              => 'Na Webe umenia si môžete objednať reprodukcie<br>viac než <strong>30 000 diel</strong> zo zbierok <strong>Slovenskej národnej galérie</strong><br>v <a href="#print"><strong>tlačenej</strong></a> alebo <a href="#digital"><strong>digitálnej</strong></a> forme.',
     'print_heading'     => 'Tlačené Reprodukcie',
     'print_body'        => '<p>Tlačenú reprodukciu si objednáte pomocou tlačidla objednať reprodukciu na stránke konkrétneho diela.</p>
                            <p>Cena reprodukcie sa odvíja od zvoleného rozmeru a typu spracovania, ktoré si zvolíte pri vyplňovaní objednávky.</p>

@@ -31,7 +31,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <h2 class="text-center bottom-space">{{ utrans('reprodukcie.print_heading') }}</h2>
+                <h2 id="print" class="text-center bottom-space">{{ utrans('reprodukcie.print_heading') }}</h2>
                 <div>
                     {!! utrans('reprodukcie.print_body') !!}
                 </div>
@@ -123,7 +123,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <h2 class="text-center bottom-space">{{ utrans('reprodukcie.digital_heading') }}</h2>
+                <h2 id="digital" class="text-center bottom-space">{{ utrans('reprodukcie.digital_heading') }}</h2>
                 <div>{!! utrans('reprodukcie.digital_body') !!}</div>
             </div>
         </div>
