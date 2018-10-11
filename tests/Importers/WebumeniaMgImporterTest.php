@@ -1,10 +1,12 @@
 <?php
 
-namespace Tests;
+namespace Tests\Importers;
 
 use App\Import;
 use App\Repositories\CsvRepository;
 use App\Importers\WebumeniaMgImporter;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\TestCase;
 
 class WebumeniaMgImporterTest extends TestCase
 {

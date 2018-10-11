@@ -2,6 +2,13 @@
 
 namespace Tests;
 
+use App\Authority;
+use App\Item;
+use App\ItemImage;
+use App\SpiceHarvesterHarvest;
+use App\SpiceHarvesterRecord;
+use Elasticsearch\Client;
+
 class TestCase extends \Illuminate\Foundation\Testing\TestCase
 {
     /** @var \Faker\Generator */
@@ -9,6 +16,9 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase
 
     public function setUp() {
         parent::setUp();
+
+        $this->app->instance(Client::class, $this->getMock(Client::class));
+
         if ($this->faker === null) {
             $this->faker = \Faker\Factory::create(\App::getLocale());
         }

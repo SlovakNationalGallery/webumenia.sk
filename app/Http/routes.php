@@ -297,7 +297,68 @@ function()
     Route::get('informacie', function () {
         $items = Item::random(20, ['gallery' => 'Slovenská národná galéria, SNG']);
 
-        return view('informacie', ['items' => $items]);
+        $galleries = [
+            [
+                'id'          => 'SNG',
+                'lang_string' => 'informacie.info_gallery_SNG',
+                'url'         => 'katalog?gallery=Slovenská národná galéria, SNG',
+            ],
+            [
+                'id'          => 'OGD',
+                'lang_string' => 'informacie.info_gallery_OGD',
+                'url'         => 'katalog?gallery=Oravská galéria, OGD',
+            ],
+            [
+                'id'          => 'GNZ',
+                'lang_string' => 'informacie.info_gallery_GNZ',
+                'url'         => 'katalog?gallery=Galéria umenia Ernesta Zmetáka, GNZ',
+            ],
+            [
+                'id'          => 'GPB',
+                'lang_string' => 'informacie.info_gallery_GPB',
+                'url'         => 'katalog?gallery=Liptovská galéria Petra Michala Bohúňa, GPB',
+            ],
+            [
+                'id'          => 'GMB',
+                'lang_string' => 'informacie.info_gallery_GMB',
+                'url'         => 'katalog?gallery=Galéria mesta Bratislavy, GMB',
+            ],
+            [
+                'id'          => 'GBT',
+                'lang_string' => 'informacie.info_gallery_GBT',
+                'url'         => 'katalog?gallery=Galéria+Miloša+Alexandra+Bazovského, GBT',
+            ],
+            [
+                'id'          => 'NGN',
+                'lang_string' => 'informacie.info_gallery_NGN',
+                'url'         => 'katalog?gallery=Nitrianska+galéria, NGN',
+            ],
+            [
+                'id'          => 'SGB',
+                'lang_string' => 'informacie.info_gallery_SGB',
+                'url'         => 'katalog?gallery=Stredoslovenská galéria, SGB',
+            ],
+            [
+                'id'          => 'GUS',
+                'lang_string' => 'informacie.info_gallery_GUS',
+                'url'         => 'katalog?gallery=Galéria umelcov Spiša, GUS',
+            ],
+            [
+                'id'          => 'VSG',
+                'lang_string' => 'informacie.info_gallery_VSG',
+                'url'         => 'katalog?gallery=Východoslovenská+galéria%2C+VSG',
+            ],
+            [
+                'id'          => 'MG',
+                'lang_string' => 'informacie.info_gallery_MG',
+                'url'         => 'katalog?gallery=Moravská galerie, MG',
+            ],
+        ];
+
+        return view('informacie', [
+            'items' => $items,
+            'galleries' => $galleries,
+        ]);
     });
 
     Route::get('reprodukcie', function () {

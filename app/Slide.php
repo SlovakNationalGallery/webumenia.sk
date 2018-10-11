@@ -29,7 +29,7 @@ class Slide extends Model
     {
         parent::boot();
         static::deleting(function ($item) {
-            $item->removeImage();
+            $item->deleteImage();
         });
     }
 
