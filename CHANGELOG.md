@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file[^1].
 - Multiple item images form in admin
 
 ### Added
+- Headings documented in PatternLib
 - Remove query string from localized urls
 - Use SQLite in tests
 - Dockerfiles for WU to run in docker
