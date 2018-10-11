@@ -1,0 +1,8 @@
+{
+    "name": "Headings",
+    "data": {
+    },
+    "data_calls" : {
+    },
+    "usage_notes": "The six levels of headings used in text elements. Headings use 'Sentence case', starting with a single uppercase letter, followed by lower case words. 🚧 TODO: fix stepwise fontsize between h1, h2, h3."
+}
