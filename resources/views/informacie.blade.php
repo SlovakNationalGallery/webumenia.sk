@@ -173,6 +173,7 @@
 @stop
 
 @section('javascript')
-    @include('components.artwork_carousel_js', ['slick_query' => '.artworks-preview'])
+    {!! Html::script('js/slick.js') !!}
+    {!! Html::script('js/components/artwork_carousel.js') !!}
     {!! Html::script('js/components/gallery-map.js') !!}
 @stop
