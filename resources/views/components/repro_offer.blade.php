@@ -1,5 +1,5 @@
 <div class="wu-repro-offer top-space bottom-space">
-    <h4 class="text-uppercase">{!! $title !!}</h4>
+    <h4>{!! $title !!}</h4>
     <img class="w-100 bottom-space" src="{{$img_url}}">
     <div>{!! $description !!}</div>
     <table class="table">
