@@ -8475,6 +8475,9 @@ section.catalog .pagination {
   overflow: hidden;
   max-height: 165px;
 }
+.artworks-preview.preview {
+  max-height: 800px;
+}
 .artworks-preview.large {
   max-height: 200px;
 }
