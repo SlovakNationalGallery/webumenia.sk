@@ -50,13 +50,29 @@
             </div>
             <div class="row">
                 <div class="col-md-8 text-center">
+
+                    @php
+                        $full_IIIF_img_urls = $item_images->map(function ($item_image) {
+                            return $item_image->getFullIIIFImgURL();
+                        });
+                    @endphp
+
+                        @include('components.static_carousel', [
+                            'slick_target' => "artworks-preview",
+                            'slick_variant' => "preview",
+                            'img_urls' => $full_IIIF_img_urls,
+                            'item' => $item,
+                        ])
+
+
+
                         @php
                             list($width, $height) = getimagesize(public_path() . $item->getImagePath());
                             $width =  max($width,1); // prevent division by zero exception
                         @endphp
 
                         {{-- prevent upsizing by setting max-width to real width --}}
-                        <div class="img-dielo" style="max-width: {{ $width }}px;">
+                        {{-- <div class="img-dielo" style="max-width: {{ $width }}px;">
                             @if ($item->has_iip)
                                 <a href="{{ route('item.zoom', ['id' => $item->id]) }}" data-toggle="tooltip" data-placement="top" title="{{ utrans('general.item_zoom') }}" class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%">
                             @else
@@ -72,7 +88,7 @@
                             @else
                                 </div>
                             @endif
-                        </div>
+                        </div> --}}
 
                         <div class="row">
                             <div class="col-sm-12">
