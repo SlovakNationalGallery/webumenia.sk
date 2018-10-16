@@ -85,7 +85,7 @@
                 </button>
 	            <a class="navbar-brand no-border hidden-xs" href="http://www.ngprague.cz/">
 	                {{-- národní galerie --}}
-                    <img src="{{ asset('images/logo.svg') }}" class="brand-image">
+                    <img src="{{ asset('images/logo_'.App::getLocale().'.svg') }}" class="brand-image">
 	            </a>
 
 	            @include('components.searchbar', [
