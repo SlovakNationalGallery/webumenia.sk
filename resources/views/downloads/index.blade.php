@@ -74,7 +74,7 @@ stiahnutia |
                 {data: 'type', name: 'downloads.type' },
                 {data: 'contact_person', name: 'downloads.contact_person' },
                 {data: 'email', name: 'downloads.email' },
-                {data: 'count', name: 'count',  searchable: false },
+                {data: 'item_id', name: 'items.id' },
                 {data: 'created_at', name: 'downloads.created_at' },
                 {data: 'actions', name: 'actions', orderable: false, searchable: false, className: "actions text-right" }
             ],
