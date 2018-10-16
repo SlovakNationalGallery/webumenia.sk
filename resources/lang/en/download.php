@@ -16,7 +16,7 @@ return [
     'remove'  => 'Remove',
 
     'form_title'  => 'Artworks',
-    'choose_type' => ' Choose how to use',
+    'choose_type' => 'Choose the type of use',
     'private' => 'private',
     'publication' => 'publication',
     'commercial' => 'commercial',

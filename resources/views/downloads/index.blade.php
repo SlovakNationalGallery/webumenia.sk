@@ -10,7 +10,7 @@ stiahnutia |
 
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">Stiahnutia</h1>
+        <h1 class="page-header">Stáhnutí</h1>
 
         @if (Session::has('message'))
             <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
@@ -31,11 +31,11 @@ stiahnutia |
                         <tr>
                             <th>ID</th>
                             <th>Typ</th>
-                            <th>Kontaktná osoba</th>
+                            <th>Kontaktní osoba</th>
                             <th>Email</th>
-                            <th>Počet diel</th>
-                            <th>Dátum</th>
-                            <th>Akcie</th>
+                            <th>Počet děl</th>
+                            <th>Datum</th>
+                            <th>Akce</th>
                         </tr>
                     </thead>
                 </table>
@@ -85,11 +85,11 @@ stiahnutia |
             buttons: [
                     {
                         extend: 'csv',
-                        text: 'export všetko do CSV'
+                        text: 'export všeho do csv'
                     },
                     {
                         extend: 'csv',
-                        text: 'export zvolených do CSV',
+                        text: 'export vybraných do csv',
                         exportOptions: {
                             modifier: {
                                 selected: true
@@ -99,7 +99,7 @@ stiahnutia |
                 ],
             select: true,
             "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Slovak.json"
+                "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Czech.json"
             },
             "fnDrawCallback": function(oSettings) {
                 $(".action").prependTo(".dt-buttons");

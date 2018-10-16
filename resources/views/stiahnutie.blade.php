@@ -67,7 +67,7 @@
             @if ($items->count() > 0)
 
             <div class="form-group required">
-                <label for="type" class="control-label col-lg-2 col-sm-4">Zvolte a užití<sup>*</sup></label>
+                <label for="type" class="control-label col-lg-2 col-sm-4">{{ trans('download.choose_type') }}<sup>*</sup></label>
                 <div class="col-lg-10 col-sm-8">
                     <div class="radio">
                         <input required="" id="private" value="private" type="radio" name="type">
@@ -88,7 +88,7 @@
                 {!! Former::hidden('pids')->value(implode(', ', Session::get('cart',array()))); !!}
             </div>
 
-            {{-- comercial --}}
+            {{-- commercial + publication --}}
             <div class="publication commercial form-hide">
                 {!! Former::text('company')->label(trans('download.form_company'))->required(); !!}
                 {!! Former::text('address')->label(trans('download.form_address'))->required(); !!}
@@ -96,9 +96,14 @@
                 {!! Former::text('contact_person')->label(trans('download.form_contact_person'))->required(); !!}
                 {!! Former::text('email')->label(trans('download.form_email'))->required(); !!}
                 {!! Former::text('phone')->label(trans('download.form_phone')); !!}
+            </div>
+
+            {{-- commercial --}}
+            <div class="commercial form-hide">
                 {!! Former::text('purpose')->placeholder(trans('download.form_purpose_placeholder'))->label(trans('download.form_purpose'))->required(); !!}
             </div>
 
+            {{-- publication --}}
             <div class="publication form-hide">
                 {!! Former::text('publication_name')->label(trans('download.form_publication_name'))->required(); !!}
                 {!! Former::text('publication_author')->label(trans('download.form_publication_author')); !!}

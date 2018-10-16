@@ -18,7 +18,7 @@ return [
     'form_title'                   => 'Díla',
 
 
-    'choose_type' => 'Zvolte a užití',
+    'choose_type' => 'Zvolte použití',
     'private' => 'soukromé',
     'publication' => 'publikace',
     'commercial' => 'komerční',
@@ -28,7 +28,7 @@ return [
     'form_country'                 => 'Země',
     'form_contact_person'          => 'Kontaktní osoba',
     'form_email'                   => 'E-mail',
-    'form_phone'                   => 'Telefón',
+    'form_phone'                   => 'Telefon',
     'form_purpose'                 => 'Způsob využití',
     'form_purpose_placeholder'     => 'pohlednice, kalendář, tričko atd.',
     'form_publication_name'        => 'Název publikace',
