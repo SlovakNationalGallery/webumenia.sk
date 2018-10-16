@@ -14,7 +14,7 @@ return array(
 
     'info_heading'       => 'Sbírky Národní galerie v Praze',
     'info_p_lead'        => 'Sbírky Národní galerie v Praze skrývají mnohá bohatství a umělecké skvosty. Některá z nich znáte ze stálých expozic, nyní je možné se s výběrem těch nejzajímavějších z nich seznámit i on-line.',
-    'info_p'             => 'Národní galerie v Praze spouští první část veřejné prezentace sbírkových předmětů, najdete zde základní informace o dílech, jejich autorech a především kvalitní fotografie. Jedná se o výběr děl, který budeme dále rozšiřovat. Obrázky, které mají volná autorská práva, můžete prohlížet ve vysokém rozlišení a je tak možné prohlížet obrázky i s detaily.',
+    'info_p'             => 'Národní galerie v Praze spouští veřejnou prezentaci sbírkových předmětů, najdete zde základní informace o dílech, jejich autorech a především kvalitní fotografie. Jedná se o výběr děl, který budeme dále rozšiřovat. Obrázky, které mají volná autorská práva, můžete prohlížet ve vysokém rozlišení a je tak možné prohlížet obrázky i s detaily.',
     'info_gallery_SNG'   => 'Slovenská národná galéria',
     'info_gallery_OGD'   => 'Oravská galéria v Dolním Kubíně',
     'info_gallery_GNZ'   => 'Galéria umenia Ernesta Zmetáka v Nových Zámcích',
@@ -29,7 +29,7 @@ return array(
     'mozete_heading'               => 'U nás lze',
     'mozete_col_stahovat_heading'  => 'Stahovat volná díla',
     'mozete_col_stahovat_li_1'     => 'Digitální reprodukce autorsky právně volných děl na této stránce jsou zpřístupněné jako <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank"><strong>veřejné vlastnictví (public domain)</strong></a>. Můžete si je volně stáhnout <strong>ve vysokém rozlišení</strong> a využívat jak na soukromé, tak i komerční účely – kopírovat, sdílet nebo upravovat.',
-    'mozete_col_stahovat_li_2'     => 'Při dalším šíření <strong>prosíme uvést jméno autora, název díla, Národní galerie v Praze a zdroj (sbirky.ngprague.cz).</strong>',
+    'mozete_col_stahovat_li_2'     => 'Při dalším šíření <strong>uveďte jméno autora, název díla, Národní galerie v Praze a zdroj (sbirky.ngprague.cz).</strong>',
     'mozete_col_stahovat_li_3'     => 'Plánujete-li využít reprodukce pro <strong>publikační či komerční účely</strong>, prosím, informujte nás o vašich plánech předem na email <a href="mailto:registr@ngprague.cz">registr@ngprague.cz</a>. V případě užití reprodukcí v publikacích žádáme o zaslání alespoň dvou výtisků dané publikace.',
     'mozete_col_vyuzivat_heading'  => 'Využívat volná díla',
     'mozete_col_vyuzivat_li_1'     => '<strong>tisk</strong> (plakáty, pohlednice nebo trička)',
