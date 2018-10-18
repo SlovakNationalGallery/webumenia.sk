@@ -48,8 +48,8 @@
                         @endphp
 
                         @include('components.static_carousel', [
-                            'slick_target' => "artworks-preview",
-                            'slick_variant' => "preview",
+                            'slick_target' => "multiple-views",
+                            'slick_variant' => "artwork-detail-thumbnail",
                             'img_urls' => $full_IIIF_img_urls,
                             'item' => $item,
                         ])
