@@ -11,7 +11,7 @@
                 $size = 200;
                 break;
 
-            case 'preview':
+            case 'artwork-detail-thumbnail':
                 $size = 800;
                 break;
         }
@@ -19,7 +19,7 @@
 @endphp
 
 <div class="artwork-carousel-container {{$class_names or ''}}">
-  <div class="{{$slick_target}} {{$slick_variant or ''}}">
+  <div class="artwork-carousel {{$slick_target}} {{$slick_variant or ''}}">
     @foreach ($img_urls as $img_url)
 
     @php
@@ -30,18 +30,13 @@
 
     <a
       href="{!! $item->getUrl() !!}"
-      width="{{ round($width) }}"
-      height="{{ $height }}">
-
+      >
       <img
-        width="{{ round($width) }}"
-        height="{{ $height }}"
         src="{{ $img_url }}"
-        {{-- data-srcset="{!! route('dielo.nahlad', ['id' => $item->id, 'width'=> 0, 'height' => $size]) !!} 1x, {!! route('dielo.nahlad', ['id' => $item->id, 'width'=> 0, 'height' => ($size*2)]) !!} 2x" --}}
-        {{-- data-src="{!! route('dielo.nahlad', ['id' => $item->id, 'width'=> 0, 'height' => $size]) !!}" --}}
-        class="lazyload"
+        class="mw-100 lazyload relative"
         style=""
-        alt="{!! $item->getTitleWithAuthors() !!} ">
+        alt="{!! $item->getTitleWithAuthors() !!} "
+        >
     </a>
     @endforeach
   </div>
