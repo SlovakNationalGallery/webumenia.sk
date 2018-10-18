@@ -7,4 +7,5 @@ $(document).ready(function(){
     centerMode: false,
     variableWidth: true
   });
+  $(".multiple-views").slick();
 })
