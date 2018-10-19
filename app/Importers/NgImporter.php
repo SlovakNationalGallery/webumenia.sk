@@ -65,7 +65,7 @@ class NgImporter extends AbstractImporter {
     protected static $en_gallery_collection_spec = [
         'SGK' => 'Collection of Prints and Drawings',
         'SMSU' => 'Collection of Modern and Contemporary Art',
-        'SUDS' => 'Collection of the Art of the 19th Century',
+        'SUDS' => 'Collection of the 19th Century Art',
         'SSU' => 'Collection of Old Masters',
         'SAA' => 'Collection of Asian and African Art',
     ];
