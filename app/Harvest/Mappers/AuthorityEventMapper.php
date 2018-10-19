@@ -20,11 +20,11 @@ class AuthorityEventMapper extends AbstractModelMapper
     }
 
     public function mapStartDate(array $row) {
-        return $row['start_date'];
+        return $row['start_date'][0] ?: null;
     }
 
     public function mapEndDate(array $row) {
-        return $row['end_date'];
+        return $row['end_date'][0] ?: null;
     }
 
     public function mapPrefered() {
