@@ -29,7 +29,7 @@ return array(
     'mozete_heading'               => 'In our artwork database you can:',
     'mozete_col_stahovat_heading'  => 'download images in the public domain',
     'mozete_col_stahovat_li_1'     => 'Digital reproductions of artworks in the <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank"><strong>public domain</strong></a> and is free of other known restrictions are available on this site. Users may download them free of charge and without seeking authorization from the Gallery while using them for both commercial and non-commercial usage - i.e. users may copy, modify and share them freely.',
-    'mozete_col_stahovat_li_2'     => 'When images further dispersed, <strong>please use the credit line containing name of the artist, title, the National Gallery in Prague and the source (sbirky.ngprague.cz)</strong>.',
+    'mozete_col_stahovat_li_2'     => 'When images further dispersed, <strong>use the credit line containing name of the artist, title, the National Gallery in Prague and the source (sbirky.ngprague.cz)</strong>.',
     'mozete_col_stahovat_li_3'     => 'If you plan to use digital reproductions for publishing or commercial usage, please do inform us about your plans via email <a href="mailto:registr@ngprague.cz">registr@ngprague.cz</a>. As a courtesy for using reproductions in publications we would like users to send us  at least two copies of the publication in return.',
     'mozete_col_vyuzivat_heading'  => 'Use images in the public domain',
     'mozete_col_vyuzivat_li_1'     => '<strong>print</strong> (posters, postcards, flyers, apparel, etc.)',

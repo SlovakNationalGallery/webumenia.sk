@@ -665,10 +665,10 @@ class Item extends Model
     }
 
 
-    public function scopeRelated($query, Item $item)
+    public function scopeRelated($query, Item $item, $locale = null)
     {
-        return $query->where('related_work', '=', $item->related_work)
-            ->where('author', '=', $item->author)
+        return $query->whereTranslation('related_work', $item->related_work, $locale)
+            ->whereTranslation('author', $item->author, $locale)
             ->orderBy('related_work_order');
     }
 
@@ -702,7 +702,7 @@ class Item extends Model
 
         // Finish off, like Laravel would
         // Event::fire('laravel.done', array($response));
-        // $response->foundation->finish();
+        $response->foundation->finish();
 
         exit;
     }

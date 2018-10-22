@@ -44,8 +44,8 @@
 @checkbox-size: 30px;
 @checkbox-font-family: 'icomoon';
 
-@input-border-focus:             @primary-color;
-@input-color-placeholder:        @primary-color;
+@input-border-focus:             @dark;
+@input-color-placeholder:        @grey;
 
 @font-size-large:         ceil((@font-size-base * 1.10)); // ~18px
 @font-size-h1:            floor((@font-size-base * 2.6)); // ~36px
@@ -197,7 +197,8 @@ a:focus {
         background: none;
         font-weight: 600;
         img {
-          width: 350px;
+          width: 150px; // NGP only
+          margin-top: 8px; // NGP only
           max-width: 100%;
           opacity: 1.0;
           -webkit-transition: opacity .3s ease-in-out;

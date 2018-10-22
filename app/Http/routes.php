@@ -18,6 +18,7 @@ use App\Item;
 use App\Slide;
 use App\Order;
 use App\Color;
+use Illuminate\Contracts\Encryption\DecryptException;
 
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
@@ -58,6 +59,13 @@ function()
         $items = Item::find(Session::get('cart', array()));
 
         return view('objednavka', array('items' => $items));
+    });
+
+    Route::get('stiahnutie', function () {
+
+        $items = Item::find(Session::get('cart', array()));
+
+        return view('stiahnutie', array('items' => $items));
     });
 
     Route::post('objednavka', function () {
@@ -128,6 +136,73 @@ function()
 
     })->name('objednavka.post');
 
+
+
+    Route::post('download', function (\Illuminate\Http\Request $request) {
+
+        $input = array_merge($request->all(), ['ip' => $request->ip()]);
+        // dd($input);
+
+        $rules = \App\Download::$rules;
+        $v = Validator::make($input, $rules);
+
+        if ($v->passes()) {
+            $download = \App\Download::create($input);
+
+            $item_ids = explode(', ', $request->input('pids'));
+
+            foreach ($item_ids as $item_id) {
+                $download->items()->attach($item_id);
+            }
+
+            Session::forget('cart');
+
+            $download_tracker = Crypt::encrypt($download->id);
+
+            return redirect('dakujeme_download')->with('download_tracker', $download_tracker);
+
+
+            // increment download counter
+            // download the image
+
+            /*
+
+            $item = Item::find($request->input('item_id'));
+
+            if (empty($item) || !$item->isFreeDownload()) {
+                App::abort(404);
+            }
+            $item->timestamps = false;
+            $item->download_count += 1;
+            $item->save();
+            return $item->download();
+            */
+        }
+
+        return Redirect::back()->withInput()->withErrors($v);
+
+
+    })->name('objednavka.download');
+
+    Route::get('dakujeme_download', function (\Illuminate\Http\Request $request) {
+        $download_tracker = $request->session()->get('download_tracker');
+        try {
+            $download_id = Crypt::decrypt($download_tracker);
+        } catch (DecryptException $e) {
+            // die('The payload is invalid');
+            return redirect('/');
+        }
+        $download = \App\Download::find($download_id);
+
+        $download_urls = [];
+
+        foreach ($download->items as $item) {
+            $download_urls[] = URL::to('dielo/' . $item->id . '/stiahnut/' . $download_tracker);
+        }
+
+        return view('dakujeme_download', ['download_urls' => $download_urls]);
+    });
+
     Route::get('dakujeme', function () {
 
         return view('dakujeme');
@@ -144,7 +219,7 @@ function()
 
         $images = $item->getZoomableImages();
         $index =  0;
-        if ($images->count() <= 1 && !empty($item->related_work)) {
+        if ($images->count() <= 1 && !empty($item->{'related_work:cs'})) {
             $related_items = Item::related($item)->with('images')->get();
 
             $images = collect();
@@ -170,7 +245,7 @@ function()
 
         $item = Item::find($id);
 
-        if (empty($item) || !$item->isForReproduction()) {
+        if (empty($item) || !$item->isFreeDownload()) {
             App::abort(404);
         }
 
@@ -198,17 +273,28 @@ function()
 
     });
 
-    Route::get('dielo/{id}/stiahnut', ['middleware' => 'throttle:5,1', function ($id) {
+    Route::get('dielo/{id}/stiahnut/{download_tracker}', ['middleware' => 'throttle:5,1', function ($id, $download_tracker) {
 
+        $download_id = Crypt::decrypt($download_tracker);
+        $download = \App\Download::find($download_id);
         $item = Item::find($id);
+        $now = Carbon::now();
 
-        if (empty($item) || !$item->isFreeDownload()) {
+        if (
+            empty($download) ||
+            empty($item) ||
+            !$download->hasItem($item) ||
+            $download->created_at->diffInMinutes($now) > 30 ||
+            !$item->isFreeDownload()
+        ) {
         	App::abort(404);
         }
+
         $item->timestamps = false;
         $item->download_count += 1;
         $item->save();
-        $item->download();
+        return $item->download();
+        exit;
 
         // return Response::download($pathToFile);
     }]);
@@ -343,6 +429,8 @@ Route::group(['middleware' => ['auth', 'role:admin|editor|import']], function ()
     Route::post('collection/sort', 'CollectionController@sort');
     Route::resource('collection', 'CollectionController');
     Route::resource('slide', 'SlideController');
+    Route::get('download', 'DownloadController@index');
+    Route::get('download/{id}', 'DownloadController@show');
 });
 
 Route::group(['middleware' => ['auth', 'role:admin|editor']], function () {

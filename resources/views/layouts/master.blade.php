@@ -85,7 +85,7 @@
                 </button>
 	            <a class="navbar-brand no-border hidden-xs" href="http://www.ngprague.cz/">
 	                {{-- národní galerie --}}
-                    <img src="{{ asset('images/logo.svg') }}" class="brand-image">
+                    <img src="{{ asset('images/logo_'.App::getLocale().'.svg') }}" class="brand-image">
 	            </a>
 
 	            @include('components.searchbar', [
@@ -109,8 +109,8 @@
 								<a href="{{{ URL::to('informacie') }}}">{{ utrans('master.info') }}</a>
 						</li>
 						@if (Session::has('cart') && count(Session::get('cart'))>0)
-						<li class="{!! Request::is( 'objednavka') ? 'active' : '' !!}">
-								<a href="{!! URL::to('objednavka')!!}" class=""><i class="fa fa-shopping-cart"></i><span class="badge badge-notify">{!! count(Session::get('cart')) !!}</span></a>
+						<li class="{!! Request::is( 'stiahnutie') ? 'active' : '' !!}">
+								<a href="{!! URL::to('stiahnutie')!!}" class=""><i class="fa fa-shopping-cart"></i><span class="badge badge-notify">{!! count(Session::get('cart')) !!}</span></a>
 						</li>
 						@endif
 	            </ul>

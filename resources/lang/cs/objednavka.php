@@ -46,6 +46,6 @@ return array(
     'form_order'                   => 'Objednať',
 
     // in routes.php
-    'message_add_order'            => 'Dielo :artwork_description bolo pridané do košíka.',
-    'message_remove_order'         => 'Dielo :artwork_description bolo odstránené z košíka.',
+    'message_add_order'            => 'Dílo :artwork_description bylo přidané do košíku.',
+    'message_remove_order'         => 'Dílo :artwork_description bylo odstraněné z košíku.',
 );

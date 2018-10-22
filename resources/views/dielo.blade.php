@@ -71,11 +71,13 @@
                                 @if ($item->has_iip)
                                    <a href="{{ route('item.zoom', ['id' => $item->id]) }}" class="btn btn-default btn-outline  sans"><i class="fa fa-search-plus"></i> {{ trans('general.item_zoom') }}</a>
                                 @endif
+                                {{--
                                 @if ($item->isForReproduction())
                                     <a href="{!! URL::to('dielo/' . $item->id . '/objednat')  !!}" class="btn btn-default btn-outline  sans"><i class="fa fa-shopping-cart"></i> {{ trans('dielo.item_order') }} </a>
                                 @endif
+                                 --}}
                                 @if ($item->isFreeDownload())
-                                    <a href="{!! URL::to('dielo/' . $item->id . '/stiahnut')  !!}" class="btn btn-default btn-outline  sans" id="download"><i class="fa fa-download"></i> {{ trans('dielo.item_download') }} </a>
+                                    <a href="{!! URL::to('dielo/' . $item->id . '/objednat')  !!}" class="btn btn-default btn-outline sans"><i class="fa fa-download"></i> {{ trans('dielo.item_download') }} </a>
                                 @endif
                             </div>
                             @if (!empty($item->description))
@@ -249,12 +251,12 @@
                                     <td>{!! $item->place; !!}</td>
                                 </tr>
                                 @endif
-                                @if (!empty($item->related_work))
+                                @if (!empty($item->{'related_work:cs'}))
                                 <tr>
-                                    <td class="atribut">{!! $item->relationship_type !!}:</td>
+                                    <td class="atribut">{!!(App::getLocale()=='en') ? 'from the cycle' : $item->relationship_type !!}:</td>
 
                                     <td>
-                                        <a href="{!! URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) !!}" itemprop="isPartOf">{!! $item->related_work !!}</a>
+                                        <a href="{!! URL::to('katalog?related_work=' . $item->{'related_work:cs'} . '&amp;author=' .  $item->first_author) !!}" itemprop="isPartOf">{!! $item->{'related_work:cs'} !!}</a>
                                         @if ($item->related_work_order)
                                             ({!! $item->related_work_order !!}/{!! $item->related_work_total !!})
                                         @endif
@@ -265,8 +267,8 @@
                         </table>
 
                     <div>
-                    @if (!empty($item->related_work))
-                        <?php $related_items = App\Item::where('related_work', '=', $item->related_work)->where('author', '=', $item->author)->orderBy('related_work_order')->get(); ?>
+                    @if (!empty($item->{'related_work:cs'}))
+                        <?php $related_items = App\Item::related($item)->get() ?>
                         @if ($related_items->count() > 1)
                         <div style="position: relative; padding: 0 10px;">
                             @include('components.artwork_carousel', [
@@ -333,22 +335,6 @@
 @endif
 
 
-<!-- Modal -->
-<div tabindex="-1" class="modal fade" id="license" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header text-center">
-                <img src="{!! URL::asset('images/license/cc.svg') !!}" alt="Creative Commons">
-            </div>
-            <div class="modal-body">
-                {!! trans('dielo.modal_license_body-content', ['item_url' => $item->getUrl(), 'free_url' => URL::to('katalog?is_free=1')] ) !!}
-            </div>
-            <div class="modal-footer">
-                <div class="text-center"><button type="button" data-dismiss="modal" class="btn btn-default btn-outline uppercase sans">{{ trans('general.close') }}</button></div>
-            </div>
-        </div>
-    </div>
-</div>
 <!-- Modal -->
 <div tabindex="-1" class="modal fade" id="downloadfail" role="dialog">
     <div class="modal-dialog">
@@ -424,19 +410,6 @@
             maxHeight: 160
         });
 
-        $('#download').on('click', function(e){
-
-            $('#license').modal({})
-            $.fileDownload($(this).attr('href'), {
-                successCallback: function(url) {
-                },
-                failCallback: function(responseHtml, url) {
-                    $('#license').modal('hide');
-                    $('#downloadfail').modal('show');
-                }
-            });
-            return false; //this is critical to stop the click event which will trigger a normal file download!
-        });
 
 // $(document).on("click", "#download", function() {
 //         $.fileDownload($(this).attr('href'), {
