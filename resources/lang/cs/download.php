@@ -12,7 +12,7 @@ return [
     'title'         => 'stáhnout díla',
     'content' => '<h2 class="bottom-space">Stáhnout díla</h2>
                         <p>Digitální reprodukce volných děl na této stránce jsou přístupné jako <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" class="underline">public domain (veřejné vlastnictví)</a>. Můžete si je volně stáhnout ve vysokém rozlišení a využívat k soukromým i komerčním účelům &ndash; kopírovat, sdílet i upravovat.</p>',
-    'none'    => 'Nemáte v košíku žiadne diela',
+    'none'    => 'Nemáte v košíku žádné díla',
     'remove'  => 'odstranit',
 
     'form_title'                   => 'Díla',
