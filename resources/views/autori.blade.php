@@ -160,7 +160,8 @@
 {!! Html::script('js/bootstrap-slider.min.js') !!}
 {!! Html::script('js/selectize.min.js') !!}
 
-@include('components.artwork_carousel_js', ['slick_query' => '.artworks-preview'])
+{!! Html::script('js/slick.js') !!}
+{!! Html::script('js/components/artwork_carousel.js') !!}
 
 <script type="text/javascript">
 

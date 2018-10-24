@@ -1,0 +1,8 @@
+{
+    "name": "Item image responsive",
+    "data_calls" : {
+      "item": "use App\\ItemImage; return $sample_item = ItemImage::inRandomOrder()->whereNotNull('iipimg_url')->first()->item;"
+    },
+    "data": {},
+    "usage_notes": "Generates markup for responsive <img> with automatic sizes calculation for model Item. Requires lazysizes.js"
+}

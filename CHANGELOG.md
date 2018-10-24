@@ -18,6 +18,8 @@ All notable changes to this project will be documented in this file[^1].
 - daily and weekly cron jobs scheduled for harvests with appropriate cron_status
 - footer component
 - newsletter link into footer
+- responsive image component
+- responsive image support with lazyloading for carousel(s) and artwork detail
 - VSG to the list of galleries
 - Refactor spice harvester
 - Show harvest progress in admin

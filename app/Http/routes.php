@@ -258,23 +258,7 @@ function()
         ));
     });
 
-    Route::get('dielo/nahlad/{id}/{width}', function ($id, $width) {
-
-        if (
-            ($width <= 800) &&
-            Item::where('id', '=', $id)->exists()
-        ) {
-            // disable resizing when requesting 800px width
-            $width = ($width == 800) ? false : $width;
-            $resize_method = 'widen';
-            $imagePath = public_path() . Item::getImagePathForId($id, false, $width, $resize_method);
-
-            return response()->file($imagePath);
-        }
-
-        return App::abort(404);
-
-    })->where('width', '[0-9]+')->name('dielo.nahlad');
+    Route::get('dielo/nahlad/{id}/{width}/{height?}', 'ImageController@resize')->where('width', '[0-9]+')->where('height', '[0-9]+')->name('dielo.nahlad');
 
     Route::controller('patternlib', 'PatternlibController');
 

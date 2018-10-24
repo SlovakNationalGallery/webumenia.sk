@@ -372,15 +372,21 @@ class Item extends Model
                         $img = \Image::make($full_path . "$file.jpeg");
                         switch ($resize_method) {
                             case 'widen':
-                                $img->widen($resize);
+                                $img->widen($resize, function ($constraint) {
+                                    $constraint->upsize();
+                                });
                                 break;
 
                             case 'heighten':
-                                $img->heighten($resize);
+                                $img->heighten($resize, function ($constraint) {
+                                    $constraint->upsize();
+                                });
                                 break;
 
                             default:
-                                $img->fit($resize);
+                                $img->fit($resize, function ($constraint) {
+                                    $constraint->upsize();
+                                });
                                 break;
                         }
                         $img->sharpen(5);

@@ -10,7 +10,7 @@
 @stop
 
 @section('title')
-{!! $item->getTitleWithAuthors() !!} | 
+{!! $item->getTitleWithAuthors() !!} |
 @parent
 @stop
 
@@ -50,20 +50,36 @@
             </div>
             <div class="row">
                 <div class="col-md-8 text-center">
-                        @if ($item->has_iip)
-                            <a href="{{ route('item.zoom', ['id' => $item->id]) }}" data-toggle="tooltip" data-placement="top" title="{{ utrans('general.item_zoom') }}">
-                        @endif
-                        <img src="{!! $item->getImagePath() !!}" class="img-responsive img-dielo" alt="{!! $item->getTitleWithAuthors() !!}" itemprop="image">
-                        @if ($item->has_iip)
-                            </a>
-                        @endif
+                        @php
+                            list($width, $height) = getimagesize(public_path() . $item->getImagePath());
+                        @endphp
+
+                        {{-- prevent upsizing by setting max-width to real width --}}
+                        <div class="img-dielo" style="max-width: {{ $width }}px;">
+                            @if ($item->has_iip)
+                                <a href="{{ route('item.zoom', ['id' => $item->id]) }}" data-toggle="tooltip" data-placement="top" title="{{ utrans('general.item_zoom') }}" class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%">
+                            @else
+                                <div class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%">
+                            @endif
+
+                                @include('components.item_image_responsive', [
+                                    'item' => $item
+                                ])
+
+                            @if ($item->has_iip)
+                                </a>
+                            @else
+                                </div>
+                            @endif
+                        </div>
+
                         <div class="row">
                             <div class="col-sm-12">
                                 @if ($previous)
                                     <a href="{!! $previous !!}" id="left" class="nav-arrow left">&larr;<span class="sr-only">{{ trans('dielo.item_previous-work') }}</span></a>
                                 @endif
                                 @if ($next)
-                                    <a href="{!! $next !!}" id="right" class="nav-arrow right">&rarr;<span class="sr-only">{{ trans('dielo.item_next-work') }}</span></a>             
+                                    <a href="{!! $next !!}" id="right" class="nav-arrow right">&rarr;<span class="sr-only">{{ trans('dielo.item_next-work') }}</span></a>
                                 @endif
                             </div>
 
@@ -85,7 +101,7 @@
                                 @if ($item->description_source)
                                     <p>
                                     @if ($item->description_user_id)
-                                        {{-- Autor popisu: --}} {!! $item->descriptionUser->name !!} &#9679; 
+                                        {{-- Autor popisu: --}} {!! $item->descriptionUser->name !!} &#9679;
                                     @endif
                                     @if ($item->description_source_link)
                                         {{-- Zdroj: --}}
@@ -113,7 +129,7 @@
                                     <td>
                                         @foreach ($item->measurements as $measurement)
                                         {{--     {!!  implode(' &times; ', $measurement) !!}<br> --}}
-                                         {!! $measurement !!}<br> 
+                                         {!! $measurement !!}<br>
                                         @endforeach
                                     </td>
                                 </tr>
@@ -129,7 +145,7 @@
                                                 {!! $work_type !!}
                                             @endif
                                             @if (count($item->work_types) > ($i+1))
-                                                 &rsaquo; 
+                                                 &rsaquo;
                                             @endif
                                         @endforeach
                                     </td>
@@ -235,7 +251,7 @@
                                     <td class="atribut">{{ trans('dielo.item_attr_licence') }}:</td>
                                     {{-- <td><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs" target="_blank" class="no-border"><img alt="Creative Commons License" style="border-width:0; padding-top: 2px;"  src="/images/license/by-nc-sa.svg" title="Creative Commons BY-NC-SA 4.0" data-toggle="tooltip"></a></td> --}}
                                     <td><a rel="license" href="{!!URL::to('katalog?is_free=' . '1')!!}" target="_blank" class="no-border license" title="Public Domain" data-toggle="tooltip"><img alt="Creative Commons License" style="height: 20px; width: auto"  src="/images/license/zero.svg" > {{ trans('general.public_domain') }}</a></td>
-                                </tr>                                    
+                                </tr>
                                 @endif
                                 @if (!empty($item->place))
                                 <tr>
@@ -248,16 +264,16 @@
                                     <td class="atribut">{!! $item->relationship_type !!}:</td>
 
                                     <td>
-                                        <a href="{!! URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) !!}" itemprop="isPartOf">{!! $item->related_work !!}</a> 
+                                        <a href="{!! URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) !!}" itemprop="isPartOf">{!! $item->related_work !!}</a>
                                         @if ($item->related_work_order)
                                             ({!! $item->related_work_order !!}/{!! $item->related_work_total !!})
-                                        @endif                                        
+                                        @endif
                                     </td>
                                 </tr>
                                 @endif
                             </tbody>
                         </table>
-                        
+
                     <div>
                     @if (!empty($item->related_work))
                         <?php $related_items = App\Item::related($item)->get() ?>
@@ -273,7 +289,7 @@
                     @endif
                     </div>
 
-                    @if (!empty($item->lat) && ($item->lat > 0)) 
+                    @if (!empty($item->lat) && ($item->lat > 0))
                         <div id="small-map"></div>
                     @endif
 
@@ -366,9 +382,10 @@
 {!! Html::script('js/readmore.min.js') !!}
 {!! Html::script('js/jquery.fileDownload.js') !!}
 
-@include('components.artwork_carousel_js', ['slick_query' => '.artworks-preview'])
+{!! Html::script('js/slick.js') !!}
+{!! Html::script('js/components/artwork_carousel.js') !!}
 
-@if (!empty($item->lat) && ($item->lat > 0)) 
+@if (!empty($item->lat) && ($item->lat > 0))
     <!-- Google Maps API Key - You will need to use your own API key to use the map feature -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
     {!! Html::script('js/gmaps.js') !!}
@@ -407,10 +424,10 @@
         });
 
         $('#download').on('click', function(e){
-     
+
             $('#license').modal({})
             $.fileDownload($(this).attr('href'), {
-                successCallback: function(url) {     
+                successCallback: function(url) {
                 },
                 failCallback: function(responseHtml, url) {
                     $('#license').modal('hide');
@@ -431,16 +448,16 @@
     });
 </script>
 
-@if (!empty($item->lat) && ($item->lat > 0)) 
+@if (!empty($item->lat) && ($item->lat > 0))
 <script type="text/javascript">
     var map;
     $(document).ready(function(){
 
         map = new GMaps({
             el: '#small-map',
-            lat: 48.705862, 
+            lat: 48.705862,
             lng: 19.855629,
-            zoom: 6, 
+            zoom: 6,
             zoomControl : true,
             zoomControlOpt: {
                 style : "SMALL",
@@ -474,19 +491,19 @@
               ]
             }
         ];
-        
+
         map.addStyle({
             styledMapName:"Styled Map",
             styles: light_style,
-            mapTypeId: "map_style"  
+            mapTypeId: "map_style"
         });
-        
-        map.setStyle("map_style");   
+
+        map.setStyle("map_style");
 
         map.addMarker({
             lat: {!! $item->lat !!},
             lng: {!! $item->lng !!},
-            // icon: "/images/x.map.svg",            
+            // icon: "/images/x.map.svg",
             title: 'Značka pre dielo {!! $item->title !!}',
             infoWindow: {
               content: '<p>{!! $item->place !!}</p>'
