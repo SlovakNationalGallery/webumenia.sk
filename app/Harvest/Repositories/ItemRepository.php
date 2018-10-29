@@ -48,6 +48,6 @@ class ItemRepository extends AbstractRepository
         'extent' => './/dcterms:extent',
         'provenance' => './/dcterms:provenance',
         'created' => './/dcterms:created',
-        'contributor' => './/dcterms:contributor',
+        'contributor' => './/dc:contributor',
     ];
 }
