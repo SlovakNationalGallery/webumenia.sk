@@ -180,6 +180,18 @@ class ItemMapper extends AbstractModelMapper
 
     public function mapWorkLevel() {}
 
+    public function mapItemType() {
+        return '';
+    }
+
+    public function mapFeatured() {
+        return false;
+    }
+
+    public function mapContributor(array $row) {
+        return $row['contributor'] ?: null;
+    }
+
     protected function getRelatedParts(array $row) {
         if (!isset($row['relation_isPartOf'][0])) {
             return;
