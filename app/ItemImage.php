@@ -5,6 +5,8 @@ namespace App;
 
 
 use Illuminate\Database\Eloquent\Model;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 
 class ItemImage extends Model
@@ -19,6 +21,10 @@ class ItemImage extends Model
         'item_id',
         'order',
     ];
+
+    public function getIipimgUrl() {
+        return $this->iipimg_url;
+    }
 
     public function item() {
         return $this->belongsTo(Item::class);
@@ -35,10 +41,14 @@ class ItemImage extends Model
             $this->order = $max !== null ? $max + 1 : 0;
         }
 
-        parent::save($options);
+        return parent::save($options);
     }
 
     public function isZoomable() {
         return $this->iipimg_url !== null;
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata) {
+        $metadata->addGetterMethodConstraint('iipimg_url', 'getIipimgUrl', new NotBlank());
     }
 }

@@ -24,11 +24,11 @@ class AuthorityImporterTest extends TestCase
     use DatabaseMigrations;
 
     public function testUpdateRelated() {
-        $this->createModel(Authority::class, ['id' => 1000162]);
-        $this->createModel(Authority::class, ['id' => 1000168]);
-        $this->createModel(Authority::class, ['id' => 11680]);
+        factory(Authority::class)->create(['id' => 1000162]);
+        factory(Authority::class)->create(['id' => 1000168]);
+        factory(Authority::class)->create(['id' => 11680]);
 
-        $this->createModel(Link::class, [
+        factory(Link::class)->create([
             'url' => 'http://example.org/',
             'label' => '',
             'linkable_id' => 954,
@@ -53,7 +53,7 @@ class AuthorityImporterTest extends TestCase
     }
 
     public function testExistingButNotRelatedYet() {
-        $this->createModel(Nationality::class, [
+        factory(Nationality::class)->create([
             'id' => 12277,
             'code' => 'Slovensko',
         ]);
@@ -68,7 +68,7 @@ class AuthorityImporterTest extends TestCase
     }
 
     public function testRelatedButNotExisting() {
-        $this->createModel(AuthorityRelationship::class, [
+        factory(AuthorityRelationship::class)->create([
             'authority_id' => 954,
             'related_authority_id' => 1000162,
             'type' => '',

@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Fadion\Bouncy\BouncyTrait;
 use Illuminate\Database\Eloquent\Model;
+use Symfony\Component\Validator\Constraints\Valid;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class Item extends Model
 {
@@ -138,6 +140,10 @@ class Item extends Model
         'color_descriptor' => 'json',
     );
 
+    public static function loadValidatorMetadata(ClassMetadata $metadata) {
+        $metadata->addGetterConstraint('images', new Valid());
+    }
+
     // ELASTIC SEARCH INDEX
     public static function boot()
     {
@@ -152,7 +158,7 @@ class Item extends Model
         });
 
         static::deleting(function ($item) {
-            $item->removeImage();
+            $item->deleteImage();
             $item->collections()->detach();
         });
 
@@ -195,13 +201,30 @@ class Item extends Model
         return $this->hasMany(ItemImage::class)->orderBy('order');
     }
 
+    public function getImages() {
+        return $this->images;
+    }
+
+    public function addImage(ItemImage $image) {
+        $image->item_id = $this->id;
+        $this->images->add($image);
+    }
+
+    public function removeImage(ItemImage $image) {
+        $index = $this->images->search($image);
+        if ($index !== false) {
+            $this->images->forget($index);
+        }
+        $image->delete();
+    }
+
     public function getImagePath($full = false)
     {
         return self::getImagePathForId($this->id, $full);
 
     }
 
-    public function removeImage()
+    public function deleteImage()
     {
         $dir = dirname($this->getImagePath(true));
         return File::cleanDirectory($dir);
@@ -349,15 +372,21 @@ class Item extends Model
                         $img = \Image::make($full_path . "$file.jpeg");
                         switch ($resize_method) {
                             case 'widen':
-                                $img->widen($resize);
+                                $img->widen($resize, function ($constraint) {
+                                    $constraint->upsize();
+                                });
                                 break;
 
                             case 'heighten':
-                                $img->heighten($resize);
+                                $img->heighten($resize, function ($constraint) {
+                                    $constraint->upsize();
+                                });
                                 break;
 
                             default:
-                                $img->fit($resize);
+                                $img->fit($resize, function ($constraint) {
+                                    $constraint->upsize();
+                                });
                                 break;
                         }
                         $img->sharpen(5);
@@ -620,7 +649,8 @@ class Item extends Model
             $this->translate($default_locale)->gallery == 'Liptovská galéria Petra Michala Bohúňa, GPB' ||
             $this->translate($default_locale)->gallery == 'Galéria umenia Ernesta Zmetáka, GNZ' ||
             $this->translate($default_locale)->gallery == 'Galéria Miloša Alexandra Bazovského, GBT'  ||
-            $this->translate($default_locale)->gallery == 'Galéria umelcov Spiša, GUS'
+            $this->translate($default_locale)->gallery == 'Galéria umelcov Spiša, GUS' ||
+            $this->translate($default_locale)->gallery == 'Východoslovenská galéria, VSG'
         )) {
             return false;
         }
