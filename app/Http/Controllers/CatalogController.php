@@ -167,6 +167,7 @@ class CatalogController extends ElasticController
         $galleries = Item::listValues('gallery', $params);
         $topics = Item::listValues('topic', $params);
         $techniques = Item::listValues('technique', $params);
+        $curator = Item::listValues('curator', $params);
 
         $queries = DB::getQueryLog();
         $last_query = end($queries);
@@ -179,6 +180,7 @@ class CatalogController extends ElasticController
             'galleries' => $galleries,
             'topics' => $topics,
             'techniques' => $techniques,
+            'curator' => $curator,
             'color' => $color,
             'search' => $search,
             'sort_by' => $sort_by,
