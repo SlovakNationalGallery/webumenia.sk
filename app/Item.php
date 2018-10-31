@@ -117,11 +117,11 @@ class Item extends Model
         parent::boot();
 
         static::created(function ($item) {
-            $item->index();
+            $item->fresh()->index();
         });
 
         static::updated(function ($item) {
-            $item->index();
+            $item->fresh()->index();
         });
 
         static::deleting(function ($item) {
