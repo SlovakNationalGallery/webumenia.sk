@@ -21,15 +21,8 @@
 <div class="artwork-carousel-container {{$class_names or ''}}">
   <div class="artwork-carousel {{$slick_target}} {{$slick_variant or ''}}">
     @foreach ($img_urls as $img_url)
-
-    @php
-        list($width, $height) = getimagesize('https://webumenia.sk/' . $img_url);
-        $width = $width * ($size / $height);
-        $height = $size;
-    @endphp
-
     <a
-      href="{!! $item->getUrl() !!}"
+      href="{{ route('item.zoom', ['id' => $item->id]) }}"
       >
       <img
         src="{{ $img_url }}"
