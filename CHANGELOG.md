@@ -21,6 +21,7 @@ All notable changes to this project will be documented in this file[^1].
 - describe item's colors on primary image change
 - new sorting option (by date - from oldest) in catalog
 - PNP importer
+- filter catalog by curator and fix harvesting of curator data
 
 ### Changed
 - removed name from authority_item table
@@ -101,7 +102,6 @@ All notable changes to this project will be documented in this file[^1].
 - Show harvest progress in admin
 - Symfony forms
 - ZoomController
-
 
 ### Changed
 - allow download of public-domain artworks from VSG
