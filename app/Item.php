@@ -65,7 +65,7 @@ class Item extends Model
         'len so zoom' => 'has_iip',
         'len voľné' => 'is_free',
         'zo súboru' => 'related_work',
-        'kurátor' => 'contributor'
+        'contributor' => 'contributor'
     );
 
     public static $sortable;
@@ -849,6 +849,7 @@ class Item extends Model
                 'authority_id' => $this->relatedAuthorityIds(),
                 'view_count' => $this->view_count,
                 'color_descriptor' => $this->color_descriptor,
+                'contributor' => $this->contributor,
 
                 // tanslatable attributes:
                 'work_type' => $main_work_type, // ulozit iba prvu hodnotu
