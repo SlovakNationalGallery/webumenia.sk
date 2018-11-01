@@ -120,7 +120,7 @@ class MgImporter extends AbstractImporter {
             $filename = sprintf('%s-%s', $filename, $record['Lomeni_S']);
         }
 
-        return $filename;
+        return "$filename*";
     }
 
     protected function hydrateIdentifier(array $record) {
