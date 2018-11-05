@@ -10,7 +10,7 @@ return array(
     'title'             => 'reprodukcie',
     'lead'              => 'Na Webe umenia si môžete objednať reprodukcie<br>viac než <strong>30 000 diel</strong> zo zbierok <strong>Slovenskej národnej galérie</strong><br>v <a href="#print"><strong>tlačenej</strong></a> alebo <a href="#digital"><strong>digitálnej</strong></a> forme.',
     'print_heading'     => 'Tlačené Reprodukcie',
-    'print_body'        => '<p>Tlačenú reprodukciu si objednáte pomocou tlačidla objednať reprodukciu na stránke konkrétneho diela.</p>
+    'print_body'        => '<p>Tlačenú reprodukciu si objednáte pomocou tlačidla <strong>objednať reprodukciu</strong> na stránke konkrétneho diela.</p>
                            <p>Cena reprodukcie sa odvíja od zvoleného rozmeru a typu spracovania, ktoré si zvolíte pri vyplňovaní objednávky.</p>
                            <p>Štandardná lehota na vybavenie objednávky je <strong>30 dní</strong>. V prípade dlhšej čakacej doby Vás systém automaticky informuje pri vypĺňaní on-line objednávky.</p>
                            <p>Momentálne je možné vyzdvihnúť si reprodukcie len osobne v <a href="https://www.sng.sk/sk/bratislava/navsteva/kde-nas-najdete/knihkupectvo-ex-libris">kníhkupectve Ex Libris</a> v priestoroch SNG na Námestí Ľ. Štúra 4 v Bratislave alebo v pokladni <a href="https://www.sng.sk/sk/zvolen/navsteva/kde-nas-najdete">Zvolenského zámku - Námestie SNP 594/1</a>.</p>',
