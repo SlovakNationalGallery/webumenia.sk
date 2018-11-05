@@ -19,8 +19,9 @@
 <section class="intro content-section underlined-links">
     <div class="">
         <div class="container">
-            <p class="lead text-center">
-                {!! utrans('reprodukcie.lead') !!}</p>
+            <p class="lead text-center top-space">
+                {!! utrans('reprodukcie.lead') !!}
+            </p>
         </div>
     </div>
 </section>
@@ -35,7 +36,7 @@
                 <div>
                     {!! utrans('reprodukcie.print_body') !!}
                 </div>
-                <div class="row ">
+                <div class="row top-space">
                     <div class="col-sm-6">
                         @include('components.repro_offer', [
                             "title" => trans('reprodukcie.print_offer_standalone_title'),
@@ -167,7 +168,7 @@
     <div class="container">
         <div class="row top-space bottom-space">
             <div class="col-xs-12 text-center grey">
-                <h4>{{ utrans('reprodukcie.digital_choice') }}</h4>
+                <h3>{{ utrans('reprodukcie.digital_choice') }}</h3>
             </div>
         </div>
         <div class="row">
