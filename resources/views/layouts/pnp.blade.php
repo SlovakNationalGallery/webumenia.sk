@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @section('description')
-    <meta name="description" content="Virtuální výstava děl jednoho z nejvýznamnějších barokního rytců a kreslířů 17. století">
+    <meta name="description" content="K 65. roku založení instituce vybrali odborní pracovníci ze sbírek 65 unikátů">
     @show
     <meta name="author" content="lab.SNG">
 
@@ -29,7 +29,7 @@
     <!--  Open Graph protocol -->
     @section('og')
     <meta property="og:title" content="65 - otevřený depozitář" />
-    <meta property="og:description" content="Virtuální výstava děl jednoho z nejvýznamnějších barokního rytců a kreslířů 17. století" />
+    <meta property="og:description" content="K 65. roku založení instituce vybrali odborní pracovníci ze sbírek 65 unikátů" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{!! Request::url() !!}" />
     <meta property="og:image" content="{!! URL::to('/images/pnp/og-image.jpg') !!}" />
