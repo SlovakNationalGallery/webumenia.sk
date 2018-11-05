@@ -86,6 +86,7 @@
                 </div>
                 <div class="row top-space grey">
                     <div class="col-12">
+                        <h3 class="text-center">{!! utrans('reprodukcie.info_title') !!}</h3>
                         {!! utrans('reprodukcie.print_list') !!}
                     </div>  
                 </div>
@@ -155,6 +156,7 @@
     <div class="container">
         <div class="row grey">
             <div class="col-md-8 col-md-offset-2">
+                <h3 class="text-center">{!! utrans('reprodukcie.info_title') !!}</h3>
                 {!! utrans('reprodukcie.digital_list') !!}
             </div>
         </div>
