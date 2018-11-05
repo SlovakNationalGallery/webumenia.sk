@@ -14,7 +14,7 @@ class Pnp65OUSImporter extends AbstractImporter
     ];
 
     protected $mapping = [
-        'Signatura' => 'identifier',
+        'Inventární číslo' => 'identifier',
         'Autor' => 'author',
         'Datace' => 'dating',
         'Rok - od' => 'date_earliest',
