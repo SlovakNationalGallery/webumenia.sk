@@ -1,0 +1,224 @@
+// out: ../pnp.css, compress: true
+
+@import "bootstrap/bootstrap.less";
+@import "responsive-align.less";
+@import "fonts-pnp.less";
+@import "bootstrap-slider.less";
+@import "awesome-bootstrap-checkbox.less";
+@import "selectize/selectize.bootstrap3.less";
+@import "typeahead.less";
+@import "flickity.less";
+@import "custom.less";
+
+@black: #000;
+@grey: #999;
+@dark-grey: #373734;
+@primary: @dark-grey;
+@primary-color: lighten(@light, 30%);
+@input-bg: @light;
+@input-color: @black;
+@input-color-placeholder: lighten(@input-color, 20%);
+@input-bg-disabled: lighten(@input-color, 20%);
+@selectize-color-text: @input-color;
+@table-border-color: transparent;
+@font-family-sans-serif:   "MyriadPro", "Myriad Pro", "Myriad", sans-serif;
+@navbar-first-height: 72px;
+
+/* Utility classes */
+
+.black {
+  color: @black;
+}
+
+/* Background image */
+
+body.show_bg {
+  background-image: url('/images/pnp/bg.jpg');
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: 100% auto;
+
+  @media(min-width: @screen-xs-min) {
+    background-position: center top;
+    background-size: 100% auto;
+
+  }
+}
+
+section.info, section.filters, section.light-grey { background-color: transparent; }
+
+input.tt-input {
+    background-color: @input-bg !important;
+}
+
+.item .table td { color: @dark-grey; }
+
+.item .table td.atribut {
+    color: @dark;
+    font-style: normal;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:   @input-color-placeholder;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:   @input-color-placeholder;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:   @input-color-placeholder;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:   @input-color-placeholder;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+   color:   @input-color-placeholder;
+}
+
+
+.navbar {
+   background-color: transparent;
+   background: transparent;
+   border-color: transparent;
+   ul.nav {
+    vertical-align: bottom;
+    margin-top: 20px;
+   }
+   li a {
+    color: @black;
+    border-bottom: none;
+    font-weight: bold;
+    border-bottom: 2px solid transparent;
+    &:hover, &:active, &.active {
+      border-bottom-color: @primary;
+    }
+   }
+}
+
+@media (min-width: 768px) {
+  .navbar-form {
+      max-width: 250px;
+  }
+}
+
+.content-section {
+  max-width: 100%;
+}
+
+.pl-50 {
+  padding-left: 50px;
+}
+
+.info {
+  .lead, h3 {
+    color: #fff;
+    font-size: 20px;
+  }
+  h3, p {
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+  .tiraz {
+    margin-top: 100px;
+    max-width: 400px;
+    font-size: 13px;
+  }
+}
+
+h1.circle {
+  width: 270px;
+  height: 270px;
+  background-color: #fff200;
+  border-radius: 50%;
+  color: #ef4036;
+  font-size: 32px;
+  text-align: center;
+  line-height: 34px;
+  padding: 80px 0;
+  text-transform: uppercase;
+  -webkit-transform: rotate(-30deg);
+  -moz-transform: rotate(-30deg);
+  -o-transform: rotate(-30deg);
+  -ms-transform: rotate(-30deg);
+  transform: rotate(-30deg);
+  margin-left: 100px;
+}
+
+.mgCarousel {
+  height: 320px;
+  overflow: hidden;
+}
+
+@media(min-width: @screen-xs-min) {
+
+  .navbar {
+    padding: 0;
+  }
+
+}
+
+h1, h2, h3, h4 {
+  // font-family: @font-family-serif;
+  color: @black;
+}
+
+
+.intro.content-section {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+@media (max-width: 767px) {
+  .navbar li.active a {
+      background: transparent;
+      color: @black;
+    }
+}
+
+#next svg text {
+    fill: @black;
+}
+
+#next svg:hover path {
+    stroke: @dark-grey;
+}
+
+.summary.content-section {
+  font-family: @font-family-serif;
+  font-size: 20px;
+  color: @black;
+  padding-top: 50px;
+}
+
+div.header-image {
+  h1, h2, h3 { color: @light; }
+}
+
+@media (min-width: 992px) {
+  .header-image h1 {
+      font-size: 52px;
+      line-height: 84px;
+  }
+}
+
+
+.featured-article {
+  background-color: @black;
+  &:hover > .img-responsive{
+      opacity: 0.7;
+  }
+}
+
+
+.header-image .outer-box {
+  background-color: rgba(0,0,0,0.3);
+}
+
+.color {
+  color: #888;
+}
+
+.description {
+     text-indent: 0px;
+}

@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.pnp')
 
 @section('title')
 @parent
@@ -42,7 +42,7 @@
                     @endif
                 </div>
             </a>
-        </div>        
+        </div>
     @endforeach
 </div>
 
@@ -64,7 +64,7 @@
 	                <div class="col-sm-6 col-xs-12 bottom-space">
                         @include('components.article_thumbnail', [
                             'article' => $article
-                        ])                    
+                        ])
 	                </div>
                     @if ($i%2 == 1)
                         <div class="clearfix"></div>
@@ -112,7 +112,7 @@ $(window).on('resize',function() {
     if ( $( ".flickity-slider" ).length ) {
         setTimeout(function(){
           $('.webumeniaCarousel').children('.flickity-page-dots').css('left',  parseInt($('.flickity-slider').css('transform').split(',')[4]) );
-        }, 200);            
+        }, 200);
     }
 });
 
