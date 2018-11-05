@@ -139,13 +139,13 @@
         </div>
         <div class="row">
             <div class="col-xs-4">
-                <img class="w-100" src="/images/reprodukcie/digirepro-1.jpg">
+                <img class="img-responsive lazyload" data-src="/images/reprodukcie/digirepro-1.jpg" alt="{{trans('reprodukcie.digital_heading')}} 1">
             </div>
             <div class="col-xs-4">
-                <img class="w-100" src="/images/reprodukcie/digirepro-2.jpg">
+                <img class="img-responsive lazyload" data-src="/images/reprodukcie/digirepro-2.jpg" alt="{{trans('reprodukcie.digital_heading')}} 2">
             </div>
             <div class="col-xs-4">
-                <img class="w-100" src="/images/reprodukcie/digirepro-3.jpg">
+                <img class="img-responsive lazyload" data-src="/images/reprodukcie/digirepro-3.jpg" alt="{{trans('reprodukcie.digital_heading')}} 3">
             </div>
         </div>
     </div>

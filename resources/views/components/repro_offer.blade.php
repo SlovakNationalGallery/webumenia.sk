@@ -1,6 +1,6 @@
 <div class="wu-repro-offer top-space bottom-space">
     <h4>{!! $title !!}</h4>
-    <img class="w-100 bottom-space" src="{{$img_url}}">
+    <img class="img-responsive lazyload bottom-space" data-src="{{$img_url}}" alt="{{ $title }}">
     <div>{!! $description !!}</div>
     <table class="table">
         <tbody>
