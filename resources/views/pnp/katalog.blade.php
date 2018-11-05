@@ -32,40 +32,7 @@
                         {!! Form::select('work_type', array('' => '') + $work_types,  @$input['work_type'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_work_type'))) !!}
                 </div>
                 <div  class="col-md-4 col-xs-6 bottom-space">
-                        {!! Form::select('tag', array('' => '') + $tags, @$input['tag'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_tag'))) !!}
-                </div>
-                <div  class="col-md-4 col-xs-6 bottom-space">
-                        {!! Form::select('gallery', array('' => '') + $galleries, @$input['gallery'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_gallery'))) !!}
-                </div>
-                <div  class="col-md-4 col-xs-6 bottom-space">
-                        {!! Form::select('topic', array('' => '') + $topics, @$input['topic'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_topic'))) !!}
-                </div>
-                <div  class="col-md-4 col-xs-6 bottom-space">
                         {!! Form::select('technique', array('' => '') + $techniques, @$input['technique'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_technique'))) !!}
-                </div>
-                <div class="col-md-4 col-xs-6">
-                        <div class="checkbox">
-                            {!! Form::checkbox('has_image', '1', @$input['has_image'], ['id'=>'has_image']) !!}
-                            <label for="has_image">
-                              {{ trans('katalog.filters_has_image') }}
-                            </label>
-                        </div>
-                </div>
-                <div class="col-md-4 col-xs-6">
-                        <div class="checkbox">
-                            {!! Form::checkbox('has_iip', '1', @$input['has_iip'], ['id'=>'has_iip']) !!}
-                            <label for="has_iip">
-                              {{ trans('katalog.filters_has_iip') }}
-                            </label>
-                        </div>
-                </div>
-                <div class="col-md-4 col-xs-6">
-                        <div class="checkbox">
-                            {!! Form::checkbox('is_free', '1', @$input['is_free'], ['id'=>'is_free']) !!}
-                            <label for="is_free">
-                              {{ trans('katalog.filters_is_free') }}
-                            </label>
-                        </div>
                 </div>
             </div>
             <div class="row">
@@ -97,11 +64,11 @@
 <section class="catalog" data-searchd-engine="{!! Config::get('app.searchd_id') !!}">
     <div class="container content-section">
             <div class="row content-section">
-            	<div class="col-xs-6">
+                <div class="col-xs-6">
                     @if (!empty($search))
                         <h4 class="inline">{{ utrans('katalog.catalog_found_artworks') }} &bdquo;{!! $search !!}&ldquo; (<span data-searchd-total-hits>{!! $items->total() !!}</span>) </h4>
                     @else
-                		<h4 class="inline">{!! $items->total() !!} {{ trans('katalog.catalog_artworks') }} </h4>
+                        <h4 class="inline">{!! $items->total() !!} {{ trans('katalog.catalog_artworks') }} </h4>
                     @endif
                     @if ($items->count() == 0)
                         <p class="text-center">{{ utrans('katalog.catalog_no_artworks') }}</p>
@@ -129,14 +96,14 @@
                 <div class="col-sm-12 isotope-wrapper">
                     <?php // $items = $items->paginate(18) ?>
                     <div id="iso">
-                	@foreach ($items as $i=>$item)
-    	                <div class="col-md-3 col-sm-4 col-xs-6 item">
-    	                	<a href="{!! $item->getUrl() !!}">
+                    @foreach ($items as $i=>$item)
+                        <div class="col-md-3 col-sm-4 col-xs-6 item">
+                            <a href="{!! $item->getUrl() !!}">
                                 @php
                                     list($width, $height) = getimagesize(public_path() . $item->getImagePath());
                                 @endphp
                                 <div class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%;">
-    	                		<img
+                                <img
                                     data-sizes="auto"
                                     data-src="{!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'600']) !!}"
                                     data-srcset="{!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'600']) !!} 600w,
@@ -147,7 +114,7 @@
                                     class="lazyload"
                                     alt="{!! $item->getTitleWithAuthors() !!} ">
                                 </div>
-    	                	</a>
+                            </a>
                             <div class="item-title">
                                 @if ($item->has_iip)
                                     <div class="pull-right"><a href="{{ route('item.zoom', ['id' => $item->id]) }}" data-toggle="tooltip" data-placement="left" title="{{ utrans('general.item_zoom') }}"><i class="fa fa-search-plus"></i></a></div>
@@ -161,8 +128,8 @@
                                     {{-- <br><span class="">{!! $item->gallery !!}</span> --}}
                                 </a>
                             </div>
-    	                </div>
-                	@endforeach
+                        </div>
+                    @endforeach
 
                     </div>
                     <div class="col-sm-12 text-center">

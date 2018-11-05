@@ -44,12 +44,13 @@ function()
 
     Route::get('/', function () {
 
-        $slides = Slide::published()->orderBy('id', 'desc')->get();
-        $articles = Article::promoted()->published()->orderBy('published_date', 'desc')->get();
+        // $slides = Slide::published()->orderBy('id', 'desc')->get();
+        // $articles = Article::promoted()->published()->orderBy('published_date', 'desc')->get();
 
-        return view('intro', [
-            'slides' => $slides,
-            'articles' => $articles,
+        return view('pnp/intro', [
+            // 'slides' => $slides,
+            // 'articles' => $articles,
+            'show_bg' => true
         ]);
     });
 
@@ -275,7 +276,7 @@ function()
             }
         }
 
-        return view('dielo', compact(
+        return view('pnp/dielo', compact(
             'item',
             'more_items',
             'similar_by_color',
