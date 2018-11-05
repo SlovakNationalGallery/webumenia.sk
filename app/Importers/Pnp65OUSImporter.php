@@ -30,6 +30,12 @@ class Pnp65OUSImporter extends AbstractImporter
         'Popis:' => 'description',
         'Nakladatel:' => 'publisher',
         'Autor textu:' => 'description_source',
+        'Autorská práva' => 'license'
+    ];
+
+    protected static $license_replacements = [
+        'volné dílo' => 'free_download',
+        'autorsky chráněné dílo' => 'only_zoom'
     ];
 
     protected static $name = 'pnp65ous';
@@ -49,13 +55,12 @@ class Pnp65OUSImporter extends AbstractImporter
         return sprintf('%s--*', $this->sanitizeIdentifier($record['Inventární číslo:']));
     }
 
-    protected function hydrateAuthor(array $record) {
-        // @todo other authors
-        return $record['Autor:'];
+    protected function hydrateLicense(array $record) {
+        return (isset(static::$license_replacements[$record['Autorská práva']])) ? null 
     }
 
     protected function sanitizeIdentifier($identifier) {
-        $identifier = str_replace(' ', '_', $identifier);
+        $identifier = str_replace(array(' ', '/'), '_', $identifier);
         return Str::ascii($identifier);
     }
 }
