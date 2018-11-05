@@ -59,7 +59,7 @@ return array(
     |
     */
 
-    'locale' => 'sk',
+    'locale' => 'cs',
     'fallback_locale' => 'en',
 
     /*
