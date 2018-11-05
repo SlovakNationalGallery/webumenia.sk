@@ -32,7 +32,7 @@ return array(
     'print_offer_passepartout_description' => '<p>Reprodukce je vytištěna na fine art rag (100 % bavlna, pH neutrální) nebo FineArt Baryt Photo Paper.</p><p>Papírová pasparta je z jedné strany otevřená a umožňuje další rámování.</p><p>Šířka pasparty je 5-8 cm (podle rozměrů díla). Maximální rozměr reprodukce v paspartě je A3+.</p>',
     'print_offer_framed_title'             => 'Reprodukce s paspartou a rámem',
     'print_offer_framed_description'       => '<p>Reprodukce je vytištěna na fine art rag (100 % bavlna, pH neutrální) nebo FineArt Baryt Photo Paper.</p><p>Dílo je vsazeno do pasparty a v rámu se sklem.</p><p>Rámy jsou dřevěné, nereliéfní, ve dvou barevných verzích (světlé, tmavé). Nevyhovuje-li vám barva rámu, doporučujeme formát reprodukce s paspartou, připravený na svépomocné rámovaní.</p><p>Maximální rozměr reprodukce v paspartě a rámu je A3+.</p>',
-    'print_offer_poster_title'             => 'Poster (Art plakát)',
+    'print_offer_poster_title'             => 'Poster (art plakát)',
     'print_offer_poster_description'       => '<p>Reprodukce je vytištěna na speciální, vysoko kvalitní, mapový papír rozměru A1.</p><p>Momentálně nabízíme v této formě pouze reprodukce <a href="https://www.webumenia.sk/kolekcia/144">plakátů ze sbírek SNG</a>.</p>',
     'digital_heading'   => 'Digitální reprodukce',
     'digital_body'      => '<p>Poskytnutí digitálních reprodukcí děl posuzujeme individuálně podle konkrétního díla a účelu použití.</p>
