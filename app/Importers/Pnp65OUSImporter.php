@@ -56,7 +56,7 @@ class Pnp65OUSImporter extends AbstractImporter
     }
 
     protected function hydrateLicense(array $record) {
-        return (isset(static::$license_replacements[$record['Autorská práva']])) ? null 
+        return (isset(static::$license_replacements[$record['Autorská práva']])) ? static::$license_replacements[$record['Autorská práva']] : null;
     }
 
     protected function sanitizeIdentifier($identifier) {
