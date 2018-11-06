@@ -85,11 +85,11 @@
               </button>
               <div class="collapse navbar-collapse navbar-main-collapse">
                   <ul class="nav navbar-nav">
-                    <li class="{!! (Request::is('/') || Request::is('kolekcia/*')) ? 'active' : '' !!}">
+                    <li class="{!! (Request::is('/')) ? 'active' : '' !!}">
                         <a href="{{{ URL::to('/') }}}">úvod</a>
                     </li>
-                    <li class="{!! (Request::is('katalog') || Request::is('dielo/*')) ? 'active' : '' !!}">
-                        <a href="{{{ URL::to('katalog') }}}">výstava</a>
+                    <li class="{!! (Request::is('kolekcia/*') || Request::is('dielo/*')) ? 'active' : '' !!}">
+                        <a href="{{{ URL::to('kolekcia/1') }}}">výstava</a>
                     </li>
                     {{--
                     <li class="{!! Request::is( 'vystava') ? 'active' : '' !!}">

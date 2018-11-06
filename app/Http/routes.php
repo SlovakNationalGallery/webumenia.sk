@@ -318,7 +318,7 @@ function()
     Route::match(array('GET', 'POST'), 'clanky/suggestions', 'ClanokController@getSuggestions');
     Route::get('clanok/{slug}', 'ClanokController@getDetail');
 
-    Route::match(array('GET', 'POST'), 'kolekcie', 'KolekciaController@getIndex');
+    // Route::match(array('GET', 'POST'), 'kolekcie', 'KolekciaController@getIndex');
     Route::match(array('GET', 'POST'), 'kolekcie/suggestions', 'KolekciaController@getSuggestions');
     Route::get('kolekcia/{slug}', 'KolekciaController@getDetail');
 

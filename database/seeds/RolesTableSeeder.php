@@ -16,6 +16,7 @@ class RolesTableSeeder extends Seeder
 
         Eloquent::unguard();
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('role_user')->truncate();
         DB::table('roles')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 

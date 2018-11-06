@@ -26,7 +26,6 @@ class KolekciaController extends Controller
 
     public function getDetail($id)
     {
-        // dd($id);
         $collection = Collection::find($id);
         if (empty($collection)) {
             App::abort(404);
@@ -34,7 +33,7 @@ class KolekciaController extends Controller
         $collection->view_count += 1;
         $collection->save();
 
-        return view('kolekcia', array('collection'=>$collection));
+        return view('pnp/kolekcia', array('collection'=>$collection));
 
     }
 
@@ -47,7 +46,7 @@ class KolekciaController extends Controller
         $data = array();
         $data['results'] = array();
         $data['count'] = 0;
-        
+
         foreach ($result as $key => $hit) {
             $data['count']++;
             $params = array(
