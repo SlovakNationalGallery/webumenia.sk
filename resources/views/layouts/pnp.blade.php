@@ -19,11 +19,12 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/images/pnp/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/images/pnp/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/images/pnp/favicon-16x16.png">
-    <link rel="manifest" href="/images/pnp/manifest.json">
-    <link rel="mask-icon" href="/images/pnp/safari-pinned-tab.svg" color="#fef200">
+    <link rel="manifest" href="/images/pnp/site.webmanifest">
+    <link rel="mask-icon" href="/images/pnp/safari-pinned-tab.svg" color="#44425d">
     <link rel="shortcut icon" href="/images/pnp/favicon.ico">
+    <meta name="msapplication-TileColor" content="#44425d">
     <meta name="msapplication-config" content="/images/pnp/browserconfig.xml">
-    <meta name="theme-color" content="#fef200">
+    <meta name="theme-color" content="#44425d">
     <!--  /favicons-->
 
     <!--  Open Graph protocol -->
