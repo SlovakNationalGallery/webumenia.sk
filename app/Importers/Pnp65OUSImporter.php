@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 class Pnp65OUSImporter extends AbstractImporter
 {
     protected $options = [
-        'delimiter' => ';',
+        'delimiter' => ',',
         'newline' => "\r\n",
         'input_encoding' => 'CP1250',
     ];
