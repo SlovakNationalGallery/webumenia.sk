@@ -82,6 +82,7 @@ class Item extends Model
         'gallery',
         'item_type',
         'publish',
+        'license'
     );
 
     public static $rules = array(
