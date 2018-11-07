@@ -116,6 +116,7 @@ class ItemRepositoryTest extends TestCase
                 '18. storočie, polovica, 1760',
             ],
             'datestamp' => ['2017-08-28T14:00:23.769Z'],
+            'contributor' => ['Čičo, Martin'],
         ];
         $this->assertEquals($expected, $rows[0]);
     }
