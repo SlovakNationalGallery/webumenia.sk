@@ -94,10 +94,12 @@
 
                         <table class="table">
                             <tbody>
+                                @if (!empty($item->dating))
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_dating') }}:</td>
-                                    <td><time itemprop="dateCreated" datetime="{!! $item->date_earliest !!}">{!! $item->getDatingFormated(); !!}</time></td>
+                                    <td><time itemprop="dateCreated" datetime="{!! $item->date_earliest !!}">{!! $item->dating !!}</time></td>
                                 </tr>
+                                @endif
                                 @if (!empty($item->measurements))
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_measurements') }}:</td>
@@ -111,7 +113,7 @@
                                 @endif
                                 @if (!empty($item->work_type))
                                 <tr>
-                                    <td class="atribut">{{ trans('dielo.item_attr_work_type') }}:</td>
+                                    <td class="atribut">typ objektu:</td>
                                     <td>
                                         @foreach ($item->work_types as $i => $work_type)
                                             @if ($i == 0)
@@ -126,9 +128,25 @@
                                     </td>
                                 </tr>
                                 @endif
+                                @if (!empty($item->publisher))
+                                <tr>
+                                    <td class="atribut">nakladatel:</td>
+                                    <td>
+                                        {{ $item->publisher }}
+                                    </td>
+                                </tr>
+                                @endif
+                                @if (!empty($item->printer))
+                                <tr>
+                                    <td class="atribut">tiskárna:</td>
+                                    <td>
+                                        {{ $item->printer }}
+                                    </td>
+                                </tr>
+                                @endif
                                 @if (!empty($item->topics))
                                 <tr>
-                                    <td class="atribut">{{ trans('dielo.item_attr_topic') }}:</td>
+                                    <td class="atribut">námět:</td>
                                     <td>
                                     @foreach ($item->topics as $topic)
                                         <a href="{!! URL::to('katalog?topic=' . $topic) !!}">{!! $topic !!}</a><br>
@@ -143,18 +161,6 @@
                                     @foreach ($item->tagNames() as $tag)
                                         <a href="{!!URL::to('katalog?tag=' . $tag)!!}" class="btn btn-default btn-xs btn-outline">{!! $tag !!}</a>
                                     @endforeach
-                                    </td>
-                                </tr>
-                                @endif
-                                @if ($item->collections->count())
-                                <tr>
-                                    <td class="atribut">{{ trans('dielo.item_attr_collections') }}:</td>
-                                    <td>
-                                        <div class="expandable">
-                                        @foreach ($item->collections as $collection)
-                                            <a href="{!! $collection->getUrl() !!}">{!! $collection->name !!}</a><br>
-                                        @endforeach
-                                        </div>
                                     </td>
                                 </tr>
                                 @endif
@@ -210,15 +216,23 @@
                                 @endif
                                 @if (!empty($item->identifier))
                                 <tr>
-                                    <td class="atribut">{{ trans('dielo.item_attr_identifier') }}:</td>
+                                    <td class="atribut">identifikační číslo / signatura:</td>
                                     <td>{!! $item->identifier; !!}</td>
                                 </tr>
                                 @endif
-                                @if ($item->isFree() && $item->hasZoomableImages())
+                                {{-- @if ($item->isFree() && $item->hasZoomableImages()) --}}
+                                @if ($item->license)
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_licence') }}:</td>
                                     {{-- <td><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs" target="_blank" class="no-border"><img alt="Creative Commons License" style="border-width:0; padding-top: 2px;"  src="/images/license/by-nc-sa.svg" title="Creative Commons BY-NC-SA 4.0" data-toggle="tooltip"></a></td> --}}
-                                    <td><a rel="license" href="{!!URL::to('katalog?is_free=' . '1')!!}" target="_blank" class="no-border license" title="Public Domain" data-toggle="tooltip"><img alt="Creative Commons License" style="height: 20px; width: auto"  src="/images/license/zero.svg" > {{ trans('general.public_domain') }}</a></td>
+                                    <td>
+                                        @if ($item->license == 'free_download')
+                                            <a rel="license" href="{!!URL::to('katalog?is_free=' . '1')!!}" target="_blank" class="no-border license" title="Public Domain" data-toggle="tooltip"><img alt="Creative Commons License" style="height: 20px; width: auto"  src="/images/license/zero.svg" > {{ trans('general.public_domain') }}</a>
+                                        @elseif ($item->license == 'only_zoom')
+                                            autorsky chránéné dílo
+                                        @endif
+
+                                    </td>
                                 </tr>
                                 @endif
                                 @if (!empty($item->place))
@@ -229,7 +243,7 @@
                                 @endif
                                 @if (!empty($item->related_work))
                                 <tr>
-                                    <td class="atribut">{!! $item->relationship_type !!}:</td>
+                                    <td class="atribut">ze souboru / provenience:</td>
 
                                     <td>
                                         <a href="{!! URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) !!}" itemprop="isPartOf">{!! $item->related_work !!}</a>
