@@ -97,6 +97,7 @@ class ItemMapperTest extends TestCase
                 '1760/1760',
                 '18. storočie, polovica, 1760',
             ],
+            'contributor' => ['Čičo, Martin'],
         ];
 
         $mapped = $mapper->map($row);
@@ -125,7 +126,6 @@ class ItemMapperTest extends TestCase
             'related_work:sk' => null,
             'description:sk' => null,
             'work_level:sk' => null,
-
             // @TODO: other then slovak locales are temporary disabled in Harvester
             // 'title:en' => 'Flemish family',
             // 'work_type:en' => null,
@@ -157,6 +157,37 @@ class ItemMapperTest extends TestCase
             // 'related_work:cs' => null,
             // 'description:cs' => null,
             // 'work_level:cs' => null,
+            'title:en' => 'Flemish family',
+            'work_type:en' => null,
+            'technique:en' => 'engraving',
+            'medium:en' => null,
+            'subject:en' => null,
+            'topic:en' => 'figurative composition',
+            'measurement:en' => null,
+            'inscription:en' => null,
+            'place:en' => null,
+            'gallery:en' => null,
+            'dating:en' => null,
+            'relationship_type:en' => null,
+            'related_work:en' => null,
+            'description:en' => null,
+            'work_level:en' => null,
+            'title:cs' => null,
+            'work_type:cs' => null,
+            'technique:cs' => null,
+            'medium:cs' => null,
+            'subject:cs' => null,
+            'topic:cs' => 'figurální',
+            'measurement:cs' => null,
+            'inscription:cs' => null,
+            'place:cs' => null,
+            'gallery:cs' => null,
+            'dating:cs' => null,
+            'relationship_type:cs' => null,
+            'related_work:cs' => null,
+            'description:cs' => null,
+            'work_level:cs' => null,
+            'contributor' => 'Čičo, Martin',
         ];
         $this->assertEquals($expected, $mapped);
     }
