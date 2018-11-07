@@ -61,6 +61,7 @@
                             'slick_target' => "multiple-views",
                             'slick_variant' => "artwork-detail-thumbnail",
                             'img_urls' => $full_IIIF_img_urls,
+                            'item_images' => $item_images,
                             'item' => $item,
                         ])
 
