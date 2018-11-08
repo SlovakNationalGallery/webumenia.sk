@@ -114,7 +114,7 @@
                                 @endif
                                 @if (!empty($item->measurements))
                                 <tr>
-                                    <td class="atribut">{{ trans('dielo.item_attr_measurements') }}:</td>
+                                    <td class="atribut">místo vydání:</td>
                                     <td>
                                         @foreach ($item->measurements as $measurement)
                                         {{--     {!!  implode(' &times; ', $measurement) !!}<br> --}}
