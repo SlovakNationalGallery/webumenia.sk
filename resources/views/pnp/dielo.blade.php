@@ -100,6 +100,18 @@
                                     <td><time itemprop="dateCreated" datetime="{!! $item->date_earliest !!}">{!! $item->dating !!}</time></td>
                                 </tr>
                                 @endif
+                                @if (!empty($item->illustrator_author))
+                                <tr>
+                                    <td class="atribut">autor výzdoby:</td>
+                                    <td>{{ $item->illustrator_author }}</td>
+                                </tr>
+                                @endif
+                                @if (!empty($item->cover_author))
+                                <tr>
+                                    <td class="atribut">obálka:</td>
+                                    <td>{{ $item->cover_author }}</td>
+                                </tr>
+                                @endif
                                 @if (!empty($item->measurements))
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_measurements') }}:</td>
@@ -251,6 +263,12 @@
                                             ({!! $item->related_work_order !!}/{!! $item->related_work_total !!})
                                         @endif
                                     </td>
+                                </tr>
+                                @endif
+                                @if (!empty($item->notes))
+                                <tr>
+                                    <td class="atribut">poznámky:</td>
+                                    <td>{{ $item->notes }}</td>
                                 </tr>
                                 @endif
                             </tbody>
