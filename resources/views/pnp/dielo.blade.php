@@ -114,7 +114,7 @@
                                 @endif
                                 @if (!empty($item->measurements))
                                 <tr>
-                                    <td class="atribut">místo vydání:</td>
+                                    <td class="atribut">{{ trans('dielo.item_attr_measurements') }}:</td>
                                     <td>
                                         @foreach ($item->measurements as $measurement)
                                         {{--     {!!  implode(' &times; ', $measurement) !!}<br> --}}
@@ -125,7 +125,7 @@
                                 @endif
                                 @if (!empty($item->work_type))
                                 <tr>
-                                    <td class="atribut">typ objektu:</td>
+                                    <td class="atribut">námět:</td>
                                     <td>
                                         @foreach ($item->work_types as $i => $work_type)
                                             @if ($i == 0)
@@ -249,7 +249,7 @@
                                 @endif
                                 @if (!empty($item->place))
                                 <tr>
-                                    <td class="atribut">{{ trans('dielo.item_attr_place') }}:</td>
+                                    <td class="atribut">místo vydání:</td>
                                     <td>{!! $item->place; !!}</td>
                                 </tr>
                                 @endif
