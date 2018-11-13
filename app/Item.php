@@ -793,7 +793,6 @@ class Item extends Model
                 // non-tanslatable attributes:
                 'id' => $this->id,
                 'identifier' => $this->identifier,
-                'author' => $this->makeArray($this->author),
                 'work_type' => $main_work_type, // ulozit iba prvu hodnotu
                 'tag' => $this->tagNames(), // @TODO translate this
                 'date_earliest' => $this->date_earliest,
@@ -804,12 +803,13 @@ class Item extends Model
                 'has_iip' => (bool)$this->has_iip,
                 'is_free' => $this->isFree(),
                 // 'free_download' => $this->isFreeDownload(), // staci zapnut is_free + has_iip
-                'related_work' => $this->related_work,
                 'authority_id' => $this->relatedAuthorityIds(),
                 'view_count' => $this->view_count,
                 // 'color_descriptor' => $this->color_descriptor,
 
                 // tanslatable attributes:
+                'author' => $this->makeArray($item_translated->author),
+                'related_work' => $item_translated->related_work,
                 'title' => $item_translated->title,
                 'description' => (!empty($item_translated->description)) ? strip_tags($item_translated->description) : '',
                 'topic' => $this->makeArray($item_translated->topic),
