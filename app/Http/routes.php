@@ -219,7 +219,7 @@ function()
 
         $images = $item->getZoomableImages();
         $index =  0;
-        if ($images->count() <= 1 && !empty($item->{'related_work:cs'})) {
+        if ($images->count() <= 1 && !empty($item->related_work)) {
             $related_items = Item::related($item)->with('images')->get();
 
             $images = collect();
