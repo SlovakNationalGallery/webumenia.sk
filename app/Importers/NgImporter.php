@@ -28,6 +28,7 @@ class NgImporter extends AbstractImporter {
         'OSA 2' => 'date_latest',
         // translations
         'Ang - Název díla (překlad předchozího sloupce)' => 'title:en',
+        'Ang - z cyklu' => 'related_work:en',
         'Ang - Popis (překlad předchozího sloupce)' => 'description:en',
         'Ang - Technika (překlad předchozího sloupce)' => 'technique:en',
         'Ang - Materiál (překlad předchozího sloupce)' => 'medium:en',

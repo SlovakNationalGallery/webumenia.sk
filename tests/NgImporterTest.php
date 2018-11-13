@@ -99,6 +99,14 @@ class NgImporterTest extends TestCase
         $this->assertEquals('Veletržní palác', $items[0]->collections[0]->name);
     }
 
+    public function testRelatedWork() {
+        $data = $this->fakeData([
+            'z cyklu' => 'Fontána s putti a baziliškem',
+        ]);
+        $items = $this->importSingle($data);
+        $this->assertEquals('Fontána s putti a baziliškem', $items[0]->related_work);
+    }
+
     public function testInscriptionEn() {
         $data = $this->fakeData([
             'Ang - Značeno (překlad předchozího sloupce)' => 'Paintedy by Shifu Qiu Ying.',
@@ -136,6 +144,15 @@ class NgImporterTest extends TestCase
         $items = $this->importSingle($data);
         $this->assertEquals('height 2 cm; width 1 cm; depth 3 cm', $items[0]->{'measurement:en'});
     }
+
+    public function testRelatedWorkEn() {
+        $data = $this->fakeData([
+            'z cyklu' => 'Fountain with Putti and a Basilisk',
+        ]);
+        $items = $this->importSingle($data);
+        $this->assertEquals('Fountain with Putti and a Basilisk', $items[0]->{'related_work:en'});
+    }
+
 
     protected function importSingle(array $data) {
         $records = new \ArrayIterator([$data]);
@@ -182,12 +199,14 @@ class NgImporterTest extends TestCase
             'OSA 2' => $this->faker->year,
             'Materiál' => $this->faker->word,
             'Technika' => $this->faker->word,
+            'z cyklu' => $this->faker->word,
             'Ang - Značeno (překlad předchozího sloupce)' => $this->faker->sentence,
             'Ang - Autor (překlad předchozího sloupce)' => $this->faker->name,
             'Ang - Autor 2 (překlad předchozího sloupce)' => $this->faker->name,
             'Ang - Autor 3 (překlad předchozího sloupce)' => $this->faker->name,
             'Ang - Autor 4 (překlad předchozího sloupce)' => $this->faker->name,
             'Ang - Datování NEBO Datace' => $this->faker->year,
+            'Ang - z cyklu' => $this->faker->word,
         ];
     }
 }
