@@ -251,12 +251,12 @@
                                     <td>{!! $item->place; !!}</td>
                                 </tr>
                                 @endif
-                                @if (!empty($item->{'related_work:cs'}))
+                                @if (!empty($item->related_work))
                                 <tr>
-                                    <td class="atribut">{!!(App::getLocale()=='en') ? 'from the cycle' : $item->relationship_type !!}:</td>
+                                    <td class="atribut">{!! $item->relationship_type !!}:</td>
 
                                     <td>
-                                        <a href="{!! URL::to('katalog?related_work=' . $item->{'related_work:cs'} . '&amp;author=' .  $item->first_author) !!}" itemprop="isPartOf">{!! $item->{'related_work:cs'} !!}</a>
+                                        <a href="{!! URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) !!}" itemprop="isPartOf">{!! $item->related_work !!}</a>
                                         @if ($item->related_work_order)
                                             ({!! $item->related_work_order !!}/{!! $item->related_work_total !!})
                                         @endif
@@ -267,7 +267,7 @@
                         </table>
 
                     <div>
-                    @if (!empty($item->{'related_work:cs'}))
+                    @if (!empty($item->related_work))
                         <?php $related_items = App\Item::related($item)->get() ?>
                         @if ($related_items->count() > 1)
                         <div style="position: relative; padding: 0 10px;">
