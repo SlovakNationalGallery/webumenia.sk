@@ -55,13 +55,12 @@
         {!! Html::script('js/modernizr.custom.js') !!}
 
     @if (App::environment() == 'production')
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-19030232-9"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128975828-1"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
-      gtag('config', 'UA-19030232-9');
+      gtag('config', 'UA-128975828-1');
     </script>
     @endif
     {!! Html::script('js/scroll-frame-head.js') !!}

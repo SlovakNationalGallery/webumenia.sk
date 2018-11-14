@@ -82,7 +82,11 @@ class Item extends Model
         'gallery',
         'item_type',
         'publish',
-        'license'
+        'license',
+        'illustrator_author',
+        'cover_author',
+        'notes',
+
     );
 
     public static $rules = array(

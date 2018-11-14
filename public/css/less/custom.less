@@ -46,6 +46,9 @@
 @input-border-focus:             @primary-color;
 @input-color-placeholder:        @primary-color;
 
+@font-size-base:          16px;
+@line-height-base:        1.5; // 20/14
+
 @font-size-large:         ceil((@font-size-base * 1.10)); // ~18px
 @font-size-h1:            floor((@font-size-base * 2.6)); // ~36px
 // @font-size-h1:            floor((@font-size-base * 2.15)); // ~30px
@@ -789,6 +792,12 @@ section.catalog {
     width: 100%;
     overflow: hidden;
     max-height: 165px;
+    &.preview {
+       max-height: 800px;
+       .img-responsive-width {
+            max-height: 800px;
+       }
+    }
     &.large {
        max-height: 200px;
        .img-responsive-width {

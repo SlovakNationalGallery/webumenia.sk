@@ -17,8 +17,8 @@ class Pnp65OUSImporter extends AbstractImporter
         'Inventární číslo:' => 'identifier',
         'Autor:' => 'author',
         'Datace:' => 'dating',
-        'Rok - od:' => 'date_earliest',
-        'Rok - do:' => 'date_latest',
+        'Rok - od' => 'date_earliest',
+        'Rok - do' => 'date_latest',
         'Výtvarný druh:' => 'work_type',
         'Název:' => 'title',
         'Materiál:' => 'medium',
@@ -52,7 +52,7 @@ class Pnp65OUSImporter extends AbstractImporter
     }
 
     protected function getItemImageFilenameFormat(array $record) {
-        return sprintf('%s--*', $this->sanitizeIdentifier($record['Inventární číslo:']));
+        return sprintf('%s*', $this->sanitizeIdentifier($record['Inventární číslo:']));
     }
 
     protected function hydrateLicense(array $record) {
@@ -60,7 +60,7 @@ class Pnp65OUSImporter extends AbstractImporter
     }
 
     protected function sanitizeIdentifier($identifier) {
-        $identifier = str_replace(array(' ', '/'), '_', $identifier);
+        $identifier = str_replace(array(' ', '/', '-'), '_', trim($identifier));
         return Str::ascii($identifier);
     }
 }

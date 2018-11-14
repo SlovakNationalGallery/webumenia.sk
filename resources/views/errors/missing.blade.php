@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.pnp')
 
 @section('title')
 {{ trans('missing.title') }}
@@ -6,7 +6,7 @@
 
 @section('content')
 
-<section class="intro intro404">
+<section class="intro intro404 top-space">
     <div class="intro-body">
         <div class="container">
             <div class="row">

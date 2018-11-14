@@ -15,16 +15,20 @@ class Pnp65OkImporter extends AbstractImporter
 
     protected $mapping = [
         'Název' => 'title',
+        'Místo vydání' => 'place',
         'Nakladatel' => 'publisher',
         'Tiskárna' => 'printer',
         'Rok vydání' => 'dating',
-        'Od' => 'date_earliest',
-        'Do' => 'date_latest',
+        'od' => 'date_earliest',
+        'do' => 'date_latest',
         'Vazba' => 'medium',
         'Provenience' => 'related_work',
         'Popis' => 'description',
         'Autor textu' => 'description_source',
+        'Autor výzdoby' => 'illustrator_author',
+        'Obálka' => 'cover_author',
         'Signatura' => 'identifier',
+        'Poznámky' => 'notes',
     ];
 
     protected static $name = 'pnp65ok';
