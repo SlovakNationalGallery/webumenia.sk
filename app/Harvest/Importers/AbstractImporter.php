@@ -97,10 +97,7 @@ abstract class AbstractImporter
         foreach ($relatedRows as $relatedRow) {
             $data = $this->mappers[$field]->map($relatedRow);
             $conditions = $this->getConditions($field, $data);
-            $existing = $relation->where($conditions)->first();
-            $relatedModel = $existing ?: new $relatedModelClass;
-            $relatedModel->forceFill($data);
-            $relation->save($relatedModel);
+            $model->$field()->updateOrCreate($conditions, $data);
         }
     }
 
