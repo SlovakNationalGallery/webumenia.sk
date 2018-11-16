@@ -166,7 +166,7 @@ function()
 
     });
 
-    Route::post('dielo/{id}/feedback', 'ItemController@postFeedback');
+    Route::post('dielo/{item_id}/feedback', 'FeedbackController@postFeedback');
 
     Route::get('dielo/{id}/odstranit', function ($id) {
 

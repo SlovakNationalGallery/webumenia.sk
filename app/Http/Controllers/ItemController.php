@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\File;
 use App\SpiceHarvesterRecord;
 use Illuminate\Support\Facades\App;
 use Symfony\Component\Form\FormInterface;
+use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
@@ -361,8 +362,5 @@ class ItemController extends Controller
         }
 
         return $this->form;
-    }
-    public function postFeedback() {
-        return true;
     }
 }
