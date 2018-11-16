@@ -94,7 +94,7 @@
                                     <a href="{!! URL::to('dielo/' . $item->id . '/stiahnut')  !!}" class="btn btn-default btn-outline  sans" id="download"><i class="fa fa-download"></i> {{ trans('dielo.item_download') }} </a>
                                 @endif
                                 @if ($item->contributor)
-                                    <a href="{!! URL::to('dielo/' . $item->id . '/feedback')  !!}" class="btn btn-default btn-outline  sans" id="feedback"><i class="fa fa-feedback"></i> {{ trans('dielo.item_feedback') }} </a>
+                                    <a class="btn btn-default btn-outline  sans" id="feedback"><i class="fa fa-feedback"></i> {{ trans('dielo.item_feedback') }} </a>
                                 @endif
                             </div>
                             @if (!empty($item->description))
@@ -381,13 +381,25 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header text-center">
-                <!-- <img src="{!! URL::asset('images/license/cc.svg') !!}" alt="Creative Commons"> -->
             </div>
-            <div class="modal-body">
-                {!! trans('dielo.modal_feedback_body-content') !!}
-            </div>
-            <div class="modal-footer">
-                <div class="text-center"><button type="button" data-dismiss="modal" class="btn btn-default btn-outline uppercase sans">{{ trans('general.close') }}</button></div>
+            <div>
+                {!! Form::open(['url' => URL::to('dielo/' . $item->id . '/feedback'), 'id' => 'feedbackform']) !!}
+                <div class="modal-body">
+                    {!! trans('dielo.modal_feedback_body-content') !!}
+                    {!! Form::textarea('text') !!}
+                    <br>
+                    {!! Form::text('email', 'example@gmail.com') !!}
+                </div>
+                <div class="modal-footer">
+                    <div class="text-center">
+                        <button type="button" data-dismiss="modal" class="btn btn-default btn-outline uppercase sans">{{ trans('general.close') }}</button>
+                        {!! Form::button('Submit', array(
+                            'data-dismiss' => 'modal',
+                            'class' => 'btn btn-default btn-outline uppercase sans'
+                            )) !!}
+                    </div>
+                </div>
+                {!! Form::close() !!}
             </div>
         </div>
     </div>
@@ -459,7 +471,7 @@
 
         $('#feedback').on('click', function(e){
 
-            $('#feedbackmodal').modal({})
+            $('#feedbackmodal').modal({});
             // $.fileDownload($(this).attr('href'), {
             //     successCallback: function(url) {
             //     },
@@ -468,6 +480,10 @@
             //         $('#downloadfail').modal('show');
             //     }
             // });
+            $('#feedbackform').submit(function() {
+                console.log('feedback sumbitted');
+
+            });
             return false; //this is critical to stop the click event which will trigger a normal file download!
         });
 
