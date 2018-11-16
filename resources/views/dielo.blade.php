@@ -393,7 +393,7 @@
                 <div class="modal-footer">
                     <div class="text-center">
                         <button type="button" data-dismiss="modal" class="btn btn-default btn-outline uppercase sans">{{ trans('general.close') }}</button>
-                        {!! Form::button('Submit', array(
+                        {!! Form::submit('Submit', array(
                             'data-dismiss' => 'modal',
                             'class' => 'btn btn-default btn-outline uppercase sans'
                             )) !!}
@@ -472,6 +472,7 @@
         $('#feedback').on('click', function(e){
 
             $('#feedbackmodal').modal({});
+            console.log('feedback sumbitted');
             // $.fileDownload($(this).attr('href'), {
             //     successCallback: function(url) {
             //     },
@@ -482,6 +483,7 @@
             // });
             $('#feedbackform').submit(function() {
                 console.log('feedback sumbitted');
+                return false;
 
             });
             return false; //this is critical to stop the click event which will trigger a normal file download!
