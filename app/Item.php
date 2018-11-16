@@ -968,4 +968,8 @@ class Item extends Model
     protected function getElasticClient() {
         return app(Client::class);
     }
+
+    public function handleFeedback() {
+        return true;
+    }
 }

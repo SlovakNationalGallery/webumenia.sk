@@ -12,6 +12,7 @@ return array(
     'item_next-work'     => 'nasledujúce dielo',
     'item_order'         => 'objednať reprodukciu',
     'item_download'      => 'stiahnuť',
+    'item_feedback'      => 'Napíšte nám',
 
     'item_attr_dating'         => 'datovanie',
     'item_attr_measurements'   => 'miery',

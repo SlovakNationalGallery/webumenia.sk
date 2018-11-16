@@ -166,6 +166,14 @@ function()
 
     });
 
+    Route::get('dielo/{id}/feedback', function ($id) {
+        $item = Item::find($id);
+
+        if (empty($item) || !$item->handleFeedback()) {
+            App::abort(404);
+        }
+    });
+
     Route::get('dielo/{id}/odstranit', function ($id) {
 
         $item = Item::find($id);

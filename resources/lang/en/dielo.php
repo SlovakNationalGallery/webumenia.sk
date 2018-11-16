@@ -12,6 +12,7 @@ return array(
     'item_next-work'     => 'next artwork',
     'item_order'         => 'order reproduction',
     'item_download'      => 'download',
+    'item_feedback'      => 'Feedback',
 
     'item_attr_dating'         => 'date',
     'item_attr_measurements'   => 'measurements',

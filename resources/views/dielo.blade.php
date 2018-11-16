@@ -93,6 +93,9 @@
                                 @if ($item->isFree() && $item->hasZoomableImages())
                                     <a href="{!! URL::to('dielo/' . $item->id . '/stiahnut')  !!}" class="btn btn-default btn-outline  sans" id="download"><i class="fa fa-download"></i> {{ trans('dielo.item_download') }} </a>
                                 @endif
+                                @if ($item->contributor)
+                                    <a href="{!! URL::to('dielo/' . $item->id . '/feedback')  !!}" class="btn btn-default btn-outline  sans" id="feedback"><i class="fa fa-feedback"></i> {{ trans('dielo.item_feedback') }} </a>
+                                @endif
                             </div>
                             @if (!empty($item->description))
                             <div class="col-md-12 text-left medium description bottom-space underline" itemprop="description">
@@ -373,6 +376,22 @@
         </div>
     </div>
 </div>
+<!-- Modal -->
+<div tabindex="-1" class="modal fade" id="feedbackmodal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <!-- <img src="{!! URL::asset('images/license/cc.svg') !!}" alt="Creative Commons"> -->
+            </div>
+            <div class="modal-body">
+                <!-- {!! trans('dielo.modal_license_body-content', ['item_url' => $item->getUrl(), 'free_url' => URL::to('katalog?is_free=1')] ) !!} -->
+            </div>
+            <div class="modal-footer">
+                <div class="text-center"><button type="button" data-dismiss="modal" class="btn btn-default btn-outline uppercase sans">{{ trans('general.close') }}</button></div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- <div id="map"></div> -->
 
@@ -435,6 +454,20 @@
                     $('#downloadfail').modal('show');
                 }
             });
+            return false; //this is critical to stop the click event which will trigger a normal file download!
+        });
+
+        $('#feedback').on('click', function(e){
+
+            $('#feedbackmodal').modal({})
+            // $.fileDownload($(this).attr('href'), {
+            //     successCallback: function(url) {
+            //     },
+            //     failCallback: function(responseHtml, url) {
+            //         $('#license').modal('hide');
+            //         $('#downloadfail').modal('show');
+            //     }
+            // });
             return false; //this is critical to stop the click event which will trigger a normal file download!
         });
 
