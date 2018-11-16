@@ -52,15 +52,18 @@
                 <div class="col-md-8 text-center">
                     @if ($item->has_iip)
                         @php
+                            $item_images = $item->getZoomableImages();
                             $full_IIIF_img_urls = $item_images->map(function ($item_image) {
                                 return $item_image->getFullIIIFImgURL();
                             });
                         @endphp
-                        @include('components.static_carousel', [
+                        @include('components.image_carousel', [
                             'slick_target' => "multiple-views",
                             'slick_variant' => "artwork-detail-thumbnail",
                             'img_urls' => $full_IIIF_img_urls,
-                            'item' => $item,
+                            'img_title' => $item->getTitleWithAuthors(),
+                            'anchor_href' => route('item.zoom', ['id' => $item->id]),
+                            'anchor_title' => utrans('general.item_zoom'),
                         ])
                     @else
                         @php

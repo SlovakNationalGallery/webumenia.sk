@@ -214,8 +214,6 @@ function()
 
         $more_items = $item->moreLikeThis(30);
 
-        $item_images = $item->getZoomableImages();
-
         if (Input::has('collection')) {
             $collection = Collection::find((int) Input::get('collection'));
             if (!empty($collection)) {
@@ -253,7 +251,6 @@ function()
 
         return view('dielo', compact(
             'item',
-            'item_images',
             'more_items',
             'similar_by_color',
             'colors_used',
