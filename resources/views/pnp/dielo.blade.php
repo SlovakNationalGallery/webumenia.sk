@@ -413,7 +413,8 @@
 {!! Html::script('js/readmore.min.js') !!}
 {!! Html::script('js/jquery.fileDownload.js') !!}
 
-@include('components.artwork_carousel_js', ['slick_query' => '.artworks-preview'])
+{!! Html::script('js/slick.js') !!}
+{!! Html::script('js/components/artwork_carousel.js') !!}
 
 @if (!empty($item->lat) && ($item->lat > 0))
     <!-- Google Maps API Key - You will need to use your own API key to use the map feature -->
