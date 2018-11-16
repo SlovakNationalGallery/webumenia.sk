@@ -61,7 +61,8 @@ class Item extends Model
         'len s obrázkom' => 'has_image',
         'len so zoom' => 'has_iip',
         'len voľné' => 'is_free',
-        'zo súboru' => 'related_work'
+        'zo súboru' => 'related_work',
+        'contributor' => 'contributor'
     );
 
     public static $sortable = array(
@@ -860,6 +861,7 @@ class Item extends Model
                 'authority_id' => $this->relatedAuthorityIds(),
                 'view_count' => $this->view_count,
                 'color_descriptor' => $this->color_descriptor,
+                'contributor' => $this->contributor,
 
                 // tanslatable attributes:
                 'title' => $item_translated->title,

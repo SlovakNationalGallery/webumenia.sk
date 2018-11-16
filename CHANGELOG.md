@@ -23,6 +23,7 @@ All notable changes to this project will be documented in this file[^1].
 - Refactor spice harvester
 - Show harvest progress in admin
 - Symfony forms
+- filter catalog by curator and fix harvesting of curator data
 
 ### Changed
 - allow download of public-domain artworks from VSG

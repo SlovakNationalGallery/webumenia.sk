@@ -182,6 +182,10 @@ class ItemMapper extends AbstractModelMapper
         return false;
     }
 
+    public function mapContributor(array $row) {
+        return $row['contributor'][0] ?: null;
+    }
+
     protected function getRelatedParts(array $row) {
         if (!isset($row['relation_isPartOf'][0])) {
             return;

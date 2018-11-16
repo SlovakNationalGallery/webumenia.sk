@@ -157,6 +157,10 @@
       "color_descriptor" : {
         "type": "descriptor",
         "hash": "LSH"
+      },
+      "contributor": {
+        "index": "not_analyzed",
+        "type": "string"
       }
     }
   }
