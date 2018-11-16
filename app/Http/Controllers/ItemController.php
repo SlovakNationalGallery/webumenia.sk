@@ -362,4 +362,7 @@ class ItemController extends Controller
 
         return $this->form;
     }
+    public function postFeedback() {
+        return true;
+    }
 }

@@ -43,4 +43,6 @@ return array(
     'modal_downloadfail_header-content' => 'Nastala chyba',
     'modal_downloadfail_body-content'   => '<p>Vami zvolené dielo nebolo možné v tomto momente stiahnuť. Skúste to prosím neskôr.</p>
                                             <p>Pokiaľ problém pretrváva, kontaktujte nás na <a href="mailto:lab@sng.sk">lab@sng.sk</a></p>',
+    'modal_feedback_body-content'       => '<p>Máte otázku alebo pripomienku k tomuto dielu, prípadne k jeho údajom?<br>Dajte nám vedieť.</p>',
+    'modal_feedback_footer-content'     => '',
 );

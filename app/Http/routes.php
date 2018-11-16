@@ -166,13 +166,7 @@ function()
 
     });
 
-    Route::get('dielo/{id}/feedback', function ($id) {
-        $item = Item::find($id);
-
-        if (empty($item) || !$item->handleFeedback()) {
-            App::abort(404);
-        }
-    });
+    Route::post('dielo/{id}/feedback', 'ItemController@postFeedback');
 
     Route::get('dielo/{id}/odstranit', function ($id) {
 
