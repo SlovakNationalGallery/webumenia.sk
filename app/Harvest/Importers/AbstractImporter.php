@@ -97,7 +97,9 @@ abstract class AbstractImporter
         foreach ($relatedRows as $relatedRow) {
             $data = $this->mappers[$field]->map($relatedRow);
             $conditions = $this->getConditions($field, $data);
-            $model->$field()->updateOrCreate($conditions, $data);
+            $instance = $model->$field()->firstOrNew($conditions);
+            $instance->forceFill($data);
+            $instance->save();
         }
     }
 
