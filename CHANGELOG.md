@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - /reprodukcie route
 - ReproOffer component
+- Headings documented in PatternLib
 - Remove query string from localized urls
 - Use SQLite in tests
 - Dockerfiles for WU to run in docker
