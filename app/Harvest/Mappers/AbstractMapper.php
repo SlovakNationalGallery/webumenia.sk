@@ -48,7 +48,8 @@ abstract class AbstractMapper
      * @param mixed $value
      */
     protected function setMapped(array &$mapped, $key, $value) {
-        if (is_array($value)) {
+        // dont serialize roles - they are already casted as array
+        if (is_array($value) && !str_contains($key, 'roles:')) {
             $value = $this->serialize($value);
         }
 
