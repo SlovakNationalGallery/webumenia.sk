@@ -14,6 +14,7 @@ return array(
     'authors'            => 'artists',
     'articles'           => 'articles',
     'galleries'          => 'galleries',
+    'reproductions'      => 'reproductions',
     'info'               => 'info',
     'language'           => 'language',
     'search_placeholder' => 'Search for artworks, artists...',
