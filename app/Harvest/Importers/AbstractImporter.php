@@ -145,7 +145,10 @@ abstract class AbstractImporter
             }
 
             if ($this->existsPivotRecord($model, $field, $relatedModel)) {
-                $relation->updateExistingPivot($relatedModel->getKey(), $pivotData);
+                // update only if has any data to update
+                if (!empty($pivotData)) {
+                    $relation->updateExistingPivot($relatedModel->getKey(), $pivotData);
+                }
             } elseif ($createRelated) {
                 $relation->save($relatedModel, $pivotData);
             } else {
