@@ -127,7 +127,11 @@
           <div class="col-xs-6">
             <p class="text-muted text-left">&copy; <a href="http://www.pamatniknarodnihopisemnictvi.cz/" target="_blank" class="sans">Památník národního písemnictví</a>,  <a href="http://lab.sng.sk" target="_blank" class="sans">lab.SNG</a></p>
           </div>
-          <div class="col-xs-6">
+          <div class="col-xs-6 text-right">
+                <div class="fb-like" data-href="{!! Config::get('app.url') !!}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+                &nbsp;
+                <a href="https://twitter.com/share" class="twitter-share-button" data-count="true">Tweet</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
           </div>
         </div>
 
