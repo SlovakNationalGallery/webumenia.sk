@@ -7,7 +7,7 @@
 @import "awesome-bootstrap-checkbox.less";
 @import "selectize/selectize.bootstrap3.less";
 @import "typeahead.less";
-@import "flickity.less";
+// @import "flickity.less";
 @import "custom.less";
 
 // atomic helper classes
@@ -46,15 +46,29 @@
 /* Background image */
 
 body.show_bg {
-  background-image: url('/images/pnp/bg.jpg');
-  background-repeat: no-repeat;
-  background-position: center top;
-  background-size: 100% auto;
 
-  @media(min-width: @screen-xs-min) {
-    background-position: center top;
+}
+.container.show_polygon {
+
+  @media(min-width: @screen-md-min) {
+    background-image: url('/images/pnp/pozadi.jpg');
+    background-repeat: no-repeat;
     background-size: 100% auto;
+    background-position: center top;
+  }
+}
+.intro-body {
+    padding-left: 50px;
+    padding-right: 10px;
 
+  @media(min-width: @screen-md-min) {
+    padding-left: 200px;
+    padding-right: 50px;
+  }
+
+  @media(min-width: @screen-lg-min) {
+    padding-left: 280px;
+    padding-right: 80px;
   }
 }
 
@@ -178,8 +192,8 @@ h1, h2, h3, h4 {
 
 
 .intro.content-section {
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 @media (max-width: 767px) {
@@ -234,4 +248,8 @@ div.header-image {
 
 .description {
      text-indent: 0px;
+}
+
+.footer {
+    background-color: #fff;
 }

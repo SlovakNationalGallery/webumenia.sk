@@ -30,14 +30,6 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 bottom-space description">
-
-                        <div class="bottom-space top-space text-center">
-                            <h1>{!! $collection->name !!}</h1>
-                        </div>
-                        <div class="bottom-space top-space text-left">
-                            {!! $collection->text !!}
-                        </div>
-
                 </div>
             </div>
         </div>

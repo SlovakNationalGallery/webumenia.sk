@@ -76,6 +76,10 @@
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));</script>
 
+@if (isSet($show_bg) && $show_bg == true)
+<div class="container show_polygon">
+@endif
+
   <nav class="navbar {{-- navbar-fixed-top --}} {{-- navbar-static-top --}} {!! (Request::is('/') || isSet($transparent_menu)) ? '' : 'dark-text' !!}" role="navigation">
       <div class="container">
           <div class="navbar-header page-scroll">
@@ -85,10 +89,10 @@
               <div class="collapse navbar-collapse navbar-main-collapse">
                   <ul class="nav navbar-nav">
                     <li class="{!! (Request::is('/')) ? 'active' : '' !!}">
-                        <a href="{{{ URL::to('/') }}}">úvod</a>
+                        <a href="{{{ URL::to('/') }}}">Úvod</a>
                     </li>
                     <li class="{!! (Request::is('kolekcia/*') || Request::is('dielo/*')) ? 'active' : '' !!}">
-                        <a href="{{{ URL::to('kolekcia/1') }}}">výstava</a>
+                        <a href="{{{ URL::to('kolekcia/1') }}}">Výstava</a>
                     </li>
                     {{--
                     <li class="{!! Request::is( 'vystava') ? 'active' : '' !!}">
@@ -120,9 +124,10 @@
   <div class="footer">
       <div class="container">
         <div class="row">
-          <div class="col-xs-6"></div>
           <div class="col-xs-6">
-            <p class="text-muted text-right">&copy; <a href="http://www.pamatniknarodnihopisemnictvi.cz/" target="_blank" class="sans">Památník národního písemnictví</a>,  <a href="http://lab.sng.sk" target="_blank" class="sans">lab.SNG</a></p>
+            <p class="text-muted text-left">&copy; <a href="http://www.pamatniknarodnihopisemnictvi.cz/" target="_blank" class="sans">Památník národního písemnictví</a>,  <a href="http://lab.sng.sk" target="_blank" class="sans">lab.SNG</a></p>
+          </div>
+          <div class="col-xs-6">
           </div>
         </div>
 
@@ -134,6 +139,10 @@
           <i class="icon-arrow-up"></i>
       </a>
   </div>
+
+@if (isSet($show_bg) && $show_bg == true)
+</div>
+@endif
 
   <!-- Core JavaScript Files -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
