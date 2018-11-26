@@ -61,15 +61,20 @@ body.show_bg {
     padding-left: 50px;
     padding-right: 10px;
 
-  @media(min-width: @screen-md-min) {
-    padding-left: 200px;
-    padding-right: 50px;
-  }
+    p {
+        margin: 0 0 10px;
+        font-size: 15.7px;
+    }
 
-  @media(min-width: @screen-lg-min) {
-    padding-left: 280px;
-    padding-right: 80px;
-  }
+    @media(min-width: @screen-md-min) {
+        padding-left: 200px;
+        padding-right: 50px;
+    }
+
+    @media(min-width: @screen-lg-min) {
+        padding-left: 280px;
+        padding-right: 80px;
+    }
 }
 
 section.info, section.filters, section.light-grey { background-color: transparent; }
