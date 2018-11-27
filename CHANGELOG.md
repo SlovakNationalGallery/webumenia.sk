@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [1.6.0] - 2018-10-11
 ### Fixed
 - Duplicate authors with links
 - Authorities Search endpoint of admin fixed
