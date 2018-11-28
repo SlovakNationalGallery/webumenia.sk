@@ -4,13 +4,13 @@ use Illuminate\Database\Seeder;
 
 class HarvestsTableSeeder extends Seeder {
 
-	/**
-	 * Run the database seeds.
-	 *
-	 * @return void
-	 */
-	public function run()
-	{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
 
         DB::table('spice_harvester_harvests')->truncate();
 
@@ -18,9 +18,11 @@ class HarvestsTableSeeder extends Seeder {
 
         $hasrvests = [
             [
-                'base_url' => 'http://stary.webumenia.sk/oai-pmh/authority/',
-                'metadata_prefix' => 'ulan',
-                'type' => 'author',
+                'base_url' => 'http://www.webumenia.sk/oai-pmh/',
+                'metadata_prefix' => 'oai_dc',
+                'set_spec' => 'Europeana SNG',
+                'set_name' => 'Europeana SNG',
+                'set_description' => 'Europeana set from SNG',
                 'status' => 'queued',
                 'status_messages' => '',
                 'initiated' => $now,
@@ -31,6 +33,6 @@ class HarvestsTableSeeder extends Seeder {
 
         DB::table('spice_harvester_harvests')->insert($hasrvests);
 
-	}
+    }
 
 }
