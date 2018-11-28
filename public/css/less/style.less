@@ -1,26 +1,23 @@
 // out: ../styles.css, compress: true
 
-@import "bootstrap/bootstrap.less";
-// @import "font-awesome/font-awesome.less";
+// vendor
+@import "bootstrap/variables.less";
+@import "bootstrap/variables-custom.less";
 
-//@import "variables.less";
-@import "responsive-align.less";
+// fonts
 @import "fonts.less";
-@import "bootstrap-slider.less";
-// @import "chosen.less";
-@import "awesome-bootstrap-checkbox.less";
-@import "selectize/selectize.bootstrap3.less";
-@import "typeahead.less";
-@import "flickity.less";
-// @import "awesome-bootstrap-checkbox.less";
-@import "custom.less";
-// atomic helper classes
-@import "_heights.less";
+
+// atomic utility classes
+@import "utilities/_heights.less";
+@import "utilities/_debug-children.less";
+@import "utilities/_col-2dot4.less";
+@import "utilities/_col-1dot2.less";
+
 // custom modules
-@import "language-switch.less";
-@import "color-list.less";
-@import "article-thumbnail.less";
-@import "artwork-carousel.less";
-@import "zoom-viewer.less";
-@import "img-responsive.less";
-@import "gallery-map.less";
+@import "components/language-switch.less";
+@import "components/color-list.less";
+@import "components/article-thumbnail.less";
+@import "components/artwork-carousel.less";
+@import "components/zoom-viewer.less";
+@import "components/img-responsive.less";
+@import "components/gallery-map.less";

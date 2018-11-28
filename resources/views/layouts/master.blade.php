@@ -33,7 +33,8 @@
 
     <!-- CSS -->
     
-    <link rel="stylesheet" type="text/css" href="{!! asset_timed('css/style.css') !!}" />
+    <link rel="stylesheet" type="text/css" href="css/vendor/bootstrap/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
 
     {{-- JS --}}
 
@@ -44,18 +45,40 @@
     </script>
     @endif
 </head>
-
-<body>
-    <nav role="navigation">
-    </nav>
-
-    <!-- Content -->
-    @yield('content')
-
-    @include('components.footer')
+<body class="debug">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2">
+                2 / 12
+            </div>
+            <div class="col-10">
+                10 / 12
+                <nav class="row">
+                    <div class="col">Search</div>
+                    <div class="col-2dot4">O Projekte</div>
+                    <div class="col-1dot2">SK</div>
+                    <div class="col-1dot2">EN</div>
+                </nav>
+                <div class="row">
+                    <div class="col">Umelci</div>
+                    <div class="col">Skupiny</div>
+                    <div class="col">Teoretici</div>
+                    <div class="col">Vystavne priestory</div>
+                    <div class="col">Klucove slova</div>
+                </div>
+                <div class="row">
+                    @yield('content')
+                </div>
+                <div class="row">
+                    @include('components.footer')
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Javascript -->
-    {!! Html::script('js/bootstrap.min.js') !!}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    {!! Html::script('js/vendor/bootstrap/bootstrap.min.js') !!}
     @yield('javascript')
 </body>
 </html>
