@@ -88,6 +88,13 @@ html {
 }
 
 
+/* Bootstrap 4 utilities */
+.px-0 {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+
 // Typhography
 
 .light {
@@ -344,15 +351,15 @@ a:focus {
     font-weight: 400;
   }
   h1 {
+    font-size: 44px;
+    @media (min-width: @screen-xs-min) {
       font-size: 64px;
       line-height: 52px;
+    }
     @media (min-width: @screen-md-min) {
       font-size: 82px;
       line-height: 72px;
     }
-  }
-  h2 {
-    // font-size: px;
   }
 }
 
@@ -507,16 +514,16 @@ table a:not(.btn):not(.readmore-js-toggle):not(.no-border), .attributes a:not(.b
       line-height: 24px;
     }
     ul.list-lab li {margin-bottom: 0}
-    &.underlined-links a {
-        border-bottom: lighten(@primary, 60%) solid 1px;
-        &:hover, &:active, &.active {
-            border-bottom: #000 solid 1px;
-        }
-    }
     .atribut {
         font-style: normal;
         color: @primary;
     }
+}
+.underlined-links a {
+  border-bottom: lighten(@primary, 60%) solid 1px;
+  &:hover, &:active {
+    border-bottom: #000 solid 1px;
+  }
 }
 .mozete {
   h4 {font-weight: 600; color: @dark-grey; }

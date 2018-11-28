@@ -1,0 +1,15 @@
+{
+    "name": "ReproOffer",
+    "data" : {
+        "title": "Samostatná Tlačená Reprodukcia",
+        "img_url": "/images/reprodukcie/format-1-samostatna.jpg",
+        "description": "<p>Reprodukcia je vytlačená na fine art rag (100% bavlna, pH neutrálna) alebo FineArt Baryt Photo Paper, okolo plochy diela je biely okraj (pre prípadné paspartovanie/rámovanie).</p><p>Rozmer reprodukcie zachováva pomer strán diela.</p>",
+        "pricing_options": [
+            ["do <strong>A4</strong>", "(21 x 29,7 cm)",   "30 eur / ks"],
+            ["do <strong>A3</strong>", "(32,9 x 48,3 cm)", "40 eur / ks"],
+            ["do <strong>A2</strong>", "(42 x 59,4 cm)",   "45 eur / ks"],
+            ["do <strong>A1</strong>", "(59,4 x 84,1 cm)", "55 eur / ks"]
+        ]
+    },
+    "usage_notes": "A block displaying a reproduction format offered by Web umenia, containing an image, description and pricing table."
+}
