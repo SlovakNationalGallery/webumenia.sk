@@ -7,8 +7,9 @@ abstract class AbstractMapper
     /** @var string[] */
     protected $localeToLangMap = [
         'sk' => 'sk',
-        'en' => 'en',
-        'cs' => 'cs',
+        // @TODO: harvest localized data after being albe to turn on "use_property_fallback" in dimsav/laravel-translatable
+        // 'en' => 'en',
+        // 'cs' => 'cs',
     ];
 
     protected $translatedAttributes = [];
@@ -48,7 +49,8 @@ abstract class AbstractMapper
      * @param mixed $value
      */
     protected function setMapped(array &$mapped, $key, $value) {
-        if (is_array($value)) {
+        // dont serialize roles - they are already casted as array
+        if (is_array($value) && !str_contains($key, 'roles:')) {
             $value = $this->serialize($value);
         }
 

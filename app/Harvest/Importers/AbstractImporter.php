@@ -23,6 +23,9 @@ abstract class AbstractImporter
     /** @var array */
     protected $conditions = [];
 
+    /** @var array */
+    protected $forceReplace = [];
+
     public function __construct(AbstractMapper $mapper) {
         $this->mapper = $mapper;
     }
@@ -92,16 +95,30 @@ abstract class AbstractImporter
     protected function processHasMany(Model $model, $field, array $relatedRows) {
         /** @var HasMany|MorphMany $relation */
         $relation = $model->$field();
-        $relatedModelClass = get_class($relation->getRelated());
 
+        // store all imported ids
+        $updateIds = [];
         foreach ($relatedRows as $relatedRow) {
             $data = $this->mappers[$field]->map($relatedRow);
             $conditions = $this->getConditions($field, $data);
-            $existing = $relation->where($conditions)->first();
-            $relatedModel = $existing ?: new $relatedModelClass;
-            $relatedModel->forceFill($data);
-            $relation->save($relatedModel);
+            $instance = $model->$field()->firstOrNew($conditions);
+            $instance->forceFill($data);
+            $instance->save();
+            $updateIds[] = $instance->getKey();
         }
+
+        // delete any non-matching rows for fields with forceReplace option
+        if (in_array($field, $this->forceReplace)) {
+            $relatedModelClass = get_class($relation->getRelated());
+            $relationKeyName = \App::make($relatedModelClass)->getKeyName();
+
+            $currentIds = $relation->newQuery()->pluck($relationKeyName)->all();
+            $deleteIds = array_diff($currentIds, $updateIds);
+
+            $relation->getRelated()->destroy($deleteIds);
+        }
+
+
     }
 
     /**
@@ -128,7 +145,10 @@ abstract class AbstractImporter
             }
 
             if ($this->existsPivotRecord($model, $field, $relatedModel)) {
-                $relation->updateExistingPivot($relatedModel->getKey(), $pivotData);
+                // update only if has any data to update
+                if (!empty($pivotData)) {
+                    $relation->updateExistingPivot($relatedModel->getKey(), $pivotData);
+                }
             } elseif ($createRelated) {
                 $relation->save($relatedModel, $pivotData);
             } else {

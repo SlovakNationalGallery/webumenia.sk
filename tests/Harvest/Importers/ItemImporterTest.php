@@ -4,6 +4,7 @@ namespace Tests\Import\Importers;
 
 use App\Harvest\Importers\ItemImporter;
 use App\Harvest\Mappers\ItemImageMapper;
+use App\Harvest\Mappers\CollectionMapper;
 use App\Harvest\Mappers\ItemMapper;
 use App\Harvest\Result;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -126,7 +127,8 @@ class ItemImporterTest extends TestCase
     protected function initImporter(array $row) {
         $importer = new ItemImporter(
             $itemMapperMock = $this->getMock(ItemMapper::class),
-            $itemImageMapperMock = $this->getMock(ItemImageMapper::class)
+            $itemImageMapperMock = $this->getMock(ItemImageMapper::class),
+            $collectionMapper = $this->getMock(CollectionMapper::class)
         );
         $itemMapperMock
             ->expects($this->once())
