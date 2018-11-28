@@ -64,6 +64,21 @@ abstract class AbstractRepository
     }
 
     /**
+     * @param SpiceHarvesterRecord $record
+     * @return array
+     */
+    public function getRowsById(SpiceHarvesterHarvest $harvest, array $only_ids) {
+        $endpoint = $this->endpointFactory->createEndpoint($harvest);
+
+        foreach ($only_ids as $id) {
+            $record = $endpoint->getRecord($id, $harvest->metadata_prefix);
+            $row = $this->getDataRecursively($record, $this->fieldMap);
+            yield $row[0];
+        }
+
+    }
+
+    /**
      * @param \SimpleXMLElement $element
      * @param array|string $xpaths
      * @return array
