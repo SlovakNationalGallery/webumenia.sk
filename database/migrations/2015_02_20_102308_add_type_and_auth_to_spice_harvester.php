@@ -34,19 +34,21 @@ class AddTypeAndAuthToSpiceHarvester extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('spice_harvester_records', function($table)
-		{
+		Schema::table('spice_harvester_records', function($table) {
 			$table->dropColumn('type');
 		});
 
-		Schema::table('spice_harvester_harvests', function($table)
-		{
+		Schema::table('spice_harvester_harvests', function($table) {
 			$table->dropColumn('type');
+		});
+
+		Schema::table('spice_harvester_harvests', function($table) {
 			$table->dropColumn('username');
+		});
+
+		Schema::table('spice_harvester_harvests', function($table) {
 			$table->dropColumn('password');
 		});
-
-
 	}
 
 }

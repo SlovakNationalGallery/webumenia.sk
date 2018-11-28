@@ -29,6 +29,10 @@ class AddPurposeAndPurposeKindToOrdersTable extends Migration {
 		Schema::table('orders', function($table)
 		{
 			$table->dropColumn('purpose');
+		});
+
+		Schema::table('orders', function($table)
+		{
 			$table->dropColumn('purpose_kind');
 		});
 	}

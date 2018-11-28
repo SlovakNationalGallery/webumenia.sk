@@ -26,9 +26,11 @@ class AddBirthYearAndDeadYearToAuthorityTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('authorities', function($table)
-		{
+		Schema::table('authorities', function($table) {
 			$table->dropColumn('birth_year');
+		});
+
+		Schema::table('authorities', function($table) {
 			$table->dropColumn('death_year');
 		});
 	}

@@ -392,11 +392,23 @@ function empty_to_null($value) {
     return $value === "" ? NULL : $value;
 }
 
+function walk_empty_to_null(&$item, $key) {
+    $item = $item ?: null;
+}
+
 function convertEmptyStringsToNull($array) {
-    $array = array_map(function ($e) {
-        return $e ?: null;
-
-    }, $array);
-
+    array_walk_recursive($array,'walk_empty_to_null');
     return $array;
+}
+
+function formatName($name) {
+    return preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $name);
+}
+
+function starts_with_upper($str) {
+    return (bool)preg_match('/^[[:upper:]]/u', $str);
+}
+
+function str_after($subject, $search) {
+    return $search === '' ? $subject : array_reverse(explode($search, $subject, 2))[0];
 }

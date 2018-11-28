@@ -7,7 +7,9 @@ return array(
     'connectionPoolClass' => '\Elasticsearch\ConnectionPool\StaticNoPingConnectionPool',
     'selectorClass' => '\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector',
     'serializerClass' => '\Elasticsearch\Serializers\SmartSerializer',
-
+    'hosts' => array(
+        "http://" . env('ES_HOST', "localhost") . ":" . env('ES_PORT', "9200"),
+    ),
     'sniffOnStart' => false,
     'connectionParams' => array(),
     'logging' => false,

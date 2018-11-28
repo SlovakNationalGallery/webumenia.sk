@@ -19,8 +19,13 @@
 		@include('includes.favicons')
 		<!--  /favicons-->
 		<!--  Open Graph protocol -->
-		@include('includes.og_tags')
-		<!--  Open Graph protocol -->
+    @include('includes.og_tags')
+    <!--  /Open Graph protocol -->
+    <!--  hreflangs -->
+		@include('includes.hreflangs', [
+      'localizedURLs' => getLocalizedURLArray(),
+    ])
+		<!--  /hreflangs -->
 
 		@yield('link')
 
@@ -30,12 +35,11 @@
 		{!! Html::style('css/slick-theme.css') !!}
 		{!! Html::style('css/magnific-popup.css') !!}
 
-		<script>
-		    document.createElement( "picture" );
-		</script>
-		{!! Html::script('js/picturefill.min.js') !!}
-
-        {!! Html::script('js/modernizr.custom.js') !!}
+		{{-- JS --}}
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/4.1.2/plugins/unveilhooks/ls.unveilhooks.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/4.1.4/plugins/respimg/ls.respimg.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/4.1.2/lazysizes.min.js"></script>
 
 		@if (App::environment() == 'production')
 		<script>
@@ -75,7 +79,7 @@
               @include('components.langswitch', [
                 'currentLocale' => App::getLocale(),
                 'localesOrdered' => LaravelLocalization::getLocalesOrder(),
-                'localizedURLs' => getLocalizedURLArray(),
+                'localizedURLs' => getLocalizedURLArray($removeQueryString = true),
               ])
 
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
@@ -136,25 +140,7 @@
 	<!-- Content -->
 	@yield('content')
 
-	<div class="footer">
-      <div class="container">
-      	<div class="row">
-      		<div class="col-xs-6">
-      			<a href="https://www.facebook.com/webumenia.sk" target="_blank" data-toggle="tooltip" title="facebook"><i class="fa fa-facebook fa-lg"></i></a>
-      			<a href="http://webumenia.tumblr.com/" target="_blank" data-toggle="tooltip" title="tumblr"><i class="fa fa-tumblr fa-lg"></i></a>
-      			<a href="https://vimeo.com/webumeniask" target="_blank" data-toggle="tooltip" title="vimeo"><i class="fa fa-vimeo-square fa-lg"></i></a>
-      			<a href="https://sk.pinterest.com/webumeniask/" target="_blank" data-toggle="tooltip" title="pinterest"><i class="fa fa-pinterest fa-lg"></i></a>
-      			<a href="https://twitter.com/webumeniask" target="_blank" data-toggle="tooltip" title="twitter"><i class="fa fa-twitter fa-lg"></i></a>
-      			<a href="https://instagram.com/web_umenia/" target="_blank" data-toggle="tooltip" title="instagram"><i class="fa fa-instagram fa-lg"></i></a>
-      			<a href="https://github.com/SlovakNationalGallery" target="_blank" data-toggle="tooltip" title="github"><i class="fa fa-github fa-lg"></i></a>
-      		</div>
-      		<div class="col-xs-6">
-      			<p class="text-muted text-right">{{ utrans('master.made_by') }} <a href="http://lab.sng.sk" target="_blank" class="sans">lab.SNG</a></p>
-      		</div>
-      	</div>
-
-      </div>
-    </div>
+	@include('components.footer')
 
 	<div id="top">
 	    <a href="#page-top" title="{{ trans('master.to_top') }}" class="btn btn-default"  data-toggle="tooltip" data-placement="top">
@@ -163,9 +149,7 @@
 	</div>
 
 	<!-- Core JavaScript Files -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/4.0.1/lazysizes.min.js" async=""></script>
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 	<script src="https://unpkg.com/flickity@1.1/dist/flickity.pkgd.min.js"></script>
 	{!! Html::script('js/jquery.infinitescroll.min.js') !!}

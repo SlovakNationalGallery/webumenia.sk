@@ -26,9 +26,11 @@ class AddHasImageAndViewsToAuthorityTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('authorities', function($table)
-		{
+		Schema::table('authorities', function($table) {
 			$table->dropColumn('view_count');
+		});
+
+		Schema::table('authorities', function($table) {
 			$table->dropColumn('has_image');
 		});
 	}

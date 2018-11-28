@@ -13,7 +13,6 @@
 
 use App\Article;
 use App\Collection;
-use App\ItemImage;
 use App\Item;
 use App\Slide;
 use App\Order;
@@ -33,7 +32,7 @@ Route::group(['domain' => 'media.webumenia.{tld}'], function () {
 
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
-    'middleware' => [ 'localeSessionRedirect', 'localizationRedirect' ]
+    'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localizeElastic' ]
 ],
 function()
 {
@@ -143,33 +142,7 @@ function()
         return view('dakujeme');
     });
 
-    Route::get('dielo/{id}/zoom', function ($id) {
-
-        $item = Item::find($id);
-
-        if (empty($item->has_iip)) {
-            App::abort(404);
-        }
-
-        $images = $item->getZoomableImages();
-        $index =  0;
-        if ($images->count() <= 1 && !empty($item->related_work)) {
-            $related_items = Item::related($item)->with('images')->get();
-
-            $images = collect();
-            foreach ($related_items as $related_item) {
-                if ($image = $related_item->getZoomableImages()->first()) {
-                    $images->push($image);
-                }
-            }
-
-            $index = $images->search(function (ItemImage $image) use ($item) {
-                return $image->item->id == $item->id;
-            });
-        }
-
-        return view('zoom', array('item' => $item, 'images' => $images, 'index' => $index));
-    })->name('item.zoom');
+    Route::get('dielo/{id}/zoom', 'ZoomController@getIndex')->name('item.zoom');
 
     Route::get('ukaz_skicare', 'SkicareController@index');
     Route::get('skicare', 'SkicareController@getList');
@@ -285,23 +258,7 @@ function()
         ));
     });
 
-    Route::get('dielo/nahlad/{id}/{width}', function ($id, $width) {
-
-        if (
-            ($width <= 800) &&
-            Item::where('id', '=', $id)->exists()
-        ) {
-            // disable resizing when requesting 800px width
-            $width = ($width == 800) ? false : $width;
-            $resize_method = 'widen';
-            $imagePath = public_path() . Item::getImagePathForId($id, false, $width, $resize_method);
-
-            return response()->file($imagePath);
-        }
-
-        return App::abort(404);
-
-    })->where('width', '[0-9]+')->name('dielo.nahlad');
+    Route::get('dielo/nahlad/{id}/{width}/{height?}', 'ImageController@resize')->where('width', '[0-9]+')->where('height', '[0-9]+')->name('dielo.nahlad');
 
     Route::controller('patternlib', 'PatternlibController');
 
@@ -324,7 +281,68 @@ function()
     Route::get('informacie', function () {
         $items = Item::random(20, ['gallery' => 'Slovenská národná galéria, SNG']);
 
-        return view('informacie', ['items' => $items]);
+        $galleries = [
+            [
+                'id'          => 'SNG',
+                'lang_string' => 'informacie.info_gallery_SNG',
+                'url'         => 'katalog?gallery=Slovenská národná galéria, SNG',
+            ],
+            [
+                'id'          => 'OGD',
+                'lang_string' => 'informacie.info_gallery_OGD',
+                'url'         => 'katalog?gallery=Oravská galéria, OGD',
+            ],
+            [
+                'id'          => 'GNZ',
+                'lang_string' => 'informacie.info_gallery_GNZ',
+                'url'         => 'katalog?gallery=Galéria umenia Ernesta Zmetáka, GNZ',
+            ],
+            [
+                'id'          => 'GPB',
+                'lang_string' => 'informacie.info_gallery_GPB',
+                'url'         => 'katalog?gallery=Liptovská galéria Petra Michala Bohúňa, GPB',
+            ],
+            [
+                'id'          => 'GMB',
+                'lang_string' => 'informacie.info_gallery_GMB',
+                'url'         => 'katalog?gallery=Galéria mesta Bratislavy, GMB',
+            ],
+            [
+                'id'          => 'GBT',
+                'lang_string' => 'informacie.info_gallery_GBT',
+                'url'         => 'katalog?gallery=Galéria+Miloša+Alexandra+Bazovského, GBT',
+            ],
+            [
+                'id'          => 'NGN',
+                'lang_string' => 'informacie.info_gallery_NGN',
+                'url'         => 'katalog?gallery=Nitrianska+galéria, NGN',
+            ],
+            [
+                'id'          => 'SGB',
+                'lang_string' => 'informacie.info_gallery_SGB',
+                'url'         => 'katalog?gallery=Stredoslovenská galéria, SGB',
+            ],
+            [
+                'id'          => 'GUS',
+                'lang_string' => 'informacie.info_gallery_GUS',
+                'url'         => 'katalog?gallery=Galéria umelcov Spiša, GUS',
+            ],
+            [
+                'id'          => 'VSG',
+                'lang_string' => 'informacie.info_gallery_VSG',
+                'url'         => 'katalog?gallery=Východoslovenská+galéria%2C+VSG',
+            ],
+            [
+                'id'          => 'MG',
+                'lang_string' => 'informacie.info_gallery_MG',
+                'url'         => 'katalog?gallery=Moravská galerie, MG',
+            ],
+        ];
+
+        return view('informacie', [
+            'items' => $items,
+            'galleries' => $galleries,
+        ]);
     });
 });
 
@@ -366,6 +384,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('authority/destroyLink/{link_id}', 'AuthorityController@destroyLink');
     Route::get('authority/reindex', 'AuthorityController@reindex');
     Route::post('authority/destroySelected', 'AuthorityController@destroySelected');
+    Route::get('authority/search', 'AuthorityController@search');
     Route::resource('authority', 'AuthorityController');
     Route::resource('sketchbook', 'SketchbookController');
     Route::resource('slide', 'SlideController');

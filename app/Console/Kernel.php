@@ -36,5 +36,15 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('sitemap:make')->daily();
+        $schedule->call(function() {
+            foreach (\App\SpiceHarvesterHarvest::where('cron_status', '=', 'daily')->get() as $harvest) {
+                App::make('\App\Http\Controllers\SpiceHarvesterController')->launch($harvest->id);
+            }
+        })->daily(); /* daily at midnight */
+        $schedule->call(function() {
+            foreach (\App\SpiceHarvesterHarvest::where('cron_status', '=', 'weekly')->get() as $harvest) {
+                App::make('\App\Http\Controllers\SpiceHarvesterController')->launch($harvest->id);
+            }
+        })->weeklyOn(6, '23:00'); /* sundays at 11pm */
     }
 }

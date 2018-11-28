@@ -19,23 +19,28 @@ class MgImporter extends AbstractImporter {
     protected $mapping = [
         'RokAkv' => 'acquisition_date',
         'DatExp' => 'copyright_expires',
-        'Datace' => 'dating',
+        'Datace' => 'dating:cs',
         'RokOd' => 'date_earliest',
         'Do' => 'date_latest',
-        'MístoVz' => 'place',
-        'Sign' => 'inscription',
-        'Původnost' => 'state_edition',
+        'MístoVz' => 'place:cs',
+        'Sign' => 'inscription:cs',
+        'Původnost' => 'state_edition:cs',
         'Autor' => 'author',
-        'Titul' => 'title',
-        'Námět' => 'topic',
+        'Titul' => 'title:cs',
+        'Námět' => 'topic:cs',
     ];
 
     protected $defaults = [
-        'gallery' => 'Moravská galerie, MG',
         'author' => 'neurčený autor',
-        'title' => 'bez názvu',
-        'topic' => '',
-        'relationship_type' => '',
+        'gallery:cs' => 'Moravská galerie, MG',
+        'title:cs' => 'bez názvu',
+        'topic:cs' => '',
+        'relationship_type:cs' => '',
+        'description:cs' => '',
+        'work_level:cs' => '',
+        'subject:cs' => '',
+        'item_type' => '',
+        'featured' => 0,
     ];
 
     protected static $cz_work_types_spec = [
@@ -120,7 +125,7 @@ class MgImporter extends AbstractImporter {
             $filename = sprintf('%s-%s', $filename, $record['Lomeni_S']);
         }
 
-        return $filename;
+        return $filename . '{_*,}';
     }
 
     protected function hydrateIdentifier(array $record) {

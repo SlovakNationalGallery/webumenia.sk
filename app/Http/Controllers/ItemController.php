@@ -2,20 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Forms\Types\ItemType;
 use App\Item;
 use App\Collection;
+use App\Jobs\HarvestSingleJob;
+use Barryvdh\Form\CreatesForms;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
-use Intervention\Image\ImageManagerStatic;
 use App\SpiceHarvesterRecord;
 use Illuminate\Support\Facades\App;
+use Symfony\Component\Form\FormInterface;
 
 class ItemController extends Controller
 {
+    use CreatesForms;
+
+    /** @var FormInterface */
+    protected $form;
 
     /**
      * Display a listing of the resource.
@@ -26,7 +33,7 @@ class ItemController extends Controller
     {
         $items = Item::orderBy('updated_at', 'DESC')->paginate(100);
         // $collections = Collection::orderBy('order', 'ASC')->get();
-        $collections = Collection::lists('name', 'id');
+        $collections = Collection::listsTranslations('name')->pluck('name', 'id')->toArray();
         return view('items.index', array('items' => $items, 'collections' => $collections));
     }
 
@@ -44,10 +51,10 @@ class ItemController extends Controller
             $ids = explode(';', str_replace(" ", "", $search));
             $results = Item::whereIn('id', $ids)->paginate(20);
         } else {
-            $results = Item::where('title', 'LIKE', '%'.$search.'%')->orWhere('author', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%')->paginate(20);
+            $results = Item::whereTranslationLike('title', '%'.$search.'%')->orWhere('author', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%')->paginate(20);
         }
 
-        $collections = Collection::lists('name', 'id');
+        $collections = Collection::listsTranslations('name')->pluck('name', 'id')->toArray();
         return view('items.index', array('items' => $results, 'collections' => $collections, 'search' => $search));
     }
 
@@ -83,6 +90,14 @@ class ItemController extends Controller
 
             $item = new Item;
             $item->fill($input);
+
+            // store translatable attributes
+            foreach (\Config::get('translatable.locales') as $i=>$locale) {
+                foreach ($item->translatedAttributes as $attribute) {
+                    $item->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
+                }
+            }
+
             $item->save();
 
             if (Input::hasFile('primary_image')) {
@@ -114,13 +129,13 @@ class ItemController extends Controller
      */
     public function edit($id)
     {
-        $item = Item::find($id);
+        $item = Item::find($id) ?: abort(404);
+        $form = $this->getItemForm($item);
 
-        if (is_null($item)) {
-            return Redirect::route('item.index');
-        }
-
-        return view('items.form')->with('item', $item);
+        return view('items.form', [
+            'item' => $item,
+            'form' => $form,
+        ]);
     }
 
     /**
@@ -131,6 +146,14 @@ class ItemController extends Controller
      */
     public function update($id)
     {
+        $item = Item::find($id) ?: abort(404);
+        $form = $this->getItemForm($item);
+        $form->handleRequest();
+
+        if (!$form->isSubmitted() || !$form->isValid()) {
+            return $this->edit($id);
+        }
+
         $v = Validator::make(Input::all(), Item::$rules);
 
         if ($v->passes()) {
@@ -141,9 +164,8 @@ class ItemController extends Controller
 
             }, Input::all()); //prazdne hodnoty zmeni na null
 
-            $item = Item::find($id);
             $item->fill($input);
-            $item->save();
+            $item->push();
 
             if (Input::has('tags')) {
                 $item->reTag(Input::get('tags', []));
@@ -172,7 +194,6 @@ class ItemController extends Controller
     {
         Item::find($id)->delete();
         return Redirect::route('item.index')->with('message', 'Dielo bolo zmazané');
-        ;
     }
 
     public function backup()
@@ -238,7 +259,7 @@ class ItemController extends Controller
 
     private function uploadImage($item)
     {
-        $item->removeImage();
+        $item->deleteImage();
 
         $error_messages = array();
         $primary_image = Input::file('primary_image');
@@ -295,7 +316,7 @@ class ItemController extends Controller
         if (!empty($items) > 0) {
             foreach ($items as $item_id) {
                 $item = Item::find($item_id);
-                App::make('\App\Http\Controllers\SpiceHarvesterController')->refreshSingleRecord($item->record->id);
+                $this->dispatch(new HarvestSingleJob($item->record));
             }
         }
         return Redirect::back()->withMessage('Pre ' . count($items) . ' diel boli načítané dáta z OAI');
@@ -323,5 +344,22 @@ class ItemController extends Controller
             return true;
         }
         return Redirect::back()->withMessage($message);
+    }
+
+    protected function getItemForm(Item $item) {
+        if (!$this->form) {
+            $this->form = $this->getFormFactory()
+                ->createBuilder(
+                    ItemType::class,
+                    $item,
+                    [
+                        'action' => url('item.update', $item->id),
+                        'method' => 'patch',
+                    ]
+                )
+                ->getForm();
+        }
+
+        return $this->form;
     }
 }

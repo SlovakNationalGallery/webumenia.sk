@@ -177,6 +177,9 @@ abstract class AbstractImporter implements IImporter {
         $import_record->status = $status;
         $import_record->started_at = $started_at;
         $import_record->filename = $filename;
+        $import_record->imported_items = 0;
+        $import_record->skipped_items = 0;
+        $import_record->user_id = 0;
 
         return $import_record;
     }
@@ -234,7 +237,18 @@ abstract class AbstractImporter implements IImporter {
         foreach ($item->getFillable() as $key) {
             $method_name = sprintf('hydrate%s', camel_case($key));
             if (method_exists($this, $method_name)) {
-                $item->$key = $this->$method_name($record);
+                // translatable attribute
+                if (in_array($key, $item->translatedAttributes)) {
+                    foreach (config('translatable.locales') as $locale) {
+                        $value = $this->$method_name($record, $locale);
+                        if ($value) {
+                            $item->translateOrNew($locale)->$key = $value;
+                        }
+                    }
+                // other attribute
+                } else {
+                    $item->$key = $this->$method_name($record);
+                }
             }
         }
     }
@@ -268,7 +282,7 @@ abstract class AbstractImporter implements IImporter {
             });
         }
 
-        $item->removeImage();
+        $item->deleteImage();
 
         $save_as = $item->getImagePath($full = true);
         $uploaded_image->save($save_as);
@@ -283,7 +297,7 @@ abstract class AbstractImporter implements IImporter {
      */
     protected function getImageJpgPaths(Import $import, $csv_filename, $image_filename_format) {
         $path = storage_path(sprintf(
-            'app/import/%s/%s/%s*.{jpg,jpeg,JPG,JPEG}',
+            'app/import/%s/%s/%s.{jpg,jpeg,JPG,JPEG}',
             $import->dir_path,
             pathinfo($csv_filename, PATHINFO_FILENAME),
             $image_filename_format
@@ -300,14 +314,14 @@ abstract class AbstractImporter implements IImporter {
      */
     protected function getImageJp2Paths(Import $import, $csv_filename, $image_filename_format) {
         $path = sprintf(
-            '%s/%s/%s/%s*.jp2',
+            '%s/%s/%s/%s.jp2',
             config('importers.iip_base_path'),
             $import->iip_dir_path,
             pathinfo($csv_filename, PATHINFO_FILENAME),
             $image_filename_format
         );
 
-        return glob($path);
+        return glob($path, GLOB_BRACE);
     }
 
     /**

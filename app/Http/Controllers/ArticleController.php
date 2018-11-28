@@ -54,14 +54,19 @@ class ArticleController extends Controller
         if ($v->passes()) {
             
             $article = new Article;
+
+            // store translatable attributes
+            foreach (\Config::get('translatable.locales') as $i=>$locale) {
+                foreach ($article->translatedAttributes as $attribute) {
+                    $article->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
+                }
+            }
+
             $article->author = Input::get('author');
-            $article->title = Input::get('title');
             $article->slug = Input::get('slug');
             if (Input::has('category_id')) {
                 $article->category_id = Input::get('category_id');
             }
-            $article->summary = Input::get('summary');
-            $article->content = Input::get('content');
             $article->publish = Input::get('publish', false);
             $article->promote = Input::get('promote', false);
             if (Input::has('title_color')) {
@@ -126,12 +131,17 @@ class ArticleController extends Controller
             $input = array_except(Input::all(), array('_method'));
 
             $article = Article::find($id);
+
+            // update translatable attributes
+            foreach (\Config::get('translatable.locales') as $i=>$locale) {
+                foreach ($article->translatedAttributes as $attribute) {
+                    $article->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
+                }
+            }
+
             $article->author = Input::get('author');
-            $article->title = Input::get('title');
             $article->slug = Input::get('slug');
             $article->category_id = Input::get('category_id', null);
-            $article->summary = Input::get('summary');
-            $article->content = Input::get('content');
             $article->publish = Input::get('publish', false);
             $article->promote = Input::get('promote', false);
             if (Input::has('title_color')) {

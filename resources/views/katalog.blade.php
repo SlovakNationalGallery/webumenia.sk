@@ -94,6 +94,20 @@
             {!! Form::close() !!}
     </div></div>
 </section>
+
+@foreach ($items as $i=>$item)
+    @if ( ! $item->hasTranslation(App::getLocale()) )
+        <section>
+            <div class="container content-section">
+                <div class="row">
+                    @include('includes.message_untranslated')
+                    @break
+                </div>
+            </div>
+        </section>
+    @endif
+@endforeach
+
 <section class="catalog" data-searchd-engine="{!! Config::get('app.searchd_id') !!}">
     <div class="container content-section">
             <div class="row content-section">
@@ -119,7 +133,9 @@
                       </a>
                       <ul class="dropdown-menu dropdown-menu-right dropdown-menu-sort" role="menu" aria-labelledby="dropdownSortBy">
                         @foreach (App\Item::$sortable as $sort=>$labelKey)
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#" rel="{!! $sort !!}">{!! trans($labelKey) !!}</a></li>
+                            @if ($sort != $sort_by)
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" rel="{!! $sort !!}">{!! trans($labelKey) !!}</a></li>
+                            @endif
                         @endforeach
                       </ul>
                     </div>
@@ -136,16 +152,7 @@
                                     list($width, $height) = getimagesize(public_path() . $item->getImagePath());
                                 @endphp
                                 <div class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%;">
-    	                		<img
-                                    data-sizes="auto"
-                                    data-src="{!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'600']) !!}"
-                                    data-srcset="{!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'600']) !!} 600w,
-                                            {!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'220']) !!} 220w,
-                                            {!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'300']) !!} 300w,
-                                            {!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'600']) !!} 600w,
-                                            {!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'800']) !!} 800w"
-                                    class="lazyload"
-                                    alt="{!! $item->getTitleWithAuthors() !!} ">
+    	                		     @include('components.item_image_responsive', ['item' => $item])
                                 </div>
     	                	</a>
                             <div class="item-title">

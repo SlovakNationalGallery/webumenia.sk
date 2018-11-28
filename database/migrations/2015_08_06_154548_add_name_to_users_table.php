@@ -14,7 +14,7 @@ class AddNameToUsersTable extends Migration {
 	{
 		Schema::table('users', function($table)
 		{
-			$table->string('name');
+			$table->string('name')->default('');
 		});
 	}
 
