@@ -12,11 +12,15 @@ Pattern Library | @parent
 
 @section('content')
 
+@php
+    $hidden_class = 'd-none';
+@endphp
+
 <script>
     function toggle_source(event) {
         event.preventDefault();
-        $(event.target).parent().find('pre.js-source').toggleClass('hidden');                    
-        var txt = $(event.target).parent().find('pre.js-source').hasClass('hidden') ? '<i class="fa fa-code"></i> Show source' : '<i class="fa fa-code"></i> Hide source';
+        $(event.target).parent().find('pre.js-source').toggleClass('{{$hidden_class}}');                    
+        var txt = $(event.target).parent().find('pre.js-source').hasClass('{{$hidden_class}}') ? '<i class="fa fa-code"></i> Show source' : '<i class="fa fa-code"></i> Hide source';
         $(event.target).html(txt);
     }
 </script>
@@ -55,7 +59,7 @@ Pattern Library | @parent
                             @endif
 
                             <a href="#" class="btn btn-default btn-outline sans" onclick="toggle_source(event);"><i class="fa fa-code"></i> Show source</a>
-                            <pre class="js-source pre-scrollable hidden"><code class="html">{{$component['source_code']}}</code></pre>
+                            <pre class="js-source pre-scrollable {{$hidden_class}}"><code class="html">{{$component['source_code']}}</code></pre>
                         </div>
                     </div>
                 </div>
