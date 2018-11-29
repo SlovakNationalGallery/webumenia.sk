@@ -1,5 +1,5 @@
 <?php
-use App\Services\Deployment;
+use \App\Services\Deployment;
 use \Illuminate\Support\Str;
 use \Illuminate\Support\HtmlString;
 
@@ -22,7 +22,7 @@ if (! function_exists('mix')) {
         }
 
         if ($manifestDirectory && ! Str::startsWith($manifestDirectory, '/')) {
-            $manifestDirectory = "/{$manifestDirectory}";x
+            $manifestDirectory = "/{$manifestDirectory}";
         }
 
         if (file_exists(public_path($manifestDirectory.'/hot'))) {

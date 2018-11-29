@@ -69,5 +69,13 @@
 @import "~bootstrap/scss/print";
 
 
+// Stomic utility classes
+@import "utilities/_heights";
+@import "utilities/_debug-children";
+@import "utilities/_col-2dot4";
+@import "utilities/_col-1dot2";
+
+
 // Custom
+@import "layout";
 @import "custom";
