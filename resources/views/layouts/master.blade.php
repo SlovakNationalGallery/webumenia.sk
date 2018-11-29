@@ -49,28 +49,19 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-2">
-                2 / 12
+                @include('components.khb_header')
             </div>
-            <div class="col-10">
-                10 / 12
-                <nav class="row">
-                    <div class="col">Search</div>
-                    <div class="col-2dot4">O Projekte</div>
-                    <div class="col-1dot2">SK</div>
-                    <div class="col-1dot2">EN</div>
-                </nav>
+            <div class="col-10 py-0">
+                @include('components.khb_nav_bar')
                 <div class="row">
-                    <div class="col">Umelci</div>
-                    <div class="col">Skupiny</div>
-                    <div class="col">Teoretici</div>
-                    <div class="col">Vystavne priestory</div>
-                    <div class="col">Klucove slova</div>
+                    <div class="col">
+                        @yield('content')
+                    </div>
                 </div>
                 <div class="row">
-                    @yield('content')
-                </div>
-                <div class="row">
-                    @include('components.footer')
+                    <div class="col">
+                        @include('components.footer')
+                    </div>
                 </div>
             </div>
         </div>
