@@ -18,11 +18,9 @@ class HarvestsTableSeeder extends Seeder {
 
         $hasrvests = [
             [
-                'base_url' => 'http://www.webumenia.sk/oai-pmh/',
-                'metadata_prefix' => 'oai_dc',
-                'set_spec' => 'Europeana SNG',
-                'set_name' => 'Europeana SNG',
-                'set_description' => 'Europeana set from SNG',
+                'base_url' => 'http://stary.webumenia.sk/oai-pmh/authority/',
+                'metadata_prefix' => 'ulan',
+                'type' => 'author',
                 'status' => 'queued',
                 'status_messages' => '',
                 'initiated' => $now,
@@ -30,6 +28,7 @@ class HarvestsTableSeeder extends Seeder {
                 'updated_at' => $now
             ]
         ];
+
 
         DB::table('spice_harvester_harvests')->insert($hasrvests);
 
