@@ -25,7 +25,7 @@ abstract class AbstractRepository
 
         $this->fieldMap += [
             null => '.',
-            'datestamp' => './ns:header/ns:datestamp',
+            'datestamp' => './/ns:header/ns:datestamp',
         ];
 
         $this->xPathNamespaces += [
@@ -61,6 +61,21 @@ abstract class AbstractRepository
 
         $row = $this->getDataRecursively($record, $this->fieldMap);
         return $row[0];
+    }
+
+    /**
+     * @param SpiceHarvesterRecord $record
+     * @return array
+     */
+    public function getRowsById(SpiceHarvesterHarvest $harvest, array $only_ids) {
+        $endpoint = $this->endpointFactory->createEndpoint($harvest);
+
+        foreach ($only_ids as $id) {
+            $record = $endpoint->getRecord($id, $harvest->metadata_prefix);
+            $row = $this->getDataRecursively($record, $this->fieldMap);
+            yield $row[0];
+        }
+
     }
 
     /**

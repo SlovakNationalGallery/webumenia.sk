@@ -2,14 +2,21 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+### Added
+- /reprodukcie route
+- ReproOffer component
+- Headings documented in PatternLib
+- Remove query string from localized urls
+- Option to launch harvest only for specific record ids
+
+## [1.6.0] - 2018-11-28
 ### Fixed
 - Duplicate authors with links
 - Authorities Search endpoint of admin fixed
 - Multiple item images form in admin
 
 ### Added
-- Headings documented in PatternLib
-- Remove query string from localized urls
 - Use SQLite in tests
 - Dockerfiles for WU to run in docker
 - Curator of artwork in detail view
@@ -23,6 +30,8 @@ All notable changes to this project will be documented in this file[^1].
 - Refactor spice harvester
 - Show harvest progress in admin
 - Symfony forms
+- ZoomController
+
 
 ### Changed
 - allow download of public-domain artworks from VSG
@@ -30,6 +39,10 @@ All notable changes to this project will be documented in this file[^1].
 - made models Item, Authority, Article and Collection translatable
 - separate elastic index for each locale
 - footer social icons
+- Made ZoomViewer component embedabble in static HTML via editor
+
+### Removed
+- query string from localized urls
 
 ## [1.5.3] - 2018-08-14
 ### Fixed
@@ -60,11 +73,9 @@ All notable changes to this project will be documented in this file[^1].
 - CSV import in admin
 - Searchbar component
 - [Pull Request Template](.github/pull_request_template.md)
-- ZoomController
 
 ### Changed
 - Info section to include MG on map + update current lab.SNG team
-- Made ZoomViewer component embedabble in static HTML via editor
 
 ## [1.4.3] - 2018-05-25
 ### Fixed
