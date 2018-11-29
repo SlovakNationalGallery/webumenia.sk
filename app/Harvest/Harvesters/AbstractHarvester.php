@@ -25,11 +25,18 @@ abstract class AbstractHarvester
      * @param \DateTime $to
      * @return Model[]
      */
-    public function harvest(SpiceHarvesterHarvest $harvest, Result $result, \DateTime $from = null, \DateTime $to = null) {
+    public function harvest(SpiceHarvesterHarvest $harvest, Result $result, \DateTime $from = null, \DateTime $to = null, $only_ids = []) {
         $models = [];
 
         $i = 0;
-        $rows = $this->repository->getRows($harvest, $from, $to, $total);
+        $rows = [];
+
+        if (!empty($only_ids)) {
+            $rows = $this->repository->getRowsById($harvest, $only_ids);
+            $total = count($only_ids);
+        } else {
+            $rows = $this->repository->getRows($harvest, $from, $to, $total);
+        }
         foreach ($rows as $row) {
             $harvest->status_messages = sprintf(
                 trans('harvest.status_message_progress'), ++$i, $total
