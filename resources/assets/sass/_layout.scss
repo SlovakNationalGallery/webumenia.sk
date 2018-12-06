@@ -1,0 +1,11 @@
+// vertical padding for all columns
+.col, *[class^='col-'], *[class*=' col-']{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+// black borders for all columns
+.col, *[class^='col-'], *[class*=' col-']{
+    outline: 3px solid #000;
+    outline-offset: -1.5px;
+}

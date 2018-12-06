@@ -22,7 +22,7 @@
     <!--  Open Graph protocol -->
     @include('includes.og_tags')
     <!--  /Open Graph protocol -->
-    
+
     <!--  hreflangs -->
     @include('includes.hreflangs', [
       'localizedURLs' => getLocalizedURLArray(),
@@ -32,9 +32,9 @@
     @yield('link')
 
     <!-- CSS -->
-    
-    <link rel="stylesheet" type="text/css" href="css/vendor/bootstrap/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+
+    <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
+
 
     {{-- JS --}}
 
@@ -68,8 +68,9 @@
     </div>
 
     <!-- Javascript -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    {!! Html::script('js/vendor/bootstrap/bootstrap.min.js') !!}
+    <script type="text/javascript" src="{{ mix('js/manifest.js') }}"></script>
+    <script type="text/javascript" src="{{ mix('/js/vendor.js') }}"></script>
+    <script type="text/javascript" src="{{ mix('/js/app.js') }}"></script>
     @yield('javascript')
 </body>
 </html>
