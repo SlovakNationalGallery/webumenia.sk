@@ -9,6 +9,6 @@ return array(
     */
 
     'title'     => 'ďakujeme',
-    'paragraph' => 'Poslali sme vám automatický e-mail s ďalšími informáciami. Pokiaľ ste e-mail nedostali, skúste skontrolovať nevyžiadanú poštu. Prajeme pekný zvyšok dňa!',
+    'paragraph' => 'Vaša objednávka bola prijatá. Poslali sme vám automatický e-mail s ďalšími informáciami. Pokiaľ ste e-mail nedostali, skúste skontrolovať nevyžiadanú poštu. Prajeme pekný zvyšok dňa!',
     'button'    => 'návrat na úvod',
 );
