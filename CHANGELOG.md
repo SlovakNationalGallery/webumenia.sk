@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [1.6.1] - 2018-12-06
+### Added
+- temporary Christmas alert into order
+
+### Changed
+- thank you text after order (with "check your spam folder"
+
+
 ## [1.6.0] - 2018-11-28
 ### Fixed
 - Duplicate authors with links
