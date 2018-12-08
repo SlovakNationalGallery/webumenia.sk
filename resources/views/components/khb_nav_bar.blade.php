@@ -11,7 +11,9 @@
         </div>
     </div>
     <div class="row">
-        <div class="col">Umelci</div>
+        <div class="col">
+            <a href="{{{ URL::to('autori') }}}" class="{!! (Request::is('autori') || Request::is('autor/*')) ? 'active' : '' !!}">{{ utrans('master.authors') }}</a>
+        </div>
         <div class="col">Skupiny</div>
         <div class="col">Teoretici</div>
         <div class="col">Vystavne priestory</div>

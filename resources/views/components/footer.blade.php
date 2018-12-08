@@ -1,3 +1,3 @@
 <footer>
-    footer
+    Newsletter: {input}
 </footer>
