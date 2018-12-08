@@ -9,6 +9,11 @@ All notable changes to this project will be documented in this file[^1].
 - Headings documented in PatternLib
 - Remove query string from localized urls
 - Option to launch harvest only for specific record ids
+- footnotes in wysiwyg editor in admin
+
+### Changed
+- CKEditor version
+- JSON response in FileuploaderController@upload
 
 ## [1.6.0] - 2018-11-28
 ### Fixed
