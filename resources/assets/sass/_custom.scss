@@ -1,0 +1,12 @@
+a {
+    -webkit-transition: border .3s ease-in-out;
+    -moz-transition: border .3s ease-in-out;
+    transition: border .3s ease-in-out;
+    border-bottom: 2px solid $link-border-color;
+    &:hover {
+      border-bottom: 2px solid rgba($link-border-color, 0.0);
+    }
+    &:active {
+      border-bottom: 2px solid rgba($black, 0.0);
+    }
+}

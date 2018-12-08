@@ -31,92 +31,93 @@
     </section>
 @endif
 
-<section class="author detail content-section" itemscope itemtype="http://schema.org/Person">
-    <div class="container">
-        <div class="attributes">
-            <div class="row">
-                <div class="col-sm-4 text-center extra-padding top-space">
-                        <img src="{!! $author->getImagePath() !!}" class="img-responsive img-circle" alt="{!! $author->name !!}"  itemprop="image">
-                        <p class="content-section">
-                            {!! trans_choice('autor.artworks', $author->items->count(), ['artworks_url' => url_to('katalog', ['author' => $author->name]), 'artworks_count' => $author->items->count()]) !!}
-                            <br>
-                            {!! trans_choice('autor.collections', $author->collections_count, ['collections_count' => $author->collections_count] ) !!}
-                            <br>
-                            {!! trans_choice('autor.views', $author->view_count, ['view_count' => $author->view_count]) !!}
-                        </p>
-                        @if ( $author->tags->count() > 0)
-                            <div class="tags">
-                                <h4>{{ utrans('autor.tags') }}: </h4>
-                                @foreach ($author->tags as $tag)
-                                    <a href="{!!URL::to('katalog?tag=' . $tag)!!}" class="btn btn-default btn-xs btn-outline">{!! $tag !!}</a>
-                                @endforeach
-                            </div>
-                        @endif
-                </div>
-                <div class="col-sm-8 popis">
-                    <a href="{!! str_contains(URL::previous(), '/autori') ?  URL::previous() : URL::to('/autori') !!} " class="inherit no-border"><i class="icon-arrow-left"></i> {{ utrans('autor.back-to-artists') }}</a>
-                    <h1 itemprop="name">{!! $author->formatedName !!}</h1>
-                    @if ( $author->names->count() > 0)
-                        <p class="lead">{{ trans('autor.alternative_names') }} <em>{!! implode("</em>, <em>", $author->formatedNames) !!}</em></p>
-                    @endif
-                    <p class="lead">
-                        {!! $author->getDescription(true, true) !!}
-                    </p>
-                    <p class="lead">
-                        @foreach ($author->roles as $i=>$role)
-                            <a href="{!! url_to('autori', ['role' => $role]) !!}"><strong itemprop="jobTitle">{!! $role !!}</strong></a>{!! ($i+1 < count($author->roles)) ? ', ' : '' !!}
+<section class="author detail" itemscope itemtype="http://schema.org/Person">
+    <div class="attributes">
+        <div class="row">
+            <div class="col-2dot4 extra-padding top-space">
+                <h1 itemprop="name">{!! $author->formatedName !!}</h1>
+                @if ( $author->names->count() > 0)
+                    <p class="lead">{{ trans('autor.alternative_names') }} <em>{!! implode("</em>, <em>", $author->formatedNames) !!}</em></p>
+                @endif
+                <div class="row"><div class="col">
+                    <img src="{!! $author->getImagePath() !!}" class="img-fluid" alt="{!! $author->name !!}"  itemprop="image">
+                </div></div>
+                <p class="my-4">
+                    Dátum narodenia <br>
+                    {{ $author->birth_date }}
+                </p>
+                <p class="my-4">
+                    Miesto narodenia  <br>
+                    {{ $author->birth_place }}
+                </p>
+                @if ( $author->events->count() > 0)
+                    <div class="events">
+                        {{ utrans('autor.places') }}<br>
+                        @foreach ($author->events as $i=>$event)
+                            <strong><a href="{!! url_to('autori', ['place' => $event->place]) !!}">{!! $event->place !!}</a></strong> {!! add_brackets(App\Authority::formatMultiAttribute($event->event)) !!}{{ ($i+1 < $author->events->count()) ? ', ' : '' }}
                         @endforeach
-                    </p>
-
-                    {{-- @if ( $author->biography) --}}
-                    <div class="text-left biography">
-                        {!!  $author->biography !!}
                     </div>
-                    {{-- @endif --}}
+                @endif
+                @if ( $author->links->count() > 0)
+                    <div class="links">
+                        {{ utrans('autor.links') }}<br>
+                        <?php foreach ($author->links as $i=>$link) $links[] = '<a href="'.$link->url .'" target="_blank">'.$link->label.'</a>'; ?>
+                        {!! implode(", ", $links) !!}
+                    </div>
+                @endif
 
-                    @if ( $author->events->count() > 0)
-                        <div class="events">
-                            <h4 class="top-space">{{ utrans('autor.places') }}</h4>
-                            @foreach ($author->events as $i=>$event)
-                                <strong><a href="{!! url_to('autori', ['place' => $event->place]) !!}">{!! $event->place !!}</a></strong> {!! add_brackets(App\Authority::formatMultiAttribute($event->event)) !!}{{ ($i+1 < $author->events->count()) ? ', ' : '' }}
-                            @endforeach
-                        </div>
-                    @endif
-                    @if ( $author->links->count() > 0)
-                        <div class="links">
-                            <h4 class="top-space">{{ utrans('autor.links') }}</h4>
-                            <?php foreach ($author->links as $i=>$link) $links[] = '<a href="'.$link->url .'" target="_blank">'.$link->label.'</a>'; ?>
-                            {!! implode(", ", $links) !!}
-                        </div>
-                    @endif
+                @if ( $author->tags->count() > 0)
+                    <div class="tags">
+                        <h4>{{ utrans('autor.tags') }}: </h4>
+                        @foreach ($author->tags as $tag)
+                            <a href="{!!URL::to('katalog?tag=' . $tag)!!}" class="btn btn-default btn-xs btn-outline">{!! $tag !!}</a>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+            <div class="col popis">
+                <p>
+                    <strong>O umelcovi</strong>
+                </p>
+                <p>
+                    @foreach ($author->roles as $i=>$role)
+                        <a href="{!! url_to('autori', ['role' => $role]) !!}"><strong itemprop="jobTitle">{!! $role !!}</strong></a>{!! ($i+1 < count($author->roles)) ? ', ' : '' !!}
+                    @endforeach
+                </p>
 
-                    @if ( $author->relationships->count() > 0)
-                    <h4 class="top-space">{{ utrans('autor.relationships') }}</h4>
-                    <table class="table table-condensed relationships">
-                        <thead>
-                            <tr>
-                            @foreach ($author->getAssociativeRelationships() as $type=>$relationships)
-                                <th>{!! $type !!}</th>
-                            @endforeach
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                            @foreach ($author->getAssociativeRelationships() as $type=>$relationships)
-                                <td>
-                                @foreach ($relationships as $relationship)
-                                    <a href="{!! $relationship['id'] !!}" class="no-border"><strong itemprop="knows">{!! $relationship['name'] !!}</strong> <i class="icon-arrow-right"></i></a> <br>
-                                @endforeach
-                                </td>
-                            @endforeach
-                            </tr>
-                        </tbody>
-                    </table>
-                    @endif
+                {{-- @if ( $author->biography) --}}
+                <div class="text-left biography">
+                    {!!  $author->biography !!}
                 </div>
-            </div>{{-- row --}}
-        </div> {{-- /attributes --}}
-    </div>
+                {{-- @endif --}}
+
+
+                @if ( $author->relationships->count() > 0)
+                <h4 class="top-space">{{ utrans('autor.relationships') }}</h4>
+                <table class="table table-condensed relationships">
+                    <thead>
+                        <tr>
+                        @foreach ($author->getAssociativeRelationships() as $type=>$relationships)
+                            <th>{!! $type !!}</th>
+                        @endforeach
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        @foreach ($author->getAssociativeRelationships() as $type=>$relationships)
+                            <td>
+                            @foreach ($relationships as $relationship)
+                                <a href="{!! $relationship['id'] !!}" class="no-border"><strong itemprop="knows">{!! $relationship['name'] !!}</strong> <i class="icon-arrow-right"></i></a> <br>
+                            @endforeach
+                            </td>
+                        @endforeach
+                        </tr>
+                    </tbody>
+                </table>
+                @endif
+            </div>
+        </div>{{-- row --}}
+    </div> {{-- /attributes --}}
 </section>
 
 @if ($author->items->count() > 0)

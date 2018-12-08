@@ -1,0 +1,22 @@
+$font-family-serif: "Times New Roman", Times, serif;
+$font-family-base: $font-family-serif;
+
+$gray-400: #b3b3b3;
+$black: #000;
+
+// Links
+//
+// Style anchor elements.
+
+$link-color:                $black;
+$link-decoration:           none;
+$link-hover-color:          $gray-400;
+$link-hover-decoration:     none;
+
+$link-border-color:         $gray-400;
+
+
+$font-size-base:              1rem;
+$headings-font-weight:        700;
+$h1-font-size:                $font-size-base * 1.75;
+
