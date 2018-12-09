@@ -91,7 +91,7 @@
 <section class="purpose py-5">
     <p>Zámer</p>
     <p>V roku 2019 plánujeme postupne pridávať do databázy ďalších umelcov.<br>
-    Zapíšte sa do nášho newslettra a dostávajte pravidelné i</p>
+    Zapíšte sa do nášho newslettra a dostávajte pravidelné info!</p>
 
     <form>
         <div class="form-group row">
@@ -102,6 +102,15 @@
         </div>
     </form>
 </section>
+
+<div class="row">
+    @foreach (range('A', 'Z') as $char)
+        <div class="col-sm-2 alphabet text-sans">
+            <a href="{!! url_to('autori', ['first-letter' => $char]) !!}" class="{!! (Input::get('first-letter')==$char) ? 'active' : '' !!}" rel="{!! $char !!}">{!! $char !!}</a>
+        </div>
+    @endforeach
+</div>
+
 
 @stop
 
