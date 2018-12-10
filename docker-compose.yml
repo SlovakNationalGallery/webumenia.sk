@@ -51,6 +51,6 @@ services:
       - "9200:9200"
       - "9300:9300"
     volumes:
-      - ./data/elasticsearch:/usr/share/elasticsearch/data
+      - ./data/elasticsearch-${ES_INDEX}:/usr/share/elasticsearch/data
       - ./elasticsearch.yml:/usr/share/elasticsearch-2.4.1/config/elasticsearch.yml
       # - ./storage/logs/elasticsearch:/usr/share/elasticsearch-2.4.1/logs
