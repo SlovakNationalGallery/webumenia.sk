@@ -78,7 +78,8 @@ with docker-compose:
 	the first time you do this it will take a while, a lot of different components
 need to be fetched from remote servers.
 Be patient, subsequent builds won't take nearly as long.
-  
+3.5 - choose a database - you can set $DB_DATABASE in the environment and switch between different
+variants by editing that variable. 
 4. start the app  
 	```
 	docker-compose up
