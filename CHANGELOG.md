@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file[^1].
 - Headings documented in PatternLib
 - Remove query string from localized urls
 - Option to launch harvest only for specific record ids
+- Switch database when working with docker-compose
 
 ## [1.6.1] - 2018-12-06
 ### Added
