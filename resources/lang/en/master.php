@@ -20,4 +20,10 @@ return array(
     'search_placeholder' => 'Search for artworks, artists...',
     'to_top'             => 'back to top',
 
+    /* KHB specific */
+    'about'              => 'about',
+    'groups'             => 'groups',
+    'theoreticians'      => 'theoreticians',
+    'spaces'             => 'spaces',
+    'keywords'           => 'keywords',
 );
