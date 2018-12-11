@@ -56,6 +56,7 @@ class Authority extends Model
         'name',
         'sex',
         'biography',
+        'active_in',
         'birth_place',
         'birth_date',
         'birth_year',
@@ -127,6 +128,26 @@ class Authority extends Model
     {
         return $this->belongsToMany(\App\Nationality::class)->withPivot('prefered');
     }
+
+    // foreign keys for khb ----------------------------------
+    
+    public function studied_at()
+    {
+        return $this->hasMany(\App\AuthorityEvent::class);
+    }
+
+    public function website_link()
+    {
+        return $this->hasMany(\App\Link::class);
+    }
+
+    public function exhibition()
+    {
+        return $this->hasMany(\App\Link::class);
+    }
+
+    // -------------------------------------------------------
+
 
     // relationship was replaced by attribute casted as Array
     // public function roles()
