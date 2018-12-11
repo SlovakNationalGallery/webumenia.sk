@@ -13,11 +13,11 @@ class AddKhbFieldsToAuthoritiesTable extends Migration
     public function up()
     {
         Schema::table('authorities', function (Blueprint $table) {
-            $table->string('active_in');
+            $table->string('active_in')->nullable();
             $table->integer('studied_at_id')->unsigned();            
             $table->integer('website_link_id')->unsigned();
             $table->integer('exhibition_id')->unsigned();            
-            $table->string('bibliography');
+            $table->string('bibliography')->nullable();
             //
         });
         Schema::table('authorities', function (Blueprint $table) {
