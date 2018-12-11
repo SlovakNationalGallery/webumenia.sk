@@ -57,6 +57,7 @@ class Authority extends Model
         'sex',
         'biography',
         'active_in',
+        'bibliography',
         'birth_place',
         'birth_date',
         'birth_year',
