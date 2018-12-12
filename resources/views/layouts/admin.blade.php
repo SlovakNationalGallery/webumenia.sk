@@ -18,14 +18,15 @@
         <script src="https://use.fontawesome.com/73587c90bb.js"></script>
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
         {!! Html::style('css/sb-admin.css') !!}
-        {!! Html::style('css/ladda-themeless.min.css') !!}
-        {!! Html::style('css/bootstrap-wysihtml5.css') !!}
-        {!! Html::style('css/bootstrap-colorpicker.min.css') !!}
+        {!! Html::style('css/vendor/jquery-ui/jquery-ui.css') !!}
+        {{-- {!! Html::style('css/ladda-themeless.min.css') !!} --}}
+        {{-- {!! Html::style('css/bootstrap-wysihtml5.css') !!} --}}
+        {!! Html::style('css/plugins/bootstrap-colorpicker.min.css') !!}
+        {!! Html::style('css/plugins/bootstrap-datetimepicker.min.css') !!}
         {!! Html::style('css/plugins/selectize.css') !!}
         {!! Html::style('css/plugins/selectize.bootstrap3.css') !!}
         {!! Html::style('css/plugins/bootstrap-switch.css') !!}
-        {!! Html::style('css/jquery-ui/jquery-ui.css') !!}
-        {!! Html::script('js/modernizr.custom.js') !!}
+        {{-- {!! Html::script('js/modernizr.custom.js') !!} --}}
 
 </head>
 
@@ -180,26 +181,23 @@
 
     <!-- Core JavaScript Files -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-
     {!! Html::script('js/vendor/bootstrap/bootstrap.min.js') !!}
-    {{-- {!! Html::script('js/plugins/metisMenu/jquery.metisMenu.js') !!} --}}
     <script src="{!! asset_timed('js/sb-admin.js') !!}"></script>
-
-    {!! Html::script('js/bootstrap-datepicker.js') !!}
-    {!! Html::script('js/spin.min.js') !!}
-    {!! Html::script('js/ladda.min.js') !!}
-    {!! Html::script('ckeditor/ckeditor.js') !!}
-    {!! Html::script('ckeditor/adapters/jquery.js') !!}
-    {!! Html::script('js/bootstrap-colorpicker.min.js') !!}
+    {!! Html::script('js/plugins/bootstrap-datepicker.js') !!}
+    {!! Html::script('js/plugins/bootstrap-colorpicker.min.js') !!}
+    {{-- {!! Html::script('js/spin.min.js') !!} --}}
+    {{-- {!! Html::script('js/ladda.min.js') !!} --}}
     {!! Html::script('js/plugins/Sortable.min.js') !!}
     {!! Html::script('js/plugins/speakingurl.min.js') !!}
     {!! Html::script('js/plugins/bootstrap-switch.min.js') !!}
-    {{-- {!! Html::script('js/jquery.collection.js') !!} --}}
+    {!! Html::script('js/plugins/jquery.collection.js') !!}
+
+    {!! Html::script('ckeditor/ckeditor.js') !!}
+    {!! Html::script('ckeditor/adapters/jquery.js') !!}
 
 
     <script>
     $(document).ready(function() {
-        /*
         $('.js-form-collection').collection({
             allow_up: false,
             allow_down: false,
@@ -211,8 +209,7 @@
             language: "sk"
         });
 
-        Ladda.bind( '.ladda-button');
-        */
+        // Ladda.bind( '.ladda-button');
 
         var csrf = '{!!csrf_token()!!}';
         $( '.wysiwyg' ).ckeditor({
@@ -229,7 +226,6 @@
             $('#detailModal').modal({modal:true,remote:($(this).attr('href'))});
             event.preventDefault();
         });
-        /*
 
         // select all feature
         $('#selectall').click(function () {
@@ -260,9 +256,6 @@
         // });
 
         $(".switch").bootstrapSwitch();
-
-        */
-
 
 
     });
