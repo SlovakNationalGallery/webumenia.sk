@@ -34,12 +34,14 @@
 <section class="author detail" itemscope itemtype="http://schema.org/Person">
     <div class="attributes">
         <div class="row">
-            <div class="col-2dot4 extra-padding top-space">
-                <h1 itemprop="name">{!! $author->formatedName !!}</h1>
+            <div class="col-2dot4">
+                <h1 itemprop="name" class="mt-2 mb-4">{!! $author->formatedName !!}</h1>
+                {{--
                 @if ( $author->names->count() > 0)
                     <p class="lead">{{ trans('autor.alternative_names') }} <em>{!! implode("</em>, <em>", $author->formatedNames) !!}</em></p>
                 @endif
-                <div class="row"><div class="col">
+                 --}}
+                <div class="row"><div class="col p-0">
                     <img src="{!! $author->getImagePath() !!}" class="img-fluid" alt="{!! $author->name !!}"  itemprop="image">
                 </div></div>
                 <p class="my-4">
@@ -79,17 +81,20 @@
                 <p>
                     <strong>O umelcovi</strong>
                 </p>
+
+                {{--
                 <p>
                     @foreach ($author->roles as $i=>$role)
                         <a href="{!! url_to('autori', ['role' => $role]) !!}"><strong itemprop="jobTitle">{!! $role !!}</strong></a>{!! ($i+1 < count($author->roles)) ? ', ' : '' !!}
                     @endforeach
                 </p>
+                 --}}
 
-                {{-- @if ( $author->biography) --}}
+                @if ($author->biography)
                 <div class="text-left biography">
                     {!!  $author->biography !!}
                 </div>
-                {{-- @endif --}}
+                @endif
 
 
                 @if ( $author->relationships->count() > 0)

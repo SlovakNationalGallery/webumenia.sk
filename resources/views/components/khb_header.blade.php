@@ -1,7 +1,8 @@
 <header>
     @include('components.khb_logo_artbase', ['class_names'=>'pb-2'])
-    Databáza<br>
-    slovenských<br>
-    súčasných<br>
-    umelcov
+    databáza<br>
+    súčasného<br>
+    slovenského<br>
+    vizuálneho<br>
+    umenia
 </header>

@@ -181,8 +181,8 @@
     <!-- Core JavaScript Files -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
-    {!! Html::script('js/bootstrap.min.js') !!}
-    {!! Html::script('js/plugins/metisMenu/jquery.metisMenu.js') !!}
+    {!! Html::script('js/vendor/bootstrap/bootstrap.min.js') !!}
+    {{-- {!! Html::script('js/plugins/metisMenu/jquery.metisMenu.js') !!} --}}
     <script src="{!! asset_timed('js/sb-admin.js') !!}"></script>
 
     {!! Html::script('js/bootstrap-datepicker.js') !!}
@@ -194,11 +194,12 @@
     {!! Html::script('js/plugins/Sortable.min.js') !!}
     {!! Html::script('js/plugins/speakingurl.min.js') !!}
     {!! Html::script('js/plugins/bootstrap-switch.min.js') !!}
-    {!! Html::script('js/jquery.collection.js') !!}
+    {{-- {!! Html::script('js/jquery.collection.js') !!} --}}
 
 
     <script>
     $(document).ready(function() {
+        /*
         $('.js-form-collection').collection({
             allow_up: false,
             allow_down: false,
@@ -211,6 +212,7 @@
         });
 
         Ladda.bind( '.ladda-button');
+        */
 
         var csrf = '{!!csrf_token()!!}';
         $( '.wysiwyg' ).ckeditor({
@@ -227,7 +229,7 @@
             $('#detailModal').modal({modal:true,remote:($(this).attr('href'))});
             event.preventDefault();
         });
-
+        /*
 
         // select all feature
         $('#selectall').click(function () {
@@ -258,6 +260,8 @@
         // });
 
         $(".switch").bootstrapSwitch();
+
+        */
 
 
 
