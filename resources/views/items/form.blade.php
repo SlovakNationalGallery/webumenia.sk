@@ -271,7 +271,7 @@
 
 @section('script')
 
-{!! Html::script('js/selectize.min.js') !!}
+{!! Html::script('js/plugins/selectize.min.js') !!}
 
 <script>
 $(document).ready(function(){

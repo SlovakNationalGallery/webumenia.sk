@@ -203,8 +203,8 @@
 
 @section('script')
 
-{!! Html::script('js/bootstrap-slider.min.js') !!}
-{!! Html::script('js/jquery.cropit.min.js') !!}
+{!! Html::script('js/plugins/bootstrap-slider.min.js') !!}
+{!! Html::script('js/plugins/jquery.cropit.min.js') !!}
 
 <script>
 $(document).ready(function(){
