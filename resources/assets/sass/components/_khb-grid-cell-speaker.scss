@@ -1,19 +1,31 @@
 .grid-cell-speaker{
 	background-repeat: no-repeat;
 	background-position-x: right;
+	background-size: contain;
 	overflow: hidden;
-	height: 300px;
+	&:before { 
+		/* 2:1 aspect ratio */
+		content: "";
+		display: block;
+		padding-top: 50%;
+	}
+
 	&:hover .grid-cell-speaker-artwork {
 		left: 100%;
 	}
 	.grid-cell-speaker-artwork {
-		position: relative;
+		position: absolute;
+		top: 0;
+		bottom: 0;
 		left: 0;
-		transition: left 0.3s;
-		border: solid transparent 2px;
+		width: 100%;
+		transition: left 0.5s;
+		background-size: cover;
+		background-position: center;
 	}
 	.grid-cell-speaker-name {
 		position: absolute;
+		width: 50%;
 		left: 0;
 		bottom: 0;
 	}

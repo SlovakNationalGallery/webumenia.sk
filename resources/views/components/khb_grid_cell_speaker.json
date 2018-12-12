@@ -1,0 +1,12 @@
+{
+    "name": "KHBGridCellSpeaker",
+    "data": {
+		"artistName": "Artist Name",
+		"artistImageUrl": "/images/autori/no-image-male.jpeg",
+    	"artworkImageUrl": "/images/khb/artist-1.jpg"
+    },
+    "data_calls" : {
+        "author": "return App\\Authority::first();"
+    },
+    "usage_notes": "A 6-column grid element with 2:1 aspect ratio, previewing artist name, featured work and bio image on hover."
+}
