@@ -19,6 +19,7 @@ class Pnp65LaImporter extends AbstractImporter
         'Rozměry' => 'measurement',
         'Ze souboru' => 'related_work',
         ' Popis' => 'description',
+        'Autor textů:' => 'description_source',
     ];
 
     protected static $name = 'pnp65la';
