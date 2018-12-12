@@ -27,8 +27,8 @@ class AddKhbFieldsToItemsTable extends Migration
     public function down()
     {
         Schema::table('items', function (Blueprint $table) {
-            Schema::dropIfExists('photo_credit');
-            Schema::dropIfExists('external_link');
+            $table->dropColumn('photo_credit');
+            $table->dropColumn('external_link');
             //
         });
     }

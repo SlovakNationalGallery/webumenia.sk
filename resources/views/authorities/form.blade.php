@@ -83,6 +83,48 @@
 <div class="col-lg-12">
   <div class="panel panel-default">
     <div class="panel-heading">
+      KHB data
+    </div>
+    <div class="panel-body">
+      <div class="col-md-12">
+        <div class="form-group">
+          {!! Form::label('active_in', 'Miesto pôsobenia') !!}
+          {!! Form::text('active_in', Input::old('active_in'), array('class' => 'form-control')) !!}
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+            <div class="form-group">
+              {{ Form::label('exhibitions', 'Zoznam výstav') }}
+              {{ Form::textarea('exhibitions', Input::old('exhibitions'), array('class' => 'form-control wysiwyg', 'rows'=>'12')) }}
+            </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+            <div class="form-group">
+              {{ Form::label('bibliography', 'Bibliografia') }}
+              {{ Form::textarea('bibliography', Input::old('bibliography'), array('class' => 'form-control wysiwyg', 'rows'=>'12')) }}
+            </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+            <div class="form-group">
+              {{ Form::label('archive', 'Archív') }}
+              {{ Form::textarea('archive', Input::old('archive'), array('class' => 'form-control wysiwyg', 'rows'=>'12')) }}
+            </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.panel-body -->
+  </div>
+  <!-- /.panel -->
+</div>
+
+<div class="col-lg-12">
+  <div class="panel panel-default">
+    <div class="panel-heading">
       Externé odkazy
       <?php $link_counter = 0 ?>
     </div>
