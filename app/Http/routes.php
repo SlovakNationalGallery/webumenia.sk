@@ -17,6 +17,7 @@ use App\Item;
 use App\Slide;
 use App\Order;
 use App\Color;
+use App\Authority;
 
 Route::group(['domain' => 'media.webumenia.{tld}'], function () {
     Route::get('/', function ($tld) {
@@ -43,12 +44,11 @@ function()
 
     Route::get('/', function () {
 
-        $slides = Slide::published()->orderBy('id', 'desc')->get();
-        $articles = Article::promoted()->published()->orderBy('published_date', 'desc')->get();
+        $params = array();
+        $authors = Authority::search($params);
 
         return view('intro', [
-            'slides' => $slides,
-            'articles' => $articles,
+            'authors' => $authors,
         ]);
     });
 

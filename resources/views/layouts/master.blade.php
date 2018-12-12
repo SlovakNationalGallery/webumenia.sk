@@ -53,11 +53,7 @@
             </div>
             <div class="col-10 py-0">
                 @include('components.khb_nav_bar')
-                {{-- <div class="row"> --}}
-                    {{-- <div class="col"> --}}
-                        @yield('content')
-                    {{-- </div> --}}
-                {{-- </div> --}}
+                @yield('content')
                 <div class="row">
                     <div class="col bg-dark text-white">
                         @include('components.footer')

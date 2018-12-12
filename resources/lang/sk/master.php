@@ -20,4 +20,10 @@ return array(
     'search_placeholder' => 'Hľadať diela, autorov...',
     'to_top'             => 'návrat hore',
 
+    /* KHB specific */
+    'about'              => 'o projekte',
+    'groups'             => 'skupiny',
+    'theoreticians'      => 'teoretici',
+    'spaces'             => 'vystavne priestory',
+    'keywords'           => 'klucove slova',
 );

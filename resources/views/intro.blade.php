@@ -30,7 +30,16 @@
 
 @section('content')
 
-<div>content here</div>
+
+<div class="row">
+    @foreach ($authors as $i=>$author)
+    <div class="col-6 p-0 grid-cell-speaker" style="background-image: url({!! $author->getImagePath() !!});">
+        <img class="grid-cell-speaker-artwork" src="/images/khb/artist-{!!$i+1!!}.jpg">
+        <h2 class="grid-cell-speaker-name m-3">{!! $author->formatedName !!}</h2>
+    </div>
+    @endforeach
+</div>
+
 
 @stop
 

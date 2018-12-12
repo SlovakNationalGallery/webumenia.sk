@@ -1,11 +1,24 @@
-
-// Fonts
+/* Fonts */
 @import "fonts";
 
-// Variables
+/* Variables */
 @import "variables";
 
-// Bootstrap
+/* Atomic utility classes */
+@import "utilities/_heights";
+@import "utilities/_debug-children";
+@import "utilities/_col-2dot4";
+@import "utilities/_col-1dot2";
+
+/* Custom */
+@import "layout";
+@import "custom";
+
+/* Components */
+@import "components/_khb-grid-cell-speaker";
+
+
+/* Bootstrap */
 // @import "node_modules/bootstrap/scss/bootstrap.scss";
 // @import "~bootstrap/scss/bootstrap";
 
@@ -67,15 +80,3 @@
 
 // *** Print classes
 @import "~bootstrap/scss/print";
-
-
-// Stomic utility classes
-@import "utilities/_heights";
-@import "utilities/_debug-children";
-@import "utilities/_col-2dot4";
-@import "utilities/_col-1dot2";
-
-
-// Custom
-@import "layout";
-@import "custom";
