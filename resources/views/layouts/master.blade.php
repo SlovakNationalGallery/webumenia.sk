@@ -51,7 +51,7 @@
             <div class="col-2">
                 @include('components.khb_header')
             </div>
-            <div class="col-10 py-0">
+            <div class="col-10 py-0 border-0">
                 @include('components.khb_nav_bar')
                 @yield('content')
                 <div class="row">

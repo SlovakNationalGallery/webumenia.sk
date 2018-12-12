@@ -8,7 +8,7 @@
                 {{ utrans('master.about') }}
             </a>
         </div>
-        <div class="col-2dot4 py-0">
+        <div class="col-2dot4 py-0 border-0">
             @include('components.khb_language_switch')
         </div>
     </div>
