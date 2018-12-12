@@ -198,7 +198,6 @@
 
     <script>
     $(document).ready(function() {
-        /*
         $('.js-form-collection').collection({
             allow_up: false,
             allow_down: false,
@@ -210,8 +209,7 @@
             language: "sk"
         });
 
-        Ladda.bind( '.ladda-button');
-        */
+        // Ladda.bind( '.ladda-button');
 
         var csrf = '{!!csrf_token()!!}';
         $( '.wysiwyg' ).ckeditor({
@@ -228,7 +226,6 @@
             $('#detailModal').modal({modal:true,remote:($(this).attr('href'))});
             event.preventDefault();
         });
-        /*
 
         // select all feature
         $('#selectall').click(function () {
@@ -259,9 +256,6 @@
         // });
 
         $(".switch").bootstrapSwitch();
-
-        */
-
 
 
     });
