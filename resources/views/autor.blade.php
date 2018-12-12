@@ -63,8 +63,9 @@
                 @if ( $author->links->count() > 0)
                     <div class="links">
                         {{ utrans('autor.links') }}<br>
-                        <?php foreach ($author->links as $i=>$link) $links[] = '<a href="'.$link->url .'" target="_blank">'.$link->label.'</a>'; ?>
-                        {!! implode(", ", $links) !!}
+                        @foreach ($author->links as $i=>$link)
+                            <a href="{{ $link->url }}" target="_blank">{{ $link->label }}</a><br>
+                        @endforeach
                     </div>
                 @endif
 
