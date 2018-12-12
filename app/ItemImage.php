@@ -35,17 +35,12 @@ class ItemImage extends Model
         return $this->belongsTo(Item::class);
     }
 
-    public static function create(array $attributes = []) {
-        if (array_key_exists('item_id', $attributes) &&
-            !array_key_exists('order', $attributes)) {
-            $item_id = $attributes['item_id'];
-            $item_id_query = static::where('item_id', $item_id);
-            $max = $item_id_query->max('order');
-            $order = $max !== null ? $max + 1 : 0;
-            $attributes['order'] = $order;
+    public function save(array $options = []) {
+        if ($this->order === null) {
+            $max = $this->item->images()->max('order');
+            $this->order = $max !== null ? $max + 1 : 0;
         }
-
-        return parent::create($attributes);
+        return parent::save($options);
     }
 
     public function isZoomable() {
