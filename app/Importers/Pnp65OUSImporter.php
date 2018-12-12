@@ -16,7 +16,7 @@ class Pnp65OUSImporter extends AbstractImporter
     protected $mapping = [
         'Inventární číslo:' => 'identifier',
         'Autor:' => 'author',
-        'Datace:' => 'dating',
+        'Datace: ' => 'dating',
         'Rok - od' => 'date_earliest',
         'Rok - do' => 'date_latest',
         'Výtvarný druh:' => 'work_type',

@@ -144,7 +144,7 @@
                                 @endif
                                 @if (!empty($item->work_type))
                                 <tr>
-                                    <td class="atribut">námět:</td>
+                                    <td class="atribut">{{ trans('dielo.item_attr_work_type') }}:</td>
                                     <td>
                                         @foreach ($item->work_types as $i => $work_type)
                                             @if ($i == 0)
@@ -177,7 +177,7 @@
                                 @endif
                                 @if (!empty($item->topics))
                                 <tr>
-                                    <td class="atribut">námět:</td>
+                                    <td class="atribut">{{ trans('dielo.item_attr_topic') }}:</td>
                                     <td>
                                     @foreach ($item->topics as $topic)
                                         <a href="{!! URL::to('katalog?topic=' . $topic) !!}">{!! $topic !!}</a><br>

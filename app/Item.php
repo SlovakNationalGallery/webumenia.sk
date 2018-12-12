@@ -446,7 +446,7 @@ class Item extends Model
     public function getMeasurementsAttribute($value)
     {
         $trans = array("; " => ";", "()" => "");
-        return explode(';', strtr($this->attributes['measurement'], $trans));
+        return array_filter(explode(';', strtr($this->attributes['measurement'], $trans)));
 
         // $measurements_array = explode(';', $this->attributes['measurement']);
         // $measurements = array();
