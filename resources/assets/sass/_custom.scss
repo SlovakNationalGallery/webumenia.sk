@@ -9,6 +9,19 @@ a {
     &:active {
       border-bottom: 2px solid rgba($black, 0.0);
     }
+
+    &.no-underline, &.no-underline:hover {
+      text-decoration: none;
+      border-bottom: none;
+    }
+
+    &.no-transition {
+      -moz-transition: none;
+      -webkit-transition: none;
+      -o-transition: all 0 ease-in-out;
+      transition: none;
+    }
+
 }
 
 
