@@ -30,6 +30,8 @@ return array(
     'item_attr_identifier'     => 'inventárne číslo',
     'item_attr_licence'        => 'licencia',
     'item_attr_place'          => 'geografická oblasť',
+    'item_attr_photo_credit'   => 'autor fotografie',
+    'item_attr_external_link'  => 'externý odkaz',
 
     'more-items_related-artworks' => 'súvisiace diela',
     'more-items_similar-colors' => 'vyhľadávať podľa farieb diela',

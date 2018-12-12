@@ -44,7 +44,9 @@ class Item extends Model
         'state_edition',
         'gallery',
         'relationship_type',
-        'related_work'
+        'related_work',
+        'photo_credit',
+        'external_link'
     ];
 
     // protected $indexName = 'webumenia';
