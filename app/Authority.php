@@ -67,6 +67,11 @@ class Authority extends Model
         'image_source_url',
         'image_source_label',
         'roles',
+        // khb
+        'active_in',
+        'bibliography',
+        'exhibitions',
+        'archive',
     );
 
     protected $dates = array(
@@ -131,7 +136,7 @@ class Authority extends Model
     }
 
     // foreign keys for khb ----------------------------------
-    
+
     public function studied_at()
     {
         return $this->hasMany(\App\AuthorityEvent::class);
