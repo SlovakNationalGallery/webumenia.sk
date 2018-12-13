@@ -9,6 +9,8 @@
 @import "utilities/_debug-children";
 @import "utilities/_col-2dot4";
 @import "utilities/_col-1dot2";
+@import "utilities/_background-colors";
+@import "utilities/_text-colors";
 
 /* Custom */
 @import "layout";
@@ -16,6 +18,8 @@
 
 /* Components */
 @import "components/_khb-grid-cell-speaker";
+@import "components/_khb-footer";
+@import "components/_khb-newsletter-signup-form";
 
 
 /* Bootstrap */

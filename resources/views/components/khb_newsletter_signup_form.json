@@ -1,0 +1,5 @@
+{
+    "name": "KHBNewsletterSignupForm",
+    "data": {},
+    "usage_notes": "A form element to let a user input their email to subscribe to the newsletter. Uses Mailchimp."
+}

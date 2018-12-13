@@ -45,7 +45,7 @@
     </script>
     @endif
 </head>
-<body class="">
+<body class="p-0 bg-white text-black">
     <div class="container-fluid">
         <div class="row">
             <div class="col-2">
@@ -54,11 +54,7 @@
             <div class="col-10 py-0 border-0">
                 @include('components.khb_nav_bar')
                 @yield('content')
-                <div class="row">
-                    <div class="col bg-dark text-white">
-                        @include('components.footer')
-                    </div>
-                </div>
+                @include('components.khb_footer')
             </div>
         </div>
     </div>
