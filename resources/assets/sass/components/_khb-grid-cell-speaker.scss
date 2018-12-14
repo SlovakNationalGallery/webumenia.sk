@@ -19,6 +19,7 @@
 		bottom: 0;
 		left: 0;
 		width: 100%;
+		z-index: 1;
 		transition: left 0.5s;
 		background-size: cover;
 		background-position: center;
@@ -28,5 +29,16 @@
 		width: 50%;
 		left: 0;
 		bottom: 0;
+		font-size: 1.6rem;
+		@media (min-width: 576px) {
+			font-size: 1.3rem;
+		}
+		@media (min-width: 720px) {
+			font-size: 1.6rem;
+		}
+		@media (min-width: 900px) {
+			font-size: 2rem;
+		}
+
 	}
 }

@@ -36,7 +36,7 @@
         @include('components.khb_grid_cell_speaker', [
           'artistName' => $author->formatedName,
           'artistImageUrl' => $author->getImagePath(),
-          'artworkImageUrl' => "/images/khb/artist-".($i+1).".jpg"
+          'artworkImageUrl' => "/images/khb/thumb-".$author->formatedName.".jpg"
         ])
     @endforeach
 </div>
