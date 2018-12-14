@@ -4,19 +4,6 @@
 /* Variables */
 @import "variables";
 
-/* Atomic utility classes */
-@import "utilities/_heights";
-@import "utilities/_debug-children";
-@import "utilities/_col-2dot4";
-@import "utilities/_col-1dot2";
-
-/* Custom */
-@import "layout";
-@import "custom";
-
-/* Components */
-@import "components/_khb-grid-cell-speaker";
-
 
 /* Bootstrap */
 // @import "node_modules/bootstrap/scss/bootstrap.scss";
@@ -62,6 +49,7 @@
 // @import "~bootstrap/scss/popover";
 // @import "~bootstrap/scss/carousel";
 
+
 // *** Utility classes
 @import "~bootstrap/scss/utilities/align";
 @import "~bootstrap/scss/utilities/background";
@@ -80,3 +68,18 @@
 
 // *** Print classes
 @import "~bootstrap/scss/print";
+
+
+/* Atomic utility classes */
+@import "utilities/_heights";
+@import "utilities/_debug-children";
+@import "utilities/_col-2dot4";
+@import "utilities/_col-1dot2";
+
+/* Custom */
+@import "card";
+@import "layout";
+@import "custom";
+
+/* Components */
+@import "components/_khb-grid-cell-speaker";

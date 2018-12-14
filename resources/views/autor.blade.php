@@ -78,24 +78,40 @@
                     </div>
                 @endif
             </div>
-            <div class="col popis">
-                <p>
-                    <strong>O umelcovi</strong>
-                </p>
+            <div class="col popis p-0">
 
-                {{--
-                <p>
-                    @foreach ($author->roles as $i=>$role)
-                        <a href="{!! url_to('autori', ['role' => $role]) !!}"><strong itemprop="jobTitle">{!! $role !!}</strong></a>{!! ($i+1 < count($author->roles)) ? ', ' : '' !!}
-                    @endforeach
-                </p>
-                 --}}
-
-                @if ($author->biography)
-                <div class="text-left biography">
-                    {!!  $author->biography !!}
+                <div class="accordion" id="authorAccordion">
+                    @include('components.khb_accordion_card', [
+                        'name' => 'biography',
+                        'content' => $author->biography,
+                        'parrentId' => 'authorAccordion',
+                        'show' => true,
+                    ])
+                    @include('components.khb_accordion_card', [
+                        'name' => 'gallery',
+                        'content' => '',
+                        'parrentId' => 'authorAccordion',
+                        'show' => true,
+                    ])
+                    @include('components.khb_accordion_card', [
+                        'name' => 'exhibitions',
+                        'content' => $author->exhibitions,
+                        'parrentId' => 'authorAccordion',
+                        'show' => false,
+                    ])
+                    @include('components.khb_accordion_card', [
+                        'name' => 'bibliography',
+                        'content' => $author->bibliography,
+                        'parrentId' => 'authorAccordion',
+                        'show' => false,
+                    ])
+                    @include('components.khb_accordion_card', [
+                        'name' => 'archive',
+                        'content' => $author->archive,
+                        'parrentId' => 'authorAccordion',
+                        'show' => false,
+                    ])
                 </div>
-                @endif
 
 
                 @if ( $author->relationships->count() > 0)

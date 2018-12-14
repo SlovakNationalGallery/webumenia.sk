@@ -1,0 +1,11 @@
+{
+  "name": "KHB Accordion Card",
+  "wrapper_classes": "accordion",
+  "data": {
+    "name": "biography",
+    "content": "Sample collapsible content",
+    "parrentId": "authorAccordion",
+    "show": true
+  },
+  "usage_notes": "Reusable accordion card. Just put it iside <div class=\"accordion\" id=\"authorAccordion\">...</div>"
+}
