@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 
-class ImprovedController extends Controller
+class PatternlibController extends Controller
 {
 
     /** @var \League\Flysystem\Filesystem */
