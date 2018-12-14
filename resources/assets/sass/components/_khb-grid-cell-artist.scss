@@ -1,4 +1,4 @@
-.grid-cell-speaker{
+.grid-cell-artist{
 	background-repeat: no-repeat;
 	background-position-x: right;
 	background-size: contain;
@@ -10,17 +10,17 @@
 		padding-top: 50%;
 	}
 
-	&:hover .grid-cell-speaker-artwork {
+	&:hover .grid-cell-artist-artwork {
 		left: 100%;
 	}
-	a.grid-cell-speaker-link {
+	a.grid-cell-artist-link {
 		position: absolute;
 		top: 0;
 		bottom: 0;
 		left: 0;
 		width: 100%;
 	}
-	.grid-cell-speaker-artwork {
+	.grid-cell-artist-artwork {
 		position: absolute;
 		top: 0;
 		bottom: 0;
@@ -31,7 +31,7 @@
 		background-size: cover;
 		background-position: center;
 	}
-	.grid-cell-speaker-name {
+	.grid-cell-artist-name {
 		position: absolute;
 		width: 50%;
 		left: 0;

@@ -33,7 +33,7 @@
 
 <div class="row">
     @foreach ($authors as $i=>$author)
-        @include('components.khb_grid_cell_speaker', [
+        @include('components.khb_grid_cell_artist', [
           'artistName' => $author->formatedName,
           'artistImageUrl' => $author->getImagePath(),
           'artworkImageUrl' => "/images/khb/thumb-".$author->formatedName.".jpg"
