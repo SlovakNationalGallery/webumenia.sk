@@ -9,3 +9,8 @@
 .col, *[class^='col-'], *[class*=' col-']{
     border: 2px solid #000;
 }
+
+// at width of 1920px the 10 column area will be 1600px wide
+.mw-1920 {
+	max-width: 1920px;
+}

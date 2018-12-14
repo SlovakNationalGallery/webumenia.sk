@@ -46,12 +46,12 @@
     @endif
 </head>
 <body class="p-0 bg-white text-black">
-    <div class="container-fluid">
+    <div class="container-fluid mw-1920">
         <div class="row">
-            <div class="col-2">
+            <div class="col-sm-2">
                 @include('components.khb_header')
             </div>
-            <div class="col-10 py-0 border-0">
+            <div class="col-sm-10 py-0 border-0">
                 @include('components.khb_nav_bar')
                 @yield('content')
                 @include('components.khb_footer')
