@@ -1,14 +1,14 @@
 <nav>
     <div class="row">
-        <div class="col">
+        <div class="col d-none d-sm-flex">
             <!-- Search not yet supported -->
         </div>
-        <div class="col-2dot4">
+        <div class="col col-sm-2dot4">
             <a href="{{{ URL::to('o-projekte') }}}" class="{!! Request::is('o-projekte') ? 'active' : '' !!}">
                 {{ utrans('master.about') }}
             </a>
         </div>
-        <div class="col-2dot4 py-0">
+        <div class="col col-sm-2dot4 py-0 border-0 d-flex">
             @include('components.khb_language_switch')
         </div>
     </div>
