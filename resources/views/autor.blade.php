@@ -87,12 +87,41 @@
                         'parrentId' => 'authorAccordion',
                         'show' => true,
                     ])
-                    @include('components.khb_accordion_card', [
-                        'title' => 'gallery',
-                        'content' => '',
-                        'parrentId' => 'authorAccordion',
-                        'show' => true,
-                    ])
+
+                    {{-- gallery --}}
+                    <div class="card">
+                      <div class="card-header" id="heading{{ studly_case('gallery') }}">
+                        <h5 class="mb-0">
+                          <button class="btn btn-link font-weight-bold p-0" type="button" data-toggle="collapse" data-target="#collapse{{ studly_case('gallery') }}" aria-expanded="true" aria-controls="collapse{{ studly_case('gallery') }}">
+                            {{ trans('autor.'.'gallery') }}
+                          </button>
+                        </h5>
+                      </div>
+
+                      <div id="collapse{{ studly_case('gallery') }}" class="collapse show" aria-labelledby="heading{{ studly_case('gallery') }}" data-parent="#authorAccordion">
+                        <div class="card-body pt-0">
+
+                            <div id="iso">
+                            @foreach ($author->items as $i=>$item)
+                                <div class="col-md-3 col-sm-4 col-xs-6 item border-0">
+                                    <a href="{!! $item->getUrl() !!}">
+                                        @php
+                                            list($width, $height) = getimagesize(public_path() . $item->getImagePath());
+                                        @endphp
+                                        <div class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%;">
+                                            @include('components.item_image_responsive', ['item' => $item])
+                                        </div>
+                                    </a>
+                                </div>
+                            @endforeach
+
+                            </div>
+                            {{-- /iso --}}
+                        </div>
+                      </div>
+                    </div>
+                    {{-- /gallery --}}
+
                     @include('components.khb_accordion_card', [
                         'title' => 'exhibitions',
                         'content' => $author->exhibitions,
