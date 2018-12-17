@@ -61,7 +61,7 @@
 
     <!-- Javascript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/4.1.1/lazysizes.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/4.1.1/plugins/unveilhooks/ls.unveilhooks.min.js"></scri
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/4.1.1/plugins/unveilhooks/ls.unveilhooks.min.js"></scri --}}
     <script type="text/javascript" src="{{ mix('js/manifest.js') }}"></script>
     <script type="text/javascript" src="{{ mix('/js/vendor.js') }}"></script>
     <script type="text/javascript" src="{{ mix('/js/app.js') }}"></script>

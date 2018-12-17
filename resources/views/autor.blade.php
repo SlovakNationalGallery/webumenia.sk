@@ -170,46 +170,19 @@
         </div>{{-- row --}}
     </div> {{-- /attributes --}}
 </section>
-
-@if ($author->items->count() > 0)
-<section class="author preview detail">
-    <div class="container">
-        <div class="row content-section">
-            <div class="col-xs-12 text-center">
-                <h3>{{ utrans('autor.artworks_by_artist') }}</h3>
-            </div>
-        </div>{{-- row --}}
-        <div class="row">
-            <div class="col-xs-12">
-                @include('components.artwork_carousel', [
-                    'slick_target' => "artworks-preview",
-                    'slick_variant' => "large",
-                    'items' => $author->getPreviewItems(),
-                ])
-            </div>
-        </div>{{-- row --}}
-        <div class="row content-section">
-            <div class="col-sm-12 text-center">
-                <a href="{!! url_to('katalog', ['author' => $author->name]) !!}" class="btn btn-default btn-outline sans" >{!! trans_choice('autor.button_show-all-artworks', $author->items->count(), ['artworks_count' => $author->items->count()])!!} <i class="fa fa-chevron-right "></i></a>
-            </div>
-        </div>
-
-    </div>
-</section>
-@endif
-
-
-
 @stop
 
-
 @section('javascript')
+<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 {!! Html::script('js/readmore.min.js') !!}
 
-{!! Html::script('js/slick.js') !!}
-{!! Html::script('js/components/artwork_carousel.js') !!}
-
 <script type="text/javascript">
+
+    $('#iso').isotope({
+        itemSelector: '.item',
+        layoutMode: 'masonry'
+    });
+
     $(document).ready(function(){
 
         $('.expandable').readmore({
