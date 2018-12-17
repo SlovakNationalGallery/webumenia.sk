@@ -1,0 +1,67 @@
+a {
+    background:
+    linear-gradient(
+       to bottom, 
+       $link-hover-color 0%,
+       $link-hover-color 100%
+       );
+    background-position: 0 100%;
+    background-repeat: repeat-x;
+    background-size: 2px 2px;
+    color: #000;
+    text-decoration: none;
+    transition: background-size .3s;
+    
+    &:hover {
+      color: #000;
+      background-size: 2px 100%;
+    }
+    &:active {
+        color: #000;
+        background-size: 2px 100%;
+    }
+
+    &.no-underline, &.no-underline:hover {
+        text-decoration: none;
+        border-bottom: none;
+        background: none;
+    }
+
+    &.no-transition {
+        -moz-transition: none;
+        -webkit-transition: none;
+        -o-transition: all 0 ease-in-out;
+        transition: none;
+    }
+}
+
+.grid-cell-link{
+    background:
+    linear-gradient(
+        to bottom, 
+        $link-hover-color 0%,
+        $link-hover-color 100%
+    );
+    background-position: 0 100%;
+    background-repeat: repeat-x;
+    background-size: 0px 0px;
+    transition: background-size .3s;
+    &:hover {
+        background-size: 2px 100%;
+    }
+    a {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+
+        background: none;
+        &:hover {
+            background: none;
+        }
+    }
+    &.active {
+        background: $link-hover-color;
+    }
+}

@@ -1,0 +1,51 @@
+.grid-cell-artist{
+	background-repeat: no-repeat;
+	background-position-x: right;
+	background-size: contain;
+	overflow: hidden;
+	&:before { 
+		/* 2:1 aspect ratio */
+		content: "";
+		display: block;
+		padding-top: 50%;
+	}
+
+	&:hover .grid-cell-artist-artwork {
+		left: 100%;
+	}
+	a.grid-cell-artist-link {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+	}
+	.grid-cell-artist-artwork {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		z-index: 1;
+		transition: left 0.5s;
+		background-size: cover;
+		background-position: center;
+	}
+	.grid-cell-artist-name {
+		position: absolute;
+		width: 50%;
+		left: 0;
+		bottom: 0;
+		font-size: 1.6rem;
+		@media (min-width: 576px) {
+			font-size: 1.3rem;
+		}
+		@media (min-width: 720px) {
+			font-size: 1.6rem;
+		}
+		@media (min-width: 900px) {
+			font-size: 2rem;
+		}
+
+	}
+}

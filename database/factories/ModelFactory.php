@@ -51,6 +51,7 @@ $factory->define(\App\Item::class, function (Faker\Generator $faker) {
         'inscription' => $faker->word,
         'related_work_order' => $faker->randomNumber,
         'related_work_total' => $faker->randomNumber,
+        'photo_credit' => $faker->name,
     ];
 });
 
