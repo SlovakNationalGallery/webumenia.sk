@@ -45,8 +45,6 @@ class Item extends Model
         'gallery',
         'relationship_type',
         'related_work',
-        'photo_credit',
-        'external_link'
     ];
 
     // protected $indexName = 'webumenia';
@@ -108,6 +106,8 @@ class Item extends Model
         'item_type',
         'publish',
         'contributor',
+        'photo_credit',
+        'external_link',
     );
 
     protected $dates = array(

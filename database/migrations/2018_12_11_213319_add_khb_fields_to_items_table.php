@@ -15,7 +15,6 @@ class AddKhbFieldsToItemsTable extends Migration
         Schema::table('items', function (Blueprint $table) {
             $table->string('photo_credit')->nullable();
             $table->string('external_link')->nullable();
-            //
         });
     }
 
@@ -27,9 +26,7 @@ class AddKhbFieldsToItemsTable extends Migration
     public function down()
     {
         Schema::table('items', function (Blueprint $table) {
-            $table->dropColumn('photo_credit');
-            $table->dropColumn('external_link');
-            //
+            $table->dropColumn(['photo_credit', 'external_link']);
         });
     }
 }
