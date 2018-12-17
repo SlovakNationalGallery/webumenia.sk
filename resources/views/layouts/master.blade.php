@@ -32,18 +32,12 @@
     @yield('link')
 
     <!-- CSS -->
-
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
 
 
     {{-- JS --}}
-
-    {{-- Google Analytics --}}
-    @if (App::environment() == 'production')
-    <script>
-        {{-- GA tracking code --}}
-    </script>
-    @endif
+    @include('includes.analytics')
+    
 </head>
 <body class="p-0 bg-white text-black">
     <div class="container-fluid mw-1920">
