@@ -29,7 +29,10 @@ class Authority extends Model
         'biography',
         'roles',
         'birth_place',
-        'death_place'
+        'death_place',
+        'bibliography',
+        'exhibitions',
+        'archive',
     ];
 
     // protected $indexName = 'webumenia';
