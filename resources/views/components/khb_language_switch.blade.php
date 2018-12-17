@@ -1,12 +1,8 @@
 <div class="row flex-grow-1">
-    <div class="col-6 grid-cell-link">
-    	<a href="#">
-    	</a>
-    	<span>SK</span>
-    </div>
-    <div class="col-6 grid-cell-link">
-    	<a href="#">
-    	</a>
-    	<span>EN</span>
-    </div>
+    @foreach($localizedURLs as $localeCode => $localizedURL)
+        <div class="col-6 grid-cell-link {!! $localeCode == $currentLocale ? 'active' : '' !!}">
+            <a href="{{ $localizedURL }}"></a>
+            <span class="text-uppercase">{{ $localeCode }}</span>
+        </div>
+    @endforeach
 </div>

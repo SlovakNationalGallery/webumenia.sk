@@ -32,18 +32,12 @@
     @yield('link')
 
     <!-- CSS -->
-
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" />
 
     {{-- JS --}}
-
-    {{-- Google Analytics --}}
-    @if (App::environment() == 'production')
-    <script>
-        {{-- GA tracking code --}}
-    </script>
-    @endif
+    @include('includes.analytics')
+    
 </head>
 <body class="p-0 bg-white text-black">
     <div class="container-fluid mw-1920">

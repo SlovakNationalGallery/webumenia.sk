@@ -21,16 +21,6 @@
 
 @section('content')
 
-@if ( ! $author->hasTranslation(App::getLocale()) )
-    <section>
-        <div class="container top-section">
-            <div class="row">
-                @include('includes.message_untranslated')
-            </div>
-        </div>
-    </section>
-@endif
-
 <section class="author detail" itemscope itemtype="http://schema.org/Person">
     <div class="attributes">
         <div class="row">
@@ -82,7 +72,7 @@
 
                 <div class="accordion" id="authorAccordion">
                     @include('components.khb_accordion_card', [
-                        'title' => 'biography',
+                        'title' => utrans('autor.biography'),
                         'content' => $author->biography,
                         'parrentId' => 'authorAccordion',
                         'show' => true,
@@ -93,7 +83,7 @@
                       <div class="card-header" id="heading{{ studly_case('gallery') }}">
                         <h5 class="mb-0">
                           <button class="btn btn-link font-weight-bold p-0" type="button" data-toggle="collapse" data-target="#collapse{{ studly_case('gallery') }}" aria-expanded="true" aria-controls="collapse{{ studly_case('gallery') }}">
-                            {{ trans('autor.'.'gallery') }}
+                            {{ utrans('autor.gallery') }}
                           </button>
                         </h5>
                       </div>
@@ -123,19 +113,19 @@
                     {{-- /gallery --}}
 
                     @include('components.khb_accordion_card', [
-                        'title' => 'exhibitions',
+                        'title' => utrans('autor.exhibitions'),
                         'content' => $author->exhibitions,
                         'parrentId' => 'authorAccordion',
                         'show' => false,
                     ])
                     @include('components.khb_accordion_card', [
-                        'title' => 'bibliography',
+                        'title' => utrans('autor.bibliography'),
                         'content' => $author->bibliography,
                         'parrentId' => 'authorAccordion',
                         'show' => false,
                     ])
                     @include('components.khb_accordion_card', [
-                        'title' => 'archive',
+                        'title' => utrans('autor.archive'),
                         'content' => $author->archive,
                         'parrentId' => 'authorAccordion',
                         'show' => false,

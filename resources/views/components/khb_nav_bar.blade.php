@@ -9,7 +9,11 @@
             <span>{{ utrans('master.about') }}</span>
         </div>
         <div class="col col-sm-2dot4 py-0 border-0 d-flex">
-            @include('components.khb_language_switch')
+            @include('components.khb_language_switch', [
+                'currentLocale' => App::getLocale(),
+                'localesOrdered' => LaravelLocalization::getLocalesOrder(),
+                'localizedURLs' => getLocalizedURLArray($removeQueryString = true),
+            ])
         </div>
     </div>
     <div class="row">
