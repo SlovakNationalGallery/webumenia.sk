@@ -65,6 +65,27 @@
                 {{ Form::textarea($locale . "[biography]", isset($authority) ? @$authority->translate($locale)->biography : '', array('class' => 'form-control wysiwyg', 'rows'=>'12')) }}
               </div>
 
+              <div class="form-group">
+                  <div class="form-group">
+                    {{ Form::label($locale . "[exhibitions]", 'Zoznam výstav '.strtoupper($locale)) }}
+                    {{ Form::textarea($locale . "[exhibitions]", isset($authority) ? @$authority->translate($locale)->exhibitions : '', array('class' => 'form-control wysiwyg', 'rows'=>'12')) }}
+                  </div>
+              </div>
+
+              <div class="form-group">
+                  <div class="form-group">
+                    {{ Form::label($locale . "[bibliography]", 'Bibliografia '.strtoupper($locale)) }}
+                    {{ Form::textarea($locale . "[bibliography]", isset($authority) ? @$authority->translate($locale)->bibliography : '', array('class' => 'form-control wysiwyg', 'rows'=>'12')) }}
+                  </div>
+              </div>
+
+              <div class="form-group">
+                  <div class="form-group">
+                    {{ Form::label($locale . "[archive]", 'Archív '.strtoupper($locale)) }}
+                    {{ Form::textarea($locale . "[archive]", isset($authority) ? @$authority->translate($locale)->archive : '', array('class' => 'form-control wysiwyg', 'rows'=>'12')) }}
+                  </div>
+              </div>
+
             </div>
             @endforeach
           </div>
@@ -90,30 +111,6 @@
         <div class="form-group">
           {!! Form::label('active_in', 'Miesto pôsobenia') !!}
           {!! Form::text('active_in', Input::old('active_in'), array('class' => 'form-control')) !!}
-        </div>
-      </div>
-      <div class="col-md-12">
-        <div class="form-group">
-            <div class="form-group">
-              {{ Form::label('exhibitions', 'Zoznam výstav') }}
-              {{ Form::textarea('exhibitions', Input::old('exhibitions'), array('class' => 'form-control wysiwyg', 'rows'=>'12')) }}
-            </div>
-        </div>
-      </div>
-      <div class="col-md-12">
-        <div class="form-group">
-            <div class="form-group">
-              {{ Form::label('bibliography', 'Bibliografia') }}
-              {{ Form::textarea('bibliography', Input::old('bibliography'), array('class' => 'form-control wysiwyg', 'rows'=>'12')) }}
-            </div>
-        </div>
-      </div>
-      <div class="col-md-12">
-        <div class="form-group">
-            <div class="form-group">
-              {{ Form::label('archive', 'Archív') }}
-              {{ Form::textarea('archive', Input::old('archive'), array('class' => 'form-control wysiwyg', 'rows'=>'12')) }}
-            </div>
         </div>
       </div>
     </div>

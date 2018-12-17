@@ -7,7 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class AuthorityTranslation extends Model
 {
     public $timestamps = false;
-    protected $fillable = ['type_organization', 'biography', 'birth_place', 'death_place', 'roles'];
+    protected $fillable = [
+        'type_organization',
+        'biography',
+        'birth_place',
+        'death_place',
+        'roles',
+        'bibliography',
+        'exhibitions',
+        'archive',
+    ];
 
     protected $casts = [
         'roles' => 'array',
