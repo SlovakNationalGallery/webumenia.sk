@@ -24,6 +24,6 @@ return array(
     'about'              => 'o projekte',
     'groups'             => 'skupiny',
     'theoreticians'      => 'teoretici',
-    'spaces'             => 'vystavne priestory',
-    'keywords'           => 'klucove slova',
+    'spaces'             => 'výstavné priestory',
+    'keywords'           => 'kľúčové slová',
 );
