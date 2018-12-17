@@ -92,7 +92,7 @@
                         <div class="card-body pt-0">
 
                             <div id="iso">
-                            @foreach ($author->items as $i=>$item)
+                            @foreach ($items as $i=>$item)
                                 <div class="col-md-3 col-sm-4 col-xs-6 item border-0">
                                 <a href="{!! $item->getImagePath() !!}" title="{!! $item->getTitleWithAuthors() !!}" data-photo-credit="{{ $item->photo_credit or 'Unknown'}}">
                                         @php

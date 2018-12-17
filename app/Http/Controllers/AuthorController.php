@@ -193,7 +193,12 @@ class AuthorController extends ElasticController
         $author->timestamps = false;
         $author->view_count += 1;
         $author->save();
-        return view('autor', array('author'=>$author));
+
+        $items = \App\Item::where('author', 'like', $author->name)->get();
+        return view('autor', [
+            'author' => $author,
+            'items' => $items,
+        ]);
 
     }
 }
