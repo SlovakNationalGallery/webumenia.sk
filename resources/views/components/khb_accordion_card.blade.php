@@ -9,7 +9,9 @@
 
   <div id="collapse{{ studly_case($title) }}" class="collapse {{ ($show) ? 'show' : ''}}" aria-labelledby="heading{{ studly_case($title) }}" data-parent="#{{ $parrentId }}">
     <div class="card-body pt-0">
-      {!!  $content !!}
+      <div class="expandable">
+        {!!  $content !!}
+      </div>
     </div>
   </div>
 </div>

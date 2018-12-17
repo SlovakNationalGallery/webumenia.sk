@@ -41,7 +41,7 @@
                     <p class="lead">{{ trans('autor.alternative_names') }} <em>{!! implode("</em>, <em>", $author->formatedNames) !!}</em></p>
                 @endif
                  --}}
-                <div class="row"><div class="col p-0">
+                <div class="row"><div class="col p-0 border-left-0 border-right-0">
                     <img src="{!! $author->getImagePath() !!}" class="img-fluid" alt="{!! $author->name !!}"  itemprop="image">
                 </div></div>
                 <p class="my-4">
@@ -78,7 +78,7 @@
                     </div>
                 @endif
             </div>
-            <div class="col popis p-0">
+            <div class="col popis p-0 border-0">
 
                 <div class="accordion" id="authorAccordion">
                     @include('components.khb_accordion_card', [
@@ -174,7 +174,7 @@
 
 @section('javascript')
 <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-{!! Html::script('js/readmore.min.js') !!}
+{!! Html::script('js/plugins/readmore.min.js') !!}
 
 <script type="text/javascript">
 
@@ -186,9 +186,9 @@
     $(document).ready(function(){
 
         $('.expandable').readmore({
-            moreLink: '<a href="#"><i class="fa fa-chevron-down"></i> {{ trans("general.show_more") }}</a>',
-            lessLink: '<a href="#"><i class="fa fa-chevron-up"></i> {{ trans("general.show_less") }}</a>',
-            maxHeight: 40,
+            moreLink: '<a href="#" class="no-underline text-right"><i class="fa fa-chevron-down"></i> {{ trans("general.show_more") }}</a>',
+            lessLink: '<a href="#" class="no-underline text-right"><i class="fa fa-chevron-up"></i> {{ trans("general.show_less") }}</a>',
+            maxHeight: 253,
             afterToggle: function(trigger, element, expanded) {
               if(! expanded) { // The "Close" link was clicked
                 $('html, body').animate( { scrollTop: element.offset().top }, {duration: 100 } );
