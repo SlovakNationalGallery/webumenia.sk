@@ -49,6 +49,6 @@ class ItemImage extends Model
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata) {
-        $metadata->addGetterMethodConstraint('iipimg_url', 'getIipimgUrl', new NotBlank());
+        // $metadata->addGetterMethodConstraint('iipimg_url', 'getIipimgUrl', new NotBlank());
     }
 }

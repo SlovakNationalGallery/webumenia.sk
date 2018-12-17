@@ -232,6 +232,13 @@
 	</div>
 
 	<div class="col-md-12">
+		<div class="form-group">
+		{!! Form::label('photo_credit', 'autor fotografie') !!}
+		{!! Form::text('photo_credit', Input::old('photo_credit'), array('class' => 'form-control')) !!}
+		</div>
+	</div>
+
+	<div class="col-md-12">
 		@if(isset($item))
 		<div class="primary-image">
 			aktuálny:<br>
