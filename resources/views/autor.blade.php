@@ -82,31 +82,31 @@
 
                 <div class="accordion" id="authorAccordion">
                     @include('components.khb_accordion_card', [
-                        'title' => 'biography',
+                        'title' => utrans('autor.biography'),
                         'content' => $author->biography,
                         'parrentId' => 'authorAccordion',
                         'show' => true,
                     ])
                     @include('components.khb_accordion_card', [
-                        'title' => 'gallery',
+                        'title' => utrans('autor.gallery'),
                         'content' => '',
                         'parrentId' => 'authorAccordion',
                         'show' => true,
                     ])
                     @include('components.khb_accordion_card', [
-                        'title' => 'exhibitions',
+                        'title' => utrans('autor.exhibitions'),
                         'content' => $author->exhibitions,
                         'parrentId' => 'authorAccordion',
                         'show' => false,
                     ])
                     @include('components.khb_accordion_card', [
-                        'title' => 'bibliography',
+                        'title' => utrans('autor.bibliography'),
                         'content' => $author->bibliography,
                         'parrentId' => 'authorAccordion',
                         'show' => false,
                     ])
                     @include('components.khb_accordion_card', [
-                        'title' => 'archive',
+                        'title' => utrans('autor.archive'),
                         'content' => $author->archive,
                         'parrentId' => 'authorAccordion',
                         'show' => false,
