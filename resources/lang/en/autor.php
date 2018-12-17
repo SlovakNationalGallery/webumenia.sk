@@ -37,4 +37,11 @@ return array(
 'exhibitions' => 'Exhibitions',
 'bibliography' => 'Bibliography',
 'archive' => 'Archive',
+
+// gallery
+
+'of' => 'of',
+'by' => 'by',
+
+
 );

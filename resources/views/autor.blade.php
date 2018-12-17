@@ -205,12 +205,13 @@
             gallery: {
                 enabled: true,
                 navigateByImgClick: true,
+                tCounter: '<span class="mfp-counter">%curr% {{ trans('autor.of') }} %total%</span>',
                 preload: [1,1] // Will preload 0 - before current, and 1 after the current image
             },
             image: {
                 tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
                 titleSrc: function(item) {
-                    return item.el.attr('title') + '<small>by '+ item.el.attr('data-photo-credit') +'</small>';
+                    return item.el.attr('title') + '<small>{{ trans('autor.by') }} '+ item.el.attr('data-photo-credit') +'</small>';
                 }
             }
         });
