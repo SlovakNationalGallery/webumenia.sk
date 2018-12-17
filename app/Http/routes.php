@@ -350,6 +350,10 @@ function()
         $items_digital = Item::random(20, ['is_free' => true]);
         return view('reprodukcie', ['items_print' => $items_print, 'items_digital' => $items_digital]);
     });
+
+    Route::get('o-projekte', function () {
+        return view('khb.o-projekte');
+    });
 });
 
 Route::group(array('middleware' => 'guest'), function () {
