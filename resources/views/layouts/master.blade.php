@@ -33,7 +33,7 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" />
 
     {{-- JS --}}
     @include('includes.analytics')
@@ -54,6 +54,8 @@
     </div>
 
     <!-- Javascript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/4.1.1/lazysizes.min.js"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/4.1.1/plugins/unveilhooks/ls.unveilhooks.min.js"></scri --}}
     <script type="text/javascript" src="{{ mix('js/manifest.js') }}"></script>
     <script type="text/javascript" src="{{ mix('/js/vendor.js') }}"></script>
     <script type="text/javascript" src="{{ mix('/js/app.js') }}"></script>

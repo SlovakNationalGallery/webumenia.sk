@@ -42,4 +42,9 @@ return array(
     'bibliography' => 'Bibliografia',
     'archive' => 'Archív',
 
+    // gallery
+
+    'of' => 'z',
+    'by' => 'od',
+
 );

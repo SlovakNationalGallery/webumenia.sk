@@ -31,7 +31,7 @@
                     <p class="lead">{{ trans('autor.alternative_names') }} <em>{!! implode("</em>, <em>", $author->formatedNames) !!}</em></p>
                 @endif
                  --}}
-                <div class="row"><div class="col p-0">
+                <div class="row"><div class="col p-0 border-left-0 border-right-0">
                     <img src="{!! $author->getImagePath() !!}" class="img-fluid" alt="{!! $author->name !!}"  itemprop="image">
                 </div></div>
                 <p class="my-4">
@@ -68,7 +68,7 @@
                     </div>
                 @endif
             </div>
-            <div class="col popis p-0">
+            <div class="col popis p-0 border-0">
 
                 <div class="accordion" id="authorAccordion">
                     @include('components.khb_accordion_card', [
@@ -77,12 +77,41 @@
                         'parrentId' => 'authorAccordion',
                         'show' => true,
                     ])
-                    @include('components.khb_accordion_card', [
-                        'title' => utrans('autor.gallery'),
-                        'content' => '',
-                        'parrentId' => 'authorAccordion',
-                        'show' => true,
-                    ])
+
+                    {{-- gallery --}}
+                    <div class="card">
+                      <div class="card-header" id="heading{{ studly_case('gallery') }}">
+                        <h5 class="mb-0">
+                          <button class="btn btn-link font-weight-bold p-0" type="button" data-toggle="collapse" data-target="#collapse{{ studly_case('gallery') }}" aria-expanded="true" aria-controls="collapse{{ studly_case('gallery') }}">
+                            {{ utrans('autor.gallery') }}
+                          </button>
+                        </h5>
+                      </div>
+
+                      <div id="collapse{{ studly_case('gallery') }}" class="collapse show" aria-labelledby="heading{{ studly_case('gallery') }}" data-parent="#authorAccordion">
+                        <div class="card-body pt-0">
+
+                            <div id="iso">
+                            @foreach ($author->items as $i=>$item)
+                                <div class="col-md-3 col-sm-4 col-xs-6 item border-0">
+                                <a href="{!! $item->getImagePath() !!}" title="{!! $item->getTitleWithAuthors() !!}" data-photo-credit="{{ $item->photo_credit or 'Unknown'}}">
+                                        @php
+                                            list($width, $height) = getimagesize(public_path() . $item->getImagePath());
+                                        @endphp
+                                        <div class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%;">
+                                            @include('components.item_image_responsive', ['item' => $item])
+                                        </div>
+                                    </a>
+                                </div>
+                            @endforeach
+
+                            </div>
+                            {{-- /iso --}}
+                        </div>
+                      </div>
+                    </div>
+                    {{-- /gallery --}}
+
                     @include('components.khb_accordion_card', [
                         'title' => utrans('autor.exhibitions'),
                         'content' => $author->exhibitions,
@@ -131,58 +160,52 @@
         </div>{{-- row --}}
     </div> {{-- /attributes --}}
 </section>
-
-@if ($author->items->count() > 0)
-<section class="author preview detail">
-    <div class="container">
-        <div class="row content-section">
-            <div class="col-xs-12 text-center">
-                <h3>{{ utrans('autor.artworks_by_artist') }}</h3>
-            </div>
-        </div>{{-- row --}}
-        <div class="row">
-            <div class="col-xs-12">
-                @include('components.artwork_carousel', [
-                    'slick_target' => "artworks-preview",
-                    'slick_variant' => "large",
-                    'items' => $author->getPreviewItems(),
-                ])
-            </div>
-        </div>{{-- row --}}
-        <div class="row content-section">
-            <div class="col-sm-12 text-center">
-                <a href="{!! url_to('katalog', ['author' => $author->name]) !!}" class="btn btn-default btn-outline sans" >{!! trans_choice('autor.button_show-all-artworks', $author->items->count(), ['artworks_count' => $author->items->count()])!!} <i class="fa fa-chevron-right "></i></a>
-            </div>
-        </div>
-
-    </div>
-</section>
-@endif
-
-
-
 @stop
 
-
 @section('javascript')
-{!! Html::script('js/readmore.min.js') !!}
-
-{!! Html::script('js/slick.js') !!}
-{!! Html::script('js/components/artwork_carousel.js') !!}
+<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+{!! Html::script('js/plugins/readmore.min.js') !!}
 
 <script type="text/javascript">
+
+    $('#iso').isotope({
+        itemSelector: '.item',
+        layoutMode: 'masonry'
+    });
+
     $(document).ready(function(){
 
         $('.expandable').readmore({
-            moreLink: '<a href="#"><i class="fa fa-chevron-down"></i> {{ trans("general.show_more") }}</a>',
-            lessLink: '<a href="#"><i class="fa fa-chevron-up"></i> {{ trans("general.show_less") }}</a>',
-            maxHeight: 40,
+            moreLink: '<a href="#" class="no-underline text-right"><i class="fa fa-chevron-down"></i> {{ trans("general.show_more") }}</a>',
+            lessLink: '<a href="#" class="no-underline text-right"><i class="fa fa-chevron-up"></i> {{ trans("general.show_less") }}</a>',
+            maxHeight: 253,
             afterToggle: function(trigger, element, expanded) {
               if(! expanded) { // The "Close" link was clicked
                 $('html, body').animate( { scrollTop: element.offset().top }, {duration: 100 } );
               }
             }
         });
+
+        $('#iso').magnificPopup({
+            delegate: '.item a',
+            type: 'image',
+            tLoading: 'Loading image #%curr%...',
+            mainClass: 'mfp-img-mobile',
+            gallery: {
+                enabled: true,
+                navigateByImgClick: true,
+                tCounter: '<span class="mfp-counter">%curr% {{ trans('autor.of') }} %total%</span>',
+                preload: [1,1] // Will preload 0 - before current, and 1 after the current image
+            },
+            image: {
+                tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
+                titleSrc: function(item) {
+                    return item.el.attr('title') + '<small>{{ trans('autor.by') }} '+ item.el.attr('data-photo-credit') +'</small>';
+                }
+            }
+        });
+
 
     });
 </script>
