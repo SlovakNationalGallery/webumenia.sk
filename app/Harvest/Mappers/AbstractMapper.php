@@ -8,7 +8,7 @@ abstract class AbstractMapper
     protected $localeToLangMap = [
         'sk' => 'sk',
         // @TODO: harvest localized data after being albe to turn on "use_property_fallback" in dimsav/laravel-translatable
-        // 'en' => 'en',
+        'en' => 'en',
         // 'cs' => 'cs',
     ];
 

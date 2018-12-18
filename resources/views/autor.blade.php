@@ -105,7 +105,7 @@
                         </h5>
                       </div>
 
-                      <div id="collapse{{ studly_case('gallery') }}" class="collapse show" aria-labelledby="heading{{ studly_case('gallery') }}" data-parent="#authorAccordion">
+                      <div id="collapse{{ studly_case('gallery') }}" class="collapse" aria-labelledby="heading{{ studly_case('gallery') }}" data-parent="#authorAccordion">
                         <div class="card-body pt-0">
 
                             <div id="iso">

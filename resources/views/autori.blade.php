@@ -76,24 +76,22 @@
 </section>
 
 <section class="purpose py-5">
-    <p>Zámer</p>
-    <p>V roku 2019 plánujeme postupne pridávať do databázy ďalších umelcov.<br>
-    Zapíšte sa do nášho newslettra a dostávajte pravidelné info!</p>
+    <p>{{ trans('autori.intention') }}</p>
+    <p>
+        {{ trans('autori.plan', ['type' => (Request::is('teoretici')) ? 'teoretikov' : 'umelcov']) }}<br>
+        {{ trans('autori.subscribe') }}
+    </p>
 
-    <form>
-        <div class="form-group row">
-            <label for="newsletterEmail" class="col-sm-2 col-form-label">Newsletter</label>
-            <div class="col-sm-10">
-                <input type="email" class="form-control" id="newsletterEmail" placeholder="Email">
-            </div>
-        </div>
+    <form class="form-inline">
+        <label for="newsletterEmail" class="form-label mb-2 mr-sm-2">Newsletter:</label>
+        <input type="email" class="form-control mb-2 mr-sm-2" id="newsletterEmail" placeholder="Email">
     </form>
 </section>
 
 <div class="row">
     @foreach (range('A', 'Z') as $char)
         <div class="col-sm-2 alphabet text-sans">
-            <a href="{!! url_to('autori', ['first-letter' => $char]) !!}" class="{!! (Input::get('first-letter')==$char) ? 'active' : '' !!}" rel="{!! $char !!}">{!! $char !!}</a>
+            <a href="{!! url_to(((Request::is('teoretici')) ? 'teoretici' : 'umelci'), ['first-letter' => $char]) !!}" class="{!! (Input::get('first-letter')==$char) ? 'active' : '' !!}" rel="{!! $char !!}">{!! $char !!}</a>
         </div>
     @endforeach
 </div>
