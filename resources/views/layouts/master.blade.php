@@ -43,6 +43,16 @@
             </div>
             <div class="col-sm-10 py-0 border-0">
                 @include('components.khb_nav_bar')
+
+                @if (Session::has('status'))
+                    <div class="alert {{ Session::get('alert-class', 'alert-info') }} alert-dismissible fade show my-2" role="alert">
+                        {!! Session::get('status') !!}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
+
                 @yield('content')
                 @include('components.khb_footer')
             </div>

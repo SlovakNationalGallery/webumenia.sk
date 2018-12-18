@@ -129,6 +129,7 @@ return array(
         'GrahamCampbell\Throttle\ThrottleServiceProvider',
         Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
         Dimsav\Translatable\TranslatableServiceProvider::class,
+        Spatie\Newsletter\NewsletterServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -208,6 +209,7 @@ return array(
         'Throttle' => 'GrahamCampbell\Throttle\Facades\Throttle',
         'LaravelLocalization' => Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
         'FormRenderer' => App\Facades\FormRenderer::class,
+        'Newsletter' => Spatie\Newsletter\NewsletterFacade::class,
     ),
 
     'jira_auth' => array(

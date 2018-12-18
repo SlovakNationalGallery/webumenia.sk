@@ -3,7 +3,7 @@
         <footer>
             <div class="row">
                 <div class="col-12 col-lg-5">
-                    @include('components.khb_newsletter_signup_form')
+                    @include('components.khb_newsletter_signup_form', ['action' => '/newsletter/signup'])
                 </div>
                 <div class="col-12 col-lg-7">
                     <a class="no-underline" href="http://www.kunsthallebratislava.sk/" target="_blank">
