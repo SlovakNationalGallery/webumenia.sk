@@ -18,7 +18,7 @@ return array(
     <p>V roku 2018 sa vďaka prioritnému projektu MK SR a menšiemu grantu Bratislavského samosprávneho kraja podarilo spustiť prvú fázu projektu, ktorá obsiahla najmä vznik samotnej on-line platformy. Na jej koncepcii, štruktúre a dizajne sa podieľal interný tím KHB (Nina Vrbanová, Katarína Trnovská a Eva Šimovičová). Programátorsky vznik a vývoj databázy zastrešil kolektív lab.SNG. Autorom pracovného názvu, ktorý vychádza z jazykovej fúzie slov „umenie“ a „databáza “, je Marián Tesák ml.</p>
 
     <p>Projekt vnímame nateraz ako pilotný. Jeho štruktúra, funkčnosť, ale aj rozsah obsahu sa bude v perspektíve najbližších rokov vyvíjať a prehlbovať. V aktuálnej fáze databáza predstavuje prvých šesť autorít – profilov vybraných slovenských umelcov, ktorých na spracovanie a zaradenie do projektu odporučila medzinárodná odborná komisia. Autorita či profil umelca pritom tvorí centrálnu os databázy. Jeho členenie a obsah (základná biografia, textová charakteristika, výberová fotodokumentácia, videoprofil, doplnkové materiály) sú koncipované s cieľom podať konzistentný obraz o tvorbe autora.</p>
- 
+
     <p>Dôležitou črtou databázy je tiež jej bilingválne vyhotovenie. Dvojjazyčnosť textového obsahu vychádza z povahy KHB ako medzinárodne orientovanej inštitúcie a zároveň sleduje cieľ komunikovať naše umenie a jeho kvality smerom do zahraničia. Medzinárodné renomé, aktivita i potenciál umelcov pritom tvoria jedno z hlavných kritérií ich výberu a zaradenia do obsahu databázy. Všetky hodnotiace kritériá aj profily jednotlivých členov komisie uvádzame v sekcii „Komisia“. Sme radi, že členstvo v tomto poradnom orgáne hneď v úvode prijali popredné osobnosti teórie umenia, kritiky a tiež galerijných inštitúcií v rámci krajín V4.</p>
 
     <p>Perspektívou projektu databázy je z dlhodobého hľadiska vytvorenie kompaktného a odborne vysoko relevantného zdroja textových aj obrazových informácií o slovenskom vizuálnom umení. Databáza ponúka odborne garantovaný a kvalitatívne selektovaný (s ohľadom na medzinárodný potenciál projektu) prehľad umelcov, ich tvorby, medzinárodných spoluprác a pod., pričom je určená predovšetkým odborníkom (teoretikom, kritikom, kurátorom, záujemcom o kontextualizáciu slovenského a zahraničného umenia), ale aj širšej verejnosti ako zdrojový prameň edukácie v tejto oblasti.</p>
@@ -60,7 +60,7 @@ return array(
     <li>Nina Vrbanová, iniciátorka a autorka koncepcie projektu</li>
     <li>Katarína Trnovská, autorka štruktúry databázy, editorka obsahu</li>
     <li>Eva Šimovičová, grafický dizajn </li>
-    <li>lab. SNG, vývoj a programovanie</li>
+    <li>lab.SNG, vývoj a programovanie</li>
 </ul>
 ',
 

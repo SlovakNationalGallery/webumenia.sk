@@ -28,6 +28,6 @@ return array(
     'theoreticians'      => 'teoretici',
     'spaces'             => 'výstavné priestory',
     'keywords'           => 'kľúčové slová',
-    
-    'disclaimer'         => 'Obsah sekcie :subject priestory pre Vás pripravujeme. Dostupný bude v roku 2019.',
+
+    'disclaimer'         => 'Obsah sekcie :subject pre Vás pripravujeme. Dostupný bude v roku 2019.',
 );
