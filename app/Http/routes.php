@@ -371,13 +371,19 @@ function()
         $email = $request->input('email');
         $result = Newsletter::subscribe($email);
 
+        $status = trans('newsletter.signup_success_message');
+        $response = back();
+
         if ($result === false) {
-            $response = trans('newsletter.signup_failed_message') . PHP_EOL;
-            $response.= Newsletter::getLastError();
-            return response($response, \Illuminate\Http\Response::HTTP_INTERNAL_SERVER_ERROR);
+            $status = trans('newsletter.signup_failed_message') . PHP_EOL;
+            $lastError = Newsletter::getLastError();
+            $status = $lastError ? sprintf('%s (%s)', $status, $lastError) : $status;
+            $response = $response->with('alert-class', 'alert-danger');
         }
 
-        return response(trans('newsletter.signup_success_message'));
+        $response = $response->with('status', $status);
+
+        return $response;
     });
 });
 

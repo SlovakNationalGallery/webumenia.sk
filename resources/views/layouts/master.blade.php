@@ -35,6 +35,10 @@
     
 </head>
 <body class="p-0 bg-white text-black">
+    @if(Session::has('status'))
+        <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('status') }}</p>
+    @endif
+
     <div class="container-fluid mw-1920">
         <div class="row">
             <div class="col-sm-2">

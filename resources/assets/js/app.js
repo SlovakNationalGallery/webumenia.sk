@@ -6,5 +6,3 @@
  */
 
 require('./bootstrap');
-
-require('./components/khb_newsletter_signup_form');
