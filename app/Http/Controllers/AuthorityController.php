@@ -86,6 +86,11 @@ class AuthorityController extends Controller
 
             $authority->save();
 
+            if (Input::has('tags')) {
+                $authority->reTag(Input::get('tags', []));
+                $authority->index(); //pre istotu. lebo ak sa nic ine nezmeni, tak nepreindexuje
+            }
+
             if (Input::hasFile('primary_image')) {
                 $this->uploadImage($authority);
             }
@@ -145,6 +150,11 @@ class AuthorityController extends Controller
                         $authority->links()->save($new_link);
                     }
                 }
+            }
+
+            if (Input::has('tags')) {
+                $authority->reTag(Input::get('tags', []));
+                $authority->index(); //pre istotu. lebo ak sa nic ine nezmeni, tak nepreindexuje
             }
 
             // ulozit primarny obrazok. do databazy netreba ukladat. nazov=id

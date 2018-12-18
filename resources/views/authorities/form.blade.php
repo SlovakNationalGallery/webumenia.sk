@@ -143,7 +143,7 @@
       <div class="col-md-12">
         <div class="form-group">
         {!! Form::label('tags', 'tagy') !!}
-        {!! Form::select('tags[]', \Conner\Tagging\Model\Tag::lists('name','name'), (isSet($auhtority)) ? $auhtority->tagNames() : [], ['id' => 'tags', 'multiple' => 'multiple']) !!}
+        {!! Form::select('tags[]', \Conner\Tagging\Model\Tag::lists('name','name'), (isSet($authority)) ? $authority->tagNames() : [], ['id' => 'tags', 'multiple' => 'multiple']) !!}
 
         </div>
       </div>
