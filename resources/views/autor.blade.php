@@ -107,7 +107,7 @@
 
                       <div id="collapse{{ studly_case('gallery') }}" class="collapse show" aria-labelledby="heading{{ studly_case('gallery') }}" data-parent="#authorAccordion">
                         <div class="card-body pt-0">
-
+                            {{-- <div class="expandable"> --}}
                             <div id="iso">
                             @foreach ($items as $i=>$item)
                                 <div class="col-md-3 col-sm-4 col-xs-6 item border-0">
@@ -124,6 +124,7 @@
 
                             </div>
                             {{-- /iso --}}
+                            {{-- </div> --}}
                         </div>
                       </div>
                     </div>
@@ -194,9 +195,9 @@
     $(document).ready(function(){
 
         $('.expandable').readmore({
-            moreLink: '<a href="#" class="no-underline text-right"><i class="fa fa-chevron-down"></i> {{ trans("general.show_more") }}</a>',
-            lessLink: '<a href="#" class="no-underline text-right"><i class="fa fa-chevron-up"></i> {{ trans("general.show_less") }}</a>',
-            maxHeight: 253,
+            moreLink: '<a href="#" class="no-underline text-right">{{ trans("general.show_more") }} <i class="fas fa-chevron-right"></i></a>',
+            lessLink: '<a href="#" class="no-underline text-right">{{ trans("general.show_less") }} <i class="fas fa-chevron-up"></i></a>',
+            maxHeight: 400,
             afterToggle: function(trigger, element, expanded) {
               if(! expanded) { // The "Close" link was clicked
                 $('html, body').animate( { scrollTop: element.offset().top }, {duration: 100 } );
