@@ -15,4 +15,6 @@ return array(
     'authors_found'       => 'artists found for',
     'authors_counted'     => 'artists',
     'authors_none'        => 'currently no artists',
+    'intention'                 => 'Intention',
+    'subscribe'           => 'If you want to receive updates about Artbase, please subscribe to our newsletter.',
 );

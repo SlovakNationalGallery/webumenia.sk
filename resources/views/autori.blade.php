@@ -76,13 +76,17 @@
 </section>
 
 <section class="purpose py-5">
-    <p>Zámer</p>
-    <p>V roku 2019 plánujeme postupne pridávať do databázy ďalších umelcov.<br>
-    Zapíšte sa do nášho newslettra a dostávajte pravidelné info!</p>
+    <p>{{ trans('autori.intention') }}</p>
+    <p>
+        @if (LaravelLocalization::getCurrentLocale() == 'sk')
+            V roku 2019 plánujeme postupne pridávať do databázy ďalších {{ (Request::is('teoretici')) ? 'teoretikov' : 'umelcov' }}.<br>
+        @endif
+        {{ trans('autori.subscribe') }}
+    </p>
 
     <form class="form-inline">
         <label for="newsletterEmail" class="form-label mb-2 mr-sm-2">Newsletter:</label>
-        <input type="email" class="form-control mb-2 mr-sm-2 bg-gray" id="newsletterEmail" placeholder="Email">
+        <input type="email" class="form-control mb-2 mr-sm-2" id="newsletterEmail" placeholder="Email">
     </form>
 </section>
 

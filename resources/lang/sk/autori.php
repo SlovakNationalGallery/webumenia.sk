@@ -15,4 +15,6 @@ return array(
     'authors_found'       => 'nájdení autori pre',
     'authors_counted'     => 'autorov',
     'authors_none'        => 'momentálne žiadni autori',
+    'intention'                 => 'Zámer',
+    'subscribe'           => 'Zapíšte sa do nášho newslettra a dostávajte pravidelné info!',
 );
