@@ -61,8 +61,8 @@
                 @if (!empty($author->tagNames()))
                     <p class="my-4">
                         {{ trans('autor.tags') }} <br>
-                        @foreach ($author->tagNames() as $tag)
-                            <a href="{!!URL::to('katalog?tag=' . $tag)!!}" class="mr-1">#{!! $tag !!}</a>
+                        @foreach ($author->tags as $tag)
+                            <a href="{!!URL::to('klucove-slova#' . $tag->slug)!!}" class="mr-1">#{!! $tag->name !!}</a>
                         @endforeach
                     </p>
                 @endif
@@ -105,7 +105,7 @@
                         </h5>
                       </div>
 
-                      <div id="collapse{{ studly_case('gallery') }}" class="collapse" aria-labelledby="heading{{ studly_case('gallery') }}" data-parent="#authorAccordion">
+                      <div id="collapse{{ studly_case('gallery') }}" class="collapse show" aria-labelledby="heading{{ studly_case('gallery') }}" data-parent="#authorAccordion">
                         <div class="card-body pt-0">
 
                             <div id="iso">
