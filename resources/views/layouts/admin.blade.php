@@ -16,7 +16,8 @@
 
         <!-- CSS are placed here -->
         <script src="https://use.fontawesome.com/73587c90bb.js"></script>
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         {!! Html::style('css/sb-admin.css') !!}
         {!! Html::style('css/vendor/jquery-ui/jquery-ui.css') !!}
         {{-- {!! Html::style('css/ladda-themeless.min.css') !!} --}}
@@ -181,7 +182,7 @@
 
     <!-- Core JavaScript Files -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    {!! Html::script('js/vendor/bootstrap/bootstrap.min.js') !!}
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="{!! asset_timed('js/sb-admin.js') !!}"></script>
     {!! Html::script('js/plugins/bootstrap-datepicker.js') !!}
     {!! Html::script('js/plugins/bootstrap-colorpicker.min.js') !!}

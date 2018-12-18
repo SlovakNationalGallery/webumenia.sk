@@ -6,6 +6,9 @@ $gray-400: #b3b3b3;
 $black: #000;
 $white: #fff;
 
+$border-width: 3px;
+$border-color: #000;
+
 // Links
 //
 // Style anchor elements.
@@ -26,9 +29,9 @@ $h1-font-size:                $font-size-base * 1.75;
 
 // $card-spacer-y:                     .75rem !default;
 // $card-spacer-x:                     1.25rem !default;
-$card-border-width:                 2px;
+$card-border-width:                 $border-width;
 $card-border-radius:                0;
-$card-border-color:                 $black;
+$card-border-color:                 $border-color;
 $card-inner-border-radius:          0;
 $card-cap-bg:                       $white;
 $card-bg:                           $white;

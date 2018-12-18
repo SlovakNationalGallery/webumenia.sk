@@ -69,5 +69,6 @@ return array(
 
     'copyright-title'            => 'Autorské práva',
     'copyright-content'          => '<p>Náhľady umeleckých diel, audio, video materiál a texty publikované na <em>ARTBASE</em> slúžia výhradne na edukačné účely. Databáza je odborne vysoko relevantný pramenný zdroj určený primárne teoretikom a historikom umenia, ako aj študentom umeleckých škôl.</p>
+<div><strong>Ⓒ ARTBASE</strong></div>
 <p>Všetky práva vyhradené. Žiadna časť databázy sa nesmie nijakou formou reprodukovať, kopírovať alebo rozmnožovať bez predchádzajúceho súhlasu prevádzkovateľa <em>ARTBASE</em>. </p>',
 );

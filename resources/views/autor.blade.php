@@ -24,14 +24,14 @@
 <section class="author detail" itemscope itemtype="http://schema.org/Person">
     <div class="attributes">
         <div class="row">
-            <div class="col-2dot4">
+            <div class="col-12 col-md-4 col-xl-2">
                 <h1 itemprop="name" class="mt-2 mb-4">{!! $author->formatedName !!}</h1>
                 {{--
                 @if ( $author->names->count() > 0)
                     <p class="lead">{{ trans('autor.alternative_names') }} <em>{!! implode("</em>, <em>", $author->formatedNames) !!}</em></p>
                 @endif
                  --}}
-                <div class="row"><div class="col p-0 border-left-0 border-right-0">
+                <div class="row"><div class="col p-0 border-left-0 border-right-0 border-top">
                     <img src="{!! $author->getImagePath() !!}" class="img-fluid" alt="{!! $author->name !!}"  itemprop="image">
                 </div></div>
                 @if ($author->birth_year)
@@ -85,7 +85,7 @@
                     </div>
                 @endif
             </div>
-            <div class="col popis p-0 border-0">
+            <div class="col-12 col-md-8 col-xl-10 popis p-0 border-0">
 
                 <div class="accordion" id="authorAccordion">
                     @include('components.khb_accordion_card', [
@@ -107,7 +107,7 @@
 
                       <div id="collapse{{ studly_case('gallery') }}" class="collapse show" aria-labelledby="heading{{ studly_case('gallery') }}" data-parent="#authorAccordion">
                         <div class="card-body pt-0">
-
+                            {{-- <div class="expandable"> --}}
                             <div id="iso">
                             @foreach ($items as $i=>$item)
                                 <div class="col-md-3 col-sm-4 col-xs-6 item border-0">
@@ -124,6 +124,7 @@
 
                             </div>
                             {{-- /iso --}}
+                            {{-- </div> --}}
                         </div>
                       </div>
                     </div>
@@ -194,9 +195,9 @@
     $(document).ready(function(){
 
         $('.expandable').readmore({
-            moreLink: '<a href="#" class="no-underline text-right"><i class="fa fa-chevron-down"></i> {{ trans("general.show_more") }}</a>',
-            lessLink: '<a href="#" class="no-underline text-right"><i class="fa fa-chevron-up"></i> {{ trans("general.show_less") }}</a>',
-            maxHeight: 253,
+            moreLink: '<a href="#" class="no-underline text-right">{{ trans("general.show_more") }} <i class="fas fa-chevron-right"></i></a>',
+            lessLink: '<a href="#" class="no-underline text-right">{{ trans("general.show_less") }} <i class="fas fa-chevron-up"></i></a>',
+            maxHeight: 400,
             afterToggle: function(trigger, element, expanded) {
               if(! expanded) { // The "Close" link was clicked
                 $('html, body').animate( { scrollTop: element.offset().top }, {duration: 100 } );
