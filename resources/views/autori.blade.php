@@ -82,10 +82,10 @@
         {{ trans('autori.subscribe') }}
     </p>
 
-    <form class="form-inline">
-        <label for="newsletterEmail" class="form-label mb-2 mr-sm-2">Newsletter:</label>
-        <input type="email" class="form-control mb-2 mr-sm-2" id="newsletterEmail" placeholder="Email">
-    </form>
+    <div class="col-lg-6 col-md-10 border-0">
+    @include('components.khb_newsletter_signup_form', ['action' => '/newsletter/signup'])
+    </div>
+
 </section>
 
 <div class="row border-top">
