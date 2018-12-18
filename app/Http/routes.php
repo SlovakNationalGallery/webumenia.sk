@@ -45,6 +45,7 @@ function()
     Route::get('/', function () {
 
         $params = array();
+        $params["query"]["filtered"]["filter"]["bool"]["must"][]["term"]["type"] = 'author';
         $authors = Authority::search($params);
 
         return view('intro', [
