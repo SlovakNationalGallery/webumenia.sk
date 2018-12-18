@@ -401,9 +401,10 @@ class Authority extends Model
 
     public function index()
     {
-        if ($this->type != 'person') {
-            return false;
-        }
+        // type can be either "author" or "theoretician" and there is no reason to keep this check
+        // if ($this->type != 'person') {
+        //     return false;
+        // }
 
         $client =  $this->getElasticClient();
         $elastic_translatable = \App::make('ElasticTranslatableService');

@@ -38,6 +38,15 @@
             </div>
           </div>
         @endif
+
+        <div class="col-md-12">
+          <div class="form-group">
+            {!! Form::label('type', 'typ autority') !!}
+            {!! Form::select('type', ['author' => 'author', 'theoretician' => 'theoretician'], Input::old('type'), array('class' => 'form-control')) !!}
+
+          </div>
+        </div>
+
         <div class="col-md-12">
           <div class="form-group">
             {!! Form::label('name', 'celé meno (Priezvisko, Meno)') !!}
