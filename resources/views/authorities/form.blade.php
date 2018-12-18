@@ -128,6 +128,18 @@
           {!! Form::text('studied_at', Input::old('studied_at'), array('class' => 'form-control')) !!}
         </div>
       </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          {!! Form::label('birth_year', 'Dátum narodenia (rok)') !!}
+          {!! Form::text('birth_year', Input::old('birth_year'), array('class' => 'form-control')) !!}
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          {!! Form::label('birth_place', 'Miesto narodenia') !!}
+          {!! Form::text('birth_place', Input::old('birth_place'), array('class' => 'form-control')) !!}
+        </div>
+      </div>
     </div>
     <!-- /.panel-body -->
   </div>

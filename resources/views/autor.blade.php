@@ -36,7 +36,7 @@
                 </div></div>
                 <p class="my-4">
                     Dátum narodenia <br>
-                    {{ $author->birth_date }}
+                    {{ $author->birth_year }}
                 </p>
                 <p class="my-4">
                     Miesto narodenia  <br>
