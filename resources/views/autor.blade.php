@@ -31,7 +31,7 @@
                     <p class="lead">{{ trans('autor.alternative_names') }} <em>{!! implode("</em>, <em>", $author->formatedNames) !!}</em></p>
                 @endif
                  --}}
-                <div class="row"><div class="col p-0 border-left-0 border-right-0">
+                <div class="row"><div class="col p-0 border-left-0 border-right-0 border-top">
                     <img src="{!! $author->getImagePath() !!}" class="img-fluid" alt="{!! $author->name !!}"  itemprop="image">
                 </div></div>
                 @if ($author->birth_year)
