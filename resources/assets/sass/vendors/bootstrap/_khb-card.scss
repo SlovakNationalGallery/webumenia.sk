@@ -1,3 +1,9 @@
+.card {
+  border: 0;
+  border-right: $card-border-width solid $card-border-color;
+  border-bottom: $card-border-width solid $card-border-color !important;
+}
+
 .card-header {
   border-bottom: 0;
   font-weight: bold;
