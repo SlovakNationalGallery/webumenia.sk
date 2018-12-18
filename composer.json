@@ -34,7 +34,8 @@
         "league/csv": "^8.0",
         "league/color-extractor": "dev-master",
         "barryvdh/laravel-form-bridge": "0.3.6",
-        "symfony/templating": "^3.4"
+        "symfony/templating": "^3.4",
+        "spatie/laravel-newsletter": "^3.7"
     },
     "autoload": {
         "classmap": [
