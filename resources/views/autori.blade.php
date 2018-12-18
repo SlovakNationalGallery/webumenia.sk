@@ -78,9 +78,7 @@
 <section class="purpose py-5">
     <p>{{ trans('autori.intention') }}</p>
     <p>
-        @if (LaravelLocalization::getCurrentLocale() == 'sk')
-            V roku 2019 plánujeme postupne pridávať do databázy ďalších {{ (Request::is('teoretici')) ? 'teoretikov' : 'umelcov' }}.<br>
-        @endif
+        {{ trans('autori.plan', ['type' => (Request::is('teoretici')) ? 'teoretikov' : 'umelcov']) }}<br>
         {{ trans('autori.subscribe') }}
     </p>
 

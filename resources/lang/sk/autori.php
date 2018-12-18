@@ -15,6 +15,7 @@ return array(
     'authors_found'       => 'nájdení autori pre',
     'authors_counted'     => 'autorov',
     'authors_none'        => 'momentálne žiadni autori',
-    'intention'                 => 'Zámer',
+    'intention'           => 'Zámer',
+    'plan'                => 'V roku 2019 plánujeme postupne pridávať do databázy ďalších :type',
     'subscribe'           => 'Zapíšte sa do nášho newslettra a dostávajte pravidelné info!',
 );
