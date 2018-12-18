@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="lab.SNG">
     @section('description')
-    <meta name="description" content="{{ trans('master.meta_description') }}">
+    <meta name="description" content="{{ trans('master.meta-description') }}">
     @show
 
     <title>
         @section('title')
-        ARTBASE
+        {{ trans('master.meta-title') }}
         @show
     </title>
 

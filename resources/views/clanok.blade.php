@@ -9,7 +9,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="{!! Request::url() !!}" />
 <meta property="og:image" content="{!! URL::to('images/clanky/' . $article->getHeaderImage()) !!}" />
-<meta property="og:site_name" content="Web umenia" />
+<meta property="og:site_name" content="{{ trans('master.meta-title') }}" />
 @stop
 
 @section('title')
