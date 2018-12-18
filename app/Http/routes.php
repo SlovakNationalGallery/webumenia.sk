@@ -266,9 +266,13 @@ function()
     // Route::match(array('GET', 'POST'), 'katalog', 'CatalogController@index');
     // Route::match(array('GET', 'POST'), 'katalog/suggestions', 'CatalogController@getSuggestions');
 
-    Route::match(array('GET', 'POST'), 'autori', 'AuthorController@getIndex');
-    Route::match(array('GET', 'POST'), 'autori/suggestions', 'AuthorController@getSuggestions');
-    Route::get('autor/{id}', 'AuthorController@getDetail');
+    Route::match(array('GET', 'POST'), '{authorityType}', 'AuthorController@getIndex')->where([
+        'authorityType' => 'umelci|teoretici',
+    ]);
+
+    Route::match(array('GET', 'POST'), 'umelci/suggestions', 'AuthorController@getSuggestions');
+    Route::get('umelec/{id}', 'AuthorController@getDetail');
+    Route::get('teoretik/{id}', 'AuthorController@getDetail');
 
     Route::match(array('GET', 'POST'), 'clanky', 'ClanokController@getIndex');
     Route::match(array('GET', 'POST'), 'clanky/suggestions', 'ClanokController@getSuggestions');

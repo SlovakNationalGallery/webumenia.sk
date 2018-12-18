@@ -18,7 +18,7 @@ return array(
                      |{1}    <strong>:view_count</strong> view
                      |[2,Inf]<strong>:view_count</strong> views',
 
-    'tags'              => 'tags',
+    'tags'              => 'Keywords',
     'back-to-artists'   => 'back to artists page',
     'alternative_names' => 'alternatively',
     'places'            => 'has been active in',
@@ -32,11 +32,16 @@ return array(
                                   |[2,Inf]show all <strong>:artworks_count</strong> artworks',
 // khb
 
-'biography' => 'Biography',
+'artist_biography' => 'Biography',
+'theoretician_biography' => 'Biography',
 'gallery' => 'Gallery',
 'exhibitions' => 'Exhibitions',
 'bibliography' => 'Bibliography',
 'archive' => 'Archive',
+'birth_year' => 'Birth year',
+'birth_place' => 'Birth place',
+'active_in' => 'Active in',
+'studied_at' => 'Studied at',
 
 // gallery
 

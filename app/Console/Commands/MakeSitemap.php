@@ -124,7 +124,7 @@ class MakeSitemap extends Command
                 if (($model == 'Article' || $model == 'Collection') && (!$entry->publish)) {
                     continue;
                 }
-                if (($model != 'Authority') || ($entry->type == 'person')) { // ak autority, tak len personalne
+                if (($model != 'Authority') || ($entry->type == 'author') || ($entry->type == 'theoretician')) { // ak autority, tak len personalne
                     $images = [];
                     if ($entry->has_image) {
                         $images[] = ['url' => URL::to($entry->getImagePath()), 'title' => $entry->title];

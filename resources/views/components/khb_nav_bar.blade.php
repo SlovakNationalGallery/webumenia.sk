@@ -17,8 +17,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="col grid-cell-link {!! (Request::is('autori') || Request::is('autor/*')) ? 'active' : '' !!}">
-            <a href="{{{ URL::to('autori') }}}" class="">
+        <div class="col grid-cell-link {!! (Request::is('umelci') || Request::is('umelec/*')) ? 'active' : '' !!}">
+            <a href="{{{ URL::to('umelci') }}}" class="">
             </a>
             <span>{{ utrans('master.authors') }}</span>
         </div>
@@ -27,7 +27,7 @@
             </a>
             <span>{{ utrans('master.groups') }}</span>
         </div>
-        <div class="col grid-cell-link {!! Request::is('teoretici') ? 'active' : '' !!}">
+        <div class="col grid-cell-link {!! (Request::is('teoretici') || Request::is('teoretik/*')) ? 'active' : '' !!}">
             <a href="{{{ URL::to('teoretici') }}}" class="">
             </a>
             <span>{{ utrans('master.theoreticians') }}</span>

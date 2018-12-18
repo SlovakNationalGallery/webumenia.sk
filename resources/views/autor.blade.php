@@ -34,14 +34,39 @@
                 <div class="row"><div class="col p-0 border-left-0 border-right-0">
                     <img src="{!! $author->getImagePath() !!}" class="img-fluid" alt="{!! $author->name !!}"  itemprop="image">
                 </div></div>
-                <p class="my-4">
-                    Dátum narodenia <br>
-                    {{ $author->birth_date }}
-                </p>
-                <p class="my-4">
-                    Miesto narodenia  <br>
-                    {{ $author->birth_place }}
-                </p>
+                @if ($author->birth_year)
+                    <p class="my-4">
+                        {{ trans('autor.birth_year') }} <br>
+                        {{ $author->birth_year }}
+                    </p>
+                @endif
+                @if ($author->birth_place)
+                    <p class="my-4">
+                        {{ trans('autor.birth_place') }} <br>
+                        {{ $author->birth_place }}
+                    </p>
+                @endif
+                @if ($author->active_in)
+                    <p class="my-4">
+                        {{ trans('autor.active_in') }} <br>
+                        {{ $author->active_in }}
+                    </p>
+                @endif
+                @if ($author->studied_at)
+                    <p class="my-4">
+                        {{ trans('autor.studied_at') }} <br>
+                        {{ $author->studied_at }}
+                    </p>
+                @endif
+                @if (!empty($author->tagNames()))
+                    <p class="my-4">
+                        {{ trans('autor.tags') }} <br>
+                        @foreach ($author->tagNames() as $tag)
+                            <a href="{!!URL::to('katalog?tag=' . $tag)!!}" class="mr-1">#{!! $tag !!}</a>
+                        @endforeach
+                    </p>
+                @endif
+                {{--
                 @if ( $author->events->count() > 0)
                     <div class="events">
                         {{ utrans('autor.places') }}<br>
@@ -50,6 +75,7 @@
                         @endforeach
                     </div>
                 @endif
+                 --}}
                 @if ( $author->links->count() > 0)
                     <div class="links">
                         {{ utrans('autor.links') }}<br>
@@ -58,21 +84,12 @@
                         @endforeach
                     </div>
                 @endif
-
-                @if ( $author->tags->count() > 0)
-                    <div class="tags">
-                        <h4>{{ utrans('autor.tags') }}: </h4>
-                        @foreach ($author->tags as $tag)
-                            <a href="{!!URL::to('katalog?tag=' . $tag)!!}" class="btn btn-default btn-xs btn-outline">{!! $tag !!}</a>
-                        @endforeach
-                    </div>
-                @endif
             </div>
             <div class="col popis p-0 border-0">
 
                 <div class="accordion" id="authorAccordion">
                     @include('components.khb_accordion_card', [
-                        'title' => utrans('autor.biography'),
+                        'title' => ($author->type == 'theoretician') ? utrans('autor.theoretician_biography') : utrans('autor.artist_biography'),
                         'content' => $author->biography,
                         'parrentId' => 'authorAccordion',
                         'show' => true,

@@ -38,6 +38,15 @@
             </div>
           </div>
         @endif
+
+        <div class="col-md-12">
+          <div class="form-group">
+            {!! Form::label('type', 'typ autority') !!}
+            {!! Form::select('type', ['author' => 'author', 'theoretician' => 'theoretician'], Input::old('type'), array('class' => 'form-control')) !!}
+
+          </div>
+        </div>
+
         <div class="col-md-12">
           <div class="form-group">
             {!! Form::label('name', 'celé meno (Priezvisko, Meno)') !!}
@@ -113,6 +122,32 @@
           {!! Form::text('active_in', Input::old('active_in'), array('class' => 'form-control')) !!}
         </div>
       </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          {!! Form::label('studied_at', 'Štúdium') !!}
+          {!! Form::text('studied_at', Input::old('studied_at'), array('class' => 'form-control')) !!}
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          {!! Form::label('birth_year', 'Dátum narodenia (rok)') !!}
+          {!! Form::text('birth_year', Input::old('birth_year'), array('class' => 'form-control')) !!}
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          {!! Form::label('birth_place', 'Miesto narodenia') !!}
+          {!! Form::text('birth_place', Input::old('birth_place'), array('class' => 'form-control')) !!}
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+        {!! Form::label('tags', 'tagy') !!}
+        {!! Form::select('tags[]', \Conner\Tagging\Model\Tag::lists('name','name'), (isSet($authority)) ? $authority->tagNames() : [], ['id' => 'tags', 'multiple' => 'multiple']) !!}
+
+        </div>
+      </div>
+
     </div>
     <!-- /.panel-body -->
   </div>
@@ -244,6 +279,7 @@
 
 {!! Html::script('js/plugins/bootstrap-slider.min.js') !!}
 {!! Html::script('js/plugins/jquery.cropit.min.js') !!}
+{!! Html::script('js/plugins/selectize.min.js') !!}
 
 <script>
 $(document).ready(function(){
@@ -272,6 +308,13 @@ $(document).ready(function(){
     });
     $('#primary_image').val(imageData);
       return true;
+  });
+
+  $("#tags").selectize({
+    plugins: ['remove_button'],
+    persist: false,
+    create: true,
+    createOnBlur: true
   });
 
 });

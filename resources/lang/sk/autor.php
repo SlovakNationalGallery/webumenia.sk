@@ -20,7 +20,7 @@ return array(
                      |[2,4]  <strong>:view_count</strong> videnia
                      |[5,Inf]<strong>:view_count</strong> videní',
 
-    'tags'              => 'tagy',
+    'tags'              => 'Kľúčové slová',
     'back-to-artists'   => 'zoznam autorov',
     'alternative_names' => 'príp.',
     'places'            => 'Pôsobenie',
@@ -36,11 +36,17 @@ return array(
 
     // khb
 
-    'biography' => 'O umelcovi',
+    'artist_biography' => 'O umelcovi',
+    'theoretician_biography' => 'O teoretikovi',
     'gallery' => 'Galéria',
     'exhibitions' => 'Zoznam výstav',
     'bibliography' => 'Bibliografia',
     'archive' => 'Archív',
+    'birth_year' => 'Dátum narodenia',
+    'birth_place' => 'Miesto narodenia',
+    'active_in' => 'Miesto pôsobenia',
+    'studied_at' => 'Štúdium',
+
 
     // gallery
 

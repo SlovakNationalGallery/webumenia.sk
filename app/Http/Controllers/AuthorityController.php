@@ -64,7 +64,7 @@ class AuthorityController extends Controller
         $input = Input::all();
 
         $rules = Authority::$rules;
-        // $rules['primary_image'] = 'required|image'; 
+        // $rules['primary_image'] = 'required|image';
 
         $v = Validator::make($input, $rules);
 
@@ -74,11 +74,9 @@ class AuthorityController extends Controller
 
             $authority = new Authority;
 
-            $authority->type = 'person';
-            
             // not sure if OK to fill all input like this before setting translated attributes
             $authority->fill($input);
-            
+
             // store translatable attributes
             foreach (\Config::get('translatable.locales') as $i=>$locale) {
                 foreach ($authority->translatedAttributes as $attribute) {
@@ -87,6 +85,11 @@ class AuthorityController extends Controller
             }
 
             $authority->save();
+
+            if (Input::has('tags')) {
+                $authority->reTag(Input::get('tags', []));
+                $authority->index(); // force reindex - because if nothing else get updated, it wouldn't reindex autmaticaly
+            }
 
             if (Input::hasFile('primary_image')) {
                 $this->uploadImage($authority);
@@ -149,6 +152,11 @@ class AuthorityController extends Controller
                 }
             }
 
+            if (Input::has('tags')) {
+                $authority->reTag(Input::get('tags', []));
+                $authority->index();  // force reindex - because if nothing else get updated, it wouldn't reindex autmaticaly
+            }
+
             // ulozit primarny obrazok. do databazy netreba ukladat. nazov=id
             if (Input::has('primary_image')) {
                 $this->uploadImage($authority);
@@ -195,7 +203,7 @@ class AuthorityController extends Controller
         $authorities = Authority::where('id', 'LIKE', $prefix.'%')->get();
         foreach ($authorities as $key => $authority) {
             $authority_data = $authority->toArray();
-            
+
             $keys = array();
             $values = array();
             foreach ($authority_data as $key => $value) {
