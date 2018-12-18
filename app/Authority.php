@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Authority extends Model
 {
+    use \Conner\Tagging\Taggable;
     use \Dimsav\Translatable\Translatable, BouncyTrait {
         \Dimsav\Translatable\Translatable::save insteadof BouncyTrait;
     }
@@ -43,6 +44,7 @@ class Authority extends Model
         'príslušnosť' => 'nationality',
         'miesto' => 'place',
         'typ' => 'type',
+        'tagy' => 'tag',
     );
 
     public static $sortable = array(
@@ -232,20 +234,20 @@ class Authority extends Model
         return Cache::get('authority_collections_count');
     }
 
-    public function getTagsAttribute()
-    {
-        if (!Cache::has('authority_tags')) {
-            $tags = $this->join('authority_item', 'authority_item.authority_id', '=', 'authorities.id')
-                            ->join('tagging_tagged', function ($join) {
-                                $join->on('tagging_tagged.taggable_id', '=', 'authority_item.item_id');
-                                $join->on('tagging_tagged.taggable_type', '=', DB::raw("'Item'"));
-                            })->where('authorities.id', '=', $this->id)->groupBy('tagging_tagged.tag_name')->select('tagging_tagged.tag_name', DB::raw('count(tagging_tagged.tag_name) as pocet'))->orderBy('pocet', 'desc')->limit(10)->get();
-            $authority_tags = $tags->lists('tag_name');
-            Cache::put('authority_tags', $authority_tags, 60);
-        }
+    // public function getTagsAttribute()
+    // {
+    //     if (!Cache::has('authority_tags')) {
+    //         $tags = $this->join('authority_item', 'authority_item.authority_id', '=', 'authorities.id')
+    //                         ->join('tagging_tagged', function ($join) {
+    //                             $join->on('tagging_tagged.taggable_id', '=', 'authority_item.item_id');
+    //                             $join->on('tagging_tagged.taggable_type', '=', DB::raw("'Item'"));
+    //                         })->where('authorities.id', '=', $this->id)->groupBy('tagging_tagged.tag_name')->select('tagging_tagged.tag_name', DB::raw('count(tagging_tagged.tag_name) as pocet'))->orderBy('pocet', 'desc')->limit(10)->get();
+    //         $authority_tags = $tags->lists('tag_name');
+    //         Cache::put('authority_tags', $authority_tags, 60);
+    //     }
 
-        return Cache::get('authority_tags');
-    }
+    //     return Cache::get('authority_tags');
+    // }
 
     public function getFormatedNameAttribute()
     {
@@ -426,6 +428,7 @@ class Authority extends Model
                 'id' => $this->id,
                 'identifier' => $this->id,
                 'type' => $this->type,
+                'tag' => $this->tagNames(), // @TODO translate this
                 'name' => $this->name,
                 'alternative_name' => $this->names->lists('name'),
                 'related_name' => $this->relationships->lists('name'),

@@ -140,6 +140,14 @@
           {!! Form::text('birth_place', Input::old('birth_place'), array('class' => 'form-control')) !!}
         </div>
       </div>
+      <div class="col-md-12">
+        <div class="form-group">
+        {!! Form::label('tags', 'tagy') !!}
+        {!! Form::select('tags[]', \Conner\Tagging\Model\Tag::lists('name','name'), (isSet($auhtority)) ? $auhtority->tagNames() : [], ['id' => 'tags', 'multiple' => 'multiple']) !!}
+
+        </div>
+      </div>
+
     </div>
     <!-- /.panel-body -->
   </div>
@@ -271,6 +279,7 @@
 
 {!! Html::script('js/plugins/bootstrap-slider.min.js') !!}
 {!! Html::script('js/plugins/jquery.cropit.min.js') !!}
+{!! Html::script('js/plugins/selectize.min.js') !!}
 
 <script>
 $(document).ready(function(){
@@ -299,6 +308,13 @@ $(document).ready(function(){
     });
     $('#primary_image').val(imageData);
       return true;
+  });
+
+  $("#tags").selectize({
+    plugins: ['remove_button'],
+    persist: false,
+    create: true,
+    createOnBlur: true
   });
 
 });
