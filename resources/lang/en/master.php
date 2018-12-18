@@ -26,6 +26,8 @@ return array(
     'about'              => 'about',
     'groups'             => 'groups',
     'theoreticians'      => 'theoreticians',
-    'spaces'             => 'spaces',
+    'spaces'             => 'exhibition spaces',
     'keywords'           => 'keywords',
+
+    'disclaimer'         => 'Access to currently developed database information on :subject will be made available in 2019.',
 );
