@@ -76,6 +76,7 @@ class Authority extends Model
         'bibliography',
         'exhibitions',
         'archive',
+        'studied_at',
     );
 
     protected $dates = array(

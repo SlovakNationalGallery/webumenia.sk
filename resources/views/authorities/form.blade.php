@@ -122,6 +122,12 @@
           {!! Form::text('active_in', Input::old('active_in'), array('class' => 'form-control')) !!}
         </div>
       </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          {!! Form::label('studied_at', 'Štúdium') !!}
+          {!! Form::text('studied_at', Input::old('studied_at'), array('class' => 'form-control')) !!}
+        </div>
+      </div>
     </div>
     <!-- /.panel-body -->
   </div>
