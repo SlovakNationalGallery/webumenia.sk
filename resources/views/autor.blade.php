@@ -72,7 +72,7 @@
 
                 <div class="accordion" id="authorAccordion">
                     @include('components.khb_accordion_card', [
-                        'title' => utrans('autor.biography'),
+                        'title' => ($author->type == 'theoretician') ? utrans('autor.theoretician_biography') : utrans('autor.artist_biography'),
                         'content' => $author->biography,
                         'parrentId' => 'authorAccordion',
                         'show' => true,

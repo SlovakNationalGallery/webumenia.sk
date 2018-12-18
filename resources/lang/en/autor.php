@@ -32,7 +32,8 @@ return array(
                                   |[2,Inf]show all <strong>:artworks_count</strong> artworks',
 // khb
 
-'biography' => 'Biography',
+'artist_biography' => 'Biography',
+'theoretician_biography' => 'Biography',
 'gallery' => 'Gallery',
 'exhibitions' => 'Exhibitions',
 'bibliography' => 'Bibliography',

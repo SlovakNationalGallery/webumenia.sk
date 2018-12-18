@@ -36,7 +36,8 @@ return array(
 
     // khb
 
-    'biography' => 'O umelcovi',
+    'artist_biography' => 'O umelcovi',
+    'theoretician_biography' => 'O teoretikovi',
     'gallery' => 'Galéria',
     'exhibitions' => 'Zoznam výstav',
     'bibliography' => 'Bibliografia',
