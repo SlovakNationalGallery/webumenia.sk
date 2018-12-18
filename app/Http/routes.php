@@ -45,10 +45,20 @@ function()
     Route::get('/', function () {
 
         $params = array();
+        $params["query"]["filtered"]["filter"]["bool"]["must"][]["term"]["type"] = 'author';
         $authors = Authority::search($params);
 
         return view('intro', [
             'authors' => $authors,
+        ]);
+    });
+
+    Route::get('klucove-slova', function () {
+
+        $tags = \App\Authority::existingTags();
+
+        return view('tags', [
+            'tags' => $tags,
         ]);
     });
 

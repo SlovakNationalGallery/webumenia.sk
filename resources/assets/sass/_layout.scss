@@ -7,7 +7,8 @@
 // black borders for all columns
 // use class border-0 to selectively disable borders to prevent doubling width
 .col, *[class^='col-'], *[class*=' col-']{
-    border: 2px solid #000;
+    border-bottom: $border-width solid $border-color;
+    border-right: $border-width solid $border-color;
 }
 
 // at width of 1920px the 10 column area will be 1600px wide
