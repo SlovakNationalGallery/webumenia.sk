@@ -366,6 +366,19 @@ function()
     Route::get('vystavne-priestory', function () {
         return view('khb.vystavne-priestory');
     });
+
+    Route::post('newsletter/signup', function (\Illuminate\Http\Request $request) {
+        $email = $request->input('email');
+        $result = Newsletter::subscribe($email);
+
+        if ($result === false) {
+            $response = trans('newsletter.signup_failed_message') . PHP_EOL;
+            $response.= Newsletter::getLastError();
+            return response($response, \Illuminate\Http\Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+        return response(trans('newsletter.signup_success_message'));
+    });
 });
 
 Route::group(array('middleware' => 'guest'), function () {
