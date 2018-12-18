@@ -35,10 +35,6 @@
 
 </head>
 <body class="p-0 bg-white text-black">
-    @if(Session::has('status'))
-        <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('status') }}</p>
-    @endif
-
     <div class="container-fluid mw-1920">
         <div class="row">
             <div class="col-sm-2">
@@ -47,9 +43,9 @@
             <div class="col-sm-10 py-0 border-0">
                 @include('components.khb_nav_bar')
 
-                @if (Session::has('message'))
-                    <div class="alert alert-warning alert-dismissible fade show my-2" role="alert">
-                        {!! Session::get('message') !!}
+                @if (Session::has('status'))
+                    <div class="alert {{ Session::get('alert-class', 'alert-info') }} alert-dismissible fade show my-2" role="alert">
+                        {!! Session::get('status') !!}
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
