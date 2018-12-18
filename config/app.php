@@ -33,7 +33,7 @@ return array(
     |
     */
 
-    'url' => 'http://www.webumenia.sk',
+    'url' => env('APP_URL', 'http://artbase.kunsthallebratislava.sk'),
 
     /*
     |--------------------------------------------------------------------------
