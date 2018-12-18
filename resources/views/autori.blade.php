@@ -93,7 +93,7 @@
 <div class="row">
     @foreach (range('A', 'Z') as $char)
         <div class="col-sm-2 alphabet text-sans">
-            <a href="{!! url_to('autori', ['first-letter' => $char]) !!}" class="{!! (Input::get('first-letter')==$char) ? 'active' : '' !!}" rel="{!! $char !!}">{!! $char !!}</a>
+            <a href="{!! url_to(((Request::is('teoretici')) ? 'teoretici' : 'umelci'), ['first-letter' => $char]) !!}" class="{!! (Input::get('first-letter')==$char) ? 'active' : '' !!}" rel="{!! $char !!}">{!! $char !!}</a>
         </div>
     @endforeach
 </div>
