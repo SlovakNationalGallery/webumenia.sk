@@ -88,7 +88,7 @@ class AuthorityController extends Controller
 
             if (Input::has('tags')) {
                 $authority->reTag(Input::get('tags', []));
-                $authority->index(); //pre istotu. lebo ak sa nic ine nezmeni, tak nepreindexuje
+                $authority->index(); // force reindex - because if nothing else get updated, it wouldn't reindex autmaticaly
             }
 
             if (Input::hasFile('primary_image')) {
@@ -154,7 +154,7 @@ class AuthorityController extends Controller
 
             if (Input::has('tags')) {
                 $authority->reTag(Input::get('tags', []));
-                $authority->index(); //pre istotu. lebo ak sa nic ine nezmeni, tak nepreindexuje
+                $authority->index();  // force reindex - because if nothing else get updated, it wouldn't reindex autmaticaly
             }
 
             // ulozit primarny obrazok. do databazy netreba ukladat. nazov=id
