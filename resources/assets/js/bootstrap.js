@@ -11,8 +11,9 @@
 
 window.$ = window.jQuery = require('jquery');
 
-// window.Alert = require('bootstrap/js/dist/alert');
+window.Alert = require('bootstrap/js/dist/alert');
 window.Collapse = require('bootstrap/js/dist/collapse');
+
 // window.Dropdown = require('bootstrap/js/dist/dropdown');
 // window.Tab = require('bootstrap/js/dist/tab');
 // window.Tooltip = require('bootstrap/js/dist/tooltip');
