@@ -32,7 +32,7 @@
 
     <!-- JS -->
     @include('includes.analytics')
-    
+
 </head>
 <body class="p-0 bg-white text-black">
     <div class="container-fluid mw-1920">
@@ -42,6 +42,16 @@
             </div>
             <div class="col-sm-10 py-0 border-0">
                 @include('components.khb_nav_bar')
+
+                @if (Session::has('message'))
+                    <div class="alert alert-warning alert-dismissible fade show my-2" role="alert">
+                        {!! Session::get('message') !!}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
+
                 @yield('content')
                 @include('components.khb_footer')
             </div>
