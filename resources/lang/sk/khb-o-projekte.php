@@ -65,7 +65,7 @@ return array(
 ',
 
     'contact-title'              => 'Spojte sa s nami',
-    'contact-content '           => 'Sme otvorení ďalším formám spolupráce. Ak disponujete digitálnymi reprodukciami diel a dokumentačným materiálom, ktorý má potenciál poskytnúť celistvejší obraz vybranej autority, budeme radi, ak nám pomôžete tento materiál doplniť. Spojte sa s nami prostredníctvom mailu: <a href="mailto:artbase@artbase.kunsthallebratislava.sk">artbase@artbase.kunsthallebratislava.sk</a>.',
+    'contact-content'            => 'Sme otvorení ďalším formám spolupráce. Ak disponujete digitálnymi reprodukciami diel a dokumentačným materiálom, ktorý má potenciál poskytnúť celistvejší obraz vybranej autority, budeme radi, ak nám pomôžete tento materiál doplniť. Spojte sa s nami prostredníctvom mailu: <a href="mailto:artbase@artbase.kunsthallebratislava.sk">artbase@artbase.kunsthallebratislava.sk</a>.',
 
     'copyright-title'            => 'Autorské práva',
     'copyright-content'          => '<p>Náhľady umeleckých diel, audio, video materiál a texty publikované na <em>ARTBASE</em> slúžia výhradne na edukačné účely. Databáza je odborne vysoko relevantný pramenný zdroj určený primárne teoretikom a historikom umenia, ako aj študentom umeleckých škôl.</p>
