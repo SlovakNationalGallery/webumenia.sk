@@ -42,6 +42,7 @@ class Authority extends Model
         'rola' => 'role',
         'príslušnosť' => 'nationality',
         'miesto' => 'place',
+        'typ' => 'type',
     );
 
     public static $sortable = array(
@@ -81,6 +82,11 @@ class Authority extends Model
         'created_at',
         'updated_at',
     );
+
+    protected static $available_types = [
+        'author' => 'umelec',
+        'theoretician' => 'teoretik',
+    ];
 
     protected $with = array('nationalities', 'names');
 
@@ -286,7 +292,7 @@ class Authority extends Model
 
     public function getUrl()
     {
-        return self::detailUrl($this->id);
+        return self::detailUrl($this->id, $this->type);
     }
 
     public function getOaiUrl()
@@ -294,9 +300,10 @@ class Authority extends Model
         return Config::get('app.old_url').'/oai-pmh-new/authority?verb=GetRecord&metadataPrefix=ulan&identifier='.$this->id;
     }
 
-    public static function detailUrl($authority_id)
+    public static function detailUrl($authority_id, $type)
     {
-        return URL::to('autor/'.$authority_id);
+        $type_prefix = self::$available_types[$type];
+        return URL::to($type_prefix.'/'.$authority_id);
     }
 
     public function getDescription($html = false, $links = false, $include_roles = false)
@@ -417,6 +424,7 @@ class Authority extends Model
                 // non-tanslatable attributes:
                 'id' => $this->id,
                 'identifier' => $this->id,
+                'type' => $this->type,
                 'name' => $this->name,
                 'alternative_name' => $this->names->lists('name'),
                 'related_name' => $this->relationships->lists('name'),

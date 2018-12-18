@@ -15,7 +15,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class AuthorController extends ElasticController
 {
 
-    public function getIndex()
+    public function getIndex($authorityType = 'umelci')
     {
         $per_page = 18;
         $page = \Input::get('page', 1);
@@ -38,6 +38,9 @@ class AuthorController extends ElasticController
         $params = array();
         $params["from"] = $offset;
         $params["size"] = $per_page;
+
+        $type = ($authorityType=='teoretici') ? 'theoretician' : 'author';
+        $params["query"]["filtered"]["filter"]["bool"]["must"][]["term"]["type"] = $type;
 
         if ($sort_by=='random') {
             $random = json_decode('
