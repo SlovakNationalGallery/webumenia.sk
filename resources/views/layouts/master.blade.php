@@ -4,30 +4,25 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @section('description')
-    <meta name="description" content="{{ trans('master.meta_description') }}">
-    @show
     <meta name="author" content="lab.SNG">
+    @section('description')
+    <meta name="description" content="{{ trans('master.meta-description') }}">
+    @show
 
     <title>
         @section('title')
-        ARTBASE
+        {{ trans('master.meta-title') }}
         @show
     </title>
 
-    <!--  favicons-->
     @include('includes.favicons')
-    <!--  /favicons-->
 
     <!--  Open Graph protocol -->
-    @include('includes.og_tags')
-    <!--  /Open Graph protocol -->
+    @include('includes.khb.og_tags')
 
-    <!--  hreflangs -->
     @include('includes.hreflangs', [
       'localizedURLs' => getLocalizedURLArray(),
     ])
-    <!--  /hreflangs -->
 
     @yield('link')
 
@@ -35,7 +30,7 @@
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" />
 
-    {{-- JS --}}
+    <!-- JS -->
     @include('includes.analytics')
     
 </head>

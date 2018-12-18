@@ -9,28 +9,18 @@
 {
     "@context": "http://schema.org",
     "@type": "WebSite",
-    "logo": " {!! asset('images/logo.png') !!}",
-    "url": "{!! URL::to('') !!}",
-    "sameAs" : [
-        "https://www.facebook.com/webumenia.sk",
-        "https://twitter.com/webumeniask",
-        "http://webumenia.tumblr.com/",
-        "https://vimeo.com/webumeniask",
-        "https://sk.pinterest.com/webumeniask/",
-        "https://instagram.com/web_umenia/"
-    ],
+    "logo": " {!! asset('images/khb/logo-artbase.svg') !!}",
+    "url": "{!! URL::to('') !!}"{{-- ,
     "potentialAction": {
       "@type": "SearchAction",
       "target": "{!! URL::to('katalog') !!}/?search={query}",
       "query-input": "required name=query"
-    }
+    } --}}
 }
 </script>
 @stop
 
 @section('content')
-
-
 <div class="row">
     @foreach ($authors as $i=>$author)
         @include('components.khb_grid_cell_artist', [
@@ -40,12 +30,4 @@
         ])
     @endforeach
 </div>
-
-
-@stop
-
-@section('javascript')
-<script type="text/javascript">
-
-</script>
 @stop

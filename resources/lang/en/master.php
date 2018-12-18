@@ -8,7 +8,9 @@ return array(
     |--------------------------------------------------------------------------
     */
 
-    'meta_description'   => 'Web umenia is an on-line catalog of artworks from collections of Slovak galleries. Here you can find information about artworks and artists as well as articles and thematic collections.',
+    'meta-description'   => 'The project of the online database of contemporary Slovak visual arts called ARTBASE is based on the original intention to establish the Kunsthalle Bratislava (KHB) as the Slovak Centre for the Visual Arts with the aim of making a scientific research survey and documenting art. With regard to financial resources and the operational costs of the establishment and management of the collection archive, or the library, the KHB has come up with a new concept of a comprehensive online database in 2018. Taking into account conditions for the exchange, dissemination and accessibility of information in the 21st century, it appears to be becoming a reality.',
+    'meta-title'         => 'KHB ARTBASE',
+    
     'artworks'           => 'artworks',
     'collections'        => 'collections',
     'authors'            => 'artists',

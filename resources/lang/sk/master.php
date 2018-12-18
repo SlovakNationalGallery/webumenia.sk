@@ -8,7 +8,9 @@ return array(
     |--------------------------------------------------------------------------
     */
 
-    'meta_description'   => 'Web umenia je on-line katalóg výtvarných diel zo zbierok slovenských galérií. Nájdete tu základné informácie o dielach a ich autoroch, ale aj pôvodné články, videá a kolekcie.',
+    'meta-description'   => 'Projekt on-line databázy súčasného slovenského vizuálneho umenia s názvom ARTBASE vychádza z pôvodného určenia Kunsthalle Bratislava (KHB) ako Slovenského centra vizuálnych umení, ktorého úlohou malo byť aj vedeckovýskumné mapovanie a dokumentácia umenia. Vzhľadom na finančnú, ako aj prevádzkovú náročnosť zriadenia a správy fyzického archívu, resp. knižnice, KHB v roku 2018 prichádza s novou koncepciou on-line odbornej databázy. Tá sa nateraz javí ako reálna, pričom už vo svojej forme zohľadňuje podmienky výmeny, šírenia a dostupnosti informácií v 21. storočí.',
+    'meta-title'         => 'KHB ARTBASE',
+
     'artworks'           => 'diela',
     'collections'        => 'kolekcie',
     'authors'            => 'umelci',
