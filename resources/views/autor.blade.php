@@ -24,7 +24,7 @@
 <section class="author detail" itemscope itemtype="http://schema.org/Person">
     <div class="attributes">
         <div class="row">
-            <div class="col-2dot4">
+            <div class="col-12 col-md-4 col-xl-2">
                 <h1 itemprop="name" class="mt-2 mb-4">{!! $author->formatedName !!}</h1>
                 {{--
                 @if ( $author->names->count() > 0)
@@ -85,7 +85,7 @@
                     </div>
                 @endif
             </div>
-            <div class="col popis p-0 border-0">
+            <div class="col-12 col-md-8 col-xl-10 popis p-0 border-0">
 
                 <div class="accordion" id="authorAccordion">
                     @include('components.khb_accordion_card', [
