@@ -80,13 +80,9 @@
     <p>V roku 2019 plánujeme postupne pridávať do databázy ďalších umelcov.<br>
     Zapíšte sa do nášho newslettra a dostávajte pravidelné info!</p>
 
-    <form>
-        <div class="form-group row">
-            <label for="newsletterEmail" class="col-sm-2 col-form-label">Newsletter</label>
-            <div class="col-sm-10">
-                <input type="email" class="form-control" id="newsletterEmail" placeholder="Email">
-            </div>
-        </div>
+    <form class="form-inline">
+        <label for="newsletterEmail" class="form-label mb-2 mr-sm-2">Newsletter:</label>
+        <input type="email" class="form-control mb-2 mr-sm-2 bg-gray" id="newsletterEmail" placeholder="Email">
     </form>
 </section>
 
