@@ -358,6 +358,14 @@ function()
     Route::get('o-projekte', function () {
         return view('khb.o-projekte');
     });
+
+    Route::get('skupiny', function () {
+        return view('khb.skupiny');
+    });
+
+    Route::get('vystavne-priestory', function () {
+        return view('khb.vystavne-priestory');
+    });
 });
 
 Route::group(array('middleware' => 'guest'), function () {
