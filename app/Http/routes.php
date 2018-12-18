@@ -53,6 +53,15 @@ function()
         ]);
     });
 
+    Route::get('klucove-slova', function () {
+
+        $tags = \App\Authority::existingTags();
+
+        return view('tags', [
+            'tags' => $tags,
+        ]);
+    });
+
     Route::get('slideClicked', function () {
         $slide = Slide::find(Input::get('id'));
         if ($slide) {
