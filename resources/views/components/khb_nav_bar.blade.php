@@ -12,32 +12,32 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-6 col-sm-4 col-xl-2 grid-cell-link {!! (Request::is('umelci') || Request::is('umelec/*')) ? 'active' : '' !!}">
+        <div class="col-6 col-sm-4 col-xl-2 grid-cell-link {!! (Request::is('*umelci') || Request::is('*umelec/*')) ? 'active' : '' !!}">
             <a href="{{{ URL::to('umelci') }}}" class="">
             </a>
             <span>{{ utrans('master.authors') }}</span>
         </div>
-        <div class="col-6 col-sm-4 col-xl-2 grid-cell-link {!! Request::is('skupiny') ? 'active' : '' !!}">
+        <div class="col-6 col-sm-4 col-xl-2 grid-cell-link {!! Request::is('*skupiny') ? 'active' : '' !!}">
             <a href="{{{ URL::to('skupiny') }}}" class="">
             </a>
             <span>{{ utrans('master.groups') }}</span>
         </div>
-        <div class="col-6 col-sm-4 col-xl-2 grid-cell-link {!! (Request::is('teoretici') || Request::is('teoretik/*')) ? 'active' : '' !!}">
+        <div class="col-6 col-sm-4 col-xl-2 grid-cell-link {!! (Request::is('*teoretici') || Request::is('*teoretik/*')) ? 'active' : '' !!}">
             <a href="{{{ URL::to('teoretici') }}}" class="">
             </a>
             <span>{{ utrans('master.theoreticians') }}</span>
         </div>
-        <div class="col-6 col-sm-4 col-xl-2 grid-cell-link {!! Request::is('vystavne-priestory') ? 'active' : '' !!}">
+        <div class="col-6 col-sm-4 col-xl-2 grid-cell-link {!! Request::is('*vystavne-priestory') ? 'active' : '' !!}">
             <a href="{{{ URL::to('vystavne-priestory') }}}" class="">
             </a>
             <span>{{ utrans('master.spaces') }}</span>
         </div>
-        <div class="col-6 col-sm-4 col-xl-2 grid-cell-link {!! Request::is('klucove-slova') ? 'active' : '' !!}">
+        <div class="col-6 col-sm-4 col-xl-2 grid-cell-link {!! Request::is('*klucove-slova') ? 'active' : '' !!}">
             <a href="{{{ URL::to('klucove-slova') }}}" class="">
             </a>
             <span>{{ utrans('master.keywords') }}</span>
         </div>
-        <div class="col-6 col-sm-4 col-xl-2 grid-cell-link {!! Request::is('o-projekte') ? 'active' : '' !!}">
+        <div class="col-6 col-sm-4 col-xl-2 grid-cell-link {!! Request::is('*o-projekte') ? 'active' : '' !!}">
             <a href="{{{ URL::to('o-projekte') }}}" class="">
             </a>
             <span>{{ utrans('master.about') }}</span>
