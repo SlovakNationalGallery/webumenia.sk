@@ -90,7 +90,7 @@
 
 <div class="row border-top">
     @foreach (range('A', 'Z') as $char)
-        <div class="col-sm-2 alphabet text-sans grid-cell-link {!! (Input::get('first-letter')==$char) ? 'active' : '' !!}">
+        <div class="col-3 col-sm-2 alphabet text-sans grid-cell-link {!! (Input::get('first-letter')==$char) ? 'active' : '' !!}">
             <a href="{!! url_to(((Request::is('teoretici')) ? 'teoretici' : 'umelci'), ['first-letter' => $char]) !!}" rel="{!! $char !!}"></a>
             <span>{!! $char !!}</span>
         </div>
