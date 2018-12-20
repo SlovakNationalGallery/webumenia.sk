@@ -64,7 +64,7 @@ return array(
 <a href="mailto:artbase@artbase.kunsthallebratislava.sk">artbase@artbase.kunsthallebratislava.sk</a>.',
 
     'copyright-title'           => 'Copyright',
-    'copyright-content'         => '<p>Database access to works of art, audio and video materials and texts published on <em>ARTBASE</em> serve exclusively for educational purposes. The database is a professionally highly relevant source designed primarily for art theorists, art historians and students of art schools.</p>
+    'copyright-content'         => '
 <div><strong>Ⓒ ARTBASE</strong></div>
 <p>All rights reserved. No part of this database may be reproduced or transmitted in any form or by any means without prior permission from the <em>ARTBASE</em> Administrator.</p>
 ',
