@@ -385,7 +385,7 @@ function()
         $response = back();
 
         if ($result === false) {
-            $status = trans('newsletter.signup_failed_message') . PHP_EOL;
+            $status = trans('newsletter.signup_failed_message');
             $lastError = Newsletter::getLastError();
             $status = $lastError ? sprintf('%s (%s)', $status, $lastError) : $status;
             $response = $response->with('alert-class', 'alert-danger');
@@ -394,7 +394,7 @@ function()
         $response = $response->with('status', $status);
 
         return $response;
-    });
+    })->name('newsletter.signup');
 });
 
 Route::group(array('middleware' => 'guest'), function () {

@@ -83,7 +83,7 @@
     </p>
 
     <div class="col-lg-6 col-md-10 border-0">
-    @include('components.khb_newsletter_signup_form', ['action' => '/newsletter/signup'])
+    @include('components.khb_newsletter_signup_form')
     </div>
 
 </section>
