@@ -16,6 +16,6 @@ return array(
     'authors_counted'     => 'artists',
     'authors_none'        => 'currently no artists',
     'intention'           => 'Intention',
-    'plan'                => '',
+    'plan'                => 'We are planning to add new artists to the database throughout the year 2019',
     'subscribe'           => 'If you want to receive updates about Artbase, please subscribe to our newsletter.',
 );
