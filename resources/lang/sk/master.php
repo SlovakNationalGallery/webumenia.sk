@@ -23,6 +23,7 @@ return array(
     'to_top'             => 'návrat hore',
 
     /* KHB specific */
+    'subtitle'           => 'databáza súčasného slovenského<br>vizuálneho umenia',
     'about'              => 'o projekte',
     'groups'             => 'skupiny',
     'theoreticians'      => 'teoretici',

@@ -23,6 +23,7 @@ return array(
     'to_top'             => 'back to top',
 
     /* KHB specific */
+    'subtitle'           => 'Online Database of Contemporary Slovak Visual Arts',
     'about'              => 'about',
     'groups'             => 'groups',
     'theoreticians'      => 'theoreticians',
