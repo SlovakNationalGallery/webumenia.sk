@@ -59,7 +59,7 @@
  --}}
 
 <section class="authors py-5">
-    @foreach ($authors as $i=>$author)
+    @foreach (collect($authors)->sortBy('name') as $i=>$author)
     <div class="author">
         <a href="{!! $author->getUrl() !!}" class="author-title">
             {!! $author->formatedName !!}
