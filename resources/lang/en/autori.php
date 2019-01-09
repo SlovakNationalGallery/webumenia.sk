@@ -15,7 +15,7 @@ return array(
     'authors_found'       => 'artists found for',
     'authors_counted'     => 'artists',
     'authors_none'        => 'currently no artists',
-    'intention'           => 'Intention',
+    'intention'           => 'Stay informed',
     'plan'                => 'We are planning to add new artists to the database throughout the year 2019',
     'subscribe'           => 'If you want to receive updates about Artbase, please subscribe to our newsletter.',
 );
