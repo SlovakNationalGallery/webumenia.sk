@@ -295,9 +295,6 @@ class Authority extends Model
 
     public function getUrl()
     {
-        if ($this->name == 'Ondak, Roman' || $this->name == 'Ondák, Roman') {
-            return '#';
-        }
         return self::detailUrl($this->id, $this->type);
     }
 

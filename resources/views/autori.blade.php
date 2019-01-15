@@ -59,7 +59,7 @@
  --}}
 
 <section class="authors py-5">
-    @foreach ($authors as $i=>$author)
+    @foreach (collect($authors)->sortBy('name') as $i=>$author)
     <div class="author">
         <a href="{!! $author->getUrl() !!}" class="author-title">
             {!! $author->formatedName !!}
@@ -82,8 +82,8 @@
         {{ trans('autori.subscribe') }}
     </p>
 
-    <div class="col-lg-6 col-md-10 border-0">
-    @include('components.khb_newsletter_signup_form')
+    <div class="col-12 col-md-6 border-0 px-0">
+        @include('components.khb_newsletter_signup_form')
     </div>
 
 </section>
