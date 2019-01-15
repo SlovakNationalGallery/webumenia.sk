@@ -1,8 +1,22 @@
 form.khb-newsletter-signup-form {
-	.form-group {
-		label {
-			display: flex;
-			align-items: center;
-		}
-	}
+    .form-group {
+        label {
+            display: inline-block;
+            width: 84px;
+        }
+        input.form-control {
+            display: inline-block;
+            width: 100%;
+        }
+        @include media-breakpoint-up(sm) {
+            input.form-control {
+                width: calc(100% - 88px);
+            }
+        }
+        .form-control:focus {
+            border-color: #000;
+            -webkit-box-shadow: 0 0 0 0.2rem rgba(darken($link-hover-color, 15%), 0.5);
+            box-shadow: 0 0 0 0.2rem rgba(darken($link-hover-color, 15%), 0.5);
+        }
+    }
 }
