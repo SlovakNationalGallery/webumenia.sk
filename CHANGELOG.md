@@ -8,6 +8,9 @@ All notable changes to this project will be documented in this file[^1].
 - search autocomplete for Collections and Articles
 - division by zero exception for corrupted images
 
+### Added
+- 30 days cache to item image headers
+
 ## [1.6.1] - 2018-12-06
 ### Added
 - temporary Christmas alert into order
