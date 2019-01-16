@@ -363,7 +363,8 @@ class Item extends Model
         if ($full) {
             $result_path = $full_path . "$file.jpeg";
         } else {
-            if (file_exists($full_path . "$file.jpeg")) {
+            // file exist && is valid JPEG file
+            if (file_exists($full_path . "$file.jpeg") && (@exif_imagetype($full_path . "$file.jpeg")==IMAGETYPE_JPEG)) {
                 $result_path =  $relative_path . "$file.jpeg";
 
                 if ($resize) {
