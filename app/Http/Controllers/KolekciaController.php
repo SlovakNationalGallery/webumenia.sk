@@ -42,12 +42,12 @@ class KolekciaController extends Controller
     {
         $q = (Input::has('search')) ? str_to_alphanumeric(Input::get('search')) : 'null';
 
-        $result = Collection::published()->where('name', 'like', '%'.$q.'%')->limit(5)->get();
+        $result = Collection::published()->whereTranslationLike('name', '%'.$q.'%')->limit(5)->get();
 
         $data = array();
         $data['results'] = array();
         $data['count'] = 0;
-        
+
         foreach ($result as $key => $hit) {
             $data['count']++;
             $params = array(

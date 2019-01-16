@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [1.6.2] - 2019-01-16
+### Fixed
+- autocomplete for Collections and Articles
+
 ## [1.6.1] - 2018-12-06
 ### Added
 - temporary Christmas alert into order
