@@ -5,7 +5,8 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [1.6.2] - 2019-01-16
 ### Fixed
-- autocomplete for Collections and Articles
+- search autocomplete for Collections and Articles
+- division by zero exception for corrupted images
 
 ## [1.6.1] - 2018-12-06
 ### Added
