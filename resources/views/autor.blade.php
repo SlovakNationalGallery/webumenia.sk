@@ -115,11 +115,10 @@
 
                       <div id="collapse{{ studly_case('gallery') }}" class="collapse show" aria-labelledby="heading{{ studly_case('gallery') }}" data-parent="#authorAccordion">
                         <div class="card-body pt-0">
-                            {{-- <div class="expandable"> --}}
                             <div id="iso">
                             @foreach ($items as $i=>$item)
                                 <div class="col-md-3 col-sm-4 col-xs-6 item border-0">
-                                <a href="{!! $item->getImagePath() !!}" title="{!! $item->getTitleWithAuthors() !!}" data-photo-credit="{{ $item->photo_credit or 'Unknown'}}">
+                                    <a href="{!! $item->getImagePath() !!}" title="{!! $item->getTitleWithAuthors() !!}" data-photo-credit="{{ $item->photo_credit or 'Unknown'}}">
                                         @php
                                             list($width, $height) = getimagesize(public_path() . $item->getImagePath());
                                         @endphp
@@ -129,10 +128,8 @@
                                     </a>
                                 </div>
                             @endforeach
-
                             </div>
                             {{-- /iso --}}
-                            {{-- </div> --}}
                         </div>
                       </div>
                     </div>
@@ -194,22 +191,28 @@
 {!! Html::script('js/plugins/readmore.min.js') !!}
 
 <script type="text/javascript">
-
-    $('#iso').isotope({
-        itemSelector: '.item',
-        layoutMode: 'masonry'
-    });
+    function init_isotype(containerSelector, itemSelector) {
+        $(containerSelector).isotope({
+            itemSelector: itemSelector,
+            layoutMode: 'masonry'
+        });
+    }
 
     $(document).ready(function(){
+        init_isotype('#iso', '.item');
+        // re-init isotype when gallery collapsed accordion card has been shown
+        $('#headingGallery').parent().on('shown.bs.collapse', function () {
+            init_isotype('#iso', '.item');
+        })
 
         $('.expandable').readmore({
             moreLink: '<a href="#" class="no-underline text-right">{{ trans("general.show_more") }} <i class="fas fa-chevron-right"></i></a>',
             lessLink: '<a href="#" class="no-underline text-right">{{ trans("general.show_less") }} <i class="fas fa-chevron-up"></i></a>',
             maxHeight: 400,
             afterToggle: function(trigger, element, expanded) {
-              if(! expanded) { // The "Close" link was clicked
-                $('html, body').animate( { scrollTop: element.offset().top }, {duration: 100 } );
-              }
+                if(! expanded) { // The "Close" link was clicked
+                    $('html, body').animate( { scrollTop: element.offset().top }, {duration: 100 } );
+                }
             }
         });
 
@@ -231,8 +234,6 @@
                 }
             }
         });
-
-
     });
 </script>
 @stop
