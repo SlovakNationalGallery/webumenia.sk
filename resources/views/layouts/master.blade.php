@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ LaravelLocalization::getCurrentLocale() }}">
+<html lang="{{ LaravelLocalization::getCurrentLocale() }}" class="h-100">
 
 <head>
     <meta charset="utf-8">
@@ -35,13 +35,13 @@
     @include('includes.analytics')
 
 </head>
-<body class="p-0 bg-white text-black">
-    <div class="container-fluid mw-1920">
-        <div class="row">
+<body class="h-100 p-0 bg-white text-black">
+    <div class="container-fluid h-100 mw-1920">
+        <div class="row h-100">
             <div class="col-sm-2">
                 @include('components.khb_header')
             </div>
-            <div class="col-sm-10 py-0 border-0">
+            <div class="col-sm-10 d-flex flex-column py-0 border-0">
                 @include('components.khb_nav_bar')
 
                 @if (Session::has('status'))
@@ -54,6 +54,7 @@
                 @endif
 
                 @yield('content')
+                
                 @include('components.khb_footer')
             </div>
         </div>

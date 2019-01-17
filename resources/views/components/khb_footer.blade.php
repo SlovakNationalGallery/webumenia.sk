@@ -1,4 +1,4 @@
-<footer class="row bg-black text-white px-3">
+<footer class="row mt-auto bg-black text-white px-3">
     <div class="col-12 col-md-6 px-0">
         @include('components.khb_newsletter_signup_form')
     </div>
