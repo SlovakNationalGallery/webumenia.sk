@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - search autocomplete for Collections and Articles
 - division by zero exception for corrupted images
+- indexing translated work_type into ElasticSearch
 
 ### Added
 - 30 days cache to item image headers
