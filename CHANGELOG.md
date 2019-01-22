@@ -10,6 +10,15 @@ All notable changes to this project will be documented in this file[^1].
 - Remove query string from localized urls
 - Option to launch harvest only for specific record ids
 
+## [1.6.2] - 2019-01-16
+### Fixed
+- search autocomplete for Collections and Articles
+- division by zero exception for corrupted images
+- indexing translated work_type into ElasticSearch
+
+### Added
+- 30 days cache to item image headers
+
 ## [1.6.1] - 2018-12-06
 ### Added
 - temporary Christmas alert into order

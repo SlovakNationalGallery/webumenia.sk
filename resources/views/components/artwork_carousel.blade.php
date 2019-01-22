@@ -20,7 +20,7 @@
 
     @php
         list($width, $height) = getimagesize(public_path() . $item->getImagePath());
-        $width = $width * ($size / $height);
+        $width = $width * ($size / max($height,1));
         $height = $size;
     @endphp
 
