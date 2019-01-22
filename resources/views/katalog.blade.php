@@ -150,8 +150,9 @@
     	                	<a href="{!! $item->getUrl() !!}">
                                 @php
                                     list($width, $height) = getimagesize(public_path() . $item->getImagePath());
+                                    $width =  max($width,1); // prevent division by zero exception
                                 @endphp
-                                <div class="ratio-box" style="padding-bottom: {{ round(($height / max($width,1)) * 100, 4) }}%;">
+                                <div class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%;">
     	                		     @include('components.item_image_responsive', ['item' => $item])
                                 </div>
     	                	</a>
