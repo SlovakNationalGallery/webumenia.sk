@@ -90,6 +90,7 @@
                             <a href="{!! $item->getUrl(['collection' => $collection->id]) !!}">
                                 @php
                                     list($width, $height) = getimagesize(public_path() . $item->getImagePath());
+                                    $width =  max($width,1); // prevent division by zero exception
                                 @endphp
                                 <div class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%;">
 
