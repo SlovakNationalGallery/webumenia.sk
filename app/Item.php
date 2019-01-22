@@ -570,7 +570,7 @@ class Item extends Model
 
     public function getWorkTypesAttribute()
     {
-        return (explode(', ', $this->work_type));
+        return $this->makeArray($this->work_type, ', ');
     }
 
     public function setLat($value)
@@ -583,13 +583,13 @@ class Item extends Model
         $this->attributes['lng'] = $value ?: null;
     }
 
-    public function makeArray($str)
+    public function makeArray($str, $delimiter = '; ')
     {
         if (is_array($str)) {
             return $str;
         }
         $str = trim($str);
-        return (empty($str)) ? array() : explode('; ', $str);
+        return (empty($str)) ? array() : explode($delimiter, $str);
     }
 
     public static function listValues($attribute, $search_params)
@@ -842,14 +842,13 @@ class Item extends Model
 
             $item_translated = $this->getTranslation($locale);
 
-            $work_types = $item_translated->work_types;
+            $work_types = $this->makeArray($item_translated->work_type, ', ');
             $main_work_type = (is_array($work_types)) ? reset($work_types) : '';
             $data = [
                 // non-tanslatable attributes:
                 'id' => $this->id,
                 'identifier' => $this->identifier,
                 'author' => $this->makeArray($this->author),
-                'work_type' => $main_work_type, // ulozit iba prvu hodnotu
                 'tag' => $this->tagNames(), // @TODO translate this
                 'date_earliest' => $this->date_earliest,
                 'date_latest' => $this->date_latest,
@@ -863,6 +862,7 @@ class Item extends Model
                 'color_descriptor' => $this->color_descriptor,
 
                 // tanslatable attributes:
+                'work_type' => $main_work_type, // ulozit iba prvu hodnotu
                 'title' => $item_translated->title,
                 'description' => (!empty($item_translated->description)) ? strip_tags($item_translated->description) : '',
                 'topic' => $this->makeArray($item_translated->topic),
