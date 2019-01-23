@@ -35,9 +35,7 @@ return array(
                                   |[5,Inf]zobraziť všetkých <strong>:artworks_count</strong> diel',
 
     // khb
-
-    'artist_biography' => 'O umelcovi',
-    'theoretician_biography' => 'O teoretikovi',
+    'biography' => 'Biografia',
     'gallery' => 'Galéria',
     'exhibitions' => 'Zoznam výstav',
     'bibliography' => 'Bibliografia',
@@ -48,9 +46,8 @@ return array(
     'studied_at' => 'Štúdium',
 
 
-    // gallery
-
+    // magnificPopup gallery
     'of' => 'z',
-    'by' => 'od',
+    'by' => 'Foto:',
 
 );
