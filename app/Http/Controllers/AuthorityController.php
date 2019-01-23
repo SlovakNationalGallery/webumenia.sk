@@ -79,21 +79,12 @@ class AuthorityController extends Controller
 
             // not sure if OK to fill all input like this before setting translated attributes
             $authority->fill($input);
-            Log::debug($input);
-
+            
             // store translatable attributes
             foreach (\Config::get('translatable.locales') as $i=>$locale) {
                 // here I think it's only getting sk locale
                 foreach ($authority->translatedAttributes as $attribute) {
-                    Log::debug($locale);
-                    Log::debug($attribute);
-                    Log::debug(Input::get($locale . '.' . $attribute));
-                    if ($attribute == 'birth_place') {
-                        $authority->translateOrNew($locale)->$attribute = Input::get($attribute);
-                    } else {
-                        $authority->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
-                        
-                    }
+                    $authority->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
                 }
             }
 
