@@ -31,9 +31,7 @@ return array(
                                   |{1}    show <strong>1</strong> artwork
                                   |[2,Inf]show all <strong>:artworks_count</strong> artworks',
 // khb
-
-'artist_biography' => 'Biography',
-'theoretician_biography' => 'Biography',
+'biography' => 'Biography',
 'gallery' => 'Gallery',
 'exhibitions' => 'Exhibitions',
 'bibliography' => 'Bibliography',
@@ -43,10 +41,9 @@ return array(
 'active_in' => 'Active in',
 'studied_at' => 'Studied at',
 
-// gallery
-
+// magnificPopup gallery
 'of' => 'of',
-'by' => 'by',
+'by' => 'Photo:',
 
 
 );
