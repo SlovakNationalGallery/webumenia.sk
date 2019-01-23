@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ LaravelLocalization::getCurrentLocale() }}" class="h-100">
+<html lang="{{ LaravelLocalization::getCurrentLocale() }}" class="min-vh-100">
 
 <head>
     <meta charset="utf-8">
@@ -35,9 +35,9 @@
     @include('includes.analytics')
 
 </head>
-<body class="h-100 p-0 bg-white text-black">
-    <div class="container-fluid h-100 mw-1920">
-        <div class="row h-100">
+<body class="min-vh-100 p-0 bg-white text-black">
+    <div class="container-fluid min-vh-100 mw-1920">
+        <div class="row min-vh-100">
             <div class="col-sm-2">
                 @include('components.khb_header')
             </div>
