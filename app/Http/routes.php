@@ -66,7 +66,18 @@ function()
 
         $items = Item::with('images')->find(Session::get('cart', array()));
 
-        return view('objednavka', array('items' => $items));
+        $allow_printed_reproductions = true;
+
+        foreach ($items as $item) {
+            if (!$item->hasZoomableImages()) {
+                $allow_printed_reproductions = false;
+            }
+        }
+
+        return view('objednavka', [
+            'items' => $items,
+            'allow_printed_reproductions' => $allow_printed_reproductions,
+        ]);
     });
 
     Route::post('objednavka', function () {

@@ -37,6 +37,7 @@ return array(
     'form_format_for-download'     => 'For download:',
     'form_format_digital'          => 'digital reproduction',
     'form_purpose-alert'           => 'The copyright law prevents us from providing digital reproductions of <abbr title="less than 70 years has followed the death of the artist" data-toggle="tooltip">copyright protected artworks</abbr> for general private purposes (decoration, gift etc.). Slovak National Gallery will create a written contract, according to the information provided in the order. This contract will limit the use of the reproduction just for the purpose stated in the order.',
+    'form_purpose-alert-print'     => '',
     'form_purpose-label'           => 'Purpose',
     'form_purpose-info'            => 'Purpose description',
     'form_delivery-point'          => 'Pick up location',
