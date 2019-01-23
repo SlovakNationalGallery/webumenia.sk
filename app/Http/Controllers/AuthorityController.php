@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\File;
 use App\SpiceHarvesterRecord;
 use Illuminate\Support\Facades\App;
 
-use Illuminate\Support\Facades\Log;
-
 
 class AuthorityController extends Controller
 {
@@ -82,7 +80,6 @@ class AuthorityController extends Controller
             
             // store translatable attributes
             foreach (\Config::get('translatable.locales') as $i=>$locale) {
-                // here I think it's only getting sk locale
                 foreach ($authority->translatedAttributes as $attribute) {
                     $authority->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
                 }
