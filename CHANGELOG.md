@@ -10,6 +10,9 @@ All notable changes to this project will be documented in this file[^1].
 - Remove query string from localized urls
 - Option to launch harvest only for specific record ids
 
+### Removed
+- Printed reproduction options for items without IIP/zoom
+
 ## [1.6.2] - 2019-01-16
 ### Fixed
 - search autocomplete for Collections and Articles
