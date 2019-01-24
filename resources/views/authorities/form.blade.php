@@ -70,7 +70,7 @@
             <div role="tabpanel" class="tab-pane  {{ ($i==0) ? 'active' : '' }}" id="{{ $locale }}">
               <div class="form-group">
                 {!! Form::label($locale . "[birth_place]", 'Miesto narodenia '.strtoupper($locale)) !!}
-                {!! Form::text($locale . "[birth_place]", Input::old($locale . "[birth_place]"), array('class' => 'form-control')) !!}
+                {!! Form::text($locale . "[birth_place]", @$authority->translate($locale)->birth_place : '', array('class' => 'form-control')) !!}
               </div>
               <div class="form-group">
                 {{ Form::label($locale . "[biography]", 'Biografia '.strtoupper($locale)) }}
