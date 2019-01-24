@@ -248,13 +248,13 @@ class Item extends Model
 
         $data = file_get_contents($file);
 
-        $full = true;
-        if ($new_file = $this->getImagePath($full)) {
-            file_put_contents($new_file, $data);
-            return true;
-        }
+        $path = $this->getImagePath($full = true);
+        file_put_contents($path, $data);
 
-        return false;
+        $this->has_image = true;
+        $this->save();
+
+        return true;
     }
 
     public function getOaiUrl()
@@ -705,9 +705,9 @@ class Item extends Model
         return ($this->translate($default_locale)->gallery == 'Slovenská národná galéria, SNG');
     }
 
-    public function scopeHasImage($query)
+    public function scopeHasImage($query, $hasImage = true)
     {
-        return $query->where('has_image', '=', 1);
+        return $query->where('has_image', '=', $hasImage);
     }
 
     public function scopeForReproduction($query)

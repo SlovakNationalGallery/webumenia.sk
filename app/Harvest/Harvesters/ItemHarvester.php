@@ -29,22 +29,13 @@ class ItemHarvester extends AbstractHarvester
         }
 
         // @todo responsibility of repository?
-        $imgUrl = $this->getItemImageImgUrl($row);
         $iipimgUrls = $this->fetchItemImageIipimgUrls($row);
         $iipimgUrls = $this->parseItemImageIipimgUrls($iipimgUrls);
 
-        if ($iipimgUrls) {
-            $row['images'] = [];
-            foreach ($iipimgUrls as $iipimgUrl) {
-                $row['images'][] = [
-                    'img_url' => [$imgUrl],
-                    'iipimg_url' => [$iipimgUrl],
-                ];
-            }
-        } else {
+        $row['images'] = [];
+        foreach ($iipimgUrls as $iipimgUrl) {
             $row['images'][] = [
-                'img_url' => [$imgUrl],
-                'iipimg_url' => [],
+                'iipimg_url' => [$iipimgUrl],
             ];
         }
 
@@ -54,12 +45,18 @@ class ItemHarvester extends AbstractHarvester
             ];
         }
 
-        $model = parent::harvestSingle($record, $result, $row);
-        if ($model) {
-            $this->downloadImages($model);
+        /** @var Item $item */
+        $item = parent::harvestSingle($record, $result, $row);
+
+        try {
+            $item->downloadImage();
+        } catch (\Exception $e) {
+            $error = sprintf('%s: %s', $item->img_url, $e->getMessage());
+            $this->logger->addError($error);
         }
 
-        return $model;
+        $item->index();
+        return $item;
     }
 
     protected function isExcluded(array $row) {
@@ -67,39 +64,6 @@ class ItemHarvester extends AbstractHarvester
         $prefix = substr($id, strpos($id, '.') + 1, 1);
         $prefix = Str::lower($prefix);
         return in_array($prefix, $this->excludePrefix);
-    }
-
-    /**
-     * @param Item $item
-     */
-    protected function downloadImages(Item $item) {
-        foreach ($item->images as $image) {
-            if (!$image->img_url) {
-                continue;
-            }
-
-            try {
-                $url = $image->img_url;
-                $imageData = file_get_contents($url);
-                if ($path = $item->getImagePath($full = true)) {
-                    file_put_contents($path, $imageData);
-                }
-            } catch (\Exception $e) {
-                $error = sprintf('%s: %s', $url, $e->getMessage());
-                $this->logger->addError($error);
-            }
-        }
-    }
-
-
-    /**
-     * @param array $row
-     * @return string
-     */
-    protected function getItemImageImgUrl(array $row) {
-        return array_first($row['identifier'], function ($i, $identifier) {
-            return str_contains($identifier, 'getimage');
-        });
     }
 
     /**

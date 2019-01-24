@@ -2,6 +2,7 @@
 
 namespace App\Harvest\Harvesters;
 
+use App\Authority;
 use App\Harvest\Importers\AuthorityImporter;
 use App\Harvest\Repositories\AuthorityRepository;
 use App\Harvest\Result;
@@ -29,7 +30,11 @@ class AuthorityHarvester extends AbstractHarvester
             }
         }
 
-        parent::harvestSingle($record, $result, $row);
+        /** @var Authority $authority */
+        $authority = parent::harvestSingle($record, $result, $row);
+
+        $authority->index();
+        return $authority;
     }
 
     // @todo could be moved to mapper if mapper'd have access to whole row
