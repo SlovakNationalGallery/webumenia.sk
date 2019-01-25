@@ -248,6 +248,8 @@ class Item extends Model
 
         $data = file_get_contents($file);
 
+        $this->deleteImage();
+
         $path = $this->getImagePath($full = true);
         file_put_contents($path, $data);
 
