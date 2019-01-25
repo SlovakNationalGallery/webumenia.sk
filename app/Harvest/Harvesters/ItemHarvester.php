@@ -73,6 +73,7 @@ class ItemHarvester extends AbstractHarvester
      * @param Item $item
      */
     protected function downloadImages(Item $item) {
+        $item->deleteImage();
         foreach ($item->images as $image) {
             if (!$image->img_url) {
                 continue;
