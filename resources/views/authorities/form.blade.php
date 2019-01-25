@@ -68,7 +68,10 @@
           <div class="tab-content top-space">
             @foreach (\Config::get('translatable.locales') as $i=>$locale)
             <div role="tabpanel" class="tab-pane  {{ ($i==0) ? 'active' : '' }}" id="{{ $locale }}">
-
+              <div class="form-group">
+                {!! Form::label($locale . "[birth_place]", 'Miesto narodenia '.strtoupper($locale)) !!}
+                {!! Form::text($locale . "[birth_place]", isset($authority) ? @$authority->translate($locale)->birth_place : '', array('class' => 'form-control')) !!}
+              </div>
               <div class="form-group">
                 {{ Form::label($locale . "[biography]", 'Biografia '.strtoupper($locale)) }}
                 {{ Form::textarea($locale . "[biography]", isset($authority) ? @$authority->translate($locale)->biography : '', array('class' => 'form-control wysiwyg', 'rows'=>'12')) }}
@@ -128,16 +131,10 @@
           {!! Form::text('studied_at', Input::old('studied_at'), array('class' => 'form-control')) !!}
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-12">
         <div class="form-group">
           {!! Form::label('birth_year', 'Dátum narodenia (rok)') !!}
           {!! Form::text('birth_year', Input::old('birth_year'), array('class' => 'form-control')) !!}
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group">
-          {!! Form::label('birth_place', 'Miesto narodenia') !!}
-          {!! Form::text('birth_place', Input::old('birth_place'), array('class' => 'form-control')) !!}
         </div>
       </div>
       <div class="col-md-12">
