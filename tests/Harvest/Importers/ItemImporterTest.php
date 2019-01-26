@@ -20,6 +20,14 @@ class ItemImporterTest extends TestCase
         $importer->import($row, $result = new Result());
     }
 
+    public function testUpdatedRelations() {
+        $row = $this->getData();
+        $importer = $this->initImporter($row);
+
+        $item = $importer->import($row, $result = new Result());
+        $this->assertCount(2, $item->images);
+    }
+
     protected function getData() {
         // @todo faker
         return [
