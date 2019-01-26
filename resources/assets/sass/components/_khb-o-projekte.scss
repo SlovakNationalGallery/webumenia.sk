@@ -1,7 +1,7 @@
 @include media-breakpoint-up(xl) {
-    .author{
+    .about{
         .card-header, .card-body {
-            max-width: calc(4/5 * 100%);
+            max-width: calc(5/6 * 100%);
         }
     }
 }

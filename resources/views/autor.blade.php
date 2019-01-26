@@ -24,69 +24,78 @@
 <section class="author detail" itemscope itemtype="http://schema.org/Person">
     <div class="attributes">
         <div class="row">
-            <div class="col-12 col-md-4 col-xl-2">
-                <h1 itemprop="name" class="mt-2 mb-4">{!! $author->formatedName !!}</h1>
+            <div class="col-12 col-md-4 col-xl-2 py-0">
+                <div class="row">
+                    <div class="col border-right-0">
+                        <h1 itemprop="name" class="mt-2 mb-4">{!! $author->formatedName !!}</h1>
+                    </div>
+                </div>
                 {{--
                 @if ( $author->names->count() > 0)
                     <p class="lead">{{ trans('autor.alternative_names') }} <em>{!! implode("</em>, <em>", $author->formatedNames) !!}</em></p>
                 @endif
                  --}}
-                <div class="row"><div class="col p-0 border-left-0 border-right-0 border-top">
-                    <img src="{!! $author->getImagePath() !!}" class="img-fluid" alt="{!! $author->name !!}"  itemprop="image">
-                </div></div>
-                @if ($author->birth_year)
-                    <p class="my-4">
-                        {{ trans('autor.birth_year') }} <br>
-                        {{ $author->birth_year }}
-                    </p>
-                @endif
-                @if ($author->birth_place)
-                    <p class="my-4">
-                        {{ trans('autor.birth_place') }} <br>
-                        {{ $author->birth_place }}
-                    </p>
-                @endif
-                @if ($author->active_in)
-                    <p class="my-4">
-                        {{ trans('autor.active_in') }} <br>
-                        {{ $author->active_in }}
-                    </p>
-                @endif
-                @if ($author->studied_at)
-                    <p class="my-4">
-                        {{ trans('autor.studied_at') }} <br>
-                        {{ $author->studied_at }}
-                    </p>
-                @endif
-                @if (!empty($author->tagNames()))
-                    <p class="my-4">
-                        {{ trans('autor.tags') }} <br>
-                        @foreach ($author->tags as $tag)
-                            <a href="{!!URL::to('klucove-slova#' . $tag->slug)!!}" class="mr-1">#{!! $tag->name !!}</a>
-                        @endforeach
-                    </p>
-                @endif
-                {{--
-                @if ( $author->events->count() > 0)
-                    <div class="events">
-                        {{ utrans('autor.places') }}<br>
-                        @foreach ($author->events as $i=>$event)
-                            <strong><a href="{!! url_to('autori', ['place' => $event->place]) !!}">{!! $event->place !!}</a></strong> {!! add_brackets(App\Authority::formatMultiAttribute($event->event)) !!}{{ ($i+1 < $author->events->count()) ? ', ' : '' }}
-                        @endforeach
+                <div class="row">
+                    <div class="col p-0 border-right-0">
+                        <img src="{!! $author->getImagePath() !!}" class="img-fluid" alt="{!! $author->name !!}"  itemprop="image">
                     </div>
-                @endif
-                 --}}
-                @if ( $author->links->count() > 0)
-                    <div class="links">
-                        {{ utrans('autor.links') }}<br>
-                        @foreach ($author->links as $i=>$link)
-                            <a href="{{ $link->url }}" target="_blank">{{ $link->label }}</a><br>
-                        @endforeach
+                </div>
+                <div class="row">
+                    <div class="col border-right-0 border-bottom-0">
+                        @if ($author->birth_year)
+                            <p>
+                                {{ trans('autor.birth_year') }} <br>
+                                {{ $author->birth_year }}
+                            </p>
+                        @endif
+                        @if ($author->birth_place)
+                            <p>
+                                {{ trans('autor.birth_place') }} <br>
+                                {{ $author->birth_place }}
+                            </p>
+                        @endif
+                        @if ($author->active_in)
+                            <p>
+                                {{ trans('autor.active_in') }} <br>
+                                {{ $author->active_in }}
+                            </p>
+                        @endif
+                        @if ($author->studied_at)
+                            <p>
+                                {{ trans('autor.studied_at') }} <br>
+                                {{ $author->studied_at }}
+                            </p>
+                        @endif
+                        @if (!empty($author->tagNames()))
+                            <p>
+                                {{ trans('autor.tags') }} <br>
+                                @foreach ($author->tags as $tag)
+                                    <a href="{!!URL::to('klucove-slova#' . $tag->slug)!!}" class="mr-1">#{!! $tag->name !!}</a>
+                                @endforeach
+                            </p>
+                        @endif
+                        {{--
+                        @if ( $author->events->count() > 0)
+                            <div class="events">
+                                {{ utrans('autor.places') }}<br>
+                                @foreach ($author->events as $i=>$event)
+                                    <strong><a href="{!! url_to('autori', ['place' => $event->place]) !!}">{!! $event->place !!}</a></strong> {!! add_brackets(App\Authority::formatMultiAttribute($event->event)) !!}{{ ($i+1 < $author->events->count()) ? ', ' : '' }}
+                                @endforeach
+                            </div>
+                        @endif
+                         --}}
+                        @if ( $author->links->count() > 0)
+                            <div class="links">
+                                {{ utrans('autor.links') }}<br>
+                                @foreach ($author->links as $i=>$link)
+                                    <a href="{{ $link->url }}" target="_blank">{{ $link->label }}</a><br>
+                                @endforeach
+                            </div>
+                        @endif
                     </div>
-                @endif
+                </div>
             </div>
-            <div class="col-12 col-md-8 col-xl-10 popis p-0 border-0">
-
+            <div class="col-12 col-md-8 col-xl-10 popis p-0">
                 <div class="accordion" id="authorAccordion">
                     @include('components.khb_accordion_card', [
                         'title' => utrans('autor.biography'),
@@ -94,7 +103,6 @@
                         'parrentId' => 'authorAccordion',
                         'show' => true,
                     ])
-
                     {{-- gallery --}}
                     <div class="card">
                       <div class="card-header" id="heading{{ studly_case('gallery') }}">
@@ -107,11 +115,10 @@
 
                       <div id="collapse{{ studly_case('gallery') }}" class="collapse show" aria-labelledby="heading{{ studly_case('gallery') }}" data-parent="#authorAccordion">
                         <div class="card-body pt-0">
-                            {{-- <div class="expandable"> --}}
                             <div id="iso">
                             @foreach ($items as $i=>$item)
                                 <div class="col-md-3 col-sm-4 col-xs-6 item border-0">
-                                <a href="{!! $item->getImagePath() !!}" title="{!! $item->getTitleWithAuthors() !!}" data-photo-credit="{{ $item->photo_credit or 'Unknown'}}">
+                                    <a href="{!! $item->getImagePath() !!}" title="{!! $item->getTitleWithAuthors() !!}" data-photo-credit="{{ $item->photo_credit or 'Unknown'}}">
                                         @php
                                             list($width, $height) = getimagesize(public_path() . $item->getImagePath());
                                         @endphp
@@ -121,10 +128,8 @@
                                     </a>
                                 </div>
                             @endforeach
-
                             </div>
                             {{-- /iso --}}
-                            {{-- </div> --}}
                         </div>
                       </div>
                     </div>
@@ -186,22 +191,28 @@
 {!! Html::script('js/plugins/readmore.min.js') !!}
 
 <script type="text/javascript">
-
-    $('#iso').isotope({
-        itemSelector: '.item',
-        layoutMode: 'masonry'
-    });
+    function init_isotype(containerSelector, itemSelector) {
+        $(containerSelector).isotope({
+            itemSelector: itemSelector,
+            layoutMode: 'masonry'
+        });
+    }
 
     $(document).ready(function(){
+        init_isotype('#iso', '.item');
+        // re-init isotype when gallery collapsed accordion card has been shown
+        $('#headingGallery').parent().on('shown.bs.collapse', function () {
+            init_isotype('#iso', '.item');
+        })
 
         $('.expandable').readmore({
             moreLink: '<a href="#" class="no-underline text-right">{{ trans("general.show_more") }} <i class="fas fa-chevron-right"></i></a>',
             lessLink: '<a href="#" class="no-underline text-right">{{ trans("general.show_less") }} <i class="fas fa-chevron-up"></i></a>',
             maxHeight: 400,
             afterToggle: function(trigger, element, expanded) {
-              if(! expanded) { // The "Close" link was clicked
-                $('html, body').animate( { scrollTop: element.offset().top }, {duration: 100 } );
-              }
+                if(! expanded) { // The "Close" link was clicked
+                    $('html, body').animate( { scrollTop: element.offset().top }, {duration: 100 } );
+                }
             }
         });
 
@@ -223,8 +234,6 @@
                 }
             }
         });
-
-
     });
 </script>
 @stop
