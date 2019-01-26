@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file[^1].
 - Headings documented in PatternLib
 - Remove query string from localized urls
 - Option to launch harvest only for specific record ids
+- Move img_url from item_images to items table
 
 ## [1.6.2] - 2019-01-16
 ### Fixed

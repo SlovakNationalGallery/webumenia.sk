@@ -12,7 +12,6 @@ use App\Harvest\Mappers\AuthorityRelationshipMapper;
 use App\Harvest\Mappers\LinkMapper;
 use App\Harvest\Mappers\NationalityMapper;
 use App\Harvest\Mappers\RelatedAuthorityMapper;
-use App\Harvest\Result;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
