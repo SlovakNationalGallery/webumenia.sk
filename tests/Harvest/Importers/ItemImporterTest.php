@@ -152,6 +152,7 @@ class ItemImporterTest extends TestCase
                 'related_work_total' => 0,
                 'featured' => false,
                 'img_url' => 'http://www.webumenia.sk/oai-pmh/getimage/SVK:SNG.G_10044',
+                'publish' => true,
                 'title:sk' => 'Flámska rodina',
                 'work_type:sk' => 'grafika, voľná',
                 'technique:sk' => 'rytina',

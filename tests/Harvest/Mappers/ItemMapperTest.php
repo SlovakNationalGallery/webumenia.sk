@@ -111,6 +111,7 @@ class ItemMapperTest extends TestCase
             'related_work_order' => 0,
             'related_work_total' => 0,
             'featured' => false,
+            'publish' => true,
             'img_url' => 'http://www.webumenia.sk/oai-pmh/getimage/SVK:SNG.G_10044',
             'title:sk' => 'Flámska rodina',
             'work_type:sk' => 'grafika, voľná',

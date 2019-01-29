@@ -176,6 +176,11 @@ class ItemMapper extends AbstractModelMapper
         });
     }
 
+    public function mapPublish(array $row) {
+        // @todo should be able to omit mapping
+        return isset($row['rights'][0]) ? (bool)$row['rights'][0] : true;
+    }
+
     public function mapDescription() {}
 
     public function mapWorkLevel() {}
