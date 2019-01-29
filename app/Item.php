@@ -566,6 +566,8 @@ class Item extends Model
         }
         $trans = array("/" => "&ndash;", "-" => "&ndash;");
         $formated = preg_replace('/^([0-9]*) \s*([a-zA-Z]*)$/', '$2 $1', $this->dating);
+        $parts = explode('/', $formated);
+        $formated = implode('/', array_unique($parts));
         $formated = strtr($formated, $trans);
         return $formated;
     }
