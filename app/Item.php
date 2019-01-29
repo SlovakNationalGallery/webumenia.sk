@@ -818,6 +818,18 @@ class Item extends Model
         return implode(', ', $this->authors)  . $dash .  $this->title;
     }
 
+    public function getSubTitle($html = false)
+    {
+        $separator = ', ';
+        $title_parts = [
+            $this->getDatingFormated(),
+            implode($separator, $this->techniques),
+            implode($separator, $this->measurements),
+            // $this->gallery, // @TODO: temporarily exclude gallery because now in case of KHB gallery!=owner
+        ];
+        return implode($separator, array_filter($title_parts));
+    }
+
     public function getZoomableImages()
     {
         return $this->images->filter(function (ItemImage $image) {
