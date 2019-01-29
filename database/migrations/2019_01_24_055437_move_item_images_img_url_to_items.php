@@ -29,6 +29,20 @@ class MoveItemImagesImgUrlToItems extends Migration
         Schema::table('item_images', function (Blueprint $table) {
             $table->dropColumn('img_url');
         });
+
+        $query = DB::table('item_images')->where('iipimg_url', null);
+        $nullImages = $query->select('item_id', 'order')->orderBy('order', 'desc')->get();
+        $query->delete();
+
+        foreach ($nullImages as $image) {
+            DB::table('item_images')
+                ->where('item_id', $image->item_id)
+                ->where('order', '>', $image->order)
+                ->orderBy('order')
+                ->update([
+                    'order' => DB::raw('`order` - 1')
+                ]);
+        }
     }
 
     /**
