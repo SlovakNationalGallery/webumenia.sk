@@ -119,7 +119,8 @@
                             @foreach ($items as $i=>$item)
                                 <div class="col-md-3 col-sm-4 col-xs-6 item border-0">
                                     <a href="{!! $item->getImagePath() !!}"
-                                       title="{!! $item->getFullTitle() !!}"
+                                       title="{!! $item->getTitleWithAuthors() !!}"
+                                       data-sub-title="{{ $item->getSubTitle() }}"
                                        data-photo-credit="{{ $item->photo_credit }}">
                                         @php
                                             list($width, $height) = getimagesize(public_path() . $item->getImagePath());
@@ -233,6 +234,9 @@
                 tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
                 titleSrc: function(item) {
                     var title = item.el.attr('title');
+                    if (item.el.attr('data-sub-title')) {
+                        title = title + '<small>'+ item.el.attr('data-sub-title') +'</small>';
+                    }
                     if (item.el.attr('data-photo-credit')) {
                         title = title + '<small>{{ trans('autor.by') }} '+ item.el.attr('data-photo-credit') +'</small>';
                     }

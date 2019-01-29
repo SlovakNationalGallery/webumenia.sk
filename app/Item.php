@@ -818,16 +818,14 @@ class Item extends Model
         return implode(', ', $this->authors)  . $dash .  $this->title;
     }
 
-    public function getFullTitle($html = false)
+    public function getSubTitle($html = false)
     {
         $separator = ', ';
         $title_parts = [
-            implode($separator, $this->authors),
-            $this->title,
             $this->getDatingFormated(),
             implode($separator, $this->techniques),
             implode($separator, $this->measurements),
-            $this->gallery,
+            // $this->gallery, // @TODO: temporarily exclude gallery because now in case of KHB gallery!=owner
         ];
         return implode($separator, array_filter($title_parts));
     }
