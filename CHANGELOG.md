@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file[^1].
 - Remove query string from localized urls
 - Option to launch harvest only for specific record ids
 - Move img_url from item_images to items table
+- Delete null item images
 
 ## [1.6.2] - 2019-01-16
 ### Fixed
