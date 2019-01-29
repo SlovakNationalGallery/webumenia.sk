@@ -818,6 +818,20 @@ class Item extends Model
         return implode(', ', $this->authors)  . $dash .  $this->title;
     }
 
+    public function getFullTitle($html = false)
+    {
+        $separator = ', ';
+        $title_parts = [
+            implode($separator, $this->authors),
+            $this->title,
+            $this->getDatingFormated(),
+            implode($separator, $this->techniques),
+            implode($separator, $this->measurements),
+            $this->gallery,
+        ];
+        return implode($separator, array_filter($title_parts));
+    }
+
     public function getZoomableImages()
     {
         return $this->images->filter(function (ItemImage $image) {
