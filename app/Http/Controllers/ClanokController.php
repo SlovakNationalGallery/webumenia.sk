@@ -24,7 +24,7 @@ class ClanokController extends Controller
     {
         $q = (Input::has('search')) ? str_to_alphanumeric(Input::get('search')) : 'null';
 
-        $result = Article::published()->where('title', 'like', '%'.$q.'%')->limit(5)->get();
+        $result = Article::published()->whereTranslationLike('title', '%'.$q.'%')->limit(5)->get();
 
         $data = array();
         $data['results'] = array();

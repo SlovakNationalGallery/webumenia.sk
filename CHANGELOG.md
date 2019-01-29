@@ -14,6 +14,24 @@ All notable changes to this project will be documented in this file[^1].
 ### Changed
 - CKEditor version
 - JSON response in FileuploaderController@upload
+- Move img_url from item_images to items table
+- Delete null item images
+
+## [1.6.2] - 2019-01-16
+### Fixed
+- search autocomplete for Collections and Articles
+- division by zero exception for corrupted images
+- indexing translated work_type into ElasticSearch
+
+### Added
+- 30 days cache to item image headers
+
+## [1.6.1] - 2018-12-06
+### Added
+- temporary Christmas alert into order
+
+### Changed
+- thank you text after order (with "check your spam folder")
 
 ## [1.6.0] - 2018-11-28
 ### Fixed

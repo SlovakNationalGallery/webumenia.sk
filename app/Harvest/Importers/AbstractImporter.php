@@ -43,6 +43,7 @@ abstract class AbstractImporter
      */
     public function import(array $row, Result $result) {
         $class = $this->modelClass;
+        /** @var Model $model */
         if ($model = $class::find($this->getModelId($row))) {
             $result->incrementInserted();
         } else {
@@ -53,7 +54,8 @@ abstract class AbstractImporter
         $this->upsertModel($model, $row);
         $this->upsertRelated($model, $row);
 
-        return $model;
+        // reset already loaded relation values
+        return $model->setRelations([]);
     }
 
     /**
@@ -101,7 +103,7 @@ abstract class AbstractImporter
         foreach ($relatedRows as $relatedRow) {
             $data = $this->mappers[$field]->map($relatedRow);
             $conditions = $this->getConditions($field, $data);
-            $instance = $model->$field()->firstOrNew($conditions);
+            $instance = $relation->firstOrNew($conditions);
             $instance->forceFill($data);
             $instance->save();
             $updateIds[] = $instance->getKey();

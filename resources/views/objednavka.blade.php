@@ -17,7 +17,7 @@
                 @if (Session::has('message'))
                     <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
                 @endif
-                @if (strtotime('now') < strtotime('2017-12-24'))
+                @if (strtotime('now') < strtotime('2018-12-24'))
                     <div class="alert alert-warning text-center" role="alert">
                         {!! trans('objednavka.order_alert') !!}
                     </div>
