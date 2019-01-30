@@ -126,6 +126,7 @@ class ItemMapperTest extends TestCase
             'related_work:sk' => null,
             'description:sk' => null,
             'work_level:sk' => null,
+            'contributor' => 'Čičo, Martin',
             // @TODO: other then slovak locales are temporary disabled in Harvester
             // 'title:en' => 'Flemish family',
             // 'work_type:en' => null,
