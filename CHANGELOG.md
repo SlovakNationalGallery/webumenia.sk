@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file[^1].
 - Remove query string from localized urls
 - Option to launch harvest only for specific record ids
 - footnotes in wysiwyg editor in admin
+- Sentry integration
 
 ### Changed
 - CKEditor version
