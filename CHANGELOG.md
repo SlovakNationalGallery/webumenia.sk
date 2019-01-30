@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file[^1].
 - Headings documented in PatternLib
 - Remove query string from localized urls
 - Option to launch harvest only for specific record ids
+- Switch database / elasticsearch index when working with docker-compose
 - footnotes in wysiwyg editor in admin
 
 ### Changed
@@ -25,6 +26,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Added
 - 30 days cache to item image headers
+
 
 ## [1.6.1] - 2018-12-06
 ### Added
