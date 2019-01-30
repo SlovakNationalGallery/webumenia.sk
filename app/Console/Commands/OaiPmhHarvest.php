@@ -51,7 +51,7 @@ class OaiPmhHarvest extends Command
         $from = $this->option('start_date') ? new Carbon($this->option('start_date')) : null;
         $to = $this->option('end_date') ? new Carbon($this->option('end_date')) : null;
         $all = $this->option('all');
-        $only_ids = explode(',', $this->option('only_ids'));
+        $only_ids = ($this->option('only_ids')) ? explode(',', $this->option('only_ids')) : [];
 
 
         dispatch(new HarvestJob($harvest, $from, $to, $all, $only_ids));
