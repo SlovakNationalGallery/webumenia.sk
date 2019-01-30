@@ -189,7 +189,7 @@ class ItemMapper extends AbstractModelMapper
     }
 
     public function mapContributor(array $row) {
-        return isset($row['contributor'][0]) ? $row['contributor'][0] : null
+        return isset($row['contributor'][0]) ? $row['contributor'][0] : null;
     }
 
     protected function getRelatedParts(array $row) {
