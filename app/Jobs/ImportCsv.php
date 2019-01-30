@@ -49,6 +49,7 @@ class ImportCsv extends Job implements ShouldQueue
             if (\App::runningInConsole()) {
                 echo "Nenašiel sa importer pre dané ID.\n";
             }
+            app('sentry')->captureException($e);
             return;
         }
 

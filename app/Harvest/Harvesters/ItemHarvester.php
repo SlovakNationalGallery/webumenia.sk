@@ -53,6 +53,7 @@ class ItemHarvester extends AbstractHarvester
         } catch (\Exception $e) {
             $error = sprintf('%s: %s', $item->img_url, $e->getMessage());
             $this->logger->addError($error);
+            app('sentry')->captureException($e);
         }
 
         $item->index();
