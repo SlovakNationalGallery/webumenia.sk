@@ -127,17 +127,22 @@
     <div class="alert alert-info col-lg-offset-2 col-md-offset-4" role="alert">
         {!! trans('objednavka.form_purpose-alert') !!}
     </div>
-{!! Former::select('purpose_kind')->label(trans('objednavka.form_purpose-label'))->required()->options(App\Order::$availablePurposeKinds); !!}
-{!! Former::textarea('purpose')->label(trans('objednavka.form_purpose-info'))->required(); !!}
+    {!! Former::select('purpose_kind')->label(trans('objednavka.form_purpose-label'))->required()->options(App\Order::$availablePurposeKinds); !!}
+    {!! Former::textarea('purpose')->label(trans('objednavka.form_purpose-info'))->required(); !!}
 </div>
 {{-- /ak digitalna --}}
 
 {{-- ak nie digitalna --}}
-<div id="miesto_odberu">
-{!! Former::select('delivery_point')->label(trans('objednavka.form_delivery-point'))->required()->options(array(
-        trans('objednavka.form_delivery-point_exlibris') => array('value'=>'Kníhkupectvo Ex Libris v SNG'),
-        trans('objednavka.form_delivery-point_zvolen') => array('value'=>'Zvolenský zámok'),
-)); !!}
+<div id="for_printed">
+    {!! Former::select('frame')->label(trans('objednavka.form_frame'))->required()->options(array(
+            trans('objednavka.form_frame_black') => array('value'=>'čierny'),
+            trans('objednavka.form_frame_white') => array('value'=>'biely'),
+    )); !!}
+
+    {!! Former::select('delivery_point')->label(trans('objednavka.form_delivery-point'))->required()->options(array(
+            trans('objednavka.form_delivery-point_exlibris') => array('value'=>'Kníhkupectvo Ex Libris v SNG'),
+            trans('objednavka.form_delivery-point_zvolen') => array('value'=>'Zvolenský zámok'),
+    )); !!}
 </div>
 {{-- /ak nie digitalna --}}
 
@@ -203,12 +208,12 @@
         if( $('#format').val() == 'digitálna reprodukcia')  {
             $("#ucel").show();
             $("#purpose").attr("disabled", false);
-            $("#miesto_odberu").hide();
+            $("#for_printed").hide();
             $("#delivery_point").attr("disabled", true);
         } else {
             $("#ucel").hide();
             $("#purpose").attr("disabled", true);
-            $("#miesto_odberu").show();
+            $("#for_printed").show();
             $("#delivery_point").attr("disabled", false);
         }
     }
