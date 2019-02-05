@@ -11,7 +11,7 @@ RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ \
 	gd \
 	mcrypt \
 	zip \
-    exif
+	exif
 
 RUN chown -R www-data:www-data /var/www
 
