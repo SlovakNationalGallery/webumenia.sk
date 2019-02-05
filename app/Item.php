@@ -823,8 +823,9 @@ class Item extends Model
         $separator = ', ';
         $title_parts = [
             $this->getDatingFormated(),
-            implode($separator, $this->techniques),
-            implode($separator, $this->measurements),
+            implode(' &rsaquo; ', array_unique($this->work_types)),
+            // implode($separator, $this->techniques),
+            // implode($separator, $this->measurements),
             // $this->gallery, // @TODO: temporarily exclude gallery because now in case of KHB gallery!=owner
         ];
         return implode($separator, array_filter($title_parts));
