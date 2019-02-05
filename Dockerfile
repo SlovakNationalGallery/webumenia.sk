@@ -10,7 +10,8 @@ RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ \
 	pdo_mysql \
 	gd \
 	mcrypt \
-	zip
+	zip \
+    exif
 
 RUN chown -R www-data:www-data /var/www
 
