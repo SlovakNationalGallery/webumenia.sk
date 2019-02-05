@@ -823,10 +823,12 @@ class Item extends Model
     public function getSubTitle($html = false)
     {
         $separator = ', ';
+        $separator_hierarchical = ' &rsaquo; ';
         $title_parts = [
             $this->getDatingFormated(),
-            implode($separator, $this->techniques),
-            implode($separator, $this->measurements),
+            implode($separator_hierarchical, array_unique($this->work_types)),
+            // implode($separator, $this->techniques),
+            // implode($separator, $this->measurements),
             // $this->gallery, // @TODO: temporarily exclude gallery because now in case of KHB gallery!=owner
         ];
         return implode($separator, array_filter($title_parts));
