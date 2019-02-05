@@ -40,14 +40,19 @@ return array(
     'form_purpose-label'           => 'Purpose',
     'form_purpose-info'            => 'Purpose description',
     'form_frame'                   => 'Frame',
+    'form_frame_help'              => 'show preview',
     'form_frame_black'             => 'Black',
-    'form_frame_white'             => 'White',
+    'form_frame_white'             => 'Light wood',
     'form_delivery-point'          => 'Pick up location',
     'form_delivery-point_exlibris' => 'Ex Libris Bookshop, SNG, Bratislava',
     'form_delivery-point_zvolen'   => 'Zvolen castle, Zvolen',
     'form_note'                    => 'Note (Comment)',
     'form_terms_and_conditions'    => 'I agree <a href="http://www.sng.sk/en/o-galerii/dokumenty/gdpr" class="underline" target="_blank">to provide my personal information</a> for the purpose of the reproduction order processing',
     'form_order'                   => 'Place order',
+
+    'modal_frame_colors'           => 'Frame colors',
+    'modal_frame_availability'     => 'Available in both A4 and A3 + formats.',
+    'modal_frame_multiple'         => 'If you order multiple items, please specify the color of the frame for each item in the note (comment).',
 
     // in routes.php
     'message_add_order'            => 'The artwork :artwork_description has been added to your cart.',

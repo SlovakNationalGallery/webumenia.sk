@@ -38,14 +38,19 @@ return array(
     'form_purpose-label'           => 'Účel',
     'form_purpose-info'            => 'Účel - podrobnejšie informácie',
     'form_frame'                   => 'Rám',
+    'form_frame_help'              => 'zobrazit náhled',
     'form_frame_black'             => 'černý',
-    'form_frame_white'             => 'bílý',
+    'form_frame_white'             => 'světlé dřevo',
     'form_delivery-point'          => 'Miesto osobného odberu',
     'form_delivery-point_exlibris' => 'Kníhkupectvo Ex Libris v SNG',
     'form_delivery-point_zvolen'   => 'Zvolenský zámok',
     'form_note'                    => 'Poznámka',
     'form_terms_and_conditions'    => 'souhlasím se <a href="http://www.sng.sk/sk/o-galerii/dokumenty/gdpr" class="underline" target="_blank">zpracováním osobních údajů</a> pro účel vyřízení objednávky',
     'form_order'                   => 'Objednať',
+
+    'modal_frame_colors'           => 'Barvy rámů',
+    'modal_frame_availability'     => 'K dispozici v obou formátech A4 a A3 +.',
+    'modal_frame_multiple'         => 'V případě, že objednáváte několik děl, prosíme uveďte barvu rámu k jednotlivým dílům do poznámky.',
 
     // in routes.php
     'message_add_order'            => 'Dielo :artwork_description bolo pridané do košíka.',
