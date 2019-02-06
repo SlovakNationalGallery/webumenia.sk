@@ -37,12 +37,20 @@ return array(
         <strong>V prípade záujmu o tlač výtvarných diel môžete využiť objednávku na tlačenú reprodukciu, kde výrobu a úpravu výtlačku zabezpečuje SNG.</strong>',
     'form_purpose-label'           => 'Účel',
     'form_purpose-info'            => 'Účel - podrobnejšie informácie',
+    'form_frame'                   => 'Rám',
+    'form_frame_help'              => 'zobraziť náhľad',
+    'form_frame_black'             => 'čierny',
+    'form_frame_white'             => 'svetlé drevo',
     'form_delivery-point'          => 'Miesto osobného odberu',
     'form_delivery-point_exlibris' => 'Kníhkupectvo Ex Libris v SNG',
     'form_delivery-point_zvolen'   => 'Zvolenský zámok',
     'form_note'                    => 'Poznámka',
     'form_terms_and_conditions'    => 'súhlasím so <a href="http://www.sng.sk/sk/o-galerii/dokumenty/gdpr" class="underline" target="_blank">spracovaním osobných údajov</a> na účel vybavenia objednávky',
     'form_order'                   => 'Objednať',
+
+    'modal_frame_colors'           => 'Farby rámov',
+    'modal_frame_availability'     => 'K dispozícií v oboch formátoch A4 a A3+.',
+    'modal_frame_multiple'         => 'V prípade, že objednávate viacero diel, prosíme uveďte farbu rámu k jednotlivým dielam do poznámky.',
 
     // in routes.php
     'message_add_order'            => 'Dielo :artwork_description bolo pridané do košíka.',

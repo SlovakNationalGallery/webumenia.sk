@@ -91,6 +91,7 @@ function()
             $order->email = Input::get('email');
             $order->phone = Input::get('phone');
             $order->format = Input::get('format');
+            $order->frame = Input::get('frame');
             $order->purpose_kind = Input::get('purpose_kind');
             $order->purpose = Input::get('purpose');
             $order->delivery_point = Input::get('delivery_point', null);
@@ -113,7 +114,7 @@ function()
                     'contactPerson' => $order->name,
                     'email' => $order->email,
                     'kindOfPurpose' => $order->purpose_kind,
-                    'purpose' => $order->purpose."\n".$order->format."\n".$order->delivery_point."\n".$order->note,
+                    'purpose' => $order->purpose."\n".$order->format."\n".$order->frame."\n".$order->delivery_point."\n".$order->note,
                     'medium' => 'Iné',
                     'address' => $order->address,
                     'phone' => $order->phone,
