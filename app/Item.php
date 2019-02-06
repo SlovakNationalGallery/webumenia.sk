@@ -115,6 +115,8 @@ class Item extends Model
 
     public static $rules = array(
         'author' => 'required',
+        'date_earliest' => 'required',
+        'date_latest' => 'required',
         'sk.title'  => 'required',
         'sk.dating' => 'required',
     );
