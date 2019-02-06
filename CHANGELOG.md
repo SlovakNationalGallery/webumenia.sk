@@ -22,6 +22,7 @@ All notable changes to this project will be documented in this file[^1].
 - Delete null item images
 
 ### Fixed
+- duplicated years in item dating formated
 - creating new Artwork
 - editing Artwork without iipimg_url
 
