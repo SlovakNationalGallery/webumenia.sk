@@ -18,6 +18,10 @@ All notable changes to this project will be documented in this file[^1].
 - Move img_url from item_images to items table
 - Delete null item images
 
+### Fixed
+- creating new Artwork
+- editing Artwork without iipimg_url
+
 ## [1.6.2] - 2019-01-16
 ### Fixed
 - search autocomplete for Collections and Articles
