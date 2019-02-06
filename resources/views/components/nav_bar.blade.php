@@ -37,9 +37,12 @@
                 <li class="{!! (Request::is('clanky') || Request::is('clanok/*')) ? 'active' : '' !!}">
                         <a href="{{{ URL::to('clanky') }}}">{{ utrans('master.articles') }}</a>
                 </li>
+                {{-- @TODO: temporarily disabled  --}}
+                {{--
                 <li class="{!! Request::is( 'reprodukcie') ? 'active' : '' !!}">
                         <a href="{{{ URL::to('reprodukcie') }}}">{{ utrans('master.reproductions') }}</a>
                 </li>
+                 --}}
                 <li class="{!! Request::is( 'informacie') ? 'active' : '' !!}">
                         <a href="{{{ URL::to('informacie') }}}">{{ utrans('master.info') }}</a>
                 </li>
