@@ -80,34 +80,46 @@
 {!! Former::text('email')->label(trans('objednavka.form_email'))->required(); !!}
 {!! Former::text('phone')->label(trans('objednavka.form_phone'))->required(); !!}
 
+@if ($allow_printed_reproductions)
 
-{!! Former::select('format')->label('Formát')->required()->options([
-    trans('objednavka.form_format_for-print_a4') => [
-        'do A4: samostatná reprodukcia 25 €/ks' => [
-            'value'=> trans('objednavka.form_format_standalone') . ' (25 €/'.trans('objednavka.form_piece').')'
+    {!! Former::select('format')->label('Formát')->required()->options([
+        trans('objednavka.form_format_for-print_a4') => [
+            'do A4: samostatná reprodukcia 25 €/ks' => [
+                'value'=> trans('objednavka.form_format_standalone') . ' (25 €/'.trans('objednavka.form_piece').')'
+            ],
+            'do A4: reprodukcia s paspartou 35 €/ks' => [
+                'value'=> trans('objednavka.form_format_with_mounting') . ' (35 €/'.trans('objednavka.form_piece').')'
+            ],
+            'do A4: s paspartou a rámom 40 €/ks' => [
+                'value'=> trans('objednavka.form_format_with_mounting_and_framing') . ' (40 €/'.trans('objednavka.form_piece').')'
+            ],
         ],
-        'do A4: reprodukcia s paspartou 35 €/ks' => [
-            'value'=> trans('objednavka.form_format_with_mounting') . ' (35 €/'.trans('objednavka.form_piece').')'
+        trans('objednavka.form_format_for-print_a3') => [
+            'do A3+: samostatná reprodukcia 35 €/ks' => [
+                'value'=> trans('objednavka.form_format_standalone') . ' (35 €/'.trans('objednavka.form_piece').')'
+            ],
+            'do A3+: reprodukcia s paspartou 50 €/ks' => [
+                'value'=> trans('objednavka.form_format_with_mounting') . ' (50 €/'.trans('objednavka.form_piece').')'
+            ],
+            'do A3+: s paspartou a rámom 60 €/ks' => [
+                'value'=> trans('objednavka.form_format_with_mounting_and_framing') . ' (60 €/'.trans('objednavka.form_piece').')'
+            ],
         ],
-        'do A4: s paspartou a rámom 40 €/ks' => [
-            'value'=> trans('objednavka.form_format_with_mounting_and_framing') . ' (40 €/'.trans('objednavka.form_piece').')'
+        trans('objednavka.form_format_for-download') => [
+                'digitálna reprodukcia' => ['value'=>trans('objednavka.form_format_digital')]
         ],
-    ],
-    trans('objednavka.form_format_for-print_a3') => [
-        'do A3+: samostatná reprodukcia 35 €/ks' => [
-            'value'=> trans('objednavka.form_format_standalone') . ' (35 €/'.trans('objednavka.form_piece').')'
+    ]); !!}
+
+@else
+
+    {!! Former::select('format')->label('Formát')->required()->options([
+        trans('objednavka.form_format_for-download') => [
+                'digitálna reprodukcia' => ['value'=>trans('objednavka.form_format_digital')]
         ],
-        'do A3+: reprodukcia s paspartou 50 €/ks' => [
-            'value'=> trans('objednavka.form_format_with_mounting') . ' (50 €/'.trans('objednavka.form_piece').')'
-        ],
-        'do A3+: s paspartou a rámom 60 €/ks' => [
-            'value'=> trans('objednavka.form_format_with_mounting_and_framing') . ' (60 €/'.trans('objednavka.form_piece').')'
-        ],
-    ],
-    trans('objednavka.form_format_for-download') => [
-            'digitálna reprodukcia' => ['value'=>trans('objednavka.form_format_digital')]
-    ],
-]); !!}
+    ]); !!}
+
+@endif
+
 
 {{-- {!! Former::select('format')->label(trans('objednavka.form_format'))->required()->options(array(
     trans('objednavka.form_format_for-print') => array(
@@ -126,6 +138,9 @@
 <div id="ucel">
     <div class="alert alert-info col-lg-offset-2 col-md-offset-4" role="alert">
         {!! trans('objednavka.form_purpose-alert') !!}
+        @if ($allow_printed_reproductions)
+            <br><strong>{!! trans('objednavka.form_purpose-alert-print') !!}</strong>
+        @endif
     </div>
     {!! Former::select('purpose_kind')->label(trans('objednavka.form_purpose-label'))->required()->options(App\Order::$availablePurposeKinds); !!}
     {!! Former::textarea('purpose')->label(trans('objednavka.form_purpose-info'))->required(); !!}
