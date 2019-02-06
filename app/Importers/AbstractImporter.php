@@ -92,6 +92,7 @@ abstract class AbstractImporter implements IImporter {
                 $import_record->wrong_items++;
                 $import_record->status=Import::STATUS_ERROR;
                 $import_record->error_message=$e->getMessage();
+                app('sentry')->captureException($e);
 
                 break;
             } finally {

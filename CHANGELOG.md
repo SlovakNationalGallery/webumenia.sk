@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file[^1].
 - Option to launch harvest only for specific record ids
 - Switch database / elasticsearch index when working with docker-compose
 - footnotes in wysiwyg editor in admin
+- Sentry integration
 - option to choose frame color in order form
 
 ### Changed

@@ -75,6 +75,7 @@ class OaiPmhDownloadImages extends Command
                         $success = $item->downloadImage();
                     } catch (\Exception $e) {
                         $this->log->addError($item->img_url . ': ' . $e->getMessage());
+                        app('sentry')->captureException($e);
                     }
                 }
 

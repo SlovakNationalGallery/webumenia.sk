@@ -29,9 +29,13 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $e
      * @return void
      */
-    public function report(Exception $e)
+    public function report(Exception $exception)
     {
-        parent::report($e);
+        if (app()->bound('sentry') && $this->shouldReport($exception)) {
+            app('sentry')->captureException($exception);
+        }
+
+        parent::report($exception);
     }
 
     /**
@@ -87,7 +91,7 @@ class Handler extends ExceptionHandler
                 'umelecke_remeslo' => 'umelecké remeslo',
             ];
             $uri = $request->path();
-            $params = http_build_query($request->all()); 
+            $params = http_build_query($request->all());
             $uri = (!$params) ? $uri : $uri.'/'.$params;
             $uri = str_replace('results?', 'results/', $uri);
             $parts = explode('/', $uri);
@@ -96,13 +100,13 @@ class Handler extends ExceptionHandler
                 case 'home':
                     return '/';
                     break;
-                
+
                 case 'about':
                 case 'contact':
                 case 'help':
                     return 'informacie';
                     break;
-                
+
                 case 'detail':
                     $id_array = array_filter($parts, function($part) {
                       return fnmatch('SVK:*', $part);
@@ -113,7 +117,7 @@ class Handler extends ExceptionHandler
                         return $item->getUrl();
                     }
                     break;
-                
+
                 case 'search':
                     $query = array_pop($parts);
                     $query = urldecode($query);
@@ -159,7 +163,7 @@ class Handler extends ExceptionHandler
                     $query = $value = str_to_alphanumeric($query, ' ');
                     return 'katalog?search=' . urlencode($query);
                     break;
-                
+
                 case (array_key_exists($action, $work_type_lookup)):
                     $work_type = $work_type_lookup[$action];
                     return url('katalog?work_type=' . $work_type);
