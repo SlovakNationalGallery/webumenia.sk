@@ -101,4 +101,8 @@ class ItemHarvester extends AbstractHarvester
             return $iipimgUrl;
         }, $iipimgUrls);
     }
+
+    protected function isForDeletion(array $row) {
+        return parent::isForDeletion($row) || (isset($row['rights'][0]) && !$row['rights'][0]);
+    }
 }
