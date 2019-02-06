@@ -15,7 +15,7 @@ return array(
                         <p>K vybraným dielam zo zbierok SNG ponúkame možnosť objednať si reprodukcie v archívnej kvalite na fineartových papieroch. Po výbere diel, vyplnení údajov a odoslaní objednávky vás bude kontaktovať pracovník SNG s podrobnejšími informáciami. Momentálne je možné vyzdvihnúť si diela len osobne v&nbsp;kníhkupectve <a href="https://goo.gl/maps/3Uf4S" target="_blank" class="underline">Ex Libris v priestoroch SNG na Námestí Ľ. Štúra 4 v Bratislave</a>  alebo v pokladni <a href="https://goo.gl/maps/MPRy6Qdwm8s" target="_blank" class="underline">Zvolenského zámku - Námestie SNP 594/1</a>. </p>',
     'order_none'    => 'Nemáte v košíku žiadne diela',
     'order_remove'  => 'odstrániť',
-    'order_warning' => 'Toto dielo momentálne nemáme zdigitalizované v dostatočnej kvalite, vybavenie objednávky preto môže trvať dlhšie ako zvyčajne.',
+    'order_warning' => 'Toto dielo momentálne nemáme zdigitalizované v dostatočnej kvalite, preto nieje možné objednať si tlačenú reprodukciu.',
 
     'form_title'                   => 'Diela objednávky',
     'form_name'                    => 'Meno',
@@ -33,16 +33,24 @@ return array(
     'form_format_a3'               => 'samostatná reprodukcia (35 €/ks)',
     'form_format_for-download'     => 'na stiahnutie:',
     'form_format_digital'          => 'digitálna reprodukcia',
-    'form_purpose-alert'           => 'Autorský zákon nám neumožňuje poskytovať digitálne reprodukcie <abbr title="neprešlo 70 rokov od smrti autora" data-toggle="tooltip">autorsky chránených diel</abbr> na všeobecné súkromné účely (napr. ako dekoráciu). Na základe Vami uvedených informácií vytvorí SNG písomný súhlas s využitím digitálnej reprodukcie iba na predmetný účel &ndash; je to legislatívna ochrana tak pre Vás ako aj pre nás.<br>
-        <strong>V prípade záujmu o tlač výtvarných diel môžete využiť objednávku na tlačenú reprodukciu, kde výrobu a úpravu výtlačku zabezpečuje SNG.</strong>',
+    'form_purpose-alert'           => 'Autorský zákon nám neumožňuje poskytovať digitálne reprodukcie <abbr title="neprešlo 70 rokov od smrti autora" data-toggle="tooltip">autorsky chránených diel</abbr> na všeobecné súkromné účely (napr. ako dekoráciu). Na základe Vami uvedených informácií vytvorí SNG písomný súhlas s využitím digitálnej reprodukcie iba na predmetný účel &ndash; je to legislatívna ochrana tak pre Vás ako aj pre nás.',
+    'form_purpose-alert-print'     => 'V prípade záujmu o tlač výtvarných diel môžete využiť objednávku na tlačenú reprodukciu, kde výrobu a úpravu výtlačku zabezpečuje SNG.',
     'form_purpose-label'           => 'Účel',
     'form_purpose-info'            => 'Účel - podrobnejšie informácie',
+    'form_frame'                   => 'Rám',
+    'form_frame_help'              => 'zobraziť náhľad',
+    'form_frame_black'             => 'čierny',
+    'form_frame_white'             => 'svetlé drevo',
     'form_delivery-point'          => 'Miesto osobného odberu',
     'form_delivery-point_exlibris' => 'Kníhkupectvo Ex Libris v SNG',
     'form_delivery-point_zvolen'   => 'Zvolenský zámok',
     'form_note'                    => 'Poznámka',
     'form_terms_and_conditions'    => 'súhlasím so <a href="http://www.sng.sk/sk/o-galerii/dokumenty/gdpr" class="underline" target="_blank">spracovaním osobných údajov</a> na účel vybavenia objednávky',
     'form_order'                   => 'Objednať',
+
+    'modal_frame_colors'           => 'Farby rámov',
+    'modal_frame_availability'     => 'K dispozícií v oboch formátoch A4 a A3+.',
+    'modal_frame_multiple'         => 'V prípade, že objednávate viacero diel, prosíme uveďte farbu rámu k jednotlivým dielam do poznámky.',
 
     // in routes.php
     'message_add_order'            => 'Dielo :artwork_description bolo pridané do košíka.',

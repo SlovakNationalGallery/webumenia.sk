@@ -115,6 +115,8 @@ class Item extends Model
 
     public static $rules = array(
         'author' => 'required',
+        'date_earliest' => 'required',
+        'date_latest' => 'required',
         'sk.title'  => 'required',
         'sk.dating' => 'required',
     );
@@ -566,6 +568,8 @@ class Item extends Model
         }
         $trans = array("/" => "&ndash;", "-" => "&ndash;");
         $formated = preg_replace('/^([0-9]*) \s*([a-zA-Z]*)$/', '$2 $1', $this->dating);
+        $parts = explode('/', $formated);
+        $formated = implode('/', array_unique($parts));
         $formated = strtr($formated, $trans);
         return $formated;
     }

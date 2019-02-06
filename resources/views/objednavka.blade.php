@@ -80,34 +80,46 @@
 {!! Former::text('email')->label(trans('objednavka.form_email'))->required(); !!}
 {!! Former::text('phone')->label(trans('objednavka.form_phone'))->required(); !!}
 
+@if ($allow_printed_reproductions)
 
-{!! Former::select('format')->label('Formát')->required()->options([
-    trans('objednavka.form_format_for-print_a4') => [
-        'do A4: samostatná reprodukcia 25 €/ks' => [
-            'value'=> trans('objednavka.form_format_standalone') . ' (25 €/'.trans('objednavka.form_piece').')'
+    {!! Former::select('format')->label('Formát')->required()->options([
+        trans('objednavka.form_format_for-print_a4') => [
+            'do A4: samostatná reprodukcia 25 €/ks' => [
+                'value'=> trans('objednavka.form_format_standalone') . ' (25 €/'.trans('objednavka.form_piece').')'
+            ],
+            'do A4: reprodukcia s paspartou 35 €/ks' => [
+                'value'=> trans('objednavka.form_format_with_mounting') . ' (35 €/'.trans('objednavka.form_piece').')'
+            ],
+            'do A4: s paspartou a rámom 40 €/ks' => [
+                'value'=> trans('objednavka.form_format_with_mounting_and_framing') . ' (40 €/'.trans('objednavka.form_piece').')'
+            ],
         ],
-        'do A4: reprodukcia s paspartou 35 €/ks' => [
-            'value'=> trans('objednavka.form_format_with_mounting') . ' (35 €/'.trans('objednavka.form_piece').')'
+        trans('objednavka.form_format_for-print_a3') => [
+            'do A3+: samostatná reprodukcia 35 €/ks' => [
+                'value'=> trans('objednavka.form_format_standalone') . ' (35 €/'.trans('objednavka.form_piece').')'
+            ],
+            'do A3+: reprodukcia s paspartou 50 €/ks' => [
+                'value'=> trans('objednavka.form_format_with_mounting') . ' (50 €/'.trans('objednavka.form_piece').')'
+            ],
+            'do A3+: s paspartou a rámom 60 €/ks' => [
+                'value'=> trans('objednavka.form_format_with_mounting_and_framing') . ' (60 €/'.trans('objednavka.form_piece').')'
+            ],
         ],
-        'do A4: s paspartou a rámom 40 €/ks' => [
-            'value'=> trans('objednavka.form_format_with_mounting_and_framing') . ' (40 €/'.trans('objednavka.form_piece').')'
+        trans('objednavka.form_format_for-download') => [
+                'digitálna reprodukcia' => ['value'=>trans('objednavka.form_format_digital')]
         ],
-    ],
-    trans('objednavka.form_format_for-print_a3') => [
-        'do A3+: samostatná reprodukcia 35 €/ks' => [
-            'value'=> trans('objednavka.form_format_standalone') . ' (35 €/'.trans('objednavka.form_piece').')'
+    ]); !!}
+
+@else
+
+    {!! Former::select('format')->label('Formát')->required()->options([
+        trans('objednavka.form_format_for-download') => [
+                'digitálna reprodukcia' => ['value'=>trans('objednavka.form_format_digital')]
         ],
-        'do A3+: reprodukcia s paspartou 50 €/ks' => [
-            'value'=> trans('objednavka.form_format_with_mounting') . ' (50 €/'.trans('objednavka.form_piece').')'
-        ],
-        'do A3+: s paspartou a rámom 60 €/ks' => [
-            'value'=> trans('objednavka.form_format_with_mounting_and_framing') . ' (60 €/'.trans('objednavka.form_piece').')'
-        ],
-    ],
-    trans('objednavka.form_format_for-download') => [
-            'digitálna reprodukcia' => ['value'=>trans('objednavka.form_format_digital')]
-    ],
-]); !!}
+    ]); !!}
+
+@endif
+
 
 {{-- {!! Former::select('format')->label(trans('objednavka.form_format'))->required()->options(array(
     trans('objednavka.form_format_for-print') => array(
@@ -126,18 +138,27 @@
 <div id="ucel">
     <div class="alert alert-info col-lg-offset-2 col-md-offset-4" role="alert">
         {!! trans('objednavka.form_purpose-alert') !!}
+        @if ($allow_printed_reproductions)
+            <br><strong>{!! trans('objednavka.form_purpose-alert-print') !!}</strong>
+        @endif
     </div>
-{!! Former::select('purpose_kind')->label(trans('objednavka.form_purpose-label'))->required()->options(App\Order::$availablePurposeKinds); !!}
-{!! Former::textarea('purpose')->label(trans('objednavka.form_purpose-info'))->required(); !!}
+    {!! Former::select('purpose_kind')->label(trans('objednavka.form_purpose-label'))->required()->options(App\Order::$availablePurposeKinds); !!}
+    {!! Former::textarea('purpose')->label(trans('objednavka.form_purpose-info'))->required(); !!}
 </div>
 {{-- /ak digitalna --}}
 
 {{-- ak nie digitalna --}}
-<div id="miesto_odberu">
-{!! Former::select('delivery_point')->label(trans('objednavka.form_delivery-point'))->required()->options(array(
-        trans('objednavka.form_delivery-point_exlibris') => array('value'=>'Kníhkupectvo Ex Libris v SNG'),
-        trans('objednavka.form_delivery-point_zvolen') => array('value'=>'Zvolenský zámok'),
-)); !!}
+<div id="for_frame">
+    {!! Former::select('frame')->label(trans('objednavka.form_frame'))->required()->options(array(
+            trans('objednavka.form_frame_black') => array('value'=>'čierny'),
+            trans('objednavka.form_frame_white') => array('value'=>'svetly'),
+    ))->help('<a href="#" class="underline" data-toggle="modal" data-target="#previewFrames"><i class="fa fa-info-circle"></i> '.trans('objednavka.form_frame_help').'</a>'); !!}
+</div>
+<div id="for_printed">
+    {!! Former::select('delivery_point')->label(trans('objednavka.form_delivery-point'))->required()->options(array(
+            trans('objednavka.form_delivery-point_exlibris') => array('value'=>'Kníhkupectvo Ex Libris v SNG'),
+            trans('objednavka.form_delivery-point_zvolen') => array('value'=>'Zvolenský zámok'),
+    )); !!}
 </div>
 {{-- /ak nie digitalna --}}
 
@@ -168,6 +189,28 @@
     </div>
 </section>
 
+<!-- Modal -->
+<div tabindex="-1" class="modal fade" id="previewFrames" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h1>{{ trans('objednavka.modal_frame_colors') }}</h1>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <img src="/images/frames.jpg" alt="frames preview" class="img-responsive">
+                </p>
+                <p class="text-left">
+                    {{ trans('objednavka.modal_frame_availability') }}<br>
+                    {{ trans('objednavka.modal_frame_multiple') }}
+                </p>
+            </div>
+            <div class="modal-footer">
+                <div class="text-center"><button type="button" data-dismiss="modal" class="btn btn-default btn-outline sans">{{ trans('general.close') }}</button></div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @stop
 
@@ -203,13 +246,22 @@
         if( $('#format').val() == 'digitálna reprodukcia')  {
             $("#ucel").show();
             $("#purpose").attr("disabled", false);
-            $("#miesto_odberu").hide();
+            $("#for_printed").hide();
             $("#delivery_point").attr("disabled", true);
+            $("#for_frame").hide();
+            $("#frame").attr("disabled", true);
         } else {
             $("#ucel").hide();
             $("#purpose").attr("disabled", true);
-            $("#miesto_odberu").show();
+            $("#for_printed").show();
             $("#delivery_point").attr("disabled", false);
+            if( $('#format').val().indexOf("rámom") >= 0)  {
+                $("#for_frame").show();
+                $("#frame").attr("disabled", false);
+            } else {
+                $("#for_frame").hide();
+                $("#frame").attr("disabled", true);
+            }
         }
     }
 
