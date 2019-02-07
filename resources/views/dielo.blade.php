@@ -75,7 +75,7 @@
                             ])
                         </div>
                     @endif
-                    <div class="row">
+                    <div class="row mt-5">
                         <div class="col-sm-12">
                             @if ($previous)
                                 <a href="{!! $previous !!}" id="left" class="nav-arrow left">&larr;<span class="sr-only">{{ trans('dielo.item_previous-work') }}</span></a>
