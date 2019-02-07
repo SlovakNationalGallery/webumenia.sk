@@ -4,7 +4,7 @@
             <a href="{{$anchor_href}}" data-toggle="tooltip" data-placement="top" title="{{$anchor_title}}">
                 <img
                     src="{{$img_url}}"
-                    class="mw-100 lazyload relative"
+                    class="mw-100 lazyload position-relative"
                     alt="{!! $img_title !!} "
                 >
             </a>
