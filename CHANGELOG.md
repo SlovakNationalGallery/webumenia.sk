@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- Harvesting items without rights
 
 ### Added
 - /reprodukcie route
@@ -11,12 +13,22 @@ All notable changes to this project will be documented in this file[^1].
 - Option to launch harvest only for specific record ids
 - Switch database / elasticsearch index when working with docker-compose
 - footnotes in wysiwyg editor in admin
+- Sentry integration
+- option to choose frame color in order form
 
 ### Changed
 - CKEditor version
 - JSON response in FileuploaderController@upload
 - Move img_url from item_images to items table
 - Delete null item images
+
+### Fixed
+- duplicated years in item dating formated
+- creating new Artwork
+- editing Artwork without iipimg_url
+
+### Removed
+- Printed reproduction options for items without IIP/zoom
 
 ## [1.6.2] - 2019-01-16
 ### Fixed

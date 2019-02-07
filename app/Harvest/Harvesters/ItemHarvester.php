@@ -53,6 +53,7 @@ class ItemHarvester extends AbstractHarvester
         } catch (\Exception $e) {
             $error = sprintf('%s: %s', $item->img_url, $e->getMessage());
             $this->logger->addError($error);
+            app('sentry')->captureException($e);
         }
 
         $item->index();
@@ -100,5 +101,9 @@ class ItemHarvester extends AbstractHarvester
             $iipimgUrl = substr($iipimgUrl, 0, strpos($iipimgUrl, '.jp2') + 4);
             return $iipimgUrl;
         }, $iipimgUrls);
+    }
+
+    protected function isForDeletion(array $row) {
+        return parent::isForDeletion($row) || (isset($row['rights'][0]) && !$row['rights'][0]);
     }
 }

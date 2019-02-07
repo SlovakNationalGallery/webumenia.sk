@@ -67,9 +67,17 @@ class ItemController extends Controller
     {
         $prefix = 'SVK:TMP.';  // TMP = temporary
         $last_item = Item::where('id', 'LIKE', $prefix.'%')->orderBy('created_at', 'desc')->first();
-        $last_number = (int)str_replace($prefix, '', $last_item->id);
+        $last_number = ($last_item) ? (int)str_replace($prefix, '', $last_item->id) : 0;
         $new_id = $prefix . ($last_number+1);
-        return view('items.form', array('new_id'=>$new_id));
+
+        // $item = new Item;
+        // $item->id = $new_id;
+        // $form = $this->getItemForm($item);
+
+        return view('items.form', [
+            'new_id'=>$new_id,
+            // 'form' => $form,
+        ]);
     }
 
     /**

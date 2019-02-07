@@ -51,7 +51,7 @@ class ImportTags extends Command
         $host = $this;
         try {
             Excel::filter('chunk')->load($csv_path)->noHeading()->chunk(250, function ($results) use ($host, &$count_all, &$count_imported) {
-            
+
                 foreach ($results as $row) {
                     $count_all++;
                     $item = Item::find($row[4]);
@@ -68,7 +68,7 @@ class ImportTags extends Command
             });
         } catch (\Exception $e) {
             $this->error('Error: '.  $e->getMessage());
-            die();
+            app('sentry')->captureException($e);
         }
         $this->info('Bolo importovanych ' . $count_imported . ' z ' . $count_all . ' tagov');
 
