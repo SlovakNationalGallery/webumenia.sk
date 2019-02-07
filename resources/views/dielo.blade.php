@@ -50,88 +50,69 @@
             </div>
             <div class="row">
                 <div class="col-md-8 text-center">
-
-                    @php
-                        $full_IIIF_img_urls = $item_images->map(function ($item_image) {
-                            return $item_image->getFullIIIFImgURL();
-                        });
-                    @endphp
-
+                    @if ($item->has_iip)
+                        @php
+                            $full_IIIF_img_urls = $item_images->map(function ($item_image) {
+                                return $item_image->getFullIIIFImgURL();
+                            });
+                        @endphp
                         @include('components.static_carousel', [
                             'slick_target' => "multiple-views",
                             'slick_variant' => "artwork-detail-thumbnail",
                             'img_urls' => $full_IIIF_img_urls,
-                            'item_images' => $item_images,
                             'item' => $item,
                         ])
-
-
-
+                    @else
                         @php
                             list($width, $height) = getimagesize(public_path() . $item->getImagePath());
-                            $width =  max($width,1); // prevent division by zero exception
                         @endphp
-
-                        {{-- prevent upsizing by setting max-width to real width --}}
-                        {{-- <div class="img-dielo" style="max-width: {{ $width }}px;">
-                            @if ($item->has_iip)
-                                <a href="{{ route('item.zoom', ['id' => $item->id]) }}" data-toggle="tooltip" data-placement="top" title="{{ utrans('general.item_zoom') }}" class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%">
-                            @else
-                                <div class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%">
+                        <div class="ratio-box bottom-space" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%">
+                            @include('components.item_image_responsive', [
+                                'item' => $item
+                            ])
+                        </div>
+                    @endif
+                    <div class="row">
+                        <div class="col-sm-12">
+                            @if ($previous)
+                                <a href="{!! $previous !!}" id="left" class="nav-arrow left">&larr;<span class="sr-only">{{ trans('dielo.item_previous-work') }}</span></a>
                             @endif
-
-                                @include('components.item_image_responsive', [
-                                    'item' => $item
-                                ])
-
-                            @if ($item->has_iip)
-                                </a>
-                            @else
-                                </div>
-                            @endif
-                        </div> --}}
-
-                        <div class="row">
-                            <div class="col-sm-12">
-                                @if ($previous)
-                                    <a href="{!! $previous !!}" id="left" class="nav-arrow left">&larr;<span class="sr-only">{{ trans('dielo.item_previous-work') }}</span></a>
-                                @endif
-                                @if ($next)
-                                    <a href="{!! $next !!}" id="right" class="nav-arrow right">&rarr;<span class="sr-only">{{ trans('dielo.item_next-work') }}</span></a>
-                                @endif
-                            </div>
-
-                            <div class="col-md-12 text-center">
-                                @if ($item->has_iip)
-                                   <a href="{{ route('item.zoom', ['id' => $item->id]) }}" class="btn btn-default btn-outline  sans"><i class="fa fa-search-plus"></i> {{ trans('general.item_zoom') }}</a>
-                                @endif
-                                @if ($item->isForReproduction())
-                                    <a href="{!! URL::to('dielo/' . $item->id . '/objednat')  !!}" class="btn btn-default btn-outline  sans"><i class="fa fa-shopping-cart"></i> {{ trans('dielo.item_order') }} </a>
-                                @endif
-                                @if ($item->isFree() && $item->hasZoomableImages())
-                                    <a href="{!! URL::to('dielo/' . $item->id . '/stiahnut')  !!}" class="btn btn-default btn-outline  sans" id="download"><i class="fa fa-download"></i> {{ trans('dielo.item_download') }} </a>
-                                @endif
-                            </div>
-                            @if (!empty($item->description))
-                            <div class="col-md-12 text-left medium description bottom-space underline" itemprop="description">
-                                {!!  $item->description !!}
-
-                                @if ($item->description_source)
-                                    <p>
-                                    @if ($item->description_user_id)
-                                        {{-- Autor popisu: --}} {!! $item->descriptionUser->name !!} &#9679;
-                                    @endif
-                                    @if ($item->description_source_link)
-                                        {{-- Zdroj: --}}
-                                        <a href="{!! $item->description_source_link !!}" target="_blank">{!! $item->description_source !!}</a>
-                                    @else
-                                        {!! $item->description_source !!}
-                                    @endif
-                                    </p>
-                                @endif
-                            </div>
+                            @if ($next)
+                                <a href="{!! $next !!}" id="right" class="nav-arrow right">&rarr;<span class="sr-only">{{ trans('dielo.item_next-work') }}</span></a>
                             @endif
                         </div>
+
+                        <div class="col-md-12 text-center">
+                            @if ($item->has_iip)
+                               <a href="{{ route('item.zoom', ['id' => $item->id]) }}" class="btn btn-default btn-outline  sans"><i class="fa fa-search-plus"></i> {{ trans('general.item_zoom') }}</a>
+                            @endif
+                            @if ($item->isForReproduction())
+                                <a href="{!! URL::to('dielo/' . $item->id . '/objednat')  !!}" class="btn btn-default btn-outline  sans"><i class="fa fa-shopping-cart"></i> {{ trans('dielo.item_order') }} </a>
+                            @endif
+                            @if ($item->isFree() && $item->hasZoomableImages())
+                                <a href="{!! URL::to('dielo/' . $item->id . '/stiahnut')  !!}" class="btn btn-default btn-outline  sans" id="download"><i class="fa fa-download"></i> {{ trans('dielo.item_download') }} </a>
+                            @endif
+                        </div>
+                        @if (!empty($item->description))
+                        <div class="col-md-12 text-left medium description bottom-space underline" itemprop="description">
+                            {!!  $item->description !!}
+
+                            @if ($item->description_source)
+                                <p>
+                                @if ($item->description_user_id)
+                                    {{-- Autor popisu: --}} {!! $item->descriptionUser->name !!} &#9679;
+                                @endif
+                                @if ($item->description_source_link)
+                                    {{-- Zdroj: --}}
+                                    <a href="{!! $item->description_source_link !!}" target="_blank">{!! $item->description_source !!}</a>
+                                @else
+                                    {!! $item->description_source !!}
+                                @endif
+                                </p>
+                            @endif
+                        </div>
+                        @endif
+                    </div>
                 </div>
                 <div class="col-md-4 text-left">
 
