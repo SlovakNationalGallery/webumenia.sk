@@ -346,6 +346,12 @@ function()
             'galleries' => $galleries,
         ]);
     });
+
+    Route::get('reprodukcie', function () {
+        $items_print   = Item::random(20, ['gallery' => 'Slovenská národná galéria, SNG']);
+        $items_digital = Item::random(20, ['is_free' => true]);
+        return view('reprodukcie', ['items_print' => $items_print, 'items_digital' => $items_digital]);
+    });
 });
 
 Route::group(array('middleware' => 'guest'), function () {

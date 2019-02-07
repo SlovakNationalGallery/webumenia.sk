@@ -35,10 +35,10 @@ class SpiceHarvesterService
      * @param \DateTime $from
      * @param \DateTime $to
      */
-    public function harvest(SpiceHarvesterHarvest $harvest, \DateTime $from = null, \DateTime $to = null) {
+    public function harvest(SpiceHarvesterHarvest $harvest, \DateTime $from = null, \DateTime $to = null, $only_ids = []) {
         $timeStart = microtime(true);
 
-        $this->harvesters[$harvest->type]->harvest($harvest, $result = new Result(), $from, $to);
+        $this->harvesters[$harvest->type]->harvest($harvest, $result = new Result(), $from, $to, $only_ids);
 
         $harvest->status = SpiceHarvesterHarvest::STATUS_COMPLETED;
         $harvest->status_messages = sprintf(

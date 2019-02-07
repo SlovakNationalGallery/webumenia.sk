@@ -1,3 +1,4 @@
+/node_modules
 /bootstrap/compiled.php
 /vendor
 /app/config/local/*
@@ -23,11 +24,21 @@ app/database/migrations/2014_07_01_193729_geonames_admin_divisions_longer_code.p
 app/database/migrations/2014_07_01_193730_geonames_defaults_and_nullables.php
 public/images/autori/*
 !public/images/autori/no-image*.jpeg
-public/fonts/GT-Walsheim
 public/images/kolekcie/*
 public/images/clanky/*
+public/fonts/*
+!public/fonts/icomoon.*
+!public/fonts/icons.*
+!public/fonts/slick.*
+resources/assets/fonts/*
 caste_prikazy.txt
 public/sitemap*
 .env
 .env.testing
 data/
+/public/js/app.js
+/public/js/vendor.js
+/public/js/manifest.js
+/public/css/app.css
+mix-manifest.json
+npm-debug.log

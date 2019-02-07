@@ -170,6 +170,12 @@ class ItemMapper extends AbstractModelMapper
         return (int)$related_work_total;
     }
 
+    public function mapImgUrl(array $row) {
+        return array_first($row['identifier'], function ($i, $identifier) {
+            return str_contains($identifier, 'getimage');
+        });
+    }
+
     public function mapDescription() {}
 
     public function mapWorkLevel() {}

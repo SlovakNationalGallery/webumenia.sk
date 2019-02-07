@@ -4,6 +4,7 @@ namespace Tests\Import\Importers;
 
 use App\Harvest\Importers\ItemImporter;
 use App\Harvest\Mappers\ItemImageMapper;
+use App\Harvest\Mappers\CollectionMapper;
 use App\Harvest\Mappers\ItemMapper;
 use App\Harvest\Result;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -17,6 +18,14 @@ class ItemImporterTest extends TestCase
         $row = $this->getData();
         $importer = $this->initImporter($row);
         $importer->import($row, $result = new Result());
+    }
+
+    public function testUpdatedRelations() {
+        $row = $this->getData();
+        $importer = $this->initImporter($row);
+
+        $item = $importer->import($row, $result = new Result());
+        $this->assertCount(2, $item->images);
     }
 
     protected function getData() {
@@ -113,20 +122,20 @@ class ItemImporterTest extends TestCase
             'images' => [
                 [
                     'iipimg_url' => ['/SNGBA/X100/SNG--G_23--1_2--_2013_02_20_--L2_WEB.jp2'],
-                    'img_url' => ['http://www.webumenia.sk/oai-pmh/getimage/SVK:SNG.G_10044'],
                 ],
                 [
                     'iipimg_url' => ['/SNGBA/X100/SNG--G_23--2vz_2--_2013_02_28_--L2_WEB.jp2'],
-                    'img_url' => ['http://www.webumenia.sk/oai-pmh/getimage/SVK:SNG.G_10044'],
                 ],
             ],
+            'img_url' => 'http://www.webumenia.sk/oai-pmh/getimage/SVK:SNG.G_10044',
         ];
     }
 
     protected function initImporter(array $row) {
         $importer = new ItemImporter(
             $itemMapperMock = $this->getMock(ItemMapper::class),
-            $itemImageMapperMock = $this->getMock(ItemImageMapper::class)
+            $itemImageMapperMock = $this->getMock(ItemImageMapper::class),
+            $collectionMapper = $this->getMock(CollectionMapper::class)
         );
         $itemMapperMock
             ->expects($this->once())
@@ -142,6 +151,7 @@ class ItemImporterTest extends TestCase
                 'related_work_order' => 0,
                 'related_work_total' => 0,
                 'featured' => false,
+                'img_url' => 'http://www.webumenia.sk/oai-pmh/getimage/SVK:SNG.G_10044',
                 'title:sk' => 'Flámska rodina',
                 'work_type:sk' => 'grafika, voľná',
                 'technique:sk' => 'rytina',
@@ -199,11 +209,9 @@ class ItemImporterTest extends TestCase
             ->willReturnOnConsecutiveCalls(
                 [
                     'iipimg_url' => '/SNGBA/X100/SNG--G_23--1_2--_2013_02_20_--L2_WEB.jp2',
-                    'img_url' => 'http://www.webumenia.sk/oai-pmh/getimage/SVK:SNG.G_10044',
                 ],
                 [
                     'iipimg_url' => '/SNGBA/X100/SNG--G_23--2vz_2--_2013_02_28_--L2_WEB.jp2',
-                    'img_url' => 'http://www.webumenia.sk/oai-pmh/getimage/SVK:SNG.G_10044',
                 ]
             )
         ;

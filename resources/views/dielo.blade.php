@@ -69,6 +69,7 @@
 
                         @php
                             list($width, $height) = getimagesize(public_path() . $item->getImagePath());
+                            $width =  max($width,1); // prevent division by zero exception
                         @endphp
 
                         {{-- prevent upsizing by setting max-width to real width --}}

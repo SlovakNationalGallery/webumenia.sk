@@ -3,6 +3,7 @@
 namespace App\Harvest\Importers;
 
 use App\Harvest\Mappers\ItemImageMapper;
+use App\Harvest\Mappers\CollectionMapper;
 use App\Harvest\Mappers\ItemMapper;
 use App\Item;
 
@@ -15,10 +16,15 @@ class ItemImporter extends AbstractImporter
         'collections' => ['id'],
     ];
 
-    public function __construct(ItemMapper $mapper, ItemImageMapper $itemImageMapper) {
+    public function __construct(
+        ItemMapper $mapper,
+        ItemImageMapper $itemImageMapper,
+        CollectionMapper $collectionMapper
+    ) {
         parent::__construct($mapper);
         $this->mappers = [
-            'images' => $itemImageMapper
+            'images' => $itemImageMapper,
+            'collections' => $collectionMapper,
         ];
     }
 
