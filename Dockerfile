@@ -1,14 +1,17 @@
 FROM php:5.6-fpm
 
 RUN apt-get update -y && apt-get install -y \
-	libmcrypt-dev \
-	libpng-dev
+    libmcrypt-dev \
+    libpng-dev \
+    libjpeg-dev
 
-RUN docker-php-ext-install \
-	pdo_mysql \
-	gd \
-	mcrypt \
-	zip
+RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install \
+    pdo_mysql \
+    gd \
+    mcrypt \
+    zip \
+    exif
 
 RUN chown -R www-data:www-data /var/www
 

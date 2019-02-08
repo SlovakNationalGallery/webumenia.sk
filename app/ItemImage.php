@@ -16,7 +16,6 @@ class ItemImage extends Model
 
     protected $fillable = [
         'title',
-        'img_url',
         'iipimg_url',
         'item_id',
         'order',
@@ -36,7 +35,7 @@ class ItemImage extends Model
     }
 
     public function save(array $options = []) {
-        if ($this->order === null) {
+        if ($this->order === null && $this->item) {
             $max = $this->item->images()->max('order');
             $this->order = $max !== null ? $max + 1 : 0;
         }
@@ -49,6 +48,6 @@ class ItemImage extends Model
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata) {
-        $metadata->addGetterMethodConstraint('iipimg_url', 'getIipimgUrl', new NotBlank());
+        // $metadata->addGetterMethodConstraint('iipimg_url', 'getIipimgUrl', new NotBlank());
     }
 }

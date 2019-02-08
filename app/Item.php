@@ -115,6 +115,8 @@ class Item extends Model
 
     public static $rules = array(
         'author' => 'required',
+        'date_earliest' => 'required',
+        'date_latest' => 'required',
         'sk.title'  => 'required',
         'sk.dating' => 'required',
     );
@@ -248,13 +250,15 @@ class Item extends Model
 
         $data = file_get_contents($file);
 
-        $full = true;
-        if ($new_file = $this->getImagePath($full)) {
-            file_put_contents($new_file, $data);
-            return true;
-        }
+        $this->deleteImage();
 
-        return false;
+        $path = $this->getImagePath($full = true);
+        file_put_contents($path, $data);
+
+        $this->has_image = true;
+        $this->save();
+
+        return true;
     }
 
     public function getOaiUrl()
@@ -385,7 +389,7 @@ class Item extends Model
                                 break;
 
                             default:
-                                $img->fit($resize, function ($constraint) {
+                                $img->fit($resize, $resize, function ($constraint) {
                                     $constraint->upsize();
                                 });
                                 break;
@@ -564,6 +568,8 @@ class Item extends Model
         }
         $trans = array("/" => "&ndash;", "-" => "&ndash;");
         $formated = preg_replace('/^([0-9]*) \s*([a-zA-Z]*)$/', '$2 $1', $this->dating);
+        $parts = explode('/', $formated);
+        $formated = implode('/', array_unique($parts));
         $formated = strtr($formated, $trans);
         return $formated;
     }
@@ -705,9 +711,9 @@ class Item extends Model
         return ($this->translate($default_locale)->gallery == 'Slovenská národná galéria, SNG');
     }
 
-    public function scopeHasImage($query)
+    public function scopeHasImage($query, $hasImage = true)
     {
-        return $query->where('has_image', '=', 1);
+        return $query->where('has_image', '=', $hasImage);
     }
 
     public function scopeForReproduction($query)

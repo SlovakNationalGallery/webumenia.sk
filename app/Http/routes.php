@@ -66,7 +66,18 @@ function()
 
         $items = Item::with('images')->find(Session::get('cart', array()));
 
-        return view('objednavka', array('items' => $items));
+        $allow_printed_reproductions = true;
+
+        foreach ($items as $item) {
+            if (!$item->hasZoomableImages()) {
+                $allow_printed_reproductions = false;
+            }
+        }
+
+        return view('objednavka', [
+            'items' => $items,
+            'allow_printed_reproductions' => $allow_printed_reproductions,
+        ]);
     });
 
     Route::post('objednavka', function () {
@@ -91,6 +102,7 @@ function()
             $order->email = Input::get('email');
             $order->phone = Input::get('phone');
             $order->format = Input::get('format');
+            $order->frame = Input::get('frame');
             $order->purpose_kind = Input::get('purpose_kind');
             $order->purpose = Input::get('purpose');
             $order->delivery_point = Input::get('delivery_point', null);
@@ -113,7 +125,7 @@ function()
                     'contactPerson' => $order->name,
                     'email' => $order->email,
                     'kindOfPurpose' => $order->purpose_kind,
-                    'purpose' => $order->purpose."\n".$order->format."\n".$order->delivery_point."\n".$order->note,
+                    'purpose' => $order->purpose."\n".$order->format."\n".$order->frame."\n".$order->delivery_point."\n".$order->note,
                     'medium' => 'Iné',
                     'address' => $order->address,
                     'phone' => $order->phone,
@@ -343,6 +355,12 @@ function()
             'items' => $items,
             'galleries' => $galleries,
         ]);
+    });
+
+    Route::get('reprodukcie', function () {
+        $items_print   = Item::random(20, ['gallery' => 'Slovenská národná galéria, SNG']);
+        $items_digital = Item::random(20, ['is_free' => true]);
+        return view('reprodukcie', ['items_print' => $items_print, 'items_digital' => $items_digital]);
     });
 });
 

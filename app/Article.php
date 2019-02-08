@@ -17,7 +17,7 @@ class Article extends Model
     use \Conner\Tagging\Taggable;
 
     const ARTWORKS_DIR = '/images/clanky/';
-    
+
     public $translatedAttributes = ['title', 'summary', 'content'];
 
 
@@ -104,7 +104,7 @@ class Article extends Model
             try {
                 \Image::make($this->getHeaderImage(true))->fit(600, 250)->save($full_path);
             } catch (\Exception $e) {
-
+                app('sentry')->captureException($e);
             }
         }
         return $relative_path;

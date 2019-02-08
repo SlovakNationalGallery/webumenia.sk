@@ -5,7 +5,7 @@
 @if(isset($item))
 	{!! Form::model($item, ['route' => ['item.update', $item->id], 'method' => 'patch', 'files' => true]) !!}
 @else
-	{!! Form::open(['route' => 'item.store', 'files' => true]) !!}
+	{!! Form::open(['route' => 'item.store', 'method' => 'post', 'files' => true]) !!}
 @endif
 
 <div class="col-md-12">
@@ -244,8 +244,10 @@
 		</div>
 	</div>
 
-	@php FormRenderer::setTheme($form, 'custom') @endphp
-	@formWidget($form)
+	@if (isSet($form))
+		@php FormRenderer::setTheme($form, 'custom') @endphp
+		@formWidget($form)
+	@endif
 
 </div>
 </div>

@@ -4,16 +4,16 @@ use Illuminate\Database\Seeder;
 
 class HarvestsTableSeeder extends Seeder {
 
-	/**
-	 * Run the database seeds.
-	 *
-	 * @return void
-	 */
-	public function run()
-	{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
 
         DB::table('spice_harvester_harvests')->truncate();
-        
+
         $now = date("Y-m-d H:i:s");
 
         $hasrvests = [
@@ -33,6 +33,6 @@ class HarvestsTableSeeder extends Seeder {
 
         DB::table('spice_harvester_harvests')->insert($hasrvests);
 
-	}
+    }
 
 }

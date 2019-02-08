@@ -33,7 +33,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./data/mysql:/var/lib/mysql
+      - ./data/mysql-${DB_DATABASE}:/var/lib/mysql
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_USER: ${DB_USERNAME}
@@ -51,6 +51,6 @@ services:
       - "9200:9200"
       - "9300:9300"
     volumes:
-      - ./data/elasticsearch:/usr/share/elasticsearch/data
+      - ./data/elasticsearch-${ES_INDEX}:/usr/share/elasticsearch/data
       - ./elasticsearch.yml:/usr/share/elasticsearch-2.4.1/config/elasticsearch.yml
-      - ./storage/logs/elasticsearch:/usr/share/elasticsearch-2.4.1/logs
+      # - ./storage/logs/elasticsearch:/usr/share/elasticsearch-2.4.1/logs

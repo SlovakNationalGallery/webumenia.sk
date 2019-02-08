@@ -3,6 +3,33 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [1.7.0] - 2019-02-07
+### Fixed
+- Harvesting items without rights
+- Duplicated years in item dating formated
+- Creating new Artwork
+- Editing Artwork without iipimg_url
+
+### Added
+- /reprodukcie route
+- ReproOffer component
+- Headings documented in PatternLib
+- Remove query string from localized urls
+- Option to launch harvest only for specific record ids
+- Switch database / elasticsearch index when working with docker-compose
+- footnotes in wysiwyg editor in admin
+- Sentry integration
+- option to choose frame color in order form
+
+### Changed
+- CKEditor version
+- JSON response in FileuploaderController@upload
+- Move img_url from item_images to items table
+- Delete null item images
+
+### Removed
+- Printed reproduction options for items without IIP/zoom
+
 ## [1.6.2] - 2019-01-16
 ### Fixed
 - search autocomplete for Collections and Articles
@@ -12,13 +39,13 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - 30 days cache to item image headers
 
+
 ## [1.6.1] - 2018-12-06
 ### Added
 - temporary Christmas alert into order
 
 ### Changed
 - thank you text after order (with "check your spam folder")
-
 
 ## [1.6.0] - 2018-11-28
 ### Fixed
@@ -169,6 +196,8 @@ All notable changes to this project will be documented in this file[^1].
 - LICENSE from Public Domain into MIT
 
 [Unreleased]: https://github.com/SlovakNationalGallery/web-umenia-2/compare/master...develop
+[1.7.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/169
+[1.6.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/108
 [1.5.3]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/97
 [1.5.2]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/94
 [1.5.1]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/93
