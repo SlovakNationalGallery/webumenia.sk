@@ -389,7 +389,7 @@ class Item extends Model
                                 break;
 
                             default:
-                                $img->fit($resize, function ($constraint) {
+                                $img->fit($resize, $resize, function ($constraint) {
                                     $constraint->upsize();
                                 });
                                 break;
