@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- ImageCarousel Component
+- getFullIIIFImgURL() method on ItemImage
+
+### Changed
+- ArtworkDetailPage shows multiple images (via IIIF from image server) in ImageCarousel
 
 ## [1.7.0] - 2019-02-07
 ### Fixed
