@@ -11,8 +11,7 @@
         ],
         "img_title": "Artwork Title With Authors",
         "anchor_href": "#",
-        "anchor_title": "Anchor Title",
+        "anchor_title": "Anchor Title"
     },
-    "include_js": true,
     "usage_notes": "Component to display a sequence of any kind of images. As `img_urls` it takes absolute urls or relative `full_IIIF_img_urls`. Relies on `js/slick.js` & `js/components/artwork_carousel.js`."
 }
