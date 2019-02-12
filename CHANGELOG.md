@@ -35,9 +35,11 @@ All notable changes to this project will be documented in this file[^1].
 - describe item's colors on primary image change
 - new sorting option (by date - from oldest) in catalog
 - PNP importer
+- ImageCarousel Component
 
 ### Changed
 - removed name from authority_item table
+- ArtworkDetailPage shows multiple images (via IIIF from image server) in ImageCarousel
 
 ## [1.7.2] - 2019-02-27
 ### Added
