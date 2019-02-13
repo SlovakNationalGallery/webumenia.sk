@@ -103,11 +103,11 @@ variants by editing that variable.
 to stop the dockerized application: `docker-compose down`  
 
 
-### Harvesting Data
+## Harvesting Data
 
 You can now fill artworks by adding them manually or importing using the "spice harvester" (harvests using OAI-PMH protocol) using `php artisan oai-pmh:harvest` and choosing to harvest `1 [item] Europeana SNG`. Or login to admin at `http://yourlocalhost/admin` using default credentials `admin`/`admin` and go to `Spice Harvester` -> 'Spustit'.
 
-### IIPImage
+## IIPImage
 
 This application uses [IIPImage server](http://iipimage.sourceforge.net/) for zoomable (and downloadable) images.
 
@@ -121,17 +121,24 @@ ProxyPass /fcgi-bin/iipsrv.fcgi http://imi.sng.cust.eea.sk/publicIS/fcgi-bin/iip
 ProxyPassReverse /fcgi-bin/iipsrv.fcgi http://imi.sng.cust.eea.sk/publicIS/fcgi-bin/iipsrv.fcgi
 ```
 
-### Setting up Elastic Search
+## Setting up Elastic Search
 
 * info about the files and plugins can be found in the separated [README](app/Console/Commands/SetupElasticsearch/README.md)
 * command to generate ES2 compatible index:
 `php artisan es:setup`
 * command to reindex data to the index `php artisan es:reindex`
 
-## Maintainer
+## Style Compilation (LESS)
+
+We use [LESS](http://lesscss.org/) to compile styles imported into a [main file](https://github.com/SlovakNationalGallery/web-umenia-2/blob/master/public/css/less/style.less) into a single CSS file:
+
+    lessc public/css/less/style.less public/css/style.css --clean-css
+
+
+# Maintainer
 
 This project is maintained by [lab.SNG](http://lab.sng.sk). If you have any questions please don't hesitate to ask them by creating an issue or email us at [lab@sng.sk](mailto:lab@sng.sk).
 
-## License
+# License
 
 Source code in this repository is licensed under the MIT license. Please see the [License File](LICENSE) for more information.
