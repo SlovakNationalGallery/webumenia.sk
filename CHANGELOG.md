@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [1.7.1] - 2019-02-13
+### Changed
+- save new tags lowercased instead of titlecased
+
 ## [1.7.0] - 2019-02-07
 ### Fixed
 - Harvesting items without rights
