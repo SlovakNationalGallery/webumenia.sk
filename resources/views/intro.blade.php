@@ -13,7 +13,7 @@
     "logo": " {!! asset('images/logo.png') !!}",
     "url": "{!! URL::to('') !!}",
     "sameAs" : [
-        "https://www.facebook.com/NGvPraze",
+        "https://www.facebook.com/NGPrague",
         "https://twitter.com/narodnigalerie",
         "https://www.instagram.com/ngprague/",
         "https://www.youtube.com/channel/UCeYULpYNcpUJxSeK2FpDpsg"
