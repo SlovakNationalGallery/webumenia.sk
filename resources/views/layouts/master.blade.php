@@ -129,7 +129,7 @@
       <div class="container">
       	<div class="row">
       		<div class="col-xs-6">
-      			<a href="https://www.facebook.com/NGvPraze" target="_blank" data-toggle="tooltip" title="facebook"><i class="fa fa-facebook fa-lg"></i></a>
+      			<a href="https://www.facebook.com/NGPrague" target="_blank" data-toggle="tooltip" title="facebook"><i class="fa fa-facebook fa-lg"></i></a>
       			<a href="https://twitter.com/narodnigalerie" target="_blank" data-toggle="tooltip" title="twitter"><i class="fa fa-twitter fa-lg"></i></a>
                 <a href="https://www.instagram.com/ngprague/" target="_blank" data-toggle="tooltip" title="instagram"><i class="fa fa-instagram fa-lg"></i></a>
       			<a href="https://www.youtube.com/channel/UCeYULpYNcpUJxSeK2FpDpsg" target="_blank" data-toggle="tooltip" title="youtube"><i class="fa fa-youtube fa-lg"></i></a>
