@@ -103,7 +103,6 @@ class Item extends Model
         'related_work_order',
         'related_work_total',
         'gallery',
-        'item_type',
         'publish',
         'contributor',
     );
@@ -124,8 +123,6 @@ class Item extends Model
     // protected $appends = array('measurements');
 
     public $incrementing = false;
-
-    protected $guarded = array('featured');
 
     protected $mappingProperties = array(
         'title' => [
@@ -196,6 +193,10 @@ class Item extends Model
     public function record()
     {
         return $this->hasOne(\App\SpiceHarvesterRecord::class, 'item_id');
+    }
+
+    public function getTranslations() {
+        return $this->translations;
     }
 
     public function images()
@@ -844,9 +845,7 @@ class Item extends Model
         $client =  $this->getElasticClient();
         $elastic_translatable = \App::make('ElasticTranslatableService');
 
-        foreach (config('translatable.locales') as $locale) {
-
-            $item_translated = $this->getTranslation($locale);
+        foreach ($this->translations as $item_translated) {
 
             $work_types = $this->makeArray($item_translated->work_type, ', ');
             $main_work_type = (is_array($work_types)) ? reset($work_types) : '';
@@ -883,7 +882,7 @@ class Item extends Model
             ];
 
             $client->index([
-                'index' => $elastic_translatable->getIndexForLocale($locale),
+                'index' => $elastic_translatable->getIndexForLocale($item_translated->locale),
                 'type' =>  self::ES_TYPE,
                 'id' => $this->id,
                 'body' => $data,

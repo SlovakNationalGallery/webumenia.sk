@@ -39,8 +39,6 @@ class MgImporter extends AbstractImporter {
         'description:cs' => '',
         'work_level:cs' => '',
         'subject:cs' => '',
-        'item_type' => '',
-        'featured' => 0,
     ];
 
     protected static $cz_work_types_spec = [

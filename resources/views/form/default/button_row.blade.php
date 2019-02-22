@@ -1,3 +1,3 @@
 <div>
-    @include('form.default.form_widget')
+    {!! FormRenderer::widget($form) !!}
 </div>

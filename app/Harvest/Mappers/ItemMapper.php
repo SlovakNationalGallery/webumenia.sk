@@ -180,14 +180,6 @@ class ItemMapper extends AbstractModelMapper
 
     public function mapWorkLevel() {}
 
-    public function mapItemType() {
-        return '';
-    }
-
-    public function mapFeatured() {
-        return false;
-    }
-
     protected function getRelatedParts(array $row) {
         if (!isset($row['relation_isPartOf'][0])) {
             return;

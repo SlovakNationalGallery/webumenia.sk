@@ -12,4 +12,5 @@ return array(
     */
 
     'no_translation'        => "Niektoré prvky na tejto stránke nie sú preložené do slovenčiny. ¯\_(ツ)_/¯",
+    'save' => 'Uložiť',
 );

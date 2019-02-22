@@ -38,8 +38,6 @@ class WebumeniaMgImporter extends MgImporter
         'description:sk' => '',
         'work_level:sk' => '',
         'subject:sk' => '',
-        'item_type' => '',
-        'featured' => 0,
     ];
 
     protected static $cz_work_types_spec = [

@@ -1,2 +1,2 @@
 @php $type = isset($type) ? $type : 'text' @endphp
-<input type="{{ $type }}" @include('form.default.widget_attributes') @if (!empty($value))value="{{ $value }}" @endif/>
+<input class="form-control" type="{{ $type }}" @include('form.default.widget_attributes') @if (!is_empty($value))value="{{ $value }}" @endif/>
