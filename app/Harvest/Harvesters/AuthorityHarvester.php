@@ -33,6 +33,10 @@ class AuthorityHarvester extends AbstractHarvester
         /** @var Authority $authority */
         $authority = parent::harvestSingle($record, $result, $row);
 
+        if (!$authority) {
+            return;
+        }
+
         // index with updated relations
         $authority->index();
         return $authority;

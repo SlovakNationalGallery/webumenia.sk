@@ -48,6 +48,10 @@ class ItemHarvester extends AbstractHarvester
         /** @var Item $item */
         $item = parent::harvestSingle($record, $result, $row);
 
+        if (!$item) {
+            return;
+        }
+
         if ($item->img_url) {
             $this->trySaveImage($item);
         }
