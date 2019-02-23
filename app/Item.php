@@ -662,6 +662,11 @@ class Item extends Model
             return false;
         }
 
+        //ak je dielo naozaj stare
+        if ((date('Y') - $this->date_latest) > $limit_according_item_dating) {
+            return true;
+        }
+
         //ak je autor viac ako 71rokov po smrti
         $authors_are_free = array();
         foreach ($this->authorities as $i => $authority) {
@@ -685,11 +690,6 @@ class Item extends Model
 
         //ak je autor neznamy
         if (stripos($this->author, 'neznámy') !== false) {
-            return true;
-        }
-
-        //ak je dielo naozaj stare
-        if ((date('Y') - $this->date_latest) > $limit_according_item_dating) {
             return true;
         }
 
