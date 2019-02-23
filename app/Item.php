@@ -575,7 +575,7 @@ class Item extends Model
 		    "'.$attribute.'" : {
 		        "terms" : {
 		          "field" : "'.$attribute.'",
-		          "size": 1000
+		          "size": 5000
 		        }
 		    }
 		}

@@ -38,6 +38,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('csv:import --id=1')
                  ->daily()
                  ->sendOutputTo(storage_path() . "/logs/csv-import.log");
+        $schedule->command('csv:import --id=2')
+            ->daily()
+            ->sendOutputTo(storage_path() . "/logs/csv-import.log");
         $schedule->command('sitemap:make')->daily();
     }
 }
