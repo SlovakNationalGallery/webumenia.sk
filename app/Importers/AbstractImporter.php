@@ -145,8 +145,6 @@ abstract class AbstractImporter implements IImporter {
             $image_filename_format
         );
 
-        $order = $item->images()->max('order');
-        $order = $order !== null ? $order : 0;
         foreach ($jp2_paths as $jp2_path) {
             $jp2_relative_path = $this->getImageJp2RelativePath($jp2_path);
             if ($image = ItemImage::where('iipimg_url', $jp2_relative_path)->first()) {
@@ -156,7 +154,6 @@ abstract class AbstractImporter implements IImporter {
             $image = new ItemImage();
             $image->item_id = $item->getKey();
             $item->images->add($image);
-            $image->order = $order++;
             $image->iipimg_url = $jp2_relative_path;
             $import_record->imported_iip++;
         }
@@ -280,6 +277,7 @@ abstract class AbstractImporter implements IImporter {
      * @param Import $import
      * @param string $csv_filename
      * @param string $image_filename_format
+     * @return string[]
      */
     protected function getImageJpgPaths(Import $import, $csv_filename, $image_filename_format) {
         $path = storage_path(sprintf(
@@ -296,7 +294,7 @@ abstract class AbstractImporter implements IImporter {
      * @param Import $import
      * @param string $csv_filename
      * @param string $image_filename_format
-     * @return string
+     * @return string[]
      */
     protected function getImageJp2Paths(Import $import, $csv_filename, $image_filename_format) {
         $path = sprintf(
