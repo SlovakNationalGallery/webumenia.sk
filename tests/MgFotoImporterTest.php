@@ -5,10 +5,11 @@ namespace Tests;
 use App\Import;
 use App\Importers\MgFotoImporter;
 use App\Repositories\CsvRepository;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class MgFotoImporterTest extends TestCase
 {
-    use \App\Traits\DatabaseMigrations;
+    use DatabaseMigrations;
 
     public function testImport() {
         $data = [

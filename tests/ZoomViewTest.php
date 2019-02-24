@@ -10,7 +10,6 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ZoomViewTest extends TestCase
 {
-    // @todo without DB
     use DatabaseMigrations;
 
     public function testMultipleImages() {

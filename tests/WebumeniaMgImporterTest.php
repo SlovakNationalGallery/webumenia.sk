@@ -5,6 +5,7 @@ namespace Tests;
 use App\Import;
 use App\Repositories\CsvRepository;
 use App\Importers\WebumeniaMgImporter;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class WebumeniaMgImporterTest extends TestCase
 {
