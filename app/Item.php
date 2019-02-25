@@ -67,12 +67,16 @@ class Item extends Model
         'zo súboru' => 'related_work'
     );
 
-    public static $sortable = array(
+    public static $sortable;
+
+    protected static $sortables = array(
+        'relevance'     => 'sortable.relevance',
         'updated_at'    => 'sortable.updated_at',
         'created_at'    => 'sortable.created_at',
         'title'         => 'sortable.title',
         'author'        => 'sortable.author',
-        'date_earliest' => 'sortable.date_earliest',
+        'newest'        => 'sortable.newest',
+        'oldest'        => 'sortable.oldest',
         'view_count'    => 'sortable.view_count',
         'random'        => 'sortable.random',
     );
@@ -176,6 +180,10 @@ class Item extends Model
                 ]);
             }
         });
+    }
+
+    public static function getSortables() {
+        return static::$sortables;
     }
 
     public function descriptionUser()
@@ -873,28 +881,6 @@ class Item extends Model
                 'body' => $data,
             ]);
         }
-    }
-
-    public static function getSortedLabelKey($sort_by = null)
-    {
-        if ($sort_by==null) {
-            $sort_by = Input::get('sort_by');
-        }
-
-        if (array_key_exists($sort_by, self::$sortable)) {
-            $sort_by = Input::get('sort_by');
-        } else {
-            $sort_by = "updated_at";
-        }
-
-        $labelKey = self::$sortable[$sort_by];
-
-        if (Input::has('search') && head(self::$sortable)==$labelKey) {
-            return 'relevancie';
-        }
-
-        return $labelKey;
-
     }
 
     public static function random($size = 1, $custom_parameters = [])
