@@ -27,11 +27,6 @@ class AuthorityImporter extends AbstractImporter
         'relationships' => ['id'],
     ];
 
-    protected $forceReplace = [
-        'events',
-        'names',
-    ];
-
     public function __construct(
         AuthorityMapper $mapper,
         AuthorityEventMapper $authorityEventMapper,

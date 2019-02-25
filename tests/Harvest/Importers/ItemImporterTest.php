@@ -9,6 +9,8 @@ use App\Harvest\Mappers\ItemImageMapper;
 use App\Harvest\Mappers\CollectionItemMapper;
 use App\Harvest\Mappers\ItemMapper;
 use App\Harvest\Result;
+use App\Item;
+use App\ItemImage;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -22,15 +24,47 @@ class ItemImporterTest extends TestCase
         $importer->import($row, $result = new Result());
     }
 
-    public function testUpdatedRelations() {
+    public function testDeleteRelations() {
         $row = $this->getData();
         $importer = $this->initImporter($row);
+        $item = factory(Item::class)->create(['id' => 'SVK:SNG.G_10044']);
+        $image = factory(ItemImage::class)->make(['iipimg_url' => 'to_be_deleted']);
+        $item->images()->save($image);
+
+        $item->load('images');
+        $this->assertTrue($item->images->contains(function ($i, ItemImage $image) {
+            return $image->iipimg_url === 'to_be_deleted';
+        }));
+
+        $item->load('images');
+        $item = $importer->import($row, $result = new Result());
+
+        $this->assertCount(2, $item->images);
+        $this->assertFalse($item->images->contains(function ($i, ItemImage $image) {
+            return $image->iipimg_url === 'to_be_deleted';
+        }));
+    }
+
+    public function testDetachRelations() {
+        $row = $this->getData();
+        $importer = $this->initImporter($row);
+        $item = factory(Item::class)->create(['id' => 'SVK:SNG.G_10044']);
         factory(Authority::class)->create(['id' => 1922]);
         factory(Authority::class)->create(['id' => 10816]);
+        $authority = factory(Authority::class)->create(['id' => 'to_be_detached']);
+        $item->authorities()->attach($authority);
+
+        $item->load('authorities');
+        $this->assertTrue($item->authorities->contains(function ($i, Authority $authority) {
+            return $authority->id === 'to_be_detached';
+        }));
 
         $item = $importer->import($row, $result = new Result());
-        $this->assertCount(2, $item->images);
+
         $this->assertCount(2, $item->authorities);
+        $this->assertFalse($item->authorities->contains(function ($i, Authority $authority) {
+            return $authority->id === 'to_be_detached';
+        }));
     }
 
     protected function getData() {
@@ -209,6 +243,12 @@ class ItemImporterTest extends TestCase
                 'description:cs' => null,
                 'work_level:cs' => null,
             ])
+        ;
+        $itemMapperMock
+            ->expects($this->once())
+            ->method('mapId')
+            ->with($row)
+            ->willReturn('SVK:SNG.G_10044');
         ;
         $itemImageMapperMock
             ->expects($this->exactly(2))
