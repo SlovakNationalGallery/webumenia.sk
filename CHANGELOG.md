@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- missing relations between items and authorities in harvest
+
 ### Added
 - style compilation documentation to readme
 

@@ -69,7 +69,7 @@ class AuthorityImporter extends AbstractImporter
     }
 
     protected function processBelongsToMany(Model $model, $field, array $relatedRows, $createRelated = true) {
-        $createRelated &= !in_array($field, ['relationships', 'collections']);
+        $createRelated &= !in_array($field, ['relationships']);
         parent::processBelongsToMany($model, $field, $relatedRows, $createRelated);
     }
 
