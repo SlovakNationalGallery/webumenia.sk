@@ -2,9 +2,11 @@
 
 namespace Tests\Import\Importers;
 
+use App\Authority;
 use App\Harvest\Importers\ItemImporter;
+use App\Harvest\Mappers\AuthorityItemMapper;
 use App\Harvest\Mappers\ItemImageMapper;
-use App\Harvest\Mappers\CollectionMapper;
+use App\Harvest\Mappers\CollectionItemMapper;
 use App\Harvest\Mappers\ItemMapper;
 use App\Harvest\Result;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -23,9 +25,12 @@ class ItemImporterTest extends TestCase
     public function testUpdatedRelations() {
         $row = $this->getData();
         $importer = $this->initImporter($row);
+        factory(Authority::class)->create(['id' => 1922]);
+        factory(Authority::class)->create(['id' => 10816]);
 
         $item = $importer->import($row, $result = new Result());
         $this->assertCount(2, $item->images);
+        $this->assertCount(2, $item->authorities);
     }
 
     protected function getData() {
@@ -103,7 +108,14 @@ class ItemImporterTest extends TestCase
                 'urn:svk:psi:per:sng:0000010816',
                 'Teniers, David',
             ],
-            'creator_role' => [],
+            'creator_role' => [
+                'autor/author',
+                'autor/author',
+            ],
+            'authorities' => [
+                ['id' => ['urn:svk:psi:per:sng:0000001922']],
+                ['id' => ['urn:svk:psi:per:sng:0000010816']],
+            ],
             'rights' => [
                 '1',
                 'publikovať/public',
@@ -135,7 +147,8 @@ class ItemImporterTest extends TestCase
         $importer = new ItemImporter(
             $itemMapperMock = $this->getMock(ItemMapper::class),
             $itemImageMapperMock = $this->getMock(ItemImageMapper::class),
-            $collectionMapper = $this->getMock(CollectionMapper::class)
+            $collectionItemMapperMock = $this->getMock(CollectionItemMapper::class),
+            $authorityItemMapperMock = $this->getMock(AuthorityItemMapper::class)
         );
         $itemMapperMock
             ->expects($this->once())
@@ -213,6 +226,17 @@ class ItemImporterTest extends TestCase
                 ]
             )
         ;
+        $authorityItemMapperMock
+            ->expects($this->exactly(2))
+            ->method('map')
+            ->withConsecutive(
+                [$row['authorities'][0]],
+                [$row['authorities'][1]]
+            )
+            ->willReturnOnConsecutiveCalls(
+                ['id' => 1922],
+                ['id' => 10816]
+            );
 
         return $importer;
     }
