@@ -116,6 +116,11 @@
 				</div>
 
 				<div class="form-group">
+					{{ Form::label($locale."[relationship_type]", 'Typ integrity '.strtoupper($locale)) }}
+					{{ Form::text($locale."[relationship_type]", isset($item) ? @$item->translate($locale)->relationship_type : '', array('class' => 'form-control', 'placeholder' => 'zo súboru / z cyklu / z albumu / ...')) }}
+				</div>
+
+				<div class="form-group">
 				{{ Form::label($locale."[subject]", 'Objekt '.strtoupper($locale)) }}
 				{{ Form::text($locale."[subject]", isset($item) ? @$item->translate($locale)->subject : '', array('class' => 'form-control')) }}
 				</div>
@@ -197,12 +202,6 @@
 
 <div class="clearfix"></div>
 
-<div class="col-md-5">
-	<div class="form-group">
-	{{ Form::label('relationship_type', 'typ integrity') }}
-	{{ Form::text('relationship_type', Input::old('relationship_type'), array('class' => 'form-control', 'placeholder' => 'zo súboru / z cyklu / z albumu / ...')) }}
-	</div>
-</div>
 <div class="col-md-1">
 	<div class="form-group">
 	{{ Form::label('related_work_order', 'poradie') }}

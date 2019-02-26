@@ -253,7 +253,7 @@
                                 @endif
                                 @if (!empty($item->related_work))
                                 <tr>
-                                    <td class="atribut">{!! $item->relationship_type !!}:</td>
+                                    <td class="atribut">{{ $item->relationship_type }}:</td>
 
                                     <td>
                                         <a href="{!! URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) !!}" itemprop="isPartOf">{!! $item->related_work !!}</a>

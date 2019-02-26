@@ -30,6 +30,8 @@ return array(
     'item_attr_licence'        => 'licence',
     'item_attr_place'          => 'geographic location',
 
+    'item_relationship_type'   => 'from cycle',
+
     'width'  => 'width',
     'height' => 'height',
     'depth'  => 'depth',
