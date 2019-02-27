@@ -389,10 +389,9 @@
 @section('javascript')
 {!! Html::script('js/readmore.min.js') !!}
 {!! Html::script('js/jquery.fileDownload.js') !!}
+{!! Html::script('js/components/artwork_carousel.js') !!}
 
 {{ HTML::script('js/slick.js') }}
-{{ HTML::script('js/readmore.min.js') }}
-
 {{ HTML::script('js/selectize.min.js') }}
 {{-- @TODO bring this back when opened to public --}}
 {{-- {{ HTML::script('https://www.google.com/recaptcha/api.js') }} --}}
