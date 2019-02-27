@@ -390,6 +390,43 @@ Route::group(['middleware' => ['auth', 'role:admin|editor|import']], function ()
 
 Route::group(['middleware' => ['auth', 'role:admin|editor']], function () {
 
+    Route::post('dielo/{id}/addTags', function($id)
+    {
+        $item = Item::find($id);
+        $newTags = Input::get('tags');
+
+        if (empty($newTags)) {
+            Session::flash( 'message', trans('Neboli zadadné žiadne nové tagy.') );
+            return Redirect::to($item->getUrl());
+        }
+
+        // @TODO take back captcha if opened for all users
+        foreach ($newTags as $newTag) {
+            $item->tag($newTag);
+        }
+
+        Session::flash( 'message', trans('Bolo pridaných ' . count($newTags) . ' tagov. Ďakujeme!') );
+
+        // validate that user is human with recaptcha
+        // till it's for authorised users only, temporary disable
+        /*
+        $secret = config('app.google_recaptcha_secret');
+        $recaptcha = new \ReCaptcha\ReCaptcha($secret);
+        $resp = $recaptcha->verify($_POST['g-recaptcha-response'], $_SERVER['REMOTE_ADDR']);
+        if ($resp->isSuccess()) {
+            // add new tags
+            foreach ($newTags as $newTag) {
+                $item->tag($newTag);
+            }
+        } else {
+            // validation unsuccessful
+            return Redirect::to($item->getUrl());
+        }
+        */
+
+        return Redirect::to($item->getUrl());
+    });
+
     Route::get('collection/{collection_id}/detach/{item_id}', 'CollectionController@detach');
     Route::post('collection/fill', 'CollectionController@fill');
     Route::post('collection/sort', 'CollectionController@sort');

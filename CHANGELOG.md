@@ -9,6 +9,17 @@ All notable changes to this project will be documented in this file[^1].
 - style compilation documentation to readme
 - restrict bots from color searching
 
+## [1.7.2] - 2019-02-27
+### Added
+- form to add tags in artwork detail for authorized users
+
+### Fixed
+- normalizing tags
+
+## [1.7.1] - 2019-02-13
+### Changed
+- save new tags lowercased instead of titlecased
+
 ## [1.7.0] - 2019-02-07
 ### Fixed
 - Harvesting items without rights
