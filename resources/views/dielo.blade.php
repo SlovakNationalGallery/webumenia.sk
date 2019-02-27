@@ -162,7 +162,7 @@
                                     </td>
                                 </tr>
                                 @endif
-                                @if ($item->tagNames() )
+                                @if ($item->tagNames() || Auth::check())
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_tag') }}:</td>
                                     <td>
