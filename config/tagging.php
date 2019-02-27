@@ -7,10 +7,10 @@ return array(
     'primary_keys_type' => 'integer', // 'string' or 'integer'
 
     // Value of are passed through this before save of tags
-    'normalizer' => '\Conner\Tagging\Util::slug',
+    'normalizer' => '\Illuminate\Support\Str::limit',
 
     // Display value of tags are passed through (for front end display)
-    'displayer' => '\Illuminate\Support\Str::lower',
+    'displayer' => '\Illuminate\Support\Str::limit',
 
     // Database connection for Conner\Taggable\Tag model to use
     // 'connection' => 'mysql',
