@@ -39,8 +39,10 @@ class CatalogController extends ElasticController
 
         $per_page = 18;
         $page   = Paginator::resolveCurrentPage() ?: 1;
-        $max_pages = floor(50000/$per_page); // ES max_result_window = 50000
-        if ($page > $max_pages) $page = $max_pages;
+        $max_pages = floor(10000/$per_page); // ES max_result_window = 10000
+        if ($page > $max_pages) {
+            return redirect()->route(\Route::currentRouteName(), Input::except('page'));
+        }
         $offset = ($page * $per_page) - $per_page;
 
         $params = array();

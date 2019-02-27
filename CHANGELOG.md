@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Added
 - style compilation documentation to readme
+- restrict bots from color searching
 
 ## [1.7.0] - 2019-02-07
 ### Fixed

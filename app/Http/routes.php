@@ -230,19 +230,9 @@ function()
             }
         }
 
-        $similar_by_color = [];
         $colors_used = [];
 
         if ($item->color_descriptor) {
-            $ids = $item->similarByColor(100)->pluck('id');
-            $similar_by_color = Item::whereIn('id', $ids)->get();
-            $similar_by_color = $similar_by_color->filter(function (Item $i) use ($item) {
-                return (bool)$i->color_descriptor && $item->id != $i->id;
-            });
-            $similar_by_color = $similar_by_color->sort(function($a, $b) use ($ids) {
-                return $ids->search($a->id) - $ids->search($b->id);
-            });
-
             $colors_used = $item->getColorsUsed(Color::TYPE_HEX);
 
             uasort($colors_used, function ($a, $b) {
@@ -270,11 +260,30 @@ function()
         ));
     });
 
+    Route::get('dielo/{id}/colorrelated', function ($id) {
+        $item = Item::find($id);
+
+        $similar_by_color = [];
+
+        $ids = $item->similarByColor(20)->pluck('id');
+        $similar_by_color = Item::whereIn('id', $ids)->get();
+        $similar_by_color = $similar_by_color->filter(function (Item $i) use ($item) {
+            return (bool)$i->color_descriptor && $item->id != $i->id;
+        });
+        $similar_by_color = $similar_by_color->sort(function($a, $b) use ($ids) {
+            return $ids->search($a->id) - $ids->search($b->id);
+        });
+
+        return view('dielo-colorrelated', compact('similar_by_color'));
+    })->name('dielo.colorrelated');
+
     Route::get('dielo/nahlad/{id}/{width}/{height?}', 'ImageController@resize')->where('width', '[0-9]+')->where('height', '[0-9]+')->name('dielo.nahlad');
 
     Route::controller('patternlib', 'PatternlibController');
 
-    Route::controller('katalog', 'CatalogController');
+    Route::controller('katalog', 'CatalogController', [
+        'getIndex' => 'catalog.index'
+    ]);
     // Route::match(array('GET', 'POST'), 'katalog', 'CatalogController@index');
     // Route::match(array('GET', 'POST'), 'katalog/suggestions', 'CatalogController@getSuggestions');
 
