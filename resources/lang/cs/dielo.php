@@ -30,6 +30,8 @@ return array(
     'item_attr_licence'        => 'licence',
     'item_attr_place'          => 'místo vzniku',
 
+    'item_relationship_type'   => 'z cyklu',
+
     'width'  => 'šířka',
     'height' => 'výška',
     'depth'  => 'hloubka',

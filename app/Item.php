@@ -747,15 +747,6 @@ class Item extends Model
         return implode(', ', $this->authors)  . $dash .  $this->title;
     }
 
-    public function getRelationshipTypeAttribute($value)
-    {
-        if (empty($value)) {
-            return 'z cyklu';
-        }
-
-        return $value;
-    }
-
     public function getHasIipAttribute() {
 
         if (isSet($this->attributes['has_iip'])) {

@@ -27,4 +27,12 @@ class ItemTranslation extends Model
         'related_work',
         'gallery_collection',
     ];
+
+    public function getRelationshipTypeAttribute($value) {
+        if ($value) {
+            return $value;
+        }
+
+        return trans('dielo.item_relationship_type', [], null, $this->locale);
+    }
 }
