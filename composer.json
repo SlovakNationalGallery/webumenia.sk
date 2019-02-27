@@ -47,7 +47,8 @@
         },
         "files": [
             "app/Helpers/general.php",
-            "app/Helpers/i18n.php"
+            "app/Helpers/i18n.php",
+            "app/Helpers/view.php"
         ]
     },
     "scripts": {

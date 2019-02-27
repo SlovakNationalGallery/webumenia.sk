@@ -7,6 +7,7 @@ use App\Item;
 use App\Collection;
 use App\Jobs\HarvestSingleJob;
 use Barryvdh\Form\CreatesForms;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
@@ -15,7 +16,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use App\SpiceHarvesterRecord;
 use Illuminate\Support\Facades\App;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\Test\FormBuilderInterface;
 
 class ItemController extends Controller
 {
@@ -59,65 +63,6 @@ class ItemController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        $prefix = 'SVK:TMP.';  // TMP = temporary
-        $last_item = Item::where('id', 'LIKE', $prefix.'%')->orderBy('created_at', 'desc')->first();
-        $last_number = ($last_item) ? (int)str_replace($prefix, '', $last_item->id) : 0;
-        $new_id = $prefix . ($last_number+1);
-
-        // $item = new Item;
-        // $item->id = $new_id;
-        // $form = $this->getItemForm($item);
-
-        return view('items.form', [
-            'new_id'=>$new_id,
-            // 'form' => $form,
-        ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function store()
-    {
-        $input = Input::all();
-
-        $rules = Item::$rules;
-        $rules['primary_image'] = 'required|image';
-
-        $v = Validator::make($input, $rules);
-
-        if ($v->passes()) {
-
-            $item = new Item;
-            $item->fill($input);
-
-            // store translatable attributes
-            foreach (\Config::get('translatable.locales') as $i=>$locale) {
-                foreach ($item->translatedAttributes as $attribute) {
-                    $item->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
-                }
-            }
-
-            $item->save();
-
-            if (Input::hasFile('primary_image')) {
-                $this->uploadImage($item);
-            }
-
-            return Redirect::route('item.index');
-        }
-        return Redirect::back()->withInput()->withErrors($v);
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -130,78 +75,94 @@ class ItemController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        $prefix = 'SVK:TMP.';
+        $last_item = Item::where('id', 'LIKE', $prefix.'%')->orderBy('created_at', 'desc')->first();
+        $last_number = ($last_item) ? (int)str_after($last_item->id, $prefix) : 0;
+        $new_id = $prefix . ($last_number + 1);
+
+        $item = new Item(['id' => $new_id]);
+        $form = $this->getItemFormBuilder($item, $new = true)
+            ->add('id', null, [
+                'disabled' => true,
+            ])
+            ->getForm();
+
+        return $this->processForm($form);
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param string $id
      * @return Response
      */
     public function edit($id)
     {
         $item = Item::find($id) ?: abort(404);
-        $form = $this->getItemForm($item);
+        $form = $this->getItemFormBuilder($item, $new = false)->getForm();
+
+        return $this->processForm($form);
+    }
+
+    /**
+     * @param Form $form
+     * @return Response
+     */
+    protected function processForm(Form $form) {
+        $item = $form->getData();
+        $form->handleRequest();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $item->push();
+
+            $tags = $form['tags']->getData();
+            if (array_diff($tags, $item->tagSlugs()) != array_diff($item->tagSlugs(), $tags)) {
+                $item->retag($tags);
+                $item->index();
+            }
+
+            if ($image = $form['primary_image']->getData()) {
+                $uploaded_image = \Image::make($image);
+                if ($uploaded_image->width() > $uploaded_image->height()) {
+                    $uploaded_image->widen(800, function ($constraint) {
+                        $constraint->upsize();
+                    });
+                } else {
+                    $uploaded_image->heighten(800, function ($constraint) {
+                        $constraint->upsize();
+                    });
+                }
+
+                $filename = $item->getImagePath($full = true);
+                $uploaded_image->save($filename);
+            }
+
+            return Redirect::route('item.index')->with('message', 'Success');
+        }
 
         return view('items.form', [
-            'item' => $item,
             'form' => $form,
+            'item' => $item,
         ]);
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
+     * @param Item $item
+     * @param bool $new
+     * @return FormBuilderInterface
      */
-    public function update($id)
-    {
-        $item = Item::find($id) ?: abort(404);
-        $form = $this->getItemForm($item);
-        $form->handleRequest();
-
-        if (!$form->isSubmitted() || !$form->isValid()) {
-            return $this->edit($id);
-        }
-
-        $v = Validator::make(Input::all(), Item::$rules);
-
-        if ($v->passes()) {
-            $input = array_except(Input::all(), array('_method'));
-            // $input = array_filter($input, 'strlen');
-            $input = array_map(function ($e) {
-                return $e ?: null;
-
-            }, Input::all()); //prazdne hodnoty zmeni na null
-
-            $item->fill($input);
-            $item->push();
-
-            if (Input::has('tags')) {
-                $item->reTag(Input::get('tags', []));
-                $item->index(); //pre istotu. lebo ak sa nic ine nezmeni, tak nepreindexuje
-            }
-
-            // ulozit primarny obrazok. do databazy netreba ukladat. nazov=id
-            if (Input::hasFile('primary_image')) {
-                $this->uploadImage($item);
-            }
-
-            Session::flash('message', 'Dielo ' .$id. ' bolo upravené');
-            return Redirect::route('item.index');
-        }
-
-        return Redirect::back()->withErrors($v);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        Item::find($id)->delete();
-        return Redirect::route('item.index')->with('message', 'Dielo bolo zmazané');
+    protected function getItemFormBuilder(Item $item, $new) {
+        return $this->getFormFactory()
+            ->createBuilder(ItemType::class, $item, ['new' => $new])
+            ->add('save', SubmitType::class, [
+                'translation_domain' => 'messages',
+            ]);
     }
 
     public function backup()
@@ -352,22 +313,5 @@ class ItemController extends Controller
             return true;
         }
         return Redirect::back()->withMessage($message);
-    }
-
-    protected function getItemForm(Item $item) {
-        if (!$this->form) {
-            $this->form = $this->getFormFactory()
-                ->createBuilder(
-                    ItemType::class,
-                    $item,
-                    [
-                        'action' => url('item.update', $item->id),
-                        'method' => 'patch',
-                    ]
-                )
-                ->getForm();
-        }
-
-        return $this->form;
     }
 }

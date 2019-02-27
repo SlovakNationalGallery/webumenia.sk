@@ -384,7 +384,12 @@ Route::group(['middleware' => ['auth', 'role:admin|editor|import']], function ()
     Route::get('imports/launch/{id}', 'ImportController@launch');
     Route::resource('imports', 'ImportController');
     Route::get('item/search', 'ItemController@search');
-    Route::resource('item', 'ItemController');
+
+    Route::get('item', 'ItemController@index')->name('item.index');
+    Route::get('item/{id}/show', 'ItemController@show')->name('item.show');
+    Route::match(['get', 'post'], 'item/create', 'ItemController@create')->name('item.create');
+    Route::match(['get', 'post'], 'item/{id}/edit', 'ItemController@edit')->name('item.edit');
+
     Route::post('item/destroySelected', 'ItemController@destroySelected');
 });
 

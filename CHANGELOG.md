@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Fixed
 - Item::isFree conditions priority
+- Item images form in admin
 
 ### Added
 - style compilation documentation to readme
