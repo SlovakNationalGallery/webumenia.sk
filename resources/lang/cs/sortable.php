@@ -15,9 +15,11 @@ return array(
     'created_at'              => 'data vytvoření',
     'title'                   => 'názvu',
     // in model item
+    'relevance'               => 'relevance',
     'updated_at'              => 'poslední změny',
     'author'                  => 'autora',
-    'date_earliest'           => 'datování',
+    'newest'                  => 'datování – od nejnovějšího',
+    'oldest'                  => 'datování – od nejstaršího',
     'view_count'              => 'počtu zobrazení',
     'random'                  => 'náhodně',
     // in model authority
