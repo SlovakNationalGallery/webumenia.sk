@@ -42,7 +42,11 @@ class ItemRepository extends AbstractRepository
         'subject_place' => './/dc:subject.place',
         'relation_isPartOf' => './/dc:relation.isPartOf',
         'creator' => './/dc:creator',
-        'creator_role' => './/dc:creator_role',
+        'creator_role' => './/dc:creator.role',
+        'authorities' => [
+            null => './/dc:creator[starts-with(.,"urn:")]',
+            'id' => '.',
+        ],
         'rights' => './/dc:rights',
         'description' => './/dc:description',
         'extent' => './/dcterms:extent',

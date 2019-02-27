@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - Item::isFree conditions priority
 - Item images form in admin
+- missing relations between items and authorities in harvest
+- syncing relations in harvest
 
 ### Added
 - style compilation documentation to readme
