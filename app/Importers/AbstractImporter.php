@@ -136,7 +136,7 @@ abstract class AbstractImporter implements IImporter {
         );
 
         foreach ($jpg_paths as $jpg_path) {
-            $this->uploadImage($item, $jpg_path);
+            $item->saveImage($jpg_path);
             $import_record->imported_images++;
         }
 
@@ -263,32 +263,6 @@ abstract class AbstractImporter implements IImporter {
                 $item->$key = $default;
             }
         }
-    }
-
-    /**
-     * @param Item $item
-     * @param string $path
-     */
-    protected function uploadImage(Item $item, $path) {
-        $uploaded_image = \Image::make($path);
-
-        // @TODO do not resize image here
-        if ($uploaded_image->width() > $uploaded_image->height()) {
-            $uploaded_image->widen(800, function ($constraint) {
-                $constraint->upsize();
-            });
-        } else {
-            $uploaded_image->heighten(800, function ($constraint) {
-                $constraint->upsize();
-            });
-        }
-
-        $item->deleteImage();
-
-        $save_as = $item->getImagePath($full = true);
-        $uploaded_image->save($save_as);
-
-        $item->has_image = true;
     }
 
     /**

@@ -4,10 +4,13 @@
 
 namespace App;
 
+use App\Events\ItemPrimaryImageChanged;
 use Elasticsearch\Client;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\URL;
+use Intervention\Image\Constraint;
+use Intervention\Image\Image;
 use Intervention\Image\ImageManagerStatic;
 use Illuminate\Support\Facades\Cache;
 use Fadion\Bouncy\Facades\Elastic;
@@ -227,8 +230,10 @@ class Item extends Model
 
     }
 
-    public function deleteImage()
-    {
+    public function deleteImage() {
+        $this->color_descriptor = null;
+        $this->save();
+
         $dir = dirname($this->getImagePath(true));
         return File::cleanDirectory($dir);
     }
@@ -240,26 +245,6 @@ class Item extends Model
             $url .= '?' . http_build_query($params);
         }
         return $url;
-    }
-
-    public function downloadImage()
-    {
-        $file = $this->img_url;
-        if (empty($file)) {
-            return false;
-        }
-
-        $data = file_get_contents($file);
-
-        $this->deleteImage();
-
-        $path = $this->getImagePath($full = true);
-        file_put_contents($path, $data);
-
-        $this->has_image = true;
-        $this->save();
-
-        return true;
     }
 
     public function getOaiUrl()
@@ -967,6 +952,34 @@ class Item extends Model
         }
 
         return $colors_used;
+    }
+
+
+    /**
+     * @param mixed $file
+     */
+    public function saveImage($file) {
+        $path = $this->getImagePath($full = true);
+
+        /** @var Image $image */
+        $image = \Image::make($file);
+        if ($image->width() > $image->height()) {
+            $image->widen(800, function (Constraint $constraint) {
+                $constraint->upsize();
+            });
+        } else {
+            $image->heighten(800, function (Constraint $constraint) {
+                $constraint->upsize();
+            });
+        }
+
+        $this->deleteImage();
+        $image->save($path);
+
+        $this->has_image = true;
+        $this->save();
+
+        event(new ItemPrimaryImageChanged($this));
     }
 
     protected function getElasticClient() {

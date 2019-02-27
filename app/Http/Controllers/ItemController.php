@@ -128,19 +128,7 @@ class ItemController extends Controller
             }
 
             if ($image = $form['primary_image']->getData()) {
-                $uploaded_image = \Image::make($image);
-                if ($uploaded_image->width() > $uploaded_image->height()) {
-                    $uploaded_image->widen(800, function ($constraint) {
-                        $constraint->upsize();
-                    });
-                } else {
-                    $uploaded_image->heighten(800, function ($constraint) {
-                        $constraint->upsize();
-                    });
-                }
-
-                $filename = $item->getImagePath($full = true);
-                $uploaded_image->save($filename);
+                $item->saveImage($image);
             }
 
             return Redirect::route('item.index')->with('message', 'Success');
@@ -224,27 +212,6 @@ class ItemController extends Controller
             }
         }
         return Redirect::back()->withMessage('Pre ' . $i . ' diel bola nastavená zemepisná šírka a výška.');
-    }
-
-    private function uploadImage($item)
-    {
-        $item->deleteImage();
-
-        $error_messages = array();
-        $primary_image = Input::file('primary_image');
-        $full = true;
-        $filename = $item->getImagePath($full);
-        $uploaded_image = \Image::make($primary_image->getRealPath());
-        if ($uploaded_image->width() > $uploaded_image->height()) {
-            $uploaded_image->widen(800, function ($constraint) {
-                $constraint->upsize();
-            });
-        } else {
-            $uploaded_image->heighten(800, function ($constraint) {
-                $constraint->upsize();
-            });
-        }
-        $uploaded_image->save($filename);
     }
 
     /**

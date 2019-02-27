@@ -48,16 +48,23 @@ class ItemHarvester extends AbstractHarvester
         /** @var Item $item */
         $item = parent::harvestSingle($record, $result, $row);
 
+        if ($item->img_url) {
+            $this->trySaveImage($item);
+        }
+
+        // index with updated relations
+        $item->index();
+        return $item;
+    }
+
+    protected function trySaveImage(Item $item) {
         try {
-            $item->downloadImage();
+            $item->saveImage($item->img_url);
         } catch (\Exception $e) {
             $error = sprintf('%s: %s', $item->img_url, $e->getMessage());
             $this->logger->addError($error);
             app('sentry')->captureException($e);
         }
-
-        $item->index();
-        return $item;
     }
 
     protected function isExcluded(array $row) {
