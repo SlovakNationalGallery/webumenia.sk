@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file[^1].
 - Item images form in admin
 - missing relations between items and authorities in harvest
 - syncing relations in harvest
+- failing harvests
 
 ### Added
 - style compilation documentation to readme
