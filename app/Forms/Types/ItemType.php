@@ -32,7 +32,7 @@ class ItemType extends AbstractType
             ->add('identifier')
             ->add('author')
             ->add('tags', ChoiceType::class, [
-                'choices' => Item::existingTags()->pluck('slug', 'name'),
+                'choices' => Item::existingTags()->pluck('name', 'name')->toArray(),
                 'multiple' => true,
                 'mapped' => false,
                 'required' => false,
@@ -76,7 +76,7 @@ class ItemType extends AbstractType
 
                 $options = $form['tags']->getConfig()->getOptions();
 
-                $current = $data->tags->pluck('slug', 'name')->toArray();
+                $current = $data->tags->pluck('name', 'name')->toArray();
                 $options['data'] = $current;
 
                 $form->add('tags', ChoiceType::class, $options);
@@ -97,7 +97,7 @@ class ItemType extends AbstractType
                 $options = $form['tags']->getConfig()->getOptions();
 
                 $selected = array_combine($data['tags'], $data['tags']);
-                $options['choices'] = $options['choices']->flip()->union($selected)->flip();
+                $options['choices'] += $selected;
 
                 $form->add('tags', ChoiceType::class, $options);
             }
