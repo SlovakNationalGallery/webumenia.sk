@@ -5,37 +5,16 @@ namespace App\Forms\Types;
 
 
 use App\ItemTranslation;
-use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ItemTranslationType extends AbstractType
+class ItemTranslationType extends ModelType
 {
+    protected $className = ItemTranslation::class;
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder
-            ->add('title')
-            ->add('description')
-            ->add('work_type')
-            ->add('work_level')
-            ->add('topic')
-            ->add('subject')
-            ->add('measurement')
-            ->add('dating')
-            ->add('medium')
-            ->add('technique')
-            ->add('inscription')
-            ->add('place')
-            ->add('state_edition')
-            ->add('gallery')
-            ->add('relationship_type')
-            ->add('related_work');
-    }
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        parent::buildForm($builder, $options);
 
-    public function configureOptions(OptionsResolver $resolver) {
-        $resolver->setDefaults([
-            'data_class' => ItemTranslation::class,
-        ]);
+        $builder->add('description', TextareaType::class);
     }
 }
