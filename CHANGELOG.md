@@ -40,6 +40,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Changed
 - removed name from authority_item table
 - ArtworkDetailPage shows multiple images (via IIIF from image server) in ImageCarousel
+- serve item images via custom image server
 
 ## [1.7.2] - 2019-02-27
 ### Added

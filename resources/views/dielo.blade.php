@@ -51,16 +51,12 @@
             <div class="row">
                 <div class="col-md-8 text-center">
                     @if ($item->has_iip)
-                        @php
-                            $item_images = $item->getZoomableImages();
-                            $full_IIIF_img_urls = $item_images->map(function ($item_image) {
-                                return $item_image->getFullIIIFImgURL();
-                            });
-                        @endphp
                         @include('components.image_carousel', [
                             'slick_target' => "multiple-views",
                             'slick_variant' => "artwork-detail-thumbnail",
-                            'img_urls' => $full_IIIF_img_urls,
+                            'img_urls' => $item->images->map(function ($image) {
+                                return $image->getPreviewUrl();
+                            }),
                             'img_title' => $item->getTitleWithAuthors(),
                             'anchor_href' => route('item.zoom', ['id' => $item->id]),
                             'anchor_title' => utrans('general.item_zoom'),
@@ -92,8 +88,8 @@
                             @if ($item->isForReproduction())
                                 <a href="{!! URL::to('dielo/' . $item->id . '/objednat')  !!}" class="btn btn-default btn-outline  sans"><i class="fa fa-shopping-cart"></i> {{ trans('dielo.item_order') }} </a>
                             @endif
-                            @if ($item->isFree() && $item->hasZoomableImages())
-                                <a href="{!! URL::to('dielo/' . $item->id . '/stiahnut')  !!}" class="btn btn-default btn-outline  sans" id="download"><i class="fa fa-download"></i> {{ trans('dielo.item_download') }} </a>
+                            @if ($item->isFree() && !$item->images->isEmpty())
+                                <a href="{{ route('image.download', $item->images->first()->id)  }}" class="btn btn-default btn-outline  sans" id="download"><i class="fa fa-download"></i> {{ trans('dielo.item_download') }} </a>
                             @endif
                         </div>
                         @if (!empty($item->description))
@@ -255,7 +251,7 @@
                                     <td>{!! $item->identifier; !!}</td>
                                 </tr>
                                 @endif
-                                @if ($item->isFree() && $item->hasZoomableImages())
+                                @if ($item->isFree() && !$item->images->isEmpty())
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_licence') }}:</td>
                                     {{-- <td><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs" target="_blank" class="no-border"><img alt="Creative Commons License" style="border-width:0; padding-top: 2px;"  src="/images/license/by-nc-sa.svg" title="Creative Commons BY-NC-SA 4.0" data-toggle="tooltip"></a></td> --}}
@@ -367,7 +363,7 @@
                 {{ trans('dielo.modal_downloadfail_header-content') }}
             </div>
             <div class="modal-body">
-                {{ trans('dielo.modal_downloadfail_body-content') }}
+                {!! trans('dielo.modal_downloadfail_body-content') !!}
             </div>
             <div class="modal-footer">
                 <div class="text-center"><button type="button" data-dismiss="modal" class="btn btn-default btn-outline uppercase sans">{{ trans('general.close') }}</button></div>
