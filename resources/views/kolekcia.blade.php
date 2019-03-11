@@ -104,7 +104,7 @@
                                 </div>
                             </a>
                             <div class="item-title">
-                                @if (!empty($item->iipimg_url))
+                                @if ($item->has_iip)
                                     <div class="pull-right"><a href="{{ route('item.zoom', ['id' => $item->id])  }}" data-toggle="tooltip" data-placement="left" title="Zoom obrázku"><i class="fa fa-search-plus"></i></a></div>
                                 @endif
                                 <a href="{!! $item->getUrl(['collection' => $collection->id]) !!}">
