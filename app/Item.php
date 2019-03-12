@@ -791,17 +791,6 @@ class Item extends Model
             }
             $used_authorities[]= trim($authority->name, ', ');
         }
-        $authors_all = DB::table('authority_item')->where('item_id', $this->id)->get();
-        foreach ($authors_all as $author) {
-            if (!in_array(trim($author->name, ', '), $used_authorities) && !empty($author->name)) {
-                $link = '<a class="underline" href="'. url_to('katalog', ['author' => $author->name]) .'">'. preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $author->name) .'</a>';
-                if ($author->role != 'autor/author') {
-                    $link .= ' &ndash; ' . Authority::formatMultiAttribute($author->role);
-                }
-                $authorities_with_link[] = $link;
-                $used_authorities[]= trim($author->name, ', ');
-            }
-        }
         foreach ($this->authors as $author_unformated => $author) {
             if (!in_array(trim($author_unformated, ', '), $used_authorities)) {
                 $authorities_with_link[] = '<a class="underline" href="'. url_to('katalog', ['author' => $author_unformated]) .'">'. $author .'</a>';

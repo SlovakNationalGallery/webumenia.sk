@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file[^1].
 - failing harvests
 - scheduled harvest jobs
 - harvest only alternative authority names
+- duplicate authors in item detail
 - hostname resolution in guzzle
 
 ### Added
@@ -17,6 +18,9 @@ All notable changes to this project will be documented in this file[^1].
 - restrict bots from color searching
 - describe item's colors on primary image change
 - new sorting option (by date - from oldest) in catalog
+
+### Changed
+- removed name from authority_item table
 
 ## [1.7.2] - 2019-02-27
 ### Added
