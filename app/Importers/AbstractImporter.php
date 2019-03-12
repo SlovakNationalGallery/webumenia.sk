@@ -31,6 +31,14 @@ abstract class AbstractImporter implements IImporter {
     /** @var int */
     protected $image_max_size = 800;
 
+    /** @var array */
+    protected $options = [
+        'delimiter' => ',',
+        'enclosure' => '"',
+        'escape' => '\\',
+        'newline' => "\n",
+    ];
+
     /** @var string */
     protected static $name;
 
@@ -146,8 +154,6 @@ abstract class AbstractImporter implements IImporter {
             $image_filename_format
         );
 
-        $order = $item->images()->max('order');
-        $order = $order !== null ? $order : 0;
         foreach ($jp2_paths as $jp2_path) {
             $jp2_relative_path = $this->getImageJp2RelativePath($jp2_path);
             if ($image = ItemImage::where('iipimg_url', $jp2_relative_path)->first()) {
@@ -157,7 +163,6 @@ abstract class AbstractImporter implements IImporter {
             $image = new ItemImage();
             $image->item_id = $item->getKey();
             $item->images->add($image);
-            $image->order = $order++;
             $image->iipimg_url = $jp2_relative_path;
             $import_record->imported_iip++;
         }

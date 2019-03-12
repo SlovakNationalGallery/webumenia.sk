@@ -18,6 +18,7 @@ All notable changes to this project will be documented in this file[^1].
 - restrict bots from color searching
 - describe item's colors on primary image change
 - new sorting option (by date - from oldest) in catalog
+- PNP importer
 
 ### Changed
 - removed name from authority_item table

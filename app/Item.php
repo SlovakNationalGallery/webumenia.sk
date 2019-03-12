@@ -651,7 +651,8 @@ class Item extends Model
             $this->translate($default_locale)->gallery == 'Galéria umenia Ernesta Zmetáka, GNZ' ||
             $this->translate($default_locale)->gallery == 'Galéria Miloša Alexandra Bazovského, GBT'  ||
             $this->translate($default_locale)->gallery == 'Galéria umelcov Spiša, GUS' ||
-            $this->translate($default_locale)->gallery == 'Východoslovenská galéria, VSG'
+            $this->translate($default_locale)->gallery == 'Východoslovenská galéria, VSG' ||
+            $this->translate($default_locale)->gallery == 'Památník národního písemnictví, PNP'
         )) {
             return false;
         }
