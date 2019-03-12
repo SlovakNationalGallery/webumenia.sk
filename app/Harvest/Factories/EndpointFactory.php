@@ -37,7 +37,7 @@ class EndpointFactory
      */
     public function createHttpAdapter(SpiceHarvesterHarvest $harvest) {
         $guzzleClient = $this->createGuzzleClient($harvest);
-        return new GuzzleAdapter($guzzleClient);
+        return $guzzleClient ? new GuzzleAdapter($guzzleClient) : null;
     }
 
     /**

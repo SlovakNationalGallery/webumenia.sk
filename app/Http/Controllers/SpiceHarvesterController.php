@@ -228,8 +228,6 @@ class SpiceHarvesterController extends Controller
         $all = Input::get('reindex', false);
 
         $this->dispatch(new HarvestJob($harvest, $from, $to, $all));
-        $harvest->status = SpiceHarvesterHarvest::STATUS_QUEUED;
-        $harvest->save();
 
         return Redirect::route('harvests.index');
     }

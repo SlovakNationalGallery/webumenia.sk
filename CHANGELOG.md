@@ -8,7 +8,9 @@ All notable changes to this project will be documented in this file[^1].
 - missing relations between items and authorities in harvest
 - syncing relations in harvest
 - failing harvests
+- scheduled harvest jobs
 - harvest only alternative authority names
+- hostname resolution in guzzle
 
 ### Added
 - style compilation documentation to readme
