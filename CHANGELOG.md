@@ -3,6 +3,28 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [1.8.0] - 2019-03-12
+### Fixed
+- Item::isFree conditions priority
+- Item images form in admin
+- missing relations between items and authorities in harvest
+- syncing relations in harvest
+- failing harvests
+- scheduled harvest jobs
+- harvest only alternative authority names
+- duplicate authors in item detail
+- hostname resolution in guzzle
+
+### Added
+- style compilation documentation to readme
+- restrict bots from color searching
+- describe item's colors on primary image change
+- new sorting option (by date - from oldest) in catalog
+- PNP importer
+
+### Changed
+- removed name from authority_item table
+
 ## [1.7.2] - 2019-02-27
 ### Added
 - form to add tags in artwork detail for authorized users
@@ -207,6 +229,7 @@ All notable changes to this project will be documented in this file[^1].
 - LICENSE from Public Domain into MIT
 
 [Unreleased]: https://github.com/SlovakNationalGallery/web-umenia-2/compare/master...develop
+[1.8.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/191
 [1.7.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/169
 [1.6.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/108
 [1.5.3]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/97

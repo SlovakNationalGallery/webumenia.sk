@@ -4,10 +4,13 @@
 
 namespace App;
 
+use App\Events\ItemPrimaryImageChanged;
 use Elasticsearch\Client;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\URL;
+use Intervention\Image\Constraint;
+use Intervention\Image\Image;
 use Intervention\Image\ImageManagerStatic;
 use Illuminate\Support\Facades\Cache;
 use Fadion\Bouncy\Facades\Elastic;
@@ -64,12 +67,16 @@ class Item extends Model
         'zo súboru' => 'related_work'
     );
 
-    public static $sortable = array(
+    public static $sortable;
+
+    protected static $sortables = array(
+        'relevance'     => 'sortable.relevance',
         'updated_at'    => 'sortable.updated_at',
         'created_at'    => 'sortable.created_at',
         'title'         => 'sortable.title',
         'author'        => 'sortable.author',
-        'date_earliest' => 'sortable.date_earliest',
+        'newest'        => 'sortable.newest',
+        'oldest'        => 'sortable.oldest',
         'view_count'    => 'sortable.view_count',
         'random'        => 'sortable.random',
     );
@@ -103,7 +110,6 @@ class Item extends Model
         'related_work_order',
         'related_work_total',
         'gallery',
-        'item_type',
         'publish',
         'contributor',
     );
@@ -124,8 +130,6 @@ class Item extends Model
     // protected $appends = array('measurements');
 
     public $incrementing = false;
-
-    protected $guarded = array('featured');
 
     protected $mappingProperties = array(
         'title' => [
@@ -178,6 +182,10 @@ class Item extends Model
         });
     }
 
+    public static function getSortables() {
+        return static::$sortables;
+    }
+
     public function descriptionUser()
     {
         return $this->belongsTo(\App\User::class, 'description_user_id');
@@ -196,6 +204,10 @@ class Item extends Model
     public function record()
     {
         return $this->hasOne(\App\SpiceHarvesterRecord::class, 'item_id');
+    }
+
+    public function getTranslations() {
+        return $this->translations;
     }
 
     public function images()
@@ -226,8 +238,10 @@ class Item extends Model
 
     }
 
-    public function deleteImage()
-    {
+    public function deleteImage() {
+        $this->color_descriptor = null;
+        $this->save();
+
         $dir = dirname($this->getImagePath(true));
         return File::cleanDirectory($dir);
     }
@@ -239,26 +253,6 @@ class Item extends Model
             $url .= '?' . http_build_query($params);
         }
         return $url;
-    }
-
-    public function downloadImage()
-    {
-        $file = $this->img_url;
-        if (empty($file)) {
-            return false;
-        }
-
-        $data = file_get_contents($file);
-
-        $this->deleteImage();
-
-        $path = $this->getImagePath($full = true);
-        file_put_contents($path, $data);
-
-        $this->has_image = true;
-        $this->save();
-
-        return true;
     }
 
     public function getOaiUrl()
@@ -657,9 +651,15 @@ class Item extends Model
             $this->translate($default_locale)->gallery == 'Galéria umenia Ernesta Zmetáka, GNZ' ||
             $this->translate($default_locale)->gallery == 'Galéria Miloša Alexandra Bazovského, GBT'  ||
             $this->translate($default_locale)->gallery == 'Galéria umelcov Spiša, GUS' ||
-            $this->translate($default_locale)->gallery == 'Východoslovenská galéria, VSG'
+            $this->translate($default_locale)->gallery == 'Východoslovenská galéria, VSG' ||
+            $this->translate($default_locale)->gallery == 'Památník národního písemnictví, PNP'
         )) {
             return false;
+        }
+
+        //ak je dielo naozaj stare
+        if ((date('Y') - $this->date_latest) > $limit_according_item_dating) {
+            return true;
         }
 
         //ak je autor viac ako 71rokov po smrti
@@ -685,11 +685,6 @@ class Item extends Model
 
         //ak je autor neznamy
         if (stripos($this->author, 'neznámy') !== false) {
-            return true;
-        }
-
-        //ak je dielo naozaj stare
-        if ((date('Y') - $this->date_latest) > $limit_according_item_dating) {
             return true;
         }
 
@@ -797,17 +792,6 @@ class Item extends Model
             }
             $used_authorities[]= trim($authority->name, ', ');
         }
-        $authors_all = DB::table('authority_item')->where('item_id', $this->id)->get();
-        foreach ($authors_all as $author) {
-            if (!in_array(trim($author->name, ', '), $used_authorities) && !empty($author->name)) {
-                $link = '<a class="underline" href="'. url_to('katalog', ['author' => $author->name]) .'">'. preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $author->name) .'</a>';
-                if ($author->role != 'autor/author') {
-                    $link .= ' &ndash; ' . Authority::formatMultiAttribute($author->role);
-                }
-                $authorities_with_link[] = $link;
-                $used_authorities[]= trim($author->name, ', ');
-            }
-        }
         foreach ($this->authors as $author_unformated => $author) {
             if (!in_array(trim($author_unformated, ', '), $used_authorities)) {
                 $authorities_with_link[] = '<a class="underline" href="'. url_to('katalog', ['author' => $author_unformated]) .'">'. $author .'</a>';
@@ -844,9 +828,7 @@ class Item extends Model
         $client =  $this->getElasticClient();
         $elastic_translatable = \App::make('ElasticTranslatableService');
 
-        foreach (config('translatable.locales') as $locale) {
-
-            $item_translated = $this->getTranslation($locale);
+        foreach ($this->translations as $item_translated) {
 
             $work_types = $this->makeArray($item_translated->work_type, ', ');
             $main_work_type = (is_array($work_types)) ? reset($work_types) : '';
@@ -883,34 +865,12 @@ class Item extends Model
             ];
 
             $client->index([
-                'index' => $elastic_translatable->getIndexForLocale($locale),
+                'index' => $elastic_translatable->getIndexForLocale($item_translated->locale),
                 'type' =>  self::ES_TYPE,
                 'id' => $this->id,
                 'body' => $data,
             ]);
         }
-    }
-
-    public static function getSortedLabelKey($sort_by = null)
-    {
-        if ($sort_by==null) {
-            $sort_by = Input::get('sort_by');
-        }
-
-        if (array_key_exists($sort_by, self::$sortable)) {
-            $sort_by = Input::get('sort_by');
-        } else {
-            $sort_by = "updated_at";
-        }
-
-        $labelKey = self::$sortable[$sort_by];
-
-        if (Input::has('search') && head(self::$sortable)==$labelKey) {
-            return 'relevancie';
-        }
-
-        return $labelKey;
-
     }
 
     public static function random($size = 1, $custom_parameters = [])
@@ -968,6 +928,34 @@ class Item extends Model
         }
 
         return $colors_used;
+    }
+
+
+    /**
+     * @param mixed $file
+     */
+    public function saveImage($file) {
+        $path = $this->getImagePath($full = true);
+
+        /** @var Image $image */
+        $image = \Image::make($file);
+        if ($image->width() > $image->height()) {
+            $image->widen(800, function (Constraint $constraint) {
+                $constraint->upsize();
+            });
+        } else {
+            $image->heighten(800, function (Constraint $constraint) {
+                $constraint->upsize();
+            });
+        }
+
+        $this->deleteImage();
+        $image->save($path);
+
+        $this->has_image = true;
+        $this->save();
+
+        event(new ItemPrimaryImageChanged($this));
     }
 
     protected function getElasticClient() {

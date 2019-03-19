@@ -144,7 +144,7 @@ class WebumeniaMgImporterTest extends TestCase
         $file = ['basename' => '', 'path' => ''];
         $items = $importer->import($import, $file);
 
-        $this->assertEmpty($import->records()->first()->error_message);
+        $this->assertEquals('', $import->records()->first()->error_message);
         $this->assertCount(1, $items);
 
         return $items;

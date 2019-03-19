@@ -42,7 +42,7 @@ class AuthorityRepositoryTest extends TestCase
             'roles' => ['fotograf/photographer'],
             'names' => [
                 [
-                    'name' => ['Blühová, Irena'],
+                    'name' => ['I. B.'],
                 ],
             ],
             'nationalities' => [

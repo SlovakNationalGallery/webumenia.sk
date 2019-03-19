@@ -313,20 +313,14 @@
     </div>
 </section>
 
-@if ($colors_used || $similar_by_color)
+@if ($colors_used)
 <section class="content-section">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-xs-12" id="colorrelated" data-fetch-url="{{ route('dielo.colorrelated', ['id' => $item->id]) }}">
                 <h4>{{ trans('dielo.more-items_similar-colors') }}</h4>
                 @if ($colors_used)
                 @include('components.color_list', ['colors' => $colors_used])
-                @endif
-                @if ($similar_by_color)
-                    @include('components.artwork_carousel', [
-                        'slick_target' => "artworks-preview",
-                        'items' => $similar_by_color,
-                    ])
                 @endif
             </div>
         </div>
@@ -427,6 +421,14 @@
     };
 
     $(document).ready(function(){
+
+        var colorRelated = $('#colorrelated');
+        if (colorRelated) {
+            var fetchUrl = colorRelated.data('fetch-url');
+            $.get(fetchUrl, function (data) {
+                colorRelated.append(data);
+            });
+        }
 
         $('.expandable').readmore({
             moreLink: '<a href="#"><i class="fa fa-chevron-down"></i> {{ trans("general.show_more") }}</a>',

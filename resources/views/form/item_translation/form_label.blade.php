@@ -18,5 +18,5 @@
     @if ($label_attr)
         @include('form.default.attributes', ['attr' => $label_attr])
     @endif
-    >{{ $label }}</label>
+    >{{ $label }} {{ strtoupper($form->parent->vars['value']->locale)  }}</label>
 @endif

@@ -27,9 +27,7 @@ abstract class AbstractHarvester
      */
     public function harvest(SpiceHarvesterHarvest $harvest, Result $result, \DateTime $from = null, \DateTime $to = null, $only_ids = []) {
         $models = [];
-
         $i = 0;
-        $rows = [];
 
         if (!empty($only_ids)) {
             $rows = $this->repository->getRowsById($harvest, $only_ids);

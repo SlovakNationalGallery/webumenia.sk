@@ -46,8 +46,6 @@ $factory->define(\App\Item::class, function (Faker\Generator $faker) {
         'work_level' => $faker->word,
         'subject' => $faker->word,
         'measurement' => $faker->word,
-        'item_type' => $faker->word,
-        'featured' => $faker->boolean,
         'inscription' => $faker->word,
         'related_work_order' => $faker->randomNumber,
         'related_work_total' => $faker->randomNumber,

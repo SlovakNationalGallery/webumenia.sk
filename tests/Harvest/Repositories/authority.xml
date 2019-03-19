@@ -45,6 +45,9 @@
                      <vp:Preferred_Term>
                         <vp:Term_Text>Blühová, Irena</vp:Term_Text>
                      </vp:Preferred_Term>
+                     <vp:Non-Preferred_Term>
+                        <vp:Term_Text>I. B.</vp:Term_Text>
+                     </vp:Non-Preferred_Term>
                   </vp:Terms>
                   <vp:Events>
                      <vp:Non-Preferred_Event rdf:resource="1000166">

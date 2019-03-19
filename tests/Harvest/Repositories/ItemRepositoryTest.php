@@ -100,7 +100,14 @@ class ItemRepositoryTest extends TestCase
                 'urn:svk:psi:per:sng:0000010816',
                 'Teniers, David',
             ],
-            'creator_role' => [],
+            'creator_role' => [
+                'autor/author',
+                'autor/author',
+            ],
+            'authorities' => [
+                ['id' => ['urn:svk:psi:per:sng:0000001922']],
+                ['id' => ['urn:svk:psi:per:sng:0000010816']],
+            ],
             'rights' => [
                 '1',
                 'publikovať/public',
