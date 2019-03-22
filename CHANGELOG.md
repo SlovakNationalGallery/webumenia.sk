@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - harvesters fail on zero results
 
+### Added
+- error message to harvest data
+
 ## [1.8.0] - 2019-03-12
 ### Fixed
 - Item::isFree conditions priority
