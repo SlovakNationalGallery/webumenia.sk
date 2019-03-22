@@ -35,8 +35,8 @@ return array(
                                   |[5,Inf]zobraziť všetkých <strong>:artworks_count</strong> diel',
 
     // khb
-    'biography' => 'Biografia',
-    'gallery' => 'Galéria',
+    'biography' => 'Text',
+    'gallery' => 'Zoznam diel',
     'exhibitions' => 'Zoznam výstav',
     'bibliography' => 'Bibliografia',
     'archive' => 'Archív',

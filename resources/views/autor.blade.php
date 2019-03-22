@@ -104,6 +104,7 @@
                         'show' => true,
                     ])
                     {{-- gallery --}}
+                    @if ($items->count() > 0)
                     <div class="card">
                       <div class="card-header" id="heading{{ studly_case('gallery') }}">
                         <h5 class="mb-0">
@@ -136,6 +137,7 @@
                         </div>
                       </div>
                     </div>
+                    @endif
                     {{-- /gallery --}}
 
                     @include('components.khb_accordion_card', [
