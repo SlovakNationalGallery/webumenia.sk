@@ -138,7 +138,13 @@ class CatalogController extends ElasticController
 
             foreach ($input as $filter => $value) {
                 if (in_array($filter, Item::$filterable) && !empty($value)) {
-                    $params['query']['bool']['filter']['and'][]['term'][$filter] = $value;
+                    if ($filter === 'is_free') {
+                        $filter = 'free_from';
+                        $value = (new Carbon('now'))->getTimestamp();
+                        $params['query']['bool']['filter']['and'][]['range'][$filter]['lte'] = $value;
+                    } else {
+                        $params['query']['bool']['filter']['and'][]['term'][$filter] = $value;
+                    }
                 }
             }
             if (!empty($input['year-range']) &&
