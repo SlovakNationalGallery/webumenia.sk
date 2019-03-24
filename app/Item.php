@@ -599,29 +599,28 @@ class Item extends Model
 
     public static function listValues($attribute, $search_params)
     {
-        //najskor over, ci $attribute je zo zoznamu povolenych
         if (!in_array($attribute, self::$filterable)) {
             return false;
         }
-        $json_params = '
-		{
-		 "aggs" : {
-		    "'.$attribute.'" : {
-		        "terms" : {
-		          "field" : "'.$attribute.'",
-		          "size": 1000
-		        }
-		    }
-		}
-		}
-		';
-        $params = array_merge(json_decode($json_params, true), $search_params);
+
+        $json_params = [
+             'aggs' => [
+                $attribute => [
+                    'terms' => [
+                        'field' => $attribute,
+                        'size' => 1000,
+                    ]
+                ]
+		    ]
+		];
+
+        $params = array_merge($json_params, $search_params);
         $result = Elastic::search([
-                'index' => Config::get('bouncy.index'),
-                'search_type' => 'count',
-                'type' => self::ES_TYPE,
-                'body'  => $params
-            ]);
+            'index' => Config::get('bouncy.index'),
+            'search_type' => 'count',
+            'type' => self::ES_TYPE,
+            'body'  => $params
+        ]);
         $buckets = $result['aggregations'][$attribute]['buckets'];
 
         $return_list = array();
@@ -880,32 +879,43 @@ class Item extends Model
 
     public static function random($size = 1, $custom_parameters = [])
     {
-        $params = array();
-        $random = json_decode('
-			{"_script": {
-			    "script": "Math.random() * 200000",
-			    "type": "number",
-			    "params": {},
-			    "order": "asc"
-			 }}', true);
-        $params["sort"][] = $random;
-        $params["query"]["filtered"]["filter"]["and"][]["term"]["has_image"] = true;
-        $params["query"]["filtered"]["filter"]["and"][]["term"]["has_iip"] = true;
-        foreach ($custom_parameters as $attribute => $value) {
-            $params["query"]["filtered"]["filter"]["and"][]["term"][$attribute] = $value;
-        }
-        $params["size"] = $size;
+        $custom_parameters['has_image'] = true;
+        $custom_parameters['has_iip'] = true;
+
+        $params = [];
+        $params['query']['bool']['filter'] = static::getFilterParams($custom_parameters);
+        $params['size'] = $size;
+        $params['sort'] = [
+            '_script' => [
+                'script' => 'Math.random() * 200000',
+                'type' => 'number',
+                'order' => 'asc',
+            ]
+        ];
+
         return self::search($params);
     }
 
     public static function amount($custom_parameters = [])
     {
-        $params = array();
-        foreach ($custom_parameters as $attribute => $value) {
-            $params["query"]["filtered"]["filter"]["and"][]["term"][$attribute] = $value;
-        }
+        $params = [];
+        $params['query']['bool']['filter'] = static::getFilterParams($custom_parameters);
         $items = self::search($params);
         return $items->total();
+    }
+
+    public static function getFilterParams(array $attributes) {
+        $filter = [];
+        foreach ($attributes as $name => $value) {
+            if ($name === 'is_free') {
+                $op = $value ? 'lte' : 'gt';
+                $filter['and'][]['range']['free_from'][$op] = time();
+            } else {
+                $filter['and'][]['term'][$name] = $value;
+            }
+        }
+
+        return $filter;
     }
 
     public function getColorsUsed($type = null) {
