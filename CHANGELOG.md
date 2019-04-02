@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- map all datings in item harvester
 
 ## [1.8.0] - 2019-03-12
 ### Fixed
