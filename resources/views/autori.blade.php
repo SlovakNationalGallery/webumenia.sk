@@ -78,7 +78,7 @@
 <section class="purpose py-5">
     <p>{{ trans('autori.intention') }}</p>
     <p>
-        {{ trans('autori.plan', ['type' => (Request::is('teoretici')) ? 'teoretikov' : 'umelcov']) }}<br>
+        {{ trans('autori.plan', ['type' => (Request::is('teoretici')) ? 'teoretikov a teoretičky' : 'umelcov a umelkyne']) }}<br>
         {{ trans('autori.subscribe') }}
     </p>
 

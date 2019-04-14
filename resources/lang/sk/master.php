@@ -13,7 +13,7 @@ return array(
 
     'artworks'           => 'diela',
     'collections'        => 'kolekcie',
-    'authors'            => 'umelci',
+    'authors'            => 'Umelci / Umelkyne',
     'articles'           => 'články',
     'galleries'          => 'galérie',
     'reproductions'      => 'reprodukcie',
@@ -26,7 +26,7 @@ return array(
     'subtitle'           => 'databáza súčasného slovenského<br>vizuálneho umenia',
     'about'              => 'o projekte',
     'groups'             => 'skupiny',
-    'theoreticians'      => 'teoretici',
+    'theoreticians'      => 'Teoretici / Teoretičky',
     'spaces'             => 'výstavné priestory',
     'keywords'           => 'kľúčové slová',
 
