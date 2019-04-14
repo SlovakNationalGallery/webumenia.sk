@@ -36,8 +36,9 @@ return array(
 
     // khb
     'biography' => 'Text',
-    'gallery' => 'Zoznam diel',
-    'exhibitions' => 'Zoznam výstav',
+    'gallery' => 'Diela',
+    'exhibitions' => 'Výstavy',
+    'curatorial_projects' => 'Kurátorské projekty',
     'bibliography' => 'Bibliografia',
     'archive' => 'Archív',
     'birth_year' => 'Dátum narodenia',

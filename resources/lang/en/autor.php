@@ -31,10 +31,11 @@ return array(
                                   |{1}    show <strong>1</strong> artwork
                                   |[2,Inf]show all <strong>:artworks_count</strong> artworks',
 // khb
-'biography' => 'Biography',
-'gallery' => 'List of Artworks',
-'exhibitions' => 'List of Exhibitions',
-'bibliography' => 'Text',
+'biography' => 'Text',
+'gallery' => 'Artworks',
+'exhibitions' => 'Exhibitions',
+'curatorial_projects' => 'Curatorial Projects',
+'bibliography' => 'Bibliography',
 'archive' => 'Archive',
 'birth_year' => 'Birth year',
 'birth_place' => 'Birth place',
