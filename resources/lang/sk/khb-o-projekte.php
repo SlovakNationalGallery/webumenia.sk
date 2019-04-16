@@ -39,10 +39,10 @@ return array(
 <p>Pri výbere autorít bolo úlohou komisie sledovať hodnotiace kritériá, ktoré nadväzujú na povahu a celkové zameranie projektu. Počet autorít spracovaných v roku 2018 predstavuje prvotnú fázu projektu. V ďalších rokoch je ambíciou spracovať a zaradiť do databázy pätnásť až dvadsať nových hesiel ročne. Rozširovaniu obsahu bude prispôsobená aj predselekcia umelcov a umelkýň, pričom nateraz nezaradené heslá sa automaticky prenesú do ďalších hlasovaní.</p>
 <h6>Členovia komisie (2018 – 2020)</h6>
 <ul>
-    <li>Małgorzata Ludwisiak, riaditeľka Centre for Contemporary Art Ujazdowski Castle, Varšava (PL)</li>
-    <li>Kinga German, docentka Institute for Theoretical Studies – Moholy-Nagy University of Art and Design, Budapešť (HU) </li>
-    <li>Michal Novotný, riaditeľ FUTURA – Centrum súčasného umenia, Praha (CZ) </li>
-    <li>Nina Vrbanová, riaditeľka a hlavná kurátorka Kunsthalle Bratislava, Bratislava (SK)</li>
+    <li><a href="http://artbase.kunsthallebratislava.sk/teoretik/TMP.8" class="">Małgorzata Ludwisiak</a>, riaditeľka Centre for Contemporary Art Ujazdowski Castle, Varšava (PL)</li>
+    <li><a href="http://artbase.kunsthallebratislava.sk/teoretik/TMP.9" class="">Kinga German</a>, docentka Institute for Theoretical Studies – Moholy-Nagy University of Art and Design, Budapešť (HU) </li>
+    <li><a href="http://artbase.kunsthallebratislava.sk/teoretik/TMP.10" class="">Michal Novotný</a>, riaditeľ FUTURA – Centrum súčasného umenia, Praha (CZ) </li>
+    <li><a href="http://artbase.kunsthallebratislava.sk/teoretik/TMP.7" class="">Nina Vrbanová</a>, riaditeľka a hlavná kurátorka Kunsthalle Bratislava, Bratislava (SK)</li>
     <li>Katarína Trnovská, manažérka edičných projektov Kunsthalle Bratislava, Bratislava (SK)</li>
 </ul>
 <h6>Hodnotiace kritériá pre výber autorít:</h6>

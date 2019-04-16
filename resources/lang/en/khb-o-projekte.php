@@ -35,10 +35,10 @@ return array(
 
 <h6>Members of the committee (2018 – 2020)</h6>
 <ul>
-    <li>Małgorzata Ludwisiak, director Centre for Contemporary Art Ujazdowski Castle, Warsaw (PL)</li>
-    <li>Kinga German, Associate Professor Institute for Theoretical Studies – Moholy-Nagy University of Art and Design, Budapest (HU) </li>
-    <li>Michal Novotný, director FUTURA – Centre for Contemporary Art, Prague (CZ) </li>
-    <li>Nina Vrbanová, director and chief curator Kunsthalle Bratislava, Bratislava (SK)</li>
+    <li><a href="http://artbase.kunsthallebratislava.sk/teoretik/TMP.8" class="">Małgorzata Ludwisiak</a>, director Centre for Contemporary Art Ujazdowski Castle, Warsaw (PL)</li>
+    <li><a href="http://artbase.kunsthallebratislava.sk/teoretik/TMP.9" class="">Kinga German</a>, Associate Professor Institute for Theoretical Studies – Moholy-Nagy University of Art and Design, Budapest (HU) </li>
+    <li><a href="http://artbase.kunsthallebratislava.sk/teoretik/TMP.10" class="">Michal Novotný</a>, director FUTURA – Centre for Contemporary Art, Prague (CZ) </li>
+    <li><a href="http://artbase.kunsthallebratislava.sk/teoretik/TMP.7" class="">Nina Vrbanová</a>, director and chief curator Kunsthalle Bratislava, Bratislava (SK)</li>
     <li>Katarína Trnovská, manager of editorial projects Kunsthalle Bratislava, Bratislava (SK)</li>
 </ul>
 <h6>Evaluation criteria for the selection of artists:</h6>
