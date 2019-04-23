@@ -139,15 +139,20 @@
                 <h3>{{ utrans('reprodukcie.digital_examples') }}</h3>
             </div>
         </div>
-        <div class="row">
-            <div class="col-xs-4">
+        <div class="row bottom-space">
+            <div class="col-xs-6">
                 <img class="img-responsive lazyload" data-src="/images/reprodukcie/digirepro-1.jpg" alt="{{trans('reprodukcie.digital_heading')}} 1">
             </div>
-            <div class="col-xs-4">
+            <div class="col-xs-6">
                 <img class="img-responsive lazyload" data-src="/images/reprodukcie/digirepro-2.jpg" alt="{{trans('reprodukcie.digital_heading')}} 2">
             </div>
-            <div class="col-xs-4">
+        </div>
+        <div class="row bottom-space">
+            <div class="col-xs-6">
                 <img class="img-responsive lazyload" data-src="/images/reprodukcie/digirepro-3.jpg" alt="{{trans('reprodukcie.digital_heading')}} 3">
+            </div>
+            <div class="col-xs-6">
+                <img class="img-responsive lazyload" data-src="/images/reprodukcie/digirepro-4.jpg" alt="{{trans('reprodukcie.digital_heading')}} 4">
             </div>
         </div>
     </div>
