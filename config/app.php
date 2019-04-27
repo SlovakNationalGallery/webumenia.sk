@@ -138,6 +138,7 @@ return array(
         App\Providers\ElasticsearchClientProvider::class,
         Barryvdh\Form\ServiceProvider::class,
         App\Providers\FormServiceProvider::class,
+        App\Khb\Providers\AppServiceProvider::class,
     ),
 
     /*
