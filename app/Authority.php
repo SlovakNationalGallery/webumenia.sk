@@ -11,13 +11,16 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Cache;
 use Fadion\Bouncy\BouncyTrait;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\HasMedia\Interfaces\HasMedia;
 
-class Authority extends Model
+class Authority extends Model implements HasMedia
 {
     use \Conner\Tagging\Taggable;
     use \Dimsav\Translatable\Translatable, BouncyTrait {
         \Dimsav\Translatable\Translatable::save insteadof BouncyTrait;
     }
+    use HasMediaTrait;
 
 
     protected $table = 'authorities';

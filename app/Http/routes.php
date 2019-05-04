@@ -436,6 +436,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('authority/reindex', 'AuthorityController@reindex');
     Route::post('authority/destroySelected', 'AuthorityController@destroySelected');
     Route::get('authority/search', 'AuthorityController@search');
+    Route::post('authority/media', 'AuthorityController@storeMedia')->name('authority.storeMedia');
     Route::resource('authority', 'AuthorityController');
     Route::resource('sketchbook', 'SketchbookController');
     Route::resource('slide', 'SlideController');

@@ -78,24 +78,18 @@
               </div>
 
               <div class="form-group">
-                  <div class="form-group">
-                    {{ Form::label($locale . "[exhibitions]", 'Zoznam výstav '.strtoupper($locale)) }}
-                    {{ Form::textarea($locale . "[exhibitions]", isset($authority) ? @$authority->translate($locale)->exhibitions : '', array('class' => 'form-control wysiwyg', 'rows'=>'12')) }}
-                  </div>
+                  {{ Form::label($locale . "[exhibitions]", 'Zoznam výstav '.strtoupper($locale)) }}
+                  {{ Form::textarea($locale . "[exhibitions]", isset($authority) ? @$authority->translate($locale)->exhibitions : '', array('class' => 'form-control wysiwyg', 'rows'=>'12')) }}
               </div>
 
               <div class="form-group">
-                  <div class="form-group">
-                    {{ Form::label($locale . "[bibliography]", 'Bibliografia '.strtoupper($locale)) }}
-                    {{ Form::textarea($locale . "[bibliography]", isset($authority) ? @$authority->translate($locale)->bibliography : '', array('class' => 'form-control wysiwyg', 'rows'=>'12')) }}
-                  </div>
+                  {{ Form::label($locale . "[bibliography]", 'Bibliografia '.strtoupper($locale)) }}
+                  {{ Form::textarea($locale . "[bibliography]", isset($authority) ? @$authority->translate($locale)->bibliography : '', array('class' => 'form-control wysiwyg', 'rows'=>'12')) }}
               </div>
 
               <div class="form-group">
-                  <div class="form-group">
-                    {{ Form::label($locale . "[archive]", 'Archív '.strtoupper($locale)) }}
-                    {{ Form::textarea($locale . "[archive]", isset($authority) ? @$authority->translate($locale)->archive : '', array('class' => 'form-control wysiwyg', 'rows'=>'12')) }}
-                  </div>
+                  {{ Form::label($locale . "[archive]", 'Archív '.strtoupper($locale)) }}
+                  {{ Form::textarea($locale . "[archive]", isset($authority) ? @$authority->translate($locale)->archive : '', array('class' => 'form-control wysiwyg', 'rows'=>'12')) }}
               </div>
 
             </div>
@@ -107,6 +101,26 @@
 
       </div>
       <!-- /.row (nested) -->
+    </div>
+    <!-- /.panel-body -->
+  </div>
+  <!-- /.panel -->
+</div>
+
+<div class="col-lg-12">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Archív média
+    </div>
+    <div class="panel-body">
+      <div class="col-md-12">
+        <div class="form-group">
+            <label for="document">Súbory</label>
+            <div class="needsclick dropzone" id="document-dropzone">
+
+            </div>
+        </div>
+      </div>
     </div>
     <!-- /.panel-body -->
   </div>
@@ -277,6 +291,46 @@
 {!! Html::script('js/plugins/bootstrap-slider.min.js') !!}
 {!! Html::script('js/plugins/jquery.cropit.min.js') !!}
 {!! Html::script('js/plugins/selectize.min.js') !!}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
+
+
+<script>
+  var uploadedDocumentMap = {}
+  Dropzone.options.documentDropzone = {
+    url: '{{ route('authority.storeMedia') }}',
+    maxFilesize: 2, // MB
+    addRemoveLinks: true,
+    headers: {
+      'X-CSRF-TOKEN': "{{ csrf_token() }}"
+    },
+    success: function (file, response) {
+      $('form').append('<input type="hidden" name="document[]" value="' + response.name + '">')
+      uploadedDocumentMap[file.name] = response.name
+    },
+    removedfile: function (file) {
+      file.previewElement.remove()
+      var name = ''
+      if (typeof file.file_name !== 'undefined') {
+        name = file.file_name
+      } else {
+        name = uploadedDocumentMap[file.name]
+      }
+      $('form').find('input[name="document[]"][value="' + name + '"]').remove()
+    },
+    init: function () {
+      @if(isset($authority) && $authority->getMedia())
+        var files =
+          {!! json_encode($authority->getMedia()) !!}
+        for (var i in files) {
+          var file = files[i]
+          this.options.addedfile.call(this, file)
+          file.previewElement.classList.add('dz-complete')
+          $('form').append('<input type="hidden" name="document[]" value="' + file.file_name + '">')
+        }
+      @endif
+    }
+  }
+</script>
 
 <script>
 $(document).ready(function(){

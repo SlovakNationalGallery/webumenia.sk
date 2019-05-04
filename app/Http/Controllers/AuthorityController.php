@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use App\SpiceHarvesterRecord;
 use Illuminate\Support\Facades\App;
+use Illuminate\Http\Request;
 
 
 class AuthorityController extends Controller
@@ -60,7 +61,7 @@ class AuthorityController extends Controller
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $request)
     {
         $input = Input::all();
 
@@ -77,7 +78,7 @@ class AuthorityController extends Controller
 
             // not sure if OK to fill all input like this before setting translated attributes
             $authority->fill($input);
-            
+
             // store translatable attributes
             foreach (\Config::get('translatable.locales') as $i=>$locale) {
                 foreach ($authority->translatedAttributes as $attribute) {
@@ -94,6 +95,10 @@ class AuthorityController extends Controller
 
             if (Input::hasFile('primary_image')) {
                 $this->uploadImage($authority);
+            }
+
+            foreach ($request->input('document', []) as $file) {
+                $authority->addMedia(storage_path('tmp/uploads/' . $file))->toCollection('document');
             }
 
             return Redirect::route('authority.index');
@@ -124,7 +129,7 @@ class AuthorityController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update(Request $request, $id)
     {
         $v = Validator::make(Input::all(), Authority::$rules);
         if ($v->passes()) {
@@ -162,6 +167,25 @@ class AuthorityController extends Controller
             if (Input::has('primary_image')) {
                 $this->uploadImage($authority);
             }
+
+            if (count($authority->getMedia('document')) > 0) {
+                foreach ($authority->getMedia('document') as $media) {
+                    if (!in_array($media->file_name, $request->input('document', []))) {
+                        $media->delete();
+                    }
+                }
+
+
+            }
+
+            $media = (count($authority->getMedia('document')) > 0) ? $authority->getMedia('document')->pluck('file_name')->toArray() : [];
+
+            foreach ($request->input('document', []) as $file) {
+                if (count($media) === 0 || !in_array($file, $media)) {
+                    $authority->addMedia(storage_path('tmp/uploads/' . $file))->toCollection('document');
+                }
+            }
+
 
             Session::flash('message', 'Autorita ' .$id. ' bola upravená');
             return Redirect::route('authority.index');
@@ -318,4 +342,25 @@ class AuthorityController extends Controller
         return Redirect::back()->withMessage($message);
 
     }
+
+    public function storeMedia(Request $request)
+    {
+        $path = storage_path('tmp/uploads');
+
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
+
+        $file = $request->file('file');
+
+        $name = uniqid() . '_' . trim($file->getClientOriginalName());
+
+        $file->move($path, $name);
+
+        return response()->json([
+            'name'          => $name,
+            'original_name' => $file->getClientOriginalName(),
+        ]);
+    }
+
 }
