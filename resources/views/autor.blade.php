@@ -246,6 +246,45 @@
                 }
             }
         });
+
+        $('a[href^="http://www.webumenia"]').has('figure.image').magnificPopup({
+            type: 'iframe',
+            mainClass: 'mfp-with-zoom',
+            iframe: {
+                markup:
+                    '<div class="mfp-iframe-scaler mfp-iframe-big">'+
+                        '<div class="mfp-close"></div>'+
+                        '<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>'+
+                        '<div class="mfp-title"></div>'+
+                    '</div>', // HTML markup of popup, `mfp-close` will be replaced by the close button
+                patterns: {
+                    webumenia: {
+                        index: 'webumenia.sk',
+                        id: function(url) {
+                            var m = url.match(/^.+webumenia.sk\/dielo\/([^?]+)[.]*/);
+                            if (m !== null) {
+                                return m[1];
+                            }
+                            return null;
+                        },
+                        src: 'http://www.webumenia.sk/dielo/%id%/zoom?noreturn=1'
+                    }
+                }
+            },
+            zoom: {
+                enabled: true,
+                duration: 300,
+                easing: 'ease-in-out', 
+                opener: function(openerElement) {
+                    return openerElement.is('img') ? openerElement : openerElement.find('img');
+                }
+            },
+            callbacks: {
+                markupParse: function(template, values, item) {
+                    values.title = item.el.find('img').attr('alt') + ' (<a href="'+item.el.attr('href')+'" target="_blank">webumenia.sk</a>)';
+                }
+            }
+        });
     });
 </script>
 @stop
