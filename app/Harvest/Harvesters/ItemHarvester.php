@@ -31,7 +31,6 @@ class ItemHarvester extends AbstractHarvester
         // @todo responsibility of repository?
         $imgUrl = $this->getItemImageImgUrl($row);
         $iipimgUrls = $this->fetchItemImageIipimgUrls($row);
-        $iipimgUrls = $this->parseItemImageIipimgUrls($iipimgUrls);
 
         if ($iipimgUrls) {
             $row['images'] = [];
@@ -105,7 +104,7 @@ class ItemHarvester extends AbstractHarvester
 
     /**
      * @param array $row
-     * @return string|bool
+     * @return string[]
      */
     protected function fetchItemImageIipimgUrls(array $row) {
         $url = array_first($row['identifier'], function ($i, $identifier) {
@@ -113,10 +112,10 @@ class ItemHarvester extends AbstractHarvester
         });
 
         if ($url === null) {
-            return false;
+            return [];
         }
 
-        return @file_get_contents($url);
+        return $this->parseItemImageIipimgUrls(file_get_contents($url));
     }
 
     /**
