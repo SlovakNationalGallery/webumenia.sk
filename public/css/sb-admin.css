@@ -388,3 +388,15 @@ img.nahlad {
     width: 700px;
   }
 }
+
+.dropzone {
+    border-radius: 5px;
+    border: 2px dashed rgb(0, 135, 247) !important;
+    border-image: none !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.dropzone input.form-control {
+    margin: 7px auto 5px;
+}

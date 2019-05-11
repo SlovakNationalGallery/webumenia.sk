@@ -84,6 +84,12 @@ class AuthorityController extends Controller
                 foreach ($authority->translatedAttributes as $attribute) {
                     $authority->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
                 }
+
+                foreach ($request->input('document.'.$locale, []) as $i=>$file) {
+                    $authority->addMedia(storage_path('tmp/uploads/' . $file))
+                        ->withCustomProperties(['name' => $request->input('document_name.'.$locale.'.'.$i, '')])
+                        ->toCollection('document.'.$locale);
+                }
             }
 
             $authority->save();
@@ -95,10 +101,6 @@ class AuthorityController extends Controller
 
             if (Input::hasFile('primary_image')) {
                 $this->uploadImage($authority);
-            }
-
-            foreach ($request->input('document', []) as $file) {
-                $authority->addMedia(storage_path('tmp/uploads/' . $file))->toCollection('document');
             }
 
             return Redirect::route('authority.index');
@@ -140,7 +142,6 @@ class AuthorityController extends Controller
             $authority = Authority::find($id);
             $authority->fill($input);
             $authority->save();
-            // dd(Input::get('links'));
             foreach (Input::get('links') as $link) {
                 $validation = Validator::make($link, Link::$rules);
                 if ($validation->passes()) {
@@ -168,21 +169,26 @@ class AuthorityController extends Controller
                 $this->uploadImage($authority);
             }
 
-            if (count($authority->getMedia('document')) > 0) {
-                foreach ($authority->getMedia('document') as $media) {
-                    if (!in_array($media->file_name, $request->input('document', []))) {
-                        $media->delete();
+
+            foreach (\Config::get('translatable.locales') as $i=>$locale) {
+
+                if (count($authority->getMedia('document.'.$locale)) > 0) {
+                    foreach ($authority->getMedia('document.'.$locale) as $media) {
+                        if (!in_array($media->file_name, $request->input('document.'.$locale, []))) {
+                            $media->delete();
+                        }
                     }
+
+
                 }
 
-
-            }
-
-            $media = (count($authority->getMedia('document')) > 0) ? $authority->getMedia('document')->pluck('file_name')->toArray() : [];
-
-            foreach ($request->input('document', []) as $file) {
-                if (count($media) === 0 || !in_array($file, $media)) {
-                    $authority->addMedia(storage_path('tmp/uploads/' . $file))->toCollection('document');
+                $media = (count($authority->getMedia('document.'.$locale)) > 0) ? $authority->getMedia('document.'.$locale)->pluck('file_name')->toArray() : [];
+                foreach ($request->input('document.'.$locale, []) as $i=>$file) {
+                    if (count($media) === 0 || !in_array($file, $media)) {
+                        $authority->addMedia(storage_path('tmp/uploads/' . $file))
+                            ->withCustomProperties(['name' => $request->input('document_name.'.$locale.'.'.$i, '')])
+                            ->toCollection('document.'.$locale);
+                    }
                 }
             }
 
