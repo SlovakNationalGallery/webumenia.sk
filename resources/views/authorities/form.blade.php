@@ -95,6 +95,10 @@
               <div class="form-group">
                   <label for="document-dropzone-{{$locale}}">Archív súbory {{ strtoupper($locale) }}</label>
                   <div class="needsclick dropzone" id="document-dropzone-{{$locale}}" data-locale="{{ $locale }}" >
+                    <div class="dz-message needsclick">
+                      <strong>Drop</strong> files here or <strong>click</strong> to upload.<br />
+                      <span class="note needsclick small text-muted">(Supported file types are image/document/pdf/video. Max filesize: 6MB)</span>
+                    </div>
 
                   </div>
               </div>
@@ -292,7 +296,7 @@
 
   $(this).dropzone({
     url: '{{ route('authority.storeMedia') }}',
-    maxFilesize: 2, // MB
+    maxFilesize: 6, // MB
     addRemoveLinks: true,
     headers: {
       'X-CSRF-TOKEN': "{{ csrf_token() }}"

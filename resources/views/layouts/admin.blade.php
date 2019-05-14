@@ -18,7 +18,7 @@
         <script src="https://use.fontawesome.com/73587c90bb.js"></script>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        {!! Html::style('css/sb-admin.css') !!}
+        <link rel="stylesheet" type="text/css" href="{!! asset_timed('css/sb-admin.css') !!}" />
         {!! Html::style('css/vendor/jquery-ui/jquery-ui.css') !!}
         {{-- {!! Html::style('css/ladda-themeless.min.css') !!} --}}
         {{-- {!! Html::style('css/bootstrap-wysihtml5.css') !!} --}}
