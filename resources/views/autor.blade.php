@@ -122,7 +122,8 @@
                                     <a href="{!! $item->getImagePath() !!}"
                                        title="{!! $item->getTitleWithAuthors() !!}"
                                        data-sub-title="{{ $item->getSubTitle() }}"
-                                       data-photo-credit="{{ $item->photo_credit }}">
+                                       data-photo-credit="{{ $item->photo_credit }}"
+                                       class="item {{ $item->hasZoomableImages() ? 'zoom-viewer' : 'img-viewer' }}">
                                         @php
                                             list($width, $height) = getimagesize(public_path() . $item->getImagePath());
                                         @endphp
@@ -221,35 +222,16 @@
             }
         });
 
-        $('#iso').magnificPopup({
-            delegate: '.item a',
-            type: 'image',
-            tLoading: 'Loading image #%curr%...',
-            mainClass: 'mfp-img-mobile',
+        $('a.item').magnificPopup({
+            // delegate: '.item a',
+            type: 'iframe',
+            mainClass: 'mfp-with-zoom',
             gallery: {
                 enabled: true,
                 navigateByImgClick: true,
                 tCounter: '<span class="mfp-counter">%curr% {{ trans('autor.of') }} %total%</span>',
                 preload: [1,1] // Will preload 0 - before current, and 1 after the current image
             },
-            image: {
-                tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
-                titleSrc: function(item) {
-                    var title = item.el.attr('title');
-                    if (item.el.attr('data-sub-title')) {
-                        title = title + '<small>'+ item.el.attr('data-sub-title') +'</small>';
-                    }
-                    if (item.el.attr('data-photo-credit')) {
-                        title = title + '<small>{{ trans('autor.by') }} '+ item.el.attr('data-photo-credit') +'</small>';
-                    }
-                    return title;
-                }
-            }
-        });
-
-        $('a[href^="http://www.webumenia"]').has('figure.image').magnificPopup({
-            type: 'iframe',
-            mainClass: 'mfp-with-zoom',
             iframe: {
                 markup:
                     '<div class="mfp-iframe-scaler mfp-iframe-big">'+
@@ -267,8 +249,21 @@
                             }
                             return null;
                         },
-                        src: 'http://www.webumenia.sk/dielo/%id%/zoom?noreturn=1'
+                        src: '{{ url('/') }}/dielo/%id%/zoom?noreturn=1'
                     }
+                }
+            },
+            image: {
+                tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
+                titleSrc: function(item) {
+                    var title = item.el.attr('title');
+                    if (item.el.attr('data-sub-title')) {
+                        title = title + '<small>'+ item.el.attr('data-sub-title') +'</small>';
+                    }
+                    if (item.el.attr('data-photo-credit')) {
+                        title = title + '<small>{{ trans('autor.by') }} '+ item.el.attr('data-photo-credit') +'</small>';
+                    }
+                    return title;
                 }
             },
             zoom: {
@@ -282,6 +277,16 @@
             callbacks: {
                 markupParse: function(template, values, item) {
                     values.title = item.el.find('img').attr('alt') + ' (<a href="'+item.el.attr('href')+'" target="_blank">webumenia.sk</a>)';
+                },
+                elementParse: function(item) {
+                    console.log(item);
+                    console.log(this);
+                    // switch image iframe / zoom viewer here
+                    if (item.el.context.className == 'zoom-viewer') {
+                        item.type = 'iframe';
+                    } else if (item.el.context.className == 'img-viewer') {
+                        item.type = 'image';
+                    }
                 }
             }
         });
