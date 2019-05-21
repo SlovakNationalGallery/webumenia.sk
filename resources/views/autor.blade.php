@@ -122,7 +122,9 @@
                                     <a href="{!! $item->getImagePath() !!}"
                                        title="{!! $item->getTitleWithAuthors() !!}"
                                        data-sub-title="{{ $item->getSubTitle() }}"
-                                       data-photo-credit="{{ $item->photo_credit }}">
+                                       data-photo-credit="{{ $item->photo_credit }}"
+                                       data-id="{{ $item->id }}"
+                                       class="{{ $item->hasZoomableImages() ? 'zoom-viewer' : 'img-viewer' }}">
                                         @php
                                             list($width, $height) = getimagesize(public_path() . $item->getImagePath());
                                         @endphp
@@ -221,16 +223,24 @@
             }
         });
 
-        $('#iso').magnificPopup({
-            delegate: '.item a',
-            type: 'image',
-            tLoading: 'Loading image #%curr%...',
-            mainClass: 'mfp-img-mobile',
+        $('.item a').magnificPopup({
+            // delegate: '.item a',
+            type: 'iframe',
+            mainClass: 'mfp-with-zoom',
             gallery: {
                 enabled: true,
                 navigateByImgClick: true,
                 tCounter: '<span class="mfp-counter">%curr% {{ trans('autor.of') }} %total%</span>',
                 preload: [1,1] // Will preload 0 - before current, and 1 after the current image
+            },
+            iframe: {
+                markup:
+                    '<div class="mfp-iframe-scaler mfp-iframe-big">'+
+                        '<div class="mfp-close"></div>'+
+                        '<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>'+
+                        '<div class="mfp-title"></div>'+
+                        '<div class="mfp-counter"><span class="mfp-counter"></span></div>'+
+                    '</div>' // HTML markup of popup, `mfp-close` will be replaced by the close button
             },
             image: {
                 tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
@@ -243,6 +253,37 @@
                         title = title + '<small>{{ trans('autor.by') }} '+ item.el.attr('data-photo-credit') +'</small>';
                     }
                     return title;
+                }
+            },
+            zoom: {
+                enabled: true,
+                duration: 300,
+                easing: 'ease-in-out',
+                opener: function(openerElement) {
+                    return openerElement.is('img') ? openerElement : openerElement.find('img');
+                }
+            },
+            callbacks: {
+                markupParse: function(template, values, item) {
+                    var title = item.el.attr('title');
+                    if (item.el.attr('data-sub-title')) {
+                        title = title + '<small>'+ item.el.attr('data-sub-title') +'</small>';
+                    }
+                    if (item.el.attr('data-photo-credit')) {
+                        title = title + '<small>{{ trans('autor.by') }} '+ item.el.attr('data-photo-credit') +'</small>';
+                    }
+                    values.title = title;
+                },
+                elementParse: function(item) {
+                    var className = item.el[0].className;
+                    var id = item.el[0].dataset.id;
+                    // switch image iframe / zoom viewer here
+                    if (className == 'zoom-viewer') {
+                        item.type = 'iframe';
+                        item.src = '{{ url('/') }}/dielo/'+id+'/zoom?noreturn=1';
+                    } else if (className == 'img-viewer') {
+                        item.type = 'image';
+                    }
                 }
             }
         });
