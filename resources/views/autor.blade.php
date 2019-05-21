@@ -123,7 +123,8 @@
                                        title="{!! $item->getTitleWithAuthors() !!}"
                                        data-sub-title="{{ $item->getSubTitle() }}"
                                        data-photo-credit="{{ $item->photo_credit }}"
-                                       class="item {{ $item->hasZoomableImages() ? 'zoom-viewer' : 'img-viewer' }}">
+                                       data-id="{{ $item->id }}"
+                                       class="{{ $item->hasZoomableImages() ? 'zoom-viewer' : 'img-viewer' }}">
                                         @php
                                             list($width, $height) = getimagesize(public_path() . $item->getImagePath());
                                         @endphp
@@ -222,7 +223,7 @@
             }
         });
 
-        $('a.item').magnificPopup({
+        $('.item a').magnificPopup({
             // delegate: '.item a',
             type: 'iframe',
             mainClass: 'mfp-with-zoom',
@@ -238,20 +239,8 @@
                         '<div class="mfp-close"></div>'+
                         '<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>'+
                         '<div class="mfp-title"></div>'+
-                    '</div>', // HTML markup of popup, `mfp-close` will be replaced by the close button
-                patterns: {
-                    webumenia: {
-                        index: 'webumenia.sk',
-                        id: function(url) {
-                            var m = url.match(/^.+webumenia.sk\/dielo\/([^?]+)[.]*/);
-                            if (m !== null) {
-                                return m[1];
-                            }
-                            return null;
-                        },
-                        src: '{{ url('/') }}/dielo/%id%/zoom?noreturn=1'
-                    }
-                }
+                        '<div class="mfp-counter"><span class="mfp-counter"></span></div>'+
+                    '</div>' // HTML markup of popup, `mfp-close` will be replaced by the close button
             },
             image: {
                 tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
@@ -269,22 +258,30 @@
             zoom: {
                 enabled: true,
                 duration: 300,
-                easing: 'ease-in-out', 
+                easing: 'ease-in-out',
                 opener: function(openerElement) {
                     return openerElement.is('img') ? openerElement : openerElement.find('img');
                 }
             },
             callbacks: {
                 markupParse: function(template, values, item) {
-                    values.title = item.el.find('img').attr('alt') + ' (<a href="'+item.el.attr('href')+'" target="_blank">webumenia.sk</a>)';
+                    var title = item.el.attr('title');
+                    if (item.el.attr('data-sub-title')) {
+                        title = title + '<small>'+ item.el.attr('data-sub-title') +'</small>';
+                    }
+                    if (item.el.attr('data-photo-credit')) {
+                        title = title + '<small>{{ trans('autor.by') }} '+ item.el.attr('data-photo-credit') +'</small>';
+                    }
+                    values.title = title;
                 },
                 elementParse: function(item) {
-                    console.log(item);
-                    console.log(this);
+                    var className = item.el[0].className;
+                    var id = item.el[0].dataset.id;
                     // switch image iframe / zoom viewer here
-                    if (item.el.context.className == 'zoom-viewer') {
+                    if (className == 'zoom-viewer') {
                         item.type = 'iframe';
-                    } else if (item.el.context.className == 'img-viewer') {
+                        item.src = '{{ url('/') }}/dielo/'+id+'/zoom?noreturn=1';
+                    } else if (className == 'img-viewer') {
                         item.type = 'image';
                     }
                 }

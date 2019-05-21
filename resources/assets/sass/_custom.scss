@@ -8,3 +8,22 @@
         border-bottom: transparent;
     }
 }
+
+.mfp-title {
+  position:absolute !important;
+  .mfp-iframe-scaler & {
+      margin-top: 2px;
+  }
+  small {
+    color: #bdbdbd;
+    display: block;
+    font-size: 12px;
+    line-height: 14px;
+  }
+}
+
+.mfp-counter {
+    position: absolute;
+    bottom: auto !important;
+    top: auto !important;
+}
