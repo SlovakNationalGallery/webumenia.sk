@@ -197,10 +197,13 @@ class AuthorController extends ElasticController
         $author->view_count += 1;
         $author->save();
 
+        $archive = $author->getMedia('document.'.\LaravelLocalization::getCurrentLocale());
+
         $items = \App\Item::where('author', 'like', $author->name)->get();
         return view('autor', [
             'author' => $author,
             'items' => $items,
+            'archive' => $archive,
         ]);
 
     }

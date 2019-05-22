@@ -87,7 +87,7 @@ class AuthorityController extends Controller
 
                 foreach ($request->input('document.'.$locale, []) as $i=>$file) {
                     $authority->addMedia(storage_path('tmp/uploads/' . $file))
-                        ->withCustomProperties(['name' => $request->input('document_name.'.$locale.'.'.$i, '')])
+                        ->usingName( $request->input('document_name.'.$locale.'.'.$i, '') )
                         ->toCollection('document.'.$locale);
                 }
             }
@@ -186,7 +186,7 @@ class AuthorityController extends Controller
                 foreach ($request->input('document.'.$locale, []) as $i=>$file) {
                     if (count($media) === 0 || !in_array($file, $media)) {
                         $authority->addMedia(storage_path('tmp/uploads/' . $file))
-                            ->withCustomProperties(['name' => $request->input('document_name.'.$locale.'.'.$i, '')])
+                            ->usingName( $request->input('document_name.'.$locale.'.'.$i, '') )
                             ->toCollection('document.'.$locale);
                     }
                 }
