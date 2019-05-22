@@ -330,9 +330,10 @@
         for (var i in files[locale]) {
           var file = files[locale][i]
           this.options.addedfile.call(this, file)
+          // this.options.thumbnail.call(this, file, file.versions.thumbnail_s);
           file.previewElement.classList.add('dz-complete')
           $('form').append('<input type="hidden" name="document['+locale+'][]" value="' + file.file_name + '">')
-          file.previewElement.querySelector('input.form-control').value = file.custom_properties.name
+          file.previewElement.querySelector('input.form-control').value = file.name
         }
       @endif
     }

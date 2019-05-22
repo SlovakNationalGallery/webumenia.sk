@@ -11,10 +11,10 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Cache;
 use Fadion\Bouncy\BouncyTrait;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Spatie\MediaLibrary\HasMedia\Interfaces\HasMedia;
 
-class Authority extends Model implements HasMedia
+class Authority extends Model implements HasMediaConversions
 {
     use \Conner\Tagging\Taggable;
     use \Dimsav\Translatable\Translatable, BouncyTrait {
@@ -566,5 +566,21 @@ class Authority extends Model implements HasMedia
 
     protected function getElasticClient() {
         return app(Client::class);
+    }
+
+    public function registerMediaConversions()
+    {
+        $this->addMediaConversion('thumb_s')
+             ->setManipulations(['w' => 300])
+             ->performOnCollections('*');
+
+        $this->addMediaConversion('thumb_m')
+             ->setManipulations(['w' => 600])
+             ->performOnCollections('*');
+
+
+        $this->addMediaConversion('thumb_l')
+             ->setManipulations(['w' => 800])
+             ->performOnCollections('*');
     }
 }

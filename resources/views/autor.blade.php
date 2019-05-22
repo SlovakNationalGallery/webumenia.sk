@@ -116,7 +116,7 @@
 
                       <div id="collapse{{ studly_case('gallery') }}" class="collapse show" aria-labelledby="heading{{ studly_case('gallery') }}" data-parent="#authorAccordion">
                         <div class="card-body pt-0">
-                            <div id="iso">
+                            <div id="iso" class="grid-container">
                             @foreach ($items as $i=>$item)
                                 <div class="col-md-3 col-sm-4 col-xs-6 item border-0">
                                     <a href="{!! $item->getImagePath() !!}"
@@ -154,12 +154,62 @@
                         'parrentId' => 'authorAccordion',
                         'show' => false,
                     ])
-                    @include('components.khb_accordion_card', [
+                    {{-- @include('components.khb_accordion_card', [
                         'title' => utrans('autor.archive'),
                         'content' => $author->archive,
                         'parrentId' => 'authorAccordion',
                         'show' => false,
-                    ])
+                    ]) --}}
+
+                    {{-- archive --}}
+                    @if ($items->count() > 0)
+                    <div class="card">
+                      <div class="card-header" id="heading{{ studly_case('archive') }}">
+                        <h5 class="mb-0">
+                          <button class="btn btn-link font-weight-bold p-0" type="button" data-toggle="collapse" data-target="#collapse{{ studly_case('archive') }}" aria-expanded="true" aria-controls="collapse{{ studly_case('archive') }}">
+                            {{ utrans('autor.archive') }}
+                          </button>
+                        </h5>
+                      </div>
+
+                      <div id="collapse{{ studly_case('archive') }}" class="collapse {{-- show --}}" aria-labelledby="heading{{ studly_case('archive') }}" data-parent="#authorAccordion">
+                        <div class="card-body pt-0">
+
+                            <div class="expandable">
+                                {!! $author->archive !!}
+                            </div>
+
+                            <div id="isoArchive" class="grid-container">
+                            @foreach ($archive as $i=>$document)
+                                <div class="col-md-3 col-sm-4 col-xs-6 item border-0">
+                                    <a href="{!! $document->getUrl() !!}" title="{!! $document->name !!}" target="_blank" class="text-center">
+                                        @php
+                                            list($width, $height) = getimagesize(public_path() . $document->getUrl('thumb_m'));
+                                        @endphp
+                                        <div class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%;">
+                                            <img
+                                            data-sizes="auto"
+                                            data-src="{!! $document->getUrl('thumb_m') !!}"
+                                            data-srcset="
+                                                    {!! $document->getUrl('thumb_s') !!} 300w,
+                                                    {!! $document->getUrl('thumb_m') !!} 600w,
+                                                    {!! $document->getUrl('thumb_l') !!} 800w"
+                                            class="lazyload"
+                                            alt="{!! $document->name !!} ">
+                                        </div>
+                                        {{ $document->name }}
+                                    </a>
+                                </div>
+                            @endforeach
+                            </div>
+                            {{-- /isoArchive --}}
+                        </div>
+                      </div>
+                    </div>
+                    @endif
+                    {{-- /archive --}}
+
+
                 </div>
 
 
@@ -207,9 +257,14 @@
 
     $(document).ready(function(){
         init_isotype('#iso', '.item');
+        init_isotype('#isoArchive', '.item');
         // re-init isotype when gallery collapsed accordion card has been shown
         $('#headingGallery').parent().on('shown.bs.collapse', function () {
             init_isotype('#iso', '.item');
+        })
+
+        $('#headingArchive').parent().on('shown.bs.collapse', function () {
+            init_isotype('#isoArchive', '.item');
         })
 
         $('.expandable').readmore({
@@ -223,8 +278,8 @@
             }
         });
 
-        $('.item a').magnificPopup({
-            // delegate: '.item a',
+        $('#iso').magnificPopup({
+            delegate: '.item a',
             type: 'iframe',
             mainClass: 'mfp-with-zoom',
             gallery: {
