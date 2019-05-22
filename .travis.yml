@@ -1,7 +1,7 @@
 language: php
 php: '5.6'
 before_script:
-  - pecl install imagick
+  - printf "\n" | pecl install imagick
 install:
   - cp .env.testing.example .env.testing
   - composer install
