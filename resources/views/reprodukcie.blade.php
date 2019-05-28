@@ -89,7 +89,7 @@
                     <div class="col-12">
                         <h3 class="text-center">{!! utrans('reprodukcie.info_title') !!}</h3>
                         {!! utrans('reprodukcie.print_list') !!}
-                    </div>  
+                    </div>
                 </div>
             </div>
         </div>
@@ -107,13 +107,13 @@
             <div class="col-xs-12">
                 @include('components.artwork_carousel', [
                     'slick_target' => "artworks-preview",
-                    'items' => $items_print,
+                    'items' => $items_recommended,
                 ])
             </div>
         </div>
         <div class="row content-section">
             <div class="col-sm-12 text-center">
-                <a href="{!! url_to('katalog', ['gallery' => 'Slovenská národná galéria, SNG']) !!}" class="btn btn-default btn-outline sans" >{{ trans('reprodukcie.more-items_button') }} <strong>{!! App\Item::forReproduction()->count() !!}</strong>  <i class="fa fa-chevron-right "></i></a>
+                <a href="{!! url_to('katalog', ['gallery' => 'Slovenská národná galéria, SNG', 'has_image' => '1', 'has_iip' => '1']) !!}" class="btn btn-default btn-outline sans" >{{ trans('reprodukcie.more-items_button') }} <strong>{{ $items->total() }}</strong>  <i class="fa fa-chevron-right "></i></a>
             </div>
         </div>
     </div>
@@ -180,13 +180,13 @@
             <div class="col-xs-12">
                 @include('components.artwork_carousel', [
                     'slick_target' => "artworks-preview",
-                    'items' => $items_digital,
+                    'items' => $items,
                 ])
             </div>
         </div>
         <div class="row content-section">
             <div class="col-sm-12 text-center">
-                <a href="{!! URL::to('katalog?is_free=' . '1') !!}" class="btn btn-default btn-outline sans" >{{ trans('reprodukcie.more-items_button') }} <strong>{!! App\Item::amount(['is_free' => true]) !!}</strong>  <i class="fa fa-chevron-right "></i></a>
+                <a href="{!! url_to('katalog', ['gallery' => 'Slovenská národná galéria, SNG', 'has_image' => '1', 'has_iip' => '1']) !!}" class="btn btn-default btn-outline sans" >{{ trans('reprodukcie.more-items_button') }} <strong>{{ $items->total() }}</strong>  <i class="fa fa-chevron-right "></i></a>
             </div>
         </div>
     </div>
