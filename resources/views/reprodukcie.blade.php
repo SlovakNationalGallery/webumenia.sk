@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-{{ utrans('reprodukcie.title') }} |
+{{ trans('reprodukcie.title') }} |
 @parent
 @stop
 
@@ -20,7 +20,7 @@
     <div class="">
         <div class="container">
             <p class="lead text-center top-space">
-                {!! utrans('reprodukcie.lead') !!}
+                {!! trans('reprodukcie.lead', ['total' => $total]) !!}
             </p>
         </div>
     </div>
@@ -32,9 +32,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <h2 id="print" class="text-center bottom-space">{{ utrans('reprodukcie.print_heading') }}</h2>
+                <h2 id="print" class="text-center bottom-space">{{ trans('reprodukcie.print_heading') }}</h2>
                 <div>
-                    {!! utrans('reprodukcie.print_body') !!}
+                    {!! trans('reprodukcie.print_body') !!}
                 </div>
                 <div class="row top-space">
                     <div class="col-sm-6">
@@ -87,8 +87,8 @@
                 </div>
                 <div class="row top-space grey">
                     <div class="col-12">
-                        <h3 class="text-center">{!! utrans('reprodukcie.info_title') !!}</h3>
-                        {!! utrans('reprodukcie.print_list') !!}
+                        <h3 class="text-center">{!! trans('reprodukcie.info_title') !!}</h3>
+                        {!! trans('reprodukcie.print_list') !!}
                     </div>
                 </div>
             </div>
@@ -100,7 +100,7 @@
     <div class="container">
         <div class="row top-space bottom-space">
             <div class="col-xs-12 text-center grey">
-                <h3>{{ utrans('reprodukcie.print_recommended') }}</h3>
+                <h3>{{ trans('reprodukcie.print_recommended') }}</h3>
             </div>
         </div>
         <div class="row">
@@ -113,7 +113,7 @@
         </div>
         <div class="row content-section">
             <div class="col-sm-12 text-center">
-                <a href="{!! url_to('katalog', ['gallery' => 'Slovenská národná galéria, SNG', 'has_image' => '1', 'has_iip' => '1']) !!}" class="btn btn-default btn-outline sans" >{{ trans('reprodukcie.more-items_button') }} <strong>{{ $items->total() }}</strong>  <i class="fa fa-chevron-right "></i></a>
+                <a href="{!! url_to('katalog', ['gallery' => 'Slovenská národná galéria, SNG', 'has_image' => '1', 'has_iip' => '1']) !!}" class="btn btn-default btn-outline sans" >{{ trans('reprodukcie.more-items_button') }} <strong>{{ $total }}</strong>  <i class="fa fa-chevron-right "></i></a>
             </div>
         </div>
     </div>
@@ -125,8 +125,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <h2 id="digital" class="text-center bottom-space">{{ utrans('reprodukcie.digital_heading') }}</h2>
-                <div>{!! utrans('reprodukcie.digital_body') !!}</div>
+                <h2 id="digital" class="text-center bottom-space">{{ trans('reprodukcie.digital_heading') }}</h2>
+                <div>{!! trans('reprodukcie.digital_body') !!}</div>
             </div>
         </div>
     </div>
@@ -136,7 +136,7 @@
     <div class="container">
         <div class="row top-space bottom-space">
             <div class="col-xs-12 text-center grey">
-                <h3>{{ utrans('reprodukcie.digital_examples') }}</h3>
+                <h3>{{ trans('reprodukcie.digital_examples') }}</h3>
             </div>
         </div>
         <div class="row bottom-space">
@@ -162,8 +162,8 @@
     <div class="container">
         <div class="row grey">
             <div class="col-md-8 col-md-offset-2">
-                <h3 class="text-center">{!! utrans('reprodukcie.info_title') !!}</h3>
-                {!! utrans('reprodukcie.digital_list') !!}
+                <h3 class="text-center">{!! trans('reprodukcie.info_title') !!}</h3>
+                {!! trans('reprodukcie.digital_list') !!}
             </div>
         </div>
     </div>
@@ -173,7 +173,7 @@
     <div class="container">
         <div class="row top-space bottom-space">
             <div class="col-xs-12 text-center grey">
-                <h3>{{ utrans('reprodukcie.digital_choice') }}</h3>
+                <h3>{{ trans('reprodukcie.digital_choice') }}</h3>
             </div>
         </div>
         <div class="row">
@@ -186,7 +186,7 @@
         </div>
         <div class="row content-section">
             <div class="col-sm-12 text-center">
-                <a href="{!! url_to('katalog', ['gallery' => 'Slovenská národná galéria, SNG', 'has_image' => '1', 'has_iip' => '1']) !!}" class="btn btn-default btn-outline sans" >{{ trans('reprodukcie.more-items_button') }} <strong>{{ $items->total() }}</strong>  <i class="fa fa-chevron-right "></i></a>
+                <a href="{!! url_to('katalog', ['gallery' => 'Slovenská národná galéria, SNG', 'has_image' => '1', 'has_iip' => '1']) !!}" class="btn btn-default btn-outline sans" >{{ trans('reprodukcie.more-items_button') }} <strong>{{ $total }}</strong>  <i class="fa fa-chevron-right "></i></a>
             </div>
         </div>
     </div>

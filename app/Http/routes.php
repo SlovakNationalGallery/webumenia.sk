@@ -376,7 +376,13 @@ function()
         }
 
         $items = Item::random(20, ['gallery' => 'Slovenská národná galéria, SNG']);
-        return view('reprodukcie', ['items_recommended' => $items_recommended, 'items' => $items]);
+        $total = formatNum($items->total());
+
+        return view('reprodukcie', [
+            'items_recommended' => $items_recommended,
+            'items' => $items,
+            'total' => $total,
+        ]);
     });
 });
 
