@@ -41,6 +41,7 @@
                         @include('components.repro_offer', [
                             "title" => trans('reprodukcie.print_offer_standalone_title'),
                             "img_url" => "/images/reprodukcie/format-1-samostatna.jpg",
+                            "img_full_url" => "/images/reprodukcie/full/format-1-samostatna.jpg",
                             "description" => trans('reprodukcie.print_offer_standalone_description'),
                             "pricing_options" => [
                                 [trans('reprodukcie.print_offer_until')." <strong>A4</strong>", "(21 x 29,7 cm)",   "30"],
@@ -54,6 +55,7 @@
                         @include('components.repro_offer', [
                             "title" => trans('reprodukcie.print_offer_passepartout_title'),
                             "img_url" => "/images/reprodukcie/format-2-pasparta.jpg",
+                            "img_full_url" => "/images/reprodukcie/full/format-2-pasparta.jpg",
                             "description" => trans('reprodukcie.print_offer_passepartout_description'),
                             "pricing_options" => [
                                 [trans('reprodukcie.print_offer_until')." <strong>A4</strong>", "(21 x 29,7 cm)",    "35"],
@@ -67,6 +69,7 @@
                         @include('components.repro_offer', [
                             "title" => trans('reprodukcie.print_offer_framed_title'),
                             "img_url" => "/images/reprodukcie/format-3-ram.jpg",
+                            "img_full_url" => "/images/reprodukcie/full/format-3-ram.jpg",
                             "description" => trans('reprodukcie.print_offer_framed_description'),
                             "pricing_options" => [
                                 [trans('reprodukcie.print_offer_until')." <strong>A4</strong>",  "(21 x 29,7 cm)",   "40"],
@@ -78,6 +81,7 @@
                         @include('components.repro_offer', [
                             "title" => trans('reprodukcie.print_offer_poster_title'),
                             "img_url" => "/images/reprodukcie/format-4-plagat.jpg",
+                            "img_full_url" => "/images/reprodukcie/full/format-4-plagat.jpg",
                             "description" => trans('reprodukcie.print_offer_poster_description'),
                             "pricing_options" => [
                                 ["<strong>A1</strong>", "(60 x 90cm)", "35"]
@@ -141,18 +145,18 @@
         </div>
         <div class="row bottom-space">
             <div class="col-xs-6">
-                <img class="img-responsive lazyload" data-src="/images/reprodukcie/digirepro-1.jpg" alt="{{trans('reprodukcie.digital_heading')}} 1">
+                <a href="/images/reprodukcie/full/digirepro-1.jpg" class="popup"><img class="img-responsive lazyload" data-src="/images/reprodukcie/digirepro-1.jpg" alt="{{trans('reprodukcie.digital_heading')}} 1"></a>
             </div>
             <div class="col-xs-6">
-                <img class="img-responsive lazyload" data-src="/images/reprodukcie/digirepro-2.jpg" alt="{{trans('reprodukcie.digital_heading')}} 2">
+                <a href="/images/reprodukcie/full/digirepro-2.jpg" class="popup"><img class="img-responsive lazyload" data-src="/images/reprodukcie/digirepro-2.jpg" alt="{{trans('reprodukcie.digital_heading')}} 2"></a>
             </div>
         </div>
         <div class="row bottom-space">
             <div class="col-xs-6">
-                <img class="img-responsive lazyload" data-src="/images/reprodukcie/digirepro-3.jpg" alt="{{trans('reprodukcie.digital_heading')}} 3">
+                <a href="/images/reprodukcie/full/digirepro-3.jpg" class="popup"><img class="img-responsive lazyload" data-src="/images/reprodukcie/digirepro-3.jpg" alt="{{trans('reprodukcie.digital_heading')}} 3"></a>
             </div>
             <div class="col-xs-6">
-                <img class="img-responsive lazyload" data-src="/images/reprodukcie/digirepro-4.jpg" alt="{{trans('reprodukcie.digital_heading')}} 4">
+                <a href="/images/reprodukcie/full/digirepro-4.jpg" class="popup"><img class="img-responsive lazyload" data-src="/images/reprodukcie/digirepro-4.jpg" alt="{{trans('reprodukcie.digital_heading')}} 4"></a>
             </div>
         </div>
     </div>
@@ -192,8 +196,34 @@
     </div>
 </section>
 
+
+{{-- modal for image preview --}}
+<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+      	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <img src="" class="imagepreview" style="width: 100%;" >
+        <p class="text-center top-space imagetitle"></p>
+      </div>
+    </div>
+  </div>
+</div>
+{{-- /modal for image preview --}}
+
 @stop
 
 @section('javascript')
     @include('components.artwork_carousel_js', ['slick_query' => '.artworks-preview'])
+
+    <script>
+        $(function() {
+            $('.popup').on('click', function(e) {
+                e.preventDefault();
+                $('.imagepreview').attr('src', $(this).attr('href'));
+                $('.imagetitle').html($(this).find('img').attr('alt'));
+                $('#imagemodal').modal('show');
+            });
+        });
+    </script>
 @stop
