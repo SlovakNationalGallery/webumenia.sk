@@ -367,9 +367,22 @@ function()
     });
 
     Route::get('reprodukcie', function () {
-        $items_print   = Item::random(20, ['gallery' => 'Slovenská národná galéria, SNG']);
-        $items_digital = Item::random(20, ['is_free' => true]);
-        return view('reprodukcie', ['items_print' => $items_print, 'items_digital' => $items_digital]);
+        $collection = Collection::find('55');
+
+        if ($collection) {
+            $items_recommended   = $collection->items()->inRandomOrder()->take(20)->get();
+        } else {
+            $items_recommended   = Item::random(20, ['gallery' => 'Slovenská národná galéria, SNG']);
+        }
+
+        $items = Item::random(20, ['gallery' => 'Slovenská národná galéria, SNG']);
+        $total = formatNum($items->total());
+
+        return view('reprodukcie', [
+            'items_recommended' => $items_recommended,
+            'items' => $items,
+            'total' => $total,
+        ]);
     });
 });
 

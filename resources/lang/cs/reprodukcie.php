@@ -8,20 +8,19 @@ return array(
     |--------------------------------------------------------------------------
     */
     'title'             => 'reprodukce',
-    'lead'              => 'Na Webu umenia si můžete objednat reprodukce<br>více než <strong>30 000 děl</strong> ze sbírek <strong>Slovenské národní galerie</strong><br>v <a href="#print"><strong>tištěné</strong></a> nebo <a href="#digital"><strong>digitální</strong></a> podobě.',
+    'lead'              => 'Na Webu umenia si můžete objednat reprodukce<br><strong>:total děl</strong> ze sbírek <strong>Slovenské národní galerie</strong><br>v <a href="#print"><strong>tištěné</strong></a> nebo <a href="#digital"><strong>digitální</strong></a> podobě.',
     'info_title'        => 'Důležité informace',
     'print_heading'     => 'Tištěné Reprodukce',
     'print_body'        => '<p>Tištěnou reprodukci si objednáte pomocí tlačítka <strong>objednat reprodukci</strong> na stránce konkrétního díla. </p>
                            <p>Cena reprodukce závisí na rozměru a typu zpracování, které si zvolíte při vyplnění objednávky.</p>
                            <p>Tištěnou reprodukci lze objednat pouze pro <strong>díla ze sbírek Slovenské národní galerie</strong>, které jsou <strong>zdigitalizovány</strong> (s možností zoom).</p>
                            <p>Standardní lhůta vyřízení objednávky je <strong>30 dní</strong>.</p>
-                           <p>V případě delší čekací lhůty Vás systém automaticky informuje při vyplňování on-line objednávky.</p>
                            <p>Momentálně je možné vyzvednout reprodukce pouze osobně v <a href="https://www.sng.sk/sk/bratislava/navsteva/kde-nas-najdete/knihkupectvo-ex-libris">knihkupectví Ex Libris</a> v prostorách SNG na Náměstí Ľ. Štúra 4 v Bratislavě nebo v pokladně <a href="https://www.sng.sk/sk/zvolen/navsteva/kde-nas-najdete">Zvolenského zámku – Námestie SNP 594/1</a>.</p>',
     'print_recommended' => 'Doporučujeme',
     'print_list'        => '<ul>
                               <li>Výtvarná díla <strong>netiskneme v původní velikosti</strong>, aby nedošlo k záměně s originálem. Při tisku díla zachováváme původní poměr stran, barevnost i signaturu. Maximální možný rozměr&nbsp;reprodukce je dvojnásobek rozměrů originálu.</li>
                               <li>Vhodný <strong>typ papíru a inkoustu vybírají pracovníci SNG</strong> podle výtvarné techniky a materiálu díla v objednávce.</li>
-                              <li>Tištěné reprodukce je možné použít pouze k <strong>soukromým účelům</strong>. V případě zájmu použít tištěné reprodukce ke komerčnímu účelu (např. jako dekoraci restaurace), vyřízení objednávky probíhá obdobně jako u digitální reprodukce (viz níže). Použití tištěné reprodukce ke komerčním účelům bez předešlé konzultace se Slovenskou národní galerií může vést ke smluvní pokutě.</li>
+                              <li>Tištěné reprodukce je možné použít pouze k <strong>soukromým účelům</strong>. V případě zájmu použít tištěné reprodukce ke komerčnímu účelu (např. jako dekoraci restaurace), vyřízení objednávky probíhá obdobně jako u digitální reprodukce (viz níže). Použití tištěné reprodukce ke komerčním účelům bez předešlé konzultace se Slovenskou národní galerií může vést k <strong>porušení zákona.</strong></li>
                               <li>Po výběru díla, vyplnění údajů a odeslání objednávky Vám pošleme <strong>e-mail s podrobnějšími informacemi</strong> o objednávce.</li>
                               <li>•	Chcete-li si objednat nejen tištěné, ale i digitální reprodukce, udělejte <strong>zvlášť objednávku pro každý typ</strong>.</li>
                             </ul>',
@@ -44,7 +43,7 @@ return array(
                             <p>Čas nutný k vyřízení objednávky závisí na autorské situaci konkrétních děl a v některých případech může vyžadovat i několik týdnů. Doporučujeme proto digitální reprodukce <strong>objednat s dostatečným předstihem.</strong></p>',
     'digital_examples'  => 'Příklady použití digitálních reprodukcí',
     'digital_list'      => '<ul>
-                              <li>•	Každé poskytnutí digitální reprodukce je <strong>podmíněno podepsáním smlouvy</strong>, která specifikuje účel jejího použití.&nbsp;Odkaz na stažení obrázků ze serveru SNG posíláme až po obdržení podepsané smlouvy (nafocené, naskenované nebo zaslané poštou).</li>
+                              <li>•	Každé poskytnutí digitální reprodukce je <strong>podmíněno podepsáním smlouvy</strong>, která specifikuje účel použití.&nbsp;Odkaz na stažení obrázků ze serveru SNG posíláme až po obdržení podepsané smlouvy (nafocené, naskenované nebo zaslané poštou). Použití digitální reprodukce k jinému účelu, jako specifikuje smlouva o poskytnutí, může vést k <strong>porušení zákona</strong>.</li>
                               <li>•	Digitální reprodukce děl spravovaných jinými galeriemi poskytujeme pouze po předložení písemného souhlasu příslušné instituce. Název galerie spravující příslušné dílo je uveden v položce <strong>„Galéria“</strong> v informacích o díle.</li>
                               <li>•	Chcete-li objednat tištěné digitální reprodukce, vytvořte <strong>samostatně objednávku pro každý typ.</strong>       </li>
                             </ul>',

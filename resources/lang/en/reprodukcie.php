@@ -8,19 +8,19 @@ return array(
     |--------------------------------------------------------------------------
     */
     'title'             => 'Reproductions',
-    'lead'              => 'On Web umenia you can order reproductions of <br>more than <strong>30 000 artworks</strong> from the collections of the <strong>Slovak National Gallery</strong><br>in <a href="#print"><strong>print</strong></a> or <a href="#digital"><strong>digital</strong></a> formats.',
+    'lead'              => 'On Web umenia you can order reproductions of <br><strong>:total artworks</strong> from the collections of the <strong>Slovak National Gallery</strong><br>in <a href="#print"><strong>print</strong></a> or <a href="#digital"><strong>digital</strong></a> formats.',
     'info_title'        => 'Good to know',
     'print_heading'     => 'Printed reproductions',
     'print_body'        => '<p>You can order a printed reproduction by clicking the <strong>order reproduction</strong> button on the artwork detail page. The artwork will then be added to the cart.</p>
                            <p>The price of the reproduction depends on the format, which you can choose on the order page.</p>
                            <p>You can only order printed reproductions of artworks from the collections of the Slovak National Gallery which were already <strong>digitized</strong> and are available at high resolution.</p>
-                           <p>Orders usually take up to <strong>30 days</strong> to process. In the case of an expected delay, a warning will be displayed on the order page.</p>
-                           <p>Currently, the reproductions can only be retrieved in person, either in <a href="https://www.sng.sk/en/bratislava/visiting-us/how-to-find-us/ex-libris-bookshop">Ex Libris bookstore</a> in Esterházy palace in Bratislava, or at the ticket office of the <a href="https://www.sng.sk/en/zvolen/visiting-us/how-to-find-us">Zvolen Castle</a>.</p>',
+                           <p>Orders usually take up to <strong>30 days</strong> to process.</p>
+                           <p>Currently, the prints can only be retrieved in person, either in <a href="https://www.sng.sk/en/bratislava/visiting-us/how-to-find-us/ex-libris-bookshop">Ex Libris bookstore</a> in Esterházy palace in Bratislava, or at the ticket office of the <a href="https://www.sng.sk/en/zvolen/visiting-us/how-to-find-us">Zvolen Castle</a>.</p>',
     'print_recommended' => 'Recommended',
     'print_list'        => '<ul>
                               <li>We do not print reproductions in their <strong>"true" size</strong> to avoid mistaking the reproduction for its original artwork. We keep the original format ratio, colors, and signature. The maximum size of the reproduction is twice the size of the original artwork.</li>
                               <li>The <strong>type of paper and ink is chosen by specialists at the Slovak National Gallery</strong>, according to the technique and material of the artwork.</li>
-                              <li>Printed reproductions can only be used for <strong>private purposes</strong>. If you would like to use prints for commercial purposes (e.g. decoration of a restaurant), the order will be processed as a digital reproduction (see below). The use of printed reproduction for a commercial purpose without a previous consultation with the Slovak National Gallery may result in a fine.</li>
+                              <li>Printed reproductions can only be used for <strong>private purposes</strong>. If you would like to use prints for commercial purposes (e.g. decoration of a restaurant), the order will be processed as a digital reproduction (see below). The use of printed reproduction for a commercial purpose without a previous consultation with the Slovak National Gallery may result in <strong>breaking of copyright laws</strong>.</li>
                               <li>You will receive an <strong>automatic e-mail with detailed information</strong> after placing an order.</li>
                               <li>If you want to order both printed and digital reproductions, please make a <strong>separate order for each type</strong>.</li>
                             </ul>',
@@ -43,7 +43,7 @@ return array(
                             <p>The required time to process an order depends on the copyright situation and can be up to several weeks. We thus recommend <strong>ordering digital reproductions sufficiently in advance</strong>.</p>',
     'digital_examples'  => 'Examples of digital reproduction use',
     'digital_list'      => '<ul>
-                              <li>Before receiving a digital reproduction, the <strong>applicant must sign an agreement</strong>, which is provided by the Slovak National Gallery and specifies the purpose of use.&nbsp;The signed agreement can be sent by post or scanned via e-mail.</li>
+                              <li>Before receiving a digital reproduction, the <strong>applicant must sign an agreement</strong>, which is provided by the Slovak National Gallery and specifies the purpose of use.&nbsp;The signed agreement can be sent by post or scanned via e-mail. The use of digital reproduction for a purpose other than the one stated in the contract may result in <strong>breaking of copyright laws</strong>.</li>
                               <li>We provide digital reproductions from the collections of other galleries only after receiving a confirmation from the respective institution. You can see the gallery that owns the artwork in the <strong>„Gallery“</strong> field on the artwork page.</li>
                               <li>If you want to order both printed and digital reproductions, please make a <strong>separate order for each type</strong>.</li>
                             </ul>',
