@@ -90,15 +90,15 @@ class Authority extends Model
 
         static::created(function ($authority) {
 
-            $authority->index();
+            $authority->fresh()->index();
             foreach ($authority->items as $item) {
-                $item->index();
+                $item->fresh()->index();
             }
         });
 
         static::updated(function ($authority) {
 
-            $authority->index();
+            $authority->fresh()->index();
 
         });
 
@@ -378,9 +378,7 @@ class Authority extends Model
         $client =  $this->getElasticClient();
         $elastic_translatable = \App::make('ElasticTranslatableService');
 
-        foreach (config('translatable.locales') as $locale) {
-
-            $authority_translated = $this->getTranslation($locale);
+        foreach ($this->translations as $authority_translated) {
 
             $data = [
                 // non-tanslatable attributes:
@@ -407,7 +405,7 @@ class Authority extends Model
             ];
 
             $client->index([
-                'index' => $elastic_translatable->getIndexForLocale($locale),
+                'index' => $elastic_translatable->getIndexForLocale($authority_translated->locale),
                 'type' =>  self::ES_TYPE,
                 'id' => $this->id,
                 'body' => $data,
