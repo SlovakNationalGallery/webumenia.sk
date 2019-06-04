@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [1.8.1] - 2019-05-04
 ### Fixed
 - infinite recursion on Item/Authority index
 
