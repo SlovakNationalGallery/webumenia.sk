@@ -8,6 +8,10 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - Improved reproduction images and enabled ReproductionsPage in NavBar
 
+## [1.8.1] - 2019-05-04
+### Fixed
+- infinite recursion on Item/Authority index
+
 ## [1.8.0] - 2019-03-12
 ### Fixed
 - Item::isFree conditions priority
