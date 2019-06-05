@@ -8,6 +8,9 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - Improved reproduction images and enabled ReproductionsPage in NavBar
 
+### Fixed
+- Extend memory limit on composer run via docker
+
 ## [1.8.1] - 2019-05-04
 ### Fixed
 - infinite recursion on Item/Authority index
