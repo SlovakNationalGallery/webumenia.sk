@@ -848,7 +848,7 @@ class Item extends Model
                 'created_at' => $this->created_at->format('Y-m-d H:i:s'),
                 'has_image' => (bool)$this->has_image,
                 'has_iip' => (bool)$this->hasZoomableImages(),
-                'free_from' => $this->freeFrom(),
+                'is_free' => $this->isFree(),
                 'authority_id' => $this->relatedAuthorityIds(),
                 'view_count' => $this->view_count,
                 'color_descriptor' => $this->color_descriptor,
@@ -907,12 +907,7 @@ class Item extends Model
     public static function getFilterParams(array $attributes) {
         $filter = [];
         foreach ($attributes as $name => $value) {
-            if ($name === 'is_free') {
-                $op = $value ? 'lte' : 'gt';
-                $filter['and'][]['range']['free_from'][$op] = time();
-            } else {
-                $filter['and'][]['term'][$name] = $value;
-            }
+            $filter['and'][]['term'][$name] = $value;
         }
 
         return $filter;

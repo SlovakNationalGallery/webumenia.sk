@@ -10,7 +10,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Fixed
 - Extend memory limit on composer run via docker
-- change item's is_free to time-independent free_from var in elasticsearch
+- refactor Item::isFree method
 
 ## [1.8.1] - 2019-05-04
 ### Fixed

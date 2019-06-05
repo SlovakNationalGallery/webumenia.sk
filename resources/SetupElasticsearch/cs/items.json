@@ -144,8 +144,8 @@
       "has_iip" : {
         "type": "boolean"
       },
-      "free_from": {
-        "type": "long"
+      "is_free" : {
+        "type": "boolean"
       },
       "free_download" : {
         "type": "boolean"
