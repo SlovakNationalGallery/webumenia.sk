@@ -98,10 +98,18 @@ variants by editing that variable.
 	```
 	docker-compose exec php php artisan es:setup
 	```  
-7. visit http://localhost:8080 in your browser to have a look  
+7. visit http://localhost:8080 in your browser to have a look
 
-to stop the dockerized application: `docker-compose down`  
+    to stop the dockerized application: `docker-compose down`
 
+8. run all tests
+    ```
+    ./test.sh
+    ```
+   or with command line options (see: <https://devdocs.io/phpunit~4/textui>)
+    ```
+    ./test.sh --filter ViewTest
+    ```
 
 ## Harvesting Data
 
