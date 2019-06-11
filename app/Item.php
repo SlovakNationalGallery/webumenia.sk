@@ -35,6 +35,7 @@ class Item extends Model
         'title',
         'description',
         'description_source',
+        'description_source_link',
         'work_type',
         'work_level',
         'topic',
