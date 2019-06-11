@@ -34,6 +34,7 @@ class Item extends Model
     public $translatedAttributes = [
         'title',
         'description',
+        'description_source',
         'work_type',
         'work_level',
         'topic',
