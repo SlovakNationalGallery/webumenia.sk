@@ -1,0 +1,10 @@
+{
+    "name": "ArtworkGridItem",
+    "data": {
+        "search": null
+    },
+    "data_calls" : {
+        "item": "return App\\Item::random(1, ['has_image' => 'true'])->first();"
+    },
+    "usage_notes": "A grid item that represents an artwork with basic meta data and link to zoom view."
+}
