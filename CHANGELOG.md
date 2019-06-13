@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Added
 - map all datings in item harvester
+- do not delete harvested items on harvest deletion
 
 ### Added
 - Improved reproduction images and enabled ReproductionsPage in NavBar
