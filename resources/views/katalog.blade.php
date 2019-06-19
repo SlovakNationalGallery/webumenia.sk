@@ -145,7 +145,11 @@
                 <div class="col-sm-12 isotope-wrapper">
                     <div id="iso">
                 	@foreach ($items as $i=>$item)
-    	            @include('components.artwork_grid_item', ['item' => $item, 'search' => $search])
+    	            @include('components.artwork_grid_item', [
+                        'item' => $item,
+                        'isotope_item_selector_class' => 'item',
+                        'class_names' => 'col-md-3 col-sm-4 col-xs-6',
+                    ])
                 	@endforeach
                     </div>
                     <div class="col-sm-12 text-center">
@@ -178,10 +182,11 @@
 
 <script type="text/javascript">
 
-// start with isotype even before document is ready
-$('.isotope-wrapper').each(function(){
-    var $container = $('#iso', this);
-    spravGrid($container);
+// start with isotype even before document is ready    
+var $container = $('#iso');
+$container.isotope({
+    itemSelector: '.item',
+    layoutMode: 'masonry'
 });
 
 $(document).ready(function(){
@@ -263,10 +268,11 @@ $(document).ready(function(){
         $('#filter').submit();
     });
 
-    var $container = $('#iso');
-
     $( window ).resize(function() {
-        spravGrid($container);
+        $container.isotope({
+            itemSelector: '.item',
+            layoutMode: 'masonry'
+        });
     });
 
     $container.infinitescroll({

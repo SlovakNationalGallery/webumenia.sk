@@ -32,6 +32,7 @@ return array(
     'item_attr_place'          => 'geografická oblasť',
 
     'more-items_related-artworks' => 'súvisiace diela',
+    'more-items_related-artworks_by-data' => 'podľa názvu, autora/autorky, tagov...',
     'more-items_similar-colors' => 'vyhľadávať podľa farieb diela',
 
     'modal_license_body-content'        => '<p><strong>Vami zvolené dielo by sa malo začať v krátkom čase automaticky sťahovať.</strong></p>

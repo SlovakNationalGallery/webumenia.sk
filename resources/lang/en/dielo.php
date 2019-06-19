@@ -32,6 +32,7 @@ return array(
     'item_attr_place'          => 'geographic location',
 
     'more-items_related-artworks' => 'related artworks',
+    'more-items_related-artworks_by-data' => 'by title, artist, tags...',
     'more-items_similar-colors' => 'search by similar colours',
 
     'modal_license_body-content'        => '<p><strong>Your selected artwork should start downloading automatically.</strong></p>

@@ -32,6 +32,7 @@ return array(
     'item_attr_place'          => 'místo vzniku',
 
     'more-items_related-artworks' => 'související díla',
+    'more-items_related-artworks_by-data' => 'podle názvu, autora/autorky, tagů...',
     'more-items_similar-colors' => 'vyhľadávať podľa farieb diela',
 
     'modal_license_body-content'        => '<p><strong>Vámi zvolené dílo by se mělo v krátkém čase začít automaticky stahovat.</strong></p>
