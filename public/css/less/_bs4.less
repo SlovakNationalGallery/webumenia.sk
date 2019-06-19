@@ -1,0 +1,54 @@
+/* Bootstrap 4 utilities (forward-compatible)
+ * 
+ * These CSS rules have been cherrypicked, when needed, from Bootstrap 4 to
+ * provide BS4 functionality under the exact BS4 classnames,
+ * while code base is not yet upgraded from BS3 to BS4.
+ * When upgraded to BS4, this entire file can be removed,
+ * while HTML classes stay in place.
+ */
+
+// Spacing
+// https://getbootstrap.com/docs/4.3/utilities/spacing/
+.px-0 {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+@media(min-width: @screen-sm-min) {
+  .pl-sm-5 {
+    padding-left: 3rem !important;
+  }
+  .pr-sm-5 {
+    padding-right: 3rem !important;
+  }
+}
+
+.mb-0 { margin-bottom: 0 !important; }
+.mb-1 { margin-bottom: 0.25rem !important; }
+.mb-2 { margin-bottom: 0.5rem !important; }
+.mb-3 { margin-bottom: 1rem !important; }
+.mb-4 { margin-bottom: 1.5rem !important; }
+.mb-5 { margin-bottom: 3rem !important; }
+
+.mt-0 { margin-top: 0 !important; }
+.mt-1 { margin-top: 0.25rem !important; }
+.mt-2 { margin-top: 0.5rem !important; }
+.mt-3 { margin-top: 1rem !important; }
+.mt-4 { margin-top: 1.5rem !important; }
+.mt-5 { margin-top: 3rem !important; }
+
+// Sizing
+// https://getbootstrap.com/docs/4.3/utilities/sizing/
+.w-25 { width: 25% !important; }
+.w-50 { width: 50% !important; }
+.w-75 { width: 75% !important; }
+.w-100 { width: 100% !important; }
+.w-auto { width: auto !important; }
+
+// Position
+// https://getbootstrap.com/docs/4.3/utilities/position/
+.position-static { position: static !important; }
+.position-relative { position: relative !important; }
+.position-absolute { position: absolute !important; }
+.position-fixed { position: fixed !important; }
+.position-sticky { position: sticky !important; }

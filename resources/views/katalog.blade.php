@@ -82,9 +82,9 @@
             @if ($color)
             <div class="row">
                 <div class="col-sm-12">
-                    <label for="color_filter" class="w-100 mt-10 mb-0 light">
+                    <label for="color_filter" class="w-100 mt-3 mb-0 light">
                         {{ utrans('katalog.filters_color') }}:
-                        @include('components.color_list', ['colors' => [array('hex' => '#'.$color, 'amount' => '100%')], 'include_clear' => true, 'id' => 'color-filter', 'class_names' => 'mt-5 mb-0'])
+                        @include('components.color_list', ['colors' => [array('hex' => '#'.$color, 'amount' => '100%')], 'include_clear' => true, 'id' => 'color-filter', 'class_names' => 'mt-2 mb-0'])
                         {!! Form::hidden('color', @$input['color'], ['id'=>'color']) !!}
                     </label>
                 </div>
