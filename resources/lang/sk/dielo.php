@@ -32,8 +32,8 @@ return array(
     'item_attr_place'          => 'geografická oblasť',
 
     'more-items_related-artworks' => 'súvisiace diela',
-    'more-items_related-artworks_by-data' => 'podľa názvu, autora/autorky, tagov...',
-    'more-items_similar-colors' => 'vyhľadávať podľa farieb diela',
+    'more-items_related-artworks_by-data' => 'podľa názvu, autora / autorky, tagov...',
+    'more-items_similar-colors' => 'diela s podobnými farbami',
 
     'modal_license_body-content'        => '<p><strong>Vami zvolené dielo by sa malo začať v krátkom čase automaticky sťahovať.</strong></p>
                                             <p>Digitálne reprodukcie voľných diel na tejto stránke sú sprístupnené ako <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" class="underline">verejné vlastníctvo (public domain)</a>. Môžete si ich voľne stiahnuť vo vysokom rozlíšení a využívať na súkromné aj komerné účely &ndash; kopírovať, zdieľať i upravovať.</p>
