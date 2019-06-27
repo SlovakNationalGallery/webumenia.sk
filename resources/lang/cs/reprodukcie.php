@@ -23,7 +23,7 @@ return array(
                               <li>Tištěné reprodukce je možné použít pouze k <strong>soukromým účelům</strong>. V případě zájmu použít tištěné reprodukce k jiným účelům, např. výstavnímu nebo komerčnímu (dekorace restaurace, klientské zóny aj.) probíhá vyřízení objednávky obdobně jako u digitální reprodukce (viz níže). Použití tištěné reprodukce ke komerčním účelům bez předešlé konzultace se Slovenskou národní galerií může vést k <strong>porušení zákona.</strong></li>
                               <li>Uvedené <strong>ceny představují náhradu nákladů</strong> spojených se zhotovením reprodukcí – tisk, materiál atd.</li>
                               <li>Po výběru díla, vyplnění údajů a odeslání objednávky Vám pošleme <strong>e-mail s podrobnějšími informacemi</strong> o objednávce.</li>
-                              <li>•	Chcete-li si objednat nejen tištěné, ale i digitální reprodukce, udělejte <strong>zvlášť objednávku pro každý typ</strong>.</li>
+                              <li>Chcete-li si objednat nejen tištěné, ale i digitální reprodukce, udělejte <strong>zvlášť objednávku pro každý typ</strong>.</li>
                             </ul>',
     'print_offer_until'                    => 'do',
     'print_offer_per-piece'                => 'eur / kus',
@@ -48,9 +48,9 @@ return array(
     'digital_example_3'  => 'Vzdělávací pomůcky',
     'digital_example_4'  => 'Tapety do interiéru s použitím autorsky volných děl',
     'digital_list'      => '<ul>
-                              <li>•	Každé poskytnutí digitální reprodukce je <strong>podmíněno podepsáním smlouvy</strong>, která specifikuje účel použití.&nbsp;Odkaz na stažení obrázků ze serveru SNG posíláme až po obdržení podepsané smlouvy (nafocené, naskenované nebo zaslané poštou). Použití digitální reprodukce k jinému účelu, jako specifikuje smlouva o poskytnutí, může vést k <strong>porušení zákona</strong>.</li>
-                              <li>•	Digitální reprodukce děl spravovaných jinými galeriemi poskytujeme pouze po předložení písemného souhlasu příslušné instituce. Název galerie spravující příslušné dílo je uveden v položce <strong>„Galéria“</strong> v informacích o díle.</li>
-                              <li>•	Chcete-li objednat tištěné digitální reprodukce, vytvořte <strong>samostatně objednávku pro každý typ.</strong>       </li>
+                              <li>Každé poskytnutí digitální reprodukce je <strong>podmíněno podepsáním smlouvy</strong>, která specifikuje účel použití.&nbsp;Odkaz na stažení obrázků ze serveru SNG posíláme až po obdržení podepsané smlouvy (nafocené, naskenované nebo zaslané poštou). Použití digitální reprodukce k jinému účelu, jako specifikuje smlouva o poskytnutí, může vést k <strong>porušení zákona</strong>.</li>
+                              <li>Digitální reprodukce děl spravovaných jinými galeriemi poskytujeme pouze po předložení písemného souhlasu příslušné instituce. Název galerie spravující příslušné dílo je uveden v položce <strong>„Galéria“</strong> v informacích o díle.</li>
+                              <li>Chcete-li objednat tištěné digitální reprodukce, vytvořte <strong>samostatně objednávku pro každý typ.</strong>       </li>
                             </ul>',
     'digital_choice'    => 'Zvolte si reprodukce',
     'more-items_button' => 'zobrazit všechny'
