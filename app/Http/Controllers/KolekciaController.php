@@ -23,11 +23,12 @@ class KolekciaController extends Controller
 
         if ($sort_by == 'name') {
             $collections = $collections
-                ->with('translations')
                 ->join('collection_translations as t', function ($join) {
                     $join->on('collections.id', '=', 't.collection_id')
                         ->where('t.locale', '=', config('app.locale'));
                 })
+                ->groupBy('collections.id')
+                ->select(['collections.*', 't.name', 't.text'])
                 ->orderBy('t.name', 'asc');
         } else {
             $collections = $collections->orderBy($sort_by, 'desc');
