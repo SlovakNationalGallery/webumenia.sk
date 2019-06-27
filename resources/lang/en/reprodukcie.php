@@ -38,11 +38,15 @@ return array(
     'digital_heading'   => 'Digital reproductions',
     'digital_body'      => '<p>We provide digital reproductions of artworks from the collections of the Slovak National Gallery for specific purposes. Conditions for providing a digital reproduction depend on the selected artwork and purpose of use.</p>
                             <p>In accordance with copyright laws, <strong>the Slovak National Gallery does not provide digital reproductions of protected artworks for common private purposes (decoration, gifts etc.)</strong>.</p>
-                            <p>We usually provide reproductions without a fee for <strong>research purposes</strong> (papers, scientific publications) and <strong>educational purposes</strong> (educational tools, lectures). The price for <strong>commercial purposes</strong> (propagation materials, commercial publications) is decided individually according to the circumstances.</p>
+                            <p>We usually provide reproductions without a fee for <strong>research purposes</strong> (papers, scientific publications) and <strong>educational purposes</strong> (educational tools, lectures). The price for <strong>commercial purposes</strong> (products, propagation materials, commercial publications) is decided individually according to the circumstances.</p>
                             <p>When providing reproductions of copyright protected artworks, the Slovak National Gallery acts with regard to the artwork license, the will of the artist or heirs and a historical context of the copyright law.</p>
-                            <p>The <strong>copyright of an artwork can sometimes be managed by other parties</strong>, such as LITA - the civil association of authors, or relatives of the artist. In such cases, the reproduction request has to be consulted accordingly.</p>
+                            <p>The <strong>copyright of an artwork can sometimes be managed by other parties</strong>, such as LITA – the civil association of authors, or relatives of the artist. The reproduction request then has to be consulted accordingly. In the case that your order contains such artworks, we will inform you.</p>
                             <p>The required time to process an order depends on the copyright situation and can be up to several weeks. We thus recommend <strong>ordering digital reproductions sufficiently in advance</strong>.</p>',
     'digital_examples'  => 'Examples of digital reproduction use',
+    'digital_example_1'  => 'Graphic and print design',
+    'digital_example_2'  => 'Printed publications',
+    'digital_example_3'  => 'Educational tools',
+    'digital_example_4'  => 'Wallpapers using public domain artworks',
     'digital_list'      => '<ul>
                               <li>Before receiving a digital reproduction, the <strong>applicant must sign an agreement</strong>, which is provided by the Slovak National Gallery and specifies the purpose of use.&nbsp;The signed agreement can be sent by post or scanned via e-mail. The use of digital reproduction for a purpose other than the one stated in the contract may result in <strong>breaking of copyright laws</strong>.</li>
                               <li>We provide digital reproductions from the collections of other galleries only after receiving a confirmation from the respective institution. You can see the gallery that owns the artwork in the <strong>„Gallery“</strong> field on the artwork page.</li>
