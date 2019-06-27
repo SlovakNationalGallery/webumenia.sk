@@ -36,14 +36,18 @@ return array(
     'print_offer_poster_description'       => '<p>Reprodukcia je vytlačená na špeciálny, vysokokvalitný, mapový papier rozmeru A1.</p><p>Momentálne ponúkame v tejto forme iba reprodukcie <a href="https://www.webumenia.sk/kolekcia/144">plagátov zo zbierok SNG</a>.</p>',
     'digital_heading'   => 'Digitálne Reprodukcie',
     'digital_body'      => '<p>Poskytnutie digitálnych reprodukcií diel posudzujeme individuálne podľa konkrétneho diela a účelu použitia.</p>
-                            <p>V súvislosti s ochranou autorských práv <strong>Slovenská národná galéria neposkytuje digitálne reprodukcie chránených diel na všeobecné súkromné účely (dekorácia, dar)</strong>.</p>
-                            <p>Na <strong>výskumný účel</strong> (školské a vedecké práce, biografie) a <strong>edukačný účel</strong> (vzdelávacie pomôcky) poskytujeme reprodukcie zväčša bezplatne. Na <strong>komerčný účel</strong> (publikácie, propagačné materiály) sa cena odvíja od viacerých faktorov a hodnotí sa individuálne.</p>
+                            <p>V súvislosti s ochranou autorských práv <strong>Slovenská národná galéria neposkytuje digitálne reprodukcie chránených diel na všeobecné súkromné účely (dekorácia, dar apod.)</strong>.</p>
+                            <p>Na <strong>výskumný účel</strong> (školské a vedecké práce, biografie) a <strong>edukačný účel</strong> (vzdelávacie pomôcky) poskytujeme reprodukcie zväčša bezplatne. Pre <strong>komerčný účel</strong> (publikácie, produkty, propagačné materiály) sa cena odvíja od viacerých faktorov a hodnotí sa individuálne.</p>
                             <p>Pri poskytovaní diel, ktoré sú chránené autorským právom (nie sú voľné), postupuje SNG s ohľadom na licenciu, právo na použitie na základe prejavu vôle autora a s ohľadom na historický kontext vývoja autorského práva.</p>
-                            <p><strong>Autorské práva na diela v objednávke môže vlastniť, resp. spravovať aj iný subjekt</strong>, napr. autorská spoločnosť LITA, autori, dedičia. V takých prípadoch je potrebné konzultovať&nbsp; povolenie na použitie s príslušným subjektom.</p>
+                            <p><strong>Autorské práva na diela v objednávke môže vlastniť, resp. spravovať aj iný subjekt</strong>, napr. autorská spoločnosť LITA, autori, dedičia. V takých prípadoch je potrebné konzultovať povolenie na použitie s príslušným subjektom. Ak sa vo vašej objednávke také diela vyskytnú, budeme vás informovať.</p>
                             <p>Čas potrebný na vybavenie objednávky závisí od autorskej situácie konkrétnych diel a môže v niektorých prípadoch vyžadovať aj niekoľko týždňov. Odporúčame preto digitálne reprodukcie <strong>objednať v dostatočnom predstihu.</strong></p>',
     'digital_examples'  => 'Príklady použitia digitálnych reprodukcii',
+    'digital_example_1'  => 'Tlačené materiály a dizajn produktov',
+    'digital_example_2'  => 'Tlačené publikácie',
+    'digital_example_3'  => 'Vzdelávacie pomôcky',
+    'digital_example_4'  => 'Tapeta do interiéru s použitím autorsky volných diel',
     'digital_list'      => '<ul>
-                              <li>Každé poskytnutie digitálnej reprodukcie je <strong>podmienené podpísaním zmluvy</strong>, ktorá špecifikuje účel použitia.&nbsp;Odkaz na stiahnutie obrázkov zo servera SNG posielame až po obdržaní podpísanej zmluvy (odfotenej, oskenovanej alebo zaslanej poštou). Použitie digitálnej reprodukcie na iný účel, ako bolo špecifikované v zmluve o poskytnutí, môže viesť k <strong>porušeniu zákona</strong>.</li>
+                              <li>Každé poskytnutie digitálnej reprodukcie je <strong>podmienené podpísaním zmluvy</strong>, ktorá špecifikuje účel použitia.&nbsp;Odkaz na stiahnutie obrázkov zo servera SNG posielame až po prijatí podpísanej zmluvy (odfotenej, oskenovanej alebo zaslanej poštou). Použitie digitálnej reprodukcie na iný účel, ako bolo špecifikované v zmluve o poskytnutí, môže viesť k <strong>porušeniu zákona</strong>.</li>
                               <li>Digitálne reprodukcie diel spravovaných inými galériami poskytujeme iba po predložení písomného súhlasu príslušnej inštitúcie. Názov galérie spravujúcej dotyčné dielo je uvedené v položke <strong>„Galéria“</strong> v informáciách o diele.</li>
                               <li>Ak si chcete objednať tlačené aj digitálne reprodukcie, vytvorte <strong>zvlášť objednávku pre každý typ.</strong>       </li>
                             </ul>',
