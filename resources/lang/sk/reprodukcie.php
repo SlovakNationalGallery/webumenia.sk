@@ -18,8 +18,9 @@ return array(
     'print_recommended' => 'Odporúčame',
     'print_list'        => '<ul>
                               <li>Výtvarné diela <strong>netlačíme v pôvodnej veľkosti</strong> aby nedošlo k zámene s originálom. Pri tlači diela zachovávame pôvodný pomer strán, farebnosť aj signatúru. Maximálny možný rozmer&nbsp;reprodukcie je dvojnásobok rozmerov originálu.</li>
-                              <li>Vhodný <strong>typ papiera a atramentu vyberajú pracovníci SNG</strong> podľa výtvarnej techniky a materiálu diela v objednávke.</li>
-                              <li>Tlačené reprodukcie je možné použiť iba na <strong>súkromný účel</strong>. V prípade záujmu použiť tlačené reprodukcie na komerčný účel (napr. ako dekoráciu reštaurácie), vybavenie objednávky prebieha podobne ako pri digitálnej reprodukcii (pozri nižšie). Použitie tlačenej reprodukcie na komerčný účel bez predošlej konzultácie so Slovenskou národnou galériou môže viesť k <strong>porušeniu zákona</strong>.</li>
+                              <li>Vhodný <strong>typ papiera, atramentu a farbu pasparty vyberajú pracovníci SNG</strong> podľa výtvarnej techniky a materiálu diela v objednávke.</li>
+                              <li>Tlačené reprodukcie je možné použiť iba na <strong>súkromný účel</strong>. V prípade záujmu použiť tlačené reprodukcie na iný účel, napr. výstavný alebo komerčný (dekoráciu reštaurácie, klientskej zóny ai.) prebieha vybavenie objednávky podobne ako pri digitálnej reprodukcii (pozri nižšie). Použitie tlačenej reprodukcie na komerčný účel bez predošlej konzultácie so Slovenskou národnou galériou môže viesť k <strong>porušeniu zákona</strong>.</li>
+                              <li>Uvedené <strong>ceny predstavujú náhradu nákladov</strong> spojených so zhotovením reprodukcií – tlač, materiál atď.</li>
                               <li>Po výbere diel, vyplnení údajov a odoslaní objednávky Vám pošleme <strong>e-mail s podrobnejšími informáciami</strong> o objednávke.</li>
                               <li>Ak si chcete objednať aj tlačené aj digitálne reprodukcie, vytvorte <strong>zvlášť objednávku pre každý typ</strong>.</li>
                             </ul>',
@@ -36,9 +37,9 @@ return array(
     'digital_heading'   => 'Digitálne Reprodukcie',
     'digital_body'      => '<p>Poskytnutie digitálnych reprodukcií diel posudzujeme individuálne podľa konkrétneho diela a účelu použitia.</p>
                             <p>V súvislosti s ochranou autorských práv <strong>Slovenská národná galéria neposkytuje digitálne reprodukcie chránených diel na všeobecné súkromné účely (dekorácia, dar)</strong>.</p>
-                            <p>Na <strong>výskumný účel</strong> (školské a vedecké práce, biografie) a <strong>edukačný účel</strong> (vzdelávacie pomôcky, učebnice) poskytujeme reprodukcie zväčša bezplatne. Na <strong>komerčný účel</strong> (články v tlači, publikácie, propagačné materiály) a na výstavy sa cena odvíja od viacerých faktorov a hodnotí sa individuálne.</p>
+                            <p>Na <strong>výskumný účel</strong> (školské a vedecké práce, biografie) a <strong>edukačný účel</strong> (vzdelávacie pomôcky) poskytujeme reprodukcie zväčša bezplatne. Na <strong>komerčný účel</strong> (publikácie, propagačné materiály) sa cena odvíja od viacerých faktorov a hodnotí sa individuálne.</p>
                             <p>Pri poskytovaní diel, ktoré sú chránené autorským právom (nie sú voľné), postupuje SNG s ohľadom na licenciu, právo na použitie na základe prejavu vôle autora a s ohľadom na historický kontext vývoja autorského práva.</p>
-                            <p>SNG nedisponuje právom na neobmedzené použitie svojich zbierkových predmetov. <strong>Autorské práva môže vlastniť, resp. spravovať aj iný subjekt</strong>, napr. autorská spoločnosť LITA, autori, dedičia. V takých prípadoch je potrebné konzultovať&nbsp; povolenie na použitie s príslušným subjektom.</p>
+                            <p><strong>Autorské práva na diela v objednávke môže vlastniť, resp. spravovať aj iný subjekt</strong>, napr. autorská spoločnosť LITA, autori, dedičia. V takých prípadoch je potrebné konzultovať&nbsp; povolenie na použitie s príslušným subjektom.</p>
                             <p>Čas potrebný na vybavenie objednávky závisí od autorskej situácie konkrétnych diel a môže v niektorých prípadoch vyžadovať aj niekoľko týždňov. Odporúčame preto digitálne reprodukcie <strong>objednať v dostatočnom predstihu.</strong></p>',
     'digital_examples'  => 'Príklady použitia digitálnych reprodukcii',
     'digital_list'      => '<ul>
