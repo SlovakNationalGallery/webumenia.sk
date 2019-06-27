@@ -42,10 +42,10 @@ return array(
                             <p><strong>Autorské práva na diela v objednávke môže vlastniť, resp. spravovať aj iný subjekt</strong>, napr. autorská spoločnosť LITA, autori, dedičia. V takých prípadoch je potrebné konzultovať povolenie na použitie s príslušným subjektom. Ak sa vo vašej objednávke také diela vyskytnú, budeme vás informovať.</p>
                             <p>Čas potrebný na vybavenie objednávky závisí od autorskej situácie konkrétnych diel a môže v niektorých prípadoch vyžadovať aj niekoľko týždňov. Odporúčame preto digitálne reprodukcie <strong>objednať v dostatočnom predstihu.</strong></p>',
     'digital_examples'  => 'Príklady použitia digitálnych reprodukcii',
-    'digital_example_1'  => 'Tlačené materiály a dizajn produktov',
+    'digital_example_1'  => 'Dizajn produktov',
     'digital_example_2'  => 'Tlačené publikácie',
     'digital_example_3'  => 'Vzdelávacie pomôcky',
-    'digital_example_4'  => 'Tapeta do interiéru s použitím autorsky volných diel',
+    'digital_example_4'  => 'Tapety do interiéru s použitím autorsky volných diel',
     'digital_list'      => '<ul>
                               <li>Každé poskytnutie digitálnej reprodukcie je <strong>podmienené podpísaním zmluvy</strong>, ktorá špecifikuje účel použitia.&nbsp;Odkaz na stiahnutie obrázkov zo servera SNG posielame až po prijatí podpísanej zmluvy (odfotenej, oskenovanej alebo zaslanej poštou). Použitie digitálnej reprodukcie na iný účel, ako bolo špecifikované v zmluve o poskytnutí, môže viesť k <strong>porušeniu zákona</strong>.</li>
                               <li>Digitálne reprodukcie diel spravovaných inými galériami poskytujeme iba po predložení písomného súhlasu príslušnej inštitúcie. Názov galérie spravujúcej dotyčné dielo je uvedené v položke <strong>„Galéria“</strong> v informáciách o diele.</li>
