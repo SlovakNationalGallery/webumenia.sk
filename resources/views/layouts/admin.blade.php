@@ -99,6 +99,11 @@
                             <a href="{!! URL::to('authority') !!}"><i class="fa fa-user fa-fw"></i> Autority</a>
                         </li>
                         @endif
+                        @if (Entrust::hasRole('admin'))
+                        <li>
+                            <a href="{!! URL::to('space') !!}"><i class="fa fa-map-marker fa-fw"></i> Výstavné priestory</a>
+                        </li>
+                        @endif
                         @if (Entrust::hasRole(['admin', 'editor']))
                         <li>
                             <a href="{!! URL::to('collection') !!}"><i class="fa fa-th-list fa-fw"></i> Kolekcie</a>
