@@ -519,4 +519,44 @@ class Authority extends Model
     protected function getElasticClient() {
         return app(Client::class);
     }
+
+    public static function anniversary()
+    {
+        $stored = Cache::get('authority_anniversary');
+        
+        if (!is_null($stored)) {
+        
+            $aniversaries = Authority::select(DB::raw("DISTINCT authorities.*,  timestampdiff(YEAR, STR_TO_DATE(authorities.birth_date, '%d.%m.%Y'), localtime()) as age"))
+                // enhance author with age and also make its value available for ordering
+                
+                
+                //  birth_date = so far funny values like SVK localized date(which this WHERE is targeted to) or only a year  ¯\_(ツ)_/¯
+                // -> where("birth_date", "LIKE", "%.%.%")  //  <- version for  any author
+                -> where("birth_date", "LIKE", "DATE_FORMAT( LOCALTIME(), '%d.%m%')")
+                
+                -> join("authority_item", "authority_item.authority_id", "=", "authorities.id")
+                -> join("items", function ($join) {
+                    $join->on("items.id", "=", "authority_item.item_id")
+                        ->where("items.has_image", "=", true);
+                })
+                
+                // order results by anniversaries - 100th with highest priority etc 
+                -> orderByRaw("CASE WHEN !MOD(age, 100) THEN 5
+                                    WHEN !MOD(age,  50) THEN 4
+                                    WHEN !MOD(age,  25) THEN 3
+                                    WHEN !MOD(age,  10) THEN 2
+                                    WHEN !MOD(age,   5) THEN 1
+                                END DESC, age DESC")
+                -> limit(1);
+
+                $aniversary = $aniversaries->get()->first();
+    
+            
+                // no need to query till midnight
+                Cache::put('authority_anniversary', $aniversary , strtotime('today midnight'));
+                return $aniversary;
+        }
+
+        return  $stored;
+    }
 }

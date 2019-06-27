@@ -14,6 +14,7 @@
 use App\Article;
 use App\Collection;
 use App\Item;
+use App\Authority;
 use App\Slide;
 use App\Order;
 use App\Color;
@@ -42,11 +43,15 @@ function()
     });
 
     Route::get('/', function () {
-
         $slides = Slide::published()->orderBy('id', 'desc')->get();
         $articles = Article::promoted()->published()->orderBy('published_date', 'desc')->get();
+        
+        $author = Authority::anniversary();
+        $item = Item::randomDaily($author ? ["authority_id" => $author->id ]: []);
 
         return view('intro', [
+            'author' => $author,
+            'item' => $item,
             'slides' => $slides,
             'articles' => $articles,
         ]);

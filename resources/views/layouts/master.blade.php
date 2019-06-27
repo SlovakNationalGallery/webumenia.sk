@@ -72,6 +72,10 @@
 		</div>
 	@endif
 
+	@hasSection('daily_art')
+		@yield('daily_art')
+	@endif
+	
 	@include('components.nav_bar')
 
 	<!-- Content -->

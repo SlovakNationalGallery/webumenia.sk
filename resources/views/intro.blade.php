@@ -31,6 +31,8 @@
 
 @section('content')
 
+@include('daily_art', array("item" => $item, "author" => $author))
+
 <div class="webumeniaCarousel">
     @foreach ($slides as $slide)
         <div class="gallery-cell"  style="background-image: url({!! $slide->image_path !!})">

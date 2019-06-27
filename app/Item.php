@@ -873,7 +873,7 @@ class Item extends Model
         }
     }
 
-    public static function random($size = 1, $custom_parameters = [])
+    public static function random($size = 1, $custom_parameters = [], $custom_sort = [])
     {
         $params = array();
         $random = json_decode('
@@ -883,7 +883,7 @@ class Item extends Model
 			    "params": {},
 			    "order": "asc"
 			 }}', true);
-        $params["sort"][] = $random;
+        $params["sort"][] = array_merge($random, $custom_sort);
         $params["query"]["filtered"]["filter"]["and"][]["term"]["has_image"] = true;
         $params["query"]["filtered"]["filter"]["and"][]["term"]["has_iip"] = true;
         foreach ($custom_parameters as $attribute => $value) {
@@ -891,6 +891,17 @@ class Item extends Model
         }
         $params["size"] = $size;
         return self::search($params);
+    }
+
+    public static function randomDaily($filter_params = [])
+    {
+        if (!Cache::has('item_daily')) {
+            $rd = self::random(1, $filter_params, ["view_count" => "asc"]) -> first();
+            Cache::put('item_daily', $rd, strtotime('today midnight'));
+            return $rd;
+        }
+
+        return Cache::get('item_daily');
     }
 
     public static function amount($custom_parameters = [])
