@@ -18,10 +18,26 @@ class KolekciaController extends Controller
         } else {
             $sort_by = 'created_at';
         }
-        $sort_order = ($sort_by == 'name') ? 'asc' : 'desc';
 
-        $collections = Collection::published()->with('user')->orderBy($sort_by, $sort_order)->paginate($per_page);
-        return view('kolekcie', array('collections'=>$collections, 'sort_by'=>$sort_by));
+        $collections = Collection::published()->with('user');
+
+        if ($sort_by == 'name') {
+            $collections = $collections
+                ->join('collection_translations as t', function ($join) {
+                    $join->on('collections.id', '=', 't.collection_id')
+                        ->where('t.locale', '=', config('app.locale'));
+                })
+                ->groupBy('collections.id')
+                ->select(['collections.*', 't.name', 't.text'])
+                ->orderBy('t.name', 'asc');
+        } else {
+            $collections = $collections->orderBy($sort_by, 'desc');
+        }
+
+        return view('kolekcie', [
+            'collections' => $collections->paginate($per_page),
+            'sort_by' => $sort_by
+        ]);
     }
 
     public function getDetail($id)
