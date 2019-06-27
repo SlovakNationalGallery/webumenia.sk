@@ -72,7 +72,7 @@
                             "img_full_url" => "/images/reprodukcie/full/format-3-ram.jpg",
                             "description" => trans('reprodukcie.print_offer_framed_description'),
                             "pricing_options" => [
-                                [trans('reprodukcie.print_offer_until')." <strong>A4</strong>",  "(21 x 29,7 cm)",   "45"],
+                                [trans('reprodukcie.print_offer_until')." <strong>A4</strong>",  "(21 x 29,7 cm)",   "48"],
                                 [trans('reprodukcie.print_offer_until')." <strong>A3+</strong>", "(32,9 x 48,3 cm)", "65"]
                             ]
                         ])
@@ -145,18 +145,18 @@
         </div>
         <div class="row bottom-space">
             <div class="col-xs-6">
-                <a href="/images/reprodukcie/full/digirepro-1.jpg" class="popup"><img class="img-responsive lazyload" data-src="/images/reprodukcie/digirepro-1.jpg" alt="{{trans('reprodukcie.digital_heading')}} 1"></a>
+                <a href="/images/reprodukcie/full/digirepro-1.jpg" class="popup"><img class="img-responsive lazyload" data-src="/images/reprodukcie/digirepro-1.jpg" alt="{{trans('reprodukcie.digital_example_1')}} 1"></a>
             </div>
             <div class="col-xs-6">
-                <a href="/images/reprodukcie/full/digirepro-2.jpg" class="popup"><img class="img-responsive lazyload" data-src="/images/reprodukcie/digirepro-2.jpg" alt="{{trans('reprodukcie.digital_heading')}} 2"></a>
+                <a href="/images/reprodukcie/full/digirepro-2.jpg" class="popup"><img class="img-responsive lazyload" data-src="/images/reprodukcie/digirepro-2.jpg" alt="{{trans('reprodukcie.digital_example_2')}} 2"></a>
             </div>
         </div>
         <div class="row bottom-space">
             <div class="col-xs-6">
-                <a href="/images/reprodukcie/full/digirepro-3.jpg" class="popup"><img class="img-responsive lazyload" data-src="/images/reprodukcie/digirepro-3.jpg" alt="{{trans('reprodukcie.digital_heading')}} 3"></a>
+                <a href="/images/reprodukcie/full/digirepro-3.jpg" class="popup"><img class="img-responsive lazyload" data-src="/images/reprodukcie/digirepro-3.jpg" alt="{{trans('reprodukcie.digital_example_3')}} 3"></a>
             </div>
             <div class="col-xs-6">
-                <a href="/images/reprodukcie/full/digirepro-4.jpg" class="popup"><img class="img-responsive lazyload" data-src="/images/reprodukcie/digirepro-4.jpg" alt="{{trans('reprodukcie.digital_heading')}} 4"></a>
+                <a href="/images/reprodukcie/full/digirepro-4.jpg" class="popup"><img class="img-responsive lazyload" data-src="/images/reprodukcie/digirepro-4.jpg" alt="{{trans('reprodukcie.digital_example_4')}} 4"></a>
             </div>
         </div>
     </div>
