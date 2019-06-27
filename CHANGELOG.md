@@ -2,15 +2,15 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [1.8.2] - 2019-06-27
 ### Added
 - map all datings in item harvester
 - do not delete harvested items on harvest deletion
-
-### Added
-- Improved reproduction images and enabled ReproductionsPage in NavBar
+- improve reproduction images and enabled ReproductionsPage in NavBar
 
 ### Fixed
-- Extend memory limit on composer run via docker
+- extend memory limit on composer run via docker
 - sort collections by name on frontend
 
 ## [1.8.1] - 2019-05-04
@@ -243,6 +243,7 @@ All notable changes to this project will be documented in this file[^1].
 - LICENSE from Public Domain into MIT
 
 [Unreleased]: https://github.com/SlovakNationalGallery/web-umenia-2/compare/master...develop
+[1.8.2]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/206
 [1.8.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/191
 [1.7.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/169
 [1.6.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/108
