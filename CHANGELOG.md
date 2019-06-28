@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 ### Added
+- daily art - small picture on intro page with artwork from celebrating author / or artwork of low view_count
+
+### Added
 - map all datings in item harvester
 - do not delete harvested items on harvest deletion
 
