@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - Extend memory limit on composer run via docker
 - sort collections by name on frontend
+- index all even unexisting translations
 
 ## [1.8.1] - 2019-05-04
 ### Fixed
