@@ -13,7 +13,7 @@ return array(
     'print_heading'     => 'Tištěné Reprodukce',
     'print_body'        => '<p>Tištěnou reprodukci si objednáte pomocí tlačítka <strong>objednat reprodukci</strong> na stránce konkrétního díla. </p>
                            <p>Cena reprodukce závisí na rozměru a typu zpracování, které si zvolíte při vyplnění objednávky.</p>
-                           <p>Tištěnou reprodukci lze objednat pouze pro <strong>díla ze sbírek Slovenské národní galerie</strong>, které jsou <strong>zdigitalizovány</strong> (s možností zoom).</p>
+                           <p>Tištěnou reprodukci lze objednat pouze pro <strong>díla ze sbírek Slovenské národní galerie</strong>, které jsou <strong>zdigitalizovány</strong> (s&nbsp;možností zoom).</p>
                            <p>Standardní lhůta vyřízení objednávky je <strong>30 dní</strong>.</p>
                            <p>Momentálně je možné vyzvednout reprodukce pouze osobně v <a href="https://www.sng.sk/sk/bratislava/navsteva/kde-nas-najdete/knihkupectvo-ex-libris" target="_blank">knihkupectví Ex Libris</a> v prostorách SNG na Náměstí Ľ.&nbsp;Štúra 4 v Bratislavě nebo v pokladně <a href="https://www.sng.sk/sk/zvolen/navsteva/kde-nas-najdete" target="_blank">Zvolenského zámku – Námestie SNP 594/1</a>.</p>',
     'print_recommended' => 'Doporučujeme',
@@ -41,7 +41,7 @@ return array(
                             <p>K <strong>výzkumným účelům</strong> (školní a vědecké práce, biografie) a <strong>edukačním účelům</strong> (vzdělávací pomůcky, učebnice) poskytujeme reprodukce většinou bezplatně. Ke <strong>komerčním účelům</strong> (publikace, produkty, propagační materiály) se cena odvíjí od více faktorů a stanovuje se individuálně.</p>
                             <p>Při poskytování děl, která jsou chráněna autorským právem (nejsou volná), postupuje SNG vzhledem k licenci, práva na použití na základě projevu vůle autora a vzhledem k historickému kontextu vývoje autorského práva.</p>
                             <p><strong>Autorská práva může vlastnit, resp. spravovat i jiný subjekt</strong>, např. autorská společnost LITA, autoři, dědici. V takových případech je nutno konzultovat povolení k&nbsp;použití s příslušným subjektem. Jestliže bude vaše objednávka obsahovat taková díla, budeme vás informovat.</p>
-                            <p>Čas nutný k vyřízení objednávky závisí na autorské situaci konkrétních děl a v některých případech může vyžadovat i několik týdnů. Doporučujeme proto digitální reprodukce <strong>objednat s dostatečným předstihem.</strong></p>',
+                            <p>Čas nutný k vyřízení objednávky závisí na autorské situaci konkrétních děl a v některých případech může vyžadovat i&nbsp;několik týdnů. Doporučujeme proto digitální reprodukce <strong>objednat s dostatečným předstihem.</strong></p>',
     'digital_examples'  => 'Příklady použití digitálních reprodukcí',
     'digital_example_1'  => 'Dizajn produktů',
     'digital_example_2'  => 'Tištěné publikace',
