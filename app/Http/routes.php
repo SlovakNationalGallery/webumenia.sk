@@ -430,6 +430,7 @@ Route::group(['middleware' => ['auth', 'role:admin|editor|import']], function ()
     Route::resource('collection', 'CollectionController');
     Route::resource('slide', 'SlideController');
     Route::get('download', 'DownloadController@index');
+    Route::get('download/export', 'DownloadController@export');
     Route::get('download/{id}', 'DownloadController@show');
 });
 

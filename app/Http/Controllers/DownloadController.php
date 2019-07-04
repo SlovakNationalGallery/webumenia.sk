@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Download;
 use Yajra\Datatables\Datatables;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+use DB;
 
 class DownloadController extends Controller
 {
@@ -59,6 +61,59 @@ class DownloadController extends Controller
         $download = Download::find($id)->load('items');
 
         return view('downloads.show')->with('download', $download);
+    }
+
+    /**
+     * Download query to CSV file
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
+    public function export(Request $request)
+    {
+        ini_set('max_execution_time', 300); // 5min
+        \DB::connection()->disableQueryLog();
+
+        $query = $query = Download::leftJoin('download_item', 'downloads.id', '=', 'download_item.download_id')->select([
+            'downloads.id',
+            'downloads.type',
+            'downloads.contact_person',
+            'downloads.email',
+            'downloads.phone',
+            DB::raw('GROUP_CONCAT(download_item.item_id SEPARATOR "\n") AS item_ids'),
+            'downloads.created_at',
+        ])->groupBy('downloads.id');
+        // dd($query->first());
+        $first = true;
+
+        $dt = Carbon::now();
+        $date =  $dt->toDateString();
+        $filename = 'downloads-'.$date.'.csv';
+
+        $response = new StreamedResponse(function() use ($query, &$first, $filename) {
+            $handle = fopen('php://output', 'w');
+
+            $query->chunk(200, function($items) use($handle, &$first) {
+                foreach ($items as $item) {
+
+                    if ($first) {
+                        // CSV headers
+                        fputcsv($handle, array_keys($item->toArray()));
+                        $first = false;
+                    }
+
+                    fputcsv($handle, $item->toArray());
+                }
+            });
+
+            fclose($handle);
+        }, 200, [
+                'Content-Type' => 'text/csv',
+                'Content-Disposition' => 'attachment; filename="'.$filename.'"',
+        ]);
+
+        return $response;
     }
 
 }
