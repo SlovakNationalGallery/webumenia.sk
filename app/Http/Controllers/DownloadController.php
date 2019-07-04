@@ -84,7 +84,7 @@ class DownloadController extends Controller
             DB::raw('GROUP_CONCAT(download_item.item_id SEPARATOR "\n") AS item_ids'),
             'downloads.created_at',
         ])->groupBy('downloads.id');
-        // dd($query->first());
+
         $first = true;
 
         $dt = Carbon::now();
