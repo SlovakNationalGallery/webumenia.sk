@@ -85,16 +85,13 @@ stiahnutia |
             buttons: [
                     {
                         extend: 'csv',
-                        text: 'export všeho do csv'
+                        text: 'export zobrazených do csv'
                     },
                     {
-                        extend: 'csv',
-                        text: 'export vybraných do csv',
-                        exportOptions: {
-                            modifier: {
-                                selected: true
-                            }
-                        }
+                      text: 'export všeho do csv',
+                      action: function ( e, dt, button, config ) {
+                        window.location = '/download/export';
+                      }
                     }
                 ],
             select: true,
