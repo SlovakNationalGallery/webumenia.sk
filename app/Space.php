@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
-class Authority extends Model implements HasMediaConversions
+class Space extends Model implements HasMediaConversions
 {
     use \Conner\Tagging\Taggable;
     use \Dimsav\Translatable\Translatable;
@@ -75,8 +75,8 @@ class Authority extends Model implements HasMediaConversions
     {
         parent::boot();
 
-        static::deleting(function ($authority) {
-            $authority->removeImage();
+        static::deleting(function ($space) {
+            $space->removeImage();
         });
 
     }
