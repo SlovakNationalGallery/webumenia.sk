@@ -65,9 +65,7 @@ class Space extends Model implements HasMediaConversions
 
     protected $guarded = array();
 
-    public static $rules = array(
-        'name' => 'required',
-    );
+    public static $rules = array();
 
     // ELASTIC SEARCH INDEX
 

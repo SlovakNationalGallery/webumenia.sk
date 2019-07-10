@@ -218,67 +218,6 @@ class SpaceController extends Controller
     }
 
 
-    public function backup()
-    {
-        $sqlstring = "";
-        $table = 'spaces';
-        $newline = "\n";
-
-        $prefix = 'SVK:TMP.';
-        $spaces = Space::where('id', 'LIKE', $prefix.'%')->get();
-        foreach ($spaces as $key => $space) {
-            $space_data = $space->toArray();
-
-            $keys = array();
-            $values = array();
-            foreach ($space_data as $key => $value) {
-                $keys[] = "`" . $key . "`";
-                if ($value === null) {
-                    $value = "NULL";
-                } elseif ($value === "" or $value === false) {
-                    $value = '""';
-                } elseif (!is_numeric($value)) {
-                    DB::connection()->getPdo()->quote($value);
-                    $value = "\"$value\"";
-                }
-                $values[] = $value;
-            }
-            $sqlstring  .= "INSERT INTO `" . $table . "` ( "
-                        .  implode(", ", $keys)
-                        .    " ){$newline}\tVALUES ( "
-                        .  implode(", ", $values)
-                        .    " );" . $newline;
-
-        }
-        $filename = date('Y-m-d-H-i').'_'.$table.'.sql';
-        File::put(app_path() .'/database/backups/' . $filename, $sqlstring);
-        return Redirect::back()->withMessage('Záloha ' . $filename . ' bola vytvorená.');
-
-    }
-
-    public function geodata()
-    {
-        $spaces = Space::where('place', '!=', '')->get();
-        $i = 0;
-        foreach ($spaces as $space) {
-            if (!empty($space->place) && (empty($space->lat))) {
-                $geoname = Ipalaus\Geonames\Eloquent\Name::where('name', 'like', $space->place)->orderBy('population', 'desc')->first();
-                //ak nevratil, skusim podla alternate_names
-                if (empty($geoname)) {
-                    $geoname = Ipalaus\Geonames\Eloquent\Name::where('alternate_names', 'like', '%'.$space->place.'%')->orderBy('population', 'desc')->first();
-                }
-
-                if (!empty($geoname)) {
-                    $space->lat = $geoname->latitude;
-                    $space->lng = $geoname->longitude;
-                    $space->save();
-                    $i++;
-                }
-            }
-        }
-        return Redirect::back()->withMessage('Pre ' . $i . ' autorít bola nastavená zemepisná šírka a výška.');
-    }
-
     private function uploadImage($space)
     {
         $error_messages = array();

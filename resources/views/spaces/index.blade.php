@@ -54,7 +54,7 @@ výstavné priestory |
 			                <td>{!! $s->name !!}</td>
 			                <td>{!! $s->address !!}</td>
 			                <td class="action">
-                                {!! link_to_action('AuthorityController@edit', 'Upraviť', array($s->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}
+                                {!! link_to_action('SpaceController@edit', 'Upraviť', array($s->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}
                                 <a href="{!! $s->getUrl() !!}" class="btn btn-success btn-xs btn-outline" target="_blank">Na webe</a>
                             </td>
 			            </tr>
