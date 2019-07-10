@@ -115,13 +115,13 @@
       <div class="col-md-12">
         <div class="form-group">
           {!! Form::label('opened_date', 'Dátum otvorenia') !!}
-          {!! Form::text('opened_date', Input::old('opened_date'), array('class' => 'form-control')) !!}
+          {!! Form::text('opened_date', Input::old('opened_date'), array('class' => 'form-control datepicker', 'placeholder' => 'YYYY-MM-DD')) !!}
         </div>
       </div>
       <div class="col-md-12">
         <div class="form-group">
           {!! Form::label('closed_date', 'Dátum ukončenia činnosti') !!}
-          {!! Form::text('closed_date', Input::old('closed_date'), array('class' => 'form-control')) !!}
+          {!! Form::text('closed_date', Input::old('closed_date'), array('class' => 'form-control datepicker', 'placeholder' => 'YYYY-MM-DD')) !!}
         </div>
       </div>
       <div class="col-md-12">

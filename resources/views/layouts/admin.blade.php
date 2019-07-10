@@ -23,7 +23,7 @@
         {{-- {!! Html::style('css/ladda-themeless.min.css') !!} --}}
         {{-- {!! Html::style('css/bootstrap-wysihtml5.css') !!} --}}
         {!! Html::style('css/plugins/bootstrap-colorpicker.min.css') !!}
-        {!! Html::style('css/plugins/bootstrap-datetimepicker.min.css') !!}
+        {!! Html::style('css/plugins/datepicker.css') !!}
         {!! Html::style('css/plugins/selectize.css') !!}
         {!! Html::style('css/plugins/selectize.bootstrap3.css') !!}
         {!! Html::style('css/plugins/bootstrap-switch.css') !!}
