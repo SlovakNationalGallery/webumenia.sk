@@ -438,6 +438,13 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('authority/search', 'AuthorityController@search');
     Route::post('authority/media', 'AuthorityController@storeMedia')->name('authority.storeMedia');
     Route::resource('authority', 'AuthorityController');
+
+    Route::get('space/destroyLink/{link_id}', 'SpaceController@destroyLink');
+    Route::post('space/destroySelected', 'SpaceController@destroySelected');
+    Route::get('space/search', 'SpaceController@search');
+    Route::post('space/media', 'SpaceController@storeMedia')->name('space.storeMedia');
+    Route::resource('space', 'SpaceController');
+
     Route::resource('sketchbook', 'SketchbookController');
     Route::resource('slide', 'SlideController');
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');

@@ -23,7 +23,7 @@
         {{-- {!! Html::style('css/ladda-themeless.min.css') !!} --}}
         {{-- {!! Html::style('css/bootstrap-wysihtml5.css') !!} --}}
         {!! Html::style('css/plugins/bootstrap-colorpicker.min.css') !!}
-        {!! Html::style('css/plugins/bootstrap-datetimepicker.min.css') !!}
+        {!! Html::style('css/plugins/datepicker.css') !!}
         {!! Html::style('css/plugins/selectize.css') !!}
         {!! Html::style('css/plugins/selectize.bootstrap3.css') !!}
         {!! Html::style('css/plugins/bootstrap-switch.css') !!}
@@ -97,6 +97,11 @@
                         @if (Entrust::hasRole('admin'))
                         <li>
                             <a href="{!! URL::to('authority') !!}"><i class="fa fa-user fa-fw"></i> Autority</a>
+                        </li>
+                        @endif
+                        @if (Entrust::hasRole('admin'))
+                        <li>
+                            <a href="{!! URL::to('space') !!}"><i class="fa fa-map-marker fa-fw"></i> Výstavné priestory</a>
                         </li>
                         @endif
                         @if (Entrust::hasRole(['admin', 'editor']))
