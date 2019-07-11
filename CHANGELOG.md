@@ -4,13 +4,19 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Added
 - map all datings in item harvester
-
-### Added
+- do not delete harvested items on harvest deletion
+- suggest filename for resized item images
 - Improved reproduction images and enabled ReproductionsPage in NavBar
 
 ### Fixed
 - Extend memory limit on composer run via docker
 - refactor Item::isFree method
+- missing item description_source translated attribute
+- sort collections by name on frontend
+- windows issues with docker (missing git, use github https, map ES data dir)
+
+### Changed
+- move description_source_link to translated attributes
 
 ## [1.8.1] - 2019-05-04
 ### Fixed

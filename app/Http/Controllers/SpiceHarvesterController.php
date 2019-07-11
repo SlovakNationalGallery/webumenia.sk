@@ -173,7 +173,6 @@ class SpiceHarvesterController extends Controller
         $harvest = SpiceHarvesterHarvest::find($id);
         $set_spec = $harvest->set_spec;
         foreach ($harvest->records as $i => $record) {
-            Item::destroy($record->item_id);
             $record->delete();
         }
         $harvest->delete();
