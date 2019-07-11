@@ -123,14 +123,14 @@ ProxyPassReverse /fcgi-bin/iipsrv.fcgi http://imi.sng.cust.eea.sk/publicIS/fcgi-
 
 ## Setting up Elastic Search
 
-* info about the files and plugins can be found in the separated [README](app/Console/Commands/SetupElasticsearch/README.md)
+* info about the files and plugins can be found in the separated [README](resources/SetupElasticsearch/README.md)
 * command to generate ES2 compatible index:
 `php artisan es:setup`
 * command to reindex data to the index `php artisan es:reindex`
 
 ## Style Compilation (LESS)
 
-We use [LESS](http://lesscss.org/) to compile styles imported into a [main file](https://github.com/SlovakNationalGallery/web-umenia-2/blob/master/public/css/less/style.less) into a single CSS file:
+We use [LESS](http://lesscss.org/) to compile styles imported into a [main file](public/css/less/style.less) into a single CSS file:
 
     lessc public/css/less/style.less public/css/style.css --clean-css
 
