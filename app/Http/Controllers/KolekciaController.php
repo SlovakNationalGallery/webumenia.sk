@@ -22,14 +22,7 @@ class KolekciaController extends Controller
         $collections = Collection::published()->with('user');
 
         if ($sort_by == 'name') {
-            $collections = $collections
-                ->join('collection_translations as t', function ($join) {
-                    $join->on('collections.id', '=', 't.collection_id')
-                        ->where('t.locale', '=', config('app.locale'));
-                })
-                ->groupBy('collections.id')
-                ->select(['collections.*', 't.name', 't.text'])
-                ->orderBy('t.name', 'asc');
+            $collections = $collections->orderByTranslation('name', 'asc');
         } else {
             $collections = $collections->orderBy($sort_by, 'desc');
         }

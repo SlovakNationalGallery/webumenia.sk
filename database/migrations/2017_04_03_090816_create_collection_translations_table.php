@@ -73,13 +73,19 @@ class CreateCollectionTranslationsTable extends Migration
                                     ->get();
 
         foreach ($collection_translations as $collection_translation) {
+            $data = [
+                'name' => $collection_translation->name,
+                'type' => $collection_translation->type,
+                'text' => $collection_translation->text,
+            ];
+
+            $data = array_filter($data, function ($value) {
+                return $value !== null;
+            });
+
             DB::table('collections')
                 ->where('id', $collection_translation->collection_id)
-                ->update([
-                    'name'    => $collection_translation->name,
-                    'type'    => $collection_translation->type,
-                    'text'    => $collection_translation->text,
-                ]);
+                ->update($data);
         }
 
         Schema::dropIfExists('collection_translations');
