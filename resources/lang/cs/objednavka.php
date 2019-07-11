@@ -11,7 +11,11 @@ return array(
     'title'         => 'objednávka',
     'order_alert'   => '<strong> Upozornění: </strong> <br> Tištěné reprodukce, které mají být provedeny do Vánočních svátků, je možné objednat do <strong>10. prosince</strong>.<br> Objednávky vytvořené po tomto termínu budou vyhotoveny <strong>až po svátcích</strong>.',
     'order_content' => '<h2 class="bottom-space">Objednávka</h2>
-                        <p>K vybraným dielam zo zbierok SNG ponúkame možnosť objednať si reprodukcie v archívnej kvalite na fineartových papieroch. Po výbere diel, vyplnení údajov a odoslaní objednávky vás bude kontaktovať pracovník SNG s podrobnejšími informáciami. Momentálne je možné vyzdvihnúť si diela len osobne v&nbsp;kníhkupectve <a href="https://goo.gl/maps/3Uf4S" target="_blank" class="underline">Ex Libris v priestoroch SNG na Námestí Ľ. Štúra 4 v Bratislave</a>  alebo v pokladni <a href="https://goo.gl/maps/MPRy6Qdwm8s" target="_blank" class="underline">Zvolenského zámku - Námestie SNP 594/1</a>. </p>',
+                        <p>Chcete-li si objednat nejen tištěné, ale i digitální reprodukce, udělejte prosím <strong>zvlášť objednávku pro každý typ</strong>.</p>
+                        <p>Přejete-li si různé rozměry pro jednotlivé tištěné reprodukce, uveďte je prosím v položce <strong>Poznámka</strong>.</p>
+                        <p>Momentálně je možné vyzvednout reprodukce pouze osobně v <a href="https://www.sng.sk/sk/bratislava/navsteva/kde-nas-najdete/knihkupectvo-ex-libris" target="_blank" class="underline">knihkupectví Ex Libris</a> v prostorách SNG na Náměstí Ľ. Štúra 4 v Bratislavě nebo v pokladně <a href="https://www.sng.sk/sk/zvolen/navsteva/kde-nas-najdete" target="_blank" class="underline">Zvolenského zámku – Námestie SNP 594/1</a>.</p>
+                        <p>Po odeslání objednávky Vám pošleme <strong>potvrzující e-mail s podrobnějšími informacemi</strong>.</p>
+                        <p>Všechny důležité informace naleznete na stránce <a href="https://www.webumenia.sk/cs/reprodukcie" target="_blank" class="underline">reprodukce</a>.</p>',
     'order_none'    => 'Nemáte v košíku žiadne diela',
     'order_remove'  => 'odstrániť',
     'order_warning' => 'Toto dielo momentálne nemáme zdigitalizované v dostatočnej kvalite, vybavenie objednávky preto môže trvať dlhšie ako zvyčajne.',
