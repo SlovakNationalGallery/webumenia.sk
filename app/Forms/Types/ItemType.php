@@ -28,7 +28,6 @@ class ItemType extends AbstractType
             ->add('description_user_id', ChoiceType::class, [
                 'choices' => User::pluck('id', 'username')
             ])
-            ->add('description_source_link')
             ->add('identifier')
             ->add('author')
             ->add('tags', ChoiceType::class, [
