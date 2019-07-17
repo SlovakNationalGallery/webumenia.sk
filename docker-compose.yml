@@ -18,15 +18,17 @@ services:
     depends_on:
       - mysql
       - elasticsearch
+      - redis
     env_file: .env
     # 'php' service can speak to mysql and elasticsearch services
     # at these network addresses:
     #  - http://mysql:3306
-    #  - http://elasticsearch:9200 
+    #  - http://elasticsearch:9200
     # so we override the standard environment variables here:
     environment:
       DB_HOST: mysql
       ES_HOST: elasticsearch
+      REDIS_HOST: redis
 
   mysql:
     image: mysql:5.6
@@ -54,3 +56,5 @@ services:
       - ./data/elasticsearch-${ES_INDEX}:/usr/share/elasticsearch-2.4.1/data
       - ./elasticsearch.yml:/usr/share/elasticsearch-2.4.1/config/elasticsearch.yml
       # - ./storage/logs/elasticsearch:/usr/share/elasticsearch-2.4.1/logs
+  redis:
+    image: redis:5.0.5-alpine
