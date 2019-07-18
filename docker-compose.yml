@@ -28,6 +28,7 @@ services:
     environment:
       DB_HOST: mysql
       ES_HOST: elasticsearch
+
       REDIS_HOST: redis
 
   mysql:
@@ -46,15 +47,20 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.elasticsearch
-      args:
-        ES_VERSION: 2.4.1
     image: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
     ports:
       - "9200:9200"
       - "9300:9300"
     volumes:
-      - ./data/elasticsearch-${ES_INDEX}:/usr/share/elasticsearch-2.4.1/data
-      - ./elasticsearch.yml:/usr/share/elasticsearch-2.4.1/config/elasticsearch.yml
-      # - ./storage/logs/elasticsearch:/usr/share/elasticsearch-2.4.1/logs
+      # - ./data/elasticsearch-${ES_INDEX}:/usr/share/elasticsearch/data
+       - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      # - ./storage/logs/elasticsearch:/usr/share/elasticsearch/logs
   redis:
     image: redis:5.0.5-alpine

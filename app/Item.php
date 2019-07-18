@@ -29,7 +29,7 @@ class Item extends Model
     }
 
     const ARTWORKS_DIR = '/images/diela/';
-    const ES_TYPE = 'items';
+    const ES_TYPE = '_doc';
 
     const COPYRIGHT_LENGTH = 70;
     const GUESSED_AUTHORISM_TIMESPAN = 60;
@@ -619,7 +619,7 @@ class Item extends Model
         $params = array_merge($json_params, $search_params);
         $result = Elastic::search([
             'index' => Config::get('bouncy.index'),
-            'search_type' => 'count',
+            'size' => 0,
             'type' => self::ES_TYPE,
             'body'  => $params
         ]);
@@ -844,13 +844,13 @@ class Item extends Model
         $params = [];
         $params['query']['bool']['filter'] = static::getFilterParams($custom_parameters);
         $items = self::search($params);
-        return $items->total();
+        return $items->total()['value'];
     }
 
     public static function getFilterParams(array $attributes) {
         $filter = [];
         foreach ($attributes as $name => $value) {
-            $filter['and'][]['term'][$name] = $value;
+            $filter[] = ['term' => [$name => $value]];
         }
 
         return $filter;

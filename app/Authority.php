@@ -22,7 +22,7 @@ class Authority extends Model
     protected $table = 'authorities';
 
     const ARTWORKS_DIR = '/images/autori/';
-    const ES_TYPE = 'authorities';
+    const ES_TYPE = '_doc';
 
     public $translatedAttributes = [
         'type_organization',
@@ -472,7 +472,7 @@ class Authority extends Model
 		';
         $params = array_merge(json_decode($json_params, true), $search_params);
         $result = Elastic::search([
-                'search_type' => 'count',
+                'size' => 0,
                 'type' => self::ES_TYPE,
                 'body' => $params,
             ]);

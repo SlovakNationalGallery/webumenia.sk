@@ -183,7 +183,7 @@ class CatalogController extends ElasticController
         $items = Item::search($params);
         $path   = '/' . \Request::path();
 
-        $paginator = new LengthAwarePaginator($items->all(), $items->total(), $per_page, $page, ['path' => $path]);
+        $paginator = new LengthAwarePaginator($items->all(), $items->total()['value'], $per_page, $page, ['path' => $path]);
 
         $authors = Item::listValues('author', $params);
         $work_types = Item::listValues('work_type', $params);

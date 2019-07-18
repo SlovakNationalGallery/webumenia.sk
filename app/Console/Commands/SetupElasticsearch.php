@@ -86,12 +86,10 @@ class SetupElasticsearch extends Command
     $index_name = $this->get_index_name($client, $host, $locale_str);
 
     $json_params_create_index_str       = file_get_contents("$base_path/$locale_str/index.json");
-    $json_params_create_items_str       = file_get_contents("$base_path/$locale_str/items.json");
-    $json_params_create_authorities_str = file_get_contents("$base_path/$locale_str/authorities.json");
+    $json_params_create_mapping_str     = file_get_contents("$base_path/$locale_str/mapping.json");
 
     $this->create_index($client, $host, $index_name, $json_params_create_index_str);
-    $this->create_mapping($client, $host, $index_name, 'items'      , $json_params_create_items_str);
-    $this->create_mapping($client, $host, $index_name, 'authorities', $json_params_create_authorities_str);
+    $this->create_mapping($client, $host, $index_name, $json_params_create_mapping_str);
   }
 
   public function get_index_name($client, $host, $locale_str)
@@ -100,7 +98,7 @@ class SetupElasticsearch extends Command
 
     $index_name = $this->ask('What is the index name?', $elastic_translatable->getIndexForLocale($locale_str));
 
-    $res = $client->delete($host.'/'.$index_name);
+    $res = $client->get($host.'/'.$index_name);
 
     if ($res->getStatusCode() == 200) {
         if ($this->confirm("❗ An index with that name already exists❗\n Do you want to delete the current index?\n [y|N]")) {
@@ -126,16 +124,16 @@ class SetupElasticsearch extends Command
     }
   }
 
-  public function create_mapping($client, $host, $index_name, $mapping_name, $mapping_params_str)
+  public function create_mapping($client, $host, $index_name, $mapping_params_str)
   {
-    $this->comment("Creating type $mapping_name...");
-    $res = $client->put($host.'/'.$index_name.'/_mapping/'.$mapping_name, [
+    $this->comment("Creating mapping...");
+    $res = $client->put($host.'/'.$index_name.'/_mapping/', [
         'json' => json_decode($mapping_params_str, true),
     ]);
     echo $res->getBody() . "\n";
 
     if ($res->getStatusCode() == 200) {
-        $this->info("Type $mapping_name was created");
+        $this->info("Mapping was created");
     }
   }
 }
