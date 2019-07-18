@@ -5,10 +5,6 @@
 @parent
 @stop
 
-@section('link')
-    <link rel="canonical" href="{!! getCanonicalUrl() !!}">
-@stop
-
 @section('content')
 
 @foreach ($articles as $i=>$article)

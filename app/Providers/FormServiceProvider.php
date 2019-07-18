@@ -12,8 +12,7 @@ use Barryvdh\Form\Extension\Http\HttpExtension;
 use Barryvdh\Form\Extension\SessionExtension;
 use Barryvdh\Form\Extension\Validation\ValidationTypeExtension;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\View\View;
-use Symfony\Component\Form\Form;
+use Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormRenderer;
 use Symfony\Component\Form\FormRendererEngineInterface;
@@ -25,15 +24,11 @@ use Symfony\Component\Templating\TemplateNameParser;
 
 class FormServiceProvider extends ServiceProvider
 {
-    public function boot()
-    {
-        $this->registerViewComposer();
-    }
-
     public function register()
     {
         $this->app->bind('form.extensions', function ($app) {
             return [
+                new DependencyInjectionExtension($app, [], []),
                 new SessionExtension(),
                 new HttpExtension(),
                 new EloquentExtension(),
@@ -48,7 +43,7 @@ class FormServiceProvider extends ServiceProvider
             ];
         });
 
-        $this->app->bind('form.type.guessers', function ($app) {
+        $this->app->bind('form.type.guessers', function () {
             return [];
         });
 
@@ -81,17 +76,6 @@ class FormServiceProvider extends ServiceProvider
         $this->app->singleton(FormRendererInterface::class, function () {
             $engine = app(FormRendererEngineInterface::class);
             return new FormRenderer($engine);
-        });
-    }
-
-    protected function registerViewComposer()
-    {
-        view()->composer('*', function (View $view) {
-            foreach ($view->getData() as $key => $value) {
-                if ($value instanceof Form) {
-                    $view->with($key, $value->createView());
-                }
-            }
         });
     }
 }

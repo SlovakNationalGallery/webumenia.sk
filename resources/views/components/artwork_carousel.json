@@ -4,7 +4,7 @@
         "slick_target": "artworks-preview"
     },
     "data_calls" : {
-        "items": "return App\\Item::random(10, ['has_image' => 'true']);"
+        "items": "return app('App\\Elasticsearch\\Repositories\\ItemRepository')->getRandom(10, (new App\\Filter\\ItemFilter)->setHasImage(true));"
     },
     "include_js": true,
     "usage_notes": "A carousel to show previews of artworks. Required $slick_target corresponds to $slick_query (passed into JS component). Optional $slick_variant can be 'small' or 'large'."

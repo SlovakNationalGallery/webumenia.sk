@@ -15,7 +15,7 @@ class FormRenderer extends \Barryvdh\Form\FormRenderer
     }
 
     public function label(FormView $view, $label = null, $variables = []) {
-        if (!isset($variables['label'])) {
+        if ($label !== null) {
             $variables['label'] = $label;
         }
         return $this->renderer->searchAndRenderBlock($view, 'label', $variables);

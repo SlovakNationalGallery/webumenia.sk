@@ -12,4 +12,6 @@ return array(
     */
 
     'no_translation'        => "Some elements on this page haven't yet been translated to English. ¯\_(ツ)_/¯",
+    'save' => 'save',
+    'submit' => 'submit',
 );

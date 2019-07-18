@@ -5,16 +5,16 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./public:/var/www/html
+      - .:/var/www
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - php
+
   php:
     build: .
     image: web_umenia
     volumes:
       - .:/var/www
-      - ./public:/var/www/html
     depends_on:
       - mysql
       - elasticsearch
@@ -34,8 +34,6 @@ services:
     image: mysql:5.6
     ports:
       - "3306:3306"
-    volumes:
-      - ./data/mysql-${DB_DATABASE}:/var/lib/mysql
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_USER: ${DB_USERNAME}
@@ -46,15 +44,19 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.elasticsearch
-      args:
-        ES_VERSION: 2.4.1
     image: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
     ports:
       - "9200:9200"
       - "9300:9300"
     volumes:
-      - ./data/elasticsearch-${ES_INDEX}:/usr/share/elasticsearch-2.4.1/data
-      - ./elasticsearch.yml:/usr/share/elasticsearch-2.4.1/config/elasticsearch.yml
-      # - ./storage/logs/elasticsearch:/usr/share/elasticsearch-2.4.1/logs
+       - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+
   redis:
     image: redis:5.0.5-alpine

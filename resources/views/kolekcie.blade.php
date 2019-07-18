@@ -7,7 +7,6 @@
 
 @section('link')
     @include('includes.pagination_links', ['paginator' => $collections])
-    <link rel="canonical" href="{!! getCanonicalUrl() !!}">
 @stop
 
 @section('content')

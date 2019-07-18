@@ -13,10 +13,13 @@
 
 use App\Article;
 use App\Collection;
-use App\Item;
-use App\Slide;
-use App\Order;
 use App\Color;
+use App\Elasticsearch\Repositories\AuthorityRepository;
+use App\Elasticsearch\Repositories\ItemRepository;
+use App\Filter\ItemFilter;
+use App\Item;
+use App\Order;
+use App\Slide;
 
 Route::group(['domain' => 'media.webumenia.{tld}'], function () {
     Route::get('/', function ($tld) {
@@ -32,7 +35,7 @@ Route::group(['domain' => 'media.webumenia.{tld}'], function () {
 
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
-    'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localizeElastic' ]
+    'middleware' => [ 'localeSessionRedirect', 'localizationRedirect' ]
 ],
 function()
 {
@@ -41,14 +44,48 @@ function()
         return redirect('kolekcia/25');
     });
 
-    Route::get('/', function () {
+    Route::get('/', function (
+        AuthorityRepository $authorityRepository,
+        ItemRepository $itemRepository
+    ) {
+        $choices = [
+            [
+                trans('intro.from_galleries_start'),
+                route('frontend.info'),
+                formatNum(9),
+                trans('intro.from_galleries_end'),
+            ],
+            [
+                trans('intro.from_authors_end'),
+                route('frontend.author.index'),
+                formatNum($authorityRepository->count()),
+                trans('intro.from_authors_end'),
+            ],
+            [
+                trans('intro.in_high_res_start'),
+                route('frontend.catalog.index', ['has_iip' => true]),
+                formatNum($itemRepository->count((new ItemFilter)->setHasIip(true))),
+                trans('intro.in_high_res_end'),
+            ],
+            [
+                trans('intro.are_free_start'),
+                route('frontend.catalog.index', ['is_free' => true]),
+                formatNum($itemRepository->count((new ItemFilter)->setIsFree(true))),
+                trans('intro.are_free_end'),
+            ],
+        ];
 
+        $choice = $choices[array_rand($choices)];
+        $subtitle = vsprintf('%s <strong><a href="%s">%s</a></strong> %s', $choice);
         $slides = Slide::published()->orderBy('id', 'desc')->get();
         $articles = Article::promoted()->published()->orderBy('published_date', 'desc')->get();
+        $itemCount = $itemRepository->count();
 
         return view('intro', [
+            'subtitle' => $subtitle,
             'slides' => $slides,
             'articles' => $articles,
+            'itemCount' => $itemCount,
         ]);
     });
 
@@ -181,7 +218,7 @@ function()
         if (empty($item)) {
             App::abort(404);
         }
-        Session::put('cart', array_diff(Session::get('cart'), [$item->id]));
+        Session::put('cart', array_diff(Session::get('cart', []), [$item->id]));
         Session::flash('message', trans('objednavka.message_remove_order', ['artwork_description' => '<b>'.$item->getTitleWithAuthors().'</b> ('.$item->getDatingFormated().')']) );
 
         return Redirect::back();
@@ -197,7 +234,7 @@ function()
         return redirect()->route('image.download', ['id' => $item->images->first()->id]);
     }]);
 
-    Route::get('dielo/{id}', function ($id) {
+    Route::get('dielo/{id}', function ($id, ItemRepository $itemRepository) {
 
         $item = Item::find($id);
         if (empty($item)) {
@@ -208,7 +245,7 @@ function()
         $item->save();
         $previous = $next = false;
 
-        $more_items = $item->moreLikeThis(30);
+        $more_items = $itemRepository->getSimilar(30, $item)->getCollection();
 
         if (Input::has('collection')) {
             $collection = Collection::find((int) Input::get('collection'));
@@ -255,22 +292,22 @@ function()
         ));
     });
 
-    Route::get('dielo/{id}/colorrelated', function ($id) {
-        $item = Item::find($id);
-
-        $similar_by_color = [];
-
-        $ids = $item->similarByColor(20)->pluck('id');
-        $similar_by_color = Item::whereIn('id', $ids)->get();
-        $similar_by_color = $similar_by_color->filter(function (Item $i) use ($item) {
-            return (bool)$i->color_descriptor && $item->id != $i->id;
-        });
-        $similar_by_color = $similar_by_color->sort(function($a, $b) use ($ids) {
-            return $ids->search($a->id) - $ids->search($b->id);
-        });
-
-        return view('dielo-colorrelated', compact('similar_by_color'));
-    })->name('dielo.colorrelated');
+//    Route::get('dielo/{id}/colorrelated', function ($id) {
+//        $item = Item::find($id);
+//
+//        $similar_by_color = [];
+//
+//        $ids = $item->similarByColor(20)->pluck('id');
+//        $similar_by_color = Item::whereIn('id', $ids)->get();
+//        $similar_by_color = $similar_by_color->filter(function (Item $i) use ($item) {
+//            return (bool)$i->color_descriptor && $item->id != $i->id;
+//        });
+//        $similar_by_color = $similar_by_color->sort(function($a, $b) use ($ids) {
+//            return $ids->search($a->id) - $ids->search($b->id);
+//        });
+//
+//        return view('dielo-colorrelated', compact('similar_by_color'));
+//    })->name('dielo.colorrelated');
 
     Route::get('dielo/nahlad/{id}/{width}/{height?}', 'ImageController@resize')->where('width', '[0-9]+')->where('height', '[0-9]+')->name('dielo.nahlad');
     Route::get('image/{id}/download', 'ImageController@download')->name('image.download');
@@ -281,9 +318,9 @@ function()
     Route::get('katalog/suggestions', 'CatalogController@getSuggestions')->name('frontend.catalog.suggestions');
     Route::get('katalog/random', 'CatalogController@getRandom')->name('frontend.catalog.random');
 
-    Route::match(array('GET', 'POST'), 'autori', 'AuthorController@getIndex');
-    Route::match(array('GET', 'POST'), 'autori/suggestions', 'AuthorController@getSuggestions');
-    Route::get('autor/{id}', 'AuthorController@getDetail');
+    Route::match(array('GET', 'POST'), 'autori', 'AuthorController@getIndex')->name('frontend.author.index');
+    Route::match(array('GET', 'POST'), 'autori/suggestions', 'AuthorController@getSuggestions')->name('frontend.author.suggestions');
+    Route::get('autor/{id}', 'AuthorController@getDetail')->name('frontend.author.detail');
 
     Route::match(array('GET', 'POST'), 'clanky', 'ClanokController@getIndex');
     Route::match(array('GET', 'POST'), 'clanky/suggestions', 'ClanokController@getSuggestions');
@@ -293,8 +330,9 @@ function()
     Route::match(array('GET', 'POST'), 'kolekcie/suggestions', 'KolekciaController@getSuggestions')->name('frontend.collection.suggestions');
     Route::get('kolekcia/{slug}', 'KolekciaController@getDetail')->name('frontend.collection.detail');
 
-    Route::get('informacie', function () {
-        $items = Item::random(20, ['gallery' => 'Slovenská národná galéria, SNG']);
+    Route::get('informacie', function (ItemRepository $itemRepository) {
+        $filter = (new ItemFilter)->setGallery('Slovenská národná galéria, SNG');
+        $items = $itemRepository->getRandom(20, $filter)->getCollection();
 
         $galleries = [
             [
@@ -358,23 +396,25 @@ function()
             'items' => $items,
             'galleries' => $galleries,
         ]);
-    });
+    })->name('frontend.info');
 
-    Route::get('reprodukcie', function () {
+    Route::get('reprodukcie', function (ItemRepository $itemRepository) {
         $collection = Collection::find('55');
 
+        $filter = (new ItemFilter)->setGallery('Slovenská národná galéria, SNG');
+
         if ($collection) {
-            $items_recommended   = $collection->items()->inRandomOrder()->take(20)->get();
+            $items_recommended = $collection->items()->inRandomOrder()->take(20)->get();
         } else {
-            $items_recommended   = Item::random(20, ['gallery' => 'Slovenská národná galéria, SNG']);
+            $items_recommended = $itemRepository->getRandom(20, $filter)->getCollection();
         }
 
-        $items = Item::random(20, ['gallery' => 'Slovenská národná galéria, SNG']);
-        $total = formatNum($items->total());
+        $response = $itemRepository->getRandom(20, $filter);
+        $total = formatNum($response->getTotal());
 
         return view('reprodukcie', [
             'items_recommended' => $items_recommended,
-            'items' => $items,
+            'items' => $response->getCollection(),
             'total' => $total,
         ]);
     });

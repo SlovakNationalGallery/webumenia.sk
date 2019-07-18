@@ -1,0 +1,9 @@
+version: '2'
+services:
+  mysql:
+    volumes:
+      - ./data/mysql-${DB_DATABASE}:/var/lib/mysql
+  elasticsearch:
+    volumes:
+      - ./data/elasticsearch-${ES_PREFIX}:/usr/share/elasticsearch/data
+      - ./storage/logs/elasticsearch-${ES_PREFIX}:/usr/share/elasticsearch/logs

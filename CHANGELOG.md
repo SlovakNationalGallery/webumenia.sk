@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - override docker php container for tests
 - ImageCarousel Component
+- model relationship events
+- test via docker in travis
+- optional docker build with xdebug
+- domain fallback translator
+- authority/item title generators
+- basic frontend view tests
 
 ### Fixed
 - correct authority zero-value years to null
@@ -13,6 +19,10 @@ All notable changes to this project will be documented in this file[^1].
 - ArtworkDetailPage shows multiple images (via IIIF from image server) in ImageCarousel
 - serve item images via custom image server
 - upgrade to Laravel 5.8
+- upgrade to Elasticsearch 7.3
+- upgrade laravel translatable models package
+- rewrite and remove bouncy package usages
+- refactor authority/item filters to use symfony forms
 
 ## [1.9.1] - 2019-07-30
 ### Changed

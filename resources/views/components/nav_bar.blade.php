@@ -4,7 +4,7 @@
             @include('components.langswitch', [
                 'currentLocale' => App::getLocale(),
                 'localesOrdered' => LaravelLocalization::getLocalesOrder(),
-                'localizedURLs' => getLocalizedURLArray($removeQueryString = true),
+                'localizedURLs' => getLocalizedURLArray(),
             ])
 
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">

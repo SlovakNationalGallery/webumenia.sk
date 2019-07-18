@@ -4,32 +4,27 @@
 
 namespace App;
 
+use App\Contracts\IndexableModel;
 use App\Events\ItemPrimaryImageChanged;
-use Elasticsearch\Client;
+use Chelout\RelationshipEvents\Concerns\HasBelongsToManyEvents;
+use Astrotomic\Translatable\Translatable;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\URL;
 use Intervention\Image\Constraint;
 use Intervention\Image\Image;
-use Intervention\Image\ImageManagerStatic;
-use Illuminate\Support\Facades\Cache;
-use Fadion\Bouncy\Facades\Elastic;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Input;
-use Fadion\Bouncy\BouncyTrait;
-use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\Validator\Constraints\Valid;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
-class Item extends Model
+class Item extends Model implements IndexableModel, TranslatableContract
 {
     use \Conner\Tagging\Taggable;
-    use \Dimsav\Translatable\Translatable, BouncyTrait {
-        \Dimsav\Translatable\Translatable::save insteadof BouncyTrait;
-    }
+    use Translatable;
+    use HasBelongsToManyEvents;
 
     const ARTWORKS_DIR = '/images/diela/';
-    const ES_TYPE = 'items';
 
     const COPYRIGHT_LENGTH = 70;
     const GUESSED_AUTHORISM_TIMESPAN = 60;
@@ -56,37 +51,6 @@ class Item extends Model
         'relationship_type',
         'related_work'
     ];
-
-    // protected $indexName = 'webumenia';
-    protected $typeName = self::ES_TYPE;
-
-    public static $filterable = array(
-        'autor' => 'author',
-        'výtvarný druh' => 'work_type',
-        'tagy' => 'tag',
-        'galéria' => 'gallery',
-        'žáner' => 'topic',
-        'materiál' => 'medium',
-        'technika' => 'technique',
-        'len s obrázkom' => 'has_image',
-        'len so zoom' => 'has_iip',
-        'len voľné' => 'is_free',
-        'zo súboru' => 'related_work'
-    );
-
-    public static $sortable;
-
-    protected static $sortables = array(
-        'relevance'     => 'sortable.relevance',
-        'updated_at'    => 'sortable.updated_at',
-        'created_at'    => 'sortable.created_at',
-        'title'         => 'sortable.title',
-        'author'        => 'sortable.author',
-        'newest'        => 'sortable.newest',
-        'oldest'        => 'sortable.oldest',
-        'view_count'    => 'sortable.view_count',
-        'random'        => 'sortable.random',
-    );
 
     protected $fillable = array(
         'id',
@@ -134,63 +98,27 @@ class Item extends Model
         'sk.dating' => 'required',
     );
 
-    // protected $appends = array('measurements');
-
     public $incrementing = false;
 
-    protected $mappingProperties = array(
-        'title' => [
-          'type' => 'string',
-          "analyzer" => "standard",
-        ],
-        'author' => [
-          'type' => 'string',
-          "analyzer" => "standard",
-        ],
-    );
-
-    protected $casts = array(
+    protected $casts = [
         'color_descriptor' => 'json',
-    );
+    ];
+
+    protected $observables = [
+        'belongsToManyAttaching',
+        'belongsToManyAttached',
+        'belongsToManyDetaching',
+        'belongsToManyDetached',
+        'belongsToManySyncing',
+        'belongsToManySynced',
+        'belongsToManyToggling',
+        'belongsToManyToggled',
+        'belongsToManyUpdatingExistingPivot',
+        'belongsToManyUpdatedExistingPivot',
+    ];
 
     public static function loadValidatorMetadata(ClassMetadata $metadata) {
         $metadata->addGetterConstraint('images', new Valid());
-    }
-
-    // ELASTIC SEARCH INDEX
-    public static function boot()
-    {
-        parent::boot();
-
-        static::created(function ($item) {
-            $item->fresh()->index();
-        });
-
-        static::updated(function ($item) {
-            $item->fresh()->index();
-        });
-
-        static::deleting(function ($item) {
-            $item->deleteImage();
-            $item->collections()->detach();
-        });
-
-        static::deleted(function ($item) {
-
-            $elastic_translatable = \App::make('ElasticTranslatableService');
-
-            foreach (config('translatable.locales') as $locale) {
-                $item->getElasticClient()->delete([
-                   'index' => $elastic_translatable->getIndexForLocale($locale),
-                   'type' => $item::ES_TYPE,
-                   'id' => $item->id,
-                ]);
-            }
-        });
-    }
-
-    public static function getSortables() {
-        return static::$sortables;
     }
 
     public function descriptionUser()
@@ -239,9 +167,9 @@ class Item extends Model
         $image->delete();
     }
 
-    public function getImagePath($full = false)
+    public function getImagePath($full = false, $resize = false, $resize_method = 'fit')
     {
-        return self::getImagePathForId($this->id, $full);
+        return self::getImagePathForId($this->id, $full, $resize, $resize_method);
 
     }
 
@@ -265,68 +193,6 @@ class Item extends Model
     public function getOaiUrl()
     {
         return Config::get('app.old_url').'/oai-pmh/?verb=GetRecord&metadataPrefix=oai_dc&identifier='.$this->id;
-    }
-
-    public function similarByColor($size = 10)
-    {
-        if (!$this->color_descriptor) {
-            throw new \RuntimeException;
-        }
-
-        $params = [
-            'size' => $size,
-            'sort' => [
-                '_score' => 'desc'
-            ],
-            'query' => [
-                'descriptor' => [
-                    'color_descriptor' => [
-                        'hash' => 'LSH',
-                        'descriptor' => $this->color_descriptor
-                    ]
-                ]
-            ]
-        ];
-
-        return self::search($params);
-    }
-
-    public function moreLikeThis($size = 10)
-    {
-        $params = array();
-        $params["size"] = $size;
-        // $params["sort"][] = "_score";
-        // $params["sort"][] = "has_image";
-        $params["query"] = [
-            "bool"=> [
-                "must" => [
-                    ["more_like_this"=> [
-                        "fields" => [
-                            "author.folded","title","title.stemmed","description.stemmed", "tag.folded", "place", "technique"
-                        ],
-                        "ids" => [$this->id],
-                        "min_term_freq" => 1,
-                        "minimum_should_match" => 3,
-                        "min_word_length" => 3,
-                        ]
-                    ]
-                ],
-                "should" => [
-                    // ["match"=> [
-                    // 	"author" => $this->author,
-                    // 	],
-                    // ],
-                    // ["terms"=> [ "authority_id" => $this->relatedAuthorityIds() ] ],
-                    ["term"=> [ "has_image" => [
-                            "value" => true,
-                            "boost" => 10
-                            ]
-                    ] ],
-                    ["term"=> [ "has_iip" => true ]]
-                ]
-            ]
-        ];
-        return self::search($params);
     }
 
     /**
@@ -436,33 +302,6 @@ class Item extends Model
         return self::ARTWORKS_DIR . "no-image.jpg";
     }
 
-
-    /*
-	public function getAuthorAttribute($value)
-	{
-		$authors = $this->authors;
-		return implode(', ', $authors);
-	}
-	*/
-
-    public static function sliderMin()
-    {
-        $table_name = with(new static)->getTable();
-        if (Cache::has($table_name.'.slider_min')) {
-            $slider_min =  Cache::get($table_name.'.slider_min');
-        } else {
-            $min_year = self::min('date_earliest');
-            $slider_min = floor($min_year / 100)*100;
-            Cache::put($table_name.'.slider_min', $slider_min, 3600);
-        }
-        return $slider_min;
-    }
-
-    public static function sliderMax()
-    {
-        return date('Y');
-    }
-
     public function getAuthorsAttribute($value)
     {
         $authors_array = $this->makeArray($this->author);
@@ -471,11 +310,6 @@ class Item extends Model
             $authors[$author] = preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $author);
         }
         return $authors;
-    }
-
-    public function getAuthorFormated($value)
-    {
-        return formatName($this->attributes['author']);
     }
 
     public function getFirstAuthorAttribute($value)
@@ -509,29 +343,6 @@ class Item extends Model
     {
         $trans = array("; " => ";", "()" => "");
         return explode(';', strtr($this->measurement, $trans));
-
-        // $measurements_array = explode(';', $this->measurement);
-        // $measurements = array();
-        // $measurements[0] = array();
-        // $i = -1;
-        // if (!empty($this->measurement)) {
-        // 	foreach ($measurements_array as $key=>$measurement) {
-        // 		if ($key%2 == 0) {
-        // 			$i++;
-        // 			$measurements[$i] = array();
-        // 		}
-        //      if (!empty($measurement)) {
-        // 			$measurement = explode(' ', $measurement, 2);
-        // 			if (isSet($measurement[1])) {
-        // 				$measurements[$i][$measurement[0]] = $measurement[1];
-        // 			} else {
-        // 				$measurements[$i][] = $measurement[0];
-        // 			}
-
-        // 		}
-        // 	}
-        // }
-        // return $measurements;
     }
 
     public function getWidthAttribute($value)
@@ -599,45 +410,6 @@ class Item extends Model
         return (empty($str)) ? array() : explode($delimiter, $str);
     }
 
-    public static function listValues($attribute, $search_params)
-    {
-        if (!in_array($attribute, self::$filterable)) {
-            return false;
-        }
-
-        $json_params = [
-             'aggs' => [
-                $attribute => [
-                    'terms' => [
-                        'field' => $attribute,
-                        'size' => 1000,
-                    ]
-                ]
-		    ]
-		];
-
-        $params = array_merge($json_params, $search_params);
-        $result = Elastic::search([
-            'index' => Config::get('bouncy.index'),
-            'search_type' => 'count',
-            'type' => self::ES_TYPE,
-            'body'  => $params
-        ]);
-        $buckets = $result['aggregations'][$attribute]['buckets'];
-
-        $return_list = array();
-        foreach ($buckets as $bucket) {
-            // dd($bucket);
-            $single_value = $bucket['key'];
-            if ($attribute=='author') {
-                $single_value = preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $single_value);
-            }
-            $return_list[$bucket['key']] = "$single_value ({$bucket['doc_count']})";
-        }
-        return $return_list;
-
-    }
-
     /**
      * @return bool
      */
@@ -695,15 +467,6 @@ class Item extends Model
 
     public function isAuthorUnknown() {
         return stripos($this->author, 'neznámy') !== false;
-    }
-
-    private function relatedAuthorityIds()
-    {
-        $ids=array();
-        foreach ($this->authorities as $authority) {
-            $ids[] = $authority->id;
-        }
-        return $ids;
     }
 
     public function isForReproduction()
@@ -768,94 +531,6 @@ class Item extends Model
         return !$this->images->isEmpty();
     }
 
-    public function index()
-    {
-        $client =  $this->getElasticClient();
-        $elastic_translatable = \App::make('ElasticTranslatableService');
-
-        foreach (config('translatable.locales') as $locale) {
-
-            $item_translated = $this->translateOrNew($locale);
-
-            $work_types = $this->makeArray($item_translated->work_type, ', ');
-            $main_work_type = (is_array($work_types)) ? reset($work_types) : '';
-            $data = [
-                // non-tanslatable attributes:
-                'id' => $this->id,
-                'identifier' => $this->identifier,
-                'author' => $this->makeArray($this->author),
-                'tag' => $this->tagNames(), // @TODO translate this
-                'date_earliest' => $this->date_earliest,
-                'date_latest' => $this->date_latest,
-                'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
-                'created_at' => $this->created_at->format('Y-m-d H:i:s'),
-                'has_image' => (bool)$this->has_image,
-                'has_iip' => $this->has_iip,
-                'is_free' => $this->isFree(),
-                'authority_id' => $this->relatedAuthorityIds(),
-                'view_count' => $this->view_count,
-                'color_descriptor' => $this->color_descriptor,
-
-                // tanslatable attributes:
-                'work_type' => $main_work_type, // ulozit iba prvu hodnotu
-                'title' => $item_translated->title,
-                'description' => (!empty($item_translated->description)) ? strip_tags($item_translated->description) : '',
-                'topic' => $this->makeArray($item_translated->topic),
-                'place' => $this->makeArray($item_translated->place),
-                'measurement' => $item_translated->measurments,
-                'dating' => $item_translated->dating,
-                'medium' => $item_translated->medium,
-                'technique' => $this->makeArray($item_translated->technique),
-                'gallery' => $item_translated->gallery,
-                'related_work' => $item_translated->related_work,
-
-            ];
-
-            $client->index([
-                'index' => $elastic_translatable->getIndexForLocale($locale),
-                'type' =>  self::ES_TYPE,
-                'id' => $this->id,
-                'body' => $data,
-            ]);
-        }
-    }
-
-    public static function random($size = 1, $custom_parameters = [])
-    {
-        $custom_parameters['has_image'] = true;
-        $custom_parameters['has_iip'] = true;
-
-        $params = [];
-        $params['query']['bool']['filter'] = static::getFilterParams($custom_parameters);
-        $params['size'] = $size;
-        $params['sort'] = [
-            '_script' => [
-                'script' => 'Math.random() * 200000',
-                'type' => 'number',
-                'order' => 'asc',
-            ]
-        ];
-
-        return self::search($params);
-    }
-
-    public static function amount($custom_parameters = [])
-    {
-        $params = [];
-        $params['query']['bool']['filter'] = static::getFilterParams($custom_parameters);
-        $items = self::search($params);
-        return $items->total();
-    }
-
-    public static function getFilterParams(array $attributes) {
-        $filter = [];
-        foreach ($attributes as $name => $value) {
-            $filter['and'][]['term'][$name] = $value;
-        }
-
-        return $filter;
-    }
-
     public function getColorsUsed($type = null) {
         $colors_used = [];
 
@@ -911,7 +586,45 @@ class Item extends Model
         event(new ItemPrimaryImageChanged($this));
     }
 
-    protected function getElasticClient() {
-        return app(Client::class);
+    public function getIndexedData($locale)
+    {
+        $translation = $this->translateOrNew($locale);
+        $work_types = $this->makeArray($translation->work_type, ', ');
+        return [
+            'id' => $this->id,
+            'identifier' => $this->identifier,
+            'author' => $this->makeArray($this->author),
+            'tag' => $this->tagNames(), // @TODO translate model
+            'date_earliest' => $this->date_earliest,
+            'date_latest' => $this->date_latest,
+            'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
+            'created_at' => $this->created_at->format('Y-m-d H:i:s'),
+            'has_image' => (bool)$this->has_image,
+            'has_iip' => $this->has_iip,
+            'is_free' => $this->isFree(),
+            'authority_id' => $this->authorities()->pluck('id'),
+            'view_count' => $this->view_count,
+            'color_descriptor' => $this->color_descriptor,
+            'work_type' => is_array($work_types) ? reset($work_types) : '',
+            'title' => $this["title:$locale"],
+            'description' => (!empty($this["description:$locale"])) ? strip_tags($this["description:$locale"]) : '',
+            'topic' => $this->makeArray($this["topic:$locale"]),
+            'place' => $this->makeArray($this["place:$locale"]),
+            'measurement' => $this["measurments:$locale"],
+            'dating' => $this["dating:$locale"],
+            'medium' => $this["medium:$locale"],
+            'technique' => $this->makeArray($this["technique:$locale"]),
+            'gallery' => $this["gallery:$locale"],
+            'related_work' => $this["related_work:$locale"],
+        ];
+    }
+
+    public function incrementViewCount($save = true)
+    {
+        $this->timestamps = false;
+        $this->view_count++;
+        if ($save) {
+            $this->save();
+        }
     }
 }

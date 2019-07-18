@@ -42,3 +42,4 @@ data/
 /public/css/app.css
 mix-manifest.json
 npm-debug.log
+docker-compose.override.yml

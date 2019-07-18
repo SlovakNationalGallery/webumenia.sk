@@ -1,0 +1,7 @@
+version: '2'
+services:
+  php:
+    build:
+      context: .
+      args:
+        - WITH_XDEBUG=true
