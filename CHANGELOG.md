@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - Extend memory limit on composer run via docker
 - sort collections by name on frontend
+- hamburger menu is missing link to home page
 
 ## [1.8.1] - 2019-05-04
 ### Fixed
