@@ -29,6 +29,8 @@ return array(
     'form_format_for-print'        => 'tlačená reprodukcia:',
     'form_format_for-print_a4'     => 'tlačená reprodukcia do formátu A4:',
     'form_format_for-print_a3'     => 'tlačená reprodukcia do formátu A3+:',
+    'form_format_for-print_a2'     => 'tlačená reprodukcia do formátu A2:',
+    'form_format_for-print_a1'     => 'tlačená reprodukcia do formátu A1:',
     'form_piece'                   => 'ks',
     'form_format_standalone'       => 'samostatná reprodukcia',
     'form_format_with_mounting'    => 'reprodukcia s paspartou',

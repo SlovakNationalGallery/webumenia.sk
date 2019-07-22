@@ -29,6 +29,8 @@ return array(
     'form_format_for-print'        => 'Printed reproduction:',
     'form_format_for-print_a4'     => 'Printed reproduction A4 size:',
     'form_format_for-print_a3'     => 'Printed reproduction A3+ size:',
+    'form_format_for-print_a2'     => 'Printed reproduction A2 size:',
+    'form_format_for-print_a1'     => 'Printed reproduction A1 size:',
     'form_piece'                   => 'pc',
     'form_format_standalone'       => 'only print',
     'form_format_with_mounting'    => 'with mounting',
