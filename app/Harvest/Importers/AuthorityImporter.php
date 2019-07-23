@@ -76,16 +76,16 @@ class AuthorityImporter extends AbstractImporter
         /** @var BelongsToMany $relation */
         $relation = $model->$field();
 
-        $foreignKeyName = $relation->getForeignKey();
+        $foreignKeyName = $relation->getQualifiedForeignKeyName();
         $foreignKeyName = explode('.', $foreignKeyName);
         $foreignKeyName = end($foreignKeyName);
-        $otherKeyName = $relation->getOtherKey();
-        $otherKeyName = explode('.', $otherKeyName);
-        $otherKeyName = end($otherKeyName);
+        $relatedKeyName = $relation->getQualifiedRelatedKeyName();
+        $relatedKeyName = explode('.', $relatedKeyName);
+        $relatedKeyName = end($relatedKeyName);
 
         return AuthorityRelationship::where([
             $foreignKeyName => $model->getKey(),
-            $otherKeyName => $relatedModel->getKey(),
+            $relatedKeyName => $relatedModel->getKey(),
         ])->exists();
     }
 }

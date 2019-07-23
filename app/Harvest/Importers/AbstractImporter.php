@@ -151,8 +151,10 @@ abstract class AbstractImporter
             $updateIds[] = $relatedModel->getKey();
         }
 
-        $otherKey = $relation->getOtherKey();
-        $notUpdated = $relation->whereNotIn($otherKey, $updateIds)->get();
+        $relatedKeyName = $relation->getQualifiedRelatedKeyName();
+        $relatedKeyName = explode('.', $relatedKeyName);
+        $relatedKeyName = end($relatedKeyName);
+        $notUpdated = $relation->whereNotIn($relatedKeyName, $updateIds)->get();
         if (!$notUpdated->isEmpty()) {
             $relation->detach($notUpdated);
         }
@@ -166,11 +168,11 @@ abstract class AbstractImporter
      */
     protected function existsPivotRecord(Model $model, $field, Model $relatedModel) {
         $relation = $model->$field();
-        $otherKeyName = $relation->getOtherKey();
-        $otherKeyName = explode('.', $otherKeyName);
-        $otherKeyName = end($otherKeyName);
+        $relatedKeyName = $relation->getQualifiedRelatedKeyName();
+        $relatedKeyName = explode('.', $relatedKeyName);
+        $relatedKeyName = end($relatedKeyName);
 
-        return $relation->wherePivot($otherKeyName, $relatedModel->getKey())->exists();
+        return $relation->wherePivot($relatedKeyName, $relatedModel->getKey())->exists();
     }
 
     /**

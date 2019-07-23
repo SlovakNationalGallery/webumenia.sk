@@ -179,10 +179,10 @@ class ItemImporterTest extends TestCase
 
     protected function initImporter(array $row) {
         $importer = new ItemImporter(
-            $itemMapperMock = $this->getMock(ItemMapper::class),
-            $itemImageMapperMock = $this->getMock(ItemImageMapper::class),
-            $collectionItemMapperMock = $this->getMock(CollectionItemMapper::class),
-            $authorityItemMapperMock = $this->getMock(AuthorityItemMapper::class)
+            $itemMapperMock = $this->createMock(ItemMapper::class),
+            $itemImageMapperMock = $this->createMock(ItemImageMapper::class),
+            $collectionItemMapperMock = $this->createMock(CollectionItemMapper::class),
+            $authorityItemMapperMock = $this->createMock(AuthorityItemMapper::class)
         );
         $itemMapperMock
             ->expects($this->once())

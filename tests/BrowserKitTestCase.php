@@ -3,8 +3,9 @@
 namespace Tests;
 
 use Elasticsearch\Client;
+use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
 
-class TestCase extends \Illuminate\Foundation\Testing\TestCase
+class BrowserKitTestCase extends BaseTestCase
 {
     /** @var \Faker\Generator */
     protected $faker;

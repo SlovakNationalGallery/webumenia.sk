@@ -25,5 +25,5 @@ return array(
     'artworks_counted' => '{0}    :artworks_count diel
                           |{1}    :artworks_count dielo
                           |[2,4]  :artworks_count diela
-                          |[5,Inf]:artworks_count diel',
+                          |[5,*]:artworks_count diel',
 );

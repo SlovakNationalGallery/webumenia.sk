@@ -6,10 +6,9 @@ use App\Item;
 use App\Role;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Symfony\Component\DomCrawler\Form;
-use Tests\TestCase;
+use Tests\BrowserKitTestCase;
 
-class AdminItemFormTest extends TestCase
+class AdminItemFormTest extends BrowserKitTestCase
 {
     use DatabaseMigrations;
 
