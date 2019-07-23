@@ -82,7 +82,7 @@ class ItemHarvester extends AbstractHarvester
      * @return string[]
      */
     protected function fetchItemImageIipimgUrls(array $row) {
-        $url = array_first($row['identifier'], function ($i, $identifier) {
+        $url = array_first($row['identifier'], function ($identifier) {
             return str_contains($identifier, 'L2_WEB');
         });
 

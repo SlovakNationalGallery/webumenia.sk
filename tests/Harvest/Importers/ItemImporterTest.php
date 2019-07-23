@@ -32,7 +32,7 @@ class ItemImporterTest extends TestCase
         $item->images()->save($image);
 
         $item->load('images');
-        $this->assertTrue($item->images->contains(function ($i, ItemImage $image) {
+        $this->assertTrue($item->images->contains(function (ItemImage $image) {
             return $image->iipimg_url === 'to_be_deleted';
         }));
 
@@ -40,7 +40,7 @@ class ItemImporterTest extends TestCase
         $item = $importer->import($row, $result = new Result());
 
         $this->assertCount(2, $item->images);
-        $this->assertFalse($item->images->contains(function ($i, ItemImage $image) {
+        $this->assertFalse($item->images->contains(function (ItemImage $image) {
             return $image->iipimg_url === 'to_be_deleted';
         }));
     }
@@ -55,14 +55,14 @@ class ItemImporterTest extends TestCase
         $item->authorities()->attach($authority);
 
         $item->load('authorities');
-        $this->assertTrue($item->authorities->contains(function ($i, Authority $authority) {
+        $this->assertTrue($item->authorities->contains(function (Authority $authority) {
             return $authority->id === 'to_be_detached';
         }));
 
         $item = $importer->import($row, $result = new Result());
 
         $this->assertCount(2, $item->authorities);
-        $this->assertFalse($item->authorities->contains(function ($i, Authority $authority) {
+        $this->assertFalse($item->authorities->contains(function (Authority $authority) {
             return $authority->id === 'to_be_detached';
         }));
     }

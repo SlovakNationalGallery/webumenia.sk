@@ -1,6 +1,7 @@
 <?php
 
 return array(
+    'name' => 'Web umenia',
 
     'env' => env('APP_ENV', 'production'),
 
@@ -72,7 +73,7 @@ return array(
     */
 
     'key' => env('APP_KEY'),
-    'cipher' => MCRYPT_RIJNDAEL_128,
+    'cipher' => 'AES-256-CBC',
 
     /*
     |--------------------------------------------------------------------------
@@ -128,6 +129,7 @@ return array(
         Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
         Dimsav\Translatable\TranslatableServiceProvider::class,
         Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
+        Illuminate\Notifications\NotificationServiceProvider::class,
 
         /*
          * Application Service Providers...

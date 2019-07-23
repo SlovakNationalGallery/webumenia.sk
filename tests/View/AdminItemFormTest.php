@@ -60,20 +60,4 @@ class AdminItemFormTest extends TestCase
 
         $this->assertEquals($url, $item->fresh()->images[0]->iipimg_url);
     }
-
-    /**
-     * Workaround for incorrect file fields mapping
-     * {@inheritdoc}
-     */
-    protected function makeRequestUsingForm(Form $form, array $uploads = [])
-    {
-        $files = $this->convertUploadsForTesting($form, $uploads);
-
-        $files['item']['primary_image'] = $files['item[primary_image]'];
-        unset($files['item[primary_image]']);
-
-        return $this->makeRequest(
-            $form->getMethod(), $form->getUri(), $this->extractParametersFromForm($form), [], $files
-        );
-    }
 }

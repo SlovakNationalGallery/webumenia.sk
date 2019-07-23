@@ -213,7 +213,7 @@ function()
         if (Input::has('collection')) {
             $collection = Collection::find((int) Input::get('collection'));
             if (!empty($collection)) {
-                $items = $collection->items->lists('id')->all();
+                $items = $collection->items->pluck('id')->all();
                 $previousId = getPrevVal($items, $id);
                 if ($previousId) {
                     $previous = Item::find($previousId)->getUrl(['collection' => $collection->id]);
@@ -275,13 +275,11 @@ function()
     Route::get('dielo/nahlad/{id}/{width}/{height?}', 'ImageController@resize')->where('width', '[0-9]+')->where('height', '[0-9]+')->name('dielo.nahlad');
     Route::get('image/{id}/download', 'ImageController@download')->name('image.download');
 
-    Route::controller('patternlib', 'PatternlibController');
+    Route::get('patternlib', 'PatternlibController@getIndex')->name('frontend.patternlib.index');
 
-    Route::controller('katalog', 'CatalogController', [
-        'getIndex' => 'catalog.index'
-    ]);
-    // Route::match(array('GET', 'POST'), 'katalog', 'CatalogController@index');
-    // Route::match(array('GET', 'POST'), 'katalog/suggestions', 'CatalogController@getSuggestions');
+    Route::get('katalog', 'CatalogController@getIndex')->name('frontend.catalog.index');
+    Route::get('katalog/suggestions', 'CatalogController@getSuggestions')->name('frontend.catalog.suggestions');
+    Route::get('katalog/random', 'CatalogController@getRandom')->name('frontend.catalog.random');
 
     Route::match(array('GET', 'POST'), 'autori', 'AuthorController@getIndex');
     Route::match(array('GET', 'POST'), 'autori/suggestions', 'AuthorController@getSuggestions');

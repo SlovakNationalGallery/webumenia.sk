@@ -51,7 +51,7 @@ class MakeSketchbook extends Command
 
         if ($all) {
             $this->info("Je zapnuté sťahovanie všetkých skicárov. Bude to trvať dlhšie.");
-            $ids = Sketchbook::lists('id');
+            $ids = Sketchbook::pluck('id');
         } elseif (! $id =$this->option('id')) {
             $sketchbooks = Sketchbook::orderBy('order', 'ASC')->get();
             $this->info("Dostupné skicare:");
