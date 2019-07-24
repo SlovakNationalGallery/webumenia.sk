@@ -19,8 +19,6 @@ return array(
 
     'debug' => env('APP_DEBUG', false),
 
-    'log' => 'daily',
-
     /*
     |--------------------------------------------------------------------------
     | Application URL
