@@ -47,7 +47,7 @@ class ImportCsv extends Command
      *
      * @return mixed
      */
-    public function fire()
+    public function handle()
     {
         if (! $id =$this->option('id')) {
             $imports = Import::orderBy('id', 'ASC')->get();

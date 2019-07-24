@@ -76,10 +76,10 @@ class AuthorityImporter extends AbstractImporter
         /** @var BelongsToMany $relation */
         $relation = $model->$field();
 
-        $foreignKeyName = $relation->getQualifiedForeignKeyName();
+        $foreignKeyName = $relation->getQualifiedForeignPivotKeyName();
         $foreignKeyName = explode('.', $foreignKeyName);
         $foreignKeyName = end($foreignKeyName);
-        $relatedKeyName = $relation->getQualifiedRelatedKeyName();
+        $relatedKeyName = $relation->getQualifiedRelatedPivotKeyName();
         $relatedKeyName = explode('.', $relatedKeyName);
         $relatedKeyName = end($relatedKeyName);
 

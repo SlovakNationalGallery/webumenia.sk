@@ -151,7 +151,7 @@ abstract class AbstractImporter
             $updateIds[] = $relatedModel->getKey();
         }
 
-        $relatedKeyName = $relation->getQualifiedRelatedKeyName();
+        $relatedKeyName = $relation->getQualifiedRelatedPivotKeyName();
         $relatedKeyName = explode('.', $relatedKeyName);
         $relatedKeyName = end($relatedKeyName);
         $notUpdated = $relation->whereNotIn($relatedKeyName, $updateIds)->get();
@@ -168,7 +168,7 @@ abstract class AbstractImporter
      */
     protected function existsPivotRecord(Model $model, $field, Model $relatedModel) {
         $relation = $model->$field();
-        $relatedKeyName = $relation->getQualifiedRelatedKeyName();
+        $relatedKeyName = $relation->getQualifiedRelatedPivotKeyName();
         $relatedKeyName = explode('.', $relatedKeyName);
         $relatedKeyName = end($relatedKeyName);
 

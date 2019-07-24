@@ -42,7 +42,7 @@ class MakeSketchbook extends Command
      *
      * @return mixed
      */
-    public function fire()
+    public function handle()
     {
         $ids = [];
         $id = null;

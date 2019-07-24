@@ -128,7 +128,6 @@ return array(
         'GrahamCampbell\Throttle\ThrottleServiceProvider',
         Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
         Dimsav\Translatable\TranslatableServiceProvider::class,
-        Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
         Illuminate\Notifications\NotificationServiceProvider::class,
 
         /*
@@ -209,7 +208,6 @@ return array(
         'Throttle' => 'GrahamCampbell\Throttle\Facades\Throttle',
         'LaravelLocalization' => Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
         'FormRenderer' => App\Facades\FormRenderer::class,
-        'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
     ),
 
     'jira_auth' => array(

@@ -9,9 +9,9 @@ use App\Color;
 class ColorTest extends TestCase
 {
     public function testIncorrectInt() {
-        $this->assertException(\InvalidArgumentException::class, 'Value must be integer', function () {
-            new Color('incorrect', Color::TYPE_INT);
-        });
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Value must be integer');
+        new Color('incorrect', Color::TYPE_INT);
     }
 
     public function testNewInstanceAfterConversion() {
