@@ -9,7 +9,7 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase
     /** @var \Faker\Generator */
     protected $faker;
 
-    public function setUp() {
+    protected function setUp(): void {
         parent::setUp();
 
         $this->app->instance(Client::class, $this->createMock(Client::class));

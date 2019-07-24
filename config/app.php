@@ -126,7 +126,7 @@ return array(
         'GrahamCampbell\Throttle\ThrottleServiceProvider',
         Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
         Dimsav\Translatable\TranslatableServiceProvider::class,
-        Illuminate\Notifications\NotificationServiceProvider::class,
+//        Illuminate\Notifications\NotificationServiceProvider::class,
 
         /*
          * Application Service Providers...

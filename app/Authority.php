@@ -189,7 +189,7 @@ class Authority extends Model
     {
         if (!Cache::has('authority_collections_count')) {
             $authority_collections_count = $this->join('authority_item', 'authority_item.authority_id', '=', 'authorities.id')->join('collection_item', 'collection_item.item_id', '=', 'authority_item.item_id')->where('authorities.id', '=', $this->id)->select('collection_item.collection_id')->distinct()->count();
-            Cache::put('authority_collections_count', $authority_collections_count, 60);
+            Cache::put('authority_collections_count', $authority_collections_count, 3600);
         }
 
         return Cache::get('authority_collections_count');
@@ -204,7 +204,7 @@ class Authority extends Model
                                 $join->on('tagging_tagged.taggable_type', '=', DB::raw("'Item'"));
                             })->where('authorities.id', '=', $this->id)->groupBy('tagging_tagged.tag_name')->select('tagging_tagged.tag_name', DB::raw('count(tagging_tagged.tag_name) as pocet'))->orderBy('pocet', 'desc')->limit(10)->get();
             $authority_tags = $tags->pluck('tag_name');
-            Cache::put('authority_tags', $authority_tags, 60);
+            Cache::put('authority_tags', $authority_tags, 3600);
         }
 
         return Cache::get('authority_tags');
@@ -423,7 +423,7 @@ class Authority extends Model
         } else {
             $min_year = self::min('birth_year');
             $slider_min = floor($min_year / 100) * 100;
-            Cache::put($table_name.'.slider_min', $slider_min, 60);
+            Cache::put($table_name.'.slider_min', $slider_min, 3600);
         }
 
         return $slider_min;

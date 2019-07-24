@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Changed
 - ArtworkDetailPage shows multiple images (via IIIF from image server) in ImageCarousel
 - serve item images via custom image server
+- upgrade to Laravel 5.8
 
 ## [1.9.1] - 2019-07-30
 ### Changed

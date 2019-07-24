@@ -453,7 +453,7 @@ class Item extends Model
         } else {
             $min_year = self::min('date_earliest');
             $slider_min = floor($min_year / 100)*100;
-            Cache::put($table_name.'.slider_min', $slider_min, 60);
+            Cache::put($table_name.'.slider_min', $slider_min, 3600);
         }
         return $slider_min;
     }
