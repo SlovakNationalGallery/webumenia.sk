@@ -16,12 +16,9 @@ All notable changes to this project will be documented in this file[^1].
 - windows issues with docker (missing git, use github https, map ES data dir)
 - hamburger menu is missing link to home page
 
-
 ### Changed
 - move description_source_link to translated attributes
 
-### Fixed
-- hamburger menu is missing link to home page
 
 ## [1.8.1] - 2019-05-04
 ### Fixed
