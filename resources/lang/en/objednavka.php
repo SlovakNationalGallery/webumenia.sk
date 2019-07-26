@@ -11,10 +11,11 @@ return array(
     'title'         => 'Reproduction order',
     'order_alert'   => '<strong> Warning: </strong><br> If you wish a reproduction to be ready before Christmas, make sure to place your order <strong>before December 10th</strong>.',
     'order_content' => '<h2 class="bottom-space">Reproduction order</h2>
-                        <p class="lead">We offer high quality printed or digital reproductions of selected artworks from the collections of the Slovak National Gallery.</p>
-                        <p>After selecting the artworks you want, please select either printed or digital format. If you want both printed and digital reproductions, please create a separate order for each. You will recieve an e-mail with more detailed information after placing the order. </p>
-                        <p>Printed reproductions can only be picked up at one of our pick up locations: <a href="http://www.sng.sk/en/bratislava/visiting-us/how-to-find-us/ex-libris-bookshop" target="_blank" class="underline">Ex Libris Bookshop in the Esterházy Palace, Námestie Ľudovíta Štúra 4, Bratislava</a>  or at the cash desk in <a href="http://www.sng.sk/en/zvolen/visiting-us/how-to-find-us" target="_blank" class="underline">Castle Zvolen, SNP Square 594/1, Zvolen</a>.</p>
-                        <p>We provide digital reproductions of <abbr title="less than 70 years has followed the death of the artist" data-toggle="tooltip">copyright protected artworks</abbr> only for special purposes (educational, scientific, promotional, private), which can be specified in the order form below.</p>',
+                        <p>If you are interested in both printed and digital reproductions, please make a <strong>separate order for each type</strong>.</p>
+                        <p>If you wish to order different sizes for each print, please specify them in the <strong>Note</strong> field.</p>
+                        <p>Currently, prints can only be retrieved in person, either in <a href="https://www.sng.sk/en/bratislava/visiting-us/how-to-find-us/ex-libris-bookshop" target="_blank" class="underline">Ex Libris bookstore</a> in Esterházy palace in Bratislava, or at the ticket office of the <a href="https://www.sng.sk/en/zvolen/visiting-us/how-to-find-us" target="_blank" class="underline">Zvolen Castle</a>.</p>
+                        <p>You will receive an <strong>automatic e-mail with detailed information</strong> after placing an order.</p>
+                        <p>For more information, please visit the <a href="https://www.webumenia.sk/en/reprodukcie" target="_blank" class="underline">reproductions page</a>.</p>',
     'order_none'    => 'Your cart is empty',
     'order_remove'  => 'Remove',
     'order_warning' => 'We do not have this artwork digitized in a sufficient quality, printing the reproduction may take more time than usual.',

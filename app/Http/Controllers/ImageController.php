@@ -32,6 +32,7 @@ class ImageController extends Controller
             }
 
             $imagePath = public_path() . Item::getImagePathForId($id, false, $resize, $resize_method);
+            $headers['Content-Disposition'] = sprintf('inline; filename="%s"', basename($imagePath));
 
             return response()->file($imagePath, $headers);
         }

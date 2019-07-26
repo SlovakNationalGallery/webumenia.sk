@@ -8,7 +8,8 @@
     "license": "MIT",
     "repositories": [{
         "type": "vcs",
-        "url": "https://github.com/rastislav-chynoransky/color-extractor.git"
+        "url": "https://github.com/rastislav-chynoransky/color-extractor.git",
+        "no-api": true
     }],
     "require": {
         "laravel/framework": "5.2.*",
@@ -66,6 +67,7 @@
         ]
     },
     "config": {
+        "github-protocols": ["https"],
         "preferred-install": "dist",
         "platform": {
             "php": "5.6.30"

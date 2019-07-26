@@ -31,9 +31,16 @@ class Item extends Model
     const ARTWORKS_DIR = '/images/diela/';
     const ES_TYPE = 'items';
 
+    const COPYRIGHT_LENGTH = 70;
+    const GUESSED_AUTHORISM_TIMESPAN = 60;
+    const FREE_ALWAYS = 0;
+    const FREE_NEVER = PHP_INT_MAX;
+
     public $translatedAttributes = [
         'title',
         'description',
+        'description_source',
+        'description_source_link',
         'work_type',
         'work_level',
         'topic',
@@ -594,29 +601,28 @@ class Item extends Model
 
     public static function listValues($attribute, $search_params)
     {
-        //najskor over, ci $attribute je zo zoznamu povolenych
         if (!in_array($attribute, self::$filterable)) {
             return false;
         }
-        $json_params = '
-		{
-		 "aggs" : {
-		    "'.$attribute.'" : {
-		        "terms" : {
-		          "field" : "'.$attribute.'",
-		          "size": 1000
-		        }
-		    }
-		}
-		}
-		';
-        $params = array_merge(json_decode($json_params, true), $search_params);
+
+        $json_params = [
+             'aggs' => [
+                $attribute => [
+                    'terms' => [
+                        'field' => $attribute,
+                        'size' => 1000,
+                    ]
+                ]
+		    ]
+		];
+
+        $params = array_merge($json_params, $search_params);
         $result = Elastic::search([
-                'index' => Config::get('bouncy.index'),
-                'search_type' => 'count',
-                'type' => self::ES_TYPE,
-                'body'  => $params
-            ]);
+            'index' => Config::get('bouncy.index'),
+            'search_type' => 'count',
+            'type' => self::ES_TYPE,
+            'body'  => $params
+        ]);
         $buckets = $result['aggregations'][$attribute]['buckets'];
 
         $return_list = array();
@@ -633,62 +639,62 @@ class Item extends Model
     }
 
     /**
-     * ci je dielo volne
-     * autor min 70 rokov po smrti - alebo je autor neznamy
+     * @return bool
      */
-    public function isFree()
-    {
-        $copyright_length = 70; // 70 rokov po smrti autora
-        $limit_according_item_dating = $copyright_length + 60; // 60 = 80 (max_life_lenght) - 20 (start_of_publishing)
+    public function isFree() {
+        return $this->freeFrom() <= time();
+    }
 
-        // skontrolovat, ci dielo patri institucii, ktora povoluje "volne diela"
+    /**
+     * @return int
+     */
+    public function freeFrom() {
         $default_locale = config('translatable.fallback_locale');
-
-        if (!(
-            $this->translate($default_locale)->gallery == 'Slovenská národná galéria, SNG' ||
-            $this->translate($default_locale)->gallery == 'Oravská galéria, OGD' ||
-            $this->translate($default_locale)->gallery == 'Liptovská galéria Petra Michala Bohúňa, GPB' ||
-            $this->translate($default_locale)->gallery == 'Galéria umenia Ernesta Zmetáka, GNZ' ||
-            $this->translate($default_locale)->gallery == 'Galéria Miloša Alexandra Bazovského, GBT'  ||
-            $this->translate($default_locale)->gallery == 'Galéria umelcov Spiša, GUS' ||
-            $this->translate($default_locale)->gallery == 'Východoslovenská galéria, VSG' ||
-            $this->translate($default_locale)->gallery == 'Památník národního písemnictví, PNP'
-        )) {
-            return false;
+        if (!in_array($this->translate($default_locale)->gallery, [
+            'Slovenská národná galéria, SNG',
+            'Oravská galéria, OGD',
+            'Liptovská galéria Petra Michala Bohúňa, GPB',
+            'Galéria umenia Ernesta Zmetáka, GNZ',
+            'Galéria Miloša Alexandra Bazovského, GBT',
+            'Galéria umelcov Spiša, GUS',
+            'Východoslovenská galéria, VSG',
+            'Památník národního písemnictví, PNP',
+        ])) {
+            return self::FREE_NEVER;
         }
 
-        //ak je dielo naozaj stare
-        if ((date('Y') - $this->date_latest) > $limit_according_item_dating) {
-            return true;
-        }
+        $freeFromYear = $this->date_latest + self::GUESSED_AUTHORISM_TIMESPAN + self::COPYRIGHT_LENGTH + 1;
 
-        //ak je autor viac ako 71rokov po smrti
-        $authors_are_free = array();
-        foreach ($this->authorities as $i => $authority) {
-            $authors_are_free[$i] = false;
+        $copyrightExpirationYears = [];
+        foreach ($this->authorities as $authority) {
             if (!empty($authority->death_year)) {
-                // $death = cedvuDatetime($authority->death_year);
-                // $years = $death->diffInYears(Carbon::now());
-                $years = date('Y') - $authority->death_year; // podla zakona sa rata volne dielo, ak je autor viac adko 70 rokov po smrti - od zaciatku nasledujuceho roka (1.1.) - co osetruje tento lame vypocet
-                if ($years > $copyright_length) {
-                    $authors_are_free[$i] = true;
-                }
-            }
-        }
-        if (!empty($authors_are_free)) {
-            if (count(array_unique($authors_are_free)) === 1 && end($authors_are_free) == true) {
-                return true;
+                $copyrightExpirationYears[] = $authority->death_year + self::COPYRIGHT_LENGTH + 1;
             } else {
-                return false;
+                return self::FREE_NEVER;
             }
         }
 
-        //ak je autor neznamy
-        if (stripos($this->author, 'neznámy') !== false) {
-            return true;
+        $yearToTimestamp = function ($year) {
+            return (new \DateTime())
+                ->setDate($year, 1, 1)
+                ->setTime(0, 0)
+                ->getTimestamp();
+        };
+
+        if ($copyrightExpirationYears) {
+            $freeFromYear = min($freeFromYear, max($copyrightExpirationYears));
+            return $yearToTimestamp($freeFromYear);
         }
 
-        return false;
+        if ($this->isAuthorUnknown()) {
+            return self::FREE_ALWAYS;
+        }
+
+        return $yearToTimestamp($freeFromYear);
+    }
+
+    public function isAuthorUnknown() {
+        return stripos($this->author, 'neznámy') !== false;
     }
 
     private function relatedAuthorityIds()
@@ -875,32 +881,38 @@ class Item extends Model
 
     public static function random($size = 1, $custom_parameters = [])
     {
-        $params = array();
-        $random = json_decode('
-			{"_script": {
-			    "script": "Math.random() * 200000",
-			    "type": "number",
-			    "params": {},
-			    "order": "asc"
-			 }}', true);
-        $params["sort"][] = $random;
-        $params["query"]["filtered"]["filter"]["and"][]["term"]["has_image"] = true;
-        $params["query"]["filtered"]["filter"]["and"][]["term"]["has_iip"] = true;
-        foreach ($custom_parameters as $attribute => $value) {
-            $params["query"]["filtered"]["filter"]["and"][]["term"][$attribute] = $value;
-        }
-        $params["size"] = $size;
+        $custom_parameters['has_image'] = true;
+        $custom_parameters['has_iip'] = true;
+
+        $params = [];
+        $params['query']['bool']['filter'] = static::getFilterParams($custom_parameters);
+        $params['size'] = $size;
+        $params['sort'] = [
+            '_script' => [
+                'script' => 'Math.random() * 200000',
+                'type' => 'number',
+                'order' => 'asc',
+            ]
+        ];
+
         return self::search($params);
     }
 
     public static function amount($custom_parameters = [])
     {
-        $params = array();
-        foreach ($custom_parameters as $attribute => $value) {
-            $params["query"]["filtered"]["filter"]["and"][]["term"][$attribute] = $value;
-        }
+        $params = [];
+        $params['query']['bool']['filter'] = static::getFilterParams($custom_parameters);
         $items = self::search($params);
         return $items->total();
+    }
+
+    public static function getFilterParams(array $attributes) {
+        $filter = [];
+        foreach ($attributes as $name => $value) {
+            $filter['and'][]['term'][$name] = $value;
+        }
+
+        return $filter;
     }
 
     public function getColorsUsed($type = null) {
