@@ -1,0 +1,32 @@
+// Colors
+.light-grey {
+  color: @light-grey;
+}
+
+.mid-grey {
+  color: @mid-grey;
+}
+
+.grey {
+  color: @grey;
+}
+
+.dark-grey {
+  color: @dark-grey
+}
+
+@spacer: 2em;
+
+#generateSpaceUtils (@name, @attribute) {
+  .@{name}-0 { @{attribute}: 0 }
+  .@{name}-1 { @{attribute}: @spacer * .25 }
+  .@{name}-2 { @{attribute}: @spacer * .5 }
+  .@{name}-3 { @{attribute}: @spacer }
+  .@{name}-4 { @{attribute}: @spacer * 1.5 }
+  .@{name}-5 { @{attribute}: @spacer * 3 }
+}
+
+#generateSpaceUtils(mt, margin-top);
+#generateSpaceUtils(mb, margin-bottom);
+#generateSpaceUtils(pt, padding-top);
+#generateSpaceUtils(pb, padding-bottom);

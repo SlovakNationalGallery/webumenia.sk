@@ -473,7 +473,7 @@ class Item extends Model
         return $authors;
     }
 
-    public function getAuthorFormated($value)
+    public function getAuthorFormated()
     {
         return formatName($this->attributes['author']);
     }
