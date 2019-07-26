@@ -14,6 +14,8 @@ All notable changes to this project will be documented in this file[^1].
 - missing item description_source translated attribute
 - sort collections by name on frontend
 - windows issues with docker (missing git, use github https, map ES data dir)
+- hamburger menu is missing link to home page
+
 
 ### Changed
 - move description_source_link to translated attributes
