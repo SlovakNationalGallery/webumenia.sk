@@ -115,6 +115,11 @@
                 'value'=> trans('objednavka.form_format_standalone') . ' (60 €/'.trans('objednavka.form_piece').')'
             ],
         ],
+        trans('objednavka.form_format_for-poster_a1') => [
+            'poster A1: samostatná reprodukcia 38 €/ks' => [
+                'value'=> trans('objednavka.form_format_standalone') . ' (38 €/'.trans('objednavka.form_piece').')'
+            ],
+        ],
         trans('objednavka.form_format_for-download') => [
                 'digitálna reprodukcia' => ['value'=>trans('objednavka.form_format_digital')]
         ],
@@ -171,6 +176,16 @@
     )); !!}
 </div>
 {{-- /ak nie digitalna --}}
+
+{{-- ak digitalna --}}
+<div id="poster_alert">
+    <div class="alert alert-info col-lg-offset-2 col-md-offset-4" role="alert">
+        {!! trans('objednavka.form_purpose-alert-poster') !!}
+    </div>
+</div>
+{{-- /ak digitalna --}}
+
+
 
 {!! Former::textarea('note')->label(trans('objednavka.form_note')); !!}
 
@@ -253,6 +268,7 @@
         });
 
     function tooglePurpose() {
+        $("#poster_alert").hide();
         if( $('#format').val() == 'digitálna reprodukcia')  {
             $("#ucel").show();
             $("#purpose").attr("disabled", false);
@@ -265,6 +281,9 @@
             $("#purpose").attr("disabled", true);
             $("#for_printed").show();
             $("#delivery_point").attr("disabled", false);
+            if( $('#format').val().indexOf("poster") >= 0)  {
+                $("#poster_alert").show();
+            }
             if( $('#format').val().indexOf("rámom") >= 0)  {
                 $("#for_frame").show();
                 $("#frame").attr("disabled", false);
