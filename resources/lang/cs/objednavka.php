@@ -50,7 +50,7 @@ return array(
     'form_frame_black'             => 'černý',
     'form_frame_white'             => 'světlé dřevo',
     'form_delivery-point'          => 'Místo osobního odběru',
-    'form_delivery-point_exlibris' => 'Knihkupectví ex libris v SNG',
+    'form_delivery-point_exlibris' => 'Knihkupectví Ex Libris v SNG',
     'form_delivery-point_zvolen'   => 'Zvolenský zámek',
     'form_note'                    => 'Poznámka',
     'form_terms_and_conditions'    => 'souhlasím se <a href="http://www.sng.sk/sk/o-galerii/dokumenty/gdpr" class="underline" target="_blank">zpracováním osobních údajů</a> pro účel vyřízení objednávky',
