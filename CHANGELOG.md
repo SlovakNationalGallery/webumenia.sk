@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file[^1].
 - missing item description_source translated attribute
 - sort collections by name on frontend
 - windows issues with docker (missing git, use github https, map ES data dir)
+- add link to home page into haburger menu
 
 ### Changed
 - move description_source_link to translated attributes
