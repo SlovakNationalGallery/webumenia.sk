@@ -5,16 +5,16 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./public:/var/www/html
+      - .:/var/www
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - php
+
   php:
     build: .
     image: web_umenia
     volumes:
       - .:/var/www
-      - ./public:/var/www/html
     depends_on:
       - mysql
       - elasticsearch
@@ -28,7 +28,6 @@ services:
     environment:
       DB_HOST: mysql
       ES_HOST: elasticsearch
-
       REDIS_HOST: redis
 
   mysql:
@@ -59,8 +58,9 @@ services:
       - "9200:9200"
       - "9300:9300"
     volumes:
-      # - ./data/elasticsearch-${ES_INDEX}:/usr/share/elasticsearch/data
+       - ./data/elasticsearch-${ES_PREFIX}:/usr/share/elasticsearch/data
        - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
       # - ./storage/logs/elasticsearch:/usr/share/elasticsearch/logs
+
   redis:
     image: redis:5.0.5-alpine

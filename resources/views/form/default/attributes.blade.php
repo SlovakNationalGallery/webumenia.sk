@@ -2,7 +2,7 @@
     @if (in_array($attrname, ['placeholder', 'title']))
         {{ $attrname }}="{{ $attrvalue }}"
     @elseif ($attrvalue === true)
-        {{ $attrname }}="{{ $attrname  }}"
+        {{ $attrname }}="{{ $attrname }}"
     @elseif ($attrvalue !== false)
         {{ $attrname }}="{{ $attrvalue }}"
     @endif

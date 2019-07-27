@@ -2,14 +2,17 @@
 
 namespace App;
 
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Facades\URL;
 use Intervention\Image\ImageManagerStatic;
 
-class Collection extends \Eloquent
+class Collection extends Model implements TranslatableContract
 {
-    use \Dimsav\Translatable\Translatable;
+    use Translatable;
         
     const ARTWORKS_DIR = '/images/kolekcie/';
 

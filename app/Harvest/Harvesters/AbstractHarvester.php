@@ -7,6 +7,7 @@ use App\Harvest\Repositories\AbstractRepository;
 use App\Harvest\Result;
 use App\SpiceHarvesterHarvest;
 use App\SpiceHarvesterRecord;
+use Illuminate\Database\Eloquent\Model;
 
 abstract class AbstractHarvester
 {
@@ -75,13 +76,13 @@ abstract class AbstractHarvester
 
         if ($record->trashed() || $this->isExcluded($row)) {
             $result->incrementSkipped();
-            return;
+            return null;
         }
 
         if ($this->isForDeletion($row)) {
             $this->deleteRecord($record);
             $result->incrementDeleted();
-            return;
+            return null;
         }
 
         $model = $this->importer->import($row, $result);

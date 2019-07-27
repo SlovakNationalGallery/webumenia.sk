@@ -48,15 +48,13 @@ class ItemHarvester extends AbstractHarvester
         $item = parent::harvestSingle($record, $result, $row);
 
         if (!$item) {
-            return;
+            return null;
         }
 
         if ($item->img_url) {
             $this->trySaveImage($item);
         }
 
-        // index with updated relations
-        $item->index();
         return $item;
     }
 

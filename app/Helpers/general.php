@@ -137,68 +137,9 @@ function asset_timed($path, $secure = null)
     }
 }
 
-function getTitleWithFilters($model, $input, $end_with = '')
-{
-    $title_parts = array();
-    $separator = ' &bull; ';
-    foreach ($model::$filterable as $label => $filter) {
-        if (!empty($input[$filter])) {
-            if ($input[$filter] == '1') {
-                $title_parts[] = $label;
-            } else {
-                if ($filter == 'author') {
-                    $input[$filter] = preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $input[$filter]); //otoc meno a priezvisko
-                }                $title_parts[] = $label . ': ' . $input[$filter];
-            }
-        }
-    }
-    // fazety, ktore niesu typu "term" treba zadefinovat osobitne, pretoze niesu vo $filterable
-    if (isset($input['year-range'])) {
-        $range = explode(',', $input['year-range']);
-        if ($range[0] > $model::sliderMin()) {
-            $title_parts[] = 'po' . ': ' . $range[0];
-        }
-        if ($range[1] < $model::sliderMax()) {
-            $title_parts[] = 'do' . ': ' . $range[1];
-        }
-    }
-    if (!empty($input['first-letter'])) {
-        $title_parts[] = 'začína sa na' . ': "' . $input['first-letter'] . '"';
-    }
-    if (empty($title_parts)) {
-        $end_with = '';
-    }
-    return implode($separator, $title_parts) . $end_with;
-}
-
 function addMicrodata($value, $itemprop)
 {
     return '<span itemprop="'.$itemprop.'">'.$value.'</span>';
-}
-
-function getCanonicalUrl()
-{
-    $unwanted_params = [
-        'tag',
-        'sort_by',
-        'year-range',
-        'has_image',
-        'has_iip',
-        'is_free',
-        'first_letter',
-    ];
-
-    $url = Request::url();
-    $params = array_filter(Input::except($unwanted_params), 'strlen'); //vyhodi nechcene a prazdne parametre
-
-    if (!empty($params)) {
-        $params = array_slice($params, 0, 1); //necha iba prvy parameter v poli
-        if (Input::has('page')) {
-            $params['page'] = Input::get('page');
-        }
-        $url .=  '?' . http_build_query($params);
-    }
-    return $url;
 }
 
 function formatBytes($size, $precision = 2)

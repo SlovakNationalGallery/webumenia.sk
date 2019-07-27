@@ -64,6 +64,10 @@ class Color
 
         self::validateValue($value, $type);
 
+        if ($type === self::TYPE_HEX) {
+            $value = '#' . ltrim($value, '#');
+        }
+
         $this->value = $value;
         $this->type = $type;
     }
@@ -104,6 +108,21 @@ class Color
         }
 
         return new static($value, $type);
+    }
+
+    public function getDescriptor()
+    {
+        $lab = $this->convertTo(Color::TYPE_LAB);
+
+        $value = $lab->getValue();
+        $block = [$value['L'], $value['a'], $value['b'], sqrt(100)];
+
+        $descriptor = [];
+        for ($i = 0; $i < config('colordescriptor.colorCount'); $i++) {
+            $descriptor = array_merge($descriptor, $block);
+        }
+
+        return $descriptor;
     }
 
     /**
@@ -163,8 +182,8 @@ class Color
     }
 
     protected static function validateHex($value) {
-        if (!is_string($value)) {
-            throw new \InvalidArgumentException('Value must be string');
+        if (!is_string($value) || !preg_match('/^#?[0-9A-Fa-f]{6}$/', $value)) {
+            throw new \InvalidArgumentException('Value must be hexadecimal color code');
         }
     }
 

@@ -2,10 +2,13 @@
 
 namespace App;
 
+use App\Concerns\Translation;
 use Illuminate\Database\Eloquent\Model;
 
 class AuthorityTranslation extends Model
 {
+    use Translation;
+
     public $timestamps = false;
     protected $fillable = ['type_organization', 'biography', 'birth_place', 'death_place', 'roles'];
 

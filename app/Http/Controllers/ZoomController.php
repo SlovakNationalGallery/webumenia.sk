@@ -18,7 +18,7 @@ class ZoomController extends Controller
         $item = Item::find($id);
 
         if (empty($item->has_iip)) {
-            App::abort(404);
+            abort(404);
         }
 
         $itemImages = $item->images;

@@ -6,11 +6,12 @@ use App\Import;
 use App\Importers\PnpImporter;
 use App\Repositories\CsvRepository;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\WithoutEvents;
 use Tests\TestCase;
 
 class PnpImporterTest extends TestCase
 {
-    use DatabaseMigrations;
+    use DatabaseMigrations, WithoutEvents;
 
     public function testId() {
         $data = $this->fakeData(['Inventární číslo:' => 'A B/C']);

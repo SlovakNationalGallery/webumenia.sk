@@ -17,11 +17,18 @@ use App\Harvest\Result;
 use App\Link;
 use App\Nationality;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\WithoutEvents;
 use Tests\TestCase;
 
 class AuthorityImporterTest extends TestCase
 {
-    use DatabaseMigrations;
+    use DatabaseMigrations, WithoutEvents;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->withoutEvents();
+    }
 
     public function testUpdateRelated() {
         factory(Authority::class)->create(['id' => 1000162]);

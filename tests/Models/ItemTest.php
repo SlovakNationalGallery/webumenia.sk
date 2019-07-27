@@ -5,24 +5,12 @@ namespace Tests\Models;
 use App\Authority;
 use App\Item;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\WithoutEvents;
 use Tests\TestCase;
 
 class ItemTest extends TestCase
 {
-    use DatabaseMigrations;
-
-    public function testTranslationFallback() {
-        $item = factory(Item::class)->create([
-            'title:sk' => 'a',
-            'title:cs' => 'b',
-        ]);
-
-        \App::setLocale('cs');
-        $this->assertEquals('b', $item->title);
-
-        \App::setLocale('en');
-        $this->assertEquals('a', $item->title);
-    }
+    use DatabaseMigrations, WithoutEvents;
 
     public function testFreeFromDateLatest() {
         $item = factory(Item::class)->make([
@@ -82,6 +70,22 @@ class ItemTest extends TestCase
         $item = $this->createFreeItem();
         $item->date_latest = date('Y');
         $this->assertTrue($item->isFree());
+    }
+
+    public function testGetIndexedDataFallbackLocale()
+    {
+        /** @var Item $item */
+        $item = factory(Item::class)->make([
+            'title' => 'Názov',
+            'title:en' => 'Title',
+            'description' => 'Popis',
+            'created_at' => $this->faker->dateTime,
+            'updated_at' => $this->faker->dateTime,
+        ]);
+
+        $data = $item->getIndexedData('en');
+        $this->assertEquals($data['title'], 'Title');
+        $this->assertEquals($data['description'], 'Popis');
     }
 
     protected function createFreeItem() {

@@ -57,10 +57,10 @@ class ItemType extends AbstractType
         // set empty translations
         $builder->addEventListener(
             FormEvents::PRE_SET_DATA,
-            function (FormEvent $event) {
+            function (FormEvent $event) use ($options) {
                 $data = $event->getData();
 
-                foreach (config('translatable.locales') as $locale) {
+                foreach ($options['locales'] as $locale) {
                     $data->translateOrNew($locale);
                 }
             }
@@ -111,5 +111,8 @@ class ItemType extends AbstractType
 
         $resolver->setRequired('new');
         $resolver->setAllowedTypes('new', 'bool');
+
+        $resolver->setRequired('locales');
+        $resolver->setAllowedTypes('locales', 'string[]');
     }
 }
