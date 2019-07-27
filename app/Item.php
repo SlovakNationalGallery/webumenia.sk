@@ -834,7 +834,9 @@ class Item extends Model
         $client =  $this->getElasticClient();
         $elastic_translatable = \App::make('ElasticTranslatableService');
 
-        foreach ($this->translations as $item_translated) {
+        foreach (config('translatable.locales') as $locale) {
+
+            $item_translated = $this->translateOrNew($locale);
 
             $work_types = $this->makeArray($item_translated->work_type, ', ');
             $main_work_type = (is_array($work_types)) ? reset($work_types) : '';
@@ -871,7 +873,7 @@ class Item extends Model
             ];
 
             $client->index([
-                'index' => $elastic_translatable->getIndexForLocale($item_translated->locale),
+                'index' => $elastic_translatable->getIndexForLocale($locale),
                 'type' =>  self::ES_TYPE,
                 'id' => $this->id,
                 'body' => $data,

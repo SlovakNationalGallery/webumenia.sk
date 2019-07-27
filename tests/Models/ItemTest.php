@@ -11,6 +11,19 @@ class ItemTest extends TestCase
 {
     use DatabaseMigrations;
 
+    public function testTranslationFallback() {
+        $item = factory(Item::class)->create([
+            'title:sk' => 'a',
+            'title:cs' => 'b',
+        ]);
+
+        \App::setLocale('cs');
+        $this->assertEquals('b', $item->title);
+
+        \App::setLocale('en');
+        $this->assertEquals('a', $item->title);
+    }
+
     public function testFreeFromDateLatest() {
         $item = factory(Item::class)->make([
             'gallery' => 'Slovenská národná galéria, SNG',

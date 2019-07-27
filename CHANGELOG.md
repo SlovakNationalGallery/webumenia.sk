@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file[^1].
 - refactor Item::isFree method
 - missing item description_source translated attribute
 - sort collections by name on frontend
+- index all even unexisting translations
 - windows issues with docker (missing git, use github https, map ES data dir)
 - add link to home page into haburger menu
 
