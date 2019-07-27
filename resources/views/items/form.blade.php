@@ -41,11 +41,8 @@
 		<div class="tab-content top-space">
 			<div role="tabpanel" class="tab-pane active">
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-md-12">
 						@formRow($form['description_user_id'])
-					</div>
-					<div class="col-md-6">
-						@formRow($form['description_source_link'], ['attr' => ['placeholder' => 'http://']])
 					</div>
 					<div class="col-md-12">
 						@formRow($form['identifier'])

@@ -15,7 +15,7 @@ return array(
                            <p>The price of the reproduction depends on the format, which you can choose on the order page.</p>
                            <p>You can only order printed reproductions of artworks from the collections of the Slovak National Gallery which were already <strong>digitized</strong> and are available at high resolution.</p>
                            <p>Orders usually take up to <strong>30 days</strong> to process.</p>
-                           <p>Currently, the prints can only be retrieved in person, either in <a href="https://www.sng.sk/en/bratislava/visiting-us/how-to-find-us/ex-libris-bookshop">Ex Libris bookstore</a> in Esterházy palace in Bratislava, or at the ticket office of the <a href="https://www.sng.sk/en/zvolen/visiting-us/how-to-find-us">Zvolen Castle</a>.</p>',
+                           <p>Currently, the prints can only be retrieved in person, either in <a href="https://www.sng.sk/en/bratislava/visiting-us/how-to-find-us/ex-libris-bookshop" target="_blank">Ex Libris bookstore</a> in Esterházy palace in Bratislava, or at the ticket office of the <a href="https://www.sng.sk/en/zvolen/visiting-us/how-to-find-us" target="_blank">Zvolen Castle</a>.</p>',
     'print_recommended' => 'Recommended',
     'print_list'        => '<ul>
                               <li>We do not print reproductions in their <strong>"true" size</strong> to avoid mistaking the reproduction for its original artwork. We keep the original format ratio, colors, and signature. The maximum size of the reproduction is twice the size of the original artwork.</li>
@@ -34,7 +34,7 @@ return array(
     'print_offer_framed_title'             => 'Framed reproduction with passe-partout',
     'print_offer_framed_description'       => '<p>The reproduction is printed on FineArt Rag (100% cotton, pH neutral) or FineArt Baryt Photo Paper.</p><p>The reproduction is inside a passe-partout and a wooden frame with a glass front</p><p>The frame is made of smooth wood, with two color options (light, black). If you\'d prefer another frame color, we recommend the print in passe-partout, which can easily be framed elsewhere.</p><p>The maximum size of the print in passe-partout and frame is A3+.</p>',
     'print_offer_poster_title'             => 'Poster',
-    'print_offer_poster_description'       => '<p>The reproduction is printed on high-quality map paper in the A1 format.</p><p>We currently offer only a <a href="https://www.webumenia.sk/kolekcia/144">selection of posters</a> from the collections of the Slovak National Gallery.</p>',
+    'print_offer_poster_description'       => '<p>The reproduction is printed on high-quality map paper in the A1 format.</p><p>We currently offer only a <a href="https://www.webumenia.sk/en/kolekcia/144" target="_blank">selection of posters</a> from the collections of the Slovak National Gallery.</p>',
     'digital_heading'   => 'Digital reproductions',
     'digital_body'      => '<p>We provide digital reproductions of artworks from the collections of the Slovak National Gallery for specific purposes. Conditions for providing a digital reproduction depend on the selected artwork and purpose of use.</p>
                             <p>In accordance with copyright laws, <strong>the Slovak National Gallery does not provide digital reproductions of protected artworks for common private purposes (decoration, gifts etc.)</strong>.</p>
