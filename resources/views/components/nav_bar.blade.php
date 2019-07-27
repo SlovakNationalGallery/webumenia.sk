@@ -25,7 +25,7 @@
 
         <div class="collapse navbar-collapse navbar-main-collapse">
             <ul class="nav navbar-nav">
-                <li class="{!! (Request::is('/')) ? 'active' : '' !!}">
+                <li class="visible-xs {!! (Request::is('/')) ? 'active' : '' !!}">
                     <a href="{!! URL::to('') !!}">Web umenia</a>
                 </li>
                 <li class="{!! (Request::is('katalog') || Request::is('dielo/*')) ? 'active' : '' !!}">
