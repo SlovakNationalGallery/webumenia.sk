@@ -2,7 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
 ### Added
+- error message to harvest data
 - map all datings in item harvester
 - do not delete harvested items on harvest deletion
 - suggest filename for resized item images
@@ -16,6 +18,7 @@ All notable changes to this project will be documented in this file[^1].
 - index all even unexisting translations
 - windows issues with docker (missing git, use github https, map ES data dir)
 - add link to home page into haburger menu
+- harvesters fail on zero results
 
 ### Changed
 - move description_source_link to translated attributes
