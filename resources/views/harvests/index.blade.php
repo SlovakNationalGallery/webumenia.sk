@@ -52,7 +52,7 @@ Spice Harvester |
 			                <td>{!! $h->set_name !!}</td>
 			                {{-- <td>{!! $h->metadata_prefix !!}</td> --}}
 			                <td>
-                                {{ $h->updated_at->format("d.m.Y H:i") }}<br>
+                                {{ ($h->updated_at) ? $h->updated_at->format("d.m.Y H:i") : '' }}<br>
                                 <span class="h4"><span class="label label-{!! $h->status_class !!}">{!! $h->status !!}</span></span>
                             </td>
                             <td>

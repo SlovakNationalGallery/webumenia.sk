@@ -3,15 +3,36 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+<<<<<<< HEAD
 ## [1.8.2] - 2019-06-27
+=======
+>>>>>>> develop
 ### Added
+- error message to harvest data
 - map all datings in item harvester
 - do not delete harvested items on harvest deletion
+<<<<<<< HEAD
 - improve reproduction images and enabled ReproductionsPage in NavBar
 
 ### Fixed
 - extend memory limit on composer run via docker
+=======
+- suggest filename for resized item images
+- Improved reproduction images and enabled ReproductionsPage in NavBar
+
+### Fixed
+- Extend memory limit on composer run via docker
+- refactor Item::isFree method
+- missing item description_source translated attribute
+>>>>>>> develop
 - sort collections by name on frontend
+- index all even unexisting translations
+- windows issues with docker (missing git, use github https, map ES data dir)
+- add link to home page into haburger menu
+- harvesters fail on zero results
+
+### Changed
+- move description_source_link to translated attributes
 
 ## [1.8.1] - 2019-05-04
 ### Fixed

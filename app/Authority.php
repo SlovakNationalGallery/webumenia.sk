@@ -378,7 +378,9 @@ class Authority extends Model
         $client =  $this->getElasticClient();
         $elastic_translatable = \App::make('ElasticTranslatableService');
 
-        foreach ($this->translations as $authority_translated) {
+        foreach (config('translatable.locales') as $locale) {
+
+            $authority_translated = $this->translateOrNew($locale);
 
             $data = [
                 // non-tanslatable attributes:
@@ -405,7 +407,7 @@ class Authority extends Model
             ];
 
             $client->index([
-                'index' => $elastic_translatable->getIndexForLocale($authority_translated->locale),
+                'index' => $elastic_translatable->getIndexForLocale($locale),
                 'type' =>  self::ES_TYPE,
                 'id' => $this->id,
                 'body' => $data,

@@ -13,7 +13,7 @@ return array(
     'order_content' => '<h2 class="bottom-space">Reproduction order</h2>
                         <p>If you are interested in both printed and digital reproductions, please make a <strong>separate order for each type</strong>.</p>
                         <p>If you wish to order different sizes for each print, please specify them in the <strong>Note</strong> field.</p>
-                        <p>Currently, prints can only be retrieved in person, either in <a href="https://www.sng.sk/en/bratislava/visiting-us/how-to-find-us/ex-libris-bookshop">Ex Libris bookstore</a> in Esterházy palace in Bratislava, or at the ticket office of the <a href="https://www.sng.sk/en/zvolen/visiting-us/how-to-find-us">Zvolen Castle</a>.</p>
+                        <p>Currently, prints can only be retrieved in person, either in <a href="https://www.sng.sk/en/bratislava/visiting-us/how-to-find-us/ex-libris-bookshop" target="_blank" class="underline">Ex Libris bookstore</a> in Esterházy palace in Bratislava, or at the ticket office of the <a href="https://www.sng.sk/en/zvolen/visiting-us/how-to-find-us" target="_blank" class="underline">Zvolen Castle</a>.</p>
                         <p>You will receive an <strong>automatic e-mail with detailed information</strong> after placing an order.</p>
                         <p>For more information, please visit the <a href="https://www.webumenia.sk/en/reprodukcie" target="_blank" class="underline">reproductions page</a>.</p>',
     'order_none'    => 'Your cart is empty',
@@ -29,6 +29,9 @@ return array(
     'form_format_for-print'        => 'Printed reproduction:',
     'form_format_for-print_a4'     => 'Printed reproduction A4 size:',
     'form_format_for-print_a3'     => 'Printed reproduction A3+ size:',
+    'form_format_for-print_a2'     => 'Printed reproduction A2 size:',
+    'form_format_for-print_a1'     => 'Printed reproduction A1 size:',
+    'form_format_for-poster_a1'    => 'Poster A1 size:',
     'form_piece'                   => 'pc',
     'form_format_standalone'       => 'only print',
     'form_format_with_mounting'    => 'with mounting',
@@ -38,7 +41,8 @@ return array(
     'form_format_for-download'     => 'For download:',
     'form_format_digital'          => 'digital reproduction',
     'form_purpose-alert'           => 'The copyright law prevents us from providing digital reproductions of <abbr title="less than 70 years has followed the death of the artist" data-toggle="tooltip">copyright protected artworks</abbr> for general private purposes (decoration, gift etc.). Slovak National Gallery will create a written contract, according to the information provided in the order. This contract will limit the use of the reproduction just for the purpose stated in the order.',
-    'form_purpose-alert-print'     => '',
+    'form_purpose-alert-print'     => 'If you are interested in artwork prints, you can order high-quality reproductions, which are printed and framed by Slovak National Gallery.',
+    'form_purpose-alert-poster'    => 'In this format, we currently offer only the reproductions of works from the <a href="https://www.webumenia.sk/en/kolekcia/144" target="_blank" class="alert-link">SNG Posters collection</a>. If your chosen artwork is not in this collection, please select a different format. We are gradually expanding the collection of available posters.',
     'form_purpose-label'           => 'Purpose',
     'form_purpose-info'            => 'Purpose description',
     'form_frame'                   => 'Frame',

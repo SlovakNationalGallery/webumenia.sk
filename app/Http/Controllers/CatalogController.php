@@ -136,11 +136,11 @@ class CatalogController extends ElasticController
                 $params['query']['bool']['minimum_should_match'] = 1;
             }
 
-            foreach ($input as $filter => $value) {
-                if (in_array($filter, Item::$filterable) && !empty($value)) {
-                    $params['query']['bool']['filter']['and'][]['term'][$filter] = $value;
-                }
-            }
+            $filter = array_filter($input, function ($value, $name) {
+                return in_array($name, Item::$filterable) && !empty($value);
+            }, ARRAY_FILTER_USE_BOTH);
+
+            $params['query']['bool']['filter'] = Item::getFilterParams($filter);
             if (!empty($input['year-range']) &&
                 $input['year-range'] != Item::sliderMin().','.Item::sliderMax() //nezmenena hodnota
             ) {

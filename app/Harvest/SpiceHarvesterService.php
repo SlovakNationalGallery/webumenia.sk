@@ -37,11 +37,22 @@ class SpiceHarvesterService
      */
     public function harvest(SpiceHarvesterHarvest $harvest, \DateTime $from = null, \DateTime $to = null, $only_ids = []) {
         $timeStart = microtime(true);
+        $result = new Result();
 
-        $this->harvesters[$harvest->type]->harvest($harvest, $result = new Result(), $from, $to, $only_ids);
+        try {
+            $this->harvesters[$harvest->type]->harvest($harvest, $result, $from, $to, $only_ids);
 
-        $harvest->status = SpiceHarvesterHarvest::STATUS_COMPLETED;
-        $harvest->status_messages = sprintf(
+            $harvest->status = SpiceHarvesterHarvest::STATUS_COMPLETED;
+            $harvest->status_messages = '';
+            $harvest->completed = date('Y-m-d H:i:s');
+        } catch (\Exception $e) {
+            $harvest->status = SpiceHarvesterHarvest::STATUS_ERROR;
+            $harvest->status_messages = $e->getMessage() . PHP_EOL;
+
+            app('sentry')->captureException($e);
+        }
+
+        $harvest->status_messages .= sprintf(
             trans('harvest.status_message_completed'),
             $result->getTotal(),
             $result->getInserted(),
@@ -50,7 +61,7 @@ class SpiceHarvesterService
             $result->getSkipped(),
             microtime(true) - $timeStart
         );
-        $harvest->completed = date('Y-m-d H:i:s');
+
         $harvest->save();
     }
 
