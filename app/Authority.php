@@ -90,15 +90,15 @@ class Authority extends Model
 
         static::created(function ($authority) {
 
-            $authority->index();
+            $authority->fresh()->index();
             foreach ($authority->items as $item) {
-                $item->index();
+                $item->fresh()->index();
             }
         });
 
         static::updated(function ($authority) {
 
-            $authority->index();
+            $authority->fresh()->index();
 
         });
 
@@ -380,7 +380,7 @@ class Authority extends Model
 
         foreach (config('translatable.locales') as $locale) {
 
-            $authority_translated = $this->getTranslation($locale);
+            $authority_translated = $this->translateOrNew($locale);
 
             $data = [
                 // non-tanslatable attributes:

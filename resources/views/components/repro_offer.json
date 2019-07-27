@@ -3,6 +3,7 @@
     "data" : {
         "title": "Samostatná Tlačená Reprodukcia",
         "img_url": "/images/reprodukcie/format-1-samostatna.jpg",
+        "img_full_url": "/images/reprodukcie/full/format-4-plagat.jpg",
         "description": "<p>Reprodukcia je vytlačená na fine art rag (100% bavlna, pH neutrálna) alebo FineArt Baryt Photo Paper, okolo plochy diela je biely okraj (pre prípadné paspartovanie/rámovanie).</p><p>Rozmer reprodukcie zachováva pomer strán diela.</p>",
         "pricing_options": [
             ["do <strong>A4</strong>", "(21 x 29,7 cm)",   "30 eur / ks"],
