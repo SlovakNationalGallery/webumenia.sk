@@ -8879,6 +8879,42 @@ label sup {
 .pb-5 {
   padding-bottom: 6em;
 }
+.pr-0 {
+  padding-right: 0;
+}
+.pr-1 {
+  padding-right: 0.5em;
+}
+.pr-2 {
+  padding-right: 1em;
+}
+.pr-3 {
+  padding-right: 2em;
+}
+.pr-4 {
+  padding-right: 3em;
+}
+.pr-5 {
+  padding-right: 6em;
+}
+.pl-0 {
+  padding-left: 0;
+}
+.pl-1 {
+  padding-left: 0.5em;
+}
+.pl-2 {
+  padding-left: 1em;
+}
+.pl-3 {
+  padding-left: 2em;
+}
+.pl-4 {
+  padding-left: 3em;
+}
+.pl-5 {
+  padding-left: 6em;
+}
 /*
 
    HEIGHTS

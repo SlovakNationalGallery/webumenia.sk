@@ -74,12 +74,12 @@
     <h3 class="text-center mt-3 mb-2">Najnovšie články</h3>
 
     <div class="row">
-        <div class="col-sm-offset-1 col-sm-5 col-xs-12">
+        <div class="col-md-offset-1 col-md-5 col-sm-6">
             @include('components.article_thumbnail', [
                 'article' => $articles[0]
             ])
         </div>
-        <div class="col-sm-5 col-xs-12">
+        <div class="col-md-5 col-sm-6">
             @include('components.article_thumbnail', [
                 'article' => $articles[1]
             ])
@@ -111,7 +111,6 @@
                         <a href="{!!  url_to('katalog', ['author' => $item->author ]) !!}">{!! $item->getAuthorFormated() !!}</a>
                     </strong>
                 </h4>
-                {{-- <em>{!! $item->getDatingFormated() !!}</em> --}}
             </div>
         </div>
         @endforeach
@@ -121,7 +120,38 @@
             <a class="btn btn-default btn-outline sans" href="/autori"><strong>Viac autorov</strong></a>
         </div>
     </div>
+    <hr>
 
+    <div class="row">
+        <h3 class="text-center mt-3 mb-2">Najnovšia kolekcia</h3>
+        <div class="col-sm-offset-1 col-sm-3 pr-4">
+            <div class="collection-title">
+                <a href="{!! $collection->getUrl() !!}" class="underline">
+                    <strong>{!! $collection->name !!}</strong>
+                </a>
+            </div>
+            <div class="collection-meta grey mb-2">
+                {!! $collection->created_at->format('d. m. Y') !!} &nbsp;&middot;&nbsp;
+                {!! $collection->user->name !!} &nbsp;&middot;&nbsp;
+                {!! $collection->items->count() !!} {{ trans('kolekcie.collections_artworks') }}
+            </div>
+            <div>
+                {!! $collection->getShortTextAttribute($collection->text, 350) !!} (<a href="{!! $collection->getUrl() !!}">{{ trans('general.more') }}</a>)
+            </div>
+        </div>
+        <div class="col-sm-7 mb-2 pt-2">
+            @include('components.artwork_carousel', [
+                'slick_target' => "artworks-preview",
+                'slick_variant' => "large",
+                'items' => $collection->getPreviewItems(),
+            ])
+        </div>
+    </div>
+    <div class="row mt-2 mb-4">
+        <div class="col-xs-12 text-center">
+            <a class="btn btn-default btn-outline sans" href="/kolekcie"><strong>Všetky kolekcie</strong></a>
+        </div>
+    </div>
     <hr>
 
     <h3 class="text-center mt-3 mb-2">Vyhľadávanie podľa techniky, žánru, farieb</h3>
@@ -206,6 +236,8 @@
 @stop
 
 @section('javascript')
+{!! Html::script('js/slick.js') !!}
+{!! Html::script('js/components/artwork_carousel.js') !!}
 
 <script type="text/javascript">
 $(document).ready(function(){
