@@ -112,15 +112,20 @@ class ItemMapper extends AbstractModelMapper
             return;
         }
 
-        $dating_text = null;
-        if (!empty($row['created'][1])) {
-            $dating_text_array = explode(', ', $row['created'][1]);
-            $dating_text = end($dating_text_array);
-        } elseif (isset($row['created'][0])) {
-            $dating_text = $row['created'][0];
-        }
+        $datings = array_filter($row['created'], function($dating) {
+            return str_contains($dating, ', ');
+        });
 
-        return $dating_text;
+        $datings = array_map(function($dating) {
+            $dating = explode(', ', $dating);
+            return end($dating);
+        }, $datings);
+
+        if ($datings) {
+            return implode(', ', $datings);
+        } elseif (isset($row['created'][0])) {
+            return $row['created'][0];
+        }
     }
 
     public function mapRelationshipType(array $row, $locale) {

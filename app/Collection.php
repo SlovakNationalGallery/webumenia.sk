@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Facades\URL;
 use Intervention\Image\ImageManagerStatic;
 
@@ -22,7 +24,7 @@ class Collection extends \Eloquent
         'created_at' => 'sortable.created_at',
         'name'       => 'sortable.title',
     );
-    
+
     public function items()
     {
         return $this->belongsToMany(\App\Item::class, 'collection_item', 'collection_id', 'item_id')->withPivot('order')->orderBy('order', 'asc');
@@ -99,5 +101,41 @@ class Collection extends \Eloquent
     public function getTitleShadowAttribute($value)
     {
         return (!empty($value)) ? $value : '#777';
+    }
+
+    public function scopeOrderByTranslation(Builder $query, $column, $dir = 'asc', $locale = null)
+    {
+        $locale = $locale ?: $this->locale();
+
+        return $query
+            ->join('collection_translations as t', function ($join) use ($locale) {
+                $join->on('collections.id', '=', 't.collection_id')
+                    ->where(function ($query) use ($locale) {
+                        $query->where('t.locale', '=', $locale);
+
+                        if ($this->useFallback()) {
+                            $this->joinFallbackLocale($query, $locale);
+                        }
+                    });
+            })
+            ->select(['collections.*', 't.name', 't.type', 't.text'])
+            ->orderBy("t.$column", $dir);
+    }
+
+    protected function joinFallbackLocale(JoinClause $query, $locale = null, $alias = 't')
+    {
+        $locale = $locale ?: $this->locale();
+
+        return $query->orWhere(function ($query) use ($locale, $alias) {
+            $query->where("$alias.locale", '=', $this->getFallbackLocale());
+
+            $withTranslation = self::whereHas('translations', function (Builder $q) use ($locale, $alias) {
+                $q->where($this->getLocaleKey(), '=', $locale);
+            })->pluck('id')->toArray();
+
+            if ($withTranslation) {
+                $query->whereNotIn("$alias.collection_id", $withTranslation);
+            }
+        });
     }
 }

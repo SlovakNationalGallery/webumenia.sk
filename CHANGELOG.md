@@ -3,6 +3,28 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [1.9.0] - 2019-07-27
+### Added
+- error message to harvest data
+- map all datings in item harvester
+- do not delete harvested items on harvest deletion
+- improve reproduction images and enabled ReproductionsPage in NavBar
+
+### Fixed
+- Extend memory limit on composer run via docker
+- suggest filename for resized item images
+- Improved reproduction images and enabled ReproductionsPage in NavBar
+- refactor Item::isFree method
+- missing item description_source translated attribute
+- sort collections by name on frontend
+- index all even unexisting translations
+- windows issues with docker (missing git, use github https, map ES data dir)
+- add link to home page into haburger menu
+- harvesters fail on zero results
+
+### Changed
+- move description_source_link to translated attributes
+
 ## [1.8.1] - 2019-05-04
 ### Fixed
 - infinite recursion on Item/Authority index
@@ -233,6 +255,7 @@ All notable changes to this project will be documented in this file[^1].
 - LICENSE from Public Domain into MIT
 
 [Unreleased]: https://github.com/SlovakNationalGallery/web-umenia-2/compare/master...develop
+[1.9.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/223
 [1.8.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/191
 [1.7.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/169
 [1.6.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/108

@@ -25,6 +25,9 @@
 
         <div class="collapse navbar-collapse navbar-main-collapse">
             <ul class="nav navbar-nav">
+                <li class="visible-xs {!! (Request::is('/')) ? 'active' : '' !!}">
+                    <a href="{!! URL::to('') !!}">Web umenia</a>
+                </li>
                 <li class="{!! (Request::is('katalog') || Request::is('dielo/*')) ? 'active' : '' !!}">
                         <a href="{{{ URL::to('katalog') }}}">{{ utrans('master.artworks') }}</a>
                 </li>
@@ -37,12 +40,9 @@
                 <li class="{!! (Request::is('clanky') || Request::is('clanok/*')) ? 'active' : '' !!}">
                         <a href="{{{ URL::to('clanky') }}}">{{ utrans('master.articles') }}</a>
                 </li>
-                {{-- @TODO: temporarily disabled  --}}
-                {{--
                 <li class="{!! Request::is( 'reprodukcie') ? 'active' : '' !!}">
                         <a href="{{{ URL::to('reprodukcie') }}}">{{ utrans('master.reproductions') }}</a>
                 </li>
-                 --}}
                 <li class="{!! Request::is( 'informacie') ? 'active' : '' !!}">
                         <a href="{{{ URL::to('informacie') }}}">{{ utrans('master.info') }}</a>
                 </li>
