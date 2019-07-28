@@ -71,27 +71,28 @@
 @endforeach
 
 <div class="container">
-    <h3 class="text-center mt-3 mb-2">Vybrané články</h3>
+    <h3 class="text-center mt-3 mb-2">Najnovšie články</h3>
 
     <div class="row">
-        <div class="col-sm-offset-2 col-sm-4 col-xs-12 bottom-space">
+        <div class="col-sm-offset-1 col-sm-5 col-xs-12">
             @include('components.article_thumbnail', [
                 'article' => $articles[0]
             ])
         </div>
-        <div class="col-sm-4 col-xs-12 bottom-space">
+        <div class="col-sm-5 col-xs-12">
             @include('components.article_thumbnail', [
                 'article' => $articles[1]
             ])
         </div>
     </div>
-    <div class="row">
+    <div class="row mt-2 mb-4">
         <div class="col-xs-12 text-center">
-            <a href="/clanky" class="underline"><strong>Všetky články →</strong></a>
+            <a class="btn btn-default btn-outline sans" href="/clanky"><strong>Všetky články</strong></a>
         </div>
     </div>
+    <hr>
 
-    <h3 class="text-center mt-3 mb-2">Autori z kolekcie</h3>
+    <h3 class="text-center mt-3 mb-2">Autori v katalógu</h3>
     <div class="row">
         @foreach($items_by_author as $item)
         <div class="@if($item->id == $items_by_author[0]->id) col-md-offset-1 @endif col-md-2 col-sm-3 col-xs-6 item">
@@ -115,13 +116,15 @@
         </div>
         @endforeach
     </div>
-    <div class="row mt-2">
+    <div class="row mt-2 mb-4">
         <div class="col-xs-12 text-center">
-            <a href="/autori" class="underline"><strong>Viac autorov →</strong></a>
+            <a class="btn btn-default btn-outline sans" href="/autori"><strong>Viac autorov</strong></a>
         </div>
     </div>
 
-    <h3 class="text-center mt-4 mb-2">Vyhľadávanie podľa techniky, žánru, farieb</h3>
+    <hr>
+
+    <h3 class="text-center mt-3 mb-2">Vyhľadávanie podľa techniky, žánru, farieb</h3>
     @foreach(array($metadata_item) as $item)
     <div class="row mb-3">
         <div class="col-md-offset-2 col-md-4">
@@ -137,7 +140,7 @@
         </div>
         <div class="col-md-4">
             <h3 class="mt-1"><strong>{!! $item->title !!}</strong></h3>
-            <h4 class=""><strong>{!! $item->title !!}</strong></h4>
+            <h4 class="mb-2">{!! implode(', ', $item->getAuthorsWithLinks()) !!}</h4>
             <table class="table">
                 <tbody>
                     <tr>
@@ -188,7 +191,7 @@
 
     <div class="row">
         <div class="col-xs-12 text-center">
-            <a href="/autori" class="underline"><strong>Zobraziť katalóg →</strong></a>
+            <a class="btn btn-default btn-outline sans" href="/katalog"><strong>Prejsť na katalóg</strong></a>
         </div>
     </div>
 </div>
