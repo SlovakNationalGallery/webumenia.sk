@@ -1,5 +1,18 @@
-language: php
-php: '7.2'
-install:
-  - cp .env.testing.example .env.testing
-  - composer install
+sudo: required
+services:
+  - docker
+
+env:
+  - COMPOSE_FILE=docker-compose.yml
+
+before_install:
+  - curl -L https://github.com/docker/compose/releases/download/1.24.1/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - cp .env.example .env
+  - sudo service mysql stop
+
+script:
+  - docker-compose build
+  - docker-compose run php composer install
+  - docker-compose run php php vendor/bin/phpunit

@@ -1,0 +1,5 @@
+version: '2.2'
+services:
+  mysql:
+    volumes: []
+    entrypoint: ["echo", "Service mysql disabled"]
