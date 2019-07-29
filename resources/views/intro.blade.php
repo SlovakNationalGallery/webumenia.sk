@@ -95,7 +95,7 @@
 
     <h3 class="text-center mt-3 mb-2">Autori v katalógu</h3>
     <div class="row">
-        @foreach($items_by_author as $index=>$item)
+        @foreach($author_items as $index=>$item)
             <div class="@if($index == 0) col-md-offset-1 @endif col-md-2 col-sm-4 col-xs-6">
                 <a href="{!! $item->getUrl() !!}">
                     @php
@@ -199,7 +199,6 @@
                         @endforeach
                         </td>
                     </tr>
-                    @if ($item->tagNames() || Auth::check())
                     <tr>
                         <td class="atribut">{{ trans('dielo.item_attr_tag') }}:</td>
                         <td>
@@ -211,11 +210,9 @@
                     <tr>
                         <td class="atribut">farby:</td>
                         <td>
-                            @php Debugbar::info($colors) @endphp
-                            @include('components.color_list', ['colors' => $colors])
+                            @include('components.color_list', ['colors' => $item->getColorsUsedForView()])
                         </td>
                     </tr>
-                    @endif
                 </tbody>
             </table>
         </div>

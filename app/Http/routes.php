@@ -42,22 +42,19 @@ function()
     });
 
     Route::get('/', function () {
-
         $slides = Slide::published()->orderBy('id', 'desc')->get();
-        $articles = Article::promoted()->published()->orderBy('published_date', 'desc')->take(3)->get();
-        $items_by_author = Item::whereIn('id', ['SVK:SNG.O_645', 'SVK:SNG.O_616', 'SVK:SNG.K_6075', 'SVK:SNG.O_102', 'SVK:SNG.K_5072'])->orderBy('date_earliest')->get();
-        $collection = Collection::first();
+        $articles = Article::promoted()->published()->orderBy('published_date', 'desc')->take(2)->get();
+        $author_items = Item::whereIn('id', ['SVK:SNG.O_645', 'SVK:SNG.O_616', 'SVK:SNG.K_6075', 'SVK:SNG.O_102', 'SVK:SNG.K_5072'])->orderBy('date_earliest')->get();
         $metadata_item = Item::find('SVK:SNG.O_643');
-        $colors_used = $metadata_item->getColorsUsedForView();
+        $collection = Collection::first();
 
-        return view('intro', [
-            'slides' => $slides,
-            'articles' => $articles,
-            'items_by_author' => $items_by_author,
-            'metadata_item' => $metadata_item,
-            'colors' => $colors_used,
-            'collection' => $collection,
-        ]);
+        return view('intro', compact(
+            'slides',
+            'articles',
+            'author_items',
+            'collection',
+            'metadata_item'
+        ));
     });
 
     Route::get('slideClicked', function () {
