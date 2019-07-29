@@ -79,6 +79,7 @@
                 'article' => $articles[0]
             ])
         </div>
+        <div class="mb-3 visible-xs"></div>
         <div class="col-md-5 col-sm-6">
             @include('components.article_thumbnail', [
                 'article' => $articles[1]
@@ -94,25 +95,28 @@
 
     <h3 class="text-center mt-3 mb-2">Autori v katalógu</h3>
     <div class="row">
-        @foreach($items_by_author as $item)
-        <div class="@if($item->id == $items_by_author[0]->id) col-md-offset-1 @endif col-md-2 col-sm-3 col-xs-6 item">
-            <a href="{!! $item->getUrl() !!}">
-                @php
-                    list($width, $height) = getimagesize(public_path() . $item->getImagePath());
-                    $width =  max($width,1); // prevent division by zero exception
-                @endphp
-                <div class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%;">
-                        @include('components.item_image_responsive', ['item' => $item])
+        @foreach($items_by_author as $index=>$item)
+            <div class="@if($index == 0) col-md-offset-1 @endif col-md-2 col-sm-4 col-xs-6">
+                <a href="{!! $item->getUrl() !!}">
+                    @php
+                        list($width, $height) = getimagesize(public_path() . $item->getImagePath());
+                        $width =  max($width,1); // prevent division by zero exception
+                    @endphp
+                    <div class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%;">
+                            @include('components.item_image_responsive', ['item' => $item])
+                    </div>
+                </a>
+                <div class="p-1">
+                    <h4 class="mb-1">
+                        <strong>
+                            <a href="{!!  url_to('katalog', ['author' => $item->author ]) !!}">{!! $item->getAuthorFormated() !!}</a>
+                        </strong>
+                    </h4>
                 </div>
-            </a>
-            <div class="p-1">
-                <h4 class="mb-1">
-                    <strong>
-                        <a href="{!!  url_to('katalog', ['author' => $item->author ]) !!}">{!! $item->getAuthorFormated() !!}</a>
-                    </strong>
-                </h4>
             </div>
-        </div>
+            @if(($index+1) % 2 == 0)
+                <div class="clearfix visible-xs"></div>
+            @endif
         @endforeach
     </div>
     <div class="row mt-2 mb-4">
@@ -142,7 +146,6 @@
         <div class="col-sm-7 mb-2 pt-2">
             @include('components.artwork_carousel', [
                 'slick_target' => "artworks-preview",
-                'slick_variant' => "large",
                 'items' => $collection->getPreviewItems(),
             ])
         </div>
