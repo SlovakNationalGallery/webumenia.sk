@@ -48,21 +48,7 @@ function()
         $items_by_author = Item::whereIn('id', ['SVK:SNG.O_645', 'SVK:SNG.O_616', 'SVK:SNG.K_6075', 'SVK:SNG.O_102', 'SVK:SNG.K_5072'])->orderBy('date_earliest')->get();
         $collection = Collection::first();
         $metadata_item = Item::find('SVK:SNG.O_643');
-        $colors_used = $metadata_item->getColorsUsed(Color::TYPE_HEX);
-
-        uasort($colors_used, function ($a, $b) {
-            if ($a['amount'] == $b['amount']) {
-                return 0;
-            }
-
-            return $a['amount'] < $b['amount'] ? 1 : -1;
-        });
-
-        $amount_sum = array_sum(array_column($colors_used, 'amount'));
-        foreach ($colors_used as $hex => $color_used) {
-            $colors_used[$hex]['amount'] = sprintf("%.3f%%", $colors_used[$hex]['amount'] * 100 / $amount_sum, 3);
-            $colors_used[$hex]['hex'] = $colors_used[$hex]['color']->getValue();
-        }
+        $colors_used = $metadata_item->getColorsUsedForView();
 
         return view('intro', [
             'slides' => $slides,
@@ -252,25 +238,7 @@ function()
             }
         }
 
-        $colors_used = [];
-
-        if ($item->color_descriptor) {
-            $colors_used = $item->getColorsUsed(Color::TYPE_HEX);
-
-            uasort($colors_used, function ($a, $b) {
-                if ($a['amount'] == $b['amount']) {
-                    return 0;
-                }
-
-                return $a['amount'] < $b['amount'] ? 1 : -1;
-            });
-
-            $amount_sum = array_sum(array_column($colors_used, 'amount'));
-            foreach ($colors_used as $hex => $color_used) {
-                $colors_used[$hex]['amount'] = sprintf("%.3f%%", $colors_used[$hex]['amount'] * 100 / $amount_sum, 3);
-                $colors_used[$hex]['hex'] = $colors_used[$hex]['color']->getValue();
-            }
-        }
+        $colors_used = $item->getColorsUsedForView();
 
         return view('dielo', compact(
             'item',

@@ -942,6 +942,22 @@ class Item extends Model
         return $colors_used;
     }
 
+    public function getColorsUsedForView() {
+        $colors_used = $this->getColorsUsed(Color::TYPE_HEX);
+
+        uasort($colors_used, function ($a, $b) {
+            return $b['amount'] - $a['amount'];
+        });
+
+        $amount_sum = array_sum(array_column($colors_used, 'amount'));
+        foreach ($colors_used as $hex => $color_used) {
+            $colors_used[$hex]['amount'] = sprintf("%.3f%%", $colors_used[$hex]['amount'] * 100 / $amount_sum, 3);
+            $colors_used[$hex]['hex'] = $colors_used[$hex]['color']->getValue();
+        }
+
+        return $colors_used;
+    }
+
 
     /**
      * @param mixed $file
