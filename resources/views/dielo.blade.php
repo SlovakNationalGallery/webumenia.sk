@@ -391,8 +391,8 @@
 {{-- {{ HTML::script('https://www.google.com/recaptcha/api.js') }} --}}
 
 @if (!empty($item->lat) && ($item->lat > 0))
-    <!-- Google Maps API Key - You will need to use your own API key to use the map feature -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVG26BxGY9yhjCFbviWRgZsvxSlikOnIM"
+    async defer></script>
     {!! Html::script('js/gmaps.js') !!}
 @endif
 

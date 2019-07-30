@@ -4,8 +4,12 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 
 ## [1.9.1] - 2019-07-30
+### Changed
+- updated GMaps.js v0.4.13 -> v0.4.25
+
 ### Fixed
 - redirect to link after click in carousel in landing page
+- Google Maps API Key
 
 
 ## [1.9.0] - 2019-07-27
