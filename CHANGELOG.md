@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [1.9.1] - 2019-07-30
+### Fixed
+- redirect to link after click in carousel in landing page
+
+
 ## [1.9.0] - 2019-07-27
 ### Added
 - error message to harvest data
