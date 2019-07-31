@@ -315,9 +315,9 @@ function()
     Route::match(array('GET', 'POST'), 'clanky/suggestions', 'ClanokController@getSuggestions');
     Route::get('clanok/{slug}', 'ClanokController@getDetail');
 
-    Route::match(array('GET', 'POST'), 'kolekcie', 'KolekciaController@getIndex');
-    Route::match(array('GET', 'POST'), 'kolekcie/suggestions', 'KolekciaController@getSuggestions');
-    Route::get('kolekcia/{slug}', 'KolekciaController@getDetail');
+    Route::match(array('GET', 'POST'), 'kolekcie', 'KolekciaController@getIndex')->name('frontend.collection.index');
+    Route::match(array('GET', 'POST'), 'kolekcie/suggestions', 'KolekciaController@getSuggestions')->name('frontend.collection.suggestions');
+    Route::get('kolekcia/{slug}', 'KolekciaController@getDetail')->name('frontend.collection.detail');
 
     Route::get('informacie', function () {
         $items = Item::random(20, ['gallery' => 'Slovenská národná galéria, SNG']);
