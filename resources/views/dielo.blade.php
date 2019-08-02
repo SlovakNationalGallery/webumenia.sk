@@ -58,7 +58,7 @@
                         {{-- prevent upsizing by setting max-width to real width --}}
                         <div class="img-dielo" style="max-width: {{ $width }}px;">
                             @if ($item->has_iip)
-                                <a href="{{ route('item.zoom', ['id' => $item->id]) }}" data-toggle="tooltip" data-placement="top" title="{{ utrans('general.item_zoom') }}" class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%">
+                                <a href="{{ route('item.zoom', ['id' => $item->id]) }}" class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%">
                             @else
                                 <div class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%">
                             @endif
@@ -68,6 +68,7 @@
                                 ])
 
                             @if ($item->has_iip)
+                                    <i class="fa fa-search"></i>
                                 </a>
                             @else
                                 </div>
@@ -84,17 +85,6 @@
                                 @endif
                             </div>
 
-                            <div class="col-md-12 text-center">
-                                @if ($item->has_iip)
-                                   <a href="{{ route('item.zoom', ['id' => $item->id]) }}" class="btn btn-default btn-outline  sans"><i class="fa fa-search-plus"></i> {{ trans('general.item_zoom') }}</a>
-                                @endif
-                                @if ($item->isForReproduction())
-                                    <a href="{!! URL::to('dielo/' . $item->id . '/objednat')  !!}" class="btn btn-default btn-outline  sans"><i class="fa fa-shopping-cart"></i> {{ trans('dielo.item_order') }} </a>
-                                @endif
-                                @if ($item->isFree() && $item->hasZoomableImages())
-                                    <a href="{!! URL::to('dielo/' . $item->id . '/stiahnut')  !!}" class="btn btn-default btn-outline  sans" id="download"><i class="fa fa-download"></i> {{ trans('dielo.item_download') }} </a>
-                                @endif
-                            </div>
                             @if (!empty($item->description))
                             <div class="col-md-12 text-left medium description bottom-space underline" itemprop="description">
                                 {!!  $item->description !!}
@@ -272,6 +262,15 @@
                         <div id="small-map"></div>
                     @endif
 
+                    <div class="col-md-12 text-center">
+                        @if ($item->isForReproduction())
+                            <a href="{!! URL::to('dielo/' . $item->id . '/objednat')  !!}" class="btn btn-default btn-outline sans"><i class="fa fa-shopping-cart"></i> {{ trans('dielo.item_order') }} </a>
+                        @endif
+                        @if ($item->isFree() && $item->hasZoomableImages())
+                            <a href="{!! URL::to('dielo/' . $item->id . '/stiahnut')  !!}" class="btn btn-default btn-outline sans" id="download"><i class="fa fa-download"></i> {{ trans('dielo.item_download') }} </a>
+                        @endif
+                    </div>
+
                     <div class="share">
                         <div class="fb-like" data-href="{!! $item->getUrl() !!}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" style="height:20px; vertical-align: top;"></div> &nbsp;
                         <a href="https://twitter.com/share" class="twitter-share-button" style="float: right; text-align: right" >Tweet</a>
@@ -289,13 +288,13 @@
         <div class="row mb-5">
             <div class="col-sm-12">
                 @if (!empty($item->related_work))
-                <h4 class="underlined-links mb-3">
+                <h3 class="underlined-links mb-3">
                     <span class="grey">{!! $item->relationship_type !!}: </span>
                     <a href="{!! URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) !!}" itemprop="isPartOf">{!! $item->related_work !!}</a>
                     @if ($item->related_work_order)
                     ({!! $item->related_work_order !!}/{!! $item->related_work_total !!})
                     @endif
-                </h4>
+                </h3>
                 @endif
                 <?php $related_items = App\Item::related($item)->get() ?>
                 @if ($related_items->count() > 1)

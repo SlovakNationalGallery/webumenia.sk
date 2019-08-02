@@ -50,6 +50,7 @@
 @font-size-h1:            floor((@font-size-base * 2.6)); // ~36px
 // @font-size-h1:            floor((@font-size-base * 2.15)); // ~30px
 @font-size-h2:            ceil((@font-size-base * 1.7)); // ~24px
+@font-size-h3:            floor((@font-size-base * 1.35)); // ~18px
 
 
 // LESS
@@ -104,61 +105,9 @@ h1 {
   h1 { color: @dark-grey; }
 }
 
-
-// h1,
-// h2,
-// h3,
-// h4,
-// h5,
-// h6, img.xko {
-//     margin: 0 0 20px;
-//     // text-transform: uppercase;
-//     font-family: @font-family-sans-serif;
-//     font-weight: bold;
-// }
-
-// h1 {
-//     margin-top: 10px;
-//     letter-spacing: 6px;
-//     font-size: 36px;
-//     text-transform: uppercase;
-// }
-// h2 {
-//     letter-spacing: 4px;
-//     font-size: 24px;
-// }
-// h3 {
-//     letter-spacing: 3px;
-//     font-size: 16px;
-//     text-transform: uppercase;
-// }
-
-// @media(min-width: @screen-md-min) {
-//     h1 {
-//         font-size: 56px;
-//         margin-top: 25px;
-//     }
-//     h2 { font-size: 36px;
-//         &.nadpis-dielo {
-//             font-size: 32px;
-//         }
-//     }
-//     h3 { font-size: 24px; }
-// }
-
-// @media(min-width: @screen-lg-min) {
-//     h1 {
-//         font-size: 64px;
-//         margin-top: 45px;
-//     }
-//     h2 {
-//         font-size: 42px; §
-//         &.nadpis-dielo {
-//             font-size: 36px;
-//         }
-//     }
-//     h3 { font-size: 28px; }
-// }
+h3{
+  font-weight: bolder;
+}
 
 a {
     color: @dark;
@@ -400,6 +349,25 @@ p.tagline {
 
 .img-dielo {
     margin: 0 auto 15px auto;
+
+    .fa-search{
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      background: @btn-default-color;
+      width: 30px;
+      height: 30px;
+      color: @btn-primary-color;
+      line-height: 30px;
+      border-radius: 30px;
+      opacity: 0;
+      .transition(opacity .15s ease-in-out);
+    }
+    &:hover{
+      .fa-search{
+        opacity: 1;
+      }
+    }
 }
 
 a.license { vertical-align: middle}
