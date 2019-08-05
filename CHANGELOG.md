@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- override docker php container for tests
 
 ## [1.9.1] - 2019-07-30
 ### Changed

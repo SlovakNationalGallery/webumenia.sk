@@ -106,6 +106,20 @@ variants by editing that variable.
 
 to stop the dockerized application: `docker-compose down`
 
+## Running tests
+
+Create `.env.testing` file (you can use the included `.env.testing.example` as a base) and run:
+
+The local way:
+```
+php vendor/bin/phpunit
+```
+
+The Docker way:
+```
+docker-compose -f docker-compose.yml -f docker-compose.test.yml run php
+```
+
 
 ## Harvesting Data
 
