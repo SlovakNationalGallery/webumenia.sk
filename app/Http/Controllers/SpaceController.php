@@ -74,6 +74,7 @@ class SpaceController extends Controller
 
             // not sure if OK to fill all input like this before setting translated attributes
             $space->fill($input);
+            $space->save();
 
             // store translatable attributes
             foreach (\Config::get('translatable.locales') as $i=>$locale) {
@@ -87,8 +88,6 @@ class SpaceController extends Controller
                         ->toCollection('document.'.$locale);
                 }
             }
-
-            $space->save();
 
             if (Input::has('tags')) {
                 $space->reTag(Input::get('tags', []));
