@@ -24,6 +24,7 @@
         {!! Html::style('css/plugins/selectize.css') !!}
         {!! Html::style('css/plugins/selectize.bootstrap3.css') !!}
         {!! Html::style('css/plugins/bootstrap-switch.css') !!}
+        {!! Html::style('css/jquery-ui/jquery-ui.css') !!}
         {!! Html::script('js/modernizr.custom.js') !!}
 
 </head>
@@ -84,7 +85,7 @@
                         <li>
                             <a href="{!! URL::to('admin') !!}"><i class="fa fa-dashboard fa-fw"></i> Úvod</a>
                         </li>
-                        @if (Entrust::hasRole('admin'))
+                        @if (Entrust::hasRole(['admin', 'import']))
                         <li>
                             <a href="{!! URL::to('item') !!}"><i class="fa fa-picture-o fa-fw"></i> Diela</a>
                         </li>
@@ -94,7 +95,7 @@
                             <a href="{!! URL::to('authority') !!}"><i class="fa fa-user fa-fw"></i> Autority</a>
                         </li>
                         @endif
-                        @if (Entrust::hasRole('admin') || Entrust::hasRole('editor'))
+                        @if (Entrust::hasRole(['admin', 'editor']))
                         <li>
                             <a href="{!! URL::to('collection') !!}"><i class="fa fa-th-list fa-fw"></i> Kolekcie</a>
                         </li>
@@ -114,9 +115,19 @@
                             <a href="{!! URL::to('sketchbook') !!}"><i class="fa fa-book fa-fw"></i> Skicáre</a>
                         </li>
                         @endif
-                        @if (Entrust::hasRole('admin'))
+                        @if (Entrust::hasRole(['admin', 'import']))
                         <li>
-                            <a href="{!! URL::to('harvests') !!}"><i class="fa fa-download fa-fw"></i> Spice Harvester</a>
+                            <a href="#"><i class="fa fa-download fa-fw"></i> Import<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                @if (Entrust::hasRole(['admin']))
+                                <li>
+                                    <a href="{!! URL::to('harvests') !!}">Spice Harvester</a>
+                                </li>
+                                @endif
+                                <li>
+                                    <a href="{!! URL::to('imports') !!}">CSV Import</a>
+                                </li>
+                            </ul>
                         </li>
                         @endif
                         @if (Entrust::hasRole('admin'))
@@ -141,7 +152,7 @@
 
             <!-- Content -->
             @yield('content')
-        
+
         </div>
         <!-- /#page-wrapper -->
 
@@ -150,7 +161,7 @@
 
     <!-- Modal -->
     <div tabindex="-1" class="modal fade" id="detailModal" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button class="close" type="button" data-dismiss="modal">×</button>
@@ -168,9 +179,12 @@
     </div>
 
     <!-- Core JavaScript Files -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
     {!! Html::script('js/bootstrap.min.js') !!}
+    {!! Html::script('js/plugins/metisMenu/jquery.metisMenu.js') !!}
+    <script src="{!! asset_timed('js/sb-admin.js') !!}"></script>
+
     {!! Html::script('js/bootstrap-datepicker.js') !!}
     {!! Html::script('js/spin.min.js') !!}
     {!! Html::script('js/ladda.min.js') !!}
@@ -180,10 +194,17 @@
     {!! Html::script('js/plugins/Sortable.min.js') !!}
     {!! Html::script('js/plugins/speakingurl.min.js') !!}
     {!! Html::script('js/plugins/bootstrap-switch.min.js') !!}
+    {!! Html::script('js/jquery.collection.js') !!}
 
 
     <script>
     $(document).ready(function() {
+        $('.js-form-collection').collection({
+            allow_up: false,
+            allow_down: false,
+            add_at_the_end: true,
+        });
+
         $('.datepicker').datepicker({
             format: "yyyy-mm-dd",
             language: "sk"
@@ -202,10 +223,10 @@
             $(this).removeData('bs.modal');
         });
 
-        $('.btn-detail').click(function( event ){  
+        $('.btn-detail').click(function( event ){
             $('#detailModal').modal({modal:true,remote:($(this).attr('href'))});
             event.preventDefault();
-        });    
+        });
 
 
         // select all feature
@@ -217,7 +238,7 @@
         $('.selectedId').change(function () {
             var check = ($('.selectedId').filter(":checked").length == $('.selectedId').length);
             $('#selectall').prop("checked", check);
-        });   
+        });
 
 
         var links_count = $('.form_link').length;
@@ -230,14 +251,14 @@
         });
 
         $('.colorpicker-component').colorpicker();
-     
+
         // $('.colorpicker').colorpicker().on('changeColor', function(ev){
         //   // console.log('farba:' + ev.color.toHex());
         //   $(this).prev('span').css('color',ev.color.toHex());
         // });
 
         $(".switch").bootstrapSwitch();
-     
+
 
 
     });

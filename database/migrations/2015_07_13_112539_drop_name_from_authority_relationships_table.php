@@ -12,11 +12,19 @@ class DropNameFromAuthorityRelationshipsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('authority_relationships', function($table)
-		{
-		    DB::statement('DELETE n1 FROM authority_relationships n1, authority_relationships n2 WHERE n1.id < n2.id AND n1.authority_id = n2.authority_id AND n1.realted_authority_id = n2.realted_authority_id');
-		    $table->dropColumn('name');
+		if (!DB::connection() instanceof \Illuminate\Database\SQLiteConnection) {
+			DB::statement('DELETE n1 FROM authority_relationships n1, authority_relationships n2 WHERE n1.id < n2.id AND n1.authority_id = n2.authority_id AND n1.realted_authority_id = n2.realted_authority_id');
+		}
+
+		Schema::table('authority_relationships', function($table) {
+			$table->dropColumn('name');
+		});
+
+		Schema::table('authority_relationships', function($table) {
 		    $table->renameColumn('realted_authority_id', 'related_authority_id');
+		});
+
+		Schema::table('authority_relationships', function($table) {
 		    $table->unique(array('authority_id', 'related_authority_id'));
 		});
 	}
@@ -28,11 +36,16 @@ class DropNameFromAuthorityRelationshipsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('authority_relationships', function($table)
-		{
+		Schema::table('authority_relationships', function($table) {
 		    $table->dropUnique(array('authority_id', 'related_authority_id'));
+		});
+
+		Schema::table('authority_relationships', function($table) {
 		    $table->renameColumn('related_authority_id', 'realted_authority_id');
-		    $table->string('name');
+		});
+
+		Schema::table('authority_relationships', function($table) {
+		    $table->string('name')->default('');
 		});
 	}
 

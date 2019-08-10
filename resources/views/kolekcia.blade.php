@@ -24,6 +24,16 @@
 
 @section('content')
 
+@if ( ! $collection->hasTranslation(App::getLocale()) )
+    <section>
+        <div class="container top-section">
+            <div class="row">
+                @include('includes.message_untranslated')
+            </div>
+        </div>
+    </section>
+@endif
+
 <div class="webumeniaCarousel">
 
 @if ($collection->hasHeaderImage())
@@ -80,6 +90,7 @@
                             <a href="{!! $item->getUrl(['collection' => $collection->id]) !!}">
                                 @php
                                     list($width, $height) = getimagesize(public_path() . $item->getImagePath());
+                                    $width =  max($width,1); // prevent division by zero exception
                                 @endphp
                                 <div class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%;">
 
@@ -96,7 +107,7 @@
                                 </div>
                             </a>
                             <div class="item-title">
-                                @if (!empty($item->iipimg_url))
+                                @if ($item->hasZoomableImages())
                                     <div class="pull-right"><a href="{{ route('item.zoom', ['id' => $item->id])  }}" data-toggle="tooltip" data-placement="left" title="Zoom obrázku"><i class="fa fa-search-plus"></i></a></div>
                                 @endif
                                 <a href="{!! $item->getUrl(['collection' => $collection->id]) !!}">

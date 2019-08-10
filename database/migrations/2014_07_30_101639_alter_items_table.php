@@ -12,8 +12,12 @@ class AlterItemsTable extends Migration {
 	 */
 	public function up()
 	{
-	    DB::statement('ALTER TABLE items MODIFY COLUMN date_earliest INT( 255 )');
-	    DB::statement('ALTER TABLE items MODIFY COLUMN date_latest INT( 255 )');
+		Schema::table('items', function (Blueprint $table) {
+			$table->integer('date_earliest')->change();
+		});
+		Schema::table('items', function (Blueprint $table) {
+			$table->integer('date_latest')->change();
+		});
 
 	}
 
@@ -24,8 +28,12 @@ class AlterItemsTable extends Migration {
 	 */
 	public function down()
 	{
-	    DB::statement('ALTER TABLE items MODIFY COLUMN date_earliest VARCHAR(4)');
-	    DB::statement('ALTER TABLE items MODIFY COLUMN date_latest VARCHAR(4)');
+		Schema::table('items', function (Blueprint $table) {
+			$table->string('date_earliest', 4)->change();
+		});
+		Schema::table('items', function (Blueprint $table) {
+			$table->string('date_latest', 4)->change();
+		});
 	}
 
 }

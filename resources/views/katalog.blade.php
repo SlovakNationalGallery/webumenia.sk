@@ -6,7 +6,7 @@
         {{ trans('katalog.title_searched') }} "{!!$search!!}"
     @else
         {!! getTitleWithFilters('App\Item', $input, ' | ') !!}
-        {{ trans('katalog.title_not_searched') }}
+        {{ trans('katalog.title') }}
     @endif
     |
     @parent
@@ -89,11 +89,30 @@
                     </label>
                 </div>
             </div>
+            <div class="row">
+                @include('components.color_picker', ['id'=>'colorpicker'])
+                    @include('components.color_picker_js', ['id' => 'colorpicker', 'color' => $color])
+            </div>
             @endif
             {!! Form::hidden('sort_by', @$input['sort_by'], ['id'=>'sort_by']) !!}
             {!! Form::close() !!}
-    </div></div>
+        </div>
+    </div>
 </section>
+
+@foreach ($items as $i=>$item)
+    @if ( ! $item->hasTranslation(App::getLocale()) )
+        <section>
+            <div class="container content-section">
+                <div class="row">
+                    @include('includes.message_untranslated')
+                    @break
+                </div>
+            </div>
+        </section>
+    @endif
+@endforeach
+
 <section class="catalog" data-searchd-engine="{!! Config::get('app.searchd_id') !!}">
     <div class="container content-section">
             <div class="row content-section">
@@ -114,12 +133,14 @@
                 <div class="col-xs-6 text-right">
                     <div class="dropdown">
                       <a class="dropdown-toggle" type="button" id="dropdownSortBy" data-toggle="dropdown" aria-expanded="true">
-                        {{ trans('general.sort_by') }} {!! trans(App\Item::getSortedLabelKey()) !!}
+                        {{ trans('general.sort_by') }} {{ trans($sort_options[$sort_by]) }}
                         <span class="caret"></span>
                       </a>
                       <ul class="dropdown-menu dropdown-menu-right dropdown-menu-sort" role="menu" aria-labelledby="dropdownSortBy">
-                        @foreach (App\Item::$sortable as $sort=>$labelKey)
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#" rel="{!! $sort !!}">{!! trans($labelKey) !!}</a></li>
+                        @foreach ($sort_options as $key => $label)
+                            @if ($key != $sort_by)
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" rel="{{ $key }}">{{ trans($label) }}</a></li>
+                            @endif
                         @endforeach
                       </ul>
                     </div>
@@ -134,18 +155,10 @@
     	                	<a href="{!! $item->getUrl() !!}">
                                 @php
                                     list($width, $height) = getimagesize(public_path() . $item->getImagePath());
+                                    $width =  max($width,1); // prevent division by zero exception
                                 @endphp
                                 <div class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%;">
-    	                		<img
-                                    data-sizes="auto"
-                                    data-src="{!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'600']) !!}"
-                                    data-srcset="{!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'600']) !!} 600w,
-                                            {!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'220']) !!} 220w,
-                                            {!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'300']) !!} 300w,
-                                            {!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'600']) !!} 600w,
-                                            {!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'800']) !!} 800w"
-                                    class="lazyload"
-                                    alt="{!! $item->getTitleWithAuthors() !!} ">
+    	                		     @include('components.item_image_responsive', ['item' => $item])
                                 </div>
     	                	</a>
                             <div class="item-title">

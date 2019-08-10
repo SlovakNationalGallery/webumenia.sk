@@ -73,8 +73,19 @@ class AuthorityController extends Controller
             $input = convertEmptyStringsToNull($input);
 
             $authority = new Authority;
+
             $authority->type = 'person';
+            
+            // not sure if OK to fill all input like this before setting translated attributes
             $authority->fill($input);
+            
+            // store translatable attributes
+            foreach (\Config::get('translatable.locales') as $i=>$locale) {
+                foreach ($authority->translatedAttributes as $attribute) {
+                    $authority->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
+                }
+            }
+
             $authority->save();
 
             if (Input::hasFile('primary_image')) {
@@ -84,18 +95,6 @@ class AuthorityController extends Controller
             return Redirect::route('authority.index');
         }
         return Redirect::back()->withInput()->withErrors($v);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        $authority = Authority::find($id);
-        return view('authorities.show')->with('authority', $authority);
     }
 
     /**

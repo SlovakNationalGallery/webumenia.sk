@@ -2,77 +2,69 @@
 
 namespace App\Http\Controllers;
 
+use League\Flysystem\Adapter\Local;
+use League\Flysystem\Filesystem;
+
 class PatternlibController extends Controller
 {
-    const COMPONENT_BASE_PATH = '../resources/views/components/';
+
+    /** @var \League\Flysystem\Filesystem */
+    protected $fs;
+
+
+    public function __construct()
+    {
+        $adapter  = new Local(resource_path('views/components'));
+        $this->fs = new Filesystem($adapter);
+    }
+
 
     public function getIndex()
-    {            
-        // get json file names
-        $file_names = array();
-        $handle = opendir(self::COMPONENT_BASE_PATH);
-        while (false !== ($file_name = readdir($handle))) {
-            if (ends_with($file_name, '.json')) {
-                $file_names[] = $file_name;
+    {
+        $files = $this->fs->listContents('/');
+
+        $result = [];
+        foreach ($files as $file) {
+            $blade = $file['filename'].'.blade.php';
+            if ($file['extension'] === 'json' && $this->fs->has($blade) && $this->fs->has($file['basename'])) {
+                $result[] = array_merge($this->processJson($file), [
+                    'include_path' => 'components.'.$file['filename'],
+                    'source_code'  => $this->fs->read($blade),
+                ]);
             }
         }
-        sort($file_names);
-
-        // add base path
-        $file_paths = array();
-        foreach ($file_names as $index => $file_name) {
-            $file_paths[$index] = self::COMPONENT_BASE_PATH.$file_name;
-        }
-
-        // decode json
-        $components = array();
-        foreach ($file_paths as $file_path) {
-            $file_str = file_get_contents($file_path);
-            $file_json = json_decode($file_str, true);
-            $components[] = $file_json;
-        }
-
-        // hydrate attributes
-        foreach ($components as $index => &$component) {
-            $component = $this->hydrateIncludePath($component, $file_names[$index]);
-            $component = $this->hydrateSourceCode($component, $file_paths[$index]);
-            $component = $this->hydrateData($component);
-            $component = $this->hydrateIncludePathJs($component);
-        }
-        unset($component); // unset reference to &$component
 
         return view('patternlib', [
-            'components' => $components
+           'components' => $result,
         ]);
     }
 
-    private function hydrateIncludePath($component, $file_name)
+
+    /**
+     * Looks for 'data_calls' as well as `include_js` index and mutates the decoded json accordingly.
+     *
+     * @param Array $file Array like object with file metadata. https://flysystem.thephpleague.com/docs/usage/filesystem-api/#list-contents
+     *
+     * @return array
+     *
+     * @throws \League\Flysystem\FileNotFoundException
+     * @warning this function uses `eval()` http://php.net/manual/en/function.eval.php
+     */
+    private function processJson($file)
     {
-        $component['include_path'] = 'components.'.substr($file_name, 0, -5);
-        return $component;
-    }
-    
-    private function hydrateSourceCode($component, $file_path)
-    {
-        $component['source_code'] = file_get_contents(substr($file_path, 0, -5).'.blade.php');
-        return $component;
-    }
-    
-    private function hydrateData($component)
-    {
-        if ( isset($component['data_calls']) ) {
-            foreach ($component['data_calls'] as $key => $value) {
-                $component['data'][$key] = eval($value);
+        $array = json_decode($this->fs->read($file['basename']), true);
+
+        if (isset($array['data_calls']) && is_array($array['data_calls'])) {
+            foreach ($array['data_calls'] as $key => $call) {
+                // TODO: needs workaround, eval is dangerous
+                $array['data'][$key] = eval($call);
             }
         }
-        return $component;
-    }
 
-    private function hydrateIncludePathJs($component)
-    {
-        if ( isset($component['include_js']) ) {
-            $component['include_path_js'] = $component['include_path'].'_js';
+        if (isset($array['include_js']) && (bool)$array['include_js'] === true) {
+            $array['include_path_js'] = 'components.'.$file['filename'].'_js';
         }
-        return $component;
+
+        return $array;
     }
 }

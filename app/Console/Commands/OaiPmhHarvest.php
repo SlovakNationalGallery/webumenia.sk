@@ -1,12 +1,10 @@
 <?php
 
-
-
 namespace App\Console\Commands;
 
+use App\Jobs\HarvestJob;
 use App\SpiceHarvesterHarvest;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\App;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -29,16 +27,6 @@ class OaiPmhHarvest extends Command
     protected $description = 'Harvest data for given set using OAI-PMH.';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
      * Execute the console command.
      *
      * @return mixed
@@ -58,20 +46,15 @@ class OaiPmhHarvest extends Command
             $this->error("Nenašiel sa set pre dané ID.");
             return;
         }
-        $reindex =$this->option('reindex');
-        if ($reindex) {
-            $this->info("Je zapnutý reindex celého setu. Bude to trvať dlhšie.");
-            Input::merge(array('reindex' => true));
-        }
-        if ($this->option('start_date')) {
-            Input::merge(array('start_date' => $this->option('start_date')));
-        }
-        if ($this->option('end_date')) {
-            Input::merge(array('end_date' => $this->option('end_date')));
-        }
         $this->comment("Spúšťa sa harvest pre set {$harvest->set_name}.");
 
-        App::make('\App\Http\Controllers\SpiceHarvesterController')->launch($id);
+        $from = $this->option('start_date') ? new Carbon($this->option('start_date')) : null;
+        $to = $this->option('end_date') ? new Carbon($this->option('end_date')) : null;
+        $all = $this->option('all');
+        $only_ids = ($this->option('only_ids')) ? explode(',', $this->option('only_ids')) : [];
+
+
+        dispatch(new HarvestJob($harvest, $from, $to, $all, $only_ids));
         $this->comment("Dokoncene");
     }
 
@@ -96,7 +79,8 @@ class OaiPmhHarvest extends Command
     {
         return array(
             array('id', null, InputOption::VALUE_OPTIONAL, 'Spice Harvester harvest ID.', null),
-            array('reindex', null, InputOption::VALUE_OPTIONAL, 'Re-harvest all records.', false),
+            array('all', null, InputOption::VALUE_OPTIONAL, 'Re-harvest all records.', false),
+            array('only_ids', null, InputOption::VALUE_OPTIONAL, 'Harvest only records with IDs (comma-separated).', ''),
             array('start_date', null, InputOption::VALUE_OPTIONAL, 'Specify start date in YYYY-MM-DD.', null),
             array('end_date', null, InputOption::VALUE_OPTIONAL, 'Specify end date in YYYY-MM-DD.', null),
         );

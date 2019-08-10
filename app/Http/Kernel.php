@@ -56,7 +56,9 @@ class Kernel extends HttpKernel
         /**** LOCALIZATION MIDDLEWARE ****/
         'localize' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
         'localizationRedirect' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
-        'localeSessionRedirect' => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class
+        'localeSessionRedirect' => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,
+
+        'localizeElastic' => \App\Http\Middleware\LocalizeElastic::class,
         /**** /LOCALIZATION MIDDLEWARE ****/
     ];
 }

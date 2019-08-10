@@ -11,17 +11,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
+    use \Dimsav\Translatable\Translatable;
+
 
     use \Conner\Tagging\Taggable;
-    
+
     const ARTWORKS_DIR = '/images/clanky/';
 
+    public $translatedAttributes = ['title', 'summary', 'content'];
+
+
     public static $rules = array(
-        'slug' => 'required',
-        'title' => 'required',
-        'summary' => 'required',
-        'content' => 'required',
-        );
+        'slug'       => 'required',
+
+        'sk.title'   => 'required',
+        'sk.summary' => 'required',
+        'sk.content' => 'required',
+    );
 
     // public function items()
  //    {
@@ -36,6 +42,15 @@ class Article extends Model
     public function getUrl()
     {
         return URL::to('clanok/' . $this->attributes['slug']);
+    }
+
+    public function getTitleWithCategoryAttribute()
+    {
+        $string = $this->title;
+        if ($this->category) {
+            $string = $this->category->name . ': ' . $string;
+        }
+        return $string;
     }
 
     public function getShortTextAttribute($string, $length = 160)
@@ -65,7 +80,7 @@ class Article extends Model
         $file = substr($this->attributes['main_image'], 0, strrpos($this->attributes['main_image'], "."));
         $full_path = public_path() .  self::ARTWORKS_DIR;
 
-        if (!file_exists($full_path . "$file.$resize.jpg")) {
+        if (!file_exists($full_path . "$file.$resize.jpg") && file_exists($this->getHeaderImage(true))) {
             $img = \Image::make($this->getHeaderImage(true))->fit($resize)->sharpen(7);
             $img->save($full_path . "$file.$resize.jpg");
         }
@@ -89,7 +104,7 @@ class Article extends Model
             try {
                 \Image::make($this->getHeaderImage(true))->fit(600, 250)->save($full_path);
             } catch (\Exception $e) {
-                
+                app('sentry')->captureException($e);
             }
         }
         return $relative_path;

@@ -14,67 +14,27 @@
                     <h1>{{ utrans('informacie.info_heading') }}</h1>
             </div>
         </div>
-        <div class="row bottom-space vertical-align">
+        <div class="row bottom-space">
             <div class="col-md-4">
 
                 <p class="lead">{!! utrans('informacie.info_p_lead') !!}</p>
                 <p>{!! utrans('informacie.info_p') !!}</p>
 
             </div>
-            <div class="col-md-4 text-center">
-                <img srcset="/images/galerie-na-mape.png 1x, /images/galerie-na-mape@2x.png 2x" src="" alt="Galérie na mape" class="img-responsive" style="margin: 20px auto 40px" />
+            <div class="col-md-8 text-center">
+                {!! file_get_contents(public_path('images/gallery-map.svg')) !!}
             </div>
-            <div class="col-md-4 text-center">
-                @php
-                    $galleries = [
-                        [
-                            'lang_string' => 'informacie.info_gallery_SNG',
-                            'url'         => 'katalog?gallery=Slovenská národná galéria, SNG',
-                        ],
-                        [
-                            'lang_string' => 'informacie.info_gallery_OGD',
-                            'url'         => 'katalog?gallery=Oravská galéria, OGD',
-                        ],
-                        [
-                            'lang_string' => 'informacie.info_gallery_GNZ',
-                            'url'         => 'katalog?gallery=Galéria umenia Ernesta Zmetáka, GNZ',
-                        ],
-                        [
-                            'lang_string' => 'informacie.info_gallery_GPB',
-                            'url'         => 'katalog?gallery=Liptovská galéria Petra Michala Bohúňa, GPB',
-                        ],
-                        [
-                            'lang_string' => 'informacie.info_gallery_GMB',
-                            'url'         => 'katalog?gallery=Galéria mesta Bratislavy, GMB',
-                        ],
-                        [
-                            'lang_string' => 'informacie.info_gallery_GBT',
-                            'url'         => 'katalog?gallery=Galéria+Miloša+Alexandra+Bazovského, GBT',
-                        ],
-                        [
-                            'lang_string' => 'informacie.info_gallery_NGN',
-                            'url'         => 'katalog?gallery=Nitrianska+galéria, NGN',
-                        ],
-                        [
-                            'lang_string' => 'informacie.info_gallery_SGB',
-                            'url'         => 'katalog?gallery=Stredoslovenská galéria, SGB',
-                        ],
-                        [
-                            'lang_string' => 'informacie.info_gallery_GUS',
-                            'url'         => 'katalog?gallery=Galéria umelcov Spiša, GUS',
-                        ],
-                        [
-                            'lang_string' => 'informacie.info_gallery_MG',
-                            'url'         => 'katalog?gallery=Moravská galerie, MG',
-                        ],
-                    ]
-                @endphp
-                <ul class="list-unstyled lead">
-                    @foreach ($galleries as $gallery)
-                        <li><a href="{!! URL::to($gallery['url']) !!}">{{ utrans($gallery['lang_string']) }}</a></li>
+        </div>
+        <div class="row bottom-space galleries">
+            @foreach(array_chunk($galleries, ceil(count($galleries)/3)) as $chunk)
+                <div class="col-md-4">
+                    <ul class="list-unstyled lead">
+                    @foreach($chunk as $gallery)
+                        <li><a href="{!! URL::to($gallery['url']) !!}" id="{{ $gallery['id'] }}">{{ utrans($gallery['lang_string']) }}</a></li>
                     @endforeach
-                </ul>
-            </div>
+                    </ul>
+                </div>
+            @endforeach
         </div>
     </div>
 </section>
@@ -117,7 +77,7 @@
             </div>
             <div class="col-md-4 dib"></div>
             <div class="col-md-4 dib">
-                <a href="#" data-toggle="modal" data-target="#priceList" class="inherit lead pull-left no-border"><i class="icon-arrow-right"></i> &nbsp; {{ trans('informacie.general_reproduction_prices') }}</a>
+                <a href="{!! URL::to('reprodukcie#print') !!}" class="inherit lead pull-left no-border"><i class="icon-arrow-right"></i> &nbsp; {{ trans('informacie.general_reproduction_prices') }}</a>
             </div>
         </div>
 
@@ -182,36 +142,10 @@
     </div>
 </section>
 
-<!-- Modal -->
-<div tabindex="-1" class="modal fade" id="priceList" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header text-center">
-                <h1>{{ trans('informacie.general_reproduction_prices') }}</h1>
-            </div>
-            <div class="modal-body">
-
-                <p>{{ utrans('informacie.modal_disclaimer') }}</p>
-
-                <table class="table table-striped">
-                    {!! utrans('informacie.modal_table-content') !!}
-                </table>
-
-                {{--
-                <p>
-                    <sup class="text-danger">*</sup> {!! utrans('informacie.modal_unavailable') !!}
-                </p>
-                 --}}
-
-            </div>
-            <div class="modal-footer">
-                <div class="text-center"><button type="button" data-dismiss="modal" class="btn btn-default btn-outline sans">{{ trans('general.close') }}</button></div>
-            </div>
-        </div>
-    </div>
-</div>
 @stop
 
 @section('javascript')
-    @include('components.artwork_carousel_js', ['slick_query' => '.artworks-preview'])
+    {!! Html::script('js/slick.js') !!}
+    {!! Html::script('js/components/artwork_carousel.js') !!}
+    {!! Html::script('js/components/gallery-map.js') !!}
 @stop

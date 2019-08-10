@@ -24,18 +24,18 @@ class ClanokController extends Controller
     {
         $q = (Input::has('search')) ? str_to_alphanumeric(Input::get('search')) : 'null';
 
-        $result = Article::published()->where('title', 'like', '%'.$q.'%')->limit(5)->get();
+        $result = Article::published()->whereTranslationLike('title', '%'.$q.'%')->limit(5)->get();
 
         $data = array();
         $data['results'] = array();
         $data['count'] = 0;
-        
+
         // $data['items'] = array();
         foreach ($result as $key => $hit) {
 
             $data['count']++;
             $params = array(
-                'title' => $hit->title,
+                'title' => $hit->title_with_category,
                 'author' => $hit->author,
                 'url' => $hit->getUrl(),
                 'image' => $hit->getResizedImage(70),

@@ -67,6 +67,18 @@ function str_to_alphanumeric($string, $replace_with = '')
     return trim(preg_replace("/[^[:alnum:][:space:]-]/ui", $replace_with, $string));
 }
 
+function js_add_slashes($str) {
+    $pattern = array(
+        "/\\\\/"  , "/\n/"    , "/\r/"    , "/\"/"    ,
+        "/\'/"    , "/&/"     , "/</"     , "/>/"
+    );
+    $replace = array(
+        "\\\\\\\\", "\\n"     , "\\r"     , "\\\""    ,
+        "\\'"     , "\\x26"   , "\\x3C"   , "\\x3E"
+    );
+    return preg_replace($pattern, $replace, $str);
+}
+
 function br2nl($html)
 {
     return preg_replace('#<br\s*/?>#i', "\n", $html);
@@ -380,11 +392,23 @@ function empty_to_null($value) {
     return $value === "" ? NULL : $value;
 }
 
+function walk_empty_to_null(&$item, $key) {
+    $item = $item ?: null;
+}
+
 function convertEmptyStringsToNull($array) {
-    $array = array_map(function ($e) {
-        return $e ?: null;
-
-    }, $array);
-
+    array_walk_recursive($array,'walk_empty_to_null');
     return $array;
+}
+
+function formatName($name) {
+    return preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $name);
+}
+
+function starts_with_upper($str) {
+    return (bool)preg_match('/^[[:upper:]]/u', $str);
+}
+
+function str_after($subject, $search) {
+    return $search === '' ? $subject : array_reverse(explode($search, $subject, 2))[0];
 }

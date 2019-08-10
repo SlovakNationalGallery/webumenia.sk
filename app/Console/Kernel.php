@@ -1,5 +1,6 @@
 <?php namespace App\Console;
 
+use App\Jobs\HarvestJob;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -36,5 +37,15 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('sitemap:make')->daily();
+        $schedule->call(function() {
+            foreach (\App\SpiceHarvesterHarvest::where('cron_status', '=', 'daily')->get() as $harvest) {
+                dispatch(new HarvestJob($harvest));
+            }
+        })->daily(); /* daily at midnight */
+        $schedule->call(function() {
+            foreach (\App\SpiceHarvesterHarvest::where('cron_status', '=', 'weekly')->get() as $harvest) {
+                dispatch(new HarvestJob($harvest));
+            }
+        })->weeklyOn(6, '23:00'); /* sundays at 11pm */
     }
 }

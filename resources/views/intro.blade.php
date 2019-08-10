@@ -42,7 +42,7 @@
                     @endif
                 </div>
             </a>
-        </div>        
+        </div>
     @endforeach
 </div>
 
@@ -56,6 +56,19 @@
     </div>
 </section>
 
+@foreach ($articles as $i=>$article)
+    @if ( ! $article->hasTranslation(App::getLocale()) )
+        <section>
+            <div class="container content-section">
+                <div class="row">
+                    @include('includes.message_untranslated')
+                    @break
+                </div>
+            </div>
+        </section>
+    @endif
+@endforeach
+
 <section class="articles content-section">
     <div class="articles-body">
         <div class="container">
@@ -64,7 +77,7 @@
 	                <div class="col-sm-6 col-xs-12 bottom-space">
                         @include('components.article_thumbnail', [
                             'article' => $article
-                        ])                    
+                        ])
 	                </div>
                     @if ($i%2 == 1)
                         <div class="clearfix"></div>
@@ -102,7 +115,9 @@ $(document).ready(function(){
         var $link = $( cellElement ).find('a');
         var url = $link.attr('href');
         var id = $link.data('id');
-        $.get('/slideClicked', {'id': id});
+        $.get('/slideClicked', {'id': id}).done(function( data ) {
+            window.location.href = url;
+        });
 
     });
 
@@ -112,7 +127,7 @@ $(window).on('resize',function() {
     if ( $( ".flickity-slider" ).length ) {
         setTimeout(function(){
           $('.webumeniaCarousel').children('.flickity-page-dots').css('left',  parseInt($('.flickity-slider').css('transform').split(',')[4]) );
-        }, 200);            
+        }, 200);
     }
 });
 

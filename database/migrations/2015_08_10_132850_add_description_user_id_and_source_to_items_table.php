@@ -28,10 +28,15 @@ public function up()
 	 */
 	public function down()
 	{
-		Schema::table('items', function($table)
-		{
+		Schema::table('items', function($table) {
 			$table->dropColumn('description_user_id');
+		});
+
+		Schema::table('items', function($table) {
 			$table->dropColumn('description_source');
+		});
+
+		Schema::table('items', function($table) {
 			$table->dropColumn('description_source_link');
 		});
 	}

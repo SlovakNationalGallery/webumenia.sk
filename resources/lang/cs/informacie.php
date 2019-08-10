@@ -24,6 +24,7 @@ return array(
     'info_gallery_NGN'   => 'Nitrianska galéria',
     'info_gallery_SGB'   => 'Stredoslovenská galéria',
     'info_gallery_GUS'   => 'Galéria umelcov Spiša',
+    'info_gallery_VSG'   => 'Východoslovenská galéria',
     'info_gallery_MG'    => 'Moravská galerie',
 
     'mozete_heading'               => 'U nás lze',
@@ -36,7 +37,7 @@ return array(
     'mozete_col_vyuzivat_li_2'     => '<strong>vlastní tvorba</strong> (digitální úprava reprodukce, využití její časti pro animaci nebo koláž)',
     'mozete_col_vyuzivat_li_3'     => '<strong>vzdělávání</strong> (vložení obrázku na vlastní webstránku, použití na Wikipedii či jako součást prezentace)',
     'mozete_col_objednat_heading'  => 'Objednat si kvalitní reprodukce',
-    'mozete_col_objednat_p'        => 'K vybraným dílům ze sbírek SNG nabízíme možnost objednat si reprodukce v archívní kvalitě na fineartových papírech. Po výběru díla, vyplnění údajů a odeslání objednávky vás bude kontaktovat pracovník SNG s podrobnějšími informacemi. Momentálně je možné si vyzvednout díla pouze osobně v knihkupectví <a href="http://www.sng.sk/sk/uvod/navsteva-sng/sluzby/knihkupectvo-ex-libris" target="blank" class="strong">Ex&nbsp;Libris v prostorách SNG</a> na <a href="https://goo.gl/maps/k0sBz" target="_blank" class="strong">Náměstí Ľ. Štúra 4 v Bratislavě</a> nebo v pokladně <a href="http://www.sng.sk/sk/uvod/vysunute-pracoviska/zvolen" target="blank" class="strong">Zvolenského zámku</a> - <a href="https://goo.gl/maps/MPRy6Qdwm8s" target="_blank" target="blank" class="strong">Námestie SNP 594/1</a>.',
+    'mozete_col_objednat_p'        => 'K vybraným dílům ze sbírek SNG nabízíme možnost objednat si reprodukce v archívní kvalitě na fineartových papírech.<br><br>Na specifické účely – výzkumné, edukační, komerční – poskytujeme i digitální reprodukce s ohledem na stav autorských práv vybraných děl.<br><br>Objednávku vytvoříte pomocí tlačítka <strong>objednat reprodukci</strong> na stránce konkrétního díla. Po odeslání objednávky vás bude kontaktovat pracovník SNG s podrobnějšími informacemi.',
     'mozete_free_artworks'         => 'volná díla ke stažení',
 
     'more-items_heading'                 => 'vyberte si reprodukce',
@@ -52,6 +53,7 @@ return array(
                                              <li><strong>Igor Rjabinin</strong> vývojář</li>
                                              <li><strong>Philo van Kemenade</strong> vývojář</li>
                                              <li><strong>Rastislav Chynoranský</strong> vývojář</li>
+                                             <li><strong>Adam Juraszek</strong> vývojář</li>
                                              <li><strong>Gabriel Balkó</strong> kontrolor kvality, editor obsahu</li>
                                              <li><strong>Braňo Matis</strong> grafický designér</li>',
 

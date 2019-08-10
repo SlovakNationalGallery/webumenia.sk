@@ -24,6 +24,7 @@ return array(
     'info_gallery_NGN'   => 'Nitra Gallery',
     'info_gallery_SGB'   => 'Central Slovak Gallery',
     'info_gallery_GUS'   => 'Gallery of Spiš Artists',
+    'info_gallery_VSG'   => 'East Slovak Gallery',
     'info_gallery_MG'    => 'Moravian Gallery',
 
     'mozete_heading'               => 'On Web Umenia you can',
@@ -36,7 +37,7 @@ return array(
     'mozete_col_vyuzivat_li_2'     => '<strong>creative reuse</strong> like remixes, collages or animations',
     'mozete_col_vyuzivat_li_3'     => '<strong>educational materials</strong> including books, websites and presentations',
     'mozete_col_objednat_heading'  => 'Order high quality prints',
-    'mozete_col_objednat_p'        => 'We offer printed reproductions of selected artworks from the collections of the Slovak National Gallery on fine art paper.<br/><br/>You will recieve an e-mail with more detailed information after placing the order. Printed reproductions can only be picked up at one of our pick-up locations: <a href="http://www.sng.sk/en/bratislava/visiting-us/how-to-find-us/ex-libris-bookshop" target="_blank" class="underline">Ex Libris Bookshop in the Esterházy Palace, Námestie Ľudovíta Štúra 4, Bratislava</a> or at the cash desk in <a href="http://www.sng.sk/en/zvolen/visiting-us/how-to-find-us" target="_blank" class="underline">Castle Zvolen, SNP Square 594/1, Zvolen</a>.',
+    'mozete_col_objednat_p'        => 'We offer printed reproductions of selected artworks from the collections of the Slovak National Gallery on fine art paper.<br/><br/>For specific purposes – research, educational, commercial – we also provide digital reproductions with respect to copyright status of the artworks.<br/><br/>You can create an order by clicking the <strong>order reproduction</strong> button on the artwork detail page. After placing the order, you will recieve an e-mail with more detailed information.',
     'mozete_free_artworks'         => 'artworks available for download',
 
     'more-items_heading'                 => 'Artworks available for print',
@@ -52,6 +53,7 @@ return array(
                                              <li><strong>Igor Rjabinin</strong> developer</li>
                                              <li><strong>Philo van Kemenade</strong> developer</li>
                                              <li><strong>Rastislav Chynoranský</strong> developer</li>
+                                             <li><strong>Adam Juraszek</strong> developer</li>
                                              <li><strong>Gabriel Balkó</strong> quality control, content editor</li>
                                              <li><strong>Braňo Matis</strong> graphic designer</li>',
 

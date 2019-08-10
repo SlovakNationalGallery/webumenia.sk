@@ -15,12 +15,29 @@ class WebumeniaMgImporter extends MgImporter
     /** @var array */
     protected $csv_file;
 
+    protected $mapping = [
+        'RokAkv' => 'acquisition_date',
+        'DatExp' => 'copyright_expires',
+        'Datace' => 'dating:sk',
+        'RokOd' => 'date_earliest',
+        'Do' => 'date_latest',
+        'MístoVz' => 'place:sk',
+        'Sign' => 'inscription:sk',
+        'Původnost' => 'state_edition:sk',
+        'Autor' => 'author',
+        'Titul' => 'title:sk',
+        'Námět' => 'topic:sk',
+    ];
+
     protected $defaults = [
-        'gallery' => 'Moravská galerie, MG',
         'author' => 'Neznámy autor',
-        'title' => 'bez názvu',
-        'topic' => 'téma',
-        'relationship_type' => 'typ vzťahu',
+        'gallery:sk' => 'Moravská galerie, MG',
+        'title:sk' => 'bez názvu',
+        'topic:sk' => 'téma',
+        'relationship_type:sk' => 'typ vzťahu',
+        'description:sk' => '',
+        'work_level:sk' => '',
+        'subject:sk' => '',
     ];
 
     protected static $cz_work_types_spec = [

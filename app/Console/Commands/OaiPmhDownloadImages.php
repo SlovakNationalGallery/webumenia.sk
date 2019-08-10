@@ -46,7 +46,8 @@ class OaiPmhDownloadImages extends Command
      */
     public function fire()
     {
-        $pocet = Item::where('img_url', '!=', '')->where('has_image', '=', 0)->count();
+        $items_without_images_query = Item::hasImage(false);
+        $pocet = $items_without_images_query->count();
 
         if (! $this->confirm("Naozaj spustit stahovanie obrazkov pre {$pocet} diel? [yes|no]", true)) {
             $this->comment('Tak dovidenia.');
@@ -60,21 +61,31 @@ class OaiPmhDownloadImages extends Command
         $i = 0;
         $failures = 0;
 
-        Item::where('img_url', '!=', '')->where('has_image', '=', 0)->chunkById(200, function ($items) use (&$i, &$failures) {
+        $items_without_images_query->chunkById(200, function ($items) use (&$i, &$failures) {
             // $items->load('authorities');
             foreach ($items as $item) {
-                if ($item::hasImageForId($item->id) || $this->downloadImage($item)) {
-                    $i++;
+                $success = false;
+
+                if ($item::hasImageForId($item->id)) {
                     $item->has_image = true;
                     $item->save();
+                    $success = true;
+                } else {
+                    try {
+                        $success = $item->downloadImage();
+                    } catch (\Exception $e) {
+                        $this->log->addError($item->img_url . ': ' . $e->getMessage());
+                        app('sentry')->captureException($e);
+                    }
+                }
+
+                if ($success) {
+                    $i++;
+                    if (App::runningInConsole() && $i % 100 == 0) {
+                        echo date('h:i:s') . " " . $i . "\n";
+                    }
                 } else {
                     $failures++;
-                }
-                
-                if (App::runningInConsole()) {
-                    if ($i % 100 == 0) {
-                        echo date('h:i:s'). " " . $i . "\n";
-                    }
                 }
             }
         });
@@ -108,23 +119,5 @@ class OaiPmhDownloadImages extends Command
         return array(
             // array('example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null),
         );
-    }
-
-    private function downloadImage($item)
-    {
-        $file = $item->img_url;
-        try {
-            $data = file_get_contents($file);
-        } catch (\Exception $e) {
-            $this->log->addError($item->img_url . ': ' . $e->getMessage());
-            return false;
-        }
-        
-        $full = true;
-        if ($new_file = $item->getImagePath($full)) {
-            file_put_contents($new_file, $data);
-            return true;
-        }
-        return false;
     }
 }

@@ -74,6 +74,13 @@ html {
 }
 
 
+/* Bootstrap 4 utilities */
+.px-0 {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+
 // Typhography
 
 .light {
@@ -330,15 +337,15 @@ a:focus {
     font-weight: 400;
   }
   h1 {
+    font-size: 44px;
+    @media (min-width: @screen-xs-min) {
       font-size: 64px;
       line-height: 52px;
+    }
     @media (min-width: @screen-md-min) {
       font-size: 82px;
       line-height: 72px;
     }
-  }
-  h2 {
-    // font-size: px;
   }
 }
 
@@ -474,13 +481,8 @@ table a:not(.btn):not(.readmore-js-toggle):not(.no-border), .attributes a:not(.b
 }
 
 .footer {
-    padding: 10px;
     .fa {
       margin-right: 10px;
-    }
-    p {
-        font-size: 12px;
-        margin: 0;
     }
 }
 
@@ -498,16 +500,16 @@ table a:not(.btn):not(.readmore-js-toggle):not(.no-border), .attributes a:not(.b
       line-height: 24px;
     }
     ul.list-lab li {margin-bottom: 0}
-    &.underlined-links a {
-        border-bottom: lighten(@primary, 60%) solid 1px;
-        &:hover, &:active {
-            border-bottom: #000 solid 1px;
-        }
-    }
     .atribut {
         font-style: normal;
         color: @primary;
     }
+}
+.underlined-links a {
+  border-bottom: lighten(@primary, 60%) solid 1px;
+  &:hover, &:active {
+    border-bottom: #000 solid 1px;
+  }
 }
 .mozete {
   h4 {font-weight: 600; color: @dark-grey; }
@@ -771,27 +773,6 @@ section.catalog {
     max-height: 165px;
     width: auto;
 }
-.artworks-preview {
-    width: 100%;
-    overflow: hidden;
-    max-height: 165px;
-    &.large {
-       max-height: 200px;
-       .img-responsive-width {
-            max-height: 200px;
-       }
-    }
-    &.small {
-       max-height: 100px;
-       .img-responsive-width {
-            max-height: 100px;
-            width: auto;
-       }
-    }
-    img {
-        margin-right: 10px;
-    }
-}
 
 .author, .collection, .order{
   border-top: 1px solid @light-grey;
@@ -942,31 +923,6 @@ label sup {
   margin: auto;
 }
 
-// reponsive img ratio scaling http://www.mademyday.de/css-height-equals-width-with-pure-css.html
-
-.ratio-box {
-  position: relative;
-  height: 0;
-  display: block;
-  width: 100%;
-  /* padding-bottom is calculated and rendered in to HTML */
-}
-
-.ratio-box img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-// lazy loading https://github.com/aFarkas/lazysizes
-.lazyload {
-  background: #f7f7f7;
-}
-
-.lazyloading {
-  background: #f7f7f7 url(/images/ajax-loader.gif) no-repeat center;
-  min-height: 60px;
+.ui-adding-user-tags {
+  display: none;
 }

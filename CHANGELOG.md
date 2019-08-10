@@ -2,12 +2,193 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [1.9.1] - 2019-07-30
+### Changed
+- updated GMaps.js v0.4.13 -> v0.4.25
+
 ### Fixed
+- redirect to link after click in carousel in landing page
+- Google Maps API Key
+
+
+## [1.9.0] - 2019-07-27
+### Added
+- error message to harvest data
+- map all datings in item harvester
+- do not delete harvested items on harvest deletion
+- improve reproduction images and enabled ReproductionsPage in NavBar
+
+### Fixed
+- Extend memory limit on composer run via docker
+- suggest filename for resized item images
+- Improved reproduction images and enabled ReproductionsPage in NavBar
+- refactor Item::isFree method
+- missing item description_source translated attribute
+- sort collections by name on frontend
+- index all even unexisting translations
+- windows issues with docker (missing git, use github https, map ES data dir)
+- add link to home page into haburger menu
+- harvesters fail on zero results
+
+### Changed
+- move description_source_link to translated attributes
+
+## [1.8.1] - 2019-05-04
+### Fixed
+- infinite recursion on Item/Authority index
+
+## [1.8.0] - 2019-03-12
+### Fixed
+- Item::isFree conditions priority
+- Item images form in admin
+- missing relations between items and authorities in harvest
+- syncing relations in harvest
+- failing harvests
+- scheduled harvest jobs
+- harvest only alternative authority names
+- duplicate authors in item detail
+- hostname resolution in guzzle
+
+### Added
+- style compilation documentation to readme
+- restrict bots from color searching
+- describe item's colors on primary image change
+- new sorting option (by date - from oldest) in catalog
+- PNP importer
+
+### Changed
+- removed name from authority_item table
+
+## [1.7.2] - 2019-02-27
+### Added
+- form to add tags in artwork detail for authorized users
+
+### Fixed
+- normalizing tags
+
+## [1.7.1] - 2019-02-13
+### Changed
+- save new tags lowercased instead of titlecased
+
+## [1.7.0] - 2019-02-07
+### Fixed
+- Harvesting items without rights
+- Duplicated years in item dating formated
+- Creating new Artwork
+- Editing Artwork without iipimg_url
+
+### Added
+- /reprodukcie route
+- ReproOffer component
+- Headings documented in PatternLib
+- Remove query string from localized urls
+- Option to launch harvest only for specific record ids
+- Switch database / elasticsearch index when working with docker-compose
+- footnotes in wysiwyg editor in admin
+- Sentry integration
+- option to choose frame color in order form
+
+### Changed
+- CKEditor version
+- JSON response in FileuploaderController@upload
+- Move img_url from item_images to items table
+- Delete null item images
+
+### Removed
+- Printed reproduction options for items without IIP/zoom
+
+## [1.6.2] - 2019-01-16
+### Fixed
+- search autocomplete for Collections and Articles
+- division by zero exception for corrupted images
+- indexing translated work_type into ElasticSearch
+
+### Added
+- 30 days cache to item image headers
+
+
+## [1.6.1] - 2018-12-06
+### Added
+- temporary Christmas alert into order
+
+### Changed
+- thank you text after order (with "check your spam folder")
+
+## [1.6.0] - 2018-11-28
+### Fixed
+- Duplicate authors with links
+- Authorities Search endpoint of admin fixed
+- Multiple item images form in admin
+
+### Added
+- Use SQLite in tests
+- Dockerfiles for WU to run in docker
+- Curator of artwork in detail view
+- admin-editable cron_status attribute added to SpiceHarvester harvests
+- daily and weekly cron jobs scheduled for harvests with appropriate cron_status
+- footer component
+- newsletter link into footer
+- responsive image component
+- responsive image support with lazyloading for carousel(s) and artwork detail
+- VSG to the list of galleries
+- Refactor spice harvester
+- Show harvest progress in admin
+- Symfony forms
+- ZoomController
+
+
+### Changed
+- allow download of public-domain artworks from VSG
+- making map with galleries interactive in info section
+- made models Item, Authority, Article and Collection translatable
+- separate elastic index for each locale
+- footer social icons
+- Made ZoomViewer component embedabble in static HTML via editor
+
+### Removed
+- query string from localized urls
+
+## [1.5.3] - 2018-08-14
+### Fixed
+- OAI download images command reflects changes to Item model
+
+## [1.5.2] - 2018-07-27
+### Fixed
+- Filter color described items in similar by color
+
+## [1.5.1] - 2018-07-26
+### Fixed
+- Allow Z-prefixed item ID's in spice harvester
+
+## [1.5.0] - 2018-07-04
+### Fixed
+- ItemImage model changed to properly deal with fields with unique constraints
+- arguments parsed by SpiceHarvester changed to account for new ItemImage table
 - OAI download command now no longer skips half the downloads
 - error message added showing if and how many downloads fail
+- Display localized section titles in autocomplete
+- missing article category in autocomplete suggestions
+- exception in autocomplete if article image is missing
+- multiple item images handling
+- back button in artwork zoom
 
 ### Added
 - Scheduled task to run sitemap creation
+- CSV import in admin
+- Searchbar component
+- [Pull Request Template](.github/pull_request_template.md)
+
+### Changed
+- Info section to include MG on map + update current lab.SNG team
+
+## [1.4.3] - 2018-05-25
+### Fixed
+- removed left-over IIP image URL form field
+
+## [1.4.2] - 2018-05-25
+### Fixed
+- make reproduction order GDPR compliant
 
 ## [1.4.1] - 2018-05-22
 ### Fixed
@@ -85,6 +266,17 @@ All notable changes to this project will be documented in this file[^1].
 - LICENSE from Public Domain into MIT
 
 [Unreleased]: https://github.com/SlovakNationalGallery/web-umenia-2/compare/master...develop
+[1.9.1]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/226
+[1.9.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/223
+[1.8.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/191
+[1.7.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/169
+[1.6.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/108
+[1.5.3]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/97
+[1.5.2]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/94
+[1.5.1]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/93
+[1.5.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/80
+[1.4.3]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/70
+[1.4.2]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/69
 [1.4.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/67
 [1.3.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/52
 [1.2.6]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/31

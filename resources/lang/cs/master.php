@@ -14,9 +14,9 @@ return array(
     'authors'            => 'autoři',
     'articles'           => 'články',
     'galleries'          => 'galerie',
+    'reproductions'      => 'reprodukce',
     'info'               => 'info',
     'language'           => 'jazyk',
-    'made_by'            => 'vyrobil a spravuje',
     'search_placeholder' => 'hledat díla, autorů ...',
     'to_top' => 'návrat nahoru',
 

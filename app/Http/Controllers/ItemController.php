@@ -2,20 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Forms\Types\ItemType;
 use App\Item;
 use App\Collection;
+use App\Jobs\HarvestSingleJob;
+use Barryvdh\Form\CreatesForms;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
-use Intervention\Image\ImageManagerStatic;
 use App\SpiceHarvesterRecord;
 use Illuminate\Support\Facades\App;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\Test\FormBuilderInterface;
 
 class ItemController extends Controller
 {
+    use CreatesForms;
+
+    /** @var FormInterface */
+    protected $form;
 
     /**
      * Display a listing of the resource.
@@ -26,7 +37,7 @@ class ItemController extends Controller
     {
         $items = Item::orderBy('updated_at', 'DESC')->paginate(100);
         // $collections = Collection::orderBy('order', 'ASC')->get();
-        $collections = Collection::lists('name', 'id');
+        $collections = Collection::listsTranslations('name')->pluck('name', 'id')->toArray();
         return view('items.index', array('items' => $items, 'collections' => $collections));
     }
 
@@ -44,54 +55,11 @@ class ItemController extends Controller
             $ids = explode(';', str_replace(" ", "", $search));
             $results = Item::whereIn('id', $ids)->paginate(20);
         } else {
-            $results = Item::where('title', 'LIKE', '%'.$search.'%')->orWhere('author', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%')->paginate(20);
+            $results = Item::whereTranslationLike('title', '%'.$search.'%')->orWhere('author', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%')->paginate(20);
         }
 
-        $collections = Collection::lists('name', 'id');
+        $collections = Collection::listsTranslations('name')->pluck('name', 'id')->toArray();
         return view('items.index', array('items' => $results, 'collections' => $collections, 'search' => $search));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        $prefix = 'SVK:TMP.';  // TMP = temporary
-        $last_item = Item::where('id', 'LIKE', $prefix.'%')->orderBy('created_at', 'desc')->first();
-        $last_number = (int)str_replace($prefix, '', $last_item->id);
-        $new_id = $prefix . ($last_number+1);
-        return view('items.form', array('new_id'=>$new_id));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function store()
-    {
-        $input = Input::all();
-
-        $rules = Item::$rules;
-        $rules['primary_image'] = 'required|image';
-
-        $v = Validator::make($input, $rules);
-
-        if ($v->passes()) {
-
-            $item = new Item;
-            $item->fill($input);
-            $item->save();
-
-            if (Input::hasFile('primary_image')) {
-                $this->uploadImage($item);
-            }
-
-            return Redirect::route('item.index');
-        }
-        return Redirect::back()->withInput()->withErrors($v);
     }
 
     /**
@@ -107,72 +75,82 @@ class ItemController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        $prefix = 'SVK:TMP.';
+        $last_item = Item::where('id', 'LIKE', $prefix.'%')->orderBy('created_at', 'desc')->first();
+        $last_number = ($last_item) ? (int)str_after($last_item->id, $prefix) : 0;
+        $new_id = $prefix . ($last_number + 1);
+
+        $item = new Item(['id' => $new_id]);
+        $form = $this->getItemFormBuilder($item, $new = true)
+            ->add('id', null, [
+                'disabled' => true,
+            ])
+            ->getForm();
+
+        return $this->processForm($form);
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param string $id
      * @return Response
      */
     public function edit($id)
     {
-        $item = Item::find($id);
+        $item = Item::find($id) ?: abort(404);
+        $form = $this->getItemFormBuilder($item, $new = false)->getForm();
 
-        if (is_null($item)) {
-            return Redirect::route('item.index');
-        }
-
-        return view('items.form')->with('item', $item);
+        return $this->processForm($form);
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
+     * @param Form $form
      * @return Response
      */
-    public function update($id)
-    {
-        $v = Validator::make(Input::all(), Item::$rules);
+    protected function processForm(Form $form) {
+        $item = $form->getData();
+        $form->handleRequest();
 
-        if ($v->passes()) {
-            $input = array_except(Input::all(), array('_method'));
-            // $input = array_filter($input, 'strlen');
-            $input = array_map(function ($e) {
-                return $e ?: null;
+        if ($form->isSubmitted() && $form->isValid()) {
+            $item->push();
 
-            }, Input::all()); //prazdne hodnoty zmeni na null
-
-            $item = Item::find($id);
-            $item->fill($input);
-            $item->save();
-
-            if (Input::has('tags')) {
-                $item->reTag(Input::get('tags', []));
-                $item->index(); //pre istotu. lebo ak sa nic ine nezmeni, tak nepreindexuje
+            $tags = $form['tags']->getData();
+            if (array_diff($tags, $item->tagSlugs()) != array_diff($item->tagSlugs(), $tags)) {
+                $item->retag($tags);
+                $item->index();
             }
 
-            // ulozit primarny obrazok. do databazy netreba ukladat. nazov=id
-            if (Input::hasFile('primary_image')) {
-                $this->uploadImage($item);
+            if ($image = $form['primary_image']->getData()) {
+                $item->saveImage($image);
             }
 
-            Session::flash('message', 'Dielo ' .$id. ' bolo upravené');
-            return Redirect::route('item.index');
+            return Redirect::route('item.index')->with('message', 'Success');
         }
 
-        return Redirect::back()->withErrors($v);
+        return view('items.form', [
+            'form' => $form,
+            'item' => $item,
+        ]);
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
+     * @param Item $item
+     * @param bool $new
+     * @return FormBuilderInterface
      */
-    public function destroy($id)
-    {
-        Item::find($id)->delete();
-        return Redirect::route('item.index')->with('message', 'Dielo bolo zmazané');
-        ;
+    protected function getItemFormBuilder(Item $item, $new) {
+        return $this->getFormFactory()
+            ->createBuilder(ItemType::class, $item, ['new' => $new])
+            ->add('save', SubmitType::class, [
+                'translation_domain' => 'messages',
+            ]);
     }
 
     public function backup()
@@ -236,27 +214,6 @@ class ItemController extends Controller
         return Redirect::back()->withMessage('Pre ' . $i . ' diel bola nastavená zemepisná šírka a výška.');
     }
 
-    private function uploadImage($item)
-    {
-        $item->removeImage();
-
-        $error_messages = array();
-        $primary_image = Input::file('primary_image');
-        $full = true;
-        $filename = $item->getImagePath($full);
-        $uploaded_image = \Image::make($primary_image->getRealPath());
-        if ($uploaded_image->width() > $uploaded_image->height()) {
-            $uploaded_image->widen(800, function ($constraint) {
-                $constraint->upsize();
-            });
-        } else {
-            $uploaded_image->heighten(800, function ($constraint) {
-                $constraint->upsize();
-            });
-        }
-        $uploaded_image->save($filename);
-    }
-
     /**
      * Destroy selected items
      *
@@ -295,7 +252,7 @@ class ItemController extends Controller
         if (!empty($items) > 0) {
             foreach ($items as $item_id) {
                 $item = Item::find($item_id);
-                App::make('\App\Http\Controllers\SpiceHarvesterController')->refreshSingleRecord($item->record->id);
+                $this->dispatch(new HarvestSingleJob($item->record));
             }
         }
         return Redirect::back()->withMessage('Pre ' . count($items) . ' diel boli načítané dáta z OAI');

@@ -128,6 +128,16 @@ return array(
         App\Providers\ColorDescriptorProvider::class,
         'GrahamCampbell\Throttle\ThrottleServiceProvider',
         Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
+        Dimsav\Translatable\TranslatableServiceProvider::class,
+        Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
+
+        /*
+         * Application Service Providers...
+         */
+        App\Providers\ElasticTranslatableServiceProvider::class,
+        App\Providers\ElasticsearchClientProvider::class,
+        Barryvdh\Form\ServiceProvider::class,
+        App\Providers\FormServiceProvider::class,
     ),
 
     /*
@@ -197,7 +207,9 @@ return array(
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
         'Throttle' => 'GrahamCampbell\Throttle\Facades\Throttle',
-        'LaravelLocalization'   => Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
+        'LaravelLocalization' => Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
+        'FormRenderer' => App\Facades\FormRenderer::class,
+        'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
     ),
 
     'jira_auth' => array(
@@ -207,6 +219,8 @@ return array(
 
     'searchd_id' => 'your_id',
     'searchd_id_autocomplete' => 'your_id',
+
+    'google_recaptcha_secret' => env('GOOGLE_RECAPTCHA_SECRET'),
 
     'old_url' => 'http://stary.webumenia.sk',
 
