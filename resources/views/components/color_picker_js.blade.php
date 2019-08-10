@@ -2,13 +2,7 @@
 <script src="js/vendor/vue-color.js"></script>
 <script>
   var color = {
-    hex: '#40BFBF',
-    hsl: {
-      h: 180,
-      s: 0.5,
-      l: 0.5,
-      a: 1
-    },
+    hex: '#{{$color}}',
     a: 1
   }
 
@@ -20,6 +14,11 @@
     data () {
       return {
         color
+      }
+    },
+    methods: {
+      colorChanged: function ($col) {
+        window.location.href = "{!! URL::to('katalog') !!}" + "?color=" + $col.hex.substr(1);
       }
     }
   })

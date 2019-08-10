@@ -79,6 +79,18 @@
                         <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="{!! App\Item::sliderMin() !!}" data-slider-max="{!! App\Item::sliderMax() !!}" data-slider-step="5" data-slider-value="[{!! !empty($input['year-range']) ? $input['year-range'] : App\Item::sliderMin().','.App\Item::sliderMax() !!}]"/>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="checkbox">
+                        <input id="use_color"  {!! $color ? 'checked="checked"' : "" !!}  name="use_color" type="checkbox" >
+                        <label for="use_color">
+                        {{ trans('katalog.filters_use_color') }}
+                        </label>
+                    </div>
+                    @include('components.color_picker', ['id'=>'colorpicker'])
+                    @include('components.color_picker_js', ['id' => 'colorpicker', 'color' => $color])
+                </div>
+            </div>
             @if ($color)
             <div class="row">
                 <div class="col-sm-12">
@@ -88,10 +100,6 @@
                         {!! Form::hidden('color', @$input['color'], ['id'=>'color']) !!}
                     </label>
                 </div>
-            </div>
-            <div class="row">
-                @include('components.color_picker', ['id'=>'colorpicker'])
-                    @include('components.color_picker_js', ['id' => 'colorpicker', 'color' => $color])
             </div>
             @endif
             {!! Form::hidden('sort_by', @$input['sort_by'], ['id'=>'sort_by']) !!}
