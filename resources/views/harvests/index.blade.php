@@ -56,7 +56,7 @@ Spice Harvester |
                                 <span class="h4"><span class="label label-{!! $h->status_class !!}">{!! $h->status !!}</span></span>
                             </td>
                             <td>
-                                {!! nl2br($h->status_messages) !!}<br>
+                                {!! nl2br(htmlspecialchars($h->status_messages)) !!}<br>
                             </td>
                             <td>{!! $h->cron_status !!}</td>
 			                <td class="text-right">
