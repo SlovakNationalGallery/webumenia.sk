@@ -67,6 +67,32 @@
                             </label>
                         </div>
                 </div>
+                <div class="col-md-4 col-xs-6">
+                    <div class="checkbox " >
+                        <input id="use_color"  {!! $color ? 'checked="checked"' : "" !!} type="checkbox" >
+                        <label for="use_color">
+                        {{ trans('katalog.filters_use_color') }}
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="color-picker {!! $color ? '' : 'hidden' !!}">
+                        @include('components.color_picker', ['id'=>'colorpicker'])
+                        @include('components.color_picker_js', ['id' => 'colorpicker', 'color' => $color])
+                    </div>
+                </div>
+
+                @if ($color)
+                <div class="col-sm-12">
+                    <label for="color_filter" class="w-100 mt-10 mb-0 light">
+                        {{ utrans('katalog.filters_color') }}:
+                        @include('components.color_list', ['colors' => [array('hex' => '#'.$color, 'amount' => '100%')], 'include_clear' => true, 'id' => 'color-filter', 'class_names' => 'mt-5 mb-0'])
+                        {!! Form::hidden('color', @$input['color'], ['id'=>'color']) !!}
+                    </label>
+                </div>
+                @endif
             </div>
             <div class="row">
                 <div class="col-xs-6 col-sm-1 text-left text-sm-right year-range">
@@ -79,29 +105,6 @@
                         <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="{!! App\Item::sliderMin() !!}" data-slider-max="{!! App\Item::sliderMax() !!}" data-slider-step="5" data-slider-value="[{!! !empty($input['year-range']) ? $input['year-range'] : App\Item::sliderMin().','.App\Item::sliderMax() !!}]"/>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="checkbox">
-                        <input id="use_color"  {!! $color ? 'checked="checked"' : "" !!}  name="use_color" type="checkbox" >
-                        <label for="use_color">
-                        {{ trans('katalog.filters_use_color') }}
-                        </label>
-                    </div>
-                    @include('components.color_picker', ['id'=>'colorpicker'])
-                    @include('components.color_picker_js', ['id' => 'colorpicker', 'color' => $color])
-                </div>
-            </div>
-            @if ($color)
-            <div class="row">
-                <div class="col-sm-12">
-                    <label for="color_filter" class="w-100 mt-10 mb-0 light">
-                        {{ utrans('katalog.filters_color') }}:
-                        @include('components.color_list', ['colors' => [array('hex' => '#'.$color, 'amount' => '100%')], 'include_clear' => true, 'id' => 'color-filter', 'class_names' => 'mt-5 mb-0'])
-                        {!! Form::hidden('color', @$input['color'], ['id'=>'color']) !!}
-                    </label>
-                </div>
-            </div>
-            @endif
             {!! Form::hidden('sort_by', @$input['sort_by'], ['id'=>'sort_by']) !!}
             {!! Form::close() !!}
         </div>
@@ -223,6 +226,7 @@ $('.isotope-wrapper').each(function(){
 });
 
 $(document).ready(function(){
+    const colorPickerDiv = $("div.color-picker").first();
 
     // $('.expandable').readmore({
     //     moreLink: '<a href="#" class="text-center">viac možností <i class="icon-arrow-down"></i></a>',
@@ -283,9 +287,18 @@ $(document).ready(function(){
         }
     });
 
-    $(".custom-select, input[type='checkbox']").change(function() {
+    $(".custom-select, input[type='checkbox']:not(#use_color)").change(function() {
         var form = $(this).closest('form');
         form.submit();
+    });
+
+    $("#use_color").change(function(e){
+        if (e.target.checked){
+            colorPickerDiv.show('fast');
+            colorPickerDiv.removeClass('hidden');
+        } else {
+            window.location.href = "{!! URL::to('katalog') !!}";
+        }
     });
 
     $(".dropdown-menu-sort a").click(function(e) {

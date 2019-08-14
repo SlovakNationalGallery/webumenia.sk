@@ -516,9 +516,7 @@
 
                         if (!functional) {
                             // inject component registration as beforeCreate hook
-                            options.beforeCreate = existing ?
-                                [].concat(existing, hook) :
-                                [hook]
+                            options.beforeCreate = existing ? [].concat(existing, hook) : [hook]
                         } else {
                             // for template-only hot-reload because in that case the render fn doesn't
                             // go through the normalizer
@@ -619,6 +617,7 @@
                                 l: offset,
                                 source: 'hsl'
                             });
+                            this.$emit('click', this.colors);
                         }
                     }
                 };
