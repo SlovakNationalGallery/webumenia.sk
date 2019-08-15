@@ -2,7 +2,7 @@
 <script src="js/vendor/vue-color.js"></script>
 <script>
   var color = {
-    hex: '#{{$color}}',
+    hex: '#' + ('{{$color}}' || '40BFB1'),
     a: 1
   }
 
