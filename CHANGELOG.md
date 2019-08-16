@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - override docker php container for tests
 
+### Fixed
+- correct authority zero-value years to null
+
 ## [1.9.1] - 2019-07-30
 ### Changed
 - updated GMaps.js v0.4.13 -> v0.4.25
