@@ -163,13 +163,20 @@
                                     </td>
                                 </tr>
                                 @endif
-                                @if ($item->tagNames() )
+                                @if ($item->tagNames() || Auth::check())
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_tag') }}:</td>
                                     <td>
+
+                                    <!-- list of existing tags -->
                                     @foreach ($item->tagNames() as $tag)
                                         <a href="{!!URL::to('katalog?tag=' . $tag)!!}" class="btn btn-default btn-xs btn-outline">{!! $tag !!}</a>
                                     @endforeach
+
+                                    @if (Auth::check())
+                                        @include('includes.add_tags_form')
+                                    @endif
+
                                     </td>
                                 </tr>
                                 @endif
@@ -307,20 +314,14 @@
     </div>
 </section>
 
-@if ($colors_used || $similar_by_color)
+@if ($colors_used)
 <section class="content-section">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-xs-12" id="colorrelated" data-fetch-url="{{ route('dielo.colorrelated', ['id' => $item->id]) }}">
                 <h4>{{ trans('dielo.more-items_similar-colors') }}</h4>
                 @if ($colors_used)
                 @include('components.color_list', ['colors' => $colors_used])
-                @endif
-                @if ($similar_by_color)
-                    @include('components.artwork_carousel', [
-                        'slick_target' => "artworks-preview",
-                        'items' => $similar_by_color,
-                    ])
                 @endif
             </div>
         </div>
@@ -383,13 +384,16 @@
 @section('javascript')
 {!! Html::script('js/readmore.min.js') !!}
 {!! Html::script('js/jquery.fileDownload.js') !!}
-
-{!! Html::script('js/slick.js') !!}
 {!! Html::script('js/components/artwork_carousel.js') !!}
 
+{{ HTML::script('js/slick.js') }}
+{{ HTML::script('js/selectize.min.js') }}
+{{-- @TODO bring this back when opened to public --}}
+{{-- {{ HTML::script('https://www.google.com/recaptcha/api.js') }} --}}
+
 @if (!empty($item->lat) && ($item->lat > 0))
-    <!-- Google Maps API Key - You will need to use your own API key to use the map feature -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVG26BxGY9yhjCFbviWRgZsvxSlikOnIM"
+    async defer></script>
     {!! Html::script('js/gmaps.js') !!}
 @endif
 
@@ -418,6 +422,14 @@
     };
 
     $(document).ready(function(){
+
+        var colorRelated = $('#colorrelated');
+        if (colorRelated) {
+            var fetchUrl = colorRelated.data('fetch-url');
+            $.get(fetchUrl, function (data) {
+                colorRelated.append(data);
+            });
+        }
 
         $('.expandable').readmore({
             moreLink: '<a href="#"><i class="fa fa-chevron-down"></i> {{ trans("general.show_more") }}</a>',
@@ -515,4 +527,9 @@
     });
 </script>
 @endif
+
+@if (Auth::check())
+    @include('includes.add_tags_form_js')
+@endif
+
 @stop

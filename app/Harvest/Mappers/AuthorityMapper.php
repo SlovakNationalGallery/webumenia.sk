@@ -91,10 +91,14 @@ class AuthorityMapper extends AbstractModelMapper
 
     /**
      * @param string $date
-     * @return int
+     * @return int|null
      */
     public function parseYear($date) {
         $exploded = explode('.', $date);
-        return (int)end($exploded);
+        $end = end($exploded);
+        if ($end === '') {
+            return null;
+        }
+        return (int)$end;
     }
 }

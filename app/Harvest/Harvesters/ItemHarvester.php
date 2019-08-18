@@ -30,7 +30,6 @@ class ItemHarvester extends AbstractHarvester
 
         // @todo responsibility of repository?
         $iipimgUrls = $this->fetchItemImageIipimgUrls($row);
-        $iipimgUrls = $this->parseItemImageIipimgUrls($iipimgUrls);
 
         $row['images'] = [];
         foreach ($iipimgUrls as $iipimgUrl) {
@@ -48,16 +47,27 @@ class ItemHarvester extends AbstractHarvester
         /** @var Item $item */
         $item = parent::harvestSingle($record, $result, $row);
 
+        if (!$item) {
+            return;
+        }
+
+        if ($item->img_url) {
+            $this->trySaveImage($item);
+        }
+
+        // index with updated relations
+        $item->index();
+        return $item;
+    }
+
+    protected function trySaveImage(Item $item) {
         try {
-            $item->downloadImage();
+            $item->saveImage($item->img_url);
         } catch (\Exception $e) {
             $error = sprintf('%s: %s', $item->img_url, $e->getMessage());
             $this->logger->addError($error);
             app('sentry')->captureException($e);
         }
-
-        $item->index();
-        return $item;
     }
 
     protected function isExcluded(array $row) {
@@ -69,7 +79,7 @@ class ItemHarvester extends AbstractHarvester
 
     /**
      * @param array $row
-     * @return string|bool
+     * @return string[]
      */
     protected function fetchItemImageIipimgUrls(array $row) {
         $url = array_first($row['identifier'], function ($i, $identifier) {
@@ -77,10 +87,10 @@ class ItemHarvester extends AbstractHarvester
         });
 
         if ($url === null) {
-            return false;
+            return [];
         }
 
-        return @file_get_contents($url);
+        return $this->parseItemImageIipimgUrls(file_get_contents($url));
     }
 
     /**

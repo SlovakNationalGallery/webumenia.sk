@@ -95,7 +95,9 @@ class ItemMapperTest extends TestCase
             'provenance' => ['Slovenská národná galéria, SNG'],
             'created' => [
                 '1760/1760',
-                '18. storočie, polovica, 1760',
+                '18. storočie, polovica, 1760 (originál)',
+                '1860/1860',
+                '21. storočie, 1. polovica, 2019 (zväčšenina)',
             ],
         ];
 
@@ -107,10 +109,8 @@ class ItemMapperTest extends TestCase
             'date_earliest' => '1760',
             'date_latest' => '1760',
             'author' => 'Daullé, Jean; Teniers, David',
-            'item_type' => '',
             'related_work_order' => 0,
             'related_work_total' => 0,
-            'featured' => false,
             'img_url' => 'http://www.webumenia.sk/oai-pmh/getimage/SVK:SNG.G_10044',
             'title:sk' => 'Flámska rodina',
             'work_type:sk' => 'grafika, voľná',
@@ -122,7 +122,7 @@ class ItemMapperTest extends TestCase
             'inscription:sk' => 'vpravo dole gravé J.Daullé..; vľavo dole peint Teniers',
             'place:sk' => null,
             'gallery:sk' => 'Slovenská národná galéria, SNG',
-            'dating:sk' => '1760',
+            'dating:sk' => '1760 (originál), 2019 (zväčšenina)',
             'relationship_type:sk' => 'samostatné dielo',
             'related_work:sk' => null,
             'description:sk' => null,

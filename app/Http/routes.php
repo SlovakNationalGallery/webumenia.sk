@@ -229,19 +229,9 @@ function()
             }
         }
 
-        $similar_by_color = [];
         $colors_used = [];
 
         if ($item->color_descriptor) {
-            $ids = $item->similarByColor(100)->pluck('id');
-            $similar_by_color = Item::whereIn('id', $ids)->get();
-            $similar_by_color = $similar_by_color->filter(function (Item $i) use ($item) {
-                return (bool)$i->color_descriptor && $item->id != $i->id;
-            });
-            $similar_by_color = $similar_by_color->sort(function($a, $b) use ($ids) {
-                return $ids->search($a->id) - $ids->search($b->id);
-            });
-
             $colors_used = $item->getColorsUsed(Color::TYPE_HEX);
 
             uasort($colors_used, function ($a, $b) {
@@ -269,11 +259,30 @@ function()
         ));
     });
 
+    Route::get('dielo/{id}/colorrelated', function ($id) {
+        $item = Item::find($id);
+
+        $similar_by_color = [];
+
+        $ids = $item->similarByColor(20)->pluck('id');
+        $similar_by_color = Item::whereIn('id', $ids)->get();
+        $similar_by_color = $similar_by_color->filter(function (Item $i) use ($item) {
+            return (bool)$i->color_descriptor && $item->id != $i->id;
+        });
+        $similar_by_color = $similar_by_color->sort(function($a, $b) use ($ids) {
+            return $ids->search($a->id) - $ids->search($b->id);
+        });
+
+        return view('dielo-colorrelated', compact('similar_by_color'));
+    })->name('dielo.colorrelated');
+
     Route::get('dielo/nahlad/{id}/{width}/{height?}', 'ImageController@resize')->where('width', '[0-9]+')->where('height', '[0-9]+')->name('dielo.nahlad');
 
     Route::controller('patternlib', 'PatternlibController');
 
-    Route::controller('katalog', 'CatalogController');
+    Route::controller('katalog', 'CatalogController', [
+        'getIndex' => 'catalog.index'
+    ]);
     // Route::match(array('GET', 'POST'), 'katalog', 'CatalogController@index');
     // Route::match(array('GET', 'POST'), 'katalog/suggestions', 'CatalogController@getSuggestions');
 
@@ -285,9 +294,9 @@ function()
     Route::match(array('GET', 'POST'), 'clanky/suggestions', 'ClanokController@getSuggestions');
     Route::get('clanok/{slug}', 'ClanokController@getDetail');
 
-    Route::match(array('GET', 'POST'), 'kolekcie', 'KolekciaController@getIndex');
-    Route::match(array('GET', 'POST'), 'kolekcie/suggestions', 'KolekciaController@getSuggestions');
-    Route::get('kolekcia/{slug}', 'KolekciaController@getDetail');
+    Route::match(array('GET', 'POST'), 'kolekcie', 'KolekciaController@getIndex')->name('frontend.collection.index');
+    Route::match(array('GET', 'POST'), 'kolekcie/suggestions', 'KolekciaController@getSuggestions')->name('frontend.collection.suggestions');
+    Route::get('kolekcia/{slug}', 'KolekciaController@getDetail')->name('frontend.collection.detail');
 
     Route::get('informacie', function () {
         $items = Item::random(20, ['gallery' => 'Slovenská národná galéria, SNG']);
@@ -357,9 +366,22 @@ function()
     });
 
     Route::get('reprodukcie', function () {
-        $items_print   = Item::random(20, ['gallery' => 'Slovenská národná galéria, SNG']);
-        $items_digital = Item::random(20, ['is_free' => true]);
-        return view('reprodukcie', ['items_print' => $items_print, 'items_digital' => $items_digital]);
+        $collection = Collection::find('55');
+
+        if ($collection) {
+            $items_recommended   = $collection->items()->inRandomOrder()->take(20)->get();
+        } else {
+            $items_recommended   = Item::random(20, ['gallery' => 'Slovenská národná galéria, SNG']);
+        }
+
+        $items = Item::random(20, ['gallery' => 'Slovenská národná galéria, SNG']);
+        $total = formatNum($items->total());
+
+        return view('reprodukcie', [
+            'items_recommended' => $items_recommended,
+            'items' => $items,
+            'total' => $total,
+        ]);
     });
 });
 
@@ -374,11 +396,53 @@ Route::group(['middleware' => ['auth', 'role:admin|editor|import']], function ()
     Route::get('imports/launch/{id}', 'ImportController@launch');
     Route::resource('imports', 'ImportController');
     Route::get('item/search', 'ItemController@search');
-    Route::resource('item', 'ItemController');
+
+    Route::get('item', 'ItemController@index')->name('item.index');
+    Route::get('item/{id}/show', 'ItemController@show')->name('item.show');
+    Route::match(['get', 'post'], 'item/create', 'ItemController@create')->name('item.create');
+    Route::match(['get', 'post'], 'item/{id}/edit', 'ItemController@edit')->name('item.edit');
+
     Route::post('item/destroySelected', 'ItemController@destroySelected');
 });
 
 Route::group(['middleware' => ['auth', 'role:admin|editor']], function () {
+
+    Route::post('dielo/{id}/addTags', function($id)
+    {
+        $item = Item::find($id);
+        $newTags = Input::get('tags');
+
+        if (empty($newTags)) {
+            Session::flash( 'message', trans('Neboli zadadné žiadne nové tagy.') );
+            return Redirect::to($item->getUrl());
+        }
+
+        // @TODO take back captcha if opened for all users
+        foreach ($newTags as $newTag) {
+            $item->tag($newTag);
+        }
+
+        Session::flash( 'message', trans('Bolo pridaných ' . count($newTags) . ' tagov. Ďakujeme!') );
+
+        // validate that user is human with recaptcha
+        // till it's for authorised users only, temporary disable
+        /*
+        $secret = config('app.google_recaptcha_secret');
+        $recaptcha = new \ReCaptcha\ReCaptcha($secret);
+        $resp = $recaptcha->verify($_POST['g-recaptcha-response'], $_SERVER['REMOTE_ADDR']);
+        if ($resp->isSuccess()) {
+            // add new tags
+            foreach ($newTags as $newTag) {
+                $item->tag($newTag);
+            }
+        } else {
+            // validation unsuccessful
+            return Redirect::to($item->getUrl());
+        }
+        */
+
+        return Redirect::to($item->getUrl());
+    });
 
     Route::get('collection/{collection_id}/detach/{item_id}', 'CollectionController@detach');
     Route::post('collection/fill', 'CollectionController@fill');

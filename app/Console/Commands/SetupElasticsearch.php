@@ -39,7 +39,7 @@ class SetupElasticsearch extends Command
    */
   public function handle()
   {
-    $base_path = __DIR__ . "/" . self::CONFIG_PATH;
+    $base_path = resource_path(self::CONFIG_PATH);
 
     $client = new \GuzzleHttp\Client(['http_errors' => false]);
 

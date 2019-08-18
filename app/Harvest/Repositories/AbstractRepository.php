@@ -5,6 +5,7 @@ namespace App\Harvest\Repositories;
 use App\Harvest\Factories\EndpointFactory;
 use App\SpiceHarvesterHarvest;
 use App\SpiceHarvesterRecord;
+use Phpoaipmh\Exception\MalformedResponseException;
 
 abstract class AbstractRepository
 {
@@ -43,11 +44,15 @@ abstract class AbstractRepository
         $endpoint = $this->endpointFactory->createEndpoint($harvest);
         $records = $endpoint->listRecords($harvest->metadata_prefix, $from, $to, $harvest->set_spec);
 
-        $total = $records->getTotalRecordCount();
+        try {
+            $total = $records->getTotalRecordCount();
 
-        foreach ($records as $record) {
-            $row = $this->getDataRecursively($record, $this->fieldMap);
-            yield $row[0];
+            foreach ($records as $record) {
+                $row = $this->getDataRecursively($record, $this->fieldMap);
+                yield $row[0];
+            }
+        } catch (MalformedResponseException $e) {
+            $total = 0;
         }
     }
 

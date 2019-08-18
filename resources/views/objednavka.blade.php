@@ -84,25 +84,40 @@
 
     {!! Former::select('format')->label('Formát')->required()->options([
         trans('objednavka.form_format_for-print_a4') => [
-            'do A4: samostatná reprodukcia 25 €/ks' => [
-                'value'=> trans('objednavka.form_format_standalone') . ' (25 €/'.trans('objednavka.form_piece').')'
+            'do A4: samostatná reprodukcia 28 €/ks' => [
+                'value'=> trans('objednavka.form_format_standalone') . ' (28 €/'.trans('objednavka.form_piece').')'
             ],
-            'do A4: reprodukcia s paspartou 35 €/ks' => [
-                'value'=> trans('objednavka.form_format_with_mounting') . ' (35 €/'.trans('objednavka.form_piece').')'
+            'do A4: reprodukcia s paspartou 38 €/ks' => [
+                'value'=> trans('objednavka.form_format_with_mounting') . ' (38 €/'.trans('objednavka.form_piece').')'
             ],
-            'do A4: s paspartou a rámom 40 €/ks' => [
-                'value'=> trans('objednavka.form_format_with_mounting_and_framing') . ' (40 €/'.trans('objednavka.form_piece').')'
+            'do A4: s paspartou a rámom 48 €/ks' => [
+                'value'=> trans('objednavka.form_format_with_mounting_and_framing') . ' (48 €/'.trans('objednavka.form_piece').')'
             ],
         ],
         trans('objednavka.form_format_for-print_a3') => [
-            'do A3+: samostatná reprodukcia 35 €/ks' => [
-                'value'=> trans('objednavka.form_format_standalone') . ' (35 €/'.trans('objednavka.form_piece').')'
+            'do A3+: samostatná reprodukcia 40 €/ks' => [
+                'value'=> trans('objednavka.form_format_standalone') . ' (40 €/'.trans('objednavka.form_piece').')'
             ],
-            'do A3+: reprodukcia s paspartou 50 €/ks' => [
-                'value'=> trans('objednavka.form_format_with_mounting') . ' (50 €/'.trans('objednavka.form_piece').')'
+            'do A3+: reprodukcia s paspartou 55 €/ks' => [
+                'value'=> trans('objednavka.form_format_with_mounting') . ' (55 €/'.trans('objednavka.form_piece').')'
             ],
-            'do A3+: s paspartou a rámom 60 €/ks' => [
-                'value'=> trans('objednavka.form_format_with_mounting_and_framing') . ' (60 €/'.trans('objednavka.form_piece').')'
+            'do A3+: s paspartou a rámom 65 €/ks' => [
+                'value'=> trans('objednavka.form_format_with_mounting_and_framing') . ' (65 €/'.trans('objednavka.form_piece').')'
+            ],
+        ],
+        trans('objednavka.form_format_for-print_a2') => [
+            'do A2: samostatná reprodukcia 50 €/ks' => [
+                'value'=> trans('objednavka.form_format_standalone') . ' (50 €/'.trans('objednavka.form_piece').')'
+            ],
+        ],
+        trans('objednavka.form_format_for-print_a1') => [
+            'do A1: samostatná reprodukcia 60 €/ks' => [
+                'value'=> trans('objednavka.form_format_standalone') . ' (60 €/'.trans('objednavka.form_piece').')'
+            ],
+        ],
+        trans('objednavka.form_format_for-poster_a1') => [
+            'poster A1: samostatná reprodukcia 38 €/ks' => [
+                'value'=> trans('objednavka.form_format_standalone') . ' (38 €/'.trans('objednavka.form_piece').')'
             ],
         ],
         trans('objednavka.form_format_for-download') => [
@@ -161,6 +176,16 @@
     )); !!}
 </div>
 {{-- /ak nie digitalna --}}
+
+{{-- ak digitalna --}}
+<div id="poster_alert">
+    <div class="alert alert-info col-lg-offset-2 col-md-offset-4" role="alert">
+        {!! trans('objednavka.form_purpose-alert-poster') !!}
+    </div>
+</div>
+{{-- /ak digitalna --}}
+
+
 
 {!! Former::textarea('note')->label(trans('objednavka.form_note')); !!}
 
@@ -243,6 +268,7 @@
         });
 
     function tooglePurpose() {
+        $("#poster_alert").hide();
         if( $('#format').val() == 'digitálna reprodukcia')  {
             $("#ucel").show();
             $("#purpose").attr("disabled", false);
@@ -255,6 +281,9 @@
             $("#purpose").attr("disabled", true);
             $("#for_printed").show();
             $("#delivery_point").attr("disabled", false);
+            if( $('#format').val().indexOf("poster") >= 0)  {
+                $("#poster_alert").show();
+            }
             if( $('#format').val().indexOf("rámom") >= 0)  {
                 $("#for_frame").show();
                 $("#frame").attr("disabled", false);

@@ -4,10 +4,13 @@
 
 namespace App;
 
+use App\Events\ItemPrimaryImageChanged;
 use Elasticsearch\Client;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\URL;
+use Intervention\Image\Constraint;
+use Intervention\Image\Image;
 use Intervention\Image\ImageManagerStatic;
 use Illuminate\Support\Facades\Cache;
 use Fadion\Bouncy\Facades\Elastic;
@@ -28,9 +31,16 @@ class Item extends Model
     const ARTWORKS_DIR = '/images/diela/';
     const ES_TYPE = 'items';
 
+    const COPYRIGHT_LENGTH = 70;
+    const GUESSED_AUTHORISM_TIMESPAN = 60;
+    const FREE_ALWAYS = 0;
+    const FREE_NEVER = PHP_INT_MAX;
+
     public $translatedAttributes = [
         'title',
         'description',
+        'description_source',
+        'description_source_link',
         'work_type',
         'work_level',
         'topic',
@@ -64,12 +74,16 @@ class Item extends Model
         'zo súboru' => 'related_work'
     );
 
-    public static $sortable = array(
+    public static $sortable;
+
+    protected static $sortables = array(
+        'relevance'     => 'sortable.relevance',
         'updated_at'    => 'sortable.updated_at',
         'created_at'    => 'sortable.created_at',
         'title'         => 'sortable.title',
         'author'        => 'sortable.author',
-        'date_earliest' => 'sortable.date_earliest',
+        'newest'        => 'sortable.newest',
+        'oldest'        => 'sortable.oldest',
         'view_count'    => 'sortable.view_count',
         'random'        => 'sortable.random',
     );
@@ -103,7 +117,6 @@ class Item extends Model
         'related_work_order',
         'related_work_total',
         'gallery',
-        'item_type',
         'publish',
         'contributor',
     );
@@ -124,8 +137,6 @@ class Item extends Model
     // protected $appends = array('measurements');
 
     public $incrementing = false;
-
-    protected $guarded = array('featured');
 
     protected $mappingProperties = array(
         'title' => [
@@ -152,11 +163,11 @@ class Item extends Model
         parent::boot();
 
         static::created(function ($item) {
-            $item->index();
+            $item->fresh()->index();
         });
 
         static::updated(function ($item) {
-            $item->index();
+            $item->fresh()->index();
         });
 
         static::deleting(function ($item) {
@@ -178,6 +189,10 @@ class Item extends Model
         });
     }
 
+    public static function getSortables() {
+        return static::$sortables;
+    }
+
     public function descriptionUser()
     {
         return $this->belongsTo(\App\User::class, 'description_user_id');
@@ -196,6 +211,10 @@ class Item extends Model
     public function record()
     {
         return $this->hasOne(\App\SpiceHarvesterRecord::class, 'item_id');
+    }
+
+    public function getTranslations() {
+        return $this->translations;
     }
 
     public function images()
@@ -226,8 +245,10 @@ class Item extends Model
 
     }
 
-    public function deleteImage()
-    {
+    public function deleteImage() {
+        $this->color_descriptor = null;
+        $this->save();
+
         $dir = dirname($this->getImagePath(true));
         return File::cleanDirectory($dir);
     }
@@ -239,26 +260,6 @@ class Item extends Model
             $url .= '?' . http_build_query($params);
         }
         return $url;
-    }
-
-    public function downloadImage()
-    {
-        $file = $this->img_url;
-        if (empty($file)) {
-            return false;
-        }
-
-        $data = file_get_contents($file);
-
-        $this->deleteImage();
-
-        $path = $this->getImagePath($full = true);
-        file_put_contents($path, $data);
-
-        $this->has_image = true;
-        $this->save();
-
-        return true;
     }
 
     public function getOaiUrl()
@@ -600,29 +601,28 @@ class Item extends Model
 
     public static function listValues($attribute, $search_params)
     {
-        //najskor over, ci $attribute je zo zoznamu povolenych
         if (!in_array($attribute, self::$filterable)) {
             return false;
         }
-        $json_params = '
-		{
-		 "aggs" : {
-		    "'.$attribute.'" : {
-		        "terms" : {
-		          "field" : "'.$attribute.'",
-		          "size": 1000
-		        }
-		    }
-		}
-		}
-		';
-        $params = array_merge(json_decode($json_params, true), $search_params);
+
+        $json_params = [
+             'aggs' => [
+                $attribute => [
+                    'terms' => [
+                        'field' => $attribute,
+                        'size' => 1000,
+                    ]
+                ]
+		    ]
+		];
+
+        $params = array_merge($json_params, $search_params);
         $result = Elastic::search([
-                'index' => Config::get('bouncy.index'),
-                'search_type' => 'count',
-                'type' => self::ES_TYPE,
-                'body'  => $params
-            ]);
+            'index' => Config::get('bouncy.index'),
+            'search_type' => 'count',
+            'type' => self::ES_TYPE,
+            'body'  => $params
+        ]);
         $buckets = $result['aggregations'][$attribute]['buckets'];
 
         $return_list = array();
@@ -639,61 +639,62 @@ class Item extends Model
     }
 
     /**
-     * ci je dielo volne
-     * autor min 70 rokov po smrti - alebo je autor neznamy
+     * @return bool
      */
-    public function isFree()
-    {
-        $copyright_length = 70; // 70 rokov po smrti autora
-        $limit_according_item_dating = $copyright_length + 60; // 60 = 80 (max_life_lenght) - 20 (start_of_publishing)
+    public function isFree() {
+        return $this->freeFrom() <= time();
+    }
 
-        // skontrolovat, ci dielo patri institucii, ktora povoluje "volne diela"
+    /**
+     * @return int
+     */
+    public function freeFrom() {
         $default_locale = config('translatable.fallback_locale');
-
-        if (!(
-            $this->translate($default_locale)->gallery == 'Slovenská národná galéria, SNG' ||
-            $this->translate($default_locale)->gallery == 'Oravská galéria, OGD' ||
-            $this->translate($default_locale)->gallery == 'Liptovská galéria Petra Michala Bohúňa, GPB' ||
-            $this->translate($default_locale)->gallery == 'Galéria umenia Ernesta Zmetáka, GNZ' ||
-            $this->translate($default_locale)->gallery == 'Galéria Miloša Alexandra Bazovského, GBT'  ||
-            $this->translate($default_locale)->gallery == 'Galéria umelcov Spiša, GUS' ||
-            $this->translate($default_locale)->gallery == 'Východoslovenská galéria, VSG'
-        )) {
-            return false;
+        if (!in_array($this->translate($default_locale)->gallery, [
+            'Slovenská národná galéria, SNG',
+            'Oravská galéria, OGD',
+            'Liptovská galéria Petra Michala Bohúňa, GPB',
+            'Galéria umenia Ernesta Zmetáka, GNZ',
+            'Galéria Miloša Alexandra Bazovského, GBT',
+            'Galéria umelcov Spiša, GUS',
+            'Východoslovenská galéria, VSG',
+            'Památník národního písemnictví, PNP',
+        ])) {
+            return self::FREE_NEVER;
         }
 
-        //ak je autor viac ako 71rokov po smrti
-        $authors_are_free = array();
-        foreach ($this->authorities as $i => $authority) {
-            $authors_are_free[$i] = false;
+        $freeFromYear = $this->date_latest + self::GUESSED_AUTHORISM_TIMESPAN + self::COPYRIGHT_LENGTH + 1;
+
+        $copyrightExpirationYears = [];
+        foreach ($this->authorities as $authority) {
             if (!empty($authority->death_year)) {
-                // $death = cedvuDatetime($authority->death_year);
-                // $years = $death->diffInYears(Carbon::now());
-                $years = date('Y') - $authority->death_year; // podla zakona sa rata volne dielo, ak je autor viac adko 70 rokov po smrti - od zaciatku nasledujuceho roka (1.1.) - co osetruje tento lame vypocet
-                if ($years > $copyright_length) {
-                    $authors_are_free[$i] = true;
-                }
-            }
-        }
-        if (!empty($authors_are_free)) {
-            if (count(array_unique($authors_are_free)) === 1 && end($authors_are_free) == true) {
-                return true;
+                $copyrightExpirationYears[] = $authority->death_year + self::COPYRIGHT_LENGTH + 1;
             } else {
-                return false;
+                return self::FREE_NEVER;
             }
         }
 
-        //ak je autor neznamy
-        if (stripos($this->author, 'neznámy') !== false) {
-            return true;
+        $yearToTimestamp = function ($year) {
+            return (new \DateTime())
+                ->setDate($year, 1, 1)
+                ->setTime(0, 0)
+                ->getTimestamp();
+        };
+
+        if ($copyrightExpirationYears) {
+            $freeFromYear = min($freeFromYear, max($copyrightExpirationYears));
+            return $yearToTimestamp($freeFromYear);
         }
 
-        //ak je dielo naozaj stare
-        if ((date('Y') - $this->date_latest) > $limit_according_item_dating) {
-            return true;
+        if ($this->isAuthorUnknown()) {
+            return self::FREE_ALWAYS;
         }
 
-        return false;
+        return $yearToTimestamp($freeFromYear);
+    }
+
+    public function isAuthorUnknown() {
+        return stripos($this->author, 'neznámy') !== false;
     }
 
     private function relatedAuthorityIds()
@@ -797,17 +798,6 @@ class Item extends Model
             }
             $used_authorities[]= trim($authority->name, ', ');
         }
-        $authors_all = DB::table('authority_item')->where('item_id', $this->id)->get();
-        foreach ($authors_all as $author) {
-            if (!in_array(trim($author->name, ', '), $used_authorities) && !empty($author->name)) {
-                $link = '<a class="underline" href="'. url_to('katalog', ['author' => $author->name]) .'">'. preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $author->name) .'</a>';
-                if ($author->role != 'autor/author') {
-                    $link .= ' &ndash; ' . Authority::formatMultiAttribute($author->role);
-                }
-                $authorities_with_link[] = $link;
-                $used_authorities[]= trim($author->name, ', ');
-            }
-        }
         foreach ($this->authors as $author_unformated => $author) {
             if (!in_array(trim($author_unformated, ', '), $used_authorities)) {
                 $authorities_with_link[] = '<a class="underline" href="'. url_to('katalog', ['author' => $author_unformated]) .'">'. $author .'</a>';
@@ -846,7 +836,7 @@ class Item extends Model
 
         foreach (config('translatable.locales') as $locale) {
 
-            $item_translated = $this->getTranslation($locale);
+            $item_translated = $this->translateOrNew($locale);
 
             $work_types = $this->makeArray($item_translated->work_type, ', ');
             $main_work_type = (is_array($work_types)) ? reset($work_types) : '';
@@ -891,56 +881,40 @@ class Item extends Model
         }
     }
 
-    public static function getSortedLabelKey($sort_by = null)
-    {
-        if ($sort_by==null) {
-            $sort_by = Input::get('sort_by');
-        }
-
-        if (array_key_exists($sort_by, self::$sortable)) {
-            $sort_by = Input::get('sort_by');
-        } else {
-            $sort_by = "updated_at";
-        }
-
-        $labelKey = self::$sortable[$sort_by];
-
-        if (Input::has('search') && head(self::$sortable)==$labelKey) {
-            return 'relevancie';
-        }
-
-        return $labelKey;
-
-    }
-
     public static function random($size = 1, $custom_parameters = [])
     {
-        $params = array();
-        $random = json_decode('
-			{"_script": {
-			    "script": "Math.random() * 200000",
-			    "type": "number",
-			    "params": {},
-			    "order": "asc"
-			 }}', true);
-        $params["sort"][] = $random;
-        $params["query"]["filtered"]["filter"]["and"][]["term"]["has_image"] = true;
-        $params["query"]["filtered"]["filter"]["and"][]["term"]["has_iip"] = true;
-        foreach ($custom_parameters as $attribute => $value) {
-            $params["query"]["filtered"]["filter"]["and"][]["term"][$attribute] = $value;
-        }
-        $params["size"] = $size;
+        $custom_parameters['has_image'] = true;
+        $custom_parameters['has_iip'] = true;
+
+        $params = [];
+        $params['query']['bool']['filter'] = static::getFilterParams($custom_parameters);
+        $params['size'] = $size;
+        $params['sort'] = [
+            '_script' => [
+                'script' => 'Math.random() * 200000',
+                'type' => 'number',
+                'order' => 'asc',
+            ]
+        ];
+
         return self::search($params);
     }
 
     public static function amount($custom_parameters = [])
     {
-        $params = array();
-        foreach ($custom_parameters as $attribute => $value) {
-            $params["query"]["filtered"]["filter"]["and"][]["term"][$attribute] = $value;
-        }
+        $params = [];
+        $params['query']['bool']['filter'] = static::getFilterParams($custom_parameters);
         $items = self::search($params);
         return $items->total();
+    }
+
+    public static function getFilterParams(array $attributes) {
+        $filter = [];
+        foreach ($attributes as $name => $value) {
+            $filter['and'][]['term'][$name] = $value;
+        }
+
+        return $filter;
     }
 
     public function getColorsUsed($type = null) {
@@ -968,6 +942,34 @@ class Item extends Model
         }
 
         return $colors_used;
+    }
+
+
+    /**
+     * @param mixed $file
+     */
+    public function saveImage($file) {
+        $path = $this->getImagePath($full = true);
+
+        /** @var Image $image */
+        $image = \Image::make($file);
+        if ($image->width() > $image->height()) {
+            $image->widen(800, function (Constraint $constraint) {
+                $constraint->upsize();
+            });
+        } else {
+            $image->heighten(800, function (Constraint $constraint) {
+                $constraint->upsize();
+            });
+        }
+
+        $this->deleteImage();
+        $image->save($path);
+
+        $this->has_image = true;
+        $this->save();
+
+        event(new ItemPrimaryImageChanged($this));
     }
 
     protected function getElasticClient() {

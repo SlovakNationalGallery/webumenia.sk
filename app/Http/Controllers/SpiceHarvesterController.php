@@ -173,7 +173,6 @@ class SpiceHarvesterController extends Controller
         $harvest = SpiceHarvesterHarvest::find($id);
         $set_spec = $harvest->set_spec;
         foreach ($harvest->records as $i => $record) {
-            Item::destroy($record->item_id);
             $record->delete();
         }
         $harvest->delete();
@@ -228,8 +227,6 @@ class SpiceHarvesterController extends Controller
         $all = Input::get('reindex', false);
 
         $this->dispatch(new HarvestJob($harvest, $from, $to, $all));
-        $harvest->status = SpiceHarvesterHarvest::STATUS_QUEUED;
-        $harvest->save();
 
         return Redirect::route('harvests.index');
     }

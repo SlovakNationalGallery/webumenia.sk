@@ -1,9 +1,11 @@
 FROM php:5.6-fpm
 
 RUN apt-get update -y && apt-get install -y \
+    git \
     libmcrypt-dev \
     libpng-dev \
-    libjpeg-dev
+    libjpeg-dev \
+    git
 
 RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install \
@@ -23,5 +25,3 @@ COPY database /var/www/database
 COPY tests/TestCase.php /var/www/tests/TestCase.php
 
 WORKDIR /var/www
-
-RUN composer install --no-plugins --no-scripts --no-interaction

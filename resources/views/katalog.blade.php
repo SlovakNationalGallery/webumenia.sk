@@ -128,13 +128,13 @@
                 <div class="col-xs-6 text-right">
                     <div class="dropdown">
                       <a class="dropdown-toggle" type="button" id="dropdownSortBy" data-toggle="dropdown" aria-expanded="true">
-                        {{ trans('general.sort_by') }} {!! trans(App\Item::getSortedLabelKey()) !!}
+                        {{ trans('general.sort_by') }} {{ trans($sort_options[$sort_by]) }}
                         <span class="caret"></span>
                       </a>
                       <ul class="dropdown-menu dropdown-menu-right dropdown-menu-sort" role="menu" aria-labelledby="dropdownSortBy">
-                        @foreach (App\Item::$sortable as $sort=>$labelKey)
-                            @if ($sort != $sort_by)
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" rel="{!! $sort !!}">{!! trans($labelKey) !!}</a></li>
+                        @foreach ($sort_options as $key => $label)
+                            @if ($key != $sort_by)
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" rel="{{ $key }}">{{ trans($label) }}</a></li>
                             @endif
                         @endforeach
                       </ul>

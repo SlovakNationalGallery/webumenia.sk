@@ -27,11 +27,6 @@ class AuthorityImporter extends AbstractImporter
         'relationships' => ['id'],
     ];
 
-    protected $forceReplace = [
-        'events',
-        'names',
-    ];
-
     public function __construct(
         AuthorityMapper $mapper,
         AuthorityEventMapper $authorityEventMapper,
@@ -69,7 +64,7 @@ class AuthorityImporter extends AbstractImporter
     }
 
     protected function processBelongsToMany(Model $model, $field, array $relatedRows, $createRelated = true) {
-        $createRelated &= !in_array($field, ['relationships', 'collections']);
+        $createRelated &= !in_array($field, ['relationships']);
         parent::processBelongsToMany($model, $field, $relatedRows, $createRelated);
     }
 

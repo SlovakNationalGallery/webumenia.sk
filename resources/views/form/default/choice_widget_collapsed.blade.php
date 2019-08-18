@@ -1,9 +1,9 @@
 @if ($required && $placeholder !== null && !$placeholder_in_choices && !$multiple && (!isset($attr['size']) || $attr['size'] <= 1))
     @php $required = false @endphp
 @endif
-<select @include('form.default.widget_attributes') @if ($multiple) multiple="multiple"@endif>
+<select class="form-control" @include('form.default.widget_attributes') @if ($multiple) multiple="multiple"@endif>
     @if (isset($placeholder))
-    <option value=""@if ($required && empty($value)) selected="selected"@endif>{{ $placeholder }}</option>
+    <option value=""@if ($required && is_empty($value)) selected="selected"@endif>{{ $placeholder }}</option>
     @endif
     @if (count($preferred_choices) > 0)
         @php $options = $preferred_choices @endphp

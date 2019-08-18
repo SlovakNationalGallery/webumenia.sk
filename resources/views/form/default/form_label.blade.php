@@ -6,11 +6,12 @@
         @php $class = isset($label_attr['class']) ? trim($label_attr['class'] . ' required') : 'required'; @endphp
         @php $label_attr = array_merge($label_attr, ['class' => $class]) @endphp
     @endif
-    @if (empty($label))
-        @if (!empty($label_format))
+    @if (is_empty($label))
+        @if (!is_empty($label_format))
             @php $label = strtr($label_format, ['%name%' => $name, '%id%' => $id]) @endphp
         @else
-            @php $label = FormRenderer::humanize($name) @endphp
+            {{-- fix https://github.com/laravel/framework/issues/2249 --}}
+            @php $label = utrans($translation_domain ? "$translation_domain.$name" : $name) @endphp
         @endif
     @endif
     <label

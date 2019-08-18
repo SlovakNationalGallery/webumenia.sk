@@ -24,7 +24,7 @@ class AuthorityRepository extends AbstractRepository
         'death_date' => './/vp:Death_Date',
         'roles' => './/vp:Role_ID',
         'names' => [
-            null => './/vp:Term_Text',
+            null => './/vp:Non-Preferred_Term/vp:Term_Text',
             'name' => '.',
         ],
         'nationalities' => [

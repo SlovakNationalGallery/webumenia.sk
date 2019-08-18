@@ -15,6 +15,52 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class CatalogController extends ElasticController
 {
+    protected function resolveSortOptions() {
+        $sortables = Item::getSortables();
+
+        $key = Input::has('search') ? 'updated_at' : 'relevance';
+        unset($sortables[$key]);
+
+        return $sortables;
+    }
+
+    protected function resolveSortKey(array $sortOptions) {
+        $sortKey = (string)Input::get('sort_by');
+
+        if (!isset($sortOptions[$sortKey])) {
+            reset($sortOptions);
+            $sortKey = key($sortOptions);
+        }
+
+        return $sortKey;
+    }
+
+    protected function resolveSortParams($sortKey) {
+        $sortParams = [];
+
+        if (in_array($sortKey, ['relevance', 'updated_at'])) {
+            $sortParams[] = '_score';
+            $sortParams[] = ['has_image' => ['order' => 'desc']];
+            $sortParams[] = ['has_iip' => ['order' => 'desc']];
+            $sortParams[] = ['updated_at' => ['order' => 'desc']];
+            $sortParams[] = ['created_at' => ['order' => 'desc']];
+        } else if ($sortKey == 'random') {
+            $sortParams[]['_script'] = [
+                'script' => 'Math.random() * 200000',
+                'type' => 'number',
+                'params' => [],
+                'order' => 'asc',
+            ];
+        } else {
+            $sortOrder = in_array($sortKey, ['author', 'title', 'oldest']) ? 'asc' : 'desc';
+            $sortBy = in_array($sortKey, ['newest', 'oldest']) ? 'date_earliest' : $sortKey;
+
+            $sortParams[] = [$sortBy => ['order' => $sortOrder]];
+        }
+
+        return $sortParams;
+    }
+
     public function getIndex()
     {
         $search = Input::get('search', null);
@@ -29,44 +75,22 @@ class CatalogController extends ElasticController
         }
         $search = trim(preg_replace('/(grid|table)Layout.*/', '', $search)); // zdedene zo zaindexovanych url zo stareho webu
 
-        if (Input::has('sort_by') && array_key_exists(Input::get('sort_by'), Item::$sortable)) {
-            $sort_by = Input::get('sort_by');
-        } else {
-            $sort_by = 'updated_at';
-        }
-
-        $sort_order = ($sort_by == 'author' || $sort_by == 'title') ? 'asc' : 'desc';
-
         $per_page = 18;
         $page   = Paginator::resolveCurrentPage() ?: 1;
-        $max_pages = floor(50000/$per_page); // ES max_result_window = 50000
-        if ($page > $max_pages) $page = $max_pages;
+        $max_pages = floor(10000/$per_page); // ES max_result_window = 10000
+        if ($page > $max_pages) {
+            return redirect()->route(\Route::currentRouteName(), Input::except('page'));
+        }
         $offset = ($page * $per_page) - $per_page;
 
         $params = array();
         $params['from'] = $offset;
         $params['size'] = $per_page;
 
-        if (!Input::has('sort_by') || $sort_by == 'updated_at') {
-            $params['sort'][] = '_score';
-            $params['sort'][] = ['has_image' => ['order' => 'desc']];
-            $params['sort'][] = ['has_iip' => ['order' => 'desc']];
-            $params['sort'][] = ['updated_at' => ['order' => 'desc']];
-            $params['sort'][] = ['created_at' => ['order' => 'desc']];
-        } else {
-            if ($sort_by == 'random') {
-                $params['sort'][] = [
-                    '_script' => [
-                        'script' => 'Math.random() * 200000',
-                        'type' => 'number',
-                        'params' => [],
-                        'order' => 'asc',
-                    ]
-                ];
-            } else {
-                $params['sort'][] = ["$sort_by" => ['order' => "$sort_order"]];
-            }
-        }
+        $sortOptions = $this->resolveSortOptions();
+        $sortKey = $this->resolveSortKey($sortOptions);
+        $sortParams = $this->resolveSortParams($sortKey);
+        $params['sort'] = $sortParams;
 
         if (!empty($input)) {
             if (Input::has('search')) {
@@ -112,11 +136,11 @@ class CatalogController extends ElasticController
                 $params['query']['bool']['minimum_should_match'] = 1;
             }
 
-            foreach ($input as $filter => $value) {
-                if (in_array($filter, Item::$filterable) && !empty($value)) {
-                    $params['query']['bool']['filter']['and'][]['term'][$filter] = $value;
-                }
-            }
+            $filter = array_filter($input, function ($value, $name) {
+                return in_array($name, Item::$filterable) && !empty($value);
+            }, ARRAY_FILTER_USE_BOTH);
+
+            $params['query']['bool']['filter'] = Item::getFilterParams($filter);
             if (!empty($input['year-range']) &&
                 $input['year-range'] != Item::sliderMin().','.Item::sliderMax() //nezmenena hodnota
             ) {
@@ -181,7 +205,8 @@ class CatalogController extends ElasticController
             'techniques' => $techniques,
             'color' => $color,
             'search' => $search,
-            'sort_by' => $sort_by,
+            'sort_by' => $sortKey,
+            'sort_options' => $sortOptions,
             'input' => $input,
             'paginator' => $paginator,
             ));

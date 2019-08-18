@@ -46,8 +46,6 @@ $factory->define(\App\Item::class, function (Faker\Generator $faker) {
         'work_level' => $faker->word,
         'subject' => $faker->word,
         'measurement' => $faker->word,
-        'item_type' => $faker->word,
-        'featured' => $faker->boolean,
         'inscription' => $faker->word,
         'related_work_order' => $faker->randomNumber,
         'related_work_total' => $faker->randomNumber,
@@ -123,5 +121,14 @@ $factory->define(\App\AuthorityRelationship::class, function (Faker\Generator $f
         'authority_id' => $faker->randomNumber,
         'related_authority_id' => $faker->randomNumber,
         'type' => $faker->word,
+    ];
+});
+
+$factory->define(App\Collection::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->word,
+        'type' => $faker->word,
+        'text' => $faker->sentence,
+        'order' => $faker->randomNumber,
     ];
 });

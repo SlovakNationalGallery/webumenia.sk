@@ -2,273 +2,105 @@
 
 @section('content')
 
-@if(isset($item))
-	{!! Form::model($item, ['route' => ['item.update', $item->id], 'method' => 'patch', 'files' => true]) !!}
-@else
-	{!! Form::open(['route' => 'item.store', 'method' => 'post', 'files' => true]) !!}
-@endif
+@php FormRenderer::setTheme($form, 'item') @endphp
+@formStart($form)
 
-<div class="col-md-12">
+@formErrors($form)
 
-	@if (Session::has('message'))
-		<div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
-	@endif
-
-
-	@if($errors->any())
-		<div class="alert alert-danger">
-			<a href="#" class="close" data-dismiss="alert">&times;</a>
-			{!! implode('', $errors->all('<li class="error">:message</li>')) !!}
-		</div>
-	@endif
-
-</div>
-@if(isset($new_id))
-<div class="col-md-12">
-	<div class="form-group">
-	{!! Form::label('id', 'Id') !!}
-	{!! Form::text('id', $new_id, array('class' => 'form-control', 'readonly')) !!}
-	</div>
-</div>
-@endif
-
-<!-- translatable -->
 <div class="row">
-<div class="col-md-6">
-
-	<!-- Nav tabs -->
-	<ul class="nav nav-tabs top-space" role="tablist">
-		@foreach (\Config::get('translatable.locales') as $i=>$locale)
-			<li role="presentation" class="{{ ($i==0) ? 'active' : '' }}"><a href="#{{ $locale }}" aria-controls="{{ $locale }}" role="tab" data-toggle="tab">{{ strtoupper($locale) }}</a></li>
-		@endforeach
-	</ul>
-
-	<div class="tab-content top-space">
-		@foreach (\Config::get('translatable.locales') as $i=>$locale)
-			<div role="tabpanel" class="tab-pane  {{ ($i==0) ? 'active' : '' }}" id="{{ $locale }}">
-
-				<div class="form-group">
-				{{ Form::label($locale."[title]", 'Názov '.strtoupper($locale)) }}
-				{{ Form::text($locale."[title]", isset($item) ? @$item->translate($locale)->title : '', array('class' => 'form-control')) }}
-				</div>
-
-				<div class="form-group">
-				{{ Form::label($locale."[description]", 'Popis '.strtoupper($locale)) }}
-				{{ Form::textarea($locale."[description]", isset($item) ? @$item->translate($locale)->description : '', array('class' => 'form-control wysiwyg')) }}
-				</div>
-
-				<div class="form-group">
-				{{ Form::label($locale."[description_source]", 'Popis - zdroj '.strtoupper($locale)) }}
-				{{ Form::text($locale."[description_source]", isset($item) ? @$item->translate($locale)->description_source : '', array('class' => 'form-control')) }}
-				</div>
-
-
-				<div class="form-group">
-				{{ Form::label($locale."[work_type]", 'Výtvarný druh '.strtoupper($locale)) }}
-				{{ Form::text($locale."[work_type]", isset($item) ? @$item->translate($locale)->work_type : '', array('class' => 'form-control')) }}
-				</div>
-
-				<div class="form-group">
-				{{ Form::label($locale."[work_level]", 'Stupeň spracovania '.strtoupper($locale)) }}
-				{{ Form::text($locale."[work_level]", isset($item) ? @$item->translate($locale)->work_level : '', array('class' => 'form-control')) }}
-				</div>
-
-				<div class="form-group">
-				{{ Form::label($locale."[topic]", 'Žáner '.strtoupper($locale)) }}
-				{{ Form::text($locale."[topic]", isset($item) ? @$item->translate($locale)->topic : '', array('class' => 'form-control')) }}
-				</div>
-
-				<div class="form-group">
-				{{ Form::label($locale."[measurement]", 'Miery '.strtoupper($locale)) }}
-				{{ Form::text($locale."[measurement]", isset($item) ? @$item->translate($locale)->measurement : '', array('class' => 'form-control')) }}
-				</div>
-
-				<div class="form-group">
-				{{ Form::label($locale."[dating]", 'Datovanie '.strtoupper($locale)) }}
-				{{ Form::text($locale."[dating]", isset($item) ? @$item->translate($locale)->dating : '', array('class' => 'form-control')) }}
-				</div>
-
-				<div class="form-group">
-				{{ Form::label($locale."[medium]", 'Materiál '.strtoupper($locale)) }}
-				{{ Form::text($locale."[medium]", isset($item) ? @$item->translate($locale)->medium : '', array('class' => 'form-control')) }}
-				</div>
-
-				<div class="form-group">
-				{{ Form::label($locale."[technique]", 'Technika '.strtoupper($locale)) }}
-				{{ Form::text($locale."[technique]", isset($item) ? @$item->translate($locale)->technique : '', array('class' => 'form-control')) }}
-				</div>
-
-				<div class="form-group">
-				{{ Form::label($locale."[inscription]", 'Značenie '.strtoupper($locale)) }}
-				{{ Form::text($locale."[inscription]", isset($item) ? @$item->translate($locale)->inscription : '', array('class' => 'form-control')) }}
-				</div>
-
-				<div class="form-group">
-				{{ Form::label($locale."[place]", 'Geografická oblasť '.strtoupper($locale)) }}
-				{{ Form::text($locale."[place]", isset($item) ? @$item->translate($locale)->place : '', array('class' => 'form-control')) }}
-				</div>
-
-				<div class="form-group">
-				{{ Form::label($locale."[state_edition]", 'Stupeň spracovania '.strtoupper($locale)) }}
-				{{ Form::text($locale."[state_edition]", isset($item) ? @$item->translate($locale)->state_edition : '', array('class' => 'form-control')) }}
-				</div>
-
-				<div class="form-group">
-				{{ Form::label($locale."[gallery]", 'Galéria '.strtoupper($locale)) }}
-				{{ Form::text($locale."[gallery]", isset($item) ? @$item->translate($locale)->gallery : '', array('class' => 'form-control')) }}
-				</div>
-
-				<div class="form-group">
-				{{ Form::label($locale."[related_work]", 'Názov integrity '.strtoupper($locale)) }}
-				{{ Form::text($locale."[related_work]", isset($item) ? @$item->translate($locale)->related_work : '', array('class' => 'form-control')) }}
-				</div>
-
-				<div class="form-group">
-				{{ Form::label($locale."[subject]", 'Objekt '.strtoupper($locale)) }}
-				{{ Form::text($locale."[subject]", isset($item) ? @$item->translate($locale)->subject : '', array('class' => 'form-control')) }}
-				</div>
-
-			</div>
-		@endforeach
-	</div>
-
-</div>
-
-<!-- /translatable -->
-<div class="col-md-6">
-
-	<ul class="nav nav-tabs top-space" role="tablist">
-		<li role="presentation" class="active"><a>non-translatable attributes</a></li>
-	</ul>
-
-	<div class="tab-content top-space">
-	<div role="tabpanel" class="tab-pane active">
-	<div class="row">
-
-
-	<div class="col-md-6">
-		<div class="form-group">
-		{!! Form::label('description_user_id', 'popis - autor') !!}
-		{!! Form::select('description_user_id', App\User::lists('username','id'), Input::old('description_user_id', (isSet($item)) ? $item->description_user_id : Auth::user()->id), array('class' => 'form-control')) !!}
-		</div>
-	</div>
-	<div class="col-md-6">
-		<div class="form-group">
-		{!! Form::label('description_source_link', 'popis - link na zdroj') !!}
-		{!! Form::text('description_source_link', Input::old('description_source_link'), array('class' => 'form-control', 'placeholder' => 'http://')) !!}
-		</div>
-	</div>
-
-
+	@if (isset($form['id']))
 	<div class="col-md-12">
-		<div class="form-group">
-		{!! Form::label('identifier', 'inventárne číslo') !!}
-		{!! Form::text('identifier', Input::old('identifier'), array('class' => 'form-control')) !!}
-		</div>
+		@formRow($form['id'])
 	</div>
-	<div class="col-md-12">
-		<div class="form-group">
-		{!! Form::label('author', 'autor') !!}
-		{!! Form::text('author', Input::old('author'), array('class' => 'form-control')) !!}
-		</div>
-	</div>
-	<div class="col-md-12">
-		<div class="form-group">
-		{!! Form::label('tags', 'tagy') !!}
-		{!! Form::select('tags[]', App\Item::existingTags()->lists('name','name'), (isSet($item)) ? $item->tagNames() : [], ['id' => 'tags', 'multiple' => 'multiple']) !!}
-
-		</div>
-	</div>
-	<div class="col-md-12">
-		<div class="form-group">
-		{!! Form::label('date_earliest', 'datovanie najskôr') !!}
-		{!! Form::text('date_earliest', Input::old('date_earliest'), array('class' => 'form-control')) !!}
-		</div>
-	</div>
-	<div class="col-md-12">
-		<div class="form-group">
-		{!! Form::label('date_latest', 'datovanie najneskôr') !!}
-		{!! Form::text('date_latest', Input::old('date_latest'), array('class' => 'form-control')) !!}
-		</div>
-	</div>
-	<div class="col-md-6">
-		<div class="form-group">
-		{!! Form::label('lat', 'latitúda') !!}
-		{!! Form::text('lat', Input::old('lat'), array('class' => 'form-control')) !!}
-		</div>
-	</div>
-	<div class="col-md-6">
-		<div class="form-group">
-		{!! Form::label('lng', 'longitúda') !!}
-		{!! Form::text('lng', Input::old('lng'), array('class' => 'form-control')) !!}
-		</div>
-	</div>
-	<div class="col-md-12">
-		<div class="form-group">
-		{!! Form::label('state_edition', 'stupeň spracovania') !!}
-		{!! Form::text('state_edition', Input::old('state_edition'), array('class' => 'form-control')) !!}
-		</div>
-	</div>
-
-	<div class="clearfix"></div>
-
-	<div class="col-md-6">
-		<div class="form-group">
-		{{ Form::label('relationship_type', 'typ integrity') }}
-		{{ Form::text('relationship_type', Input::old('relationship_type'), array('class' => 'form-control', 'placeholder' => 'zo súboru / z cyklu / z albumu / ...')) }}
-		</div>
-	</div>
-	<div class="col-md-3">
-		<div class="form-group">
-		{{ Form::label('related_work_order', 'poradie') }}
-		{{ Form::text('related_work_order', Input::old('related_work_order'), array('class' => 'form-control')) }}
-		</div>
-	</div>
-	<div class="col-md-3">
-		<div class="form-group">
-		{{ Form::label('related_work_total', 'z počtu') }}
-		{{ Form::text('related_work_total', Input::old('related_work_total'), array('class' => 'form-control')) }}
-		</div>
-	</div>
-
-	<div class="col-md-12">
-		@if(isset($item))
-		<div class="primary-image">
-			aktuálny:<br>
-			<img src="{!! $item->getImagePath() !!}" alt="" class="img-responsive">
-		</div>
-		@endif
-		<div class="form-group">
-		{!! Form::label('primary_image', 'obrázok') !!}
-		{!! Form::file('primary_image') !!}
-		</div>
-	</div>
-
-	@if (isSet($form))
-		@php FormRenderer::setTheme($form, 'custom') @endphp
-		@formWidget($form)
 	@endif
 
+	<div class="col-md-6">
+
+		<ul class="nav nav-tabs top-space" role="tablist">
+			@foreach (config('translatable.locales') as $locale)
+				<li role="presentation" class="{{ ($locale == app()->getLocale()) ? 'active' : '' }}">
+					<a href="#{{ $locale }}" aria-controls="{{ $locale }}" role="tab" data-toggle="tab">{{ strtoupper($locale) }}</a>
+				</li>
+			@endforeach
+		</ul>
+
+		<div class="tab-content top-space">
+		@php FormRenderer::setTheme($form['translations'], 'item_translation') @endphp
+		@foreach ($form['translations'] as $translation)
+				<div role="tabpanel" class="tab-pane {{ ($translation->vars['value']->locale == app()->getLocale()) ? 'active' : '' }}" id="{{ $translation->vars['value']->locale }}">
+					@formWidget($translation)
+				</div>
+			@endforeach
+		</div>
+	</div>
+	<div class="col-md-6">
+		<ul class="nav nav-tabs top-space" role="tablist">
+			<li role="presentation" class="active"><a>non-translatable attributes</a></li>
+		</ul>
+
+		<div class="tab-content top-space">
+			<div role="tabpanel" class="tab-pane active">
+				<div class="row">
+					<div class="col-md-12">
+						@formRow($form['description_user_id'])
+					</div>
+					<div class="col-md-12">
+						@formRow($form['identifier'])
+					</div>
+					<div class="col-md-12">
+						@formRow($form['author'])
+					</div>
+					<div class="col-md-12">
+						@formRow($form['tags'])
+					</div>
+					<div class="col-md-12">
+						@formRow($form['date_earliest'])
+					</div>
+					<div class="col-md-12">
+						@formRow($form['date_latest'])
+					</div>
+					<div class="col-md-6">
+						@formRow($form['lat'])
+					</div>
+					<div class="col-md-6">
+						@formRow($form['lng'])
+					</div>
+					<div class="col-md-6">
+						@formRow($form['related_work_order'])
+					</div>
+					<div class="col-md-6">
+						@formRow($form['related_work_total'])
+					</div>
+					<div class="col-md-12">
+						@if ($item->getImagePath())
+							<div class="primary-image">
+								aktuálny:<br>
+								<img src="{{ $item->getImagePath() }}" class="img-responsive">
+							</div>
+						@endif
+
+						@formRow($form['primary_image'])
+					</div>
+					<div class="col-md-12">
+						@formRow($form['images'], ['attr' => ['class' => 'js-form-collection']])
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-</div>
-{{-- /row --}}
-</div>
-</div>
-{{-- /panel --}}
 
 <div class="col-md-12 text-center">
-	{!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp;
+	@formWidget($form['save'], ['attr' => ['class' => 'btn btn-default']])
 	@if(isset($item) && $item->record)
 		<a href="{!!URL::to('harvests/'.$item->record->id.'/refreshRecord')!!}" class="btn btn-warning">Obnoviť z OAI</a>
 		&nbsp;
 	@endif
 	{!! link_to_route('item.index', 'Zrušiť', null, array('class' => 'btn btn-default')) !!}
 </div>
-{!!Form::close() !!}
 
-</div>
+@formEnd($form)
 
-<div class="clear">&nbsp;</div>
 @stop
 
 @section('script')
@@ -278,7 +110,7 @@
 <script>
 $(document).ready(function(){
 
-	$("#tags").selectize({
+	$("#item_tags").selectize({
 		plugins: ['remove_button'],
 		persist: false,
 		create: true,
