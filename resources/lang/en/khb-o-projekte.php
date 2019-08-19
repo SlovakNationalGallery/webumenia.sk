@@ -61,7 +61,7 @@ return array(
 
     'contact-title'             => 'Contact us',
     'contact-content'           => 'We are open to other forms of cooperation. If you have digitised works and documentary material that can create a more complete picture of the selected artist, we gladly help you complete this material. Please contact us at email:
-<a href="mailto:artbase@artbase.kunsthallebratislava.sk">artbase@artbase.kunsthallebratislava.sk</a>.',
+<a href="mailto:artbase@kunsthallebratislava.sk">artbase@kunsthallebratislava.sk</a>.',
 
     'copyright-title'           => 'Copyright',
     'copyright-content'         => '
