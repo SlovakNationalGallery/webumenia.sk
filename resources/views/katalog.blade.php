@@ -67,18 +67,10 @@
                             </label>
                         </div>
                 </div>
-                <div class="col-md-4 col-xs-6">
-                    <div class="checkbox " >
-                        <input id="use_color"  {!! $color ? 'checked="checked"' : "" !!} type="checkbox" >
-                        <label for="use_color">
-                        {{ trans('katalog.filters_use_color') }}
-                        </label>
-                    </div>
-                </div>
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="color-picker {!! $color ? '' : 'hidden' !!}">
+                    <div class="color-picker">
                         @include('components.color_picker', ['id'=>'colorpicker'])
                         @include('components.color_picker_js', ['id' => 'colorpicker', 'color' => $color])
                     </div>
@@ -226,8 +218,6 @@ $('.isotope-wrapper').each(function(){
 });
 
 $(document).ready(function(){
-    const colorPickerDiv = $("div.color-picker").first();
-
     // $('.expandable').readmore({
     //     moreLink: '<a href="#" class="text-center">viac možností <i class="icon-arrow-down"></i></a>',
     //     lessLink: '<a href="#" class="text-center">menej možností <i class="icon-arrow-up"></i></a>',
@@ -290,15 +280,6 @@ $(document).ready(function(){
     $(".custom-select, input[type='checkbox']:not(#use_color)").change(function() {
         var form = $(this).closest('form');
         form.submit();
-    });
-
-    $("#use_color").change(function(e){
-        if (e.target.checked){
-            colorPickerDiv.show('fast');
-            colorPickerDiv.removeClass('hidden');
-        } else {
-            window.location.href = "{!! URL::to('katalog') !!}";
-        }
     });
 
     $(".dropdown-menu-sort a").click(function(e) {

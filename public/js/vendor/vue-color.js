@@ -105,7 +105,7 @@
             /******/
             /******/ // Load entry module and return exports
             /******/
-            return __webpack_require__(__webpack_require__.s = 12);
+            return __webpack_require__(__webpack_require__.s = 7);
             /******/
         })
         /************************************************************************/
@@ -218,7 +218,7 @@
                     }
                 }
 
-                var listToStyles = __webpack_require__(16)
+                var listToStyles = __webpack_require__(11)
 
                 /*
                 type StyleObject = {
@@ -516,7 +516,9 @@
 
                         if (!functional) {
                             // inject component registration as beforeCreate hook
-                            options.beforeCreate = existing ? [].concat(existing, hook) : [hook]
+                            options.beforeCreate = existing ?
+                                [].concat(existing, hook) :
+                                [hook]
                         } else {
                             // for template-only hot-reload because in that case the render fn doesn't
                             // go through the normalizer
@@ -561,8 +563,14 @@
                 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
                 exports.default = {
-                    name: 'Slider',
+                    name: "Slider",
                     mixins: [_color2.default],
+                    data: function data() {
+                        return {
+                            displaySwatches: false
+                        };
+                    },
+
                     props: {
                         useClosest: {
                             default: false,
@@ -571,7 +579,7 @@
                         swatches: {
                             type: Array,
                             default: function _default() {
-                                return ['.99', '.83', '.67', '.50', '.33', '.17', '.01'];
+                                return [".99", ".83", ".67", ".50", ".33", ".17", ".01"];
                             }
                         }
                     },
@@ -580,11 +588,11 @@
                     },
                     computed: {
                         activeOffset: function activeOffset() {
-                            var hasBlack = this.swatches.includes('0');
-                            var hasWhite = this.swatches.includes('1');
+                            var hasBlack = this.swatches.includes("0");
+                            var hasWhite = this.swatches.includes("1");
                             var hsl = this.colors.hsl;
 
-                            if (Math.round(hsl.s * 100) / 100 === 0.50) {
+                            if (Math.round(hsl.s * 100) / 100 === 0.5) {
                                 return Math.round(hsl.l * 100) / 100;
                             } else if (hasBlack && hsl.l === 0) {
                                 return 0;
@@ -608,6 +616,7 @@
                     },
                     methods: {
                         hueChange: function hueChange(data) {
+                            this.displaySwatches = true;
                             this.colorChange(data);
                         },
                         handleSwClick: function handleSwClick(index, offset) {
@@ -615,9 +624,10 @@
                                 h: this.colors.hsl.h,
                                 s: 0.5,
                                 l: offset,
-                                source: 'hsl'
+                                source: "hsl"
                             });
-                            this.$emit('click', this.colors);
+                            this.$emit;
+                            this.$emit("click", this.colors);
                         }
                     }
                 };
@@ -635,7 +645,7 @@
                     value: true
                 });
 
-                var _tinycolor = __webpack_require__(17);
+                var _tinycolor = __webpack_require__(12);
 
                 var _tinycolor2 = _interopRequireDefault(_tinycolor);
 
@@ -754,12 +764,12 @@
                 for (var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Hue_vue__)
                     if (__WEBPACK_IMPORT_KEY__ !== 'default')(function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Hue_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
                     /* harmony import */
-                var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_7b9aea78_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Hue_vue__ = __webpack_require__(20);
+                var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_7b9aea78_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Hue_vue__ = __webpack_require__(15);
                 var disposed = false
 
                 function injectStyle(ssrContext) {
                     if (disposed) return
-                    __webpack_require__(18)
+                    __webpack_require__(13)
                 }
                 var normalizeComponent = __webpack_require__(2)
                     /* script */
@@ -820,52 +830,37 @@
                     value: true
                 });
                 exports.default = {
-                    name: 'Hue',
+                    name: "Hue",
                     props: {
                         value: Object,
-                        direction: {
-                            type: String,
-
-                            default: 'horizontal'
+                        startEmpty: {
+                            type: Boolean,
+                            default: true
                         }
                     },
                     data: function data() {
                         return {
                             oldHue: 0,
-                            pullDirection: ''
+                            pullDirection: "",
+                            showButton: false || !this.startEmpty
                         };
                     },
 
                     computed: {
                         colors: function colors() {
                             var h = this.value.hsl.h;
-                            if (h !== 0 && h - this.oldHue > 0) this.pullDirection = 'right';
-                            if (h !== 0 && h - this.oldHue < 0) this.pullDirection = 'left';
+                            if (h !== 0 && h - this.oldHue > 0) this.pullDirection = "right";
+                            if (h !== 0 && h - this.oldHue < 0) this.pullDirection = "left";
                             this.oldHue = h;
 
                             return this.value;
                         },
-                        directionClass: function directionClass() {
-                            return {
-                                'vc-hue--horizontal': this.direction === 'horizontal',
-                                'vc-hue--vertical': this.direction === 'vertical'
-                            };
-                        },
-                        pointerTop: function pointerTop() {
-                            if (this.direction === 'vertical') {
-                                if (this.colors.hsl.h === 0 && this.pullDirection === 'right') return 0;
-                                return -(this.colors.hsl.h * 100 / 360) + 100 + '%';
-                            } else {
-                                return 0;
-                            }
+                        backgroundColor: function backgroundColor() {
+                            return 'hsl(' + this.oldHue + ', 100%, 50%)';
                         },
                         pointerLeft: function pointerLeft() {
-                            if (this.direction === 'vertical') {
-                                return 0;
-                            } else {
-                                if (this.colors.hsl.h === 0 && this.pullDirection === 'right') return '100%';
-                                return this.colors.hsl.h * 100 / 360 + '%';
-                            }
+                            if (this.colors.hsl.h === 0 && this.pullDirection === "right") return "100%";
+                            return this.colors.hsl.h * 100 / 360 + "%";
                         }
                     },
                     methods: {
@@ -877,66 +872,43 @@
                             var containerHeight = container.clientHeight;
 
                             var xOffset = container.getBoundingClientRect().left + window.pageXOffset;
-                            var yOffset = container.getBoundingClientRect().top + window.pageYOffset;
                             var pageX = e.pageX || (e.touches ? e.touches[0].pageX : 0);
-                            var pageY = e.pageY || (e.touches ? e.touches[0].pageY : 0);
                             var left = pageX - xOffset;
-                            var top = pageY - yOffset;
 
                             var h;
                             var percent;
 
-                            if (this.direction === 'vertical') {
-                                if (top < 0) {
-                                    h = 360;
-                                } else if (top > containerHeight) {
-                                    h = 0;
-                                } else {
-                                    percent = -(top * 100 / containerHeight) + 100;
-                                    h = 360 * percent / 100;
-                                }
-
-                                if (this.colors.hsl.h !== h) {
-                                    this.$emit('change', {
-                                        h: h,
-                                        s: this.colors.hsl.s,
-                                        l: this.colors.hsl.l,
-                                        a: this.colors.hsl.a,
-                                        source: 'hsl'
-                                    });
-                                }
+                            if (left < 0) {
+                                h = 0;
+                            } else if (left > containerWidth) {
+                                h = 360;
                             } else {
-                                if (left < 0) {
-                                    h = 0;
-                                } else if (left > containerWidth) {
-                                    h = 360;
-                                } else {
-                                    percent = left * 100 / containerWidth;
-                                    h = 360 * percent / 100;
-                                }
+                                percent = left * 100 / containerWidth;
+                                h = 360 * percent / 100;
+                            }
 
-                                if (this.colors.hsl.h !== h) {
-                                    this.$emit('change', {
-                                        h: h,
-                                        s: this.colors.hsl.s,
-                                        l: this.colors.hsl.l,
-                                        a: this.colors.hsl.a,
-                                        source: 'hsl'
-                                    });
-                                }
+                            if (this.colors.hsl.h !== h) {
+                                this.$emit("change", {
+                                    h: h,
+                                    s: this.colors.hsl.s,
+                                    l: this.colors.hsl.l,
+                                    a: this.colors.hsl.a,
+                                    source: "hsl"
+                                });
                             }
                         },
                         handleMouseDown: function handleMouseDown(e) {
-                            this.handleChange(e, true);
-                            window.addEventListener('mousemove', this.handleChange);
-                            window.addEventListener('mouseup', this.handleMouseUp);
+                            this.showButton = true;
+                            this.handleChange(e, false);
+                            window.addEventListener("mousemove", this.handleChange);
+                            window.addEventListener("mouseup", this.handleMouseUp);
                         },
                         handleMouseUp: function handleMouseUp(e) {
                             this.unbindEventListeners();
                         },
                         unbindEventListeners: function unbindEventListeners() {
-                            window.removeEventListener('mousemove', this.handleChange);
-                            window.removeEventListener('mouseup', this.handleMouseUp);
+                            window.removeEventListener("mousemove", this.handleChange);
+                            window.removeEventListener("mouseup", this.handleMouseUp);
                         }
                     }
                 };
@@ -950,427 +922,13 @@
                 "use strict";
 
 
-                Object.defineProperty(exports, "__esModule", {
-                    value: true
-                });
-
-                var _Checkboard = __webpack_require__(8);
-
-                var _Checkboard2 = _interopRequireDefault(_Checkboard);
-
-                function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-                exports.default = {
-                    name: 'Alpha',
-                    props: {
-                        value: Object,
-                        onChange: Function
-                    },
-                    components: {
-                        checkboard: _Checkboard2.default
-                    },
-                    computed: {
-                        colors: function colors() {
-                            return this.value;
-                        },
-                        gradientColor: function gradientColor() {
-                            var rgba = this.colors.rgba;
-                            var rgbStr = [rgba.r, rgba.g, rgba.b].join(',');
-                            return 'linear-gradient(to right, rgba(' + rgbStr + ', 0) 0%, rgba(' + rgbStr + ', 1) 100%)';
-                        }
-                    },
-                    methods: {
-                        handleChange: function handleChange(e, skip) {
-                            !skip && e.preventDefault();
-                            var container = this.$refs.container;
-                            var containerWidth = container.clientWidth;
-
-                            var xOffset = container.getBoundingClientRect().left + window.pageXOffset;
-                            var pageX = e.pageX || (e.touches ? e.touches[0].pageX : 0);
-                            var left = pageX - xOffset;
-
-                            var a;
-                            if (left < 0) {
-                                a = 0;
-                            } else if (left > containerWidth) {
-                                a = 1;
-                            } else {
-                                a = Math.round(left * 100 / containerWidth) / 100;
-                            }
-
-                            if (this.colors.a !== a) {
-                                this.$emit('change', {
-                                    h: this.colors.hsl.h,
-                                    s: this.colors.hsl.s,
-                                    l: this.colors.hsl.l,
-                                    a: a,
-                                    source: 'rgba'
-                                });
-                            }
-                        },
-                        handleMouseDown: function handleMouseDown(e) {
-                            this.handleChange(e, true);
-                            window.addEventListener('mousemove', this.handleChange);
-                            window.addEventListener('mouseup', this.handleMouseUp);
-                        },
-                        handleMouseUp: function handleMouseUp() {
-                            this.unbindEventListeners();
-                        },
-                        unbindEventListeners: function unbindEventListeners() {
-                            window.removeEventListener('mousemove', this.handleChange);
-                            window.removeEventListener('mouseup', this.handleMouseUp);
-                        }
-                    }
-                };
-
-                /***/
-            }),
-            /* 8 */
-            /***/
-            (function(module, __webpack_exports__, __webpack_require__) {
-
-                "use strict";
-                Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-                /* harmony import */
-                var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Checkboard_vue__ = __webpack_require__(9);
-                /* harmony import */
-                var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Checkboard_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Checkboard_vue__);
-                /* harmony namespace reexport (unknown) */
-                for (var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Checkboard_vue__)
-                    if (__WEBPACK_IMPORT_KEY__ !== 'default')(function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Checkboard_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-                    /* harmony import */
-                var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5b6dc0c2_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Checkboard_vue__ = __webpack_require__(27);
-                var disposed = false
-
-                function injectStyle(ssrContext) {
-                    if (disposed) return
-                    __webpack_require__(25)
-                }
-                var normalizeComponent = __webpack_require__(2)
-                    /* script */
-
-
-                /* template */
-
-                /* template functional */
-                var __vue_template_functional__ = false
-                    /* styles */
-                var __vue_styles__ = injectStyle
-                    /* scopeId */
-                var __vue_scopeId__ = null
-                    /* moduleIdentifier (server only) */
-                var __vue_module_identifier__ = null
-                var Component = normalizeComponent(
-                    __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Checkboard_vue___default.a,
-                    __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5b6dc0c2_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Checkboard_vue__["a" /* default */ ],
-                    __vue_template_functional__,
-                    __vue_styles__,
-                    __vue_scopeId__,
-                    __vue_module_identifier__
-                )
-                Component.options.__file = "src/components/common/Checkboard.vue"
-
-                /* hot reload */
-                if (false) {
-                    (function() {
-                        var hotAPI = require("vue-loader/node_modules/vue-hot-reload-api")
-                        hotAPI.install(require("vue"), false)
-                        if (!hotAPI.compatible) return
-                        module.hot.accept()
-                        if (!module.hot.data) {
-                            hotAPI.createRecord("data-v-5b6dc0c2", Component.options)
-                        } else {
-                            hotAPI.reload("data-v-5b6dc0c2", Component.options)
-                        }
-                        module.hot.dispose(function(data) {
-                            disposed = true
-                        })
-                    })()
-                }
-
-                /* harmony default export */
-                __webpack_exports__["default"] = (Component.exports);
-
-
-                /***/
-            }),
-            /* 9 */
-            /***/
-            (function(module, exports, __webpack_require__) {
-
-                "use strict";
-
-
-                Object.defineProperty(exports, "__esModule", {
-                    value: true
-                });
-
-
-                var _checkboardCache = {};
-
-                exports.default = {
-                    name: 'Checkboard',
-                    props: {
-                        size: {
-                            type: [Number, String],
-                            default: 8
-                        },
-                        white: {
-                            type: String,
-                            default: '#fff'
-                        },
-                        grey: {
-                            type: String,
-                            default: '#e6e6e6'
-                        }
-                    },
-                    computed: {
-                        bgStyle: function bgStyle() {
-                            return {
-                                'background-image': 'url(' + getCheckboard(this.white, this.grey, this.size) + ')'
-                            };
-                        }
-                    }
-                };
-
-
-                function renderCheckboard(c1, c2, size) {
-                    if (typeof document === 'undefined') {
-                        return null;
-                    }
-                    var canvas = document.createElement('canvas');
-                    canvas.width = canvas.height = size * 2;
-                    var ctx = canvas.getContext('2d');
-
-                    if (!ctx) {
-                        return null;
-                    }
-                    ctx.fillStyle = c1;
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-                    ctx.fillStyle = c2;
-                    ctx.fillRect(0, 0, size, size);
-                    ctx.translate(size, size);
-                    ctx.fillRect(0, 0, size, size);
-                    return canvas.toDataURL();
-                }
-
-                function getCheckboard(c1, c2, size) {
-                    var key = c1 + ',' + c2 + ',' + size;
-
-                    if (_checkboardCache[key]) {
-                        return _checkboardCache[key];
-                    } else {
-                        var checkboard = renderCheckboard(c1, c2, size);
-                        _checkboardCache[key] = checkboard;
-                        return checkboard;
-                    }
-                }
-
-                /***/
-            }),
-            /* 10 */
-            /***/
-            (function(module, exports, __webpack_require__) {
-
-                "use strict";
-
-
-                Object.defineProperty(exports, "__esModule", {
-                    value: true
-                });
-                exports.default = {
-                    name: 'editableInput',
-                    props: {
-                        label: String,
-                        labelText: String,
-                        desc: String,
-                        value: [String, Number],
-                        max: Number,
-                        min: Number,
-                        arrowOffset: {
-                            type: Number,
-                            default: 1
-                        }
-                    },
-                    computed: {
-                        val: {
-                            get: function get() {
-                                return this.value;
-                            },
-                            set: function set(v) {
-                                if (!(this.max === undefined) && +v > this.max) {
-                                    this.$refs.input.value = this.max;
-                                } else {
-                                    return v;
-                                }
-                            }
-                        },
-                        labelId: function labelId() {
-                            return 'input__label__' + this.label + '__' + Math.random().toString().slice(2, 5);
-                        },
-                        labelSpanText: function labelSpanText() {
-                            return this.labelText || this.label;
-                        }
-                    },
-                    methods: {
-                        update: function update(e) {
-                            this.handleChange(e.target.value);
-                        },
-                        handleChange: function handleChange(newVal) {
-                            var data = {};
-                            data[this.label] = newVal;
-                            if (data.hex === undefined && data['#'] === undefined) {
-                                this.$emit('change', data);
-                            } else if (newVal.length > 5) {
-                                this.$emit('change', data);
-                            }
-                        },
-                        handleKeyDown: function handleKeyDown(e) {
-                            var val = this.val;
-                            var number = Number(val);
-
-                            if (number) {
-                                var amount = this.arrowOffset || 1;
-
-                                if (e.keyCode === 38) {
-                                    val = number + amount;
-                                    this.handleChange(val);
-                                    e.preventDefault();
-                                }
-
-                                if (e.keyCode === 40) {
-                                    val = number - amount;
-                                    this.handleChange(val);
-                                    e.preventDefault();
-                                }
-                            }
-                        }
-                    }
-                };
-
-                /***/
-            }),
-            /* 11 */
-            /***/
-            (function(module, exports, __webpack_require__) {
-
-                "use strict";
-
-
-                Object.defineProperty(exports, "__esModule", {
-                    value: true
-                });
-
-                var _clamp = __webpack_require__(36);
-
-                var _clamp2 = _interopRequireDefault(_clamp);
-
-                var _lodash = __webpack_require__(37);
-
-                var _lodash2 = _interopRequireDefault(_lodash);
-
-                function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-                exports.default = {
-                    name: 'Saturation',
-                    props: {
-                        value: Object
-                    },
-                    computed: {
-                        colors: function colors() {
-                            return this.value;
-                        },
-                        bgColor: function bgColor() {
-                            return 'hsl(' + this.colors.hsv.h + ', 100%, 50%)';
-                        },
-                        pointerTop: function pointerTop() {
-                            return -(this.colors.hsv.v * 100) + 1 + 100 + '%';
-                        },
-                        pointerLeft: function pointerLeft() {
-                            return this.colors.hsv.s * 100 + '%';
-                        }
-                    },
-                    methods: {
-                        throttle: (0, _lodash2.default)(function(fn, data) {
-                            fn(data);
-                        }, 20, {
-                            'leading': true,
-                            'trailing': false
-                        }),
-                        handleChange: function handleChange(e, skip) {
-                            !skip && e.preventDefault();
-                            var container = this.$refs.container;
-                            var containerWidth = container.clientWidth;
-                            var containerHeight = container.clientHeight;
-
-                            var xOffset = container.getBoundingClientRect().left + window.pageXOffset;
-                            var yOffset = container.getBoundingClientRect().top + window.pageYOffset;
-                            var pageX = e.pageX || (e.touches ? e.touches[0].pageX : 0);
-                            var pageY = e.pageY || (e.touches ? e.touches[0].pageY : 0);
-                            var left = (0, _clamp2.default)(pageX - xOffset, 0, containerWidth);
-                            var top = (0, _clamp2.default)(pageY - yOffset, 0, containerHeight);
-                            var saturation = left / containerWidth;
-                            var bright = (0, _clamp2.default)(-(top / containerHeight) + 1, 0, 1);
-
-                            this.throttle(this.onChange, {
-                                h: this.colors.hsv.h,
-                                s: saturation,
-                                v: bright,
-                                a: this.colors.hsv.a,
-                                source: 'hsva'
-                            });
-                        },
-                        onChange: function onChange(param) {
-                            this.$emit('change', param);
-                        },
-                        handleMouseDown: function handleMouseDown(e) {
-                            window.addEventListener('mousemove', this.handleChange);
-                            window.addEventListener('mouseup', this.handleChange);
-                            window.addEventListener('mouseup', this.handleMouseUp);
-                        },
-                        handleMouseUp: function handleMouseUp(e) {
-                            this.unbindEventListeners();
-                        },
-                        unbindEventListeners: function unbindEventListeners() {
-                            window.removeEventListener('mousemove', this.handleChange);
-                            window.removeEventListener('mouseup', this.handleChange);
-                            window.removeEventListener('mouseup', this.handleMouseUp);
-                        }
-                    }
-                };
-
-                /***/
-            }),
-            /* 12 */
-            /***/
-            (function(module, exports, __webpack_require__) {
-
-                "use strict";
-
-
-                var _Slider = __webpack_require__(13);
+                var _Slider = __webpack_require__(8);
 
                 var _Slider2 = _interopRequireDefault(_Slider);
-
-                var _Alpha = __webpack_require__(22);
-
-                var _Alpha2 = _interopRequireDefault(_Alpha);
-
-                var _Checkboard = __webpack_require__(8);
-
-                var _Checkboard2 = _interopRequireDefault(_Checkboard);
-
-                var _EditableInput = __webpack_require__(29);
-
-                var _EditableInput2 = _interopRequireDefault(_EditableInput);
 
                 var _Hue = __webpack_require__(5);
 
                 var _Hue2 = _interopRequireDefault(_Hue);
-
-                var _Saturation = __webpack_require__(33);
-
-                var _Saturation2 = _interopRequireDefault(_Saturation);
 
                 var _color = __webpack_require__(4);
 
@@ -1381,11 +939,7 @@
                 var VueColor = {
                     version: '2.7.0',
                     Slider: _Slider2.default,
-                    Alpha: _Alpha2.default,
-                    Checkboard: _Checkboard2.default,
-                    EditableInput: _EditableInput2.default,
                     Hue: _Hue2.default,
-                    Saturation: _Saturation2.default,
                     ColorMixin: _color2.default
                 };
 
@@ -1393,7 +947,7 @@
 
                 /***/
             }),
-            /* 13 */
+            /* 8 */
             /***/
             (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1407,12 +961,12 @@
                 for (var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Slider_vue__)
                     if (__WEBPACK_IMPORT_KEY__ !== 'default')(function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Slider_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
                     /* harmony import */
-                var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_2dedc691_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Slider_vue__ = __webpack_require__(21);
+                var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_2dedc691_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Slider_vue__ = __webpack_require__(16);
                 var disposed = false
 
                 function injectStyle(ssrContext) {
                     if (disposed) return
-                    __webpack_require__(14)
+                    __webpack_require__(9)
                 }
                 var normalizeComponent = __webpack_require__(2)
                     /* script */
@@ -1462,14 +1016,14 @@
 
                 /***/
             }),
-            /* 14 */
+            /* 9 */
             /***/
             (function(module, exports, __webpack_require__) {
 
                 // style-loader: Adds some css to the DOM by adding a <style> tag
 
                 // load the styles
-                var content = __webpack_require__(15);
+                var content = __webpack_require__(10);
                 if (typeof content === 'string') content = [
                     [module.i, content, '']
                 ];
@@ -1494,7 +1048,7 @@
 
                 /***/
             }),
-            /* 15 */
+            /* 10 */
             /***/
             (function(module, exports, __webpack_require__) {
 
@@ -1503,14 +1057,14 @@
 
 
                 // module
-                exports.push([module.i, "\n.vc-slider {\n  position: relative;\n  width: 100%;\n}\n.vc-slider-hue-warp {\n  height: 4px;\n  position: relative;\n}\n.vc-slider-hue-warp .vc-hue-picker {\n  width: 14px;\n  height: 14px;\n  border-radius: 16px;\n  border: 6px solid lightgray;\n  transform: translate(-7px, -12px);\n  background-color: rgb(248, 248, 248);\n  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);\n  box-sizing: content-box;\n}\n.vc-slider-swatches {\n  display: flex;\n  margin-top: 35px;\n}\n.vc-slider-swatch {\n  margin-right: 5px;\n  flex: 1;\n  width: 20%;\n}\n.vc-slider-swatch:first-child .vc-slider-swatch-picker {\n  border-radius: 2px 0px 0px 2px;\n}\n.vc-slider-swatch:last-child {\n  margin-right: 0;\n}\n.vc-slider-swatch:last-child .vc-slider-swatch-picker {\n  border-radius: 0px 2px 2px 0px;\n}\n.vc-slider-swatch-picker {\n  cursor: pointer;\n  height: 12px;\n}\n.vc-slider-swatch-picker--active {\n  transform: scaleY(1.8);\n  border-radius: 3.6px/2px;\n}\n.vc-slider-swatch-picker--white {\n  box-shadow: inset 0 0 0 1px #ddd;\n}\n.vc-slider-swatch-picker--active.vc-slider-swatch-picker--white {\n  box-shadow: inset 0 0 0 0.6px #ddd;\n}\n", ""]);
+                exports.push([module.i, "\n.vc-slider {\n  position: relative;\n  width: 100%;\n}\n.vc-slider-hue-warp {\n  height: 4px;\n  position: relative;\n}\n.vc-slider-swatches {\n  display: flex;\n  margin: 25px 0;\n}\n.vc-slider-swatch {\n  margin-right: 5px;\n  flex: 1;\n  width: 20%;\n}\n.vc-slider-swatch:first-child .vc-slider-swatch-picker {\n  border-radius: 2px 0px 0px 2px;\n}\n.vc-slider-swatch:last-child {\n  margin-right: 0;\n}\n.vc-slider-swatch:last-child .vc-slider-swatch-picker {\n  border-radius: 0px 2px 2px 0px;\n}\n.vc-slider-swatch-picker {\n  cursor: pointer;\n  height: 12px;\n}\n.vc-slider-swatch-picker--active {\n  transform: scaleY(1.8);\n  border-radius: 3.6px/2px;\n}\n.vc-slider-swatch-picker--white {\n  box-shadow: inset 0 0 0 1px #ddd;\n}\n.vc-slider-swatch-picker--active.vc-slider-swatch-picker--white {\n  box-shadow: inset 0 0 0 0.6px #ddd;\n}\n.slide-in-enter-active,\n.slide-in-leave-active {\n    transition: all .5s;\n}\n.slide-in-enter,\n.slide-in-leave-to {\n    opacity: 0;\n    margin:  0;\n    transform: translate3d(0, -1em, 0);\n}\n", ""]);
 
                 // exports
 
 
                 /***/
             }),
-            /* 16 */
+            /* 11 */
             /***/
             (function(module, exports) {
 
@@ -1545,7 +1099,7 @@
 
                 /***/
             }),
-            /* 17 */
+            /* 12 */
             /***/
             (function(module, exports, __webpack_require__) {
 
@@ -2761,14 +2315,14 @@
 
                 /***/
             }),
-            /* 18 */
+            /* 13 */
             /***/
             (function(module, exports, __webpack_require__) {
 
                 // style-loader: Adds some css to the DOM by adding a <style> tag
 
                 // load the styles
-                var content = __webpack_require__(19);
+                var content = __webpack_require__(14);
                 if (typeof content === 'string') content = [
                     [module.i, content, '']
                 ];
@@ -2793,7 +2347,7 @@
 
                 /***/
             }),
-            /* 19 */
+            /* 14 */
             /***/
             (function(module, exports, __webpack_require__) {
 
@@ -2802,14 +2356,14 @@
 
 
                 // module
-                exports.push([module.i, "\n.vc-hue {\n  position: absolute;\n  top: 0px;\n  right: 0px;\n  bottom: 0px;\n  left: 0px;\n  border-radius: 2px;\n}\n.vc-hue--horizontal {\n  background: linear-gradient(to right, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);\n}\n.vc-hue--vertical {\n  background: linear-gradient(to top, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);\n}\n.vc-hue-container {\n  cursor: pointer;\n  margin: 0 2px;\n  position: relative;\n  height: 100%;\n}\n.vc-hue-pointer {\n  z-index: 2;\n  position: absolute;\n}\n.vc-hue-picker {\n  cursor: pointer;\n  margin-top: 1px;\n  width: 4px;\n  height: 8px;\n  box-shadow: 0 0 2px rgba(0, 0, 0, .6);\n  background: #fff;\n  transform: translateX(-2px) ;\n}\n", ""]);
+                exports.push([module.i, "\n.vc-hue {\n  position: absolute;\n  top: 0px;\n  right: 0px;\n  bottom: 0px;\n  left: 0px;\n  opacity: 0.5;\n  border-radius: 2px;\n  background: linear-gradient(\n    to right,\n    #f00 0%,\n    #ff0 17%,\n    #0f0 33%,\n    #0ff 50%,\n    #00f 67%,\n    #f0f 83%,\n    #f00 100%\n  );\n  transition: opacity 0.2s;\n}\n.vc-hue.active,\n.vc-hue:hover {\n  opacity: 1;\n}\n.vc-hue-container {\n  cursor: pointer;\n  margin: 0 2px;\n  position: relative;\n  height: 100%;\n}\n.vc-hue-pointer {\n  z-index: 2;\n  position: absolute;\n  top: 0;\n}\n.vc-hue-picker {\n  width: 14px;\n  height: 14px;\n  border-radius: 16px;\n  border: 6px solid lightgray;\n  transform: translate(-7px, -12px);\n  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);\n  box-sizing: content-box;\n}\n", ""]);
 
                 // exports
 
 
                 /***/
             }),
-            /* 20 */
+            /* 15 */
             /***/
             (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2818,38 +2372,42 @@
                     var _vm = this
                     var _h = _vm.$createElement
                     var _c = _vm._self._c || _h
-                    return _c("div", { class: ["vc-hue", _vm.directionClass] }, [
-                        _c(
-                            "div", {
-                                ref: "container",
-                                staticClass: "vc-hue-container",
-                                attrs: {
-                                    role: "slider",
-                                    "aria-valuenow": _vm.colors.hsl.h,
-                                    "aria-valuemin": "0",
-                                    "aria-valuemax": "360"
-                                },
-                                on: {
-                                    mousedown: _vm.handleMouseDown,
-                                    touchmove: _vm.handleChange,
-                                    touchstart: _vm.handleChange
-                                }
-                            }, [
-                                _c(
-                                    "div", {
-                                        staticClass: "vc-hue-pointer",
-                                        style: { top: _vm.pointerTop, left: _vm.pointerLeft },
-                                        attrs: { role: "presentation" }
-                                    }, [
-                                        _c("div", {
-                                            staticClass: "vc-hue-picker",
-                                            style: { backgroundColor: _vm.colors.hex }
-                                        })
-                                    ]
-                                )
-                            ]
-                        )
-                    ])
+                    return _c(
+                        "div", { staticClass: "vc-hue", class: { active: _vm.showButton } }, [
+                            _c(
+                                "div", {
+                                    ref: "container",
+                                    staticClass: "vc-hue-container",
+                                    attrs: {
+                                        role: "slider",
+                                        "aria-valuenow": _vm.colors.hsl.h,
+                                        "aria-valuemin": "0",
+                                        "aria-valuemax": "360"
+                                    },
+                                    on: {
+                                        mousedown: _vm.handleMouseDown,
+                                        touchmove: _vm.handleChange,
+                                        touchstart: _vm.handleChange
+                                    }
+                                }, [
+                                    _vm.showButton ?
+                                    _c(
+                                        "div", {
+                                            staticClass: "vc-hue-pointer",
+                                            style: { left: _vm.pointerLeft },
+                                            attrs: { role: "presentation" }
+                                        }, [
+                                            _c("div", {
+                                                staticClass: "vc-hue-picker",
+                                                style: { backgroundColor: _vm.backgroundColor }
+                                            })
+                                        ]
+                                    ) :
+                                    _vm._e()
+                                ]
+                            )
+                        ]
+                    )
                 }
                 var staticRenderFns = []
                 render._withStripped = true
@@ -2865,7 +2423,7 @@
 
                 /***/
             }),
-            /* 21 */
+            /* 16 */
             /***/
             (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2882,6 +2440,7 @@
                             _c(
                                 "div", { staticClass: "vc-slider-hue-warp" }, [
                                     _c("hue", {
+                                        attrs: { startEmpty: !_vm.value || !_vm.value.a },
                                         on: { change: _vm.hueChange },
                                         model: {
                                             value: _vm.colors,
@@ -2913,17 +2472,27 @@
                                                 }
                                             }
                                         }, [
-                                            _c("div", {
-                                                staticClass: "vc-slider-swatch-picker",
-                                                class: {
-                                                    "vc-slider-swatch-picker--active": offset == _vm.activeOffset,
-                                                        "vc-slider-swatch-picker--white": offset === "1"
-                                                },
-                                                style: {
-                                                    background: "hsl(" + _vm.colors.hsl.h + ", 50%, " + offset * 100 + "%)"
-                                                }
-                                            })
-                                        ]
+                                            _c("transition", { attrs: { name: "slide-in" } }, [
+                                                _vm.displaySwatches ?
+                                                _c("div", {
+                                                    staticClass: "vc-slider-swatch-picker",
+                                                    class: {
+                                                        "vc-slider-swatch-picker--active":
+                                                        offset == _vm.activeOffset,
+                                                            "vc-slider-swatch-picker--white": offset === "1"
+                                                    },
+                                                    style: {
+                                                        background: "hsl(" +
+                                                            _vm.colors.hsl.h +
+                                                            ", 50%, " +
+                                                            offset * 100 +
+                                                            "%)"
+                                                    }
+                                                }) :
+                                                _vm._e()
+                                            ])
+                                        ],
+                                        1
                                     )
                                 })
                             )
@@ -2939,1082 +2508,6 @@
                     module.hot.accept()
                     if (module.hot.data) {
                         require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-2dedc691", esExports)
-                    }
-                }
-
-                /***/
-            }),
-            /* 22 */
-            /***/
-            (function(module, __webpack_exports__, __webpack_require__) {
-
-                "use strict";
-                Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-                /* harmony import */
-                var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Alpha_vue__ = __webpack_require__(7);
-                /* harmony import */
-                var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Alpha_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Alpha_vue__);
-                /* harmony namespace reexport (unknown) */
-                for (var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Alpha_vue__)
-                    if (__WEBPACK_IMPORT_KEY__ !== 'default')(function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Alpha_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-                    /* harmony import */
-                var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1af1f1ac_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Alpha_vue__ = __webpack_require__(28);
-                var disposed = false
-
-                function injectStyle(ssrContext) {
-                    if (disposed) return
-                    __webpack_require__(23)
-                }
-                var normalizeComponent = __webpack_require__(2)
-                    /* script */
-
-
-                /* template */
-
-                /* template functional */
-                var __vue_template_functional__ = false
-                    /* styles */
-                var __vue_styles__ = injectStyle
-                    /* scopeId */
-                var __vue_scopeId__ = null
-                    /* moduleIdentifier (server only) */
-                var __vue_module_identifier__ = null
-                var Component = normalizeComponent(
-                    __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Alpha_vue___default.a,
-                    __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1af1f1ac_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Alpha_vue__["a" /* default */ ],
-                    __vue_template_functional__,
-                    __vue_styles__,
-                    __vue_scopeId__,
-                    __vue_module_identifier__
-                )
-                Component.options.__file = "src/components/common/Alpha.vue"
-
-                /* hot reload */
-                if (false) {
-                    (function() {
-                        var hotAPI = require("vue-loader/node_modules/vue-hot-reload-api")
-                        hotAPI.install(require("vue"), false)
-                        if (!hotAPI.compatible) return
-                        module.hot.accept()
-                        if (!module.hot.data) {
-                            hotAPI.createRecord("data-v-1af1f1ac", Component.options)
-                        } else {
-                            hotAPI.reload("data-v-1af1f1ac", Component.options)
-                        }
-                        module.hot.dispose(function(data) {
-                            disposed = true
-                        })
-                    })()
-                }
-
-                /* harmony default export */
-                __webpack_exports__["default"] = (Component.exports);
-
-
-                /***/
-            }),
-            /* 23 */
-            /***/
-            (function(module, exports, __webpack_require__) {
-
-                // style-loader: Adds some css to the DOM by adding a <style> tag
-
-                // load the styles
-                var content = __webpack_require__(24);
-                if (typeof content === 'string') content = [
-                    [module.i, content, '']
-                ];
-                if (content.locals) module.exports = content.locals;
-                // add the styles to the DOM
-                var update = __webpack_require__(1)("4dc1b086", content, false, {});
-                // Hot Module Replacement
-                if (false) {
-                    // When the styles change, update the <style> tags
-                    if (!content.locals) {
-                        module.hot.accept("!!../../../node_modules/css-loader/index.js?{\"minimize\":false,\"sourceMap\":false}!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1af1f1ac\",\"scoped\":false,\"hasInlineConfig\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Alpha.vue", function() {
-                            var newContent = require("!!../../../node_modules/css-loader/index.js?{\"minimize\":false,\"sourceMap\":false}!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1af1f1ac\",\"scoped\":false,\"hasInlineConfig\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Alpha.vue");
-                            if (typeof newContent === 'string') newContent = [
-                                [module.id, newContent, '']
-                            ];
-                            update(newContent);
-                        });
-                    }
-                    // When the module is disposed, remove the <style> tags
-                    module.hot.dispose(function() { update(); });
-                }
-
-                /***/
-            }),
-            /* 24 */
-            /***/
-            (function(module, exports, __webpack_require__) {
-
-                exports = module.exports = __webpack_require__(0)(false);
-                // imports
-
-
-                // module
-                exports.push([module.i, "\n.vc-alpha {\n  position: absolute;\n  top: 0px;\n  right: 0px;\n  bottom: 0px;\n  left: 0px;\n}\n.vc-alpha-checkboard-wrap {\n  position: absolute;\n  top: 0px;\n  right: 0px;\n  bottom: 0px;\n  left: 0px;\n  overflow: hidden;\n}\n.vc-alpha-gradient {\n  position: absolute;\n  top: 0px;\n  right: 0px;\n  bottom: 0px;\n  left: 0px;\n}\n.vc-alpha-container {\n  cursor: pointer;\n  position: relative;\n  z-index: 2;\n  height: 100%;\n  margin: 0 3px;\n}\n.vc-alpha-pointer {\n  z-index: 2;\n  position: absolute;\n}\n.vc-alpha-picker {\n  cursor: pointer;\n  width: 4px;\n  border-radius: 1px;\n  height: 8px;\n  box-shadow: 0 0 2px rgba(0, 0, 0, .6);\n  background: #fff;\n  margin-top: 1px;\n  transform: translateX(-2px);\n}\n", ""]);
-
-                // exports
-
-
-                /***/
-            }),
-            /* 25 */
-            /***/
-            (function(module, exports, __webpack_require__) {
-
-                // style-loader: Adds some css to the DOM by adding a <style> tag
-
-                // load the styles
-                var content = __webpack_require__(26);
-                if (typeof content === 'string') content = [
-                    [module.i, content, '']
-                ];
-                if (content.locals) module.exports = content.locals;
-                // add the styles to the DOM
-                var update = __webpack_require__(1)("7e15c05b", content, false, {});
-                // Hot Module Replacement
-                if (false) {
-                    // When the styles change, update the <style> tags
-                    if (!content.locals) {
-                        module.hot.accept("!!../../../node_modules/css-loader/index.js?{\"minimize\":false,\"sourceMap\":false}!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5b6dc0c2\",\"scoped\":false,\"hasInlineConfig\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Checkboard.vue", function() {
-                            var newContent = require("!!../../../node_modules/css-loader/index.js?{\"minimize\":false,\"sourceMap\":false}!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5b6dc0c2\",\"scoped\":false,\"hasInlineConfig\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Checkboard.vue");
-                            if (typeof newContent === 'string') newContent = [
-                                [module.id, newContent, '']
-                            ];
-                            update(newContent);
-                        });
-                    }
-                    // When the module is disposed, remove the <style> tags
-                    module.hot.dispose(function() { update(); });
-                }
-
-                /***/
-            }),
-            /* 26 */
-            /***/
-            (function(module, exports, __webpack_require__) {
-
-                exports = module.exports = __webpack_require__(0)(false);
-                // imports
-
-
-                // module
-                exports.push([module.i, "\n.vc-checkerboard {\n  position: absolute;\n  top: 0px;\n  right: 0px;\n  bottom: 0px;\n  left: 0px;\n  background-size: contain;\n}\n", ""]);
-
-                // exports
-
-
-                /***/
-            }),
-            /* 27 */
-            /***/
-            (function(module, __webpack_exports__, __webpack_require__) {
-
-                "use strict";
-                var render = function() {
-                    var _vm = this
-                    var _h = _vm.$createElement
-                    var _c = _vm._self._c || _h
-                    return _c("div", { staticClass: "vc-checkerboard", style: _vm.bgStyle })
-                }
-                var staticRenderFns = []
-                render._withStripped = true
-                var esExports = { render: render, staticRenderFns: staticRenderFns }
-                    /* harmony default export */
-                __webpack_exports__["a"] = (esExports);
-                if (false) {
-                    module.hot.accept()
-                    if (module.hot.data) {
-                        require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-5b6dc0c2", esExports)
-                    }
-                }
-
-                /***/
-            }),
-            /* 28 */
-            /***/
-            (function(module, __webpack_exports__, __webpack_require__) {
-
-                "use strict";
-                var render = function() {
-                    var _vm = this
-                    var _h = _vm.$createElement
-                    var _c = _vm._self._c || _h
-                    return _c("div", { staticClass: "vc-alpha" }, [
-                        _c(
-                            "div", { staticClass: "vc-alpha-checkboard-wrap" }, [_c("checkboard")],
-                            1
-                        ),
-                        _vm._v(" "),
-                        _c("div", {
-                            staticClass: "vc-alpha-gradient",
-                            style: { background: _vm.gradientColor }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                            "div", {
-                                ref: "container",
-                                staticClass: "vc-alpha-container",
-                                on: {
-                                    mousedown: _vm.handleMouseDown,
-                                    touchmove: _vm.handleChange,
-                                    touchstart: _vm.handleChange
-                                }
-                            }, [
-                                _c(
-                                    "div", {
-                                        staticClass: "vc-alpha-pointer",
-                                        style: { left: _vm.colors.a * 100 + "%" }
-                                    }, [_c("div", { staticClass: "vc-alpha-picker" })]
-                                )
-                            ]
-                        )
-                    ])
-                }
-                var staticRenderFns = []
-                render._withStripped = true
-                var esExports = { render: render, staticRenderFns: staticRenderFns }
-                    /* harmony default export */
-                __webpack_exports__["a"] = (esExports);
-                if (false) {
-                    module.hot.accept()
-                    if (module.hot.data) {
-                        require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-1af1f1ac", esExports)
-                    }
-                }
-
-                /***/
-            }),
-            /* 29 */
-            /***/
-            (function(module, __webpack_exports__, __webpack_require__) {
-
-                "use strict";
-                Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-                /* harmony import */
-                var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_EditableInput_vue__ = __webpack_require__(10);
-                /* harmony import */
-                var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_EditableInput_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_EditableInput_vue__);
-                /* harmony namespace reexport (unknown) */
-                for (var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_EditableInput_vue__)
-                    if (__WEBPACK_IMPORT_KEY__ !== 'default')(function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_EditableInput_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-                    /* harmony import */
-                var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_441174dc_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_EditableInput_vue__ = __webpack_require__(32);
-                var disposed = false
-
-                function injectStyle(ssrContext) {
-                    if (disposed) return
-                    __webpack_require__(30)
-                }
-                var normalizeComponent = __webpack_require__(2)
-                    /* script */
-
-
-                /* template */
-
-                /* template functional */
-                var __vue_template_functional__ = false
-                    /* styles */
-                var __vue_styles__ = injectStyle
-                    /* scopeId */
-                var __vue_scopeId__ = null
-                    /* moduleIdentifier (server only) */
-                var __vue_module_identifier__ = null
-                var Component = normalizeComponent(
-                    __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_EditableInput_vue___default.a,
-                    __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_441174dc_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_EditableInput_vue__["a" /* default */ ],
-                    __vue_template_functional__,
-                    __vue_styles__,
-                    __vue_scopeId__,
-                    __vue_module_identifier__
-                )
-                Component.options.__file = "src/components/common/EditableInput.vue"
-
-                /* hot reload */
-                if (false) {
-                    (function() {
-                        var hotAPI = require("vue-loader/node_modules/vue-hot-reload-api")
-                        hotAPI.install(require("vue"), false)
-                        if (!hotAPI.compatible) return
-                        module.hot.accept()
-                        if (!module.hot.data) {
-                            hotAPI.createRecord("data-v-441174dc", Component.options)
-                        } else {
-                            hotAPI.reload("data-v-441174dc", Component.options)
-                        }
-                        module.hot.dispose(function(data) {
-                            disposed = true
-                        })
-                    })()
-                }
-
-                /* harmony default export */
-                __webpack_exports__["default"] = (Component.exports);
-
-
-                /***/
-            }),
-            /* 30 */
-            /***/
-            (function(module, exports, __webpack_require__) {
-
-                // style-loader: Adds some css to the DOM by adding a <style> tag
-
-                // load the styles
-                var content = __webpack_require__(31);
-                if (typeof content === 'string') content = [
-                    [module.i, content, '']
-                ];
-                if (content.locals) module.exports = content.locals;
-                // add the styles to the DOM
-                var update = __webpack_require__(1)("0f73e73c", content, false, {});
-                // Hot Module Replacement
-                if (false) {
-                    // When the styles change, update the <style> tags
-                    if (!content.locals) {
-                        module.hot.accept("!!../../../node_modules/css-loader/index.js?{\"minimize\":false,\"sourceMap\":false}!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-441174dc\",\"scoped\":false,\"hasInlineConfig\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./EditableInput.vue", function() {
-                            var newContent = require("!!../../../node_modules/css-loader/index.js?{\"minimize\":false,\"sourceMap\":false}!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-441174dc\",\"scoped\":false,\"hasInlineConfig\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./EditableInput.vue");
-                            if (typeof newContent === 'string') newContent = [
-                                [module.id, newContent, '']
-                            ];
-                            update(newContent);
-                        });
-                    }
-                    // When the module is disposed, remove the <style> tags
-                    module.hot.dispose(function() { update(); });
-                }
-
-                /***/
-            }),
-            /* 31 */
-            /***/
-            (function(module, exports, __webpack_require__) {
-
-                exports = module.exports = __webpack_require__(0)(false);
-                // imports
-
-
-                // module
-                exports.push([module.i, "\n.vc-editable-input {\n  position: relative;\n}\n.vc-input__input {\n  padding: 0;\n  border: 0;\n  outline: none;\n}\n.vc-input__label {\n  text-transform: capitalize;\n}\n", ""]);
-
-                // exports
-
-
-                /***/
-            }),
-            /* 32 */
-            /***/
-            (function(module, __webpack_exports__, __webpack_require__) {
-
-                "use strict";
-                var render = function() {
-                    var _vm = this
-                    var _h = _vm.$createElement
-                    var _c = _vm._self._c || _h
-                    return _c("div", { staticClass: "vc-editable-input" }, [
-                        _c("input", {
-                            directives: [
-                                { name: "model", rawName: "v-model", value: _vm.val, expression: "val" }
-                            ],
-                            ref: "input",
-                            staticClass: "vc-input__input",
-                            attrs: { "aria-labelledby": _vm.labelId },
-                            domProps: { value: _vm.val },
-                            on: {
-                                keydown: _vm.handleKeyDown,
-                                input: [
-                                    function($event) {
-                                        if ($event.target.composing) {
-                                            return
-                                        }
-                                        _vm.val = $event.target.value
-                                    },
-                                    _vm.update
-                                ]
-                            }
-                        }),
-                        _vm._v(" "),
-                        _c(
-                            "span", {
-                                staticClass: "vc-input__label",
-                                attrs: { for: _vm.label, id: _vm.labelId }
-                            }, [_vm._v(_vm._s(_vm.labelSpanText))]
-                        ),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "vc-input__desc" }, [_vm._v(_vm._s(_vm.desc))])
-                    ])
-                }
-                var staticRenderFns = []
-                render._withStripped = true
-                var esExports = { render: render, staticRenderFns: staticRenderFns }
-                    /* harmony default export */
-                __webpack_exports__["a"] = (esExports);
-                if (false) {
-                    module.hot.accept()
-                    if (module.hot.data) {
-                        require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-441174dc", esExports)
-                    }
-                }
-
-                /***/
-            }),
-            /* 33 */
-            /***/
-            (function(module, __webpack_exports__, __webpack_require__) {
-
-                "use strict";
-                Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-                /* harmony import */
-                var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Saturation_vue__ = __webpack_require__(11);
-                /* harmony import */
-                var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Saturation_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Saturation_vue__);
-                /* harmony namespace reexport (unknown) */
-                for (var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Saturation_vue__)
-                    if (__WEBPACK_IMPORT_KEY__ !== 'default')(function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Saturation_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-                    /* harmony import */
-                var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_ba139894_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Saturation_vue__ = __webpack_require__(39);
-                var disposed = false
-
-                function injectStyle(ssrContext) {
-                    if (disposed) return
-                    __webpack_require__(34)
-                }
-                var normalizeComponent = __webpack_require__(2)
-                    /* script */
-
-
-                /* template */
-
-                /* template functional */
-                var __vue_template_functional__ = false
-                    /* styles */
-                var __vue_styles__ = injectStyle
-                    /* scopeId */
-                var __vue_scopeId__ = null
-                    /* moduleIdentifier (server only) */
-                var __vue_module_identifier__ = null
-                var Component = normalizeComponent(
-                    __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Saturation_vue___default.a,
-                    __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_ba139894_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Saturation_vue__["a" /* default */ ],
-                    __vue_template_functional__,
-                    __vue_styles__,
-                    __vue_scopeId__,
-                    __vue_module_identifier__
-                )
-                Component.options.__file = "src/components/common/Saturation.vue"
-
-                /* hot reload */
-                if (false) {
-                    (function() {
-                        var hotAPI = require("vue-loader/node_modules/vue-hot-reload-api")
-                        hotAPI.install(require("vue"), false)
-                        if (!hotAPI.compatible) return
-                        module.hot.accept()
-                        if (!module.hot.data) {
-                            hotAPI.createRecord("data-v-ba139894", Component.options)
-                        } else {
-                            hotAPI.reload("data-v-ba139894", Component.options)
-                        }
-                        module.hot.dispose(function(data) {
-                            disposed = true
-                        })
-                    })()
-                }
-
-                /* harmony default export */
-                __webpack_exports__["default"] = (Component.exports);
-
-
-                /***/
-            }),
-            /* 34 */
-            /***/
-            (function(module, exports, __webpack_require__) {
-
-                // style-loader: Adds some css to the DOM by adding a <style> tag
-
-                // load the styles
-                var content = __webpack_require__(35);
-                if (typeof content === 'string') content = [
-                    [module.i, content, '']
-                ];
-                if (content.locals) module.exports = content.locals;
-                // add the styles to the DOM
-                var update = __webpack_require__(1)("b5380e52", content, false, {});
-                // Hot Module Replacement
-                if (false) {
-                    // When the styles change, update the <style> tags
-                    if (!content.locals) {
-                        module.hot.accept("!!../../../node_modules/css-loader/index.js?{\"minimize\":false,\"sourceMap\":false}!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-ba139894\",\"scoped\":false,\"hasInlineConfig\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Saturation.vue", function() {
-                            var newContent = require("!!../../../node_modules/css-loader/index.js?{\"minimize\":false,\"sourceMap\":false}!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-ba139894\",\"scoped\":false,\"hasInlineConfig\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Saturation.vue");
-                            if (typeof newContent === 'string') newContent = [
-                                [module.id, newContent, '']
-                            ];
-                            update(newContent);
-                        });
-                    }
-                    // When the module is disposed, remove the <style> tags
-                    module.hot.dispose(function() { update(); });
-                }
-
-                /***/
-            }),
-            /* 35 */
-            /***/
-            (function(module, exports, __webpack_require__) {
-
-                exports = module.exports = __webpack_require__(0)(false);
-                // imports
-
-
-                // module
-                exports.push([module.i, "\n.vc-saturation,\n.vc-saturation--white,\n.vc-saturation--black {\n  cursor: pointer;\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n}\n.vc-saturation--white {\n  background: linear-gradient(to right, #fff, rgba(255,255,255,0));\n}\n.vc-saturation--black {\n  background: linear-gradient(to top, #000, rgba(0,0,0,0));\n}\n.vc-saturation-pointer {\n  cursor: pointer;\n  position: absolute;\n}\n.vc-saturation-circle {\n  cursor: head;\n  width: 4px;\n  height: 4px;\n  box-shadow: 0 0 0 1.5px #fff, inset 0 0 1px 1px rgba(0,0,0,.3), 0 0 1px 2px rgba(0,0,0,.4);\n  border-radius: 50%;\n  transform: translate(-2px, -2px);\n}\n", ""]);
-
-                // exports
-
-
-                /***/
-            }),
-            /* 36 */
-            /***/
-            (function(module, exports) {
-
-                module.exports = clamp
-
-                function clamp(value, min, max) {
-                    return min < max ?
-                        (value < min ? min : value > max ? max : value) :
-                        (value < max ? max : value > min ? min : value)
-                }
-
-
-                /***/
-            }),
-            /* 37 */
-            /***/
-            (function(module, exports, __webpack_require__) {
-
-                /* WEBPACK VAR INJECTION */
-                (function(global) {
-                    /**
-                     * lodash (Custom Build) <https://lodash.com/>
-                     * Build: `lodash modularize exports="npm" -o ./`
-                     * Copyright jQuery Foundation and other contributors <https://jquery.org/>
-                     * Released under MIT license <https://lodash.com/license>
-                     * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
-                     * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-                     */
-
-                    /** Used as the `TypeError` message for "Functions" methods. */
-                    var FUNC_ERROR_TEXT = 'Expected a function';
-
-                    /** Used as references for various `Number` constants. */
-                    var NAN = 0 / 0;
-
-                    /** `Object#toString` result references. */
-                    var symbolTag = '[object Symbol]';
-
-                    /** Used to match leading and trailing whitespace. */
-                    var reTrim = /^\s+|\s+$/g;
-
-                    /** Used to detect bad signed hexadecimal string values. */
-                    var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
-
-                    /** Used to detect binary string values. */
-                    var reIsBinary = /^0b[01]+$/i;
-
-                    /** Used to detect octal string values. */
-                    var reIsOctal = /^0o[0-7]+$/i;
-
-                    /** Built-in method references without a dependency on `root`. */
-                    var freeParseInt = parseInt;
-
-                    /** Detect free variable `global` from Node.js. */
-                    var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
-
-                    /** Detect free variable `self`. */
-                    var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
-
-                    /** Used as a reference to the global object. */
-                    var root = freeGlobal || freeSelf || Function('return this')();
-
-                    /** Used for built-in method references. */
-                    var objectProto = Object.prototype;
-
-                    /**
-                     * Used to resolve the
-                     * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
-                     * of values.
-                     */
-                    var objectToString = objectProto.toString;
-
-                    /* Built-in method references for those with the same name as other `lodash` methods. */
-                    var nativeMax = Math.max,
-                        nativeMin = Math.min;
-
-                    /**
-                     * Gets the timestamp of the number of milliseconds that have elapsed since
-                     * the Unix epoch (1 January 1970 00:00:00 UTC).
-                     *
-                     * @static
-                     * @memberOf _
-                     * @since 2.4.0
-                     * @category Date
-                     * @returns {number} Returns the timestamp.
-                     * @example
-                     *
-                     * _.defer(function(stamp) {
-                     *   console.log(_.now() - stamp);
-                     * }, _.now());
-                     * // => Logs the number of milliseconds it took for the deferred invocation.
-                     */
-                    var now = function() {
-                        return root.Date.now();
-                    };
-
-                    /**
-                     * Creates a debounced function that delays invoking `func` until after `wait`
-                     * milliseconds have elapsed since the last time the debounced function was
-                     * invoked. The debounced function comes with a `cancel` method to cancel
-                     * delayed `func` invocations and a `flush` method to immediately invoke them.
-                     * Provide `options` to indicate whether `func` should be invoked on the
-                     * leading and/or trailing edge of the `wait` timeout. The `func` is invoked
-                     * with the last arguments provided to the debounced function. Subsequent
-                     * calls to the debounced function return the result of the last `func`
-                     * invocation.
-                     *
-                     * **Note:** If `leading` and `trailing` options are `true`, `func` is
-                     * invoked on the trailing edge of the timeout only if the debounced function
-                     * is invoked more than once during the `wait` timeout.
-                     *
-                     * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
-                     * until to the next tick, similar to `setTimeout` with a timeout of `0`.
-                     *
-                     * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
-                     * for details over the differences between `_.debounce` and `_.throttle`.
-                     *
-                     * @static
-                     * @memberOf _
-                     * @since 0.1.0
-                     * @category Function
-                     * @param {Function} func The function to debounce.
-                     * @param {number} [wait=0] The number of milliseconds to delay.
-                     * @param {Object} [options={}] The options object.
-                     * @param {boolean} [options.leading=false]
-                     *  Specify invoking on the leading edge of the timeout.
-                     * @param {number} [options.maxWait]
-                     *  The maximum time `func` is allowed to be delayed before it's invoked.
-                     * @param {boolean} [options.trailing=true]
-                     *  Specify invoking on the trailing edge of the timeout.
-                     * @returns {Function} Returns the new debounced function.
-                     * @example
-                     *
-                     * // Avoid costly calculations while the window size is in flux.
-                     * jQuery(window).on('resize', _.debounce(calculateLayout, 150));
-                     *
-                     * // Invoke `sendMail` when clicked, debouncing subsequent calls.
-                     * jQuery(element).on('click', _.debounce(sendMail, 300, {
-                     *   'leading': true,
-                     *   'trailing': false
-                     * }));
-                     *
-                     * // Ensure `batchLog` is invoked once after 1 second of debounced calls.
-                     * var debounced = _.debounce(batchLog, 250, { 'maxWait': 1000 });
-                     * var source = new EventSource('/stream');
-                     * jQuery(source).on('message', debounced);
-                     *
-                     * // Cancel the trailing debounced invocation.
-                     * jQuery(window).on('popstate', debounced.cancel);
-                     */
-                    function debounce(func, wait, options) {
-                        var lastArgs,
-                            lastThis,
-                            maxWait,
-                            result,
-                            timerId,
-                            lastCallTime,
-                            lastInvokeTime = 0,
-                            leading = false,
-                            maxing = false,
-                            trailing = true;
-
-                        if (typeof func != 'function') {
-                            throw new TypeError(FUNC_ERROR_TEXT);
-                        }
-                        wait = toNumber(wait) || 0;
-                        if (isObject(options)) {
-                            leading = !!options.leading;
-                            maxing = 'maxWait' in options;
-                            maxWait = maxing ? nativeMax(toNumber(options.maxWait) || 0, wait) : maxWait;
-                            trailing = 'trailing' in options ? !!options.trailing : trailing;
-                        }
-
-                        function invokeFunc(time) {
-                            var args = lastArgs,
-                                thisArg = lastThis;
-
-                            lastArgs = lastThis = undefined;
-                            lastInvokeTime = time;
-                            result = func.apply(thisArg, args);
-                            return result;
-                        }
-
-                        function leadingEdge(time) {
-                            // Reset any `maxWait` timer.
-                            lastInvokeTime = time;
-                            // Start the timer for the trailing edge.
-                            timerId = setTimeout(timerExpired, wait);
-                            // Invoke the leading edge.
-                            return leading ? invokeFunc(time) : result;
-                        }
-
-                        function remainingWait(time) {
-                            var timeSinceLastCall = time - lastCallTime,
-                                timeSinceLastInvoke = time - lastInvokeTime,
-                                result = wait - timeSinceLastCall;
-
-                            return maxing ? nativeMin(result, maxWait - timeSinceLastInvoke) : result;
-                        }
-
-                        function shouldInvoke(time) {
-                            var timeSinceLastCall = time - lastCallTime,
-                                timeSinceLastInvoke = time - lastInvokeTime;
-
-                            // Either this is the first call, activity has stopped and we're at the
-                            // trailing edge, the system time has gone backwards and we're treating
-                            // it as the trailing edge, or we've hit the `maxWait` limit.
-                            return (lastCallTime === undefined || (timeSinceLastCall >= wait) ||
-                                (timeSinceLastCall < 0) || (maxing && timeSinceLastInvoke >= maxWait));
-                        }
-
-                        function timerExpired() {
-                            var time = now();
-                            if (shouldInvoke(time)) {
-                                return trailingEdge(time);
-                            }
-                            // Restart the timer.
-                            timerId = setTimeout(timerExpired, remainingWait(time));
-                        }
-
-                        function trailingEdge(time) {
-                            timerId = undefined;
-
-                            // Only invoke if we have `lastArgs` which means `func` has been
-                            // debounced at least once.
-                            if (trailing && lastArgs) {
-                                return invokeFunc(time);
-                            }
-                            lastArgs = lastThis = undefined;
-                            return result;
-                        }
-
-                        function cancel() {
-                            if (timerId !== undefined) {
-                                clearTimeout(timerId);
-                            }
-                            lastInvokeTime = 0;
-                            lastArgs = lastCallTime = lastThis = timerId = undefined;
-                        }
-
-                        function flush() {
-                            return timerId === undefined ? result : trailingEdge(now());
-                        }
-
-                        function debounced() {
-                            var time = now(),
-                                isInvoking = shouldInvoke(time);
-
-                            lastArgs = arguments;
-                            lastThis = this;
-                            lastCallTime = time;
-
-                            if (isInvoking) {
-                                if (timerId === undefined) {
-                                    return leadingEdge(lastCallTime);
-                                }
-                                if (maxing) {
-                                    // Handle invocations in a tight loop.
-                                    timerId = setTimeout(timerExpired, wait);
-                                    return invokeFunc(lastCallTime);
-                                }
-                            }
-                            if (timerId === undefined) {
-                                timerId = setTimeout(timerExpired, wait);
-                            }
-                            return result;
-                        }
-                        debounced.cancel = cancel;
-                        debounced.flush = flush;
-                        return debounced;
-                    }
-
-                    /**
-                     * Creates a throttled function that only invokes `func` at most once per
-                     * every `wait` milliseconds. The throttled function comes with a `cancel`
-                     * method to cancel delayed `func` invocations and a `flush` method to
-                     * immediately invoke them. Provide `options` to indicate whether `func`
-                     * should be invoked on the leading and/or trailing edge of the `wait`
-                     * timeout. The `func` is invoked with the last arguments provided to the
-                     * throttled function. Subsequent calls to the throttled function return the
-                     * result of the last `func` invocation.
-                     *
-                     * **Note:** If `leading` and `trailing` options are `true`, `func` is
-                     * invoked on the trailing edge of the timeout only if the throttled function
-                     * is invoked more than once during the `wait` timeout.
-                     *
-                     * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
-                     * until to the next tick, similar to `setTimeout` with a timeout of `0`.
-                     *
-                     * See [David Corbacho's article](https://css-tricks.com/debouncing-throttling-explained-examples/)
-                     * for details over the differences between `_.throttle` and `_.debounce`.
-                     *
-                     * @static
-                     * @memberOf _
-                     * @since 0.1.0
-                     * @category Function
-                     * @param {Function} func The function to throttle.
-                     * @param {number} [wait=0] The number of milliseconds to throttle invocations to.
-                     * @param {Object} [options={}] The options object.
-                     * @param {boolean} [options.leading=true]
-                     *  Specify invoking on the leading edge of the timeout.
-                     * @param {boolean} [options.trailing=true]
-                     *  Specify invoking on the trailing edge of the timeout.
-                     * @returns {Function} Returns the new throttled function.
-                     * @example
-                     *
-                     * // Avoid excessively updating the position while scrolling.
-                     * jQuery(window).on('scroll', _.throttle(updatePosition, 100));
-                     *
-                     * // Invoke `renewToken` when the click event is fired, but not more than once every 5 minutes.
-                     * var throttled = _.throttle(renewToken, 300000, { 'trailing': false });
-                     * jQuery(element).on('click', throttled);
-                     *
-                     * // Cancel the trailing throttled invocation.
-                     * jQuery(window).on('popstate', throttled.cancel);
-                     */
-                    function throttle(func, wait, options) {
-                        var leading = true,
-                            trailing = true;
-
-                        if (typeof func != 'function') {
-                            throw new TypeError(FUNC_ERROR_TEXT);
-                        }
-                        if (isObject(options)) {
-                            leading = 'leading' in options ? !!options.leading : leading;
-                            trailing = 'trailing' in options ? !!options.trailing : trailing;
-                        }
-                        return debounce(func, wait, {
-                            'leading': leading,
-                            'maxWait': wait,
-                            'trailing': trailing
-                        });
-                    }
-
-                    /**
-                     * Checks if `value` is the
-                     * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
-                     * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
-                     *
-                     * @static
-                     * @memberOf _
-                     * @since 0.1.0
-                     * @category Lang
-                     * @param {*} value The value to check.
-                     * @returns {boolean} Returns `true` if `value` is an object, else `false`.
-                     * @example
-                     *
-                     * _.isObject({});
-                     * // => true
-                     *
-                     * _.isObject([1, 2, 3]);
-                     * // => true
-                     *
-                     * _.isObject(_.noop);
-                     * // => true
-                     *
-                     * _.isObject(null);
-                     * // => false
-                     */
-                    function isObject(value) {
-                        var type = typeof value;
-                        return !!value && (type == 'object' || type == 'function');
-                    }
-
-                    /**
-                     * Checks if `value` is object-like. A value is object-like if it's not `null`
-                     * and has a `typeof` result of "object".
-                     *
-                     * @static
-                     * @memberOf _
-                     * @since 4.0.0
-                     * @category Lang
-                     * @param {*} value The value to check.
-                     * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
-                     * @example
-                     *
-                     * _.isObjectLike({});
-                     * // => true
-                     *
-                     * _.isObjectLike([1, 2, 3]);
-                     * // => true
-                     *
-                     * _.isObjectLike(_.noop);
-                     * // => false
-                     *
-                     * _.isObjectLike(null);
-                     * // => false
-                     */
-                    function isObjectLike(value) {
-                        return !!value && typeof value == 'object';
-                    }
-
-                    /**
-                     * Checks if `value` is classified as a `Symbol` primitive or object.
-                     *
-                     * @static
-                     * @memberOf _
-                     * @since 4.0.0
-                     * @category Lang
-                     * @param {*} value The value to check.
-                     * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
-                     * @example
-                     *
-                     * _.isSymbol(Symbol.iterator);
-                     * // => true
-                     *
-                     * _.isSymbol('abc');
-                     * // => false
-                     */
-                    function isSymbol(value) {
-                        return typeof value == 'symbol' ||
-                            (isObjectLike(value) && objectToString.call(value) == symbolTag);
-                    }
-
-                    /**
-                     * Converts `value` to a number.
-                     *
-                     * @static
-                     * @memberOf _
-                     * @since 4.0.0
-                     * @category Lang
-                     * @param {*} value The value to process.
-                     * @returns {number} Returns the number.
-                     * @example
-                     *
-                     * _.toNumber(3.2);
-                     * // => 3.2
-                     *
-                     * _.toNumber(Number.MIN_VALUE);
-                     * // => 5e-324
-                     *
-                     * _.toNumber(Infinity);
-                     * // => Infinity
-                     *
-                     * _.toNumber('3.2');
-                     * // => 3.2
-                     */
-                    function toNumber(value) {
-                        if (typeof value == 'number') {
-                            return value;
-                        }
-                        if (isSymbol(value)) {
-                            return NAN;
-                        }
-                        if (isObject(value)) {
-                            var other = typeof value.valueOf == 'function' ? value.valueOf() : value;
-                            value = isObject(other) ? (other + '') : other;
-                        }
-                        if (typeof value != 'string') {
-                            return value === 0 ? value : +value;
-                        }
-                        value = value.replace(reTrim, '');
-                        var isBinary = reIsBinary.test(value);
-                        return (isBinary || reIsOctal.test(value)) ?
-                            freeParseInt(value.slice(2), isBinary ? 2 : 8) :
-                            (reIsBadHex.test(value) ? NAN : +value);
-                    }
-
-                    module.exports = throttle;
-
-                    /* WEBPACK VAR INJECTION */
-                }.call(exports, __webpack_require__(38)))
-
-                /***/
-            }),
-            /* 38 */
-            /***/
-            (function(module, exports) {
-
-                var g;
-
-                // This works in non-strict mode
-                g = (function() {
-                    return this;
-                })();
-
-                try {
-                    // This works if eval is allowed (see CSP)
-                    g = g || Function("return this")() || (1, eval)("this");
-                } catch (e) {
-                    // This works if the window reference is available
-                    if (typeof window === "object")
-                        g = window;
-                }
-
-                // g can still be undefined, but nothing to do about it...
-                // We return undefined, instead of nothing here, so it's
-                // easier to handle this case. if(!global) { ...}
-
-                module.exports = g;
-
-
-                /***/
-            }),
-            /* 39 */
-            /***/
-            (function(module, __webpack_exports__, __webpack_require__) {
-
-                "use strict";
-                var render = function() {
-                    var _vm = this
-                    var _h = _vm.$createElement
-                    var _c = _vm._self._c || _h
-                    return _c(
-                        "div", {
-                            ref: "container",
-                            staticClass: "vc-saturation",
-                            style: { background: _vm.bgColor },
-                            on: {
-                                mousedown: _vm.handleMouseDown,
-                                touchmove: _vm.handleChange,
-                                touchstart: _vm.handleChange
-                            }
-                        }, [
-                            _c("div", { staticClass: "vc-saturation--white" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "vc-saturation--black" }),
-                            _vm._v(" "),
-                            _c(
-                                "div", {
-                                    staticClass: "vc-saturation-pointer",
-                                    style: { top: _vm.pointerTop, left: _vm.pointerLeft }
-                                }, [_c("div", { staticClass: "vc-saturation-circle" })]
-                            )
-                        ]
-                    )
-                }
-                var staticRenderFns = []
-                render._withStripped = true
-                var esExports = { render: render, staticRenderFns: staticRenderFns }
-                    /* harmony default export */
-                __webpack_exports__["a"] = (esExports);
-                if (false) {
-                    module.hot.accept()
-                    if (module.hot.data) {
-                        require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-ba139894", esExports)
                     }
                 }
 

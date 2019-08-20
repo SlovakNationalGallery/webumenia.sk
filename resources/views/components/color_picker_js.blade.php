@@ -1,10 +1,15 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="js/vendor/vue-color.js"></script>
 <script>
+@if ($color)
   var color = {
-    hex: '#' + ('{{$color}}' || '40BFB1'),
+    hex: '{{"#" . $color}}',
     a: 1
   }
+@else 
+var color = {};
+@endif
+
 
   var colorPicker = new Vue({
     el: '#{{$id}}',
