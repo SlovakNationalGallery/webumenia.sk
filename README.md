@@ -1,6 +1,6 @@
 # Welcome
 
-[![Build Status](https://travis-ci.com/SlovakNationalGallery/web-umenia-2.svg?branch=master)](https://travis-ci.com/SlovakNationalGallery/web-umenia-2)
+[![Build Status](https://travis-ci.com/SlovakNationalGallery/webumenia.sk.svg?branch=master)](https://travis-ci.com/SlovakNationalGallery/webumenia.sk)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 [Web umenia](http://www.webumenia.sk) is an open platform to explore digitized art collections from public galleries and museums.
