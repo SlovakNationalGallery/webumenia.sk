@@ -71,6 +71,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="color-picker">
+                        {{ utrans('katalog.filters_color') }}:
                         @include('components.color_picker', ['id'=>'colorpicker'])
                         @include('components.color_picker_js', ['id' => 'colorpicker', 'color' => $color])
                     </div>
@@ -78,15 +79,14 @@
 
                 @if ($color)
                 <div class="col-sm-12">
-                    <label for="color_filter" class="w-100 mt-10 mb-0 light">
-                        {{ utrans('katalog.filters_color') }}:
+                    <label for="color_filter" class="w-100 b-0 light">
                         @include('components.color_list', ['colors' => [array('hex' => '#'.$color, 'amount' => '100%')], 'include_clear' => true, 'id' => 'color-filter', 'class_names' => 'mt-5 mb-0'])
                         {!! Form::hidden('color', @$input['color'], ['id'=>'color']) !!}
                     </label>
                 </div>
                 @endif
             </div>
-            <div class="row">
+            <div class="row mt-10">
                 <div class="col-xs-6 col-sm-1 text-left text-sm-right year-range">
                         <span class="sans" id="from_year">{!! !empty($input['year-range']) ? reset((explode(',', $input['year-range']))) : App\Item::sliderMin() !!}</span>
                 </div>

@@ -105,7 +105,7 @@
             /******/
             /******/ // Load entry module and return exports
             /******/
-            return __webpack_require__(__webpack_require__.s = 7);
+            return __webpack_require__(__webpack_require__.s = 8);
             /******/
         })
         /************************************************************************/
@@ -218,7 +218,7 @@
                     }
                 }
 
-                var listToStyles = __webpack_require__(11)
+                var listToStyles = __webpack_require__(12)
 
                 /*
                 type StyleObject = {
@@ -560,74 +560,26 @@
 
                 var _Hue2 = _interopRequireDefault(_Hue);
 
+                var _Lightness = __webpack_require__(17);
+
+                var _Lightness2 = _interopRequireDefault(_Lightness);
+
                 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
                 exports.default = {
                     name: "Slider",
                     mixins: [_color2.default],
-                    data: function data() {
-                        return {
-                            displaySwatches: false
-                        };
-                    },
-
-                    props: {
-                        useClosest: {
-                            default: false,
-                            type: Boolean
-                        },
-                        swatches: {
-                            type: Array,
-                            default: function _default() {
-                                return [".99", ".83", ".67", ".50", ".33", ".17", ".01"];
-                            }
-                        }
-                    },
                     components: {
-                        hue: _Hue2.default
-                    },
-                    computed: {
-                        activeOffset: function activeOffset() {
-                            var hasBlack = this.swatches.includes("0");
-                            var hasWhite = this.swatches.includes("1");
-                            var hsl = this.colors.hsl;
-
-                            if (Math.round(hsl.s * 100) / 100 === 0.5) {
-                                return Math.round(hsl.l * 100) / 100;
-                            } else if (hasBlack && hsl.l === 0) {
-                                return 0;
-                            } else if (hasWhite && hsl.l === 1) {
-                                return 1;
-                            }
-
-                            if (!this.useClosest) {
-                                return -1;
-                            }
-
-                            var closest = { val: 1, index: -1 };
-                            for (var i = 0; i < this.swatches.length; i++) {
-                                var dist = Math.abs(hsl.l - this.swatches[i]);
-                                if (dist < closest.val) {
-                                    closest = { val: dist, index: i };
-                                }
-                            }
-                            return this.swatches[closest.index];
-                        }
+                        hue: _Hue2.default,
+                        lightness: _Lightness2.default
                     },
                     methods: {
                         hueChange: function hueChange(data) {
                             this.displaySwatches = true;
                             this.colorChange(data);
                         },
-                        handleSwClick: function handleSwClick(index, offset) {
-                            this.colorChange({
-                                h: this.colors.hsl.h,
-                                s: 0.5,
-                                l: offset,
-                                source: "hsl"
-                            });
-                            this.$emit;
-                            this.$emit("click", this.colors);
+                        changeMouseUp: function changeMouseUp(v) {
+                            this.$emit('changemouseup', this.value);
                         }
                     }
                 };
@@ -645,13 +597,13 @@
                     value: true
                 });
 
-                var _tinycolor = __webpack_require__(12);
+                var _tinycolor = __webpack_require__(13);
 
                 var _tinycolor2 = _interopRequireDefault(_tinycolor);
 
                 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-                function _colorChange(data, oldHue) {
+                function _colorChange(data, oldHue, oldLightness) {
                     var alpha = data && data.a;
                     var color;
 
@@ -673,6 +625,10 @@
                     if (hsl.s === 0) {
                         hsv.h = hsl.h = data.h || data.hsl && data.hsl.h || oldHue || 0;
                     }
+                    if (!color._ok) {
+                        hsv.s = hsl.s = 100;
+                        hsv.v = hsl.l = 50;
+                    }
 
                     return {
                         hsl: hsl,
@@ -681,6 +637,7 @@
                         rgba: color.toRgb(),
                         hsv: hsv,
                         oldHue: data.h || oldHue || hsl.h,
+                        oldLightness: data.l || oldLightness || hsl.l,
                         source: data.source,
                         a: data.a || color.getAlpha()
                     };
@@ -736,14 +693,6 @@
                             if (checked === passed) {
                                 return data;
                             }
-                        },
-                        paletteUpperCase: function paletteUpperCase(palette) {
-                            return palette.map(function(c) {
-                                return c.toUpperCase();
-                            });
-                        },
-                        isTransparent: function isTransparent(color) {
-                            return (0, _tinycolor2.default)(color).getAlpha() === 0;
                         }
                     }
                 };
@@ -764,12 +713,12 @@
                 for (var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Hue_vue__)
                     if (__WEBPACK_IMPORT_KEY__ !== 'default')(function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Hue_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
                     /* harmony import */
-                var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_7b9aea78_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Hue_vue__ = __webpack_require__(15);
+                var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_7b9aea78_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Hue_vue__ = __webpack_require__(16);
                 var disposed = false
 
                 function injectStyle(ssrContext) {
                     if (disposed) return
-                    __webpack_require__(13)
+                    __webpack_require__(14)
                 }
                 var normalizeComponent = __webpack_require__(2)
                     /* script */
@@ -842,7 +791,8 @@
                         return {
                             oldHue: 0,
                             pullDirection: "",
-                            showButton: false || !this.startEmpty
+                            showButton: false || !this.startEmpty,
+                            mouseDown: false
                         };
                     },
 
@@ -856,7 +806,7 @@
                             return this.value;
                         },
                         backgroundColor: function backgroundColor() {
-                            return 'hsl(' + this.oldHue + ', 100%, 50%)';
+                            return "hsl(" + this.oldHue + ", 100%, 50%)";
                         },
                         pointerLeft: function pointerLeft() {
                             if (this.colors.hsl.h === 0 && this.pullDirection === "right") return "100%";
@@ -888,27 +838,40 @@
                             }
 
                             if (this.colors.hsl.h !== h) {
-                                this.$emit("change", {
-                                    h: h,
-                                    s: this.colors.hsl.s,
-                                    l: this.colors.hsl.l,
-                                    a: this.colors.hsl.a,
-                                    source: "hsl"
-                                });
+                                this.emitValue("change", h);
                             }
                         },
                         handleMouseDown: function handleMouseDown(e) {
                             this.showButton = true;
+                            this.mouseDown = true;
                             this.handleChange(e, false);
                             window.addEventListener("mousemove", this.handleChange);
                             window.addEventListener("mouseup", this.handleMouseUp);
+                            window.addEventListener("mouseout", this.handleMouseOut);
                         },
                         handleMouseUp: function handleMouseUp(e) {
+                            this.mouseDown = false;
                             this.unbindEventListeners();
+                            this.emitValue("changemouseup");
+                        },
+                        handleMouseOut: function handleMouseOut(e) {
+                            if (e.target.tagName == "HTML") {
+                                this.unbindEventListeners();
+                            }
                         },
                         unbindEventListeners: function unbindEventListeners() {
                             window.removeEventListener("mousemove", this.handleChange);
                             window.removeEventListener("mouseup", this.handleMouseUp);
+                            window.addEventListener("mouseout", this.handleMouseOut);
+                        },
+                        emitValue: function emitValue(eventName, h) {
+                            this.$emit(eventName, {
+                                h: h || this.colors.hsl.h || 0,
+                                s: this.colors.hsl.s,
+                                l: this.colors.hsl.l,
+                                a: this.colors.hsl.a,
+                                source: "hsl"
+                            });
                         }
                     }
                 };
@@ -922,7 +885,110 @@
                 "use strict";
 
 
-                var _Slider = __webpack_require__(8);
+                Object.defineProperty(exports, "__esModule", {
+                    value: true
+                });
+                exports.default = {
+                    name: "Lightness",
+                    props: {
+                        value: Object
+                    },
+                    data: function data() {
+                        return {
+                            oldLightness: 0,
+                            pullDirection: "",
+                            showButton: false || !this.startEmpty,
+                            mouseDown: false
+                        };
+                    },
+
+                    computed: {
+                        colors: function colors() {
+                            var l = this.value.hsl.l;
+                            if (l !== 0 && l - this.oldLightness > 0) this.pullDirection = "right";
+                            if (l !== 0 && l - this.oldLightness < 0) this.pullDirection = "left";
+                            this.oldLightness = l;
+
+                            return this.value;
+                        },
+                        backgroundColor: function backgroundColor() {
+                            return "hsl(" + this.value.hsl.h + ", 100%," + this.value.hsl.l * 100 + "%)";
+                        },
+                        pointerLeft: function pointerLeft() {
+                            if (this.colors.hsl.l === 0 && this.pullDirection === "right") return "100%";
+                            return this.colors.hsl.l * 100 + "%";
+                        }
+                    },
+                    methods: {
+                        colorChange: function colorChange(data, oldLightness) {
+                            this.oldLightness = this.colors.hsl.l;
+                            this.colors = _colorChange(data, null, oldLightness || this.oldLightness);
+                        },
+                        handleChange: function handleChange(e, skip) {
+                            !skip && e.preventDefault();
+
+                            var container = this.$refs.container;
+                            var containerWidth = container.clientWidth;
+                            var containerHeight = container.clientHeight;
+
+                            var xOffset = container.getBoundingClientRect().left + window.pageXOffset;
+                            var pageX = e.pageX || (e.touches ? e.touches[0].pageX : 0);
+                            var left = pageX - xOffset;
+
+                            var l;
+                            var percent;
+
+                            if (left < 0) {
+                                l = 0;
+                            } else if (left > containerWidth) {
+                                l = 1;
+                            } else {
+                                percent = left / containerWidth;
+                                l = percent;
+                            }
+                            if (this.colors.hsl.l !== l) {
+                                this.colors.hsl.l = l;
+                                this.emitValue("change");
+                            }
+                        },
+                        handleMouseDown: function handleMouseDown(e) {
+                            this.showButton = true;
+                            this.mouseDown = true;
+                            this.handleChange(e, false);
+                            window.addEventListener("mousemove", this.handleChange);
+                            window.addEventListener("mouseup", this.handleMouseUp);
+                        },
+                        handleMouseUp: function handleMouseUp(e) {
+                            this.mouseDown = false;
+                            this.unbindEventListeners();
+                            this.emitValue("changemouseup");
+                        },
+                        unbindEventListeners: function unbindEventListeners() {
+                            window.removeEventListener("mousemove", this.handleChange);
+                            window.removeEventListener("mouseup", this.handleMouseUp);
+                        },
+                        emitValue: function emitValue(eventName) {
+                            this.$emit(eventName, {
+                                h: this.colors.hsl.h,
+                                s: this.colors.hsl.s,
+                                l: this.colors.hsl.l,
+                                a: this.colors.hsl.a,
+                                source: "hsl"
+                            });
+                        }
+                    }
+                };
+
+                /***/
+            }),
+            /* 8 */
+            /***/
+            (function(module, exports, __webpack_require__) {
+
+                "use strict";
+
+
+                var _Slider = __webpack_require__(9);
 
                 var _Slider2 = _interopRequireDefault(_Slider);
 
@@ -947,7 +1013,7 @@
 
                 /***/
             }),
-            /* 8 */
+            /* 9 */
             /***/
             (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -961,12 +1027,12 @@
                 for (var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Slider_vue__)
                     if (__WEBPACK_IMPORT_KEY__ !== 'default')(function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Slider_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
                     /* harmony import */
-                var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_2dedc691_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Slider_vue__ = __webpack_require__(16);
+                var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_2dedc691_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Slider_vue__ = __webpack_require__(21);
                 var disposed = false
 
                 function injectStyle(ssrContext) {
                     if (disposed) return
-                    __webpack_require__(9)
+                    __webpack_require__(10)
                 }
                 var normalizeComponent = __webpack_require__(2)
                     /* script */
@@ -1016,14 +1082,14 @@
 
                 /***/
             }),
-            /* 9 */
+            /* 10 */
             /***/
             (function(module, exports, __webpack_require__) {
 
                 // style-loader: Adds some css to the DOM by adding a <style> tag
 
                 // load the styles
-                var content = __webpack_require__(10);
+                var content = __webpack_require__(11);
                 if (typeof content === 'string') content = [
                     [module.i, content, '']
                 ];
@@ -1048,7 +1114,7 @@
 
                 /***/
             }),
-            /* 10 */
+            /* 11 */
             /***/
             (function(module, exports, __webpack_require__) {
 
@@ -1057,14 +1123,14 @@
 
 
                 // module
-                exports.push([module.i, "\n.vc-slider {\n  position: relative;\n  width: 100%;\n}\n.vc-slider-hue-warp {\n  height: 4px;\n  position: relative;\n}\n.vc-slider-swatches {\n  display: flex;\n  margin: 25px 0;\n}\n.vc-slider-swatch {\n  margin-right: 5px;\n  flex: 1;\n  width: 20%;\n}\n.vc-slider-swatch:first-child .vc-slider-swatch-picker {\n  border-radius: 2px 0px 0px 2px;\n}\n.vc-slider-swatch:last-child {\n  margin-right: 0;\n}\n.vc-slider-swatch:last-child .vc-slider-swatch-picker {\n  border-radius: 0px 2px 2px 0px;\n}\n.vc-slider-swatch-picker {\n  cursor: pointer;\n  height: 12px;\n}\n.vc-slider-swatch-picker--active {\n  transform: scaleY(1.8);\n  border-radius: 3.6px/2px;\n}\n.vc-slider-swatch-picker--white {\n  box-shadow: inset 0 0 0 1px #ddd;\n}\n.vc-slider-swatch-picker--active.vc-slider-swatch-picker--white {\n  box-shadow: inset 0 0 0 0.6px #ddd;\n}\n.slide-in-enter-active,\n.slide-in-leave-active {\n    transition: all .5s;\n}\n.slide-in-enter,\n.slide-in-leave-to {\n    opacity: 0;\n    margin:  0;\n    transform: translate3d(0, -1em, 0);\n}\n", ""]);
+                exports.push([module.i, "\n.vc-slider {\n  position: relative;\n  width: 100%;\n}\n.vc-slider-warp{\n  height: 8px;\n  margin: 20px;\n  position: relative;\n}\n.vc {\n  position: absolute;\n  top: 0px;\n  right: 0px;\n  bottom: 0px;\n  left: 0px;\n  opacity: 0.5;\n  border-radius: 8px;\n  transition: opacity 0.2s;\n}\n.vc.active,\n.vc:hover {\n  opacity: 1;\n}\n.vc-container {\n  cursor: pointer;\n  margin: 0 2px;\n  position: relative;\n  height: 100%;\n}\n.vc-pointer {\n  z-index: 2;\n  position: absolute;\n  top: 0;\n}\n.vc-picker, .vc-picker-touch{\n  border-radius: 16px;\n  border: 2px solid #5b5d5c;\n  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);\n  box-sizing: content-box;\n}\n.vc-picker {\n  width: 14px;\n  height: 14px;\n  transform: translate(-9px, -6px);\n}\n.vc-picker-touch {\n  pointer-events: none;\n  width: 26px;\n  height: 26px;\n  transform: translate(-15px, -55px);\n  position: absolute;\n  transition: opacity .2s ease-in-out;\n  opacity: 0;\n}\n.user-using-touch .vc-picker-touch.active{\n  opacity: 1;\n}\n", ""]);
 
                 // exports
 
 
                 /***/
             }),
-            /* 11 */
+            /* 12 */
             /***/
             (function(module, exports) {
 
@@ -1099,7 +1165,7 @@
 
                 /***/
             }),
-            /* 12 */
+            /* 13 */
             /***/
             (function(module, exports, __webpack_require__) {
 
@@ -2315,14 +2381,14 @@
 
                 /***/
             }),
-            /* 13 */
+            /* 14 */
             /***/
             (function(module, exports, __webpack_require__) {
 
                 // style-loader: Adds some css to the DOM by adding a <style> tag
 
                 // load the styles
-                var content = __webpack_require__(14);
+                var content = __webpack_require__(15);
                 if (typeof content === 'string') content = [
                     [module.i, content, '']
                 ];
@@ -2347,7 +2413,7 @@
 
                 /***/
             }),
-            /* 14 */
+            /* 15 */
             /***/
             (function(module, exports, __webpack_require__) {
 
@@ -2356,14 +2422,14 @@
 
 
                 // module
-                exports.push([module.i, "\n.vc-hue {\n  position: absolute;\n  top: 0px;\n  right: 0px;\n  bottom: 0px;\n  left: 0px;\n  opacity: 0.5;\n  border-radius: 2px;\n  background: linear-gradient(\n    to right,\n    #f00 0%,\n    #ff0 17%,\n    #0f0 33%,\n    #0ff 50%,\n    #00f 67%,\n    #f0f 83%,\n    #f00 100%\n  );\n  transition: opacity 0.2s;\n}\n.vc-hue.active,\n.vc-hue:hover {\n  opacity: 1;\n}\n.vc-hue-container {\n  cursor: pointer;\n  margin: 0 2px;\n  position: relative;\n  height: 100%;\n}\n.vc-hue-pointer {\n  z-index: 2;\n  position: absolute;\n  top: 0;\n}\n.vc-hue-picker {\n  width: 14px;\n  height: 14px;\n  border-radius: 16px;\n  border: 6px solid lightgray;\n  transform: translate(-7px, -12px);\n  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);\n  box-sizing: content-box;\n}\n", ""]);
+                exports.push([module.i, "\n.vc-hue {\n  background: linear-gradient(\n    to right,\n    #f00 0%,\n    #ff0 17%,\n    #0f0 33%,\n    #0ff 50%,\n    #00f 67%,\n    #f0f 83%,\n    #f00 100%\n  );\n}\n.vc-hue.active,\n.vc-hue:hover {\n  opacity: 1;\n}\n", ""]);
 
                 // exports
 
 
                 /***/
             }),
-            /* 15 */
+            /* 16 */
             /***/
             (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2373,11 +2439,11 @@
                     var _h = _vm.$createElement
                     var _c = _vm._self._c || _h
                     return _c(
-                        "div", { staticClass: "vc-hue", class: { active: _vm.showButton } }, [
+                        "div", { staticClass: "vc vc-hue", class: { active: _vm.showButton } }, [
                             _c(
                                 "div", {
                                     ref: "container",
-                                    staticClass: "vc-hue-container",
+                                    staticClass: "vc-container",
                                     attrs: {
                                         role: "slider",
                                         "aria-valuenow": _vm.colors.hsl.h,
@@ -2393,12 +2459,18 @@
                                     _vm.showButton ?
                                     _c(
                                         "div", {
-                                            staticClass: "vc-hue-pointer",
+                                            staticClass: "vc-pointer",
                                             style: { left: _vm.pointerLeft },
                                             attrs: { role: "presentation" }
                                         }, [
                                             _c("div", {
-                                                staticClass: "vc-hue-picker",
+                                                staticClass: "vc-picker-touch",
+                                                class: { active: _vm.mouseDown },
+                                                style: { backgroundColor: _vm.backgroundColor }
+                                            }),
+                                            _vm._v(" "),
+                                            _c("div", {
+                                                staticClass: "vc-picker",
                                                 style: { backgroundColor: _vm.backgroundColor }
                                             })
                                         ]
@@ -2423,7 +2495,201 @@
 
                 /***/
             }),
-            /* 16 */
+            /* 17 */
+            /***/
+            (function(module, __webpack_exports__, __webpack_require__) {
+
+                "use strict";
+                Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+                /* harmony import */
+                var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Lightness_vue__ = __webpack_require__(7);
+                /* harmony import */
+                var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Lightness_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Lightness_vue__);
+                /* harmony namespace reexport (unknown) */
+                for (var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Lightness_vue__)
+                    if (__WEBPACK_IMPORT_KEY__ !== 'default')(function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Lightness_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+                    /* harmony import */
+                var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1c0540b9_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Lightness_vue__ = __webpack_require__(20);
+                var disposed = false
+
+                function injectStyle(ssrContext) {
+                    if (disposed) return
+                    __webpack_require__(18)
+                }
+                var normalizeComponent = __webpack_require__(2)
+                    /* script */
+
+
+                /* template */
+
+                /* template functional */
+                var __vue_template_functional__ = false
+                    /* styles */
+                var __vue_styles__ = injectStyle
+                    /* scopeId */
+                var __vue_scopeId__ = "data-v-1c0540b9"
+                    /* moduleIdentifier (server only) */
+                var __vue_module_identifier__ = null
+                var Component = normalizeComponent(
+                    __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Lightness_vue___default.a,
+                    __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1c0540b9_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Lightness_vue__["a" /* default */ ],
+                    __vue_template_functional__,
+                    __vue_styles__,
+                    __vue_scopeId__,
+                    __vue_module_identifier__
+                )
+                Component.options.__file = "src/components/common/Lightness.vue"
+
+                /* hot reload */
+                if (false) {
+                    (function() {
+                        var hotAPI = require("vue-loader/node_modules/vue-hot-reload-api")
+                        hotAPI.install(require("vue"), false)
+                        if (!hotAPI.compatible) return
+                        module.hot.accept()
+                        if (!module.hot.data) {
+                            hotAPI.createRecord("data-v-1c0540b9", Component.options)
+                        } else {
+                            hotAPI.reload("data-v-1c0540b9", Component.options)
+                        }
+                        module.hot.dispose(function(data) {
+                            disposed = true
+                        })
+                    })()
+                }
+
+                /* harmony default export */
+                __webpack_exports__["default"] = (Component.exports);
+
+
+                /***/
+            }),
+            /* 18 */
+            /***/
+            (function(module, exports, __webpack_require__) {
+
+                // style-loader: Adds some css to the DOM by adding a <style> tag
+
+                // load the styles
+                var content = __webpack_require__(19);
+                if (typeof content === 'string') content = [
+                    [module.i, content, '']
+                ];
+                if (content.locals) module.exports = content.locals;
+                // add the styles to the DOM
+                var update = __webpack_require__(1)("7b1f837a", content, false, {});
+                // Hot Module Replacement
+                if (false) {
+                    // When the styles change, update the <style> tags
+                    if (!content.locals) {
+                        module.hot.accept("!!../../../node_modules/css-loader/index.js?{\"minimize\":false,\"sourceMap\":false}!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1c0540b9\",\"scoped\":true,\"hasInlineConfig\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Lightness.vue", function() {
+                            var newContent = require("!!../../../node_modules/css-loader/index.js?{\"minimize\":false,\"sourceMap\":false}!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1c0540b9\",\"scoped\":true,\"hasInlineConfig\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Lightness.vue");
+                            if (typeof newContent === 'string') newContent = [
+                                [module.id, newContent, '']
+                            ];
+                            update(newContent);
+                        });
+                    }
+                    // When the module is disposed, remove the <style> tags
+                    module.hot.dispose(function() { update(); });
+                }
+
+                /***/
+            }),
+            /* 19 */
+            /***/
+            (function(module, exports, __webpack_require__) {
+
+                exports = module.exports = __webpack_require__(0)(false);
+                // imports
+
+
+                // module
+                exports.push([module.i, "\n.vc-lightness[data-v-1c0540b9] {\n  opacity: 1;\n}\n", ""]);
+
+                // exports
+
+
+                /***/
+            }),
+            /* 20 */
+            /***/
+            (function(module, __webpack_exports__, __webpack_require__) {
+
+                "use strict";
+                var render = function() {
+                    var _vm = this
+                    var _h = _vm.$createElement
+                    var _c = _vm._self._c || _h
+                    return _c(
+                        "div", {
+                            staticClass: "vc vc-lightness",
+                            style: {
+                                background: "linear-gradient(to right, hsl(" +
+                                    _vm.colors.hsl.h +
+                                    ", 100%, 0%) 0%, hsl(" +
+                                    _vm.colors.hsl.h +
+                                    ", 100%, 50%) 50%, hsl(" +
+                                    _vm.colors.hsl.h +
+                                    ", 100%, 100%) 100%)"
+                            }
+                        }, [
+                            _c(
+                                "div", {
+                                    ref: "container",
+                                    staticClass: "vc-container",
+                                    attrs: {
+                                        role: "slider",
+                                        "aria-valuenow": _vm.colors.hsl.l,
+                                        "aria-valuemin": "0",
+                                        "aria-valuemax": "1"
+                                    },
+                                    on: {
+                                        mousedown: _vm.handleMouseDown,
+                                        touchmove: _vm.handleChange,
+                                        touchstart: _vm.handleChange
+                                    }
+                                }, [
+                                    _vm.showButton ?
+                                    _c(
+                                        "div", {
+                                            staticClass: "vc-pointer",
+                                            style: { left: _vm.pointerLeft },
+                                            attrs: { role: "presentation" }
+                                        }, [
+                                            _c("div", {
+                                                staticClass: "vc-picker-touch",
+                                                class: { active: _vm.mouseDown },
+                                                style: { backgroundColor: _vm.backgroundColor }
+                                            }),
+                                            _vm._v(" "),
+                                            _c("div", {
+                                                staticClass: "vc-picker",
+                                                style: { backgroundColor: _vm.backgroundColor }
+                                            })
+                                        ]
+                                    ) :
+                                    _vm._e()
+                                ]
+                            )
+                        ]
+                    )
+                }
+                var staticRenderFns = []
+                render._withStripped = true
+                var esExports = { render: render, staticRenderFns: staticRenderFns }
+                    /* harmony default export */
+                __webpack_exports__["a"] = (esExports);
+                if (false) {
+                    module.hot.accept()
+                    if (module.hot.data) {
+                        require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-1c0540b9", esExports)
+                    }
+                }
+
+                /***/
+            }),
+            /* 21 */
             /***/
             (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2438,10 +2704,10 @@
                             attrs: { role: "application", "aria-label": "Slider color picker" }
                         }, [
                             _c(
-                                "div", { staticClass: "vc-slider-hue-warp" }, [
+                                "div", { staticClass: "vc-slider-warp" }, [
                                     _c("hue", {
                                         attrs: { startEmpty: !_vm.value || !_vm.value.a },
-                                        on: { change: _vm.hueChange },
+                                        on: { change: _vm.hueChange, changemouseup: _vm.changeMouseUp },
                                         model: {
                                             value: _vm.colors,
                                             callback: function($$v) {
@@ -2455,46 +2721,21 @@
                             ),
                             _vm._v(" "),
                             _c(
-                                "div", { staticClass: "vc-slider-swatches", attrs: { role: "group" } },
-                                _vm._l(_vm.swatches, function(offset, index) {
-                                    return _c(
-                                        "div", {
-                                            key: index,
-                                            staticClass: "vc-slider-swatch",
-                                            attrs: {
-                                                "data-index": index,
-                                                "aria-label": "color:" + _vm.colors.hex,
-                                                role: "button"
+                                "div", { staticClass: "vc-slider-warp" }, [
+                                    _vm.value.a ?
+                                    _c("lightness", {
+                                        on: { change: _vm.hueChange, changemouseup: _vm.changeMouseUp },
+                                        model: {
+                                            value: _vm.colors,
+                                            callback: function($$v) {
+                                                _vm.colors = $$v
                                             },
-                                            on: {
-                                                click: function($event) {
-                                                    _vm.handleSwClick(index, offset)
-                                                }
-                                            }
-                                        }, [
-                                            _c("transition", { attrs: { name: "slide-in" } }, [
-                                                _vm.displaySwatches ?
-                                                _c("div", {
-                                                    staticClass: "vc-slider-swatch-picker",
-                                                    class: {
-                                                        "vc-slider-swatch-picker--active":
-                                                        offset == _vm.activeOffset,
-                                                            "vc-slider-swatch-picker--white": offset === "1"
-                                                    },
-                                                    style: {
-                                                        background: "hsl(" +
-                                                            _vm.colors.hsl.h +
-                                                            ", 50%, " +
-                                                            offset * 100 +
-                                                            "%)"
-                                                    }
-                                                }) :
-                                                _vm._e()
-                                            ])
-                                        ],
-                                        1
-                                    )
-                                })
+                                            expression: "colors"
+                                        }
+                                    }) :
+                                    _vm._e()
+                                ],
+                                1
                             )
                         ]
                     )
