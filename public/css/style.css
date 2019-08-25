@@ -8862,6 +8862,10 @@ label sup {
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
+.px-5 {
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+}
 @media (min-width: 768px) {
   .pl-sm-5 {
     padding-left: 3rem !important;
@@ -9266,4 +9270,9 @@ svg#map .cls-4.active {
 }
 .h-8rem {
   height: 8rem;
+}
+.related-works {
+  background: #f0f0f0;
+  margin: 0 -80px;
+  padding: 0 100px;
 }

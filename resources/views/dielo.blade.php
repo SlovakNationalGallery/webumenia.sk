@@ -271,12 +271,13 @@
                         @endif
                     </div>
 
-                    <div class="share">
+                    <!-- TODO update once when ready 
+                        <div class="share">
                         <div class="fb-like" data-href="{!! $item->getUrl() !!}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" style="height:20px; vertical-align: top;"></div> &nbsp;
                         <a href="https://twitter.com/share" class="twitter-share-button" style="float: right; text-align: right" >Tweet</a>
                         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
                         </script>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -285,7 +286,7 @@
 <section class="more-items content-section">
     <div class="container">
         @if (!empty($item->related_work))
-        <div class="row mb-5">
+        <div class="row mb-5 related-works">
             <div class="col-sm-12">
                 @if (!empty($item->related_work))
                 <h3 class="underlined-links mb-3">
@@ -321,7 +322,7 @@
                 </div>
                 <div class="isotope-container">
                     @php
-                        $artwork_grid_item_class_names = $colors_used ? 'col-xs-6' : 'col-xs-3';
+                        $artwork_grid_item_class_names = $colors_used ? 'col-xs-6 px-5' : 'col-xs-3 px-5';
                     @endphp                    
                     @foreach ($similar_items as $i=>$item)
                         @include('components.artwork_grid_item', [
@@ -345,7 +346,7 @@
                     @include('components.artwork_grid_item', [
                         'item' => $item, 
                         'isotope_item_selector_class' => 'item',
-                        'class_names' => 'col-xs-6',
+                        'class_names' => 'col-xs-6 px-5',
                         'hide_zoom' => true,
                         'hide_dating' => true
                     ])
