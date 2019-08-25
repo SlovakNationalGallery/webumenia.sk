@@ -1,2759 +1,389 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-    if (typeof exports === 'object' && typeof module === 'object')
-        module.exports = factory();
-    else if (typeof define === 'function' && define.amd)
-        define([], factory);
-    else if (typeof exports === 'object')
-        exports["VueColor"] = factory();
-    else
-        root["VueColor"] = factory();
-})(typeof self !== 'undefined' ? self : this, function() {
-    return /******/ (function(modules) { // webpackBootstrap
-            /******/ // The module cache
-            /******/
-            var installedModules = {};
-            /******/
-            /******/ // The require function
-            /******/
-            function __webpack_require__(moduleId) {
-                /******/
-                /******/ // Check if module is in cache
-                /******/
-                if (installedModules[moduleId]) {
-                    /******/
-                    return installedModules[moduleId].exports;
-                    /******/
-                }
-                /******/ // Create a new module (and put it into the cache)
-                /******/
-                var module = installedModules[moduleId] = {
-                    /******/
-                    i: moduleId,
-                    /******/
-                    l: false,
-                    /******/
-                    exports: {}
-                    /******/
-                };
-                /******/
-                /******/ // Execute the module function
-                /******/
-                modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-                /******/
-                /******/ // Flag the module as loaded
-                /******/
-                module.l = true;
-                /******/
-                /******/ // Return the exports of the module
-                /******/
-                return module.exports;
-                /******/
-            }
-            /******/
-            /******/
-            /******/ // expose the modules object (__webpack_modules__)
-            /******/
-            __webpack_require__.m = modules;
-            /******/
-            /******/ // expose the module cache
-            /******/
-            __webpack_require__.c = installedModules;
-            /******/
-            /******/ // define getter function for harmony exports
-            /******/
-            __webpack_require__.d = function(exports, name, getter) {
-                /******/
-                if (!__webpack_require__.o(exports, name)) {
-                    /******/
-                    Object.defineProperty(exports, name, {
-                        /******/
-                        configurable: false,
-                        /******/
-                        enumerable: true,
-                        /******/
-                        get: getter
-                            /******/
-                    });
-                    /******/
-                }
-                /******/
-            };
-            /******/
-            /******/ // getDefaultExport function for compatibility with non-harmony modules
-            /******/
-            __webpack_require__.n = function(module) {
-                /******/
-                var getter = module && module.__esModule ?
-                    /******/
-                    function getDefault() { return module['default']; } :
-                    /******/
-                    function getModuleExports() { return module; };
-                /******/
-                __webpack_require__.d(getter, 'a', getter);
-                /******/
-                return getter;
-                /******/
-            };
-            /******/
-            /******/ // Object.prototype.hasOwnProperty.call
-            /******/
-            __webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-            /******/
-            /******/ // __webpack_public_path__
-            /******/
-            __webpack_require__.p = "";
-            /******/
-            /******/ // Load entry module and return exports
-            /******/
-            return __webpack_require__(__webpack_require__.s = 8);
-            /******/
-        })
-        /************************************************************************/
-        /******/
-        ([
-            /* 0 */
-            /***/
-            (function(module, exports) {
-
-                /*
-                	MIT License http://www.opensource.org/licenses/mit-license.php
-                	Author Tobias Koppers @sokra
-                */
-                // css base code, injected by the css-loader
-                module.exports = function(useSourceMap) {
-                    var list = [];
-
-                    // return the list of modules as css string
-                    list.toString = function toString() {
-                        return this.map(function(item) {
-                            var content = cssWithMappingToString(item, useSourceMap);
-                            if (item[2]) {
-                                return "@media " + item[2] + "{" + content + "}";
-                            } else {
-                                return content;
-                            }
-                        }).join("");
-                    };
-
-                    // import a list of modules into the list
-                    list.i = function(modules, mediaQuery) {
-                        if (typeof modules === "string")
-                            modules = [
-                                [null, modules, ""]
-                            ];
-                        var alreadyImportedModules = {};
-                        for (var i = 0; i < this.length; i++) {
-                            var id = this[i][0];
-                            if (typeof id === "number")
-                                alreadyImportedModules[id] = true;
-                        }
-                        for (i = 0; i < modules.length; i++) {
-                            var item = modules[i];
-                            // skip already imported module
-                            // this implementation is not 100% perfect for weird media query combinations
-                            //  when a module is imported multiple times with different media queries.
-                            //  I hope this will never occur (Hey this way we have smaller bundles)
-                            if (typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-                                if (mediaQuery && !item[2]) {
-                                    item[2] = mediaQuery;
-                                } else if (mediaQuery) {
-                                    item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-                                }
-                                list.push(item);
-                            }
-                        }
-                    };
-                    return list;
-                };
-
-                function cssWithMappingToString(item, useSourceMap) {
-                    var content = item[1] || '';
-                    var cssMapping = item[3];
-                    if (!cssMapping) {
-                        return content;
-                    }
-
-                    if (useSourceMap && typeof btoa === 'function') {
-                        var sourceMapping = toComment(cssMapping);
-                        var sourceURLs = cssMapping.sources.map(function(source) {
-                            return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
-                        });
-
-                        return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-                    }
-
-                    return [content].join('\n');
-                }
-
-                // Adapted from convert-source-map (MIT)
-                function toComment(sourceMap) {
-                    // eslint-disable-next-line no-undef
-                    var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-                    var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
-
-                    return '/*# ' + data + ' */';
-                }
-
-
-                /***/
-            }),
-            /* 1 */
-            /***/
-            (function(module, exports, __webpack_require__) {
-
-                /*
-                  MIT License http://www.opensource.org/licenses/mit-license.php
-                  Author Tobias Koppers @sokra
-                  Modified by Evan You @yyx990803
-                */
-
-                var hasDocument = typeof document !== 'undefined'
-
-                if (typeof DEBUG !== 'undefined' && DEBUG) {
-                    if (!hasDocument) {
-                        throw new Error(
-                            'vue-style-loader cannot be used in a non-browser environment. ' +
-                            "Use { target: 'node' } in your Webpack config to indicate a server-rendering environment."
-                        )
-                    }
-                }
-
-                var listToStyles = __webpack_require__(12)
-
-                /*
-                type StyleObject = {
-                  id: number;
-                  parts: Array<StyleObjectPart>
-                }
-
-                type StyleObjectPart = {
-                  css: string;
-                  media: string;
-                  sourceMap: ?string
-                }
-                */
-
-                var stylesInDom = {
-                    /*
-                      [id: number]: {
-                        id: number,
-                        refs: number,
-                        parts: Array<(obj?: StyleObjectPart) => void>
-                      }
-                    */
-                }
-
-                var head = hasDocument && (document.head || document.getElementsByTagName('head')[0])
-                var singletonElement = null
-                var singletonCounter = 0
-                var isProduction = false
-                var noop = function() {}
-                var options = null
-                var ssrIdKey = 'data-vue-ssr-id'
-
-                // Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-                // tags it will allow on a page
-                var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\b/.test(navigator.userAgent.toLowerCase())
-
-                module.exports = function(parentId, list, _isProduction, _options) {
-                    isProduction = _isProduction
-
-                    options = _options || {}
-
-                    var styles = listToStyles(parentId, list)
-                    addStylesToDom(styles)
-
-                    return function update(newList) {
-                        var mayRemove = []
-                        for (var i = 0; i < styles.length; i++) {
-                            var item = styles[i]
-                            var domStyle = stylesInDom[item.id]
-                            domStyle.refs--
-                                mayRemove.push(domStyle)
-                        }
-                        if (newList) {
-                            styles = listToStyles(parentId, newList)
-                            addStylesToDom(styles)
-                        } else {
-                            styles = []
-                        }
-                        for (var i = 0; i < mayRemove.length; i++) {
-                            var domStyle = mayRemove[i]
-                            if (domStyle.refs === 0) {
-                                for (var j = 0; j < domStyle.parts.length; j++) {
-                                    domStyle.parts[j]()
-                                }
-                                delete stylesInDom[domStyle.id]
-                            }
-                        }
-                    }
-                }
-
-                function addStylesToDom(styles /* Array<StyleObject> */ ) {
-                    for (var i = 0; i < styles.length; i++) {
-                        var item = styles[i]
-                        var domStyle = stylesInDom[item.id]
-                        if (domStyle) {
-                            domStyle.refs++
-                                for (var j = 0; j < domStyle.parts.length; j++) {
-                                    domStyle.parts[j](item.parts[j])
-                                }
-                            for (; j < item.parts.length; j++) {
-                                domStyle.parts.push(addStyle(item.parts[j]))
-                            }
-                            if (domStyle.parts.length > item.parts.length) {
-                                domStyle.parts.length = item.parts.length
-                            }
-                        } else {
-                            var parts = []
-                            for (var j = 0; j < item.parts.length; j++) {
-                                parts.push(addStyle(item.parts[j]))
-                            }
-                            stylesInDom[item.id] = { id: item.id, refs: 1, parts: parts }
-                        }
-                    }
-                }
-
-                function createStyleElement() {
-                    var styleElement = document.createElement('style')
-                    styleElement.type = 'text/css'
-                    head.appendChild(styleElement)
-                    return styleElement
-                }
-
-                function addStyle(obj /* StyleObjectPart */ ) {
-                    var update, remove
-                    var styleElement = document.querySelector('style[' + ssrIdKey + '~="' + obj.id + '"]')
-
-                    if (styleElement) {
-                        if (isProduction) {
-                            // has SSR styles and in production mode.
-                            // simply do nothing.
-                            return noop
-                        } else {
-                            // has SSR styles but in dev mode.
-                            // for some reason Chrome can't handle source map in server-rendered
-                            // style tags - source maps in <style> only works if the style tag is
-                            // created and inserted dynamically. So we remove the server rendered
-                            // styles and inject new ones.
-                            styleElement.parentNode.removeChild(styleElement)
-                        }
-                    }
-
-                    if (isOldIE) {
-                        // use singleton mode for IE9.
-                        var styleIndex = singletonCounter++
-                            styleElement = singletonElement || (singletonElement = createStyleElement())
-                        update = applyToSingletonTag.bind(null, styleElement, styleIndex, false)
-                        remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true)
-                    } else {
-                        // use multi-style-tag mode in all other cases
-                        styleElement = createStyleElement()
-                        update = applyToTag.bind(null, styleElement)
-                        remove = function() {
-                            styleElement.parentNode.removeChild(styleElement)
-                        }
-                    }
-
-                    update(obj)
-
-                    return function updateStyle(newObj /* StyleObjectPart */ ) {
-                        if (newObj) {
-                            if (newObj.css === obj.css &&
-                                newObj.media === obj.media &&
-                                newObj.sourceMap === obj.sourceMap) {
-                                return
-                            }
-                            update(obj = newObj)
-                        } else {
-                            remove()
-                        }
-                    }
-                }
-
-                var replaceText = (function() {
-                    var textStore = []
-
-                    return function(index, replacement) {
-                        textStore[index] = replacement
-                        return textStore.filter(Boolean).join('\n')
-                    }
-                })()
-
-                function applyToSingletonTag(styleElement, index, remove, obj) {
-                    var css = remove ? '' : obj.css
-
-                    if (styleElement.styleSheet) {
-                        styleElement.styleSheet.cssText = replaceText(index, css)
-                    } else {
-                        var cssNode = document.createTextNode(css)
-                        var childNodes = styleElement.childNodes
-                        if (childNodes[index]) styleElement.removeChild(childNodes[index])
-                        if (childNodes.length) {
-                            styleElement.insertBefore(cssNode, childNodes[index])
-                        } else {
-                            styleElement.appendChild(cssNode)
-                        }
-                    }
-                }
-
-                function applyToTag(styleElement, obj) {
-                    var css = obj.css
-                    var media = obj.media
-                    var sourceMap = obj.sourceMap
-
-                    if (media) {
-                        styleElement.setAttribute('media', media)
-                    }
-                    if (options.ssrId) {
-                        styleElement.setAttribute(ssrIdKey, obj.id)
-                    }
-
-                    if (sourceMap) {
-                        // https://developer.chrome.com/devtools/docs/javascript-debugging
-                        // this makes source maps inside style tags work properly in Chrome
-                        css += '\n/*# sourceURL=' + sourceMap.sources[0] + ' */'
-                            // http://stackoverflow.com/a/26603875
-                        css += '\n/*# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + ' */'
-                    }
-
-                    if (styleElement.styleSheet) {
-                        styleElement.styleSheet.cssText = css
-                    } else {
-                        while (styleElement.firstChild) {
-                            styleElement.removeChild(styleElement.firstChild)
-                        }
-                        styleElement.appendChild(document.createTextNode(css))
-                    }
-                }
-
-
-                /***/
-            }),
-            /* 2 */
-            /***/
-            (function(module, exports) {
-
-                /* globals __VUE_SSR_CONTEXT__ */
-
-                // IMPORTANT: Do NOT use ES2015 features in this file.
-                // This module is a runtime utility for cleaner component module output and will
-                // be included in the final webpack user bundle.
-
-                module.exports = function normalizeComponent(
-                    rawScriptExports,
-                    compiledTemplate,
-                    functionalTemplate,
-                    injectStyles,
-                    scopeId,
-                    moduleIdentifier /* server only */
-                ) {
-                    var esModule
-                    var scriptExports = rawScriptExports = rawScriptExports || {}
-
-                    // ES6 modules interop
-                    var type = typeof rawScriptExports.default
-                    if (type === 'object' || type === 'function') {
-                        esModule = rawScriptExports
-                        scriptExports = rawScriptExports.default
-                    }
-
-                    // Vue.extend constructor export interop
-                    var options = typeof scriptExports === 'function' ?
-                        scriptExports.options :
-                        scriptExports
-
-                    // render functions
-                    if (compiledTemplate) {
-                        options.render = compiledTemplate.render
-                        options.staticRenderFns = compiledTemplate.staticRenderFns
-                        options._compiled = true
-                    }
-
-                    // functional template
-                    if (functionalTemplate) {
-                        options.functional = true
-                    }
-
-                    // scopedId
-                    if (scopeId) {
-                        options._scopeId = scopeId
-                    }
-
-                    var hook
-                    if (moduleIdentifier) { // server build
-                        hook = function(context) {
-                                // 2.3 injection
-                                context =
-                                    context || // cached call
-                                    (this.$vnode && this.$vnode.ssrContext) || // stateful
-                                    (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-                                    // 2.2 with runInNewContext: true
-                                if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-                                    context = __VUE_SSR_CONTEXT__
-                                }
-                                // inject component styles
-                                if (injectStyles) {
-                                    injectStyles.call(this, context)
-                                }
-                                // register component module identifier for async chunk inferrence
-                                if (context && context._registeredComponents) {
-                                    context._registeredComponents.add(moduleIdentifier)
-                                }
-                            }
-                            // used by ssr in case component is cached and beforeCreate
-                            // never gets called
-                        options._ssrRegister = hook
-                    } else if (injectStyles) {
-                        hook = injectStyles
-                    }
-
-                    if (hook) {
-                        var functional = options.functional
-                        var existing = functional ?
-                            options.render :
-                            options.beforeCreate
-
-                        if (!functional) {
-                            // inject component registration as beforeCreate hook
-                            options.beforeCreate = existing ?
-                                [].concat(existing, hook) :
-                                [hook]
-                        } else {
-                            // for template-only hot-reload because in that case the render fn doesn't
-                            // go through the normalizer
-                            options._injectStyles = hook
-                                // register for functioal component in vue file
-                            options.render = function renderWithStyleInjection(h, context) {
-                                hook.call(context)
-                                return existing(h, context)
-                            }
-                        }
-                    }
-
-                    return {
-                        esModule: esModule,
-                        exports: scriptExports,
-                        options: options
-                    }
-                }
-
-
-                /***/
-            }),
-            /* 3 */
-            /***/
-            (function(module, exports, __webpack_require__) {
-
-                "use strict";
-
-
-                Object.defineProperty(exports, "__esModule", {
-                    value: true
-                });
-
-                var _color = __webpack_require__(4);
-
-                var _color2 = _interopRequireDefault(_color);
-
-                var _Hue = __webpack_require__(5);
-
-                var _Hue2 = _interopRequireDefault(_Hue);
-
-                var _Lightness = __webpack_require__(17);
-
-                var _Lightness2 = _interopRequireDefault(_Lightness);
-
-                function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-                exports.default = {
-                    name: "Slider",
-                    mixins: [_color2.default],
-                    components: {
-                        hue: _Hue2.default,
-                        lightness: _Lightness2.default
-                    },
-                    methods: {
-                        hueChange: function hueChange(data) {
-                            this.displaySwatches = true;
-                            this.colorChange(data);
-                        },
-                        changeMouseUp: function changeMouseUp(v) {
-                            this.$emit('changemouseup', this.value);
-                        }
-                    }
-                };
-
-                /***/
-            }),
-            /* 4 */
-            /***/
-            (function(module, exports, __webpack_require__) {
-
-                "use strict";
-
-
-                Object.defineProperty(exports, "__esModule", {
-                    value: true
-                });
-
-                var _tinycolor = __webpack_require__(13);
-
-                var _tinycolor2 = _interopRequireDefault(_tinycolor);
-
-                function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-                function _colorChange(data, oldHue, oldLightness) {
-                    var alpha = data && data.a;
-                    var color;
-
-                    if (data && data.hsl) {
-                        color = (0, _tinycolor2.default)(data.hsl);
-                    } else if (data && data.hex && data.hex.length > 0) {
-                        color = (0, _tinycolor2.default)(data.hex);
-                    } else {
-                        color = (0, _tinycolor2.default)(data);
-                    }
-
-                    if (color && (color._a === undefined || color._a === null)) {
-                        color.setAlpha(alpha || 1);
-                    }
-
-                    var hsl = color.toHsl();
-                    var hsv = color.toHsv();
-
-                    if (hsl.s === 0) {
-                        hsv.h = hsl.h = data.h || data.hsl && data.hsl.h || oldHue || 0;
-                    }
-                    if (!color._ok) {
-                        hsv.s = hsl.s = 100;
-                        hsv.v = hsl.l = 50;
-                    }
-
-                    return {
-                        hsl: hsl,
-                        hex: color.toHexString().toUpperCase(),
-                        hex8: color.toHex8String().toUpperCase(),
-                        rgba: color.toRgb(),
-                        hsv: hsv,
-                        oldHue: data.h || oldHue || hsl.h,
-                        oldLightness: data.l || oldLightness || hsl.l,
-                        source: data.source,
-                        a: data.a || color.getAlpha()
-                    };
-                }
-
-                exports.default = {
-                    props: ['value'],
-                    data: function data() {
-                        return {
-                            val: _colorChange(this.value)
-                        };
-                    },
-
-                    computed: {
-                        colors: {
-                            get: function get() {
-                                return this.val;
-                            },
-                            set: function set(newVal) {
-                                this.val = newVal;
-                                this.$emit('input', newVal);
-                            }
-                        }
-                    },
-                    watch: {
-                        value: function value(newVal) {
-                            this.val = _colorChange(newVal);
-                        }
-                    },
-                    methods: {
-                        colorChange: function colorChange(data, oldHue) {
-                            this.oldHue = this.colors.hsl.h;
-                            this.colors = _colorChange(data, oldHue || this.oldHue);
-                        },
-                        isValidHex: function isValidHex(hex) {
-                            return (0, _tinycolor2.default)(hex).isValid();
-                        },
-                        simpleCheckForValidColor: function simpleCheckForValidColor(data) {
-                            var keysToCheck = ['r', 'g', 'b', 'a', 'h', 's', 'l', 'v'];
-                            var checked = 0;
-                            var passed = 0;
-
-                            for (var i = 0; i < keysToCheck.length; i++) {
-                                var letter = keysToCheck[i];
-                                if (data[letter]) {
-                                    checked++;
-                                    if (!isNaN(data[letter])) {
-                                        passed++;
-                                    }
-                                }
-                            }
-
-                            if (checked === passed) {
-                                return data;
-                            }
-                        }
-                    }
-                };
-
-                /***/
-            }),
-            /* 5 */
-            /***/
-            (function(module, __webpack_exports__, __webpack_require__) {
-
-                "use strict";
-                Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-                /* harmony import */
-                var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Hue_vue__ = __webpack_require__(6);
-                /* harmony import */
-                var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Hue_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Hue_vue__);
-                /* harmony namespace reexport (unknown) */
-                for (var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Hue_vue__)
-                    if (__WEBPACK_IMPORT_KEY__ !== 'default')(function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Hue_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-                    /* harmony import */
-                var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_7b9aea78_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Hue_vue__ = __webpack_require__(16);
-                var disposed = false
-
-                function injectStyle(ssrContext) {
-                    if (disposed) return
-                    __webpack_require__(14)
-                }
-                var normalizeComponent = __webpack_require__(2)
-                    /* script */
-
-
-                /* template */
-
-                /* template functional */
-                var __vue_template_functional__ = false
-                    /* styles */
-                var __vue_styles__ = injectStyle
-                    /* scopeId */
-                var __vue_scopeId__ = null
-                    /* moduleIdentifier (server only) */
-                var __vue_module_identifier__ = null
-                var Component = normalizeComponent(
-                    __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Hue_vue___default.a,
-                    __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_7b9aea78_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Hue_vue__["a" /* default */ ],
-                    __vue_template_functional__,
-                    __vue_styles__,
-                    __vue_scopeId__,
-                    __vue_module_identifier__
-                )
-                Component.options.__file = "src/components/common/Hue.vue"
-
-                /* hot reload */
-                if (false) {
-                    (function() {
-                        var hotAPI = require("vue-loader/node_modules/vue-hot-reload-api")
-                        hotAPI.install(require("vue"), false)
-                        if (!hotAPI.compatible) return
-                        module.hot.accept()
-                        if (!module.hot.data) {
-                            hotAPI.createRecord("data-v-7b9aea78", Component.options)
-                        } else {
-                            hotAPI.reload("data-v-7b9aea78", Component.options)
-                        }
-                        module.hot.dispose(function(data) {
-                            disposed = true
-                        })
-                    })()
-                }
-
-                /* harmony default export */
-                __webpack_exports__["default"] = (Component.exports);
-
-
-                /***/
-            }),
-            /* 6 */
-            /***/
-            (function(module, exports, __webpack_require__) {
-
-                "use strict";
-
-
-                Object.defineProperty(exports, "__esModule", {
-                    value: true
-                });
-                exports.default = {
-                    name: "Hue",
-                    props: {
-                        value: Object,
-                        startEmpty: {
-                            type: Boolean,
-                            default: true
-                        }
-                    },
-                    data: function data() {
-                        return {
-                            oldHue: 0,
-                            pullDirection: "",
-                            showButton: false || !this.startEmpty,
-                            mouseDown: false
-                        };
-                    },
-
-                    computed: {
-                        colors: function colors() {
-                            var h = this.value.hsl.h;
-                            if (h !== 0 && h - this.oldHue > 0) this.pullDirection = "right";
-                            if (h !== 0 && h - this.oldHue < 0) this.pullDirection = "left";
-                            this.oldHue = h;
-
-                            return this.value;
-                        },
-                        backgroundColor: function backgroundColor() {
-                            return "hsl(" + this.oldHue + ", 100%, 50%)";
-                        },
-                        pointerLeft: function pointerLeft() {
-                            if (this.colors.hsl.h === 0 && this.pullDirection === "right") return "100%";
-                            return this.colors.hsl.h * 100 / 360 + "%";
-                        }
-                    },
-                    methods: {
-                        handleChange: function handleChange(e, skip) {
-                            !skip && e.preventDefault();
-
-                            var container = this.$refs.container;
-                            var containerWidth = container.clientWidth;
-                            var containerHeight = container.clientHeight;
-
-                            var xOffset = container.getBoundingClientRect().left + window.pageXOffset;
-                            var pageX = e.pageX || (e.touches ? e.touches[0].pageX : 0);
-                            var left = pageX - xOffset;
-
-                            var h;
-                            var percent;
-
-                            if (left < 0) {
-                                h = 0;
-                            } else if (left > containerWidth) {
-                                h = 360;
-                            } else {
-                                percent = left * 100 / containerWidth;
-                                h = 360 * percent / 100;
-                            }
-
-                            if (this.colors.hsl.h !== h) {
-                                this.emitValue("change", h);
-                            }
-                        },
-                        handleMouseDown: function handleMouseDown(e) {
-                            this.showButton = true;
-                            this.mouseDown = true;
-                            this.handleChange(e, false);
-                            window.addEventListener("mousemove", this.handleChange);
-                            window.addEventListener("mouseup", this.handleMouseUp);
-                            window.addEventListener("mouseout", this.handleMouseOut);
-                        },
-                        handleMouseUp: function handleMouseUp(e) {
-                            this.mouseDown = false;
-                            this.unbindEventListeners();
-                            this.emitValue("changemouseup");
-                        },
-                        handleMouseOut: function handleMouseOut(e) {
-                            if (e.target.tagName == "HTML") {
-                                this.unbindEventListeners();
-                            }
-                        },
-                        unbindEventListeners: function unbindEventListeners() {
-                            window.removeEventListener("mousemove", this.handleChange);
-                            window.removeEventListener("mouseup", this.handleMouseUp);
-                            window.addEventListener("mouseout", this.handleMouseOut);
-                        },
-                        emitValue: function emitValue(eventName, h) {
-                            this.$emit(eventName, {
-                                h: h || this.colors.hsl.h || 0,
-                                s: this.colors.hsl.s,
-                                l: this.colors.hsl.l,
-                                a: this.colors.hsl.a,
-                                source: "hsl"
-                            });
-                        }
-                    }
-                };
-
-                /***/
-            }),
-            /* 7 */
-            /***/
-            (function(module, exports, __webpack_require__) {
-
-                "use strict";
-
-
-                Object.defineProperty(exports, "__esModule", {
-                    value: true
-                });
-                exports.default = {
-                    name: "Lightness",
-                    props: {
-                        value: Object
-                    },
-                    data: function data() {
-                        return {
-                            oldLightness: 0,
-                            pullDirection: "",
-                            showButton: false || !this.startEmpty,
-                            mouseDown: false
-                        };
-                    },
-
-                    computed: {
-                        colors: function colors() {
-                            var l = this.value.hsl.l;
-                            if (l !== 0 && l - this.oldLightness > 0) this.pullDirection = "right";
-                            if (l !== 0 && l - this.oldLightness < 0) this.pullDirection = "left";
-                            this.oldLightness = l;
-
-                            return this.value;
-                        },
-                        backgroundColor: function backgroundColor() {
-                            return "hsl(" + this.value.hsl.h + ", 100%," + this.value.hsl.l * 100 + "%)";
-                        },
-                        pointerLeft: function pointerLeft() {
-                            if (this.colors.hsl.l === 0 && this.pullDirection === "right") return "100%";
-                            return this.colors.hsl.l * 100 + "%";
-                        }
-                    },
-                    methods: {
-                        colorChange: function colorChange(data, oldLightness) {
-                            this.oldLightness = this.colors.hsl.l;
-                            this.colors = _colorChange(data, null, oldLightness || this.oldLightness);
-                        },
-                        handleChange: function handleChange(e, skip) {
-                            !skip && e.preventDefault();
-
-                            var container = this.$refs.container;
-                            var containerWidth = container.clientWidth;
-                            var containerHeight = container.clientHeight;
-
-                            var xOffset = container.getBoundingClientRect().left + window.pageXOffset;
-                            var pageX = e.pageX || (e.touches ? e.touches[0].pageX : 0);
-                            var left = pageX - xOffset;
-
-                            var l;
-                            var percent;
-
-                            if (left < 0) {
-                                l = 0;
-                            } else if (left > containerWidth) {
-                                l = 1;
-                            } else {
-                                percent = left / containerWidth;
-                                l = percent;
-                            }
-                            if (this.colors.hsl.l !== l) {
-                                this.colors.hsl.l = l;
-                                this.emitValue("change");
-                            }
-                        },
-                        handleMouseDown: function handleMouseDown(e) {
-                            this.showButton = true;
-                            this.mouseDown = true;
-                            this.handleChange(e, false);
-                            window.addEventListener("mousemove", this.handleChange);
-                            window.addEventListener("mouseup", this.handleMouseUp);
-                        },
-                        handleMouseUp: function handleMouseUp(e) {
-                            this.mouseDown = false;
-                            this.unbindEventListeners();
-                            this.emitValue("changemouseup");
-                        },
-                        unbindEventListeners: function unbindEventListeners() {
-                            window.removeEventListener("mousemove", this.handleChange);
-                            window.removeEventListener("mouseup", this.handleMouseUp);
-                        },
-                        emitValue: function emitValue(eventName) {
-                            this.$emit(eventName, {
-                                h: this.colors.hsl.h,
-                                s: this.colors.hsl.s,
-                                l: this.colors.hsl.l,
-                                a: this.colors.hsl.a,
-                                source: "hsl"
-                            });
-                        }
-                    }
-                };
-
-                /***/
-            }),
-            /* 8 */
-            /***/
-            (function(module, exports, __webpack_require__) {
-
-                "use strict";
-
-
-                var _Slider = __webpack_require__(9);
-
-                var _Slider2 = _interopRequireDefault(_Slider);
-
-                var _Hue = __webpack_require__(5);
-
-                var _Hue2 = _interopRequireDefault(_Hue);
-
-                var _color = __webpack_require__(4);
-
-                var _color2 = _interopRequireDefault(_color);
-
-                function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-                var VueColor = {
-                    version: '2.7.0',
-                    Slider: _Slider2.default,
-                    Hue: _Hue2.default,
-                    ColorMixin: _color2.default
-                };
-
-                module.exports = VueColor;
-
-                /***/
-            }),
-            /* 9 */
-            /***/
-            (function(module, __webpack_exports__, __webpack_require__) {
-
-                "use strict";
-                Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-                /* harmony import */
-                var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Slider_vue__ = __webpack_require__(3);
-                /* harmony import */
-                var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Slider_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Slider_vue__);
-                /* harmony namespace reexport (unknown) */
-                for (var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Slider_vue__)
-                    if (__WEBPACK_IMPORT_KEY__ !== 'default')(function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Slider_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-                    /* harmony import */
-                var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_2dedc691_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Slider_vue__ = __webpack_require__(21);
-                var disposed = false
-
-                function injectStyle(ssrContext) {
-                    if (disposed) return
-                    __webpack_require__(10)
-                }
-                var normalizeComponent = __webpack_require__(2)
-                    /* script */
-
-
-                /* template */
-
-                /* template functional */
-                var __vue_template_functional__ = false
-                    /* styles */
-                var __vue_styles__ = injectStyle
-                    /* scopeId */
-                var __vue_scopeId__ = null
-                    /* moduleIdentifier (server only) */
-                var __vue_module_identifier__ = null
-                var Component = normalizeComponent(
-                    __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Slider_vue___default.a,
-                    __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_2dedc691_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Slider_vue__["a" /* default */ ],
-                    __vue_template_functional__,
-                    __vue_styles__,
-                    __vue_scopeId__,
-                    __vue_module_identifier__
-                )
-                Component.options.__file = "src/components/Slider.vue"
-
-                /* hot reload */
-                if (false) {
-                    (function() {
-                        var hotAPI = require("vue-loader/node_modules/vue-hot-reload-api")
-                        hotAPI.install(require("vue"), false)
-                        if (!hotAPI.compatible) return
-                        module.hot.accept()
-                        if (!module.hot.data) {
-                            hotAPI.createRecord("data-v-2dedc691", Component.options)
-                        } else {
-                            hotAPI.reload("data-v-2dedc691", Component.options)
-                        }
-                        module.hot.dispose(function(data) {
-                            disposed = true
-                        })
-                    })()
-                }
-
-                /* harmony default export */
-                __webpack_exports__["default"] = (Component.exports);
-
-
-                /***/
-            }),
-            /* 10 */
-            /***/
-            (function(module, exports, __webpack_require__) {
-
-                // style-loader: Adds some css to the DOM by adding a <style> tag
-
-                // load the styles
-                var content = __webpack_require__(11);
-                if (typeof content === 'string') content = [
-                    [module.i, content, '']
-                ];
-                if (content.locals) module.exports = content.locals;
-                // add the styles to the DOM
-                var update = __webpack_require__(1)("7982aa43", content, false, {});
-                // Hot Module Replacement
-                if (false) {
-                    // When the styles change, update the <style> tags
-                    if (!content.locals) {
-                        module.hot.accept("!!../../node_modules/css-loader/index.js?{\"minimize\":false,\"sourceMap\":false}!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2dedc691\",\"scoped\":false,\"hasInlineConfig\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Slider.vue", function() {
-                            var newContent = require("!!../../node_modules/css-loader/index.js?{\"minimize\":false,\"sourceMap\":false}!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-2dedc691\",\"scoped\":false,\"hasInlineConfig\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Slider.vue");
-                            if (typeof newContent === 'string') newContent = [
-                                [module.id, newContent, '']
-                            ];
-                            update(newContent);
-                        });
-                    }
-                    // When the module is disposed, remove the <style> tags
-                    module.hot.dispose(function() { update(); });
-                }
-
-                /***/
-            }),
-            /* 11 */
-            /***/
-            (function(module, exports, __webpack_require__) {
-
-                exports = module.exports = __webpack_require__(0)(false);
-                // imports
-
-
-                // module
-                exports.push([module.i, "\n.vc-slider {\n  position: relative;\n  width: 100%;\n}\n.vc-slider-warp{\n  height: 8px;\n  margin: 20px;\n  position: relative;\n}\n.vc {\n  position: absolute;\n  top: 0px;\n  right: 0px;\n  bottom: 0px;\n  left: 0px;\n  opacity: 0.5;\n  border-radius: 8px;\n  transition: opacity 0.2s;\n}\n.vc.active,\n.vc:hover {\n  opacity: 1;\n}\n.vc-container {\n  cursor: pointer;\n  margin: 0 2px;\n  position: relative;\n  height: 100%;\n}\n.vc-pointer {\n  z-index: 2;\n  position: absolute;\n  top: 0;\n}\n.vc-picker, .vc-picker-touch{\n  border-radius: 16px;\n  border: 2px solid #5b5d5c;\n  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);\n  box-sizing: content-box;\n}\n.vc-picker {\n  width: 14px;\n  height: 14px;\n  transform: translate(-9px, -6px);\n}\n.vc-picker-touch {\n  pointer-events: none;\n  width: 26px;\n  height: 26px;\n  transform: translate(-15px, -55px);\n  position: absolute;\n  transition: opacity .2s ease-in-out;\n  opacity: 0;\n}\n.user-using-touch .vc-picker-touch.active{\n  opacity: 1;\n}\n", ""]);
-
-                // exports
-
-
-                /***/
-            }),
-            /* 12 */
-            /***/
-            (function(module, exports) {
-
-                /**
-                 * Translates the list format produced by css-loader into something
-                 * easier to manipulate.
-                 */
-                module.exports = function listToStyles(parentId, list) {
-                    var styles = []
-                    var newStyles = {}
-                    for (var i = 0; i < list.length; i++) {
-                        var item = list[i]
-                        var id = item[0]
-                        var css = item[1]
-                        var media = item[2]
-                        var sourceMap = item[3]
-                        var part = {
-                            id: parentId + ':' + i,
-                            css: css,
-                            media: media,
-                            sourceMap: sourceMap
-                        }
-                        if (!newStyles[id]) {
-                            styles.push(newStyles[id] = { id: id, parts: [part] })
-                        } else {
-                            newStyles[id].parts.push(part)
-                        }
-                    }
-                    return styles
-                }
-
-
-                /***/
-            }),
-            /* 13 */
-            /***/
-            (function(module, exports, __webpack_require__) {
-
-                var __WEBPACK_AMD_DEFINE_RESULT__; // TinyColor v1.4.1
-                // https://github.com/bgrins/TinyColor
-                // Brian Grinstead, MIT License
-
-                (function(Math) {
-
-                    var trimLeft = /^\s+/,
-                        trimRight = /\s+$/,
-                        tinyCounter = 0,
-                        mathRound = Math.round,
-                        mathMin = Math.min,
-                        mathMax = Math.max,
-                        mathRandom = Math.random;
-
-                    function tinycolor(color, opts) {
-
-                        color = (color) ? color : '';
-                        opts = opts || {};
-
-                        // If input is already a tinycolor, return itself
-                        if (color instanceof tinycolor) {
-                            return color;
-                        }
-                        // If we are called as a function, call using new instead
-                        if (!(this instanceof tinycolor)) {
-                            return new tinycolor(color, opts);
-                        }
-
-                        var rgb = inputToRGB(color);
-                        this._originalInput = color,
-                            this._r = rgb.r,
-                            this._g = rgb.g,
-                            this._b = rgb.b,
-                            this._a = rgb.a,
-                            this._roundA = mathRound(100 * this._a) / 100,
-                            this._format = opts.format || rgb.format;
-                        this._gradientType = opts.gradientType;
-
-                        // Don't let the range of [0,255] come back in [0,1].
-                        // Potentially lose a little bit of precision here, but will fix issues where
-                        // .5 gets interpreted as half of the total, instead of half of 1
-                        // If it was supposed to be 128, this was already taken care of by `inputToRgb`
-                        if (this._r < 1) { this._r = mathRound(this._r); }
-                        if (this._g < 1) { this._g = mathRound(this._g); }
-                        if (this._b < 1) { this._b = mathRound(this._b); }
-
-                        this._ok = rgb.ok;
-                        this._tc_id = tinyCounter++;
-                    }
-
-                    tinycolor.prototype = {
-                        isDark: function() {
-                            return this.getBrightness() < 128;
-                        },
-                        isLight: function() {
-                            return !this.isDark();
-                        },
-                        isValid: function() {
-                            return this._ok;
-                        },
-                        getOriginalInput: function() {
-                            return this._originalInput;
-                        },
-                        getFormat: function() {
-                            return this._format;
-                        },
-                        getAlpha: function() {
-                            return this._a;
-                        },
-                        getBrightness: function() {
-                            //http://www.w3.org/TR/AERT#color-contrast
-                            var rgb = this.toRgb();
-                            return (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000;
-                        },
-                        getLuminance: function() {
-                            //http://www.w3.org/TR/2008/REC-WCAG20-20081211/#relativeluminancedef
-                            var rgb = this.toRgb();
-                            var RsRGB, GsRGB, BsRGB, R, G, B;
-                            RsRGB = rgb.r / 255;
-                            GsRGB = rgb.g / 255;
-                            BsRGB = rgb.b / 255;
-
-                            if (RsRGB <= 0.03928) { R = RsRGB / 12.92; } else { R = Math.pow(((RsRGB + 0.055) / 1.055), 2.4); }
-                            if (GsRGB <= 0.03928) { G = GsRGB / 12.92; } else { G = Math.pow(((GsRGB + 0.055) / 1.055), 2.4); }
-                            if (BsRGB <= 0.03928) { B = BsRGB / 12.92; } else { B = Math.pow(((BsRGB + 0.055) / 1.055), 2.4); }
-                            return (0.2126 * R) + (0.7152 * G) + (0.0722 * B);
-                        },
-                        setAlpha: function(value) {
-                            this._a = boundAlpha(value);
-                            this._roundA = mathRound(100 * this._a) / 100;
-                            return this;
-                        },
-                        toHsv: function() {
-                            var hsv = rgbToHsv(this._r, this._g, this._b);
-                            return { h: hsv.h * 360, s: hsv.s, v: hsv.v, a: this._a };
-                        },
-                        toHsvString: function() {
-                            var hsv = rgbToHsv(this._r, this._g, this._b);
-                            var h = mathRound(hsv.h * 360),
-                                s = mathRound(hsv.s * 100),
-                                v = mathRound(hsv.v * 100);
-                            return (this._a == 1) ?
-                                "hsv(" + h + ", " + s + "%, " + v + "%)" :
-                                "hsva(" + h + ", " + s + "%, " + v + "%, " + this._roundA + ")";
-                        },
-                        toHsl: function() {
-                            var hsl = rgbToHsl(this._r, this._g, this._b);
-                            return { h: hsl.h * 360, s: hsl.s, l: hsl.l, a: this._a };
-                        },
-                        toHslString: function() {
-                            var hsl = rgbToHsl(this._r, this._g, this._b);
-                            var h = mathRound(hsl.h * 360),
-                                s = mathRound(hsl.s * 100),
-                                l = mathRound(hsl.l * 100);
-                            return (this._a == 1) ?
-                                "hsl(" + h + ", " + s + "%, " + l + "%)" :
-                                "hsla(" + h + ", " + s + "%, " + l + "%, " + this._roundA + ")";
-                        },
-                        toHex: function(allow3Char) {
-                            return rgbToHex(this._r, this._g, this._b, allow3Char);
-                        },
-                        toHexString: function(allow3Char) {
-                            return '#' + this.toHex(allow3Char);
-                        },
-                        toHex8: function(allow4Char) {
-                            return rgbaToHex(this._r, this._g, this._b, this._a, allow4Char);
-                        },
-                        toHex8String: function(allow4Char) {
-                            return '#' + this.toHex8(allow4Char);
-                        },
-                        toRgb: function() {
-                            return { r: mathRound(this._r), g: mathRound(this._g), b: mathRound(this._b), a: this._a };
-                        },
-                        toRgbString: function() {
-                            return (this._a == 1) ?
-                                "rgb(" + mathRound(this._r) + ", " + mathRound(this._g) + ", " + mathRound(this._b) + ")" :
-                                "rgba(" + mathRound(this._r) + ", " + mathRound(this._g) + ", " + mathRound(this._b) + ", " + this._roundA + ")";
-                        },
-                        toPercentageRgb: function() {
-                            return { r: mathRound(bound01(this._r, 255) * 100) + "%", g: mathRound(bound01(this._g, 255) * 100) + "%", b: mathRound(bound01(this._b, 255) * 100) + "%", a: this._a };
-                        },
-                        toPercentageRgbString: function() {
-                            return (this._a == 1) ?
-                                "rgb(" + mathRound(bound01(this._r, 255) * 100) + "%, " + mathRound(bound01(this._g, 255) * 100) + "%, " + mathRound(bound01(this._b, 255) * 100) + "%)" :
-                                "rgba(" + mathRound(bound01(this._r, 255) * 100) + "%, " + mathRound(bound01(this._g, 255) * 100) + "%, " + mathRound(bound01(this._b, 255) * 100) + "%, " + this._roundA + ")";
-                        },
-                        toName: function() {
-                            if (this._a === 0) {
-                                return "transparent";
-                            }
-
-                            if (this._a < 1) {
-                                return false;
-                            }
-
-                            return hexNames[rgbToHex(this._r, this._g, this._b, true)] || false;
-                        },
-                        toFilter: function(secondColor) {
-                            var hex8String = '#' + rgbaToArgbHex(this._r, this._g, this._b, this._a);
-                            var secondHex8String = hex8String;
-                            var gradientType = this._gradientType ? "GradientType = 1, " : "";
-
-                            if (secondColor) {
-                                var s = tinycolor(secondColor);
-                                secondHex8String = '#' + rgbaToArgbHex(s._r, s._g, s._b, s._a);
-                            }
-
-                            return "progid:DXImageTransform.Microsoft.gradient(" + gradientType + "startColorstr=" + hex8String + ",endColorstr=" + secondHex8String + ")";
-                        },
-                        toString: function(format) {
-                            var formatSet = !!format;
-                            format = format || this._format;
-
-                            var formattedString = false;
-                            var hasAlpha = this._a < 1 && this._a >= 0;
-                            var needsAlphaFormat = !formatSet && hasAlpha && (format === "hex" || format === "hex6" || format === "hex3" || format === "hex4" || format === "hex8" || format === "name");
-
-                            if (needsAlphaFormat) {
-                                // Special case for "transparent", all other non-alpha formats
-                                // will return rgba when there is transparency.
-                                if (format === "name" && this._a === 0) {
-                                    return this.toName();
-                                }
-                                return this.toRgbString();
-                            }
-                            if (format === "rgb") {
-                                formattedString = this.toRgbString();
-                            }
-                            if (format === "prgb") {
-                                formattedString = this.toPercentageRgbString();
-                            }
-                            if (format === "hex" || format === "hex6") {
-                                formattedString = this.toHexString();
-                            }
-                            if (format === "hex3") {
-                                formattedString = this.toHexString(true);
-                            }
-                            if (format === "hex4") {
-                                formattedString = this.toHex8String(true);
-                            }
-                            if (format === "hex8") {
-                                formattedString = this.toHex8String();
-                            }
-                            if (format === "name") {
-                                formattedString = this.toName();
-                            }
-                            if (format === "hsl") {
-                                formattedString = this.toHslString();
-                            }
-                            if (format === "hsv") {
-                                formattedString = this.toHsvString();
-                            }
-
-                            return formattedString || this.toHexString();
-                        },
-                        clone: function() {
-                            return tinycolor(this.toString());
-                        },
-
-                        _applyModification: function(fn, args) {
-                            var color = fn.apply(null, [this].concat([].slice.call(args)));
-                            this._r = color._r;
-                            this._g = color._g;
-                            this._b = color._b;
-                            this.setAlpha(color._a);
-                            return this;
-                        },
-                        lighten: function() {
-                            return this._applyModification(lighten, arguments);
-                        },
-                        brighten: function() {
-                            return this._applyModification(brighten, arguments);
-                        },
-                        darken: function() {
-                            return this._applyModification(darken, arguments);
-                        },
-                        desaturate: function() {
-                            return this._applyModification(desaturate, arguments);
-                        },
-                        saturate: function() {
-                            return this._applyModification(saturate, arguments);
-                        },
-                        greyscale: function() {
-                            return this._applyModification(greyscale, arguments);
-                        },
-                        spin: function() {
-                            return this._applyModification(spin, arguments);
-                        },
-
-                        _applyCombination: function(fn, args) {
-                            return fn.apply(null, [this].concat([].slice.call(args)));
-                        },
-                        analogous: function() {
-                            return this._applyCombination(analogous, arguments);
-                        },
-                        complement: function() {
-                            return this._applyCombination(complement, arguments);
-                        },
-                        monochromatic: function() {
-                            return this._applyCombination(monochromatic, arguments);
-                        },
-                        splitcomplement: function() {
-                            return this._applyCombination(splitcomplement, arguments);
-                        },
-                        triad: function() {
-                            return this._applyCombination(triad, arguments);
-                        },
-                        tetrad: function() {
-                            return this._applyCombination(tetrad, arguments);
-                        }
-                    };
-
-                    // If input is an object, force 1 into "1.0" to handle ratios properly
-                    // String input requires "1.0" as input, so 1 will be treated as 1
-                    tinycolor.fromRatio = function(color, opts) {
-                        if (typeof color == "object") {
-                            var newColor = {};
-                            for (var i in color) {
-                                if (color.hasOwnProperty(i)) {
-                                    if (i === "a") {
-                                        newColor[i] = color[i];
-                                    } else {
-                                        newColor[i] = convertToPercentage(color[i]);
-                                    }
-                                }
-                            }
-                            color = newColor;
-                        }
-
-                        return tinycolor(color, opts);
-                    };
-
-                    // Given a string or object, convert that input to RGB
-                    // Possible string inputs:
-                    //
-                    //     "red"
-                    //     "#f00" or "f00"
-                    //     "#ff0000" or "ff0000"
-                    //     "#ff000000" or "ff000000"
-                    //     "rgb 255 0 0" or "rgb (255, 0, 0)"
-                    //     "rgb 1.0 0 0" or "rgb (1, 0, 0)"
-                    //     "rgba (255, 0, 0, 1)" or "rgba 255, 0, 0, 1"
-                    //     "rgba (1.0, 0, 0, 1)" or "rgba 1.0, 0, 0, 1"
-                    //     "hsl(0, 100%, 50%)" or "hsl 0 100% 50%"
-                    //     "hsla(0, 100%, 50%, 1)" or "hsla 0 100% 50%, 1"
-                    //     "hsv(0, 100%, 100%)" or "hsv 0 100% 100%"
-                    //
-                    function inputToRGB(color) {
-
-                        var rgb = { r: 0, g: 0, b: 0 };
-                        var a = 1;
-                        var s = null;
-                        var v = null;
-                        var l = null;
-                        var ok = false;
-                        var format = false;
-
-                        if (typeof color == "string") {
-                            color = stringInputToObject(color);
-                        }
-
-                        if (typeof color == "object") {
-                            if (isValidCSSUnit(color.r) && isValidCSSUnit(color.g) && isValidCSSUnit(color.b)) {
-                                rgb = rgbToRgb(color.r, color.g, color.b);
-                                ok = true;
-                                format = String(color.r).substr(-1) === "%" ? "prgb" : "rgb";
-                            } else if (isValidCSSUnit(color.h) && isValidCSSUnit(color.s) && isValidCSSUnit(color.v)) {
-                                s = convertToPercentage(color.s);
-                                v = convertToPercentage(color.v);
-                                rgb = hsvToRgb(color.h, s, v);
-                                ok = true;
-                                format = "hsv";
-                            } else if (isValidCSSUnit(color.h) && isValidCSSUnit(color.s) && isValidCSSUnit(color.l)) {
-                                s = convertToPercentage(color.s);
-                                l = convertToPercentage(color.l);
-                                rgb = hslToRgb(color.h, s, l);
-                                ok = true;
-                                format = "hsl";
-                            }
-
-                            if (color.hasOwnProperty("a")) {
-                                a = color.a;
-                            }
-                        }
-
-                        a = boundAlpha(a);
-
-                        return {
-                            ok: ok,
-                            format: color.format || format,
-                            r: mathMin(255, mathMax(rgb.r, 0)),
-                            g: mathMin(255, mathMax(rgb.g, 0)),
-                            b: mathMin(255, mathMax(rgb.b, 0)),
-                            a: a
-                        };
-                    }
-
-
-                    // Conversion Functions
-                    // --------------------
-
-                    // `rgbToHsl`, `rgbToHsv`, `hslToRgb`, `hsvToRgb` modified from:
-                    // <http://mjijackson.com/2008/02/rgb-to-hsl-and-rgb-to-hsv-color-model-conversion-algorithms-in-javascript>
-
-                    // `rgbToRgb`
-                    // Handle bounds / percentage checking to conform to CSS color spec
-                    // <http://www.w3.org/TR/css3-color/>
-                    // *Assumes:* r, g, b in [0, 255] or [0, 1]
-                    // *Returns:* { r, g, b } in [0, 255]
-                    function rgbToRgb(r, g, b) {
-                        return {
-                            r: bound01(r, 255) * 255,
-                            g: bound01(g, 255) * 255,
-                            b: bound01(b, 255) * 255
-                        };
-                    }
-
-                    // `rgbToHsl`
-                    // Converts an RGB color value to HSL.
-                    // *Assumes:* r, g, and b are contained in [0, 255] or [0, 1]
-                    // *Returns:* { h, s, l } in [0,1]
-                    function rgbToHsl(r, g, b) {
-
-                        r = bound01(r, 255);
-                        g = bound01(g, 255);
-                        b = bound01(b, 255);
-
-                        var max = mathMax(r, g, b),
-                            min = mathMin(r, g, b);
-                        var h, s, l = (max + min) / 2;
-
-                        if (max == min) {
-                            h = s = 0; // achromatic
-                        } else {
-                            var d = max - min;
-                            s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-                            switch (max) {
-                                case r:
-                                    h = (g - b) / d + (g < b ? 6 : 0);
-                                    break;
-                                case g:
-                                    h = (b - r) / d + 2;
-                                    break;
-                                case b:
-                                    h = (r - g) / d + 4;
-                                    break;
-                            }
-
-                            h /= 6;
-                        }
-
-                        return { h: h, s: s, l: l };
-                    }
-
-                    // `hslToRgb`
-                    // Converts an HSL color value to RGB.
-                    // *Assumes:* h is contained in [0, 1] or [0, 360] and s and l are contained [0, 1] or [0, 100]
-                    // *Returns:* { r, g, b } in the set [0, 255]
-                    function hslToRgb(h, s, l) {
-                        var r, g, b;
-
-                        h = bound01(h, 360);
-                        s = bound01(s, 100);
-                        l = bound01(l, 100);
-
-                        function hue2rgb(p, q, t) {
-                            if (t < 0) t += 1;
-                            if (t > 1) t -= 1;
-                            if (t < 1 / 6) return p + (q - p) * 6 * t;
-                            if (t < 1 / 2) return q;
-                            if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
-                            return p;
-                        }
-
-                        if (s === 0) {
-                            r = g = b = l; // achromatic
-                        } else {
-                            var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-                            var p = 2 * l - q;
-                            r = hue2rgb(p, q, h + 1 / 3);
-                            g = hue2rgb(p, q, h);
-                            b = hue2rgb(p, q, h - 1 / 3);
-                        }
-
-                        return { r: r * 255, g: g * 255, b: b * 255 };
-                    }
-
-                    // `rgbToHsv`
-                    // Converts an RGB color value to HSV
-                    // *Assumes:* r, g, and b are contained in the set [0, 255] or [0, 1]
-                    // *Returns:* { h, s, v } in [0,1]
-                    function rgbToHsv(r, g, b) {
-
-                        r = bound01(r, 255);
-                        g = bound01(g, 255);
-                        b = bound01(b, 255);
-
-                        var max = mathMax(r, g, b),
-                            min = mathMin(r, g, b);
-                        var h, s, v = max;
-
-                        var d = max - min;
-                        s = max === 0 ? 0 : d / max;
-
-                        if (max == min) {
-                            h = 0; // achromatic
-                        } else {
-                            switch (max) {
-                                case r:
-                                    h = (g - b) / d + (g < b ? 6 : 0);
-                                    break;
-                                case g:
-                                    h = (b - r) / d + 2;
-                                    break;
-                                case b:
-                                    h = (r - g) / d + 4;
-                                    break;
-                            }
-                            h /= 6;
-                        }
-                        return { h: h, s: s, v: v };
-                    }
-
-                    // `hsvToRgb`
-                    // Converts an HSV color value to RGB.
-                    // *Assumes:* h is contained in [0, 1] or [0, 360] and s and v are contained in [0, 1] or [0, 100]
-                    // *Returns:* { r, g, b } in the set [0, 255]
-                    function hsvToRgb(h, s, v) {
-
-                        h = bound01(h, 360) * 6;
-                        s = bound01(s, 100);
-                        v = bound01(v, 100);
-
-                        var i = Math.floor(h),
-                            f = h - i,
-                            p = v * (1 - s),
-                            q = v * (1 - f * s),
-                            t = v * (1 - (1 - f) * s),
-                            mod = i % 6,
-                            r = [v, q, p, p, t, v][mod],
-                            g = [t, v, v, q, p, p][mod],
-                            b = [p, p, t, v, v, q][mod];
-
-                        return { r: r * 255, g: g * 255, b: b * 255 };
-                    }
-
-                    // `rgbToHex`
-                    // Converts an RGB color to hex
-                    // Assumes r, g, and b are contained in the set [0, 255]
-                    // Returns a 3 or 6 character hex
-                    function rgbToHex(r, g, b, allow3Char) {
-
-                        var hex = [
-                            pad2(mathRound(r).toString(16)),
-                            pad2(mathRound(g).toString(16)),
-                            pad2(mathRound(b).toString(16))
-                        ];
-
-                        // Return a 3 character hex if possible
-                        if (allow3Char && hex[0].charAt(0) == hex[0].charAt(1) && hex[1].charAt(0) == hex[1].charAt(1) && hex[2].charAt(0) == hex[2].charAt(1)) {
-                            return hex[0].charAt(0) + hex[1].charAt(0) + hex[2].charAt(0);
-                        }
-
-                        return hex.join("");
-                    }
-
-                    // `rgbaToHex`
-                    // Converts an RGBA color plus alpha transparency to hex
-                    // Assumes r, g, b are contained in the set [0, 255] and
-                    // a in [0, 1]. Returns a 4 or 8 character rgba hex
-                    function rgbaToHex(r, g, b, a, allow4Char) {
-
-                        var hex = [
-                            pad2(mathRound(r).toString(16)),
-                            pad2(mathRound(g).toString(16)),
-                            pad2(mathRound(b).toString(16)),
-                            pad2(convertDecimalToHex(a))
-                        ];
-
-                        // Return a 4 character hex if possible
-                        if (allow4Char && hex[0].charAt(0) == hex[0].charAt(1) && hex[1].charAt(0) == hex[1].charAt(1) && hex[2].charAt(0) == hex[2].charAt(1) && hex[3].charAt(0) == hex[3].charAt(1)) {
-                            return hex[0].charAt(0) + hex[1].charAt(0) + hex[2].charAt(0) + hex[3].charAt(0);
-                        }
-
-                        return hex.join("");
-                    }
-
-                    // `rgbaToArgbHex`
-                    // Converts an RGBA color to an ARGB Hex8 string
-                    // Rarely used, but required for "toFilter()"
-                    function rgbaToArgbHex(r, g, b, a) {
-
-                        var hex = [
-                            pad2(convertDecimalToHex(a)),
-                            pad2(mathRound(r).toString(16)),
-                            pad2(mathRound(g).toString(16)),
-                            pad2(mathRound(b).toString(16))
-                        ];
-
-                        return hex.join("");
-                    }
-
-                    // `equals`
-                    // Can be called with any tinycolor input
-                    tinycolor.equals = function(color1, color2) {
-                        if (!color1 || !color2) { return false; }
-                        return tinycolor(color1).toRgbString() == tinycolor(color2).toRgbString();
-                    };
-
-                    tinycolor.random = function() {
-                        return tinycolor.fromRatio({
-                            r: mathRandom(),
-                            g: mathRandom(),
-                            b: mathRandom()
-                        });
-                    };
-
-
-                    // Modification Functions
-                    // ----------------------
-                    // Thanks to less.js for some of the basics here
-                    // <https://github.com/cloudhead/less.js/blob/master/lib/less/functions.js>
-
-                    function desaturate(color, amount) {
-                        amount = (amount === 0) ? 0 : (amount || 10);
-                        var hsl = tinycolor(color).toHsl();
-                        hsl.s -= amount / 100;
-                        hsl.s = clamp01(hsl.s);
-                        return tinycolor(hsl);
-                    }
-
-                    function saturate(color, amount) {
-                        amount = (amount === 0) ? 0 : (amount || 10);
-                        var hsl = tinycolor(color).toHsl();
-                        hsl.s += amount / 100;
-                        hsl.s = clamp01(hsl.s);
-                        return tinycolor(hsl);
-                    }
-
-                    function greyscale(color) {
-                        return tinycolor(color).desaturate(100);
-                    }
-
-                    function lighten(color, amount) {
-                        amount = (amount === 0) ? 0 : (amount || 10);
-                        var hsl = tinycolor(color).toHsl();
-                        hsl.l += amount / 100;
-                        hsl.l = clamp01(hsl.l);
-                        return tinycolor(hsl);
-                    }
-
-                    function brighten(color, amount) {
-                        amount = (amount === 0) ? 0 : (amount || 10);
-                        var rgb = tinycolor(color).toRgb();
-                        rgb.r = mathMax(0, mathMin(255, rgb.r - mathRound(255 * -(amount / 100))));
-                        rgb.g = mathMax(0, mathMin(255, rgb.g - mathRound(255 * -(amount / 100))));
-                        rgb.b = mathMax(0, mathMin(255, rgb.b - mathRound(255 * -(amount / 100))));
-                        return tinycolor(rgb);
-                    }
-
-                    function darken(color, amount) {
-                        amount = (amount === 0) ? 0 : (amount || 10);
-                        var hsl = tinycolor(color).toHsl();
-                        hsl.l -= amount / 100;
-                        hsl.l = clamp01(hsl.l);
-                        return tinycolor(hsl);
-                    }
-
-                    // Spin takes a positive or negative amount within [-360, 360] indicating the change of hue.
-                    // Values outside of this range will be wrapped into this range.
-                    function spin(color, amount) {
-                        var hsl = tinycolor(color).toHsl();
-                        var hue = (hsl.h + amount) % 360;
-                        hsl.h = hue < 0 ? 360 + hue : hue;
-                        return tinycolor(hsl);
-                    }
-
-                    // Combination Functions
-                    // ---------------------
-                    // Thanks to jQuery xColor for some of the ideas behind these
-                    // <https://github.com/infusion/jQuery-xcolor/blob/master/jquery.xcolor.js>
-
-                    function complement(color) {
-                        var hsl = tinycolor(color).toHsl();
-                        hsl.h = (hsl.h + 180) % 360;
-                        return tinycolor(hsl);
-                    }
-
-                    function triad(color) {
-                        var hsl = tinycolor(color).toHsl();
-                        var h = hsl.h;
-                        return [
-                            tinycolor(color),
-                            tinycolor({ h: (h + 120) % 360, s: hsl.s, l: hsl.l }),
-                            tinycolor({ h: (h + 240) % 360, s: hsl.s, l: hsl.l })
-                        ];
-                    }
-
-                    function tetrad(color) {
-                        var hsl = tinycolor(color).toHsl();
-                        var h = hsl.h;
-                        return [
-                            tinycolor(color),
-                            tinycolor({ h: (h + 90) % 360, s: hsl.s, l: hsl.l }),
-                            tinycolor({ h: (h + 180) % 360, s: hsl.s, l: hsl.l }),
-                            tinycolor({ h: (h + 270) % 360, s: hsl.s, l: hsl.l })
-                        ];
-                    }
-
-                    function splitcomplement(color) {
-                        var hsl = tinycolor(color).toHsl();
-                        var h = hsl.h;
-                        return [
-                            tinycolor(color),
-                            tinycolor({ h: (h + 72) % 360, s: hsl.s, l: hsl.l }),
-                            tinycolor({ h: (h + 216) % 360, s: hsl.s, l: hsl.l })
-                        ];
-                    }
-
-                    function analogous(color, results, slices) {
-                        results = results || 6;
-                        slices = slices || 30;
-
-                        var hsl = tinycolor(color).toHsl();
-                        var part = 360 / slices;
-                        var ret = [tinycolor(color)];
-
-                        for (hsl.h = ((hsl.h - (part * results >> 1)) + 720) % 360; --results;) {
-                            hsl.h = (hsl.h + part) % 360;
-                            ret.push(tinycolor(hsl));
-                        }
-                        return ret;
-                    }
-
-                    function monochromatic(color, results) {
-                        results = results || 6;
-                        var hsv = tinycolor(color).toHsv();
-                        var h = hsv.h,
-                            s = hsv.s,
-                            v = hsv.v;
-                        var ret = [];
-                        var modification = 1 / results;
-
-                        while (results--) {
-                            ret.push(tinycolor({ h: h, s: s, v: v }));
-                            v = (v + modification) % 1;
-                        }
-
-                        return ret;
-                    }
-
-                    // Utility Functions
-                    // ---------------------
-
-                    tinycolor.mix = function(color1, color2, amount) {
-                        amount = (amount === 0) ? 0 : (amount || 50);
-
-                        var rgb1 = tinycolor(color1).toRgb();
-                        var rgb2 = tinycolor(color2).toRgb();
-
-                        var p = amount / 100;
-
-                        var rgba = {
-                            r: ((rgb2.r - rgb1.r) * p) + rgb1.r,
-                            g: ((rgb2.g - rgb1.g) * p) + rgb1.g,
-                            b: ((rgb2.b - rgb1.b) * p) + rgb1.b,
-                            a: ((rgb2.a - rgb1.a) * p) + rgb1.a
-                        };
-
-                        return tinycolor(rgba);
-                    };
-
-
-                    // Readability Functions
-                    // ---------------------
-                    // <http://www.w3.org/TR/2008/REC-WCAG20-20081211/#contrast-ratiodef (WCAG Version 2)
-
-                    // `contrast`
-                    // Analyze the 2 colors and returns the color contrast defined by (WCAG Version 2)
-                    tinycolor.readability = function(color1, color2) {
-                        var c1 = tinycolor(color1);
-                        var c2 = tinycolor(color2);
-                        return (Math.max(c1.getLuminance(), c2.getLuminance()) + 0.05) / (Math.min(c1.getLuminance(), c2.getLuminance()) + 0.05);
-                    };
-
-                    // `isReadable`
-                    // Ensure that foreground and background color combinations meet WCAG2 guidelines.
-                    // The third argument is an optional Object.
-                    //      the 'level' property states 'AA' or 'AAA' - if missing or invalid, it defaults to 'AA';
-                    //      the 'size' property states 'large' or 'small' - if missing or invalid, it defaults to 'small'.
-                    // If the entire object is absent, isReadable defaults to {level:"AA",size:"small"}.
-
-                    // *Example*
-                    //    tinycolor.isReadable("#000", "#111") => false
-                    //    tinycolor.isReadable("#000", "#111",{level:"AA",size:"large"}) => false
-                    tinycolor.isReadable = function(color1, color2, wcag2) {
-                        var readability = tinycolor.readability(color1, color2);
-                        var wcag2Parms, out;
-
-                        out = false;
-
-                        wcag2Parms = validateWCAG2Parms(wcag2);
-                        switch (wcag2Parms.level + wcag2Parms.size) {
-                            case "AAsmall":
-                            case "AAAlarge":
-                                out = readability >= 4.5;
-                                break;
-                            case "AAlarge":
-                                out = readability >= 3;
-                                break;
-                            case "AAAsmall":
-                                out = readability >= 7;
-                                break;
-                        }
-                        return out;
-
-                    };
-
-                    // `mostReadable`
-                    // Given a base color and a list of possible foreground or background
-                    // colors for that base, returns the most readable color.
-                    // Optionally returns Black or White if the most readable color is unreadable.
-                    // *Example*
-                    //    tinycolor.mostReadable(tinycolor.mostReadable("#123", ["#124", "#125"],{includeFallbackColors:false}).toHexString(); // "#112255"
-                    //    tinycolor.mostReadable(tinycolor.mostReadable("#123", ["#124", "#125"],{includeFallbackColors:true}).toHexString();  // "#ffffff"
-                    //    tinycolor.mostReadable("#a8015a", ["#faf3f3"],{includeFallbackColors:true,level:"AAA",size:"large"}).toHexString(); // "#faf3f3"
-                    //    tinycolor.mostReadable("#a8015a", ["#faf3f3"],{includeFallbackColors:true,level:"AAA",size:"small"}).toHexString(); // "#ffffff"
-                    tinycolor.mostReadable = function(baseColor, colorList, args) {
-                        var bestColor = null;
-                        var bestScore = 0;
-                        var readability;
-                        var includeFallbackColors, level, size;
-                        args = args || {};
-                        includeFallbackColors = args.includeFallbackColors;
-                        level = args.level;
-                        size = args.size;
-
-                        for (var i = 0; i < colorList.length; i++) {
-                            readability = tinycolor.readability(baseColor, colorList[i]);
-                            if (readability > bestScore) {
-                                bestScore = readability;
-                                bestColor = tinycolor(colorList[i]);
-                            }
-                        }
-
-                        if (tinycolor.isReadable(baseColor, bestColor, { "level": level, "size": size }) || !includeFallbackColors) {
-                            return bestColor;
-                        } else {
-                            args.includeFallbackColors = false;
-                            return tinycolor.mostReadable(baseColor, ["#fff", "#000"], args);
-                        }
-                    };
-
-
-                    // Big List of Colors
-                    // ------------------
-                    // <http://www.w3.org/TR/css3-color/#svg-color>
-                    var names = tinycolor.names = {
-                        aliceblue: "f0f8ff",
-                        antiquewhite: "faebd7",
-                        aqua: "0ff",
-                        aquamarine: "7fffd4",
-                        azure: "f0ffff",
-                        beige: "f5f5dc",
-                        bisque: "ffe4c4",
-                        black: "000",
-                        blanchedalmond: "ffebcd",
-                        blue: "00f",
-                        blueviolet: "8a2be2",
-                        brown: "a52a2a",
-                        burlywood: "deb887",
-                        burntsienna: "ea7e5d",
-                        cadetblue: "5f9ea0",
-                        chartreuse: "7fff00",
-                        chocolate: "d2691e",
-                        coral: "ff7f50",
-                        cornflowerblue: "6495ed",
-                        cornsilk: "fff8dc",
-                        crimson: "dc143c",
-                        cyan: "0ff",
-                        darkblue: "00008b",
-                        darkcyan: "008b8b",
-                        darkgoldenrod: "b8860b",
-                        darkgray: "a9a9a9",
-                        darkgreen: "006400",
-                        darkgrey: "a9a9a9",
-                        darkkhaki: "bdb76b",
-                        darkmagenta: "8b008b",
-                        darkolivegreen: "556b2f",
-                        darkorange: "ff8c00",
-                        darkorchid: "9932cc",
-                        darkred: "8b0000",
-                        darksalmon: "e9967a",
-                        darkseagreen: "8fbc8f",
-                        darkslateblue: "483d8b",
-                        darkslategray: "2f4f4f",
-                        darkslategrey: "2f4f4f",
-                        darkturquoise: "00ced1",
-                        darkviolet: "9400d3",
-                        deeppink: "ff1493",
-                        deepskyblue: "00bfff",
-                        dimgray: "696969",
-                        dimgrey: "696969",
-                        dodgerblue: "1e90ff",
-                        firebrick: "b22222",
-                        floralwhite: "fffaf0",
-                        forestgreen: "228b22",
-                        fuchsia: "f0f",
-                        gainsboro: "dcdcdc",
-                        ghostwhite: "f8f8ff",
-                        gold: "ffd700",
-                        goldenrod: "daa520",
-                        gray: "808080",
-                        green: "008000",
-                        greenyellow: "adff2f",
-                        grey: "808080",
-                        honeydew: "f0fff0",
-                        hotpink: "ff69b4",
-                        indianred: "cd5c5c",
-                        indigo: "4b0082",
-                        ivory: "fffff0",
-                        khaki: "f0e68c",
-                        lavender: "e6e6fa",
-                        lavenderblush: "fff0f5",
-                        lawngreen: "7cfc00",
-                        lemonchiffon: "fffacd",
-                        lightblue: "add8e6",
-                        lightcoral: "f08080",
-                        lightcyan: "e0ffff",
-                        lightgoldenrodyellow: "fafad2",
-                        lightgray: "d3d3d3",
-                        lightgreen: "90ee90",
-                        lightgrey: "d3d3d3",
-                        lightpink: "ffb6c1",
-                        lightsalmon: "ffa07a",
-                        lightseagreen: "20b2aa",
-                        lightskyblue: "87cefa",
-                        lightslategray: "789",
-                        lightslategrey: "789",
-                        lightsteelblue: "b0c4de",
-                        lightyellow: "ffffe0",
-                        lime: "0f0",
-                        limegreen: "32cd32",
-                        linen: "faf0e6",
-                        magenta: "f0f",
-                        maroon: "800000",
-                        mediumaquamarine: "66cdaa",
-                        mediumblue: "0000cd",
-                        mediumorchid: "ba55d3",
-                        mediumpurple: "9370db",
-                        mediumseagreen: "3cb371",
-                        mediumslateblue: "7b68ee",
-                        mediumspringgreen: "00fa9a",
-                        mediumturquoise: "48d1cc",
-                        mediumvioletred: "c71585",
-                        midnightblue: "191970",
-                        mintcream: "f5fffa",
-                        mistyrose: "ffe4e1",
-                        moccasin: "ffe4b5",
-                        navajowhite: "ffdead",
-                        navy: "000080",
-                        oldlace: "fdf5e6",
-                        olive: "808000",
-                        olivedrab: "6b8e23",
-                        orange: "ffa500",
-                        orangered: "ff4500",
-                        orchid: "da70d6",
-                        palegoldenrod: "eee8aa",
-                        palegreen: "98fb98",
-                        paleturquoise: "afeeee",
-                        palevioletred: "db7093",
-                        papayawhip: "ffefd5",
-                        peachpuff: "ffdab9",
-                        peru: "cd853f",
-                        pink: "ffc0cb",
-                        plum: "dda0dd",
-                        powderblue: "b0e0e6",
-                        purple: "800080",
-                        rebeccapurple: "663399",
-                        red: "f00",
-                        rosybrown: "bc8f8f",
-                        royalblue: "4169e1",
-                        saddlebrown: "8b4513",
-                        salmon: "fa8072",
-                        sandybrown: "f4a460",
-                        seagreen: "2e8b57",
-                        seashell: "fff5ee",
-                        sienna: "a0522d",
-                        silver: "c0c0c0",
-                        skyblue: "87ceeb",
-                        slateblue: "6a5acd",
-                        slategray: "708090",
-                        slategrey: "708090",
-                        snow: "fffafa",
-                        springgreen: "00ff7f",
-                        steelblue: "4682b4",
-                        tan: "d2b48c",
-                        teal: "008080",
-                        thistle: "d8bfd8",
-                        tomato: "ff6347",
-                        turquoise: "40e0d0",
-                        violet: "ee82ee",
-                        wheat: "f5deb3",
-                        white: "fff",
-                        whitesmoke: "f5f5f5",
-                        yellow: "ff0",
-                        yellowgreen: "9acd32"
-                    };
-
-                    // Make it easy to access colors via `hexNames[hex]`
-                    var hexNames = tinycolor.hexNames = flip(names);
-
-
-                    // Utilities
-                    // ---------
-
-                    // `{ 'name1': 'val1' }` becomes `{ 'val1': 'name1' }`
-                    function flip(o) {
-                        var flipped = {};
-                        for (var i in o) {
-                            if (o.hasOwnProperty(i)) {
-                                flipped[o[i]] = i;
-                            }
-                        }
-                        return flipped;
-                    }
-
-                    // Return a valid alpha value [0,1] with all invalid values being set to 1
-                    function boundAlpha(a) {
-                        a = parseFloat(a);
-
-                        if (isNaN(a) || a < 0 || a > 1) {
-                            a = 1;
-                        }
-
-                        return a;
-                    }
-
-                    // Take input from [0, n] and return it as [0, 1]
-                    function bound01(n, max) {
-                        if (isOnePointZero(n)) { n = "100%"; }
-
-                        var processPercent = isPercentage(n);
-                        n = mathMin(max, mathMax(0, parseFloat(n)));
-
-                        // Automatically convert percentage into number
-                        if (processPercent) {
-                            n = parseInt(n * max, 10) / 100;
-                        }
-
-                        // Handle floating point rounding errors
-                        if ((Math.abs(n - max) < 0.000001)) {
-                            return 1;
-                        }
-
-                        // Convert into [0, 1] range if it isn't already
-                        return (n % max) / parseFloat(max);
-                    }
-
-                    // Force a number between 0 and 1
-                    function clamp01(val) {
-                        return mathMin(1, mathMax(0, val));
-                    }
-
-                    // Parse a base-16 hex value into a base-10 integer
-                    function parseIntFromHex(val) {
-                        return parseInt(val, 16);
-                    }
-
-                    // Need to handle 1.0 as 100%, since once it is a number, there is no difference between it and 1
-                    // <http://stackoverflow.com/questions/7422072/javascript-how-to-detect-number-as-a-decimal-including-1-0>
-                    function isOnePointZero(n) {
-                        return typeof n == "string" && n.indexOf('.') != -1 && parseFloat(n) === 1;
-                    }
-
-                    // Check to see if string passed in is a percentage
-                    function isPercentage(n) {
-                        return typeof n === "string" && n.indexOf('%') != -1;
-                    }
-
-                    // Force a hex value to have 2 characters
-                    function pad2(c) {
-                        return c.length == 1 ? '0' + c : '' + c;
-                    }
-
-                    // Replace a decimal with it's percentage value
-                    function convertToPercentage(n) {
-                        if (n <= 1) {
-                            n = (n * 100) + "%";
-                        }
-
-                        return n;
-                    }
-
-                    // Converts a decimal to a hex value
-                    function convertDecimalToHex(d) {
-                        return Math.round(parseFloat(d) * 255).toString(16);
-                    }
-                    // Converts a hex value to a decimal
-                    function convertHexToDecimal(h) {
-                        return (parseIntFromHex(h) / 255);
-                    }
-
-                    var matchers = (function() {
-
-                        // <http://www.w3.org/TR/css3-values/#integers>
-                        var CSS_INTEGER = "[-\\+]?\\d+%?";
-
-                        // <http://www.w3.org/TR/css3-values/#number-value>
-                        var CSS_NUMBER = "[-\\+]?\\d*\\.\\d+%?";
-
-                        // Allow positive/negative integer/number.  Don't capture the either/or, just the entire outcome.
-                        var CSS_UNIT = "(?:" + CSS_NUMBER + ")|(?:" + CSS_INTEGER + ")";
-
-                        // Actual matching.
-                        // Parentheses and commas are optional, but not required.
-                        // Whitespace can take the place of commas or opening paren
-                        var PERMISSIVE_MATCH3 = "[\\s|\\(]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")\\s*\\)?";
-                        var PERMISSIVE_MATCH4 = "[\\s|\\(]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")[,|\\s]+(" + CSS_UNIT + ")\\s*\\)?";
-
-                        return {
-                            CSS_UNIT: new RegExp(CSS_UNIT),
-                            rgb: new RegExp("rgb" + PERMISSIVE_MATCH3),
-                            rgba: new RegExp("rgba" + PERMISSIVE_MATCH4),
-                            hsl: new RegExp("hsl" + PERMISSIVE_MATCH3),
-                            hsla: new RegExp("hsla" + PERMISSIVE_MATCH4),
-                            hsv: new RegExp("hsv" + PERMISSIVE_MATCH3),
-                            hsva: new RegExp("hsva" + PERMISSIVE_MATCH4),
-                            hex3: /^#?([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/,
-                            hex6: /^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/,
-                            hex4: /^#?([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/,
-                            hex8: /^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/
-                        };
-                    })();
-
-                    // `isValidCSSUnit`
-                    // Take in a single string / number and check to see if it looks like a CSS unit
-                    // (see `matchers` above for definition).
-                    function isValidCSSUnit(color) {
-                        return !!matchers.CSS_UNIT.exec(color);
-                    }
-
-                    // `stringInputToObject`
-                    // Permissive string parsing.  Take in a number of formats, and output an object
-                    // based on detected format.  Returns `{ r, g, b }` or `{ h, s, l }` or `{ h, s, v}`
-                    function stringInputToObject(color) {
-
-                        color = color.replace(trimLeft, '').replace(trimRight, '').toLowerCase();
-                        var named = false;
-                        if (names[color]) {
-                            color = names[color];
-                            named = true;
-                        } else if (color == 'transparent') {
-                            return { r: 0, g: 0, b: 0, a: 0, format: "name" };
-                        }
-
-                        // Try to match string input using regular expressions.
-                        // Keep most of the number bounding out of this function - don't worry about [0,1] or [0,100] or [0,360]
-                        // Just return an object and let the conversion functions handle that.
-                        // This way the result will be the same whether the tinycolor is initialized with string or object.
-                        var match;
-                        if ((match = matchers.rgb.exec(color))) {
-                            return { r: match[1], g: match[2], b: match[3] };
-                        }
-                        if ((match = matchers.rgba.exec(color))) {
-                            return { r: match[1], g: match[2], b: match[3], a: match[4] };
-                        }
-                        if ((match = matchers.hsl.exec(color))) {
-                            return { h: match[1], s: match[2], l: match[3] };
-                        }
-                        if ((match = matchers.hsla.exec(color))) {
-                            return { h: match[1], s: match[2], l: match[3], a: match[4] };
-                        }
-                        if ((match = matchers.hsv.exec(color))) {
-                            return { h: match[1], s: match[2], v: match[3] };
-                        }
-                        if ((match = matchers.hsva.exec(color))) {
-                            return { h: match[1], s: match[2], v: match[3], a: match[4] };
-                        }
-                        if ((match = matchers.hex8.exec(color))) {
-                            return {
-                                r: parseIntFromHex(match[1]),
-                                g: parseIntFromHex(match[2]),
-                                b: parseIntFromHex(match[3]),
-                                a: convertHexToDecimal(match[4]),
-                                format: named ? "name" : "hex8"
-                            };
-                        }
-                        if ((match = matchers.hex6.exec(color))) {
-                            return {
-                                r: parseIntFromHex(match[1]),
-                                g: parseIntFromHex(match[2]),
-                                b: parseIntFromHex(match[3]),
-                                format: named ? "name" : "hex"
-                            };
-                        }
-                        if ((match = matchers.hex4.exec(color))) {
-                            return {
-                                r: parseIntFromHex(match[1] + '' + match[1]),
-                                g: parseIntFromHex(match[2] + '' + match[2]),
-                                b: parseIntFromHex(match[3] + '' + match[3]),
-                                a: convertHexToDecimal(match[4] + '' + match[4]),
-                                format: named ? "name" : "hex8"
-                            };
-                        }
-                        if ((match = matchers.hex3.exec(color))) {
-                            return {
-                                r: parseIntFromHex(match[1] + '' + match[1]),
-                                g: parseIntFromHex(match[2] + '' + match[2]),
-                                b: parseIntFromHex(match[3] + '' + match[3]),
-                                format: named ? "name" : "hex"
-                            };
-                        }
-
-                        return false;
-                    }
-
-                    function validateWCAG2Parms(parms) {
-                        // return valid WCAG2 parms for isReadable.
-                        // If input parms are invalid, return {"level":"AA", "size":"small"}
-                        var level, size;
-                        parms = parms || { "level": "AA", "size": "small" };
-                        level = (parms.level || "AA").toUpperCase();
-                        size = (parms.size || "small").toLowerCase();
-                        if (level !== "AA" && level !== "AAA") {
-                            level = "AA";
-                        }
-                        if (size !== "small" && size !== "large") {
-                            size = "small";
-                        }
-                        return { "level": level, "size": size };
-                    }
-
-                    // Node: Export function
-                    if (typeof module !== "undefined" && module.exports) {
-                        module.exports = tinycolor;
-                    }
-                    // AMD/requirejs: Define the module
-                    else if (true) {
-                        !(__WEBPACK_AMD_DEFINE_RESULT__ = (function() { return tinycolor; }).call(exports, __webpack_require__, exports, module),
-                            __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-                    }
-                    // Browser: Expose to window
-                    else {
-                        window.tinycolor = tinycolor;
-                    }
-
-                })(Math);
-
-
-                /***/
-            }),
-            /* 14 */
-            /***/
-            (function(module, exports, __webpack_require__) {
-
-                // style-loader: Adds some css to the DOM by adding a <style> tag
-
-                // load the styles
-                var content = __webpack_require__(15);
-                if (typeof content === 'string') content = [
-                    [module.i, content, '']
-                ];
-                if (content.locals) module.exports = content.locals;
-                // add the styles to the DOM
-                var update = __webpack_require__(1)("7c5f1a1c", content, false, {});
-                // Hot Module Replacement
-                if (false) {
-                    // When the styles change, update the <style> tags
-                    if (!content.locals) {
-                        module.hot.accept("!!../../../node_modules/css-loader/index.js?{\"minimize\":false,\"sourceMap\":false}!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7b9aea78\",\"scoped\":false,\"hasInlineConfig\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Hue.vue", function() {
-                            var newContent = require("!!../../../node_modules/css-loader/index.js?{\"minimize\":false,\"sourceMap\":false}!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7b9aea78\",\"scoped\":false,\"hasInlineConfig\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Hue.vue");
-                            if (typeof newContent === 'string') newContent = [
-                                [module.id, newContent, '']
-                            ];
-                            update(newContent);
-                        });
-                    }
-                    // When the module is disposed, remove the <style> tags
-                    module.hot.dispose(function() { update(); });
-                }
-
-                /***/
-            }),
-            /* 15 */
-            /***/
-            (function(module, exports, __webpack_require__) {
-
-                exports = module.exports = __webpack_require__(0)(false);
-                // imports
-
-
-                // module
-                exports.push([module.i, "\n.vc-hue {\n  background: linear-gradient(\n    to right,\n    #f00 0%,\n    #ff0 17%,\n    #0f0 33%,\n    #0ff 50%,\n    #00f 67%,\n    #f0f 83%,\n    #f00 100%\n  );\n}\n.vc-hue.active,\n.vc-hue:hover {\n  opacity: 1;\n}\n", ""]);
-
-                // exports
-
-
-                /***/
-            }),
-            /* 16 */
-            /***/
-            (function(module, __webpack_exports__, __webpack_require__) {
-
-                "use strict";
-                var render = function() {
-                    var _vm = this
-                    var _h = _vm.$createElement
-                    var _c = _vm._self._c || _h
-                    return _c(
-                        "div", { staticClass: "vc vc-hue", class: { active: _vm.showButton } }, [
-                            _c(
-                                "div", {
-                                    ref: "container",
-                                    staticClass: "vc-container",
-                                    attrs: {
-                                        role: "slider",
-                                        "aria-valuenow": _vm.colors.hsl.h,
-                                        "aria-valuemin": "0",
-                                        "aria-valuemax": "360"
-                                    },
-                                    on: {
-                                        mousedown: _vm.handleMouseDown,
-                                        touchmove: _vm.handleChange,
-                                        touchstart: _vm.handleChange
-                                    }
-                                }, [
-                                    _vm.showButton ?
-                                    _c(
-                                        "div", {
-                                            staticClass: "vc-pointer",
-                                            style: { left: _vm.pointerLeft },
-                                            attrs: { role: "presentation" }
-                                        }, [
-                                            _c("div", {
-                                                staticClass: "vc-picker-touch",
-                                                class: { active: _vm.mouseDown },
-                                                style: { backgroundColor: _vm.backgroundColor }
-                                            }),
-                                            _vm._v(" "),
-                                            _c("div", {
-                                                staticClass: "vc-picker",
-                                                style: { backgroundColor: _vm.backgroundColor }
-                                            })
-                                        ]
-                                    ) :
-                                    _vm._e()
-                                ]
-                            )
-                        ]
-                    )
-                }
-                var staticRenderFns = []
-                render._withStripped = true
-                var esExports = { render: render, staticRenderFns: staticRenderFns }
-                    /* harmony default export */
-                __webpack_exports__["a"] = (esExports);
-                if (false) {
-                    module.hot.accept()
-                    if (module.hot.data) {
-                        require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-7b9aea78", esExports)
-                    }
-                }
-
-                /***/
-            }),
-            /* 17 */
-            /***/
-            (function(module, __webpack_exports__, __webpack_require__) {
-
-                "use strict";
-                Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-                /* harmony import */
-                var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Lightness_vue__ = __webpack_require__(7);
-                /* harmony import */
-                var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Lightness_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Lightness_vue__);
-                /* harmony namespace reexport (unknown) */
-                for (var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Lightness_vue__)
-                    if (__WEBPACK_IMPORT_KEY__ !== 'default')(function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Lightness_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-                    /* harmony import */
-                var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1c0540b9_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Lightness_vue__ = __webpack_require__(20);
-                var disposed = false
-
-                function injectStyle(ssrContext) {
-                    if (disposed) return
-                    __webpack_require__(18)
-                }
-                var normalizeComponent = __webpack_require__(2)
-                    /* script */
-
-
-                /* template */
-
-                /* template functional */
-                var __vue_template_functional__ = false
-                    /* styles */
-                var __vue_styles__ = injectStyle
-                    /* scopeId */
-                var __vue_scopeId__ = "data-v-1c0540b9"
-                    /* moduleIdentifier (server only) */
-                var __vue_module_identifier__ = null
-                var Component = normalizeComponent(
-                    __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Lightness_vue___default.a,
-                    __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1c0540b9_hasScoped_true_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Lightness_vue__["a" /* default */ ],
-                    __vue_template_functional__,
-                    __vue_styles__,
-                    __vue_scopeId__,
-                    __vue_module_identifier__
-                )
-                Component.options.__file = "src/components/common/Lightness.vue"
-
-                /* hot reload */
-                if (false) {
-                    (function() {
-                        var hotAPI = require("vue-loader/node_modules/vue-hot-reload-api")
-                        hotAPI.install(require("vue"), false)
-                        if (!hotAPI.compatible) return
-                        module.hot.accept()
-                        if (!module.hot.data) {
-                            hotAPI.createRecord("data-v-1c0540b9", Component.options)
-                        } else {
-                            hotAPI.reload("data-v-1c0540b9", Component.options)
-                        }
-                        module.hot.dispose(function(data) {
-                            disposed = true
-                        })
-                    })()
-                }
-
-                /* harmony default export */
-                __webpack_exports__["default"] = (Component.exports);
-
-
-                /***/
-            }),
-            /* 18 */
-            /***/
-            (function(module, exports, __webpack_require__) {
-
-                // style-loader: Adds some css to the DOM by adding a <style> tag
-
-                // load the styles
-                var content = __webpack_require__(19);
-                if (typeof content === 'string') content = [
-                    [module.i, content, '']
-                ];
-                if (content.locals) module.exports = content.locals;
-                // add the styles to the DOM
-                var update = __webpack_require__(1)("7b1f837a", content, false, {});
-                // Hot Module Replacement
-                if (false) {
-                    // When the styles change, update the <style> tags
-                    if (!content.locals) {
-                        module.hot.accept("!!../../../node_modules/css-loader/index.js?{\"minimize\":false,\"sourceMap\":false}!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1c0540b9\",\"scoped\":true,\"hasInlineConfig\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Lightness.vue", function() {
-                            var newContent = require("!!../../../node_modules/css-loader/index.js?{\"minimize\":false,\"sourceMap\":false}!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1c0540b9\",\"scoped\":true,\"hasInlineConfig\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Lightness.vue");
-                            if (typeof newContent === 'string') newContent = [
-                                [module.id, newContent, '']
-                            ];
-                            update(newContent);
-                        });
-                    }
-                    // When the module is disposed, remove the <style> tags
-                    module.hot.dispose(function() { update(); });
-                }
-
-                /***/
-            }),
-            /* 19 */
-            /***/
-            (function(module, exports, __webpack_require__) {
-
-                exports = module.exports = __webpack_require__(0)(false);
-                // imports
-
-
-                // module
-                exports.push([module.i, "\n.vc-lightness[data-v-1c0540b9] {\n  opacity: 1;\n}\n", ""]);
-
-                // exports
-
-
-                /***/
-            }),
-            /* 20 */
-            /***/
-            (function(module, __webpack_exports__, __webpack_require__) {
-
-                "use strict";
-                var render = function() {
-                    var _vm = this
-                    var _h = _vm.$createElement
-                    var _c = _vm._self._c || _h
-                    return _c(
-                        "div", {
-                            staticClass: "vc vc-lightness",
-                            style: {
-                                background: "linear-gradient(to right, hsl(" +
-                                    _vm.colors.hsl.h +
-                                    ", 100%, 0%) 0%, hsl(" +
-                                    _vm.colors.hsl.h +
-                                    ", 100%, 50%) 50%, hsl(" +
-                                    _vm.colors.hsl.h +
-                                    ", 100%, 100%) 100%)"
-                            }
-                        }, [
-                            _c(
-                                "div", {
-                                    ref: "container",
-                                    staticClass: "vc-container",
-                                    attrs: {
-                                        role: "slider",
-                                        "aria-valuenow": _vm.colors.hsl.l,
-                                        "aria-valuemin": "0",
-                                        "aria-valuemax": "1"
-                                    },
-                                    on: {
-                                        mousedown: _vm.handleMouseDown,
-                                        touchmove: _vm.handleChange,
-                                        touchstart: _vm.handleChange
-                                    }
-                                }, [
-                                    _vm.showButton ?
-                                    _c(
-                                        "div", {
-                                            staticClass: "vc-pointer",
-                                            style: { left: _vm.pointerLeft },
-                                            attrs: { role: "presentation" }
-                                        }, [
-                                            _c("div", {
-                                                staticClass: "vc-picker-touch",
-                                                class: { active: _vm.mouseDown },
-                                                style: { backgroundColor: _vm.backgroundColor }
-                                            }),
-                                            _vm._v(" "),
-                                            _c("div", {
-                                                staticClass: "vc-picker",
-                                                style: { backgroundColor: _vm.backgroundColor }
-                                            })
-                                        ]
-                                    ) :
-                                    _vm._e()
-                                ]
-                            )
-                        ]
-                    )
-                }
-                var staticRenderFns = []
-                render._withStripped = true
-                var esExports = { render: render, staticRenderFns: staticRenderFns }
-                    /* harmony default export */
-                __webpack_exports__["a"] = (esExports);
-                if (false) {
-                    module.hot.accept()
-                    if (module.hot.data) {
-                        require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-1c0540b9", esExports)
-                    }
-                }
-
-                /***/
-            }),
-            /* 21 */
-            /***/
-            (function(module, __webpack_exports__, __webpack_require__) {
-
-                "use strict";
-                var render = function() {
-                    var _vm = this
-                    var _h = _vm.$createElement
-                    var _c = _vm._self._c || _h
-                    return _c(
-                        "div", {
-                            staticClass: "vc-slider",
-                            attrs: { role: "application", "aria-label": "Slider color picker" }
-                        }, [
-                            _c(
-                                "div", { staticClass: "vc-slider-warp" }, [
-                                    _c("hue", {
-                                        attrs: { startEmpty: !_vm.value || !_vm.value.a },
-                                        on: { change: _vm.hueChange, changemouseup: _vm.changeMouseUp },
-                                        model: {
-                                            value: _vm.colors,
-                                            callback: function($$v) {
-                                                _vm.colors = $$v
-                                            },
-                                            expression: "colors"
-                                        }
-                                    })
-                                ],
-                                1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                                "div", { staticClass: "vc-slider-warp" }, [
-                                    _vm.value.a ?
-                                    _c("lightness", {
-                                        on: { change: _vm.hueChange, changemouseup: _vm.changeMouseUp },
-                                        model: {
-                                            value: _vm.colors,
-                                            callback: function($$v) {
-                                                _vm.colors = $$v
-                                            },
-                                            expression: "colors"
-                                        }
-                                    }) :
-                                    _vm._e()
-                                ],
-                                1
-                            )
-                        ]
-                    )
-                }
-                var staticRenderFns = []
-                render._withStripped = true
-                var esExports = { render: render, staticRenderFns: staticRenderFns }
-                    /* harmony default export */
-                __webpack_exports__["a"] = (esExports);
-                if (false) {
-                    module.hot.accept()
-                    if (module.hot.data) {
-                        require("vue-loader/node_modules/vue-hot-reload-api").rerender("data-v-2dedc691", esExports)
-                    }
-                }
-
-                /***/
-            })
-            /******/
-        ]);
-});
+! function(t, e) { "object" == typeof exports && "object" == typeof module ? module.exports = e() : "function" == typeof define && define.amd ? define([], e) : "object" == typeof exports ? exports.VueColor = e() : t.VueColor = e() }("undefined" != typeof self ? self : this, function() { return function(t) {
+        function e(r) { if (n[r]) return n[r].exports; var i = n[r] = { i: r, l: !1, exports: {} }; return t[r].call(i.exports, i, i.exports, e), i.l = !0, i.exports } var n = {}; return e.m = t, e.c = n, e.d = function(t, n, r) { e.o(t, n) || Object.defineProperty(t, n, { configurable: !1, enumerable: !0, get: r }) }, e.n = function(t) { var n = t && t.__esModule ? function() { return t.default } : function() { return t }; return e.d(n, "a", n), n }, e.o = function(t, e) { return Object.prototype.hasOwnProperty.call(t, e) }, e.p = "", e(e.s = 17) }([function(t, e) {
+        function n(t, e) { var n = t[1] || "",
+                i = t[3]; if (!i) return n; if (e && "function" == typeof btoa) { var o = r(i); return [n].concat(i.sources.map(function(t) { return "/*# sourceURL=" + i.sourceRoot + t + " */" })).concat([o]).join("\n") } return [n].join("\n") }
+
+        function r(t) { return "/*# sourceMappingURL=data:application/json;charset=utf-8;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(t)))) + " */" }
+        t.exports = function(t) { var e = []; return e.toString = function() { return this.map(function(e) { var r = n(e, t); return e[2] ? "@media " + e[2] + "{" + r + "}" : r }).join("") }, e.i = function(t, n) { "string" == typeof t && (t = [
+                    [null, t, ""]
+                ]); for (var r = {}, i = 0; i < this.length; i++) { var o = this[i][0]; "number" == typeof o && (r[o] = !0) } for (i = 0; i < t.length; i++) { var a = t[i]; "number" == typeof a[0] && r[a[0]] || (n && !a[2] ? a[2] = n : n && (a[2] = "(" + a[2] + ") and (" + n + ")"), e.push(a)) } }, e } }, function(t, e, n) {
+        function r(t) { for (var e = 0; e < t.length; e++) { var n = t[e],
+                    r = f[n.id]; if (r) { r.refs++; for (var i = 0; i < r.parts.length; i++) r.parts[i](n.parts[i]); for (; i < n.parts.length; i++) r.parts.push(o(n.parts[i]));
+                    r.parts.length > n.parts.length && (r.parts.length = n.parts.length) } else { for (var a = [], i = 0; i < n.parts.length; i++) a.push(o(n.parts[i]));
+                    f[n.id] = { id: n.id, refs: 1, parts: a } } } }
+
+        function i() { var t = document.createElement("style"); return t.type = "text/css", l.appendChild(t), t }
+
+        function o(t) { var e, n, r = document.querySelector("style[" + b + '~="' + t.id + '"]'); if (r) { if (p) return g;
+                r.parentNode.removeChild(r) } if (m) { var o = d++;
+                r = h || (h = i()), e = a.bind(null, r, o, !1), n = a.bind(null, r, o, !0) } else r = i(), e = s.bind(null, r), n = function() { r.parentNode.removeChild(r) }; return e(t),
+                function(r) { if (r) { if (r.css === t.css && r.media === t.media && r.sourceMap === t.sourceMap) return;
+                        e(t = r) } else n() } }
+
+        function a(t, e, n, r) { var i = n ? "" : r.css; if (t.styleSheet) t.styleSheet.cssText = _(e, i);
+            else { var o = document.createTextNode(i),
+                    a = t.childNodes;
+                a[e] && t.removeChild(a[e]), a.length ? t.insertBefore(o, a[e]) : t.appendChild(o) } }
+
+        function s(t, e) { var n = e.css,
+                r = e.media,
+                i = e.sourceMap; if (r && t.setAttribute("media", r), v.ssrId && t.setAttribute(b, e.id), i && (n += "\n/*# sourceURL=" + i.sources[0] + " */", n += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(i)))) + " */"), t.styleSheet) t.styleSheet.cssText = n;
+            else { for (; t.firstChild;) t.removeChild(t.firstChild);
+                t.appendChild(document.createTextNode(n)) } } var u = "undefined" != typeof document; if ("undefined" != typeof DEBUG && DEBUG && !u) throw new Error("vue-style-loader cannot be used in a non-browser environment. Use { target: 'node' } in your Webpack config to indicate a server-rendering environment."); var c = n(21),
+            f = {},
+            l = u && (document.head || document.getElementsByTagName("head")[0]),
+            h = null,
+            d = 0,
+            p = !1,
+            g = function() {},
+            v = null,
+            b = "data-vue-ssr-id",
+            m = "undefined" != typeof navigator && /msie [6-9]\b/.test(navigator.userAgent.toLowerCase());
+        t.exports = function(t, e, n, i) { p = n, v = i || {}; var o = c(t, e); return r(o),
+                function(e) { for (var n = [], i = 0; i < o.length; i++) { var a = o[i],
+                            s = f[a.id];
+                        s.refs--, n.push(s) }
+                    e ? (o = c(t, e), r(o)) : o = []; for (var i = 0; i < n.length; i++) { var s = n[i]; if (0 === s.refs) { for (var u = 0; u < s.parts.length; u++) s.parts[u]();
+                            delete f[s.id] } } } }; var _ = function() { var t = []; return function(e, n) { return t[e] = n, t.filter(Boolean).join("\n") } }() }, function(t, e) { t.exports = function(t, e, n, r, i, o) { var a, s = t = t || {},
+                u = typeof t.default; "object" !== u && "function" !== u || (a = t, s = t.default); var c = "function" == typeof s ? s.options : s;
+            e && (c.render = e.render, c.staticRenderFns = e.staticRenderFns, c._compiled = !0), n && (c.functional = !0), i && (c._scopeId = i); var f; if (o ? (f = function(t) { t = t || this.$vnode && this.$vnode.ssrContext || this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext, t || "undefined" == typeof __VUE_SSR_CONTEXT__ || (t = __VUE_SSR_CONTEXT__), r && r.call(this, t), t && t._registeredComponents && t._registeredComponents.add(o) }, c._ssrRegister = f) : r && (f = r), f) { var l = c.functional,
+                    h = l ? c.render : c.beforeCreate;
+                l ? (c._injectStyles = f, c.render = function(t, e) { return f.call(e), h(t, e) }) : c.beforeCreate = h ? [].concat(h, f) : [f] } return { esModule: a, exports: s, options: c } } }, function(t, e) { var n = t.exports = "undefined" != typeof window && window.Math == Math ? window : "undefined" != typeof self && self.Math == Math ? self : Function("return this")(); "number" == typeof __g && (__g = n) }, function(t, e) { t.exports = function(t) { return "object" == typeof t ? null !== t : "function" == typeof t } }, function(t, e, n) { t.exports = !n(6)(function() { return 7 != Object.defineProperty({}, "a", { get: function() { return 7 } }).a }) }, function(t, e) { t.exports = function(t) { try { return !!t() } catch (t) { return !0 } } }, function(t, e, n) { "use strict";
+
+        function r(t) { return t && t.__esModule ? t : { default: t } }
+        Object.defineProperty(e, "__esModule", { value: !0 }); var i = n(8),
+            o = r(i),
+            a = n(14),
+            s = r(a),
+            u = n(55),
+            c = r(u);
+        e.default = { name: "Slider", mixins: [o.default], components: { hue: s.default, lightness: c.default }, methods: { changeMouseUp: function(t) { this.$emit("changemouseup", this.value) } } } }, function(t, e, n) { "use strict";
+
+        function r(t) { return t && t.__esModule ? t : { default: t } }
+
+        function i(t, e, n) { var r, i = t && t.a;!(r = t && t.hsl ? (0, u.default)(t.hsl) : t && t.hex && t.hex.length > 0 ? (0, u.default)(t.hex) : (0, u.default)(t)) || void 0 !== r._a && null !== r._a || r.setAlpha(i || 1); var o = r.toHsl(),
+                a = r.toHsv(); return 0 === o.s && (a.h = o.h = t.h || t.hsl && t.hsl.h || 0, a.s = o.s = t.s || t.hsl && t.hsl.s || 100), r._ok || (a.s = o.s = 100, a.v = o.l = 50), a.v < .0164 && (a.h = t.h || t.hsv && t.hsv.h || 0, a.s = t.s || t.hsv && t.hsv.s || 0), o.l < .01 && (o.h = t.h || t.hsl && t.hsl.h || 0, o.s = t.s || t.hsl && t.hsl.s || 0), { hsl: o, hex: r.toHexString().toUpperCase(), hex8: r.toHex8String().toUpperCase(), rgba: r.toRgb(), hsv: a, oldHue: t.h || e || o.h, oldLightness: t.l || n || o.l, oldSaturation: t.s || o.s, source: t.source, a: t.a || r.getAlpha() } }
+        Object.defineProperty(e, "__esModule", { value: !0 }); var o = n(22),
+            a = r(o),
+            s = n(51),
+            u = r(s);
+        e.default = { props: ["value"], data: function() { return { val: i(this.value), oldHue: 180, oldLightness: .5 } }, computed: { colors: { get: function() { return this.val }, set: function(t) { this.val = t, this.$emit("input", t) } } }, watch: { value: function(t) { this.val = i(t) } }, methods: { hueChange: function(t) { this.oldHue = t; var e = { hsl: (0, a.default)({}, this.val.hsl, { h: t }) };
+                    this.colors = i(e) }, lightnessChange: function(t) { this.oldLightness = t; var e = { hsl: (0, a.default)({}, this.val.hsl, { l: t }) };
+                    this.colors = i(e) } } } }, function(t, e) { var n = t.exports = { version: "2.5.1" }; "number" == typeof __e && (__e = n) }, function(t, e, n) { var r = n(11),
+            i = n(12);
+        t.exports = function(t) { return r(i(t)) } }, function(t, e, n) { var r = n(40);
+        t.exports = Object("z").propertyIsEnumerable(0) ? Object : function(t) { return "String" == r(t) ? t.split("") : Object(t) } }, function(t, e) { t.exports = function(t) { if (void 0 == t) throw TypeError("Can't call method on  " + t); return t } }, function(t, e) { var n = Math.ceil,
+            r = Math.floor;
+        t.exports = function(t) { return isNaN(t = +t) ? 0 : (t > 0 ? r : n)(t) } }, function(t, e, n) { "use strict";
+
+        function r(t) { u || n(52) }
+        Object.defineProperty(e, "__esModule", { value: !0 }); var i = n(15),
+            o = n.n(i); for (var a in i) "default" !== a && function(t) { n.d(e, t, function() { return i[t] }) }(a); var s = n(54),
+            u = !1,
+            c = n(2),
+            f = r,
+            l = c(o.a, s.a, !1, f, null, null);
+        l.options.__file = "src/components/common/Hue.vue", e.default = l.exports }, function(t, e, n) { "use strict";
+        Object.defineProperty(e, "__esModule", { value: !0 }), e.default = { name: "Hue", props: { hue: Number, startEmpty: { type: Boolean, default: !0 } }, data: function() { return { pullDirection: "", showButton: !this.startEmpty, mouseDown: !1 } }, computed: { backgroundColor: function() { return "hsl(" + this.hue + ", 100%, 50%)" }, pointerLeft: function() { return this.hue || "right" !== this.pullDirection ? 100 * this.hue / 360 + "%" : "100%" } }, methods: { handleChange: function(t, e) {!e && t.preventDefault(); var n, r, i = this.$refs.container,
+                        o = i.clientWidth,
+                        a = (i.clientHeight, i.getBoundingClientRect().left + window.pageXOffset),
+                        s = t.pageX || (t.touches ? t.touches[0].pageX : 0),
+                        u = s - a;
+                    u < 0 ? n = 0 : u > o ? n = 360 : (r = 100 * u / o, n = 360 * r / 100), this.hue !== n && this.emitValue("change", n) }, handleMouseDown: function(t) { this.showButton = !0, this.mouseDown = !0, this.handleChange(t, !1), window.addEventListener("mousemove", this.handleChange), window.addEventListener("mouseup", this.handleMouseUp), window.addEventListener("mouseout", this.handleMouseOut) }, handleMouseUp: function(t) { this.mouseDown = !1, this.unbindEventListeners(), this.emitValue("changemouseup") }, handleMouseOut: function(t) { "HTML" == t.target.tagName && this.unbindEventListeners() }, unbindEventListeners: function() { window.removeEventListener("mousemove", this.handleChange), window.removeEventListener("mouseup", this.handleMouseUp), window.addEventListener("mouseout", this.handleMouseOut) }, emitValue: function(t, e) { this.$emit(t, e) } } } }, function(t, e, n) { "use strict";
+        Object.defineProperty(e, "__esModule", { value: !0 }), e.default = { name: "Lightness", props: { hue: Number, lightness: Number }, data: function() { return { pullDirection: "", mouseDown: !1 } }, computed: { backgroundColor: function() { return "hsl(" + this.hue + ", 100%," + 100 * this.lightness + "%)" }, pointerLeft: function() { return 0 === this.lightness && "right" === this.pullDirection ? "100%" : 100 * this.lightness + "%" } }, methods: { handleChange: function(t, e) {!e && t.preventDefault(); var n, r, i = this.$refs.container,
+                        o = i.clientWidth,
+                        a = (i.clientHeight, i.getBoundingClientRect().left + window.pageXOffset),
+                        s = t.pageX || (t.touches ? t.touches[0].pageX : 0),
+                        u = s - a;
+                    u < 0 ? n = 0 : u > o ? n = 1 : (r = u / o, n = r), this.lightness !== n && (this.lightness = n, this.emitValue("change")) }, handleMouseDown: function(t) { this.mouseDown = !0, this.handleChange(t, !1), window.addEventListener("mousemove", this.handleChange), window.addEventListener("mouseup", this.handleMouseUp) }, handleMouseUp: function(t) { this.mouseDown = !1, this.unbindEventListeners(), this.emitValue("changemouseup") }, unbindEventListeners: function() { window.removeEventListener("mousemove", this.handleChange), window.removeEventListener("mouseup", this.handleMouseUp) }, emitValue: function(t) { this.$emit(t, this.lightness) } } } }, function(t, e, n) { "use strict";
+
+        function r(t) { return t && t.__esModule ? t : { default: t } } var i = n(18),
+            o = r(i),
+            a = n(14),
+            s = r(a),
+            u = n(8),
+            c = r(u),
+            f = { version: "2.7.0", Slider: o.default, Hue: s.default, ColorMixin: c.default };
+        t.exports = f }, function(t, e, n) { "use strict";
+
+        function r(t) { u || n(19) }
+        Object.defineProperty(e, "__esModule", { value: !0 }); var i = n(7),
+            o = n.n(i); for (var a in i) "default" !== a && function(t) { n.d(e, t, function() { return i[t] }) }(a); var s = n(59),
+            u = !1,
+            c = n(2),
+            f = r,
+            l = c(o.a, s.a, !1, f, null, null);
+        l.options.__file = "src/components/Slider.vue", e.default = l.exports }, function(t, e, n) { var r = n(20); "string" == typeof r && (r = [
+            [t.i, r, ""]
+        ]), r.locals && (t.exports = r.locals);
+        n(1)("7982aa43", r, !1, {}) }, function(t, e, n) { e = t.exports = n(0)(!1), e.push([t.i, "\n.vc-slider {\n  position: relative;\n  width: 100%;\n}\n.vc-slider-warp {\n  height: 8px;\n  margin: 20px;\n  position: relative;\n}\n.vc {\n  position: absolute;\n  top: 0px;\n  right: 0px;\n  bottom: 0px;\n  left: 0px;\n  opacity: 0.5;\n  border-radius: 8px;\n  transition: opacity 0.2s;\n}\n.vc.active,\n.vc:hover {\n  opacity: 1;\n}\n.vc-container {\n  cursor: pointer;\n  margin: 0 2px;\n  position: relative;\n  height: 100%;\n}\n.vc-pointer {\n  z-index: 2;\n  position: absolute;\n  top: 0;\n}\n.vc-picker,\n.vc-picker-touch {\n  border-radius: 16px;\n  border: 2px solid #5b5d5c;\n  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);\n  box-sizing: content-box;\n}\n.vc-picker {\n  width: 14px;\n  height: 14px;\n  transform: translate(-9px, -6px);\n}\n.vc-picker-touch {\n  pointer-events: none;\n  width: 26px;\n  height: 26px;\n  transform: translate(-15px, -55px);\n  position: absolute;\n  transition: opacity 0.2s ease-in-out;\n  opacity: 0;\n}\n.user-using-touch .vc-picker-touch.active {\n  opacity: 1;\n}\n", ""]) }, function(t, e) { t.exports = function(t, e) { for (var n = [], r = {}, i = 0; i < e.length; i++) { var o = e[i],
+                    a = o[0],
+                    s = o[1],
+                    u = o[2],
+                    c = o[3],
+                    f = { id: t + ":" + i, css: s, media: u, sourceMap: c };
+                r[a] ? r[a].parts.push(f) : n.push(r[a] = { id: a, parts: [f] }) } return n } }, function(t, e, n) { "use strict";
+        e.__esModule = !0; var r = n(23),
+            i = function(t) { return t && t.__esModule ? t : { default: t } }(r);
+        e.default = i.default || function(t) { for (var e = 1; e < arguments.length; e++) { var n = arguments[e]; for (var r in n) Object.prototype.hasOwnProperty.call(n, r) && (t[r] = n[r]) } return t } }, function(t, e, n) { t.exports = { default: n(24), __esModule: !0 } }, function(t, e, n) { n(25), t.exports = n(9).Object.assign }, function(t, e, n) { var r = n(26);
+        r(r.S + r.F, "Object", { assign: n(36) }) }, function(t, e, n) { var r = n(3),
+            i = n(9),
+            o = n(27),
+            a = n(29),
+            s = function(t, e, n) { var u, c, f, l = t & s.F,
+                    h = t & s.G,
+                    d = t & s.S,
+                    p = t & s.P,
+                    g = t & s.B,
+                    v = t & s.W,
+                    b = h ? i : i[e] || (i[e] = {}),
+                    m = b.prototype,
+                    _ = h ? r : d ? r[e] : (r[e] || {}).prototype;
+                h && (n = e); for (u in n)(c = !l && _ && void 0 !== _[u]) && u in b || (f = c ? _[u] : n[u], b[u] = h && "function" != typeof _[u] ? n[u] : g && c ? o(f, r) : v && _[u] == f ? function(t) { var e = function(e, n, r) { if (this instanceof t) { switch (arguments.length) {
+                                case 0:
+                                    return new t;
+                                case 1:
+                                    return new t(e);
+                                case 2:
+                                    return new t(e, n) } return new t(e, n, r) } return t.apply(this, arguments) }; return e.prototype = t.prototype, e }(f) : p && "function" == typeof f ? o(Function.call, f) : f, p && ((b.virtual || (b.virtual = {}))[u] = f, t & s.R && m && !m[u] && a(m, u, f))) };
+        s.F = 1, s.G = 2, s.S = 4, s.P = 8, s.B = 16, s.W = 32, s.U = 64, s.R = 128, t.exports = s }, function(t, e, n) { var r = n(28);
+        t.exports = function(t, e, n) { if (r(t), void 0 === e) return t; switch (n) {
+                case 1:
+                    return function(n) { return t.call(e, n) };
+                case 2:
+                    return function(n, r) { return t.call(e, n, r) };
+                case 3:
+                    return function(n, r, i) { return t.call(e, n, r, i) } } return function() { return t.apply(e, arguments) } } }, function(t, e) { t.exports = function(t) { if ("function" != typeof t) throw TypeError(t + " is not a function!"); return t } }, function(t, e, n) { var r = n(30),
+            i = n(35);
+        t.exports = n(5) ? function(t, e, n) { return r.f(t, e, i(1, n)) } : function(t, e, n) { return t[e] = n, t } }, function(t, e, n) { var r = n(31),
+            i = n(32),
+            o = n(34),
+            a = Object.defineProperty;
+        e.f = n(5) ? Object.defineProperty : function(t, e, n) { if (r(t), e = o(e, !0), r(n), i) try { return a(t, e, n) } catch (t) {}
+            if ("get" in n || "set" in n) throw TypeError("Accessors not supported!"); return "value" in n && (t[e] = n.value), t } }, function(t, e, n) { var r = n(4);
+        t.exports = function(t) { if (!r(t)) throw TypeError(t + " is not an object!"); return t } }, function(t, e, n) { t.exports = !n(5) && !n(6)(function() { return 7 != Object.defineProperty(n(33)("div"), "a", { get: function() { return 7 } }).a }) }, function(t, e, n) { var r = n(4),
+            i = n(3).document,
+            o = r(i) && r(i.createElement);
+        t.exports = function(t) { return o ? i.createElement(t) : {} } }, function(t, e, n) { var r = n(4);
+        t.exports = function(t, e) { if (!r(t)) return t; var n, i; if (e && "function" == typeof(n = t.toString) && !r(i = n.call(t))) return i; if ("function" == typeof(n = t.valueOf) && !r(i = n.call(t))) return i; if (!e && "function" == typeof(n = t.toString) && !r(i = n.call(t))) return i; throw TypeError("Can't convert object to primitive value") } }, function(t, e) { t.exports = function(t, e) { return { enumerable: !(1 & t), configurable: !(2 & t), writable: !(4 & t), value: e } } }, function(t, e, n) { "use strict"; var r = n(37),
+            i = n(48),
+            o = n(49),
+            a = n(50),
+            s = n(11),
+            u = Object.assign;
+        t.exports = !u || n(6)(function() { var t = {},
+                e = {},
+                n = Symbol(),
+                r = "abcdefghijklmnopqrst"; return t[n] = 7, r.split("").forEach(function(t) { e[t] = t }), 7 != u({}, t)[n] || Object.keys(u({}, e)).join("") != r }) ? function(t, e) { for (var n = a(t), u = arguments.length, c = 1, f = i.f, l = o.f; u > c;)
+                for (var h, d = s(arguments[c++]), p = f ? r(d).concat(f(d)) : r(d), g = p.length, v = 0; g > v;) l.call(d, h = p[v++]) && (n[h] = d[h]); return n } : u }, function(t, e, n) { var r = n(38),
+            i = n(47);
+        t.exports = Object.keys || function(t) { return r(t, i) } }, function(t, e, n) { var r = n(39),
+            i = n(10),
+            o = n(41)(!1),
+            a = n(44)("IE_PROTO");
+        t.exports = function(t, e) { var n, s = i(t),
+                u = 0,
+                c = []; for (n in s) n != a && r(s, n) && c.push(n); for (; e.length > u;) r(s, n = e[u++]) && (~o(c, n) || c.push(n)); return c } }, function(t, e) { var n = {}.hasOwnProperty;
+        t.exports = function(t, e) { return n.call(t, e) } }, function(t, e) { var n = {}.toString;
+        t.exports = function(t) { return n.call(t).slice(8, -1) } }, function(t, e, n) { var r = n(10),
+            i = n(42),
+            o = n(43);
+        t.exports = function(t) { return function(e, n, a) { var s, u = r(e),
+                    c = i(u.length),
+                    f = o(a, c); if (t && n != n) { for (; c > f;)
+                        if ((s = u[f++]) != s) return !0 } else
+                    for (; c > f; f++)
+                        if ((t || f in u) && u[f] === n) return t || f || 0; return !t && -1 } } }, function(t, e, n) { var r = n(13),
+            i = Math.min;
+        t.exports = function(t) { return t > 0 ? i(r(t), 9007199254740991) : 0 } }, function(t, e, n) { var r = n(13),
+            i = Math.max,
+            o = Math.min;
+        t.exports = function(t, e) { return t = r(t), t < 0 ? i(t + e, 0) : o(t, e) } }, function(t, e, n) { var r = n(45)("keys"),
+            i = n(46);
+        t.exports = function(t) { return r[t] || (r[t] = i(t)) } }, function(t, e, n) { var r = n(3),
+            i = r["__core-js_shared__"] || (r["__core-js_shared__"] = {});
+        t.exports = function(t) { return i[t] || (i[t] = {}) } }, function(t, e) { var n = 0,
+            r = Math.random();
+        t.exports = function(t) { return "Symbol(".concat(void 0 === t ? "" : t, ")_", (++n + r).toString(36)) } }, function(t, e) { t.exports = "constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf".split(",") }, function(t, e) { e.f = Object.getOwnPropertySymbols }, function(t, e) { e.f = {}.propertyIsEnumerable }, function(t, e, n) { var r = n(12);
+        t.exports = function(t) { return Object(r(t)) } }, function(t, e, n) { var r;! function(i) {
+            function o(t, e) { if (t = t || "", e = e || {}, t instanceof o) return t; if (!(this instanceof o)) return new o(t, e); var n = a(t);
+                this._originalInput = t, this._r = n.r, this._g = n.g, this._b = n.b, this._a = n.a, this._roundA = V(100 * this._a) / 100, this._format = e.format || n.format, this._gradientType = e.gradientType, this._r < 1 && (this._r = V(this._r)), this._g < 1 && (this._g = V(this._g)), this._b < 1 && (this._b = V(this._b)), this._ok = n.ok, this._tc_id = q++ }
+
+            function a(t) { var e = { r: 0, g: 0, b: 0 },
+                    n = 1,
+                    r = null,
+                    i = null,
+                    o = null,
+                    a = !1,
+                    u = !1; return "string" == typeof t && (t = T(t)), "object" == typeof t && (D(t.r) && D(t.g) && D(t.b) ? (e = s(t.r, t.g, t.b), a = !0, u = "%" === String(t.r).substr(-1) ? "prgb" : "rgb") : D(t.h) && D(t.s) && D(t.v) ? (r = P(t.s), i = P(t.v), e = l(t.h, r, i), a = !0, u = "hsv") : D(t.h) && D(t.s) && D(t.l) && (r = P(t.s), o = P(t.l), e = c(t.h, r, o), a = !0, u = "hsl"), t.hasOwnProperty("a") && (n = t.a)), n = E(n), { ok: a, format: t.format || u, r: z(255, X(e.r, 0)), g: z(255, X(e.g, 0)), b: z(255, X(e.b, 0)), a: n } }
+
+            function s(t, e, n) { return { r: 255 * O(t, 255), g: 255 * O(e, 255), b: 255 * O(n, 255) } }
+
+            function u(t, e, n) { t = O(t, 255), e = O(e, 255), n = O(n, 255); var r, i, o = X(t, e, n),
+                    a = z(t, e, n),
+                    s = (o + a) / 2; if (o == a) r = i = 0;
+                else { var u = o - a; switch (i = s > .5 ? u / (2 - o - a) : u / (o + a), o) {
+                        case t:
+                            r = (e - n) / u + (e < n ? 6 : 0); break;
+                        case e:
+                            r = (n - t) / u + 2; break;
+                        case n:
+                            r = (t - e) / u + 4 }
+                    r /= 6 } return { h: r, s: i, l: s } }
+
+            function c(t, e, n) {
+                function r(t, e, n) { return n < 0 && (n += 1), n > 1 && (n -= 1), n < 1 / 6 ? t + 6 * (e - t) * n : n < .5 ? e : n < 2 / 3 ? t + (e - t) * (2 / 3 - n) * 6 : t } var i, o, a; if (t = O(t, 360), e = O(e, 100), n = O(n, 100), 0 === e) i = o = a = n;
+                else { var s = n < .5 ? n * (1 + e) : n + e - n * e,
+                        u = 2 * n - s;
+                    i = r(u, s, t + 1 / 3), o = r(u, s, t), a = r(u, s, t - 1 / 3) } return { r: 255 * i, g: 255 * o, b: 255 * a } }
+
+            function f(t, e, n) { t = O(t, 255), e = O(e, 255), n = O(n, 255); var r, i, o = X(t, e, n),
+                    a = z(t, e, n),
+                    s = o,
+                    u = o - a; if (i = 0 === o ? 0 : u / o, o == a) r = 0;
+                else { switch (o) {
+                        case t:
+                            r = (e - n) / u + (e < n ? 6 : 0); break;
+                        case e:
+                            r = (n - t) / u + 2; break;
+                        case n:
+                            r = (t - e) / u + 4 }
+                    r /= 6 } return { h: r, s: i, v: s } }
+
+            function l(t, e, n) { t = 6 * O(t, 360), e = O(e, 100), n = O(n, 100); var r = i.floor(t),
+                    o = t - r,
+                    a = n * (1 - e),
+                    s = n * (1 - o * e),
+                    u = n * (1 - (1 - o) * e),
+                    c = r % 6; return { r: 255 * [n, s, a, a, u, n][c], g: 255 * [u, n, n, s, a, a][c], b: 255 * [a, a, u, n, n, s][c] } }
+
+            function h(t, e, n, r) { var i = [F(V(t).toString(16)), F(V(e).toString(16)), F(V(n).toString(16))]; return r && i[0].charAt(0) == i[0].charAt(1) && i[1].charAt(0) == i[1].charAt(1) && i[2].charAt(0) == i[2].charAt(1) ? i[0].charAt(0) + i[1].charAt(0) + i[2].charAt(0) : i.join("") }
+
+            function d(t, e, n, r, i) { var o = [F(V(t).toString(16)), F(V(e).toString(16)), F(V(n).toString(16)), F(U(r))]; return i && o[0].charAt(0) == o[0].charAt(1) && o[1].charAt(0) == o[1].charAt(1) && o[2].charAt(0) == o[2].charAt(1) && o[3].charAt(0) == o[3].charAt(1) ? o[0].charAt(0) + o[1].charAt(0) + o[2].charAt(0) + o[3].charAt(0) : o.join("") }
+
+            function p(t, e, n, r) { return [F(U(r)), F(V(t).toString(16)), F(V(e).toString(16)), F(V(n).toString(16))].join("") }
+
+            function g(t, e) { e = 0 === e ? 0 : e || 10; var n = o(t).toHsl(); return n.s -= e / 100, n.s = j(n.s), o(n) }
+
+            function v(t, e) { e = 0 === e ? 0 : e || 10; var n = o(t).toHsl(); return n.s += e / 100, n.s = j(n.s), o(n) }
+
+            function b(t) { return o(t).desaturate(100) }
+
+            function m(t, e) { e = 0 === e ? 0 : e || 10; var n = o(t).toHsl(); return n.l += e / 100, n.l = j(n.l), o(n) }
+
+            function _(t, e) { e = 0 === e ? 0 : e || 10; var n = o(t).toRgb(); return n.r = X(0, z(255, n.r - V(-e / 100 * 255))), n.g = X(0, z(255, n.g - V(-e / 100 * 255))), n.b = X(0, z(255, n.b - V(-e / 100 * 255))), o(n) }
+
+            function y(t, e) { e = 0 === e ? 0 : e || 10; var n = o(t).toHsl(); return n.l -= e / 100, n.l = j(n.l), o(n) }
+
+            function x(t, e) { var n = o(t).toHsl(),
+                    r = (n.h + e) % 360; return n.h = r < 0 ? 360 + r : r, o(n) }
+
+            function w(t) { var e = o(t).toHsl(); return e.h = (e.h + 180) % 360, o(e) }
+
+            function C(t) { var e = o(t).toHsl(),
+                    n = e.h; return [o(t), o({ h: (n + 120) % 360, s: e.s, l: e.l }), o({ h: (n + 240) % 360, s: e.s, l: e.l })] }
+
+            function k(t) { var e = o(t).toHsl(),
+                    n = e.h; return [o(t), o({ h: (n + 90) % 360, s: e.s, l: e.l }), o({ h: (n + 180) % 360, s: e.s, l: e.l }), o({ h: (n + 270) % 360, s: e.s, l: e.l })] }
+
+            function A(t) { var e = o(t).toHsl(),
+                    n = e.h; return [o(t), o({ h: (n + 72) % 360, s: e.s, l: e.l }), o({ h: (n + 216) % 360, s: e.s, l: e.l })] }
+
+            function S(t, e, n) { e = e || 6, n = n || 30; var r = o(t).toHsl(),
+                    i = 360 / n,
+                    a = [o(t)]; for (r.h = (r.h - (i * e >> 1) + 720) % 360; --e;) r.h = (r.h + i) % 360, a.push(o(r)); return a }
+
+            function M(t, e) { e = e || 6; for (var n = o(t).toHsv(), r = n.h, i = n.s, a = n.v, s = [], u = 1 / e; e--;) s.push(o({ h: r, s: i, v: a })), a = (a + u) % 1; return s }
+
+            function E(t) { return t = parseFloat(t), (isNaN(t) || t < 0 || t > 1) && (t = 1), t }
+
+            function O(t, e) { H(t) && (t = "100%"); var n = L(t); return t = z(e, X(0, parseFloat(t))), n && (t = parseInt(t * e, 10) / 100), i.abs(t - e) < 1e-6 ? 1 : t % e / parseFloat(e) }
+
+            function j(t) { return z(1, X(0, t)) }
+
+            function R(t) { return parseInt(t, 16) }
+
+            function H(t) { return "string" == typeof t && -1 != t.indexOf(".") && 1 === parseFloat(t) }
+
+            function L(t) { return "string" == typeof t && -1 != t.indexOf("%") }
+
+            function F(t) { return 1 == t.length ? "0" + t : "" + t }
+
+            function P(t) { return t <= 1 && (t = 100 * t + "%"), t }
+
+            function U(t) { return i.round(255 * parseFloat(t)).toString(16) }
+
+            function N(t) { return R(t) / 255 }
+
+            function D(t) { return !!K.CSS_UNIT.exec(t) }
+
+            function T(t) { t = t.replace(B, "").replace(I, "").toLowerCase(); var e = !1; if (W[t]) t = W[t], e = !0;
+                else if ("transparent" == t) return { r: 0, g: 0, b: 0, a: 0, format: "name" }; var n; return (n = K.rgb.exec(t)) ? { r: n[1], g: n[2], b: n[3] } : (n = K.rgba.exec(t)) ? { r: n[1], g: n[2], b: n[3], a: n[4] } : (n = K.hsl.exec(t)) ? { h: n[1], s: n[2], l: n[3] } : (n = K.hsla.exec(t)) ? { h: n[1], s: n[2], l: n[3], a: n[4] } : (n = K.hsv.exec(t)) ? { h: n[1], s: n[2], v: n[3] } : (n = K.hsva.exec(t)) ? { h: n[1], s: n[2], v: n[3], a: n[4] } : (n = K.hex8.exec(t)) ? { r: R(n[1]), g: R(n[2]), b: R(n[3]), a: N(n[4]), format: e ? "name" : "hex8" } : (n = K.hex6.exec(t)) ? { r: R(n[1]), g: R(n[2]), b: R(n[3]), format: e ? "name" : "hex" } : (n = K.hex4.exec(t)) ? { r: R(n[1] + "" + n[1]), g: R(n[2] + "" + n[2]), b: R(n[3] + "" + n[3]), a: N(n[4] + "" + n[4]), format: e ? "name" : "hex8" } : !!(n = K.hex3.exec(t)) && { r: R(n[1] + "" + n[1]), g: R(n[2] + "" + n[2]), b: R(n[3] + "" + n[3]), format: e ? "name" : "hex" } }
+
+            function $(t) { var e, n; return t = t || { level: "AA", size: "small" }, e = (t.level || "AA").toUpperCase(), n = (t.size || "small").toLowerCase(), "AA" !== e && "AAA" !== e && (e = "AA"), "small" !== n && "large" !== n && (n = "small"), { level: e, size: n } } var B = /^\s+/,
+                I = /\s+$/,
+                q = 0,
+                V = i.round,
+                z = i.min,
+                X = i.max,
+                G = i.random;
+            o.prototype = { isDark: function() { return this.getBrightness() < 128 }, isLight: function() { return !this.isDark() }, isValid: function() { return this._ok }, getOriginalInput: function() { return this._originalInput }, getFormat: function() { return this._format }, getAlpha: function() { return this._a }, getBrightness: function() { var t = this.toRgb(); return (299 * t.r + 587 * t.g + 114 * t.b) / 1e3 }, getLuminance: function() { var t, e, n, r, o, a, s = this.toRgb(); return t = s.r / 255, e = s.g / 255, n = s.b / 255, r = t <= .03928 ? t / 12.92 : i.pow((t + .055) / 1.055, 2.4), o = e <= .03928 ? e / 12.92 : i.pow((e + .055) / 1.055, 2.4), a = n <= .03928 ? n / 12.92 : i.pow((n + .055) / 1.055, 2.4), .2126 * r + .7152 * o + .0722 * a }, setAlpha: function(t) { return this._a = E(t), this._roundA = V(100 * this._a) / 100, this }, toHsv: function() { var t = f(this._r, this._g, this._b); return { h: 360 * t.h, s: t.s, v: t.v, a: this._a } }, toHsvString: function() { var t = f(this._r, this._g, this._b),
+                        e = V(360 * t.h),
+                        n = V(100 * t.s),
+                        r = V(100 * t.v); return 1 == this._a ? "hsv(" + e + ", " + n + "%, " + r + "%)" : "hsva(" + e + ", " + n + "%, " + r + "%, " + this._roundA + ")" }, toHsl: function() { var t = u(this._r, this._g, this._b); return { h: 360 * t.h, s: t.s, l: t.l, a: this._a } }, toHslString: function() { var t = u(this._r, this._g, this._b),
+                        e = V(360 * t.h),
+                        n = V(100 * t.s),
+                        r = V(100 * t.l); return 1 == this._a ? "hsl(" + e + ", " + n + "%, " + r + "%)" : "hsla(" + e + ", " + n + "%, " + r + "%, " + this._roundA + ")" }, toHex: function(t) { return h(this._r, this._g, this._b, t) }, toHexString: function(t) { return "#" + this.toHex(t) }, toHex8: function(t) { return d(this._r, this._g, this._b, this._a, t) }, toHex8String: function(t) { return "#" + this.toHex8(t) }, toRgb: function() { return { r: V(this._r), g: V(this._g), b: V(this._b), a: this._a } }, toRgbString: function() { return 1 == this._a ? "rgb(" + V(this._r) + ", " + V(this._g) + ", " + V(this._b) + ")" : "rgba(" + V(this._r) + ", " + V(this._g) + ", " + V(this._b) + ", " + this._roundA + ")" }, toPercentageRgb: function() { return { r: V(100 * O(this._r, 255)) + "%", g: V(100 * O(this._g, 255)) + "%", b: V(100 * O(this._b, 255)) + "%", a: this._a } }, toPercentageRgbString: function() { return 1 == this._a ? "rgb(" + V(100 * O(this._r, 255)) + "%, " + V(100 * O(this._g, 255)) + "%, " + V(100 * O(this._b, 255)) + "%)" : "rgba(" + V(100 * O(this._r, 255)) + "%, " + V(100 * O(this._g, 255)) + "%, " + V(100 * O(this._b, 255)) + "%, " + this._roundA + ")" }, toName: function() { return 0 === this._a ? "transparent" : !(this._a < 1) && (J[h(this._r, this._g, this._b, !0)] || !1) }, toFilter: function(t) { var e = "#" + p(this._r, this._g, this._b, this._a),
+                        n = e,
+                        r = this._gradientType ? "GradientType = 1, " : ""; if (t) { var i = o(t);
+                        n = "#" + p(i._r, i._g, i._b, i._a) } return "progid:DXImageTransform.Microsoft.gradient(" + r + "startColorstr=" + e + ",endColorstr=" + n + ")" }, toString: function(t) { var e = !!t;
+                    t = t || this._format; var n = !1,
+                        r = this._a < 1 && this._a >= 0; return e || !r || "hex" !== t && "hex6" !== t && "hex3" !== t && "hex4" !== t && "hex8" !== t && "name" !== t ? ("rgb" === t && (n = this.toRgbString()), "prgb" === t && (n = this.toPercentageRgbString()), "hex" !== t && "hex6" !== t || (n = this.toHexString()), "hex3" === t && (n = this.toHexString(!0)), "hex4" === t && (n = this.toHex8String(!0)), "hex8" === t && (n = this.toHex8String()), "name" === t && (n = this.toName()), "hsl" === t && (n = this.toHslString()), "hsv" === t && (n = this.toHsvString()), n || this.toHexString()) : "name" === t && 0 === this._a ? this.toName() : this.toRgbString() }, clone: function() { return o(this.toString()) }, _applyModification: function(t, e) { var n = t.apply(null, [this].concat([].slice.call(e))); return this._r = n._r, this._g = n._g, this._b = n._b, this.setAlpha(n._a), this }, lighten: function() { return this._applyModification(m, arguments) }, brighten: function() { return this._applyModification(_, arguments) }, darken: function() { return this._applyModification(y, arguments) }, desaturate: function() { return this._applyModification(g, arguments) }, saturate: function() { return this._applyModification(v, arguments) }, greyscale: function() { return this._applyModification(b, arguments) }, spin: function() { return this._applyModification(x, arguments) }, _applyCombination: function(t, e) { return t.apply(null, [this].concat([].slice.call(e))) }, analogous: function() { return this._applyCombination(S, arguments) }, complement: function() { return this._applyCombination(w, arguments) }, monochromatic: function() { return this._applyCombination(M, arguments) }, splitcomplement: function() { return this._applyCombination(A, arguments) }, triad: function() { return this._applyCombination(C, arguments) }, tetrad: function() { return this._applyCombination(k, arguments) } }, o.fromRatio = function(t, e) { if ("object" == typeof t) { var n = {}; for (var r in t) t.hasOwnProperty(r) && (n[r] = "a" === r ? t[r] : P(t[r]));
+                    t = n } return o(t, e) }, o.equals = function(t, e) { return !(!t || !e) && o(t).toRgbString() == o(e).toRgbString() }, o.random = function() { return o.fromRatio({ r: G(), g: G(), b: G() }) }, o.mix = function(t, e, n) { n = 0 === n ? 0 : n || 50; var r = o(t).toRgb(),
+                    i = o(e).toRgb(),
+                    a = n / 100; return o({ r: (i.r - r.r) * a + r.r, g: (i.g - r.g) * a + r.g, b: (i.b - r.b) * a + r.b, a: (i.a - r.a) * a + r.a }) }, o.readability = function(t, e) { var n = o(t),
+                    r = o(e); return (i.max(n.getLuminance(), r.getLuminance()) + .05) / (i.min(n.getLuminance(), r.getLuminance()) + .05) }, o.isReadable = function(t, e, n) { var r, i, a = o.readability(t, e); switch (i = !1, r = $(n), r.level + r.size) {
+                    case "AAsmall":
+                    case "AAAlarge":
+                        i = a >= 4.5; break;
+                    case "AAlarge":
+                        i = a >= 3; break;
+                    case "AAAsmall":
+                        i = a >= 7 } return i }, o.mostReadable = function(t, e, n) { var r, i, a, s, u = null,
+                    c = 0;
+                n = n || {}, i = n.includeFallbackColors, a = n.level, s = n.size; for (var f = 0; f < e.length; f++)(r = o.readability(t, e[f])) > c && (c = r, u = o(e[f])); return o.isReadable(t, u, { level: a, size: s }) || !i ? u : (n.includeFallbackColors = !1, o.mostReadable(t, ["#fff", "#000"], n)) }; var W = o.names = { aliceblue: "f0f8ff", antiquewhite: "faebd7", aqua: "0ff", aquamarine: "7fffd4", azure: "f0ffff", beige: "f5f5dc", bisque: "ffe4c4", black: "000", blanchedalmond: "ffebcd", blue: "00f", blueviolet: "8a2be2", brown: "a52a2a", burlywood: "deb887", burntsienna: "ea7e5d", cadetblue: "5f9ea0", chartreuse: "7fff00", chocolate: "d2691e", coral: "ff7f50", cornflowerblue: "6495ed", cornsilk: "fff8dc", crimson: "dc143c", cyan: "0ff", darkblue: "00008b", darkcyan: "008b8b", darkgoldenrod: "b8860b", darkgray: "a9a9a9", darkgreen: "006400", darkgrey: "a9a9a9", darkkhaki: "bdb76b", darkmagenta: "8b008b", darkolivegreen: "556b2f", darkorange: "ff8c00", darkorchid: "9932cc", darkred: "8b0000", darksalmon: "e9967a", darkseagreen: "8fbc8f", darkslateblue: "483d8b", darkslategray: "2f4f4f", darkslategrey: "2f4f4f", darkturquoise: "00ced1", darkviolet: "9400d3", deeppink: "ff1493", deepskyblue: "00bfff", dimgray: "696969", dimgrey: "696969", dodgerblue: "1e90ff", firebrick: "b22222", floralwhite: "fffaf0", forestgreen: "228b22", fuchsia: "f0f", gainsboro: "dcdcdc", ghostwhite: "f8f8ff", gold: "ffd700", goldenrod: "daa520", gray: "808080", green: "008000", greenyellow: "adff2f", grey: "808080", honeydew: "f0fff0", hotpink: "ff69b4", indianred: "cd5c5c", indigo: "4b0082", ivory: "fffff0", khaki: "f0e68c", lavender: "e6e6fa", lavenderblush: "fff0f5", lawngreen: "7cfc00", lemonchiffon: "fffacd", lightblue: "add8e6", lightcoral: "f08080", lightcyan: "e0ffff", lightgoldenrodyellow: "fafad2", lightgray: "d3d3d3", lightgreen: "90ee90", lightgrey: "d3d3d3", lightpink: "ffb6c1", lightsalmon: "ffa07a", lightseagreen: "20b2aa", lightskyblue: "87cefa", lightslategray: "789", lightslategrey: "789", lightsteelblue: "b0c4de", lightyellow: "ffffe0", lime: "0f0", limegreen: "32cd32", linen: "faf0e6", magenta: "f0f", maroon: "800000", mediumaquamarine: "66cdaa", mediumblue: "0000cd", mediumorchid: "ba55d3", mediumpurple: "9370db", mediumseagreen: "3cb371", mediumslateblue: "7b68ee", mediumspringgreen: "00fa9a", mediumturquoise: "48d1cc", mediumvioletred: "c71585", midnightblue: "191970", mintcream: "f5fffa", mistyrose: "ffe4e1", moccasin: "ffe4b5", navajowhite: "ffdead", navy: "000080", oldlace: "fdf5e6", olive: "808000", olivedrab: "6b8e23", orange: "ffa500", orangered: "ff4500", orchid: "da70d6", palegoldenrod: "eee8aa", palegreen: "98fb98", paleturquoise: "afeeee", palevioletred: "db7093", papayawhip: "ffefd5", peachpuff: "ffdab9", peru: "cd853f", pink: "ffc0cb", plum: "dda0dd", powderblue: "b0e0e6", purple: "800080", rebeccapurple: "663399", red: "f00", rosybrown: "bc8f8f", royalblue: "4169e1", saddlebrown: "8b4513", salmon: "fa8072", sandybrown: "f4a460", seagreen: "2e8b57", seashell: "fff5ee", sienna: "a0522d", silver: "c0c0c0", skyblue: "87ceeb", slateblue: "6a5acd", slategray: "708090", slategrey: "708090", snow: "fffafa", springgreen: "00ff7f", steelblue: "4682b4", tan: "d2b48c", teal: "008080", thistle: "d8bfd8", tomato: "ff6347", turquoise: "40e0d0", violet: "ee82ee", wheat: "f5deb3", white: "fff", whitesmoke: "f5f5f5", yellow: "ff0", yellowgreen: "9acd32" },
+                J = o.hexNames = function(t) { var e = {}; for (var n in t) t.hasOwnProperty(n) && (e[t[n]] = n); return e }(W),
+                K = function() { var t = "(?:[-\\+]?\\d*\\.\\d+%?)|(?:[-\\+]?\\d+%?)",
+                        e = "[\\s|\\(]+(" + t + ")[,|\\s]+(" + t + ")[,|\\s]+(" + t + ")\\s*\\)?",
+                        n = "[\\s|\\(]+(" + t + ")[,|\\s]+(" + t + ")[,|\\s]+(" + t + ")[,|\\s]+(" + t + ")\\s*\\)?"; return { CSS_UNIT: new RegExp(t), rgb: new RegExp("rgb" + e), rgba: new RegExp("rgba" + n), hsl: new RegExp("hsl" + e), hsla: new RegExp("hsla" + n), hsv: new RegExp("hsv" + e), hsva: new RegExp("hsva" + n), hex3: /^#?([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/, hex6: /^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/, hex4: /^#?([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})([0-9a-fA-F]{1})$/, hex8: /^#?([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})$/ } }();
+            void 0 !== t && t.exports ? t.exports = o : void 0 !== (r = function() { return o }.call(e, n, e, t)) && (t.exports = r) }(Math) }, function(t, e, n) { var r = n(53); "string" == typeof r && (r = [
+            [t.i, r, ""]
+        ]), r.locals && (t.exports = r.locals);
+        n(1)("7c5f1a1c", r, !1, {}) }, function(t, e, n) { e = t.exports = n(0)(!1), e.push([t.i, "\n.vc-hue {\n  background: linear-gradient(\n    to right,\n    #f00 0%,\n    #ff0 17%,\n    #0f0 33%,\n    #0ff 50%,\n    #00f 67%,\n    #f0f 83%,\n    #f00 100%\n  );\n}\n.vc-hue.active,\n.vc-hue:hover {\n  opacity: 1;\n}\n", ""]) }, function(t, e, n) { "use strict"; var r = function() { var t = this,
+                    e = t.$createElement,
+                    n = t._self._c || e; return n("div", { staticClass: "vc vc-hue", class: { active: t.showButton } }, [n("div", { ref: "container", staticClass: "vc-container", attrs: { role: "slider", "aria-valuenow": t.hue, "aria-valuemin": "0", "aria-valuemax": "360" }, on: { mousedown: t.handleMouseDown, touchmove: t.handleChange, touchstart: t.handleChange } }, [t.showButton ? n("div", { staticClass: "vc-pointer", style: { left: t.pointerLeft }, attrs: { role: "presentation" } }, [n("div", { staticClass: "vc-picker-touch", class: { active: t.mouseDown }, style: { backgroundColor: t.backgroundColor } }), t._v(" "), n("div", { staticClass: "vc-picker", style: { backgroundColor: t.backgroundColor } })]) : t._e()])]) },
+            i = [];
+        r._withStripped = !0; var o = { render: r, staticRenderFns: i };
+        e.a = o }, function(t, e, n) { "use strict";
+
+        function r(t) { u || n(56) }
+        Object.defineProperty(e, "__esModule", { value: !0 }); var i = n(16),
+            o = n.n(i); for (var a in i) "default" !== a && function(t) { n.d(e, t, function() { return i[t] }) }(a); var s = n(58),
+            u = !1,
+            c = n(2),
+            f = r,
+            l = c(o.a, s.a, !1, f, "data-v-1c0540b9", null);
+        l.options.__file = "src/components/common/Lightness.vue", e.default = l.exports }, function(t, e, n) { var r = n(57); "string" == typeof r && (r = [
+            [t.i, r, ""]
+        ]), r.locals && (t.exports = r.locals);
+        n(1)("7b1f837a", r, !1, {}) }, function(t, e, n) { e = t.exports = n(0)(!1), e.push([t.i, "\n.vc-lightness[data-v-1c0540b9] {\n  opacity: 1;\n}\n", ""]) }, function(t, e, n) { "use strict"; var r = function() { var t = this,
+                    e = t.$createElement,
+                    n = t._self._c || e; return n("div", { staticClass: "vc vc-lightness", style: { background: "linear-gradient(to right, hsl(" + t.hue + ", 100%, 0%) 0%, hsl(" + t.hue + ", 100%, 50%) 50%, hsl(" + t.hue + ", 100%, 100%) 100%)" } }, [n("div", { ref: "container", staticClass: "vc-container", attrs: { role: "slider", "aria-valuenow": t.lightness, "aria-valuemin": "0", "aria-valuemax": "1" }, on: { mousedown: t.handleMouseDown, touchmove: t.handleChange, touchstart: t.handleChange } }, [n("div", { staticClass: "vc-pointer", style: { left: t.pointerLeft }, attrs: { role: "presentation" } }, [n("div", { staticClass: "vc-picker-touch", class: { active: t.mouseDown }, style: { backgroundColor: t.backgroundColor } }), t._v(" "), n("div", { staticClass: "vc-picker", style: { backgroundColor: t.backgroundColor } })])])]) },
+            i = [];
+        r._withStripped = !0; var o = { render: r, staticRenderFns: i };
+        e.a = o }, function(t, e, n) { "use strict"; var r = function() { var t = this,
+                    e = t.$createElement,
+                    n = t._self._c || e; return n("div", { staticClass: "vc-slider", attrs: { role: "application", "aria-label": "Slider color picker" } }, [n("div", { staticClass: "vc-slider-warp" }, [n("hue", { attrs: { hue: t.colors.hsl.h, startEmpty: !t.value || !t.value.a }, on: { change: t.hueChange, changemouseup: t.changeMouseUp } })], 1), t._v(" "), n("div", { staticClass: "vc-slider-warp" }, [t.value.a ? n("lightness", { attrs: { hue: t.colors.hsl.h, lightness: t.colors.hsl.l }, on: { change: t.lightnessChange, changemouseup: t.changeMouseUp } }) : t._e()], 1)]) },
+            i = [];
+        r._withStripped = !0; var o = { render: r, staticRenderFns: i };
+        e.a = o }]) });
