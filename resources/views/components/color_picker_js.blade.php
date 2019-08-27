@@ -1,6 +1,6 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="js/touch-recognition.js"></script>
-<script src="js/vendor/vue-color.js"></script>
+<script src="js/vendor/vue-color.min.js"></script>
 <script>
 @if ($color)
   var color = {
