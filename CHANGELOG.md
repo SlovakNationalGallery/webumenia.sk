@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Changed
+- redesigned Artwork Detail page
 
 ## [1.9.1] - 2019-07-30
 ### Changed

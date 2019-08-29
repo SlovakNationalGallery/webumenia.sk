@@ -68,7 +68,7 @@
                                 ])
 
                             @if ($item->has_iip)
-                                    <i class="fa fa-search"></i>
+                                    <i class="fa fa-search-plus"></i>
                                 </a>
                             @else
                                 </div>
@@ -264,10 +264,10 @@
 
                     <div class="col-md-12 text-center">
                         @if ($item->isForReproduction())
-                            <a href="{!! URL::to('dielo/' . $item->id . '/objednat')  !!}" class="btn btn-default btn-outline sans"><i class="fa fa-shopping-cart"></i> {{ trans('dielo.item_order') }} </a>
+                            <a href="{!! URL::to('dielo/' . $item->id . '/objednat')  !!}" class="btn btn-default btn-outline sans w-100"><i class="fa fa-shopping-cart"></i> {{ trans('dielo.item_order') }} </a>
                         @endif
                         @if ($item->isFree() && $item->hasZoomableImages())
-                            <a href="{!! URL::to('dielo/' . $item->id . '/stiahnut')  !!}" class="btn btn-default btn-outline sans" id="download"><i class="fa fa-download"></i> {{ trans('dielo.item_download') }} </a>
+                            <a href="{!! URL::to('dielo/' . $item->id . '/stiahnut')  !!}" class="btn btn-default btn-outline sans w-100" id="download"><i class="fa fa-download"></i> {{ trans('dielo.item_download') }} </a>
                         @endif
                     </div>
 
@@ -284,31 +284,35 @@
     </div>
 </section>
 <section class="more-items content-section">
-    <div class="container">
-        @if (!empty($item->related_work))
-        <div class="row mb-5 related-works">
-            <div class="col-sm-12">
-                @if (!empty($item->related_work))
-                <h3 class="underlined-links mb-3">
-                    <span class="grey">{!! $item->relationship_type !!}: </span>
-                    <a href="{!! URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) !!}" itemprop="isPartOf">{!! $item->related_work !!}</a>
-                    @if ($item->related_work_order)
-                    ({!! $item->related_work_order !!}/{!! $item->related_work_total !!})
+    <div class="container-fluid related-works">
+        <div class="container">
+            @if (!empty($item->related_work))
+            <div class="row">
+                <div class="col-sm-12">
+                    @if (!empty($item->related_work))
+                    <h3 class="underlined-links mb-3">
+                        <span class="grey">{!! $item->relationship_type !!}: </span>
+                        <a href="{!! URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) !!}" itemprop="isPartOf">{!! $item->related_work !!}</a>
+                        @if ($item->related_work_order)
+                        ({!! $item->related_work_order !!}/{!! $item->related_work_total !!})
+                        @endif
+                    </h3>
                     @endif
-                </h3>
-                @endif
-                <?php $related_items = App\Item::related($item)->get() ?>
-                @if ($related_items->count() > 1)
-                @include('components.artwork_carousel', [
-                    'slick_target' => "artworks-preview",
-                    'slick_variant' => "large",
-                    'items' => $related_items,
-                    'class_names' => 'mb-5'
-                ])
-                @endif
+                    <?php $related_items = App\Item::related($item)->get() ?>
+                    @if ($related_items->count() > 1)
+                    @include('components.artwork_carousel', [
+                        'slick_target' => "artworks-preview",
+                        'slick_variant' => "large",
+                        'items' => $related_items,
+                        'class_names' => 'mb-5'
+                    ])
+                    @endif
+                </div>
             </div>
+            @endif
         </div>
-        @endif
+    </div>
+    <div class="container">
         <div class="row">
             <div class="{{$colors_used ? 'col-sm-6 pr-sm-5' : 'col-xs-12'}}">
                 <div class="h-8rem">
@@ -339,7 +343,7 @@
             <div class="col-sm-6 pl-sm-5" id="colorrelated" data-fetch-url="{{ route('dielo.colorrelated', ['id' => $item->id]) }}">
                 <div class="h-8rem">
                     <h3 class="mb-1">{{ utrans('dielo.more-items_similar-colors') }}</h3>
-                    @include('components.color_list', ['colors' => $colors_used])
+                    @include('components.color_list', ['colors' => $colors_used, 'class_names' => 'lh-4rem'])
                 </div>
                 <div class="isotope-container">
                     @foreach ($similar_items_by_color as $i=>$item)
