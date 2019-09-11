@@ -35,7 +35,7 @@ Pattern Library | @parent
                         </div>
                         <div class="panel-body">
                             <div class="clearfix">
-                                <div class="relative {{ isset($component['wrapper_classes']) ? $component['wrapper_classes'] : '' }}">
+                                <div class="position-relative {{ isset($component['wrapper_classes']) ? $component['wrapper_classes'] : '' }}">
                                     @include($component['include_path'], $component['data'])
                                     @if (isset($component['include_path_js']))
                                         @section('javascript')                                            

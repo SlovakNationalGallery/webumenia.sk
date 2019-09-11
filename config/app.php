@@ -16,8 +16,6 @@ return array(
     |
     */
 
-    'env' => env('APP_ENV', 'production'),
-
     'debug' => env('APP_DEBUG', false),
 
     'log' => 'daily',
@@ -224,4 +222,6 @@ return array(
 
     'old_url' => 'http://stary.webumenia.sk',
 
+    'iip_private' => env('IIP_PRIVATE'),
+    'iip_public' => env('IIP_PUBLIC'),
 );

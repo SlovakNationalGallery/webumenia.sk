@@ -66,13 +66,9 @@ function()
 
         $items = Item::with('images')->find(Session::get('cart', array()));
 
-        $allow_printed_reproductions = true;
-
-        foreach ($items as $item) {
-            if (!$item->hasZoomableImages()) {
-                $allow_printed_reproductions = false;
-            }
-        }
+        $allow_printed_reproductions = $items->reduce(function ($result, $item) {
+            return $result & !$item->images->isEmpty();
+        }, true);
 
         return view('objednavka', [
             'items' => $items,
@@ -193,12 +189,12 @@ function()
     });
 
     Route::get('dielo/{id}/stiahnut', ['middleware' => 'throttle:5,1', function ($id) {
-
         $item = Item::find($id);
-
-        if (empty($item) || !$item->publicDownload()) {
-        	App::abort(404);
+        if ($item->images->isEmpty()) {
+            abort(404);
         }
+
+        return redirect()->route('image.download', ['id' => $item->images->first()->id]);
     }]);
 
     Route::get('dielo/{id}', function ($id) {
@@ -212,7 +208,6 @@ function()
         $item->save();
         $previous = $next = false;
 
-        // $more_items = Item::moreLikeThis(['author','title.stemmed','description.stemmed', 'tag', 'place'],[$item->id])->limit(20);
         $more_items = $item->moreLikeThis(30);
 
         if (Input::has('collection')) {
@@ -278,6 +273,7 @@ function()
     })->name('dielo.colorrelated');
 
     Route::get('dielo/nahlad/{id}/{width}/{height?}', 'ImageController@resize')->where('width', '[0-9]+')->where('height', '[0-9]+')->name('dielo.nahlad');
+    Route::get('image/{id}/download', 'ImageController@download')->name('image.download');
 
     Route::controller('patternlib', 'PatternlibController');
 

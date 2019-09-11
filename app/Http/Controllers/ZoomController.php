@@ -21,14 +21,14 @@ class ZoomController extends Controller
             App::abort(404);
         }
 
-        $itemImages = $item->getZoomableImages();
+        $itemImages = $item->images;
         $index =  0;
         if ($itemImages->count() <= 1 && !empty($item->related_work)) {
             $related_items = Item::related($item, \LaravelLocalization::getCurrentLocale())->with('images')->get();
 
             $itemImages = collect();
             foreach ($related_items as $related_item) {
-                if ($image = $related_item->getZoomableImages()->first()) {
+                if ($image = $related_item->images->first()) {
                     $itemImages->push($image);
                 }
             }
@@ -38,8 +38,8 @@ class ZoomController extends Controller
             });
         }
 
-        $fullIIPImgURLs = $itemImages->map(function ($itemImage) {
-            return $itemImage->getFullIIPImgURL();
+        $fullIIPImgURLs = $itemImages->map(function (ItemImage $itemImage) {
+            return $itemImage->getDeepZoomUrl();
         });
 
         return view('zoom', [

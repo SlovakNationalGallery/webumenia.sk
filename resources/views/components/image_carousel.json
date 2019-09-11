@@ -1,0 +1,17 @@
+{
+    "name": "ImageCarousel",
+    "data_calls" : {},
+    "data": {
+        "slick_target": "multiple-views",
+        "slick_variant": "artwork-detail-thumbnail",
+        "img_urls": [
+            "https://www.webumenia.sk/images/diela/SNG/36/SVK_SNG.K_18447/SVK_SNG.K_18447.jpeg",
+            "https://www.webumenia.sk/images/diela/SNG/44/SVK_SNG.K_18447-1/SVK_SNG.K_18447-1.jpeg",
+            "https://www.webumenia.sk/images/diela/SNG/43/SVK_SNG.K_18447-2/SVK_SNG.K_18447-2.jpeg"
+        ],
+        "img_title": "Artwork Title With Authors",
+        "anchor_href": "#",
+        "anchor_title": "Anchor Title"
+    },
+    "usage_notes": "Component to display a sequence of any kind of images. As `img_urls` it takes absolute urls or relative `full_IIIF_img_urls`. Relies on `js/slick.js` & `js/components/artwork_carousel.js`."
+}
