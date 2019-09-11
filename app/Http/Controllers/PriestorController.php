@@ -46,21 +46,19 @@ class PriestorController extends Controller
 
     public function getDetail($id)
     {
-        $author = Space::find($id);
-        if (empty($author)) {
+        $space = Space::find($id);
+        if (empty($space)) {
             App::abort(404);
         }
 
-        $author->timestamps = false;
-        $author->view_count += 1;
-        $author->save();
+        $space->timestamps = false;
+        $space->view_count += 1;
+        $space->save();
 
-        $archive = $author->getMedia('document.'.\LaravelLocalization::getCurrentLocale());
+        $archive = $space->getMedia('document.'.\LaravelLocalization::getCurrentLocale());
 
-        $items = \App\Item::where('author', 'like', $author->name)->get();
-        return view('autor', [
-            'author' => $author,
-            'items' => $items,
+        return view('priestor', [
+            'space' => $space,
             'archive' => $archive,
         ]);
 
