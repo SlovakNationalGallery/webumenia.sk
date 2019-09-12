@@ -4,9 +4,14 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Added
 - override docker php container for tests
+- ImageCarousel Component
 
 ### Fixed
 - correct authority zero-value years to null
+
+### Changed
+- ArtworkDetailPage shows multiple images (via IIIF from image server) in ImageCarousel
+- serve item images via custom image server
 
 ## [1.9.1] - 2019-07-30
 ### Changed
@@ -61,12 +66,9 @@ All notable changes to this project will be documented in this file[^1].
 - describe item's colors on primary image change
 - new sorting option (by date - from oldest) in catalog
 - PNP importer
-- ImageCarousel Component
 
 ### Changed
 - removed name from authority_item table
-- ArtworkDetailPage shows multiple images (via IIIF from image server) in ImageCarousel
-- serve item images via custom image server
 
 ## [1.7.2] - 2019-02-27
 ### Added
