@@ -113,7 +113,7 @@
                     ]) --}}
 
                     {{-- archive --}}
-                    @if ($archive->count() > 0)
+                    @if (!empty($space->archive) || $archive->count() > 0)
                     <div class="card">
                       <div class="card-header" id="heading{{ studly_case('archive') }}">
                         <h5 class="mb-0">

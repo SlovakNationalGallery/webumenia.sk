@@ -57,7 +57,7 @@ class PriestorController extends Controller
 
         $archive = $space->getMedia('document.'.\LaravelLocalization::getCurrentLocale());
 
-        return view('priestor', [
+        return view('khb.priestor', [
             'space' => $space,
             'archive' => $archive,
         ]);
