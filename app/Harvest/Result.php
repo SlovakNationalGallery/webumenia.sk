@@ -16,6 +16,9 @@ class Result
     /** @var int */
     protected $deleted = 0;
 
+    /** @var arraystring[] */
+    protected $errors = [];
+
     public function getInserted() {
         return $this->inserted;
     }
@@ -50,5 +53,25 @@ class Result
 
     public function incrementDeleted() {
         $this->deleted++;
+    }
+
+    public function getErrors() {
+        return $this->errors;
+    }
+
+    public function addError($id, $message) {
+        $this->errors[$id] = $message;
+    }
+
+    public function getErrorMessages() {
+        $messages = [];
+        foreach ($this->errors as $id => $message) {
+            $messages[] = trans('harvest.status_messages.error', [
+                'id' => $id,
+                'message' => $message,
+            ]);
+        }
+
+        return $messages;
     }
 }
