@@ -189,16 +189,7 @@ class Space extends Model implements HasMediaConversions
 
     public function getDescription($html = false, $links = false, $include_roles = false)
     {
-        $description = ($html) ? '* ' : '';
-        $description .= $this->opened_date->format('d.m.Y');
-        $description .= ' '.$this->opened_place;
-        if ($this->closed_date) {
-            $description .= ($html) ? ' &ndash; ' : ' - ';
-            $description .= ($html) ? '&#x271D; ' : '';
-            $description .= $this->closed_date->format('d.m.Y');
-        }
-
-        $description .= ' '. str_limit(strip_tags($this->description), 100);
+        $description = str_limit(strip_tags($this->description), 160); // 160 is max lenght for meta description https://moz.com/learn/seo/meta-description
 
         return $description;
     }
