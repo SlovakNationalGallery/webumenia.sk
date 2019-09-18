@@ -373,9 +373,8 @@ function()
         return view('khb.skupiny');
     });
 
-    Route::get('vystavne-priestory', function () {
-        return view('khb.vystavne-priestory');
-    });
+    Route::match(array('GET', 'POST'), 'vystavne-priestory', 'PriestorController@getIndex');
+    Route::get('vystavne-priestory/{id}', 'PriestorController@getDetail');
 
     Route::post('newsletter/signup', function (\Illuminate\Http\Request $request) {
         $email = $request->input('email');
