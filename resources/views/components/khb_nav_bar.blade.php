@@ -27,7 +27,7 @@
             </a>
             <span>{{ utrans('master.theoreticians') }}</span>
         </div>
-        <div class="col-6 col-sm-4 col-xl-2 grid-cell-link {!! Request::is('*vystavne-priestory') ? 'active' : '' !!}">
+        <div class="col-6 col-sm-4 col-xl-2 grid-cell-link {!! (Request::is('*vystavne-priestory') || Request::is('*vystavne-priestory/*')) ? 'active' : '' !!}">
             <a href="{{{ URL::to('vystavne-priestory') }}}" class="">
             </a>
             <span>{{ utrans('master.spaces') }}</span>
