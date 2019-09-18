@@ -69,16 +69,6 @@
                                 @endforeach
                             </p>
                         @endif
-                        {{--
-                        @if ( $space->events->count() > 0)
-                            <div class="events">
-                                {{ utrans('priestor.places') }}<br>
-                                @foreach ($space->events as $i=>$event)
-                                    <strong><a href="{!! url_to('autori', ['place' => $event->place]) !!}">{!! $event->place !!}</a></strong> {!! add_brackets(App\Authority::formatMultiAttribute($event->event)) !!}{{ ($i+1 < $space->events->count()) ? ', ' : '' }}
-                                @endforeach
-                            </div>
-                        @endif
-                         --}}
                         @if ( $space->links->count() > 0)
                             <div class="links">
                                 {{ utrans('priestor.links') }}<br>
