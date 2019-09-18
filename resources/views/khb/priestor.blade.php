@@ -46,7 +46,7 @@
                         @if ($space->opened_date)
                             <p>
                                 {{ trans('priestor.opened_date') }} <br>
-                                {{ $space->opened_date }}
+                                {{ $space->opened_date->format('d.m.Y') }}
                             </p>
                         @endif
                         @if ($space->opened_place)
@@ -58,7 +58,7 @@
                         @if ($space->closed_date)
                             <p>
                                 {{ trans('priestor.closed_date') }} <br>
-                                {{ $space->closed_date }}
+                                {{ $space->closed_date->format('d.m.Y') }}
                             </p>
                         @endif
                         @if (!empty($space->tagNames()))
