@@ -54,9 +54,7 @@
                         @include('components.image_carousel', [
                             'slick_target' => "multiple-views",
                             'slick_variant' => "artwork-detail-thumbnail",
-                            'img_urls' => $item->images->map(function ($image) {
-                                return $image->getPreviewUrl();
-                            }),
+                            'images' => $item->images,
                             'img_title' => $item->getTitleWithAuthors(),
                             'anchor_href' => route('item.zoom', ['id' => $item->id]),
                             'anchor_title' => utrans('general.item_zoom'),
