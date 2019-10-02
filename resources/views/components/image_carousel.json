@@ -10,5 +10,5 @@
     "data_calls" : {
         "images": "return App\\ItemImage::take(3)->inRandomOrder()->get();"
     },
-    "usage_notes": "Component to display a sequence of any kind of images. As `img_urls` it takes absolute urls or relative `full_IIIF_img_urls`. Relies on `js/slick.js` & `js/components/artwork_carousel.js`."
+    "usage_notes": "Component to display a sequence of images. As `images` it takes instances of `\\App\\ItemImage`. Relies on `js/slick.js` & `js/components/artwork_carousel.js`."
 }
