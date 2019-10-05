@@ -70,4 +70,30 @@ class ItemRepositoryTest extends TestCase
             ->first();
         $this->assertTrue($items[1]->is($mostSimilar));
     }
+
+    public function testSimilarByColor()
+    {
+        /** @var Item[] $items */
+        $items = factory(Item::class, 2)->make([
+            'tagged' => collect(),
+            'images' => collect(),
+            'authorities' => collect(),
+            'updated_at' => new \DateTime(),
+            'created_at' => new \DateTime(),
+        ]);
+
+        $items[0]->colors = ['#ff0000' => 1];
+        $items[1]->colors = ['#fe0000' => 1];
+
+        foreach ($items as $item) {
+            $this->repository->index($item);
+        }
+        $this->repository->refreshIndex();
+
+        $mostSimilar = $this->repository
+            ->getSimilarByColor(2, $items[0])
+            ->getCollection()
+            ->get(0);
+        $this->assertTrue($items[1]->is($mostSimilar));
+    }
 }

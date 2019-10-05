@@ -2,34 +2,28 @@
 
 namespace App\Console\Commands;
 
-use App\Descriptors\ColorDescriptor;
 use App\Item;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use League\ColorExtractor\Color;
+use League\ColorExtractor\ColorExtractor;
 
-class DescribeItemColors extends Command
+class ItemsExtractColors extends Command
 {
-    protected $signature = 'color_descriptors:create '
+    protected $signature = 'items:extract-colors '
                          . '{--all : force description of already processed items} '
                          . '{i? : i-th cluster of items that will be processed} '
                          . '{n? : number of clusters of items}';
 
-    protected $description = 'Create color descriptors.';
+    protected $description = 'Extract item colors.';
 
-    protected $descriptor;
-
-    public function __construct(ColorDescriptor $descriptor) {
-        parent::__construct();
-        $this->descriptor = $descriptor;
-    }
-
-    public function handle()
+    public function handle(ColorExtractor $extractor)
     {
         $items = Item::query();
 
         if (!$this->option('all')) {
-            $items->whereNull('color_descriptor');
+            $items->whereNull('colors');
         }
 
         $n = (int)$this->argument('n');
@@ -38,16 +32,20 @@ class DescribeItemColors extends Command
         if ($this->argument('n') === null && $this->argument('i') === null) {
             // go ahead
         } else if ($this->argument('n') === null || $this->argument('i') === null) {
-            return $this->error("You must specify either none or both 'n' and 'i' arguments");
+            $this->error("You must specify either none or both 'n' and 'i' arguments");
+            return null;
         } else if ($i > $n || $i <= 0) {
-            return $this->error("Arguemnt 'i' must be less than 'n' and both have to be positive integers");
+            $this->error("Arguemnt 'i' must be less than 'n' and both have to be positive integers");
+            return null;
         } else {
             $items->where(DB::raw("created_at MOD $n"), '=', $i - 1);
         }
 
-        $items->chunk(100, function ($chunked) {
+        $progressBar = $this->output->createProgressBar($items->count());
+        $items->chunk(100, function ($chunked) use ($extractor, $progressBar) {
             foreach ($chunked as $item) {
-                echo $item->id . PHP_EOL;
+                $progressBar->advance();
+
                 $filename = $item->getImagePath($full = true);
 
                 if (!is_file($filename)) {
@@ -60,10 +58,25 @@ class DescribeItemColors extends Command
                     continue;
                 }
 
-                $item->color_descriptor = $this->descriptor->describe($filename);
+                try {
+                    $colors = $extractor->extract($filename, config('items.colors.count'));
+                } catch (\Exception $e) {
+                    Log::warning(sprintf('%s: %s', $filename, $e->getMessage()));
+                    continue;
+                }
 
+                $colors = collect($colors)
+                    ->mapWithKeys(function ($amount, $int) {
+                        return [Color::fromIntToHex($int) => $amount];
+                    })
+                    ->sort()
+                    ->reverse();
+
+                $item->colors = $colors;
                 $item->save();
             }
         });
+
+        $progressBar->finish();
     }
 }

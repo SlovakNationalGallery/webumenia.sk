@@ -3,14 +3,14 @@
 namespace App\Elasticsearch\Repositories;
 
 use App\Authority;
-use App\Color;
 use App\Filter\Contracts\Filter;
-use App\Filter\Contracts\SearchRequest;
 use App\IntegerRange;
 use App\Item;
 use App\SearchResult;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Primal\Color\Color;
+use Primal\Color\Parser;
 
 class ItemRepository extends TranslatableRepository
 {
@@ -87,6 +87,65 @@ class ItemRepository extends TranslatableRepository
                     ]
                 ]
             ]
+        ]);
+
+        return $this->createSearchResult($response);
+    }
+
+    public function getSimilarByColor(int $size, Item $item, $locale = null): SearchResult
+    {
+        $diff = 15;
+        $musts = [];
+        foreach ($item->getColors() as $color => $amount) {
+            $hsl = Parser::Parse($color)->toHSL();
+            $amountDiff = max($amount / 2, 0.15);
+            $musts[] = [
+                'bool' => [
+                    'must' => [
+                        $this->buildHueRangeQuery($hsl->hue, $diff),
+                        [
+                            'range' => [
+                                'hsl.s' => [
+                                    'gte' => $hsl->saturation - $diff,
+                                    'lte' => $hsl->saturation + $diff,
+                                ]
+                            ]
+                        ],
+                        [
+                            'range' => [
+                                'hsl.l' => [
+                                    'gte' => $hsl->luminance - $diff,
+                                    'lte' => $hsl->luminance + $diff,
+                                ]
+                            ]
+                        ],
+                        [
+                            'range' => [
+                                'hsl.amount' => [
+                                    'gte' => $amount - $amountDiff,
+                                    'lte' => $amount + $amountDiff,
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ];
+        }
+
+        $query = [];
+        foreach ($musts as $must) {
+            $query['bool']['should'][]['nested'] = [
+                'path' => 'hsl',
+                'query' => $must,
+            ];
+        }
+        $query['bool']['must_not'][]['term']['id'] = $item->id;
+        $query['bool']['minimum_should_match'] = '-30%';
+
+        $response = $this->elasticsearch->search([
+            'index' => $this->getLocalizedIndexName($locale),
+            'size' => $size,
+            'body' => ['query' => $query],
         ]);
 
         return $this->createSearchResult($response);
@@ -215,14 +274,94 @@ class ItemRepository extends TranslatableRepository
             return $query;
         }
 
-        $query['bool']['should'][]['descriptor'] = [
-            'color_descriptor' => [
-                'hash' => 'LSH',
-                'descriptor' => $color->getDescriptor(),
+        $diff = 15;
+        $hsl = $color->toHSL();
+        $query['bool']['filter'][]['nested'] = [
+            'path' => 'hsl',
+            'query' => [
+                'bool' => [
+                    'must' => [
+                        $this->buildHueRangeQuery($hsl->hue, $diff),
+                        [
+                            'range' => [
+                                'hsl.s' => [
+                                    'gte' => $hsl->saturation - $diff,
+                                    'lte' => $hsl->saturation + $diff,
+                                ]
+                            ]
+                        ],
+                        [
+                            'range' => [
+                                'hsl.l' => [
+                                    'gte' => $hsl->luminance - $diff,
+                                    'lte' => $hsl->luminance + $diff,
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
             ]
         ];
 
         return $query;
+    }
+
+    protected function buildHueRangeQuery(float $hue, float $diff): array
+    {
+        if ($hue < $diff) {
+            return [
+                'bool' => [
+                    'should' => [
+                        [
+                            'range' => [
+                                'hsl.h' => [
+                                    'gte' => $hue - $diff + 360,
+                                ]
+                            ]
+                        ],
+                        [
+                            'range' => [
+                                'hsl.h' => [
+                                    'lte' => $hue + $diff,
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ];
+        }
+
+        if ($hue > 360 - $diff) {
+            return [
+                'bool' => [
+                    'should' => [
+                        [
+                            'range' => [
+                                'hsl.h' => [
+                                    'gte' => $hue - $diff,
+                                ]
+                            ]
+                        ],
+                        [
+                            'range' => [
+                                'hsl.h' => [
+                                    'lte' => $hue + $diff - 360,
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ];
+        }
+
+        return [
+            'range' => [
+                'hsl.h' => [
+                    'gte' => $hue - $diff,
+                    'lte' => $hue + $diff,
+                ]
+            ]
+        ];
     }
 
     protected function addSort(array $body, ?string $sortBy): array

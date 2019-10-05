@@ -310,20 +310,18 @@
     </div>
 </section>
 
-{{--@if ($colors_used)--}}
-{{--<section class="content-section">--}}
-{{--    <div class="container">--}}
-{{--        <div class="row">--}}
-{{--            <div class="col-xs-12" id="colorrelated" data-fetch-url="{{ route('dielo.colorrelated', ['id' => $item->id]) }}">--}}
-{{--                <h4>{{ trans('dielo.more-items_similar-colors') }}</h4>--}}
-{{--                @if ($colors_used)--}}
-{{--                @include('components.color_list', ['colors' => $colors_used])--}}
-{{--                @endif--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</section>--}}
-{{--@endif--}}
+@if (!$item->getColors()->isEmpty())
+<section class="content-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12" id="colorrelated" data-fetch-url="{{ route('dielo.colorrelated', ['id' => $item->id]) }}">
+                <h4>{{ trans('dielo.more-items_similar-colors') }}</h4>
+                @include('components.color_list', ['colors' => $item->getColors()])
+            </div>
+        </div>
+    </div>
+</section>
+@endif
 
 <section class="more-items content-section light-grey">
     <div class="container">

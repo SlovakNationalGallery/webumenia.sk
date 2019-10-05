@@ -167,6 +167,12 @@
                 }
             });
 
+            $(".js-color-clear").click(function(e) {
+                e.preventDefault();
+                $(this).closest('label').find('input').val('');
+                $(this).closest('form').submit();
+            });
+
             var $container = $('#iso');
 
             $( window ).resize(function() {

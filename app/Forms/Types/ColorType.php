@@ -2,11 +2,13 @@
 
 namespace App\Forms\Types;
 
-use App\Color;
+use Primal\Color\Color;
+use Primal\Color\Parser;
+use Primal\Color\UnknownFormatException;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Exception\TransformationFailedException;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class ColorType extends AbstractType
@@ -15,7 +17,7 @@ class ColorType extends AbstractType
     {
         $builder->addModelTransformer(new CallbackTransformer(
             function (?Color $model) {
-                return $model ? $model->convertTo(Color::TYPE_HEX) : null;
+                return $model ? $model->toRGB()->toHex() : null;
             },
             function (?string $string) {
                 if ($string === null) {
@@ -23,8 +25,8 @@ class ColorType extends AbstractType
                 }
 
                 try {
-                    return new Color($string, Color::TYPE_HEX);
-                } catch (\InvalidArgumentException $e) {
+                    return Parser::Parse($string)->toRGB();
+                } catch (UnknownFormatException $e) {
                     throw new TransformationFailedException();
                 }
             }
@@ -33,6 +35,6 @@ class ColorType extends AbstractType
 
     public function getParent()
     {
-        return TextType::class;
+        return HiddenType::class;
     }
 }
