@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Added
 - color picker in the catalog
+- override docker php container for tests
+- ImageCarousel Component
+
+### Fixed
+- correct authority zero-value years to null
+
+### Changed
+- ArtworkDetailPage shows multiple images (via IIIF from image server) in ImageCarousel
+- serve item images via custom image server
 
 ## [1.9.1] - 2019-07-30
 ### Changed

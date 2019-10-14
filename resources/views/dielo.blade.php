@@ -50,71 +50,68 @@
             </div>
             <div class="row">
                 <div class="col-md-8 text-center">
+                    @if ($item->has_iip)
+                        @include('components.image_carousel', [
+                            'slick_target' => "multiple-views",
+                            'slick_variant' => "artwork-detail-thumbnail",
+                            'img_urls' => $item->images->map(function ($image) {
+                                return $image->getPreviewUrl();
+                            }),
+                            'img_title' => $item->getTitleWithAuthors(),
+                            'anchor_href' => route('item.zoom', ['id' => $item->id]),
+                            'anchor_title' => utrans('general.item_zoom'),
+                        ])
+                    @else
                         @php
                             list($width, $height) = getimagesize(public_path() . $item->getImagePath());
-                            $width =  max($width,1); // prevent division by zero exception
                         @endphp
-
-                        {{-- prevent upsizing by setting max-width to real width --}}
-                        <div class="img-dielo" style="max-width: {{ $width }}px;">
-                            @if ($item->has_iip)
-                                <a href="{{ route('item.zoom', ['id' => $item->id]) }}" data-toggle="tooltip" data-placement="top" title="{{ utrans('general.item_zoom') }}" class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%">
-                            @else
-                                <div class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%">
+                        <div class="ratio-box bottom-space" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%">
+                            @include('components.item_image_responsive', [
+                                'item' => $item
+                            ])
+                        </div>
+                    @endif
+                    <div class="row mt-5">
+                        <div class="col-sm-12">
+                            @if ($previous)
+                                <a href="{!! $previous !!}" id="left" class="nav-arrow left">&larr;<span class="sr-only">{{ trans('dielo.item_previous-work') }}</span></a>
                             @endif
-
-                                @include('components.item_image_responsive', [
-                                    'item' => $item
-                                ])
-
-                            @if ($item->has_iip)
-                                </a>
-                            @else
-                                </div>
+                            @if ($next)
+                                <a href="{!! $next !!}" id="right" class="nav-arrow right">&rarr;<span class="sr-only">{{ trans('dielo.item_next-work') }}</span></a>
                             @endif
                         </div>
 
-                        <div class="row">
-                            <div class="col-sm-12">
-                                @if ($previous)
-                                    <a href="{!! $previous !!}" id="left" class="nav-arrow left">&larr;<span class="sr-only">{{ trans('dielo.item_previous-work') }}</span></a>
-                                @endif
-                                @if ($next)
-                                    <a href="{!! $next !!}" id="right" class="nav-arrow right">&rarr;<span class="sr-only">{{ trans('dielo.item_next-work') }}</span></a>
-                                @endif
-                            </div>
-
-                            <div class="col-md-12 text-center">
-                                @if ($item->has_iip)
-                                   <a href="{{ route('item.zoom', ['id' => $item->id]) }}" class="btn btn-default btn-outline  sans"><i class="fa fa-search-plus"></i> {{ trans('general.item_zoom') }}</a>
-                                @endif
-                                @if ($item->isForReproduction())
-                                    <a href="{!! URL::to('dielo/' . $item->id . '/objednat')  !!}" class="btn btn-default btn-outline  sans"><i class="fa fa-shopping-cart"></i> {{ trans('dielo.item_order') }} </a>
-                                @endif
-                                @if ($item->isFree() && $item->hasZoomableImages())
-                                    <a href="{!! URL::to('dielo/' . $item->id . '/stiahnut')  !!}" class="btn btn-default btn-outline  sans" id="download"><i class="fa fa-download"></i> {{ trans('dielo.item_download') }} </a>
-                                @endif
-                            </div>
-                            @if (!empty($item->description))
-                            <div class="col-md-12 text-left medium description bottom-space underline" itemprop="description">
-                                {!!  $item->description !!}
-
-                                @if ($item->description_source)
-                                    <p>
-                                    @if ($item->description_user_id)
-                                        {{-- Autor popisu: --}} {!! $item->descriptionUser->name !!} &#9679;
-                                    @endif
-                                    @if ($item->description_source_link)
-                                        {{-- Zdroj: --}}
-                                        <a href="{!! $item->description_source_link !!}" target="_blank">{!! $item->description_source !!}</a>
-                                    @else
-                                        {!! $item->description_source !!}
-                                    @endif
-                                    </p>
-                                @endif
-                            </div>
+                        <div class="col-md-12 text-center">
+                            @if ($item->has_iip)
+                               <a href="{{ route('item.zoom', ['id' => $item->id]) }}" class="btn btn-default btn-outline  sans"><i class="fa fa-search-plus"></i> {{ trans('general.item_zoom') }}</a>
+                            @endif
+                            @if ($item->isForReproduction())
+                                <a href="{!! URL::to('dielo/' . $item->id . '/objednat')  !!}" class="btn btn-default btn-outline  sans"><i class="fa fa-shopping-cart"></i> {{ trans('dielo.item_order') }} </a>
+                            @endif
+                            @if ($item->isFree() && !$item->images->isEmpty())
+                                <a href="{{ route('image.download', $item->images->first()->id)  }}" class="btn btn-default btn-outline  sans" id="download"><i class="fa fa-download"></i> {{ trans('dielo.item_download') }} </a>
                             @endif
                         </div>
+                        @if (!empty($item->description))
+                        <div class="col-md-12 text-left medium description bottom-space underline" itemprop="description">
+                            {!!  $item->description !!}
+
+                            @if ($item->description_source)
+                                <p>
+                                @if ($item->description_user_id)
+                                    {{-- Autor popisu: --}} {!! $item->descriptionUser->name !!} &#9679;
+                                @endif
+                                @if ($item->description_source_link)
+                                    {{-- Zdroj: --}}
+                                    <a href="{!! $item->description_source_link !!}" target="_blank">{!! $item->description_source !!}</a>
+                                @else
+                                    {!! $item->description_source !!}
+                                @endif
+                                </p>
+                            @endif
+                        </div>
+                        @endif
+                    </div>
                 </div>
                 <div class="col-md-4 text-left">
 
@@ -254,7 +251,7 @@
                                     <td>{!! $item->identifier; !!}</td>
                                 </tr>
                                 @endif
-                                @if ($item->isFree() && $item->hasZoomableImages())
+                                @if ($item->isFree() && !$item->images->isEmpty())
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_licence') }}:</td>
                                     {{-- <td><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs" target="_blank" class="no-border"><img alt="Creative Commons License" style="border-width:0; padding-top: 2px;"  src="/images/license/by-nc-sa.svg" title="Creative Commons BY-NC-SA 4.0" data-toggle="tooltip"></a></td> --}}
@@ -366,7 +363,7 @@
                 {{ trans('dielo.modal_downloadfail_header-content') }}
             </div>
             <div class="modal-body">
-                {{ trans('dielo.modal_downloadfail_body-content') }}
+                {!! trans('dielo.modal_downloadfail_body-content') !!}
             </div>
             <div class="modal-footer">
                 <div class="text-center"><button type="button" data-dismiss="modal" class="btn btn-default btn-outline uppercase sans">{{ trans('general.close') }}</button></div>

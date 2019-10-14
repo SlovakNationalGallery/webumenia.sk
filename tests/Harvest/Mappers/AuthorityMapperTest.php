@@ -55,4 +55,35 @@ class AuthorityMapperTest extends TestCase
         ];
         $this->assertEquals($expected, $mapped);
     }
+
+    public function testMapNotDeadYet()
+    {
+        $mapper = new AuthorityMapper();
+
+        $row = $this->fakeRow();
+        $row['death_date'] = [''];
+
+        $mapped = $mapper->map($row);
+
+        $this->assertSame(null, $mapped['death_year']);
+        $this->assertSame('', $mapped['death_date']);
+    }
+
+    protected function fakeRow()
+    {
+        return [
+            'id' => [$this->faker->word],
+            'identifier' => [$this->faker->randomNumber],
+            'birth_place' => [$this->faker->city],
+            'death_place' => [$this->faker->city],
+            'type_organization' => [$this->faker->word],
+            'biography' => [$this->faker->sentence],
+            'type' => [$this->faker->word],
+            'name' => [$this->faker->name],
+            'sex' => [$this->faker->word],
+            'birth_date' => [$this->faker->dateTime->format('d.m.Y')],
+            'death_date' => [$this->faker->dateTime->format('d.m.Y')],
+            'roles' => [$this->faker->word],
+        ];
+    }
 }
