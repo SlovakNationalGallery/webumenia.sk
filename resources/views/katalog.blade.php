@@ -69,14 +69,20 @@
                 </div>
             </div>
             <div class="row mt-10">
-                <div class="col-xs-6 col-sm-1 text-left text-sm-right year-range">
-                        <span class="sans" id="from_year">{!! !empty($input['year-range']) ? reset((explode(',', $input['year-range']))) : App\Item::sliderMin() !!}</span>
+                <div class="col-xs-6 col-sm-1 text-left text-sm-right">
+                    <input class="sans" id="from_year" type="number" step="5" value="{!! !empty($input['year-range']) ? reset((explode(',', $input['year-range']))) : App\Item::sliderMin() !!}" />
                 </div>
-                <div class="col-xs-6 col-sm-1 col-sm-push-10 text-right text-sm-left year-range">
-                        <span class="sans" id="until_year">{!! !empty($input['year-range']) ? end((explode(',', $input['year-range']))) : App\Item::sliderMax() !!}</span>
+                <div class="col-xs-6 col-sm-1 col-sm-push-10 text-right text-sm-left ">
+                    <input class="sans" id="until_year" type="number" step="5" value="{!! !empty($input['year-range']) ? end((explode(',', $input['year-range']))) : App\Item::sliderMax() !!}" />
                 </div>
-                <div class="col-sm-10 col-sm-pull-1 year-range">
-                        <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="{!! App\Item::sliderMin() !!}" data-slider-max="{!! App\Item::sliderMax() !!}" data-slider-step="5" data-slider-value="[{!! !empty($input['year-range']) ? $input['year-range'] : App\Item::sliderMin().','.App\Item::sliderMax() !!}]"/>
+                <div class="col-xs-12 col-sm-10 col-sm-pull-1">
+                    @include('components.year_slider', ['id' => 'yearRangeFilter'])
+                    @include('components.year_slider_js', [
+                        'yearRange' => !empty($input['year-range']) ? $input['year-range'] : App\Item::sliderMin() . ', ' . App\Item::sliderMax(),
+                        'min' => App\Item::sliderMin(), 
+                        'max' => App\Item::sliderMax(), 
+                        'id' => 'yearRangeFilter'
+                        ])
                 </div>
             </div>
             <div class="row">
@@ -90,13 +96,14 @@
                 @if ($color)
                 <div class="col-sm-12 col-md-10 col-md-push-1">
                     <label for="color_filter" class="w-100 b-0 light">
-                        @include('components.color_list', ['colors' => [array('hex' => '#'.$color, 'amount' => '100%')], 'include_clear' => true, 'id' => 'color-filter', 'class_names' => 'mt-5 mb-0'])
-                        {!! Form::hidden('color', @$input['color'], ['id'=>'color']) !!}
+                        @include('components.color_list', ['colors' => [array('hex' => '#'.$color, 'amount' => '100%')], 'include_clear' => true, 'id' => 'color-filter', 'class_names' => 'mb-0'])
                     </label>
                 </div>
                 @endif
             </div>
+            {!! Form::hidden('color', @$input['color'], ['id'=>'color']) !!}
             {!! Form::hidden('sort_by', @$input['sort_by'], ['id'=>'sort_by']) !!}
+            {!! Form::hidden('year-range', @$input['year-range'], ['id'=>'year-range']) !!}
             {!! Form::close() !!}
         </div>
     </div>
@@ -245,16 +252,30 @@ $(document).ready(function(){
         }
     });
 
-    $("#year-range").slider({
-        // value: [1800, 1900],
-        tooltip: 'hide'
-    }).on('slideStop', function(event) {
-        $(this).closest('form').submit();
-    }).on('slide', function(event) {
-        var rozsah = $("#year-range").val().split(',');
-        $('#from_year').html(rozsah[0]);
-        $('#until_year').html(rozsah[1]);
+    yearRangeFilter.$on('change', function(range) {
+        $('#year-range').val(range.join(',')).closest('form').submit();
     });
+    yearRangeFilter.$on('slide', function(range) {
+        $('#from_year').val(range[0]);
+        $('#until_year').val(range[1]);
+    });
+
+    colorpicker.$on('change', function(clr){
+        $('#color').val(clr.hex.substr(1));
+        $('#filter').submit();
+    })
+    $('#from_year,#until_year').on('change', function(event){
+        const min = {!! App\Item::sliderMin() !!};
+        const max = {!! App\Item::sliderMax() !!};
+        const fy = +$('#from_year').val();
+        const uy = +$('#until_year').val();
+        const from = Math.min(Math.max(min, fy), max);
+        const until = Math.max(Math.min(max, uy), min);
+        $('#year-range').val([from,until].sort().join(','));
+        $('#filter').submit();
+    })
+
+  
 
     // $(".custom-select").chosen({allow_single_deselect: true})
     $(".custom-select").selectize({

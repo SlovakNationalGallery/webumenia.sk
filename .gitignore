@@ -36,9 +36,6 @@ public/sitemap*
 .env
 .env.testing
 data/
-/public/js/app.js
-/public/js/vendor.js
-/public/js/manifest.js
-/public/css/app.css
+/public/*
 mix-manifest.json
 npm-debug.log
