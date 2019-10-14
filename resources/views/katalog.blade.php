@@ -70,10 +70,10 @@
             </div>
             <div class="row mt-10">
                 <div class="col-xs-6 col-sm-1 text-left text-sm-right">
-                    <input class="sans" id="from_year" type="number" step="5" value="{!! !empty($input['year-range']) ? reset((explode(',', $input['year-range']))) : App\Item::sliderMin() !!}" />
+                    <input class="sans" id="from_year" maxlength="4" pattern="[0-9]{1-4}" step="5" value="{!! !empty($input['year-range']) ? reset((explode(',', $input['year-range']))) : App\Item::sliderMin() !!}" />
                 </div>
                 <div class="col-xs-6 col-sm-1 col-sm-push-10 text-right text-sm-left ">
-                    <input class="sans" id="until_year" type="number" step="5" value="{!! !empty($input['year-range']) ? end((explode(',', $input['year-range']))) : App\Item::sliderMax() !!}" />
+                    <input class="sans" id="until_year"  maxlength="4" pattern="[0-9]{1-4}" step="5" value="{!! !empty($input['year-range']) ? end((explode(',', $input['year-range']))) : App\Item::sliderMax() !!}" />
                 </div>
                 <div class="col-xs-12 col-sm-10 col-sm-pull-1">
                     @include('components.year_slider', ['id' => 'yearRangeFilter'])
@@ -253,7 +253,8 @@ $(document).ready(function(){
     });
 
     yearRangeFilter.$on('change', function(range) {
-        $('#year-range').val(range.join(',')).closest('form').submit();
+        $('#year-range').val(range.join(','));
+        $('#filter').submit();
     });
     yearRangeFilter.$on('slide', function(range) {
         $('#from_year').val(range[0]);
@@ -267,8 +268,8 @@ $(document).ready(function(){
     $('#from_year,#until_year').on('change', function(event){
         const min = {!! App\Item::sliderMin() !!};
         const max = {!! App\Item::sliderMax() !!};
-        const fy = +$('#from_year').val();
-        const uy = +$('#until_year').val();
+        const fy = +$('#from_year').val().replace(/\D/g, '')
+        const uy = +$('#until_year').val().replace(/\D/g, '');
         const from = Math.min(Math.max(min, fy), max);
         const until = Math.max(Math.min(max, uy), min);
         $('#year-range').val([from,until].sort().join(','));
