@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - override docker php container for tests
 - ImageCarousel Component
+- harvesting of failed records
 
 ### Fixed
 - correct authority zero-value years to null

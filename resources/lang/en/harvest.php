@@ -2,8 +2,10 @@
 
 return [
     'status_messages' => [
+        'waiting' => 'Waiting in a queue',
+        'started' => 'Started',
         'progress' => 'In progress (:current/:total)',
-        'error' => ':id failed: ":message"',
+        'error' => ':error',
         'completed' =>
             'Processed records: :processed' . PHP_EOL .
             ':created created' . PHP_EOL .
