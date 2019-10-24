@@ -35,10 +35,13 @@ abstract class AbstractHarvester
         } else {
             $rows = $this->repository->getRows($harvest, $from, $to, $total);
         }
+
         foreach ($rows as $row) {
-            $harvest->status_messages = sprintf(
-                trans('harvest.status_message_progress'), ++$i, $total
-            );
+            $harvest->status_messages = trans('harvest.status_messages.progress', [
+                'current' => ++$i,
+                'total' => $total,
+            ]);
+            $harvest->status_messages .= PHP_EOL . implode(PHP_EOL, $result->getErrorMessages());
             $harvest->save();
 
             $modelId = $this->importer->getModelId($row);
@@ -54,8 +57,13 @@ abstract class AbstractHarvester
             $record->harvest()->associate($harvest);
             $record->item_id = $modelId;
 
-            if ($model = $this->harvestSingle($record, $result, $row)) {
-                $models[] = $model;
+            try {
+                if ($model = $this->harvestSingle($record, $result, $row)) {
+                    $models[] = $model;
+                }
+            } catch (\Exception $e) {
+                $result->addError($modelId, $e->getMessage());
+                app('sentry')->captureException($e);
             }
         }
 

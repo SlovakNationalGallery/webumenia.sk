@@ -82,7 +82,7 @@
             @if ($color)
             <div class="row">
                 <div class="col-sm-12">
-                    <label for="color_filter" class="w-100 mt-3 mb-0">
+                    <label for="color_filter" class="w-100 mt-3 mb-0 light">
                         {{ utrans('katalog.filters_color') }}:
                         @include('components.color_list', ['colors' => [array('hex' => '#'.$color, 'amount' => '100%')], 'include_clear' => true, 'id' => 'color-filter', 'class_names' => 'mt-2 mb-0'])
                         {!! Form::hidden('color', @$input['color'], ['id'=>'color']) !!}
@@ -143,14 +143,35 @@
             </div>
             <div class="row">
                 <div class="col-sm-12 isotope-wrapper">
+                    <?php // $items = $items->paginate(18) ?>
                     <div id="iso">
                 	@foreach ($items as $i=>$item)
-    	            @include('components.artwork_grid_item', [
-                        'item' => $item,
-                        'isotope_item_selector_class' => 'item',
-                        'class_names' => 'col-md-3 col-sm-4 col-xs-6',
-                    ])
+    	                <div class="col-md-3 col-sm-4 col-xs-6 item">
+    	                	<a href="{!! $item->getUrl() !!}">
+                                @php
+                                    list($width, $height) = getimagesize(public_path() . $item->getImagePath());
+                                    $width =  max($width,1); // prevent division by zero exception
+                                @endphp
+                                <div class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%;">
+    	                		     @include('components.item_image_responsive', ['item' => $item])
+                                </div>
+    	                	</a>
+                            <div class="item-title">
+                                @if ($item->has_iip)
+                                    <div class="pull-right"><a href="{{ route('item.zoom', ['id' => $item->id]) }}" data-toggle="tooltip" data-placement="left" title="{{ utrans('general.item_zoom') }}"><i class="fa fa-search-plus"></i></a></div>
+                                @endif
+                                <a href="{!! $item->getUrl() !!}" {!! (!empty($search))  ?
+                                    'data-searchd-result="title/'.$item->id.'" data-searchd-title="'.implode(', ', $item->authors).' - '. $item->title.'"'
+                                    : '' !!}>
+                                    <em>{!! implode(', ', $item->authors) !!}</em><br>
+                                    <strong>{!! $item->title !!}</strong><br>
+                                    <em>{!! $item->getDatingFormated() !!}</em>
+                                    {{-- <br><span class="">{!! $item->gallery !!}</span> --}}
+                                </a>
+                            </div>
+    	                </div>
                 	@endforeach
+
                     </div>
                     <div class="col-sm-12 text-center">
                         {!! $paginator->appends(@Input::except('page'))->render() !!}
@@ -182,11 +203,10 @@
 
 <script type="text/javascript">
 
-// start with isotype even before document is ready    
-var $container = $('#iso');
-$container.isotope({
-    itemSelector: '.item',
-    layoutMode: 'masonry'
+// start with isotype even before document is ready
+$('.isotope-wrapper').each(function(){
+    var $container = $('#iso', this);
+    spravGrid($container);
 });
 
 $(document).ready(function(){
@@ -268,11 +288,10 @@ $(document).ready(function(){
         $('#filter').submit();
     });
 
+    var $container = $('#iso');
+
     $( window ).resize(function() {
-        $container.isotope({
-            itemSelector: '.item',
-            layoutMode: 'masonry'
-        });
+        spravGrid($container);
     });
 
     $container.infinitescroll({

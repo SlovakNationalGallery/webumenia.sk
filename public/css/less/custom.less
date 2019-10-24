@@ -67,6 +67,15 @@ html {
     height: 100%;
 }
 
+// Atomic Utility Classes
+.relative {
+  position: relative;
+}
+
+.w-100 {
+  width: 100%;
+}
+
 // Text Colors
 .light-grey {color: @light-grey;}
 .dark-grey {color: @dark-grey;}
@@ -76,15 +85,11 @@ html {
 .dark {color: @dark;}
 .light {color: @light;}
 .red {color: @red;}
-
 .color { color: @primary-color; }
-
 // Background Colors
 .bg-light {background-color: @light}
 .bg-dark {background-color: @dark}
-
 .no-border {border: none !important;}
-
 // Typography
 
 .light {
@@ -350,10 +355,19 @@ p.tagline {
 .img-dielo {
     margin: 0 auto 15px auto;
 
-    .fa{
+    .img-container{
+      padding: @thumbnail-padding;
+      height: auto;
+      width:100%;
+      display: inline-block;
+      img {
+        max-height: 90vh;
+      }
+    }
+    .zoom{
       position: absolute;
-      right: 10px;
-      top: 10px;
+      right: 20px;
+      top: 20px;
       background: @btn-default-color;
       width: 30px;
       height: 30px;
@@ -361,6 +375,7 @@ p.tagline {
       line-height: 30px;
       border-radius: 30px;
       opacity: 0.6;
+      z-index: 1010;
       .transition(opacity .15s ease-in-out);
     }
     &:hover{

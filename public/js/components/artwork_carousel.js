@@ -1,10 +1,14 @@
 $(document).ready(function(){
   $(".artworks-preview").slick({
-    dots: false,
-    infinite: false,
-    speed: 300,
+    lazyLoad: 'progressive',
     slide: 'a',
-    centerMode: false,
-    variableWidth: true
+    variableWidth: true,
+    infinite: false
+  });
+  $(".multiple-views").slick({
+    lazyLoad: 'progressive',
+    slide: '.img-container',
+    variableWidth: false,
+    dots: true
   });
 })
