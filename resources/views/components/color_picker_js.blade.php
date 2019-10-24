@@ -8,7 +8,7 @@
     a: 1
   }
 @else 
-var color = {};
+  var color = {};
 @endif
 
 

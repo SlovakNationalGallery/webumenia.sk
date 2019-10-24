@@ -1,7 +1,8 @@
 {
     "name": "Colour Picker",
     "data": {
-      "id": "color-picker"
+      "id": "colorPicker",
+      "color": ""
     },
     "include_js": true,
     "wrapper_classes": "bg-light-grey pa4",
