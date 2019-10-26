@@ -141,14 +141,22 @@ class CatalogController extends ElasticController
             }, ARRAY_FILTER_USE_BOTH);
 
             $params['query']['bool']['filter'] = Item::getFilterParams($filter);
-            if (!empty($input['year-range']) &&
-                $input['year-range'] != Item::sliderMin().','.Item::sliderMax() //nezmenena hodnota
-            ) {
-                $range = explode(',', $input['year-range']);
-                $params['query']['bool']['filter']['and'][]['range']['date_earliest']['gte'] = (isset($range[0])) ? $range[0] : Item::sliderMin();
-                $params['query']['bool']['filter']['and'][]['range']['date_latest']['lte'] = (isset($range[1])) ? $range[1] : Item::sliderMax();
-            }
         }
+
+        $year_min = Item::sliderMin($params);
+        $year_max = Item::sliderMax($params);
+
+        $year_from = !empty($input['year-range']) ? reset((explode(',', $input['year-range']))) : $year_min;
+        $year_until = !empty($input['year-range']) ? end((explode(',', $input['year-range']))) : $year_max;
+
+        if ($year_from > $year_min) {
+            $params['query']['bool']['filter']['and'][]['range']['date_earliest']['gte'] = $year_from;
+        }
+
+        if ($year_until < $year_max) {
+            $params['query']['bool']['filter']['and'][]['range']['date_latest']['lte'] = $year_until;
+        }
+
 
         if (Input::has('color')) {
             // get color used for filter
@@ -195,7 +203,7 @@ class CatalogController extends ElasticController
         $queries = DB::getQueryLog();
         $last_query = end($queries);
 
-        return view('katalog', array(
+        return view('katalog', [
             'items' => $items,
             'authors' => $authors,
             'work_types' => $work_types,
@@ -209,7 +217,11 @@ class CatalogController extends ElasticController
             'sort_options' => $sortOptions,
             'input' => $input,
             'paginator' => $paginator,
-            ));
+            'year_min' => $year_min,
+            'year_max' => $year_max,
+            'year_from' => $year_from,
+            'year_until' => $year_until,
+        ]);
     }
 
     public function getSuggestions()

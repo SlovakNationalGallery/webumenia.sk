@@ -70,17 +70,17 @@
             </div>
             <div class="row mt-10">
                 <div class="col-xs-6 col-sm-1 text-left text-sm-right">
-                    <input class="sans" id="from_year" maxlength="4" pattern="[0-9]{1-4}" step="5" value="{!! !empty($input['year-range']) ? reset((explode(',', $input['year-range']))) : App\Item::sliderMin() !!}" />
+                    <input class="sans" id="from_year" maxlength="4" pattern="[0-9]{1-4}" step="5" value="{{ $year_from }}" />
                 </div>
                 <div class="col-xs-6 col-sm-1 col-sm-push-10 text-right text-sm-left ">
-                    <input class="sans" id="until_year"  maxlength="4" pattern="[0-9]{1-4}" step="5" value="{!! !empty($input['year-range']) ? end((explode(',', $input['year-range']))) : App\Item::sliderMax() !!}" />
+                    <input class="sans" id="until_year"  maxlength="4" pattern="[0-9]{1-4}" step="5" value="{{ $year_until }}" />
                 </div>
                 <div class="col-xs-12 col-sm-10 col-sm-pull-1">
                     @include('components.year_slider', ['id' => 'yearRangeFilter'])
                     @include('components.year_slider_js', [
-                        'yearRange' => !empty($input['year-range']) ? $input['year-range'] : App\Item::sliderMin() . ', ' . App\Item::sliderMax(),
-                        'min' => App\Item::sliderMin(), 
-                        'max' => App\Item::sliderMax(), 
+                        'yearRange' => $year_from . ', ' . $year_until,
+                        'min' => $year_min,
+                        'max' => $year_max,
                         'id' => 'yearRangeFilter'
                         ])
                 </div>
@@ -247,7 +247,7 @@ $(document).ready(function(){
                 $(this).removeAttr('name');
             }
         });
-        if ( $('#year-range').val()=='{!!App\Item::sliderMin()!!},{!!App\Item::sliderMax()!!}' ) {
+        if ( $('#year-range').val()=='{{$year_min}},{{$year_max}}' ) {
             $('#year-range').attr("disabled", true);
         }
     });
@@ -266,8 +266,8 @@ $(document).ready(function(){
         $('#filter').submit();
     })
     $('#from_year,#until_year').on('change', function(event){
-        const min = {!! App\Item::sliderMin() !!};
-        const max = {!! App\Item::sliderMax() !!};
+        const min = {{ $year_min }};
+        const max = {{ $year_max }};
         const fy = +$('#from_year').val().replace(/\D/g, '')
         const uy = +$('#until_year').val().replace(/\D/g, '');
         const from = Math.min(Math.max(min, fy), max);
@@ -276,7 +276,7 @@ $(document).ready(function(){
         $('#filter').submit();
     })
 
-  
+
 
     // $(".custom-select").chosen({allow_single_deselect: true})
     $(".custom-select").selectize({
