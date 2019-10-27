@@ -19,6 +19,7 @@ return array(
     'filters_has_image'      => 'only with image',
     'filters_has_iip'        => 'only zoomable',
     'filters_is_free'        => 'only public domain',
+    'filters_use_color'      => 'color filter',
     'filters_color'          => 'color',
     'catalog_found_artworks' => 'found artworks for',
     'catalog_artworks'       => 'artworks',

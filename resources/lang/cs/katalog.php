@@ -21,6 +21,7 @@ return array(
     'filters_has_image'      => 'jen s obrázkem',
     'filters_has_iip'        => 'jen se zoom',
     'filters_is_free'        => 'jen volné',
+    'filters_use_color'      => 'podle barvy',
     'filters_color'          => 'barva',
     'catalog_found_artworks' => 'nalezena díla pro',
     'catalog_artworks'       => 'děl',

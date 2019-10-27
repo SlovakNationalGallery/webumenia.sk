@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 ### Added
+- color picker in the catalog
 - override docker php container for tests
 - ImageCarousel Component
 
@@ -210,6 +211,8 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - Color-list component on artwork detail
 - Color description
+- LESS to CSS compilation
+- ColorPicker component
 - Zoom-viewer component
 - Multiple images per artwork
 - Moravian gallery importer

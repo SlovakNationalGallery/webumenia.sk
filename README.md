@@ -150,10 +150,17 @@ ProxyPassReverse /fcgi-bin/iipsrv.fcgi http://imi.sng.cust.eea.sk/publicIS/fcgi-
 
 We use [LESS](http://lesscss.org/) to compile styles imported into a [main file](public/css/less/style.less) into a single CSS file:
 
-    lessc public/css/less/style.less public/css/style.css --clean-css
+```
+lessc public/css/less/style.less public/css/style.css --clean-css
+```
 
+For a better developer experience, use [less-watch-compiler](https://github.com/jonycheung/deadsimple-less-watch-compiler) to watch a directory for changes and automatically compile LESS into CSS. Thanks to the config file `less-watch-compiler.config.json` all you have to run (from root dir) is:
 
-# Maintainer
+```
+less-watch-compiler
+```
+
+## Maintainer
 
 This project is maintained by [lab.SNG](http://lab.sng.sk). If you have any questions please don't hesitate to ask them by creating an issue or email us at [lab@sng.sk](mailto:lab@sng.sk).
 

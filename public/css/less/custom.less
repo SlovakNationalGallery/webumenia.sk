@@ -1,20 +1,6 @@
 // Variables
 
-// @primary: #76791b;
-@primary: #484224;
-@dark: #555954;
-@light: #fff;
-@red: #ce2525;
-@light-grey: #f0f0f0;
-@mid-grey: #cdcdcd;
-@grey: #969696;
-@dark-grey: #5b5d5c;
-@primary-color: #66ccf4;
-@shadow-color: #777;
-
-@link-color: @primary;
-@link-hover-color: @primary-color;
-@brand-primary: @primary;
+@import "_colors.less";
 
 @icon-font-path:  "../fonts/";
 
@@ -725,8 +711,13 @@ section.catalog {
         width: 100%;
     }
     .year-range {
-        padding-top: 6px;
+        padding-top: 16px;
     }
+
+    .vc-light {
+        transition: all 200s step-end;
+    }
+
 }
 
 .shareon-container{margin:0px; position: absolute; bottom: 15px; right: 0; text-align: left; width: 100%; vertical-align: top;}
@@ -910,4 +901,32 @@ label sup {
 
 .ui-adding-user-tags {
   display: none;
+}
+
+.year-range-slider{
+  .lsng-slider-wrap, .slider-period{
+    height: 4px;
+  }
+  .lsng-picker{
+    transform: translate(-8px, -6px);
+  }
+  .lsng-pointer > *{
+    background-color: @dark-grey;
+  }  
+}
+
+#from_year, #until_year{
+  margin-top: 10px;
+  width: 5.0ex;
+  overflow: hidden;
+  background: transparent;
+  border: none;;
+}
+
+#from_year{
+  margin-right: auto;
+}
+
+#until_year{
+  margin-left: auto;
 }
