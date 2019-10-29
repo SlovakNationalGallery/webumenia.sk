@@ -5,7 +5,11 @@
     @if (!empty($search))
         {{ trans('katalog.title_searched') }} "{!!$search!!}"
     @else
-        {!! getTitleWithFilters('App\Item', $input, ' | ') !!}
+        @if (($year_from > $year_min) || ($year_until < $year_max))
+            {!! getTitleWithFilters('App\Item', $input, ' | ', $year_from, $year_until) !!}
+        @else
+            {!! getTitleWithFilters('App\Item', $input, ' | ') !!}
+        @endif
         {{ trans('katalog.title') }}
     @endif
     |
