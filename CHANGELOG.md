@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file[^1].
 - color picker in the catalog
 - override docker php container for tests
 - ImageCarousel Component
+- harvesting of failed records
 
 ### Fixed
 - correct authority zero-value years to null

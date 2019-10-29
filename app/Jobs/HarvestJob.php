@@ -36,6 +36,7 @@ class HarvestJob extends Job implements ShouldQueue
         $this->only_ids = $only_ids;
 
         $harvest->status = SpiceHarvesterHarvest::STATUS_QUEUED;
+        $harvest->status_messages = trans('harvest.status_messages.waiting');
         $harvest->save();
 
     }

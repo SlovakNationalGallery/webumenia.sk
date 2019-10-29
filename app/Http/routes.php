@@ -452,6 +452,7 @@ Route::group(['middleware' => ['auth', 'role:admin|editor']], function () {
 Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::resource('article', 'ArticleController');
     Route::get('harvests/launch/{id}', 'SpiceHarvesterController@launch');
+    Route::get('harvests/harvestFailed/{id}', 'SpiceHarvesterController@harvestFailed');
     Route::get('harvests/orphaned/{id}', 'SpiceHarvesterController@orphaned');
     Route::get('harvests/{record_id}/refreshRecord/', 'SpiceHarvesterController@refreshRecord');
     Route::resource('harvests', 'SpiceHarvesterController');
