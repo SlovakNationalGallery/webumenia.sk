@@ -36,32 +36,22 @@ class SpiceHarvesterService
      * @param \DateTime $to
      */
     public function harvest(SpiceHarvesterHarvest $harvest, \DateTime $from = null, \DateTime $to = null, $only_ids = []) {
-        $timeStart = microtime(true);
+        $timeStart = time();
         $result = new Result();
 
-        try {
-            $this->harvesters[$harvest->type]->harvest($harvest, $result, $from, $to, $only_ids);
+        $this->harvesters[$harvest->type]->harvest($harvest, $result, $from, $to, $only_ids);
 
-            $harvest->status = SpiceHarvesterHarvest::STATUS_COMPLETED;
-            $harvest->status_messages = '';
-            $harvest->completed = date('Y-m-d H:i:s');
-        } catch (\Exception $e) {
-            $harvest->status = SpiceHarvesterHarvest::STATUS_ERROR;
-            $harvest->status_messages = $e->getMessage() . PHP_EOL;
-
-            app('sentry')->captureException($e);
-        }
-
-        $harvest->status_messages .= sprintf(
-            trans('harvest.status_message_completed'),
-            $result->getTotal(),
-            $result->getInserted(),
-            $result->getUpdated(),
-            $result->getDeleted(),
-            $result->getSkipped(),
-            microtime(true) - $timeStart
-        );
-
+        $harvest->status = SpiceHarvesterHarvest::STATUS_COMPLETED;
+        $harvest->completed = date('Y-m-d H:i:s');
+        $harvest->status_messages = trans('harvest.status_messages.completed', [
+            'processed' => $result->getTotal(),
+            'created' => $result->getInserted(),
+            'updated' => $result->getUpdated(),
+            'deleted' => $result->getDeleted(),
+            'skipped' => $result->getSkipped(),
+            'time' => time() - $timeStart,
+        ]);
+        $harvest->status_messages .= PHP_EOL . implode(PHP_EOL, $result->getErrorMessages());
         $harvest->save();
     }
 

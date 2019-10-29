@@ -9,10 +9,12 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Fixed
 - correct authority zero-value years to null
+- filter out unexisting OAI-PMH records on refreshing selected
 
 ### Changed
 - ArtworkDetailPage shows multiple images (via IIIF from image server) in ImageCarousel
 - serve item images via custom image server
+- Log exception and continue harvesting
 
 ## [1.9.1] - 2019-07-30
 ### Changed
