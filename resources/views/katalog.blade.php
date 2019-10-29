@@ -96,14 +96,6 @@
                         @include('components.color_picker_js', ['id' => 'colorpicker', 'color' => $color])
                     </div>
                 </div>
-
-                @if ($color)
-                <div class="col-sm-12 col-md-10 col-md-push-1">
-                    <label for="color_filter" class="w-100 b-0 light">
-                        @include('components.color_list', ['colors' => [array('hex' => '#'.$color, 'amount' => '100%')], 'include_clear' => true, 'id' => 'color-filter', 'class_names' => 'mb-0'])
-                    </label>
-                </div>
-                @endif
             </div>
             {!! Form::hidden('color', @$input['color'], ['id'=>'color']) !!}
             {!! Form::hidden('sort_by', @$input['sort_by'], ['id'=>'sort_by']) !!}
@@ -140,7 +132,11 @@
                     @endif
 
                     @if (count(Input::all()) > 0)
-                        <a class="btn btn-sm btn-default btn-outline  sans" href="{!! URL::to('katalog')!!}">{{ trans('general.clear_filters') }}  <i class="icon-cross"></i></a>
+                        <a class="btn btn-sm btn-default btn-outline sans" href="{!! URL::to('katalog')!!}">{{ trans('general.clear_filters') }}  <i class="icon-cross"></i></a>
+                    @endif
+
+                    @if ($color)
+                        <a class="btn btn-sm btn-default btn-outline sans" href="{!! URL::to('katalog')!!}" id="clear_color">{{ trans('general.clear_color') }} <span class="picked-color" style="background-color: #{{ $color }};">&nbsp;</span> <i class="icon-cross"></i></a>
                     @endif
                 </div>
                 <div class="col-xs-6 text-right">
@@ -314,7 +310,7 @@ $(document).ready(function(){
     });
 
     // clear color filter
-    $(".colorlist>a.clear").click(function(e){
+    $("#clear_color").click(function(e){
         e.preventDefault();
         $('input#color').val('');
         $('#filter').submit();
