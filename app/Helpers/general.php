@@ -137,7 +137,7 @@ function asset_timed($path, $secure = null)
     }
 }
 
-function getTitleWithFilters($model, $input, $end_with = '')
+function getTitleWithFilters($model, $input, $end_with = '', $year_from = null, $year_until = null)
 {
     $title_parts = array();
     $separator = ' &bull; ';
@@ -153,14 +153,8 @@ function getTitleWithFilters($model, $input, $end_with = '')
         }
     }
     // fazety, ktore niesu typu "term" treba zadefinovat osobitne, pretoze niesu vo $filterable
-    if (isset($input['year-range'])) {
-        $range = explode(',', $input['year-range']);
-        if ($range[0] > $model::sliderMin()) {
-            $title_parts[] = 'po' . ': ' . $range[0];
-        }
-        if ($range[1] < $model::sliderMax()) {
-            $title_parts[] = 'do' . ': ' . $range[1];
-        }
+    if ($year_from || $year_until) {
+        $title_parts[] = 'v rokoch ' . $year_from . ' - ' . $year_until;
     }
     if (!empty($input['first-letter'])) {
         $title_parts[] = 'začína sa na' . ': "' . $input['first-letter'] . '"';
