@@ -146,8 +146,10 @@ class CatalogController extends ElasticController
         $year_min = Item::sliderMin($params);
         $year_max = Item::sliderMax($params);
 
-        $year_from = !empty($input['year-range']) ? reset((explode(',', $input['year-range']))) : $year_min;
-        $year_until = !empty($input['year-range']) ? end((explode(',', $input['year-range']))) : $year_max;
+        $year_range = !empty($input['year-range']) ? explode(',', $input['year-range']) : [$year_min, $year_max];
+
+        $year_from = max($year_range[0], $year_min);
+        $year_until = min($year_range[1], $year_max);
 
         if ($year_from > $year_min) {
             $params['query']['bool']['filter']['and'][]['range']['date_earliest']['gte'] = $year_from;
