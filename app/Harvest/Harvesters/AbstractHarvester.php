@@ -24,6 +24,10 @@ abstract class AbstractHarvester
         $models = [];
 
         try {
+            $harvest->status = SpiceHarvesterHarvest::STATUS_IN_PROGRESS;
+            $harvest->status_messages = trans('harvest.status_messages.started');
+            $harvest->save();
+
             $result = new Result();
             $models = $this->harvest($harvest, $result, $from, $to, $only_ids);
 
@@ -35,7 +39,7 @@ abstract class AbstractHarvester
                 'updated' => $result->getUpdated(),
                 'deleted' => $result->getDeleted(),
                 'skipped' => $result->getSkipped(),
-                'time' => time() - $result->getCreatedAt(),
+                'time' => Carbon::now()->diffInSeconds($result->getCreatedAt()),
             ]);
         } catch (\Exception $e) {
             $harvest->status = SpiceHarvesterHarvest::STATUS_ERROR;
@@ -59,10 +63,6 @@ abstract class AbstractHarvester
      */
     protected function harvest(SpiceHarvesterHarvest $harvest, Result $result, \DateTime $from = null, \DateTime $to = null, $only_ids = []) {
         $models = [];
-
-        $harvest->status = SpiceHarvesterHarvest::STATUS_IN_PROGRESS;
-        $harvest->status_messages = trans('harvest.status_messages.started');
-        $harvest->save();
 
         if (!empty($only_ids)) {
             $rows = $this->repository->getRowsById($harvest, $only_ids);
