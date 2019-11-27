@@ -20,7 +20,7 @@ return array(
     'show_less'        => 'skryť',
     'sort_by'          => 'podľa',
     'clear_filters'    => 'zrušiť filtre',
-    'clear_color'      => 'zrušiť frabu',
+    'clear_color'      => 'zrušiť farbu',
     'public_domain'    => 'voľné dielo',
     'artworks'         => 'diela',
     'artworks_counted' => '{0}    :artworks_count diel

@@ -89,10 +89,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 	<script src="https://unpkg.com/flickity@1.1/dist/flickity.pkgd.min.js"></script>
-	  {!! Html::script('js/jquery.infinitescroll.min.js') !!}
+	{!! Html::script('js/jquery.infinitescroll.min.js') !!}
     {!! Html::script('js/bootstrap.min.js') !!}
     @include('components.searchbar_js')
-  <script src="{!! asset_timed('js/webumenia.js') !!}"></script>
+    <script src="{!! asset_timed('js/webumenia.js') !!}"></script>
 
 
 	<!-- Content -->
