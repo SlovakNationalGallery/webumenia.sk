@@ -19,6 +19,7 @@ return array(
     'filters_has_image'      => 'len s obrázkom',
     'filters_has_iip'        => 'len so zoom',
     'filters_is_free'        => 'len voľné',
+    'filters_use_color'      => 'podľa farby',
     'filters_color'          => 'farba',
     'catalog_found_artworks' => 'nájdené diela pre',
     'catalog_artworks'       => 'diel',

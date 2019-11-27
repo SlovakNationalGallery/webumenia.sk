@@ -1,0 +1,12 @@
+{
+    "name": "Year slider",
+    "data": {
+      "id": "yearSlider",
+      "yearRange": "0, 1000",
+      "min": "-200",
+      "max" : "1200"
+    },
+    "include_js": true,
+    "wrapper_classes": "bg-light-grey pa4",
+    "usage_notes": "A generic slider element, used mostly for year-slider and as a colour picker base "
+}

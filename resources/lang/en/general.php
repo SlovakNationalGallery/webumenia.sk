@@ -20,6 +20,7 @@ return array(
     'show_less'        => 'show less',
     'sort_by'          => 'sort by',
     'clear_filters'    => 'clear filters',
+    'clear_color'      => 'clear color',
     'public_domain'    => 'public domain',
     'artworks'         => 'artworks',
     'artworks_counted' => '{0}    :artworks_count artworks

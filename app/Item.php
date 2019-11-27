@@ -54,7 +54,7 @@ class Item extends Model
         'state_edition',
         'gallery',
         'relationship_type',
-        'related_work'
+        'related_work',
     ];
 
     // protected $indexName = 'webumenia';
@@ -71,7 +71,10 @@ class Item extends Model
         'len s obrázkom' => 'has_image',
         'len so zoom' => 'has_iip',
         'len voľné' => 'is_free',
-        'zo súboru' => 'related_work'
+        'zo súboru' => 'related_work',
+        'rok od' => 'date_earliest',
+        'rok do' => 'date_latest',
+
     );
 
     public static $sortable;
@@ -445,22 +448,14 @@ class Item extends Model
 	}
 	*/
 
-    public static function sliderMin()
+    public static function sliderMin($params)
     {
-        $table_name = with(new static)->getTable();
-        if (Cache::has($table_name.'.slider_min')) {
-            $slider_min =  Cache::get($table_name.'.slider_min');
-        } else {
-            $min_year = self::min('date_earliest');
-            $slider_min = floor($min_year / 100)*100;
-            Cache::put($table_name.'.slider_min', $slider_min, 60);
-        }
-        return $slider_min;
+        return self::aggValue('date_earliest', $params, 'min');
     }
 
-    public static function sliderMax()
+    public static function sliderMax($params)
     {
-        return date('Y');
+        return min(self::aggValue('date_latest', $params, 'max'), date('Y'));
     }
 
     public function getAuthorsAttribute($value)
@@ -635,6 +630,40 @@ class Item extends Model
             $return_list[$bucket['key']] = "$single_value ({$bucket['doc_count']})";
         }
         return $return_list;
+
+    }
+
+    public static function aggValue($attribute, $search_params, $metrics = 'min')
+    {
+        // first check if $attribute is from the list of allowed
+        if (!in_array($attribute, self::$filterable)) {
+            return false;
+        }
+
+
+        $json_params = '
+        {
+         "aggs" : {
+            "'.$metrics.'_'.$attribute.'" : {
+                "'.$metrics.'" : {
+                  "field" : "'.$attribute.'"
+                }
+            }
+        }
+        }
+        ';
+        $params = array_merge(json_decode($json_params, true), $search_params);
+
+        $result = Elastic::search([
+            'index' => Config::get('bouncy.index'),
+            // 'search_type' => 'count',
+            'type' => self::ES_TYPE,
+            'body'  => $params
+        ]);
+
+        $result_value = $result['aggregations'][$metrics . '_' . $attribute]['value'];
+
+        return (int)$result_value;
 
     }
 

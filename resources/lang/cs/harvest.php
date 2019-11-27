@@ -2,8 +2,10 @@
 
 return [
     'status_messages' => [
+        'waiting' => 'Čeká na zpracování',
+        'started' => 'Zahájeno',
         'progress' => 'Zpracováva se (:current/:total)',
-        'error' => ':id selhalo ":message"',
+        'error' => ':error',
         'completed' =>
             'Zpracovaných záznamů: :processed' . PHP_EOL .
             ':created nových' . PHP_EOL .
