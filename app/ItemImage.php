@@ -53,6 +53,12 @@ class ItemImage extends Model
         return parent::save($options);
     }
 
+    public function setIipimgUrlAttribute($value)
+    {
+        $this->attributes['iipimg_url'] = $value;
+        $this->setSize();
+    }
+
     public function getIipimgUrl() {
         return $this->iipimg_url;
     }
