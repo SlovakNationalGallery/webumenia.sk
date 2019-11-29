@@ -208,7 +208,9 @@ function()
         $item->save();
         $previous = $next = false;
 
-        $more_items = $item->moreLikeThis(30);
+        $similar_item_count = 8;
+
+        $similar_items = $item->moreLikeThis($similar_item_count);
 
         if (Input::has('collection')) {
             $collection = Collection::find((int) Input::get('collection'));
@@ -225,6 +227,8 @@ function()
             }
         }
 
+        // get colors used in artwork
+        // @TODO solve sorting and hex formatting inside $item::getColorsUsed() method
         $colors_used = [];
 
         if ($item->color_descriptor) {
@@ -244,11 +248,28 @@ function()
                 $colors_used[$hex]['hex'] = $colors_used[$hex]['color']->getValue();
             }
         }
+        
+        // get similar artworks by color
+        // @TODO solve filtering and sorting inside $item::similarByColor() method
+        // @TODO make similarByColor() count argument consistent with moreLikeThis()
+        $similar_items_by_color = [];
+
+        if ($item->color_descriptor) {
+            $ids = $item->similarByColor($similar_item_count + 1)->pluck('id');
+            $similar_items_by_color = Item::whereIn('id', $ids)->get();
+            $similar_items_by_color = $similar_items_by_color->filter(function (Item $i) use ($item) {
+                return (bool)$i->color_descriptor && $item->id != $i->id;
+            });
+            $similar_items_by_color = $similar_items_by_color->sort(function($a, $b) use ($ids) {
+                return $ids->search($a->id) - $ids->search($b->id);
+            });
+        }
+
 
         return view('dielo', compact(
             'item',
-            'more_items',
-            'similar_by_color',
+            'similar_items',
+            'similar_items_by_color',
             'colors_used',
             'previous',
             'next'

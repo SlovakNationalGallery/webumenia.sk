@@ -32,7 +32,8 @@ return array(
     'item_attr_place'          => 'geographic location',
 
     'more-items_related-artworks' => 'related artworks',
-    'more-items_similar-colors' => 'search by similar colours',
+    'more-items_related-artworks_by-data' => 'by title, artist, tags...',
+    'more-items_similar-colors' => 'artworks with similar colours',
 
     'modal_license_body-content'        => '<p><strong>Your selected artwork should start downloading automatically.</strong></p>
                                             <p>Downloadable digital reproductions of artworks on Web umenia are available as <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" class="underline">public domain</a>. You can download them in high resolution and use them for both private and commercial use &ndash; i.e. copy, modify and share freely.</p>
