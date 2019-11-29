@@ -18,6 +18,11 @@ class ItemImage extends Model
         'order',
     ];
 
+    public function scopeHasIIP($query)
+    {
+        return $query->whereNotNull('iipimg_url');
+    }
+
     public function item() {
         return $this->belongsTo(Item::class);
     }
@@ -54,5 +59,20 @@ class ItemImage extends Model
 
     public static function loadValidatorMetadata(ClassMetadata $metadata) {
          $metadata->addGetterMethodConstraint('iipimg_url', 'getIipimgUrl', new NotBlank());
+    }
+
+    public function setSize()
+    {
+        $url = $this->getDeepZoomUrl();
+
+        $xml = @simplexml_load_file($url);
+        // e.g. <Image xmlns="http://schemas.microsoft.com/deepzoom/2008" TileSize="256" Overlap="0" Format="jpg"><Size Width="4514" Height="3046"/></Image>
+        if ($xml === false) {
+            return false;
+            // throw new Exception("Cannot load xml source.\n");
+        }
+        $this->width = (int)$xml->Size['Width'];
+        $this->height = (int)$xml->Size['Height'];
+        return true;
     }
 }
