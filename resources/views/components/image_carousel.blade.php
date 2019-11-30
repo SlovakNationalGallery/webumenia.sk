@@ -2,7 +2,7 @@
     <div class="artwork-carousel {{$slick_target}} {{$slick_variant or ''}}">
         @foreach ($images as $image)
         <a
-          href="{{$anchor_href}}" data-toggle="tooltip" data-placement="top" title="{{$anchor_title}}" class="ratio-box" style="padding-bottom: {{ round(($image->height / $image->width) * 100, 4) }}%;">
+          href="{{$anchor_href}}" data-toggle="tooltip" data-placement="top" title="{{$anchor_title}}" class="ratio-box" style="padding-bottom: {{ $image->ratio }}%;">
 
           <img
               data-sizes="auto"

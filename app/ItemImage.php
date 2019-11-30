@@ -81,4 +81,13 @@ class ItemImage extends Model
         $this->height = (int)$xml->Size['Height'];
         return true;
     }
+
+    public function getRatioAttribute()
+    {
+        if ($this->width > 0) {
+            return round(($this->height / $this->width) * 100, 4);
+        }
+
+        return false;
+    }
 }
