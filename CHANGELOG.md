@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [1.10.0] - 2019-12-01
 ### Added
 - color picker in the catalog
 - override docker php container for tests
