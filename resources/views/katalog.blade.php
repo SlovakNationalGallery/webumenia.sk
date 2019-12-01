@@ -5,7 +5,11 @@
     @if (!empty($search))
         {{ trans('katalog.title_searched') }} "{!!$search!!}"
     @else
-        {!! getTitleWithFilters('App\Item', $input, ' | ') !!}
+        @if (($year_from > $year_min) || ($year_until < $year_max))
+            {!! getTitleWithFilters('App\Item', $input, ' | ', $year_from, $year_until) !!}
+        @else
+            {!! getTitleWithFilters('App\Item', $input, ' | ') !!}
+        @endif
         {{ trans('katalog.title') }}
     @endif
     |
@@ -68,31 +72,37 @@
                         </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-6 col-sm-1 text-left text-sm-right year-range">
-                        <span class="sans" id="from_year">{!! !empty($input['year-range']) ? reset((explode(',', $input['year-range']))) : App\Item::sliderMin() !!}</span>
+            <div class="row mt-10">
+                <div class="col-xs-6 col-sm-1 text-left text-sm-right">
+                    <input class="sans" id="from_year" maxlength="4" pattern="[0-9]{1-4}" step="5" value="{{ $year_from }}" />
                 </div>
-                <div class="col-xs-6 col-sm-1 col-sm-push-10 text-right text-sm-left year-range">
-                        <span class="sans" id="until_year">{!! !empty($input['year-range']) ? end((explode(',', $input['year-range']))) : App\Item::sliderMax() !!}</span>
+                <div class="col-xs-6 col-sm-1 col-sm-push-10 text-right text-sm-left ">
+                    <input class="sans" id="until_year"  maxlength="4" pattern="[0-9]{1-4}" step="5" value="{{ $year_until }}" />
                 </div>
-                <div class="col-sm-10 col-sm-pull-1 year-range">
-                        <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="{!! App\Item::sliderMin() !!}" data-slider-max="{!! App\Item::sliderMax() !!}" data-slider-step="5" data-slider-value="[{!! !empty($input['year-range']) ? $input['year-range'] : App\Item::sliderMin().','.App\Item::sliderMax() !!}]"/>
-                </div>
-            </div>
-            @if ($color)
-            <div class="row">
-                <div class="col-sm-12">
-                    <label for="color_filter" class="w-100 mt-10 mb-0 light">
-                        {{ utrans('katalog.filters_color') }}:
-                        @include('components.color_list', ['colors' => [array('hex' => '#'.$color, 'amount' => '100%')], 'include_clear' => true, 'id' => 'color-filter', 'class_names' => 'mt-5 mb-0'])
-                        {!! Form::hidden('color', @$input['color'], ['id'=>'color']) !!}
-                    </label>
+                <div class="col-xs-12 col-sm-10 col-sm-pull-1">
+                    @include('components.year_slider', ['id' => 'yearRangeFilter'])
+                    @include('components.year_slider_js', [
+                        'yearRange' => $year_from . ', ' . $year_until,
+                        'min' => $year_min,
+                        'max' => $year_max,
+                        'id' => 'yearRangeFilter'
+                        ])
                 </div>
             </div>
-            @endif
+            <div class="row">
+                <div class="col-sm-12 col-md-10 col-md-push-1">
+                    <div class="color-picker">
+                        @include('components.color_picker', ['id'=>'colorpicker'])
+                        @include('components.color_picker_js', ['id' => 'colorpicker', 'color' => $color])
+                    </div>
+                </div>
+            </div>
+            {!! Form::hidden('color', @$input['color'], ['id'=>'color']) !!}
             {!! Form::hidden('sort_by', @$input['sort_by'], ['id'=>'sort_by']) !!}
+            {!! Form::hidden('year-range', @$input['year-range'], ['id'=>'year-range']) !!}
             {!! Form::close() !!}
-    </div></div>
+        </div>
+    </div>
 </section>
 
 @foreach ($items as $i=>$item)
@@ -122,7 +132,11 @@
                     @endif
 
                     @if (count(Input::all()) > 0)
-                        <a class="btn btn-sm btn-default btn-outline  sans" href="{!! URL::to('katalog')!!}">{{ trans('general.clear_filters') }}  <i class="icon-cross"></i></a>
+                        <a class="btn btn-sm btn-default btn-outline sans" href="{!! URL::to('katalog')!!}">{{ trans('general.clear_filters') }}  <i class="icon-cross"></i></a>
+                    @endif
+
+                    @if ($color)
+                        <a class="btn btn-sm btn-default btn-outline sans" href="{!! URL::to('katalog')!!}" id="clear_color">{{ trans('general.clear_color') }} <span class="picked-color" style="background-color: #{{ $color }};">&nbsp;</span> <i class="icon-cross"></i></a>
                     @endif
                 </div>
                 <div class="col-xs-6 text-right">
@@ -145,33 +159,13 @@
                 <div class="col-sm-12 isotope-wrapper">
                     <?php // $items = $items->paginate(18) ?>
                     <div id="iso">
-                	@foreach ($items as $i=>$item)
-    	                <div class="col-md-3 col-sm-4 col-xs-6 item">
-    	                	<a href="{!! $item->getUrl() !!}">
-                                @php
-                                    list($width, $height) = getimagesize(public_path() . $item->getImagePath());
-                                    $width =  max($width,1); // prevent division by zero exception
-                                @endphp
-                                <div class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%;">
-    	                		     @include('components.item_image_responsive', ['item' => $item])
-                                </div>
-    	                	</a>
-                            <div class="item-title">
-                                @if ($item->has_iip)
-                                    <div class="pull-right"><a href="{{ route('item.zoom', ['id' => $item->id]) }}" data-toggle="tooltip" data-placement="left" title="{{ utrans('general.item_zoom') }}"><i class="fa fa-search-plus"></i></a></div>
-                                @endif
-                                <a href="{!! $item->getUrl() !!}" {!! (!empty($search))  ?
-                                    'data-searchd-result="title/'.$item->id.'" data-searchd-title="'.implode(', ', $item->authors).' - '. $item->title.'"'
-                                    : '' !!}>
-                                    <em>{!! implode(', ', $item->authors) !!}</em><br>
-                                    <strong>{!! $item->title !!}</strong><br>
-                                    <em>{!! $item->getDatingFormated() !!}</em>
-                                    {{-- <br><span class="">{!! $item->gallery !!}</span> --}}
-                                </a>
-                            </div>
-    	                </div>
-                	@endforeach
-
+                        @foreach ($items as $i=>$item)
+                            @include('components.artwork_grid_item', [
+                                'item' => $item,
+                                'isotope_item_selector_class' => 'item',
+                                'class_names' => 'col-md-3 col-sm-4 col-xs-6',
+                            ])
+                        @endforeach
                     </div>
                     <div class="col-sm-12 text-center">
                         {!! $paginator->appends(@Input::except('page'))->render() !!}
@@ -210,7 +204,6 @@ $('.isotope-wrapper').each(function(){
 });
 
 $(document).ready(function(){
-
     // $('.expandable').readmore({
     //     moreLink: '<a href="#" class="text-center">viac možností <i class="icon-arrow-down"></i></a>',
     //     lessLink: '<a href="#" class="text-center">menej možností <i class="icon-arrow-up"></i></a>',
@@ -234,21 +227,36 @@ $(document).ready(function(){
                 $(this).removeAttr('name');
             }
         });
-        if ( $('#year-range').val()=='{!!App\Item::sliderMin()!!},{!!App\Item::sliderMax()!!}' ) {
+        if ( $('#year-range').val()=='{{$year_min}},{{$year_max}}' ) {
             $('#year-range').attr("disabled", true);
         }
     });
 
-    $("#year-range").slider({
-        // value: [1800, 1900],
-        tooltip: 'hide'
-    }).on('slideStop', function(event) {
-        $(this).closest('form').submit();
-    }).on('slide', function(event) {
-        var rozsah = $("#year-range").val().split(',');
-        $('#from_year').html(rozsah[0]);
-        $('#until_year').html(rozsah[1]);
+    yearRangeFilter.$on('change', function(range) {
+        $('#year-range').val(range.join(','));
+        $('#filter').submit();
     });
+    yearRangeFilter.$on('slide', function(range) {
+        $('#from_year').val(range[0]);
+        $('#until_year').val(range[1]);
+    });
+
+    colorpicker.$on('change', function(clr){
+        $('#color').val(clr.hex.substr(1));
+        $('#filter').submit();
+    })
+    $('#from_year,#until_year').on('change', function(event){
+        const min = {{ $year_min }};
+        const max = {{ $year_max }};
+        const fy = +$('#from_year').val().replace(/\D/g, '')
+        const uy = +$('#until_year').val().replace(/\D/g, '');
+        const from = Math.min(Math.max(min, fy), max);
+        const until = Math.max(Math.min(max, uy), min);
+        $('#year-range').val([from,until].sort().join(','));
+        $('#filter').submit();
+    })
+
+
 
     // $(".custom-select").chosen({allow_single_deselect: true})
     $(".custom-select").selectize({
@@ -270,7 +278,7 @@ $(document).ready(function(){
         }
     });
 
-    $(".custom-select, input[type='checkbox']").change(function() {
+    $(".custom-select, input[type='checkbox']:not(#use_color)").change(function() {
         var form = $(this).closest('form');
         form.submit();
     });
@@ -282,7 +290,7 @@ $(document).ready(function(){
     });
 
     // clear color filter
-    $(".colorlist>a.clear").click(function(e){
+    $("#clear_color").click(function(e){
         e.preventDefault();
         $('input#color').val('');
         $('#filter').submit();

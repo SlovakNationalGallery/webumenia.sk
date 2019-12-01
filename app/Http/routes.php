@@ -66,13 +66,9 @@ function()
 
         $items = Item::with('images')->find(Session::get('cart', array()));
 
-        $allow_printed_reproductions = true;
-
-        foreach ($items as $item) {
-            if (!$item->hasZoomableImages()) {
-                $allow_printed_reproductions = false;
-            }
-        }
+        $allow_printed_reproductions = $items->reduce(function ($result, $item) {
+            return $result & !$item->images->isEmpty();
+        }, true);
 
         return view('objednavka', [
             'items' => $items,
@@ -193,12 +189,12 @@ function()
     });
 
     Route::get('dielo/{id}/stiahnut', ['middleware' => 'throttle:5,1', function ($id) {
-
         $item = Item::find($id);
-
-        if (empty($item) || !$item->publicDownload()) {
-        	App::abort(404);
+        if ($item->images->isEmpty()) {
+            abort(404);
         }
+
+        return redirect()->route('image.download', ['id' => $item->images->first()->id]);
     }]);
 
     Route::get('dielo/{id}', function ($id) {
@@ -212,8 +208,9 @@ function()
         $item->save();
         $previous = $next = false;
 
-        // $more_items = Item::moreLikeThis(['author','title.stemmed','description.stemmed', 'tag', 'place'],[$item->id])->limit(20);
-        $more_items = $item->moreLikeThis(30);
+        $similar_item_count = 8;
+
+        $similar_items = $item->moreLikeThis($similar_item_count);
 
         if (Input::has('collection')) {
             $collection = Collection::find((int) Input::get('collection'));
@@ -230,6 +227,8 @@ function()
             }
         }
 
+        // get colors used in artwork
+        // @TODO solve sorting and hex formatting inside $item::getColorsUsed() method
         $colors_used = [];
 
         if ($item->color_descriptor) {
@@ -249,11 +248,28 @@ function()
                 $colors_used[$hex]['hex'] = $colors_used[$hex]['color']->getValue();
             }
         }
+        
+        // get similar artworks by color
+        // @TODO solve filtering and sorting inside $item::similarByColor() method
+        // @TODO make similarByColor() count argument consistent with moreLikeThis()
+        $similar_items_by_color = [];
+
+        if ($item->color_descriptor) {
+            $ids = $item->similarByColor($similar_item_count + 1)->pluck('id');
+            $similar_items_by_color = Item::whereIn('id', $ids)->get();
+            $similar_items_by_color = $similar_items_by_color->filter(function (Item $i) use ($item) {
+                return (bool)$i->color_descriptor && $item->id != $i->id;
+            });
+            $similar_items_by_color = $similar_items_by_color->sort(function($a, $b) use ($ids) {
+                return $ids->search($a->id) - $ids->search($b->id);
+            });
+        }
+
 
         return view('dielo', compact(
             'item',
-            'more_items',
-            'similar_by_color',
+            'similar_items',
+            'similar_items_by_color',
             'colors_used',
             'previous',
             'next'
@@ -278,6 +294,7 @@ function()
     })->name('dielo.colorrelated');
 
     Route::get('dielo/nahlad/{id}/{width}/{height?}', 'ImageController@resize')->where('width', '[0-9]+')->where('height', '[0-9]+')->name('dielo.nahlad');
+    Route::get('image/{id}/download', 'ImageController@download')->name('image.download');
 
     Route::controller('patternlib', 'PatternlibController');
 
@@ -456,6 +473,7 @@ Route::group(['middleware' => ['auth', 'role:admin|editor']], function () {
 Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::resource('article', 'ArticleController');
     Route::get('harvests/launch/{id}', 'SpiceHarvesterController@launch');
+    Route::get('harvests/harvestFailed/{id}', 'SpiceHarvesterController@harvestFailed');
     Route::get('harvests/orphaned/{id}', 'SpiceHarvesterController@orphaned');
     Route::get('harvests/{record_id}/refreshRecord/', 'SpiceHarvesterController@refreshRecord');
     Route::resource('harvests', 'SpiceHarvesterController');

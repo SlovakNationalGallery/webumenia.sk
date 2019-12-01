@@ -248,14 +248,16 @@ class ItemController extends Controller
      */
     public function refreshSelected()
     {
-        $items = Input::get('ids');
-        if (!empty($items) > 0) {
-            foreach ($items as $item_id) {
-                $item = Item::find($item_id);
+        $ids = (array)Input::get('ids');
+        foreach ($ids as $i => $id) {
+            $item = Item::find($id);
+            if (isset($item->record)) {
                 $this->dispatch(new HarvestSingleJob($item->record));
+            } else {
+                unset($ids[$i]);
             }
         }
-        return Redirect::back()->withMessage('Pre ' . count($items) . ' diel boli načítané dáta z OAI');
+        return Redirect::back()->withMessage('Pre ' . count($ids) . ' diel boli načítané dáta z OAI');
     }
 
     public function reindex()

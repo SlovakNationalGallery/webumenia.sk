@@ -54,7 +54,7 @@ class Item extends Model
         'state_edition',
         'gallery',
         'relationship_type',
-        'related_work'
+        'related_work',
     ];
 
     // protected $indexName = 'webumenia';
@@ -71,7 +71,10 @@ class Item extends Model
         'len s obrázkom' => 'has_image',
         'len so zoom' => 'has_iip',
         'len voľné' => 'is_free',
-        'zo súboru' => 'related_work'
+        'zo súboru' => 'related_work',
+        'rok od' => 'date_earliest',
+        'rok do' => 'date_latest',
+
     );
 
     public static $sortable;
@@ -445,22 +448,14 @@ class Item extends Model
 	}
 	*/
 
-    public static function sliderMin()
+    public static function sliderMin($params)
     {
-        $table_name = with(new static)->getTable();
-        if (Cache::has($table_name.'.slider_min')) {
-            $slider_min =  Cache::get($table_name.'.slider_min');
-        } else {
-            $min_year = self::min('date_earliest');
-            $slider_min = floor($min_year / 100)*100;
-            Cache::put($table_name.'.slider_min', $slider_min, 60);
-        }
-        return $slider_min;
+        return self::aggValue('date_earliest', $params, 'min');
     }
 
-    public static function sliderMax()
+    public static function sliderMax($params)
     {
-        return date('Y');
+        return min(self::aggValue('date_latest', $params, 'max'), date('Y'));
     }
 
     public function getAuthorsAttribute($value)
@@ -638,6 +633,40 @@ class Item extends Model
 
     }
 
+    public static function aggValue($attribute, $search_params, $metrics = 'min')
+    {
+        // first check if $attribute is from the list of allowed
+        if (!in_array($attribute, self::$filterable)) {
+            return false;
+        }
+
+
+        $json_params = '
+        {
+         "aggs" : {
+            "'.$metrics.'_'.$attribute.'" : {
+                "'.$metrics.'" : {
+                  "field" : "'.$attribute.'"
+                }
+            }
+        }
+        }
+        ';
+        $params = array_merge(json_decode($json_params, true), $search_params);
+
+        $result = Elastic::search([
+            'index' => Config::get('bouncy.index'),
+            // 'search_type' => 'count',
+            'type' => self::ES_TYPE,
+            'body'  => $params
+        ]);
+
+        $result_value = $result['aggregations'][$metrics . '_' . $attribute]['value'];
+
+        return (int)$result_value;
+
+    }
+
     /**
      * @return bool
      */
@@ -731,59 +760,6 @@ class Item extends Model
             ->orderBy('related_work_order');
     }
 
-    public function publicDownload($order = null) {
-        if (!$this->isFree()) {
-            return false;
-        }
-
-        $this->timestamps = false;
-        $this->download_count += 1;
-        $this->save();
-
-        return $this->download($order);
-    }
-
-    public function download($order = null)
-    {
-        $image = $this->getZoomableImages()->first(function ($key, ItemImage $image) use ($order) {
-            return ($image->order == $order) || ($order === null);
-        });
-
-        if (!$image) {
-            return false;
-        }
-
-        header('Set-Cookie: fileDownload=true; path=/');
-        $url = 'http://imi.sng.cust.eea.sk/publicIS/fcgi-bin/iipsrv.fcgi?FIF=' . $image->iipimg_url . '&CVT=JPG';
-        $filename = $this->id.'.jpg';
-
-        set_time_limit(0);
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-        $r = curl_exec($ch);
-        curl_close($ch);
-        header('Expires: 0'); // no cache
-        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-        header('Last-Modified: ' . gmdate('D, d M Y H:i:s', time()) . ' GMT');
-        header('Cache-Control: private', false);
-        header('Content-Type: application/force-download');
-        header('Content-Disposition: attachment; filename="' . $filename . '"');
-        header('Content-Transfer-Encoding: binary');
-        header('Content-Length: ' . strlen($r)); // provide file size
-        header('Connection: close');
-        echo $r;
-
-        // Finish off, like Laravel would
-        // Event::fire('laravel.done', array($response));
-        // $response->foundation->finish();
-
-        exit;
-    }
-
     public function getAuthorsWithLinks()
     {
         $used_authorities = array();
@@ -813,20 +789,12 @@ class Item extends Model
         return implode(', ', $this->authors)  . $dash .  $this->title;
     }
 
-    public function getZoomableImages()
-    {
-        return $this->images->filter(function (ItemImage $image) {
-            return $image->isZoomable();
-        });
-    }
+    public function getHasIipAttribute($value) {
+        if ($value !== null) {
+            return $value;
+        }
 
-    public function hasZoomableImages() {
-        return !$this->getZoomableImages()->isEmpty();
-    }
-
-    // alias for preserving backward compatibility
-    public function getHasIipAttribute() {
-        return $this->hasZoomableImages();
+        return !$this->images->isEmpty();
     }
 
     public function index()
@@ -851,7 +819,7 @@ class Item extends Model
                 'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
                 'created_at' => $this->created_at->format('Y-m-d H:i:s'),
                 'has_image' => (bool)$this->has_image,
-                'has_iip' => (bool)$this->hasZoomableImages(),
+                'has_iip' => $this->has_iip,
                 'is_free' => $this->isFree(),
                 'authority_id' => $this->relatedAuthorityIds(),
                 'view_count' => $this->view_count,

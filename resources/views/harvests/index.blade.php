@@ -56,7 +56,7 @@ Spice Harvester |
                                 <span class="h4"><span class="label label-{!! $h->status_class !!}">{!! $h->status !!}</span></span>
                             </td>
                             <td>
-                                {!! nl2br($h->status_messages) !!}<br>
+                                {!! nl2br(htmlspecialchars($h->status_messages)) !!}<br>
                             </td>
                             <td>{!! $h->cron_status !!}</td>
 			                <td class="text-right">
@@ -67,7 +67,8 @@ Spice Harvester |
                                 {!! Form::close() !!}
                                 <br>
                                 {!! link_to_action('SpiceHarvesterController@orphaned', 'Zobraziť odobrané zo setu', array($h->id), array('class' => 'btn btn-danger ladda-button btn-xs', 'data-style'=>'expand-right')) !!}
-                                {!! link_to_action('SpiceHarvesterController@launch', 'Reindex', array($h->id, 'reindex'=>true), array('class' => 'btn btn-default ladda-button btn-xs', 'data-style'=>'expand-right')) !!}
+                                {!! link_to_action('SpiceHarvesterController@launch', 'Obnoviť všetky', array($h->id, 'reindex'=>true), array('class' => 'btn btn-default ladda-button btn-xs', 'data-style'=>'expand-right')) !!}
+                                {!! link_to_action('SpiceHarvesterController@harvestFailed', 'Obnoviť chybné (' . $h->records()->failed()->count() . ')', array($h->id), array('class' => 'btn btn-default ladda-button btn-xs', 'data-style'=>'expand-right')) !!}
                                 {!! link_to_action('SpiceHarvesterController@launch', 'Spustiť', array($h->id), array('class' => 'btn btn-primary ladda-button btn-xs', 'data-style'=>'expand-right')) !!}
                             </td>
 			            </tr>

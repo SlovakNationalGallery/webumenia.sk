@@ -3,6 +3,23 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [1.10.0] - 2019-12-01
+### Added
+- color picker in the catalog
+- override docker php container for tests
+- ImageCarousel Component
+- harvesting of failed records
+
+### Fixed
+- correct authority zero-value years to null
+- filter out unexisting OAI-PMH records on refreshing selected
+
+### Changed
+- ArtworkDetailPage shows multiple images (via IIIF from image server) in ImageCarousel
+- serve item images via custom image server
+- Log exception and continue harvesting
+- ArtworkDetailPage layout
+
 ## [1.9.1] - 2019-07-30
 ### Changed
 - updated GMaps.js v0.4.13 -> v0.4.25
@@ -198,6 +215,8 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - Color-list component on artwork detail
 - Color description
+- LESS to CSS compilation
+- ColorPicker component
 - Zoom-viewer component
 - Multiple images per artwork
 - Moravian gallery importer

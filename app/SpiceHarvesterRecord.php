@@ -27,4 +27,9 @@ class SpiceHarvesterRecord extends Model
     {
         return $this->belongsTo('App\Item', 'item_id');
     }
+
+    public function scopeFailed($query)
+    {
+        return $query->whereNotNull('failed_at');
+    }
 }

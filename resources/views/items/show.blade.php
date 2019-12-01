@@ -109,7 +109,7 @@
 								<td>obrázok:</td>
 								<td><img src="{{ $item->getImagePath() }}" alt="náhľad" class="img-responsive" ></td>
 							</tr>
-							@foreach($item->getZoomableImages() as $image):
+							@foreach($item->images as $image):
 							<tr>
 								<td colspan="2">
 									<table>
