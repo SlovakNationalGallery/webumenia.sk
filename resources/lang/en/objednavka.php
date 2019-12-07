@@ -9,7 +9,7 @@ return array(
     */
 
     'title'         => 'Reproduction order',
-    'order_alert'   => '<strong> Warning: </strong><br> If you wish a reproduction to be ready before Christmas, make sure to place your order <strong>before December 10th</strong>.',
+    'order_alert'   => '<strong> Warning: </strong><br> If you wish a reproduction to be ready before Christmas, make sure to place your order <strong>before December 9th</strong>.',
     'order_content' => '<h2 class="bottom-space">Reproduction order</h2>
                         <p>If you are interested in both printed and digital reproductions, please make a <strong>separate order for each type</strong>.</p>
                         <p>If you wish to order different sizes for each print, please specify them in the <strong>Note</strong> field.</p>
