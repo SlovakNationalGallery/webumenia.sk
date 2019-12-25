@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+ - artwork carousel focus - display no border
+ - allow negative number input for year-range filter
+ - remove duplicated properties at artwork page
+
+### Changed
+ - use desaturated color at color picker by default (80% saturation used)
+ - use one years step within year-range component (before it was 5 )
 
 ## [1.10.1] - 2019-12-08
 ### Added
