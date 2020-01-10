@@ -177,6 +177,11 @@
                                     </text>
                                 </svg>
                             </a>
+                            <div class="page-load-status" style="display: none">
+                                <p class="infinite-scroll-request" id="infscr-loading"><i class="fa fa-refresh fa-spin fa-lg"></i></p>
+                                <p class="infinite-scroll-last text-muted">{{ utrans('katalog.catalog_finished') }}</p>
+                                <p class="infinite-scroll-error">{{ utrans('katalog.catalog_finished') }}</p>
+                            </div>
                         @endif
                     </div>
                 </div>
@@ -299,70 +304,36 @@ $(document).ready(function(){
 
     var $container = $('#iso');
 
-    $( window ).resize(function() {
+    $(window).resize(function() {
         spravGrid($container);
     });
 
     $container.infiniteScroll({
         path: '#next',
         append: '.item',
-        loadOnScroll: false,
-        debug: true,
         outlayer: $container.data('isotope'),
-        // history: false,
+        loadOnScroll: false, // Start with scroll disabled
+        status: '.page-load-status'
     });
 
-    // $container.on( 'load.infiniteScroll', function(event, response, path) {
-    //     console.log( 'Loaded: ', $(response).find('.item') );
-    //     $container.isotope( 'appended', $(response).find('.item') );
-    // });
+    $container.on( 'request.infiniteScroll', function( event, path ) {
+        $('.infinite-scroll-request').addClass('animated fadeInUp faster');
+    });
 
-    // $container.infiniteScroll({
-    //     navSelector     : ".pagination",
-    //     nextSelector    : ".pagination a:last",
-    //     itemSelector    : ".item",
-    //     debug           : true,
-    //     dataType        : 'html',
-    //     path            : undefined,
-    //     bufferPx     : 200,
-    //     loading: {
-    //         msgText: '<i class="fa fa-refresh fa-spin fa-lg"></i>', TODO
-    //         img: '/images/transparent.gif',TODO
-    //         finishedMsg: '{{ utrans('katalog.catalog_finished') }}' TODO
-    //     }
-    // });
-
-    // , function(newElements, data, url){
-    //     history.replaceState({infiniteScroll:true}, null, url);
-    //     var $newElems = jQuery( newElements ).hide();
-    //     $container.isotope( 'appended', $newElems );
-    // }
-
-    // $(window).unbind('.infscr'); //kill scroll binding
-
-
-    // fix artwork detail on iOS https://github.com/artsy/scroll-frame/issues/30
-    if (!isMobileSafari() && !isIE()) {
-      scrollFrame('.item a');
-    }
-
-    // console.log("configuring a#next", $container, $('a#next'));
-    // $('a#next').click(function(){
-    //     $(this).fadeOut();
-    //     $container.infiniteScroll('bind');
-    //     $container.infiniteScroll('retrieve');
-    //     return false;
-    // });
-
-    $('a#next').on('click', function(event) {
+    $('#next').on('click', function(event) {
         $container.infiniteScroll('loadNextPage');
         $container.infiniteScroll('option', {
             loadOnScroll: true,
         });
 
-        $(this).hide();
+        $(this).fadeOut();
         event.preventDefault();
     });
+
+    // fix artwork detail on iOS https://github.com/artsy/scroll-frame/issues/30
+    if (!isMobileSafari() && !isIE()) {
+      scrollFrame('.item a');
+    }
 });
 
 </script>
