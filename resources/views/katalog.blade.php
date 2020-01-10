@@ -168,14 +168,15 @@
                         @endforeach
                     </div>
                     <div class="col-sm-12 text-center">
-                        {!! $paginator->appends(@Input::except('page'))->render() !!}
                         @if ($paginator->hasMorePages() )
-                            <a id="next" href="{!! URL::to('katalog')!!}"><svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve"> <path d="M0.492,8.459v83.427c4.124,0.212,7.409,3.497,7.622,7.622h83.357
-        c0.22-4.265,3.719-7.664,8.036-7.664V8.571c-4.46,0-8.079-3.617-8.079-8.079H8.157C8.157,4.774,4.755,8.239,0.492,8.459z"/>
-<text text-anchor="middle" alignment-baseline="middle" x="50" y="50">
-    {{ trans('katalog.catalog_show_more') }}
-  </text>
-   </svg></a>
+                            <a id="next" href="{{ $paginator->nextPageUrl() }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+                                    <path d="M0.492,8.459v83.427c4.124,0.212,7.409,3.497,7.622,7.622h83.357c0.22-4.265,3.719-7.664,8.036-7.664V8.571c-4.46,0-8.079-3.617-8.079-8.079H8.157C8.157,4.774,4.755,8.239,0.492,8.459z"/>
+                                    <text text-anchor="middle" alignment-baseline="middle" x="50" y="50">
+                                    {{ trans('katalog.catalog_show_more') }}
+                                    </text>
+                                </svg>
+                            </a>
                         @endif
                     </div>
                 </div>
@@ -302,26 +303,42 @@ $(document).ready(function(){
         spravGrid($container);
     });
 
-    $container.infinitescroll({
-        navSelector     : ".pagination",
-        nextSelector    : ".pagination a:last",
-        itemSelector    : ".item",
-        debug           : false,
-        dataType        : 'html',
-        path            : undefined,
-        bufferPx     : 200,
-        loading: {
-            msgText: '<i class="fa fa-refresh fa-spin fa-lg"></i>',
-            img: '/images/transparent.gif',
-            finishedMsg: '{{ utrans('katalog.catalog_finished') }}'
-        }
-    }, function(newElements, data, url){
-        history.replaceState({infiniteScroll:true}, null, url);
-        var $newElems = jQuery( newElements ).hide();
-        $container.isotope( 'appended', $newElems );
+    $container.infiniteScroll({
+        path: '#next',
+        append: '.item',
+        loadOnScroll: false,
+        debug: true,
+        outlayer: $container.data('isotope'),
+        // history: false,
     });
 
-    $(window).unbind('.infscr'); //kill scroll binding
+    // $container.on( 'load.infiniteScroll', function(event, response, path) {
+    //     console.log( 'Loaded: ', $(response).find('.item') );
+    //     $container.isotope( 'appended', $(response).find('.item') );
+    // });
+
+    // $container.infiniteScroll({
+    //     navSelector     : ".pagination",
+    //     nextSelector    : ".pagination a:last",
+    //     itemSelector    : ".item",
+    //     debug           : true,
+    //     dataType        : 'html',
+    //     path            : undefined,
+    //     bufferPx     : 200,
+    //     loading: {
+    //         msgText: '<i class="fa fa-refresh fa-spin fa-lg"></i>', TODO
+    //         img: '/images/transparent.gif',TODO
+    //         finishedMsg: '{{ utrans('katalog.catalog_finished') }}' TODO
+    //     }
+    // });
+
+    // , function(newElements, data, url){
+    //     history.replaceState({infiniteScroll:true}, null, url);
+    //     var $newElems = jQuery( newElements ).hide();
+    //     $container.isotope( 'appended', $newElems );
+    // }
+
+    // $(window).unbind('.infscr'); //kill scroll binding
 
 
     // fix artwork detail on iOS https://github.com/artsy/scroll-frame/issues/30
@@ -329,16 +346,23 @@ $(document).ready(function(){
       scrollFrame('.item a');
     }
 
+    // console.log("configuring a#next", $container, $('a#next'));
+    // $('a#next').click(function(){
+    //     $(this).fadeOut();
+    //     $container.infiniteScroll('bind');
+    //     $container.infiniteScroll('retrieve');
+    //     return false;
+    // });
 
-    $('a#next').click(function(){
-        $(this).fadeOut();
-        $container.infinitescroll('bind');
-        $container.infinitescroll('retrieve');
-        return false;
+    $('a#next').on('click', function(event) {
+        $container.infiniteScroll('loadNextPage');
+        $container.infiniteScroll('option', {
+            loadOnScroll: true,
+        });
+
+        $(this).hide();
+        event.preventDefault();
     });
-
-
-
 });
 
 </script>
