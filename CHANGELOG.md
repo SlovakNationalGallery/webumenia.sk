@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+## [1.10.2] - 2020-01-10
+### Fixed
+- Fixes show more button in catalog (WEBUMENIA-1219)
 
 ## [1.10.1] - 2019-12-08
 ### Added
