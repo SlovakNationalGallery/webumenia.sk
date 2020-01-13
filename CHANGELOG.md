@@ -1,15 +1,19 @@
 # Change Log
 All notable changes to this project will be documented in this file[^1].
 
+## [Unreleased]
+### Changed
+- upgrade to Laravel 5.8
+
 ## [1.10.2] - 2020-01-13
 ### Fixed
- - artwork carousel focus - display no border
- - allow negative number input for year-range filter
- - remove duplicated properties at artwork page
+- artwork carousel focus - display no border
+- allow negative number input for year-range filter
+- remove duplicated properties at artwork page
 
 ### Changed
- - use desaturated color at color picker by default (80% saturation used)
- - use one years step within year-range component (before it was 5 )
+- use desaturated color at color picker by default (80% saturation used)
+- use one years step within year-range component (before it was 5 )
 
 ## [1.10.1] - 2019-12-08
 ### Added

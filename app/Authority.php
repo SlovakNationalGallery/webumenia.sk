@@ -189,7 +189,7 @@ class Authority extends Model
     {
         if (!Cache::has('authority_collections_count')) {
             $authority_collections_count = $this->join('authority_item', 'authority_item.authority_id', '=', 'authorities.id')->join('collection_item', 'collection_item.item_id', '=', 'authority_item.item_id')->where('authorities.id', '=', $this->id)->select('collection_item.collection_id')->distinct()->count();
-            Cache::put('authority_collections_count', $authority_collections_count, 60);
+            Cache::put('authority_collections_count', $authority_collections_count, 3600);
         }
 
         return Cache::get('authority_collections_count');
@@ -203,8 +203,8 @@ class Authority extends Model
                                 $join->on('tagging_tagged.taggable_id', '=', 'authority_item.item_id');
                                 $join->on('tagging_tagged.taggable_type', '=', DB::raw("'Item'"));
                             })->where('authorities.id', '=', $this->id)->groupBy('tagging_tagged.tag_name')->select('tagging_tagged.tag_name', DB::raw('count(tagging_tagged.tag_name) as pocet'))->orderBy('pocet', 'desc')->limit(10)->get();
-            $authority_tags = $tags->lists('tag_name');
-            Cache::put('authority_tags', $authority_tags, 60);
+            $authority_tags = $tags->pluck('tag_name');
+            Cache::put('authority_tags', $authority_tags, 3600);
         }
 
         return Cache::get('authority_tags');
@@ -222,7 +222,7 @@ class Authority extends Model
 
     public function getFormatedNamesAttribute()
     {
-        $names = $this->names->lists('name');
+        $names = $this->names->pluck('name');
         $return_names = array();
         foreach ($names as $name) {
             $return_names[] = self::formatName($name);
@@ -236,7 +236,7 @@ class Authority extends Model
         $places = array_merge([
             $this->birth_place,
             $this->death_place,
-            ], $this->events->lists('place')->all());
+            ], $this->events->pluck('place')->all());
 
         return array_values(array_filter(array_unique($places)));
     }
@@ -387,9 +387,9 @@ class Authority extends Model
                 'id' => $this->id,
                 'identifier' => $this->id,
                 'name' => $this->name,
-                'alternative_name' => $this->names->lists('name'),
-                'related_name' => $this->relationships->lists('name'),
-                'nationality' => $this->nationalities->lists('code'),
+                'alternative_name' => $this->names->pluck('name'),
+                'related_name' => $this->relationships->pluck('name'),
+                'nationality' => $this->nationalities->pluck('code'),
                 'place' => $this->places,
                 'role' => $this->roles,
                 'birth_year' => $this->birth_year,
@@ -423,7 +423,7 @@ class Authority extends Model
         } else {
             $min_year = self::min('birth_year');
             $slider_min = floor($min_year / 100) * 100;
-            Cache::put($table_name.'.slider_min', $slider_min, 60);
+            Cache::put($table_name.'.slider_min', $slider_min, 3600);
         }
 
         return $slider_min;

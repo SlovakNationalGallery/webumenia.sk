@@ -81,7 +81,7 @@ $factory->define(\App\Authority::class, function (Faker\Generator $faker) {
 
 $factory->define(\App\SpiceHarvesterHarvest::class, function (Faker\Generator $faker) {
     return [
-        'type' => $faker->randomElement(['item', 'authority']),
+        'type' => 'item',
         'base_url' => $faker->url,
         'metadata_prefix' => $faker->word,
         'set_spec' => $faker->word,
