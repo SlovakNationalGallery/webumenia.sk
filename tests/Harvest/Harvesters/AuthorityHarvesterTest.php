@@ -24,18 +24,18 @@ class AuthorityHarvesterTest extends TestCase
 
     public function testTryHarvestNoRows()
     {
-        $repositoryMock = $this->getMock(AuthorityRepository::class, [], [
-            $this->getMock(EndpointFactory::class)
+        $repositoryMock = $this->createMock(AuthorityRepository::class, [], [
+            $this->createMock(EndpointFactory::class)
         ]);
-        $importerMock = $this->getMock(AuthorityImporter::class, [], [
-            $this->getMock(AuthorityMapper::class),
-            $this->getMock(AuthorityEventMapper::class),
-            $this->getMock(AuthorityNameMapper::class),
-            $this->getMock(AuthorityNationalityMapper::class),
-            $this->getMock(AuthorityRelationshipMapper::class),
-            $this->getMock(LinkMapper::class),
-            $this->getMock(NationalityMapper::class),
-            $this->getMock(RelatedAuthorityMapper::class),
+        $importerMock = $this->createMock(AuthorityImporter::class, [], [
+            $this->createMock(AuthorityMapper::class),
+            $this->createMock(AuthorityEventMapper::class),
+            $this->createMock(AuthorityNameMapper::class),
+            $this->createMock(AuthorityNationalityMapper::class),
+            $this->createMock(AuthorityRelationshipMapper::class),
+            $this->createMock(LinkMapper::class),
+            $this->createMock(NationalityMapper::class),
+            $this->createMock(RelatedAuthorityMapper::class),
         ]);
 
         $repositoryMock->expects($this->once())
