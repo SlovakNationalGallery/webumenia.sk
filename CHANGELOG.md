@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file[^1].
 
+## [Unreleased]
+### Fixed
+ - artwork-detail: smaller images are not upsized to pane size 
+
 ## [1.10.2] - 2020-01-13
 ### Fixed
  - artwork carousel focus - display no border

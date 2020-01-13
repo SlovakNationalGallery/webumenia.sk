@@ -79,7 +79,9 @@
                     <div class="ratio-box bottom-space"
                         style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%">
                         @include('components.item_image_responsive', [
-                        'item' => $item
+                        'item' => $item,
+                        'width' => $width,
+                        'height' => $height
                         ])
                     </div>
                     @endif
