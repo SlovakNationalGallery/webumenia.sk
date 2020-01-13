@@ -137,11 +137,6 @@
                                     {{--     {!!  implode(' &times; ', $measurement) !!}<br> --}}
                                     {!! $measurement !!}<br>
                                     @endforeach
-
-                                    @if (Auth::check())
-                                    @include('includes.add_tags_form')
-                                    @endif
-
                                 </td>
                             </tr>
                             @endif
@@ -162,8 +157,7 @@
                                 <td class="atribut">{{ trans('dielo.item_attr_medium') }}:</td>
                                 <td>
                                     @foreach ($item->mediums as $medium)
-                                    <a href="{!! URL::to('katalog?medium=' . $medium) !!}">{!! addMicrodata($medium,
-                                        "artMedium") !!}</a><br>
+                                    <a href="{!! URL::to('katalog?medium=' . $medium) !!}">{!! addMicrodata($medium, "artMedium") !!}</a><br>
                                     @endforeach
                                 </td>
                             </tr>
@@ -173,8 +167,7 @@
                                 <td class="atribut">{{ trans('dielo.item_attr_technique') }}:</td>
                                 <td>
                                     @foreach ($item->techniques as $technique)
-                                    <a href="{!! URL::to('katalog?technique=' . $technique) !!}">{!! $technique
-                                        !!}</a><br>
+                                    <a href="{!! URL::to('katalog?technique=' . $technique) !!}">{!! $technique !!}</a><br>
                                     @endforeach
                                 </td>
                             </tr>
@@ -209,8 +202,7 @@
                             @if (!empty($item->gallery))
                             <tr>
                                 <td class="atribut">{{ trans('dielo.item_attr_gallery') }}:</td>
-                                <td><a href="{!! URL::to('katalog?gallery=' . $item->gallery) !!}">{!! $item->gallery;
-                                        !!}</a></td>
+                                <td><a href="{!! URL::to('katalog?gallery=' . $item->gallery) !!}">{!! $item->gallery; !!}</a></td>
                             </tr>
                             @endif
                             @if (!empty($item->contributor))
@@ -243,6 +235,36 @@
                                 <td>{!! $item->place; !!}</td>
                             </tr>
                             @endif
+
+                            @if (!empty($item->topics)) 
+                            <tr>
+                                <td class="atribut">{{ trans('dielo.item_attr_topic') }}:</td>
+                                <td>
+                                    @foreach ($item->topics as $topic)
+                                    <a href="{!! URL::to('katalog?topic=' . $topic) !!}">{!! $topic !!}</a><br>
+                                    @endforeach
+                                </td>
+                            </tr>
+                            @endif
+                            @if ($item->tagNames() || Auth::check())
+                            <tr>
+                                <td class="atribut">{{ trans('dielo.item_attr_tag') }}:</td>
+                                <td>
+
+                                    <!-- list of existing tags -->
+                                    @foreach ($item->tagNames() as $tag)
+                                    <a href="{!!URL::to('katalog?tag=' . $tag)!!}"
+                                        class="btn btn-default btn-xs btn-outline">{!! $tag !!}</a>
+                                    @endforeach
+
+                                    @if (Auth::check())
+                                    @include('includes.add_tags_form')
+                                    @endif
+
+                                </td>
+                            </tr>
+                            @endif
+
                         </tbody>
                     </table>
                     @if (!empty($item->lat) && ($item->lat > 0))
