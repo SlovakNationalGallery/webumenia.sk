@@ -45,7 +45,7 @@ class AuthorityHarvesterTest extends TestCase
         $harvester = new AuthorityHarvester($repositoryMock, $importerMock);
 
         $harvest = factory(SpiceHarvesterHarvest::class)->make([
-            'type' => 'authority',
+            'type' => 'author',
             'status' => SpiceHarvesterHarvest::STATUS_QUEUED
         ]);
         $harvester->tryHarvest($harvest);
