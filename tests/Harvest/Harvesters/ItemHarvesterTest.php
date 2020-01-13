@@ -37,6 +37,7 @@ class ItemHarvesterTest extends TestCase
         $harvester = new ItemHarvester($repositoryMock, $importerMock);
 
         $harvest = factory(SpiceHarvesterHarvest::class)->make([
+            'type' => 'item',
             'status' => SpiceHarvesterHarvest::STATUS_QUEUED
         ]);
         $harvester->tryHarvest($harvest);
