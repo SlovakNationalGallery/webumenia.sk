@@ -1,7 +1,7 @@
 # Change Log
 All notable changes to this project will be documented in this file[^1].
 
-## [Unreleased]
+## [1.10.2] - 2020-01-13
 ### Fixed
  - artwork carousel focus - display no border
  - allow negative number input for year-range filter
