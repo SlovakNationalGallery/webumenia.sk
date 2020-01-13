@@ -51,7 +51,7 @@ class ClanokController extends Controller
         // dd($slug);
         $article = Article::where('slug', '=', $slug)->firstOrFail();
         if (empty($article)) {
-            App::abort(404);
+            abort(404);
         }
         $article->view_count += 1;
         $article->save();
