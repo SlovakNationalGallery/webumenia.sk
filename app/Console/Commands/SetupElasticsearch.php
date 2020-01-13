@@ -100,7 +100,7 @@ class SetupElasticsearch extends Command
 
     $index_name = $this->ask('What is the index name?', $elastic_translatable->getIndexForLocale($locale_str));
 
-    $res = $client->delete($host.'/'.$index_name);
+    $res = $client->get($host.'/'.$index_name);
 
     if ($res->getStatusCode() == 200) {
         if ($this->confirm("❗ An index with that name already exists❗\n Do you want to delete the current index?\n [y|N]")) {

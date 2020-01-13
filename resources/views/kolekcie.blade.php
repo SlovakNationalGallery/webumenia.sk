@@ -80,7 +80,7 @@
             		<h4 class="inline">{!! $collections->total() !!} {{ trans('kolekcie.collections_collections') }}</h4>
                 @endif
                 @if ($collections->count() == 0)
-                    <p class="text-center">{{ utrans('kolekcie.collections_no_results') }}</p>
+                    <p class="text-center">{{ utrans('kolekcie.collections_no_collections') }}</p>
                 @endif
                 {{--  @if (count(Input::all()) > 0)
                     <a class="btn btn-sm btn-default btn-outline  sans" href="{!! URL::to('kolekcie')!!}">zrušiť filtre <i class="icon-cross"></i></a>

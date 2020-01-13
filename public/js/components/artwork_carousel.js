@@ -7,8 +7,8 @@ $(document).ready(function(){
   });
   $(".multiple-views").slick({
     lazyLoad: 'progressive',
-    slide: 'a',
-    variableWidth: true,
+    slide: '.img-container',
+    variableWidth: false,
     dots: true
   });
 })

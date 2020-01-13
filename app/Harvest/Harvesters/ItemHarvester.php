@@ -23,7 +23,7 @@ class ItemHarvester extends AbstractHarvester
         $this->logger = new Logger('oai_harvest');
     }
 
-    public function harvestSingle(SpiceHarvesterRecord $record, Result $result, array $row = null) {
+    protected function harvestSingle(SpiceHarvesterRecord $record, Result $result, array $row = null) {
         if ($row === null) {
             $row = $this->repository->getRow($record);
         }
