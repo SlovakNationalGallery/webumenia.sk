@@ -254,14 +254,17 @@ $(document).ready(function(){
     $('#from_year,#until_year').on('change', function(event){
         const min = {{ $year_min }};
         const max = {{ $year_max }};
-        const fy = +$('#from_year').val().replace(/\D/g, '')
-        const uy = +$('#until_year').val().replace(/\D/g, '');
+        const fy = +$('#from_year').val().replace(/[^0-9\-]+/g, '');
+        const uy = +$('#until_year').val().replace(/[^0-9\-]+/g, '');
         const from = Math.min(Math.max(min, fy), max);
         const until = Math.max(Math.min(max, uy), min);
-        $('#year-range').val([from,until].sort().join(','));
+        if (event.target.id === 'from_year'){
+            $('#year-range').val([from, from > until ? from : until].join(','));
+        } else {
+            $('#year-range').val([until < from ? until : from, until].join(','));
+        }
         $('#filter').submit();
-    })
-
+    });
 
 
     // $(".custom-select").chosen({allow_single_deselect: true})

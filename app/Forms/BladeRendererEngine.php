@@ -2,9 +2,9 @@
 
 namespace App\Forms;
 
+use Illuminate\Contracts\View\Engine;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\View\Engines\EngineInterface;
 use Illuminate\View\Factory;
 use Illuminate\View\FileViewFinder;
 use Symfony\Component\Form\AbstractRendererEngine;
@@ -14,7 +14,7 @@ use Symfony\Component\Templating\TemplateNameParserInterface;
 
 class BladeRendererEngine extends AbstractRendererEngine
 {
-    /** @var EngineInterface */
+    /** @var Engine */
     protected $engine;
 
     /** @var TemplateNameParserInterface */
@@ -24,7 +24,7 @@ class BladeRendererEngine extends AbstractRendererEngine
     protected $loader;
 
     public function __construct(
-        EngineInterface $engine,
+        Engine $engine,
         TemplateNameParserInterface $parser,
         LoaderInterface $loader,
         array $defaultThemes = array()

@@ -161,7 +161,7 @@ function()
         $item = Item::find($id);
 
         if (empty($item) || !$item->isForReproduction()) {
-            App::abort(404);
+            abort(404);
         }
 
         if (!in_array($item->id, Session::get('cart', array()))) {
@@ -179,7 +179,7 @@ function()
         $item = Item::find($id);
 
         if (empty($item)) {
-            App::abort(404);
+            abort(404);
         }
         Session::put('cart', array_diff(Session::get('cart'), [$item->id]));
         Session::flash('message', trans('objednavka.message_remove_order', ['artwork_description' => '<b>'.$item->getTitleWithAuthors().'</b> ('.$item->getDatingFormated().')']) );
@@ -201,7 +201,7 @@ function()
 
         $item = Item::find($id);
         if (empty($item)) {
-            App::abort(404);
+            abort(404);
         }
         $item->timestamps = false;
         $item->view_count += 1;
@@ -215,7 +215,7 @@ function()
         if (Input::has('collection')) {
             $collection = Collection::find((int) Input::get('collection'));
             if (!empty($collection)) {
-                $items = $collection->items->lists('id')->all();
+                $items = $collection->items->pluck('id')->all();
                 $previousId = getPrevVal($items, $id);
                 if ($previousId) {
                     $previous = Item::find($previousId)->getUrl(['collection' => $collection->id]);
@@ -248,7 +248,7 @@ function()
                 $colors_used[$hex]['hex'] = $colors_used[$hex]['color']->getValue();
             }
         }
-        
+
         // get similar artworks by color
         // @TODO solve filtering and sorting inside $item::similarByColor() method
         // @TODO make similarByColor() count argument consistent with moreLikeThis()
@@ -296,13 +296,11 @@ function()
     Route::get('dielo/nahlad/{id}/{width}/{height?}', 'ImageController@resize')->where('width', '[0-9]+')->where('height', '[0-9]+')->name('dielo.nahlad');
     Route::get('image/{id}/download', 'ImageController@download')->name('image.download');
 
-    Route::controller('patternlib', 'PatternlibController');
+    Route::get('patternlib', 'PatternlibController@getIndex')->name('frontend.patternlib.index');
 
-    Route::controller('katalog', 'CatalogController', [
-        'getIndex' => 'catalog.index'
-    ]);
-    // Route::match(array('GET', 'POST'), 'katalog', 'CatalogController@index');
-    // Route::match(array('GET', 'POST'), 'katalog/suggestions', 'CatalogController@getSuggestions');
+    Route::get('katalog', 'CatalogController@getIndex')->name('frontend.catalog.index');
+    Route::get('katalog/suggestions', 'CatalogController@getSuggestions')->name('frontend.catalog.suggestions');
+    Route::get('katalog/random', 'CatalogController@getRandom')->name('frontend.catalog.random');
 
     Route::match(array('GET', 'POST'), 'autori', 'AuthorController@getIndex');
     Route::match(array('GET', 'POST'), 'autori/suggestions', 'AuthorController@getSuggestions');

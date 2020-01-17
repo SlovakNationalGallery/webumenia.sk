@@ -16,7 +16,7 @@ class MoveItemImagesImgUrlToItems extends Migration
             $table->string('img_url')->nullable();
         });
 
-        DB::table('item_images')->where('order', 0)->chunk(100, function($images) {
+        DB::table('item_images')->where('order', 0)->orderBy('id')->chunk(100, function($images) {
             foreach ($images as $image) {
                 DB::table('items')
                     ->where('id', $image->item_id)
@@ -56,7 +56,7 @@ class MoveItemImagesImgUrlToItems extends Migration
             $table->string('img_url')->nullable();
         });
 
-        DB::table('items')->chunk(100, function($items) {
+        DB::table('items')->orderBy('id')->chunk(100, function($items) {
             foreach ($items as $item) {
                 DB::table('item_images')
                     ->where('item_id', $item->id)

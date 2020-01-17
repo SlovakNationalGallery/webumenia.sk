@@ -31,7 +31,7 @@ class OaiPmhHarvest extends Command
      *
      * @return mixed
      */
-    public function fire()
+    public function handle()
     {
         if (! $id =$this->option('id')) {
             $harvests = SpiceHarvesterHarvest::orderBy('id', 'ASC')->get();

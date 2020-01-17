@@ -44,7 +44,7 @@ class OaiPmhDownloadImages extends Command
      *
      * @return mixed
      */
-    public function fire()
+    public function handle()
     {
         $items_without_images_query = Item::hasImage(false);
         $pocet = $items_without_images_query->count();
