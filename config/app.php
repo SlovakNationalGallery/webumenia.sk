@@ -1,6 +1,7 @@
 <?php
 
 return array(
+    'name' => 'Web umenia',
 
     'env' => env('APP_ENV', 'production'),
 
@@ -17,8 +18,6 @@ return array(
     */
 
     'debug' => env('APP_DEBUG', false),
-
-    'log' => 'daily',
 
     /*
     |--------------------------------------------------------------------------
@@ -72,7 +71,7 @@ return array(
     */
 
     'key' => env('APP_KEY'),
-    'cipher' => MCRYPT_RIJNDAEL_128,
+    'cipher' => 'AES-256-CBC',
 
     /*
     |--------------------------------------------------------------------------
@@ -127,7 +126,7 @@ return array(
         'GrahamCampbell\Throttle\ThrottleServiceProvider',
         Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
         Dimsav\Translatable\TranslatableServiceProvider::class,
-        Sentry\SentryLaravel\SentryLaravelServiceProvider::class,
+//        Illuminate\Notifications\NotificationServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -207,7 +206,6 @@ return array(
         'Throttle' => 'GrahamCampbell\Throttle\Facades\Throttle',
         'LaravelLocalization' => Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
         'FormRenderer' => App\Facades\FormRenderer::class,
-        'Sentry' => Sentry\SentryLaravel\SentryFacade::class,
     ),
 
     'jira_auth' => array(

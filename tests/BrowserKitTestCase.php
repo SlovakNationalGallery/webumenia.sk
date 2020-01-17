@@ -3,13 +3,14 @@
 namespace Tests;
 
 use Elasticsearch\Client;
+use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
 
-class TestCase extends \Illuminate\Foundation\Testing\TestCase
+class BrowserKitTestCase extends BaseTestCase
 {
     /** @var \Faker\Generator */
     protected $faker;
 
-    protected function setUp(): void {
+    public function setUp() {
         parent::setUp();
 
         $this->app->instance(Client::class, $this->createMock(Client::class));
@@ -33,5 +34,27 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase
         $this->baseUrl = env('TEST_HOST', 'http://localhost');
 
         return $app;
+    }
+
+    /**
+     * @param string $type
+     * @param string|null $message
+     * @param callable $function
+     */
+    protected function assertException($type, $message, callable $function)
+    {
+        $exception = null;
+
+        try {
+            call_user_func($function);
+        } catch (\Exception $e) {
+            $exception = $e;
+        }
+
+        self::assertThat($exception, new \PHPUnit_Framework_Constraint_Exception($type));
+
+        if ($message !== null) {
+            self::assertThat($exception, new \PHPUnit_Framework_Constraint_ExceptionMessage($message));
+        }
     }
 }

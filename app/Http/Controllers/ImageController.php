@@ -71,6 +71,6 @@ class ImageController extends Controller
             return response()->file($imagePath, $headers);
         }
 
-        return App::abort(404);
+        return abort(404);
     }
 }

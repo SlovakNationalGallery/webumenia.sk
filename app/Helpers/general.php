@@ -402,7 +402,3 @@ function formatName($name) {
 function starts_with_upper($str) {
     return (bool)preg_match('/^[[:upper:]]/u', $str);
 }
-
-function str_after($subject, $search) {
-    return $search === '' ? $subject : array_reverse(explode($search, $subject, 2))[0];
-}

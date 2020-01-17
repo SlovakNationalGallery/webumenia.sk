@@ -20,14 +20,14 @@ class ItemHarvesterTest extends TestCase
 
     public function testTryHarvestNoRows()
     {
-        $repositoryMock = $this->getMock(ItemRepository::class, [], [
-            $this->getMock(EndpointFactory::class)
+        $repositoryMock = $this->createMock(ItemRepository::class, [], [
+            $this->createMock(EndpointFactory::class)
         ]);
-        $importerMock = $this->getMock(ItemImporter::class, [], [
-            $this->getMock(ItemMapper::class),
-            $this->getMock(ItemImageMapper::class),
-            $this->getMock(CollectionItemMapper::class),
-            $this->getMock(AuthorityItemMapper::class),
+        $importerMock = $this->createMock(ItemImporter::class, [], [
+            $this->createMock(ItemMapper::class),
+            $this->createMock(ItemImageMapper::class),
+            $this->createMock(CollectionItemMapper::class),
+            $this->createMock(AuthorityItemMapper::class),
         ]);
 
         $repositoryMock->expects($this->once())
@@ -37,6 +37,7 @@ class ItemHarvesterTest extends TestCase
         $harvester = new ItemHarvester($repositoryMock, $importerMock);
 
         $harvest = factory(SpiceHarvesterHarvest::class)->make([
+            'type' => 'item',
             'status' => SpiceHarvesterHarvest::STATUS_QUEUED
         ]);
         $harvester->tryHarvest($harvest);
