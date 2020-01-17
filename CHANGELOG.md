@@ -1,7 +1,7 @@
 # Change Log
 All notable changes to this project will be documented in this file[^1].
 
-## [Unreleased]
+## [1.11.0] - 2020-01-17
 ### Changed
 - upgrade to Laravel 5.8
 
