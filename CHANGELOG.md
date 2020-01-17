@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+ - artwork-detail: prevent upsizing of preview image
 ### Changed
 - upgrade to Laravel 5.8
 

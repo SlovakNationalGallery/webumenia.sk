@@ -7,4 +7,5 @@
             {!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'600']) !!} 600w,
             {!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'800']) !!} 800w"
     class="lazyload"
+    style="{!! isset($width) ? 'max-width:'.$width.'px;': '' !!} {!! isset($height) ? 'max-height:'.$height.'px;' : '' !!}"
     alt="{!! $item->getTitleWithAuthors() !!} "/>
