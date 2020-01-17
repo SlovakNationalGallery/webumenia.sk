@@ -16,7 +16,7 @@ class ItemMapper extends AbstractModelMapper
     }
 
     public function mapIdentifier(array $row) {
-        return array_first($row['identifier'], function ($i, $identifier) use ($row) {
+        return array_first($row['identifier'], function ($identifier) use ($row) {
             return $identifier != $row['id'][0] && starts_with_upper($identifier);
         });
     }
@@ -176,7 +176,7 @@ class ItemMapper extends AbstractModelMapper
     }
 
     public function mapImgUrl(array $row) {
-        return array_first($row['identifier'], function ($i, $identifier) {
+        return array_first($row['identifier'], function ($identifier) {
             return str_contains($identifier, 'getimage');
         });
     }

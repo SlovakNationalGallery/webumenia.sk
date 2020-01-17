@@ -41,7 +41,7 @@ class ReindexElasticsearch extends Command
      *
      * @return mixed
      */
-    public function fire()
+    public function handle()
     {
         if (!$type = $this->argument('type')) {
             $type = $this->choice('Which type to reindex?', $this->available_types);

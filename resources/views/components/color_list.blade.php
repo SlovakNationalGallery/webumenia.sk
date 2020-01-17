@@ -1,4 +1,4 @@
-<ul {{!empty($id) ? 'id='.$id : '' }} class="colorlist {{ $class_names or '' }}">
+<ul {{!empty($id) ? 'id='.$id : '' }} class="colorlist {{ $class_names ?? '' }}">
   @foreach ($colors as $color)
     <li 
       class="colorlist-item" 

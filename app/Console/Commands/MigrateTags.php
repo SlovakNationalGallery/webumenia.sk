@@ -41,7 +41,7 @@ class MigrateTags extends Command
      *
      * @return mixed
      */
-    public function fire()
+    public function handle()
     {
         $this->line('Teraz prebehne migracia tagov.');
         $pocet_tagov = 0;

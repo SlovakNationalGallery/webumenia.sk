@@ -42,7 +42,7 @@ class ImportTags extends Command
      *
      * @return mixed
      */
-    public function fire()
+    public function handle()
     {
         $csv_path = $this->argument('csv_path');
         $this->line('Importujem tagy z ' . $csv_path);

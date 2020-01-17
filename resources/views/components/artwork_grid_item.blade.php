@@ -5,7 +5,7 @@
             $width =  max($width,1); // prevent division by zero exception
         @endphp
         <div class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%;">
-             @include('components.item_image_responsive', ['item' => $item])
+             @include('components.item_image_responsive', ['item' => $item, 'width' => $width, 'height' => $height ])
         </div>
     </a>
     <div class="item-title">

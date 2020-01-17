@@ -5,9 +5,9 @@ namespace Tests\View;
 use App\Item;
 use App\ItemImage;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Tests\TestCase;
+use Tests\BrowserKitTestCase;
 
-class ZoomViewTest extends TestCase
+class ZoomViewTest extends BrowserKitTestCase
 {
     use DatabaseMigrations;
 

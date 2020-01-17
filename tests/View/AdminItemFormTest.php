@@ -6,10 +6,9 @@ use App\Item;
 use App\Role;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Symfony\Component\DomCrawler\Form;
-use Tests\TestCase;
+use Tests\BrowserKitTestCase;
 
-class AdminItemFormTest extends TestCase
+class AdminItemFormTest extends BrowserKitTestCase
 {
     use DatabaseMigrations;
 
@@ -59,21 +58,5 @@ class AdminItemFormTest extends TestCase
         $this->makeRequest($form->getMethod(), $form->getUri(), $values);
 
         $this->assertEquals($url, $item->fresh()->images[0]->iipimg_url);
-    }
-
-    /**
-     * Workaround for incorrect file fields mapping
-     * {@inheritdoc}
-     */
-    protected function makeRequestUsingForm(Form $form, array $uploads = [])
-    {
-        $files = $this->convertUploadsForTesting($form, $uploads);
-
-        $files['item']['primary_image'] = $files['item[primary_image]'];
-        unset($files['item[primary_image]']);
-
-        return $this->makeRequest(
-            $form->getMethod(), $form->getUri(), $this->extractParametersFromForm($form), [], $files
-        );
     }
 }
