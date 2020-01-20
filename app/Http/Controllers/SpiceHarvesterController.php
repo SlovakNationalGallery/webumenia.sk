@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\HarvestFailedJob;
 use App\Jobs\HarvestSingleJob;
 use App\Jobs\HarvestJob;
 use App\SpiceHarvesterHarvest;
@@ -238,5 +239,13 @@ class SpiceHarvesterController extends Controller
         $message = 'Pre záznam boli úspešne načítané dáta z OAI';
         Session::flash('message', $message);
         return Redirect::back();
+    }
+
+    public function harvestFailed($id)
+    {
+        $harvest = SpiceHarvesterHarvest::findOrFail($id);
+        $this->dispatch(new HarvestFailedJob($harvest));
+        Session::flash('message', 'Harvest failed job has been queued');
+        return Redirect::route('harvests.index');
     }
 }

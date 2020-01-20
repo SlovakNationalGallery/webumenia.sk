@@ -19,7 +19,7 @@ return array(
                      |{1}   <strong>:view_count</strong> videnie
                      |[2,4] <strong>:view_count</strong> videnia
                      |[5,*] <strong>:view_count</strong> videní',
-    
+
     'tags'              => 'tagy',
     'back-to-artists'   => 'zoznam autorov',
     'alternative_names' => 'príp.',
@@ -28,7 +28,7 @@ return array(
     'relationships'     => 'vzťahy',
 
     'artworks_by_artist' => 'diela autora',
-    
+
     'button_show-all-artworks' => '{0}   zobraziť <strong>0</strong> diel
                                   |{1}   zobraziť <strong>:artworks_count</strong> dielo
                                   |[2,4] zobraziť všetky <strong>:artworks_count</strong> diela
@@ -43,10 +43,7 @@ return array(
             'role' => 'rola: :value',
             'nationality' => 'príslušnosť: :value',
             'place' => 'miesto: :value',
-            'years' => [
-                'from' => 'od :value',
-                'to' => 'do :value',
-            ],
+            'years' => 'v rokoch :from — :to',
         ],
         'sort_by' => 'podľa',
         'sorting' => [

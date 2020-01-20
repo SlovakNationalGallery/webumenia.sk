@@ -52,7 +52,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
         'state_edition',
         'gallery',
         'relationship_type',
-        'related_work'
+        'related_work',
     ];
 
     protected $fillable = array(
@@ -539,6 +539,10 @@ class Item extends Model implements IndexableModel, TranslatableContract
         return collect($this->colors)->filter(function ($amount) {
             return $amount >= self::COLOR_AMOUNT_THRESHOLD;
         });
+    }
+
+    public function getHasColorsAttribute() {
+        return !$this->getColors()->isEmpty();
     }
 
     /**

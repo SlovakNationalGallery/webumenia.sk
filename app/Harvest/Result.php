@@ -2,8 +2,13 @@
 
 namespace App\Harvest;
 
+use Carbon\Carbon;
+
 class Result
 {
+    /** @var \DateTime */
+    protected $createdAt;
+
     /** @var int */
     protected $inserted = 0;
 
@@ -15,6 +20,14 @@ class Result
 
     /** @var int */
     protected $deleted = 0;
+
+    public function __construct(\DateTime $createdAt = null) {
+        $this->createdAt = $createdAt ?: Carbon::now();
+    }
+
+    public function getCreatedAt() {
+        return $this->createdAt;
+    }
 
     public function getInserted() {
         return $this->inserted;

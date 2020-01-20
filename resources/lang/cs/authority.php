@@ -19,7 +19,7 @@ return array(
                      |{1}   <strong>:view_count</strong> vidění
                      |[2,4] <strong>:view_count</strong> vidění
                      |[5, *]<strong>:view_count</strong> vidění',
-    
+
     'tags'              => 'tagy',
     'back-to-artists'   => 'seznam autorů',
     'alternative_names' => 'příp.',
@@ -43,10 +43,7 @@ return array(
             'role' => 'role: :value',
             'nationality' => 'příslušnost: :value',
             'place' => 'místo: :value',
-            'years' => [
-                'from' => 'od :value',
-                'to' => 'do :value',
-            ],
+            'years' => 'v letech :from — :to',
         ],
         'sort_by' => 'podle',
         'sorting' => [

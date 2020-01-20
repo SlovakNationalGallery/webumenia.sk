@@ -10,8 +10,7 @@ class AuthorityTitleGenerator extends AbstractTitleGenerator
         'role',
         'nationality',
         'place',
-        'years.from',
-        'years.to',
+        'years',
         'first_letter',
     ];
 }

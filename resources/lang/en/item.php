@@ -59,14 +59,11 @@ return [
             'topic' => 'genre: :value',
             'medium' => 'medium: :value',
             'technique' => 'technique: :value',
-            'has_image' => 'len s obrázkom',
-            'has_iip' => 'len so zoom',
-            'is_free' => 'len voľné',
-            'related_work' => 'zo súboru: :value',
-            'years' => [
-                'from' => 'after :value',
-                'to' => 'before :value'
-            ],
+            'has_image' => 'only with image',
+            'has_iip' => 'only zoomable',
+            'is_free' => 'only public domain',
+            'related_work' => 'related to: :value',
+            'years' => 'from :from — :to',
         ],
     ],
 ];

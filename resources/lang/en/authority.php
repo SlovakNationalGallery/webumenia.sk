@@ -17,16 +17,16 @@ return array(
     'views'       => '{0}    <strong>:view_count</strong> views
                      |{1}    <strong>:view_count</strong> view
                      |[2,*]<strong>:view_count</strong> views',
-    
+
     'tags'              => 'tags',
     'back-to-artists'   => 'back to artists page',
     'alternative_names' => 'alternatively',
     'places'            => 'has been active in',
     'links'             => 'external links',
     'relationships'     => 'relationships',
-    
+
     'artworks_by_artist' => 'artworks by this artist',
-    
+
     'button_show-all-artworks' => '{0}    show <strong>0</strong> artworks
                                   |{1}    show <strong>1</strong> artwork
                                   |[2,*]show all <strong>:artworks_count</strong> artworks',
@@ -40,10 +40,7 @@ return array(
             'role' => 'role: :value',
             'nationality' => 'nationality: :value',
             'place' => 'location: :value',
-            'years' => [
-                'from' => 'after :value',
-                'to' => 'before :value',
-            ],
+            'years' => 'from :from — :to',
         ],
         'sort_by' => 'sort by',
         'sorting' => [
