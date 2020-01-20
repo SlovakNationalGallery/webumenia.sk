@@ -189,7 +189,7 @@ function()
     });
 
     Route::get('dielo/{id}/stiahnut', ['middleware' => 'throttle:5,1', function ($id) {
-        $item = Item::find($id);
+        $item = Item::findOrFail($id);
         if ($item->images->isEmpty()) {
             abort(404);
         }

@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 ### Fixed
+- Fix error 500 from /dielo/{id}/stiahnut for non-existent IDs (WEBUMENIA-1235)
 - Fix 'show more' button in catalog (WEBUMENIA-1219)
 - fix iframe handling in Admin editor
 - artwork-detail: prevent upsizing of preview image
