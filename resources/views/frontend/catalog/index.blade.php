@@ -102,7 +102,6 @@
         </div>
     </section>
 
-    @formWidget($form['search'])
     @formEnd($form, ['render_rest' => false])
 
 
