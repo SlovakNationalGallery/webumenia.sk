@@ -90,6 +90,13 @@
                     ])
 
                     @include('components.khb_accordion_card', [
+                        'title' => utrans('priestor.exhibitions'),
+                        'content' => $space->exhibitions,
+                        'parrentId' => 'spaceAccordion',
+                        'show' => false,
+                    ])
+
+                    @include('components.khb_accordion_card', [
                         'title' => utrans('priestor.bibliography'),
                         'content' => $space->bibliography,
                         'parrentId' => 'spaceAccordion',
