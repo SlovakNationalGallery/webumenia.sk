@@ -300,39 +300,40 @@
 <section class="more-items content-section">
     <div class="container">
         <div class="row">
-            <div class="{{$colors_used ? 'col-sm-6 pr-sm-5' : 'col-xs-12'}}">
+            {{-- TODO --}}
+            {{-- <div class="{{$colors_used ? 'col-sm-6 pr-sm-5' : 'col-xs-12'}}"> --}}
+            <div class="col-xs-12">
                 <div class="h-8rem">
-                    <h4>
-                        {{ trans('dielo.more-items_related-artworks') }}
+                    <h3>
+                            {{ utrans('dielo.more-items_related-artworks') }}
                         <br>
                         <span class="grey lh-4rem">
-                        {{ trans('dielo.more-items_related-artworks_by-data') }}
+                            {{ trans('dielo.more-items_related-artworks_by-data') }}
                         </span>
-                    </h4>
+                    </h3>
                 </div>
                 <div class="isotope-container">
-                    @php
-                        $artwork_grid_item_class_names = $colors_used ? 'col-xs-6' : 'col-xs-3';
-                    @endphp
-                    @foreach ($similar_items as $i=>$item)
+                    @foreach ($more_items as $i=>$item)
                         @include('components.artwork_grid_item', [
                             'item' => $item,
                             'isotope_item_selector_class' => 'item',
-                            'class_names' => $artwork_grid_item_class_names,
+                            // TODO 'class_names' => $colors_used ? 'col-xs-6' : 'col-xs-3',
+                            'class_names' => 'col-xs-3',
                             'hide_zoom' => true,
                             'hide_dating' => true
                         ])
                     @endforeach
                 </div>
             </div>
-            @if ($colors_used)
+            {{-- TODO --}}
+            {{-- @if ($colors_used)
             <div class="col-sm-6 pl-sm-5" id="colorrelated" data-fetch-url="{{ route('dielo.colorrelated', ['id' => $item->id]) }}">
                 <div class="h-8rem">
                     <h4 class="mb-1">{{ trans('dielo.more-items_similar-colors') }}</h4>
                     @include('components.color_list', ['colors' => $colors_used])
                 </div>
                 <div class="isotope-container">
-                    @foreach ($similar_items_by_color as $i=>$item)
+                    @foreach ($more_items_by_color as $i=>$item)
                     @include('components.artwork_grid_item', [
                         'item' => $item,
                         'isotope_item_selector_class' => 'item',
@@ -343,7 +344,7 @@
                     @endforeach
                 </div>
             </div>
-            @endif
+            @endif --}}
         </div>
     </div>
 </section>
@@ -383,8 +384,6 @@
         </div>
     </div>
 </div>
-
-<!-- <div id="map"></div> -->
 
 @stop
 

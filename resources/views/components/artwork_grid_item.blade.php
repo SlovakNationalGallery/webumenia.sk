@@ -1,4 +1,4 @@
-<div class="{{$isotope_item_selector_class or 'item'}} {{$class_names or ''}}">
+<div class="{{$isotope_item_selector_class ?? 'item'}} {{$class_names ?? ''}}">
     <a href="{!! $item->getUrl() !!}">
         @php
             list($width, $height) = getimagesize(public_path() . $item->getImagePath());
@@ -18,7 +18,7 @@
                 </div>
             @endif
         @endif
-        <a href="{!! $item->getUrl() !!}"> 
+        <a href="{!! $item->getUrl() !!}">
             @if( !isset($hide_authors) ) <em>{!! implode(', ', $item->authors) !!}</em><br> @endif
             @if( !isset($hide_title) ) <strong>{!! $item->title !!}</strong><br> @endif
             @if( !isset($hide_dating) ) <em>{!! $item->getDatingFormated() !!}</em> @endif
