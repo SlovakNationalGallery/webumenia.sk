@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file[^1].
 - fix iframe handling in Admin editor
 - artwork-detail: prevent upsizing of preview image
 
+## [1.11.0] - 2020-01-17
 ### Changed
 - upgrade to Laravel 5.8
 - upgrade to Elasticsearch 7.3

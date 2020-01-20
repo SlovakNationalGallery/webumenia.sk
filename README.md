@@ -25,10 +25,10 @@ We are committed to providing a welcoming and inspiring community for all and ex
 
 ## Requirements
 
-This software is built with the [Laravel5 framework](http://laravel.com/).
+This software is built with the [Laravel framework](http://laravel.com/).
 
 It requires
-* PHP 5.5.9+
+* PHP 7.2.x
 * MySQL
 * Elasticsearch
 
