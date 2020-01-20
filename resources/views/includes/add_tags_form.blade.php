@@ -11,7 +11,7 @@
     <div class="form-group">
     {{ Form::select(
         'tags[]',
-        \App\Item::existingTags()->lists('name','name'),
+        \App\Item::existingTags()->pluck('name','name'),
         [],
         ['id' => 'tags', 'multiple' => 'multiple', 'class' => 'testclass', 'data-test' => 'test']
     ) }}

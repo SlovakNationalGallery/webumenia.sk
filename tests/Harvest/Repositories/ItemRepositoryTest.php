@@ -14,8 +14,10 @@ class ItemRepositoryTest extends TestCase
     use DatabaseMigrations;
 
     public function testRows() {
-        $endpointFactoryMock = $this->getMock(EndpointFactory::class, ['createHttpAdapter']);
-        $httpAdapterMock = $this->getMock(HttpAdapterInterface::class);
+        $endpointFactoryMock = $this->getMockBuilder(EndpointFactory::class)
+            ->setMethods(['createHttpAdapter'])
+            ->getMock();
+        $httpAdapterMock = $this->createMock(HttpAdapterInterface::class);
         $authorityXml = file_get_contents(__DIR__ . '/item.xml');
         $httpAdapterMock->method('request')->willReturn($authorityXml);
         $endpointFactoryMock->method('createHttpAdapter')->willReturn($httpAdapterMock);

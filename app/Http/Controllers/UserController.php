@@ -32,7 +32,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::orderBy('name', 'asc')->lists('name', 'id');
+        $roles = Role::orderBy('name', 'asc')->pluck('name', 'id');
         return view('users.form')->with('roles', $roles);
     }
 
@@ -95,7 +95,7 @@ class UserController extends Controller
             return Redirect::route('user.index');
         }
 
-        $roles = Role::orderBy('name', 'asc')->lists('name', 'id');
+        $roles = Role::orderBy('name', 'asc')->pluck('name', 'id');
         return view('users.form')->with('user', $user)->with('roles', $roles);
     }
 

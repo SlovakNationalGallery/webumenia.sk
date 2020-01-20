@@ -16,7 +16,7 @@ class ItemMapper extends AbstractModelMapper
     }
 
     public function mapIdentifier(array $row) {
-        return array_first($row['identifier'], function ($i, $identifier) use ($row) {
+        return array_first($row['identifier'], function ($identifier) use ($row) {
             return $identifier != $row['id'][0] && starts_with_upper($identifier);
         });
     }
@@ -150,7 +150,7 @@ class ItemMapper extends AbstractModelMapper
         }
 
         $related_parts = $this->getRelatedParts($row);
-        if (count($related_parts) < 2) {
+        if (!empty($related_parts) && count($related_parts) < 2) {
             return;
         }
 
@@ -176,7 +176,7 @@ class ItemMapper extends AbstractModelMapper
     }
 
     public function mapImgUrl(array $row) {
-        return array_first($row['identifier'], function ($i, $identifier) {
+        return array_first($row['identifier'], function ($identifier) {
             return str_contains($identifier, 'getimage');
         });
     }
@@ -198,7 +198,7 @@ class ItemMapper extends AbstractModelMapper
 
     protected function getRelatedWorkOrderPart(array $row, $total = false) {
         $related_parts = $this->getRelatedParts($row);
-        if (count($related_parts) > 1) {
+        if (!empty($related_parts) && count($related_parts) > 1) {
             preg_match('#\((.*?)\)#', $related_parts[1], $match);
             if (isset($match[1])) {
                 $related_work_order = $match[1];

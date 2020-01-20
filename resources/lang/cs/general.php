@@ -26,5 +26,5 @@ return array(
     'artworks_counted' => '{0}    :artworks_count děl
                           |{1}    :artworks_count dílo
                           |[2,4]  :artworks_count díla
-                          |[5,Inf]:artworks_count děl',
+                          |[5,*]:artworks_count děl',
 );
