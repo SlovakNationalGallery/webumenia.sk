@@ -9,7 +9,7 @@ return array(
     */
 
     'title'         => 'objednávka',
-    'order_alert'   => '<strong> Upozornění: </strong> <br> Tištěné reprodukce, které mají být provedeny do Vánočních svátků, je možné objednat do <strong>10. prosince</strong>.<br> Objednávky vytvořené po tomto termínu budou vyhotoveny <strong>až po svátcích</strong>.',
+    'order_alert'   => '<strong> Upozornění: </strong> <br> Tištěné reprodukce, které mají být provedeny do Vánočních svátků, je možné objednat do <strong>9. prosince</strong>.<br> Objednávky vytvořené po tomto termínu budou vyhotoveny <strong>až po svátcích</strong>.',
     'order_content' => '<h2 class="bottom-space">Objednávka</h2>
                         <p>Chcete-li si objednat nejen tištěné, ale i digitální reprodukce, udělejte prosím <strong>zvlášť objednávku pro každý typ</strong>.</p>
                         <p>Přejete-li si různé rozměry pro jednotlivé tištěné reprodukce, uveďte je prosím v položce <strong>Poznámka</strong>.</p>

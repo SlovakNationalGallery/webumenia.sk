@@ -1,12 +1,17 @@
 <?php
 
 return [
-    'status_message_progress' => 'Spracováva sa (%d/%d)',
-    'status_message_completed' =>
-        'Spracovaných bolo %d záznamov.' . PHP_EOL .
-        '%d nových záznamov' . PHP_EOL .
-        '%d bolo upravených' . PHP_EOL .
-        '%d bolo zmazaných' . PHP_EOL .
-        '%d bolo preskočených.' . PHP_EOL .
-        'Trvalo to %.0fs',
+    'status_messages' => [
+        'waiting' => 'Čaká na spracovanie',
+        'started' => 'Začaté',
+        'progress' => 'Spracováva sa (:current/:total)',
+        'error' => ':error',
+        'completed' =>
+            'Spracovaných bolo :processed záznamov.' . PHP_EOL .
+            ':created nových záznamov' . PHP_EOL .
+            ':updated bolo upravených' . PHP_EOL .
+            ':deleted bolo zmazaných' . PHP_EOL .
+            ':skipped bolo preskočených.' . PHP_EOL .
+            'Trvalo to :time s',
+    ],
 ];

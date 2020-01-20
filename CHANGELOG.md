@@ -3,8 +3,6 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 ### Added
-- override docker php container for tests
-- ImageCarousel Component
 - model relationship events
 - test via docker in travis
 - optional docker build with xdebug
@@ -13,16 +11,47 @@ All notable changes to this project will be documented in this file[^1].
 - basic frontend view tests
 
 ### Fixed
-- correct authority zero-value years to null
+- Fix 'show more' button in catalog (WEBUMENIA-1219)
+- fix iframe handling in Admin editor
+- artwork-detail: prevent upsizing of preview image
 
 ### Changed
-- ArtworkDetailPage shows multiple images (via IIIF from image server) in ImageCarousel
-- serve item images via custom image server
 - upgrade to Laravel 5.8
 - upgrade to Elasticsearch 7.3
 - upgrade laravel translatable models package
 - rewrite and remove bouncy package usages
 - refactor authority/item filters to use symfony forms
+
+## [1.10.2] - 2020-01-13
+### Fixed
+- artwork carousel focus - display no border
+- allow negative number input for year-range filter
+- remove duplicated properties at artwork page
+
+### Changed
+- use desaturated color at color picker by default (80% saturation used)
+- use one years step within year-range component (before it was 5 )
+
+## [1.10.1] - 2019-12-08
+### Added
+- alert for christmas order
+
+## [1.10.0] - 2019-12-01
+### Added
+- color picker in the catalog
+- override docker php container for tests
+- ImageCarousel Component
+- harvesting of failed records
+
+### Fixed
+- correct authority zero-value years to null
+- filter out unexisting OAI-PMH records on refreshing selected
+
+### Changed
+- ArtworkDetailPage shows multiple images (via IIIF from image server) in ImageCarousel
+- serve item images via custom image server
+- Log exception and continue harvesting
+- ArtworkDetailPage layout
 
 ## [1.9.1] - 2019-07-30
 ### Changed
@@ -219,6 +248,8 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - Color-list component on artwork detail
 - Color description
+- LESS to CSS compilation
+- ColorPicker component
 - Zoom-viewer component
 - Multiple images per artwork
 - Moravian gallery importer

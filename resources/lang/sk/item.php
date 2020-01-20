@@ -62,10 +62,7 @@ return [
             'medium' => 'materiál: :value',
             'technique' => 'technika: :value',
             'related_work' => 'zo súboru: :value',
-            'years' => [
-                'from' => 'po :value',
-                'to' => 'do :value'
-            ],
+            'years' => 'v rokoch :from — :to',
         ],
     ],
 ];

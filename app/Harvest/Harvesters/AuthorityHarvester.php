@@ -14,7 +14,7 @@ class AuthorityHarvester extends AbstractHarvester
         parent::__construct($repository, $importer);
     }
 
-    public function harvestSingle(SpiceHarvesterRecord $record, Result $result, array $row = null) {
+    protected function harvestSingle(SpiceHarvesterRecord $record, Result $result, array $row = null) {
         if ($row === null) {
             $row = $this->repository->getRow($record);
         }

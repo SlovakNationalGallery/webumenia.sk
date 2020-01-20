@@ -45,7 +45,7 @@ class SkicareController extends Controller
         $item = Item::find($id);
 
         if (empty($item->iipimg_url)) {
-            App::abort(404);
+            abort(404);
         }
 
         $related_items = Item::where('related_work', '=', $item->related_work)->where('author', '=', $item->author)->orderBy('related_work_order')->get();
@@ -59,7 +59,7 @@ class SkicareController extends Controller
         $item = $sketchbook->item;
 
         if (empty($item->iipimg_url)) {
-            App::abort(404);
+            abort(404);
         }
 
         // $is_globaly_horizontal = (Image::make($item->getImagePath(true))->height()==800) ? true : false;

@@ -65,10 +65,7 @@ return [
             'has_iip' => 'jen so zoom',
             'is_free' => 'jen voľné',
             'related_work' => 'ze souboru: :value',
-            'years' => [
-                'from' => 'po :value',
-                'to' => 'do :value'
-            ],
+            'years' => 'v letech :from — :to',
         ],
     ],
 ];
