@@ -55,9 +55,9 @@ return array(
     'more-items_connect_col3_ul-content' => '<li><strong>Michal Čudrnák</strong> vedúci lab.SNG, autor článkov</li>
                                              <li><strong>Lukáš Štepanovský</strong> editor obsahu, autor článkov</li>
                                              <li><strong>Igor Rjabinin</strong> vývojár</li>
-                                             <li><strong>Philo van Kemenade</strong> vývojár</li>
                                              <li><strong>Rastislav Chynoranský</strong> vývojár</li>
-                                             <li><strong>Adam Juraszek</strong> vývojár</li>
+                                             <li><strong>Ernest Walzel</strong> vývojár</li>
+                                             <li><strong>Martin Havala</strong> vývojár</li>
                                              <li><strong>Gabriel Balkó</strong> kontrolór kvality, editor obsahu</li>
                                              <li><strong>Braňo Matis</strong> grafický dizajnér</li>',
 
