@@ -26,6 +26,9 @@ return array(
     'info_gallery_GUS'   => 'Gallery of Spiš Artists',
     'info_gallery_VSG'   => 'East Slovak Gallery',
     'info_gallery_MG'    => 'Moravian Gallery',
+    'info_gallery_TGP'   => 'Tatra Gallery Poprad',
+    'info_gallery_PGU'   => 'Považská Gallery of Arts in Žilina',
+    'info_gallery_PNP'   => 'The Museum of Czech Literature',
 
     'mozete_heading'               => 'On Web Umenia you can',
     'mozete_col_stahovat_heading'  => 'Download artworks in Public Domain',

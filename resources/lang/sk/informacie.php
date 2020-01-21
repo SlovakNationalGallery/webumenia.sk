@@ -26,6 +26,10 @@ return array(
     'info_gallery_GUS'   => 'Galéria umelcov Spiša',
     'info_gallery_VSG'   => 'Východoslovenská galéria',
     'info_gallery_MG'    => 'Moravská galerie',
+    'info_gallery_TGP'   => 'Tatranská galéria',
+    'info_gallery_PGU'   => 'Považská galéria umenia',
+    'info_gallery_PNP'   => 'Památník národního písemnictví',
+
 
     'mozete_heading'               => 'U nás môžete',
     'mozete_col_stahovat_heading'  => 'Sťahovať voľné diela',
