@@ -2,10 +2,16 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- TGP, PGU and PNP into list of galleries in the info page
+
 ### Fixed
 - Fix 'show more' button in catalog (WEBUMENIA-1219)
 - fix iframe handling in Admin editor
 - artwork-detail: prevent upsizing of preview image
+
+### Changed
+- lab.sng team in info page
 
 ## [1.11.0] - 2020-01-17
 ### Changed
