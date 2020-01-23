@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file[^1].
 - artwork-detail: prevent upsizing of preview image
 - don't display carousel with related works when there are no related works
 - missing attributes in artwork detail
+- spice harvester process detail view
 
 ### Changed
 - lab.sng team in info page

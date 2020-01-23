@@ -43,7 +43,7 @@
 							</tr>
 							<tr>
 								<td>Kolekcia:</td>
-								<td>{!! (count($harvest->collection)) ? $harvest->collection->name : 'žiadna' !!}</td>
+								<td>{!! ($harvest->collection && $harvest->collection->count() > 0) ? $harvest->collection->name : 'žiadna' !!}</td>
 							</tr>
 							<tr>
 								<td>Harvest vytvorený:</td>
