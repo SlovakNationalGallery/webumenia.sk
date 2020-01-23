@@ -63,14 +63,14 @@
                     </a>
 
                     @include('components.image_carousel', [
-                    'slick_target' => "multiple-views",
-                    'slick_variant' => "artwork-detail-thumbnail",
-                    'img_urls' => $item->images->map(function ($image) {
-                        return $image->getPreviewUrl();
+                        'slick_target' => "multiple-views",
+                        'slick_variant' => "artwork-detail-thumbnail",
+                        'img_urls' => $item->images->map(function ($image) {
+                            return $image->getPreviewUrl();
                     }),
-                    'img_title' => $item->getTitleWithAuthors(),
-                    'anchor_href' => route('item.zoom', ['id' => $item->id]),
-                    'anchor_title' => utrans('general.item_zoom'),
+                        'img_title' => $item->getTitleWithAuthors(),
+                        'anchor_href' => route('item.zoom', ['id' => $item->id]),
+                        'anchor_title' => utrans('general.item_zoom'),
                     ])
                     @else
                     @php
@@ -79,9 +79,9 @@
                     <div class="ratio-box bottom-space"
                         style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%">
                         @include('components.item_image_responsive', [
-                        'item' => $item,
-                        'width' => $width,
-                        'height' => $height
+                            'item' => $item,
+                            'width' => $width,
+                            'height' => $height
                         ])
                     </div>
                     @endif
@@ -300,7 +300,7 @@
 <section class="more-items content-section">
     <div class="container">
         <div class="row">
-            <div class="{{ $item->has_colors ? 'col-sm-6 pr-sm-5' : 'col-xs-12'}}">
+            <div class="{{ $item->has_colors ? 'col-sm-6 pr-sm-5' : 'col-xs-12'}}" id="related-by-metadata">
                 <div class="h-8rem">
                     <h3>
                             {{ utrans('dielo.more-items_related-artworks') }}
@@ -311,11 +311,11 @@
                     </h3>
                 </div>
                 <div class="isotope-container">
-                    @foreach ($more_items as $i=>$item)
+                    @foreach ($more_items as $related_item)
                         @include('components.artwork_grid_item', [
-                            'item' => $item,
+                            'item' => $related_item,
                             'isotope_item_selector_class' => 'item',
-                            'class_names' => $item->has_colors ? 'col-xs-6' : 'col-xs-3',
+                            'class_names' => $related_item->has_colors ? 'col-xs-6' : 'col-xs-3',
                             'class_names' => 'col-xs-3',
                             'hide_zoom' => true,
                             'hide_dating' => true
@@ -324,11 +324,12 @@
                 </div>
             </div>
             @if ($item->has_colors)
-            <div class="col-sm-6 pl-sm-5" id="colorrelated" data-fetch-url="{{ route('dielo.colorrelated', ['id' => $item->id]) }}">
+            <div class="col-sm-6 pl-sm-5" id="related-by-color">
                 <div class="h-8rem">
                     <h3 class="mb-1">{{ utrans('dielo.more-items_similar-colors') }}</h3>
                     @include('components.color_list', ['colors' => $item->getColors()])
                 </div>
+                <div class="isotope-container" data-fetch-url="{{ route('dielo.colorrelated', ['id' => $item->id]) }}"></div>
             </div>
             @endif
         </div>
@@ -419,19 +420,12 @@
     });
 
     $(document).ready(function(){
+        var relatedByColorIsotope = $('#related-by-color > .isotope-container').first();
 
-        $( window ).resize(function() {
-            $('.isotope-container').isotope({
-                itemSelector: '.item',
-                layoutMode: 'masonry'
-            });
-        });
-
-        var colorRelated = $('#colorrelated');
-        if (colorRelated) {
-            var fetchUrl = colorRelated.data('fetch-url');
+        if (relatedByColorIsotope) {
+            var fetchUrl = relatedByColorIsotope.data('fetch-url')
             $.get(fetchUrl, function (data) {
-                colorRelated.append(data);
+                relatedByColorIsotope.isotope('insert', $(data))
             });
         }
 
