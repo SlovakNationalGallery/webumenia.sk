@@ -1,6 +1,6 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="js/touch-recognition.js"></script>
-<script src="js/vue/vue-color.min.js"></script>
+<script src="{{ asset('js/touch-recognition.js') }}"></script>
+<script src="{{ asset('js/vue/vue-color.min.js') }}"></script>
 <script>
 @if ($color)
   var color = {

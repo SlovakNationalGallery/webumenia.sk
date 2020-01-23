@@ -30,7 +30,7 @@
                 <div class="col-md-4">
                     <ul class="list-unstyled lead">
                     @foreach($chunk as $gallery)
-                        <li><a href="{!! URL::to($gallery['url']) !!}" id="{{ $gallery['id'] }}">{{ utrans($gallery['lang_string']) }}</a></li>
+                        <li><a href="{!! URL::to($gallery['url']) !!}" id="{{ $gallery['id'] }}">{!! utrans($gallery['lang_string']) !!}</a></li>
                     @endforeach
                     </ul>
                 </div>

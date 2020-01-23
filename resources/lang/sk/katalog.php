@@ -25,6 +25,5 @@ return array(
     'catalog_artworks'       => 'diel',
     'catalog_no_artworks'    => 'momentálne žiadne diela',
     'catalog_show_more'      => 'ukáž viac',
-    'catalog_finished'       => 'to je všetko',
+    'catalog_finished'       => 'to je všetko.',
 );
-

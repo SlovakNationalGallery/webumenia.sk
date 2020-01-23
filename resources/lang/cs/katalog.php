@@ -27,7 +27,7 @@ return array(
     'catalog_artworks'       => 'děl',
     'catalog_no_artworks'    => 'momentálně žádná díla',
     'catalog_show_more'      => 'ukaž více',
-    'catalog_finished'       => 'to je vše',
+    'catalog_finished'       => 'to je vše.',
 
     // in model item.sortable
     'sortable_updated_at'    => 'poslední změny',

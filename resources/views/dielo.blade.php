@@ -79,7 +79,9 @@
                     <div class="ratio-box bottom-space"
                         style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%">
                         @include('components.item_image_responsive', [
-                        'item' => $item
+                        'item' => $item,
+                        'width' => $width,
+                        'height' => $height
                         ])
                     </div>
                     @endif
@@ -135,6 +137,46 @@
                                     {{--     {!!  implode(' &times; ', $measurement) !!}<br> --}}
                                     {!! $measurement !!}<br>
                                     @endforeach
+                                </td>
+                            </tr>
+                            @endif
+                            @if (!empty($item->work_type))
+                                <tr>
+                                    <td class="atribut">{{ trans('dielo.item_attr_work_type') }}:</td>
+                                    <td>
+                                        @foreach ($item->work_types as $i => $work_type)
+                                            @if ($i == 0)
+                                                <a href="{!! URL::to('katalog?work_type=' . $work_type) !!}">{!! addMicrodata($work_type, "artform") !!}</a>
+                                            @else
+                                                {!! $work_type !!}
+                                            @endif
+                                            @if (count($item->work_types) > ($i+1))
+                                                 &rsaquo;
+                                            @endif
+                                        @endforeach
+                                    </td>
+                                </tr>
+                            @endif
+                            @if (!empty($item->topics)) 
+                            <tr>
+                                <td class="atribut">{{ trans('dielo.item_attr_topic') }}:</td>
+                                <td>
+                                    @foreach ($item->topics as $topic)
+                                    <a href="{!! URL::to('katalog?topic=' . $topic) !!}">{!! $topic !!}</a><br>
+                                    @endforeach
+                                </td>
+                            </tr>
+                            @endif
+                            @if ($item->tagNames() || Auth::check())
+                            <tr>
+                                <td class="atribut">{{ trans('dielo.item_attr_tag') }}:</td>
+                                <td>
+
+                                    <!-- list of existing tags -->
+                                    @foreach ($item->tagNames() as $tag)
+                                    <a href="{!!URL::to('katalog?tag=' . $tag)!!}"
+                                        class="btn btn-default btn-xs btn-outline">{!! $tag !!}</a>
+                                    @endforeach
 
                                     @if (Auth::check())
                                     @include('includes.add_tags_form')
@@ -160,8 +202,7 @@
                                 <td class="atribut">{{ trans('dielo.item_attr_medium') }}:</td>
                                 <td>
                                     @foreach ($item->mediums as $medium)
-                                    <a href="{!! URL::to('katalog?medium=' . $medium) !!}">{!! addMicrodata($medium,
-                                        "artMedium") !!}</a><br>
+                                    <a href="{!! URL::to('katalog?medium=' . $medium) !!}">{!! addMicrodata($medium, "artMedium") !!}</a><br>
                                     @endforeach
                                 </td>
                             </tr>
@@ -171,8 +212,7 @@
                                 <td class="atribut">{{ trans('dielo.item_attr_technique') }}:</td>
                                 <td>
                                     @foreach ($item->techniques as $technique)
-                                    <a href="{!! URL::to('katalog?technique=' . $technique) !!}">{!! $technique
-                                        !!}</a><br>
+                                    <a href="{!! URL::to('katalog?technique=' . $technique) !!}">{!! $technique !!}</a><br>
                                     @endforeach
                                 </td>
                             </tr>
@@ -207,8 +247,7 @@
                             @if (!empty($item->gallery))
                             <tr>
                                 <td class="atribut">{{ trans('dielo.item_attr_gallery') }}:</td>
-                                <td><a href="{!! URL::to('katalog?gallery=' . $item->gallery) !!}">{!! $item->gallery;
-                                        !!}</a></td>
+                                <td><a href="{!! URL::to('katalog?gallery=' . $item->gallery) !!}">{!! $item->gallery; !!}</a></td>
                             </tr>
                             @endif
                             @if (!empty($item->contributor))
@@ -241,6 +280,20 @@
                                 <td>{!! $item->place; !!}</td>
                             </tr>
                             @endif
+
+                            @if (!empty($item->related_work))
+                            <tr>
+                                <td class="atribut">{!! $item->relationship_type !!}:</td>
+                                <td>
+                                    <a href="{!! URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) !!}"
+                                        itemprop="isPartOf">{!! $item->related_work !!}</a>
+                                    @if ($item->related_work_order)
+                                    ({!! $item->related_work_order !!}/{!! $item->related_work_total !!})
+                                    @endif
+                                </td>
+                            </tr>
+                            @endif
+
                         </tbody>
                     </table>
                     @if (!empty($item->lat) && ($item->lat > 0))
@@ -273,35 +326,32 @@
     </div>
 </section>
 <section class="more-items content-section">
-    <div class="container-fluid related-works">
-        <div class="container">
-            @if (!empty($item->related_work))
-            <div class="row">
-                <div class="col-sm-12">
-                    @if (!empty($item->related_work))
-                    <h3 class="underlined-links mb-3">
-                        <span class="grey">{!! $item->relationship_type !!}: </span>
-                        <a href="{!! URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) !!}"
-                            itemprop="isPartOf">{!! $item->related_work !!}</a>
-                        @if ($item->related_work_order)
-                        ({!! $item->related_work_order !!}/{!! $item->related_work_total !!})
-                        @endif
-                    </h3>
-                    @endif
-                    <?php $related_items = App\Item::related($item)->get() ?>
-                    @if ($related_items->count() > 1)
-                    @include('components.artwork_carousel', [
-                    'slick_target' => "artworks-preview",
-                    'slick_variant' => "large",
-                    'items' => $related_items,
-                    'class_names' => 'mb-5'
-                    ])
-                    @endif
+    @if ($related_items)
+        <div class="container-fluid related-works">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3 class="underlined-links mb-3">
+                            <span class="grey">{!! $item->relationship_type !!}: </span>
+                            <a href="{!! URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) !!}"
+                                itemprop="isPartOf">{!! $item->related_work !!}</a>
+                            @if ($item->related_work_order)
+                            ({!! $item->related_work_order !!}/{!! $item->related_work_total !!})
+                            @endif
+                        </h3>
+                        
+                        @include('components.artwork_carousel', [
+                            'slick_target' => "artworks-preview",
+                            'slick_variant' => "large",
+                            'items' => $related_items,
+                            'class_names' => 'mb-5'
+                        ])
+                        
+                    </div>
                 </div>
             </div>
-            @endif
         </div>
-    </div>
+    @endif
     <div class="container">
         <div class="row">
             <div class="{{$colors_used ? 'col-sm-6 pr-sm-5' : 'col-xs-12'}}">
