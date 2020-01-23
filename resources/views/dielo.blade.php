@@ -140,6 +140,51 @@
                                 </td>
                             </tr>
                             @endif
+                            @if (!empty($item->work_type))
+                                <tr>
+                                    <td class="atribut">{{ trans('dielo.item_attr_work_type') }}:</td>
+                                    <td>
+                                        @foreach ($item->work_types as $i => $work_type)
+                                            @if ($i == 0)
+                                                <a href="{!! URL::to('katalog?work_type=' . $work_type) !!}">{!! addMicrodata($work_type, "artform") !!}</a>
+                                            @else
+                                                {!! $work_type !!}
+                                            @endif
+                                            @if (count($item->work_types) > ($i+1))
+                                                 &rsaquo;
+                                            @endif
+                                        @endforeach
+                                    </td>
+                                </tr>
+                            @endif
+                            @if (!empty($item->topics)) 
+                            <tr>
+                                <td class="atribut">{{ trans('dielo.item_attr_topic') }}:</td>
+                                <td>
+                                    @foreach ($item->topics as $topic)
+                                    <a href="{!! URL::to('katalog?topic=' . $topic) !!}">{!! $topic !!}</a><br>
+                                    @endforeach
+                                </td>
+                            </tr>
+                            @endif
+                            @if ($item->tagNames() || Auth::check())
+                            <tr>
+                                <td class="atribut">{{ trans('dielo.item_attr_tag') }}:</td>
+                                <td>
+
+                                    <!-- list of existing tags -->
+                                    @foreach ($item->tagNames() as $tag)
+                                    <a href="{!!URL::to('katalog?tag=' . $tag)!!}"
+                                        class="btn btn-default btn-xs btn-outline">{!! $tag !!}</a>
+                                    @endforeach
+
+                                    @if (Auth::check())
+                                    @include('includes.add_tags_form')
+                                    @endif
+
+                                </td>
+                            </tr>
+                            @endif
                             @if ($item->collections->count())
                             <tr>
                                 <td class="atribut">{{ trans('dielo.item_attr_collections') }}:</td>
@@ -236,31 +281,15 @@
                             </tr>
                             @endif
 
-                            @if (!empty($item->topics)) 
+                            @if (!empty($item->related_work))
                             <tr>
-                                <td class="atribut">{{ trans('dielo.item_attr_topic') }}:</td>
+                                <td class="atribut">{!! $item->relationship_type !!}:</td>
                                 <td>
-                                    @foreach ($item->topics as $topic)
-                                    <a href="{!! URL::to('katalog?topic=' . $topic) !!}">{!! $topic !!}</a><br>
-                                    @endforeach
-                                </td>
-                            </tr>
-                            @endif
-                            @if ($item->tagNames() || Auth::check())
-                            <tr>
-                                <td class="atribut">{{ trans('dielo.item_attr_tag') }}:</td>
-                                <td>
-
-                                    <!-- list of existing tags -->
-                                    @foreach ($item->tagNames() as $tag)
-                                    <a href="{!!URL::to('katalog?tag=' . $tag)!!}"
-                                        class="btn btn-default btn-xs btn-outline">{!! $tag !!}</a>
-                                    @endforeach
-
-                                    @if (Auth::check())
-                                    @include('includes.add_tags_form')
+                                    <a href="{!! URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) !!}"
+                                        itemprop="isPartOf">{!! $item->related_work !!}</a>
+                                    @if ($item->related_work_order)
+                                    ({!! $item->related_work_order !!}/{!! $item->related_work_total !!})
                                     @endif
-
                                 </td>
                             </tr>
                             @endif
