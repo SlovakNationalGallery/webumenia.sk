@@ -42,21 +42,11 @@
                 @formWidget($form['years-range'])
             </div>
 
-            @if ($form['color']->vars['value'])
-                <div class="row">
-                    <div class="col-sm-12">
-                        <label class="w-100 mt-3 mb-0 light">
-                            {{ utrans('katalog.filters_color') }}:
-                            <div class="colorlist mt-2">
-                                @include('components.color_list', ['colors' => [$form['color']->vars['value'] => 1], 'class_names' => 'mb-0'])
-                                <a href="#" class="js-color-clear clear">×</a>
-                                <div class="clear-rect"></div>
-                                @formWidget($form['color'])
-                            </div>
-                        </label>
-                    </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-10 col-md-push-1">
+                    @formWidget($form['color'])
                 </div>
-            @endif
+            </div>
         </div>
     </div>
 </section>

@@ -10,6 +10,8 @@ use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 
 class ColorType extends AbstractType
 {
@@ -31,6 +33,17 @@ class ColorType extends AbstractType
                 }
             }
         ));
+    }
+
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        $data = $form->getData();
+        $view->vars['color'] = $data ? $data->toHex() : $data;
+    }
+
+    public function getBlockPrefix()
+    {
+        return 'color';
     }
 
     public function getParent()
