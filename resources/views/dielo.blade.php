@@ -297,35 +297,32 @@
     </div>
 </section>
 <section class="more-items content-section">
-    <div class="container-fluid related-works">
-        <div class="container">
-            @if (!empty($item->related_work))
-            <div class="row">
-                <div class="col-sm-12">
-                    @if (!empty($item->related_work))
-                    <h3 class="underlined-links mb-3">
-                        <span class="grey">{!! $item->relationship_type !!}: </span>
-                        <a href="{!! URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) !!}"
-                            itemprop="isPartOf">{!! $item->related_work !!}</a>
-                        @if ($item->related_work_order)
-                        ({!! $item->related_work_order !!}/{!! $item->related_work_total !!})
-                        @endif
-                    </h3>
-                    @endif
-                    <?php $related_items = App\Item::related($item)->get() ?>
-                    @if ($related_items->count() > 1)
-                    @include('components.artwork_carousel', [
-                    'slick_target' => "artworks-preview",
-                    'slick_variant' => "large",
-                    'items' => $related_items,
-                    'class_names' => 'mb-5'
-                    ])
-                    @endif
+    @if ($related_items)
+        <div class="container-fluid related-works">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3 class="underlined-links mb-3">
+                            <span class="grey">{!! $item->relationship_type !!}: </span>
+                            <a href="{!! URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) !!}"
+                                itemprop="isPartOf">{!! $item->related_work !!}</a>
+                            @if ($item->related_work_order)
+                            ({!! $item->related_work_order !!}/{!! $item->related_work_total !!})
+                            @endif
+                        </h3>
+                        
+                        @include('components.artwork_carousel', [
+                            'slick_target' => "artworks-preview",
+                            'slick_variant' => "large",
+                            'items' => $related_items,
+                            'class_names' => 'mb-5'
+                        ])
+                        
+                    </div>
                 </div>
             </div>
-            @endif
         </div>
-    </div>
+    @endif
     <div class="container">
         <div class="row">
             <div class="{{$colors_used ? 'col-sm-6 pr-sm-5' : 'col-xs-12'}}">

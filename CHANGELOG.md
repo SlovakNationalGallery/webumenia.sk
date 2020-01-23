@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file[^1].
 - Fix 'show more' button in catalog (WEBUMENIA-1219)
 - fix iframe handling in Admin editor
 - artwork-detail: prevent upsizing of preview image
+- don't display carousel with related works when there are no related works
 
 ### Changed
 - lab.sng team in info page

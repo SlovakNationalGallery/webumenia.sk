@@ -208,6 +208,8 @@ function()
         $item->save();
         $previous = $next = false;
 
+        $related_items = (!empty($item->related_work)) ? Item::related($item)->get() : null;
+
         $similar_item_count = 8;
 
         $similar_items = $item->moreLikeThis($similar_item_count);
@@ -268,6 +270,7 @@ function()
 
         return view('dielo', compact(
             'item',
+            'related_items',
             'similar_items',
             'similar_items_by_color',
             'colors_used',
