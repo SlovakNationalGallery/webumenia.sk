@@ -5,12 +5,11 @@ namespace Tests\Models;
 use App\Authority;
 use App\Item;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\WithoutEvents;
 use Tests\TestCase;
 
 class ItemTest extends TestCase
 {
-    use DatabaseMigrations, WithoutEvents;
+    use DatabaseMigrations;
 
     public function testFreeFromDateLatest() {
         $item = factory(Item::class)->make([

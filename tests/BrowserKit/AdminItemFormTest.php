@@ -6,11 +6,10 @@ use App\Item;
 use App\Role;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\WithoutEvents;
 
 class AdminItemFormTest extends BrowserKitTestCase
 {
-    use DatabaseMigrations, WithoutEvents;
+    use DatabaseMigrations;
 
     /** @var User */
     protected $user;
