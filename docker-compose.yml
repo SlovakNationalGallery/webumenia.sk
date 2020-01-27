@@ -13,11 +13,8 @@ services:
   php:
     build: .
     # Un-comment to enable Xdebug
-    # args:
+    #   args:
     #     - WITH_XDEBUG=true
-    image: web_umenia
-    volumes:
-      - .:/var/www
     depends_on:
       - mysql
       - elasticsearch
@@ -30,8 +27,6 @@ services:
 
   mysql:
     image: mysql:5.6
-    ports:
-      - "3306:3306"
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_USER: ${DB_USERNAME}
@@ -42,7 +37,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.elasticsearch
-    image: elasticsearch
     environment:
       - discovery.type=single-node
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
@@ -50,9 +44,6 @@ services:
       memlock:
         soft: -1
         hard: -1
-    ports:
-      - "9200:9200"
-      - "9300:9300"
 
   redis:
     image: redis:5.0.5-alpine
