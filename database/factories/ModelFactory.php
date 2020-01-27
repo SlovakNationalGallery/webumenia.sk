@@ -51,7 +51,9 @@ $factory->define(\App\Item::class, function (Faker\Generator $faker) {
         'related_work_total' => $faker->randomNumber,
         'colors' => [
             $faker->hexColor => 1,
-        ]
+        ],
+        'created_at' => $faker->date,
+        'updated_at' => $faker->date,
     ];
 });
 

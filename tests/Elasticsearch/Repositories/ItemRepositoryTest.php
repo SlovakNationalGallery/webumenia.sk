@@ -74,26 +74,28 @@ class ItemRepositoryTest extends TestCase
     public function testSimilarByColor()
     {
         /** @var Item[] $items */
-        $items = factory(Item::class, 2)->make([
-            'tagged' => collect(),
-            'images' => collect(),
-            'authorities' => collect(),
-            'updated_at' => new \DateTime(),
-            'created_at' => new \DateTime(),
+        $item = factory(Item::class)->make([
+            'colors' => ['#ff0000' => 1]
         ]);
 
-        $items[0]->colors = ['#ff0000' => 1];
-        $items[1]->colors = ['#fe0000' => 1];
+        $similar_item = factory(Item::class)->make([
+            'colors' => ['#fe0000' => 1]
+        ]);
 
-        foreach ($items as $item) {
-            $this->repository->index($item);
+        $dissimilar_item = factory(Item::class)->make([
+            'colors' => ['#0000ff' => 1]
+        ]);
+
+        foreach ([$item, $dissimilar_item, $similar_item] as $index_item) {
+            $this->repository->index($index_item);
         }
         $this->repository->refreshIndex();
 
-        $mostSimilar = $this->repository
-            ->getSimilarByColor(2, $items[0])
-            ->getCollection()
-            ->get(0);
-        $this->assertTrue($items[1]->is($mostSimilar));
+        $similar_by_color = $this->repository
+            ->getSimilarByColor(2, $item)
+            ->getCollection();
+
+        $this->assertTrue($similar_by_color->first()->is($similar_item));
+        $this->assertFalse($similar_by_color->contains($dissimilar_item));
     }
 }
