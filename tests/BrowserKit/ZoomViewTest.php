@@ -25,14 +25,12 @@ class ZoomViewTest extends BrowserKitTestCase
     }
 
     public function testRelatedItems() {
-        $related_work = $this->faker->word;
-        $author = $this->faker->name;
         $related_items = [];
         for ($i = 0; $i < $count = 2; $i++) {
             $item = factory(Item::class)->create([
-                'related_work' => $related_work,
+                'related_work' => 'some_related_work',
                 'related_work_order' => $i,
-                'author' => $author,
+                'author' => 'some_author',
             ]);
 
             $image = factory(ItemImage::class)->make();
@@ -50,18 +48,16 @@ class ZoomViewTest extends BrowserKitTestCase
     }
 
     public function testPrioritizedMultipleImages() {
-        $related_work = $this->faker->word;
-        $author = $this->faker->name;
         $item = factory(Item::class)->create([
-            'related_work' => $related_work,
+            'related_work' => 'some_related_work',
             'related_work_order' => 2,
-            'author' => $author,
+            'author' => 'some_author',
         ]);
 
         $related_item = factory(Item::class)->create([
-            'related_work' => $related_work,
+            'related_work' => 'some_related_work',
             'related_work_order' => 1,
-            'author' => $author,
+            'author' => 'some_author',
         ]);
 
         factory(ItemImage::class, $count = 2)->make()->each(function (ItemImage $image) use ($item) {

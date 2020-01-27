@@ -9,20 +9,27 @@ All notable changes to this project will be documented in this file[^1].
 - domain fallback translator
 - authority/item title generators
 - basic frontend view tests
+- TGP, PGU and PNP into list of galleries in the info page
 
 ### Fixed
+- Fix error 500 from /dielo/{id}/stiahnut for non-existent IDs (WEBUMENIA-1235)
 - Fix 'show more' button in catalog (WEBUMENIA-1219)
 - fix iframe handling in Admin editor
 - artwork-detail: prevent upsizing of preview image
+- don't display carousel with related works when there are no related works
+- missing attributes in artwork detail
 
-## [1.11.0] - 2020-01-17
 ### Changed
-- upgrade to Laravel 5.8
+- lab.sng team in info page
 - upgrade to Elasticsearch 7.3
 - upgrade laravel translatable models package
 - rewrite and remove bouncy package usages
 - refactor authority/item filters to use symfony forms
 - range color search
+
+## [1.11.0] - 2020-01-17
+### Changed
+- upgrade to Laravel 5.8
 
 ## [1.10.2] - 2020-01-13
 ### Fixed

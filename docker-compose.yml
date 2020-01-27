@@ -12,19 +12,14 @@ services:
 
   php:
     build: .
-    image: web_umenia
-    volumes:
-      - .:/var/www
+    # Un-comment to enable Xdebug
+    #   args:
+    #     - WITH_XDEBUG=true
     depends_on:
       - mysql
       - elasticsearch
       - redis
     env_file: .env
-    # 'php' service can speak to mysql and elasticsearch services
-    # at these network addresses:
-    #  - http://mysql:3306
-    #  - http://elasticsearch:9200
-    # so we override the standard environment variables here:
     environment:
       DB_HOST: mysql
       ES_HOST: elasticsearch
@@ -32,8 +27,6 @@ services:
 
   mysql:
     image: mysql:5.6
-    ports:
-      - "3306:3306"
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_USER: ${DB_USERNAME}
@@ -44,7 +37,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.elasticsearch
-    image: elasticsearch
     environment:
       - discovery.type=single-node
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
@@ -52,11 +44,6 @@ services:
       memlock:
         soft: -1
         hard: -1
-    ports:
-      - "9200:9200"
-      - "9300:9300"
-    volumes:
-       - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
 
   redis:
     image: redis:5.0.5-alpine

@@ -17,17 +17,15 @@ use App\Harvest\Result;
 use App\Link;
 use App\Nationality;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\WithoutEvents;
 use Tests\TestCase;
 
 class AuthorityImporterTest extends TestCase
 {
-    use DatabaseMigrations, WithoutEvents;
+    use DatabaseMigrations;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->withoutEvents();
     }
 
     public function testUpdateRelated() {

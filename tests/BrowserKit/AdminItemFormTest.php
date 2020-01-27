@@ -6,11 +6,10 @@ use App\Item;
 use App\Role;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\WithoutEvents;
 
 class AdminItemFormTest extends BrowserKitTestCase
 {
-    use DatabaseMigrations, WithoutEvents;
+    use DatabaseMigrations;
 
     /** @var User */
     protected $user;
@@ -32,7 +31,7 @@ class AdminItemFormTest extends BrowserKitTestCase
         );
 
         $this->visit('/item/create')
-            ->type($this->faker->name, 'item[author]')
+            ->type('Test Author', 'item[author]')
             ->attach($filename, 'item[primary_image]')
             ->press('Uložiť')
             ->seePageIs('/item');
@@ -51,7 +50,7 @@ class AdminItemFormTest extends BrowserKitTestCase
 
         $form = $this->visit(sprintf('/item/%s/edit', $item->id))
             ->getForm('Uložiť');
-        $url = $this->faker->url;
+        $url = 'http://some-url.coml';
         $values = $form->getPhpValues();
         $values['item']['images'][0]['iipimg_url'] = $url;
         $this->makeRequest($form->getMethod(), $form->getUri(), $values);

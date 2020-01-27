@@ -12,12 +12,11 @@ use App\Harvest\Result;
 use App\Item;
 use App\ItemImage;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\WithoutEvents;
 use Tests\TestCase;
 
 class ItemImporterTest extends TestCase
 {
-    use DatabaseMigrations, WithoutEvents;
+    use DatabaseMigrations;
 
     public function testImport() {
         $row = $this->getData();

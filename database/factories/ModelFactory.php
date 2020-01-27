@@ -81,6 +81,8 @@ $factory->define(\App\Authority::class, function (Faker\Generator $faker) {
         'view_count' => $faker->randomNumber,
         'image_source_url' => $faker->url,
         'image_source_label' => $faker->word,
+        'created_at' => $faker->date,
+        'updated_at' => $faker->date,
     ];
 });
 

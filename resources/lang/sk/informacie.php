@@ -26,6 +26,10 @@ return array(
     'info_gallery_GUS'   => 'Galéria umelcov Spiša',
     'info_gallery_VSG'   => 'Východoslovenská galéria',
     'info_gallery_MG'    => 'Moravská galerie',
+    'info_gallery_TGP'   => 'Tatranská galéria',
+    'info_gallery_PGU'   => 'Považská galéria umenia',
+    'info_gallery_PNP'   => 'Památník národního písemnictví',
+
 
     'mozete_heading'               => 'U nás môžete',
     'mozete_col_stahovat_heading'  => 'Sťahovať voľné diela',
@@ -51,9 +55,9 @@ return array(
     'more-items_connect_col3_ul-content' => '<li><strong>Michal Čudrnák</strong> vedúci lab.SNG, autor článkov</li>
                                              <li><strong>Lukáš Štepanovský</strong> editor obsahu, autor článkov</li>
                                              <li><strong>Igor Rjabinin</strong> vývojár</li>
-                                             <li><strong>Philo van Kemenade</strong> vývojár</li>
                                              <li><strong>Rastislav Chynoranský</strong> vývojár</li>
-                                             <li><strong>Adam Juraszek</strong> vývojár</li>
+                                             <li><strong>Ernest Walzel</strong> vývojár</li>
+                                             <li><strong>Martin Havala</strong> vývojár</li>
                                              <li><strong>Gabriel Balkó</strong> kontrolór kvality, editor obsahu</li>
                                              <li><strong>Braňo Matis</strong> grafický dizajnér</li>',
 

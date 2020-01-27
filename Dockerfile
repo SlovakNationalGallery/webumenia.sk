@@ -28,13 +28,16 @@ RUN if [ $WITH_XDEBUG = "true" ] ; then \
         echo "xdebug.remote_connect_back=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini; \
     fi ;
 
-RUN chown -R www-data:www-data /var/www
-
-# # Install php dependencies
+# Install php dependencies
 COPY --from=composer:1.8 /usr/bin/composer /usr/bin/composer
-# Install app dependencies
-COPY composer.json /var/www/composer.json
-COPY database /var/www/database
-COPY tests/TestCase.php /var/www/tests/TestCase.php
 
 WORKDIR /var/www
+
+# Install app dependencies
+COPY composer.json composer.lock ./
+RUN composer install --no-autoloader --no-scripts
+
+COPY . .
+
+# Re-run composer, this time with autoloader & scripts
+RUN composer install --optimize-autoloader
