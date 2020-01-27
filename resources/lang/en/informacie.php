@@ -26,6 +26,9 @@ return array(
     'info_gallery_GUS'   => 'Gallery of Spiš Artists',
     'info_gallery_VSG'   => 'East Slovak Gallery',
     'info_gallery_MG'    => 'Moravian Gallery',
+    'info_gallery_TGP'   => 'Tatra Gallery Poprad',
+    'info_gallery_PGU'   => 'Považská Gallery of Arts in Žilina',
+    'info_gallery_PNP'   => 'The Museum of Czech Literature',
 
     'mozete_heading'               => 'On Web Umenia you can',
     'mozete_col_stahovat_heading'  => 'Download artworks in Public Domain',
@@ -51,9 +54,9 @@ return array(
     'more-items_connect_col3_ul-content' => '<li><strong>Michal Čudrnák</strong> lab.SNG team leader, article author</li>
                                              <li><strong>Lukáš Štepanovský</strong> content editor, article author</li>
                                              <li><strong>Igor Rjabinin</strong> developer</li>
-                                             <li><strong>Philo van Kemenade</strong> developer</li>
                                              <li><strong>Rastislav Chynoranský</strong> developer</li>
-                                             <li><strong>Adam Juraszek</strong> developer</li>
+                                             <li><strong>Ernest Walzel</strong> developer</li>
+                                             <li><strong>Martin Havala</strong> developer</li>
                                              <li><strong>Gabriel Balkó</strong> quality control, content editor</li>
                                              <li><strong>Braňo Matis</strong> graphic designer</li>',
 

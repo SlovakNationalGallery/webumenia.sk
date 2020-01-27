@@ -140,6 +140,51 @@
                                 </td>
                             </tr>
                             @endif
+                            @if (!empty($item->work_type))
+                                <tr>
+                                    <td class="atribut">{{ trans('dielo.item_attr_work_type') }}:</td>
+                                    <td>
+                                        @foreach ($item->work_types as $i => $work_type)
+                                            @if ($i == 0)
+                                                <a href="{!! URL::to('katalog?work_type=' . $work_type) !!}">{!! addMicrodata($work_type, "artform") !!}</a>
+                                            @else
+                                                {!! $work_type !!}
+                                            @endif
+                                            @if (count($item->work_types) > ($i+1))
+                                                 &rsaquo;
+                                            @endif
+                                        @endforeach
+                                    </td>
+                                </tr>
+                            @endif
+                            @if (!empty($item->topics))
+                            <tr>
+                                <td class="atribut">{{ trans('dielo.item_attr_topic') }}:</td>
+                                <td>
+                                    @foreach ($item->topics as $topic)
+                                    <a href="{!! URL::to('katalog?topic=' . $topic) !!}">{!! $topic !!}</a><br>
+                                    @endforeach
+                                </td>
+                            </tr>
+                            @endif
+                            @if ($item->tagNames() || Auth::check())
+                            <tr>
+                                <td class="atribut">{{ trans('dielo.item_attr_tag') }}:</td>
+                                <td>
+
+                                    <!-- list of existing tags -->
+                                    @foreach ($item->tagNames() as $tag)
+                                    <a href="{!!URL::to('katalog?tag=' . $tag)!!}"
+                                        class="btn btn-default btn-xs btn-outline">{!! $tag !!}</a>
+                                    @endforeach
+
+                                    @if (Auth::check())
+                                    @include('includes.add_tags_form')
+                                    @endif
+
+                                </td>
+                            </tr>
+                            @endif
                             @if ($item->collections->count())
                             <tr>
                                 <td class="atribut">{{ trans('dielo.item_attr_collections') }}:</td>
@@ -247,20 +292,16 @@
                             </tr>
                             @endif
                             @if ($item->tagNames() || Auth::check())
+
+                            @if (!empty($item->related_work))
                             <tr>
-                                <td class="atribut">{{ trans('dielo.item_attr_tag') }}:</td>
+                                <td class="atribut">{!! $item->relationship_type !!}:</td>
                                 <td>
-
-                                    <!-- list of existing tags -->
-                                    @foreach ($item->tagNames() as $tag)
-                                    <a href="{!!URL::to('katalog?tag=' . $tag)!!}"
-                                        class="btn btn-default btn-xs btn-outline">{!! $tag !!}</a>
-                                    @endforeach
-
-                                    @if (Auth::check())
-                                    @include('includes.add_tags_form')
+                                    <a href="{!! URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) !!}"
+                                        itemprop="isPartOf">{!! $item->related_work !!}</a>
+                                    @if ($item->related_work_order)
+                                    ({!! $item->related_work_order !!}/{!! $item->related_work_total !!})
                                     @endif
-
                                 </td>
                             </tr>
                             @endif
@@ -298,6 +339,32 @@
 </section>
 
 <section class="more-items content-section">
+    @if ($related_items && $related_items->count() > 1)
+        <div class="container-fluid related-works">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3 class="underlined-links mb-3">
+                            <span class="grey">{!! $item->relationship_type !!}: </span>
+                            <a href="{!! URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) !!}"
+                                itemprop="isPartOf">{!! $item->related_work !!}</a>
+                            @if ($item->related_work_order)
+                            ({!! $item->related_work_order !!}/{!! $item->related_work_total !!})
+                            @endif
+                        </h3>
+
+                        @include('components.artwork_carousel', [
+                            'slick_target' => "artworks-preview",
+                            'slick_variant' => "large",
+                            'items' => $related_items,
+                            'class_names' => 'mb-5'
+                        ])
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
     <div class="container">
         <div class="row">
             {{-- TODO --}}
@@ -313,7 +380,7 @@
                     </h3>
                 </div>
                 <div class="isotope-container">
-                    @foreach ($more_items as $i=>$item)
+                    @foreach ($similar_items as $i=>$item)
                         @include('components.artwork_grid_item', [
                             'item' => $item,
                             'isotope_item_selector_class' => 'item',

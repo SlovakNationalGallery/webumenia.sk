@@ -226,7 +226,7 @@ function()
     });
 
     Route::get('dielo/{id}/stiahnut', ['middleware' => 'throttle:5,1', function ($id) {
-        $item = Item::find($id);
+        $item = Item::findOrFail($id);
         if ($item->images->isEmpty()) {
             abort(404);
         }
@@ -285,8 +285,6 @@ function()
         return view('dielo', compact(
             'item',
             'more_items',
-            'similar_by_color',
-            // 'colors_used',
             'previous',
             'next'
         ));
@@ -386,9 +384,24 @@ function()
                 'url'         => 'katalog?gallery=Východoslovenská+galéria%2C+VSG',
             ],
             [
+                'id'          => 'TGP',
+                'lang_string' => 'informacie.info_gallery_TGP',
+                'url'         => 'katalog?gallery=Tatranská+galéria%2C+TGP',
+            ],
+            [
+                'id'          => 'PGU',
+                'lang_string' => 'informacie.info_gallery_PGU',
+                'url'         => 'katalog?gallery=Považská+galéria+umenia%2C+PGU',
+            ],
+            [
                 'id'          => 'MG',
                 'lang_string' => 'informacie.info_gallery_MG',
                 'url'         => 'katalog?gallery=Moravská galerie, MG',
+            ],
+            [
+                'id'          => 'PNP',
+                'lang_string' => 'informacie.info_gallery_PNP',
+                'url'         => 'katalog?gallery=Památník+národního+písemnictví%2C+PNP',
             ],
         ];
 
