@@ -15,15 +15,11 @@ class ItemRepositoryTest extends TestCase
 
     public function testCount()
     {
-        factory(Item::class, 5)->make([
-            'tagged' => collect(),
-            'images' => collect(),
-            'authorities' => collect(),
-            'updated_at' => new \DateTime(),
-            'created_at' => new \DateTime(),
-        ])->each(function (Item $item) {
-            $this->repository->index($item);
-        });
+        factory(Item::class, 5)
+            ->make()
+            ->each(function (Item $item) {
+                $this->repository->index($item);
+            });
         $this->repository->refreshIndex();
 
         $count = $this->repository->count();
@@ -32,15 +28,11 @@ class ItemRepositoryTest extends TestCase
 
     public function testSearch()
     {
-        factory(Item::class, 5)->make([
-            'tagged' => collect(),
-            'images' => collect(),
-            'authorities' => collect(),
-            'updated_at' => new \DateTime(),
-            'created_at' => new \DateTime(),
-        ])->each(function (Item $item) {
-            $this->repository->index($item);
-        });
+        factory(Item::class, 5)
+            ->make()
+            ->each(function (Item $item) {
+                $this->repository->index($item);
+            });
         $this->repository->refreshIndex();
 
         $response = $this->repository->search(new ItemSearchRequest());
@@ -50,13 +42,7 @@ class ItemRepositoryTest extends TestCase
     public function testSimilar()
     {
         /** @var Item[] $items */
-        $items = factory(Item::class, 5)->make([
-            'tagged' => collect(),
-            'images' => collect(),
-            'authorities' => collect(),
-            'updated_at' => new \DateTime(),
-            'created_at' => new \DateTime(),
-        ]);
+        $items = factory(Item::class, 5)->make();
         $items[0]->title = 'testing title one';
         $items[1]->title = 'testing title two';
         foreach ($items as $item) {

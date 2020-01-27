@@ -15,15 +15,11 @@ class AuthorityRepositoryTest extends TestCase
 
     public function testCount()
     {
-        factory(Authority::class, 5)->make([
-            'tagged' => collect(),
-            'images' => collect(),
-            'authorities' => collect(),
-            'updated_at' => new \DateTime(),
-            'created_at' => new \DateTime(),
-        ])->each(function (Authority $authority) {
-            $this->repository->index($authority);
-        });
+        factory(Authority::class, 5)
+            ->make()
+            ->each(function (Authority $authority) {
+                $this->repository->index($authority);
+            });
         $this->repository->refreshIndex();
 
         $count = $this->repository->count();
@@ -32,15 +28,11 @@ class AuthorityRepositoryTest extends TestCase
 
     public function testSearch()
     {
-        factory(Authority::class, 5)->make([
-            'tagged' => collect(),
-            'images' => collect(),
-            'authorities' => collect(),
-            'updated_at' => new \DateTime(),
-            'created_at' => new \DateTime(),
-        ])->each(function (Authority $authority) {
-            $this->repository->index($authority);
-        });
+        factory(Authority::class, 5)
+            ->make()
+            ->each(function (Authority $authority) {
+                $this->repository->index($authority);
+            });
         $this->repository->refreshIndex();
 
         $response = $this->repository->search(new AuthoritySearchRequest());
