@@ -291,8 +291,6 @@
                                 </td>
                             </tr>
                             @endif
-                            @if ($item->tagNames() || Auth::check())
-
                             @if (!empty($item->related_work))
                             <tr>
                                 <td class="atribut">{!! $item->relationship_type !!}:</td>
@@ -380,9 +378,9 @@
                     </h3>
                 </div>
                 <div class="isotope-container">
-                    @foreach ($similar_items as $i=>$item)
+                    @foreach ($similar_items as $i=>$similar_item)
                         @include('components.artwork_grid_item', [
-                            'item' => $item,
+                            'item' => $similar_item,
                             'isotope_item_selector_class' => 'item',
                             // TODO 'class_names' => $colors_used ? 'col-xs-6' : 'col-xs-3',
                             'class_names' => 'col-xs-3',
