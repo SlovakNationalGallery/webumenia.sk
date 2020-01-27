@@ -78,8 +78,6 @@ class ItemTest extends TestCase
             'title' => 'Názov',
             'title:en' => 'Title',
             'description' => 'Popis',
-            'created_at' => $this->faker->dateTime,
-            'updated_at' => $this->faker->dateTime,
         ]);
 
         $data = $item->getIndexedData('en');
