@@ -245,7 +245,8 @@ function()
         $item->save();
         $previous = $next = false;
 
-        $more_items = $itemRepository->getSimilar(30, $item)->getCollection();
+        $similar_items = $itemRepository->getSimilar(30, $item)->getCollection();
+        $related_items = (!empty($item->related_work)) ? Item::related($item)->get() : null;
 
         if (Input::has('collection')) {
             $collection = Collection::find((int) Input::get('collection'));
@@ -284,7 +285,8 @@ function()
 
         return view('dielo', compact(
             'item',
-            'more_items',
+            'similar_items',
+            'related_items',
             'previous',
             'next'
         ));
