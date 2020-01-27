@@ -4,7 +4,6 @@ services:
 
 before_install:
   - cp .env.example .env
-  - sudo service mysql stop
 
 script:
   - docker-compose build
