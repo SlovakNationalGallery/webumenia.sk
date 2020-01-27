@@ -12,6 +12,9 @@ services:
 
   php:
     build: .
+    # Un-comment to enable Xdebug
+    # args:
+    #     - WITH_XDEBUG=true
     image: web_umenia
     volumes:
       - .:/var/www
@@ -20,11 +23,6 @@ services:
       - elasticsearch
       - redis
     env_file: .env
-    # 'php' service can speak to mysql and elasticsearch services
-    # at these network addresses:
-    #  - http://mysql:3306
-    #  - http://elasticsearch:9200
-    # so we override the standard environment variables here:
     environment:
       DB_HOST: mysql
       ES_HOST: elasticsearch
