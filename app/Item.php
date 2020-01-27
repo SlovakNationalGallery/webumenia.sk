@@ -49,7 +49,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
         'state_edition',
         'gallery',
         'relationship_type',
-        'related_work'
+        'related_work',
     ];
 
     protected $fillable = array(

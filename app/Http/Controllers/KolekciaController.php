@@ -38,7 +38,7 @@ class KolekciaController extends Controller
         // dd($id);
         $collection = Collection::find($id);
         if (empty($collection)) {
-            App::abort(404);
+            abort(404);
         }
         $collection->view_count += 1;
         $collection->save();

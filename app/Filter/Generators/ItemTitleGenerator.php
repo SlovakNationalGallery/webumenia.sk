@@ -19,8 +19,7 @@ class ItemTitleGenerator extends AbstractTitleGenerator
         'has_iip',
         'is_free',
         'related_work',
-        'years.from',
-        'years.to',
+        'years',
     ];
 
     public function translateAttribute(string $attribute, $value = null, string $locale = null)

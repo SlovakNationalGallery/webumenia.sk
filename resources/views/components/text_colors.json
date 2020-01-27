@@ -1,0 +1,5 @@
+{
+    "name": "Text Colors",
+    "data": {},
+    "usage_notes": "Text colors in use, each with their own atomic utility class. (Dark background for visibility only)"
+}

@@ -1,20 +1,6 @@
 // Variables
 
-// @primary: #76791b;
-@primary: #484224;
-@dark: #555954;
-@light: #fff;
-@red: #ce2525;
-@light-grey: #f0f0f0;
-@mid-grey: #cdcdcd;
-@grey: #969696;
-@dark-grey: #5b5d5c;
-@primary-color: #66ccf4;
-@shadow-color: #777;
-
-@link-color: @primary;
-@link-hover-color: @primary-color;
-@brand-primary: @primary;
+@import "_colors.less";
 
 @icon-font-path:  "../fonts/";
 
@@ -50,6 +36,7 @@
 @font-size-h1:            floor((@font-size-base * 2.6)); // ~36px
 // @font-size-h1:            floor((@font-size-base * 2.15)); // ~30px
 @font-size-h2:            ceil((@font-size-base * 1.7)); // ~24px
+@font-size-h3:            floor((@font-size-base * 1.35)); // ~18px
 
 
 // LESS
@@ -66,7 +53,30 @@ html {
     height: 100%;
 }
 
-// Typhography
+// Atomic Utility Classes
+.relative {
+  position: relative;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+// Text Colors
+.light-grey {color: @light-grey;}
+.dark-grey {color: @dark-grey;}
+.mid-grey {color: @mid-grey;}
+.grey {color: @grey;}
+.primary {color: @primary;}
+.dark {color: @dark;}
+.light {color: @light;}
+.red {color: @red;}
+.color { color: @primary-color; }
+// Background Colors
+.bg-light {background-color: @light}
+.bg-dark {background-color: @dark}
+.no-border {border: none !important;}
+// Typography
 
 .light {
     font-weight: 400;
@@ -85,62 +95,6 @@ h1 {
 .info, .item, .author {
   h1 { color: @dark-grey; }
 }
-
-
-// h1,
-// h2,
-// h3,
-// h4,
-// h5,
-// h6, img.xko {
-//     margin: 0 0 20px;
-//     // text-transform: uppercase;
-//     font-family: @font-family-sans-serif;
-//     font-weight: bold;
-// }
-
-// h1 {
-//     margin-top: 10px;
-//     letter-spacing: 6px;
-//     font-size: 36px;
-//     text-transform: uppercase;
-// }
-// h2 {
-//     letter-spacing: 4px;
-//     font-size: 24px;
-// }
-// h3 {
-//     letter-spacing: 3px;
-//     font-size: 16px;
-//     text-transform: uppercase;
-// }
-
-// @media(min-width: @screen-md-min) {
-//     h1 {
-//         font-size: 56px;
-//         margin-top: 25px;
-//     }
-//     h2 { font-size: 36px;
-//         &.nadpis-dielo {
-//             font-size: 32px;
-//         }
-//     }
-//     h3 { font-size: 24px; }
-// }
-
-// @media(min-width: @screen-lg-min) {
-//     h1 {
-//         font-size: 64px;
-//         margin-top: 45px;
-//     }
-//     h2 {
-//         font-size: 42px; §
-//         &.nadpis-dielo {
-//             font-size: 36px;
-//         }
-//     }
-//     h3 { font-size: 28px; }
-// }
 
 a {
     color: @dark;
@@ -382,6 +336,35 @@ p.tagline {
 
 .img-dielo {
     margin: 0 auto 15px auto;
+
+    .img-container{
+      padding: @thumbnail-padding;
+      height: auto;
+      width:100%;
+      display: inline-block;
+      img {
+        max-height: 90vh;
+      }
+    }
+    .zoom{
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      background: @btn-default-color;
+      width: 30px;
+      height: 30px;
+      color: @btn-primary-color;
+      line-height: 30px;
+      border-radius: 30px;
+      opacity: 0.6;
+      z-index: 1010;
+      .transition(opacity .15s ease-in-out);
+    }
+    &:hover{
+      .fa{
+        opacity: 1;
+      }
+    }
 }
 
 a.license { vertical-align: middle}
@@ -830,10 +813,6 @@ a.dropdown-toggle {cursor: pointer;}
 
 .inline {display: inline; }
 .btn.inline {display: inline-block;}
-.mid-grey {color: @mid-grey;}
-.grey {color: @grey;}
-.color { color: @primary-color; }
-.no-border {border: none !important;}
 
 .clip-svg {
   width: 0;
@@ -915,4 +894,39 @@ label sup {
 
 .ui-adding-user-tags {
   display: none;
+}
+
+.year-range-slider{
+  .lsng-slider-wrap, .slider-period{
+    height: 4px;
+  }
+  .lsng-picker{
+    transform: translate(-8px, -6px);
+  }
+  .lsng-pointer > *{
+    background-color: @dark-grey;
+  }
+}
+
+#from_year, #until_year{
+  margin-top: 10px;
+  width: 5.0ex;
+  overflow: hidden;
+  background: transparent;
+  border: none;;
+}
+
+#from_year{
+  margin-right: auto;
+}
+
+#until_year{
+  margin-left: auto;
+}
+
+.picked-color {
+  margin: 0 3px;
+  min-width: 20px;
+  vertical-align: baseline;
+  display: inline-block;
 }

@@ -198,7 +198,7 @@ function()
         $item = Item::find($id);
 
         if (empty($item) || !$item->isForReproduction()) {
-            App::abort(404);
+            abort(404);
         }
 
         if (!in_array($item->id, Session::get('cart', array()))) {
@@ -216,7 +216,7 @@ function()
         $item = Item::find($id);
 
         if (empty($item)) {
-            App::abort(404);
+            abort(404);
         }
         Session::put('cart', array_diff(Session::get('cart', []), [$item->id]));
         Session::flash('message', trans('objednavka.message_remove_order', ['artwork_description' => '<b>'.$item->getTitleWithAuthors().'</b> ('.$item->getDatingFormated().')']) );
@@ -238,7 +238,7 @@ function()
 
         $item = Item::find($id);
         if (empty($item)) {
-            App::abort(404);
+            abort(404);
         }
         $item->timestamps = false;
         $item->view_count += 1;
@@ -286,7 +286,7 @@ function()
             'item',
             'more_items',
             'similar_by_color',
-            'colors_used',
+            // 'colors_used',
             'previous',
             'next'
         ));
@@ -490,6 +490,7 @@ Route::group(['middleware' => ['auth', 'role:admin|editor']], function () {
 Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::resource('article', 'ArticleController');
     Route::get('harvests/launch/{id}', 'SpiceHarvesterController@launch');
+    Route::get('harvests/harvestFailed/{id}', 'SpiceHarvesterController@harvestFailed');
     Route::get('harvests/orphaned/{id}', 'SpiceHarvesterController@orphaned');
     Route::get('harvests/{record_id}/refreshRecord/', 'SpiceHarvesterController@refreshRecord');
     Route::resource('harvests', 'SpiceHarvesterController');

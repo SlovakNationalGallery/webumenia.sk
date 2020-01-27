@@ -36,39 +36,23 @@ class SpiceHarvesterService
      * @param \DateTime $to
      */
     public function harvest(SpiceHarvesterHarvest $harvest, \DateTime $from = null, \DateTime $to = null, $only_ids = []) {
-        $timeStart = microtime(true);
-        $result = new Result();
-
-        try {
-            $this->harvesters[$harvest->type]->harvest($harvest, $result, $from, $to, $only_ids);
-
-            $harvest->status = SpiceHarvesterHarvest::STATUS_COMPLETED;
-            $harvest->status_messages = '';
-            $harvest->completed = date('Y-m-d H:i:s');
-        } catch (\Exception $e) {
-            $harvest->status = SpiceHarvesterHarvest::STATUS_ERROR;
-            $harvest->status_messages = $e->getMessage() . PHP_EOL;
-
-            app('sentry')->captureException($e);
-        }
-
-        $harvest->status_messages .= sprintf(
-            trans('harvest.status_message_completed'),
-            $result->getTotal(),
-            $result->getInserted(),
-            $result->getUpdated(),
-            $result->getDeleted(),
-            $result->getSkipped(),
-            microtime(true) - $timeStart
-        );
-
-        $harvest->save();
+        $this->harvesters[$harvest->type]->tryHarvest($harvest, $from, $to, $only_ids);
     }
 
     /**
      * @param SpiceHarvesterRecord $record
      */
     public function harvestSingle(SpiceHarvesterRecord $record) {
-        $this->harvesters[$record->type]->harvestSingle($record, new Result());
+        $this->harvesters[$record->type]->tryHarvestSingle($record, new Result());
+    }
+
+    /**
+     * @param SpiceHarvesterHarvest $harvest
+     */
+    public function harvestFailed(SpiceHarvesterHarvest $harvest) {
+        $failed = $harvest->records()->failed()->get();
+        foreach ($failed as $record) {
+            $this->harvestSingle($record);
+        }
     }
 }
