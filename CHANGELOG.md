@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 ### Added
+- model relationship events
+- test via docker in travis
+- optional docker build with xdebug
+- domain fallback translator
+- authority/item title generators
+- basic frontend view tests
 - TGP, PGU and PNP into list of galleries in the info page
 
 ### Fixed
@@ -15,6 +21,10 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Changed
 - lab.sng team in info page
+- upgrade to Elasticsearch 7.3
+- upgrade laravel translatable models package
+- rewrite and remove bouncy package usages
+- refactor authority/item filters to use symfony forms
 
 ## [1.11.0] - 2020-01-17
 ### Changed

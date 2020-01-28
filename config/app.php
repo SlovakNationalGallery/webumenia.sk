@@ -100,11 +100,10 @@ return array(
         Illuminate\Queue\QueueServiceProvider::class,
         Illuminate\Redis\RedisServiceProvider::class,
         Illuminate\Session\SessionServiceProvider::class,
-        Illuminate\Translation\TranslationServiceProvider::class,
+        App\Providers\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         'Former\FormerServiceProvider',
-        'Fadion\Bouncy\BouncyServiceProvider',
         'Maatwebsite\Excel\ExcelServiceProvider',
         'Conner\Tagging\Providers\TaggingServiceProvider',
         'Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider',
@@ -125,13 +124,11 @@ return array(
         App\Providers\ColorDescriptorProvider::class,
         'GrahamCampbell\Throttle\ThrottleServiceProvider',
         Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
-        Dimsav\Translatable\TranslatableServiceProvider::class,
 //        Illuminate\Notifications\NotificationServiceProvider::class,
 
         /*
          * Application Service Providers...
          */
-        App\Providers\ElasticTranslatableServiceProvider::class,
         App\Providers\ElasticsearchClientProvider::class,
         Barryvdh\Form\ServiceProvider::class,
         App\Providers\FormServiceProvider::class,
@@ -195,7 +192,6 @@ return array(
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => 'Intervention\Image\ImageManagerStatic',
         'Former' => 'Former\Facades\Former',
-        'Elastic' => 'Fadion\Bouncy\Facades\Elastic',
         'Excel' => 'Maatwebsite\Excel\Facades\Excel',
         'Carbon' => 'Carbon\Carbon',
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,

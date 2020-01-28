@@ -5,14 +5,11 @@ namespace Tests\Harvest\Repositories;
 use App\Harvest\Factories\EndpointFactory;
 use App\Harvest\Repositories\ItemRepository;
 use App\SpiceHarvesterHarvest;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Phpoaipmh\HttpAdapter\HttpAdapterInterface;
 use Tests\TestCase;
 
 class ItemRepositoryTest extends TestCase
 {
-    use DatabaseMigrations;
-
     public function testRows() {
         $endpointFactoryMock = $this->getMockBuilder(EndpointFactory::class)
             ->setMethods(['createHttpAdapter'])

@@ -23,6 +23,11 @@ class AuthorityImporterTest extends TestCase
 {
     use DatabaseMigrations;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+    }
+
     public function testUpdateRelated() {
         factory(Authority::class)->create(['id' => 1000162]);
         factory(Authority::class)->create(['id' => 1000168]);

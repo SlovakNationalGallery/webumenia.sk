@@ -3,7 +3,7 @@
 @else
 <div @include('form.default.widget_container_attributes')>
     {!! FormRenderer::errors($form) !!}
-    <table class="{{ isset($table_class) ? $table_class : '' }}">
+    <table class="{{ $table_class ?? '' }}">
         <thead>
         <tr>
             @if ($with_years)<th>{!! FormRenderer::label($form['years']) !!}</th>@endif

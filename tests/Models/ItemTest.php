@@ -11,19 +11,6 @@ class ItemTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function testTranslationFallback() {
-        $item = factory(Item::class)->create([
-            'title:sk' => 'a',
-            'title:cs' => 'b',
-        ]);
-
-        \App::setLocale('cs');
-        $this->assertEquals('b', $item->title);
-
-        \App::setLocale('en');
-        $this->assertEquals('a', $item->title);
-    }
-
     public function testFreeFromDateLatest() {
         $item = factory(Item::class)->make([
             'gallery' => 'Slovenská národná galéria, SNG',
@@ -82,6 +69,20 @@ class ItemTest extends TestCase
         $item = $this->createFreeItem();
         $item->date_latest = date('Y');
         $this->assertTrue($item->isFree());
+    }
+
+    public function testGetIndexedDataFallbackLocale()
+    {
+        /** @var Item $item */
+        $item = factory(Item::class)->make([
+            'title' => 'Názov',
+            'title:en' => 'Title',
+            'description' => 'Popis',
+        ]);
+
+        $data = $item->getIndexedData('en');
+        $this->assertEquals($data['title'], 'Title');
+        $this->assertEquals($data['description'], 'Popis');
     }
 
     protected function createFreeItem() {

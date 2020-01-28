@@ -32,27 +32,7 @@ It requires
 * MySQL
 * Elasticsearch
 
-## Local Installation
-
-Here are the steps for installation on a local machine.
-
-1. Clone this repository.
-    ```
-    git@github.com:SlovakNationalGallery/web-umenia-2.git webumenia/
-    cd webumenia/
-    ```
-2. Setup database in your favourite database editor. set:
-    * db name
-    * username
-    * password
-3. Configure access to your database in `/app/config/database.php`
-4. Set `.env` file. you can copy values from `.env.example`
-5. Run `composer install` to fulfil required libraries.
-6. Make sure elasticsearch is running. you can set the index name in `app/config/app.php`
-7. Run migrations to setup the database with `php artisan migrate --seed`
-8. Start your queue listener and setup the Laravel scheduler (_optional_)
-
-## Local Installation with Docker
+## Installation with Docker
 
 This requires docker-compose
 these steps will set up a linked system of 4 containers:
@@ -78,7 +58,7 @@ with docker-compose:
 	the first time you do this it will take a while, a lot of different components
 need to be fetched from remote servers.
 Be patient, subsequent builds won't take nearly as long.
-3.5 - choose a database - you can set $DB_DATABASE in the environment and switch between different
+    - choose a database - you can set $DB_DATABASE in the environment and switch between different
 variants by editing that variable.
 4. start the app
 	```
@@ -109,13 +89,6 @@ to stop the dockerized application: `docker-compose down`
 ## Running tests
 
 Create `.env.testing` file (you can use the included `.env.testing.example` as a base) and run:
-
-The local way:
-```
-php vendor/bin/phpunit
-```
-
-The Docker way:
 ```
 docker-compose -f docker-compose.yml -f docker-compose.test.yml run php
 ```
@@ -138,13 +111,6 @@ ProxyPass /fcgi-bin/iipsrv.fcgi http://imi.sng.cust.eea.sk/publicIS/fcgi-bin/iip
 
 ProxyPassReverse /fcgi-bin/iipsrv.fcgi http://imi.sng.cust.eea.sk/publicIS/fcgi-bin/iipsrv.fcgi
 ```
-
-## Setting up Elastic Search
-
-* info about the files and plugins can be found in the separated [README](resources/SetupElasticsearch/README.md)
-* command to generate ES2 compatible index:
-`php artisan es:setup`
-* command to reindex data to the index `php artisan es:reindex`
 
 ## Style Compilation (LESS)
 

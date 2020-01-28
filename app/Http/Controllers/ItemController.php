@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Elasticsearch\Repositories\ItemRepository;
 use App\Forms\Types\ItemType;
 use App\Item;
 use App\Collection;
@@ -9,9 +10,7 @@ use App\Jobs\HarvestSingleJob;
 use Barryvdh\Form\CreatesForms;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use App\SpiceHarvesterRecord;
@@ -19,7 +18,7 @@ use Illuminate\Support\Facades\App;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\Test\FormBuilderInterface;
+use Symfony\Component\Form\FormBuilderInterface;
 
 class ItemController extends Controller
 {
@@ -27,6 +26,14 @@ class ItemController extends Controller
 
     /** @var FormInterface */
     protected $form;
+
+    /** @var ItemRepository */
+    protected $itemRepository;
+
+    public function __construct(ItemRepository $itemRepository)
+    {
+        $this->itemRepository = $itemRepository;
+    }
 
     /**
      * Display a listing of the resource.
@@ -124,7 +131,7 @@ class ItemController extends Controller
             $tags = $form['tags']->getData();
             if (array_diff($tags, $item->tagSlugs()) != array_diff($item->tagSlugs(), $tags)) {
                 $item->retag($tags);
-                $item->index();
+                $this->itemRepository->indexAllLocales($item);
             }
 
             if ($image = $form['primary_image']->getData()) {
@@ -135,7 +142,7 @@ class ItemController extends Controller
         }
 
         return view('items.form', [
-            'form' => $form,
+            'form' => $form->createView(),
             'item' => $item,
         ]);
     }
@@ -147,7 +154,10 @@ class ItemController extends Controller
      */
     protected function getItemFormBuilder(Item $item, $new) {
         return $this->getFormFactory()
-            ->createBuilder(ItemType::class, $item, ['new' => $new])
+            ->createBuilder(ItemType::class, $item, [
+                'new' => $new,
+                'locales' => config('translatable.locales'),
+            ])
             ->add('save', SubmitType::class, [
                 'translation_domain' => 'messages',
             ]);
@@ -267,7 +277,7 @@ class ItemController extends Controller
         Item::with('images')->chunk(200, function ($items) use (&$i) {
             $items->load('authorities');
             foreach ($items as $item) {
-                $item->index();
+                $this->itemRepository->indexAllLocales($item);
                 $i++;
                 if (App::runningInConsole()) {
                     if ($i % 100 == 0) {

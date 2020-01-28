@@ -29,7 +29,7 @@ $factory->define(App\Role::class, function (Faker\Generator $faker) {
 
 $factory->define(\App\Item::class, function (Faker\Generator $faker) {
     return [
-        'id' => $faker->unique()->word,
+        'id' => $faker->unique()->lexify,
         'work_type' => $faker->word,
         'identifier' => $faker->word,
         'title' => $faker->word,
@@ -49,6 +49,8 @@ $factory->define(\App\Item::class, function (Faker\Generator $faker) {
         'inscription' => $faker->word,
         'related_work_order' => $faker->randomNumber,
         'related_work_total' => $faker->randomNumber,
+        'created_at' => $faker->date,
+        'updated_at' => $faker->date,
     ];
 });
 
@@ -60,8 +62,8 @@ $factory->define(\App\ItemImage::class, function (Faker\Generator $faker) {
 
 $factory->define(\App\Authority::class, function (Faker\Generator $faker) {
     return [
-        'id' => $faker->unique()->word,
-        'type' => $faker->word,
+        'id' => $faker->unique()->lexify,
+        'type' => 'person',
         'type_organization' => $faker->word,
         'name' => $faker->name,
         'sex' => $faker->word,
@@ -76,6 +78,8 @@ $factory->define(\App\Authority::class, function (Faker\Generator $faker) {
         'view_count' => $faker->randomNumber,
         'image_source_url' => $faker->url,
         'image_source_label' => $faker->word,
+        'created_at' => $faker->date,
+        'updated_at' => $faker->date,
     ];
 });
 
@@ -130,5 +134,20 @@ $factory->define(App\Collection::class, function (Faker\Generator $faker) {
         'type' => $faker->word,
         'text' => $faker->sentence,
         'order' => $faker->randomNumber,
+    ];
+});
+
+$factory->define(App\Article::class, function (Faker\Generator $faker) {
+    return [
+        'author' => $faker->name,
+        'slug' => $faker->unique()->word,
+        'title' => $faker->word,
+        'summary' => $faker->sentence,
+        'content' => $faker->sentence,
+        'main_image' => $faker->word,
+        'title_color' => $faker->hexColor,
+        'title_shadow' => $faker->hexColor,
+        'promote' => $faker->boolean,
+        'publish' => true,
     ];
 });

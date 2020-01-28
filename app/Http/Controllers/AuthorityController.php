@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Authority;
+use App\Elasticsearch\Repositories\AuthorityRepository;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
@@ -15,6 +16,12 @@ use Illuminate\Support\Facades\App;
 
 class AuthorityController extends Controller
 {
+    protected $authorityRepository;
+
+    public function __construct(AuthorityRepository $authorityRepository)
+    {
+        $this->authorityRepository = $authorityRepository;
+    }
 
     /**
      * Display a listing of the resource.
@@ -292,7 +299,7 @@ class AuthorityController extends Controller
         Authority::chunk(200, function ($authorities) use (&$i) {
             $authorities->load('items');
             foreach ($authorities as $authority) {
-                $authority->index();
+                $this->authorityRepository->indexAllLocales($authority);
                 $i++;
                 if (App::runningInConsole()) {
                     if ($i % 100 == 0) {

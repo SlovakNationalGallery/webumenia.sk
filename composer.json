@@ -16,7 +16,7 @@
         "caseyamcl/Phpoaipmh": "dev-master",
         "intervention/image": "dev-master",
         "guzzlehttp/guzzle": "dev-master",
-        "fadion/bouncy": "dev-l5",
+        "elasticsearch/elasticsearch": "^7.2",
         "rtconner/laravel-tagging": "~2.1",
         "maatwebsite/excel": "~2.1.0",
         "rap2hpoutre/laravel-log-viewer": "dev-master",
@@ -29,7 +29,7 @@
         "php": ">=7.2.0",
         "graham-campbell/throttle": "^7",
         "mcamara/laravel-localization": "1.2.*",
-        "dimsav/laravel-translatable": "6.*",
+        "astrotomic/laravel-translatable": "^11.3",
         "predis/predis": "^1.1",
         "doctrine/dbal": "^2.5",
         "league/csv": "^8.0",
@@ -37,7 +37,8 @@
         "barryvdh/laravel-form-bridge": "^0.4",
         "symfony/templating": "^3.4",
         "sentry/sentry-laravel": "1.1.0",
-        "google/recaptcha": "^1.2"
+        "google/recaptcha": "^1.2",
+        "chelout/laravel-relationship-events": "^1.0.0"
     },
     "autoload": {
         "classmap": [
