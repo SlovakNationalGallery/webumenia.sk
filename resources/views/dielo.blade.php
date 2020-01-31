@@ -270,7 +270,7 @@
                                 <td><a rel="license" href="{!!URL::to('katalog?is_free=' . '1')!!}" target="_blank"
                                         class="no-border license" title="Public Domain" data-toggle="tooltip"><img
                                             alt="Creative Commons License" style="height: 20px; width: auto"
-                                            src="/images/license/zero.svg"> {{ trans('general.public_domain') }}</a>
+                                            src="{{ asset('/images/license/zero.svg') }}"> {{ trans('general.public_domain') }}</a>
                                 </td>
                             </tr>
                             @endif
@@ -281,16 +281,6 @@
                             </tr>
                             @endif
 
-                            @if (!empty($item->topics))
-                            <tr>
-                                <td class="atribut">{{ trans('dielo.item_attr_topic') }}:</td>
-                                <td>
-                                    @foreach ($item->topics as $topic)
-                                    <a href="{!! URL::to('katalog?topic=' . $topic) !!}">{!! $topic !!}</a><br>
-                                    @endforeach
-                                </td>
-                            </tr>
-                            @endif
                             @if (!empty($item->related_work))
                             <tr>
                                 <td class="atribut">{!! $item->relationship_type !!}:</td>
