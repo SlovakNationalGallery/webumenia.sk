@@ -15,7 +15,7 @@ RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ \
     zip \
     exif
 
-RUN echo "memory_limit=-1" > $PHP_INI_DIR/conf.d/memory-limit.ini
+RUN echo "memory_limit=512M" > $PHP_INI_DIR/conf.d/memory-limit.ini
 
 
 RUN if [ $WITH_XDEBUG = "true" ] ; then \
