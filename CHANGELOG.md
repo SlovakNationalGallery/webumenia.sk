@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [1.12.0] - 2020-01-23
 ### Added
 - model relationship events
 - test via docker in travis
@@ -12,12 +14,13 @@ All notable changes to this project will be documented in this file[^1].
 - TGP, PGU and PNP into list of galleries in the info page
 
 ### Fixed
-- Fix error 500 from /dielo/{id}/stiahnut for non-existent IDs (WEBUMENIA-1235)
-- Fix 'show more' button in catalog (WEBUMENIA-1219)
-- fix iframe handling in Admin editor
+- error 500 from /dielo/{id}/stiahnut for non-existent IDs (WEBUMENIA-1235)
+- 'show more' button in catalog (WEBUMENIA-1219)
+- iframe handling in Admin editor
 - artwork-detail: prevent upsizing of preview image
 - don't display carousel with related works when there are no related works
 - missing attributes in artwork detail
+- spice harvester process detail view
 
 ### Changed
 - lab.sng team in info page
