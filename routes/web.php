@@ -13,7 +13,6 @@
 
 use App\Article;
 use App\Collection;
-use App\Color;
 use App\Elasticsearch\Repositories\AuthorityRepository;
 use App\Elasticsearch\Repositories\ItemRepository;
 use App\Filter\ItemFilter;
@@ -235,7 +234,7 @@ function()
     }]);
 
     Route::get('dielo/{id}', function ($id, ItemRepository $itemRepository) {
-
+        /** @var Item $item */
         $item = Item::find($id);
         if (empty($item)) {
             abort(404);
@@ -263,26 +262,6 @@ function()
             }
         }
 
-        $colors_used = [];
-
-        if ($item->color_descriptor) {
-            $colors_used = $item->getColorsUsed(Color::TYPE_HEX);
-
-            uasort($colors_used, function ($a, $b) {
-                if ($a['amount'] == $b['amount']) {
-                    return 0;
-                }
-
-                return $a['amount'] < $b['amount'] ? 1 : -1;
-            });
-
-            $amount_sum = array_sum(array_column($colors_used, 'amount'));
-            foreach ($colors_used as $hex => $color_used) {
-                $colors_used[$hex]['amount'] = sprintf("%.3f%%", $colors_used[$hex]['amount'] * 100 / $amount_sum, 3);
-                $colors_used[$hex]['hex'] = $colors_used[$hex]['color']->getValue();
-            }
-        }
-
         return view('dielo', compact(
             'item',
             'similar_items',
@@ -292,22 +271,12 @@ function()
         ));
     });
 
-//    Route::get('dielo/{id}/colorrelated', function ($id) {
-//        $item = Item::find($id);
-//
-//        $similar_by_color = [];
-//
-//        $ids = $item->similarByColor(20)->pluck('id');
-//        $similar_by_color = Item::whereIn('id', $ids)->get();
-//        $similar_by_color = $similar_by_color->filter(function (Item $i) use ($item) {
-//            return (bool)$i->color_descriptor && $item->id != $i->id;
-//        });
-//        $similar_by_color = $similar_by_color->sort(function($a, $b) use ($ids) {
-//            return $ids->search($a->id) - $ids->search($b->id);
-//        });
-//
-//        return view('dielo-colorrelated', compact('similar_by_color'));
-//    })->name('dielo.colorrelated');
+    Route::get('dielo/{id}/colorrelated', function ($id, ItemRepository $itemRepository) {
+        $item = Item::findOrFail($id);
+        return view('dielo-colorrelated', [
+            'similar_by_color' => $itemRepository->getSimilarByColor(20, $item)->getCollection(),
+        ]);
+    })->name('dielo.colorrelated');
 
     Route::get('dielo/nahlad/{id}/{width}/{height?}', 'ImageController@resize')->where('width', '[0-9]+')->where('height', '[0-9]+')->name('dielo.nahlad');
     Route::get('image/{id}/download', 'ImageController@download')->name('image.download');

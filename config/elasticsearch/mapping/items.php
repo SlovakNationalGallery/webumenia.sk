@@ -138,6 +138,9 @@ $mapping = [
         'view_count' => [
             'type' => 'keyword',
         ],
+        'hsl' => [
+            'type' => 'nested',
+        ],
     ],
 ];
 

@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\URL;
 use Intervention\Image\Constraint;
 use Intervention\Image\Image;
+use Primal\Color\Parser;
 use Symfony\Component\Validator\Constraints\Valid;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
@@ -30,6 +31,8 @@ class Item extends Model implements IndexableModel, TranslatableContract
     const GUESSED_AUTHORISM_TIMESPAN = 60;
     const FREE_ALWAYS = 0;
     const FREE_NEVER = PHP_INT_MAX;
+
+    const COLOR_AMOUNT_THRESHOLD = 0.03;
 
     public $translatedAttributes = [
         'title',
@@ -101,7 +104,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
     public $incrementing = false;
 
     protected $casts = [
-        'color_descriptor' => 'json',
+        'colors' => 'json',
     ];
 
     protected $observables = [
@@ -174,7 +177,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
     }
 
     public function deleteImage() {
-        $this->color_descriptor = null;
+        $this->colors = null;
         $this->save();
 
         $dir = dirname($this->getImagePath(true));
@@ -531,33 +534,16 @@ class Item extends Model implements IndexableModel, TranslatableContract
         return !$this->images->isEmpty();
     }
 
-    public function getColorsUsed($type = null) {
-        $colors_used = [];
-
-        for ($i = 0; $i < count($this->color_descriptor) / 4; $i++) {
-            $amount_sqrt = $this->color_descriptor[4 * $i + 3];
-            if (!$amount_sqrt) {
-                continue;
-            }
-            $amount = $amount_sqrt * $amount_sqrt;
-            $L = $this->color_descriptor[4 * $i];
-            $a = $this->color_descriptor[4 * $i + 1];
-            $b = $this->color_descriptor[4 * $i + 2];
-            $color = new Color(['L' => $L, 'a' => $a, 'b' => $b], Color::TYPE_LAB);
-
-            if ($type !== null) {
-                $color = $color->convertTo($type);
-            }
-
-            $colors_used[$color->getValue()] = [
-                'color' => $color,
-                'amount' => $amount
-            ];
-        }
-
-        return $colors_used;
+    public function getColors()
+    {
+        return collect($this->colors)->filter(function ($amount) {
+            return $amount >= self::COLOR_AMOUNT_THRESHOLD;
+        });
     }
 
+    public function getHasColorsAttribute() {
+        return !$this->getColors()->isEmpty();
+    }
 
     /**
      * @param mixed $file
@@ -604,7 +590,6 @@ class Item extends Model implements IndexableModel, TranslatableContract
             'is_free' => $this->isFree(),
             'authority_id' => $this->authorities()->pluck('id'),
             'view_count' => $this->view_count,
-            'color_descriptor' => $this->color_descriptor,
             'work_type' => is_array($work_types) ? reset($work_types) : '',
             'title' => $this["title:$locale"],
             'description' => (!empty($this["description:$locale"])) ? strip_tags($this["description:$locale"]) : '',
@@ -616,6 +601,17 @@ class Item extends Model implements IndexableModel, TranslatableContract
             'technique' => $this->makeArray($this["technique:$locale"]),
             'gallery' => $this["gallery:$locale"],
             'related_work' => $this["related_work:$locale"],
+            'hsl' => $this->getColors()
+                ->map(function (float $amount, string $color) {
+                    $hsl = Parser::Parse($color)->toHSL();
+                    return [
+                        'h' => $hsl->hue,
+                        's' => $hsl->saturation,
+                        'l' => $hsl->luminance,
+                        'amount' => $amount,
+                    ];
+                })
+                ->values(),
         ];
     }
 

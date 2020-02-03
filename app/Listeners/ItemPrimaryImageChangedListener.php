@@ -2,24 +2,23 @@
 
 namespace App\Listeners;
 
-use App\Descriptors\ColorDescriptor;
 use App\Events\ItemPrimaryImageChanged;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use League\ColorExtractor\Color;
+use League\ColorExtractor\ColorExtractor;
 
 class ItemPrimaryImageChangedListener implements ShouldQueue
 {
-    /** @var ColorDescriptor */
-    protected $colorDescriptor;
+    /** @var ColorExtractor */
+    protected $extractor;
 
     /**
      * Create the event listener.
      *
      * @return void
      */
-    public function __construct(
-        ColorDescriptor $colorDescriptor
-    ) {
-        $this->colorDescriptor = $colorDescriptor;
+    public function __construct(ColorExtractor $extractor) {
+        $this->extractor = $extractor;
     }
 
     /**
@@ -27,6 +26,7 @@ class ItemPrimaryImageChangedListener implements ShouldQueue
      *
      * @param  ItemPrimaryImageChanged  $event
      * @return void
+     * @throws \Exception
      */
     public function handle(ItemPrimaryImageChanged $event)
     {
@@ -41,7 +41,15 @@ class ItemPrimaryImageChangedListener implements ShouldQueue
             throw new \Exception(sprintf("File '%s' is not valid image", $filename));
         }
 
-        $item->color_descriptor = $this->colorDescriptor->describe($filename);
+        $colors = $this->extractor->extract($filename, config('items.colors.count'));
+        $colors = collect($colors)
+            ->mapWithKeys(function ($amount, $int) {
+                return [Color::fromIntToHex($int) => $amount];
+            })
+            ->sort()
+            ->reverse();
+
+        $item->colors = $colors;
         $item->save();
     }
 }

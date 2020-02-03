@@ -38,7 +38,8 @@
         "symfony/templating": "^3.4",
         "sentry/sentry-laravel": "1.1.0",
         "google/recaptcha": "^1.2",
-        "chelout/laravel-relationship-events": "^1.0.0"
+        "chelout/laravel-relationship-events": "^1.0.0",
+        "primal/color": "^1.0"
     },
     "autoload": {
         "classmap": [
