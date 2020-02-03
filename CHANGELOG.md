@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Changed
+- range color search
+
 ### Added
 - model relationship events
 - test via docker in travis
@@ -25,7 +28,6 @@ All notable changes to this project will be documented in this file[^1].
 - upgrade laravel translatable models package
 - rewrite and remove bouncy package usages
 - refactor authority/item filters to use symfony forms
-- range color search
 
 ## [1.11.0] - 2020-01-17
 ### Changed
