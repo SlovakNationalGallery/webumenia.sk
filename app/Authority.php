@@ -93,7 +93,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
 
     public function relationships()
     {
-        return $this->belongsToMany(\App\Authority::class, 'authority_relationships', 'authority_id', 'related_authority_id')->withPivot('type');
+        return $this->belongsToMany(\App\Authority::class, 'authority_relationships', 'authority_id', 'related_authority_id')->withPivot('type')->where('authorities.type', '=', 'person');
     }
 
     public function items()
@@ -342,8 +342,8 @@ class Authority extends Model implements IndexableModel, TranslatableContract
         $associative_relationships = array();
         foreach ($this->relationships as $i => $relationship) {
             $associative_relationships[self::formatMultiAttribute($relationship->pivot->type)][] = [
-                'id' => $relationship->id,
-                'name' => formatName($relationship->name),
+                    'id' => $relationship->id,
+                    'name' => formatName($relationship->name),
                 ];
         }
 
