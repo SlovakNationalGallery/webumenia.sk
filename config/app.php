@@ -109,7 +109,6 @@ return array(
         'Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider',
         Zizaco\Entrust\EntrustServiceProvider::class,
         'Roumen\Sitemap\SitemapServiceProvider',
-        'Cviebrock\ImageValidator\ImageValidatorServiceProvider',
         'Barryvdh\Debugbar\ServiceProvider',
 
         Illuminate\Bus\BusServiceProvider::class,

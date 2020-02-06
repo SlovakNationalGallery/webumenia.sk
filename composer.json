@@ -13,7 +13,7 @@
     }],
     "require": {
         "laravel/framework": "5.8.*",
-        "caseyamcl/Phpoaipmh": "dev-master",
+        "caseyamcl/phpoaipmh": "dev-master",
         "intervention/image": "dev-master",
         "guzzlehttp/guzzle": "dev-master",
         "elasticsearch/elasticsearch": "^7.2",
@@ -22,7 +22,6 @@
         "rap2hpoutre/laravel-log-viewer": "dev-master",
         "zizaco/entrust": "5.2.x-dev",
         "roumen/sitemap": "2.6.*",
-        "cviebrock/image-validator": "^2.1",
         "anahkiasen/former": "^4.0",
         "laravelcollective/html": "~5.0",
         "barryvdh/laravel-debugbar": "^3.2",
