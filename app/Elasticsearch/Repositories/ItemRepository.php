@@ -40,52 +40,67 @@ class ItemRepository extends TranslatableRepository
 
     public function getSimilar(int $size, Model $model, $locale = null): SearchResult
     {
+        $query = [
+            'bool'=> [
+                'must' => [
+                    [
+                        'more_like_this' => [
+                            'like' => [
+                                [
+                                    '_index' => $this->getLocalizedIndexName($locale),
+                                    '_id' => $model->id,
+                                ]
+                            ],
+                            'fields' => [
+                                'author.folded',
+                                'title',
+                                'title.stemmed',
+                                'description.stemmed',
+                                'tag.folded',
+                                'place',
+                                'technique',
+                            ],
+                            'min_term_freq' => 1,
+                            'min_doc_freq' => 1,
+                            'minimum_should_match' => 1,
+                            'min_word_length' => 1,
+                        ]
+                    ]
+                ],
+                'should' => [
+                    [
+                        'term' => [
+                            'has_image' => [
+                                'value' => true,
+                                'boost' => 10,
+                            ]
+                        ]
+                    ],
+                    [
+                        'term' => ['has_iip' => true]
+                    ]
+                ]
+            ]
+        ];
+
+        if ($model->related_work) {
+            $query['bool']['must_not'] = [
+                [
+                    'term' => [
+                        'related_work' => [
+                            'value' => $model->related_work,
+                        ]
+                    ]
+                ]
+            ];
+        }
+
+
         $response = $this->elasticsearch->search([
             'index' => $this->getLocalizedIndexName($locale),
             'size' => $size,
             'body' => [
-                'query' => [
-                    'bool'=> [
-                        'must' => [
-                            [
-                                'more_like_this' => [
-                                    'like' => [
-                                        [
-                                            '_index' => $this->getLocalizedIndexName($locale),
-                                            '_id' => $model->id,
-                                        ]
-                                    ],
-                                    'fields' => [
-                                        'author.folded',
-                                        'title',
-                                        'title.stemmed',
-                                        'description.stemmed',
-                                        'tag.folded',
-                                        'place',
-                                        'technique',
-                                    ],
-                                    'min_term_freq' => 1,
-                                    'min_doc_freq' => 1,
-                                    'minimum_should_match' => 1,
-                                    'min_word_length' => 1,
-                                ]
-                            ]
-                        ],
-                        'should' => [
-                            [
-                                'term' => [
-                                    'has_image' => [
-                                        'value' => true,
-                                        'boost' => 10,
-                                    ]
-                                ]
-                            ],
-                            [
-                                'term' => ['has_iip' => true]
-                            ]
-                        ]
-                    ]
-                ]
+                'query' => $query
             ]
         ]);
 
