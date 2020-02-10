@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "690241f6b2de817279d1a99ab1eeb792",
+    "content-hash": "9fbea402717d5f4152efd0e29edd75f5",
     "packages": [
         {
             "name": "anahkiasen/former",
@@ -1854,6 +1854,68 @@
             "time": "2019-09-05T12:32:25+00:00"
         },
         {
+            "name": "laravelium/sitemap",
+            "version": "v3.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://gitlab.com/Laravelium/Sitemap.git",
+                "reference": "260c4a6473c542f77250d4cd8cb822f3453f2b49"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://gitlab.com/api/v4/projects/Laravelium%2FSitemap/repository/archive.zip?sha=260c4a6473c542f77250d4cd8cb822f3453f2b49",
+                "reference": "260c4a6473c542f77250d4cd8cb822f3453f2b49",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "~5.8",
+                "php": ">=7.1.3"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "orchestra/testbench-core": "3.8.*",
+                "phpunit/phpunit": "^7.5 || ^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Laravelium\\Sitemap\\SitemapServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Laravelium\\Sitemap": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roumen Damianoff",
+                    "email": "roumen@damianoff.com",
+                    "homepage": "https://damianoff.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravelium Sitemap package for Laravel.",
+            "homepage": "https://laravelium.com",
+            "keywords": [
+                "Sitemap",
+                "generator",
+                "google-news",
+                "html",
+                "laravel",
+                "laravelium",
+                "php",
+                "xml"
+            ],
+            "time": "2019-02-27T11:50:28+00:00"
+        },
+        {
             "name": "league/color-extractor",
             "version": "dev-master",
             "source": {
@@ -3568,55 +3630,6 @@
                 "promises"
             ],
             "time": "2019-01-07T21:25:54+00:00"
-        },
-        {
-            "name": "roumen/sitemap",
-            "version": "v2.6.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Laravelium/laravel-sitemap.git",
-                "reference": "43747375a1dc19b11aa52442c99628a8d104c0f7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Laravelium/laravel-sitemap/zipball/43747375a1dc19b11aa52442c99628a8d104c0f7",
-                "reference": "43747375a1dc19b11aa52442c99628a8d104c0f7",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "~5",
-                "php": ">=5.5.9"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "3.7.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Roumen\\Sitemap": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Roumen Damianoff",
-                    "email": "roumen@crimsson.com",
-                    "homepage": "https://roumen.it",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A not so simple sitemap generator for Laravel.",
-            "homepage": "https://roumen.it/projects/laravel-sitemap",
-            "keywords": [
-                "Sitemap",
-                "generator",
-                "laravel"
-            ],
-            "abandoned": "laravelium/sitemap",
-            "time": "2016-10-06T06:13:52+00:00"
         },
         {
             "name": "rtconner/laravel-tagging",

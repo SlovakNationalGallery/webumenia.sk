@@ -20,7 +20,6 @@
         "rtconner/laravel-tagging": "~2.1",
         "rap2hpoutre/laravel-log-viewer": "dev-master",
         "zizaco/entrust": "5.2.x-dev",
-        "roumen/sitemap": "2.6.*",
         "anahkiasen/former": "^4.0",
         "laravelcollective/html": "~5.0",
         "barryvdh/laravel-debugbar": "^3.2",
@@ -37,7 +36,8 @@
         "sentry/sentry-laravel": "1.1.0",
         "google/recaptcha": "^1.2",
         "chelout/laravel-relationship-events": "^1.0.0",
-        "primal/color": "^1.0"
+        "primal/color": "^1.0",
+        "laravelium/sitemap": "3.1.*"
     },
     "autoload": {
         "classmap": [
