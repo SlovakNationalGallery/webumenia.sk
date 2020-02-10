@@ -18,7 +18,6 @@
         "guzzlehttp/guzzle": "dev-master",
         "elasticsearch/elasticsearch": "^7.2",
         "rtconner/laravel-tagging": "~2.1",
-        "maatwebsite/excel": "~2.1.0",
         "rap2hpoutre/laravel-log-viewer": "dev-master",
         "zizaco/entrust": "5.2.x-dev",
         "roumen/sitemap": "2.6.*",
