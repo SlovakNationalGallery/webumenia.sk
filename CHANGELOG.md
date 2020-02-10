@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Changed
 - range color search
+- update abandoned composer packages
 
 ### Fixed
 - dont show artworks from the same "related_work" in similiar items by attributes
