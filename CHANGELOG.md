@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Changed
 - range color search
+- update abandoned composer packages
 - moved Elasticsearch Dockerfile to separate repo (WEBUMENIA-1262)
 
 ### Fixed
