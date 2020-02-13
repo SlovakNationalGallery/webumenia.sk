@@ -34,9 +34,7 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
 
   elasticsearch:
-    build:
-      context: .
-      dockerfile: Dockerfile.elasticsearch
+    image: slovaknationalgallery/elasticsearch-webumenia:7.3.1
     environment:
       - discovery.type=single-node
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"

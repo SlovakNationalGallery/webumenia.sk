@@ -4,10 +4,12 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Fixed
 - relationships listed without values in artist detail
+- removing items from collection
 
 ### Changed
 - range color search
 - update abandoned composer packages
+- moved Elasticsearch Dockerfile to separate repo (WEBUMENIA-1262)
 
 ### Fixed
 - dont show artworks from the same "related_work" in similiar items by attributes
