@@ -2,19 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
-### Fixed
-- relationships listed without values in artist detail
-- removing items from collection
 
-### Changed
-- range color search
-- update abandoned composer packages
-- moved Elasticsearch Dockerfile to separate repo (WEBUMENIA-1262)
-
-### Fixed
-- dont show artworks from the same "related_work" in similiar items by attributes
-
-## [1.12.0] - 2020-01-23
+## [2.0.0] - 2020-02-13
 ### Added
 - model relationship events
 - test via docker in travis
@@ -22,6 +11,23 @@ All notable changes to this project will be documented in this file[^1].
 - domain fallback translator
 - authority/item title generators
 - basic frontend view tests
+
+### Changed
+- upgrade to Elasticsearch 7.3
+- upgrade laravel translatable models package
+- rewrite and remove bouncy package usages
+- refactor authority/item filters to use symfony forms
+- range color search
+- update abandoned composer packages
+- moved Elasticsearch Dockerfile to separate repo (WEBUMENIA-1262)
+
+### Fixed
+- don't show artworks from the same "related_work" in similiar items by attributes
+- relationships listed without values in artist detail
+- removing items from collection
+
+## [1.12.0] - 2020-01-23
+### Added
 - TGP, PGU and PNP into list of galleries in the info page
 
 ### Fixed
@@ -35,10 +41,6 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Changed
 - lab.sng team in info page
-- upgrade to Elasticsearch 7.3
-- upgrade laravel translatable models package
-- rewrite and remove bouncy package usages
-- refactor authority/item filters to use symfony forms
 
 ## [1.11.0] - 2020-01-17
 ### Changed
