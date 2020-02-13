@@ -77,7 +77,7 @@
                     list($width, $height) = getimagesize(public_path() . $item->getImagePath());
                     @endphp
                     <div class="ratio-box bottom-space"
-                        style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%">
+                        style="padding-bottom: min({{ round(($height / $width) * 100, 4) }}% , {{$height  + 30}}px)">
                         @include('components.item_image_responsive', [
                             'item' => $item,
                             'width' => $width,
