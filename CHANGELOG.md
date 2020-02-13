@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - relationships listed without values in artist detail
 - removing items from collection
+- small item images are displayed incorrectly
 
 ### Changed
 - range color search
