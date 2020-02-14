@@ -3,7 +3,7 @@
         @php $label_attr = array_merge($label_attr, ['for' => $id]) @endphp
     @endif
     @if ($required)
-        @php $class = isset($label_attr['class']) ? trim($label_attr['class'] . ' required') : 'required'; @endphp
+        @php $class = trim(($label_attr['class'] ?? '') . ' required') @endphp
         @php $label_attr = array_merge($label_attr, ['class' => $class]) @endphp
     @endif
     @if (is_empty($label))
@@ -11,7 +11,7 @@
             @php $label = strtr($label_format, ['%name%' => $name, '%id%' => $id]) @endphp
         @else
             {{-- fix https://github.com/laravel/framework/issues/2249 --}}
-            @php $label = utrans($translation_domain ? "$translation_domain.$name" : $name) @endphp
+            @php $label = trans($translation_domain ? "$translation_domain.$name" : $name) @endphp
         @endif
     @endif
     <label

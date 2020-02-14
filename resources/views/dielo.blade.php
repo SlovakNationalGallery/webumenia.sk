@@ -63,14 +63,14 @@
                     </a>
 
                     @include('components.image_carousel', [
-                    'slick_target' => "multiple-views",
-                    'slick_variant' => "artwork-detail-thumbnail",
-                    'img_urls' => $item->images->map(function ($image) {
-                        return $image->getPreviewUrl();
+                        'slick_target' => "multiple-views",
+                        'slick_variant' => "artwork-detail-thumbnail",
+                        'img_urls' => $item->images->map(function ($image) {
+                            return $image->getPreviewUrl();
                     }),
-                    'img_title' => $item->getTitleWithAuthors(),
-                    'anchor_href' => route('item.zoom', ['id' => $item->id]),
-                    'anchor_title' => utrans('general.item_zoom'),
+                        'img_title' => $item->getTitleWithAuthors(),
+                        'anchor_href' => route('item.zoom', ['id' => $item->id]),
+                        'anchor_title' => utrans('general.item_zoom'),
                     ])
                     @else
                     @php
@@ -79,9 +79,9 @@
                     <div class="ratio-box bottom-space"
                         style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%">
                         @include('components.item_image_responsive', [
-                        'item' => $item,
-                        'width' => $width,
-                        'height' => $height
+                            'item' => $item,
+                            'width' => $width,
+                            'height' => $height
                         ])
                     </div>
                     @endif
@@ -157,7 +157,7 @@
                                     </td>
                                 </tr>
                             @endif
-                            @if (!empty($item->topics)) 
+                            @if (!empty($item->topics))
                             <tr>
                                 <td class="atribut">{{ trans('dielo.item_attr_topic') }}:</td>
                                 <td>
@@ -270,7 +270,7 @@
                                 <td><a rel="license" href="{!!URL::to('katalog?is_free=' . '1')!!}" target="_blank"
                                         class="no-border license" title="Public Domain" data-toggle="tooltip"><img
                                             alt="Creative Commons License" style="height: 20px; width: auto"
-                                            src="/images/license/zero.svg"> {{ trans('general.public_domain') }}</a>
+                                            src="{{ asset('/images/license/zero.svg') }}"> {{ trans('general.public_domain') }}</a>
                                 </td>
                             </tr>
                             @endif
@@ -313,7 +313,7 @@
                         @endif
                     </div>
 
-                    <!-- TODO update once when ready 
+                    <!-- TODO update once when ready
                         <div class="share">
                         <div class="fb-like" data-href="{!! $item->getUrl() !!}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" style="height:20px; vertical-align: top;"></div> &nbsp;
                         <a href="https://twitter.com/share" class="twitter-share-button" style="float: right; text-align: right" >Tweet</a>
@@ -325,8 +325,9 @@
         </div>
     </div>
 </section>
+
 <section class="more-items content-section">
-    @if ($related_items)
+    @if ($related_items && $related_items->count() > 1)
         <div class="container-fluid related-works">
             <div class="container">
                 <div class="row">
@@ -339,14 +340,14 @@
                             ({!! $item->related_work_order !!}/{!! $item->related_work_total !!})
                             @endif
                         </h3>
-                        
+
                         @include('components.artwork_carousel', [
                             'slick_target' => "artworks-preview",
                             'slick_variant' => "large",
                             'items' => $related_items,
                             'class_names' => 'mb-5'
                         ])
-                        
+
                     </div>
                 </div>
             </div>
@@ -354,10 +355,10 @@
     @endif
     <div class="container">
         <div class="row">
-            <div class="{{$colors_used ? 'col-sm-6 pr-sm-5' : 'col-xs-12'}}">
+            <div class="{{ $item->has_colors ? 'col-sm-6 pr-sm-5' : 'col-xs-12'}}" id="related-by-metadata">
                 <div class="h-8rem">
                     <h3>
-                        {{ utrans('dielo.more-items_related-artworks') }}
+                            {{ utrans('dielo.more-items_related-artworks') }}
                         <br>
                         <span class="grey lh-4rem">
                             {{ trans('dielo.more-items_related-artworks_by-data') }}
@@ -365,43 +366,30 @@
                     </h3>
                 </div>
                 <div class="isotope-container">
-                    @php
-                    $artwork_grid_item_class_names = $colors_used ? 'col-xs-6 px-5' : 'col-xs-3 px-5';
-                    @endphp
-                    @foreach ($similar_items as $i=>$item)
-                    @include('components.artwork_grid_item', [
-                    'item' => $item,
-                    'isotope_item_selector_class' => 'item',
-                    'class_names' => $artwork_grid_item_class_names,
-                    'hide_zoom' => true,
-                    'hide_dating' => true
-                    ])
+                    @foreach ($similar_items as $similar_item)
+                        @include('components.artwork_grid_item', [
+                            'item' => $similar_item,
+                            'isotope_item_selector_class' => 'item',
+                            'class_names' => ($item->has_colors) ? 'col-xs-6' : 'col-xs-3',
+                            'hide_zoom' => true,
+                            'hide_dating' => true
+                        ])
                     @endforeach
                 </div>
             </div>
-            @if ($colors_used)
-            <div class="col-sm-6 pl-sm-5" id="colorrelated"
-                data-fetch-url="{{ route('dielo.colorrelated', ['id' => $item->id]) }}">
+            @if ($item->has_colors)
+            <div class="col-sm-6 pl-sm-5" id="related-by-color">
                 <div class="h-8rem">
                     <h3 class="mb-1">{{ utrans('dielo.more-items_similar-colors') }}</h3>
-                    @include('components.color_list', ['colors' => $colors_used, 'class_names' => 'lh-4rem'])
+                    @include('components.color_list', ['colors' => $item->getColors()])
                 </div>
-                <div class="isotope-container">
-                    @foreach ($similar_items_by_color as $i=>$item)
-                    @include('components.artwork_grid_item', [
-                    'item' => $item,
-                    'isotope_item_selector_class' => 'item',
-                    'class_names' => 'col-xs-6 px-5',
-                    'hide_zoom' => true,
-                    'hide_dating' => true
-                    ])
-                    @endforeach
-                </div>
+                <div class="isotope-container" data-fetch-url="{{ route('dielo.colorrelated', ['id' => $item->id]) }}"></div>
             </div>
             @endif
         </div>
     </div>
 </section>
+
 <!-- Modal -->
 <div tabindex="-1" class="modal fade" id="license" role="dialog">
     <div class="modal-dialog">
@@ -437,8 +425,6 @@
         </div>
     </div>
 </div>
-
-<!-- <div id="map"></div> -->
 
 @stop
 
@@ -481,20 +467,21 @@
         }
     };
 
-    // start with isotype even before document is ready    
+    // start with isotype even before document is ready
     $('.isotope-container').isotope({
         itemSelector: '.item',
         layoutMode: 'masonry'
     });
 
     $(document).ready(function(){
+        var relatedByColorIsotope = $('#related-by-color > .isotope-container').first();
 
-        $( window ).resize(function() {
-            $('.isotope-container').isotope({
-                itemSelector: '.item',
-                layoutMode: 'masonry'
+        if (relatedByColorIsotope) {
+            var fetchUrl = relatedByColorIsotope.data('fetch-url')
+            $.get(fetchUrl, function (data) {
+                relatedByColorIsotope.isotope('insert', $(data))
             });
-        });
+        }
 
         $('.expandable').readmore({
             moreLink: '<a href="#"><i class="fa fa-chevron-down"></i> {{ trans("general.show_more") }}</a>',

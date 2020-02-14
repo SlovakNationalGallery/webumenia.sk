@@ -12,4 +12,6 @@ return array(
     */
 
     'no_translation'        => "Některé prvky na této stránce nejsou přeloženy do češtiny. ¯\_(ツ)_/¯",
+    'save' => 'uložit',
+    'submit' => 'odeslat',
 );

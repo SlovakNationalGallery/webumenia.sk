@@ -1,5 +1,7 @@
 <?php namespace App\Exceptions;
 
+use App\Elasticsearch\Repositories\ItemRepository;
+use App\Filter\ItemFilter;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -55,7 +57,13 @@ class Handler extends ExceptionHandler
                 return redirect($resolvedUrl, 301);
             }
 
-            $item = Item::random()->first();
+            $filter = (new ItemFilter)
+                ->setHasImage(true)
+                ->setHasIip(true);
+            $item = app(ItemRepository::class)
+                ->getRandom(1, $filter)
+                ->getCollection()
+                ->first();
             return response()->view('errors.missing', ['item' => $item], 404);
         }
 

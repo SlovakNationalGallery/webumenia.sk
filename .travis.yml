@@ -1,5 +1,8 @@
-language: php
-php: '7.2'
-install:
-  - cp .env.testing.example .env.testing
-  - composer install
+services:
+  - docker
+
+before_install:
+  - cp .env.example .env
+
+script:
+  - docker-compose run php vendor/bin/phpunit

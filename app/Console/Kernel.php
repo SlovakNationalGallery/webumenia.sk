@@ -23,9 +23,8 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\Inspire::class,
         \App\Console\Commands\OaiPmhDownloadImages::class,
         \App\Console\Commands\MigrateTags::class,
-        \App\Console\Commands\DescribeItemColors::class,
         \App\Console\Commands\ImportCsv::class,
-        \App\Console\Commands\DescribeItemColors::class,
+        \App\Console\Commands\ItemsExtractColors::class,
     ];
 
     /**

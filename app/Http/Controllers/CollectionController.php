@@ -214,7 +214,7 @@ class CollectionController extends Controller
         $collection = Collection::find($collection_id);
         $collection->items()->detach($item_id);
 
-        return Redirect::back()->withMessage('Z kolekcie '.$collection->name.' bolo odstrádené '.count($item_id).' dielo');
+        return Redirect::back()->withMessage('Z kolekcie <strong>'.$collection->name.'</strong> bolo odstrádené dielo <code>' . $item_id . '</code>');
     }
 
     private function uploadMainImage($collection)

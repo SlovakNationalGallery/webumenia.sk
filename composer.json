@@ -13,23 +13,20 @@
     }],
     "require": {
         "laravel/framework": "5.8.*",
-        "caseyamcl/Phpoaipmh": "dev-master",
+        "caseyamcl/phpoaipmh": "dev-master",
         "intervention/image": "dev-master",
         "guzzlehttp/guzzle": "dev-master",
-        "fadion/bouncy": "dev-l5",
+        "elasticsearch/elasticsearch": "^7.2",
         "rtconner/laravel-tagging": "~2.1",
-        "maatwebsite/excel": "~2.1.0",
         "rap2hpoutre/laravel-log-viewer": "dev-master",
         "zizaco/entrust": "5.2.x-dev",
-        "roumen/sitemap": "2.6.*",
-        "cviebrock/image-validator": "^2.1",
         "anahkiasen/former": "^4.0",
         "laravelcollective/html": "~5.0",
         "barryvdh/laravel-debugbar": "^3.2",
         "php": ">=7.2.0",
         "graham-campbell/throttle": "^7",
         "mcamara/laravel-localization": "1.2.*",
-        "dimsav/laravel-translatable": "6.*",
+        "astrotomic/laravel-translatable": "^11.3",
         "predis/predis": "^1.1",
         "doctrine/dbal": "^2.5",
         "league/csv": "^8.0",
@@ -37,7 +34,10 @@
         "barryvdh/laravel-form-bridge": "^0.4",
         "symfony/templating": "^3.4",
         "sentry/sentry-laravel": "1.1.0",
-        "google/recaptcha": "^1.2"
+        "google/recaptcha": "^1.2",
+        "chelout/laravel-relationship-events": "^1.0.0",
+        "primal/color": "^1.0",
+        "laravelium/sitemap": "3.1.*"
     },
     "autoload": {
         "classmap": [
