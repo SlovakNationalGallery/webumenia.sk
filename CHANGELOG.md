@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- GMU v Roudnici nad Labem importer
 
 ## [2.2.1] - 2020-03-16
 ### Fixed

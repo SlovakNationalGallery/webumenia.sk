@@ -9,6 +9,7 @@ use App\Repositories\CsvRepository;
 
 
 use App\Jobs\Job;
+use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -34,7 +35,7 @@ class ImportCsv extends Job implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(Translator $translator)
     {
         $this->import->status = Import::STATUS_IN_PROGRESS;
         $this->import->save();
@@ -44,7 +45,7 @@ class ImportCsv extends Job implements ShouldQueue
             if (!$reflection->isInstantiable()) {
                 throw new \Exception('Class is not instantiable');
             }
-            $importer = new $this->import->class_name(new CsvRepository());
+            $importer = new $this->import->class_name(new CsvRepository(), $translator);
         } catch (\Exception $e) {
             if (\App::runningInConsole()) {
                 echo "Nenašiel sa importer pre dané ID.\n";
