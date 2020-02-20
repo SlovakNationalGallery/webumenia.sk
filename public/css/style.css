@@ -7541,7 +7541,7 @@ input[type="radio"] .styled:checked + label::after {
 }
 .selectize-control.multi .selectize-input:not(.has-items):after {
   content: '\e120';
-  font-family: "icomoon";
+  font-family: "sng";
   display: block;
   position: absolute;
   top: 5px;

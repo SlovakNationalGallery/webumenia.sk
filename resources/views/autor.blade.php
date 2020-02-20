@@ -103,7 +103,7 @@
                     
                         <a href='//www.pinterest.com/pin/create/button/?url={!!  Request::url() !!}' class='pin-it-button no-border'
                            count-layout='none' target='_blank' data-toggle="tooltip" title="{{ trans('general.share_pinterest') }}">
-                            <i class='sng-icon'>pinterest</i>
+                            <i class='fa fa-pinterest fa-lg'></i>
                         </a>
                         <a href='mailto:?subject={!! $author->formatedName !!}, {{trans('informacie.info_gallery_SNG')}}&body={!! Request::url()!!}'
                            style="font-size:0.9em" target='_blank' class="no-border" data-toggle="tooltip"

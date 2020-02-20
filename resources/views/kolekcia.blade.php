@@ -90,7 +90,7 @@
     
         <a href='//www.pinterest.com/pin/create/button/?url={!! $collection->getUrl() !!}' class='pin-it-button no-border'
         count-layout='none' target='_blank' data-toggle="tooltip" title="{{ trans('general.share_pinterest') }}">
-            <i class='sng-icon'>pinterest</i>
+            <i class='fa fa-pinterest fa-lg'></i>
         </a>
         <a href='mailto:?subject={!! $collection->name !!}, {{trans('informacie.info_gallery_SNG')}}&body={!!$collection->getUrl()!!}'
         style="font-size:0.9em" target='_blank' class="no-border" data-toggle="tooltip"
