@@ -49,6 +49,11 @@ $factory->define(\App\Item::class, function (Faker\Generator $faker) {
         'inscription' => $faker->word,
         'related_work_order' => $faker->randomNumber,
         'related_work_total' => $faker->randomNumber,
+        'colors' => [
+            $faker->hexColor => 1,
+        ],
+        'created_at' => $faker->date,
+        'updated_at' => $faker->date,
     ];
 });
 
@@ -76,6 +81,8 @@ $factory->define(\App\Authority::class, function (Faker\Generator $faker) {
         'view_count' => $faker->randomNumber,
         'image_source_url' => $faker->url,
         'image_source_label' => $faker->word,
+        'created_at' => $faker->date,
+        'updated_at' => $faker->date,
     ];
 });
 

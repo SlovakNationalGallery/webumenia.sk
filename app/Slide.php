@@ -22,7 +22,7 @@ class Slide extends Model
     public static $rules = [
         'title' => 'required',
         'publish' => 'boolean',
-        'image' => 'image|image_size:>=1200,*',
+        'image' => 'image|dimensions:min_width=1200',
     ];
 
     public static function boot()

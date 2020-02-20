@@ -13,7 +13,6 @@
 
 use App\Article;
 use App\Collection;
-use App\Color;
 use App\Elasticsearch\Repositories\AuthorityRepository;
 use App\Elasticsearch\Repositories\ItemRepository;
 use App\Filter\ItemFilter;
@@ -226,7 +225,7 @@ function()
     });
 
     Route::get('dielo/{id}/stiahnut', ['middleware' => 'throttle:5,1', function ($id) {
-        $item = Item::find($id);
+        $item = Item::findOrFail($id);
         if ($item->images->isEmpty()) {
             abort(404);
         }
@@ -235,7 +234,7 @@ function()
     }]);
 
     Route::get('dielo/{id}', function ($id, ItemRepository $itemRepository) {
-
+        /** @var Item $item */
         $item = Item::find($id);
         if (empty($item)) {
             abort(404);
@@ -245,7 +244,8 @@ function()
         $item->save();
         $previous = $next = false;
 
-        $more_items = $itemRepository->getSimilar(30, $item)->getCollection();
+        $similar_items = $itemRepository->getSimilar(30, $item)->getCollection();
+        $related_items = (!empty($item->related_work)) ? Item::related($item)->get() : null;
 
         if (Input::has('collection')) {
             $collection = Collection::find((int) Input::get('collection'));
@@ -262,52 +262,21 @@ function()
             }
         }
 
-        $colors_used = [];
-
-        if ($item->color_descriptor) {
-            $colors_used = $item->getColorsUsed(Color::TYPE_HEX);
-
-            uasort($colors_used, function ($a, $b) {
-                if ($a['amount'] == $b['amount']) {
-                    return 0;
-                }
-
-                return $a['amount'] < $b['amount'] ? 1 : -1;
-            });
-
-            $amount_sum = array_sum(array_column($colors_used, 'amount'));
-            foreach ($colors_used as $hex => $color_used) {
-                $colors_used[$hex]['amount'] = sprintf("%.3f%%", $colors_used[$hex]['amount'] * 100 / $amount_sum, 3);
-                $colors_used[$hex]['hex'] = $colors_used[$hex]['color']->getValue();
-            }
-        }
-
         return view('dielo', compact(
             'item',
-            'more_items',
-            'similar_by_color',
-            // 'colors_used',
+            'similar_items',
+            'related_items',
             'previous',
             'next'
         ));
     });
 
-//    Route::get('dielo/{id}/colorrelated', function ($id) {
-//        $item = Item::find($id);
-//
-//        $similar_by_color = [];
-//
-//        $ids = $item->similarByColor(20)->pluck('id');
-//        $similar_by_color = Item::whereIn('id', $ids)->get();
-//        $similar_by_color = $similar_by_color->filter(function (Item $i) use ($item) {
-//            return (bool)$i->color_descriptor && $item->id != $i->id;
-//        });
-//        $similar_by_color = $similar_by_color->sort(function($a, $b) use ($ids) {
-//            return $ids->search($a->id) - $ids->search($b->id);
-//        });
-//
-//        return view('dielo-colorrelated', compact('similar_by_color'));
-//    })->name('dielo.colorrelated');
+    Route::get('dielo/{id}/colorrelated', function ($id, ItemRepository $itemRepository) {
+        $item = Item::findOrFail($id);
+        return view('dielo-colorrelated', [
+            'similar_by_color' => $itemRepository->getSimilarByColor(20, $item)->getCollection(),
+        ]);
+    })->name('dielo.colorrelated');
 
     Route::get('dielo/nahlad/{id}/{width}/{height?}', 'ImageController@resize')->where('width', '[0-9]+')->where('height', '[0-9]+')->name('dielo.nahlad');
     Route::get('image/{id}/download', 'ImageController@download')->name('image.download');
@@ -386,9 +355,24 @@ function()
                 'url'         => 'katalog?gallery=Východoslovenská+galéria%2C+VSG',
             ],
             [
+                'id'          => 'TGP',
+                'lang_string' => 'informacie.info_gallery_TGP',
+                'url'         => 'katalog?gallery=Tatranská+galéria%2C+TGP',
+            ],
+            [
+                'id'          => 'PGU',
+                'lang_string' => 'informacie.info_gallery_PGU',
+                'url'         => 'katalog?gallery=Považská+galéria+umenia%2C+PGU',
+            ],
+            [
                 'id'          => 'MG',
                 'lang_string' => 'informacie.info_gallery_MG',
                 'url'         => 'katalog?gallery=Moravská galerie, MG',
+            ],
+            [
+                'id'          => 'PNP',
+                'lang_string' => 'informacie.info_gallery_PNP',
+                'url'         => 'katalog?gallery=Památník+národního+písemnictví%2C+PNP',
             ],
         ];
 

@@ -8884,10 +8884,10 @@ label sup {
 .more-items h3 {
   font-weight: 600;
 }
-#colorrelated .colorlist {
+#related-by-color .colorlist {
   margin-top: 10px;
 }
-#colorrelated .colorlist li {
+#related-by-color .colorlist li {
   height: 18px;
   line-height: 4rem;
   margin: 0 2px;

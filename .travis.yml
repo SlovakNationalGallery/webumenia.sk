@@ -1,12 +1,8 @@
-sudo: required
 services:
   - docker
 
 before_install:
   - cp .env.example .env
-  - sudo service mysql stop
 
 script:
-  - docker-compose build
-  - docker-compose run php composer install
-  - docker-compose run php php vendor/bin/phpunit
+  - docker-compose run php vendor/bin/phpunit

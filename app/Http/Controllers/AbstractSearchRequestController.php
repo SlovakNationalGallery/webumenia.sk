@@ -10,6 +10,7 @@ use Barryvdh\Form\CreatesForms;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Arr;
 
 abstract class AbstractSearchRequestController extends Controller
 {
@@ -78,6 +79,7 @@ abstract class AbstractSearchRequestController extends Controller
             'searchRequest' => $searchRequest,
             'form' => $searchRequestForm->createView(),
             'title' => $this->titleGenerator->generate($searchRequest),
+            'urlWithoutColor' => route(request()->route()->getName(), Arr::except(request()->query(), ['color'])),
             'untranslated' => $collection->contains(function (Translatable $translatable) {
                 return !$translatable->hasTranslation();
             }),

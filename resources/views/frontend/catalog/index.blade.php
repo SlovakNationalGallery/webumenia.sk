@@ -41,6 +41,9 @@
                     @if ($hasFilters)
                         <a class="btn btn-sm btn-default btn-outline  sans" href="{{ URL::to('katalog') }}">{{ trans('general.clear_filters') }}  <i class="icon-cross"></i></a>
                     @endif
+                    @if ($form['color']->vars['value'])
+                        <a class="btn btn-sm btn-default btn-outline sans" href="{{ $urlWithoutColor }}" id="clear_color">{{ trans('general.clear_color') }} <span class="picked-color" style="background-color: {{ $form['color']->vars['value'] }};">&nbsp;</span> <i class="icon-cross"></i></a>
+                    @endif
                 </div>
                 <div class="col-xs-6 text-right">
                     @formRow($form['sort_by'], ['attr' => ['class' => 'js-dropdown-select']])
@@ -172,6 +175,12 @@
                         return '<div class="selected-item">'  + '<span class="color">'+this.settings.placeholder+': </span>' +  data.text.replace(/\(.*?\)/g, "") + '</div>';
                     }
                 }
+            });
+
+            $(".js-color-clear").click(function(e) {
+                e.preventDefault();
+                $(this).closest('label').find('input').val('');
+                $(this).closest('form').submit();
             });
 
             var $container = $('#iso');

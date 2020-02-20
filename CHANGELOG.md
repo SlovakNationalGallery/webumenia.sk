@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.0.0] - 2020-02-13
 ### Added
 - model relationship events
 - test via docker in travis
@@ -10,18 +12,39 @@ All notable changes to this project will be documented in this file[^1].
 - authority/item title generators
 - basic frontend view tests
 
-### Fixed
-- Fix 'show more' button in catalog (WEBUMENIA-1219)
-- fix iframe handling in Admin editor
-- artwork-detail: prevent upsizing of preview image
-
-## [1.11.0] - 2020-01-17
 ### Changed
-- upgrade to Laravel 5.8
 - upgrade to Elasticsearch 7.3
 - upgrade laravel translatable models package
 - rewrite and remove bouncy package usages
 - refactor authority/item filters to use symfony forms
+- range color search
+- update abandoned composer packages
+- moved Elasticsearch Dockerfile to separate repo (WEBUMENIA-1262)
+
+### Fixed
+- don't show artworks from the same "related_work" in similiar items by attributes
+- relationships listed without values in artist detail
+- removing items from collection
+
+## [1.12.0] - 2020-01-23
+### Added
+- TGP, PGU and PNP into list of galleries in the info page
+
+### Fixed
+- error 500 from /dielo/{id}/stiahnut for non-existent IDs (WEBUMENIA-1235)
+- 'show more' button in catalog (WEBUMENIA-1219)
+- iframe handling in Admin editor
+- artwork-detail: prevent upsizing of preview image
+- don't display carousel with related works when there are no related works
+- missing attributes in artwork detail
+- spice harvester process detail view
+
+### Changed
+- lab.sng team in info page
+
+## [1.11.0] - 2020-01-17
+### Changed
+- upgrade to Laravel 5.8
 
 ## [1.10.2] - 2020-01-13
 ### Fixed

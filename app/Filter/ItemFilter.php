@@ -2,8 +2,8 @@
 
 namespace App\Filter;
 
-use App\Color;
 use App\IntegerRange;
+use Primal\Color\Color;
 
 class ItemFilter extends AbstractFilter
 {
