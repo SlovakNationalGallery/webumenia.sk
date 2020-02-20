@@ -27,4 +27,13 @@ return array(
                           |{1}    :artworks_count dielo
                           |[2,4]  :artworks_count diela
                           |[5,*]:artworks_count diel',
+
+    "share"              => "zdieľať",
+    "share_facebook"     => "zdieľať na facebooku",
+    "share_instagram"    => "zdieľať na instagrame",
+    "share_twitter"      => "zdieľať na twitteri",
+    "share_pinterest"    => "zdieľať na pintereste",
+    "copy_url"           => "kopírovať odkaz",
+    "share_mail"         => "odoslať mailom",
+    "copied_to_clipboard"=> "Odkaz bol skopírovaný do schránky",
 );

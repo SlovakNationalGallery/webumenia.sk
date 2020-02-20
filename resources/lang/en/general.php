@@ -26,4 +26,13 @@ return array(
     'artworks_counted' => '{0}    :artworks_count artworks
                           |{1}    :artworks_count artwork
                           |[2,*]:artworks_count artworks',
+
+    "share"              => "share",
+    "share_facebook"     => "share on facebook",
+    "share_instagram"    => "share on instagram",
+    "share_twitter"      => "share on twitter",
+    "share_pinterest"    => "share on pinterest",
+    "copy_url"           => "copy link",
+    "share_mail"         => "send via email",
+    "copied_to_clipboard"=> "Link was copied to clipboard",
 );

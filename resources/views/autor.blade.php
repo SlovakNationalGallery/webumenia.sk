@@ -90,6 +90,32 @@
                         </div>
                     @endif
 
+                    <div class="container text-left share-icons">
+                        <a href='https://www.facebook.com/dialog/share?&appId=1429726730641216&version=v2.0&display=popup&href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2F&redirect_uri=https%3A%2F%2Fdevelopers.facebook.com%2Ftools%2Fexplorer'
+                           target='_blank' class="no-border" data-toggle="tooltip" title="{{ trans('general.share_facebook') }}">
+                            <i class='fa fa-facebook fa-lg'></i>
+                        </a>
+                    
+                        <a href='https://twitter.com/intent/tweet?text={!! $author->formatedName !!}&url={!!  Request::url() !!}'
+                           target='_blank' class="no-border" data-toggle="tooltip" title='{{ trans('general.share_twitter') }}'>
+                            <i class='fa fa-twitter fa-lg'></i>
+                        </a>
+                    
+                        <a href='//www.pinterest.com/pin/create/button/?url={!!  Request::url() !!}' class='pin-it-button no-border'
+                           count-layout='none' target='_blank' data-toggle="tooltip" title="{{ trans('general.share_pinterest') }}">
+                            <i class='sng-icon'>pinterest</i>
+                        </a>
+                        <a href='mailto:?subject={!! $author->formatedName !!}, {{trans('informacie.info_gallery_SNG')}}&body={!! Request::url()!!}'
+                           style="font-size:0.9em" target='_blank' class="no-border" data-toggle="tooltip"
+                           title="{{ trans('general.share_mail') }}">
+                            <i class='fa fa-envelope fa-lg'></i>
+                        </a>
+                        <a onclick='copyLinkToClipboard("{!! Request::url()!!}")' style='cursor:pointer' data-toggle="tooltip" class="no-border"
+                           title="{{ trans('general.copy_url') }}">
+                            <i class='fa fa-link fa-lg'></i>
+                        </a>
+                    </div>
+
                     @if ( $author->relationships->count() > 0)
                     <h4 class="top-space">{{ utrans('authority.relationships') }}</h4>
                     <table class="table table-condensed relationships">

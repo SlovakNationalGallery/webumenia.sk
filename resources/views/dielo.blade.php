@@ -265,6 +265,36 @@
                             </tr>
                             @endif
 
+                            <tr class="share-icons">
+                                <td class="atribut">&nbsp;</td>
+                                <td class="icons">
+                                    <a href='https://www.facebook.com/dialog/share?&appId=1429726730641216&version=v2.0&display=popup&href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2F&redirect_uri=https%3A%2F%2Fdevelopers.facebook.com%2Ftools%2Fexplorer'
+                                       target='_blank' class="no-border" data-toggle="tooltip" title="{{ trans('general.share_facebook') }}">
+                                        <i class='fa fa-facebook fa-lg'></i>
+                                    
+                                    </a>
+                                    
+                                    <a href='https://twitter.com/intent/tweet?text={!! $item->getTitleWithAuthors() !!}&url={!! $item->getUrl() !!}'
+                                       target='_blank' class="no-border" data-toggle="tooltip" title='{{ trans('general.share_twitter') }}'>
+                                        <i class='fa fa-twitter fa-lg'></i>
+                                    </a>
+                                    
+                                    <a href='//www.pinterest.com/pin/create/button/?url={!! $item->getUrl() !!}' class='pin-it-button no-border' count-layout='none'
+                                       target='_blank' data-toggle="tooltip" title="{{ trans('general.share_pinterest') }}">
+                                        <i class='sng-icon'>pinterest</i>
+                                    </a>
+                                    <a href='mailto:?subject={!! $item->getTitleWithAuthors() !!}, {{trans('informacie.info_gallery_SNG')}}&body={!!$item->getUrl()!!}' style="font-size:0.9em"
+                                       target='_blank' class="no-border" data-toggle="tooltip" title="{{ trans('general.share_mail') }}">
+                                        <i class='fa fa-envelope fa-lg'></i>
+                                    </a>
+                                    <a onclick='copyLinkToClipboard("{!!$item->getUrl()!!}")' style='cursor:pointer' 
+                                        data-toggle="tooltip" class="no-border"
+                                        title="{{ trans('general.copy_url') }}">
+                                        <i class='fa fa-link fa-lg'></i>
+                                    </a>
+                                </td>
+                            </tr>
+
                         </tbody>
                     </table>
                     @if (!empty($item->lat) && ($item->lat > 0))
@@ -283,14 +313,6 @@
                             {{ trans('dielo.item_download') }} </a>
                         @endif
                     </div>
-
-                    <!-- TODO update once when ready
-                        <div class="share">
-                        <div class="fb-like" data-href="{!! $item->getUrl() !!}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" style="height:20px; vertical-align: top;"></div> &nbsp;
-                        <a href="https://twitter.com/share" class="twitter-share-button" style="float: right; text-align: right" >Tweet</a>
-                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
-                        </script>
-                    </div> -->
                 </div>
             </div>
         </div>

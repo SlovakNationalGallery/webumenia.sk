@@ -27,7 +27,7 @@
 @nav-link-padding:                          10px 15px;
 
 @checkbox-size: 30px;
-@checkbox-font-family: 'icomoon';
+@checkbox-font-family: 'sng';
 
 @input-border-focus:             @primary-color;
 @input-color-placeholder:        @primary-color;
@@ -430,6 +430,16 @@ table a:not(.btn):not(.readmore-js-toggle):not(.no-border), .attributes a:not(.b
     font-style: italic;
 }
 
+.share-icons td, .share-icons{
+  padding-top: 2em !important;
+  padding-bottom: 2em !important;
+  font-size: 14px;
+  a {
+    text-decoration: none;
+    padding: 0.5em;
+  }
+}
+
 #small-map {
     width: 100%;
     height: 200px;
@@ -710,7 +720,6 @@ section.catalog {
 }
 
 .shareon-container{margin:0px; position: absolute; bottom: 15px; right: 0; text-align: left; width: 100%; vertical-align: top;}
-.fb-like {height:20px; vertical-align: top;}
 .collection.top-section {
     padding-bottom: 0;
 }
@@ -720,12 +729,6 @@ section.catalog {
 .description {
     text-indent: 50px;
 }
-
-.share {
-    margin-top: 20px;
-}
-
-.twitter-share-button { width: 80px !important; }
 
 @media(min-width: @screen-xs-min) {
   .author-title {margin-top: 30px;}
