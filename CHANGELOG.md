@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+### Changed
+- social share buttons on artwork / author / collection / article pages
+
 ## [2.0.0] - 2020-02-13
 ### Added
 - model relationship events
