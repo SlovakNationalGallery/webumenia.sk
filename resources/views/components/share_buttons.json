@@ -1,0 +1,8 @@
+{
+    "name": "Share Buttons",
+    "data": {
+        "url": "http://webumenia.sk",
+        "title": "webumenia"
+    },
+    "usage_notes": "List of sharing icons, needs $title and $url"
+}
