@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Changed
+- limit for similiar items / similiar by color items
 
 ## [2.0.0] - 2020-02-13
 ### Added

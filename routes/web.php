@@ -244,7 +244,7 @@ function()
         $item->save();
         $previous = $next = false;
 
-        $similar_items = $itemRepository->getSimilar(30, $item)->getCollection();
+        $similar_items = $itemRepository->getSimilar(10, $item)->getCollection();
         $related_items = (!empty($item->related_work)) ? Item::related($item)->get() : null;
 
         if (Input::has('collection')) {
@@ -274,7 +274,7 @@ function()
     Route::get('dielo/{id}/colorrelated', function ($id, ItemRepository $itemRepository) {
         $item = Item::findOrFail($id);
         return view('dielo-colorrelated', [
-            'similar_by_color' => $itemRepository->getSimilarByColor(20, $item)->getCollection(),
+            'similar_by_color' => $itemRepository->getSimilarByColor(10, $item)->getCollection(),
         ]);
     })->name('dielo.colorrelated');
 
