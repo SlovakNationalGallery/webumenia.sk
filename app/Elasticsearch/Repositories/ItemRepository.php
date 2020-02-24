@@ -389,11 +389,10 @@ class ItemRepository extends TranslatableRepository
             $sort[] = ['updated_at' => ['order' => 'desc']];
             $sort[] = ['created_at' => ['order' => 'desc']];
         } else {
-            $sortBy = in_array($sortBy, ['newest', 'oldest']) ? 'date_earliest' : $sortBy;
             $sortOrder = in_array($sortBy, ['author', 'title', 'oldest']) ? 'asc' : 'desc';
+            $sortBy = in_array($sortBy, ['newest', 'oldest']) ? 'date_earliest' : $sortBy;
             $sort[] = [$sortBy => ['order' => $sortOrder]];
         }
-
         $body['sort'] = $sort;
         return $body;
     }

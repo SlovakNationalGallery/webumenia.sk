@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file[^1].
 
+## [Unreleased]
+### Fixed
+- sort order when order by oldest
+
 ## [2.0.1] - 2020-02-21
 ### Fixed
 - allow unknown authors in filter
