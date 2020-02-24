@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file[^1].
 ### Changed
 - limit for similiar items / similiar by color items
 
+## [2.0.1] - 2020-02-21
+### Fixed
+- allow unknown authors in filter
+
 ## [2.0.0] - 2020-02-13
 ### Added
 - model relationship events
