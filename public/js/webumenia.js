@@ -148,13 +148,3 @@ var light_style = [
 function isIE() { return navigator.userAgent.match(/Edge\/|Trident\/|MSIE /); }
 
 function isMobileSafari() { return navigator.userAgent.match(/(iPod|iPhone|iPad)/); }
-
-
-function copyLinkToClipboard(url) {
-    var $temp = $("<input>");
-    $("body").append($temp);
-    $temp.val(url).select();
-    document.execCommand("copy");
-    $temp.remove();
-    alert("{{ trans('dielo.copied_to_clipboard') }}");
-}

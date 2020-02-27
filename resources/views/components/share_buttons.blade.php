@@ -18,7 +18,7 @@
        title="{{ trans('general.share_mail') }}">
         <i class='fa fa-envelope fa-lg'></i>
     </a>
-    <a onclick='copyLinkToClipboard("{!!$url!!}")' style='cursor:pointer' data-toggle="tooltip" class="no-border"
+    <a onclick='copyLinkToClipboard("{!!$url!!}", "{!! trans('general.copied_to_clipboard') !!}")' style='cursor:pointer' data-toggle="tooltip" class="no-border"
        title="{{ trans('general.copy_url') }}">
         <i class='fa fa-link fa-lg'></i>
     </a>

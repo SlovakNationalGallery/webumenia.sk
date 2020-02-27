@@ -435,6 +435,7 @@
 {!! Html::script('js/readmore.min.js') !!}
 {!! Html::script('js/jquery.fileDownload.js') !!}
 {!! Html::script('js/components/artwork_carousel.js') !!}
+{!! Html::script('js/components/share_buttons.js') !!}
 
 {{ HTML::script('js/slick.js') }}
 {{ HTML::script('js/selectize.min.js') }}

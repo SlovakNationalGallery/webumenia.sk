@@ -62,7 +62,13 @@ class PatternlibController extends Controller
         }
 
         if (isset($array['include_js']) && (bool)$array['include_js'] === true) {
-            $array['include_path_js'] = 'components.'.$file['filename'].'_js';
+            $js_filename = $file['filename'].'_js.blade.php';
+            if ($this->fs->has($js_filename)) { // first check for _js.blade.php
+                $array['include_path_js'] = 'components.'.$file['filename'].'_js';
+            } else { // otherwise use the static js file within js/components/
+                $js_filename = $file['filename'].'.js';
+                $array['js_asset'] = $js_filename;
+            }
         }
 
         return $array;

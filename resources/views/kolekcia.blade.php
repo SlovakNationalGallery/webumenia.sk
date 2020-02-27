@@ -153,6 +153,7 @@
 
 @section('javascript')
 {!! Html::script('js/slick.js') !!}
+{!! Html::script('js/components/share_buttons.js') !!}
 
 <script type="text/javascript">
     // start with isotype even before document is ready

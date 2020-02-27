@@ -4,5 +4,6 @@
         "url": "http://webumenia.sk",
         "title": "webumenia"
     },
+    "include_js": true,
     "usage_notes": "List of sharing icons, needs $title and $url"
 }
