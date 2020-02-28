@@ -27,4 +27,15 @@ return array(
                           |{1}    :artworks_count dílo
                           |[2,4]  :artworks_count díla
                           |[5,*]:artworks_count děl',
+
+    "share"              => "sdílet",
+    "share_facebook"     => "sdílet na facebooku",
+    "share_instagram"    => "sdílet na instagrame",
+    "share_twitter"      => "sdílet na twitteri",
+    "share_pinterest"    => "sdílet na pintereste",
+    "copy_url"           => "kopírovat odkaz",
+    "share_mail"         => "odeslat mailem",
+    "share_link"         => "Sdílet URL adresu",
+    "copy"               => "kopírovat",
+    "copied_to_clipboard"=> "Odkaz byl skopírován do schránky",
 );
