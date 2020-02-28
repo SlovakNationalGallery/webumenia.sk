@@ -27,7 +27,7 @@
 @nav-link-padding:                          10px 15px;
 
 @checkbox-size: 30px;
-@checkbox-font-family: 'icomoon';
+@checkbox-font-family: 'sng';
 
 @input-border-focus:             @primary-color;
 @input-color-placeholder:        @primary-color;
@@ -400,8 +400,8 @@ a.license { vertical-align: middle}
 }
 
 .item {
-    .btn {
-        margin: 10px 5px 20px 5px;
+    .btn-cta {
+        margin: 1em 5px 1em 5px;
     }
 }
 
@@ -428,6 +428,21 @@ table a:not(.btn):not(.readmore-js-toggle):not(.no-border), .attributes a:not(.b
 .atribut {
     color: #888;
     font-style: italic;
+}
+
+.share-buttons {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  font-size: 14px;
+  white-space: nowrap;
+  a {
+    text-decoration: none;
+    padding: 0.5em;
+  }
+}
+
+#shareLink code {
+  word-wrap: break-word;
 }
 
 #small-map {
@@ -710,7 +725,6 @@ section.catalog {
 }
 
 .shareon-container{margin:0px; position: absolute; bottom: 15px; right: 0; text-align: left; width: 100%; vertical-align: top;}
-.fb-like {height:20px; vertical-align: top;}
 .collection.top-section {
     padding-bottom: 0;
 }
@@ -720,12 +734,6 @@ section.catalog {
 .description {
     text-indent: 50px;
 }
-
-.share {
-    margin-top: 20px;
-}
-
-.twitter-share-button { width: 80px !important; }
 
 @media(min-width: @screen-xs-min) {
   .author-title {margin-top: 30px;}
