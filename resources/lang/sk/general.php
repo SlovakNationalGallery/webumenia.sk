@@ -35,5 +35,7 @@ return array(
     "share_pinterest"    => "zdieľať na pintereste",
     "copy_url"           => "kopírovať odkaz",
     "share_mail"         => "odoslať mailom",
+    "share_link"         => "Zdieľať URL adresu",
+    "copy"               => "kopírovať",
     "copied_to_clipboard"=> "Odkaz bol skopírovaný do schránky",
 );

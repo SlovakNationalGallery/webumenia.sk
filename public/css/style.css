@@ -8277,7 +8277,7 @@ a.license {
     margin-bottom: 30px;
   }
 }
-.item .btn {
+.item .btn-cta {
   margin: 10px 5px 20px 5px;
 }
 table a:not(.btn):not(.readmore-js-toggle):not(.no-border),
@@ -8307,8 +8307,8 @@ a.underline:hover,
 }
 .share-buttons td,
 .share-buttons {
-  padding-top: 2em !important;
-  padding-bottom: 2em !important;
+  padding-top: 1em;
+  padding-bottom: 1em;
   font-size: 14px;
   white-space: nowrap;
 }

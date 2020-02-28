@@ -34,5 +34,6 @@ return array(
     "share_pinterest"    => "share on pinterest",
     "copy_url"           => "copy link",
     "share_mail"         => "send via email",
+    "share_link"         => "Share link",
     "copied_to_clipboard"=> "Link was copied to clipboard",
 );

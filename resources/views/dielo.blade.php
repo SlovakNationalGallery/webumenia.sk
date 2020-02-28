@@ -293,17 +293,7 @@
                                 </td>
                             </tr>
                             @endif
-
-                            <tr class="share-icons">
-                                <td class="atribut">&nbsp;</td>
-                                <td >
-                                @include('components.share_buttons', [
-                                    'title' => $item->getTitleWithAuthors(),
-                                    'url' => $item->getUrl() 
-                                ])
-                                </td>
-                            </tr>
-
+                            
                         </tbody>
                     </table>
                     @if (!empty($item->lat) && ($item->lat > 0))
@@ -313,14 +303,19 @@
                     <div class="col-md-12 text-center">
                         @if ($item->isForReproduction())
                         <a href="{!! URL::to('dielo/' . $item->id . '/objednat')  !!}"
-                            class="btn btn-default btn-outline sans w-100"><i class="fa fa-shopping-cart"></i>
+                            class="btn btn-cta btn-default btn-outline sans w-100"><i class="fa fa-shopping-cart"></i>
                             {{ trans('dielo.item_order') }} </a>
                         @endif
                         @if ($item->isFree() && !$item->images->isEmpty())
                         <a href="{!! URL::to('dielo/' . $item->id . '/stiahnut')  !!}"
-                            class="btn btn-default btn-outline sans w-100" id="download"><i class="fa fa-download"></i>
+                            class="btn btn-cta btn-default btn-outline sans w-100" id="download"><i class="fa fa-download"></i>
                             {{ trans('dielo.item_download') }} </a>
                         @endif
+
+                        @include('components.share_buttons', [
+                            'title' => $item->getTitleWithAuthors(),
+                            'url' => $item->getUrl() 
+                        ])
                     </div>
                 </div>
             </div>

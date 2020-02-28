@@ -18,8 +18,37 @@
        title="{{ trans('general.share_mail') }}">
         <i class='fa fa-envelope fa-lg'></i>
     </a>
-    <a onclick='copyLinkToClipboard("{!!$url!!}", "{!! trans('general.copied_to_clipboard') !!}")' style='cursor:pointer' data-toggle="tooltip" class="no-border"
-       title="{{ trans('general.copy_url') }}">
+    <span data-toggle="tooltip" title="{{ trans('general.copy_url') }}">
+    <a href="#shareLink" style='cursor:pointer' data-toggle="modal" class="no-border" data-target="#shareLink">
         <i class='fa fa-link fa-lg'></i>
     </a>
+    </span>
 </div>
+
+<!-- Modal -->
+<div tabindex="-1" class="modal fade" id="shareLink" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                {{ trans('general.share_link') }}
+            </div>
+            <div class="modal-body">
+                <a href="#"
+                   class="pull-right js-copy"
+                   data-message="{{ trans('general.copied_to_clipboard') }}" 
+                   data-url="{{ $url }}"
+                   data-toggle="tooltip"
+                   data-trigger="manual"
+                   data-container="body"
+                   title="{{ trans('general.copy') }}"
+                ><i class="fa fa-clipboard" aria-hidden="true"></i> {{ trans('general.copy') }}</a>
+                <code>{{ $url }}</code>
+            </div>
+            <div class="modal-footer">
+                <div class="text-center"><button type="button" data-dismiss="modal"
+                        class="btn btn-default btn-outline uppercase sans">{{ trans('general.close') }}</button></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Modal -->
