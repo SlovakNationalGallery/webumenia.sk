@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Changed
+- limit for similiar items / similiar by color items
+
 ### Fixed
 - zero-results placeholders in filter
 - small item images are displayed incorrectly
