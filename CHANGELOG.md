@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 ### Fixed
+- zero-results placeholders in filter
 - small item images are displayed incorrectly
 
 ## [2.0.1] - 2020-02-21
