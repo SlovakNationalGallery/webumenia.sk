@@ -32,7 +32,8 @@
             <div class="modal-header text-center">
                 {{ trans('general.share_link') }}
             </div>
-            <div class="modal-body">
+            <div class="modal-body text-left">
+                <code>{{ $url }}</code>
                 <a href="#"
                    class="pull-right js-copy"
                    data-message="{{ trans('general.copied_to_clipboard') }}" 
@@ -42,7 +43,6 @@
                    data-container="body"
                    title="{{ trans('general.copy') }}"
                 ><i class="fa fa-clipboard" aria-hidden="true"></i> {{ trans('general.copy') }}</a>
-                <code>{{ $url }}</code>
             </div>
             <div class="modal-footer">
                 <div class="text-center"><button type="button" data-dismiss="modal"

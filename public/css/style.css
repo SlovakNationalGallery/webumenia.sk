@@ -8278,7 +8278,7 @@ a.license {
   }
 }
 .item .btn-cta {
-  margin: 10px 5px 20px 5px;
+  margin: 1em 5px 1em 5px;
 }
 table a:not(.btn):not(.readmore-js-toggle):not(.no-border),
 .attributes a:not(.btn):not(.readmore-js-toggle):not(.no-border),
@@ -8305,17 +8305,18 @@ a.underline:hover,
   color: #888;
   font-style: italic;
 }
-.share-buttons td,
 .share-buttons {
   padding-top: 1em;
   padding-bottom: 1em;
   font-size: 14px;
   white-space: nowrap;
 }
-.share-buttons td a,
 .share-buttons a {
   text-decoration: none;
   padding: 0.5em;
+}
+#shareLink code {
+  word-wrap: break-word;
 }
 #small-map {
   width: 100%;

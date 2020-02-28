@@ -35,5 +35,6 @@ return array(
     "copy_url"           => "copy link",
     "share_mail"         => "send via email",
     "share_link"         => "Share link",
+    "copy"               => "Copy",
     "copied_to_clipboard"=> "Link was copied to clipboard",
 );
