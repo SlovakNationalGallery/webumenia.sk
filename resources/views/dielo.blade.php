@@ -293,7 +293,7 @@
                                 </td>
                             </tr>
                             @endif
-
+                            
                         </tbody>
                     </table>
                     @if (!empty($item->lat) && ($item->lat > 0))
@@ -303,23 +303,20 @@
                     <div class="col-md-12 text-center">
                         @if ($item->isForReproduction())
                         <a href="{!! URL::to('dielo/' . $item->id . '/objednat')  !!}"
-                            class="btn btn-default btn-outline sans w-100"><i class="fa fa-shopping-cart"></i>
+                            class="btn btn-cta btn-default btn-outline sans w-100"><i class="fa fa-shopping-cart"></i>
                             {{ trans('dielo.item_order') }} </a>
                         @endif
                         @if ($item->isFree() && !$item->images->isEmpty())
                         <a href="{!! URL::to('dielo/' . $item->id . '/stiahnut')  !!}"
-                            class="btn btn-default btn-outline sans w-100" id="download"><i class="fa fa-download"></i>
+                            class="btn btn-cta btn-default btn-outline sans w-100" id="download"><i class="fa fa-download"></i>
                             {{ trans('dielo.item_download') }} </a>
                         @endif
-                    </div>
 
-                    <!-- TODO update once when ready
-                        <div class="share">
-                        <div class="fb-like" data-href="{!! $item->getUrl() !!}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false" style="height:20px; vertical-align: top;"></div> &nbsp;
-                        <a href="https://twitter.com/share" class="twitter-share-button" style="float: right; text-align: right" >Tweet</a>
-                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
-                        </script>
-                    </div> -->
+                        @include('components.share_buttons', [
+                            'title' => $item->getTitleWithAuthors(),
+                            'url' => $item->getUrl() 
+                        ])
+                    </div>
                 </div>
             </div>
         </div>
@@ -433,6 +430,7 @@
 {!! Html::script('js/readmore.min.js') !!}
 {!! Html::script('js/jquery.fileDownload.js') !!}
 {!! Html::script('js/components/artwork_carousel.js') !!}
+{!! Html::script('js/components/share_buttons.js') !!}
 
 {{ HTML::script('js/slick.js') }}
 {{ HTML::script('js/selectize.min.js') }}
