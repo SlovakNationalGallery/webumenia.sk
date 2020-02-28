@@ -77,6 +77,17 @@ class ItemSearchRequestType extends AbstractType
                     ]
                 ]);
         });
+
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+            $form = $event->getForm();
+            $data = $event->getData();
+
+            if (isset($data['author'])) {
+                $form->add('author', ChoiceType::class, [
+                    'choices' => [$data['author'] => $data['author']],
+                ]);
+            }
+        });
     }
 
     public function configureOptions(OptionsResolver $resolver)
