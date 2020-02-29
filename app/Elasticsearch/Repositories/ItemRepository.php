@@ -381,19 +381,30 @@ class ItemRepository extends TranslatableRepository
 
     protected function addSort(array $body, ?string $sortBy): array
     {
-        $sort = [];
+
         if ($sortBy === null) {
-            $sort[] = '_score';
-            $sort[] = ['has_image' => ['order' => 'desc']];
-            $sort[] = ['has_iip' => ['order' => 'desc']];
-            $sort[] = ['updated_at' => ['order' => 'desc']];
-            $sort[] = ['created_at' => ['order' => 'desc']];
-        } else {
-            $sortOrder = in_array($sortBy, ['author', 'title', 'oldest']) ? 'asc' : 'desc';
-            $sortBy = in_array($sortBy, ['newest', 'oldest']) ? 'date_earliest' : $sortBy;
-            $sort[] = [$sortBy => ['order' => $sortOrder]];
+            $body['sort'] = [
+                '_score',
+                ['has_image' => ['order' => 'desc']],
+                ['has_iip' => ['order' => 'desc']],
+                ['updated_at' => ['order' => 'desc']],
+                ['created_at' => ['order' => 'desc']],
+            ];
+            return $body;
+        } 
+
+        if ($sortBy === 'newest') {
+            $body['sort'] = ['date_earliest' => ['order' => 'desc']];
+            return $body;
+        } 
+
+        if ($sortBy === 'oldest') {
+            $body['sort'] = ['date_earliest' => ['order' => 'asc']];
+            return $body;
         }
-        $body['sort'] = $sort;
+
+        $sortOrder = in_array($sortBy, ['author', 'title']) ? 'asc' : 'desc';
+        $body['sort'] = [$sortBy => ['order' => $sortOrder]];
         return $body;
     }
 
