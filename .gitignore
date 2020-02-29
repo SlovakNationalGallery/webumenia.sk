@@ -30,6 +30,7 @@ public/fonts/*
 !public/fonts/icomoon.*
 !public/fonts/icons.*
 !public/fonts/slick.*
+!public/fonts/sng.*
 resources/assets/fonts/*
 caste_prikazy.txt
 public/sitemap*

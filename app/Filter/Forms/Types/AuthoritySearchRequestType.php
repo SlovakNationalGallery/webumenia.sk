@@ -50,8 +50,8 @@ class AuthoritySearchRequestType extends AbstractType
                 $choices = $this->authorityRepository->listValues($attribute, $searchRequest);
                 $value = $searchRequest->get($attribute);
 
-                if (!$choices && $value !== null) {
-                    $choices = [sprintf('%s (0)', $value) => $value];
+                if ($choices->isEmpty() && $value !== null) {
+                    $choices[sprintf('%s (0)', $value)] = $value;
                 }
 
                 return [

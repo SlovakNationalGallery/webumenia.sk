@@ -41,8 +41,8 @@ class ItemSearchRequestType extends AbstractType
                 $choices = $this->itemRepository->listValues($attribute, $searchRequest);
                 $value = $searchRequest->get($attribute);
 
-                if (!$choices && $value !== null) {
-                    $choices = [sprintf('%s (0)', $value) => $value];
+                if ($choices->isEmpty() && $value !== null) {
+                    $choices[sprintf('%s (0)', $value)] = $value;
                 }
 
                 return [
