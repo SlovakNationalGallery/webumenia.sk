@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Changed
 - limit for similiar items / similiar by color items
+- bump symfony/http-foundation from 4.3.4 to 4.4.5
 
 ### Fixed
 - combine search with filters
