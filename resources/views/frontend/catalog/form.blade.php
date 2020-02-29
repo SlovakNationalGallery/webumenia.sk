@@ -1,5 +1,7 @@
 @php FormRenderer::setTheme($form, 'filter') @endphp
 
+@formWidget($form['search'])
+
 <section class="filters">
     <div class="container content-section">
         <div class="expandable">

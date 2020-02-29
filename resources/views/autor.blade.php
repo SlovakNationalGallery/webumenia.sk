@@ -90,6 +90,11 @@
                         </div>
                     @endif
 
+                    @include('components.share_buttons', [
+                        'title' => $author->formatedName,
+                        'url' => Request::url()
+                    ])
+
                     @if ( $author->relationships->count() > 0)
                     <h4 class="top-space">{{ utrans('authority.relationships') }}</h4>
                     <table class="table table-condensed relationships">
@@ -156,6 +161,7 @@
 
 {!! Html::script('js/slick.js') !!}
 {!! Html::script('js/components/artwork_carousel.js') !!}
+{!! Html::script('js/components/share_buttons.js') !!}
 
 <script type="text/javascript">
     $(document).ready(function(){

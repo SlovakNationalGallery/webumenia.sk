@@ -2,12 +2,21 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Changed
+- limit for similiar items / similiar by color items
+
 ### Fixed
 - sort order when order by oldest
+- combine search with filters
+- zero-results placeholders in filter
+- small item images are displayed incorrectly
 
 ## [2.0.1] - 2020-02-21
 ### Fixed
 - allow unknown authors in filter
+
+### Changed
+- social share buttons on artwork / author / collection / article pages
 
 ## [2.0.0] - 2020-02-13
 ### Added

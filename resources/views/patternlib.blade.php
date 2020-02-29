@@ -44,6 +44,12 @@ Pattern Library | @parent
                                             @else
                                                 @include($component['include_path_js'], $component['data'])
                                             @endif
+
+                                        @append
+                                    @endif
+                                    @if (isset($component['js_asset']))
+                                        @section('javascript')
+                                            <script type="text/javascript" src="{!! asset('js/components/' . $component['js_asset']) !!}"></script>
                                         @append
                                     @endif
                                 </div>
