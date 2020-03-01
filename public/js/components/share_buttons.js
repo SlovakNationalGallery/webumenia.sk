@@ -14,7 +14,7 @@ function copyToClipboard(url, message, el) {
 
 $(document).ready(function(){
   $('.js-copy').click(function(event) {
-  	event.preventDefault();
+    event.preventDefault();
     var message = $(this).attr('data-message');
     var url = $(this).attr('data-url');
     var el = $(this);
