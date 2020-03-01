@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file[^1].
 - limit for similiar items / similiar by color items
 
 ### Fixed
+- sort order when order by oldest
 - combine search with filters
 - zero-results placeholders in filter
 - small item images are displayed incorrectly
