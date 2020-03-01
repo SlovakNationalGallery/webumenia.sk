@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Changed
 - limit for similiar items / similiar by color items
+- bump symfony/mime from 4.3.4 to 4.4.4
 - bump symfony/http-foundation from 4.3.4 to 4.4.5
 - social share buttons on artwork / author / collection / article pages
 
