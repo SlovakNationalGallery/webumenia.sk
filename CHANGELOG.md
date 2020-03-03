@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file[^1].
 - combine search with filters
 - zero-results placeholders in filter
 - small item images are displayed incorrectly
+- authority search in admin
 
 ### Changed
 - limit for similiar items / similiar by color items
