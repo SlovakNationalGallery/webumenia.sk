@@ -65,9 +65,7 @@ class ItemRepository extends TranslatableRepository
                             'minimum_should_match' => 1,
                             'min_word_length' => 1,
                         ]
-                    ]
-                ],
-                'should' => [
+                    ],
                     [
                         'term' => [
                             'has_image' => [
@@ -75,7 +73,9 @@ class ItemRepository extends TranslatableRepository
                                 'boost' => 10,
                             ]
                         ]
-                    ],
+                    ]
+                ],
+                'should' => [
                     [
                         'term' => ['has_iip' => true]
                     ]
