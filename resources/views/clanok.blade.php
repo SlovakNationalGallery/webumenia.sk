@@ -51,7 +51,7 @@
 </div>
 </div>
 
-{{-- <section class="article summary light-grey content-section">
+{{-- <section class="article summary bg-light-grey content-section">
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 ">
@@ -80,6 +80,7 @@
 @include('components.share_buttons', [
     'title' => $article->title,
     'url' => $article->getUrl(),
+    'img' => URL::to('images/clanky/' . $article->getHeaderImage()),
     'class' => 'text-center'
 ])
 {{-- </div> --}}

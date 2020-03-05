@@ -20,7 +20,7 @@
     @endif
 @endforeach
 
-<section class="articles light-grey content-section">
+<section class="articles bg-light-grey content-section">
     <div class="articles-body">
         <div class="container">
             <div class="row">

@@ -46,7 +46,7 @@
     @endforeach
 </div>
 
-<section class="intro light-grey content-section">
+<section class="intro bg-light-grey content-section">
     <div class="intro-body">
         <div class="container">
             <p class="lead tagline text-center">

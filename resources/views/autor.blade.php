@@ -92,7 +92,8 @@
 
                     @include('components.share_buttons', [
                         'title' => $author->formatedName,
-                        'url' => Request::url()
+                        'url' => Request::url(),
+                        'img' => URL::to( $author->getImagePath() )
                     ])
 
                     @if ( $author->relationships->count() > 0)
