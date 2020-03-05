@@ -6,6 +6,7 @@ RUN apt-get update -y && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
     libzip-dev \
+    unzip \
     git
 
 RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ \
