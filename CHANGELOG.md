@@ -1,6 +1,22 @@
 # Change Log
 All notable changes to this project will be documented in this file[^1].
 
+## [Unreleased]
+
+## [2.1.0] - 2020-03-01
+### Fixed
+- sort order when order by oldest
+- combine search with filters
+- zero-results placeholders in filter
+- small item images are displayed incorrectly
+- authority search in admin
+
+### Changed
+- limit for similiar items / similiar by color items
+- bump symfony/mime from 4.3.4 to 4.4.4
+- bump symfony/http-foundation from 4.3.4 to 4.4.5
+- social share buttons on artwork / author / collection / article pages
+
 ## [2.0.1] - 2020-02-21
 ### Fixed
 - allow unknown authors in filter

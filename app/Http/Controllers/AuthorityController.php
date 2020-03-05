@@ -43,7 +43,7 @@ class AuthorityController extends Controller
     {
 
         $search = Input::get('search');
-        $results = Authority::where('name', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%')->orderBy('view_count', '')->paginate(20);
+        $results = Authority::where('name', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%')->orderBy('view_count')->paginate(20);
 
         return view('authorities.index', array('authorities' => $results, 'search' => $search));
     }

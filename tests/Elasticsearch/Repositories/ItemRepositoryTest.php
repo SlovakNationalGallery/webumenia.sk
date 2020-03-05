@@ -45,6 +45,8 @@ class ItemRepositoryTest extends TestCase
         $items = factory(Item::class, 5)->make();
         $items[0]->title = 'testing title one';
         $items[1]->title = 'testing title two';
+        $items[1]->has_image = true;
+
         foreach ($items as $item) {
             $this->repository->index($item);
         }
