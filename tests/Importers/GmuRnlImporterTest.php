@@ -31,7 +31,8 @@ class GmuRnlImporterTest extends TestCase
             'Datum nabytí' => '',
         ]);
 
-        $this->assertEquals('CZE:GMU-RNL.G0166', $item->id);
+        $this->assertEquals('CZE:4RG.G0166', $item->id);
+        $this->assertEquals('G0166', $item->identifier);
         $this->assertEquals('Dresden', $item->title);
         $this->assertEquals('Kuehl Gotthard', $item->author);
         $this->assertEquals('1902', $item->dating);

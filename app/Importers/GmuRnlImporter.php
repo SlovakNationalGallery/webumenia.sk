@@ -19,6 +19,7 @@ class GmuRnlImporter extends AbstractImporter
         'Signatura (aversu)' => 'inscription:sk',
         'Datum nabytí' => 'acquisition_date',
         'Autor' => 'author',
+        'Inventární ' => 'identifier',
     ];
 
     protected $defaults = [
@@ -47,7 +48,7 @@ class GmuRnlImporter extends AbstractImporter
     {
         $id = $record['Inventární '];
         $id = preg_replace('/[^\w]+/', '_', $id);
-        return sprintf('CZE:GMU-RNL.%s', $id);
+        return sprintf('CZE:4RG.%s', $id);
     }
 
     protected function getItemImageFilenameFormat(array $record)
