@@ -80,6 +80,7 @@
     @include('components.share_buttons', [
         'title' => $collection->name,
         'url' => $collection->getUrl(),
+        'img' => URL::to($collection->getHeaderImage()),
         'class' => 'text-center'
     ])
 </section>
