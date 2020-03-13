@@ -22,6 +22,11 @@
                         {!! trans('objednavka.order_alert') !!}
                     </div>
                 @endif
+
+                <div class="alert alert-warning text-center">
+                    {!! trans('reprodukcie.alert_covid-19') !!}
+                </div>
+                
                 <div class="col-md-8 col-md-offset-2 text-center">
                     {!! trans('objednavka.order_content') !!}
                 </div>
