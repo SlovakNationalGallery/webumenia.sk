@@ -20,7 +20,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
 
     protected $table = 'authorities';
 
-    const ARTWORKS_DIR = '/images/autori/';
+    const ARTWORKS_DIR = '/storage/images/autori/';
 
     public $translatedAttributes = [
         'type_organization',
