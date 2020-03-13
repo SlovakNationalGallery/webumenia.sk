@@ -9,21 +9,12 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
 
-    public static $rules = array(
+    public static $rules = [
         'name' => 'required',
         'email' => 'email|required',
         'format' => 'required',
         'terms_and_conditions' => 'required',
-        );
-
-    public static $availablePurposeKinds = array(
-        'Súkromný' => 'súkromný',
-        'Komerčný' => 'komerčný',
-        'Výskumný' => 'výskumný',
-        'Edukačný' => 'edukačný',
-        'Výstava' => 'výstava'
-    );
-
+        ];
 
     public function items()
     {
