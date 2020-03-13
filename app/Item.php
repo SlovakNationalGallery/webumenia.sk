@@ -25,7 +25,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
     use Translatable;
     use HasBelongsToManyEvents;
 
-    const ARTWORKS_DIR = '/images/diela/';
+    const ARTWORKS_DIR = '/storage/images/diela/';
 
     const COPYRIGHT_LENGTH = 70;
     const GUESSED_AUTHORISM_TIMESPAN = 60;
@@ -299,10 +299,10 @@ class Item extends Model implements IndexableModel, TranslatableContract
         if (preg_match('~\.(.*?)_~', $id, $work_type)) {
             $work_type = mb_strtolower($work_type[1], "UTF-8");
             if (in_array($work_type, $allowed_work_types)) {
-                return self::ARTWORKS_DIR . "no-image-{$work_type}.jpg";
+                return "/images/diela/no-image-{$work_type}.jpg";
             }
         }
-        return self::ARTWORKS_DIR . "no-image.jpg";
+        return "/images/diela/no-image.jpg";
     }
 
     public function getAuthorsAttribute($value)
