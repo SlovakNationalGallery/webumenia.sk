@@ -2,8 +2,12 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- Laravel Deployer config
 ### Fixed
 - facebook sharing handling, pinterest media preview
+### Changed
+- User content is now uploaded to storage/app/public
 
 ## [2.1.0] - 2020-03-01
 ### Fixed
