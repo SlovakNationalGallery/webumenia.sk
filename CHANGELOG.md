@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Fixed
 - facebook sharing handling, pinterest media preview
+- number of involved galleries on frontpage
 
 ## [2.1.0] - 2020-03-01
 ### Fixed
