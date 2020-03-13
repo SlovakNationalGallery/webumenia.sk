@@ -280,7 +280,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
                     $result_path = $relative_path."$file.$resize.jpeg";
                 }
             } else {
-                $result_path = '/images/autori/no-image.jpg';
+                $result_path = '/images/autori/no-image.jpeg';
             }
         }
 
