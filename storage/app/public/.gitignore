@@ -1,2 +1,9 @@
 *
 !.gitignore
+!fonts/
+!images/
+!images/autori/
+!images/clanky/
+!images/diela/
+!images/intro/
+!images/uploaded/
