@@ -13,8 +13,8 @@ use Intervention\Image\ImageManagerStatic;
 class Collection extends Model implements TranslatableContract
 {
     use Translatable;
-        
-    const ARTWORKS_DIR = '/images/kolekcie/';
+
+    const ARTWORKS_DIR = '/storage/images/kolekcie/';
 
     public $translatedAttributes = ['name','type', 'text'];
 
@@ -40,7 +40,7 @@ class Collection extends Model implements TranslatableContract
 
     public function getPreviewItems()
     {
-        
+
         return $this->items()->limit(10)->get();
     }
 
