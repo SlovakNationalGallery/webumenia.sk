@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- laravel/tinker
+
 ### Fixed
 - facebook sharing handling, pinterest media preview
 
