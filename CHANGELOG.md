@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Fixed
 - facebook sharing handling, pinterest media preview
+- preview image in artwork detail for firefox
 - order form translations
 - number of involved galleries on frontpage
 
