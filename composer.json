@@ -37,7 +37,8 @@
         "google/recaptcha": "^1.2",
         "chelout/laravel-relationship-events": "^1.0.0",
         "primal/color": "^1.0",
-        "laravelium/sitemap": "3.1.*"
+        "laravelium/sitemap": "3.1.*",
+        "laravel/tinker": "1.*"
     },
     "autoload": {
         "classmap": [
