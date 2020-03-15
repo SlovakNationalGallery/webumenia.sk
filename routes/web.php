@@ -51,7 +51,7 @@ function()
             [
                 trans('intro.from_galleries_start'),
                 route('frontend.info'),
-                formatNum(9),
+                formatNum(14),
                 trans('intro.from_galleries_end'),
             ],
             [
