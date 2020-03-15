@@ -52,5 +52,8 @@ return array(
                               <li>Ak si chcete objednať tlačené aj digitálne reprodukcie, vytvorte <strong>zvlášť objednávku pre každý typ.</strong>       </li>
                             </ul>',
     'digital_choice'    => 'Vyberte si reprodukcie',
-    'more-items_button' => 'zobraziť všetky'
+    'more-items_button' => 'zobraziť všetky',
+
+    'alert_covid-19' => 'V súvislosti s opatreniami individuálnej a kolektívnej ochrany a prevencie voči šíreniu ochorenia COVID-19 budú výdajné miesta pre reprodukcie (kníhkupectvo Ex Libris a SNG - Zvolenský zámok) zatvorené až do odvolania. Akonáhle budú prevádzky opäť otvorené, budeme Vás informovať o termíne vyzdvihnutia reprodukcií. Ďakujeme za&nbsp;porozumenie.',
+
 );
