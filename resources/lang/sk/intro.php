@@ -11,7 +11,7 @@ return array(
     'definition_start'     => 'web umenia je on-line katalóg',
     'definition_end'       => 'výtvarných diel',
     'from_galleries_start' => 'zo zbierok',
-    'from_galleries_end'   => 'slovenských a českých galerií',
+    'from_galleries_end'   => 'slovenských a českých galérií',
     'from_authors_start'   => 'od',
     'from_authors_end'     => 'autorov',
     'in_high_res_start'    => 'z toho',
