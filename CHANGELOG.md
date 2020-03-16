@@ -3,6 +3,17 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.2.0] - 2020-03-15
+### Added
+- COVID-19 alert for printed reproductions
+- laravel/tinker
+
+### Fixed
+- facebook sharing handling, pinterest media preview
+- preview image in artwork detail for firefox
+- order form translations
+- number of involved galleries on frontpage
+
 ## [2.1.0] - 2020-03-01
 ### Fixed
 - sort order when order by oldest

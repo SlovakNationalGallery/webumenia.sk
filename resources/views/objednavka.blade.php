@@ -22,6 +22,11 @@
                         {!! trans('objednavka.order_alert') !!}
                     </div>
                 @endif
+
+                <div class="alert alert-warning text-center">
+                    {!! trans('reprodukcie.alert_covid-19') !!}
+                </div>
+                
                 <div class="col-md-8 col-md-offset-2 text-center">
                     {!! trans('objednavka.order_content') !!}
                 </div>
@@ -82,7 +87,7 @@
 
 @if ($allow_printed_reproductions)
 
-    {!! Former::select('format')->label('Formát')->required()->options([
+    {!! Former::select('format')->label(trans('objednavka.form_format'))->required()->options([
         trans('objednavka.form_format_for-print_a4') => [
             'do A4: samostatná reprodukcia 28 €/ks' => [
                 'value'=> trans('objednavka.form_format_standalone') . ' (28 €/'.trans('objednavka.form_piece').')'
@@ -157,7 +162,13 @@
             <br><strong>{!! trans('objednavka.form_purpose-alert-print') !!}</strong>
         @endif
     </div>
-    {!! Former::select('purpose_kind')->label(trans('objednavka.form_purpose-label'))->required()->options(App\Order::$availablePurposeKinds); !!}
+    {!! Former::select('purpose_kind')->label(trans('objednavka.form_purpose-label'))->required()->options([
+            trans('objednavka.form_purpose_private') => ['value'=> 'Súkromný'],
+            trans('objednavka.form_purpose_commercial') => ['value'=> 'Komerčný'],
+            trans('objednavka.form_purpose_research') => ['value'=> 'Výskumný'],
+            trans('objednavka.form_purpose_education') => ['value'=> 'Edukačný'],
+            trans('objednavka.form_purpose_exhibition') => ['value'=> 'Výstava'],
+        ]); !!}
     {!! Former::textarea('purpose')->label(trans('objednavka.form_purpose-info'))->required(); !!}
 </div>
 {{-- /ak digitalna --}}
