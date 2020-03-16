@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.2.1] - 2020-03-16
+### Fixed
+- swaped cs/sk translation strings in order
+
 ## [2.2.0] - 2020-03-15
 ### Added
 - COVID-19 alert for printed reproductions
