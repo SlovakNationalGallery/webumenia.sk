@@ -86,6 +86,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
         'gallery',
         'publish',
         'contributor',
+        'acquisition_date',
     );
 
     protected $dates = array(
@@ -404,13 +405,16 @@ class Item extends Model implements IndexableModel, TranslatableContract
         $this->attributes['lng'] = $value ?: null;
     }
 
-    public function makeArray($str, $delimiter = '; ')
+    public function makeArray($str, $delimiter = ';')
     {
         if (is_array($str)) {
             return $str;
         }
-        $str = trim($str);
-        return (empty($str)) ? array() : explode($delimiter, $str);
+
+        $exploded = explode($delimiter, $str);
+        return array_filter($exploded, function ($value) {
+            return trim($value) !== "";
+        });
     }
 
     /**
