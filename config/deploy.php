@@ -104,6 +104,7 @@ return [
             'public/images/autori',
             'public/images/clanky',
             'public/images/diela',
+            'public/images/intro',
             'public/images/kolekcie',
             'storage',
         ],
