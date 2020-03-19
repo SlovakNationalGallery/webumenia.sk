@@ -106,6 +106,7 @@ return [
             'public/images/diela',
             'public/images/intro',
             'public/images/kolekcie',
+            'public/images/uploaded',
             'storage',
         ],
         'shared_files' => [

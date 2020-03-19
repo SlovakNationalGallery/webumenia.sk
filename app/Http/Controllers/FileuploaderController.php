@@ -28,7 +28,7 @@ class FileuploaderController extends Controller
             $file = Input::file('upload');
             $extension = $file->getClientOriginalExtension();
             $filename = md5(date("YmdHis").rand(5, 50)) . "." . $extension;
-            $destinationPath = '/storage/images/uploaded/';
+            $destinationPath = '/images/uploaded/';
             $file->move(public_path() . $destinationPath, $filename);
             $http_path = $destinationPath . $filename;
             // return '<script type="text/javascript">window.parent.CKEDITOR.tools.callFunction('.$callback.',  "'.$http_path.'", "'.$error.'" );</script>';
