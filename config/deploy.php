@@ -103,6 +103,7 @@ return [
         'shared_dirs' => [
             'storage',
             'public/images/clanky',
+            'public/images/autori',
         ],
         'shared_files' => [
             '.env',

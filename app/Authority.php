@@ -20,7 +20,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
 
     protected $table = 'authorities';
 
-    const ARTWORKS_DIR = '/storage/images/autori/';
+    const ARTWORKS_DIR = '/images/autori/';
 
     public $translatedAttributes = [
         'type_organization',
@@ -280,7 +280,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
                     $result_path = $relative_path."$file.$resize.jpeg";
                 }
             } else {
-                $result_path = '/images/autori/no-image.jpeg';
+                $result_path = '/images/no-image/autori/no-image.jpeg';
             }
         }
 
@@ -291,7 +291,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
     {
         $filename = 'no-image-'.$sex.'.jpeg';
 
-        return "/images/autori/$filename";
+        return "/images/no-image/autori/$filename";
     }
 
     public function getIndexedData($locale)
