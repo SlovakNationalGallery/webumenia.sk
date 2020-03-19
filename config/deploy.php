@@ -100,6 +100,10 @@ return [
         'repository' => 'https://github.com/SlovakNationalGallery/webumenia.sk.git',
         'http_user' => 'www-data',
         'php_fpm_service' => 'php7.2-fpm',
+        'shared_files' => [
+            '.env',
+            'public/sitemap.xml'
+        ]
     ],
 
     /*
