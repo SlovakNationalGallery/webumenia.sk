@@ -18,7 +18,7 @@ class Article extends Model implements TranslatableContract
 
     use \Conner\Tagging\Taggable;
 
-    const ARTWORKS_DIR = '/storage/images/clanky/';
+    const ARTWORKS_DIR = '/images/clanky/';
 
     public $translatedAttributes = ['title', 'summary', 'content'];
 
