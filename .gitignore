@@ -9,7 +9,7 @@ composer.phar
 .env.php
 .DS_Store
 Thumbs.db
-public/sitemap*
+public/sitemap.xml
 .env
 .env.testing
 data/

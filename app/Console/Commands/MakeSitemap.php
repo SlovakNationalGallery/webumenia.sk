@@ -8,12 +8,13 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
 class MakeSitemap extends Command
 {
-
+    const SITEMAPS_DIR = 'sitemaps/';
     protected $max_entries = 50000; // max entries per sitemap. according google spec max is 50 000
     protected $available_models = [
         'Article',
@@ -62,8 +63,8 @@ class MakeSitemap extends Command
         $sitemap_misc->add(URL::to(''), $this->getLastModified('intro.blade.php'), '1.0', 'weekly');
         $sitemap_misc->add(URL::to('informacie'), $this->getLastModified('informacie.blade.php'), '0.8');
 
-        $sitemap_misc->store('xml', 'sitemap-misc');
-        $this->addSitemap('sitemap-misc');
+        $sitemap_misc->store('xml', self::SITEMAPS_DIR . 'misc');
+        $this->addSitemap(self::SITEMAPS_DIR . 'misc');
 
         /**** vytvorit sitemapy pre kazdy (povoleny) model *****/
         foreach ($this->available_models as $model) {
@@ -132,7 +133,7 @@ class MakeSitemap extends Command
                     $sitemap->add($entry->getUrl(), $entry->updated_at, $priority, $freq, $images);
                     $i++;
                     if ($i >= $this->max_entries) {
-                        $sitemap_name = 'sitemap-' . str_plural(strtolower($model)) . '-' . ($sitemap_count+1);
+                        $sitemap_name = self::SITEMAPS_DIR . Str::plural(strtolower($model)) . '-' . ($sitemap_count+1);
                         $sitemap->store('xml', $sitemap_name);
                         $this->addSitemap($sitemap_name);
                         $sitemap = App::make("sitemap"); // vytvori nanovo
@@ -145,7 +146,7 @@ class MakeSitemap extends Command
 
         // treba ulozit poslednu sitemapu
         if ($i > 0) {
-            $sitemap_name = 'sitemap-' . str_plural(strtolower($model)) . '-' . ($sitemap_count+1);
+            $sitemap_name = self::SITEMAPS_DIR . Str::plural(strtolower($model)) . '-' . ($sitemap_count+1);
             $sitemap->store('xml', $sitemap_name);
             $this->addSitemap($sitemap_name);
         }
