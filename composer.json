@@ -15,7 +15,7 @@
         "laravel/framework": "5.8.*",
         "caseyamcl/phpoaipmh": "dev-master",
         "intervention/image": "dev-master",
-        "guzzlehttp/guzzle": "dev-master",
+        "guzzlehttp/guzzle": "^6.5",
         "elasticsearch/elasticsearch": "^7.2",
         "rtconner/laravel-tagging": "~2.1",
         "rap2hpoutre/laravel-log-viewer": "dev-master",
