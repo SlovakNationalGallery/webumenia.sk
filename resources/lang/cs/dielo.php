@@ -30,6 +30,7 @@ return array(
     'item_attr_identifier'     => 'inventární číslo',
     'item_attr_licence'        => 'licence',
     'item_attr_place'          => 'místo vzniku',
+    'item_attr_acquisition_date' => 'datum akvizice',
 
     'more-items_related-artworks' => 'související díla',
     'more-items_related-artworks_by-data' => 'podle názvu, autora / autorky, tagů...',

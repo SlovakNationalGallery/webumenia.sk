@@ -53,5 +53,7 @@ return array(
                               <li>If you want to order both printed and digital reproductions, please make a <strong>separate order for each type</strong>.</li>
                             </ul>',
     'digital_choice'    => 'Choose your reproductions',
-    'more-items_button' => 'Show all'
+    'more-items_button' => 'Show all',
+    'alert_covid-19' => ' Due to the preventive measures against the spread of Coronavirus COVID-19, the reproduction pickup locations (Ex Libris Bookstore in Bratislava and SNG Zvolen castle) are closed until further notice. Thank you for understanding.',
+
 );

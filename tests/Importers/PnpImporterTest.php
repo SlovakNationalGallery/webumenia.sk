@@ -5,6 +5,7 @@ namespace Tests\Importers;
 use App\Import;
 use App\Importers\PnpImporter;
 use App\Repositories\CsvRepository;
+use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -101,7 +102,7 @@ class PnpImporterTest extends TestCase
         $repositoryMock = $this->createMock(CsvRepository::class);
         $repositoryMock->method('getFiltered')->willReturn($records);
 
-        $importer = new PnpImporter($repositoryMock);
+        $importer = new PnpImporter($repositoryMock, $this->app->get(Translator::class));
         $import = Import::create();
         $file = ['basename' => '', 'path' => ''];
         $items = $importer->import($import, $file);

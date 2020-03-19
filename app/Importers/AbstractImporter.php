@@ -8,6 +8,7 @@ use App\Item;
 use App\ItemImage;
 use App\Repositories\IFileRepository;
 use Doctrine\Common\Collections\Collection;
+use Illuminate\Contracts\Translation\Translator;
 use Symfony\Component\Console\Exception\LogicException;
 
 
@@ -28,6 +29,9 @@ abstract class AbstractImporter implements IImporter {
     /** @var IFileRepository */
     protected $repository;
 
+    /** @var Translator */
+    protected $translator;
+
     /** @var int */
     protected $image_max_size = 800;
 
@@ -45,7 +49,7 @@ abstract class AbstractImporter implements IImporter {
     /**
      * @param IFileRepository $repository
      */
-    public function __construct(IFileRepository $repository) {
+    public function __construct(IFileRepository $repository, Translator $translator) {
         if (static::$name === null) {
             throw new LogicException(sprintf(
                 '%s needs to define its $name static property',
@@ -54,6 +58,7 @@ abstract class AbstractImporter implements IImporter {
         }
 
         $this->repository = $repository;
+        $this->translator = $translator;
     }
 
     /**

@@ -4,10 +4,28 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Added
 - Laravel Deployer config
+
 ### Fixed
 - facebook sharing handling, pinterest media preview
+
 ### Changed
-- User content is now uploaded to storage/app/public
+- GMU v Roudnici nad Labem importer
+- (Child) sitemaps are now stored in /public/sitemaps
+
+## [2.2.1] - 2020-03-16
+### Fixed
+- swaped cs/sk translation strings in order
+
+## [2.2.0] - 2020-03-15
+### Added
+- COVID-19 alert for printed reproductions
+- laravel/tinker
+
+### Fixed
+- facebook sharing handling, pinterest media preview
+- preview image in artwork detail for firefox
+- order form translations
+- number of involved galleries on frontpage
 
 ## [2.1.0] - 2020-03-01
 ### Fixed

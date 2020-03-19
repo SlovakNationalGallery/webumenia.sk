@@ -5,6 +5,7 @@ namespace App\Importers;
 
 
 use App\Repositories\IFileRepository;
+use Illuminate\Contracts\Translation\Translator;
 
 class MgImporter extends AbstractImporter {
 
@@ -96,8 +97,8 @@ class MgImporter extends AbstractImporter {
 
     protected static $name = 'mg';
 
-    public function __construct(IFileRepository $repository) {
-        parent::__construct($repository);
+    public function __construct(IFileRepository $repository, Translator $translator) {
+        parent::__construct($repository, $translator);
 
         $this->filters[] = function (array $record) {
             return $record['Plus2T'] != 'ODPIS';
