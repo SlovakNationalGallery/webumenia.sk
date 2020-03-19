@@ -101,9 +101,10 @@ return [
         'http_user' => 'www-data',
         'php_fpm_service' => 'php7.2-fpm',
         'shared_dirs' => [
-            'storage',
-            'public/images/clanky',
             'public/images/autori',
+            'public/images/clanky',
+            'public/images/kolekcie',
+            'storage',
         ],
         'shared_files' => [
             '.env',
