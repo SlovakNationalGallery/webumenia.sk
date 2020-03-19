@@ -107,6 +107,7 @@ return [
             'public/images/intro',
             'public/images/kolekcie',
             'public/images/uploaded',
+            'public/sitemaps',
             'storage',
         ],
         'shared_files' => [
