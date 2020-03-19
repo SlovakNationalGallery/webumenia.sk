@@ -71,7 +71,7 @@ class Article extends Model implements TranslatableContract
 
         $relative_path = self::ARTWORKS_DIR . $this->attributes['main_image'];
         if (!file_exists(public_path() . $relative_path) && !$full) {
-            $relative_path = '/images/clanky/no-image.jpg';
+            $relative_path = '/images/no-image/no-image.jpg';
         }
         $path = ($full) ? public_path() . $relative_path : $relative_path;
         return $path;

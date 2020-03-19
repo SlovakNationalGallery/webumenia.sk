@@ -82,7 +82,7 @@ class Collection extends Model implements TranslatableContract
             try {
                 $img = \Image::make($this->getHeaderImage(true))->fit($resize)->sharpen(7);
             } catch (\Exception $e) {
-                $img = \Image::make(public_path('images/no-image/kolekcie/no-image.jpg'))->fit($resize)->sharpen(7);
+                $img = \Image::make(public_path('images/no-image/no-image.jpg'))->fit($resize)->sharpen(7);
             }
 
             $img->save($full_path . "$file.$resize.jpg");
