@@ -103,6 +103,7 @@ return [
         'shared_dirs' => [
             'public/images/autori',
             'public/images/clanky',
+            'public/images/diela',
             'public/images/kolekcie',
             'storage',
         ],
