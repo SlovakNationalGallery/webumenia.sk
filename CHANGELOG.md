@@ -4,10 +4,10 @@ All notable changes to this project will be documented in this file[^1].
 ## [2.3.0] - 2020-03-20
 ### Added
 - facebook sharing handling, pinterest media preview
+- GMU v Roudnici nad Labem importer
 - Laravel Deployer config (WEBUMENIA-1241)
 
 ### Changed
-- GMU v Roudnici nad Labem importer
 - (Child) sitemaps are now stored in /public/sitemaps
 
 ## [2.2.1] - 2020-03-16
