@@ -71,6 +71,9 @@
 					<div class="col-md-6">
 						@formRow($form['related_work_total'])
 					</div>
+					<div class="col-md-6">
+						@formRow($form['acquisition_date'])
+					</div>
 					<div class="col-md-12">
 						@if ($item->getImagePath())
 							<div class="primary-image">

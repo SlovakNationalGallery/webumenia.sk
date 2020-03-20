@@ -170,7 +170,6 @@ class Authority extends Model implements IndexableModel, TranslatableContract
     public function getImagePath($full = false, $resize = false)
     {
         return self::getImagePathForId($this->id, $this->has_image, $this->sex, $full, $resize);
-        // : self::ARTWORKS_DIR . "no-image.jpg";;
     }
 
     public function removeImage()
@@ -281,7 +280,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
                     $result_path = $relative_path."$file.$resize.jpeg";
                 }
             } else {
-                $result_path = self::ARTWORKS_DIR.'no-image.jpg';
+                $result_path = '/images/no-image/autori/no-image.jpeg';
             }
         }
 
@@ -292,7 +291,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
     {
         $filename = 'no-image-'.$sex.'.jpeg';
 
-        return self::ARTWORKS_DIR.$filename;
+        return "/images/no-image/autori/$filename";
     }
 
     public function getIndexedData($locale)

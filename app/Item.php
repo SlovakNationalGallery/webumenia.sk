@@ -86,6 +86,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
         'gallery',
         'publish',
         'contributor',
+        'acquisition_date',
     );
 
     protected $dates = array(
@@ -299,10 +300,10 @@ class Item extends Model implements IndexableModel, TranslatableContract
         if (preg_match('~\.(.*?)_~', $id, $work_type)) {
             $work_type = mb_strtolower($work_type[1], "UTF-8");
             if (in_array($work_type, $allowed_work_types)) {
-                return self::ARTWORKS_DIR . "no-image-{$work_type}.jpg";
+                return "/images/no-image/diela/no-image-{$work_type}.jpg";
             }
         }
-        return self::ARTWORKS_DIR . "no-image.jpg";
+        return "/images/no-image/diela/no-image.jpg";
     }
 
     public function getAuthorsAttribute($value)
@@ -404,13 +405,16 @@ class Item extends Model implements IndexableModel, TranslatableContract
         $this->attributes['lng'] = $value ?: null;
     }
 
-    public function makeArray($str, $delimiter = '; ')
+    public function makeArray($str, $delimiter = ';')
     {
         if (is_array($str)) {
             return $str;
         }
-        $str = trim($str);
-        return (empty($str)) ? array() : explode($delimiter, $str);
+
+        $exploded = explode($delimiter, $str);
+        return array_filter($exploded, function ($value) {
+            return trim($value) !== "";
+        });
     }
 
     /**

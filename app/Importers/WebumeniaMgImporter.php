@@ -6,6 +6,7 @@ namespace App\Importers;
 
 use App\Import;
 use App\Repositories\IFileRepository;
+use Illuminate\Contracts\Translation\Translator;
 
 class WebumeniaMgImporter extends MgImporter
 {
@@ -109,8 +110,8 @@ class WebumeniaMgImporter extends MgImporter
         'kresba perem, lavírování' => 'pero, lavírovanie',
     ];
 
-    public function __construct(IFileRepository $repository) {
-        parent::__construct($repository);
+    public function __construct(IFileRepository $repository, Translator $translator) {
+        parent::__construct($repository, $translator);
 
         $this->filters['with_iip'] = function (array $record) {
             $image_filename_format = $this->getItemImageFilenameFormat($record);

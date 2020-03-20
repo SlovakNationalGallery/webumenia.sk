@@ -15,7 +15,7 @@
         "laravel/framework": "5.8.*",
         "caseyamcl/phpoaipmh": "dev-master",
         "intervention/image": "dev-master",
-        "guzzlehttp/guzzle": "dev-master",
+        "guzzlehttp/guzzle": "^6.5",
         "elasticsearch/elasticsearch": "^7.2",
         "rtconner/laravel-tagging": "~2.1",
         "rap2hpoutre/laravel-log-viewer": "dev-master",
@@ -38,7 +38,8 @@
         "chelout/laravel-relationship-events": "^1.0.0",
         "primal/color": "^1.0",
         "laravelium/sitemap": "3.1.*",
-        "laravel/tinker": "1.*"
+        "laravel/tinker": "1.*",
+        "lorisleiva/laravel-deployer": "^0.3.0"
     },
     "autoload": {
         "classmap": [

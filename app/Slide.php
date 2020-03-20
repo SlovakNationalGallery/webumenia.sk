@@ -11,7 +11,7 @@ class Slide extends Model
 {
 
     const ARTWORKS_DIR = '/images/intro/';
-    
+
     protected $fillable = [
                 'title',
                 'subtitle',
