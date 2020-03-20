@@ -1,12 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file[^1].
 
-## [Unreleased]
+## [2.3.0] - 2020-03-20
 ### Added
-- Laravel Deployer config
-
-### Fixed
 - facebook sharing handling, pinterest media preview
+- Laravel Deployer config (WEBUMENIA-1241)
 
 ### Changed
 - GMU v Roudnici nad Labem importer
