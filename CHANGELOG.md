@@ -3,7 +3,14 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 ### Added
+- Laravel Deployer config
+
+### Fixed
+- facebook sharing handling, pinterest media preview
+
+### Changed
 - GMU v Roudnici nad Labem importer
+- (Child) sitemaps are now stored in /public/sitemaps
 
 ## [2.2.1] - 2020-03-16
 ### Fixed
