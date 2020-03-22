@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Changed
 - GMU v Roudnici nad Labem importer
 - (Child) sitemaps are now stored in /public/sitemaps
+- placement of share buttons within article / author / collection
 
 ## [2.2.1] - 2020-03-16
 ### Fixed
