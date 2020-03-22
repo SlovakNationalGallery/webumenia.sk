@@ -4,7 +4,8 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Added
 - Laravel Deployer config
-
+- collection filter by user / type
+ 
 ### Fixed
 - facebook sharing handling, pinterest media preview
 
