@@ -35,7 +35,7 @@ class Import extends Model
 
     public function lastRecord()
     {
-        return $this->records->last();
+        return ($this->records()->exists()) ? $this->records()->latest()->first() : null;
     }
 
     public function setDirPath($value)
