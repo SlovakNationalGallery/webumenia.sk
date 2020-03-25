@@ -605,6 +605,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
             'medium' => $this["medium:$locale"],
             'technique' => $this->makeArray($this["technique:$locale"]),
             'gallery' => $this["gallery:$locale"],
+            'credit' => $this["credit:$locale"],
             'related_work' => $this["related_work:$locale"],
             'hsl' => $this->getColors()
                 ->map(function (float $amount, string $color) {

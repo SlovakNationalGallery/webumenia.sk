@@ -292,6 +292,14 @@
                                 </td>
                             </tr>
                             @endif
+                            @if (!empty($item->credit))
+                                <tr>
+                                    <td class="atribut">{{ trans('dielo.item_attr_credit') }}:</td>
+                                    <td>
+                                        <a href="{{ URL::to('katalog?credit=' . $item->credit) }}">{{ $item->credit }}</a>
+                                    </td>
+                                </tr>
+                            @endif
                             @if (!empty($item->acquisition_date))
                             <tr>
                                 <td class="atribut">{{ trans('dielo.item_attr_acquisition_date') }}:</td>
