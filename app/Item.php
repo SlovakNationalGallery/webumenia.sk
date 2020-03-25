@@ -411,9 +411,12 @@ class Item extends Model implements IndexableModel, TranslatableContract
             return $str;
         }
 
-        $exploded = explode($delimiter, $str);
-        return array_filter($exploded, function ($value) {
-            return trim($value) !== "";
+        $array = explode($delimiter, $str);
+        $array = array_map(function ($value) {
+            return trim($value);
+        }, $array);
+        return array_filter($array, function ($value) {
+            return $value !== "";
         });
     }
 
