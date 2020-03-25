@@ -51,6 +51,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
         'place',
         'state_edition',
         'gallery',
+        'credit',
         'relationship_type',
         'related_work',
     ];
