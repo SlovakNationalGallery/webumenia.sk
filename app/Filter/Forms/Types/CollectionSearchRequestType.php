@@ -98,7 +98,7 @@ class CollectionSearchRequestType extends AbstractType
 
         $collections = Collection::published()
             ->join('users', 'users.id', '=', 'collections.user_id')
-            ->join('collection_translations', function ($join) use ($locale) {
+            ->leftJoin('collection_translations', function ($join) use ($locale) {
                 $join->on('collections.id', '=', 'collection_translations.collection_id')
                     ->where('locale', $locale);
             })
