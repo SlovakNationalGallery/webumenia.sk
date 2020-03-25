@@ -55,6 +55,9 @@ $mapping = [
         'gallery' => [
             'type' => 'keyword',
         ],
+        'credit' => [
+            'type' => 'keyword',
+        ],
         'has_iip' => [
             'type' => 'boolean',
         ],

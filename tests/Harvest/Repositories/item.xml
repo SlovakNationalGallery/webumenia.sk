@@ -57,6 +57,9 @@
                <dc:rights>1</dc:rights>
                <dc:rights>publikovať/public</dc:rights>
                <dc:relation.isPartOf>samostatné dielo</dc:relation.isPartOf>
+               <dcterms:provenance type="former" xml:lang="sk">Dar zo Zbierky Linea</dcterms:provenance>
+               <dcterms:provenance type="former" xml:lang="en">Donation from the Linea Collection</dcterms:provenance>
+               <dcterms:provenance type="former" xml:lang="cs">Dar ze Sbírky Linea</dcterms:provenance>
             </oai_dc:dc>
          </metadata>
       </record>
