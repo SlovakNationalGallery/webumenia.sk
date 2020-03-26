@@ -77,8 +77,14 @@ class ItemImporterTest extends TestCase
         $item = $importer->import($row, $result = new Result());
 
         $this->assertCount(2, $item->authorities);
-        $this->assertEquals('autor/author', $item->authorities[0]->pivot->role);
-        $this->assertEquals('iné/other', $item->authorities[1]->pivot->role);
+        $author = $item->authorities->first(function (Authority $authority) {
+            return $authority->id == 1922;
+        });
+        $other = $item->authorities->first(function (Authority $authority) {
+            return $authority->id == 10816;
+        });
+        $this->assertEquals('autor/author', $author->pivot->role);
+        $this->assertEquals('iné/other', $other->pivot->role);
     }
 
     protected function getData() {
