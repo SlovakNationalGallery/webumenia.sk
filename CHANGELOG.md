@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- attribute "reporoductionType" to JIRA request in order process
 
 ## [2.1.0] - 2020-03-01
 ### Fixed

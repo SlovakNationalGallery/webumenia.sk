@@ -166,7 +166,7 @@ function()
                     'ico' => '',
                     'dic' => '',
                     'numOfCopies' => '1',
-                    'customfield_12400' => $type,
+                    'reporoductionType' => $type,
                 ],
             ]);
             if ($res->getStatusCode() == 200) {
