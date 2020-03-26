@@ -13,7 +13,7 @@ use Intervention\Image\ImageManagerStatic;
 class Collection extends Model implements TranslatableContract
 {
     use Translatable;
-        
+
     const ARTWORKS_DIR = '/images/kolekcie/';
 
     public $translatedAttributes = ['name','type', 'text'];
@@ -40,7 +40,7 @@ class Collection extends Model implements TranslatableContract
 
     public function getPreviewItems()
     {
-        
+
         return $this->items()->limit(10)->get();
     }
 
@@ -82,7 +82,7 @@ class Collection extends Model implements TranslatableContract
             try {
                 $img = \Image::make($this->getHeaderImage(true))->fit($resize)->sharpen(7);
             } catch (\Exception $e) {
-                $img = \Image::make(public_path() . self::ARTWORKS_DIR . 'no-image.jpg')->fit($resize)->sharpen(7);
+                $img = \Image::make(public_path('images/no-image/no-image.jpg'))->fit($resize)->sharpen(7);
             }
 
             $img->save($full_path . "$file.$resize.jpg");

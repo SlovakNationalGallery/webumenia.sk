@@ -83,8 +83,12 @@ class ItemMapper extends AbstractModelMapper
 
     public function mapGallery(array $row, $locale) {
         if ($locale == 'sk') {
-            return $row['provenance'] ?: null;
+            return $row['gallery'] ?: null;
         }
+    }
+
+    public function mapCredit(array $row, $locale) {
+        return $this->getLocalized($row, 'credit', $locale) ?: null;
     }
 
     public function mapAuthor(array $row) {

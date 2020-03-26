@@ -77,7 +77,7 @@
                     list($width, $height) = getimagesize(public_path() . $item->getImagePath());
                     @endphp
                     <div class="ratio-box bottom-space"
-                        style="padding-bottom: min({{ round(($height / $width) * 100, 4) }}% , {{$height  + 30}}px)">
+                        style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%; padding-bottom: min({{ round(($height / $width) * 100, 4) }}% , {{$height  + 30}}px)">
                         @include('components.item_image_responsive', [
                             'item' => $item,
                             'width' => $width,
@@ -280,7 +280,6 @@
                                 <td>{!! $item->place; !!}</td>
                             </tr>
                             @endif
-
                             @if (!empty($item->related_work))
                             <tr>
                                 <td class="atribut">{!! $item->relationship_type !!}:</td>
@@ -293,7 +292,20 @@
                                 </td>
                             </tr>
                             @endif
-                            
+                            @if (!empty($item->credit))
+                                <tr>
+                                    <td class="atribut">{{ trans('dielo.item_attr_credit') }}:</td>
+                                    <td>
+                                        <a href="{{ URL::to('katalog?credit=' . $item->credit) }}">{{ $item->credit }}</a>
+                                    </td>
+                                </tr>
+                            @endif
+                            @if (!empty($item->acquisition_date))
+                            <tr>
+                                <td class="atribut">{{ trans('dielo.item_attr_acquisition_date') }}:</td>
+                                <td>{{ $item->acquisition_date }}</td>
+                            </tr>
+                            @endif
                         </tbody>
                     </table>
                     @if (!empty($item->lat) && ($item->lat > 0))
@@ -314,7 +326,8 @@
 
                         @include('components.share_buttons', [
                             'title' => $item->getTitleWithAuthors(),
-                            'url' => $item->getUrl() 
+                            'url' => $item->getUrl(),
+                            'img' => URL::to( $item->getImagePath())
                         ])
                     </div>
                 </div>

@@ -4,6 +4,32 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Added
 - attribute "reporoductionType" to JIRA request in order process
+- Laravel Deployer config
+- Item credit attribute
+
+### Fixed
+- facebook sharing handling, pinterest media preview
+
+### Changed
+- GMU v Roudnici nad Labem importer
+- (Child) sitemaps are now stored in /public/sitemaps
+- enable translations in harvests
+
+## [2.2.1] - 2020-03-16
+### Fixed
+- swaped cs/sk translation strings in order
+
+## [2.2.0] - 2020-03-15
+### Added
+- COVID-19 alert for printed reproductions
+- laravel/tinker
+
+### Fixed
+- facebook sharing handling, pinterest media preview
+- preview image in artwork detail for firefox
+- order form translations
+- number of involved galleries on frontpage
+>>>>>>> develop
 
 ## [2.1.0] - 2020-03-01
 ### Fixed

@@ -2,7 +2,8 @@
     "name": "Share Buttons",
     "data": {
         "url": "http://webumenia.sk",
-        "title": "webumenia"
+        "title": "webumenia",
+        "img": "https://www.webumenia.sk/en/dielo/nahlad/SVK:SNG.UP-DK_2023/0/330"
     },
     "include_js": true,
     "usage_notes": "List of sharing icons, needs $title and $url"

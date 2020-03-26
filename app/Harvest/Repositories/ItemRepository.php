@@ -50,7 +50,12 @@ class ItemRepository extends AbstractRepository
         'rights' => './/dc:rights',
         'description' => './/dc:description',
         'extent' => './/dcterms:extent',
-        'provenance' => './/dcterms:provenance',
+        'gallery' => './/dcterms:provenance[not(@type)]',
+        'credit' => [
+            null => './/dcterms:provenance[@type="former"]',
+            'lang' => './@xml:lang',
+            'credit' => '.',
+        ],
         'created' => './/dcterms:created',
     ];
 }

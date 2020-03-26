@@ -42,6 +42,8 @@ class ItemType extends AbstractType
             ->add('lng')
             ->add('related_work_order')
             ->add('related_work_total')
+            ->add('acquisition_date')
+            ->add('credit')
             ->add('primary_image', FileType::class, [
                 'mapped' => false,
                 'required' => $options['new'],

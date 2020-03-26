@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Import\Importers;
+namespace Tests\Harvest\Importers;
 
 use App\Authority;
 use App\Harvest\Importers\ItemImporter;
@@ -159,7 +159,21 @@ class ItemImporterTest extends TestCase
                 'vľavo dole peint Teniers',
             ],
             'extent' => ['šírka 50.0 cm, šírka 47.6 cm, výška 39.0 cm, výška 37.0 cm, hĺbka 5.0 cm ()'],
-            'provenance' => ['Slovenská národná galéria, SNG'],
+            'gallery' => ['Slovenská národná galéria, SNG'],
+            'credit' => [
+                [
+                    'lang' => ['sk'],
+                    'credit' => ['Dar zo Zbierky Linea'],
+                ],
+                [
+                    'lang' => ['en'],
+                    'credit' => ['Donation from the Linea Collection'],
+                ],
+                [
+                    'lang' => ['cs'],
+                    'credit' => ['Dar ze Sbírky Linea'],
+                ],
+            ],
             'created' => [
                 '1760/1760',
                 '18. storočie, polovica, 1760',
@@ -207,6 +221,7 @@ class ItemImporterTest extends TestCase
                 'inscription:sk' => 'vpravo dole gravé J.Daullé..; vľavo dole peint Teniers',
                 'place:sk' => null,
                 'gallery:sk' => 'Slovenská národná galéria, SNG',
+                'credit:sk' => 'Dar zo Zbierky Linea',
                 'dating:sk' => '1760',
                 'relationship_type:sk' => 'samostatné dielo',
                 'related_work:sk' => null,
@@ -222,6 +237,7 @@ class ItemImporterTest extends TestCase
                 'inscription:en' => null,
                 'place:en' => null,
                 'gallery:en' => null,
+                'credit:en' => null,
                 'dating:en' => null,
                 'relationship_type:en' => null,
                 'related_work:en' => null,
@@ -237,6 +253,7 @@ class ItemImporterTest extends TestCase
                 'inscription:cs' => null,
                 'place:cs' => null,
                 'gallery:cs' => null,
+                'credit:cs' => null,
                 'dating:cs' => null,
                 'relationship_type:cs' => null,
                 'related_work:cs' => null,

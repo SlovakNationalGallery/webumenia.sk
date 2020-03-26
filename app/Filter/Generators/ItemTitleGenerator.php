@@ -12,6 +12,7 @@ class ItemTitleGenerator extends AbstractTitleGenerator
         'work_type',
         'tag',
         'gallery',
+        'credit',
         'topic',
         'medium',
         'technique',
