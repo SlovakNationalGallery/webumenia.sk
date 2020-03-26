@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - Laravel Deployer config
 - Item credit attribute
+- harvest item's authority role
 
 ### Fixed
 - facebook sharing handling, pinterest media preview
