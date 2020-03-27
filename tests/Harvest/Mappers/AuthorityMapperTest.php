@@ -68,6 +68,16 @@ class AuthorityMapperTest extends TestCase
         $this->assertSame('', $mapped['death_date']);
     }
 
+    public function testAuthorityIdOnly()
+    {
+        $mapper = new AuthorityMapper();
+        $row = ['id' => ['urn:svk:psi:per:sng:0000000954']];
+
+        $mapped = $mapper->map($row);
+
+        $this->assertSame(954, $mapped['id']);
+    }
+
     protected function fakeRow()
     {
         return [
