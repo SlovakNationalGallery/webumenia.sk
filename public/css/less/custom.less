@@ -906,11 +906,12 @@ label sup {
   display: none;
 }
 
-.year-range-slider{
+.range-slider{
   .lsng-slider-wrap, .slider-period{
     height: 4px;
   }
   .lsng-picker{
+    background-color: @dark-grey;
     transform: translate(-8px, -6px);
   }
   .lsng-pointer > *{
@@ -918,7 +919,7 @@ label sup {
   }
 }
 
-#from_year, #until_year{
+.range-slider-from, .range-slider-to{
   margin-top: 10px;
   width: 5.0ex;
   overflow: hidden;
@@ -926,11 +927,11 @@ label sup {
   border: none;;
 }
 
-#from_year{
+.range-slider-from{
   margin-right: auto;
 }
 
-#until_year{
+.range-slider-to{
   margin-left: auto;
 }
 
