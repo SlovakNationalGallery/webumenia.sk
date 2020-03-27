@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Fixed
 - facebook sharing handling, pinterest media preview
+- year-range filter inputs
 
 ### Changed
 - GMU v Roudnici nad Labem importer
