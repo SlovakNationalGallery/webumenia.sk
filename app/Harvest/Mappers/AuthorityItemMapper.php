@@ -1,16 +1,12 @@
 <?php
 
-
 namespace App\Harvest\Mappers;
 
-
-use App\Authority;
-
-class AuthorityItemMapper extends AbstractModelMapper
+class AuthorityItemMapper extends AbstractMapper
 {
-    protected $modelClass = Authority::class;
-
-    protected function mapId(array $row) {
-        return (int)$this->parseId($row['id'][0]);
+    protected function mapRole(array $row) {
+        if (isset($row['role'][0])) {
+            return $row['role'][0];
+        }
     }
 }
