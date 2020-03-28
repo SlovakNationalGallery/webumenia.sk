@@ -29,7 +29,6 @@ All notable changes to this project will be documented in this file[^1].
 - preview image in artwork detail for firefox
 - order form translations
 - number of involved galleries on frontpage
->>>>>>> develop
 
 ## [2.1.0] - 2020-03-01
 ### Fixed
