@@ -31,6 +31,7 @@ return array(
     'item_attr_licence'        => 'licence',
     'item_attr_place'          => 'geographic location',
     'item_attr_acquisition_date' => 'acquisition date',
+    'item_attr_credit' => 'credit',
 
     'more-items_related-artworks' => 'related artworks',
     'more-items_related-artworks_by-data' => 'by title, artist, tags...',

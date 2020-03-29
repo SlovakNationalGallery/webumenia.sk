@@ -17,6 +17,9 @@ abstract class AbstractImporter
     /** @var AbstractMapper[] */
     protected $mappers = [];
 
+    /** @var AbstractMapper[] */
+    protected $pivotMappers = [];
+
     /** @var string */
     protected $modelClass;
 

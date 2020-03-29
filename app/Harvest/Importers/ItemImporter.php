@@ -3,6 +3,7 @@
 namespace App\Harvest\Importers;
 
 use App\Harvest\Mappers\AuthorityItemMapper;
+use App\Harvest\Mappers\AuthorityMapper;
 use App\Harvest\Mappers\ItemImageMapper;
 use App\Harvest\Mappers\CollectionItemMapper;
 use App\Harvest\Mappers\ItemMapper;
@@ -23,12 +24,16 @@ class ItemImporter extends AbstractImporter
         ItemMapper $mapper,
         ItemImageMapper $itemImageMapper,
         CollectionItemMapper $collectionItemMapper,
-        AuthorityItemMapper $authorityItemMapper
+        AuthorityItemMapper $authorityItemMapper,
+        AuthorityMapper $authorityMapper
     ) {
         parent::__construct($mapper);
         $this->mappers = [
             'images' => $itemImageMapper,
             'collections' => $collectionItemMapper,
+            'authorities' => $authorityMapper,
+        ];
+        $this->pivotMappers = [
             'authorities' => $authorityItemMapper,
         ];
     }

@@ -4,13 +4,17 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Added
 - Laravel Deployer config
+- Item credit attribute
+- harvest item's authority role
 
 ### Fixed
 - facebook sharing handling, pinterest media preview
+- trim item's array attribute values
 
 ### Changed
 - GMU v Roudnici nad Labem importer
 - (Child) sitemaps are now stored in /public/sitemaps
+- enable translations in harvests
 - placement of share buttons within article / author / collection
 
 ## [2.2.1] - 2020-03-16

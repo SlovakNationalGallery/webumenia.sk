@@ -31,6 +31,7 @@ return array(
     'item_attr_licence'        => 'licencia',
     'item_attr_place'          => 'geografická oblasť',
     'item_attr_acquisition_date' => 'dátum akvizíce',
+    'item_attr_credit' => 'nadobudnutie',
 
     'more-items_related-artworks' => 'súvisiace diela',
     'more-items_related-artworks_by-data' => 'podľa názvu, autora / autorky, tagov...',

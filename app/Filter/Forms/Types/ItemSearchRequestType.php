@@ -28,6 +28,7 @@ class ItemSearchRequestType extends AbstractType
     {
         $builder->add('search', HiddenType::class, ['required' => false])
             ->add('color', ColorType::class, ['required' => false])
+            ->add('credit', HiddenType::class, ['required' => false])
             ->add('has_image', NullableCheckboxType::class)
             ->add('has_iip', NullableCheckboxType::class)
             ->add('is_free', NullableCheckboxType::class);
