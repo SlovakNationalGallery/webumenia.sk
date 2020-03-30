@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 ### Added
+- attribute "reproductionType" to JIRA request in order process
 - Laravel Deployer config
 - collection filter by user / type
 - Item credit attribute

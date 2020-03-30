@@ -147,6 +147,8 @@ function()
                 $order->items()->attach($item_id);
             }
 
+            $type = (Input::get('format') == 'digitálna reprodukcia') ? 'digitálna' : 'tlačená';
+
             //poslat objednavku do Jiry
             $client = new GuzzleHttp\Client();
             $res = $client->post('https://jira.sng.sk/rest/cedvu/latest/order/create', [
@@ -164,6 +166,7 @@ function()
                     'ico' => '',
                     'dic' => '',
                     'numOfCopies' => '1',
+                    'reproductionType' => $type,
                 ],
             ]);
             if ($res->getStatusCode() == 200) {
