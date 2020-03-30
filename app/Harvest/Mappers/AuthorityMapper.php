@@ -16,20 +16,32 @@ class AuthorityMapper extends AbstractModelMapper
     }
 
     public function mapType(array $row) {
+        if (!isset($row['type'])) {
+            return null;
+        }
         return array_map(function ($type) {
             return Str::lower($type);
         }, $row['type']);
     }
 
     public function mapTypeOrganization(array $row) {
+        if (!isset($row['type_organization'])) {
+            return null;
+        }
         return $row['type_organization'];
     }
 
     public function mapName(array $row) {
+        if (!isset($row['name'])) {
+            return null;
+        }
         return $row['name'];
     }
 
     public function mapSex(array $row) {
+        if (!isset($row['sex'])) {
+            return null;
+        }
         return array_map(function ($sex) {
             return Str::lower($sex);
         }, $row['sex']);
@@ -61,10 +73,16 @@ class AuthorityMapper extends AbstractModelMapper
     }
 
     public function mapBirthDate(array $row) {
+        if (!isset($row['birth_date'])) {
+            return null;
+        }
         return $row['birth_date'];
     }
 
     public function mapDeathDate(array $row) {
+        if (!isset($row['death_date'])) {
+            return null;
+        }
         return $row['death_date'];
     }
 
@@ -81,6 +99,10 @@ class AuthorityMapper extends AbstractModelMapper
     }
 
     public function mapRoles(array $row, $locale) {
+        if (!isset($row['roles'])) {
+            return null;
+        }
+
         $roles = [];
         foreach ($row['roles'] as $role) {
             $roles[] = $this->chooseTranslation($role, $locale);

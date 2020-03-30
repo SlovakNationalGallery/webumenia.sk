@@ -6,6 +6,7 @@ use App\Harvest\Factories\EndpointFactory;
 use App\Harvest\Harvesters\ItemHarvester;
 use App\Harvest\Importers\ItemImporter;
 use App\Harvest\Mappers\AuthorityItemMapper;
+use App\Harvest\Mappers\AuthorityMapper;
 use App\Harvest\Mappers\CollectionItemMapper;
 use App\Harvest\Mappers\ItemImageMapper;
 use App\Harvest\Mappers\ItemMapper;
@@ -28,6 +29,7 @@ class ItemHarvesterTest extends TestCase
             $this->createMock(ItemImageMapper::class),
             $this->createMock(CollectionItemMapper::class),
             $this->createMock(AuthorityItemMapper::class),
+            $this->createMock(AuthorityMapper::class),
         ]);
 
         $repositoryMock->expects($this->once())

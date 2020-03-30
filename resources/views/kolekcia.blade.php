@@ -64,7 +64,7 @@
 </div>
 </div>
 
-<section class="collection content-section">
+<section class="collection content-section pb-0">
     <div class="collection-body">
         <div class="container">
             <div class="row">
@@ -81,7 +81,7 @@
         'title' => $collection->name,
         'url' => $collection->getUrl(),
         'img' => URL::to($collection->getHeaderImage()),
-        'class' => 'text-center'
+        'class' => 'text-center mb-5'
     ])
 </section>
 

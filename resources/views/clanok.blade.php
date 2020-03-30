@@ -66,6 +66,13 @@
             <div class="row">
                 <div class="col-md-4 lead attributes">
                     {!! $article->summary !!}
+
+                    <!-- share -->
+                    @include('components.share_buttons', [
+                        'title' => $article->title,
+                        'url' => $article->getUrl(),
+                        'img' => URL::to('images/clanky/' . $article->getHeaderImage()),
+                    ])
                 </div>
                 <div class="col-md-6 attributes">
                     {!! $article->content !!}
@@ -75,15 +82,6 @@
     </div>
 </section>
 
-<!-- share -->
-{{-- <div class="shareon-container"> --}}
-@include('components.share_buttons', [
-    'title' => $article->title,
-    'url' => $article->getUrl(),
-    'img' => URL::to('images/clanky/' . $article->getHeaderImage()),
-    'class' => 'text-center'
-])
-{{-- </div> --}}
 
 {{-- zoznam diel ??? --}}
 

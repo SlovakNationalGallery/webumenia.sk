@@ -99,13 +99,15 @@ class ItemRepositoryTest extends TestCase
                 'urn:svk:psi:per:sng:0000010816',
                 'Teniers, David',
             ],
-            'creator_role' => [
-                'autor/author',
-                'autor/author',
-            ],
             'authorities' => [
-                ['id' => ['urn:svk:psi:per:sng:0000001922']],
-                ['id' => ['urn:svk:psi:per:sng:0000010816']],
+                [
+                    'id' => ['urn:svk:psi:per:sng:0000001922'],
+                    'role' => ['autor/author'],
+                ],
+                [
+                    'id' => ['urn:svk:psi:per:sng:0000010816'],
+                    'role' => ['iné/other'],
+                ],
             ],
             'rights' => [
                 '1',
@@ -116,7 +118,21 @@ class ItemRepositoryTest extends TestCase
                 'vľavo dole peint Teniers',
             ],
             'extent' => ['šírka 50.0 cm, šírka 47.6 cm, výška 39.0 cm, výška 37.0 cm, hĺbka 5.0 cm ()'],
-            'provenance' => ['Slovenská národná galéria, SNG'],
+            'gallery' => ['Slovenská národná galéria, SNG'],
+            'credit' => [
+                [
+                    'lang' => ['sk'],
+                    'credit' => ['Dar zo Zbierky Linea'],
+                ],
+                [
+                    'lang' => ['en'],
+                    'credit' => ['Donation from the Linea Collection'],
+                ],
+                [
+                    'lang' => ['cs'],
+                    'credit' => ['Dar ze Sbírky Linea'],
+                ],
+            ],
             'created' => [
                 '1760/1760',
                 '18. storočie, polovica, 1760',
