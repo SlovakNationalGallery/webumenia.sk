@@ -5,6 +5,7 @@ namespace Tests\Importers;
 use App\Import;
 use App\Repositories\CsvRepository;
 use App\Importers\WebumeniaMgImporter;
+use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -139,7 +140,7 @@ class WebumeniaMgImporterTest extends TestCase
         $repositoryMock = $this->createMock(CsvRepository::class);
         $repositoryMock->method('getFiltered')->willReturn($records);
 
-        $importer = new WebumeniaMgImporter($repositoryMock);
+        $importer = new WebumeniaMgImporter($repositoryMock, $this->app->get(Translator::class));
         $import = Import::create();
         $file = ['basename' => '', 'path' => ''];
         $items = $importer->import($import, $file);

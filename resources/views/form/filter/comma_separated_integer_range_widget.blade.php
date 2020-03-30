@@ -1,17 +1,20 @@
-<div class="js-range-slider range-slider">
+<div class="range-slider">
     <div class="col-xs-6 col-sm-1 text-left text-sm-right">
-        <span class="sans js-range-slider-from">{{ $from }}</span>
+        <input class="sans range-slider-from" id="{{ $name }}-from" maxlength="4" pattern="[0-9]{1-4}" step="5"
+               value="{{ $from }}" />
     </div>
     <div class="col-xs-6 col-sm-1 col-sm-push-10 text-right text-sm-left">
-        <span class="sans js-range-slider-to">{{ $to }}</span>
+        <input class="sans range-slider-to" id="{{ $name }}-to" maxlength="4" pattern="[0-9]{1-4}" step="5"
+               value="{{ $to }}" />
     </div>
-    <div class="col-sm-10 col-sm-pull-1">
-        <input name="{{ $name }}"
-               type="hidden"
-               data-slider-step="5"
-               data-slider-min="{{ $min }}"
-               data-slider-max="{{ $max }}"
-               data-slider-value="[{{ $from }},{{ $to }}]"
-        />
+    <div class="col-xs-12 col-sm-10 col-sm-pull-1">
+
+        @include('components.year_slider', ['id' => $name])
+        @include('components.year_slider_js', [
+        'yearRange' => $from . ', ' . $to,
+        'min' => $min,
+        'max' => $max,
+        'id' => ($name)
+        ])
     </div>
 </div>

@@ -127,7 +127,6 @@
         });
 
         $(document).ready(function(){
-            var rangeInput = $('.js-range-slider input');
 
             $("form").submit(function()
             {
@@ -137,22 +136,10 @@
                         $(this).removeAttr('name');
                     }
                 });
-
-                var data = rangeInput.data();
-                if (rangeInput.val() === data.sliderMin + ',' + data.sliderMax) {
-                    rangeInput.attr('disabled', true);
-                }
             });
 
-            rangeInput.slider({
-                tooltip: 'hide'
-            }).on('slideStop', function(event) {
+            $('#years-range').on('change', function(event) {
                 $(this).closest('form').submit();
-            }).on('slide', function(event) {
-                var range = $(this).val().split(',');
-                var rangeSlider = $(this).closest('.js-range-slider');
-                rangeSlider.find('.js-range-slider-from').html(range[0]);
-                rangeSlider.find('.js-range-slider-to').html(range[1]);
             });
 
             $('.js-filter-form').each(function () {

@@ -51,6 +51,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
         'place',
         'state_edition',
         'gallery',
+        'credit',
         'relationship_type',
         'related_work',
     ];
@@ -86,6 +87,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
         'gallery',
         'publish',
         'contributor',
+        'acquisition_date',
     );
 
     protected $dates = array(
@@ -299,10 +301,10 @@ class Item extends Model implements IndexableModel, TranslatableContract
         if (preg_match('~\.(.*?)_~', $id, $work_type)) {
             $work_type = mb_strtolower($work_type[1], "UTF-8");
             if (in_array($work_type, $allowed_work_types)) {
-                return self::ARTWORKS_DIR . "no-image-{$work_type}.jpg";
+                return "/images/no-image/diela/no-image-{$work_type}.jpg";
             }
         }
-        return self::ARTWORKS_DIR . "no-image.jpg";
+        return "/images/no-image/diela/no-image.jpg";
     }
 
     public function getAuthorsAttribute($value)
@@ -404,13 +406,19 @@ class Item extends Model implements IndexableModel, TranslatableContract
         $this->attributes['lng'] = $value ?: null;
     }
 
-    public function makeArray($str, $delimiter = '; ')
+    public function makeArray($str, $delimiter = ';')
     {
         if (is_array($str)) {
             return $str;
         }
-        $str = trim($str);
-        return (empty($str)) ? array() : explode($delimiter, $str);
+
+        $array = explode($delimiter, $str);
+        $array = array_map(function ($value) {
+            return trim($value);
+        }, $array);
+        return array_filter($array, function ($value) {
+            return $value !== "";
+        });
     }
 
     /**
@@ -600,6 +608,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
             'medium' => $this["medium:$locale"],
             'technique' => $this->makeArray($this["technique:$locale"]),
             'gallery' => $this["gallery:$locale"],
+            'credit' => $this["credit:$locale"],
             'related_work' => $this["related_work:$locale"],
             'hsl' => $this->getColors()
                 ->map(function (float $amount, string $color) {

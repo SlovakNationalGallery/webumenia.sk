@@ -85,6 +85,22 @@ class ItemTest extends TestCase
         $this->assertEquals($data['description'], 'Popis');
     }
 
+    public function testMakeArrayEmpty()
+    {
+        /** @var Item $item */
+        $item = factory(Item::class)->make();
+        $array = $item->makeArray('');
+        $this->assertEquals([], $array);
+    }
+
+    public function testMakeArrayTrimmed()
+    {
+        /** @var Item $item */
+        $item = factory(Item::class)->make();
+        $array = $item->makeArray(' first ; second ');
+        $this->assertEquals(['first', 'second'], $array);
+    }
+
     protected function createFreeItem() {
         return factory(Item::class)->make([
             'gallery' => 'Slovenská národná galéria, SNG',

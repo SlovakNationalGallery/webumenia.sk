@@ -14,6 +14,8 @@ class ItemFilter extends AbstractFilter
 
     protected $gallery;
 
+    protected $credit;
+
     protected $workType;
 
     protected $topic;
@@ -40,6 +42,7 @@ class ItemFilter extends AbstractFilter
     protected $filterables = [
         'author',
         'gallery',
+        'credit',
         'work_type',
         'topic',
         'tag',
@@ -87,6 +90,17 @@ class ItemFilter extends AbstractFilter
     public function setGallery(?string $gallery): self
     {
         $this->gallery = $gallery;
+        return $this;
+    }
+
+    public function getCredit(): ?string
+    {
+        return $this->credit;
+    }
+
+    public function setCredit(?string $credit): self
+    {
+        $this->credit = $credit;
         return $this;
     }
 

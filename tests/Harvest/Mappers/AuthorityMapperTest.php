@@ -41,17 +41,16 @@ class AuthorityMapperTest extends TestCase
             'biography:sk' => '',
             'birth_place:sk' => 'Považská Bystrica',
             'death_place:sk' => 'Bratislava',
-            // @TODO: other then slovak locales are temporary disabled in Harvester
-            // 'roles:en' => ['photographer'],
-            // 'type_organization:en' => 'Zbierkotvorná galéria',
-            // 'biography:en' => '',
-            // 'birth_place:en' => null,
-            // 'death_place:en' => null,
-            // 'roles:cs' => [null],
-            // 'type_organization:cs' => 'Zbierkotvorná galéria',
-            // 'biography:cs' => '',
-            // 'birth_place:cs' => null,
-            // 'death_place:cs' => null,
+            'roles:en' => ['photographer'],
+            'type_organization:en' => 'Zbierkotvorná galéria',
+            'biography:en' => '',
+            'birth_place:en' => null,
+            'death_place:en' => null,
+            'roles:cs' => [null],
+            'type_organization:cs' => 'Zbierkotvorná galéria',
+            'biography:cs' => '',
+            'birth_place:cs' => null,
+            'death_place:cs' => null,
         ];
         $this->assertEquals($expected, $mapped);
     }
@@ -67,6 +66,16 @@ class AuthorityMapperTest extends TestCase
 
         $this->assertSame(null, $mapped['death_year']);
         $this->assertSame('', $mapped['death_date']);
+    }
+
+    public function testAuthorityIdOnly()
+    {
+        $mapper = new AuthorityMapper();
+        $row = ['id' => ['urn:svk:psi:per:sng:0000000954']];
+
+        $mapped = $mapper->map($row);
+
+        $this->assertSame(954, $mapped['id']);
     }
 
     protected function fakeRow()
