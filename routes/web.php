@@ -166,7 +166,7 @@ function()
                     'ico' => '',
                     'dic' => '',
                     'numOfCopies' => '1',
-                    'reporoductionType' => $type,
+                    'reproductionType' => $type,
                 ],
             ]);
             if ($res->getStatusCode() == 200) {

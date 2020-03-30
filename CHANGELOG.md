@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 ### Added
-- attribute "reporoductionType" to JIRA request in order process
+- attribute "reproductionType" to JIRA request in order process
 - Laravel Deployer config
 - Item credit attribute
 
