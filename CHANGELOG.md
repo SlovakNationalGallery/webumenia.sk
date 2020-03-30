@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Added
 - Laravel Deployer config
+- collection filter by user / type
 - Item credit attribute
 - harvest item's authority role
 
