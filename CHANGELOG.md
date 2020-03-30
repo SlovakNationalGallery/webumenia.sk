@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Fixed
 - facebook sharing handling, pinterest media preview
+- year-range filter inputs
 - trim item's array attribute values
 
 ### Changed

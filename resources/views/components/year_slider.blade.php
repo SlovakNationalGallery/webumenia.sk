@@ -1,4 +1,4 @@
-<div class="year-range-slider" id="{{$id}}">
+<div class="year-range-slider" id="{{$id}}-slider">
    <year-slider 
       v-model="yearRange" 
       :min="yearMin" 
@@ -8,4 +8,5 @@
       @change="$emit('slide', $event)"
       @changemouseup="$emit('change', $event)">
    </year-slider>
+   <input id="{{$id}}" name="{{$id}}" type="hidden"/>
 </div>
