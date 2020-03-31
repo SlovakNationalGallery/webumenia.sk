@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.3.0] - 2020-03-31
 ### Added
 - attribute "reproductionType" to JIRA request in order process
 - Laravel Deployer config
