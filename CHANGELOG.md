@@ -4,7 +4,6 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Added
 - attribute "reproductionType" to JIRA request in order process
-- Laravel Deployer config
 - collection filter by user / type
 - Item credit attribute
 - harvest item's authority role
@@ -15,10 +14,17 @@ All notable changes to this project will be documented in this file[^1].
 - trim item's array attribute values
 
 ### Changed
-- GMU v Roudnici nad Labem importer
-- (Child) sitemaps are now stored in /public/sitemaps
 - enable translations in harvests
 - placement of share buttons within article / author / collection
+
+## [2.3.0] - 2020-03-20
+### Added
+- facebook sharing handling, pinterest media preview
+- GMU v Roudnici nad Labem importer
+- Laravel Deployer config
+
+### Changed
+- (Child) sitemaps are now stored in /public/sitemaps
 
 ## [2.2.1] - 2020-03-16
 ### Fixed
