@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
-## [2.3.0] - 2020-03-31
+## [2.4.0] - 2020-04-01
 ### Added
 - attribute "reproductionType" to JIRA request in order process
 - collection filter by user / type
@@ -18,6 +18,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Changed
 - enable translations in harvests
 - placement of share buttons within article / author / collection
+- bump symfony/http-foundation from 4.4.5 to 4.4.7
 
 ## [2.3.0] - 2020-03-20
 ### Added
