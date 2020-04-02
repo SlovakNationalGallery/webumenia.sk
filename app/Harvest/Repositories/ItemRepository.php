@@ -42,15 +42,20 @@ class ItemRepository extends AbstractRepository
         'subject_place' => './/dc:subject.place',
         'relation_isPartOf' => './/dc:relation.isPartOf',
         'creator' => './/dc:creator',
-        'creator_role' => './/dc:creator.role',
         'authorities' => [
             null => './/dc:creator[starts-with(.,"urn:")]',
             'id' => '.',
+            'role' => './following-sibling::dc:creator.role[1]',
         ],
         'rights' => './/dc:rights',
         'description' => './/dc:description',
         'extent' => './/dcterms:extent',
-        'provenance' => './/dcterms:provenance',
+        'gallery' => './/dcterms:provenance[not(@type)]',
+        'credit' => [
+            null => './/dcterms:provenance[@type="former"]',
+            'lang' => './@xml:lang',
+            'credit' => '.',
+        ],
         'created' => './/dcterms:created',
     ];
 }

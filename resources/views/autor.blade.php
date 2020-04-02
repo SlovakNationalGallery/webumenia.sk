@@ -37,13 +37,19 @@
             <div class="row">
                 <div class="col-sm-4 text-center extra-padding top-space">
                         <img src="{!! $author->getImagePath() !!}" class="img-responsive img-circle" alt="{!! $author->name !!}"  itemprop="image">
-                        <p class="content-section">
+                        <div class="content-section">
                             {!! trans_choice('authority.artworks', $author->items_count, ['artworks_url' => url_to('katalog', ['author' => $author->name]), 'artworks_count' => $author->items_count]) !!}
-                            <br>
+                            <br/>
                             {!! trans_choice('authority.collections', $author->collections_count, ['collections_count' => $author->collections_count] ) !!}
-                            <br>
+                            <br/>
                             {!! trans_choice('authority.views', $author->view_count, ['view_count' => $author->view_count]) !!}
-                        </p>
+                            <br/>
+                            @include('components.share_buttons', [
+                                'title' => $author->formatedName,
+                                'url' => Request::url(),
+                                'img' => URL::to( $author->getImagePath() )
+                            ])
+                        </div>
                         @if ( $author->tags->count() > 0)
                             <div class="tags">
                                 <h4>{{ utrans('authority.tags') }}: </h4>
@@ -89,12 +95,6 @@
                             {!! implode(", ", $links) !!}
                         </div>
                     @endif
-
-                    @include('components.share_buttons', [
-                        'title' => $author->formatedName,
-                        'url' => Request::url(),
-                        'img' => URL::to( $author->getImagePath() )
-                    ])
 
                     @if ( $author->relationships->count() > 0)
                     <h4 class="top-space">{{ utrans('authority.relationships') }}</h4>

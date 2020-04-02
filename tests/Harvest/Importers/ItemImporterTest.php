@@ -1,10 +1,11 @@
 <?php
 
-namespace Tests\Import\Importers;
+namespace Tests\Harvest\Importers;
 
 use App\Authority;
 use App\Harvest\Importers\ItemImporter;
 use App\Harvest\Mappers\AuthorityItemMapper;
+use App\Harvest\Mappers\AuthorityMapper;
 use App\Harvest\Mappers\ItemImageMapper;
 use App\Harvest\Mappers\CollectionItemMapper;
 use App\Harvest\Mappers\ItemMapper;
@@ -65,6 +66,25 @@ class ItemImporterTest extends TestCase
         $this->assertFalse($item->authorities->contains(function (Authority $authority) {
             return $authority->id === 'to_be_detached';
         }));
+    }
+
+    public function testImportAuthorityPivotData() {
+        $row = $this->getData();
+        $importer = $this->initImporter($row);
+        factory(Authority::class)->create(['id' => 1922]);
+        factory(Authority::class)->create(['id' => 10816]);
+
+        $item = $importer->import($row, $result = new Result());
+
+        $this->assertCount(2, $item->authorities);
+        $author = $item->authorities->first(function (Authority $authority) {
+            return $authority->id == 1922;
+        });
+        $other = $item->authorities->first(function (Authority $authority) {
+            return $authority->id == 10816;
+        });
+        $this->assertEquals('autor/author', $author->pivot->role);
+        $this->assertEquals('iné/other', $other->pivot->role);
     }
 
     protected function getData() {
@@ -142,13 +162,15 @@ class ItemImporterTest extends TestCase
                 'urn:svk:psi:per:sng:0000010816',
                 'Teniers, David',
             ],
-            'creator_role' => [
-                'autor/author',
-                'autor/author',
-            ],
             'authorities' => [
-                ['id' => ['urn:svk:psi:per:sng:0000001922']],
-                ['id' => ['urn:svk:psi:per:sng:0000010816']],
+                [
+                    'id' => ['urn:svk:psi:per:sng:0000001922'],
+                    'role' => ['autor/author'],
+                ],
+                [
+                    'id' => ['urn:svk:psi:per:sng:0000010816'],
+                    'role' => ['iné/other'],
+                ],
             ],
             'rights' => [
                 '1',
@@ -159,7 +181,21 @@ class ItemImporterTest extends TestCase
                 'vľavo dole peint Teniers',
             ],
             'extent' => ['šírka 50.0 cm, šírka 47.6 cm, výška 39.0 cm, výška 37.0 cm, hĺbka 5.0 cm ()'],
-            'provenance' => ['Slovenská národná galéria, SNG'],
+            'gallery' => ['Slovenská národná galéria, SNG'],
+            'credit' => [
+                [
+                    'lang' => ['sk'],
+                    'credit' => ['Dar zo Zbierky Linea'],
+                ],
+                [
+                    'lang' => ['en'],
+                    'credit' => ['Donation from the Linea Collection'],
+                ],
+                [
+                    'lang' => ['cs'],
+                    'credit' => ['Dar ze Sbírky Linea'],
+                ],
+            ],
             'created' => [
                 '1760/1760',
                 '18. storočie, polovica, 1760',
@@ -182,7 +218,8 @@ class ItemImporterTest extends TestCase
             $itemMapperMock = $this->createMock(ItemMapper::class),
             $itemImageMapperMock = $this->createMock(ItemImageMapper::class),
             $collectionItemMapperMock = $this->createMock(CollectionItemMapper::class),
-            $authorityItemMapperMock = $this->createMock(AuthorityItemMapper::class)
+            $authorityItemMapperMock = $this->createMock(AuthorityItemMapper::class),
+            $authorityMapperMock = $this->createMock(AuthorityMapper::class)
         );
         $itemMapperMock
             ->expects($this->once())
@@ -207,6 +244,7 @@ class ItemImporterTest extends TestCase
                 'inscription:sk' => 'vpravo dole gravé J.Daullé..; vľavo dole peint Teniers',
                 'place:sk' => null,
                 'gallery:sk' => 'Slovenská národná galéria, SNG',
+                'credit:sk' => 'Dar zo Zbierky Linea',
                 'dating:sk' => '1760',
                 'relationship_type:sk' => 'samostatné dielo',
                 'related_work:sk' => null,
@@ -222,6 +260,7 @@ class ItemImporterTest extends TestCase
                 'inscription:en' => null,
                 'place:en' => null,
                 'gallery:en' => null,
+                'credit:en' => null,
                 'dating:en' => null,
                 'relationship_type:en' => null,
                 'related_work:en' => null,
@@ -237,6 +276,7 @@ class ItemImporterTest extends TestCase
                 'inscription:cs' => null,
                 'place:cs' => null,
                 'gallery:cs' => null,
+                'credit:cs' => null,
                 'dating:cs' => null,
                 'relationship_type:cs' => null,
                 'related_work:cs' => null,
@@ -248,7 +288,7 @@ class ItemImporterTest extends TestCase
             ->expects($this->once())
             ->method('mapId')
             ->with($row)
-            ->willReturn('SVK:SNG.G_10044');
+            ->willReturn('SVK:SNG.G_10044')
         ;
         $itemImageMapperMock
             ->expects($this->exactly(2))
@@ -274,9 +314,22 @@ class ItemImporterTest extends TestCase
                 [$row['authorities'][1]]
             )
             ->willReturnOnConsecutiveCalls(
+                ['role' => 'autor/author'],
+                ['role' => 'iné/other']
+            )
+        ;
+        $authorityMapperMock
+            ->expects($this->exactly(2))
+            ->method('map')
+            ->withConsecutive(
+                [$row['authorities'][0]],
+                [$row['authorities'][1]]
+            )
+            ->willReturnOnConsecutiveCalls(
                 ['id' => 1922],
                 ['id' => 10816]
-            );
+            )
+        ;
 
         return $importer;
     }

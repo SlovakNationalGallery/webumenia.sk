@@ -74,6 +74,9 @@
 					<div class="col-md-6">
 						@formRow($form['acquisition_date'])
 					</div>
+					<div class="col-md-6">
+						@formRow($form['credit'])
+					</div>
 					<div class="col-md-12">
 						@if ($item->getImagePath())
 							<div class="primary-image">
