@@ -108,6 +108,7 @@ return [
             'public/images/intro',
             'public/images/kolekcie',
             'public/images/uploaded',
+            'public/images/panorama',
             'public/sitemaps',
             'storage',
             'resources/fonts',
@@ -115,7 +116,25 @@ return [
         'shared_files' => [
             '.env',
             'public/sitemap.xml',
-        ]
+        ],
+        'writable_dirs' => [
+            'bootstrap/cache',
+            'storage',
+            'storage/app',
+            'storage/app/public',
+            'storage/framework',
+            'storage/framework/cache',
+            'storage/framework/sessions',
+            'storage/framework/views',
+            'storage/logs',
+            'public/images/autori',
+            'public/images/clanky',
+            'public/images/diela',
+            'public/images/intro',
+            'public/images/kolekcie',
+            'public/images/uploaded',
+            'public/sitemaps',
+        ],
     ],
 
     /*
