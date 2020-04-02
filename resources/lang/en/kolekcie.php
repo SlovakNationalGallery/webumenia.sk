@@ -13,5 +13,14 @@ return array(
     'collections_collections'       => 'collections',
     'collections_no_collections'    => 'currently no collections',
     'collections_artworks'          => 'artworks',
-
+    'filter' => [
+        'author' => 'author',
+        'type' => 'type',
+        'sort_by' => 'sort by',
+        'sorting' => [
+            'updated_at' => 'last updated',
+            'published_at' => 'date added',
+            'title' => 'title',
+        ],
+    ]
 );

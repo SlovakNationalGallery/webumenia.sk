@@ -95,8 +95,8 @@
 @if (Entrust::hasRole('admin'))
 <div class="col-md-6">
 	<div class="form-group checkbox">
-		{!! Form::label('publish', 'Publikovať') !!}
-		{!! Form::checkbox('publish', '1', @$input['publish']) !!}
+		{!! Form::label('published_at', 'Publikovať') !!}
+		{!! Form::text('published_at', @$input['published_at'] ) !!}
 	</div>
 </div>
 @endif
@@ -152,9 +152,17 @@
 @stop
 
 @section('script')
+		
+{!! Html::script('js/bootstrap-datepicker.js') !!}
+
 @if (isSet($collection))
 <script>
-
+	$(document).ready(function() {
+		$('[name="published_at"]').datepicker({
+			format: "yyyy-mm-dd",
+			language: "sk"
+		});
+	});
 	Sortable.create(sortable, {
 	  handle: '.sortable-handle',
 	  ghostClass: "sortable-ghost", 

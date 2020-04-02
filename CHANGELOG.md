@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+- collection published by date, updated filter and ordering
 
 ## [2.4.0] - 2020-04-01
 ### Added
