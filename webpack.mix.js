@@ -11,6 +11,10 @@ const mix = require('laravel-mix');
  |
  */
 
+if (process.env.NODE_ENV == 'testing') {
+    mix.options({ processCssUrls: false });
+}
+
 mix.less('resources/less/style.less', 'public/css').options({
     autoprefixer: {
         options: {
@@ -19,4 +23,8 @@ mix.less('resources/less/style.less', 'public/css').options({
             ]
         }
     }
-}).version();
+});
+
+if (mix.inProduction()) {
+    mix.version();
+}
