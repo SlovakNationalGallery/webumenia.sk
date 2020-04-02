@@ -30,8 +30,8 @@
   $('#{{$id}}-from,#{{$id}}-to').on('change', function(event){
       const min = {{ $min }};
       const max = {{ $max }};
-      const fy = +$('#{{$id}}-from').val().replace(/\D/g, '')
-      const uy = +$('#{{$id}}-to').val().replace(/\D/g, '');
+      const fy = +$('#{{$id}}-from').val().replace(/[^-0-9]/g, '')
+      const uy = +$('#{{$id}}-to').val().replace(/[^-0-9]/g, '');
       const from = Math.min(Math.max(min, fy), max);
       const until = Math.max(Math.min(max, uy), min);
       const range = [from,until].sort();
