@@ -68,7 +68,8 @@ class ItemImporterTest extends TestCase
         }));
     }
 
-    public function testImportAuthorityPivotData() {
+    public function testImportAuthorityPivotData()
+    {
         $row = $this->getData();
         $importer = $this->initImporter($row);
         factory(Authority::class)->create(['id' => 1922]);
@@ -85,6 +86,31 @@ class ItemImporterTest extends TestCase
         });
         $this->assertEquals('autor/author', $author->pivot->role);
         $this->assertEquals('iné/other', $other->pivot->role);
+    }
+
+    public function testImportNonExistingAuthority()
+    {
+        // testing for specific bug where records in pivot table
+        // were repeatedly created by harvester and therefore
+        // after saving related model, the relation was multiplied
+
+        $authority = factory(Authority::class)->make(['id' => 1922]);
+
+        $row = $this->getData();
+
+        for ($i = 2; $i--;) {
+            $importer = $this->initImporter($row);
+            $item = $importer->import($row, new Result());
+            $count = $item->authorities->count();
+            $this->assertEquals(0, $count);
+        }
+
+        $authority->save();
+
+        $importer = $this->initImporter($row);
+        $item = $importer->import($row, new Result());
+        $count = $item->authorities->count();
+        $this->assertEquals(1, $count);
     }
 
     protected function getData() {
@@ -307,7 +333,6 @@ class ItemImporterTest extends TestCase
             )
         ;
         $authorityItemMapperMock
-            ->expects($this->exactly(2))
             ->method('map')
             ->withConsecutive(
                 [$row['authorities'][0]],

@@ -126,13 +126,18 @@ abstract class AbstractImporter
         $relation = $model->$field();
         $relatedModelClass = get_class($relation->getRelated());
 
-        $updateIds = [];
+        $updatedIds = [];
 
         foreach ($relatedRows as $relatedRow) {
             $data = $this->mappers[$field]->map($relatedRow);
             $conditions = $this->getConditions($field, $data);
-            $existing = $relatedModelClass::where($conditions)->first();
-            $relatedModel = $existing ?: new $relatedModelClass;
+            $relatedModel = $relatedModelClass::where($conditions)->first();
+
+            if (!$relatedModel && !$createRelated) {
+                continue;
+            }
+
+            $relatedModel = $relatedModel ?: new $relatedModelClass;
             $relatedModel->forceFill($data);
 
             $pivotData = [];
@@ -141,23 +146,18 @@ abstract class AbstractImporter
             }
 
             if ($this->existsPivotRecord($model, $field, $relatedModel)) {
-                // update only if has any data to update
-                if (!empty($pivotData)) {
-                    $relation->updateExistingPivot($relatedModel->getKey(), $pivotData);
-                }
-            } elseif ($createRelated) {
-                $relation->save($relatedModel, $pivotData);
+                $relation->updateExistingPivot($relatedModel->getKey(), $pivotData);
             } else {
-                $relation->attach($relatedModel, $pivotData);
+                $relation->save($relatedModel, $pivotData);
             }
 
-            $updateIds[] = $relatedModel->getKey();
+            $updatedIds[] = $relatedModel->getKey();
         }
 
         $relatedKeyName = $relation->getQualifiedRelatedPivotKeyName();
         $relatedKeyName = explode('.', $relatedKeyName);
         $relatedKeyName = end($relatedKeyName);
-        $notUpdated = $relation->whereNotIn($relatedKeyName, $updateIds)->get();
+        $notUpdated = $relation->whereNotIn($relatedKeyName, $updatedIds)->get();
         if (!$notUpdated->isEmpty()) {
             $relation->detach($notUpdated);
         }

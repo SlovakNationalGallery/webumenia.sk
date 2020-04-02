@@ -43,18 +43,9 @@ class AuthorityImporterTest extends TestCase
         $row = $this->getData();
         $importer = $this->initImporter($row);
 
-        $importer->import($row, $result = new Result());
-
-        $links = Link::all();
-        $this->assertEquals(1, $links->count());
-        $this->assertEquals('example.org', $links->first()->label);
-    }
-
-    public function testInsertRelated() {
-        $row = $this->getData();
-        $importer = $this->initImporter($row);
-
-        $importer->import($row, $result = new Result());
+        $authority = $importer->import($row, $result = new Result());
+        $this->assertEquals(1, $authority->links->count());
+        $this->assertEquals('example.org', $authority->links[0]->label);
     }
 
     public function testExistingButNotRelatedYet() {
@@ -66,10 +57,8 @@ class AuthorityImporterTest extends TestCase
         $row = $this->getData();
         $importer = $this->initImporter($row);
 
-        $importer->import($row, $result = new Result());
-
-        $item = Authority::first();
-        $this->assertCount(1, $item->nationalities);
+        $authority = $importer->import($row, $result = new Result());
+        $this->assertEquals(1, $authority->nationalities->count());
     }
 
     public function testRelatedButNotExisting() {
@@ -82,7 +71,8 @@ class AuthorityImporterTest extends TestCase
         $row = $this->getData();
         $importer = $this->initImporter($row);
 
-        $importer->import($row, $result = new Result());
+        $authority = $importer->import($row, $result = new Result());
+        $this->assertEquals(0, $authority->relationships->count());
     }
 
     protected function getData() {
@@ -211,7 +201,6 @@ class AuthorityImporterTest extends TestCase
                 ['prefered' => false]
             );
         $authorityRelationshipMapperMock
-            ->expects($this->exactly(3))
             ->method('map')
             ->withConsecutive(
                 [$row['relationships'][0]],
