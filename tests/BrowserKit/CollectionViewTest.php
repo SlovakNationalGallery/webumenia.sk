@@ -37,13 +37,13 @@ class CollectionViewTest extends BrowserKitTestCase
 
         $collectionB = factory(Collection::class)->create([
             'name' => 'b',
-            'publish' => true,
+            'published_at' => '2000-01-01 00:00:00',
             'user_id' => $user->id,
         ]);
         $collectionC = factory(Collection::class)->create([
             'name' => 'a',
             'name:en' => 'c',
-            'publish' => true,
+            'published_at' => '2000-01-01 00:00:00',
             'user_id' => $user->id,
         ]);
 
