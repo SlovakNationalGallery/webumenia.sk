@@ -107,6 +107,7 @@ return [
             'public/images/intro',
             'public/images/kolekcie',
             'public/images/uploaded',
+            'public/images/panorama',
             'public/sitemaps',
             'storage',
         ],
