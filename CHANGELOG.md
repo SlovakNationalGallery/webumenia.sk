@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- add panorama image dir to deployer config
 
 ## [2.4.0] - 2020-04-01
 ### Added
@@ -14,7 +16,6 @@ All notable changes to this project will be documented in this file[^1].
 - facebook sharing handling, pinterest media preview
 - year-range filter inputs
 - trim item's array attribute values
-- add panorama image dir to deployer config
 
 ### Changed
 - enable translations in harvests
