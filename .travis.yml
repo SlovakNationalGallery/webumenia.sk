@@ -1,8 +1,18 @@
 services:
   - docker
 
+cache:
+  - node_modules
+  - vendor  
+
 before_install:
+  - nvm install 12
+
+before_script:  
   - cp .env.example .env
+  - npm install
+  - npm run production
+
 
 script:
   - docker-compose run php vendor/bin/phpunit

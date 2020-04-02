@@ -19,4 +19,4 @@ mix.less('resources/less/style.less', 'public/css').options({
             ]
         }
     }
-});
+}).version();
