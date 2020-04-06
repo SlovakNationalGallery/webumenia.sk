@@ -2,7 +2,10 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Changed
 - collection published by date, updated filter and ordering
+
+### Fixed
 - add panorama image dir to deployer config
 
 ## [2.4.0] - 2020-04-01
