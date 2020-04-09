@@ -193,6 +193,7 @@ function()
 
     Route::get('ukaz_skicare', 'SkicareController@index');
     Route::get('skicare', 'SkicareController@getList');
+    Route::permanentRedirect('/panorama/berger/360Berger009.html', '/images/panorama/berger/360Berger009.html');
     Route::get('dielo/{id}/skicar', 'SkicareController@getZoom');
 
     Route::get('dielo/{id}/objednat', function ($id) {
