@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.4.1] - 2020-04-09
 ### Fixed
 - add panorama image dir to deployer config
 
