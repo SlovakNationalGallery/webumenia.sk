@@ -9,6 +9,7 @@ use App\Item;
 use App\SearchResult;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Session;
 use Primal\Color\Color;
 use Primal\Color\Parser;
 
@@ -41,7 +42,7 @@ class ItemRepository extends TranslatableRepository
     public function getSimilar(int $size, Model $model, $locale = null): SearchResult
     {
         $query = [
-            'bool'=> [
+            'bool' => [
                 'must' => [
                     [
                         'more_like_this' => [
@@ -381,6 +382,34 @@ class ItemRepository extends TranslatableRepository
 
     protected function addSort(array $body, ?string $sortBy): array
     {
+        if ($sortBy === 'random') {
+
+            $q =  isset($body['query']) ? $body['query'] : ['match_all' => new \stdClass];
+
+            $body['query'] = [
+                'function_score' => [
+                    'query' => $q,
+                    'functions' => [
+                        [
+                            'random_score' => [
+                                'seed' => crc32(Session::getId()),
+                                'field' => '_seq_no'
+                            ],
+                        ],
+                        [
+                            "field_value_factor" => [
+                                "field" => "has_image",
+                                "factor" => 10
+                            ]
+                        ]
+                    ],
+                    "boost_mode" => "sum",
+                ],
+
+            ];
+
+            return $body;
+        }
 
         if ($sortBy === null) {
             $body['sort'] = [
@@ -391,12 +420,12 @@ class ItemRepository extends TranslatableRepository
                 ['created_at' => ['order' => 'desc']],
             ];
             return $body;
-        } 
+        }
 
         if ($sortBy === 'newest') {
             $body['sort'] = ['date_earliest' => ['order' => 'desc']];
             return $body;
-        } 
+        }
 
         if ($sortBy === 'oldest') {
             $body['sort'] = ['date_earliest' => ['order' => 'asc']];

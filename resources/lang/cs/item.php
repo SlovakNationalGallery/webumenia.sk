@@ -52,6 +52,7 @@ return [
             'newest' => 'datování – od najnovějšího',
             'oldest' => 'datování – od najstaršího',
             'view_count' => 'počtu vidění',
+            'random' => 'náhodného pořadí'
         ],
         'title_generator' => [
             'search' => 'výsledky vyhledávání pro: ":value"',
