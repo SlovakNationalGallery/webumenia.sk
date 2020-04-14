@@ -9,12 +9,17 @@ RUN apt-get update -y && apt-get install -y \
     unzip \
     git
 
+# Adding PHP extensions
 RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install \
     pdo_mysql \
     gd \
     zip \
     exif
+
+# Install nodejs
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN apt-get install -y nodejs
 
 RUN echo "memory_limit=512M" > $PHP_INI_DIR/conf.d/memory-limit.ini
 
@@ -42,3 +47,5 @@ COPY . .
 
 # Re-run composer, this time with autoloader & scripts
 RUN composer install --optimize-autoloader
+
+RUN npm install
