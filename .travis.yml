@@ -3,6 +3,7 @@ services:
 
 before_script:  
   - cp .env.example .env
-  
+
 script:
-  - docker-compose run php npm run testing && vendor/bin/phpunit
+  - docker-compose run php npm run testing
+  - docker-compose run php vendor/bin/phpunit
