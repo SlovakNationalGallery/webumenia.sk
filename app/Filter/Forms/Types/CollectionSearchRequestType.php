@@ -26,11 +26,12 @@ class CollectionSearchRequestType extends AbstractType
             $searchRequest = $event->getData();
 
             $collections = $this::prepareCollections($searchRequest);
-            debugbar()->error($collections);
 
             $getChoiceOptions = function ($attribute) use ($searchRequest, $collections) {
 
                 $choices = $collections->get()->countBy($attribute)
+                    ->sort()
+                    ->reverse()
                     ->mapWithKeys(function ($count, $item) {
                         $label = sprintf('%s (%d)', $item, $count);
                         return [$label => $item];
@@ -56,9 +57,10 @@ class CollectionSearchRequestType extends AbstractType
                 ->add('type', ChoiceType::class, $getChoiceOptions('type'))
                 ->add('sort_by', ChoiceType::class, [
                     'required' => false,
-                    'placeholder' => 'sorting.created_at', // $searchRequest->getSearch() !== null ? 'sorting.relevance' : 'sorting.updated_at',
+                    'placeholder' => 'sorting.published_at', // $searchRequest->getSearch() !== null ? 'sorting.relevance' : 'sorting.updated_at',
                     'choices' => [
-                        'sorting.title' => 'name'
+                        'sorting.title' => 'name',
+                        'sorting.updated_at' => 'updated_at'
                     ]
                 ]);
         });
@@ -68,7 +70,6 @@ class CollectionSearchRequestType extends AbstractType
             $data = $event->getData();
 
             if (isset($data['author'])) {
-                debugbar()->error($data['author']);
                 $form->add('author', ChoiceType::class, [
                     'choices' => [$data['author'] => $data['author']],
                 ]);
@@ -78,7 +79,6 @@ class CollectionSearchRequestType extends AbstractType
                     'choices' => [$data['type'] => $data['type']],
                 ]);
             }
-            debugbar()->info($form, $data);
         });
     }
 

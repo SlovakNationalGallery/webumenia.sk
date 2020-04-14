@@ -8,5 +8,5 @@
       @change="$emit('slide', $event)"
       @changemouseup="$emit('change', $event)">
    </year-slider>
-   <input id="{{$id}}" name="{{$id}}" type="hidden"/>
+   <input id="{{$id}}" name="{{$id}}" type="hidden" value="{{ $yearRange }}"/>
 </div>
