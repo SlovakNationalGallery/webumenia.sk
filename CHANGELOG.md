@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 
 ## [2.5.0] - 2020-04-15
+### Added
+- GMU v Roudnici nad Labem to info page
+
 ### Changed
 - collection published by date, updated filter and ordering
 - disallow importing of relations to non-existing entities
