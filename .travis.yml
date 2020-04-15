@@ -5,5 +5,5 @@ before_script:
   - cp .env.example .env
 
 script:
-  - docker-compose run php npm run testing
-  - docker-compose run php vendor/bin/phpunit
+  - docker-compose exec php npm run testing
+  - docker-compose exec php vendor/bin/phpunit
