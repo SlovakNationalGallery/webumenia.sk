@@ -2,20 +2,19 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.5.0] - 2020-04-15
 ### Changed
 - collection published by date, updated filter and ordering
+- disallow importing of relations to non-existing entities
 
 ### Fixed
 - instantiation of importer in controller
-
-## [2.4.1] - 2020-04-09
-
-### Fixed
-- add panorama image dir to deployer config
 - duplicated authors in item detail
 
-### Changed
-- disallow importing of relations to non-existing entities
+## [2.4.1] - 2020-04-09
+### Fixed
+- add panorama image dir to deployer config
 
 ## [2.4.0] - 2020-04-01
 ### Added
