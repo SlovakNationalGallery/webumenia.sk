@@ -412,6 +412,7 @@ All notable changes to this project will be documented in this file[^1].
 - LICENSE from Public Domain into MIT
 
 [Unreleased]: https://github.com/SlovakNationalGallery/web-umenia-2/compare/master...develop
+[2.5.0]: https://github.com/SlovakNationalGallery/webumenia.sk/pull/305
 [1.9.1]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/226
 [1.9.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/223
 [1.8.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/191
