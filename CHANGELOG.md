@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file[^1].
 ### Changed
 - collection published by date, updated filter and ordering
 
+### Fixed
+- instantiation of importer in controller
+
 ## [2.4.1] - 2020-04-09
 
 ### Fixed
