@@ -12,6 +12,10 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Fixed
 - add panorama image dir to deployer config
+- duplicated authors in item detail
+
+### Changed
+- disallow importing of relations to non-existing entities
 
 ## [2.4.0] - 2020-04-01
 ### Added
