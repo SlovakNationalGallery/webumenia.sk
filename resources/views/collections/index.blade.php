@@ -49,7 +49,7 @@ kolekcie |
 			                <td>{!! $i->user->name !!}</td>
 			                <td>{!! $i->items()->count(); !!}</td>
                             <td>{!! $i->created_at !!}</td>
-			                <td class="text-center">{!! $i->publish !!}</td>
+                            <td class="text-center">{!! ($i->published_at) ? '<i class="fa fa-check text-success"></i>' . '<br><small>od '. $i->published_at .'</small>' : '' !!}</td>
 			                <td>
                                 {!! link_to_action('CollectionController@show', 'Detail', array($i->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', )) !!} 
                                 {!! link_to_action('CollectionController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}

@@ -14,9 +14,16 @@ use App\Import;
 use App\ImportRecord;
 use App\Jobs\ImportCsv;
 use App\Repositories\CsvRepository;
+use Illuminate\Translation\Translator;
 
 class ImportController extends Controller
 {
+    protected $translator;
+
+    public function __construct(Translator $translator)
+    {
+        $this->translator = $translator;
+    }
 
     /**
      * Display a listing of the resource.
@@ -95,7 +102,7 @@ class ImportController extends Controller
             return redirect()->route('import.index');
         }
 
-        $importer = new $import->class_name(new CsvRepository());
+        $importer = new $import->class_name(new CsvRepository(), $this->translator);
         $options = $importer->getOptions();
 
         return view('imports.form')->with(['import' => $import, 'options' => $options]);

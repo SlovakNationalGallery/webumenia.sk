@@ -9,7 +9,10 @@
     </div>
     <div class="col-xs-12 col-sm-10 col-sm-pull-1">
 
-        @include('components.year_slider', ['id' => $name])
+        @include('components.year_slider', [
+        'id' => $name, 
+        'yearRange' => $from . ', ' . $to
+        ])
         @include('components.year_slider_js', [
         'yearRange' => $from . ', ' . $to,
         'min' => $min,

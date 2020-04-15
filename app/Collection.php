@@ -4,6 +4,7 @@ namespace App;
 
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\JoinClause;
@@ -24,7 +25,8 @@ class Collection extends Model implements TranslatableContract
     );
 
     public static $sortable = array(
-        'created_at' => 'sortable.created_at',
+        'published_at' => 'sortable.published_at',
+        'updated_at' => 'sortable.updated_at',
         'name'       => 'sortable.title',
     );
 
@@ -93,7 +95,7 @@ class Collection extends Model implements TranslatableContract
 
     public function scopePublished($query)
     {
-        return $query->where('publish', '=', 1);
+        return $query->where('published_at', '<', Carbon::now());
     }
 
     public function getTitleColorAttribute($value)

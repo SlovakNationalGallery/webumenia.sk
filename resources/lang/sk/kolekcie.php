@@ -18,7 +18,8 @@ return array(
         'type' => 'typ',
         'sort_by' => 'zoradiť podľa',
         'sorting' => [
-            'created_at' => 'dátumu pridania',
+            'updated_at' => 'dátumu aktualizácie',
+            'published_at' => 'dátumu pridania',
             'title' => 'názvu',
         ],
     ]
