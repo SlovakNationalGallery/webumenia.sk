@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- sort collections in admin by creation date and allow to unpublish them
 
 ## [2.5.0] - 2020-04-15
 ### Added
