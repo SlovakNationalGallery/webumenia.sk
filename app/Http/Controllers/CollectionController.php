@@ -61,14 +61,7 @@ class CollectionController extends Controller
                 }
             }
 
-            if (Input::has('published_at')) {
-                $collection->published_at = Input::get('published_at');
-                if ($collection->published_at === '') {
-                    $collection->published_at = null;
-                }
-            } else {
-                $collection->published_at = null;
-            }
+            $collection->published_at = Input::get('published_at');
 
             if (Input::has('title_color')) {
                 $collection->title_color = Input::get('title_color');
@@ -149,14 +142,7 @@ class CollectionController extends Controller
                 }
             }
 
-            if (Input::has('published_at')) {
-                $collection->published_at = Input::get('published_at', null);
-                if ($collection->published_at === '') {
-                    $collection->published_at = null;
-                }
-            } else {
-                $collection->published_at = null;
-            }
+            $collection->published_at = Input::get('published_at', null);
 
             if (Input::has('user_id') && \Entrust::hasRole('admin')) {
                 $collection->user_id = Input::get('user_id');
