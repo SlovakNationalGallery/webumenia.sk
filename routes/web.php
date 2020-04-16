@@ -51,7 +51,7 @@ function()
             [
                 trans('intro.from_galleries_start'),
                 route('frontend.info'),
-                formatNum(14),
+                formatNum(15),
                 trans('intro.from_galleries_end'),
             ],
             [
@@ -376,6 +376,11 @@ function()
                 'id'          => 'PNP',
                 'lang_string' => 'informacie.info_gallery_PNP',
                 'url'         => 'katalog?gallery=Památník+národního+písemnictví%2C+PNP',
+            ],
+            [
+                'id'          => 'RG',
+                'lang_string' => 'informacie.info_gallery_4RG',
+                'url'         => 'katalog?gallery=Galerie+moderního+umění+v+Roudnici+nad+Labem',
             ],
         ];
 

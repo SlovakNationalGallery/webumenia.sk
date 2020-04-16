@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - enable random ordering within catalogue
 
+## [2.5.0] - 2020-04-15
+### Added
+- GMU v Roudnici nad Labem to info page
+
+### Changed
+- collection published by date, updated filter and ordering
+- disallow importing of relations to non-existing entities
+
+### Fixed
+- instantiation of importer in controller
+- duplicated authors in item detail
+
 ## [2.4.1] - 2020-04-09
 ### Fixed
 - add panorama image dir to deployer config
@@ -405,6 +417,7 @@ All notable changes to this project will be documented in this file[^1].
 - LICENSE from Public Domain into MIT
 
 [Unreleased]: https://github.com/SlovakNationalGallery/web-umenia-2/compare/master...develop
+[2.5.0]: https://github.com/SlovakNationalGallery/webumenia.sk/pull/305
 [1.9.1]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/226
 [1.9.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/223
 [1.8.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/191

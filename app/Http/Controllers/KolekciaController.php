@@ -25,7 +25,7 @@ class KolekciaController extends Controller
         if (Input::has('sort_by') && array_key_exists(Input::get('sort_by'), Collection::$sortable)) {
             $sort_by = Input::get('sort_by');
         } else {
-            $sort_by = 'created_at';
+            $sort_by = 'published_at';
         }
 
         $searchRequest = new CollectionSearchRequest();

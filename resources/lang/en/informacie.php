@@ -29,6 +29,7 @@ return array(
     'info_gallery_TGP'   => 'Tatra Gallery Poprad',
     'info_gallery_PGU'   => 'Považská Gallery of Arts in Žilina',
     'info_gallery_PNP'   => 'The Museum of Czech Literature',
+    'info_gallery_4RG'   => 'Gallery of Modern Art Roudnice nad Labem',
 
     'mozete_heading'               => 'On Web Umenia you can',
     'mozete_col_stahovat_heading'  => 'Download artworks in Public Domain',

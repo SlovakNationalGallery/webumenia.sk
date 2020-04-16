@@ -22,11 +22,11 @@ class CollectionController extends Controller
     public function index()
     {
         if (\Entrust::hasRole('admin')) {
-            $collections = Collection::orderBy('created_at', 'desc')->with(['user'])->paginate(20);
+            $collections = Collection::orderBy('published_at', 'desc')->with(['user'])->paginate(20);
         } else {
-            $collections = Collection::where('user_id', '=', Auth::user()->id)->orderBy('created_at', 'desc')->with(['user'])->paginate(20);
+            $collections = Collection::where('user_id', '=', Auth::user()->id)->orderBy('published_at', 'desc')->with(['user'])->paginate(20);
         }
-        // $collections = Item::orderBy('created_at', 'DESC')->get();
+
         return view('collections.index')->with('collections', $collections);
     }
 
@@ -55,14 +55,14 @@ class CollectionController extends Controller
         if ($v->passes()) {
             $collection = new Collection();
 
-            foreach (\Config::get('translatable.locales') as $i=>$locale) {
+            foreach (\Config::get('translatable.locales') as $i => $locale) {
                 foreach ($collection->translatedAttributes as $attribute) {
                     $collection->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
                 }
             }
 
 
-            $collection->publish = Input::get('publish', false);
+            $collection->published_at = Input::get('published_at', null);
             if (Input::has('title_color')) {
                 $collection->title_color = Input::get('title_color');
             }
@@ -136,13 +136,13 @@ class CollectionController extends Controller
 
             $collection = Collection::find($id);
 
-            foreach (\Config::get('translatable.locales') as $i=>$locale) {
+            foreach (\Config::get('translatable.locales') as $i => $locale) {
                 foreach ($collection->translatedAttributes as $attribute) {
                     $collection->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
                 }
             }
 
-            $collection->publish = Input::get('publish', false);
+            $collection->published_at = Input::get('published_at', null);
 
             if (Input::has('user_id') && \Entrust::hasRole('admin')) {
                 $collection->user_id = Input::get('user_id');
@@ -161,7 +161,7 @@ class CollectionController extends Controller
                 $this->uploadMainImage($collection);
             }
 
-            Session::flash('message', 'Kolekcia <code>'.$collection->name.'</code> bola upravená');
+            Session::flash('message', 'Kolekcia <code>' . $collection->name . '</code> bola upravená');
 
             return Redirect::route('collection.index');
         }
@@ -203,7 +203,7 @@ class CollectionController extends Controller
                 }
             }
 
-            return Redirect::back()->withMessage('Do kolekcie '.$collection->name.' bolo pridaných '.count($items).' diel');
+            return Redirect::back()->withMessage('Do kolekcie ' . $collection->name . ' bolo pridaných ' . count($items) . ' diel');
         } else {
             return Redirect::back()->withMessage('Chyba: zvolená kolekcia nebola nájdená. ');
         }
@@ -214,7 +214,7 @@ class CollectionController extends Controller
         $collection = Collection::find($collection_id);
         $collection->items()->detach($item_id);
 
-        return Redirect::back()->withMessage('Z kolekcie <strong>'.$collection->name.'</strong> bolo odstrádené dielo <code>' . $item_id . '</code>');
+        return Redirect::back()->withMessage('Z kolekcie <strong>' . $collection->name . '</strong> bolo odstrádené dielo <code>' . $item_id . '</code>');
     }
 
     private function uploadMainImage($collection)
