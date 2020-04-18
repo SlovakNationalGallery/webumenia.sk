@@ -2,12 +2,14 @@ FROM php:7.2-fpm
 
 ARG WITH_XDEBUG=false
 
-RUN apt-get update -y && apt-get install -y \
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
+    && apt-get update -y && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
     libzip-dev \
     unzip \
-    git
+    git \
+    nodejs
 
 # Adding PHP extensions
 RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ \
@@ -16,10 +18,6 @@ RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ \
     gd \
     zip \
     exif
-
-# Install nodejs
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
-RUN apt-get install -y nodejs
 
 RUN echo "memory_limit=512M" > $PHP_INI_DIR/conf.d/memory-limit.ini
 
@@ -39,6 +37,9 @@ COPY --from=composer:1.8 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
 
+COPY package.json package-lock.json ./
+RUN npm install
+
 # Install app dependencies
 COPY composer.json composer.lock ./
 RUN composer install --no-autoloader --no-scripts
@@ -47,5 +48,3 @@ COPY . .
 
 # Re-run composer, this time with autoloader & scripts
 RUN composer install --optimize-autoloader
-
-RUN npm install
