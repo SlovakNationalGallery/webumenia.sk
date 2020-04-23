@@ -383,12 +383,12 @@ class ItemRepository extends TranslatableRepository
 
     protected function addSort(array $body, SearchRequest $request): array
     {
-        $sortBy = $request -> getSortBy();
-        $from = $request -> getFrom();
+        $sortBy = $request->getSortBy();
+        $from = $request->getFrom();
 
         if ($sortBy === 'random') {
 
-            if (!isset($from) || $from == 0){
+            if (!isset($from) || $from == 0) {
                 $seed = mt_rand();
                 session(['random-seed' => $seed]);
             } else {
