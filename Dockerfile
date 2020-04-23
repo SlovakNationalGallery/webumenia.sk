@@ -2,13 +2,16 @@ FROM php:7.2-fpm
 
 ARG WITH_XDEBUG=false
 
-RUN apt-get update -y && apt-get install -y \
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
+    && apt-get update -y && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
     libzip-dev \
     unzip \
-    git
+    git \
+    nodejs
 
+# Adding PHP extensions
 RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install \
     pdo_mysql \
@@ -33,6 +36,9 @@ RUN if [ $WITH_XDEBUG = "true" ] ; then \
 COPY --from=composer:1.8 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
+
+COPY package.json package-lock.json ./
+RUN npm install
 
 # Install app dependencies
 COPY composer.json composer.lock ./
