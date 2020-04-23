@@ -29,7 +29,7 @@ abstract class AbstractRepository
     {
         $body = [];
         $body = $this->addQuery($body, $this->buildQueryFromFilter($request));
-        $body = $this->addSort($body, $request->getSortBy());
+        $body = $this->addSort($body, $request);
         $body = $this->addFrom($body, $request->getFrom());
         $body = $this->addSize($body, $request->getSize());
         return $body ?: null;
@@ -117,5 +117,5 @@ abstract class AbstractRepository
 
     abstract public function buildQueryFromFilter(?Filter $filter): ?array;
 
-    abstract protected function addSort(array $body, ?string $sortBy): array;
+    abstract protected function addSort(array $body, SearchRequest $request): array;
 }

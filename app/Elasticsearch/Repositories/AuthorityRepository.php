@@ -4,6 +4,7 @@ namespace App\Elasticsearch\Repositories;
 
 use App\Authority;
 use App\Filter\Contracts\Filter;
+use App\Filter\Contracts\SearchRequest;
 use App\IntegerRange;
 use App\SearchResult;
 use Illuminate\Database\Eloquent\Model;
@@ -58,9 +59,10 @@ class AuthorityRepository extends TranslatableRepository
         return $query ?: null;
     }
 
-    protected function addSort(array $body, ?string $sortBy): array
+    protected function addSort(array $body, SearchRequest $request): array
     {
         $sort = [];
+        $sortBy = $request->getSortBy();
         if ($sortBy === null) {
             $sort[] = ['items_with_images_count' => ['order' => 'desc']];
         } else {
