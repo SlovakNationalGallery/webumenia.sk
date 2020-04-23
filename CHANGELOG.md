@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - Laravel Mix config for compiling assets
 
+### Fixed
+- corrected few czech localization strings 
+
 ## [2.5.0] - 2020-04-15
 ### Added
 - GMU v Roudnici nad Labem to info page
