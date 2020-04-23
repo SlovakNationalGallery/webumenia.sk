@@ -52,6 +52,7 @@ return [
             'newest' => 'datovania – od najnovšieho',
             'oldest' => 'datovania – od najstaršieho',
             'view_count' => 'počtu videní',
+            'random' => 'náhodného poradia'
         ],
         'title_generator' => [
             'search' => 'výsledky vyhľadávania pre: ":value"',

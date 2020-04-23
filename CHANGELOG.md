@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 ### Added
+- enable random ordering within catalogue
 - Laravel Mix config for compiling assets
 
 ## [2.5.0] - 2020-04-15
