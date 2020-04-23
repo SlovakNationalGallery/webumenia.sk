@@ -396,7 +396,6 @@ class ItemRepository extends TranslatableRepository
             }
             $q =  isset($body['query']) ? $body['query'] : ['match_all' => new \stdClass];
 
-            debugbar()->info($seed);
             $body['query'] = [
                 'function_score' => [
                     'query' => $q,
