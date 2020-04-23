@@ -2,13 +2,17 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+<<<<<<< HEAD
+### Fixed
+- sort collections in admin by creation date and allow to unpublish them
+=======
 ### Added
 - enable random ordering within catalogue
 - Laravel Mix config for compiling assets
 
 ### Fixed
-- sort collections in admin by creation date and allow to unpublish them
 - corrected few czech localization strings 
+>>>>>>> 049ff6dcae28059b31db9ab94c340c59dc7dcd57
 
 ## [2.5.0] - 2020-04-15
 ### Added

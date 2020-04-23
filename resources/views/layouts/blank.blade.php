@@ -16,7 +16,7 @@
 
 		<!-- CSS are placed here -->
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-		{!! Html::style('css/style.css') !!}
+		<link rel="stylesheet" type="text/css" href="{{ mix('/css/style.css') }}" />
 		{!! Html::style('css/sb-admin.css') !!}
     {!! Html::script('js/modernizr.custom.js') !!}
 

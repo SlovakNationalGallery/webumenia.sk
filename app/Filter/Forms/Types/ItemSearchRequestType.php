@@ -75,6 +75,7 @@ class ItemSearchRequestType extends AbstractType
                         'sorting.newest' => 'newest',
                         'sorting.oldest' => 'oldest',
                         'sorting.view_count' => 'view_count',
+                        'sorting.random' => 'random',
                     ]
                 ]);
         });

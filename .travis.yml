@@ -1,8 +1,8 @@
 services:
   - docker
 
-before_install:
+before_install:  
   - cp .env.example .env
 
 script:
-  - docker-compose run php vendor/bin/phpunit
+  - docker-compose run php bash -c "npm run testing && vendor/bin/phpunit"

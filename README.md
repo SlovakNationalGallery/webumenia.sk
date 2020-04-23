@@ -112,19 +112,15 @@ ProxyPass /fcgi-bin/iipsrv.fcgi http://imi.sng.cust.eea.sk/publicIS/fcgi-bin/iip
 ProxyPassReverse /fcgi-bin/iipsrv.fcgi http://imi.sng.cust.eea.sk/publicIS/fcgi-bin/iipsrv.fcgi
 ```
 
-## Style Compilation (LESS)
+## Compiling Assets
 
-We use [LESS](http://lesscss.org/) to compile styles imported into a [main file](public/css/less/style.less) into a single CSS file:
-
-```
-lessc public/css/less/style.less public/css/style.css --clean-css
-```
-
-For a better developer experience, use [less-watch-compiler](https://github.com/jonycheung/deadsimple-less-watch-compiler) to watch a directory for changes and automatically compile LESS into CSS. Thanks to the config file `less-watch-compiler.config.json` all you have to run (from root dir) is:
+We use [Laravel Mix](https://laravel-mix.com/) to compile styles imported into a [main file](resources/less/style.less) into a single CSS file:
 
 ```
-less-watch-compiler
+npm install && npm run dev
 ```
+
+For a better developer experience, use `npm run watch` to watch a directory for changes and automatically compile LESS into CSS.
 
 ## Maintainer
 

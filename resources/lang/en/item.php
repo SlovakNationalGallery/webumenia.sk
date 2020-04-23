@@ -50,6 +50,7 @@ return [
             'newest' => 'date – from newest',
             'oldest' => 'date – from oldest',
             'view_count' => 'views',
+            'random' => 'random order'
         ],
         'title_generator' => [
             'search' => 'search results for: ":value"',
