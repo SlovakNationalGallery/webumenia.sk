@@ -8,7 +8,11 @@
 <meta property="og:description" content="{!! strip_tags($article->summary) !!}" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="{!! Request::url() !!}" />
-<meta property="og:image" content="{!! URL::to('images/clanky/' . $article->getHeaderImage()) !!}" />
+<meta property="og:image" content="{!! URL::to( $article->getHeaderImage()) !!}" />
+
+@foreach ($article->ContentImages() as $image )
+<meta property="og:image" content="{!! $image !!}" />
+@endforeach
 <meta property="og:site_name" content="Web umenia" />
 @stop
 
@@ -50,7 +54,6 @@
     </div>
 </div>
 </div>
-
 {{-- <section class="article summary bg-light-grey content-section">
         <div class="container">
             <div class="row">
@@ -71,7 +74,7 @@
                     @include('components.share_buttons', [
                         'title' => $article->title,
                         'url' => $article->getUrl(),
-                        'img' => URL::to('images/clanky/' . $article->getHeaderImage()),
+                        'img' => URL::to($article->getHeaderImage()),
                     ])
                 </div>
                 <div class="col-md-6 attributes">

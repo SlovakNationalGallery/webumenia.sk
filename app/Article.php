@@ -132,6 +132,13 @@ class Article extends Model implements TranslatableContract
         return $query->where('publish', '=', 1);
     }
 
+    public function scopeContentImages($query)
+    {
+        $translation = $this->content;
+        preg_match_all('/<img.*?src=[\'"](.*?)[\'"].*?>/i', $translation, $matches);
+        return sizeof($matches) > 1 ? $matches[1]:[];  
+    }
+
     public function scopePromoted($query)
     {
         return $query->where('promote', '=', 1);
