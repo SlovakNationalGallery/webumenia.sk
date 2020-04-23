@@ -19,7 +19,7 @@
   <!--  Open Graph protocol -->
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-  {!! Html::style('css/style.css') !!}
+  <link rel="stylesheet" type="text/css" href="{{ mix('/css/style.css') }}" />
 
   {{-- JS --}}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
