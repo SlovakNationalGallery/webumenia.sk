@@ -4,6 +4,7 @@ namespace App\Elasticsearch\Repositories;
 
 use App\Authority;
 use App\Filter\Contracts\Filter;
+use App\Filter\Contracts\SearchRequest;
 use App\IntegerRange;
 use App\Item;
 use App\SearchResult;
@@ -380,19 +381,29 @@ class ItemRepository extends TranslatableRepository
         ];
     }
 
-    protected function addSort(array $body, ?string $sortBy): array
+    protected function addSort(array $body, SearchRequest $request): array
     {
+        $sortBy = $request -> getSortBy();
+        $from = $request -> getFrom();
+
         if ($sortBy === 'random') {
 
+            if (!isset($from) || $from == 0){
+                $seed = mt_rand();
+                session(['random-seed' => $seed]);
+            } else {
+                $seed = session('random-seed', mt_rand());
+            }
             $q =  isset($body['query']) ? $body['query'] : ['match_all' => new \stdClass];
 
+            debugbar()->info($seed);
             $body['query'] = [
                 'function_score' => [
                     'query' => $q,
                     'functions' => [
                         [
                             'random_score' => [
-                                'seed' => crc32(Session::getId()),
+                                'seed' => $seed,
                                 'field' => '_seq_no'
                             ],
                         ],
@@ -409,6 +420,8 @@ class ItemRepository extends TranslatableRepository
             ];
 
             return $body;
+        } else {
+            Session::forget('random-seed');
         }
 
         if ($sortBy === null) {
