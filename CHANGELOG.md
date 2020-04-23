@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file[^1].
 - Laravel Mix config for compiling assets
 
 ### Fixed
+- sort collections in admin by creation date and allow to unpublish them
 - corrected few czech localization strings 
 
 ## [2.5.0] - 2020-04-15
