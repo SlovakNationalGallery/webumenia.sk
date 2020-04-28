@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - sort collections in admin by creation date and allow to unpublish them
 - corrected few czech localization strings 
+- article social sharing images
 
 ## [2.5.0] - 2020-04-15
 ### Added
