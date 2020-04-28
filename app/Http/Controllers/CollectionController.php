@@ -22,7 +22,7 @@ class CollectionController extends Controller
     public function index()
     {
         if (\Entrust::hasRole('admin')) {
-            $collections = Collection::orderBy('published_at', 'desc')->with(['user'])->paginate(20);
+            $collections = Collection::orderBy('created_at', 'desc')->with(['user'])->paginate(20);
         } else {
             $collections = Collection::where('user_id', '=', Auth::user()->id)->orderBy('published_at', 'desc')->with(['user'])->paginate(20);
         }
@@ -61,8 +61,8 @@ class CollectionController extends Controller
                 }
             }
 
+            $collection->published_at = Input::get('published_at');
 
-            $collection->published_at = Input::get('published_at', null);
             if (Input::has('title_color')) {
                 $collection->title_color = Input::get('title_color');
             }

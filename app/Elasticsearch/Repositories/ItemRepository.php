@@ -4,11 +4,13 @@ namespace App\Elasticsearch\Repositories;
 
 use App\Authority;
 use App\Filter\Contracts\Filter;
+use App\Filter\Contracts\SearchRequest;
 use App\IntegerRange;
 use App\Item;
 use App\SearchResult;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Session;
 use Primal\Color\Color;
 use Primal\Color\Parser;
 
@@ -41,7 +43,7 @@ class ItemRepository extends TranslatableRepository
     public function getSimilar(int $size, Model $model, $locale = null): SearchResult
     {
         $query = [
-            'bool'=> [
+            'bool' => [
                 'must' => [
                     [
                         'more_like_this' => [
@@ -379,8 +381,47 @@ class ItemRepository extends TranslatableRepository
         ];
     }
 
-    protected function addSort(array $body, ?string $sortBy): array
+    protected function addSort(array $body, SearchRequest $request): array
     {
+        $sortBy = $request->getSortBy();
+        $from = $request->getFrom();
+
+        if ($sortBy === 'random') {
+
+            if (!isset($from) || $from == 0) {
+                $seed = mt_rand();
+                session(['random-seed' => $seed]);
+            } else {
+                $seed = session('random-seed', mt_rand());
+            }
+            $q =  isset($body['query']) ? $body['query'] : ['match_all' => new \stdClass];
+
+            $body['query'] = [
+                'function_score' => [
+                    'query' => $q,
+                    'functions' => [
+                        [
+                            'random_score' => [
+                                'seed' => $seed,
+                                'field' => '_seq_no'
+                            ],
+                        ],
+                        [
+                            "field_value_factor" => [
+                                "field" => "has_image",
+                                "factor" => 10
+                            ]
+                        ]
+                    ],
+                    "boost_mode" => "sum",
+                ],
+
+            ];
+
+            return $body;
+        } else {
+            Session::forget('random-seed');
+        }
 
         if ($sortBy === null) {
             $body['sort'] = [
@@ -391,12 +432,12 @@ class ItemRepository extends TranslatableRepository
                 ['created_at' => ['order' => 'desc']],
             ];
             return $body;
-        } 
+        }
 
         if ($sortBy === 'newest') {
             $body['sort'] = ['date_earliest' => ['order' => 'desc']];
             return $body;
-        } 
+        }
 
         if ($sortBy === 'oldest') {
             $body['sort'] = ['date_earliest' => ['order' => 'asc']];
