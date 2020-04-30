@@ -96,24 +96,11 @@
                     <div id="iso">
                     @foreach ($collection->items as $i=>$item)
                         <div class="col-md-3 col-sm-4 col-xs-12 item">
-                            <a href="{!! $item->getUrl(['collection' => $collection->id]) !!}">
-                                @php
-                                    list($width, $height) = getimagesize(public_path() . $item->getImagePath());
-                                    $width =  max($width,1); // prevent division by zero exception
-                                @endphp
-                                <div class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%;">
-
-                                <img
-                                    data-sizes="auto"
-                                    data-src="{!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'600']) !!}"
-                                    data-srcset="{!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'600']) !!} 600w,
-                                            {!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'220']) !!} 220w,
-                                            {!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'300']) !!} 300w,
-                                            {!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'600']) !!} 600w,
-                                            {!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'800']) !!} 800w"
-                                    class="lazyload"
-                                    alt="{!! $item->getTitleWithAuthors() !!} ">
-                                </div>
+                                @include('components.item_image_responsive', [
+                                    'item' => $item,
+                                    'url' => $item->getUrl(['collection' => $collection->id]) , 
+                                    'limitRatio' => 3
+                                ])
                             </a>
                             <div class="item-title">
                                 @if (!$item->images->isEmpty())
