@@ -274,7 +274,6 @@ class ItemImporterTest extends TestCase
                 'dating:sk' => '1760',
                 'relationship_type:sk' => 'samostatné dielo',
                 'related_work:sk' => null,
-                'description:sk' => null,
                 'work_level:sk' => null,
                 'title:en' => 'Flemish family',
                 'work_type:en' => null,
@@ -290,7 +289,6 @@ class ItemImporterTest extends TestCase
                 'dating:en' => null,
                 'relationship_type:en' => null,
                 'related_work:en' => null,
-                'description:en' => null,
                 'work_level:en' => null,
                 'title:cs' => null,
                 'work_type:cs' => null,
@@ -306,7 +304,6 @@ class ItemImporterTest extends TestCase
                 'dating:cs' => null,
                 'relationship_type:cs' => null,
                 'related_work:cs' => null,
-                'description:cs' => null,
                 'work_level:cs' => null,
             ])
         ;
