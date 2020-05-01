@@ -139,7 +139,6 @@ class ItemMapperTest extends TestCase
             'dating:sk' => '1760 (originál), 2019 (zväčšenina)',
             'relationship_type:sk' => 'samostatné dielo',
             'related_work:sk' => null,
-            'description:sk' => null,
             'work_level:sk' => null,
             'credit:sk' => 'Dar zo Zbierky Linea',
             'title:en' => 'Flemish family',
@@ -155,7 +154,6 @@ class ItemMapperTest extends TestCase
             'dating:en' => null,
             'relationship_type:en' => null,
             'related_work:en' => null,
-            'description:en' => null,
             'work_level:en' => null,
             'credit:en' => 'Donation from the Linea Collection',
             'title:cs' => null,
@@ -171,7 +169,6 @@ class ItemMapperTest extends TestCase
             'dating:cs' => null,
             'relationship_type:cs' => null,
             'related_work:cs' => null,
-            'description:cs' => null,
             'work_level:cs' => null,
             'credit:cs' => 'Dar ze Sbírky Linea',
         ];

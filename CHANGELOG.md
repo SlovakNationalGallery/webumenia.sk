@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file[^1].
 - corrected few czech localization strings 
 - article social sharing images
 - fix ratio-box padding for responsive images
+- unmap item description in harvester
 
 ## [2.5.0] - 2020-04-15
 ### Added
