@@ -185,8 +185,6 @@ class ItemMapper extends AbstractModelMapper
         });
     }
 
-    public function mapDescription() {}
-
     public function mapWorkLevel() {}
 
     protected function getRelatedParts(array $row) {

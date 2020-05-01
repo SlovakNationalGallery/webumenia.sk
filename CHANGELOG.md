@@ -3,6 +3,18 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.6.0] - 2020-05-01
+### Added
+- enable random ordering within catalogue
+- Laravel Mix config for compiling assets
+
+### Fixed
+- sort collections in admin by creation date and allow to unpublish them
+- corrected few czech localization strings 
+- article social sharing images
+- fix ratio-box padding for responsive images
+- unmap item description in harvester
+
 ## [2.5.0] - 2020-04-15
 ### Added
 - GMU v Roudnici nad Labem to info page
@@ -415,6 +427,7 @@ All notable changes to this project will be documented in this file[^1].
 - LICENSE from Public Domain into MIT
 
 [Unreleased]: https://github.com/SlovakNationalGallery/web-umenia-2/compare/master...develop
+[2.6.0]: https://github.com/SlovakNationalGallery/webumenia.sk/pull/313
 [2.5.0]: https://github.com/SlovakNationalGallery/webumenia.sk/pull/305
 [1.9.1]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/226
 [1.9.0]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/223
