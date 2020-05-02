@@ -1,6 +1,10 @@
 <div class="{{$isotope_item_selector_class ?? 'item'}} {{$class_names ?? ''}}">
     
-    @include('components.item_image_responsive', ['item' => $item, 'limitRatio' => 3])
+    @include('components.item_image_responsive', [
+        'item' => $item,
+         'limitRatio' => 3,
+         'url' => $item->getUrl(), 
+         ])
     
     <div class="item-title">
         @if( !isset($hide_zoom) )

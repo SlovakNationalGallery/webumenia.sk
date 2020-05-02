@@ -12,7 +12,9 @@
 
   <div style="text-align:center;width: 100%;{{isset($limitHeight) ? 'max-height:'.$limitHeight : ''}}">
       <div style="margin: auto; {!! 'max-width:'.$width.'px;' !!} {!! isset($height) ? 'max-height:'.$height.'px;' : '' !!}">
-          <a href="{!! isset($url) ? $url : $item->getUrl() !!}">
+        @if (isset($url))
+          <a href="{!! $url !!}">
+        @endif
               <div style="width: 100%; height: 100%">
                   <img data-sizes="auto" data-src="{!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'600']) !!}"
                       data-srcset="{!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'600']) !!} 600w,
@@ -23,7 +25,9 @@
                       style="object-fit:contain; width:100%; max-height:{!! $limitHeight !!}"
                       alt="{!! $item->getTitleWithAuthors() !!} " />
               </div>
-          </a>
+        @if (isset($url))
+            </a>
+        @endif
       </div>
   </div>
 
@@ -32,7 +36,9 @@
 <!-- otherwise we stick to container width and maximum aloved ratio, good for narrow containers (e.g. preview columns) -->
   <div style="text-align:center;width: 100%;">
       <div style="margin: auto; {!! 'max-width:'.$width.'px;' !!} {!! isset($height) ? 'max-height:'.$height.'px;' : '' !!}">
-          <a href="{!! isset($url) ? $url : $item->getUrl() !!}">
+        @if (isset($url))
+            <a href="{!! $url !!}">
+        @endif
               <div class="ratio-box" style="padding-bottom: {{ round(($ratio) * 100, 4) }}%;">
                   <img data-sizes="auto" data-src="{!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'600']) !!}"
                       data-srcset="{!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'600']) !!} 600w,
@@ -42,7 +48,9 @@
                       {!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'800']) !!} 800w" class="lazyload"
                       style="object-fit:contain" alt="{!! $item->getTitleWithAuthors() !!} " />
               </div>
-          </a>
+        @if (isset($url))
+            </a>
+        @endif
       </div>
   </div>
 
