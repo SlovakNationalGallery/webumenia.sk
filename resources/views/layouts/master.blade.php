@@ -38,9 +38,9 @@
 
 		{{-- JS --}}
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/4.1.2/plugins/unveilhooks/ls.unveilhooks.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/4.1.4/plugins/respimg/ls.respimg.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/4.1.2/lazysizes.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.0/plugins/unveilhooks/ls.unveilhooks.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.0/plugins/respimg/ls.respimg.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.0/lazysizes.min.js"></script>
 
 		@if (App::environment() == 'production')
 		<script>
