@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.6.1] - 2020-05-04
+### Fixed
+- link on preview image in artwork detail without zoom
+
+### Changed
+- update lazysizes from 4.1.4 to 5.2.0
+
 ## [2.6.0] - 2020-05-01
 ### Added
 - enable random ordering within catalogue
@@ -427,6 +434,7 @@ All notable changes to this project will be documented in this file[^1].
 - LICENSE from Public Domain into MIT
 
 [Unreleased]: https://github.com/SlovakNationalGallery/web-umenia-2/compare/master...develop
+[2.6.1]: https://github.com/SlovakNationalGallery/webumenia.sk/pull/314
 [2.6.0]: https://github.com/SlovakNationalGallery/webumenia.sk/pull/313
 [2.5.0]: https://github.com/SlovakNationalGallery/webumenia.sk/pull/305
 [1.9.1]: https://github.com/SlovakNationalGallery/web-umenia-2/pull/226

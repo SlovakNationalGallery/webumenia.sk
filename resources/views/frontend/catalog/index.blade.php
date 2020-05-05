@@ -55,7 +55,11 @@
                         @foreach ($paginator as $item)
                             <div class="col-md-3 col-sm-4 col-xs-6 item">
                                 
-                                @include('components.item_image_responsive', ['item' => $item , 'limitRatio' => 3])
+                                @include('components.item_image_responsive', [
+                                    'item' => $item ,
+                                    'limitRatio' => 3,
+                                    'url' => $item->getUrl(),
+                                ])
                                 
                                 <div class="item-title">
                                     @if ($item->has_iip)
