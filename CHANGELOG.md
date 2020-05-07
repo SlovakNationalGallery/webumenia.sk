@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- open importing csv files with read permissions only
 
 ## [2.6.1] - 2020-05-04
 ### Fixed

@@ -46,7 +46,7 @@ class CsvRepository implements IFileRepository {
      * @return Reader
      */
     protected function createReader($file, array $options = []) {
-        $reader = Reader::createFromPath($file);
+        $reader = Reader::createFromPath($file, 'r');
 
         if (isset($options['delimiter'])) {
             $reader->setDelimiter($options['delimiter']);
