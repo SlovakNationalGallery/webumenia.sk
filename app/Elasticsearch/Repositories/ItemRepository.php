@@ -444,6 +444,12 @@ class ItemRepository extends TranslatableRepository
             return $body;
         }
 
+        if ($sortBy === 'view_count') {
+            debugbar()->info('view_count');
+            $body['sort'] = ['view_count' => ['order' => 'desc']];
+            return $body;
+        }
+
         $sortOrder = in_array($sortBy, ['author', 'title']) ? 'asc' : 'desc';
         $body['sort'] = [$sortBy => ['order' => $sortOrder]];
         return $body;
