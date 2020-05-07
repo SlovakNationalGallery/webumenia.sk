@@ -56,9 +56,11 @@ class ArticleController extends Controller
             $article = new Article;
 
             // store translatable attributes
-            foreach (\Config::get('translatable.locales') as $i=>$locale) {
-                foreach ($article->translatedAttributes as $attribute) {
-                    $article->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
+            foreach (\Config::get('translatable.locales') as $i => $locale) {
+                if (hasTranslationValue($locale, $article->translatedAttributes)){
+                    foreach ($article->translatedAttributes as $attribute) {
+                        $article->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
+                    }
                 }
             }
 
@@ -133,9 +135,11 @@ class ArticleController extends Controller
             $article = Article::find($id);
 
             // update translatable attributes
-            foreach (\Config::get('translatable.locales') as $i=>$locale) {
-                foreach ($article->translatedAttributes as $attribute) {
-                    $article->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
+            foreach (\Config::get('translatable.locales') as $i => $locale) {
+                if (hasTranslationValue($locale, $article->translatedAttributes)){
+                    foreach ($article->translatedAttributes as $attribute) {
+                        $article->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
+                    }
                 }
             }
 
@@ -157,7 +161,7 @@ class ArticleController extends Controller
                 $this->uploadMainImage($article);
             }
 
-            Session::flash('message', 'Článok <code>'.$article->title.'</code> bol upravený');
+            Session::flash('message', 'Článok <code>' . $article->title . '</code> bol upravený');
             return Redirect::route('article.index');
         }
 
@@ -173,8 +177,7 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         Article::find($id)->delete();
-        return Redirect::route('article.index')->with('message', 'Článok bol zmazaný');
-        ;
+        return Redirect::route('article.index')->with('message', 'Článok bol zmazaný');;
     }
 
 
@@ -184,7 +187,7 @@ class ArticleController extends Controller
         $uploaded_image = \Image::make($main_image->getRealPath());
         $uploaded_image->widen(1200);
         $extension = $main_image->getClientOriginalExtension();
-        $filename = md5(date("YmdHis").rand(5, 50)) . "." . $extension;
+        $filename = md5(date("YmdHis") . rand(5, 50)) . "." . $extension;
         $article->main_image = $filename;
         $filename = $article->getHeaderImage(true);
         $uploaded_image->save($filename);

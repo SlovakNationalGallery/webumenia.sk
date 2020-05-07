@@ -14,9 +14,9 @@ return array(
     'from_galleries_end'   => 'slovenských a českých galerií',
     'from_authors_start'   => 'od',
     'from_authors_end'     => 'autorů',
-    'in_high_res_start'    => 'z toho',
+    'in_high_res_start'    => 'z nichž',
     'in_high_res_end'      => 've vysokém rozlišení',
-    'are_free_start'       => 'z toho',
+    'are_free_start'       => 'z nichž',
     'are_free_end'         => 'autorsky volných',
 
 );

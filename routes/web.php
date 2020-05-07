@@ -55,7 +55,7 @@ function()
                 trans('intro.from_galleries_end'),
             ],
             [
-                trans('intro.from_authors_end'),
+                trans('intro.from_authors_start'),
                 route('frontend.author.index'),
                 formatNum($authorityRepository->count()),
                 trans('intro.from_authors_end'),

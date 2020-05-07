@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- preview main / header image within article and collection admin editor
+- prevent storing of empty alternative locales for articles / collections
+- small locale fixes
+
 
 ## [2.6.1] - 2020-05-04
 ### Fixed

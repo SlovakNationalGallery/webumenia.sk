@@ -25,6 +25,7 @@ class Article extends Model implements TranslatableContract
 
     public static $rules = array(
         'slug'       => 'required',
+        'author'     => 'required',
 
         'sk.title'   => 'required',
         'sk.summary' => 'required',

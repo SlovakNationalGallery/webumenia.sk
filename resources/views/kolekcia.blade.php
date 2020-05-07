@@ -47,7 +47,7 @@
             <p class="bottom-space">
                 {{ trans_choice('general.artworks_counted', $collection->items()->count(), ['artworks_count' => $collection->items()->count()]) }} &nbsp;&middot;&nbsp;
                 {!! $collection->user->name !!} &nbsp;&middot;&nbsp;
-                {!! $collection->created_at->format('d. m. Y') !!}
+                {!! Carbon::parse($collection->published_at)->format('d. m. Y') !!}
             </p>
         </div>
     </div>
