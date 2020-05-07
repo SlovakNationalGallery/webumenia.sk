@@ -445,7 +445,6 @@ class ItemRepository extends TranslatableRepository
         }
 
         if ($sortBy === 'view_count') {
-            debugbar()->info('view_count');
             $body['sort'] = ['view_count' => ['order' => 'desc']];
             return $body;
         }
