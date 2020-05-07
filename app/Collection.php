@@ -93,6 +93,11 @@ class Collection extends Model implements TranslatableContract
         return $result_path;
     }
 
+    public function scopeContentImages($query)
+    {
+        return parseUrls($this->text);
+    }
+
     public function scopePublished($query)
     {
         return $query->where('published_at', '<', Carbon::now());

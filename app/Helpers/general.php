@@ -349,3 +349,30 @@ function formatName($name) {
 function starts_with_upper($str) {
     return (bool)preg_match('/^[[:upper:]]/u', $str);
 }
+
+function hasTranslationValue($locale, $attributes)
+{
+    foreach ($attributes as $attribute) {
+        if (\Input::get($locale . '.' . $attribute) != null) {
+            return true;
+        };
+    }
+    return false;
+}
+
+function parseUrls($content)
+{
+    preg_match_all('/<img.*?src=[\'"](.*?)[\'"].*?>/i', $content, $matches);
+    if (sizeof($matches) > 1 && $matches[1]) {
+        $checkAbsoluteUrl = function ($url)
+            {
+                if (strrpos($url, "://") === false) {
+                    return \URL::to($url);
+                }
+                return $url;
+            };
+
+        return array_map($checkAbsoluteUrl,  $matches[1]);
+    }
+    return [];
+}
