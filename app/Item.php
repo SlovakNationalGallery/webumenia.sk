@@ -133,7 +133,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     public function authorities()
     {
-        return $this->belongsToMany(\App\Authority::class, 'authority_item', 'item_id', 'authority_id')->withPivot('role');
+        return $this->belongsToMany(\App\Authority::class, 'authority_item', 'item_id', 'authority_id')->withPivot(['role', 'order']);
     }
 
     public function collections()

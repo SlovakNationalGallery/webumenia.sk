@@ -3,7 +3,7 @@
 
 namespace App\Forms\Types;
 
-
+use App\Authority;
 use App\Item;
 use App\User;
 use Symfony\Component\Form\AbstractType;
@@ -26,15 +26,24 @@ class ItemType extends AbstractType
                 'entry_type' => ItemTranslationType::class,
             ])
             ->add('description_user_id', ChoiceType::class, [
-                'choices' => User::pluck('id', 'username')
+                'choices' => User::pluck('id', 'username'),
+                'choice_translation_domain' => false
             ])
             ->add('identifier')
-            ->add('author')
+            ->add('author', ChoiceType::class, [
+                'choices' => Authority::orderBy('name', 'asc')->pluck('id', 'name')->toArray(),
+                'multiple' => true,
+                'mapped' => false,
+                'required' => true,
+                'by_reference'=> false, // fixes problem with reordering of authors
+                'choice_translation_domain' => false,
+            ])
             ->add('tags', ChoiceType::class, [
                 'choices' => Item::existingTags()->pluck('name', 'name')->toArray(),
                 'multiple' => true,
                 'mapped' => false,
                 'required' => false,
+                'choice_translation_domain' => false
             ])
             ->add('date_earliest')
             ->add('date_latest')
@@ -81,6 +90,27 @@ class ItemType extends AbstractType
                 $options['data'] = $current;
 
                 $form->add('tags', ChoiceType::class, $options);
+
+                // keep sorting of authors, so we need to put selected options to beginning
+                $optionsAuthors = $form['author']->getConfig()->getOptions();
+                $selectedAuthors = explode(';', $data['author']);
+                $selectedAuthorsKeys = [];
+                if ($optionsAuthors['choices'] && $selectedAuthors[0]) {
+
+                    $selectedAuthorsKeys = array_map(
+                        function ($s) use ($optionsAuthors) {
+                            return [$s] = isset($optionsAuthors['choices'][$s]) ? $optionsAuthors['choices'][$s] : $s;
+                        },
+                        $selectedAuthors    
+                    );
+                    $selectedAuthors  = array_combine($selectedAuthors, $selectedAuthorsKeys);
+                    $optionsAuthors['choices']  = array_merge(
+                        $selectedAuthors,
+                        $optionsAuthors['choices']
+                    );
+                }
+                $optionsAuthors['data'] = $selectedAuthorsKeys;
+                $form->add('author', ChoiceType::class, $optionsAuthors);
             }
         );
 

@@ -114,16 +114,29 @@
 {!! Html::script('js/selectize.min.js') !!}
 
 <script>
-$(document).ready(function(){
+	$(document).ready(function(){
 
-	$("#item_tags").selectize({
-		plugins: ['remove_button'],
-		persist: false,
-		create: true,
-		createOnBlur: true
+		$("#item_tags").selectize({
+			plugins: ['remove_button'],
+			persist: false,
+			create: true,
+			createOnBlur: true
+		});	
+		
+		$("#item_description_user_id").selectize({
+			persist: false,
+			create: false
+		});
+
+		$("#item_author").selectize({
+			plugins: ['remove_button'],
+			mode: 'multi',
+			render: {
+                 item: function(data, escape) {
+					return '<div class="selected-item ' + (isNaN(data.value)?'warning': '') + '">' + data.text.replace(/\(.*?\)/g, "") + '</div>';
+				}
+			}
+		});
 	});
-
-});
-
 </script>
 @stop

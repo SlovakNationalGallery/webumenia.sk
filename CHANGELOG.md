@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Changed
+- connect artwork author to authorities
 
 ## [2.6.1] - 2020-05-04
 ### Fixed

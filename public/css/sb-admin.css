@@ -382,6 +382,10 @@ img.nahlad {
     cursor: pointer;
 }
 
+.warning{
+    background: #ffc107 !important;
+}
+
 @media (min-width: 768px) {
   // Automatically set modal's width for larger viewports
   .modal-dialog {
