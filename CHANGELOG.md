@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- creating order with empty note
 
 ## [2.6.1] - 2020-05-04
 ### Fixed
@@ -17,7 +19,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Fixed
 - sort collections in admin by creation date and allow to unpublish them
-- corrected few czech localization strings 
+- corrected few czech localization strings
 - article social sharing images
 - fix ratio-box padding for responsive images
 - unmap item description in harvester
