@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.6.2] - 2020-05-11
+### Fixed
+- creating order with empty note
+
 ## [2.6.1] - 2020-05-04
 ### Fixed
 - link on preview image in artwork detail without zoom
@@ -17,7 +21,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Fixed
 - sort collections in admin by creation date and allow to unpublish them
-- corrected few czech localization strings 
+- corrected few czech localization strings
 - article social sharing images
 - fix ratio-box padding for responsive images
 - unmap item description in harvester
@@ -434,6 +438,7 @@ All notable changes to this project will be documented in this file[^1].
 - LICENSE from Public Domain into MIT
 
 [Unreleased]: https://github.com/SlovakNationalGallery/web-umenia-2/compare/master...develop
+[2.6.2]: https://github.com/SlovakNationalGallery/webumenia.sk/pull/319
 [2.6.1]: https://github.com/SlovakNationalGallery/webumenia.sk/pull/314
 [2.6.0]: https://github.com/SlovakNationalGallery/webumenia.sk/pull/313
 [2.5.0]: https://github.com/SlovakNationalGallery/webumenia.sk/pull/305
