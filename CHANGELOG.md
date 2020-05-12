@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.6.2] - 2020-05-12
+### Fixed
+- creating order with empty address
+
 ## [2.6.2] - 2020-05-11
 ### Fixed
 - creating order with empty note
