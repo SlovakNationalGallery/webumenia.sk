@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- ordering of catalogue by the view count
 
 ## [2.6.3] - 2020-05-12
 ### Fixed
