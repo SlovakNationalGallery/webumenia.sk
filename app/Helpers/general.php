@@ -353,7 +353,7 @@ function starts_with_upper($str) {
 function hasTranslationValue($locale, $attributes)
 {
     foreach ($attributes as $attribute) {
-        if (\Input::get($locale . '.' . $attribute) != null) {
+        if (\Input::get($locale . '.' . $attribute) !== null) {
             return true;
         };
     }

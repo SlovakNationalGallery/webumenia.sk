@@ -139,7 +139,7 @@ $mapping = [
             'type' => 'keyword',
         ],
         'view_count' => [
-            'type' => 'keyword',
+            'type' => 'integer',
         ],
         'hsl' => [
             'type' => 'nested',
