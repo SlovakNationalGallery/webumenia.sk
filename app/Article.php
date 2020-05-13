@@ -133,7 +133,7 @@ class Article extends Model implements TranslatableContract
         return $query->where('publish', '=', 1);
     }
 
-    public function scopeContentImages($query)
+    public function getContentImages()
     {
         return array_merge(
             parseUrls($this->summary),

@@ -93,7 +93,7 @@ class Collection extends Model implements TranslatableContract
         return $result_path;
     }
 
-    public function scopeContentImages($query)
+    public function getContentImages()
     {
         return parseUrls($this->text);
     }
