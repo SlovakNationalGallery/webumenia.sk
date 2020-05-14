@@ -433,7 +433,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
      */
     public function freeFrom() {
         $default_locale = config('translatable.fallback_locale');
-        if (!in_array($this->translate($default_locale)->gallery, [
+        if (!in_array($this["gallery:$default_locale"], [
             'Slovenská národná galéria, SNG',
             'Oravská galéria, OGD',
             'Liptovská galéria Petra Michala Bohúňa, GPB',
