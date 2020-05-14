@@ -121,32 +121,28 @@ class ItemController extends Controller
      * @param Form $form
      * @return Response
      */
-    protected function processForm(Form $form) {
+    protected function processForm(Form $form)
+    {
         $item = $form->getData();
         $form->handleRequest();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $authors = $form['author']->getData();
 
-            
             $unknowns = array_filter($authors, function ($a) {
                 return !is_numeric($a);
             });
-            if (sizeof($authors) > 0) {
-                $orders = array_map(function ($item, $key) {
-                    return ['order' => $key];
-                }, $authors, range(1, sizeof($authors)));
 
-                $item->authorities()->sync(array_combine($authors, $orders));
-            } else {
-                $item->authorities()->sync([]);
-            }
-            $authorities = $item->authorities()->orderBy('order', 'asc')->pluck('name', 'id');
-            $item->author =  implode(
-                ';',
-                array_map(function($a) use ($authorities){
-                    return isset($authorities[$a])?$authorities[$a] : $a;
-                }, $authors)
+
+            $item->authorities()->sync($authors);
+
+            $authorities = $item->authorities()->orderBy('name', 'asc')->pluck('name')->toArray();
+            $authors = array_map(function ($a) use ($authorities) {
+                return isset($authorities[$a]) ? $authorities[$a] : $a;
+            }, array_merge($authorities, $unknowns));
+            sort($authors);
+            $item->author = implode(
+                ';',$authors
             );
             $item->push();
 
