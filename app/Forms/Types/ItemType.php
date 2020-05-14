@@ -38,6 +38,7 @@ class ItemType extends AbstractType
                     'choices' => Authority::orderBy('name', 'asc')->pluck('id', 'name')->toArray(),
                     'multiple' => true,
                     'mapped' => false,
+                    'required' => false,
                     'choice_translation_domain' => false,
                 ]
             )
@@ -111,8 +112,8 @@ class ItemType extends AbstractType
                         $optionsAuthors['choices'],
                         $selectedAuthors
                     );
+                    $optionsAuthors['data'] = $selectedAuthors;
                 }
-                $optionsAuthors['data'] = $selectedAuthors;
                 $form->add('author', ChoiceType::class, $optionsAuthors);
             }
         );

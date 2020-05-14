@@ -31,7 +31,6 @@ class AdminItemFormTest extends BrowserKitTestCase
         );
 
         $this->visit('/item/create')
-            ->type('Test Author', 'item[author]')
             ->attach($filename, 'item[primary_image]')
             ->press('Uložiť')
             ->seePageIs('/item');
