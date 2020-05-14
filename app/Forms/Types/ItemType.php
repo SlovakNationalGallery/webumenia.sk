@@ -38,7 +38,6 @@ class ItemType extends AbstractType
                     'choices' => Authority::orderBy('name', 'asc')->pluck('id', 'name')->toArray(),
                     'multiple' => true,
                     'mapped' => false,
-                    'required' => true,
                     'choice_translation_domain' => false,
                 ]
             )
