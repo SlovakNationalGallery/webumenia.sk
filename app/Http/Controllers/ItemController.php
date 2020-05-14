@@ -129,21 +129,17 @@ class ItemController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $authors = $form['author']->getData();
 
-            $unknowns = array_filter($authors, function ($a) {
+            $unknowns = array_values(array_filter($authors, function ($a) {
                 return !is_numeric($a);
-            });
-
+            }));
 
             $item->authorities()->sync($authors);
 
             $authorities = $item->authorities()->orderBy('name', 'asc')->pluck('name')->toArray();
-            $authors = array_map(function ($a) use ($authorities) {
-                return isset($authorities[$a]) ? $authorities[$a] : $a;
-            }, array_merge($authorities, $unknowns));
-            sort($authors);
-            $item->author = implode(
-                ';',$authors
-            );
+            $authors = array_merge($authorities, $unknowns);
+            natcasesort($authors);
+
+            $item->author = implode(';', $authors);
             $item->push();
 
             $tags = $form['tags']->getData();

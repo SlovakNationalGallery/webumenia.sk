@@ -19,7 +19,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ItemType extends AbstractType
 {
 
-    public function buildForm(FormBuilderInterface $builder, array $options) {
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
 
         $builder
             ->add('translations', CollectionType::class, [
@@ -30,14 +31,17 @@ class ItemType extends AbstractType
                 'choice_translation_domain' => false
             ])
             ->add('identifier')
-            ->add('author', ChoiceType::class, [
-                'choices' => Authority::orderBy('name', 'asc')->pluck('id', 'name')->toArray(),
-                'multiple' => true,
-                'mapped' => false,
-                'required' => true,
-                'by_reference'=> false, // fixes problem with reordering of authors
-                'choice_translation_domain' => false,
-            ])
+            ->add(
+                'author',
+                ChoiceType::class,
+                [
+                    'choices' => Authority::orderBy('name', 'asc')->pluck('id', 'name')->toArray(),
+                    'multiple' => true,
+                    'mapped' => false,
+                    'required' => true,
+                    'choice_translation_domain' => false,
+                ]
+            )
             ->add('tags', ChoiceType::class, [
                 'choices' => Item::existingTags()->pluck('name', 'name')->toArray(),
                 'multiple' => true,
@@ -65,6 +69,7 @@ class ItemType extends AbstractType
                 'prototype' => true,
             ]);
 
+
         // set empty translations
         $builder->addEventListener(
             FormEvents::PRE_SET_DATA,
@@ -83,7 +88,6 @@ class ItemType extends AbstractType
             function (FormEvent $event) {
                 $form = $event->getForm();
                 $data = $event->getData();
-
                 $options = $form['tags']->getConfig()->getOptions();
 
                 $current = $data->tags->pluck('name', 'name')->toArray();
@@ -101,15 +105,15 @@ class ItemType extends AbstractType
                         function ($s) use ($optionsAuthors) {
                             return [$s] = isset($optionsAuthors['choices'][$s]) ? $optionsAuthors['choices'][$s] : $s;
                         },
-                        $selectedAuthors    
+                        $selectedAuthors
                     );
                     $selectedAuthors  = array_combine($selectedAuthors, $selectedAuthorsKeys);
                     $optionsAuthors['choices']  = array_merge(
-                        $selectedAuthors,
-                        $optionsAuthors['choices']
+                        $optionsAuthors['choices'],
+                        $selectedAuthors
                     );
                 }
-                $optionsAuthors['data'] = $selectedAuthorsKeys;
+                $optionsAuthors['data'] = $selectedAuthors;
                 $form->add('author', ChoiceType::class, $optionsAuthors);
             }
         );
@@ -121,16 +125,28 @@ class ItemType extends AbstractType
                 $data = $event->getData();
                 $form = $event->getForm();
 
-                if (!isset($data['tags'])) {
-                    return;
+
+                if (isset($data['tags'])) {
+
+                    $options = $form['tags']->getConfig()->getOptions();
+
+                    $selected = array_combine($data['tags'], $data['tags']);
+                    $options['choices'] += $selected;
+
+                    $form->add('tags', ChoiceType::class, $options);
                 }
 
-                $options = $form['tags']->getConfig()->getOptions();
+                if (isset($data['author'])) {
+                    $options = $form['author']->getConfig()->getOptions();
 
-                $selected = array_combine($data['tags'], $data['tags']);
-                $options['choices'] += $selected;
+                    $selected = array_filter($data['author'], function ($i) {
+                        return !is_numeric($i);
+                    });
+                    $selected = array_combine($selected, $selected);
+                    $options['choices'] += $selected;
 
-                $form->add('tags', ChoiceType::class, $options);
+                    $form->add('author', ChoiceType::class, $options);
+                }
             }
         );
     }
