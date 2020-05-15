@@ -25,6 +25,7 @@ class Article extends Model implements TranslatableContract
 
     public static $rules = array(
         'slug'       => 'required',
+        'author'     => 'required',
 
         'sk.title'   => 'required',
         'sk.summary' => 'required',
@@ -132,11 +133,12 @@ class Article extends Model implements TranslatableContract
         return $query->where('publish', '=', 1);
     }
 
-    public function scopeContentImages($query)
+    public function getContentImages()
     {
-        $translation = $this->content;
-        preg_match_all('/<img.*?src=[\'"](.*?)[\'"].*?>/i', $translation, $matches);
-        return sizeof($matches) > 1 ? $matches[1]:[];  
+        return array_merge(
+            parseUrls($this->summary),
+            parseUrls($this->content)
+        );
     }
 
     public function scopePromoted($query)

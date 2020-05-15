@@ -21,6 +21,7 @@ class Slide extends Model
 
     public static $rules = [
         'title' => 'required',
+        'url' => 'required',
         'publish' => 'boolean',
         'image' => 'image|dimensions:min_width=1200',
     ];
