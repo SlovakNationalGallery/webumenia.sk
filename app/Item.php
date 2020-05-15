@@ -582,6 +582,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     public function getIndexedData($locale)
     {
+        $work_types = $this->makeArray($this["work_type:$locale"], ', ');
         return [
             'id' => $this->id,
             'identifier' => $this->identifier,
@@ -596,7 +597,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
             'is_free' => $this->isFree(),
             'authority_id' => $this->authorities()->pluck('id'),
             'view_count' => $this->view_count,
-            'work_type' => $this->makeArray($this["work_type:$locale"], ', '),
+            'work_type' => $work_types ? reset($work_types) : null,
             'title' => $this["title:$locale"],
             'description' => (!empty($this["description:$locale"])) ? strip_tags($this["description:$locale"]) : '',
             'topic' => $this->makeArray($this["topic:$locale"]),
