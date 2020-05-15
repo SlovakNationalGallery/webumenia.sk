@@ -23,11 +23,12 @@
                     </div>
                 @endif
 
-                <div class="alert alert-warning text-center">
+                <div class="alert alert-warning">
                     {!! trans('reprodukcie.alert_covid-19') !!}
                 </div>
                 
-                <div class="col-md-8 col-md-offset-2 text-center">
+                <div class="col-md-8 col-md-offset-2">
+                    <h2 class="bottom-space text-center">{{ trans('objednavka.order_title') }}</h2>
                     {!! trans('objednavka.order_content') !!}
                 </div>
             </div>

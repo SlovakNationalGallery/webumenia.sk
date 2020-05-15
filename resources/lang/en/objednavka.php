@@ -10,7 +10,8 @@ return array(
 
     'title'         => 'Reproduction order',
     'order_alert'   => '<strong> Warning: </strong><br> If you wish a reproduction to be ready before Christmas, make sure to place your order <strong>before December 9th</strong>.',
-    'order_content' => '<h2 class="bottom-space">Reproduction order</h2>
+    'order_title' => 'Reproduction order',
+    'order_content' => '
                         <p>If you are interested in both printed and digital reproductions, please make a <strong>separate order for each type</strong>.</p>
                         <p>If you wish to order different sizes for each print, please specify them in the <strong>Note</strong> field.</p>
                         <p>Currently, prints can only be retrieved in person, either in <a href="https://www.sng.sk/en/bratislava/visiting-us/how-to-find-us/ex-libris-bookshop" target="_blank" class="underline">Ex Libris bookstore</a> in Esterházy palace in Bratislava, or at the ticket office of the <a href="https://www.sng.sk/en/zvolen/visiting-us/how-to-find-us" target="_blank" class="underline">Zvolen Castle</a>.</p>
