@@ -131,10 +131,7 @@ class ItemController extends Controller
 
             $item->authorities()->sync($authors);
 
-            $authorities = $item->authorities()->orderBy('name', 'asc')->pluck('name')->toArray();
-
-            natcasesort($authorities);
-
+            $authorities = $item->authorities->sortBy(function($a){return $a->formated_name;})->pluck('formated_name')->toArray();
             $item->author = implode(';', $authorities);
             $item->push();
 

@@ -97,7 +97,7 @@ class ItemType extends AbstractType
 
                 // keep sorting of authors, so we need to put selected options to beginning
                 $optionsAuthors = $form['author']->getConfig()->getOptions();
-                $selectedAuthors = explode(';', $data['author']);
+                $selectedAuthors = $data['autority_ids'];
                 $selectedAuthorsKeys = [];
                 if ($optionsAuthors['choices'] && $selectedAuthors[0]) {
 
@@ -113,8 +113,8 @@ class ItemType extends AbstractType
                         $selectedAuthors
                     );
                     $optionsAuthors['data'] = $selectedAuthors;
-                    $form->add('author', ChoiceType::class, $optionsAuthors);
                 }
+                $form->add('author', ChoiceType::class, $optionsAuthors);
             }
         );
 

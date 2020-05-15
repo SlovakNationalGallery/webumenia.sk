@@ -136,6 +136,10 @@ class Item extends Model implements IndexableModel, TranslatableContract
         return $this->belongsToMany(\App\Authority::class, 'authority_item', 'item_id', 'authority_id')->withPivot('role');
     }
 
+    public function getAutorityIdsAttribute() {
+        return $this->authorities()->pluck('id')->toArray();
+    }
+
     public function collections()
     {
         return $this->belongsToMany(\App\Collection::class, 'collection_item', 'item_id', 'collection_id');
@@ -510,7 +514,8 @@ class Item extends Model implements IndexableModel, TranslatableContract
         $used_authorities = array();
         $authorities_with_link = array();
         $not_authorities_with_link = array();
-        foreach ($this->authorities as $authority) {
+        $authorities = $this->authorities->sortBy(function($a){return $a->formated_name;});
+        foreach ($authorities as $authority) {
             if ($authority->pivot->role != 'autor/author') {
                 $not_authorities_with_link[] = '<a class="underline" href="'. $authority->getUrl() .'">'. $authority->formated_name .'</a>'
                     .' &ndash; ' . Authority::formatMultiAttribute($authority->pivot->role);
@@ -519,12 +524,6 @@ class Item extends Model implements IndexableModel, TranslatableContract
             }
             $used_authorities[]= trim($authority->name, ', ');
         }
-        foreach ($this->authors as $author_unformated => $author) {
-            if (!in_array(trim($author_unformated, ', '), $used_authorities)) {
-                $authorities_with_link[] = '<a class="underline" href="'. url_to('katalog', ['author' => $author_unformated]) .'">'. $author .'</a>';
-            }
-        }
-
         return array_merge($authorities_with_link, $not_authorities_with_link);
     }
 
