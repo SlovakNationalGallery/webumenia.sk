@@ -48,7 +48,7 @@
 !!}
 
 <div class="form-group required has-feedback"><label for="pids" class="control-label col-lg-2 col-sm-4">{{ trans('objednavka.form_title') }}</label>
-    <div class="col-lg-10 col-sm-8">
+    <div class="col-lg-8 col-sm-8">
             @if ($items->count() == 0)
                 <p class="text-center">{{ trans('objednavka.order_none') }}</p>
             @endif
@@ -203,7 +203,7 @@
 
 <div class="form-group">
     <div class="col-lg-2 col-sm-4">&nbsp;</div>
-    <div class="col-lg-10 col-sm-8">
+    <div class="col-lg-8 col-sm-8">
         <div class="checkbox">
             <input id="terms_and_conditions" name="terms_and_conditions" type="checkbox" value="1" required>
             <label for="terms_and_conditions">
