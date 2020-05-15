@@ -133,7 +133,11 @@ class ItemController extends Controller
                 return !is_numeric($a);
             }));
 
-            $item->authorities()->sync($authors);
+            $authorities = array_values(array_filter($authors, function ($a) {
+                return is_numeric($a);
+            }));
+
+            $item->authorities()->sync($authorities);
 
             $authorities = $item->authorities()->orderBy('name', 'asc')->pluck('name')->toArray();
             $authors = array_merge($authorities, $unknowns);
