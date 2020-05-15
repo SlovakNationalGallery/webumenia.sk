@@ -2,19 +2,10 @@
 
 namespace App\Harvest\Mappers;
 
-use App\Authority;
 use Illuminate\Support\Str;
 
-class AuthorityMapper extends AbstractModelMapper
+class AuthorityMapper extends BaseAuthorityMapper
 {
-    protected $modelClass = Authority::class;
-
-    public function mapId(array $row) {
-        if (isset($row['id'][0])) {
-            return (int)$this->parseId($row['id'][0]);
-        }
-    }
-
     public function mapType(array $row) {
         if (!isset($row['type'])) {
             return null;
