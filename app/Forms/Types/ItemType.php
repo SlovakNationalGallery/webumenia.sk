@@ -113,8 +113,8 @@ class ItemType extends AbstractType
                         $selectedAuthors
                     );
                     $optionsAuthors['data'] = $selectedAuthors;
+                    $form->add('author', ChoiceType::class, $optionsAuthors);
                 }
-                $form->add('author', ChoiceType::class, $optionsAuthors);
             }
         );
 
@@ -134,18 +134,6 @@ class ItemType extends AbstractType
                     $options['choices'] += $selected;
 
                     $form->add('tags', ChoiceType::class, $options);
-                }
-
-                if (isset($data['author'])) {
-                    $options = $form['author']->getConfig()->getOptions();
-
-                    $selected = array_filter($data['author'], function ($i) {
-                        return !is_numeric($i);
-                    });
-                    $selected = array_combine($selected, $selected);
-                    $options['choices'] += $selected;
-
-                    $form->add('author', ChoiceType::class, $options);
                 }
             }
         );
