@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file[^1].
 - absolute urls for og:image
 - open importing csv files with read permissions only
 - ordering of catalogue by the view count
+- missing medium, related work item filters
 
 ## [2.6.3] - 2020-05-12
 ### Fixed
