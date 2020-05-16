@@ -54,6 +54,9 @@ return array(
     'digital_choice'    => 'Vyberte si reprodukcie',
     'more-items_button' => 'zobraziť všetky',
 
-    'alert_covid-19' => 'V súvislosti s opatreniami individuálnej a kolektívnej ochrany a prevencie voči šíreniu ochorenia COVID-19 budú výdajné miesta pre reprodukcie (kníhkupectvo Ex Libris a SNG - Zvolenský zámok) zatvorené až do odvolania. Akonáhle budú prevádzky opäť otvorené, budeme Vás informovať o termíne vyzdvihnutia reprodukcií. Ďakujeme za&nbsp;porozumenie.',
+    'alert_covid-19' => 'Čoskoro bude opäť možné vyzdvihnúť si tlačené reprodukcie v kníhkupectve Ex Libris, budeme Vás informovať o presnom dátume. Zvolenský zámok je už otvorený a reprodukcie si môžete vyzdvihnúť v <a href="https://www.sng.sk/sk/zvolen/navsteva/otvaracie-hodiny-a-vstupne" target="_blank">pracovné dni</a>. <br>
+    Pri preberaní objednávok prosíme o dodržiavanie platných opatrení individuálnej a kolektívnej ochrany a prevencie voči šíreniu ochorenia COVID-19.<br>
+Vzhľadom na doterajšiu situáciu bude vybavenie objednávky trvať dlhšie ako 30 dní.<br>
+Ďakujeme za trpezlivosť a tešíme sa na Vašu návštevu.',
 
 );

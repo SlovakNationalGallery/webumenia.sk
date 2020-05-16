@@ -433,7 +433,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
      */
     public function freeFrom() {
         $default_locale = config('translatable.fallback_locale');
-        if (!in_array($this->translate($default_locale)->gallery, [
+        if (!in_array($this["gallery:$default_locale"], [
             'Slovenská národná galéria, SNG',
             'Oravská galéria, OGD',
             'Liptovská galéria Petra Michala Bohúňa, GPB',
@@ -582,8 +582,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     public function getIndexedData($locale)
     {
-        $translation = $this->translateOrNew($locale);
-        $work_types = $this->makeArray($translation->work_type, ', ');
+        $work_types = $this->makeArray($this["work_type:$locale"], ', ');
         return [
             'id' => $this->id,
             'identifier' => $this->identifier,
@@ -598,7 +597,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
             'is_free' => $this->isFree(),
             'authority_id' => $this->authorities()->pluck('id'),
             'view_count' => $this->view_count,
-            'work_type' => is_array($work_types) ? reset($work_types) : '',
+            'work_type' => $work_types ? reset($work_types) : null,
             'title' => $this["title:$locale"],
             'description' => (!empty($this["description:$locale"])) ? strip_tags($this["description:$locale"]) : '',
             'topic' => $this->makeArray($this["topic:$locale"]),
