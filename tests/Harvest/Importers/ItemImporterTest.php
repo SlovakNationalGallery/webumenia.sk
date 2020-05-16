@@ -5,7 +5,7 @@ namespace Tests\Harvest\Importers;
 use App\Authority;
 use App\Harvest\Importers\ItemImporter;
 use App\Harvest\Mappers\AuthorityItemMapper;
-use App\Harvest\Mappers\AuthorityMapper;
+use App\Harvest\Mappers\BaseAuthorityMapper;
 use App\Harvest\Mappers\ItemImageMapper;
 use App\Harvest\Mappers\CollectionItemMapper;
 use App\Harvest\Mappers\ItemMapper;
@@ -245,7 +245,7 @@ class ItemImporterTest extends TestCase
             $itemImageMapperMock = $this->createMock(ItemImageMapper::class),
             $collectionItemMapperMock = $this->createMock(CollectionItemMapper::class),
             $authorityItemMapperMock = $this->createMock(AuthorityItemMapper::class),
-            $authorityMapperMock = $this->createMock(AuthorityMapper::class)
+            $authorityMapperMock = $this->createMock(BaseAuthorityMapper::class)
         );
         $itemMapperMock
             ->expects($this->once())

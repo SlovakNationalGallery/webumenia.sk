@@ -7,6 +7,8 @@ use App\Filter\Forms\Types\AuthoritySearchRequestType;
 use App\Filter\Forms\Types\ItemSearchRequestType;
 use App\Filter\Generators\AuthorityTitleGenerator;
 use App\Filter\Generators\ItemTitleGenerator;
+use App\Harvest\Importers\ItemImporter;
+use App\Harvest\Mappers\BaseAuthorityMapper;
 use App\Item;
 use App\Observers\AuthorityObserver;
 use App\Observers\ItemObserver;
@@ -44,6 +46,12 @@ class AppServiceProvider extends ServiceProvider
         $this->app->when(ItemRepository::class)
             ->needs('$locales')
             ->give(config('translatable.locales'));
+
+        $this->app->when(ItemImporter::class)
+            ->needs(BaseAuthorityMapper::class)
+            ->give(function () {
+                return new BaseAuthorityMapper();
+            });
     }
 
     public function boot()
