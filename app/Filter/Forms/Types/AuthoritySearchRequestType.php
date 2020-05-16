@@ -71,6 +71,17 @@ class AuthoritySearchRequestType extends AbstractType
                 ->add('nationality', ChoiceType::class, $getChoiceOptions('nationality'))
                 ->add('place', ChoiceType::class, $getChoiceOptions('place'));
         });
+
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+            $form = $event->getForm();
+            $data = $event->getData();
+
+            if (isset($data['place'])) {
+                $form->add('place', ChoiceType::class, [
+                    'choices' => [$data['place'] => $data['place']],
+                ]);
+            }
+        });
     }
 
     public function configureOptions(OptionsResolver $resolver)
