@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file[^1].
 - absolute urls for og:image
 - open importing csv files with read permissions only
 - ordering of catalogue by the view count
+- indexing of item's work types 
 
 ### Changed
 - COVID-19 alert for printed reproductions
