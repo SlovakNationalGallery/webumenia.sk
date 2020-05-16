@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.7.0] - 2020-05-17
 ### Fixed
 - preview main / header image within article and collection admin editor
 - prevent storing of empty alternative locales for articles / collections
@@ -457,6 +459,7 @@ All notable changes to this project will be documented in this file[^1].
 - LICENSE from Public Domain into MIT
 
 [Unreleased]: https://github.com/SlovakNationalGallery/web-umenia-2/compare/master...develop
+[2.7.0]: https://github.com/SlovakNationalGallery/webumenia.sk/pull/328
 [2.6.3]: https://github.com/SlovakNationalGallery/webumenia.sk/pull/321
 [2.6.2]: https://github.com/SlovakNationalGallery/webumenia.sk/pull/319
 [2.6.1]: https://github.com/SlovakNationalGallery/webumenia.sk/pull/314
