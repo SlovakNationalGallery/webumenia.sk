@@ -11,7 +11,8 @@ return array(
 
     'title'         => 'objednávka',
     'order_alert'   => '<strong>Upozornenie:</strong><br>Tlačené reprodukcie, ktoré majú byť vyhotovené do vianočných sviatkov, je možné objednať do <strong>9. decembra</strong>.<br> Objednávky vytvorené po tomto termíne budú vyhotovené <strong>až po sviatkoch</strong>.',
-    'order_content' => '<h2 class="bottom-space">Objednávka</h2>
+    'order_title' => 'Objednávka',
+    'order_content' => '
                         <p>Ak máte záujem o tlačené aj digitálne reprodukcie, vytvorte prosím <strong>zvlášť objednávku</strong> pre každý typ.</p>
                         <p>Ak si prajete rôzne rozmery pre jednotlivé tlačené reprodukcie, uveďte ich prosím v položke <strong>Poznámka</strong>.</p>
                         <p>Tlačené reprodukcie je momentálne možné vyzdvihnúť len osobne v&nbsp;kníhkupectve <a href="https://goo.gl/maps/3Uf4S" target="_blank" class="underline">Ex Libris v priestoroch SNG na Námestí Ľ. Štúra 4 v Bratislave</a>  alebo v pokladni <a href="https://goo.gl/maps/MPRy6Qdwm8s" target="_blank" class="underline">Zvolenského zámku - Námestie SNP 594/1</a>. </p>

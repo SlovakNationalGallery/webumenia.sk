@@ -10,6 +10,12 @@ All notable changes to this project will be documented in this file[^1].
 - open importing csv files with read permissions only
 - ordering of catalogue by the view count
 - missing medium, related work item filters
+- overwriting authority's attributes in item harvester
+- indexing of item's work types 
+
+### Changed
+- COVID-19 alert for printed reproductions
+- align and layout in order section
 
 ## [2.6.3] - 2020-05-12
 ### Fixed

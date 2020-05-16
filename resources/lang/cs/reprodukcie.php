@@ -53,5 +53,10 @@ return array(
                               <li>Chcete-li objednat tištěné digitální reprodukce, vytvořte <strong>samostatně objednávku pro každý typ.</strong>       </li>
                             </ul>',
     'digital_choice'    => 'Zvolte si reprodukce',
-    'more-items_button' => 'zobrazit všechny'
+    'more-items_button' => 'zobrazit všechny',
+
+    'alert_covid-19' => 'Brzy bude opět možné vyzvednout si tištěné reprodukce v knihkupectví ex libris, budeme Vás informovat o přesném datu. Zvolenský zámek je již otevřen a reprodukce si můžete vyzvednout v <a href="https://www.sng.sk/sk/zvolen/navsteva/otvaracie-hodiny-a-vstupne" target="_blank">pracovní dny</a>.<br>
+    Při přebírání objednávek prosíme o dodržování platných opatření individuální a kolektivní ochrany a prevence vůči šíření onemocnění COVID-19.<br>
+    Vzhledem k dosavadní situaci bude vyřízení objednávky trvat déle než 30 dní.<br>
+    Děkujeme za trpělivost a těšíme se na Vaši návštěvu.',
 );
