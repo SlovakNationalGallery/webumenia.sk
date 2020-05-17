@@ -95,12 +95,11 @@ class ItemType extends AbstractType
 
                 $form->add('tags', ChoiceType::class, $options);
 
-                // keep sorting of authors, so we need to put selected options to beginning
                 $optionsAuthors = $form['author']->getConfig()->getOptions();
-                $selectedAuthors = $data['autority_ids'];
-                $selectedAuthorsKeys = [];
-                if ($optionsAuthors['choices'] && $selectedAuthors[0]) {
+                $selectedAuthors = explode(';', $data['author']);
 
+                if ($optionsAuthors['choices'] && isset($selectedAuthors)) {
+                    $selectedAuthorsKeys = [];
                     $selectedAuthorsKeys = array_map(
                         function ($s) use ($optionsAuthors) {
                             return [$s] = isset($optionsAuthors['choices'][$s]) ? $optionsAuthors['choices'][$s] : $s;
@@ -112,9 +111,9 @@ class ItemType extends AbstractType
                         $optionsAuthors['choices'],
                         $selectedAuthors
                     );
-                    $optionsAuthors['data'] = $selectedAuthors;
+                    $optionsAuthors['data']= $selectedAuthors;
+                    $form->add('author', ChoiceType::class, $optionsAuthors);
                 }
-                $form->add('author', ChoiceType::class, $optionsAuthors);
             }
         );
 
@@ -134,6 +133,17 @@ class ItemType extends AbstractType
                     $options['choices'] += $selected;
 
                     $form->add('tags', ChoiceType::class, $options);
+                }
+
+                if (isset($data['author'])) {
+                    $options = $form['author']->getConfig()->getOptions();
+
+                    $selectedNewAuthorities = array_filter($data['author'], function ($v) use ($options) {
+                        return !is_numeric($v) && !isset($options['choices'][$v]);
+                    });
+                    $options['choices'] += $selectedNewAuthorities;
+
+                    $form->add('author', ChoiceType::class, $options);
                 }
             }
         );

@@ -131,6 +131,8 @@
 		$("#item_author").selectize({
 			plugins: ['remove_button'],
 			mode: 'multi',
+			create: 'true',
+			delimiter: ';',
 			render: {
                  item: function(data, escape) {
 					return '<div class="selected-item ' + (isNaN(data.value)?'warning': '') + '">' + data.text.replace(/\(.*?\)/g, "") + '</div>';

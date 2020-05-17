@@ -316,7 +316,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
         $authors_array = $this->makeArray($this->author);
         $authors = array();
         foreach ($authors_array as $author) {
-            $authors[$author] = preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $author);
+            $authors[$author] = formatName($author);
         }
         return $authors;
     }
@@ -514,8 +514,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
         $used_authorities = array();
         $authorities_with_link = array();
         $not_authorities_with_link = array();
-        $authorities = $this->authorities->sortBy(function($a){return $a->formated_name;});
-        foreach ($authorities as $authority) {
+        foreach ($this->authorities->sortBy('name') as $authority) {
             if ($authority->pivot->role != 'autor/author') {
                 $not_authorities_with_link[] = '<a class="underline" href="'. $authority->getUrl() .'">'. $authority->formated_name .'</a>'
                     .' &ndash; ' . Authority::formatMultiAttribute($authority->pivot->role);
@@ -523,6 +522,12 @@ class Item extends Model implements IndexableModel, TranslatableContract
                 $authorities_with_link[] = '<span itemprop="creator" itemscope itemtype="http://schema.org/Person"><a class="underline" href="'. $authority->getUrl() .'" itemprop="sameAs"><span itemprop="name">'. $authority->formated_name .'</span></a></span>';
             }
             $used_authorities[]= trim($authority->name, ', ');
+        }
+        foreach ($this->authors as $author_unformated => $author) {
+            if (!in_array(trim($author_unformated, ', '), $used_authorities)) {
+                
+                $authorities_with_link[] = '<a class="underline" href="'. url_to('katalog', ['author' => $author_unformated]) .'">'. $author .'</a>';
+            }
         }
         return array_merge($authorities_with_link, $not_authorities_with_link);
     }
