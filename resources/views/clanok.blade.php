@@ -10,7 +10,7 @@
 <meta property="og:url" content="{!! Request::url() !!}" />
 <meta property="og:image" content="{!! URL::to( $article->getHeaderImage()) !!}" />
 
-@foreach ($article->ContentImages() as $image )
+@foreach ($article->getContentImages() as $image )
 <meta property="og:image" content="{!! $image !!}" />
 @endforeach
 <meta property="og:site_name" content="Web umenia" />

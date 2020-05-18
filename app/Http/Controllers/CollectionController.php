@@ -55,9 +55,12 @@ class CollectionController extends Controller
         if ($v->passes()) {
             $collection = new Collection();
 
+            // store translatable attributes
             foreach (\Config::get('translatable.locales') as $i => $locale) {
-                foreach ($collection->translatedAttributes as $attribute) {
-                    $collection->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
+                if (hasTranslationValue($locale, $collection->translatedAttributes)){
+                    foreach ($collection->translatedAttributes as $attribute) {
+                        $collection->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
+                    }
                 }
             }
 
@@ -137,8 +140,10 @@ class CollectionController extends Controller
             $collection = Collection::find($id);
 
             foreach (\Config::get('translatable.locales') as $i => $locale) {
-                foreach ($collection->translatedAttributes as $attribute) {
-                    $collection->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
+                if (hasTranslationValue($locale, $collection->translatedAttributes)){
+                    foreach ($collection->translatedAttributes as $attribute) {
+                        $collection->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
+                    }
                 }
             }
 

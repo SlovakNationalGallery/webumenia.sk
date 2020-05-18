@@ -10,6 +10,9 @@
 <meta property="og:url" content="{!! Request::url() !!}" />
 <meta property="og:image" content="{!! URL::to($collection->getHeaderImage()) !!}" />
 <meta property="og:site_name" content="web umenia" />
+@foreach ($collection->getContentImages() as $image )
+    <meta property="og:image" content="{!! $image !!}" />
+@endforeach
 @stop
 
 @section('title')
@@ -47,7 +50,7 @@
             <p class="bottom-space">
                 {{ trans_choice('general.artworks_counted', $collection->items()->count(), ['artworks_count' => $collection->items()->count()]) }} &nbsp;&middot;&nbsp;
                 {!! $collection->user->name !!} &nbsp;&middot;&nbsp;
-                {!! $collection->created_at->format('d. m. Y') !!}
+                {!! Carbon::parse($collection->published_at)->format('d. m. Y') !!}
             </p>
         </div>
     </div>

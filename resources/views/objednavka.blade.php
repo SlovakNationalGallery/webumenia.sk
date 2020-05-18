@@ -14,21 +14,25 @@
     <div class="order-body">
         <div class="container">
             <div class="row">
-                @if (Session::has('message'))
-                    <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
-                @endif
-                @if (strtotime('now') < strtotime('2019-12-24'))
-                    <div class="alert alert-warning text-center" role="alert">
-                        {!! trans('objednavka.order_alert') !!}
-                    </div>
-                @endif
+                <div class="col-md-8 col-md-offset-2">
 
-                <div class="alert alert-warning text-center">
-                    {!! trans('reprodukcie.alert_covid-19') !!}
-                </div>
-                
-                <div class="col-md-8 col-md-offset-2 text-center">
+                    @if (Session::has('message'))
+                        <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
+                    @endif
+                    @if (strtotime('now') < strtotime('2019-12-24'))
+                        <div class="alert alert-warning text-center" role="alert">
+                            {!! trans('objednavka.order_alert') !!}
+                        </div>
+                    @endif
+
+                    <div class="alert alert-warning">
+                        {!! trans('reprodukcie.alert_covid-19') !!}
+                    </div>
+                    
+                    
+                    <h2 class="bottom-space text-center">{{ trans('objednavka.order_title') }}</h2>
                     {!! trans('objednavka.order_content') !!}
+
                 </div>
             </div>
         </div>
@@ -38,7 +42,7 @@
 <section class="order content-section">
         <div class="container">
             <div class="row">
-            	<div class="col-xs-12">
+            	<div class="col-xs-12 col-md-10">
             		<!-- <h3>Diela: </h3> -->
 
 
@@ -47,7 +51,7 @@
 !!}
 
 <div class="form-group required has-feedback"><label for="pids" class="control-label col-lg-2 col-sm-4">{{ trans('objednavka.form_title') }}</label>
-    <div class="col-lg-10 col-sm-8">
+    <div class="col-lg-8 col-sm-8">
             @if ($items->count() == 0)
                 <p class="text-center">{{ trans('objednavka.order_none') }}</p>
             @endif
