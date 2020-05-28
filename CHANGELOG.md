@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- mapping of item identifier in harvester
 
 ## [2.7.0] - 2020-05-17
 ### Fixed
