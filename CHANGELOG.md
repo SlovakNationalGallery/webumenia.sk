@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.7.1] - 2020-05-28
+### Fixed
+- mapping of item identifier in harvester
+
 ## [2.7.0] - 2020-05-17
 ### Fixed
 - preview main / header image within article and collection admin editor
