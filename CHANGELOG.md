@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.7.3] - 2020-07-02
+### Fixed
+- link to zoom on preview image in artwork detail
+- keep carousel for multiple preview images from IIP
+
 ## [2.7.2] - 2020-07-02
 ### Changed
 - COVID-19 alert for printed reproductions
