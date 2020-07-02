@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.7.2] - 2020-07-02
+### Changed
+- COVID-19 alert for printed reproductions
+- temporarily disable loading preview image from IIP in artwork detail
+
 ## [2.7.1] - 2020-05-28
 ### Fixed
 - mapping of item identifier in harvester
@@ -18,7 +23,7 @@ All notable changes to this project will be documented in this file[^1].
 - search of unlisted place in authority filter
 - missing medium, related work item filters
 - overwriting authority's attributes in item harvester
-- indexing of item's work types 
+- indexing of item's work types
 
 ### Changed
 - COVID-19 alert for printed reproductions
