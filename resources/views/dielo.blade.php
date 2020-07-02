@@ -54,7 +54,7 @@
             <div class="row img-dielo">
                 <div class="col-md-8 text-center">
                     {{-- @TODO: return back after IIP is fast enoght to handle it --}}
-                    @if ($item->has_iip && false)
+                    @if ($item->has_iip)
                     @php
                         list($width, $height) = getimagesize(public_path() . $item->getImagePath());
                     @endphp
@@ -63,16 +63,26 @@
                         <i class="fa fa-search-plus"></i>
                     </a>
 
-                    @include('components.image_carousel', [
-                        'slick_target' => "multiple-views",
-                        'slick_variant' => "artwork-detail-thumbnail",
-                        'img_urls' => $item->images->map(function ($image) {
-                            return $image->getPreviewUrl();
-                    }),
-                        'img_title' => $item->getTitleWithAuthors(),
-                        'anchor_href' => route('item.zoom', ['id' => $item->id]),
-                        'anchor_title' => utrans('general.item_zoom'),
-                    ])
+                    @if ($item->images->count() == 1)
+                        <a href="{{ route('item.zoom', ['id' => $item->id]) }}" data-toggle="tooltip" data-placement="top" title="{{ utrans('general.item_zoom') }}">
+                            @include('components.item_image_responsive', [
+                                'item' => $item,
+                                'limitHeight' => '80vh'
+                            ])
+                        </a>
+                    @else
+                        @include('components.image_carousel', [
+                            'slick_target' => "multiple-views",
+                            'slick_variant' => "artwork-detail-thumbnail",
+                            'img_urls' => $item->images->map(function ($image) {
+                                return $image->getPreviewUrl();
+                        }),
+                            'img_title' => $item->getTitleWithAuthors(),
+                            'anchor_href' => route('item.zoom', ['id' => $item->id]),
+                            'anchor_title' => utrans('general.item_zoom'),
+                        ])
+                    @endif
+
                     @else
                     @php
                     list($width, $height) = getimagesize(public_path() . $item->getImagePath());
