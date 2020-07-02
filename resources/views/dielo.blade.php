@@ -53,7 +53,6 @@
             </div>
             <div class="row img-dielo">
                 <div class="col-md-8 text-center">
-                    {{-- @TODO: return back after IIP is fast enoght to handle it --}}
                     @if ($item->has_iip)
                     @php
                         list($width, $height) = getimagesize(public_path() . $item->getImagePath());
@@ -63,6 +62,7 @@
                         <i class="fa fa-search-plus"></i>
                     </a>
 
+                    {{-- @TODO: remove this after IIP is fast enoght to handle it --}}
                     @if ($item->images->count() == 1)
                         <a href="{{ route('item.zoom', ['id' => $item->id]) }}" data-toggle="tooltip" data-placement="top" title="{{ utrans('general.item_zoom') }}">
                             @include('components.item_image_responsive', [
