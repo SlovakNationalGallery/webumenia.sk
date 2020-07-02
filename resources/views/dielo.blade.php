@@ -53,7 +53,8 @@
             </div>
             <div class="row img-dielo">
                 <div class="col-md-8 text-center">
-                    @if ($item->has_iip)
+                    {{-- @TODO: return back after IIP is fast enoght to handle it --}}
+                    @if ($item->has_iip && false)
                     @php
                         list($width, $height) = getimagesize(public_path() . $item->getImagePath());
                     @endphp
