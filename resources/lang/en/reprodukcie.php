@@ -54,6 +54,6 @@ return array(
                             </ul>',
     'digital_choice'    => 'Choose your reproductions',
     'more-items_button' => 'Show all',
-    'alert_covid-19' => ' Due to the preventive measures against the spread of Coronavirus COVID-19, the reproduction pickup locations (Ex Libris Bookstore in Bratislava and SNG Zvolen castle) are closed until further notice. Thank you for understanding.',
+    'alert_covid-19' => 'We are reopened. You can pick up your reproductions within the open hours (please follow the COVID-19 guidelines and recommendations). ',
 
 );
