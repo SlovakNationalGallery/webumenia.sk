@@ -63,6 +63,7 @@ class Item extends Model
         'jen volné' => 'is_free',
         'z cyklu' => 'related_work',
         'sbírky' => 'gallery_collection',
+        'autor hesla' => 'description_author'
     );
 
     public static $sortable = array(
@@ -111,6 +112,7 @@ class Item extends Model
         'gallery_collection',
         'has_rights',
         'free_download',
+        'description_author',
     );
 
     protected $dates = array(
@@ -797,6 +799,7 @@ class Item extends Model
                 'authority_id' => $this->relatedAuthorityIds(),
                 'view_count' => $this->view_count,
                 // 'color_descriptor' => $this->color_descriptor,
+                'description_author' => $this->description_author,
 
                 // tanslatable attributes:
                 'author' => $this->makeArray($item_translated->author),

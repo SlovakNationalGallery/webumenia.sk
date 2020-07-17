@@ -29,6 +29,7 @@ return array(
     'item_attr_identifier'     => 'inventory number',
     'item_attr_licence'        => 'licence',
     'item_attr_place'          => 'geographic location',
+    'item_attr_description_author' => 'author of the entry',
 
     'item_relationship_type'   => 'from cycle',
 
