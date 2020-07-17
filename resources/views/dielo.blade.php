@@ -245,6 +245,12 @@
                                         @endif
                                 </tr>
                                 @endif
+                                @if ($item->description_author)
+                                <tr>
+                                    <td class="atribut">{{ trans('dielo.item_attr_description_author') }}</td>
+                                    <td><a href="{{ URL::to('katalog?description_author=' . $item->description_author) }}">{{ $item->description_author }}</a></td>
+                                </tr>
+                                @endif
                                 @if (!empty($item->place))
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_place') }}:</td>
