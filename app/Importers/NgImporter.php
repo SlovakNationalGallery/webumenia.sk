@@ -58,7 +58,7 @@ class NgImporter extends AbstractImporter {
     protected static $cz_gallery_collection_spec = [
         'SGK' => 'Sbírka grafiky a kresby',
         'SMSU' => 'Sbírka moderního a současného umění',
-        'SUDS' => 'Sbírka umění 19. století',
+        'SUDS' => 'Sbírka umění 19. století a klasické moderny',
         'SSU' => 'Sbírka starého umění',
         'SAA' => 'Sbírka umění Asie a Afriky',
     ];
@@ -66,7 +66,7 @@ class NgImporter extends AbstractImporter {
     protected static $en_gallery_collection_spec = [
         'SGK' => 'Collection of Prints and Drawings',
         'SMSU' => 'Collection of Modern and Contemporary Art',
-        'SUDS' => 'Collection of the 19th Century Art',
+        'SUDS' => 'Collection of 19th Century Art and Classical Modernism',
         'SSU' => 'Collection of Old Masters',
         'SAA' => 'Collection of Asian and African Art',
     ];
