@@ -399,10 +399,14 @@ function()
 
     Route::get('informacie', function () {
 
-        // $items = Item::forReproduction()->hasImage()->hasZoom()->limit(20)->orderByRaw("RAND()")->get();
-        $items = Item::random(20, ['gallery' => 'Slovenská národná galéria, SNG']);
+        $ids = [5, 19, 2, 4, 20, 18, 21];
+        $collections = Collection::whereIn('id', $ids)->get()->sort(function ($a, $b) use ($ids) {
+            return array_search($a->id, $ids) - array_search($b->id, $ids);
+        });
 
-        return view('informacie', ['items' => $items]);
+        return view('informacie', [
+            'collections' => $collections
+        ]);
     });
 
     Route::get('500', function () {

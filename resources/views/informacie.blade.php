@@ -16,90 +16,19 @@
         </div>
         <div class="row bottom-space vertical-align">
             <div class="col-md-4">
-
-                <p class="">{!! utrans('informacie.info_p_lead') !!}</p>
-                <p>{!! utrans('informacie.info_p') !!}</p>
-
+                @foreach(trans('informacie.info_p') as $paragraph)
+                    <p>{!! str_replace('registr@ngprague.cz', '<a href="mailto:registr@ngprague.cz">registr@ngprague.cz</a>', e($paragraph)) !!}</p>
+                @endforeach
             </div>
             <div class="col-md-4 text-center">
                 <img srcset="/images/mapa-ng.png 1x, /images/mapa-ng@2x.png 2x" src="" alt="Mapa NG" class="img-responsive" style="margin: 20px auto 40px" />
             </div>
             <div class="col-md-4 text-center">
-                @php
-                    $galleries = [];
-
-                    $galleries['cs'] = [
-                        [
-                            'name'        => 'Klášter sv. Anežky České',
-                            'description' => 'Středověké umění v Čechách<br>a střední Evropě 1200-1550',
-                            'url'         => 'kolekcia/2',
-                        ],
-                        [
-                            'name'        => 'Schwarzenberský palác',
-                            'description' => 'Od rudolfinského umění,<br>až po baroko v Čechách',
-                            'url'         => 'kolekcia/3',
-                        ],
-                        [
-                            'name'        => 'Šternberský palác',
-                            'description' => 'Evropské umění od antiky<br>do baroka',
-                            'url'         => 'kolekcia/4',
-                        ],
-                        [
-                            'name'        => 'Veletržní palác',
-                            'description' => 'Umění 19. 20. a 21. století',
-                            'url'         => 'kolekcia/5',
-                        ],
-                        [
-                            'name'        => 'Palác Kinských',
-                            // 'description' => 'Umění Asie',
-                            'description' => '',
-                            'url'         => '',
-                        ],
-                    ];
-
-                    $galleries['en'] = [
-                        [
-                            'name'        => 'Convent of St. Agnes of Bohemia',
-                            'description' => 'Medieval Art in&nbsp;Bohemia and&nbsp;Central Europe 1200–1550',
-                            'url'         => 'kolekcia/2',
-                        ],
-                        [
-                            'name'        => 'Schwarzenberg Palace',
-                            'description' => 'Art from the Rudolfine Era to the Baroque in&nbsp;Bohemia',
-                            'url'         => 'kolekcia/3',
-                        ],
-                        [
-                            'name'        => 'Sternberg Palace',
-                            'description' => 'European Art from Antiquity to Baroque',
-                            'url'         => 'kolekcia/4',
-                        ],
-                        [
-                            'name'        => 'Trade Fair Palace',
-                            'description' => 'The Art of the 19th, 20th and 21st Centuries',
-                            'url'         => 'kolekcia/5',
-                        ],
-                        [
-                            'name'        => 'Kinský Palace',
-                            // 'description' => 'The Art of Asia — exhibition closed',
-                            'description' => '',
-                            'url'         => '',
-                        ],
-                    ];
-
-                @endphp
                 <ul class="list-unstyled lead">
-                    @foreach ($galleries[\App::getLocale()] as $gallery)
-                        <li>
-
-                            @if (!empty($gallery['url']))
-                                <a href="{!! URL::to($gallery['url']) !!}">{{ utrans($gallery['name']) }}</a>
-                            @else
-                                <span>{{ utrans($gallery['name']) }}</span>
-
-                            @endif
-
-                            <p>{!! $gallery['description'] !!}</p>
-                        </li>
+                    @foreach ($collections as $collection)
+                    <li>
+                        <a href="{{ $collection->getUrl() }}">{{ $collection['name'] }}</a>
+                    </li>
                     @endforeach
                 </ul>
             </div>

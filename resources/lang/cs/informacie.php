@@ -13,8 +13,11 @@ return array(
     'title' => 'informace',
 
     'info_heading'       => 'Sbírky Národní galerie v Praze',
-    'info_p_lead'        => 'Sbírky Národní galerie v Praze skrývají mnohá bohatství a umělecké skvosty. Některá z nich znáte ze stálých expozic, nyní je možné se s výběrem těch nejzajímavějších z nich seznámit i on-line.',
-    'info_p'             => 'Národní galerie v Praze spouští veřejnou prezentaci sbírkových předmětů, najdete zde základní informace o dílech, jejich autorech a především kvalitní fotografie. Jedná se o výběr děl, který budeme dále rozšiřovat. Obrázky, které mají volná autorská práva, můžete prohlížet ve vysokém rozlišení a je tak možné prohlížet obrázky i s detaily.',
+    'info_p'             => [
+        'Rozsáhlá sbírka Národní galerie Praha eviduje více než 400 tisíc sbírkových předmětů. Kromě veřejné prezentace v podobě stálých expozic a výstavních projektů nabízí NGP prohlídku svých sbírek také vonline formátu. V digitální sbírce NGP naleznete pestrý výběr z našich expozic a depozitářů. Ke každému dílu jsou dostupné nejen základní informace o autorovi, názvu a vlastnostech, ale i krátké kurátorské popisky. Zásadní charakteristikou je pak jejich kvalitní fotodokumentace. Obrazy, které mají volná autorská práva, lze prohlížet ve vysokém rozlišení. Tím je divákům nabídnuta unikátní příležitost si díla prohlédnout do nejmenšího detailu.',
+        'Obrazovou dokumentaci lze užívat pro vlastní, badatelské a studijní účely (s citačním odkazem na zdroj). Pro jakékoliv další užití, zejména publikačního a komerčního charakteru, je nutné kontaktovat Národní galerii Praha, registr@ngprague.cz.',
+        'V případě zájmu o publikování sbírkových předmětů nebo využití fotografií pro další účely je možné objednat tiskovou kvalitu obrazové dokumentace s licencí k užití. Více informací naleznete v sekci Žádosti o fotodokumentaci.',
+    ],
     'info_gallery_SNG'   => 'Slovenská národná galéria',
     'info_gallery_OGD'   => 'Oravská galéria v Dolním Kubíně',
     'info_gallery_GNZ'   => 'Galéria umenia Ernesta Zmetáka v Nových Zámcích',
