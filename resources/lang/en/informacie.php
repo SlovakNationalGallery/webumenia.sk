@@ -13,8 +13,11 @@ return array(
     'title' => 'information',
 
     'info_heading'       => 'Collections of the National Gallery in Prague',
-    'info_p_lead'        => 'The collection of the National Gallery in Prague hides many treasures and masterspieces. Some of those masterpieces are situated in our permanent collections and you can easily become acquainted with these highlights via our online database.',
-    'info_p'             => 'At the present time, the National Gallery in Prague implements a fragment of an open access policy for digital images of artworks but it can be a good starting point for educational purposes – how to find basic information about the artworks and authors or view good-quality pictures in particular. The list of digitalized artworks will be further broadened in the future. In order to zoom parts and see all the details, you can easily browse through images that belongs to the public domain in high-resolution ',
+    'info_p'             => [
+        'The extensive collection of the National Gallery Prague consists of more than 400,000 items. In addition to the permanent and temporary exhibitions for the public, the NGP offers a digital database of its collection with a wide selection from its exhibition and storages. Each work enables you to get familiar with the basic information about its author and title. Curatorial descriptions are also available. The main advantage of the online collection is high-quality photographic documentation. Images that belong to the public domain can be viewed in high resolution. It is a unique opportunity for the viewer to see the work in detail.',
+        'Pictorial documentation may be used for private, research and study purposes (with an added quote referencing the source). If used for any other purpose, especially publication or commercial use, it is necessary to contact the National Gallery Prague, registr@ngprague.cz.',
+        'In the case of interest in publishing any artworks from the National Gallery Prague collections or using photographs for any other purpose, they can be ordered in print quality with a licence for use. More information can be found in the section Application for Photographic Documentation.',
+    ],
     'info_gallery_SNG'   => 'Slovak National Gallery',
     'info_gallery_OGD'   => 'The Orava Gallery in Dolný Kubín',
     'info_gallery_GNZ'   => 'The Art Gallery of Ernest Zmeták in Nové Zámky',
