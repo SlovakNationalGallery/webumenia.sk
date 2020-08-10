@@ -49,7 +49,7 @@
         document.createElement( "picture" );
     </script>
     {!! Html::script('js/picturefill.min.js') !!}
-    
+
         {!! Html::script('js/modernizr.custom.js') !!}
 
     @if (App::environment() == 'production')
@@ -90,7 +90,7 @@
                     {!! Form::text('search', @$search, array('class' => 'form-control', 'placeholder' => 'hledej', 'id'=>'search', 'autocomplete'=>'off')) !!}
                     {!!  Form::submit('submit'); !!}
               {!!Form::close() !!}
-              {{-- 
+              {{--
               @if (Request::is('dielo/*') && isSet($collection))
                  <a href="{!! $collection->getUrl() !!}" class="navbar-brand text-small hidden-xs hidden-sm">/&nbsp; {!! $collection->name !!}</a>
               @endif
@@ -125,7 +125,7 @@
             <p class="text-muted text-right">{{ utrans('master.made_by') }} <a href="http://lab.sng.sk" target="_blank" class="sans">lab.SNG</a></p>
           </div>
         </div>
-        
+
       </div>
     </div>
 
@@ -146,16 +146,6 @@
   {!! Html::script('js/bootstrap.min.js') !!}
   {!! Html::script('js/typeahead.bundle.min.js') !!}
   {!! Html::script('js/mg.js') !!}
-
-  @if (App::environment('production'))
-    <script>
-      function initializeSearchD() {
-              Searchd.monitorSearch("#search", "{!! Config::get('app.searchd_id') !!}", {queryPlaceholder: 'Hľadať diela, autorov...'});
-              Searchd.monitorAutocomplete("#search", "{!! Config::get('app.searchd_id_autocomplete') !!}");
-          }
-    </script>
-    <script async src="https://cdn.searchd.co/assets/collector.js" onload="initializeSearchD();"></script>
-  @endif
 
   <!-- Content -->
   @yield('javascript')
