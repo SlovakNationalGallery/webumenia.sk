@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- google maps api call 
 
 ## [2.7.3] - 2020-07-02
 ### Fixed

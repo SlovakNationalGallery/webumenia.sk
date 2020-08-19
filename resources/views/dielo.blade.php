@@ -458,7 +458,7 @@
 {{-- {{ HTML::script('https://www.google.com/recaptcha/api.js') }} --}}
 
 @if (!empty($item->lat) && ($item->lat > 0))
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVG26BxGY9yhjCFbviWRgZsvxSlikOnIM" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVG26BxGY9yhjCFbviWRgZsvxSlikOnIM&callback=initMap" async defer></script>
 {!! Html::script('js/gmaps.js') !!}
 @endif
 
@@ -535,7 +535,7 @@
 @if (!empty($item->lat) && ($item->lat > 0))
 <script type="text/javascript">
     var map;
-    $(document).ready(function(){
+    function initMap(){
 
         map = new GMaps({
             el: '#small-map',
@@ -594,7 +594,7 @@
             }
         });
 
-    });
+    };
 </script>
 @endif
 
