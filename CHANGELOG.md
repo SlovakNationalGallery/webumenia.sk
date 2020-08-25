@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - google maps api call 
 
+## [2.7.4] - 2020-08-25
+### Changed
+- text in reproductions section
+
 ## [2.7.3] - 2020-07-02
 ### Fixed
 - link to zoom on preview image in artwork detail
