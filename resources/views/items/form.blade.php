@@ -2,6 +2,7 @@
 
 @section('content')
 
+<div class="row">
 <div class="col-md-12">
 	@if(isset($item))
 		{!! Form::model($item, ['route' => ['item.update', $item->id], 'method' => 'patch', 'files'=>true]) !!}
@@ -32,7 +33,7 @@
 @endif
 
 <!-- translatable -->
-<div class="col-md-12">
+<div class="col-md-6">
 
 	<!-- Nav tabs -->
 	<ul class="nav nav-tabs top-space" role="tablist">
@@ -132,6 +133,14 @@
 </div>
 <!-- /translatable -->
 
+	<div class="col-md-6">
+		<ul class="nav nav-tabs top-space" role="tablist">
+			<li role="presentation" class="active"><a>non-translatable attributes</a></li>
+		</ul>
+
+		<div class="tab-content top-space">
+			<div role="tabpanel" class="tab-pane active">
+
 <div class="col-md-12">
 	<div class="form-group">
 	{!! Form::label('identifier', 'inventárne číslo') !!}
@@ -144,6 +153,7 @@
 	{!! Form::text('author', Input::old('author'), array('class' => 'form-control')) !!}
 	</div>
 </div>
+{{--
 <div class="col-md-4">
 	<div class="form-group">
 	{!! Form::label('description_user_id', 'popis - autor') !!}
@@ -162,11 +172,17 @@
 	{!! Form::text('description_source_link', Input::old('description_source_link'), array('class' => 'form-control', 'placeholder' => 'http://')) !!}
 	</div>
 </div>
+--}}
+<div class="col-md-12">
+	<div class="form-group">
+	{!! Form::label('description_author', 'autor popisu') !!}
+	{!! Form::text('description_author', Input::old('description_author'), array('class' => 'form-control')) !!}
+	</div>
+</div>
 <div class="col-md-12">
 	<div class="form-group">
 	{!! Form::label('tags', 'tagy') !!}
 	{!! Form::select('tags[]', App\Item::existingTags()->lists('name','name'), (isSet($item)) ? $item->tagNames() : [], ['id' => 'tags', 'multiple' => 'multiple']) !!}
-
 	</div>
 </div>
 <div class="col-md-12">
@@ -200,22 +216,18 @@
 	</div>
 </div>
 
-<div class="clearfix"></div>
-
-<div class="col-md-1">
+<div class="col-md-6">
 	<div class="form-group">
 	{{ Form::label('related_work_order', 'poradie') }}
 	{{ Form::text('related_work_order', Input::old('related_work_order'), array('class' => 'form-control')) }}
 	</div>
 </div>
-<div class="col-md-1">
+<div class="col-md-6">
 	<div class="form-group">
 	{{ Form::label('related_work_total', 'z počtu') }}
 	{{ Form::text('related_work_total', Input::old('related_work_total'), array('class' => 'form-control')) }}
 	</div>
 </div>
-
-<div class="clearfix"></div>
 
 <div class="col-md-12">
 	@if(isset($item))
@@ -230,6 +242,10 @@
 	</div>
 </div>
 
+			</div>
+		</div>
+	</div>
+
 <div class="col-md-12 text-center">
 	{!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp; 
 	@if(isset($item) && $item->record)
@@ -240,7 +256,7 @@
 	{!!Form::close() !!}
 </div>
 
-<div class="clear">&nbsp;</div>
+</div>
 @stop
 
 @section('script')

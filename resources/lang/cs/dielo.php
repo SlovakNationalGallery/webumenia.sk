@@ -29,6 +29,7 @@ return array(
     'item_attr_identifier'     => 'inventární číslo',
     'item_attr_licence'        => 'licence',
     'item_attr_place'          => 'místo vzniku',
+    'item_attr_description_author' => 'autor hesla',
 
     'item_relationship_type'   => 'z cyklu',
 
