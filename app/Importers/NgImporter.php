@@ -26,6 +26,7 @@ class NgImporter extends AbstractImporter {
         'Popis' => 'description',
         'OSA 1' => 'date_earliest',
         'OSA 2' => 'date_latest',
+        'Popis - autor' => 'description_author',
         // translations
         'Ang - Název díla (překlad předchozího sloupce)' => 'title:en',
         'Ang - z cyklu' => 'related_work:en',
