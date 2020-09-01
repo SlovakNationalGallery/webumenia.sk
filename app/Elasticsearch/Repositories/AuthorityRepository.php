@@ -84,6 +84,7 @@ class AuthorityRepository extends TranslatableRepository
         if ($years->getFrom() !== null) {
             $query["bool"]["should"][]["range"]["death_year"]["gte"] = $years->getFrom();
             $query["bool"]["should"][]["bool"]["must_not"]["exists"]["field"] = "death_year";
+            $query["bool"]["minimum_should_match"] = 1;
         }
 
         if ($years->getTo() !== null) {
