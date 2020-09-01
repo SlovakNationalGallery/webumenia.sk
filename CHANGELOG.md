@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Fixed
 - google maps api call 
+- slow query on detail page
 
 ## [2.7.4] - 2020-08-25
 ### Changed
