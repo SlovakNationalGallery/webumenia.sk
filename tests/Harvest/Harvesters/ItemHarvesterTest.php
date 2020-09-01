@@ -87,38 +87,6 @@ class ItemHarvesterTest extends TestCase
         $this->assertCount(1, $item->authorities);
     }
 
-    public function testHarvestDoesNotDeleteImages()
-    {
-        $item = factory(Item::class)->create([
-            'id' => 'SVK:SNG.G_10044',
-        ]);
-        $image = factory(ItemImage::class)->create([
-            'item_id' => 'SVK:SNG.G_10044',
-        ]);
-
-        $harvest = factory(SpiceHarvesterHarvest::class)->create();
-        $record = factory(SpiceHarvesterRecord::class)->create();
-        $record->harvest()->associate($harvest);
-
-        $row = $this->getItemRow();
-        $repositoryMock = $this->createMock(ItemRepository::class);
-        $repositoryMock->method('getRow')->willReturn($row);
-
-        $this->app->when(ItemHarvester::class)
-            ->needs(ItemRepository::class)
-            ->give(function () use ($repositoryMock) {
-                return $repositoryMock;
-            });
-
-        /** @var ItemHarvester $harvester */
-        $harvester = $this->app->make(ItemHarvester::class);
-        $harvester->tryHarvestSingle($record, new Result());
-
-        $item->refresh();
-        $this->assertCount(1, $item->images);
-        $this->assertEquals($image->url, $item->images[0]->url);
-    }
-
     protected function getItemRow()
     {
         return [
