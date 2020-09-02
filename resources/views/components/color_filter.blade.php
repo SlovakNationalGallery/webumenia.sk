@@ -1,0 +1,1 @@
+@include('form.filter.color_widget')
