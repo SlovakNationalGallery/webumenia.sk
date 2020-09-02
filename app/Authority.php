@@ -93,7 +93,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
 
     public function relationships()
     {
-        return $this->belongsToMany(\App\Authority::class, 'authority_relationships', 'authority_id', 'related_authority_id')->withPivot('type')->where('authorities.type', '=', 'person');
+        return $this->belongsToMany(\App\Authority::class, 'authority_relationships', 'authority_id', 'related_authority_id')->withPivot('type');
     }
 
     public function items()
@@ -194,40 +194,37 @@ class Authority extends Model implements IndexableModel, TranslatableContract
         return URL::to('autor/'.$authority_id);
     }
 
-    public function getDescription($html = false, $links = false, $include_roles = false)
+    public function getDescription()
     {
-        $description = ($html) ? '* ' : '';
-        $description .= ($html) ? addMicrodata($this->birth_date, 'birthDate') : $this->birth_year;
-        $description .= ($html) ? self::formatPlace($this->birth_place, $links, 'birthPlace') : self::formatPlace($this->birth_place, $links);
-        if ($this->death_year) {
-            $description .= ($html) ? ' &ndash; ' : ' - ';
-            $description .= ($html) ? '&#x271D; ' : '';
-            $description .= ($html) ? addMicrodata($this->death_date, 'deathDate') : $this->death_year;
-            $description .= ($html) ? self::formatPlace($this->death_place, $links, 'deathPlace') : self::formatPlace($this->death_place, $links);
+        $parts = [];
+
+        if ($this->birth_year) {
+            $parts[] = $this->birth_year;
         }
-        if ($include_roles) {
-            $roles = $this->roles;
-            if ($roles) {
-                $description .= '. Role: '.implode(', ', $roles);
-            }
+        if ($this->birth_year && $this->birth_place) {
+            $parts[] = $this->birth_place;
+        }
+        if ($this->birth_year && $this->death_year) {
+            $parts[] = '-';
+        }
+        if ($this->death_year) {
+            $parts[] = $this->death_year;
+        }
+        if ($this->death_year && $this->death_place) {
+            $parts[] = $this->death_place;
+        }
+
+        $description = implode(' ', $parts);
+
+        if ($this->roles) {
+            $description = sprintf(
+                '%s. Role: %s',
+                $description,
+                implode(', ', $this->roles)
+            );
         }
 
         return $description;
-    }
-
-    private static function formatPlace($place, $links = false, $itemprop = null)
-    {
-        if (empty($place)) {
-            return '';
-        } else {
-            if ($links) {
-                $prop = ($itemprop) ? 'itemprop="'.$itemprop.'"' : '';
-                $place = '<a href="'.url_to('autori', ['place' => $place]).'" '.$prop.'>'.$place.'</a>';
-            }
-
-            return ' '.$place;
-            // return add_brackets($place);
-        }
     }
 
     public static function getImagePathForId($id, $has_image, $sex = 'male', $full = false, $resize = false)
@@ -289,7 +286,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
 
     private static function getNoImage($sex = 'male')
     {
-        $filename = 'no-image-'.$sex.'.jpeg';
+        $filename = 'no-image' . ($sex ? "-$sex" : '') . '.jpeg';
 
         return "/images/no-image/autori/$filename";
     }
@@ -339,11 +336,8 @@ class Authority extends Model implements IndexableModel, TranslatableContract
     public function getAssociativeRelationships()
     {
         $associative_relationships = array();
-        foreach ($this->relationships as $i => $relationship) {
-            $associative_relationships[self::formatMultiAttribute($relationship->pivot->type)][] = [
-                    'id' => $relationship->id,
-                    'name' => formatName($relationship->name),
-                ];
+        foreach ($this->relationships as $relationship) {
+            $associative_relationships[self::formatMultiAttribute($relationship->pivot->type)][] = $relationship;
         }
 
         return $associative_relationships;

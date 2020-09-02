@@ -3,7 +3,7 @@
 @section('og')
 <meta property="og:title" content="{!! $author->formatedName !!}" />
 
-<meta property="og:description" content="{!! $author->getDescription(false, false, true) !!}" />
+<meta property="og:description" content="{{ $author->getDescription() }}" />
 <meta property="og:type" content="object" />
 <meta property="og:url" content="{!! Request::url() !!}" />
 <meta property="og:image" content="{!! URL::to( $author->getImagePath() ) !!}" />
@@ -16,7 +16,7 @@
 @stop
 
 @section('description')
-    <meta name="description" content="{!! $author->getDescription(false, false, true) !!}">
+    <meta name="description" content="{{ $author->getDescription() }}">
 @stop
 
 @section('content')
@@ -31,7 +31,7 @@
     </section>
 @endif
 
-<section class="author detail content-section" itemscope itemtype="http://schema.org/Person">
+<section class="author detail content-section" itemscope itemtype="http://schema.org/{{ $author->type == 'corporate body' ? 'Organization' : 'Person' }}">
     <div class="container">
         <div class="attributes">
             <div class="row">
@@ -66,13 +66,46 @@
                         <p class="lead">{{ trans('authority.alternative_names') }} <em>{!! implode("</em>, <em>", $author->formatedNames) !!}</em></p>
                     @endif
                     <p class="lead">
-                        {!! $author->getDescription(true, true) !!}
+                        @if ($author->birth_date || $author->birth_place)
+                            *
+                        @endif
+
+                        @if ($author->birth_date)
+                            <span itemprop="{{ $author->type === 'corporate body' ? 'foundingDate' : 'birthDate' }}">{{ $author->birth_date }}</span>
+                        @endif
+
+                        @if ($author->birth_place)
+                            <a href="{{ route('frontend.author.index', ['place' => $author->birth_place]) }}" itemprop="{{ $author->type === 'corporate body' ? 'foundingPlace' : 'birthPlace' }}">{{ $author->birth_place }}</a>
+                        @endif
+
+                        @if (($author->birth_date || $author->birth_place) && ($author->death_date || $author->death_place))
+                            &ndash;
+                        @endif
+
+                        @if ($author->death_date || $author->death_place)
+                            &#x271D;
+                        @endif
+
+                        @if ($author->death_date)
+                            <span itemprop="{{ $author->type === 'corporate body' ? 'dissolutionDate' : 'deathDate' }}">{{ $author->death_date }}</span>
+                        @endif
+
+                        @if ($author->death_place)
+                            <a href="{{ route('frontend.author.index', ['place' => $author->death_place]) }}"@if($author->type !== 'corporate body') itemprop="deathPlace"@endif>{{ $author->death_place }}</a>
+                        @endif
                     </p>
                     <p class="lead">
-                        @foreach ($author->roles as $i=>$role)
-                            <a href="{!! url_to('autori', ['role' => $role]) !!}"><strong itemprop="jobTitle">{!! $role !!}</strong></a>{!! ($i+1 < count($author->roles)) ? ', ' : '' !!}
+                        @foreach ($author->roles as $role)
+                            <a href="{{ route('frontend.author.index', ['role' => $role]) }}">
+                                <strong itemprop="{{ $author->type === 'corporate body' ? 'knowsAbout' : 'jobTitle' }}">{{ $role }}</strong>
+                            </a>{{ !$loop->last ? ', ' : '' }}
                         @endforeach
                     </p>
+                    @if ($author->type_organization)
+                    <p class="lead">
+                        <strong>{{ $author->type_organization }}</strong>
+                    </p>
+                    @endif
 
                     {{-- @if ( $author->biography) --}}
                     <div class="text-left biography">
@@ -101,17 +134,20 @@
                     <table class="table table-condensed relationships">
                         <thead>
                             <tr>
-                            @foreach ($author->getAssociativeRelationships() as $type=>$relationships)
-                                <th>{!! $type !!}</th>
+                            @foreach ($author->getAssociativeRelationships() as $type => $relatedAutorities)
+                                <th>{{ $type }}</th>
                             @endforeach
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                            @foreach ($author->getAssociativeRelationships() as $type=>$relationships)
+                            @foreach ($author->getAssociativeRelationships() as $type => $relatedAutorities)
                                 <td>
-                                @foreach ($relationships as $relationship)
-                                    <a href="{!! $relationship['id'] !!}" class="no-border"><strong itemprop="knows">{!! $relationship['name'] !!}</strong> <i class="icon-arrow-right"></i></a> <br>
+                                @foreach ($relatedAutorities as $relatedAuthority)
+                                    <a href="{{ $relatedAuthority->id }}" class="no-border" itemprop="{{ $author->type === 'corporate body' ? ($relatedAuthority->type === 'corporate body' ? 'knowsAbout' : 'member') : ($relatedAuthority->type === 'corporate body' ? 'memberOf' : 'knows') }}">
+                                        <strong>{{ formatName($relatedAuthority->name) }}</strong>
+                                        <i class="icon-arrow-right"></i>
+                                    </a><br>
                                 @endforeach
                                 </td>
                             @endforeach
