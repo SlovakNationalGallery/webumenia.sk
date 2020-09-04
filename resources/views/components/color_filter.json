@@ -1,0 +1,9 @@
+{
+  "name": "Color picker",
+  "data": {
+    "id": "color-picker-id-example",
+    "name": "color-picker-name-example",
+    "color": "#00ff00"
+  },
+  "usage_notes": "A color-picking control with hue/lightness sliders"
+}
