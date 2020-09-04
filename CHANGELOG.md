@@ -2,9 +2,13 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- color picker to patternlib
+
 ### Fixed
+- authority year range filter
 - google maps api call
-- authority year range filter 
+- slow query on detail page
 
 ## [2.7.4] - 2020-08-25
 ### Changed
