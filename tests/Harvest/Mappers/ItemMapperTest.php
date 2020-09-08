@@ -174,4 +174,93 @@ class ItemMapperTest extends TestCase
         ];
         $this->assertEquals($expected, $mapped);
     }
+
+    public function testMapRelatedWork_NoData()
+    {
+        $mapper = new ItemMapper();
+        $row = [];
+
+        $this->assertEquals(null, $mapper->mapRelationshipType($row, 'sk'));
+        $this->assertEquals(null, $mapper->mapRelatedWork($row, 'sk'));
+        $this->assertEquals(null, $mapper->mapRelatedWorkOrder($row));
+        $this->assertEquals(null, $mapper->mapRelatedWorkTotal($row));
+    }
+
+    public function testMapRelatedWork_NoRelation()
+    {
+        $mapper = new ItemMapper();
+        $row = [
+            'relation_isPartOf' => ['samostatné dielo'],
+        ];
+
+        $this->assertEquals('samostatné dielo', $mapper->mapRelationshipType($row, 'sk'));
+        $this->assertEquals(null, $mapper->mapRelatedWork($row, 'sk'));
+        $this->assertEquals(null, $mapper->mapRelatedWorkOrder($row));
+        $this->assertEquals(null, $mapper->mapRelatedWorkTotal($row));
+    }
+
+    public function testMapRelatedWork_NoRelationshipType()
+    {
+        $mapper = new ItemMapper();
+        $row = [
+            'relation_isPartOf' => [':Bez uvedenia názvu (HAPPSOC, Stano Filko 1965/69) (15/15)'],
+        ];
+
+        $this->assertEquals(null, $mapper->mapRelationshipType($row, 'sk'));
+        $this->assertEquals('Bez uvedenia názvu (HAPPSOC, Stano Filko 1965/69)', $mapper->mapRelatedWork($row, 'sk'));
+        $this->assertEquals(15, $mapper->mapRelatedWorkOrder($row));
+        $this->assertEquals(15, $mapper->mapRelatedWorkTotal($row));
+    }
+
+    public function testMapRelatedWork_NoOrderNoTotal()
+    {
+        $mapper = new ItemMapper();
+        $row = [
+            'relation_isPartOf' => ['zo skicára:11. Náčrtník(/59)'],
+        ];
+
+        $this->assertEquals('zo skicára', $mapper->mapRelationshipType($row, 'sk'));
+        $this->assertEquals('11. Náčrtník', $mapper->mapRelatedWork($row, 'sk'));
+        $this->assertEquals(null, $mapper->mapRelatedWorkOrder($row));
+        $this->assertEquals(59, $mapper->mapRelatedWorkTotal($row));
+    }
+
+    public function testMapRelatedWork_NoOrderWithTotal()
+    {
+        $mapper = new ItemMapper();
+        $row = [
+            'relation_isPartOf' => ['z cyklu:Malá premena'],
+        ];
+
+        $this->assertEquals('z cyklu', $mapper->mapRelationshipType($row, 'sk'));
+        $this->assertEquals('Malá premena', $mapper->mapRelatedWork($row, 'sk'));
+        $this->assertEquals(null, $mapper->mapRelatedWorkOrder($row));
+        $this->assertEquals(null, $mapper->mapRelatedWorkTotal($row));
+    }
+
+    public function testMapRelatedWork_WithOrderNoTotal()
+    {
+        $mapper = new ItemMapper();
+        $row = [
+            'relation_isPartOf' => ['z cyklu:Pocta Karolovi Plickovi(4/)'],
+        ];
+
+        $this->assertEquals('z cyklu', $mapper->mapRelationshipType($row, 'sk'));
+        $this->assertEquals('Pocta Karolovi Plickovi', $mapper->mapRelatedWork($row, 'sk'));
+        $this->assertEquals(4, $mapper->mapRelatedWorkOrder($row));
+        $this->assertEquals(null, $mapper->mapRelatedWorkTotal($row));
+    }
+
+    public function testMapRelatedWork_WithOrderWithTotal()
+    {
+        $mapper = new ItemMapper();
+        $row = [
+            'relation_isPartOf' => ['z albumu:Album I.(1/44)'],
+        ];
+
+        $this->assertEquals('z albumu', $mapper->mapRelationshipType($row, 'sk'));
+        $this->assertEquals('Album I.', $mapper->mapRelatedWork($row, 'sk'));
+        $this->assertEquals(1, $mapper->mapRelatedWorkOrder($row));
+        $this->assertEquals(44, $mapper->mapRelatedWorkTotal($row));
+    }
 }

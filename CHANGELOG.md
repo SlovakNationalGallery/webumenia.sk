@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - authority year range filter
 - google maps api call
+- item related work parsing and displaying
 - slow query on detail page
 
 ## [2.7.4] - 2020-08-25
