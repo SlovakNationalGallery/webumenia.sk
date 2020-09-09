@@ -17,7 +17,11 @@
         <div class="row bottom-space vertical-align">
             <div class="col-md-4">
                 @foreach(trans('informacie.info_p') as $paragraph)
-                    <p>{!! str_replace('registr@ngprague.cz', '<a href="mailto:registr@ngprague.cz">registr@ngprague.cz</a>', e($paragraph)) !!}</p>
+                    <p>{!! strtr(e($paragraph), [
+                        'registr@ngprague.cz' => '<a href="mailto:registr@ngprague.cz">registr@ngprague.cz</a>',
+                        e('Žádosti o fotodokumentaci') => '<a href="https://www.ngprague.cz/o-nas/stranka/zadosti-o-fotodokumentaci">Žádosti o fotodokumentaci</a>',
+                        'Application for Photographic Documentation' => '<a href="https://www.ngprague.cz/en/about/page/applications-for-photographic-documentation">Application for Photographic Documentation</a>',
+                    ]) !!}</p>
                 @endforeach
             </div>
             <div class="col-md-4 text-center">
