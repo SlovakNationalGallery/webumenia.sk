@@ -34,7 +34,7 @@ return [
     'form_publication_year'        => 'Year of publication',
     'form_publication_print_run'   => 'Print run',
     'form_confirm_sending_prints' => 'Two prints should be send to',
-    'form_confirm_sending_prints_address' => 'National Gallery in Prague<br>
+    'form_confirm_sending_prints_address' => 'National Gallery Prague<br>
                                               Library; Sternberg Palace<br>
                                               Hradčanské náměstí 15; 118 00 Prague 1; Czech republic',
     'form_note'                    => 'Note',

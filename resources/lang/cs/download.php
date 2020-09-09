@@ -36,7 +36,7 @@ return [
     'form_publication_year'        => 'Rok vydání',
     'form_publication_print_run'   => 'Počet výtisků',
     'form_confirm_sending_prints' => 'Zaslání 2 ks separátů na adresu',
-    'form_confirm_sending_prints_address' => 'Národní galerie v Praze<br>Knihovna; Šternberský palác<br>Hradčanské náměstí 15; 118 00 Praha 1; Česká republika',
+    'form_confirm_sending_prints_address' => 'Národní galerie Praha<br>Knihovna; Šternberský palác<br>Hradčanské náměstí 15; 118 00 Praha 1; Česká republika',
     'form_note'                    => 'Poznámka',
     'form_terms_and_conditions'    => 'souhlasím se <a href="https://www.ngprague.cz/zasady-pro-zpracovani-a-ochranu-osobnich-udaju" class="underline" target="_blank">zpracováním osobních údajů</a> pro účel vyřízení objednávky',
 

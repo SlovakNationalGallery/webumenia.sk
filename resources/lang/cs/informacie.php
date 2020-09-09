@@ -12,7 +12,7 @@ return array(
 
     'title' => 'informace',
 
-    'info_heading'       => 'Sbírky Národní galerie v Praze',
+    'info_heading'       => 'Sbírky Národní galerie Praha',
     'info_p'             => [
         'Rozsáhlá sbírka Národní galerie Praha eviduje více než 400 tisíc sbírkových předmětů. Kromě veřejné prezentace v podobě stálých expozic a výstavních projektů nabízí NGP prohlídku svých sbírek také vonline formátu. V digitální sbírce NGP naleznete pestrý výběr z našich expozic a depozitářů. Ke každému dílu jsou dostupné nejen základní informace o autorovi, názvu a vlastnostech, ale i krátké kurátorské popisky. Zásadní charakteristikou je pak jejich kvalitní fotodokumentace. Obrazy, které mají volná autorská práva, lze prohlížet ve vysokém rozlišení. Tím je divákům nabídnuta unikátní příležitost si díla prohlédnout do nejmenšího detailu.',
         'Obrazovou dokumentaci lze užívat pro vlastní, badatelské a studijní účely (s citačním odkazem na zdroj). Pro jakékoliv další užití, zejména publikačního a komerčního charakteru, je nutné kontaktovat Národní galerii Praha, registr@ngprague.cz.',
@@ -32,7 +32,7 @@ return array(
     'mozete_heading'               => 'U nás lze',
     'mozete_col_stahovat_heading'  => 'Stahovat volná díla',
     'mozete_col_stahovat_li_1'     => 'Digitální reprodukce autorsky právně volných děl na této stránce jsou zpřístupněné jako <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank"><strong>veřejné vlastnictví (public domain)</strong></a>. Můžete si je volně stáhnout <strong>ve vysokém rozlišení</strong> a využívat jak na soukromé, tak i komerční účely – kopírovat, sdílet nebo upravovat.',
-    'mozete_col_stahovat_li_2'     => 'Při dalším šíření <strong>uveďte jméno autora, název díla, Národní galerie v Praze a zdroj (sbirky.ngprague.cz).</strong>',
+    'mozete_col_stahovat_li_2'     => 'Při dalším šíření <strong>uveďte jméno autora, název díla, Národní galerie Praha a zdroj (sbirky.ngprague.cz).</strong>',
     'mozete_col_stahovat_li_3'     => 'Plánujete-li využít reprodukce pro <strong>publikační či komerční účely</strong>, prosím, informujte nás o vašich plánech předem na email <a href="mailto:registr@ngprague.cz">registr@ngprague.cz</a>. V případě užití reprodukcí v publikacích žádáme o zaslání alespoň dvou výtisků dané publikace.',
     'mozete_col_vyuzivat_heading'  => 'Využívat volná díla',
     'mozete_col_vyuzivat_li_1'     => '<strong>tisk</strong> (plakáty, pohlednice nebo trička)',

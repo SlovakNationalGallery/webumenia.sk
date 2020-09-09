@@ -11,7 +11,7 @@
 
 		<title>
 			@section('title')
-			Národní galerie v Praze - sbírky
+			Národní galerie Praha - sbírky
 			@show
 		</title>
 
