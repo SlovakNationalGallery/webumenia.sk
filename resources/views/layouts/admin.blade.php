@@ -26,6 +26,7 @@
         {!! Html::style('css/plugins/bootstrap-switch.css') !!}
         {!! Html::style('css/jquery-ui/jquery-ui.css') !!}
         {!! Html::script('js/modernizr.custom.js') !!}
+        {!! Html::style('/css/vue/vue-select.css') !!}
 
 </head>
 

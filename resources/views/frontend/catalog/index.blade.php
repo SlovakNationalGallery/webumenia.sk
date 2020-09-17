@@ -68,7 +68,7 @@
                                     <a href="{!! $item->getUrl() !!}" {!! (!empty($search))  ?
                                     'data-searchd-result="title/'.$item->id.'" data-searchd-title="'.implode(', ', $item->authors).' - '. $item->title.'"'
                                     : '' !!}>
-                                        <em>{!! implode(', ', $item->authors) !!}</em><br>
+                                        <em>{!! implode(', ', $item->authorsFormatted) !!}</em><br>
                                         <strong>{!! $item->title !!}</strong><br>
                                         <em>{!! $item->getDatingFormated() !!}</em>
                                         {{-- <br><span class="">{!! $item->gallery !!}</span> --}}

@@ -24,6 +24,7 @@ return [
     'description_source_link' => 'description - link na zdroj',
     'identifier' => 'identifier',
     'author' => 'artist',
+    'item_authorities' => 'artists - relations',
     'tags' => 'tags',
     'tag' => 'tag',
     'date_earliest' => 'date earliest',

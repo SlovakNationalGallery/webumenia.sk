@@ -10,6 +10,9 @@ All notable changes to this project will be documented in this file[^1].
 - google maps api call
 - slow query on detail page
 
+### Changed 
+- connect artwork author to authorities
+
 ## [2.7.4] - 2020-08-25
 ### Changed
 - text in reproductions section
