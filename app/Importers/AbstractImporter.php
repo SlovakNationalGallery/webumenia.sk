@@ -7,7 +7,6 @@ use App\ImportRecord;
 use App\Item;
 use App\ItemImage;
 use App\Repositories\IFileRepository;
-use Doctrine\Common\Collections\Collection;
 use Illuminate\Contracts\Translation\Translator;
 use Symfony\Component\Console\Exception\LogicException;
 
@@ -232,10 +231,9 @@ abstract class AbstractImporter implements IImporter {
      * @param array $record
      */
     protected function mapFields(Item $item, array $record) {
-        foreach ($record as $key => $value) {
-            if (isset($this->mapping[$key])) {
-                $mappedKey = $this->mapping[$key];
-                $item->$mappedKey = $value;
+        foreach ($this->mapping as $property => $column) {
+            if (isset($record[$column])) {
+                $item->$property = $record[$column];
             }
         }
     }
@@ -268,11 +266,14 @@ abstract class AbstractImporter implements IImporter {
      * @param Item $item
      */
     protected function setDefaultValues(Item $item) {
+        $useTranslationFallback = $item->getUseTranslationFallback();
+        $item->setUseTranslationFallback(false);
         foreach ($this->defaults as $key => $default) {
             if (!isset($item->$key)) {
                 $item->$key = $default;
             }
         }
+        $item->setUseTranslationFallback($useTranslationFallback);
     }
 
     /**

@@ -144,6 +144,9 @@ $mapping = [
         'hsl' => [
             'type' => 'nested',
         ],
+        'additionals' => [
+            'type' => 'object'
+        ],
     ],
 ];
 

@@ -18,17 +18,17 @@ class MgImporter extends AbstractImporter {
     ];
 
     protected $mapping = [
-        'RokAkv' => 'acquisition_date',
-        'DatExp' => 'copyright_expires',
-        'Datace' => 'dating:cs',
-        'RokOd' => 'date_earliest',
-        'Do' => 'date_latest',
-        'MístoVz' => 'place:cs',
-        'Sign' => 'inscription:cs',
-        'Původnost' => 'state_edition:cs',
-        'Autor' => 'author',
-        'Titul' => 'title:cs',
-        'Námět' => 'topic:cs',
+        'acquisition_date' => 'RokAkv',
+        'copyright_expires' => 'DatExp',
+        'dating:cs' => 'Datace',
+        'date_earliest' => 'RokOd',
+        'date_latest' => 'Do',
+        'place:cs' => 'MístoVz',
+        'inscription:cs' => 'Sign',
+        'state_edition:cs' => 'Původnost',
+        'author' => 'Autor',
+        'title:cs' => 'Titul',
+        'topic:cs' => 'Námět',
     ];
 
     protected $defaults = [
