@@ -151,13 +151,9 @@
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_work_type') }}:</td>
                                     <td>
-                                        @foreach ($item->work_types as $i => $work_type)
-                                            @if ($i == 0)
-                                                <a href="{!! URL::to('katalog?work_type=' . $work_type) !!}">{!! addMicrodata($work_type, "artform") !!}</a>
-                                            @else
-                                                {!! $work_type !!}
-                                            @endif
-                                            @if (count($item->work_types) > ($i+1))
+                                        @foreach ($item->work_type_tree as $path => $work_type)
+                                            <a href="{{ route('frontend.catalog.index', ['work_type' => $path]) }}"><span itemprop="artform">{{ $work_type }}</span></a>
+                                            @if (!$loop->last)
                                                  &rsaquo;
                                             @endif
                                         @endforeach
