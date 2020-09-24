@@ -34,8 +34,8 @@
 <div class="webumeniaCarousel">
     @foreach ($slides as $slide)
         <div class="gallery-cell header-image"  style="background-image: linear-gradient(
-            rgba(0, 0, 0, 0.35),
-            rgba(0, 0, 0, 0.35)
+            rgba(0, 0, 0, 0.40),
+            rgba(0, 0, 0, 0.40)
             ),url({!! $slide->image_path !!})">
             <a href="{!! $slide->url !!}" class="outer-box" data-id="{!! $slide->id !!}" >
                 <div class="inner-box">
@@ -49,10 +49,14 @@
     @endforeach
 </div>
 
+<div class="container">
+        <div class="slick-pagination"></div>
+</div>
+
 <section class="intro bg-light-grey content-section">
     <div class="intro-body">
         <div class="container">
-            <p class="lead tagline text-center">
+            <p class="lead tagline text-center">assdsf
                 {{ utrans('intro.definition_start') }} <strong><a href="/katalog">{!! formatNum($itemCount) !!}</a></strong> {{ trans('intro.definition_end') }}<br>
                 {!! $subtitle !!}</p>
         </div>
@@ -97,14 +101,17 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-    var $carousel = $('.webumeniaCarousel').flickity({
-      wrapAround: true,
-      percentPosition: false,
-      // setGallerySize: false,
-      // resize: false,
-      arrowShape: 'M42.7 15.5c1.1 0 2.1 0.4 2.9 1.2s1.2 1.8 1.2 2.9c0 1.2-0.4 2.1-1.2 2.9L23.7 44.5h64.5c1.1 0 2.1 0.4 2.9 1.2 0.8 0.8 1.2 1.8 1.2 2.9s-0.4 2.1-1.2 2.9c-0.8 0.8-1.8 1.2-2.9 1.2h-64.5l21.9 21.9c0.8 0.8 1.2 1.8 1.2 2.9 0 1.1-0.4 2.1-1.2 2.9 -0.8 0.8-1.8 1.2-2.9 1.2 -1.2 0-2.1-0.4-2.9-1.2L10.8 51.6c-0.8-0.8-1.2-1.8-1.2-2.9 0-1.1 0.4-2.1 1.2-2.9l29-29c0.8-0.8 1.8-1.2 2.9-1.2V15.5z'
+    var $carousel = $('.webumeniaCarousel').slick({
+    infinite: true,
+    slidesToShow: 1,
+    // lazyLoad: 'progressive',
+    slide: '.gallery-cell',
+    variableWidth: false,
+    dots: true,
+    centerMode: true,
+    centerPadding: '5vw',
+    appendDots: $('.slick-pagination')[0]
     });
-    $carousel.children('.flickity-page-dots').css('left',  parseInt($('.flickity-slider').css('transform').split(',')[4]) );
 
     $carousel.on( 'staticClick', function( event, pointer, cellElement, cellIndex ) {
         event.preventDefault();

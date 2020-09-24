@@ -34,6 +34,7 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 		<link rel="stylesheet" type="text/css" href="{{ mix('/css/style.css') }}" />
 		{!! Html::style('css/slick-theme.css') !!}
+		{!! Html::style('css/slick.css') !!}
 		{!! Html::style('css/magnific-popup.css') !!}
 
 		{{-- JS --}}
@@ -87,10 +88,10 @@
 	</div>
 
 	<!-- Core JavaScript Files -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-	<script src="https://unpkg.com/flickity@1.1/dist/flickity.pkgd.min.js"></script>
 	<script src="https://unpkg.com/infinite-scroll@3.0.6/dist/infinite-scroll.pkgd.min.js"></script>
+	{!! Html::script('js/slick.js') !!}
+    {!! Html::script('js/jquery.easing.min.js') !!}
     {!! Html::script('js/bootstrap.min.js') !!}
     @include('components.searchbar_js')
     <script src="{!! asset_timed('js/webumenia.js') !!}"></script>

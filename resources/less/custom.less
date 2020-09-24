@@ -215,48 +215,55 @@ a:focus {
 .carousel-height{
   height: 630px;
   max-height: 60vh;
+  background: @light-grey;
  }
 .webumeniaCarousel {
   .carousel-height;
-  background: @light-grey;
+  .slick-track{
+    .carousel-height;
+  }
   overflow: hidden;
   width: 100%;
-}
-
-.flickity-enabled {
-  overflow: visible !important;
-}
-
-.gallery-cell, .flickity-page-dots, .header-image {
-  width: 100%;
-  margin: auto;
-  @media (min-width: @screen-sm-min) {
-    width: @container-sm - @grid-gutter-width;
-  }
-  @media (min-width: @screen-md-min) {
-    width: @container-md - @grid-gutter-width;
+  .slick-prev,
+  .slick-next
+  {
+    width: 4vw;
+    height: 4vw;
+    min-width: 4rem;
+    min-height: 4rem;
+    margin: -2vw 7vw;
+    border-radius: 50%;
+    &:before{font-size: 1.6vw;}
   }
 }
 
-@media (min-width: @screen-lg-min) {
-  .gallery-cell,  .header-image {
-    transform: translateX(@grid-gutter-width/2);
-    width: calc(100% - (8 * @grid-gutter-width));
-  }
-  // align dots to content column on large screens
-  .flickity-page-dots {
-    left: 50% !important;
-    transform: translateX(-50%);
-    width: @container-lg - @grid-gutter-width;
-  }
-}
-
-.flickity-page-dots {
+.slick-pagination .slick-dots{
+  position: relative;
+  bottom: unset;
   text-align: right;
+  padding-top: .5rem;
+
+  li button{
+    font-size: 1rem;
+    color: @gray-dark;
+    opacity: 0.7;
+    &:before{
+      content: '';
+    }
+  }
+  .slick-active button{
+      width: 1.3rem;
+      height: 1.3rem;
+      border-radius: 1rem;
+      text-align: center;
+      padding: 0;
+      background :@gray-dark;
+      color: @body-bg;
+  }
 }
 
 .gallery-cell {
-  margin-right: 20px;
+  margin: 0 @grid-gutter-width / 4;
 }
 
 .gallery-cell, .header-image {
@@ -278,6 +285,7 @@ a:focus {
     display: table-cell;
     vertical-align: middle;
     width: 100%;
+    padding: 6rem;
   }
 
   h1,h2 {
@@ -301,6 +309,9 @@ a:focus {
       line-height: 72px;
     }
   }
+
+  
+
 }
 
 p.tagline {
