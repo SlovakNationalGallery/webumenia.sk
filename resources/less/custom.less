@@ -212,11 +212,15 @@ a:focus {
     padding-top: 10px;
 }
 
-
+.carousel-height{
+  height: 630px;
+  max-height: 60vh;
+ }
 .webumeniaCarousel {
+  .carousel-height;
   background: @light-grey;
-  height: 320px;
   overflow: hidden;
+  width: 100%;
 }
 
 .flickity-enabled {
@@ -232,7 +236,17 @@ a:focus {
   @media (min-width: @screen-md-min) {
     width: @container-md - @grid-gutter-width;
   }
-  @media (min-width: @screen-lg-min) {
+}
+
+@media (min-width: @screen-lg-min) {
+  .gallery-cell,  .header-image {
+    transform: translateX(@grid-gutter-width/2);
+    width: calc(100% - (8 * @grid-gutter-width));
+  }
+  // align dots to content column on large screens
+  .flickity-page-dots {
+    left: 50% !important;
+    transform: translateX(-50%);
     width: @container-lg - @grid-gutter-width;
   }
 }
@@ -246,7 +260,7 @@ a:focus {
 }
 
 .gallery-cell, .header-image {
-  height: 320px;
+  .carousel-height;
   color: @light;
   & a {color: @light;}
 
@@ -277,6 +291,7 @@ a:focus {
   }
   h1 {
     font-size: 44px;
+    font-weight: normal;
     @media (min-width: @screen-xs-min) {
       font-size: 64px;
       line-height: 52px;

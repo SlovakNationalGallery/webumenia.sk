@@ -33,7 +33,10 @@
 
 <div class="webumeniaCarousel">
     @foreach ($slides as $slide)
-        <div class="gallery-cell"  style="background-image: url({!! $slide->image_path !!})">
+        <div class="gallery-cell header-image"  style="background-image: linear-gradient(
+            rgba(0, 0, 0, 0.35),
+            rgba(0, 0, 0, 0.35)
+            ),url({!! $slide->image_path !!})">
             <a href="{!! $slide->url !!}" class="outer-box" data-id="{!! $slide->id !!}" >
                 <div class="inner-box">
                     <h1>{!! $slide->title !!}</h1>
@@ -87,13 +90,6 @@
         </div>
     </div>
 </section>
-
-<div class="container text-center top-space">
-    <div class="fb-like" data-href="{!! Config::get('app.url') !!}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
-    &nbsp;
-    <a href="https://twitter.com/share" class="twitter-share-button" data-count="true">Tweet</a>
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-</div>
 
 @stop
 

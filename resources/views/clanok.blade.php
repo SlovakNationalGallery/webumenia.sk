@@ -39,17 +39,21 @@
 @endif
 
 <div class="webumeniaCarousel">
-<div class="header-image" style="background-image: url({!! $article->getHeaderImage() !!}); text-shadow:0px 1px 0px {!! $article->title_shadow !!}; color: {!! $article->title_color !!}">
+<div class="header-image" style="background-image: linear-gradient(
+    rgba(0, 0, 0, 0.35),
+    rgba(0, 0, 0, 0.35)
+    ),
+    url({!! $article->getHeaderImage() !!}); text-shadow:0px 1px 0px {!! $article->title_shadow !!}; color: {!! $article->title_color !!}">
     <div class="outer-box">
         <div class="inner-box">
+            <h1>{!! $article->title !!}</h1>
+            {{-- <p class="bottom-space">
+                <a href="{!! url_to( 'clanky', ['author' => $article->author ]) !!}" style="color: {!! $article->title_color !!}">{!! $article->author !!}</a> &nbsp;&middot;&nbsp; 
+                {!! $article->published_date !!}
+            </p> --}}
             @if ($article->category)
                 <h2>{!! $article->category->name !!}</h2>
             @endif
-            <h1>{!! $article->title !!}</h1>
-            <p class="bottom-space">
-                <a href="{!! url_to( 'clanky', ['author' => $article->author ]) !!}" style="color: {!! $article->title_color !!}">{!! $article->author !!}</a> &nbsp;&middot;&nbsp; 
-                {!! $article->published_date !!}
-            </p>
         </div>
     </div>
 </div>
