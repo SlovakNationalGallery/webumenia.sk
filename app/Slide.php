@@ -44,6 +44,15 @@ class Slide extends Model
         return asset(self::ARTWORKS_DIR . '/' . $this->id . '/' . $this->image . '.jpg');
     }
 
+    public function getImageSrcsetAttribute()
+    {   
+        return 
+        asset(self::ARTWORKS_DIR . '/' . $this->id . '/' . $this->image . '.jpg'). ' 400w, ' .
+        asset(self::ARTWORKS_DIR . '/' . $this->id . '/' . $this->image . '.800.jpg'). ' 800w, ' .
+        asset(self::ARTWORKS_DIR . '/' . $this->id . '/' . $this->image . '.1200.jpg'). ' 1200w, ' .
+        asset(self::ARTWORKS_DIR . '/' . $this->id . '/' . $this->image . '.original.jpg'). ' 1201w' ;
+    }
+
     public function getPath($create = false)
     {
         $folder_name = $this->id;

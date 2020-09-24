@@ -149,8 +149,11 @@ class SlideController extends Controller
         $name = uniqid();
         $image->save($path.$name.".original.jpg");
         $image->widen(1200);
+        $image->save($path.$name.".1200.jpg");
+        $image->widen(800);
+        $image->save($path.$name.".800.jpg");
+        $image->widen(400);
         $image->save($path.$name.".jpg");
-
         $slide->image = $name;
         $slide->save();
 

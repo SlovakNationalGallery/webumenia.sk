@@ -33,10 +33,8 @@
 
 <div class="webumeniaCarousel">
     @foreach ($slides as $slide)
-        <div class="gallery-cell header-image"  style="background-image: linear-gradient(
-            rgba(0, 0, 0, 0.40),
-            rgba(0, 0, 0, 0.40)
-            ),url({!! $slide->image_path !!})">
+        <div class="gallery-cell header-image">
+            <img src="{!! $slide->image_path !!}" srcset="{!! $slide->image_srcset !!}" onerror="this.onerror=null;this.srcset=''">
             <a href="{!! $slide->url !!}" class="outer-box" data-id="{!! $slide->id !!}" >
                 <div class="inner-box">
                     <h1>{!! $slide->title !!}</h1>
@@ -124,14 +122,6 @@ $(document).ready(function(){
 
     });
 
-});
-
-$(window).on('resize',function() {
-    if ( $( ".flickity-slider" ).length ) {
-        setTimeout(function(){
-          $('.webumeniaCarousel').children('.flickity-page-dots').css('left',  parseInt($('.flickity-slider').css('transform').split(',')[4]) );
-        }, 200);
-    }
 });
 
 </script>
