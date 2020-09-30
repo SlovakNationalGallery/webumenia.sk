@@ -9,8 +9,8 @@
         <a class="no-underline" href="http://www.culture.gov.sk/" target="_blank">
             <img class="footer-logo ml-0 mr-4 mt-4" src="/images/khb/logo-ministerstvo.svg">
         </a>
-        <a class="no-underline" href="http://www.region-bsk.sk" target="_blank">
-            <img class="footer-logo ml-0 mr-4 mt-4" src="/images/khb/logo-bsk.svg">
+        <a class="no-underline" href="https://bratislava.sk/" target="_blank">
+            <img class="footer-logo ml-0 mr-4 mt-4" src="/images/khb/logo-ba.svg">
         </a>
     </div>
 </footer>
