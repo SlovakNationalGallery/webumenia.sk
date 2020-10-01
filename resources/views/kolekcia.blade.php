@@ -39,21 +39,24 @@
 
 <div class="webumeniaCarousel">
 
-@if ($collection->hasHeaderImage())
-<div class="header-image" style="background-image: url({!! $collection->getHeaderImage() !!}); color: {!! $collection->title_color !!}">
-@else
-<div class="header-image">
-@endif
-    <div class="outer-box">
-        <div class="inner-box">
-            <h1>{!! $collection->name !!}</h1>
+    <div class="gallery-cell header-image">
+
+        @if ($collection->hasHeaderImage())
+        <img src="{!! $collection->getHeaderImage() !!}" onerror="this.onerror=null;this.srcset=''">
+        @endif
+
+        <div class="outer-box" >
+            <div class="inner-box" style="text-shadow:0px 1px 0px {!! $collection->title_shadow !!}; color: {!! $collection->title_color !!}">
+                <h1>{!! $collection->name !!}</h1>
             <p class="bottom-space">
-                {{ trans_choice('general.artworks_counted', $collection->items()->count(), ['artworks_count' => $collection->items()->count()]) }} &nbsp;&middot;&nbsp;
-                {!! $collection->user->name !!} &nbsp;&middot;&nbsp;
-                {!! Carbon::parse($collection->published_at)->format('d. m. Y') !!}
+                @if ($collection->type)
+                    <h2>{!! $collection->type !!}</h2>
+                @endif
             </p>
+            </div>
         </div>
     </div>
+
 
     <!-- share -->
     {{-- <div class="shareon-container">
@@ -65,11 +68,14 @@
     </div>
     </div> --}}
 </div>
-</div>
 
 <section class="collection content-section pb-0">
     <div class="collection-body">
         <div class="container">
+            <div class="row text-center mb-4">
+               {!! $collection->user->name !!}&nbsp;&middot;&nbsp; 
+                {!! $collection->published_date !!}
+            </div>
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 bottom-space description">
                        {!! $collection->text !!}

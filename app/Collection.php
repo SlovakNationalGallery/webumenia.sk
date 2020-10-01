@@ -113,6 +113,11 @@ class Collection extends Model implements TranslatableContract
         return (!empty($value)) ? $value : '#777';
     }
 
+    public function getPublishedDateAttribute($value)
+    {
+        return Carbon::parse($value)->format('d. m. Y'); //Change the format to whichever you desire
+    }
+
     public function scopeOrderByTranslation(Builder $query, $column, $dir = 'asc', $locale = null)
     {
         $locale = $locale ?: $this->locale();

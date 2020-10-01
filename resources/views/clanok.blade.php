@@ -38,25 +38,18 @@
     </section>
 @endif
 
-<div class="webumeniaCarousel">
-<div class="header-image" style="background-image: linear-gradient(
-    rgba(0, 0, 0, 0.35),
-    rgba(0, 0, 0, 0.35)
-    ),
-    url({!! $article->getHeaderImage() !!}); text-shadow:0px 1px 0px {!! $article->title_shadow !!}; color: {!! $article->title_color !!}">
-    <div class="outer-box">
-        <div class="inner-box">
-            <h1>{!! $article->title !!}</h1>
-            {{-- <p class="bottom-space">
-                <a href="{!! url_to( 'clanky', ['author' => $article->author ]) !!}" style="color: {!! $article->title_color !!}">{!! $article->author !!}</a> &nbsp;&middot;&nbsp; 
-                {!! $article->published_date !!}
-            </p> --}}
-            @if ($article->category)
-                <h2>{!! $article->category->name !!}</h2>
-            @endif
+<div class="webumeniaCarousel">    
+    <div class="gallery-cell header-image">
+        <img src="{!! $article->getHeaderImage() !!}" onerror="this.onerror=null;this.srcset=''">
+        <div class="outer-box" >
+            <div class="inner-box" style="text-shadow:0px 1px 0px {!! $article->title_shadow !!}; color: {!! $article->title_color !!}">
+                <h1>{!! $article->title !!}</h1>
+                @if ($article->category)
+                    <h2  style="color: {!! $article->title_color !!}">{!! $article->category->name !!}</h2>
+                @endif
+            </div>
         </div>
     </div>
-</div>
 </div>
 {{-- <section class="article summary bg-light-grey content-section">
         <div class="container">
@@ -70,6 +63,10 @@
 <section class="article content-section">
     <div class="article-body">
         <div class="container">
+            <div class="row text-center mb-4">
+                    <a href="{!! url_to( 'clanky', ['author' => $article->author ]) !!}">{!! $article->author !!}</a> &nbsp;&middot;&nbsp; 
+                    {!! $article->published_date !!}
+            </div>
             <div class="row">
                 <div class="col-md-4 lead attributes">
                     {!! $article->summary !!}

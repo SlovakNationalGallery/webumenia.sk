@@ -54,7 +54,7 @@
 <section class="intro bg-light-grey content-section">
     <div class="intro-body">
         <div class="container">
-            <p class="lead tagline text-center">assdsf
+            <p class="lead tagline text-center">
                 {{ utrans('intro.definition_start') }} <strong><a href="/katalog">{!! formatNum($itemCount) !!}</a></strong> {{ trans('intro.definition_end') }}<br>
                 {!! $subtitle !!}</p>
         </div>

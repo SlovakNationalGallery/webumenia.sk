@@ -215,6 +215,7 @@ a:focus {
 .carousel-height{
   height: 630px;
   max-height: 60vh;
+  min-height: 300px !important;
   background: @light-grey;
  }
 .webumeniaCarousel {
@@ -280,7 +281,14 @@ a:focus {
     width: 100%;
     height: 100%;
     text-align: center;
+    position: relative;
+    position: relative;
+    background-image: linear-gradient(
+      rgba(0, 0, 0, 0.40),
+      rgba(0, 0, 0, 0.40)
+      );
   }
+
   .inner-box {
     display: table-cell;
     vertical-align: middle;
@@ -317,14 +325,6 @@ a:focus {
     height:100%;
     object-fit: cover;
   }
-  a{
-    position: relative;
-    background-image: linear-gradient(
-      rgba(0, 0, 0, 0.40),
-      rgba(0, 0, 0, 0.40)
-      );
-  }
-
 }
 
 p.tagline {
@@ -545,7 +545,8 @@ p.medium {
 
 .bottom-space {
     margin-bottom: 20px;
-}
+    font-size: 16px;
+  }
 
 .top-space {
     margin-top: 20px;
