@@ -8,7 +8,7 @@
 <meta property="og:description" content="{!! $collection->getShortTextAttribute($collection->text, 500) !!}" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="{!! Request::url() !!}" />
-<meta property="og:image" content="{!! URL::to($collection->getHeaderImage()) !!}" />
+<meta property="og:image" content="{!! URL::to($collection->header_image_src) !!}" />
 <meta property="og:site_name" content="web umenia" />
 @foreach ($collection->getContentImages() as $image )
     <meta property="og:image" content="{!! $image !!}" />
@@ -40,9 +40,8 @@
 <div class="webumeniaCarousel">
 
     <div class="gallery-cell header-image">
-
         @if ($collection->hasHeaderImage())
-        <img src="{!! $collection->getHeaderImage() !!}" onerror="this.onerror=null;this.srcset=''">
+        <img src="{!! $collection->header_image_src !!}" srcset="{!! $collection->header_image_srcset !!}" onerror="this.onerror=null;this.srcset=''">
         @endif
 
         <div class="outer-box" >
@@ -56,17 +55,6 @@
             </div>
         </div>
     </div>
-
-
-    <!-- share -->
-    {{-- <div class="shareon-container">
-        <div class="container text-right">
-            <div class="fb-like" data-href="http://dvekrajiny.sng.sk/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
-            &nbsp;
-            <a href="https://twitter.com/share" class="twitter-share-button" data-count="true">Tweet</a>
-            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-    </div>
-    </div> --}}
 </div>
 
 <section class="collection content-section pb-0">
@@ -89,7 +77,7 @@
     @include('components.share_buttons', [
         'title' => $collection->name,
         'url' => $collection->getUrl(),
-        'img' => URL::to($collection->getHeaderImage()),
+        'img' => $collection->header_image_src,
         'class' => 'text-center mb-5'
     ])
 </section>

@@ -8,7 +8,7 @@
 <meta property="og:description" content="{!! strip_tags($article->summary) !!}" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="{!! Request::url() !!}" />
-<meta property="og:image" content="{!! URL::to( $article->getHeaderImage()) !!}" />
+<meta property="og:image" content="{!! URL::to( $article->header_image_src) !!}" />
 
 @foreach ($article->getContentImages() as $image )
 <meta property="og:image" content="{!! $image !!}" />
@@ -40,7 +40,10 @@
 
 <div class="webumeniaCarousel">    
     <div class="gallery-cell header-image">
-        <img src="{!! $article->getHeaderImage() !!}" onerror="this.onerror=null;this.srcset=''">
+        @if ($article->hasHeaderImage())
+        <img src="{!! $article->header_image_src !!}" srcset="{!! $article->header_image_srcset !!}" onerror="this.onerror=null;this.srcset=''">
+        @endif
+        
         <div class="outer-box" >
             <div class="inner-box" style="text-shadow:0px 1px 0px {!! $article->title_shadow !!}; color: {!! $article->title_color !!}">
                 <h1>{!! $article->title !!}</h1>
@@ -75,7 +78,7 @@
                     @include('components.share_buttons', [
                         'title' => $article->title,
                         'url' => $article->getUrl(),
-                        'img' => URL::to($article->getHeaderImage()),
+                        'img' => $article->header_image_src,
                     ])
                 </div>
                 <div class="col-md-6 attributes">

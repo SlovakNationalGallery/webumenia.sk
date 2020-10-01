@@ -11,7 +11,8 @@ All notable changes to this project will be documented in this file[^1].
 - slow query on detail page
 
 ### Changed
-- carousel refactoring, added img-srcset
+- carousel & hero image refactoring, added img-srcset
+- unified main image storing for slides, collections and articles
 
 ## [2.7.4] - 2020-08-25
 ### Changed

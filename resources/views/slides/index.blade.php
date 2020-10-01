@@ -48,9 +48,7 @@
                             <td class="text-center">
                                 <img 
                                 class="img-responsive nahlad" alt="" 
-                                src="{!! $i->image_path !!}" 
-                                srcset="{!! $i->image_srcset !!}" 
-                                onerror="this.onerror=null;this.srcset=''"
+                                src="{!! $i->getResizedImage(70) !!}" 
                                 />
                             </td>
                             <td>
@@ -65,6 +63,7 @@
                                 {!! $i->click_count !!}
                             </td>
 			                <td>
+                                {!! link_to_action('SlideController@show', 'Detail', array($i->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', )) !!} 
                                 {!! link_to_action('SlideController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}
                                 {!! Form::open(array('method' => 'DELETE', 'route' => array('slide.destroy', $i->id), 'class' => 'visible-xs-inline')) !!}
                                     {!! Form::submit('Zmazať', array('class' => 'btn btn-danger btn-xs btn-outline')) !!}

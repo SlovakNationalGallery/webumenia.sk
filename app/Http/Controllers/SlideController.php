@@ -141,20 +141,8 @@ class SlideController extends Controller
 
     public function uploadImage($slide)
     {
-        $image = \Image::make(Input::file('image'));
-        $image->orientate();
-        $image->encode('jpg');
-        $path = $slide->getPath(true);
-        $slide->removeImage();
-        $name = uniqid();
-        $image->save($path.$name.".original.jpg");
-        $image->widen(1200);
-        $image->save($path.$name.".1200.jpg");
-        $image->widen(800);
-        $image->save($path.$name.".800.jpg");
-        $image->widen(400);
-        $image->save($path.$name.".jpg");
-        $slide->image = $name;
+        $image = Input::file('image');
+        $slide->image = $slide->uploadHeaderImage($image);
         $slide->save();
 
         return true;

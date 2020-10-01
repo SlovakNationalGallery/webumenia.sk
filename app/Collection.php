@@ -9,9 +9,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Facades\URL;
-use Intervention\Image\ImageManagerStatic;
 
-class Collection extends Model implements TranslatableContract
+class Collection extends HeaderImageModel implements TranslatableContract
 {
     use Translatable;
 
@@ -57,40 +56,6 @@ class Collection extends Model implements TranslatableContract
         $string = $striped_string;
         $string = substr($string, 0, $length);
         return ($striped_string > $string) ? substr($string, 0, strrpos($string, ' ')) . " ..." : $string;
-    }
-
-    public function hasHeaderImage()
-    {
-        return file_exists(self::getHeaderImageForId($this->id, true));
-    }
-
-    public function getHeaderImage($full = false)
-    {
-        return self::getHeaderImageForId($this->id, $full);
-    }
-
-    public static function getHeaderImageForId($id, $full = false)
-    {
-        $relative_path = self::ARTWORKS_DIR . $id . '.jpg';
-        $path = ($full) ? public_path() . $relative_path : $relative_path;
-        return $path;
-    }
-
-    public function getResizedImage($resize)
-    {
-        $file =  $this->id;
-        $full_path = public_path() .  self::ARTWORKS_DIR;
-        if (!file_exists($full_path . "$file.$resize.jpg")) {
-            try {
-                $img = \Image::make($this->getHeaderImage(true))->fit($resize)->sharpen(7);
-            } catch (\Exception $e) {
-                $img = \Image::make(public_path('images/no-image/no-image.jpg'))->fit($resize)->sharpen(7);
-            }
-
-            $img->save($full_path . "$file.$resize.jpg");
-        }
-        $result_path = self::ARTWORKS_DIR .  "$file.$resize.jpg";
-        return $result_path;
     }
 
     public function getContentImages()

@@ -11,7 +11,7 @@ use Intervention\Image\ImageManagerStatic;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
-class Article extends Model implements TranslatableContract
+class Article extends HeaderImageModel implements TranslatableContract
 {
     use Translatable;
 
@@ -64,53 +64,25 @@ class Article extends Model implements TranslatableContract
         return substr($string, 0, strrpos($string, ' ')) . " ...";
     }
 
-    public function getHeaderImage($full = false)
-    {
-        if (empty($this->attributes['main_image'])) {
-            return false;
-        }
-
-        $relative_path = self::ARTWORKS_DIR . $this->attributes['main_image'];
-        if (!file_exists(public_path() . $relative_path) && !$full) {
-            $relative_path = '/images/no-image/no-image.jpg';
-        }
-        $path = ($full) ? public_path() . $relative_path : $relative_path;
-        return $path;
-    }
-
-    public function getResizedImage($resize)
-    {
-        $file = substr($this->attributes['main_image'], 0, strrpos($this->attributes['main_image'], "."));
-        $full_path = public_path() .  self::ARTWORKS_DIR;
-
-        if (!file_exists($full_path . "$file.$resize.jpg") && file_exists($this->getHeaderImage(true))) {
-            $img = \Image::make($this->getHeaderImage(true))->fit($resize)->sharpen(7);
-            $img->save($full_path . "$file.$resize.jpg");
-        }
-        $result_path = self::ARTWORKS_DIR .  "$file.$resize.jpg";
-
-        return $result_path;
-
-    }
-
     public function getThumbnailImage($full = false)
     {
-        if (empty($this->attributes['main_image'])) {
+        $path = self::getHeaderImagePath($full);
+        $full_path = self::getHeaderImagePath();
+
+        if (!file_exists($full_path)) {
             return false;
         }
+        $preview_path = preg_replace("/(\.[0-9a-z]+$)/i", ".thumbnail" . "$1", $path);
 
-        $preview_image = substr($this->attributes['main_image'], 0, strrpos($this->attributes['main_image'], ".")); //zmaze priponu
-        $preview_image .= '.thumbnail.jpg';
-        $relative_path = self::ARTWORKS_DIR . $preview_image;
-        $full_path = public_path() . $relative_path;
-        if (!file_exists($full_path) && file_exists($this->getHeaderImage(true))) {
+        $preview_full_path = preg_replace("/(\.[0-9a-z]+$)/i", ".thumbnail" . "$1", $full_path);
+        if (!file_exists($preview_full_path)) {
             try {
-                \Image::make($this->getHeaderImage(true))->fit(600, 250)->save($full_path);
+                \Image::make($full_path)->fit(600, 250)->save($preview_full_path);
             } catch (\Exception $e) {
                 app('sentry')->captureException($e);
             }
         }
-        return $relative_path;
+        return $preview_path;
     }
 
     public function getPublishedDateAttribute($value)

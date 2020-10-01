@@ -2,12 +2,12 @@
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <title>Detail {!! $collection->id !!}</title>  
+  <title>Detail {!! $slide->id !!}</title>  
 </head>
 <body>
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                 <h4 class="modal-title">Detail kolekcie</h4>
+                 <h4 class="modal-title">Detail slajdu</h4>
             </div>            <!-- /modal-header -->
             <div class="modal-body">
 
@@ -16,36 +16,36 @@
 	                <table class="table">
 	                    <thead>
 							<tr>
-								<td>identifikátor:</td>
-								<td>{!! $collection->id !!}</td>
+								<td>ID:</td>
+								<td>{!! $slide->id !!}</td>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td>typ:</td>
-								<td>{!! $collection->type !!}</td>
+								<td>Nadpis:</td>
+								<td>{!! $slide->title !!}</td>
 							</tr>
 							<tr>
-								<td>názov:</td>
-								<td>{!! $collection->name !!}</td>
+								<td>Podnadpis:</td>
+								<td>{!! $slide->subtitle !!}</td>
 							</tr>
 							<tr>
-								<td>text:</td>
-								<td>{!! $collection->text !!}</td>
+								<td>Url:</td>
+								<td><a href="{!! $slide->url !!}">{!! $slide->url !!}</a></td>
 							</tr>
-							@foreach ($collection->items as $item)
 							<tr>
+								<td>#&nbsp;kliknutí</td>
+								<td>{!! $slide->click_count !!}</td>
+							<tr>
+								<td>Obrázok</td>
 								<td>
-									<img src="{!! $item->getImagePath(); !!}" 
-									srcset="{!! $item->getImageSrcset(); !!}" 
+									<img src="{!! $slide->header_image_src !!}" 
+									srcset="{!! $slide->header_image_srcset !!}" 
 									alt="náhľad" class="img-responsive"
+									style="width:100%;height:270px;object-fit:cover"
 									onerror="this.onerror=null;this.srcset=''"
 									/></td>
-								<td>
-									<a href="{!! URL::to('item/' . $item->id . '/edit' ) !!}">{!! $item->author !!} - {!! $item->title !!}</a>
-								</td>
 							</tr>
-							@endforeach
 	                    </tbody>
 	                </table>
 	            </div>
@@ -53,7 +53,8 @@
 
             </div>            <!-- /modal-body -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Zavrieť</button>
+				<a href="{!! URL::to('slide/' . $slide->id . '/edit' ) !!}"><button type="button" class="btn btn-default">Upraviť</button></a>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Zavrieť</button>
             </div>            <!-- /modal-footer -->
 </body>
 </html>
