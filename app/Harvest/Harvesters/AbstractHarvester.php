@@ -20,6 +20,42 @@ abstract class AbstractHarvester
         $this->importer = $importer;
     }
 
+    public function tryHarvestFailed(SpiceHarvesterHarvest $harvest) {
+        try {
+            $result = new Result();
+            $harvest->status = SpiceHarvesterHarvest::STATUS_IN_PROGRESS;
+            $harvest->status_messages = trans('harvest.status_messages.started');
+            $harvest->save();
+
+            $failed = $harvest->records()->failed()->get();
+            $i = 0;
+            $total = count($failed);
+            foreach ($failed as $record) {
+                $this->harvestSingle($record, $result);
+
+                $harvest->status_messages = trans('harvest.status_messages.progress', [
+                    'current' => ++$i,
+                    'total' => $total,
+                ]);
+                $harvest->save();
+            }
+
+            $harvest->status = SpiceHarvesterHarvest::STATUS_COMPLETED;
+            $harvest->completed = date('Y-m-d H:i:s');
+            $harvest->status_messages = trans('harvest.status_messages.finished', [
+                'processed' => $total,
+            ]);
+        } catch (\Exception $e) {
+            $harvest->status = SpiceHarvesterHarvest::STATUS_ERROR;
+            $harvest->status_messages = trans('harvest.status_messages.error', [
+                'error' => $e->getMessage(),
+            ]);
+            app('sentry')->captureException($e);
+        } finally {
+            $harvest->save();
+        }
+    }
+
     public function tryHarvest(SpiceHarvesterHarvest $harvest, \DateTime $from = null, \DateTime $to = null, $only_ids = []) {
         $models = [];
 

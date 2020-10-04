@@ -6,6 +6,7 @@ return [
         'started' => 'Started',
         'progress' => 'In progress (:current/:total)',
         'error' => ':error',
+        'finished' => 'Processed records: :processed',
         'completed' =>
             'Processed records: :processed' . PHP_EOL .
             ':created created' . PHP_EOL .

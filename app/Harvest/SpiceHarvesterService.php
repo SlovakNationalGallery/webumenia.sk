@@ -50,9 +50,6 @@ class SpiceHarvesterService
      * @param SpiceHarvesterHarvest $harvest
      */
     public function harvestFailed(SpiceHarvesterHarvest $harvest) {
-        $failed = $harvest->records()->failed()->get();
-        foreach ($failed as $record) {
-            $this->harvestSingle($record);
-        }
+        $this->harvesters[$harvest->type]->tryHarvestFailed($harvest);
     }
 }
