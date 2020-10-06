@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- authority matcher
+
 ### Changed
 - Bump up Bootstrap to 3.4.1 and bump down jQuery to 3.4.1
 
