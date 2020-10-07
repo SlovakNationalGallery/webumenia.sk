@@ -287,7 +287,13 @@ abstract class AbstractImporter implements IImporter {
             $image_filename_format
         ));
 
-        return glob($path, GLOB_BRACE);
+        $paths = glob($path, GLOB_BRACE);
+
+        usort($paths, function ($a, $b) {
+            return filemtime($a) - filemtime($b);
+        });
+
+        return $paths;
     }
 
     /**
@@ -305,7 +311,13 @@ abstract class AbstractImporter implements IImporter {
             $image_filename_format
         );
 
-        return glob($path, GLOB_BRACE);
+        $paths = glob($path, GLOB_BRACE);
+
+        usort($paths, function ($a, $b) {
+            return filemtime($a) - filemtime($b);
+        });
+
+        return $paths;
     }
 
     /**
