@@ -23,6 +23,34 @@ class ItemHarvesterTest extends TestCase
 {
     use DatabaseMigrations;
 
+    public function testHarvestFailed()
+    {
+        $importerMock = $this->createMock(ItemImporter::class);
+        $repositoryMock = $this->createMock(ItemRepository::class);
+        $repositoryMock->method('getRow')->willReturn([
+            'identifier' => [],
+        ]);
+        $harvester = new ItemHarvester(
+            $repositoryMock,
+            $importerMock
+        );
+
+        $harvest = factory(SpiceHarvesterHarvest::class)->create([
+            'type' => 'item',
+        ]);
+        $record = factory(SpiceHarvesterRecord::class)->create([
+            'failed_at' => $this->faker->dateTime,
+            'harvest_id' => $harvest->id,
+            'error_message' => 'error'
+        ]);
+
+        $harvester->harvestFailed($harvest);
+        $record->refresh();
+
+        $this->assertNull($record->error_message);
+        $this->assertNull($record->failed_at);
+    }
+
     public function testHarvestNoRows()
     {
         $repositoryMock = $this->createMock(ItemRepository::class, [], [

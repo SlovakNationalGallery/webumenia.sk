@@ -7,7 +7,7 @@ use App\Harvest\Repositories\AbstractRepository;
 use App\Harvest\Progress;
 use App\SpiceHarvesterHarvest;
 use App\SpiceHarvesterRecord;
-use Carbon\Carbon;
+use Illuminate\Support\Arr;
 
 abstract class AbstractHarvester
 {
@@ -25,7 +25,9 @@ abstract class AbstractHarvester
             $progress->setTotal(count($failed));
 
             foreach ($failed as $record) {
-                $this->harvestRecord($record, $progress);
+                $record->process(function () use ($record, $harvest, $progress) {
+                    $this->harvestRecord($record, $progress);
+                });
                 $harvest->advance($progress);
             }
         });
@@ -49,8 +51,6 @@ abstract class AbstractHarvester
             $progress->setTotal($total);
 
             foreach ($rows as $row) {
-                $harvest->advance($progress);
-
                 $modelId = $this->importer->getModelId($row);
                 if ($modelId === null) {
                     $progress->incrementSkipped();
@@ -64,19 +64,11 @@ abstract class AbstractHarvester
                 $record->harvest()->associate($harvest);
                 $record->item_id = $modelId;
 
-                $record->process(function (SpiceHarvesterRecord $record) use ($progress, $row) {
+                $record->process(function () use ($record, $progress, $row) {
                     $this->harvestRecord($record, $progress, $row);
                 });
+                $harvest->advance($progress);
             }
-
-            $harvest->status_messages = trans('harvest.status_messages.completed', [
-                'processed' => $progress->getProcessed(),
-                'created' => $progress->getInserted(),
-                'updated' => $progress->getUpdated(),
-                'deleted' => $progress->getDeleted(),
-                'skipped' => $progress->getSkipped(),
-                'time' => Carbon::now()->diffInSeconds($progress->getCreatedAt()),
-            ]);
         });
     }
 
@@ -103,7 +95,7 @@ abstract class AbstractHarvester
             }
 
             $this->importer->import($row, $progress);
-            $record->datestamp = $row['datestamp'][0];
+            $record->datestamp = Arr::get($row, 'datestamp.0', null);
         });
     }
 
@@ -124,7 +116,7 @@ abstract class AbstractHarvester
      * @return bool
      */
     protected function isForDeletion(array $row) {
-        return isset($row['status'][0]) && $row['status'][0] == 'deleted';
+        return Arr::get($row, 'status.0', null) === 'deleted';
     }
 
     /**

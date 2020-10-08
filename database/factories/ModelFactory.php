@@ -88,7 +88,7 @@ $factory->define(\App\Authority::class, function (Faker\Generator $faker) {
 
 $factory->define(\App\SpiceHarvesterHarvest::class, function (Faker\Generator $faker) {
     return [
-        'type' => 'item',
+        'type' => $faker->randomElement(['item', 'authority']),
         'base_url' => $faker->url,
         'metadata_prefix' => $faker->word,
         'set_spec' => $faker->word,
@@ -96,6 +96,7 @@ $factory->define(\App\SpiceHarvesterHarvest::class, function (Faker\Generator $f
         'set_description' => $faker->word,
         'status_messages' => $faker->sentence,
         'initiated' => $faker->date,
+        'status' => \App\SpiceHarvesterHarvest::STATUS_QUEUED,
     ];
 });
 

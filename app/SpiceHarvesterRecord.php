@@ -34,7 +34,7 @@ class SpiceHarvesterRecord extends Model
         return $query->whereNotNull('failed_at');
     }
 
-    public function process(callable $onProcess, callable $onError = null)
+    public function process(callable $onProcess)
     {
         try {
             $onProcess();
@@ -42,10 +42,6 @@ class SpiceHarvesterRecord extends Model
             $this->failed_at = null;
             $this->error_message = null;
         } catch (\Exception $e) {
-            if ($onError) {
-                $onError($e);
-            }
-
             $this->failed_at = Carbon::now();
             $this->error_message = $e->getMessage();
         } finally {

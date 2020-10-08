@@ -6,7 +6,6 @@ return [
         'started' => 'Zahájeno',
         'progress' => 'Zpracováva se (:current/:total)',
         'error' => ':error',
-        'finished' => 'Zpracovaných záznamů: :processed',
         'completed' =>
             'Zpracovaných záznamů: :processed' . PHP_EOL .
             ':created nových' . PHP_EOL .
