@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file[^1].
 - authority year range filter
 - google maps api call
 - slow query on detail page
+- do not update empty pivot data in harvester
 
 ## [2.7.4] - 2020-08-25
 ### Changed
