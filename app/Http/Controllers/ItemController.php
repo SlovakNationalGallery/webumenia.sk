@@ -132,7 +132,7 @@ class ItemController extends Controller
             $authorities = [];
             
             $item->author = implode(';', $form['author']->getData());
-            $json = json_decode($form['item_authorities']->getData());
+            $json = json_decode($form['item_authorities']->getData()?:"[]");
             
             foreach($json as $k=>$v){
                 $authorities[$k] = ['role'=> $v];
