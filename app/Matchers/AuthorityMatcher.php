@@ -20,47 +20,37 @@ class AuthorityMatcher
 
     /**
      * @param Item $item
-     * @return Authority[]|Collection
-     * @throws \Exception
+     * @return Collection
      */
     public function matchAll(Item $item)
     {
-        return collect($item->makeArray($item->author))
-            ->map(function ($author) use ($item) {
-                return $this->match($author, $item);
-            })
-            ->filter();
+        return collect(array_keys($item->authors))
+            ->mapWithKeys(function ($author) use ($item) {
+                return [$author => $this->match($author, $item)];
+            });
     }
 
     /**
      * @param string $author
      * @param Item $item
-     * @return Authority|null
-     * @throws \Exception
+     * @return Authority[]|Collection
      */
     public function match($author, Item $item)
     {
         $parsed = $this->authorParser->parse($author);
         $fullname = sprintf('%s, %s', $parsed['surname'], $parsed['name']);
-        $authorities = $this->findAuthorities($fullname, $item);
-
-        if (count($authorities) > 1) {
-            $ids = $authorities->pluck('id')->implode(', ');
-            throw new \Exception('Multiple authorities matched (%s)', $ids);
-        }
-
-        return $authorities[0] ?? null;
+        return $this->findByFullnameAndDates($fullname, $item);
     }
 
     /**
-     * @param string $author
+     * @param string $fullname
      * @param Item $item
      * @return Authority[]|Collection
      */
-    protected function findAuthorities($author, Item $item)
+    protected function findByFullnameAndDates($fullname, Item $item)
     {
-        $authorities = Authority::where('name', $author)->get();
-        return AuthorityName::where('name', $author)->get()
+        $authorities = Authority::where('name', $fullname)->get();
+        return AuthorityName::where('name', $fullname)->get()
             ->map(function (AuthorityName $name) {
                 return $name->authority;
             })
@@ -68,7 +58,6 @@ class AuthorityMatcher
             ->filter(function (Authority $authority) use ($item) {
                 $birthYear = $authority->birth_year;
                 $deathYear = $authority->death_year;
-
                 if ($birthYear === null && $deathYear === null) {
                     return true;
                 } elseif ($birthYear === null) {
@@ -77,7 +66,17 @@ class AuthorityMatcher
                     $deathYear = $birthYear + self::MAX_LIFE_SPAN;
                 }
 
-                return $birthYear < $item->date_earliest && $deathYear >= $item->date_latest;
+                $dateEarliest = $item->date_earliest;
+                $dateLatest = $item->date_latest;
+                if ($dateEarliest === null && $dateLatest === null) {
+                    return true;
+                } elseif ($dateEarliest === null) {
+                    $dateEarliest = $dateLatest;
+                } elseif ($dateLatest === null) {
+                    $dateLatest = $dateEarliest;
+                }
+
+                return $birthYear < $dateEarliest && $deathYear >= $dateLatest;
             });
     }
 }

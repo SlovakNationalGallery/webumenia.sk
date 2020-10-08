@@ -2,11 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Authority;
 use App\Item;
 use App\Matchers\AuthorityMatcher;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Output\OutputInterface;
 
 class MatchAuthorities extends Command
 {
@@ -25,27 +23,34 @@ class MatchAuthorities extends Command
     public function handle()
     {
         $progressBar = $this->output->createProgressBar(Item::count());
-        $new = 0;
+        $attached = 0;
 
-        Item::with('authorities')->chunk(100, function ($items) use ($progressBar, $new) {
+        Item::with('authorities')->chunk(100, function ($items) use ($progressBar, $attached) {
             foreach ($items as $item) {
                 $ids = $this->authorityMatcher
                     ->matchAll($item)
-                    ->filter(function (Authority $authority) use ($item) {
-                        return !$item->authorities->contains($authority);
-                    })
-                    ->map(function (Authority $authority) {
-                        return $authority->id;
+                    ->map(function ($authorities, $author) {
+                        if (count($authorities) === 1) {
+                            return $authorities[0]->id;
+                        }
+
+                        if (count($authorities) === 0) {
+                            $this->output->writeln(sprintf('No authority matched (%s)', $author));
+                        } else {
+                            $multiple = $authorities->pluck('id')->implode(', ');
+                            $this->output->writeln(sprintf('Multiple authorities matched (%s)', $multiple));
+                        }
+
+                        return null;
                     });
 
-                $item->authorities()->syncWithoutDetaching($ids);
-
-                $new += count($ids);
+                $changes = $item->authorities()->syncWithoutDetaching($ids);
+                $attached += count($changes['attached']);
                 $progressBar->advance();
             }
         });
 
-        $this->output->writeln(sprintf('%d new relations were created', $new));
+        $this->output->writeln(sprintf('%d new relations were created', $attached));
         $progressBar->finish();
     }
 }

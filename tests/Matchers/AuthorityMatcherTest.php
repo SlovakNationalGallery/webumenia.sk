@@ -20,12 +20,12 @@ class AuthorityMatcherTest extends TestCase
             'birth_year' => null,
             'death_year' => null,
         ]);
-
         $item = new Item();
         $item->author = 'Wouwerman, Philips';
 
         $matcher = new AuthorityMatcher(new AuthorParser());
-        $authorities = $matcher->matchAll($item);
+        $matched = $matcher->matchAll($item);
+        $authorities = $matched['Wouwerman, Philips'];
 
         $this->assertCount(1, $authorities);
         $this->assertTrue($authority->is($authorities[0]));
