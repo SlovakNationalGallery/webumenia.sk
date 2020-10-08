@@ -4,6 +4,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,5 +32,26 @@ class SpiceHarvesterRecord extends Model
     public function scopeFailed($query)
     {
         return $query->whereNotNull('failed_at');
+    }
+
+    public function process(callable $onProcess, callable $onError = null)
+    {
+        try {
+            $onProcess();
+
+            $this->failed_at = null;
+            $this->error_message = null;
+        } catch (\Exception $e) {
+            if ($onError) {
+                $onError($e);
+            }
+
+            $this->failed_at = Carbon::now();
+            $this->error_message = $e->getMessage();
+        } finally {
+            if (!$this->deleted_at) {
+                $this->save();
+            }
+        }
     }
 }

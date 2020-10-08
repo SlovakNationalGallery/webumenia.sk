@@ -4,11 +4,10 @@ namespace App\Harvest\Harvesters;
 
 use App\Harvest\Importers\AbstractImporter;
 use App\Harvest\Repositories\AbstractRepository;
-use App\Harvest\Result;
+use App\Harvest\Progress;
 use App\SpiceHarvesterHarvest;
 use App\SpiceHarvesterRecord;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 
 abstract class AbstractHarvester
 {
@@ -20,169 +19,92 @@ abstract class AbstractHarvester
         $this->importer = $importer;
     }
 
-    public function tryHarvestFailed(SpiceHarvesterHarvest $harvest) {
-        try {
-            $result = new Result();
-            $harvest->status = SpiceHarvesterHarvest::STATUS_IN_PROGRESS;
-            $harvest->status_messages = trans('harvest.status_messages.started');
-            $harvest->save();
-
+    public function harvestFailed(SpiceHarvesterHarvest $harvest) {
+        $harvest->process(function (Progress $progress) use ($harvest) {
             $failed = $harvest->records()->failed()->get();
-            $i = 0;
-            $total = count($failed);
+            $progress->setTotal(count($failed));
+
             foreach ($failed as $record) {
-                $this->harvestSingle($record, $result);
-
-                $harvest->status_messages = trans('harvest.status_messages.progress', [
-                    'current' => ++$i,
-                    'total' => $total,
-                ]);
-                $harvest->save();
+                $this->harvestRecord($record, $progress);
+                $harvest->advance($progress);
             }
-
-            $harvest->status = SpiceHarvesterHarvest::STATUS_COMPLETED;
-            $harvest->completed = date('Y-m-d H:i:s');
-            $harvest->status_messages = trans('harvest.status_messages.finished', [
-                'processed' => $total,
-            ]);
-        } catch (\Exception $e) {
-            $harvest->status = SpiceHarvesterHarvest::STATUS_ERROR;
-            $harvest->status_messages = trans('harvest.status_messages.error', [
-                'error' => $e->getMessage(),
-            ]);
-            app('sentry')->captureException($e);
-        } finally {
-            $harvest->save();
-        }
-    }
-
-    public function tryHarvest(SpiceHarvesterHarvest $harvest, \DateTime $from = null, \DateTime $to = null, $only_ids = []) {
-        $models = [];
-
-        try {
-            $harvest->status = SpiceHarvesterHarvest::STATUS_IN_PROGRESS;
-            $harvest->status_messages = trans('harvest.status_messages.started');
-            $harvest->save();
-
-            $result = new Result();
-            $models = $this->harvest($harvest, $result, $from, $to, $only_ids);
-
-            $harvest->status = SpiceHarvesterHarvest::STATUS_COMPLETED;
-            $harvest->completed = date('Y-m-d H:i:s');
-            $harvest->status_messages = trans('harvest.status_messages.completed', [
-                'processed' => $result->getTotal(),
-                'created' => $result->getInserted(),
-                'updated' => $result->getUpdated(),
-                'deleted' => $result->getDeleted(),
-                'skipped' => $result->getSkipped(),
-                'time' => Carbon::now()->diffInSeconds($result->getCreatedAt()),
-            ]);
-        } catch (\Exception $e) {
-            $harvest->status = SpiceHarvesterHarvest::STATUS_ERROR;
-            $harvest->status_messages = trans('harvest.status_messages.error', [
-                'error' => $e->getMessage(),
-            ]);
-            app('sentry')->captureException($e);
-        } finally {
-            $harvest->save();
-        }
-
-        return $models;
+        });
     }
 
     /**
      * @param SpiceHarvesterHarvest $harvest
-     * @param Result $result
-     * @param \DateTime $from
-     * @param \DateTime $to
-     * @return Model[]
+     * @param \DateTime|null $from
+     * @param \DateTime|null $to
+     * @param array $only_ids
      */
-    protected function harvest(SpiceHarvesterHarvest $harvest, Result $result, \DateTime $from = null, \DateTime $to = null, $only_ids = []) {
-        $models = [];
+    public function harvest(SpiceHarvesterHarvest $harvest, \DateTime $from = null, \DateTime $to = null, array $only_ids = []) {
+        $harvest->process(function (Progress $progress) use ($harvest, $from, $to, $only_ids) {
+            if ($only_ids) {
+                $rows = $this->repository->getRowsById($harvest, $only_ids);
+                $total = count($only_ids);
+            } else {
+                $rows = $this->repository->getRows($harvest, $from, $to, $total);
+            }
 
-        if (!empty($only_ids)) {
-            $rows = $this->repository->getRowsById($harvest, $only_ids);
-            $total = count($only_ids);
-        } else {
-            $rows = $this->repository->getRows($harvest, $from, $to, $total);
-        }
+            $progress->setTotal($total);
 
-        $i = 0;
-        foreach ($rows as $row) {
-            $harvest->status_messages = trans('harvest.status_messages.progress', [
-                'current' => ++$i,
-                'total' => $total,
+            foreach ($rows as $row) {
+                $harvest->advance($progress);
+
+                $modelId = $this->importer->getModelId($row);
+                if ($modelId === null) {
+                    $progress->incrementSkipped();
+                    continue;
+                }
+
+                $record = SpiceHarvesterRecord::firstOrNew([
+                    'identifier' => $modelId,
+                    'type' => $harvest->type,
+                ]);
+                $record->harvest()->associate($harvest);
+                $record->item_id = $modelId;
+
+                $record->process(function (SpiceHarvesterRecord $record) use ($progress, $row) {
+                    $this->harvestRecord($record, $progress, $row);
+                });
+            }
+
+            $harvest->status_messages = trans('harvest.status_messages.completed', [
+                'processed' => $progress->getProcessed(),
+                'created' => $progress->getInserted(),
+                'updated' => $progress->getUpdated(),
+                'deleted' => $progress->getDeleted(),
+                'skipped' => $progress->getSkipped(),
+                'time' => Carbon::now()->diffInSeconds($progress->getCreatedAt()),
             ]);
-            $harvest->save();
-
-            $modelId = $this->importer->getModelId($row);
-            if ($modelId === null) {
-                $result->incrementSkipped();
-                continue;
-            }
-
-            $record = SpiceHarvesterRecord::firstOrNew([
-                'identifier' => $modelId,
-                'type' => $harvest->type,
-            ]);
-            $record->harvest()->associate($harvest);
-            $record->item_id = $modelId;
-
-            if ($model = $this->tryHarvestSingle($record, $result, $row)) {
-                $models[] = $model;
-            }
-        }
-
-        return $models;
-    }
-
-    public function tryHarvestSingle(SpiceHarvesterRecord $record, Result $result, array $row = null) {
-        $model = null;
-
-        try {
-            $model = $this->harvestSingle($record, $result, $row);
-
-            $record->failed_at = null;
-            $record->error_message = null;
-        } catch (\Exception $e) {
-            $record->failed_at = Carbon::now();
-            $record->error_message = $e->getMessage();
-            app('sentry')->captureException($e);
-        } finally {
-            if (!$record->deleted_at) {
-                $record->save();
-            }
-        }
-
-        return $model;
+        });
     }
 
     /**
      * @param SpiceHarvesterRecord $record
-     * @param Result $result
-     * @param array $row
-     * @return Model|null
+     * @param Progress $progress
+     * @param array|null $row
      */
-    protected function harvestSingle(SpiceHarvesterRecord $record, Result $result, array $row = null) {
-        if ($row === null) {
-            $row = $this->repository->getRow($record);
-        }
+    public function harvestRecord(SpiceHarvesterRecord $record, Progress $progress, array $row = null) {
+        $record->process(function () use ($record, $progress, $row) {
+            if ($row === null) {
+                $row = $this->repository->getRow($record);
+            }
 
-        if ($record->trashed() || $this->isExcluded($row)) {
-            $result->incrementSkipped();
-            return null;
-        }
+            if ($record->trashed() || $this->isExcluded($row)) {
+                $progress->incrementSkipped();
+                return null;
+            }
 
-        if ($this->isForDeletion($row)) {
-            $this->deleteRecord($record);
-            $result->incrementDeleted();
-            return null;
-        }
+            if ($this->isForDeletion($row)) {
+                $this->deleteRecord($record);
+                $progress->incrementDeleted();
+                return null;
+            }
 
-        $model = $this->importer->import($row, $result);
-        $record->datestamp = $row['datestamp'][0];
-
-        return $model;
+            $this->importer->import($row, $progress);
+            $record->datestamp = $row['datestamp'][0];
+        });
     }
 
     /**

@@ -4,6 +4,7 @@
 
 namespace App;
 
+use App\Harvest\Progress;
 use Illuminate\Database\Eloquent\Model;
 
 class SpiceHarvesterHarvest extends Model
@@ -63,5 +64,39 @@ class SpiceHarvesterHarvest extends Model
         return 'default';
     }
 
+    public function process(callable $onProcess, callable $onError = null)
+    {
+        $progress = new Progress();
 
+        try {
+            $this->status = SpiceHarvesterHarvest::STATUS_IN_PROGRESS;
+            $this->status_messages = trans('harvest.status_messages.started');
+            $this->save();
+
+            $onProcess($progress);
+
+            $this->status = SpiceHarvesterHarvest::STATUS_COMPLETED;
+            $this->completed = date('Y-m-d H:i:s');
+        } catch (\Exception $e) {
+            if ($onError) {
+                $onError($e);
+            }
+
+            $this->status = SpiceHarvesterHarvest::STATUS_ERROR;
+            $this->status_messages = trans('harvest.status_messages.error', [
+                'error' => $e->getMessage(),
+            ]);
+        } finally {
+            $this->save();
+        }
+    }
+
+    public function advance(Progress $progress)
+    {
+        $this->status_messages = trans('harvest.status_messages.progress', [
+            'current' => $progress->getProcessed(),
+            'total' => $progress->getTotal(),
+        ]);
+        $this->save();
+    }
 }
