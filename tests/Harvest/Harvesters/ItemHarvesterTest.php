@@ -14,7 +14,6 @@ use App\Harvest\Mappers\ItemMapper;
 use App\Harvest\Repositories\ItemRepository;
 use App\Harvest\Result;
 use App\Item;
-use App\ItemImage;
 use App\SpiceHarvesterHarvest;
 use App\SpiceHarvesterRecord;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
