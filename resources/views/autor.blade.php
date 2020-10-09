@@ -30,7 +30,7 @@
     </section>
 @endif
 
-<section class="author detail content-section" itemscope itemtype="http://schema.org/{{ $author->type == 'corporate body' ? 'Organization' : 'Person' }}">
+<section class="author detail content-section" itemscope itemtype="http://schema.org/{{ $author->isCorporateBody() ? 'Organization' : 'Person' }}">
     <div class="container">
         <div class="attributes">
             <div class="row">
@@ -110,7 +110,10 @@
                             @foreach ($author->getAssociativeRelationships() as $type => $relatedAutorities)
                                 <td>
                                 @foreach ($relatedAutorities as $relatedAuthority)
-                                    <a href="{{ $relatedAuthority->id }}" class="no-border" itemprop="{{ $author->type === 'corporate body' ? ($relatedAuthority->type === 'corporate body' ? 'knowsAbout' : 'member') : ($relatedAuthority->type === 'corporate body' ? 'memberOf' : 'knows') }}">
+                                    <a href="{{ $relatedAuthority->id }}" class="no-border"
+                                       itemprop="{{ $author->isCorporateBody() ?
+                                                    ($relatedAuthority->isCorporateBody() ? 'knowsAbout' : 'member') :
+                                                    ($relatedAuthority->isCorporateBody() ? 'memberOf' : 'knows') }}">
                                         <strong>{{ formatName($relatedAuthority->name) }}</strong>
                                         <i class="icon-arrow-right"></i>
                                     </a><br>

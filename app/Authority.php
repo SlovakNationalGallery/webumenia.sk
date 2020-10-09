@@ -322,4 +322,9 @@ class Authority extends Model implements IndexableModel, TranslatableContract
             $this->save();
         }
     }
+
+    public function isCorporateBody()
+    {
+        return $this->type === 'corporate body';
+    }
 }
