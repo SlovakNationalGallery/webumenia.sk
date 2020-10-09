@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file[^1].
 - authority year range filter
 - deletion of item images on harvest
 - google maps api call
+- item related work parsing and displaying
 - slow query on detail page
 - do not update empty pivot data in harvester
 
