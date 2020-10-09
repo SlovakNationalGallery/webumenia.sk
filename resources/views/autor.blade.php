@@ -83,7 +83,7 @@
                         @endif
 
                         @if ($author->death_date || $author->death_place)
-                            &#x271D;
+                            ✝
                         @endif
 
                         @if ($author->death_date)
