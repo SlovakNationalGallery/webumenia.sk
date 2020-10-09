@@ -286,9 +286,8 @@ class Authority extends Model implements IndexableModel, TranslatableContract
 
     private static function getNoImage($sex = 'male')
     {
-        $filename = 'no-image' . ($sex ? "-$sex" : '') . '.jpeg';
-
-        return "/images/no-image/autori/$filename";
+        if ($sex) return "/images/no-image/autori/no-image-$sex.jpeg";
+        return "/images/no-image/autori/no-image.jpeg";
     }
 
     public function getIndexedData($locale)
