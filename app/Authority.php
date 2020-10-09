@@ -194,39 +194,6 @@ class Authority extends Model implements IndexableModel, TranslatableContract
         return URL::to('autor/'.$authority_id);
     }
 
-    public function getDescription()
-    {
-        $parts = [];
-
-        if ($this->birth_year) {
-            $parts[] = $this->birth_year;
-        }
-        if ($this->birth_year && $this->birth_place) {
-            $parts[] = $this->birth_place;
-        }
-        if ($this->birth_year && $this->death_year) {
-            $parts[] = '-';
-        }
-        if ($this->death_year) {
-            $parts[] = $this->death_year;
-        }
-        if ($this->death_year && $this->death_place) {
-            $parts[] = $this->death_place;
-        }
-
-        $description = implode(' ', $parts);
-
-        if ($this->roles) {
-            $description = sprintf(
-                '%s. Role: %s',
-                $description,
-                implode(', ', $this->roles)
-            );
-        }
-
-        return $description;
-    }
-
     public static function getImagePathForId($id, $has_image, $sex = 'male', $full = false, $resize = false)
     {
         if (!$has_image && !$full) {
