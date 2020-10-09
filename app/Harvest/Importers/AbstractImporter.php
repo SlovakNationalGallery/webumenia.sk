@@ -145,10 +145,10 @@ abstract class AbstractImporter
                 $pivotData = $this->pivotMappers[$field]->map($relatedRow);
             }
 
-            if ($this->existsPivotRecord($model, $field, $relatedModel)) {
-                $relation->updateExistingPivot($relatedModel->getKey(), $pivotData);
-            } else {
+            if (!$this->existsPivotRecord($model, $field, $relatedModel)) {
                 $relation->save($relatedModel, $pivotData);
+            } else if ($pivotData) {
+                $relation->updateExistingPivot($relatedModel->getKey(), $pivotData);
             }
 
             $updatedIds[] = $relatedModel->getKey();
