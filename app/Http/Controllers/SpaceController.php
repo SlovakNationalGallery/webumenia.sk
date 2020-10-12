@@ -116,7 +116,21 @@ class SpaceController extends Controller
             return Redirect::route('space.index');
         }
 
-        return view('spaces.form')->with('space', $space);
+        $media_files = [];
+        foreach (\Config::get('translatable.locales') as $locale) {
+            $media_files[$locale] = [];
+            foreach ($space->getMedia('document.'.$locale) as $media) {
+                $media_files[$locale][] = [
+                    'id' => $media->id,
+                    'file_name' => $media->file_name,
+                    'name' => $media->name,
+                    'size' => $media->size,
+                    'path' => $media->getUrl()
+                ];
+            }
+        }
+
+        return view('spaces.form', ['space'=>$space, 'media_files'=>$media_files]);
     }
 
     /**
@@ -175,12 +189,18 @@ class SpaceController extends Controller
 
                 }
 
-                $media = (count($space->getMedia('document.'.$locale)) > 0) ? $space->getMedia('document.'.$locale)->pluck('file_name')->toArray() : [];
+                $mediaItems = $space->getMedia('document.'.$locale);
+                $media = (count($mediaItems) > 0) ? $mediaItems->pluck('file_name')->toArray() : [];
                 foreach ($request->input('document.'.$locale, []) as $i=>$file) {
                     if (count($media) === 0 || !in_array($file, $media)) {
                         $space->addMedia(storage_path('tmp/uploads/' . $file))
                             ->usingName( $request->input('document_name.'.$locale.'.'.$i, '') )
                             ->toCollection('document.'.$locale);
+                    } elseif (in_array($file, $media)) {
+                        if ($mediaItems[$i]->name != $request->input('document_name.'.$locale.'.'.$i, '')) {
+                            $mediaItems[$i]->name = $request->input('document_name.'.$locale.'.'.$i, '');
+                            $mediaItems[$i]->save();
+                        }
                     }
                 }
             }
