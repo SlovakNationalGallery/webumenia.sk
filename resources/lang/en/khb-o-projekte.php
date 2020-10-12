@@ -54,9 +54,10 @@ return array(
     'team-title'                => 'ARTBASE team',
     'team-content'              => '<ul class="list-unstyled">
     <li>Nina Vrbanová, initiator and author of the project conception</li>
-    <li>Katarína Trnovská, author of database structure, contents editor</li>
+    <li>Katarína Trnovská, author of database structure</li>
+    <li>Erik Vilím, contents editor</li>
     <li>Eva Šimovičová, graphic designer</li>
-    <li>lab.SNG, development and programming </li>
+    <li>lab.SNG, development and programming</li>
 </ul>',
 
     'contact-title'             => 'Contact us',
