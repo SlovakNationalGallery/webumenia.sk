@@ -12,7 +12,8 @@ return [
             ':created nových záznamov' . PHP_EOL .
             ':updated bolo upravených' . PHP_EOL .
             ':deleted bolo zmazaných' . PHP_EOL .
-            ':skipped bolo preskočených.' . PHP_EOL .
+            ':skipped bolo preskočených' . PHP_EOL .
+            ':failed zlyhalo.' . PHP_EOL .
             'Trvalo to :time s',
     ],
 ];

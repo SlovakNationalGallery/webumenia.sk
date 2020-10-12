@@ -4,6 +4,7 @@
 
 namespace App;
 
+use App\Harvest\Progress;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
@@ -34,7 +35,7 @@ class SpiceHarvesterRecord extends Model
         return $query->whereNotNull('failed_at');
     }
 
-    public function process(callable $onProcess)
+    public function process(callable $onProcess, Progress $progress)
     {
         try {
             $onProcess();
@@ -44,6 +45,7 @@ class SpiceHarvesterRecord extends Model
         } catch (\Exception $e) {
             $this->failed_at = Carbon::now();
             $this->error_message = $e->getMessage();
+            $progress->incrementFailed();
         } finally {
             if (!$this->deleted_at) {
                 $this->save();

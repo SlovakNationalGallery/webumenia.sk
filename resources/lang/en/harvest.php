@@ -11,7 +11,8 @@ return [
             ':created created' . PHP_EOL .
             ':updated updated' . PHP_EOL .
             ':deleted deleted' . PHP_EOL .
-            ':skipped skipped.' . PHP_EOL .
+            ':skipped skipped' . PHP_EOL .
+            ':failed failed.' . PHP_EOL .
             'Took :time s',
     ],
 ];

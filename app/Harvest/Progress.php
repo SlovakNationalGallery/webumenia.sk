@@ -22,6 +22,9 @@ class Progress
     protected $deleted = 0;
 
     /** @var int */
+    protected $failed = 0;
+
+    /** @var int */
     protected $total;
 
     public function __construct(\DateTime $createdAt = null) {
@@ -48,8 +51,16 @@ class Progress
         return $this->deleted;
     }
 
+    public function getFailed() {
+        return $this->failed;
+    }
+
     public function getProcessed() {
-        return $this->inserted + $this->updated + $this->skipped + $this->deleted;
+        return $this->inserted +
+            $this->updated +
+            $this->skipped +
+            $this->deleted +
+            $this->failed;
     }
 
     public function incrementInserted() {
@@ -66,6 +77,10 @@ class Progress
 
     public function incrementDeleted() {
         $this->deleted++;
+    }
+
+    public function incrementFailed() {
+        $this->failed++;
     }
 
     public function getTotal() {

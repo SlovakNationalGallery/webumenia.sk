@@ -27,7 +27,7 @@ abstract class AbstractHarvester
             foreach ($failed as $record) {
                 $record->process(function () use ($record, $harvest, $progress) {
                     $this->harvestRecord($record, $progress);
-                });
+                }, $progress);
                 $harvest->advance($progress);
             }
         });
@@ -66,7 +66,7 @@ abstract class AbstractHarvester
 
                 $record->process(function () use ($record, $progress, $row) {
                     $this->harvestRecord($record, $progress, $row);
-                });
+                }, $progress);
                 $harvest->advance($progress);
             }
         });
@@ -96,7 +96,7 @@ abstract class AbstractHarvester
 
             $this->importer->import($row, $progress);
             $record->datestamp = Arr::get($row, 'datestamp.0', null);
-        });
+        }, $progress);
     }
 
     /**

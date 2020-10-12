@@ -84,6 +84,7 @@ class SpiceHarvesterHarvest extends Model
                 'updated' => $progress->getUpdated(),
                 'deleted' => $progress->getDeleted(),
                 'skipped' => $progress->getSkipped(),
+                'failed' => $progress->getFailed(),
                 'time' => Carbon::now()->diffInSeconds($progress->getCreatedAt()),
             ]);
         } catch (\Exception $e) {
