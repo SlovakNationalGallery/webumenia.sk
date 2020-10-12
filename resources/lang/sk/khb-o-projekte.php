@@ -58,7 +58,8 @@ return array(
     'team-title'                 => 'ARTBASE realizuje kolektív',
     'team-content'               => '<ul class="list-unstyled">
     <li>Nina Vrbanová, iniciátorka a autorka koncepcie projektu</li>
-    <li>Katarína Trnovská, autorka štruktúry databázy, editorka obsahu</li>
+    <li>Katarína Trnovská, autorka štruktúry databázy</li>
+    <li>Erik Vilím, editor obsahu</li>
     <li>Eva Šimovičová, grafický dizajn </li>
     <li>lab.SNG, vývoj a programovanie</li>
 </ul>
