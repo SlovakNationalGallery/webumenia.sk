@@ -122,7 +122,21 @@ class AuthorityController extends Controller
             return Redirect::route('authority.index');
         }
 
-        return view('authorities.form')->with('authority', $authority);
+        $media_files = [];
+        foreach (\Config::get('translatable.locales') as $locale) {
+            $media_files[$locale] = [];
+            foreach ($authority->getMedia('document.'.$locale) as $media) {
+                $media_files[$locale][] = [
+                    'id' => $media->id,
+                    'file_name' => $media->file_name,
+                    'name' => $media->name,
+                    'size' => $media->size,
+                    'path' => $media->getUrl()
+                ];
+            }
+        }
+
+        return view('authorities.form', ['authority'=>$authority, 'media_files'=>$media_files]);
     }
 
     /**
