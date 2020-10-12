@@ -182,12 +182,18 @@ class AuthorityController extends Controller
 
                 }
 
-                $media = (count($authority->getMedia('document.'.$locale)) > 0) ? $authority->getMedia('document.'.$locale)->pluck('file_name')->toArray() : [];
+                $mediaItems = $authority->getMedia('document.'.$locale);
+                $media = (count($mediaItems) > 0) ? $mediaItems->pluck('file_name')->toArray() : [];
                 foreach ($request->input('document.'.$locale, []) as $i=>$file) {
                     if (count($media) === 0 || !in_array($file, $media)) {
                         $authority->addMedia(storage_path('tmp/uploads/' . $file))
                             ->usingName( $request->input('document_name.'.$locale.'.'.$i, '') )
                             ->toCollection('document.'.$locale);
+                    } elseif (in_array($file, $media)) {
+                        if ($mediaItems[$i]->name != $request->input('document_name.'.$locale.'.'.$i, '')) {
+                            $mediaItems[$i]->name = $request->input('document_name.'.$locale.'.'.$i, '');
+                            $mediaItems[$i]->save();
+                        }
                     }
                 }
             }
