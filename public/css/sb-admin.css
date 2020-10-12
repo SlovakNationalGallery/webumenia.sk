@@ -400,3 +400,9 @@ img.nahlad {
 .dropzone input.form-control {
     margin: 7px auto 5px;
 }
+
+.dz-preview .dz-image img{
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+}

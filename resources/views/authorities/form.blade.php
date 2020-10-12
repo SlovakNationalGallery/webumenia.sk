@@ -321,16 +321,12 @@
     },
     init: function () {
       @if(isset($authority) && $authority->getMedia())
-        var files = {
-        @foreach (\Config::get('translatable.locales') as $locale)
-          '{{ $locale }}': {!! json_encode($authority->getMedia('document.'.$locale)) !!},
-        @endforeach
-        }
+        var files = {!! json_encode($media_files) !!};
 
         for (var i in files[locale]) {
           var file = files[locale][i]
           this.options.addedfile.call(this, file)
-          // this.options.thumbnail.call(this, file, file.versions.thumbnail_s);
+          this.options.thumbnail.call(this, file, file.path);
           file.previewElement.classList.add('dz-complete')
           $('form').append('<input type="hidden" name="document['+locale+'][]" value="' + file.file_name + '">')
           file.previewElement.querySelector('input.form-control').value = file.name

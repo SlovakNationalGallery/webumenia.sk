@@ -122,7 +122,21 @@ class AuthorityController extends Controller
             return Redirect::route('authority.index');
         }
 
-        return view('authorities.form')->with('authority', $authority);
+        $media_files = [];
+        foreach (\Config::get('translatable.locales') as $locale) {
+            $media_files[$locale] = [];
+            foreach ($authority->getMedia('document.'.$locale) as $media) {
+                $media_files[$locale][] = [
+                    'id' => $media->id,
+                    'file_name' => $media->file_name,
+                    'name' => $media->name,
+                    'size' => $media->size,
+                    'path' => $media->getUrl()
+                ];
+            }
+        }
+
+        return view('authorities.form', ['authority'=>$authority, 'media_files'=>$media_files]);
     }
 
     /**
@@ -182,12 +196,18 @@ class AuthorityController extends Controller
 
                 }
 
-                $media = (count($authority->getMedia('document.'.$locale)) > 0) ? $authority->getMedia('document.'.$locale)->pluck('file_name')->toArray() : [];
+                $mediaItems = $authority->getMedia('document.'.$locale);
+                $media = (count($mediaItems) > 0) ? $mediaItems->pluck('file_name')->toArray() : [];
                 foreach ($request->input('document.'.$locale, []) as $i=>$file) {
                     if (count($media) === 0 || !in_array($file, $media)) {
                         $authority->addMedia(storage_path('tmp/uploads/' . $file))
                             ->usingName( $request->input('document_name.'.$locale.'.'.$i, '') )
                             ->toCollection('document.'.$locale);
+                    } elseif (in_array($file, $media)) {
+                        if ($mediaItems[$i]->name != $request->input('document_name.'.$locale.'.'.$i, '')) {
+                            $mediaItems[$i]->name = $request->input('document_name.'.$locale.'.'.$i, '');
+                            $mediaItems[$i]->save();
+                        }
                     }
                 }
             }
