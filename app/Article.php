@@ -4,7 +4,6 @@
 
 namespace App;
 
-use App\Traits\Publishable;
 use Illuminate\Support\Facades\URL;
 use Intervention\Image\ImageManagerStatic;
 use Carbon\Carbon;
@@ -14,7 +13,6 @@ class Article extends Model
 {
     use \Dimsav\Translatable\Translatable;
     use \Conner\Tagging\Taggable;
-    use Publishable;
 
     const ARTWORKS_DIR = '/images/clanky/';
 

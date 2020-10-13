@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Traits\Publishable;
 use Elasticsearch\Client;
 use Fadion\Bouncy\Facades\Elastic;
 use Illuminate\Support\Facades\Config;
@@ -21,6 +22,7 @@ class Authority extends Model implements HasMediaConversions
         \Dimsav\Translatable\Translatable::save insteadof BouncyTrait;
     }
     use HasMediaTrait;
+    use Publishable;
 
 
     protected $table = 'authorities';
@@ -138,12 +140,7 @@ class Authority extends Model implements HasMediaConversions
         });
 
         static::deleted(function ($authority) {
-
-            Elastic::delete([
-                'index' => Config::get('bouncy.index'),
-                'type' => self::ES_TYPE,
-                'id' => $authority->id,
-            ]);
+            $authority->deleteAllLocales();
         });
     }
 
@@ -414,12 +411,30 @@ class Authority extends Model implements HasMediaConversions
         return self::ARTWORKS_DIR.$filename;
     }
 
+    public function deleteAllLocales()
+    {
+        $client =  $this->getElasticClient();
+        $elastic_translatable = \App::make('ElasticTranslatableService');
+
+        foreach (config('translatable.locales') as $locale) {
+            $params = [
+                'index' => $elastic_translatable->getIndexForLocale($locale),
+                'type' =>  self::ES_TYPE,
+                'id' => $this->id,
+            ];
+
+            if ($client->exists($params)) {
+                $client->delete($params);
+            }
+        }
+    }
+
     public function index()
     {
-        // type can be either "author" or "theoretician" and there is no reason to keep this check
-        // if ($this->type != 'person') {
-        //     return false;
-        // }
+
+        if (!$this->is_published) {
+            return $this->deleteAllLocales();
+        }
 
         $client =  $this->getElasticClient();
         $elastic_translatable = \App::make('ElasticTranslatableService');
