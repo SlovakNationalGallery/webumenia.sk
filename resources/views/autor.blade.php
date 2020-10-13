@@ -85,13 +85,17 @@
                         @endif
                          --}}
                         @if ( $author->links->count() > 0)
-                            <div class="links">
+                            <p class="links">
                                 {{ utrans('autor.links') }}<br>
                                 @foreach ($author->links as $i=>$link)
                                     <a href="{{ $link->url }}" target="_blank">{{ $link->label }}</a><br>
                                 @endforeach
-                            </div>
+                            </p>
                         @endif
+                        <p>
+                            {{ trans('autor.updated_at') }} <br>
+                            {{ $author->updated_at->format('d.m.Y') }}
+                        </p>
                     </div>
                 </div>
             </div>

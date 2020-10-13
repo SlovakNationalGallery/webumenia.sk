@@ -155,6 +155,7 @@ class AuthorityController extends Controller
 
             $authority = Authority::find($id);
             $authority->fill($input);
+            $authority->touch();
             $authority->save();
             foreach (Input::get('links') as $link) {
                 $validation = Validator::make($link, Link::$rules);

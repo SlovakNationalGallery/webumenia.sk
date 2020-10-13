@@ -23,6 +23,7 @@ return array(
     'alternative_names' => 'alternatively',
     'places'            => 'has been active in',
     'links'             => 'external links',
+    'updated_at'        => 'Last modified date',
     'relationships'     => 'relationships',
 
     'artworks_by_artist' => 'artworks by this artist',
