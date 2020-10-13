@@ -105,4 +105,11 @@ class SpiceHarvesterHarvest extends Model
         ]);
         $this->save();
     }
+
+    public function queue()
+    {
+        $this->status = SpiceHarvesterHarvest::STATUS_QUEUED;
+        $this->status_messages = trans('harvest.status_messages.waiting');
+        $this->save();
+    }
 }

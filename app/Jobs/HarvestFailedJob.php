@@ -12,10 +12,7 @@ class HarvestFailedJob extends Job implements ShouldQueue
 
     public function __construct(SpiceHarvesterHarvest $harvest) {
         $this->harvest = $harvest;
-
-        $harvest->status = SpiceHarvesterHarvest::STATUS_QUEUED;
-        $harvest->status_messages = trans('harvest.status_messages.waiting');
-        $harvest->save();
+        $harvest->queue();
     }
 
     public function handle(SpiceHarvesterService $spiceHarvesterService) {
