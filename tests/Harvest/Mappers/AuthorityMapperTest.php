@@ -29,7 +29,7 @@ class AuthorityMapperTest extends TestCase
 
         $expected = [
             'id' => 954,
-            'type' => 'person',
+            'type' => 'author',
             'name' => 'Blühová, Irena',
             'sex' => 'female',
             'birth_date' => '02.03.1904',
