@@ -8,13 +8,19 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\JoinClause;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 
-class Collection extends HeaderImageModel implements TranslatableContract
+class Collection extends Model implements TranslatableContract
 {
     use Translatable;
 
-    const ARTWORKS_DIR = '/images/kolekcie/';
+    use HasHeaderImageTrait;
+
+    function getArtworksDirAttribute()
+    {
+        return '/images/kolekcie/';
+    }
 
     public $translatedAttributes = ['name','type', 'text'];
 
@@ -117,5 +123,9 @@ class Collection extends HeaderImageModel implements TranslatableContract
                 $query->whereNotIn("$alias.collection_id", $withTranslation);
             }
         });
+    }
+
+    public function getReadingTimeAttribute(){
+        return getEstimateReadingTime($this->text, App::getLocale() );
     }
 }

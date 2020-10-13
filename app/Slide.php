@@ -1,23 +1,30 @@
 <?php
 
-
-
 namespace App;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Database\Eloquent\Model;
 
-class Slide extends HeaderImageModel
+class Slide extends Model
 {
 
-    const ARTWORKS_DIR = '/images/intro/';
-    const IMAGE_PROPERTY='image';
+    use HasHeaderImageTrait;
+
+    function getArtworksDirAttribute()
+    {
+        return '/images/intro/';
+    }
+
+    function getImagePropertyAttribute()
+    {
+        return 'image';
+    }
 
     protected $fillable = [
-                'title',
-                'subtitle',
-                'url',
-                'publish',
+        'title',
+        'subtitle',
+        'url',
+        'publish',
     ];
 
     public static $rules = [
