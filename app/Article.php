@@ -4,6 +4,7 @@
 
 namespace App;
 
+use App\Traits\Publishable;
 use Illuminate\Support\Facades\URL;
 use Intervention\Image\ImageManagerStatic;
 use Carbon\Carbon;
@@ -12,12 +13,11 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     use \Dimsav\Translatable\Translatable;
-
-
     use \Conner\Tagging\Taggable;
+    use Publishable;
 
     const ARTWORKS_DIR = '/images/clanky/';
-    
+
     public $translatedAttributes = ['title', 'summary', 'content'];
 
 
