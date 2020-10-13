@@ -82,11 +82,13 @@ class Authority extends Model implements HasMediaConversions
         'exhibitions',
         'archive',
         'studied_at',
+        'published_at',
     );
 
     protected $dates = array(
         'created_at',
         'updated_at',
+        'published_at',
     );
 
     protected static $available_types = [

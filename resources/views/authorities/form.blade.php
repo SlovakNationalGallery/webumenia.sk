@@ -262,6 +262,14 @@
       <!-- /.row (nested) -->
     </div>
     <!-- /.panel-body -->
+    <div class="panel-body">
+      <div class="col-md-12">
+        <div class="form-group">
+          {!! Form::label('published_at', 'Dátum publikovania') !!}
+          {!! Form::text('published_at', Input::old('published_at'), array('class' => 'form-control datepicker', 'placeholder' => 'YYYY-MM-DD', 'data-date-format' => "yyyy-mm-dd")) !!}
+        </div>
+      </div>
+    </div>
   </div>
   <!-- /.panel -->
 </div>
