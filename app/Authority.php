@@ -303,7 +303,7 @@ class Authority extends Model implements HasMediaConversions
 
     public function getOaiUrl()
     {
-        return Config::get('app.old_url').'/oai-pmh-new/authority?verb=GetRecord&metadataPrefix=ulan&identifier='.$this->id;
+        return Config::get('app.old_url').'/oai-pmh/authority?verb=GetRecord&metadataPrefix=ulan&identifier='.$this->id;
     }
 
     public static function detailUrl($authority_id, $type)
