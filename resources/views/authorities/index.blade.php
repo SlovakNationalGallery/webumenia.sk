@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-autority | 
+autority |
 @parent
 @stop
 
@@ -40,7 +40,7 @@ autority |
                             <th>Id</th>
                             <th>Type</th>
                             <th>Meno</th>
-                            <th>Miesto</th>
+                            <th>Published</th>
                             <th>Akcie</th>
                         </tr>
                     </thead>
@@ -55,11 +55,13 @@ autority |
 			                <td>{!! $a->id !!}</td>
 			                <td>{!! $a->type !!}</td>
 			                <td>{!! $a->name !!}</td>
-			                <td>{!! $a->place !!}</td>
+			                <td>
+                                @include('includes.published_at', ['published_at' => $a->published_at])
+                            </td>
 			                <td class="action">
-                                {!! link_to_action('AuthorityController@edit', 'Upraviť', array($a->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}    
-                                <a href="{!! $a->getUrl() !!}" class="btn btn-success btn-xs btn-outline" target="_blank">Na webe</a>     
-                                <a href="{!! $a->getOaiUrl() !!}" class="btn btn-warning btn-xs btn-outline" target="_blank">OAI záznam</a>                             
+                                {!! link_to_action('AuthorityController@edit', 'Upraviť', array($a->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}
+                                <a href="{!! $a->getUrl() !!}" class="btn btn-success btn-xs btn-outline" target="_blank">Na webe</a>
+                                <a href="{!! $a->getOaiUrl() !!}" class="btn btn-warning btn-xs btn-outline" target="_blank">OAI záznam</a>
                             </td>
 			            </tr>
 						@endforeach
@@ -72,7 +74,7 @@ autority |
                     @else
                         {!! ($authorities->count()!=0) ? $authorities->render() : '' !!}
                     @endif
-                    
+
                 </div>
 
 
