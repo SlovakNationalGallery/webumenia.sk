@@ -16,9 +16,10 @@ class AuthorityMapper extends AbstractModelMapper
     }
 
     public function mapType(array $row) {
-        return array_map(function ($type) {
-            return Str::lower($type);
-        }, $row['type']);
+        return 'author';
+        // return array_map(function ($type) {
+        //     return Str::lower($type);
+        // }, $row['type']);
     }
 
     public function mapTypeOrganization(array $row) {
