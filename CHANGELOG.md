@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file[^1].
 - slow query on detail page
 - do not update empty pivot data in harvester
 - wrong abort function call
+- too large result window in search
 
 ## [2.7.4] - 2020-08-25
 ### Changed

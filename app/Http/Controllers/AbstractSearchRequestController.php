@@ -16,7 +16,7 @@ abstract class AbstractSearchRequestController extends Controller
 {
     use CreatesForms;
 
-    protected $perPage = 18;
+    protected $perPage = 20;
 
     protected $repository;
 
@@ -63,6 +63,12 @@ abstract class AbstractSearchRequestController extends Controller
 
         $response = $this->repository->search($searchRequest);
         $total = $this->repository->count($searchRequest);
+        $max = max(1, ceil($response->getTotal() / $this->perPage));
+
+        if ($currentPage > $max) {
+            return abort(404);
+        }
+
         $collection = $response->getCollection();
         $paginator = new LengthAwarePaginator(
             $collection,
