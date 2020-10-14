@@ -24,7 +24,8 @@ class AuthorityMatcher
      */
     public function matchAll(Item $item)
     {
-        return collect(array_keys($item->authors))
+        return collect($item->authors)
+            ->keys()
             ->mapWithKeys(function ($author) use ($item) {
                 return [$author => $this->match($author, $item)];
             });
@@ -39,7 +40,14 @@ class AuthorityMatcher
     {
         $parsed = $this->authorParser->parse($author);
         $fullname = sprintf('%s, %s', $parsed['surname'], $parsed['name']);
-        return $this->findByFullnameAndDates($fullname, $item);
+
+        $authorities = $this->findByFullnameAndDates($fullname, $item);
+        $intersection = $authorities->intersect($item->authorities);
+        if ($intersection->isNotEmpty()) {
+            return $intersection;
+        }
+
+        return $authorities;
     }
 
     /**
