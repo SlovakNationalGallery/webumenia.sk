@@ -226,6 +226,11 @@ class Authority extends Model implements HasMediaConversions
         return $this->morphMany(\App\Link::class, 'linkable');
     }
 
+    public function linksForLocale()
+    {
+        return $this->morphMany(\App\Link::class, 'linkable')->where('locale', '=', app()->getLocale());
+    }
+
     public function getCollectionsCountAttribute()
     {
         if (!Cache::has('authority_collections_count')) {

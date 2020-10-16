@@ -84,10 +84,10 @@
                             </div>
                         @endif
                          --}}
-                        @if ( $author->links->count() > 0)
+                        @if ( $author->linksForLocale->count() > 0)
                             <p class="links">
                                 {{ utrans('autor.links') }}<br>
-                                @foreach ($author->links as $i=>$link)
+                                @foreach ($author->linksForLocale as $i=>$link)
                                     <a href="{{ $link->url }}" target="_blank">{{ $link->label }}</a><br>
                                 @endforeach
                             </p>
