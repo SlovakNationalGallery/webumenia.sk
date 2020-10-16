@@ -97,7 +97,7 @@ class SpiceHarvesterHarvest extends Model
         }
     }
 
-    public function advance(Progress $progress)
+    public function updateStatusMessages(Progress $progress)
     {
         $this->status_messages = trans('harvest.status_messages.progress', [
             'current' => $progress->getProcessed(),
@@ -106,7 +106,7 @@ class SpiceHarvesterHarvest extends Model
         $this->save();
     }
 
-    public function queue()
+    public function enqueue()
     {
         $this->status = SpiceHarvesterHarvest::STATUS_QUEUED;
         $this->status_messages = trans('harvest.status_messages.waiting');

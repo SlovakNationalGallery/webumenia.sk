@@ -28,7 +28,7 @@ abstract class AbstractHarvester
                 $record->process(function () use ($record, $harvest, $progress) {
                     $this->harvestRecord($record, $progress);
                 }, $progress);
-                $harvest->advance($progress);
+                $harvest->updateStatusMessages($progress);
             }
         });
     }
@@ -67,7 +67,7 @@ abstract class AbstractHarvester
                 $record->process(function () use ($record, $progress, $row) {
                     $this->harvestRecord($record, $progress, $row);
                 }, $progress);
-                $harvest->advance($progress);
+                $harvest->updateStatusMessages($progress);
             }
         });
     }

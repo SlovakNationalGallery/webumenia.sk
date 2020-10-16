@@ -35,7 +35,7 @@ class HarvestJob extends Job implements ShouldQueue
         $this->to = $to;
         $this->only_ids = $only_ids;
 
-        $harvest->queue();
+        $harvest->enqueue();
     }
 
     public function handle(SpiceHarvesterService $spiceHarvesterService) {

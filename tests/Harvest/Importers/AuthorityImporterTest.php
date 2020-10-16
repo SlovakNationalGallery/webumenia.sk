@@ -43,7 +43,7 @@ class AuthorityImporterTest extends TestCase
         $row = $this->getData();
         $importer = $this->initImporter($row);
 
-        $authority = $importer->import($row, $result = new Progress());
+        $authority = $importer->import($row, new Progress());
         $this->assertEquals(1, $authority->links->count());
         $this->assertEquals('example.org', $authority->links[0]->label);
     }
@@ -57,7 +57,7 @@ class AuthorityImporterTest extends TestCase
         $row = $this->getData();
         $importer = $this->initImporter($row);
 
-        $authority = $importer->import($row, $result = new Progress());
+        $authority = $importer->import($row, new Progress());
         $this->assertEquals(1, $authority->nationalities->count());
     }
 
@@ -71,7 +71,7 @@ class AuthorityImporterTest extends TestCase
         $row = $this->getData();
         $importer = $this->initImporter($row);
 
-        $authority = $importer->import($row, $result = new Progress());
+        $authority = $importer->import($row, new Progress());
         $this->assertEquals(0, $authority->relationships->count());
     }
 
