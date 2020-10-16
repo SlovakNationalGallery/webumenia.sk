@@ -168,17 +168,23 @@
         <?php $link_counter += $authority->links->count() ?>
         @foreach ($authority->links as $i=>$link)
           <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-4">
               <div class="form-group">
                 {!! Form::label('url', 'URL') !!}
                 {!! Form::text('links['.$i.'][url]', $link->url, array('class' => 'form-control form_link', 'placeholder' => 'http://')) !!}
                 {!! Form::hidden('links['.$i.'][id]', $link->id) !!}
               </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-4">
               <div class="form-group">
                 {!! Form::label('label', 'Zobrazený text') !!}
                 {!! Form::text('links['.$i.'][label]', $link->label, array('class' => 'form-control', 'placeholder' => 'wikipédia')) !!}
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                {!! Form::label('label', 'Jazyk') !!}
+                {!! Form::select('links['.$i.'][locale]', ['sk' => 'sk', 'en' => 'en'], Input::old('type'), array('class' => 'form-control')) !!}
               </div>
             </div>
             <div class="col-md-2 text-right">
@@ -191,16 +197,22 @@
         @endforeach
       @endif
       <div class="row" id="external_links">
-        <div class="col-md-5" id="urls">
+        <div class="col-md-4" id="urls">
           <div class="form-group">
             {!! Form::label('url', 'URL') !!}
             {!! Form::text('links['.$link_counter.'][url]', Input::old('links['.$link_counter.'][url]'), array('class' => 'form-control form_link', 'placeholder' => 'http://')) !!}
           </div>
         </div>
-        <div class="col-md-5"  id="labels">
+        <div class="col-md-4"  id="labels">
           <div class="form-group">
             {!! Form::label('label', 'Zobrazená adresa') !!}
             {!! Form::text('links['.$link_counter.'][label]', Input::old('links['.$link_counter.'][label]'), array('class' => 'form-control', 'placeholder' => 'wikipédia')) !!}
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            {!! Form::label('label', 'Jazyk') !!}
+            {!! Form::select('links['.$link_counter.'][locale]', ['sk' => 'sk', 'en' => 'en'], Input::old('type'), array('class' => 'form-control')) !!}
           </div>
         </div>
         <div class="col-md-2 text-right">

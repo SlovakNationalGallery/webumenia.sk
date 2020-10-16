@@ -11,10 +11,12 @@ class Link extends Model
     protected $fillable = array(
         'url',
         'label',
+        'locale',
     );
 
     public static $rules = array(
         'url' => 'url|required',
+        'locale' => 'in:sk,en|required',
     );
 
     public function linkable()

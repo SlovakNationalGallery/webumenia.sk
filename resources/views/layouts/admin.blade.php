@@ -251,8 +251,9 @@
 
         $("a#add_link").click(function(e){
             e.preventDefault();
-            $('#external_links').append('<div class="col-md-5"><div class="form-group"><label for="url">URL</label> <input class="form-control linkpicker" placeholder="http://" name="links['+links_count+'][url]" type="text">  </div></div>');
-            $('#external_links').append('<div class="col-md-5"><div class="form-group"><label for="label">Zobrazená adresa</label><input class="form-control" placeholder="wikipédia" name="links['+links_count+'][label]" type="text"></div></div>');
+            $('#external_links').append('<div class="col-md-4"><div class="form-group"><label for="url">URL</label> <input class="form-control linkpicker" placeholder="http://" name="links['+links_count+'][url]" type="text">  </div></div>');
+            $('#external_links').append('<div class="col-md-4"><div class="form-group"><label for="label">Zobrazená adresa</label><input class="form-control" placeholder="wikipédia" name="links['+links_count+'][label]" type="text"></div></div>');
+            $('#external_links').append('<div class="col-md-2"><div class="form-group"><label for="label">Jazyk</label><select class="form-control" name="links['+links_count+'][locale]"><option value="sk">sk</option><option value="en">en</option></select></div></div>');
             links_count++;
         });
 
