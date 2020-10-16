@@ -93,8 +93,9 @@ abstract class AbstractImporter
      * @param Model $model
      * @param string $field
      * @param array $relatedRows
+     * @param boolean $allowDelete
      */
-    protected function processHasMany(Model $model, $field, array $relatedRows) {
+    protected function processHasMany(Model $model, $field, array $relatedRows, $allowDelete = true) {
         /** @var HasMany|MorphMany $relation */
         $relation = $model->$field();
 
@@ -109,19 +110,21 @@ abstract class AbstractImporter
             $updateIds[] = $instance->getKey();
         }
 
-        $relatedKeyName = $relation->getRelated()->getKeyName();
-        $relation->whereNotIn($relatedKeyName, $updateIds)->each(function (Model $related) {
-            $related->delete();
-        });
+        if ($allowDelete) {
+            $relatedKeyName = $relation->getRelated()->getKeyName();
+            $relation->whereNotIn($relatedKeyName, $updateIds)->each(function (Model $related) {
+                $related->delete();
+            });
+        }
     }
 
     /**
      * @param Model $model
      * @param string $field
      * @param array $relatedRows
-     * @param boolean $createRelated
+     * @param boolean $allowCreate
      */
-    protected function processBelongsToMany(Model $model, $field, array $relatedRows, $createRelated = true) {
+    protected function processBelongsToMany(Model $model, $field, array $relatedRows, $allowCreate = true) {
         /** @var BelongsToMany $relation */
         $relation = $model->$field();
         $relatedModelClass = get_class($relation->getRelated());
@@ -133,7 +136,7 @@ abstract class AbstractImporter
             $conditions = $this->getConditions($field, $data);
             $relatedModel = $relatedModelClass::where($conditions)->first();
 
-            if (!$relatedModel && !$createRelated) {
+            if (!$relatedModel && !$allowCreate) {
                 continue;
             }
 
@@ -145,10 +148,10 @@ abstract class AbstractImporter
                 $pivotData = $this->pivotMappers[$field]->map($relatedRow);
             }
 
-            if ($this->existsPivotRecord($model, $field, $relatedModel)) {
-                $relation->updateExistingPivot($relatedModel->getKey(), $pivotData);
-            } else {
+            if (!$this->existsPivotRecord($model, $field, $relatedModel)) {
                 $relation->save($relatedModel, $pivotData);
+            } else if ($pivotData) {
+                $relation->updateExistingPivot($relatedModel->getKey(), $pivotData);
             }
 
             $updatedIds[] = $relatedModel->getKey();

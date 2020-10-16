@@ -25,24 +25,24 @@ class ItemImporterTest extends TestCase
         $importer->import($row, $result = new Result());
     }
 
-    public function testDeleteRelations() {
+    public function testKeepImages() {
         $row = $this->getData();
         $importer = $this->initImporter($row);
         $item = factory(Item::class)->create(['id' => 'SVK:SNG.G_10044']);
-        $image = factory(ItemImage::class)->make(['iipimg_url' => 'to_be_deleted']);
+        $image = factory(ItemImage::class)->make(['iipimg_url' => 'to_keep']);
         $item->images()->save($image);
 
         $item->load('images');
         $this->assertTrue($item->images->contains(function (ItemImage $image) {
-            return $image->iipimg_url === 'to_be_deleted';
+            return $image->iipimg_url === 'to_keep';
         }));
 
         $item->load('images');
         $item = $importer->import($row, $result = new Result());
 
-        $this->assertCount(2, $item->images);
-        $this->assertFalse($item->images->contains(function (ItemImage $image) {
-            return $image->iipimg_url === 'to_be_deleted';
+        $this->assertCount(3, $item->images);
+        $this->assertTrue($item->images->contains(function (ItemImage $image) {
+            return $image->iipimg_url === 'to_keep';
         }));
     }
 

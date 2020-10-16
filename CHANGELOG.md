@@ -5,11 +5,16 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - color picker to patternlib
 - item work type tree structure
+- organization authority detail
 
 ### Fixed
 - authority year range filter
+- deletion of item images on harvest
 - google maps api call
+- item related work parsing and displaying
 - slow query on detail page
+- do not update empty pivot data in harvester
+- wrong abort function call
 
 ## [2.7.4] - 2020-08-25
 ### Changed

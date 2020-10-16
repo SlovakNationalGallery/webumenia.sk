@@ -38,9 +38,20 @@ class AuthorController extends AbstractSearchRequestController
             abort(404);
         }
 
+        $htmlDescription = view('components.authority_description')
+            ->with('author', $author)
+            ->render();
+
+        $description = strip_tags($htmlDescription);
+        $description = preg_replace('/\s+/', ' ', $description);
+        $description = preg_replace('/ ,/', ',', $description);
+        $description = trim($description);
+
         $author->incrementViewCount();
         return view('autor', [
             'author' => $author,
+            'description' => $description,
+            'html_description' => $htmlDescription,
             'previewItems' => $this->itemRepository->getPreviewItems(10, $author),
         ]);
     }
