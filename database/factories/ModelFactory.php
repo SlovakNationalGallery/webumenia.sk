@@ -96,7 +96,6 @@ $factory->define(\App\SpiceHarvesterHarvest::class, function (Faker\Generator $f
         'set_description' => $faker->word,
         'status_messages' => $faker->sentence,
         'initiated' => $faker->date,
-        'status' => \App\SpiceHarvesterHarvest::STATUS_QUEUED,
     ];
 });
 
