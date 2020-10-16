@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Traits\Publishable;
+use App\Traits\HasLinks;
 use Elasticsearch\Client;
 use Fadion\Bouncy\Facades\Elastic;
 use Illuminate\Support\Facades\Config;
@@ -23,6 +24,7 @@ class Authority extends Model implements HasMediaConversions
     }
     use HasMediaTrait;
     use Publishable;
+    use HasLinks;
 
 
     protected $table = 'authorities';
@@ -219,16 +221,6 @@ class Authority extends Model implements HasMediaConversions
         ];
 
         return Item::search($params);
-    }
-
-    public function links()
-    {
-        return $this->morphMany(\App\Link::class, 'linkable');
-    }
-
-    public function linksForLocale()
-    {
-        return $this->morphMany(\App\Link::class, 'linkable')->where('locale', '=', app()->getLocale());
     }
 
     public function getCollectionsCountAttribute()
