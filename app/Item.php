@@ -31,6 +31,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
     const GUESSED_AUTHORISM_TIMESPAN = 60;
     const FREE_ALWAYS = 0;
     const FREE_NEVER = PHP_INT_MAX;
+    const TREE_DELIMITER = '/';
 
     const COLOR_AMOUNT_THRESHOLD = 0.03;
 
@@ -393,7 +394,15 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     public function getWorkTypesAttribute()
     {
-        return $this->makeArray($this->work_type, ', ');
+        $workTypes = $this->makeArray($this->work_type, ', ');
+        $stack = [];
+        return array_map(function ($workType) use (&$stack) {
+            $stack[] = $workType;
+            return [
+                'name' => $workType,
+                'path' => implode(self::TREE_DELIMITER, $stack)
+            ];
+        }, $workTypes);
     }
 
     public function setLat($value)
@@ -597,7 +606,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
             'is_free' => $this->isFree(),
             'authority_id' => $this->authorities()->pluck('id'),
             'view_count' => $this->view_count,
-            'work_type' => $work_types ? reset($work_types) : null,
+            'work_type' => $work_types ? implode(self::TREE_DELIMITER, $work_types) : null,
             'title' => $this["title:$locale"],
             'description' => (!empty($this["description:$locale"])) ? strip_tags($this["description:$locale"]) : '',
             'topic' => $this->makeArray($this["topic:$locale"]),

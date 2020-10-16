@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Added
 - color picker to patternlib
+- item work type tree structure
 - organization authority detail
 
 ### Fixed
