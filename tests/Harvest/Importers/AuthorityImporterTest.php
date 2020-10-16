@@ -13,7 +13,7 @@ use App\Harvest\Mappers\AuthorityRelationshipMapper;
 use App\Harvest\Mappers\LinkMapper;
 use App\Harvest\Mappers\NationalityMapper;
 use App\Harvest\Mappers\RelatedAuthorityMapper;
-use App\Harvest\Result;
+use App\Harvest\Progress;
 use App\Link;
 use App\Nationality;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -43,7 +43,7 @@ class AuthorityImporterTest extends TestCase
         $row = $this->getData();
         $importer = $this->initImporter($row);
 
-        $authority = $importer->import($row, $result = new Result());
+        $authority = $importer->import($row, new Progress());
         $this->assertEquals(1, $authority->links->count());
         $this->assertEquals('example.org', $authority->links[0]->label);
     }
@@ -57,7 +57,7 @@ class AuthorityImporterTest extends TestCase
         $row = $this->getData();
         $importer = $this->initImporter($row);
 
-        $authority = $importer->import($row, $result = new Result());
+        $authority = $importer->import($row, new Progress());
         $this->assertEquals(1, $authority->nationalities->count());
     }
 
@@ -71,7 +71,7 @@ class AuthorityImporterTest extends TestCase
         $row = $this->getData();
         $importer = $this->initImporter($row);
 
-        $authority = $importer->import($row, $result = new Result());
+        $authority = $importer->import($row, new Progress());
         $this->assertEquals(0, $authority->relationships->count());
     }
 

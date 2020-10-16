@@ -101,7 +101,7 @@ $factory->define(\App\SpiceHarvesterHarvest::class, function (Faker\Generator $f
 
 $factory->define(\App\SpiceHarvesterRecord::class, function (Faker\Generator $faker) {
     return [
-        'type' => $faker->randomElement(['item', 'authority']),
+        'type' => 'item',
         'identifier' => $faker->word,
         'item_id' => $faker->word,
         'datestamp' => $faker->date,

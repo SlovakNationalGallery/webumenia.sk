@@ -3,7 +3,7 @@
 namespace App\Harvest\Importers;
 
 use App\Harvest\Mappers\AbstractMapper;
-use App\Harvest\Result;
+use App\Harvest\Progress;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -38,10 +38,10 @@ abstract class AbstractImporter
 
     /**
      * @param array $row
-     * @param Result $result
+     * @param Progress $result
      * @return Model
      */
-    public function import(array $row, Result $result) {
+    public function import(array $row, Progress $result) {
         $class = $this->modelClass;
         /** @var Model $model */
         if ($model = $class::find($this->getModelId($row))) {

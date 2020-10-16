@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file[^1].
 - color picker to patternlib
 - item work type tree structure
 - organization authority detail
+- update harvest model status on harvesting failed
 
 ### Fixed
 - authority year range filter
