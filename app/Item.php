@@ -394,19 +394,15 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     public function getWorkTypesAttribute()
     {
-        return $this->makeArray($this->work_type, ', ');
-    }
-
-    public function getWorkTypeTreeAttribute()
-    {
-        $workTypes = $this->getWorkTypesAttribute();
-        $tree = $stack = [];
-        foreach ($workTypes as $workType) {
+        $workTypes = $this->makeArray($this->work_type, ', ');
+        $stack = [];
+        return array_map(function ($workType) use (&$stack) {
             $stack[] = $workType;
-            $key = implode(self::TREE_DELIMITER, $stack);
-            $tree[$key] = $workType;
-        }
-        return $tree;
+            return [
+                'name' => $workType,
+                'path' => implode(self::TREE_DELIMITER, $stack)
+            ];
+        }, $workTypes);
     }
 
     public function setLat($value)

@@ -151,8 +151,8 @@
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_work_type') }}:</td>
                                     <td>
-                                        @foreach ($item->work_type_tree as $path => $work_type)
-                                            <a href="{{ route('frontend.catalog.index', ['work_type' => $path]) }}"><span itemprop="artform">{{ $work_type }}</span></a>
+                                        @foreach ($item->work_types as $work_type)
+                                            <a href="{{ route('frontend.catalog.index', ['work_type' => $work_type['path']]) }}"><span itemprop="artform">{{ $work_type['name'] }}</span></a>
                                             @if (!$loop->last)
                                                  &rsaquo;
                                             @endif
