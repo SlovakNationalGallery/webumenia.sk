@@ -69,10 +69,10 @@
                                 @endforeach
                             </p>
                         @endif
-                        @if ( $space->links->count() > 0)
+                        @if ( $space->linksForLocale->count() > 0)
                             <div class="links">
                                 {{ utrans('priestor.links') }}<br>
-                                @foreach ($space->links as $i=>$link)
+                                @foreach ($space->linksForLocale as $i=>$link)
                                     <a href="{{ $link->url }}" target="_blank">{{ $link->label }}</a><br>
                                 @endforeach
                             </div>

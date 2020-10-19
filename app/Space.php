@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Traits\HasLinks;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -16,6 +17,7 @@ class Space extends Model implements HasMediaConversions
     use \Conner\Tagging\Taggable;
     use \Dimsav\Translatable\Translatable;
     use HasMediaTrait;
+    use HasLinks;
 
 
     protected $table = 'spaces';
@@ -77,11 +79,6 @@ class Space extends Model implements HasMediaConversions
             $space->removeImage();
         });
 
-    }
-
-    public function links()
-    {
-        return $this->morphMany(\App\Link::class, 'linkable');
     }
 
     public function getImagePath($full = false)
