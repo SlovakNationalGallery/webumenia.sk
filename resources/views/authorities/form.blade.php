@@ -147,7 +147,12 @@
         <div class="form-group">
         {!! Form::label('tags', 'tagy') !!}
         {!! Form::select('tags[]', \Conner\Tagging\Model\Tag::lists('name','name'), (isSet($authority)) ? $authority->tagNames() : [], ['id' => 'tags', 'multiple' => 'multiple']) !!}
-
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          {!! Form::label('published_at', 'Dátum publikovania') !!}
+          {!! Form::text('published_at', Input::old('published_at'), array('class' => 'form-control datepicker', 'placeholder' => 'YYYY-MM-DD', 'data-date-format' => "yyyy-mm-dd")) !!}
         </div>
       </div>
 
@@ -274,14 +279,34 @@
       <!-- /.row (nested) -->
     </div>
     <!-- /.panel-body -->
+  </div>
+  <!-- /.panel -->
+</div>
+
+<div class="col-lg-12">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Obrázok na úvodnej stránke
+    </div>
     <div class="panel-body">
-      <div class="col-md-12">
-        <div class="form-group">
-          {!! Form::label('published_at', 'Dátum publikovania') !!}
-          {!! Form::text('published_at', Input::old('published_at'), array('class' => 'form-control datepicker', 'placeholder' => 'YYYY-MM-DD', 'data-date-format' => "yyyy-mm-dd")) !!}
+      <div class="row">
+        <div class="col-md-12">
+          @if(isset($authority) && $authority->frontpage_image)
+          <div class="primary-image">
+            aktuálny:<br>
+            <img src="{!! $authority->getFrontpageImagePath() !!}" alt="" class="img-responsive">
+          </div>
+          @endif
+          <div class="form-group">
+          {!! Form::label('frontpage_image', 'obrázok') !!}
+          {!! Form::file('frontpage_image') !!}
+          <p class="help-block">JPEG, rozlíšenie presne 800 × 400</p>
+          </div>
         </div>
       </div>
+      <!-- /.row (nested) -->
     </div>
+    <!-- /.panel-body -->
   </div>
   <!-- /.panel -->
 </div>

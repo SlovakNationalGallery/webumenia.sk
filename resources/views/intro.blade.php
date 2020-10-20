@@ -26,7 +26,7 @@
         @include('components.khb_grid_cell_artist', [
           'artistName' => $author->formatedName,
           'artistImageUrl' => $author->getImagePath(),
-          'artworkImageUrl' => "/images/khb/thumb-".str_slug($author->formatedName, '-').".jpg"
+          'artworkImageUrl' => $author->getFrontpageImagePath(),
         ])
     @endforeach
 </div>

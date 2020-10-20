@@ -44,10 +44,7 @@ function()
 
     Route::get('/', function () {
 
-        $params = array();
-        $params["query"]["filtered"]["filter"]["bool"]["must"][]["term"]["type"] = 'author';
-        $params["sort"][] = ["created_at" => ["order" => "desc"]];
-        $authors = Authority::search($params);
+        $authors = Authority::published()->latest()->get();
 
         return view('intro', [
             'authors' => $authors,
