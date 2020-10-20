@@ -67,6 +67,7 @@ class AuthorityController extends Controller
 
         $rules = Authority::$rules;
         // $rules['primary_image'] = 'required|image';
+        $rules['frontpage_image'] = 'image';
 
         $v = Validator::make($input, $rules);
 
@@ -101,6 +102,10 @@ class AuthorityController extends Controller
 
             if (Input::hasFile('primary_image')) {
                 $this->uploadImage($authority);
+            }
+
+            if ($request->hasFile('frontpage_image')) {
+                $this->uploadFrontendImage($request, $authority);
             }
 
             return Redirect::route('authority.index');
@@ -184,6 +189,9 @@ class AuthorityController extends Controller
                 $this->uploadImage($authority);
             }
 
+            if ($request->hasFile('frontpage_image')) {
+                $this->uploadFrontendImage($request, $authority);
+            }
 
             foreach (\Config::get('translatable.locales') as $i=>$locale) {
 
@@ -323,6 +331,20 @@ class AuthorityController extends Controller
             $authority->has_image = true;
             $authority->save();
         }
+    }
+
+    private function uploadFrontendImage(Request $request, $authority)
+    {
+        $path = public_path($authority::FRONTPAGE_IMG_DIR);
+
+        $file = $request->file('frontpage_image');
+
+        $name = uniqid() . '_' . trim($file->getClientOriginalName());
+
+        $file->move($path, $name);
+
+        $authority->frontpage_image = $name;
+        $authority->save();
     }
 
     /**

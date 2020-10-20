@@ -30,6 +30,7 @@ class Authority extends Model implements HasMediaConversions
     protected $table = 'authorities';
 
     const ARTWORKS_DIR = '/images/autori/';
+    const FRONTPAGE_IMG_DIR = '/images/khb/frontpage/';
     const ES_TYPE = 'authorities';
 
     public $translatedAttributes = [
@@ -106,6 +107,7 @@ class Authority extends Model implements HasMediaConversions
 
     public static $rules = array(
         'name' => 'required',
+        'frontpage_image' => 'image|mimes:jpeg|dimensions:width=800,height=400',
     );
 
     public $incrementing = false;
@@ -283,6 +285,11 @@ class Authority extends Model implements HasMediaConversions
     {
         return self::getImagePathForId($this->id, $this->has_image, $this->sex, $full);
         // : self::ARTWORKS_DIR . "no-image.jpg";;
+    }
+
+    public function getFrontpageImagePath()
+    {
+        return self::FRONTPAGE_IMG_DIR . $this->frontpage_image;
     }
 
     public function removeImage()
