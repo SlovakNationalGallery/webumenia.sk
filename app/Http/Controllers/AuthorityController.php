@@ -65,11 +65,7 @@ class AuthorityController extends Controller
     {
         $input = Input::all();
 
-        $rules = Authority::$rules;
-        // $rules['primary_image'] = 'required|image';
-        $rules['frontpage_image'] = 'image';
-
-        $v = Validator::make($input, $rules);
+        $v = Validator::make($input, Authority::$rules);
 
         if ($v->passes()) {
 
