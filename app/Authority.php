@@ -604,4 +604,8 @@ class Authority extends Model implements HasMediaConversions
              ->setManipulations(['w' => 800])
              ->performOnCollections('*');
     }
+
+    public function scopeOfType($query, $type) {
+        return $query->where('type', $type);
+    }
 }

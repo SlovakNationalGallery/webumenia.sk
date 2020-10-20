@@ -44,7 +44,7 @@ function()
 
     Route::get('/', function () {
 
-        $authors = Authority::published()->latest()->get();
+        $authors = Authority::published()->ofType('author')->latest()->get();
 
         return view('intro', [
             'authors' => $authors,
