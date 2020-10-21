@@ -190,7 +190,7 @@ class AuthorController extends ElasticController
     {
         $author = Authority::find($id);
         if (empty($author)) {
-            App::abort(404);
+            abort(404);
         }
 
         $author->timestamps = false;

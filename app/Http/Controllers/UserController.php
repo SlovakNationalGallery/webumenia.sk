@@ -32,7 +32,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::orderBy('name', 'asc')->lists('name', 'id');
+        $roles = Role::orderBy('name', 'asc')->pluck('name', 'id');
         return view('users.form')->with('roles', $roles);
     }
 
@@ -51,7 +51,7 @@ class UserController extends Controller
         $v = Validator::make($input, $rules);
 
         if ($v->passes()) {
-            
+
             $user = new User;
             $user->username = Input::get('username');
             $user->password = Hash::make(Input::get('password'));
@@ -95,7 +95,7 @@ class UserController extends Controller
             return Redirect::route('user.index');
         }
 
-        $roles = Role::orderBy('name', 'asc')->lists('name', 'id');
+        $roles = Role::orderBy('name', 'asc')->pluck('name', 'id');
         return view('users.form')->with('user', $user)->with('roles', $roles);
     }
 

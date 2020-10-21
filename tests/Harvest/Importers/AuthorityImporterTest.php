@@ -139,14 +139,14 @@ class AuthorityImporterTest extends TestCase
 
     protected function initImporter(array $row) {
         $importer = new AuthorityImporter(
-            $authorityMapperMock = $this->getMock(AuthorityMapper::class),
-            $authorityEventMapperMock = $this->getMock(AuthorityEventMapper::class),
-            $authorityNameMapperMock = $this->getMock(AuthorityNameMapper::class),
-            $authorityNationalityMapperMock = $this->getMock(AuthorityNationalityMapper::class),
-            $authorityRelationshipMapperMock = $this->getMock(AuthorityRelationshipMapper::class),
-            $linkMapperMock = $this->getMock(LinkMapper::class),
-            $nationalityMapperMock = $this->getMock(NationalityMapper::class),
-            $relatedAuthorityMapperMock = $this->getMock(RelatedAuthorityMapper::class)
+            $authorityMapperMock = $this->createMock(AuthorityMapper::class),
+            $authorityEventMapperMock = $this->createMock(AuthorityEventMapper::class),
+            $authorityNameMapperMock = $this->createMock(AuthorityNameMapper::class),
+            $authorityNationalityMapperMock = $this->createMock(AuthorityNationalityMapper::class),
+            $authorityRelationshipMapperMock = $this->createMock(AuthorityRelationshipMapper::class),
+            $linkMapperMock = $this->createMock(LinkMapper::class),
+            $nationalityMapperMock = $this->createMock(NationalityMapper::class),
+            $relatedAuthorityMapperMock = $this->createMock(RelatedAuthorityMapper::class)
         );
 
         $authorityMapperMock

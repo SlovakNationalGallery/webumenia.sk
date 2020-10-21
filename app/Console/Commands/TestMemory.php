@@ -40,7 +40,7 @@ class TestMemory extends Command
      *
      * @return mixed
      */
-    public function fire()
+    public function handle()
     {
         $this->line("memory limit is set to ". ini_get("memory_limit"));
         for ($i=10; $i<1000; $i+=50) {
@@ -49,7 +49,7 @@ class TestMemory extends Command
             $this->info("set memory_limit to {$limit}");
             // echo "memory limit is ". ini_get("memory_limit")."\n";
             $this->tryAlloc($i-10);
-            
+
         }
     }
 

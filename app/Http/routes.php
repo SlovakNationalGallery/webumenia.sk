@@ -161,7 +161,7 @@ function()
         $item = Item::find($id);
 
         if (empty($item) || !$item->isForReproduction()) {
-            App::abort(404);
+            abort(404);
         }
 
         if (!in_array($item->id, Session::get('cart', array()))) {
@@ -179,7 +179,7 @@ function()
         $item = Item::find($id);
 
         if (empty($item)) {
-            App::abort(404);
+            abort(404);
         }
         Session::put('cart', array_diff(Session::get('cart'), [$item->id]));
         Session::flash('message', trans('objednavka.message_remove_order', ['artwork_description' => '<b>'.$item->getTitleWithAuthors().'</b> ('.$item->getDatingFormated().')']) );
@@ -193,7 +193,7 @@ function()
         $item = Item::find($id);
 
         if (empty($item) || !$item->publicDownload()) {
-        	App::abort(404);
+        	abort(404);
         }
     }]);
 
@@ -201,7 +201,7 @@ function()
 
         $item = Item::find($id);
         if (empty($item)) {
-            App::abort(404);
+            abort(404);
         }
         $item->timestamps = false;
         $item->view_count += 1;
@@ -214,7 +214,7 @@ function()
         if (Input::has('collection')) {
             $collection = Collection::find((int) Input::get('collection'));
             if (!empty($collection)) {
-                $items = $collection->items->lists('id')->all();
+                $items = $collection->items->pluck('id')->all();
                 $previousId = getPrevVal($items, $id);
                 if ($previousId) {
                     $previous = Item::find($previousId)->getUrl(['collection' => $collection->id]);

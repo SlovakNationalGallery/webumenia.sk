@@ -97,7 +97,7 @@ class ItemHarvester extends AbstractHarvester
      * @return string
      */
     protected function getItemImageImgUrl(array $row) {
-        return array_first($row['identifier'], function ($i, $identifier) {
+        return array_first($row['identifier'], function ($identifier) {
             return str_contains($identifier, 'getimage');
         });
     }

@@ -47,7 +47,7 @@ return [
     | $useTranslationFallback when defined
     |
     */
-    'use_fallback' => true,
+    'use_fallback' => false,
 
     /*
     |--------------------------------------------------------------------------

@@ -52,7 +52,7 @@ class MakeSitemap extends Command
      *
      * @return mixed
      */
-    public function fire()
+    public function handle()
     {
         $this->info('Spúšťam generovanie sitemap. Bude to chvíľu trvať.');
 

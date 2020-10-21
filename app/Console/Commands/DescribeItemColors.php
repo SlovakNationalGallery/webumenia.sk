@@ -24,7 +24,7 @@ class DescribeItemColors extends Command
         $this->descriptor = $descriptor;
     }
 
-    public function fire()
+    public function handle()
     {
         $items = Item::query();
 

@@ -23,9 +23,6 @@ abstract class AbstractImporter
     /** @var array */
     protected $conditions = [];
 
-    /** @var array */
-    protected $forceReplace = [];
-
     public function __construct(AbstractMapper $mapper) {
         $this->mapper = $mapper;
     }
@@ -43,17 +40,19 @@ abstract class AbstractImporter
      */
     public function import(array $row, Result $result) {
         $class = $this->modelClass;
+        /** @var Model $model */
         if ($model = $class::find($this->getModelId($row))) {
-            $result->incrementInserted();
+            $result->incrementUpdated();
         } else {
             $model = new $class;
-            $result->incrementUpdated();
+            $result->incrementInserted();
         }
 
         $this->upsertModel($model, $row);
         $this->upsertRelated($model, $row);
 
-        return $model;
+        // reset already loaded relation values
+        return $model->setRelations([]);
     }
 
     /**
@@ -107,18 +106,10 @@ abstract class AbstractImporter
             $updateIds[] = $instance->getKey();
         }
 
-        // delete any non-matching rows for fields with forceReplace option
-        if (in_array($field, $this->forceReplace)) {
-            $relatedModelClass = get_class($relation->getRelated());
-            $relationKeyName = \App::make($relatedModelClass)->getKeyName();
-
-            $currentIds = $relation->newQuery()->pluck($relationKeyName)->all();
-            $deleteIds = array_diff($currentIds, $updateIds);
-
-            $relation->getRelated()->destroy($deleteIds);
-        }
-
-
+        $relatedKeyName = $relation->getRelated()->getKeyName();
+        $relation->whereNotIn($relatedKeyName, $updateIds)->each(function (Model $related) {
+            $related->delete();
+        });
     }
 
     /**
@@ -131,6 +122,8 @@ abstract class AbstractImporter
         /** @var BelongsToMany $relation */
         $relation = $model->$field();
         $relatedModelClass = get_class($relation->getRelated());
+
+        $updateIds = [];
 
         foreach ($relatedRows as $relatedRow) {
             $data = $this->mappers[$field]->map($relatedRow);
@@ -154,6 +147,16 @@ abstract class AbstractImporter
             } else {
                 $relation->attach($relatedModel, $pivotData);
             }
+
+            $updateIds[] = $relatedModel->getKey();
+        }
+
+        $relatedKeyName = $relation->getQualifiedRelatedPivotKeyName();
+        $relatedKeyName = explode('.', $relatedKeyName);
+        $relatedKeyName = end($relatedKeyName);
+        $notUpdated = $relation->whereNotIn($relatedKeyName, $updateIds)->get();
+        if (!$notUpdated->isEmpty()) {
+            $relation->detach($notUpdated);
         }
     }
 
@@ -165,11 +168,11 @@ abstract class AbstractImporter
      */
     protected function existsPivotRecord(Model $model, $field, Model $relatedModel) {
         $relation = $model->$field();
-        $otherKeyName = $relation->getOtherKey();
-        $otherKeyName = explode('.', $otherKeyName);
-        $otherKeyName = end($otherKeyName);
+        $relatedKeyName = $relation->getQualifiedRelatedPivotKeyName();
+        $relatedKeyName = explode('.', $relatedKeyName);
+        $relatedKeyName = end($relatedKeyName);
 
-        return $relation->wherePivot($otherKeyName, $relatedModel->getKey())->exists();
+        return $relation->wherePivot($relatedKeyName, $relatedModel->getKey())->exists();
     }
 
     /**

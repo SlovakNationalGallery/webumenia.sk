@@ -42,7 +42,7 @@ class ImportTags extends Command
      *
      * @return mixed
      */
-    public function fire()
+    public function handle()
     {
         $csv_path = $this->argument('csv_path');
         $this->line('Importujem tagy z ' . $csv_path);
@@ -51,7 +51,7 @@ class ImportTags extends Command
         $host = $this;
         try {
             Excel::filter('chunk')->load($csv_path)->noHeading()->chunk(250, function ($results) use ($host, &$count_all, &$count_imported) {
-            
+
                 foreach ($results as $row) {
                     $count_all++;
                     $item = Item::find($row[4]);

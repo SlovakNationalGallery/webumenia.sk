@@ -12,7 +12,6 @@ use App\Harvest\Mappers\AuthorityRelationshipMapper;
 use App\Harvest\Mappers\LinkMapper;
 use App\Harvest\Mappers\NationalityMapper;
 use App\Harvest\Mappers\RelatedAuthorityMapper;
-use App\Harvest\Result;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -26,11 +25,6 @@ class AuthorityImporter extends AbstractImporter
         'links' => ['url'],
         'nationalities' => ['id'],
         'relationships' => ['id'],
-    ];
-
-    protected $forceReplace = [
-        'events',
-        'names',
     ];
 
     public function __construct(
@@ -70,7 +64,7 @@ class AuthorityImporter extends AbstractImporter
     }
 
     protected function processBelongsToMany(Model $model, $field, array $relatedRows, $createRelated = true) {
-        $createRelated &= !in_array($field, ['relationships', 'collections']);
+        $createRelated &= !in_array($field, ['relationships']);
         parent::processBelongsToMany($model, $field, $relatedRows, $createRelated);
     }
 
@@ -82,16 +76,16 @@ class AuthorityImporter extends AbstractImporter
         /** @var BelongsToMany $relation */
         $relation = $model->$field();
 
-        $foreignKeyName = $relation->getForeignKey();
+        $foreignKeyName = $relation->getQualifiedForeignPivotKeyName();
         $foreignKeyName = explode('.', $foreignKeyName);
         $foreignKeyName = end($foreignKeyName);
-        $otherKeyName = $relation->getOtherKey();
-        $otherKeyName = explode('.', $otherKeyName);
-        $otherKeyName = end($otherKeyName);
+        $relatedKeyName = $relation->getQualifiedRelatedPivotKeyName();
+        $relatedKeyName = explode('.', $relatedKeyName);
+        $relatedKeyName = end($relatedKeyName);
 
         return AuthorityRelationship::where([
             $foreignKeyName => $model->getKey(),
-            $otherKeyName => $relatedModel->getKey(),
+            $relatedKeyName => $relatedModel->getKey(),
         ])->exists();
     }
 }

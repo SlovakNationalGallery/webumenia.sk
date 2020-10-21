@@ -31,7 +31,7 @@ class SketchbookController extends Controller
      */
     public function create()
     {
-        $roles = Role::orderBy('name', 'asc')->lists('name', 'id');
+        $roles = Role::orderBy('name', 'asc')->pluck('name', 'id');
         return view('sketchbooks.form')->with('roles', $roles);
     }
 
@@ -48,7 +48,7 @@ class SketchbookController extends Controller
         $v = Validator::make($input, $rules);
 
         if ($v->passes()) {
-            
+
             $item = Item::find(Input::get('item_id'));
 
             $sketchbook = new Sketchbook;
@@ -93,7 +93,7 @@ class SketchbookController extends Controller
             return Redirect::route('sketchbook.index');
         }
 
-        $roles = Role::orderBy('name', 'asc')->lists('name', 'id');
+        $roles = Role::orderBy('name', 'asc')->pluck('name', 'id');
         return view('sketchbooks.form')->with('sketchbook', $sketchbook)->with('roles', $roles);
     }
 

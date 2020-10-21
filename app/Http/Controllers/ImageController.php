@@ -33,6 +33,6 @@ class ImageController extends Controller
             return response()->file($imagePath);
         }
 
-        return App::abort(404);
+        return abort(404);
     }
 }

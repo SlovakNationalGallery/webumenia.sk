@@ -48,7 +48,7 @@ class PriestorController extends Controller
     {
         $space = Space::find($id);
         if (empty($space)) {
-            App::abort(404);
+            abort(404);
         }
 
         $space->timestamps = false;

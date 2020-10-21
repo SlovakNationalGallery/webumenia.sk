@@ -14,7 +14,7 @@ class MoveImagesData extends Migration
     {
         $now = new \DateTime();
 
-        DB::table('items')->chunk(100, function($items) use ($now) {
+        DB::table('items')->orderBy('id')->chunk(100, function($items) use ($now) {
             foreach ($items as $item) {
                 DB::table('images')->insert([
                     'item_id' => $item->id,
@@ -43,7 +43,7 @@ class MoveImagesData extends Migration
             $table->string('iipimg_url')->nullable();
         });
 
-        DB::table('images')->where('order', 0)->chunk(100, function($images) {
+        DB::table('images')->where('order', 0)->orderBy('id')->chunk(100, function($images) {
             foreach ($images as $image) {
                 DB::table('items')->where('id', $image->item_id)
                     ->update([

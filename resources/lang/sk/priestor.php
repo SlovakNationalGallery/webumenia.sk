@@ -11,7 +11,7 @@ return array(
     'views'       => '{0}    <strong>:view_count</strong> videní
                      |{1}    <strong>:view_count</strong> videnie
                      |[2,4]  <strong>:view_count</strong> videnia
-                     |[5,Inf]<strong>:view_count</strong> videní',
+                     |[5,*]<strong>:view_count</strong> videní',
 
     'tags'              => 'Kľúčové slová',
     'back-to-artists'   => 'Zoznam autorov',

@@ -10,7 +10,7 @@ return array(
 
     'views'       => '{0}    <strong>:view_count</strong> views
                      |{1}    <strong>:view_count</strong> view
-                     |[2,Inf]<strong>:view_count</strong> views',
+                     |[2,*]<strong>:view_count</strong> views',
 
     'tags'              => 'Keywords',
     'links'             => 'external links',

@@ -2,7 +2,7 @@
 
 return array(
 
-    'env' => env('APP_ENV', 'production'),
+    'name' => 'Artbase KHB',
 
 
     /*
@@ -19,8 +19,6 @@ return array(
     'env' => env('APP_ENV', 'production'),
 
     'debug' => env('APP_DEBUG', false),
-
-    'log' => 'daily',
 
     /*
     |--------------------------------------------------------------------------
@@ -74,7 +72,7 @@ return array(
     */
 
     'key' => env('APP_KEY'),
-    'cipher' => MCRYPT_RIJNDAEL_128,
+    'cipher' => 'AES-256-CBC',
 
     /*
     |--------------------------------------------------------------------------
@@ -103,7 +101,7 @@ return array(
         Illuminate\Queue\QueueServiceProvider::class,
         Illuminate\Redis\RedisServiceProvider::class,
         Illuminate\Session\SessionServiceProvider::class,
-        Illuminate\Translation\TranslationServiceProvider::class,
+        App\Providers\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         'Former\FormerServiceProvider',
@@ -112,8 +110,6 @@ return array(
         'Conner\Tagging\Providers\TaggingServiceProvider',
         'Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider',
         Zizaco\Entrust\EntrustServiceProvider::class,
-        'Roumen\Sitemap\SitemapServiceProvider',
-        'Cviebrock\ImageValidator\ImageValidatorServiceProvider',
         'Barryvdh\Debugbar\ServiceProvider',
 
         Illuminate\Bus\BusServiceProvider::class,
@@ -128,7 +124,6 @@ return array(
         App\Providers\ColorDescriptorProvider::class,
         'GrahamCampbell\Throttle\ThrottleServiceProvider',
         Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
-        Dimsav\Translatable\TranslatableServiceProvider::class,
         Spatie\Newsletter\NewsletterServiceProvider::class,
         Spatie\MediaLibrary\MediaLibraryServiceProvider::class,
 

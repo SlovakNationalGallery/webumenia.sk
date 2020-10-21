@@ -44,10 +44,10 @@ class OaiPmhDownloadImages extends Command
      *
      * @return mixed
      */
-    public function fire()
+    public function handle()
     {
         // $pocet = Item::where('img_url', '!=', '')->where('has_image', '=', 0)->count();
-        $items_without_images_query = Item::whereHas('images', function($q) 
+        $items_without_images_query = Item::whereHas('images', function($q)
         {
             $q->where('img_url', '!=', '');
         })->where('has_image', '=', 0);
@@ -75,7 +75,7 @@ class OaiPmhDownloadImages extends Command
                 } else {
                     $failures++;
                 }
-                
+
                 if (App::runningInConsole()) {
                     if ($i % 100 == 0) {
                         echo date('h:i:s'). " " . $i . "\n";
@@ -135,6 +135,6 @@ class OaiPmhDownloadImages extends Command
                 $got_image = true;
             }
         };
-        return $got_image;    
+        return $got_image;
     }
 }

@@ -136,7 +136,7 @@ class WebumeniaMgImporterTest extends TestCase
 
     protected function importSingle(array $data) {
         $records = new \ArrayIterator([$data]);
-        $repositoryMock = $this->getMock(CsvRepository::class);
+        $repositoryMock = $this->createMock(CsvRepository::class);
         $repositoryMock->method('getFiltered')->willReturn($records);
 
         $importer = new WebumeniaMgImporter($repositoryMock);

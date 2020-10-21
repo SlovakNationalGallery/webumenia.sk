@@ -14,8 +14,8 @@
     }
 @endphp
 
-<div class="artwork-carousel-container {{$class_names or ''}}">
-  <div class="{{$slick_target}} {{$slick_variant or ''}}">
+<div class="artwork-carousel-container {{$class_names ?? ''}}">
+  <div class="{{$slick_target}} {{$slick_variant ?? ''}}">
     @foreach ($items as $item)
 
     @php

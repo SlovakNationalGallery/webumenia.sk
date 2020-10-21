@@ -41,13 +41,13 @@ class MigrateTags extends Command
      *
      * @return mixed
      */
-    public function fire()
+    public function handle()
     {
         $this->line('Teraz prebehne migracia tagov.');
         $pocet_tagov = 0;
 
         Item::chunk(200, function ($items) use (&$pocet_tagov) {
-        
+
             foreach ($items as $item) {
                 if (!empty($item->subject)) {
                     $tags = $item->subjects;
@@ -78,7 +78,7 @@ class MigrateTags extends Command
     protected function getOptions()
     {
         return array(
-            
+
         );
     }
 }
