@@ -23,9 +23,7 @@ use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 class Item extends Model
 {
     use \Conner\Tagging\Taggable;
-    use Translatable, BouncyTrait {
-        Translatable::save insteadof BouncyTrait;
-    }
+    use Translatable, BouncyTrait;
 
     const ARTWORKS_DIR = '/images/diela/';
     const ES_TYPE = 'items';

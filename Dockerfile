@@ -23,4 +23,4 @@ COPY tests/TestCase.php /var/www/tests/TestCase.php
 
 WORKDIR /var/www
 
-RUN composer install --no-plugins --no-scripts --no-interaction
+RUN php -d memory_limit=-1 /usr/bin/composer install --no-plugins --no-scripts --no-interaction
