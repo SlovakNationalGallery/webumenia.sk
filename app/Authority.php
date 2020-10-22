@@ -15,13 +15,13 @@ use Fadion\Bouncy\BouncyTrait;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Astrotomic\Translatable\Translatable;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 
 class Authority extends Model implements HasMediaConversions
 {
     use \Conner\Tagging\Taggable;
-    use \Dimsav\Translatable\Translatable, BouncyTrait {
-        \Dimsav\Translatable\Translatable::save insteadof BouncyTrait;
-    }
+    use Translatable, BouncyTrait;
     use HasMediaTrait;
     use Publishable;
     use HasLinks;

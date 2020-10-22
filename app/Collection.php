@@ -4,11 +4,13 @@ namespace App;
 
 use Illuminate\Support\Facades\URL;
 use Intervention\Image\ImageManagerStatic;
+use Astrotomic\Translatable\Translatable;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 
 class Collection extends \Eloquent
 {
-    use \Dimsav\Translatable\Translatable;
-        
+    use Translatable;
+
     const ARTWORKS_DIR = '/images/kolekcie/';
 
     public $translatedAttributes = ['name','type', 'text'];
@@ -22,7 +24,7 @@ class Collection extends \Eloquent
         'created_at' => 'sortable.created_at',
         'name'       => 'sortable.title',
     );
-    
+
     public function items()
     {
         return $this->belongsToMany(\App\Item::class, 'collection_item', 'collection_id', 'item_id')->withPivot('order')->orderBy('order', 'asc');
@@ -35,7 +37,7 @@ class Collection extends \Eloquent
 
     public function getPreviewItems()
     {
-        
+
         return $this->items()->limit(10)->get();
     }
 

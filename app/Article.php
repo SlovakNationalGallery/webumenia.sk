@@ -8,10 +8,13 @@ use Illuminate\Support\Facades\URL;
 use Intervention\Image\ImageManagerStatic;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Astrotomic\Translatable\Translatable;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+
 
 class Article extends Model
 {
-    use \Dimsav\Translatable\Translatable;
+    use Translatable;
     use \Conner\Tagging\Taggable;
 
     const ARTWORKS_DIR = '/images/clanky/';

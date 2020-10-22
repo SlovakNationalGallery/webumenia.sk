@@ -17,12 +17,14 @@ use Fadion\Bouncy\BouncyTrait;
 use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\Validator\Constraints\Valid;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Astrotomic\Translatable\Translatable;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 
 class Item extends Model
 {
     use \Conner\Tagging\Taggable;
-    use \Dimsav\Translatable\Translatable, BouncyTrait {
-        \Dimsav\Translatable\Translatable::save insteadof BouncyTrait;
+    use Translatable, BouncyTrait {
+        Translatable::save insteadof BouncyTrait;
     }
 
     const ARTWORKS_DIR = '/images/diela/';

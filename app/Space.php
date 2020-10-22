@@ -11,11 +11,13 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Astrotomic\Translatable\Translatable;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 
 class Space extends Model implements HasMediaConversions
 {
     use \Conner\Tagging\Taggable;
-    use \Dimsav\Translatable\Translatable;
+    use Translatable;
     use HasMediaTrait;
     use HasLinks;
 
