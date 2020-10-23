@@ -55,7 +55,7 @@ return array(
                             </ul>',
     'digital_choice'    => 'Choose your reproductions',
     'more-items_button' => 'Show all',
-    'alert_covid-19' => 'We\'re open again. You can pick up the reproductions at the <a href="https://www.sng.sk/sk/bratislava/navsteva/otvaracie-hodiny-a-vstupne" target="_blank">Ex Libris bookstore</a> and <a href="https://www.sng.sk/sk/zvolen/navsteva/otvaracie-hodiny-a-vstupne" target="_blank">Zvolen Castle</a> during the standard opening hours. When picking up your reproduction order, please follow the measures of individual and collective protection against the spread of coronavirus and COVID-19 disease. <br>
-    Due to the current situation, it will take more than 30 days to prepare and deliver the orders. <br>Thank you for you patience. We are looking forward to seeing you again soon!',
+    'alert_covid-19' => 'In response to the current government regulations, the <a href="https://www.sng.sk/sk/bratislava/navsteva/otvaracie-hodiny-a-vstupne" target="_blank">Ex Libris bookstore</a> and <a href="https://www.sng.sk/sk/zvolen/navsteva/otvaracie-hodiny-a-vstupne" target="_blank">Zvolen Castle</a> will be closed from 24. 10. to 1. 11. 2020. You won't be able to pick up your orders during this time. The current situation has also caused delays -  it will take more than 30 days to prepare the orders.<br>
+Thank you for you patience.     ',
 
 );
