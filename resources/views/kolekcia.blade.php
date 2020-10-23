@@ -24,6 +24,10 @@
 <meta name="description" content="{!! $collection->getShortTextAttribute($collection->text, 350) !!}">
 @stop
 
+@section('head-javascript')
+{{-- For WEBUMENIA-1462 --}}
+{!! Html::script('js/soundcloud.api.js') !!}
+@stop
 
 @section('content')
 
@@ -101,7 +105,7 @@
                         <div class="col-md-3 col-sm-4 col-xs-12 item">
                                 @include('components.item_image_responsive', [
                                     'item' => $item,
-                                    'url' => $item->getUrl(['collection' => $collection->id]) , 
+                                    'url' => $item->getUrl(['collection' => $collection->id]) ,
                                     'limitRatio' => 3
                                 ])
                             </a>
