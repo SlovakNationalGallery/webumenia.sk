@@ -63,6 +63,8 @@
 		</script>
 		@endif
 		{!! Html::script('js/scroll-frame-head.js') !!}
+
+		@yield('head-javascript')
 </head>
 
 <body id="page-top">
