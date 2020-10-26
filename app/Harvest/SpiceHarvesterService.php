@@ -7,27 +7,20 @@ use App\Harvest\Harvesters\AuthorityHarvester;
 use App\Harvest\Harvesters\ItemHarvester;
 use App\SpiceHarvesterHarvest;
 use App\SpiceHarvesterRecord;
-use Psr\Log\LoggerInterface;
 
 class SpiceHarvesterService
 {
     /** @var AbstractHarvester[] */
     protected $harvesters;
 
-    /** @var LoggerInterface */
-    protected $logger;
-
     public function __construct(
         ItemHarvester $itemHarvester,
-        AuthorityHarvester $authorityHarvester,
-        LoggerInterface $logger
+        AuthorityHarvester $authorityHarvester
     ) {
         $this->harvesters = [
             'item' => $itemHarvester,
             'author' => $authorityHarvester
         ];
-
-        $this->logger = $logger;
     }
 
     /**
@@ -36,23 +29,20 @@ class SpiceHarvesterService
      * @param \DateTime $to
      */
     public function harvest(SpiceHarvesterHarvest $harvest, \DateTime $from = null, \DateTime $to = null, $only_ids = []) {
-        $this->harvesters[$harvest->type]->tryHarvest($harvest, $from, $to, $only_ids);
+        $this->harvesters[$harvest->type]->harvest($harvest, $from, $to, $only_ids);
     }
 
     /**
      * @param SpiceHarvesterRecord $record
      */
-    public function harvestSingle(SpiceHarvesterRecord $record) {
-        $this->harvesters[$record->type]->tryHarvestSingle($record, new Result());
+    public function harvestRecord(SpiceHarvesterRecord $record) {
+        $this->harvesters[$record->type]->harvestRecord($record, new Progress());
     }
 
     /**
      * @param SpiceHarvesterHarvest $harvest
      */
     public function harvestFailed(SpiceHarvesterHarvest $harvest) {
-        $failed = $harvest->records()->failed()->get();
-        foreach ($failed as $record) {
-            $this->harvestSingle($record);
-        }
+        $this->harvesters[$harvest->type]->harvestFailed($harvest);
     }
 }

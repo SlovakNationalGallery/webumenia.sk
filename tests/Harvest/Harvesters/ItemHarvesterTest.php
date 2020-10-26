@@ -12,7 +12,7 @@ use App\Harvest\Mappers\CollectionItemMapper;
 use App\Harvest\Mappers\ItemImageMapper;
 use App\Harvest\Mappers\ItemMapper;
 use App\Harvest\Repositories\ItemRepository;
-use App\Harvest\Result;
+use App\Harvest\Progress;
 use App\Item;
 use App\SpiceHarvesterHarvest;
 use App\SpiceHarvesterRecord;
@@ -23,7 +23,35 @@ class ItemHarvesterTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function testTryHarvestNoRows()
+    public function testHarvestFailed()
+    {
+        $importerMock = $this->createMock(ItemImporter::class);
+        $repositoryMock = $this->createMock(ItemRepository::class);
+        $repositoryMock->method('getRow')->willReturn([
+            'identifier' => [],
+        ]);
+        $harvester = new ItemHarvester(
+            $repositoryMock,
+            $importerMock
+        );
+
+        $harvest = factory(SpiceHarvesterHarvest::class)->create([
+            'type' => 'item',
+        ]);
+        $record = factory(SpiceHarvesterRecord::class)->create([
+            'failed_at' => $this->faker->dateTime,
+            'harvest_id' => $harvest->id,
+            'error_message' => 'error'
+        ]);
+
+        $harvester->harvestFailed($harvest);
+        $record->refresh();
+
+        $this->assertNull($record->error_message);
+        $this->assertNull($record->failed_at);
+    }
+
+    public function testHarvestNoRows()
     {
         $repositoryMock = $this->createMock(ItemRepository::class, [], [
             $this->createMock(EndpointFactory::class)
@@ -46,7 +74,7 @@ class ItemHarvesterTest extends TestCase
             'type' => 'item',
             'status' => SpiceHarvesterHarvest::STATUS_QUEUED
         ]);
-        $harvester->tryHarvest($harvest);
+        $harvester->harvest($harvest);
 
         $this->assertEquals(SpiceHarvesterHarvest::STATUS_COMPLETED, $harvest->status);
     }
@@ -77,7 +105,7 @@ class ItemHarvesterTest extends TestCase
 
         /** @var ItemHarvester $harvester */
         $harvester = $this->app->make(ItemHarvester::class);
-        $harvester->tryHarvestSingle($record, new Result());
+        $harvester->harvestRecord($record, new Progress());
 
         $authority->refresh();
         $this->assertEquals('Test Name', $authority->name);

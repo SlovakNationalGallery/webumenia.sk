@@ -228,8 +228,7 @@ class SpiceHarvesterController extends Controller
         $all = Input::get('reindex', false);
 
         $this->dispatch(new HarvestJob($harvest, $from, $to, $all));
-
-        return Redirect::route('harvests.index');
+        return Redirect::back();
     }
 
     public function refreshRecord($record_id)
@@ -246,6 +245,6 @@ class SpiceHarvesterController extends Controller
         $harvest = SpiceHarvesterHarvest::findOrFail($id);
         $this->dispatch(new HarvestFailedJob($harvest));
         Session::flash('message', 'Harvest failed job has been queued');
-        return Redirect::route('harvests.index');
+        return Redirect::back();
     }
 }

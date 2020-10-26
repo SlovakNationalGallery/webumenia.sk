@@ -5,7 +5,7 @@ namespace App\Harvest\Harvesters;
 use App\Authority;
 use App\Harvest\Importers\AuthorityImporter;
 use App\Harvest\Repositories\AuthorityRepository;
-use App\Harvest\Result;
+use App\Harvest\Progress;
 use App\SpiceHarvesterRecord;
 
 class AuthorityHarvester extends AbstractHarvester
@@ -14,7 +14,7 @@ class AuthorityHarvester extends AbstractHarvester
         parent::__construct($repository, $importer);
     }
 
-    protected function harvestSingle(SpiceHarvesterRecord $record, Result $result, array $row = null) {
+    public function harvestRecord(SpiceHarvesterRecord $record, Progress $progress, array $row = null) {
         if ($row === null) {
             $row = $this->repository->getRow($record);
         }
@@ -30,7 +30,7 @@ class AuthorityHarvester extends AbstractHarvester
             }
         }
 
-        return parent::harvestSingle($record, $result, $row);
+        parent::harvestRecord($record, $progress, $row);
     }
 
     // @todo could be moved to mapper if mapper'd have access to whole row

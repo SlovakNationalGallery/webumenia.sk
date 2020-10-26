@@ -58,4 +58,5 @@ return array(
     'authors_found' => 'nalezení autoři pro',
     'authors_counted' => 'autorů',
     'authors_none' => 'momentálně žádní autoři',
+    'roles' => 'role',
 );
