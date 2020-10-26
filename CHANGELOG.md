@@ -2,10 +2,11 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- Google Tag Manager (GTM) setup
 
 ## [2.8.0] - 2020-10-26
 ### Added
-- Google Tag Manager (GTM) setup
 - color picker to patternlib
 - item work type tree structure
 - organization authority detail
