@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.8.0] - 2020-10-26
 ### Added
 - Google Tag Manager (GTM) setup
 - color picker to patternlib
@@ -17,6 +19,9 @@ All notable changes to this project will be documented in this file[^1].
 - slow query on detail page
 - do not update empty pivot data in harvester
 - wrong abort function call
+
+### Changed
+- alert in reproductions section
 
 ## [2.7.4] - 2020-08-25
 ### Changed
