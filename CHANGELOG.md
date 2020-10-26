@@ -19,6 +19,9 @@ All notable changes to this project will be documented in this file[^1].
 - do not update empty pivot data in harvester
 - wrong abort function call
 
+### Changed
+- alert in reproductions section
+
 ## [2.7.4] - 2020-08-25
 ### Changed
 - text in reproductions section
