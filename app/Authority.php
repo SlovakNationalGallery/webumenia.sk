@@ -93,7 +93,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
 
     public function relationships()
     {
-        return $this->belongsToMany(\App\Authority::class, 'authority_relationships', 'authority_id', 'related_authority_id')->withPivot('type')->where('authorities.type', '=', 'person');
+        return $this->belongsToMany(\App\Authority::class, 'authority_relationships', 'authority_id', 'related_authority_id')->withPivot('type');
     }
 
     public function items()
@@ -194,42 +194,6 @@ class Authority extends Model implements IndexableModel, TranslatableContract
         return URL::to('autor/'.$authority_id);
     }
 
-    public function getDescription($html = false, $links = false, $include_roles = false)
-    {
-        $description = ($html) ? '* ' : '';
-        $description .= ($html) ? addMicrodata($this->birth_date, 'birthDate') : $this->birth_year;
-        $description .= ($html) ? self::formatPlace($this->birth_place, $links, 'birthPlace') : self::formatPlace($this->birth_place, $links);
-        if ($this->death_year) {
-            $description .= ($html) ? ' &ndash; ' : ' - ';
-            $description .= ($html) ? '&#x271D; ' : '';
-            $description .= ($html) ? addMicrodata($this->death_date, 'deathDate') : $this->death_year;
-            $description .= ($html) ? self::formatPlace($this->death_place, $links, 'deathPlace') : self::formatPlace($this->death_place, $links);
-        }
-        if ($include_roles) {
-            $roles = $this->roles;
-            if ($roles) {
-                $description .= '. Role: '.implode(', ', $roles);
-            }
-        }
-
-        return $description;
-    }
-
-    private static function formatPlace($place, $links = false, $itemprop = null)
-    {
-        if (empty($place)) {
-            return '';
-        } else {
-            if ($links) {
-                $prop = ($itemprop) ? 'itemprop="'.$itemprop.'"' : '';
-                $place = '<a href="'.url_to('autori', ['place' => $place]).'" '.$prop.'>'.$place.'</a>';
-            }
-
-            return ' '.$place;
-            // return add_brackets($place);
-        }
-    }
-
     public static function getImagePathForId($id, $has_image, $sex = 'male', $full = false, $resize = false)
     {
         if (!$has_image && !$full) {
@@ -289,9 +253,8 @@ class Authority extends Model implements IndexableModel, TranslatableContract
 
     private static function getNoImage($sex = 'male')
     {
-        $filename = 'no-image-'.$sex.'.jpeg';
-
-        return "/images/no-image/autori/$filename";
+        if ($sex) return "/images/no-image/autori/no-image-$sex.jpeg";
+        return "/images/no-image/autori/no-image.jpeg";
     }
 
     public function getIndexedData($locale)
@@ -339,11 +302,8 @@ class Authority extends Model implements IndexableModel, TranslatableContract
     public function getAssociativeRelationships()
     {
         $associative_relationships = array();
-        foreach ($this->relationships as $i => $relationship) {
-            $associative_relationships[self::formatMultiAttribute($relationship->pivot->type)][] = [
-                    'id' => $relationship->id,
-                    'name' => formatName($relationship->name),
-                ];
+        foreach ($this->relationships as $relationship) {
+            $associative_relationships[self::formatMultiAttribute($relationship->pivot->type)][] = $relationship;
         }
 
         return $associative_relationships;
@@ -361,5 +321,10 @@ class Authority extends Model implements IndexableModel, TranslatableContract
         if ($save) {
             $this->save();
         }
+    }
+
+    public function isCorporateBody()
+    {
+        return $this->type === 'corporate body';
     }
 }

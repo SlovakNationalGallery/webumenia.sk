@@ -151,13 +151,9 @@
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_work_type') }}:</td>
                                     <td>
-                                        @foreach ($item->work_types as $i => $work_type)
-                                            @if ($i == 0)
-                                                <a href="{!! URL::to('katalog?work_type=' . $work_type) !!}">{!! addMicrodata($work_type, "artform") !!}</a>
-                                            @else
-                                                {!! $work_type !!}
-                                            @endif
-                                            @if (count($item->work_types) > ($i+1))
+                                        @foreach ($item->work_types as $work_type)
+                                            <a href="{{ route('frontend.catalog.index', ['work_type' => $work_type['path']]) }}"><span itemprop="artform">{{ $work_type['name'] }}</span></a>
+                                            @if (!$loop->last)
                                                  &rsaquo;
                                             @endif
                                         @endforeach
@@ -289,13 +285,11 @@
                             @endif
                             @if (!empty($item->related_work))
                             <tr>
-                                <td class="atribut">{!! $item->relationship_type !!}:</td>
+                                <td class="atribut">{!! $item->relationship_type ?: trans('dielo.default_relationship_type') !!}:</td>
                                 <td>
                                     <a href="{!! URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) !!}"
                                         itemprop="isPartOf">{!! $item->related_work !!}</a>
-                                    @if ($item->related_work_order)
-                                    ({!! $item->related_work_order !!}/{!! $item->related_work_total !!})
-                                    @endif
+                                    @include('components.item_related_work_order_total')
                                 </td>
                             </tr>
                             @endif
@@ -350,12 +344,10 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <h3 class="underlined-links mb-3">
-                            <span class="grey">{!! $item->relationship_type !!}: </span>
+                            <span class="grey">{!! $item->relationship_type ?: trans('dielo.default_relationship_type') !!}: </span>
                             <a href="{!! URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) !!}"
                                 itemprop="isPartOf">{!! $item->related_work !!}</a>
-                            @if ($item->related_work_order)
-                            ({!! $item->related_work_order !!}/{!! $item->related_work_total !!})
-                            @endif
+                            @include('components.item_related_work_order_total')
                         </h3>
 
                         @include('components.artwork_carousel', [

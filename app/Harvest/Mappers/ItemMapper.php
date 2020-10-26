@@ -134,49 +134,30 @@ class ItemMapper extends AbstractModelMapper
 
     public function mapRelationshipType(array $row, $locale) {
         if ($locale != 'sk') {
-            return;
+            return null;
         }
 
-        $related_parts = $this->getRelatedParts($row);
-        if (isset($related_parts[0])) {
-            return $related_parts[0];
-        }
+        $parts = $this->parseRelatedParts($row);
+        return isset($parts['type']) && $parts['type'] !== '' ? $parts['type'] : null;
     }
 
     public function mapRelatedWork(array $row, $locale) {
         if ($locale != 'sk') {
-            return;
+            return null;
         }
 
-        $related_work_order = $this->getRelatedWorkOrderPart($row);
-        if (!is_numeric($related_work_order)) {
-            return $related_work_order;
-        }
-
-        $related_parts = $this->getRelatedParts($row);
-        if (!empty($related_parts) && count($related_parts) < 2) {
-            return;
-        }
-
-        return trim(preg_replace('/\s*\([^)]*\)/', '', $related_parts[1]));
+        $parts = $this->parseRelatedParts($row);
+        return isset($parts['name']) && $parts['name'] !== '' ? $parts['name'] : null;
     }
 
     public function mapRelatedWorkOrder(array $row) {
-        $related_work_order = $this->getRelatedWorkOrderPart($row, $total = false);
-        if (!is_numeric($related_work_order)) {
-            return 0;
-        }
-
-        return (int)$related_work_order;
+        $parts = $this->parseRelatedParts($row);
+        return isset($parts['order']) && $parts['order'] !== '' ? $parts['order'] : null;
     }
 
     public function mapRelatedWorkTotal(array $row) {
-        $related_work_total = $this->getRelatedWorkOrderPart($row, $total = true);
-        if (!is_numeric($related_work_total)) {
-            return 0;
-        }
-
-        return (int)$related_work_total;
+        $parts = $this->parseRelatedParts($row);
+        return isset($parts['total']) && $parts['total'] !== '' ? $parts['total'] : null;
     }
 
     public function mapImgUrl(array $row) {
@@ -187,28 +168,12 @@ class ItemMapper extends AbstractModelMapper
 
     public function mapWorkLevel() {}
 
-    protected function getRelatedParts(array $row) {
-        if (!isset($row['relation_isPartOf'][0])) {
-            return;
-        }
-
-        // isPartOf - expected format is "relationship_type:related_work"
-        $related = $row['relation_isPartOf'][0];
-        // limit by 2, because "related_work" can contain ":"
-        return explode(':', $related, 2);
-    }
-
-    protected function getRelatedWorkOrderPart(array $row, $total = false) {
-        $related_parts = $this->getRelatedParts($row);
-        if (!empty($related_parts) && count($related_parts) > 1) {
-            preg_match('#\((.*?)\)#', $related_parts[1], $match);
-            if (isset($match[1])) {
-                $related_work_order = $match[1];
-                $related_work_order_parts = explode('/', $related_work_order);
-                if (isset($related_work_order_parts[(int)$total])) {
-                    return $related_work_order_parts[(int)$total];
-                }
-            }
-        }
+    protected function parseRelatedParts($row)
+    {
+        return preg_match(
+            '#^(?<type>.*?)(:(?<name>.*?)\s*(\((?<order>\d*)/(?<total>\d*)\))?)?$#',
+            $row['relation_isPartOf'][0] ?? null,
+            $match
+        ) ? $match : null;
     }
 }

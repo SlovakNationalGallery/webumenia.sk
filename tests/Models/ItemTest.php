@@ -101,6 +101,32 @@ class ItemTest extends TestCase
         $this->assertEquals(['first', 'second'], $array);
     }
 
+    public function testWorkTypes()
+    {
+        /** @var Item $item */
+        $item = factory(Item::class)->make([
+            'work_type' => 'kresba, prípravná, návrh'
+        ]);
+        $workTypes = $item->work_types;
+        $this->assertEquals(
+            [
+                [
+                    'name' => 'kresba',
+                    'path' => 'kresba',
+                ],
+                [
+                    'name' => 'prípravná',
+                    'path' => 'kresba/prípravná',
+                ],
+                [
+                    'name' => 'návrh',
+                    'path' => 'kresba/prípravná/návrh',
+                ],
+            ],
+            $workTypes
+        );
+    }
+
     protected function createFreeItem() {
         return factory(Item::class)->make([
             'gallery' => 'Slovenská národná galéria, SNG',

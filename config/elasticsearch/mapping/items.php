@@ -136,7 +136,9 @@ $mapping = [
             'format' => 'yyyy-MM-dd HH:mm:ss',
         ],
         'work_type' => [
-            'type' => 'keyword',
+            'type' => 'text',
+            'analyzer' => 'tree_analyzer',
+            'fielddata' => true,
         ],
         'view_count' => [
             'type' => 'integer',

@@ -4,7 +4,7 @@ namespace App\Harvest\Harvesters;
 
 use App\Harvest\Importers\ItemImporter;
 use App\Harvest\Repositories\ItemRepository;
-use App\Harvest\Result;
+use App\Harvest\Progress;
 use App\Item;
 use App\SpiceHarvesterRecord;
 use Illuminate\Support\Str;
@@ -23,7 +23,7 @@ class ItemHarvester extends AbstractHarvester
         $this->logger = new Logger('oai_harvest');
     }
 
-    protected function harvestSingle(SpiceHarvesterRecord $record, Result $result, array $row = null) {
+    public function harvestRecord(SpiceHarvesterRecord $record, Progress $progress, array $row = null) {
         if ($row === null) {
             $row = $this->repository->getRow($record);
         }
@@ -44,18 +44,11 @@ class ItemHarvester extends AbstractHarvester
             ];
         }
 
-        /** @var Item $item */
-        $item = parent::harvestSingle($record, $result, $row);
+        parent::harvestRecord($record, $progress, $row);
 
-        if (!$item) {
-            return null;
+        if ($record->item && $record->item->img_url) {
+            $this->trySaveImage($record->item);
         }
-
-        if ($item->img_url) {
-            $this->trySaveImage($item);
-        }
-
-        return $item;
     }
 
     protected function trySaveImage(Item $item) {
@@ -64,7 +57,6 @@ class ItemHarvester extends AbstractHarvester
         } catch (\Exception $e) {
             $error = sprintf('%s: %s', $item->img_url, $e->getMessage());
             $this->logger->addError($error);
-            app('sentry')->captureException($e);
         }
     }
 
