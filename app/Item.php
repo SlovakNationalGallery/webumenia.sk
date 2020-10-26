@@ -55,6 +55,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
         'credit',
         'relationship_type',
         'related_work',
+        'additionals',
     ];
 
     protected $fillable = array(
@@ -89,6 +90,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
         'publish',
         'contributor',
         'acquisition_date',
+        'additionals',
     );
 
     protected $dates = array(
@@ -122,6 +124,8 @@ class Item extends Model implements IndexableModel, TranslatableContract
         'belongsToManyUpdatingExistingPivot',
         'belongsToManyUpdatedExistingPivot',
     ];
+
+    protected $useTranslationFallback;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata) {
         $metadata->addGetterConstraint('images', new Valid());
@@ -618,6 +622,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
             'gallery' => $this["gallery:$locale"],
             'credit' => $this["credit:$locale"],
             'related_work' => $this["related_work:$locale"],
+            'additionals' => $this["additionals:$locale"],
             'hsl' => $this->getColors()
                 ->map(function (float $amount, string $color) {
                     $hsl = Parser::Parse($color)->toHSL();
@@ -639,5 +644,15 @@ class Item extends Model implements IndexableModel, TranslatableContract
         if ($save) {
             $this->save();
         }
+    }
+
+    public function getUseTranslationFallback()
+    {
+        return $this->useTranslationFallback;
+    }
+
+    public function setUseTranslationFallback(?bool $useTranslationFallback)
+    {
+        $this->useTranslationFallback = $useTranslationFallback;
     }
 }
