@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\HarvestFailedJob;
-use App\Jobs\HarvestSingleJob;
+use App\Jobs\HarvestRecordJob;
 use App\Jobs\HarvestJob;
 use App\SpiceHarvesterHarvest;
 use Carbon\Carbon;
@@ -234,7 +234,7 @@ class SpiceHarvesterController extends Controller
     public function refreshRecord($record_id)
     {
         $record = SpiceHarvesterRecord::findOrFail($record_id);
-        $this->dispatch(new HarvestSingleJob($record));
+        $this->dispatch(new HarvestRecordJob($record));
         $message = 'Pre záznam boli úspešne načítané dáta z OAI';
         Session::flash('message', $message);
         return Redirect::back();
