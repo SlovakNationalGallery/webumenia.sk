@@ -5,7 +5,7 @@ namespace App\Jobs;
 use App\Harvest\SpiceHarvesterService;
 use App\SpiceHarvesterRecord;
 
-class HarvestSingleJob extends Job
+class HarvestRecordJob extends Job
 {
     protected $record;
 
@@ -14,7 +14,7 @@ class HarvestSingleJob extends Job
     }
 
     public function handle(SpiceHarvesterService $spiceHarvesterService) {
-        $spiceHarvesterService->harvestSingle($this->record);
+        $spiceHarvesterService->harvestRecord($this->record);
     }
 
     public function failed() {
