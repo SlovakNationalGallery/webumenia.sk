@@ -24,6 +24,12 @@
 <link rel="canonical" href="{!! $item->getUrl() !!}">
 @stop
 
+@section('head-javascript')
+{{-- For WEBUMENIA-1462 --}}
+{!! Html::script('js/soundcloud.api.js') !!}
+@stop
+
+
 @section('content')
 
 @if ( ! $item->hasTranslation(App::getLocale()) )
