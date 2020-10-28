@@ -123,4 +123,25 @@ trait HasHeaderImageTrait
         }
         return $resize_path;
     }
+
+    public function getThumbnailImage($full = false)
+    {
+        $path = self::getHeaderImagePath($full);
+        $full_path = self::getHeaderImagePath();
+
+        if (!file_exists($full_path)) {
+            return false;
+        }
+        $preview_path = preg_replace("/(\.[0-9a-z]+$)/i", ".thumbnail" . "$1", $path);
+
+        $preview_full_path = preg_replace("/(\.[0-9a-z]+$)/i", ".thumbnail" . "$1", $full_path);
+        if (!file_exists($preview_full_path)) {
+            try {
+                \Image::make($full_path)->fit(600, 250)->save($preview_full_path);
+            } catch (\Exception $e) {
+                app('sentry')->captureException($e);
+            }
+        }
+        return $preview_path;
+    }
 }

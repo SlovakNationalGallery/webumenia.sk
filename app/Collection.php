@@ -35,6 +35,12 @@ class Collection extends Model implements TranslatableContract
         'name'       => 'sortable.title',
     );
 
+    protected $dates = array(
+        'created_at',
+        'updated_at',
+        'published_at'
+    );
+
     public function items()
     {
         return $this->belongsToMany(\App\Item::class, 'collection_item', 'collection_id', 'item_id')->withPivot('order')->orderBy('order', 'asc');
@@ -82,11 +88,6 @@ class Collection extends Model implements TranslatableContract
     public function getTitleShadowAttribute($value)
     {
         return (!empty($value)) ? $value : '#777';
-    }
-
-    public function getPublishedDateAttribute($value)
-    {
-        return Carbon::parse($value)->format('d. m. Y'); //Change the format to whichever you desire
     }
 
     public function scopeOrderByTranslation(Builder $query, $column, $dir = 'asc', $locale = null)

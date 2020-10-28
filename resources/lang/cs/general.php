@@ -38,4 +38,6 @@ return array(
     "share_link"         => "Sdílet URL adresu",
     "copy"               => "kopírovat",
     "copied_to_clipboard"=> "Odkaz byl skopírován do schránky",
+    'minute'             => ':count minuta|:count minuty|:count minut',
+    'reading_time'       => 'Čas čtení',
 );

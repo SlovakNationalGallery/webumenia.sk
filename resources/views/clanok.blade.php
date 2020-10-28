@@ -68,7 +68,7 @@
         <div class="container">
             <div class="row text-center mb-4">
                     <a href="{!! url_to( 'clanky', ['author' => $article->author ]) !!}">{!! $article->author !!}</a> &nbsp;&middot;&nbsp; 
-                    {!! $article->published_date !!}
+                    @date($article->published_date)
             </div>
             <div class="row">
                 <div class="col-md-4 lead attributes">

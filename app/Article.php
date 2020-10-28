@@ -37,6 +37,16 @@ class Article extends Model implements TranslatableContract
         'sk.content' => 'required',
     );
 
+    protected $fillable = array(
+        'published_date'
+    );
+
+    protected $dates = array(
+        'created_at',
+        'updated_at',
+        'published_date'
+    );
+
     // public function items()
  //    {
  //        return $this->belongsToMany('Item', 'collection_item', 'collection_id', 'item_id');
@@ -67,32 +77,6 @@ class Article extends Model implements TranslatableContract
         $string = $string;
         $string = substr($string, 0, $length);
         return substr($string, 0, strrpos($string, ' ')) . " ...";
-    }
-
-    public function getThumbnailImage($full = false)
-    {
-        $path = self::getHeaderImagePath($full);
-        $full_path = self::getHeaderImagePath();
-
-        if (!file_exists($full_path)) {
-            return false;
-        }
-        $preview_path = preg_replace("/(\.[0-9a-z]+$)/i", ".thumbnail" . "$1", $path);
-
-        $preview_full_path = preg_replace("/(\.[0-9a-z]+$)/i", ".thumbnail" . "$1", $full_path);
-        if (!file_exists($preview_full_path)) {
-            try {
-                \Image::make($full_path)->fit(600, 250)->save($preview_full_path);
-            } catch (\Exception $e) {
-                app('sentry')->captureException($e);
-            }
-        }
-        return $preview_path;
-    }
-
-    public function getPublishedDateAttribute($value)
-    {
-        return Carbon::parse($value)->format('d. m. Y'); //Change the format to whichever you desire
     }
 
     public function getTitleColorAttribute($value)

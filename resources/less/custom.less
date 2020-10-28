@@ -212,22 +212,20 @@ a:focus {
     padding-top: 10px;
 }
 
-.carousel-height{
-  height: 630px;
-  max-height: 60vh;
+.carousel-height {
+  height: 1000px;
+  max-height: calc(80vh - 146px);
   min-height: 300px !important;
   background: @light-grey;
  }
 .webumeniaCarousel {
   .carousel-height;
-  .slick-track{
+  .slick-track {
     .carousel-height;
   }
   overflow: hidden;
   width: 100%;
-  .slick-prev,
-  .slick-next
-  {
+  .slick-prev, .slick-next {
     width: 4vw;
     height: 4vw;
     min-width: 3rem;
@@ -238,13 +236,13 @@ a:focus {
   }
 }
 
-.slick-pagination .slick-dots{
+.slick-pagination .slick-dots {
   position: relative;
   bottom: unset;
   text-align: right;
   padding-top: .5rem;
 
-  li button{
+  li button {
     font-size: 1rem;
     color: @gray-dark;
     opacity: 0.7;
@@ -252,29 +250,30 @@ a:focus {
       content: '';
     }
   }
-  .slick-active button{
+  .slick-active button {
       width: 1.3rem;
       height: 1.3rem;
       border-radius: 1rem;
       text-align: center;
       padding: 0;
-      background :@gray-dark;
+      background: @gray-dark;
       color: @body-bg;
   }
 }
 
-.gallery-cell {
+.slick-slide {
   margin: 0 @grid-gutter-width / 4;
 }
 
 .gallery-cell, .header-image {
   .carousel-height;
   color: @light;
-  & a {color: @light;}
+  & a { color: @light; }
 
-  text-shadow:0px 1px 0px @shadow-color;
+  text-shadow: 0px 1px 0px @shadow-color;
   background: @dark-grey;
-  background-position:center;background-size:cover;
+  background-position: center;background-size:cover;
+  position: relative;
 
   .outer-box {
     display: table;
@@ -317,12 +316,10 @@ a:focus {
       line-height: 72px;
     }
   }
-
-  position:relative;
-  img{
+  img {
     position: absolute;
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
   }
 }
@@ -510,18 +507,18 @@ table a:not(.btn):not(.readmore-js-toggle):not(.no-border), .attributes a:not(.b
 
 .info, .mozete {
     h2 { font-size: @font-size-h1; font-weight: 600; }
-    strong, .strong {color: @dark-grey;}
+    strong, .strong { color: @dark-grey; }
     color: @grey;
     a.unstyled {
       color: @grey;
       border-bottom: 1px solid transparent;
     }
-    ul li {margin-bottom: 12px; }
+    ul li { margin-bottom: 12px; }
     ul.lead {
       font-size: 16px;
       line-height: 24px;
     }
-    ul.list-lab li {margin-bottom: 0}
+    ul.list-lab li {margin-bottom: 0;}
     .atribut {
         font-style: normal;
         color: @primary;
@@ -536,7 +533,6 @@ table a:not(.btn):not(.readmore-js-toggle):not(.no-border), .attributes a:not(.b
 .mozete {
   h4 {font-weight: 600; color: @dark-grey; }
   &.more-items {border-top: 1px solid @light-grey;}
-
 }
 
 p.medium {
@@ -603,13 +599,16 @@ section.info, section.filters, section.light-grey {
 }
 
 section.filters {
-    a.readmore-js-toggle {color: @grey; position: relative; top: 15px;
-      &:hover {color: @dark}
+    a.readmore-js-toggle {
+      color: @grey;
+       position: relative;
+        top: 15px;
+      &:hover {color: @dark;}
     }
 
     .chosen-container, select { margin-bottom: 20px; }
 
-    .checkbox {margin-top: 0}
+    .checkbox {margin-top: 0;}
     /*
     .checkbox label {display: block; padding-left: 7px;  padding-top: 0px;}
 
@@ -663,6 +662,7 @@ section.filters {
     */
 
 }
+
 section.authors,
 section.catalog {
     // background-color: @mid-grey;

@@ -82,7 +82,7 @@
                 </div>
                 <div class="collection-meta grey">
                     {{--  {!! $collection->author !!} &nbsp;&middot;&nbsp; --}}
-                    {!! $collection->created_at->format('d. m. Y') !!} &nbsp;&middot;&nbsp;
+                    @date($collection->created_at) &nbsp;&middot;&nbsp;
                     {!! $collection->user->name !!} &nbsp;&middot;&nbsp;
                     {!! $collection->items->count() !!} {{ trans('kolekcie.collections_artworks') }}
                 </div>

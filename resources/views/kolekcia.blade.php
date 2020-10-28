@@ -62,7 +62,7 @@
         <div class="container">
             <div class="row text-center mb-4">
                {!! $collection->user->name !!}&nbsp;&middot;&nbsp; 
-                {!! $collection->published_date !!}
+                @date($collection->published_at)
             </div>
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 bottom-space description">
