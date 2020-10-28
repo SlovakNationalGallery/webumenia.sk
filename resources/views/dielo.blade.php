@@ -29,7 +29,6 @@
 {!! Html::script('js/soundcloud.api.js') !!}
 @stop
 
-
 @section('content')
 
 @if ( ! $item->hasTranslation(App::getLocale()) )
