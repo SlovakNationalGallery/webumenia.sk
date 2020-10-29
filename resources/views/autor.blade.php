@@ -47,7 +47,8 @@
                             @include('components.share_buttons', [
                                 'title' => $author->formatedName,
                                 'url' => Request::url(),
-                                'img' => URL::to( $author->getImagePath() )
+                                'img' => URL::to( $author->getImagePath() ),
+                                'class' =>'pt-4'
                             ])
                         </div>
                         @if ( $author->tags->count() > 0)

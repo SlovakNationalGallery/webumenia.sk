@@ -2,7 +2,7 @@
 
 @section('og')
 @if (!$article->publish)
-    <meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="noindex, nofollow">
 @endif
 <meta property="og:title" content="{!! $article->title !!}" />
 <meta property="og:description" content="{!! strip_tags($article->summary) !!}" />
@@ -17,7 +17,7 @@
 @stop
 
 @section('title')
-{!! $article->title !!} | 
+{!! $article->title !!} |
 @parent
 @stop
 
@@ -29,26 +29,28 @@
 @section('content')
 
 @if ( ! $article->hasTranslation(App::getLocale()) )
-    <section>
-        <div class="container top-section">
-            <div class="row">
-                @include('includes.message_untranslated')
-            </div>
+<section>
+    <div class="container top-section">
+        <div class="row">
+            @include('includes.message_untranslated')
         </div>
-    </section>
+    </div>
+</section>
 @endif
 
-<div class="webumeniaCarousel">    
+<div class="webumeniaCarousel">
     <div class="gallery-cell header-image">
         @if ($article->hasHeaderImage())
-        <img src="{!! $article->header_image_src !!}" srcset="{!! $article->header_image_srcset !!}" onerror="this.onerror=null;this.srcset=''">
+        <img src="{!! $article->header_image_src !!}" srcset="{!! $article->header_image_srcset !!}"
+             onerror="this.onerror=null;this.srcset=''">
         @endif
-        
-        <div class="outer-box" >
-            <div class="inner-box" style="text-shadow:0px 1px 0px {!! $article->title_shadow !!}; color: {!! $article->title_color !!}">
+
+        <div class="outer-box">
+            <div class="inner-box"
+                 style="text-shadow:0px 1px 0px {!! $article->title_shadow !!}; color: {!! $article->title_color !!}">
                 <h1>{!! $article->title !!}</h1>
                 @if ($article->category)
-                    <h2  style="color: {!! $article->title_color !!}">{!! $article->category->name !!}</h2>
+                <h2 style="color: {!! $article->title_color !!}">{!! $article->category->name !!}</h2>
                 @endif
             </div>
         </div>
@@ -63,25 +65,66 @@
             </div>
         </div>
 </section> --}}
+
+<section class="article content-header">
+    <div class="article-header">
+        <div class="container">
+            <div class="row text-center mb-4">
+                <div class="col-md-8 col-md-push-2">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-6  col-xs-12">
+                            <a href="{!! url_to( 'clanky', ['author' => $article->author ]) !!}">
+                                <div class="v-center">
+                                    <i class="fa fa-user-circle-o mr-3" aria-hidden="true"></i>
+                                    {!! $article->author!!}
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="v-center">
+                                <i class='fa fa-calendar-o mr-3'></i>
+                                @date($article->published_date)
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            @if ($article->reading_time)
+                            <div class="v-center">
+                                <i class='fa fa-clock-o mr-3'></i>
+                                {{ utrans('general.reading_time') }}: {!! $article->reading_time !!}
+                            </div>
+                            @endif
+                        </div>
+
+                        <div class="col-md-4 hidden-sm"></div>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="v-center">
+                                @include('components.share_buttons', [
+                                'title' => $article->title,
+                                'url' => $article->getUrl(),
+                                'img' => $article->header_image_src
+                                ])
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 hidden-sm"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="article content-section">
     <div class="article-body">
         <div class="container">
-            <div class="row text-center mb-4">
-                    <a href="{!! url_to( 'clanky', ['author' => $article->author ]) !!}">{!! $article->author !!}</a> &nbsp;&middot;&nbsp; 
-                    @date($article->published_date)
+            <div class="row">
+                <div class="col-md-8 col-md-push-2 lead attributes long-text">
+                    {!! $article->summary !!}
+                </div>
             </div>
             <div class="row">
-                <div class="col-md-4 lead attributes">
-                    {!! $article->summary !!}
-
-                    <!-- share -->
-                    @include('components.share_buttons', [
-                        'title' => $article->title,
-                        'url' => $article->getUrl(),
-                        'img' => $article->header_image_src,
-                    ])
-                </div>
-                <div class="col-md-6 attributes">
+                <div class="col-md-8 col-md-push-2 attributes long-text">
                     {!! $article->content !!}
                 </div>
             </div>

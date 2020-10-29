@@ -334,7 +334,8 @@
                         @include('components.share_buttons', [
                             'title' => $item->getTitleWithAuthors(),
                             'url' => $item->getUrl(),
-                            'img' => URL::to( $item->getImagePath())
+                            'img' => URL::to( $item->getImagePath()),
+                            'class' =>'pt-4'
                         ])
                     </div>
                 </div>
