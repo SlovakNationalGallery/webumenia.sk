@@ -13,8 +13,9 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
 		{ name: 'editing',     groups: [ 'find', 'selection', 'spellchecker' ] },
 		{ name: 'links' },
-		{ name: 'insert' },
+		{ name: 'insert'},
 		{ name: 'forms' },
+		{ name: 'wuSlick' },
 		{ name: 'tools' },
 		{ name: 'document',	   groups: [ 'mode', 'document', 'doctools' ] },
 		{ name: 'others' },
@@ -35,6 +36,6 @@ CKEDITOR.editorConfig = function( config ) {
 
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
-
+	config.extraPlugins = 'slick';
 	config.embed_provider = '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}';
 };

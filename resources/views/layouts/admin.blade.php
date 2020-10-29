@@ -215,7 +215,7 @@
         var csrf = '{!!csrf_token()!!}';
         $( '.wysiwyg' ).ckeditor({
             language: 'sk',
-            extraAllowedContent: 'iframe[*]',
+            extraAllowedContent: 'iframe[*];*[data-*]{*}(*);*[class]{*}(*)',
             filebrowserUploadUrl: '/uploader?csrf_token='+csrf
         });
 
