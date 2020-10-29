@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Added
 - color picker to patternlib
+- ckeditor allows to add slick
 
 ### Fixed
 - authority year range filter
