@@ -3,7 +3,7 @@
 @section('og')
 <meta property="og:title" content="{!! $item->getTitleWithAuthors() !!}" />
 <meta property="og:description"
-    content="{!! $item->work_type; !!}, {{ trans('dielo.item_attr_dating') }}: {!! $item->dating !!}, {{ trans('dielo.item_attr_measurements') }}: {!!  implode(' x ', $item->measurements) !!}" />
+      content="{!! $item->work_type; !!}, {{ trans('dielo.item_attr_dating') }}: {!! $item->dating !!}, {{ trans('dielo.item_attr_measurements') }}: {!!  implode(' x ', $item->measurements) !!}" />
 <meta property="og:type" content="object" />
 <meta property="og:url" content="{!! Request::url() !!}" />
 <meta property="og:image" content="{!! URL::to( $item->getImagePath() ) !!}" />
@@ -17,7 +17,7 @@
 
 @section('description')
 <meta name="description"
-    content="{!! $item->work_type; !!}, {{ trans('dielo.item_attr_dating') }}: {!! $item->dating !!}, {{ trans('dielo.item_attr_measurements') }}: {!!  implode(' x ', $item->measurements) !!}">
+      content="{!! $item->work_type; !!}, {{ trans('dielo.item_attr_dating') }}: {!! $item->dating !!}, {{ trans('dielo.item_attr_measurements') }}: {!!  implode(' x ', $item->measurements) !!}">
 @stop
 
 @section('link')
@@ -38,13 +38,13 @@
 
 <section class="item top-section" itemscope itemtype="http://schema.org/VisualArtwork">
     <div class="item-body">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 @if (Session::has('message'))
                 <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert"
-                        aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
+                            aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
                 @endif
-                <div class="col-md-10 col-md-offset-1 text-center content-section">
+                <div class="col-md-10 col-md-offset-1 text-center content-section mb-3">
                     <h1 class="nadpis-dielo" itemprop="name">{!! $item->title !!}</h1>
                     <h2 class="inline">
                         {!! implode(', ', $item->getAuthorsWithLinks()) !!}
@@ -55,7 +55,7 @@
                 <div class="col-md-8 text-center">
                     @if ($item->has_iip)
                     @php
-                        list($width, $height) = getimagesize(public_path() . $item->getImagePath());
+                    list($width, $height) = getimagesize(public_path() . $item->getImagePath());
                     @endphp
 
                     <a class="zoom" href="{{ route('item.zoom', ['id' => $item->id]) }}">
@@ -64,72 +64,51 @@
 
                     {{-- @TODO: remove this after IIP is fast enoght to handle it --}}
                     @if ($item->images->count() == 1)
-                        <a href="{{ route('item.zoom', ['id' => $item->id]) }}" data-toggle="tooltip" data-placement="top" title="{{ utrans('general.item_zoom') }}">
-                            @include('components.item_image_responsive', [
-                                'item' => $item,
-                                'limitHeight' => '80vh'
-                            ])
-                        </a>
-                    @else
-                        @include('components.image_carousel', [
-                            'slick_target' => "multiple-views",
-                            'slick_variant' => "artwork-detail-thumbnail",
-                            'img_urls' => $item->images->map(function ($image) {
-                                return $image->getPreviewUrl();
-                        }),
-                            'img_title' => $item->getTitleWithAuthors(),
-                            'anchor_href' => route('item.zoom', ['id' => $item->id]),
-                            'anchor_title' => utrans('general.item_zoom'),
+                    <a href="{{ route('item.zoom', ['id' => $item->id]) }}" data-toggle="tooltip" data-placement="top"
+                       title="{{ utrans('general.item_zoom') }}">
+                        @include('components.item_image_responsive', [
+                        'item' => $item,
+                        'limitHeight' => '80vh'
                         ])
+                    </a>
+                    @else
+                    @include('components.image_carousel', [
+                    'slick_target' => "multiple-views",
+                    'slick_variant' => "artwork-detail-thumbnail",
+                    'img_urls' => $item->images->map(function ($image) {
+                    return $image->getPreviewUrl();
+                    }),
+                    'img_title' => $item->getTitleWithAuthors(),
+                    'anchor_href' => route('item.zoom', ['id' => $item->id]),
+                    'anchor_title' => utrans('general.item_zoom'),
+                    ])
                     @endif
 
                     @else
                     @php
                     list($width, $height) = getimagesize(public_path() . $item->getImagePath());
                     @endphp
-                        @include('components.item_image_responsive', [
-                            'item' => $item ,
-                            'limitHeight' => '80vh'
-                            ])
+                    @include('components.item_image_responsive', [
+                    'item' => $item ,
+                    'limitHeight' => '80vh'
+                    ])
                     @endif
                     <div class="row mt-5">
                         <div class="col-sm-12">
                             @if ($previous)
                             <a href="{!! $previous !!}" id="left" class="nav-arrow left">&larr;<span
-                                    class="sr-only">{{ trans('dielo.item_previous-work') }}</span></a>
+                                      class="sr-only">{{ trans('dielo.item_previous-work') }}</span></a>
                             @endif
 
                             @if ($next)
                             <a href="{!! $next !!}" id="right" class="nav-arrow right">&rarr;<span
-                                    class="sr-only">{{ trans('dielo.item_next-work') }}</span></a>
+                                      class="sr-only">{{ trans('dielo.item_next-work') }}</span></a>
                             @endif
                         </div>
-
-                        @if (!empty($item->description))
-                        <div class="col-md-12 text-left medium description bottom-space underline"
-                            itemprop="description">
-                            {!! $item->description !!}
-
-                            @if ($item->description_source)
-                            <p>
-                                @if ($item->description_user_id)
-                                {{-- Autor popisu: --}} {!! $item->descriptionUser->name !!} &#9679;
-                                @endif
-                                @if ($item->description_source_link)
-                                {{-- Zdroj: --}}
-                                <a href="{!! $item->description_source_link !!}" target="_blank">{!!
-                                    $item->description_source !!}</a>
-                                @else
-                                {!! $item->description_source !!}
-                                @endif
-                            </p>
-                            @endif
-                        </div>
-                        @endif
                     </div>
                 </div>
                 <div class="col-md-4 text-left">
-                    <table class="table">
+                    <table class="table attributes">
                         <tbody>
                             <tr>
                                 <td class="atribut">{{ trans('dielo.item_attr_dating') }}:</td>
@@ -148,21 +127,22 @@
                             </tr>
                             @endif
                             @if (!empty($item->work_type))
-                                <tr>
-                                    <td class="atribut">{{ trans('dielo.item_attr_work_type') }}:</td>
-                                    <td>
-                                        @foreach ($item->work_types as $i => $work_type)
-                                            @if ($i == 0)
-                                                <a href="{!! URL::to('katalog?work_type=' . $work_type) !!}">{!! addMicrodata($work_type, "artform") !!}</a>
-                                            @else
-                                                {!! $work_type !!}
-                                            @endif
-                                            @if (count($item->work_types) > ($i+1))
-                                                 &rsaquo;
-                                            @endif
-                                        @endforeach
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td class="atribut">{{ trans('dielo.item_attr_work_type') }}:</td>
+                                <td>
+                                    @foreach ($item->work_types as $i => $work_type)
+                                    @if ($i == 0)
+                                    <a href="{!! URL::to('katalog?work_type=' . $work_type) !!}">{!!
+                                        addMicrodata($work_type, "artform") !!}</a>
+                                    @else
+                                    {!! $work_type !!}
+                                    @endif
+                                    @if (count($item->work_types) > ($i+1))
+                                    &rsaquo;
+                                    @endif
+                                    @endforeach
+                                </td>
+                            </tr>
                             @endif
                             @if (!empty($item->topics))
                             <tr>
@@ -174,42 +154,13 @@
                                 </td>
                             </tr>
                             @endif
-                            @if ($item->tagNames() || Auth::check())
-                            <tr>
-                                <td class="atribut">{{ trans('dielo.item_attr_tag') }}:</td>
-                                <td>
-
-                                    <!-- list of existing tags -->
-                                    @foreach ($item->tagNames() as $tag)
-                                    <a href="{!!URL::to('katalog?tag=' . $tag)!!}"
-                                        class="btn btn-default btn-xs btn-outline">{!! $tag !!}</a>
-                                    @endforeach
-
-                                    @if (Auth::check())
-                                    @include('includes.add_tags_form')
-                                    @endif
-
-                                </td>
-                            </tr>
-                            @endif
-                            @if ($item->collections->count())
-                            <tr>
-                                <td class="atribut">{{ trans('dielo.item_attr_collections') }}:</td>
-                                <td>
-                                    <div class="expandable">
-                                        @foreach ($item->collections as $collection)
-                                        <a href="{!! $collection->getUrl() !!}">{!! $collection->name !!}</a><br>
-                                        @endforeach
-                                    </div>
-                                </td>
-                            </tr>
-                            @endif
                             @if (!empty($item->mediums))
                             <tr>
                                 <td class="atribut">{{ trans('dielo.item_attr_medium') }}:</td>
                                 <td>
                                     @foreach ($item->mediums as $medium)
-                                    <a href="{!! URL::to('katalog?medium=' . $medium) !!}">{!! addMicrodata($medium, "artMedium") !!}</a><br>
+                                    <a href="{!! URL::to('katalog?medium=' . $medium) !!}">{!! addMicrodata($medium,
+                                        "artMedium") !!}</a><br>
                                     @endforeach
                                 </td>
                             </tr>
@@ -219,7 +170,8 @@
                                 <td class="atribut">{{ trans('dielo.item_attr_technique') }}:</td>
                                 <td>
                                     @foreach ($item->techniques as $technique)
-                                    <a href="{!! URL::to('katalog?technique=' . $technique) !!}">{!! $technique !!}</a><br>
+                                    <a href="{!! URL::to('katalog?technique=' . $technique) !!}">{!! $technique
+                                        !!}</a><br>
                                     @endforeach
                                 </td>
                             </tr>
@@ -254,7 +206,8 @@
                             @if (!empty($item->gallery))
                             <tr>
                                 <td class="atribut">{{ trans('dielo.item_attr_gallery') }}:</td>
-                                <td><a href="{!! URL::to('katalog?gallery=' . $item->gallery) !!}">{!! $item->gallery; !!}</a></td>
+                                <td><a href="{!! URL::to('katalog?gallery=' . $item->gallery) !!}">{!! $item->gallery;
+                                        !!}</a></td>
                             </tr>
                             @endif
                             @if (!empty($item->contributor))
@@ -270,14 +223,45 @@
                                 <td>{!! $item->identifier; !!}</td>
                             </tr>
                             @endif
+                            @if ($item->tagNames() || Auth::check())
+                            <tr>
+                                <td class="atribut">{{ trans('dielo.item_attr_tag') }}:</td>
+                                <td class="multiline">
+
+                                    <!-- list of existing tags -->
+                                    @foreach ($item->tagNames() as $tag)
+                                    <a href="{!!URL::to('katalog?tag=' . $tag)!!}"
+                                       class="btn btn-default btn-xs btn-outline">{!! $tag !!}</a>
+                                    @endforeach
+
+                                    @if (Auth::check())
+                                    @include('includes.add_tags_form')
+                                    @endif
+
+                                </td>
+                            </tr>
+                            @endif
+                            @if ($item->collections->count())
+                            <tr>
+                                <td class="atribut">{{ trans('dielo.item_attr_collections') }}:</td>
+                                <td>
+                                    <div class="expandable multiline">
+                                        @foreach ($item->collections as $collection)
+                                        <a href="{!! $collection->getUrl() !!}">{!! $collection->name !!}</a><br/>
+                                        @endforeach
+                                    </div>
+                                </td>
+                            </tr>
+                            @endif
                             @if ($item->isFree() && !$item->images->isEmpty())
                             <tr>
                                 <td class="atribut">{{ trans('dielo.item_attr_licence') }}:</td>
                                 {{-- <td><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs" target="_blank" class="no-border"><img alt="Creative Commons License" style="border-width:0; padding-top: 2px;"  src="/images/license/by-nc-sa.svg" title="Creative Commons BY-NC-SA 4.0" data-toggle="tooltip"></a></td> --}}
                                 <td><a rel="license" href="{!!URL::to('katalog?is_free=' . '1')!!}" target="_blank"
-                                        class="no-border license" title="Public Domain" data-toggle="tooltip"><img
-                                            alt="Creative Commons License" style="height: 20px; width: auto"
-                                            src="{{ asset('/images/license/zero.svg') }}"> {{ trans('general.public_domain') }}</a>
+                                       class="no-border license" title="Public Domain" data-toggle="tooltip"><img
+                                             alt="Creative Commons License" style="height: 20px; width: auto"
+                                             src="{{ asset('/images/license/zero.svg') }}">
+                                        {{ trans('general.public_domain') }}</a>
                                 </td>
                             </tr>
                             @endif
@@ -292,7 +276,7 @@
                                 <td class="atribut">{!! $item->relationship_type !!}:</td>
                                 <td>
                                     <a href="{!! URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) !!}"
-                                        itemprop="isPartOf">{!! $item->related_work !!}</a>
+                                       itemprop="isPartOf">{!! $item->related_work !!}</a>
                                     @if ($item->related_work_order)
                                     ({!! $item->related_work_order !!}/{!! $item->related_work_total !!})
                                     @endif
@@ -300,12 +284,12 @@
                             </tr>
                             @endif
                             @if (!empty($item->credit))
-                                <tr>
-                                    <td class="atribut">{{ trans('dielo.item_attr_credit') }}:</td>
-                                    <td>
-                                        <a href="{{ URL::to('katalog?credit=' . $item->credit) }}">{{ $item->credit }}</a>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td class="atribut">{{ trans('dielo.item_attr_credit') }}:</td>
+                                <td>
+                                    <a href="{{ URL::to('katalog?credit=' . $item->credit) }}">{{ $item->credit }}</a>
+                                </td>
+                            </tr>
                             @endif
                             @if (!empty($item->acquisition_date))
                             <tr>
@@ -322,23 +306,49 @@
                     <div class="col-md-12 text-center">
                         @if ($item->isForReproduction())
                         <a href="{!! URL::to('dielo/' . $item->id . '/objednat')  !!}"
-                            class="btn btn-cta btn-default btn-outline sans w-100"><i class="fa fa-shopping-cart"></i>
+                           class="btn btn-cta btn-default btn-outline sans w-100"><i class="fa fa-shopping-cart"></i>
                             {{ trans('dielo.item_order') }} </a>
                         @endif
                         @if ($item->isFree() && !$item->images->isEmpty())
                         <a href="{!! URL::to('dielo/' . $item->id . '/stiahnut')  !!}"
-                            class="btn btn-cta btn-default btn-outline sans w-100" id="download"><i class="fa fa-download"></i>
+                           class="btn btn-cta btn-default btn-outline sans w-100" id="download"><i
+                               class="fa fa-download"></i>
                             {{ trans('dielo.item_download') }} </a>
                         @endif
 
                         @include('components.share_buttons', [
-                            'title' => $item->getTitleWithAuthors(),
-                            'url' => $item->getUrl(),
-                            'img' => URL::to( $item->getImagePath()),
-                            'class' =>'pt-4'
+                        'title' => $item->getTitleWithAuthors(),
+                        'url' => $item->getUrl(),
+                        'img' => URL::to( $item->getImagePath()),
+                        'class' =>'pt-4'
                         ])
                     </div>
                 </div>
+            </div>
+            <div class="row">
+                @if (!empty($item->description))
+                <div class="col-md-8 long-text medium description bottom-space  col-md-push-2"
+                     itemprop="description">
+                    <div class="long_expandable">
+                        {!! $item->description !!}
+
+                        @if ($item->description_source)
+                        <p>
+                            @if ($item->description_user_id)
+                            {{-- Autor popisu: --}} {!! $item->descriptionUser->name !!} &#9679;
+                            @endif
+                            @if ($item->description_source_link)
+                            {{-- Zdroj: --}}
+                            <a href="{!! $item->description_source_link !!}" target="_blank">{!!
+                                $item->description_source !!}</a>
+                            @else
+                            {!! $item->description_source !!}
+                            @endif
+                        </p>
+                    </div>
+                    @endif
+                </div>
+                @endif
             </div>
         </div>
     </div>
@@ -346,37 +356,37 @@
 
 <section class="more-items content-section">
     @if ($related_items && $related_items->count() > 1)
-        <div class="container-fluid related-works">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <h3 class="underlined-links mb-3">
-                            <span class="grey">{!! $item->relationship_type !!}: </span>
-                            <a href="{!! URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) !!}"
-                                itemprop="isPartOf">{!! $item->related_work !!}</a>
-                            @if ($item->related_work_order)
-                            ({!! $item->related_work_order !!}/{!! $item->related_work_total !!})
-                            @endif
-                        </h3>
+    <div class="container-fluid related-works">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3 class="underlined-links mb-3">
+                        <span class="grey">{!! $item->relationship_type !!}: </span>
+                        <a href="{!! URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) !!}"
+                           itemprop="isPartOf">{!! $item->related_work !!}</a>
+                        @if ($item->related_work_order)
+                        ({!! $item->related_work_order !!}/{!! $item->related_work_total !!})
+                        @endif
+                    </h3>
 
-                        @include('components.artwork_carousel', [
-                            'slick_target' => "artworks-preview",
-                            'slick_variant' => "large",
-                            'items' => $related_items,
-                            'class_names' => 'mb-5'
-                        ])
+                    @include('components.artwork_carousel', [
+                    'slick_target' => "artworks-preview",
+                    'slick_variant' => "large",
+                    'items' => $related_items,
+                    'class_names' => 'mb-5'
+                    ])
 
-                    </div>
                 </div>
             </div>
         </div>
+    </div>
     @endif
     <div class="container">
         <div class="row">
             <div class="{{ $item->has_colors ? 'col-sm-6 pr-sm-5' : 'col-xs-12'}}" id="related-by-metadata">
                 <div class="h-8rem">
                     <h3>
-                            {{ utrans('dielo.more-items_related-artworks') }}
+                        {{ utrans('dielo.more-items_related-artworks') }}
                         <br>
                         <span class="grey lh-4rem">
                             {{ trans('dielo.more-items_related-artworks_by-data') }}
@@ -385,13 +395,13 @@
                 </div>
                 <div class="isotope-container">
                     @foreach ($similar_items as $similar_item)
-                        @include('components.artwork_grid_item', [
-                            'item' => $similar_item,
-                            'isotope_item_selector_class' => 'item',
-                            'class_names' => ($item->has_colors) ? 'col-xs-6' : 'col-xs-3',
-                            'hide_zoom' => true,
-                            'hide_dating' => true
-                        ])
+                    @include('components.artwork_grid_item', [
+                    'item' => $similar_item,
+                    'isotope_item_selector_class' => 'item',
+                    'class_names' => ($item->has_colors) ? 'col-xs-6' : 'col-xs-3',
+                    'hide_zoom' => true,
+                    'hide_dating' => true
+                    ])
                     @endforeach
                 </div>
             </div>
@@ -401,7 +411,8 @@
                     <h3 class="mb-1">{{ utrans('dielo.more-items_similar-colors') }}</h3>
                     @include('components.color_list', ['colors' => $item->getColors()])
                 </div>
-                <div class="isotope-container" data-fetch-url="{{ route('dielo.colorrelated', ['id' => $item->id]) }}"></div>
+                <div class="isotope-container" data-fetch-url="{{ route('dielo.colorrelated', ['id' => $item->id]) }}">
+                </div>
             </div>
             @endif
         </div>
@@ -421,7 +432,8 @@
             </div>
             <div class="modal-footer">
                 <div class="text-center"><button type="button" data-dismiss="modal"
-                        class="btn btn-default btn-outline uppercase sans">{{ trans('general.close') }}</button></div>
+                            class="btn btn-default btn-outline uppercase sans">{{ trans('general.close') }}</button>
+                </div>
             </div>
         </div>
     </div>
@@ -438,7 +450,8 @@
             </div>
             <div class="modal-footer">
                 <div class="text-center"><button type="button" data-dismiss="modal"
-                        class="btn btn-default btn-outline uppercase sans">{{ trans('general.close') }}</button></div>
+                            class="btn btn-default btn-outline uppercase sans">{{ trans('general.close') }}</button>
+                </div>
             </div>
         </div>
     </div>
@@ -459,7 +472,8 @@
 {{-- {{ HTML::script('https://www.google.com/recaptcha/api.js') }} --}}
 
 @if (!empty($item->lat) && ($item->lat > 0))
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVG26BxGY9yhjCFbviWRgZsvxSlikOnIM&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVG26BxGY9yhjCFbviWRgZsvxSlikOnIM&callback=initMap" async
+        defer></script>
 {!! Html::script('js/gmaps.js') !!}
 @endif
 
@@ -507,6 +521,14 @@
             lessLink: '<a href="#"><i class="fa fa-chevron-up"></i> {{ trans("general.show_less") }}</a>',
             maxHeight: 40
         });
+
+        $('.long_expandable').readmore({
+            moreLink: '<a href="#"><i class="fa fa-chevron-down"></i> {{ trans("general.show_more") }}</a>',
+            lessLink: '<a href="#"><i class="fa fa-chevron-up"></i> {{ trans("general.show_less") }}</a>',
+            maxHeight: 235
+        });
+
+        
 
         $('#download').on('click', function(e){
 

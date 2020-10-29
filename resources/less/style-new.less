@@ -1,15 +1,27 @@
 // GENERIC
 
+@media (min-width: 1200px) {
+    .container-fluid {
+        max-width: 85vw;
+    }
+}
+.long_expandable + .readmore-js-toggle {
+    padding-top: .5em;
+    text-align: center;
+}
+
 .long-text {
     font-family: @font-family-serif;
     font-size: 20px;
     line-height: 1.5em;
     color: @dark;
     text-indent: 0;
+
     p {
         font-size: 20px;
         line-height: 1.5em;
-        margin: 1.25em 0;
+        margin: 1.25em auto;
+        max-width: 40em;
     }
 
     &.lead {
@@ -29,7 +41,7 @@
 .content-header {
     padding-top: @grid-gutter-width;
     padding-bottom: @grid-gutter-width;
-    @media screen and (max-width: @screen-sm-max){
+    @media screen and (max-width: @screen-sm-max) {
         padding-bottom: 0;
         margin-bottom: -@grid-gutter-width;
     }
@@ -60,3 +72,10 @@
 
 // ARTICLE
 // COLLECTION
+
+
+
+// ITEM
+.img-dielo {
+    font-size: 16px;
+}
