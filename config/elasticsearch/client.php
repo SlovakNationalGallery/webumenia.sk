@@ -2,6 +2,7 @@
 
 return [
     'hosts' => [
-        sprintf('http://%s:%d', env('ES_HOST'), env('ES_PORT'))
+        'host' => env('ES_HOST', 'localhost'),
+        'port' => env('ES_PORT', '9200'),
     ],
 ];
