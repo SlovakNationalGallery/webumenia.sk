@@ -22,6 +22,25 @@ CKEDITOR.dialog.add( 'slickDialog', function( editor ) {
 					{
 						// Text input field for the slick text.
 						type: 'textarea',
+						id: 'title',
+						label: editor.lang.slick.title,
+
+						// Validation checking whether the field is not empty.
+						validate: CKEDITOR.dialog.validate.notEmpty( editor.lang.slick.iamgesRequired ),
+
+					
+						setup: function( element ) {
+							this.setValue( element.getAttribute( "data-title" ) || '' );
+						},
+
+						// Called by the main commitContent method call on dialog confirmation.
+						commit: function( element ) {
+							element.setAttribute( "data-title", this.getValue());
+						}
+					},
+					{
+						// Text input field for the slick text.
+						type: 'textarea',
 						id: 'images',
 						label: editor.lang.slick.images,
 
@@ -35,7 +54,6 @@ CKEDITOR.dialog.add( 'slickDialog', function( editor ) {
 
 						// Called by the main commitContent method call on dialog confirmation.
 						commit: function( element ) {
-							element.setText( "SLICK" );
 							element.setAttribute( "data-images", this.getValue());
 							element.setAttribute( "class", 'content-slick');
 						}
@@ -56,7 +74,6 @@ CKEDITOR.dialog.add( 'slickDialog', function( editor ) {
 
 						// Called by the main commitContent method call on dialog confirmation.
 						commit: function( element ) {
-							element.setText( "SLICK" );
 							element.setAttribute( "style", `height: ${this.getValue()};` );
 							element.setAttribute( "data-height", this.getValue());
 						}

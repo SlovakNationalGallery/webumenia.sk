@@ -119,6 +119,7 @@
 
 				const $slick = $(this);
 				$slick.html('');
+				$slick.append(`<div class="slick-title">${$slick.data('title')}</div>`);
 				
 				$slick.data('images').split('\n').forEach(function(slickImg){
 					try{
@@ -138,8 +139,9 @@
 					} else {
 						if (slickImg.indexOf('http') < 0){
 							basePath = basePath.replace('ITEMID', slickImg);
+							itemPath= `{!! route('dielo', ['id' => "ITEMID"]) !!}`.replace('ITEMID', slickImg);
 							srcset= prepareSrcSet(basePath);
-							$slick.append(`<div class="slick-cell"><img src="${basePath.replace('WIDTH', 800)}}" srcset="${srcset}"/></div>`);
+							$slick.append(`<div class="slick-cell"><a href="${itemPath}"><img src="${basePath.replace('WIDTH', 800)}}" srcset="${srcset}"/></a></div>`);
 						}else {
 							$slick.append(`<div class="slick-cell"><img src="${slickImg}"/></div>`);
 						}

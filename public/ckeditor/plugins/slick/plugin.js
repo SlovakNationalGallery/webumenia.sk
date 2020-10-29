@@ -4,7 +4,7 @@ CKEDITOR.plugins.add( 'slick', {
 
 	// Register the icons.
 	icons: 'slick',
-	lang: 'sk,en',
+	lang: 'sk,en,cs',
 
 	// The plugin initialization logic goes inside this method.
 	init: function( editor ) {
