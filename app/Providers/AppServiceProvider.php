@@ -61,10 +61,10 @@ class AppServiceProvider extends ServiceProvider
         Item::observe(ItemObserver::class);
         
         Blade::directive('date', function ($expression) {
-            return "<?php echo ($expression)->format('d.&#8239;m.&#8239;Y'); ?>";
+            return "<?php echo ($expression)?($expression)->format('d.&#8239;m.&#8239;Y'):''; ?>";
         });
         Blade::directive('datetime', function ($expression) {
-            return "<?php echo ($expression)->format('d.&#8239;m.&#8239;Y H:i'); ?>";
+            return "<?php echo ($expression)?($expression)->format('d.&#8239;m.&#8239;Y H:i'):''; ?>";
         });
     }
 }
