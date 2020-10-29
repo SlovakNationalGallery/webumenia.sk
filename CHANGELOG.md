@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- WEBUMENIA-1467 Automatically deploy "develop" branch to test
 
 ## [2.9.0] - 2020-10-27
 ### Added
