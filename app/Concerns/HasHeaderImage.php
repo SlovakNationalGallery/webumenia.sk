@@ -4,6 +4,7 @@ namespace App\Concerns;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 trait HasHeaderImage
 {
@@ -47,7 +48,7 @@ trait HasHeaderImage
                 $image->save($fullPath);
             } else {
                 //replace extension
-                $image->save(preg_replace("/(\.[0-9a-z]+$)/i", "." . $width . "$1", $fullPath));
+                $image->save(Str::replaceLast('.', ".". $width.".", $fullPath));
             }
         }
         return $filename;
@@ -97,7 +98,7 @@ trait HasHeaderImage
             //replace extension
             $res = $res
                 . ', ' . $path
-                . (static::$DEFAULT_SIZE === $width ? $filename : preg_replace("/(\.[0-9a-z]+$)/i", "." . $width . "$1", $filename))
+                . (static::$DEFAULT_SIZE === $width ? $filename : Str::replaceLast('.', ".". $width.".", $filename))
                 . ' ' . $width . 'w';
         }
         return $res;
@@ -108,8 +109,8 @@ trait HasHeaderImage
         $path = self::getHeaderImagePath(false);
         $full_path = self::getHeaderImagePath();
 
-        $resize_path = preg_replace("/(\.[0-9a-z]+$)/i", "." . $resize . "$1", $path);
-        $resize_full_path = preg_replace("/(\.[0-9a-z]+$)/i", "." . $resize . "$1", $full_path);
+        $resize_path = Str::replaceLast('.',".". $resize .".", $path);
+        $resize_full_path = Str::replaceLast('.', ".". $resize .".", $full_path);
         if (!file_exists($resize_full_path)) {
             try {
                 $img = \Image::make($this->getHeaderImagePath())->fit($resize)->sharpen(7);
@@ -130,9 +131,9 @@ trait HasHeaderImage
         if (!file_exists($full_path)) {
             return false;
         }
-        $preview_path = preg_replace("/(\.[0-9a-z]+$)/i", ".thumbnail" . "$1", $path);
-
-        $preview_full_path = preg_replace("/(\.[0-9a-z]+$)/i", ".thumbnail" . "$1", $full_path);
+        $preview_path = Str::replaceLast('.', ".thumbnail.", $path);
+        $preview_full_path = Str::replaceLast('.', ".thumbnail.", $full_path);
+        
         if (!file_exists($preview_full_path)) {
             try {
                 \Image::make($full_path)->fit(600, 250)->save($preview_full_path);
