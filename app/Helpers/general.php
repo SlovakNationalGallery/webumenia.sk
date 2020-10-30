@@ -387,7 +387,7 @@ function parseUrls($content)
  * @param int $wpm
  * @return string          estimated read time eg. 1 minute, 30 seconds
  **/
-function getEstimateReadingTime($content, $locale, $wpm = 200) {
+function getEstimatedReadingTime($content, $locale, $wpm = 200) {
     $wordCount = str_word_count(
         strip_tags(
          html_entity_decode(

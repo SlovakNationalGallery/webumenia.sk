@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Traits;
+namespace App\Concerns;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 
-trait HasHeaderImageTrait
+trait HasHeaderImage
 {
     static $SIZES = [1920, 1400, 1024, 640];
     static $DEFAULT_SIZE = 1024;

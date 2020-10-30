@@ -4,7 +4,7 @@
 
 namespace App;
 
-use App\Traits\HasHeaderImageTrait;
+use App\Concerns\HasHeaderImage;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Support\Facades\URL;
@@ -18,7 +18,7 @@ class Article extends Model implements TranslatableContract
 
     use \Conner\Tagging\Taggable;
 
-    use HasHeaderImageTrait;
+    use HasHeaderImage;
 
     function getArtworksDirAttribute()
     {
@@ -119,6 +119,6 @@ class Article extends Model implements TranslatableContract
 
     
     public function getReadingTimeAttribute(){
-        return getEstimateReadingTime($this->summary . ' ' . $this->content, App::getLocale() );
+        return getEstimatedReadingTime($this->summary . ' ' . $this->content, App::getLocale() );
     }
 }

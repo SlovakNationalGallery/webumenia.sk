@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Traits\HasHeaderImageTrait;
+use App\Concerns\HasHeaderImage;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Carbon\Carbon;
@@ -16,7 +16,7 @@ class Collection extends Model implements TranslatableContract
 {
     use Translatable;
 
-    use HasHeaderImageTrait;
+    use HasHeaderImage;
 
     function getArtworksDirAttribute()
     {
@@ -128,6 +128,6 @@ class Collection extends Model implements TranslatableContract
     }
 
     public function getReadingTimeAttribute(){
-        return getEstimateReadingTime($this->text, App::getLocale() );
+        return getEstimatedReadingTime($this->text, App::getLocale() );
     }
 }
