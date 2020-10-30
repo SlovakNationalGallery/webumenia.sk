@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Illuminate\Support\Facades\File;
+use App\Traits\HasHeaderImageTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Slide extends Model

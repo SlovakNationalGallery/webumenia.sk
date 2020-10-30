@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Traits\HasHeaderImageTrait;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Carbon\Carbon;

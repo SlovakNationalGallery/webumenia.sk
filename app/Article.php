@@ -4,10 +4,10 @@
 
 namespace App;
 
+use App\Traits\HasHeaderImageTrait;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Support\Facades\URL;
-use Intervention\Image\ImageManagerStatic;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
