@@ -94,7 +94,7 @@
 	<!-- Core JavaScript Files -->
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 	<script src="https://unpkg.com/infinite-scroll@3.0.6/dist/infinite-scroll.pkgd.min.js"></script>
-	{!! Html::script('js/slick.js') !!}
+    {!! Html::script('js/slick.js') !!}
     {!! Html::script('js/jquery.easing.min.js') !!}
     {!! Html::script('js/bootstrap.min.js') !!}
     @include('components.searchbar_js')
