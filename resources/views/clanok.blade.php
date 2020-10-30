@@ -40,7 +40,7 @@
 
 <div class="webumeniaCarousel">
     <div class="gallery-cell header-image">
-        @if ($article->hasHeaderImage())
+        @if ($article->HasHeaderImage())
         <img src="{!! $article->header_image_src !!}" srcset="{!! $article->header_image_srcset !!}"
              onerror="this.onerror=null;this.srcset=''">
         @endif

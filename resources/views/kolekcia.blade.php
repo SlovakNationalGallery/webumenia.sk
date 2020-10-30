@@ -40,7 +40,7 @@
 <div class="webumeniaCarousel">
 
     <div class="gallery-cell header-image">
-        @if ($collection->hasHeaderImage())
+        @if ($collection->HasHeaderImage())
         <img src="{!! $collection->header_image_src !!}" srcset="{!! $collection->header_image_srcset !!}"
              onerror="this.onerror=null;this.srcset=''">
         @endif
@@ -87,8 +87,8 @@
                             <div class="v-center">
                             <i class='fa fa-clock-o mr-3'></i>
                             {{ utrans('general.reading_time') }}: {!! $collection->reading_time !!}
-                            @endif
                             </div>
+                            @endif
                         </div>
                         <div class="col-md-4 col-sm-6 col-md-pull-0 col-sm-pull-6 col-xs-12">
                             @if ($collection->items->count() != 0)

@@ -3,6 +3,8 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <title>Detail {!! $collection->id !!}</title>  
+	
+  {!! Html::style('ckeditor/plugins/slick/css/slick.css') !!}
 </head>
 <body>
             <div class="modal-header">
@@ -35,10 +37,10 @@
 							</tr>
 							@foreach ($collection->items as $item)
 							<tr>
-								<td><img src="{!! $item->getImagePath(); !!}" alt="náhľad" class="img-responsive" ></td>
 								<td>
 									<a href="{!! URL::to('item/' . $item->id . '/edit' ) !!}">{!! $item->author !!} - {!! $item->title !!}</a>
-								</td>
+								</td>	
+								<td><img src="{!! $item->getImagePath() !!}" alt="náhľad" class="img-responsive" ></td>
 							</tr>
 							@endforeach
 	                    </tbody>

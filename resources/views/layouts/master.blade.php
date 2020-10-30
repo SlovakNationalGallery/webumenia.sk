@@ -34,8 +34,9 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 	<link rel="stylesheet" type="text/css" href="{{ mix('/css/style.css') }}" />
 
+	{!! Html::style('css/plugins/slick/slick.css') !!}
 	{!! Html::style('css/slick-theme.css') !!}
-	{!! Html::style('css/slick.css') !!}
+	{!! Html::style('css/content-slick.css') !!}
 	{!! Html::style('css/magnific-popup.css') !!}
 
 	{{-- JS --}}
@@ -86,19 +87,20 @@
 	@include('components.footer')
 
 	<div id="top">
-	    <a href="#page-top" title="{{ trans('master.to_top') }}" class="btn btn-default"  data-toggle="tooltip" data-placement="top">
-	        <i class="icon-arrow-up"></i>
-	    </a>
+		<a href="#page-top" title="{{ trans('master.to_top') }}" class="btn btn-default" data-toggle="tooltip"
+		   data-placement="top">
+			<i class="icon-arrow-up"></i>
+		</a>
 	</div>
 
 	<!-- Core JavaScript Files -->
-    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+	<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 	<script src="https://unpkg.com/infinite-scroll@3.0.6/dist/infinite-scroll.pkgd.min.js"></script>
 	{!! Html::script('js/slick.js') !!}
-    {!! Html::script('js/jquery.easing.min.js') !!}
-    {!! Html::script('js/bootstrap.min.js') !!}
-    @include('components.searchbar_js')
-    <script src="{!! asset_timed('js/webumenia.js') !!}"></script>
+	{!! Html::script('js/jquery.easing.min.js') !!}
+	{!! Html::script('js/bootstrap.min.js') !!}
+	@include('components.searchbar_js')
+	<script src="{!! asset_timed('js/webumenia.js') !!}"></script>
 
 
 	<!-- Content -->
