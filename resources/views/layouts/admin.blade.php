@@ -25,7 +25,6 @@
         {!! Html::style('css/plugins/selectize.bootstrap3.css') !!}
         {!! Html::style('css/plugins/bootstrap-switch.css') !!}
         {!! Html::style('css/jquery-ui/jquery-ui.css') !!}
-        {!! Html::script('js/modernizr.custom.js') !!}
 
 </head>
 
@@ -195,6 +194,7 @@
     {!! Html::script('js/plugins/speakingurl.min.js') !!}
     {!! Html::script('js/plugins/bootstrap-switch.min.js') !!}
     {!! Html::script('js/jquery.collection.js') !!}
+    {!! Html::script('js/modernizr.custom.js') !!}
 
 
     <script>

@@ -1,20 +1,23 @@
 // GENERIC
-.content-slick {
-    overflow-y: hidden;
-    padding: 0  @padding-base-horizontal ;
-    .slick-track,
-    .slick-list,
-    .slick-slide,
-    .slick-slide img {
-        margin-top: 0;
-        margin-bottom: 0;
+.content-slick-container {
+    padding: 0 @padding-base-horizontal;
+    .content-slick {
+        overflow-y: hidden;
         padding: 0;
-        height: 100%;
-        max-height: 100%;
-        overflow: hidden;
+        .slick-track,
+        .slick-list,
+        .slick-slide,
+        .slick-slide img {
+            margin-top: 0;
+            margin-bottom: 0;
+            padding: 0;
+            height: 100%;
+            max-height: 100%;
+            overflow: hidden;
+        }
     }
 
-    .slick-title{
+    .content-slick-title {
         font-size: 80%;
     }
 }

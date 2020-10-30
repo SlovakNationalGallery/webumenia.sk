@@ -1,1 +1,21 @@
-.content-slick{text-align: center; border: 1px solid lightgray;}
+.content-slick-container{
+    border: 1px solid lightgray;
+}
+
+.content-slick {
+    overflow-y: hidden;
+    padding: 0 10px;
+}
+
+.slick-cell,
+.slick-cell img {
+    padding: 0;
+    height: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.content-slick-title{
+    font-size: 80%;
+}

@@ -14,10 +14,8 @@ CKEDITOR.plugins.add( 'slick', {
 		editor.addCommand( 'slick', new CKEDITOR.dialogCommand( 'slickDialog', {
 
 			// Allow the slick tag with an optional title attribute.
-			allowedContent: 'slick[data-height,data-images]',
+			allowedContent: 'slick[data-title,data-height,data-images]',
 
-			// Require the slick tag to be allowed for the feature to work.
-			requiredContent: 'slick[data-height,data-images]',
 
 			contentForms: [
 				'slick'

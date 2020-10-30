@@ -106,50 +106,12 @@
 
 	<script type="text/javascript">
 
-		function prepareSrcSet(basePath){
-			return `${basePath.replace('WIDTH', 600)} 600w,
-					${basePath.replace('WIDTH', 220)} 220w,
-					${basePath.replace('WIDTH', 300)} 300w,
-					${basePath.replace('WIDTH', 600)} 600w,
-					${basePath.replace('WIDTH', 800)} 800w`;
-		}
+
 
 		$(document).ready(function(){
 			$('.content-slick').each( function() {
 
 				const $slick = $(this);
-				$slick.html('');
-				$slick.append(`<div class="slick-title">${$slick.data('title')}</div>`);
-				
-				$slick.data('images').split('\n').forEach(function(slickImg){
-					try{
-					var basePath = `{!! route('dielo.nahlad', ['id' => "ITEMID", 'width'=>'WIDTH']) !!}`;
-						
-					const res = slickImg.trim().match(/(.*)\((.*)\)/);
-					
-					if (res && res[1]){
-						
-						if (res[1].indexOf('http') < 0){
-							basePath = basePath.replace('ITEMID', res[1]);
-							srcset= prepareSrcSet(basePath);
-							$slick.append(`<div class="slick-cell"><a href="${res[2]}"><img src="${basePath.replace('WIDTH', 800)}" srcset="${srcset}"/></a></div>`);
-						}else {
-							$slick.append(`<div class="slick-cell"><a href="${res[2]}" target="_blank"><img src="${res[1]}"/></a></div>`);
-						}
-					} else {
-						if (slickImg.indexOf('http') < 0){
-							basePath = basePath.replace('ITEMID', slickImg);
-							itemPath= `{!! route('dielo', ['id' => "ITEMID"]) !!}`.replace('ITEMID', slickImg);
-							srcset= prepareSrcSet(basePath);
-							$slick.append(`<div class="slick-cell"><a href="${itemPath}"><img src="${basePath.replace('WIDTH', 800)}}" srcset="${srcset}"/></a></div>`);
-						}else {
-							$slick.append(`<div class="slick-cell"><img src="${slickImg}"/></div>`);
-						}
-					}
-					}catch(e){}
-				});
-
-				$slick.css({height: $slick.data('height') || '200px'});
 				$slick.slick({
 					slide: '.slick-cell',
 					lazyLoad: 'progressive',
