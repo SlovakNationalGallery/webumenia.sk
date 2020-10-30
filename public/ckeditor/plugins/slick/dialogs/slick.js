@@ -59,11 +59,11 @@ CKEDITOR.dialog.add( 'slickDialog', function( editor ) {
 
 					
 						setup: function( element ) {
-							this.setValue( element.getAttribute( "data-images" ));
+							this.setValue( element.getAttribute( "data-images" ) || slickDefaults.images);
 						},
 
 						onShow: function( element ) {
-							this.setValue( slickDefaults.images );
+							this.setValue( this.getValue() || slickDefaults.images);
 						},
 
 						// Called by the main commitContent method call on dialog confirmation.
@@ -112,8 +112,9 @@ CKEDITOR.dialog.add( 'slickDialog', function( editor ) {
 						setup: function( element ) {
 							this.setValue( element.getAttribute( "data-height" ) || slickDefaults.height);
 						},
+
 						onShow: function( element ) {
-							this.setValue(  slickDefaults.height );
+							this.setValue( this.getValue() || slickDefaults.height);
 						},
 
 						// Called by the main commitContent method call on dialog confirmation.

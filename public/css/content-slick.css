@@ -1,3 +1,6 @@
+.content-slick-container {
+    padding-bottom: 1em;
+}
 .content-slick {
     overflow-y: hidden;
     padding: 0;
@@ -14,8 +17,4 @@
 }
 .slick-cell {
     display: inline-block;
-}
-
-.content-slick-title {
-    font-size: 80%;
 }
