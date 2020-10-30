@@ -2,13 +2,13 @@
 
 namespace App;
 
-use Illuminate\Support\Facades\File;
+use App\Concerns\HasHeaderImage;
 use Illuminate\Database\Eloquent\Model;
 
 class Slide extends Model
 {
 
-    use HasHeaderImageTrait;
+    use HasHeaderImage;
 
     function getArtworksDirAttribute()
     {

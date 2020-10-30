@@ -1,13 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Concerns;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Database\Eloquent\Model;
 
-trait HasHeaderImageTrait
+trait HasHeaderImage
 {
     static $SIZES = [1920, 1400, 1024, 640];
     static $DEFAULT_SIZE = 1024;
@@ -60,14 +58,14 @@ trait HasHeaderImageTrait
         return file_exists(self::getHeaderImagePath());
     }
 
-    function getHeaderImagePath($full = true)
+    function getHeaderImagePath()
     {
         $filename = $this[$this->image_property];
 
         if (!$filename) {
-            return ($full ? public_path() : '') . $this->artworks_dir . $this->id . '.jpg'; // fallback for old collections
+            return  $this->artworks_dir . $this->id . '.jpg'; // fallback for old collections
         }
-        $path = ($full ? public_path() : '') . $this->artworks_dir;
+        $path =  $this->artworks_dir;
 
         return $path . $filename;
     }
@@ -107,8 +105,8 @@ trait HasHeaderImageTrait
 
     public function getResizedImage($resize)
     {
-        $path = self::getHeaderImagePath(false);
-        $full_path = self::getHeaderImagePath();
+        $path = self::getHeaderImagePath();
+        $full_path = public_path() . self::getHeaderImagePath();
 
         $resize_path = preg_replace("/(\.[0-9a-z]+$)/i", "." . $resize . "$1", $path);
         $resize_full_path = preg_replace("/(\.[0-9a-z]+$)/i", "." . $resize . "$1", $full_path);
