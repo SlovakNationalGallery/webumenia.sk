@@ -10,6 +10,9 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - wrong method name in harvester
 
+### Changed
+- skip links in flysystem
+
 ## [2.8.0] - 2020-10-26
 ### Added
 - color picker to patternlib
