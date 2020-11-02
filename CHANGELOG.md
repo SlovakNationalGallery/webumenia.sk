@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 
 ## [2.10.0] - 2020-11-02
+### Added
+- PNP trienale importer
+
 ### Fixed
 - wrong method name in harvester
 
@@ -17,7 +20,6 @@ All notable changes to this project will be documented in this file[^1].
 ## [2.8.0] - 2020-10-26
 ### Added
 - color picker to patternlib
-- PNP trienale importer
 - item work type tree structure
 - organization authority detail
 - update harvest model status on harvesting failed
