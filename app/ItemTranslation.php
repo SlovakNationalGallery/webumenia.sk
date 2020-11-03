@@ -31,4 +31,7 @@ class ItemTranslation extends Model
         'related_work'
     ];
 
+    protected $casts = [
+        'additionals' => 'json',
+    ];
 }
