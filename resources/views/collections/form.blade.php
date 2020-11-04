@@ -95,8 +95,8 @@
 				<b>Aktuálny obrázok:</b>
 				<img class="img-responsive"
 					src="{{ $collection->header_image_src }}" 
-					 srcset="{{ $collection->header_image_srcset }}" 
-					 onerror="this.onerror=null;this.srcset=''"/>
+					srcset="{{ $collection->header_image_srcset }}" 
+					onerror="this.onerror=null;this.srcset=''"/>
 			</div>
 		@endif
 	</div>
