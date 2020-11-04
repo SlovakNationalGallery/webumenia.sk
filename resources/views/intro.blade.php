@@ -102,7 +102,6 @@ $(document).ready(function(){
     var $carousel = $('.webumeniaCarousel').slick({
     infinite: true,
     slidesToShow: 1,
-    // lazyLoad: 'progressive',
     slide: '.gallery-cell',
     variableWidth: false,
     dots: true,
