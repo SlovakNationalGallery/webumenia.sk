@@ -26,6 +26,7 @@
         "infinite-scroll": "^3.0.6",
         "isotope-layout": "^3.0.6",
         "jquery-bridget": "^2.0.1",
+        "jquery.easing": "^1.3.2",
         "lazysizes": "^5.2.0",
         "typeahead.js": "^0.10.5"
     }
