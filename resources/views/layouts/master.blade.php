@@ -110,7 +110,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 	<script src="https://unpkg.com/flickity@1.1/dist/flickity.pkgd.min.js"></script>
 
-	@include('components.searchbar_js')
 	<script src="{!! asset_timed('js/webumenia.js') !!}"></script>
 
 	@yield('javascript')

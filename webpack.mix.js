@@ -23,7 +23,7 @@ mix
         'bootstrap/dist/js/bootstrap',
         'infinite-scroll',
         'isotope-layout',
-        'typeahead.js/dist/typeahead.bundle.min'
+        'typeahead.js/dist/typeahead.bundle',
     ])
 
     // CSS

@@ -6,3 +6,5 @@ const InfiniteScroll = require('infinite-scroll');
 
 jQueryBridget('isotope', Isotope, $)
 jQueryBridget('infiniteScroll', InfiniteScroll, $);
+
+require('./components/searchbar')
