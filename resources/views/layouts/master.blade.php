@@ -103,8 +103,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	<script type="text/javascript" src="{{ mix('/js/vendor.js') }}"></script>
 	<script type="text/javascript" src="{{ mix('/js/app.js') }}"></script>
 
-	<script src="https://unpkg.com/flickity@1.1/dist/flickity.pkgd.min.js"></script>
-
 	<script src="{!! asset_timed('js/webumenia.js') !!}"></script>
 
 	@yield('javascript')

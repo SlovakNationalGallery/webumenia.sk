@@ -110,7 +110,7 @@ $(document).ready(function(){
     });
     $carousel.children('.flickity-page-dots').css('left',  parseInt($('.flickity-slider').css('transform').split(',')[4]) );
 
-    $carousel.on( 'staticClick', function( event, pointer, cellElement, cellIndex ) {
+    $carousel.on('staticClick.flickity', function( event, pointer, cellElement, cellIndex ) {
         event.preventDefault();
         var $link = $( cellElement ).find('a');
         var url = $link.attr('href');
