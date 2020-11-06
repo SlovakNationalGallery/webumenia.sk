@@ -18,7 +18,7 @@ if (process.env.NODE_ENV == 'testing') {
 mix
     // JavaScript
     .js('resources/js/app.js', 'public/js')
-    .extract(['jquery', 'isotope-layout'])
+    .extract(['jquery', 'bootstrap/dist/js/bootstrap', 'isotope-layout'])
 
     // CSS
     .less('resources/less/style.less', 'public/css').options({

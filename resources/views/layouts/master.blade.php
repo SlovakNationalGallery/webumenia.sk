@@ -111,7 +111,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	<script src="https://unpkg.com/flickity@1.1/dist/flickity.pkgd.min.js"></script>
 	<script src="https://unpkg.com/infinite-scroll@3.0.6/dist/infinite-scroll.pkgd.min.js"></script>
 
-	{!! Html::script('js/bootstrap.min.js') !!}
 	@include('components.searchbar_js')
 	<script src="{!! asset_timed('js/webumenia.js') !!}"></script>
 
