@@ -19,14 +19,15 @@ mix
     // JavaScript
     .js('resources/js/app.js', 'public/js')
     .extract([
-        'jquery',
         'bootstrap/dist/js/bootstrap',
+        'jquery',
+        'jquery.easing',
         'infinite-scroll',
         'isotope-layout',
-        'typeahead.js/dist/typeahead.bundle',
         'lazysizes',
         'lazysizes/plugins/unveilhooks/ls.unveilhooks',
         'lazysizes/plugins/respimg/ls.respimg',
+        'typeahead.js/dist/typeahead.bundle',
     ])
 
     // CSS
