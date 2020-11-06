@@ -103,10 +103,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	<script type="text/javascript" src="{{ mix('/js/vendor.js') }}"></script>
 	<script type="text/javascript" src="{{ mix('/js/app.js') }}"></script>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.0/plugins/unveilhooks/ls.unveilhooks.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.0/plugins/respimg/ls.respimg.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.0/lazysizes.min.js"></script>
-
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 	<script src="https://unpkg.com/flickity@1.1/dist/flickity.pkgd.min.js"></script>
 

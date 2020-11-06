@@ -24,6 +24,9 @@ mix
         'infinite-scroll',
         'isotope-layout',
         'typeahead.js/dist/typeahead.bundle',
+        'lazysizes',
+        'lazysizes/plugins/unveilhooks/ls.unveilhooks',
+        'lazysizes/plugins/respimg/ls.respimg',
     ])
 
     // CSS
