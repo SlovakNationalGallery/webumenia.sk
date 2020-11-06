@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Changed
+- WEBUMENIA-1475 Use laravel-mix for (some) JavaScript files
 
 ## [2.11.1] - 2020-11-11
 ### Changed
