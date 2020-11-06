@@ -22,7 +22,8 @@ mix
         'jquery',
         'bootstrap/dist/js/bootstrap',
         'infinite-scroll',
-        'isotope-layout'
+        'isotope-layout',
+        'typeahead.js/dist/typeahead.bundle.min'
     ])
 
     // CSS
