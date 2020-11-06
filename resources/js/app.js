@@ -3,9 +3,12 @@ require('./bootstrap')
 const jQueryBridget = require('jquery-bridget')
 const Isotope = require('isotope-layout')
 const InfiniteScroll = require('infinite-scroll')
+const Flickity = require('flickity');
 
-jQueryBridget('isotope', Isotope, $)
+Flickity.setJQuery( $ );
+jQueryBridget('flickity', Flickity, $)
 jQueryBridget('infiniteScroll', InfiniteScroll, $)
+jQueryBridget('isotope', Isotope, $)
 
 require('lazysizes')
 require('lazysizes/plugins/unveilhooks/ls.unveilhooks')

@@ -20,10 +20,12 @@ mix
     .js('resources/js/app.js', 'public/js')
     .extract([
         'bootstrap/dist/js/bootstrap',
-        'jquery',
-        'jquery.easing',
+        'flickity',
         'infinite-scroll',
         'isotope-layout',
+        'jquery',
+        'jquery-bridget',
+        'jquery.easing',
         'lazysizes',
         'lazysizes/plugins/unveilhooks/ls.unveilhooks',
         'lazysizes/plugins/respimg/ls.respimg',
