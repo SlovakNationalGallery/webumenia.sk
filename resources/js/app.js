@@ -1,6 +1,8 @@
 require('./bootstrap')
 
 const jQueryBridget = require('jquery-bridget')
-const isotope = require('isotope-layout')
+const Isotope = require('isotope-layout')
+const InfiniteScroll = require('infinite-scroll');
 
-jQueryBridget('isotope', isotope, $)
+jQueryBridget('isotope', Isotope, $)
+jQueryBridget('infiniteScroll', InfiniteScroll, $);
