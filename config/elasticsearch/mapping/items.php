@@ -149,6 +149,9 @@ $mapping = [
         'additionals' => [
             'type' => 'object'
         ],
+        'images' => [
+            'type' => 'keyword'
+        ],
     ],
 ];
 

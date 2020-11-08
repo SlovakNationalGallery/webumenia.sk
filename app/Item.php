@@ -623,6 +623,10 @@ class Item extends Model implements IndexableModel, TranslatableContract
             'credit' => $this["credit:$locale"],
             'related_work' => $this["related_work:$locale"],
             'additionals' => $this["additionals:$locale"],
+            'images' => $this->images
+                ->map(function(ItemImage $image) {
+                    return $image->iipimg_url;
+                }),
             'hsl' => $this->getColors()
                 ->map(function (float $amount, string $color) {
                     $hsl = Parser::Parse($color)->toHSL();
