@@ -1,20 +1,18 @@
-.content-slick-container {
-    padding-bottom: 1em;
-}
-.content-slick {
-    overflow-y: hidden;
-    padding: 0;
-    position: relative;
-}
-.slick-track,
 .slick-list,
-.slick-cell,
-.slick-cell img {
+.slick-track,
+.slick-slide,
+.slick-slide img,
+.slick-slide a,
+.content-slick-images p, .content-slick-images p img {
     padding: 0;
     height: 100%;
     max-height: 100%;
     overflow: hidden;
+    margin: 0;
+    display: block;
 }
-.slick-cell {
-    display: inline-block;
+.content-slick-container div {
+    margin: 0 auto !important;
+    white-space: nowrap;
+    max-width: unset;
 }

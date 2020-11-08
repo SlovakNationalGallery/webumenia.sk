@@ -44,7 +44,16 @@ CKEDITOR.stylesSet.add( 'default', [
 			border: '1px solid #ccc'
 		}
 	},
-
+	{
+		name: 'Image Container',
+		element: 'div',
+		attributes: {'class':'content-image-container'}
+	},	
+	{
+		name: 'Image Container - SUB',
+		element: 'div',
+		attributes: {'class':'content-image-container-sub'}
+	},
 	/* Inline styles */
 
 	// These are core styles available as toolbar buttons. You may opt enabling
@@ -91,6 +100,12 @@ CKEDITOR.stylesSet.add( 'default', [
 		name: 'Styled Image (right)',
 		element: 'img',
 		attributes: { 'class': 'right' }
+	},
+
+	{
+		name: 'Footer / References',
+		element: 'p',
+		attributes: { 'class': 'references' }
 	},
 
 	{

@@ -111,15 +111,14 @@
 
 
 		$(document).ready(function(){
-			$('.content-slick').each( function() {
+			$('.content-slick-images').each( function() {
 
 				const $slick = $(this);
 				$slick.slick({
-					slide: '.slick-cell',
+					slide: 'p, a, img',
 					lazyLoad: 'progressive',
 					variableWidth: true,
-					infinite: true,
-					centerMode: true,
+					infinite: false,
 				});
 			});
 		});

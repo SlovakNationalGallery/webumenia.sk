@@ -38,65 +38,13 @@ CKEDITOR.dialog.add( 'slickDialog', function( editor ) {
 
 					
 						setup: function( element ) {
-							this.setValue( element.getAttribute( "data-title" ));
+							this.setValue( $(element.$).find('.content-slick-title').text());
 						},
 
 						// Called by the main commitContent method call on dialog confirmation.
 						commit: function( element ) {
-							element.setAttribute( "data-title", this.getValue());
-
-							$(element.$).find('.content-slick-title').text(this.getValue());
-						}
-					},
-					{
-						// Text input field for the slick text.
-						type: 'textarea',
-						id: 'images',
-						label: editor.lang.slick.images,
-
-						// Validation checking whether the field is not empty.
-						validate: CKEDITOR.dialog.validate.notEmpty( editor.lang.slick.imagesRequired ),
-
-					
-						setup: function( element ) {
-							this.setValue( element.getAttribute( "data-images" ) || slickDefaults.images);
-						},
-
-						onShow: function( element ) {
-							this.setValue( this.getValue() || slickDefaults.images);
-						},
-
-						// Called by the main commitContent method call on dialog confirmation.
-						commit: function( element ) {
-							element.setAttribute( "data-images", this.getValue());
-							$slick = $(element.$).find('.content-slick');
-							$slick.html('');
-
-							this.getValue().split('\n').forEach(function(slickImg){
-								var basePath = `/dielo/nahlad/ITEMID/WIDTH`;
-									
-								const res = slickImg.trim().match(/(.*)\((.*)\)/);
-								
-								if (res && res[1]){
-									
-									if (res[1].indexOf('http') < 0){
-										basePath = basePath.replace('ITEMID', res[1].trim());
-										srcset= prepareSrcSet(basePath);
-										$slick.append(`<li class="slick-cell"><a href="${res[2]}"><img src="${basePath.replace('WIDTH', 800)}" srcset="${srcset}"/></a></li>`);
-									}else {
-										$slick.append(`<li class="slick-cell"><a href="${res[2]}" target="_blank"><img src="${res[1]}"/></a></li>`);
-									}
-								} else {
-									if (slickImg.indexOf('http') < 0){
-										basePath = basePath.replace('ITEMID', slickImg.trim());
-										itemPath= `/dielo/${slickImg.trim()}`;
-										srcset = prepareSrcSet(basePath);
-										$slick.append(`<li class="slick-cell"><a href="${itemPath}"><img src="${basePath.replace('WIDTH', 800)}" srcset="${srcset}"/></a></li>`);
-									}else {
-										$slick.append(`<li class="slick-cell"><img src="${slickImg.trim()}"/></li>`);
-									}
-								}
-							});
+							const e = $(element.$).find('.content-slick-title').remove();
+							$(element.$).prepend(`<div class="content-slick-title">${this.getValue()}</div>`)
 						}
 					},
 					{
@@ -120,7 +68,7 @@ CKEDITOR.dialog.add( 'slickDialog', function( editor ) {
 						// Called by the main commitContent method call on dialog confirmation.
 						commit: function( element ) {
 							element.setAttribute( "data-height", this.getValue());
-							$(element.$).find('.content-slick').attr( "style", `height: ${this.getValue()};` );
+							$(element.$).find('.content-slick-images').attr( "style", `height: ${this.getValue()};` );
 						}
 					}
 				]
@@ -137,17 +85,20 @@ CKEDITOR.dialog.add( 'slickDialog', function( editor ) {
 			var element = selection.getStartElement();
 
 
-			// Get the <p> element closest to the selection, if it exists.
-			if ( element )
-				element = element.getAscendant( 'div' );
+			// Get the <div> element closest to the selection, if it exists.
+			
+			if ( element && !element.hasClass('content-slick-container'))
+			try{
+				element = element.getAscendant(function(el){return el && el.hasClass('content-slick-container' )});
+			}catch(e){
+				
+			}
 
 			// Create a new <p> element if it does not exist.
 			if ( !element || element.getName() != 'div' ) {
 				element = editor.document.createElement( 'div' );
 				element.setAttribute('class','content-slick-container');
-				element.appendHtml('<span class="content-slick-title"></span> <ul class="content-slick"></ul>');
-			
-
+				element.appendHtml('<div class="content-slick-title">Title</div><div class="content-slick-images"></div>');
 				// Flag the insertion mode for later use.
 				this.insertMode = true;
 			}
@@ -157,7 +108,6 @@ CKEDITOR.dialog.add( 'slickDialog', function( editor ) {
 			// Store the reference to the <p> element in an internal property, for later use.
 			this.element = element;
 
-			console.log(element);
 			// Invoke the setup methods of all dialog window elements, so they can load the element attributes.
 			if ( !this.insertMode )
 				this.setupContent( this.element );

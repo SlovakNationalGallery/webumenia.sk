@@ -1,9 +1,30 @@
-@import "/css/content-slick.css";
+@import '/css/content-slick.css';
 
 .cke_editable .content-slick-container {
+    position: relative;
     border: 1px solid lightgray;
+    overflow-x: scroll;
+    white-space: nowrap;
+}
+.cke_editable .content-slick-images {
+    position: relative;
+    background: #eee;
+    width: 100%;
+    height: 100%;
+    overflow-x: scroll;
+    white-space: nowrap;
+}
+.cke_editable .content-slick-images:empty:before {
+    content: '🖼';
+    opacity: 0.2;
+    position: relative;
+    top: calc(50% - .7em);
+    text-align: center;
+    width: 100%;
+    display: block;
 }
 
-.cke_editable .slick-cell {
-    padding: 0 5px;
+.cke_editable .content-slick-images > * {
+    margin: 0 10px;
+    padding: 0;
 }

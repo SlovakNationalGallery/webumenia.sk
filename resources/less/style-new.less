@@ -1,6 +1,22 @@
 // GENERIC
 .content-slick-container {
-    padding: 0 @padding-base-horizontal;
+    // padding: 0 @padding-base-horizontal;
+    font-family: @font-family-sans-serif;
+    font-size: 0.8em;
+    margin: 2 * @padding-large-vertical auto;
+    user-select: none;
+    img {
+        height: 100%;
+        max-height: 100% !important;
+    }
+    a {
+        border: none !important;
+        cursor: pointer;
+    }
+
+    .slick-cell{
+        margin: 0 @padding-base-horizontal / 2;
+    }
 }
 @media (min-width: 1200px) {
     .container-fluid {
@@ -10,6 +26,7 @@
 .long_expandable + .readmore-js-toggle {
     padding-top: 0.5em;
     text-align: center;
+    font-family: @font-family-sans-serif;
 }
 
 .long-text {
@@ -19,11 +36,15 @@
     color: @dark;
     text-indent: 0;
 
-    p {
+    > p,
+    > div {
+        padding: @padding-base-vertical 0;
         font-size: 20px;
         line-height: 1.5em;
-        margin: 1.25em auto;
-        max-width: 40em;
+        max-width: 35em;
+    }
+    p {
+        margin: 1.25em 0;
     }
 
     &.lead {
@@ -37,6 +58,37 @@
 
     p > a > img:only-child {
         margin-bottom: 0;
+    }
+
+    .content-image-container,
+    .content-image-container-sub {
+        padding: 2 * @padding-large-vertical 0 0 0;
+        text-align: center;
+        margin: 2 * @padding-large-vertical auto;
+        font-family: @font-family-sans-serif;
+        font-size: 0.8;
+        + .content-image-container,
+        + .content-image-container-sub {
+            padding-top: 0;
+            margin-top: -2 * @padding-large-vertical;
+        }
+    }
+    .content-image-container-sub {
+        color: @gray;
+        font-size: 0.8;
+        font-weight: 200;
+        font-style: italic;
+    }
+    img {
+        max-height: calc(85vh - 3em);
+    }
+
+    p.references {
+        font: bold;
+        font-family: @font-family-sans-serif;
+        font-size: 0.8em;
+        line-height: 1.6em;
+        margin: @padding-large-vertical 0;
     }
 }
 
@@ -53,7 +105,7 @@
     color: @dark-grey;
     .row > div {
         margin: auto;
-        height: 3.5em;
+        height: 2em;
         padding-left: 0;
         padding-right: 0;
     }
@@ -72,10 +124,17 @@
     width: 100%;
 }
 
+.multiline br{
+    line-height: 2em;
+}
+
 // ARTICLE
 // COLLECTION
 
 // ITEM
 .img-dielo {
-    font-size: 16px;
+    font-size: 18px;
+    table tr td{
+        border: none;
+    }
 }
