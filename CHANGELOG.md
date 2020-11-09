@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Changed
 - WEBUMENIA-1467 Change elasticsearch client config
 - Run tests on MySQL 5.7
+- escape html characters in PNP trienale importer
 
 ## [2.9.0] - 2020-10-27
 ### Added
