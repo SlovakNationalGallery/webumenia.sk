@@ -39,6 +39,9 @@ $mapping = [
         'dating' => [
             'type' => 'text',
         ],
+        'measurement' => [
+            'type' => 'text',
+        ],
         'description' => [
             'type' => 'text',
             'analyzer' => 'asciifolding_analyzer',
