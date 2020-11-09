@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.11.0] - 2020-11-10
 ### Added
 - WEBUMENIA-1467 Automatically deploy "develop" branch to test
 - add missing fields to elasticsearch for exlibris 2020
