@@ -351,8 +351,13 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     public function getMeasurementsAttribute($value)
     {
-        $trans = array("; " => ";", "()" => "");
-        return explode(';', strtr($this->measurement, $trans));
+        return self::formatMeasurement($this->measurement);
+    }
+
+    public static function formatMeasurement(?string $measurement): array
+    {
+        $trans = ['; ' => ';', '()' => ''];
+        return explode(';', strtr($measurement, $trans));
     }
 
     public function getWidthAttribute($value)
@@ -615,7 +620,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
             'description' => (!empty($this["description:$locale"])) ? strip_tags($this["description:$locale"]) : '',
             'topic' => $this->makeArray($this["topic:$locale"]),
             'place' => $this->makeArray($this["place:$locale"]),
-            'measurement' => $this["measurments:$locale"],
+            'measurement' => self::formatMeasurement($this["measurement:$locale"]),
             'dating' => $this["dating:$locale"],
             'medium' => $this["medium:$locale"],
             'technique' => $this->makeArray($this["technique:$locale"]),
