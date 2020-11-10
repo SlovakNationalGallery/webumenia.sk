@@ -39,6 +39,9 @@ $mapping = [
         'dating' => [
             'type' => 'text',
         ],
+        'measurement' => [
+            'type' => 'text',
+        ],
         'description' => [
             'type' => 'text',
             'analyzer' => 'asciifolding_analyzer',
@@ -148,6 +151,9 @@ $mapping = [
         ],
         'additionals' => [
             'type' => 'object'
+        ],
+        'images' => [
+            'type' => 'keyword'
         ],
     ],
 ];

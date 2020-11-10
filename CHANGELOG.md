@@ -3,6 +3,17 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.11.0] - 2020-11-10
+### Added
+- automatically deploy "develop" branch to test
+- add missing fields to elasticsearch for exlibris 2020
+
+### Changed
+- skip links in flysystem
+- change elasticsearch client config
+- run tests on MySQL 5.7
+- escape html characters in PNP trienale importer
+
 ## [2.10.0] - 2020-11-02
 ### Added
 - PNP trienale importer
