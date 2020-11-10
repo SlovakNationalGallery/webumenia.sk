@@ -5,13 +5,13 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [2.11.0] - 2020-11-10
 ### Added
-- WEBUMENIA-1467 Automatically deploy "develop" branch to test
+- automatically deploy "develop" branch to test
 - add missing fields to elasticsearch for exlibris 2020
 
 ### Changed
 - skip links in flysystem
-- WEBUMENIA-1467 Change elasticsearch client config
-- Run tests on MySQL 5.7
+- change elasticsearch client config
+- run tests on MySQL 5.7
 - escape html characters in PNP trienale importer
 
 ## [2.10.0] - 2020-11-02
