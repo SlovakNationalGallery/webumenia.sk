@@ -34,6 +34,7 @@ All notable changes to this project will be documented in this file[^1].
 - item work type tree structure
 - organization authority detail
 - update harvest model status on harvesting failed
+- ckeditor allows to add slick
 
 ### Fixed
 - authority year range filter
