@@ -23,6 +23,8 @@ class PnpTrienaleImporter extends AbstractImporter
         'measurement:cs' => 'Rozměry:',
         'related_work:sk' => 'Ze souboru:',
         'related_work:cs' => 'Ze souboru:',
+        'description:sk' => 'Text od porotců:',
+        'description:cs' => 'Text od porotců:',
     ];
 
     protected $defaults = [
@@ -159,15 +161,6 @@ class PnpTrienaleImporter extends AbstractImporter
         }
 
         return implode(';', $techniques);
-    }
-
-    public function hydrateDescription(array $record, $locale)
-    {
-        if ($locale !== 'cs' && $locale !== 'sk') {
-            return null;
-        }
-
-        return htmlentities($record['Text od porotců:']);
     }
 
     public function hydrateAdditionals(array $record, $locale)
