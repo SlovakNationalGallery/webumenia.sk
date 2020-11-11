@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.11.1] - 2020-11-11
+### Changed
+- revert escape html characters in PNP trienale importer
+
 ## [2.11.0] - 2020-11-10
 ### Added
 - automatically deploy "develop" branch to test
