@@ -56,7 +56,7 @@
                                 {!! $i->subtitle !!}
                             </td>
                             <td>
-                                {!! $i->created_at !!}
+                                @datetime($i->created_at)
                             </td>
                             <td  class="text-center">{!! ($i->publish) ? '<i class="fa fa-check text-success"></i>' : '' !!}</td>
                             <td  class="text-center">

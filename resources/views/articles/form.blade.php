@@ -43,12 +43,12 @@
 
 				<div class="form-group">
 				{{ Form::label($locale . "[summary]", 'Anotácia') }}
-				{{ Form::textarea($locale . "[summary]", isset($article) ? @$article->translate($locale)->summary : '', array('class' => 'form-control wysiwyg', 'rows'=>'6')) }}
+				{{ Form::textarea($locale . "[summary]", isset($article) ? @$article->translate($locale)->summary : '', array('class' => 'form-control wysiwyg long-text', 'rows'=>'6')) }}
 				</div>
 
 				<div class="form-group">
 				{{ Form::label($locale . "[content]", 'Text') }}
-				{{ Form::textarea($locale . "[content]", isset($article) ? @$article->translate($locale)->content : '', array('class' => 'form-control wysiwyg', 'rows'=>'12')) }}	
+				{{ Form::textarea($locale . "[content]", isset($article) ? @$article->translate($locale)->content : '', array('class' => 'form-control wysiwyg long-text', 'rows'=>'12')) }}	
 				</div>
 			</div>
 		@endforeach

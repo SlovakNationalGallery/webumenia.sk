@@ -49,11 +49,6 @@ CKEDITOR.stylesSet.add( 'default', [
 		element: 'div',
 		attributes: {'class':'content-image-container'}
 	},	
-	{
-		name: 'Image Container - SUB',
-		element: 'div',
-		attributes: {'class':'content-image-container-sub'}
-	},
 	/* Inline styles */
 
 	// These are core styles available as toolbar buttons. You may opt enabling

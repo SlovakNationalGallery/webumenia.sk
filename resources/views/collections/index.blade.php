@@ -52,7 +52,7 @@ kolekcie |
                             <td class="text-center">
                                 @if($i->published_at)
                                     <i class="fa fa-check text-success"></i><br/>
-                                    <small>od @date($i->published_at)</small>
+                                    <small>od @dateShort($i->published_at)</small>
                                 @endif
                             </td>
 			                <td>

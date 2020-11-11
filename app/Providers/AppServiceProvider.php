@@ -12,6 +12,7 @@ use App\Harvest\Mappers\BaseAuthorityMapper;
 use App\Item;
 use App\Observers\AuthorityObserver;
 use App\Observers\ItemObserver;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Symfony\Component\PropertyAccess\PropertyAccess;
@@ -60,11 +61,21 @@ class AppServiceProvider extends ServiceProvider
         Authority::observe(AuthorityObserver::class);
         Item::observe(ItemObserver::class);
         
+        
         Blade::directive('date', function ($expression) {
-            return "<?php echo ($expression)?($expression)->format('d.&#8239;m.&#8239;Y'):''; ?>";
+            return $this->formatDate($expression, 'LL');
+        });
+        Blade::directive('dateShort', function ($expression) {
+            return $this->formatDate($expression, 'L');
         });
         Blade::directive('datetime', function ($expression) {
-            return "<?php echo ($expression)?($expression)->format('d.&#8239;m.&#8239;Y H:i'):''; ?>";
+            return $this->formatDate($expression, 'L LT');
         });
+    }
+
+
+    private function formatDate($expression, $format)
+    {
+        return $expression? "<?php echo \Carbon\Carbon::parse($expression)->locale(App::getLocale())->isoFormat('$format'); ?>": "";
     }
 }

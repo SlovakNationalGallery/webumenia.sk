@@ -1,20 +1,21 @@
-// GENERIC
+@max-block-width: 35em;
 .content-slick-container {
-    // padding: 0 @padding-base-horizontal;
     font-family: @font-family-sans-serif;
     font-size: 0.8em;
-    margin: 2 * @padding-large-vertical auto;
+    margin: 2 * @padding-large-vertical 0;
     user-select: none;
     img {
         height: 100%;
         max-height: 100% !important;
+        max-width: @max-block-width;
     }
     a {
         border: none !important;
         cursor: pointer;
+        max-width: @max-block-width;
     }
 
-    .slick-cell{
+    .slick-cell {
         margin: 0 @padding-base-horizontal / 2;
     }
 }
@@ -41,14 +42,12 @@
         padding: @padding-base-vertical 0;
         font-size: 20px;
         line-height: 1.5em;
-        max-width: 35em;
-    }
-    p {
-        margin: 1.25em 0;
+        max-width: @max-block-width;
     }
 
     &.lead {
         font-weight: normal;
+        font-family: @font-family-sans-serif;
     }
 
     big {
@@ -60,25 +59,20 @@
         margin-bottom: 0;
     }
 
-    .content-image-container,
-    .content-image-container-sub {
-        padding: 2 * @padding-large-vertical 0 0 0;
+    .content-image-container {
+        padding: 2 * @padding-large-vertical 0;
         text-align: center;
-        margin: 2 * @padding-large-vertical auto;
         font-family: @font-family-sans-serif;
-        font-size: 0.8;
-        + .content-image-container,
-        + .content-image-container-sub {
+        font-size: 0.8em;
+        line-height: 1.8em;
+        &:not([style]) {
+            margin: auto;
+        }
+        + .content-image-container {
             padding-top: 0;
-            margin-top: -2 * @padding-large-vertical;
         }
     }
-    .content-image-container-sub {
-        color: @gray;
-        font-size: 0.8;
-        font-weight: 200;
-        font-style: italic;
-    }
+
     img {
         max-height: calc(85vh - 3em);
     }
@@ -88,7 +82,7 @@
         font-family: @font-family-sans-serif;
         font-size: 0.8em;
         line-height: 1.6em;
-        margin: @padding-large-vertical 0;
+        margin: @padding-large-vertical auto;
     }
 }
 
@@ -100,12 +94,12 @@
         margin-bottom: -@grid-gutter-width;
     }
     font-family: @font-family-sans-serif;
-    font-size: 18px;
+    font-size: 20px;
     line-height: 1.5em;
     color: @dark-grey;
     .row > div {
         margin: auto;
-        height: 2em;
+        height: 3em;
         padding-left: 0;
         padding-right: 0;
     }
@@ -124,17 +118,19 @@
     width: 100%;
 }
 
-.multiline br{
+.multiline br {
     line-height: 2em;
 }
 
-// ARTICLE
-// COLLECTION
-
 // ITEM
 .img-dielo {
-    font-size: 18px;
-    table tr td{
+    font-size: 20px;
+    table tr td {
         border: none;
+        font-size: 18px;
     }
+}
+
+#footer {
+    margin-bottom: 400px;
 }

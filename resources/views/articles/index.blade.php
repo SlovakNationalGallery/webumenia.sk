@@ -53,7 +53,7 @@
                             <td class="text-center">
                                 @if($i->publish)
                                     <i class="fa fa-check text-success"></i><br/>
-                                    <small>od @date($i->published_date) </small>
+                                    <small>od @dateShort($i->published_date) </small>
                                 @endif
                             </td>
 			                <td class="text-center">{!! ($i->promote) ? '<i class="fa fa-check text-success"></i>' : ''  !!}</td>

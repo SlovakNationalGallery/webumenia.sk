@@ -271,7 +271,13 @@ a:focus {
   color: @light;
   & a { color: @light; }
 
-  text-shadow: 0px 1px 0px @shadow-color;
+  text-shadow: 0 0 160px black, 0 0 80px black, 0 0 80px rgba(0,0,0,.5);
+  h2{
+    padding-top: 0.9em;
+    text-shadow: 0 0 80px black, 0 0 40px black, 0 0 40px rgba(0,0,0,.5);
+    font-weight: 400 !important;
+    letter-spacing: 0.03em;
+  }
   background: @dark-grey;
   background-position: center;background-size:cover;
   position: relative;
@@ -282,11 +288,6 @@ a:focus {
     height: 100%;
     text-align: center;
     position: relative;
-    position: relative;
-    background-image: linear-gradient(
-      rgba(0, 0, 0, 0.40),
-      rgba(0, 0, 0, 0.40)
-      );
   }
 
   .inner-box {

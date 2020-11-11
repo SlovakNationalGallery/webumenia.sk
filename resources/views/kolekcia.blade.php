@@ -67,55 +67,40 @@
             <div class="row text-center mb-4">
                 <div class="col-md-8 col-md-push-2">
                     <div class="row">
-                        <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                             <a href="{!! url_to( 'kolekcie', ['author' => $collection->user->name ]) !!}">
                                 <div class="v-center">
-                                    <i class="fa fa-user-circle-o mr-3" aria-hidden="true"></i>
                                     {!!   $collection->user->name !!}
                                 </div>
                             </a>
                         </div>
-                        <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                             <div class="v-center">
                                 <i class='fa fa-calendar-o mr-3'></i>
                                 @date($collection->published_at)
                             </div>
                         </div>
             
-                        <div class="col-md-4 col-sm-6 col-md-push-0 col-sm-push-6 col-xs-12">
+                        
+                        <div class="col-sm-6 col-xs-12">
+                            @if ($collection->items->count() != 0)
+                            <div class="v-center">
+                                <a href="#artworks">
+                                Kolekcia obsahuje {{trans_choice('general.artworks_counted', $collection->items->count(), ['artworks_count' => $collection->items->count()])}}
+
+                                </a>
+                            </div>
+                            @endif
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                             @if ($collection->reading_time)
                             <div class="v-center">
                             <i class='fa fa-clock-o mr-3'></i>
-                            {{ utrans('general.reading_time') }}: {!! $collection->reading_time !!}
+                            {!! $collection->reading_time !!}
                             </div>
                             @endif
                         </div>
-                        <div class="col-md-4 col-sm-6 col-md-pull-0 col-sm-pull-6 col-xs-12">
-                            @if ($collection->items->count() != 0)
-                            <div class="v-center">
-                                <i class='fa fa-picture-o mr-3'></i> 
-                                {{trans_choice('general.artworks_counted', $collection->items->count(), ['artworks_count' => $collection->items->count()])}}
-                            </div>
-                            @endif
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-12">
-                            <div class="v-center">
-                                <a href="#artworks">
-                                    <button class="btn btn-default">prejsť na diela</button>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-12">
-                            <div class="v-center">
-                            @include('components.share_buttons', [
-                            'title' => $collection->name,
-                            'url' => $collection->getUrl(),
-                            'img' => $collection->header_image_src,
-                            'class' => 'text-center p-0'
-                            ])
-                            </div>
-                        </div>
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -157,10 +142,9 @@
                                            class="fa fa-search-plus"></i></a></div>
                                 @endif
                                 <a href="{!! $item->getUrl(['collection' => $collection->id]) !!}">
-                                    <em>{!! implode(', ', $item->authors) !!}</em><br>
-                                    <strong>{!! $item->title !!}</strong><br> <em>{!! $item->getDatingFormated()
-                                        !!}</em>
-
+                                    <em>{!! implode(', ', $item->authors) !!}</em><br/>
+                                    <strong>{!! $item->title !!}</strong><br/>
+                                    <em>{!! $item->getDatingFormated()!!}</em>
                                     {{-- <span class="">{!! $item->gallery !!}</span> --}}
                                 </a>
                             </div>

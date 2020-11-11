@@ -56,15 +56,6 @@
         </div>
     </div>
 </div>
-{{-- <section class="article summary bg-light-grey content-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2 ">
-                    {!! $article->summary !!}
-                </div>
-            </div>
-        </div>
-</section> --}}
 
 <section class="article content-header">
     <div class="article-header">
@@ -75,7 +66,6 @@
                         <div class="col-md-4 col-sm-6  col-xs-12">
                             <a href="{!! url_to( 'clanky', ['author' => $article->author ]) !!}">
                                 <div class="v-center">
-                                    <i class="fa fa-user-circle-o mr-3" aria-hidden="true"></i>
                                     {!! $article->author!!}
                                 </div>
                             </a>
@@ -87,28 +77,14 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="col-md-4 col-md-push-0 col-sm-6 col-sm-push-6 col-xs-12">
                             @if ($article->reading_time)
                             <div class="v-center">
-                                <i class='fa fa-clock-o mr-3'></i>
-                                {{ utrans('general.reading_time') }}: {!! $article->reading_time !!}
+                                <i class='fa fa-clock-o mr-3'></i>{!! $article->reading_time !!}
                             </div>
                             @endif
                         </div>
-
-                        <div class="col-md-4 hidden-sm"></div>
-                        <div class="col-md-4 col-sm-6 col-xs-12">
-                            <div class="v-center">
-                                @include('components.share_buttons', [
-                                'title' => $article->title,
-                                'url' => $article->getUrl(),
-                                'img' => $article->header_image_src
-                                ])
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6 hidden-sm"></div>
                     </div>
-
                 </div>
             </div>
         </div>
