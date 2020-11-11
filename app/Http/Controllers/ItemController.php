@@ -6,7 +6,7 @@ use App\Elasticsearch\Repositories\ItemRepository;
 use App\Forms\Types\ItemType;
 use App\Item;
 use App\Collection;
-use App\Jobs\HarvestSingleJob;
+use App\Jobs\HarvestRecordJob;
 use Barryvdh\Form\CreatesForms;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Input;
@@ -262,7 +262,7 @@ class ItemController extends Controller
         foreach ($ids as $i => $id) {
             $item = Item::find($id);
             if (isset($item->record)) {
-                $this->dispatch(new HarvestSingleJob($item->record));
+                $this->dispatch(new HarvestRecordJob($item->record));
             } else {
                 unset($ids[$i]);
             }

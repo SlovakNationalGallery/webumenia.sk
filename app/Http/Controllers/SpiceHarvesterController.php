@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\HarvestFailedJob;
-use App\Jobs\HarvestSingleJob;
+use App\Jobs\HarvestRecordJob;
 use App\Jobs\HarvestJob;
 use App\SpiceHarvesterHarvest;
 use Carbon\Carbon;
@@ -228,14 +228,13 @@ class SpiceHarvesterController extends Controller
         $all = Input::get('reindex', false);
 
         $this->dispatch(new HarvestJob($harvest, $from, $to, $all));
-
-        return Redirect::route('harvests.index');
+        return Redirect::back();
     }
 
     public function refreshRecord($record_id)
     {
         $record = SpiceHarvesterRecord::findOrFail($record_id);
-        $this->dispatch(new HarvestSingleJob($record));
+        $this->dispatch(new HarvestRecordJob($record));
         $message = 'Pre záznam boli úspešne načítané dáta z OAI';
         Session::flash('message', $message);
         return Redirect::back();
@@ -246,6 +245,6 @@ class SpiceHarvesterController extends Controller
         $harvest = SpiceHarvesterHarvest::findOrFail($id);
         $this->dispatch(new HarvestFailedJob($harvest));
         Session::flash('message', 'Harvest failed job has been queued');
-        return Redirect::route('harvests.index');
+        return Redirect::back();
     }
 }

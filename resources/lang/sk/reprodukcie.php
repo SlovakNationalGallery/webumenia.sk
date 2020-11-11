@@ -55,7 +55,7 @@ return array(
     'digital_choice'    => 'Vyberte si reprodukcie',
     'more-items_button' => 'zobraziť všetky',
 
-    'alert_covid-19' => 'Sme opäť otvorení. Pripravené reprodukcie si môžete vyzdvihnúť v <a href="https://www.sng.sk/sk/bratislava/navsteva/otvaracie-hodiny-a-vstupne" target="_blank">kníhkupectve Ex Libris</a>, resp. <a href="https://www.sng.sk/sk/zvolen/navsteva/otvaracie-hodiny-a-vstupne" target="_blank">Zvolenskom zámku</a> počas štandardných otváracích hodín. Pri preberaní objednávok prosíme o dodržiavanie aktuálnych opatrení individuálnej a kolektívnej ochrany v súvislosti s prevenciou voči šíreniu ochorenia COVID-19. <br>
-    Vzhľadom na doterajšiu situáciu bude vybavenie objednávky trvať dlhšie ako 30 dní.<br> Ďakujeme za trpezlivosť a tešíme sa na Vašu návštevu.',
+    'alert_covid-19' => 'Vzhľadom na aktuálne vládne nariadenia bude <a href="https://www.sng.sk/sk/bratislava/navsteva/otvaracie-hodiny-a-vstupne" target="_blank">kníhkupectvo Ex-libris</a> a <a href="https://www.sng.sk/sk/zvolen/navsteva/otvaracie-hodiny-a-vstupne" target="_blank">Zvolenský zámok</a> od 24. 10. do 8. 11. 2020 zatvorený. V týchto dňoch si nebudete môcť prevziať objednávky. Aktuálna situácia tiež spôsobila, že vybavenie objednávok bude trvať viac ako 30 dní.
+Ďakujeme za trpezlivosť.',
 
 );

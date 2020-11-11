@@ -8,18 +8,18 @@ use Illuminate\Contracts\Translation\Translator;
 class GmuRnlImporter extends AbstractImporter
 {
     protected $mapping = [
-        'Titul' => 'title:sk',
-        'Datace' => 'dating:sk',
-        'Od' => 'date_earliest',
-        'Do' => 'date_latest',
-        'Materiál' => 'medium:sk',
-        'Technika' => 'technique:sk',
-        'Rozměr' => 'measurement:sk',
-        'Námět/téma' => 'topic:sk',
-        'Signatura (aversu)' => 'inscription:sk',
-        'Datum nabytí' => 'acquisition_date',
-        'Autor' => 'author',
-        'Inventární ' => 'identifier',
+        'title:sk' => 'Titul',
+        'dating:sk' => 'Datace',
+        'date_earliest' => 'Od',
+        'date_latest' => 'Do',
+        'medium:sk' => 'Materiál',
+        'technique:sk' => 'Technika',
+        'measurement:sk' => 'Rozměr',
+        'topic:sk' => 'Námět/téma',
+        'inscription:sk' => 'Signatura (aversu)',
+        'acquisition_date' => 'Datum nabytí',
+        'author' => 'Autor',
+        'identifier' => 'Inventární ',
     ];
 
     protected $defaults = [

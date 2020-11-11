@@ -48,7 +48,7 @@ class AuthorityHarvesterTest extends TestCase
             'type' => 'author',
             'status' => SpiceHarvesterHarvest::STATUS_QUEUED
         ]);
-        $harvester->tryHarvest($harvest);
+        $harvester->harvest($harvest);
 
         $this->assertEquals(SpiceHarvesterHarvest::STATUS_COMPLETED, $harvest->status);
     }

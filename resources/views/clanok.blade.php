@@ -17,7 +17,7 @@
 @stop
 
 @section('title')
-{!! $article->title !!} | 
+{!! $article->title !!} |
 @parent
 @stop
 
@@ -25,6 +25,10 @@
 <meta name="description" content="{!! $article->shortText !!}">
 @stop
 
+@section('head-javascript')
+{{-- For WEBUMENIA-1462 --}}
+{!! Html::script('js/soundcloud.api.js') !!}
+@stop
 
 @section('content')
 
@@ -92,7 +96,7 @@
 
 {{-- zoznam diel ??? --}}
 
-{{-- 
+{{--
 mapa??
 <section class="map content-section">
     <div class="map-body">

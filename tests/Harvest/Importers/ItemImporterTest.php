@@ -9,7 +9,7 @@ use App\Harvest\Mappers\BaseAuthorityMapper;
 use App\Harvest\Mappers\ItemImageMapper;
 use App\Harvest\Mappers\CollectionItemMapper;
 use App\Harvest\Mappers\ItemMapper;
-use App\Harvest\Result;
+use App\Harvest\Progress;
 use App\Item;
 use App\ItemImage;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -22,27 +22,27 @@ class ItemImporterTest extends TestCase
     public function testImport() {
         $row = $this->getData();
         $importer = $this->initImporter($row);
-        $importer->import($row, $result = new Result());
+        $importer->import($row, $result = new Progress());
     }
 
-    public function testDeleteRelations() {
+    public function testKeepImages() {
         $row = $this->getData();
         $importer = $this->initImporter($row);
         $item = factory(Item::class)->create(['id' => 'SVK:SNG.G_10044']);
-        $image = factory(ItemImage::class)->make(['iipimg_url' => 'to_be_deleted']);
+        $image = factory(ItemImage::class)->make(['iipimg_url' => 'to_keep']);
         $item->images()->save($image);
 
         $item->load('images');
         $this->assertTrue($item->images->contains(function (ItemImage $image) {
-            return $image->iipimg_url === 'to_be_deleted';
+            return $image->iipimg_url === 'to_keep';
         }));
 
         $item->load('images');
-        $item = $importer->import($row, $result = new Result());
+        $item = $importer->import($row, $result = new Progress());
 
-        $this->assertCount(2, $item->images);
-        $this->assertFalse($item->images->contains(function (ItemImage $image) {
-            return $image->iipimg_url === 'to_be_deleted';
+        $this->assertCount(3, $item->images);
+        $this->assertTrue($item->images->contains(function (ItemImage $image) {
+            return $image->iipimg_url === 'to_keep';
         }));
     }
 
@@ -60,7 +60,7 @@ class ItemImporterTest extends TestCase
             return $authority->id === 'to_be_detached';
         }));
 
-        $item = $importer->import($row, $result = new Result());
+        $item = $importer->import($row, $result = new Progress());
 
         $this->assertCount(2, $item->authorities);
         $this->assertFalse($item->authorities->contains(function (Authority $authority) {
@@ -75,7 +75,7 @@ class ItemImporterTest extends TestCase
         factory(Authority::class)->create(['id' => 1922]);
         factory(Authority::class)->create(['id' => 10816]);
 
-        $item = $importer->import($row, $result = new Result());
+        $item = $importer->import($row, $result = new Progress());
 
         $this->assertCount(2, $item->authorities);
         $author = $item->authorities->first(function (Authority $authority) {
@@ -100,7 +100,7 @@ class ItemImporterTest extends TestCase
 
         for ($i = 2; $i--;) {
             $importer = $this->initImporter($row);
-            $item = $importer->import($row, new Result());
+            $item = $importer->import($row, new Progress());
             $count = $item->authorities->count();
             $this->assertEquals(0, $count);
         }
@@ -108,7 +108,7 @@ class ItemImporterTest extends TestCase
         $authority->save();
 
         $importer = $this->initImporter($row);
-        $item = $importer->import($row, new Result());
+        $item = $importer->import($row, new Progress());
         $count = $item->authorities->count();
         $this->assertEquals(1, $count);
     }
