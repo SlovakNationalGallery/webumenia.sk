@@ -30,13 +30,20 @@ class ItemAuthoritiesType extends AbstractType
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
+        $locale = app()->getLocale();
         $data = $form->getData();
         $view->vars['items'] = $data;
         $view->vars['authorities_choices'] = \App\Authority::orderBy('name', 'asc')->get(['id as key', 'name as value']);
-        $view->vars['roles_choices'] = \App\AuthorityRole::all(['type as key', 'sk as value']);
+        $view->vars['roles_choices'] = \App\AuthorityRole::
+        leftJoin('authority_role_translations', function ($join) use ($locale) {
+            $join->on('authority_roles.type', '=', 'authority_role_translations.type')
+                ->where('locale', $locale);
+        })->get(['authority_roles.type as key', 'role as value']);
     }
 
-
+    public function getTranslations() {
+        return $this->translations;
+    }
     public function getBlockPrefix()
     {
         return 'item_authorities';

@@ -518,8 +518,10 @@ class Item extends Model implements IndexableModel, TranslatableContract
         $not_authorities_with_link = array();
         foreach ($this->authorities->sortBy('name') as $authority) {
             if ($authority->pivot->role != 'autor/author') {
-                $not_authorities_with_link[] = '<a class="underline" href="'. $authority->getUrl() .'">'. $authority->formated_name .'</a>'
-                    .' &ndash; ' . Authority::formatMultiAttribute($authority->pivot->role);
+                $not_authorities_with_link[] = '<a class="underline" href="'. $authority->getUrl() .'">'. $authority->formated_name .'</a>'.' &ndash; ' . 
+                    (AuthorityRoleTranslation::where('type', '=',$authority->pivot->role)
+                    ->where("locale","=", \App::getLocale())
+                    ->first()->role);
             } else {
                 $authorities_with_link[] = '<span itemprop="creator" itemscope itemtype="http://schema.org/Person"><a class="underline" href="'. $authority->getUrl() .'" itemprop="sameAs"><span itemprop="name">'. $authority->formated_name .'</span></a></span>';
             }

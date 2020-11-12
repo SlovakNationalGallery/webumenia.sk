@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 
 class CreateAuthorityRolesTable extends Migration
 {
@@ -13,11 +15,17 @@ class CreateAuthorityRolesTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('authority_roles');
+        Schema::dropIfExists('authority_role_translations');
         Schema::create('authority_roles', function (Blueprint $table) {
             $table->increments('id')->unique();
             $table->text('type');
-            $table->text('sk');
-            $table->text('en');
+        });
+
+        Schema::create('authority_role_translations', function (Blueprint $table) {
+            $table->text('type');
+            $table->string('locale')->index();
+            $table->text('role')->default('');
         });
 
         $roles = [
@@ -54,11 +62,28 @@ class CreateAuthorityRolesTable extends Migration
         foreach ($roles as $role) {
             $authority_roles[] = [
                 'type' => $role[1] . '/' . $role[2],
-                'sk' => $role[1],
-                'en' => $role[2],
             ];
         }
         DB::table('authority_roles')->insert($authority_roles);
+
+        foreach ($roles as $role) {
+                $role_translations[] = [
+                    'type'      => $role[1] . '/' . $role[2],
+                    'locale'    => 'sk',
+                    'role'      => $role[1]
+                ];
+                $role_translations[] = [
+                    'type'      => $role[1] . '/' . $role[2],
+                    'locale'    => 'en',
+                    'role'      => $role[2]
+                ];
+                $role_translations[] = [
+                    'type'      => $role[1] . '/' . $role[2],
+                    'locale'    => 'cs',
+                    'role'      => $role[1]
+                ];
+        }
+        DB::table('authority_role_translations')->insert($role_translations);
     }
 
     /**
@@ -69,5 +94,6 @@ class CreateAuthorityRolesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('authority_roles');
+        Schema::dropIfExists('authority_role_translations');
     }
 }
