@@ -49,6 +49,12 @@ CKEDITOR.stylesSet.add( 'default', [
 		element: 'div',
 		attributes: {'class':'content-image-container'}
 	},	
+
+	{
+		name: 'Perex',
+		element: 'div',
+		attributes: {'class':'lead'}
+	},	
 	/* Inline styles */
 
 	// These are core styles available as toolbar buttons. You may opt enabling

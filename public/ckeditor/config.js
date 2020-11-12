@@ -46,3 +46,20 @@ CKEDITOR.editorConfig = function( config ) {
 	config.bodyClass = 'long-text container ';
 };
 
+// we don't need to set & store image height, for images
+CKEDITOR.on( 'dialogDefinition', function( ev ) {
+    var dialogName = ev.data.name;
+	var dialogDefinition = ev.data.definition;
+    if ( dialogName == 'image' || dialogName == 'image2' ) {
+        var infoTab = dialogDefinition.getContents( 'info' );
+
+        if( dialogName == 'image' ){
+            infoTab.remove('txtHeight');
+            infoTab.remove('ratioLock');
+        }
+        else{
+            infoTab.remove('height');
+            infoTab.remove('lock');
+        }
+    }
+});
