@@ -2,28 +2,42 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Changed
+- Use laravel-mix for (some) JavaScript files
+- Add item (artwork) data to GTM dataLayer
+
+## [2.11.1] - 2020-11-11
+### Changed
+- revert escape html characters in PNP trienale importer
+
+## [2.11.0] - 2020-11-10
 ### Added
-- WEBUMENIA-1467 Automatically deploy "develop" branch to test
-- WEBUMENIA-1422 Add item (artwork) data to GTM dataLayer
+- automatically deploy "develop" branch to test
+- add missing fields to elasticsearch for exlibris 2020
 
 ### Changed
-- WEBUMENIA-1467 Change elasticsearch client config
-- Run tests on MySQL 5.7
+- skip links in flysystem
+- change elasticsearch client config
+- run tests on MySQL 5.7
+- escape html characters in PNP trienale importer
 
-## [2.9.0] - 2020-10-27
+## [2.10.0] - 2020-11-02
 ### Added
-- Google Tag Manager (GTM) setup
+- PNP trienale importer
 
 ### Fixed
 - wrong method name in harvester
 
 ### Changed
-- skip links in flysystem
+- alert in reproductions section
+
+## [2.9.0] - 2020-10-27
+### Added
+- Google Tag Manager (GTM) setup
 
 ## [2.8.0] - 2020-10-26
 ### Added
 - color picker to patternlib
-- PNP trienale importer
 - item work type tree structure
 - organization authority detail
 - update harvest model status on harvesting failed

@@ -8,16 +8,70 @@
                value="{{ $to }}" />
     </div>
     <div class="col-xs-12 col-sm-10 col-sm-pull-1">
-
-        @include('components.year_slider', [
-        'id' => $name, 
-        'yearRange' => $from . ', ' . $to
-        ])
-        @include('components.year_slider_js', [
-        'yearRange' => $from . ', ' . $to,
-        'min' => $min,
-        'max' => $max,
-        'id' => ($name)
-        ])
+        <div class="year-range-slider" id="{{$name}}-slider">
+            <year-slider
+               v-model="yearRange"
+               :min="yearMin"
+               :max="yearMax"
+               :step="1"
+               :show-min-max="false"
+               @change="$emit('slide', $event)"
+               @changemouseup="$emit('change', $event)">
+            </year-slider>
+            <input id="{{$name}}" name="{{$name}}" type="hidden" value="{{ $from . ', ' . $to }}"/>
+         </div>
     </div>
 </div>
+
+@section('javascript')
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="{{ asset('js/vue/vue-color.min.js') }}"></script>
+
+@php
+    $jsId = Str::camel($name);
+    $yearRange = $from . ', ' . $to;
+@endphp
+
+<script>
+  var {{ $jsId }} = new Vue({
+    el: '#{{$name}}-slider',
+    components: {
+      'year-slider': VueColor.Slider,
+    },
+    data: function() {
+      return {
+        yearRange: [{{ $yearRange ? $yearRange : $min . ',' . $max }}],
+        yearMin: {{$min ? $min : 0}},
+        yearMax: {{$max ? $max :  30}}
+      }
+    }
+  });
+
+  {{ $jsId }}.$on('change', function(range) {
+      const val = range.join(',');
+      $('#{{$name}}').prop( "disabled", val === "{{ $min }},{{ $max }}?");
+      $('#{{$name}}').val(val);
+      $('#{{$name}}').trigger('change');
+  });
+  {{ $jsId }}.$on('slide', function(range) {
+      $('#{{$name}}-from').val(range[0]);
+      $('#{{$name}}-to').val(range[1]);
+  });
+
+  $('#{{$name}}-from,#{{$name}}-to').on('change', function(event){
+      const min = {{ $min }};
+      const max = {{ $max }};
+      const fy = +$('#{{$name}}-from').val().replace(/[^-0-9]/g, '')
+      const uy = +$('#{{$name}}-to').val().replace(/[^-0-9]/g, '');
+      const from = Math.min(Math.max(min, fy), max);
+      const until = Math.max(Math.min(max, uy), min);
+      const range = [from,until].sort();
+
+      $('#{{$name}}').val(range.join(','));
+      $('#{{$name}}').trigger('change');
+      $('#{{$name}}-from').val(from);
+      $('#{{$name}}-to').val(until) ;
+      {{ $jsId }}.yearRange = range;
+  });
+</script>
+@stop
