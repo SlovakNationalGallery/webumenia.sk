@@ -1,4 +1,8 @@
 // GENERIC
+@font-size-content: 20px;
+@font-size-content-base-sans-serif: 18px;
+@line-height-content: 1.5em;
+
 
 @media (min-width: 1200px) {
     .container-fluid {
@@ -12,14 +16,15 @@
 
 .long-text {
     font-family: @font-family-serif;
-    font-size: 20px;
-    line-height: 1.5em;
+    font-size: @font-size-content;
+    line-height: @line-height-content;
     color: @dark;
+    // TODO remove with old styles
     text-indent: 0;
 
     p {
-        font-size: 20px;
-        line-height: 1.5em;
+        font-size: @font-size-content;
+        line-height: @line-height-content;
         margin: 1.25em auto;
         max-width: 40em;
     }

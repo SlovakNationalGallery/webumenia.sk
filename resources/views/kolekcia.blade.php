@@ -37,29 +37,18 @@
 </section>
 @endif
 
-<div class="webumeniaCarousel">
-
-    <div class="gallery-cell header-image">
-        @if ($collection->hasHeaderImage())
-        <img src="{!! $collection->header_image_src !!}" srcset="{!! $collection->header_image_srcset !!}"
-             onerror="this.onerror=null;this.srcset=''">
-        @endif
-
-        <div class="outer-box">
-            <div class="inner-box"
-                 style="text-shadow:0px 1px 0px {!! $collection->title_shadow !!}; color: {!! $collection->title_color !!}">
-                <h1>{!! $collection->name !!}</h1>
-                <p class="bottom-space">
-                    @if ($collection->type)
-                    <a href="{!! url_to( 'kolekcie', ['type' => $collection->type ]) !!}">
-                    <h2>{!! $collection->type !!}</h2>
-                    </a>
-                    @endif
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
+@component('components.header_carousel', ['item' => $collection]))
+    @slot('slideContent')
+        <h1>{!! $collection->name !!}</h1>
+        <p class="bottom-space">
+            @if ($collection->type)
+            <a href="{!! url_to( 'kolekcie', ['type' => $collection->type ]) !!}">
+            <h2>{!! $collection->type !!}</h2>
+            </a>
+            @endif
+        </p>
+    @endslot
+@endcomponent
 
 <section class="collection content-header">
     <div class="collection-header">
@@ -160,8 +149,6 @@
                                     <em>{!! implode(', ', $item->authors) !!}</em><br>
                                     <strong>{!! $item->title !!}</strong><br> <em>{!! $item->getDatingFormated()
                                         !!}</em>
-
-                                    {{-- <span class="">{!! $item->gallery !!}</span> --}}
                                 </a>
                             </div>
                         </div>
