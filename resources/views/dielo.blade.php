@@ -454,6 +454,20 @@
 {{-- @TODO bring this back when opened to public --}}
 {{-- {{ HTML::script('https://www.google.com/recaptcha/api.js') }} --}}
 
+{{-- Report item details to Google Tag Manager --}}
+<script defer>
+    dataLayer.push({!! json_encode([
+        'artwork' => [
+            'authors' => array_values($item->authors),
+            'work_types' => collect($item->work_types)->pluck(['path']),
+            'topic ' => $item->topic,
+            'media' => $item->mediums,
+            'technique' => $item->technique,
+            'related_work' => $item->related_work,
+        ],
+    ]) !!});
+</script>
+
 @if (!empty($item->lat) && ($item->lat > 0))
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVG26BxGY9yhjCFbviWRgZsvxSlikOnIM&callback=initMap" async defer></script>
 {!! Html::script('js/gmaps.js') !!}

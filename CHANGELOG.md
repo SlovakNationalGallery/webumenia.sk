@@ -3,7 +3,8 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 ### Changed
-- WEBUMENIA-1475 Use laravel-mix for (some) JavaScript files
+- Use laravel-mix for (some) JavaScript files
+- Add item (artwork) data to GTM dataLayer
 - Use atymic/deployer-php-action@2.0 for auto-deploys
 
 ## [2.11.1] - 2020-11-11
