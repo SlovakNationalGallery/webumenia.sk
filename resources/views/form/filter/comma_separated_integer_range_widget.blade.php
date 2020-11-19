@@ -24,6 +24,7 @@
 </div>
 
 @section('javascript')
+@parent
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="{{ asset('js/vue/vue-color.min.js') }}"></script>
 
@@ -74,4 +75,4 @@
       {{ $jsId }}.yearRange = range;
   });
 </script>
-@stop
+@endsection
