@@ -17,5 +17,3 @@ require('jquery.easing')
 
 // Components
 require('./components/searchbar')
-
-require('./webumenia')
