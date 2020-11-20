@@ -24,7 +24,7 @@
     </a>
     </span>
 
-    @if($citation)
+    @isset($citation)
     <button
         class="btn btn-outline no-border"
         data-toggle="tooltip"
