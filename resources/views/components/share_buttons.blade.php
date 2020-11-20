@@ -35,7 +35,7 @@
     >
         <i class="fa fa-quote-left"></i>
     </button>
-    @endif
+    @endisset
 
 </div>
 
