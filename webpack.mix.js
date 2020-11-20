@@ -32,7 +32,7 @@ mix
         'typeahead.js/dist/typeahead.bundle',
     ])
 
-    // // CSS
+    // CSS
     .less('resources/less/style.less', 'public/css').options({
         autoprefixer: {
             options: {
