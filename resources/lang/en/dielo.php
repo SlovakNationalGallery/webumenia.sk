@@ -12,6 +12,7 @@ return array(
     'item_next-work'     => 'next artwork',
     'item_order'         => 'order reproduction',
     'item_download'      => 'download',
+    'item_copy_citation' => 'copy citation',
 
     'item_attr_dating'         => 'date',
     'item_attr_measurements'   => 'measurements',
@@ -45,4 +46,5 @@ return array(
     'modal_downloadfail_header-content' => 'An error has occured',
     'modal_downloadfail_body-content'   => '<p>Your selected artwork could not be downloaded at this time. Please try again later.</p>
                                             <p>If the problem persists, contact us at <a href="mailto:lab@sng.sk">lab@sng.sk</a></p>',
+    'tooltip_citation_copied' => 'The citation has been copied',
 );

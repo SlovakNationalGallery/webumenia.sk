@@ -138,8 +138,11 @@
                         <tbody>
                             <tr>
                                 <td class="atribut">{{ trans('dielo.item_attr_dating') }}:</td>
-                                <td><time itemprop="dateCreated" datetime="{!! $item->date_earliest !!}">{!!
-                                        $item->getDatingFormated(); !!}</time></td>
+                                <td>
+                                    <time itemprop="dateCreated" datetime="{!! $item->date_earliest !!}">
+                                        {{ $item->getDatingFormated() }}
+                                    </time>
+                                </td>
                             </tr>
                             @if (!empty($item->measurements))
                             <tr>
@@ -319,6 +322,16 @@
                     @endif
 
                     <div class="col-md-12 text-center">
+                        <button
+                            class="btn btn-cta btn-default btn-outline sans w-100"
+                            data-toggle="tooltip"
+                            data-trigger="manual"
+                            title="{{ trans('dielo.tooltip_citation_copied') }}"
+                            data-clipboard-text="{{ collect([$item->getTitleWithAuthors(), $item->getDatingFormated(), $item->gallery, URL::current()])->filter()->join(', ') }}"
+                        >
+                            <i class="fa fa-quote-left"></i>
+                            {{ trans('dielo.item_copy_citation') }}
+                        </button>
                         @if ($item->isForReproduction())
                         <a href="{!! URL::to('dielo/' . $item->id . '/objednat')  !!}"
                             class="btn btn-cta btn-default btn-outline sans w-100"><i class="fa fa-shopping-cart"></i>
