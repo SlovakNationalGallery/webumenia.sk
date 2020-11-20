@@ -13,39 +13,36 @@
 		@section('title')
 		Web umenia
 		@show
-	</title>
+		<meta name="author" content="lab.SNG">
 
-	<!--  favicons-->
-	@include('includes.favicons')
-	<!--  /favicons-->
-	<!--  Open Graph protocol -->
-	@include('includes.og_tags')
-	<!--  /Open Graph protocol -->
-	<!--  hreflangs -->
-	@include('includes.hreflangs', [
-	'localizedURLs' => getLocalizedURLArray(),
-	])
-	<!--  /hreflangs -->
+		<title>
+			@section('title')
+			Web umenia
+			@show
+		</title>
 
-	@yield('link')
+		<!--  favicons-->
+		@include('includes.favicons')
+		<!--  /favicons-->
+		<!--  Open Graph protocol -->
+    @include('includes.og_tags')
+    <!--  /Open Graph protocol -->
+    <!--  hreflangs -->
+		@include('includes.hreflangs', [
+      'localizedURLs' => getLocalizedURLArray(),
+    ])
+		<!--  /hreflangs -->
 
-	<!-- CSS are placed here -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-	<link rel="stylesheet" type="text/css" href="{{ mix('/css/style.css') }}" />
+		@yield('link')
 
-	{!! Html::style('css/slick-theme.css') !!}
-	{!! Html::style('css/slick.css') !!}
-	{!! Html::style('css/magnific-popup.css') !!}
+		<!-- CSS are placed here -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+		<link rel="stylesheet" type="text/css" href="{{ mix('/css/style.css') }}" />
+		{!! Html::style('css/magnific-popup.css') !!}
 
-	{{-- JS --}}
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.0/plugins/unveilhooks/ls.unveilhooks.min.js">
-	</script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.0/plugins/respimg/ls.respimg.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.2.0/lazysizes.min.js"></script>
-
-	@if (App::environment() == 'production')
+		{{-- JS --}}
+		@if (App::environment() == 'production')
 		<!-- Google Tag Manager -->
 		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -109,18 +106,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	    </a>
 	</div>
 
-	<!-- Core JavaScript Files -->
-    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-	<script src="https://unpkg.com/infinite-scroll@3.0.6/dist/infinite-scroll.pkgd.min.js"></script>
-    {!! Html::script('js/slick.js') !!}
-    {!! Html::script('js/jquery.easing.min.js') !!}
-    {!! Html::script('js/bootstrap.min.js') !!}
-    @include('components.searchbar_js')
-    <script src="{!! asset_timed('js/webumenia.js') !!}"></script>
+	<script type="text/javascript" src="{{ mix('/js/manifest.js') }}"></script>
+	<script type="text/javascript" src="{{ mix('/js/vendor.js') }}"></script>
+	<script type="text/javascript" src="{{ mix('/js/app.js') }}"></script>
 
-
-	<!-- Content -->
 	@yield('javascript')
-
 </body>
 </html>

@@ -15,16 +15,33 @@ if (process.env.NODE_ENV == 'testing') {
     mix.options({ processCssUrls: false });
 }
 
-mix.less('resources/less/style.less', 'public/css').options({
-    autoprefixer: {
-        options: {
-            browsers: [
-                'last 6 versions',
-            ]
-        }
-    }
-});
+mix
+    // JavaScript
+    .js('resources/js/app.js', 'public/js')
+    .extract([
+        'bootstrap/dist/js/bootstrap',
+        'infinite-scroll',
+        'isotope-layout',
+        'jquery',
+        'jquery-bridget',
+        'jquery.easing',
+        'lazysizes',
+        'lazysizes/plugins/unveilhooks/ls.unveilhooks',
+        'lazysizes/plugins/respimg/ls.respimg',
+        'slick-carousel',
+        'typeahead.js/dist/typeahead.bundle',
+    ])
 
+    // // CSS
+    .less('resources/less/style.less', 'public/css').options({
+        autoprefixer: {
+            options: {
+                browsers: [
+                    'last 6 versions',
+                ]
+            }
+        }
+    })
 if (mix.inProduction()) {
     mix.version();
 }
