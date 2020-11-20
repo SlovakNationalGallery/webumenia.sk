@@ -322,16 +322,6 @@
                     @endif
 
                     <div class="col-md-12 text-center">
-                        <button
-                            class="btn btn-cta btn-default btn-outline sans w-100"
-                            data-toggle="tooltip"
-                            data-trigger="manual"
-                            title="{{ trans('dielo.tooltip_citation_copied') }}"
-                            data-clipboard-text="{{ collect([$item->getTitleWithAuthors(), $item->getDatingFormated(), $item->gallery, URL::current()])->filter()->join(', ') }}"
-                        >
-                            <i class="fa fa-quote-left"></i>
-                            {{ trans('dielo.item_copy_citation') }}
-                        </button>
                         @if ($item->isForReproduction())
                         <a href="{!! URL::to('dielo/' . $item->id . '/objednat')  !!}"
                             class="btn btn-cta btn-default btn-outline sans w-100"><i class="fa fa-shopping-cart"></i>
@@ -346,7 +336,8 @@
                         @include('components.share_buttons', [
                             'title' => $item->getTitleWithAuthors(),
                             'url' => $item->getUrl(),
-                            'img' => URL::to( $item->getImagePath())
+                            'img' => URL::to($item->getImagePath()),
+                            'citation' => collect([$item->getTitleWithAuthors(), $item->getDatingFormated(), $item->gallery, URL::current()])->filter()->join(', '),
                         ])
                     </div>
                 </div>

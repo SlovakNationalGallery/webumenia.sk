@@ -1,7 +1,7 @@
 <div class="container-fluid {!! isSet($class)? $class:'' !!} share-buttons">
     <a href='https://www.facebook.com/sharer/sharer.php?u={!! $url !!}'
        target='_blank' class="no-border" data-toggle="tooltip" title="{{ trans('general.share_facebook') }}">
-        <i class='fa fa-facebook fa-lg'></i>        
+        <i class='fa fa-facebook fa-lg'></i>
     </a>
 
     <a href='https://twitter.com/intent/tweet?text={!! $title !!}&url={!! $url !!}'
@@ -23,6 +23,18 @@
         <i class='fa fa-link fa-lg'></i>
     </a>
     </span>
+
+    <button
+        class="btn btn-outline no-border"
+        data-toggle="tooltip"
+        data-trigger="hover"
+        title="{{ trans('dielo.item_copy_citation') }}"
+        data-success-title="{{ trans('dielo.tooltip_citation_copied') }}"
+        data-clipboard-text="{{ $citation }}"
+    >
+        <i class="fa fa-quote-left"></i>
+    </button>
+
 </div>
 
 <!-- Modal -->
@@ -36,7 +48,7 @@
                 <code>{{ $url }}</code>
                 <a href="#"
                    class="pull-right js-copy"
-                   data-message="{{ trans('general.copied_to_clipboard') }}" 
+                   data-message="{{ trans('general.copied_to_clipboard') }}"
                    data-url="{{ $url }}"
                    data-toggle="tooltip"
                    data-trigger="manual"
