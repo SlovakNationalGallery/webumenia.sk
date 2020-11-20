@@ -24,6 +24,7 @@
     </a>
     </span>
 
+    @if($citation)
     <button
         class="btn btn-outline no-border"
         data-toggle="tooltip"
@@ -34,6 +35,7 @@
     >
         <i class="fa fa-quote-left"></i>
     </button>
+    @endif
 
 </div>
 
