@@ -7,6 +7,9 @@ All notable changes to this project will be documented in this file[^1].
 - Add item (artwork) data to GTM dataLayer
 - Use atymic/deployer-php-action@2.0 for auto-deploys
 
+### Fixed
+- Restart queue workers on deploy
+
 ## [2.11.1] - 2020-11-11
 ### Changed
 - revert escape html characters in PNP trienale importer
