@@ -76,6 +76,9 @@ $base_analyzers = [
             'asciifolding',
         ],
     ],
+    'tree_analyzer' => [
+        'tokenizer' => 'path_hierarchy',
+    ],
 ];
 
 $en_analyzers = $base_analyzers + [

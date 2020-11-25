@@ -24,6 +24,10 @@
 <meta name="description" content="{!! $collection->getShortTextAttribute($collection->text, 350) !!}">
 @stop
 
+@section('head-javascript')
+{{-- For WEBUMENIA-1462 --}}
+{!! Html::script('js/soundcloud.api.js') !!}
+@stop
 
 @section('content')
 
@@ -164,7 +168,6 @@
 @stop
 
 @section('javascript')
-{!! Html::script('js/slick.js') !!}
 {!! Html::script('js/components/share_buttons.js') !!}
 
 <script type="text/javascript">

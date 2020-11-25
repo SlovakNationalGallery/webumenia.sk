@@ -17,17 +17,17 @@ class WebumeniaMgImporter extends MgImporter
     protected $csv_file;
 
     protected $mapping = [
-        'RokAkv' => 'acquisition_date',
-        'DatExp' => 'copyright_expires',
-        'Datace' => 'dating:sk',
-        'RokOd' => 'date_earliest',
-        'Do' => 'date_latest',
-        'MístoVz' => 'place:sk',
-        'Sign' => 'inscription:sk',
-        'Původnost' => 'state_edition:sk',
-        'Autor' => 'author',
-        'Titul' => 'title:sk',
-        'Námět' => 'topic:sk',
+        'acquisition_date' => 'RokAkv',
+        'copyright_expires' => 'DatExp',
+        'dating:sk' => 'Datace',
+        'date_earliest' => 'RokOd',
+        'date_latest' => 'Do',
+        'place:sk' => 'MístoVz',
+        'inscription:sk' => 'Sign',
+        'state_edition:sk' => 'Původnost',
+        'author' => 'Autor',
+        'title:sk' => 'Titul',
+        'topic:sk' => 'Námět',
     ];
 
     protected $defaults = [

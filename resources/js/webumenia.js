@@ -46,9 +46,22 @@ $(document).ready(function(){
         // animated top scrolling
         $('body, html').animate({scrollTop: pos},'slow');
     });
+
+    $('.content-slick-images').each( function() {
+
+        console.log('aaa');
+        const $slick = $(this);
+        $slick.slick({
+            slide: 'p, a, img, div',
+            lazyLoad: 'progressive',
+            variableWidth: true,
+            infinite: false,
+        });
+    });
+
 });
 
-function spravGrid($container) {
+export function spravGrid($container) {
     $container.isotope({
         itemSelector: '.item',
         layoutMode: 'masonry'
@@ -166,6 +179,6 @@ var light_style = [
     }
 ];
 
-function isIE() { return navigator.userAgent.match(/Edge\/|Trident\/|MSIE /); }
+export function isIE() { return navigator.userAgent.match(/Edge\/|Trident\/|MSIE /); }
 
-function isMobileSafari() { return navigator.userAgent.match(/(iPod|iPhone|iPad)/); }
+export function isMobileSafari() { return navigator.userAgent.match(/(iPod|iPhone|iPad)/); }

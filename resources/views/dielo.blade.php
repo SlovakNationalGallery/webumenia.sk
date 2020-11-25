@@ -24,6 +24,11 @@
 <link rel="canonical" href="{!! $item->getUrl() !!}">
 @stop
 
+@section('head-javascript')
+{{-- For WEBUMENIA-1462 --}}
+{!! Html::script('js/soundcloud.api.js') !!}
+@stop
+
 @section('content')
 
 @if ( ! $item->hasTranslation(App::getLocale()) )
@@ -273,7 +278,7 @@
                             @endif
                             @if (!empty($item->related_work))
                             <tr>
-                                <td class="atribut">{!! $item->relationship_type !!}:</td>
+                                <td class="atribut">{!! $item->relationship_type ?: trans('dielo.default_relationship_type') !!}:</td>
                                 <td>
                                     <a href="{!! URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) !!}"
                                        itemprop="isPartOf">{!! $item->related_work !!}</a>
@@ -465,11 +470,23 @@
 {!! Html::script('js/jquery.fileDownload.js') !!}
 {!! Html::script('js/components/artwork_carousel.js') !!}
 {!! Html::script('js/components/share_buttons.js') !!}
-
-{{ HTML::script('js/slick.js') }}
 {{ HTML::script('js/selectize.min.js') }}
 {{-- @TODO bring this back when opened to public --}}
 {{-- {{ HTML::script('https://www.google.com/recaptcha/api.js') }} --}}
+
+{{-- Report item details to Google Tag Manager --}}
+<script defer>
+    dataLayer.push({!! json_encode([
+        'artwork' => [
+            'authors' => array_values($item->authors),
+            'work_types' => collect($item->work_types)->pluck(['path']),
+            'topic ' => $item->topic,
+            'media' => $item->mediums,
+            'technique' => $item->technique,
+            'related_work' => $item->related_work,
+        ],
+    ]) !!});
+</script>
 
 @if (!empty($item->lat) && ($item->lat > 0))
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVG26BxGY9yhjCFbviWRgZsvxSlikOnIM&callback=initMap" async

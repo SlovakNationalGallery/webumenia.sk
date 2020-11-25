@@ -33,6 +33,8 @@ return array(
     'item_attr_acquisition_date' => 'dátum akvizíce',
     'item_attr_credit' => 'nadobudnutie',
 
+    'default_relationship_type' => 'zo súboru',
+
     'more-items_related-artworks' => 'súvisiace diela',
     'more-items_related-artworks_by-data' => 'podľa názvu, autora / autorky, tagov...',
     'more-items_similar-colors' => 'diela s podobnými farbami',

@@ -125,21 +125,19 @@ class MakeSitemap extends Command
                 if (($model == 'Article' || $model == 'Collection') && (!$entry->publish)) {
                     continue;
                 }
-                if (($model != 'Authority') || ($entry->type == 'person')) { // ak autority, tak len personalne
-                    $images = [];
-                    if ($entry->has_image) {
-                        $images[] = ['url' => URL::to($entry->getImagePath()), 'title' => $entry->title];
-                    }
-                    $sitemap->add($entry->getUrl(), $entry->updated_at, $priority, $freq, $images);
-                    $i++;
-                    if ($i >= $this->max_entries) {
-                        $sitemap_name = self::SITEMAPS_DIR . Str::plural(strtolower($model)) . '-' . ($sitemap_count+1);
-                        $sitemap->store('xml', $sitemap_name);
-                        $this->addSitemap($sitemap_name);
-                        $sitemap = App::make("sitemap"); // vytvori nanovo
-                        $sitemap_count++;
-                        $i = 0;
-                    }
+                $images = [];
+                if ($entry->has_image) {
+                    $images[] = ['url' => URL::to($entry->getImagePath()), 'title' => $entry->title];
+                }
+                $sitemap->add($entry->getUrl(), $entry->updated_at, $priority, $freq, $images);
+                $i++;
+                if ($i >= $this->max_entries) {
+                    $sitemap_name = self::SITEMAPS_DIR . Str::plural(strtolower($model)) . '-' . ($sitemap_count+1);
+                    $sitemap->store('xml', $sitemap_name);
+                    $this->addSitemap($sitemap_name);
+                    $sitemap = App::make("sitemap"); // vytvori nanovo
+                    $sitemap_count++;
+                    $i = 0;
                 }
             }
         });

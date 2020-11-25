@@ -106,28 +106,14 @@
 <script type="text/javascript">
 $(document).ready(function(){
     var $carousel = $('.webumeniaCarousel').slick({
-    infinite: true,
-    slidesToShow: 1,
-    // lazyLoad: 'progressive',
-    slide: '.gallery-cell',
-    variableWidth: false,
-    dots: true,
-    centerMode: true,
-    centerPadding: '5vw',
-    appendDots: $('.slick-pagination')[0]
+        infinite: true,
+        slidesToShow: 1,
+        variableWidth: false,
+        dots: true,
+        centerMode: true,
+        centerPadding: '5vw',
+        appendDots: $('.slick-pagination')[0]
     });
-
-    $carousel.on( 'staticClick', function( event, pointer, cellElement, cellIndex ) {
-        event.preventDefault();
-        var $link = $( cellElement ).find('a');
-        var url = $link.attr('href');
-        var id = $link.data('id');
-        $.get('/slideClicked', {'id': id}).done(function( data ) {
-            window.location.href = url;
-        });
-
-    });
-
 });
 
 </script>

@@ -2,8 +2,7 @@
 
 @section('og')
 <meta property="og:title" content="{!! $author->formatedName !!}" />
-
-<meta property="og:description" content="{!! $author->getDescription(false, false, true) !!}" />
+<meta property="og:description" content="{{ $description }}" />
 <meta property="og:type" content="object" />
 <meta property="og:url" content="{!! Request::url() !!}" />
 <meta property="og:image" content="{!! URL::to( $author->getImagePath() ) !!}" />
@@ -16,7 +15,7 @@
 @stop
 
 @section('description')
-    <meta name="description" content="{!! $author->getDescription(false, false, true) !!}">
+    <meta name="description" content="{{ $description }}">
 @stop
 
 @section('content')
@@ -31,7 +30,7 @@
     </section>
 @endif
 
-<section class="author detail content-section" itemscope itemtype="http://schema.org/Person">
+<section class="author detail content-section" itemscope itemtype="http://schema.org/{{ $author->isCorporateBody() ? 'Organization' : 'Person' }}">
     <div class="container">
         <div class="attributes">
             <div class="row">
@@ -66,14 +65,14 @@
                     @if ( $author->names->count() > 0)
                         <p class="lead">{{ trans('authority.alternative_names') }} <em>{!! implode("</em>, <em>", $author->formatedNames) !!}</em></p>
                     @endif
+
+                    {!! $html_description !!}
+
+                    @if ($author->type_organization)
                     <p class="lead">
-                        {!! $author->getDescription(true, true) !!}
+                        <strong>{{ $author->type_organization }}</strong>
                     </p>
-                    <p class="lead">
-                        @foreach ($author->roles as $i=>$role)
-                            <a href="{!! url_to('autori', ['role' => $role]) !!}"><strong itemprop="jobTitle">{!! $role !!}</strong></a>{!! ($i+1 < count($author->roles)) ? ', ' : '' !!}
-                        @endforeach
-                    </p>
+                    @endif
 
                     {{-- @if ( $author->biography) --}}
                     <div class="text-left biography">
@@ -102,17 +101,23 @@
                     <table class="table table-condensed relationships">
                         <thead>
                             <tr>
-                            @foreach ($author->getAssociativeRelationships() as $type=>$relationships)
-                                <th>{!! $type !!}</th>
+                            @foreach ($author->getAssociativeRelationships() as $type => $relatedAutorities)
+                                <th>{{ $type }}</th>
                             @endforeach
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                            @foreach ($author->getAssociativeRelationships() as $type=>$relationships)
+                            @foreach ($author->getAssociativeRelationships() as $type => $relatedAutorities)
                                 <td>
-                                @foreach ($relationships as $relationship)
-                                    <a href="{!! $relationship['id'] !!}" class="no-border"><strong itemprop="knows">{!! $relationship['name'] !!}</strong> <i class="icon-arrow-right"></i></a> <br>
+                                @foreach ($relatedAutorities as $relatedAuthority)
+                                    <a href="{{ $relatedAuthority->id }}" class="no-border"
+                                       itemprop="{{ $author->isCorporateBody() ?
+                                                    ($relatedAuthority->isCorporateBody() ? 'knowsAbout' : 'member') :
+                                                    ($relatedAuthority->isCorporateBody() ? 'memberOf' : 'knows') }}">
+                                        <strong>{{ formatName($relatedAuthority->name) }}</strong>
+                                        <i class="icon-arrow-right"></i>
+                                    </a><br>
                                 @endforeach
                                 </td>
                             @endforeach
@@ -160,8 +165,6 @@
 
 @section('javascript')
 {!! Html::script('js/readmore.min.js') !!}
-
-{!! Html::script('js/slick.js') !!}
 {!! Html::script('js/components/artwork_carousel.js') !!}
 {!! Html::script('js/components/share_buttons.js') !!}
 
