@@ -36,6 +36,12 @@
         <div class="gallery-cell header-image">
             <img src="{!! $slide->header_image_src !!}" srcset="{!! $slide->header_image_srcet !!}" onerror="this.onerror=null;this.srcset=''">
             <a href="{!! $slide->url !!}" class="outer-box" data-id="{!! $slide->id !!}" >
+                <div class="inner-box-shadow" >
+                    <h1>{!! $slide->title !!}</h1>
+                    @if ($slide->subtitle)
+                        <h2>{!! $slide->subtitle !!}</h2>
+                    @endif
+                </div>
                 <div class="inner-box">
                     <h1>{!! $slide->title !!}</h1>
                     @if ($slide->subtitle)

@@ -1,4 +1,8 @@
 @import '_colors.less';
+// GENERIC
+@font-size-content: 20px;
+@font-size-content-base-sans-serif: 18px;
+@line-height-content: 1.5em;
 
 @max-block-width: 35em;
 .content-slick-container {
@@ -34,17 +38,17 @@
 
 .long-text {
     font-family: @font-family-serif;
-    font-size: 22px;
-    line-height: 1.5em;
+    font-size: @font-size-content;
+    line-height: @line-height-content;
     color: @dark;
+    // TODO remove with old styles
     text-indent: 0;
 
-    > p,
-    > div {
-        padding: @padding-base-vertical 0;
-        font-size: 22px;
-        line-height: 1.5em;
-        max-width: @max-block-width;
+    p {
+        font-size: @font-size-content;
+        line-height: @line-height-content;
+        margin: 1.25em auto;
+        max-width: 40em;
     }
 
     &.lead,
@@ -101,8 +105,7 @@
         margin: @padding-large-vertical 0;
     }
 
-
-    hr{
+    hr {
         border-bottom: 2px solid @gray;
     }
 }
@@ -158,7 +161,7 @@
         font-style: italic;
         border-bottom: none !important;
         &:hover,
-    &:active {
+        &:active {
             color: @gray-dark !important;
             border-bottom: @gray-dark solid 1px !important;
         }
@@ -172,4 +175,8 @@
     strong {
         color: inherit !important;
     }
+}
+
+.collection.content-section {
+    padding-bottom: 3 * @padding-large-vertical;
 }

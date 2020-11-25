@@ -9,7 +9,6 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\JoinClause;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 
 class Collection extends Model implements TranslatableContract
@@ -128,6 +127,6 @@ class Collection extends Model implements TranslatableContract
     }
 
     public function getReadingTimeAttribute(){
-        return getEstimatedReadingTime($this->text, App::getLocale() );
+        return getEstimatedReadingTime($this->text, \App::getLocale() );
     }
 }

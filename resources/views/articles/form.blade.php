@@ -38,7 +38,7 @@
 	    	<div role="tabpanel" class="tab-pane  {{ ($i==0) ? 'active' : '' }}" id="{{ $locale }}">
 				<div class="form-group">
 				{{ Form::label($locale . "[title]", 'Názov') }}
-				{{ Form::text($locale . "[title]", isset($article) ? @$article->translate($locale)->title : '', array('class' => 'form-control')) }}
+				{{ Form::textarea($locale . "[title]", isset($article) ? @$article->translate($locale)->title : '', array('class' => 'form-control', 'rows' => '2' )) }}
 				</div>
 
 				<div class="form-group">

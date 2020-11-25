@@ -10,7 +10,6 @@ use Astrotomic\Translatable\Translatable;
 use Illuminate\Support\Facades\URL;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\App;
 
 class Article extends Model implements TranslatableContract
 {
@@ -119,6 +118,6 @@ class Article extends Model implements TranslatableContract
 
     
     public function getReadingTimeAttribute(){
-        return getEstimatedReadingTime($this->summary . ' ' . $this->content, App::getLocale() );
+        return getEstimatedReadingTime($this->summary . ' ' . $this->content, \App::getLocale());
     }
 }

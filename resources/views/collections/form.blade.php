@@ -43,22 +43,21 @@
 
 	<div class="tab-content top-space">
 		@foreach (\Config::get('translatable.locales') as $i=>$locale)
-	    <div role="tabpanel" class="tab-pane  {{ ($i==0) ? 'active' : '' }}" id="{{ $locale }}">
-					<div class="form-group">
-					{{ Form::label($locale . "[name]", 'Názov') }}
-					{{ Form::text($locale . "[name]", isset($collection) ? @$collection->translate($locale)->name : '', array('class' => 'form-control')) }}
-					</div>
+			<div role="tabpanel" class="tab-pane  {{ ($i==0) ? 'active' : '' }}" id="{{ $locale }}">
+				<div class="form-group">
+				{{ Form::label($locale . "[name]", 'Názov') }}
+				{{ Form::textarea($locale . "[name]", isset($collection) ? @$collection->translate($locale)->name : '', array('class' => 'form-control', 'rows' => '2')) }}
+				</div>
 
-					<div class="form-group">
-					{{ Form::label($locale . "[type]", 'Typ') }}
-					{{ Form::text($locale . "[type]", isset($collection) ? @$collection->translate($locale)->type : '', array('class' => 'form-control')) }}
-					</div>
+				<div class="form-group">
+				{{ Form::label($locale . "[type]", 'Typ') }}
+				{{ Form::text($locale . "[type]", isset($collection) ? @$collection->translate($locale)->type : '', array('class' => 'form-control')) }}
+				</div>
 
-					<div class="form-group">
-					{{ Form::label($locale . "[text]", 'Text') }}
-					{{ Form::textarea($locale . "[text]", isset($collection) ? @$collection->translate($locale)->text : '', array('class' => 'form-control wysiwyg', 'rows'=>'12')) }}	
-					</div>
-
+				<div class="form-group">
+				{{ Form::label($locale . "[text]", 'Text') }}
+				{{ Form::textarea($locale . "[text]", isset($collection) ? @$collection->translate($locale)->text : '', array('class' => 'form-control wysiwyg', 'rows'=>'12')) }}	
+				</div>
 			</div>
 		@endforeach
 	</div>

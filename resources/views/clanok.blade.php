@@ -38,24 +38,14 @@
 </section>
 @endif
 
-<div class="webumeniaCarousel">
-    <div class="gallery-cell header-image">
-        @if ($article->HasHeaderImage())
-        <img src="{!! $article->header_image_src !!}" srcset="{!! $article->header_image_srcset !!}"
-             onerror="this.onerror=null;this.srcset=''">
+@component('components.header_carousel', ['item' => $article]))
+    @slot('slideContent')
+        <h1>{!! $article->title !!}</h1>
+        @if ($article->category)
+        <h2 style="color: {!! $article->title_color !!}">{!! $article->category->name !!}</h2>
         @endif
-
-        <div class="outer-box">
-            <div class="inner-box"
-                 style="text-shadow:0px 1px 0px {!! $article->title_shadow !!}; color: {!! $article->title_color !!}">
-                <h1>{!! $article->title !!}</h1>
-                @if ($article->category)
-                <h2 style="color: {!! $article->title_color !!}">{!! $article->category->name !!}</h2>
-                @endif
-            </div>
-        </div>
-    </div>
-</div>
+    @endslot
+@endcomponent
 
 <section class="article content-header">
     <div class="article-header">
