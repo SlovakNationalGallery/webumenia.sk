@@ -33,7 +33,8 @@
 
 <div class="webumeniaCarousel">
     @foreach ($slides as $slide)
-        <div class="gallery-cell"  style="background-image: url({!! $slide->image_path !!})">
+        <div class="gallery-cell header-image">
+            <img src="{!! $slide->header_image_src !!}" srcset="{!! $slide->header_image_srcet !!}" onerror="this.onerror=null;this.srcset=''">
             <a href="{!! $slide->url !!}" class="outer-box" data-id="{!! $slide->id !!}" >
                 <div class="inner-box">
                     <h1>{!! $slide->title !!}</h1>
@@ -44,6 +45,10 @@
             </a>
         </div>
     @endforeach
+</div>
+
+<div class="container">
+        <div class="slick-pagination"></div>
 </div>
 
 <section class="intro bg-light-grey content-section">
@@ -88,47 +93,21 @@
     </div>
 </section>
 
-<div class="container text-center top-space">
-    <div class="fb-like" data-href="{!! Config::get('app.url') !!}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
-    &nbsp;
-    <a href="https://twitter.com/share" class="twitter-share-button" data-count="true">Tweet</a>
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-</div>
-
 @stop
 
 @section('javascript')
 
 <script type="text/javascript">
 $(document).ready(function(){
-    var $carousel = $('.webumeniaCarousel').flickity({
-      wrapAround: true,
-      percentPosition: false,
-      // setGallerySize: false,
-      // resize: false,
-      arrowShape: 'M42.7 15.5c1.1 0 2.1 0.4 2.9 1.2s1.2 1.8 1.2 2.9c0 1.2-0.4 2.1-1.2 2.9L23.7 44.5h64.5c1.1 0 2.1 0.4 2.9 1.2 0.8 0.8 1.2 1.8 1.2 2.9s-0.4 2.1-1.2 2.9c-0.8 0.8-1.8 1.2-2.9 1.2h-64.5l21.9 21.9c0.8 0.8 1.2 1.8 1.2 2.9 0 1.1-0.4 2.1-1.2 2.9 -0.8 0.8-1.8 1.2-2.9 1.2 -1.2 0-2.1-0.4-2.9-1.2L10.8 51.6c-0.8-0.8-1.2-1.8-1.2-2.9 0-1.1 0.4-2.1 1.2-2.9l29-29c0.8-0.8 1.8-1.2 2.9-1.2V15.5z'
+    var $carousel = $('.webumeniaCarousel').slick({
+        infinite: true,
+        slidesToShow: 1,
+        variableWidth: false,
+        dots: true,
+        centerMode: true,
+        centerPadding: '5vw',
+        appendDots: $('.slick-pagination')[0]
     });
-    $carousel.children('.flickity-page-dots').css('left',  parseInt($('.flickity-slider').css('transform').split(',')[4]) );
-
-    $carousel.on('staticClick.flickity', function( event, pointer, cellElement, cellIndex ) {
-        event.preventDefault();
-        var $link = $( cellElement ).find('a');
-        var url = $link.attr('href');
-        var id = $link.data('id');
-        $.get('/slideClicked', {'id': id}).done(function( data ) {
-            window.location.href = url;
-        });
-
-    });
-
-});
-
-$(window).on('resize',function() {
-    if ( $( ".flickity-slider" ).length ) {
-        setTimeout(function(){
-          $('.webumeniaCarousel').children('.flickity-page-dots').css('left',  parseInt($('.flickity-slider').css('transform').split(',')[4]) );
-        }, 200);
-    }
 });
 
 </script>
