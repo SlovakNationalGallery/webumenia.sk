@@ -55,7 +55,6 @@ return array(
                             </ul>',
     'digital_choice'    => 'Choose your reproductions',
     'more-items_button' => 'Show all',
-    'alert_covid-19' => 'In response to the current government regulations, the <a href="https://www.sng.sk/sk/bratislava/navsteva/otvaracie-hodiny-a-vstupne" target="_blank">Ex Libris bookstore</a> and <a href="https://www.sng.sk/sk/zvolen/navsteva/otvaracie-hodiny-a-vstupne" target="_blank">Zvolen Castle</a> will be closed from 24. 10. to 8. 11. 2020. You won't be able to pick up your orders during this time. The current situation has also caused delays -  it will take more than 30 days to prepare the orders.<br>
-Thank you for you patience.     ',
+    'alert_covid-19' => 'Our pick up points in <a href="https://www.sng.sk/en/bratislava/visiting-us/how-to-find-us/ex-libris-bookshop" target="_blank">Ex Libris bookstore</a> and the <a href="https://www.sng.sk/en/zvolen/visiting-us/how-to-find-us" target="_blank">Zvolen Castle</a>are open for you again, and we are looking forward to seeing you.<br> If you would like to collect your orders before the Christmas holidays (by <strong>December 23, 2020</strong>), please place your order by:<br><strong>December 12, 2020</strong> – for the orders of reproductions without adjusting in a passe-partout or a frame and posters (art posters),<br><strong>November 11, 2020</strong> – for the orders of reproductions to be adjusted in a passe-partout or a passe-partout and the frame.',
 
 );
