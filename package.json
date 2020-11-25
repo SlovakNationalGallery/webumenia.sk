@@ -22,7 +22,7 @@
         "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {
-        "bootstrap": "^3.1.1",
+        "bootstrap": "^3.4.1",
         "slick-carousel": "1.8.1",
         "infinite-scroll": "^3.0.6",
         "isotope-layout": "^3.0.6",
