@@ -1,7 +1,7 @@
 @import '_colors.less';
 // GENERIC
-@font-size-content: 20px;
-@font-size-content-base-sans-serif: 18px;
+@font-size-content: 22px;
+@font-size-content-base-sans-serif: 20px;
 @line-height-content: 1.5em;
 
 @max-block-width: 35em;
@@ -36,80 +36,6 @@
     font-family: @font-family-sans-serif;
 }
 
-.long-text {
-    font-family: @font-family-serif;
-    font-size: @font-size-content;
-    line-height: @line-height-content;
-    color: @dark;
-    // TODO remove with old styles
-    text-indent: 0;
-
-    p {
-        font-size: @font-size-content;
-        line-height: @line-height-content;
-        margin: 1.25em auto;
-        max-width: 40em;
-    }
-
-    &.lead,
-    .lead {
-        font-weight: normal;
-        font-family: @font-family-sans-serif;
-        font-size: 22px;
-        padding-bottom: @padding-large-vertical;
-
-        big {
-            font-size: 1.1em;
-            line-height: 1.4em;
-        }
-    }
-
-    big {
-        font-size: 1.2em;
-        line-height: 1.61em;
-    }
-
-    p > a > img:only-child {
-        margin-bottom: 0;
-    }
-
-    .content-image-container {
-        padding: 2 * @padding-large-vertical 0;
-        text-align: center;
-        font-family: @font-family-sans-serif;
-        font-size: 14px;
-        line-height: 1.8em;
-        &:not([style]) {
-            margin: auto;
-        }
-        + .content-image-container {
-            padding-top: 0;
-            margin-top: -2 * @padding-large-vertical;
-        }
-    }
-
-    img {
-        max-height: calc(85vh - 3em);
-        min-height: 300px;
-        object-fit: contain;
-        max-width: 100% !important;
-        height: auto !important;
-        margin-bottom: @padding-large-vertical;
-    }
-
-    p.references {
-        font: bold;
-        font-family: @font-family-sans-serif;
-        font-size: 0.8em;
-        line-height: 1.6em;
-        margin: @padding-large-vertical 0;
-    }
-
-    hr {
-        border-bottom: 2px solid @gray;
-    }
-}
-
 .content-header {
     padding-top: @grid-gutter-width;
     @media screen and (max-width: @screen-sm-max) {
@@ -129,7 +55,6 @@
     a,
     button {
         color: @dark-grey;
-        margin: auto;
     }
 }
 
@@ -154,29 +79,102 @@
     }
 }
 
-.content-header,
-.content-section {
-    a {
-        color: @gray-dark !important;
-        font-style: italic;
-        border-bottom: none !important;
-        &:hover,
-        &:active {
+/// TODE replace me once custom.less is clean
+.article,
+.collection {
+    &.content-header,
+    &.content-section {
+        padding-top: @padding-large-vertical;
+        padding-bottom: 3 * @padding-large-vertical;
+        a {
             color: @gray-dark !important;
-            border-bottom: @gray-dark solid 1px !important;
+            border-bottom: @light-grey solid 2px !important;
+            &:hover,
+            &:active {
+                color: @gray-dark !important;
+                border-bottom: @gray-dark solid 2px !important;
+            }
+        }
+        .long-text {
+            font-family: @font-family-serif;
+            font-size: @font-size-content;
+            line-height: @line-height-content;
+            color: @dark;
+            // TODO remove with old styles
+            text-indent: 0;
+
+            p {
+                font-size: @font-size-content;
+                line-height: @line-height-content;
+                margin: 1.15em auto;
+                max-width: 40em;
+            }
+
+            &.lead,
+            .lead {
+                font-weight: normal;
+                font-family: @font-family-sans-serif;
+                font-size: 22px;
+                padding-bottom: @padding-large-vertical;
+
+                big {
+                    font-size: 1.1em;
+                    line-height: 1.4em;
+                }
+            }
+
+            big {
+                font-size: 1.2em;
+                line-height: 1.61em;
+            }
+
+            p > a > img:only-child {
+                margin-bottom: 0;
+            }
+
+            .content-image-container {
+                padding: 2 * @padding-base-vertical 0;
+                text-align: center;
+                font-family: @font-family-sans-serif;
+                font-size: 14px;
+                line-height: 1.8em;
+                &:not([style]) {
+                    margin: auto;
+                }
+                + .content-image-container {
+                    padding-top: 0;
+                    margin-top: -2 * @padding-base-vertical;
+                }
+
+                a {
+                    border-bottom: none !important;
+                }
+            }
+
+            img {
+                max-height: calc(85vh - 3em);
+                min-height: 300px;
+                object-fit: contain;
+                max-width: 100% !important;
+                height: auto !important;
+                margin-bottom: @padding-large-vertical;
+            }
+
+            p.references {
+                font: bold;
+                font-family: @font-family-sans-serif;
+                font-size: 0.8em;
+                line-height: 1.6em;
+                margin: @padding-large-vertical 0;
+            }
+
+            hr {
+                border-bottom: 2px solid @gray;
+            }
         }
     }
-}
 
-/// TODE replace me once custom.less is clean
-.author,
-.collection,
-.order {
     strong {
         color: inherit !important;
     }
-}
-
-.collection.content-section {
-    padding-bottom: 3 * @padding-large-vertical;
 }

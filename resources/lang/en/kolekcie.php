@@ -13,6 +13,7 @@ return array(
     'collections_collections'       => 'collections',
     'collections_no_collections'    => 'currently no collections',
     'collections_artworks'          => 'artworks',
+    'collections_items_count'       => 'Colection contains',
     'filter' => [
         'author' => 'author',
         'type' => 'type',

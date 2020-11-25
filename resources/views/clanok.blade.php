@@ -58,11 +58,11 @@
                 <div class="col-md-8 col-md-push-2">
                     <div class="row">
                         <div class="col-md-4 col-sm-6  col-xs-12">
-                            <a href="{!! url_to( 'clanky', ['author' => $article->author ]) !!}">
-                                <div class="v-center">
+                            <div class="v-center">
+                                <a href="{!! url_to( 'clanky', ['author' => $article->author ]) !!}">
                                     {!! $article->author!!}
-                                </div>
-                            </a>
+                                </a>
+                            </div>
                         </div>
                         <div class="col-md-4 col-sm-6 col-xs-12">
                             <div class="v-center">

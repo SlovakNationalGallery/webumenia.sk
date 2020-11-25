@@ -61,11 +61,11 @@
                 <div class="col-md-8 col-md-push-2">
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <a href="{!! url_to( 'kolekcie', ['author' => $collection->user->name ]) !!}">
-                                <div class="v-center">
-                                    {!!   $collection->user->name !!}
-                                </div>
-                            </a>
+                            <div class="v-center">
+                                <a href="{!! url_to( 'kolekcie', ['author' => $collection->user->name ]) !!}">
+                                    {!! $collection->user->name !!}
+                                </a>
+                            </div>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <div class="v-center">
@@ -73,23 +73,25 @@
                                 @date($collection->published_at)
                             </div>
                         </div>
-            
-                        
+
+
                         <div class="col-sm-6 col-xs-12">
                             @if ($collection->items->count() != 0)
                             <div class="v-center">
-                                <a href="#artworks">
-                                Kolekcia obsahuje {{trans_choice('general.artworks_counted', $collection->items->count(), ['artworks_count' => $collection->items->count()])}}
-
-                                </a>
+                                <span>
+                                    {{trans('kolekcie.collections_items_count')}} <a
+                                       href="#artworks">{{trans_choice('general.artworks_counted', $collection->items->count(), ['artworks_count' => $collection->items->count()])}}</a>
+                                </span>
                             </div>
                             @endif
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             @if ($collection->reading_time)
                             <div class="v-center">
-                            <i class='fa fa-clock-o mr-3'></i>
-                            {!! $collection->reading_time !!}
+                                <span>
+                                    <i class='fa fa-clock-o mr-3'></i>
+                                    {!! $collection->reading_time !!}
+                                </span>
                             </div>
                             @endif
                         </div>
@@ -112,7 +114,7 @@
     </div>
 </section>
 
-<section class="collections content-section">
+<section class="collections">
     <div class="collections-body">
         <div class="container">
             <div class="row" id="artworks">
@@ -136,8 +138,8 @@
                                            class="fa fa-search-plus"></i></a></div>
                                 @endif
                                 <a href="{!! $item->getUrl(['collection' => $collection->id]) !!}">
-                                    <em>{!! implode(', ', $item->authors) !!}</em><br/>
-                                    <strong>{!! $item->title !!}</strong> <br/> 
+                                    <em>{!! implode(', ', $item->authors) !!}</em><br />
+                                    <strong>{!! $item->title !!}</strong> <br />
                                     <em>{!! $item->getDatingFormated() !!}</em>
                                 </a>
                             </div>
