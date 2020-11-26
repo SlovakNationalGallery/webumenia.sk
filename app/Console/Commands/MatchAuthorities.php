@@ -10,7 +10,8 @@ class MatchAuthorities extends Command
 {
     protected $authorityMatcher;
 
-    protected $name = 'authorities:match';
+    protected $signature = 'authorities:match
+                            {-o|--output= : Log file of unsuccessful matches (defaults to stdout)}';
 
     protected $description = 'Match existing item authors with authorities';
 
@@ -22,35 +23,44 @@ class MatchAuthorities extends Command
 
     public function handle()
     {
-        $progressBar = $this->output->createProgressBar(Item::count());
-        $attached = 0;
+        $output = $this->option('output');
+        $fp = $output !== null ? fopen($output, 'w+') : STDOUT;
 
-        Item::with('authorities')->chunk(100, function ($items) use ($progressBar, $attached) {
+        $progressBar = $this->output->createProgressBar(Item::count());
+        $count = 0;
+
+        Item::with('authorities')->chunk(100, function ($items) use ($progressBar, $fp, &$count) {
             foreach ($items as $item) {
                 $ids = $this->authorityMatcher
                     ->matchAll($item)
-                    ->map(function ($authorities, $author) {
-                        if (count($authorities) === 1) {
-                            return $authorities[0]->id;
-                        }
-
-                        if (count($authorities) === 0) {
-                            $this->output->writeln(sprintf('No authority matched (%s)', $author));
+                    ->map(function ($authorities, $author) use ($fp) {
+                        if ($authorities->count() === 0) {
+                            $message = sprintf('No authority matched (%s)', $author);
+                        } else if ($authorities->count() === 1) {
+                            return $authorities->first()->id;
                         } else {
                             $multiple = $authorities->pluck('id')->implode(', ');
-                            $this->output->writeln(sprintf('Multiple authorities matched (%s)', $multiple));
+                            $message = sprintf('Multiple authorities matched (%s)', $multiple);
                         }
 
+                        fwrite($fp, $message . PHP_EOL);
                         return null;
-                    });
+                    })
+                    ->filter();
 
                 $changes = $item->authorities()->syncWithoutDetaching($ids);
-                $attached += count($changes['attached']);
+                $item->authorities()->updateExistingPivot($changes['attached'], ['automatically_matched' => true]);
+
+                $count += count($changes['attached']);
                 $progressBar->advance();
             }
         });
 
-        $this->output->writeln(sprintf('%d new relations were created', $attached));
         $progressBar->finish();
+        $this->output->writeln(sprintf("\n%d new relations were created", $count));
+
+        if ($output !== null) {
+            fclose($fp);
+        }
     }
 }
