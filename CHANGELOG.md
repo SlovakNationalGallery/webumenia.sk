@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Changed
+- Bump up Bootstrap to 3.4.1 and bump down jQuery to 3.4.1
+
 ## [2.12.0] - 2020-11-26
 ### Changed
 - Use laravel-mix for (some) JavaScript files
