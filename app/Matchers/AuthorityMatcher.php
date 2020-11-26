@@ -39,31 +39,44 @@ class AuthorityMatcher
     public function match($author, Item $item)
     {
         $parsed = $this->authorParser->parse($author);
-        $fullname = sprintf('%s, %s', $parsed['surname'], $parsed['name']);
+        if ($parsed['surname'] && $parsed['name']) {
+            $fullname = sprintf('%s, %s', $parsed['surname'], $parsed['name']);
+        } else {
+            $fullname = $parsed['name'];
+        }
 
-        $authorities = $this->findByFullnameAndDates($fullname, $item);
+        $authorities = $this->findByFullname($fullname);
+
         $intersection = $authorities->intersect($item->authorities);
         if ($intersection->isNotEmpty()) {
             return $intersection;
         }
 
-        return $authorities;
+        return $this->filterByDates($authorities, $item);
     }
 
     /**
      * @param string $fullname
-     * @param Item $item
      * @return Authority[]|Collection
      */
-    protected function findByFullnameAndDates($fullname, Item $item)
+    protected function findByFullname($fullname)
     {
         $authorities = Authority::where('name', $fullname)->get();
         return AuthorityName::where('name', $fullname)->get()
-            ->map(function (AuthorityName $name) {
-                return $name->authority;
+            ->map(function (AuthorityName $authorityName) {
+                return $authorityName->authority;
             })
-            ->merge($authorities)
-            ->filter(function (Authority $authority) use ($item) {
+            ->merge($authorities);
+    }
+
+    /**
+     * @param Authority[]|Collection $authorities
+     * @param Item $item
+     * @return Authority[]|Collection
+     */
+    protected function filterByDates(Collection $authorities, Item $item)
+    {
+        return $authorities->filter(function (Authority $authority) use ($item) {
                 $birthYear = $authority->birth_year;
                 $deathYear = $authority->death_year;
                 if ($birthYear === null && $deathYear === null) {
@@ -84,7 +97,7 @@ class AuthorityMatcher
                     $dateLatest = $dateEarliest;
                 }
 
-                return $birthYear < $dateEarliest && $deathYear >= $dateLatest;
+                return $dateEarliest <= $deathYear && $dateLatest >= $birthYear;
             });
     }
 }
