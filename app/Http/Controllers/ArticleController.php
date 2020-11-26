@@ -184,7 +184,13 @@ class ArticleController extends Controller
     private function uploadMainImage($article)
     {
         $main_image = Input::file('main_image');
-        $article->main_image = $article->uploadHeaderImage($main_image);
+        $uploaded_image = \Image::make($main_image->getRealPath());
+        $uploaded_image->widen(1200);
+        $extension = $main_image->getClientOriginalExtension();
+        $filename = md5(date("YmdHis") . rand(5, 50)) . "." . $extension;
+        $article->main_image = $filename;
+        $filename = $article->getHeaderImage(true);
+        $uploaded_image->save($filename);
         $article->save();
     }
 }
