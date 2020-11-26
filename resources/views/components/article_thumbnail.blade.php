@@ -12,5 +12,5 @@
   <p class="attributes">{!! $article->getShortTextAttribute($article->summary, 250) !!}
     (<a href="{!! $article->getUrl() !!}">{{ trans('general.more') }}</a>)
   </p>
-  <p class="meta">@date($article->published_date) / {!!$article->author!!}</p>
+  <p class="meta">{!!$article->published_date!!} / {!!$article->author!!}</p>
 </div>
