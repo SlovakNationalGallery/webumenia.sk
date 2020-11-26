@@ -6,7 +6,7 @@ class AuthorParser
 {
     public function parse($author)
     {
-        if (!preg_match('/^(?<surname>.*?)\s*(?<alt_surname>\(.*\))?(?<role>\s+-\s+.*)?,\s+(?<name>.*?)\s*(?<alt_name>\(.*\))?$/', $author, $matches)) {
+        if (!preg_match('/^((?<surname>.*?)\s*(?<alt_surname>\(.*\))?(?<role>\s+-\s+.*)?,\s+)?(?<name>.*?)\s*(?<alt_name>\(.*\))?$/', $author, $matches)) {
             return null;
         }
 
