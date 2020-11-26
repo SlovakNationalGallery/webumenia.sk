@@ -37,8 +37,8 @@
                             <th>Kategória</th>
                             <th>Autor</th>
                             <th>Dátum vytvorenia</th>
-                            <th class="text-center" style="min-width: 100px;">Publikovať</th>
-                            <th class="text-center">Na titulke</th>
+                            <th style="min-width: 100px;">Publikovať</th>
+                            <th>Na titulke</th>
                             <th>Akcie</th>
                         </tr>
                     </thead>
@@ -49,13 +49,8 @@
                             <td>{!! $i->title !!}</td>
                             <td>{!! ($i->category) ? $i->category->name : '' !!}</td>
 			                <td>{!! $i->author !!}</td>
-                            <td>@datetime($i->created_at)</td>
-                            <td class="text-center">
-                                @if($i->publish)
-                                    <i class="fa fa-check text-success"></i><br/>
-                                    <small>od @date($i->published_date) </small>
-                                @endif
-                            </td>
+                            <td>{!! $i->created_at !!}</td>
+                            <td class="text-center">{!! ($i->publish) ? '<i class="fa fa-check text-success"></i>' . '<br><small>od '. $i->published_date .'</small>' : '' !!}</td>
 			                <td class="text-center">{!! ($i->promote) ? '<i class="fa fa-check text-success"></i>' : ''  !!}</td>
 			                <td>
                                 {!! link_to_action('ArticleController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}

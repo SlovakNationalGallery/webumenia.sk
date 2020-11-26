@@ -59,10 +59,6 @@ All notable changes to this project will be documented in this file[^1].
 ### Changed
 - alert in reproductions section
 
-### Changed
-- carousel & hero image refactoring, added img-srcset
-- unified main image storing for slides, collections and articles
-
 ## [2.7.4] - 2020-08-25
 ### Changed
 - text in reproductions section

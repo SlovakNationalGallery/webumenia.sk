@@ -20,6 +20,7 @@ mix
     .js('resources/js/app.js', 'public/js')
     .extract([
         'bootstrap/dist/js/bootstrap',
+        'flickity',
         'infinite-scroll',
         'isotope-layout',
         'jquery',
@@ -28,7 +29,6 @@ mix
         'lazysizes',
         'lazysizes/plugins/unveilhooks/ls.unveilhooks',
         'lazysizes/plugins/respimg/ls.respimg',
-        'slick-carousel',
         'typeahead.js/dist/typeahead.bundle',
     ])
 
@@ -41,7 +41,8 @@ mix
                 ]
             }
         }
-    })
+    });
+
 if (mix.inProduction()) {
     mix.version();
 }

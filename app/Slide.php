@@ -1,30 +1,22 @@
 <?php
 
+
+
 namespace App;
 
-use App\Concerns\HasHeaderImage;
+use Illuminate\Support\Facades\File;
 use Illuminate\Database\Eloquent\Model;
 
 class Slide extends Model
 {
 
-    use HasHeaderImage;
-
-    function getArtworksDirAttribute()
-    {
-        return '/images/intro/';
-    }
-
-    function getImagePropertyAttribute()
-    {
-        return 'image';
-    }
+    const ARTWORKS_DIR = '/images/intro/';
 
     protected $fillable = [
-        'title',
-        'subtitle',
-        'url',
-        'publish',
+                'title',
+                'subtitle',
+                'url',
+                'publish',
     ];
 
     public static $rules = [
@@ -45,5 +37,26 @@ class Slide extends Model
     public function scopePublished($query)
     {
         return $query->where('publish', '=', 1);
+    }
+
+    public function getImagePathAttribute()
+    {
+        return asset(self::ARTWORKS_DIR . '/' . $this->id . '/' . $this->image . '.jpg');
+    }
+
+    public function getPath($create = false)
+    {
+        $folder_name = $this->id;
+        $path = public_path() .  self::ARTWORKS_DIR . $folder_name . '/';
+        if (!File::exists($path) && $create) {
+            File::makeDirectory($path);
+        }
+        return $path;
+    }
+
+    public function removeImage()
+    {
+        $dir = $this->getPath();
+        return File::cleanDirectory($dir);
     }
 }
