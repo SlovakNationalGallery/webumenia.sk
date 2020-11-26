@@ -6,7 +6,11 @@ All notable changes to this project will be documented in this file[^1].
 - Use laravel-mix for (some) JavaScript files
 - Add item (artwork) data to GTM dataLayer
 - Use atymic/deployer-php-action@2.0 for auto-deploys
+- Update resolve-url-loader to 3.1.2
 - Bump up Bootstrap to 3.4.1 and bump down jQuery to 3.4.1
+
+### Fixed
+- Restart queue workers on deploy
 
 ## [2.11.1] - 2020-11-11
 ### Changed
