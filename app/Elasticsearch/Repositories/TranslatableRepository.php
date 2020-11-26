@@ -8,7 +8,9 @@ use App\Filter\Contracts\SearchRequest;
 use App\SearchResult;
 use Elasticsearch\Client;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 
 abstract class TranslatableRepository extends AbstractRepository
 {
@@ -33,6 +35,12 @@ abstract class TranslatableRepository extends AbstractRepository
 
     public function search(SearchRequest $request, $locale = null): SearchResult
     {
+        if ($request->getSearchWindowSize() > $this->getMaxResultWindowConfig($locale))
+        {
+            Log::warning("Search request size ({$request->getSearchWindowSize()}) is larger than index.max_result_window. Returning empty set.");
+            return $this->createEmptySearchResult();
+        }
+
         $response = $this->elasticsearch->search([
             'index' => $this->getLocalizedIndexName($locale),
             'body' => $this->buildBodyFromSearchRequest($request),
@@ -228,6 +236,11 @@ abstract class TranslatableRepository extends AbstractRepository
     protected function getLocale(string $locale = null): string
     {
         return $locale ?? app()->getLocale();
+    }
+
+    protected function getMaxResultWindowConfig(string $locale = null): int
+    {
+        return Arr::get($this->getIndexConfig($locale), 'settings.max_result_window');
     }
 
     abstract public function getSuggestions(int $size, string $search, string $locale = null): SearchResult;
