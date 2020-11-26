@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+## [2.12.0] - 2020-11-26
 ### Changed
 - Use laravel-mix for (some) JavaScript files
 - Add item (artwork) data to GTM dataLayer
@@ -59,10 +60,6 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Changed
 - alert in reproductions section
-
-### Changed
-- carousel & hero image refactoring, added img-srcset
-- unified main image storing for slides, collections and articles
 
 ## [2.7.4] - 2020-08-25
 ### Changed
