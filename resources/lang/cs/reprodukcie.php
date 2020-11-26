@@ -56,6 +56,5 @@ return array(
     'digital_choice'    => 'Zvolte si reprodukce',
     'more-items_button' => 'zobrazit všechny',
 
-    'alert_covid-19' => 'Vzhledem na aktuální vládní nařízení bude <a href="https://www.sng.sk/sk/bratislava/navsteva/kde-nas-najdete/knihkupectvo-ex-libris" target="_blank">knihkupectví Ex-libris</a> v prostorách SNG a <a href="https://www.sng.sk/sk/zvolen/navsteva/otvaracie-hodiny-a-vstupne" target="_blank">Zvolenský zámek</a> od 24. 10. do 8. 11. 2020 zavřený. V těchto dnech si nebudete moct převzít objednávky. Aktuální situace také způsobila, že vybavení objednávek bude trvat více jak 30 dní.<br>
-Děkujeme za trpělivost.',
+    'alert_covid-19' => 'Naše odběrná místa v <a href="https://www.sng.sk/sk/bratislava/navsteva/otvaracie-hodiny-a-vstupne" target="_blank">knihkupectví Ex Libris</a> a na <a href="https://www.sng.sk/sk/zvolen/navsteva/otvaracie-hodiny-a-vstupne" target="_blank">Zvolenském zámku</a> jsou opět otevřené, těšíme se na Vaši návštěvu.<br>Pokud máte zájem o vyzvednutí reprodukcí do Vánočních svátků (nejpozději <strong>23.12.2020</strong>), prosíme Vás o vytvoření objednávek do termínů:<br><strong>8.12.2020</strong> – platí pro objednávky samostatných reprodukcí (bez pasparty nebo rámu) a posterů (art plakátů),<br><strong>27.11.2020</strong> – platí pro reprodukce s paspartou nebo paspartou a rámem.',
 );
