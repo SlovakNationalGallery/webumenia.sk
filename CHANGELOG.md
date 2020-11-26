@@ -27,6 +27,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Fixed
 - Restart queue workers on deploy
+- Do not trigger an Elasticsearch error on high page numbers
 
 ## [2.11.1] - 2020-11-11
 ### Changed
