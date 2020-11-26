@@ -20,6 +20,7 @@ mix
     .js('resources/js/app.js', 'public/js')
     .extract([
         'bootstrap/dist/js/bootstrap',
+        'imagesloaded',
         'infinite-scroll',
         'isotope-layout',
         'jquery',
