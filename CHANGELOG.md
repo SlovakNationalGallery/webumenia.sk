@@ -8,8 +8,6 @@ All notable changes to this project will be documented in this file[^1].
 - Add item (artwork) data to GTM dataLayer
 - Use atymic/deployer-php-action@2.0 for auto-deploys
 - Update resolve-url-loader to 3.1.2
-- carousel & hero image refactoring, added img-srcset
-- unified main image storing for slides, collections and articles
 
 ### Fixed
 - Restart queue workers on deploy
