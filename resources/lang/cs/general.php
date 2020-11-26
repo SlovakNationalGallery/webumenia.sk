@@ -34,8 +34,9 @@ return array(
     "share_twitter"      => "sdílet na twitteri",
     "share_pinterest"    => "sdílet na pintereste",
     "copy_url"           => "kopírovat odkaz",
+    "copy_citation"      => "kopírovat citaci",
     "share_mail"         => "odeslat mailem",
     "share_link"         => "Sdílet URL adresu",
     "copy"               => "kopírovat",
-    "copied_to_clipboard"=> "Odkaz byl skopírován do schránky",
+    "copied_to_clipboard"=> "Odkaz byl skopírován do schránky"
 );

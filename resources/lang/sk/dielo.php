@@ -12,7 +12,6 @@ return array(
     'item_next-work'     => 'nasledujúce dielo',
     'item_order'         => 'objednať reprodukciu',
     'item_download'      => 'stiahnuť',
-    'item_copy_citation' => 'skopírovať citáciu',
 
     'item_attr_dating'         => 'datovanie',
     'item_attr_measurements'   => 'miery',
@@ -48,5 +47,4 @@ return array(
     'modal_downloadfail_header-content' => 'Nastala chyba',
     'modal_downloadfail_body-content'   => '<p>Vami zvolené dielo nebolo možné v tomto momente stiahnuť. Skúste to prosím neskôr.</p>
                                             <p>Pokiaľ problém pretrváva, kontaktujte nás na <a href="mailto:lab@sng.sk">lab@sng.sk</a></p>',
-    'tooltip_citation_copied' => 'Citácia bola skopírovaná',
 );

@@ -34,8 +34,10 @@ return array(
     "share_twitter"      => "zdieľať na twitteri",
     "share_pinterest"    => "zdieľať na pintereste",
     "copy_url"           => "kopírovať odkaz",
+    "copy_citation"      => "kopírovať citáciu",
     "share_mail"         => "odoslať mailom",
     "share_link"         => "Zdieľať URL adresu",
     "copy"               => "kopírovať",
     "copied_to_clipboard"=> "Odkaz bol skopírovaný do schránky",
+    "citation_copied"    => "Citácia bola skopírovaná"
 );

@@ -29,8 +29,8 @@
         class="btn btn-outline no-border"
         data-toggle="tooltip"
         data-trigger="hover"
-        title="{{ trans('dielo.item_copy_citation') }}"
-        data-success-title="{{ trans('dielo.tooltip_citation_copied') }}"
+        title="{{ trans('general.copy_citation') }}"
+        data-success-title="{{ trans('general.citation_copied') }}"
         data-clipboard-text="{{ $citation }}"
     >
         <i class="fa fa-quote-left"></i>
