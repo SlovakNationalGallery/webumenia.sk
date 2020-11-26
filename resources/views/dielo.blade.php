@@ -337,7 +337,7 @@
                             'title' => $item->getTitleWithAuthors(),
                             'url' => $item->getUrl(),
                             'img' => URL::to($item->getImagePath()),
-                            'citation' => collect([$item->getTitleWithAuthors(), $item->getDatingFormated(), $item->gallery, $item->id, URL::current()])->filter()->join(', '),
+                            'citation' => collect([$item->getTitleWithAuthors(), $item->getDatingFormated(), $item->gallery, $item->identifier, URL::current()])->filter()->join(', '),
                         ])
                     </div>
                 </div>
