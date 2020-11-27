@@ -449,6 +449,26 @@ class ItemRepository extends TranslatableRepository
         return $body;
     }
 
+    public function indexAll(): int
+    {
+        $i = 0;
+
+        $this->modelClass::with('images')->chunk(200, function ($items) use (&$i) {
+            $items->load('authorities');
+            foreach ($items as $item) {
+                $this->indexAllLocales($item);
+                $i++;
+                if (\App::runningInConsole()) {
+                    if ($i % 100 == 0) {
+                        echo date('h:i:s'). " " . $i . "\n";
+                    }
+                }
+            }
+        });
+
+        return $i;
+    }
+
     public function getIndexConfig(string $locale  = null): array
     {
         return config('elasticsearch.index.items')[$this->getLocale($locale)];

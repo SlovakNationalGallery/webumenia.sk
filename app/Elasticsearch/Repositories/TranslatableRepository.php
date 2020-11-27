@@ -248,4 +248,6 @@ abstract class TranslatableRepository extends AbstractRepository
     abstract public function getIndexConfig(string $locale = null): array;
 
     abstract public function getMappingConfig(string $locale = null): array;
+
+    abstract public function indexAll(): int;
 }

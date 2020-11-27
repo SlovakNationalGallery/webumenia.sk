@@ -71,7 +71,7 @@ class AuthorityController extends Controller
         $input = Input::all();
 
         $rules = Authority::$rules;
-        // $rules['primary_image'] = 'required|image'; 
+        // $rules['primary_image'] = 'required|image';
 
         $v = Validator::make($input, $rules);
 
@@ -82,10 +82,10 @@ class AuthorityController extends Controller
             $authority = new Authority;
 
             $authority->type = 'person';
-            
+
             // not sure if OK to fill all input like this before setting translated attributes
             $authority->fill($input);
-            
+
             // store translatable attributes
             foreach (\Config::get('translatable.locales') as $i=>$locale) {
                 foreach ($authority->translatedAttributes as $attribute) {
@@ -202,7 +202,7 @@ class AuthorityController extends Controller
         $authorities = Authority::where('id', 'LIKE', $prefix.'%')->get();
         foreach ($authorities as $key => $authority) {
             $authority_data = $authority->toArray();
-            
+
             $keys = array();
             $values = array();
             foreach ($authority_data as $key => $value) {
@@ -295,25 +295,14 @@ class AuthorityController extends Controller
 
     public function reindex()
     {
-        $i = 0;
-        Authority::chunk(200, function ($authorities) use (&$i) {
-            $authorities->load('items');
-            foreach ($authorities as $authority) {
-                $this->authorityRepository->indexAllLocales($authority);
-                $i++;
-                if (App::runningInConsole()) {
-                    if ($i % 100 == 0) {
-                        echo date('h:i:s'). " " . $i . "\n";
-                    }
-                }
-            }
-        });
-        $message = 'Bolo reindexovaných ' . $i . ' autorít';
+        $reindexedRecords = $this->authorityRepository->indexAll();
+
+        $message = 'Bolo reindexovaných ' . $reindexedRecords . ' autorít';
         if (App::runningInConsole()) {
             echo $message;
             return true;
         }
-        return Redirect::back()->withMessage($message);
 
+        return Redirect::back()->withMessage($message);
     }
 }

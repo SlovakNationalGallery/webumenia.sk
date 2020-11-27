@@ -290,25 +290,14 @@ class ItemController extends Controller
 
     public function reindex()
     {
-        $i = 0;
+        $reindexedRecords = $this->itemRepository->indexAll();
 
-        Item::with('images')->chunk(200, function ($items) use (&$i) {
-            $items->load('authorities');
-            foreach ($items as $item) {
-                $this->itemRepository->indexAllLocales($item);
-                $i++;
-                if (App::runningInConsole()) {
-                    if ($i % 100 == 0) {
-                        echo date('h:i:s') . " " . $i . "\n";
-                    }
-                }
-            }
-        });
-        $message = 'Bolo reindexovaných ' . $i . ' diel';
+        $message = 'Bolo reindexovaných ' . $reindexedRecords . ' diel';
         if (App::runningInConsole()) {
             echo $message;
             return true;
         }
+
         return Redirect::back()->withMessage($message);
     }
 }
