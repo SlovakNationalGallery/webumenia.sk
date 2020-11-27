@@ -290,7 +290,7 @@ class ItemController extends Controller
 
     public function reindex()
     {
-        $reindexedRecords = $this->itemRepository->indexAll();
+        $reindexedRecords = $this->itemRepository->reindexAllLocales();
 
         $message = 'Bolo reindexovaných ' . $reindexedRecords . ' diel';
         if (App::runningInConsole()) {

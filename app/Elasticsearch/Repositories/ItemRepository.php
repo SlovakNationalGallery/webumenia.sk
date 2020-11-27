@@ -449,7 +449,7 @@ class ItemRepository extends TranslatableRepository
         return $body;
     }
 
-    public function indexAll(): int
+    public function reindexAllLocales(): int
     {
         $i = 0;
 

@@ -17,10 +17,11 @@ abstract class TranslatableRepository extends AbstractRepository
     /** @var string[] */
     protected $locales;
 
-    public function __construct(array $locales, Client $elasticsearch)
+    public function __construct(array $locales, Client $elasticsearch, string $version = null)
     {
         parent::__construct($elasticsearch);
         $this->locales = $locales;
+        $this->version = $version;
     }
 
     public function get(string $id, string $locale = null): Model
@@ -151,6 +152,11 @@ abstract class TranslatableRepository extends AbstractRepository
         ]);
     }
 
+    public function getLocales(): array
+    {
+        return $this->locales;
+    }
+
     public function deleteIndex(string $locale = null): void
     {
         $this->elasticsearch->indices()->delete([
@@ -225,12 +231,12 @@ abstract class TranslatableRepository extends AbstractRepository
 
     public function getLocalizedIndexName(string $locale = null): string
     {
-        return sprintf(
-            '%s_%s_%s',
+        return collect([
             $this->prefix,
             $this->index,
-            $this->getLocale($locale)
-        );
+            $this->getLocale($locale),
+            $this->version
+        ])->filter()->join('_');
     }
 
     protected function getLocale(string $locale = null): string
@@ -249,5 +255,5 @@ abstract class TranslatableRepository extends AbstractRepository
 
     abstract public function getMappingConfig(string $locale = null): array;
 
-    abstract public function indexAll(): int;
+    abstract public function reindexAllLocales(): int;
 }

@@ -46,7 +46,7 @@ class AuthorityRepository extends TranslatableRepository
         }
     }
 
-    public function indexAll(): int
+    public function reindexAllLocales(): int
     {
         $i = 0;
 

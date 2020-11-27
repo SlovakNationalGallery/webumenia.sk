@@ -295,7 +295,7 @@ class AuthorityController extends Controller
 
     public function reindex()
     {
-        $reindexedRecords = $this->authorityRepository->indexAll();
+        $reindexedRecords = $this->authorityRepository->reindexAllLocales();
 
         $message = 'Bolo reindexovaných ' . $reindexedRecords . ' autorít';
         if (App::runningInConsole()) {
