@@ -14,13 +14,11 @@ class MgFotoImporter extends MgImporter {
         'RokVzDo' => 'date_latest',
         'Původnost' => 'state_edition',
         'Autor' => 'author',
-        'Titul' => 'title',
     ];
 
     protected $defaults = [
         'gallery' => 'Moravská galerie, MG',
         'author' => 'neurčený autor',
-        'title' => 'bez názvu',
         'topic' => '',
         'relationship_type' => '',
         'place' => '',
