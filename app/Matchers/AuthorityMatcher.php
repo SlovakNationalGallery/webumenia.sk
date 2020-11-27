@@ -20,23 +20,25 @@ class AuthorityMatcher
 
     /**
      * @param Item $item
+     * @param bool $onlyExisting
      * @return Collection
      */
-    public function matchAll(Item $item)
+    public function matchAll(Item $item, $onlyExisting = false)
     {
         return collect($item->authors)
             ->keys()
-            ->mapWithKeys(function ($author) use ($item) {
-                return [$author => $this->match($author, $item)];
+            ->mapWithKeys(function ($author) use ($item, $onlyExisting) {
+                return [$author => $this->match($author, $item, $onlyExisting)];
             });
     }
 
     /**
      * @param string $author
      * @param Item $item
+     * @param bool $onlyExisting
      * @return Authority[]|Collection
      */
-    public function match($author, Item $item)
+    public function match($author, Item $item, $onlyExisting = false)
     {
         $parsed = $this->authorParser->parse($author);
         if ($parsed['surname'] && $parsed['name']) {
@@ -45,38 +47,20 @@ class AuthorityMatcher
             $fullname = $parsed['name'];
         }
 
-        $authorities = $this->findByFullname($fullname);
+        $existingMatches = $item->authorities
+            ->filter(function (Authority $authority) use ($fullname) {
+                return $authority->names
+                    ->pluck('name')
+                    ->add($authority->name)
+                    ->contains($fullname);
+            });
 
-        $intersection = $authorities->intersect($item->authorities);
-        if ($intersection->isNotEmpty()) {
-            return $intersection;
+        if ($existingMatches->isNotEmpty() || $onlyExisting) {
+            return $existingMatches;
         }
 
-        return $this->filterByDates($authorities, $item);
-    }
-
-    /**
-     * @param string $fullname
-     * @return Authority[]|Collection
-     */
-    protected function findByFullname($fullname)
-    {
-        $authorities = Authority::where('name', $fullname)->get();
-        return AuthorityName::where('name', $fullname)->get()
-            ->map(function (AuthorityName $authorityName) {
-                return $authorityName->authority;
-            })
-            ->merge($authorities);
-    }
-
-    /**
-     * @param Authority[]|Collection $authorities
-     * @param Item $item
-     * @return Authority[]|Collection
-     */
-    protected function filterByDates(Collection $authorities, Item $item)
-    {
-        return $authorities->filter(function (Authority $authority) use ($item) {
+        return $this->findByFullname($fullname)
+            ->filter(function (Authority $authority) use ($item) {
                 $birthYear = $authority->birth_year;
                 $deathYear = $authority->death_year;
                 if ($birthYear === null && $deathYear === null) {
@@ -99,5 +83,19 @@ class AuthorityMatcher
 
                 return $dateEarliest <= $deathYear && $dateLatest >= $birthYear;
             });
+    }
+
+    /**
+     * @param string $fullname
+     * @return Authority[]|Collection
+     */
+    protected function findByFullname($fullname)
+    {
+        $authorities = Authority::where('name', $fullname)->get();
+        return AuthorityName::where('name', $fullname)->get()
+            ->map(function (AuthorityName $authorityName) {
+                return $authorityName->authority;
+            })
+            ->merge($authorities);
     }
 }
