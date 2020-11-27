@@ -267,9 +267,9 @@ function()
         }
 
         $authorsWithoutAuthority = app(AuthorityMatcher::class)
-            ->matchAll($item)
-            ->filter(function ($authorities) use ($item) {
-                return $authorities->intersect($item->authorities)->isEmpty();
+            ->matchAll($item, $onlyExisting = true)
+            ->filter(function (\Illuminate\Support\Collection $authorities) use ($item) {
+                return $authorities->isEmpty();
             })
             ->keys();
 
