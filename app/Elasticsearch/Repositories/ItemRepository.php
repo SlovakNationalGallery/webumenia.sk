@@ -449,12 +449,12 @@ class ItemRepository extends TranslatableRepository
         return $body;
     }
 
-    protected function getIndexConfig(string $locale  = null): array
+    public function getIndexConfig(string $locale  = null): array
     {
         return config('elasticsearch.index.items')[$this->getLocale($locale)];
     }
 
-    protected function getMappingConfig(string $locale = null): array
+    public function getMappingConfig(string $locale = null): array
     {
         return config('elasticsearch.mapping.items')[$this->getLocale($locale)];
     }
