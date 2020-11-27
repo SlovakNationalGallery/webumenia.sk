@@ -389,11 +389,11 @@ class Item extends Model implements IndexableModel, TranslatableContract
         if (($count_digits<2) && !empty($this->date_earliest)) {
             $formated = $this->date_earliest;
             if (!empty($this->date_latest) && $this->date_latest!=$this->date_earliest) {
-                $formated .= "&ndash;" . $this->date_latest;
+                $formated .= '–' . $this->date_latest;
             }
             return $formated;
         }
-        $trans = array("/" => "&ndash;", "-" => "&ndash;");
+        $trans = array("/" => "–", "-" => "–");
         $formated = preg_replace('/^([0-9]*) \s*([a-zA-Z]*)$/', '$2 $1', $this->dating);
         $parts = explode('/', $formated);
         $formated = implode('/', array_unique($parts));

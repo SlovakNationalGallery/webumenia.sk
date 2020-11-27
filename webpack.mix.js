@@ -21,6 +21,7 @@ mix
     .extract([
         'bootstrap/dist/js/bootstrap',
         'flickity',
+        'clipboard',
         'imagesloaded',
         'infinite-scroll',
         'isotope-layout',
