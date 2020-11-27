@@ -26,14 +26,12 @@ class MgImporter extends AbstractImporter {
         'Sign' => 'inscription',
         'Původnost' => 'state_edition',
         'Autor' => 'author',
-        'Titul' => 'title',
         'Námět' => 'topic',
     ];
 
     protected $defaults = [
         'gallery' => 'Moravská galerie, MG',
         'author' => 'neurčený autor',
-        'title' => 'bez názvu',
         'topic' => '',
         'relationship_type' => '',
     ];
@@ -130,6 +128,16 @@ class MgImporter extends AbstractImporter {
         }
 
         return $identifier;
+    }
+
+    protected function hydrateTitle(array $record) {
+        if ($record['Titul'] !== null) {
+            return $record['Titul'];
+        } else if ($record['Předmět'] !== null) {
+            return $record['Předmět'];
+        } else {
+            return 'bez názvu';
+        }
     }
 
     protected function hydrateMedium(array $record) {
