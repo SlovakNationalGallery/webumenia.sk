@@ -49,7 +49,6 @@ $(document).ready(function(){
 
     $('.content-slick-images').each( function() {
 
-        console.log('aaa');
         const $slick = $(this);
         $slick.slick({
             slide: 'p, a, img, div',
