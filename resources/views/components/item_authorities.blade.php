@@ -5,6 +5,7 @@
                 <span itemprop="name">{{ formatName($authority->name) }}</span><!--
             --></a><!--
         --></span>,
+        {{-- html comments kept for code indentation without whitespace --}}
     @else
         <a class="underline" href="{{ $authority->getUrl() }}">{{ formatName($authority->name) }}</a>
         &ndash; {{ $authority::formatMultiAttribute($authority->pivot->role) }},
