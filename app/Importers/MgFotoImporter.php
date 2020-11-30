@@ -113,4 +113,14 @@ class MgFotoImporter extends MgImporter {
             return $date->format('Y');
         }
     }
+
+    protected function hydrateTitle(array $record) {
+        if ($record['Název'] !== null) {
+            return $record['Název'];
+        } else if ($record['Předmět'] !== null) {
+            return $record['Předmět'];
+        } else {
+            return 'bez názvu';
+        }
+    }
 }
