@@ -5,7 +5,6 @@ namespace Tests\Matchers;
 use App\Authority;
 use App\Item;
 use App\Matchers\AuthorityMatcher;
-use App\Parsers\AuthorParser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -24,7 +23,7 @@ class AuthorityMatcherTest extends TestCase
             'author' => 'Wouwerman, Philips'
         ]);
 
-        $matcher = new AuthorityMatcher(new AuthorParser());
+        $matcher = new AuthorityMatcher();
         $matched = $matcher->matchAll($item);
         $authorities = $matched['Wouwerman, Philips'];
 
@@ -48,7 +47,7 @@ class AuthorityMatcherTest extends TestCase
             'author' => 'Wouwerman, Philips'
         ]);
 
-        $matcher = new AuthorityMatcher(new AuthorParser());
+        $matcher = new AuthorityMatcher();
         $authorities = $matcher->match('Wouwerman, Philips', $item);
 
         $this->assertCount(1, $authorities);
@@ -70,7 +69,7 @@ class AuthorityMatcherTest extends TestCase
             'author' => 'Wouwerman, Philips'
         ]);
 
-        $matcher = new AuthorityMatcher(new AuthorParser());
+        $matcher = new AuthorityMatcher();
         $authorities = $matcher->match('Wouwerman, Philips', $item);
 
         $this->assertCount(2, $authorities);
@@ -93,9 +92,65 @@ class AuthorityMatcherTest extends TestCase
         ]);
         $item->authorities()->attach($related);
 
-        $matcher = new AuthorityMatcher(new AuthorParser());
+        $matcher = new AuthorityMatcher();
         $authorities = $matcher->match('Wouwerman, Philips', $item);
 
         $this->assertCount(1, $authorities);
+    }
+
+    public function testParseName()
+    {
+        $author = 'Rembrandt van Rijn';
+        $parsed = AuthorityMatcher::parse($author);
+
+        $this->assertEquals('Rembrandt van Rijn', $parsed['name']);
+    }
+
+    public function testParseNameWithAltName()
+    {
+        $author = 'Toyen (Marie Čermínová)';
+        $parsed = AuthorityMatcher::parse($author);
+
+        $this->assertEquals('Toyen', $parsed['name']);
+        $this->assertEquals('Marie Čermínová', $parsed['alt_name']);
+    }
+
+    public function testParseSurnameAndName()
+    {
+        $author = 'Wouwerman, Philips';
+        $parsed = AuthorityMatcher::parse($author);
+
+        $this->assertEquals('Philips', $parsed['name']);
+        $this->assertEquals('Wouwerman', $parsed['surname']);
+    }
+
+    public function testParseSurnameAndNameWithRole()
+    {
+        $author = 'Caullery - následovník, Louis';
+        $parsed = AuthorityMatcher::parse($author);
+
+        $this->assertEquals('Louis', $parsed['name']);
+        $this->assertEquals('Caullery', $parsed['surname']);
+        $this->assertEquals('následovník', $parsed['role']);
+    }
+
+    public function testParseSurnameAndNameWithAltName()
+    {
+        $author = 'Friedberg-Mirohorský, Salomon (Emanuel)';
+        $parsed = AuthorityMatcher::parse($author);
+
+        $this->assertEquals('Salomon', $parsed['name']);
+        $this->assertEquals('Friedberg-Mirohorský', $parsed['surname']);
+        $this->assertEquals('Emanuel', $parsed['alt_name']);
+    }
+
+    public function testParseSurnameWithAltSurnameAndName()
+    {
+        $author = 'Hlava (Hlava-Bém), Vratislav';
+        $parsed = AuthorityMatcher::parse($author);
+
+        $this->assertEquals('Vratislav', $parsed['name']);
+        $this->assertEquals('Hlava', $parsed['surname']);
+        $this->assertEquals('Hlava-Bém', $parsed['alt_surname']);
     }
 }

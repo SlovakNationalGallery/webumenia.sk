@@ -5,18 +5,11 @@ namespace App\Matchers;
 use App\Authority;
 use App\AuthorityName;
 use App\Item;
-use App\Parsers\AuthorParser;
 use Illuminate\Support\Collection;
 
 class AuthorityMatcher
 {
     const MAX_LIFE_SPAN = 120;
-
-    protected $authorParser;
-
-    public function __construct(AuthorParser $authorParser) {
-        $this->authorParser = $authorParser;
-    }
 
     /**
      * @param Item $item
@@ -27,8 +20,8 @@ class AuthorityMatcher
     {
         return collect($item->authors)
             ->keys()
-            ->mapWithKeys(function ($author) use ($item, $onlyExisting) {
-                return [$author => $this->match($author, $item, $onlyExisting)];
+            ->map(function ($author) use ($item, $onlyExisting) {
+                return $this->match($author, $item, $onlyExisting);
             });
     }
 
@@ -40,7 +33,7 @@ class AuthorityMatcher
      */
     public function match($author, Item $item, $onlyExisting = false)
     {
-        $parsed = $this->authorParser->parse($author);
+        $parsed = $this::parse($author);
         if ($parsed['surname'] && $parsed['name']) {
             $fullname = sprintf('%s, %s', $parsed['surname'], $parsed['name']);
         } else {
@@ -97,5 +90,20 @@ class AuthorityMatcher
                 return $authorityName->authority;
             })
             ->merge($authorities);
+    }
+
+    public static function parse($author)
+    {
+        if (!preg_match('/^((?<surname>.*?)\s*(?<alt_surname>\(.*\))?(?<role>\s+-\s+.*)?,\s+)?(?<name>.*?)\s*(?<alt_name>\(.*\))?$/', $author, $matches)) {
+            return null;
+        }
+
+        return [
+            'surname' => $matches['surname'],
+            'alt_surname' => trim($matches['alt_surname'], '()'),
+            'role' => ltrim($matches['role'], ' -'),
+            'name' => $matches['name'],
+            'alt_name' => trim($matches['alt_name'] ?? '', '()'),
+        ];
     }
 }
