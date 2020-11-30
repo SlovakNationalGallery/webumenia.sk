@@ -51,7 +51,11 @@
                 @endif
                 <div class="col-md-10 col-md-offset-1 text-center content-section">
                     <h1 class="nadpis-dielo" itemprop="name">{!! $item->title !!}</h1>
-                    <h2 class="inline">{!! $htmlAuthorities !!}</h2>
+                    <h2 class="inline">
+                        @foreach($item->authorities->toBase()->merge($item->getAuthorsWithoutAuthority()) as $author)
+                            @include('components.item_author')@if (!$loop->last), @endif
+                        @endforeach
+                    </h2>
                 </div>
             </div>
             <div class="row img-dielo">

@@ -17,7 +17,6 @@ use App\Elasticsearch\Repositories\AuthorityRepository;
 use App\Elasticsearch\Repositories\ItemRepository;
 use App\Filter\ItemFilter;
 use App\Item;
-use App\Matchers\AuthorityMatcher;
 use App\Order;
 use App\Slide;
 
@@ -266,16 +265,8 @@ function()
             }
         }
 
-        $htmlAuthorities = view('components.item_authorities')
-            ->with('item', $item)
-            ->render();
-
-        $htmlAuthorities = trim($htmlAuthorities);
-        $htmlAuthorities = trim($htmlAuthorities, ',');
-
         return view('dielo', compact(
             'item',
-            'htmlAuthorities',
             'similar_items',
             'related_items',
             'previous',
