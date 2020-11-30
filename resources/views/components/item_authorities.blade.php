@@ -11,6 +11,6 @@
     @endif
 @endforeach
 
-@foreach($authors as $author)
+@foreach($item->getAuthorsWithoutAuthority() as $author)
     <a class="underline" href="{{ url_to('katalog', ['author' => $author]) }}">{{ formatName($author) }}</a>,
 @endforeach

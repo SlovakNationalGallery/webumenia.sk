@@ -6,6 +6,7 @@ namespace App;
 
 use App\Contracts\IndexableModel;
 use App\Events\ItemPrimaryImageChanged;
+use App\Matchers\AuthorityMatcher;
 use Chelout\RelationshipEvents\Concerns\HasBelongsToManyEvents;
 use Astrotomic\Translatable\Translatable;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
@@ -320,6 +321,16 @@ class Item extends Model implements IndexableModel, TranslatableContract
             $authors[$author] = preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $author);
         }
         return $authors;
+    }
+
+    public function getAuthorsWithoutAuthority()
+    {
+        return app(AuthorityMatcher::class)
+            ->matchAll($this, $onlyExisting = true)
+            ->filter(function (\Illuminate\Support\Collection $authorities) {
+                return $authorities->isEmpty();
+            })
+            ->keys();
     }
 
     public function getFirstAuthorAttribute($value)

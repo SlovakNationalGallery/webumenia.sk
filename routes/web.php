@@ -266,16 +266,8 @@ function()
             }
         }
 
-        $authorsWithoutAuthority = app(AuthorityMatcher::class)
-            ->matchAll($item, $onlyExisting = true)
-            ->filter(function (\Illuminate\Support\Collection $authorities) use ($item) {
-                return $authorities->isEmpty();
-            })
-            ->keys();
-
         $htmlAuthorities = view('components.item_authorities')
             ->with('item', $item)
-            ->with('authors', $authorsWithoutAuthority)
             ->render();
 
         $htmlAuthorities = trim($htmlAuthorities);
