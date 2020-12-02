@@ -25,12 +25,15 @@ All notable changes to this project will be documented in this file[^1].
 ## [2.10.0] - 2020-11-02
 ### Added
 - PNP trienale importer
+- ckeditor allows to add slick
 
 ### Fixed
 - wrong method name in harvester
 
 ### Changed
-- alert in reproductions section
+- carousel & hero image refactoring, added img-srcset
+- unified main image storing for slides, collections and articles
+- new styling for artwork / article / collection, metadata blocks
 
 ## [2.9.0] - 2020-10-27
 ### Added
@@ -39,7 +42,6 @@ All notable changes to this project will be documented in this file[^1].
 ## [2.8.0] - 2020-10-26
 ### Added
 - color picker to patternlib
-- ckeditor allows to add slick
 - item work type tree structure
 - organization authority detail
 - update harvest model status on harvesting failed
@@ -55,11 +57,6 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Changed
 - alert in reproductions section
-
-### Changed
-- carousel & hero image refactoring, added img-srcset
-- unified main image storing for slides, collections and articles
-- new styling for artwork / article / collection, metadata blocks
 
 ## [2.7.4] - 2020-08-25
 ### Changed
