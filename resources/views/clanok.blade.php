@@ -84,6 +84,14 @@
                 <div class="col-md-6 attributes">
                     {!! $article->content !!}
                 </div>
+                @if($article->references)
+                <div class="col-md-6 col-md-offset-4 attributes">
+                    <hr/>
+                    <div class="references">
+                        {!! $article->references !!}
+                    </div>
+                </div>
+                @endif
             </div>
         </div>
     </div>
@@ -113,17 +121,27 @@ mapa??
 @section('javascript')
 {!! Html::script('js/slick.js') !!}
 {!! Html::script('js/components/share_buttons.js') !!}
+{!! Html::script('js/readmore.min.js') !!}s
 <script type="text/javascript">
-    // carousel
-    $('.artworks-preview').slick({
-        dots: false,
-        lazyLoad: 'progressive',
-        infinite: false,
-        speed: 300,
-        slidesToShow: 1,
-        slide: 'a',
-        centerMode: false,
-        variableWidth: true,
+    $(document).ready(function(){
+        // carousel
+        $('.artworks-preview').slick({
+            dots: false,
+            lazyLoad: 'progressive',
+            infinite: false,
+            speed: 300,
+            slidesToShow: 1,
+            slide: 'a',
+            centerMode: false,
+            variableWidth: true,
+        });
+
+        $('.references').readmore({
+            moreLink: '<a href="#"><i class="fa fa-chevron-down"></i> {{ trans("general.show_more") }}</a>',
+            lessLink: '<a href="#"><i class="fa fa-chevron-up"></i> {{ trans("general.show_less") }}</a>',
+            maxHeight: 40
+        });
     });
+
 </script>
 @stop

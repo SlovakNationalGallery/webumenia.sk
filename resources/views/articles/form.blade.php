@@ -50,6 +50,11 @@
 				{{ Form::label($locale . "[content]", 'Text') }}
 				{{ Form::textarea($locale . "[content]", isset($article) ? @$article->translate($locale)->content : '', array('class' => 'form-control wysiwyg', 'rows'=>'12')) }}	
 				</div>
+
+				<div class="form-group">
+				{{ Form::label($locale . "[references]", 'References') }}
+				{{ Form::textarea($locale . "[references]", isset($article) ? @$article->translate($locale)->references : '', array('class' => 'form-control wysiwyg references', 'rows'=>'12')) }}	
+				</div>
 			</div>
 		@endforeach
 	</div>

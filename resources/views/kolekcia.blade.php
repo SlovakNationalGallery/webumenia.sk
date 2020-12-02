@@ -78,6 +78,14 @@
                 <div class="col-md-8 col-md-offset-2 bottom-space description">
                        {!! $collection->text !!}
                 </div>
+                @if($collection->references)
+                <div class="col-md-8 col-md-offset-2 attributes">
+                    <hr/>
+                    <div class="references">
+                        {!! $collection->references !!}
+                    </div>
+                </div>
+                @endif
             </div>
         </div>
     </div>
@@ -123,8 +131,6 @@
                         </div>
                     @endforeach
                     </div>
-                    <div class="col-sm-12 text-center">
-                    </div>
                 </div>
             </div>
         </div>
@@ -147,6 +153,7 @@
 @stop
 
 @section('javascript')
+{!! Html::script('js/readmore.min.js') !!}
 {!! Html::script('js/slick.js') !!}
 {!! Html::script('js/components/share_buttons.js') !!}
 
@@ -162,6 +169,12 @@
         $( window ).resize(function() {
             var $container = $('#iso');
             spravGrid($container);
+        });
+
+        $('.references').readmore({
+            moreLink: '<a href="#"><i class="fa fa-chevron-down"></i> {{ trans("general.show_more") }}</a>',
+            lessLink: '<a href="#"><i class="fa fa-chevron-up"></i> {{ trans("general.show_less") }}</a>',
+            maxHeight: 50
         });
     });
 </script>

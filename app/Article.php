@@ -20,7 +20,7 @@ class Article extends Model implements TranslatableContract
 
     const ARTWORKS_DIR = '/images/clanky/';
 
-    public $translatedAttributes = ['title', 'summary', 'content'];
+    public $translatedAttributes = ['title', 'summary', 'content', 'references'];
 
 
     public static $rules = array(
