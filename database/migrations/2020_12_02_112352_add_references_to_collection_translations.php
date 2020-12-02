@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddRerefencesToCollectionTranslations extends Migration
+class AddReferencesToCollectionTranslations extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddRerefencesToCollectionTranslations extends Migration
     public function up()
     {
         Schema::table('collection_translations', function (Blueprint $table) {
-            $table->string('references')->nullable();
+            $table->text('references')->nullable();
         });
     }
 

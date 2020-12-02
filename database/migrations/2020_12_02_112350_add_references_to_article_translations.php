@@ -14,7 +14,7 @@ class AddReferencesToArticleTranslations extends Migration
     public function up()
     {
         Schema::table('article_translations', function (Blueprint $table) {
-            $table->string('references')->nullable();
+            $table->text('references')->nullable();
         });
     }
 
