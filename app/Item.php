@@ -6,6 +6,7 @@ namespace App;
 
 use App\Contracts\IndexableModel;
 use App\Events\ItemPrimaryImageChanged;
+use App\Matchers\AuthorityMatcher;
 use Chelout\RelationshipEvents\Concerns\HasBelongsToManyEvents;
 use Astrotomic\Translatable\Translatable;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
@@ -322,6 +323,16 @@ class Item extends Model implements IndexableModel, TranslatableContract
         return $authors;
     }
 
+    public function getAuthorsWithoutAuthority()
+    {
+        return app(AuthorityMatcher::class)
+            ->matchAll($this, $onlyExisting = true)
+            ->filter(function (\Illuminate\Support\Collection $authorities) {
+                return $authorities->isEmpty();
+            })
+            ->keys();
+    }
+
     public function getFirstAuthorAttribute($value)
     {
         $authors_array = $this->makeArray($this->author);
@@ -521,29 +532,6 @@ class Item extends Model implements IndexableModel, TranslatableContract
         return $query->whereTranslation('related_work', $item->related_work, $locale)
             ->where('author', '=', $item->author)
             ->orderBy('related_work_order');
-    }
-
-    public function getAuthorsWithLinks()
-    {
-        $used_authorities = array();
-        $authorities_with_link = array();
-        $not_authorities_with_link = array();
-        foreach ($this->authorities as $authority) {
-            if ($authority->pivot->role != 'autor/author') {
-                $not_authorities_with_link[] = '<a class="underline" href="'. $authority->getUrl() .'">'. $authority->formated_name .'</a>'
-                    .' &ndash; ' . Authority::formatMultiAttribute($authority->pivot->role);
-            } else {
-                $authorities_with_link[] = '<span itemprop="creator" itemscope itemtype="http://schema.org/Person"><a class="underline" href="'. $authority->getUrl() .'" itemprop="sameAs"><span itemprop="name">'. $authority->formated_name .'</span></a></span>';
-            }
-            $used_authorities[]= trim($authority->name, ', ');
-        }
-        foreach ($this->authors as $author_unformated => $author) {
-            if (!in_array(trim($author_unformated, ', '), $used_authorities)) {
-                $authorities_with_link[] = '<a class="underline" href="'. url_to('katalog', ['author' => $author_unformated]) .'">'. $author .'</a>';
-            }
-        }
-
-        return array_merge($authorities_with_link, $not_authorities_with_link);
     }
 
     public function getTitleWithAuthors($html = false)
