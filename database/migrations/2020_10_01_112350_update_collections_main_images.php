@@ -24,6 +24,6 @@ class UpdateCollectionsMainImages extends Migration
      */
     public function down()
     {
-		  DB::statement('UPDATE `slides` SET `image` =  REPLACE(image,CONCAT(id ,"/"),"")');
+		  DB::statement('UPDATE `slides` SET `image` =  REPLACE(REPLACE(image,CONCAT(id ,"/"),""),".jpg","")');
     }
 }
