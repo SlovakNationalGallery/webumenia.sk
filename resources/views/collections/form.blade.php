@@ -59,6 +59,10 @@
 					{{ Form::textarea($locale . "[text]", isset($collection) ? @$collection->translate($locale)->text : '', array('class' => 'form-control wysiwyg', 'rows'=>'12')) }}	
 					</div>
 
+					<div class="form-group">
+					{{ Form::label($locale . "[references]", 'References') }}
+					{{ Form::textarea($locale . "[references]", isset($collection) ? @$collection->translate($locale)->references : '', array('class' => 'form-control wysiwyg references', 'rows'=>'12')) }}	
+					</div>
 			</div>
 		@endforeach
 	</div>

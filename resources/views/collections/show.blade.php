@@ -33,6 +33,10 @@
 								<td>text:</td>
 								<td>{!! $collection->text !!}</td>
 							</tr>
+							<tr>
+								<td>referencie:</td>
+								<td>{!! $collection->references !!}</td>
+							</tr>
 							@foreach ($collection->items as $item)
 							<tr>
 								<td><img src="{!! $item->getImagePath(); !!}" alt="náhľad" class="img-responsive" ></td>

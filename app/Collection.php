@@ -17,7 +17,7 @@ class Collection extends Model implements TranslatableContract
 
     const ARTWORKS_DIR = '/images/kolekcie/';
 
-    public $translatedAttributes = ['name','type', 'text'];
+    public $translatedAttributes = ['name','type', 'text', 'references'];
 
     public static $rules = array(
         'sk.name' => 'required',
