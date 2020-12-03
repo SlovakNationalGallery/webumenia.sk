@@ -55,7 +55,9 @@ export default {
   props: ['name', 'from', 'to', 'min', 'max'],
   methods: {
     submitForm() {
-      $("#" + this.name).parents("form").submit()
+      this.$nextTick(function () {
+        $("#" + this.name).parents("form").submit()
+      })
     },
     updateYearRange(yearRange) {
       this.yearRange = yearRange
