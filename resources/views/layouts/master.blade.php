@@ -89,7 +89,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	@include('components.nav_bar')
 
 	<!-- Content -->
-	@yield('content')
+	<div id="app">
+		@yield('content')
+	</div>
 
 	@include('components.footer')
 
