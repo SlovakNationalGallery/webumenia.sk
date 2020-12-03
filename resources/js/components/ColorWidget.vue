@@ -22,7 +22,6 @@ export default {
   props: ["htmlId", "htmlName", "selectedColor"],
   methods: {
     onChange() {
-      console.log($("#" + this.id).parents("form"))
       $("#" + this.htmlId).parents("form").submit()
     },
   },
