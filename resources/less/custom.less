@@ -906,21 +906,18 @@ label sup {
   display: none;
 }
 
-.range-slider{
-  .lsng-slider-wrap, .slider-period{
-    height: 4px;
-  }
-  .lsng-picker{
+.range-slider {
+  .vue-slider-dot-handle {
     background-color: @dark-grey;
-    transform: translate(-8px, -6px);
+    box-shadow: none;
   }
-  .lsng-pointer > *{
+
+  .vue-slider-process {
     background-color: @dark-grey;
   }
 }
 
 .range-slider-from, .range-slider-to{
-  margin-top: 10px;
   width: 6.0ex;
   border: 1px solid #888;
   background: #fff;
