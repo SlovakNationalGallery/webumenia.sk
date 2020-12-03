@@ -33,6 +33,7 @@ mix
         'lazysizes/plugins/respimg/ls.respimg',
         'typeahead.js/dist/typeahead.bundle',
         'vue',
+        'vue-slider-component',
     ])
 
     // CSS

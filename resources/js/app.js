@@ -26,6 +26,7 @@ require('./components/clipboard-button')
 window.Vue = require('vue')
 Vue.component('user-collections-examples', require('./components/user-collections/Examples.vue').default);
 Vue.component('color-widget', require('./components/ColorWidget.vue').default);
+Vue.component('year-slider', require('./components/YearSlider.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
