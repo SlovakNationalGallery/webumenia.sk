@@ -90,6 +90,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 	<!-- Content -->
 	<div id="app">
+		<user-collections-examples></user-collections-examples>
 		@yield('content')
 	</div>
 
