@@ -20,7 +20,7 @@ const store = {
   },
 
   hasItem(itemId) {
-    return this.state.items.findIndex(({id}) => console.log(id, itemId) || id == itemId) > -1
+    return this.state.items.findIndex(({id}) => id === itemId) > -1
   },
 
   toggleItem(itemId) {
