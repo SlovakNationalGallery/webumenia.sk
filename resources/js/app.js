@@ -24,7 +24,7 @@ require('./components/clipboard-button')
 
 window.Vue = require('vue')
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('user-collections-examples', require('./components/user-collections/Examples.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -32,6 +32,9 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
+ const app = new Vue({
     el: '#app',
+    data: {
+        userCollectionsStore: require('./components/user-collections/store')
+    }
 });
