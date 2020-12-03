@@ -32,6 +32,7 @@ mix
         'lazysizes/plugins/unveilhooks/ls.unveilhooks',
         'lazysizes/plugins/respimg/ls.respimg',
         'typeahead.js/dist/typeahead.bundle',
+        'vue',
     ])
 
     // CSS
