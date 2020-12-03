@@ -20,8 +20,8 @@ class AuthorityMatcher
     {
         return collect($item->authors)
             ->keys()
-            ->map(function ($author) use ($item, $onlyExisting) {
-                return $this->match($author, $item, $onlyExisting);
+            ->mapWithKeys(function ($author) use ($item, $onlyExisting) {
+                return [$author => $this->match($author, $item, $onlyExisting)];
             });
     }
 
