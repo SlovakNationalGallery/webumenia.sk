@@ -51,6 +51,11 @@
                         <a href="{!! URL::to('objednavka')!!}" class=""><i class="fa fa-shopping-cart"></i><span class="badge badge-notify">{!! count(Session::get('cart')) !!}</span></a>
                 </li>
                 @endif
+                <user-collections-nav-link
+                    :active="{{ json_encode(Request::is('moje')) }}"
+                    base-href="{{ route('frontend.user-collection.show') }}"
+                    label="Moje (Translate me)"
+                ></user-collections-nav-link>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
