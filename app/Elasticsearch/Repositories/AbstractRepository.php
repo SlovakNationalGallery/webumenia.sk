@@ -19,8 +19,6 @@ abstract class AbstractRepository
 
     protected $elasticsearch;
 
-    protected $version;
-
     public function __construct(Client $elasticsearch)
     {
         $this->elasticsearch = $elasticsearch;

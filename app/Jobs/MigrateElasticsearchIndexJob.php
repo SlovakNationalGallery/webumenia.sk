@@ -36,7 +36,7 @@ class MigrateElasticsearchIndexJob implements ShouldQueue
         $this->locales = $locales ?? $this->oldRepository->getLocales();
         $this->elasticClient = app()->make(ElasticsearchClient::class);
 
-        $newVersion = Carbon::now()->timestamp;
+        $newVersion = $this->oldRepository::buildVersionNumber();
         $repositoryClass = get_class($this->oldRepository);
         $this->newRepository = new $repositoryClass($this->locales, $this->elasticClient, $newVersion);
     }
@@ -50,8 +50,8 @@ class MigrateElasticsearchIndexJob implements ShouldQueue
     {
         // Create new indices
         foreach ($this->locales as $locale) {
-            $aliasName = $this->oldRepository->getLocalizedIndexName($locale);
-            $newIndexName = $this->newRepository->getLocalizedIndexName($locale);
+            $aliasName = $this->oldRepository->getAliasName($locale);
+            $newIndexName = $this->newRepository->getVersionedIndexName($locale);
 
             Log::info("Creating {$newIndexName}");
             $this->elasticClient->indices()->create([
@@ -73,10 +73,7 @@ class MigrateElasticsearchIndexJob implements ShouldQueue
         $this->newRepository->reindexAllLocales();
 
         foreach ($this->locales as $locale) {
-            // Get old index name -- note this is different from the repository default (which is an alias)
-            $oldIndexName = collect($this->elasticClient->indices()->getAlias(['name' => $aliasName]))
-            ->keys()
-            ->first();
+            $oldIndexName = $this->oldRepository->fetchVersionedIndexName($locale);
 
             // Replace aliases
             Log::info("Moving alias {$aliasName} from index {$oldIndexName} to {$newIndexName}");
