@@ -11,6 +11,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
+            <user-collections-clear-button confirm-message="Naozaj? (TODO Translate)">Vymazat vsetko</user-collections-clear-button>
             <div class="isotope">
             @foreach ($items as $item)
                 @include('components.artwork_grid_item', [
