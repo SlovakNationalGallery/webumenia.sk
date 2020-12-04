@@ -27,6 +27,11 @@ const store = {
     this.hasItem(itemId) ? this.removeItem(itemId) : this.addItem(itemId)
   },
 
+  clearAllItems() {
+    this.state.items = []
+    this._saveState()
+  },
+
   _saveState() {
     localStorage.setItem('userCollections', JSON.stringify(this.state))
   },
