@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file[^1].
 - authority matcher
 
 ### Changed
+- Bump up sentry/sentry-laravel to 2.3
 - use authority matcher in item detail
 - SGP into list of galleries in the info page
 
