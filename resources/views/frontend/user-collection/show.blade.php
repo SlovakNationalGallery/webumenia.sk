@@ -9,6 +9,9 @@
 
 @section('content')
 <div class="container">
+    @if($items->isEmpty())
+     Nemate tu nic! TODO Translate
+    @else
     <div class="row">
         <div class="col-sm-12">
             <user-collections-clear-button confirm-message="Naozaj? (TODO Translate)">Vymazat vsetko</user-collections-clear-button>
@@ -25,6 +28,7 @@
             @include('components.load_more', ['paginator' => $items, 'isotopeContainerSelector' => '.isotope'])
         </div>
   </div>
+  @endif
 </div>
 @endsection
 
