@@ -3,12 +3,11 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Tests\RefreshSearchIndex;
+use Tests\RecreateSearchIndex;
 
 class SearchTest extends TestCase
 {
-    use RefreshSearchIndex;
-
+    use RecreateSearchIndex;
 
     public function testPageNumberTooLargeDoesNotProduceError()
     {

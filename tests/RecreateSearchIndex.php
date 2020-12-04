@@ -6,14 +6,14 @@ use App\Elasticsearch\Repositories\AuthorityRepository;
 use App\Elasticsearch\Repositories\ItemRepository;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
 
-trait RefreshSearchIndex
+trait RecreateSearchIndex
 {
     /**
      * Define hooks to migrate the database before and after each test.
      *
      * @return void
      */
-    public function refreshSearchIndex()
+    public function recreateSearchIndex()
     {
         $authorityRepository = $this->app->make(AuthorityRepository::class);
         $itemRepository = $this->app->make(ItemRepository::class);

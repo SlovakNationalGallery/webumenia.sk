@@ -3,7 +3,7 @@
 namespace Tests;
 
 use Elasticsearch\Client;
-use Tests\RefreshSearchIndex;
+use Tests\RecreateSearchIndex;
 
 abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 {
@@ -27,8 +27,8 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
     {
         $uses = parent::setUpTraits();
 
-        if (isset($uses[RefreshSearchIndex::class])) {
-            $this->refreshSearchIndex();
+        if (isset($uses[RecreateSearchIndex::class])) {
+            $this->recreateSearchIndex();
         } else {
             // Mock Elasticsearch unless said otherwise
             $this->app->instance(Client::class, $this->createMock(Client::class));
