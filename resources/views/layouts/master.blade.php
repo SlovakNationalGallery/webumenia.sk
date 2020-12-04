@@ -86,11 +86,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		</div>
 	@endif
 
-	@include('components.nav_bar')
 
 	<!-- Content -->
 	<div id="app">
-		<user-collections-examples></user-collections-examples>
+		@include('components.nav_bar')
 		@yield('content')
 	</div>
 
