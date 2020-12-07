@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+## [2.13.1] - 2020-12-07
+### Fixed
+- Use method asset_timed to avoid caching of og:image
+
 ## [2.13.0] - 2020-11-27
 ### Added
 - Add 'copy citation' button to artwork detail
