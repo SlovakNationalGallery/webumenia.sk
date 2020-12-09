@@ -3,7 +3,6 @@
 
 namespace App\Forms\Types;
 
-
 use App\IntegerRange;
 use App\Item;
 use Illuminate\Database\Eloquent\Collection;
@@ -30,15 +29,17 @@ class ItemAuthoritiesType extends AbstractType
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $locale = app()->getLocale();
+        
+            
         $data = $form->getData();
         $view->vars['items'] = $data;
         $view->vars['authorities_choices'] = \App\Authority::orderBy('name', 'asc')->get(['id as key', 'name as value']);
-        $view->vars['roles_choices'] = \App\AuthorityRole::
-        leftJoin('authority_role_translations', function ($join) use ($locale) {
-            $join->on('authority_roles.type', '=', 'authority_role_translations.type')
-                ->where('locale', $locale);
-        })->get(['authority_roles.type as key', 'role as value']);
+        $view->vars['roles_choices'] = json_encode(array_map(function ($role){
+            return  [
+                "key" => $role,
+                "value"=> trans('authority.role.' . config('authorityRoles')[$role])
+            ];
+         }, array_keys(config('authorityRoles'))));
     }
 
     public function getTranslations() {

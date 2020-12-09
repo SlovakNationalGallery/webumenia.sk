@@ -3,7 +3,7 @@
 return [
     "autor/author" =>                                        "authority.role.author",
     "autor predlohy/after" =>                                "authority.role.after",
-    
+    "ateliér/atelier" =>                                     "authority.role.atelier",
     "okruh autora/circle of" =>                              "authority.role.circle",
     "kopista/copyist of" =>                                  "authority.role.copyist",
     "autor návrhu/draft by" =>                               "authority.role.draft",
@@ -30,5 +30,4 @@ return [
     "dielňa autora/workshop of" =>                           "authority.role.workshop",
     "autor konceptu/concept by" =>                           "authority.role.concept",
     "autor fotografie/photographer" =>                       "authority.role.photograph",
-
 ];
