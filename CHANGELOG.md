@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file[^1].
 - use authority matcher in item detail
 - SGP into list of galleries in the info page
 - Run tests on GitHub Actions
+- ckeditor allows to add slick
 
 ## [2.13.0] - 2020-11-27
 ### Added
