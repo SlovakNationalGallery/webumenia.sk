@@ -2,9 +2,12 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- add es:migrate command
 ### Changed
 - use debugbar in dev env
 - eager load articles
+- Use aliased indexes for es:setup
 
 ## [2.15.0] - 2020-12-18
 ### Added
@@ -14,6 +17,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [2.14.0] - 2020-12-14
 ### Added
 - authority matcher
+- add es:migrate command
 
 ### Fixed
 - Do not trigger an Elasticsearch error on high page numbers
