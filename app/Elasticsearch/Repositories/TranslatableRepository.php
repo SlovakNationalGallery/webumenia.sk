@@ -275,7 +275,7 @@ abstract class TranslatableRepository extends AbstractRepository
             $this->prefix,
             $this->index,
             $this->getLocale($locale),
-            $this->version,
+            $this->version
         );
     }
 
