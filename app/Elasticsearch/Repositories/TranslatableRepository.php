@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Log;
 abstract class TranslatableRepository extends AbstractRepository
 {
     /** @var string[] */
-    protected $locales;
+    public $locales;
 
     /** @var string */
     protected $version;
@@ -268,7 +268,7 @@ abstract class TranslatableRepository extends AbstractRepository
         ]);
     }
 
-    private function getVersionedIndexName(string $locale = null): string
+    public function getVersionedIndexName(string $locale = null): string
     {
         return sprintf(
             '%s_%s_%s_%s',
@@ -279,7 +279,7 @@ abstract class TranslatableRepository extends AbstractRepository
         );
     }
 
-    private function fetchVersionedIndexName(string $locale = null): string
+    public function fetchVersionedIndexName(string $locale = null): string
     {
         return array_keys($this->elasticsearch->indices()->get([
             'index' => $this->getIndexAliasName($locale)

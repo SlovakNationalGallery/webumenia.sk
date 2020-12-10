@@ -9,7 +9,6 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 
 class MigrateElasticsearchIndexJob implements ShouldQueue
@@ -22,23 +21,19 @@ class MigrateElasticsearchIndexJob implements ShouldQueue
     protected $newRepository;
     /** @var ElasticsearchClient */
     protected $elasticClient;
-    protected $locales;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(TranslatableRepository $repository, array $locales = null)
+    public function __construct(TranslatableRepository $repository)
     {
-        //TODO specify timeout of 30 mins
         $this->oldRepository = $repository;
-        $this->locales = $locales ?? $this->oldRepository->getLocales();
         $this->elasticClient = app()->make(ElasticsearchClient::class);
 
-        $newVersion = $this->oldRepository::buildVersionNumber();
-        $repositoryClass = get_class($this->oldRepository);
-        $this->newRepository = new $repositoryClass($this->locales, $this->elasticClient, $newVersion);
+        $newVersion = TranslatableRepository::buildNewVersionNumber();
+        $this->newRepository = $this->oldRepository->buildWithVersion($newVersion);
     }
 
     /**
@@ -48,32 +43,26 @@ class MigrateElasticsearchIndexJob implements ShouldQueue
      */
     public function handle()
     {
+        $locales = $this->oldRepository->locales;
+
         // Create new indices
-        foreach ($this->locales as $locale) {
-            $aliasName = $this->oldRepository->getAliasName($locale);
+        foreach ($locales as $locale) {
+            $aliasName = $this->newRepository->getIndexAliasName($locale);
             $newIndexName = $this->newRepository->getVersionedIndexName($locale);
 
             Log::info("Creating {$newIndexName}");
-            $this->elasticClient->indices()->create([
-                'index' => $newIndexName,
-                'body' => array_merge(
-                    $this->newRepository->getIndexConfig($locale),
-                    [
-                        'mappings' => array_merge(
-                            $this->newRepository->getMappingConfig($locale),
-                        ),
-                    ]
-                )
-            ]);
+            $this->newRepository->createIndex($locale);
+            $this->newRepository->createMapping($locale);
         }
-
 
         // Index into new index
         Log::info("Reindexing indices...");
         $this->newRepository->reindexAllLocales();
 
-        foreach ($this->locales as $locale) {
+        foreach ($locales as $locale) {
             $oldIndexName = $this->oldRepository->fetchVersionedIndexName($locale);
+            $newIndexName = $this->newRepository->getVersionedIndexName($locale);
+            $aliasName = $this->newRepository->getIndexAliasName($locale);
 
             // Replace aliases
             Log::info("Moving alias {$aliasName} from index {$oldIndexName} to {$newIndexName}");
