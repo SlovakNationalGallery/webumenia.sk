@@ -9,7 +9,6 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Support\Facades\Log;
 
 class MigrateElasticsearchIndexJob implements ShouldQueue
 {
@@ -21,14 +20,17 @@ class MigrateElasticsearchIndexJob implements ShouldQueue
     protected $newRepository;
     /** @var ElasticsearchClient */
     protected $elasticClient;
+    /** @var string */
+    protected $logMethod;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(TranslatableRepository $repository)
+    public function __construct(TranslatableRepository $repository, callable $logMethod = null)
     {
+        $this->logMethod = $logMethod?? 'Log::info';
         $this->oldRepository = $repository;
         $this->elasticClient = app()->make(ElasticsearchClient::class);
 
@@ -50,13 +52,13 @@ class MigrateElasticsearchIndexJob implements ShouldQueue
             $aliasName = $this->newRepository->getIndexAliasName($locale);
             $newIndexName = $this->newRepository->getVersionedIndexName($locale);
 
-            Log::info("Creating {$newIndexName}");
+            $this->log("Creating {$newIndexName}");
             $this->newRepository->createIndex($locale);
             $this->newRepository->createMapping($locale);
         }
 
         // Index into new index
-        Log::info("Reindexing indices...");
+        $this->log("Reindexing -- this may take a while...");
         $this->newRepository->reindexAllLocales();
 
         foreach ($locales as $locale) {
@@ -65,7 +67,7 @@ class MigrateElasticsearchIndexJob implements ShouldQueue
             $aliasName = $this->newRepository->getIndexAliasName($locale);
 
             // Replace aliases
-            Log::info("Moving alias {$aliasName} from index {$oldIndexName} to {$newIndexName}");
+            $this->log("Moving alias {$aliasName}: {$oldIndexName} -> {$newIndexName}");
             $this->elasticClient->indices()->updateAliases([
                 'body' => [
                     'actions' => [
@@ -86,10 +88,15 @@ class MigrateElasticsearchIndexJob implements ShouldQueue
             ]);
 
             // Drop old index
-            Log::info("Deleting old index {$oldIndexName}");
+            $this->log("Deleting old index {$oldIndexName}");
             $this->elasticClient->indices()->delete([
                 'index' => $oldIndexName
             ]);
         }
+    }
+
+    private function log($message)
+    {
+        call_user_func($this->logMethod, $message);
     }
 }
