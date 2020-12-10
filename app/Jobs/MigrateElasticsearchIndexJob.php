@@ -14,28 +14,25 @@ class MigrateElasticsearchIndexJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /** @var TranslatableRepository */
-    protected $oldRepository;
-    /** @var TranslatableRepository */
-    protected $newRepository;
-    /** @var ElasticsearchClient */
-    protected $elasticClient;
     /** @var string */
-    protected $logMethod;
+    private $repositoryClass;
+
+    /** @var callable */
+    private $logMethod;
+
+    /** @var string */
+    private $newVersion;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(TranslatableRepository $repository, callable $logMethod = null)
+    public function __construct(string $repositoryClass, callable $logMethod = null)
     {
+        $this->repositoryClass = $repositoryClass;
         $this->logMethod = $logMethod?? 'Log::info';
-        $this->oldRepository = $repository;
-        $this->elasticClient = app()->make(ElasticsearchClient::class);
-
-        $newVersion = TranslatableRepository::buildNewVersionNumber();
-        $this->newRepository = $this->oldRepository->buildWithVersion($newVersion);
+        $this->newVersion = TranslatableRepository::buildNewVersionNumber();
     }
 
     /**
@@ -45,30 +42,33 @@ class MigrateElasticsearchIndexJob implements ShouldQueue
      */
     public function handle()
     {
-        $locales = $this->oldRepository->locales;
+        $oldRepository = app()->make($this->repositoryClass);
+        $newRepository = $oldRepository->buildWithVersion($this->newVersion);
+        $elasticClient = app()->make(ElasticsearchClient::class);
+        $locales = $oldRepository->locales;
 
         // Create new indices
         foreach ($locales as $locale) {
-            $aliasName = $this->newRepository->getIndexAliasName($locale);
-            $newIndexName = $this->newRepository->getVersionedIndexName($locale);
+            $aliasName = $newRepository->getIndexAliasName($locale);
+            $newIndexName = $newRepository->getVersionedIndexName($locale);
 
             $this->log("Creating {$newIndexName}");
-            $this->newRepository->createIndex($locale);
-            $this->newRepository->createMapping($locale);
+            $newRepository->createIndex($locale);
+            $newRepository->createMapping($locale);
         }
 
         // Index into new index
         $this->log("Reindexing -- this may take a while...");
-        $this->newRepository->reindexAllLocales();
+        $newRepository->reindexAllLocales();
 
         foreach ($locales as $locale) {
-            $oldIndexName = $this->oldRepository->fetchVersionedIndexName($locale);
-            $newIndexName = $this->newRepository->getVersionedIndexName($locale);
-            $aliasName = $this->newRepository->getIndexAliasName($locale);
+            $oldIndexName = $oldRepository->fetchVersionedIndexName($locale);
+            $newIndexName = $newRepository->getVersionedIndexName($locale);
+            $aliasName = $newRepository->getIndexAliasName($locale);
 
             // Replace aliases
             $this->log("Moving alias {$aliasName}: {$oldIndexName} -> {$newIndexName}");
-            $this->elasticClient->indices()->updateAliases([
+            $elasticClient->indices()->updateAliases([
                 'body' => [
                     'actions' => [
                         [
@@ -89,7 +89,7 @@ class MigrateElasticsearchIndexJob implements ShouldQueue
 
             // Drop old index
             $this->log("Deleting old index {$oldIndexName}");
-            $this->elasticClient->indices()->delete([
+            $elasticClient->indices()->delete([
                 'index' => $oldIndexName
             ]);
         }

@@ -14,7 +14,9 @@ class MigrateElasticsearch extends Command
      *
      * @var string
      */
-    protected $signature = 'es:migrate {type : Index type(s) to migrate. Allowed values: items, authorities, all}';
+    protected $signature = 'es:migrate
+                            {type : Index type(s) to migrate. Allowed values: items, authorities, all}
+                            {--now : Run the re-index now (not as a queue job)}';
 
     /**
      * The console command description.
@@ -47,23 +49,33 @@ class MigrateElasticsearch extends Command
         if (!in_array($selectedType, $this->availableTypes))
             $this->error("Unknown type '$selectedType'. Allowed values: " . join(', ', $this->availableTypes));
 
-        foreach($this->getRepositories($selectedType) as $repository)
-        {
-            MigrateElasticsearchIndexJob::dispatchNow($repository, [$this, 'comment']);
+        $repositoryClasses = $this->getRepositoryClasses($selectedType);
+
+        if ($this->option('now')) {
+            foreach($repositoryClasses as $repositoryClass) {
+                MigrateElasticsearchIndexJob::dispatchNow($repositoryClass, [$this, 'comment']);
+            }
+            return;
         }
+
+        foreach($repositoryClasses as $repositoryClass) {
+            MigrateElasticsearchIndexJob::dispatch($repositoryClass);
+        }
+
+        $this->comment('✅ Migration job(s) submitted to the queue.');
     }
 
-    private function getRepositories($selectedType) {
-        $repositories = [];
+    private function getRepositoryClasses($selectedType) {
+        $repositoryClasses = [];
 
         if (in_array($selectedType, ['items', 'all'])) {
-            $repositories[] = app()->make(ItemRepository::class);
+            $repositoryClasses[] = ItemRepository::class;
         }
 
         if (in_array($selectedType, ['authorities', 'all'])) {
-            $repositories[] = app()->make(AuthorityRepository::class);
+            $repositoryClasses[] = AuthorityRepository::class;
         }
 
-        return $repositories;
+        return $repositoryClasses;
     }
 }
