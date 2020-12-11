@@ -299,9 +299,9 @@ abstract class TranslatableRepository extends AbstractRepository
 
     abstract public function getSuggestions(int $size, string $search, string $locale = null): SearchResult;
 
-    abstract public function getIndexConfig(string $locale = null): array;
-
-    abstract public function getMappingConfig(string $locale = null): array;
-
     abstract public function reindexAllLocales(): int;
+
+    abstract protected function getIndexConfig(string $locale = null): array;
+
+    abstract protected function getMappingConfig(string $locale = null): array;
 }

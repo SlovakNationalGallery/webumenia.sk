@@ -124,12 +124,12 @@ class AuthorityRepository extends TranslatableRepository
         return $query;
     }
 
-    public function getIndexConfig(string $locale = null): array
+    protected function getIndexConfig(string $locale = null): array
     {
         return config('elasticsearch.index.authorities')[$this->getLocale($locale)];
     }
 
-    public function getMappingConfig(string $locale = null): array
+    protected function getMappingConfig(string $locale = null): array
     {
         return config('elasticsearch.mapping.authorities')[$this->getLocale($locale)];
     }
