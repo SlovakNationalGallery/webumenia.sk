@@ -324,7 +324,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
         return $authors;
     }
 
-    public function getAuthorsFormattedAttribute($value)
+    public function getAuthorsFormattedAttribute($value){
         return array_map( function($a){return formatName($a);}, $this->authors) ;
     }
 
