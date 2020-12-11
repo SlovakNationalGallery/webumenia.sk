@@ -24,6 +24,7 @@ return [
     'description_source_link' => 'popis - link na zdroj',
     'identifier' => 'inventárne číslo',
     'author' => 'autor',
+    'item_authorities' => 'autori - vzťahy',
     'tags' => 'tagy',
     'tag' => 'tag',
     'date_earliest' => 'datovanie najskôr',

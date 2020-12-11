@@ -17,7 +17,7 @@
             @endif
         @endif
         <a href="{!! $item->getUrl() !!}">
-            @if( !isset($hide_authors) ) <em>{!! implode(', ', $item->authors) !!}</em><br> @endif
+            @if( !isset($hide_authors) ) <em>{!! implode(', ', $item->authorsFormatted) !!}</em><br> @endif
             @if( !isset($hide_title) ) <strong>{!! $item->title !!}</strong><br> @endif
             @if( !isset($hide_dating) ) <em>{!! $item->getDatingFormated() !!}</em> @endif
         </a>

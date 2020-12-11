@@ -77,6 +77,9 @@ All notable changes to this project will be documented in this file[^1].
 ### Changed
 - alert in reproductions section
 
+### Changed 
+- connect artwork author to authorities
+
 ## [2.7.4] - 2020-08-25
 ### Changed
 - text in reproductions section
