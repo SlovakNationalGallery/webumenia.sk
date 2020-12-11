@@ -368,6 +368,11 @@ function()
                 'url'         => 'katalog?gallery=Považská+galéria+umenia%2C+PGU',
             ],
             [
+                'id'          => 'SGP',
+                'lang_string' => 'informacie.info_gallery_SGP',
+                'url'         => 'katalog?gallery=Šarišská+galéria%2C+SGP',
+            ],
+            [
                 'id'          => 'MG',
                 'lang_string' => 'informacie.info_gallery_MG',
                 'url'         => 'katalog?gallery=Moravská galerie, MG',

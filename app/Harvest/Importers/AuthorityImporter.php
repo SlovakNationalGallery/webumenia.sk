@@ -63,9 +63,9 @@ class AuthorityImporter extends AbstractImporter
         parent::upsertModel($model, $row);
     }
 
-    protected function processBelongsToMany(Model $model, $field, array $relatedRows, $createRelated = true) {
-        $createRelated &= !in_array($field, ['relationships']);
-        parent::processBelongsToMany($model, $field, $relatedRows, $createRelated);
+    protected function processBelongsToMany(Model $model, $field, array $relatedRows, $allowCreate = true) {
+        $allowCreate &= !in_array($field, ['relationships']);
+        parent::processBelongsToMany($model, $field, $relatedRows, $allowCreate);
     }
 
     protected function existsPivotRecord(Model $model, $field, Model $relatedModel) {

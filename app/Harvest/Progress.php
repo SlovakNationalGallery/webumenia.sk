@@ -4,7 +4,7 @@ namespace App\Harvest;
 
 use Carbon\Carbon;
 
-class Result
+class Progress
 {
     /** @var \DateTime */
     protected $createdAt;
@@ -20,6 +20,12 @@ class Result
 
     /** @var int */
     protected $deleted = 0;
+
+    /** @var int */
+    protected $failed = 0;
+
+    /** @var int */
+    protected $total;
 
     public function __construct(\DateTime $createdAt = null) {
         $this->createdAt = $createdAt ?: Carbon::now();
@@ -45,8 +51,16 @@ class Result
         return $this->deleted;
     }
 
-    public function getTotal() {
-        return $this->inserted + $this->updated + $this->skipped + $this->deleted;
+    public function getFailed() {
+        return $this->failed;
+    }
+
+    public function getProcessed() {
+        return $this->inserted +
+            $this->updated +
+            $this->skipped +
+            $this->deleted +
+            $this->failed;
     }
 
     public function incrementInserted() {
@@ -63,5 +77,17 @@ class Result
 
     public function incrementDeleted() {
         $this->deleted++;
+    }
+
+    public function incrementFailed() {
+        $this->failed++;
+    }
+
+    public function getTotal() {
+        return $this->total;
+    }
+
+    public function setTotal($total) {
+        $this->total = $total;
     }
 }

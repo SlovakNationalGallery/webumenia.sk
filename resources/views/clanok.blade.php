@@ -17,7 +17,7 @@
 @stop
 
 @section('title')
-{!! $article->title !!} | 
+{!! $article->title !!} |
 @parent
 @stop
 
@@ -25,6 +25,10 @@
 <meta name="description" content="{!! $article->shortText !!}">
 @stop
 
+@section('head-javascript')
+{{-- For WEBUMENIA-1462 --}}
+{!! Html::script('js/soundcloud.api.js') !!}
+@stop
 
 @section('content')
 
@@ -47,7 +51,7 @@
             @endif
             <h1>{!! $article->title !!}</h1>
             <p class="bottom-space">
-                <a href="{!! url_to( 'clanky', ['author' => $article->author ]) !!}" style="color: {!! $article->title_color !!}">{!! $article->author !!}</a> &nbsp;&middot;&nbsp; 
+                <a href="{!! url_to( 'clanky', ['author' => $article->author ]) !!}" style="color: {!! $article->title_color !!}">{!! $article->author !!}</a> &nbsp;&middot;&nbsp;
                 {!! $article->published_date !!}
             </p>
         </div>
@@ -88,7 +92,7 @@
 
 {{-- zoznam diel ??? --}}
 
-{{-- 
+{{--
 mapa??
 <section class="map content-section">
     <div class="map-body">

@@ -46,12 +46,14 @@ return [
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
+            'links' => 'skip',
         ],
 
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
             'visibility' => 'public',
+            'links' => 'skip',
         ],
 
         's3' => [

@@ -5,19 +5,19 @@ namespace App\Importers;
 class PnpImporter extends AbstractImporter
 {
     protected $mapping = [
-        'Název:' => 'title:sk',
-        'Autor:' => 'author',
-        'Datace:' => 'dating:sk',
-        'Rok - od' => 'date_earliest',
-        'Rok - do' => 'date_latest',
-        'Rozměry:' => 'measurement:sk',
-        'Výtvarný druh:' => 'work_type:sk',
-        'Námět:' => 'topic:sk',
-        'Materiál:' => 'medium:sk',
-        'Technika:' => 'technique:sk',
-        'Inventární číslo:' => 'identifier',
-        'Značení:' => 'inscription:sk',
-        ' Popis:' => 'description:sk',
+        'title:sk' => 'Název:',
+        'author' => 'Autor:',
+        'dating:sk' => 'Datace:',
+        'date_earliest' => 'Rok - od',
+        'date_latest' => 'Rok - do',
+        'measurement:sk' => 'Rozměry:',
+        'work_type:sk' => 'Výtvarný druh:',
+        'topic:sk' => 'Námět:',
+        'medium:sk' => 'Materiál:',
+        'technique:sk' => 'Technika:',
+        'identifier' => 'Inventární číslo:',
+        'inscription:sk' => 'Značení:',
+        'description:sk' => ' Popis:',
     ];
 
     protected $defaults = [

@@ -18,7 +18,7 @@ class AuthorityRepository extends AbstractRepository
         'biography' => './/vp:Biography_Text',
         'id' => './/vp:Subject/@rdf:about',
         'type' => './/vp:Record_Type',
-        'name' => './/vp:Subject/@vp:labelPreferred',
+        'name' => './/vp:Preferred_Term/vp:Term_Text',
         'sex' => './/vp:Sex',
         'birth_date' => './/vp:Birth_Date',
         'death_date' => './/vp:Death_Date',

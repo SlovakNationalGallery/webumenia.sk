@@ -33,13 +33,14 @@
         "league/color-extractor": "dev-master",
         "barryvdh/laravel-form-bridge": "^0.4",
         "symfony/templating": "^3.4",
-        "sentry/sentry-laravel": "1.1.0",
         "google/recaptcha": "^1.2",
         "chelout/laravel-relationship-events": "^1.0.0",
         "primal/color": "^1.0",
         "laravelium/sitemap": "3.1.*",
         "laravel/tinker": "1.*",
-        "lorisleiva/laravel-deployer": "^0.3.0"
+        "lorisleiva/laravel-deployer": "^0.3.0",
+        "guzzlehttp/psr7": "^1.7",
+        "sentry/sentry-laravel": "^2.3"
     },
     "autoload": {
         "classmap": [

@@ -56,8 +56,5 @@ return array(
     'digital_choice'    => 'Zvolte si reprodukce',
     'more-items_button' => 'zobrazit všechny',
 
-    'alert_covid-19' => 'Brzy bude opět možné vyzvednout si tištěné reprodukce v knihkupectví ex libris, budeme Vás informovat o přesném datu. Zvolenský zámek je již otevřen a reprodukce si můžete vyzvednout v <a href="https://www.sng.sk/sk/zvolen/navsteva/otvaracie-hodiny-a-vstupne" target="_blank">pracovní dny</a>.<br>
-    Při přebírání objednávek prosíme o dodržování platných opatření individuální a kolektivní ochrany a prevence vůči šíření onemocnění COVID-19.<br>
-    Vzhledem k dosavadní situaci bude vyřízení objednávky trvat déle než 30 dní.<br>
-    Děkujeme za trpělivost a těšíme se na Vaši návštěvu.',
+    'alert_covid-19' => 'Naše odběrná místa v <a href="https://www.sng.sk/sk/bratislava/navsteva/otvaracie-hodiny-a-vstupne" target="_blank">knihkupectví Ex Libris</a> a na <a href="https://www.sng.sk/sk/zvolen/navsteva/otvaracie-hodiny-a-vstupne" target="_blank">Zvolenském zámku</a> jsou opět otevřené, těšíme se na Vaši návštěvu.<br>Pokud máte zájem o vyzvednutí reprodukcí do Vánočních svátků (nejpozději <strong>23.12.2020</strong>), prosíme Vás o vytvoření objednávek do termínů:<br><strong>8.12.2020</strong> – platí pro objednávky samostatných reprodukcí (bez pasparty nebo rámu) a posterů (art plakátů),<br><strong>27.11.2020</strong> – platí pro reprodukce s paspartou nebo paspartou a rámem.',
 );

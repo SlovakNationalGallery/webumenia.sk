@@ -33,8 +33,10 @@ return array(
     "share_twitter"      => "share on twitter",
     "share_pinterest"    => "share on pinterest",
     "copy_url"           => "copy link",
+    "copy_citation"      => "copy citation",
     "share_mail"         => "send via email",
     "share_link"         => "Share link",
     "copy"               => "Copy",
     "copied_to_clipboard"=> "Link was copied to clipboard",
+    "citation_copied"    => "Citation has been copied"
 );

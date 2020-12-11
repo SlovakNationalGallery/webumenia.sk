@@ -6,6 +6,7 @@ namespace App;
 
 use App\Contracts\IndexableModel;
 use App\Events\ItemPrimaryImageChanged;
+use App\Matchers\AuthorityMatcher;
 use Chelout\RelationshipEvents\Concerns\HasBelongsToManyEvents;
 use Astrotomic\Translatable\Translatable;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
@@ -31,6 +32,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
     const GUESSED_AUTHORISM_TIMESPAN = 60;
     const FREE_ALWAYS = 0;
     const FREE_NEVER = PHP_INT_MAX;
+    const TREE_DELIMITER = '/';
 
     const COLOR_AMOUNT_THRESHOLD = 0.03;
 
@@ -54,6 +56,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
         'credit',
         'relationship_type',
         'related_work',
+        'additionals',
     ];
 
     protected $fillable = array(
@@ -88,6 +91,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
         'publish',
         'contributor',
         'acquisition_date',
+        'additionals',
     );
 
     protected $dates = array(
@@ -121,6 +125,8 @@ class Item extends Model implements IndexableModel, TranslatableContract
         'belongsToManyUpdatingExistingPivot',
         'belongsToManyUpdatedExistingPivot',
     ];
+
+    protected $useTranslationFallback;
 
     public static function loadValidatorMetadata(ClassMetadata $metadata) {
         $metadata->addGetterConstraint('images', new Valid());
@@ -319,8 +325,17 @@ class Item extends Model implements IndexableModel, TranslatableContract
     }
 
     public function getAuthorsFormattedAttribute($value)
-    {
         return array_map( function($a){return formatName($a);}, $this->authors) ;
+    }
+
+    public function getAuthorsWithoutAuthority()
+    {
+        return app(AuthorityMatcher::class)
+            ->matchAll($this, $onlyExisting = true)
+            ->filter(function (\Illuminate\Support\Collection $authorities) {
+                return $authorities->isEmpty();
+            })
+            ->keys();
     }
 
     public function getFirstAuthorAttribute($value)
@@ -352,8 +367,13 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     public function getMeasurementsAttribute($value)
     {
-        $trans = array("; " => ";", "()" => "");
-        return explode(';', strtr($this->measurement, $trans));
+        return self::formatMeasurement($this->measurement);
+    }
+
+    public static function formatMeasurement(?string $measurement): array
+    {
+        $trans = ['; ' => ';', '()' => ''];
+        return explode(';', strtr($measurement, $trans));
     }
 
     public function getWidthAttribute($value)
@@ -385,11 +405,11 @@ class Item extends Model implements IndexableModel, TranslatableContract
         if (($count_digits<2) && !empty($this->date_earliest)) {
             $formated = $this->date_earliest;
             if (!empty($this->date_latest) && $this->date_latest!=$this->date_earliest) {
-                $formated .= "&ndash;" . $this->date_latest;
+                $formated .= '–' . $this->date_latest;
             }
             return $formated;
         }
-        $trans = array("/" => "&ndash;", "-" => "&ndash;");
+        $trans = array("/" => "–", "-" => "–");
         $formated = preg_replace('/^([0-9]*) \s*([a-zA-Z]*)$/', '$2 $1', $this->dating);
         $parts = explode('/', $formated);
         $formated = implode('/', array_unique($parts));
@@ -399,7 +419,15 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     public function getWorkTypesAttribute()
     {
-        return $this->makeArray($this->work_type, ', ');
+        $workTypes = $this->makeArray($this->work_type, ', ');
+        $stack = [];
+        return array_map(function ($workType) use (&$stack) {
+            $stack[] = $workType;
+            return [
+                'name' => $workType,
+                'path' => implode(self::TREE_DELIMITER, $stack)
+            ];
+        }, $workTypes);
     }
 
     public function setLat($value)
@@ -607,18 +635,23 @@ class Item extends Model implements IndexableModel, TranslatableContract
             'is_free' => $this->isFree(),
             'authority_id' => $this->authorities()->pluck('id'),
             'view_count' => $this->view_count,
-            'work_type' => $work_types ? reset($work_types) : null,
+            'work_type' => $work_types ? implode(self::TREE_DELIMITER, $work_types) : null,
             'title' => $this["title:$locale"],
             'description' => (!empty($this["description:$locale"])) ? strip_tags($this["description:$locale"]) : '',
             'topic' => $this->makeArray($this["topic:$locale"]),
             'place' => $this->makeArray($this["place:$locale"]),
-            'measurement' => $this["measurments:$locale"],
+            'measurement' => self::formatMeasurement($this["measurement:$locale"]),
             'dating' => $this["dating:$locale"],
             'medium' => $this["medium:$locale"],
             'technique' => $this->makeArray($this["technique:$locale"]),
             'gallery' => $this["gallery:$locale"],
             'credit' => $this["credit:$locale"],
             'related_work' => $this["related_work:$locale"],
+            'additionals' => $this["additionals:$locale"],
+            'images' => $this->images
+                ->map(function(ItemImage $image) {
+                    return $image->iipimg_url;
+                }),
             'hsl' => $this->getColors()
                 ->map(function (float $amount, string $color) {
                     $hsl = Parser::Parse($color)->toHSL();
@@ -640,5 +673,15 @@ class Item extends Model implements IndexableModel, TranslatableContract
         if ($save) {
             $this->save();
         }
+    }
+
+    public function getUseTranslationFallback()
+    {
+        return $this->useTranslationFallback;
+    }
+
+    public function setUseTranslationFallback(?bool $useTranslationFallback)
+    {
+        $this->useTranslationFallback = $useTranslationFallback;
     }
 }

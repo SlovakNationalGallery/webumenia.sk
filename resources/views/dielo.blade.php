@@ -24,6 +24,11 @@
 <link rel="canonical" href="{!! $item->getUrl() !!}">
 @stop
 
+@section('head-javascript')
+{{-- For WEBUMENIA-1462 --}}
+{!! Html::script('js/soundcloud.api.js') !!}
+@stop
+
 @section('content')
 
 @if ( ! $item->hasTranslation(App::getLocale()) )
@@ -47,7 +52,9 @@
                 <div class="col-md-10 col-md-offset-1 text-center content-section">
                     <h1 class="nadpis-dielo" itemprop="name">{!! $item->title !!}</h1>
                     <h2 class="inline">
-                        {!! implode(', ', $item->getAuthorsWithLinks()) !!}
+                        @foreach($item->authorities->toBase()->merge($item->getAuthorsWithoutAuthority()) as $author)
+                            @include('components.item_author')@if (!$loop->last), @endif
+                        @endforeach
                     </h2>
                 </div>
             </div>
@@ -133,8 +140,11 @@
                         <tbody>
                             <tr>
                                 <td class="atribut">{{ trans('dielo.item_attr_dating') }}:</td>
-                                <td><time itemprop="dateCreated" datetime="{!! $item->date_earliest !!}">{!!
-                                        $item->getDatingFormated(); !!}</time></td>
+                                <td>
+                                    <time itemprop="dateCreated" datetime="{!! $item->date_earliest !!}">
+                                        {{ $item->getDatingFormated() }}
+                                    </time>
+                                </td>
                             </tr>
                             @if (!empty($item->measurements))
                             <tr>
@@ -151,13 +161,9 @@
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_work_type') }}:</td>
                                     <td>
-                                        @foreach ($item->work_types as $i => $work_type)
-                                            @if ($i == 0)
-                                                <a href="{!! URL::to('katalog?work_type=' . $work_type) !!}">{!! addMicrodata($work_type, "artform") !!}</a>
-                                            @else
-                                                {!! $work_type !!}
-                                            @endif
-                                            @if (count($item->work_types) > ($i+1))
+                                        @foreach ($item->work_types as $work_type)
+                                            <a href="{{ route('frontend.catalog.index', ['work_type' => $work_type['path']]) }}"><span itemprop="artform">{{ $work_type['name'] }}</span></a>
+                                            @if (!$loop->last)
                                                  &rsaquo;
                                             @endif
                                         @endforeach
@@ -289,13 +295,11 @@
                             @endif
                             @if (!empty($item->related_work))
                             <tr>
-                                <td class="atribut">{!! $item->relationship_type !!}:</td>
+                                <td class="atribut">{!! $item->relationship_type ?: trans('dielo.default_relationship_type') !!}:</td>
                                 <td>
                                     <a href="{!! URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) !!}"
                                         itemprop="isPartOf">{!! $item->related_work !!}</a>
-                                    @if ($item->related_work_order)
-                                    ({!! $item->related_work_order !!}/{!! $item->related_work_total !!})
-                                    @endif
+                                    @include('components.item_related_work_order_total')
                                 </td>
                             </tr>
                             @endif
@@ -334,7 +338,8 @@
                         @include('components.share_buttons', [
                             'title' => $item->getTitleWithAuthors(),
                             'url' => $item->getUrl(),
-                            'img' => URL::to( $item->getImagePath())
+                            'img' => URL::to($item->getImagePath()),
+                            'citation' => collect([$item->getTitleWithAuthors(), $item->getDatingFormated(), $item->gallery, $item->identifier, URL::current()])->filter()->join(', '),
                         ])
                     </div>
                 </div>
@@ -350,12 +355,10 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <h3 class="underlined-links mb-3">
-                            <span class="grey">{!! $item->relationship_type !!}: </span>
+                            <span class="grey">{!! $item->relationship_type ?: trans('dielo.default_relationship_type') !!}: </span>
                             <a href="{!! URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) !!}"
                                 itemprop="isPartOf">{!! $item->related_work !!}</a>
-                            @if ($item->related_work_order)
-                            ({!! $item->related_work_order !!}/{!! $item->related_work_total !!})
-                            @endif
+                            @include('components.item_related_work_order_total')
                         </h3>
 
                         @include('components.artwork_carousel', [
@@ -456,6 +459,20 @@
 {{ HTML::script('js/selectize.min.js') }}
 {{-- @TODO bring this back when opened to public --}}
 {{-- {{ HTML::script('https://www.google.com/recaptcha/api.js') }} --}}
+
+{{-- Report item details to Google Tag Manager --}}
+<script defer>
+    dataLayer.push({!! json_encode([
+        'artwork' => [
+            'authors' => array_values($item->authors),
+            'work_types' => collect($item->work_types)->pluck(['path']),
+            'topic ' => $item->topic,
+            'media' => $item->mediums,
+            'technique' => $item->technique,
+            'related_work' => $item->related_work,
+        ],
+    ]) !!});
+</script>
 
 @if (!empty($item->lat) && ($item->lat > 0))
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVG26BxGY9yhjCFbviWRgZsvxSlikOnIM&callback=initMap" async defer></script>

@@ -3,12 +3,79 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 ### Added
+- authority matcher
+
+### Changed
+- Bump up sentry/sentry-laravel to 2.3
+- use authority matcher in item detail
+- SGP into list of galleries in the info page
+- Run tests on GitHub Actions
+
+## [2.13.0] - 2020-11-27
+### Added
+- Add 'copy citation' button to artwork detail
+
+### Changed
+- Bump up Bootstrap to 3.4.1 and bump down jQuery to 3.4.1
+
+## [2.12.0] - 2020-11-26
+### Changed
+- Use laravel-mix for (some) JavaScript files
+- Add item (artwork) data to GTM dataLayer
+- Use atymic/deployer-php-action@2.0 for auto-deploys
+- Update resolve-url-loader to 3.1.2
+
+### Fixed
+- Restart queue workers on deploy
+- Do not trigger an Elasticsearch error on high page numbers
+
+## [2.11.1] - 2020-11-11
+### Changed
+- revert escape html characters in PNP trienale importer
+
+## [2.11.0] - 2020-11-10
+### Added
+- automatically deploy "develop" branch to test
+- add missing fields to elasticsearch for exlibris 2020
+
+### Changed
+- skip links in flysystem
+- change elasticsearch client config
+- run tests on MySQL 5.7
+- escape html characters in PNP trienale importer
+
+## [2.10.0] - 2020-11-02
+### Added
+- PNP trienale importer
+
+### Fixed
+- wrong method name in harvester
+
+### Changed
+- alert in reproductions section
+
+## [2.9.0] - 2020-10-27
+### Added
+- Google Tag Manager (GTM) setup
+
+## [2.8.0] - 2020-10-26
+### Added
 - color picker to patternlib
+- item work type tree structure
+- organization authority detail
+- update harvest model status on harvesting failed
 
 ### Fixed
 - authority year range filter
+- deletion of item images on harvest
 - google maps api call
+- item related work parsing and displaying
 - slow query on detail page
+- do not update empty pivot data in harvester
+- wrong abort function call
+
+### Changed
+- alert in reproductions section
 
 ### Changed 
 - connect artwork author to authorities

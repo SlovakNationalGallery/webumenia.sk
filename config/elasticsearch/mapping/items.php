@@ -39,6 +39,9 @@ $mapping = [
         'dating' => [
             'type' => 'text',
         ],
+        'measurement' => [
+            'type' => 'text',
+        ],
         'description' => [
             'type' => 'text',
             'analyzer' => 'asciifolding_analyzer',
@@ -136,13 +139,21 @@ $mapping = [
             'format' => 'yyyy-MM-dd HH:mm:ss',
         ],
         'work_type' => [
-            'type' => 'keyword',
+            'type' => 'text',
+            'analyzer' => 'tree_analyzer',
+            'fielddata' => true,
         ],
         'view_count' => [
             'type' => 'integer',
         ],
         'hsl' => [
             'type' => 'nested',
+        ],
+        'additionals' => [
+            'type' => 'object'
+        ],
+        'images' => [
+            'type' => 'keyword'
         ],
     ],
 ];
