@@ -334,6 +334,10 @@ class PnpKarasekImporter extends AbstractImporter
 
     protected function translateSingle($single, $map, $locale)
     {
+        if ($single === null) {
+            return null;
+        }
+
         $single = Str::lower($single);
 
         if ($locale === 'cs') {
@@ -345,6 +349,10 @@ class PnpKarasekImporter extends AbstractImporter
 
     protected function translateMultiple($multiple, $map, $locale)
     {
+        if ($multiple === null) {
+            return null;
+        }
+
         $exploded = explode(',', $multiple);
         $translated = array_map(function ($single) use ($map, $locale) {
             $single = trim($single);
