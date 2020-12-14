@@ -6,7 +6,7 @@
     content="{!! $item->work_type; !!}, {{ trans('dielo.item_attr_dating') }}: {!! $item->dating !!}, {{ trans('dielo.item_attr_measurements') }}: {!!  implode(' x ', $item->measurements) !!}" />
 <meta property="og:type" content="object" />
 <meta property="og:url" content="{!! Request::url() !!}" />
-<meta property="og:image" content="{!! URL::to( $item->getImagePath() ) !!}" />
+<meta property="og:image" content="{!! asset_timed( $item->getImagePath() ) !!}" />
 <meta property="og:site_name" content="Web umenia" />
 @stop
 
