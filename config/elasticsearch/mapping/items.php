@@ -67,6 +67,9 @@ $mapping = [
         'has_image' => [
             'type' => 'boolean',
         ],
+        'image_ratio' => [
+            'type' => 'float'
+        ],
         'id' => [
             'type' => 'keyword',
         ],

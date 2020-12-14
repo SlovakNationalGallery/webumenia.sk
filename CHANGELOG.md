@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Added
 - authority matcher
+- save item image ratio
 
 ### Changed
 - Bump up sentry/sentry-laravel to 2.3
