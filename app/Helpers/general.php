@@ -133,7 +133,7 @@ function asset_timed($path, $secure = null)
     if (file_exists($file)) {
         return asset($path, $secure) . '?' . filemtime($file);
     } else {
-        throw new \Exception('The file "'.$path.'" cannot be found in the public folder');
+        return asset($path, $secure); // fallback to default asset() to avoid exception
     }
 }
 

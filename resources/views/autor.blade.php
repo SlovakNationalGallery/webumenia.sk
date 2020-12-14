@@ -5,7 +5,7 @@
 <meta property="og:description" content="{{ $description }}" />
 <meta property="og:type" content="object" />
 <meta property="og:url" content="{!! Request::url() !!}" />
-<meta property="og:image" content="{!! URL::to( $author->getImagePath() ) !!}" />
+<meta property="og:image" content="{!! asset_timed( $author->getImagePath() ) !!}" />
 <meta property="og:site_name" content="Web umenia" />
 @stop
 

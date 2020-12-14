@@ -8,7 +8,7 @@
 <meta property="og:description" content="{!! strip_tags($article->summary) !!}" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="{!! Request::url() !!}" />
-<meta property="og:image" content="{!! URL::to( $article->getHeaderImage()) !!}" />
+<meta property="og:image" content="{!! asset_timed( $article->getHeaderImage()) !!}" />
 
 @foreach ($article->getContentImages() as $image )
 <meta property="og:image" content="{!! $image !!}" />
