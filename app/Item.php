@@ -181,7 +181,6 @@ class Item extends Model implements IndexableModel, TranslatableContract
     public function getImagePath($full = false, $resize = false, $resize_method = 'fit')
     {
         return self::getImagePathForId($this->id, $full, $resize, $resize_method);
-
     }
 
     public function deleteImage() {
@@ -613,6 +612,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
         $image->save($path);
 
         $this->has_image = true;
+        $this->image_ratio = $image->getWidth() / $image->getHeight();
         $this->save();
 
         event(new ItemPrimaryImageChanged($this));
@@ -636,6 +636,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
             'authority_id' => $this->authorities()->pluck('id'),
             'view_count' => $this->view_count,
             'work_type' => $work_types ? implode(self::TREE_DELIMITER, $work_types) : null,
+            'image_ratio' => $this->image_ratio,
             'title' => $this["title:$locale"],
             'description' => (!empty($this["description:$locale"])) ? strip_tags($this["description:$locale"]) : '',
             'topic' => $this->makeArray($this["topic:$locale"]),
