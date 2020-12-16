@@ -6,6 +6,7 @@ namespace App;
 
 use App\Contracts\IndexableModel;
 use App\Events\ItemPrimaryImageChanged;
+use App\Matchers\AuthorityMatcher;
 use Chelout\RelationshipEvents\Concerns\HasBelongsToManyEvents;
 use Astrotomic\Translatable\Translatable;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
@@ -317,9 +318,24 @@ class Item extends Model implements IndexableModel, TranslatableContract
         $authors_array = $this->makeArray($this->author);
         $authors = array();
         foreach ($authors_array as $author) {
-            $authors[$author] = preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $author);
+            $authors[$author] = formatName($author);
         }
+        
         return $authors;
+    }
+
+    public function getAuthorsFormattedAttribute($value){
+        return array_map( function($a){return formatName($a);}, $this->authors) ;
+    }
+
+    public function getAuthorsWithoutAuthority()
+    {
+        return app(AuthorityMatcher::class)
+            ->matchAll($this, $onlyExisting = true)
+            ->filter(function (\Illuminate\Support\Collection $authorities) {
+                return $authorities->isEmpty();
+            })
+            ->keys();
     }
 
     public function getFirstAuthorAttribute($value)
@@ -528,10 +544,14 @@ class Item extends Model implements IndexableModel, TranslatableContract
         $used_authorities = array();
         $authorities_with_link = array();
         $not_authorities_with_link = array();
-        foreach ($this->authorities as $authority) {
+        $roles = config('authorityRoles');
+        foreach ($this->authorities->sortBy('name') as $authority) {
             if ($authority->pivot->role != 'autor/author') {
-                $not_authorities_with_link[] = '<a class="underline" href="'. $authority->getUrl() .'">'. $authority->formated_name .'</a>'
-                    .' &ndash; ' . Authority::formatMultiAttribute($authority->pivot->role);
+                $not_authorities_with_link[] = '<a class="underline" href="'. $authority->getUrl() .'">'. $authority->formated_name .'</a>' . ' &ndash; ' .
+                (isset($roles[$authority->pivot->role]) 
+                    ? trans('authority.role.' . $roles[$authority->pivot->role])
+                    : Authority::formatMultiAttribute($authority->pivot->role)
+                );
             } else {
                 $authorities_with_link[] = '<span itemprop="creator" itemscope itemtype="http://schema.org/Person"><a class="underline" href="'. $authority->getUrl() .'" itemprop="sameAs"><span itemprop="name">'. $authority->formated_name .'</span></a></span>';
             }

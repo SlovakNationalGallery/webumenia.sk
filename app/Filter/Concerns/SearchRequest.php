@@ -65,4 +65,12 @@ trait SearchRequest
         $this->from = $from;
         return $this;
     }
+
+    /**
+     * @return int
+     */
+    public function getSearchWindowSize(): int
+    {
+        return ($this->from ?? 0) + ($this->size ?? 0);
+    }
 }

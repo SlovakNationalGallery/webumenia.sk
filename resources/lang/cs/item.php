@@ -24,6 +24,7 @@ return [
     'description_source_link' => 'popis - link na zdroj',
     'identifier' => 'inventární číslo',
     'author' => 'autor',
+    'item_authorities' => 'autoři - vztahy',
     'tags' => 'tagy',
     'tag' => 'tag',
     'date_earliest' => 'datace od',

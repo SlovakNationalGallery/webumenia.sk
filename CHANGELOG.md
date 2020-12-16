@@ -2,6 +2,21 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.14.0] - 2020-12-14
+### Added
+- authority matcher
+
+### Fixed
+- Do not trigger an Elasticsearch error on high page numbers
+
+### Changed
+- connect artwork author to authorities
+- Bump up sentry/sentry-laravel to 2.3
+- use authority matcher in item detail
+- SGP into list of galleries in the info page
+- Run tests on GitHub Actions
+
 ## [2.13.1] - 2020-12-07
 ### Fixed
 - Use method asset_timed to avoid caching of og:image
