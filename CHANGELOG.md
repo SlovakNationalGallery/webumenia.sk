@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - authority matcher
 - save item image ratio
+- karasek importer
 
 ### Fixed
 - Do not trigger an Elasticsearch error on high page numbers
