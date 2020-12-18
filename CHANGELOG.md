@@ -3,11 +3,14 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.15.0] - 2020-12-18
+### Added
+- save item image ratio
+- karasek importer
+
 ## [2.14.0] - 2020-12-14
 ### Added
 - authority matcher
-- save item image ratio
-- karasek importer
 
 ### Fixed
 - Do not trigger an Elasticsearch error on high page numbers
