@@ -4,9 +4,10 @@
         leave-active-class="animated fadeOut"
     >
         <li v-if="count > 0 || active" v-bind:class="{ active }">
-            <a :href="href">{{ label }}
+            <a :href="href" :title="label">
+                <i class="fa fa-star"></i>
                 <transition enter-active-class="animated heartBeat" mode="out-in">
-                    <span :key="count" class="badge badge-notify">{{ count }}</span>
+                    <span :key="count" class="badge badge-info">{{ count }}</span>
                 </transition>
             </a>
         </li>
