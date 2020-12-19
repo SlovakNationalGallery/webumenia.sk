@@ -52,7 +52,7 @@
                 </li>
                 @endif
                 <user-collections-nav-link
-                    :active="{{ json_encode(Request::is('moje')) }}"
+                    :active="{{ json_encode(Route::is('frontend.user-collection.show')) }}"
                     base-href="{{ route('frontend.user-collection.show') }}"
                     label="{{ utrans('master.favourites') }}"
                 ></user-collections-nav-link>
