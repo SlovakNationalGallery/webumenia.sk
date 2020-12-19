@@ -12,6 +12,7 @@ return array(
     */
 
     'item_zoom'        => 'zoom obrázku',
+    'item_favourite'   => 'přidat mezi oblíbené',
     'close'            => 'zavřít',
     'back'             => 'zpět',
     'return_home'      => 'návrat domů',
