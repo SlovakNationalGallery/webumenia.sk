@@ -12,6 +12,7 @@ return array(
     */
 
     'item_zoom'        => 'zoom artwork',
+    'item_favourite'   => 'add to favourites',
     'close'            => 'close',
     'back'             => 'back',
     'return_home'      => 'back to home page',
