@@ -54,7 +54,7 @@
                 <user-collections-nav-link
                     :active="{{ json_encode(Request::is('moje')) }}"
                     base-href="{{ route('frontend.user-collection.show') }}"
-                    label="Moje (Translate me)"
+                    label="{{ utrans('master.favourites') }}"
                 ></user-collections-nav-link>
             </ul>
         </div>
