@@ -107,7 +107,6 @@ return array(
         'Conner\Tagging\Providers\TaggingServiceProvider',
         'Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider',
         Zizaco\Entrust\EntrustServiceProvider::class,
-        'Barryvdh\Debugbar\ServiceProvider',
 
         Illuminate\Bus\BusServiceProvider::class,
         Illuminate\Foundation\Providers\FoundationServiceProvider::class,
