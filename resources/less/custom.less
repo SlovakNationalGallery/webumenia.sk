@@ -680,8 +680,7 @@ section.catalog {
 
 }
 
-.navbar-nav {
-  .badge {
+.badge-sup {
     position:relative;
     top: -15px;
     left: 0px;
@@ -691,13 +690,15 @@ section.catalog {
     margin-bottom: -10px; //oprava odsadenia sposobeneho paddingom
 
     &.badge-notify {
-      background: @red;
+        background: @red;
     }
     &.badge-info {
-      background: @gray-lighter;
-      color: @text-color;
+        background: @gray-lighter;
+        color: @text-color;
     }
-  }
+    &.badge-primary {
+        background: @primary-color;
+    }
 }
 
 #top {
