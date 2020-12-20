@@ -324,6 +324,11 @@
                     @endif
 
                     <div class="col-md-12 text-center">
+                        <user-collections-favourite-button
+                            label="{{ utrans('general.item_favourite') }}"
+                            id="{{ $item->id }}"
+                            is-detail=true
+                        ></user-collections-favourite-button>
                         @if ($item->isForReproduction())
                         <a href="{!! URL::to('dielo/' . $item->id . '/objednat')  !!}"
                             class="btn btn-cta btn-default btn-outline sans w-100"><i class="fa fa-shopping-cart"></i>
