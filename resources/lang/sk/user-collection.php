@@ -9,5 +9,5 @@ Diela sú uložené iba dočasne vo vašom internetovom prehliadači. ',
 Odstránené diela zmiznú po opätovnom načítaní stránky.',
     'content-feedback' => 'Chyby, pripomienky a návrhy môžete posielať na <a href="mailto:lab@sng.sk">lab@sng.sk</a>',
     'clear'            => 'odstrániť všetky diela',
-    'clear-confirm'    => 'Naozaj? Úplne vážne?',
+    'clear-confirm'    => 'Naozaj chcete vymazať všetky obľúbené diela zo zoznamu?Naozaj? Úplne vážne?',
 );
