@@ -1,17 +1,27 @@
 @extends('layouts.master')
 
 @section('title')
-  {{-- TODO Translate --}}
-  Moje
+  {{ trans('user-collection.title') }}
   |
   @parent
 @stop
 
 @section('content')
 <div class="container">
-    @if($items->isEmpty())
-     Nemate tu nic! TODO Translate
-    @else
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2 col-lg-4 col-lg-offset-4 underlined-links">
+            <h2 class="bottom-space text-center">{{ trans('user-collection.title') }} <span class="badge badge-primary badge-sup">beta</span></h2>
+
+            @if($items->isEmpty())
+                {{ trans('user-collection.empty') }}
+            @else
+                <p>{!! trans('user-collection.content-intro') !!}</p>
+                <p>{!! trans('user-collection.content-usage') !!}</p>
+                <p>{!! trans('user-collection.content-feedback') !!}</p>
+            @endif
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-sm-12">
             <user-collections-clear-button confirm-message="Naozaj? (TODO Translate)">Vymazat vsetko</user-collections-clear-button>
@@ -27,8 +37,7 @@
         <div class="col-sm-12 text-center">
             @include('components.load_more', ['paginator' => $items, 'isotopeContainerSelector' => '.isotope'])
         </div>
-  </div>
-  @endif
+    </div>
 </div>
 @endsection
 
