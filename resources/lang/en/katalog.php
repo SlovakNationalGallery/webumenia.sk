@@ -22,7 +22,7 @@ return array(
     'filters_use_color'      => 'color filter',
     'filters_color'          => 'color',
     'catalog_found_artworks' => 'found artworks for',
-    'catalog_artworks'       => 'artworks',
+    'catalog_artworks'       => '{0} artworks|[1] artwork|[2,*] artworks',
     'catalog_no_artworks'    => 'currently no artworks',
     'catalog_show_more'      => 'show more',
     'catalog_finished'       => "that's all.",

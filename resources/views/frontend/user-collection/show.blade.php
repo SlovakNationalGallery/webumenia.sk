@@ -22,6 +22,15 @@
         </div>
     </div>
 
+    <div class="row content-section">
+        <div class="col-xs-6">
+            <h4 class="inline">{{ count($items) }} {{ trans_choice('katalog.catalog_artworks', count($items)) }} </h4>
+        </div>
+        <div class="col-xs-6 text-right">
+            {{-- @TODO --}}
+            {{-- @formRow($form['sort_by'], ['attr' => ['class' => 'js-dropdown-select']]) --}}
+        </div>
+    </div>
     <div class="row">
         <div class="col-sm-12">
             <user-collections-clear-button confirm-message="Naozaj? (TODO Translate)">Vymazat vsetko</user-collections-clear-button>
