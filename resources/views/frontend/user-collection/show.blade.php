@@ -25,6 +25,7 @@
     <div class="row content-section">
         <div class="col-xs-6">
             <h4 class="inline">{{ count($items) }} {{ trans_choice('katalog.catalog_artworks', count($items)) }} </h4>
+            <user-collections-clear-button confirm-message="{{ trans('user-collection.clear-confirm') }}">{{ trans('user-collection.clear') }}</user-collections-clear-button>
         </div>
         <div class="col-xs-6 text-right">
             {{-- @TODO --}}
@@ -33,7 +34,6 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <user-collections-clear-button confirm-message="Naozaj? (TODO Translate)">Vymazat vsetko</user-collections-clear-button>
             <div class="isotope">
             @foreach ($items as $item)
                 @include('components.artwork_grid_item', [
