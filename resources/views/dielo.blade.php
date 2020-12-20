@@ -325,7 +325,8 @@
 
                     <div class="col-md-12 text-center">
                         <user-collections-favourite-button
-                            label="{{ utrans('general.item_favourite') }}"
+                            label-add="{{ utrans('general.item_add_to_favourites') }}"
+                            label-remove="{{ utrans('general.item_remove_from_favourites') }}"
                             id="{{ $item->id }}"
                             is-detail=true
                         ></user-collections-favourite-button>
