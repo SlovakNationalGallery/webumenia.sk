@@ -21,3 +21,11 @@ require('jquery.easing')
 // Components
 require('./components/searchbar')
 require('./components/clipboard-button')
+
+const Vue = window.Vue = require('vue');
+
+
+// color input for catalog-color filter
+Vue.component('slider', require('./components/vue/slider').default);
+Vue.component('color-slider', require('./components/vue/color-slider').default);
+

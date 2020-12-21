@@ -9,7 +9,7 @@
     </div>
     <div class="col-xs-12 col-sm-10 col-sm-pull-1">
         <div class="year-range-slider" id="{{$name}}-slider">
-            <year-slider
+            <slider
                v-model="yearRange"
                :min="yearMin"
                :max="yearMax"
@@ -17,7 +17,7 @@
                :show-min-max="false"
                @change="$emit('slide', $event)"
                @changemouseup="$emit('change', $event)">
-            </year-slider>
+            </slider>
             <input id="{{$name}}" name="{{$name}}" type="hidden" value="{{ $from . ', ' . $to }}"/>
          </div>
     </div>
@@ -25,8 +25,6 @@
 
 @section('javascript')
 @parent
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="{{ asset('js/vue/vue-color.min.js') }}"></script>
 
 @php
     $jsId = Str::camel($name);
@@ -36,9 +34,6 @@
 <script>
   var {{ $jsId }} = new Vue({
     el: '#{{$name}}-slider',
-    components: {
-      'year-slider': VueColor.Slider,
-    },
     data: function() {
       return {
         yearRange: [{{ $yearRange ? $yearRange : $min . ',' . $max }}],

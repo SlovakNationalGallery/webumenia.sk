@@ -33,7 +33,7 @@ class ItemAuthoritiesType extends AbstractType
             
         $data = $form->getData();
         $view->vars['items'] = $data;
-        $view->vars['authorities_choices'] = \App\Authority::orderBy('name', 'asc')->get(['id as key', 'name as value']);
+        $view->vars['authorities_choices'] = \App\Authority::whereIn('id',array_keys(get_object_vars(json_decode($data))))->orderBy('name', 'asc')->get(['id as key', 'name as value']);
         $view->vars['roles_choices'] = json_encode(array_map(function ($role){
             return  [
                 "key" => $role,

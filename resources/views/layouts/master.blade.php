@@ -35,6 +35,7 @@
 		<link rel="stylesheet" type="text/css" href="{{ mix('/css/style.css') }}" />
 		{!! Html::style('css/slick-theme.css') !!}
 		{!! Html::style('css/magnific-popup.css') !!}
+		{!! Html::style('/css/js/app.css') !!}
 
 		{{-- JS --}}
 		@if (App::environment() == 'production')

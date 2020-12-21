@@ -456,7 +456,6 @@
 {!! Html::script('js/components/share_buttons.js') !!}
 
 {{ HTML::script('js/slick.js') }}
-{{ HTML::script('js/selectize.min.js') }}
 {{-- @TODO bring this back when opened to public --}}
 {{-- {{ HTML::script('https://www.google.com/recaptcha/api.js') }} --}}
 

@@ -117,6 +117,7 @@
 @stop
 
 @section('script')
+@parent
 
 {!! Html::script('js/selectize.min.js') !!}
 
@@ -140,12 +141,33 @@ $(document).ready(function(){
 		mode: 'multi',
 		create: 'true',
 		persist: false,
+		valueField: 'name',
+		labelField: 'name',
+		searchField: 'name',
 		delimiter: ';',
 		render: {
-				item: function(data, escape) {
-				return '<div class="selected-item">' + data.text.replace(/\(.*?\)/g, "") + '</div>';
+			item: function(data, escape) {
+				return '<div class="selected-item">' + data.name.replace(/\(.*?\)/g, "") + '</div>';
+			},
+			option: function(item, escape) {
+				return '<div class="selected-item">' + item.name.replace(/\(.*?\)/g, "") + '</div>';
 			}
-		}
+		},	
+		loadThrottle: 300,
+		load: function(query, callback) {
+			if (!query.length) return callback();
+			return $.ajax({
+				url:  `/autori/suggestions?search=${query}`,
+				type: 'GET',
+
+				error: function() {
+					callback();
+				},
+				success: function(res) {
+					callback(res);
+				}
+			});
+		},
 	});
 
 });

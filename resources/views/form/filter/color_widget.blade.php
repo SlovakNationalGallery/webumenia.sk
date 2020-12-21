@@ -1,11 +1,12 @@
 <div class="color-picker" id="{{ $id }}">
     <input type="hidden" name="{{ $name }}" v-bind:value="colorSubstring" />
-    <slider-picker v-model="color" @changemouseup="onChange" />
+    <color-slider v-model="color" @changemouseup="onChange" />
 </div>
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+@section('javascript')
+@parent
 <script src="{{ asset('/js/touch-recognition.js') }}"></script>
-<script src="{{ asset('/js/vue/vue-color.min.js') }}"></script>
-<script>
+<script >
 @if ($color)
   var color = {
     hex: '{{ $color }}',
@@ -17,9 +18,6 @@
 
 new Vue({
   el: '#{{ $id }}',
-  components: {
-    'slider-picker': VueColor.ColorSlider,
-  },
   computed: {
     colorSubstring() {
       if (this.color && this.color.hex) return this.color.hex.substring(1)
@@ -37,3 +35,4 @@ new Vue({
   }
 })
 </script>
+@stop
