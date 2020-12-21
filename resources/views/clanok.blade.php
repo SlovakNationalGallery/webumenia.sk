@@ -2,13 +2,13 @@
 
 @section('og')
 @if (!$article->publish)
-    <meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="noindex, nofollow">
 @endif
 <meta property="og:title" content="{!! $article->title !!}" />
 <meta property="og:description" content="{!! strip_tags($article->summary) !!}" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="{!! Request::url() !!}" />
-<meta property="og:image" content="{!! URL::to( $article->getHeaderImage()) !!}" />
+<meta property="og:image" content="{!! URL::to( $article->header_image_src) !!}" />
 
 @foreach ($article->getContentImages() as $image )
 <meta property="og:image" content="{!! $image !!}" />
@@ -33,55 +33,68 @@
 @section('content')
 
 @if ( ! $article->hasTranslation(App::getLocale()) )
-    <section>
-        <div class="container top-section">
-            <div class="row">
-                @include('includes.message_untranslated')
-            </div>
-        </div>
-    </section>
-@endif
-
-<div class="webumeniaCarousel">
-<div class="header-image" style="background-image: url({!! $article->getHeaderImage() !!}); text-shadow:0px 1px 0px {!! $article->title_shadow !!}; color: {!! $article->title_color !!}">
-    <div class="outer-box">
-        <div class="inner-box">
-            @if ($article->category)
-                <h2>{!! $article->category->name !!}</h2>
-            @endif
-            <h1>{!! $article->title !!}</h1>
-            <p class="bottom-space">
-                <a href="{!! url_to( 'clanky', ['author' => $article->author ]) !!}" style="color: {!! $article->title_color !!}">{!! $article->author !!}</a> &nbsp;&middot;&nbsp;
-                {!! $article->published_date !!}
-            </p>
+<section>
+    <div class="container top-section">
+        <div class="row">
+            @include('includes.message_untranslated')
         </div>
     </div>
-</div>
-</div>
-{{-- <section class="article summary bg-light-grey content-section">
+</section>
+@endif
+
+@component('components.header_carousel', ['item' => $article]))
+    @slot('slideContent')
+        <h1>{!! $article->title !!}</h1>
+        @if ($article->category)
+        <h2 style="color: {!! $article->title_color !!}">{!! $article->category->name !!}</h2>
+        @endif
+    @endslot
+@endcomponent
+
+<section class="article content-header">
+    <div class="article-header">
         <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2 ">
-                    {!! $article->summary !!}
+            <div class="row text-center mb-4">
+                <div class="col-md-8 col-md-push-2">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-6  col-xs-12">
+                            <div class="v-center">
+                                <a href="{!! url_to( 'clanky', ['author' => $article->author ]) !!}">
+                                    {!! $article->author!!}
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="v-center">
+                                <i class='fa fa-calendar-o mr-3'></i>
+                                @date($article->published_date)
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-md-push-0 col-sm-6 col-sm-push-6 col-xs-12">
+                            @if ($article->reading_time)
+                            <div class="v-center">
+                                <i class='fa fa-clock-o mr-3'></i>{!! $article->reading_time !!}
+                            </div>
+                            @endif
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-</section> --}}
+    </div>
+</section>
+
 <section class="article content-section">
     <div class="article-body">
         <div class="container">
             <div class="row">
-                <div class="col-md-4 lead attributes">
+                <div class="col-md-8 col-md-push-2 lead attributes long-text">
                     {!! $article->summary !!}
-
-                    <!-- share -->
-                    @include('components.share_buttons', [
-                        'title' => $article->title,
-                        'url' => $article->getUrl(),
-                        'img' => URL::to($article->getHeaderImage()),
-                    ])
                 </div>
-                <div class="col-md-6 attributes">
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-md-push-2 attributes long-text">
                     {!! $article->content !!}
                 </div>
             </div>
@@ -111,7 +124,6 @@ mapa??
 @stop
 
 @section('javascript')
-{!! Html::script('js/slick.js') !!}
 {!! Html::script('js/components/share_buttons.js') !!}
 <script type="text/javascript">
     // carousel

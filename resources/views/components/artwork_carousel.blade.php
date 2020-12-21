@@ -34,6 +34,7 @@
         height="{{ $height }}"
         data-srcset="{!! route('dielo.nahlad', ['id' => $item->id, 'width'=> 0, 'height' => $size]) !!} 1x, {!! route('dielo.nahlad', ['id' => $item->id, 'width'=> 0, 'height' => ($size*2)]) !!} 2x"
         data-src="{!! route('dielo.nahlad', ['id' => $item->id, 'width'=> 0, 'height' => $size]) !!}"
+        onerror="this.onerror=null;this.srcset=''"
         class="lazyload"
         style=""
         alt="{!! $item->getTitleWithAuthors() !!} ">

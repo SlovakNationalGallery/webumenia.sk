@@ -46,7 +46,8 @@
                             @include('components.share_buttons', [
                                 'title' => $author->formatedName,
                                 'url' => Request::url(),
-                                'img' => URL::to( $author->getImagePath() )
+                                'img' => URL::to( $author->getImagePath() ),
+                                'class' =>'pt-4'
                             ])
                         </div>
                         @if ( $author->tags->count() > 0)
@@ -164,8 +165,6 @@
 
 @section('javascript')
 {!! Html::script('js/readmore.min.js') !!}
-
-{!! Html::script('js/slick.js') !!}
 {!! Html::script('js/components/artwork_carousel.js') !!}
 {!! Html::script('js/components/share_buttons.js') !!}
 

@@ -37,4 +37,6 @@ return array(
     "share_link"         => "Share link",
     "copy"               => "Copy",
     "copied_to_clipboard"=> "Link was copied to clipboard",
+    'minute'             => '{1}:count minute|{0}:count minutes|]1,Inf[:count minutes',
+    'reading_time'       => 'Reading time',
 );

@@ -4,10 +4,10 @@
 
 namespace App;
 
+use App\Concerns\HasHeaderImage;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Support\Facades\URL;
-use Intervention\Image\ImageManagerStatic;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,10 +15,14 @@ class Article extends Model implements TranslatableContract
 {
     use Translatable;
 
-
     use \Conner\Tagging\Taggable;
 
-    const ARTWORKS_DIR = '/images/clanky/';
+    use HasHeaderImage;
+
+    function getArtworksDirAttribute()
+    {
+        return '/images/clanky/';
+    }
 
     public $translatedAttributes = ['title', 'summary', 'content'];
 
@@ -30,6 +34,16 @@ class Article extends Model implements TranslatableContract
         'sk.title'   => 'required',
         'sk.summary' => 'required',
         'sk.content' => 'required',
+    );
+
+    protected $fillable = array(
+        'published_date'
+    );
+
+    protected $dates = array(
+        'created_at',
+        'updated_at',
+        'published_date'
     );
 
     // public function items()
@@ -62,60 +76,6 @@ class Article extends Model implements TranslatableContract
         $string = $string;
         $string = substr($string, 0, $length);
         return substr($string, 0, strrpos($string, ' ')) . " ...";
-    }
-
-    public function getHeaderImage($full = false)
-    {
-        if (empty($this->attributes['main_image'])) {
-            return false;
-        }
-
-        $relative_path = self::ARTWORKS_DIR . $this->attributes['main_image'];
-        if (!file_exists(public_path() . $relative_path) && !$full) {
-            $relative_path = '/images/no-image/no-image.jpg';
-        }
-        $path = ($full) ? public_path() . $relative_path : $relative_path;
-        return $path;
-    }
-
-    public function getResizedImage($resize)
-    {
-        $file = substr($this->attributes['main_image'], 0, strrpos($this->attributes['main_image'], "."));
-        $full_path = public_path() .  self::ARTWORKS_DIR;
-
-        if (!file_exists($full_path . "$file.$resize.jpg") && file_exists($this->getHeaderImage(true))) {
-            $img = \Image::make($this->getHeaderImage(true))->fit($resize)->sharpen(7);
-            $img->save($full_path . "$file.$resize.jpg");
-        }
-        $result_path = self::ARTWORKS_DIR .  "$file.$resize.jpg";
-
-        return $result_path;
-
-    }
-
-    public function getThumbnailImage($full = false)
-    {
-        if (empty($this->attributes['main_image'])) {
-            return false;
-        }
-
-        $preview_image = substr($this->attributes['main_image'], 0, strrpos($this->attributes['main_image'], ".")); //zmaze priponu
-        $preview_image .= '.thumbnail.jpg';
-        $relative_path = self::ARTWORKS_DIR . $preview_image;
-        $full_path = public_path() . $relative_path;
-        if (!file_exists($full_path) && file_exists($this->getHeaderImage(true))) {
-            try {
-                \Image::make($this->getHeaderImage(true))->fit(600, 250)->save($full_path);
-            } catch (\Exception $e) {
-                app('sentry')->captureException($e);
-            }
-        }
-        return $relative_path;
-    }
-
-    public function getPublishedDateAttribute($value)
-    {
-        return Carbon::parse($value)->format('d. m. Y'); //Change the format to whichever you desire
     }
 
     public function getTitleColorAttribute($value)
@@ -154,5 +114,10 @@ class Article extends Model implements TranslatableContract
         }
 
         $this->attributes['publish'] = (bool)$value;
+    }
+
+    
+    public function getReadingTimeAttribute(){
+        return getEstimatedReadingTime($this->summary . ' ' . $this->content, \App::getLocale());
     }
 }

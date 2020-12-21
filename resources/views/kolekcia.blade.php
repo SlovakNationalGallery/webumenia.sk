@@ -2,16 +2,16 @@
 
 @section('og')
 @if (!$collection->publish)
-    <meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="noindex, nofollow">
 @endif
 <meta property="og:title" content="{!! $collection->name !!}" />
 <meta property="og:description" content="{!! $collection->getShortTextAttribute($collection->text, 500) !!}" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="{!! Request::url() !!}" />
-<meta property="og:image" content="{!! URL::to($collection->getHeaderImage()) !!}" />
+<meta property="og:image" content="{!! URL::to($collection->header_image_src) !!}" />
 <meta property="og:site_name" content="web umenia" />
 @foreach ($collection->getContentImages() as $image )
-    <meta property="og:image" content="{!! $image !!}" />
+<meta property="og:image" content="{!! $image !!}" />
 @endforeach
 @stop
 
@@ -32,96 +32,119 @@
 @section('content')
 
 @if ( ! $collection->hasTranslation(App::getLocale()) )
-    <section>
-        <div class="container top-section">
-            <div class="row">
-                @include('includes.message_untranslated')
-            </div>
-        </div>
-    </section>
-@endif
-
-<div class="webumeniaCarousel">
-
-@if ($collection->hasHeaderImage())
-<div class="header-image" style="background-image: url({!! $collection->getHeaderImage() !!}); color: {!! $collection->title_color !!}">
-@else
-<div class="header-image">
-@endif
-    <div class="outer-box">
-        <div class="inner-box">
-            <h1>{!! $collection->name !!}</h1>
-            <p class="bottom-space">
-                {{ trans_choice('general.artworks_counted', $collection->items()->count(), ['artworks_count' => $collection->items()->count()]) }} &nbsp;&middot;&nbsp;
-                {!! $collection->user->name !!} &nbsp;&middot;&nbsp;
-                {!! Carbon::parse($collection->published_at)->format('d. m. Y') !!}
-            </p>
+<section>
+    <div class="container top-section">
+        <div class="row">
+            @include('includes.message_untranslated')
         </div>
     </div>
+</section>
+@endif
 
-    <!-- share -->
-    {{-- <div class="shareon-container">
-        <div class="container text-right">
-            <div class="fb-like" data-href="http://dvekrajiny.sng.sk/" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
-            &nbsp;
-            <a href="https://twitter.com/share" class="twitter-share-button" data-count="true">Tweet</a>
-            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-    </div>
-    </div> --}}
-</div>
-</div>
+@component('components.header_carousel', ['item' => $collection]))
+    @slot('slideContent')
+        <h1>{!! $collection->name !!}</h1>
+        <p class="bottom-space">
+            @if ($collection->type)
+            <a href="{!! url_to( 'kolekcie', ['type' => $collection->type ]) !!}">
+            <h2>{!! $collection->type !!}</h2>
+            </a>
+            @endif
+        </p>
+    @endslot
+@endcomponent
 
-<section class="collection content-section pb-0">
-    <div class="collection-body">
+<section class="collection content-header">
+    <div class="collection-header">
         <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2 bottom-space description">
-                       {!! $collection->text !!}
+            <div class="row text-center mb-4">
+                <div class="col-md-8 col-md-push-2">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="v-center">
+                                <a href="{!! url_to( 'kolekcie', ['author' => $collection->user->name ]) !!}">
+                                    {!! $collection->user->name !!}
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="v-center">
+                                <i class='fa fa-calendar-o mr-3'></i>
+                                @date($collection->published_at)
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-6 col-xs-12">
+                            @if ($collection->items->count() != 0)
+                            <div class="v-center">
+                                <span>
+                                    {{trans('kolekcie.collections_items_count')}} <a
+                                       href="#artworks">{{trans_choice('general.artworks_counted', $collection->items->count(), ['artworks_count' => $collection->items->count()])}}</a>
+                                </span>
+                            </div>
+                            @endif
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            @if ($collection->reading_time)
+                            <div class="v-center">
+                                <span>
+                                    <i class='fa fa-clock-o mr-3'></i>
+                                    {!! $collection->reading_time !!}
+                                </span>
+                            </div>
+                            @endif
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<section>
-    @include('components.share_buttons', [
-        'title' => $collection->name,
-        'url' => $collection->getUrl(),
-        'img' => URL::to($collection->getHeaderImage()),
-        'class' => 'text-center mb-5'
-    ])
-</section>
-
-<section class="collections content-section">
-    <div class="collections-body">
+<section class="collection content-section">
+    <div class="collection-body">
         <div class="container">
             <div class="row">
-            	<div class="col-xs-12 isotope-wrapper">
+                <div class="col-md-8 col-md-offset-2 bottom-space description long-text">
+                    {!! $collection->text !!}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="collections">
+    <div class="collections-body">
+        <div class="container">
+            <div class="row" id="artworks">
+                <div class="col-xs-12 isotope-wrapper">
                     @if ($collection->items->count() == 0)
-                        <p class="text-center">Momentálne žiadne diela</p>
+                    <p class="text-center">{{utrans("katalog.catalog_no_artworks")}}</p>
                     @endif
                     <div id="iso">
-                    @foreach ($collection->items as $i=>$item)
+                        @foreach ($collection->items as $i=>$item)
                         <div class="col-md-3 col-sm-4 col-xs-12 item">
-                                @include('components.item_image_responsive', [
-                                    'item' => $item,
-                                    'url' => $item->getUrl(['collection' => $collection->id]) ,
-                                    'limitRatio' => 3
-                                ])
+                            @include('components.item_image_responsive', [
+                            'item' => $item,
+                            'url' => $item->getUrl(['collection' => $collection->id]) ,
+                            'limitRatio' => 3
+                            ])
                             </a>
                             <div class="item-title">
                                 @if (!$item->images->isEmpty())
-                                    <div class="pull-right"><a href="{{ route('item.zoom', ['id' => $item->id])  }}" data-toggle="tooltip" data-placement="left" title="Zoom obrázku"><i class="fa fa-search-plus"></i></a></div>
+                                <div class="pull-right"><a href="{{ route('item.zoom', ['id' => $item->id])  }}"
+                                       data-toggle="tooltip" data-placement="left" title="Zoom obrázku"><i
+                                           class="fa fa-search-plus"></i></a></div>
                                 @endif
                                 <a href="{!! $item->getUrl(['collection' => $collection->id]) !!}">
-                                    <em>{!! implode(', ', $item->authors) !!}</em><br>
-                                <strong>{!! $item->title !!}</strong><br> <em>{!! $item->getDatingFormated() !!}</em>
-
-                                {{-- <span class="">{!! $item->gallery !!}</span> --}}
+                                    <em>{!! implode(', ', $item->authors) !!}</em><br />
+                                    <strong>{!! $item->title !!}</strong> <br />
+                                    <em>{!! $item->getDatingFormated() !!}</em>
                                 </a>
                             </div>
                         </div>
-                    @endforeach
+                        @endforeach
                     </div>
                     <div class="col-sm-12 text-center">
                     </div>
@@ -147,7 +170,6 @@
 @stop
 
 @section('javascript')
-{!! Html::script('js/slick.js') !!}
 {!! Html::script('js/components/share_buttons.js') !!}
 
 <script type="text/javascript">

@@ -43,22 +43,21 @@
 
 	<div class="tab-content top-space">
 		@foreach (\Config::get('translatable.locales') as $i=>$locale)
-	    <div role="tabpanel" class="tab-pane  {{ ($i==0) ? 'active' : '' }}" id="{{ $locale }}">
-					<div class="form-group">
-					{{ Form::label($locale . "[name]", 'Názov') }}
-					{{ Form::text($locale . "[name]", isset($collection) ? @$collection->translate($locale)->name : '', array('class' => 'form-control')) }}
-					</div>
+			<div role="tabpanel" class="tab-pane  {{ ($i==0) ? 'active' : '' }}" id="{{ $locale }}">
+				<div class="form-group">
+				{{ Form::label($locale . "[name]", 'Názov') }}
+				{{ Form::textarea($locale . "[name]", isset($collection) ? @$collection->translate($locale)->name : '', array('class' => 'form-control', 'rows' => '2')) }}
+				</div>
 
-					<div class="form-group">
-					{{ Form::label($locale . "[type]", 'Typ') }}
-					{{ Form::text($locale . "[type]", isset($collection) ? @$collection->translate($locale)->type : '', array('class' => 'form-control')) }}
-					</div>
+				<div class="form-group">
+				{{ Form::label($locale . "[type]", 'Typ') }}
+				{{ Form::text($locale . "[type]", isset($collection) ? @$collection->translate($locale)->type : '', array('class' => 'form-control')) }}
+				</div>
 
-					<div class="form-group">
-					{{ Form::label($locale . "[text]", 'Text') }}
-					{{ Form::textarea($locale . "[text]", isset($collection) ? @$collection->translate($locale)->text : '', array('class' => 'form-control wysiwyg', 'rows'=>'12')) }}	
-					</div>
-
+				<div class="form-group">
+				{{ Form::label($locale . "[text]", 'Text') }}
+				{{ Form::textarea($locale . "[text]", isset($collection) ? @$collection->translate($locale)->text : '', array('class' => 'form-control wysiwyg', 'rows'=>'12')) }}	
+				</div>
 			</div>
 		@endforeach
 	</div>
@@ -90,10 +89,13 @@
 		{!! Form::file('main_image', array('class' => 'form-control', 'placeholder' => '#666666'))!!}
 		<p>obrazok bude automaticky zmenseny na sirku 1400px</p>
 		<p>šírka min: 1400px<br>formát: JPG (vysoka kompresia ~50-60%)</p>
-		@if (isset($collection) && $collection->getHeaderImage())
+		@if (isset($collection) && $collection->header_image_src)
 			<div class="primary-image">
 				<b>Aktuálny obrázok:</b>
-				<img src="{{ $collection->getHeaderImage() }}" class="img-responsive">
+				<img class="img-responsive"
+					src="{{ $collection->header_image_src }}" 
+					srcset="{{ $collection->header_image_srcset }}" 
+					onerror="this.onerror=null;this.srcset=''"/>
 			</div>
 		@endif
 	</div>

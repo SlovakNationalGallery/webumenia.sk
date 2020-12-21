@@ -1,5 +1,8 @@
 <?php
 
+use Carbon\Carbon;
+
+
 /**
  * Same as java String.hashcode()
  */
@@ -375,4 +378,25 @@ function parseUrls($content)
         return array_map($checkAbsoluteUrl,  $matches[1]);
     }
     return [];
+}
+
+/**
+ * Returns an estimated reading time in a string
+ * idea from @link http://briancray.com/posts/estimated-reading-time-web-design/
+ * @param  string $content the content to be read
+ * @param int $wpm
+ * @return string          estimated read time eg. 1 minute, 30 seconds
+ **/
+function getEstimatedReadingTime($content, $locale, $wpm = 200) {
+    $wordCount = str_word_count(
+        strip_tags(
+         html_entity_decode(
+             preg_replace("/%u([0-9a-f]{3,4})/i", "&#x\\1;", urldecode($content)), null, 'UTF-8')
+            )
+        );
+
+    $minutes = (int) floor($wordCount / $wpm);
+
+    return trans_choice('general.minute', $minutes, ['value' => $minutes]);
+    
 }
