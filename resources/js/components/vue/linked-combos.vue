@@ -103,12 +103,12 @@ export default {
     }
     button {
       flex: 0 0 2ex;
-      max-width: 6%;
+
       margin: auto;
     }
 
     .vs__actions {
-      min-width: 4em;
+      min-width: 3em;
     }
   }
 }
