@@ -48,7 +48,6 @@ $(document).ready(function(){
     });
 
     $('.content-slick-images').each( function() {
-
         const $slick = $(this);
         $slick.slick({
             slide: 'p, a, img, div',
@@ -57,6 +56,10 @@ $(document).ready(function(){
             infinite: false,
         });
     });
+    // safari fix
+    $('.content-slick-images img').each(function (index,image) {
+        image.style.width = "";
+    })
 
 });
 

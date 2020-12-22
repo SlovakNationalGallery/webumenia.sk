@@ -46,7 +46,8 @@
     @slot('slideContent')
         <h1>{!! $article->title !!}</h1>
         @if ($article->category)
-        <h2 style="color: {!! $article->title_color !!}">{!! $article->category->name !!}</h2>
+        {{-- keep in one line to prevent formatting failures --}}
+        <h2 style="color: {!! $article->title_color !!}">{!! $article->category->name !!}</h2> 
         @endif
     @endslot
 @endcomponent
@@ -71,7 +72,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4 col-md-push-0 col-sm-6 col-sm-push-6 col-xs-12">
+                        <div class="col-md-4 col-md-push-0 col-sm-6 col-sm-push-6 col-xs-12 com-xs-push-1">
                             @if ($article->reading_time)
                             <div class="v-center">
                                 <i class='fa fa-clock-o mr-3'></i>{!! $article->reading_time !!}

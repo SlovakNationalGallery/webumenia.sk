@@ -44,13 +44,10 @@
 @component('components.header_carousel', ['item' => $collection]))
     @slot('slideContent')
         <h1>{!! $collection->name !!}</h1>
-        <p class="bottom-space">
-            @if ($collection->type)
-            <a href="{!! url_to( 'kolekcie', ['type' => $collection->type ]) !!}">
-            <h2>{!! $collection->type !!}</h2>
-            </a>
-            @endif
-        </p>
+        @if ($collection->type)
+        {{-- keep in one line to prevent formatting failures --}}
+        <h2><a href="{!! url_to( 'kolekcie', ['type' => $collection->type ]) !!}">{!! $collection->type !!}</a></h2>
+        @endif
     @endslot
 @endcomponent
 
@@ -60,6 +57,7 @@
             <div class="row text-center mb-4">
                 <div class="col-md-8 col-md-push-2">
                     <div class="row">
+                        @if ($collection->items->count() != 0)
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <div class="v-center">
                                 <a href="{!! url_to( 'kolekcie', ['author' => $collection->user->name ]) !!}">
@@ -73,17 +71,13 @@
                                 @date($collection->published_at)
                             </div>
                         </div>
-
-
                         <div class="col-sm-6 col-xs-12">
-                            @if ($collection->items->count() != 0)
                             <div class="v-center">
                                 <span>
                                     {{trans('kolekcie.collections_items_count')}} <a
                                        href="#artworks">{{trans_choice('general.artworks_counted', $collection->items->count(), ['artworks_count' => $collection->items->count()])}}</a>
                                 </span>
                             </div>
-                            @endif
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             @if ($collection->reading_time)
@@ -95,6 +89,31 @@
                             </div>
                             @endif
                         </div>
+                        @else 
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="v-center">
+                                <a href="{!! url_to( 'kolekcie', ['author' => $collection->user->name ]) !!}">
+                                    {!! $collection->user->name !!}
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="v-center">
+                                <i class='fa fa-calendar-o mr-3'></i>
+                                @date($collection->published_at)
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-md-push-0 col-sm-6 col-sm-push-6 col-xs-12">
+                            @if ($collection->reading_time)
+                            <div class="v-center">
+                                <span>
+                                    <i class='fa fa-clock-o mr-3'></i>
+                                    {!! $collection->reading_time !!}
+                                </span>
+                            </div>
+                            @endif
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
