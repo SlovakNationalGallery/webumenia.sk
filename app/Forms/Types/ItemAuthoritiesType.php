@@ -29,20 +29,24 @@ class ItemAuthoritiesType extends AbstractType
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        
-            
         $data = $form->getData();
         $view->vars['items'] = $data;
-        $view->vars['authorities_choices'] = \App\Authority::whereIn('id',array_keys(get_object_vars(json_decode($data))))->orderBy('name', 'asc')->get(['id as key', 'name as value']);
-        $view->vars['roles_choices'] = json_encode(array_map(function ($role){
+        $json = json_decode($data);
+        if (is_object($json)) {
+            $view->vars['authorities_choices'] = \App\Authority::whereIn('id', array_keys(get_object_vars($json)))->orderBy('name', 'asc')->get(['id as key', 'name as value']);
+        } else {
+            $view->vars['authorities_choices'] = [];
+        }
+        $view->vars['roles_choices'] = json_encode(array_map(function ($role) {
             return  [
                 "key" => $role,
-                "value"=> trans('authority.role.' . config('authorityRoles')[$role])
+                "value" => trans('authority.role.' . config('authorityRoles')[$role])
             ];
-         }, array_keys(config('authorityRoles'))));
+        }, array_keys(config('authorityRoles'))));
     }
 
-    public function getTranslations() {
+    public function getTranslations()
+    {
         return $this->translations;
     }
     public function getBlockPrefix()
