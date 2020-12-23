@@ -201,10 +201,18 @@ class AuthorController extends ElasticController
 
         $items = \App\Item::where('author', 'like', '%'.$author->name.'%')->get();
 
+        $video = '';
+        foreach ($author->linksForLocale as $i=>$link) {
+            if ($link->isVideo) {
+                $video .= $link->embed;
+            }
+        }
+
         return view('autor', [
             'author' => $author,
             'items' => $items,
             'archive' => $archive,
+            'video' => $video,
         ]);
 
     }

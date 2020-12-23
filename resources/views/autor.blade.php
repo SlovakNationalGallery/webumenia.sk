@@ -146,6 +146,20 @@
                     @endif
                     {{-- /gallery --}}
 
+                    @if (!empty($video))
+                    @include('components.khb_accordion_card', [
+                        'title' => 'Video',
+                        'content' => $video,
+                        'parrentId' => 'authorAccordion',
+                        'show' => true,
+                    ])
+                    @endif
+                    @include('components.khb_accordion_card', [
+                        'title' => ($author->type=='theoretician') ? utrans('autor.curatorial_projects') : utrans('autor.exhibitions'),
+                        'content' => $author->exhibitions,
+                        'parrentId' => 'authorAccordion',
+                        'show' => false,
+                    ])
                     @include('components.khb_accordion_card', [
                         'title' => ($author->type=='theoretician') ? utrans('autor.curatorial_projects') : utrans('autor.exhibitions'),
                         'content' => $author->exhibitions,

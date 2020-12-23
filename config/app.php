@@ -140,6 +140,7 @@ return array(
         Barryvdh\Form\ServiceProvider::class,
         App\Providers\FormServiceProvider::class,
         App\Khb\Providers\AppServiceProvider::class,
+        'Cohensive\Embed\EmbedServiceProvider',
     ),
 
     /*
@@ -212,6 +213,7 @@ return array(
         'LaravelLocalization' => Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
         'FormRenderer' => App\Facades\FormRenderer::class,
         'Newsletter' => Spatie\Newsletter\NewsletterFacade::class,
+        'Embed' => 'Cohensive\Embed\Facades\Embed',
     ),
 
     'jira_auth' => array(

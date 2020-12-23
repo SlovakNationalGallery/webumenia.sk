@@ -36,7 +36,8 @@
         "barryvdh/laravel-form-bridge": "0.3.6",
         "symfony/templating": "^3.4",
         "spatie/laravel-newsletter": "^3.7",
-        "spatie/laravel-medialibrary": "^3.0.0"
+        "spatie/laravel-medialibrary": "^3.0.0",
+        "cohensive/embed": "^5.5"
     },
     "autoload": {
         "classmap": [
