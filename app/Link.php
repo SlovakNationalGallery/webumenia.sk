@@ -48,6 +48,8 @@ class Link extends Model
     public static function isVideo($url) {
         if (preg_match ("/\b(?:vimeo|youtube|dailymotion)\.com\b/i", $url)) {
            return true;
+        } elseif (preg_match ("/\b(?:youtu)\.be\b/i", $url)) {
+           return true;
         }
         return false;
     }
