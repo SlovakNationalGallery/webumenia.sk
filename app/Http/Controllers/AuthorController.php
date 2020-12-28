@@ -205,6 +205,7 @@ class AuthorController extends ElasticController
         foreach ($author->linksForLocale as $i=>$link) {
             if ($link->isVideo) {
                 $video .= $link->embed;
+                $video .= '<br><span class="video-caption">' . $link->label . '</span>';
             }
         }
 

@@ -161,12 +161,6 @@
                         'show' => false,
                     ])
                     @include('components.khb_accordion_card', [
-                        'title' => ($author->type=='theoretician') ? utrans('autor.curatorial_projects') : utrans('autor.exhibitions'),
-                        'content' => $author->exhibitions,
-                        'parrentId' => 'authorAccordion',
-                        'show' => false,
-                    ])
-                    @include('components.khb_accordion_card', [
                         'title' => utrans('autor.bibliography'),
                         'content' => $author->bibliography,
                         'parrentId' => 'authorAccordion',
