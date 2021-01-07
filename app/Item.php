@@ -516,6 +516,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
     public function isForReproduction()
     {
         $default_locale = config('translatable.fallback_locale');
+        if ($this->translate($default_locale)->credit == 'Dar združenia Čierne diery') return false;
         if ($this->translate($default_locale)->gallery == 'Slovenská národná galéria, SNG') return true;
 
         return false;
