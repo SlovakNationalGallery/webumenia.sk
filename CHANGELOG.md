@@ -21,6 +21,7 @@ All notable changes to this project will be documented in this file[^1].
 - use authority matcher in item detail
 - SGP into list of galleries in the info page
 - Run tests on GitHub Actions
+- Bump ini from 1.3.5 to 1.3.7
 
 ## [2.13.1] - 2020-12-07
 ### Fixed
