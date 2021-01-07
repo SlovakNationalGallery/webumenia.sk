@@ -94,13 +94,13 @@
             <div class="col-xs-12">
                 @include('components.artwork_carousel', [
                     'slick_target' => "artworks-preview",
-                    'items' => $items,
+                    'items' => $items_for_reproduction_sample,
                 ])
             </div>
         </div>
         <div class="row content-section">
             <div class="col-sm-12 text-center">
-                <a href="{!! url_to('katalog', ['gallery' => 'Slovenská národná galéria, SNG']) !!}" class="btn btn-default btn-outline sans" >{{ trans('informacie.more-items_button') }} <strong>{!! App\Item::forReproduction()->count() !!}</strong>  <i class="fa fa-chevron-right "></i></a>
+                <a href="{{ url_to('katalog', ['is_for_reproduction' => 1]) }}" class="btn btn-default btn-outline sans" >{{ trans('informacie.more-items_button') }} <strong>{{ $items_for_reproduction_total }}</strong>  <i class="fa fa-chevron-right "></i></a>
             </div>
         </div>
     </div>

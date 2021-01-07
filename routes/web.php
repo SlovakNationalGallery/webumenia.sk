@@ -306,8 +306,10 @@ function()
     Route::get('oblubene', 'UserCollectionController@show')->name('frontend.user-collection.show');
 
     Route::get('informacie', function (ItemRepository $itemRepository) {
-        $filter = (new ItemFilter)->setGallery('Slovenská národná galéria, SNG');
-        $items = $itemRepository->getRandom(20, $filter)->getCollection();
+        $for_reproduction_filter = (new ItemFilter)->setIsForReproduction(true);
+        $items_for_reproduction_search = $itemRepository->getRandom(20, $for_reproduction_filter);
+        $items_for_reproduction_total =  $items_for_reproduction_search->getTotal();
+        $items_for_reproduction_sample = $items_for_reproduction_search->getCollection();
 
         $galleries = [
             [
@@ -392,10 +394,11 @@ function()
             ],
         ];
 
-        return view('informacie', [
-            'items' => $items,
-            'galleries' => $galleries,
-        ]);
+        return view('informacie', compact(
+            'galleries',
+            'items_for_reproduction_sample', 
+            'items_for_reproduction_total'
+        ));
     })->name('frontend.info');
 
     Route::get('reprodukcie', function (ItemRepository $itemRepository) {
