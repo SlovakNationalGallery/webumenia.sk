@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 ### Changed
+- use debugbar in dev env
 - eager load articles
 
 ## [2.15.0] - 2020-12-18
