@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file[^1].
 - user collections
 ### Changed
 - Do not specify default (develop) branch for test deploys
+- index is_for_reproductions in Elastic
+- exclude Cierne diery from reproductions
 
 ## [2.15.1] - 2021-01-08
 ### Changed
