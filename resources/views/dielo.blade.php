@@ -391,8 +391,6 @@
                             'item' => $similar_item,
                             'isotope_item_selector_class' => 'item',
                             'class_names' => ($item->has_colors) ? 'col-xs-6' : 'col-xs-3',
-                            'hide_zoom' => true,
-                            'hide_dating' => true
                         ])
                     @endforeach
                 </div>
