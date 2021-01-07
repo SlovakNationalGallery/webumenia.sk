@@ -7,7 +7,7 @@
             <a :href="href" :title="label">
                 <i class="fa fa-star"></i>
                 <transition enter-active-class="animated heartBeat" mode="out-in">
-                    <span :key="count" class="badge badge-info">{{ count }}</span>
+                    <span :key="count" class="badge badge-sup badge-info">{{ count }}</span>
                 </transition>
             </a>
         </li>

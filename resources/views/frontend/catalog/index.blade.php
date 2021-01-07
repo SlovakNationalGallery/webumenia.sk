@@ -33,7 +33,7 @@
                     @if (!empty($search))
                         <h4 class="inline">{{ utrans('katalog.catalog_found_artworks') }} &bdquo;{{ $search }}&ldquo; (<span data-searchd-total-hits>{{ $total }}</span>) </h4>
                     @else
-                        <h4 class="inline">{{ formatNum($total) }} {{ trans('katalog.catalog_artworks') }} </h4>
+                        <h4 class="inline">{{ formatNum($total) }} {{ trans_choice('katalog.catalog_artworks', $total) }} </h4>
                     @endif
                     @if ($paginator->count() == 0)
                         <p class="text-center">{{ utrans('katalog.catalog_no_artworks') }}</p>
