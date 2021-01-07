@@ -1,16 +1,24 @@
 <template>
-    <a data-toggle="tooltip" data-placement="left" :title="label" v-on:click="store.toggleItem(id)">
+    <a v-if="isDetail" v-on:click="store.toggleItem(id)" class="btn btn-cta btn-default btn-outline sans w-100">
+        <i class="fa" :class="[store.hasItem(id) ? 'fa-star' : 'fa-star-o']"></i>
+        {{ label }}
+    </a>
+    <a v-else v-on:click="store.toggleItem(id)" data-toggle="tooltip" data-placement="left" :title="label">
         <i class="fa" :class="[store.hasItem(id) ? 'fa-star' : 'fa-star-o']"></i>
     </a>
 </template>
-
 <script>
     export default {
-        props: ['label', 'id'],
+        props: ['labelAdd', 'labelRemove', 'id', 'isDetail'],
         data() {
             return {
                 store: this.$root.$data.userCollectionsStore
             }
         },
+        computed: {
+            label: function () {
+              return this.store.hasItem(this.id) ? this.labelRemove : this.labelAdd
+            }
+        }
     }
 </script>

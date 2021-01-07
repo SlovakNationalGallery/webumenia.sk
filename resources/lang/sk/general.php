@@ -13,6 +13,8 @@ return array(
 
     'item_zoom'        => 'zoom obrázku',
     'item_favourite'   => 'pridať medzi obľúbené',
+    'item_add_to_favourites' => 'pridať medzi obľúbené',
+    'item_remove_from_favourites' => 'odobrať z obľúbených',
     'close'            => 'zavrieť',
     'back'             => 'naspäť',
     'return_home'      => 'návrat domov',
