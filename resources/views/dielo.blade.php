@@ -328,7 +328,7 @@
                             label-add="{{ utrans('general.item_add_to_favourites') }}"
                             label-remove="{{ utrans('general.item_remove_from_favourites') }}"
                             id="{{ $item->id }}"
-                            is-detail
+                            is-detail=true
                         ></user-collections-favourite-button>
                         @if ($item->isForReproduction())
                         <a href="{!! URL::to('dielo/' . $item->id . '/objednat')  !!}"
