@@ -12,10 +12,16 @@ class Notice extends Model implements TranslatableContract
     use Translatable;
     
     public $translatedAttributes = ['content'];
-    protected $fillable = ['publish', 'alert_class'];
 
-    public function scopeCurrent(Builder $query)
+    protected $fillable = ['publish', 'alert_class', 'updated_by'];
+
+    public static $rules = [
+        'sk.content' => 'required|string',
+        'alert_class' => 'required|in:info,warning,danger',
+    ];
+
+    public static function current()
     {
-        return $query->where('publish', true)->withTranslation()->first();
+        return self::where('publish', true)->withTranslation()->first();
     }
 }

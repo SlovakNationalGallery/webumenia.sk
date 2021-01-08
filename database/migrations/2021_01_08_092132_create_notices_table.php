@@ -26,7 +26,7 @@ class CreateNoticesTable extends Migration
             $table->increments('id');
             $table->integer('notice_id')->unsigned();
             $table->string('locale')->index();
-            $table->text('content');
+            $table->text('content')->nullable();
         
             $table->unique(['notice_id', 'locale']);
             $table->foreign('notice_id')->references('id')->on('notices')->onDelete('cascade');
