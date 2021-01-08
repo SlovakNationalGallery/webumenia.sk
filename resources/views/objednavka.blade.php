@@ -25,10 +25,7 @@
                         </div>
                     @endif
 
-                    <div class="alert alert-warning">
-                        {!! trans('reprodukcie.alert_covid-19') !!}
-                    </div>
-                    
+                    @include('components.notice', compact('notice'))
                     
                     <h2 class="bottom-space text-center">{{ trans('objednavka.order_title') }}</h2>
                     {!! trans('objednavka.order_content') !!}

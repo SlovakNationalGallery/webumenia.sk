@@ -33,9 +33,7 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
 
-                <div class="alert alert-warning">
-                    {!! trans('reprodukcie.alert_covid-19') !!}
-                </div>
+                @include('components.notice', compact('notice'))
 
                 <h2 id="print" class="text-center bottom-space">{{ trans('reprodukcie.print_heading') }}</h2>
                 <div>
