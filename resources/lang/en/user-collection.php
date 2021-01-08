@@ -2,7 +2,7 @@
 
 return array(
     'title'            => 'Favourite artworks',
-    'empty'            => 'You currently have no artworks saved',
+    'empty'            => 'You have no saved favourite artworks.',
     'content-intro'    => 'Here you will find the artworks you have saved as favourites. <br>
 The artworks are only temporarily stored in your browser.',
     'content-usage'    => 'Click on the star to remove the work from the list. <br>

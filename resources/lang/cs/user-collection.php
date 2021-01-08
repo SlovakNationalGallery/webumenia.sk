@@ -2,7 +2,7 @@
 
 return array(
     'title'            => 'Oblíbené díla',
-    'empty'            => 'Momentálně nemáte uložené žádné díla',
+    'empty'            => 'Momentálně nemáte uložené žádné díla.',
     'content-intro'    => 'Zde naleznete díla, které jste si uložili mezi oblíbené. <br>
 Díla jsou uloženy pouze dočasně ve vašem internetovém prohlížeči.',
     'content-usage'    => 'Dílo ze seznamu odstraníte kliknutím na hvězdičku. <br>
