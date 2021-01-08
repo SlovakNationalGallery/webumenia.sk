@@ -17,7 +17,6 @@ All notable changes to this project will be documented in this file[^1].
 ## [2.14.0] - 2020-12-14
 ### Added
 - authority matcher
-- add es:migrate command
 
 ### Fixed
 - Do not trigger an Elasticsearch error on high page numbers
