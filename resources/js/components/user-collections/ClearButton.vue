@@ -7,7 +7,7 @@
 
 <script>
     export default {
-        props: ['confirmMessage'],
+        props: ['confirmMessage', 'afterClearRedirect'],
         data() {
             return {
                 store: this.$root.$data.userCollectionsStore
@@ -17,6 +17,7 @@
             clearAllItems() {
                 if (confirm(this.confirmMessage)) {
                     this.store.clearAllItems()
+                    window.location.href = this.afterClearRedirect
                 }
             }
         }
