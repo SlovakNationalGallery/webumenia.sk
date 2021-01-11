@@ -22,7 +22,7 @@
       >
         <div slot="no-options">¯\_(ツ)_/¯</div>
       </v-select>
-      <button type="button" @click="selected.splice(index, 1)">-</button>
+      <button type="button" @click="remove(index)">-</button>
     </div>
   </div>
 </template>
@@ -84,6 +84,10 @@ export default {
         .catch(e => {
           loading(false);
         });
+    },
+    remove(index){ 
+      this.selected.splice(index, 1); 
+      this.emitValue();
     }
   }
 };
