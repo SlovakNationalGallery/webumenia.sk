@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Added
 - user collections
+### Changed
+- Do not specify default (develop) branch for test deploys
 
 ## [2.15.1] - 2021-01-08
 ### Changed
