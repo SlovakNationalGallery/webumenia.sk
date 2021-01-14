@@ -35,8 +35,6 @@ mix
         'vue',
         'vue-slider-component',
     ])
-    // @TODO: refactor later
-   .copy('resources/js/components/vendor-customized/vue-linked-combos.min.js', 'public/js/vue/vue-linked-combos.min.js')
 
     // CSS
     .less('resources/less/style.less', 'public/css').options({
