@@ -455,7 +455,7 @@ class ItemRepository extends TranslatableRepository
         $locales = collect($this->locales);
 
         $this
-            ->modelClass::with(['images', 'authorities', 'translations', 'tagged'])
+            ->modelClass::with(['images', 'authorities:id', 'translations', 'tagged'])
             ->chunk(1000, function($items) use (&$locales, &$processedCount) {
                 $processedCount += $items->count();
 
