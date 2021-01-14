@@ -160,7 +160,6 @@ return [
             'hostname' => 'webumenia.sk',
             'deploy_path' => '/var/www/test.webumenia.sk',
             'user' => 'lab_sng',
-            'branch' => 'develop'
         ],
     ],
 
