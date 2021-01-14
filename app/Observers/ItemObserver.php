@@ -39,8 +39,8 @@ class ItemObserver
 
     public function belongsToManyAttached($relation, Item $item, $ids)
     {
-        if ($item->exists) {
-            $this->itemRepository->indexAllLocales($item);
+        if ($item->fresh()->exists) {
+            $this->itemRepository->indexAllLocales($item->fresh());
             if ($relation === 'authorities') {
                 Authority::findMany($ids)->each(function (Authority $authority) {
                     $this->authorityRepository->indexAllLocales($authority);
@@ -52,7 +52,7 @@ class ItemObserver
     public function belongsToManyDetached($relation, Item $item, $ids)
     {
         if ($item->exists) {
-            $this->itemRepository->indexAllLocales($item);
+            $this->itemRepository->indexAllLocales($item->fresh());
             if ($relation === 'authorities') {
                 Authority::findMany($ids)->each(function (Authority $authority) {
                     $this->authorityRepository->indexAllLocales($authority);
