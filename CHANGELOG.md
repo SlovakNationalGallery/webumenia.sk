@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file[^1].
 - add es:migrate command
 ### Changed
 - Use aliased indexes for es:setup
+- Speed up re-index for Items
+
 ### Fixed
 - Do not load JS for "load-more" on single-page results
 - Fix zoom for related work in non-SK locale
@@ -35,7 +37,6 @@ All notable changes to this project will be documented in this file[^1].
 ## [2.14.0] - 2020-12-14
 ### Added
 - authority matcher
-- add es:migrate command
 
 ### Fixed
 - Do not trigger an Elasticsearch error on high page numbers
