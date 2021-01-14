@@ -5,9 +5,14 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - add es:migrate command
 ### Changed
+- Use aliased indexes for es:setup
+
+## [2.15.1] - 2021-01-08
+### Changed
 - use debugbar in dev env
 - eager load articles
-- Use aliased indexes for es:setup
+- Make (reproduction) notices editable in admin
+- Bump ini from 1.3.5 to 1.3.7
 
 ## [2.15.0] - 2020-12-18
 ### Added
@@ -27,7 +32,6 @@ All notable changes to this project will be documented in this file[^1].
 - use authority matcher in item detail
 - SGP into list of galleries in the info page
 - Run tests on GitHub Actions
-- Bump ini from 1.3.5 to 1.3.7
 
 ## [2.13.1] - 2020-12-07
 ### Fixed
