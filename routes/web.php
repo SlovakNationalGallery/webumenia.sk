@@ -17,6 +17,7 @@ use App\Elasticsearch\Repositories\AuthorityRepository;
 use App\Elasticsearch\Repositories\ItemRepository;
 use App\Filter\ItemFilter;
 use App\Item;
+use App\Notice;
 use App\Order;
 use App\Slide;
 
@@ -109,6 +110,7 @@ function()
         return view('objednavka', [
             'items' => $items,
             'allow_printed_reproductions' => $allow_printed_reproductions,
+            'notice' => Notice::current(),
         ]);
     });
 
@@ -301,6 +303,7 @@ function()
     Route::match(array('GET', 'POST'), 'kolekcie', 'KolekciaController@getIndex')->name('frontend.collection.index');
     Route::match(array('GET', 'POST'), 'kolekcie/suggestions', 'KolekciaController@getSuggestions')->name('frontend.collection.suggestions');
     Route::get('kolekcia/{slug}', 'KolekciaController@getDetail')->name('frontend.collection.detail');
+    Route::get('oblubene', 'UserCollectionController@show')->name('frontend.user-collection.show');
 
     Route::get('informacie', function (ItemRepository $itemRepository) {
         $filter = (new ItemFilter)->setGallery('Slovenská národná galéria, SNG');
@@ -413,6 +416,7 @@ function()
             'items_recommended' => $items_recommended,
             'items' => $response->getCollection(),
             'total' => $total,
+            'notice' => Notice::current(),
         ]);
     });
 });
@@ -502,6 +506,6 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::resource('authority', 'AuthorityController');
     Route::resource('sketchbook', 'SketchbookController');
     Route::resource('slide', 'SlideController');
+    Route::resource('notices', 'NoticeController');
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 });
-

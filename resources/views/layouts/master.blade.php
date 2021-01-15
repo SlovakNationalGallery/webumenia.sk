@@ -86,10 +86,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		</div>
 	@endif
 
-	@include('components.nav_bar')
 
 	<!-- Content -->
-	@yield('content')
+	<div id="app">
+		@include('components.nav_bar')
+		@yield('content')
+	</div>
 
 	@include('components.footer')
 

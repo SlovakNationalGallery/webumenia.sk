@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.16.0] - 2021-01-15
+### Added
+- user collections
+
+### Changed
+- Make (reproduction) notices editable in admin
+
 ## [2.15.1] - 2021-01-08
 ### Changed
 - use debugbar in dev env
