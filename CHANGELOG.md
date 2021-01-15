@@ -5,11 +5,13 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - user collections
 
+### Changed
+- Make (reproduction) notices editable in admin
+
 ## [2.15.1] - 2021-01-08
 ### Changed
 - use debugbar in dev env
 - eager load articles
-- Make (reproduction) notices editable in admin
 - Bump ini from 1.3.5 to 1.3.7
 
 ## [2.15.0] - 2020-12-18
