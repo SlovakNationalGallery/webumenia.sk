@@ -12,6 +12,8 @@ return array(
     */
 
     'item_zoom'        => 'zoom artwork',
+    'item_add_to_favourites' => 'add to favourites',
+    'item_remove_from_favourites' => 'remove from favourites',
     'close'            => 'close',
     'back'             => 'back',
     'return_home'      => 'back to home page',

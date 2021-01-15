@@ -324,6 +324,12 @@
                     @endif
 
                     <div class="col-md-12 text-center">
+                        <user-collections-favourite-button
+                            label-add="{{ utrans('general.item_add_to_favourites') }}"
+                            label-remove="{{ utrans('general.item_remove_from_favourites') }}"
+                            id="{{ $item->id }}"
+                            is-detail=true
+                        ></user-collections-favourite-button>
                         @if ($item->isForReproduction())
                         <a href="{!! URL::to('dielo/' . $item->id . '/objednat')  !!}"
                             class="btn btn-cta btn-default btn-outline sans w-100"><i class="fa fa-shopping-cart"></i>
@@ -391,8 +397,6 @@
                             'item' => $similar_item,
                             'isotope_item_selector_class' => 'item',
                             'class_names' => ($item->has_colors) ? 'col-xs-6' : 'col-xs-3',
-                            'hide_zoom' => true,
-                            'hide_dating' => true
                         ])
                     @endforeach
                 </div>

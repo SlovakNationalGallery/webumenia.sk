@@ -680,18 +680,25 @@ section.catalog {
 
 }
 
-.badge-notify {
-   position:relative;
-   top: -15px;
-   left: 0px;
-   background: @red;
-   // font-family: @font-family-sans-serif;
-   // padding: 3px 5px 5px 7px;
-   padding: 3px 6px 5px 6px;
-   min-width: 20px;
-   text-align: center;
-   margin-bottom: -10px; //oprava odsadenia sposobeneho paddingom
-   // font-size: 12px;
+.badge-sup {
+    position:relative;
+    top: -15px;
+    left: 0px;
+    padding: 3px 6px 5px 6px;
+    min-width: 20px;
+    text-align: center;
+    margin-bottom: -10px; //oprava odsadenia sposobeneho paddingom
+
+    &.badge-notify {
+        background: @red;
+    }
+    &.badge-info {
+        background: @gray-lighter;
+        color: @text-color;
+    }
+    &.badge-primary {
+        background: @primary-color;
+    }
 }
 
 #top {
@@ -904,29 +911,6 @@ label sup {
 
 .ui-adding-user-tags {
   display: none;
-}
-
-.range-slider{
-  .lsng-slider-wrap, .slider-period{
-    height: 4px;
-  }
-  .lsng-picker{
-    background-color: @dark-grey;
-    transform: translate(-8px, -6px);
-  }
-  .lsng-pointer > *{
-    background-color: @dark-grey;
-  }
-}
-
-.range-slider-from, .range-slider-to{
-  margin-top: 10px;
-  width: 6.0ex;
-  border: 1px solid #888;
-  background: #fff;
-  overflow: hidden;
-  text-align: center;
-  margin-left: inherit auto;
 }
 
 .picked-color {

@@ -48,9 +48,14 @@
                 </li>
                 @if (Session::has('cart') && count(Session::get('cart'))>0)
                 <li class="{!! Request::is( 'objednavka') ? 'active' : '' !!}">
-                        <a href="{!! URL::to('objednavka')!!}" class=""><i class="fa fa-shopping-cart"></i><span class="badge badge-notify">{!! count(Session::get('cart')) !!}</span></a>
+                        <a href="{!! URL::to('objednavka')!!}" class=""><i class="fa fa-shopping-cart"></i><span class="badge badge-sup badge-notify">{!! count(Session::get('cart')) !!}</span></a>
                 </li>
                 @endif
+                <user-collections-nav-link
+                    :active="{{ json_encode(Route::is('frontend.user-collection.show')) }}"
+                    base-href="{{ route('frontend.user-collection.show') }}"
+                    label="{{ utrans('master.favourites') }}"
+                ></user-collections-nav-link>
             </ul>
         </div>
         <!-- /.navbar-collapse -->

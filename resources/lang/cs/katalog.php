@@ -24,7 +24,7 @@ return array(
     'filters_use_color'      => 'podle barvy',
     'filters_color'          => 'barva',
     'catalog_found_artworks' => 'nalezena díla pro',
-    'catalog_artworks'       => 'děl',
+    'catalog_artworks'       => '{0} děl|[1] dílo|[2,4] díla|[5,*] děl',
     'catalog_no_artworks'    => 'momentálně žádná díla',
     'catalog_show_more'      => 'ukaž více',
     'catalog_finished'       => 'to je vše.',

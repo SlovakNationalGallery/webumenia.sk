@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- user collections
+
 ## [2.15.1] - 2021-01-08
 ### Changed
 - use debugbar in dev env

@@ -13,6 +13,7 @@ public/sitemap.xml
 .env
 .env.testing
 data/
+/public/hot
 /public/js/*LICENSE.txt
 /public/js/app.js
 /public/js/vendor.js
