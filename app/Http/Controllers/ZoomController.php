@@ -15,11 +15,9 @@ class ZoomController extends Controller
      */
     public function getIndex($id)
     {
-        $item = Item::find($id);
-
-        if (empty($item->has_iip)) {
-            abort(404);
-        }
+        $item = Item::has('images')
+            ->with('images')
+            ->findOrFail($id);
 
         $itemImages = $item->images;
         $index =  0;
