@@ -23,18 +23,16 @@ class ZoomController extends Controller
 
         $itemImages = $item->images;
         $index =  0;
-        if ($itemImages->count() <= 1 && !empty($item->related_work)) {
-            $related_items = Item::related($item, \LaravelLocalization::getCurrentLocale())->with('images')->get();
+        
+        if ($itemImages->count() === 1 && $item->related_work) {
+            $relatedItems = Item::related($item)->has('images')->with('images')->get();
 
-            $itemImages = collect();
-            foreach ($related_items as $related_item) {
-                if ($image = $related_item->images->first()) {
-                    $itemImages->push($image);
-                }
-            }
+            $itemImages = $relatedItems->map(function ($relatedItem) {
+                return $relatedItem->images->first();
+            });
 
-            $index = $itemImages->search(function (ItemImage $image) use ($item) {
-                return $image->item->id == $item->id;
+            $index = $relatedItems->search(function (Item $relatedItem) use ($item) {
+                return $relatedItem->id == $item->id;
             });
         }
 
