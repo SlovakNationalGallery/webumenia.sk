@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- fix zoom for related work in EN
 
 ## [2.16.0] - 2021-01-15
 ### Added
