@@ -1,4 +1,5 @@
 require('./bootstrap')
+require( 'slick-carousel');
 
 const jQueryBridget = require('jquery-bridget')
 const Isotope = require('isotope-layout')
