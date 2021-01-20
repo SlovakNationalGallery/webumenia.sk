@@ -16,6 +16,7 @@ return array(
     'galleries'          => 'galérie',
     'reproductions'      => 'reprodukcie',
     'info'               => 'info',
+    'favourites'         => 'obľúbené',
     'language'           => 'jazyk',
     'search_placeholder' => 'Hľadať diela, autorov...',
     'to_top'             => 'návrat hore',

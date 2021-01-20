@@ -134,6 +134,7 @@ $get_settings = function (array $filters, array $analyzers) {
                 'filter' => $filters,
                 'analyzer' => $analyzers,
             ],
+            'max_result_window' => 10000 // Set default explicitly
         ],
     ];
 };

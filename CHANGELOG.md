@@ -2,15 +2,47 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.16.0] - 2021-01-15
+### Added
+- user collections
+### Changed
+- Do not specify default (develop) branch for test deploys
+- index is_for_reproductions in Elastic
+- exclude Cierne diery from reproductions
+
+### Changed
+- Make (reproduction) notices editable in admin
+
+## [2.15.1] - 2021-01-08
+### Changed
+- use debugbar in dev env
+- eager load articles
+- Bump ini from 1.3.5 to 1.3.7
+
+## [2.15.0] - 2020-12-18
+### Added
+- save item image ratio
+- karasek importer
+
+## [2.14.0] - 2020-12-14
 ### Added
 - authority matcher
 
+### Fixed
+- Do not trigger an Elasticsearch error on high page numbers
+
 ### Changed
+- connect artwork author to authorities
 - Bump up sentry/sentry-laravel to 2.3
 - use authority matcher in item detail
 - SGP into list of galleries in the info page
 - Run tests on GitHub Actions
 - ckeditor allows to add slick
+
+## [2.13.1] - 2020-12-07
+### Fixed
+- Use method asset_timed to avoid caching of og:image
 
 ## [2.13.0] - 2020-11-27
 ### Added

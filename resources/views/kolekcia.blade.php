@@ -8,7 +8,7 @@
 <meta property="og:description" content="{!! $collection->getShortTextAttribute($collection->text, 500) !!}" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="{!! Request::url() !!}" />
-<meta property="og:image" content="{!! URL::to($collection->getHeaderImage()) !!}" />
+<meta property="og:image" content="{!! asset_timed($collection->getHeaderImage()) !!}" />
 <meta property="og:site_name" content="web umenia" />
 @foreach ($collection->getContentImages() as $image )
     <meta property="og:image" content="{!! $image !!}" />

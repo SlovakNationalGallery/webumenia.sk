@@ -181,7 +181,6 @@ class Item extends Model implements IndexableModel, TranslatableContract
     public function getImagePath($full = false, $resize = false, $resize_method = 'fit')
     {
         return self::getImagePathForId($this->id, $full, $resize, $resize_method);
-
     }
 
     public function deleteImage() {
@@ -318,9 +317,14 @@ class Item extends Model implements IndexableModel, TranslatableContract
         $authors_array = $this->makeArray($this->author);
         $authors = array();
         foreach ($authors_array as $author) {
-            $authors[$author] = preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $author);
+            $authors[$author] = formatName($author);
         }
+        
         return $authors;
+    }
+
+    public function getAuthorsFormattedAttribute($value){
+        return array_map( function($a){return formatName($a);}, $this->authors) ;
     }
 
     public function getAuthorsWithoutAuthority()
@@ -511,8 +515,13 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     public function isForReproduction()
     {
-        $default_locale = config('translatable.fallback_locale');
-        return ($this->translate($default_locale)->gallery == 'Slovenská národná galéria, SNG');
+        $default_translation = $this->translate(config('translatable.fallback_locale'));
+
+        if (is_null($default_translation)) return false;
+        if ($default_translation->credit == 'Dar združenia Čierne diery') return false;
+        if ($default_translation->gallery == 'Slovenská národná galéria, SNG') return true;
+
+        return false;
     }
 
     public function scopeHasImage($query, $hasImage = true)
@@ -520,18 +529,38 @@ class Item extends Model implements IndexableModel, TranslatableContract
         return $query->where('has_image', '=', $hasImage);
     }
 
-    public function scopeForReproduction($query)
-    {
-        $default_locale = config('translatable.fallback_locale');
-        return $query->whereTranslation('gallery', 'Slovenská národná galéria, SNG', $default_locale);
-    }
-
-
     public function scopeRelated($query, Item $item, $locale = null)
     {
         return $query->whereTranslation('related_work', $item->related_work, $locale)
             ->where('author', '=', $item->author)
             ->orderBy('related_work_order');
+    }
+
+    public function getAuthorsWithLinks()
+    {
+        $used_authorities = array();
+        $authorities_with_link = array();
+        $not_authorities_with_link = array();
+        $roles = config('authorityRoles');
+        foreach ($this->authorities->sortBy('name') as $authority) {
+            if ($authority->pivot->role != 'autor/author') {
+                $not_authorities_with_link[] = '<a class="underline" href="'. $authority->getUrl() .'">'. $authority->formated_name .'</a>' . ' &ndash; ' .
+                (isset($roles[$authority->pivot->role]) 
+                    ? trans('authority.role.' . $roles[$authority->pivot->role])
+                    : Authority::formatMultiAttribute($authority->pivot->role)
+                );
+            } else {
+                $authorities_with_link[] = '<span itemprop="creator" itemscope itemtype="http://schema.org/Person"><a class="underline" href="'. $authority->getUrl() .'" itemprop="sameAs"><span itemprop="name">'. $authority->formated_name .'</span></a></span>';
+            }
+            $used_authorities[]= trim($authority->name, ', ');
+        }
+        foreach ($this->authors as $author_unformated => $author) {
+            if (!in_array(trim($author_unformated, ', '), $used_authorities)) {
+                $authorities_with_link[] = '<a class="underline" href="'. url_to('katalog', ['author' => $author_unformated]) .'">'. $author .'</a>';
+            }
+        }
+
+        return array_merge($authorities_with_link, $not_authorities_with_link);
     }
 
     public function getTitleWithAuthors($html = false)
@@ -581,6 +610,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
         $image->save($path);
 
         $this->has_image = true;
+        $this->image_ratio = $image->getWidth() / $image->getHeight();
         $this->save();
 
         event(new ItemPrimaryImageChanged($this));
@@ -601,9 +631,11 @@ class Item extends Model implements IndexableModel, TranslatableContract
             'has_image' => (bool)$this->has_image,
             'has_iip' => $this->has_iip,
             'is_free' => $this->isFree(),
+            'is_for_reproduction' => $this->isForReproduction(),
             'authority_id' => $this->authorities()->pluck('id'),
             'view_count' => $this->view_count,
             'work_type' => $work_types ? implode(self::TREE_DELIMITER, $work_types) : null,
+            'image_ratio' => $this->image_ratio,
             'title' => $this["title:$locale"],
             'description' => (!empty($this["description:$locale"])) ? strip_tags($this["description:$locale"]) : '',
             'topic' => $this->makeArray($this["topic:$locale"]),

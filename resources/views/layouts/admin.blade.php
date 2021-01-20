@@ -26,6 +26,7 @@
         {!! Html::style('css/plugins/bootstrap-switch.css') !!}
         {!! Html::style('css/jquery-ui/jquery-ui.css') !!}
         {!! Html::script('js/modernizr.custom.js') !!}
+        {!! Html::style('/css/vue/vue-select.css') !!}
 
 </head>
 
@@ -113,6 +114,11 @@
                         @if (Entrust::hasRole('admin'))
                         <li>
                             <a href="{!! URL::to('sketchbook') !!}"><i class="fa fa-book fa-fw"></i> Skicáre</a>
+                        </li>
+                        @endif
+                        @if (Entrust::hasRole('admin'))
+                        <li>
+                            <a href="{!! route('notices.edit', 1) !!}"><i class="fa fa-bullhorn fa-fw"></i> Oznamy</a>
                         </li>
                         @endif
                         @if (Entrust::hasRole(['admin', 'import']))

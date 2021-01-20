@@ -51,6 +51,13 @@
 						@formRow($form['author'])
 					</div>
 					<div class="col-md-12">
+						<div class="form-group">
+							{!! FormRenderer::label($form['item_authorities']) !!}
+							@formWidget($form['item_authorities'])
+							{!! FormRenderer::widget($form['item_authorities']) !!}
+						</div>
+					</div>
+					<div class="col-md-12">
 						@formRow($form['tags'])
 					</div>
 					<div class="col-md-12">
@@ -121,6 +128,24 @@ $(document).ready(function(){
 		persist: false,
 		create: true,
 		createOnBlur: true
+	})
+
+	$("#item_description_user_id").selectize({
+		persist: false,
+		create: false
+	});
+
+	$("#item_author").selectize({
+		plugins: ['remove_button'],
+		mode: 'multi',
+		create: 'true',
+		persist: false,
+		delimiter: ';',
+		render: {
+				item: function(data, escape) {
+				return '<div class="selected-item">' + data.text.replace(/\(.*?\)/g, "") + '</div>';
+			}
+		}
 	});
 
 });

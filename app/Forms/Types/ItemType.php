@@ -3,7 +3,7 @@
 
 namespace App\Forms\Types;
 
-
+use App\Authority;
 use App\Item;
 use App\User;
 use Symfony\Component\Form\AbstractType;
@@ -19,17 +19,29 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ItemType extends AbstractType
 {
 
-    public function buildForm(FormBuilderInterface $builder, array $options) {
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
 
         $builder
             ->add('translations', CollectionType::class, [
                 'entry_type' => ItemTranslationType::class,
             ])
             ->add('description_user_id', ChoiceType::class, [
-                'choices' => User::pluck('id', 'username')
+                'choices' => User::pluck('id', 'username'),
             ])
             ->add('identifier')
-            ->add('author')
+            ->add(
+                'author',
+                ChoiceType::class,
+                [
+                    'choices' => Authority::orderBy('name', 'asc')->pluck('name', 'name')->toArray(),
+                    'multiple' => true,
+                    'mapped' => false,
+                    'required' => false,
+                    'choice_translation_domain' => false,
+                ]
+            )
+
             ->add('tags', ChoiceType::class, [
                 'choices' => Item::existingTags()->pluck('name', 'name')->toArray(),
                 'multiple' => true,
@@ -54,7 +66,8 @@ class ItemType extends AbstractType
                 'allow_delete' => true,
                 'by_reference' => false,
                 'prototype' => true,
-            ]);
+            ])
+            ->get('author')->resetViewTransformers();
 
         // set empty translations
         $builder->addEventListener(
@@ -81,6 +94,20 @@ class ItemType extends AbstractType
                 $options['data'] = $current;
 
                 $form->add('tags', ChoiceType::class, $options);
+
+
+                $optionsAuthors = $form['author']->getConfig()->getOptions();
+                $selectedAuthors = explode(';', $data['author']);
+
+                if ($optionsAuthors['choices'] && isset($selectedAuthors)) {
+                    $selectedAuthors  = array_combine($selectedAuthors, $selectedAuthors);
+                    $optionsAuthors['choices']  = array_merge(
+                        $optionsAuthors['choices'],
+                        $selectedAuthors
+                    );
+                    $optionsAuthors['data'] = $selectedAuthors;
+                    $form->add('author', ChoiceType::class, $optionsAuthors);
+                }
             }
         );
 
@@ -91,21 +118,35 @@ class ItemType extends AbstractType
                 $data = $event->getData();
                 $form = $event->getForm();
 
-                if (!isset($data['tags'])) {
-                    return;
+                if (isset($data['tags'])) {
+                    $options = $form['tags']->getConfig()->getOptions();
+
+                    $selected = array_combine($data['tags'], $data['tags']);
+                    $options['choices'] += $selected;
+
+                    $form->add('tags', ChoiceType::class, $options);
                 }
 
-                $options = $form['tags']->getConfig()->getOptions();
 
-                $selected = array_combine($data['tags'], $data['tags']);
-                $options['choices'] += $selected;
+                if (isset($data['author'])) {
+                    $optionsAuthor = $form['author']->getConfig()->getOptions();
 
-                $form->add('tags', ChoiceType::class, $options);
+                    $selectedAuthor = array_combine($data['author'], $data['author']);
+                    $optionsAuthor['choices'] += $selectedAuthor;
+
+                    $form->add('author', ChoiceType::class, $optionsAuthor);
+                }
             }
         );
     }
 
-    public function configureOptions(OptionsResolver $resolver) {
+    public function getBlockPrefix()
+    {
+        return 'item';
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
         $resolver->setDefaults([
             'data_class' => Item::class,
             'translation_domain' => 'item',

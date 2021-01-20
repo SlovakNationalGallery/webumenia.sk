@@ -15,4 +15,6 @@ interface SearchRequest extends Filter
     public function getFrom(): ?int;
 
     public function setFrom(?int $from): self;
+
+    public function getSearchWindowSize(): int;
 }
