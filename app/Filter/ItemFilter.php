@@ -36,6 +36,8 @@ class ItemFilter extends AbstractFilter
 
     protected $isFree;
 
+    protected $isForReproduction;
+
     /** @var Color|null */
     protected $color;
 
@@ -52,6 +54,7 @@ class ItemFilter extends AbstractFilter
         'has_image',
         'has_iip',
         'is_free',
+        'is_for_reproduction',
     ];
 
     public function setYearTo(?int $yearTo): self
@@ -200,6 +203,17 @@ class ItemFilter extends AbstractFilter
     public function setIsFree(?bool $isFree): self
     {
         $this->isFree = $isFree;
+        return $this;
+    }
+
+    public function getIsForReproduction(): ?bool
+    {
+        return $this->isForReproduction;
+    }
+
+    public function setIsForReproduction(?bool $isForReproduction): self
+    {
+        $this->isForReproduction = $isForReproduction;
         return $this;
     }
 

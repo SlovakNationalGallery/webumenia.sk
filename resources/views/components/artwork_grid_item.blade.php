@@ -1,21 +1,24 @@
 <div class="{{$isotope_item_selector_class ?? 'item'}} {{$class_names ?? ''}}">
-    
+
     @include('components.item_image_responsive', [
         'item' => $item,
          'limitRatio' => 3,
-         'url' => $item->getUrl(), 
+         'url' => $item->getUrl(),
          ])
-    
+
     <div class="item-title">
-        @if( !isset($hide_zoom) )
-            @if ($item->has_iip)
-                <div class="pull-right">
-                    <a href="{{ route('item.zoom', ['id' => $item->id]) }}" data-toggle="tooltip" data-placement="left" title="{{ utrans('general.item_zoom') }}">
-                        <i class="fa fa-search-plus"></i>
-                    </a>
-                </div>
+        <div class="pull-right">
+            <user-collections-favourite-button
+                label-add="{{ utrans('general.item_add_to_favourites') }}"
+                label-remove="{{ utrans('general.item_remove_from_favourites') }}"
+                id="{{ $item->id }}"
+            ></user-collections-favourite-button>
+            @if( !isset($hide_zoom) && $item->has_iip)
+                <a href="{{ route('item.zoom', ['id' => $item->id]) }}" data-toggle="tooltip" data-placement="left" title="{{ utrans('general.item_zoom') }}" class="ml-1">
+                    <i class="fa fa-search-plus"></i>
+                </a>
             @endif
-        @endif
+        </div>
         <a href="{!! $item->getUrl() !!}">
             @if( !isset($hide_authors) ) <em>{!! implode(', ', $item->authorsFormatted) !!}</em><br> @endif
             @if( !isset($hide_title) ) <strong>{!! $item->title !!}</strong><br> @endif

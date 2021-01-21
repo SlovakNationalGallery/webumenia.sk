@@ -303,10 +303,13 @@ function()
     Route::match(array('GET', 'POST'), 'kolekcie', 'KolekciaController@getIndex')->name('frontend.collection.index');
     Route::match(array('GET', 'POST'), 'kolekcie/suggestions', 'KolekciaController@getSuggestions')->name('frontend.collection.suggestions');
     Route::get('kolekcia/{slug}', 'KolekciaController@getDetail')->name('frontend.collection.detail');
+    Route::get('oblubene', 'UserCollectionController@show')->name('frontend.user-collection.show');
 
     Route::get('informacie', function (ItemRepository $itemRepository) {
-        $filter = (new ItemFilter)->setGallery('Slovenská národná galéria, SNG');
-        $items = $itemRepository->getRandom(20, $filter)->getCollection();
+        $for_reproduction_filter = (new ItemFilter)->setIsForReproduction(true);
+        $items_for_reproduction_search = $itemRepository->getRandom(20, $for_reproduction_filter);
+        $items_for_reproduction_total =  $items_for_reproduction_search->getTotal();
+        $items_for_reproduction_sample = $items_for_reproduction_search->getCollection();
 
         $galleries = [
             [
@@ -391,10 +394,11 @@ function()
             ],
         ];
 
-        return view('informacie', [
-            'items' => $items,
-            'galleries' => $galleries,
-        ]);
+        return view('informacie', compact(
+            'galleries',
+            'items_for_reproduction_sample', 
+            'items_for_reproduction_total'
+        ));
     })->name('frontend.info');
 
     Route::get('reprodukcie', function (ItemRepository $itemRepository) {
@@ -504,7 +508,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('authority/search', 'AuthorityController@search');
     Route::resource('authority', 'AuthorityController');
     Route::resource('sketchbook', 'SketchbookController');
+    Route::resource('slide', 'SlideController');
     Route::resource('notices', 'NoticeController');
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 });
-
