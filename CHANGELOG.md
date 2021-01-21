@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- add es:migrate command
+### Changed
+- Use aliased indexes for es:setup
 
 ## [2.16.0] - 2021-01-15
 ### Added
