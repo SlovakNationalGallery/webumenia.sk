@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file[^1].
 - add es:migrate command
 ### Changed
 - Use aliased indexes for es:setup
+- Speed up re-index for Items
+
 ### Fixed
 - Do not load JS for "load-more" on single-page results
 - Fix zoom for related work in non-SK locale

@@ -451,22 +451,41 @@ class ItemRepository extends TranslatableRepository
 
     public function reindexAllLocales(): int
     {
-        $i = 0;
+        $processedCount = 0;
+        $locales = collect($this->locales);
 
-        $this->modelClass::with('images')->chunk(200, function ($items) use (&$i) {
-            $items->load('authorities');
-            foreach ($items as $item) {
-                $this->indexAllLocales($item);
-                $i++;
-                if (\App::runningInConsole()) {
-                    if ($i % 100 == 0) {
-                        echo date('h:i:s'). " " . $i . "\n";
+        $this
+            ->modelClass::with(['images', 'authorities:id', 'translations', 'tagged'])
+            ->chunk(1000, function($items) use (&$locales, &$processedCount) {
+                $processedCount += $items->count();
+
+                $locales->flatMap(function ($locale) use ($items) {
+                    return $items->flatMap(function ($item) use ($locale) {
+                        return [
+                            // Action
+                            [
+                                'index' => [
+                                    '_index' => $this->getLocalizedIndexName($locale),
+                                    '_id' => $item->getKey(),
+                                ]
+                            ],
+                    
+                            // Data
+                            $item->getIndexedData($locale)
+                        ];
+                    });
+                })
+                ->pipe(function ($bulkIndexBody) use (&$processedCount) {
+                    $this->elasticsearch->bulk(['body' => $bulkIndexBody->toArray()]);
+
+                    // Progress report
+                    if (app()->runningInConsole()) {
+                        echo date('h:i:s'). " " . $processedCount . "\n";
                     }
-                }
-            }
-        });
+                });
+            });
 
-        return $i;
+        return $processedCount;
     }
 
     protected function getIndexConfig(string $locale  = null): array

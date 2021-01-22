@@ -632,7 +632,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
             'has_iip' => $this->has_iip,
             'is_free' => $this->isFree(),
             'is_for_reproduction' => $this->isForReproduction(),
-            'authority_id' => $this->authorities()->pluck('id'),
+            'authority_id' => $this->authorities->pluck('id'),
             'view_count' => $this->view_count,
             'work_type' => $work_types ? implode(self::TREE_DELIMITER, $work_types) : null,
             'image_ratio' => $this->image_ratio,
