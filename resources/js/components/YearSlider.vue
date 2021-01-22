@@ -1,5 +1,5 @@
 <template>
-  <div class="range-slider py-2">
+  <div class="range-slider py-3">
     <div class="col-xs-6 col-sm-1 text-left text-sm-right">
       <input
         class="sans range-slider-from"
