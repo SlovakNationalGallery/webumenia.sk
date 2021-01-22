@@ -529,9 +529,9 @@ class Item extends Model implements IndexableModel, TranslatableContract
         return $query->where('has_image', '=', $hasImage);
     }
 
-    public function scopeRelated($query, Item $item, $locale = null)
+    public function scopeRelated($query, Item $item)
     {
-        return $query->whereTranslation('related_work', $item->related_work, $locale)
+        return $query->whereTranslation('related_work', $item->related_work)
             ->where('author', '=', $item->author)
             ->orderBy('related_work_order');
     }

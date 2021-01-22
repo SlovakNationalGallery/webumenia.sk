@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file[^1].
 - Use aliased indexes for es:setup
 ### Fixed
 - Do not load JS for "load-more" on single-page results
+- Fix zoom for related work in non-SK locale
 
 ## [2.16.0] - 2021-01-15
 ### Added
