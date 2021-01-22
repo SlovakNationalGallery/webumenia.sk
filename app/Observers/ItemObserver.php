@@ -39,7 +39,7 @@ class ItemObserver
 
     public function belongsToManyAttached($relation, Item $item, $ids)
     {
-        if ($item->fresh()->exists) {
+        if ($item->exists) {
             $this->itemRepository->indexAllLocales($item->fresh());
             if ($relation === 'authorities') {
                 Authority::findMany($ids)->each(function (Authority $authority) {
