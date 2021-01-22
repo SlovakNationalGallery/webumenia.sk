@@ -515,8 +515,13 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     public function isForReproduction()
     {
-        $default_locale = config('translatable.fallback_locale');
-        return ($this->translate($default_locale)->gallery == 'Slovenská národná galéria, SNG');
+        $default_translation = $this->translate(config('translatable.fallback_locale'));
+
+        if (is_null($default_translation)) return false;
+        if ($default_translation->credit == 'Dar združenia Čierne diery') return false;
+        if ($default_translation->gallery == 'Slovenská národná galéria, SNG') return true;
+
+        return false;
     }
 
     public function scopeHasImage($query, $hasImage = true)
@@ -524,16 +529,9 @@ class Item extends Model implements IndexableModel, TranslatableContract
         return $query->where('has_image', '=', $hasImage);
     }
 
-    public function scopeForReproduction($query)
+    public function scopeRelated($query, Item $item)
     {
-        $default_locale = config('translatable.fallback_locale');
-        return $query->whereTranslation('gallery', 'Slovenská národná galéria, SNG', $default_locale);
-    }
-
-
-    public function scopeRelated($query, Item $item, $locale = null)
-    {
-        return $query->whereTranslation('related_work', $item->related_work, $locale)
+        return $query->whereTranslation('related_work', $item->related_work)
             ->where('author', '=', $item->author)
             ->orderBy('related_work_order');
     }
@@ -633,7 +631,8 @@ class Item extends Model implements IndexableModel, TranslatableContract
             'has_image' => (bool)$this->has_image,
             'has_iip' => $this->has_iip,
             'is_free' => $this->isFree(),
-            'authority_id' => $this->authorities()->pluck('id'),
+            'is_for_reproduction' => $this->isForReproduction(),
+            'authority_id' => $this->authorities->pluck('id'),
             'view_count' => $this->view_count,
             'work_type' => $work_types ? implode(self::TREE_DELIMITER, $work_types) : null,
             'image_ratio' => $this->image_ratio,

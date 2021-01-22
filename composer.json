@@ -22,7 +22,6 @@
         "zizaco/entrust": "5.2.x-dev",
         "anahkiasen/former": "^4.0",
         "laravelcollective/html": "~5.0",
-        "barryvdh/laravel-debugbar": "^3.2",
         "php": ">=7.2.0",
         "graham-campbell/throttle": "^7",
         "mcamara/laravel-localization": "1.2.*",
@@ -85,7 +84,8 @@
         "fzaninotto/faker": "^1.7",
         "laravel/browser-kit-testing": "2.*",
         "filp/whoops": "~2.0",
-        "mockery/mockery": "^1"
+        "mockery/mockery": "^1",
+        "barryvdh/laravel-debugbar": "^3.2"
     },
     "autoload-dev": {
         "psr-4": {

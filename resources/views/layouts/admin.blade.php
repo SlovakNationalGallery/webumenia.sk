@@ -117,6 +117,11 @@
                             <a href="{!! URL::to('sketchbook') !!}"><i class="fa fa-book fa-fw"></i> Skicáre</a>
                         </li>
                         @endif
+                        @if (Entrust::hasRole('admin'))
+                        <li>
+                            <a href="{!! route('notices.edit', 1) !!}"><i class="fa fa-bullhorn fa-fw"></i> Oznamy</a>
+                        </li>
+                        @endif
                         @if (Entrust::hasRole(['admin', 'import']))
                         <li>
                             <a href="#"><i class="fa fa-download fa-fw"></i> Import<span class="fa arrow"></span></a>

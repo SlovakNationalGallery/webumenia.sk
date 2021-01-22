@@ -16,6 +16,7 @@ return array(
     'galleries'          => 'galerie',
     'reproductions'      => 'reprodukce',
     'info'               => 'info',
+    'favourites'         => 'oblíbené',
     'language'           => 'jazyk',
     'search_placeholder' => 'hledat díla, autorů ...',
     'to_top' => 'návrat nahoru',
