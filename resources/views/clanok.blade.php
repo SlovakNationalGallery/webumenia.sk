@@ -72,7 +72,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4 col-md-push-0 col-sm-6 col-sm-push-6 col-xs-12 col-xs-push-1">
+                        <div class="col-md-4 col-md-push-0 col-sm-6 col-sm-push-6 col-xs-12">
                             @if ($article->reading_time)
                             <div class="v-center">
                                 <i class='fa fa-clock-o mr-3'></i>{!! $article->reading_time !!}
