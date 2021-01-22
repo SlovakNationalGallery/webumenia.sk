@@ -25,6 +25,16 @@ $(document).ready(function(){
     $('#top a').click(function(){
         $('html,body').animate({scrollTop:0},'slow');return false;
     });
+
+    $('.content-slick-images').each( function() {
+       const $slick = $(this);
+       $slick.slick({
+           slide: 'p, a, img, div',
+           lazyLoad: 'progressive',
+           variableWidth: true,
+           infinite: false,
+       });
+   });
 });
 
 export function spravGrid($container) {

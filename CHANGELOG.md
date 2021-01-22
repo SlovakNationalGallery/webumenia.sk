@@ -2,8 +2,13 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- add es:migrate command
+### Changed
+- Use aliased indexes for es:setup
 ### Fixed
-- fix zoom for related work in EN
+- Do not load JS for "load-more" on single-page results
+- Fix zoom for related work in non-SK locale
 
 ## [2.16.0] - 2021-01-15
 ### Added
@@ -40,6 +45,7 @@ All notable changes to this project will be documented in this file[^1].
 - use authority matcher in item detail
 - SGP into list of galleries in the info page
 - Run tests on GitHub Actions
+- ckeditor allows to add slick
 
 ## [2.13.1] - 2020-12-07
 ### Fixed
