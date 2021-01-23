@@ -13,8 +13,9 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
 		{ name: 'editing',     groups: [ 'find', 'selection', 'spellchecker' ] },
 		{ name: 'links' },
-		{ name: 'insert' },
+		{ name: 'insert'},
 		{ name: 'forms' },
+		{ name: 'wuSlick' },
 		{ name: 'tools' },
 		{ name: 'document',	   groups: [ 'mode', 'document', 'doctools' ] },
 		{ name: 'others' },
@@ -31,10 +32,34 @@ CKEDITOR.editorConfig = function( config ) {
 	config.removeButtons = 'Underline,Subscript,Superscript';
 
 	// Set the most common block elements.
-	config.format_tags = 'p;h1;h2;h3;pre';
+	config.format_tags = 'p;h1;h2;h3;pre;div';
 
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
-
+	config.extraPlugins = 'slick';
+	config.allowedContent = true;
 	config.embed_provider = '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}';
+	
+
+	// load external css into iframe
+	config.contentsCss = ['/css/style.css'];
+	config.bodyClass = 'long-text container ';
 };
+
+// we don't need to set & store image height, for images
+CKEDITOR.on( 'dialogDefinition', function( ev ) {
+    var dialogName = ev.data.name;
+	var dialogDefinition = ev.data.definition;
+    if ( dialogName == 'image' || dialogName == 'image2' ) {
+        var infoTab = dialogDefinition.getContents( 'info' );
+
+        if( dialogName == 'image' ){
+            infoTab.remove('txtHeight');
+            infoTab.remove('ratioLock');
+        }
+        else{
+            infoTab.remove('height');
+            infoTab.remove('lock');
+        }
+    }
+});

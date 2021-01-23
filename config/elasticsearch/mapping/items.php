@@ -79,6 +79,9 @@ $mapping = [
         'is_free' => [
             'type' => 'boolean',
         ],
+        'is_for_reproduction' => [
+            'type' => 'boolean',
+        ],
         'medium' => [
             'type' => 'keyword',
         ],

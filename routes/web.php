@@ -306,8 +306,10 @@ function()
     Route::get('oblubene', 'UserCollectionController@show')->name('frontend.user-collection.show');
 
     Route::get('informacie', function (ItemRepository $itemRepository) {
-        $filter = (new ItemFilter)->setGallery('Slovenská národná galéria, SNG');
-        $items = $itemRepository->getRandom(20, $filter)->getCollection();
+        $for_reproduction_filter = (new ItemFilter)->setHasImage(true)->setHasIip(true)->setIsForReproduction(true);
+        $items_for_reproduction_search = $itemRepository->getRandom(20, $for_reproduction_filter);
+        $items_for_reproduction_total =  formatNum($itemRepository->count((new ItemFilter)->setIsForReproduction(true)));
+        $items_for_reproduction_sample = $items_for_reproduction_search->getCollection();
 
         $galleries = [
             [
@@ -392,16 +394,17 @@ function()
             ],
         ];
 
-        return view('informacie', [
-            'items' => $items,
-            'galleries' => $galleries,
-        ]);
+        return view('informacie', compact(
+            'galleries',
+            'items_for_reproduction_sample',
+            'items_for_reproduction_total'
+        ));
     })->name('frontend.info');
 
     Route::get('reprodukcie', function (ItemRepository $itemRepository) {
         $collection = Collection::find('55');
 
-        $filter = (new ItemFilter)->setGallery('Slovenská národná galéria, SNG');
+        $filter = (new ItemFilter)->setIsForReproduction(true)->setHasImage(true)->setHasIip(true);
 
         if ($collection) {
             $items_recommended = $collection->items()->inRandomOrder()->take(20)->get();
@@ -410,7 +413,7 @@ function()
         }
 
         $response = $itemRepository->getRandom(20, $filter);
-        $total = formatNum($response->getTotal());
+        $total =  formatNum($itemRepository->count((new ItemFilter)->setIsForReproduction(true)));
 
         return view('reprodukcie', [
             'items_recommended' => $items_recommended,

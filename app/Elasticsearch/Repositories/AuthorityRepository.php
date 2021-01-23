@@ -46,6 +46,26 @@ class AuthorityRepository extends TranslatableRepository
         }
     }
 
+    public function reindexAllLocales(): int
+    {
+        $i = 0;
+
+        $this->modelClass::chunk(200, function ($authorities) use (&$i) {
+            $authorities->load('items');
+            foreach ($authorities as $authority) {
+                $this->indexAllLocales($authority);
+                $i++;
+                if (\App::runningInConsole()) {
+                    if ($i % 100 == 0) {
+                        echo date('h:i:s'). " " . $i . "\n";
+                    }
+                }
+            }
+        });
+
+        return $i;
+    }
+
     public function buildQueryFromFilter(?Filter $filter): ?array
     {
         if (!$filter) {
