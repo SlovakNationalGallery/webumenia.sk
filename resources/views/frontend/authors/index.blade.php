@@ -53,7 +53,7 @@
                     <div class="row author">
                         <div class="col-sm-2 col-xs-4">
                             <a href="{!! $author->getUrl() !!}">
-                                <img src="{!! $author->getImagePath() !!}" class="img-responsive img-circle" alt="{!! $author->name !!}">
+                                <img src="{!! $author->getImagePath() !!}" class="img-responsive img-circle" alt="{{ $author->name }}">
                             </a>
                         </div>
                         <div class="col-sm-4 col-xs-8">
@@ -115,7 +115,7 @@
     <script type="text/javascript">
 
         $(document).ready(function(){
-            
+
             $("form").submit(function()
             {
                 $(this).find('input[name], select[name]').each(function(){
@@ -129,7 +129,7 @@
             $('#years-range').on('change', function(event) {
                 $(this).closest('form').submit();
             });
-            
+
             $('.js-filter-form').each(function () {
                 var $filterForm = $(this);
                 $filterForm.find('select, input:not([type=hidden])').change(function () {
