@@ -6,7 +6,7 @@
                 <img
                     src="{{$img_url}}"
                     class="mw-100 lazyload position-relative"
-                    alt="{!! $img_title !!} "
+                    alt="{{ $img_title }} "
                 >
             </a>
         </div>

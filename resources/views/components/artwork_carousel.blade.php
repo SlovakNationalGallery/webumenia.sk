@@ -36,7 +36,7 @@
         data-src="{!! route('dielo.nahlad', ['id' => $item->id, 'width'=> 0, 'height' => $size]) !!}"
         class="lazyload"
         style=""
-        alt="{!! $item->getTitleWithAuthors() !!} ">
+        alt="{{ $item->getTitleWithAuthors() }} ">
     </a>
     @endforeach
   </div>
