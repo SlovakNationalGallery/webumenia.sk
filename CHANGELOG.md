@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.18.0] - 2021-02-10
 ### Added
 - karasek items indicator
 
