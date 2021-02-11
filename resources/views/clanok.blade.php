@@ -46,7 +46,8 @@
     @slot('slideContent')
         <h1>{!! $article->title !!}</h1>
         @if ($article->category)
-        <h2 style="color: {!! $article->title_color !!}">{!! $article->category->name !!}</h2>
+        {{-- keep in one line to prevent formatting failures --}}
+        <h2 style="color: {!! $article->title_color !!}">{!! $article->category->name !!}</h2> 
         @endif
     @endslot
 @endcomponent

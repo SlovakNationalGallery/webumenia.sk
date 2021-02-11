@@ -80,97 +80,97 @@
 }
 
 /// TODO replace me once custom.less is clean, see https://jira.sng.sk/browse/WEBUMENIA-1498
+.editor,
 .article,
 .collection {
     &.content-header,
     &.content-section {
-        padding-top: @padding-large-vertical;
-        padding-bottom: 3 * @padding-large-vertical;
-        a {
+        padding-top: 2 * @padding-large-vertical;
+        padding-bottom: @padding-large-vertical;
+    }
+    a {
+        color: @gray-dark !important;
+        border-bottom: @grey solid 2px !important;
+        &:hover,
+        &:active {
             color: @gray-dark !important;
-            border-bottom: @light-grey solid 2px !important;
-            &:hover,
-            &:active {
-                color: @gray-dark !important;
-                border-bottom: @gray-dark solid 2px !important;
-            }
+            border-bottom: @gray-dark solid 2px !important;
         }
-        .long-text {
-            font-family: @font-family-serif;
+    }
+
+    &.long-text,
+    .long-text {
+        font-family: @font-family-serif;
+        font-size: @font-size-content;
+        line-height: @line-height-content;
+        color: @dark;
+        // TODO remove with old styles
+        text-indent: 0;
+
+        p {
             font-size: @font-size-content;
             line-height: @line-height-content;
-            color: @dark;
-            // TODO remove with old styles
-            text-indent: 0;
+            margin: 1.15em auto;
+            max-width: 40em;
+        }
 
-            p {
-                font-size: @font-size-content;
-                line-height: @line-height-content;
-                margin: 1.15em auto;
-                max-width: 40em;
-            }
-
-            &.lead,
-            .lead {
-                font-weight: normal;
-                font-family: @font-family-sans-serif;
-                font-size: 22px;
-                padding-bottom: @padding-large-vertical;
-
-                big {
-                    font-size: 1.1em;
-                    line-height: 1.4em;
-                }
-            }
+        &.lead,
+        .lead {
+            font-weight: normal;
+            font-family: @font-family-sans-serif;
+            font-size: 22px;
+            padding-bottom: @padding-large-vertical;
 
             big {
-                font-size: 1.2em;
-                line-height: 1.61em;
+                font-size: 1.1em;
+                line-height: 1.4em;
             }
+        }
 
-            p > a > img:only-child {
-                margin-bottom: 0;
+        big {
+            font-size: 1.2em;
+            line-height: 1.61em;
+        }
+
+        p > a > img:only-child {
+            margin-bottom: 0;
+            display: block;
+        }
+
+        .content-image-container {
+            padding: 2 * @padding-base-vertical 0;
+            text-align: center;
+            font-family: @font-family-sans-serif;
+            font-size: 14px;
+            line-height: 1.8em;
+            &:not([style]) {
+                margin: auto;
             }
-
-            .content-image-container {
-                padding: 2 * @padding-base-vertical 0;
-                text-align: center;
-                font-family: @font-family-sans-serif;
-                font-size: 14px;
-                line-height: 1.8em;
-                &:not([style]) {
-                    margin: auto;
-                }
-                + .content-image-container {
-                    padding-top: 0;
-                    margin-top: -2 * @padding-base-vertical;
-                }
-
-                a {
-                    border-bottom: none !important;
-                }
+            + .content-image-container {
+                padding-top: 0;
+                margin-top: -2 * @padding-base-vertical;
             }
+        }
 
-            img {
-                max-height: calc(85vh - 3em);
-                min-height: 300px;
-                object-fit: contain;
-                max-width: 100% !important;
-                height: auto !important;
-                margin-bottom: @padding-large-vertical;
-            }
+        :not(.slick)img {
+            max-height: calc(85vh - 3em);
+            min-height: 300px;
+            object-fit: contain;
+            max-width: 100% !important;
+            height: auto !important;
+            margin-bottom: @padding-large-vertical;
+        }
 
-            p.references {
-                font: bold;
-                font-family: @font-family-sans-serif;
-                font-size: 0.8em;
-                line-height: 1.6em;
-                margin: @padding-large-vertical 0;
-            }
+        p.references {
+            font: bold;
+            font-family: @font-family-sans-serif;
+            font-size: 0.8em;
+            line-height: 1.6em;
+            margin: @padding-large-vertical 0;
+        }
 
-            hr {
-                border-bottom: 2px solid @gray;
-            }
+        hr {
+            border-bottom: 2px solid @gray;
         }
     }
 

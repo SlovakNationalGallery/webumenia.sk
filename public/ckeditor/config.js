@@ -42,8 +42,8 @@ CKEDITOR.editorConfig = function( config ) {
 	
 
 	// load external css into iframe
-	config.contentsCss = ['/css/style.css', '/css/content-slick.css'];
-	config.bodyClass = 'long-text container ';
+	config.contentsCss = ['/css/style.css'];
+	config.bodyClass = 'editor long-text container';
 };
 
 // we don't need to set & store image height, for images
