@@ -35,6 +35,7 @@ $(document).ready(function(){
            infinite: false,
        });
    });
+
 });
 
 export function spravGrid($container) {

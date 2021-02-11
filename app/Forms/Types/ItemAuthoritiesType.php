@@ -29,20 +29,20 @@ class ItemAuthoritiesType extends AbstractType
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        
-            
         $data = $form->getData();
         $view->vars['items'] = $data;
-        $view->vars['authorities_choices'] = \App\Authority::orderBy('name', 'asc')->get(['id as key', 'name as value']);
-        $view->vars['roles_choices'] = json_encode(array_map(function ($role){
+        $authorityIds =  array_keys(json_decode($data, true));
+        $view->vars['authorities_choices'] = \App\Authority::whereIn('id',$authorityIds)->orderBy('name', 'asc')->get(['id as key', 'name as value']);
+        $view->vars['roles_choices'] = json_encode(array_map(function ($role) {
             return  [
                 "key" => $role,
-                "value"=> trans('authority.role.' . config('authorityRoles')[$role])
+                "value" => trans('authority.role.' . config('authorityRoles')[$role])
             ];
-         }, array_keys(config('authorityRoles'))));
+        }, array_keys(config('authorityRoles'))));
     }
 
-    public function getTranslations() {
+    public function getTranslations()
+    {
         return $this->translations;
     }
     public function getBlockPrefix()

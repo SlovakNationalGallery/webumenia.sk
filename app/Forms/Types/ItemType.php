@@ -30,17 +30,7 @@ class ItemType extends AbstractType
                 'choices' => User::pluck('id', 'username'),
             ])
             ->add('identifier')
-            ->add(
-                'author',
-                ChoiceType::class,
-                [
-                    'choices' => Authority::orderBy('name', 'asc')->pluck('name', 'name')->toArray(),
-                    'multiple' => true,
-                    'mapped' => false,
-                    'required' => false,
-                    'choice_translation_domain' => false,
-                ]
-            )
+            ->add('author')
 
             ->add('tags', ChoiceType::class, [
                 'choices' => Item::existingTags()->pluck('name', 'name')->toArray(),
@@ -94,20 +84,6 @@ class ItemType extends AbstractType
                 $options['data'] = $current;
 
                 $form->add('tags', ChoiceType::class, $options);
-
-
-                $optionsAuthors = $form['author']->getConfig()->getOptions();
-                $selectedAuthors = explode(';', $data['author']);
-
-                if ($optionsAuthors['choices'] && isset($selectedAuthors)) {
-                    $selectedAuthors  = array_combine($selectedAuthors, $selectedAuthors);
-                    $optionsAuthors['choices']  = array_merge(
-                        $optionsAuthors['choices'],
-                        $selectedAuthors
-                    );
-                    $optionsAuthors['data'] = $selectedAuthors;
-                    $form->add('author', ChoiceType::class, $optionsAuthors);
-                }
             }
         );
 
@@ -125,16 +101,6 @@ class ItemType extends AbstractType
                     $options['choices'] += $selected;
 
                     $form->add('tags', ChoiceType::class, $options);
-                }
-
-
-                if (isset($data['author'])) {
-                    $optionsAuthor = $form['author']->getConfig()->getOptions();
-
-                    $selectedAuthor = array_combine($data['author'], $data['author']);
-                    $optionsAuthor['choices'] += $selectedAuthor;
-
-                    $form->add('author', ChoiceType::class, $optionsAuthor);
                 }
             }
         );
