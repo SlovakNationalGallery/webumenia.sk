@@ -120,7 +120,7 @@
         </div>
         <div class="row content-section">
             <div class="col-sm-12 text-center">
-                <a href="{!! url_to('katalog', ['gallery' => 'Slovenská národná galéria, SNG', 'has_image' => '1', 'has_iip' => '1']) !!}" class="btn btn-default btn-outline sans" >{{ trans('reprodukcie.more-items_button') }} <strong>{{ $total }}</strong>  <i class="fa fa-chevron-right "></i></a>
+                <a href="{!! url_to('katalog', ['is_for_reproduction' => 1]) !!}" class="btn btn-default btn-outline sans" >{{ trans('reprodukcie.more-items_button') }} <strong>{{ $total }}</strong>  <i class="fa fa-chevron-right "></i></a>
             </div>
         </div>
     </div>
@@ -193,7 +193,7 @@
         </div>
         <div class="row content-section">
             <div class="col-sm-12 text-center">
-                <a href="{!! url_to('katalog', ['gallery' => 'Slovenská národná galéria, SNG', 'has_image' => '1', 'has_iip' => '1']) !!}" class="btn btn-default btn-outline sans" >{{ trans('reprodukcie.more-items_button') }} <strong>{{ $total }}</strong>  <i class="fa fa-chevron-right "></i></a>
+                <a href="{!! url_to('katalog', ['is_for_reproduction' => 1]) !!}" class="btn btn-default btn-outline sans" >{{ trans('reprodukcie.more-items_button') }} <strong>{{ $total }}</strong>  <i class="fa fa-chevron-right "></i></a>
             </div>
         </div>
     </div>

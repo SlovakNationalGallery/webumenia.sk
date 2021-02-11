@@ -71,7 +71,7 @@
         <div class="row collection">
             {{-- <div class="col-sm-2 col-xs-4">
             	<a href="{!! $collection->getUrl() !!}">
-            		<img src="{!! $collection->getHeaderImage() !!}" class="img-responsive pentagon" alt="{!! $collection->name !!}">
+            		<img src="{!! $collection->getHeaderImage() !!}" class="img-responsive pentagon" alt="{{ $collection->name }}">
             	</a>
             </div> --}}
             <div class="col-sm-6 col-xs-12">
@@ -125,7 +125,7 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-            
+
         $("form").submit(function(){
             $(this).find('input[name], select[name]').each(function(){
                 if (!$(this).val()){
@@ -134,7 +134,7 @@
                 }
             });
         });
-        
+
         $('.js-filter-form').each(function () {
             var $filterForm = $(this);
             $filterForm.find('select, input:not([type=hidden])').change(function () {

@@ -2,9 +2,26 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Changed
+- autocomplete for item-author and item-authority-role fiels
+
+## [2.18.0] - 2021-02-10
+### Added
+- karasek items indicator
+
+## [2.17.1] - 2021-01-24
+### Fixed
+- unescaped data displayed in alt attributes
+
+## [2.17.0] - 2021-01-22
 ### Added
 - add es:migrate command
+- slick to ckeditor
+
 ### Changed
+- Do not specify default (develop) branch for test deploys
+- index is_for_reproductions in Elastic
+- exclude Cierne diery from reproductions
 - Use aliased indexes for es:setup
 - Speed up re-index for Items
 
@@ -15,10 +32,6 @@ All notable changes to this project will be documented in this file[^1].
 ## [2.16.0] - 2021-01-15
 ### Added
 - user collections
-### Changed
-- Do not specify default (develop) branch for test deploys
-- index is_for_reproductions in Elastic
-- exclude Cierne diery from reproductions
 
 ### Changed
 - Make (reproduction) notices editable in admin
@@ -47,7 +60,6 @@ All notable changes to this project will be documented in this file[^1].
 - use authority matcher in item detail
 - SGP into list of galleries in the info page
 - Run tests on GitHub Actions
-- autocomplete for item-author and item-authority-role fiels
 - ckeditor allows to add slick
 
 ## [2.13.1] - 2020-12-07
