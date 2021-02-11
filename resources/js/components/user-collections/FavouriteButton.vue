@@ -8,11 +8,13 @@
     </a>
 </template>
 <script>
+    const store = require('./store')
+
     export default {
         props: ['labelAdd', 'labelRemove', 'id', 'isDetail'],
         data() {
             return {
-                store: this.$root.$data.userCollectionsStore
+                store
             }
         },
         computed: {

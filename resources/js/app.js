@@ -46,9 +46,4 @@ Vue.component('color-slider', require('./components/vue/color-slider').default);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
- const app = new Vue({
-    el: '#app',
-    data: {
-        userCollectionsStore: require('./components/user-collections/store')
-    }
-});
+ new Vue({ el: '#app' });

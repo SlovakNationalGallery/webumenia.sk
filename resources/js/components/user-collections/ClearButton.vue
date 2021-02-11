@@ -6,11 +6,13 @@
 </template>
 
 <script>
+    const store = require('./store')
+
     export default {
         props: ['confirmMessage', 'afterClearRedirect'],
         data() {
             return {
-                store: this.$root.$data.userCollectionsStore
+                store
             }
         },
         methods: {
