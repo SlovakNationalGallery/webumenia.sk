@@ -329,6 +329,7 @@ class PnpKarasekImporter extends AbstractImporter
             'author_alternative_name' => $record['Alternatívni jméno:'],
             'author_role' => $record['Role:'],
             'order' => $this->counter,
+            'frontend' => ['karasek.pamatniknarodnihopisemnictvi.cz'],
         ];
     }
 
