@@ -135,6 +135,8 @@ class AuthorityController extends Controller
             [
                 'externalLinks.*.url' => Link::$rules['url'],
                 'externalLinks.*.label' => Link::$rules['label'],
+                'sourceLinks.*.url' => Link::$rules['url'],
+                'sourceLinks.*.label' => Link::$rules['label'],
             ]
         ));
 
