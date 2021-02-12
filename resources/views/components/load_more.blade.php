@@ -31,6 +31,13 @@
                 $('.infinite-scroll-request').addClass('animated fadeInUp faster');
             });
 
+            $container.on('append.infiniteScroll', function( event, body, path, items, response ) {
+                for (i = 0; i < items.length; ++i) {
+                    // Initialize Vue components in response
+                    new Vue({ el: items[i] });
+                }
+            });
+
             $('#next').on('click', function(event) {
                 $container.infiniteScroll('loadNextPage');
                 $container.infiniteScroll('option', {

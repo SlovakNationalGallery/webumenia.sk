@@ -3,16 +3,18 @@
         <i class="fa" :class="[store.hasItem(id) ? 'fa-star' : 'fa-star-o']"></i>
         {{ label }}
     </a>
-    <a v-else v-on:click="store.toggleItem(id)" data-toggle="tooltip" data-placement="left" :title="label">
+    <a v-else v-on:click="store.toggleItem(id)" class="cursor-pointer" data-toggle="tooltip" data-placement="left" :title="label">
         <i class="fa" :class="[store.hasItem(id) ? 'fa-star' : 'fa-star-o']"></i>
     </a>
 </template>
 <script>
+    const store = require('./store')
+
     export default {
         props: ['labelAdd', 'labelRemove', 'id', 'isDetail'],
         data() {
             return {
-                store: this.$root.$data.userCollectionsStore
+                store
             }
         },
         computed: {
