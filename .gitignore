@@ -16,6 +16,7 @@ data/
 /public/hot
 /public/js/*LICENSE.txt
 /public/js/app.js
+/public/js/admin.js
 /public/js/vendor.js
 /public/js/manifest.js
 /public/css/app.css
