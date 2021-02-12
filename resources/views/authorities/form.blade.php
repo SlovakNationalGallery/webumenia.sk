@@ -83,6 +83,20 @@
 <div class="col-lg-12">
   <div class="panel panel-default">
     <div class="panel-heading">
+      Použité zdroje
+    </div>
+    <div class="panel-body">
+      <admin-links-input 
+        collection-name="sourceLinks"
+        :value="{{ json_encode(Input::old('sourceLinks', $authority->sourceLinks)) }}"
+      ></admin-links-input>
+    </div>
+  </div>
+</div>
+
+<div class="col-lg-12">
+  <div class="panel panel-default">
+    <div class="panel-heading">
       Externé odkazy
     </div>
     <div class="panel-body">
