@@ -25,6 +25,7 @@ return array(
     'alternative_names' => 'příp.',
     'places'            => 'působení',
     'external_links'    => 'externí odkazy',
+    'source_links'      => 'použité zdroje',
     'relationships'     => 'vztahy',
 
     'artworks_by_artist' => 'díla autora',
