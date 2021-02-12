@@ -106,7 +106,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
         return $this->hasOne(\App\SpiceHarvesterRecord::class, 'item_id');
     }
 
-    private function links()
+    public function links()
     {
         return $this->morphMany(\App\Link::class, 'linkable');
     }
