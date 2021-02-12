@@ -5,8 +5,10 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Fixed
 - paging issues with user collections
+
 ### Changed
 - autocomplete for item-author and item-authority-role fiels
+- admin form and view for 'sources' links
 
 ## [2.18.0] - 2021-02-10
 ### Added
