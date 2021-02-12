@@ -15,7 +15,7 @@ class AddTypeToLinks extends Migration
     public function up()
     {
         Schema::table('links', function (Blueprint $table) {
-            $table->string('type')->after('label')->index();
+            $table->string('type')->after('label')->nullable(false)->index();
         });
 
         DB::statement('UPDATE links SET type="external"');
