@@ -3,6 +3,7 @@
 namespace Tests;
 
 use Elasticsearch\Client;
+use Tests\RecreateSearchIndex;
 
 abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 {
@@ -11,11 +12,29 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 
     protected function setUp(): void {
         parent::setUp();
-        $this->app->instance(Client::class, $this->createMock(Client::class));
 
         if ($this->faker === null) {
             $this->faker = \Faker\Factory::create(\App::getLocale());
         }
+    }
+
+    /**
+     * Boot the testing helper traits.
+     *
+     * @return array
+     */
+    protected function setUpTraits()
+    {
+        $uses = parent::setUpTraits();
+
+        if (isset($uses[RecreateSearchIndex::class])) {
+            $this->recreateSearchIndex();
+        } else {
+            // Mock Elasticsearch unless said otherwise
+            $this->app->instance(Client::class, $this->createMock(Client::class));
+        }
+
+        return $uses;
     }
 
     /**
@@ -29,7 +48,6 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
         $app = require __DIR__ . '/../bootstrap/app.php';
         $app->loadEnvironmentFrom('.env.testing');
         $app->make(\Illuminate\Contracts\Console\Kernel::class)->bootstrap();
-        $app->instance(Client::class, $this->createMock(Client::class));
 
         $this->baseUrl = env('TEST_HOST', 'http://localhost');
 

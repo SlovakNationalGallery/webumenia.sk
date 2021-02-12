@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-články | 
+články |
 @parent
 @stop
 
@@ -37,8 +37,8 @@
                             <th>Kategória</th>
                             <th>Autor</th>
                             <th>Dátum vytvorenia</th>
-                            <th class="text-center" style="min-width: 100px;">Publikovať</th>
-                            <th class="text-center">Na titulke</th>
+                            <th style="min-width: 100px;">Publikovať</th>
+                            <th>Na titulke</th>
                             <th>Akcie</th>
                         </tr>
                     </thead>

@@ -55,7 +55,4 @@ return array(
                             </ul>',
     'digital_choice'    => 'Zvolte si reprodukce',
     'more-items_button' => 'zobrazit všechny',
-
-    'alert_covid-19' => 'Vzhledem na aktuální vládní nařízení bude <a href="https://www.sng.sk/sk/bratislava/navsteva/kde-nas-najdete/knihkupectvo-ex-libris" target="_blank">knihkupectví Ex-libris</a> v prostorách SNG a <a href="https://www.sng.sk/sk/zvolen/navsteva/otvaracie-hodiny-a-vstupne" target="_blank">Zvolenský zámek</a> od 24. 10. do 8. 11. 2020 zavřený. V těchto dnech si nebudete moct převzít objednávky. Aktuální situace také způsobila, že vybavení objednávek bude trvat více jak 30 dní.<br>
-Děkujeme za trpělivost.',
 );

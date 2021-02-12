@@ -5,7 +5,7 @@
 <meta property="og:description" content="{{ $description }}" />
 <meta property="og:type" content="object" />
 <meta property="og:url" content="{!! Request::url() !!}" />
-<meta property="og:image" content="{!! URL::to( $author->getImagePath() ) !!}" />
+<meta property="og:image" content="{!! asset_timed( $author->getImagePath() ) !!}" />
 <meta property="og:site_name" content="Web umenia" />
 @stop
 
@@ -35,7 +35,7 @@
         <div class="attributes">
             <div class="row">
                 <div class="col-sm-4 text-center extra-padding top-space">
-                        <img src="{!! $author->getImagePath() !!}" class="img-responsive img-circle" alt="{!! $author->name !!}"  itemprop="image">
+                        <img src="{!! $author->getImagePath() !!}" class="img-responsive img-circle" alt="{{ $author->name }}"  itemprop="image">
                         <div class="content-section">
                             {!! trans_choice('authority.artworks', $author->items_count, ['artworks_url' => url_to('katalog', ['author' => $author->name]), 'artworks_count' => $author->items_count]) !!}
                             <br/>

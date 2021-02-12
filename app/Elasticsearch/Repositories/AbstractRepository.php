@@ -43,6 +43,11 @@ abstract class AbstractRepository
         );
     }
 
+    protected function createEmptySearchResult(): SearchResult
+    {
+        return new SearchResult(collect(), 0);
+    }
+
     protected function elasticToModels(array $response): Collection
     {
         $models = collect();

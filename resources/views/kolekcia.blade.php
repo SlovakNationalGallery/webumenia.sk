@@ -89,7 +89,7 @@
                             </div>
                             @endif
                         </div>
-                        @else 
+                        @else
                         <div class="col-md-4 col-sm-6 col-xs-12">
                             <div class="v-center">
                                 <a href="{!! url_to( 'kolekcie', ['author' => $collection->user->name ]) !!}">
@@ -131,6 +131,15 @@
             </div>
         </div>
     </div>
+</section>
+
+<section>
+    @include('components.share_buttons', [
+        'title' => $collection->name,
+        'url' => $collection->getUrl(),
+        'img' => URL::to($collection->header_image_src),
+        'class' => 'text-center mb-5'
+    ])
 </section>
 
 <section class="collections">

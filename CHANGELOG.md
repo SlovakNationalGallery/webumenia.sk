@@ -2,10 +2,91 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+### Fixed
+- paging issues with user collections
+
+### Changed
+- autocomplete for item-author and item-authority-role fiels
+- new styling for artwork / article / collection, metadata blocks
+
+## [2.18.0] - 2021-02-10
+### Added
+- karasek items indicator
+
+## [2.17.1] - 2021-01-24
+### Fixed
+- unescaped data displayed in alt attributes
+
+## [2.17.0] - 2021-01-22
+### Added
+- add es:migrate command
+- slick to ckeditor
+
+### Changed
+- Do not specify default (develop) branch for test deploys
+- index is_for_reproductions in Elastic
+- exclude Cierne diery from reproductions
+- Use aliased indexes for es:setup
+- Speed up re-index for Items
+
+### Fixed
+- Do not load JS for "load-more" on single-page results
+- Fix zoom for related work in non-SK locale
+
+## [2.16.0] - 2021-01-15
+### Added
+- user collections
+
+### Changed
+- Make (reproduction) notices editable in admin
+
+## [2.15.1] - 2021-01-08
+### Changed
+- use debugbar in dev env
+- eager load articles
+- Bump ini from 1.3.5 to 1.3.7
+
+## [2.15.0] - 2020-12-18
+### Added
+- save item image ratio
+- karasek importer
+
+## [2.14.0] - 2020-12-14
+### Added
+- authority matcher
+
+### Fixed
+- Do not trigger an Elasticsearch error on high page numbers
+
+### Changed
+- connect artwork author to authorities
+- Bump up sentry/sentry-laravel to 2.3
+- use authority matcher in item detail
+- SGP into list of galleries in the info page
+- Run tests on GitHub Actions
+- ckeditor allows to add slick
+
+## [2.13.1] - 2020-12-07
+### Fixed
+- Use method asset_timed to avoid caching of og:image
+
+## [2.13.0] - 2020-11-27
+### Added
+- Add 'copy citation' button to artwork detail
+
+### Changed
+- Bump up Bootstrap to 3.4.1 and bump down jQuery to 3.4.1
+
+## [2.12.0] - 2020-11-26
 ### Changed
 - Use laravel-mix for (some) JavaScript files
 - Add item (artwork) data to GTM dataLayer
 - Use atymic/deployer-php-action@2.0 for auto-deploys
+- Update resolve-url-loader to 3.1.2
+
+### Fixed
+- Restart queue workers on deploy
 
 ## [2.11.1] - 2020-11-11
 ### Changed

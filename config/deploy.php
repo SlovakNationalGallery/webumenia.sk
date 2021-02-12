@@ -52,7 +52,7 @@ return [
         // Code and composer vendors are ready but nothing is built.
         'build' => [
             'npm:install',
-            'npm:production',            
+            'npm:production',
         ],
 
         // Deployment is done but not live yet (before symlink)
@@ -62,6 +62,7 @@ return [
             'artisan:cache:clear',
             'artisan:config:cache',
             'artisan:migrate',
+            'artisan:queue:restart',
         ],
 
         // Deployment is done and live
@@ -159,7 +160,6 @@ return [
             'hostname' => 'webumenia.sk',
             'deploy_path' => '/var/www/test.webumenia.sk',
             'user' => 'lab_sng',
-            'branch' => 'develop'
         ],
     ],
 

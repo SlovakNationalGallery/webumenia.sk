@@ -25,6 +25,8 @@
         {!! Html::style('css/plugins/selectize.bootstrap3.css') !!}
         {!! Html::style('css/plugins/bootstrap-switch.css') !!}
         {!! Html::style('css/jquery-ui/jquery-ui.css') !!}
+        {!! Html::style('/css/vue/vue-select.css') !!}
+        {!! Html::style('/css/js/admin.css') !!}
 
 </head>
 
@@ -114,6 +116,11 @@
                             <a href="{!! URL::to('sketchbook') !!}"><i class="fa fa-book fa-fw"></i> Skicáre</a>
                         </li>
                         @endif
+                        @if (Entrust::hasRole('admin'))
+                        <li>
+                            <a href="{!! route('notices.edit', 1) !!}"><i class="fa fa-bullhorn fa-fw"></i> Oznamy</a>
+                        </li>
+                        @endif
                         @if (Entrust::hasRole(['admin', 'import']))
                         <li>
                             <a href="#"><i class="fa fa-download fa-fw"></i> Import<span class="fa arrow"></span></a>
@@ -195,6 +202,11 @@
     {!! Html::script('js/plugins/bootstrap-switch.min.js') !!}
     {!! Html::script('js/jquery.collection.js') !!}
     {!! Html::script('js/modernizr.custom.js') !!}
+    {!! Html::script('js/selectize.min.js') !!}
+
+    <script type="text/javascript" src="{{ mix('/js/manifest.js') }}"></script>
+	<script type="text/javascript" src="{{ mix('/js/vendor.js') }}"></script>
+	<script type="text/javascript" src="{{ mix('/js/admin.js') }}"></script>
 
 
     <script>
@@ -264,7 +276,6 @@
 
     });
     </script>
-
     @yield('script')
 
 </body>

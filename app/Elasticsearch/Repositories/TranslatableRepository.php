@@ -8,17 +8,35 @@ use App\Filter\Contracts\SearchRequest;
 use App\SearchResult;
 use Elasticsearch\Client;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 
 abstract class TranslatableRepository extends AbstractRepository
 {
     /** @var string[] */
-    protected $locales;
+    public $locales;
 
-    public function __construct(array $locales, Client $elasticsearch)
+    /** @var string */
+    protected $version;
+
+    public function __construct(array $locales, Client $elasticsearch, string $version = null)
     {
         parent::__construct($elasticsearch);
         $this->locales = $locales;
+        $this->version = $version;
+    }
+
+    public static function buildNewVersionNumber(): string
+    {
+        return Carbon::now()->timestamp;
+    }
+
+    public function buildWithVersion(string $version): TranslatableRepository
+    {
+        $repositoryClass = get_class($this);
+        return new $repositoryClass($this->locales, $this->elasticsearch, $version);
     }
 
     public function get(string $id, string $locale = null): Model
@@ -33,6 +51,12 @@ abstract class TranslatableRepository extends AbstractRepository
 
     public function search(SearchRequest $request, $locale = null): SearchResult
     {
+        if ($request->getSearchWindowSize() > $this->getMaxResultWindowConfig($locale))
+        {
+            Log::warning("Search request size ({$request->getSearchWindowSize()}) is larger than index.max_result_window. Returning empty set.");
+            return $this->createEmptySearchResult();
+        }
+
         $response = $this->elasticsearch->search([
             'index' => $this->getLocalizedIndexName($locale),
             'body' => $this->buildBodyFromSearchRequest($request),
@@ -136,17 +160,12 @@ abstract class TranslatableRepository extends AbstractRepository
         return $this->createBucketCollection($response, $attribute);
     }
 
-    public function getIndex(string $locale = null): array
-    {
-        return $this->elasticsearch->indices()->get([
-            'index' => $this->getLocalizedIndexName($locale)
-        ]);
-    }
-
     public function deleteIndex(string $locale = null): void
     {
+        $indexName = $this->version ? $this->getVersionedIndexName($locale) : $this->fetchVersionedIndexName($locale);
+
         $this->elasticsearch->indices()->delete([
-            'index' => $this->getLocalizedIndexName($locale)
+            'index' => $indexName
         ]);
     }
 
@@ -155,6 +174,17 @@ abstract class TranslatableRepository extends AbstractRepository
         $this->elasticsearch->indices()->create([
             'index' => $this->getLocalizedIndexName($locale),
             'body' => $this->getIndexConfig($locale)
+        ]);
+    }
+
+    public function createIndexAlias(string $locale = null): void
+    {
+        $aliasName = $this->getIndexAliasName($locale);
+        $indexName = $this->version ? $this->getVersionedIndexName($locale) : $this->fetchVersionedIndexName($locale);
+
+        $this->elasticsearch->indices()->putAlias([
+            'index' => $indexName,
+            'name' => $aliasName,
         ]);
     }
 
@@ -217,6 +247,12 @@ abstract class TranslatableRepository extends AbstractRepository
 
     public function getLocalizedIndexName(string $locale = null): string
     {
+        if ($this->version) return $this->getVersionedIndexName($locale);
+        return $this->getIndexAliasName($locale);
+    }
+
+    public function getIndexAliasName(string $locale = null): string
+    {
         return sprintf(
             '%s_%s_%s',
             $this->prefix,
@@ -225,12 +261,45 @@ abstract class TranslatableRepository extends AbstractRepository
         );
     }
 
+    public function indexExists(string $locale = null): bool
+    {
+        return $this->elasticsearch->indices()->exists([
+            'index' => $this->getLocalizedIndexName($locale)
+        ]);
+    }
+
+    public function getVersionedIndexName(string $locale = null): string
+    {
+        return sprintf(
+            '%s_%s_%s_%s',
+            $this->prefix,
+            $this->index,
+            $this->getLocale($locale),
+            $this->version
+        );
+    }
+
+    public function fetchVersionedIndexName(string $locale = null): string
+    {
+        return array_keys($this->elasticsearch->indices()->get([
+            'index' => $this->getIndexAliasName($locale)
+        ]))[0];
+    }
+
+
     protected function getLocale(string $locale = null): string
     {
         return $locale ?? app()->getLocale();
     }
 
+    protected function getMaxResultWindowConfig(string $locale = null): int
+    {
+        return Arr::get($this->getIndexConfig($locale), 'settings.max_result_window');
+    }
+
     abstract public function getSuggestions(int $size, string $search, string $locale = null): SearchResult;
+
+    abstract public function reindexAllLocales(): int;
 
     abstract protected function getIndexConfig(string $locale = null): array;
 

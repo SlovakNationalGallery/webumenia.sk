@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         \App\Console\Commands\OaiPmhHarvest::class,
+        \App\Console\Commands\MigrateElasticsearch::class,
         \App\Console\Commands\ReindexElasticsearch::class,
         \App\Console\Commands\SetupElasticsearch::class,
         \App\Console\Commands\MakeSitemap::class,
@@ -25,6 +26,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\MigrateTags::class,
         \App\Console\Commands\ImportCsv::class,
         \App\Console\Commands\ItemsExtractColors::class,
+        \App\Console\Commands\MatchAuthorities::class,
     ];
 
     /**

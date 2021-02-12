@@ -47,7 +47,7 @@
         <h1>{!! $article->title !!}</h1>
         @if ($article->category)
         {{-- keep in one line to prevent formatting failures --}}
-        <h2 style="color: {!! $article->title_color !!}">{!! $article->category->name !!}</h2> 
+        <h2 style="color: {!! $article->title_color !!}">{!! $article->category->name !!}</h2>
         @endif
     @endslot
 @endcomponent
@@ -92,6 +92,13 @@
             <div class="row">
                 <div class="col-md-8 col-md-push-2 lead attributes long-text">
                     {!! $article->summary !!}
+
+                    <!-- share -->
+                    @include('components.share_buttons', [
+                        'title' => $article->title,
+                        'url' => $article->getUrl(),
+                        'img' => URL::to($article->header_image_src),
+                    ])
                 </div>
             </div>
             <div class="row">

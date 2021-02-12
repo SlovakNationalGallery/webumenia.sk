@@ -12,6 +12,9 @@ return array(
     */
 
     'item_zoom'        => 'zoom obrázku',
+    'item_favourite'   => 'pridať medzi obľúbené',
+    'item_add_to_favourites' => 'pridať medzi obľúbené',
+    'item_remove_from_favourites' => 'odobrať z obľúbených',
     'close'            => 'zavrieť',
     'back'             => 'naspäť',
     'return_home'      => 'návrat domov',
@@ -34,10 +37,12 @@ return array(
     "share_twitter"      => "zdieľať na twitteri",
     "share_pinterest"    => "zdieľať na pintereste",
     "copy_url"           => "kopírovať odkaz",
+    "copy_citation"      => "kopírovať citáciu",
     "share_mail"         => "odoslať mailom",
     "share_link"         => "Zdieľať URL adresu",
     "copy"               => "kopírovať",
     "copied_to_clipboard"=> "Odkaz bol skopírovaný do schránky",
     'minute'             => ':count minúta|:count minúty|:count minút',
     'reading_time'       => 'Čas čítania',
+    "citation_copied"    => "Citácia bola skopírovaná"
 );

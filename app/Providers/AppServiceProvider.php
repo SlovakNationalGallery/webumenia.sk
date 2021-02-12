@@ -60,8 +60,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Authority::observe(AuthorityObserver::class);
         Item::observe(ItemObserver::class);
-        
-        
+
         Blade::directive('date', function ($expression) {
             return $this->formatDate($expression, 'LL');
         });

@@ -39,7 +39,6 @@ CKEDITOR.editorConfig = function( config ) {
 	config.extraPlugins = 'slick';
 	config.allowedContent = true;
 	config.embed_provider = '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}';
-	
 
 	// load external css into iframe
 	config.contentsCss = ['/css/style.css'];

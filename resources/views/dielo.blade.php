@@ -6,7 +6,7 @@
       content="{!! $item->work_type; !!}, {{ trans('dielo.item_attr_dating') }}: {!! $item->dating !!}, {{ trans('dielo.item_attr_measurements') }}: {!!  implode(' x ', $item->measurements) !!}" />
 <meta property="og:type" content="object" />
 <meta property="og:url" content="{!! Request::url() !!}" />
-<meta property="og:image" content="{!! URL::to( $item->getImagePath() ) !!}" />
+<meta property="og:image" content="{!! asset_timed( $item->getImagePath() ) !!}" />
 <meta property="og:site_name" content="Web umenia" />
 @stop
 
@@ -52,7 +52,9 @@
                 <div class="col-md-10 col-md-offset-1 text-center content-section mb-3">
                     <h1 class="nadpis-dielo" itemprop="name">{!! $item->title !!}</h1>
                     <h2 class="inline">
-                        {!! implode(', ', $item->getAuthorsWithLinks()) !!}
+                        @foreach($item->authorities->toBase()->merge($item->getAuthorsWithoutAuthority()) as $author)
+                            @include('components.item_author')@if (!$loop->last), @endif
+                        @endforeach
                     </h2>
                 </div>
             </div>
@@ -117,8 +119,11 @@
                         <tbody>
                             <tr>
                                 <td class="atribut">{{ trans('dielo.item_attr_dating') }}:</td>
-                                <td><time itemprop="dateCreated" datetime="{!! $item->date_earliest !!}">{!!
-                                        $item->getDatingFormated(); !!}</time></td>
+                                <td>
+                                    <time itemprop="dateCreated" datetime="{!! $item->date_earliest !!}">
+                                        {{ $item->getDatingFormated() }}
+                                    </time>
+                                </td>
                             </tr>
                             @if (!empty($item->measurements))
                             <tr>
@@ -304,6 +309,12 @@
                     @endif
 
                     <div class="col-md-12 text-center">
+                        <user-collections-favourite-button
+                            label-add="{{ utrans('general.item_add_to_favourites') }}"
+                            label-remove="{{ utrans('general.item_remove_from_favourites') }}"
+                            id="{{ $item->id }}"
+                            is-detail=true
+                        ></user-collections-favourite-button>
                         @if ($item->isForReproduction())
                         <a href="{!! URL::to('dielo/' . $item->id . '/objednat')  !!}"
                            class="btn btn-cta btn-default btn-outline sans w-100"><i class="fa fa-shopping-cart"></i>
@@ -317,10 +328,10 @@
                         @endif
 
                         @include('components.share_buttons', [
-                        'title' => $item->getTitleWithAuthors(),
-                        'url' => $item->getUrl(),
-                        'img' => URL::to( $item->getImagePath()),
-                        'class' =>'pt-4'
+                            'title' => $item->getTitleWithAuthors(),
+                            'url' => $item->getUrl(),
+                            'img' => URL::to($item->getImagePath()),
+                            'citation' => collect([$item->getTitleWithAuthors(), $item->getDatingFormated(), $item->gallery, $item->identifier, URL::current()])->filter()->join(', '),
                         ])
                     </div>
                 </div>
@@ -395,13 +406,13 @@
                 </div>
                 <div class="isotope-container">
                     @foreach ($similar_items as $similar_item)
-                    @include('components.artwork_grid_item', [
-                    'item' => $similar_item,
-                    'isotope_item_selector_class' => 'item',
-                    'class_names' => ($item->has_colors) ? 'col-xs-6' : 'col-xs-3',
-                    'hide_zoom' => true,
-                    'hide_dating' => true
-                    ])
+                        @include('components.artwork_grid_item', [
+                            'item' => $similar_item,
+                            'isotope_item_selector_class' => 'item',
+                            'class_names' => ($item->has_colors) ? 'col-xs-6' : 'col-xs-3',
+                            'hide_zoom' => true,
+                            'hide_dating' => true
+                        ])
                     @endforeach
                 </div>
             </div>
@@ -466,6 +477,7 @@
 {!! Html::script('js/components/artwork_carousel.js') !!}
 {!! Html::script('js/components/share_buttons.js') !!}
 {{ HTML::script('js/selectize.min.js') }}
+{{ HTML::script('js/slick.js') }}
 {{-- @TODO bring this back when opened to public --}}
 {{-- {{ HTML::script('https://www.google.com/recaptcha/api.js') }} --}}
 
@@ -540,7 +552,7 @@
             maxHeight: 235
         });
 
-        
+
 
         $('#download').on('click', function(e){
 

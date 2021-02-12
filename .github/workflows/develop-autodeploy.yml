@@ -30,4 +30,4 @@ jobs:
       with:
           ssh-private-key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
           ssh-known-hosts: ${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}
-    - run: php artisan deploy test
+    - run: php artisan deploy test --branch develop

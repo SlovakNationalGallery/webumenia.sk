@@ -12,6 +12,8 @@ return array(
     */
 
     'item_zoom'        => 'zoom artwork',
+    'item_add_to_favourites' => 'add to favourites',
+    'item_remove_from_favourites' => 'remove from favourites',
     'close'            => 'close',
     'back'             => 'back',
     'return_home'      => 'back to home page',
@@ -33,10 +35,10 @@ return array(
     "share_twitter"      => "share on twitter",
     "share_pinterest"    => "share on pinterest",
     "copy_url"           => "copy link",
+    "copy_citation"      => "copy citation",
     "share_mail"         => "send via email",
     "share_link"         => "Share link",
     "copy"               => "Copy",
     "copied_to_clipboard"=> "Link was copied to clipboard",
-    'minute'             => '{1}:count minute|{0}:count minutes|]1,Inf[:count minutes',
-    'reading_time'       => 'Reading time',
+    "citation_copied"    => "Citation has been copied"
 );

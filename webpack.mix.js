@@ -15,11 +15,17 @@ if (process.env.NODE_ENV == 'testing') {
     mix.options({ processCssUrls: false });
 }
 
+
+
 mix
     // JavaScript
     .js('resources/js/app.js', 'public/js')
+    .js('resources/js/admin.js', 'public/js')
     .extract([
         'bootstrap/dist/js/bootstrap',
+        'flickity',
+        'clipboard',
+        'imagesloaded',
         'infinite-scroll',
         'isotope-layout',
         'jquery',
@@ -28,9 +34,13 @@ mix
         'lazysizes',
         'lazysizes/plugins/unveilhooks/ls.unveilhooks',
         'lazysizes/plugins/respimg/ls.respimg',
-        'slick-carousel',
         'typeahead.js/dist/typeahead.bundle',
+        'vue-select',
+        'vue',
     ])
+    .options({
+        extractVueStyles: 'public/css/[name].css'
+    })
 
     // CSS
     .less('resources/less/style.less', 'public/css').options({
@@ -41,7 +51,8 @@ mix
                 ]
             }
         }
-    })
+    });
+
 if (mix.inProduction()) {
     mix.version();
 }

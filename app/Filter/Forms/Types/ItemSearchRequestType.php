@@ -33,7 +33,8 @@ class ItemSearchRequestType extends AbstractType
             ->add('related_work', HiddenType::class, ['required' => false])
             ->add('has_image', NullableCheckboxType::class)
             ->add('has_iip', NullableCheckboxType::class)
-            ->add('is_free', NullableCheckboxType::class);
+            ->add('is_free', NullableCheckboxType::class)
+            ->add('is_for_reproduction', HiddenType::class, ['required' => false]);
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
             $form = $event->getForm();

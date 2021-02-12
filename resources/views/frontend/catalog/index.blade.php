@@ -33,7 +33,7 @@
                     @if (!empty($search))
                         <h4 class="inline">{{ utrans('katalog.catalog_found_artworks') }} &bdquo;{{ $search }}&ldquo; (<span data-searchd-total-hits>{{ $total }}</span>) </h4>
                     @else
-                        <h4 class="inline">{{ formatNum($total) }} {{ trans('katalog.catalog_artworks') }} </h4>
+                        <h4 class="inline">{{ formatNum($total) }} {{ trans_choice('katalog.catalog_artworks', $total) }} </h4>
                     @endif
                     @if ($paginator->count() == 0)
                         <p class="text-center">{{ utrans('katalog.catalog_no_artworks') }}</p>
@@ -53,49 +53,18 @@
                 <div class="col-sm-12 isotope-wrapper">
                     <div id="iso">
                         @foreach ($paginator as $item)
-                            <div class="col-md-3 col-sm-4 col-xs-6 item">
-                                
-                                @include('components.item_image_responsive', [
-                                    'item' => $item ,
-                                    'limitRatio' => 3,
-                                    'url' => $item->getUrl(),
-                                ])
-                                
-                                <div class="item-title">
-                                    @if ($item->has_iip)
-                                        <div class="pull-right"><a href="{{ route('item.zoom', ['id' => $item->id]) }}" data-toggle="tooltip" data-placement="left" title="{{ utrans('general.item_zoom') }}"><i class="fa fa-search-plus"></i></a></div>
-                                    @endif
-                                    <a href="{!! $item->getUrl() !!}" {!! (!empty($search))  ?
-                                    'data-searchd-result="title/'.$item->id.'" data-searchd-title="'.implode(', ', $item->authors).' - '. $item->title.'"'
-                                    : '' !!}>
-                                        <em>{!! implode(', ', $item->authors) !!}</em><br>
-                                        <strong>{!! $item->title !!}</strong><br>
-                                        <em>{!! $item->getDatingFormated() !!}</em>
-                                        {{-- <br><span class="">{!! $item->gallery !!}</span> --}}
-                                    </a>
-                                </div>
-                            </div>
+                            @include('components.artwork_grid_item', [
+                                'item' => $item,
+                                'isotope_item_selector_class' => 'item',
+                                'class_names' => 'col-md-3 col-sm-4 col-xs-6',
+                            ])
                         @endforeach
 
                     </div>
                     <div class="col-sm-12 text-center">
 
                         {!! $paginator->appends(@Input::except('page'))->render() !!}
-                        @if ($paginator->hasMorePages() )
-                            <a id="next" href="{{ $paginator->nextPageUrl() }}">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
-                                    <path d="M0.492,8.459v83.427c4.124,0.212,7.409,3.497,7.622,7.622h83.357c0.22-4.265,3.719-7.664,8.036-7.664V8.571c-4.46,0-8.079-3.617-8.079-8.079H8.157C8.157,4.774,4.755,8.239,0.492,8.459z"/>
-                                    <text text-anchor="middle" alignment-baseline="middle" x="50" y="50">
-                                    {{ trans('katalog.catalog_show_more') }}
-                                    </text>
-                                </svg>
-                            </a>
-                            <div class="page-load-status" style="display: none">
-                                <p class="infinite-scroll-request" id="infscr-loading"><i class="fa fa-refresh fa-spin fa-lg"></i></p>
-                                <p class="infinite-scroll-last text-muted">{{ utrans('katalog.catalog_finished') }}</p>
-                                <p class="infinite-scroll-error">{{ utrans('katalog.catalog_finished') }}</p>
-                            </div>
-                        @endif
+                        @include('components.load_more', ['paginator' => $paginator, 'isotopeContainerSelector' => '#iso'])
                     </div>
                 </div>
 
@@ -121,6 +90,10 @@
         // start with isotype even before document is ready
         $('.isotope-wrapper').each(function(){
             var $container = $('#iso', this);
+            spravGrid($container);
+        });
+
+        $(window).resize(function() {
             spravGrid($container);
         });
 
@@ -166,34 +139,6 @@
                 e.preventDefault();
                 $(this).closest('label').find('input').val('');
                 $(this).closest('form').submit();
-            });
-
-            var $container = $('#iso');
-
-            $(window).resize(function() {
-                spravGrid($container);
-            });
-
-            $container.infiniteScroll({
-                path: '#next',
-                append: '.item',
-                outlayer: $container.data('isotope'),
-                loadOnScroll: false, // Start with scroll disabled
-                status: '.page-load-status'
-            });
-
-            $container.on( 'request.infiniteScroll', function( event, path ) {
-                $('.infinite-scroll-request').addClass('animated fadeInUp faster');
-            });
-
-            $('#next').on('click', function(event) {
-                $container.infiniteScroll('loadNextPage');
-                $container.infiniteScroll('option', {
-                    loadOnScroll: true,
-                });
-
-                $(this).fadeOut();
-                event.preventDefault();
             });
 
             // fix artwork detail on iOS https://github.com/artsy/scroll-frame/issues/30

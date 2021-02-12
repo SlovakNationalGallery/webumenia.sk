@@ -51,6 +51,13 @@
 						@formRow($form['author'])
 					</div>
 					<div class="col-md-12">
+						<div class="form-group">
+							{!! FormRenderer::label($form['item_authorities']) !!}
+							@formWidget($form['item_authorities'])
+							{!! FormRenderer::widget($form['item_authorities']) !!}
+						</div>
+					</div>
+					<div class="col-md-12">
 						@formRow($form['tags'])
 					</div>
 					<div class="col-md-12">
@@ -110,6 +117,7 @@
 @stop
 
 @section('script')
+@parent
 
 {!! Html::script('js/selectize.min.js') !!}
 
@@ -121,6 +129,45 @@ $(document).ready(function(){
 		persist: false,
 		create: true,
 		createOnBlur: true
+	})
+
+	$("#item_description_user_id").selectize({
+		persist: false,
+		create: false
+	});
+
+	$("#item_author").selectize({
+		plugins: ['remove_button'],
+		mode: 'multi',
+		create: 'true',
+		persist: false,
+		valueField: 'name',
+		labelField: 'name',
+		searchField: 'name',
+		delimiter: ';',
+		render: {
+			item: function(data, escape) {
+				return '<div class="selected-item">' + data.name.replace(/\(.*?\)/g, "") + '</div>';
+			},
+			option: function(item, escape) {
+				return '<div class="selected-item">' + item.name.replace(/\(.*?\)/g, "") + '</div>';
+			}
+		},	
+		loadThrottle: 300,
+		load: function(query, callback) {
+			if (!query.length) return callback();
+			return $.ajax({
+				url:  `/autori/suggestions?search=${query}`,
+				type: 'GET',
+
+				error: function() {
+					callback();
+				},
+				success: function(res) {
+					callback(res);
+				}
+			});
+		},
 	});
 
 });

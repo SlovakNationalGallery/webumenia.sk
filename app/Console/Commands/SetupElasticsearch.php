@@ -5,8 +5,6 @@ namespace App\Console\Commands;
 use App\Elasticsearch\Repositories\AuthorityRepository;
 use App\Elasticsearch\Repositories\ItemRepository;
 use App\Elasticsearch\Repositories\TranslatableRepository;
-use Elasticsearch\Common\Exceptions\BadRequest400Exception;
-use Elasticsearch\Common\Exceptions\Missing404Exception;
 use Illuminate\Console\Command;
 
 class SetupElasticsearch extends Command
@@ -23,7 +21,7 @@ class SetupElasticsearch extends Command
     *
     * @var string
     */
-    protected $description = 'Create Elasticsearch index and types with proper mapping for specified locale.';
+    protected $description = 'Create as aliased Elasticsearch index and types with proper mapping for specified locale.';
 
     /** @var TranslatableRepository[] */
     protected $repositories;
@@ -49,37 +47,40 @@ class SetupElasticsearch extends Command
         $locales = config('translatable.locales');
         $choices = array_merge(['all'], $locales);
         $selected_locale = $this->choice('Which locale(s) do you want to set up?', $choices, 0);
+        $version = TranslatableRepository::buildNewVersionNumber();
 
         if ($selected_locale == 'all') {
             foreach ($locales as $locale) {
-                $this->setup_for_locale($locale);
+                $this->setup_for_locale($locale, $version);
             }
         } else {
-            $this->setup_for_locale($selected_locale);
+            $this->setup_for_locale($selected_locale, $version);
         }
 
         $this->info("\nDone 🎉");
     }
 
-    protected function setup_for_locale($locale)
+    protected function setup_for_locale($locale, $version)
     {
         foreach ($this->repositories as $type => $repository) {
             $this->comment("\nSetting up $type index for locale: $locale");
 
-            try {
-                $repository->getIndex($locale);
+            if ($repository->indexExists($locale)) {
+                $index = $repository->getLocalizedIndexName($locale);
 
-                $name = $repository->getLocalizedIndexName($locale);
-                if ($this->confirm("❗ An index with name $name already exists❗\n Do you want to delete the current index?\n [y|N]")) {
+                if ($this->confirm("❗ An index with name $index already exists❗\n Do you want to delete the current index?\n [y|N]")) {
                     $this->comment('Removing...');
+
                     $repository->deleteIndex($locale);
                 } else {
                     continue;
                 }
-            } catch (Missing404Exception $e) {}
+            }
 
-            $repository->createIndex($locale);
-            $repository->createMapping($locale);
+            $newRepository = $repository->buildWithVersion($version);
+            $newRepository->createIndex($locale);
+            $newRepository->createMapping($locale);
+            $newRepository->createIndexAlias($locale);
         }
     }
 }

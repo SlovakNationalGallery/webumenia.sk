@@ -1,7 +1,7 @@
 <div class="article-thumbnail">
   @if ($article->main_image)
     <a href="{!! $article->getUrl() !!}" class="image-container">
-      <img data-src="{!! $article->getThumbnailImage() !!}" class="img-responsive lazyload" alt="{!! $article->title !!}">
+      <img data-src="{!! $article->getThumbnailImage() !!}" class="img-responsive lazyload" alt="{{ $article->title }}">
     </a>
   @endif
   <a href="{!! $article->getUrl() !!}">
@@ -12,5 +12,5 @@
   <p class="attributes">{!! $article->getShortTextAttribute($article->summary, 250) !!}
     (<a href="{!! $article->getUrl() !!}">{{ trans('general.more') }}</a>)
   </p>
-  <p class="meta">@date($article->published_date) / {!!$article->author!!}</p>
+  <p class="meta">{!!$article->published_date!!} / {!!$article->author!!}</p>
 </div>

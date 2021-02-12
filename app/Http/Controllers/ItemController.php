@@ -6,6 +6,7 @@ use App\Elasticsearch\Repositories\ItemRepository;
 use App\Forms\Types\ItemType;
 use App\Item;
 use App\Collection;
+use App\Forms\Types\ItemAuthoritiesType;
 use App\Jobs\HarvestRecordJob;
 use Barryvdh\Form\CreatesForms;
 use Illuminate\Http\Response;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use App\SpiceHarvesterRecord;
 use Illuminate\Support\Facades\App;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormInterface;
@@ -62,7 +64,7 @@ class ItemController extends Controller
             $ids = explode(';', str_replace(" ", "", $search));
             $results = Item::whereIn('id', $ids)->paginate(20);
         } else {
-            $results = Item::whereTranslationLike('title', '%'.$search.'%')->orWhere('author', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%')->paginate(20);
+            $results = Item::whereTranslationLike('title', '%' . $search . '%')->orWhere('author', 'LIKE', '%' . $search . '%')->orWhere('id', 'LIKE', '%' . $search . '%')->paginate(20);
         }
 
         $collections = Collection::listsTranslations('name')->pluck('name', 'id')->toArray();
@@ -89,7 +91,7 @@ class ItemController extends Controller
     public function create()
     {
         $prefix = 'SVK:TMP.';
-        $last_item = Item::where('id', 'LIKE', $prefix.'%')->orderBy('created_at', 'desc')->first();
+        $last_item = Item::where('id', 'LIKE', $prefix . '%')->orderBy('created_at', 'desc')->first();
         $last_number = ($last_item) ? (int)str_after($last_item->id, $prefix) : 0;
         $new_id = $prefix . ($last_number + 1);
 
@@ -98,6 +100,7 @@ class ItemController extends Controller
             ->add('id', null, [
                 'disabled' => true,
             ])
+
             ->getForm();
 
         return $this->processForm($form);
@@ -126,6 +129,14 @@ class ItemController extends Controller
         $form->handleRequest();
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $authorities = [];
+            
+            $json = json_decode($form['item_authorities']->getData()?:"[]");
+            
+            foreach($json as $k=>$v){
+                $authorities[$k] = ['role'=> $v];
+            };
+            $item->authorities()->sync($authorities);
             $item->push();
 
             $tags = $form['tags']->getData();
@@ -152,7 +163,8 @@ class ItemController extends Controller
      * @param bool $new
      * @return FormBuilderInterface
      */
-    protected function getItemFormBuilder(Item $item, $new) {
+    protected function getItemFormBuilder(Item $item, $new)
+    {
         return $this->getFormFactory()
             ->createBuilder(ItemType::class, $item, [
                 'new' => $new,
@@ -160,6 +172,13 @@ class ItemController extends Controller
             ])
             ->add('save', SubmitType::class, [
                 'translation_domain' => 'messages',
+            ])
+            ->add('item_authorities', ItemAuthoritiesType::class, [
+                'data' => $item->authorities->mapWithKeys(function ($item) {
+                    return [$item['id'] => $item->pivot->role];
+                })->toJson(),
+                'mapped' => false,
+                'compound' => false,
             ]);
     }
 
@@ -170,7 +189,7 @@ class ItemController extends Controller
         $newline = "\n";
 
         $prefix = 'SVK:TMP.';
-        $items = Item::where('id', 'LIKE', $prefix.'%')->get();
+        $items = Item::where('id', 'LIKE', $prefix . '%')->get();
         foreach ($items as $key => $item) {
             $item_data = $item->toArray();
 
@@ -189,16 +208,14 @@ class ItemController extends Controller
                 $values[] = $value;
             }
             $sqlstring  .= "INSERT INTO `" . $table . "` ( "
-                        .  implode(", ", $keys)
-                        .    " ){$newline}\tVALUES ( "
-                        .  implode(", ", $values)
-                        .    " );" . $newline;
-
+                .  implode(", ", $keys)
+                .    " ){$newline}\tVALUES ( "
+                .  implode(", ", $values)
+                .    " );" . $newline;
         }
-        $filename = date('Y-m-d-H-i').'_'.$table.'.sql';
-        File::put(app_path() .'/database/backups/' . $filename, $sqlstring);
+        $filename = date('Y-m-d-H-i') . '_' . $table . '.sql';
+        File::put(app_path() . '/database/backups/' . $filename, $sqlstring);
         return Redirect::back()->withMessage('Záloha ' . $filename . ' bola vytvorená.');
-
     }
 
     public function geodata()
@@ -210,7 +227,7 @@ class ItemController extends Controller
                 $geoname = Ipalaus\Geonames\Eloquent\Name::where('name', 'like', $item->place)->orderBy('population', 'desc')->first();
                 //ak nevratil, skusim podla alternate_names
                 if (empty($geoname)) {
-                    $geoname = Ipalaus\Geonames\Eloquent\Name::where('alternate_names', 'like', '%'.$item->place.'%')->orderBy('population', 'desc')->first();
+                    $geoname = Ipalaus\Geonames\Eloquent\Name::where('alternate_names', 'like', '%' . $item->place . '%')->orderBy('population', 'desc')->first();
                 }
 
                 if (!empty($geoname)) {
@@ -272,25 +289,14 @@ class ItemController extends Controller
 
     public function reindex()
     {
-        $i = 0;
+        $reindexedRecords = $this->itemRepository->reindexAllLocales();
 
-        Item::with('images')->chunk(200, function ($items) use (&$i) {
-            $items->load('authorities');
-            foreach ($items as $item) {
-                $this->itemRepository->indexAllLocales($item);
-                $i++;
-                if (App::runningInConsole()) {
-                    if ($i % 100 == 0) {
-                        echo date('h:i:s'). " " . $i . "\n";
-                    }
-                }
-            }
-        });
-        $message = 'Bolo reindexovaných ' . $i . ' diel';
+        $message = 'Bolo reindexovaných ' . $reindexedRecords . ' diel';
         if (App::runningInConsole()) {
             echo $message;
             return true;
         }
+
         return Redirect::back()->withMessage($message);
     }
 }

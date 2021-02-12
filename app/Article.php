@@ -116,7 +116,6 @@ class Article extends Model implements TranslatableContract
         $this->attributes['publish'] = (bool)$value;
     }
 
-    
     public function getReadingTimeAttribute(){
         return getEstimatedReadingTime($this->summary . ' ' . $this->content, \App::getLocale());
     }

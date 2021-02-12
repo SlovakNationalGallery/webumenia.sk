@@ -17,6 +17,7 @@ use App\Elasticsearch\Repositories\AuthorityRepository;
 use App\Elasticsearch\Repositories\ItemRepository;
 use App\Filter\ItemFilter;
 use App\Item;
+use App\Notice;
 use App\Order;
 use App\Slide;
 
@@ -77,7 +78,7 @@ function()
         $choice = $choices[array_rand($choices)];
         $subtitle = vsprintf('%s <strong><a href="%s">%s</a></strong> %s', $choice);
         $slides = Slide::published()->orderBy('id', 'desc')->get();
-        $articles = Article::promoted()->published()->orderBy('published_date', 'desc')->get();
+        $articles = Article::with(['translations', 'category'])->promoted()->published()->orderBy('published_date', 'desc')->get();
         $itemCount = $itemRepository->count();
 
         return view('intro', [
@@ -109,6 +110,7 @@ function()
         return view('objednavka', [
             'items' => $items,
             'allow_printed_reproductions' => $allow_printed_reproductions,
+            'notice' => Notice::current(),
         ]);
     });
 
@@ -301,10 +303,13 @@ function()
     Route::match(array('GET', 'POST'), 'kolekcie', 'KolekciaController@getIndex')->name('frontend.collection.index');
     Route::match(array('GET', 'POST'), 'kolekcie/suggestions', 'KolekciaController@getSuggestions')->name('frontend.collection.suggestions');
     Route::get('kolekcia/{slug}', 'KolekciaController@getDetail')->name('frontend.collection.detail');
+    Route::get('oblubene', 'UserCollectionController@show')->name('frontend.user-collection.show');
 
     Route::get('informacie', function (ItemRepository $itemRepository) {
-        $filter = (new ItemFilter)->setGallery('Slovenská národná galéria, SNG');
-        $items = $itemRepository->getRandom(20, $filter)->getCollection();
+        $for_reproduction_filter = (new ItemFilter)->setHasImage(true)->setHasIip(true)->setIsForReproduction(true);
+        $items_for_reproduction_search = $itemRepository->getRandom(20, $for_reproduction_filter);
+        $items_for_reproduction_total =  formatNum($itemRepository->count((new ItemFilter)->setIsForReproduction(true)));
+        $items_for_reproduction_sample = $items_for_reproduction_search->getCollection();
 
         $galleries = [
             [
@@ -368,6 +373,11 @@ function()
                 'url'         => 'katalog?gallery=Považská+galéria+umenia%2C+PGU',
             ],
             [
+                'id'          => 'SGP',
+                'lang_string' => 'informacie.info_gallery_SGP',
+                'url'         => 'katalog?gallery=Šarišská+galéria%2C+SGP',
+            ],
+            [
                 'id'          => 'MG',
                 'lang_string' => 'informacie.info_gallery_MG',
                 'url'         => 'katalog?gallery=Moravská galerie, MG',
@@ -384,16 +394,17 @@ function()
             ],
         ];
 
-        return view('informacie', [
-            'items' => $items,
-            'galleries' => $galleries,
-        ]);
+        return view('informacie', compact(
+            'galleries',
+            'items_for_reproduction_sample',
+            'items_for_reproduction_total'
+        ));
     })->name('frontend.info');
 
     Route::get('reprodukcie', function (ItemRepository $itemRepository) {
         $collection = Collection::find('55');
 
-        $filter = (new ItemFilter)->setGallery('Slovenská národná galéria, SNG');
+        $filter = (new ItemFilter)->setIsForReproduction(true)->setHasImage(true)->setHasIip(true);
 
         if ($collection) {
             $items_recommended = $collection->items()->inRandomOrder()->take(20)->get();
@@ -402,12 +413,13 @@ function()
         }
 
         $response = $itemRepository->getRandom(20, $filter);
-        $total = formatNum($response->getTotal());
+        $total =  formatNum($itemRepository->count((new ItemFilter)->setIsForReproduction(true)));
 
         return view('reprodukcie', [
             'items_recommended' => $items_recommended,
             'items' => $response->getCollection(),
             'total' => $total,
+            'notice' => Notice::current(),
         ]);
     });
 });
@@ -497,6 +509,6 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::resource('authority', 'AuthorityController');
     Route::resource('sketchbook', 'SketchbookController');
     Route::resource('slide', 'SlideController');
+    Route::resource('notices', 'NoticeController');
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 });
-

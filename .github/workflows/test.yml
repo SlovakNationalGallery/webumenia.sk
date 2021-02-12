@@ -1,0 +1,13 @@
+name: Test on push
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set .env file
+        run: cp .env.example .env
+      - name: Test
+        run: docker-compose run php bash -c "npm run testing && vendor/bin/phpunit"
