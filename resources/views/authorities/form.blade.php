@@ -79,7 +79,7 @@
   </div>
   <!-- /.panel -->
 </div>
-
+@isset($authority)
 <div class="col-lg-12">
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -107,7 +107,7 @@
     </div>
   </div>
 </div>
-
+@endisset
 <div class="col-lg-12">
   <div class="panel panel-default">
     <div class="panel-heading">

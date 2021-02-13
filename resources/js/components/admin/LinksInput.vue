@@ -38,7 +38,7 @@
                 type: String,
                 required: true,
             },
-            value: Object
+            value: Array
         },
         data() {
             return {
