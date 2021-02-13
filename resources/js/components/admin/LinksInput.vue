@@ -42,7 +42,7 @@
         },
         data() {
             return {
-               links: this.value || [{}]
+               links: this.value || []
             }
         },
     }
