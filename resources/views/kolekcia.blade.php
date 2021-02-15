@@ -97,7 +97,7 @@
         <div class="container">
             <div class="row">
                 @if ($collection->items->count() == 0)
-                    <p class="text-center">Momentálne žiadne diela</p>
+                    <p class="text-center">{{ utrans('katalog.catalog_no_artworks') }}</p>
                 @endif
                 <div class="isotope">
                     @foreach ($collection->items as $item)
