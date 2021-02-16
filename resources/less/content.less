@@ -88,13 +88,13 @@
         padding-top: 2 * @padding-large-vertical;
         padding-bottom: @padding-large-vertical;
     }
-    a {
-        color: @gray-dark !important;
-        border-bottom: @grey solid 2px !important;
+    a:not(.slick-slide)  {
+        color: @gray-dark;
+        border-bottom: @gray-light solid 2px;
         &:hover,
         &:active {
-            color: @gray-dark !important;
-            border-bottom: @gray-dark solid 2px !important;
+            color: @gray-dark;
+            border-bottom: @gray-dark solid 2px;
         }
     }
 

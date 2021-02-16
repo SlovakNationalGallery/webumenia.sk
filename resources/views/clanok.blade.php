@@ -90,19 +90,21 @@
     <div class="article-body">
         <div class="container">
             <div class="row">
-                <div class="col-md-8 col-md-push-2 lead attributes long-text">
+                <div class="col-md-8 col-md-push-2 lead long-text">
                     {!! $article->summary !!}
 
                     <!-- share -->
-                    @include('components.share_buttons', [
-                        'title' => $article->title,
-                        'url' => $article->getUrl(),
-                        'img' => URL::to($article->header_image_src),
-                    ])
+                    <div class="text-center">
+                        @include('components.share_buttons', [
+                            'title' => $article->title,
+                            'url' => $article->getUrl(),
+                            'img' => URL::to($article->header_image_src),
+                        ])
+                    </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-8 col-md-push-2 attributes long-text">
+                <div class="col-md-8 col-md-push-2 long-text">
                     {!! $article->content !!}
                 </div>
             </div>
