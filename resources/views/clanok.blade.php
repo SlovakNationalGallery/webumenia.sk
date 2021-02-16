@@ -55,18 +55,18 @@
 <section class="article content-header">
     <div class="article-header">
         <div class="container">
-            <div class="row text-center mb-4">
+            <div class="row text-center">
                 <div class="col-md-8 col-md-push-2">
                     <div class="row">
                         <div class="col-md-4 col-sm-6  col-xs-12">
-                            <div class="v-center">
+                            <div class="v-center min-h-3em">
                                 <a href="{!! url_to( 'clanky', ['author' => $article->author ]) !!}">
                                     {!! $article->author!!}
                                 </a>
                             </div>
                         </div>
-                        <div class="col-md-4 col-sm-6 col-xs-12">
-                            <div class="v-center">
+                        <div class="col-md-4 col-sm-6">
+                            <div class="v-center min-h-3em">
                                 <i class='fa fa-calendar-o mr-3'></i>
                                 @date($article->published_date)
                             </div>
@@ -74,7 +74,7 @@
 
                         <div class="col-md-4 col-md-push-0 col-sm-6 col-sm-push-6 col-xs-12">
                             @if ($article->reading_time)
-                            <div class="v-center">
+                            <div class="v-center min-h-3em">
                                 <i class='fa fa-clock-o mr-3'></i>{!! $article->reading_time !!}
                             </div>
                             @endif
