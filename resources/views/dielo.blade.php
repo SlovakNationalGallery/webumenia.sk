@@ -75,7 +75,7 @@
                        title="{{ utrans('general.item_zoom') }}">
                         @include('components.item_image_responsive', [
                         'item' => $item,
-                        'limitHeight' => '80vh'
+                        'limitHeight' => '90vh'
                         ])
                     </a>
                     @else
@@ -338,7 +338,7 @@
             </div>
             <div class="row">
                 @if (!empty($item->description))
-                <div class="col-md-8 long-text medium description bottom-space  col-md-push-2"
+                <div class="col-lg-8 col-md-10 long-text medium description bottom-space  col-md-push-1 col-lg-push-2"
                      itemprop="description">
                     <div class="long_expandable">
                         {!! $item->description !!}
