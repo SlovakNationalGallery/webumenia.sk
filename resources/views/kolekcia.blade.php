@@ -51,7 +51,7 @@
     @endslot
 @endcomponent
 
-<section class="collection content-header">
+<section class="collection content-header my-5">
     <div class="collection-header">
         <div class="container">
             <div class="row text-center">
@@ -71,7 +71,7 @@
                                 @date($collection->published_at)
                             </div>
                         </div>
-                        <div class="col-sm-6 col-xs-12">
+                        <div class="col-sm-6">
                             <div class="v-center min-h-3em">
                                 <span>
                                     {{trans('kolekcie.collections_items_count')}} <a
@@ -121,7 +121,7 @@
     </div>
 </section>
 
-<section class="collection content-section">
+<section class="collection my-5">
     <div class="collection-body">
         <div class="container">
             <div class="row">
