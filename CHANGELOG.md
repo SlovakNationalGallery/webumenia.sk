@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Changed
 - autocomplete for item-author and item-authority-role fiels
 - ckeditor allows to add slick
+- karasek importer
 
 ## [2.18.0] - 2021-02-10
 ### Added
