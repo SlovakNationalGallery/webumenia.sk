@@ -25,11 +25,7 @@
         margin: 0 @padding-base-horizontal / 2;
     }
 }
-@media (min-width: 1200px) {
-    .container-fluid {
-        max-width: 85vw;
-    }
-}
+
 .long_expandable + .readmore-js-toggle {
     padding-top: 0.5em;
     text-align: center;
@@ -60,10 +56,11 @@
 }
 
 /// TODO replace me once custom.less is clean, see https://jira.sng.sk/browse/WEBUMENIA-1498
+.item .description,
 .editor,
 .article,
 .collection {
-    a:not(.slick-slide)  {
+    a:not(.slick-slide):not(.readmore-js-toggle)  {
         color: @gray-dark;
         border-bottom: @link-undeline-color solid 2px;
         &:hover,

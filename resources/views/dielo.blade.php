@@ -43,7 +43,7 @@
 
 <section class="item top-section" itemscope itemtype="http://schema.org/VisualArtwork">
     <div class="item-body">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row">
                 @if (Session::has('message'))
                 <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert"
