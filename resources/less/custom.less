@@ -463,8 +463,9 @@ a.underline, .underline a {
 }
 
 .atribut {
-    color: #888;
-    font-style: italic;
+    color: @grey;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 .share-buttons {
@@ -507,10 +508,6 @@ a.underline, .underline a {
       line-height: 24px;
     }
     ul.list-lab li {margin-bottom: 0}
-    .atribut {
-        font-style: normal;
-        color: @primary;
-    }
 }
 .underlined-links a {
   border-bottom: lighten(@primary, 60%) solid 1px;
@@ -848,6 +845,10 @@ section.catalog {
 a.dropdown-toggle {cursor: pointer;}
 
 .navbar-brand.first-part {margin-left: 20px !important; padding-right: 0;}
+
+.table > tbody > tr > td {
+    border-top: 1px dashed @table-border-color;
+}
 
 .table > tbody > tr:first-child > td {
     border: none;
