@@ -2,6 +2,15 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+## [2.19.0] - 2021-02-18
+### Fixed
+- paging issues with user collections
+- Enable adding to user collections in collection view
+
+### Changed
+- autocomplete for item-author and item-authority-role fiels
+- ckeditor allows to add slick
+- karasek importer
 
 ## [2.18.0] - 2021-02-10
 ### Added

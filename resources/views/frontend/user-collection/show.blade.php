@@ -25,7 +25,7 @@
     @unless($items->isEmpty())
     <div class="row content-section">
         <div class="col-xs-6">
-            <h4 class="inline">{{ count($items) }} {{ trans_choice('katalog.catalog_artworks', count($items)) }} </h4>
+            <h4 class="inline">{{ $items->total() }} {{ trans_choice('katalog.catalog_artworks', $items->total()) }} </h4>
             <user-collections-clear-button confirm-message="{{ trans('user-collection.clear-confirm') }}" after-clear-redirect="{{ route('frontend.user-collection.show') }}">
                 {{ trans('user-collection.clear') }}
             </user-collections-clear-button>

@@ -34,6 +34,9 @@
         "lazysizes": "^5.2.1",
         "slick-carousel": "1.8.1",
         "typeahead.js": "^0.10.5",
+        "vue-select": "^3.11.2",
+        "debounce": "1.2.0",
+        "tinycolor2": "1.4.2",
         "vue-slider-component": "^3.2.11"
     }
 }

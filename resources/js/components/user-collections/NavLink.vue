@@ -15,11 +15,13 @@
 </template>
 
 <script>
+    const store = require('./store')
+
     export default {
         props: ['active', 'baseHref', 'label'],
         data() {
             return {
-                store: this.$root.$data.userCollectionsStore
+                store
             }
         },
         computed: {

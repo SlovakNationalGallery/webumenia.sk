@@ -15,9 +15,12 @@ if (process.env.NODE_ENV == 'testing') {
     mix.options({ processCssUrls: false });
 }
 
+
+
 mix
     // JavaScript
     .js('resources/js/app.js', 'public/js')
+    .js('resources/js/admin.js', 'public/js')
     .extract([
         'bootstrap/dist/js/bootstrap',
         'flickity',
@@ -32,9 +35,12 @@ mix
         'lazysizes/plugins/unveilhooks/ls.unveilhooks',
         'lazysizes/plugins/respimg/ls.respimg',
         'typeahead.js/dist/typeahead.bundle',
+        'vue-select',
         'vue',
-        'vue-slider-component',
     ])
+    .options({
+        extractVueStyles: 'public/css/[name].css'
+    })
 
     // CSS
     .less('resources/less/style.less', 'public/css').options({

@@ -31,15 +31,13 @@ Vue.component('user-collections-clear-button', require('./components/user-collec
 Vue.component('color-widget', require('./components/ColorWidget.vue').default);
 Vue.component('year-slider', require('./components/YearSlider.vue').default);
 
+Vue.component('slider', require('./components/vue/slider').default);
+Vue.component('color-slider', require('./components/vue/color-slider').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
- const app = new Vue({
-    el: '#app',
-    data: {
-        userCollectionsStore: require('./components/user-collections/store')
-    }
-});
+ new Vue({ el: '#app' });
