@@ -2,9 +2,10 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
-
 ### Fixed
 - paging issues with user collections
+- Enable adding to user collections in collection view
+
 ### Changed
 - autocomplete for item-author and item-authority-role fiels
 
