@@ -371,7 +371,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    <h3 class="underlined-links mb-3">
+                    <h3 class="underlined-links mb-4 mt-5">
                         <span class="grey">{!! $item->relationship_type !!}: </span>
                         <a href="{!! URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) !!}"
                            itemprop="isPartOf">{!! $item->related_work !!}</a>
