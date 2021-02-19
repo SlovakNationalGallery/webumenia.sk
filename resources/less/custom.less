@@ -361,10 +361,11 @@ p.tagline {
   p {
     font-size: 15px;
     // font-weight: 300;
-    img {
-      max-width: 100%;
-      margin: 15px auto;
-    }
+  }
+
+  img {
+    max-width: 100%;
+    margin: 15px auto;
   }
 }
 
@@ -462,13 +463,16 @@ a.underline, .underline a {
 }
 
 .atribut {
-    color: #888;
-    font-style: italic;
+    color: @grey;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 .share-buttons {
   font-size: 14px;
   white-space: nowrap;
+  padding-top: 1em;
+  padding-bottom: 1em;
   a, button {
     text-decoration: none;
     padding: 0.5em;
@@ -504,10 +508,6 @@ a.underline, .underline a {
       line-height: 24px;
     }
     ul.list-lab li {margin-bottom: 0}
-    .atribut {
-        font-style: normal;
-        color: @primary;
-    }
 }
 .underlined-links a {
   border-bottom: lighten(@primary, 60%) solid 1px;
@@ -761,8 +761,11 @@ section.catalog {
 .collections.content-section {
     padding-top: 0;
 }
+
 .description {
-    text-indent: 50px;
+    font-family: @font-family-serif;
+    font-size: @font-size-content;
+    line-height: @line-height-content;
 }
 
 @media(min-width: @screen-xs-min) {
@@ -842,6 +845,10 @@ section.catalog {
 a.dropdown-toggle {cursor: pointer;}
 
 .navbar-brand.first-part {margin-left: 20px !important; padding-right: 0;}
+
+.table > tbody > tr > td {
+    border-top: 1px dashed @table-border-color;
+}
 
 .table > tbody > tr:first-child > td {
     border: none;

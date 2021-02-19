@@ -1,7 +1,7 @@
 @import '_colors.less';
 // GENERIC
-@font-size-content: 22px;
-@font-size-content-base-sans-serif: 20px;
+@font-size-content: 20px;
+@font-size-content-base-sans-serif: 18px;
 @line-height-content: 1.5em;
 
 @max-block-width: 35em;
@@ -25,11 +25,7 @@
         margin: 0 @padding-base-horizontal / 2;
     }
 }
-@media (min-width: 1200px) {
-    .container-fluid {
-        max-width: 85vw;
-    }
-}
+
 .long_expandable + .readmore-js-toggle {
     padding-top: 0.5em;
     text-align: center;
@@ -37,21 +33,10 @@
 }
 
 .content-header {
-    padding-top: @grid-gutter-width;
-    @media screen and (max-width: @screen-sm-max) {
-        padding-bottom: 0;
-        margin-bottom: -@grid-gutter-width;
-    }
     font-family: @font-family-sans-serif;
-    font-size: 18px;
-    line-height: 1.5em;
+    font-size: @font-size-content-base-sans-serif;
+    line-height: @line-height-content;
     color: @dark-grey;
-    .row > div {
-        margin: auto;
-        height: 3em;
-        padding-left: 0;
-        padding-right: 0;
-    }
     a,
     button {
         color: @dark-grey;
@@ -70,31 +55,18 @@
     line-height: 2em;
 }
 
-// ITEM
-.img-dielo {
-    font-size: 20px;
-    table tr td {
-        border: none;
-        font-size: 18px;
-    }
-}
-
 /// TODO replace me once custom.less is clean, see https://jira.sng.sk/browse/WEBUMENIA-1498
+.item .description,
 .editor,
 .article,
 .collection {
-    &.content-header,
-    &.content-section {
-        padding-top: 2 * @padding-large-vertical;
-        padding-bottom: @padding-large-vertical;
-    }
-    a {
-        color: @gray-dark !important;
-        border-bottom: @grey solid 2px !important;
+    a:not(.slick-slide):not(.readmore-js-toggle)  {
+        color: @gray-dark;
+        border-bottom: @link-undeline-color solid 2px;
         &:hover,
         &:active {
-            color: @gray-dark !important;
-            border-bottom: @gray-dark solid 2px !important;
+            color: @gray-dark;
+            border-bottom: @gray-dark solid 2px;
         }
     }
 
@@ -110,7 +82,7 @@
         p {
             font-size: @font-size-content;
             line-height: @line-height-content;
-            margin: 1.15em auto;
+            margin: 0 auto 1.15em auto;
             max-width: 40em;
         }
 
@@ -170,7 +142,7 @@
         }
 
         hr {
-            border-bottom: 2px solid @gray;
+            border-bottom: 2px solid @mid-grey;
         }
     }
 

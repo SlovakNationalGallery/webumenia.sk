@@ -43,7 +43,7 @@
 
 <section class="item top-section" itemscope itemtype="http://schema.org/VisualArtwork">
     <div class="item-body">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row">
                 @if (Session::has('message'))
                 <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert"
@@ -75,7 +75,7 @@
                        title="{{ utrans('general.item_zoom') }}">
                         @include('components.item_image_responsive', [
                         'item' => $item,
-                        'limitHeight' => '80vh'
+                        'limitHeight' => '90vh'
                         ])
                     </a>
                     @else
@@ -338,7 +338,7 @@
             </div>
             <div class="row">
                 @if (!empty($item->description))
-                <div class="col-md-8 long-text medium description bottom-space  col-md-push-2"
+                <div class="col-lg-8 col-md-10 long-text medium description bottom-space  col-md-push-1 col-lg-push-2"
                      itemprop="description">
                     <div class="long_expandable">
                         {!! $item->description !!}
@@ -371,7 +371,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    <h3 class="underlined-links mb-3">
+                    <h3 class="underlined-links mb-4 mt-5">
                         <span class="grey">{!! $item->relationship_type !!}: </span>
                         <a href="{!! URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) !!}"
                            itemprop="isPartOf">{!! $item->related_work !!}</a>
