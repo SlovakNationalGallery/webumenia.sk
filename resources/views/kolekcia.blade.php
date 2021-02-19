@@ -96,54 +96,21 @@
     <div class="collections-body">
         <div class="container">
             <div class="row">
-            	<div class="col-xs-12 isotope-wrapper">
-                    @if ($collection->items->count() == 0)
-                        <p class="text-center">Momentálne žiadne diela</p>
-                    @endif
-                    <div id="iso">
-                    @foreach ($collection->items as $i=>$item)
-                        <div class="col-md-3 col-sm-4 col-xs-12 item">
-                                @include('components.item_image_responsive', [
-                                    'item' => $item,
-                                    'url' => $item->getUrl(['collection' => $collection->id]) ,
-                                    'limitRatio' => 3
-                                ])
-                            </a>
-                            <div class="item-title">
-                                @if (!$item->images->isEmpty())
-                                    <div class="pull-right"><a href="{{ route('item.zoom', ['id' => $item->id])  }}" data-toggle="tooltip" data-placement="left" title="Zoom obrázku"><i class="fa fa-search-plus"></i></a></div>
-                                @endif
-                                <a href="{!! $item->getUrl(['collection' => $collection->id]) !!}">
-                                    <em>{!! implode(', ', $item->authors) !!}</em><br>
-                                <strong>{!! $item->title !!}</strong><br> <em>{!! $item->getDatingFormated() !!}</em>
-
-                                {{-- <span class="">{!! $item->gallery !!}</span> --}}
-                                </a>
-                            </div>
-                        </div>
+                @if ($collection->items->count() == 0)
+                    <p class="text-center">{{ utrans('katalog.catalog_no_artworks') }}</p>
+                @endif
+                <div class="isotope">
+                    @foreach ($collection->items as $item)
+                        @include('components.artwork_grid_item', [
+                            'item' => $item,
+                            'class_names' => 'col-md-3 col-sm-4 col-xs-12',
+                        ])
                     @endforeach
-                    </div>
-                    <div class="col-sm-12 text-center">
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-{{--
-<section class="map content-section">
-    <div class="map-body">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h3>Diela na mape: </h3>
-                </div>
-                <div id="big-map"></div>
-            </div>
-        </div>
-    </div>
-</section>
- --}}
 @stop
 
 @section('javascript')
@@ -151,18 +118,9 @@
 {!! Html::script('js/components/share_buttons.js') !!}
 
 <script type="text/javascript">
-    // start with isotype even before document is ready
-    $('.isotope-wrapper').each(function(){
-        var $container = $('#iso', this);
-        spravGrid($container);
-    });
-
-    $(document).ready(function(){
-
-        $( window ).resize(function() {
-            var $container = $('#iso');
-            spravGrid($container);
-        });
+    $('.isotope').isotope({
+        itemSelector: '.item',
+        layoutMode: 'masonry'
     });
 </script>
 @stop

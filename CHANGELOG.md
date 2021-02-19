@@ -2,13 +2,18 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- admin form and view for 'sources' links
 
+## [2.19.0] - 2021-02-18
 ### Fixed
 - paging issues with user collections
+- Enable adding to user collections in collection view
 
 ### Changed
 - autocomplete for item-author and item-authority-role fiels
-- admin form and view for 'sources' links
+- ckeditor allows to add slick
+- karasek importer
 
 ## [2.18.0] - 2021-02-10
 ### Added
@@ -65,7 +70,6 @@ All notable changes to this project will be documented in this file[^1].
 - use authority matcher in item detail
 - SGP into list of galleries in the info page
 - Run tests on GitHub Actions
-- ckeditor allows to add slick
 
 ## [2.13.1] - 2020-12-07
 ### Fixed
