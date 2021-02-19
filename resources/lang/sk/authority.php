@@ -24,7 +24,8 @@ return array(
     'back-to-artists'   => 'zoznam autorov',
     'alternative_names' => 'príp.',
     'places'            => 'pôsobenie',
-    'links'             => 'externé odkazy',
+    'external_links'    => 'externé odkazy',
+    'source_links'      => 'použité zdroje',
     'relationships'     => 'vzťahy',
 
     'artworks_by_artist' => 'diela autora',

@@ -1,8 +1,8 @@
 window.debounce = require('debounce');
 window.Vue = require('vue');
 
-const vSelect = require("vue-select").default;
-Vue.component("v-select", vSelect);
+Vue.component("v-select", require("vue-select").default);
+Vue.component('linked-combos', require('./components/vue/linked-combos').default);
+Vue.component('admin-links-input', require('./components/admin/LinksInput.vue').default);
 
-const linkedCombos = require('./components/vue/linked-combos').default;
-Vue.component('linked-combos', linkedCombos);
+new Vue({ el: '#wrapper' })

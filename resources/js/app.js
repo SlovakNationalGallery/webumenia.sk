@@ -23,11 +23,6 @@ require('jquery.easing')
 require('./components/searchbar')
 require('./components/clipboard-button')
 
-//const Vue = window.Vue = require('vue');
-
-
-// color input for catalog-color filter
-
 // Vue components
 window.Vue = require('vue')
 Vue.component('user-collections-nav-link', require('./components/user-collections/NavLink.vue').default);
@@ -38,7 +33,6 @@ Vue.component('year-slider', require('./components/YearSlider.vue').default);
 
 Vue.component('slider', require('./components/vue/slider').default);
 Vue.component('color-slider', require('./components/vue/color-slider').default);
-
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

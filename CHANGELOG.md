@@ -3,12 +3,23 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+### Added
+- admin form and view for 'sources' links
+
+### Changed
+- carousel & hero image refactoring, added img-srcset
+- unified main image storing for slides, collections and articles
+- new styling for artwork / article / collection, metadata blocks
+
+## [2.19.0] - 2021-02-18
 ### Fixed
 - paging issues with user collections
+- Enable adding to user collections in collection view
 
 ### Changed
 - autocomplete for item-author and item-authority-role fiels
-- new styling for artwork / article / collection, metadata blocks
+- ckeditor allows to add slick
+- karasek importer
 
 ## [2.18.0] - 2021-02-10
 ### Added
@@ -65,7 +76,6 @@ All notable changes to this project will be documented in this file[^1].
 - use authority matcher in item detail
 - SGP into list of galleries in the info page
 - Run tests on GitHub Actions
-- ckeditor allows to add slick
 
 ## [2.13.1] - 2020-12-07
 ### Fixed
@@ -106,15 +116,9 @@ All notable changes to this project will be documented in this file[^1].
 ## [2.10.0] - 2020-11-02
 ### Added
 - PNP trienale importer
-- ckeditor allows to add slick
 
 ### Fixed
 - wrong method name in harvester
-
-### Changed
-- carousel & hero image refactoring, added img-srcset
-- unified main image storing for slides, collections and articles
-- new styling for artwork / article / collection, metadata blocks
 
 ## [2.9.0] - 2020-10-27
 ### Added

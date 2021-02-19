@@ -502,7 +502,6 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('item/geodata', 'ItemController@geodata');
     Route::post('item/refreshSelected', 'ItemController@refreshSelected');
     Route::get('item/reindex', 'ItemController@reindex');
-    Route::get('authority/destroyLink/{link_id}', 'AuthorityController@destroyLink');
     Route::get('authority/reindex', 'AuthorityController@reindex');
     Route::post('authority/destroySelected', 'AuthorityController@destroySelected');
     Route::get('authority/search', 'AuthorityController@search');
