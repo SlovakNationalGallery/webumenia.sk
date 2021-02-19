@@ -11,10 +11,13 @@ class Link extends Model
     protected $fillable = array(
         'url',
         'label',
+        'type',
     );
 
     public static $rules = array(
         'url' => 'url|required',
+        'label' => 'string|required',
+        'type' => 'in:external,source|required',
     );
 
     public function linkable()

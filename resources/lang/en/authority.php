@@ -22,7 +22,8 @@ return array(
     'back-to-artists'   => 'back to artists page',
     'alternative_names' => 'alternatively',
     'places'            => 'has been active in',
-    'links'             => 'external links',
+    'external_links'    => 'external links',
+    'source_links'      => 'sources',
     'relationships'     => 'relationships',
 
     'artworks_by_artist' => 'artworks by this artist',
