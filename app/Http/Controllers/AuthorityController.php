@@ -140,17 +140,15 @@ class AuthorityController extends Controller
             ]
         ));
 
-        $input = convertEmptyStringsToNull(Input::all());
-
         $authority = Authority::findOrFail($id);
-        $authority->fill($input);
+        $authority->fill($request->input());
         $authority->save();
 
         $links = [
-            ...collect($input['externalLinks'])->map(function($link) {
+            ...collect($request->input('externalLinks', []))->map(function($link) {
                 return Link::firstOrCreate(['id' => $link['id']], array_merge($link, ['type' => 'external']));
             }),
-            ...collect($input['sourceLinks'])->map(function($link) {
+            ...collect($request->input('sourceLinks', []))->map(function($link) {
                 return Link::firstOrCreate(['id' => $link['id']], array_merge($link, ['type' => 'source']));
             }),
         ];
