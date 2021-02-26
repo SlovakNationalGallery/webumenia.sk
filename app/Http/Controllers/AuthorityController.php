@@ -144,14 +144,13 @@ class AuthorityController extends Controller
         $authority->fill($request->input());
         $authority->save();
 
-        $links = [
-            ...collect($request->input('externalLinks', []))->map(function($link) {
+        $links = collect()
+            ->merge(collect($request->input('externalLinks', []))->map(function($link) {
                 return Link::firstOrCreate(['id' => $link['id']], array_merge($link, ['type' => 'external']));
-            }),
-            ...collect($request->input('sourceLinks', []))->map(function($link) {
+            }))
+            ->merge(collect($request->input('sourceLinks', []))->map(function($link) {
                 return Link::firstOrCreate(['id' => $link['id']], array_merge($link, ['type' => 'source']));
-            }),
-        ];
+            }));
 
         $authority->links()->saveMany($links);
         $authority->links()->whereNotIn('id', collect($links)->pluck('id'))->delete();
