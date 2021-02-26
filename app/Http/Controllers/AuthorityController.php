@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use App\SpiceHarvesterRecord;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
 class AuthorityController extends Controller
@@ -127,70 +128,42 @@ class AuthorityController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update(Request $request, $id)
     {
-        $v = Validator::make(Input::all(), Authority::$rules);
-        if ($v->passes()) {
-            $input = array_except(Input::all(), array('_method'));
+        $request->validate(array_merge(
+            Authority::$rules, 
+            [
+                'externalLinks.*.url' => Link::$rules['url'],
+                'externalLinks.*.label' => Link::$rules['label'],
+                'sourceLinks.*.url' => Link::$rules['url'],
+                'sourceLinks.*.label' => Link::$rules['label'],
+            ]
+        ));
 
-            $input = convertEmptyStringsToNull(Input::all());
+        $authority = Authority::findOrFail($id);
+        $authority->fill($request->input());
+        $authority->save();
 
-            $authority = Authority::find($id);
-            $authority->fill($input);
-            $authority->save();
-            // dd(Input::get('links'));
-            foreach (Input::get('links') as $link) {
-                $validation = Validator::make($link, Link::$rules);
-                if ($validation->passes()) {
-                    if (empty($link['label'])) {
-                        $link['label'] = Link::parse($link['url']);
-                    }
+        $links = [
+            ...collect($request->input('externalLinks', []))->map(function($link) {
+                return Link::firstOrCreate(['id' => $link['id']], array_merge($link, ['type' => 'external']));
+            }),
+            ...collect($request->input('sourceLinks', []))->map(function($link) {
+                return Link::firstOrCreate(['id' => $link['id']], array_merge($link, ['type' => 'source']));
+            }),
+        ];
 
-                    if (!empty($link['id'])) {
-                        $new_link = Link::updateOrCreate(['id'=>$link['id']], $link);
-                    } else {
-                        $new_link = new Link($link);
-                        $new_link->save();
-                        $authority->links()->save($new_link);
-                    }
-                }
-            }
+        $authority->links()->saveMany($links);
+        $authority->links()->whereNotIn('id', collect($links)->pluck('id'))->delete();
 
-            // ulozit primarny obrazok. do databazy netreba ukladat. nazov=id
-            if (Input::has('primary_image')) {
-                $this->uploadImage($authority);
-            }
-
-            Session::flash('message', 'Autorita ' .$id. ' bola upravená');
-            return Redirect::route('authority.index');
+         // ulozit primarny obrazok. do databazy netreba ukladat. nazov=id
+        if (Input::has('primary_image')) {
+            $this->uploadImage($authority);
         }
 
-        return Redirect::back()->withErrors($v);
+        Session::flash('message', 'Autorita ' .$id. ' bola upravená');
+        return Redirect::route('authority.index');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-    /**
-     * Remove the link
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroyLink($link_id)
-    {
-        Link::find($link_id)->delete();
-        return Redirect::back()->with('message', 'Externý odkaz bol zmazaný');
-    }
-
 
     public function backup()
     {

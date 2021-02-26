@@ -111,6 +111,16 @@ class Authority extends Model implements IndexableModel, TranslatableContract
         return $this->morphMany(\App\Link::class, 'linkable');
     }
 
+    public function externalLinks()
+    {
+        return $this->links()->where('type', 'external');
+    }
+
+    public function sourceLinks()
+    {
+        return $this->links()->where('type', 'source');
+    }
+
     public function getCollectionsCountAttribute()
     {
         if (!Cache::has('authority_collections_count')) {
