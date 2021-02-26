@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.20.0] - 2021-02-26
 ### Added
 - admin form and view for 'sources' links
 
