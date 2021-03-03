@@ -120,6 +120,9 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - wrong method name in harvester
 
+### Changed
+- alert in reproductions section
+
 ## [2.9.0] - 2020-10-27
 ### Added
 - Google Tag Manager (GTM) setup

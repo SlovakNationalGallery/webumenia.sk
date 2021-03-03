@@ -1,7 +1,5 @@
 <?php
 
-use Carbon\Carbon;
-
 
 /**
  * Same as java String.hashcode()
@@ -46,23 +44,6 @@ function add_brackets($str)
     } else {
         return ' (' . $str . ')';
     }
-}
-
-/**
- * akceptuje datum narodenia/umrtia vo formate [dd.[mm.[yyyy]]]
- */
-function cedvuDatetime($date)
-{
-    if (empty($date)) {
-        return false;
-    }
-    $parts = explode('.', $date);
-    $date = implode('-', array_reverse($parts));
-    for ($i=count($parts); $i < 3; $i++) {
-        $date = $date.'-01';
-    }
-
-    return Carbon::parse($date);
 }
 
 function str_to_alphanumeric($string, $replace_with = '')
@@ -398,5 +379,5 @@ function getEstimatedReadingTime($content, $locale, $wpm = 200) {
     $minutes = (int) floor($wordCount / $wpm);
 
     return trans_choice('general.minute', $minutes, ['value' => $minutes]);
-    
+
 }

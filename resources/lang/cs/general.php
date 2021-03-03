@@ -40,5 +40,6 @@ return array(
     "share_mail"         => "odeslat mailem",
     "share_link"         => "Sdílet URL adresu",
     "copy"               => "kopírovat",
-    "copied_to_clipboard"=> "Odkaz byl skopírován do schránky"
+    "copied_to_clipboard"=> "Odkaz byl skopírován do schránky",
+    "minute"             => ":count minuta|:count minuty|:count minut",
 );
