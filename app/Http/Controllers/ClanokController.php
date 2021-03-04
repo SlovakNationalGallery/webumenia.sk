@@ -17,7 +17,7 @@ class ClanokController extends Controller
             $articles = $articles->where('author', 'LIKE', Input::get('author'));
         }
         $articles = $articles->get();
-        return view('clanky', array('articles'=>$articles));
+        return view('frontend.articles.index', array('articles'=>$articles));
     }
 
     public function getSuggestions()
@@ -56,7 +56,7 @@ class ClanokController extends Controller
         $article->view_count += 1;
         $article->save();
 
-        return view('clanok', array('article'=>$article));
+        return view('frontend.articles.show', array('article'=>$article));
 
     }
 }
