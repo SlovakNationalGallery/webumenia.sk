@@ -3,21 +3,55 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\App;
 
 class ClanokController extends Controller
 {
 
-    public function getIndex()
+    public function getIndex(Request $request)
     {
-        $articles = Article::published()->orderBy('published_date', 'desc');
-        if (Input::has('author')) {
-            $articles = $articles->where('author', 'LIKE', Input::get('author'));
+        $articles = Article::published()
+            ->with('category')
+            ->orderBy('published_date', 'desc');
+
+        if ($request->has('category')) {
+            $articles = $articles->whereHas('category', function (Builder $query) use ($request) {
+                $query->where('name', $request->input('category'));
+            });
         }
+
+        if ($request->has('author')) {
+            $articles = $articles->where('author', 'LIKE', $request->input('author'));
+        }
+
         $articles = $articles->get();
-        return view('frontend.articles.index', array('articles'=>$articles));
+
+        $categoriesOptions = $articles
+            ->countBy('category.name')
+            ->map(function ($count, $category) use ($request) {
+                return [
+                    'value' => $category,
+                    'text' => "$category ($count)",
+                    'selected' => $category === $request->input('category'),
+                ];
+            });
+
+        $authorsOptions = $articles
+            ->countBy('author')
+            ->map(function ($count, $author) use ($request) {
+                return [
+                    'value' => $author,
+                    'text' => "$author ($count)",
+                    'selected' => $author === $request->input('author'),
+                ];
+            });
+
+
+
+        return view('frontend.articles.index', compact('articles', 'categoriesOptions', 'authorsOptions'));
     }
 
     public function getSuggestions()

@@ -9,4 +9,8 @@ return array(
     */
 
     'title' => 'articles',
+    'filter' => [
+        'author' => 'author',
+        'category' => 'category',
+    ]
 );

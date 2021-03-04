@@ -9,4 +9,8 @@ return array(
     */
 
     'title' => 'články',
+    'filter' => [
+        'author' => 'autor',
+        'category' => 'kategorie',
+    ]
 );
