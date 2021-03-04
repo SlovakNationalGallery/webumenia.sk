@@ -80,7 +80,6 @@
 @section('javascript')
 
     {!! Html::script('js/bootstrap-slider.min.js') !!}
-    {!! Html::script('js/selectize.min.js') !!}
     {!! Html::script('js/readmore.min.js') !!}
     {!! Html::script('js/jquery.dropdown-select.js') !!}
     <script src="{!! asset_timed('js/scroll-frame.js') !!}"></script>
