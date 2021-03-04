@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- Fix linked-combos links for item relationships
+- Fix form for articles and collections
 
 ## [2.20.0] - 2021-02-26
 ### Added
