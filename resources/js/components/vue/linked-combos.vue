@@ -1,40 +1,48 @@
 <template>
-  <div class="linked-combos">
-    <button type="button" @click="selected.push({})">+</button>
-    <div v-for="(item, index) of selected" class="row">
-      <v-select
-        :options="options"
-        @search="onSearch"
-        taggable
-        label="value"
-        v-model="item.item"
-        @input="emitValue()"
-        :reduce="getKey"
-      >
-        <div slot="no-options">¯\_(ツ)_/¯</div>
-      </v-select>
-      <v-select
-        :options="relation_types"
-        label="value"
-        v-model="item.relation"
-        @input="emitValue()"
-        :reduce="getKey"
-      >
-        <div slot="no-options">¯\_(ツ)_/¯</div>
-      </v-select>
-      <button type="button" @click="remove(index)">-</button>
+  <div class="linked-inputs">
+    <div class="linked-combos">
+      <button type="button" @click="selected.push({})">+</button>
+      <div v-for="(item, index) of selected" class="row">
+        <v-select
+          :options="options"
+          @search="onSearch"
+          taggable
+          label="value"
+          v-model="item.item"
+          :reduce="getKey"
+        >
+          <div slot="no-options">¯\_(ツ)_/¯</div>
+        </v-select>
+        <v-select
+          :options="relationTypes"
+          label="value"
+          v-model="item.relation"
+          :reduce="getKey"
+        >
+          <div slot="no-options">¯\_(ツ)_/¯</div>
+        </v-select>
+        <button type="button" @click="remove(index)">-</button>
+      </div>
     </div>
+    <input type="hidden" :name="name" :value="JSON.stringify(resValue)" />
   </div>
 </template>
+
 <script>
+import VueSelect from 'vue-select'
+
 export default {
   name: "linked-combos",
+  components: {
+    "v-select": VueSelect
+  },
   props: [
     "value",
-    "item_options",
-    "relation_types",
-    "item_search_url",
-    "item_transform"
+    "name",
+    "defaultOptions",
+    "optionsSearchUrl",
+    "relationTypes",
+    "optionsSearchTransform"
   ],
   data: function() {
     return {
@@ -42,7 +50,7 @@ export default {
         item: key,
         relation: this.value[key] || ""
       })),
-      options: this.item_options
+      options: this.defaultOptions
     };
   },
   computed: {
@@ -58,9 +66,6 @@ export default {
     this.debouncedSearch = debounce(this.search, 300);
   },
   methods: {
-    emitValue: function() {
-      this.$emit("input", this.resValue);
-    },
     getKey($object) {
       return $object.key;
     },
@@ -69,10 +74,10 @@ export default {
       this.debouncedSearch(loading, search, this);
     },
     search(loading, search, vm) {
-      fetch(`${this.item_search_url}`.replace("%QUERY", search))
+      fetch(this.optionsSearchUrl.replace("%QUERY", search))
         .then(res => res.json())
         .then(json => {
-          const res = json.map(this.item_transform);
+          const res = json.map(this.optionsSearchTransform);
           const values = JSON.parse(JSON.stringify(vm.options));
           const merged = [...res, ...values];
           vm.options = merged.filter(function(item, pos) {
@@ -87,7 +92,6 @@ export default {
     },
     remove(index){ 
       this.selected.splice(index, 1); 
-      this.emitValue();
     }
   }
 };
