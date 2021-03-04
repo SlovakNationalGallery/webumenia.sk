@@ -2,13 +2,13 @@
 
 @section('content')
 
-<div class="col-md-12">
-	@if(isset($collection))
-	    {!! Form::model($collection, ['route' => ['collection.update', $collection->id], 'method' => 'patch', 'files'=>true]) !!}
-	@else
-	    {!! Form::open(['route' => 'collection.store', 'files'=>true]) !!}
-	@endif
+@if(isset($collection))
+		{!! Form::model($collection, ['route' => ['collection.update', $collection->id], 'method' => 'patch', 'files'=>true]) !!}
+@else
+		{!! Form::open(['route' => 'collection.store', 'files'=>true]) !!}
+@endif
 
+<div class="col-md-12">
 	@if (Session::has('message'))
 	    <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
 	@endif
@@ -109,8 +109,9 @@
 <div class="col-md-12 text-center">
 	{!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp; 
 	{!! link_to_route('collection.index', 'Zrušiť', null, array('class' => 'btn btn-default')) !!}
-	{!!Form::close() !!}
 </div>
+
+{!!Form::close() !!}
 
 <div class="col-md-12">
 	<h2>Diela</h2>
