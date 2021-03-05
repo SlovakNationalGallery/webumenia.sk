@@ -60,8 +60,8 @@ class ClanokController extends Controller
             });
 
         $sortingOptions = collect([
-            [ 'value' => 'date_asc', 'text' => trans('clanky.filter.sort_by.date_asc') ],
-            [ 'value' => 'date_desc', 'text' => trans('clanky.filter.sort_by.date_desc') ],
+            [ 'value' => 'date_asc', 'text' => trans('articles.filter.sort_by.date_asc') ],
+            [ 'value' => 'date_desc', 'text' => trans('articles.filter.sort_by.date_desc') ],
         ]);
 
         return view('frontend.articles.index', compact(
