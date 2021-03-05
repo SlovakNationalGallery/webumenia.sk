@@ -29,21 +29,33 @@
     </div>
 </section>
 
-<section class="articles bg-light-grey content-section">
-    <div class="articles-body">
-        <div class="container">
-            <div class="row">
-            	@foreach ($articles as $i=>$article)
-	                <div class="col-sm-6 col-xs-12 bottom-space">
-                        @include('components.article_thumbnail', [
-                            'article' => $article
-                        ])
-	                </div>
-                    @if ($i % 2 == 1)
-                        <div class="clearfix"></div>
-                    @endif
-            	@endforeach
+<section class="articles bg-light-grey">
+    <div class="container">
+        <div class="row content-section">
+            <div class="col-xs-6">
+                <h4 class="inline">{{ $articles->count() }} {{ trans_choice('clanky.count', $articles->count()) }}</h4>
             </div>
+            <div class="col-xs-6 text-right">
+                {{-- @formRow($form['sort_by'], ['attr' => ['class' => 'js-dropdown-select']]) --}}
+            </div>
+
+            @if($articles->isEmpty())
+            <div class="col-xs-12">
+                <p class="text-center">{{ utrans('clanky.no_results') }}</p>
+            </div>
+            @endif
+        </div>
+        <div class="row content-section">
+            @foreach ($articles as $i=>$article)
+                <div class="col-sm-6 col-xs-12 bottom-space">
+                    @include('components.article_thumbnail', [
+                        'article' => $article
+                    ])
+                </div>
+                @if ($i % 2 == 1)
+                    <div class="clearfix"></div>
+                @endif
+            @endforeach
         </div>
     </div>
 </section>

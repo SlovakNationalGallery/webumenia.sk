@@ -1,14 +1,9 @@
 <?php
 
 return array(
-
-    /*
-    |--------------------------------------------------------------------------
-    | Language Lines for clanky.blade.php template
-    |--------------------------------------------------------------------------
-    */
-
     'title' => 'articles',
+    'count' => 'article|articles',
+    'no_results' => 'currently no articles',
     'filter' => [
         'author' => 'author',
         'category' => 'category',
