@@ -7,5 +7,9 @@ return array(
     'filter' => [
         'author' => 'autor',
         'category' => 'kategória',
+        'sort_by' => [
+            'date_desc' => 'dátumu',
+            'date_asc' => 'dátumu od najstaršieho',
+        ]
     ]
 );

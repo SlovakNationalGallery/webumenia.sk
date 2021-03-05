@@ -10,13 +10,11 @@ use Illuminate\Support\Facades\Response;
 
 class ClanokController extends Controller
 {
-
     public function getIndex(Request $request)
     {
-        $articles = Article::published()
-            ->with('category')
-            ->orderBy('published_date', 'desc');
+        $articles = Article::published()->with('category');
 
+        // Filtering
         if ($request->has('category')) {
             $articles = $articles->whereHas('category', function (Builder $query) use ($request) {
                 $query->where('name', $request->input('category'));
@@ -27,8 +25,20 @@ class ClanokController extends Controller
             $articles = $articles->where('author', 'LIKE', $request->input('author'));
         }
 
+        // Sorting
+        $sortBy = $request->input('sort_by', 'date_desc');
+
+        if ($sortBy === 'date_desc') {
+            $articles = $articles->orderBy('published_date', 'desc');
+        }
+
+        if ($sortBy === 'date_asc') {
+            $articles = $articles->orderBy('published_date', 'asc');
+        }
+
         $articles = $articles->get();
 
+        // Options for filters
         $categoriesOptions = $articles
             ->countBy('category.name')
             ->map(function ($count, $category) use ($request) {
@@ -49,9 +59,18 @@ class ClanokController extends Controller
                 ];
             });
 
+        $sortingOptions = collect([
+            [ 'value' => 'date_asc', 'text' => trans('clanky.filter.sort_by.date_asc') ],
+            [ 'value' => 'date_desc', 'text' => trans('clanky.filter.sort_by.date_desc') ],
+        ]);
 
-
-        return view('frontend.articles.index', compact('articles', 'categoriesOptions', 'authorsOptions'));
+        return view('frontend.articles.index', compact(
+            'articles',
+            'categoriesOptions',
+            'authorsOptions',
+            'sortingOptions',
+            'sortBy'
+        ));
     }
 
     public function getSuggestions()

@@ -7,5 +7,9 @@ return array(
     'filter' => [
         'author' => 'author',
         'category' => 'category',
+        'sort_by' => [
+            'date_desc' => 'date',
+            'date_asc' => 'date, oldest first',
+        ]
     ]
 );

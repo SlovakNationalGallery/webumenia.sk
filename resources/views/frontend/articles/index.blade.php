@@ -36,7 +36,11 @@
                 <h4 class="inline">{{ $articles->count() }} {{ trans_choice('clanky.count', $articles->count()) }}</h4>
             </div>
             <div class="col-xs-6 text-right">
-                {{-- @formRow($form['sort_by'], ['attr' => ['class' => 'js-dropdown-select']]) --}}
+                <filter-sort-by 
+                    label="{{ trans('general.sort_by') }}"
+                    initial-value="{{ $sortBy }}"
+                    :options="{{ $sortingOptions }}"
+                />
             </div>
 
             @if($articles->isEmpty())
