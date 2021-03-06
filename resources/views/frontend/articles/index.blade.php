@@ -10,17 +10,17 @@
     <div class="container content-section">
         <div class="expandable">
             <div class="row">
-                <div class="col-md-push-2 col-md-4 col-xs-6 bottom-space">
-                    <filter-custom-select 
+                <div class="col-md-push-2 col-md-4 col-xs-6">
+                    <filter-custom-select
                         name="category"
-                        placeholder="{{ trans('articles.filter.category') }}" 
+                        placeholder="{{ trans('articles.filter.category') }}"
                         :options="{{ $categoriesOptions }}"
                     />
                 </div>
-                <div class="col-md-push-2 col-md-4 col-xs-6 bottom-space">
-                    <filter-custom-select 
+                <div class="col-md-push-2 col-md-4 col-xs-6">
+                    <filter-custom-select
                         name="author"
-                        placeholder="{{ trans('articles.filter.author') }}" 
+                        placeholder="{{ trans('articles.filter.author') }}"
                         :options="{{ $authorsOptions }}"
                     />
                 </div>
@@ -36,7 +36,7 @@
                 <h4 class="inline">{{ $articles->count() }} {{ trans_choice('articles.count', $articles->count()) }}</h4>
             </div>
             <div class="col-xs-6 text-right">
-                <filter-sort-by 
+                <filter-sort-by
                     label="{{ trans('general.sort_by') }}"
                     initial-value="{{ $sortBy }}"
                     :options="{{ $sortingOptions }}"
