@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Added
 - admin form and view for 'sources' links
+- add filtering to articles section
 
 ### Changed
 - carousel & hero image refactoring, added img-srcset

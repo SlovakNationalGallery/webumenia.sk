@@ -116,7 +116,6 @@
 @stop
 
 @section('javascript')
-{!! Html::script('js/selectize.min.js') !!}
 
 {!! Html::script('js/components/artwork_carousel.js') !!}
 {!! Html::script('js/jquery.dropdown-select.js') !!}
