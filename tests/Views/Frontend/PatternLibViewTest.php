@@ -28,6 +28,7 @@ class PatternLibViewTest extends TestCase
         $this->app->instance(ItemRepository::class, $itemRepositoryMock);
 
         $response = $this->get('/patternlib');
+        $response->assertSeeText('Pattern Library');
         $response->assertStatus(200);
     }
 }

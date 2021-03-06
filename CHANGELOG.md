@@ -2,15 +2,22 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
-
 ### Added
-- admin form and view for 'sources' links
 - add filtering to articles section
+
+### Fixed
+- Fix linked-combos links for item relationships
+- Fix form for articles and collections
+- Fix patternlib page
 
 ### Changed
 - carousel & hero image refactoring, added img-srcset
 - unified main image storing for slides, collections and articles
 - new styling for artwork / article / collection, metadata blocks
+
+## [2.20.0] - 2021-02-26
+### Added
+- admin form and view for 'sources' links
 
 ## [2.19.0] - 2021-02-18
 ### Fixed
