@@ -45,7 +45,7 @@
 						@foreach($slides as $i)
 			            <tr>
 			                <td>{!! $i->id !!}</td>
-                            <td class="text-center"><img src="{!! $i->image_path !!}" alt="" class="img-responsive nahlad"></td>
+                            <td class="text-center"><img src="{!! $i->getHeaderImagePath() !!}" alt="" class="img-responsive nahlad"></td>
                             <td>
                                 {!! $i->title !!}<br>
                                 {!! $i->subtitle !!}

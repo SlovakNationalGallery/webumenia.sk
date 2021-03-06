@@ -11,18 +11,18 @@ trait HasHeaderImage
     static $SIZES = [1920, 1400, 1024, 640];
     static $DEFAULT_SIZE = 1024;
 
-    function getArtworksDirAttribute()
+    public function getArtworksDirAttribute()
     {
         return '/images/';
     }
 
-    function getImagePropertyAttribute()
+    public function getImagePropertyAttribute()
     {
         return 'main_image';
     }
 
 
-    function uploadHeaderImage(
+    public function uploadHeaderImage(
         UploadedFile $image_file,
         string $filename = null
     ) {
@@ -56,14 +56,14 @@ trait HasHeaderImage
 
     public function hasHeaderImage()
     {
-        return file_exists(self::getHeaderImagePath());
+        return file_exists($this->getHeaderImagePath());
     }
 
-    function getHeaderImagePath($full = true)
+    public function getHeaderImagePath($full = true)
     {
         $filename = $this[$this->image_property];
 
-        if (!$filename) {            
+        if (!$filename) {
             return ($full ? public_path() : '') . $this->artworks_dir . $this->id . '.jpg'; // fallback for old collections
         }
         $path =  ($full ? public_path() : '') . $this->artworks_dir;
@@ -71,7 +71,7 @@ trait HasHeaderImage
         return $path . $filename;
     }
 
-    function getHeaderImageSrcAttribute()
+    public function getHeaderImageSrcAttribute()
     {
         $filename = $this[$this->image_property];
 
@@ -83,7 +83,7 @@ trait HasHeaderImage
         return asset($path . $filename);
     }
 
-    function getHeaderImageSrcsetAttribute()
+    public function getHeaderImageSrcsetAttribute()
     {
         $filename = $this[$this->image_property];
         $path = $this->artworks_dir;
@@ -106,8 +106,8 @@ trait HasHeaderImage
 
     public function getResizedImage($resize)
     {
-        $path = self::getHeaderImagePath(false);
-        $full_path = self::getHeaderImagePath();
+        $path = $this->getHeaderImagePath(false);
+        $full_path = $this->getHeaderImagePath();
 
         $resize_path = Str::replaceLast('.',".". $resize .".", $path);
         $resize_full_path = Str::replaceLast('.', ".". $resize .".", $full_path);
@@ -125,15 +125,15 @@ trait HasHeaderImage
 
     public function getThumbnailImage($full = false)
     {
-        $path = self::getHeaderImagePath($full);
-        $full_path = self::getHeaderImagePath();
+        $path = $this->getHeaderImagePath($full);
+        $full_path = $this->getHeaderImagePath();
 
         if (!file_exists($full_path)) {
             return false;
         }
         $preview_path = Str::replaceLast('.', ".thumbnail.", $path);
         $preview_full_path = Str::replaceLast('.', ".thumbnail.", $full_path);
-        
+
         if (!file_exists($preview_full_path)) {
             try {
                 \Image::make($full_path)->fit(600, 250)->save($preview_full_path);

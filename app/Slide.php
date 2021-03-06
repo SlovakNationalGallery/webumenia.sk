@@ -47,11 +47,6 @@ class Slide extends Model
         return $query->where('publish', '=', 1);
     }
 
-    public function getImagePathAttribute()
-    {
-        return asset(self::ARTWORKS_DIR . '/' . $this->id . '/' . $this->image . '.jpg');
-    }
-
     public function getPath($create = false)
     {
         $folder_name = $this->id;
