@@ -36,6 +36,8 @@
   </div>
 
 </div>
-
+@section('javascript')
+@parent
 {!! Html::script('js/openseadragon.js') !!}
 {!! Html::script('js/components/zoomviewer.js') !!}
+@endsection
