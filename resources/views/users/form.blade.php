@@ -2,13 +2,13 @@
 
 @section('content')
 
-<div class="col-md-12">
-	@if(isset($user))
-	    {!! Form::model($user, ['route' => ['user.update', $user->id], 'method' => 'patch']) !!}
-	@else
-	    {!! Form::open(['route' => 'user.store']) !!}
-	@endif
+@if(isset($user))
+    {!! Form::model($user, ['route' => ['user.update', $user->id], 'method' => 'patch']) !!}
+@else
+    {!! Form::open(['route' => 'user.store']) !!}
+@endif
 
+<div class="col-md-12">
 	@if (Session::has('message'))
 	    <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
 	@endif
@@ -59,12 +59,11 @@
 </div>
 
 <div class="col-md-12 text-center">
-	{!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp; 
+	{!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp;
 	{!! link_to_route('user.index', 'Zrušiť', null, array('class' => 'btn btn-default')) !!}
-	{!!Form::close() !!}
 </div>
 
-
+{!!Form::close() !!}
 
 <div class="clearfix"></div>
 
@@ -77,7 +76,7 @@
 
 <script>
 $(document).ready(function(){
-	
+
     $("#roles").selectize({
         plugins: ['remove_button'],
         maxItems: 1,

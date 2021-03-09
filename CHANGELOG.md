@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.21.1] - 2021-03-09
+### Fixed
+- form for carousel, harvests, imports and users
+- zoom
+
 ## [2.21.0] - 2021-03-08
 ### Fixed
 - Fix linked-combos links for item relationships

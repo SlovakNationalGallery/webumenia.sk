@@ -30,6 +30,7 @@
     'index' => $index,
     'fullIIPImgURLs' => $fullIIPImgURLs,
   ])
-</body>
 
+  @yield('javascript')
+</body>
 </html>
