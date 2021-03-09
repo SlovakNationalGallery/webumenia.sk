@@ -12,7 +12,7 @@ Pattern Library | @parent
 
 @section('content')
 
-<script>
+<script type="application/javascript">
     function toggle_source(event) {
         event.preventDefault();
         $(event.target).parent().find('pre.js-source').toggleClass('hidden');                    
@@ -61,7 +61,7 @@ Pattern Library | @parent
                             @endif
 
                             <a href="#" class="btn btn-default btn-outline sans" onclick="toggle_source(event);"><i class="fa fa-code"></i> Show source</a>
-                            <pre class="js-source pre-scrollable hidden"><code class="html">{{$component['source_code']}}</code></pre>
+                            <pre class="js-source pre-scrollable hidden" v-pre><code class="html">{{$component['source_code']}}</code></pre>
                         </div>
                     </div>
                 </div>
