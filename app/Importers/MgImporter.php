@@ -149,7 +149,21 @@ class MgImporter extends AbstractImporter {
     }
 
     protected function hydrateWorkType(array $record) {
-        return (isset(static::$cz_work_types_spec[$record['Skupina']])) ? static::$cz_work_types_spec[$record['Skupina']] : 'nespecifikované';
+        $workType = [];
+
+        if (isset(static::$cz_measurement_replacements[$record['Skupina']])) {
+            $workType[] = static::$cz_measurement_replacements[$record['Skupina']];
+        }
+
+        if ($record['Podskupina']) {
+            $workType[] = $record['Podskupina'];
+        }
+
+        if ($record['Předmět']) {
+            $workType[] = $record['Předmět'];
+        }
+
+        return $workType ? implode(', ', $workType) : 'nespecifikované';
     }
 
     protected function hydrateRelationshipType(array $record) {
