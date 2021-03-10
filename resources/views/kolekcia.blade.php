@@ -103,6 +103,7 @@
                     @foreach ($collection->items as $item)
                         @include('components.artwork_grid_item', [
                             'item' => $item,
+                            'url' => $item->getUrl(['collection' => $collection->id]),
                             'class_names' => 'col-md-3 col-sm-4 col-xs-12',
                         ])
                     @endforeach
