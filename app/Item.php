@@ -802,8 +802,6 @@ class Item extends Model
     public function index()
     {
             $client =  $this->getElasticClient();
-            $work_types = $this->work_types;
-            $main_work_type = reset($work_types);
 
             $clean = true;
 
@@ -813,7 +811,7 @@ class Item extends Model
                 'title' => $this->attributes['title'],
                 'author' => $this->makeArray($this->attributes['author'], $clean),
                 'description' => (!empty($this->attributes['description'])) ? strip_tags($this->attributes['description']) : '',
-                'work_type' => $main_work_type, // ulozit iba prvu hodnotu
+                'work_type' => $this->work_types,
                 'topic' => $this->makeArray($this->attributes['topic'], $clean),
                 'tag' => $this->tagNames(),
                 'place' => $this->makeArray($this->attributes['place'], $clean),
