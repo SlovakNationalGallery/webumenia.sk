@@ -1,10 +1,14 @@
+@php
+    $url = $url ?? $item->getUrl();
+@endphp
+
 <div class="{{$isotope_item_selector_class ?? 'item'}} {{$class_names ?? ''}}">
 
     @include('components.item_image_responsive', [
         'item' => $item,
          'limitRatio' => 3,
-         'url' => $item->getUrl(),
-         ])
+         'url' => $url,
+    ])
 
     <div class="item-title">
         <div class="pull-right">
@@ -19,7 +23,7 @@
                 </a>
             @endif
         </div>
-        <a href="{!! $item->getUrl() !!}">
+        <a href="{{ $url }}">
             @if( !isset($hide_authors) ) <em>{!! implode(', ', $item->authorsFormatted) !!}</em><br> @endif
             @if( !isset($hide_title) ) <strong>{!! $item->title !!}</strong><br> @endif
             @if( !isset($hide_dating) ) <em>{!! $item->getDatingFormated() !!}</em> @endif
