@@ -155,8 +155,8 @@ class MgImporter extends AbstractImporter {
             $workType[] = static::$cz_measurement_replacements[$record['Skupina']];
         }
 
-        if ($record['Podskupina']) {
-            $workType[] = $record['Podskupina'];
+        if ($record['Podskup']) {
+            $workType[] = $record['Podskup'];
         }
 
         if ($record['Předmět']) {
