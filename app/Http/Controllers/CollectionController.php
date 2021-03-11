@@ -225,10 +225,8 @@ class CollectionController extends Controller
     private function uploadMainImage($collection)
     {
         $main_image = Input::file('main_image');
-        $uploaded_image = \Image::make($main_image->getRealPath());
-        $uploaded_image->widen(1200);
-        $filename = $collection->getHeaderImage(true);
-        $uploaded_image->save($filename);
+        $collection->main_image = $collection->uploadHeaderImage($main_image);
+        $collection->save();
     }
 
     public function sort()

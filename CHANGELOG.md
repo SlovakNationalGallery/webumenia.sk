@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- add filtering to articles section
+
+### Changed
+- carousel & hero image refactoring, added img-srcset
+- unified main image storing for slides, collections and articles
+- new styling for artwork / article / collection, metadata blocks
 
 ## [2.21.2] - 2021-03-10
 ### Fixed

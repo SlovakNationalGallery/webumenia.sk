@@ -40,5 +40,6 @@ return array(
     "share_link"         => "Share link",
     "copy"               => "Copy",
     "copied_to_clipboard"=> "Link was copied to clipboard",
-    "citation_copied"    => "Citation has been copied"
+    "citation_copied"    => "Citation has been copied",
+    "minute"             => ":count minute|:count minutes",
 );

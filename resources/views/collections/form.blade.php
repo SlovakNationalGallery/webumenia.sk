@@ -43,22 +43,21 @@
 
 	<div class="tab-content top-space">
 		@foreach (\Config::get('translatable.locales') as $i=>$locale)
-	    <div role="tabpanel" class="tab-pane  {{ ($i==0) ? 'active' : '' }}" id="{{ $locale }}">
-					<div class="form-group">
-					{{ Form::label($locale . "[name]", 'Názov') }}
-					{{ Form::text($locale . "[name]", isset($collection) ? @$collection->translate($locale)->name : '', array('class' => 'form-control')) }}
-					</div>
+			<div role="tabpanel" class="tab-pane  {{ ($i==0) ? 'active' : '' }}" id="{{ $locale }}">
+				<div class="form-group">
+				{{ Form::label($locale . "[name]", 'Názov') }}
+				{{ Form::textarea($locale . "[name]", isset($collection) ? @$collection->translate($locale)->name : '', array('class' => 'form-control', 'rows' => '2')) }}
+				</div>
 
-					<div class="form-group">
-					{{ Form::label($locale . "[type]", 'Typ') }}
-					{{ Form::text($locale . "[type]", isset($collection) ? @$collection->translate($locale)->type : '', array('class' => 'form-control')) }}
-					</div>
+				<div class="form-group">
+				{{ Form::label($locale . "[type]", 'Typ') }}
+				{{ Form::text($locale . "[type]", isset($collection) ? @$collection->translate($locale)->type : '', array('class' => 'form-control')) }}
+				</div>
 
-					<div class="form-group">
-					{{ Form::label($locale . "[text]", 'Text') }}
-					{{ Form::textarea($locale . "[text]", isset($collection) ? @$collection->translate($locale)->text : '', array('class' => 'form-control wysiwyg', 'rows'=>'12')) }}	
-					</div>
-
+				<div class="form-group">
+				{{ Form::label($locale . "[text]", 'Text') }}
+				{{ Form::textarea($locale . "[text]", isset($collection) ? @$collection->translate($locale)->text : '', array('class' => 'form-control wysiwyg', 'rows'=>'12')) }}
+				</div>
 			</div>
 		@endforeach
 	</div>
@@ -90,10 +89,10 @@
 		{!! Form::file('main_image', array('class' => 'form-control', 'placeholder' => '#666666'))!!}
 		<p>obrazok bude automaticky zmenseny na sirku 1400px</p>
 		<p>šírka min: 1400px<br>formát: JPG (vysoka kompresia ~50-60%)</p>
-		@if (isset($collection) && $collection->getHeaderImage())
+		@if (isset($collection) && $collection->hasHeaderImage())
 			<div class="primary-image">
 				<b>Aktuálny obrázok:</b>
-				<img src="{{ $collection->getHeaderImage() }}" class="img-responsive">
+				<img src="{{ $collection->header_image_src }}" class="img-responsive">
 			</div>
 		@endif
 	</div>
@@ -107,7 +106,7 @@
 </div>
 @endif
 <div class="col-md-12 text-center">
-	{!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp; 
+	{!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp;
 	{!! link_to_route('collection.index', 'Zrušiť', null, array('class' => 'btn btn-default')) !!}
 </div>
 
@@ -129,9 +128,9 @@
 	</div>
 	<div class="col-md-6 text-center"><span class="hidden loader"><i class="fa fa-refresh fa-spin fa-lg"></i> čakaj</span></div>
 	{!!Form::close() !!}
-	
+
 	<div class="clearfix"></div>
-	
+
 	<ul class="list-group" id="sortable" data-entity="item"  data-id="{!! $collection->id !!}">
 		@foreach ($collection->items as $item)
 		<li class="list-group-item vertical-center" data-id="{!! $item->id !!}">
@@ -159,7 +158,7 @@
 @stop
 
 @section('script')
-		
+
 {!! Html::script('js/bootstrap-datepicker.js') !!}
 
 @if (isSet($collection))
@@ -172,7 +171,7 @@
 	});
 	Sortable.create(sortable, {
 	  handle: '.sortable-handle',
-	  ghostClass: "sortable-ghost", 
+	  ghostClass: "sortable-ghost",
 	  animation: 150,
 	  dataIdAttr: 'data-id',
 

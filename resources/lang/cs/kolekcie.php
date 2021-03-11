@@ -13,6 +13,7 @@ return array(
     'collections_collections'       => 'kolekcí',
     'collections_no_collections'    => 'momentálně žádné kolekce',
     'collections_artworks'          => 'děl',
+    'collections_items_count'       => 'Kolekce obsahuje',
     'filter' => [
         'author' => 'autor',
         'type' => 'typ',

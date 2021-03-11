@@ -25,7 +25,7 @@
                         $('<a>').attr({
                             role: 'menuitem',
                             tabindex: -1,
-                            href: '#',
+                            href: '.',
                         }).text(
                             $(this).text()
                         ).click(function (e) {
