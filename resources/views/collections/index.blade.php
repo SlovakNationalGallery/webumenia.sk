@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-kolekcie | 
+kolekcie |
 @parent
 @stop
 
@@ -48,10 +48,15 @@ kolekcie |
                             <td>{!! $i->name !!}</td>
 			                <td>{!! $i->user->name !!}</td>
 			                <td>{!! $i->items()->count(); !!}</td>
-                            <td>{!! $i->created_at !!}</td>
-                            <td class="text-center">{!! ($i->published_at) ? '<i class="fa fa-check text-success"></i>' . '<br><small>od '. $i->published_at .'</small>' : '' !!}</td>
+                            <td>@datetime($i->created_at)</td>
+                            <td class="text-center">
+                                @if($i->published_at)
+                                    <i class="fa fa-check text-success"></i><br/>
+                                    <small>od @dateShort($i->published_at)</small>
+                                @endif
+                            </td>
 			                <td>
-                                {!! link_to_action('CollectionController@show', 'Detail', array($i->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', )) !!} 
+                                {!! link_to_action('CollectionController@show', 'Detail', array($i->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', )) !!}
                                 {!! link_to_action('CollectionController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}
                                 <a href="{!! $i->getUrl() !!}" class="btn btn-success btn-xs btn-outline" target="_blank">Na webe</a>
                                 {!! Form::open(array('method' => 'DELETE', 'route' => array('collection.destroy', $i->id), 'class' => 'visible-xs-inline')) !!}

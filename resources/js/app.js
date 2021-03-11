@@ -1,5 +1,6 @@
 require('./bootstrap')
 require( 'slick-carousel');
+require('selectize')
 
 const jQueryBridget = require('jquery-bridget')
 const Isotope = require('isotope-layout')
@@ -25,6 +26,9 @@ require('./components/clipboard-button')
 
 // Vue components
 window.Vue = require('vue')
+
+Vue.component('filter-sort-by', require('./components/filter/SortBy.vue').default);
+Vue.component('filter-custom-select', require('./components/filter/CustomSelect.vue').default);
 Vue.component('user-collections-nav-link', require('./components/user-collections/NavLink.vue').default);
 Vue.component('user-collections-favourite-button', require('./components/user-collections/FavouriteButton.vue').default);
 Vue.component('user-collections-clear-button', require('./components/user-collections/ClearButton.vue').default);

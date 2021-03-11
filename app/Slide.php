@@ -1,22 +1,30 @@
 <?php
 
-
-
 namespace App;
 
-use Illuminate\Support\Facades\File;
+use App\Concerns\HasHeaderImage;
 use Illuminate\Database\Eloquent\Model;
 
 class Slide extends Model
 {
 
-    const ARTWORKS_DIR = '/images/intro/';
+    use HasHeaderImage;
+
+    function getArtworksDirAttribute()
+    {
+        return '/images/intro/';
+    }
+
+    function getImagePropertyAttribute()
+    {
+        return 'image';
+    }
 
     protected $fillable = [
-                'title',
-                'subtitle',
-                'url',
-                'publish',
+        'title',
+        'subtitle',
+        'url',
+        'publish',
     ];
 
     public static $rules = [
@@ -37,11 +45,6 @@ class Slide extends Model
     public function scopePublished($query)
     {
         return $query->where('publish', '=', 1);
-    }
-
-    public function getImagePathAttribute()
-    {
-        return asset(self::ARTWORKS_DIR . '/' . $this->id . '/' . $this->image . '.jpg');
     }
 
     public function getPath($create = false)

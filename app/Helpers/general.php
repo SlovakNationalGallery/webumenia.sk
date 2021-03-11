@@ -1,5 +1,6 @@
 <?php
 
+
 /**
  * Same as java String.hashcode()
  */
@@ -43,23 +44,6 @@ function add_brackets($str)
     } else {
         return ' (' . $str . ')';
     }
-}
-
-/**
- * akceptuje datum narodenia/umrtia vo formate [dd.[mm.[yyyy]]]
- */
-function cedvuDatetime($date)
-{
-    if (empty($date)) {
-        return false;
-    }
-    $parts = explode('.', $date);
-    $date = implode('-', array_reverse($parts));
-    for ($i=count($parts); $i < 3; $i++) {
-        $date = $date.'-01';
-    }
-
-    return Carbon::parse($date);
 }
 
 function str_to_alphanumeric($string, $replace_with = '')
@@ -375,4 +359,25 @@ function parseUrls($content)
         return array_map($checkAbsoluteUrl,  $matches[1]);
     }
     return [];
+}
+
+/**
+ * Returns an estimated reading time in a string
+ * idea from @link http://briancray.com/posts/estimated-reading-time-web-design/
+ * @param  string $content the content to be read
+ * @param int $wpm
+ * @return string          estimated read time eg. 1 minute, 30 seconds
+ **/
+function getEstimatedReadingTime($content, $locale, $wpm = 200) {
+    $wordCount = str_word_count(
+        strip_tags(
+         html_entity_decode(
+             preg_replace("/%u([0-9a-f]{3,4})/i", "&#x\\1;", urldecode($content)), null, 'UTF-8')
+            )
+        );
+
+    $minutes = (int) floor($wordCount / $wpm);
+
+    return trans_choice('general.minute', $minutes, ['value' => $minutes]);
+
 }

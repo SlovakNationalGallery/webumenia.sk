@@ -274,7 +274,7 @@ function()
             'previous',
             'next'
         ));
-    });
+    })->name('dielo');
 
     Route::get('dielo/{id}/colorrelated', function ($id, ItemRepository $itemRepository) {
         $item = Item::findOrFail($id);

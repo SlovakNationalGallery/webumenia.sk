@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-články | 
+články |
 @parent
 @stop
 
@@ -49,8 +49,13 @@
                             <td>{!! $i->title !!}</td>
                             <td>{!! ($i->category) ? $i->category->name : '' !!}</td>
 			                <td>{!! $i->author !!}</td>
-                            <td>{!! $i->created_at !!}</td>
-                            <td class="text-center">{!! ($i->publish) ? '<i class="fa fa-check text-success"></i>' . '<br><small>od '. $i->published_date .'</small>' : '' !!}</td>
+                            <td>@datetime($i->created_at)</td>
+                            <td class="text-center">
+                                @if($i->publish)
+                                    <i class="fa fa-check text-success"></i><br/>
+                                    <small>od @dateShort($i->published_date) </small>
+                                @endif
+                            </td>
 			                <td class="text-center">{!! ($i->promote) ? '<i class="fa fa-check text-success"></i>' : ''  !!}</td>
 			                <td>
                                 {!! link_to_action('ArticleController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}

@@ -45,13 +45,13 @@
 						@foreach($slides as $i)
 			            <tr>
 			                <td>{!! $i->id !!}</td>
-                            <td class="text-center"><img src="{!! $i->image_path !!}" alt="" class="img-responsive nahlad"></td>
+                            <td class="text-center"><img src="{!! $i->getHeaderImagePath() !!}" alt="" class="img-responsive nahlad"></td>
                             <td>
                                 {!! $i->title !!}<br>
                                 {!! $i->subtitle !!}
                             </td>
                             <td>
-                                {!! $i->created_at !!}
+                                @datetime($i->created_at)
                             </td>
                             <td  class="text-center">{!! ($i->publish) ? '<i class="fa fa-check text-success"></i>' : '' !!}</td>
                             <td  class="text-center">

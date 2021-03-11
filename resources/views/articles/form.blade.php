@@ -38,17 +38,17 @@
 	    	<div role="tabpanel" class="tab-pane  {{ ($i==0) ? 'active' : '' }}" id="{{ $locale }}">
 				<div class="form-group">
 				{{ Form::label($locale . "[title]", 'Názov') }}
-				{{ Form::text($locale . "[title]", isset($article) ? @$article->translate($locale)->title : '', array('class' => 'form-control')) }}
+				{{ Form::textarea($locale . "[title]", isset($article) ? @$article->translate($locale)->title : '', array('class' => 'form-control', 'rows' => '2' )) }}
 				</div>
 
 				<div class="form-group">
 				{{ Form::label($locale . "[summary]", 'Anotácia') }}
-				{{ Form::textarea($locale . "[summary]", isset($article) ? @$article->translate($locale)->summary : '', array('class' => 'form-control wysiwyg', 'rows'=>'6')) }}
+				{{ Form::textarea($locale . "[summary]", isset($article) ? @$article->translate($locale)->summary : '', array('class' => 'form-control wysiwyg long-text', 'rows'=>'6')) }}
 				</div>
 
 				<div class="form-group">
 				{{ Form::label($locale . "[content]", 'Text') }}
-				{{ Form::textarea($locale . "[content]", isset($article) ? @$article->translate($locale)->content : '', array('class' => 'form-control wysiwyg', 'rows'=>'12')) }}	
+				{{ Form::textarea($locale . "[content]", isset($article) ? @$article->translate($locale)->content : '', array('class' => 'form-control wysiwyg long-text', 'rows'=>'12')) }}
 				</div>
 			</div>
 		@endforeach
@@ -100,14 +100,14 @@
 </div>
 <div class="col-md-6">
 	<div class="form-group ">
-		{!! Form::label('main_image', 'Obrázok') !!}	
+		{!! Form::label('main_image', 'Obrázok') !!}
 		{!! Form::file('main_image', array('class' => 'form-control', 'placeholder' => '#666666'))!!}
 		<p>obrazok bude automaticky zmenseny na sirku 1400px</p>
 		<p>šírka min: 1400px<br>formát: JPG (vysoka kompresia ~50-60%)</p>
-		@if (isset($article) && $article->getHeaderImage())
+		@if (isset($article) && $article->hasHeaderImage())
 			<div class="primary-image">
 				<b>Aktuálny obrázok:</b>
-				<img src="{{ $article->getHeaderImage() }}" class="img-responsive">
+				<img src="{{ $article->header_image_src }}" class="img-responsive">
 			</div>
 		@endif
 	</div>
@@ -125,7 +125,7 @@
 	</div>
 </div>
 <div class="col-md-12 text-center">
-	{!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp; 
+	{!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp;
 	{!! link_to_route('article.index', 'Zrušiť', null, array('class' => 'btn btn-default')) !!}
 </div>
 {!!Form::close() !!}
@@ -142,7 +142,7 @@
 
 <script>
 $(document).ready(function(){
-	
+
     $("#category_id").selectize({
         plugins: ['remove_button'],
         maxItems: 1,
@@ -155,7 +155,7 @@ $(document).ready(function(){
             var text = $(this).val();
             slug = getSlug(text);
             console.log("slug: " + slug);
-            $("#slug").val(slug);        
+            $("#slug").val(slug);
     });
     @endif
 

@@ -27,14 +27,14 @@
 <div class="col-md-12">
 	<div class="form-group">
 	{!! Form::label('title', 'Nadpis') !!}
-	{!! Form::text('title', Input::old('title'), array('class' => 'form-control')) !!}
+	{!! Form::textarea('title', Input::old('title'), array('class' => 'form-control', 'rows' => '2')) !!}
 	</div>
 </div>
 
 <div class="col-md-12">
 	<div class="form-group">
 	{!! Form::label('subtitle', 'Podnadpis') !!}
-	{!! Form::text('subtitle', Input::old('subtitle'), array('class' => 'form-control')) !!}
+	{!! Form::textarea('subtitle', Input::old('subtitle'), array('class' => 'form-control', 'rows' => '2')) !!}
 	</div>
 </div>
 
