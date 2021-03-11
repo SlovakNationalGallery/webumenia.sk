@@ -2,13 +2,13 @@
 
 @section('content')
 
-<div class="col-md-12 top-space">
-	@if(isset($import))
-	    {!! Form::model($import, ['route' => ['imports.update', $import->id], 'method' => 'patch', 'files'=>true]) !!}
-	@else
-	    {!! Form::open(['route' => 'imports.store', 'files'=>true]) !!}
-	@endif
+@if(isset($import))
+    {!! Form::model($import, ['route' => ['imports.update', $import->id], 'method' => 'patch', 'files'=>true]) !!}
+@else
+    {!! Form::open(['route' => 'imports.store', 'files'=>true]) !!}
+@endif
 
+<div class="col-md-12 top-space">
 	@if (Session::has('message'))
 	    <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
 	@endif
@@ -111,7 +111,8 @@
 <div class="col-md-12 text-center">
 	{!! Form::submit('Uložiť', array('class' => 'btn btn-primary')) !!} &nbsp;
 	{!! link_to_route('imports.index', 'Zrušiť', null, array('class' => 'btn btn-default')) !!}
-	{!!Form::close() !!}
 </div>
+
+{!!Form::close() !!}
 
 @stop

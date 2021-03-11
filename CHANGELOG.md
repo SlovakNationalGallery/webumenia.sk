@@ -5,15 +5,25 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - add filtering to articles section
 
-### Fixed
-- Fix linked-combos links for item relationships
-- Fix form for articles and collections
-- Fix patternlib page
-
 ### Changed
 - carousel & hero image refactoring, added img-srcset
 - unified main image storing for slides, collections and articles
 - new styling for artwork / article / collection, metadata blocks
+
+## [2.21.2] - 2021-03-10
+### Fixed
+- browsing between artworks within collection
+
+## [2.21.1] - 2021-03-09
+### Fixed
+- form for carousel, harvests, imports and users
+- zoom
+
+## [2.21.0] - 2021-03-08
+### Fixed
+- Fix linked-combos links for item relationships
+- Fix form for articles and collections
+- Fix patternlib page
 
 ## [2.20.0] - 2021-02-26
 ### Added

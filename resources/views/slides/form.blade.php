@@ -2,12 +2,13 @@
 
 @section('content')
 
+@if(isset($slide))
+    {!! Form::model($slide, ['route' => ['slide.update', $slide->id], 'method' => 'patch', 'files'=>true]) !!}
+@else
+    {!! Form::open(['route' => 'slide.store', 'files'=>true]) !!}
+@endif
+
 <div class="col-md-12">
-	@if(isset($slide))
-	    {!! Form::model($slide, ['route' => ['slide.update', $slide->id], 'method' => 'patch', 'files'=>true]) !!}
-	@else
-	    {!! Form::open(['route' => 'slide.store', 'files'=>true]) !!}
-	@endif
 
 	@if (Session::has('message'))
 	    <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
@@ -62,12 +63,11 @@
 
 
 <div class="col-md-12 text-center">
-	{!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp; 
+	{!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp;
 	{!! link_to_route('slide.index', 'Zrušiť', null, array('class' => 'btn btn-default')) !!}
-	{!!Form::close() !!}
 </div>
 
-
+{!!Form::close() !!}
 
 <div class="clearfix"></div>
 

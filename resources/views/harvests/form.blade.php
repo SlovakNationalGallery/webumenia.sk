@@ -2,13 +2,13 @@
 
 @section('content')
 
-<div class="col-md-12">
-	@if(isset($harvest))
-	    {!! Form::model($harvest, ['route' => ['harvests.update', $harvest->id], 'method' => 'patch']) !!}
-	@else
-	    {!! Form::open(['route' => 'harvests.store']) !!}
-	@endif
+@if(isset($harvest))
+    {!! Form::model($harvest, ['route' => ['harvests.update', $harvest->id], 'method' => 'patch']) !!}
+@else
+    {!! Form::open(['route' => 'harvests.store']) !!}
+@endif
 
+<div class="col-md-12">
 	@if (Session::has('message'))
 	    <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
 	@endif
@@ -86,7 +86,8 @@
 <div class="col-md-12 text-center">
 	{!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp;
 	{!! link_to_route('harvests.index', 'Zrušiť', null, array('class' => 'btn btn-default')) !!}
-	{!!Form::close() !!}
 </div>
+
+{!! Form::close() !!}
 
 @stop
