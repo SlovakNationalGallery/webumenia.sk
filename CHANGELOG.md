@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.22.0] - 2021-03-11
 ### Added
 - add filtering to articles section
 
