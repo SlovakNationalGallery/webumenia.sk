@@ -565,8 +565,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     public function getTitleWithAuthors($html = false)
     {
-        $dash = ($html) ? ' – ' : ' - ';
-        return implode(', ', $this->authors)  . $dash .  $this->title;
+        return implode(', ', $this->authors)  . ' – ' .  $this->title;
     }
 
     public function getHasIipAttribute($value) {
