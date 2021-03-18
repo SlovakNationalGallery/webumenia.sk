@@ -112,7 +112,7 @@ function()
             'allow_printed_reproductions' => $allow_printed_reproductions,
             'notice' => Notice::current(),
         ]);
-    });
+    })->name('frontend.reproduction.detail');
 
     Route::post('objednavka', function () {
 
@@ -296,9 +296,9 @@ function()
     Route::match(array('GET', 'POST'), 'autori/suggestions', 'AuthorController@getSuggestions')->name('frontend.author.suggestions');
     Route::get('autor/{id}', 'AuthorController@getDetail')->name('frontend.author.detail');
 
-    Route::match(array('GET', 'POST'), 'clanky', 'ClanokController@getIndex');
+    Route::match(array('GET', 'POST'), 'clanky', 'ClanokController@getIndex')->name('frontend.article.index');
     Route::match(array('GET', 'POST'), 'clanky/suggestions', 'ClanokController@getSuggestions');
-    Route::get('clanok/{slug}', 'ClanokController@getDetail');
+    Route::get('clanok/{slug}', 'ClanokController@getDetail')->name('frontend.article.detail');
 
     Route::match(array('GET', 'POST'), 'kolekcie', 'KolekciaController@getIndex')->name('frontend.collection.index');
     Route::match(array('GET', 'POST'), 'kolekcie/suggestions', 'KolekciaController@getSuggestions')->name('frontend.collection.suggestions');
@@ -421,7 +421,7 @@ function()
             'total' => $total,
             'notice' => Notice::current(),
         ]);
-    });
+    })->name('frontend.reproduction.index');
 });
 
 Route::group(array('middleware' => 'guest'), function () {
