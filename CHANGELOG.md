@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- nav links not highlighted in non-SK locales
 
 ## [2.22.0] - 2021-03-11
 ### Added
