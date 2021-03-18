@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - form for authorities
 - nav links not highlighted in non-SK locales
+- styling issue for selects on reproduction order form
 
 ## [2.22.0] - 2021-03-11
 ### Added
