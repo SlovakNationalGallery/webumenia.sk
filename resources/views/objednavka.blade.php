@@ -272,7 +272,7 @@
                 live: 'enabled',
                 submitButtons: 'input[type="submit"]',
                 locale: 'sk_SK',
-                excluded: [':disabled', ':hidden', ':not(:visible)']
+                excluded: [':disabled', ':hidden', ':not(:visible)', 'select']
     })
     .on('change', '#format', function() {
             var isDigital = $(this).val() == 'digitálna reprodukcia';
