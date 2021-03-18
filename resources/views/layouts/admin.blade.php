@@ -222,11 +222,12 @@
 
         Ladda.bind( '.ladda-button');
 
-        var csrf = '{!!csrf_token()!!}';
-        $( '.wysiwyg' ).ckeditor({
+        $('.wysiwyg').ckeditor({
             language: 'sk',
             extraAllowedContent: 'iframe[*];*[data-*]{*}(*);*[class]{*}(*)',
-            filebrowserUploadUrl: '/uploader?csrf_token='+csrf
+
+            filebrowserImageUploadUrl : "{{ route('uploads.store', ['type' => 'image', '_token' => csrf_token()]) }}",
+            filebrowserUploadUrl: "{{ route('uploads.store', ['_token' => csrf_token()]) }}",
         });
 
 
