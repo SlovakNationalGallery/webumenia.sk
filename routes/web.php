@@ -501,7 +501,6 @@ Route::group(['middleware' => ['auth', 'can:edit']], function () {
     Route::post('collection/sort', 'CollectionController@sort');
     Route::resource('collection', 'CollectionController');
     Route::resource('user', 'UserController');
-    Route::post('uploads', 'UploadController@store')->name('uploads.store');
 
     Route::group(['prefix' => 'laravel-filemanager'], function () {
         \UniSharp\LaravelFilemanager\Lfm::routes();
