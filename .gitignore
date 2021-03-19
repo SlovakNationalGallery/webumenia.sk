@@ -20,6 +20,7 @@ data/
 /public/js/vendor.js
 /public/js/manifest.js
 /public/css/app.css
+/public/vendor/laravel-filemanager
 mix-manifest.json
 npm-debug.log
 public/css/style.css
