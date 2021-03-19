@@ -26,7 +26,7 @@ return [
     |
      */
 
-    'allow_private_folder'     => true,
+    'allow_private_folder'     => false,
 
     // Flexible way to customize client folders accessibility
     // If you want to customize client folders, publish tag="lfm_handler"
@@ -36,8 +36,7 @@ return [
     'private_folder_name'      => UniSharp\LaravelFilemanager\Handlers\ConfigHandler::class,
 
     'allow_shared_folder'      => true,
-
-    'shared_folder_name'       => 'shares',
+    'shared_folder_name'       => '', // Do not create a 'shares' subfolder -- everything is shared
 
     /*
     |--------------------------------------------------------------------------
@@ -47,7 +46,7 @@ return [
 
     'folder_categories'        => [
         'file'  => [
-            'folder_name'  => 'files',
+            'folder_name'  => 'uploads',
             'startup_view' => 'list',
             'max_size'     => 50000, // size in KB
             'valid_mime'   => [
@@ -61,7 +60,7 @@ return [
             ],
         ],
         'image' => [
-            'folder_name'  => 'images',
+            'folder_name'  => 'uploads',
             'startup_view' => 'grid',
             'max_size'     => 50000, // size in KB
             'valid_mime'   => [
@@ -111,7 +110,6 @@ return [
 
     // If true, image thumbnails would be created during upload
     'should_create_thumbnails' => true,
-
     'thumb_folder_name'        => 'thumbs',
 
     // Create thumbnails automatically only for listed types.
