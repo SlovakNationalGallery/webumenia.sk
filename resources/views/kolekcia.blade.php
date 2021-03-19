@@ -142,7 +142,7 @@
     ])
 </section>
 
-<section class="collections">
+<section class="collections" id="artworks">
     <div class="collections-body">
         <div class="container">
             <div class="row">

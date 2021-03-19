@@ -319,7 +319,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
         foreach ($authors_array as $author) {
             $authors[$author] = formatName($author);
         }
-        
+
         return $authors;
     }
 
@@ -545,7 +545,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
         foreach ($this->authorities->sortBy('name') as $authority) {
             if ($authority->pivot->role != 'autor/author') {
                 $not_authorities_with_link[] = '<a class="underline" href="'. $authority->getUrl() .'">'. $authority->formated_name .'</a>' . ' &ndash; ' .
-                (isset($roles[$authority->pivot->role]) 
+                (isset($roles[$authority->pivot->role])
                     ? trans('authority.role.' . $roles[$authority->pivot->role])
                     : Authority::formatMultiAttribute($authority->pivot->role)
                 );
@@ -565,8 +565,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     public function getTitleWithAuthors($html = false)
     {
-        $dash = ($html) ? ' &ndash; ' : ' - ';
-        return implode(', ', $this->authors)  . $dash .  $this->title;
+        return implode(', ', $this->authors)  . ' – ' .  $this->title;
     }
 
     public function getHasIipAttribute($value) {

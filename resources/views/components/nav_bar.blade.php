@@ -25,30 +25,30 @@
 
         <div class="collapse navbar-collapse navbar-main-collapse">
             <ul class="nav navbar-nav">
-                <li class="visible-xs {!! (Request::is('/')) ? 'active' : '' !!}">
-                    <a href="{!! URL::to('') !!}">Web umenia</a>
+                <li class="visible-xs {{ Request::is('/') ? 'active' : '' }}">
+                    <a href="/">Web umenia</a>
                 </li>
-                <li class="{!! (Request::is('katalog') || Request::is('dielo/*')) ? 'active' : '' !!}">
-                        <a href="{{{ URL::to('katalog') }}}">{{ utrans('master.artworks') }}</a>
+                <li class="{{ Route::is('frontend.catalog.index', 'dielo') ? 'active' : '' }}">
+                        <a href="{{ route('frontend.catalog.index') }}">{{ utrans('master.artworks') }}</a>
                 </li>
-                <li class="{!! (Request::is( 'kolekcie') || Request::is('kolekcia/*')) ? 'active' : '' !!}">
-                        <a href="{{{ URL::to('kolekcie') }}}">{{ utrans('master.collections') }}</a>
+                <li class="{{ Route::is('frontend.collection.*') ? 'active' : '' }}">
+                        <a href="{{ route('frontend.collection.index') }}">{{ utrans('master.collections') }}</a>
                 </li>
-                <li class="{!! (Request::is('autori') || Request::is('autor/*')) ? 'active' : '' !!}">
-                        <a href="{{{ URL::to('autori') }}}">{{ utrans('master.authors') }}</a>
+                <li class="{{ Route::is('frontend.author.*') ? 'active' : '' }}">
+                        <a href="{{ route('frontend.author.index') }}">{{ utrans('master.authors') }}</a>
                 </li>
-                <li class="{!! (Request::is('clanky') || Request::is('clanok/*')) ? 'active' : '' !!}">
-                        <a href="{{{ URL::to('clanky') }}}">{{ utrans('master.articles') }}</a>
+                <li class="{{ Route::is('frontend.article.*') ? 'active' : '' }}">
+                        <a href="{{ route('frontend.article.index') }}">{{ utrans('master.articles') }}</a>
                 </li>
-                <li class="{!! Request::is( 'reprodukcie') ? 'active' : '' !!}">
-                        <a href="{{{ URL::to('reprodukcie') }}}">{{ utrans('master.reproductions') }}</a>
+                <li class="{{ Route::is('frontend.reproduction.index') ? 'active' : '' }}">
+                        <a href="{{ route('frontend.reproduction.index') }}">{{ utrans('master.reproductions') }}</a>
                 </li>
-                <li class="{!! Request::is( 'informacie') ? 'active' : '' !!}">
-                        <a href="{{{ URL::to('informacie') }}}">{{ utrans('master.info') }}</a>
+                <li class="{{ Route::is('frontend.info') ? 'active' : '' }}">
+                        <a href="{{ route('frontend.info') }}">{{ utrans('master.info') }}</a>
                 </li>
-                @if (Session::has('cart') && count(Session::get('cart'))>0)
-                <li class="{!! Request::is( 'objednavka') ? 'active' : '' !!}">
-                        <a href="{!! URL::to('objednavka')!!}" class=""><i class="fa fa-shopping-cart"></i><span class="badge badge-sup badge-notify">{!! count(Session::get('cart')) !!}</span></a>
+                @if (Session::has('cart') && count(Session::get('cart')) > 0)
+                <li class="{{ Route::is('frontend.reproduction.detail') ? 'active' : '' }}">
+                        <a href="{{ route('frontend.reproduction.detail') }}" class=""><i class="fa fa-shopping-cart"></i><span class="badge badge-sup badge-notify">{!! count(Session::get('cart')) !!}</span></a>
                 </li>
                 @endif
                 <user-collections-nav-link
