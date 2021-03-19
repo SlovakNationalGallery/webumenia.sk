@@ -226,8 +226,12 @@
             language: 'sk',
             extraAllowedContent: 'iframe[*];*[data-*]{*}(*);*[class]{*}(*)',
 
-            filebrowserImageUploadUrl : "{{ route('uploads.store', ['type' => 'image', '_token' => csrf_token()]) }}",
-            filebrowserUploadUrl: "{{ route('uploads.store', ['_token' => csrf_token()]) }}",
+            filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+            filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+
+            // Only upload via laravel-filemanager, because its /upload 
+            // response is incompatible with CKEditor image/file Upload dialogs.
+            removeDialogTabs: 'image:Upload;link:upload',
         });
 
 
