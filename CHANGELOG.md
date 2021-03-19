@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.23.0] - 2021-03-19
 ### Fixed
 - form for authorities
 - nav links not highlighted in non-SK locales
