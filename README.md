@@ -74,15 +74,18 @@ variants by editing that variable.
 	```
 	docker-compose exec php composer install --no-plugins --no-scripts --no-interaction
 	```
-5. run migrations
+5. link storage
+	```
+	docker-compose exec php php artisan storage:link
+6. run migrations
 	```
 	docker-compose exec php php artisan migrate --seed
 	```
-6. setup elasticsearch
+7. setup elasticsearch
 	```
 	docker-compose exec php php artisan es:setup
 	```
-7. visit http://localhost:8080 in your browser to have a look
+8. visit http://localhost:8080 in your browser to have a look
 
 to stop the dockerized application: `docker-compose down`
 

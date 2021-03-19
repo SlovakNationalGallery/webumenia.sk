@@ -21,6 +21,7 @@ data/
 /public/js/manifest.js
 /public/css/app.css
 /public/vendor/laravel-filemanager
+/public/storage
 mix-manifest.json
 npm-debug.log
 public/css/style.css
