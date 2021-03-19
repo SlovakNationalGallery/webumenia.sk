@@ -38,7 +38,8 @@
         "laravel/tinker": "1.*",
         "lorisleiva/laravel-deployer": "^0.3.0",
         "guzzlehttp/psr7": "^1.7",
-        "sentry/sentry-laravel": "^2.3"
+        "sentry/sentry-laravel": "^2.3",
+        "unisharp/laravel-filemanager": "^2.2"
     },
     "autoload": {
         "classmap": [
