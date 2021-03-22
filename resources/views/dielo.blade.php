@@ -340,7 +340,7 @@
                 <div class="col-lg-8 col-md-10 long-text medium description bottom-space  col-md-push-1 col-lg-push-2"
                      itemprop="description">
                     <div class="long_expandable">
-                        {{ $item->description }}
+                        {!! $item->description !!}
 
                         @if ($item->description_source)
                         <p>
