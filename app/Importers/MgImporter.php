@@ -151,8 +151,8 @@ class MgImporter extends AbstractImporter {
     protected function hydrateWorkType(array $record) {
         $workType = [];
 
-        if (isset(static::$cz_measurement_replacements[$record['Skupina']])) {
-            $workType[] = static::$cz_measurement_replacements[$record['Skupina']];
+        if (isset(static::$cz_work_types_spec[$record['Skupina']])) {
+            $workType[] = static::$cz_work_types_spec[$record['Skupina']];
         }
 
         if ($record['Podskup']) {
