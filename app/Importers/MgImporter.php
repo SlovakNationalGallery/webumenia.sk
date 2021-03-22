@@ -159,10 +159,6 @@ class MgImporter extends AbstractImporter {
             $workType[] = $record['Podskup'];
         }
 
-        if ($record['Předmět']) {
-            $workType[] = $record['Předmět'];
-        }
-
         return $workType ? implode(', ', $workType) : 'nespecifikované';
     }
 
