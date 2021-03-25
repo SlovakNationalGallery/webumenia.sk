@@ -24,6 +24,7 @@ class UsersTableSeeder extends Seeder {
                 'username' => 'admin',
                 'email' => 'lab@sng.sk',
                 'password' => Hash::make('admin'),
+                'role' => 'admin',
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -31,6 +32,7 @@ class UsersTableSeeder extends Seeder {
                 'username' => 'sng',
                 'email' => 'info@sng.sk',
                 'password' => Hash::make('sng'),
+                'role' => 'editor',
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -38,6 +40,7 @@ class UsersTableSeeder extends Seeder {
                 'username' => 'press',
                 'email' => '',
                 'password' => Hash::make('press'),
+                'role' => 'editor',
                 'created_at' => $now,
                 'updated_at' => $now
             ]
