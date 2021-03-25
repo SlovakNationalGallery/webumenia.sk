@@ -429,7 +429,7 @@ Route::group(array('middleware' => 'guest'), function () {
     Route::post('login', 'AuthController@postLogin');
 });
 
-Route::group(['middleware' => ['auth', 'role:admin|editor|import']], function () {
+Route::group(['middleware' => ['auth', 'can:edit']], function () {
     Route::get('admin', 'AdminController@index');
     Route::get('logout', 'AuthController@logout');
     Route::get('imports/launch/{id}', 'ImportController@launch');
@@ -444,7 +444,7 @@ Route::group(['middleware' => ['auth', 'role:admin|editor|import']], function ()
     Route::post('item/destroySelected', 'ItemController@destroySelected');
 });
 
-Route::group(['middleware' => ['auth', 'role:admin|editor']], function () {
+Route::group(['middleware' => ['auth', 'can:edit']], function () {
 
     Route::post('dielo/{id}/addTags', function($id)
     {
@@ -491,7 +491,7 @@ Route::group(['middleware' => ['auth', 'role:admin|editor']], function () {
     Route::match(['get', 'post'], 'uploader', 'FileuploaderController@upload');
 });
 
-Route::group(['middleware' => ['auth', 'role:admin']], function () {
+Route::group(['middleware' => ['auth', 'can:administer']], function () {
     Route::resource('article', 'ArticleController');
     Route::get('harvests/launch/{id}', 'SpiceHarvesterController@launch');
     Route::get('harvests/harvestFailed/{id}', 'SpiceHarvesterController@harvestFailed');
