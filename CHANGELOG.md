@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - separate authority sources by newlines
 
+### Changed
+- Link (source) URL can be null
+
 ## [2.23.1] - 2021-03-22
 ### Fixed
 - unescape description in artwork detail
