@@ -93,7 +93,13 @@
                             <h4 class="top-space">{{ utrans('authority.source_links') }}</h4>
                             <ul class="list-unstyled">
                                 @foreach($author->sourceLinks as $link)
-                                    <li><a href="{{ $link->url }}" target="_blank">{{ $link->label }}</a></li>
+                                    <li>
+                                        @if($link->url)
+                                            <a href="{{ $link->url }}" target="_blank">{{ $link->label }}</a>
+                                        @else
+                                            {{ $link->label }}
+                                        @endif
+                                    </li>
                                 @endforeach
                             </ul>
                         </div>
@@ -103,7 +109,13 @@
                             <h4 class="top-space">{{ utrans('authority.external_links') }}</h4>
                             <ul class="list-unstyled">
                                 @foreach($author->externalLinks as $link)
-                                    <li><a href="{{ $link->url }}" target="_blank">{{ $link->label }}</a></li>
+                                    <li>
+                                        @if($link->url)
+                                            <a href="{{ $link->url }}" target="_blank">{{ $link->label }}</a>
+                                        @else
+                                            {{ $link->label }}
+                                        @endif
+                                    </li>
                                 @endforeach
                             </ul>
                         </div>

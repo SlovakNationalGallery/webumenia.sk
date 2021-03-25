@@ -15,7 +15,7 @@ class Link extends Model
     );
 
     public static $rules = array(
-        'url' => 'url|required',
+        'url' => 'nullable|url',
         'label' => 'string|required',
         'type' => 'in:external,source|required',
     );
