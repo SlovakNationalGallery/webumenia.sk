@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Fixed
 - separate authority sources by newlines
+- updating authority sources
 
 ### Changed
 - Link (source) URL can be null
