@@ -44,7 +44,7 @@
 			            <tr>
 			                <td>{!! $i->username !!}</td>
                             <td>{!! $i->name !!}</td>
-			                <td>{!! $i->roles()->first()->name !!}</td>
+			                <td>{!! $i->role !!}</td>
                             <td>{!! $i->created_at !!}</td>
 			                <td>
                                 {{-- {!! link_to_action('UserController@show', 'Detail', array($i->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', )) !!}  --}}

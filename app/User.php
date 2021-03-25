@@ -7,8 +7,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    public static $roles = ['admin', 'editor'];
+
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'role'
     ];
 
     /**
@@ -25,7 +27,5 @@ class User extends Authenticatable
         'role' => 'in:admin,editor|required',
         'email' => 'email|required',
         'username' => 'required',
-        'password' => 'min:6',
     );
-
 }
