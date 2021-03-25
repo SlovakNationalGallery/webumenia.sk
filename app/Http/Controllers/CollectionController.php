@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Zizaco\Entrust\EntrustFacade;
 use App\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
@@ -21,7 +21,7 @@ class CollectionController extends Controller
      */
     public function index()
     {
-        if (\Entrust::hasRole('admin')) {
+        if (Gate::allows('administer')) {
             $collections = Collection::orderBy('created_at', 'desc')->with(['user'])->paginate(20);
         } else {
             $collections = Collection::where('user_id', '=', Auth::user()->id)->orderBy('published_at', 'desc')->with(['user'])->paginate(20);
@@ -73,7 +73,7 @@ class CollectionController extends Controller
                 $collection->title_shadow = Input::get('title_shadow');
             }
             $collection->order = Collection::max('order') + 1;
-            if (Input::has('user_id') && \Entrust::hasRole('admin')) {
+            if (Input::has('user_id') && Gate::allows('administer')) {
                 $collection->user_id = Input::get('user_id');
             } else {
                 $collection->user_id = Auth::user()->id;
@@ -149,7 +149,7 @@ class CollectionController extends Controller
 
             $collection->published_at = Input::get('published_at', null);
 
-            if (Input::has('user_id') && \Entrust::hasRole('admin')) {
+            if (Input::has('user_id') && Gate::allows('administer')) {
                 $collection->user_id = Input::get('user_id');
             }
 
