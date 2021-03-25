@@ -86,66 +86,64 @@
                         <li>
                             <a href="{!! URL::to('admin') !!}"><i class="fa fa-dashboard fa-fw"></i> Úvod</a>
                         </li>
-                        @if (Entrust::hasRole(['admin', 'import']))
+                        @can('edit')
                         <li>
                             <a href="{!! URL::to('item') !!}"><i class="fa fa-picture-o fa-fw"></i> Diela</a>
                         </li>
-                        @endif
-                        @if (Entrust::hasRole('admin'))
+                        @endcan
+                        @can('administer')
                         <li>
                             <a href="{!! URL::to('authority') !!}"><i class="fa fa-user fa-fw"></i> Autority</a>
                         </li>
-                        @endif
-                        @if (Entrust::hasRole(['admin', 'editor']))
+                        @endcan
+                        @can('edit')
                         <li>
                             <a href="{!! URL::to('collection') !!}"><i class="fa fa-th-list fa-fw"></i> Kolekcie</a>
                         </li>
-                        @endif
-                        @if (Entrust::hasRole('admin'))
+                        @endcan
+                        @can('administer')
                         <li>
                             <a href="{!! URL::to('article') !!}"><i class="fa fa-newspaper-o fa-fw"></i> Články</a>
                         </li>
-                        @endif
-                        @if (Entrust::hasRole('admin'))
+                        @endcan
+                        @can('administer')
                         <li>
                             <a href="{!! URL::to('slide') !!}"><i class="fa fa-exchange fa-fw"></i> Carousel</a>
                         </li>
-                        @endif
-                        @if (Entrust::hasRole('admin'))
+                        @endcan
+                        @can('administer')
                         <li>
                             <a href="{!! URL::to('sketchbook') !!}"><i class="fa fa-book fa-fw"></i> Skicáre</a>
                         </li>
-                        @endif
-                        @if (Entrust::hasRole('admin'))
+                        @endcan
+                        @can('administer')
                         <li>
                             <a href="{!! route('notices.edit', 1) !!}"><i class="fa fa-bullhorn fa-fw"></i> Oznamy</a>
                         </li>
-                        @endif
-                        @if (Entrust::hasRole(['admin', 'import']))
+                        @endcan
+                        @can('administer')
                         <li>
                             <a href="#"><i class="fa fa-download fa-fw"></i> Import<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                @if (Entrust::hasRole(['admin']))
                                 <li>
                                     <a href="{!! URL::to('harvests') !!}">Spice Harvester</a>
                                 </li>
-                                @endif
                                 <li>
                                     <a href="{!! URL::to('imports') !!}">CSV Import</a>
                                 </li>
                             </ul>
                         </li>
-                        @endif
-                        @if (Entrust::hasRole('admin'))
+                        @endcan
+                        @can('administer')
                         <li>
                             <a href="{!! URL::to('user') !!}"><i class="fa fa-male fa-fw"></i> Užívatelia</a>
                         </li>
-                        @endif
-                        @if (Entrust::hasRole('admin'))
+                        @endcan
+                        @can('administer')
                         <li>
                             <a href="{!! URL::to('logs') !!}" target="_blank"><i class="fa fa-exclamation-triangle fa-fw"></i> Logy</a>
                         </li>
-                        @endif
+                        @endcan
                     </ul>
                     <!-- /#side-menu -->
                 </div>
