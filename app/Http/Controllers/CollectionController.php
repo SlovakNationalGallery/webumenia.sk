@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\ImageManagerStatic;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Str;
 
 class CollectionController extends Controller
 {
@@ -232,7 +233,7 @@ class CollectionController extends Controller
     public function sort()
     {
         $entity = Request::input('entity');
-        $model_name = studly_case($entity);
+        $model_name = Str::studly($entity);
         // $model  = $model_name::find(\Request::input('id'));
         $collection = Collection::find(Request::input('id'));
 

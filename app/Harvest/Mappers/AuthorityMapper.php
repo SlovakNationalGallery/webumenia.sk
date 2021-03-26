@@ -43,7 +43,7 @@ class AuthorityMapper extends BaseAuthorityMapper
             return '';
         }
 
-        $biography = str_after($row['biography'][0], '(ZNÁMY)');
+        $biography = Str::after($row['biography'][0], '(ZNÁMY)');
         if (str_contains($biography, 'http')) {
             return '';
         }
