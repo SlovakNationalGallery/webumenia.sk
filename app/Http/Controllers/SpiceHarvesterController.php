@@ -7,6 +7,7 @@ use App\Jobs\HarvestRecordJob;
 use App\Jobs\HarvestJob;
 use App\SpiceHarvesterHarvest;
 use Carbon\Carbon;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 use App\Collection;
 use Illuminate\Support\Facades\Redirect;
@@ -137,7 +138,7 @@ class SpiceHarvesterController extends Controller
         $v = Validator::make(Request::all(), SpiceHarvesterHarvest::$rules);
 
         if ($v->passes()) {
-            $input = array_except(Request::all(), array('_method'));
+            $input = Arr::except(Request::all(), array('_method'));
 
             $harvest = SpiceHarvesterHarvest::find($id);
             $harvest->base_url = Request::input('base_url');

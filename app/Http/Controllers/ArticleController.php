@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Arr;
 use Intervention\Image\ImageManagerStatic;
 
 class ArticleController extends Controller
@@ -124,7 +125,7 @@ class ArticleController extends Controller
         $v = Validator::make(Request::all(), Article::$rules);
 
         if ($v->passes()) {
-            $input = array_except(Request::all(), array('_method'));
+            $input = Arr::except(Request::all(), array('_method'));
 
             $article = Article::find($id);
 

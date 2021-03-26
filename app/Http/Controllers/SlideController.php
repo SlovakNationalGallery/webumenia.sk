@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Slide;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
@@ -51,7 +52,7 @@ class SlideController extends Controller
 
         if ($v->passes()) {
             
-            $input = array_except(Request::all(), array('_method'));
+            $input = Arr::except(Request::all(), array('_method'));
 
             $slide = new Slide;
             $slide->fill($input);
@@ -109,7 +110,7 @@ class SlideController extends Controller
         $v = Validator::make(Request::all(), Slide::$rules);
         // dd(Request::all());
         if ($v->passes()) {
-            $input = array_except(Request::all(), array('_method'));
+            $input = Arr::except(Request::all(), array('_method'));
 
             $slide = Slide::find($id);
             $slide->fill($input);

@@ -7,6 +7,7 @@ use App\Harvest\Repositories\ItemRepository;
 use App\Harvest\Progress;
 use App\Item;
 use App\SpiceHarvesterRecord;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Monolog\Logger;
 
@@ -72,7 +73,7 @@ class ItemHarvester extends AbstractHarvester
      * @return string[]
      */
     protected function fetchItemImageIipimgUrls(array $row) {
-        $url = array_first($row['identifier'], function ($identifier) {
+        $url = Arr::first($row['identifier'], function ($identifier) {
             return str_contains($identifier, 'L2_WEB');
         });
 
