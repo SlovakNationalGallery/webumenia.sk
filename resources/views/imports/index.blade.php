@@ -66,7 +66,7 @@ CSV Imports |
                 </table>
 
                 <div class="text-center">
-                    {!! $imports->appends(@Input::except('page'))->render() !!}
+                    {!! $imports->appends(Request::except('page'))->render() !!}
                 </div>
 
             </div>

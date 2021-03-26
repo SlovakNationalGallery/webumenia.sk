@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Sketchbook;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Item;
 use Illuminate\Support\Facades\Session;
@@ -40,14 +40,14 @@ class SketchbookController extends Controller
      */
     public function store()
     {
-        $input = Input::all();
+        $input = Request::all();
 
         $rules = Sketchbook::$rules;
         $v = Validator::make($input, $rules);
 
         if ($v->passes()) {
             
-            $item = Item::find(Input::get('item_id'));
+            $item = Item::find(Request::input('item_id'));
 
             $sketchbook = new Sketchbook;
             $sketchbook->item_id = $item->id;
@@ -102,10 +102,10 @@ class SketchbookController extends Controller
      */
     public function update($id)
     {
-        $v = Validator::make(Input::all(), Sketchbook::$rules);
-        // dd(Input::all());
+        $v = Validator::make(Request::all(), Sketchbook::$rules);
+        // dd(Request::all());
         if ($v->passes()) {
-            $input = array_except(Input::all(), array('_method'));
+            $input = array_except(Request::all(), array('_method'));
 
             $sketchbook = Sketchbook::find($id);
             $sketchbook->fill($input);

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Authority;
 use App\Elasticsearch\Repositories\AuthorityRepository;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use App\Link;
@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use App\SpiceHarvesterRecord;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\App;
 
 class AuthorityController extends Controller
@@ -43,7 +43,7 @@ class AuthorityController extends Controller
     public function search()
     {
 
-        $search = Input::get('search');
+        $search = Request::input('search');
         $results = Authority::where('name', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%')->orderBy('view_count')->paginate(20);
 
         return view('authorities.index', array('authorities' => $results, 'search' => $search));
@@ -69,7 +69,7 @@ class AuthorityController extends Controller
      */
     public function store()
     {
-        $input = Input::all();
+        $input = Request::all();
 
         $rules = Authority::$rules;
         // $rules['primary_image'] = 'required|image';
@@ -90,13 +90,13 @@ class AuthorityController extends Controller
             // store translatable attributes
             foreach (\Config::get('translatable.locales') as $i=>$locale) {
                 foreach ($authority->translatedAttributes as $attribute) {
-                    $authority->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
+                    $authority->translateOrNew($locale)->$attribute = Request::input($locale . '.' . $attribute);
                 }
             }
 
             $authority->save();
 
-            if (Input::hasFile('primary_image')) {
+            if (Request::hasFile('primary_image')) {
                 $this->uploadImage($authority);
             }
 
@@ -128,7 +128,7 @@ class AuthorityController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(HttpRequest $request, $id)
     {
         $request->validate(array_merge(
             Authority::$rules, 
@@ -156,7 +156,7 @@ class AuthorityController extends Controller
         $authority->links()->whereNotIn('id', collect($links)->pluck('id'))->delete();
 
          // ulozit primarny obrazok. do databazy netreba ukladat. nazov=id
-        if (Input::has('primary_image')) {
+        if ($request->has('primary_image')) {
             $this->uploadImage($authority);
         }
 
@@ -229,7 +229,7 @@ class AuthorityController extends Controller
     {
         $error_messages = array();
 
-        $img = Input::get('primary_image');
+        $img = Request::input('primary_image');
         $img = str_replace('data:image/jpeg;base64,', '', $img);
         $img = str_replace(' ', '+', $img);
         $data = base64_decode($img);
@@ -252,7 +252,7 @@ class AuthorityController extends Controller
      */
     public function destroySelected()
     {
-        $authorities = Input::get('ids');
+        $authorities = Request::input('ids');
         if (!empty($authorities) > 0) {
             foreach ($authorities as $authority_id) {
                 $authority = Authority::find($authority_id);

@@ -25,61 +25,61 @@
 <div class="col-md-12">
 	<div class="form-group">
 	{!! Form::label('type', 'Typ') !!}
-	{!! Form::select('type', App\SpiceHarvesterHarvest::$types, Input::old('type'), array('class' => 'form-control')) !!}
+	{!! Form::select('type', App\SpiceHarvesterHarvest::$types, Request::old('type'), array('class' => 'form-control')) !!}
 	</div>
 </div>
 <div class="col-md-12">
 	<div class="form-group">
 	{!! Form::label('base_url', 'URL') !!}
-	{!! Form::text('base_url', Input::old('base_url'), array('class' => 'form-control', 'placeholder' => 'http://')) !!}
+	{!! Form::text('base_url', Request::old('base_url'), array('class' => 'form-control', 'placeholder' => 'http://')) !!}
 	</div>
 </div>
 <div class="col-md-6">
 	<div class="form-group">
 	{!! Form::label('username', 'Username (ak vyžaduje autentifikáciu)') !!}
-	{!! Form::text('username', Input::old('username'), array('class' => 'form-control')) !!}
+	{!! Form::text('username', Request::old('username'), array('class' => 'form-control')) !!}
 	</div>
 </div>
 <div class="col-md-6">
 	<div class="form-group">
 	{!! Form::label('password', 'Heslo (ak vyžaduje autentifikáciu)') !!}
-	{!! Form::text('password', Input::old('password'), array('class' => 'form-control')) !!}
+	{!! Form::text('password', Request::old('password'), array('class' => 'form-control')) !!}
 	</div>
 </div>
 <div class="col-md-12">
 	<div class="form-group">
 	{!! Form::label('metadata_prefix', 'Metadata prefix') !!}
-	{!! Form::text('metadata_prefix', Input::old('metadata_prefix'), array('class' => 'form-control')) !!}
+	{!! Form::text('metadata_prefix', Request::old('metadata_prefix'), array('class' => 'form-control')) !!}
 	</div>
 </div>
 <div class="col-md-6">
 	<div class="form-group">
 	{!! Form::label('set_name', 'set_name') !!}
-	{!! Form::text('set_name', Input::old('set_name'), array('class' => 'form-control')) !!}
+	{!! Form::text('set_name', Request::old('set_name'), array('class' => 'form-control')) !!}
 	</div>
 </div>
 <div class="col-md-6">
 	<div class="form-group">
 	{!! Form::label('set_spec', 'set_spec') !!}
-	{!! Form::text('set_spec', Input::old('set_spec'), array('class' => 'form-control')) !!}
+	{!! Form::text('set_spec', Request::old('set_spec'), array('class' => 'form-control')) !!}
 	</div>
 </div>
 <div class="col-md-12">
 	<div class="form-group">
 	{!! Form::label('set_description', 'Popis setu') !!}
-	{!! Form::textarea('set_description', Input::old('set_description'), array('class' => 'form-control')) !!}
+	{!! Form::textarea('set_description', Request::old('set_description'), array('class' => 'form-control')) !!}
 	</div>
 </div>
 <div class="col-md-12">
 	<div class="form-group">
 	{!! Form::label('collection_id', 'Kolekcia') !!}
-	{!! Form::select('collection_id', [null=>'žiadna'] + \App\Collection::listsTranslations('name')->pluck('name', 'id')->toArray(), Input::old('collection_id'), array('class' => 'form-control')) !!}
+	{!! Form::select('collection_id', [null=>'žiadna'] + \App\Collection::listsTranslations('name')->pluck('name', 'id')->toArray(), Request::old('collection_id'), array('class' => 'form-control')) !!}
 	</div>
 </div>
 <div class="col-md-12">
 	<div class="form-group">
 	{!! Form::label('cron_status', 'Cron Status') !!}
-	{!! Form::select('cron_status', App\SpiceHarvesterHarvest::$cron_statuses, Input::old('cron_status'), array('class' => 'form-control')) !!}
+	{!! Form::select('cron_status', App\SpiceHarvesterHarvest::$cron_statuses, Request::old('cron_status'), array('class' => 'form-control')) !!}
 	</div>
 </div>
 
