@@ -481,16 +481,7 @@
 
 {{-- Report item details to Google Tag Manager --}}
 <script defer>
-    dataLayer.push({!! json_encode([
-        'artwork' => [
-            'authors' => array_values($item->authors),
-            'work_types' => collect($item->work_types)->pluck(['path']),
-            'topic ' => $item->topic,
-            'media' => $item->mediums,
-            'technique' => $item->technique,
-            'related_work' => $item->related_work,
-        ],
-    ]) !!});
+    dataLayer.push(@json($gtm_data_layer));
 </script>
 
 @if (!empty($item->lat) && ($item->lat > 0))
