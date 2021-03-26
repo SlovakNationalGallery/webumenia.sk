@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Authority;
-use Illuminate\Support\Facades\Input;
 use App\Collection;
 use App\Filter\CollectionSearchRequest;
 use App\Filter\Contracts\Filter;
@@ -12,6 +11,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Symfony\Component\Form\FormFactoryInterface;
 
@@ -22,8 +22,8 @@ class KolekciaController extends Controller
     {
 
         $per_page = 18;
-        if (Input::has('sort_by') && array_key_exists(Input::get('sort_by'), Collection::$sortable)) {
-            $sort_by = Input::get('sort_by');
+        if (Request::has('sort_by') && array_key_exists(Request::input('sort_by'), Collection::$sortable)) {
+            $sort_by = Request::input('sort_by');
         } else {
             $sort_by = 'published_at';
         }
@@ -93,7 +93,7 @@ class KolekciaController extends Controller
 
     public function getSuggestions()
     {
-        $q = (Input::has('search')) ? str_to_alphanumeric(Input::get('search')) : 'null';
+        $q = (Request::has('search')) ? str_to_alphanumeric(Request::input('search')) : 'null';
 
         $result = Collection::published()->whereTranslationLike('name', '%' . $q . '%')->limit(5)->get();
 

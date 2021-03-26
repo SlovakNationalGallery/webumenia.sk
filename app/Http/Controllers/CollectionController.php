@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -47,7 +47,7 @@ class CollectionController extends Controller
      */
     public function store()
     {
-        $input = Input::all();
+        $input = Request::all();
 
         $rules = Collection::$rules;
         $v = Validator::make($input, $rules);
@@ -59,29 +59,29 @@ class CollectionController extends Controller
             foreach (\Config::get('translatable.locales') as $i => $locale) {
                 if (hasTranslationValue($locale, $collection->translatedAttributes)){
                     foreach ($collection->translatedAttributes as $attribute) {
-                        $collection->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
+                        $collection->translateOrNew($locale)->$attribute = Request::input($locale . '.' . $attribute);
                     }
                 }
             }
 
-            $collection->published_at = Input::get('published_at');
+            $collection->published_at = Request::input('published_at');
 
-            if (Input::has('title_color')) {
-                $collection->title_color = Input::get('title_color');
+            if (Request::has('title_color')) {
+                $collection->title_color = Request::input('title_color');
             }
-            if (Input::has('title_shadow')) {
-                $collection->title_shadow = Input::get('title_shadow');
+            if (Request::has('title_shadow')) {
+                $collection->title_shadow = Request::input('title_shadow');
             }
             $collection->order = Collection::max('order') + 1;
-            if (Input::has('user_id') && Gate::allows('administer')) {
-                $collection->user_id = Input::get('user_id');
+            if (Request::has('user_id') && Gate::allows('administer')) {
+                $collection->user_id = Request::input('user_id');
             } else {
                 $collection->user_id = Auth::user()->id;
             }
 
             $collection->save();
 
-            if (Input::hasFile('main_image')) {
+            if (Request::hasFile('main_image')) {
                 $this->uploadMainImage($collection);
             }
 
@@ -132,37 +132,37 @@ class CollectionController extends Controller
      */
     public function update($id)
     {
-        $v = Validator::make(Input::all(), Collection::$rules);
+        $v = Validator::make(Request::all(), Collection::$rules);
 
         if ($v->passes()) {
-            $input = array_except(Input::all(), array('_method'));
+            $input = array_except(Request::all(), array('_method'));
 
             $collection = Collection::find($id);
 
             foreach (\Config::get('translatable.locales') as $i => $locale) {
                 if (hasTranslationValue($locale, $collection->translatedAttributes)){
                     foreach ($collection->translatedAttributes as $attribute) {
-                        $collection->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
+                        $collection->translateOrNew($locale)->$attribute = Request::input($locale . '.' . $attribute);
                     }
                 }
             }
 
-            $collection->published_at = Input::get('published_at', null);
+            $collection->published_at = Request::input('published_at', null);
 
-            if (Input::has('user_id') && Gate::allows('administer')) {
-                $collection->user_id = Input::get('user_id');
+            if (Request::has('user_id') && Gate::allows('administer')) {
+                $collection->user_id = Request::input('user_id');
             }
 
-            if (Input::has('title_color')) {
-                $collection->title_color = Input::get('title_color');
+            if (Request::has('title_color')) {
+                $collection->title_color = Request::input('title_color');
             }
-            if (Input::has('title_shadow')) {
-                $collection->title_shadow = Input::get('title_shadow');
+            if (Request::has('title_shadow')) {
+                $collection->title_shadow = Request::input('title_shadow');
             }
-            $collection->order = Input::get('order');
+            $collection->order = Request::input('order');
             $collection->save();
 
-            if (Input::hasFile('main_image')) {
+            if (Request::hasFile('main_image')) {
                 $this->uploadMainImage($collection);
             }
 
@@ -197,8 +197,8 @@ class CollectionController extends Controller
      */
     public function fill()
     {
-        if ($collection = Collection::find(Input::get('collection'))) {
-            $items = Input::get('ids');
+        if ($collection = Collection::find(Request::input('collection'))) {
+            $items = Request::input('ids');
             if (!is_array($items)) {
                 $items = explode(';', str_replace(' ', '', $items));
             }
@@ -224,19 +224,19 @@ class CollectionController extends Controller
 
     private function uploadMainImage($collection)
     {
-        $main_image = Input::file('main_image');
+        $main_image = Request::file('main_image');
         $collection->main_image = $collection->uploadHeaderImage($main_image);
         $collection->save();
     }
 
     public function sort()
     {
-        $entity = \Input::get('entity');
+        $entity = Request::input('entity');
         $model_name = studly_case($entity);
-        // $model  = $model_name::find(\Input::get('id'));
-        $collection = Collection::find(\Input::get('id'));
+        // $model  = $model_name::find(\Request::input('id'));
+        $collection = Collection::find(Request::input('id'));
 
-        $ids = (array) \Input::get('ids');
+        $ids = (array) Request::input('ids');
         $order = 0;
         $ordered_items = [];
         // $orders     = [];

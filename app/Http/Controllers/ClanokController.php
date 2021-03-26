@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Http\Request as HttpRequest;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 
 class ClanokController extends Controller
 {
-    public function getIndex(Request $request)
+    public function getIndex(HttpRequest $request)
     {
         $articles = Article::published()->with('category');
 
@@ -75,7 +75,7 @@ class ClanokController extends Controller
 
     public function getSuggestions()
     {
-        $q = (Input::has('search')) ? str_to_alphanumeric(Input::get('search')) : 'null';
+        $q = (Request::has('search')) ? str_to_alphanumeric(Request::input('search')) : 'null';
 
         $result = Article::published()->whereTranslationLike('title', '%'.$q.'%')->limit(5)->get();
 

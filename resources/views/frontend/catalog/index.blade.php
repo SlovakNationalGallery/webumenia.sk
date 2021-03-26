@@ -63,7 +63,7 @@
                     </div>
                     <div class="col-sm-12 text-center">
 
-                        {!! $paginator->appends(@Input::except('page'))->render() !!}
+                        {!! $paginator->appends(Request::except('page'))->render() !!}
                         @include('components.load_more', ['paginator' => $paginator, 'isotopeContainerSelector' => '#iso'])
                     </div>
                 </div>

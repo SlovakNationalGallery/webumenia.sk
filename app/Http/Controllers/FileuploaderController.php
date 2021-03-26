@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
 
 class FileuploaderController extends Controller
@@ -10,10 +10,10 @@ class FileuploaderController extends Controller
 
     public function upload()
     {
-            $input = Input::all();
+            $input = Request::all();
             $error = '';
 
-            $callback = Input::get('CKEditorFuncNum');
+            $callback = Request::input('CKEditorFuncNum');
 
             $rules = array(
                 'upload' => 'image|max:15000|required',
@@ -25,7 +25,7 @@ class FileuploaderController extends Controller
                 return response($validation->messages(), 400);
             }
 
-            $file = Input::file('upload');
+            $file = Request::file('upload');
             $extension = $file->getClientOriginalExtension();
             $filename = md5(date("YmdHis").rand(5, 50)) . "." . $extension;
             $destinationPath = '/images/uploaded/';
