@@ -36,6 +36,8 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     const COLOR_AMOUNT_THRESHOLD = 0.03;
 
+    protected $keyType = 'string';
+
     public $translatedAttributes = [
         'title',
         'description',

@@ -19,6 +19,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
     use HasBelongsToManyEvents;
 
     protected $table = 'authorities';
+    protected $keyType = 'string';
 
     const ARTWORKS_DIR = '/images/autori/';
 
