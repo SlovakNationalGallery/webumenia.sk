@@ -3,7 +3,6 @@
 namespace Tests\BrowserKit;
 
 use App\Item;
-use App\Role;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
@@ -16,9 +15,7 @@ class AdminItemFormTest extends BrowserKitTestCase
 
     public function setUp() {
         parent::setUp();
-        $role = factory(Role::class)->create(['name' => 'admin']);
-        $this->user = factory(User::class)->create();
-        $this->user->roles()->attach($role);
+        $this->user = factory(User::class)->create(['role' => 'admin']);
         $this->actingAs($this->user);
     }
 
