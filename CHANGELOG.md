@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.24.0] - 2021-03-26
 ### Fixed
 - separate authority sources by newlines
 - updating authority sources
