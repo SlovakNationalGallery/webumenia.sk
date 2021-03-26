@@ -8,6 +8,7 @@ use App\Item;
 use App\ItemImage;
 use App\Repositories\IFileRepository;
 use Illuminate\Contracts\Translation\Translator;
+use Illuminate\Support\Str;
 use Symfony\Component\Console\Exception\LogicException;
 
 
@@ -244,7 +245,7 @@ abstract class AbstractImporter implements IImporter {
      */
     protected function applyCustomHydrators(Item $item, array $record) {
         foreach ($item->getFillable() as $key) {
-            $method_name = sprintf('hydrate%s', camel_case($key));
+            $method_name = sprintf('hydrate%s', Str::camel($key));
             if (method_exists($this, $method_name)) {
                 // translatable attribute
                 if (in_array($key, $item->translatedAttributes)) {

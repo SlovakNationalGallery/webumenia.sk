@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use App\SpiceHarvesterRecord;
 use Illuminate\Support\Facades\App;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -92,7 +93,7 @@ class ItemController extends Controller
     {
         $prefix = 'SVK:TMP.';
         $last_item = Item::where('id', 'LIKE', $prefix . '%')->orderBy('created_at', 'desc')->first();
-        $last_number = ($last_item) ? (int)str_after($last_item->id, $prefix) : 0;
+        $last_number = ($last_item) ? (int)Str::after($last_item->id, $prefix) : 0;
         $new_id = $prefix . ($last_number + 1);
 
         $item = new Item(['id' => $new_id]);
