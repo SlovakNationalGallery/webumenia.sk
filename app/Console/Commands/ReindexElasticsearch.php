@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -48,7 +49,7 @@ class ReindexElasticsearch extends Command
         }
 
         $this->info("Spúšťam reindex pre typ: " . $type);
-        $controller = '\App\Http\Controllers\\'.ucfirst(str_singular($type));
+        $controller = '\App\Http\Controllers\\'.ucfirst(Str::singular($type));
         App::make($controller . 'Controller')->reindex();
 
         $this->comment("Dokoncene");

@@ -17,7 +17,7 @@ class ItemMapper extends AbstractModelMapper
 
     public function mapIdentifier(array $row) {
         return array_first($row['identifier'], function ($identifier) use ($row) {
-            return $identifier != $row['id'][0] && !starts_with($identifier, 'http');
+            return $identifier != $row['id'][0] && !Str::startsWith($identifier, 'http');
         });
     }
 

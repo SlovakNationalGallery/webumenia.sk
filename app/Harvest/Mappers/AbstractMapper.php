@@ -2,6 +2,8 @@
 
 namespace App\Harvest\Mappers;
 
+use Illuminate\Support\Str;
+
 abstract class AbstractMapper
 {
     /** @var string[] */
@@ -22,11 +24,11 @@ abstract class AbstractMapper
 
         $methods = get_class_methods($this);
         $methods = array_filter($methods, function ($method) {
-            return starts_with($method, 'map') && $method !== 'map';
+            return Str::startsWith($method, 'map') && $method !== 'map';
         });
 
         foreach ($methods as $method) {
-            $key = snake_case(str_after($method, 'map'));
+            $key = Str::snake(Str::after($method, 'map'));
 
             if (in_array($key, $this->translatedAttributes)) {
                 foreach ($this->localeToLangMap as $locale => $lang) {
