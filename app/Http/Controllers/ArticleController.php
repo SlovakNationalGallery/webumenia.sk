@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Article;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Request;
 use Intervention\Image\ImageManagerStatic;
 
 class ArticleController extends Controller
@@ -40,7 +40,7 @@ class ArticleController extends Controller
      */
     public function store()
     {
-        $input = Input::all();
+        $input = Request::all();
 
         $rules = Article::$rules;
         $v = Validator::make($input, $rules);
@@ -53,28 +53,28 @@ class ArticleController extends Controller
             foreach (\Config::get('translatable.locales') as $i => $locale) {
                 if (hasTranslationValue($locale, $article->translatedAttributes)){
                     foreach ($article->translatedAttributes as $attribute) {
-                        $article->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
+                        $article->translateOrNew($locale)->$attribute = Request::input($locale . '.' . $attribute);
                     }
                 }
             }
 
-            $article->author = Input::get('author');
-            $article->slug = Input::get('slug');
-            if (Input::has('category_id')) {
-                $article->category_id = Input::get('category_id');
+            $article->author = Request::input('author');
+            $article->slug = Request::input('slug');
+            if (Request::has('category_id')) {
+                $article->category_id = Request::input('category_id');
             }
-            $article->publish = Input::get('publish', false);
-            $article->promote = Input::get('promote', false);
-            if (Input::has('title_color')) {
-                $article->title_color = Input::get('title_color');
+            $article->publish = Request::input('publish', false);
+            $article->promote = Request::input('promote', false);
+            if (Request::has('title_color')) {
+                $article->title_color = Request::input('title_color');
             }
-            if (Input::has('title_shadow')) {
-                $article->title_shadow = Input::get('title_shadow');
+            if (Request::has('title_shadow')) {
+                $article->title_shadow = Request::input('title_shadow');
             }
             
             $article->save();
 
-            if (Input::hasFile('main_image')) {
+            if (Request::hasFile('main_image')) {
                 $this->uploadMainImage($article);
             }
 
@@ -121,10 +121,10 @@ class ArticleController extends Controller
      */
     public function update($id)
     {
-        $v = Validator::make(Input::all(), Article::$rules);
+        $v = Validator::make(Request::all(), Article::$rules);
 
         if ($v->passes()) {
-            $input = array_except(Input::all(), array('_method'));
+            $input = array_except(Request::all(), array('_method'));
 
             $article = Article::find($id);
 
@@ -132,26 +132,26 @@ class ArticleController extends Controller
             foreach (\Config::get('translatable.locales') as $i => $locale) {
                 if (hasTranslationValue($locale, $article->translatedAttributes)){
                     foreach ($article->translatedAttributes as $attribute) {
-                        $article->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
+                        $article->translateOrNew($locale)->$attribute = Request::input($locale . '.' . $attribute);
                     }
                 }
             }
 
-            $article->author = Input::get('author');
-            $article->slug = Input::get('slug');
-            $article->category_id = Input::get('category_id', null);
-            $article->publish = Input::get('publish', false);
-            $article->promote = Input::get('promote', false);
-            if (Input::has('title_color')) {
-                $article->title_color = Input::get('title_color');
+            $article->author = Request::input('author');
+            $article->slug = Request::input('slug');
+            $article->category_id = Request::input('category_id', null);
+            $article->publish = Request::input('publish', false);
+            $article->promote = Request::input('promote', false);
+            if (Request::has('title_color')) {
+                $article->title_color = Request::input('title_color');
             }
-            if (Input::has('title_shadow')) {
-                $article->title_shadow = Input::get('title_shadow');
+            if (Request::has('title_shadow')) {
+                $article->title_shadow = Request::input('title_shadow');
             }
 
             $article->save();
 
-            if (Input::hasFile('main_image')) {
+            if (Request::hasFile('main_image')) {
                 $this->uploadMainImage($article);
             }
 
@@ -177,7 +177,7 @@ class ArticleController extends Controller
 
     private function uploadMainImage($article)
     {
-        $main_image = Input::file('main_image');
+        $main_image = Request::file('main_image');
         $article->main_image = $article->uploadHeaderImage($main_image);
         $article->save();
     }

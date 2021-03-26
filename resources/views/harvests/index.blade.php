@@ -77,7 +77,7 @@ Spice Harvester |
                 </table>
 
                 <div class="text-center">
-                    {!! $harvests->appends(@Input::except('page'))->render() !!}
+                    {!! $harvests->appends(Request::except('page'))->render() !!}
                 </div>
 
             </div>

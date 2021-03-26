@@ -41,7 +41,7 @@
                 @if ($collections->count() == 0)
                 <p class="text-center">{{ utrans('kolekcie.collections_no_collections') }}</p>
                 @endif
-                {{--  @if (count(Input::all()) > 0)
+                {{--  @if (count(Request::all()) > 0)
                     <a class="btn btn-sm btn-default btn-outline  sans" href="{!! URL::to('kolekcie')!!}">zrušiť filtre <i class="icon-cross"></i></a>
                 @endif --}}
             </div>

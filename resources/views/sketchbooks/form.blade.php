@@ -25,7 +25,7 @@
 <div class="col-md-12">
 	<div class="form-group">
 	{!! Form::label('item_id', 'ID') !!}
-	{!! Form::text('item_id', Input::old('item_id'), array('class' => 'form-control', 'autocomplete' => 'off')) !!}
+	{!! Form::text('item_id', Request::old('item_id'), array('class' => 'form-control', 'autocomplete' => 'off')) !!}
 	</div>
 </div>
 
@@ -34,14 +34,14 @@
 <div class="col-md-12">
 	<div class="form-group">
 	{!! Form::label('title', 'Zobrazený názov') !!}
-	{!! Form::text('title', Input::old('title'), array('class' => 'form-control')) !!}
+	{!! Form::text('title', Request::old('title'), array('class' => 'form-control')) !!}
 	</div>
 </div>
 <div class="col-md-5">
 	<div class="form-group">
 		{!! Form::label('height', 'Výška') !!}
 		<div class="input-group">
-			{!! Form::text('height', Input::old('height'), array('class' => 'form-control')) !!}
+			{!! Form::text('height', Request::old('height'), array('class' => 'form-control')) !!}
 			<div class="input-group-addon">cm</div>
 		</div>
 	</div>
@@ -51,7 +51,7 @@
 	<div class="form-group">
 		{!! Form::label('width', 'Šírka') !!}
 		<div class="input-group">
-			{!! Form::text('width', Input::old('width'), array('class' => 'form-control')) !!}
+			{!! Form::text('width', Request::old('width'), array('class' => 'form-control')) !!}
 			<div class="input-group-addon">cm</div>
 		</div>
 	</div>
@@ -61,7 +61,7 @@
 	<div class="form-group">
 	{!! Form::label('publish', 'Publikovaný') !!}<br>
 	{!! Form::hidden('publish', 0) !!}
-	{!! Form::checkbox('publish', '1', Input::old('publish'), ['class'=>'checkbox']) !!}
+	{!! Form::checkbox('publish', '1', Request::old('publish'), ['class'=>'checkbox']) !!}
 	</div>
 </div>
 

@@ -41,7 +41,7 @@
         <div class="col-md-12">
           <div class="form-group">
             {!! Form::label('name', 'celé meno (Priezvisko, Meno)') !!}
-            {!! Form::text('name', Input::old('name'), array('class' => 'form-control')) !!}
+            {!! Form::text('name', Request::old('name'), array('class' => 'form-control')) !!}
           </div>
         </div>
 
@@ -88,7 +88,7 @@
     <div class="panel-body">
       <admin-links-input 
         collection-name="sourceLinks"
-        :value="{{ json_encode(Input::old('sourceLinks', $authority->sourceLinks)) }}"
+        :value="{{ json_encode(Request::old('sourceLinks', $authority->sourceLinks)) }}"
       ></admin-links-input>
     </div>
   </div>
@@ -102,7 +102,7 @@
     <div class="panel-body">
       <admin-links-input 
         collection-name="externalLinks"
-        :value="{{ json_encode(Input::old('externalLinks', $authority->externalLinks)) }}"
+        :value="{{ json_encode(Request::old('externalLinks', $authority->externalLinks)) }}"
       ></admin-links-input>
     </div>
   </div>
@@ -118,13 +118,13 @@
         <div class="col-md-5 col-md-offset-1">
           <div class="form-group">
             {!! Form::label('image_source_url', 'Zdroj obrázku (URL)') !!}
-            {!! Form::text('image_source_url', Input::old('image_source_url'), array('class' => 'form-control form_link', 'placeholder' => 'http://')) !!}
+            {!! Form::text('image_source_url', Request::old('image_source_url'), array('class' => 'form-control form_link', 'placeholder' => 'http://')) !!}
           </div>
         </div>
         <div class="col-md-5">
           <div class="form-group">
             {!! Form::label('image_source_label', 'Zdroj obrázku (Zobrazený text)') !!}
-            {!! Form::text('image_source_label', Input::old('image_source_label'), array('class' => 'form-control', 'placeholder' => 'wikipédia')) !!}
+            {!! Form::text('image_source_label', Request::old('image_source_label'), array('class' => 'form-control', 'placeholder' => 'wikipédia')) !!}
           </div>
         </div>
       </div>
