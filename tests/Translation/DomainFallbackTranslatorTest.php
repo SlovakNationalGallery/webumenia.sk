@@ -35,7 +35,7 @@ class DomainFallbackTranslatorTest extends TestCase
             ]);
         $translator = new DomainFallbackTranslator($loaderMock, 'sk');
 
-        $translation = $translator->trans('path.to.key');
+        $translation = $translator->get('path.to.key');
         $this->assertEquals('translation', $translation);
     }
 
@@ -57,7 +57,7 @@ class DomainFallbackTranslatorTest extends TestCase
         $translator = new DomainFallbackTranslator($loaderMock, 'sk');
         $translator->setFallback('en');
 
-        $translation = $translator->trans('path.to.key');
+        $translation = $translator->get('path.to.key');
         $this->assertEquals('translation', $translation);
     }
 
@@ -75,7 +75,7 @@ class DomainFallbackTranslatorTest extends TestCase
         $translator = new DomainFallbackTranslator($loader, 'sk');
         $translator->setFallback('en');
 
-        $translation = $translator->trans('path.to.key');
+        $translation = $translator->get('path.to.key');
         $this->assertEquals('sk_translation', $translation);
     }
 }

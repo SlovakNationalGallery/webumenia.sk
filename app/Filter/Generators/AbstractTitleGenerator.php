@@ -37,12 +37,12 @@ abstract class AbstractTitleGenerator implements TitleGenerator
     public function translateAttribute(string $attribute, $value = null, string $locale = null)
     {
         $key = $this->translationDomain ? "$this->translationDomain.$attribute" : $attribute;
-        if ($value instanceof IntegerRange) return $this->translator->trans(
+        if ($value instanceof IntegerRange) return $this->translator->get(
             $key,
             ['from' => $value->getFrom(), 'to' => $value->getTo()],
             $locale
         );
-        return $this->translator->trans($key, ['value' => $value], $locale);
+        return $this->translator->get($key, ['value' => $value], $locale);
     }
 
     /**

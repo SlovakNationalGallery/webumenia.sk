@@ -72,7 +72,7 @@ class GmuRnlImporter extends AbstractImporter
             'F' => 'photography',
         ][$record['Řada']];
 
-        return $this->translator->trans("item.importer.work_type.$workType", [], $locale);
+        return $this->translator->get("item.importer.work_type.$workType", [], $locale);
     }
 
     protected function hydrateMeasurement(array $record, $locale)
@@ -113,7 +113,7 @@ class GmuRnlImporter extends AbstractImporter
             'vp.' => 'height_with_mat',
             'vr' => 'height_with_frame',
         ] as $key => $translationKey) {
-            $replacements[$key] = $this->translator->trans("item.importer.measurement.$translationKey", [], $locale);
+            $replacements[$key] = $this->translator->get("item.importer.measurement.$translationKey", [], $locale);
         }
 
         if (empty($record['Rozměr'])) {
