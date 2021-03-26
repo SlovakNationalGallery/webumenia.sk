@@ -268,12 +268,24 @@ function()
             }
         }
 
+        $gtm_data_layer = [
+            'artwork' => [
+                'authors' => array_values($item->authors),
+                'work_types' => collect($item->work_types)->pluck(['path']),
+                'topic ' => $item->topic,
+                'media' => $item->mediums,
+                'technique' => $item->technique,
+                'related_work' => $item->related_work,
+            ]
+        ];
+
         return view('dielo', compact(
             'item',
             'similar_items',
             'related_items',
             'previous',
-            'next'
+            'next',
+            'gtm_data_layer'
         ));
     })->name('dielo');
 
