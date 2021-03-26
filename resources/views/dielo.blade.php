@@ -481,7 +481,7 @@
 
 {{-- Report item details to Google Tag Manager --}}
 <script defer>
-    dataLayer.push({{ json_encode([
+    dataLayer.push({!! json_encode([
         'artwork' => [
             'authors' => array_values($item->authors),
             'work_types' => collect($item->work_types)->pluck(['path']),
@@ -490,7 +490,7 @@
             'technique' => $item->technique,
             'related_work' => $item->related_work,
         ],
-    ]) }});
+    ]) !!});
 </script>
 
 @if (!empty($item->lat) && ($item->lat > 0))
