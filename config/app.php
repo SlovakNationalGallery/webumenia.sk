@@ -106,7 +106,6 @@ return array(
         'Former\FormerServiceProvider',
         'Conner\Tagging\Providers\TaggingServiceProvider',
         'Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider',
-        Zizaco\Entrust\EntrustServiceProvider::class,
 
         Illuminate\Bus\BusServiceProvider::class,
         Illuminate\Foundation\Providers\FoundationServiceProvider::class,
@@ -189,7 +188,6 @@ return array(
         'Image' => 'Intervention\Image\ImageManagerStatic',
         'Former' => 'Former\Facades\Former',
         'Carbon' => 'Carbon\Carbon',
-        'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
         'Debugbar' => 'Barryvdh\Debugbar\Facade',
         'Storage' => Illuminate\Support\Facades\Storage::class,
         'Form' => 'Collective\Html\FormFacade',

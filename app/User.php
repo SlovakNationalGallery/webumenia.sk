@@ -2,24 +2,15 @@
 
 namespace App;
 
-use Zizaco\Entrust\Traits\EntrustUserTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 
 class User extends Authenticatable
 {
-
-    use EntrustUserTrait;
-
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
-    protected $table = 'users';
+    public static $roles = ['admin', 'editor'];
 
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'role'
     ];
 
     /**
@@ -33,10 +24,8 @@ class User extends Authenticatable
 
     public static $rules = array(
         'name' => 'required',
-        'roles' => 'required',
+        'role' => 'in:admin,editor|required',
         'email' => 'email|required',
         'username' => 'required',
-        'password' => 'min:6',
     );
-
 }

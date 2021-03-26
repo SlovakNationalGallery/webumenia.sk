@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Zizaco\Entrust\EntrustFacade;
 use App\Article;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
@@ -20,12 +19,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        if (\Entrust::hasRole('admin')) {
-            $articles = Article::orderBy('created_at', 'desc')->paginate(20);
-        } else {
-            // $articles = Article::where('user_id', '=', \Auth::user()->id)->orderBy('created_at', 'desc')->paginate(20);
-        }
-        // $articles = Item::orderBy('created_at', 'DESC')->get();
+        $articles = Article::orderBy('created_at', 'desc')->paginate(20);
         return view('articles.index')->with('articles', $articles);
     }
 

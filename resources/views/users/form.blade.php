@@ -24,18 +24,20 @@
 </div>
 <div class="col-md-12">
 	<div class="form-group">
-	{!! Form::label('roles', 'Skupina') !!}
-	@if (isSet($user))
-		{!! Form::select('roles', $roles, $user->roles->pluck('id')->toArray(), array('class' => 'select', 'multiple' => true)) !!}
-	@else
-		{!! Form::select('roles', $roles, [], array('class' => 'select', 'multiple' => true)) !!}
-	@endif
+		{!! Form::label('role', 'Skupina') !!}
+		<div>
+			@foreach(\App\User::$roles as $role)
+				<label class="radio-inline">
+					{{ Form::radio('role', $role) }} {{ $role }}
+				</label>
+			@endforeach
+		</div>
 	</div>
 </div>
 <div class="col-md-12">
 	<div class="form-group">
 	{!! Form::label('username', 'Login') !!}
-	{!! Form::text('username', Input::old('username'), array('class' => 'form-control', 'autocomplete' => 'off')) !!}
+	{!! Form::text('username', Request::old('username'), array('class' => 'form-control', 'autocomplete' => 'off')) !!}
 	</div>
 </div>
 <div class="col-md-12">
@@ -48,13 +50,13 @@
 <div class="col-md-12">
 	<div class="form-group">
 	{!! Form::label('name', 'Meno') !!}
-	{!! Form::text('name', Input::old('name'), array('class' => 'form-control')) !!}
+	{!! Form::text('name', Request::old('name'), array('class' => 'form-control')) !!}
 	</div>
 </div>
 <div class="col-md-12">
 	<div class="form-group">
 	{!! Form::label('email', 'Email') !!}
-	{!! Form::text('email', Input::old('email'), array('class' => 'form-control')) !!}
+	{!! Form::text('email', Request::old('email'), array('class' => 'form-control')) !!}
 	</div>
 </div>
 
@@ -68,22 +70,4 @@
 <div class="clearfix"></div>
 
 
-@stop
-
-@section('script')
-
-{!! Html::script('js/selectize.min.js') !!}
-
-<script>
-$(document).ready(function(){
-
-    $("#roles").selectize({
-        plugins: ['remove_button'],
-        maxItems: 1,
-        mode: 'multi'
-    });
-
-});
-
-</script>
 @stop
