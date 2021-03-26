@@ -12,6 +12,7 @@ use App\Import;
 use App\ImportRecord;
 use App\Jobs\ImportCsv;
 use App\Repositories\CsvRepository;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Translation\Translator;
 
@@ -118,7 +119,7 @@ class ImportController extends Controller
         $v = Validator::make(Request::all(), Import::$rules);
 
         if ($v->passes()) {
-            $input = array_except(Request::all(), array('_method'));
+            $input = Arr::except(Request::all(), array('_method'));
 
             $import = Import::find($id);
             $import->name = Request::input('name');

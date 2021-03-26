@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Collection;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Request;
@@ -136,7 +137,7 @@ class CollectionController extends Controller
         $v = Validator::make(Request::all(), Collection::$rules);
 
         if ($v->passes()) {
-            $input = array_except(Request::all(), array('_method'));
+            $input = Arr::except(Request::all(), array('_method'));
 
             $collection = Collection::find($id);
 

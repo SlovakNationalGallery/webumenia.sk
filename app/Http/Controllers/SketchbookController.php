@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Sketchbook;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Item;
@@ -105,7 +106,7 @@ class SketchbookController extends Controller
         $v = Validator::make(Request::all(), Sketchbook::$rules);
         // dd(Request::all());
         if ($v->passes()) {
-            $input = array_except(Request::all(), array('_method'));
+            $input = Arr::except(Request::all(), array('_method'));
 
             $sketchbook = Sketchbook::find($id);
             $sketchbook->fill($input);
