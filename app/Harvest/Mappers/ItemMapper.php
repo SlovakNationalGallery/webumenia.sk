@@ -3,6 +3,7 @@
 namespace App\Harvest\Mappers;
 
 use App\Item;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 class ItemMapper extends AbstractModelMapper
@@ -16,7 +17,7 @@ class ItemMapper extends AbstractModelMapper
     }
 
     public function mapIdentifier(array $row) {
-        return array_first($row['identifier'], function ($identifier) use ($row) {
+        return Arr::first($row['identifier'], function ($identifier) use ($row) {
             return $identifier != $row['id'][0] && !Str::startsWith($identifier, 'http');
         });
     }
@@ -161,7 +162,7 @@ class ItemMapper extends AbstractModelMapper
     }
 
     public function mapImgUrl(array $row) {
-        return array_first($row['identifier'], function ($identifier) {
+        return Arr::first($row['identifier'], function ($identifier) {
             return str_contains($identifier, 'getimage');
         });
     }
