@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.24.0] - 2021-03-26
+### Fixed
+- separate authority sources by newlines
+- updating authority sources
+
+### Changed
+- Link (source) URL can be null
+
 ## [2.23.1] - 2021-03-22
 ### Fixed
 - unescape description in artwork detail

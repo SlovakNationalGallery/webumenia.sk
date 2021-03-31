@@ -91,17 +91,33 @@
                     @if ($author->sourceLinks->count() > 0)
                         <div class="links">
                             <h4 class="top-space">{{ utrans('authority.source_links') }}</h4>
-                            @foreach($author->sourceLinks as $link)
-                                <a href="{{ $link->url }}" target="_blank">{{ $link->label }}</a>{{ $loop->last ? '' : ', ' }}
-                            @endforeach
+                            <ul class="list-unstyled">
+                                @foreach($author->sourceLinks as $link)
+                                    <li>
+                                        @if($link->url)
+                                            <a href="{{ $link->url }}" target="_blank">{{ $link->label }}</a>
+                                        @else
+                                            {{ $link->label }}
+                                        @endif
+                                    </li>
+                                @endforeach
+                            </ul>
                         </div>
                     @endif
                     @if ($author->externalLinks->count() > 0)
                         <div class="links">
                             <h4 class="top-space">{{ utrans('authority.external_links') }}</h4>
-                            @foreach($author->externalLinks as $link)
-                                <a href="{{ $link->url }}" target="_blank">{{ $link->label }}</a>{{ $loop->last ? '' : ', ' }}
-                            @endforeach
+                            <ul class="list-unstyled">
+                                @foreach($author->externalLinks as $link)
+                                    <li>
+                                        @if($link->url)
+                                            <a href="{{ $link->url }}" target="_blank">{{ $link->label }}</a>
+                                        @else
+                                            {{ $link->label }}
+                                        @endif
+                                    </li>
+                                @endforeach
+                            </ul>
                         </div>
                     @endif
 
