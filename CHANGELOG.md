@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.25.0] - 2021-04-08
 ### Changed
 - upgrade to Laravel 6
 
