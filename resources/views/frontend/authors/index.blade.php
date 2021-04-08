@@ -91,7 +91,7 @@
                 @endforeach
                 <div class="row">
                     <div class="col-sm-12 text-center">
-                        {!! $paginator->appends(@Input::except('page'))->render() !!}
+                        {!! $paginator->appends(@Request::except('page'))->render() !!}
                     </div>
                 </div>
             </div>{{-- autori --}}

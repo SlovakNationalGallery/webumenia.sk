@@ -27,21 +27,21 @@
 <div class="col-md-12">
 	<div class="form-group">
 	{!! Form::label('title', 'Nadpis') !!}
-	{!! Form::textarea('title', Input::old('title'), array('class' => 'form-control', 'rows' => '2')) !!}
+	{!! Form::textarea('title', Request::old('title'), array('class' => 'form-control', 'rows' => '2')) !!}
 	</div>
 </div>
 
 <div class="col-md-12">
 	<div class="form-group">
 	{!! Form::label('subtitle', 'Podnadpis') !!}
-	{!! Form::textarea('subtitle', Input::old('subtitle'), array('class' => 'form-control', 'rows' => '2')) !!}
+	{!! Form::textarea('subtitle', Request::old('subtitle'), array('class' => 'form-control', 'rows' => '2')) !!}
 	</div>
 </div>
 
 <div class="col-md-12">
 	<div class="form-group">
 	{!! Form::label('url', 'URL') !!}
-	{!! Form::text('url', Input::old('url'), array('class' => 'form-control', 'placeholder' => 'http://')) !!}
+	{!! Form::text('url', Request::old('url'), array('class' => 'form-control', 'placeholder' => 'http://')) !!}
 	</div>
 </div>
 
@@ -57,7 +57,7 @@
 	<div class="form-group">
 	{!! Form::label('publish', 'Publikovaný') !!}<br>
 	{!! Form::hidden('publish', 0) !!}
-	{!! Form::checkbox('publish', '1', Input::old('publish'), ['class'=>'checkbox']) !!}
+	{!! Form::checkbox('publish', '1', Request::old('publish'), ['class'=>'checkbox']) !!}
 	</div>
 </div>
 

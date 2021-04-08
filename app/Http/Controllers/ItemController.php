@@ -10,10 +10,11 @@ use App\Forms\Types\ItemAuthoritiesType;
 use App\Jobs\HarvestRecordJob;
 use Barryvdh\Form\CreatesForms;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use App\SpiceHarvesterRecord;
 use Illuminate\Support\Facades\App;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -58,7 +59,7 @@ class ItemController extends Controller
     public function search()
     {
 
-        $search = Input::get('search');
+        $search = Request::input('search');
         if (str_contains($search, ';')) {
 
             $ids = explode(';', str_replace(" ", "", $search));
@@ -92,7 +93,7 @@ class ItemController extends Controller
     {
         $prefix = 'SVK:TMP.';
         $last_item = Item::where('id', 'LIKE', $prefix . '%')->orderBy('created_at', 'desc')->first();
-        $last_number = ($last_item) ? (int)str_after($last_item->id, $prefix) : 0;
+        $last_number = ($last_item) ? (int)Str::after($last_item->id, $prefix) : 0;
         $new_id = $prefix . ($last_number + 1);
 
         $item = new Item(['id' => $new_id]);
@@ -249,7 +250,7 @@ class ItemController extends Controller
      */
     public function destroySelected()
     {
-        $items = Input::get('ids');
+        $items = Request::input('ids');
         if (!empty($items) > 0) {
             foreach ($items as $item_id) {
                 $item = Item::find($item_id);
@@ -275,7 +276,7 @@ class ItemController extends Controller
      */
     public function refreshSelected()
     {
-        $ids = (array)Input::get('ids');
+        $ids = (array)Request::input('ids');
         foreach ($ids as $i => $id) {
             $item = Item::find($id);
             if (isset($item->record)) {

@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\Role;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
 
 class UserController extends Controller
 {
@@ -20,8 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('created_at', 'desc')->with(['roles'])->paginate(20);
-        // $users = Item::orderBy('created_at', 'DESC')->get();
+        $users = User::orderBy('created_at', 'desc')->paginate(20);
         return view('users.index')->with('users', $users);
     }
 
@@ -32,8 +29,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::orderBy('name', 'asc')->pluck('name', 'id');
-        return view('users.form')->with('roles', $roles);
+        return view('users.form');
     }
 
     /**
@@ -43,30 +39,19 @@ class UserController extends Controller
      */
     public function store()
     {
-        $input = Input::all();
-
         $rules = User::$rules;
-        $rules['password'] = 'required|min:6'; //pri vytvarani je heslo povinne
+        $rules['password'] = 'required'; // pri vytvarani je heslo povinne
 
-        $v = Validator::make($input, $rules);
+        Request::validate($rules);
 
-        if ($v->passes()) {
-            
-            $user = new User;
-            $user->username = Input::get('username');
-            $user->password = Hash::make(Input::get('password'));
-            $user->name = Input::get('name');
-            $user->email = Input::get('email');
-            $user->save();
+        $user = new User;
+        $user->fill(Request::input());
+        $user->password = Hash::make(Request::input('password'));
+        $user->save();
 
-            $user->roles()->sync([Input::get('roles', '')]);
+        Session::flash('message', 'Užívateľ ' .$user->name. ' bol vytvorený');
 
-            Session::flash('message', 'Užívateľ ' .$user->name. ' bol vytvorený');
-
-            return Redirect::route('user.index');
-        }
-
-        return Redirect::back()->withInput()->withErrors($v);
+        return Redirect::route('user.index');
     }
 
     /**
@@ -95,8 +80,7 @@ class UserController extends Controller
             return Redirect::route('user.index');
         }
 
-        $roles = Role::orderBy('name', 'asc')->pluck('name', 'id');
-        return view('users.form')->with('user', $user)->with('roles', $roles);
+        return view('users.form')->with('user', $user);
     }
 
     /**
@@ -107,27 +91,17 @@ class UserController extends Controller
      */
     public function update($id)
     {
-        $v = Validator::make(Input::all(), User::$rules);
+        Request::validate(User::$rules);
 
-        if ($v->passes()) {
-            $input = array_except(Input::all(), array('_method'));
-
-            $user = User::find($id);
-            $user->username = Input::get('username');
-            if (Input::has('password')) {
-                $user->password = Hash::make(Input::get('password'));
-            }
-            $user->name = Input::get('name');
-            $user->email = Input::get('email');
-            $user->save();
-
-            $user->roles()->sync([Input::get('roles', '')]);
-
-            Session::flash('message', 'Užívateľ ' .$user->name. ' bol upravený');
-            return Redirect::route('user.index');
+        $user = User::find($id);
+        $user->fill(Request::input());
+        if (Request::filled('password')) {
+            $user->password = Hash::make(Request::input('password'));
         }
+        $user->save();
 
-        return Redirect::back()->withErrors($v);
+        Session::flash('message', 'Užívateľ ' .$user->name. ' bol upravený');
+        return Redirect::route('user.index');
     }
 
     /**

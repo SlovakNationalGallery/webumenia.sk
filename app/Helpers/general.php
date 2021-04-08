@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\URL;
 
 /**
  * Same as java String.hashcode()
@@ -337,7 +339,7 @@ function starts_with_upper($str) {
 function hasTranslationValue($locale, $attributes)
 {
     foreach ($attributes as $attribute) {
-        if (\Input::get($locale . '.' . $attribute) !== null) {
+        if (Request::input($locale . '.' . $attribute) !== null) {
             return true;
         };
     }
@@ -351,7 +353,7 @@ function parseUrls($content)
         $checkAbsoluteUrl = function ($url)
             {
                 if (strrpos($url, "://") === false) {
-                    return \URL::to($url);
+                    return URL::to($url);
                 }
                 return $url;
             };

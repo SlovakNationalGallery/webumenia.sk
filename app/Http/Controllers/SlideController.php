@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Slide;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
 use Intervention\Image\ImageManagerStatic;
 
 class SlideController extends Controller
@@ -44,20 +45,20 @@ class SlideController extends Controller
      */
     public function store()
     {
-        $input = Input::all();
+        $input = Request::all();
 
         $rules = Slide::$rules;
         $v = Validator::make($input, $rules);
 
         if ($v->passes()) {
             
-            $input = array_except(Input::all(), array('_method'));
+            $input = Arr::except(Request::all(), array('_method'));
 
             $slide = new Slide;
             $slide->fill($input);
             $slide->save();
 
-            if (Input::hasFile('image')) {
+            if (Request::hasFile('image')) {
                 $this->uploadImage($slide);
             }
 
@@ -106,16 +107,16 @@ class SlideController extends Controller
      */
     public function update($id)
     {
-        $v = Validator::make(Input::all(), Slide::$rules);
-        // dd(Input::all());
+        $v = Validator::make(Request::all(), Slide::$rules);
+        // dd(Request::all());
         if ($v->passes()) {
-            $input = array_except(Input::all(), array('_method'));
+            $input = Arr::except(Request::all(), array('_method'));
 
             $slide = Slide::find($id);
             $slide->fill($input);
             $slide->save();
 
-            if (Input::hasFile('image')) {
+            if (Request::hasFile('image')) {
                 $this->uploadImage($slide);
             }
 
@@ -141,7 +142,7 @@ class SlideController extends Controller
 
     public function uploadImage($slide)
     {
-        $image = Input::file('image');
+        $image = Request::file('image');
         $slide->image = $slide->uploadHeaderImage($image);
         $slide->save();
 

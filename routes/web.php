@@ -20,6 +20,7 @@ use App\Item;
 use App\Notice;
 use App\Order;
 use App\Slide;
+use Illuminate\Support\Facades\Request;
 
 Route::group(['domain' => 'media.webumenia.{tld}'], function () {
     Route::get('/', function ($tld) {
@@ -90,7 +91,7 @@ function()
     });
 
     Route::get('slideClicked', function () {
-        $slide = Slide::find(Input::get('id'));
+        $slide = Slide::find(Request::input('id'));
         if ($slide) {
             $slide->click_count += 1;
             $slide->save();
@@ -116,7 +117,7 @@ function()
 
     Route::post('objednavka', function () {
 
-        $input = Input::all();
+        $input = Request::all();
 
         $rules = Order::$rules;
         $v = Validator::make($input, $rules);
@@ -131,32 +132,32 @@ function()
 
         if ($v->passes()) {
             $order = new Order();
-            $order->name = Input::get('name');
-            $order->address = Input::get('address');
-            $order->email = Input::get('email');
-            $order->phone = Input::get('phone');
-            $order->format = Input::get('format');
-            $order->frame = Input::get('frame');
-            $order->purpose_kind = Input::get('purpose_kind');
-            $order->purpose = Input::get('purpose');
-            $order->delivery_point = Input::get('delivery_point', null);
-            $order->note = Input::get('note');
+            $order->name = Request::input('name');
+            $order->address = Request::input('address');
+            $order->email = Request::input('email');
+            $order->phone = Request::input('phone');
+            $order->format = Request::input('format');
+            $order->frame = Request::input('frame');
+            $order->purpose_kind = Request::input('purpose_kind');
+            $order->purpose = Request::input('purpose');
+            $order->delivery_point = Request::input('delivery_point', null);
+            $order->note = Request::input('note');
             $order->save();
 
-            $item_ids = explode(', ', Input::get('pids'));
+            $item_ids = explode(', ', Request::input('pids'));
 
             foreach ($item_ids as $item_id) {
                 $order->items()->attach($item_id);
             }
 
-            $type = (Input::get('format') == 'digitálna reprodukcia') ? 'digitálna' : 'tlačená';
+            $type = (Request::input('format') == 'digitálna reprodukcia') ? 'digitálna' : 'tlačená';
 
             //poslat objednavku do Jiry
             $client = new GuzzleHttp\Client();
             $res = $client->post('https://jira.sng.sk/rest/cedvu/latest/order/create', [
                 'auth' => [Config::get('app.jira_auth.user'), Config::get('app.jira_auth.pass')],
                 'form_params' => [
-                    'pids' => Input::get('pids'),
+                    'pids' => Request::input('pids'),
                     'organization' => $order->name,
                     'contactPerson' => $order->name,
                     'email' => $order->email,
@@ -252,8 +253,8 @@ function()
         $similar_items = $itemRepository->getSimilar(12, $item)->getCollection();
         $related_items = (!empty($item->related_work)) ? Item::related($item)->get() : null;
 
-        if (Input::has('collection')) {
-            $collection = Collection::find((int) Input::get('collection'));
+        if (Request::has('collection')) {
+            $collection = Collection::find((int) Request::input('collection'));
             if (!empty($collection)) {
                 $items = $collection->items->pluck('id')->all();
                 $previousId = getPrevVal($items, $id);
@@ -267,12 +268,24 @@ function()
             }
         }
 
+        $gtm_data_layer = [
+            'artwork' => [
+                'authors' => array_values($item->authors),
+                'work_types' => collect($item->work_types)->pluck(['path']),
+                'topic ' => $item->topic,
+                'media' => $item->mediums,
+                'technique' => $item->technique,
+                'related_work' => $item->related_work,
+            ]
+        ];
+
         return view('dielo', compact(
             'item',
             'similar_items',
             'related_items',
             'previous',
-            'next'
+            'next',
+            'gtm_data_layer'
         ));
     })->name('dielo');
 
@@ -429,7 +442,7 @@ Route::group(array('middleware' => 'guest'), function () {
     Route::post('login', 'AuthController@postLogin');
 });
 
-Route::group(['middleware' => ['auth', 'role:admin|editor|import']], function () {
+Route::group(['middleware' => ['auth', 'can:edit']], function () {
     Route::get('admin', 'AdminController@index');
     Route::get('logout', 'AuthController@logout');
     Route::get('imports/launch/{id}', 'ImportController@launch');
@@ -444,12 +457,12 @@ Route::group(['middleware' => ['auth', 'role:admin|editor|import']], function ()
     Route::post('item/destroySelected', 'ItemController@destroySelected');
 });
 
-Route::group(['middleware' => ['auth', 'role:admin|editor']], function () {
+Route::group(['middleware' => ['auth', 'can:edit']], function () {
 
     Route::post('dielo/{id}/addTags', function($id)
     {
         $item = Item::find($id);
-        $newTags = Input::get('tags');
+        $newTags = Request::input('tags');
 
         if (empty($newTags)) {
             Session::flash( 'message', trans('Neboli zadadné žiadne nové tagy.') );
@@ -491,7 +504,7 @@ Route::group(['middleware' => ['auth', 'role:admin|editor']], function () {
     Route::match(['get', 'post'], 'uploader', 'FileuploaderController@upload');
 });
 
-Route::group(['middleware' => ['auth', 'role:admin']], function () {
+Route::group(['middleware' => ['auth', 'can:administer']], function () {
     Route::resource('article', 'ArticleController');
     Route::get('harvests/launch/{id}', 'SpiceHarvesterController@launch');
     Route::get('harvests/harvestFailed/{id}', 'SpiceHarvesterController@harvestFailed');

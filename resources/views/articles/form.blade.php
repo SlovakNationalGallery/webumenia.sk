@@ -61,7 +61,7 @@
 	<div class="form-group">
 	{!! Form::label('category_id', 'Kategória') !!}
 	@if (isSet($article))
-		{!! Form::select('category_id', [''=>''] + App\Category::pluck('name', 'id')->toArray(), Input::old('category_id'), array('class' => 'select', 'multiple' => true)) !!}
+		{!! Form::select('category_id', [''=>''] + App\Category::pluck('name', 'id')->toArray(), Request::old('category_id'), array('class' => 'select', 'multiple' => true)) !!}
 	@else
 		{!! Form::select('category_id', [''=>''] + App\Category::pluck('name', 'id')->toArray(), [], array('class' => 'select')) !!}
 	@endif
@@ -71,20 +71,20 @@
 <div class="col-md-12">
 	<div class="form-group">
 	{!! Form::label('author', 'Autor') !!}
-	{!! Form::text('author', Input::old('author'), array('class' => 'form-control')) !!}
+	{!! Form::text('author', Request::old('author'), array('class' => 'form-control')) !!}
 	</div>
 </div>
 <div class="col-md-12">
 	<div class="form-group">
 	{!! Form::label('slug', 'URL Slug') !!}
-	{!! Form::text('slug', Input::old('slug'), array('class' => 'form-control')) !!}
+	{!! Form::text('slug', Request::old('slug'), array('class' => 'form-control')) !!}
 	</div>
 </div>
 <div class="col-md-6">
 	<div class="form-group">
 		{!! Form::label('title_color', 'Farba nadpisu') !!}
 		<div class="input-group colorpicker-component">
-		    {!! Form::text('title_color', Input::old('title_color'), array('class' => 'form-control', 'placeholder' => '#ffffff')) !!}
+		    {!! Form::text('title_color', Request::old('title_color'), array('class' => 'form-control', 'placeholder' => '#ffffff')) !!}
 		    <span class="input-group-addon"><i></i></span>
 		</div>
 	</div>
@@ -93,7 +93,7 @@
 	<div class="form-group">
 		{!! Form::label('color', 'Tieň pod nadpisom') !!}
 		<div class="input-group colorpicker-component">
-		    {!! Form::text('title_shadow', Input::old('title_shadow'), array('class' => 'form-control', 'placeholder' => '#666666')) !!}
+		    {!! Form::text('title_shadow', Request::old('title_shadow'), array('class' => 'form-control', 'placeholder' => '#666666')) !!}
 		    <span class="input-group-addon"><i></i></span>
 		</div>
 	</div>

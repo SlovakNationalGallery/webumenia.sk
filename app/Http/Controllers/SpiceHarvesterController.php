@@ -7,13 +7,14 @@ use App\Jobs\HarvestRecordJob;
 use App\Jobs\HarvestJob;
 use App\SpiceHarvesterHarvest;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 use App\Collection;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use App\Item;
 use App\SpiceHarvesterRecord;
+use Illuminate\Support\Facades\Request;
 
 class SpiceHarvesterController extends Controller
 {
@@ -66,7 +67,7 @@ class SpiceHarvesterController extends Controller
      */
     public function store()
     {
-        $input = Input::all();
+        $input = Request::all();
 
         $rules = SpiceHarvesterHarvest::$rules;
         $v = Validator::make($input, $rules);
@@ -74,19 +75,19 @@ class SpiceHarvesterController extends Controller
         if ($v->passes()) {
 
             $harvest = new SpiceHarvesterHarvest;
-            $harvest->base_url = Input::get('base_url');
-            $harvest->type = Input::get('type');
-            $harvest->metadata_prefix = Input::get('metadata_prefix');
-            $harvest->set_spec = Input::get('set_spec');
-            $harvest->set_name = Input::get('set_name');
-            $harvest->set_description = Input::get('set_description');
-            $collection = Collection::find(Input::get('collection_id'));
+            $harvest->base_url = Request::input('base_url');
+            $harvest->type = Request::input('type');
+            $harvest->metadata_prefix = Request::input('metadata_prefix');
+            $harvest->set_spec = Request::input('set_spec');
+            $harvest->set_name = Request::input('set_name');
+            $harvest->set_description = Request::input('set_description');
+            $collection = Collection::find(Request::input('collection_id'));
             if ($collection) {
                 $harvest->collection()->associate($collection);
             }
-            if (Input::has('username') && Input::has('password')) {
-                $harvest->username = Input::get('username');
-                $harvest->password = Input::get('password');
+            if (Request::has('username') && Request::has('password')) {
+                $harvest->username = Request::input('username');
+                $harvest->password = Request::input('password');
             }
             $harvest->save();
 
@@ -134,26 +135,26 @@ class SpiceHarvesterController extends Controller
      */
     public function update($id)
     {
-        $v = Validator::make(Input::all(), SpiceHarvesterHarvest::$rules);
+        $v = Validator::make(Request::all(), SpiceHarvesterHarvest::$rules);
 
         if ($v->passes()) {
-            $input = array_except(Input::all(), array('_method'));
+            $input = Arr::except(Request::all(), array('_method'));
 
             $harvest = SpiceHarvesterHarvest::find($id);
-            $harvest->base_url = Input::get('base_url');
-            $harvest->type = Input::get('type');
-            if (Input::has('username') && Input::has('password')) {
-                $harvest->username = Input::get('username');
-                $harvest->password = Input::get('password');
+            $harvest->base_url = Request::input('base_url');
+            $harvest->type = Request::input('type');
+            if (Request::has('username') && Request::has('password')) {
+                $harvest->username = Request::input('username');
+                $harvest->password = Request::input('password');
             }
-            $harvest->metadata_prefix = Input::get('metadata_prefix');
-            $harvest->set_spec = Input::get('set_spec');
-            $harvest->set_name = Input::get('set_name');
-            $harvest->set_description = Input::get('set_description');
-            // $collection = \Collection::find(Input::get('collection_id'));
+            $harvest->metadata_prefix = Request::input('metadata_prefix');
+            $harvest->set_spec = Request::input('set_spec');
+            $harvest->set_name = Request::input('set_name');
+            $harvest->set_description = Request::input('set_description');
+            // $collection = \Collection::find(Request::input('collection_id'));
             // if ($collection->count()) $harvest->collection()->associate($collection);
-            $harvest->collection_id = Input::get('collection_id');
-            $harvest->cron_status = Input::get('cron_status');
+            $harvest->collection_id = Request::input('collection_id');
+            $harvest->cron_status = Request::input('cron_status');
             $harvest->save();
 
             Session::flash('message', 'Harvest <code>'.$harvest->set_spec.'</code> bol upravený');
@@ -223,9 +224,9 @@ class SpiceHarvesterController extends Controller
     public function launch($id)
     {
         $harvest = SpiceHarvesterHarvest::findOrFail($id);
-        $from = Input::has('start_date') ? new Carbon(Input::get('start_date')) : null;
-        $to = Input::has('end_date') ? new Carbon(Input::get('end_date')) : null;
-        $all = Input::get('reindex', false);
+        $from = Request::has('start_date') ? new Carbon(Request::input('start_date')) : null;
+        $to = Request::has('end_date') ? new Carbon(Request::input('end_date')) : null;
+        $all = Request::input('reindex', false);
 
         $this->dispatch(new HarvestJob($harvest, $from, $to, $all));
         return Redirect::back();

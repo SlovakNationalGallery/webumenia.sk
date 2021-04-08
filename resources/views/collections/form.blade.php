@@ -22,14 +22,14 @@
 	@endif
 
 </div>
-@if (Entrust::hasRole('admin'))
+@can('administer')
 <div class="col-md-4">
 	<div class="form-group">
 	{!! Form::label('user_id', 'autor') !!}
-	{!! Form::select('user_id', App\User::pluck('name','id'), Input::old('user_id', (isSet($collection)) ? $collection->user_id : Auth::user()->id), array('class' => 'form-control')) !!}
+	{!! Form::select('user_id', App\User::pluck('name','id'), Request::old('user_id', (isSet($collection)) ? $collection->user_id : Auth::user()->id), array('class' => 'form-control')) !!}
 	</div>
 </div>
-@endif
+@endcan
 
 <!-- translatable -->
 <div class="col-md-12">
@@ -69,7 +69,7 @@
 	<div class="form-group">
 		{!! Form::label('title_color', 'Farba nadpisu') !!}
 		<div class="input-group colorpicker-component">
-		    {!! Form::text('title_color', Input::old('title_color'), array('class' => 'form-control', 'placeholder' => '#ffffff')) !!}
+		    {!! Form::text('title_color', Request::old('title_color'), array('class' => 'form-control', 'placeholder' => '#ffffff')) !!}
 		    <span class="input-group-addon"><i></i></span>
 		</div>
 	</div>
@@ -78,7 +78,7 @@
 	<div class="form-group">
 		{!! Form::label('color', 'Tieň pod nadpisom') !!}
 		<div class="input-group colorpicker-component">
-		    {!! Form::text('title_shadow', Input::old('title_shadow'), array('class' => 'form-control', 'placeholder' => '#666666')) !!}
+		    {!! Form::text('title_shadow', Request::old('title_shadow'), array('class' => 'form-control', 'placeholder' => '#666666')) !!}
 		    <span class="input-group-addon"><i></i></span>
 		</div>
 	</div>
@@ -97,14 +97,14 @@
 		@endif
 	</div>
 </div>
-@if (Entrust::hasRole('admin'))
+@can('administer')
 <div class="col-md-6">
 	<div class="form-group checkbox">
 		{!! Form::label('published_at', 'Publikovať') !!}
 		{!! Form::text('published_at', @$input['published_at'] ) !!}
 	</div>
 </div>
-@endif
+@endcan
 <div class="col-md-12 text-center">
 	{!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp;
 	{!! link_to_route('collection.index', 'Zrušiť', null, array('class' => 'btn btn-default')) !!}

@@ -3,7 +3,6 @@
 namespace Tests\Translation;
 
 use App\Translation\DomainFallbackTranslator;
-use Illuminate\Contracts\Translation\Loader;
 use Illuminate\Translation\ArrayLoader;
 use Tests\TestCase;
 
@@ -11,15 +10,13 @@ class DomainFallbackTranslatorTest extends TestCase
 {
     public function testKeyPathExists()
     {
-        $loaderMock = $this->createMock(Loader::class);
-        $loaderMock->method('load')
-            ->with('sk', 'path')
-            ->willReturn([
-                'to' => [
-                    'key' => 'translation'
-                ]
-            ]);
-        $translator = new DomainFallbackTranslator($loaderMock, 'sk');
+        $loader = (new ArrayLoader)
+        ->addMessages('sk', 'path', [
+            'to' => [
+                'key' => 'translation'
+            ]
+        ]);
+        $translator = new DomainFallbackTranslator($loader, 'sk');
 
         $translation = $translator->get('path.to.key');
         $this->assertEquals('translation', $translation);
@@ -27,37 +24,29 @@ class DomainFallbackTranslatorTest extends TestCase
 
     public function testDomainFallbackKeyPathExists()
     {
-        $loaderMock = $this->createMock(Loader::class);
-        $loaderMock->method('load')
-            ->with('sk', 'path')
-            ->willReturn([
-                'key' => 'translation',
+        $loader = (new ArrayLoader)
+            ->addMessages('sk', 'path', [
+                'key' => 'translation'
             ]);
-        $translator = new DomainFallbackTranslator($loaderMock, 'sk');
+        $translator = new DomainFallbackTranslator($loader, 'sk');
 
-        $translation = $translator->trans('path.to.key');
+        $translation = $translator->get('path.to.key');
         $this->assertEquals('translation', $translation);
     }
 
     public function testLocaleFallbackExists()
     {
-        $loaderMock = $this->createMock(Loader::class);
-        $loaderMock->expects($this->at(0))
-            ->method('load')
-            ->with('sk', 'path')
-            ->willReturn([]);
-        $loaderMock->expects($this->at(1))
-            ->method('load')
-            ->with('en', 'path')
-            ->willReturn([
+        $loader = (new ArrayLoader)
+            ->addMessages('sk', 'path', [])
+            ->addMessages('en', 'path', [
                 'to' => [
                     'key' => 'translation'
                 ]
             ]);
-        $translator = new DomainFallbackTranslator($loaderMock, 'sk');
+        $translator = new DomainFallbackTranslator($loader, 'sk');
         $translator->setFallback('en');
 
-        $translation = $translator->trans('path.to.key');
+        $translation = $translator->get('path.to.key');
         $this->assertEquals('translation', $translation);
     }
 
@@ -75,7 +64,7 @@ class DomainFallbackTranslatorTest extends TestCase
         $translator = new DomainFallbackTranslator($loader, 'sk');
         $translator->setFallback('en');
 
-        $translation = $translator->trans('path.to.key');
+        $translation = $translator->get('path.to.key');
         $this->assertEquals('sk_translation', $translation);
     }
 }
