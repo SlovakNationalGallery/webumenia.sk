@@ -94,7 +94,7 @@ class OaiPmhDownloadImages extends Command
             $message .= "\n" . $failures . ' diela nemajú žiadny obrázok alebo sa nepodarilo sťahovať zdroj';
         }
         $this->comment($message);
-        return true;
+        return 0;
     }
 
     /**

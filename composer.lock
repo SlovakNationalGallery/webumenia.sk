@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "518654fcd0cd89d90274dc202b3995d8",
+    "content-hash": "f11c1592146a2702c3f0b4252f148cb5",
     "packages": [
         {
             "name": "anahkiasen/former",
@@ -7438,20 +7438,20 @@
         },
         {
             "name": "symfony/templating",
-            "version": "v3.4.47",
+            "version": "v5.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/templating.git",
-                "reference": "84ca10f95aaff084ae2bcfc5c21ae551af173d5a"
+                "reference": "954c01bae6689423a83b6c9025f83bb93d38d9b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/templating/zipball/84ca10f95aaff084ae2bcfc5c21ae551af173d5a",
-                "reference": "84ca10f95aaff084ae2bcfc5c21ae551af173d5a",
+                "url": "https://api.github.com/repos/symfony/templating/zipball/954c01bae6689423a83b6c9025f83bb93d38d9b2",
+                "reference": "954c01bae6689423a83b6c9025f83bb93d38d9b2",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.5.9|>=7.0.8",
+                "php": ">=7.2.5",
                 "symfony/polyfill-ctype": "~1.8"
             },
             "require-dev": {
@@ -7483,7 +7483,7 @@
                     "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Symfony Templating Component",
+            "description": "Provides all the tools needed to build any kind of template system",
             "homepage": "https://symfony.com",
             "funding": [
                 {
@@ -7499,7 +7499,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-10-24T10:57:07+00:00"
+            "time": "2021-01-27T10:01:46+00:00"
         },
         {
             "name": "symfony/translation",
