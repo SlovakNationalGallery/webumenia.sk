@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Added
 - File uploads management
+- KGC into list of galleries in the info page
 
 ### Fixed
 - remove authorities

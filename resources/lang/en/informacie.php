@@ -29,6 +29,7 @@ return array(
     'info_gallery_TGP'   => 'Tatra Gallery Poprad',
     'info_gallery_PGU'   => 'Považská Gallery of Arts in Žilina',
     'info_gallery_SGP'   => 'Šariš Gallery in Prešov',
+    'info_gallery_KGC'   => 'Kysuce Gallery in Oščadnica',
     'info_gallery_PNP'   => 'The Museum of Czech Literature',
     'info_gallery_4RG'   => 'Gallery of Modern Art Roudnice nad Labem',
 

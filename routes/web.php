@@ -391,6 +391,11 @@ function()
                 'url'         => 'katalog?gallery=Šarišská+galéria%2C+SGP',
             ],
             [
+                'id'          => 'KGC',
+                'lang_string' => 'informacie.info_gallery_KGC',
+                'url'         => 'katalog?gallery=Kysucká%20galéria,%20KGC',
+            ],
+            [
                 'id'          => 'MG',
                 'lang_string' => 'informacie.info_gallery_MG',
                 'url'         => 'katalog?gallery=Moravská galerie, MG',
