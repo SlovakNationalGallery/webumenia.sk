@@ -29,7 +29,6 @@ autority |
             <div class="panel-heading">
                 <a href="{!! route('authority.create') !!}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Vytvoriť</a>
                 <a href="{!! URL::to('authority/reindex') !!}" class="btn btn-primary btn-outline"><i class="fa fa-refresh"></i> Reindexovať search</a>
-                <div class="panel-heading">
                 Akcie pre vybraté: <a href="#" id="deleteSelected" class="btn btn-danger btn-xs btn-outline">Zmazať</a>
             </div>
             <!-- /.panel-heading -->
