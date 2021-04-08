@@ -30,7 +30,7 @@
         "league/csv": "^8.0",
         "league/color-extractor": "dev-master",
         "barryvdh/laravel-form-bridge": "^0.5",
-        "symfony/templating": "^3.4",
+        "symfony/templating": "^5.2",
         "google/recaptcha": "^1.2",
         "chelout/laravel-relationship-events": "^1.0.0",
         "primal/color": "^1.0",
