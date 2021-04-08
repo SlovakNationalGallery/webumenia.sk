@@ -21,7 +21,7 @@
         "rap2hpoutre/laravel-log-viewer": "dev-master",
         "anahkiasen/former": "^4.0",
         "laravelcollective/html": "^6.2",
-        "php": ">=7.2.0",
+        "php": "^7.4",
         "graham-campbell/throttle": "^7",
         "mcamara/laravel-localization": "1.6.*",
         "astrotomic/laravel-translatable": "^11.3",
@@ -73,7 +73,7 @@
         "github-protocols": ["https"],
         "preferred-install": "dist",
         "platform": {
-            "php": "7.2.20"
+            "php": "^7.4"
         }
     },
     "require-dev": {

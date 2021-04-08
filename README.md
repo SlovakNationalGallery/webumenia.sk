@@ -28,7 +28,7 @@ We are committed to providing a welcoming and inspiring community for all and ex
 This software is built with the [Laravel framework](http://laravel.com/).
 
 It requires
-* PHP 7.2.x
+* PHP 7.4.x
 * MySQL
 * Elasticsearch
 

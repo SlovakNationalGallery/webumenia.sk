@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Changed
 - upgrade to Laravel 6
+- move to PHP 7.4
 
 ## [2.24.0] - 2021-03-26
 ### Fixed

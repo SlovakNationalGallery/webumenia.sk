@@ -1,4 +1,4 @@
-FROM php:7.2-fpm
+FROM php:7.4-fpm
 
 ARG WITH_XDEBUG=false
 
@@ -12,7 +12,7 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
     nodejs
 
 # Adding PHP extensions
-RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ \
+RUN docker-php-ext-configure gd --with-jpeg \
     && docker-php-ext-install \
     pdo_mysql \
     gd \
