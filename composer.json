@@ -12,7 +12,7 @@
         "no-api": true
     }],
     "require": {
-        "laravel/framework": "^6.0",
+        "laravel/framework": "^7.0",
         "caseyamcl/phpoaipmh": "dev-master",
         "intervention/image": "dev-master",
         "guzzlehttp/guzzle": "^6.5",
@@ -29,13 +29,13 @@
         "doctrine/dbal": "^2.5",
         "league/csv": "^8.0",
         "league/color-extractor": "dev-master",
-        "barryvdh/laravel-form-bridge": "^0.4",
+        "barryvdh/laravel-form-bridge": "^0.5",
         "symfony/templating": "^3.4",
         "google/recaptcha": "^1.2",
         "chelout/laravel-relationship-events": "^1.0.0",
         "primal/color": "^1.0",
-        "laravelium/sitemap": "6.*",
-        "laravel/tinker": "1.*",
+        "laravelium/sitemap": "7.*",
+        "laravel/tinker": "^2.0",
         "lorisleiva/laravel-deployer": "^0.3.0",
         "guzzlehttp/psr7": "^1.7",
         "sentry/sentry-laravel": "^2.3",
@@ -79,7 +79,7 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "^7.0",
+        "phpunit/phpunit": "^8.5",
         "symfony/dom-crawler": "3.1.*",
         "symfony/css-selector": "3.1.*",
         "fzaninotto/faker": "^1.7",
