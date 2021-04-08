@@ -5,12 +5,15 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - File uploads management
 
-## [2.25.0] - 2021-04-08
 ### Changed
-- upgrade to Laravel 6
+- Clean up Enforcer tables
 
 ### Fixed
 - Sort options in articles filters by count
+
+## [2.25.0] - 2021-04-08
+### Changed
+- upgrade to Laravel 6
 
 ## [2.24.0] - 2021-03-26
 ### Fixed
