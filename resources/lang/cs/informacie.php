@@ -29,6 +29,7 @@ return array(
     'info_gallery_TGP'   => 'Tatranská galéria',
     'info_gallery_PGU'   => 'Považská galéria umenia',
     'info_gallery_SGP'   => 'Šariššská galéria v Prešove',
+    'info_gallery_KGC'   => 'Kysucká galerie v Oščadnici',
     'info_gallery_PNP'   => 'Památník národního písemnictví',
     'info_gallery_4RG'   => 'Galerie moderního umění v Roudnici nad Labem',
 
