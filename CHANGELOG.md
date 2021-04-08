@@ -9,6 +9,9 @@ All notable changes to this project will be documented in this file[^1].
 ### Changed
 - upgrade to Laravel 6
 
+### Fixed
+- Sort options in articles filters by count
+
 ## [2.24.0] - 2021-03-26
 ### Fixed
 - separate authority sources by newlines

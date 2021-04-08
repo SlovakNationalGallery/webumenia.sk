@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Collection;
 
 class ClanokController extends Controller
 {
@@ -38,26 +39,8 @@ class ClanokController extends Controller
 
         $articles = $articles->get();
 
-        // Options for filters
-        $categoriesOptions = $articles
-            ->countBy('category.name')
-            ->map(function ($count, $category) use ($request) {
-                return [
-                    'value' => $category,
-                    'text' => "$category ($count)",
-                    'selected' => $category === $request->input('category'),
-                ];
-            });
-
-        $authorsOptions = $articles
-            ->countBy('author')
-            ->map(function ($count, $author) use ($request) {
-                return [
-                    'value' => $author,
-                    'text' => "$author ($count)",
-                    'selected' => $author === $request->input('author'),
-                ];
-            });
+        $categoriesOptions = $this->buildSelectOptions($articles, 'category.name', $request->input('category'));
+        $authorsOptions = $this->buildSelectOptions($articles, 'author', $request->input('author'));
 
         $sortingOptions = collect([
             [ 'value' => 'date_asc', 'text' => trans('articles.filter.sort_by.date_asc') ],
@@ -111,5 +94,20 @@ class ClanokController extends Controller
 
         return view('frontend.articles.show', array('article'=>$article));
 
+    }
+
+    private function buildSelectOptions(Collection $collection, string $countBy, $selectedValue = null)
+    {
+        return $collection
+            ->countBy($countBy)
+            ->sort()->reverse() // sort by count, descending
+            ->map(function ($count, $value) use ($selectedValue) {
+                return [
+                    'value' => $value,
+                    'text' => "$value ($count)",
+                    'selected' => $value === $selectedValue,
+                ];
+            })
+            ->values();
     }
 }
