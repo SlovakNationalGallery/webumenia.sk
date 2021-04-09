@@ -5,12 +5,12 @@ namespace Tests\Matchers;
 use App\Authority;
 use App\Item;
 use App\Matchers\AuthorityMatcher;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class AuthorityMatcherTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     public function testMatchAll()
     {

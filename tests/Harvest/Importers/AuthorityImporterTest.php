@@ -16,12 +16,12 @@ use App\Harvest\Mappers\RelatedAuthorityMapper;
 use App\Harvest\Progress;
 use App\Link;
 use App\Nationality;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class AuthorityImporterTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     protected function setUp(): void
     {
