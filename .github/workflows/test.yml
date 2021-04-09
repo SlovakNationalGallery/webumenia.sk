@@ -11,5 +11,7 @@ jobs:
         run: cp .env.example .env
       - name: Warm up stack
         run: docker-compose up -d mysql elasticsearch redis
+      - name: Pull current image for cache
+        run: docker pull slovaknationalgallery/webumenia:develop
       - name: Test
         run: docker-compose run php bash -c "npm run testing && vendor/bin/phpunit"
