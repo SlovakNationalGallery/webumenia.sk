@@ -222,11 +222,16 @@
 
         Ladda.bind( '.ladda-button');
 
-        var csrf = '{!!csrf_token()!!}';
-        $( '.wysiwyg' ).ckeditor({
+        $('.wysiwyg').ckeditor({
             language: 'sk',
             extraAllowedContent: 'iframe[*];*[data-*]{*}(*);*[class]{*}(*)',
-            filebrowserUploadUrl: '/uploader?csrf_token='+csrf
+
+            filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+            filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+
+            // Only upload via laravel-filemanager, because its /upload 
+            // response is incompatible with CKEditor image/file Upload dialogs.
+            removeDialogTabs: 'image:Upload;link:upload',
         });
 
 

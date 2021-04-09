@@ -21,7 +21,7 @@
         "rap2hpoutre/laravel-log-viewer": "dev-master",
         "anahkiasen/former": "^4.0",
         "laravelcollective/html": "^6.2",
-        "php": ">=7.2.0",
+        "php": "^7.4",
         "graham-campbell/throttle": "^7",
         "mcamara/laravel-localization": "1.6.*",
         "astrotomic/laravel-translatable": "^11.3",
@@ -38,7 +38,8 @@
         "laravel/tinker": "1.*",
         "lorisleiva/laravel-deployer": "^0.3.0",
         "guzzlehttp/psr7": "^1.7",
-        "sentry/sentry-laravel": "^2.3"
+        "sentry/sentry-laravel": "^2.3",
+        "unisharp/laravel-filemanager": "^2.2"
     },
     "autoload": {
         "classmap": [
@@ -55,7 +56,8 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "Illuminate\\Foundation\\ComposerScripts::postInstall"
+            "Illuminate\\Foundation\\ComposerScripts::postInstall",
+            "@php artisan vendor:publish --tag=lfm_public"
         ],
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate"
@@ -73,7 +75,7 @@
         "github-protocols": ["https"],
         "preferred-install": "dist",
         "platform": {
-            "php": "7.2.20"
+            "php": "^7.4"
         }
     },
     "require-dev": {

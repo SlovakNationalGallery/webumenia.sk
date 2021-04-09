@@ -3,6 +3,20 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.26.0] - 2021-04-09
+### Added
+- File uploads management
+- KGC into list of galleries in the info page
+
+### Fixed
+- Remove authorities
+- Sort options in articles filters by count
+- Do not overwrite authority biography via OAI-PMH
+
+### Changed
+- Clean up Enforcer tables
+- Move to PHP 7.4
+
 ## [2.25.0] - 2021-04-08
 ### Changed
 - upgrade to Laravel 6

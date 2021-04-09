@@ -391,6 +391,11 @@ function()
                 'url'         => 'katalog?gallery=Šarišská+galéria%2C+SGP',
             ],
             [
+                'id'          => 'KGC',
+                'lang_string' => 'informacie.info_gallery_KGC',
+                'url'         => 'katalog?gallery=Kysucká%20galéria,%20KGC',
+            ],
+            [
                 'id'          => 'MG',
                 'lang_string' => 'informacie.info_gallery_MG',
                 'url'         => 'katalog?gallery=Moravská galerie, MG',
@@ -501,7 +506,10 @@ Route::group(['middleware' => ['auth', 'can:edit']], function () {
     Route::post('collection/sort', 'CollectionController@sort');
     Route::resource('collection', 'CollectionController');
     Route::resource('user', 'UserController');
-    Route::match(['get', 'post'], 'uploader', 'FileuploaderController@upload');
+
+    Route::group(['prefix' => 'laravel-filemanager'], function () {
+        \UniSharp\LaravelFilemanager\Lfm::routes();
+    });
 });
 
 Route::group(['middleware' => ['auth', 'can:administer']], function () {

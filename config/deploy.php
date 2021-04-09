@@ -101,7 +101,9 @@ return [
         'application' => env('APP_NAME', 'Laravel'),
         'repository' => 'https://github.com/SlovakNationalGallery/webumenia.sk.git',
         'http_user' => 'www-data',
-        'php_fpm_service' => 'php7.2-fpm',
+        'bin/php' => 'php7.4',
+        'bin/composer' => 'php7.4 $(which composer)',
+        'php_fpm_service' => 'php7.4-fpm',
         'shared_dirs' => [
             'public/images/autori',
             'public/images/clanky',
