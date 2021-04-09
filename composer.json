@@ -47,12 +47,10 @@
         "barryvdh/laravel-debugbar": "^3.2",
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "^1.7",
-        "laravel/browser-kit-testing": "2.*",
+        "laravel/browser-kit-testing": "^6.2",
         "mockery/mockery": "^1",
         "nunomaduro/collision": "^4.3",
-        "phpunit/phpunit": "^8.5",
-        "symfony/dom-crawler": "3.1.*",
-        "symfony/css-selector": "3.1.*"
+        "phpunit/phpunit": "^8.5"
     },
     "config": {
         "github-protocols": ["https"],
