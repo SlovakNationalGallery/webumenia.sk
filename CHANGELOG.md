@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
 ## [2.26.0] - 2021-04-09
 ### Added
 - File uploads management
@@ -19,7 +20,6 @@ All notable changes to this project will be documented in this file[^1].
 ## [2.25.0] - 2021-04-08
 ### Changed
 - upgrade to Laravel 6
-
 
 ## [2.24.0] - 2021-03-26
 ### Fixed
