@@ -15,7 +15,6 @@ class AdminItemFormTest extends BrowserKitTestCase
     protected $user;
 
     public function setUp(): void {
-        $this->markTestSkipped('Broken');
         parent::setUp();
         $this->user = factory(User::class)->create(['role' => 'admin']);
         $this->actingAs($this->user);
