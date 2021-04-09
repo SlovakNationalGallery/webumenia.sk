@@ -7,8 +7,9 @@ All notable changes to this project will be documented in this file[^1].
 - KGC into list of galleries in the info page
 
 ### Fixed
-- remove authorities
+- Remove authorities
 - Sort options in articles filters by count
+- Do not overwrite authority biography via OAI-PMH
 
 ### Changed
 - Clean up Enforcer tables

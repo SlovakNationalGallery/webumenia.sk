@@ -38,6 +38,8 @@ class AuthorityMapper extends BaseAuthorityMapper
         }, $row['sex']);
     }
 
+    // Do not store vp:Biography_Text from OAI in Biography on Web (WEBUMENIA-1580)
+    /*
     public function mapBiography(array $row) {
         if (!isset($row['biography'][0])) {
             return '';
@@ -50,6 +52,7 @@ class AuthorityMapper extends BaseAuthorityMapper
 
         return $biography;
     }
+    */
 
     public function mapBirthPlace(array $row, $locale) {
         if (isset($row['birth_place'][0])) {
