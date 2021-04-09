@@ -54,7 +54,6 @@
 						<div class="form-group">
 							{!! FormRenderer::label($form['item_authorities']) !!}
 							@formWidget($form['item_authorities'])
-							{{-- {!! FormRenderer::widget($form['item_authorities']) !!} --}}
 						</div>
 					</div>
 					<div class="col-md-12">
