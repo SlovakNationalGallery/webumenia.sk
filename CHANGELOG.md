@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Changed
 - Upgrade to Laravel 7
+- Upgrade to Laravel 8
 
 ### Fixed
 - Remove authorities
