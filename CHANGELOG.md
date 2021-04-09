@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file[^1].
 - Remove authorities
 - Sort options in articles filters by count
 - Do not overwrite authority biography via OAI-PMH
+- Counting clicks on carousel slides
 
 ### Changed
 - Clean up Enforcer tables
