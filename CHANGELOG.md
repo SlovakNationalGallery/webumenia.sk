@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+## [2.26.0] - 2021-04-09
 ### Added
 - File uploads management
 - KGC into list of galleries in the info page
@@ -13,11 +14,12 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Changed
 - Clean up Enforcer tables
+- Move to PHP 7.4
 
 ## [2.25.0] - 2021-04-08
 ### Changed
 - upgrade to Laravel 6
-- move to PHP 7.4
+
 
 ## [2.24.0] - 2021-03-26
 ### Fixed
