@@ -16,12 +16,12 @@ use App\Harvest\Progress;
 use App\Item;
 use App\SpiceHarvesterHarvest;
 use App\SpiceHarvesterRecord;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ItemHarvesterTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     public function testHarvestFailed()
     {

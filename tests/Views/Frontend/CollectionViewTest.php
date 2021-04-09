@@ -4,12 +4,12 @@ namespace Tests\Views\Frontend;
 
 use App\Collection;
 use App\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class CollectionViewTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     public function testGetIndex()
     {

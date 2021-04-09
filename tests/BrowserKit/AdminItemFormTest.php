@@ -4,12 +4,12 @@ namespace Tests\BrowserKit;
 
 use App\Item;
 use App\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\BrowserKitTestCase;
 
 class AdminItemFormTest extends BrowserKitTestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @var User */
     protected $user;

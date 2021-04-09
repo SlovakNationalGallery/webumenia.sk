@@ -4,12 +4,12 @@ namespace Tests\BrowserKit;
 
 use App\Collection;
 use App\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\BrowserKitTestCase;
 
 class CollectionViewTest extends BrowserKitTestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     public function testIndexSortedByName() {
         $user = factory(User::class)->create();
