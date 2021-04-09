@@ -1,6 +1,11 @@
 <?php
 
+namespace Database\Seeders;
+
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UsersTableSeeder extends Seeder {
 
@@ -11,8 +16,7 @@ class UsersTableSeeder extends Seeder {
 	 */
 	public function run()
 	{
-
-        Eloquent::unguard();
+        Model::unguard();
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('users')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
