@@ -5,6 +5,7 @@ namespace Tests\BrowserKit;
 use App\Collection;
 use App\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Tests\BrowserKitTestCase;
 
 class CollectionViewTest extends BrowserKitTestCase
 {
