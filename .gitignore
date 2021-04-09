@@ -12,6 +12,7 @@ Thumbs.db
 public/sitemap.xml
 .env
 .env.testing
+.phpunit.result.cache
 data/
 /public/hot
 /public/js/*LICENSE.txt
@@ -25,3 +26,4 @@ data/
 mix-manifest.json
 npm-debug.log
 public/css/style.css
+
