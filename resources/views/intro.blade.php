@@ -114,6 +114,15 @@ $(document).ready(function(){
         centerPadding: '5vw',
         appendDots: $('.slick-pagination')[0]
     });
+
+    $('.webumeniaCarousel').on('click', 'a.outer-box', function( event ) {
+        event.preventDefault();
+        var id = $(this).data('id');
+        var url = $(this).attr('href');
+        $.get('/slideClicked', {'id': id}).done(function( data ) {
+            window.location.href = url;
+        });
+    });
 });
 
 </script>
