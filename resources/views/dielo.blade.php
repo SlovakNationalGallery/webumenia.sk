@@ -52,7 +52,17 @@
                 <div class="col-md-10 col-md-offset-1 text-center content-section mb-3">
                     <h1 class="nadpis-dielo" itemprop="name">{{ $item->title }}</h1>
                     <h2 class="inline">
-                        @foreach($item->authorities->toBase()->merge($item->getAuthorsWithoutAuthority()) as $author)
+                        @php
+                            $authors = $item->authorities
+                                ->toBase()
+                                ->reject(function ($author) {
+                                    if (is_string($author)) return false;
+                                    return $author->pivot->role === 'pôvodné určenie/formerly attributed to';
+                                })
+                                ->merge($item->getAuthorsWithoutAuthority());
+                        @endphp
+                        
+                        @foreach($authors as $author)
                             @include('components.item_author')@if (!$loop->last), @endif
                         @endforeach
                     </h2>

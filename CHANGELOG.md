@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Changed
+- Do not show formerly attributed authors in item detail
 
 ## [2.26.0] - 2021-04-09
 ### Added
