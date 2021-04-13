@@ -4,6 +4,7 @@ namespace App;
 
 use App\Traits\Publishable;
 use App\Traits\HasLinks;
+use App\Traits\HasArtworksAccessor;
 use Elasticsearch\Client;
 use Fadion\Bouncy\Facades\Elastic;
 use Illuminate\Support\Facades\Config;
@@ -15,6 +16,7 @@ use Fadion\Bouncy\BouncyTrait;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\MediaCollections\File as MediaFile;
 
 class Authority extends Model implements HasMediaConversions
 {
@@ -25,6 +27,7 @@ class Authority extends Model implements HasMediaConversions
     use HasMediaTrait;
     use Publishable;
     use HasLinks;
+    use HasArtworksAccessor;
 
 
     protected $table = 'authorities';
@@ -63,7 +66,7 @@ class Authority extends Model implements HasMediaConversions
         'random'                  => 'sortable.random',
     );
 
-    protected $fillable = array(
+    protected $fillable = [
         'id',
         'type',
         'type_organization',
@@ -88,13 +91,14 @@ class Authority extends Model implements HasMediaConversions
         'archive',
         'studied_at',
         'published_at',
-    );
+        'artworks'
+    ];
 
-    protected $dates = array(
+    protected $dates = [
         'created_at',
         'updated_at',
         'published_at',
-    );
+    ];
 
     protected static $available_types = [
         'author' => 'umelec',
@@ -607,5 +611,14 @@ class Authority extends Model implements HasMediaConversions
 
     public function scopeOfType($query, $type) {
         return $query->where('type', $type);
+    }
+
+    public function registerMediaCollections()
+    {
+        $this
+            ->addMediaCollection('artworks')
+            ->acceptsFile(function (MediaFile $file) {
+                return $file->mimeType === 'image/jpeg';
+            });
     }
 }
