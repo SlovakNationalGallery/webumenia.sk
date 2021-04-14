@@ -143,8 +143,8 @@
                                 <div class="col-md-3 col-sm-4 col-xs-6 item border-0">
                                     <a href="{!! $artwork->getUrl() !!}"
                                        title="{!! $artwork->name !!}"
-                                       data-sub-title="{{ $artwork->subtitle }}"
-                                       data-photo-credit="{{ $artwork->photo_credit }}"
+                                       data-sub-title="{{ $artwork->getCustomProperty('sub_title') }}"
+                                       data-photo-credit="{{ $artwork->getCustomProperty('photo_credit') }}"
                                        data-id="{{ $artwork->id }}"
                                        class="img-viewer">
                                         @php

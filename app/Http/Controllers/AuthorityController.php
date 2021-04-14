@@ -143,6 +143,8 @@ class AuthorityController extends Controller
                 'id' => $media->id,
                 'file_name' => $media->file_name,
                 'name' => $media->name,
+                'sub_title' => $media->getCustomProperty('sub_title'),
+                'photo_credit' => $media->getCustomProperty('photo_credit'),
                 'size' => $media->size,
                 'path' => $media->getUrl()
             ];
@@ -217,12 +219,16 @@ class AuthorityController extends Controller
                 if (count($media) === 0 || !in_array($file, $media)) {
                     $authority->addMedia(storage_path('tmp/uploads/' . $file))
                         ->usingName( $request->input('artwork_name.'.$i, '') )
+                        ->withCustomProperties([
+                            'sub_title' => $request->input('artwork_sub_title.'.$i, ''),
+                            'photo_credit' => $request->input('artwork_photo_credit.'.$i, ''),
+                        ])
                         ->toCollection('artworks');
                 } elseif (in_array($file, $media)) {
-                    if ($artworks[$i]->name != $request->input('artwork_name.'.$i, '')) {
-                        $artworks[$i]->name = $request->input('artwork_name.'.$i, '');
-                        $artworks[$i]->save();
-                    }
+                    $artworks[$i]->name = $request->input('artwork_name.'.$i, '');
+                    $artworks[$i]->setCustomProperty('sub_title', $request->input('artwork_sub_title.'.$i, ''));
+                    $artworks[$i]->setCustomProperty('photo_credit', $request->input('artwork_photo_credit.'.$i, ''));
+                    $artworks[$i]->save();
                 }
             }
 
