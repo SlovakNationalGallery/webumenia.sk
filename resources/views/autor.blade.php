@@ -108,7 +108,7 @@
                         'show' => true,
                     ])
                     {{-- gallery --}}
-                    @if ($items->count() > 0)
+                    @if (($items->count() > 0) || ($author->artworks->count() > 0))
                     <div class="card">
                       <div class="card-header" id="heading{{ studly_case('gallery') }}">
                         <h5 class="mb-0">
@@ -200,7 +200,7 @@
                     ]) --}}
 
                     {{-- archive --}}
-                    @if ($items->count() > 0)
+                    @if ($archive->count() > 0)
                     <div class="card">
                       <div class="card-header" id="heading{{ studly_case('archive') }}">
                         <h5 class="mb-0">
