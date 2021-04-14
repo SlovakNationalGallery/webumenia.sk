@@ -137,7 +137,24 @@ class AuthorityController extends Controller
             }
         }
 
-        return view('authorities.form', ['authority'=>$authority, 'media_files'=>$media_files]);
+        $artwork_media_files = [];
+        foreach ($authority->artworks as $media) {
+            $artwork_media_files[] = [
+                'id' => $media->id,
+                'file_name' => $media->file_name,
+                'name' => $media->name,
+                'sub_title' => $media->getCustomProperty('sub_title'),
+                'photo_credit' => $media->getCustomProperty('photo_credit'),
+                'size' => $media->size,
+                'path' => $media->getUrl()
+            ];
+        }
+
+        return view('authorities.form', [
+            'authority'=>$authority,
+            'media_files'=>$media_files,
+            'artwork_media_files'=>$artwork_media_files,
+        ]);
     }
 
     /**
@@ -189,6 +206,32 @@ class AuthorityController extends Controller
                 $this->uploadFrontendImage($request, $authority);
             }
 
+            // handle artworks
+            $artworks = $authority->artworks;
+            foreach ($artworks as $media) {
+                if (!in_array($media->file_name, $request->input('artwork', []))) {
+                    $media->delete();
+                }
+            }
+
+            $media = (count($artworks) > 0) ? $artworks->pluck('file_name')->toArray() : [];
+            foreach ($request->input('artwork', []) as $i=>$file) {
+                if (count($media) === 0 || !in_array($file, $media)) {
+                    $authority->addMedia(storage_path('tmp/uploads/' . $file))
+                        ->usingName( $request->input('artwork_name.'.$i, '') )
+                        ->withCustomProperties([
+                            'sub_title' => $request->input('artwork_sub_title.'.$i, ''),
+                            'photo_credit' => $request->input('artwork_photo_credit.'.$i, ''),
+                        ])
+                        ->toCollection('artworks');
+                } elseif (in_array($file, $media)) {
+                    $artworks[$i]->name = $request->input('artwork_name.'.$i, '');
+                    $artworks[$i]->setCustomProperty('sub_title', $request->input('artwork_sub_title.'.$i, ''));
+                    $artworks[$i]->setCustomProperty('photo_credit', $request->input('artwork_photo_credit.'.$i, ''));
+                    $artworks[$i]->save();
+                }
+            }
+
             foreach (\Config::get('translatable.locales') as $i=>$locale) {
 
                 if (count($authority->getMedia('document.'.$locale)) > 0) {
@@ -197,8 +240,6 @@ class AuthorityController extends Controller
                             $media->delete();
                         }
                     }
-
-
                 }
 
                 $mediaItems = $authority->getMedia('document.'.$locale);

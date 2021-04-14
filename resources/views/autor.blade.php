@@ -138,6 +138,32 @@
                                     </a>
                                 </div>
                             @endforeach
+
+                            @foreach ($author->artworks as $artwork)
+                                <div class="col-md-3 col-sm-4 col-xs-6 item border-0">
+                                    <a href="{!! $artwork->getUrl() !!}"
+                                       title="{!! $artwork->name !!}"
+                                       data-sub-title="{{ $artwork->getCustomProperty('sub_title') }}"
+                                       data-photo-credit="{{ $artwork->getCustomProperty('photo_credit') }}"
+                                       data-id="{{ $artwork->id }}"
+                                       class="img-viewer">
+                                        @php
+                                            list($width, $height) = getimagesize(public_path() . $artwork->getUrl('thumb_m'));
+                                        @endphp
+                                        <div class="ratio-box" style="padding-bottom: {{ round(($height / $width) * 100, 4) }}%;">
+                                            <img
+                                            data-sizes="auto"
+                                            data-src="{!! $artwork->getUrl('thumb_m') !!}"
+                                            data-srcset="
+                                                    {!! $artwork->getUrl('thumb_s') !!} 300w,
+                                                    {!! $artwork->getUrl('thumb_m') !!} 600w,
+                                                    {!! $artwork->getUrl('thumb_l') !!} 800w"
+                                            class="lazyload"
+                                            alt="{!! $artwork->name !!} ">
+                                        </div>
+                                    </a>
+                                </div>
+                            @endforeach
                             </div>
                             {{-- /iso --}}
                         </div>
