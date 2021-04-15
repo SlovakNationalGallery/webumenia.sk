@@ -116,12 +116,8 @@ $(document).ready(function(){
     });
 
     $('.webumeniaCarousel').on('click', 'a.outer-box', function( event ) {
-        event.preventDefault();
         var id = $(this).data('id');
-        var url = $(this).attr('href');
-        $.get('/slideClicked', {'id': id}).done(function( data ) {
-            window.location.href = url;
-        });
+        $.get('/slideClicked', {'id': id})
     });
 });
 
