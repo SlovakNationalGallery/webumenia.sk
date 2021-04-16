@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Changed
+- Remove docker-compose.test.yml
+- Update README
 
 ## [2.26.0] - 2021-04-09
 ### Added
