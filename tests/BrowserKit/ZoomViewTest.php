@@ -4,11 +4,12 @@ namespace Tests\BrowserKit;
 
 use App\Item;
 use App\ItemImage;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\BrowserKitTestCase;
 
 class ZoomViewTest extends BrowserKitTestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     public function testMultipleImages() {
         $item = factory(Item::class)->create();

@@ -55,12 +55,17 @@ return array(
     'more-items_connect_col2_p'          => 'If you wish to provide more information about an artwork or an artist (biographical information, photograph for artist profile), correct some mistake or offer research material, please contact us at <a href="mailto:lab@sng.sk">lab@sng.sk</a>.',
     'more-items_connect_col3_lead'       => 'web umenia is brought to you by the <br><strong><a href="http://lab.sng.sk/" target="_blank" class="strong">lab.SNG</a> team</strong>',
     'more-items_connect_col3_ul-content' => '<li><strong>Michal Čudrnák</strong> lab.SNG team leader, article author</li>
-                                             <li><strong>Lukáš Štepanovský</strong> content editor, article author</li>
+                                             <li><strong>Lukáš Štepanovský</strong> content editor, article author, UX designer</li>
                                              <li><strong>Igor Rjabinin</strong> developer</li>
                                              <li><strong>Rastislav Chynoranský</strong> developer</li>
                                              <li><strong>Ernest Walzel</strong> developer</li>
                                              <li><strong>Martin Havala</strong> developer</li>
+                                             <li><strong>Andrej Bilec</strong> developer</li>
+                                             <li><strong>Zuzana Koblišková</strong> content editor, article author</li>
                                              <li><strong>Gabriel Balkó</strong> quality control, content editor</li>
+                                             <li><strong>Karin Vicianová</strong> quality control, content editor</li>
+                                             <li><strong>Jana Šuchová</strong> content editor</li>
+                                             <li><strong>Vladimír Hergott</strong> CEDVU administrator</li>
                                              <li><strong>Braňo Matis</strong> graphic designer</li>',
 
     'modal_disclaimer'      => 'prices are subject to change',

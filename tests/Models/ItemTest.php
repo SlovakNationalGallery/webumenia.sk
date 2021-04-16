@@ -4,12 +4,12 @@ namespace Tests\Models;
 
 use App\Authority;
 use App\Item;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ItemTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     public function testFreeFromDateLatest() {
         $item = factory(Item::class)->make([

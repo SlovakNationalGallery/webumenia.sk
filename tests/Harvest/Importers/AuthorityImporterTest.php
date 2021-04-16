@@ -16,16 +16,18 @@ use App\Harvest\Mappers\RelatedAuthorityMapper;
 use App\Harvest\Progress;
 use App\Link;
 use App\Nationality;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Elasticsearch\Client;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class AuthorityImporterTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     protected function setUp(): void
     {
         parent::setUp();
+        $this->app->instance(Client::class, $this->createMock(Client::class));
     }
 
     public function testUpdateRelated() {

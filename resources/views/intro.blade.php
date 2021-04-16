@@ -114,6 +114,11 @@ $(document).ready(function(){
         centerPadding: '5vw',
         appendDots: $('.slick-pagination')[0]
     });
+
+    $('.webumeniaCarousel').on('click', 'a.outer-box', function( event ) {
+        var id = $(this).data('id');
+        $.get('/slideClicked', {'id': id})
+    });
 });
 
 </script>

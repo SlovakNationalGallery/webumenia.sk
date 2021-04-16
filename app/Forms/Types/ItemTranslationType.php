@@ -15,6 +15,8 @@ class ItemTranslationType extends ModelType
     public function buildForm(FormBuilderInterface $builder, array $options) {
         parent::buildForm($builder, $options);
 
-        $builder->add('description', TextareaType::class);
+        $builder->add('description', TextareaType::class, [
+            'required' => false,
+        ]);
     }
 }

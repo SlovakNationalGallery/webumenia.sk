@@ -5,13 +5,13 @@ namespace Tests\Models;
 use App\Authority;
 use App\Elasticsearch\Repositories\AuthorityRepository;
 use Elasticsearch\Client;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\MockObject\MockObject;
 use Tests\TestCase;
 
 class AuthorityTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     public function testEmptyRoles()
     {

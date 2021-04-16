@@ -67,7 +67,7 @@ class KolekciaController extends Controller
     protected function createSearchRequestForm($searchRequest)
     {
         return $this->getFormFactory()
-            ->createNamedBuilder(null, CollectionSearchRequestType::class, $searchRequest, [
+            ->createNamedBuilder('', CollectionSearchRequestType::class, $searchRequest, [
                 'allow_extra_fields' => true,
             ])
             ->getForm();
