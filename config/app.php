@@ -30,7 +30,7 @@ return array(
     |
     */
 
-    'url' => 'http://www.webumenia.sk',
+    'url' => env('APP_URL', 'https://www.webumenia.sk'),
 
     /*
     |--------------------------------------------------------------------------
