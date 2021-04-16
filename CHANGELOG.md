@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Changed
+- Do not show formerly attributed authors in item detail
+
 ### Fixed
 - Username not fillable in admin
 
