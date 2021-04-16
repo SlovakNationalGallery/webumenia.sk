@@ -9,6 +9,10 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Fixed
 - Username not fillable in admin
+- Do not overwrite authority links from CEDVU
+
+### Changed
+- Remove LinkMapper from AuthorityImporter
 
 ## [2.27.0] - 2021-04-16
 ### Fixed
