@@ -3,12 +3,12 @@
 namespace Tests\Views\Frontend;
 
 use App\Item;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ImageViewTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     public function testGetResize()
     {

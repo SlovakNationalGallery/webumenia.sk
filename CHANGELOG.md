@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.27.0] - 2021-04-16
+### Fixed
+ - Counting clicks on carousel slides
+ 
+### Changed
+- Upgrade to Laravel 7
+- Upgrade to Laravel 8
+
 ## [2.26.0] - 2021-04-09
 ### Added
 - File uploads management
@@ -12,6 +20,7 @@ All notable changes to this project will be documented in this file[^1].
 - Remove authorities
 - Sort options in articles filters by count
 - Do not overwrite authority biography via OAI-PMH
+- Counting clicks on carousel slides
 
 ### Changed
 - Clean up Enforcer tables

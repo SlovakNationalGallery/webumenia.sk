@@ -1,6 +1,11 @@
 <?php
 
+namespace Database\Seeders;
+
+use App\Collection;
+use App\Sketchbook;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class SketchbooksTableSeeder extends Seeder {
 

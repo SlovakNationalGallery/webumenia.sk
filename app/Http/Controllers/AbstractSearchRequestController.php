@@ -102,7 +102,7 @@ abstract class AbstractSearchRequestController extends Controller
     protected function createSearchRequestForm($searchRequest)
     {
         return $this->getFormFactory()
-            ->createNamedBuilder(null, $this->searchRequestFormClass, $searchRequest, [
+            ->createNamedBuilder('', $this->searchRequestFormClass, $searchRequest, [
                 'allow_extra_fields' => true,
             ])
             ->getForm();

@@ -1,17 +1,21 @@
 <?php
 
-namespace Tests\BrowserKit;
+namespace Tests;
 
-use Elasticsearch\Client;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcherContract;
-use Laravel\BrowserKitTesting\TestCase;
+use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
 
-abstract class BrowserKitTestCase extends TestCase
+abstract class BrowserKitTestCase extends BaseTestCase
 {
+    use CreatesApplication;
+
+    public $baseUrl = 'http://localhost';
+
     /** @var \Faker\Generator */
     protected $faker;
 
-    public function setUp() {
+    public function setUp(): void
+    {
         parent::setUp();
 
         if ($this->faker === null) {
@@ -19,23 +23,6 @@ abstract class BrowserKitTestCase extends TestCase
         }
     }
 
-    /**
-     * Creates the application.
-     *
-     * @return \Symfony\Component\HttpKernel\HttpKernelInterface
-     */
-    public function createApplication()
-    {
-        /** @var \Illuminate\Foundation\Application $app */
-        $app = require __DIR__ . '/../../bootstrap/app.php';
-        $app->loadEnvironmentFrom('.env.testing');
-        $app->make(\Illuminate\Contracts\Console\Kernel::class)->bootstrap();
-        $app->instance(Client::class, $this->createMock(Client::class));
-
-        $this->baseUrl = env('TEST_HOST', 'http://localhost');
-
-        return $app;
-    }
 
     /**
      * @param string $type

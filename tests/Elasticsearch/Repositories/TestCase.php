@@ -5,11 +5,11 @@ namespace Tests\Elasticsearch\Repositories;
 use App\Elasticsearch\Repositories\TranslatableRepository;
 use Elasticsearch\ClientBuilder;
 use Elasticsearch\Common\Exceptions\Missing404Exception;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 abstract class TestCase extends \Tests\TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     /** @var TranslatableRepository */
     protected $repository;

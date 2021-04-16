@@ -12,6 +12,7 @@ use App\Harvest\Mappers\BaseAuthorityMapper;
 use App\Item;
 use App\Observers\AuthorityObserver;
 use App\Observers\ItemObserver;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Symfony\Component\PropertyAccess\PropertyAccess;
@@ -59,6 +60,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Authority::observe(AuthorityObserver::class);
         Item::observe(ItemObserver::class);
+
+        Paginator::useBootstrap();
 
         Blade::directive('date', function ($expression) {
             return $this->formatDate($expression, 'LL');

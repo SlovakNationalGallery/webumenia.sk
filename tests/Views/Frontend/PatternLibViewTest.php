@@ -7,12 +7,12 @@ use App\Elasticsearch\Repositories\ItemRepository;
 use App\Item;
 use App\ItemImage;
 use App\SearchResult;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class PatternLibViewTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     public function testGetIndex()
     {

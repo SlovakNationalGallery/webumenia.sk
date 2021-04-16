@@ -15,12 +15,12 @@ use App\Harvest\Mappers\NationalityMapper;
 use App\Harvest\Mappers\RelatedAuthorityMapper;
 use App\Harvest\Repositories\AuthorityRepository;
 use App\SpiceHarvesterHarvest;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class AuthorityHarvesterTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     public function testTryHarvestNoRows()
     {

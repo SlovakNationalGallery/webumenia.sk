@@ -6,12 +6,12 @@ use App\Import;
 use App\Importers\GmuRnlImporter;
 use App\Repositories\CsvRepository;
 use Illuminate\Contracts\Translation\Translator;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class GmuRnlImporterTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     public function testImport()
     {
