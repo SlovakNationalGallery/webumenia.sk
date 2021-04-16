@@ -10,7 +10,7 @@ class User extends Authenticatable
     public static $roles = ['admin', 'editor'];
 
     protected $fillable = [
-        'name', 'email', 'role'
+        'name', 'email', 'role', 'username'
     ];
 
     /**

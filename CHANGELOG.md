@@ -3,17 +3,25 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 ### Changed
+- Do not show formerly attributed authors in item detail
 - Remove docker-compose.test.yml
 - Update README
+
+### Fixed
+- Username not fillable in admin
+
+## [2.27.0] - 2021-04-16
+### Fixed
+ - Counting clicks on carousel slides
+ 
+### Changed
+- Upgrade to Laravel 7
+- Upgrade to Laravel 8
 
 ## [2.26.0] - 2021-04-09
 ### Added
 - File uploads management
 - KGC into list of galleries in the info page
-
-### Changed
-- Upgrade to Laravel 7
-- Upgrade to Laravel 8
 
 ### Fixed
 - Remove authorities
