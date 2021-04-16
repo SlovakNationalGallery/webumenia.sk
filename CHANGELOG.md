@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- Username not fillable in admin
 
 ## [2.27.0] - 2021-04-16
 ### Fixed
