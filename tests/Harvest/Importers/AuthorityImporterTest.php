@@ -10,11 +10,9 @@ use App\Harvest\Mappers\AuthorityMapper;
 use App\Harvest\Mappers\AuthorityNameMapper;
 use App\Harvest\Mappers\AuthorityNationalityMapper;
 use App\Harvest\Mappers\AuthorityRelationshipMapper;
-use App\Harvest\Mappers\LinkMapper;
 use App\Harvest\Mappers\NationalityMapper;
 use App\Harvest\Mappers\RelatedAuthorityMapper;
 use App\Harvest\Progress;
-use App\Link;
 use App\Nationality;
 use Elasticsearch\Client;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -35,19 +33,10 @@ class AuthorityImporterTest extends TestCase
         factory(Authority::class)->create(['id' => 1000168]);
         factory(Authority::class)->create(['id' => 11680]);
 
-        factory(Link::class)->create([
-            'url' => 'http://example.org/',
-            'label' => '',
-            'linkable_id' => 954,
-            'linkable_type' => Authority::class,
-        ]);
-
         $row = $this->getData();
         $importer = $this->initImporter($row);
 
         $authority = $importer->import($row, new Progress());
-        $this->assertEquals(1, $authority->links->count());
-        $this->assertEquals('example.org', $authority->links[0]->label);
     }
 
     public function testExistingButNotRelatedYet() {
@@ -141,7 +130,6 @@ class AuthorityImporterTest extends TestCase
             $authorityNameMapperMock = $this->createMock(AuthorityNameMapper::class),
             $authorityNationalityMapperMock = $this->createMock(AuthorityNationalityMapper::class),
             $authorityRelationshipMapperMock = $this->createMock(AuthorityRelationshipMapper::class),
-            $linkMapperMock = $this->createMock(LinkMapper::class),
             $nationalityMapperMock = $this->createMock(NationalityMapper::class),
             $relatedAuthorityMapperMock = $this->createMock(RelatedAuthorityMapper::class)
         );
@@ -214,14 +202,7 @@ class AuthorityImporterTest extends TestCase
                 ['type' => 'člen'],
                 ['type' => 'partner']
             );
-        $linkMapperMock
-            ->expects($this->exactly(1))
-            ->method('map')
-            ->withConsecutive([$row['links'][0]])
-            ->willReturnOnConsecutiveCalls([
-                'url' => 'http://example.org/',
-                'label' => 'example.org',
-            ]);
+
         $nationalityMapperMock
             ->expects($this->exactly(1))
             ->method('map')
