@@ -10,7 +10,6 @@ use App\Harvest\Mappers\AuthorityMapper;
 use App\Harvest\Mappers\AuthorityNameMapper;
 use App\Harvest\Mappers\AuthorityNationalityMapper;
 use App\Harvest\Mappers\AuthorityRelationshipMapper;
-use App\Harvest\Mappers\LinkMapper;
 use App\Harvest\Mappers\NationalityMapper;
 use App\Harvest\Mappers\RelatedAuthorityMapper;
 use App\Harvest\Repositories\AuthorityRepository;
@@ -33,7 +32,6 @@ class AuthorityHarvesterTest extends TestCase
             $this->createMock(AuthorityNameMapper::class),
             $this->createMock(AuthorityNationalityMapper::class),
             $this->createMock(AuthorityRelationshipMapper::class),
-            $this->createMock(LinkMapper::class),
             $this->createMock(NationalityMapper::class),
             $this->createMock(RelatedAuthorityMapper::class),
         ]);
