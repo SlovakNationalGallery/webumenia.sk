@@ -1,6 +1,4 @@
 # Welcome
-
-[![Build Status](https://travis-ci.com/SlovakNationalGallery/webumenia.sk.svg?branch=master)](https://travis-ci.com/SlovakNationalGallery/webumenia.sk)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 [Web umenia](http://www.webumenia.sk) is an open platform to explore digitized art collections from public galleries and museums.
@@ -28,78 +26,28 @@ We are committed to providing a welcoming and inspiring community for all and ex
 This software is built with the [Laravel framework](http://laravel.com/).
 
 It requires
-* PHP 7.4.x
-* MySQL
-* Elasticsearch
+* PHP 7.4.x with the following extensions: exif, gd, pdo_mysql, zip
+* MySQL 5.7
+* Elasticsearch 7.3
 
-## Installation with Docker
+We also provide a [Dockerfile](Dockerfile) and [docker-compose.yml](docker-compose.yml) with a basic stack set-up.
 
-This requires docker-compose
-these steps will set up a linked system of 4 containers:
-	web service (nginx webserver)
-	php service (contains our application code)
-	database container -- CAVEAT: don't use 'root' user for db, .env.example has sample username / password
-		when you first build the stack the mysql dockerfile builds a new database and creates a specific user
-		with which web_umenia accesses the db, which is as it should be. You may still access the db as 'root' yourself through
-		elasticsearch container
-that will communicate internally with one another
+## First-time setup
+In addition to the standard Laravel steps ([DB migrations](https://laravel.com/docs/8.x/migrations#running-migrations), [compiling assets](https://laravel.com/docs/8.x/mix#installation)), you'll so need to run the following once:
 
-1. Clone this repository.
-    ```
-    git@github.com:SlovakNationalGallery/web-umenia-2.git webumenia/
-    cd webumenia/
-    ```
-2. create a .env file (you can use the included env.example as a base)
-3. build the whole stack (mysql, elasticsearch, laravel php app + nginx server)
-with docker-compose:
-	```
-	docker-compose build
-	```
-	the first time you do this it will take a while, a lot of different components
-need to be fetched from remote servers.
-Be patient, subsequent builds won't take nearly as long.
-    - choose a database - you can set $DB_DATABASE in the environment and switch between different
-variants by editing that variable.
-4. start the app
-	```
-	docker-compose up
-	```
-	or
-	```
-	docker-compose up -d
-	```
-	to run it in the background.
-	(In this case you can watch the output of a component like this: `docker-compose logs -f php`)
-5. install dependencies
-	```
-	docker-compose exec php composer install --no-plugins --no-scripts --no-interaction
-	```
-5. link storage
-	```
-	docker-compose exec php php artisan storage:link
-6. run migrations
-	```
-	docker-compose exec php php artisan migrate --seed
-	```
-7. setup elasticsearch
-	```
-	docker-compose exec php php artisan es:setup
-	```
-8. visit http://localhost:8080 in your browser to have a look
-
-to stop the dockerized application: `docker-compose down`
-
-## Running tests
-
-Create `.env.testing` file (you can use the included `.env.testing.example` as a base) and run:
+Link storage (for file uploads)
 ```
-docker-compose -f docker-compose.yml -f docker-compose.test.yml run php
+php artisan storage:link
 ```
 
+Set up Elasticsearch indices:
+```
+php artisan es:setup
+```
 
 ## Harvesting Data
 
-You can now fill artworks by adding them manually or importing using the "spice harvester" (harvests using OAI-PMH protocol) using `php artisan oai-pmh:harvest` and choosing to harvest `1 [item] Europeana SNG`. Or login to admin at `http://yourlocalhost/admin` using default credentials `admin`/`admin` and go to `Import` -> `Spice Harvester` -> `Spustiť`.
+You can fill artworks by adding them manually or importing using the "spice harvester" (harvests using OAI-PMH protocol) using `php artisan oai-pmh:harvest` and choosing to harvest `1 [item] Europeana SNG`. Or login to admin at `http://localhost:8000/admin` using default credentials `admin`/`admin` and go to `Import` -> `Spice Harvester` -> `Spustiť`.
 
 ## IIPImage
 
@@ -114,16 +62,6 @@ ProxyPass /fcgi-bin/iipsrv.fcgi http://imi.sng.cust.eea.sk/publicIS/fcgi-bin/iip
 
 ProxyPassReverse /fcgi-bin/iipsrv.fcgi http://imi.sng.cust.eea.sk/publicIS/fcgi-bin/iipsrv.fcgi
 ```
-
-## Compiling Assets
-
-We use [Laravel Mix](https://laravel-mix.com/) to compile styles imported into a [main file](resources/less/style.less) into a single CSS file:
-
-```
-npm install && npm run dev
-```
-
-For a better developer experience, use `npm run watch` to watch a directory for changes and automatically compile LESS into CSS.
 
 ## Maintainer
 
