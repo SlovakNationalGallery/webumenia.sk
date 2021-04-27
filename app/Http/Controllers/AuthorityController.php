@@ -142,11 +142,16 @@ class AuthorityController extends Controller
             $artwork_media_files[] = [
                 'id' => $media->id,
                 'file_name' => $media->file_name,
-                'name' => $media->name,
-                'sub_title' => $media->getCustomProperty('sub_title'),
-                'photo_credit' => $media->getCustomProperty('photo_credit'),
                 'size' => $media->size,
-                'path' => $media->getUrl()
+                'path' => $media->getUrl(),
+                // sk
+                'title_sk' => $media->getCustomProperty('title.sk'),
+                'sub_title_sk' => $media->getCustomProperty('sub_title.sk'),
+                'photo_credit_sk' => $media->getCustomProperty('photo_credit.sk'),
+                // en
+                'title_en' => $media->getCustomProperty('title.en'),
+                'sub_title_en' => $media->getCustomProperty('sub_title.en'),
+                'photo_credit_en' => $media->getCustomProperty('photo_credit.en'),
             ];
         }
 
@@ -218,16 +223,24 @@ class AuthorityController extends Controller
             foreach ($request->input('artwork', []) as $i=>$file) {
                 if (count($media) === 0 || !in_array($file, $media)) {
                     $authority->addMedia(storage_path('tmp/uploads/' . $file))
-                        ->usingName( $request->input('artwork_name.'.$i, '') )
+                        // ->usingName( $request->input('artwork_name.'.$i, '') )
                         ->withCustomProperties([
-                            'sub_title' => $request->input('artwork_sub_title.'.$i, ''),
-                            'photo_credit' => $request->input('artwork_photo_credit.'.$i, ''),
+                            'title.sk' => $request->input('artwork_title_sk.'.$i, ''),
+                            'sub_title.sk' => $request->input('artwork_sub_title_sk.'.$i, ''),
+                            'photo_credit.sk' => $request->input('artwork_photo_credit_sk.'.$i, ''),
+                            'title.en' => $request->input('artwork_title_en.'.$i, ''),
+                            'sub_title.en' => $request->input('artwork_sub_title_en.'.$i, ''),
+                            'photo_credit.en' => $request->input('artwork_photo_credit_en.'.$i, ''),
                         ])
                         ->toCollection('artworks');
                 } elseif (in_array($file, $media)) {
-                    $artworks[$i]->name = $request->input('artwork_name.'.$i, '');
-                    $artworks[$i]->setCustomProperty('sub_title', $request->input('artwork_sub_title.'.$i, ''));
-                    $artworks[$i]->setCustomProperty('photo_credit', $request->input('artwork_photo_credit.'.$i, ''));
+                    // $artworks[$i]->name = $request->input('artwork_name.'.$i, '');
+                    $artworks[$i]->setCustomProperty('title.sk', $request->input('artwork_title_sk.'.$i, ''));
+                    $artworks[$i]->setCustomProperty('sub_title.sk', $request->input('artwork_sub_title_sk.'.$i, ''));
+                    $artworks[$i]->setCustomProperty('photo_credit.sk', $request->input('artwork_photo_credit_sk.'.$i, ''));
+                    $artworks[$i]->setCustomProperty('title.en', $request->input('artwork_title_en.'.$i, ''));
+                    $artworks[$i]->setCustomProperty('sub_title.en', $request->input('artwork_sub_title_en.'.$i, ''));
+                    $artworks[$i]->setCustomProperty('photo_credit.en', $request->input('artwork_photo_credit_en.'.$i, ''));
                     $artworks[$i]->save();
                 }
             }

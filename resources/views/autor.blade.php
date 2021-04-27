@@ -142,9 +142,9 @@
                             @foreach ($author->artworks as $artwork)
                                 <div class="col-md-3 col-sm-4 col-xs-6 item border-0">
                                     <a href="{!! $artwork->getUrl() !!}"
-                                       title="{!! $artwork->name !!}"
-                                       data-sub-title="{{ $artwork->getCustomProperty('sub_title') }}"
-                                       data-photo-credit="{{ $artwork->getCustomProperty('photo_credit') }}"
+                                       title="{!! $artwork->getCustomProperty('title.' . \LaravelLocalization::getCurrentLocale()) !!}"
+                                       data-sub-title="{{ $artwork->getCustomProperty('sub_title.' . \LaravelLocalization::getCurrentLocale()) }}"
+                                       data-photo-credit="{{ $artwork->getCustomProperty('photo_credit.' . \LaravelLocalization::getCurrentLocale()) }}"
                                        data-id="{{ $artwork->id }}"
                                        class="img-viewer">
                                         @php
