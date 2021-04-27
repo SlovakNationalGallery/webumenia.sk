@@ -45,15 +45,24 @@ abstract class AbstractRepository
         $records = $endpoint->listRecords($harvest->metadata_prefix, $from, $to, $harvest->set_spec);
 
         try {
-            $total = $records->getTotalRecordCount();
-
             foreach ($records as $record) {
                 $row = $this->getDataRecursively($record, $this->fieldMap);
                 yield $row[0];
             }
         } catch (MalformedResponseException $e) {
-            $total = 0;
         }
+    }
+
+    /**
+     * @param SpiceHarvesterHarvest $harvest
+     * @param \DateTime $from
+     * @param \DateTime $to
+     * @return integer
+     */
+    public function getTotal(SpiceHarvesterHarvest $harvest, \DateTime $from = null, \DateTime $to = null) {
+        $endpoint = $this->endpointFactory->createEndpoint($harvest);
+        $records = $endpoint->listRecords($harvest->metadata_prefix, $from, $to, $harvest->set_spec);
+        return $records->getTotalRecordCount();
     }
 
     /**
