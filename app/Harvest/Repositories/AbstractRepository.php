@@ -49,8 +49,7 @@ abstract class AbstractRepository
                 $row = $this->getDataRecursively($record, $this->fieldMap);
                 yield $row[0];
             }
-        } catch (MalformedResponseException $e) {
-        }
+        } catch (MalformedResponseException $e) { }
     }
 
     /**
@@ -62,7 +61,12 @@ abstract class AbstractRepository
     public function getTotal(SpiceHarvesterHarvest $harvest, \DateTime $from = null, \DateTime $to = null) {
         $endpoint = $this->endpointFactory->createEndpoint($harvest);
         $records = $endpoint->listRecords($harvest->metadata_prefix, $from, $to, $harvest->set_spec);
-        return $records->getTotalRecordCount();
+
+        $total = 0;
+        try {
+            $total = $records->getTotalRecordCount();
+        } catch (MalformedResponseException $e) { }
+        return $total;
     }
 
     /**
