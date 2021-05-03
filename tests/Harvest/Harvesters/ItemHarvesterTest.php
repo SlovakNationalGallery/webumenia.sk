@@ -66,7 +66,10 @@ class ItemHarvesterTest extends TestCase
 
         $repositoryMock->expects($this->once())
             ->method('getAll')
-            ->willReturn([]);
+            ->willReturn((object) [
+                'total' => 0,
+                'data' => []
+            ]);
 
         $harvester = new ItemHarvester($repositoryMock, $importerMock);
 
