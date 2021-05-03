@@ -45,8 +45,9 @@ abstract class AbstractHarvester
                 $total = count($only_ids);
                 $rows = $this->repository->getRowsById($harvest, $only_ids);
             } else {
-                $total = $this->repository->getTotal($harvest, $from, $to);
-                $rows = $this->repository->getRows($harvest, $from, $to);
+                $result = $this->repository->getAll($harvest, $from, $to);
+                $total = $result->total;
+                $rows = $result->data;
             }
 
             $progress->setTotal($total);

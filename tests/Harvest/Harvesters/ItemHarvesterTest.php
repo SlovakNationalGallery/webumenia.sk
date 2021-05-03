@@ -65,7 +65,7 @@ class ItemHarvesterTest extends TestCase
         ]);
 
         $repositoryMock->expects($this->once())
-            ->method('getRows')
+            ->method('getAll')
             ->willReturn([]);
 
         $harvester = new ItemHarvester($repositoryMock, $importerMock);

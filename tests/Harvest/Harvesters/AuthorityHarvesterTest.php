@@ -37,7 +37,7 @@ class AuthorityHarvesterTest extends TestCase
         ]);
 
         $repositoryMock->expects($this->once())
-            ->method('getRows')
+            ->method('getAll')
             ->willReturn([]);
 
         $harvester = new AuthorityHarvester($repositoryMock, $importerMock);
