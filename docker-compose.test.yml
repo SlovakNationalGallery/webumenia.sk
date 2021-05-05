@@ -1,7 +1,0 @@
-version: '2'
-services:
-  php:
-    env_file: .env.testing
-    entrypoint:
-      - php
-      - vendor/bin/phpunit

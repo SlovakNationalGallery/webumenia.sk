@@ -3,6 +3,17 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.28.0] - 2021-05-05
+### Changed
+- Do not show formerly attributed authors in item detail
+- Remove docker-compose.test.yml
+- Update README
+- Remove LinkMapper from AuthorityImporter
+
+### Fixed
+- Username not fillable in admin
+- Do not overwrite authority links from CEDVU
+
 ## [2.27.0] - 2021-04-16
 ### Fixed
  - Counting clicks on carousel slides
