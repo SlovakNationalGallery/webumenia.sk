@@ -22,7 +22,7 @@ class AuthorityRepositoryTest extends TestCase
         $itemRepository = new AuthorityRepository($endpointFactoryMock);
 
         $harvest = factory(SpiceHarvesterHarvest::class)->make(['base_url' => true]);
-        $rows = $itemRepository->getRows($harvest);
+        $rows = $itemRepository->getAll($harvest)->data;
 
         $rows = iterator_to_array($rows);
         $this->assertCount(1, $rows);

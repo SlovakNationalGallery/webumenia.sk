@@ -5,6 +5,8 @@ namespace App\Harvest\Repositories;
 use App\Harvest\Factories\EndpointFactory;
 use App\SpiceHarvesterHarvest;
 use App\SpiceHarvesterRecord;
+use Illuminate\Support\LazyCollection;
+use Illuminate\Support\Str;
 use Phpoaipmh\Exception\MalformedResponseException;
 
 abstract class AbstractRepository
@@ -38,22 +40,33 @@ abstract class AbstractRepository
      * @param SpiceHarvesterHarvest $harvest
      * @param \DateTime $from
      * @param \DateTime $to
-     * @return \Generator|array[]
      */
-    public function getRows(SpiceHarvesterHarvest $harvest, \DateTime $from = null, \DateTime $to = null, &$total = null) {
+    public function getAll(SpiceHarvesterHarvest $harvest, \DateTime $from = null, \DateTime $to = null) {
         $endpoint = $this->endpointFactory->createEndpoint($harvest);
         $records = $endpoint->listRecords($harvest->metadata_prefix, $from, $to, $harvest->set_spec);
 
         try {
             $total = $records->getTotalRecordCount();
+        } catch (MalformedResponseException $e) { 
+            // Our OAI API does not return `noRecordsMatch` error code, so handle this particular error
+            if (Str::startsWith("Expected XML element list 'record' missing for verb 'ListRecords'", $e->getMessage())) {
+                $total = 0;
+            } else {
+                throw $e;
+            }
+        }
 
+        $data = LazyCollection::make(function() use ($records) {
             foreach ($records as $record) {
                 $row = $this->getDataRecursively($record, $this->fieldMap);
                 yield $row[0];
             }
-        } catch (MalformedResponseException $e) {
-            $total = 0;
-        }
+        });
+
+        return (object) [
+            'total' => $total,
+            'data' => $total > 0 ? $data : []
+        ];
     }
 
     /**
