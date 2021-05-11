@@ -51,9 +51,9 @@ abstract class AbstractRepository
             // Our OAI API does not return `noRecordsMatch` error code, so handle this particular error
             if (Str::startsWith("Expected XML element list 'record' missing for verb 'ListRecords'", $e->getMessage())) {
                 $total = 0;
+            } else {
+                throw $e;
             }
-
-            throw $e;
         }
 
         $data = LazyCollection::make(function() use ($records) {
