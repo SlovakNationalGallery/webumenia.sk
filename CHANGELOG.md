@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.28.1] - 2021-05-13
+### Fixed
+- Harvester error logging
+- Harvester missing total in progress
+
 ## [2.28.0] - 2021-05-05
 ### Changed
 - Do not show formerly attributed authors in item detail
@@ -17,7 +22,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [2.27.0] - 2021-04-16
 ### Fixed
  - Counting clicks on carousel slides
- 
+
 ### Changed
 - Upgrade to Laravel 7
 - Upgrade to Laravel 8

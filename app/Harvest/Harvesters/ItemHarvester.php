@@ -57,7 +57,7 @@ class ItemHarvester extends AbstractHarvester
             $item->saveImage($item->img_url);
         } catch (\Exception $e) {
             $error = sprintf('%s: %s', $item->img_url, $e->getMessage());
-            $this->logger->addError($error);
+            $this->logger->error($error);
         }
     }
 

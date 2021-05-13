@@ -42,10 +42,12 @@ abstract class AbstractHarvester
     public function harvest(SpiceHarvesterHarvest $harvest, \DateTime $from = null, \DateTime $to = null, array $only_ids = []) {
         $harvest->process(function (Progress $progress) use ($harvest, $from, $to, $only_ids) {
             if ($only_ids) {
-                $rows = $this->repository->getRowsById($harvest, $only_ids);
                 $total = count($only_ids);
+                $rows = $this->repository->getRowsById($harvest, $only_ids);
             } else {
-                $rows = $this->repository->getRows($harvest, $from, $to, $total);
+                $result = $this->repository->getAll($harvest, $from, $to);
+                $total = $result->total;
+                $rows = $result->data;
             }
 
             $progress->setTotal($total);
