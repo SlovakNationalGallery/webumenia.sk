@@ -70,6 +70,7 @@ class ArticleController extends Controller
                 $article->title_shadow = Request::input('title_shadow');
             }
             
+            $article->fill(Request::all()); // TODO use fill other attributes too.
             $article->save();
 
             if (Request::hasFile('main_image')) {
@@ -147,6 +148,7 @@ class ArticleController extends Controller
                 $article->title_shadow = Request::input('title_shadow');
             }
 
+            $article->fill(Request::all()); // TODO use fill other attributes too.
             $article->save();
 
             if (Request::hasFile('main_image')) {

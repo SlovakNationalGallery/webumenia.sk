@@ -66,7 +66,19 @@
 		{!! Form::select('category_id', [''=>''] + App\Category::pluck('name', 'id')->toArray(), [], array('class' => 'select')) !!}
 	@endif
 	</div>
-
+</div>
+<div class="col-md-12">
+	<div class="form-group">
+	{!! Form::label('edu_media_types', 'EDU - Formát') !!}
+	@php
+			$opts = collect(\App\Article::$eduMediaTypes)
+				->reduce(function ($options, $value) {
+					$options[$value] = $value;
+					return $options;
+			});
+	@endphp
+	{!! Form::select('edu_media_types', $opts, old('edu_media_types'), ['class' => 'select', 'multiple' => 'multiple', 'name' => 'edu_media_types[]']) !!}
+	</div>
 </div>
 <div class="col-md-12">
 	<div class="form-group">
@@ -148,6 +160,10 @@ $(document).ready(function(){
         maxItems: 1,
         allowEmpty: 1,
         mode: 'multi'
+    });
+
+    $("#edu_media_types").selectize({
+        plugins: ['remove_button'],
     });
 
     @if(!isset($article))

@@ -27,22 +27,24 @@ class Article extends Model implements TranslatableContract
 
     public $translatedAttributes = ['title', 'summary', 'content'];
 
-    protected $fillable = array(
-        'published_date'
-    );
+    protected $fillable = [
+        'published_date',
+        'edu_media_types',
+        'edu_target_age_groups',
+    ];
 
-    protected $dates = array(
+    protected $dates = [
         'created_at',
         'updated_at',
         'published_date'
-    );
+    ];
 
     protected $casts = [
         'edu_media_types' => 'array',
         'edu_target_age_groups' => 'array',
     ];
 
-    protected static $eduMediaTypes = [
+    public static $eduMediaTypes = [
         'methodology',
         'worksheet',
         'video',
