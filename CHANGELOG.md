@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.28.1] - 2021-05-13
+### Fixed
+- Harvester error logging
+- Harvester missing total in progress
+
 ## [2.28.0] - 2021-05-05
 ### Changed
 - Do not show formerly attributed authors in item detail
@@ -13,8 +18,6 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - Username not fillable in admin
 - Do not overwrite authority links from CEDVU
-- Harvester error logging
-- Harvester missing total in progress
 
 ## [2.27.0] - 2021-04-16
 ### Fixed
