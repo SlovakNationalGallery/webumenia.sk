@@ -10,6 +10,7 @@ use Astrotomic\Translatable\Translatable;
 use Illuminate\Support\Facades\URL;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Validation\Rule;
 
 class Article extends Model implements TranslatableContract
 {
@@ -26,16 +27,6 @@ class Article extends Model implements TranslatableContract
 
     public $translatedAttributes = ['title', 'summary', 'content'];
 
-
-    public static $rules = array(
-        'slug'       => 'required',
-        'author'     => 'required',
-
-        'sk.title'   => 'required',
-        'sk.summary' => 'required',
-        'sk.content' => 'required',
-    );
-
     protected $fillable = array(
         'published_date'
     );
@@ -46,10 +37,38 @@ class Article extends Model implements TranslatableContract
         'published_date'
     );
 
-    // public function items()
- //    {
- //        return $this->belongsToMany('Item', 'collection_item', 'collection_id', 'item_id');
- //    }
+    protected $casts = [
+        'edu_media_types' => 'array',
+        'edu_target_age_groups' => 'array',
+    ];
+
+    protected static $eduMediaTypes = [
+        'methodology',
+        'worksheet',
+        'video',
+        'workshop',
+        'virtual_exhibition',
+    ];
+
+    protected static $eduAgeGroups = [
+        '3-6',
+        '7-10',
+        '11-15',
+        '16-19',
+    ];
+
+    public static function getValidationRules()
+    {
+        return [
+            'slug' => 'required',
+            'author' => 'required',
+            'sk.title' => 'required',
+            'sk.summary' => 'required',
+            'sk.content' => 'required',
+            'edu_media_types' => ['array', Rule::in(self::$eduMediaTypes)],
+            'edu_target_age_groups' => ['array', Rule::in(self::$eduAgeGroups)],
+        ];
+    }
 
     public function category()
     {

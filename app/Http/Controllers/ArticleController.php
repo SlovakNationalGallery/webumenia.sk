@@ -41,10 +41,7 @@ class ArticleController extends Controller
      */
     public function store()
     {
-        $input = Request::all();
-
-        $rules = Article::$rules;
-        $v = Validator::make($input, $rules);
+        $v = Validator::make(Request::all(), Article::getValidationRules());
 
         if ($v->passes()) {
             
@@ -122,7 +119,7 @@ class ArticleController extends Controller
      */
     public function update($id)
     {
-        $v = Validator::make(Request::all(), Article::$rules);
+        $v = Validator::make(Request::all(), Article::getValidationRules());
 
         if ($v->passes()) {
             $input = Arr::except(Request::all(), array('_method'));
