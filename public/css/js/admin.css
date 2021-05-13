@@ -22,3 +22,9 @@
   height: 2.2em;
   margin: 0.3em 0;
 }
+
+.m-5 {margin: 3rem !important;}
+.mt-5, .my-5 {margin-top: 3rem !important;}
+.mr-5, .mx-5 {margin-right: 3rem !important;}
+.mb-5, .my-5 {margin-bottom: 3rem !important;}
+.ml-5, .mx-5 {margin-left: 3rem !important;}

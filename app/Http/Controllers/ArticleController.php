@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Arr;
-use Intervention\Image\ImageManagerStatic;
 
 class ArticleController extends Controller
 {
@@ -31,7 +30,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('articles.form');
+        return view('articles.form', $this->buildSelectOptions());
     }
 
     /**
@@ -109,7 +108,10 @@ class ArticleController extends Controller
             return Redirect::route('article.index');
         }
 
-        return view('articles.form')->with('article', $article);
+        return view('articles.form', array_merge(
+            $this->buildSelectOptions(),
+            ['article' => $article]
+        ));
     }
 
     /**
@@ -120,46 +122,40 @@ class ArticleController extends Controller
      */
     public function update($id)
     {
-        $v = Validator::make(Request::all(), Article::getValidationRules());
+        Validator::make(Request::all(), Article::getValidationRules())->validate();
 
-        if ($v->passes()) {
-            $input = Arr::except(Request::all(), array('_method'));
+        $article = Article::find($id);
 
-            $article = Article::find($id);
-
-            // update translatable attributes
-            foreach (\Config::get('translatable.locales') as $i => $locale) {
-                if (hasTranslationValue($locale, $article->translatedAttributes)){
-                    foreach ($article->translatedAttributes as $attribute) {
-                        $article->translateOrNew($locale)->$attribute = Request::input($locale . '.' . $attribute);
-                    }
+        // update translatable attributes
+        foreach (\Config::get('translatable.locales') as $i => $locale) {
+            if (hasTranslationValue($locale, $article->translatedAttributes)){
+                foreach ($article->translatedAttributes as $attribute) {
+                    $article->translateOrNew($locale)->$attribute = Request::input($locale . '.' . $attribute);
                 }
             }
-
-            $article->author = Request::input('author');
-            $article->slug = Request::input('slug');
-            $article->category_id = Request::input('category_id', null);
-            $article->publish = Request::input('publish', false);
-            $article->promote = Request::input('promote', false);
-            if (Request::has('title_color')) {
-                $article->title_color = Request::input('title_color');
-            }
-            if (Request::has('title_shadow')) {
-                $article->title_shadow = Request::input('title_shadow');
-            }
-
-            $article->fill(Request::all()); // TODO use fill other attributes too.
-            $article->save();
-
-            if (Request::hasFile('main_image')) {
-                $this->uploadMainImage($article);
-            }
-
-            Session::flash('message', 'Článok <code>' . $article->title . '</code> bol upravený');
-            return Redirect::route('article.index');
         }
 
-        return Redirect::back()->withErrors($v);
+        $article->author = Request::input('author');
+        $article->slug = Request::input('slug');
+        $article->category_id = Request::input('category_id', null);
+        $article->publish = Request::input('publish', false);
+        $article->promote = Request::input('promote', false);
+        if (Request::has('title_color')) {
+            $article->title_color = Request::input('title_color');
+        }
+        if (Request::has('title_shadow')) {
+            $article->title_shadow = Request::input('title_shadow');
+        }
+
+        $article->fill(Request::all()); // TODO use fill other attributes too.
+        $article->save();
+
+        if (Request::hasFile('main_image')) {
+            $this->uploadMainImage($article);
+        }
+
+        Session::flash('message', 'Článok <code>' . $article->title . '</code> bol upravený');
+        return Redirect::route('article.index');
     }
 
     /**
@@ -180,5 +176,21 @@ class ArticleController extends Controller
         $main_image = Request::file('main_image');
         $article->main_image = $article->uploadHeaderImage($main_image);
         $article->save();
+    }
+
+    private function buildSelectOptions()
+    {
+        return [
+            'eduMediaTypesOptions' => collect(Article::$eduMediaTypes)
+                ->reduce(function ($options, $value) {
+                    $options[$value] = $value;
+                    return $options;
+                 }),
+            'eduAgeGroupsOptions' => collect(Article::$eduAgeGroups)
+                ->reduce(function ($options, $value) {
+                    $options[$value] = $value;
+                    return $options;
+                 }),
+        ];
     }
 }

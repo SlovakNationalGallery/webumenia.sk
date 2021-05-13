@@ -69,19 +69,6 @@
 </div>
 <div class="col-md-12">
 	<div class="form-group">
-	{!! Form::label('edu_media_types', 'EDU - Formát') !!}
-	@php
-			$opts = collect(\App\Article::$eduMediaTypes)
-				->reduce(function ($options, $value) {
-					$options[$value] = $value;
-					return $options;
-			});
-	@endphp
-	{!! Form::select('edu_media_types', $opts, old('edu_media_types'), ['class' => 'select', 'multiple' => 'multiple', 'name' => 'edu_media_types[]']) !!}
-	</div>
-</div>
-<div class="col-md-12">
-	<div class="form-group">
 	{!! Form::label('author', 'Autor') !!}
 	{!! Form::text('author', Request::old('author'), array('class' => 'form-control')) !!}
 	</div>
@@ -90,6 +77,37 @@
 	<div class="form-group">
 	{!! Form::label('slug', 'URL Slug') !!}
 	{!! Form::text('slug', Request::old('slug'), array('class' => 'form-control')) !!}
+	</div>
+</div>
+<div class="col-md-12 my-5">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4>Vzdelávanie</h4>
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+						{!! Form::label('edu_media_types', 'Formát') !!}
+						{!! Form::select('edu_media_types', $eduMediaTypesOptions, old('edu_media_types'), ['class' => 'select', 'multiple' => 'multiple', 'name' => 'edu_media_types[]']) !!}
+						<p class="text-muted">Vyplnením tohto poľa sa článok zaradí do sekcie</p>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						{!! Form::label('edu_target_age_groups', 'Cieľové skupiny') !!}
+						{!! Form::select('edu_target_age_groups', $eduAgeGroupsOptions, old('edu_target_age_groups'), ['class' => 'select', 'multiple' => 'multiple', 'name' => 'edu_target_age_groups[]']) !!}
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group checkbox">
+						{!! Form::label('edu_suitable_for_home', 'Vhodné na doma') !!}
+						{!! Form::hidden('edu_suitable_for_home_default', '0', ['name' => 'edu_suitable_for_home']) !!}
+						{!! Form::checkbox('edu_suitable_for_home', '1') !!}
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 <div class="col-md-6">
@@ -163,6 +181,10 @@ $(document).ready(function(){
     });
 
     $("#edu_media_types").selectize({
+        plugins: ['remove_button'],
+    });
+
+    $("#edu_target_age_groups").selectize({
         plugins: ['remove_button'],
     });
 

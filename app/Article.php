@@ -31,6 +31,7 @@ class Article extends Model implements TranslatableContract
         'published_date',
         'edu_media_types',
         'edu_target_age_groups',
+        'edu_suitable_for_home',
     ];
 
     protected $dates = [
@@ -52,7 +53,7 @@ class Article extends Model implements TranslatableContract
         'virtual_exhibition',
     ];
 
-    protected static $eduAgeGroups = [
+    public static $eduAgeGroups = [
         '3-6',
         '7-10',
         '11-15',
