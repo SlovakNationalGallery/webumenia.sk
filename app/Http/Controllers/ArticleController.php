@@ -73,7 +73,7 @@ class ArticleController extends Controller
         $article->save();
 
         if ($request->hasFile('main_image')) {
-            $this->uploadMainImage($article);
+            $this->uploadMainImage($article, $request);
         }
 
         return Redirect::route('article.index');
@@ -150,7 +150,7 @@ class ArticleController extends Controller
         $article->save();
 
         if ($request->hasFile('main_image')) {
-            $this->uploadMainImage($article);
+            $this->uploadMainImage($article, $request);
         }
 
         Session::flash('message', 'Článok <code>' . $article->title . '</code> bol upravený');
@@ -170,7 +170,7 @@ class ArticleController extends Controller
     }
 
 
-    private function uploadMainImage($article)
+    private function uploadMainImage($article, $request)
     {
         $main_image = $request->file('main_image');
         $article->main_image = $article->uploadHeaderImage($main_image);
