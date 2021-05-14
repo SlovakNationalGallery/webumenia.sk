@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Article;
-use Illuminate\Http\Request as HttpRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Request;
 
 class ArticleController extends Controller
 {
@@ -37,7 +36,7 @@ class ArticleController extends Controller
      *
      * @return Response
      */
-    public function store(HttpRequest $request)
+    public function store(Request $request)
     {
         $request->validate(Article::getValidationRules());
 
@@ -47,33 +46,33 @@ class ArticleController extends Controller
         foreach (\Config::get('translatable.locales') as $i => $locale) {
             if (hasTranslationValue($locale, $article->translatedAttributes)){
                 foreach ($article->translatedAttributes as $attribute) {
-                    $article->translateOrNew($locale)->$attribute = Request::input($locale . '.' . $attribute);
+                    $article->translateOrNew($locale)->$attribute = $request->input($locale . '.' . $attribute);
                 }
             }
         }
 
-        $article->author = Request::input('author');
-        $article->slug = Request::input('slug');
-        if (Request::has('category_id')) {
-            $article->category_id = Request::input('category_id');
+        $article->author = $request->input('author');
+        $article->slug = $request->input('slug');
+        if ($request->has('category_id')) {
+            $article->category_id = $request->input('category_id');
         }
-        $article->publish = Request::input('publish', false);
-        $article->promote = Request::input('promote', false);
-        $article->edu_media_types = Request::input('edu_media_types', null);
-        $article->edu_target_age_groups = Request::input('edu_target_age_groups', null);
-        $article->edu_suitable_for_home = Request::input('edu_suitable_for_home', false);
-        $article->edu_keywords = Request::input('edu_keywords', null);
+        $article->publish = $request->input('publish', false);
+        $article->promote = $request->input('promote', false);
+        $article->edu_media_types = $request->input('edu_media_types', null);
+        $article->edu_target_age_groups = $request->input('edu_target_age_groups', null);
+        $article->edu_suitable_for_home = $request->input('edu_suitable_for_home', false);
+        $article->edu_keywords = $request->input('edu_keywords', null);
 
-        if (Request::has('title_color')) {
-            $article->title_color = Request::input('title_color');
+        if ($request->has('title_color')) {
+            $article->title_color = $request->input('title_color');
         }
-        if (Request::has('title_shadow')) {
-            $article->title_shadow = Request::input('title_shadow');
+        if ($request->has('title_shadow')) {
+            $article->title_shadow = $request->input('title_shadow');
         }
         
         $article->save();
 
-        if (Request::hasFile('main_image')) {
+        if ($request->hasFile('main_image')) {
             $this->uploadMainImage($article);
         }
 
@@ -118,7 +117,7 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Article $article, HttpRequest $request)
+    public function update(Article $article, Request $request)
     {
         $request->validate(Article::getValidationRules());
 
@@ -126,31 +125,31 @@ class ArticleController extends Controller
         foreach (\Config::get('translatable.locales') as $i => $locale) {
             if (hasTranslationValue($locale, $article->translatedAttributes)){
                 foreach ($article->translatedAttributes as $attribute) {
-                    $article->translateOrNew($locale)->$attribute = Request::input($locale . '.' . $attribute);
+                    $article->translateOrNew($locale)->$attribute = $request->input($locale . '.' . $attribute);
                 }
             }
         }
 
-        $article->author = Request::input('author');
-        $article->slug = Request::input('slug');
-        $article->category_id = Request::input('category_id', null);
-        $article->publish = Request::input('publish', false);
-        $article->promote = Request::input('promote', false);
-        $article->edu_media_types = Request::input('edu_media_types', null);
-        $article->edu_target_age_groups = Request::input('edu_target_age_groups', null);
-        $article->edu_suitable_for_home = Request::input('edu_suitable_for_home', false);
-        $article->edu_keywords = Request::input('edu_keywords', null);
+        $article->author = $request->input('author');
+        $article->slug = $request->input('slug');
+        $article->category_id = $request->input('category_id', null);
+        $article->publish = $request->input('publish', false);
+        $article->promote = $request->input('promote', false);
+        $article->edu_media_types = $request->input('edu_media_types', null);
+        $article->edu_target_age_groups = $request->input('edu_target_age_groups', null);
+        $article->edu_suitable_for_home = $request->input('edu_suitable_for_home', false);
+        $article->edu_keywords = $request->input('edu_keywords', null);
 
-        if (Request::has('title_color')) {
-            $article->title_color = Request::input('title_color');
+        if ($request->has('title_color')) {
+            $article->title_color = $request->input('title_color');
         }
-        if (Request::has('title_shadow')) {
-            $article->title_shadow = Request::input('title_shadow');
+        if ($request->has('title_shadow')) {
+            $article->title_shadow = $request->input('title_shadow');
         }
 
         $article->save();
 
-        if (Request::hasFile('main_image')) {
+        if ($request->hasFile('main_image')) {
             $this->uploadMainImage($article);
         }
 
@@ -173,7 +172,7 @@ class ArticleController extends Controller
 
     private function uploadMainImage($article)
     {
-        $main_image = Request::file('main_image');
+        $main_image = $request->file('main_image');
         $article->main_image = $article->uploadHeaderImage($main_image);
         $article->save();
     }
