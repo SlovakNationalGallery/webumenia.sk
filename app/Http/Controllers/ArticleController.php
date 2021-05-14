@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Article;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Request;
@@ -37,52 +37,47 @@ class ArticleController extends Controller
      *
      * @return Response
      */
-    public function store()
+    public function store(HttpRequest $request)
     {
-        $v = Validator::make(Request::all(), Article::getValidationRules());
+        $request->validate(Article::getValidationRules());
 
-        if ($v->passes()) {
-            
-            $article = new Article;
+        $article = new Article;
 
-            // store translatable attributes
-            foreach (\Config::get('translatable.locales') as $i => $locale) {
-                if (hasTranslationValue($locale, $article->translatedAttributes)){
-                    foreach ($article->translatedAttributes as $attribute) {
-                        $article->translateOrNew($locale)->$attribute = Request::input($locale . '.' . $attribute);
-                    }
+        // store translatable attributes
+        foreach (\Config::get('translatable.locales') as $i => $locale) {
+            if (hasTranslationValue($locale, $article->translatedAttributes)){
+                foreach ($article->translatedAttributes as $attribute) {
+                    $article->translateOrNew($locale)->$attribute = Request::input($locale . '.' . $attribute);
                 }
             }
-
-            $article->author = Request::input('author');
-            $article->slug = Request::input('slug');
-            if (Request::has('category_id')) {
-                $article->category_id = Request::input('category_id');
-            }
-            $article->publish = Request::input('publish', false);
-            $article->promote = Request::input('promote', false);
-            $article->edu_media_types = Request::input('edu_media_types', null);
-            $article->edu_target_age_groups = Request::input('edu_target_age_groups', null);
-            $article->edu_suitable_for_home = Request::input('edu_suitable_for_home', false);
-            $article->edu_keywords = Request::input('edu_keywords', null);
-
-            if (Request::has('title_color')) {
-                $article->title_color = Request::input('title_color');
-            }
-            if (Request::has('title_shadow')) {
-                $article->title_shadow = Request::input('title_shadow');
-            }
-            
-            $article->save();
-
-            if (Request::hasFile('main_image')) {
-                $this->uploadMainImage($article);
-            }
-
-            return Redirect::route('article.index');
         }
 
-        return Redirect::back()->withInput()->withErrors($v);
+        $article->author = Request::input('author');
+        $article->slug = Request::input('slug');
+        if (Request::has('category_id')) {
+            $article->category_id = Request::input('category_id');
+        }
+        $article->publish = Request::input('publish', false);
+        $article->promote = Request::input('promote', false);
+        $article->edu_media_types = Request::input('edu_media_types', null);
+        $article->edu_target_age_groups = Request::input('edu_target_age_groups', null);
+        $article->edu_suitable_for_home = Request::input('edu_suitable_for_home', false);
+        $article->edu_keywords = Request::input('edu_keywords', null);
+
+        if (Request::has('title_color')) {
+            $article->title_color = Request::input('title_color');
+        }
+        if (Request::has('title_shadow')) {
+            $article->title_shadow = Request::input('title_shadow');
+        }
+        
+        $article->save();
+
+        if (Request::hasFile('main_image')) {
+            $this->uploadMainImage($article);
+        }
+
+        return Redirect::route('article.index');
     }
 
     /**
@@ -123,11 +118,9 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update(Article $article, HttpRequest $request)
     {
-        Validator::make(Request::all(), Article::getValidationRules())->validate();
-
-        $article = Article::find($id);
+        $request->validate(Article::getValidationRules());
 
         // update translatable attributes
         foreach (\Config::get('translatable.locales') as $i => $locale) {
