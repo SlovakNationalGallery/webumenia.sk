@@ -17,7 +17,7 @@ class AddEduAttributesToArticles extends Migration
             $table->after('publish', function ($table) {
                 $table->json('edu_media_types')->nullable();
                 $table->json('edu_target_age_groups')->nullable();
-                $table->boolean('edu_suitable_for_home');
+                $table->boolean('edu_suitable_for_home')->default(0);
                 $table->json('edu_keywords')->nullable();
             });
         });
