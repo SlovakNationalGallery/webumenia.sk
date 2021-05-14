@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Arr;
 
 class ArticleController extends Controller
 {
@@ -62,6 +61,11 @@ class ArticleController extends Controller
             }
             $article->publish = Request::input('publish', false);
             $article->promote = Request::input('promote', false);
+            $article->edu_media_types = Request::input('edu_media_types', null);
+            $article->edu_target_age_groups = Request::input('edu_target_age_groups', null);
+            $article->edu_suitable_for_home = Request::input('edu_suitable_for_home', false);
+            $article->edu_keywords = Request::input('edu_keywords', null);
+
             if (Request::has('title_color')) {
                 $article->title_color = Request::input('title_color');
             }
@@ -69,7 +73,6 @@ class ArticleController extends Controller
                 $article->title_shadow = Request::input('title_shadow');
             }
             
-            $article->fill(Request::all()); // TODO use fill other attributes too.
             $article->save();
 
             if (Request::hasFile('main_image')) {
@@ -140,6 +143,11 @@ class ArticleController extends Controller
         $article->category_id = Request::input('category_id', null);
         $article->publish = Request::input('publish', false);
         $article->promote = Request::input('promote', false);
+        $article->edu_media_types = Request::input('edu_media_types', null);
+        $article->edu_target_age_groups = Request::input('edu_target_age_groups', null);
+        $article->edu_suitable_for_home = Request::input('edu_suitable_for_home', false);
+        $article->edu_keywords = Request::input('edu_keywords', null);
+
         if (Request::has('title_color')) {
             $article->title_color = Request::input('title_color');
         }
@@ -147,7 +155,6 @@ class ArticleController extends Controller
             $article->title_shadow = Request::input('title_shadow');
         }
 
-        $article->fill(Request::all()); // TODO use fill other attributes too.
         $article->save();
 
         if (Request::hasFile('main_image')) {

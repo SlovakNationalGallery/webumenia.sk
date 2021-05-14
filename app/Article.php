@@ -29,10 +29,6 @@ class Article extends Model implements TranslatableContract
 
     protected $fillable = [
         'published_date',
-        'edu_media_types',
-        'edu_target_age_groups',
-        'edu_suitable_for_home',
-        'edu_keywords',
     ];
 
     protected $dates = [

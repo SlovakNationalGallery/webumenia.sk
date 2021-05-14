@@ -99,7 +99,6 @@
 						{!! Form::select('edu_target_age_groups', $eduAgeGroupsOptions, old('edu_target_age_groups'), ['class' => 'select', 'multiple' => 'multiple', 'name' => 'edu_target_age_groups[]']) !!}
 						<div class="checkbox mt-0">
 							{!! Form::label('edu_suitable_for_home', 'Vhodné na doma') !!}
-							{!! Form::hidden('edu_suitable_for_home_default', '0', ['name' => 'edu_suitable_for_home']) !!}
 							{!! Form::checkbox('edu_suitable_for_home', '1') !!}
 						</div>
 					</div>
