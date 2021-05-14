@@ -32,6 +32,7 @@ class Article extends Model implements TranslatableContract
         'edu_media_types',
         'edu_target_age_groups',
         'edu_suitable_for_home',
+        'edu_keywords',
     ];
 
     protected $dates = [
@@ -43,6 +44,7 @@ class Article extends Model implements TranslatableContract
     protected $casts = [
         'edu_media_types' => 'array',
         'edu_target_age_groups' => 'array',
+        'edu_keywords' => 'array',
     ];
 
     public static $eduMediaTypes = [
@@ -70,6 +72,7 @@ class Article extends Model implements TranslatableContract
             'sk.content' => 'required',
             'edu_media_types' => ['array', Rule::in(self::$eduMediaTypes)],
             'edu_target_age_groups' => ['array', Rule::in(self::$eduAgeGroups)],
+            'edu_keywords' => 'array',
         ];
     }
 

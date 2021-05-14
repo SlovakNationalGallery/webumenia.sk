@@ -191,6 +191,16 @@ class ArticleController extends Controller
                     $options[$value] = $value;
                     return $options;
                  }),
+            'eduKeywordsOptions' => Article::all()
+                ->pluck('edu_keywords')
+                ->filter()
+                ->flatten()
+                ->unique()
+                ->sort()
+                ->reduce(function ($options, $value) {
+                    $options[$value] = $value;
+                    return $options;
+                 }),
         ];
     }
 }

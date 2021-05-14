@@ -15,9 +15,10 @@ class AddEduAttributesToArticles extends Migration
     {
         Schema::table('articles', function (Blueprint $table) {
             $table->after('publish', function ($table) {
-                $table->json('edu_media_types');
-                $table->json('edu_target_age_groups');
+                $table->json('edu_media_types')->nullable();
+                $table->json('edu_target_age_groups')->nullable();
                 $table->boolean('edu_suitable_for_home');
+                $table->json('edu_keywords')->nullable();
             });
         });
     }
@@ -30,7 +31,7 @@ class AddEduAttributesToArticles extends Migration
     public function down()
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->dropColumn(['edu_media_types', 'edu_target_age_groups', 'edu_suitable_for_home']);
+            $table->dropColumn(['edu_media_types', 'edu_target_age_groups', 'edu_suitable_for_home', 'edu_keywords']);
         });
     }
 }

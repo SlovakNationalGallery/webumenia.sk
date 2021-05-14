@@ -90,20 +90,27 @@
 					<div class="form-group">
 						{!! Form::label('edu_media_types', 'Formát') !!}
 						{!! Form::select('edu_media_types', $eduMediaTypesOptions, old('edu_media_types'), ['class' => 'select', 'multiple' => 'multiple', 'name' => 'edu_media_types[]']) !!}
-						<p class="text-muted">Vyplnením tohto poľa sa článok zaradí do sekcie</p>
+						<p class="text-muted">Vyplnením tohto poľa sa článok zaradí do sekcie Vzdelávanie.</p>
 					</div>
 				</div>
 				<div class="col-md-12">
 					<div class="form-group">
 						{!! Form::label('edu_target_age_groups', 'Cieľové skupiny') !!}
 						{!! Form::select('edu_target_age_groups', $eduAgeGroupsOptions, old('edu_target_age_groups'), ['class' => 'select', 'multiple' => 'multiple', 'name' => 'edu_target_age_groups[]']) !!}
+						<div class="checkbox mt-0">
+							{!! Form::label('edu_suitable_for_home', 'Vhodné na doma') !!}
+							{!! Form::hidden('edu_suitable_for_home_default', '0', ['name' => 'edu_suitable_for_home']) !!}
+							{!! Form::checkbox('edu_suitable_for_home', '1') !!}
+						</div>
 					</div>
 				</div>
 				<div class="col-md-6">
-					<div class="form-group checkbox">
-						{!! Form::label('edu_suitable_for_home', 'Vhodné na doma') !!}
-						{!! Form::hidden('edu_suitable_for_home_default', '0', ['name' => 'edu_suitable_for_home']) !!}
-						{!! Form::checkbox('edu_suitable_for_home', '1') !!}
+					
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						{!! Form::label('edu_keywords', 'Kľúčové slová') !!}
+						{!! Form::select('edu_keywords', $eduKeywordsOptions, old('edu_keywords'), ['class' => 'select', 'multiple' => 'multiple', 'name' => 'edu_keywords[]']) !!}
 					</div>
 				</div>
 			</div>
@@ -186,6 +193,12 @@ $(document).ready(function(){
 
     $("#edu_target_age_groups").selectize({
         plugins: ['remove_button'],
+    });
+
+    $("#edu_keywords").selectize({
+        plugins: ['remove_button'],
+				persist: false, // Throw away de-selected created items
+				create: true, 	// Allow creation of new items
     });
 
     @if(!isset($article))
