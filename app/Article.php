@@ -41,6 +41,7 @@ class Article extends Model implements TranslatableContract
         'edu_media_types' => 'array',
         'edu_target_age_groups' => 'array',
         'edu_keywords' => 'array',
+        'edu_suitable_for_home' => 'boolean',
     ];
 
     public static $eduMediaTypes = [
@@ -70,6 +71,11 @@ class Article extends Model implements TranslatableContract
             'edu_target_age_groups' => ['array', Rule::in(self::$eduAgeGroups)],
             'edu_keywords' => 'array',
         ];
+    }
+
+    public function scopeEducational($query)
+    {
+        return $query->whereJsonLength('edu_media_types', '>', 0);
     }
 
     public function category()

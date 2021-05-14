@@ -317,6 +317,9 @@ function()
     Route::match(array('GET', 'POST'), 'kolekcie/suggestions', 'KolekciaController@getSuggestions')->name('frontend.collection.suggestions');
     Route::get('kolekcia/{slug}', 'KolekciaController@getDetail')->name('frontend.collection.detail');
     Route::get('oblubene', 'UserCollectionController@show')->name('frontend.user-collection.show');
+    Route::resource('edu', 'EducationalArticleController')
+        ->names('educational-articles')
+        ->parameter('edu', 'article');
 
     Route::get('informacie', function (ItemRepository $itemRepository) {
         $for_reproduction_filter = (new ItemFilter)->setHasImage(true)->setHasIip(true)->setIsForReproduction(true);
