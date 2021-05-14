@@ -200,7 +200,7 @@ class ArticleController extends Controller
                 ->reduce(function ($options, $value) {
                     $options[$value] = $value;
                     return $options;
-                 }),
+                 }) ?? collect(),
         ];
     }
 }
