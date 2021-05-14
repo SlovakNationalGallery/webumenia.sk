@@ -196,8 +196,8 @@ $(document).ready(function(){
 
     $("#edu_keywords").selectize({
         plugins: ['remove_button'],
-				persist: false, // Throw away de-selected created items
-				create: true, 	// Allow creation of new items
+        persist: false, // Throw away de-selected created items
+        create: true, 	// Allow creation of new items
     });
 
     @if(!isset($article))
