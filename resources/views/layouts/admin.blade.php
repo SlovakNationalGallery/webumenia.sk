@@ -26,8 +26,7 @@
         {!! Html::style('css/plugins/bootstrap-switch.css') !!}
         {!! Html::style('css/jquery-ui/jquery-ui.css') !!}
         {!! Html::style('/css/vue/vue-select.css') !!}
-        {!! Html::style('/css/js/admin.css') !!}
-
+        {!! Html::style(mix('/css/admin.css')) !!}
 </head>
 
 <body>

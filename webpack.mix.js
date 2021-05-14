@@ -44,6 +44,7 @@ mix
     })
 
     // CSS
+    .less('resources/less/admin.less', 'public/css')
     .less('resources/less/style.less', 'public/css').options({
         autoprefixer: {
             options: {
