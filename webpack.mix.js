@@ -39,6 +39,9 @@ mix
         'vue-select',
         'vue',
     ])
+    .options({
+        extractVueStyles: 'public/css/style.css'
+    })
 
     // CSS
     .less('resources/less/admin.less', 'public/css')
