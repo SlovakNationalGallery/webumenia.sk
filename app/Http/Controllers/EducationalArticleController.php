@@ -85,6 +85,11 @@ class EducationalArticleController extends Controller
         ));
     }
 
+    public function show(Article $article)
+    {
+        return view('frontend.articles.show', compact('article'));
+    }
+
     private function buildSelectOptions(Collection $optionsWithcounts, $selectedValue = null)
     {
         return $optionsWithcounts

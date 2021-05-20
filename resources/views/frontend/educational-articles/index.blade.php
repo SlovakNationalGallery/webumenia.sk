@@ -73,10 +73,11 @@ Vzdelávanie TODO | @parent
             @endif
         </div>
         <div class="row content-section">
-            @foreach ($articles as $i=>$article)
+            @foreach ($articles as $i => $article)
                 <div class="col-sm-6 col-xs-12 bottom-space">
                     @include('components.article_thumbnail', [
-                        'article' => $article
+                        'article' => $article,
+                        'url' => route('frontend.educational-article.show', $article->slug),
                     ])
                 </div>
                 @if ($i % 2 == 1)
