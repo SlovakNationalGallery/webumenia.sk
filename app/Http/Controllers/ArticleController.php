@@ -182,12 +182,12 @@ class ArticleController extends Controller
         return [
             'eduMediaTypesOptions' => collect(Article::$eduMediaTypes)
                 ->reduce(function ($options, $value) {
-                    $options[$value] = $value;
+                    $options[$value] = trans("edu.media_type.$value");
                     return $options;
                  }),
             'eduAgeGroupsOptions' => collect(Article::$eduAgeGroups)
                 ->reduce(function ($options, $value) {
-                    $options[$value] = $value;
+                    $options[$value] = trans("edu.age_group.$value");
                     return $options;
                  }),
             'eduKeywordsOptions' => Article::all()

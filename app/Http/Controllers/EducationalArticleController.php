@@ -56,12 +56,14 @@ class EducationalArticleController extends Controller
 
         $mediaTypesOptions = $this->buildSelectOptions(
             $articles->pluck('edu_media_types')->flatten()->countBy(),
-            $request->input('media_type')
+            $request->input('media_type'),
+            'edu.media_type',
         );
 
         $targetGroupsOptions = $this->buildSelectOptions(
             $articles->pluck('edu_target_age_groups')->flatten()->countBy(),
-            $request->input('age_group')
+            $request->input('age_group'),
+            'edu.age_group',
         );
 
         $keywordsOptions = $this->buildSelectOptions(
@@ -90,14 +92,16 @@ class EducationalArticleController extends Controller
         return view('frontend.articles.show', compact('article'));
     }
 
-    private function buildSelectOptions(Collection $optionsWithcounts, $selectedValue = null)
+    private function buildSelectOptions(Collection $optionsWithcounts, $selectedValue = null, $translationPath = null)
     {
         return $optionsWithcounts
             ->sort()->reverse() // Sort by counts in reverse
-            ->map(function ($count, $value) use ($selectedValue) {
+            ->map(function ($count, $value) use ($selectedValue, $translationPath) {
+                $label = $translationPath ? trans("$translationPath.$value") : $value;
+                
                 return [
                     'value' => $value,
-                    'text' => "$value ($count)",
+                    'text' => "$label ($count)",
                     'selected' => $value === $selectedValue,
                 ];
             });
