@@ -318,7 +318,7 @@ function()
     Route::get('kolekcia/{slug}', 'KolekciaController@getDetail')->name('frontend.collection.detail');
     Route::get('oblubene', 'UserCollectionController@show')->name('frontend.user-collection.show');
     Route::resource('edu', 'EducationalArticleController')
-        ->names('educational-articles')
+        ->names('frontend.educational-article')
         ->parameter('edu', 'article');
 
     Route::get('informacie', function (ItemRepository $itemRepository) {

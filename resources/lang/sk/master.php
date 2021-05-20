@@ -14,6 +14,7 @@ return array(
     'authors'            => 'autori',
     'articles'           => 'články',
     'galleries'          => 'galérie',
+    'education'          => 'vzdelávanie',
     'reproductions'      => 'reprodukcie',
     'info'               => 'info',
     'favourites'         => 'obľúbené',

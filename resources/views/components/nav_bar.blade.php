@@ -40,6 +40,9 @@
                 <li class="{{ Route::is('frontend.article.*') ? 'active' : '' }}">
                         <a href="{{ route('frontend.article.index') }}">{{ utrans('master.articles') }}</a>
                 </li>
+                <li class="{{ Route::is('frontend.educational-article.index') ? 'active' : '' }}">
+                        <a href="{{ route('frontend.educational-article.index') }}">{{ utrans('master.education') }}</a>
+                </li>
                 <li class="{{ Route::is('frontend.reproduction.index') ? 'active' : '' }}">
                         <a href="{{ route('frontend.reproduction.index') }}">{{ utrans('master.reproductions') }}</a>
                 </li>
