@@ -318,8 +318,8 @@ function()
     Route::get('kolekcia/{slug}', 'KolekciaController@getDetail')->name('frontend.collection.detail');
     Route::get('oblubene', 'UserCollectionController@show')->name('frontend.user-collection.show');
     Route::resource('edu', 'EducationalArticleController')
-        ->names('educational-articles')
-        ->parameter('edu', 'article');
+        ->names('frontend.educational-article')
+        ->parameters(['edu' => 'article:slug']);
 
     Route::get('informacie', function (ItemRepository $itemRepository) {
         $for_reproduction_filter = (new ItemFilter)->setHasImage(true)->setHasIip(true)->setIsForReproduction(true);

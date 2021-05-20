@@ -25,6 +25,10 @@
 <meta name="description" content="{!! $article->shortText !!}">
 @stop
 
+@section('link')
+<link rel="canonical" href="{{ $article->getUrl() }}">
+@stop
+
 @section('head-javascript')
 {{-- For WEBUMENIA-1462 --}}
 {!! Html::script('js/soundcloud.api.js') !!}
