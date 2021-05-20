@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Changed
+- Speed up CI tests by using docker build caching
 
 ## [2.29.0] - 2021-05-25
 ### Added
