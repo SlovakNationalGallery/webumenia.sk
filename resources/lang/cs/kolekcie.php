@@ -16,7 +16,7 @@ return array(
     'collections_items_count'       => 'Kolekce obsahuje',
     'filter' => [
         'author' => 'autor',
-        'type' => 'typ',
+        'type' => 'kategorie',
         'sort_by' => 'podle',
         'sorting' => [
             'updated_at' => 'poslední změny',
