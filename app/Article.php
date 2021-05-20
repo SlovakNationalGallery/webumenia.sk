@@ -48,6 +48,7 @@ class Article extends Model implements TranslatableContract
         'methodology',
         'worksheet',
         'video',
+        'collection',
         'workshop',
         'virtual_exhibition',
     ];
