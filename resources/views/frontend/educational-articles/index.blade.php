@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-Vzdelávanie TODO | @parent
+{{ trans('master.education') }} | @parent
 @endsection
 
 @section('content')
@@ -20,7 +20,7 @@ Vzdelávanie TODO | @parent
                 <div class="col-md-push-2 col-md-4 col-xs-6">
                     <filter-custom-select
                         name="media_type"
-                        placeholder="formát TODO"
+                        placeholder="{{ trans('edu.filter.media_type') }}"
                         :options="{{ $mediaTypesOptions }}"
                     ></filter-custom-select>
                 </div>
@@ -29,21 +29,21 @@ Vzdelávanie TODO | @parent
                 <div class="col-md-push-2 col-md-4 col-xs-6">
                     <filter-custom-select
                         name="age_group"
-                        placeholder="cieľová skupina TODO"
+                        placeholder="{{ trans('edu.filter.target_group') }}"
                         :options="{{ $targetGroupsOptions }}"
                     ></filter-custom-select>
 
                     <filter-checkbox
                         class="mt-2"
                         name="parents"
-                        label="aj pre rodičov TODO"
+                        label="{{ trans('edu.filter.suitable_for_home') }}"
                         :initial-checked="{{ json_encode(request()->has('parents')) }}"
                     ></filter-checkbox>
                 </div>
                 <div class="col-md-push-2 col-md-4 col-xs-6">
                     <filter-custom-select
                         name="keyword"
-                        placeholder="kľúčové slová TODO"
+                        placeholder="{{ trans('edu.filter.keywords') }}"
                         :options="{{ $keywordsOptions }}"
                     />
                 </div>
