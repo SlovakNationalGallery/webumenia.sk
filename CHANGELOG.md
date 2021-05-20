@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Changed
+- Unify filters for articles and collections
 
 ## [2.28.1] - 2021-05-13
 ### Fixed
