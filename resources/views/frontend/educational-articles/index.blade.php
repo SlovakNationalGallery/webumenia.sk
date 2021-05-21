@@ -54,6 +54,12 @@
 
 <section class="articles bg-light-grey">
     <div class="container">
+        <div class="row mt-5">
+            <div class="col-md-8 col-md-push-2 col-lg-6 col-lg-push-3 text-muted text-md-lg">
+                Motivačné aktivity a&nbsp;metodické texty pre&nbsp;pedagógov prepájajú umenie a&nbsp;kultúru s&nbsp;ďalšími oblasťami poznania aj&nbsp;bežného života. 
+                Aktivity sú&nbsp;vhodné pre&nbsp;deti od&nbsp;3&nbsp;rokov až&nbsp;po&nbsp;dospelých, realizovateľné v&nbsp;škole aj&nbsp;v&nbsp;domácom prostredí.
+            </div>
+        </div>
         <div class="row content-section">
             <div class="col-xs-6">
                 <h4 class="inline">{{ $articles->count() }} {{ trans_choice('articles.count', $articles->count()) }}</h4>
