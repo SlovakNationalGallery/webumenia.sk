@@ -1,6 +1,7 @@
 @php
 
 $url = $url ?? $article->getUrl();
+$showEduTags = $showEduTags ?? false;
     
 @endphp
 <div class="article-thumbnail">
@@ -14,8 +15,21 @@ $url = $url ?? $article->getUrl();
       {!! $article->title_with_category !!}
     </h4>
   </a>
-  <p class="attributes">{!! $article->getShortTextAttribute($article->summary, 250) !!}
+  <div class="attributes">{!! $article->getShortTextAttribute($article->summary, 250) !!}
     (<a href="{{ $url }}">{{ trans('general.more') }}</a>)
-  </p>
-  <p class="meta">{!!$article->published_date!!} / {!!$article->author!!}</p>
+  </div>
+  @if($showEduTags)
+  <div class="mt-3">
+    @foreach ($article->edu_target_age_groups ?? [] as $ageGroup)
+      <a href="{{ request()->fullUrlWithQuery(['age_group' => $ageGroup]) }}" class="btn btn-default btn-xs btn-outline">{{ trans("edu.age_group.$ageGroup") }}</a>
+    @endforeach
+    @foreach ($article->edu_media_types ?? [] as $mediaType)
+      <a href="{{ request()->fullUrlWithQuery(['media_type' => $mediaType]) }}" class="btn btn-default btn-xs btn-outline">{{ trans("edu.media_type.$mediaType") }}</a>
+    @endforeach
+    @foreach ($article->edu_keywords ?? [] as $keyword)
+      <a href="{{ request()->fullUrlWithQuery(['keyword' => $keyword]) }}" class="btn btn-default btn-xs btn-outline">{{ $keyword }}</a>
+    @endforeach
+  </div>
+  @endif
+  <p class="meta mt-3">{!!$article->published_date!!} / {!!$article->author!!}</p>
 </div>

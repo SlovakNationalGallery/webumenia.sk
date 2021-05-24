@@ -84,6 +84,7 @@
                     @include('components.article_thumbnail', [
                         'article' => $article,
                         'url' => route('frontend.educational-article.show', $article->slug),
+                        'showEduTags' => true,
                     ])
                 </div>
                 @if ($i % 2 == 1)
