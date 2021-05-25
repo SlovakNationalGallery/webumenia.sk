@@ -66,7 +66,6 @@
 		{!! Form::select('category_id', [''=>''] + App\Category::pluck('name', 'id')->toArray(), [], array('class' => 'select')) !!}
 	@endif
 	</div>
-
 </div>
 <div class="col-md-12">
 	<div class="form-group">
@@ -78,6 +77,43 @@
 	<div class="form-group">
 	{!! Form::label('slug', 'URL Slug') !!}
 	{!! Form::text('slug', Request::old('slug'), array('class' => 'form-control')) !!}
+	</div>
+</div>
+<div class="col-md-12 my-5">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4>Vzdelávanie</h4>
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+						{!! Form::label('edu_media_types', 'Formát') !!}
+						{!! Form::select('edu_media_types', $eduMediaTypesOptions, old('edu_media_types'), ['class' => 'select', 'multiple' => 'multiple', 'name' => 'edu_media_types[]']) !!}
+						<p class="text-muted">Vyplnením tohto poľa sa článok zaradí do sekcie Vzdelávanie.</p>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						{!! Form::label('edu_target_age_groups', 'Cieľové skupiny') !!}
+						{!! Form::select('edu_target_age_groups', $eduAgeGroupsOptions, old('edu_target_age_groups'), ['class' => 'select', 'multiple' => 'multiple', 'name' => 'edu_target_age_groups[]']) !!}
+						<div class="checkbox mt-0">
+							{!! Form::label('edu_suitable_for_home', 'Aj pre rodičov') !!}
+							{!! Form::checkbox('edu_suitable_for_home', '1') !!}
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						{!! Form::label('edu_keywords', 'Kľúčové slová') !!}
+						{!! Form::select('edu_keywords', $eduKeywordsOptions, old('edu_keywords'), ['class' => 'select', 'multiple' => 'multiple', 'name' => 'edu_keywords[]']) !!}
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 <div class="col-md-6">
@@ -148,6 +184,20 @@ $(document).ready(function(){
         maxItems: 1,
         allowEmpty: 1,
         mode: 'multi'
+    });
+
+    $("#edu_media_types").selectize({
+        plugins: ['remove_button'],
+    });
+
+    $("#edu_target_age_groups").selectize({
+        plugins: ['remove_button'],
+    });
+
+    $("#edu_keywords").selectize({
+        plugins: ['remove_button'],
+        persist: false, // Throw away de-selected created items
+        create: true, 	// Allow creation of new items
     });
 
     @if(!isset($article))

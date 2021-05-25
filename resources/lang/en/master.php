@@ -14,6 +14,7 @@ return array(
     'authors'            => 'artists',
     'articles'           => 'articles',
     'galleries'          => 'galleries',
+    'education'          => 'education',
     'reproductions'      => 'reproductions',
     'info'               => 'info',
     'favourites'         => 'favourites',
