@@ -12,16 +12,16 @@
             <div class="row">
                 <div class="col-md-push-2 col-md-4 col-xs-6">
                     <filter-custom-select
-                        name="category"
-                        placeholder="{{ trans('articles.filter.category') }}"
-                        :options="{{ $categoriesOptions }}"
+                        name="author"
+                        placeholder="{{ trans('articles.filter.author') }}"
+                        :options="{{ $authorsOptions }}"
                     />
                 </div>
                 <div class="col-md-push-2 col-md-4 col-xs-6">
                     <filter-custom-select
-                        name="author"
-                        placeholder="{{ trans('articles.filter.author') }}"
-                        :options="{{ $authorsOptions }}"
+                        name="category"
+                        placeholder="{{ trans('articles.filter.category') }}"
+                        :options="{{ $categoriesOptions }}"
                     />
                 </div>
             </div>
