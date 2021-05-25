@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.29.0] - 2021-05-25
 ### Added
 - "Education" section
 
