@@ -378,7 +378,7 @@ function getEstimatedReadingTime($content, $locale, $wpm = 200) {
             )
         );
 
-    $minutes = (int) floor($wordCount / $wpm);
+    $minutes = (int) ceil($wordCount / $wpm);
 
     return trans_choice('general.minute', $minutes, ['value' => $minutes]);
 
