@@ -3,6 +3,16 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.29.0] - 2021-05-25
+### Added
+- "Education" section
+
+### Fixed
+- Reading time in articles/collections
+
+### Changed
+- Unify filters for articles and collections
+
 ## [2.28.1] - 2021-05-13
 ### Fixed
 - Harvester error logging

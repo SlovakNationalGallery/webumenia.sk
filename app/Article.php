@@ -10,6 +10,7 @@ use Astrotomic\Translatable\Translatable;
 use Illuminate\Support\Facades\URL;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Validation\Rule;
 
 class Article extends Model implements TranslatableContract
 {
@@ -26,30 +27,57 @@ class Article extends Model implements TranslatableContract
 
     public $translatedAttributes = ['title', 'summary', 'content'];
 
+    protected $fillable = [
+        'published_date',
+    ];
 
-    public static $rules = array(
-        'slug'       => 'required',
-        'author'     => 'required',
-
-        'sk.title'   => 'required',
-        'sk.summary' => 'required',
-        'sk.content' => 'required',
-    );
-
-    protected $fillable = array(
-        'published_date'
-    );
-
-    protected $dates = array(
+    protected $dates = [
         'created_at',
         'updated_at',
         'published_date'
-    );
+    ];
 
-    // public function items()
- //    {
- //        return $this->belongsToMany('Item', 'collection_item', 'collection_id', 'item_id');
- //    }
+    protected $casts = [
+        'edu_media_types' => 'array',
+        'edu_target_age_groups' => 'array',
+        'edu_keywords' => 'array',
+        'edu_suitable_for_home' => 'boolean',
+    ];
+
+    public static $eduMediaTypes = [
+        'methodology',
+        'worksheet',
+        'video',
+        'collection',
+        'workshop',
+        'virtual_exhibition',
+    ];
+
+    public static $eduAgeGroups = [
+        '3-6',
+        '7-10',
+        '11-15',
+        '16-19',
+    ];
+
+    public static function getValidationRules()
+    {
+        return [
+            'slug' => 'required',
+            'author' => 'required',
+            'sk.title' => 'required',
+            'sk.summary' => 'required',
+            'sk.content' => 'required',
+            'edu_media_types' => ['array', Rule::in(self::$eduMediaTypes)],
+            'edu_target_age_groups' => ['array', Rule::in(self::$eduAgeGroups)],
+            'edu_keywords' => 'array',
+        ];
+    }
+
+    public function scopeEducational($query)
+    {
+        return $query->whereJsonLength('edu_media_types', '>', 0);
+    }
 
     public function category()
     {

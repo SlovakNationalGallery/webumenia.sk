@@ -40,10 +40,11 @@ mix
         'vue',
     ])
     .options({
-        extractVueStyles: 'public/css/[name].css'
+        extractVueStyles: 'public/css/style.css'
     })
 
     // CSS
+    .less('resources/less/admin.less', 'public/css')
     .less('resources/less/style.less', 'public/css').options({
         autoprefixer: {
             options: {

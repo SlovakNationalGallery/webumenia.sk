@@ -16,7 +16,7 @@ return array(
     'collections_items_count'       => 'Colection contains',
     'filter' => [
         'author' => 'author',
-        'type' => 'type',
+        'type' => 'category',
         'sort_by' => 'sort by',
         'sorting' => [
             'updated_at' => 'last updated',
