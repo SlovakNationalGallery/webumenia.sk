@@ -100,7 +100,7 @@
                             <a href="{!! URL::to('collection') !!}"><i class="fa fa-th-list fa-fw"></i> Kolekcie</a>
                         </li>
                         @endcan
-                        @can('administer')
+                        @can('edit')
                         <li>
                             <a href="{!! URL::to('article') !!}"><i class="fa fa-newspaper-o fa-fw"></i> Články</a>
                         </li>
