@@ -9,7 +9,11 @@ jobs:
       - uses: actions/checkout@v2
       - name: Set .env file
         run: cp .env.example .env
-      - name: Warm up stack
+      - name: Warm up stack (and pull images to prevent them from being cached)
         run: docker-compose up -d mysql elasticsearch redis
+      - uses: satackey/action-docker-layer-caching@v0.0.11
+        # Ignore the failure of a step and avoid terminating the job.
+        # https://github.com/satackey/action-docker-layer-caching#docker-compose
+        continue-on-error: true
       - name: Test
         run: docker-compose run php bash -c "npm run testing && vendor/bin/phpunit"
