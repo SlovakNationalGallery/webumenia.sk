@@ -504,6 +504,7 @@ Route::group(['middleware' => ['auth', 'can:edit']], function () {
         return Redirect::to($item->getUrl());
     });
 
+    Route::resource('article', 'ArticleController');
     Route::get('collection/{collection_id}/detach/{item_id}', 'CollectionController@detach');
     Route::post('collection/fill', 'CollectionController@fill');
     Route::post('collection/sort', 'CollectionController@sort');
@@ -516,7 +517,6 @@ Route::group(['middleware' => ['auth', 'can:edit']], function () {
 });
 
 Route::group(['middleware' => ['auth', 'can:administer']], function () {
-    Route::resource('article', 'ArticleController');
     Route::get('harvests/launch/{id}', 'SpiceHarvesterController@launch');
     Route::get('harvests/harvestFailed/{id}', 'SpiceHarvesterController@harvestFailed');
     Route::get('harvests/orphaned/{id}', 'SpiceHarvesterController@orphaned');
