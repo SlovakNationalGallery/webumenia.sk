@@ -162,6 +162,13 @@ return [
             'hostname' => 'webumenia.sk',
             'deploy_path' => '/var/www/test.webumenia.sk',
             'user' => 'lab_sng',
+            'writable_mode' => 'chmod',
+            'writable_chmod_mode' => '775',
+            'writable_dirs' => [
+                'bootstrap/cache',
+                'storage/app/public',
+                'storage/logs',
+            ],
         ],
     ],
 
