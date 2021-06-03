@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- Deployments to test use chmod instead of setfacl
+
 ### Changed
 - Editor role can edit articles
 - Speed up CI tests by using docker build caching
