@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+## [2.29.1] - 2021-06-04
 ### Fixed
 - Deployments to test use chmod instead of setfacl
 
