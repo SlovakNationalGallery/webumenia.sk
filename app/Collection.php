@@ -33,10 +33,10 @@ class Collection extends \Eloquent
         return $this->belongsTo(\App\User::class);
     }
 
-    public function getPreviewItems()
+    public function getPreviewItems($limit = 10)
     {
         
-        return $this->items()->limit(10)->get();
+        return $this->items()->limit($limit)->get();
     }
 
     public function getUrl()

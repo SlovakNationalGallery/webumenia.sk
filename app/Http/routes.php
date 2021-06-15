@@ -310,8 +310,6 @@ function()
         $item->save();
         $previous = $next = false;
 
-        $more_items = $item->getSimilarArtworks(30);
-
         if (Input::has('collection')) {
             $collection = Collection::find((int) Input::get('collection'));
             if (!empty($collection)) {
@@ -325,6 +323,10 @@ function()
                     $next = Item::find($nextId)->getUrl(['collection' => $collection->id]);
                 }
             }
+
+            $more_items = $collection->getPreviewItems(30);
+        } else {
+            $more_items = $item->getSimilarArtworks(30);
         }
 
         $similar_by_color = [];
