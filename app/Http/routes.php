@@ -310,9 +310,7 @@ function()
         $item->save();
         $previous = $next = false;
 
-        // $more_items = $item->moreLikeThis(30);
-        // $more_items = Item::where('gallery_collection', 'like', $item->gallery_collection)->inRandomOrder()->take(10)->get();
-        $more_items = Item::whereTranslationLike('gallery_collection', $item->gallery_collection)->inRandomOrder()->take(10)->get();
+        $more_items = $item->getSimilarArtworks(30);
 
         if (Input::has('collection')) {
             $collection = Collection::find((int) Input::get('collection'));

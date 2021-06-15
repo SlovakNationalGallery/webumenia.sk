@@ -255,6 +255,35 @@ class Item extends Model
         return Config::get('app.old_url').'/oai-pmh/?verb=GetRecord&metadataPrefix=oai_dc&identifier='.$this->id;
     }
 
+
+    public function getSimilarArtworks($size = 10)
+    {
+        $params = [
+            "size" => $size,
+            "query" => [
+                "filtered" => [
+                    "query" => [
+                        "bool" => [
+                            "must" => [
+                                "term" => ["gallery_collection" => $this->gallery_collection]
+                            ],
+                            "must_not" => [
+                                "term" => ["id" => $this->id]
+                            ],
+                        ]
+                    ],
+                    "filter" => [
+                        "terms" => [
+                            "author" => $this->makeArray($this->author),
+                        ]
+                    ]
+                ]
+            ]
+        ];
+
+        return self::search($params);
+    }
+
     public function similarByColor($size = 10)
     {
         if (!$this->color_descriptor) {

@@ -324,7 +324,7 @@
 </section>
 @endif
 
-@if (!empty($more_items))
+@if (!$more_items->isEmpty())
 <section class="more-items content-section">
     <div class="container">
         <div class="row">
