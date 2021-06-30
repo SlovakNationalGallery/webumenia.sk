@@ -2,7 +2,6 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
-## [2.29.3] - 2021-06-30
 ### Added
 - Typeform integration
 
