@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+## [2.29.3] - 2021-06-30
+### Added
+- Typeform integration
+
 ## [2.29.2] - 2021-06-11
 ### Changed
 - Enable Edu section for public (in main nav)
