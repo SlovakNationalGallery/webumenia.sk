@@ -10,6 +10,7 @@ class ItemRepository extends AbstractRepository
     ];
 
     protected $fieldMap = [
+        'datestamp' => './/ns:datestamp',
         'status' => './/ns:header/@status',
         'id' => './/ns:identifier',
         'identifier' => './/dc:identifier',

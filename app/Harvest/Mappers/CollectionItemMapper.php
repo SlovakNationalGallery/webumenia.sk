@@ -4,7 +4,7 @@ namespace App\Harvest\Mappers;
 
 use App\Collection;
 
-class CollectionItemMapper extends AbstractModelMapper
+class CollectionItemMapper extends AbstractMapper
 {
     protected $modelClass = Collection::class;
 

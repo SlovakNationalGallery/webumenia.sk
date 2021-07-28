@@ -4,13 +4,13 @@ namespace App\Harvest\Mappers;
 
 use App\AuthorityEvent;
 
-class AuthorityEventMapper extends AbstractModelMapper
+class AuthorityEventMapper extends AbstractMapper
 {
     protected $modelClass = AuthorityEvent::class;
 
-    public function mapEvent(array $row, $locale) {
+    public function mapEvent(array $row) {
         $event = $this->serialize($row['event']);
-        return $this->chooseTranslation($event, $locale);
+        return $this->chooseTranslation($event, 'sk');
     }
 
     public function mapPlace(array $row) {

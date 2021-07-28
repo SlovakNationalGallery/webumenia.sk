@@ -40,7 +40,7 @@ class GmuRnlImporterTest extends TestCase
         $this->assertEquals(1905, $item->date_latest);
         $this->assertEquals('papír', $item->medium);
         $this->assertEquals('litografie', $item->technique);
-        $this->assertEquals('celková výška/dĺžka 52 cm; šírka 84 cm', $item->measurement);
+        $this->assertEquals('celková výška/dĺžka 52cm; šírka 84cm', $item->measurement);
         $this->assertEquals('Město', $item->topic);
         $this->assertEquals('vpravo dole v ploše tisku: Gotthard Kuehl/Dresden 02', $item->inscription);
         $this->assertEquals('grafika', $item->work_type);

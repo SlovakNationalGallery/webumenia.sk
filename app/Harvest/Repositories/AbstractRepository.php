@@ -28,7 +28,6 @@ abstract class AbstractRepository
 
         $this->fieldMap += [
             null => '.',
-            'datestamp' => './/ns:header/ns:datestamp',
         ];
 
         $this->xPathNamespaces += [

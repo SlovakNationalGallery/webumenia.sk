@@ -15,6 +15,18 @@ abstract class AbstractMapper
 
     protected $translatedAttributes = [];
 
+    /** @var string */
+    protected $modelClass;
+
+    public function __construct() {
+        if ($this->modelClass) {
+            $model = new $this->modelClass();
+            if ($model->translatedAttributes) {
+                $this->translatedAttributes = $model->translatedAttributes;
+            }
+        }
+    }
+
     /**
      * @param array $row
      * @return array
@@ -36,7 +48,7 @@ abstract class AbstractMapper
                     $this->setMapped($mapped, "$key:$locale", $value);
                 }
             } else {
-                $value = $this->$method($row, 'sk');
+                $value = $this->$method($row);
                 $this->setMapped($mapped, $key, $value);
             }
         }

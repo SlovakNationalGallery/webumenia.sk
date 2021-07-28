@@ -4,7 +4,7 @@ namespace App\Harvest\Mappers;
 
 use App\Nationality;
 
-class NationalityMapper extends AbstractModelMapper
+class NationalityMapper extends AbstractMapper
 {
     protected $modelClass = Nationality::class;
 
