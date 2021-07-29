@@ -5,6 +5,7 @@ namespace App\Harvest\Mappers;
 use App\Harvest\Mappers\AbstractMapper;
 use App\Item;
 use Illuminate\Contracts\Translation\Translator;
+use Illuminate\Support\Facades\Date;
 
 class GmuhkItemMapper extends AbstractMapper
 {
@@ -79,17 +80,11 @@ class GmuhkItemMapper extends AbstractMapper
 
     public function mapDateEarliest(array $row)
     {
-        return $this->parseYear($row['date_earliest'][0]);
+        return Date::create($row['date_earliest'][0])->format('Y');
     }
 
     public function mapDateLatest(array $row)
     {
-         return $this->parseYear($row['date_latest'][0]);
-    }
-
-    protected function parseYear(string $date)
-    {
-        preg_match('/(?<year>\d+)-(?<month>\d+)-(?<day>\d+)/', $date, $matches);
-        return $matches['year'] ?? null;
+         return Date::create($row['date_latest'][0])->format('Y');
     }
 }
