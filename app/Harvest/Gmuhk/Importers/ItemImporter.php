@@ -35,6 +35,8 @@ class ItemImporter extends AbstractImporter
                 );
             }
         }
+
+        return $item;
     }
 
     protected function getLastModified($url)
