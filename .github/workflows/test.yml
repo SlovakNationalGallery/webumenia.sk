@@ -15,5 +15,7 @@ jobs:
         # Ignore the failure of a step and avoid terminating the job.
         # https://github.com/satackey/action-docker-layer-caching#docker-compose
         continue-on-error: true
+      - name: Build docker image
+        run: docker-compose build php 
       - name: Test
         run: docker-compose run php bash -c "npm run testing && vendor/bin/phpunit"
