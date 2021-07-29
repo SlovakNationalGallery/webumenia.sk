@@ -11,7 +11,7 @@ class AuthorityRelationshipMapper extends AbstractMapper
     public function mapType(array $row) {
         if (isset($row['type'][0])) {
             $type = $row['type'][0];
-            return $this->chooseTranslation($type, 'sk');
+            return $this->chooseTranslation($type, config('app.locale'));
         }
     }
 }
