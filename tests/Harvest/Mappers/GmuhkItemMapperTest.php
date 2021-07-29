@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Harvest\Gmuhk\Mappers;
+namespace Tests\Harvest\Mappers;
 
 use App\Harvest\Mappers\GmuhkItemMapper;
 use Tests\TestCase;
