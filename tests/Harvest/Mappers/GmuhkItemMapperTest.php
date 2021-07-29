@@ -7,7 +7,7 @@ use Tests\TestCase;
 use Illuminate\Translation\ArrayLoader;
 use Illuminate\Translation\Translator;
 
-class ItemMapperTest extends TestCase
+class GmuhkItemMapperTest extends TestCase
 {
     public function testMap() {
         $mapper = new GmuhkItemMapper(app('translator'));
