@@ -10,7 +10,7 @@ class AuthorityEventMapper extends AbstractMapper
 
     public function mapEvent(array $row) {
         $event = $this->serialize($row['event']);
-        return $this->chooseTranslation($event, 'sk');
+        return $this->chooseTranslation($event, config('app.locale'));
     }
 
     public function mapPlace(array $row) {
