@@ -2,7 +2,7 @@
 
 namespace Tests\Harvest\Gmuhk\Mappers;
 
-use App\Harvest\Gmuhk\Mappers\ItemMapper;
+use App\Harvest\Mappers\GmuhkItemMapper;
 use Tests\TestCase;
 use Illuminate\Translation\ArrayLoader;
 use Illuminate\Translation\Translator;
@@ -10,7 +10,7 @@ use Illuminate\Translation\Translator;
 class ItemMapperTest extends TestCase
 {
     public function testMap() {
-        $mapper = new ItemMapper(app('translator'));
+        $mapper = new GmuhkItemMapper(app('translator'));
         $row = [
             'id' => ['oai:khk.museion.cz:GMUHK~G0259'],
             'identifier' => ['G 259'],

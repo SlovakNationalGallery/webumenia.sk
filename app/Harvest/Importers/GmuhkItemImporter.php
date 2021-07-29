@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Harvest\Gmuhk\Importers;
+namespace App\Harvest\Importers;
 
 use App\Harvest\Importers\AbstractImporter;
-use App\Harvest\Gmuhk\Mappers\ItemMapper;
+use App\Harvest\Mappers\GmuhkItemMapper;
 use App\Harvest\Progress;
 use App\Item;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 
-class ItemImporter extends AbstractImporter
+class GmuhkItemImporter extends AbstractImporter
 {
     protected $modelClass = Item::class;
 
-    public function __construct(ItemMapper $mapper) {
+    public function __construct(GmuhkItemMapper $mapper) {
         parent::__construct($mapper);
     }
 

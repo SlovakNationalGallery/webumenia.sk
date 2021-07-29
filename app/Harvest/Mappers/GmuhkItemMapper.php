@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Harvest\Gmuhk\Mappers;
+namespace App\Harvest\Mappers;
 
 use App\Harvest\Mappers\AbstractMapper;
 use App\Item;
 use Illuminate\Contracts\Translation\Translator;
 
-class ItemMapper extends AbstractMapper
+class GmuhkItemMapper extends AbstractMapper
 {
     protected $modelClass = Item::class;
 

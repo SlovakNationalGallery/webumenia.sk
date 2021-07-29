@@ -8,8 +8,8 @@ use App\Harvest\Progress;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use App\Harvest\Harvesters\AuthorityHarvester;
+use App\Harvest\Harvesters\GmuhkItemHarvester;
 use App\Harvest\Harvesters\ItemHarvester;
-use App\Harvest\Gmuhk\Harvesters\ItemHarvester as GmuhkItemHarvester;
 
 class SpiceHarvesterHarvest extends Model
 {

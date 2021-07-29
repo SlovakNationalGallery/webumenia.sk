@@ -1,25 +1,25 @@
 <?php
 
-namespace Tests\Harvest\Gmuhk\Repositories;
+namespace Tests\Harvest\Repositories;
 
 use App\Harvest\Factories\EndpointFactory;
-use App\Harvest\Gmuhk\Repositories\ItemRepository;
+use App\Harvest\Repositories\GmuhkItemRepository;
 use App\SpiceHarvesterHarvest;
 use Phpoaipmh\HttpAdapter\HttpAdapterInterface;
 use Tests\TestCase;
 
-class ItemRepositoryTest extends TestCase
+class GmuhkItemRepositoryTest extends TestCase
 {
     public function testAll() {
         $endpointFactoryMock = $this->getMockBuilder(EndpointFactory::class)
             ->setMethods(['createHttpAdapter'])
             ->getMock();
         $httpAdapterMock = $this->createMock(HttpAdapterInterface::class);
-        $xml = file_get_contents(__DIR__ . '/item.xml');
+        $xml = file_get_contents(__DIR__ . '/gmuhk_item.xml');
         $httpAdapterMock->method('request')->willReturn($xml);
         $endpointFactoryMock->method('createHttpAdapter')->willReturn($httpAdapterMock);
 
-        $itemRepository = new ItemRepository($endpointFactoryMock);
+        $itemRepository = new GmuhkItemRepository($endpointFactoryMock);
 
         $harvest = factory(SpiceHarvesterHarvest::class)->make();
         $rows = $itemRepository->getAll($harvest)->data;

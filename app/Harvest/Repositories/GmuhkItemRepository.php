@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Harvest\Gmuhk\Repositories;
+namespace App\Harvest\Repositories;
 
 use App\Harvest\Repositories\AbstractRepository;
 
-class ItemRepository extends AbstractRepository
+class GmuhkItemRepository extends AbstractRepository
 {
     protected $xPathNamespaces = [
         'dc' => 'http://purl.org/dc/elements/1.1/',
