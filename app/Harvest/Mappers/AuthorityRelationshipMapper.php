@@ -4,14 +4,14 @@ namespace App\Harvest\Mappers;
 
 use App\AuthorityRelationship;
 
-class AuthorityRelationshipMapper extends AbstractModelMapper
+class AuthorityRelationshipMapper extends AbstractMapper
 {
     protected $modelClass = AuthorityRelationship::class;
 
-    public function mapType(array $row, $locale) {
+    public function mapType(array $row) {
         if (isset($row['type'][0])) {
             $type = $row['type'][0];
-            return $this->chooseTranslation($type, $locale);
+            return $this->chooseTranslation($type, config('app.locale'));
         }
     }
 }

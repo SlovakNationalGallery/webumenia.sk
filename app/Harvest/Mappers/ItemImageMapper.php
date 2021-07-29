@@ -4,7 +4,7 @@ namespace App\Harvest\Mappers;
 
 use App\ItemImage;
 
-class ItemImageMapper extends AbstractModelMapper
+class ItemImageMapper extends AbstractMapper
 {
     protected $modelClass = ItemImage::class;
 

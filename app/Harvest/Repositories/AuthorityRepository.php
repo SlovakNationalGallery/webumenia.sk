@@ -10,6 +10,7 @@ class AuthorityRepository extends AbstractRepository
     ];
 
     protected $fieldMap = [
+        'datestamp' => './/ns:datestamp',
         'identifier' => './/ns:identifier',
         'datestamp' => './/ns:datestamp',
         'birth_place' => './/vp:Birth_Place',

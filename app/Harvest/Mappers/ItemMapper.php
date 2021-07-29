@@ -6,7 +6,7 @@ use App\Item;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
-class ItemMapper extends AbstractModelMapper
+class ItemMapper extends AbstractMapper
 {
     protected $modelClass = Item::class;
 

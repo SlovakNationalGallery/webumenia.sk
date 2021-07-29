@@ -7,6 +7,9 @@ namespace App;
 use App\Harvest\Progress;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use App\Harvest\Harvesters\AuthorityHarvester;
+use App\Harvest\Harvesters\GmuhkItemHarvester;
+use App\Harvest\Harvesters\ItemHarvester;
 
 class SpiceHarvesterHarvest extends Model
 {
@@ -18,7 +21,11 @@ class SpiceHarvesterHarvest extends Model
     const STATUS_DELETED     = 'deleted';
     const STATUS_KILLED      = 'killed';
 
-    public static $types = ['item' => 'Dielo', 'author' => 'Autorita'];
+    public static $types = [
+        ItemHarvester::class => 'Dielo',
+        GmuhkItemHarvester::class => 'Dielo (GMUHK)',
+        AuthorityHarvester::class => 'Autorita',
+    ];
 
     protected $appends = array('from');
     public static $datum;

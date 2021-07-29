@@ -12,6 +12,7 @@ use Astrotomic\Translatable\Translatable;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\URL;
 use Intervention\Image\Constraint;
@@ -183,6 +184,16 @@ class Item extends Model implements IndexableModel, TranslatableContract
     public function getImagePath($full = false, $resize = false, $resize_method = 'fit')
     {
         return self::getImagePathForId($this->id, $full, $resize, $resize_method);
+    }
+
+    public function getImageModificationDateTime()
+    {
+        if (!$this->hasImageForId($this->id)) {
+            return null;
+        }
+
+        $path = $this->getImagePath(true);
+        return Date::createFromTimestamp(filemtime($path));
     }
 
     public function deleteImage() {
@@ -615,6 +626,8 @@ class Item extends Model implements IndexableModel, TranslatableContract
         $this->save();
 
         event(new ItemPrimaryImageChanged($this));
+
+        return $image;
     }
 
     public function getIndexedData($locale)
