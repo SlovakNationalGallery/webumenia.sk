@@ -21,7 +21,7 @@ class ItemMapper extends AbstractMapper
     public function mapId(array $row)
     {
         $id = $row['id'][0];
-        preg_match('/.*:(?<gallery>.*)~(?<series>[A-Z]+)(?<number>\d+)(\/(?<part>\d+))?/i', $id, $matches);
+        preg_match('/^.*:(?<gallery>.*)~(?<series>[A-Z]+)(?<number>\d+)(\/(?<part>\d+))?$/i', $id, $matches);
         return sprintf(
             'CZE:%s.%s_%d%s',
             $matches['gallery'],
