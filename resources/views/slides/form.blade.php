@@ -48,6 +48,9 @@
 <div class="col-md-8">
 	<div class="form-group">
 		{!! Form::label('image', 'Obrázok') !!}
+		<div class="pb-4">
+			{{ optional($slide)->getFirstMedia('image')->img()->attributes(['width' => '200', 'height' => null]) }}
+		</div>
 		{!! Form::file('image') !!}
 		<p>min. šírka 1200px</p>
 	</div>
