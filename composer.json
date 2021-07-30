@@ -41,6 +41,7 @@
         "rap2hpoutre/laravel-log-viewer": "dev-master",
         "rtconner/laravel-tagging": "~2.1",
         "sentry/sentry-laravel": "^2.3",
+        "spatie/laravel-medialibrary": "^9.7",
         "symfony/templating": "^5.2",
         "unisharp/laravel-filemanager": "^2.2"
     },
