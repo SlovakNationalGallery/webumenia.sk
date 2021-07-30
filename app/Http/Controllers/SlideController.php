@@ -2,150 +2,72 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use App\Slide;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Request;
-use Intervention\Image\ImageManagerStatic;
+use Illuminate\Http\Request;
 
 class SlideController extends Controller
 {
-
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
     public function index()
     {
-        Carbon::setToStringFormat('d.m.Y H:i');
-
-        $slides = Slide::orderBy('id', 'desc')->get();
-        return view('slides.index')->with('slides', $slides);
+        return view('slides.index')
+            ->with('slides', Slide::orderBy('id', 'desc')->get());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
     public function create()
     {
         return view('slides.form');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function store()
+    public function store(Request $request)
     {
-        $input = Request::all();
+        $request->validate(Slide::$rules);
 
-        $rules = Slide::$rules;
-        $v = Validator::make($input, $rules);
+        $slide = new Slide();
+        $this->updateSlide($slide, $request);
 
-        if ($v->passes()) {
-            
-            $input = Arr::except(Request::all(), array('_method'));
-
-            $slide = new Slide;
-            $slide->fill($input);
-            $slide->save();
-
-            if (Request::hasFile('image')) {
-                $this->uploadImage($slide);
-            }
-
-            Session::flash('message', 'Carousel ' .$slide->name. ' bol vytvorený');
-
-            return Redirect::route('slide.index');
-        }
-
-        return Redirect::back()->withInput()->withErrors($v);
+        return redirect()
+            ->route('slide.index')
+            ->with('message', 'Carousel ' .$slide->name. ' bol vytvorený');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
+    public function show(Slide $slide)
     {
-        $slide = Slide::find($id);
         return view('slides.show')->with('slide', $slide);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
+    public function edit(Slide $slide)
     {
-        $slide = Slide::find($id);
-
-        if (is_null($slide)) {
-            return Redirect::route('slide.index');
-        }
-
         return view('slides.form')->with('slide', $slide);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function update($id)
+    public function update(Request $request, Slide $slide)
     {
-        $v = Validator::make(Request::all(), Slide::$rules);
-        // dd(Request::all());
-        if ($v->passes()) {
-            $input = Arr::except(Request::all(), array('_method'));
+        $request->validate(Slide::$rules);
 
-            $slide = Slide::find($id);
-            $slide->fill($input);
-            $slide->save();
+        $this->updateSlide($slide, $request);
 
-            if (Request::hasFile('image')) {
-                $this->uploadImage($slide);
-            }
+        return redirect()
+            ->route('slide.index')
+            ->with('message', 'Carousel ' .$slide->name. ' bol upravený');
+    }
 
-            Session::flash('message', 'Carousel ' .$slide->name. ' bol upravený');
-            return Redirect::route('slide.index');
+    public function destroy(Slide $slide)
+    {
+        $slide->delete();
+
+        return redirect()
+            ->route('slide.index')
+            ->with('message', 'Carousel bol zmazaný');
+    }
+
+    private function updateSlide(Slide $slide, Request $request)
+    {
+        $slide->update($request->input());
+
+        if ($request->hasFile('image')) {
+            $slide
+                ->addMediaFromRequest('image')
+                ->toMediaCollection('image');
         }
-
-        return Redirect::back()->withErrors($v);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        Slide::find($id)->delete();
-        return Redirect::route('slide.index')->with('message', 'Carousel bol zmazaný');
-        ;
-    }
-
-    public function uploadImage($slide)
-    {
-        $image = Request::file('image');
-        $slide->image = $slide->uploadHeaderImage($image);
-        $slide->save();
-
-        return true;
     }
 }
