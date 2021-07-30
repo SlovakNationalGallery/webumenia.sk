@@ -18,7 +18,8 @@ class MigrateSlidesImagesToMedia extends Migration
      */
     public function up()
     {
-        $storage = Storage::disk(config('media-libary.disk-name', 'public'));
+        $disk = config('media-library.disk_name');
+        $storage = Storage::disk($disk);
         $slides = Slide::whereNotNull('image')->where('image', '<>', '');
 
         foreach ($slides->lazy() as $slide) {
@@ -30,7 +31,7 @@ class MigrateSlidesImagesToMedia extends Migration
                 continue;
             }
 
-            DB::transaction(function () use ($storage, $slide, $imagePath, $fileName) {
+            DB::transaction(function () use ($disk, $storage, $slide, $imagePath, $fileName) {
                 $id = DB::table('media')
                     ->insertGetId([
                         'model_type' => 'App\Slide',
@@ -40,8 +41,8 @@ class MigrateSlidesImagesToMedia extends Migration
                         'name' => pathinfo($imagePath, PATHINFO_FILENAME),
                         'file_name' => $fileName,
                         'mime_type' => File::mimeType($imagePath),
-                        'disk' => 'public',
-                        'conversions_disk' => 'public',
+                        'disk' => $disk,
+                        'conversions_disk' => $disk,
                         'size' => File::size($imagePath),
                         'manipulations' => '[]',
                         'custom_properties' => '[]',
