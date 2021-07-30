@@ -56,6 +56,13 @@ return [
             'links' => 'skip',
         ],
 
+        'media' => [
+            'driver' => 'local',
+            'root' => storage_path('media'),
+            'url' => config('app.url') . '/storage/media',
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => 'your-key',
