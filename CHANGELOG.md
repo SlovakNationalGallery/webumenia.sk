@@ -10,6 +10,9 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - escape HTML characters in share buttons components
 
+### Changed
+- Migrate Slides to spatie/laravel-media-library
+
 ## [2.29.2] - 2021-06-11
 ### Added
 - GMUHK harvester
