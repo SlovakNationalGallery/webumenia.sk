@@ -14,14 +14,15 @@ class MediaLibraryRegenerateResponsiveImages extends Command
      *
      * @var string
      */
-    protected $signature = 'media-library:regenerate-responsive-images';
+    protected $signature = 'media-library:regenerate-responsive-images
+    {--only-missing : Regenerate only for missing}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Regenerates missing responsive images for media';
+    protected $description = 'Regenerates responsive images for media';
 
     /**
      * Create a new command instance.
@@ -40,8 +41,8 @@ class MediaLibraryRegenerateResponsiveImages extends Command
      */
     public function handle()
     {
-        // $query = Media::whereJsonLength('responsive_images', 0);
         $query = Media::query();
+        if ($this->option('only-missing')) $query->whereJsonLength('responsive_images', 0);
         
         foreach ($query->lazy() as $media) {
             Bus::dispatch(new GenerateResponsiveImagesJob($media));
