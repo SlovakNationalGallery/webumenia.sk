@@ -34,7 +34,7 @@
 <div class="webumeniaCarousel">
     @foreach ($slides as $slide)
         <div class="gallery-cell header-image">
-            <img src="{!! $slide->header_image_src !!}" srcset="{!! $slide->header_image_srcet !!}" onerror="this.onerror=null;this.srcset=''">
+            {{ $slide->getFirstMedia('image') }}
             <a href="{!! $slide->url !!}" class="outer-box" data-id="{!! $slide->id !!}" >
                 <div class="inner-box-shadow" >
                     <h1>{!! $slide->title !!}</h1>
