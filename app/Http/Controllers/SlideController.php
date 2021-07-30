@@ -22,8 +22,12 @@ class SlideController extends Controller
     {
         $request->validate(Slide::$rules);
 
-        $slide = new Slide();
-        $this->updateSlide($slide, $request);
+        $slide = Slide::create($request->input());
+        if ($request->hasFile('image')) {
+            $slide
+                ->addMediaFromRequest('image')
+                ->toMediaCollection('image');
+        }
 
         return redirect()
             ->route('slide.index')
@@ -44,7 +48,12 @@ class SlideController extends Controller
     {
         $request->validate(Slide::$rules);
 
-        $this->updateSlide($slide, $request);
+        $slide->update($request->input());
+        if ($request->hasFile('image')) {
+            $slide
+                ->addMediaFromRequest('image')
+                ->toMediaCollection('image');
+        }
 
         return redirect()
             ->route('slide.index')
@@ -58,16 +67,5 @@ class SlideController extends Controller
         return redirect()
             ->route('slide.index')
             ->with('message', 'Carousel bol zmazaný');
-    }
-
-    private function updateSlide(Slide $slide, Request $request)
-    {
-        $slide->update($request->input());
-
-        if ($request->hasFile('image')) {
-            $slide
-                ->addMediaFromRequest('image')
-                ->toMediaCollection('image');
-        }
     }
 }
