@@ -42,22 +42,36 @@ class ItemRepositoryTest extends TestCase
                     'title_translated' => ['Flemish family'],
                 ],
             ],
-            'type' => [
+            'work_type' => [
                 [
                     'lang' => ['sk'],
-                    'type' => ['grafika, voľná'],
+                    'work_type' => ['grafika, voľná'],
                 ],
                 [
                     'lang' => [],
-                    'type' => ['DEF'],
+                    'work_type' => ['DEF'],
                 ],
                 [
                     'lang' => [],
-                    'type' => ['originál'],
+                    'work_type' => ['originál'],
                 ],
                 [
                     'lang' => [],
-                    'type' => ['Image'],
+                    'work_type' => ['Image'],
+                ],
+            ],
+            'object_type' => [
+                [
+                    'lang' => ['sk'],
+                    'object_type' => ['fotografia'],
+                ],
+                [
+                    'lang' => ['sk'],
+                    'object_type' => ['mapa'],
+                ],
+                [
+                    'lang' => ['en'],
+                    'object_type' => ['map'],
                 ],
             ],
             'format' => [
