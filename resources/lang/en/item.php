@@ -6,6 +6,7 @@ return [
     'description' => 'description',
     'description_source' => 'description - source',
     'work_type' => 'work type',
+    'object_type' => 'object type',
     'work_level' => 'work level',
     'topic' => 'genre',
     'subject' => 'subject',

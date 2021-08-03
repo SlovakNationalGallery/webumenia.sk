@@ -158,6 +158,16 @@
                                     </td>
                                 </tr>
                             @endif
+                            @if (!empty($item->object_type))
+                                <tr>
+                                    <td class="atribut">{{ trans('dielo.item_attr_object_type') }}:</td>
+                                    <td>
+                                        @foreach ($item->object_types as $object_type)
+                                        <a href="{{ URL::to('katalog?object_type=' . $object_type) }}">{{ $object_type }}</a><br>
+                                        @endforeach
+                                    </td>
+                                </tr>
+                            @endif
                             @if (!empty($item->topics))
                             <tr>
                                 <td class="atribut">{{ trans('dielo.item_attr_topic') }}:</td>
@@ -289,7 +299,7 @@
                             <tr>
                                 <td class="atribut">{{ $item->relationship_type ?: trans('dielo.default_relationship_type') }}:</td>
                                 <td>
-                                    <a href="{{ URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) }}"
+                                    <a href="{{ URL::to('katalog?related_work=' . $item->related_work . '&author=' .  $item->first_author) }}"
                                        itemprop="isPartOf">{{ $item->related_work }}</a>
                                     @if ($item->related_work_order)
                                     ({{ $item->related_work_order }}/{{ $item->related_work_total }})
@@ -382,7 +392,7 @@
                 <div class="col-sm-12">
                     <h3 class="underlined-links mb-4 mt-5">
                         <span class="grey">{{ $item->relationship_type }}: </span>
-                        <a href="{{ URL::to('katalog?related_work=' . $item->related_work . '&amp;author=' .  $item->first_author) }}"
+                        <a href="{{ URL::to('katalog?related_work=' . $item->related_work . '&author=' .  $item->first_author) }}"
                            itemprop="isPartOf">{{ $item->related_work }}</a>
                         @if ($item->related_work_order)
                         ({{ $item->related_work_order }}/{{ $item->related_work_total }})

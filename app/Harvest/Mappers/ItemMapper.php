@@ -36,8 +36,7 @@ class ItemMapper extends AbstractMapper
     }
 
     public function mapObjectType(array $row, $locale) {
-        $object_type = $this->getLocalized($row, 'object_type', $locale);
-        return $this->serialize($object_type, ', ') ?: null;
+        return $this->getLocalized($row, 'object_type', $locale) ?: null;
     }
 
     public function mapTechnique(array $row, $locale) {

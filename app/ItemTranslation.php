@@ -16,6 +16,7 @@ class ItemTranslation extends Model
         'description_source',
         'description_source_link',
         'work_type', 
+        'object_type',
         'work_level', 
         'topic', 
         'subject', 

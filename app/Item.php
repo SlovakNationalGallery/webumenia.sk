@@ -73,7 +73,6 @@ class Item extends Model implements IndexableModel, TranslatableContract
         'description_source',
         'description_source_link',
         'work_type',
-        'object_type',
         'work_level',
         'topic',
         'subject',
@@ -444,6 +443,11 @@ class Item extends Model implements IndexableModel, TranslatableContract
         }, $workTypes);
     }
 
+    public function getObjectTypesAttribute()
+    {
+        return $this->makeArray($this->object_type);
+    }
+
     public function setLat($value)
     {
         $this->attributes['lat'] = $value ?: null;
@@ -651,6 +655,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
             'authority_id' => $this->authorities->pluck('id'),
             'view_count' => $this->view_count,
             'work_type' => $work_types ? implode(self::TREE_DELIMITER, $work_types) : null,
+            'object_type' => $this->makeArray($this["object_type:$locale"]),
             'image_ratio' => $this->image_ratio,
             'title' => $this["title:$locale"],
             'description' => (!empty($this["description:$locale"])) ? strip_tags($this["description:$locale"]) : '',

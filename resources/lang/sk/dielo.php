@@ -16,6 +16,7 @@ return array(
     'item_attr_dating'         => 'datovanie',
     'item_attr_measurements'   => 'miery',
     'item_attr_work_type'      => 'výtvarný druh',
+    'item_attr_object_type'    => 'typ objektu',
     'item_attr_topic'          => 'žáner',
     'item_attr_tag'            => 'tagy',
     'item_attr_collections'    => 'v kolekciách',
