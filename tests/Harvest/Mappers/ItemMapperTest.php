@@ -142,7 +142,7 @@ class ItemMapperTest extends TestCase
             'img_url' => 'http://www.webumenia.sk/oai-pmh/getimage/SVK:SNG.G_10044',
             'title:sk' => 'Flámska rodina',
             'work_type:sk' => 'grafika, voľná',
-            'object_type:sk' => 'fotografia, mapa',
+            'object_type:sk' => 'fotografia; mapa',
             'technique:sk' => 'rytina',
             'medium:sk' => 'kartón, zahnedlý',
             'subject:sk' => null,
