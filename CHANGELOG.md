@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - Typeform integration
 
+### Fixed
+- escape HTML characters in share buttons components
+
 ## [2.29.2] - 2021-06-11
 ### Added
 - GMUHK harvester
