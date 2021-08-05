@@ -19,10 +19,15 @@ class ItemRepository extends AbstractRepository
             'lang' => './@xml:lang',
             'title_translated' => '.',
         ],
-        'type' => [
-            null => './/dc:type',
+        'work_type' => [
+            null => './/dc:type[not(@xml:type="cedvu:work-type")]',
             'lang' => './@xml:lang',
-            'type' => '.',
+            'work_type' => '.',
+        ],
+        'object_type' => [
+            null => './/dc:type[@xml:type="cedvu:work-type"]',
+            'lang' => './@xml:lang',
+            'object_type' => '.',
         ],
         'format' => [
             null => './/dc:format',

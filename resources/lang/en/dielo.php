@@ -16,6 +16,7 @@ return array(
     'item_attr_dating'         => 'date',
     'item_attr_measurements'   => 'measurements',
     'item_attr_work_type'      => 'work type',
+    'item_attr_object_type'    => 'object type',
     'item_attr_topic'          => 'genre',
     'item_attr_tag'            => 'tags',
     'item_attr_collections'    => 'in collections',

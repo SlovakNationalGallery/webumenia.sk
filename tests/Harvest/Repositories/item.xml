@@ -39,6 +39,9 @@
                <dc:description>vpravo dole gravé J.Daullé..</dc:description>
                <dc:description>vľavo dole peint Teniers</dc:description>
                <dc:type xml:lang="sk">grafika, voľná</dc:type>
+               <dc:type xml:lang="sk" xml:type="cedvu:work-type">fotografia</dc:type>
+               <dc:type xml:lang="sk" xml:type="cedvu:work-type">mapa</dc:type>
+               <dc:type xml:lang="en" xml:type="cedvu:work-type">map</dc:type>
                <dc:type>DEF</dc:type>
                <dc:type>originál</dc:type>
                <dc:format xml:lang="en">engraving</dc:format>

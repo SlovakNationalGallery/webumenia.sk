@@ -25,22 +25,36 @@ class ItemMapperTest extends TestCase
                     'title_translated' => ['Flemish family'],
                 ],
             ],
-            'type' => [
+            'work_type' => [
                 [
                     'lang' => ['sk'],
-                    'type' => ['grafika, voľná'],
+                    'work_type' => ['grafika, voľná'],
                 ],
                 [
                     'lang' => [],
-                    'type' => ['DEF'],
+                    'work_type' => ['DEF'],
                 ],
                 [
                     'lang' => [],
-                    'type' => ['originál'],
+                    'work_type' => ['originál'],
                 ],
                 [
                     'lang' => [],
-                    'type' => ['Image'],
+                    'work_type' => ['Image'],
+                ],
+            ],
+            'object_type' => [
+                [
+                    'lang' => ['sk'],
+                    'object_type' => ['fotografia'],
+                ],
+                [
+                    'lang' => ['sk'],
+                    'object_type' => ['mapa'],
+                ],
+                [
+                    'lang' => ['en'],
+                    'object_type' => ['map'],
                 ],
             ],
             'format' => [
@@ -128,6 +142,7 @@ class ItemMapperTest extends TestCase
             'img_url' => 'http://www.webumenia.sk/oai-pmh/getimage/SVK:SNG.G_10044',
             'title:sk' => 'Flámska rodina',
             'work_type:sk' => 'grafika, voľná',
+            'object_type:sk' => 'fotografia; mapa',
             'technique:sk' => 'rytina',
             'medium:sk' => 'kartón, zahnedlý',
             'subject:sk' => null,
@@ -143,6 +158,7 @@ class ItemMapperTest extends TestCase
             'credit:sk' => 'Dar zo Zbierky Linea',
             'title:en' => 'Flemish family',
             'work_type:en' => null,
+            'object_type:en' => 'map',
             'technique:en' => 'engraving',
             'medium:en' => null,
             'subject:en' => null,
@@ -158,6 +174,7 @@ class ItemMapperTest extends TestCase
             'credit:en' => 'Donation from the Linea Collection',
             'title:cs' => null,
             'work_type:cs' => null,
+            'object_type:cs' => null,
             'technique:cs' => null,
             'medium:cs' => null,
             'subject:cs' => null,

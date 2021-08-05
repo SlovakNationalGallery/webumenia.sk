@@ -6,6 +6,7 @@ return [
     'description' => 'popis',
     'description_source' => 'popis - zdroj',
     'work_type' => 'výtvarný druh',
+    'object_type' => 'typ objektu',
     'work_level' => 'stupeň spracovania',
     'topic' => 'žáner',
     'subject' => 'objekt',

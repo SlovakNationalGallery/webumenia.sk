@@ -23,7 +23,7 @@ class SpiceHarvesterService
      * @param SpiceHarvesterRecord $record
      */
     public function harvestRecord(SpiceHarvesterRecord $record) {
-        app()->make($harvest->type)->harvestRecord($record, new Progress());
+        app()->make($record->harvest->type)->harvestRecord($record, new Progress());
     }
 
     /**
