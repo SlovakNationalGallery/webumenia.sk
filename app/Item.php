@@ -432,14 +432,16 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     public function getWorkTypesAttribute()
     {
-        $workTypes = $this->makeArray($this->work_type, ', ');
-        $stack = [];
-        return array_map(function ($workType) use (&$stack) {
-            $stack[] = $workType;
-            return [
-                'name' => $workType,
-                'path' => implode(self::TREE_DELIMITER, $stack)
-            ];
+        $workTypes = $this->makeArray($this->work_type);
+        return array_map(function ($workType) {
+            $stack = [];
+            return array_map(function ($part) use (&$stack) {
+                $stack[] = $part;
+                return [
+                    'name' => $part,
+                    'path' => implode(self::TREE_DELIMITER, $stack)
+                ];
+            }, explode(', ', $workType));
         }, $workTypes);
     }
 
@@ -638,7 +640,11 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     public function getIndexedData($locale)
     {
-        $work_types = $this->makeArray($this["work_type:$locale"], ', ');
+        $work_types = $this->makeArray($this["work_type:$locale"]);
+        $work_types = array_map(function ($work_type) {
+            return implode(self::TREE_DELIMITER, explode(', ', $work_type));
+        }, $work_types);
+
         return [
             'id' => $this->id,
             'identifier' => $this->identifier,
@@ -654,7 +660,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
             'is_for_reproduction' => $this->isForReproduction(),
             'authority_id' => $this->authorities->pluck('id'),
             'view_count' => $this->view_count,
-            'work_type' => $work_types ? implode(self::TREE_DELIMITER, $work_types) : null,
+            'work_type' => $work_types,
             'object_type' => $this->makeArray($this["object_type:$locale"]),
             'image_ratio' => $this->image_ratio,
             'title' => $this["title:$locale"],
