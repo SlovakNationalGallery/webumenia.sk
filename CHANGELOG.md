@@ -6,6 +6,9 @@ All notable changes to this project will be documented in this file[^1].
 - Typeform integration
 - item object type attribute
 
+### Fixed
+- multiple item work/object types
+
 ## [2.29.2] - 2021-06-11
 ### Added
 - GMUHK harvester
