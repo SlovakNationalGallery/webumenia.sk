@@ -167,8 +167,16 @@
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_object_type') }}:</td>
                                     <td>
-                                        @foreach ($item->object_types as $object_type)
-                                        <a href="{{ route('frontend.catalog.index', ['object_type' => $object_type]) }}">{{ $object_type }}</a><br>
+                                        @foreach ($item->object_types as $stack)
+                                            @foreach ($stack as $object_type)
+                                                <a href="{{ route('frontend.catalog.index', ['object_type' => $object_type['path']]) }}">{{ $object_type['name'] }}</a>
+                                                @if (!$loop->last)
+                                                    &rsaquo;
+                                                @endif
+                                            @endforeach
+                                            @if (!$loop->last)
+                                                <br>
+                                            @endif
                                         @endforeach
                                     </td>
                                 </tr>
