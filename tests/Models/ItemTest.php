@@ -105,23 +105,35 @@ class ItemTest extends TestCase
     {
         /** @var Item $item */
         $item = factory(Item::class)->make([
-            'work_type' => 'kresba, prípravná, návrh'
+            'work_type' => 'kresba, prípravná, návrh; iné médiá, album'
         ]);
         $workTypes = $item->work_types;
         $this->assertEquals(
             [
                 [
-                    'name' => 'kresba',
-                    'path' => 'kresba',
+                    [
+                        'name' => 'kresba',
+                        'path' => 'kresba',
+                    ],
+                    [
+                        'name' => 'prípravná',
+                        'path' => 'kresba/prípravná',
+                    ],
+                    [
+                        'name' => 'návrh',
+                        'path' => 'kresba/prípravná/návrh',
+                    ]
                 ],
                 [
-                    'name' => 'prípravná',
-                    'path' => 'kresba/prípravná',
-                ],
-                [
-                    'name' => 'návrh',
-                    'path' => 'kresba/prípravná/návrh',
-                ],
+                    [
+                        'name' => 'iné médiá',
+                        'path' => 'iné médiá',
+                    ],
+                    [
+                        'name' => 'album',
+                        'path' => 'iné médiá/album',
+                    ]
+                ]
             ],
             $workTypes
         );
