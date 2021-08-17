@@ -40,6 +40,8 @@ class ItemFilter extends AbstractFilter
 
     protected $isForReproduction;
 
+    protected $hasText;
+
     /** @var Color|null */
     protected $color;
 
@@ -56,6 +58,7 @@ class ItemFilter extends AbstractFilter
         'related_work',
         'has_image',
         'has_iip',
+        'has_text',
         'is_free',
         'is_for_reproduction',
     ];
@@ -228,6 +231,17 @@ class ItemFilter extends AbstractFilter
     public function setIsForReproduction(?bool $isForReproduction): self
     {
         $this->isForReproduction = $isForReproduction;
+        return $this;
+    }
+
+    public function getHasText(): ?bool
+    {
+        return $this->hasText;
+    }
+
+    public function setHasText(?bool $hasText): self
+    {
+        $this->hasText = $hasText;
         return $this;
     }
 

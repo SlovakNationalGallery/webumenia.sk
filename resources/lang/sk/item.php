@@ -42,6 +42,7 @@ return [
         'year_to' => 'do roku',
         'has_image' => 'len s obrázkom',
         'has_iip' => 'len so zoom',
+        'has_text' => 'len s textom',
         'is_free' => 'len voľné',
         'color' => 'farba',
         'sort_by' => 'podľa',

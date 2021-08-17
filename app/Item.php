@@ -650,6 +650,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
             'has_image' => (bool)$this->has_image,
             'has_iip' => $this->has_iip,
+            'has_text' => (bool)$this["description:$locale"],
             'is_free' => $this->isFree(),
             'is_for_reproduction' => $this->isForReproduction(),
             'authority_id' => $this->authorities->pluck('id'),
