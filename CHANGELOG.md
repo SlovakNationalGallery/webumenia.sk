@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - Typeform integration
 - item object type attribute
+- catalog object type, medium, has text filters
 
 ### Fixed
 - escape HTML characters in share buttons components
