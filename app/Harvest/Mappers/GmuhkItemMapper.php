@@ -6,6 +6,7 @@ use App\Harvest\Mappers\AbstractMapper;
 use App\Item;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Str;
 
 class GmuhkItemMapper extends AbstractMapper
 {
@@ -86,5 +87,11 @@ class GmuhkItemMapper extends AbstractMapper
     public function mapDateLatest(array $row)
     {
          return Date::create($row['date_latest'][0])->format('Y');
+    }
+
+    public function mapWorkType(array $row, $locale)
+    {
+        $abbr = Str::after($row['work_type'][0], ':');
+        return $this->translator->get(sprintf('gmuhk.work_types.%s', $abbr), [], $locale);
     }
 }

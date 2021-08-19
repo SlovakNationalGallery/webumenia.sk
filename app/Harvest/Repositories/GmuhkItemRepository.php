@@ -29,5 +29,6 @@ class GmuhkItemRepository extends AbstractRepository
         'gallery' => './/edm:dataProvider',
         'description' => './/dc:description',
         'image' => './/edm:isShownBy/@rdf:resource',
+        'work_type' => './/setSpec[contains(text(), ":")]',
     ];
 }
