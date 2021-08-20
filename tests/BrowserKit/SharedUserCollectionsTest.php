@@ -57,4 +57,19 @@ class SharedUserCollectionsTest extends BrowserKitTestCase
         $this->assertEquals('Updated name', $collection->name);
     }
 
+    public function testShow()
+    {
+        $items = factory(Item::class, 2)->create();
+        $collection = factory(SharedUserCollection::class)->create([
+            'items' => $items->map->only('id')
+        ]);
+
+        $this
+            ->visitRoute(
+                'frontend.shared-user-collections.show', 
+                ['collection' => $collection]
+            )
+            ->dontSee('shared-user-collection-submit');
+    }
+
 }
