@@ -52,7 +52,14 @@ class SharedUserCollectionController extends Controller
             [
                 'collection' => $collection,
                 'items' => $this->getItems($collection->items->pluck('id')),
-                'update_token' => $collection->update_token
+                'formAction' => route(
+                    'frontend.shared-user-collections.update',
+                    [ 
+                        'collection' => $collection,
+                        'token' => $collection->update_token
+                    ]
+                ),
+                'formMethod' => 'PUT',
             ]
         );
     }
@@ -63,6 +70,7 @@ class SharedUserCollectionController extends Controller
             abort(403);
         }
 
+        $request->validate($this->rules);
         $collection->update($request->input());
 
         return redirect()->route(
