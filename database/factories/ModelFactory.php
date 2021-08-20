@@ -155,6 +155,5 @@ $factory->define(App\Article::class, function (Faker\Generator $faker) {
 $factory->define(SharedUserCollection::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->word,
-        'description' => $faker->sentence,
     ];
 });
