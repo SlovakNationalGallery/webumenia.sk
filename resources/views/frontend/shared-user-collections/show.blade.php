@@ -22,30 +22,30 @@
   @csrf
 
   <label for="name">Názov</label>
-  <input type="text" id="name" name="name" value="nejaký názov" />
+  <input type="text" id="name" name="name" />
 
   <br />
 
   <label for="author">Autor</label>
-  <input type="text" id="author" name="author" value="nejaký autor" />
+  <input type="text" id="author" name="author" />
 
   <br />
 
   <label for="description">Popis</label>
-  <textarea id="description" name="description">nejaky popis</textarea>
+  <textarea id="description" name="description"></textarea>
 
   <br />
 
   <ul>
     @foreach($items as $item)
     <li>
-      {{ $item->id }}
+      {{ $item->title }}
       <input type="hidden" name="items[][id]" value="{{ $item->id }}" />
     </li>
     @endforeach
   </ul>
   
-  <button type="submit">Uložiť</button>
+  <button type="submit" name="shared-user-collection-submit">Uložiť</button>
 </form>
 
 @endsection
