@@ -11,6 +11,7 @@
 |
 */
 
+use App\SharedUserCollection;
 use Illuminate\Support\Str;
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
@@ -148,5 +149,12 @@ $factory->define(App\Article::class, function (Faker\Generator $faker) {
         'title_shadow' => $faker->hexColor,
         'promote' => $faker->boolean,
         'publish' => true,
+    ];
+});
+
+$factory->define(SharedUserCollection::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->word,
+        'description' => $faker->sentence,
     ];
 });

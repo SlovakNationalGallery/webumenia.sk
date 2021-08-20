@@ -16,7 +16,7 @@ class SharedUserCollectionController extends Controller
 
     public function create(Request $request)
     {
-        $items = Item::whereIn('id', $request->ids)->get();
+        $items = $this->getItems($request->ids);
         return view('frontend.shared-user-collections.show')->with('items', $items);
     }
 
@@ -35,7 +35,7 @@ class SharedUserCollectionController extends Controller
 
     public function show(SharedUserCollection $collection)
     {
-        $items = Item::whereIn('id', $collection->items->pluck('id'))->get();
+        $items = $this->getItems($collection->items->pluck('id'));
 
         return view('frontend.shared-user-collections.show', compact('collection', 'items'));
     }
@@ -51,7 +51,7 @@ class SharedUserCollectionController extends Controller
             'frontend.shared-user-collections.show', 
             [
                 'collection' => $collection,
-                'items' => Item::whereIn('id', $collection->items->pluck('id'))->get(),
+                'items' => $this->getItems($collection->items->pluck('id')),
                 'update_token' => $collection->update_token
             ]
         );
@@ -72,5 +72,10 @@ class SharedUserCollectionController extends Controller
                 'token' => $collection->update_token,
             ]
         );
+    }
+
+    private function getItems($ids)
+    {
+        return Item::with('translations')->whereIn('id', $ids)->get();
     }
 }
