@@ -18,6 +18,10 @@
                 <p>{!! trans('user-collection.content-intro') !!}</p>
                 <p>{!! trans('user-collection.content-usage') !!}</p>
                 <p>{!! trans('user-collection.content-feedback') !!}</p>
+
+                @unless($items->isEmpty())
+                <a href="{{ route('frontend.shared-user-collections.create', ['ids' => request()->ids ] ) }}">Zdieľať {{-- TODO i18n --}} </a>
+                @endunless
             @endif
         </div>
     </div>
