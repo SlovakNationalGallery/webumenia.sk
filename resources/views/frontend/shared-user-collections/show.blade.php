@@ -18,6 +18,10 @@
     </div>
 @endif
 
+@php
+    $editable = $editable ?? false;    
+@endphp
+
 <form action="{{ $formAction ?? route('frontend.shared-user-collections.store') }}" method="POST">
     @method($formMethod ?? 'POST')
     @csrf
@@ -46,6 +50,8 @@
         @endforeach
     </ul>
 
+    @if($editable)
     <button type="submit" name="shared-user-collection-submit">Uložiť</button>
+    @endif
 </form>
 @endsection
