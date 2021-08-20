@@ -1,0 +1,36 @@
+.borderless__container {
+  position: relative;
+
+  &.borderless-72 {
+    font-size: 72px;
+  }
+  
+  
+  line-height: 1.2;
+
+  .borderless__spacer {
+    word-wrap: break-word;
+    user-select: none;
+    text-align: center;
+  }
+
+  textarea {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    resize: none;
+    border: none;
+    outline: none;
+    text-align: center;
+
+    border-bottom: 1px solid transparent;
+    transition: border-bottom-color 0.3s ease;
+
+    &:hover, &:focus {
+      border-bottom: 1px solid @mid-grey;
+    }
+  }
+}
