@@ -38,17 +38,21 @@ class SharedUserCollectionsTest extends BrowserKitTestCase
     public function testEditing()
     {
         $items = factory(Item::class, 2)->create();
-        $collection = factory(SharedUserCollection::class)->create(['items' => $items->map->only('id')]);
+        $collection = factory(SharedUserCollection::class)->create([
+            'name' => 'old name',
+            'items' => $items->map->only('id')
+        ]);
 
         $this
             ->visitRoute(
                 'frontend.shared-user-collections.edit', 
                 ['collection' => $collection, 'token' => $collection->update_token]
             )
+            ->see('old name')
             ->type('Updated name', 'name')
             ->press('shared-user-collection-submit');
 
-        $collection->fresh();
+        $collection->refresh();
 
         $this->assertEquals('Updated name', $collection->name);
     }
