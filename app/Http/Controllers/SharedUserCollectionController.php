@@ -17,7 +17,10 @@ class SharedUserCollectionController extends Controller
     public function create(Request $request)
     {
         $items = $this->getItems($request->ids);
-        return view('frontend.shared-user-collections.show')->with('items', $items);
+        return view('frontend.shared-user-collections.show', [
+            'items' => $items,
+            'editable' => true,
+        ]);
     }
 
     public function store(Request $request)
@@ -59,6 +62,7 @@ class SharedUserCollectionController extends Controller
                         'token' => $collection->update_token
                     ]
                 ),
+                'editable' => true,
                 'formMethod' => 'PUT',
             ]
         );
