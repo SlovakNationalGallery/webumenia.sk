@@ -1,14 +1,19 @@
-.borderless__container {
+.inline_input__container {
+  @affordance-border: 1px solid @mid-grey;
+
   position: relative;
 
-  &.borderless-72 {
+  &.font-xl {
     font-size: 72px;
   }
-  
+
+  &.border textarea {
+    border-bottom: @affordance-border;
+  }
   
   line-height: 1.2;
 
-  .borderless__spacer {
+  .inline_input__spacer {
     word-wrap: break-word;
     user-select: none;
     text-align: center;
@@ -29,8 +34,13 @@
     border-bottom: 1px solid transparent;
     transition: border-bottom-color 0.3s ease;
 
-    &:hover, &:focus {
-      border-bottom: 1px solid @mid-grey;
+    &:hover {
+      border-bottom: @affordance-border;
+    }
+
+    &:focus {
+      border-bottom: @affordance-border;
+      border-color: @primary-color;
     }
   }
 }
