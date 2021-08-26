@@ -22,41 +22,65 @@
     $editable = $editable ?? false;    
 @endphp
 
-<form action="{{ $formAction ?? route('frontend.shared-user-collections.store') }}" method="POST">
+<user-collections-share-form 
+    action="{{ $formAction ?? route('frontend.shared-user-collections.store') }}"
+    initial-value-name="{{ old('name', $collection->name ?? null) }}"
+    initial-value-author="{{ old('author', $collection->author ?? null) }}"
+    initial-value-description="{{ old('description', $collection->description ?? null) }}"
+    v-slot="form"
+>
     @method($formMethod ?? 'POST')
     @csrf
 
+    
     <div class="container content-section">
+        <transition
+            enter-active-class="animated fadeInDown faster"
+            leave-active-class="animated fadeOut"
+        >
+            <div v-if="form.editing" class="row">
+                <div class="column">
+                    <button type="submit" class="btn btn-primary">Uložiť</button>
+                </div>
+            </div>
+        </transition>
+
         <div class="row">
             <div class="column text-center">
                 <inline-input 
                     name="name" 
-                    value="{{ old('name', $collection->name ?? null) }}"
-                    class="text-xl"
                     placeholder="Zadaj názov"
-                ></inline-input> 
+                    :class="['text-xl', { border: form.editing }]"
+                    v-model="form.values.name"
+                    v-on:focus="form.setEditing(true)"
+                /></inline-input>
 
                 <br />
 
                 <inline-input 
-                    name="author" 
-                    value="{{ old('author', $collection->author ?? null) }}"
-                    class="mt-4 dark-grey"
-                    placeholder="Author(ka)"
+                    name="author"
+                    placeholder="Autor(ka)"
+                    :class="['mt-4 pb-2 text-lg dark-grey', { border: form.editing }]"
+                    v-model="form.values.author"
+                    v-on:focus="form.setEditing(true)"
                 ></inline-input>
 
                 <br />
 
                 <inline-input 
                     name="description" 
-                    value="{{ old('description', $collection->description ?? null) }}"
                     placeholder="Popíš svoju collection"
-                    class="text-lg mt-4 grey"
+                    :class="['text-lg mt-4 pb-2 grey', { border: form.editing }]"
+                    v-model="form.values.description"
+                    v-on:focus="form.setEditing(true)"
                 /></inline-input>
-
-                @if($editable)
-                <button type="submit" name="shared-user-collection-submit">Uložiť</button>
-                @endif
+            </div>
+        </div>
+        <div class="row my-5">
+            <div class="column text-center">
+                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#confirm">
+                    Zdieľať
+                </button>
             </div>
         </div>
         <div class="row">
@@ -72,13 +96,9 @@
             </div>
         </div>
     </div>
-</form>
+</user-collections-share-form>
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirm">
-    Launch demo modal
-  </button>
-
-@if(isset($collection) && $editable)
+ @if(isset($collection) && $editable)
     @php
         $shareableUrl = route('frontend.shared-user-collections.show', compact('collection'));
     @endphp
