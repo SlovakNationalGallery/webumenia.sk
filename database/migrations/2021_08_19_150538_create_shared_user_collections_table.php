@@ -18,7 +18,7 @@ class CreateSharedUserCollectionsTable extends Migration
             $table->string('public_id')->unique();
             $table->string('name');
             $table->string('author')->nullable();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->json('items');
             $table->string('update_token');
 
