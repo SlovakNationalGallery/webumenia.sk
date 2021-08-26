@@ -28,33 +28,39 @@
 
     <div class="container content-section">
         <div class="row">
+            <div class="column text-center">
+                <inline-input 
+                    name="name" 
+                    value="{{ old('name', $collection->name ?? null) }}"
+                    class="text-xl"
+                    placeholder="Zadaj názov"
+                ></inline-input> 
+
+                <br />
+
+                <inline-input 
+                    name="author" 
+                    value="{{ old('author', $collection->author ?? null) }}"
+                    class="mt-4 dark-grey"
+                    placeholder="Author(ka)"
+                ></inline-input>
+
+                <br />
+
+                <inline-input 
+                    name="description" 
+                    value="{{ old('description', $collection->description ?? null) }}"
+                    placeholder="Popíš svoju collection"
+                    class="text-lg mt-4 grey"
+                /></inline-input>
+
+                @if($editable)
+                <button type="submit" name="shared-user-collection-submit">Uložiť</button>
+                @endif
+            </div>
+        </div>
+        <div class="row">
             <div class="column">
-                <inline-input 
-                    name="name" 
-                    value="{{ old('name', $collection->name ?? null) }}"
-                    class="font-xl"
-                    placeholder="Zadaj nazov"
-                ></inline-input>
-
-                <inline-input 
-                    name="name" 
-                    value="{{ old('name', $collection->name ?? null) }}"
-                    class="font-xl"
-                    placeholder="Zadaj nazov"
-                ></inline-input>
-
-                <br />
-
-                <label for="author">Autor</label>
-                <input type="text" id="author" name="author" value="{{ old('author', $collection->author ?? null) }}" />
-
-                <br />
-
-                <label for="description">Popis</label>
-                <textarea id="description" name="description">{{ old('description', $collection->description ?? null) }}</textarea>
-
-                <br />
-
                 <ul>
                     @foreach ($items as $item)
                         <li>
@@ -63,10 +69,6 @@
                         </li>
                     @endforeach
                 </ul>
-
-                @if($editable)
-                <button type="submit" name="shared-user-collection-submit">Uložiť</button>
-                @endif
             </div>
         </div>
     </div>
