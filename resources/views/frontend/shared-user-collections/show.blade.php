@@ -21,6 +21,7 @@
 @php
     $editable = $editable ?? false;    
 @endphp
+
 <form action="{{ $formAction ?? route('frontend.shared-user-collections.store') }}" method="POST">
     @method($formMethod ?? 'POST')
     @csrf
@@ -28,16 +29,19 @@
     <div class="container content-section">
         <div class="row">
             <div class="column">
-                <textarea name="name" class="borderless">{{ old('name', $collection->name ?? null) }}</textarea>
-                {{-- <input type="text" class="borderless" id="name" name="name" value="{{ old('name', $collection->name ?? null) }}" /> --}}
-                {{-- <input type="hidden" name="name" value="{{ old('name', $collection->name ?? null) }}" /> --}}
-
-                <borderless-input 
+                <inline-input 
                     name="name" 
                     value="{{ old('name', $collection->name ?? null) }}"
-                    class="borderless-72"
+                    class="font-xl"
                     placeholder="Zadaj nazov"
-                ></borderless-input>
+                ></inline-input>
+
+                <inline-input 
+                    name="name" 
+                    value="{{ old('name', $collection->name ?? null) }}"
+                    class="font-xl"
+                    placeholder="Zadaj nazov"
+                ></inline-input>
 
                 <br />
 
@@ -50,32 +54,6 @@
                 <textarea id="description" name="description">{{ old('description', $collection->description ?? null) }}</textarea>
 
                 <br />
-
-                @if(isset($collection) && $editable)
-                @php
-                    $shareableUrl = route('frontend.shared-user-collections.show', compact('collection'));
-                @endphp
-
-                <div class="panel panel-default">
-                    <h4>Zdieľaj odkaz na svoj výber:</h4>
-                    <p>
-                        <strong>{{ $shareableUrl }}</strong>
-                        <a
-                            class="btn btn-outline no-border"
-                            data-toggle="tooltip"
-                            data-trigger="hover"
-                            title="{{ trans('general.copy') }}"
-                            data-success-title="{{ trans('general.copied_to_clipboard') }}"
-                            data-clipboard-text="{{ $shareableUrl }}"
-                        >
-                            <i class="fa fa-clipboard"></i> {{ trans('general.copy') }}
-                        </a>
-                    </p>
-                    <p>Ak chceš dalej editovať, ulož si túto adresu:
-                        {{ route('frontend.shared-user-collections.edit', ['collection' => $collection, 'token' => $collection->update_token]) }}
-                    </p>
-                </div>
-                @endif
 
                 <ul>
                     @foreach ($items as $item)
@@ -93,4 +71,43 @@
         </div>
     </div>
 </form>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirm">
+    Launch demo modal
+  </button>
+
+@if(isset($collection) && $editable)
+    @php
+        $shareableUrl = route('frontend.shared-user-collections.show', compact('collection'));
+    @endphp
+
+    <div tabindex="-1" class="modal fade" id="confirm" role="dialog">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                     <h4 class="modal-title">Zdieľaj odkaz na svoj výber</h4>
+                </div>  
+                <div class="modal-body">
+                    <p>
+                        <strong>{{ $shareableUrl }}</strong>
+                        <a
+                            class="btn btn-outline no-border"
+                            data-toggle="tooltip"
+                            data-trigger="hover"
+                            title="{{ trans('general.copy') }}"
+                            data-success-title="{{ trans('general.copied_to_clipboard') }}"
+                            data-clipboard-text="{{ $shareableUrl }}"
+                        >
+                            <i class="fa fa-clipboard"></i> {{ trans('general.copy') }}
+                        </a>
+                    </p>
+                    <p>Ak chceš dalej editovať, ulož si túto adresu:
+                        {{ route('frontend.shared-user-collections.edit', ['collection' => $collection, 'token' => $collection->update_token]) }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
 @endsection
