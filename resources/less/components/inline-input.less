@@ -45,6 +45,10 @@
       border-bottom: 1px solid transparent;
       transition: border-bottom-color 0.3s ease;
 
+      .border& {
+        border-bottom: @affordance-border;
+      }
+
       &:hover {
         border-bottom: @affordance-border;
       }
@@ -52,10 +56,6 @@
       &:focus {
         border-bottom: @affordance-border;
         border-color: @primary-color;
-      }
-  
-      &.border {
-        border-bottom: @affordance-border;
       }
     }
   }
