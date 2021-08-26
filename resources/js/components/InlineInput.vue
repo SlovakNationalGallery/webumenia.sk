@@ -1,6 +1,6 @@
 <template>
-    <div class="borderless__container">
-        <div class="borderless__spacer">{{ currentValue || placeholder }}</div>
+    <div class="inline_input__container">
+        <div class="inline_input__spacer">{{ currentValue || placeholder }}</div>
         <textarea 
           :name="name" 
           :placeholder="placeholder"
