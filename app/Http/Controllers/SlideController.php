@@ -34,11 +34,6 @@ class SlideController extends Controller
             ->with('message', 'Carousel ' .$slide->name. ' bol vytvorený');
     }
 
-    public function show(Slide $slide)
-    {
-        return view('slides.show')->with('slide', $slide);
-    }
-
     public function edit(Slide $slide)
     {
         return view('slides.form')->with('slide', $slide);
