@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+## [2.30.0] - 2021-08-27
 ### Added
 - Typeform integration
 - item object type attribute
