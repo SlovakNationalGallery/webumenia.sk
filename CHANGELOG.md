@@ -4,7 +4,6 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ## [2.30.0] - 2021-08-27
 ### Added
-- Typeform integration
 - item object type attribute
 - GMUHK harvest work type
 
@@ -13,6 +12,11 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Changed
 - Migrate Slides to spatie/laravel-media-library
+- Removed Typeform integration
+
+## [2.29.3] - 2021-06-29
+### Added
+- Typeform integration
 
 ## [2.29.2] - 2021-06-11
 ### Added
