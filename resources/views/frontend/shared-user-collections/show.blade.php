@@ -19,14 +19,11 @@
 @endif
 
 @php
-    $editable = $editable ?? false;    
+    $editable = $editable ?? false;
 @endphp
 
 <user-collections-share-form 
     action="{{ $formAction ?? route('frontend.shared-user-collections.store') }}"
-    initial-value-name="{{ old('name', $collection->name ?? null) }}"
-    initial-value-author="{{ old('author', $collection->author ?? null) }}"
-    initial-value-description="{{ old('description', $collection->description ?? null) }}"
     v-slot="form"
 >
     @method($formMethod ?? 'POST')
@@ -34,24 +31,25 @@
 
     
     <div class="container content-section">
-        <transition
-            enter-active-class="animated fadeInDown faster"
-            leave-active-class="animated fadeOut"
-        >
-            <div v-if="form.editing" class="row">
-                <div class="column">
-                    <button type="submit" class="btn btn-primary">Uložiť</button>
-                </div>
+        <div class="row">
+            <div class="column" style="height: 100px">
+                <transition
+                    enter-active-class="animated fadeInDown faster"
+                    leave-active-class="animated fadeOutUp faster"
+                >
+                    <button v-show="form.editing" type="submit" class="btn btn-primary">Uložiť</button>
+                </transition> 
             </div>
-        </transition>
-
+        </div>
         <div class="row">
             <div class="column text-center">
                 <inline-input 
                     name="name" 
                     placeholder="Zadaj názov"
+                    value="{{ old('name', $collection->name ?? null) }}"
                     :class="['text-xl', { border: form.editing }]"
-                    v-model="form.values.name"
+                    :disabled="{{ $editable ? 'false' : 'true' }}"
+                    required
                     v-on:focus="form.setEditing(true)"
                 /></inline-input>
 
@@ -60,8 +58,9 @@
                 <inline-input 
                     name="author"
                     placeholder="Autor(ka)"
+                    value="{{ old('author', $collection->author ?? null) }}"
                     :class="['mt-4 pb-2 text-lg dark-grey', { border: form.editing }]"
-                    v-model="form.values.author"
+                    :disabled="{{ $editable ? 'false' : 'true' }}"
                     v-on:focus="form.setEditing(true)"
                 ></inline-input>
 
@@ -70,18 +69,21 @@
                 <inline-input 
                     name="description" 
                     placeholder="Popíš svoju collection"
+                    value="{{ old('description', $collection->description ?? null) }}"
                     :class="['text-lg mt-4 pb-2 grey', { border: form.editing }]"
-                    v-model="form.values.description"
+                    :disabled="{{ $editable ? 'false' : 'true' }}"
                     v-on:focus="form.setEditing(true)"
                 /></inline-input>
             </div>
         </div>
         <div class="row my-5">
-            <div class="column text-center">
-                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#confirm">
-                    Zdieľať
-                </button>
-            </div>
+            @if($editable)
+                <div class="column text-center">
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#confirm">
+                        Zdieľať
+                    </button>
+                </div>
+            @endif
         </div>
         <div class="row">
             <div class="column">
