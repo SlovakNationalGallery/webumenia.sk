@@ -18,6 +18,8 @@ class ItemFilter extends AbstractFilter
 
     protected $workType;
 
+    protected $objectType;
+
     protected $topic;
 
     protected $tag;
@@ -46,6 +48,7 @@ class ItemFilter extends AbstractFilter
         'gallery',
         'credit',
         'work_type',
+        'object_type',
         'topic',
         'tag',
         'technique',
@@ -115,6 +118,17 @@ class ItemFilter extends AbstractFilter
     public function setWorkType(?string $workType): self
     {
         $this->workType = $workType;
+        return $this;
+    }
+
+    public function getObjectType(): ?string
+    {
+        return $this->objectType;
+    }
+
+    public function setObjectType(?string $objectType): self
+    {
+        $this->objectType = $objectType;
         return $this;
     }
 

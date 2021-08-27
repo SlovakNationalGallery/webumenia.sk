@@ -4,7 +4,7 @@ namespace App\Harvest\Mappers;
 
 use App\Authority;
 
-class BaseAuthorityMapper extends AbstractModelMapper
+class BaseAuthorityMapper extends AbstractMapper
 {
     protected $modelClass = Authority::class;
 

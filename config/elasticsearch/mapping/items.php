@@ -149,6 +149,9 @@ $mapping = [
             'analyzer' => 'tree_analyzer',
             'fielddata' => true,
         ],
+        'object_type' => [
+            'type' => 'keyword',
+        ],
         'view_count' => [
             'type' => 'integer',
         ],

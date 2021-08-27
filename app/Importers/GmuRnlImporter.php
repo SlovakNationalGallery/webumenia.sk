@@ -77,49 +77,11 @@ class GmuRnlImporter extends AbstractImporter
 
     protected function hydrateMeasurement(array $record, $locale)
     {
-        $replacements = [
-            '=' => ' ',
-            'cm' => ' cm',
-        ];
-
-        foreach ([
-            'a' => 'primary_height',
-            'a.' => 'primary_height',
-            'b' => 'secondary_height',
-            'b.' => 'secondary_height',
-            'čas' => 'time',
-            'd' => 'length',
-            'd.' => 'length',
-            'h' => 'depth',
-            'h.' => 'depth',
-            'hmot' => 'weight',
-            'hmot.' => 'weight',
-            'hr' => 'depth_with_frame',
-            'jiný' => 'other',
-            'p' => 'diameter',
-            'p.' => 'diameter',
-            'r.' => 'caliber',
-            'ryz' => 'purity',
-            's' => 'width',
-            's.' => 'width',
-            'sd.' => 'width_graphics_board',
-            'sp' => 'width_with_mat',
-            'sp.' => 'width_with_mat',
-            'sr' => 'width_with_frame',
-            'v' => 'overall_height_length',
-            'v.' => 'overall_height_length',
-            'vd.' => 'height_graphics_board',
-            'vp' => 'height_with_mat',
-            'vp.' => 'height_with_mat',
-            'vr' => 'height_with_frame',
-        ] as $key => $translationKey) {
-            $replacements[$key] = $this->translator->get("item.importer.measurement.$translationKey", [], $locale);
-        }
-
         if (empty($record['Rozměr'])) {
             return null;
         }
 
+        $replacements = $this->translator->get('item.measurement_replacements', [], $locale);
         return strtr($record['Rozměr'], $replacements);
     }
 }
