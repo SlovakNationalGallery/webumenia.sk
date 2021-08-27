@@ -71,7 +71,7 @@ class MigrateSlidesImagesToMedia extends Migration
     public function down()
     {
         Schema::table('slides', function (Blueprint $table) {
-            $table->string('image')->after('publish');
+            $table->string('image')->after('url');
         });
 
         foreach(DB::table('media')->where('model_type', 'App\Slide')->lazyById() as $media) {
