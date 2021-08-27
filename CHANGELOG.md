@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ## [2.30.0] - 2021-08-27
 ### Added
+- GMUHK harvester
 - item object type attribute
 - GMUHK harvest work type
 
@@ -19,8 +20,6 @@ All notable changes to this project will be documented in this file[^1].
 - Typeform integration
 
 ## [2.29.2] - 2021-06-11
-### Added
-- GMUHK harvester
 ### Changed
 - Enable Edu section for public (in main nav)
 
