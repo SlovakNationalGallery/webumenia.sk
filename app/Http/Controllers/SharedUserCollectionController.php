@@ -88,6 +88,6 @@ class SharedUserCollectionController extends Controller
 
     private function getItems($ids)
     {
-        return Item::with('translations')->whereIn('id', $ids)->get();
+        return Item::with(['translations', 'images'])->whereIn('id', $ids)->get();
     }
 }
