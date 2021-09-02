@@ -21,16 +21,14 @@
 @php
     $editable = $editable ?? false;
 @endphp
+<div class="container">
+    <user-collections-share-form 
+        action="{{ $formAction ?? route('frontend.shared-user-collections.store') }}"
+        v-slot="form"
+    >
+        @method($formMethod ?? 'POST')
+        @csrf
 
-<user-collections-share-form 
-    action="{{ $formAction ?? route('frontend.shared-user-collections.store') }}"
-    v-slot="form"
->
-    @method($formMethod ?? 'POST')
-    @csrf
-
-    
-    <div class="container content-section">
         <div class="row">
             <div class="column" style="height: 100px">
                 <transition
@@ -42,7 +40,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="column text-center">
+            <div class="col-xs-12 text-center">
                 <inline-input 
                     name="name" 
                     placeholder="Zadaj názov"
@@ -51,6 +49,7 @@
                     :disabled="{{ $editable ? 'false' : 'true' }}"
                     required
                     v-on:focus="form.setEditing(true)"
+                    v-on:
                 /></inline-input>
 
                 <br />
@@ -63,8 +62,10 @@
                     :disabled="{{ $editable ? 'false' : 'true' }}"
                     v-on:focus="form.setEditing(true)"
                 ></inline-input>
-
-                <br />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
 
                 <inline-input 
                     name="description" 
@@ -85,22 +86,27 @@
                 </div>
             @endif
         </div>
-        <div class="row">
-            <div class="column">
-                <ul>
-                    @foreach ($items as $item)
-                        <li>
-                            {{ $item->title }}
-                            <input type="hidden" name="items[][id]" value="{{ $item->id }}" />
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-        </div>
-    </div>
-</user-collections-share-form>
+        <div class="row grid" style="max-width: 800px; margin: auto">
+            <div id="column-sizer" class="col-sm-6"></div>
 
- @if(isset($collection) && $editable)
+            @foreach ($items as $index => $item)
+                <input type="hidden" name="items[][id]" value="{{ $item->id }}" />
+                @include('components.artwork_grid_item', [
+                    'item' => $item,
+                    'isotope_item_selector_class' => 'item',
+                    'class_names' => 'grid-item ' . (function () use ($index, $item) {
+                        if ($index === 0) {
+                            return $item->image_ratio > 1 ? 'col-sm-12' : 'col-sm-6';    
+                        }
+
+                        return $item->image_ratio > 1.2 ? 'col-sm-12' : 'col-sm-6';
+                    })()
+                ])
+            @endforeach
+        </div>
+    </user-collections-share-form>
+</div>
+@if (isset($collection) && $editable)
     @php
         $shareableUrl = route('frontend.shared-user-collections.show', compact('collection'));
     @endphp
@@ -134,4 +140,14 @@
         </div>
     </div>
 @endif
+@endsection
+
+@section('javascript')
+<script type="text/javascript">
+    $('.grid').masonry({
+        itemSelector: '.grid-item',
+        columnWidth: '#column-sizer',
+        percentPosition: true,
+    })
+</script>
 @endsection
