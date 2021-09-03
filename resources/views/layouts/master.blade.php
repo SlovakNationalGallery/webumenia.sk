@@ -92,7 +92,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 	<!-- Content -->
 	<div id="app">
-		@include('components.nav_bar')
+		@sectionMissing('main-navigation')
+			@include('components.nav_bar')
+		@endif
+
 		@yield('content')
 	</div>
 
