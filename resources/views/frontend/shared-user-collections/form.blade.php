@@ -6,6 +6,10 @@
     @parent
 @stop
 
+@section('main-navigation')
+<!-- Skip -->
+@stop
+
 @section('content')
 
 @if ($errors->any())
@@ -19,13 +23,14 @@
 @endif
 
 @php
-    $editable = $editable ?? false;
-    $shareable = isset($collection) && $editable;
+    $action = request()->route()->getActionMethod();
 @endphp
-<div class="container">
+
+<div class="container pt-5">
+    <div class="container pt-5">
     <user-collections-share-form
         action="{{ $formAction ?? route('frontend.shared-user-collections.store') }}"
-        :creating="{{ isset($collection) ? 'false' : 'true' }}"
+        :creating="@json($action === 'create')"
         v-slot="form"
     >
         @method($formMethod ?? 'POST')
@@ -37,9 +42,9 @@
                     name="name" 
                     placeholder="Nazvi svoj výber" {{-- TODO i18n --}}
                     value="{{ old('name', $collection->name ?? null) }}"
-                    :class="['text-4xl', { border: form.editing }]"
-                    :disabled="{{ $editable ? 'false' : 'true' }}"
-                    :focused="{{ isset($collection) ? 'false' : 'true' }}"
+                    :class="['text-4xl text-center', { border: form.editing }]"
+                    :disabled="@json($action === 'show')"
+                    :focused="@json($action === 'create')"
                     spellcheck="false"
                     required
                     v-on:focus="form.setEditing(true)"
@@ -51,8 +56,8 @@
                     name="author"
                     placeholder="Tvoje meno" {{-- TODO i18n --}}
                     value="{{ old('author', $collection->author ?? null) }}"
-                    :class="['mt-5 pb-2 text-xl dark-grey', { border: form.editing }]"
-                    :disabled="{{ $editable ? 'false' : 'true' }}"
+                    :class="['mt-5 pb-2 text-xl text-center dark-grey', { border: form.editing }]"
+                    :disabled="@json($action === 'show')"
                     spellcheck="false"
                     v-on:focus="form.setEditing(true)"
                 ></inline-input>
@@ -65,7 +70,7 @@
                     placeholder="Stručne popíš svoj výber. Môžeš priblížiť jeho tému, príbeh, súvislosti medzi dielami alebo emócie, ktoré ťa viedli práve k tejto selekcii." {{-- TODO i18n --}}
                     value="{{ old('description', $collection->description ?? null) }}"
                     :class="['mt-5 pb-2 text-lg  grey font-serif', { border: form.editing }]"
-                    :disabled="{{ $editable ? 'false' : 'true' }}"
+                    :disabled="@json($action === 'show')"
                     spellcheck="false"
                     v-on:focus="form.setEditing(true)"
                 /></inline-input>
@@ -81,7 +86,7 @@
                 </div>
             </div>
         @endif
-        @if ($editable)
+        @if (in_array($action, ['edit', 'create'], true))
             <div class="row mt-5" style="height:34px" v-cloak>
                 <div class="col-sm-6 col-sm-offset-3 text-center">
                     <transition
@@ -92,9 +97,9 @@
                         <button v-if="form.editing" type="submit" class="btn btn-secondary" key="save">
                             Uložiť {{-- TODO i18n --}}
                         </button>
-                        @if ($shareable)
+                        @if ($action === 'edit')
                             <button v-if="!form.editing" type="button" class="btn btn-info" key="share" data-toggle="modal" data-target="#confirm">
-                                Zdieľať {{-- TODO i18n --}}
+                                Zdieľať výber <i class='ml-1 fa fa-share-alt'></i> {{-- TODO i18n --}}
                             </button>
                         @endif
                     </transition> 
@@ -120,7 +125,7 @@
         </div>
     </user-collections-share-form>
 </div>
-@if ($shareable)
+@if ($action === 'edit')
     @php
         $shareableUrl = route('frontend.shared-user-collections.show', compact('collection'));
     @endphp

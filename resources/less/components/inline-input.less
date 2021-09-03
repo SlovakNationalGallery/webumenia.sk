@@ -1,8 +1,6 @@
 .inline_input {
-  @text-align: left;
-
   position: relative;
-  text-align: @text-align;
+  text-align: center;
   display: inline-block;
   line-height: 1.2;
 
@@ -46,10 +44,13 @@
       border: none;
       padding: 0;
       outline: none;
-      text-align: @text-align;
   
       border-bottom: 1px solid transparent;
       transition: border-bottom-color 0.3s ease;
+
+      .text-center& {
+        text-align: center;
+      }
 
       .border& {
         border-bottom: @affordance-border;
