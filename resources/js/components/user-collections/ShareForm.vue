@@ -8,6 +8,7 @@
 export default {
     props: {
         action: String,
+        creating: Boolean
     },
     data() {
         return {
@@ -19,14 +20,20 @@ export default {
             this.editing = editing
         },
         onSubmit() {
-            const form = this.$refs.form;
+            const form = this.$refs.form
+
+            // Do a full reload submission on create
+            if (this.creating) {
+                form.submit()
+                return
+            }
 
             fetch(this.action, {
                 method: 'POST',
                 body: new FormData(form),
             })
 
-            this.editing = false;
+            this.editing = false
         }
     }
 }

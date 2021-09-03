@@ -2,7 +2,8 @@
     <div v-if="currentValue || !disabled" class="inline_input">
         <div class="inline_input__spacer">{{ currentValue || placeholder }}</div>
         <div class="inline_input__textarea-wrapper" v-if="!disabled">
-            <textarea 
+            <textarea
+                ref="input"
                 v-model="currentValue"
                 v-bind="$attrs"
                 v-on="$listeners"
@@ -22,11 +23,17 @@ export default {
         value: String,
         placeholder: String,
         disabled: Boolean,
+        focused: Boolean,
     },
     data() {
         return {
             currentValue: this.value,
         }
+    },
+    mounted() {
+        if (this.focused) this.$nextTick(function () {
+            this.$refs.input.focus()
+        })
     },
 }
 </script>
