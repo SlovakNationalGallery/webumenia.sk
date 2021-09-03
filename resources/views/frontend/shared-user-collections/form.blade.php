@@ -35,9 +35,9 @@
             <div class="col-xs-12 text-center">
                 <inline-input 
                     name="name" 
-                    placeholder="Zadaj názov" {{-- TODO i18n --}}
+                    placeholder="Nazvi svoj výber" {{-- TODO i18n --}}
                     value="{{ old('name', $collection->name ?? null) }}"
-                    :class="['text-xl', { border: form.editing }]"
+                    :class="['text-4xl', { border: form.editing }]"
                     :disabled="{{ $editable ? 'false' : 'true' }}"
                     :focused="{{ isset($collection) ? 'false' : 'true' }}"
                     spellcheck="false"
@@ -49,23 +49,24 @@
 
                 <inline-input 
                     name="author"
-                    placeholder="Autor(ka)" {{-- TODO i18n --}}
+                    placeholder="Tvoje meno" {{-- TODO i18n --}}
                     value="{{ old('author', $collection->author ?? null) }}"
-                    :class="['mt-4 pb-2 text-lg dark-grey', { border: form.editing }]"
+                    :class="['mt-5 pb-2 text-xl dark-grey', { border: form.editing }]"
                     :disabled="{{ $editable ? 'false' : 'true' }}"
+                    spellcheck="false"
                     v-on:focus="form.setEditing(true)"
                 ></inline-input>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-8 col-sm-offset-2 text-center">
-
+            <div class="col-sm-6 col-sm-offset-3">
                 <inline-input 
                     name="description" 
-                    placeholder="Popíš svoju collection" {{-- TODO i18n --}}
+                    placeholder="Stručne popíš svoj výber. Môžeš priblížiť jeho tému, príbeh, súvislosti medzi dielami alebo emócie, ktoré ťa viedli práve k tejto selekcii." {{-- TODO i18n --}}
                     value="{{ old('description', $collection->description ?? null) }}"
-                    :class="['text-lg mt-4 pb-2 grey', { border: form.editing }]"
+                    :class="['mt-5 pb-2 text-lg  grey font-serif', { border: form.editing }]"
                     :disabled="{{ $editable ? 'false' : 'true' }}"
+                    spellcheck="false"
                     v-on:focus="form.setEditing(true)"
                 /></inline-input>
             </div>
@@ -80,25 +81,27 @@
                 </div>
             </div>
         @endif
-        <div class="row mt-3" style="height:34px" v-cloak>
-            <div class="col-sm-6 col-sm-offset-3 text-center">
-                <transition
-                    enter-active-class="animated fadeInDown faster"
-                    leave-active-class="animated fadeOutUp faster"
-                    mode="out-in"
-                >
-                    <button v-if="form.editing" type="submit" class="btn btn-secondary" key="save">
-                        Uložiť {{-- TODO i18n --}}
-                    </button>
-                    @if ($shareable)
-                        <button v-if="!form.editing" type="button" class="btn btn-info" key="share" data-toggle="modal" data-target="#confirm">
-                            Zdieľať {{-- TODO i18n --}}
+        @if ($editable)
+            <div class="row mt-5" style="height:34px" v-cloak>
+                <div class="col-sm-6 col-sm-offset-3 text-center">
+                    <transition
+                        enter-active-class="animated fadeInDown faster"
+                        leave-active-class="animated fadeOutUp faster"
+                        mode="out-in"
+                    >
+                        <button v-if="form.editing" type="submit" class="btn btn-secondary" key="save">
+                            Uložiť {{-- TODO i18n --}}
                         </button>
-                    @endif
-                </transition> 
+                        @if ($shareable)
+                            <button v-if="!form.editing" type="button" class="btn btn-info" key="share" data-toggle="modal" data-target="#confirm">
+                                Zdieľať {{-- TODO i18n --}}
+                            </button>
+                        @endif
+                    </transition> 
+                </div>
             </div>
-        </div>
-        <div class="row grid mt-5" style="max-width: 800px; margin: auto">
+        @endif
+        <div class="row grid mt-5 pt-5" style="max-width: 800px; margin: auto">
             <div id="column-sizer" class="col-sm-6"></div>
             @foreach ($items as $index => $item)
                 <input type="hidden" name="items[][id]" value="{{ $item->id }}" />
