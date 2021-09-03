@@ -1,25 +1,31 @@
 .inline_input {
-  @text-align: center;
+  @text-align: left;
 
   position: relative;
   text-align: @text-align;
   display: inline-block;
+  line-height: 1.2;
+
+  &.text-4xl {
+    font-size: 72px;
+  }
 
   &.text-xl {
-    font-size: 72px;
-    line-height: 1.2;
+    font-size: @font-size-h2;
   }
 
   &.text-lg {
     font-size: @font-size-large;
-    line-height: 1.2;
+  }
+
+  &.font-serif {
+    font-family: @font-family-serif;
   }
 
   & > &__spacer {
     display: inline-block;
     white-space: pre-wrap;
     word-wrap: break-word;
-    text-align: center;
   }
 
   & > &__textarea-wrapper {
