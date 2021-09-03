@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- Scena.AI snippet
+
 ## [2.30.0] - 2021-08-27
 ### Added
 - GMUHK harvester
