@@ -40,6 +40,7 @@
                     :class="['text-xl', { border: form.editing }]"
                     :disabled="{{ $editable ? 'false' : 'true' }}"
                     :focused="{{ isset($collection) ? 'false' : 'true' }}"
+                    spellcheck="false"
                     required
                     v-on:focus="form.setEditing(true)"
                 /></inline-input>

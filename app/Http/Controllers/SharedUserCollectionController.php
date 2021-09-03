@@ -17,7 +17,7 @@ class SharedUserCollectionController extends Controller
     public function create(Request $request)
     {
         $items = $this->getItems($request->ids);
-        return view('frontend.shared-user-collections.show', [
+        return view('frontend.shared-user-collections.form', [
             'items' => $items,
             'editable' => true,
         ]);
@@ -43,18 +43,18 @@ class SharedUserCollectionController extends Controller
     {
         $items = $this->getItems($collection->items->pluck('id'));
 
-        return view('frontend.shared-user-collections.show', compact('collection', 'items'));
+        return view('frontend.shared-user-collections.form', compact('collection', 'items'));
     }
 
     public function edit(SharedUserCollection $collection, Request $request)
     {
         if ($request->get('token') !== $collection->update_token) {        
             return redirect()
-                ->route('frontend.shared-user-collections.show', compact('collection'));
+                ->route('frontend.shared-user-collections.form', compact('collection'));
         }
 
         return view(
-            'frontend.shared-user-collections.show', 
+            'frontend.shared-user-collections.form', 
             [
                 'collection' => $collection,
                 'items' => $this->getItems($collection->items->pluck('id')),
