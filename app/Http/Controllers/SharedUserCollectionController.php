@@ -17,10 +17,7 @@ class SharedUserCollectionController extends Controller
     public function create(Request $request)
     {
         $items = $this->getItems($request->ids);
-        return view('frontend.shared-user-collections.form', [
-            'items' => $items,
-            'editable' => true,
-        ]);
+        return view('frontend.shared-user-collections.create', compact('items'));
     }
 
     public function store(Request $request)
@@ -36,37 +33,28 @@ class SharedUserCollectionController extends Controller
                     'token' => $collection->update_token,
                 ]
             )
-            ->with('created-message', 'Výborne! Vaša kolekcia je pripravená na zdieľanie.'); // TODO i18n
+            ->with('created-message', 'Výborne! Tvoj výber je pripravený na zdieľanie.'); // TODO i18n
     }
 
     public function show(SharedUserCollection $collection)
     {
         $items = $this->getItems($collection->items->pluck('id'));
 
-        return view('frontend.shared-user-collections.form', compact('collection', 'items'));
+        return view('frontend.shared-user-collections.show', compact('collection', 'items'));
     }
 
     public function edit(SharedUserCollection $collection, Request $request)
     {
         if ($request->get('token') !== $collection->update_token) {        
             return redirect()
-                ->route('frontend.shared-user-collections.form', compact('collection'));
+                ->route('frontend.shared-user-collections.show', compact('collection'));
         }
 
         return view(
-            'frontend.shared-user-collections.form', 
+            'frontend.shared-user-collections.edit', 
             [
                 'collection' => $collection,
                 'items' => $this->getItems($collection->items->pluck('id')),
-                'formAction' => route(
-                    'frontend.shared-user-collections.update',
-                    [ 
-                        'collection' => $collection,
-                        'token' => $collection->update_token
-                    ]
-                ),
-                'editable' => true,
-                'formMethod' => 'PUT',
             ]
         );
     }
