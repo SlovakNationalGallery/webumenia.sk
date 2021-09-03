@@ -28,12 +28,15 @@ class SharedUserCollectionController extends Controller
         $request->validate($this->rules);
         $collection = SharedUserCollection::create($request->input());
 
-        return redirect()->route(
-            'frontend.shared-user-collections.edit', 
-            [
-                'collection' => $collection,
-                'token' => $collection->update_token,
-            ]);
+        return redirect()
+            ->route(
+                'frontend.shared-user-collections.edit', 
+                [
+                    'collection' => $collection,
+                    'token' => $collection->update_token,
+                ]
+            )
+            ->with('created-message', 'Výborne! Vaša kolekcia je pripravená na zdieľanie.'); // TODO i18n
     }
 
     public function show(SharedUserCollection $collection)
