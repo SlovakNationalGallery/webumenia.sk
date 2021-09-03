@@ -20,43 +20,35 @@
 
 @php
     $editable = $editable ?? false;
+    $shareable = isset($collection) && $editable;
 @endphp
 <div class="container">
-    <user-collections-share-form 
+    <user-collections-share-form
         action="{{ $formAction ?? route('frontend.shared-user-collections.store') }}"
+        :creating="{{ isset($collection) ? 'false' : 'true' }}"
         v-slot="form"
     >
         @method($formMethod ?? 'POST')
         @csrf
 
         <div class="row">
-            <div class="column" style="height: 100px">
-                <transition
-                    enter-active-class="animated fadeInDown faster"
-                    leave-active-class="animated fadeOutUp faster"
-                >
-                    <button v-show="form.editing" type="submit" class="btn btn-primary">Uložiť</button>
-                </transition> 
-            </div>
-        </div>
-        <div class="row">
             <div class="col-xs-12 text-center">
                 <inline-input 
                     name="name" 
-                    placeholder="Zadaj názov"
+                    placeholder="Zadaj názov" {{-- TODO i18n --}}
                     value="{{ old('name', $collection->name ?? null) }}"
                     :class="['text-xl', { border: form.editing }]"
                     :disabled="{{ $editable ? 'false' : 'true' }}"
+                    :focused="{{ isset($collection) ? 'false' : 'true' }}"
                     required
                     v-on:focus="form.setEditing(true)"
-                    v-on:
                 /></inline-input>
 
                 <br />
 
                 <inline-input 
                     name="author"
-                    placeholder="Autor(ka)"
+                    placeholder="Autor(ka)" {{-- TODO i18n --}}
                     value="{{ old('author', $collection->author ?? null) }}"
                     :class="['mt-4 pb-2 text-lg dark-grey', { border: form.editing }]"
                     :disabled="{{ $editable ? 'false' : 'true' }}"
@@ -69,7 +61,7 @@
 
                 <inline-input 
                     name="description" 
-                    placeholder="Popíš svoju collection"
+                    placeholder="Popíš svoju collection" {{-- TODO i18n --}}
                     value="{{ old('description', $collection->description ?? null) }}"
                     :class="['text-lg mt-4 pb-2 grey', { border: form.editing }]"
                     :disabled="{{ $editable ? 'false' : 'true' }}"
@@ -77,18 +69,36 @@
                 /></inline-input>
             </div>
         </div>
-        <div class="row my-5">
-            @if($editable)
-                <div class="column text-center">
-                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#confirm">
-                        Zdieľať
-                    </button>
+        @if (session('created-message'))
+            <div class="row mt-5">
+                <div class="col-sm-6 col-sm-offset-3">
+                    <div class="alert alert-info alert-dismissable mb-0">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        {{ session('created-message') }}
+                    </div>
                 </div>
-            @endif
+            </div>
+        @endif
+        <div class="row mt-3" style="height:34px" v-cloak>
+            <div class="col-sm-6 col-sm-offset-3 text-center">
+                <transition
+                    enter-active-class="animated fadeInDown faster"
+                    leave-active-class="animated fadeOutUp faster"
+                    mode="out-in"
+                >
+                    <button v-if="form.editing" type="submit" class="btn btn-secondary" key="save">
+                        Uložiť {{-- TODO i18n --}}
+                    </button>
+                    @if ($shareable)
+                        <button v-if="!form.editing" type="button" class="btn btn-info" key="share" data-toggle="modal" data-target="#confirm">
+                            Zdieľať {{-- TODO i18n --}}
+                        </button>
+                    @endif
+                </transition> 
+            </div>
         </div>
-        <div class="row grid" style="max-width: 800px; margin: auto">
+        <div class="row grid mt-5" style="max-width: 800px; margin: auto">
             <div id="column-sizer" class="col-sm-6"></div>
-
             @foreach ($items as $index => $item)
                 <input type="hidden" name="items[][id]" value="{{ $item->id }}" />
                 @include('components.artwork_grid_item', [
@@ -106,7 +116,7 @@
         </div>
     </user-collections-share-form>
 </div>
-@if (isset($collection) && $editable)
+@if ($shareable)
     @php
         $shareableUrl = route('frontend.shared-user-collections.show', compact('collection'));
     @endphp
