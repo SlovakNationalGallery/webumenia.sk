@@ -984,6 +984,12 @@ label sup {
   position: relative;
   z-index: 1;
 
+  // hide on mobile
+  @media(max-width: @screen-xs-max) {
+    display: none;
+  }
+
+  // fix conflict with awesome-bootstrap-checkbox
   & .checkbox {
     padding-left: unset;
   }
