@@ -167,7 +167,15 @@ class MgImporter extends AbstractImporter {
     }
 
     protected function hydrateRelatedWork(array $record) {
-        return self::isBiennial($record) ? 'Bienále Brno' : '';
+        if (self::isBiennial($record)) {
+            return 'Bienále Brno';
+        }
+
+        if ($record['Rada_S'] === 'JV') {
+            return 'Archiv a sbírka Jiřího Valocha';
+        }
+
+        return '';
     }
 
     protected function hydrateMeasurement(array $record) {
