@@ -1,11 +1,11 @@
 .inline_input {
   position: relative;
-  text-align: center;
   display: inline-block;
-  line-height: 1.2;
-
+  line-height: @line-height-base;
+  
   &.text-4xl {
     font-size: 72px;
+    line-height: 1.2;
   }
 
   &.text-xl {
@@ -13,7 +13,8 @@
   }
 
   &.text-lg {
-    font-size: @font-size-large;
+    font-size: @font-size-content;
+    line-height: @line-height-content;
   }
 
   &.font-serif {
