@@ -4,17 +4,35 @@
   line-height: @line-height-base;
   
   &.text-4xl {
-    font-size: 72px;
-    line-height: 1.2;
-  }
+    @font-size: 7.2rem;
 
+    font-size: @font-size * .7;
+    line-height: 1.1;
+    
+    @media(min-width: @screen-sm-min) {
+      font-size: @font-size;
+      line-height: 1.2;
+    }
+  }
+  
   &.text-xl {
-    font-size: @font-size-h2;
-  }
+    @font-size: @font-size-h2;
+    font-size: @font-size * .8;
 
+    @media(min-width: @screen-sm-min) {
+      font-size: @font-size;
+    }
+  }
+  
   &.text-lg {
-    font-size: @font-size-content;
+    @font-size: @font-size-content;
+    
+    font-size: @font-size * .8;
     line-height: @line-height-content;
+    
+    @media(min-width: @screen-sm-min) {
+      font-size: @font-size;
+    }
   }
 
   &.font-serif {
