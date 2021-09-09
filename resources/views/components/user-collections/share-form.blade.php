@@ -7,7 +7,7 @@
     @csrf
 
     <div class="row">
-        <div class="col-xs-12 text-center">
+        <div class="col-sm-10 col-sm-offset-1 text-center">
             <inline-input 
                 name="name" 
                 placeholder="Nazvi svoj výber" {{-- TODO i18n --}}
@@ -34,12 +34,12 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-6 col-sm-offset-3">
+        <div class="col-sm-8 col-sm-offset-2">
             <inline-input 
                 name="description" 
                 placeholder="Stručne popíš svoj výber. Môžeš priblížiť jeho tému, príbeh, súvislosti medzi dielami alebo emócie, ktoré ťa viedli práve k tejto selekcii." {{-- TODO i18n --}}
                 value="{{ old('description', $collection->description ?? null) }}"
-                :class="['mt-5 pb-2 text-lg  grey font-serif', { border: form.editing }]"
+                :class="['mt-5 pb-2 text-lg  dark font-serif', { border: form.editing }]"
                 :disabled="@json($disabled)"
                 spellcheck="false"
                 v-on:focus="form.setEditing(true)"
@@ -94,6 +94,7 @@
         @endforeach
     </div>
 </user-collections-share-form>
+</div>
 
 @section('javascript')
 <script type="text/javascript">

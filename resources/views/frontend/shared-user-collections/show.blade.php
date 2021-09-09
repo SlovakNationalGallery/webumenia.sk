@@ -11,9 +11,11 @@
 @stop
 
 @section('content')
-<x-user-collections.share-form 
-    :collection="$collection"
-    :items="$items"
-    disabled 
-/>
+<div class="container pt-5">
+    <x-user-collections.share-form 
+        :collection="$collection"
+        :items="$items"
+        disabled 
+    />
+</div>
 @endsection
