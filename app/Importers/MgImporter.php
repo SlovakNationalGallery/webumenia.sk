@@ -163,7 +163,7 @@ class MgImporter extends AbstractImporter {
     }
 
     protected function hydrateRelationshipType(array $record) {
-        return self::isBiennial($record) ? 'ze souboru' : '';
+        return self::isBiennial($record) || ($record['Rada_S'] === 'JV') ? 'ze souboru' : '';
     }
 
     protected function hydrateRelatedWork(array $record) {
