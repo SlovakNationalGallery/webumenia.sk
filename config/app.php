@@ -211,6 +211,4 @@ return array(
 
     'iip_private' => env('IIP_PRIVATE'),
     'iip_public' => env('IIP_PUBLIC'),
-
-    'scena_ai_key' => env('SCENA_AI_KEY'),
 );
