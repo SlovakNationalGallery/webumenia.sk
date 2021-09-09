@@ -168,8 +168,6 @@ return [
             'writable_chmod_mode' => '775',
             'writable_dirs' => [
                 'bootstrap/cache',
-                'storage/app/public',
-                'storage/logs',
             ],
         ],
     ],
