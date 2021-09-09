@@ -77,18 +77,18 @@
         </div>
     @endif
     <div class="row grid mt-5 pt-5" style="max-width: 800px; margin: auto">
-        <div id="column-sizer" class="col-sm-6"></div>
+        <div id="column-sizer" class="col-xs-12 col-sm-6"></div>
         @foreach ($items as $index => $item)
             <input type="hidden" name="items[][id]" value="{{ $item->id }}" />
             @include('components.artwork_grid_item', [
                 'item' => $item,
                 'isotope_item_selector_class' => 'item',
-                'class_names' => 'grid-item ' . (function () use ($index, $item) {
-                    if ($index === 0) {
-                        return $item->image_ratio > 1 ? 'col-sm-12' : 'col-sm-6';    
-                    }
+                'class_names' => 'grid-item col-xs-12 ' . (function () use ($index, $item) {
+                    // First image should be full-width, if possible
+                    if ($index === 0 && $item->image_ratio < 1) return 'col-sm-6';
 
-                    return $item->image_ratio > 1.2 ? 'col-sm-12' : 'col-sm-6';
+                    // Latter images can go into multiple columns
+                    if ($item->image_ratio < 1.2) return 'col-sm-6';
                 })()
             ])
         @endforeach
@@ -101,7 +101,7 @@
     $('.grid').masonry({
         itemSelector: '.grid-item',
         columnWidth: '#column-sizer',
-        percentPosition: true,
+        percentPosition: true
     })
 </script>
 @endsection
