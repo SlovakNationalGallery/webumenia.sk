@@ -13,22 +13,19 @@
 @section('content')
 
 @php
-    $updateUrl = route(
-        'frontend.shared-user-collections.update', 
-        [
-            'collection' => $collection,
-            'token' => $collection->update_token,
-        ]
-    );
+    $creating = !isset($collection);
+    $method = $creating ? 'POST' : 'PUT';
+    $action = $creating 
+        ? route('frontend.shared-user-collections.store')
+        : route('frontend.shared-user-collections.update', ['collection' => $collection, 'token' => $collection->update_token]);
 @endphp
 
 <div class="container pt-5">
     <x-user-collections.share-form
         :items="$items"
-        :collection="$collection"
-        :action="$updateUrl"
-        method="PUT"
-        editable
+        :collection="$collection ?? null"
+        :action="$action"
+        :method="$method"
     />
 </div>
 
