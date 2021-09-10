@@ -20,8 +20,9 @@ class ShareForm extends Component
         $this->method = $method; 
         $this->items = $items; 
         $this->disabled = $disabled;
-        $this->creating = $creating; 
         $this->collection = $collection; 
+
+        $this->creating = !$disabled && !$collection; 
     }
 
     /**

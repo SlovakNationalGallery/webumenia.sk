@@ -17,7 +17,7 @@ class SharedUserCollectionController extends Controller
     public function create(Request $request)
     {
         $items = $this->getItems($request->ids);
-        return view('frontend.shared-user-collections.create', compact('items'));
+        return view('frontend.shared-user-collections.edit', compact('items'));
     }
 
     public function store(Request $request)
