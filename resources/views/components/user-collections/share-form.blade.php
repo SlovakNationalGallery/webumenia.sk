@@ -68,7 +68,7 @@
                         Uložiť {{-- TODO i18n --}}
                     </button>
                     @if (!$creating)
-                        <button v-if="!form.editing" type="button" class="btn btn-info" key="share" data-toggle="modal" data-target="#confirm">
+                        <button v-if="!form.editing" type="button" class="btn btn-info" key="share" data-toggle="modal" data-target="#share">
                             Zdieľať výber <i class='ml-1 fa fa-share-alt'></i> {{-- TODO i18n --}}
                         </button>
                     @endif
@@ -94,7 +94,61 @@
         @endforeach
     </div>
 </user-collections-share-form>
+
+@if (!$disabled && $collection)
+<div tabindex="-1" class="modal fade" id="share" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-body pb-5">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="hidden-xs col-sm-2 text-right pr-0">
+                        <i class="fa fa-link color mt-2 text-xl"></i>
+                    </div>
+                    <div class="col-sm-8">
+                        <h4>Zdieľaj odkaz na svoj výber:</h4>
+                    </div>
+                </div>
+                <div class="row pb-3">
+                    <div class="col-sm-8 col-sm-offset-2">
+                        <copy-to-clipboard
+                            value="{{ route('frontend.shared-user-collections.show', compact('collection')) }}"
+                            button-label="{{ trans('general.copy') }}"
+                            success-text="{{ trans('general.copied_to_clipboard') }}"
+                        ></copy-to-clipboard>
+
+                        <hr />
+
+                        <p class="mt-3">
+                            Tento výber budeš môcť naďalej <strong>upravovať</strong> na tejto adrese:
+                        </p>
+                        <copy-to-clipboard
+                            class="no-border"
+                            value="{{ route('frontend.shared-user-collections.edit', ['collection' => $collection, 'token' => $collection->update_token]) }}"
+                            button-label="{{ trans('general.copy') }}"
+                            success-text="{{ trans('general.copied_to_clipboard') }}"
+                        ></copy-to-clipboard>
+                        <p class="mt-2">
+                            (odlož si ju)
+                        </p>
+                        <p class="mt-5">
+                            Na vylepšovaní tejto funkcionality ešte stále pracujeme. Pomôž nám svojimi postrehmi a návrhmi
+                            na zlepšenie!
+                        </p>
+                        <p>
+                            Napíš nám na <a href="mailto:lab@sng.sk" class="underline">lab@sng.sk</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+@endif
 
 @section('javascript')
 <script type="text/javascript">
