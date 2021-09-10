@@ -19,9 +19,10 @@
                 <p>{!! trans('user-collection.content-usage') !!}</p>
                 <p>{!! trans('user-collection.content-feedback') !!}</p>
 
-                @unless($items->isEmpty())
-                <a href="{{ route('frontend.shared-user-collections.create', ['ids' => request()->ids ] ) }}">Zdieľať {{-- TODO i18n --}} </a>
-                @endunless
+                {{-- TODO enable on WEBUMENIA-1654 (shared user collections) is launched --}}
+                {{-- @unless($items->isEmpty())
+                <a href="{{ route('frontend.shared-user-collections.create', ['ids' => request()->ids ] ) }}">Zdieľať</a>
+                @endunless --}}
             @endif
         </div>
     </div>
