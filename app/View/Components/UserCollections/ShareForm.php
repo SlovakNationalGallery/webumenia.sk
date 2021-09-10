@@ -2,7 +2,6 @@
 
 namespace App\View\Components\UserCollections;
 
-use App\SharedUserCollection;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\View\Component;
 
