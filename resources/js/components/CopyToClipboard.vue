@@ -4,7 +4,7 @@
             ref="input"
             type="text" 
             readonly
-            class="form-control bg-light"
+            class="form-control input-sm bg-light"
             :value="value"
             v-on:focus="e => e.target.select()"
         >
@@ -12,7 +12,7 @@
             <button
                 ref="button"
                 type="button"
-                class="btn btn-default"
+                class="btn btn-default btn-sm"
                 data-toggle="tooltip"
                 data-placement="top"
                 data-trigger="manual"
