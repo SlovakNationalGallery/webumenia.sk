@@ -18,5 +18,5 @@ return array(
     'in_high_res_end'      => 'in high resolution',
     'are_free_start'       => 'of which',
     'are_free_end'         => 'in public domain',
-
+    'show_more_articles'   => 'more articles',
 );
