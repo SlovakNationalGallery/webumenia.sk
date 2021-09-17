@@ -86,6 +86,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		</div>
 	@endif
 
+@if (config('services.scena_ai.key'))
+	<scena-ai-popup key-id="{{ config('services.scena_ai.key') }}" id="scena-ai"></scena-ai-popup>
+	<script src="https://widget.scena.ai/app.js"></script>
+@endif
 
 	<!-- Content -->
 	<div id="app">
@@ -94,7 +98,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	</div>
 
 	@include('components.footer')
- 	@include('includes.typeform')
 
 	<div id="top">
 	    <a href="#page-top" title="{{ trans('master.to_top') }}" class="btn btn-default"  data-toggle="tooltip" data-placement="top">

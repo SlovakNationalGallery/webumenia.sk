@@ -45,7 +45,10 @@
 						@foreach($slides as $i)
 			            <tr>
 			                <td>{!! $i->id !!}</td>
-                            <td class="text-center"><img src="{!! $i->getHeaderImagePath() !!}" alt="" class="img-responsive nahlad"></td>
+                            <td>
+                                @if($i->hasMedia('image'))
+                                {{ $i->getFirstMedia('image')->img()->attributes(['class' => 'nahlad', 'width' => null]) }}</td>
+                                @endif
                             <td>
                                 {!! $i->title !!}<br>
                                 {!! $i->subtitle !!}

@@ -979,3 +979,18 @@ label sup {
     font-size: @font-size-large;
   }
 }
+
+#scena-ai {
+  position: relative;
+  z-index: 10;
+
+  // hide on mobile
+  @media(max-width: @screen-xs-max) {
+    display: none;
+  }
+
+  // fix conflict with awesome-bootstrap-checkbox
+  & .checkbox {
+    padding-left: unset;
+  }
+}
