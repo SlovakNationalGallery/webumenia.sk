@@ -39,13 +39,17 @@ mix
         'vue-select',
         'vue',
     ])
+    
+    // CSS
+    .less('resources/less/admin.less', 'public/css')
+    .less('resources/less/style.less', 'public/css')
     .options({
         extractVueStyles: 'public/css/style.css'
     })
 
-    // CSS
-    .less('resources/less/admin.less', 'public/css')
-    .less('resources/less/style.less', 'public/css').options({
+if (mix.inProduction()) {
+    mix
+    .options({
         autoprefixer: {
             options: {
                 browsers: [
@@ -53,8 +57,6 @@ mix
                 ]
             }
         }
-    });
-
-if (mix.inProduction()) {
-    mix.version();
+    })
+    .version();
 }
