@@ -3,16 +3,30 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 ### Added
-- Typeform integration
-- item object type attribute
 - catalog object type, medium, has text filters
+
+## [2.31.0] - 2021-09-09
+### Added
+- Scena.AI snippet
+
+## [2.30.0] - 2021-08-27
+### Added
+- GMUHK harvester
+- item object type attribute
+- GMUHK harvest work type
 
 ### Fixed
 - escape HTML characters in share buttons components
 
-## [2.29.2] - 2021-06-11
+### Changed
+- Migrate Slides to spatie/laravel-media-library
+- Removed Typeform integration
+
+## [2.29.3] - 2021-06-29
 ### Added
-- GMUHK harvester
+- Typeform integration
+
+## [2.29.2] - 2021-06-11
 ### Changed
 - Enable Edu section for public (in main nav)
 

@@ -35,4 +35,8 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'scena_ai' => [
+        'key' => env('SCENA_AI_KEY'),
+    ],
+    
 ];

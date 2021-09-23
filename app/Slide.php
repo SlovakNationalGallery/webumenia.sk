@@ -2,23 +2,13 @@
 
 namespace App;
 
-use App\Concerns\HasHeaderImage;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Slide extends Model
+class Slide extends Model implements HasMedia
 {
-
-    use HasHeaderImage;
-
-    function getArtworksDirAttribute()
-    {
-        return '/images/intro/';
-    }
-
-    function getImagePropertyAttribute()
-    {
-        return 'image';
-    }
+    use InteractsWithMedia;
 
     protected $fillable = [
         'title',
@@ -34,32 +24,16 @@ class Slide extends Model
         'image' => 'image|dimensions:min_width=1200',
     ];
 
-    public static function boot()
-    {
-        parent::boot();
-        static::deleting(function ($item) {
-            $item->deleteImage();
-        });
-    }
-
     public function scopePublished($query)
     {
         return $query->where('publish', '=', 1);
     }
 
-    public function getPath($create = false)
+    public function registerMediaCollections(): void
     {
-        $folder_name = $this->id;
-        $path = public_path() .  self::ARTWORKS_DIR . $folder_name . '/';
-        if (!File::exists($path) && $create) {
-            File::makeDirectory($path);
-        }
-        return $path;
-    }
-
-    public function removeImage()
-    {
-        $dir = $this->getPath();
-        return File::cleanDirectory($dir);
+        $this
+            ->addMediaCollection('image')
+            ->singleFile()
+            ->withResponsiveImages();
     }
 }
