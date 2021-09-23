@@ -7,9 +7,12 @@ namespace App;
 use App\Contracts\IndexableModel;
 use App\Events\ItemPrimaryImageChanged;
 use App\Matchers\AuthorityMatcher;
-use Chelout\RelationshipEvents\Concerns\HasBelongsToManyEvents;
 use Astrotomic\Translatable\Translatable;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+use Chelout\RelationshipEvents\Concerns\HasBelongsToManyEvents;
+use ElasticScoutDriverPlus\Builders\BoolQueryBuilder;
+use ElasticScoutDriverPlus\QueryDsl;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Date;
@@ -17,6 +20,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\URL;
 use Intervention\Image\Constraint;
 use Intervention\Image\Image;
+use Laravel\Scout\Searchable;
 use Primal\Color\Parser;
 use Symfony\Component\Validator\Constraints\Valid;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -24,8 +28,11 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 class Item extends Model implements IndexableModel, TranslatableContract
 {
     use \Conner\Tagging\Taggable;
-    use Translatable;
     use HasBelongsToManyEvents;
+    use HasFactory;
+    use Searchable;
+    use Translatable;
+    use QueryDsl;
 
     const ARTWORKS_DIR = '/images/diela/';
 
@@ -38,6 +45,24 @@ class Item extends Model implements IndexableModel, TranslatableContract
     const COLOR_AMOUNT_THRESHOLD = 0.03;
 
     protected $keyType = 'string';
+
+    public static $filterables = [
+        'author',
+        'topic',
+        'additionals.category.keyword',
+        'additionals.frontend.keyword',
+        'additionals.set.keyword',
+    ];
+
+    public static $rangeables = [
+        'date_earliest',
+        'date_latest',
+        'additionals.order',
+    ];
+
+    public static $sortables = [
+        'additionals.order',
+    ];
 
     public $translatedAttributes = [
         'title',
@@ -724,5 +749,33 @@ class Item extends Model implements IndexableModel, TranslatableContract
     public function setUseTranslationFallback(?bool $useTranslationFallback)
     {
         $this->useTranslationFallback = $useTranslationFallback;
+    }
+
+    public function searchableAs()
+    {
+        return sprintf(
+            '%sitems_%s',
+            config('scout.prefix'),
+            app()->getLocale()
+        );
+    }
+
+    public static function filterQuery(array $filter, BoolQueryBuilder $builder = null)
+    {
+        $builder = $builder ?: new BoolQueryBuilder();
+        foreach ($filter as $field => $value) {
+            if (is_string($value) && in_array($field, self::$filterables, true)) {
+                $builder->filter('term', [$field => $value]);
+            } else if (is_array($value) && in_array($field, self::$rangeables, true)) {
+                $range = collect($value)
+                    ->only(['lt', 'lte', 'gt', 'gte'])
+                    ->transform(function ($value) {
+                        return (string)$value;
+                    })
+                    ->all();
+                $builder->filter('range', [$field => $range]);
+            }
+        }
+        return $builder;
     }
 }
