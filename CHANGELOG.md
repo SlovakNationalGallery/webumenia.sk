@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- paging for front page, articles and edu articles
+
 ## [2.31.0] - 2021-09-09
 ### Added
 - Scena.AI snippet
