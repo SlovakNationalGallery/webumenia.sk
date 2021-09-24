@@ -20,11 +20,10 @@ data/
 /public/js/admin.js
 /public/js/vendor.js
 /public/js/manifest.js
-/public/css/app.css
 /public/css/admin.css
+/public/css/style.css
 /public/vendor/laravel-filemanager
 /public/storage
 mix-manifest.json
 npm-debug.log
-public/css/style.css
 
