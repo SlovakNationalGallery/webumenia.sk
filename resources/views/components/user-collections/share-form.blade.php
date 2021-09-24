@@ -12,7 +12,7 @@
                 name="name" 
                 placeholder="Nazvi svoj výber" {{-- TODO i18n --}}
                 value="{{ old('name', $collection->name ?? null) }}"
-                :class="['text-4xl text-center', { border: form.editing }]"
+                :class="['text-4xl', { border: form.editing }]"
                 :disabled="@json($disabled)"
                 :focused="@json($creating)"
                 spellcheck="false"
@@ -26,7 +26,7 @@
                 name="author"
                 placeholder="Tvoje meno" {{-- TODO i18n --}}
                 value="{{ old('author', $collection->author ?? null) }}"
-                :class="['mt-5 pb-2 text-xl text-center dark-grey', { border: form.editing }]"
+                :class="['mt-5 pb-2 text-xl', { border: form.editing }]"
                 :disabled="@json($disabled)"
                 spellcheck="false"
                 v-on:focus="form.setEditing(true)"
@@ -39,7 +39,7 @@
                 name="description" 
                 placeholder="Stručne popíš svoj výber. Môžeš priblížiť jeho tému, príbeh, súvislosti medzi dielami alebo emócie, ktoré ťa viedli práve k tejto selekcii." {{-- TODO i18n --}}
                 value="{{ old('description', $collection->description ?? null) }}"
-                :class="['mt-5 pb-2 text-lg  dark font-serif', { border: form.editing }]"
+                :class="['mt-5 pb-2 text-lg font-serif', { border: form.editing }]"
                 :disabled="@json($disabled)"
                 spellcheck="false"
                 v-on:focus="form.setEditing(true)"
