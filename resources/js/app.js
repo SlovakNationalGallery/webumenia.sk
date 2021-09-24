@@ -25,7 +25,7 @@ require('./components/searchbar')
 require('./components/clipboard-button')
 
 // Vue components
-window.Vue = require('vue')
+window.Vue = require('vue').default
 
 Vue.component('filter-sort-by', require('./components/filter/SortBy.vue').default);
 Vue.component('filter-checkbox', require('./components/filter/Checkbox.vue').default);
