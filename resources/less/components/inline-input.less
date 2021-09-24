@@ -54,8 +54,6 @@
 
 
     & > textarea {
-      @affordance-border: 1px solid @mid-grey;
-      
       width: 100%;
       height: 100%;
       overflow: hidden;
@@ -65,23 +63,18 @@
       outline: none;
   
       border-bottom: 1px solid transparent;
-      transition: border-bottom-color 0.3s ease;
-
-      .text-center& {
-        text-align: center;
-      }
 
       .border& {
-        border-bottom: @affordance-border;
+        border-bottom-color: @mid-grey;
       }
 
       &:hover {
-        border-bottom: @affordance-border;
+        border-bottom-color: @dark;
       }
   
       &:focus {
-        border-bottom: @affordance-border;
-        border-color: @primary-color;
+        border-bottom-color: @dark;
+        background-color: @lighter-grey;
       }
     }
   }
