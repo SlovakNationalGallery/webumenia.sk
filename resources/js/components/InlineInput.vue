@@ -1,5 +1,5 @@
 <template>
-    <div v-if="currentValue || !disabled" class="inline_input">
+    <div v-if="currentValue || !disabled" class="inline_input" :class="{ border: !disabled }">
         <div class="inline_input__spacer">{{ currentValue || placeholder }}</div>
         <div class="inline_input__textarea-wrapper" v-if="!disabled">
             <textarea
