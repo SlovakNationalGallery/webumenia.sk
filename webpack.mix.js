@@ -11,16 +11,11 @@ const mix = require('laravel-mix');
  |
  */
 
-if (process.env.NODE_ENV == 'testing') {
-    mix.options({ processCssUrls: false });
-}
-
-
-
 mix
     // JavaScript
     .js('resources/js/app.js', 'public/js')
     .js('resources/js/admin.js', 'public/js')
+    .vue()
     .extract([
         'bootstrap/dist/js/bootstrap',
         'flickity',
@@ -43,20 +38,10 @@ mix
     // CSS
     .less('resources/less/admin.less', 'public/css')
     .less('resources/less/style.less', 'public/css')
-    .options({
-        extractVueStyles: 'public/css/style.css'
-    })
+    .options({ 
+        processCssUrls: !process.env.MIX_SKIP_CSS_URL_PROCESSING
+    });
 
 if (mix.inProduction()) {
-    mix
-    .options({
-        autoprefixer: {
-            options: {
-                browsers: [
-                    'last 6 versions',
-                ]
-            }
-        }
-    })
-    .version();
+    mix.version();
 }
