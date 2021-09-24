@@ -64,12 +64,12 @@
                     leave-active-class="animated fadeOutUp faster"
                     mode="out-in"
                 >
-                    <button v-if="form.editing" type="submit" class="btn btn-secondary" key="save">
-                        Uložiť {{-- TODO i18n --}}
+                    <button v-if="form.editing" type="submit" class="btn btn-dark" key="save">
+                        uložiť úpravy {{-- TODO i18n --}}
                     </button>
                     @if (!$creating)
                         <button v-if="!form.editing" type="button" class="btn btn-info" key="share" data-toggle="modal" data-target="#share">
-                            Zdieľať výber <i class='ml-1 fa fa-share-alt'></i> {{-- TODO i18n --}}
+                            zdieľať výber <i class='ml-1 fa fa-share-alt'></i> {{-- TODO i18n --}}
                         </button>
                     @endif
                 </transition> 
