@@ -13,6 +13,9 @@
                 @keydown.enter.prevent
             /></textarea>
         </div>
+        <div class="inline_input__pencil" v-if="!disabled">
+            <i class="fa fa-pencil"></i>
+        </div>
     </div>
 </template>
 

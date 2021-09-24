@@ -39,6 +39,25 @@
     font-family: @font-family-serif;
   }
 
+  & > &__pencil {
+    display: none;
+  }
+
+  &:hover > &__pencil {
+    display: block;
+    position: absolute;
+    text-align: center;
+    top: -1rem;
+    right: -3rem;
+    color: white;
+    background-color: @dark;
+    padding-top: .4rem;
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+
   & > &__spacer {
     display: inline-block;
     white-space: pre-wrap;
