@@ -20,7 +20,7 @@
                 @click="copy"
             >
                 <i class="fa fa-clipboard"></i>
-                {{ buttonLabel }}</button>
+                {{ buttonLabel }}
             </button>
         </span>
     </div>
