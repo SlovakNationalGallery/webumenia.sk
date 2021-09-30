@@ -15,6 +15,7 @@ use App\Article;
 use App\Collection;
 use App\Elasticsearch\Repositories\AuthorityRepository;
 use App\Elasticsearch\Repositories\ItemRepository;
+use App\Facades\Experiment;
 use App\Filter\ItemFilter;
 use App\Item;
 use App\Notice;
@@ -52,10 +53,7 @@ function()
         HttpRequest $request
     ) {
         if ($request->query('experiment') === 'zdielane-kolekcie') {
-            $request->session()->put('experiment', 'WEBUMENIA-1654-beta');
-        }
-
-        if ($request->session()->get('experiment') === 'WEBUMENIA-1654-beta') {
+            Experiment::set('WEBUMENIA-1654-beta');
             $request->session()->put('scena_ai_key', 'i0qdg30b3g0z');
         }
 

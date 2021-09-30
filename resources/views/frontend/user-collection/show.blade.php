@@ -20,7 +20,7 @@
                 <p class="underlined-links">{!! trans('user-collection.content-feedback') !!}</p>
 
                 <div class="text-center">
-                    @if (session('experiment') === 'WEBUMENIA-1654-beta')
+                    @if (Experiment::is('WEBUMENIA-1654-beta'))
                         <a class="btn btn-primary mt-5" href="{{ route('frontend.shared-user-collections.create', ['ids' => request()->ids ] ) }}">
                             {{ trans('user-collection.share') }} <i class='ml-1 fa fa-share-alt'></i>
                         </a>
