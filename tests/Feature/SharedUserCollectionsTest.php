@@ -21,7 +21,7 @@ class SharedUserCollectionsTest extends TestCase
 
         $response = $this
             ->post(
-                route('frontend.shared-user-collections.store'), 
+                route('frontend.shared-user-collections.store'),
                 [
                     'items' => [[
                         'id' => $item->id
@@ -52,17 +52,17 @@ class SharedUserCollectionsTest extends TestCase
 
         $this
             ->get(route(
-                'frontend.shared-user-collections.edit', 
+                'frontend.shared-user-collections.edit',
                 ['collection' => $collection, 'token' => 'bad_token']
             ))
             ->assertRedirect(route(
-                'frontend.shared-user-collections.show', 
+                'frontend.shared-user-collections.show',
                 ['collection' => $collection]
             ));
 
         $this
             ->put(route(
-                'frontend.shared-user-collections.update', 
+                'frontend.shared-user-collections.update',
                 ['collection' => $collection, 'token' => 'bad_token']
             ), ['name' => 'new_name'])
             ->assertForbidden();
@@ -70,7 +70,7 @@ class SharedUserCollectionsTest extends TestCase
         $this
             ->patch(
                 route(
-                    'frontend.shared-user-collections.update', 
+                    'frontend.shared-user-collections.update',
                     ['collection' => $collection, 'token' => $collection->update_token]
                 ),
                 [
@@ -78,7 +78,7 @@ class SharedUserCollectionsTest extends TestCase
                     'items' => $collection->items->toArray(),
                 ]
             );
-        
+
         $this->assertEquals($collection->refresh()->name, 'new_name');
     }
 }

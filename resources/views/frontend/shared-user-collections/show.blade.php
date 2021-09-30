@@ -19,10 +19,10 @@
             Inšpirované výstavou <a href="#TODO" class="underline">Sedmičky v SNG</a>.
         </p>
     </div>
-    <x-user-collections.share-form 
+    <x-user-collections.share-form
         :collection="$collection"
         :items="$items"
-        disabled 
+        disabled
     />
     <div class="pb-5 my-5 text-center text-lg text-muted">
         <p>

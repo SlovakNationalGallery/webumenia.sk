@@ -27,7 +27,7 @@ class SharedUserCollectionController extends Controller
 
         return redirect()
             ->route(
-                'frontend.shared-user-collections.edit', 
+                'frontend.shared-user-collections.edit',
                 [
                     'collection' => $collection,
                     'token' => $collection->update_token,
@@ -45,13 +45,13 @@ class SharedUserCollectionController extends Controller
 
     public function edit(SharedUserCollection $collection, Request $request)
     {
-        if ($request->get('token') !== $collection->update_token) {        
+        if ($request->get('token') !== $collection->update_token) {
             return redirect()
                 ->route('frontend.shared-user-collections.show', compact('collection'));
         }
 
         return view(
-            'frontend.shared-user-collections.edit', 
+            'frontend.shared-user-collections.edit',
             [
                 'collection' => $collection,
                 'items' => $this->getItems($collection->items->pluck('id')),
@@ -61,7 +61,7 @@ class SharedUserCollectionController extends Controller
 
     public function update(SharedUserCollection $collection, Request $request)
     {
-        if ($request->get('token') !== $collection->update_token) {        
+        if ($request->get('token') !== $collection->update_token) {
             abort(403);
         }
 
@@ -69,7 +69,7 @@ class SharedUserCollectionController extends Controller
         $collection->update($request->input());
 
         return redirect()->route(
-            'frontend.shared-user-collections.edit', 
+            'frontend.shared-user-collections.edit',
             [
                 'collection' => $collection,
                 'token' => $collection->update_token,

@@ -2,19 +2,19 @@
   position: relative;
   display: inline-block;
   line-height: @line-height-base;
-  
+
   &.text-4xl {
     @font-size: 7.2rem;
 
     font-size: @font-size * .7;
     line-height: 1.1;
-    
+
     @media(min-width: @screen-sm-min) {
       font-size: @font-size;
       line-height: 1.2;
     }
   }
-  
+
   &.text-xl {
     @font-size: @font-size-h2;
     font-size: @font-size * .8;
@@ -23,13 +23,13 @@
       font-size: @font-size;
     }
   }
-  
+
   &.text-lg {
     @font-size: @font-size-content;
-    
+
     font-size: @font-size * .8;
     line-height: @line-height-content;
-    
+
     @media(min-width: @screen-sm-min) {
       font-size: @font-size;
     }
@@ -80,7 +80,7 @@
       border: none;
       padding: 0;
       outline: none;
-  
+
       border-bottom: 1px solid transparent;
 
       .text-center& {
@@ -94,7 +94,7 @@
       &:hover {
         border-bottom-color: @dark;
       }
-  
+
       &:focus {
         border-bottom-color: @dark;
         background-color: @lighter-grey;
@@ -103,4 +103,3 @@
   }
 
 }
-  
