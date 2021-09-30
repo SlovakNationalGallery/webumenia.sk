@@ -16,13 +16,13 @@ class ShareForm extends Component
 
     public function __construct($items, $collection = null, $action = '', $method = 'POST', $disabled = false, $creating = false)
     {
-        $this->action = $action; 
-        $this->method = $method; 
-        $this->items = $items; 
+        $this->action = $action;
+        $this->method = $method;
+        $this->items = $items;
         $this->disabled = $disabled;
-        $this->collection = $collection; 
+        $this->collection = $collection;
 
-        $this->creating = !$disabled && !$collection; 
+        $this->creating = !$disabled && !$collection;
     }
 
     /**

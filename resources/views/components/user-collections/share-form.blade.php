@@ -8,8 +8,8 @@
 
     <div class="row">
         <div class="col-sm-10 col-sm-offset-1 text-center">
-            <inline-input 
-                name="name" 
+            <inline-input
+                name="name"
                 placeholder="Nazvi svoj výber" {{-- TODO i18n --}}
                 value="{{ old('name', $collection->name ?? null) }}"
                 class="text-4xl text-center"
@@ -22,7 +22,7 @@
 
             <br />
 
-            <inline-input 
+            <inline-input
                 name="author"
                 placeholder="Tvoje meno" {{-- TODO i18n --}}
                 value="{{ old('author', $collection->author ?? null) }}"
@@ -35,8 +35,8 @@
     </div>
     <div class="row">
         <div class="col-sm-8 col-sm-offset-2">
-            <inline-input 
-                name="description" 
+            <inline-input
+                name="description"
                 placeholder="Stručne popíš svoj výber. Môžeš priblížiť jeho tému, príbeh, súvislosti medzi dielami alebo emócie, ktoré ťa viedli práve k tejto selekcii." {{-- TODO i18n --}}
                 value="{{ old('description', $collection->description ?? null) }}"
                 class="mt-5 pb-2 text-lg font-serif text-center"
@@ -72,7 +72,7 @@
                             zdieľať výber <i class='ml-1 fa fa-share-alt'></i> {{-- TODO i18n --}}
                         </button>
                     @endif
-                </transition> 
+                </transition>
             </div>
         </div>
     @endif
@@ -119,7 +119,7 @@
                             button-label="{{ trans('general.copy') }}"
                             success-text="{{ trans('general.copied_to_clipboard') }}"
                         ></copy-to-clipboard>
-                        
+
 
                         <hr />
                     </div>
@@ -143,7 +143,7 @@
 
                         <hr />
 
-                        <p>
+                        <p >
                             Na vylepšovaní tejto funkcionality ešte stále pracujeme. Pomôž nám svojimi postrehmi a návrhmi
                             na zlepšenie!
                         </p>

@@ -2,7 +2,7 @@
     <div class="input-group">
         <input
             ref="input"
-            type="text" 
+            type="text"
             readonly
             class="form-control input-sm bg-light"
             :value="value"
