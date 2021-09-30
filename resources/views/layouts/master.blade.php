@@ -86,8 +86,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		</div>
 	@endif
 
-@if (config('services.scena_ai.key'))
-	<scena-ai-popup key-id="{{ config('services.scena_ai.key') }}" id="scena-ai"></scena-ai-popup>
+@if (session('scena_ai_key') ?? config('services.scena_ai.key'))
+	<scena-ai-popup key-id="{{ session('scena_ai_key') ?? config('services.scena_ai.key') }}" id="scena-ai"></scena-ai-popup>
 	<script src="https://widget.scena.ai/app.js"></script>
 @endif
 
