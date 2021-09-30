@@ -107,35 +107,43 @@
                 </div>
                 <div class="row">
                     <div class="hidden-xs col-sm-2 text-right pr-0">
-                        <i class="fa fa-link color mt-2 text-xl"></i>
+                        <i class="fa fa-share-alt color mt-2 text-xl"></i>
                     </div>
                     <div class="col-sm-8">
-                        <h4>Zdieľaj odkaz na svoj výber:</h4>
-                    </div>
-                </div>
-                <div class="row pb-3">
-                    <div class="col-sm-8 col-sm-offset-2">
+                        <h4>Odkaz na zdieľanie</h4>
+                        <p class="mt-3">
+                            Pošli tento odkaz svojim známym, alebo ho zdieľaj na sociálnych sieťach.
+                        </p>
                         <copy-to-clipboard
                             value="{{ route('frontend.shared-user-collections.show', compact('collection')) }}"
                             button-label="{{ trans('general.copy') }}"
                             success-text="{{ trans('general.copied_to_clipboard') }}"
                         ></copy-to-clipboard>
+                        
 
                         <hr />
-
-                        <p class="mt-3">
-                            Tento výber budeš môcť naďalej <strong>upravovať</strong> na tejto adrese:
-                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="hidden-xs col-sm-2 text-right pr-0">
+                        <i class="fa fa-pencil color mt-2 text-xl"></i>
+                    </div>
+                    <div class="col-sm-8">
+                        <h4>Odkaz na úpravy</h4>
                         <copy-to-clipboard
-                            class="no-border"
+                            class="no-border mt-2"
                             value="{{ route('frontend.shared-user-collections.edit', ['collection' => $collection, 'token' => $collection->update_token]) }}"
                             button-label="{{ trans('general.copy') }}"
                             success-text="{{ trans('general.copied_to_clipboard') }}"
                         ></copy-to-clipboard>
-                        <p class="mt-2">
-                            (odlož si ju)
-                        </p>
-                        <p class="mt-5">
+
+                        <div class="alert alert-info mt-3">
+                            Psst, tento odkaz si <strong>odlož</strong>. Môžeš ho použiť na ďalšie úpravy tohto výberu.
+                        </div>
+
+                        <hr />
+
+                        <p>
                             Na vylepšovaní tejto funkcionality ešte stále pracujeme. Pomôž nám svojimi postrehmi a návrhmi
                             na zlepšenie!
                         </p>
