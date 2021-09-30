@@ -9,7 +9,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2 col-lg-4 col-lg-offset-4 underlined-links">
+        <div class="col-md-8 col-md-offset-2 col-lg-4 col-lg-offset-4">
             <h2 class="bottom-space text-center">{{ trans('user-collection.title') }} <span class="badge badge-primary badge-sup">beta</span></h2>
 
             @if($items->isEmpty())
@@ -17,12 +17,15 @@
             @else
                 <p>{!! trans('user-collection.content-intro') !!}</p>
                 <p>{!! trans('user-collection.content-usage') !!}</p>
-                <p>{!! trans('user-collection.content-feedback') !!}</p>
+                <p class="underlined-links">{!! trans('user-collection.content-feedback') !!}</p>
 
-                {{-- TODO enable on WEBUMENIA-1654 (shared user collections) is launched --}}
-                {{-- @unless($items->isEmpty())
-                <a href="{{ route('frontend.shared-user-collections.create', ['ids' => request()->ids ] ) }}">Zdieľať</a>
-                @endunless --}}
+                <div class="text-center">
+                    @if (session('experiment') === 'WEBUMENIA-1654-beta')
+                        <a class="btn btn-primary mt-5" href="{{ route('frontend.shared-user-collections.create', ['ids' => request()->ids ] ) }}">
+                            {{ trans('user-collection.share') }} <i class='ml-1 fa fa-share-alt'></i>
+                        </a>
+                    @endif
+                </div>
             @endif
         </div>
     </div>

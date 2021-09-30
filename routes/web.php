@@ -20,6 +20,7 @@ use App\Item;
 use App\Notice;
 use App\Order;
 use App\Slide;
+use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\Request;
 
 Route::group(['domain' => 'media.webumenia.{tld}'], function () {
@@ -47,8 +48,17 @@ function()
 
     Route::get('/', function (
         AuthorityRepository $authorityRepository,
-        ItemRepository $itemRepository
+        ItemRepository $itemRepository,
+        HttpRequest $request
     ) {
+        if ($request->query('experiment') === 'zdielane-kolekcie') {
+            $request->session()->put('experiment', 'WEBUMENIA-1654-beta');
+        }
+
+        if ($request->session()->get('experiment') === 'WEBUMENIA-1654-beta') {
+            $request->session()->put('scena_ai_key', 'i0qdg30b3g0z');
+        }
+
         $choices = [
             [
                 trans('intro.from_galleries_start'),
