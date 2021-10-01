@@ -34,11 +34,12 @@ mix
         'vue-select',
         'vue',
     ])
-    
+
     // CSS
     .less('resources/less/admin.less', 'public/css')
     .less('resources/less/style.less', 'public/css')
-    .options({ 
+    .less("resources/less/mail/default.less", "../resources/views/vendor/mail/html/themes")
+    .options({
         processCssUrls: !process.env.MIX_SKIP_CSS_URL_PROCESSING
     });
 
