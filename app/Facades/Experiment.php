@@ -13,6 +13,6 @@ class Experiment extends Facade
 
     public static function set($name)
     {
-        return static::$app['request']->session()->set('experiment', $name);
+        return static::$app['request']->session()->put('experiment', $name);
     }
 }
