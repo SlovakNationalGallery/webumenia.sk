@@ -52,7 +52,7 @@ function()
         ItemRepository $itemRepository
     ) {
         if (Request::query('experiment') === 'zdielane-kolekcie') {
-            Experiment::set('WEBUMENIA-1654-beta');
+            Experiment::set('WEBUMENIA-1654-shared-user-collections-with-scena');
             Session::put('scena_ai_key', 'i0qdg30b3g0z');
         }
 
