@@ -21,8 +21,8 @@ use App\Item;
 use App\Notice;
 use App\Order;
 use App\Slide;
-use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Session;
 
 Route::group(['domain' => 'media.webumenia.{tld}'], function () {
     Route::get('/', function ($tld) {
@@ -49,12 +49,11 @@ function()
 
     Route::get('/', function (
         AuthorityRepository $authorityRepository,
-        ItemRepository $itemRepository,
-        HttpRequest $request
+        ItemRepository $itemRepository
     ) {
-        if ($request->query('experiment') === 'zdielane-kolekcie') {
+        if (Request::query('experiment') === 'zdielane-kolekcie') {
             Experiment::set('WEBUMENIA-1654-beta');
-            $request->session()->put('scena_ai_key', 'i0qdg30b3g0z');
+            Session::put('scena_ai_key', 'i0qdg30b3g0z');
         }
 
         $choices = [
