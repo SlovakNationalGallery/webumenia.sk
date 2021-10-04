@@ -15,12 +15,14 @@ use App\Article;
 use App\Collection;
 use App\Elasticsearch\Repositories\AuthorityRepository;
 use App\Elasticsearch\Repositories\ItemRepository;
+use App\Facades\Experiment;
 use App\Filter\ItemFilter;
 use App\Item;
 use App\Notice;
 use App\Order;
 use App\Slide;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Session;
 
 Route::group(['domain' => 'media.webumenia.{tld}'], function () {
     Route::get('/', function ($tld) {
@@ -49,6 +51,11 @@ function()
         AuthorityRepository $authorityRepository,
         ItemRepository $itemRepository
     ) {
+        if (Request::query('experiment') === 'zdielane-kolekcie') {
+            Experiment::set('WEBUMENIA-1654-shared-user-collections-with-scena');
+            Session::put('scena_ai_key', 'i0qdg30b3g0z');
+        }
+
         $choices = [
             [
                 trans('intro.from_galleries_start'),
@@ -317,6 +324,9 @@ function()
     Route::match(array('GET', 'POST'), 'kolekcie/suggestions', 'KolekciaController@getSuggestions')->name('frontend.collection.suggestions');
     Route::get('kolekcia/{slug}', 'KolekciaController@getDetail')->name('frontend.collection.detail');
     Route::get('oblubene', 'UserCollectionController@show')->name('frontend.user-collection.show');
+    Route::resource('zdielane-kolekcie', 'SharedUserCollectionController')
+        ->names('frontend.shared-user-collections')
+        ->parameters(['zdielane-kolekcie' => 'collection:public_id']);
     Route::resource('edu', 'EducationalArticleController')
         ->names('frontend.educational-article')
         ->parameters(['edu' => 'article:slug']);

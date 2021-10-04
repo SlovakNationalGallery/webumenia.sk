@@ -15,23 +15,11 @@
 </template>
 
 <script>
-    const store = require('./store')
-
     export default {
-        props: ['active', 'baseHref', 'label'],
-        data() {
-            return {
-                store
-            }
-        },
-        computed: {
-            href() {
-                const url = new URL(this.baseHref)
-                const ids = this.store.getItems().map(({id}) => id)
+        mixins: [require('./link-mixin')],
+        props: ['active', 'label'],
 
-                ids.forEach(id => url.searchParams.append('ids[]', id))
-                return url.toString()
-            },
+        computed: {
             count() {
                 return this.store.getItems().length
             }
