@@ -47,27 +47,33 @@ class EducationalArticleController extends Controller
             $articles = $articles->orderBy('published_date', 'asc');
         }
 
-        $articles = $articles->get();
+        $unpaginatedArticles = (clone $articles)
+            ->with(['category'])
+            ->get();
+
+        $articles = $articles
+            ->with(['translations', 'category'])
+            ->paginate(12);
 
         $categoriesOptions = $this->buildSelectOptions(
-            $articles->countBy('category.name'), 
+            $unpaginatedArticles->countBy('category.name'), 
             $request->input('category')
         );
 
         $mediaTypesOptions = $this->buildSelectOptions(
-            $articles->pluck('edu_media_types')->flatten()->countBy(),
+            $unpaginatedArticles->pluck('edu_media_types')->flatten()->countBy(),
             $request->input('media_type'),
             'edu.media_type',
         );
 
         $targetGroupsOptions = $this->buildSelectOptions(
-            $articles->pluck('edu_target_age_groups')->flatten()->countBy(),
+            $unpaginatedArticles->pluck('edu_target_age_groups')->flatten()->countBy(),
             $request->input('age_group'),
             'edu.age_group',
         );
 
         $keywordsOptions = $this->buildSelectOptions(
-            $articles->pluck('edu_keywords')->flatten()->countBy(),
+            $unpaginatedArticles->pluck('edu_keywords')->flatten()->countBy(),
             $request->input('keyword')
         );
 

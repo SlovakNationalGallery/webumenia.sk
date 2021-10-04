@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 ### Added
+- paging for front page, articles and edu articles
 - user collection sharing
 
 ### Changed

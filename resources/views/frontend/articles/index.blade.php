@@ -61,6 +61,9 @@
                 @endif
             @endforeach
         </div>
+        <div class="row text-center">
+            {{ $articles->links() }}
+        </div>
     </div>
 </section>
 @endsection

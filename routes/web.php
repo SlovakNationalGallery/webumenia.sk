@@ -85,8 +85,13 @@ function()
 
         $choice = $choices[array_rand($choices)];
         $subtitle = vsprintf('%s <strong><a href="%s">%s</a></strong> %s', $choice);
-        $slides = Slide::published()->orderBy('id', 'desc')->get();
-        $articles = Article::with(['translations', 'category'])->promoted()->published()->orderBy('published_date', 'desc')->get();
+        $slides = Slide::published()->with('media')->orderBy('id', 'desc')->get();
+        $articles = Article::with(['translations', 'category'])
+            ->promoted()
+            ->published()
+            ->orderBy('published_date', 'desc')
+            ->limit(12)
+            ->get();
         $itemCount = $itemRepository->count();
 
         return view('intro', [
