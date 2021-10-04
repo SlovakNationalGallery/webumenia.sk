@@ -95,10 +95,10 @@
                     @endif
             	@endforeach
             </div>
-            <div class="text-center text-muted">
-                <a class="btn btn-default btn-outline sans" href="{{ route('frontend.article.index') }}">
+            <div class="text-center my-4">
+                <a class="btn btn-default btn-lg btn-outline sans" href="{{ route('frontend.article.index') }}">
                     {{ trans('intro.show_more_articles') }}
-                    <i class="fa fa-chevron-right "></i>
+                    <i class="fa icon-arrow-right ml-2"></i>
                 </a>
             </div>
         </div>
