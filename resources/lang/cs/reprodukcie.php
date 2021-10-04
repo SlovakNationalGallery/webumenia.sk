@@ -14,7 +14,8 @@ return array(
     'print_body'        => '<p>Tištěnou reprodukci si objednáte pomocí tlačítka <strong>objednat reprodukci</strong> na stránce konkrétního díla. </p>
                            <p>Cena reprodukce závisí na rozměru a typu zpracování, které si zvolíte při vyplnění objednávky.</p>
                            <p>Tištěnou reprodukci lze objednat pouze pro <strong>díla ze sbírek Slovenské národní galerie</strong>, které jsou <strong>zdigitalizovány</strong> (s&nbsp;možností zoom).</p>
-                           <p>Standardní lhůta vyřízení objednávky je <strong>30 dní</strong>.</p>
+                           <p>Standardní lhůta vyřízení objednávky pro reprodukce s rámem nebo paspartou je <strong>42 dní</strong>.</p>
+                           <p>Standardní lhůta vyřízení objednávky pro reprodukce bez rámu nebo pasparty je <strong>30 dní</strong>.</p>
                            <p>Momentálně je možné vyzvednout reprodukce pouze osobně v <a href="https://www.sng.sk/sk/bratislava/navsteva/kde-nas-najdete/knihkupectvo-ex-libris" target="_blank">knihkupectví Ex Libris</a> v prostorách SNG na Náměstí Ľ.&nbsp;Štúra 4 v Bratislavě nebo v pokladně <a href="https://www.sng.sk/sk/zvolen/navsteva/kde-nas-najdete" target="_blank">Zvolenského zámku – Námestie SNP 594/1</a>.</p>',
     'print_recommended' => 'Doporučujeme',
     'print_list'        => '<ul>
