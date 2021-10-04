@@ -10,4 +10,5 @@ Odstránené diela zmiznú po opätovnom načítaní stránky.',
     'content-feedback' => 'Chyby, pripomienky a návrhy môžete posielať na <a href="mailto:lab@sng.sk">lab@sng.sk</a>',
     'clear'            => 'odstrániť všetky diela',
     'clear-confirm'    => 'Naozaj chcete vymazať všetky obľúbené diela zo zoznamu?',
+    'share'            => 'zdieľať výber',
 );

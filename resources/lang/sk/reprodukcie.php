@@ -13,7 +13,8 @@ return array(
     'print_heading'     => 'Tlačené Reprodukcie',
     'print_body'        => '<p>Tlačenú reprodukciu si objednáte pomocou tlačidla <strong>objednať reprodukciu</strong> na stránke konkrétneho diela.</p>
                            <p>Cena reprodukcie sa odvíja od rozmeru a typu spracovania, ktoré si zvolíte pri vypĺňaní objednávky.</p>
-                           <p>Štandardná lehota na vybavenie objednávky je <strong>30 dní</strong>.</p>
+                           <p>Štandardná lehota na vybavenie objednávky tlačených reprodukcií s paspartou alebo rámom je <strong>42 dní</strong>.</p>
+                           <p>Štandardná lehota na vybavenie objednávky tlačených reprodukcií bez pasparty alebo rámu je <strong>30 dní</strong>.</p>
                            <p>Momentálne je možné vyzdvihnúť si reprodukcie len osobne v <a href="https://www.sng.sk/sk/bratislava/navsteva/kde-nas-najdete/knihkupectvo-ex-libris" target="_blank">kníhkupectve Ex Libris</a> v priestoroch SNG na Námestí Ľ.&nbsp;Štúra 4 v Bratislave alebo v pokladni <a href="https://www.sng.sk/sk/zvolen/navsteva/kde-nas-najdete" target="_blank">Zvolenského zámku – Námestie SNP 594/1</a>.</p>',
     'print_recommended' => 'Odporúčame',
     'print_list'        => '<ul>

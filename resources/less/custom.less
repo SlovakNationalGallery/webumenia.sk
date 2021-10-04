@@ -73,13 +73,21 @@ html {
 .red {color: @red;}
 .color { color: @primary-color; }
 // Background Colors
-.bg-light {background-color: @light;}
-.bg-dark {background-color: @dark;}
+.bg-light {background-color: @light !important;}
+.bg-dark {background-color: @dark !important;}
 .no-border {border: none !important;}
 // Typography
 
 .light {
     font-weight: 400;
+}
+
+// Text Size
+.text-lg {
+  font-size: @font-size-large;
+}
+.text-xl {
+  font-size: @font-size-h2;
 }
 
 strong {
@@ -980,6 +988,10 @@ label sup {
   }
 }
 
+[v-cloak] {
+  display: none;
+}
+
 #scena-ai {
   position: relative;
   z-index: 10;
@@ -994,3 +1006,5 @@ label sup {
     padding-left: unset;
   }
 }
+
+
