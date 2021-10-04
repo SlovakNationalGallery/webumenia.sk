@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.32.0] - 2021-10-04
 ### Added
 - paging for front page, articles and edu articles
 - user collection sharing
