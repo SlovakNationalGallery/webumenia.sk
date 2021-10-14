@@ -115,7 +115,7 @@
                             Pošli tento odkaz svojim známym, alebo ho zdieľaj na sociálnych sieťach.
                         </p>
                         <copy-to-clipboard
-                            value="{{ route('frontend.shared-user-collections.show', compact('collection')) }}"
+                            value="{{ route('frontend.shared-user-collections.show', $collection) }}"
                             button-label="{{ trans('general.copy') }}"
                             success-text="{{ trans('general.copied_to_clipboard') }}"
                         ></copy-to-clipboard>
