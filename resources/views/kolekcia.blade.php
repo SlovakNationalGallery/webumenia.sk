@@ -9,7 +9,6 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="{!! Request::url() !!}" />
 <meta property="og:image" content="{!! URL::to($collection->header_image_src) !!}" />
-<meta property="og:site_name" content="web umenia" />
 @foreach ($collection->getContentImages() as $image )
 <meta property="og:image" content="{!! $image !!}" />
 @endforeach
