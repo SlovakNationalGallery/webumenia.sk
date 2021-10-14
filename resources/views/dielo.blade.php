@@ -7,7 +7,6 @@
 <meta property="og:type" content="object" />
 <meta property="og:url" content="{{ Request::url() }}" />
 <meta property="og:image" content="{{ asset_timed( $item->getImagePath() ) }}" />
-<meta property="og:site_name" content="Web umenia" />
 @stop
 
 @section('title')
@@ -61,7 +60,7 @@
                                 })
                                 ->merge($item->getAuthorsWithoutAuthority());
                         @endphp
-                        
+
                         @foreach($authors as $author)
                             @include('components.item_author')@if (!$loop->last), @endif
                         @endforeach

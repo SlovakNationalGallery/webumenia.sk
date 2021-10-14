@@ -13,7 +13,6 @@
 @foreach ($article->getContentImages() as $image )
 <meta property="og:image" content="{!! $image !!}" />
 @endforeach
-<meta property="og:site_name" content="Web umenia" />
 @stop
 
 @section('title')
