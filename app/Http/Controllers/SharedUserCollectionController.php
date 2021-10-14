@@ -47,7 +47,7 @@ class SharedUserCollectionController extends Controller
     {
         if ($request->get('token') !== $collection->update_token) {
             return redirect()
-                ->route('frontend.shared-user-collections.show', compact('collection'));
+                ->route('frontend.shared-user-collections.show', $collection);
         }
 
         return view(
