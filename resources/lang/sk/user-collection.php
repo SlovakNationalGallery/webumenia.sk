@@ -11,4 +11,10 @@ Odstránené diela zmiznú po opätovnom načítaní stránky.',
     'clear'            => 'odstrániť všetky diela',
     'clear-confirm'    => 'Naozaj chcete vymazať všetky obľúbené diela zo zoznamu?',
     'share'            => 'zdieľať výber',
+
+    'shared'           => [
+        'og' => [
+            'fallback_description' => 'Moje obľúbené diela z Webu umenia'
+        ]
+    ]
 );
