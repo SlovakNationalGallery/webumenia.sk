@@ -5,6 +5,14 @@
     @parent
 @stop
 
+@section('og')
+<meta property="og:title" content="{{ $collection->name }}" />
+<meta property="og:description" content="{{ $collection->description ?? trans('user-collection.shared.og.fallback_description') }}" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{{ route('frontend.shared-user-collections.show', $collection) }}" />
+<meta property="og:image" content="{{ route('dielo.nahlad', ['id' => $items->first()->id, 'width' => 800]) }}" />
+@stop
+
 @section('main-navigation')
 <!-- Skip -->
 @stop
