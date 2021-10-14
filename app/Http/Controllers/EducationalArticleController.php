@@ -53,10 +53,11 @@ class EducationalArticleController extends Controller
 
         $articles = $articles
             ->with(['translations', 'category'])
-            ->paginate(12);
+            ->paginate(12)
+            ->withQueryString();
 
         $categoriesOptions = $this->buildSelectOptions(
-            $unpaginatedArticles->countBy('category.name'), 
+            $unpaginatedArticles->countBy('category.name'),
             $request->input('category')
         );
 
@@ -104,7 +105,7 @@ class EducationalArticleController extends Controller
             ->sort()->reverse() // Sort by counts in reverse
             ->map(function ($count, $value) use ($selectedValue, $translationPath) {
                 $label = $translationPath ? trans("$translationPath.$value") : $value;
-                
+
                 return [
                     'value' => $value,
                     'text' => "$label ($count)",
