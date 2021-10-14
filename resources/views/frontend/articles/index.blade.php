@@ -33,7 +33,7 @@
     <div class="container">
         <div class="row content-section">
             <div class="col-xs-6">
-                <h4 class="inline">{{ $articles->count() }} {{ trans_choice('articles.count', $articles->count()) }}</h4>
+                <h4 class="inline">{{ $articles->total() }} {{ trans_choice('articles.count', $articles->total()) }}</h4>
             </div>
             <div class="col-xs-6 text-right">
                 <filter-sort-by

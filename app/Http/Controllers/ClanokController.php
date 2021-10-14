@@ -43,7 +43,8 @@ class ClanokController extends Controller
 
         $articles = $articles
             ->with(['translations', 'category'])
-            ->paginate(12);
+            ->paginate(12)
+            ->withQueryString();
 
         $categoriesOptions = $this->buildSelectOptions($unpaginatedArticles, 'category.name', $request->input('category'));
         $authorsOptions = $this->buildSelectOptions($unpaginatedArticles, 'author', $request->input('author'));
