@@ -1,3 +1,4 @@
+@section('title', $collection->name)
 @component('mail::message')
 
 Ahoj!
@@ -13,7 +14,7 @@ Zdieľaj tento odkaz na sociálnych sieťach, alebo pošli e-mailom!
 
 <br/>
 
-🤫 Svoj výber môžeš ďalej upraviť na tomto [tajnom odkaze]({{ $editUrl }}).
+✏ Svoj výber môžeš ďalej upravovať [na tomto odkaze]({{ $editUrl }}).
 
 @component('mail::subcopy')
 Ak máš pripomienky alebo návrhy na zlepšenie, odpíš na tento e-mail.

@@ -32,7 +32,7 @@ class SharedUserCollectionCreated extends Mailable implements ShouldQueue
     public function build()
     {
         return $this
-            ->subject('Váš výber diel „'. $this->collection->name . '“')
+            ->subject(trans('user-collection.shared.email.created_subject'))
             ->markdown('emails.shared-user-collection-created', [
                 'collection' => $this->collection,
                 'shareUrl' => route('frontend.shared-user-collections.show', $this->collection),
