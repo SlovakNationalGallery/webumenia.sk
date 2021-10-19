@@ -26,4 +26,5 @@ data/
 /public/storage
 mix-manifest.json
 npm-debug.log
+/resources/views/vendor/mail/html/themes/default.css
 

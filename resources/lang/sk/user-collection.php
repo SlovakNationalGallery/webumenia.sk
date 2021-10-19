@@ -15,6 +15,9 @@ Odstránené diela zmiznú po opätovnom načítaní stránky.',
     'shared'           => [
         'og' => [
             'fallback_description' => 'Moje obľúbené diela z Webu umenia'
+        ],
+        'email' => [
+            'created_subject' => 'Tvoj výber diel z Webu umenia',
         ]
-    ]
+    ],
 );
