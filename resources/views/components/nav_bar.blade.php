@@ -54,11 +54,12 @@
                         <a href="{{ route('frontend.reproduction.detail') }}" class=""><i class="fa fa-shopping-cart"></i><span class="badge badge-sup badge-notify">{!! count(Session::get('cart')) !!}</span></a>
                 </li>
                 @endif
-                <user-collections-nav-link
-                    :active="{{ json_encode(Route::is('frontend.user-collection.show')) }}"
-                    base-href="{{ route('frontend.user-collection.show') }}"
-                    label="{{ utrans('master.favourites') }}"
-                ></user-collections-nav-link>
+                <li class="{{ Route::is('frontend.user-collection.show') ? 'active' : '' }}">
+                    <user-collections-nav-link
+                        base-href="{{ route('frontend.user-collection.show') }}"
+                        title="{{ utrans('master.favourites') }}"
+                    ></user-collections-nav-link>
+                </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->

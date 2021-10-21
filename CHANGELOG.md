@@ -6,6 +6,9 @@ All notable changes to this project will be documented in this file[^1].
 - default e-mail template, style and config
 - e-mail message for created shared user collections
 
+### Changed
+- favourites navbar button to always show
+
 ## [2.32.1] - 2021-10-14
 ### Fixed
 - public views for shared user collections
