@@ -13,9 +13,6 @@
                 ref="button"
                 type="button"
                 class="btn btn-default btn-sm"
-                data-toggle="tooltip"
-                data-placement="top"
-                data-trigger="manual"
                 :title="successText"
                 @click="copy"
             >
@@ -34,6 +31,9 @@ export default {
         successText: String,
     },
     methods: {
+        tooltip(command) {
+            $(this.$refs.button).tooltip(command);
+        },
         copy(e) {
             if (navigator.clipboard) {
                 navigator.clipboard.writeText(this.value)
@@ -42,12 +42,21 @@ export default {
                 document.execCommand("copy")
             }
 
-            $(this.$refs.button).tooltip('show')
+            this.tooltip('show')
 
             setTimeout(() => {
-                $(this.$refs.button).tooltip('hide')
-            }, 3000)
+                this.tooltip('hide')
+            }, 2000)
         },
+    },
+    mounted() {
+        this.tooltip({
+            trigger: 'manual',
+            container: 'body'
+        })
+    },
+    beforeDestroy() {
+        this.tooltip('destroy')
     }
 }
 </script>
