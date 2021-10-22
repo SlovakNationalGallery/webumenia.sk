@@ -33,7 +33,7 @@ class SharedUserCollectionController extends Controller
                     'token' => $collection->update_token,
                 ]
             )
-            ->with('created-message', 'Výborne! Tvoj výber je pripravený na zdieľanie.'); // TODO i18n
+            ->with('user-collection-created', true);
     }
 
     public function show(SharedUserCollection $collection)
