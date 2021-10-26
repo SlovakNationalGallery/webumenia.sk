@@ -89,8 +89,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		<div class="row">
 			<div class="col-md-offset-2 col-md-8">
 				Staňte sa súčasťou digitálnej premeny zrekonštruovanej SNG! Radi by sme spoznali vás,
-				našich návštevníkov, a mysleli na vaše potreby a problémy pri tvorbe novej webovej stránky SNG.
-				Hľadáme ľudí, ktorí si nájdu 5 minút času a <a href="https://forms.gle/PLvoN3eAgComMx5Q8" class="underline">vyplnia dotazník</a>.
+				našich návštevníkov, a mysleli na vaše potreby a&nbsp;problémy pri tvorbe novej webovej stránky SNG.
+				Hľadáme ľudí, ktorí si nájdu 5 minút času a <a href="https://forms.gle/PLvoN3eAgComMx5Q8" class="underline" target="_blank">vyplnia dotazník</a>.
 			</div>
 		</div>
 	</div>
