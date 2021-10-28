@@ -1,7 +1,7 @@
 <user-collections-share-form
         action="{{ $action }}"
-        public-id="{{ $collection->public_id }}"
-        update-token="{{ $collection->update_token }}"
+        public-id="{{ optional($collection)->public_id }}"
+        update-token="{{ optional($collection)->update_token }}"
         :creating="@json($creating)"
         v-slot="form"
     >
