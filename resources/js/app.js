@@ -36,6 +36,7 @@ Vue.component('user-collections-favourite-button', require('./components/user-co
 Vue.component('user-collections-clear-button', require('./components/user-collections/ClearButton.vue').default);
 Vue.component('user-collections-share-form', require('./components/user-collections/ShareForm.vue').default);
 Vue.component('user-collections-store', require('./components/user-collections/Store.vue').default);
+Vue.component('user-collections-shared-collection', require('./components/user-collections/SharedCollection.vue').default);
 Vue.component('color-widget', require('./components/ColorWidget.vue').default);
 Vue.component('year-slider', require('./components/YearSlider.vue').default);
 Vue.component('inline-input', require('./components/InlineInput.vue').default);
