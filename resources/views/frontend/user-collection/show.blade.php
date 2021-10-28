@@ -26,6 +26,19 @@
                         </a>
                     @endif
                 </div>
+                <user-collections-store v-slot="store">
+                    <ul>
+                        <li v-for="collection in store.sharedCollections" :key="collection.publicId">
+                          <user-collections-shared-collection
+                            :public-id="collection.publicId"
+                            :update-token="collection.updateToken"
+                            api-url-template="{{ route('api.shared-user-collections.show', '__PUBLIC_ID__') }}"
+                            share-url-template="{{ route('frontend.shared-user-collections.show', '__PUBLIC_ID__') }}"
+                            edit-url-template="{{ route('frontend.shared-user-collections.edit', ['collection' => '__PUBLIC_ID__', 'token' => '__UPDATE_TOKEN__']) }}"
+                        />
+                        </li>
+                      </ul>
+                </user-collections-store>
             @endif
         </div>
     </div>
