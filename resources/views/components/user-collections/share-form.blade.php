@@ -59,24 +59,27 @@
         </div>
     @endif
     @if (!$disabled)
-        <div class="row mt-5" style="height:34px" v-cloak>
-            <div class="col-sm-4 col-sm-offset-4 text-center">
+        <div class="row mt-5" style="height:110px" v-cloak>
+            <div class="col-sm-6 col-sm-offset-3 text-center">
                 <transition
                     enter-active-class="animated fadeInDown faster"
-                    leave-active-class="animated fadeOutUp faster"
+                    leave-active-class="animated fadeOut faster"
                     mode="out-in"
                 >
-                    <button v-if="form.editing" type="submit" class="btn btn-dark" key="save">
+                    <button v-if="form.editing" type="submit" class="btn btn-dark font-light p-3 px-5 mt-5" key="save">
                         uložiť úpravy {{-- TODO i18n --}}
                     </button>
                     @if (!$creating)
-                    <div v-else>
-                        <h5 class="text-muted mt-0 mb-4">Odkaz na zdieľanie</h5>
-                        <copy-to-clipboard-group
-                            value="{{ route('frontend.shared-user-collections.show', $collection) }}"
-                            button-label="{{ trans('general.copy') }}"
-                            success-text="{{ trans('general.copied_to_clipboard') }}"
-                        ></copy-to-clipboard-group>
+                    <div v-else class="row bg-gray-300 py-5">
+                        <h5 class="text-xl font-semibold mt-0 mb-4">Zdieľaj svoj výber s ostatnými</h5>
+
+                        <div class="col-md-10 col-md-offset-1 mt-3">
+                            <copy-to-clipboard-group
+                                value="{{ route('frontend.shared-user-collections.show', $collection) }}"
+                                button-label="{{ trans('general.copy_link') }}"
+                                success-text="{{ trans('general.copied_to_clipboard') }}"
+                            ></copy-to-clipboard-group>
+                        </div>
                     </div>
                     @endif
                 </transition>

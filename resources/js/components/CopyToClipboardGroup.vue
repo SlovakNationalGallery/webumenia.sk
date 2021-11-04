@@ -12,10 +12,10 @@
             <copy-to-clipboard-link
                 :value="value"
                 :successText="successText"
-                class="btn btn-default btn-sm"
+                class="btn btn-dark btn-sm font-light"
             >
-                <i class="fa fa-clipboard"></i>
                 {{ buttonLabel }}
+                <i class="fa fa-link ml-2"></i>
             </copy-to-clipboard-link>
         </span>
     </div>
