@@ -16,6 +16,7 @@ class SharedUserCollectionsApiTest extends TestCase
         $items = factory(Item::class, 2)->create();
         $collection = factory(SharedUserCollection::class)->create([
             'name' => 'name',
+            'author' => 'author',
             'items' => $items->map->only('id')
         ]);
 
@@ -23,7 +24,9 @@ class SharedUserCollectionsApiTest extends TestCase
             ->get(route('api.shared-user-collections.show', $collection->public_id))
             ->assertExactJson([
                 'name' => 'name',
+                'author' => 'author',
                 'items_count' => 2,
+                'created_at' => $collection->created_at->toISOString(),
             ]);
     }
 }
