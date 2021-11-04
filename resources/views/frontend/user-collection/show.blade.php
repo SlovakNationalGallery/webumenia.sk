@@ -12,24 +12,32 @@
         <div class="col-md-8 col-md-offset-2 col-lg-4 col-lg-offset-4">
             <h2 class="bottom-space text-center">{{ trans('user-collection.title') }} <span class="badge badge-primary badge-sup">beta</span></h2>
 
-            @if($items->isEmpty())
-                <p class="alert alert-info text-center">{{ trans('user-collection.empty') }}</p>
+            @if($items->isNotEmpty())
+                <p>{{ trans('user-collection.content-intro') }}</p>
+                <p>{{ trans('user-collection.content-usage') }}</p>
+                <p>{{ trans('user-collection.share-info') }}</p>
             @else
-                <p>{!! trans('user-collection.content-intro') !!}</p>
-                <p>{!! trans('user-collection.content-usage') !!}</p>
-                <p class="underlined-links">{!! trans('user-collection.content-feedback') !!}</p>
+                <p class="alert alert-info text-center">{{ trans('user-collection.empty') }}</p>
+            @endif
+        </div>
+    </div>
+</div>
 
-                <div class="text-center">
-                    @if (Experiment::is('WEBUMENIA-1654-shared-user-collections-with-scena'))
-                        <a class="btn btn-primary mt-5" href="{{ route('frontend.shared-user-collections.create', ['ids' => request()->ids ] ) }}">
-                            {{ trans('user-collection.share') }} <i class='ml-1 fa fa-share-alt'></i>
-                        </a>
-                    @endif
+@if (Experiment::is('WEBUMENIA-1654-shared-user-collections-with-scena'))
+<user-collections-store v-slot="store">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 col-lg-4 col-lg-offset-4">
+                <div class="text-center mt-4">
+                    <a class="btn btn-dark font-light mt-5 p-3 px-5" href="{{ route('frontend.shared-user-collections.create', ['ids' => request()->ids ] ) }}">
+                        {{ trans('user-collection.share') }} <i class='ml-1 fa fa-share-alt'></i>
+                    </a>
+
+                    <p class="text-muted mt-5">Do výberu sa vložia všetky aktuálne obľúbené diela.</p>
                 </div>
-                <user-collections-store v-slot="store">
                     <ul>
                         <li v-for="collection in store.sharedCollections" :key="collection.publicId">
-                          <user-collections-shared-collection
+                        <user-collections-shared-collection
                             :public-id="collection.publicId"
                             :update-token="collection.updateToken"
                             api-url-template="{{ route('api.shared-user-collections.show', '__PUBLIC_ID__') }}"
@@ -37,12 +45,15 @@
                             edit-url-template="{{ route('frontend.shared-user-collections.edit', ['collection' => '__PUBLIC_ID__', 'token' => '__UPDATE_TOKEN__']) }}"
                         />
                         </li>
-                      </ul>
-                </user-collections-store>
-            @endif
+                    </ul>
+
+            </div>
         </div>
     </div>
+</user-collections-store>
+@endif
 
+<div class="container">
     @unless($items->isEmpty())
     <div class="row content-section">
         <div class="col-xs-6">
