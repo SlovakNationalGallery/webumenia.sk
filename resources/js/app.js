@@ -40,7 +40,8 @@ Vue.component('user-collections-shared-collection', require('./components/user-c
 Vue.component('color-widget', require('./components/ColorWidget.vue').default);
 Vue.component('year-slider', require('./components/YearSlider.vue').default);
 Vue.component('inline-input', require('./components/InlineInput.vue').default);
-Vue.component('copy-to-clipboard', require('./components/CopyToClipboard.vue').default);
+Vue.component('copy-to-clipboard-group', require('./components/CopyToClipboardGroup.vue').default);
+Vue.component('copy-to-clipboard-link', require('./components/CopyToClipboardLink.vue').default);
 
 Vue.component('slider', require('./components/vue/slider').default);
 Vue.component('color-slider', require('./components/vue/color-slider').default);
