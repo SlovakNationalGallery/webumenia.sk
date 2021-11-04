@@ -13,7 +13,12 @@ export default {
     },
     computed: {
         sharedCollections() {
-            return this.store.getSharedCollections()
+            const collections = this.store.getSharedCollections()
+
+            return {
+                all: collections,
+                present: collections.length > 0,
+            }
         },
     }
 }

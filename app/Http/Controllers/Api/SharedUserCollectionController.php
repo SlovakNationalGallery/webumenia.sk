@@ -11,6 +11,8 @@ class SharedUserCollectionController extends Controller
     {
         return [
             'name' => $collection->name,
+            'author' => $collection->author,
+            'created_at' => $collection->created_at,
             'items_count' => $collection->items->count(),
         ];
     }
