@@ -72,11 +72,11 @@
                     @if (!$creating)
                     <div v-else>
                         <h5 class="text-muted mt-0 mb-4">Odkaz na zdieľanie</h5>
-                        <copy-to-clipboard
+                        <copy-to-clipboard-group
                             value="{{ route('frontend.shared-user-collections.show', $collection) }}"
                             button-label="{{ trans('general.copy') }}"
                             success-text="{{ trans('general.copied_to_clipboard') }}"
-                        ></copy-to-clipboard>
+                        ></copy-to-clipboard-group>
                     </div>
                     @endif
                 </transition>
