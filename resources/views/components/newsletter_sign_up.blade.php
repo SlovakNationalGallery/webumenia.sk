@@ -3,12 +3,12 @@
     <p class="text-lg">Nové kolekcie, články, projekty a tipy na výtvarné diela <strong>2x mesačne</strong>.</p>
 
     <div class="input-group mt-4">
-        <input type="email" class="form-control bg-light no-border" placeholder="@">
+        <input type="email" class="form-control bg-light no-border placeholder-black" placeholder="@">
         <span class="input-group-btn">
-            <button type="button" class="btn btn-black">
+            <button type="button" class="btn btn-black font-light">
                 Pridajte ma
             </button>
         </span>
     </div>
-    <p class="text-sm mt-3 text-dark">Odoslaním súhlasím so spracovaním <a href="TODO">osobných údajov</a>.</p class="text-sm">
+    <p class="text-sm mt-3 text-dark">Odoslaním súhlasím so spracovaním <a href="https://www.sng.sk/sk/o-galerii/dokumenty/gdpr">osobných údajov</a>.</p class="text-sm">
 </div>
