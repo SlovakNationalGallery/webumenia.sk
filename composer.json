@@ -34,6 +34,7 @@
         "laravelium/sitemap": "8.*",
         "league/color-extractor": "dev-master",
         "league/csv": "^8.0",
+        "livewire/livewire": "^2.7",
         "lorisleiva/laravel-deployer": "^0.3.0",
         "mcamara/laravel-localization": "1.6.*",
         "predis/predis": "^1.1",
