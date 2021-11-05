@@ -90,26 +90,29 @@
 </section>
 
 <section class="article my-5">
-    <div class="article-body">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-md-push-2 lead long-text">
-                    {!! $article->summary !!}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-push-2 lead long-text article-body">
+                {!! $article->summary !!}
 
-                    <!-- share -->
-                    <div class="text-center">
-                        @include('components.share_buttons', [
-                            'title' => $article->title,
-                            'url' => $article->getUrl(),
-                            'img' => URL::to($article->header_image_src),
-                        ])
-                    </div>
+                <!-- share -->
+                <div class="text-center">
+                    @include('components.share_buttons', [
+                        'title' => $article->title,
+                        'url' => $article->getUrl(),
+                        'img' => URL::to($article->header_image_src),
+                    ])
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-8 col-md-push-2 long-text">
-                    {!! $article->content !!}
-                </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-md-push-2 long-text">
+                {!! $article->content !!}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-md-push-2">
+                @include('components.newsletter_sign_up')
             </div>
         </div>
     </div>
