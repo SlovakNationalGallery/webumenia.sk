@@ -80,19 +80,7 @@ html {
 
 .no-border {border: none !important;}
 
-// Typography
-.font-light {
-  font-weight: 300;
-}
-.font-semibold {
-  font-weight: 600;
-}
-
-.placeholder-black::placeholder {
-  color: @black;
-}
-
-// Text Size
+// Font Size
 .text-sm {
   font-size: @font-size-small;
 }
@@ -100,7 +88,29 @@ html {
   font-size: @font-size-large;
 }
 .text-xl {
+  font-size: @font-size-h3;
+}
+.text-2xl {
   font-size: @font-size-h2;
+}
+.text-3xl {
+  font-size: @font-size-base * 1.9;
+}
+.text-4xl {
+  font-size: @font-size-h1;
+}
+
+// Font Weight
+.font-light {
+  font-weight: 300;
+}
+.font-semibold {
+  font-weight: 600;
+}
+
+// Placeholder Color
+.placeholder-black::placeholder {
+  color: @black;
 }
 
 strong {
