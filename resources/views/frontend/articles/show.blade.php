@@ -112,7 +112,7 @@
         </div>
         <div class="row">
             <div class="col-md-8 col-md-push-2">
-                @include('components.newsletter_sign_up')
+                <livewire:newsletter-signup-form />
             </div>
         </div>
     </div>
