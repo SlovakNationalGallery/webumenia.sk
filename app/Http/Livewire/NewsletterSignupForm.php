@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use Spatie\Newsletter\NewsletterFacade as Newsletter;
 
 class NewsletterSignupForm extends Component
 {
@@ -15,7 +16,19 @@ class NewsletterSignupForm extends Component
 
     public function subscribe()
     {
-        $this->success = !$this->success;
+        $this->success = false;
+        $this->validate();
+
+        Newsletter::subscribePending(
+            $this->email,
+        );
+
+        if (!Newsletter::lastActionSucceeded()) {
+            $this->addError('subscription', Newsletter::getLastError());
+            return;
+        };
+
+        $this->success = true;
     }
 
     public function render()
