@@ -16,7 +16,6 @@ class NewsletterSignupForm extends Component
 
     public function subscribe()
     {
-        $this->success = false;
         $this->validate();
 
         Newsletter::subscribePending(
