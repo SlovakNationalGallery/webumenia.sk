@@ -276,6 +276,10 @@ class SetupElasticsearch extends Command
                   }
                 }
               },
+              "location": {
+                "type": "string",
+                "index": "not_analyzed"
+              },
               "medium": {
                 "type": "string",
                 "index": "not_analyzed"

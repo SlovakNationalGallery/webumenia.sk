@@ -36,10 +36,11 @@ class Item extends Model
         'materiál' => 'medium',
         'technika' => 'technique',
         'lokalita' => 'place',
+        'umiestnenie' => 'location',
         'len s obrázkom' => 'has_image',
         'len so zoom' => 'has_iip',
         'len voľné' => 'is_free',
-        'zo súboru' => 'related_work'
+        'zo súboru' => 'related_work',
     );
 
     public static $sortable = array(
@@ -73,6 +74,7 @@ class Item extends Model
         'technique',
         'inscription',
         'place',
+        'location',
         'lat',
         'lng',
         'state_edition',
@@ -111,6 +113,14 @@ class Item extends Model
     protected $casts = array(
         'color_descriptor' => 'json',
     );
+
+    protected $locationMap = [
+        'UPM' => [
+            '211' => [
+                'B01' => 'Jaroslav Brychta a jeho vliv',
+            ]
+        ]
+    ];
 
     // ELASTIC SEARCH INDEX
     public static function boot()
@@ -531,6 +541,35 @@ class Item extends Model
         $this->attributes['technique'] = $value ?: '';
     }
 
+    public function getLocationsAttribute()
+    {
+        $exploded = explode('/', $this->location);
+        $locations = [];
+
+        if (count($exploded) >= 2 && $exploded[0] === 'UPM' && $exploded[1] === '211') {
+            $locations[] = 'LIGHT DEPO / Otevřený depozitář skla';
+
+            if (count($exploded) >= 3 && preg_match('/^B(?<number>\d+)$/', $exploded[2], $matches)) {
+                $box_location = sprintf('LIGHT DEPO / BOX %s', $matches['number']);
+
+                $key = implode('.', $exploded);
+                $title = array_get($this->locationMap, $key);
+
+                if ($title !== null) {
+                    $box_location = sprintf('%s – %s', $box_location, $title);
+                }
+
+                $locations[] = $box_location;
+            }
+        }
+
+        if ($locations) {
+            $locations[] = $this->location;
+        }
+
+        return $locations;
+    }
+
     public function setLat($value)
     {
         $this->attributes['lat'] = $value ?: null;
@@ -831,6 +870,7 @@ class Item extends Model
                 'authority_id' => $this->relatedAuthorityIds(),
                 'view_count' => $this->view_count,
                 'color_descriptor' => $this->color_descriptor,
+                'location' => $this->locations,
             ];
 
             return $client->index([

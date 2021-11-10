@@ -229,6 +229,12 @@
                                     <td>{!! $item->place; !!}</td>
                                 </tr>
                                 @endif
+                                @if (!empty($item->location))
+                                <tr>
+                                    <td class="atribut">{{ trans('dielo.item_attr_location') }}:</td>
+                                    <td><a href="{{ URL::to('katalog?location=' . $item->location) }}">{{ $item->location }}</a></td>
+                                </tr>
+                                @endif
                                 @if (!empty($item->related_work))
                                 <tr>
                                     <td class="atribut">{!! $item->relationship_type !!}:</td>

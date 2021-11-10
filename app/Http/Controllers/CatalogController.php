@@ -364,7 +364,7 @@ class CatalogController extends Controller
         $topics = Item::listValues('topic', $params);
         $techniques = Item::listValues('technique', $params);
         $mediums = Item::listValues('medium', $params);
-        $places = Item::listValues('place', $params);
+        $locations = Item::listValues('location', $params);
 
         $queries = DB::getQueryLog();
         $last_query = end($queries);
@@ -427,7 +427,7 @@ class CatalogController extends Controller
             'input' => $input,
             'paginator' => $paginator,
             'mediums' => $mediums,
-            'places' => $places,
+            'locations' => $locations,
             'slides' => $slides,
         ));
     }
