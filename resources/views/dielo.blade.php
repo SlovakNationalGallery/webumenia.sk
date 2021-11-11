@@ -229,7 +229,7 @@
                                     <td>{!! $item->place; !!}</td>
                                 </tr>
                                 @endif
-                                @if (!empty($item->location))
+                                @if (!empty($item->locations))
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_location') }}:</td>
                                     <td><a href="{{ URL::to('katalog?location=' . $item->location) }}">{{ $item->location }}</a></td>
