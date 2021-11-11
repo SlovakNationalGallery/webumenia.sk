@@ -115,8 +115,14 @@
     </div>
 </section>
 
+<bottom-modal>
+    <div class="row">
+        <div class="col-md-8 col-md-push-2 py-5">
+            <livewire:newsletter-signup-form />
+        </div>
+    </div>
+</bottom-modal>
 
-{{-- zoznam diel ??? --}}
 
 {{--
 mapa??
