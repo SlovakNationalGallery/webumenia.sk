@@ -44,4 +44,20 @@ return array(
     "copied_to_clipboard"=> "Odkaz bol skopírovaný do schránky",
     "citation_copied"    => "Citácia bola skopírovaná",
     "minute"             => ":count minúta|:count minúty|:count minút",
+
+    "newsletter_sign_up" =>  [
+        "title" => "Chceš umenie do mailovej schránky?",
+        "subtitle" => "Nové kolekcie, články, projekty a&nbsp;tipy na&nbsp;výtvarné diela <strong>2x mesačne</strong>.",
+        "success" => "Hotovo!",
+        "error" => "Hups! Vyskytla sa neočakávaná chyba.",
+        "privacy_policy" => [
+            "blurb" => "Odoslaním súhlasím so&nbsp;spracovaním",
+            "link" => "osobných údajov",
+        ],
+        "button" => [
+            "initial" => "Pridajte ma",
+            "loading" => "Moment...",
+            "success" => "Je to tam",
+        ],
+    ]
 );

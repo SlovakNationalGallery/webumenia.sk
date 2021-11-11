@@ -2,20 +2,20 @@
     <div class="row text-black p-4 p-md-5">
         <div class="col-md-6">
             @if ($success)
-                <h3 class="text-5xl mt-4 pt-1 font-semibold animated fadeInDown visible-xs-block">Hotovo!</h3>
-                <h3 class="text-center mt-5 text-6xl font-semibold animated tada fast hidden-xs">Hotovo!</h3>
+                <h3 class="text-5xl mt-4 pt-1 font-semibold animated fadeInDown visible-xs-block">{{ __('general.newsletter_sign_up.success') }}</h3>
+                <h3 class="text-center mt-5 text-6xl font-semibold animated tada fast hidden-xs">{{ __('general.newsletter_sign_up.success') }}</h3>
             @elseif ($errors->any())
-                <h3 class="text-4xl font-semibold">Hups! Vyskytla sa neočakávaná chyba.</h3>
+                <h3 class="text-4xl font-semibold">{{ __('general.newsletter_sign_up.error') }}</h3>
             @else
-                <h3 class="mt-2 text-3xl font-semibold visible-xs-block">Chceš umenie do mailovej schránky?</h3>
-                <h3 class="text-4xl font-semibold hidden-xs">Chceš umenie do mailovej schránky?</h3>
+                <h3 class="mt-2 text-3xl font-semibold visible-xs-block">{{ __('general.newsletter_sign_up.title') }}</h3>
+                <h3 class="text-4xl font-semibold hidden-xs">{{ __('general.newsletter_sign_up.title') }}</h3>
             @endif
             </h3>
         </div>
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-11 col-md-push-1">
-                    <p class="text-lg pb-md-1">Nové kolekcie, články, projekty a&nbsp;tipy na&nbsp;výtvarné diela <strong>2x mesačne</strong>.</p>
+                    <p class="text-lg pb-md-1">{!! __('general.newsletter_sign_up.subtitle') !!}</p>
 
                     <form wire:submit.prevent="subscribe" class="input-group mt-4">
                         <input
@@ -30,16 +30,19 @@
                             <button type="submit" class="btn btn-black font-light" @if ($success) disabled @endif>
                                 <span wire:loading.remove>
                                     @if ($success)
-                                        <i class="fa fa-check text-success"></i> Je to tam
+                                        <i class="fa fa-check text-success"></i> {{ __('general.newsletter_sign_up.button.success') }}
                                     @else
-                                        Pridajte ma
+                                        {{ __('general.newsletter_sign_up.button.initial') }}
                                     @endif
                                 </span>
-                                <span wire:loading>Moment...</span>
+                                <span wire:loading>{{ __('general.newsletter_sign_up.button.loading') }}</span>
                             </button>
                         </span>
                     </form>
-                    <p class="text-sm mt-3 mb-md-0 text-dark">Odoslaním súhlasím so&nbsp;spracovaním <a href="https://www.sng.sk/sk/o-galerii/dokumenty/gdpr">osobných údajov</a>.</p class="text-sm">
+                    <p class="text-sm mt-3 mb-md-0 text-dark">
+                        {!! __('general.newsletter_sign_up.privacy_policy.blurb') !!}
+                        <a href="https://www.sng.sk/sk/o-galerii/dokumenty/gdpr">{{ __('general.newsletter_sign_up.privacy_policy.link') }}</a>.
+                    </p class="text-sm">
                 </div>
             </div>
         </div>
