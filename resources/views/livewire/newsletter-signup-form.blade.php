@@ -5,7 +5,7 @@
                 <h3 class="text-5xl mt-4 pt-1 font-semibold animated fadeInDown visible-xs-block">{{ __('general.newsletter_sign_up.success') }}</h3>
                 <h3 class="text-center mt-5 text-6xl font-semibold animated tada fast hidden-xs">{{ __('general.newsletter_sign_up.success') }}</h3>
             @elseif ($errors->any())
-                <h3 class="text-4xl font-semibold">{{ __('general.newsletter_sign_up.error') }}</h3>
+                <h3 class="text-4xl font-semibold animated headShake">{{ __('general.newsletter_sign_up.error') }}</h3>
             @else
                 <h3 class="mt-2 text-3xl font-semibold visible-xs-block">{{ __('general.newsletter_sign_up.title') }}</h3>
                 <h3 class="text-4xl font-semibold hidden-xs">{{ __('general.newsletter_sign_up.title') }}</h3>
