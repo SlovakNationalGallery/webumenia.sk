@@ -41,8 +41,8 @@
                     </form>
                     <p class="text-sm mt-3 mb-md-0 text-dark">
                         {!! __('general.newsletter_sign_up.privacy_policy.blurb') !!}
-                        <a href="https://www.sng.sk/sk/o-galerii/dokumenty/gdpr">{{ __('general.newsletter_sign_up.privacy_policy.link') }}</a>.
-                    </p class="text-sm">
+                        <a href="https://www.sng.sk/sk/o-galerii/dokumenty/gdpr" target="_blank">{{ __('general.newsletter_sign_up.privacy_policy.link') }}</a>.
+                    </p>
                 </div>
             </div>
         </div>
