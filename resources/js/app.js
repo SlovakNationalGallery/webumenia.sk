@@ -48,6 +48,7 @@ Vue.component('copy-to-clipboard-group', require('./components/CopyToClipboardGr
 Vue.component('copy-to-clipboard-link', require('./components/CopyToClipboardLink.vue').default);
 Vue.component('bottom-modal', require('./components/BottomModal.vue').default);
 Vue.component('user-interaction-context', require('./components/UserInteractionContext.vue').default);
+Vue.component('newsletter-signup-modal-interaction-context', require('./components/NewsletterSignupModalInteractionContext.vue').default);
 Vue.component('slider', require('./components/vue/slider').default);
 Vue.component('color-slider', require('./components/vue/color-slider').default);
 
