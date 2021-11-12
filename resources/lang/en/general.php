@@ -42,4 +42,20 @@ return array(
     "copied_to_clipboard"=> "Link was copied to clipboard",
     "citation_copied"    => "Citation has been copied",
     "minute"             => ":count minute|:count minutes",
+
+    "newsletter_sign_up" =>  [
+        "title" => "Want art in your mailbox?",
+        "subtitle" => "New collections, articles and artworks. <strong>Twice a&nbsp;month</strong>.",
+        "success" => "All done!",
+        "error" => "Oops! We got an error.",
+        "privacy_policy" => [
+            "blurb" => "By submitting you agree to our",
+            "link" => "privacy policy",
+        ],
+        "button" => [
+            "initial" => "Subscribe",
+            "loading" => "Loading...",
+            "success" => "You're in",
+        ],
+    ]
 );

@@ -47,7 +47,7 @@ return array(
 
     "newsletter_sign_up" =>  [
         "title" => "Chceš umenie do mailovej schránky?",
-        "subtitle" => "Nové kolekcie, články, projekty a&nbsp;tipy na&nbsp;výtvarné diela <strong>2x mesačne</strong>.",
+        "subtitle" => "Nové kolekcie, články a&nbsp;tipy na&nbsp;výtvarné diela <strong>2x mesačne</strong>.",
         "success" => "Hotovo!",
         "error" => "Hups! Vyskytla sa neočakávaná chyba.",
         "privacy_policy" => [
