@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - default e-mail template, style and config
 - e-mail message for created shared user collections
+- newsletter sign-up form widget
 
 ### Changed
 - favourites navbar button to always show

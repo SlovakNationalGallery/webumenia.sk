@@ -34,6 +34,7 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 		<link rel="stylesheet" type="text/css" href="{{ mix('/css/style.css') }}" />
 		{!! Html::style('css/magnific-popup.css') !!}
+		@livewireStyles
 
 		{{-- JS --}}
 		@if (App::environment() == 'production')
@@ -110,6 +111,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	<script type="text/javascript" src="{{ mix('/js/manifest.js') }}"></script>
 	<script type="text/javascript" src="{{ mix('/js/vendor.js') }}"></script>
 	<script type="text/javascript" src="{{ mix('/js/app.js') }}"></script>
+	@livewireScripts
 
 	@yield('javascript')
 </body>
