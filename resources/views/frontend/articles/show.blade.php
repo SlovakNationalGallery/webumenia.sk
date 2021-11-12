@@ -93,7 +93,7 @@
     <div class="article-body">
         <div class="container">
             <div class="row">
-                <div class="col-md-8 col-md-push-2 lead long-text article-body">
+                <div class="col-md-8 col-md-push-2 lead long-text">
                     {!! $article->summary !!}
 
                     <!-- share -->
