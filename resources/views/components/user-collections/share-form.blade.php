@@ -48,16 +48,6 @@
             /></inline-input>
         </div>
     </div>
-    @if (session('user-collection-created'))
-        <div class="row mt-5">
-            <div class="col-sm-6 col-sm-offset-3">
-                <div class="alert alert-info alert-dismissable mb-0">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    Výborne! Tvoj výber je pripravený na zdieľanie. {{-- TODO i18n --}}
-                </div>
-            </div>
-        </div>
-    @endif
     @if (!$disabled)
         <div class="row mt-5" style="height:110px" v-cloak>
             <div class="col-sm-6 col-sm-offset-3 text-center">
@@ -71,7 +61,10 @@
                     </button>
                     @if (!$creating)
                     <div v-else class="row bg-gray-300 py-5">
-                        <h5 class="text-xl font-semibold mt-0 mb-4">Zdieľaj svoj výber s ostatnými</h5>
+                        <h5 class="text-xl font-semibold mt-0 mb-4">
+                            @if (session('user-collection-created'))Výborne! @endif
+                            Zdieľaj svoj výber s ostatnými:
+                        </h5>
 
                         <div class="col-md-10 col-md-offset-1 mt-3">
                             <copy-to-clipboard-group

@@ -8,7 +8,7 @@ return array(
     'share-info'       => 'Z aktuálnych obľúbených diel môžeš vytvoriť tematický výber.',
     'clear'            => 'odstrániť všetky diela',
     'clear-confirm'    => 'Naozaj chcete vymazať všetky obľúbené diela zo zoznamu?',
-    'share'            => 'nový výber diel',
+    'share'            => 'vytvoriť výber diel',
 
     'shared'           => [
         'og' => [
