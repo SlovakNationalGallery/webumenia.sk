@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Changed
+- shared user collections to show in favourites
 
 ## [2.33.0] - 2021-10-29
 ### Added
