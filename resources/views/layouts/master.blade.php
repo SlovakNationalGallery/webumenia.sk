@@ -86,16 +86,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		</div>
 	@endif
 
-	<div class="alert alert-info" role="alert">
-		<div class="row">
-			<div class="col-md-offset-2 col-md-8">
-				Staňte sa súčasťou digitálnej premeny zrekonštruovanej SNG! Radi by sme spoznali vás,
-				našich návštevníkov, a mysleli na vaše potreby a&nbsp;problémy pri tvorbe novej webovej stránky SNG.
-				Hľadáme ľudí, ktorí si nájdu 5 minút času a <a href="https://forms.gle/PLvoN3eAgComMx5Q8" class="underline" target="_blank">vyplnia dotazník</a>.
-			</div>
-		</div>
-	</div>
-
 @if (session('scena_ai_key') ?? config('services.scena_ai.key'))
 	<scena-ai-popup key-id="{{ session('scena_ai_key') ?? config('services.scena_ai.key') }}" id="scena-ai"></scena-ai-popup>
 	<script src="https://widget.scena.ai/app.js"></script>

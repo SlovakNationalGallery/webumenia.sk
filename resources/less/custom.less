@@ -58,6 +58,14 @@ html {
   position: relative;
 }
 
+.flex {
+  display: flex;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
 .w-100 {
   width: 100%;
 }
@@ -79,8 +87,24 @@ html {
 .bg-light {background-color: @light !important;}
 .bg-dark {background-color: @dark !important;}
 .bg-blue {background-color: @primary-color !important;}
+.bg-gray-300 {
+  background-color: @light-grey;
+}
+.bg-white {
+  background-color: @white;
+}
 
 .no-border {border: none !important;}
+
+// Typography
+// Font Weight
+.font-light {
+    font-weight: 300;
+}
+
+.font-semibold {
+    font-weight: 600;
+}
 
 // Font Size
 .text-sm {

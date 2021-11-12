@@ -329,9 +329,10 @@ function()
     Route::match(array('GET', 'POST'), 'kolekcie/suggestions', 'KolekciaController@getSuggestions')->name('frontend.collection.suggestions');
     Route::get('kolekcia/{slug}', 'KolekciaController@getDetail')->name('frontend.collection.detail');
     Route::get('oblubene', 'UserCollectionController@show')->name('frontend.user-collection.show');
-    Route::resource('zdielane-kolekcie', 'SharedUserCollectionController')
+    Route::resource('oblubene', 'SharedUserCollectionController')
         ->names('frontend.shared-user-collections')
-        ->parameters(['zdielane-kolekcie' => 'collection:public_id']);
+        ->parameters(['oblubene' => 'collection:public_id'])
+        ->except('index');
     Route::resource('edu', 'EducationalArticleController')
         ->names('frontend.educational-article')
         ->parameters(['edu' => 'article:slug']);

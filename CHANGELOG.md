@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Changed
+- shared user collections to show in favourites
+
+## [2.33.0] - 2021-10-29
 ### Added
 - default e-mail template, style and config
 - e-mail message for created shared user collections
@@ -9,6 +13,9 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Changed
 - favourites navbar button to always show
+
+### Fixed
+- Vue initialization in admin
 
 ## [2.32.1] - 2021-10-14
 ### Fixed

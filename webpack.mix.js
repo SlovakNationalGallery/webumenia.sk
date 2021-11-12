@@ -20,6 +20,7 @@ mix
         'bootstrap/dist/js/bootstrap',
         'flickity',
         'clipboard',
+        'date-fns',
         'imagesloaded',
         'infinite-scroll',
         'isotope-layout',

@@ -2,12 +2,11 @@
 
 return array(
     'title'            => 'Oblíbené díla',
-    'empty'            => 'Momentálně nemáte uložené žádné díla.',
-    'content-intro'    => 'Zde naleznete díla, které jste si uložili mezi oblíbené. <br>
-Díla jsou uloženy pouze dočasně ve vašem internetovém prohlížeči.',
-    'content-usage'    => 'Dílo ze seznamu odstraníte kliknutím na hvězdičku. <br>
-Odstránené diela zmiznú po opätovnom načítaní stránky.',
-    'content-feedback' => 'Chyby, připomínky a návrhy můžete posílat na <a href="mailto:lab@sng.sk">lab@sng.sk </a>',
+    'empty'            => 'Momentálně nemáš uložené žádné díla.',
+    'content-intro'    => 'Oblíbené díla jsou uloženy pouze v tomhle internetovém prohlížeči',
+    'content-usage'    => 'Dílo ze seznamu odstraníš klepnutím na hvězdičku. Odstraněné díla smizí po opětovném načítání stránky.',
+    'share-info'       => 'Z aktuálnych oblíbených díl si můžeš vytvořit tematický výběr.',
     'clear'            => 'Odstranit všechny díla',
-    'clear-confirm'    => 'Opravdu chcete vymazat všechny oblíbené díla ze seznamu?'
+    'clear-confirm'    => 'Opravdu chceš smazat všechny oblíbené díla ze seznamu?',
+    'share'            => 'nový výběr díl',
 );
