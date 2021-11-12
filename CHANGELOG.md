@@ -2,14 +2,15 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+## [2.34.0] - 2021-11-12
 ### Changed
 - shared user collections to show in favourites
+- newsletter sign-up form widget
 
 ## [2.33.0] - 2021-10-29
 ### Added
 - default e-mail template, style and config
 - e-mail message for created shared user collections
-- newsletter sign-up form widget
 
 ### Changed
 - favourites navbar button to always show
