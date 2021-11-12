@@ -45,7 +45,7 @@ return array(
 
     "newsletter_sign_up" =>  [
         "title" => "Want art in your mailbox?",
-        "subtitle" => "New collections, articles and artworks. <strong>Twice a&nbsp;month</strong>.",
+        "subtitle" => "New collections, articles and artworks. <strong>Twice a&nbsp;month</strong>. In Slovak.",
         "success" => "All done!",
         "error" => "Oops! We got an error.",
         "privacy_policy" => [
