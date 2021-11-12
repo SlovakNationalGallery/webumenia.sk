@@ -167,6 +167,15 @@
                     @endforeach
                 </div>
             </div>
+            <div class="row my-5">
+                <div class="col-md-8 col-md-push-2">
+                    <div class="bg-blue p-4 p-md-5">
+                        <div class="mx-md-2">
+                            <livewire:newsletter-signup-form />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
