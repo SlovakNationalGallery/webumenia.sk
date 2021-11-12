@@ -4,12 +4,11 @@
             <h3 class="text-5xl mt-4 pt-1 font-semibold animated fadeInDown visible-xs-block">{{ __('general.newsletter_sign_up.success') }}</h3>
             <h3 class="text-center mt-5 text-6xl font-semibold animated tada fast hidden-xs">{{ __('general.newsletter_sign_up.success') }}</h3>
         @elseif ($errors->any())
-            <h3 class="text-4xl font-semibold">{{ __('general.newsletter_sign_up.error') }}</h3>
+            <h3 class="text-4xl font-semibold animated headShake">{{ __('general.newsletter_sign_up.error') }}</h3>
         @else
             <h3 class="mt-2 text-3xl font-semibold visible-xs-block">{{ __('general.newsletter_sign_up.title') }}</h3>
             <h3 class="text-4xl font-semibold hidden-xs">{{ __('general.newsletter_sign_up.title') }}</h3>
         @endif
-        </h3>
     </div>
     <div class="col-md-6">
         <div class="row">
@@ -40,9 +39,7 @@
                 </form>
                 <div class="text-sm mt-3 mb-md-0 text-dark">
                     {!! __('general.newsletter_sign_up.privacy_policy.blurb') !!}
-                    <a href="https://www.sng.sk/sk/o-galerii/dokumenty/gdpr" target="_blank" class="underline">
-                        {{ __('general.newsletter_sign_up.privacy_policy.link') }}
-                    </a>.
+                    <a href="https://www.sng.sk/sk/o-galerii/dokumenty/gdpr" target="_blank" class="underline">{{ __('general.newsletter_sign_up.privacy_policy.link') }}</a>.
                 </div>
             </div>
         </div>
