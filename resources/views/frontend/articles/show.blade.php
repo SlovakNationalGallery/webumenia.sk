@@ -90,29 +90,31 @@
 </section>
 
 <section class="article my-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-push-2 lead long-text article-body">
-                {!! $article->summary !!}
+    <div class="article-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-push-2 lead long-text article-body">
+                    {!! $article->summary !!}
 
-                <!-- share -->
-                <div class="text-center">
-                    @include('components.share_buttons', [
-                        'title' => $article->title,
-                        'url' => $article->getUrl(),
-                        'img' => URL::to($article->header_image_src),
-                    ])
+                    <!-- share -->
+                    <div class="text-center">
+                        @include('components.share_buttons', [
+                            'title' => $article->title,
+                            'url' => $article->getUrl(),
+                            'img' => URL::to($article->header_image_src),
+                        ])
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-8 col-md-push-2 long-text">
-                {!! $article->content !!}
+            <div class="row">
+                <div class="col-md-8 col-md-push-2 long-text">
+                    {!! $article->content !!}
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-8 col-md-push-2">
-                <livewire:newsletter-signup-form />
+            <div class="row">
+                <div class="col-md-8 col-md-push-2">
+                    <livewire:newsletter-signup-form />
+                </div>
             </div>
         </div>
     </div>

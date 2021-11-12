@@ -15,7 +15,7 @@
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-11 col-md-push-1">
-                    <p class="text-lg pb-md-1">{!! __('general.newsletter_sign_up.subtitle') !!}</p>
+                    <div class="text-lg pb-md-1">{!! __('general.newsletter_sign_up.subtitle') !!}</div>
 
                     <form wire:submit.prevent="subscribe" class="input-group mt-4">
                         <input
@@ -39,10 +39,10 @@
                             </button>
                         </span>
                     </form>
-                    <p class="text-sm mt-3 mb-md-0 text-dark">
+                    <div class="text-sm mt-3 mb-md-0 text-dark">
                         {!! __('general.newsletter_sign_up.privacy_policy.blurb') !!}
                         <a href="https://www.sng.sk/sk/o-galerii/dokumenty/gdpr" target="_blank">{{ __('general.newsletter_sign_up.privacy_policy.link') }}</a>.
-                    </p>
+                    </div>
                 </div>
             </div>
         </div>
