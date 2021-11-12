@@ -7,5 +7,6 @@ return array(
     'content-usage'    => 'Dílo ze seznamu odstraníš klepnutím na hvězdičku. Odstraněné díla smizí po opětovném načítání stránky.',
     'share-info'       => 'Z aktuálnych oblíbených díl si můžeš vytvořit tematický výběr.',
     'clear'            => 'Odstranit všechny díla',
-    'clear-confirm'    => 'Opravdu chceš smazat všechny oblíbené díla ze seznamu?'
+    'clear-confirm'    => 'Opravdu chceš smazat všechny oblíbené díla ze seznamu?',
+    'share'            => 'nový výběr díl',
 );

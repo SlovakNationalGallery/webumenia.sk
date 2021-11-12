@@ -8,4 +8,5 @@ return array(
     'share-info'       => 'You can create share your favourites as a selection.',
     'clear'            => 'delete all artworks',
     'clear-confirm'    => 'Are you sure you want to delete all your favourite artworks from the list?',
+    'share'            => 'create new selection',
 );
