@@ -54,7 +54,7 @@
 
             <div class="text-center mt-5">
                 <a class="btn btn-dark font-light p-3 px-5" href="{{ route('frontend.shared-user-collections.create', ['ids' => request()->ids ] ) }}">
-                    {{ trans('user-collection.share') }} <i class='ml-1 fa fa-share-alt'></i>
+                    {{ trans('user-collection.share') }}
                 </a>
 
                 <div class="text-muted mt-5 mb-5">
