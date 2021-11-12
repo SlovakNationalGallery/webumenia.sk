@@ -128,15 +128,6 @@
                     {!! $collection->text !!}
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-8 col-md-push-2">
-                    <div class="bg-blue p-4 p-md-5">
-                        <div class="mx-md-2">
-                            <livewire:newsletter-signup-form />
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </section>
@@ -179,6 +170,8 @@
         </div>
     </div>
 </section>
+
+<x-newsletter-signup-form-bottom-modal open-on-percent-scrolled="30" />
 @stop
 
 @section('javascript')
