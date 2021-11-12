@@ -5,14 +5,25 @@
 </template>
 
 <script>
+const store = require('./store')
+
 export default {
     props: {
         action: String,
-        creating: Boolean
+        creating: Boolean,
+        publicId: String,
+        updateToken: String,
     },
     data() {
         return {
             editing: false,
+        }
+    },
+    mounted() {
+        if (!this.publicId || !this.updateToken) return
+
+        if (!store.hasSharedCollection(this.publicId)) {
+            store.addSharedCollection(this.publicId, this.updateToken)
         }
     },
     methods: {

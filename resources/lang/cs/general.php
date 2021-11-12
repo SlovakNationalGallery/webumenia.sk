@@ -42,4 +42,20 @@ return array(
     "copy"               => "kopírovat",
     "copied_to_clipboard"=> "Odkaz byl skopírován do schránky",
     "minute"             => ":count minuta|:count minuty|:count minut",
+
+    "newsletter_sign_up" =>  [
+        "title" => "Chceš umění do mailové schránky?",
+        "subtitle" => "Nové kolekce, články a&nbsp;tipy na&nbsp;výtvarná díla <strong>2x&nbsp;měsíčně</strong>",
+        "success" => "Hotovo!",
+        "error" => "Hups! Vyskytla se neočekávaná chyba.",
+        "privacy_policy" => [
+            "blurb" => "Odesláním souhlasím se&nbsp;zpracováním",
+            "link" => "osobních údajů",
+        ],
+        "button" => [
+            "initial" => "Přidejte mě",
+            "loading" => "Moment...",
+            "success" => "Je to tam",
+        ],
+    ]
 );
