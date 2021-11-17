@@ -5,6 +5,7 @@
 namespace App;
 
 use App\Contracts\IndexableModel;
+use App\Elasticsearch\Repositories\ItemRepository;
 use App\Events\ItemPrimaryImageChanged;
 use App\Matchers\AuthorityMatcher;
 use Astrotomic\Translatable\Translatable;
@@ -52,6 +53,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
         'additionals.category.keyword',
         'additionals.frontend.keyword',
         'additionals.set.keyword',
+        'additionals.location.keyword',
     ];
 
     public static $rangeables = [
@@ -154,6 +156,8 @@ class Item extends Model implements IndexableModel, TranslatableContract
         'belongsToManyUpdatingExistingPivot',
         'belongsToManyUpdatedExistingPivot',
     ];
+
+    protected $appends = ['image_url'];
 
     protected $useTranslationFallback;
 
@@ -753,11 +757,12 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     public function searchableAs()
     {
-        return sprintf(
-            '%sitems_%s',
-            config('scout.prefix'),
-            app()->getLocale()
-        );
+        return app(ItemRepository::class)->getLocalizedIndexName();
+    }
+
+    public function getImageUrlAttribute()
+    {
+        return sprintf('%s%s', config('app.url'), $this->getImagePath());
     }
 
     public static function filterQuery(array $filter, BoolQueryBuilder $builder = null)
