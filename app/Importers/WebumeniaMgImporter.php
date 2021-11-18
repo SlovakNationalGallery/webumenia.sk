@@ -5,6 +5,7 @@ namespace App\Importers;
 use App\Import;
 use App\Repositories\IFileRepository;
 use Illuminate\Contracts\Translation\Translator;
+use Illuminate\Support\Arr;
 
 class WebumeniaMgImporter extends MgImporter
 {
@@ -74,13 +75,21 @@ class WebumeniaMgImporter extends MgImporter
         'ze souboru' => 'zo súboru',
     ];
 
+    protected $locationMap = [
+        'UPM' => [
+            '211' => [
+                'B01' => 'Jaroslav Brychta a jeho vliv',
+            ]
+        ]
+    ];
+
     public function __construct(IFileRepository $repository, Translator $translator) {
         parent::__construct($repository, $translator);
 
-        $this->filters['with_iip'] = function (array $record) {
-            $image_filename_format = $this->getItemImageFilenameFormat($record);
-            return !empty($this->getImageJp2Paths($this->import, $this->csv_file['basename'], $image_filename_format));
-        };
+        // $this->filters['with_iip'] = function (array $record) {
+        //     $image_filename_format = $this->getItemImageFilenameFormat($record);
+        //     return !empty($this->getImageJp2Paths($this->import, $this->csv_file['basename'], $image_filename_format));
+        // };
 
         unset(
             $this->mapping['acquisition_date'],
@@ -165,6 +174,47 @@ class WebumeniaMgImporter extends MgImporter
         } else if ($locale === 'sk') {
             return strtr($measurement, static::$sk_measurement_replacements);
         }
+    }
 
+    protected function hydrateAdditionals(array $record) {
+        $additionals = [
+            'frontend' => ['sbirky.moravska-galerie.cz']
+        ];
+
+        $locations = $this->getLocations($record['AktLokace'] ?? null);
+        if ($locations) {
+            $additionals['location'] = $locations;
+        }
+
+        return $additionals;
+    }
+
+    protected function getLocations($location)
+    {
+        $exploded = explode('/', $location);
+        $locations = [];
+
+        if (count($exploded) >= 2 && $exploded[0] === 'UPM' && $exploded[1] === '211') {
+            $locations[] = 'LIGHT DEPO / Otevřený depozitář skla';
+
+            if (count($exploded) >= 3 && preg_match('/^B(?<number>\d+)$/', $exploded[2], $matches)) {
+                $boxLocation = sprintf('LIGHT DEPO / BOX %s', $matches['number']);
+
+                $key = implode('.', $exploded);
+                $title = Arr::get($this->locationMap, $key);
+
+                if ($title !== null) {
+                    $boxLocation = sprintf('%s – %s', $boxLocation, $title);
+                }
+
+                $locations[] = $boxLocation;
+            }
+        }
+
+        if ($locations) {
+            $locations[] = $location;
+        }
+
+        return $locations;
     }
 }
