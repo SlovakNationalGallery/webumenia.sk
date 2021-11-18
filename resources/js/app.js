@@ -23,6 +23,7 @@ require('jquery.easing')
 // Components
 require('./components/searchbar')
 require('./components/clipboard-button')
+require('./components/newsletter-signup-form-tracker')
 
 // Vue components
 import Vue from 'vue'

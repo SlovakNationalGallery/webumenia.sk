@@ -10,6 +10,11 @@ class NewsletterSignupFormBottomModal extends Component
 {
     public int $openOnScrolledPercent = 0;
 
+    public function onOpen()
+    {
+        $this->emit('trackNewsletterSignup', 'modalOpen');
+    }
+
     public function onDismissed()
     {
         Cookie::queue(
@@ -17,6 +22,7 @@ class NewsletterSignupFormBottomModal extends Component
              Date::now()->toIso8601String(),
              Date::now()->addDays(30)->diffInMinutes()
         );
+        $this->emit('trackNewsletterSignup', 'modalDismissed');
     }
 
     public function render()

@@ -1,12 +1,11 @@
 <livewire-vue-adaptor v-slot="lw">
     <user-interaction-context v-slot="interaction">
         <bottom-modal
-            {{-- TODO timer --}}
             :show="
                 interaction.maxScrolledPercent >= {{ $openOnScrolledPercent }}
-                && interaction.timeSpentSeconds >= 0
+                && interaction.timeSpentSeconds >= 30
             "
-            {{-- v-on:open="lw.call('trackOpen')" --}}
+            v-on:open="lw.call('onOpen')"
             v-on:close="lw.call('onDismissed')"
         >
             <div class="row py-5">
@@ -18,7 +17,7 @@
                     </svg>
                 </div>
                 <div class="col-lg-7 pr-0 pl-2">
-                    <livewire:newsletter-signup-form />
+                    <livewire:newsletter-signup-form variant="bottom-modal" />
                 </div>
             </div>
         </bottom-modal>
