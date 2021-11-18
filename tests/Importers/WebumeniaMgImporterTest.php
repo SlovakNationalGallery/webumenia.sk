@@ -174,6 +174,7 @@ class WebumeniaMgImporterTest extends TestCase
             'TechSpec' => $this->faker->sentence,
             'Technika' => $this->faker->text,
             'Skupina' => $this->faker->lexify('??'),
+            'Podskup' => $this->faker->word,
             'Služ' => $this->faker->text,
             'Okolnosti' => $this->faker->text,
             'Lomeni_S' => $this->faker->bothify('##?'),
