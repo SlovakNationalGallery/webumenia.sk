@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Importers;
-
 
 use App\Import;
 use App\Repositories\IFileRepository;
@@ -16,32 +14,7 @@ class WebumeniaMgImporter extends MgImporter
     /** @var array */
     protected $csv_file;
 
-    protected $mapping = [
-        'acquisition_date' => 'RokAkv',
-        'copyright_expires' => 'DatExp',
-        'dating:sk' => 'Datace',
-        'date_earliest' => 'RokOd',
-        'date_latest' => 'Do',
-        'place:sk' => 'MístoVz',
-        'inscription:sk' => 'Sign',
-        'state_edition:sk' => 'Původnost',
-        'author' => 'Autor',
-        'title:sk' => 'Titul',
-        'topic:sk' => 'Námět',
-    ];
-
-    protected $defaults = [
-        'author' => 'Neznámy autor',
-        'gallery:sk' => 'Moravská galerie, MG',
-        'title:sk' => 'bez názvu',
-        'topic:sk' => 'téma',
-        'relationship_type:sk' => 'typ vzťahu',
-        'description:sk' => '',
-        'work_level:sk' => '',
-        'subject:sk' => '',
-    ];
-
-    protected static $cz_work_types_spec = [
+    protected static $sk_work_types_spec = [
         'Ar' => 'architektúra',
         'Bi' => 'bibliofília a staré tlače',
         'Dř' => 'drevo, nábytok a dizajn',
@@ -59,42 +32,29 @@ class WebumeniaMgImporter extends MgImporter
         'Te' => 'textil',
     ];
 
-    protected static $cz_measurement_replacements = [
-        'a' => 'výška hlavnej časti',
-        'a.' => 'výška hlavnej časti',
-        'b' => 'výška vedľajšej časti',
-        'b.' => 'výška vedľajšej časti',
+    protected static $sk_measurement_replacements = [
+        'výška hlavní části' => 'výška hlavnej časti',
+        'výška vedlejší části' => 'výška vedľajšej časti',
         'čas' => 'čas',
-        'd' => 'dĺžka',
-        'd.' => 'dĺžka',
-        'h' => 'hĺbka/hrúbka',
-        'h.' => 'hĺbka/hrúbka',
-        'hmot' => 'hmotnosť',
-        'hmot.' => 'hmotnosť',
-        'hr' => 'hĺbka s rámom',
-        'jiný' => 'iný nešpecifikovaný',
-        'p' => 'priemer/ráž',
-        'p.' => 'priemer/ráž',
-        'r.' => 'ráž',
-        'ryz' => 'rýdzosť',
-        's' => 'šírka',
-        's.' => 'šírka',
-        'sd.' => 'šírka grafickej dosky',
-        'sp' => 'šírka s paspartou',
-        'sp.' => 'šírka s paspartou',
-        'sr' => 'šírka s rámom',
-        'v' => 'celková výška/dĺžka',
-        'v.' => 'celková výška/dĺžka',
-        'vd.' => 'výška grafickej dosky',
-        'vp' => 'výška s paspartou',
-        'vp.' => 'výška s paspartou',
-        'vr' => 'výška s rámom',
-        ';' => ';',
-        '=' => ' ',
-        'cm' => ' cm',
+        'délka' => 'dĺžka',
+        'hloubka/tloušťka' => 'hĺbka/hrúbka',
+        'hmotnost' => 'hmotnosť',
+        'hloubka s rámem' => 'hĺbka s rámom',
+        'jiný nespecifikovaný' => 'iný nešpecifikovaný',
+        'průměr/ráže' => 'priemer/ráž',
+        'ráže' => 'ráž',
+        'ryzost' => 'rýdzosť',
+        'šířka' => 'šírka',
+        'šířka grafické desky' => 'šírka grafickej dosky',
+        'šířka s paspartou' => 'šírka s paspartou',
+        'šířka s rámem' => 'šírka s rámom',
+        'celková výška/délka' => 'celková výška/dĺžka',
+        'výška grafické desky' => 'výška grafickej dosky',
+        'výška s paspartou' => 'výška s paspartou',
+        'výška s rámem' => 'výška s rámom',
     ];
 
-    protected static $cz_technique_replacements = [
+    protected static $sk_technique_replacements = [
         'tužka' => 'ceruza',
         'zlacení' => 'zlátenie',
         'litografie' => 'litografia',
@@ -110,6 +70,10 @@ class WebumeniaMgImporter extends MgImporter
         'kresba perem, lavírování' => 'pero, lavírovanie',
     ];
 
+    protected static $sk_relationship_type_replacements = [
+        'ze souboru' => 'zo súboru',
+    ];
+
     public function __construct(IFileRepository $repository, Translator $translator) {
         parent::__construct($repository, $translator);
 
@@ -118,7 +82,29 @@ class WebumeniaMgImporter extends MgImporter
             return !empty($this->getImageJp2Paths($this->import, $this->csv_file['basename'], $image_filename_format));
         };
 
-        unset($this->mapping['RokAkv'], $this->mapping['DatExp']);
+        unset(
+            $this->mapping['acquisition_date'],
+            $this->mapping['copyright_expires']
+        );
+
+        $this->mapping += [
+            'dating:sk' => 'Datace',
+            'inscription:sk' => 'Sign',
+            'place:sk' => 'MístoVz',
+            'title:sk' => 'Titul',
+            'topic:sk' => 'Námět',
+            'state_edition:sk' => 'Původnost',
+        ];
+
+        $this->defaults += [
+            'gallery:sk' => 'Moravská galerie, MG',
+            'title:sk' => 'bez názvu',
+            'topic:sk' => 'téma',
+            'relationship_type:sk' => 'typ vzťahu',
+            'description:sk' => '',
+            'work_level:sk' => '',
+            'subject:sk' => '',
+        ];
     }
 
     public function import(Import $import, array $file) {
@@ -127,17 +113,58 @@ class WebumeniaMgImporter extends MgImporter
         return parent::import($import, $file);
     }
 
-    protected function hydrateTechnique(array $record) {
+    protected function hydrateTitle(array $record, $locale = null) {
+        if ($locale === 'cs' || $locale === 'sk') {
+            return parent::hydrateTitle($record);
+        }
+    }
+
+    protected function hydrateMedium(array $record, $locale = null) {
+        if ($locale === 'cs' || $locale === 'sk') {
+            return parent::hydrateMedium($record);
+        }
+    }
+
+    protected function hydrateTechnique(array $record, $locale = null) {
         $technique = parent::hydrateTechnique($record);
-        return strtr($technique, static::$cz_technique_replacements);
+        if ($locale === 'cs') {
+            return $technique;
+        } else if ($locale === 'sk') {
+            return strtr($technique, static::$sk_technique_replacements);
+        }
     }
 
-    protected function hydrateWorkType(array $record) {
-        return (isset(static::$cz_work_types_spec[$record['Skupina']])) ? static::$cz_work_types_spec[$record['Skupina']] : '';
+    protected function hydrateWorkType(array $record, $locale = null) {
+        if ($locale === 'cs') {
+            return parent::hydrateWorkType($record);
+        } else if ($locale === 'sk') {
+            return isset(static::$sk_work_types_spec[$record['Skupina']]) ? static::$sk_work_types_spec[$record['Skupina']] : '';
+        }
     }
 
-    protected function hydrateRelationshipType(array $record) {
-        return self::isBiennial($record) ? 'zo súboru' : '';
+    protected function hydrateRelationshipType(array $record, $locale = null) {
+        $relationshipType = parent::hydrateRelationshipType($record);
+        if ($locale === 'cs') {
+            return $relationshipType;
+        } else if ($locale === 'sk') {
+            return strtr($relationshipType, static::$sk_relationship_type_replacements);
+        }
     }
 
+    protected function hydrateRelatedWork(array $record, $locale = null) {
+        $relatedWork = parent::hydrateRelatedWork($record);
+        if ($locale === 'cs' || $locale === 'sk') {
+            return $relatedWork;
+        }
+    }
+
+    protected function hydrateMeasurement(array $record, $locale = null) {
+        $measurement = parent::hydrateMeasurement($record);
+        if ($locale === 'cs') {
+            return $measurement;
+        } else if ($locale === 'sk') {
+            return strtr($measurement, static::$sk_measurement_replacements);
+        }
+
+    }
 }

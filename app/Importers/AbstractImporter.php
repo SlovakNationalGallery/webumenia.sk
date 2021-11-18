@@ -290,14 +290,19 @@ abstract class AbstractImporter implements IImporter {
             $image_filename_format
         ));
 
-        return glob($path, GLOB_BRACE);
+        $paths = glob($path, GLOB_BRACE);
+
+        usort($paths, function ($a, $b) {
+            return filemtime($a) - filemtime($b);
+        });
+
+        return $paths;
     }
 
     /**
      * @param Import $import
      * @param string $csv_filename
      * @param string $image_filename_format
-     * @return string
      */
     protected function getImageJp2Paths(Import $import, $csv_filename, $image_filename_format) {
         $path = sprintf(
@@ -308,7 +313,13 @@ abstract class AbstractImporter implements IImporter {
             $image_filename_format
         );
 
-        return glob($path, GLOB_BRACE);
+        $paths = glob($path, GLOB_BRACE);
+
+        usort($paths, function ($a, $b) {
+            return filemtime($a) - filemtime($b);
+        });
+
+        return $paths;
     }
 
     /**

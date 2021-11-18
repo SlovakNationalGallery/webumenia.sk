@@ -18,28 +18,26 @@ class MgImporter extends AbstractImporter {
     ];
 
     protected $mapping = [
+        'author' => 'Autor',
         'acquisition_date' => 'RokAkv',
         'copyright_expires' => 'DatExp',
-        'dating:cs' => 'Datace',
         'date_earliest' => 'RokOd',
         'date_latest' => 'Do',
-        'place:cs' => 'MístoVz',
+        'dating:cs' => 'Datace',
         'inscription:cs' => 'Sign',
+        'place:cs' => 'MístoVz',
         'state_edition:cs' => 'Původnost',
-        'author' => 'Autor',
-        'title:cs' => 'Titul',
         'topic:cs' => 'Námět',
     ];
 
     protected $defaults = [
         'author' => 'neurčený autor',
-        'gallery:cs' => 'Moravská galerie, MG',
-        'title:cs' => 'bez názvu',
-        'topic:cs' => '',
-        'relationship_type:cs' => '',
         'description:cs' => '',
-        'work_level:cs' => '',
+        'gallery:cs' => 'Moravská galerie, MG',
+        'relationship_type:cs' => '',
         'subject:cs' => '',
+        'topic:cs' => '',
+        'work_level:cs' => '',
     ];
 
     protected static $cz_work_types_spec = [
@@ -136,6 +134,16 @@ class MgImporter extends AbstractImporter {
         return $identifier;
     }
 
+    protected function hydrateTitle(array $record) {
+        if ($record['Titul'] !== null) {
+            return $record['Titul'];
+        } else if ($record['Předmět'] !== null) {
+            return $record['Předmět'];
+        } else {
+            return 'bez názvu';
+        }
+    }
+
     protected function hydrateMedium(array $record) {
         return isset($record['Materiál']) && isset($record['MatSpec']) ? ($record['Materiál'] . ', ' . $record['MatSpec']) : $record['Materiál'];
     }
@@ -145,7 +153,17 @@ class MgImporter extends AbstractImporter {
     }
 
     protected function hydrateWorkType(array $record) {
-        return (isset(static::$cz_work_types_spec[$record['Skupina']])) ? static::$cz_work_types_spec[$record['Skupina']] : 'nespecifikované';
+        $workType = [];
+
+        if (isset(static::$cz_work_types_spec[$record['Skupina']])) {
+            $workType[] = static::$cz_work_types_spec[$record['Skupina']];
+        }
+
+        if ($record['Podskup']) {
+            $workType[] = $record['Podskup'];
+        }
+
+        return $workType ? implode(', ', $workType) : 'nespecifikované';
     }
 
     protected function hydrateRelationshipType(array $record) {
