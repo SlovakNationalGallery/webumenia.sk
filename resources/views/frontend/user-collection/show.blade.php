@@ -18,9 +18,7 @@
                 @if($items->isNotEmpty())
                     <p>{{ trans('user-collection.content-intro') }}</p>
                     <p>{{ trans('user-collection.content-usage') }}</p>
-                    @if (Experiment::is('WEBUMENIA-1654-shared-user-collections-with-scena'))
-                        <p>{{ trans('user-collection.share-info') }}</p>
-                    @endif
+                    <p>{{ trans('user-collection.share-info') }}</p>
                 @else
                     <p class="alert alert-info text-center">{{ trans('user-collection.empty') }}</p>
                 @endif
@@ -29,7 +27,6 @@
     </div>
 </div>
 
-@if (Experiment::is('WEBUMENIA-1654-shared-user-collections-with-scena'))
 <user-collections-store v-slot="store">
     <div :class="{ 'bg-gray-300': store.sharedCollections.present }" class="mt-5 py-5">
         <div class="container">
@@ -65,7 +62,6 @@
         </div>
     </div>
 </user-collections-store>
-@endif
 
 <div class="container">
     @unless($items->isEmpty())
