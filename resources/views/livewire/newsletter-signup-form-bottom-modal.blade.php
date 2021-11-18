@@ -1,15 +1,13 @@
-<user-interaction-context v-slot="interaction">
-    <newsletter-signup-modal-controller
-        {{-- TODO timeSpent --}}
-        :interaction-threshold-met="
-            interaction.timeSpentSeconds >= 0
-            && interaction.maxScrolledPercent >= {{ $openOnScrolledPercent }}
-        "
-        v-slot="controller"
-    >
+<livewire-vue-adaptor v-slot="lw">
+    <user-interaction-context v-slot="interaction">
         <bottom-modal
-            :show="controller.show"
-            v-on:close="controller.trackClosed"
+            {{-- TODO timer --}}
+            :show="
+                interaction.maxScrolledPercent >= {{ $openOnScrolledPercent }}
+                && interaction.timeSpentSeconds >= 0
+            "
+            {{-- v-on:open="lw.call('trackOpen')" --}}
+            v-on:close="lw.call('onDismissed')"
         >
             <div class="row py-5">
                 <div class="visible-lg-block col-lg-1 col-lg-offset-2 text-right pl-0 pt-4">
@@ -24,5 +22,5 @@
                 </div>
             </div>
         </bottom-modal>
-    </newsletter-signup-modal-interaction-context>
-</user-interaction-context>
+    </user-interaction-context>
+</livewire-vue-adaptor>
