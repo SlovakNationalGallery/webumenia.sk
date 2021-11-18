@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class Locale
+class AcceptLanguage
 {
     /**
      * Handle an incoming request.
@@ -16,7 +16,7 @@ class Locale
      */
     public function handle(Request $request, Closure $next)
     {
-        $locale = $request->get('locale');
+        $locale = $request->header('Accept-Language');
         if (in_array($locale, config('translatable.locales'), true)) {
             app()->setLocale($locale);
         }
