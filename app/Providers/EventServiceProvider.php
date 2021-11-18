@@ -35,5 +35,8 @@ class EventServiceProvider extends ServiceProvider
     {
         Authority::observe(AuthorityObserver::class);
         Item::observe(ItemObserver::class);
+
+        // disable scout observers
+        Item::disableSearchSyncing();
     }
 }
