@@ -26,6 +26,7 @@ require('./components/clipboard-button')
 
 // Vue components
 import Vue from 'vue'
+import 'livewire-vue'
 import { Lang } from 'laravel-vue-lang';
 
 window.Vue = Vue
