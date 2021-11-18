@@ -171,7 +171,7 @@
     </div>
 </section>
 
-<x-newsletter-signup-form-bottom-modal open-on-percent-scrolled="30" />
+<x-newsletter-signup-form-bottom-modal open-on-scrolled-percent="30" />
 @stop
 
 @section('javascript')

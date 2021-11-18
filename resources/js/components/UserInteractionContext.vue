@@ -1,6 +1,6 @@
 <template>
     <div @scroll="onScroll">
-        <slot :maxPercentScrolled="maxPercentScrolled" :timeSpent="timeSpent"></slot>
+        <slot :maxScrolledPercent="maxScrolledPercent" :timeSpentSeconds="timeSpent"></slot>
     </div>
 </template>
 
@@ -12,7 +12,7 @@ const TimeSpentRefreshRate = 5; // seconds
 export default {
     data() {
         return {
-            maxPercentScrolled: 0,
+            maxScrolledPercent: 0,
             timeSpent: 0,
         }
     },
@@ -30,7 +30,7 @@ export default {
     methods: {
         onScroll(event) {
             const percentScrolled = Math.floor(window.scrollY / (document.body.scrollHeight - document.body.clientHeight) * 100)
-            this.maxPercentScrolled = Math.max(this.maxPercentScrolled, percentScrolled);
+            this.maxScrolledPercent = Math.max(this.maxScrolledPercent, percentScrolled);
         },
         updateTimeSpent() {
             this.timeSpent += TimeSpentRefreshRate;

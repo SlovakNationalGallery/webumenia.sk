@@ -124,7 +124,7 @@
     </div>
 </section>
 
-<x-newsletter-signup-form-bottom-modal open-on-percent-scrolled="40" />
+<x-newsletter-signup-form-bottom-modal open-on-scrolled-percent="40" />
 
 {{--
 mapa??

@@ -1,12 +1,15 @@
-<user-interaction-context v-slot="ic">
-    <newsletter-signup-modal-interaction-context v-slot="nc">
+<user-interaction-context v-slot="interaction">
+    <newsletter-signup-modal-controller
+        {{-- TODO timeSpent --}}
+        :interaction-threshold-met="
+            interaction.timeSpentSeconds >= 0
+            && interaction.maxScrolledPercent >= {{ $openOnScrolledPercent }}
+        "
+        v-slot="controller"
+    >
         <bottom-modal
-            :show="
-                ic.maxPercentScrolled > {{ $openOnPercentScrolled }}
-                && ic.timeSpent >= 0
-                && !nc.wasPreviouslyDismissed
-            "
-            v-on:close="nc.recordDismissed"
+            :show="controller.show"
+            v-on:close="controller.trackClosed"
         >
             <div class="row py-5">
                 <div class="visible-lg-block col-lg-1 col-lg-offset-2 text-right pl-0 pt-4">

@@ -2,21 +2,20 @@
 
 namespace App\View\Components;
 
-use Illuminate\Support\Arr;
 use Illuminate\View\Component;
 
 class NewsletterSignupFormBottomModal extends Component
 {
-    public int $openOnPercentScrolled;
+    public int $openOnScrolledPercent;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($openOnPercentScrolled = 0)
+    public function __construct($openOnScrolledPercent = 0)
     {
-        $this->openOnPercentScrolled = $openOnPercentScrolled;
+        $this->openOnScrolledPercent = $openOnScrolledPercent;
     }
 
     /**
