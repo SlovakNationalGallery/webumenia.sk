@@ -51,11 +51,6 @@ function()
         AuthorityRepository $authorityRepository,
         ItemRepository $itemRepository
     ) {
-        if (Request::query('experiment') === 'zdielane-kolekcie') {
-            Experiment::set('WEBUMENIA-1654-shared-user-collections-with-scena');
-            Session::put('scena_ai_key', 'i0qdg30b3g0z');
-        }
-
         $choices = [
             [
                 trans('intro.from_galleries_start'),
