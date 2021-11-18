@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\View\Component;
 
 class NewsletterSignupFormBottomModal extends Component
@@ -25,6 +26,7 @@ class NewsletterSignupFormBottomModal extends Component
      */
     public function render()
     {
+        if (Cookie::has('newsletterSubscribedAt')) return '';
         return view('components.newsletter-signup-form-bottom-modal');
     }
 }
