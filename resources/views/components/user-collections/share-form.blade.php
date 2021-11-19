@@ -69,8 +69,6 @@
                         <div class="col-md-10 col-md-offset-1 mt-3">
                             <copy-to-clipboard-group
                                 value="{{ route('frontend.shared-user-collections.show', $collection) }}"
-                                button-label="{{ trans('general.copy_link') }}"
-                                success-text="{{ trans('general.copied_to_clipboard') }}"
                             ></copy-to-clipboard-group>
                         </div>
                     </div>
