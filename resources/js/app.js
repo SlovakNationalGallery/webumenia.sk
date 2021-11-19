@@ -25,7 +25,11 @@ require('./components/searchbar')
 require('./components/clipboard-button')
 
 // Vue components
-window.Vue = require('vue').default
+import Vue from 'vue'
+import { Lang } from 'laravel-vue-lang';
+
+window.Vue = Vue
+Vue.use(Lang, { fallback: 'sk' })
 
 Vue.component('filter-sort-by', require('./components/filter/SortBy.vue').default);
 Vue.component('filter-checkbox', require('./components/filter/Checkbox.vue').default);
@@ -42,7 +46,6 @@ Vue.component('year-slider', require('./components/YearSlider.vue').default);
 Vue.component('inline-input', require('./components/InlineInput.vue').default);
 Vue.component('copy-to-clipboard-group', require('./components/CopyToClipboardGroup.vue').default);
 Vue.component('copy-to-clipboard-link', require('./components/CopyToClipboardLink.vue').default);
-
 Vue.component('slider', require('./components/vue/slider').default);
 Vue.component('color-slider', require('./components/vue/color-slider').default);
 
