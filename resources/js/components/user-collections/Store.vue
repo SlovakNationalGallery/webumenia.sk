@@ -1,6 +1,6 @@
 <template>
     <div>
-        <slot :sharedCollections="sharedCollections" ></slot>
+        <slot :sharedCollections="sharedCollections" :items="items"></slot>
     </div>
 </template>
 
@@ -18,6 +18,14 @@ export default {
             return {
                 all: collections,
                 present: collections.length > 0,
+            }
+        },
+        items() {
+            const items = this.store.getItems()
+
+            return {
+                all: items,
+                present: items.length > 0,
             }
         },
     }
