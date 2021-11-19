@@ -20,7 +20,11 @@
                     <p>{{ trans('user-collection.content-usage') }}</p>
                     <p>{{ trans('user-collection.share-info') }}</p>
                 @else
-                    <p class="alert alert-info text-center">{{ trans('user-collection.empty') }}</p>
+                    <div class="text-center text-muted">
+                        <p>{{ trans('user-collection.empty') }}</p>
+                        <img src="{{ asset('/images/no-image/diela/no-image-o.jpg') }}" class="w-50" />
+                        <p>{{ trans('user-collection.empty_hint') }} <i class="fa fa-star-o"></i>.</p>
+                    </div>
                 @endif
             </div>
         </div>
@@ -49,7 +53,7 @@
                 </div>
             </template>
 
-            <div class="text-center mt-5">
+            <div v-if="store.items.present" v-cloak class="text-center mt-5">
                 <a class="btn btn-dark font-light p-3 px-5" href="{{ route('frontend.shared-user-collections.create', ['ids' => request()->ids ] ) }}">
                     {{ trans('user-collection.share') }}
                 </a>
