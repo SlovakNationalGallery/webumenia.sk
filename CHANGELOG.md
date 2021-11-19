@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- laravel-vue-lang to use lang files in Vue
 ## [2.34.0] - 2021-11-12
 ### Changed
 - shared user collections to show in favourites
