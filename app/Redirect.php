@@ -15,6 +15,12 @@ class Redirect extends Model
         'is_enabled',
     ];
 
+    public static $rules = [
+        'source_url' => 'required|unique:redirects',
+        'target_url' => 'required',
+        'is_enabled' => 'boolean',
+    ];
+
     public function scopeEnabled($query)
     {
         $query->where('is_enabled', 1);

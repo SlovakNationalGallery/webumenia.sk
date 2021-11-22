@@ -122,6 +122,11 @@
                         @endcan
                         @can('administer')
                         <li>
+                            <a href="{!! URL::to('redirects') !!}"><i class="fa   fa-external-link fa-fw"></i> Presmerovania</a>
+                        </li>
+                        @endcan
+                        @can('administer')
+                        <li>
                             <a href="#"><i class="fa fa-download fa-fw"></i> Import<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
