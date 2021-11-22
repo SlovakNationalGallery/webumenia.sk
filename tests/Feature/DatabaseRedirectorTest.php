@@ -22,7 +22,7 @@ class DatabaseRedirectorTest extends TestCase
         $redirect = factory(Redirect::class)->create();
 
         $this->get($redirect->source_url)
-            ->assertStatus(Response::HTTP_MOVED_PERMANENTLY)
+            ->assertStatus(Response::HTTP_FOUND)
             ->assertRedirect($redirect->target_url);
     }
 }
