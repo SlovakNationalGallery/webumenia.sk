@@ -8,7 +8,6 @@
 export default {
     props: {
         value: String,
-        successText: String,
     },
     methods: {
         tooltip(command) {
@@ -28,7 +27,7 @@ export default {
         this.tooltip({
             trigger: 'manual',
             container: 'body',
-            title: this.successText,
+            title: this.__('general.copied_to_clipboard'),
         })
     },
     beforeDestroy() {

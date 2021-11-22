@@ -11,10 +11,9 @@
         <span class="input-group-btn">
             <copy-to-clipboard-link
                 :value="value"
-                :successText="successText"
                 class="btn btn-dark btn-sm font-light"
             >
-                {{ buttonLabel }}
+                {{ __('general.copy_link') }}
                 <i class="fa fa-link ml-2"></i>
             </copy-to-clipboard-link>
         </span>
@@ -30,8 +29,6 @@ export default {
     },
     props: {
         value: String,
-        buttonLabel: String,
-        successText: String,
     },
 }
 </script>

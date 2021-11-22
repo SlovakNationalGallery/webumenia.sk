@@ -6,13 +6,6 @@ return [
         'started' => 'Zahájeno',
         'progress' => 'Zpracováva se (:current/:total)',
         'error' => ':error',
-        'completed' =>
-            'Zpracovaných záznamů: :processed' . PHP_EOL .
-            ':created nových' . PHP_EOL .
-            ':updated upravených' . PHP_EOL .
-            ':deleted smazaných' . PHP_EOL .
-            ':skipped přeskočených' . PHP_EOL .
-            ':failed selhalo.' . PHP_EOL .
-            'Trvalo to :time s',
+        'completed' => "Zpracovaných záznamů: :processed\n:created nových\n:updated upravených\n:deleted smazaných\n:skipped přeskočených\n:failed selhalo.\nTrvalo to :time s",
     ],
 ];

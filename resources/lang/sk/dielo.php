@@ -41,7 +41,7 @@ return array(
     'more-items_similar-colors' => 'diela s podobnými farbami',
 
     'modal_license_body-content'        => '<p><strong>Vami zvolené dielo by sa malo začať v krátkom čase automaticky sťahovať.</strong></p>
-                                            <p>Digitálne reprodukcie voľných diel na tejto stránke sú sprístupnené ako <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" class="underline">verejné vlastníctvo (public domain)</a>. Môžete si ich voľne stiahnuť vo vysokom rozlíšení a využívať na súkromné aj komerné účely &ndash; kopírovať, zdieľať i upravovať.</p>
+                                            <p>Digitálne reprodukcie voľných diel na tejto stránke sú sprístupnené ako <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" class="underline">verejné vlastníctvo (public domain)</a>. Môžete si ich voľne stiahnuť vo vysokom rozlíšení a využívať na súkromné aj komerčné účely &ndash; kopírovať, zdieľať i upravovať.</p>
                                             <p>Pri ďalšom šírení prosíme uviesť meno autora, názov, majiteľa diela a zdroj <code>:item_url</code></p>
                                             <p>Ak plánujete využiť reprodukcie na komerčné účely, prosím informujte nás o vašich plánoch vopred, naši odborníci vám vedia poradiť.</p>
                                             <p><a class="underline" href=":free_url">Všetky voľne stiahnuteľné diela nájdete tu.</a></p>',

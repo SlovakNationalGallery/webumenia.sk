@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+require('laravel-vue-lang/mix');
 
 /*
  |--------------------------------------------------------------------------
@@ -27,6 +28,7 @@ mix
         'jquery',
         'jquery-bridget',
         'jquery.easing',
+        'laravel-vue-lang',
         'lazysizes',
         'lazysizes/plugins/unveilhooks/ls.unveilhooks',
         'lazysizes/plugins/respimg/ls.respimg',
@@ -35,6 +37,7 @@ mix
         'vue-select',
         'vue',
     ])
+    .lang()
 
     // CSS
     .less('resources/less/admin.less', 'public/css')
