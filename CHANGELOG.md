@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+## [2.35.0] - 2021-11-22
 ### Changed
 - shared user collections to show publicly
 
