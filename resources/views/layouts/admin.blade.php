@@ -122,7 +122,7 @@
                         @endcan
                         @can('administer')
                         <li>
-                            <a href="{!! URL::to('redirects') !!}"><i class="fa   fa-external-link fa-fw"></i> Presmerovania</a>
+                            <a href="{!! route('redirects.index') !!}"><i class="fa fa-external-link fa-fw"></i> Presmerovania</a>
                         </li>
                         @endcan
                         @can('administer')
