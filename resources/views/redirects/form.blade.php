@@ -64,7 +64,11 @@ presmerovanie |
 <hr>
 <div class="text-center small">
 	URL vpisovať v relatívnom tvare + je možné používať paramtre
-    (<a class="small" href="https://laravel.com/docs/routing#route-parameters" target="_blank">dokumentácia</a>)
+    (<a class="small" href="https://laravel.com/docs/routing#route-parameters" target="_blank">dokumentácia</a>)<br>
+    napr.
+    <code>/retart</code> <i class="fa fa-arrow-right"></i> <code>/katalog?tag=retart</code><br>
+    alebo<br>
+    <code>/old-blog/{slug}</code> <i class="fa fa-arrow-right"></i> <code>/new-blog/{slug}</code>
 </div>
 
 
