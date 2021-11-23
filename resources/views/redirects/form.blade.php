@@ -39,7 +39,7 @@ presmerovanie |
 
 <div class="col-md-12">
 	<div class="form-group">
-	{!! Form::label('target_url', 'Cielová URL') !!}
+	{!! Form::label('target_url', 'Cieľová URL') !!}
 	{!! Form::text('target_url', Request::old('target_url'), array('class' => 'form-control')) !!}
 	</div>
 </div>
@@ -64,10 +64,10 @@ presmerovanie |
 <hr>
 <div class="text-center small">
 	URL vpisovať v relatívnom tvare + je možné používať paramtre
-    (<a class="small" href="https://laravel.com/docs/routing#route-parameters" target="_blank">dokumentácia</a>)<br>
+    (<a class="small" href="https://github.com/spatie/laravel-missing-page-redirector#usage" target="_blank">dokumentácia</a>)<br>
     napr.
-    <code>/retart</code> <i class="fa fa-arrow-right"></i> <code>/katalog?tag=retart</code><br>
-    alebo<br>
+    <code>/retart</code> <i class="fa fa-arrow-right"></i> <code>/katalog?tag=retart</code>
+    alebo
     <code>/old-blog/{slug}</code> <i class="fa fa-arrow-right"></i> <code>/new-blog/{slug}</code>
 </div>
 

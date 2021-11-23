@@ -1,6 +1,5 @@
 <?php namespace App\Providers;
 
-use App\Authority;
 use App\Elasticsearch\Repositories\AuthorityRepository;
 use App\Elasticsearch\Repositories\ItemRepository;
 use App\Filter\Forms\Types\AuthoritySearchRequestType;
@@ -9,9 +8,6 @@ use App\Filter\Generators\AuthorityTitleGenerator;
 use App\Filter\Generators\ItemTitleGenerator;
 use App\Harvest\Importers\ItemImporter;
 use App\Harvest\Mappers\BaseAuthorityMapper;
-use App\Item;
-use App\Observers\AuthorityObserver;
-use App\Observers\ItemObserver;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -58,9 +54,6 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        Authority::observe(AuthorityObserver::class);
-        Item::observe(ItemObserver::class);
-
         Paginator::useBootstrap();
 
         Blade::directive('date', function ($expression) {
