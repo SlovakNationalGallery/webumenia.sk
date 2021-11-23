@@ -37,6 +37,8 @@ class RedirectController extends Controller
     public function update(Request $request, Redirect $redirect)
     {
         $rules = Redirect::$rules;
+        // validation unique source_url to ignore current redirect ID
+        // https://stackoverflow.com/a/27194281/2660740
         $rules['source_url'] = $rules['source_url'] . ',source_url,' . $redirect->id;
 
         $request->validate($rules);
