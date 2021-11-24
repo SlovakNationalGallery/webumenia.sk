@@ -560,15 +560,14 @@ class Item extends Model
                     return preg_replace($pattern, $replacement, $this->location);
                 }
             })
-            ->values()
             ->filter()
-            ->toArray();
+            ->values();
 
-        if ($locations) {
-            $locations[] = $this->location;
+        if (!$locations->isEmpty()) {
+            $locations->push($this->location);
         }
 
-        return $locations;
+        return $locations->toArray();
     }
 
     public function setLat($value)
