@@ -371,6 +371,30 @@ class CatalogController extends Controller
 
         $slides = collect([
             new \App\Slide([
+                'title' => 'Design<br>2000+',
+                'subtitle' => '',
+                'image_path' => null,
+                'url' => '/katalog?location=Design+2000%2B',
+            ]),
+            new \App\Slide([
+                'title' => 'Fashion<br>2000+',
+                'subtitle' => '',
+                'image_path' => null,
+                'url' => '/katalog?location=Fashion+2000%2B',
+            ]),
+            new \App\Slide([
+                'title' => 'Jeskyně:<br>Panorama designu',
+                'subtitle' => '',
+                'image_path' => null,
+                'url' => '/katalog?location=Jeskyně%3A+Panorama+designu',
+            ]),
+            new \App\Slide([
+                'title' => '<br>Postmoderna',
+                'subtitle' => '',
+                'image_path' => null,
+                'url' => '/katalog?location=Postmoderna',
+            ]),
+            new \App\Slide([
                 'title' => 'Archiv<br>a sbírka<br>Jiřího<br>Valocha',
                 'subtitle' => '',
                 'image_path' => asset('images/mg/intro/archiv-jiriho-valocha.jpg'),
