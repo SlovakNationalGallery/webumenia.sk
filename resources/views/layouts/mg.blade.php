@@ -146,6 +146,33 @@
   {!! Html::script('js/typeahead.bundle.min.js') !!}
   {!! Html::script('js/mg.js') !!}
 
+  <script>
+  (function() {
+    var redirectUrl = localStorage.getItem('redirectUrl');
+    console.log(redirectUrl);
+    if (redirectUrl) {
+      var idleDurationSecs = 5;
+      var idleTimeout;
+      var resetIdleTimeout = function() {
+        if (idleTimeout) clearTimeout(idleTimeout);
+        idleTimeout = setTimeout(
+          function () {
+            if (location.href !== redirectUrl) {
+              location.href = redirectUrl
+            }
+          },
+          idleDurationSecs * 1000
+        );
+      };
+      resetIdleTimeout();
+      var evts = ['click', 'touchstart', 'mousemove'];
+      for (var i in evts) {
+        document.addEventListener(evts[i], resetIdleTimeout, false)
+      }
+    }
+  })();
+  </script>
+
   @if (App::environment('production'))
     {{--<script>--}}
       {{--function initializeSearchD() {--}}

@@ -327,9 +327,16 @@ $(document).ready(function(){
         $.get('/slideClicked', {'id': id});
 
     });
-
-
 });
 
 </script>
+
+@if (request()->input('tablet') !== null)
+<script>
+(function() {
+    localStorage.setItem('redirectUrl', location)
+})();
+</script>
+@endif
+
 @stop
