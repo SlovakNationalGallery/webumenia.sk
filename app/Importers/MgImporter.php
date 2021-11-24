@@ -28,6 +28,7 @@ class MgImporter extends AbstractImporter {
         'Autor' => 'author',
         'Námět' => 'topic',
         'AktLokace' => 'location',
+        'Popis' => 'description',
     ];
 
     protected $defaults = [
