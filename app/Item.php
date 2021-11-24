@@ -543,25 +543,26 @@ class Item extends Model
 
     public function getLocationsAttribute()
     {
-        $exploded = explode('/', $this->location);
-        $locations = [];
-
-        if (count($exploded) >= 2 && $exploded[0] === 'UPM' && $exploded[1] === '211') {
-            $locations[] = 'LIGHT DEPO / Otevřený depozitář skla';
-
-            if (count($exploded) >= 3 && preg_match('/^B(?<number>\d+)$/', $exploded[2], $matches)) {
-                $box_location = sprintf('LIGHT DEPO / BOX %s', $matches['number']);
-
-                $key = implode('.', $exploded);
-                $title = array_get($this->locationMap, $key);
-
-                if ($title !== null) {
-                    $box_location = sprintf('%s – %s', $box_location, $title);
+        $locations =
+            collect([
+                '#^UPM/211/.*#' => 'LIGHT DEPO',
+                '#^UPM/211/B(\d+)/.*#' => 'LIGHT DEPO / BOX $1',
+                '#^UPM/210/.*#' => 'BLACK DEPO',
+                '#^UPM/210/([A-Z])/(\d+)/.*#' => 'BLACK DEPO / BOX $1$2',
+                '#^UPM/110/.*#' => 'JESKYNĚ: PANORAMA DESIGNU',
+                '#^UPM/203/D/.*#' => 'DESIGN 2000+',
+                '#^UPM/203/D/(.*?)/.*#' => 'DESIGN 2000+ / $1',
+                '#^UPM/204/.*#' => 'FASHION 2000+',
+                '#^UPM/203/POSTMODERNA$#' => 'POSTMODERNA',
+            ])
+            ->map(function ($replacement, $pattern) {
+                if (preg_match($pattern, $this->location)) {
+                    return preg_replace($pattern, $replacement, $this->location);
                 }
-
-                $locations[] = $box_location;
-            }
-        }
+            })
+            ->values()
+            ->filter()
+            ->toArray();
 
         if ($locations) {
             $locations[] = $this->location;
