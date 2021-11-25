@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - Newsletter signup modal and inline form
 
+### Fixed
+- "alternate" hreflangs not referencing each other
+
 ## [2.35.0] - 2021-11-22
 ### Changed
 - shared user collections to show publicly
