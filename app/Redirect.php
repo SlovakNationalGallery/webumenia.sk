@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Redirect extends Model
 {
@@ -20,6 +21,16 @@ class Redirect extends Model
         'target_url' => 'required',
         'is_enabled' => 'boolean',
     ];
+
+    protected static function booted()
+    {
+        static::saved(function () {
+            Cache::forget('redirects');
+        });
+        static::deleted(function () {
+            Cache::forget('redirects');
+        });
+    }
 
     public function scopeEnabled($query)
     {
