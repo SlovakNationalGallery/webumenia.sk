@@ -370,42 +370,42 @@ class CatalogController extends Controller
         $last_query = end($queries);
 
         $slides = collect([
-            new \App\Slide([
-                'title' => 'Light<br>Depo',
-                'subtitle' => '',
-                'image_path' => asset('images/mg/intro/LightDepo.jpg'),
-                'url' => '/katalog?location=LIGHT+DEPO',
-            ]),
-            new \App\Slide([
-                'title' => 'Black<br>Depo',
-                'subtitle' => '',
-                'image_path' => asset('images/mg/intro/BlackDepo.jpg'),
-                'url' => '/katalog?location=BLACK+DEPO',
-            ]),
-            new \App\Slide([
-                'title' => 'Design<br>2000+',
-                'subtitle' => '',
-                'image_path' => asset('images/mg/intro/Design2000.jpg'),
-                'url' => '/katalog?location=Design+2000%2B',
-            ]),
-            new \App\Slide([
-                'title' => 'Fashion<br>2000+',
-                'subtitle' => '',
-                'image_path' => asset('images/mg/intro/Fashion2000.jpg'),
-                'url' => '/katalog?location=Fashion+2000%2B',
-            ]),
-            new \App\Slide([
-                'title' => 'Jeskyně:<br>Panorama designu',
-                'subtitle' => '',
-                'image_path' => asset('images/mg/intro/Jeskyne.jpg'),
-                'url' => '/katalog?location=Jeskyně%3A+Panorama+designu',
-            ]),
-            new \App\Slide([
-                'title' => '<br>Postmoderna',
-                'subtitle' => '',
-                'image_path' => asset('images/mg/intro/Postmoderna.jpg'),
-                'url' => '/katalog?location=Postmoderna',
-            ]),
+            // new \App\Slide([
+            //     'title' => 'Light<br>Depo',
+            //     'subtitle' => '',
+            //     'image_path' => asset('images/mg/intro/LightDepo.jpg'),
+            //     'url' => '/katalog?location=LIGHT+DEPO',
+            // ]),
+            // new \App\Slide([
+            //     'title' => 'Black<br>Depo',
+            //     'subtitle' => '',
+            //     'image_path' => asset('images/mg/intro/BlackDepo.jpg'),
+            //     'url' => '/katalog?location=BLACK+DEPO',
+            // ]),
+            // new \App\Slide([
+            //     'title' => 'Design<br>2000+',
+            //     'subtitle' => '',
+            //     'image_path' => asset('images/mg/intro/Design2000.jpg'),
+            //     'url' => '/katalog?location=Design+2000%2B',
+            // ]),
+            // new \App\Slide([
+            //     'title' => 'Fashion<br>2000+',
+            //     'subtitle' => '',
+            //     'image_path' => asset('images/mg/intro/Fashion2000.jpg'),
+            //     'url' => '/katalog?location=Fashion+2000%2B',
+            // ]),
+            // new \App\Slide([
+            //     'title' => 'Jeskyně:<br>Panorama designu',
+            //     'subtitle' => '',
+            //     'image_path' => asset('images/mg/intro/Jeskyne.jpg'),
+            //     'url' => '/katalog?location=Jeskyně%3A+Panorama+designu',
+            // ]),
+            // new \App\Slide([
+            //     'title' => '<br>Postmoderna',
+            //     'subtitle' => '',
+            //     'image_path' => asset('images/mg/intro/Postmoderna.jpg'),
+            //     'url' => '/katalog?location=Postmoderna',
+            // ]),
             new \App\Slide([
                 'title' => 'Archiv<br>a sbírka<br>Jiřího<br>Valocha',
                 'subtitle' => '',
