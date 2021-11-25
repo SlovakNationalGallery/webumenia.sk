@@ -548,7 +548,7 @@ class Item extends Model
                 '#^UPM/211/.*#' => 'LIGHT DEPO',
                 '#^UPM/211/B(\d+)/.*#' => 'LIGHT DEPO / BOX $1',
                 '#^UPM/210/.*#' => 'BLACK DEPO',
-                '#^UPM/210/([A-Z])/(\d+)/.*#' => 'BLACK DEPO / BOX $1$2',
+                '#^UPM/210/([A-Z])/B(\d+)/.*#' => 'BLACK DEPO / BOX $1$2',
                 '#^UPM/110/.*#' => 'JESKYNĚ: PANORAMA DESIGNU',
                 '#^UPM/203/D/.*#' => 'DESIGN 2000+',
                 '#^UPM/203/D/(.*?)/.*#' => 'DESIGN 2000+ / $1',
