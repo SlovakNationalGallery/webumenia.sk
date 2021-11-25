@@ -549,11 +549,11 @@ class Item extends Model
                 '#^UPM/211/B(\d+)/.*#' => 'LIGHT DEPO / BOX $1',
                 '#^UPM/210/.*#' => 'BLACK DEPO',
                 '#^UPM/210/([A-Z])/B(\d+)/.*#' => 'BLACK DEPO / BOX $1$2',
-                '#^UPM/110/.*#' => 'JESKYNĚ: PANORAMA DESIGNU',
-                '#^UPM/203/D/.*#' => 'DESIGN 2000+',
-                '#^UPM/203/D/(.*?)/.*#' => 'DESIGN 2000+ / $1',
-                '#^UPM/204/.*#' => 'FASHION 2000+',
-                '#^UPM/203/POSTMODERNA$#' => 'POSTMODERNA',
+                '#^UPM/110/.*#' => 'Jeskyně: Panorama designu',
+                '#^UPM/203/D/.*#' => 'Design 2000+',
+                '#^UPM/203/D/(.*?)/.*#' => 'Design 2000+ / $1',
+                '#^UPM/204/.*#' => 'Fashion 2000+',
+                '#^UPM/203/POSTMODERNA$#' => 'Postmoderna',
             ])
             ->map(function ($replacement, $pattern) {
                 if (preg_match($pattern, $this->location)) {
