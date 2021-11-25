@@ -93,7 +93,7 @@ abstract class AbstractImporter implements IImporter {
                 $import_record->status=Import::STATUS_ERROR;
                 $import_record->error_message=$e->getMessage();
 
-                break;
+                continue;
             } finally {
                 $import_record->save();
             }
