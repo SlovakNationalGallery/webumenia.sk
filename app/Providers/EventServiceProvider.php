@@ -4,7 +4,7 @@ use App\Authority;
 use App\Item;
 use App\Events\ItemPrimaryImageChanged;
 use App\Listeners\ItemPrimaryImageChangedListener;
-use App\Listeners\ResolveRouteWasHit;
+use App\Listeners\IncreaseRedirectCounter;
 use App\Observers\AuthorityObserver;
 use App\Observers\ItemObserver;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
@@ -27,7 +27,7 @@ class EventServiceProvider extends ServiceProvider
             ItemPrimaryImageChangedListener::class,
         ],
         RouteWasHit::class => [
-            ResolveRouteWasHit::class,
+            IncreaseRedirectCounter::class,
         ],
     ];
 

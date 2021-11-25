@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Spatie\MissingPageRedirector\Events\RouteWasHit;
 
-class ResolveRouteWasHit implements ShouldQueue
+class IncreaseRedirectCounter implements ShouldQueue
 {
     /**
      * Create the event listener.
