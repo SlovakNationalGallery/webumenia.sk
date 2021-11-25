@@ -12,7 +12,7 @@ class DatabaseRedirector implements Redirector
 {
     public function getRedirectsFor(Request $request): array
     {
-        return Cache::remember('redirects', 86400, function () {
+        return Cache::rememberForever('redirects', function () {
             return Redirect::enabled()->get(['source_url', 'target_url'])->flatMap(function ($redirect) {
                 return [
                     $redirect->source_url => [
