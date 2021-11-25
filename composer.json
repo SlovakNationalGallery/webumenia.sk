@@ -42,6 +42,7 @@
         "rap2hpoutre/laravel-log-viewer": "dev-master",
         "rtconner/laravel-tagging": "~2.1",
         "sentry/sentry-laravel": "^2.3",
+        "spatie/laravel-googletagmanager": "^2.6",
         "spatie/laravel-medialibrary": "^9.7",
         "spatie/laravel-newsletter": "^4.10",
         "symfony/templating": "^5.2",

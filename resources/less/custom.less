@@ -83,6 +83,11 @@ html {
 .black, .text-black { color: @black; }
 .text-success { color: @brand-success; }
 
+.hover\:text-black:hover { color: @black; }
+
+// Text Decoration
+.hover\:no-underline:hover { text-decoration: none; }
+
 // Background Colors
 .bg-light {background-color: @light !important;}
 .bg-dark {background-color: @dark !important;}
@@ -133,6 +138,23 @@ html {
 // Placeholder Color
 .placeholder-black::placeholder {
   color: @black;
+}
+
+// Position
+.top-0 {
+  top: 0;
+}
+
+.right-0 {
+  right: 0;
+}
+
+.bottom-0 {
+  bottom: 0;
+}
+
+.left-0 {
+  left: 0;
 }
 
 strong {
@@ -496,10 +518,10 @@ a.license { vertical-align: middle}
 table a:not(.btn):not(.readmore-js-toggle):not(.no-border),
 .attributes a:not(.btn):not(.readmore-js-toggle):not(.no-border),
 a.underline, .underline a {
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid @link-undeline-color;
 
     &:hover {
-        border-bottom: 1px solid #000;
+        border-bottom: 1px solid @dark;
     }
 }
 
