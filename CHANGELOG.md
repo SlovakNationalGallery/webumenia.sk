@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 ### Added
+- custom redirects
 - Newsletter signup modal and inline form
 
 ## [2.35.0] - 2021-11-22
