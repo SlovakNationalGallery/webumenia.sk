@@ -15,17 +15,15 @@
 			@show
 		</title>
 
-		<!--  favicons-->
 		@include('includes.favicons')
-		<!--  /favicons-->
-		<!--  Open Graph protocol -->
-    @include('includes.og_tags')
-    <!--  /Open Graph protocol -->
-    <!--  hreflangs -->
-		@include('includes.hreflangs', [
-      'localizedURLs' => getLocalizedURLArray(),
-    ])
-		<!--  /hreflangs -->
+		@include('includes.og_tags')
+
+		@foreach(LaravelLocalization::getSupportedLanguagesKeys() as $locale)
+		<link rel="alternate" hreflang="{{ $locale }}" href="{{ LaravelLocalization::getLocalizedURL($locale, url()->current(), [], true) }}">
+		@endforeach
+		{{-- "default" url with locale hidden --}}
+		<link rel="alternate" hreflang="{{ LaravelLocalization::getDefaultLocale() }}" href="{{ LaravelLocalization::getNonLocalizedURL(url()->current()) }}">
+
 
 		@yield('link')
 
