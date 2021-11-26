@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [2.36.0] - 2021-11-26
 ### Added
 - custom redirects
-- Newsletter signup modal and inline form
+- newsletter signup modal and inline form
 
 ### Fixed
 - "alternate" hreflangs not referencing each other
