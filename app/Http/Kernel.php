@@ -17,6 +17,7 @@ class Kernel extends HttpKernel
         \Fruitcake\Cors\HandleCors::class,
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        \Spatie\MissingPageRedirector\RedirectsMissingPages::class,
     ];
 
     /**

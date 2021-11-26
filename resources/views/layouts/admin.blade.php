@@ -122,6 +122,11 @@
                         @endcan
                         @can('administer')
                         <li>
+                            <a href="{!! route('redirects.index') !!}"><i class="fa fa-external-link fa-fw"></i> Presmerovania</a>
+                        </li>
+                        @endcan
+                        @can('administer')
+                        <li>
                             <a href="#"><i class="fa fa-download fa-fw"></i> Import<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -202,8 +207,8 @@
     {!! Html::script('js/selectize.min.js') !!}
 
     <script type="text/javascript" src="{{ mix('/js/manifest.js') }}"></script>
-	<script type="text/javascript" src="{{ mix('/js/vendor.js') }}"></script>
-	<script type="text/javascript" src="{{ mix('/js/admin.js') }}"></script>
+    <script type="text/javascript" src="{{ mix('/js/vendor.js') }}"></script>
+    <script type="text/javascript" src="{{ mix('/js/admin.js') }}"></script>
 
 
     <script>

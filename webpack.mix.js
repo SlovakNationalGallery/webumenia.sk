@@ -32,6 +32,7 @@ mix
         'lazysizes',
         'lazysizes/plugins/unveilhooks/ls.unveilhooks',
         'lazysizes/plugins/respimg/ls.respimg',
+        'livewire-vue',
         'selectize',
         'typeahead.js/dist/typeahead.bundle',
         'vue-select',
