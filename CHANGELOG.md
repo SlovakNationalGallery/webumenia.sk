@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Fixed
 - "alternate" hreflangs not referencing each other
+- shared collection added to user collections only after create
 
 ## [2.35.0] - 2021-11-22
 ### Changed
