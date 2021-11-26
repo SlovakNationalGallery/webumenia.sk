@@ -10,6 +10,7 @@ const store = require('./store')
 export default {
     props: {
         action: String,
+        addToUserCollections: Boolean,
         creating: Boolean,
         publicId: String,
         updateToken: String,
@@ -22,7 +23,7 @@ export default {
     mounted() {
         if (!this.publicId || !this.updateToken) return
 
-        if (!store.hasSharedCollection(this.publicId)) {
+        if (this.addToUserCollections && !store.hasSharedCollection(this.publicId)) {
             store.addSharedCollection(this.publicId, this.updateToken)
         }
     },
