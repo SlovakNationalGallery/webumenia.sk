@@ -151,7 +151,7 @@
     var redirectUrl = localStorage.getItem('redirectUrl');
     console.log(redirectUrl);
     if (redirectUrl) {
-      var idleDurationSecs = 5;
+      var idleDurationSecs = 60;
       var idleTimeout;
       var resetIdleTimeout = function() {
         if (idleTimeout) clearTimeout(idleTimeout);
@@ -168,6 +168,13 @@
       var evts = ['click', 'touchstart', 'mousemove'];
       for (var i in evts) {
         document.addEventListener(evts[i], resetIdleTimeout, false)
+      }
+
+      var preventDefaultHandler = function (event) { event.preventDefault(); }
+      var links = document.getElementsByTagName('a');
+      for (var i in links) {
+          if (links[i].hostname === location.hostname) continue
+          links[i].onclick = preventDefaultHandler
       }
     }
   })();

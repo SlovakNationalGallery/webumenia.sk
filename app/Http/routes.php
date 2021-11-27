@@ -55,8 +55,7 @@ Route::group(['domain' => '{subdomain}.moravska-galerie.{tld}'], function () {
 
     
     Route::get('informacie', function () {
-        $items = Item::random(20, ['gallery' => 'Slovenská národná galéria, SNG']);
-        return view('informacie-mg', ['items' => $items]);
+        return view('informacie-mg');
     });
 
     Route::get('dielo/{id}/zoom', function ($subdomain, $tld, $id) {
