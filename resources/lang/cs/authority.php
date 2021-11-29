@@ -21,7 +21,7 @@ return array(
                      |[5, *]<strong>:view_count</strong> vidění',
 
     'tags'              => 'tagy',
-    'back-to-artists'   => 'seznam autorů',
+    'back-to-artists'   => 'seznam autorů a autorek',
     'alternative_names' => 'příp.',
     'places'            => 'působení',
     'external_links'    => 'externí odkazy',
