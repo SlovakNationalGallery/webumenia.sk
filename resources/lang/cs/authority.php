@@ -28,7 +28,7 @@ return array(
     'source_links'      => 'použité zdroje',
     'relationships'     => 'vztahy',
 
-    'artworks_by_artist' => 'díla autora',
+    'artworks_by_artist' => '{male}díla autora|{female}díla autorky',
 
     'button_show-all-artworks' => '{0} zobrazit <strong>0</strong> díl
                                   |{1} zobrazit <strong>:artworks_count</strong> dílo
