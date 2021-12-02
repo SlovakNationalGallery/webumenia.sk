@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- newsletter sign-up form to info page
+
 ### Fixed
 - gender sensitive translation strings in author profile
 
