@@ -19,10 +19,10 @@
 		@include('includes.og_tags')
 
 		@foreach(LaravelLocalization::getSupportedLanguagesKeys() as $locale)
-		<link rel="alternate" hreflang="{{ $locale }}" href="{{ LaravelLocalization::getLocalizedURL($locale, url()->current(), [], true) }}">
+		<link rel="alternate" hreflang="{{ $locale }}" href="{{ LaravelLocalization::getLocalizedURL($locale, null, [], true) }}">
 		@endforeach
 		{{-- "default" url with locale hidden --}}
-		<link rel="alternate" hreflang="{{ LaravelLocalization::getDefaultLocale() }}" href="{{ LaravelLocalization::getNonLocalizedURL(url()->current()) }}">
+		<link rel="alternate" hreflang="{{ LaravelLocalization::getDefaultLocale() }}" href="{{ LaravelLocalization::getNonLocalizedURL() }}">
 
 
 		@yield('link')

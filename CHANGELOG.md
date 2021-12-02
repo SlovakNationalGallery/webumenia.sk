@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Fixed
 - gender sensitive translation strings in author profile
+- "alternate" hreflangs not including URL (query) params
 
 ## [2.36.0] - 2021-11-26
 ### Added
