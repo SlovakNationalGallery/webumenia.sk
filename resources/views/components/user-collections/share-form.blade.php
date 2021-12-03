@@ -3,6 +3,7 @@
         public-id="{{ optional($collection)->public_id }}"
         update-token="{{ optional($collection)->update_token }}"
         :creating="@json($creating)"
+        :add-to-user-collections="@json(session('user-collection-created') === true)"
         v-slot="form"
     >
     @method($method)

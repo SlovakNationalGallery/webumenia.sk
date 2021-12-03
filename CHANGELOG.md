@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+## [2.37.0] - 2021-12-03
+### Added
+- newsletter sign-up form to info page
+
+### Fixed
+- gender sensitive translation strings in author profile
+- "alternate" hreflangs not including URL (query) params
+
 ## [2.36.0] - 2021-11-26
 ### Added
 - custom redirects
@@ -9,6 +17,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Fixed
 - "alternate" hreflangs not referencing each other
+- shared collection added to user collections only after create
 
 ## [2.35.0] - 2021-11-22
 ### Changed
