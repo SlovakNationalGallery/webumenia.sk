@@ -15,8 +15,8 @@ class GmuhkItemRepository extends AbstractRepository
     ];
 
     protected $fieldMap = [
-        'datestamp' => './/datestamp',
-        'id' => './/identifier',
+        'datestamp' => './/ns:datestamp',
+        'id' => './/ns:identifier',
         'identifier' => './/dc:identifier[0]',
         'author' => './/edm:Agent[starts-with(@rdf:about, "#PredmetAutor:")]/skos:prefLabel',
         'title' => './/dc:title',
@@ -29,6 +29,6 @@ class GmuhkItemRepository extends AbstractRepository
         'gallery' => './/edm:dataProvider',
         'description' => './/dc:description',
         'image' => './/edm:isShownBy/@rdf:resource',
-        'work_type' => './/setSpec[contains(text(), ":")]',
+        'work_type' => './/ns:setSpec[contains(text(), ":")]',
     ];
 }
