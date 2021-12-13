@@ -105,7 +105,15 @@
         </div>
     </div>
 </section>
-
+<section class="bg-blue">
+    <div class="container">
+        <div class="row py-5">
+            <div class="col-lg-8 col-lg-offset-2">
+                <livewire:newsletter-signup-form variant="info-page" />
+            </div>
+        </div>
+    </div>
+</section>
 <section class="mozete more-items underlined-links">
     <div class="container">
         <div class="row content-section"><!-- top-space bottom-space -->

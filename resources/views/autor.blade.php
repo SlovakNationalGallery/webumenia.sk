@@ -6,7 +6,6 @@
 <meta property="og:type" content="object" />
 <meta property="og:url" content="{!! Request::url() !!}" />
 <meta property="og:image" content="{!! asset_timed( $author->getImagePath() ) !!}" />
-<meta property="og:site_name" content="Web umenia" />
 @stop
 
 @section('title')
@@ -161,7 +160,7 @@
     <div class="container">
         <div class="row content-section">
             <div class="col-xs-12 text-center">
-                <h3>{{ utrans('authority.artworks_by_artist') }}</h3>
+                <h3>{{ trans_choice('authority.artworks_by_artist', $author->sex) }}</h3>
             </div>
         </div>{{-- row --}}
         <div class="row">

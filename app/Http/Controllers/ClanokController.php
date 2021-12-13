@@ -37,10 +37,17 @@ class ClanokController extends Controller
             $articles = $articles->orderBy('published_date', 'asc');
         }
 
-        $articles = $articles->get();
+        $unpaginatedArticles = (clone $articles)
+            ->with(['category'])
+            ->get();
 
-        $categoriesOptions = $this->buildSelectOptions($articles, 'category.name', $request->input('category'));
-        $authorsOptions = $this->buildSelectOptions($articles, 'author', $request->input('author'));
+        $articles = $articles
+            ->with(['translations', 'category'])
+            ->paginate(12)
+            ->withQueryString();
+
+        $categoriesOptions = $this->buildSelectOptions($unpaginatedArticles, 'category.name', $request->input('category'));
+        $authorsOptions = $this->buildSelectOptions($unpaginatedArticles, 'author', $request->input('author'));
 
         $sortingOptions = collect([
             [ 'value' => 'date_asc', 'text' => trans('articles.filter.sort_by.date_asc') ],

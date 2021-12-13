@@ -21,14 +21,14 @@ return array(
                      |[5, *]<strong>:view_count</strong> vidění',
 
     'tags'              => 'tagy',
-    'back-to-artists'   => 'seznam autorů',
+    'back-to-artists'   => 'seznam autorů a autorek',
     'alternative_names' => 'příp.',
     'places'            => 'působení',
     'external_links'    => 'externí odkazy',
     'source_links'      => 'použité zdroje',
     'relationships'     => 'vztahy',
 
-    'artworks_by_artist' => 'díla autora',
+    'artworks_by_artist' => '{male}díla autora|{female}díla autorky',
 
     'button_show-all-artworks' => '{0} zobrazit <strong>0</strong> díl
                                   |{1} zobrazit <strong>:artworks_count</strong> dílo

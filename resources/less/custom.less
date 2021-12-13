@@ -58,6 +58,14 @@ html {
   position: relative;
 }
 
+.flex {
+  display: flex;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
 .w-100 {
   width: 100%;
 }
@@ -66,20 +74,87 @@ html {
 .light-grey {color: @light-grey;}
 .dark-grey {color: @dark-grey;}
 .mid-grey {color: @mid-grey;}
-.grey {color: @grey;}
+.grey, .text-gray-500 {color: @grey;}
 .primary {color: @primary;}
-.dark {color: @dark;}
+.dark, .text-dark {color: @dark;}
 .light {color: @light;}
 .red {color: @red;}
 .color { color: @primary-color; }
-// Background Colors
-.bg-light {background-color: @light;}
-.bg-dark {background-color: @dark;}
-.no-border {border: none !important;}
-// Typography
+.black, .text-black { color: @black; }
+.text-success { color: @brand-success; }
 
-.light {
-    font-weight: 400;
+.hover\:text-black:hover { color: @black; }
+
+// Text Decoration
+.hover\:no-underline:hover { text-decoration: none; }
+
+// Background Colors
+.bg-light {background-color: @light !important;}
+.bg-dark {background-color: @dark !important;}
+.bg-blue {background-color: @primary-color !important;}
+.bg-gray-300 {
+  background-color: @light-grey;
+}
+.bg-white {
+  background-color: @white;
+}
+
+.no-border {border: none !important;}
+
+// Font Size
+.text-sm {
+  font-size: @font-size-small;
+}
+.text-lg {
+  font-size: @font-size-large;
+}
+.text-xl {
+  font-size: @font-size-h3;
+}
+.text-2xl {
+  font-size: @font-size-h2;
+}
+.text-3xl {
+  font-size: @font-size-base * 1.9;
+}
+.text-4xl {
+  font-size: @font-size-h1;
+}
+.text-5xl {
+  font-size: @font-size-base * 3;
+}
+.text-6xl {
+  font-size: @font-size-base * 3.75;
+}
+
+// Font Weight
+.font-light {
+  font-weight: 300;
+}
+.font-semibold {
+  font-weight: 600;
+}
+
+// Placeholder Color
+.placeholder-black::placeholder {
+  color: @black;
+}
+
+// Position
+.top-0 {
+  top: 0;
+}
+
+.right-0 {
+  right: 0;
+}
+
+.bottom-0 {
+  bottom: 0;
+}
+
+.left-0 {
+  left: 0;
 }
 
 strong {
@@ -443,10 +518,10 @@ a.license { vertical-align: middle}
 table a:not(.btn):not(.readmore-js-toggle):not(.no-border),
 .attributes a:not(.btn):not(.readmore-js-toggle):not(.no-border),
 a.underline, .underline a {
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid @link-undeline-color;
 
     &:hover {
-        border-bottom: 1px solid #000;
+        border-bottom: 1px solid @dark;
     }
 }
 
@@ -574,6 +649,10 @@ p.medium {
     &.btn-primary {
         color: #428bca;
     }
+}
+
+.btn-black {
+  .button-variant(#fff; @black; @black);
 }
 
 
@@ -980,6 +1059,10 @@ label sup {
   }
 }
 
+[v-cloak] {
+  display: none;
+}
+
 #scena-ai {
   position: relative;
   z-index: 10;
@@ -994,3 +1077,5 @@ label sup {
     padding-left: unset;
   }
 }
+
+

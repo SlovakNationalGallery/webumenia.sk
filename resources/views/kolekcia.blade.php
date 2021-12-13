@@ -9,7 +9,6 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="{!! Request::url() !!}" />
 <meta property="og:image" content="{!! URL::to($collection->header_image_src) !!}" />
-<meta property="og:site_name" content="web umenia" />
 @foreach ($collection->getContentImages() as $image )
 <meta property="og:image" content="{!! $image !!}" />
 @endforeach
@@ -159,9 +158,22 @@
                     @endforeach
                 </div>
             </div>
+            @unless (Cookie::has('newsletterSubscribedAt'))
+            <div class="row my-5">
+                <div class="col-md-8 col-md-push-2">
+                    <div class="bg-blue p-4 p-md-5">
+                        <div class="mx-md-2">
+                            <livewire:newsletter-signup-form />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endunless
         </div>
     </div>
 </section>
+
+<livewire:newsletter-signup-form-bottom-modal open-on-scrolled-percent="30" />
 @stop
 
 @section('javascript')

@@ -21,10 +21,13 @@ class PatternlibController extends Controller
 
     public function getIndex()
     {
-        $files = $this->fs->listContents('/');
+        $files = $this->fs->listContents('/', true);
 
         $result = [];
         foreach ($files as $file) {
+            // Do not process directories
+            if ($file['type'] === 'dir') continue;
+
             $blade = $file['filename'].'.blade.php';
             if ($file['extension'] === 'json' && $this->fs->has($blade) && $this->fs->has($file['basename'])) {
                 $result[] = array_merge($this->processJson($file), [

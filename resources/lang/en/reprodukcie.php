@@ -14,7 +14,7 @@ return array(
     'print_body'        => '<p>You can order a printed reproduction by clicking the <strong>order reproduction</strong> button on the artwork detail page. The artwork will then be added to the cart.</p>
                            <p>The price of the reproduction depends on the format, which you can choose on the order page.</p>
                            <p>You can only order printed reproductions of artworks from the collections of the Slovak National Gallery which were already <strong>digitized</strong> and are available at high resolution.</p>
-                           <p>Orders usually take up to <strong>30 days</strong> to process.</p>
+                           <p>Orders usually take up to <strong>42 days</strong> to process for reproductions with frame or passe-partout, or up to <strong>30 days</strong> for reproductions without frame or passe-partout.</p>
                            <p>Currently, the prints can only be retrieved in person, either in <a href="https://www.sng.sk/en/bratislava/visiting-us/how-to-find-us/ex-libris-bookshop" target="_blank">Ex Libris bookstore</a> in Esterházy palace in Bratislava, or at the ticket office of the <a href="https://www.sng.sk/en/zvolen/visiting-us/how-to-find-us" target="_blank">Zvolen Castle</a>.</p>',
     'print_recommended' => 'Recommended',
     'print_list'        => '<ul>

@@ -7,13 +7,6 @@ return [
         'progress' => 'Spracováva sa (:current/:total)',
         'error' => ':error',
         'finished' => 'Spracovaných záznamov: :processed',
-        'completed' =>
-            'Spracovaných záznamov: :processed' . PHP_EOL .
-            ':created nových záznamov' . PHP_EOL .
-            ':updated bolo upravených' . PHP_EOL .
-            ':deleted bolo zmazaných' . PHP_EOL .
-            ':skipped bolo preskočených' . PHP_EOL .
-            ':failed zlyhalo.' . PHP_EOL .
-            'Trvalo to :time s',
+        'completed' => "Spracovaných záznamov: :processed\n:created nových záznamov\n:updated bolo upravených\n:deleted bolo zmazaných\n:skipped bolo preskočených\n:failed zlyhalo\nTrvalo to :time s",
     ],
 ];

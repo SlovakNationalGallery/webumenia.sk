@@ -18,5 +18,5 @@ return array(
     'in_high_res_end'      => 've vysokém rozlišení',
     'are_free_start'       => 'z nichž',
     'are_free_end'         => 'autorsky volných',
-
+    'show_more_articles'   => 'více článků',
 );

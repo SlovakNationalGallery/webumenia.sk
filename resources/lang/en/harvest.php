@@ -6,13 +6,6 @@ return [
         'started' => 'Started',
         'progress' => 'In progress (:current/:total)',
         'error' => ':error',
-        'completed' =>
-            'Processed records: :processed' . PHP_EOL .
-            ':created created' . PHP_EOL .
-            ':updated updated' . PHP_EOL .
-            ':deleted deleted' . PHP_EOL .
-            ':skipped skipped' . PHP_EOL .
-            ':failed failed.' . PHP_EOL .
-            'Took :time s',
+        'completed' => "Processed records: :processed\n:created created\n:updated updated\n:deleted deleted\n:skipped skipped\n:failed failed.\nTook :time s",
     ],
 ];

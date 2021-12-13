@@ -15,17 +15,15 @@
 			@show
 		</title>
 
-		<!--  favicons-->
 		@include('includes.favicons')
-		<!--  /favicons-->
-		<!--  Open Graph protocol -->
-    @include('includes.og_tags')
-    <!--  /Open Graph protocol -->
-    <!--  hreflangs -->
-		@include('includes.hreflangs', [
-      'localizedURLs' => getLocalizedURLArray(),
-    ])
-		<!--  /hreflangs -->
+		@include('includes.og_tags')
+
+		@foreach(LaravelLocalization::getSupportedLanguagesKeys() as $locale)
+		<link rel="alternate" hreflang="{{ $locale }}" href="{{ LaravelLocalization::getLocalizedURL($locale, null, [], true) }}">
+		@endforeach
+		{{-- "default" url with locale hidden --}}
+		<link rel="alternate" hreflang="{{ LaravelLocalization::getDefaultLocale() }}" href="{{ LaravelLocalization::getNonLocalizedURL() }}">
+
 
 		@yield('link')
 
@@ -34,18 +32,12 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 		<link rel="stylesheet" type="text/css" href="{{ mix('/css/style.css') }}" />
 		{!! Html::style('css/magnific-popup.css') !!}
-		{!! Html::style('/css/js/app.css') !!}
+		@livewireStyles
 
 		{{-- JS --}}
-		@if (App::environment() == 'production')
-		<!-- Google Tag Manager -->
-		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-		})(window,document,'script','dataLayer','GTM-W8KZ265');</script>
-		<!-- End Google Tag Manager -->
+		@include('googletagmanager::head')
 
+		@if (App::environment() == 'production')
 		<script>
 		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -64,12 +56,7 @@
 
 <body id="page-top">
 
-@if (App::environment() == 'production')
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W8KZ265"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-@endif
+@include('googletagmanager::body')
 
 <div id="fb-root"></div>
 	<script>(function(d, s, id) {
@@ -86,14 +73,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		</div>
 	@endif
 
-@if (config('services.scena_ai.key'))
-	<scena-ai-popup key-id="{{ config('services.scena_ai.key') }}" id="scena-ai"></scena-ai-popup>
+@if (session('scena_ai_key') ?? config('services.scena_ai.key'))
+	<scena-ai-popup key-id="{{ session('scena_ai_key') ?? config('services.scena_ai.key') }}" id="scena-ai"></scena-ai-popup>
 	<script src="https://widget.scena.ai/app.js"></script>
 @endif
 
 	<!-- Content -->
 	<div id="app">
-		@include('components.nav_bar')
+		@sectionMissing('main-navigation')
+			@include('components.nav_bar')
+		@endif
+
 		@yield('content')
 	</div>
 
@@ -105,6 +95,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	    </a>
 	</div>
 
+	@livewireScripts
 	<script type="text/javascript" src="{{ mix('/js/manifest.js') }}"></script>
 	<script type="text/javascript" src="{{ mix('/js/vendor.js') }}"></script>
 	<script type="text/javascript" src="{{ mix('/js/app.js') }}"></script>

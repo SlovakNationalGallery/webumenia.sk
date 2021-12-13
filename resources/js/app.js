@@ -23,19 +23,34 @@ require('jquery.easing')
 // Components
 require('./components/searchbar')
 require('./components/clipboard-button')
+require('./components/newsletter-signup-form-tracker')
 
 // Vue components
-window.Vue = require('vue')
+import Vue from 'vue'
+import 'livewire-vue'
+import { Lang } from 'laravel-vue-lang';
+
+window.Vue = Vue
+Vue.use(Lang, { fallback: 'sk' })
 
 Vue.component('filter-sort-by', require('./components/filter/SortBy.vue').default);
 Vue.component('filter-checkbox', require('./components/filter/Checkbox.vue').default);
 Vue.component('filter-custom-select', require('./components/filter/CustomSelect.vue').default);
+Vue.component('user-collections-link', require('./components/user-collections/Link.vue').default);
 Vue.component('user-collections-nav-link', require('./components/user-collections/NavLink.vue').default);
 Vue.component('user-collections-favourite-button', require('./components/user-collections/FavouriteButton.vue').default);
 Vue.component('user-collections-clear-button', require('./components/user-collections/ClearButton.vue').default);
+Vue.component('user-collections-share-form', require('./components/user-collections/ShareForm.vue').default);
+Vue.component('user-collections-store', require('./components/user-collections/Store.vue').default);
+Vue.component('user-collections-shared-collection', require('./components/user-collections/SharedCollection.vue').default);
 Vue.component('color-widget', require('./components/ColorWidget.vue').default);
 Vue.component('year-slider', require('./components/YearSlider.vue').default);
-
+Vue.component('inline-input', require('./components/InlineInput.vue').default);
+Vue.component('copy-to-clipboard-group', require('./components/CopyToClipboardGroup.vue').default);
+Vue.component('copy-to-clipboard-link', require('./components/CopyToClipboardLink.vue').default);
+Vue.component('bottom-modal', require('./components/BottomModal.vue').default);
+Vue.component('user-interaction-context', require('./components/UserInteractionContext.vue').default);
+Vue.component('livewire-vue-adaptor', require('./components/LivewireVueAdaptor.vue').default);
 Vue.component('slider', require('./components/vue/slider').default);
 Vue.component('color-slider', require('./components/vue/color-slider').default);
 
