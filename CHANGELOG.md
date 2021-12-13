@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.38.0] - 2021-12-13
 ### Fixed
 - multiple item work/object types
 
