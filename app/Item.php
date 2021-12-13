@@ -432,20 +432,27 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     public function getWorkTypesAttribute()
     {
-        $workTypes = $this->makeArray($this->work_type, ', ');
-        $stack = [];
-        return array_map(function ($workType) use (&$stack) {
-            $stack[] = $workType;
-            return [
-                'name' => $workType,
-                'path' => implode(self::TREE_DELIMITER, $stack)
-            ];
-        }, $workTypes);
+        return $this->unserializeTrees($this->work_type);
     }
 
     public function getObjectTypesAttribute()
     {
-        return $this->makeArray($this->object_type);
+        return $this->unserializeTrees($this->object_type);
+    }
+
+    protected function unserializeTrees($serializedTrees)
+    {
+        $trees = $this->makeArray($serializedTrees);
+        return array_map(function ($tree) {
+            $stack = [];
+            return array_map(function ($part) use (&$stack) {
+                $stack[] = $part;
+                return [
+                    'name' => $part,
+                    'path' => implode(self::TREE_DELIMITER, $stack)
+                ];
+            }, explode(', ', $tree));
+        }, $trees);
     }
 
     public function setLat($value)
@@ -638,7 +645,13 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     public function getIndexedData($locale)
     {
-        $work_types = $this->makeArray($this["work_type:$locale"], ', ');
+        $formatTree = function ($serializedTrees) {
+            $unserialized = $this->unserializeTrees($serializedTrees);
+            return array_map(function ($tree) {
+                return end($tree)['path'];
+            }, $unserialized);
+        };
+
         return [
             'id' => $this->id,
             'identifier' => $this->identifier,
@@ -654,8 +667,8 @@ class Item extends Model implements IndexableModel, TranslatableContract
             'is_for_reproduction' => $this->isForReproduction(),
             'authority_id' => $this->authorities->pluck('id'),
             'view_count' => $this->view_count,
-            'work_type' => $work_types ? implode(self::TREE_DELIMITER, $work_types) : null,
-            'object_type' => $this->makeArray($this["object_type:$locale"]),
+            'work_type' => $formatTree($this["work_type:$locale"]),
+            'object_type' => $formatTree($this["object_type:$locale"]),
             'image_ratio' => $this->image_ratio,
             'title' => $this["title:$locale"],
             'description' => (!empty($this["description:$locale"])) ? strip_tags($this["description:$locale"]) : '',
