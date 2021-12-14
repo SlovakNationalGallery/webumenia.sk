@@ -40,7 +40,7 @@ class GmuhkItemRepositoryTest extends TestCase
             'medium' => ['papír'],
             'measurement' => ['vd.=160mm; sd.=162mm; v.=373mm; s.=303mm'],
             'image' => ['https://files.khk.museion.cz/GMUHK/Výtvarné umění/G/SUB_1/G0259/G0259-003_primary.jpg'],
-            'work_type' => ['151:G'],
+            'work_type' => ['publikacePredmetu:GMUHK:151:G'],
         ];
         $this->assertEquals($expected, $rows[0]);
     }

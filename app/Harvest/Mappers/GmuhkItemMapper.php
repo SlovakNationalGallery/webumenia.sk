@@ -91,7 +91,7 @@ class GmuhkItemMapper extends AbstractMapper
 
     public function mapWorkType(array $row, $locale)
     {
-        $abbr = Str::after($row['work_type'][0], ':');
+        $abbr = Str::afterLast($row['work_type'][0], ':');
         return $this->translator->get(sprintf('gmuhk.work_types.%s', $abbr), [], $locale);
     }
 }
