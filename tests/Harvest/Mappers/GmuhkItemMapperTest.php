@@ -4,15 +4,13 @@ namespace Tests\Harvest\Mappers;
 
 use App\Harvest\Mappers\GmuhkItemMapper;
 use Tests\TestCase;
-use Illuminate\Translation\ArrayLoader;
-use Illuminate\Translation\Translator;
 
 class GmuhkItemMapperTest extends TestCase
 {
     public function testMap() {
         $mapper = new GmuhkItemMapper(app('translator'));
         $row = [
-            'id' => ['oai:khk.museion.cz:GMUHK~G0259'],
+            'id' => ['oai:khk.museion.cz:GMUHK~publikacePredmetu~G0259'],
             'identifier' => ['G 259'],
             'author' => ['Kubišta Bohumil'],
             'title' => ['Kuřák'],

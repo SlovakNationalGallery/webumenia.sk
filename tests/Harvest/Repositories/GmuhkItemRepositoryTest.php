@@ -26,7 +26,7 @@ class GmuhkItemRepositoryTest extends TestCase
 
         $rows = iterator_to_array($rows);
         $expected = [
-            'id' => ['oai:khk.museion.cz:GMUHK~G0259'],
+            'id' => ['oai:khk.museion.cz:GMUHK~publikacePredmetu~G0259'],
             'identifier' => [],
             'title' => ['Kuřák'],
             'description' => ['Sedící polopostava muže s knírem a vyržinkem v ústech a levou rukou položenou na roh stolu. Vzadu vystupuje v náznacích několik dalších postav za stoly. Ze šerosvitového pojetí celé scény, podané křížícími se sitěmi expresivně uvolněných šrafur, vystupuje i světelně akcentovaný obličej a ruka. Tožné s G 1007 a G 1342/4.'],
