@@ -4,15 +4,13 @@ namespace Tests\Harvest\Mappers;
 
 use App\Harvest\Mappers\GmuhkItemMapper;
 use Tests\TestCase;
-use Illuminate\Translation\ArrayLoader;
-use Illuminate\Translation\Translator;
 
 class GmuhkItemMapperTest extends TestCase
 {
     public function testMap() {
         $mapper = new GmuhkItemMapper(app('translator'));
         $row = [
-            'id' => ['oai:khk.museion.cz:GMUHK~G0259'],
+            'id' => ['oai:khk.museion.cz:GMUHK~publikacePredmetu~G0259'],
             'identifier' => ['G 259'],
             'author' => ['Kubišta Bohumil'],
             'title' => ['Kuřák'],
@@ -24,7 +22,7 @@ class GmuhkItemMapperTest extends TestCase
             'measurement' => ['vd.=160mm; sd.=162mm; v.=373mm; s.=303mm'],
             'gallery' => ['Galerie moderního umění v Hradci Králové'],
             'description' => ['Sedící polopostava muže s knírem a vyržinkem v ústech a levou rukou položenou na roh stolu. Vzadu vystupuje v náznacích několik dalších postav za stoly. Ze šerosvitového pojetí celé scény, podané křížícími se sitěmi expresivně uvolněných šrafur, vystupuje i světelně akcentovaný obličej a ruka. Tožné s G 1007 a G 1342/4.'],
-            'work_type' => ['151:G'],
+            'work_type' => ['publikacePredmetu:GMUHK:151:G'],
         ];
 
         $mapped = $mapper->map($row);

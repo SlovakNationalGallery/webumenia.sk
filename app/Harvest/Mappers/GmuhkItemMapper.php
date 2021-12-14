@@ -23,7 +23,7 @@ class GmuhkItemMapper extends AbstractMapper
     public function mapId(array $row)
     {
         $id = $row['id'][0];
-        preg_match('/^.*:(?<gallery>.*)~(?<series>[A-Z]+)(?<number>\d+)(\/(?<part>\d+))?$/i', $id, $matches);
+        preg_match('/^.*:(?<gallery>.*)~publikacePredmetu~(?<series>[A-Z]+)(?<number>\d+)(\/(?<part>\d+))?$/i', $id, $matches);
         return sprintf(
             'CZE:%s.%s_%d%s',
             $matches['gallery'],
@@ -91,7 +91,7 @@ class GmuhkItemMapper extends AbstractMapper
 
     public function mapWorkType(array $row, $locale)
     {
-        $abbr = Str::after($row['work_type'][0], ':');
+        $abbr = Str::afterLast($row['work_type'][0], ':');
         return $this->translator->get(sprintf('gmuhk.work_types.%s', $abbr), [], $locale);
     }
 }
