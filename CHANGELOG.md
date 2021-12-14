@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.39.0] - 2021-12-14
+### Changed
 - reflect GMUHK provider changes
 
 ## [2.38.0] - 2021-12-13
