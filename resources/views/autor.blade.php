@@ -36,7 +36,7 @@
                 <div class="col-sm-4 text-center extra-padding top-space">
                         <img src="{!! $author->getImagePath() !!}" class="img-responsive img-circle" alt="{{ $author->name }}"  itemprop="image">
                         <div class="content-section">
-                            {!! trans_choice('authority.artworks', $author->items_count, ['artworks_url' => url_to('katalog', ['author' => $author->name]), 'artworks_count' => $author->items_count]) !!}
+                            {!! trans_choice('authority.artworks', $author->items_count, ['artworks_url' => route('frontend.catalog.index', ['author' => $author->name]), 'artworks_count' => $author->items_count]) !!}
                             <br/>
                             {!! trans_choice('authority.collections', $author->collections_count, ['collections_count' => $author->collections_count] ) !!}
                             <br/>
@@ -83,7 +83,7 @@
                         <div class="events">
                             <h4 class="top-space">{{ utrans('authority.places') }}</h4>
                             @foreach ($author->events as $i=>$event)
-                                <strong><a href="{!! url_to('autori', ['place' => $event->place]) !!}">{!! $event->place !!}</a></strong> {!! add_brackets(App\Authority::formatMultiAttribute($event->event)) !!}{{ ($i+1 < $author->events->count()) ? ', ' : '' }}
+                                <strong><a href="{!! route('frontend.author.index', ['place' => $event->place]) !!}">{!! $event->place !!}</a></strong> {!! add_brackets(App\Authority::formatMultiAttribute($event->event)) !!}{{ ($i+1 < $author->events->count()) ? ', ' : '' }}
                             @endforeach
                         </div>
                     @endif
@@ -174,7 +174,7 @@
         </div>{{-- row --}}
         <div class="row content-section">
             <div class="col-sm-12 text-center">
-                <a href="{!! url_to('katalog', ['author' => $author->name]) !!}" class="btn btn-default btn-outline sans" >{!! trans_choice('authority.button_show-all-artworks', $author->items_count, ['artworks_count' => $author->items_count])!!} <i class="fa fa-chevron-right "></i></a>
+                <a href="{!! route('frontend.catalog.index', ['author' => $author->name]) !!}" class="btn btn-default btn-outline sans" >{!! trans_choice('authority.button_show-all-artworks', $author->items_count, ['artworks_count' => $author->items_count])!!} <i class="fa fa-chevron-right "></i></a>
             </div>
         </div>
 

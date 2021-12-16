@@ -45,7 +45,7 @@
         <h1>{!! $collection->name !!}</h1>
         @if ($collection->type)
         {{-- keep in one line to prevent formatting failures --}}
-        <h2><a href="{!! url_to( 'kolekcie', ['type' => $collection->type ]) !!}">{!! $collection->type !!}</a></h2>
+        <h2><a href="{!! route('frontend.collection.index', ['type' => $collection->type ]) !!}">{!! $collection->type !!}</a></h2>
         @endif
     @endslot
 @endcomponent
@@ -59,7 +59,7 @@
                         @if ($collection->items->count() != 0)
                         <div class="col-sm-6">
                             <div class="v-center min-h-3em">
-                                <a href="{!! url_to( 'kolekcie', ['author' => $collection->user->name ]) !!}">
+                                <a href="{!! route('frontend.collection.index', ['author' => $collection->user->name ]) !!}">
                                     {!! $collection->user->name !!}
                                 </a>
                             </div>
@@ -91,7 +91,7 @@
                         @else
                         <div class="col-md-4 col-sm-6 col-xs-12">
                             <div class="v-center min-h-3em">
-                                <a href="{!! url_to( 'kolekcie', ['author' => $collection->user->name ]) !!}">
+                                <a href="{!! route('frontend.collection.index', ['author' => $collection->user->name ]) !!}">
                                     {!! $collection->user->name !!}
                                 </a>
                             </div>

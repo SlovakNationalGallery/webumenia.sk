@@ -63,7 +63,7 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="v-center min-h-3em">
-                                <a href="{!! url_to( 'clanky', ['author' => $article->author ]) !!}">
+                                <a href="{!! route('frontend.article.index', ['author' => $article->author ]) !!}">
                                     {!! $article->author!!}
                                 </a>
                             </div>
