@@ -21,7 +21,6 @@ class GmuhkItemMapperTest extends TestCase
             'medium' => ['papír'],
             'measurement' => ['vd.=160mm; sd.=162mm; v.=373mm; s.=303mm'],
             'gallery' => ['Galerie moderního umění v Hradci Králové'],
-            'description' => ['Sedící polopostava muže s knírem a vyržinkem v ústech a levou rukou položenou na roh stolu. Vzadu vystupuje v náznacích několik dalších postav za stoly. Ze šerosvitového pojetí celé scény, podané křížícími se sitěmi expresivně uvolněných šrafur, vystupuje i světelně akcentovaný obličej a ruka. Tožné s G 1007 a G 1342/4.'],
             'work_type' => ['publikacePredmetu:GMUHK:151:G'],
         ];
 
@@ -51,9 +50,6 @@ class GmuhkItemMapperTest extends TestCase
             'gallery:sk' => 'Galerie moderního umění v Hradci Králové',
             'gallery:en' => 'Galerie moderního umění v Hradci Králové',
             'gallery:cs' => 'Galerie moderního umění v Hradci Králové',
-            'description:sk' => 'Sedící polopostava muže s knírem a vyržinkem v ústech a levou rukou položenou na roh stolu. Vzadu vystupuje v náznacích několik dalších postav za stoly. Ze šerosvitového pojetí celé scény, podané křížícími se sitěmi expresivně uvolněných šrafur, vystupuje i světelně akcentovaný obličej a ruka. Tožné s G 1007 a G 1342/4.',
-            'description:en' => 'Sedící polopostava muže s knírem a vyržinkem v ústech a levou rukou položenou na roh stolu. Vzadu vystupuje v náznacích několik dalších postav za stoly. Ze šerosvitového pojetí celé scény, podané křížícími se sitěmi expresivně uvolněných šrafur, vystupuje i světelně akcentovaný obličej a ruka. Tožné s G 1007 a G 1342/4.',
-            'description:cs' => 'Sedící polopostava muže s knírem a vyržinkem v ústech a levou rukou položenou na roh stolu. Vzadu vystupuje v náznacích několik dalších postav za stoly. Ze šerosvitového pojetí celé scény, podané křížícími se sitěmi expresivně uvolněných šrafur, vystupuje i světelně akcentovaný obličej a ruka. Tožné s G 1007 a G 1342/4.',
             'work_type:sk' => 'grafika',
             'work_type:en' => 'graphics',
             'work_type:cs' => 'grafika',

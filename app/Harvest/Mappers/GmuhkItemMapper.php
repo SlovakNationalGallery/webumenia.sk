@@ -22,12 +22,11 @@ class GmuhkItemMapper extends AbstractMapper
 
     public function mapId(array $row)
     {
-        $id = $row['id'][0];
-        preg_match('/^.*:(?<gallery>.*)~publikacePredmetu~(?<series>[A-Z]+)(?<number>\d+)(\/(?<part>\d+))?$/i', $id, $matches);
+        $matches = $this->parseIdentifier($row['id'][0]);
         return sprintf(
             'CZE:%s.%s_%d%s',
             $matches['gallery'],
-            $matches['series'],
+            $matches['work_type'],
             $matches['number'],
             isset($matches['part']) ? '_' . (int)$matches['part'] : ''
         );
@@ -50,17 +49,17 @@ class GmuhkItemMapper extends AbstractMapper
 
     public function mapDating(array $row)
     {
-        return $row['dating'][0];
+        return $row['dating'][0] ?? null;
     }
 
     public function mapTechnique(array $row)
     {
-        return $row['technique'][0];
+        return $row['technique'][0] ?? null;
     }
 
     public function mapMedium(array $row)
     {
-        return $row['medium'][0];
+        return $row['medium'][0] ?? null;
     }
     
     public function mapMeasurement(array $row, $locale)
@@ -74,24 +73,33 @@ class GmuhkItemMapper extends AbstractMapper
         return $row['gallery'][0];
     }
 
-    public function mapDescription(array $row)
-    {
-        return $row['description'][0];
-    }
-
     public function mapDateEarliest(array $row)
     {
+        if (!isset($row['date_earliest'][0])) {
+            return null;
+        }
+
         return Date::create($row['date_earliest'][0])->format('Y');
     }
 
     public function mapDateLatest(array $row)
     {
-         return Date::create($row['date_latest'][0])->format('Y');
+        if (!isset($row['date_latest'][0])) {
+            return null;
+        }
+
+        return Date::create($row['date_latest'][0])->format('Y');
     }
 
     public function mapWorkType(array $row, $locale)
     {
-        $abbr = Str::afterLast($row['work_type'][0], ':');
-        return $this->translator->get(sprintf('gmuhk.work_types.%s', $abbr), [], $locale);
+        $matches = $this->parseIdentifier($row['id'][0]);
+        return $this->translator->get(sprintf('gmuhk.work_types.%s', $matches['work_type']), [], $locale);
+    }
+
+    protected function parseIdentifier($id)
+    {
+        preg_match('/^.*:(?<gallery>.*)~publikacePredmetu~(?<work_type>[A-Z]+)(?<number>\d+)(\/(?<part>\d+))?$/i', $id, $matches);
+        return $matches;
     }
 }
