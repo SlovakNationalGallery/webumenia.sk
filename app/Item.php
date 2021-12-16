@@ -582,7 +582,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
         }
         foreach ($this->authors as $author_unformated => $author) {
             if (!in_array(trim($author_unformated, ', '), $used_authorities)) {
-                $authorities_with_link[] = '<a class="underline" href="'. url_to('katalog', ['author' => $author_unformated]) .'">'. $author .'</a>';
+                $authorities_with_link[] = '<a class="underline" href="'. route('frontend.catalog.index', ['author' => $author_unformated]) .'">'. $author .'</a>';
             }
         }
 
