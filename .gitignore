@@ -14,6 +14,7 @@ public/sitemap.xml
 .env.testing
 .phpunit.result.cache
 /public/css/admin.css
+/public/css/mail
 /public/css/style.css
 /public/fonts
 /public/hot
@@ -27,5 +28,5 @@ public/sitemap.xml
 /public/vendor/laravel-filemanager
 mix-manifest.json
 npm-debug.log
-/resources/views/vendor/mail/html/themes/default.css
+/resources/views/vendor/mail/html/themes
 
