@@ -7,7 +7,6 @@
 <meta property="og:type" content="object" />
 <meta property="og:url" content="{{ Request::url() }}" />
 <meta property="og:image" content="{{ asset_timed( $item->getImagePath() ) }}" />
-<meta property="og:site_name" content="Web umenia" />
 @stop
 
 @section('title')
@@ -61,7 +60,7 @@
                                 })
                                 ->merge($item->getAuthorsWithoutAuthority());
                         @endphp
-                        
+
                         @foreach($authors as $author)
                             @include('components.item_author')@if (!$loop->last), @endif
                         @endforeach
@@ -149,10 +148,15 @@
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_work_type') }}:</td>
                                     <td>
-                                        @foreach ($item->work_types as $work_type)
-                                            <a href="{{ route('frontend.catalog.index', ['work_type' => $work_type['path']]) }}"><span itemprop="artform">{{ $work_type['name'] }}</span></a>
+                                        @foreach ($item->work_types as $stack)
+                                            @foreach ($stack as $work_type)
+                                                <a href="{{ route('frontend.catalog.index', ['work_type' => $work_type['path']]) }}"><span itemprop="artform">{{ $work_type['name'] }}</span></a>
+                                                @if (!$loop->last)
+                                                    &rsaquo;
+                                                @endif
+                                            @endforeach
                                             @if (!$loop->last)
-                                                 &rsaquo;
+                                                <br>
                                             @endif
                                         @endforeach
                                     </td>
@@ -162,8 +166,16 @@
                                 <tr>
                                     <td class="atribut">{{ trans('dielo.item_attr_object_type') }}:</td>
                                     <td>
-                                        @foreach ($item->object_types as $object_type)
-                                        <a href="{{ route('frontend.catalog.index', ['object_type' => $object_type]) }}">{{ $object_type }}</a><br>
+                                        @foreach ($item->object_types as $stack)
+                                            @foreach ($stack as $object_type)
+                                                <a href="{{ route('frontend.catalog.index', ['object_type' => $object_type['path']]) }}">{{ $object_type['name'] }}</a>
+                                                @if (!$loop->last)
+                                                    &rsaquo;
+                                                @endif
+                                            @endforeach
+                                            @if (!$loop->last)
+                                                <br>
+                                            @endif
                                         @endforeach
                                     </td>
                                 </tr>

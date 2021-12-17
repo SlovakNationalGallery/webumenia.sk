@@ -100,12 +100,20 @@
         </div>
         <div class="row content-section">
             <div class="col-sm-12 text-center">
-                <a href="{{ url_to('katalog', ['is_for_reproduction' => 1]) }}" class="btn btn-default btn-outline sans" >{{ trans('informacie.more-items_button') }} <strong>{{ $items_for_reproduction_total }}</strong>  <i class="fa fa-chevron-right "></i></a>
+                <a href="{{ route('frontend.catalog.index', ['is_for_reproduction' => 1]) }}" class="btn btn-default btn-outline sans" >{{ trans('informacie.more-items_button') }} <strong>{{ $items_for_reproduction_total }}</strong>  <i class="fa fa-chevron-right "></i></a>
             </div>
         </div>
     </div>
 </section>
-
+<section class="bg-blue">
+    <div class="container">
+        <div class="row py-5">
+            <div class="col-lg-8 col-lg-offset-2">
+                <livewire:newsletter-signup-form variant="info-page" />
+            </div>
+        </div>
+    </div>
+</section>
 <section class="mozete more-items underlined-links">
     <div class="container">
         <div class="row content-section"><!-- top-space bottom-space -->

@@ -1,9 +1,13 @@
 const defaultState = {
   items: [],
+  sharedCollections: [],
 }
 
 const store = {
-  state: JSON.parse(localStorage.getItem('userCollections')) || defaultState,
+  state: {
+    ...defaultState,
+    ...JSON.parse(localStorage.getItem('userCollections'))
+  },
 
   getItems() {
     return this.state.items
@@ -33,6 +37,19 @@ const store = {
     this.state.items = []
     this._saveState()
     this._track('clearAllItems', null)
+  },
+
+  getSharedCollections() {
+    return this.state.sharedCollections
+  },
+
+  hasSharedCollection(publicId) {
+    return this.state.sharedCollections.findIndex((collection) => collection.publicId === publicId) > -1
+  },
+
+  addSharedCollection(publicId, updateToken) {
+    this.state.sharedCollections.push({publicId, updateToken})
+    this._saveState()
   },
 
   _saveState() {

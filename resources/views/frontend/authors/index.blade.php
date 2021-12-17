@@ -72,12 +72,12 @@
                             </div>
                             <div>
                                 @foreach ($author->roles as $i => $role)
-                                    <a href="{!! url_to('autori', ['role' => $role]) !!}"><strong>{!! $role !!}</strong></a>{!! ($i+1 < count($author->roles) ? ', ' : '') !!}
+                                    <a href="{!! route('frontend.author.index', ['role' => $role]) !!}"><strong>{!! $role !!}</strong></a>{!! ($i+1 < count($author->roles) ? ', ' : '') !!}
                                 @endforeach
 
                             </div>
                             <div>
-                                {!! trans_choice('authority.artworks', $author->items_count, ['artworks_url' => url_to('katalog', ['author' => $author->name]), 'artworks_count' => $author->items_count]) !!}
+                                {!! trans_choice('authority.artworks', $author->items_count, ['artworks_url' => route('frontend.catalog.index', ['author' => $author->name]), 'artworks_count' => $author->items_count]) !!}
                             </div>
                         </div>
                         <div class="clearfix visible-xs bottom-space"></div>

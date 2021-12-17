@@ -13,7 +13,6 @@
 @foreach ($article->getContentImages() as $image )
 <meta property="og:image" content="{!! $image !!}" />
 @endforeach
-<meta property="og:site_name" content="Web umenia" />
 @stop
 
 @section('title')
@@ -64,7 +63,7 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="v-center min-h-3em">
-                                <a href="{!! url_to( 'clanky', ['author' => $article->author ]) !!}">
+                                <a href="{!! route('frontend.article.index', ['author' => $article->author ]) !!}">
                                     {!! $article->author!!}
                                 </a>
                             </div>
@@ -112,12 +111,22 @@
                     {!! $article->content !!}
                 </div>
             </div>
+            @unless (Cookie::has('newsletterSubscribedAt'))
+            <div class="row my-5">
+                <div class="col-md-8 col-md-push-2">
+                    <div class="bg-blue p-4 p-md-5">
+                        <div class="mx-md-2">
+                            <livewire:newsletter-signup-form />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endunless
         </div>
     </div>
 </section>
 
-
-{{-- zoznam diel ??? --}}
+<livewire:newsletter-signup-form-bottom-modal open-on-scrolled-percent="40" />
 
 {{--
 mapa??

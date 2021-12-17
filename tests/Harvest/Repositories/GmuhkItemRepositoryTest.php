@@ -26,10 +26,9 @@ class GmuhkItemRepositoryTest extends TestCase
 
         $rows = iterator_to_array($rows);
         $expected = [
-            'id' => ['oai:khk.museion.cz:GMUHK~G0259'],
+            'id' => ['oai:khk.museion.cz:GMUHK~publikacePredmetu~G0259'],
             'identifier' => [],
             'title' => ['Kuřák'],
-            'description' => ['Sedící polopostava muže s knírem a vyržinkem v ústech a levou rukou položenou na roh stolu. Vzadu vystupuje v náznacích několik dalších postav za stoly. Ze šerosvitového pojetí celé scény, podané křížícími se sitěmi expresivně uvolněných šrafur, vystupuje i světelně akcentovaný obličej a ruka. Tožné s G 1007 a G 1342/4.'],
             'gallery' => ['Galerie moderního umění v Hradci Králové'],
             'datestamp' => ['2021-05-21T11:33:08Z'],
             'author' => ['Kubišta Bohumil'],
@@ -40,7 +39,7 @@ class GmuhkItemRepositoryTest extends TestCase
             'medium' => ['papír'],
             'measurement' => ['vd.=160mm; sd.=162mm; v.=373mm; s.=303mm'],
             'image' => ['https://files.khk.museion.cz/GMUHK/Výtvarné umění/G/SUB_1/G0259/G0259-003_primary.jpg'],
-            'work_type' => ['151:G'],
+            'work_type' => ['publikacePredmetu:GMUHK:151:G'],
         ];
         $this->assertEquals($expected, $rows[0]);
     }

@@ -95,6 +95,12 @@
                     @endif
             	@endforeach
             </div>
+            <div class="text-center my-4">
+                <a class="btn btn-default btn-lg btn-outline sans" href="{{ route('frontend.article.index') }}">
+                    {{ trans('intro.show_more_articles') }}
+                    <i class="fa icon-arrow-right ml-2"></i>
+                </a>
+            </div>
         </div>
     </div>
 </section>

@@ -14,6 +14,7 @@ return array(
     'order_content' => '
                         <p>If you are interested in both printed and digital reproductions, please make a <strong>separate order for each type</strong>.</p>
                         <p>If you wish to order different sizes for each print, please specify them in the <strong>Note</strong> field.</p>
+                        <p>Orders usually take up to <strong>42 days</strong> to process for reproductions with frame or passe-partout, or up to <strong>30 days</strong> for reproductions without frame or passe-partout.</p>
                         <p>Currently, prints can only be retrieved in person, either in <a href="https://www.sng.sk/en/bratislava/visiting-us/how-to-find-us/ex-libris-bookshop" target="_blank" class="underline">Ex Libris bookstore</a> in Esterházy palace in Bratislava, or at the ticket office of the <a href="https://www.sng.sk/en/zvolen/visiting-us/how-to-find-us" target="_blank" class="underline">Zvolen Castle</a>.</p>
                         <p>You will receive an <strong>automatic e-mail with detailed information</strong> after placing an order.</p>
                         <p>For more information, please visit the <a href="https://www.webumenia.sk/en/reprodukcie" target="_blank" class="underline">reproductions page</a>.</p>',

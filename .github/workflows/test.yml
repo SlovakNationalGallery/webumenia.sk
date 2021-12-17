@@ -18,4 +18,4 @@ jobs:
       - name: Build docker image
         run: docker-compose build php 
       - name: Test
-        run: docker-compose run php bash -c "npm run testing && vendor/bin/phpunit"
+        run: docker-compose run -e MIX_SKIP_CSS_URL_PROCESSING=1 php bash -c "npm run production && vendor/bin/phpunit"

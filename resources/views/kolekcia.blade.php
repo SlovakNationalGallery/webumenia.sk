@@ -9,7 +9,6 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="{!! Request::url() !!}" />
 <meta property="og:image" content="{!! URL::to($collection->header_image_src) !!}" />
-<meta property="og:site_name" content="web umenia" />
 @foreach ($collection->getContentImages() as $image )
 <meta property="og:image" content="{!! $image !!}" />
 @endforeach
@@ -46,7 +45,7 @@
         <h1>{!! $collection->name !!}</h1>
         @if ($collection->type)
         {{-- keep in one line to prevent formatting failures --}}
-        <h2><a href="{!! url_to( 'kolekcie', ['type' => $collection->type ]) !!}">{!! $collection->type !!}</a></h2>
+        <h2><a href="{!! route('frontend.collection.index', ['type' => $collection->type ]) !!}">{!! $collection->type !!}</a></h2>
         @endif
     @endslot
 @endcomponent
@@ -60,7 +59,7 @@
                         @if ($collection->items->count() != 0)
                         <div class="col-sm-6">
                             <div class="v-center min-h-3em">
-                                <a href="{!! url_to( 'kolekcie', ['author' => $collection->user->name ]) !!}">
+                                <a href="{!! route('frontend.collection.index', ['author' => $collection->user->name ]) !!}">
                                     {!! $collection->user->name !!}
                                 </a>
                             </div>
@@ -92,7 +91,7 @@
                         @else
                         <div class="col-md-4 col-sm-6 col-xs-12">
                             <div class="v-center min-h-3em">
-                                <a href="{!! url_to( 'kolekcie', ['author' => $collection->user->name ]) !!}">
+                                <a href="{!! route('frontend.collection.index', ['author' => $collection->user->name ]) !!}">
                                     {!! $collection->user->name !!}
                                 </a>
                             </div>
@@ -159,9 +158,22 @@
                     @endforeach
                 </div>
             </div>
+            @unless (Cookie::has('newsletterSubscribedAt'))
+            <div class="row my-5">
+                <div class="col-md-8 col-md-push-2">
+                    <div class="bg-blue p-4 p-md-5">
+                        <div class="mx-md-2">
+                            <livewire:newsletter-signup-form />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endunless
         </div>
     </div>
 </section>
+
+<livewire:newsletter-signup-form-bottom-modal open-on-scrolled-percent="30" />
 @stop
 
 @section('javascript')
