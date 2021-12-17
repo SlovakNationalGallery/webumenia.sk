@@ -6,37 +6,48 @@
     <div class="container content-section">
         <div class="expandable">
             <div class="row">
-                <div class="col-md-4 col-xs-6 bottom-space">
+                <div class="col-md-3 col-xs-6 bottom-space">
                     @formWidget($form['author'], ['attr' => ['class' => 'js-custom-select']])
                 </div>
-                <div class="col-md-4 col-xs-6 bottom-space">
+                <div class="col-md-3 col-xs-6 bottom-space">
                     @formWidget($form['work_type'], ['attr' => ['class' => 'js-custom-select']])
                 </div>
-                <div class="col-md-4 col-xs-6 bottom-space">
+                <div class="col-md-3 col-xs-6 bottom-space">
+                    @formWidget($form['object_type'], ['attr' => ['class' => 'js-custom-select']])
+                </div>
+                <div class="col-md-3 col-xs-6 bottom-space">
                     @formWidget($form['tag'], ['attr' => ['class' => 'js-custom-select']])
                 </div>
-                <div class="col-md-4 col-xs-6 bottom-space">
-                    @formWidget($form['gallery'], ['attr' => ['class' => 'js-custom-select']])
-                </div>
-                <div class="col-md-4 col-xs-6 bottom-space">
+                <div class="col-md-3 col-xs-6 bottom-space">
                     @formWidget($form['topic'], ['attr' => ['class' => 'js-custom-select']])
                 </div>
-                <div class="col-md-4 col-xs-6 bottom-space">
+                <div class="col-md-3 col-xs-6 bottom-space">
                     @formWidget($form['technique'], ['attr' => ['class' => 'js-custom-select']])
                 </div>
-                <div class="col-md-4 col-xs-6">
+                <div class="col-md-3 col-xs-6 bottom-space">
+                    @formWidget($form['medium'], ['attr' => ['class' => 'js-custom-select']])
+                </div>
+                <div class="col-md-3 col-xs-6 bottom-space">
+                    @formWidget($form['gallery'], ['attr' => ['class' => 'js-custom-select']])
+                </div>
+                <div class="col-md-3 col-xs-6">
                     <div class="checkbox">
                         @formRow($form['has_image'])
                     </div>
                 </div>
-                <div class="col-md-4 col-xs-6">
+                <div class="col-md-3 col-xs-6">
                     <div class="checkbox">
                         @formRow($form['has_iip'])
                     </div>
                 </div>
-                <div class="col-md-4 col-xs-6">
+                <div class="col-md-3 col-xs-6">
                     <div class="checkbox">
                         @formRow($form['is_free'])
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-6">
+                    <div class="checkbox">
+                        @formRow($form['has_text'])
                     </div>
                 </div>
             </div>
