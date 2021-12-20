@@ -17,7 +17,7 @@ class GmuhkItemRepository extends AbstractRepository
     protected $fieldMap = [
         'datestamp' => './/ns:datestamp',
         'id' => './/ns:identifier',
-        'identifier' => './/dc:identifier[0]',
+        'identifier' => './/dc:identifier[1]',
         'author' => './/edm:Agent[starts-with(@rdf:about, "#PredmetAutor:")]/skos:prefLabel',
         'title' => './/dc:title',
         'dating' => './/edm:TimeSpan[starts-with(@rdf:about, "#PredmetDatText:")]/skos:prefLabel',

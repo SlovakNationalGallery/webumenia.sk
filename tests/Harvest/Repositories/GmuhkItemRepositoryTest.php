@@ -27,7 +27,7 @@ class GmuhkItemRepositoryTest extends TestCase
         $rows = iterator_to_array($rows);
         $expected = [
             'id' => ['oai:khk.museion.cz:GMUHK~publikacePredmetu~G0259'],
-            'identifier' => [],
+            'identifier' => ['G 259'],
             'title' => ['Kuřák'],
             'gallery' => ['Galerie moderního umění v Hradci Králové'],
             'datestamp' => ['2021-05-21T11:33:08Z'],
