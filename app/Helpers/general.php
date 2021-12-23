@@ -33,12 +33,6 @@ function intval32bits($value)
     return $value;
 }
 
-function url_to($to, $params)
-{
-    $queryString = http_build_query($params);
-    return URL::to($to).'?'.$queryString;
-}
-
 function add_brackets($str)
 {
     if (empty($str)) {

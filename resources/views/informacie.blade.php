@@ -100,7 +100,7 @@
         </div>
         <div class="row content-section">
             <div class="col-sm-12 text-center">
-                <a href="{{ url_to('katalog', ['is_for_reproduction' => 1]) }}" class="btn btn-default btn-outline sans" >{{ trans('informacie.more-items_button') }} <strong>{{ $items_for_reproduction_total }}</strong>  <i class="fa fa-chevron-right "></i></a>
+                <a href="{{ route('frontend.catalog.index', ['is_for_reproduction' => 1]) }}" class="btn btn-default btn-outline sans" >{{ trans('informacie.more-items_button') }} <strong>{{ $items_for_reproduction_total }}</strong>  <i class="fa fa-chevron-right "></i></a>
             </div>
         </div>
     </div>
