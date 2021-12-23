@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Slide extends Model implements HasMedia
+class FeaturedPiece extends Model implements HasMedia
 {
     use InteractsWithMedia;
 
