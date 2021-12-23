@@ -20,7 +20,7 @@ use App\Filter\ItemFilter;
 use App\Item;
 use App\Notice;
 use App\Order;
-use App\Slide;
+use App\FeaturedPiece as Slide;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
 
