@@ -527,6 +527,7 @@ Route::group(['middleware' => ['auth', 'can:edit']], function () {
 });
 
 Route::group(['middleware' => ['auth', 'can:administer']], function () {
+    Route::resource('featured-pieces', 'Admin\FeaturedPieceController');
     Route::get('harvests/launch/{id}', 'SpiceHarvesterController@launch');
     Route::get('harvests/harvestFailed/{id}', 'SpiceHarvesterController@harvestFailed');
     Route::get('harvests/orphaned/{id}', 'SpiceHarvesterController@orphaned');
