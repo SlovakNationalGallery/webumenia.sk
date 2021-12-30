@@ -15,7 +15,6 @@ use App\Article;
 use App\Collection;
 use App\Elasticsearch\Repositories\AuthorityRepository;
 use App\Elasticsearch\Repositories\ItemRepository;
-use App\Facades\Experiment;
 use App\Filter\ItemFilter;
 use App\Item;
 use App\Notice;
