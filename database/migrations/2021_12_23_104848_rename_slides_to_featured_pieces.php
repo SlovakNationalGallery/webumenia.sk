@@ -18,6 +18,14 @@ class RenameSlidesToFeaturedPieces extends Migration
         DB::table('media')
             ->where('model_type', 'App\Slide')
             ->update(['model_type' => 'App\FeaturedPiece']);
+
+        Schema::table('featured_pieces', function (Blueprint $table) {
+            $table->renameColumn('subtitle', 'excerpt');
+        });
+
+        Schema::table('featured_pieces', function (Blueprint $table) {
+            $table->text('excerpt')->change();
+        });
     }
 
     /**
@@ -27,6 +35,14 @@ class RenameSlidesToFeaturedPieces extends Migration
      */
     public function down()
     {
+        Schema::table('featured_pieces', function (Blueprint $table) {
+            $table->string('excerpt')->change();
+        });
+
+        Schema::table('featured_pieces', function (Blueprint $table) {
+            $table->renameColumn('excerpt', 'subtitle');
+        });
+
         DB::table('media')
             ->where('model_type', 'App\FeaturedPiece')
             ->update(['model_type' => 'App\Slide']);
