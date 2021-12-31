@@ -29,7 +29,7 @@
                 </a>
             </div>
             <div class="panel-body">
-            	<table class="table table-hover">
+                <table class="table table-hover">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -42,9 +42,9 @@
                         </tr>
                     </thead>
                     <tbody>
-						@foreach($featuredPieces as $piece)
-			            <tr>
-			                <td>{{ $piece->id }}</td>
+                        @foreach($featuredPieces as $piece)
+                        <tr>
+                            <td>{{ $piece->id }}</td>
                             <td style="max-width: 50px">
                                 @if($piece->hasMedia('image'))
                                 {{ $piece->getFirstMedia('image')->img()->attributes(['width' => '100%', 'height' => 'auto']) }}
@@ -60,7 +60,7 @@
                             <td class="text-right">
                                 {{ $piece->click_count }}
                             </td>
-			                <td>
+                            <td>
                                 <a href="{{ route('featured-pieces.edit', $piece) }}" class="btn btn-primary btn-xs btn-outline">Upraviť</a>
                                 <x-admin.link-with-confirmation
                                     action="{{ route('featured-pieces.destroy', $piece->id) }}"
@@ -71,8 +71,8 @@
                                     Zmazať
                                 </x-admin.link-with-confirmation>
                             </td>
-			            </tr>
-						@endforeach
+                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
 
