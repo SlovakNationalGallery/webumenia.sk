@@ -20,7 +20,7 @@ class FeaturedPieceController extends Controller
 
     public function create()
     {
-        return view('slides.form');
+        return view('admin.featured_pieces.form');
     }
 
     public function store(Request $request)
@@ -36,7 +36,7 @@ class FeaturedPieceController extends Controller
 
         return redirect()
             ->route('featured-pieces.index')
-            ->with('message', "Odporúčaný obsah \"{$featuredPiece->name}\" bol vytvorený");
+            ->with('message', "Odporúčaný obsah \"{$featuredPiece->title}\" bol vytvorený");
     }
 
     public function edit(FeaturedPiece $featuredPiece)
@@ -57,7 +57,7 @@ class FeaturedPieceController extends Controller
 
         return redirect()
             ->route('featured-pieces.index')
-            ->with('message', "Odporúčaný obsah \"{$featuredPiece->name}\" bol upravený");
+            ->with('message', "Odporúčaný obsah \"{$featuredPiece->title}\" bol upravený");
     }
 
     public function destroy(FeaturedPiece $featuredPiece)

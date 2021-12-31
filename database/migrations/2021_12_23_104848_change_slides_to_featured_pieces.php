@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 
-class RenameSlidesToFeaturedPieces extends Migration
+class ChangeSlidesToFeaturedPieces extends Migration
 {
     /**
      * Run the migrations.
@@ -14,19 +14,27 @@ class RenameSlidesToFeaturedPieces extends Migration
      */
     public function up()
     {
+        // Rename table and model
         Schema::rename('slides', 'featured_pieces');
         DB::table('media')
             ->where('model_type', 'App\Slide')
             ->update(['model_type' => 'App\FeaturedPiece']);
 
+        // Change subtitle -> excerpt (and expand it to TEXT)
         Schema::table('featured_pieces', function (Blueprint $table) {
             $table->renameColumn('subtitle', 'excerpt');
         });
-
         Schema::table('featured_pieces', function (Blueprint $table) {
             $table->text('excerpt')->change();
         });
+
+        // Add new 'type' column
+        Schema::table('featured_pieces', function (Blueprint $table) {
+            $table->text('type')->after('url');
+        });
+        DB::table('featured_pieces')->update(['type' => 'article']);
     }
+
 
     /**
      * Reverse the migrations.
@@ -35,6 +43,10 @@ class RenameSlidesToFeaturedPieces extends Migration
      */
     public function down()
     {
+        Schema::table('featured_pieces', function (Blueprint $table) {
+            $table->dropColumn('type');
+        });
+
         Schema::table('featured_pieces', function (Blueprint $table) {
             $table->string('excerpt')->change();
         });
