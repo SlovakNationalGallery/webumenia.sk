@@ -109,6 +109,12 @@
                         <li>
                             <a href="{!! URL::to('slide') !!}"><i class="fa fa-exchange fa-fw"></i> Carousel</a>
                         </li>
+                        <li class="uppercase text-sm font-semibold text-muted pl-4 pt-4 border-b-0">
+                            Homepage (New)
+                        </li>
+                        <li class="mb-4 border-b-0">
+                            <a href="{{ route('featured-pieces.index') }}"><i class="fa fa-image fa-fw"></i> Odporúčaný obsah</a>
+                        </li>
                         @endcan
                         @can('administer')
                         <li>
@@ -233,7 +239,7 @@
             filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
             filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
 
-            // Only upload via laravel-filemanager, because its /upload 
+            // Only upload via laravel-filemanager, because its /upload
             // response is incompatible with CKEditor image/file Upload dialogs.
             removeDialogTabs: 'image:Upload;link:upload',
         });
