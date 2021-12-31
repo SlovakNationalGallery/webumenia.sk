@@ -14,13 +14,13 @@ class FeaturedPieceController extends Controller
             ->with('media')
             ->get();
 
-        return view('admin.featured_pieces.index')
+        return view('featured_pieces.index')
             ->with('featuredPieces', $featuredPieces);
     }
 
     public function create()
     {
-        return view('admin.featured_pieces.form');
+        return view('featured_pieces.form');
     }
 
     public function store(Request $request)
@@ -41,7 +41,7 @@ class FeaturedPieceController extends Controller
 
     public function edit(FeaturedPiece $featuredPiece)
     {
-        return view('admin.featured_pieces.form')->with('featuredPiece', $featuredPiece);
+        return view('featured_pieces.form')->with('featuredPiece', $featuredPiece);
     }
 
     public function update(Request $request, FeaturedPiece $featuredPiece)
