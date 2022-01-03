@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- filter by gender to authorities
 
 ## [2.40.0] - 2021-12-23
 ### Added
