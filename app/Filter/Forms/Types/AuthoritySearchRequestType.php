@@ -69,7 +69,8 @@ class AuthoritySearchRequestType extends AbstractType
                 ])
                 ->add('role', ChoiceType::class, $getChoiceOptions('role'))
                 ->add('nationality', ChoiceType::class, $getChoiceOptions('nationality'))
-                ->add('place', ChoiceType::class, $getChoiceOptions('place'));
+                ->add('place', ChoiceType::class, $getChoiceOptions('place'))
+                ->add('sex', ChoiceType::class, $getChoiceOptions('sex'));
         });
 
         $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
