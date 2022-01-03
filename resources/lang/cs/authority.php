@@ -91,5 +91,9 @@ return array(
         "workshop" => "dílna autora",
         "concept" => "autor konceptu",
         "photograph" => "autor fotografie",
+    ],
+    'sex'=>[
+        'male' => 'muž',
+        'female' => 'žena',
     ]
 );

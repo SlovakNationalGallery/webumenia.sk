@@ -286,7 +286,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
             'role' => $this->roles,
             'birth_year' => $this->birth_year,
             'death_year' => $this->death_year,
-            'sex' => $this->sex,
+            'sex' => trans('authority.sex.' . $this->sex, [], $locale),
             'has_image' => (boolean) $this->has_image,
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
             'items_count' => $this->items()->count(),

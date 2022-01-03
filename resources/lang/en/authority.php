@@ -88,5 +88,9 @@ return array(
         "workshop" => "workshop of",
         "concept" => "concept by",
         "photograph" => "photographer",
+    ],
+    'sex'=>[
+        'male' => 'male',
+        'female' => 'female',
     ]
 );
