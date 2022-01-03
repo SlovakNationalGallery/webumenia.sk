@@ -39,6 +39,7 @@ return array(
         'role' => 'rola',
         'nationality' => 'príslušnosť',
         'place' => 'miesto',
+        'sex' => 'pohlavie',
         'title_generator' => [
             'first_letter' => 'začína sa na: :value',
             'role' => 'rola: :value',

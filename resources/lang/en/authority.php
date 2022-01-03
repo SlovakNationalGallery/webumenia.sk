@@ -36,6 +36,7 @@ return array(
         'role' => 'role',
         'nationality' => 'nationality',
         'place' => 'location',
+        'sex' => 'gender',
         'title_generator' => [
             'first_letter' => 'first letter: :value',
             'role' => 'role: :value',

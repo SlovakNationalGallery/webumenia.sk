@@ -44,6 +44,7 @@ return array(
             'role' => 'role: :value',
             'nationality' => 'příslušnost: :value',
             'place' => 'místo: :value',
+            'sex' => 'pohlaví',
             'years' => 'v letech :from — :to',
         ],
         'sort_by' => 'podle',
