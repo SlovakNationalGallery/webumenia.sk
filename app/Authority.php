@@ -255,7 +255,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
                     $result_path = $relative_path."$file.$resize.jpeg";
                 }
             } else {
-                $result_path = '/images/no-image/autori/no-image.jpeg';
+                $result_path = self::getNoImage($sex);
             }
         }
 
@@ -286,7 +286,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
             'role' => $this->roles,
             'birth_year' => $this->birth_year,
             'death_year' => $this->death_year,
-            'sex' => trans('authority.sex.' . $this->sex, [], $locale),
+            'sex' => $this->sex,
             'has_image' => (boolean) $this->has_image,
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
             'items_count' => $this->items()->count(),

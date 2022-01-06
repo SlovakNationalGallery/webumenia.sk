@@ -168,7 +168,7 @@ class ItemRepository extends TranslatableRepository
         return $this->createSearchResult($response);
     }
 
-    protected function createBucketCollection(array $response, string $attribute): Collection
+    protected function createBucketCollection(array $response, string $attribute, ?string $translation_domain = null): Collection
     {
         $choices = collect();
         foreach ($response['aggregations'][$attribute]['buckets'] as $bucket) {

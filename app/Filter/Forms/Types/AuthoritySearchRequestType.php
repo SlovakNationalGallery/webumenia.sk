@@ -46,8 +46,8 @@ class AuthoritySearchRequestType extends AbstractType
             $searchRequest = $event->getData();
             $form = $event->getForm();
 
-            $getChoiceOptions = function ($attribute) use ($searchRequest) {
-                $choices = $this->authorityRepository->listValues($attribute, $searchRequest);
+            $getChoiceOptions = function ($attribute, $translation_domain = null) use ($searchRequest) {
+                $choices = $this->authorityRepository->listValues($attribute, $searchRequest, $translation_domain);
                 $value = $searchRequest->get($attribute);
 
                 if ($choices->isEmpty() && $value !== null) {
@@ -71,6 +71,7 @@ class AuthoritySearchRequestType extends AbstractType
                 ->add('nationality', ChoiceType::class, $getChoiceOptions('nationality'))
                 ->add('place', ChoiceType::class, $getChoiceOptions('place'))
                 ->add('sex', ChoiceType::class, $getChoiceOptions('sex'));
+                // ->add('sex', ChoiceType::class, $getChoiceOptions('sex', 'authority.sex')); // @TODO: use this after fix
         });
 
         $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
