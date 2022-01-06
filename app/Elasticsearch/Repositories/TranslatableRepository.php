@@ -142,7 +142,7 @@ abstract class TranslatableRepository extends AbstractRepository
         return $this->createSearchResult($response);
     }
 
-    public function listValues(string $attribute, Filter $filter, string $locale = null, ?string $translation_domain = null): Collection
+    public function listValues(string $attribute, Filter $filter, string $locale = null, string $translation_domain = null): Collection
     {
         $query = $this->buildQueryFromFilter($filter);
         $body = $query ? ['query' => $query] : [];

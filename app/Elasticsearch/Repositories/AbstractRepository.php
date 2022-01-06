@@ -71,11 +71,6 @@ abstract class AbstractRepository
     {
         $choices = collect();
         foreach ($response['aggregations'][$attribute]['buckets'] as $bucket) {
-            // @TODO: remove after fix
-            if ($attribute == 'sex') {
-                $translation_domain = 'authority.sex';
-            }
-            // /@TODO: remove after fix
             $key = ($translation_domain) ? trans($translation_domain . '.' . $bucket['key']) : $bucket['key'];
             $label = sprintf('%s (%d)', $key, $bucket['doc_count']);
             $choices[$label] = $bucket['key'];
