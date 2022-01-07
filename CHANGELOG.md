@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - filter by gender to authorities
 
+### Changed
+- no-image for alive/dead authors
+
+### Fixed
+- gender-specific no-image for authorities
+
 ## [2.40.0] - 2021-12-23
 ### Added
 - catalog object type, medium, has text filters
