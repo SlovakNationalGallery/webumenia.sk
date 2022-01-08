@@ -71,9 +71,9 @@ abstract class AbstractRepository
     {
         $choices = collect();
         foreach ($response['aggregations'][$attribute]['buckets'] as $bucket) {
-            $key = ($translation_domain) ? trans($translation_domain . '.' . $bucket['key']) : $bucket['key'];
-            $label = sprintf('%s (%d)', $key, $bucket['doc_count']);
-            $choices[$label] = $bucket['key'];
+            $label = ($translation_domain) ? trans($translation_domain . '.' . $bucket['key']) : $bucket['key'];
+            $label_with_count = sprintf('%s (%d)', $label, $bucket['doc_count']);
+            $choices[$label_with_count] = $bucket['key'];
         }
 
         return $choices;
