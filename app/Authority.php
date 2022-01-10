@@ -266,7 +266,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
     {
         $filename = "no-image";
         if ($sex) $filename .= "-$sex";
-        if ($death_year!==null) $filename .= "-dead";
+        if ($death_year !== null) $filename .= "-dead";
         return "/images/no-image/autori/$filename.svg";
     }
 
