@@ -8,5 +8,6 @@ return [
         'O' => 'painting',
         'P' => 'sculpture',
         'VA' => 'video art',
+        'GVP' => 'sculpture',
     ],
 ];
