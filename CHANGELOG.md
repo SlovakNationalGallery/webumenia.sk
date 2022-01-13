@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Changed
 - inscription length in item_translations table
 - GMUHK work types
+- Slide to FeaturedPiece
 
 ## [2.40.1] - 2022-01-04
 ### Fixed
