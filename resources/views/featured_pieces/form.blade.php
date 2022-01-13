@@ -17,10 +17,13 @@
     @if($errors->any())
         <div class="alert alert-danger">
             <a href="#" class="close" data-dismiss="alert">&times;</a>
-            {!! implode('', $errors->all('<li class="error">:message</li>')) !!}
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li class="error">{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
     @endif
-
 </div>
 
 <div class="col-xs-12">
@@ -32,7 +35,7 @@
 
 <div class="col-xs-12">
     <div class="form-group">
-    {{ Form::label('excerpt', 'Ukážka') }}
+    {{ Form::label('excerpt', 'Text') }}
     {{ Form::textarea('excerpt', null, ['class' => 'form-control', 'rows' => '4']) }}
     </div>
 </div>
@@ -85,6 +88,6 @@
     <a href="{{ route('featured-pieces.index') }}" class="btn btn-default ml-2">Zrušiť</a>
 </div>
 
-{!!Form::close() !!}
+{!! Form::close() !!}
 
 @endsection
