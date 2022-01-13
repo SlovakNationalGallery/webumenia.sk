@@ -19,7 +19,10 @@ class MigrateSlidesImagesToMedia extends Migration
     {
         $disk = config('media-library.disk_name');
         $storage = Storage::disk($disk);
-        $slides = DB::table('slides')->whereNotNull('image')->where('image', '<>', '');
+        $slides = DB::table('slides')
+            ->whereNotNull('image')
+            ->where('image', '<>', '')
+            ->orderBy('id');
 
         foreach ($slides->lazy() as $slide) {
             $imagePath = 'public/images/intro/' . $slide->image;
