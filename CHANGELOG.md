@@ -6,10 +6,16 @@ All notable changes to this project will be documented in this file[^1].
 - filter by gender to authorities
 
 ### Changed
+- inscription length in item_translations table
+- GMUHK work types
 - no-image for alive/dead authors
 
 ### Fixed
 - gender-specific no-image for authorities
+
+## [2.40.1] - 2022-01-04
+### Fixed
+- indexing multiple medium values
 
 ## [2.40.0] - 2021-12-23
 ### Added

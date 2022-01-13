@@ -677,7 +677,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
             'place' => $this->makeArray($this["place:$locale"]),
             'measurement' => self::formatMeasurement($this["measurement:$locale"]),
             'dating' => $this["dating:$locale"],
-            'medium' => $this["medium:$locale"],
+            'medium' => $this->makeArray($this["medium:$locale"]),
             'technique' => $this->makeArray($this["technique:$locale"]),
             'gallery' => $this["gallery:$locale"],
             'credit' => $this["credit:$locale"],
