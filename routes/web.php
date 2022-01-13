@@ -542,7 +542,6 @@ Route::group(['middleware' => ['auth', 'can:administer']], function () {
     Route::get('authority/search', 'AuthorityController@search');
     Route::resource('authority', 'AuthorityController');
     Route::resource('sketchbook', 'SketchbookController');
-    Route::resource('slide', 'SlideController');
     Route::resource('notices', 'NoticeController');
     Route::resource('redirects', 'RedirectController');
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
