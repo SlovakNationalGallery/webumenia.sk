@@ -67,13 +67,14 @@ abstract class AbstractRepository
         return $model;
     }
 
-    protected function createBucketCollection(array $response, string $attribute, ?string $translation_domain): Collection
+    protected function createBucketCollection(array $response, string $attribute): Collection
     {
         $choices = collect();
         foreach ($response['aggregations'][$attribute]['buckets'] as $bucket) {
-            $label = ($translation_domain) ? trans($translation_domain . '.' . $bucket['key']) : $bucket['key'];
-            $label_with_count = sprintf('%s (%d)', $label, $bucket['doc_count']);
-            $choices[$label_with_count] = $bucket['key'];
+            $choices[] = [
+                'value' => $bucket['key'],
+                'count' => $bucket['doc_count'],
+            ];
         }
 
         return $choices;

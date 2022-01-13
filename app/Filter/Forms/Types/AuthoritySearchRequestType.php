@@ -47,7 +47,13 @@ class AuthoritySearchRequestType extends AbstractType
             $form = $event->getForm();
 
             $getChoiceOptions = function ($attribute, $translation_domain = null) use ($searchRequest) {
-                $choices = $this->authorityRepository->listValues($attribute, $searchRequest, null, $translation_domain);
+                $choices = $this->authorityRepository
+                    ->listValues($attribute, $searchRequest)
+                    ->mapWithKeys(function ($item) use ($translation_domain) {
+                        $label = ($translation_domain) ? trans($translation_domain . '.' . $item['value']) : $item['value'];
+                        $label_with_count = sprintf('%s (%d)', $label, $item['count']);
+                        return [$label_with_count => $item['value']];
+                    });
                 $value = $searchRequest->get($attribute);
 
                 if ($choices->isEmpty() && $value !== null) {

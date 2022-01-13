@@ -142,7 +142,7 @@ abstract class TranslatableRepository extends AbstractRepository
         return $this->createSearchResult($response);
     }
 
-    public function listValues(string $attribute, Filter $filter, string $locale = null, string $translation_domain = null): Collection
+    public function listValues(string $attribute, Filter $filter, string $locale = null): Collection
     {
         $query = $this->buildQueryFromFilter($filter);
         $body = $query ? ['query' => $query] : [];
@@ -157,7 +157,7 @@ abstract class TranslatableRepository extends AbstractRepository
             'body' => $body,
         ]);
 
-        return $this->createBucketCollection($response, $attribute, $translation_domain);
+        return $this->createBucketCollection($response, $attribute);
     }
 
     public function deleteIndex(string $locale = null): void
