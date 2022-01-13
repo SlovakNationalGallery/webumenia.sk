@@ -110,7 +110,7 @@
                             Homepage
                         </li>
                         <li class="mb-4 border-b-0">
-                            <a href="{{ route('featured-pieces.index') }}"><i class="fa fa-image fa-fw"></i> Odporúčaný obsah (Carousel)</a>
+                            <a href="{{ route('featured-pieces.index') }}"><i class="fa fa-image fa-fw"></i> Odporúčaný obsah</a>
                         </li>
                         @endcan
                         @can('administer')
