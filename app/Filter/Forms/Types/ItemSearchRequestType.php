@@ -42,7 +42,16 @@ class ItemSearchRequestType extends AbstractType
             $searchRequest = $event->getData();
 
             $getChoiceOptions = function ($attribute) use ($searchRequest) {
-                $choices = $this->itemRepository->listValues($attribute, $searchRequest);
+                $choices = $this->itemRepository
+                    ->listValues($attribute, $searchRequest)
+                    ->mapWithKeys(function ($item) use ($attribute) {
+                        $label = $item['value'];
+                        if ($attribute === 'author') {
+                            $label = formatName($item['value']);
+                        }
+                        $label_with_count = sprintf('%s (%d)', $label, $item['count']);
+                        return [$label_with_count => $item['value']];
+                    });
                 $value = $searchRequest->get($attribute);
 
                 if ($choices->isEmpty() && $value !== null) {

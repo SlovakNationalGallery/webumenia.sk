@@ -168,23 +168,6 @@ class ItemRepository extends TranslatableRepository
         return $this->createSearchResult($response);
     }
 
-    protected function createBucketCollection(array $response, string $attribute): Collection
-    {
-        $choices = collect();
-        foreach ($response['aggregations'][$attribute]['buckets'] as $bucket) {
-            $key = $bucket['key'];
-
-            if ($attribute === 'author') {
-                $key = formatName($key);
-            }
-
-            $label = sprintf('%s (%d)', $key, $bucket['doc_count']);
-            $choices[$label] = $bucket['key'];
-        }
-
-        return $choices;
-    }
-
     public function getPreviewItems(int $size, Authority $authority, string $locale = null): Collection
     {
         $response = $this->elasticsearch->search([

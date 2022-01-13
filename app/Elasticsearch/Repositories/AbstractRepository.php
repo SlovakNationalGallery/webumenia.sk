@@ -71,8 +71,10 @@ abstract class AbstractRepository
     {
         $choices = collect();
         foreach ($response['aggregations'][$attribute]['buckets'] as $bucket) {
-            $label = sprintf('%s (%d)', $bucket['key'], $bucket['doc_count']);
-            $choices[$label] = $bucket['key'];
+            $choices[] = [
+                'value' => $bucket['key'],
+                'count' => $bucket['doc_count'],
+            ];
         }
 
         return $choices;

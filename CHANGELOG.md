@@ -2,10 +2,17 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- filter by gender to authorities
+
 ### Changed
 - inscription length in item_translations table
 - GMUHK work types
 - Slide to FeaturedPiece
+- no-image for alive/dead authors
+
+### Fixed
+- gender-specific no-image for authorities
 
 ## [2.40.1] - 2022-01-04
 ### Fixed

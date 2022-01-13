@@ -44,6 +44,7 @@ return array(
             'role' => 'role: :value',
             'nationality' => 'příslušnost: :value',
             'place' => 'místo: :value',
+            'sex' => 'pohlaví',
             'years' => 'v letech :from — :to',
         ],
         'sort_by' => 'podle',
@@ -90,5 +91,9 @@ return array(
         "workshop" => "dílna autora",
         "concept" => "autor konceptu",
         "photograph" => "autor fotografie",
+    ],
+    'sex'=>[
+        'male' => 'muž',
+        'female' => 'žena',
     ]
 );
