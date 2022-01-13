@@ -66,7 +66,7 @@
                                     action="{{ route('featured-pieces.destroy', $piece->id) }}"
                                     method="DELETE"
                                     class="btn btn-danger btn-xs btn-outline"
-                                    message="Naozaj chceš zmazať tento text?"
+                                    message="Naozaj to chceš zmazať?"
                                 >
                                     Zmazať
                                 </x-admin.link-with-confirmation>
