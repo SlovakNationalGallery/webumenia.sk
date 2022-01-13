@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Changed
 - inscription length in item_translations table
+- GMUHK work types
 
 ## [2.40.1] - 2022-01-04
 ### Fixed
