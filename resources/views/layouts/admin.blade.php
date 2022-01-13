@@ -106,14 +106,11 @@
                         </li>
                         @endcan
                         @can('administer')
-                        <li>
-                            <a href="{!! URL::to('slide') !!}"><i class="fa fa-exchange fa-fw"></i> Carousel</a>
-                        </li>
                         <li class="uppercase text-sm font-semibold text-muted pl-4 pt-4 border-b-0">
-                            Homepage (New)
+                            Homepage
                         </li>
                         <li class="mb-4 border-b-0">
-                            <a href="{{ route('featured-pieces.index') }}"><i class="fa fa-image fa-fw"></i> Odporúčaný obsah</a>
+                            <a href="{{ route('featured-pieces.index') }}"><i class="fa fa-image fa-fw"></i> Odporúčaný obsah (Carousel)</a>
                         </li>
                         @endcan
                         @can('administer')
