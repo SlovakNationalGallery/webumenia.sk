@@ -1,10 +1,9 @@
 <?php
 
-
-
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class AuthorityName extends Model
 {
@@ -19,5 +18,13 @@ class AuthorityName extends Model
     public function authority()
     {
         return $this->belongsTo(Authority::class);
+    }
+
+    public function scopeSwappedName($query, $name)
+    {
+        $query->where(
+            DB::raw('concat(substring_index(name, ", ", -1), " ", substring_index(name, ", ", 1))'),
+            $name
+        );
     }
 }

@@ -122,6 +122,14 @@ class Authority extends Model implements IndexableModel, TranslatableContract
         return $this->links()->where('type', 'source');
     }
 
+    public function scopeSwappedName($query, $name)
+    {
+        $query->where(
+            DB::raw('concat(substring_index(name, ", ", -1), " ", substring_index(name, ", ", 1))'),
+            $name
+        );
+    }
+
     public function getCollectionsCountAttribute()
     {
         if (!Cache::has('authority_collections_count')) {
