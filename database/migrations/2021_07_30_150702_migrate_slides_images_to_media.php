@@ -1,6 +1,5 @@
 <?php
 
-use App\Slide;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -20,12 +19,15 @@ class MigrateSlidesImagesToMedia extends Migration
     {
         $disk = config('media-library.disk_name');
         $storage = Storage::disk($disk);
-        $slides = Slide::whereNotNull('image')->where('image', '<>', '');
+        $slides = DB::table('slides')
+            ->whereNotNull('image')
+            ->where('image', '<>', '')
+            ->orderBy('id');
 
         foreach ($slides->lazy() as $slide) {
             $imagePath = 'public/images/intro/' . $slide->image;
             $fileName = File::basename($imagePath);
-            
+
             if (!File::exists($imagePath)) {
                 echo $imagePath . ' does not exist. Skipping...' . PHP_EOL;
                 continue;

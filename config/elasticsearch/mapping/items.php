@@ -150,7 +150,9 @@ $mapping = [
             'fielddata' => true,
         ],
         'object_type' => [
-            'type' => 'keyword',
+            'type' => 'text',
+            'analyzer' => 'tree_analyzer',
+            'fielddata' => true,
         ],
         'view_count' => [
             'type' => 'integer',

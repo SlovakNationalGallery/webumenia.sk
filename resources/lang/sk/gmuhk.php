@@ -6,7 +6,8 @@ return [
         'G' => 'grafika',
         'K' => 'kresba',
         'O' => 'maliarstvo',
-        'P' => 'sochárstvo',
+        'P' => 'sochárstvo, plastika',
         'VA' => 'iné médiá, video',
+        'GVP' => 'sochárstvo, skulptúra',
     ],
 ];

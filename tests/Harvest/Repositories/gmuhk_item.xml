@@ -4,11 +4,13 @@
     <request metadataPrefix="edm" verb="ListRecords">http://khk.museion.cz/w4m/oai/GMUHK</request>
     <ListRecords>
         <record>
-            <header xmlns="">
-                <identifier>oai:khk.museion.cz:GMUHK~G0259</identifier>
+            <header>
+                <identifier>oai:khk.museion.cz:GMUHK~publikacePredmetu~G0259</identifier>
                 <datestamp>2021-05-21T11:33:08Z</datestamp>
-                <setSpec>151</setSpec>
-                <setSpec>151:G</setSpec>
+                <setSpec>publikacePredmetu</setSpec>
+                <setSpec>publikacePredmetu:GMUHK</setSpec>
+                <setSpec>publikacePredmetu:GMUHK:151</setSpec>
+                <setSpec>publikacePredmetu:GMUHK:151:G</setSpec>
             </header>
             <metadata xmlns="">
                 <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:edm="http://www.europeana.eu/schemas/edm/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xmlns:ore="http://www.openarchives.org/ore/terms/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:crm="http://www.cidoc-crm.org/rdfs/cidoc_crm_v5.0.2_english_label.rdfs#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:ebucore="https://www.ebu.ch/metadata/ontologies/ebucore/ebucore#" xmlns:xalan="http://xml.apache.org/xalan-j/index.html" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdau="http://www.rdaregistry.info/Elements/u/" xmlns:odrl="https://www.w3.org/ns/odrl/2/" xsi:schemaLocation="http://www.w3.org/1999/02/22-rdf-syntax-ns# EDM-INTERNAL.xsd">

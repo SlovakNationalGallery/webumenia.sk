@@ -29,12 +29,11 @@ class ItemSearchRequestType extends AbstractType
         $builder->add('search', HiddenType::class, ['required' => false])
             ->add('color', ColorType::class, ['required' => false])
             ->add('credit', HiddenType::class, ['required' => false])
-            ->add('medium', HiddenType::class, ['required' => false])
             ->add('related_work', HiddenType::class, ['required' => false])
-            ->add('object_type', HiddenType::class, ['required' => false])
             ->add('has_image', NullableCheckboxType::class)
             ->add('has_iip', NullableCheckboxType::class)
             ->add('is_free', NullableCheckboxType::class)
+            ->add('has_text', NullableCheckboxType::class)
             ->add('is_for_reproduction', HiddenType::class, ['required' => false]);
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
@@ -43,7 +42,16 @@ class ItemSearchRequestType extends AbstractType
             $searchRequest = $event->getData();
 
             $getChoiceOptions = function ($attribute) use ($searchRequest) {
-                $choices = $this->itemRepository->listValues($attribute, $searchRequest);
+                $choices = $this->itemRepository
+                    ->listValues($attribute, $searchRequest)
+                    ->mapWithKeys(function ($item) use ($attribute) {
+                        $label = $item['value'];
+                        if ($attribute === 'author') {
+                            $label = formatName($item['value']);
+                        }
+                        $label_with_count = sprintf('%s (%d)', $label, $item['count']);
+                        return [$label_with_count => $item['value']];
+                    });
                 $value = $searchRequest->get($attribute);
 
                 if ($choices->isEmpty() && $value !== null) {
@@ -66,6 +74,8 @@ class ItemSearchRequestType extends AbstractType
                 ->add('author', ChoiceType::class, $getChoiceOptions('author'))
                 ->add('gallery', ChoiceType::class, $getChoiceOptions('gallery'))
                 ->add('work_type', ChoiceType::class, $getChoiceOptions('work_type'))
+                ->add('object_type', ChoiceType::class, $getChoiceOptions('object_type'))
+                ->add('medium', ChoiceType::class, $getChoiceOptions('medium'))
                 ->add('topic', ChoiceType::class, $getChoiceOptions('topic'))
                 ->add('tag', ChoiceType::class, $getChoiceOptions('tag'))
                 ->add('technique', ChoiceType::class, $getChoiceOptions('technique'))

@@ -17,12 +17,15 @@ class AuthorityFilter extends AbstractFilter
 
     protected $place;
 
+    protected $sex;
+
     protected $firstLetter;
 
     protected $filterables = [
         'role',
         'nationality',
         'place',
+        'sex',
     ];
 
     public static function loadValidatorMetadata(ClassMetadata $metadata)
@@ -71,6 +74,17 @@ class AuthorityFilter extends AbstractFilter
     public function setPlace(?string $place): AuthorityFilter
     {
         $this->place = $place;
+        return $this;
+    }
+
+    public function getSex(): ?string
+    {
+        return $this->sex;
+    }
+
+    public function setSex(?string $sex): AuthorityFilter
+    {
+        $this->sex = $sex;
         return $this;
     }
 

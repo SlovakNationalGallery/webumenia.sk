@@ -180,7 +180,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
 
     public function getImagePath($full = false, $resize = false)
     {
-        return self::getImagePathForId($this->id, $this->has_image, $this->sex, $full, $resize);
+        return self::getImagePathForId($this->id, $this->has_image, $this->sex, $this->death_year, $full, $resize);
     }
 
     public function removeImage()
@@ -205,10 +205,10 @@ class Authority extends Model implements IndexableModel, TranslatableContract
         return URL::to('autor/'.$authority_id);
     }
 
-    public static function getImagePathForId($id, $has_image, $sex = 'male', $full = false, $resize = false)
+    public static function getImagePathForId($id, $has_image, $sex = 'male', $death_year = null, $full = false, $resize = false)
     {
         if (!$has_image && !$full) {
-            return self::getNoImage($sex);
+            return self::getNoImage($sex, $death_year);
         }
 
         $levels = 1;
@@ -255,17 +255,19 @@ class Authority extends Model implements IndexableModel, TranslatableContract
                     $result_path = $relative_path."$file.$resize.jpeg";
                 }
             } else {
-                $result_path = '/images/no-image/autori/no-image.jpeg';
+                $result_path = self::getNoImage($sex, $death_year);
             }
         }
 
         return $result_path;
     }
 
-    private static function getNoImage($sex = 'male')
+    private static function getNoImage($sex = 'male', $death_year = null)
     {
-        if ($sex) return "/images/no-image/autori/no-image-$sex.jpeg";
-        return "/images/no-image/autori/no-image.jpeg";
+        $filename = "no-image";
+        if ($sex) $filename .= "-$sex";
+        if ($death_year !== null) $filename .= "-dead";
+        return "/images/no-image/autori/$filename.svg";
     }
 
     public function getIndexedData($locale)
