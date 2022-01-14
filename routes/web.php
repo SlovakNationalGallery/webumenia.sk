@@ -15,12 +15,11 @@ use App\Article;
 use App\Collection;
 use App\Elasticsearch\Repositories\AuthorityRepository;
 use App\Elasticsearch\Repositories\ItemRepository;
-use App\Facades\Experiment;
 use App\Filter\ItemFilter;
 use App\Item;
 use App\Notice;
 use App\Order;
-use App\Slide;
+use App\FeaturedPiece as Slide;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -528,6 +527,7 @@ Route::group(['middleware' => ['auth', 'can:edit']], function () {
 });
 
 Route::group(['middleware' => ['auth', 'can:administer']], function () {
+    Route::resource('featured-pieces', 'Admin\FeaturedPieceController');
     Route::get('harvests/launch/{id}', 'SpiceHarvesterController@launch');
     Route::get('harvests/harvestFailed/{id}', 'SpiceHarvesterController@harvestFailed');
     Route::get('harvests/orphaned/{id}', 'SpiceHarvesterController@orphaned');
@@ -542,7 +542,6 @@ Route::group(['middleware' => ['auth', 'can:administer']], function () {
     Route::get('authority/search', 'AuthorityController@search');
     Route::resource('authority', 'AuthorityController');
     Route::resource('sketchbook', 'SketchbookController');
-    Route::resource('slide', 'SlideController');
     Route::resource('notices', 'NoticeController');
     Route::resource('redirects', 'RedirectController');
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');

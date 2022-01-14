@@ -46,8 +46,14 @@ class AuthoritySearchRequestType extends AbstractType
             $searchRequest = $event->getData();
             $form = $event->getForm();
 
-            $getChoiceOptions = function ($attribute) use ($searchRequest) {
-                $choices = $this->authorityRepository->listValues($attribute, $searchRequest);
+            $getChoiceOptions = function ($attribute, $translation_domain = null) use ($searchRequest) {
+                $choices = $this->authorityRepository
+                    ->listValues($attribute, $searchRequest)
+                    ->mapWithKeys(function ($item) use ($translation_domain) {
+                        $label = ($translation_domain) ? trans($translation_domain . '.' . $item['value']) : $item['value'];
+                        $label_with_count = sprintf('%s (%d)', $label, $item['count']);
+                        return [$label_with_count => $item['value']];
+                    });
                 $value = $searchRequest->get($attribute);
 
                 if ($choices->isEmpty() && $value !== null) {
@@ -69,7 +75,8 @@ class AuthoritySearchRequestType extends AbstractType
                 ])
                 ->add('role', ChoiceType::class, $getChoiceOptions('role'))
                 ->add('nationality', ChoiceType::class, $getChoiceOptions('nationality'))
-                ->add('place', ChoiceType::class, $getChoiceOptions('place'));
+                ->add('place', ChoiceType::class, $getChoiceOptions('place'))
+                ->add('sex', ChoiceType::class, $getChoiceOptions('sex', 'authority.sex'));
         });
 
         $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
