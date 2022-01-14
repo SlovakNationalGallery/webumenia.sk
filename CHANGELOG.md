@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - filter by gender to authorities
 - authority matching of swapped names
+- GMUHK harvest authority matching
 
 ### Changed
 - inscription length in item_translations table
