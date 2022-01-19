@@ -35,7 +35,7 @@ class ItemTest extends TestCase
         $authority = factory(Authority::class)->make(['death_year' => null]);
         $item->authorities->add($authority);
 
-        $this->assertEquals(Item::FREE_NEVER, $item->freeFrom());
+        $this->assertTrue($item->isFree());
     }
 
     public function testIsFree() {
@@ -46,14 +46,6 @@ class ItemTest extends TestCase
     public function testIsFreeGallery() {
         $item = $this->createFreeItem();
         $item->gallery = '';
-        $this->assertFalse($item->isFree());
-    }
-
-    public function testIsFreeAuthorDeathYearNull() {
-        $item = $this->createFreeItem();
-        $item->date_latest = date('Y');
-        $authority = factory(Authority::class)->make(['death_year' => null]);
-        $item->authorities->add($authority);
         $this->assertFalse($item->isFree());
     }
 

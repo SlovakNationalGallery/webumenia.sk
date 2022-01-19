@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- calculation of isFree for artworks with authorities without death_year
 
 ## [2.41.0] - 2022-01-14
 ### Added

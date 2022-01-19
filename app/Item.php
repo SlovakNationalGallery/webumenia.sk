@@ -511,8 +511,6 @@ class Item extends Model implements IndexableModel, TranslatableContract
         foreach ($this->authorities as $authority) {
             if (!empty($authority->death_year)) {
                 $copyrightExpirationYears[] = $authority->death_year + self::COPYRIGHT_LENGTH + 1;
-            } else {
-                return self::FREE_NEVER;
             }
         }
 
