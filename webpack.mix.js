@@ -43,6 +43,9 @@ mix
     // CSS
     .less('resources/less/admin.less', 'public/css')
     .less('resources/less/style.less', 'public/css')
+    .postCss("resources/css/app-tailwind.css", "public/css", [
+        require("tailwindcss")
+    ])
 
     // E-mail themes are expected in resources/ but Mix does not save outside of public/
     // https://github.com/laravel-mix/laravel-mix/issues/1228
