@@ -461,6 +461,7 @@ Route::group(array('middleware' => 'guest'), function () {
 });
 
 Route::group(['middleware' => ['auth', 'can:edit']], function () {
+    Route::get('/new-home', 'HomeController@index');
     Route::get('admin', 'AdminController@index');
     Route::get('logout', 'AuthController@logout');
     Route::get('imports/launch/{id}', 'ImportController@launch');
