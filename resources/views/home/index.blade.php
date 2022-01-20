@@ -24,11 +24,11 @@
 @stop
 
 @section('content')
-    <div id="tailwind-rules" class="container">
-        <h3 class="tw-text tw-text-2xl tw-font-semibold">Nový obsah</h3>
-        <div class="tw-flex tw-underline-offset-4 tw-text-5xl tw-font-semibold tw-cursor-pointer">
-            <h4 class="hover:tw-text-gray-500 tw-underline">Kolekcie</h4>
-            <h4 class="hover:tw-text-gray-500 tw-underline tw-text-gray-400 tw-ml-4">Články</h4>
+    <div class="tailwind-rules container">
+        <h3 class="tw-text-4xl tw-font-semibold">Nový obsah</h3>
+        <div class="tw-flex tw-underline-offset-4 tw-text-5xl tw-font-semibold tw-cursor-pointer tw-mt-8">
+            <h4 class="tw-transition hover:tw-text-gray-500 tw-underline">Kolekcie</h4>
+            <h4 class="tw-transition hover:tw-text-gray-500 tw-underline tw-text-gray-400 tw-ml-4">Články</h4>
         </div>
     </div>
 @stop
