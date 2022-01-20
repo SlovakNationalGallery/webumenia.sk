@@ -10,32 +10,32 @@
     See https://tailwindcss.com/docs/configuration#important
     */
 
-    #tailwind-rules h1 {
+    .tailwind-rules h1 {
         font-size: inherit;
         font-weight: inherit;
         margin: 0;
     }
-    #tailwind-rules h2 {
+    .tailwind-rules h2 {
         font-size: inherit;
         font-weight: inherit;
         margin: 0;
     }
-    #tailwind-rules h3 {
+    .tailwind-rules h3 {
         font-size: inherit;
         font-weight: inherit;
         margin: 0;
     }
-    #tailwind-rules h4 {
+    .tailwind-rules h4 {
         font-size: inherit;
         font-weight: inherit;
         margin: 0;
     }
-    #tailwind-rules h5 {
+    .tailwind-rules h5 {
         font-size: inherit;
         font-weight: inherit;
         margin: 0;
     }
-    #tailwind-rules h6 {
+    .tailwind-rules h6 {
         font-size: inherit;
         font-weight: inherit;
         margin: 0;
