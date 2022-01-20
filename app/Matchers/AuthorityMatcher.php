@@ -85,8 +85,8 @@ class AuthorityMatcher
      */
     protected function findByFullname($fullname)
     {
-        $authorities = Authority::swappedName($fullname)->get();
-        return AuthorityName::swappedName($fullname)->get()
+        $authorities = Authority::firstNameLastName($fullname)->get();
+        return AuthorityName::firstNameLastName($fullname)->get()
             ->map(function (AuthorityName $authorityName) {
                 return $authorityName->authority;
             })

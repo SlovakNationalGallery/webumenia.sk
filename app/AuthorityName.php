@@ -20,7 +20,7 @@ class AuthorityName extends Model
         return $this->belongsTo(Authority::class);
     }
 
-    public function scopeSwappedName($query, $name)
+    public function scopeFirstNameLastName($query, $name)
     {
         $query->where(
             DB::raw('concat(substring_index(name, ", ", -1), " ", substring_index(name, ", ", 1))'),
