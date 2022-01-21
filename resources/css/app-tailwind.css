@@ -1,43 +1,5 @@
-@tailwind base;
+@import "tailwindcss/base";
+@import "./tailwind-preflight-scoped.css";
+
 @tailwind components;
 @tailwind utilities;
-
-@layer base {
-
-    /*
-    Disable current default styling.
-    Tailwind styling will work thanks to the 'important' config.
-    See https://tailwindcss.com/docs/configuration#important
-    */
-
-    .tailwind-rules h1 {
-        font-size: inherit;
-        font-weight: inherit;
-        margin: 0;
-    }
-    .tailwind-rules h2 {
-        font-size: inherit;
-        font-weight: inherit;
-        margin: 0;
-    }
-    .tailwind-rules h3 {
-        font-size: inherit;
-        font-weight: inherit;
-        margin: 0;
-    }
-    .tailwind-rules h4 {
-        font-size: inherit;
-        font-weight: inherit;
-        margin: 0;
-    }
-    .tailwind-rules h5 {
-        font-size: inherit;
-        font-weight: inherit;
-        margin: 0;
-    }
-    .tailwind-rules h6 {
-        font-size: inherit;
-        font-weight: inherit;
-        margin: 0;
-    }
-}
