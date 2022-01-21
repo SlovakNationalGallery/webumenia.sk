@@ -85,8 +85,10 @@ class AuthorityMatcher
      */
     protected function findByFullname($fullname)
     {
-        $authorities = Authority::firstNameLastName($fullname)->get();
-        return AuthorityName::firstNameLastName($fullname)->get()
+        $authorities = Authority::whereFirstNameLastName($fullname)
+            ->get();
+        return AuthorityName::whereFirstNameLastName($fullname)
+            ->get()
             ->map(function (AuthorityName $authorityName) {
                 return $authorityName->authority;
             })

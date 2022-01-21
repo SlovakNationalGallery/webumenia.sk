@@ -122,11 +122,13 @@ class Authority extends Model implements IndexableModel, TranslatableContract
         return $this->links()->where('type', 'source');
     }
 
-    public function scopeFirstNameLastName($query, $name)
+    public function scopeWhereFirstNameLastName($query, $name)
     {
-        $query->where(
-            DB::raw('concat(substring_index(name, ", ", -1), " ", substring_index(name, ", ", 1))'),
-            $name
+        $query->whereRaw(
+            'case when instr(name, ", ") then ' .
+            'concat(substring_index(name, ", ", -1), " ", substring_index(name, ", ", 1)) = ? ' .
+            'else name = ? end',
+            [$name, $name]
         );
     }
 
