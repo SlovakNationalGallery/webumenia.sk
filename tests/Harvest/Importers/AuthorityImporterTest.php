@@ -10,46 +10,33 @@ use App\Harvest\Mappers\AuthorityMapper;
 use App\Harvest\Mappers\AuthorityNameMapper;
 use App\Harvest\Mappers\AuthorityNationalityMapper;
 use App\Harvest\Mappers\AuthorityRelationshipMapper;
-use App\Harvest\Mappers\LinkMapper;
 use App\Harvest\Mappers\NationalityMapper;
 use App\Harvest\Mappers\RelatedAuthorityMapper;
-use App\Harvest\Result;
-use App\Link;
+use App\Harvest\Progress;
 use App\Nationality;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Elasticsearch\Client;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class AuthorityImporterTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->app->instance(Client::class, $this->createMock(Client::class));
+    }
 
     public function testUpdateRelated() {
         factory(Authority::class)->create(['id' => 1000162]);
         factory(Authority::class)->create(['id' => 1000168]);
         factory(Authority::class)->create(['id' => 11680]);
 
-        factory(Link::class)->create([
-            'url' => 'http://example.org/',
-            'label' => '',
-            'linkable_id' => 954,
-            'linkable_type' => Authority::class,
-        ]);
-
         $row = $this->getData();
         $importer = $this->initImporter($row);
 
-        $importer->import($row, $result = new Result());
-
-        $links = Link::all();
-        $this->assertEquals(1, $links->count());
-        $this->assertEquals('example.org', $links->first()->label);
-    }
-
-    public function testInsertRelated() {
-        $row = $this->getData();
-        $importer = $this->initImporter($row);
-
-        $importer->import($row, $result = new Result());
+        $authority = $importer->import($row, new Progress());
     }
 
     public function testExistingButNotRelatedYet() {
@@ -61,10 +48,8 @@ class AuthorityImporterTest extends TestCase
         $row = $this->getData();
         $importer = $this->initImporter($row);
 
-        $importer->import($row, $result = new Result());
-
-        $item = Authority::first();
-        $this->assertCount(1, $item->nationalities);
+        $authority = $importer->import($row, new Progress());
+        $this->assertEquals(1, $authority->nationalities->count());
     }
 
     public function testRelatedButNotExisting() {
@@ -77,7 +62,8 @@ class AuthorityImporterTest extends TestCase
         $row = $this->getData();
         $importer = $this->initImporter($row);
 
-        $importer->import($row, $result = new Result());
+        $authority = $importer->import($row, new Progress());
+        $this->assertEquals(0, $authority->relationships->count());
     }
 
     protected function getData() {
@@ -139,14 +125,13 @@ class AuthorityImporterTest extends TestCase
 
     protected function initImporter(array $row) {
         $importer = new AuthorityImporter(
-            $authorityMapperMock = $this->getMock(AuthorityMapper::class),
-            $authorityEventMapperMock = $this->getMock(AuthorityEventMapper::class),
-            $authorityNameMapperMock = $this->getMock(AuthorityNameMapper::class),
-            $authorityNationalityMapperMock = $this->getMock(AuthorityNationalityMapper::class),
-            $authorityRelationshipMapperMock = $this->getMock(AuthorityRelationshipMapper::class),
-            $linkMapperMock = $this->getMock(LinkMapper::class),
-            $nationalityMapperMock = $this->getMock(NationalityMapper::class),
-            $relatedAuthorityMapperMock = $this->getMock(RelatedAuthorityMapper::class)
+            $authorityMapperMock = $this->createMock(AuthorityMapper::class),
+            $authorityEventMapperMock = $this->createMock(AuthorityEventMapper::class),
+            $authorityNameMapperMock = $this->createMock(AuthorityNameMapper::class),
+            $authorityNationalityMapperMock = $this->createMock(AuthorityNationalityMapper::class),
+            $authorityRelationshipMapperMock = $this->createMock(AuthorityRelationshipMapper::class),
+            $nationalityMapperMock = $this->createMock(NationalityMapper::class),
+            $relatedAuthorityMapperMock = $this->createMock(RelatedAuthorityMapper::class)
         );
 
         $authorityMapperMock
@@ -162,17 +147,17 @@ class AuthorityImporterTest extends TestCase
                 'death_date' => '30.11.1991',
                 'birth_year' => 1904,
                 'death_year' => 1991,
-                'roles:sk' => 'fotograf',
+                'roles:sk' => ['fotograf'],
                 'type_organization:sk' => 'Zbierkotvorná galéria',
                 'biography:sk' => '',
                 'birth_place:sk' => 'Považská Bystrica',
                 'death_place:sk' => 'Bratislava',
-                'roles:en' => 'photographer',
+                'roles:en' => ['photographer'],
                 'type_organization:en' => 'Zbierkotvorná galéria',
                 'biography:en' => '',
                 'birth_place:en' => null,
                 'death_place:en' => null,
-                'roles:cs' => null,
+                'roles:cs' => [null],
                 'type_organization:cs' => 'Zbierkotvorná galéria',
                 'biography:cs' => '',
                 'birth_place:cs' => null,
@@ -206,7 +191,6 @@ class AuthorityImporterTest extends TestCase
                 ['prefered' => false]
             );
         $authorityRelationshipMapperMock
-            ->expects($this->exactly(3))
             ->method('map')
             ->withConsecutive(
                 [$row['relationships'][0]],
@@ -218,14 +202,7 @@ class AuthorityImporterTest extends TestCase
                 ['type' => 'člen'],
                 ['type' => 'partner']
             );
-        $linkMapperMock
-            ->expects($this->exactly(1))
-            ->method('map')
-            ->withConsecutive([$row['links'][0]])
-            ->willReturnOnConsecutiveCalls([
-                'url' => 'http://example.org/',
-                'label' => 'example.org',
-            ]);
+
         $nationalityMapperMock
             ->expects($this->exactly(1))
             ->method('map')

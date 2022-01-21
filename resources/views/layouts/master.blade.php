@@ -15,31 +15,27 @@
 			@show
 		</title>
 
-		<!--  favicons-->
 		@include('includes.favicons')
-		<!--  /favicons-->
-		<!--  Open Graph protocol -->
-    @include('includes.og_tags')
-    <!--  /Open Graph protocol -->
-    <!--  hreflangs -->
-		@include('includes.hreflangs', [
-      'localizedURLs' => getLocalizedURLArray(),
-    ])
-		<!--  /hreflangs -->
+		@include('includes.og_tags')
+
+		@foreach(LaravelLocalization::getSupportedLanguagesKeys() as $locale)
+		<link rel="alternate" hreflang="{{ $locale }}" href="{{ LaravelLocalization::getLocalizedURL($locale, null, [], true) }}">
+		@endforeach
+		{{-- "default" url with locale hidden --}}
+		<link rel="alternate" hreflang="{{ LaravelLocalization::getDefaultLocale() }}" href="{{ LaravelLocalization::getNonLocalizedURL() }}">
+
 
 		@yield('link')
 
 		<!-- CSS are placed here -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-		<link rel="stylesheet" type="text/css" href="{!! asset_timed('css/style.css') !!}" />
-		{!! Html::style('css/slick-theme.css') !!}
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+		<link rel="stylesheet" type="text/css" href="{{ mix('/css/style.css') }}" />
 		{!! Html::style('css/magnific-popup.css') !!}
+		@livewireStyles
 
 		{{-- JS --}}
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/4.1.2/plugins/unveilhooks/ls.unveilhooks.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/4.1.4/plugins/respimg/ls.respimg.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/4.1.2/lazysizes.min.js"></script>
+		@include('googletagmanager::head')
 
 		@if (App::environment() == 'production')
 		<script>
@@ -54,9 +50,14 @@
 		</script>
 		@endif
 		{!! Html::script('js/scroll-frame-head.js') !!}
+
+		@yield('head-javascript')
 </head>
 
 <body id="page-top">
+
+@include('googletagmanager::body')
+
 <div id="fb-root"></div>
 	<script>(function(d, s, id) {
 	  var js, fjs = d.getElementsByTagName(s)[0];
@@ -72,73 +73,19 @@
 		</div>
 	@endif
 
-	<nav class="navbar {{-- navbar-fixed-top --}} {{-- navbar-static-top --}} {!! (Request::is('/') || isSet($transparent_menu)) ? '' : 'dark-text' !!}" role="navigation">
-	    <div class="container">
-	        <div class="navbar-header page-scroll">
-
-              @include('components.langswitch', [
-                'currentLocale' => App::getLocale(),
-                'localesOrdered' => LaravelLocalization::getLocalesOrder(),
-                'localizedURLs' => getLocalizedURLArray($removeQueryString = true),
-              ])
-
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                  <i class="fa fa-bars fa-2x"></i>
-              </button>
-	            <a class="navbar-brand no-border hidden-xs first-part" href="{!! URL::to('') !!}">
-	                web
-	            </a>
-
-	            @include('components.searchbar', [
-	              'search' => isSet($search) ? $search : '',
-	            ])
-
-	            <a class="navbar-brand no-border hidden-xs second-part" href="{!! URL::to('') !!}">
-	                umenia
-	            </a>
-	            {{--
-	            @if (Request::is('dielo/*') && isSet($collection))
-	            	 <a href="{!! $collection->getUrl() !!}" class="navbar-brand text-small hidden-xs hidden-sm">/&nbsp; {!! $collection->name !!}</a>
-	            @endif
-	             --}}
-	        </div>
-
-	        <div class="collapse navbar-collapse navbar-main-collapse">
-	            <ul class="nav navbar-nav">
-						<li class="{!! (Request::is('katalog') || Request::is('dielo/*')) ? 'active' : '' !!}">
-								<a href="{{{ URL::to('katalog') }}}">{{ utrans('master.artworks') }}</a>
-						</li>
-						<li class="{!! (Request::is( 'kolekcie') || Request::is('kolekcia/*')) ? 'active' : '' !!}">
-								<a href="{{{ URL::to('kolekcie') }}}">{{ utrans('master.collections') }}</a>
-						</li>
-						<li class="{!! (Request::is('autori') || Request::is('autor/*')) ? 'active' : '' !!}">
-								<a href="{{{ URL::to('autori') }}}">{{ utrans('master.authors') }}</a>
-						</li>
-						<li class="{!! (Request::is('clanky') || Request::is('clanok/*')) ? 'active' : '' !!}">
-								<a href="{{{ URL::to('clanky') }}}">{{ utrans('master.articles') }}</a>
-						</li>
-						{{-- <li class="{!! Request::is('galerie') ? 'active' : '' !!}">
-								<a href="{{{ URL::to('galerie') }}}">{{ utrans('master.galleries') }}</a>
-						</li> --}}
-						<li class="{!! Request::is( 'informacie') ? 'active' : '' !!}">
-								<a href="{{{ URL::to('informacie') }}}">{{ utrans('master.info') }}</a>
-						</li>
-						@if (Session::has('cart') && count(Session::get('cart'))>0)
-						<li class="{!! Request::is( 'objednavka') ? 'active' : '' !!}">
-								<a href="{!! URL::to('objednavka')!!}" class=""><i class="fa fa-shopping-cart"></i><span class="badge badge-notify">{!! count(Session::get('cart')) !!}</span></a>
-						</li>
-						@endif
-	            </ul>
-	        </div>
-	        <!-- /.navbar-collapse -->
-	    </div>
-	    <!-- /.container -->
-	</nav>
-
-
+@if (session('scena_ai_key') ?? config('services.scena_ai.key'))
+	<scena-ai-popup key-id="{{ session('scena_ai_key') ?? config('services.scena_ai.key') }}" id="scena-ai"></scena-ai-popup>
+	<script src="https://widget.scena.ai/app.js"></script>
+@endif
 
 	<!-- Content -->
-	@yield('content')
+	<div id="app">
+		@sectionMissing('main-navigation')
+			@include('components.nav_bar')
+		@endif
+
+		@yield('content')
+	</div>
 
 	@include('components.footer')
 
@@ -148,18 +95,11 @@
 	    </a>
 	</div>
 
-	<!-- Core JavaScript Files -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-	<script src="https://unpkg.com/flickity@1.1/dist/flickity.pkgd.min.js"></script>
-	{!! Html::script('js/jquery.infinitescroll.min.js') !!}
-    {!! Html::script('js/bootstrap.min.js') !!}
-    @include('components.searchbar_js')
-    <script src="{!! asset_timed('js/webumenia.js') !!}"></script>
+	@livewireScripts
+	<script type="text/javascript" src="{{ mix('/js/manifest.js') }}"></script>
+	<script type="text/javascript" src="{{ mix('/js/vendor.js') }}"></script>
+	<script type="text/javascript" src="{{ mix('/js/app.js') }}"></script>
 
-
-	<!-- Content -->
 	@yield('javascript')
-
 </body>
 </html>

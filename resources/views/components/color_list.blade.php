@@ -1,14 +1,10 @@
-<ul {{!empty($id) ? 'id='.$id : '' }} class="colorlist {{ $class_names or '' }}">
-  @foreach ($colors as $color)
+<ul class="colorlist {{ $class_names ?? '' }}">
+  @foreach ($colors as $hex => $amount)
     <li 
       class="colorlist-item" 
-      style="background-color: {{$color["hex"]}}; width: {{$color["amount"]}}"
-      title="{{$color["hex"]}}">
-      <a href="{!! URL::to('katalog?color=' . substr($color["hex"], 1)) !!}"></a>
+      style="background-color: {{$hex}}; width: {{$amount * 100 / collect($colors)->sum()}}%"
+      title="{{$hex}}">
+      <a href="{!! URL::to('katalog?color=' . substr($hex, 1)) !!}"></a>
     </li>
   @endforeach
-  @if ( ! empty($include_clear) )
-    <a href="#" class="clear">×</a>
-    <div class="clear-rect"></div>
-  @endif
 </ul>

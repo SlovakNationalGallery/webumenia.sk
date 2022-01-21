@@ -1,0 +1,41 @@
+.slick-list,
+.slick-track,
+.slick-slide,
+.slick-slide img,
+.slick-slide a,
+.content-slick-images p,
+.content-slick-images p img {
+    padding: 0;
+    height: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    margin: 0;
+    display: block;
+}
+
+.content-slick-images img {
+    width: auto !important; // fixes CKEditor style{width} settings
+}
+
+.content-slick-container {
+    font-family: @font-family-sans-serif;
+    margin: 2 * @padding-large-vertical 0;
+    user-select: none;
+    img {
+        height: 100%;
+        max-height: 100% !important;
+        max-width: 100%;
+    }
+    a {
+        border: none !important;
+        cursor: pointer;
+        max-width: 100%;
+    }
+    div {
+        white-space: nowrap;
+        max-width: unset;
+    }
+    .slick-cell {
+        margin: 0 @padding-base-horizontal / 2;
+    }
+}

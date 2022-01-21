@@ -4,6 +4,8 @@
 
 namespace App;
 
+use App\Harvest\Progress;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,5 +28,28 @@ class SpiceHarvesterRecord extends Model
     public function item()
     {
         return $this->belongsTo('App\Item', 'item_id');
+    }
+
+    public function scopeFailed($query)
+    {
+        return $query->whereNotNull('failed_at');
+    }
+
+    public function process(callable $onProcess, Progress $progress)
+    {
+        try {
+            $onProcess();
+
+            $this->failed_at = null;
+            $this->error_message = null;
+        } catch (\Exception $e) {
+            $this->failed_at = Carbon::now();
+            $this->error_message = $e->getMessage();
+            $progress->incrementFailed();
+        } finally {
+            if (!$this->deleted_at) {
+                $this->save();
+            }
+        }
     }
 }

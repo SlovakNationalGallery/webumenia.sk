@@ -10,6 +10,7 @@ class ItemRepository extends AbstractRepository
     ];
 
     protected $fieldMap = [
+        'datestamp' => './/ns:datestamp',
         'status' => './/ns:header/@status',
         'id' => './/ns:identifier',
         'identifier' => './/dc:identifier',
@@ -18,10 +19,15 @@ class ItemRepository extends AbstractRepository
             'lang' => './@xml:lang',
             'title_translated' => '.',
         ],
-        'type' => [
-            null => './/dc:type',
+        'work_type' => [
+            null => './/dc:type[not(@xml:type="cedvu:work-type")]',
             'lang' => './@xml:lang',
-            'type' => '.',
+            'work_type' => '.',
+        ],
+        'object_type' => [
+            null => './/dc:type[@xml:type="cedvu:work-type"]',
+            'lang' => './@xml:lang',
+            'object_type' => '.',
         ],
         'format' => [
             null => './/dc:format',
@@ -42,11 +48,20 @@ class ItemRepository extends AbstractRepository
         'subject_place' => './/dc:subject.place',
         'relation_isPartOf' => './/dc:relation.isPartOf',
         'creator' => './/dc:creator',
-        'creator_role' => './/dc:creator_role',
+        'authorities' => [
+            null => './/dc:creator[starts-with(.,"urn:")]',
+            'id' => '.',
+            'role' => './following-sibling::dc:creator.role[1]',
+        ],
         'rights' => './/dc:rights',
         'description' => './/dc:description',
         'extent' => './/dcterms:extent',
-        'provenance' => './/dcterms:provenance',
+        'gallery' => './/dcterms:provenance[not(@type)]',
+        'credit' => [
+            null => './/dcterms:provenance[@type="former"]',
+            'lang' => './@xml:lang',
+            'credit' => '.',
+        ],
         'created' => './/dcterms:created',
         'contributor' => './/dc:contributor',
     ];

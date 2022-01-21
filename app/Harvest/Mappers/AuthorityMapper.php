@@ -2,50 +2,40 @@
 
 namespace App\Harvest\Mappers;
 
-use App\Authority;
 use Illuminate\Support\Str;
 
-class AuthorityMapper extends AbstractModelMapper
+class AuthorityMapper extends BaseAuthorityMapper
 {
-    protected $modelClass = Authority::class;
-
-    public function mapId(array $row) {
-        if (isset($row['id'][0])) {
-            return (int)$this->parseId($row['id'][0]);
-        }
-    }
-
     public function mapType(array $row) {
+        if (!isset($row['type'])) {
+            return null;
+        }
         return array_map(function ($type) {
             return Str::lower($type);
         }, $row['type']);
     }
 
     public function mapTypeOrganization(array $row) {
+        if (!isset($row['type_organization'])) {
+            return null;
+        }
         return $row['type_organization'];
     }
 
     public function mapName(array $row) {
+        if (!isset($row['name'])) {
+            return null;
+        }
         return $row['name'];
     }
 
     public function mapSex(array $row) {
+        if (!isset($row['sex'])) {
+            return null;
+        }
         return array_map(function ($sex) {
             return Str::lower($sex);
         }, $row['sex']);
-    }
-
-    public function mapBiography(array $row) {
-        if (!isset($row['biography'][0])) {
-            return '';
-        }
-
-        $biography = str_after($row['biography'][0], '(ZNÁMY)');
-        if (str_contains($biography, 'http')) {
-            return '';
-        }
-
-        return $biography;
     }
 
     public function mapBirthPlace(array $row, $locale) {
@@ -61,10 +51,16 @@ class AuthorityMapper extends AbstractModelMapper
     }
 
     public function mapBirthDate(array $row) {
+        if (!isset($row['birth_date'])) {
+            return null;
+        }
         return $row['birth_date'];
     }
 
     public function mapDeathDate(array $row) {
+        if (!isset($row['death_date'])) {
+            return null;
+        }
         return $row['death_date'];
     }
 
@@ -81,6 +77,10 @@ class AuthorityMapper extends AbstractModelMapper
     }
 
     public function mapRoles(array $row, $locale) {
+        if (!isset($row['roles'])) {
+            return null;
+        }
+
         $roles = [];
         foreach ($row['roles'] as $role) {
             $roles[] = $this->chooseTranslation($role, $locale);
@@ -91,10 +91,14 @@ class AuthorityMapper extends AbstractModelMapper
 
     /**
      * @param string $date
-     * @return int
+     * @return int|null
      */
     public function parseYear($date) {
         $exploded = explode('.', $date);
-        return (int)end($exploded);
+        $end = end($exploded);
+        if ($end === '') {
+            return null;
+        }
+        return (int)$end;
     }
 }

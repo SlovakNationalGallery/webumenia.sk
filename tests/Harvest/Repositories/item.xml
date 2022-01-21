@@ -31,7 +31,7 @@
                <dc:creator.role>autor/author</dc:creator.role>
                <dc:creator>urn:svk:psi:per:sng:0000010816</dc:creator>
                <dc:creator>Teniers, David</dc:creator>
-               <dc:creator.role>autor/author</dc:creator.role>
+               <dc:creator.role>iné/other</dc:creator.role>
                <dc:contributor>Čičo, Martin</dc:contributor>
                <dc:subject xml:lang="en">figurative composition</dc:subject>
                <dc:subject xml:lang="sk">figurálna kompozícia</dc:subject>
@@ -39,6 +39,9 @@
                <dc:description>vpravo dole gravé J.Daullé..</dc:description>
                <dc:description>vľavo dole peint Teniers</dc:description>
                <dc:type xml:lang="sk">grafika, voľná</dc:type>
+               <dc:type xml:lang="sk" xml:type="cedvu:work-type">fotografia</dc:type>
+               <dc:type xml:lang="sk" xml:type="cedvu:work-type">mapa</dc:type>
+               <dc:type xml:lang="en" xml:type="cedvu:work-type">map</dc:type>
                <dc:type>DEF</dc:type>
                <dc:type>originál</dc:type>
                <dc:format xml:lang="en">engraving</dc:format>
@@ -57,6 +60,9 @@
                <dc:rights>1</dc:rights>
                <dc:rights>publikovať/public</dc:rights>
                <dc:relation.isPartOf>samostatné dielo</dc:relation.isPartOf>
+               <dcterms:provenance type="former" xml:lang="sk">Dar zo Zbierky Linea</dcterms:provenance>
+               <dcterms:provenance type="former" xml:lang="en">Donation from the Linea Collection</dcterms:provenance>
+               <dcterms:provenance type="former" xml:lang="cs">Dar ze Sbírky Linea</dcterms:provenance>
             </oai_dc:dc>
          </metadata>
       </record>

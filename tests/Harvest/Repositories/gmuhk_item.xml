@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd" data-websigner.1.0.7="true">
+    <responseDate>2021-07-21T15:23:37Z</responseDate>
+    <request metadataPrefix="edm" verb="ListRecords">http://khk.museion.cz/w4m/oai/GMUHK</request>
+    <ListRecords>
+        <record>
+            <header>
+                <identifier>oai:khk.museion.cz:GMUHK~publikacePredmetu~G0259</identifier>
+                <datestamp>2021-05-21T11:33:08Z</datestamp>
+                <setSpec>publikacePredmetu</setSpec>
+                <setSpec>publikacePredmetu:GMUHK</setSpec>
+                <setSpec>publikacePredmetu:GMUHK:151</setSpec>
+                <setSpec>publikacePredmetu:GMUHK:151:G</setSpec>
+            </header>
+            <metadata xmlns="">
+                <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:edm="http://www.europeana.eu/schemas/edm/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xmlns:ore="http://www.openarchives.org/ore/terms/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:crm="http://www.cidoc-crm.org/rdfs/cidoc_crm_v5.0.2_english_label.rdfs#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:ebucore="https://www.ebu.ch/metadata/ontologies/ebucore/ebucore#" xmlns:xalan="http://xml.apache.org/xalan-j/index.html" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdau="http://www.rdaregistry.info/Elements/u/" xmlns:odrl="https://www.w3.org/ns/odrl/2/" xsi:schemaLocation="http://www.w3.org/1999/02/22-rdf-syntax-ns# EDM-INTERNAL.xsd">
+                    <edm:ProvidedCHO rdf:about="https://files.khk.museion.cz/gmuhk/predmet/79591547">
+                        <dc:title xml:lang="cs">Kuřák</dc:title>
+                        <dc:description>Sedící polopostava muže s knírem a vyržinkem v ústech a levou rukou položenou na roh stolu. Vzadu vystupuje v náznacích několik dalších postav za stoly. Ze šerosvitového pojetí celé scény, podané křížícími se sitěmi expresivně uvolněných šrafur, vystupuje i světelně akcentovaný obličej a ruka. Tožné s G 1007 a G 1342/4.</dc:description>
+                        <dc:coverage rdf:resource="#Predmet:79591547" />
+                        <edm:type>IMAGE</edm:type>
+                        <dc:relation rdf:resource="#TypSbirky:18361768" />
+                        <dc:identifier>G 259</dc:identifier>
+                        <dc:identifier>St2009</dc:identifier>
+                        <dc:date rdf:resource="#PredmetDatText:79591547" />
+                        <dc:date>1907-1-1</dc:date>
+                        <dcterms:temporal rdf:resource="#PredmetDatHodn:79591547" />
+                        <dcterms:created>1907-1-1</dcterms:created>
+                        <dc:creator rdf:resource="#PredmetAutor:79591547" />
+                        <dc:format rdf:resource="#Technika:130636555" />
+                        <dc:format>lept</dc:format>
+                        <dcterms:extent>vd.=160mm; sd.=162mm; v.=373mm; s.=303mm</dcterms:extent>
+                        <dcterms:medium rdf:resource="#Material:1527516" />
+                        <dcterms:medium>papír</dcterms:medium>
+                    </edm:ProvidedCHO>
+                    <edm:WebResource rdf:about="https://files.khk.museion.cz/GMUHK/Výtvarné umění/G/SUB_1/G0259/G0259-003_primary.jpg">
+                        <dc:type>image</dc:type>
+                        <dc:format>image/jpeg</dc:format>
+                        <dcterms:created>2021-05-11T15:00:22</dcterms:created>
+                        <dcterms:issued>2021-05-21T00:00:00</dcterms:issued>
+                        <edm:rights rdf:resource="© Galerie moderního umění v Hradci Králové" />
+                    </edm:WebResource>
+                    <edm:Agent rdf:about="#PredmetAutor:79591547">
+                        <skos:prefLabel xml:lang="cs">Kubišta Bohumil</skos:prefLabel>
+                    </edm:Agent>
+                    <edm:Place rdf:about="#Predmet:79591547">
+                        <skos:prefLabel xml:lang="cs">Čechy</skos:prefLabel>
+                    </edm:Place>
+                    <edm:TimeSpan rdf:about="#PredmetDatText:79591547">
+                        <skos:prefLabel xml:lang="cs">1907</skos:prefLabel>
+                    </edm:TimeSpan>
+                    <edm:TimeSpan rdf:about="#PredmetDatHodn:79591547">
+                        <skos:prefLabel xml:lang="cs">1907</skos:prefLabel>
+                        <edm:begin>1907-01-01</edm:begin>
+                        <edm:end>1907-12-31</edm:end>
+                    </edm:TimeSpan>
+                    <skos:Concept rdf:about="#TypSbirky:18361768">
+                        <skos:prefLabel xml:lang="cs">Výtvarné umění</skos:prefLabel>
+                    </skos:Concept>
+                    <skos:Concept rdf:about="#Material:1527516">
+                        <skos:prefLabel xml:lang="cs">Papír</skos:prefLabel>
+                    </skos:Concept>
+                    <skos:Concept rdf:about="#Technika:130636555">
+                        <skos:prefLabel xml:lang="cs">Lept</skos:prefLabel>
+                    </skos:Concept>
+                    <ore:Aggregation rdf:about="https://files.khk.museion.cz/gmuhk/predmet/79591547">
+                        <edm:aggregatedCHO rdf:resource="https://files.khk.museion.cz/gmuhk/predmet/79591547" />
+                        <edm:provider>Národní muzeum, National Museum, Czech Republic</edm:provider>
+                        <edm:dataProvider>Galerie moderního umění v Hradci Králové</edm:dataProvider>
+                        <edm:isShownAt rdf:resource="https://files.khk.museion.cz/gmuhk/predmet/79591547" />
+                        <edm:isShownBy rdf:resource="https://files.khk.museion.cz/GMUHK/Výtvarné umění/G/SUB_1/G0259/G0259-003_primary.jpg" />
+                        <edm:object rdf:resource="https://files.khk.museion.cz/GMUHK/Výtvarné umění/G/SUB_1/G0259/G0259-003_primary.jpg" />
+                        <edm:rights rdf:resource="© Galerie moderního umění v Hradci Králové" />
+                    </ore:Aggregation>
+                </rdf:RDF>
+            </metadata>
+        </record>
+    </ListRecords>
+</OAI-PMH>

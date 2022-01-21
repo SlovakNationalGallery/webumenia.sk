@@ -2,6 +2,8 @@
 
 namespace App\Harvest\Mappers;
 
+use Illuminate\Support\Str;
+
 abstract class AbstractMapper
 {
     /** @var string[] */
@@ -13,6 +15,18 @@ abstract class AbstractMapper
 
     protected $translatedAttributes = [];
 
+    /** @var string */
+    protected $modelClass;
+
+    public function __construct() {
+        if ($this->modelClass) {
+            $model = new $this->modelClass();
+            if ($model->translatedAttributes) {
+                $this->translatedAttributes = $model->translatedAttributes;
+            }
+        }
+    }
+
     /**
      * @param array $row
      * @return array
@@ -22,11 +36,11 @@ abstract class AbstractMapper
 
         $methods = get_class_methods($this);
         $methods = array_filter($methods, function ($method) {
-            return starts_with($method, 'map') && $method !== 'map';
+            return Str::startsWith($method, 'map') && $method !== 'map';
         });
 
         foreach ($methods as $method) {
-            $key = snake_case(str_after($method, 'map'));
+            $key = Str::snake(Str::after($method, 'map'));
 
             if (in_array($key, $this->translatedAttributes)) {
                 foreach ($this->localeToLangMap as $locale => $lang) {
@@ -34,7 +48,7 @@ abstract class AbstractMapper
                     $this->setMapped($mapped, "$key:$locale", $value);
                 }
             } else {
-                $value = $this->$method($row, 'sk');
+                $value = $this->$method($row);
                 $this->setMapped($mapped, $key, $value);
             }
         }
@@ -48,7 +62,8 @@ abstract class AbstractMapper
      * @param mixed $value
      */
     protected function setMapped(array &$mapped, $key, $value) {
-        if (is_array($value)) {
+        // dont serialize roles - they are already casted as array
+        if (is_array($value) && !str_contains($key, 'roles:')) {
             $value = $this->serialize($value);
         }
 

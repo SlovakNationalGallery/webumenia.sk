@@ -16,6 +16,7 @@ return array(
     'item_attr_dating'         => 'datace',
     'item_attr_measurements'   => 'rozměry',
     'item_attr_work_type'      => 'výtvarný druh',
+    'item_attr_object_type'    => 'typ objektu',
     'item_attr_topic'          => 'námět',
     'item_attr_tag'            => 'tagy',
     'item_attr_collections'    => 'kolekce',
@@ -30,9 +31,12 @@ return array(
     'item_attr_identifier'     => 'inventární číslo',
     'item_attr_licence'        => 'licence',
     'item_attr_place'          => 'místo vzniku',
+    'item_attr_acquisition_date' => 'datum akvizice',
+    'item_attr_credit' => 'nabytí',
 
     'more-items_related-artworks' => 'související díla',
-    'more-items_similar-colors' => 'vyhľadávať podľa farieb diela',
+    'more-items_related-artworks_by-data' => 'podle názvu, autora / autorky, tagů...',
+    'more-items_similar-colors' => 'díla s podobnými barvami',
 
     'modal_license_body-content'        => '<p><strong>Vámi zvolené dílo by se mělo v krátkém čase začít automaticky stahovat.</strong></p>
                                             <p>Digitální reprodukce volných děl na této stránce jsou přístupné jako <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" class="underline">verejné vlastníctvo (public domain)</a>. Můžete si je volně stáhnout ve vysokém rozlišení a využívat k soukromým i komerčním účelům &ndash; kopírovat, sdílet i upravovat.</p>

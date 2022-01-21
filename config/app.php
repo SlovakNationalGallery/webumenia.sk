@@ -1,6 +1,7 @@
 <?php
 
 return array(
+    'name' => 'Web umenia',
 
     'env' => env('APP_ENV', 'production'),
 
@@ -16,11 +17,7 @@ return array(
     |
     */
 
-    'env' => env('APP_ENV', 'production'),
-
     'debug' => env('APP_DEBUG', false),
-
-    'log' => 'daily',
 
     /*
     |--------------------------------------------------------------------------
@@ -33,7 +30,7 @@ return array(
     |
     */
 
-    'url' => 'http://www.webumenia.sk',
+    'url' => env('APP_URL', 'https://www.webumenia.sk'),
 
     /*
     |--------------------------------------------------------------------------
@@ -74,7 +71,7 @@ return array(
     */
 
     'key' => env('APP_KEY'),
-    'cipher' => MCRYPT_RIJNDAEL_128,
+    'cipher' => 'AES-256-CBC',
 
     /*
     |--------------------------------------------------------------------------
@@ -103,18 +100,12 @@ return array(
         Illuminate\Queue\QueueServiceProvider::class,
         Illuminate\Redis\RedisServiceProvider::class,
         Illuminate\Session\SessionServiceProvider::class,
-        Illuminate\Translation\TranslationServiceProvider::class,
+        App\Providers\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         'Former\FormerServiceProvider',
-        'Fadion\Bouncy\BouncyServiceProvider',
-        'Maatwebsite\Excel\ExcelServiceProvider',
         'Conner\Tagging\Providers\TaggingServiceProvider',
         'Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider',
-        Zizaco\Entrust\EntrustServiceProvider::class,
-        'Roumen\Sitemap\SitemapServiceProvider',
-        'Cviebrock\ImageValidator\ImageValidatorServiceProvider',
-        'Barryvdh\Debugbar\ServiceProvider',
 
         Illuminate\Bus\BusServiceProvider::class,
         Illuminate\Foundation\Providers\FoundationServiceProvider::class,
@@ -125,15 +116,13 @@ return array(
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\ColorDescriptorProvider::class,
         'GrahamCampbell\Throttle\ThrottleServiceProvider',
         Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
-        Dimsav\Translatable\TranslatableServiceProvider::class,
+//        Illuminate\Notifications\NotificationServiceProvider::class,
 
         /*
          * Application Service Providers...
          */
-        App\Providers\ElasticTranslatableServiceProvider::class,
         App\Providers\ElasticsearchClientProvider::class,
         Barryvdh\Form\ServiceProvider::class,
         App\Providers\FormServiceProvider::class,
@@ -166,6 +155,7 @@ return array(
     'aliases' => array(
 
         'App' => Illuminate\Support\Facades\App::class,
+        'Arr' => Illuminate\Support\Arr::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
         'Auth' => Illuminate\Support\Facades\Auth::class,
         'Blade' => Illuminate\Support\Facades\Blade::class,
@@ -192,15 +182,13 @@ return array(
         'Route' => Illuminate\Support\Facades\Route::class,
         'Schema' => Illuminate\Support\Facades\Schema::class,
         'Session' => Illuminate\Support\Facades\Session::class,
+        'Str' => Illuminate\Support\Str::class,
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => 'Intervention\Image\ImageManagerStatic',
         'Former' => 'Former\Facades\Former',
-        'Elastic' => 'Fadion\Bouncy\Facades\Elastic',
-        'Excel' => 'Maatwebsite\Excel\Facades\Excel',
         'Carbon' => 'Carbon\Carbon',
-        'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
         'Debugbar' => 'Barryvdh\Debugbar\Facade',
         'Storage' => Illuminate\Support\Facades\Storage::class,
         'Form' => 'Collective\Html\FormFacade',
@@ -208,6 +196,7 @@ return array(
         'Throttle' => 'GrahamCampbell\Throttle\Facades\Throttle',
         'LaravelLocalization' => Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
         'FormRenderer' => App\Facades\FormRenderer::class,
+        'Experiment' => App\Facades\Experiment::class,
     ),
 
     'jira_auth' => array(
@@ -218,6 +207,10 @@ return array(
     'searchd_id' => 'your_id',
     'searchd_id_autocomplete' => 'your_id',
 
+    'google_recaptcha_secret' => env('GOOGLE_RECAPTCHA_SECRET'),
+
     'old_url' => 'http://stary.webumenia.sk',
 
+    'iip_private' => env('IIP_PRIVATE'),
+    'iip_public' => env('IIP_PUBLIC'),
 );

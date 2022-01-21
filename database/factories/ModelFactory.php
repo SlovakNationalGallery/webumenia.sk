@@ -11,25 +11,23 @@
 |
 */
 
+use App\Redirect;
+use App\SharedUserCollection;
+use Illuminate\Support\Str;
+
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'username' => $faker->userName,
         'name' => $faker->name,
         'email' => $faker->safeEmail,
-        'password' => bcrypt(str_random(10)),
-        'remember_token' => str_random(10),
-    ];
-});
-
-$factory->define(App\Role::class, function (Faker\Generator $faker) {
-    return [
-        'name' => $faker->word,
+        'password' => bcrypt(Str::random(10)),
+        'remember_token' => Str::random(10),
     ];
 });
 
 $factory->define(\App\Item::class, function (Faker\Generator $faker) {
     return [
-        'id' => $faker->unique()->word,
+        'id' => $faker->unique()->lexify,
         'work_type' => $faker->word,
         'identifier' => $faker->word,
         'title' => $faker->word,
@@ -46,11 +44,14 @@ $factory->define(\App\Item::class, function (Faker\Generator $faker) {
         'work_level' => $faker->word,
         'subject' => $faker->word,
         'measurement' => $faker->word,
-        'item_type' => $faker->word,
-        'featured' => $faker->boolean,
         'inscription' => $faker->word,
         'related_work_order' => $faker->randomNumber,
         'related_work_total' => $faker->randomNumber,
+        'colors' => [
+            $faker->hexColor => 1,
+        ],
+        'created_at' => $faker->date,
+        'updated_at' => $faker->date,
     ];
 });
 
@@ -62,8 +63,8 @@ $factory->define(\App\ItemImage::class, function (Faker\Generator $faker) {
 
 $factory->define(\App\Authority::class, function (Faker\Generator $faker) {
     return [
-        'id' => $faker->unique()->word,
-        'type' => $faker->word,
+        'id' => $faker->unique()->lexify,
+        'type' => 'person',
         'type_organization' => $faker->word,
         'name' => $faker->name,
         'sex' => $faker->word,
@@ -78,12 +79,14 @@ $factory->define(\App\Authority::class, function (Faker\Generator $faker) {
         'view_count' => $faker->randomNumber,
         'image_source_url' => $faker->url,
         'image_source_label' => $faker->word,
+        'created_at' => $faker->date,
+        'updated_at' => $faker->date,
     ];
 });
 
 $factory->define(\App\SpiceHarvesterHarvest::class, function (Faker\Generator $faker) {
     return [
-        'type' => $faker->randomElement(['item', 'authority']),
+        'type' => 'item',
         'base_url' => $faker->url,
         'metadata_prefix' => $faker->word,
         'set_spec' => $faker->word,
@@ -96,7 +99,7 @@ $factory->define(\App\SpiceHarvesterHarvest::class, function (Faker\Generator $f
 
 $factory->define(\App\SpiceHarvesterRecord::class, function (Faker\Generator $faker) {
     return [
-        'type' => $faker->randomElement(['item', 'authority']),
+        'type' => 'item',
         'identifier' => $faker->word,
         'item_id' => $faker->word,
         'datestamp' => $faker->date,
@@ -123,5 +126,43 @@ $factory->define(\App\AuthorityRelationship::class, function (Faker\Generator $f
         'authority_id' => $faker->randomNumber,
         'related_authority_id' => $faker->randomNumber,
         'type' => $faker->word,
+    ];
+});
+
+$factory->define(App\Collection::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->word,
+        'type' => $faker->word,
+        'text' => $faker->sentence,
+        'order' => $faker->randomNumber,
+    ];
+});
+
+$factory->define(App\Article::class, function (Faker\Generator $faker) {
+    return [
+        'author' => $faker->name,
+        'slug' => $faker->unique()->word,
+        'title' => $faker->word,
+        'summary' => $faker->sentence,
+        'content' => $faker->sentence,
+        'main_image' => $faker->word,
+        'title_color' => $faker->hexColor,
+        'title_shadow' => $faker->hexColor,
+        'promote' => $faker->boolean,
+        'publish' => true,
+    ];
+});
+
+$factory->define(SharedUserCollection::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->word,
+    ];
+});
+
+$factory->define(Redirect::class, function (Faker\Generator $faker) {
+    return [
+        'source_url' => $faker->unique()->word,
+        'target_url' => $faker->word,
+        'is_enabled' => true,
     ];
 });

@@ -26,6 +26,12 @@ return array(
     'info_gallery_GUS'   => 'Gallery of Spiš Artists',
     'info_gallery_VSG'   => 'East Slovak Gallery',
     'info_gallery_MG'    => 'Moravian Gallery',
+    'info_gallery_TGP'   => 'Tatra Gallery Poprad',
+    'info_gallery_PGU'   => 'Považská Gallery of Arts in Žilina',
+    'info_gallery_SGP'   => 'Šariš Gallery in Prešov',
+    'info_gallery_KGC'   => 'Kysuce Gallery in Oščadnica',
+    'info_gallery_PNP'   => 'The Museum of Czech Literature',
+    'info_gallery_4RG'   => 'Gallery of Modern Art Roudnice nad Labem',
 
     'mozete_heading'               => 'On Web Umenia you can',
     'mozete_col_stahovat_heading'  => 'Download artworks in Public Domain',
@@ -37,7 +43,7 @@ return array(
     'mozete_col_vyuzivat_li_2'     => '<strong>creative reuse</strong> like remixes, collages or animations',
     'mozete_col_vyuzivat_li_3'     => '<strong>educational materials</strong> including books, websites and presentations',
     'mozete_col_objednat_heading'  => 'Order high quality prints',
-    'mozete_col_objednat_p'        => 'We offer printed reproductions of selected artworks from the collections of the Slovak National Gallery on fine art paper.<br/><br/>You will recieve an e-mail with more detailed information after placing the order. Printed reproductions can only be picked up at one of our pick-up locations: <a href="http://www.sng.sk/en/bratislava/visiting-us/how-to-find-us/ex-libris-bookshop" target="_blank" class="underline">Ex Libris Bookshop in the Esterházy Palace, Námestie Ľudovíta Štúra 4, Bratislava</a> or at the cash desk in <a href="http://www.sng.sk/en/zvolen/visiting-us/how-to-find-us" target="_blank" class="underline">Castle Zvolen, SNP Square 594/1, Zvolen</a>.',
+    'mozete_col_objednat_p'        => 'We offer printed reproductions of selected artworks from the collections of the Slovak National Gallery on fine art paper.<br/><br/>For specific purposes – research, educational, commercial – we also provide digital reproductions with respect to copyright status of the artworks.<br/><br/>You can create an order by clicking the <strong>order reproduction</strong> button on the artwork detail page. After placing the order, you will recieve an e-mail with more detailed information.',
     'mozete_free_artworks'         => 'artworks available for download',
 
     'more-items_heading'                 => 'Artworks available for print',
@@ -49,12 +55,17 @@ return array(
     'more-items_connect_col2_p'          => 'If you wish to provide more information about an artwork or an artist (biographical information, photograph for artist profile), correct some mistake or offer research material, please contact us at <a href="mailto:lab@sng.sk">lab@sng.sk</a>.',
     'more-items_connect_col3_lead'       => 'web umenia is brought to you by the <br><strong><a href="http://lab.sng.sk/" target="_blank" class="strong">lab.SNG</a> team</strong>',
     'more-items_connect_col3_ul-content' => '<li><strong>Michal Čudrnák</strong> lab.SNG team leader, article author</li>
-                                             <li><strong>Lukáš Štepanovský</strong> content editor, article author</li>
+                                             <li><strong>Lukáš Štepanovský</strong> content editor, article author, UX designer</li>
                                              <li><strong>Igor Rjabinin</strong> developer</li>
-                                             <li><strong>Philo van Kemenade</strong> developer</li>
                                              <li><strong>Rastislav Chynoranský</strong> developer</li>
-                                             <li><strong>Adam Juraszek</strong> developer</li>
+                                             <li><strong>Ernest Walzel</strong> developer</li>
+                                             <li><strong>Martin Havala</strong> developer</li>
+                                             <li><strong>Andrej Bilec</strong> developer</li>
+                                             <li><strong>Zuzana Koblišková</strong> content editor, article author</li>
                                              <li><strong>Gabriel Balkó</strong> quality control, content editor</li>
+                                             <li><strong>Karin Vicianová</strong> quality control, content editor</li>
+                                             <li><strong>Jana Šuchová</strong> content editor</li>
+                                             <li><strong>Vladimír Hergott</strong> CEDVU administrator</li>
                                              <li><strong>Braňo Matis</strong> graphic designer</li>',
 
     'modal_disclaimer'      => 'prices are subject to change',

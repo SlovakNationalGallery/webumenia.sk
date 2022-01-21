@@ -2,26 +2,80 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Input;
+use App\Authority;
 use App\Collection;
+use App\Filter\CollectionSearchRequest;
+use App\Filter\Contracts\Filter;
+use App\Filter\Forms\Types\CollectionSearchRequestType;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
+use Symfony\Component\Form\FormFactoryInterface;
 
 class KolekciaController extends Controller
 {
 
     public function getIndex()
     {
-        $per_page = 18;
-        if (Input::has('sort_by') && array_key_exists(Input::get('sort_by'), Collection::$sortable)) {
-            $sort_by = Input::get('sort_by');
-        } else {
-            $sort_by = 'created_at';
-        }
-        $sort_order = ($sort_by == 'name') ? 'asc' : 'desc';
 
-        $collections = Collection::published()->with('user')->orderBy($sort_by, $sort_order)->paginate($per_page);
-        return view('kolekcie', array('collections'=>$collections, 'sort_by'=>$sort_by));
+        $per_page = 18;
+        if (Request::has('sort_by') && array_key_exists(Request::input('sort_by'), Collection::$sortable)) {
+            $sort_by = Request::input('sort_by');
+        } else {
+            $sort_by = 'published_at';
+        }
+
+        $searchRequest = new CollectionSearchRequest();
+        $this->createSearchRequestForm($searchRequest)->handleRequest();
+        $searchRequestForm = $this->createSearchRequestForm($searchRequest);
+        $currentPage = Paginator::resolveCurrentPage();
+
+        $collections = CollectionSearchRequestType::prepareCollections($searchRequest);
+
+        if ($sort_by == 'name') {
+            $collections = $collections->orderBy('name', 'asc');
+        } else {
+            $collections = $collections->orderBy($sort_by, 'desc');
+        }
+
+        $total = $collections->count();
+
+        $paginator = new LengthAwarePaginator(
+            $collections,
+            $total,
+            $per_page,
+            $currentPage,
+            ['path' => sprintf('/%s', request()->path())]
+        );
+        // populate filter with input data
+        $this->createSearchRequestForm($searchRequest)->handleRequest();
+
+        return view('frontend.collection.index', [
+            'collections' => $collections->paginate($per_page),
+            'sort_by' => $sort_by,
+            'form' => $searchRequestForm->createView(),
+
+            'paginator' => $paginator,
+            'total' => $total,
+            'searchRequest' => $searchRequest,
+        ]);
+    }
+
+    protected function createSearchRequestForm($searchRequest)
+    {
+        return $this->getFormFactory()
+            ->createNamedBuilder('', CollectionSearchRequestType::class, $searchRequest, [
+                'allow_extra_fields' => true,
+            ])
+            ->getForm();
+    }
+
+    protected function getFormFactory()
+    {
+        return app(FormFactoryInterface::class);
     }
 
     public function getDetail($id)
@@ -29,25 +83,24 @@ class KolekciaController extends Controller
         // dd($id);
         $collection = Collection::find($id);
         if (empty($collection)) {
-            App::abort(404);
+            abort(404);
         }
         $collection->view_count += 1;
         $collection->save();
 
-        return view('kolekcia', array('collection'=>$collection));
-
+        return view('kolekcia', array('collection' => $collection));
     }
 
     public function getSuggestions()
     {
-        $q = (Input::has('search')) ? str_to_alphanumeric(Input::get('search')) : 'null';
+        $q = (Request::has('search')) ? str_to_alphanumeric(Request::input('search')) : 'null';
 
-        $result = Collection::published()->where('name', 'like', '%'.$q.'%')->limit(5)->get();
+        $result = Collection::published()->whereTranslationLike('name', '%' . $q . '%')->limit(5)->get();
 
         $data = array();
         $data['results'] = array();
         $data['count'] = 0;
-        
+
         foreach ($result as $key => $hit) {
             $data['count']++;
             $params = array(
@@ -57,7 +110,7 @@ class KolekciaController extends Controller
                 'url' => $hit->getUrl(),
                 'image' => $hit->getResizedImage(70),
             );
-            $data['results'][] = array_merge($params) ;
+            $data['results'][] = array_merge($params);
         }
 
         return Response::json($data);

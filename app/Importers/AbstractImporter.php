@@ -7,7 +7,8 @@ use App\ImportRecord;
 use App\Item;
 use App\ItemImage;
 use App\Repositories\IFileRepository;
-use Doctrine\Common\Collections\Collection;
+use Illuminate\Contracts\Translation\Translator;
+use Illuminate\Support\Str;
 use Symfony\Component\Console\Exception\LogicException;
 
 
@@ -28,8 +29,19 @@ abstract class AbstractImporter implements IImporter {
     /** @var IFileRepository */
     protected $repository;
 
+    /** @var Translator */
+    protected $translator;
+
     /** @var int */
     protected $image_max_size = 800;
+
+    /** @var array */
+    protected $options = [
+        'delimiter' => ',',
+        'enclosure' => '"',
+        'escape' => '\\',
+        'newline' => "\n",
+    ];
 
     /** @var string */
     protected static $name;
@@ -37,7 +49,7 @@ abstract class AbstractImporter implements IImporter {
     /**
      * @param IFileRepository $repository
      */
-    public function __construct(IFileRepository $repository) {
+    public function __construct(IFileRepository $repository, Translator $translator) {
         if (static::$name === null) {
             throw new LogicException(sprintf(
                 '%s needs to define its $name static property',
@@ -46,6 +58,7 @@ abstract class AbstractImporter implements IImporter {
         }
 
         $this->repository = $repository;
+        $this->translator = $translator;
     }
 
     /**
@@ -92,6 +105,7 @@ abstract class AbstractImporter implements IImporter {
                 $import_record->wrong_items++;
                 $import_record->status=Import::STATUS_ERROR;
                 $import_record->error_message=$e->getMessage();
+                app('sentry')->captureException($e);
 
                 break;
             } finally {
@@ -135,7 +149,7 @@ abstract class AbstractImporter implements IImporter {
         );
 
         foreach ($jpg_paths as $jpg_path) {
-            $this->uploadImage($item, $jpg_path);
+            $item->saveImage($jpg_path);
             $import_record->imported_images++;
         }
 
@@ -145,8 +159,6 @@ abstract class AbstractImporter implements IImporter {
             $image_filename_format
         );
 
-        $order = $item->images()->max('order');
-        $order = $order !== null ? $order : 0;
         foreach ($jp2_paths as $jp2_path) {
             $jp2_relative_path = $this->getImageJp2RelativePath($jp2_path);
             if ($image = ItemImage::where('iipimg_url', $jp2_relative_path)->first()) {
@@ -156,7 +168,6 @@ abstract class AbstractImporter implements IImporter {
             $image = new ItemImage();
             $image->item_id = $item->getKey();
             $item->images->add($image);
-            $image->order = $order++;
             $image->iipimg_url = $jp2_relative_path;
             $import_record->imported_iip++;
         }
@@ -221,10 +232,9 @@ abstract class AbstractImporter implements IImporter {
      * @param array $record
      */
     protected function mapFields(Item $item, array $record) {
-        foreach ($record as $key => $value) {
-            if (isset($this->mapping[$key])) {
-                $mappedKey = $this->mapping[$key];
-                $item->$mappedKey = $value;
+        foreach ($this->mapping as $property => $column) {
+            if (isset($record[$column])) {
+                $item->$property = $record[$column];
             }
         }
     }
@@ -235,7 +245,7 @@ abstract class AbstractImporter implements IImporter {
      */
     protected function applyCustomHydrators(Item $item, array $record) {
         foreach ($item->getFillable() as $key) {
-            $method_name = sprintf('hydrate%s', camel_case($key));
+            $method_name = sprintf('hydrate%s', Str::camel($key));
             if (method_exists($this, $method_name)) {
                 // translatable attribute
                 if (in_array($key, $item->translatedAttributes)) {
@@ -257,37 +267,14 @@ abstract class AbstractImporter implements IImporter {
      * @param Item $item
      */
     protected function setDefaultValues(Item $item) {
+        $useTranslationFallback = $item->getUseTranslationFallback();
+        $item->setUseTranslationFallback(false);
         foreach ($this->defaults as $key => $default) {
             if (!isset($item->$key)) {
                 $item->$key = $default;
             }
         }
-    }
-
-    /**
-     * @param Item $item
-     * @param string $path
-     */
-    protected function uploadImage(Item $item, $path) {
-        $uploaded_image = \Image::make($path);
-
-        // @TODO do not resize image here
-        if ($uploaded_image->width() > $uploaded_image->height()) {
-            $uploaded_image->widen(800, function ($constraint) {
-                $constraint->upsize();
-            });
-        } else {
-            $uploaded_image->heighten(800, function ($constraint) {
-                $constraint->upsize();
-            });
-        }
-
-        $item->deleteImage();
-
-        $save_as = $item->getImagePath($full = true);
-        $uploaded_image->save($save_as);
-
-        $item->has_image = true;
+        $item->setUseTranslationFallback($useTranslationFallback);
     }
 
     /**

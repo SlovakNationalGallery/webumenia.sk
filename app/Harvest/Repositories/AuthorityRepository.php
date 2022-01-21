@@ -10,6 +10,7 @@ class AuthorityRepository extends AbstractRepository
     ];
 
     protected $fieldMap = [
+        'datestamp' => './/ns:datestamp',
         'identifier' => './/ns:identifier',
         'datestamp' => './/ns:datestamp',
         'birth_place' => './/vp:Birth_Place',
@@ -18,13 +19,13 @@ class AuthorityRepository extends AbstractRepository
         'biography' => './/vp:Biography_Text',
         'id' => './/vp:Subject/@rdf:about',
         'type' => './/vp:Record_Type',
-        'name' => './/vp:Subject/@vp:labelPreferred',
+        'name' => './/vp:Preferred_Term/vp:Term_Text',
         'sex' => './/vp:Sex',
         'birth_date' => './/vp:Birth_Date',
         'death_date' => './/vp:Death_Date',
         'roles' => './/vp:Role_ID',
         'names' => [
-            null => './/vp:Term_Text',
+            null => './/vp:Non-Preferred_Term/vp:Term_Text',
             'name' => '.',
         ],
         'nationalities' => [

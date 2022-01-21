@@ -17,6 +17,7 @@ return array(
     'item_attr_dating'         => 'datovanie',
     'item_attr_measurements'   => 'miery',
     'item_attr_work_type'      => 'výtvarný druh',
+    'item_attr_object_type'    => 'typ objektu',
     'item_attr_topic'          => 'žáner',
     'item_attr_tag'            => 'tagy',
     'item_attr_collections'    => 'v kolekciách',
@@ -31,12 +32,17 @@ return array(
     'item_attr_identifier'     => 'inventárne číslo',
     'item_attr_licence'        => 'licencia',
     'item_attr_place'          => 'geografická oblasť',
+    'item_attr_acquisition_date' => 'dátum akvizíce',
+    'item_attr_credit' => 'nadobudnutie',
+
+    'default_relationship_type' => 'zo súboru',
 
     'more-items_related-artworks' => 'súvisiace diela',
-    'more-items_similar-colors' => 'vyhľadávať podľa farieb diela',
+    'more-items_related-artworks_by-data' => 'podľa názvu, autora / autorky, tagov...',
+    'more-items_similar-colors' => 'diela s podobnými farbami',
 
     'modal_license_body-content'        => '<p><strong>Vami zvolené dielo by sa malo začať v krátkom čase automaticky sťahovať.</strong></p>
-                                            <p>Digitálne reprodukcie voľných diel na tejto stránke sú sprístupnené ako <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" class="underline">verejné vlastníctvo (public domain)</a>. Môžete si ich voľne stiahnuť vo vysokom rozlíšení a využívať na súkromné aj komerné účely &ndash; kopírovať, zdieľať i upravovať.</p>
+                                            <p>Digitálne reprodukcie voľných diel na tejto stránke sú sprístupnené ako <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" class="underline">verejné vlastníctvo (public domain)</a>. Môžete si ich voľne stiahnuť vo vysokom rozlíšení a využívať na súkromné aj komerčné účely &ndash; kopírovať, zdieľať i upravovať.</p>
                                             <p>Pri ďalšom šírení prosíme uviesť meno autora, názov, majiteľa diela a zdroj <code>:item_url</code></p>
                                             <p>Ak plánujete využiť reprodukcie na komerčné účely, prosím informujte nás o vašich plánoch vopred, naši odborníci vám vedia poradiť.</p>
                                             <p><a class="underline" href=":free_url">Všetky voľne stiahnuteľné diela nájdete tu.</a></p>',

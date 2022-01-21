@@ -5,12 +5,13 @@ namespace Tests\Importers;
 use App\Import;
 use App\Repositories\CsvRepository;
 use App\Importers\WebumeniaMgImporter;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Contracts\Translation\Translator;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class WebumeniaMgImporterTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     public function testId() {
         $data = $this->fakeData([
@@ -136,15 +137,15 @@ class WebumeniaMgImporterTest extends TestCase
 
     protected function importSingle(array $data) {
         $records = new \ArrayIterator([$data]);
-        $repositoryMock = $this->getMock(CsvRepository::class);
+        $repositoryMock = $this->createMock(CsvRepository::class);
         $repositoryMock->method('getFiltered')->willReturn($records);
 
-        $importer = new WebumeniaMgImporter($repositoryMock);
+        $importer = new WebumeniaMgImporter($repositoryMock, $this->app->get(Translator::class));
         $import = Import::create();
         $file = ['basename' => '', 'path' => ''];
         $items = $importer->import($import, $file);
 
-        $this->assertEmpty($import->records()->first()->error_message);
+        $this->assertEquals('', $import->records()->first()->error_message);
         $this->assertCount(1, $items);
 
         return $items;

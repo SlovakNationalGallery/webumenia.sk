@@ -1,0 +1,54 @@
+.colorlist {
+  position: relative;
+  width: 100%;
+  list-style: none;
+  padding: 0;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+
+  .colorlist-item {
+    margin: 4px;
+    height: 13px;
+    min-width: 30px;
+    z-index: 1;
+    a {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    &:first-of-type {
+      margin-left: 0;
+    }
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+  a.clear {
+    font-size: 16px;
+    width: 23px;
+    text-align: center;
+    line-height: 30px;
+    background-color: transparent;
+    z-index: 1;
+    &:hover {
+      background-color: rgba(0,0,0,0.05);
+    }
+  }
+  div.clear-rect {
+    position: absolute;
+    top: 0px;
+    width: calc(~"100% + 4px");
+    height: 34px;
+    border: 2px solid transparent;
+    z-index: 0;
+    transition: all .2s ease-in-out;
+    margin-left: -2px;
+  }
+  a.clear:hover + div.clear-rect {
+    border-color: @list-group-border;
+  }
+}

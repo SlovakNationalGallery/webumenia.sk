@@ -3,7 +3,7 @@
 namespace App\Harvest\Importers;
 
 use App\Harvest\Mappers\AbstractMapper;
-use App\Harvest\Result;
+use App\Harvest\Progress;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -16,6 +16,9 @@ abstract class AbstractImporter
 
     /** @var AbstractMapper[] */
     protected $mappers = [];
+
+    /** @var AbstractMapper[] */
+    protected $pivotMappers = [];
 
     /** @var string */
     protected $modelClass;
@@ -35,22 +38,24 @@ abstract class AbstractImporter
 
     /**
      * @param array $row
-     * @param Result $result
+     * @param Progress $result
      * @return Model
      */
-    public function import(array $row, Result $result) {
+    public function import(array $row, Progress $result) {
         $class = $this->modelClass;
+        /** @var Model $model */
         if ($model = $class::find($this->getModelId($row))) {
-            $result->incrementInserted();
+            $result->incrementUpdated();
         } else {
             $model = new $class;
-            $result->incrementUpdated();
+            $result->incrementInserted();
         }
 
         $this->upsertModel($model, $row);
         $this->upsertRelated($model, $row);
 
-        return $model;
+        // reset already loaded relation values
+        return $model->setRelations([]);
     }
 
     /**
@@ -88,19 +93,28 @@ abstract class AbstractImporter
      * @param Model $model
      * @param string $field
      * @param array $relatedRows
+     * @param boolean $allowDelete
      */
-    protected function processHasMany(Model $model, $field, array $relatedRows) {
+    protected function processHasMany(Model $model, $field, array $relatedRows, $allowDelete = true) {
         /** @var HasMany|MorphMany $relation */
         $relation = $model->$field();
-        $relatedModelClass = get_class($relation->getRelated());
 
+        // store all imported ids
+        $updateIds = [];
         foreach ($relatedRows as $relatedRow) {
             $data = $this->mappers[$field]->map($relatedRow);
             $conditions = $this->getConditions($field, $data);
-            $existing = $relation->where($conditions)->first();
-            $relatedModel = $existing ?: new $relatedModelClass;
-            $relatedModel->forceFill($data);
-            $relation->save($relatedModel);
+            $instance = $model->$field()->firstOrNew($conditions);
+            $instance->forceFill($data);
+            $instance->save();
+            $updateIds[] = $instance->getKey();
+        }
+
+        if ($allowDelete) {
+            $relatedKeyName = $relation->getRelated()->getKeyName();
+            $relation->whereNotIn($relatedKeyName, $updateIds)->each(function (Model $related) {
+                $related->delete();
+            });
         }
     }
 
@@ -108,18 +122,25 @@ abstract class AbstractImporter
      * @param Model $model
      * @param string $field
      * @param array $relatedRows
-     * @param boolean $createRelated
+     * @param boolean $allowCreate
      */
-    protected function processBelongsToMany(Model $model, $field, array $relatedRows, $createRelated = true) {
+    protected function processBelongsToMany(Model $model, $field, array $relatedRows, $allowCreate = true) {
         /** @var BelongsToMany $relation */
         $relation = $model->$field();
         $relatedModelClass = get_class($relation->getRelated());
 
+        $updatedIds = [];
+
         foreach ($relatedRows as $relatedRow) {
             $data = $this->mappers[$field]->map($relatedRow);
             $conditions = $this->getConditions($field, $data);
-            $existing = $relatedModelClass::where($conditions)->first();
-            $relatedModel = $existing ?: new $relatedModelClass;
+            $relatedModel = $relatedModelClass::where($conditions)->first();
+
+            if (!$relatedModel && !$allowCreate) {
+                continue;
+            }
+
+            $relatedModel = $relatedModel ?: new $relatedModelClass;
             $relatedModel->forceFill($data);
 
             $pivotData = [];
@@ -127,13 +148,21 @@ abstract class AbstractImporter
                 $pivotData = $this->pivotMappers[$field]->map($relatedRow);
             }
 
-            if ($this->existsPivotRecord($model, $field, $relatedModel)) {
-                $relation->updateExistingPivot($relatedModel->getKey(), $pivotData);
-            } elseif ($createRelated) {
+            if (!$this->existsPivotRecord($model, $field, $relatedModel)) {
                 $relation->save($relatedModel, $pivotData);
-            } else {
-                $relation->attach($relatedModel, $pivotData);
+            } else if ($pivotData) {
+                $relation->updateExistingPivot($relatedModel->getKey(), $pivotData);
             }
+
+            $updatedIds[] = $relatedModel->getKey();
+        }
+
+        $relatedKeyName = $relation->getQualifiedRelatedPivotKeyName();
+        $relatedKeyName = explode('.', $relatedKeyName);
+        $relatedKeyName = end($relatedKeyName);
+        $notUpdated = $relation->whereNotIn($relatedKeyName, $updatedIds)->get();
+        if (!$notUpdated->isEmpty()) {
+            $relation->detach($notUpdated);
         }
     }
 
@@ -145,11 +174,11 @@ abstract class AbstractImporter
      */
     protected function existsPivotRecord(Model $model, $field, Model $relatedModel) {
         $relation = $model->$field();
-        $otherKeyName = $relation->getOtherKey();
-        $otherKeyName = explode('.', $otherKeyName);
-        $otherKeyName = end($otherKeyName);
+        $relatedKeyName = $relation->getQualifiedRelatedPivotKeyName();
+        $relatedKeyName = explode('.', $relatedKeyName);
+        $relatedKeyName = end($relatedKeyName);
 
-        return $relation->wherePivot($otherKeyName, $relatedModel->getKey())->exists();
+        return $relation->wherePivot($relatedKeyName, $relatedModel->getKey())->exists();
     }
 
     /**

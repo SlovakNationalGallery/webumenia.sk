@@ -2,27 +2,26 @@
 
 namespace App;
 
-use Elasticsearch\Client;
-use Fadion\Bouncy\Facades\Elastic;
+use App\Contracts\IndexableModel;
+use Chelout\RelationshipEvents\Concerns\HasBelongsToManyEvents;
+use Astrotomic\Translatable\Translatable;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Cache;
-use Fadion\Bouncy\BouncyTrait;
-use Illuminate\Database\Eloquent\Model;
 
-class Authority extends Model
+class Authority extends Model implements IndexableModel, TranslatableContract
 {
-    use \Dimsav\Translatable\Translatable, BouncyTrait {
-        \Dimsav\Translatable\Translatable::save insteadof BouncyTrait;
-    }
-
+    use Translatable;
+    use HasBelongsToManyEvents;
 
     protected $table = 'authorities';
+    protected $keyType = 'string';
 
     const ARTWORKS_DIR = '/images/autori/';
-    const ES_TYPE = 'authorities';
 
     public $translatedAttributes = [
         'type_organization',
@@ -31,23 +30,6 @@ class Authority extends Model
         'birth_place',
         'death_place'
     ];
-
-    // protected $indexName = 'webumenia';
-    protected $typeName = self::ES_TYPE;
-
-    public static $filterable = array(
-        'rola' => 'role',
-        'príslušnosť' => 'nationality',
-        'miesto' => 'place',
-    );
-
-    public static $sortable = array(
-        'name'                    => 'sortable.name',
-        'birth_year'              => 'sortable.birth_year',
-        'items_count'             => 'sortable.items_count',
-        'items_with_images_count' => 'sortable.items_with_images_count',
-        'random'                  => 'sortable.random',
-    );
 
     protected $fillable = array(
         'id',
@@ -76,63 +58,29 @@ class Authority extends Model
 
     protected $guarded = array();
 
+    protected $observables = [
+        'belongsToManyAttaching',
+        'belongsToManyAttached',
+        'belongsToManyDetaching',
+        'belongsToManyDetached',
+        'belongsToManySyncing',
+        'belongsToManySynced',
+        'belongsToManyToggling',
+        'belongsToManyToggled',
+        'belongsToManyUpdatingExistingPivot',
+        'belongsToManyUpdatedExistingPivot',
+    ];
+
     public static $rules = array(
         'name' => 'required',
     );
 
     public $incrementing = false;
 
-    // ELASTIC SEARCH INDEX
-
-    public static function boot()
-    {
-        parent::boot();
-
-        static::created(function ($authority) {
-
-            $authority->index();
-            foreach ($authority->items as $item) {
-                $item->index();
-            }
-        });
-
-        static::updated(function ($authority) {
-
-            $authority->index();
-
-        });
-
-        static::deleting(function ($authority) {
-
-            $authority->removeImage();
-            $authority->nationalities()->detach();
-            $authority->relationships()->detach();
-            $authority->items()->detach();
-            $authority->names()->delete();
-            $authority->events()->delete();
-
-        });
-
-        static::deleted(function ($authority) {
-
-            Elastic::delete([
-                'index' => Config::get('bouncy.index'),
-                'type' => self::ES_TYPE,
-                'id' => $authority->id,
-            ]);
-        });
-    }
-
     public function nationalities()
     {
         return $this->belongsToMany(\App\Nationality::class)->withPivot('prefered');
     }
-
-    // relationship was replaced by attribute casted as Array
-    // public function roles()
-    // {
-    //     return $this->hasMany(\App\AuthorityRole::class);
-    // }
 
     public function names()
     {
@@ -159,37 +107,26 @@ class Authority extends Model
         return $this->hasOne(\App\SpiceHarvesterRecord::class, 'item_id');
     }
 
-    public function getPreviewItems()
-    {
-        $params = array();
-        $params['size'] = 10;
-        $params['sort'][] = '_score';
-        $params['sort'][] = ['created_at' => ['order' => 'desc']];
-        $params['query'] = [
-            'bool' => [
-                'must' => [
-                    ['term' => ['authority_id' => $this->id]],
-                ],
-                'should' => [
-                    ['term' => ['has_image' => true]],
-                    ['term' => ['has_iip' => true]],
-                ],
-            ],
-        ];
-
-        return Item::search($params);
-    }
-
     public function links()
     {
         return $this->morphMany(\App\Link::class, 'linkable');
+    }
+
+    public function externalLinks()
+    {
+        return $this->links()->where('type', 'external');
+    }
+
+    public function sourceLinks()
+    {
+        return $this->links()->where('type', 'source');
     }
 
     public function getCollectionsCountAttribute()
     {
         if (!Cache::has('authority_collections_count')) {
             $authority_collections_count = $this->join('authority_item', 'authority_item.authority_id', '=', 'authorities.id')->join('collection_item', 'collection_item.item_id', '=', 'authority_item.item_id')->where('authorities.id', '=', $this->id)->select('collection_item.collection_id')->distinct()->count();
-            Cache::put('authority_collections_count', $authority_collections_count, 60);
+            Cache::put('authority_collections_count', $authority_collections_count, 3600);
         }
 
         return Cache::get('authority_collections_count');
@@ -203,8 +140,8 @@ class Authority extends Model
                                 $join->on('tagging_tagged.taggable_id', '=', 'authority_item.item_id');
                                 $join->on('tagging_tagged.taggable_type', '=', DB::raw("'Item'"));
                             })->where('authorities.id', '=', $this->id)->groupBy('tagging_tagged.tag_name')->select('tagging_tagged.tag_name', DB::raw('count(tagging_tagged.tag_name) as pocet'))->orderBy('pocet', 'desc')->limit(10)->get();
-            $authority_tags = $tags->lists('tag_name');
-            Cache::put('authority_tags', $authority_tags, 60);
+            $authority_tags = $tags->pluck('tag_name');
+            Cache::put('authority_tags', $authority_tags, 3600);
         }
 
         return Cache::get('authority_tags');
@@ -212,20 +149,20 @@ class Authority extends Model
 
     public function getFormatedNameAttribute()
     {
-        return self::formatName($this->name);
+        return formatName($this->name);
     }
 
     public function getTitleAttribute()
     {
-        return self::formatName($this->name);
+        return formatName($this->name);
     }
 
     public function getFormatedNamesAttribute()
     {
-        $names = $this->names->lists('name');
+        $names = $this->names->pluck('name');
         $return_names = array();
         foreach ($names as $name) {
-            $return_names[] = self::formatName($name);
+            $return_names[] = formatName($name);
         }
 
         return $return_names;
@@ -236,15 +173,14 @@ class Authority extends Model
         $places = array_merge([
             $this->birth_place,
             $this->death_place,
-            ], $this->events->lists('place')->all());
+            ], $this->events->pluck('place')->all());
 
         return array_values(array_filter(array_unique($places)));
     }
 
-    public function getImagePath($full = false)
+    public function getImagePath($full = false, $resize = false)
     {
-        return self::getImagePathForId($this->id, $this->has_image, $this->sex, $full);
-        // : self::ARTWORKS_DIR . "no-image.jpg";;
+        return self::getImagePathForId($this->id, $this->has_image, $this->sex, $this->death_year, $full, $resize);
     }
 
     public function removeImage()
@@ -261,7 +197,7 @@ class Authority extends Model
 
     public function getOaiUrl()
     {
-        return Config::get('app.old_url').'/oai-pmh-new/authority?verb=GetRecord&metadataPrefix=ulan&identifier='.$this->id;
+        return Config::get('app.old_url').'/oai-pmh/authority?verb=GetRecord&metadataPrefix=ulan&identifier='.$this->id;
     }
 
     public static function detailUrl($authority_id)
@@ -269,46 +205,10 @@ class Authority extends Model
         return URL::to('autor/'.$authority_id);
     }
 
-    public function getDescription($html = false, $links = false, $include_roles = false)
-    {
-        $description = ($html) ? '* ' : '';
-        $description .= ($html) ? addMicrodata($this->birth_date, 'birthDate') : $this->birth_year;
-        $description .= ($html) ? self::formatPlace($this->birth_place, $links, 'birthPlace') : self::formatPlace($this->birth_place, $links);
-        if ($this->death_year) {
-            $description .= ($html) ? ' &ndash; ' : ' - ';
-            $description .= ($html) ? '&#x271D; ' : '';
-            $description .= ($html) ? addMicrodata($this->death_date, 'deathDate') : $this->death_year;
-            $description .= ($html) ? self::formatPlace($this->death_place, $links, 'deathPlace') : self::formatPlace($this->death_place, $links);
-        }
-        if ($include_roles) {
-            $roles = $this->roles;
-            if ($roles) {
-                $description .= '. Role: '.implode(', ', $roles);
-            }
-        }
-
-        return $description;
-    }
-
-    private static function formatPlace($place, $links = false, $itemprop = null)
-    {
-        if (empty($place)) {
-            return '';
-        } else {
-            if ($links) {
-                $prop = ($itemprop) ? 'itemprop="'.$itemprop.'"' : '';
-                $place = '<a href="'.url_to('autori', ['place' => $place]).'" '.$prop.'>'.$place.'</a>';
-            }
-
-            return ' '.$place;
-            // return add_brackets($place);
-        }
-    }
-
-    public static function getImagePathForId($id, $has_image, $sex = 'male', $full = false, $resize = false)
+    public static function getImagePathForId($id, $has_image, $sex = 'male', $death_year = null, $full = false, $resize = false)
     {
         if (!$has_image && !$full) {
-            return self::getNoImage($sex);
+            return self::getNoImage($sex, $death_year);
         }
 
         $levels = 1;
@@ -355,88 +255,48 @@ class Authority extends Model
                     $result_path = $relative_path."$file.$resize.jpeg";
                 }
             } else {
-                $result_path = self::ARTWORKS_DIR.'no-image.jpg';
+                $result_path = self::getNoImage($sex, $death_year);
             }
         }
 
         return $result_path;
     }
 
-    private static function getNoImage($sex = 'male')
+    private static function getNoImage($sex = 'male', $death_year = null)
     {
-        $filename = 'no-image-'.$sex.'.jpeg';
-
-        return self::ARTWORKS_DIR.$filename;
+        $filename = "no-image";
+        if ($sex) $filename .= "-$sex";
+        if ($death_year !== null) $filename .= "-dead";
+        return "/images/no-image/autori/$filename.svg";
     }
 
-    public function index()
+    public function getIndexedData($locale)
     {
-        if ($this->type != 'person') {
-            return false;
+        if ($this->type !== 'person') {
+            throw new \RuntimeException();
         }
 
-        $client =  $this->getElasticClient();
-        $elastic_translatable = \App::make('ElasticTranslatableService');
-
-        foreach (config('translatable.locales') as $locale) {
-
-            $authority_translated = $this->getTranslation($locale);
-
-            $data = [
-                // non-tanslatable attributes:
-                'id' => $this->id,
-                'identifier' => $this->id,
-                'name' => $this->name,
-                'alternative_name' => $this->names->lists('name'),
-                'related_name' => $this->relationships->lists('name'),
-                'nationality' => $this->nationalities->lists('code'),
-                'place' => $this->places,
-                'role' => $this->roles,
-                'birth_year' => $this->birth_year,
-                'death_year' => $this->death_year,
-                'sex' => $this->sex,
-                'has_image' => (boolean) $this->has_image,
-                'created_at' => $this->created_at->format('Y-m-d H:i:s'),
-                'items_count' => $this->items->count(),
-                'items_with_images_count' => $this->items()->hasImage()->count(),
-
-                // tanslatable attributes:
-                'biography' => (!empty($authority_translated->biography)) ? strip_tags($authority_translated->biography) : '',
-                'birth_place' => $authority_translated->birth_place,
-                'death_place' => $authority_translated->death_place,
-            ];
-
-            $client->index([
-                'index' => $elastic_translatable->getIndexForLocale($locale),
-                'type' =>  self::ES_TYPE,
-                'id' => $this->id,
-                'body' => $data,
-            ]);
-        }
-    }
-
-    public static function sliderMin()
-    {
-        $table_name = with(new static())->getTable();
-        if (Cache::has($table_name.'.slider_min')) {
-            $slider_min = Cache::get($table_name.'.slider_min');
-        } else {
-            $min_year = self::min('birth_year');
-            $slider_min = floor($min_year / 100) * 100;
-            Cache::put($table_name.'.slider_min', $slider_min, 60);
-        }
-
-        return $slider_min;
-    }
-
-    public static function sliderMax()
-    {
-        return date('Y');
-    }
-
-    public static function formatName($name)
-    {
-        return formatName($name);
+        $translation = $this->translateOrNew($locale);
+        return [
+            'id' => $this->id,
+            'identifier' => $this->id,
+            'name' => $this->name,
+            'alternative_name' => $this->names()->pluck('name'),
+            'related_name' => $this->relationships()->pluck('name'),
+            'nationality' => $this->nationalities()->pluck('code'),
+            'place' => $this->places,
+            'role' => $this->roles,
+            'birth_year' => $this->birth_year,
+            'death_year' => $this->death_year,
+            'sex' => $this->sex,
+            'has_image' => (boolean) $this->has_image,
+            'created_at' => $this->created_at->format('Y-m-d H:i:s'),
+            'items_count' => $this->items()->count(),
+            'items_with_images_count' => $this->items()->hasImage()->count(),
+            'biography' => (!empty($translation->biography)) ? strip_tags($translation->biography) : '',
+            'birth_place' => $translation->birth_place,
+            'death_place' => $translation->death_place,
+        ];
     }
 
     /* pre atributy vo viacerych jazykoch
@@ -452,65 +312,14 @@ class Authority extends Model
         return (isSet($atttribute[$index])) ? $atttribute[$index] : null;
     }
 
-    public static function listValues($attribute, $search_params)
-    {
-        //najskor over, ci $attribute je zo zoznamu povolenych
-        if (!in_array($attribute, self::$filterable)) {
-            return false;
-        }
-        $json_params = '
-		{
-		 "aggs" : {
-		    "'.$attribute.'" : {
-		        "terms" : {
-		          "field" : "'.$attribute.'",
-		          "size": 1000
-		        }
-		    }
-		}
-		}
-		';
-        $params = array_merge(json_decode($json_params, true), $search_params);
-        $result = Elastic::search([
-                'search_type' => 'count',
-                'type' => self::ES_TYPE,
-                'body' => $params,
-            ]);
-        $buckets = $result['aggregations'][$attribute]['buckets'];
-
-        $return_list = array();
-        foreach ($buckets as $bucket) {
-            // dd($bucket);
-            $single_value = $bucket['key'];
-            // if ($attribute=='author') $single_value = preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $single_value);
-            $return_list[$bucket['key']] = "$single_value ({$bucket['doc_count']})";
-        }
-
-        return $return_list;
-    }
-
     public function getAssociativeRelationships()
     {
         $associative_relationships = array();
-        foreach ($this->relationships as $i => $relationship) {
-            $associative_relationships[self::formatMultiAttribute($relationship->pivot->type)][] = [
-                'id' => $relationship->id,
-                'name' => self::formatName($relationship->name),
-                ];
+        foreach ($this->relationships as $relationship) {
+            $associative_relationships[self::formatMultiAttribute($relationship->pivot->type)][] = $relationship;
         }
 
         return $associative_relationships;
-    }
-
-    public static function amount($custom_parameters = [])
-    {
-        $params = array();
-        foreach ($custom_parameters as $attribute => $value) {
-            $params['query']['filtered']['filter']['and'][]['term'][$attribute] = $value;
-        }
-        $authorities = self::search($params);
-
-        return $authorities->total();
     }
 
     public function setBiographyAttribute($value)
@@ -518,7 +327,17 @@ class Authority extends Model
         $this->attributes['biography'] = ($value) ?: '';
     }
 
-    protected function getElasticClient() {
-        return app(Client::class);
+    public function incrementViewCount($save = true)
+    {
+        $this->timestamps = false;
+        $this->view_count++;
+        if ($save) {
+            $this->save();
+        }
+    }
+
+    public function isCorporateBody()
+    {
+        return $this->type === 'corporate body';
     }
 }

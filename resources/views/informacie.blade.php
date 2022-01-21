@@ -30,7 +30,7 @@
                 <div class="col-md-4">
                     <ul class="list-unstyled lead">
                     @foreach($chunk as $gallery)
-                        <li><a href="{!! URL::to($gallery['url']) !!}" id="{{ $gallery['id'] }}">{{ utrans($gallery['lang_string']) }}</a></li>
+                        <li><a href="{!! URL::to($gallery['url']) !!}" id="{{ $gallery['id'] }}">{!! utrans($gallery['lang_string']) !!}</a></li>
                     @endforeach
                     </ul>
                 </div>
@@ -77,7 +77,7 @@
             </div>
             <div class="col-md-4 dib"></div>
             <div class="col-md-4 dib">
-                <a href="#" data-toggle="modal" data-target="#priceList" class="inherit lead pull-left no-border"><i class="icon-arrow-right"></i> &nbsp; {{ trans('informacie.general_reproduction_prices') }}</a>
+                <a href="{!! URL::to('reprodukcie#print') !!}" class="inherit lead pull-left no-border"><i class="icon-arrow-right"></i> &nbsp; {{ trans('informacie.general_reproduction_prices') }}</a>
             </div>
         </div>
 
@@ -94,18 +94,26 @@
             <div class="col-xs-12">
                 @include('components.artwork_carousel', [
                     'slick_target' => "artworks-preview",
-                    'items' => $items,
+                    'items' => $items_for_reproduction_sample,
                 ])
             </div>
         </div>
         <div class="row content-section">
             <div class="col-sm-12 text-center">
-                <a href="{!! url_to('katalog', ['gallery' => 'Slovenská národná galéria, SNG']) !!}" class="btn btn-default btn-outline sans" >{{ trans('informacie.more-items_button') }} <strong>{!! App\Item::forReproduction()->count() !!}</strong>  <i class="fa fa-chevron-right "></i></a>
+                <a href="{{ route('frontend.catalog.index', ['is_for_reproduction' => 1]) }}" class="btn btn-default btn-outline sans" >{{ trans('informacie.more-items_button') }} <strong>{{ $items_for_reproduction_total }}</strong>  <i class="fa fa-chevron-right "></i></a>
             </div>
         </div>
     </div>
 </section>
-
+<section class="bg-blue">
+    <div class="container">
+        <div class="row py-5">
+            <div class="col-lg-8 col-lg-offset-2">
+                <livewire:newsletter-signup-form variant="info-page" />
+            </div>
+        </div>
+    </div>
+</section>
 <section class="mozete more-items underlined-links">
     <div class="container">
         <div class="row content-section"><!-- top-space bottom-space -->
@@ -142,38 +150,9 @@
     </div>
 </section>
 
-<!-- Modal -->
-<div tabindex="-1" class="modal fade" id="priceList" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header text-center">
-                <h1>{{ trans('informacie.general_reproduction_prices') }}</h1>
-            </div>
-            <div class="modal-body">
-
-                <p>{{ utrans('informacie.modal_disclaimer') }}</p>
-
-                <table class="table table-striped">
-                    {!! utrans('informacie.modal_table-content') !!}
-                </table>
-
-                {{--
-                <p>
-                    <sup class="text-danger">*</sup> {!! utrans('informacie.modal_unavailable') !!}
-                </p>
-                 --}}
-
-            </div>
-            <div class="modal-footer">
-                <div class="text-center"><button type="button" data-dismiss="modal" class="btn btn-default btn-outline sans">{{ trans('general.close') }}</button></div>
-            </div>
-        </div>
-    </div>
-</div>
 @stop
 
 @section('javascript')
-    {!! Html::script('js/slick.js') !!}
     {!! Html::script('js/components/artwork_carousel.js') !!}
     {!! Html::script('js/components/gallery-map.js') !!}
 @stop

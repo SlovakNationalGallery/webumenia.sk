@@ -11,7 +11,7 @@ return [
     | by the framework. A "local" driver, as well as a variety of cloud
     | based drivers are available for your choosing. Just store away!
     |
-    | Supported: "local", "ftp", "s3", "rackspace"
+    | Supported: "local", "ftp", "s3"
     |
     */
 
@@ -46,11 +46,20 @@ return [
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
+            'links' => 'skip',
         ],
 
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
+            'visibility' => 'public',
+            'links' => 'skip',
+        ],
+
+        'media' => [
+            'driver' => 'local',
+            'root' => public_path('storage/media'),
+            'url' => config('app.url') . '/storage/media',
             'visibility' => 'public',
         ],
 

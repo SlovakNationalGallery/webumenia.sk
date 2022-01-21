@@ -1,22 +1,116 @@
 <?php
 
-namespace Tests\Import\Importers;
+namespace Tests\Harvest\Importers;
 
+use App\Authority;
 use App\Harvest\Importers\ItemImporter;
+use App\Harvest\Mappers\AuthorityItemMapper;
+use App\Harvest\Mappers\BaseAuthorityMapper;
 use App\Harvest\Mappers\ItemImageMapper;
+use App\Harvest\Mappers\CollectionItemMapper;
 use App\Harvest\Mappers\ItemMapper;
-use App\Harvest\Result;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\Harvest\Progress;
+use App\Item;
+use App\ItemImage;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ItemImporterTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     public function testImport() {
         $row = $this->getData();
         $importer = $this->initImporter($row);
-        $importer->import($row, $result = new Result());
+        $importer->import($row, $result = new Progress());
+    }
+
+    public function testKeepImages() {
+        $row = $this->getData();
+        $importer = $this->initImporter($row);
+        $item = factory(Item::class)->create(['id' => 'SVK:SNG.G_10044']);
+        $image = factory(ItemImage::class)->make(['iipimg_url' => 'to_keep']);
+        $item->images()->save($image);
+
+        $item->load('images');
+        $this->assertTrue($item->images->contains(function (ItemImage $image) {
+            return $image->iipimg_url === 'to_keep';
+        }));
+
+        $item->load('images');
+        $item = $importer->import($row, $result = new Progress());
+
+        $this->assertCount(3, $item->images);
+        $this->assertTrue($item->images->contains(function (ItemImage $image) {
+            return $image->iipimg_url === 'to_keep';
+        }));
+    }
+
+    public function testDetachRelations() {
+        $row = $this->getData();
+        $importer = $this->initImporter($row);
+        $item = factory(Item::class)->create(['id' => 'SVK:SNG.G_10044']);
+        factory(Authority::class)->create(['id' => 1922]);
+        factory(Authority::class)->create(['id' => 10816]);
+        $authority = factory(Authority::class)->create(['id' => 'to_be_detached']);
+        $item->authorities()->attach($authority);
+
+        $item->load('authorities');
+        $this->assertTrue($item->authorities->contains(function (Authority $authority) {
+            return $authority->id === 'to_be_detached';
+        }));
+
+        $item = $importer->import($row, $result = new Progress());
+
+        $this->assertCount(2, $item->authorities);
+        $this->assertFalse($item->authorities->contains(function (Authority $authority) {
+            return $authority->id === 'to_be_detached';
+        }));
+    }
+
+    public function testImportAuthorityPivotData()
+    {
+        $row = $this->getData();
+        $importer = $this->initImporter($row);
+        factory(Authority::class)->create(['id' => 1922]);
+        factory(Authority::class)->create(['id' => 10816]);
+
+        $item = $importer->import($row, $result = new Progress());
+
+        $this->assertCount(2, $item->authorities);
+        $author = $item->authorities->first(function (Authority $authority) {
+            return $authority->id == 1922;
+        });
+        $other = $item->authorities->first(function (Authority $authority) {
+            return $authority->id == 10816;
+        });
+        $this->assertEquals('autor/author', $author->pivot->role);
+        $this->assertEquals('iné/other', $other->pivot->role);
+    }
+
+    public function testImportNonExistingAuthority()
+    {
+        // testing for specific bug where records in pivot table
+        // were repeatedly created by harvester and therefore
+        // after saving related model, the relation was multiplied
+
+        $authority = factory(Authority::class)->make(['id' => 1922]);
+
+        $row = $this->getData();
+
+        for ($i = 2; $i--;) {
+            $importer = $this->initImporter($row);
+            $item = $importer->import($row, new Progress());
+            $count = $item->authorities->count();
+            $this->assertEquals(0, $count);
+        }
+
+        $authority->save();
+
+        $importer = $this->initImporter($row);
+        $item = $importer->import($row, new Progress());
+        $count = $item->authorities->count();
+        $this->assertEquals(1, $count);
     }
 
     protected function getData() {
@@ -94,7 +188,16 @@ class ItemImporterTest extends TestCase
                 'urn:svk:psi:per:sng:0000010816',
                 'Teniers, David',
             ],
-            'creator_role' => [],
+            'authorities' => [
+                [
+                    'id' => ['urn:svk:psi:per:sng:0000001922'],
+                    'role' => ['autor/author'],
+                ],
+                [
+                    'id' => ['urn:svk:psi:per:sng:0000010816'],
+                    'role' => ['iné/other'],
+                ],
+            ],
             'rights' => [
                 '1',
                 'publikovať/public',
@@ -104,7 +207,21 @@ class ItemImporterTest extends TestCase
                 'vľavo dole peint Teniers',
             ],
             'extent' => ['šírka 50.0 cm, šírka 47.6 cm, výška 39.0 cm, výška 37.0 cm, hĺbka 5.0 cm ()'],
-            'provenance' => ['Slovenská národná galéria, SNG'],
+            'gallery' => ['Slovenská národná galéria, SNG'],
+            'credit' => [
+                [
+                    'lang' => ['sk'],
+                    'credit' => ['Dar zo Zbierky Linea'],
+                ],
+                [
+                    'lang' => ['en'],
+                    'credit' => ['Donation from the Linea Collection'],
+                ],
+                [
+                    'lang' => ['cs'],
+                    'credit' => ['Dar ze Sbírky Linea'],
+                ],
+            ],
             'created' => [
                 '1760/1760',
                 '18. storočie, polovica, 1760',
@@ -113,20 +230,22 @@ class ItemImporterTest extends TestCase
             'images' => [
                 [
                     'iipimg_url' => ['/SNGBA/X100/SNG--G_23--1_2--_2013_02_20_--L2_WEB.jp2'],
-                    'img_url' => ['http://www.webumenia.sk/oai-pmh/getimage/SVK:SNG.G_10044'],
                 ],
                 [
                     'iipimg_url' => ['/SNGBA/X100/SNG--G_23--2vz_2--_2013_02_28_--L2_WEB.jp2'],
-                    'img_url' => ['http://www.webumenia.sk/oai-pmh/getimage/SVK:SNG.G_10044'],
                 ],
             ],
+            'img_url' => 'http://www.webumenia.sk/oai-pmh/getimage/SVK:SNG.G_10044',
         ];
     }
 
     protected function initImporter(array $row) {
         $importer = new ItemImporter(
-            $itemMapperMock = $this->getMock(ItemMapper::class),
-            $itemImageMapperMock = $this->getMock(ItemImageMapper::class)
+            $itemMapperMock = $this->createMock(ItemMapper::class),
+            $itemImageMapperMock = $this->createMock(ItemImageMapper::class),
+            $collectionItemMapperMock = $this->createMock(CollectionItemMapper::class),
+            $authorityItemMapperMock = $this->createMock(AuthorityItemMapper::class),
+            $authorityMapperMock = $this->createMock(BaseAuthorityMapper::class)
         );
         $itemMapperMock
             ->expects($this->once())
@@ -138,10 +257,9 @@ class ItemImporterTest extends TestCase
                 'date_earliest' => '1760',
                 'date_latest' => '1760',
                 'author' => 'Daullé, Jean; Teniers, David',
-                'item_type' => '',
                 'related_work_order' => 0,
                 'related_work_total' => 0,
-                'featured' => false,
+                'img_url' => 'http://www.webumenia.sk/oai-pmh/getimage/SVK:SNG.G_10044',
                 'title:sk' => 'Flámska rodina',
                 'work_type:sk' => 'grafika, voľná',
                 'technique:sk' => 'rytina',
@@ -152,10 +270,10 @@ class ItemImporterTest extends TestCase
                 'inscription:sk' => 'vpravo dole gravé J.Daullé..; vľavo dole peint Teniers',
                 'place:sk' => null,
                 'gallery:sk' => 'Slovenská národná galéria, SNG',
+                'credit:sk' => 'Dar zo Zbierky Linea',
                 'dating:sk' => '1760',
                 'relationship_type:sk' => 'samostatné dielo',
                 'related_work:sk' => null,
-                'description:sk' => null,
                 'work_level:sk' => null,
                 'title:en' => 'Flemish family',
                 'work_type:en' => null,
@@ -167,10 +285,10 @@ class ItemImporterTest extends TestCase
                 'inscription:en' => null,
                 'place:en' => null,
                 'gallery:en' => null,
+                'credit:en' => null,
                 'dating:en' => null,
                 'relationship_type:en' => null,
                 'related_work:en' => null,
-                'description:en' => null,
                 'work_level:en' => null,
                 'title:cs' => null,
                 'work_type:cs' => null,
@@ -182,12 +300,18 @@ class ItemImporterTest extends TestCase
                 'inscription:cs' => null,
                 'place:cs' => null,
                 'gallery:cs' => null,
+                'credit:cs' => null,
                 'dating:cs' => null,
                 'relationship_type:cs' => null,
                 'related_work:cs' => null,
-                'description:cs' => null,
                 'work_level:cs' => null,
             ])
+        ;
+        $itemMapperMock
+            ->expects($this->once())
+            ->method('mapId')
+            ->with($row)
+            ->willReturn('SVK:SNG.G_10044')
         ;
         $itemImageMapperMock
             ->expects($this->exactly(2))
@@ -199,12 +323,33 @@ class ItemImporterTest extends TestCase
             ->willReturnOnConsecutiveCalls(
                 [
                     'iipimg_url' => '/SNGBA/X100/SNG--G_23--1_2--_2013_02_20_--L2_WEB.jp2',
-                    'img_url' => 'http://www.webumenia.sk/oai-pmh/getimage/SVK:SNG.G_10044',
                 ],
                 [
                     'iipimg_url' => '/SNGBA/X100/SNG--G_23--2vz_2--_2013_02_28_--L2_WEB.jp2',
-                    'img_url' => 'http://www.webumenia.sk/oai-pmh/getimage/SVK:SNG.G_10044',
                 ]
+            )
+        ;
+        $authorityItemMapperMock
+            ->method('map')
+            ->withConsecutive(
+                [$row['authorities'][0]],
+                [$row['authorities'][1]]
+            )
+            ->willReturnOnConsecutiveCalls(
+                ['role' => 'autor/author'],
+                ['role' => 'iné/other']
+            )
+        ;
+        $authorityMapperMock
+            ->expects($this->exactly(2))
+            ->method('map')
+            ->withConsecutive(
+                [$row['authorities'][0]],
+                [$row['authorities'][1]]
+            )
+            ->willReturnOnConsecutiveCalls(
+                ['id' => 1922],
+                ['id' => 10816]
             )
         ;
 

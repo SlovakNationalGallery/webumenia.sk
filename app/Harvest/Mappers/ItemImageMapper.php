@@ -4,13 +4,9 @@ namespace App\Harvest\Mappers;
 
 use App\ItemImage;
 
-class ItemImageMapper extends AbstractModelMapper
+class ItemImageMapper extends AbstractMapper
 {
     protected $modelClass = ItemImage::class;
-
-    public function mapImgUrl(array $row) {
-        return $row['img_url'];
-    }
 
     public function mapIipimgUrl(array $row) {
         if (isset($row['iipimg_url'][0])) {

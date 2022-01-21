@@ -2,26 +2,35 @@
 
 namespace Tests;
 
-use App\Authority;
-use App\Item;
-use App\ItemImage;
-use App\SpiceHarvesterHarvest;
-use App\SpiceHarvesterRecord;
-use Elasticsearch\Client;
+use Tests\RecreateSearchIndex;
 
-class TestCase extends \Illuminate\Foundation\Testing\TestCase
+abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 {
     /** @var \Faker\Generator */
     protected $faker;
 
-    public function setUp() {
+    protected function setUp(): void {
         parent::setUp();
-
-        $this->app->instance(Client::class, $this->getMock(Client::class));
 
         if ($this->faker === null) {
             $this->faker = \Faker\Factory::create(\App::getLocale());
         }
+    }
+
+    /**
+     * Boot the testing helper traits.
+     *
+     * @return array
+     */
+    protected function setUpTraits()
+    {
+        $uses = parent::setUpTraits();
+
+        if (isset($uses[RecreateSearchIndex::class])) {
+            $this->recreateSearchIndex();
+        }
+
+        return $uses;
     }
 
     /**
@@ -35,30 +44,9 @@ class TestCase extends \Illuminate\Foundation\Testing\TestCase
         $app = require __DIR__ . '/../bootstrap/app.php';
         $app->loadEnvironmentFrom('.env.testing');
         $app->make(\Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+
         $this->baseUrl = env('TEST_HOST', 'http://localhost');
 
         return $app;
-    }
-
-    /**
-     * @param string $type
-     * @param string|null $message
-     * @param callable $function
-     */
-    protected function assertException($type, $message, callable $function)
-    {
-        $exception = null;
-
-        try {
-            call_user_func($function);
-        } catch (\Exception $e) {
-            $exception = $e;
-        }
-
-        self::assertThat($exception, new \PHPUnit_Framework_Constraint_Exception($type));
-
-        if ($message !== null) {
-            self::assertThat($exception, new \PHPUnit_Framework_Constraint_ExceptionMessage($message));
-        }
     }
 }

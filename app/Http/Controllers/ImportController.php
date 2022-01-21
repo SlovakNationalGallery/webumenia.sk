@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
 
 use App\Http\Requests;
@@ -14,9 +12,18 @@ use App\Import;
 use App\ImportRecord;
 use App\Jobs\ImportCsv;
 use App\Repositories\CsvRepository;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Translation\Translator;
 
 class ImportController extends Controller
 {
+    protected $translator;
+
+    public function __construct(Translator $translator)
+    {
+        $this->translator = $translator;
+    }
 
     /**
      * Display a listing of the resource.
@@ -46,7 +53,7 @@ class ImportController extends Controller
      */
     public function store()
     {
-        $input = Input::all();
+        $input = Request::all();
 
         $rules = Import::$rules;
         $v = Validator::make($input, $rules);
@@ -54,10 +61,10 @@ class ImportController extends Controller
         if ($v->passes()) {
 
             $import = new Import;
-            $import->name = Input::get('name');
-            $import->class_name = Input::get('class_name');
-            $import->dir_path = Input::get('dir_path');
-            $import->iip_dir_path = Input::get('iip_dir_path');
+            $import->name = Request::input('name');
+            $import->class_name = Request::input('class_name');
+            $import->dir_path = Request::input('dir_path');
+            $import->iip_dir_path = Request::input('iip_dir_path');
             $import->save();
 
             return redirect()->route('imports.index');
@@ -95,7 +102,7 @@ class ImportController extends Controller
             return redirect()->route('import.index');
         }
 
-        $importer = new $import->class_name(new CsvRepository());
+        $importer = new $import->class_name(new CsvRepository(), $this->translator);
         $options = $importer->getOptions();
 
         return view('imports.form')->with(['import' => $import, 'options' => $options]);
@@ -109,20 +116,20 @@ class ImportController extends Controller
      */
     public function update($id)
     {
-        $v = Validator::make(Input::all(), Import::$rules);
+        $v = Validator::make(Request::all(), Import::$rules);
 
         if ($v->passes()) {
-            $input = array_except(Input::all(), array('_method'));
+            $input = Arr::except(Request::all(), array('_method'));
 
             $import = Import::find($id);
-            $import->name = Input::get('name');
-            $import->class_name = Input::get('class_name');
-            $import->dir_path = Input::get('dir_path');
-            $import->iip_dir_path = Input::get('iip_dir_path');
+            $import->name = Request::input('name');
+            $import->class_name = Request::input('class_name');
+            $import->dir_path = Request::input('dir_path');
+            $import->iip_dir_path = Request::input('iip_dir_path');
             $import->save();
 
-            if (Input::hasFile('file')) {
-                $file = Input::file('file');
+            if (Request::hasFile('file')) {
+                $file = Request::file('file');
                 $path_to_save = 'import/' . $import->dir_path . '/' . $file->getClientOriginalName();
                 \Storage::put($path_to_save, \File::get($file));
             }

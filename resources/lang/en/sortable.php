@@ -14,10 +14,12 @@ return array(
     // in models: item, collection
     'created_at'              => 'date added',
     'title'                   => 'title',
-    // in model item          
+    // in model item
+    'relevance'               => 'relevance',
     'updated_at'              => 'last updated',
     'author'                  => 'artist',
-    'date_earliest'           => 'date',
+    'newest'                  => 'date – from newest',
+    'oldest'                  => 'date – from oldest',
     'view_count'              => 'views',
     'random'                  => 'random',
     // in model authority

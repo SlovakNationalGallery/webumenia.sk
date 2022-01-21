@@ -4,7 +4,7 @@ namespace App\Harvest\Harvesters;
 
 use App\Harvest\Importers\AuthorityImporter;
 use App\Harvest\Repositories\AuthorityRepository;
-use App\Harvest\Result;
+use App\Harvest\Progress;
 use App\SpiceHarvesterRecord;
 
 class AuthorityHarvester extends AbstractHarvester
@@ -13,30 +13,11 @@ class AuthorityHarvester extends AbstractHarvester
         parent::__construct($repository, $importer);
     }
 
-    public function harvestSingle(SpiceHarvesterRecord $record, Result $result, array $row = null) {
+    public function harvestRecord(SpiceHarvesterRecord $record, Progress $progress, array $row = null) {
         if ($row === null) {
             $row = $this->repository->getRow($record);
         }
 
-        // @todo responsibility of repository?
-        $linkUrls = $this->parseLinkUrls($row);
-        if ($linkUrls) {
-            $row['links'] = [];
-            foreach ($linkUrls as $linkUrl) {
-                $row['links'][] = [
-                    'url' => [$linkUrl]
-                ];
-            }
-        }
-
-        parent::harvestSingle($record, $result, $row);
-    }
-
-    // @todo could be moved to mapper if mapper'd have access to whole row
-    protected function parseLinkUrls(array $row) {
-        if (isset($row['biography'][0])) {
-            preg_match_all('#https?://\S+#', $row['biography'][0], $matches);
-            return $matches[0];
-        }
+        parent::harvestRecord($record, $progress, $row);
     }
 }

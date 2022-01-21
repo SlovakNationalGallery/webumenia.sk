@@ -14,13 +14,13 @@
     }
 @endphp
 
-<div class="artwork-carousel-container {{$class_names or ''}}">
-  <div class="{{$slick_target}} {{$slick_variant or ''}}">
+<div class="artwork-carousel-container {{$class_names ?? ''}}">
+  <div class="artwork-carousel {{$slick_target}} {{$slick_variant ?? ''}}">
     @foreach ($items as $item)
 
     @php
         list($width, $height) = getimagesize(public_path() . $item->getImagePath());
-        $width = $width * ($size / $height);
+        $width = $width * ($size / max($height,1));
         $height = $size;
     @endphp
 
@@ -36,7 +36,7 @@
         data-src="{!! route('dielo.nahlad', ['id' => $item->id, 'width'=> 0, 'height' => $size]) !!}"
         class="lazyload"
         style=""
-        alt="{!! $item->getTitleWithAuthors() !!} ">
+        alt="{{ $item->getTitleWithAuthors() }} ">
     </a>
     @endforeach
   </div>

@@ -8,10 +8,20 @@ return array(
     |--------------------------------------------------------------------------
     */
 
-    'title'                         => 'kolekcie',
-    'collections_found_collections' => 'nájdené kolekcie pre',
-    'collections_collections'       => 'kolekcií',
-    'collections_no_collections'    => 'momentálne žiadne kolekcie',
-    'collections_artworks'          => 'diel',
-
+    'title'                         => 'kolekce',
+    'collections_found_collections' => 'nalezené kolekce pro',
+    'collections_collections'       => 'kolekcí',
+    'collections_no_collections'    => 'momentálně žádné kolekce',
+    'collections_artworks'          => 'děl',
+    'collections_items_count'       => 'Kolekce obsahuje',
+    'filter' => [
+        'author' => 'autor',
+        'type' => 'kategorie',
+        'sort_by' => 'podle',
+        'sorting' => [
+            'updated_at' => 'poslední změny',
+            'published_at' => 'data přidání',
+            'title' => 'názvu',
+        ],
+    ]
 );                  

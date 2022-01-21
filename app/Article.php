@@ -4,35 +4,80 @@
 
 namespace App;
 
+use App\Concerns\HasHeaderImage;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+use Astrotomic\Translatable\Translatable;
 use Illuminate\Support\Facades\URL;
-use Intervention\Image\ImageManagerStatic;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Validation\Rule;
 
-class Article extends Model
+class Article extends Model implements TranslatableContract
 {
-    use \Dimsav\Translatable\Translatable;
-
+    use Translatable;
 
     use \Conner\Tagging\Taggable;
 
-    const ARTWORKS_DIR = '/images/clanky/';
-    
+    use HasHeaderImage;
+
+    function getArtworksDirAttribute()
+    {
+        return '/images/clanky/';
+    }
+
     public $translatedAttributes = ['title', 'summary', 'content'];
 
+    protected $fillable = [
+        'published_date',
+    ];
 
-    public static $rules = array(
-        'slug'       => 'required',
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'published_date'
+    ];
 
-        'sk.title'   => 'required',
-        'sk.summary' => 'required',
-        'sk.content' => 'required',
-    );
+    protected $casts = [
+        'edu_media_types' => 'array',
+        'edu_target_age_groups' => 'array',
+        'edu_keywords' => 'array',
+        'edu_suitable_for_home' => 'boolean',
+    ];
 
-    // public function items()
- //    {
- //        return $this->belongsToMany('Item', 'collection_item', 'collection_id', 'item_id');
- //    }
+    public static $eduMediaTypes = [
+        'methodology',
+        'worksheet',
+        'video',
+        'collection',
+        'workshop',
+        'virtual_exhibition',
+    ];
+
+    public static $eduAgeGroups = [
+        '3-6',
+        '7-10',
+        '11-15',
+        '16-19',
+    ];
+
+    public static function getValidationRules()
+    {
+        return [
+            'slug' => 'required',
+            'author' => 'required',
+            'sk.title' => 'required',
+            'sk.summary' => 'required',
+            'sk.content' => 'required',
+            'edu_media_types' => ['array', Rule::in(self::$eduMediaTypes)],
+            'edu_target_age_groups' => ['array', Rule::in(self::$eduAgeGroups)],
+            'edu_keywords' => 'array',
+        ];
+    }
+
+    public function scopeEducational($query)
+    {
+        return $query->whereJsonLength('edu_media_types', '>', 0);
+    }
 
     public function category()
     {
@@ -61,60 +106,6 @@ class Article extends Model
         return substr($string, 0, strrpos($string, ' ')) . " ...";
     }
 
-    public function getHeaderImage($full = false)
-    {
-        if (empty($this->attributes['main_image'])) {
-            return false;
-        }
-
-        $relative_path = self::ARTWORKS_DIR . $this->attributes['main_image'];
-        if (!file_exists(public_path() . $relative_path) && !$full) {
-            $relative_path = self::ARTWORKS_DIR . 'no-image.jpg';
-        }
-        $path = ($full) ? public_path() . $relative_path : $relative_path;
-        return $path;
-    }
-
-    public function getResizedImage($resize)
-    {
-        $file = substr($this->attributes['main_image'], 0, strrpos($this->attributes['main_image'], "."));
-        $full_path = public_path() .  self::ARTWORKS_DIR;
-
-        if (!file_exists($full_path . "$file.$resize.jpg") && file_exists($this->getHeaderImage(true))) {
-            $img = \Image::make($this->getHeaderImage(true))->fit($resize)->sharpen(7);
-            $img->save($full_path . "$file.$resize.jpg");
-        }
-        $result_path = self::ARTWORKS_DIR .  "$file.$resize.jpg";
-
-        return $result_path;
-
-    }
-
-    public function getThumbnailImage($full = false)
-    {
-        if (empty($this->attributes['main_image'])) {
-            return false;
-        }
-
-        $preview_image = substr($this->attributes['main_image'], 0, strrpos($this->attributes['main_image'], ".")); //zmaze priponu
-        $preview_image .= '.thumbnail.jpg';
-        $relative_path = self::ARTWORKS_DIR . $preview_image;
-        $full_path = public_path() . $relative_path;
-        if (!file_exists($full_path) && file_exists($this->getHeaderImage(true))) {
-            try {
-                \Image::make($this->getHeaderImage(true))->fit(600, 250)->save($full_path);
-            } catch (\Exception $e) {
-
-            }
-        }
-        return $relative_path;
-    }
-
-    public function getPublishedDateAttribute($value)
-    {
-        return Carbon::parse($value)->format('d. m. Y'); //Change the format to whichever you desire
-    }
-
     public function getTitleColorAttribute($value)
     {
         return (!empty($value)) ? $value : '#fff';
@@ -130,6 +121,14 @@ class Article extends Model
         return $query->where('publish', '=', 1);
     }
 
+    public function getContentImages()
+    {
+        return array_merge(
+            parseUrls($this->summary),
+            parseUrls($this->content)
+        );
+    }
+
     public function scopePromoted($query)
     {
         return $query->where('promote', '=', 1);
@@ -143,5 +142,9 @@ class Article extends Model
         }
 
         $this->attributes['publish'] = (bool)$value;
+    }
+
+    public function getReadingTimeAttribute(){
+        return getEstimatedReadingTime($this->summary . ' ' . $this->content, \App::getLocale());
     }
 }

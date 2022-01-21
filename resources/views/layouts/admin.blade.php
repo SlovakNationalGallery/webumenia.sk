@@ -25,8 +25,8 @@
         {!! Html::style('css/plugins/selectize.bootstrap3.css') !!}
         {!! Html::style('css/plugins/bootstrap-switch.css') !!}
         {!! Html::style('css/jquery-ui/jquery-ui.css') !!}
-        {!! Html::script('js/modernizr.custom.js') !!}
-
+        {!! Html::style('/css/vue/vue-select.css') !!}
+        {!! Html::style(mix('/css/admin.css')) !!}
 </head>
 
 <body>
@@ -85,61 +85,72 @@
                         <li>
                             <a href="{!! URL::to('admin') !!}"><i class="fa fa-dashboard fa-fw"></i> Úvod</a>
                         </li>
-                        @if (Entrust::hasRole(['admin', 'import']))
+                        @can('edit')
                         <li>
                             <a href="{!! URL::to('item') !!}"><i class="fa fa-picture-o fa-fw"></i> Diela</a>
                         </li>
-                        @endif
-                        @if (Entrust::hasRole('admin'))
+                        @endcan
+                        @can('administer')
                         <li>
                             <a href="{!! URL::to('authority') !!}"><i class="fa fa-user fa-fw"></i> Autority</a>
                         </li>
-                        @endif
-                        @if (Entrust::hasRole(['admin', 'editor']))
+                        @endcan
+                        @can('edit')
                         <li>
                             <a href="{!! URL::to('collection') !!}"><i class="fa fa-th-list fa-fw"></i> Kolekcie</a>
                         </li>
-                        @endif
-                        @if (Entrust::hasRole('admin'))
+                        @endcan
+                        @can('edit')
                         <li>
                             <a href="{!! URL::to('article') !!}"><i class="fa fa-newspaper-o fa-fw"></i> Články</a>
                         </li>
-                        @endif
-                        @if (Entrust::hasRole('admin'))
-                        <li>
-                            <a href="{!! URL::to('slide') !!}"><i class="fa fa-exchange fa-fw"></i> Carousel</a>
+                        @endcan
+                        @can('administer')
+                        <li class="uppercase text-sm font-semibold text-muted pl-4 pt-4 border-b-0">
+                            Homepage
                         </li>
-                        @endif
-                        @if (Entrust::hasRole('admin'))
+                        <li class="mb-4 border-b-0">
+                            <a href="{{ route('featured-pieces.index') }}"><i class="fa fa-image fa-fw"></i> Odporúčaný obsah</a>
+                        </li>
+                        @endcan
+                        @can('administer')
                         <li>
                             <a href="{!! URL::to('sketchbook') !!}"><i class="fa fa-book fa-fw"></i> Skicáre</a>
                         </li>
-                        @endif
-                        @if (Entrust::hasRole(['admin', 'import']))
+                        @endcan
+                        @can('administer')
+                        <li>
+                            <a href="{!! route('notices.edit', 1) !!}"><i class="fa fa-bullhorn fa-fw"></i> Oznamy</a>
+                        </li>
+                        @endcan
+                        @can('administer')
+                        <li>
+                            <a href="{!! route('redirects.index') !!}"><i class="fa fa-external-link fa-fw"></i> Presmerovania</a>
+                        </li>
+                        @endcan
+                        @can('administer')
                         <li>
                             <a href="#"><i class="fa fa-download fa-fw"></i> Import<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                @if (Entrust::hasRole(['admin']))
                                 <li>
                                     <a href="{!! URL::to('harvests') !!}">Spice Harvester</a>
                                 </li>
-                                @endif
                                 <li>
                                     <a href="{!! URL::to('imports') !!}">CSV Import</a>
                                 </li>
                             </ul>
                         </li>
-                        @endif
-                        @if (Entrust::hasRole('admin'))
+                        @endcan
+                        @can('administer')
                         <li>
                             <a href="{!! URL::to('user') !!}"><i class="fa fa-male fa-fw"></i> Užívatelia</a>
                         </li>
-                        @endif
-                        @if (Entrust::hasRole('admin'))
+                        @endcan
+                        @can('administer')
                         <li>
                             <a href="{!! URL::to('logs') !!}" target="_blank"><i class="fa fa-exclamation-triangle fa-fw"></i> Logy</a>
                         </li>
-                        @endif
+                        @endcan
                     </ul>
                     <!-- /#side-menu -->
                 </div>
@@ -195,6 +206,12 @@
     {!! Html::script('js/plugins/speakingurl.min.js') !!}
     {!! Html::script('js/plugins/bootstrap-switch.min.js') !!}
     {!! Html::script('js/jquery.collection.js') !!}
+    {!! Html::script('js/modernizr.custom.js') !!}
+    {!! Html::script('js/selectize.min.js') !!}
+
+    <script type="text/javascript" src="{{ mix('/js/manifest.js') }}"></script>
+    <script type="text/javascript" src="{{ mix('/js/vendor.js') }}"></script>
+    <script type="text/javascript" src="{{ mix('/js/admin.js') }}"></script>
 
 
     <script>
@@ -212,10 +229,16 @@
 
         Ladda.bind( '.ladda-button');
 
-        var csrf = '{!!csrf_token()!!}';
-        $( '.wysiwyg' ).ckeditor({
+        $('.wysiwyg').ckeditor({
             language: 'sk',
-            filebrowserUploadUrl: '/uploader?csrf_token='+csrf
+            extraAllowedContent: 'iframe[*];*[data-*]{*}(*);*[class]{*}(*)',
+
+            filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+            filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+
+            // Only upload via laravel-filemanager, because its /upload
+            // response is incompatible with CKEditor image/file Upload dialogs.
+            removeDialogTabs: 'image:Upload;link:upload',
         });
 
 
@@ -243,13 +266,6 @@
 
         var links_count = $('.form_link').length;
 
-        $("a#add_link").click(function(e){
-            e.preventDefault();
-            $('#external_links').append('<div class="col-md-5"><div class="form-group"><label for="url">URL</label> <input class="form-control linkpicker" placeholder="http://" name="links['+links_count+'][url]" type="text">  </div></div>');
-            $('#external_links').append('<div class="col-md-5"><div class="form-group"><label for="label">Zobrazená adresa</label><input class="form-control" placeholder="wikipédia" name="links['+links_count+'][label]" type="text"></div></div>');
-            links_count++;
-        });
-
         $('.colorpicker-component').colorpicker();
 
         // $('.colorpicker').colorpicker().on('changeColor', function(ev){
@@ -263,7 +279,6 @@
 
     });
     </script>
-
     @yield('script')
 
 </body>

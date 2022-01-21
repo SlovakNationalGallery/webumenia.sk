@@ -1,5 +1,6 @@
 <?php namespace App\Console;
 
+use App\Jobs\HarvestJob;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -13,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         \App\Console\Commands\OaiPmhHarvest::class,
+        \App\Console\Commands\MigrateElasticsearch::class,
         \App\Console\Commands\ReindexElasticsearch::class,
         \App\Console\Commands\SetupElasticsearch::class,
         \App\Console\Commands\MakeSitemap::class,
@@ -22,9 +24,10 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\Inspire::class,
         \App\Console\Commands\OaiPmhDownloadImages::class,
         \App\Console\Commands\MigrateTags::class,
-        \App\Console\Commands\DescribeItemColors::class,
         \App\Console\Commands\ImportCsv::class,
-        \App\Console\Commands\DescribeItemColors::class,
+        \App\Console\Commands\ItemsExtractColors::class,
+        \App\Console\Commands\MatchAuthorities::class,
+        \App\Console\Commands\MediaLibraryRegenerateResponsiveImages::class,
     ];
 
     /**
@@ -38,12 +41,12 @@ class Kernel extends ConsoleKernel
         $schedule->command('sitemap:make')->daily();
         $schedule->call(function() {
             foreach (\App\SpiceHarvesterHarvest::where('cron_status', '=', 'daily')->get() as $harvest) {
-                App::make('\App\Http\Controllers\SpiceHarvesterController')->launch($harvest->id);
+                dispatch(new HarvestJob($harvest));
             }
         })->daily(); /* daily at midnight */
         $schedule->call(function() {
             foreach (\App\SpiceHarvesterHarvest::where('cron_status', '=', 'weekly')->get() as $harvest) {
-                App::make('\App\Http\Controllers\SpiceHarvesterController')->launch($harvest->id);
+                dispatch(new HarvestJob($harvest));
             }
         })->weeklyOn(6, '23:00'); /* sundays at 11pm */
     }

@@ -2,21 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Elasticsearch\Repositories\ItemRepository;
 use App\Forms\Types\ItemType;
 use App\Item;
 use App\Collection;
-use App\Jobs\HarvestSingleJob;
+use App\Forms\Types\ItemAuthoritiesType;
+use App\Jobs\HarvestRecordJob;
 use Barryvdh\Form\CreatesForms;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use App\SpiceHarvesterRecord;
 use Illuminate\Support\Facades\App;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormInterface;
-use Illuminate\Http\Request;
+use Symfony\Component\Form\FormBuilderInterface;
 
 class ItemController extends Controller
 {
@@ -24,6 +29,14 @@ class ItemController extends Controller
 
     /** @var FormInterface */
     protected $form;
+
+    /** @var ItemRepository */
+    protected $itemRepository;
+
+    public function __construct(ItemRepository $itemRepository)
+    {
+        $this->itemRepository = $itemRepository;
+    }
 
     /**
      * Display a listing of the resource.
@@ -46,68 +59,17 @@ class ItemController extends Controller
     public function search()
     {
 
-        $search = Input::get('search');
+        $search = Request::input('search');
         if (str_contains($search, ';')) {
 
             $ids = explode(';', str_replace(" ", "", $search));
             $results = Item::whereIn('id', $ids)->paginate(20);
         } else {
-            $results = Item::whereTranslationLike('title', '%'.$search.'%')->orWhere('author', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%')->paginate(20);
+            $results = Item::whereTranslationLike('title', '%' . $search . '%')->orWhere('author', 'LIKE', '%' . $search . '%')->orWhere('id', 'LIKE', '%' . $search . '%')->paginate(20);
         }
 
         $collections = Collection::listsTranslations('name')->pluck('name', 'id')->toArray();
         return view('items.index', array('items' => $results, 'collections' => $collections, 'search' => $search));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        $prefix = 'SVK:TMP.';  // TMP = temporary
-        $last_item = Item::where('id', 'LIKE', $prefix.'%')->orderBy('created_at', 'desc')->first();
-        $last_number = (int)str_replace($prefix, '', $last_item->id);
-        $new_id = $prefix . ($last_number+1);
-        return view('items.form', array('new_id'=>$new_id));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function store()
-    {
-        $input = Input::all();
-
-        $rules = Item::$rules;
-        $rules['primary_image'] = 'required|image';
-
-        $v = Validator::make($input, $rules);
-
-        if ($v->passes()) {
-
-            $item = new Item;
-            $item->fill($input);
-
-            // store translatable attributes
-            foreach (\Config::get('translatable.locales') as $i=>$locale) {
-                foreach ($item->translatedAttributes as $attribute) {
-                    $item->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
-                }
-            }
-
-            $item->save();
-
-            if (Input::hasFile('primary_image')) {
-                $this->uploadImage($item);
-            }
-
-            return Redirect::route('item.index');
-        }
-        return Redirect::back()->withInput()->withErrors($v);
     }
 
     /**
@@ -123,78 +85,102 @@ class ItemController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        $prefix = 'SVK:TMP.';
+        $last_item = Item::where('id', 'LIKE', $prefix . '%')->orderBy('created_at', 'desc')->first();
+        $last_number = ($last_item) ? (int)Str::after($last_item->id, $prefix) : 0;
+        $new_id = $prefix . ($last_number + 1);
+
+        $item = new Item(['id' => $new_id]);
+        $form = $this->getItemFormBuilder($item, $new = true)
+            ->add('id', null, [
+                'disabled' => true,
+            ])
+
+            ->getForm();
+
+        return $this->processForm($form);
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param string $id
      * @return Response
      */
     public function edit($id)
     {
         $item = Item::find($id) ?: abort(404);
-        $form = $this->getItemForm($item);
+        $form = $this->getItemFormBuilder($item, $new = false)->getForm();
+
+        return $this->processForm($form);
+    }
+
+    /**
+     * @param Form $form
+     * @return Response
+     */
+    protected function processForm(Form $form) {
+        $item = $form->getData();
+        $form->handleRequest();
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $authorities = [];
+
+            $json = json_decode($form['item_authorities']->getData()?:"[]");
+
+            foreach($json as $k=>$v){
+                $authorities[$k] = ['role'=> $v];
+            };
+            $item->authorities()->sync($authorities);
+            $item->push();
+
+            $tags = $form['tags']->getData();
+            if (array_diff($tags, $item->tagSlugs()) != array_diff($item->tagSlugs(), $tags)) {
+                $item->retag($tags);
+                $this->itemRepository->indexAllLocales($item);
+            }
+
+            if ($image = $form['primary_image']->getData()) {
+                $item->saveImage($image);
+            }
+
+            return Redirect::route('item.index')->with('message', 'Success');
+        }
 
         return view('items.form', [
+            'form' => $form->createView(),
             'item' => $item,
-            'form' => $form,
         ]);
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
+     * @param Item $item
+     * @param bool $new
+     * @return FormBuilderInterface
      */
-    public function update($id)
+    protected function getItemFormBuilder(Item $item, $new)
     {
-        $item = Item::find($id) ?: abort(404);
-        $form = $this->getItemForm($item);
-        $form->handleRequest();
-
-        if (!$form->isSubmitted() || !$form->isValid()) {
-            return $this->edit($id);
-        }
-
-        $v = Validator::make(Input::all(), Item::$rules);
-
-        if ($v->passes()) {
-            $input = array_except(Input::all(), array('_method'));
-            // $input = array_filter($input, 'strlen');
-            $input = array_map(function ($e) {
-                return $e ?: null;
-
-            }, Input::all()); //prazdne hodnoty zmeni na null
-
-            $item->fill($input);
-            $item->push();
-
-            if (Input::has('tags')) {
-                $item->reTag(Input::get('tags', []));
-                $item->index(); //pre istotu. lebo ak sa nic ine nezmeni, tak nepreindexuje
-            }
-
-            // ulozit primarny obrazok. do databazy netreba ukladat. nazov=id
-            if (Input::hasFile('primary_image')) {
-                $this->uploadImage($item);
-            }
-
-            Session::flash('message', 'Dielo ' .$id. ' bolo upravené');
-            return Redirect::route('item.index');
-        }
-
-        return Redirect::back()->withErrors($v);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        Item::find($id)->delete();
-        return Redirect::route('item.index')->with('message', 'Dielo bolo zmazané');
+        return $this->getFormFactory()
+            ->createBuilder(ItemType::class, $item, [
+                'new' => $new,
+                'locales' => config('translatable.locales'),
+            ])
+            ->add('save', SubmitType::class, [
+                'translation_domain' => 'messages',
+            ])
+            ->add('item_authorities', ItemAuthoritiesType::class, [
+                'data' => $item->authorities->mapWithKeys(function ($item) {
+                    return [$item['id'] => $item->pivot->role];
+                })->toJson(),
+                'mapped' => false,
+                'compound' => false,
+            ]);
     }
 
     public function backup()
@@ -204,7 +190,7 @@ class ItemController extends Controller
         $newline = "\n";
 
         $prefix = 'SVK:TMP.';
-        $items = Item::where('id', 'LIKE', $prefix.'%')->get();
+        $items = Item::where('id', 'LIKE', $prefix . '%')->get();
         foreach ($items as $key => $item) {
             $item_data = $item->toArray();
 
@@ -223,16 +209,14 @@ class ItemController extends Controller
                 $values[] = $value;
             }
             $sqlstring  .= "INSERT INTO `" . $table . "` ( "
-                        .  implode(", ", $keys)
-                        .    " ){$newline}\tVALUES ( "
-                        .  implode(", ", $values)
-                        .    " );" . $newline;
-
+                .  implode(", ", $keys)
+                .    " ){$newline}\tVALUES ( "
+                .  implode(", ", $values)
+                .    " );" . $newline;
         }
-        $filename = date('Y-m-d-H-i').'_'.$table.'.sql';
-        File::put(app_path() .'/database/backups/' . $filename, $sqlstring);
+        $filename = date('Y-m-d-H-i') . '_' . $table . '.sql';
+        File::put(app_path() . '/database/backups/' . $filename, $sqlstring);
         return Redirect::back()->withMessage('Záloha ' . $filename . ' bola vytvorená.');
-
     }
 
     public function geodata()
@@ -244,7 +228,7 @@ class ItemController extends Controller
                 $geoname = Ipalaus\Geonames\Eloquent\Name::where('name', 'like', $item->place)->orderBy('population', 'desc')->first();
                 //ak nevratil, skusim podla alternate_names
                 if (empty($geoname)) {
-                    $geoname = Ipalaus\Geonames\Eloquent\Name::where('alternate_names', 'like', '%'.$item->place.'%')->orderBy('population', 'desc')->first();
+                    $geoname = Ipalaus\Geonames\Eloquent\Name::where('alternate_names', 'like', '%' . $item->place . '%')->orderBy('population', 'desc')->first();
                 }
 
                 if (!empty($geoname)) {
@@ -258,27 +242,6 @@ class ItemController extends Controller
         return Redirect::back()->withMessage('Pre ' . $i . ' diel bola nastavená zemepisná šírka a výška.');
     }
 
-    private function uploadImage($item)
-    {
-        $item->deleteImage();
-
-        $error_messages = array();
-        $primary_image = Input::file('primary_image');
-        $full = true;
-        $filename = $item->getImagePath($full);
-        $uploaded_image = \Image::make($primary_image->getRealPath());
-        if ($uploaded_image->width() > $uploaded_image->height()) {
-            $uploaded_image->widen(800, function ($constraint) {
-                $constraint->upsize();
-            });
-        } else {
-            $uploaded_image->heighten(800, function ($constraint) {
-                $constraint->upsize();
-            });
-        }
-        $uploaded_image->save($filename);
-    }
-
     /**
      * Destroy selected items
      *
@@ -287,7 +250,7 @@ class ItemController extends Controller
      */
     public function destroySelected()
     {
-        $items = Input::get('ids');
+        $items = Request::input('ids');
         if (!empty($items) > 0) {
             foreach ($items as $item_id) {
                 $item = Item::find($item_id);
@@ -313,54 +276,28 @@ class ItemController extends Controller
      */
     public function refreshSelected()
     {
-        $items = Input::get('ids');
-        if (!empty($items) > 0) {
-            foreach ($items as $item_id) {
-                $item = Item::find($item_id);
-                $this->dispatch(new HarvestSingleJob($item->record));
+        $ids = (array)Request::input('ids');
+        foreach ($ids as $i => $id) {
+            $item = Item::find($id);
+            if (isset($item->record)) {
+                $this->dispatch(new HarvestRecordJob($item->record));
+            } else {
+                unset($ids[$i]);
             }
         }
-        return Redirect::back()->withMessage('Pre ' . count($items) . ' diel boli načítané dáta z OAI');
+        return Redirect::back()->withMessage('Pre ' . count($ids) . ' diel boli načítané dáta z OAI');
     }
 
     public function reindex()
     {
-        $i = 0;
+        $reindexedRecords = $this->itemRepository->reindexAllLocales();
 
-        Item::with('images')->chunk(200, function ($items) use (&$i) {
-            $items->load('authorities');
-            foreach ($items as $item) {
-                $item->index();
-                $i++;
-                if (App::runningInConsole()) {
-                    if ($i % 100 == 0) {
-                        echo date('h:i:s'). " " . $i . "\n";
-                    }
-                }
-            }
-        });
-        $message = 'Bolo reindexovaných ' . $i . ' diel';
+        $message = 'Bolo reindexovaných ' . $reindexedRecords . ' diel';
         if (App::runningInConsole()) {
             echo $message;
             return true;
         }
+
         return Redirect::back()->withMessage($message);
-    }
-
-    protected function getItemForm(Item $item) {
-        if (!$this->form) {
-            $this->form = $this->getFormFactory()
-                ->createBuilder(
-                    ItemType::class,
-                    $item,
-                    [
-                        'action' => url('item.update', $item->id),
-                        'method' => 'patch',
-                    ]
-                )
-                ->getForm();
-        }
-
-        return $this->form;
     }
 }

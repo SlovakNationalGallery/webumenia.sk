@@ -36,22 +36,60 @@ class AuthorityMapperTest extends TestCase
             'death_date' => '30.11.1991',
             'birth_year' => 1904,
             'death_year' => 1991,
-            'roles:sk' => 'fotograf',
+            'roles:sk' => ['fotograf'],
             'type_organization:sk' => 'Zbierkotvorná galéria',
-            'biography:sk' => '',
             'birth_place:sk' => 'Považská Bystrica',
             'death_place:sk' => 'Bratislava',
-            'roles:en' => 'photographer',
+            'roles:en' => ['photographer'],
             'type_organization:en' => 'Zbierkotvorná galéria',
-            'biography:en' => '',
             'birth_place:en' => null,
             'death_place:en' => null,
-            'roles:cs' => null,
+            'roles:cs' => [null],
             'type_organization:cs' => 'Zbierkotvorná galéria',
-            'biography:cs' => '',
             'birth_place:cs' => null,
             'death_place:cs' => null,
         ];
         $this->assertEquals($expected, $mapped);
+    }
+
+    public function testMapNotDeadYet()
+    {
+        $mapper = new AuthorityMapper();
+
+        $row = $this->fakeRow();
+        $row['death_date'] = [''];
+
+        $mapped = $mapper->map($row);
+
+        $this->assertSame(null, $mapped['death_year']);
+        $this->assertSame('', $mapped['death_date']);
+    }
+
+    public function testAuthorityIdOnly()
+    {
+        $mapper = new AuthorityMapper();
+        $row = ['id' => ['urn:svk:psi:per:sng:0000000954']];
+
+        $mapped = $mapper->map($row);
+
+        $this->assertSame(954, $mapped['id']);
+    }
+
+    protected function fakeRow()
+    {
+        return [
+            'id' => [$this->faker->word],
+            'identifier' => [$this->faker->randomNumber],
+            'birth_place' => [$this->faker->city],
+            'death_place' => [$this->faker->city],
+            'type_organization' => [$this->faker->word],
+            'biography' => [$this->faker->sentence],
+            'type' => [$this->faker->word],
+            'name' => [$this->faker->name],
+            'sex' => [$this->faker->word],
+            'birth_date' => [$this->faker->dateTime->format('d.m.Y')],
+            'death_date' => [$this->faker->dateTime->format('d.m.Y')],
+            'roles' => [$this->faker->word],
+        ];
     }
 }

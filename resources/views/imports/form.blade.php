@@ -2,13 +2,13 @@
 
 @section('content')
 
-<div class="col-md-12 top-space">
-	@if(isset($import))
-	    {!! Form::model($import, ['route' => ['imports.update', $import->id], 'method' => 'patch', 'files'=>true]) !!}
-	@else
-	    {!! Form::open(['route' => 'imports.store', 'files'=>true]) !!}
-	@endif
+@if(isset($import))
+    {!! Form::model($import, ['route' => ['imports.update', $import->id], 'method' => 'patch', 'files'=>true]) !!}
+@else
+    {!! Form::open(['route' => 'imports.store', 'files'=>true]) !!}
+@endif
 
+<div class="col-md-12 top-space">
 	@if (Session::has('message'))
 	    <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
 	@endif
@@ -83,25 +83,25 @@
         <div class="panel-body">
 			<div class="form-group">
 			{!! Form::label('name', 'Názov') !!}
-			{!! Form::text('name', Input::old('name'), array('class' => 'form-control', 'placeholder' => '')) !!}
+			{!! Form::text('name', Request::old('name'), array('class' => 'form-control', 'placeholder' => '')) !!}
 			</div>
 
 			<div class="form-group">
 			{!! Form::label('class_name', 'Trieda') !!}
-			{!! Form::text('class_name', Input::old('class_name'), array('class' => 'form-control', 'placeholder' => '')) !!}
+			{!! Form::text('class_name', Request::old('class_name'), array('class' => 'form-control', 'placeholder' => '')) !!}
 			</div>
 
 			<div class="form-group">
 			{!! Form::label('dir_path', 'Priečinok') !!}
 			<div class="input-group">
 				<div class="input-group-addon">/storage/app/import/</div>
-				{!! Form::text('dir_path', Input::old('dir_path'), array('class' => 'form-control', 'placeholder' => '')) !!}
+				{!! Form::text('dir_path', Request::old('dir_path'), array('class' => 'form-control', 'placeholder' => '')) !!}
 			</div>
 			</div>
 
 			<div class="form-group">
 			{!! Form::label('iip_dir_path', 'IIP Priečinok (nepovinné)') !!}
-			{!! Form::text('iip_dir_path', Input::old('iip_dir_path'), array('class' => 'form-control', 'placeholder' => '/mnt/DG_PUBLIC_IS/MGHQ')) !!}
+			{!! Form::text('iip_dir_path', Request::old('iip_dir_path'), array('class' => 'form-control', 'placeholder' => '/mnt/DG_PUBLIC_IS/MGHQ')) !!}
 			</div>
         </div>
     </div>
@@ -111,7 +111,8 @@
 <div class="col-md-12 text-center">
 	{!! Form::submit('Uložiť', array('class' => 'btn btn-primary')) !!} &nbsp;
 	{!! link_to_route('imports.index', 'Zrušiť', null, array('class' => 'btn btn-default')) !!}
-	{!!Form::close() !!}
 </div>
+
+{!!Form::close() !!}
 
 @stop

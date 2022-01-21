@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Zizaco\Entrust\EntrustFacade;
 use App\Article;
-use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
-use Intervention\Image\ImageManagerStatic;
 
 class ArticleController extends Controller
 {
@@ -20,12 +17,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        if (\Entrust::hasRole('admin')) {
-            $articles = Article::orderBy('created_at', 'desc')->paginate(20);
-        } else {
-            // $articles = Article::where('user_id', '=', \Auth::user()->id)->orderBy('created_at', 'desc')->paginate(20);
-        }
-        // $articles = Item::orderBy('created_at', 'DESC')->get();
+        $articles = Article::orderBy('created_at', 'desc')->paginate(20);
         return view('articles.index')->with('articles', $articles);
     }
 
@@ -36,7 +28,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('articles.form');
+        return view('articles.form', $this->buildSelectOptions());
     }
 
     /**
@@ -44,48 +36,47 @@ class ArticleController extends Controller
      *
      * @return Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        $input = Input::all();
+        $request->validate(Article::getValidationRules());
 
-        $rules = Article::$rules;
-        $v = Validator::make($input, $rules);
+        $article = new Article;
 
-        if ($v->passes()) {
-            
-            $article = new Article;
-
-            // store translatable attributes
-            foreach (\Config::get('translatable.locales') as $i=>$locale) {
+        // store translatable attributes
+        foreach (\Config::get('translatable.locales') as $i => $locale) {
+            if (hasTranslationValue($locale, $article->translatedAttributes)){
                 foreach ($article->translatedAttributes as $attribute) {
-                    $article->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
+                    $article->translateOrNew($locale)->$attribute = $request->input($locale . '.' . $attribute);
                 }
             }
-
-            $article->author = Input::get('author');
-            $article->slug = Input::get('slug');
-            if (Input::has('category_id')) {
-                $article->category_id = Input::get('category_id');
-            }
-            $article->publish = Input::get('publish', false);
-            $article->promote = Input::get('promote', false);
-            if (Input::has('title_color')) {
-                $article->title_color = Input::get('title_color');
-            }
-            if (Input::has('title_shadow')) {
-                $article->title_shadow = Input::get('title_shadow');
-            }
-            
-            $article->save();
-
-            if (Input::hasFile('main_image')) {
-                $this->uploadMainImage($article);
-            }
-
-            return Redirect::route('article.index');
         }
 
-        return Redirect::back()->withInput()->withErrors($v);
+        $article->author = $request->input('author');
+        $article->slug = $request->input('slug');
+        if ($request->has('category_id')) {
+            $article->category_id = $request->input('category_id');
+        }
+        $article->publish = $request->input('publish', false);
+        $article->promote = $request->input('promote', false);
+        $article->edu_media_types = $request->input('edu_media_types', null);
+        $article->edu_target_age_groups = $request->input('edu_target_age_groups', null);
+        $article->edu_suitable_for_home = $request->input('edu_suitable_for_home', false);
+        $article->edu_keywords = $request->input('edu_keywords', null);
+
+        if ($request->has('title_color')) {
+            $article->title_color = $request->input('title_color');
+        }
+        if ($request->has('title_shadow')) {
+            $article->title_shadow = $request->input('title_shadow');
+        }
+        
+        $article->save();
+
+        if ($request->hasFile('main_image')) {
+            $this->uploadMainImage($article, $request);
+        }
+
+        return Redirect::route('article.index');
     }
 
     /**
@@ -114,7 +105,10 @@ class ArticleController extends Controller
             return Redirect::route('article.index');
         }
 
-        return view('articles.form')->with('article', $article);
+        return view('articles.form', array_merge(
+            $this->buildSelectOptions(),
+            ['article' => $article]
+        ));
     }
 
     /**
@@ -123,45 +117,44 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update(Article $article, Request $request)
     {
-        $v = Validator::make(Input::all(), Article::$rules);
+        $request->validate(Article::getValidationRules());
 
-        if ($v->passes()) {
-            $input = array_except(Input::all(), array('_method'));
-
-            $article = Article::find($id);
-
-            // update translatable attributes
-            foreach (\Config::get('translatable.locales') as $i=>$locale) {
+        // update translatable attributes
+        foreach (\Config::get('translatable.locales') as $i => $locale) {
+            if (hasTranslationValue($locale, $article->translatedAttributes)){
                 foreach ($article->translatedAttributes as $attribute) {
-                    $article->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
+                    $article->translateOrNew($locale)->$attribute = $request->input($locale . '.' . $attribute);
                 }
             }
-
-            $article->author = Input::get('author');
-            $article->slug = Input::get('slug');
-            $article->category_id = Input::get('category_id', null);
-            $article->publish = Input::get('publish', false);
-            $article->promote = Input::get('promote', false);
-            if (Input::has('title_color')) {
-                $article->title_color = Input::get('title_color');
-            }
-            if (Input::has('title_shadow')) {
-                $article->title_shadow = Input::get('title_shadow');
-            }
-
-            $article->save();
-
-            if (Input::hasFile('main_image')) {
-                $this->uploadMainImage($article);
-            }
-
-            Session::flash('message', 'Článok <code>'.$article->title.'</code> bol upravený');
-            return Redirect::route('article.index');
         }
 
-        return Redirect::back()->withErrors($v);
+        $article->author = $request->input('author');
+        $article->slug = $request->input('slug');
+        $article->category_id = $request->input('category_id', null);
+        $article->publish = $request->input('publish', false);
+        $article->promote = $request->input('promote', false);
+        $article->edu_media_types = $request->input('edu_media_types', null);
+        $article->edu_target_age_groups = $request->input('edu_target_age_groups', null);
+        $article->edu_suitable_for_home = $request->input('edu_suitable_for_home', false);
+        $article->edu_keywords = $request->input('edu_keywords', null);
+
+        if ($request->has('title_color')) {
+            $article->title_color = $request->input('title_color');
+        }
+        if ($request->has('title_shadow')) {
+            $article->title_shadow = $request->input('title_shadow');
+        }
+
+        $article->save();
+
+        if ($request->hasFile('main_image')) {
+            $this->uploadMainImage($article, $request);
+        }
+
+        Session::flash('message', 'Článok <code>' . $article->title . '</code> bol upravený');
+        return Redirect::route('article.index');
     }
 
     /**
@@ -173,21 +166,40 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         Article::find($id)->delete();
-        return Redirect::route('article.index')->with('message', 'Článok bol zmazaný');
-        ;
+        return Redirect::route('article.index')->with('message', 'Článok bol zmazaný');;
     }
 
 
-    private function uploadMainImage($article)
+    private function uploadMainImage($article, $request)
     {
-        $main_image = Input::file('main_image');
-        $uploaded_image = \Image::make($main_image->getRealPath());
-        $uploaded_image->widen(1200);
-        $extension = $main_image->getClientOriginalExtension();
-        $filename = md5(date("YmdHis").rand(5, 50)) . "." . $extension;
-        $article->main_image = $filename;
-        $filename = $article->getHeaderImage(true);
-        $uploaded_image->save($filename);
+        $main_image = $request->file('main_image');
+        $article->main_image = $article->uploadHeaderImage($main_image);
         $article->save();
+    }
+
+    private function buildSelectOptions()
+    {
+        return [
+            'eduMediaTypesOptions' => collect(Article::$eduMediaTypes)
+                ->reduce(function ($options, $value) {
+                    $options[$value] = trans("edu.media_type.$value");
+                    return $options;
+                 }),
+            'eduAgeGroupsOptions' => collect(Article::$eduAgeGroups)
+                ->reduce(function ($options, $value) {
+                    $options[$value] = trans("edu.age_group.$value");
+                    return $options;
+                 }),
+            'eduKeywordsOptions' => Article::all()
+                ->pluck('edu_keywords')
+                ->filter()
+                ->flatten()
+                ->unique()
+                ->sort()
+                ->reduce(function ($options, $value) {
+                    $options[$value] = $value;
+                    return $options;
+                 }) ?? collect(),
+        ];
     }
 }

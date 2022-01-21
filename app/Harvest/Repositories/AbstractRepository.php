@@ -5,6 +5,9 @@ namespace App\Harvest\Repositories;
 use App\Harvest\Factories\EndpointFactory;
 use App\SpiceHarvesterHarvest;
 use App\SpiceHarvesterRecord;
+use Illuminate\Support\LazyCollection;
+use Illuminate\Support\Str;
+use Phpoaipmh\Exception\MalformedResponseException;
 
 abstract class AbstractRepository
 {
@@ -25,7 +28,6 @@ abstract class AbstractRepository
 
         $this->fieldMap += [
             null => '.',
-            'datestamp' => './ns:header/ns:datestamp',
         ];
 
         $this->xPathNamespaces += [
@@ -37,18 +39,33 @@ abstract class AbstractRepository
      * @param SpiceHarvesterHarvest $harvest
      * @param \DateTime $from
      * @param \DateTime $to
-     * @return \Generator|array[]
      */
-    public function getRows(SpiceHarvesterHarvest $harvest, \DateTime $from = null, \DateTime $to = null, &$total = null) {
+    public function getAll(SpiceHarvesterHarvest $harvest, \DateTime $from = null, \DateTime $to = null) {
         $endpoint = $this->endpointFactory->createEndpoint($harvest);
         $records = $endpoint->listRecords($harvest->metadata_prefix, $from, $to, $harvest->set_spec);
 
-        $total = $records->getTotalRecordCount();
-
-        foreach ($records as $record) {
-            $row = $this->getDataRecursively($record, $this->fieldMap);
-            yield $row[0];
+        try {
+            $total = $records->getTotalRecordCount();
+        } catch (MalformedResponseException $e) { 
+            // Our OAI API does not return `noRecordsMatch` error code, so handle this particular error
+            if (Str::startsWith("Expected XML element list 'record' missing for verb 'ListRecords'", $e->getMessage())) {
+                $total = 0;
+            } else {
+                throw $e;
+            }
         }
+
+        $data = LazyCollection::make(function() use ($records) {
+            foreach ($records as $record) {
+                $row = $this->getDataRecursively($record, $this->fieldMap);
+                yield $row[0];
+            }
+        });
+
+        return (object) [
+            'total' => $total,
+            'data' => $total > 0 ? $data : []
+        ];
     }
 
     /**
@@ -61,6 +78,21 @@ abstract class AbstractRepository
 
         $row = $this->getDataRecursively($record, $this->fieldMap);
         return $row[0];
+    }
+
+    /**
+     * @param SpiceHarvesterRecord $record
+     * @return array
+     */
+    public function getRowsById(SpiceHarvesterHarvest $harvest, array $only_ids) {
+        $endpoint = $this->endpointFactory->createEndpoint($harvest);
+
+        foreach ($only_ids as $id) {
+            $record = $endpoint->getRecord($id, $harvest->metadata_prefix);
+            $row = $this->getDataRecursively($record, $this->fieldMap);
+            yield $row[0];
+        }
+
     }
 
     /**

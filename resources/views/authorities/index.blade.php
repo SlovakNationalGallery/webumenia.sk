@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-autority | 
+autority |
 @parent
 @stop
 
@@ -21,14 +21,14 @@ autority |
 </div>
 <!-- /.row -->
 
+{!! Form::open(['url' => 'collection/fill']) !!}
+
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
-            {!! Form::open(['url' => 'collection/fill']) !!}
             <div class="panel-heading">
                 <a href="{!! route('authority.create') !!}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Vytvoriť</a>
                 <a href="{!! URL::to('authority/reindex') !!}" class="btn btn-primary btn-outline"><i class="fa fa-refresh"></i> Reindexovať search</a>
-                <div class="panel-heading">
                 Akcie pre vybraté: <a href="#" id="deleteSelected" class="btn btn-danger btn-xs btn-outline">Zmazať</a>
             </div>
             <!-- /.panel-heading -->
@@ -57,9 +57,9 @@ autority |
 			                <td>{!! $a->name !!}</td>
 			                <td>{!! $a->place !!}</td>
 			                <td class="action">
-                                {!! link_to_action('AuthorityController@edit', 'Upraviť', array($a->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}    
-                                <a href="{!! $a->getUrl() !!}" class="btn btn-success btn-xs btn-outline" target="_blank">Na webe</a>     
-                                <a href="{!! $a->getOaiUrl() !!}" class="btn btn-warning btn-xs btn-outline" target="_blank">OAI záznam</a>                             
+                                {!! link_to_action('AuthorityController@edit', 'Upraviť', array($a->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}
+                                <a href="{!! $a->getUrl() !!}" class="btn btn-success btn-xs btn-outline" target="_blank">Na webe</a>
+                                <a href="{!! $a->getOaiUrl() !!}" class="btn btn-warning btn-xs btn-outline" target="_blank">OAI záznam</a>
                             </td>
 			            </tr>
 						@endforeach
@@ -72,19 +72,20 @@ autority |
                     @else
                         {!! ($authorities->count()!=0) ? $authorities->render() : '' !!}
                     @endif
-                    
+
                 </div>
 
 
             </div>
             <!-- /.panel-body -->
-            {!!Form::close() !!}
         </div>
         <!-- /.panel -->
     </div>
     <!-- /.col-lg-12 -->
 </div>
 <!-- /.row -->
+
+{!! Form::close() !!}
 
 <!-- Modal -->
 <div tabindex="-1" class="modal fade" id="confirm" role="dialog">

@@ -8,15 +8,15 @@ return array(
     |--------------------------------------------------------------------------
     */
 
-    'definition_start'     => 'web umenia je on-line katalóg',
-    'definition_end'       => 'výtvarných diel',
-    'from_galleries_start' => 'zo zbierok',
-    'from_galleries_end'   => 'slovenských galérií',
+    'definition_start'     => 'web umenia je on-line katalog',
+    'definition_end'       => 'výtvarných děl',
+    'from_galleries_start' => 'ze sbírek',
+    'from_galleries_end'   => 'slovenských a českých galerií',
     'from_authors_start'   => 'od',
-    'from_authors_end'     => 'autorov',
-    'in_high_res_start'    => 'z toho',
-    'in_high_res_end'      => 'vo vysokom rozlíšení',
-    'are_free_start'       => 'z toho',
-    'are_free_end'         => 'autorsky voľných',
-
+    'from_authors_end'     => 'autorů',
+    'in_high_res_start'    => 'z nichž',
+    'in_high_res_end'      => 've vysokém rozlišení',
+    'are_free_start'       => 'z nichž',
+    'are_free_end'         => 'autorsky volných',
+    'show_more_articles'   => 'více článků',
 );

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Authority;
-use Illuminate\Support\Facades\Input;
+use App\Elasticsearch\Repositories\AuthorityRepository;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use App\Link;
@@ -11,10 +12,17 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use App\SpiceHarvesterRecord;
+use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\App;
 
 class AuthorityController extends Controller
 {
+    protected $authorityRepository;
+
+    public function __construct(AuthorityRepository $authorityRepository)
+    {
+        $this->authorityRepository = $authorityRepository;
+    }
 
     /**
      * Display a listing of the resource.
@@ -35,8 +43,8 @@ class AuthorityController extends Controller
     public function search()
     {
 
-        $search = Input::get('search');
-        $results = Authority::where('name', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%')->orderBy('view_count', '')->paginate(20);
+        $search = Request::input('search');
+        $results = Authority::where('name', 'LIKE', '%'.$search.'%')->orWhere('id', 'LIKE', '%'.$search.'%')->orderBy('view_count')->paginate(20);
 
         return view('authorities.index', array('authorities' => $results, 'search' => $search));
     }
@@ -61,10 +69,10 @@ class AuthorityController extends Controller
      */
     public function store()
     {
-        $input = Input::all();
+        $input = Request::all();
 
         $rules = Authority::$rules;
-        // $rules['primary_image'] = 'required|image'; 
+        // $rules['primary_image'] = 'required|image';
 
         $v = Validator::make($input, $rules);
 
@@ -75,20 +83,20 @@ class AuthorityController extends Controller
             $authority = new Authority;
 
             $authority->type = 'person';
-            
+
             // not sure if OK to fill all input like this before setting translated attributes
             $authority->fill($input);
-            
+
             // store translatable attributes
             foreach (\Config::get('translatable.locales') as $i=>$locale) {
                 foreach ($authority->translatedAttributes as $attribute) {
-                    $authority->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
+                    $authority->translateOrNew($locale)->$attribute = Request::input($locale . '.' . $attribute);
                 }
             }
 
             $authority->save();
 
-            if (Input::hasFile('primary_image')) {
+            if (Request::hasFile('primary_image')) {
                 $this->uploadImage($authority);
             }
 
@@ -120,70 +128,41 @@ class AuthorityController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update(HttpRequest $request, $id)
     {
-        $v = Validator::make(Input::all(), Authority::$rules);
-        if ($v->passes()) {
-            $input = array_except(Input::all(), array('_method'));
+        $request->validate(array_merge(
+            Authority::$rules, 
+            [
+                'externalLinks.*.url' => Link::$rules['url'],
+                'externalLinks.*.label' => Link::$rules['label'],
+                'sourceLinks.*.url' => Link::$rules['url'],
+                'sourceLinks.*.label' => Link::$rules['label'],
+            ]
+        ));
 
-            $input = convertEmptyStringsToNull(Input::all());
+        $authority = Authority::findOrFail($id);
+        $authority->fill($request->input());
+        $authority->save();
 
-            $authority = Authority::find($id);
-            $authority->fill($input);
-            $authority->save();
-            // dd(Input::get('links'));
-            foreach (Input::get('links') as $link) {
-                $validation = Validator::make($link, Link::$rules);
-                if ($validation->passes()) {
-                    if (empty($link['label'])) {
-                        $link['label'] = Link::parse($link['url']);
-                    }
+        $links = collect()
+            ->merge(collect($request->input('externalLinks', []))->map(function($link) {
+                return Link::updateOrCreate(['id' => $link['id']], array_merge($link, ['type' => 'external']));
+            }))
+            ->merge(collect($request->input('sourceLinks', []))->map(function($link) {
+                return Link::updateOrCreate(['id' => $link['id']], array_merge($link, ['type' => 'source']));
+            }));
 
-                    if (!empty($link['id'])) {
-                        $new_link = Link::updateOrCreate(['id'=>$link['id']], $link);
-                    } else {
-                        $new_link = new Link($link);
-                        $new_link->save();
-                        $authority->links()->save($new_link);
-                    }
-                }
-            }
+        $authority->links()->saveMany($links);
+        $authority->links()->whereNotIn('id', collect($links)->pluck('id'))->delete();
 
-            // ulozit primarny obrazok. do databazy netreba ukladat. nazov=id
-            if (Input::has('primary_image')) {
-                $this->uploadImage($authority);
-            }
-
-            Session::flash('message', 'Autorita ' .$id. ' bola upravená');
-            return Redirect::route('authority.index');
+         // ulozit primarny obrazok. do databazy netreba ukladat. nazov=id
+        if ($request->has('primary_image')) {
+            $this->uploadImage($authority);
         }
 
-        return Redirect::back()->withErrors($v);
+        Session::flash('message', 'Autorita ' .$id. ' bola upravená');
+        return Redirect::route('authority.index');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-    /**
-     * Remove the link
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroyLink($link_id)
-    {
-        Link::find($link_id)->delete();
-        return Redirect::back()->with('message', 'Externý odkaz bol zmazaný');
-    }
-
 
     public function backup()
     {
@@ -195,7 +174,7 @@ class AuthorityController extends Controller
         $authorities = Authority::where('id', 'LIKE', $prefix.'%')->get();
         foreach ($authorities as $key => $authority) {
             $authority_data = $authority->toArray();
-            
+
             $keys = array();
             $values = array();
             foreach ($authority_data as $key => $value) {
@@ -250,7 +229,7 @@ class AuthorityController extends Controller
     {
         $error_messages = array();
 
-        $img = Input::get('primary_image');
+        $img = Request::input('primary_image');
         $img = str_replace('data:image/jpeg;base64,', '', $img);
         $img = str_replace(' ', '+', $img);
         $data = base64_decode($img);
@@ -273,7 +252,7 @@ class AuthorityController extends Controller
      */
     public function destroySelected()
     {
-        $authorities = Input::get('ids');
+        $authorities = Request::input('ids');
         if (!empty($authorities) > 0) {
             foreach ($authorities as $authority_id) {
                 $authority = Authority::find($authority_id);
@@ -288,25 +267,14 @@ class AuthorityController extends Controller
 
     public function reindex()
     {
-        $i = 0;
-        Authority::chunk(200, function ($authorities) use (&$i) {
-            $authorities->load('items');
-            foreach ($authorities as $authority) {
-                $authority->index();
-                $i++;
-                if (App::runningInConsole()) {
-                    if ($i % 100 == 0) {
-                        echo date('h:i:s'). " " . $i . "\n";
-                    }
-                }
-            }
-        });
-        $message = 'Bolo reindexovaných ' . $i . ' autorít';
+        $reindexedRecords = $this->authorityRepository->reindexAllLocales();
+
+        $message = 'Bolo reindexovaných ' . $reindexedRecords . ' autorít';
         if (App::runningInConsole()) {
             echo $message;
             return true;
         }
-        return Redirect::back()->withMessage($message);
 
+        return Redirect::back()->withMessage($message);
     }
 }

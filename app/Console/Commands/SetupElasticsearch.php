@@ -2,140 +2,85 @@
 
 namespace App\Console\Commands;
 
+use App\Elasticsearch\Repositories\AuthorityRepository;
+use App\Elasticsearch\Repositories\ItemRepository;
+use App\Elasticsearch\Repositories\TranslatableRepository;
 use Illuminate\Console\Command;
 
 class SetupElasticsearch extends Command
 {
-  /**
-   * The name and signature of the console command.
-   *
-   * @var string
-   */
-  protected $signature = 'es:setup';
+    /**
+    * The name and signature of the console command.
+    *
+    * @var string
+    */
+    protected $signature = 'es:setup';
 
-  /**
-   * The console command description.
-   *
-   * @var string
-   */
-  protected $description = 'Create Elasticsearch index and types with proper mapping for specified locale.';
+    /**
+    * The console command description.
+    *
+    * @var string
+    */
+    protected $description = 'Create as aliased Elasticsearch index and types with proper mapping for specified locale.';
 
-  const CONFIG_PATH = 'SetupElasticsearch';
+    /** @var TranslatableRepository[] */
+    protected $repositories;
 
-  /**
-   * Create a new command instance.
-   *
-   * @return void
-   */
-  public function __construct()
-  {
-      parent::__construct();
-  }
-
-  /**
-   * Execute the console command.
-   *
-   * @return mixed
-   */
-  public function handle()
-  {
-    $base_path = __DIR__ . "/" . self::CONFIG_PATH;
-
-    $client = new \GuzzleHttp\Client(['http_errors' => false]);
-
-    $host = 'http://localhost:9200';
-    $hosts = config('elasticsearch.hosts');
-    if (!empty($hosts)) {
-      $host = reset($hosts);
-      $this->comment('Your ES host is: ' . $host);
+    /**
+    * Create a new command instance.
+    *
+    * @return void
+    */
+    public function __construct(
+        AuthorityRepository $authorityRepository,
+        ItemRepository $itemRepository
+    ) {
+        parent::__construct();
+        $this->repositories = [
+            'authority' => $authorityRepository,
+            'item' => $itemRepository
+        ];
     }
 
-    // get available locales based on directory names
-    $available_es_locales = array_map('basename', glob($base_path ."/*", GLOB_ONLYDIR));
+    public function handle()
+    {
+        $locales = config('translatable.locales');
+        $choices = array_merge(['all'], $locales);
+        $selected_locale = $this->choice('Which locale(s) do you want to set up?', $choices, 0);
+        $version = TranslatableRepository::buildNewVersionNumber();
 
-    $missing_es_locales = array_diff(config('translatable.locales'), $available_es_locales);
-    // dd($missing_es_locales);
+        if ($selected_locale == 'all') {
+            foreach ($locales as $locale) {
+                $this->setup_for_locale($locale, $version);
+            }
+        } else {
+            $this->setup_for_locale($selected_locale, $version);
+        }
 
-    // check if we have defined ES schema for every enabled locale for translatable models
-    if (!empty($missing_es_locales)) {
-      $this->error('ES setup configuration is missing for the following localizations: [' . implode(', ', $missing_es_locales). ']');
-      $this->error('Please add ES setup configuration or disable them in the application');
-
-      return;
+        $this->info("\nDone 🎉");
     }
 
-    // let user select from available locales
-    $locale_options = array_merge(['all'], $available_es_locales);
-    $selected_locale = $this->choice('Which locale(s) do you want to set up?', $locale_options, 0);
+    protected function setup_for_locale($locale, $version)
+    {
+        foreach ($this->repositories as $type => $repository) {
+            $this->comment("\nSetting up $type index for locale: $locale");
 
-    if ($selected_locale == 'all') {
-      foreach ($available_es_locales as $key => $locale) {
-        $this->setup_for_locale($client, $host, $base_path, $locale);
-      }
-    }
-    else {
-      $this->setup_for_locale($client, $host, $base_path, $selected_locale);
-    }
+            if ($repository->indexExists($locale)) {
+                $index = $repository->getLocalizedIndexName($locale);
 
-    $this->info("\nDone 🎉");
-  }
+                if ($this->confirm("❗ An index with name $index already exists❗\n Do you want to delete the current index?\n [y|N]")) {
+                    $this->comment('Removing...');
 
-  public function setup_for_locale($client, $host, $base_path, $locale_str)
-  {
-    $this->comment("\nsetting up ES index for locale: $locale_str");
-    $index_name = $this->get_index_name($client, $host, $locale_str);
+                    $repository->deleteIndex($locale);
+                } else {
+                    continue;
+                }
+            }
 
-    $json_params_create_index_str       = file_get_contents("$base_path/$locale_str/index.json");
-    $json_params_create_items_str       = file_get_contents("$base_path/$locale_str/items.json");
-    $json_params_create_authorities_str = file_get_contents("$base_path/$locale_str/authorities.json");
-
-    $this->create_index($client, $host, $index_name, $json_params_create_index_str);
-    $this->create_mapping($client, $host, $index_name, 'items'      , $json_params_create_items_str);
-    $this->create_mapping($client, $host, $index_name, 'authorities', $json_params_create_authorities_str);
-  }
-
-  public function get_index_name($client, $host, $locale_str)
-  {
-    $elastic_translatable = \App::make('ElasticTranslatableService');
-
-    $index_name = $this->ask('What is the index name?', $elastic_translatable->getIndexForLocale($locale_str));
-
-    $res = $client->delete($host.'/'.$index_name);
-
-    if ($res->getStatusCode() == 200) {
-        if ($this->confirm("❗ An index with that name already exists❗\n Do you want to delete the current index?\n [y|N]")) {
-            $this->comment('Removing...');
-            $res = $client->delete($host.'/'.$index_name);
-            echo $res->getBody() . "\n";
+            $newRepository = $repository->buildWithVersion($version);
+            $newRepository->createIndex($locale);
+            $newRepository->createMapping($locale);
+            $newRepository->createIndexAlias($locale);
         }
     }
-
-    return $index_name;
-  }
-
-  public function create_index($client, $host, $index_name, $index_params_str)
-  {
-    $this->comment('Creating index...');
-    $res = $client->put($host.'/'.$index_name, [
-        'json' => json_decode($index_params_str, true),
-    ]);
-    echo $res->getBody() . "\n";
-
-    if ($res->getStatusCode() == 200) {
-        $this->info('Index ' . $index_name . ' was created');
-    }
-  }
-
-  public function create_mapping($client, $host, $index_name, $mapping_name, $mapping_params_str)
-  {
-    $this->comment("Creating type $mapping_name...");
-    $res = $client->put($host.'/'.$index_name.'/_mapping/'.$mapping_name, [
-        'json' => json_decode($mapping_params_str, true),
-    ]);
-    echo $res->getBody() . "\n";
-
-    if ($res->getStatusCode() == 200) {
-        $this->info("Type $mapping_name was created");
-    }
-  }
 }

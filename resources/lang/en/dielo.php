@@ -17,6 +17,7 @@ return array(
     'item_attr_dating'         => 'date',
     'item_attr_measurements'   => 'measurements',
     'item_attr_work_type'      => 'work type',
+    'item_attr_object_type'    => 'object type',
     'item_attr_topic'          => 'genre',
     'item_attr_tag'            => 'tags',
     'item_attr_collections'    => 'in collections',
@@ -31,9 +32,12 @@ return array(
     'item_attr_identifier'     => 'inventory number',
     'item_attr_licence'        => 'licence',
     'item_attr_place'          => 'geographic location',
+    'item_attr_acquisition_date' => 'acquisition date',
+    'item_attr_credit' => 'credit',
 
     'more-items_related-artworks' => 'related artworks',
-    'more-items_similar-colors' => 'search by similar colours',
+    'more-items_related-artworks_by-data' => 'by title, artist, tags...',
+    'more-items_similar-colors' => 'artworks with similar colours',
 
     'modal_license_body-content'        => '<p><strong>Your selected artwork should start downloading automatically.</strong></p>
                                             <p>Downloadable digital reproductions of artworks on Web umenia are available as <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" class="underline">public domain</a>. You can download them in high resolution and use them for both private and commercial use &ndash; i.e. copy, modify and share freely.</p>

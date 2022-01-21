@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Zizaco\Entrust\EntrustFacade;
 use App\Collection;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\ImageManagerStatic;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Str;
 
 class CollectionController extends Controller
 {
@@ -21,12 +23,12 @@ class CollectionController extends Controller
      */
     public function index()
     {
-        if (\Entrust::hasRole('admin')) {
+        if (Gate::allows('administer')) {
             $collections = Collection::orderBy('created_at', 'desc')->with(['user'])->paginate(20);
         } else {
-            $collections = Collection::where('user_id', '=', Auth::user()->id)->orderBy('created_at', 'desc')->with(['user'])->paginate(20);
+            $collections = Collection::where('user_id', '=', Auth::user()->id)->orderBy('published_at', 'desc')->with(['user'])->paginate(20);
         }
-        // $collections = Item::orderBy('created_at', 'DESC')->get();
+
         return view('collections.index')->with('collections', $collections);
     }
 
@@ -47,7 +49,7 @@ class CollectionController extends Controller
      */
     public function store()
     {
-        $input = Input::all();
+        $input = Request::all();
 
         $rules = Collection::$rules;
         $v = Validator::make($input, $rules);
@@ -55,30 +57,33 @@ class CollectionController extends Controller
         if ($v->passes()) {
             $collection = new Collection();
 
-            foreach (\Config::get('translatable.locales') as $i=>$locale) {
-                foreach ($collection->translatedAttributes as $attribute) {
-                    $collection->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
+            // store translatable attributes
+            foreach (\Config::get('translatable.locales') as $i => $locale) {
+                if (hasTranslationValue($locale, $collection->translatedAttributes)){
+                    foreach ($collection->translatedAttributes as $attribute) {
+                        $collection->translateOrNew($locale)->$attribute = Request::input($locale . '.' . $attribute);
+                    }
                 }
             }
 
+            $collection->published_at = Request::input('published_at');
 
-            $collection->publish = Input::get('publish', false);
-            if (Input::has('title_color')) {
-                $collection->title_color = Input::get('title_color');
+            if (Request::has('title_color')) {
+                $collection->title_color = Request::input('title_color');
             }
-            if (Input::has('title_shadow')) {
-                $collection->title_shadow = Input::get('title_shadow');
+            if (Request::has('title_shadow')) {
+                $collection->title_shadow = Request::input('title_shadow');
             }
             $collection->order = Collection::max('order') + 1;
-            if (Input::has('user_id') && \Entrust::hasRole('admin')) {
-                $collection->user_id = Input::get('user_id');
+            if (Request::has('user_id') && Gate::allows('administer')) {
+                $collection->user_id = Request::input('user_id');
             } else {
                 $collection->user_id = Auth::user()->id;
             }
 
             $collection->save();
 
-            if (Input::hasFile('main_image')) {
+            if (Request::hasFile('main_image')) {
                 $this->uploadMainImage($collection);
             }
 
@@ -129,39 +134,41 @@ class CollectionController extends Controller
      */
     public function update($id)
     {
-        $v = Validator::make(Input::all(), Collection::$rules);
+        $v = Validator::make(Request::all(), Collection::$rules);
 
         if ($v->passes()) {
-            $input = array_except(Input::all(), array('_method'));
+            $input = Arr::except(Request::all(), array('_method'));
 
             $collection = Collection::find($id);
 
-            foreach (\Config::get('translatable.locales') as $i=>$locale) {
-                foreach ($collection->translatedAttributes as $attribute) {
-                    $collection->translateOrNew($locale)->$attribute = Input::get($locale . '.' . $attribute);
+            foreach (\Config::get('translatable.locales') as $i => $locale) {
+                if (hasTranslationValue($locale, $collection->translatedAttributes)){
+                    foreach ($collection->translatedAttributes as $attribute) {
+                        $collection->translateOrNew($locale)->$attribute = Request::input($locale . '.' . $attribute);
+                    }
                 }
             }
 
-            $collection->publish = Input::get('publish', false);
+            $collection->published_at = Request::input('published_at', null);
 
-            if (Input::has('user_id') && \Entrust::hasRole('admin')) {
-                $collection->user_id = Input::get('user_id');
+            if (Request::has('user_id') && Gate::allows('administer')) {
+                $collection->user_id = Request::input('user_id');
             }
 
-            if (Input::has('title_color')) {
-                $collection->title_color = Input::get('title_color');
+            if (Request::has('title_color')) {
+                $collection->title_color = Request::input('title_color');
             }
-            if (Input::has('title_shadow')) {
-                $collection->title_shadow = Input::get('title_shadow');
+            if (Request::has('title_shadow')) {
+                $collection->title_shadow = Request::input('title_shadow');
             }
-            $collection->order = Input::get('order');
+            $collection->order = Request::input('order');
             $collection->save();
 
-            if (Input::hasFile('main_image')) {
+            if (Request::hasFile('main_image')) {
                 $this->uploadMainImage($collection);
             }
 
-            Session::flash('message', 'Kolekcia <code>'.$collection->name.'</code> bola upravená');
+            Session::flash('message', 'Kolekcia <code>' . $collection->name . '</code> bola upravená');
 
             return Redirect::route('collection.index');
         }
@@ -192,8 +199,8 @@ class CollectionController extends Controller
      */
     public function fill()
     {
-        if ($collection = Collection::find(Input::get('collection'))) {
-            $items = Input::get('ids');
+        if ($collection = Collection::find(Request::input('collection'))) {
+            $items = Request::input('ids');
             if (!is_array($items)) {
                 $items = explode(';', str_replace(' ', '', $items));
             }
@@ -203,7 +210,7 @@ class CollectionController extends Controller
                 }
             }
 
-            return Redirect::back()->withMessage('Do kolekcie '.$collection->name.' bolo pridaných '.count($items).' diel');
+            return Redirect::back()->withMessage('Do kolekcie ' . $collection->name . ' bolo pridaných ' . count($items) . ' diel');
         } else {
             return Redirect::back()->withMessage('Chyba: zvolená kolekcia nebola nájdená. ');
         }
@@ -214,26 +221,24 @@ class CollectionController extends Controller
         $collection = Collection::find($collection_id);
         $collection->items()->detach($item_id);
 
-        return Redirect::back()->withMessage('Z kolekcie '.$collection->name.' bolo odstrádené '.count($item_id).' dielo');
+        return Redirect::back()->withMessage('Z kolekcie <strong>' . $collection->name . '</strong> bolo odstrádené dielo <code>' . $item_id . '</code>');
     }
 
     private function uploadMainImage($collection)
     {
-        $main_image = Input::file('main_image');
-        $uploaded_image = \Image::make($main_image->getRealPath());
-        $uploaded_image->widen(1200);
-        $filename = $collection->getHeaderImage(true);
-        $uploaded_image->save($filename);
+        $main_image = Request::file('main_image');
+        $collection->main_image = $collection->uploadHeaderImage($main_image);
+        $collection->save();
     }
 
     public function sort()
     {
-        $entity = \Input::get('entity');
-        $model_name = studly_case($entity);
-        // $model  = $model_name::find(\Input::get('id'));
-        $collection = Collection::find(\Input::get('id'));
+        $entity = Request::input('entity');
+        $model_name = Str::studly($entity);
+        // $model  = $model_name::find(\Request::input('id'));
+        $collection = Collection::find(Request::input('id'));
 
-        $ids = (array) \Input::get('ids');
+        $ids = (array) Request::input('ids');
         $order = 0;
         $ordered_items = [];
         // $orders     = [];

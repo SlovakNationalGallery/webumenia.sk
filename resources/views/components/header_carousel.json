@@ -1,0 +1,10 @@
+{
+  "name": "Carousel",
+  "data_calls": {
+    "item": "return App\\Article::inRandomOrder()->first();"
+  },
+  "data" : {
+    "slideContent": "<h1>H1 header</h1> <h2> and H2 subheader</h2>"
+  },
+  "usage_notes": "A carousel slide. Typical content: <h1>H1 header</h1> <h2> and H2 subheader</h2>"
+}

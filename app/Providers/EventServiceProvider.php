@@ -1,7 +1,15 @@
 <?php namespace App\Providers;
 
+use App\Authority;
+use App\Item;
+use App\Events\ItemPrimaryImageChanged;
+use App\Listeners\ItemPrimaryImageChangedListener;
+use App\Listeners\IncreaseRedirectCounter;
+use App\Observers\AuthorityObserver;
+use App\Observers\ItemObserver;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Spatie\MissingPageRedirector\Events\RouteWasHit;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -15,18 +23,17 @@ class EventServiceProvider extends ServiceProvider
         'event.name' => [
             'EventListener',
         ],
+        ItemPrimaryImageChanged::class => [
+            ItemPrimaryImageChangedListener::class,
+        ],
+        RouteWasHit::class => [
+            IncreaseRedirectCounter::class,
+        ],
     ];
 
-    /**
-     * Register any other events for your application.
-     *
-     * @param  \Illuminate\Contracts\Events\Dispatcher  $events
-     * @return void
-     */
-    public function boot(DispatcherContract $events)
+    public function boot()
     {
-        parent::boot($events);
-
-        //
+        Authority::observe(AuthorityObserver::class);
+        Item::observe(ItemObserver::class);
     }
 }

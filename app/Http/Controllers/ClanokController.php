@@ -3,28 +3,71 @@
 namespace App\Http\Controllers;
 
 use App\Article;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request as HttpRequest;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\App;
+use Illuminate\Support\Collection;
 
 class ClanokController extends Controller
 {
-
-    public function getIndex()
+    public function getIndex(HttpRequest $request)
     {
-        $articles = Article::published()->orderBy('published_date', 'desc');
-        if (Input::has('author')) {
-            $articles = $articles->where('author', 'LIKE', Input::get('author'));
+        $articles = Article::published()->with('category');
+
+        // Filtering
+        if ($request->has('category')) {
+            $articles = $articles->whereHas('category', function (Builder $query) use ($request) {
+                $query->where('name', $request->input('category'));
+            });
         }
-        $articles = $articles->get();
-        return view('clanky', array('articles'=>$articles));
+
+        if ($request->has('author')) {
+            $articles = $articles->where('author', 'LIKE', $request->input('author'));
+        }
+
+        // Sorting
+        $sortBy = $request->input('sort_by', 'date_desc');
+
+        if ($sortBy === 'date_desc') {
+            $articles = $articles->orderBy('published_date', 'desc');
+        }
+
+        if ($sortBy === 'date_asc') {
+            $articles = $articles->orderBy('published_date', 'asc');
+        }
+
+        $unpaginatedArticles = (clone $articles)
+            ->with(['category'])
+            ->get();
+
+        $articles = $articles
+            ->with(['translations', 'category'])
+            ->paginate(12)
+            ->withQueryString();
+
+        $categoriesOptions = $this->buildSelectOptions($unpaginatedArticles, 'category.name', $request->input('category'));
+        $authorsOptions = $this->buildSelectOptions($unpaginatedArticles, 'author', $request->input('author'));
+
+        $sortingOptions = collect([
+            [ 'value' => 'date_asc', 'text' => trans('articles.filter.sort_by.date_asc') ],
+            [ 'value' => 'date_desc', 'text' => trans('articles.filter.sort_by.date_desc') ],
+        ]);
+
+        return view('frontend.articles.index', compact(
+            'articles',
+            'categoriesOptions',
+            'authorsOptions',
+            'sortingOptions',
+            'sortBy'
+        ));
     }
 
     public function getSuggestions()
     {
-        $q = (Input::has('search')) ? str_to_alphanumeric(Input::get('search')) : 'null';
+        $q = (Request::has('search')) ? str_to_alphanumeric(Request::input('search')) : 'null';
 
-        $result = Article::published()->where('title', 'like', '%'.$q.'%')->limit(5)->get();
+        $result = Article::published()->whereTranslationLike('title', '%'.$q.'%')->limit(5)->get();
 
         $data = array();
         $data['results'] = array();
@@ -51,12 +94,27 @@ class ClanokController extends Controller
         // dd($slug);
         $article = Article::where('slug', '=', $slug)->firstOrFail();
         if (empty($article)) {
-            App::abort(404);
+            abort(404);
         }
         $article->view_count += 1;
         $article->save();
 
-        return view('clanok', array('article'=>$article));
+        return view('frontend.articles.show', array('article'=>$article));
 
+    }
+
+    private function buildSelectOptions(Collection $collection, string $countBy, $selectedValue = null)
+    {
+        return $collection
+            ->countBy($countBy)
+            ->sort()->reverse() // sort by count, descending
+            ->map(function ($count, $value) use ($selectedValue) {
+                return [
+                    'value' => $value,
+                    'text' => "$value ($count)",
+                    'selected' => $value === $selectedValue,
+                ];
+            })
+            ->values();
     }
 }

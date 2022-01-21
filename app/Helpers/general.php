@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\URL;
+
 /**
  * Same as java String.hashcode()
  */
@@ -30,12 +33,6 @@ function intval32bits($value)
     return $value;
 }
 
-function url_to($to, $params)
-{
-    $queryString = http_build_query($params);
-    return URL::to($to).'?'.$queryString;
-}
-
 function add_brackets($str)
 {
     if (empty($str)) {
@@ -43,23 +40,6 @@ function add_brackets($str)
     } else {
         return ' (' . $str . ')';
     }
-}
-
-/**
- * akceptuje datum narodenia/umrtia vo formate [dd.[mm.[yyyy]]]
- */
-function cedvuDatetime($date)
-{
-    if (empty($date)) {
-        return false;
-    }
-    $parts = explode('.', $date);
-    $date = implode('-', array_reverse($parts));
-    for ($i=count($parts); $i < 3; $i++) {
-        $date = $date.'-01';
-    }
-
-    return Carbon::parse($date);
 }
 
 function str_to_alphanumeric($string, $replace_with = '')
@@ -133,72 +113,13 @@ function asset_timed($path, $secure = null)
     if (file_exists($file)) {
         return asset($path, $secure) . '?' . filemtime($file);
     } else {
-        throw new \Exception('The file "'.$path.'" cannot be found in the public folder');
+        return asset($path, $secure); // fallback to default asset() to avoid exception
     }
-}
-
-function getTitleWithFilters($model, $input, $end_with = '')
-{
-    $title_parts = array();
-    $separator = ' &bull; ';
-    foreach ($model::$filterable as $label => $filter) {
-        if (!empty($input[$filter])) {
-            if ($input[$filter] == '1') {
-                $title_parts[] = $label;
-            } else {
-                if ($filter == 'author') {
-                    $input[$filter] = preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $input[$filter]); //otoc meno a priezvisko
-                }                $title_parts[] = $label . ': ' . $input[$filter];
-            }
-        }
-    }
-    // fazety, ktore niesu typu "term" treba zadefinovat osobitne, pretoze niesu vo $filterable
-    if (isset($input['year-range'])) {
-        $range = explode(',', $input['year-range']);
-        if ($range[0] > $model::sliderMin()) {
-            $title_parts[] = 'po' . ': ' . $range[0];
-        }
-        if ($range[1] < $model::sliderMax()) {
-            $title_parts[] = 'do' . ': ' . $range[1];
-        }
-    }
-    if (!empty($input['first-letter'])) {
-        $title_parts[] = 'začína sa na' . ': "' . $input['first-letter'] . '"';
-    }
-    if (empty($title_parts)) {
-        $end_with = '';
-    }
-    return implode($separator, $title_parts) . $end_with;
 }
 
 function addMicrodata($value, $itemprop)
 {
     return '<span itemprop="'.$itemprop.'">'.$value.'</span>';
-}
-
-function getCanonicalUrl()
-{
-    $unwanted_params = [
-        'tag',
-        'sort_by',
-        'year-range',
-        'has_image',
-        'has_iip',
-        'is_free',
-        'first_letter',
-    ];
-
-    $url = Request::url();
-    $params = array_filter(Input::except($unwanted_params), 'strlen'); //vyhodi nechcene a prazdne parametre
-
-    if (!empty($params)) {
-        $params = array_slice($params, 0, 1); //necha iba prvy parameter v poli
-        if (Input::has('page')) {
-            $params['page'] = Input::get('page');
-        }
-        $url .=  '?' . http_build_query($params);
-    }
-    return $url;
 }
 
 function formatBytes($size, $precision = 2)
@@ -409,6 +330,50 @@ function starts_with_upper($str) {
     return (bool)preg_match('/^[[:upper:]]/u', $str);
 }
 
-function str_after($subject, $search) {
-    return $search === '' ? $subject : array_reverse(explode($search, $subject, 2))[0];
+function hasTranslationValue($locale, $attributes)
+{
+    foreach ($attributes as $attribute) {
+        if (Request::input($locale . '.' . $attribute) !== null) {
+            return true;
+        };
+    }
+    return false;
+}
+
+function parseUrls($content)
+{
+    preg_match_all('/<img.*?src=[\'"](.*?)[\'"].*?>/i', $content, $matches);
+    if (sizeof($matches) > 1 && $matches[1]) {
+        $checkAbsoluteUrl = function ($url)
+            {
+                if (strrpos($url, "://") === false) {
+                    return URL::to($url);
+                }
+                return $url;
+            };
+
+        return array_map($checkAbsoluteUrl,  $matches[1]);
+    }
+    return [];
+}
+
+/**
+ * Returns an estimated reading time in a string
+ * idea from @link http://briancray.com/posts/estimated-reading-time-web-design/
+ * @param  string $content the content to be read
+ * @param int $wpm
+ * @return string          estimated read time eg. 1 minute, 30 seconds
+ **/
+function getEstimatedReadingTime($content, $locale, $wpm = 200) {
+    $wordCount = str_word_count(
+        strip_tags(
+         html_entity_decode(
+             preg_replace("/%u([0-9a-f]{3,4})/i", "&#x\\1;", urldecode($content)), null, 'UTF-8')
+            )
+        );
+
+    $minutes = (int) ceil($wordCount / $wpm);
+
+    return trans_choice('general.minute', $minutes, ['value' => $minutes]);
+
 }

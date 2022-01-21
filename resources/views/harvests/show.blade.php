@@ -43,7 +43,7 @@
 							</tr>
 							<tr>
 								<td>Kolekcia:</td>
-								<td>{!! (count($harvest->collection)) ? $harvest->collection->name : 'žiadna' !!}</td>
+								<td>{!! ($harvest->collection && $harvest->collection->count() > 0) ? $harvest->collection->name : 'žiadna' !!}</td>
 							</tr>
 							<tr>
 								<td>Harvest vytvorený:</td>
@@ -64,7 +64,23 @@
 							<tr>
 								<td>Status správa:</td>
 								<td>{!! nl2br($harvest->status_messages) !!}</td>
-							</tr>							
+							</tr>
+							<tr>
+								<td colspan="2">Chybné:</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<table class="table">
+										@foreach($harvest->records()->failed()->get() as $record)
+										<tr>
+											<td><a href="{{ route('item.edit', ['id' => $record->item_id]) }}">{{ $record->item_id }}</a></td>
+											<td>{{ $record->failed_at }}</td>
+											<td>{{ $record->error_message }}</td>
+										</tr>
+										@endforeach
+									</table>
+								</td>
+							</tr>
 	                    </tbody>
 	                </table>
 	            </div>

@@ -5,17 +5,16 @@ namespace Tests\Harvest\Repositories;
 use App\Harvest\Factories\EndpointFactory;
 use App\Harvest\Repositories\AuthorityRepository;
 use App\SpiceHarvesterHarvest;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Phpoaipmh\HttpAdapter\HttpAdapterInterface;
 use Tests\TestCase;
 
 class AuthorityRepositoryTest extends TestCase
 {
-    use DatabaseMigrations;
-
     public function testRows() {
-        $endpointFactoryMock = $this->getMock(EndpointFactory::class, ['createHttpAdapter']);
-        $httpAdapterMock = $this->getMock(HttpAdapterInterface::class);
+        $endpointFactoryMock = $this->getMockBuilder(EndpointFactory::class)
+            ->setMethods(['createHttpAdapter'])
+            ->getMock();
+        $httpAdapterMock = $this->createMock(HttpAdapterInterface::class);
         $authorityXml = file_get_contents(__DIR__ . '/authority.xml');
         $httpAdapterMock->method('request')->willReturn($authorityXml);
         $endpointFactoryMock->method('createHttpAdapter')->willReturn($httpAdapterMock);
@@ -23,7 +22,7 @@ class AuthorityRepositoryTest extends TestCase
         $itemRepository = new AuthorityRepository($endpointFactoryMock);
 
         $harvest = factory(SpiceHarvesterHarvest::class)->make(['base_url' => true]);
-        $rows = $itemRepository->getRows($harvest);
+        $rows = $itemRepository->getAll($harvest)->data;
 
         $rows = iterator_to_array($rows);
         $this->assertCount(1, $rows);
@@ -42,7 +41,7 @@ class AuthorityRepositoryTest extends TestCase
             'roles' => ['fotograf/photographer'],
             'names' => [
                 [
-                    'name' => ['Blühová, Irena'],
+                    'name' => ['I. B.'],
                 ],
             ],
             'nationalities' => [

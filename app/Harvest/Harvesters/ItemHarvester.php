@@ -4,9 +4,10 @@ namespace App\Harvest\Harvesters;
 
 use App\Harvest\Importers\ItemImporter;
 use App\Harvest\Repositories\ItemRepository;
-use App\Harvest\Result;
+use App\Harvest\Progress;
 use App\Item;
 use App\SpiceHarvesterRecord;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Monolog\Logger;
 
@@ -23,28 +24,18 @@ class ItemHarvester extends AbstractHarvester
         $this->logger = new Logger('oai_harvest');
     }
 
-    public function harvestSingle(SpiceHarvesterRecord $record, Result $result, array $row = null) {
+    public function harvestRecord(SpiceHarvesterRecord $record, Progress $progress, array $row = null) {
         if ($row === null) {
             $row = $this->repository->getRow($record);
         }
 
         // @todo responsibility of repository?
-        $imgUrl = $this->getItemImageImgUrl($row);
         $iipimgUrls = $this->fetchItemImageIipimgUrls($row);
-        $iipimgUrls = $this->parseItemImageIipimgUrls($iipimgUrls);
 
-        if ($iipimgUrls) {
-            $row['images'] = [];
-            foreach ($iipimgUrls as $iipimgUrl) {
-                $row['images'][] = [
-                    'img_url' => [$imgUrl],
-                    'iipimg_url' => [$iipimgUrl],
-                ];
-            }
-        } else {
+        $row['images'] = [];
+        foreach ($iipimgUrls as $iipimgUrl) {
             $row['images'][] = [
-                'img_url' => [$imgUrl],
-                'iipimg_url' => [],
+                'iipimg_url' => [$iipimgUrl],
             ];
         }
 
@@ -54,12 +45,20 @@ class ItemHarvester extends AbstractHarvester
             ];
         }
 
-        $model = parent::harvestSingle($record, $result, $row);
-        if ($model) {
-            $this->downloadImages($model);
-        }
+        parent::harvestRecord($record, $progress, $row);
 
-        return $model;
+        if ($record->item && $record->item->img_url) {
+            $this->trySaveImage($record->item);
+        }
+    }
+
+    protected function trySaveImage(Item $item) {
+        try {
+            $item->saveImage($item->img_url);
+        } catch (\Exception $e) {
+            $error = sprintf('%s: %s', $item->img_url, $e->getMessage());
+            $this->logger->error($error);
+        }
     }
 
     protected function isExcluded(array $row) {
@@ -70,52 +69,19 @@ class ItemHarvester extends AbstractHarvester
     }
 
     /**
-     * @param Item $item
-     */
-    protected function downloadImages(Item $item) {
-        foreach ($item->images as $image) {
-            if (!$image->img_url) {
-                continue;
-            }
-
-            try {
-                $url = $image->img_url;
-                $imageData = file_get_contents($url);
-                if ($path = $item->getImagePath($full = true)) {
-                    file_put_contents($path, $imageData);
-                }
-            } catch (\Exception $e) {
-                $error = sprintf('%s: %s', $url, $e->getMessage());
-                $this->logger->addError($error);
-            }
-        }
-    }
-
-
-    /**
      * @param array $row
-     * @return string
-     */
-    protected function getItemImageImgUrl(array $row) {
-        return array_first($row['identifier'], function ($i, $identifier) {
-            return str_contains($identifier, 'getimage');
-        });
-    }
-
-    /**
-     * @param array $row
-     * @return string|bool
+     * @return string[]
      */
     protected function fetchItemImageIipimgUrls(array $row) {
-        $url = array_first($row['identifier'], function ($i, $identifier) {
+        $url = Arr::first($row['identifier'], function ($identifier) {
             return str_contains($identifier, 'L2_WEB');
         });
 
         if ($url === null) {
-            return false;
+            return [];
         }
 
-        return @file_get_contents($url);
+        return $this->parseItemImageIipimgUrls(file_get_contents($url));
     }
 
     /**
@@ -136,5 +102,9 @@ class ItemHarvester extends AbstractHarvester
             $iipimgUrl = substr($iipimgUrl, 0, strpos($iipimgUrl, '.jp2') + 4);
             return $iipimgUrl;
         }, $iipimgUrls);
+    }
+
+    protected function isForDeletion(array $row) {
+        return parent::isForDeletion($row) || (isset($row['rights'][0]) && !$row['rights'][0]);
     }
 }

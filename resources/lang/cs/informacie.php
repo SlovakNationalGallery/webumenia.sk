@@ -26,6 +26,12 @@ return array(
     'info_gallery_GUS'   => 'Galéria umelcov Spiša',
     'info_gallery_VSG'   => 'Východoslovenská galéria',
     'info_gallery_MG'    => 'Moravská galerie',
+    'info_gallery_TGP'   => 'Tatranská galéria',
+    'info_gallery_PGU'   => 'Považská galéria umenia',
+    'info_gallery_SGP'   => 'Šariššská galéria v Prešove',
+    'info_gallery_KGC'   => 'Kysucká galerie v Oščadnici',
+    'info_gallery_PNP'   => 'Památník národního písemnictví',
+    'info_gallery_4RG'   => 'Galerie moderního umění v Roudnici nad Labem',
 
     'mozete_heading'               => 'U nás lze',
     'mozete_col_stahovat_heading'  => 'Stahovat volná díla',
@@ -37,7 +43,7 @@ return array(
     'mozete_col_vyuzivat_li_2'     => '<strong>vlastní tvorba</strong> (digitální úprava reprodukce, využití její časti pro animaci nebo koláž)',
     'mozete_col_vyuzivat_li_3'     => '<strong>vzdělávání</strong> (vložení obrázku na vlastní webstránku, použití na Wikipedii či jako součást prezentace)',
     'mozete_col_objednat_heading'  => 'Objednat si kvalitní reprodukce',
-    'mozete_col_objednat_p'        => 'K vybraným dílům ze sbírek SNG nabízíme možnost objednat si reprodukce v archívní kvalitě na fineartových papírech. Po výběru díla, vyplnění údajů a odeslání objednávky vás bude kontaktovat pracovník SNG s podrobnějšími informacemi. Momentálně je možné si vyzvednout díla pouze osobně v knihkupectví <a href="http://www.sng.sk/sk/uvod/navsteva-sng/sluzby/knihkupectvo-ex-libris" target="blank" class="strong">Ex&nbsp;Libris v prostorách SNG</a> na <a href="https://goo.gl/maps/k0sBz" target="_blank" class="strong">Náměstí Ľ. Štúra 4 v Bratislavě</a> nebo v pokladně <a href="http://www.sng.sk/sk/uvod/vysunute-pracoviska/zvolen" target="blank" class="strong">Zvolenského zámku</a> - <a href="https://goo.gl/maps/MPRy6Qdwm8s" target="_blank" target="blank" class="strong">Námestie SNP 594/1</a>.',
+    'mozete_col_objednat_p'        => 'K vybraným dílům ze sbírek SNG nabízíme možnost objednat si reprodukce v archívní kvalitě na fineartových papírech.<br><br>Na specifické účely – výzkumné, edukační, komerční – poskytujeme i digitální reprodukce s ohledem na stav autorských práv vybraných děl.<br><br>Objednávku vytvoříte pomocí tlačítka <strong>objednat reprodukci</strong> na stránce konkrétního díla. Po odeslání objednávky vás bude kontaktovat pracovník SNG s podrobnějšími informacemi.',
     'mozete_free_artworks'         => 'volná díla ke stažení',
 
     'more-items_heading'                 => 'vyberte si reprodukce',
@@ -49,12 +55,17 @@ return array(
     'more-items_connect_col2_p'          => 'Pokud víte o některém z děl nebo autorů více informací, případně jste na jeho profilu u nás nenašli fotografii, budeme rádi, když nám pomůžete s jejich doplněním. Napište nám na <a href="mailto:lab@sng.sk">lab@sng.sk</a>, rádi se s vámi spojíme.',
     'more-items_connect_col3_lead'       => 'web umenia realizuje <br>kolektiv <strong><a href="http://lab.sng.sk/" target="_blank" class="strong">lab.SNG</a></strong>',
     'more-items_connect_col3_ul-content' => '<li><strong>Michal Čudrnák</strong> vedoucí lab.SNG, autor článků</li>
-                                             <li><strong>Lukáš Štepanovský</strong> editor obsahu, autor článků</li>
+                                             <li><strong>Lukáš Štepanovský</strong> editor obsahu, autor článků, UX designér</li>
                                              <li><strong>Igor Rjabinin</strong> vývojář</li>
-                                             <li><strong>Philo van Kemenade</strong> vývojář</li>
                                              <li><strong>Rastislav Chynoranský</strong> vývojář</li>
-                                             <li><strong>Adam Juraszek</strong> vývojář</li>
+                                             <li><strong>Ernest Walzel</strong> vývojář</li>
+                                             <li><strong>Martin Havala</strong> vývojář</li>
+                                             <li><strong>Andrej Bilec</strong> vývojář</li>
+                                             <li><strong>Zuzana Koblišková</strong> editorka obsahu, autorka článků</li>
                                              <li><strong>Gabriel Balkó</strong> kontrolor kvality, editor obsahu</li>
+                                             <li><strong>Karin Vicianová</strong> kontrolorka kvality, editorka obsahu</li>
+                                             <li><strong>Jana Šuchová</strong> editorka obsahu</li>
+                                             <li><strong>Vladimír Hergott</strong> správce CEDVU</li>
                                              <li><strong>Braňo Matis</strong> grafický designér</li>',
 
     'modal_disclaimer'      => 'ceny jsou pouze orientační',

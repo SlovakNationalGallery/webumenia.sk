@@ -15,4 +15,9 @@ class AuthorityName extends Model
             'name',
             'prefered',
         );
+
+    public function authority()
+    {
+        return $this->belongsTo(Authority::class);
+    }
 }

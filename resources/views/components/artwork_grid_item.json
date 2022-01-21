@@ -1,0 +1,10 @@
+{
+    "name": "ArtworkGridItem",
+    "data": {
+        "class_names": "col-md-3 col-sm-4 col-xs-6"
+    },
+    "data_calls" : {
+        "item": "return app('App\\Elasticsearch\\Repositories\\ItemRepository')->getRandom(1, (new App\\Filter\\ItemFilter)->setHasImage(true))->getCollection()->first();"
+    },
+    "usage_notes": "A grid item that represents an artwork with basic meta data and link to zoom view. Supply `$hide_zoom`, `$hide_authors`, `$hide_title`, `$hide_dating` to hide specific meta data."
+}

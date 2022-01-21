@@ -4,7 +4,12 @@
 
 namespace App;
 
+use App\Harvest\Progress;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use App\Harvest\Harvesters\AuthorityHarvester;
+use App\Harvest\Harvesters\GmuhkItemHarvester;
+use App\Harvest\Harvesters\ItemHarvester;
 
 class SpiceHarvesterHarvest extends Model
 {
@@ -16,7 +21,11 @@ class SpiceHarvesterHarvest extends Model
     const STATUS_DELETED     = 'deleted';
     const STATUS_KILLED      = 'killed';
 
-    public static $types = ['item' => 'Dielo', 'author' => 'Autorita'];
+    public static $types = [
+        ItemHarvester::class => 'Dielo',
+        GmuhkItemHarvester::class => 'Dielo (GMUHK)',
+        AuthorityHarvester::class => 'Autorita',
+    ];
 
     protected $appends = array('from');
     public static $datum;
@@ -63,5 +72,51 @@ class SpiceHarvesterHarvest extends Model
         return 'default';
     }
 
+    public function process(callable $onProcess)
+    {
+        $progress = new Progress();
 
+        try {
+            $this->status = SpiceHarvesterHarvest::STATUS_IN_PROGRESS;
+            $this->status_messages = trans('harvest.status_messages.started');
+            $this->save();
+
+            $onProcess($progress);
+
+            $this->status = SpiceHarvesterHarvest::STATUS_COMPLETED;
+            $this->completed = date('Y-m-d H:i:s');
+            $this->status_messages = trans('harvest.status_messages.completed', [
+                'processed' => $progress->getProcessed(),
+                'created' => $progress->getInserted(),
+                'updated' => $progress->getUpdated(),
+                'deleted' => $progress->getDeleted(),
+                'skipped' => $progress->getSkipped(),
+                'failed' => $progress->getFailed(),
+                'time' => Carbon::now()->diffInSeconds($progress->getCreatedAt()),
+            ]);
+        } catch (\Exception $e) {
+            $this->status = SpiceHarvesterHarvest::STATUS_ERROR;
+            $this->status_messages = trans('harvest.status_messages.error', [
+                'error' => $e->getMessage(),
+            ]);
+        } finally {
+            $this->save();
+        }
+    }
+
+    public function updateStatusMessages(Progress $progress)
+    {
+        $this->status_messages = trans('harvest.status_messages.progress', [
+            'current' => $progress->getProcessed(),
+            'total' => $progress->getTotal(),
+        ]);
+        $this->save();
+    }
+
+    public function enqueue()
+    {
+        $this->status = SpiceHarvesterHarvest::STATUS_QUEUED;
+        $this->status_messages = trans('harvest.status_messages.waiting');
+        $this->save();
+    }
 }

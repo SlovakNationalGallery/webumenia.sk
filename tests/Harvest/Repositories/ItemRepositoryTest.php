@@ -5,17 +5,16 @@ namespace Tests\Harvest\Repositories;
 use App\Harvest\Factories\EndpointFactory;
 use App\Harvest\Repositories\ItemRepository;
 use App\SpiceHarvesterHarvest;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Phpoaipmh\HttpAdapter\HttpAdapterInterface;
 use Tests\TestCase;
 
 class ItemRepositoryTest extends TestCase
 {
-    use DatabaseMigrations;
-
     public function testRows() {
-        $endpointFactoryMock = $this->getMock(EndpointFactory::class, ['createHttpAdapter']);
-        $httpAdapterMock = $this->getMock(HttpAdapterInterface::class);
+        $endpointFactoryMock = $this->getMockBuilder(EndpointFactory::class)
+            ->setMethods(['createHttpAdapter'])
+            ->getMock();
+        $httpAdapterMock = $this->createMock(HttpAdapterInterface::class);
         $authorityXml = file_get_contents(__DIR__ . '/item.xml');
         $httpAdapterMock->method('request')->willReturn($authorityXml);
         $endpointFactoryMock->method('createHttpAdapter')->willReturn($httpAdapterMock);
@@ -23,7 +22,7 @@ class ItemRepositoryTest extends TestCase
         $itemRepository = new ItemRepository($endpointFactoryMock);
 
         $harvest = factory(SpiceHarvesterHarvest::class)->make(['base_url' => true]);
-        $rows = $itemRepository->getRows($harvest);
+        $rows = $itemRepository->getAll($harvest)->data;
 
         $rows = iterator_to_array($rows);
         $this->assertCount(1, $rows);
@@ -43,22 +42,36 @@ class ItemRepositoryTest extends TestCase
                     'title_translated' => ['Flemish family'],
                 ],
             ],
-            'type' => [
+            'work_type' => [
                 [
                     'lang' => ['sk'],
-                    'type' => ['grafika, voľná'],
+                    'work_type' => ['grafika, voľná'],
                 ],
                 [
                     'lang' => [],
-                    'type' => ['DEF'],
+                    'work_type' => ['DEF'],
                 ],
                 [
                     'lang' => [],
-                    'type' => ['originál'],
+                    'work_type' => ['originál'],
                 ],
                 [
                     'lang' => [],
-                    'type' => ['Image'],
+                    'work_type' => ['Image'],
+                ],
+            ],
+            'object_type' => [
+                [
+                    'lang' => ['sk'],
+                    'object_type' => ['fotografia'],
+                ],
+                [
+                    'lang' => ['sk'],
+                    'object_type' => ['mapa'],
+                ],
+                [
+                    'lang' => ['en'],
+                    'object_type' => ['map'],
                 ],
             ],
             'format' => [
@@ -100,7 +113,16 @@ class ItemRepositoryTest extends TestCase
                 'urn:svk:psi:per:sng:0000010816',
                 'Teniers, David',
             ],
-            'creator_role' => [],
+            'authorities' => [
+                [
+                    'id' => ['urn:svk:psi:per:sng:0000001922'],
+                    'role' => ['autor/author'],
+                ],
+                [
+                    'id' => ['urn:svk:psi:per:sng:0000010816'],
+                    'role' => ['iné/other'],
+                ],
+            ],
             'rights' => [
                 '1',
                 'publikovať/public',
@@ -110,7 +132,21 @@ class ItemRepositoryTest extends TestCase
                 'vľavo dole peint Teniers',
             ],
             'extent' => ['šírka 50.0 cm, šírka 47.6 cm, výška 39.0 cm, výška 37.0 cm, hĺbka 5.0 cm ()'],
-            'provenance' => ['Slovenská národná galéria, SNG'],
+            'gallery' => ['Slovenská národná galéria, SNG'],
+            'credit' => [
+                [
+                    'lang' => ['sk'],
+                    'credit' => ['Dar zo Zbierky Linea'],
+                ],
+                [
+                    'lang' => ['en'],
+                    'credit' => ['Donation from the Linea Collection'],
+                ],
+                [
+                    'lang' => ['cs'],
+                    'credit' => ['Dar ze Sbírky Linea'],
+                ],
+            ],
             'created' => [
                 '1760/1760',
                 '18. storočie, polovica, 1760',
