@@ -249,8 +249,7 @@
                             @if (!empty($item->contributor))
                             <tr>
                                 <td class="atribut">{{ trans('dielo.item_attr_contributor') }}:</td>
-                                <td>{{ formatName($item->contributor) }}</td>
-                                <!-- todo: insert href into this <a> for user to provide feedback about accuracy to forward to curator -->
+                                <td><a href="{{ URL::to('katalog?contributor=' . $item->contributor) }}">{{ formatName($item->contributor) }}</a></td>
                             </tr>
                             @endif
                             @if (!empty($item->identifier))
