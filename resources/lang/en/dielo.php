@@ -12,7 +12,6 @@ return array(
     'item_next-work'     => 'next artwork',
     'item_order'         => 'order reproduction',
     'item_download'      => 'download',
-    'item_feedback'      => 'Feedback',
 
     'item_attr_dating'         => 'date',
     'item_attr_measurements'   => 'measurements',
@@ -47,6 +46,4 @@ return array(
     'modal_downloadfail_header-content' => 'An error has occured',
     'modal_downloadfail_body-content'   => '<p>Your selected artwork could not be downloaded at this time. Please try again later.</p>
                                             <p>If the problem persists, contact us at <a href="mailto:lab@sng.sk">lab@sng.sk</a></p>',
-    'modal_feedback_body-content'       => '<p>Do you have a question or a comment about this artwork?<br>Please let us know.</p>',
-    'modal_feedback_footer-content'     => '',
 );

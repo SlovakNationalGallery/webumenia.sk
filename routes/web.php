@@ -222,8 +222,6 @@ function()
 
     });
 
-    Route::post('dielo/{item_id}/feedback', 'FeedbackController@postFeedback');
-
     Route::get('dielo/{id}/odstranit', function ($id) {
 
         $item = Item::find($id);

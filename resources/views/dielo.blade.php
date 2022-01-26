@@ -587,15 +587,6 @@
             });
             return false; //this is critical to stop the click event which will trigger a normal file download!
         });
-
-// $(document).on("click", "#download", function() {
-//         $.fileDownload($(this).attr('href'), {
-//             preparingMessageHtml: "We are preparing your report, please wait...",
-//             failMessageHtml: "There was a problem generating your report, please try again."
-//         });
-//         return false; //this is critical to stop the click event which will trigger a normal file download!
-//     });
-
     });
 </script>
 
