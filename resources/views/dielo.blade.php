@@ -249,7 +249,7 @@
                             @if (!empty($item->contributor))
                             <tr>
                                 <td class="atribut">{{ trans('dielo.item_attr_contributor') }}:</td>
-                                <td><a href="{{ URL::to('katalog?contributor=' . $item->contributor) }}">{{ formatName($item->contributor) }}</a></td>
+                                <td><a href="{{ route('frontend.catalog.index', ['contributor' => $item->contributor]) }}">{{ formatName($item->contributor) }}</a></td>
                             </tr>
                             @endif
                             @if (!empty($item->identifier))
