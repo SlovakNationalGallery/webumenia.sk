@@ -36,6 +36,9 @@ Vue.use(Lang, { fallback: 'sk' })
 Vue.component('filter-sort-by', require('./components/filter/SortBy.vue').default);
 Vue.component('filter-checkbox', require('./components/filter/Checkbox.vue').default);
 Vue.component('filter-custom-select', require('./components/filter/CustomSelect.vue').default);
+Vue.component('tabs-controller', require('./components/TabsController.vue').default);
+Vue.component('tab', require('./components/Tab.vue').default);
+Vue.component('tab-panel', require('./components/TabPanel.vue').default);
 Vue.component('user-collections-link', require('./components/user-collections/Link.vue').default);
 Vue.component('user-collections-nav-link', require('./components/user-collections/NavLink.vue').default);
 Vue.component('user-collections-favourite-button', require('./components/user-collections/FavouriteButton.vue').default);
