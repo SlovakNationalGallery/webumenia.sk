@@ -6,15 +6,18 @@ use App\Harvest\Importers\AbstractImporter;
 use App\Harvest\Mappers\GmuhkItemMapper;
 use App\Harvest\Progress;
 use App\Item;
-use Illuminate\Database\Eloquent\Model;
+use App\Matchers\AuthorityMatcher;
 use Illuminate\Support\Facades\Date;
 
 class GmuhkItemImporter extends AbstractImporter
 {
     protected $modelClass = Item::class;
 
-    public function __construct(GmuhkItemMapper $mapper) {
+    protected $authorityMatcher;
+
+    public function __construct(GmuhkItemMapper $mapper, AuthorityMatcher $authorityMatcher) {
         parent::__construct($mapper);
+        $this->authorityMatcher = $authorityMatcher;
     }
 
     public function getModelId(array $row) {
@@ -35,6 +38,17 @@ class GmuhkItemImporter extends AbstractImporter
                 );
             }
         }
+
+        $ids = $this->authorityMatcher
+            ->matchAll($item)
+            ->filter(function ($authorities) {
+                return $authorities->count() === 1;
+            })
+            ->flatten()
+            ->pluck('id');
+
+        $changes = $item->authorities()->syncWithoutDetaching($ids);
+        $item->authorities()->updateExistingPivot($changes['attached'], ['automatically_matched' => true]);
 
         return $item;
     }

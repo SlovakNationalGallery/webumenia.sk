@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
@@ -19,5 +17,15 @@ class AuthorityName extends Model
     public function authority()
     {
         return $this->belongsTo(Authority::class);
+    }
+
+    public function scopeWhereFirstNameLastName($query, $name)
+    {
+        $query->whereRaw(
+            'case when instr(name, ", ") then ' .
+            'concat(substring_index(name, ", ", -1), " ", substring_index(name, ", ", 1)) = ? ' .
+            'else name = ? end',
+            [$name, $name]
+        );
     }
 }

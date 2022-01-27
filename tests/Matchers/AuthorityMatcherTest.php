@@ -98,6 +98,42 @@ class AuthorityMatcherTest extends TestCase
         $this->assertCount(1, $authorities);
     }
 
+    public function testMatch_Name()
+    {
+        $authority = factory(Authority::class)->create([
+            'name' => 'Rembrandt van Rijn',
+            'birth_year' => null,
+            'death_year' => null,
+        ]);
+        $item = factory(Item::class)->create([
+            'author' => 'Rembrandt van Rijn'
+        ]);
+
+        $matcher = new AuthorityMatcher();
+        $authorities = $matcher->match('Rembrandt van Rijn', $item);
+
+        $this->assertCount(1, $authorities);
+        $this->assertTrue($authority->is($authorities[0]));
+    }
+
+    public function testMatch_SwappedName()
+    {
+        $authority = factory(Authority::class)->create([
+            'name' => 'Wouwerman, Philips',
+            'birth_year' => null,
+            'death_year' => null,
+        ]);
+        $item = factory(Item::class)->create([
+            'author' => 'Philips Wouwerman'
+        ]);
+
+        $matcher = new AuthorityMatcher();
+        $authorities = $matcher->match('Philips Wouwerman', $item);
+
+        $this->assertCount(1, $authorities);
+        $this->assertTrue($authority->is($authorities[0]));
+    }
+
     public function testParseName()
     {
         $author = 'Rembrandt van Rijn';
