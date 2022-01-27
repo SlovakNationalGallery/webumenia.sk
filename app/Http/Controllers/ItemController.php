@@ -131,9 +131,9 @@ class ItemController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $authorities = [];
-            
+
             $json = json_decode($form['item_authorities']->getData()?:"[]");
-            
+
             foreach($json as $k=>$v){
                 $authorities[$k] = ['role'=> $v];
             };

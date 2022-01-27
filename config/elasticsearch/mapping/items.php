@@ -26,6 +26,9 @@ $mapping = [
         'color_descriptor' => [
             'type' => 'float'
         ],
+        'contributor' => [
+            'type' => 'keyword'
+        ],
         'created_at' => [
             'type' => 'date',
             'format' => 'yyyy-MM-dd HH:mm:ss',

@@ -679,6 +679,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
             'technique' => $this->makeArray($this["technique:$locale"]),
             'gallery' => $this["gallery:$locale"],
             'credit' => $this["credit:$locale"],
+            'contributor' => $this->contributor,
             'related_work' => $this["related_work:$locale"],
             'additionals' => $this["additionals:$locale"],
             'images' => $this->images

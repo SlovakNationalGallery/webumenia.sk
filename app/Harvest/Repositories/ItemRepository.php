@@ -63,5 +63,6 @@ class ItemRepository extends AbstractRepository
             'credit' => '.',
         ],
         'created' => './/dcterms:created',
+        'contributor' => './/dc:contributor',
     ];
 }

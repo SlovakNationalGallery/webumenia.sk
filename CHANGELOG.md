@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 ### Added
+- filter catalog by curator and fix harvesting of curator data
 - attributes "format", "deliveryPoint" and "note" to JIRA request in order process
 
 ### Fixed
@@ -710,7 +711,6 @@ All notable changes to this project will be documented in this file[^1].
 - Show harvest progress in admin
 - Symfony forms
 - ZoomController
-
 
 ### Changed
 - allow download of public-domain artworks from VSG

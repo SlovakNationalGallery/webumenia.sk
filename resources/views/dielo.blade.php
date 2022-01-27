@@ -249,8 +249,7 @@
                             @if (!empty($item->contributor))
                             <tr>
                                 <td class="atribut">{{ trans('dielo.item_attr_contributor') }}:</td>
-                                <td>{{ formatName($item->contributor) }}</td>
-                                <!-- todo: insert href into this <a> for user to provide feedback about accuracy to forward to curator -->
+                                <td><a href="{{ route('frontend.catalog.index', ['contributor' => $item->contributor]) }}">{{ formatName($item->contributor) }}</a></td>
                             </tr>
                             @endif
                             @if (!empty($item->identifier))
@@ -588,15 +587,6 @@
             });
             return false; //this is critical to stop the click event which will trigger a normal file download!
         });
-
-// $(document).on("click", "#download", function() {
-//         $.fileDownload($(this).attr('href'), {
-//             preparingMessageHtml: "We are preparing your report, please wait...",
-//             failMessageHtml: "There was a problem generating your report, please try again."
-//         });
-//         return false; //this is critical to stop the click event which will trigger a normal file download!
-//     });
-
     });
 </script>
 
