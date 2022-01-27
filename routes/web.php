@@ -168,7 +168,7 @@ function()
                     'contactPerson' => $order->name,
                     'email' => $order->email,
                     'kindOfPurpose' => $order->purpose_kind,
-                    'purpose' => $order->purpose."\n".$order->format."\n".$order->frame."\n".$order->delivery_point."\n".$order->note,
+                    'purpose' => $order->purpose."\n".$order->frame,
                     'medium' => 'Iné',
                     'address' => $order->address,
                     'phone' => $order->phone,
@@ -176,6 +176,9 @@ function()
                     'dic' => '',
                     'numOfCopies' => '1',
                     'reproductionType' => $type,
+                    'format' => $order->format,
+                    'deliveryPoint' => $order->delivery_point,
+                    'note' => $order->note,
                 ],
             ]);
             if ($res->getStatusCode() == 200) {
