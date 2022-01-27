@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- attributes "format", "deliveryPoint" and "note" to JIRA request in order process
+
 ### Fixed
 - calculation of isFree for artworks with authorities without death_year
 
