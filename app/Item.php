@@ -511,8 +511,6 @@ class Item extends Model implements IndexableModel, TranslatableContract
         foreach ($this->authorities as $authority) {
             if (!empty($authority->death_year)) {
                 $copyrightExpirationYears[] = $authority->death_year + self::COPYRIGHT_LENGTH + 1;
-            } else {
-                return self::FREE_NEVER;
             }
         }
 
@@ -681,6 +679,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
             'technique' => $this->makeArray($this["technique:$locale"]),
             'gallery' => $this["gallery:$locale"],
             'credit' => $this["credit:$locale"],
+            'contributor' => $this->contributor,
             'related_work' => $this["related_work:$locale"],
             'additionals' => $this["additionals:$locale"],
             'images' => $this->images

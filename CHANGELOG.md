@@ -3,9 +3,19 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.42.0] - 2022-01-28
+### Added
+- filter catalog by curator and fix harvesting of curator data
+- attributes "format", "deliveryPoint" and "note" to JIRA request in order process
+
+### Fixed
+- calculation of isFree for artworks with authorities without death_year
+
 ## [2.41.0] - 2022-01-14
 ### Added
 - filter by gender to authorities
+- authority matching of swapped names
+- GMUHK harvest authority matching
 
 ### Changed
 - inscription length in item_translations table
@@ -703,7 +713,6 @@ All notable changes to this project will be documented in this file[^1].
 - Show harvest progress in admin
 - Symfony forms
 - ZoomController
-
 
 ### Changed
 - allow download of public-domain artworks from VSG

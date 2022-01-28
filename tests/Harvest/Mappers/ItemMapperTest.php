@@ -127,6 +127,7 @@ class ItemMapperTest extends TestCase
                 '1860/1860',
                 '21. storočie, 1. polovica, 2019 (zväčšenina)',
             ],
+            'contributor' => ['Čičo, Martin'],
         ];
 
         $mapped = $mapper->map($row);
@@ -187,6 +188,7 @@ class ItemMapperTest extends TestCase
             'relationship_type:cs' => null,
             'related_work:cs' => null,
             'work_level:cs' => null,
+            'contributor' => 'Čičo, Martin',
             'credit:cs' => 'Dar ze Sbírky Linea',
         ];
         $this->assertEquals($expected, $mapped);

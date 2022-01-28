@@ -35,7 +35,7 @@ class AuthorityMatcher
     {
         $parsed = $this::parse($author);
         if ($parsed['surname'] && $parsed['name']) {
-            $fullname = sprintf('%s, %s', $parsed['surname'], $parsed['name']);
+            $fullname = sprintf('%s %s', $parsed['name'], $parsed['surname']);
         } else {
             $fullname = $parsed['name'];
         }
@@ -44,7 +44,8 @@ class AuthorityMatcher
             ->filter(function (Authority $authority) use ($fullname) {
                 return $authority->names
                     ->pluck('name')
-                    ->add($authority->name)
+                    ->map('formatName')
+                    ->add($authority->formated_name)
                     ->contains($fullname);
             });
 
@@ -84,8 +85,10 @@ class AuthorityMatcher
      */
     protected function findByFullname($fullname)
     {
-        $authorities = Authority::where('name', $fullname)->get();
-        return AuthorityName::where('name', $fullname)->get()
+        $authorities = Authority::whereFirstNameLastName($fullname)
+            ->get();
+        return AuthorityName::whereFirstNameLastName($fullname)
+            ->get()
             ->map(function (AuthorityName $authorityName) {
                 return $authorityName->authority;
             })

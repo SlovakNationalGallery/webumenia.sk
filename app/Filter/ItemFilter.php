@@ -42,6 +42,8 @@ class ItemFilter extends AbstractFilter
 
     protected $hasText;
 
+    protected $contributor;
+
     /** @var Color|null */
     protected $color;
 
@@ -61,6 +63,7 @@ class ItemFilter extends AbstractFilter
         'has_text',
         'is_free',
         'is_for_reproduction',
+        'contributor',
     ];
 
     public function setYearTo(?int $yearTo): self
@@ -264,6 +267,17 @@ class ItemFilter extends AbstractFilter
     public function setColor(?Color $color): self
     {
         $this->color = $color;
+        return $this;
+    }
+
+    public function getContributor(): ?string
+    {
+        return $this->contributor;
+    }
+
+    public function setContributor(?string $contributor): self
+    {
+        $this->contributor = $contributor;
         return $this;
     }
 
