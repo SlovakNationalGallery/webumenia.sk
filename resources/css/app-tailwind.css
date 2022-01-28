@@ -3,3 +3,10 @@
 
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    html {
+        /* Set rem size to 14px */
+        font-size: 14px !important;
+    }
+}
