@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.42.0] - 2022-01-28
 ### Added
 - filter catalog by curator and fix harvesting of curator data
 - attributes "format", "deliveryPoint" and "note" to JIRA request in order process
