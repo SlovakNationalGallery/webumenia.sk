@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.42.1] - 2022-01-30
+### Fixed
+- broken authors page in czech language
+
 ## [2.42.0] - 2022-01-28
 ### Added
 - filter catalog by curator and fix harvesting of curator data
