@@ -39,12 +39,12 @@ return array(
         'role' => 'role',
         'nationality' => 'příslušnost',
         'place' => 'místo',
+        'sex' => 'pohlaví',
         'title_generator' => [
             'first_letter' => 'začíná se na: :value',
             'role' => 'role: :value',
             'nationality' => 'příslušnost: :value',
             'place' => 'místo: :value',
-            'sex' => 'pohlaví',
             'years' => 'v letech :from — :to',
         ],
         'sort_by' => 'podle',
