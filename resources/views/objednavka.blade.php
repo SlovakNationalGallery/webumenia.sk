@@ -178,7 +178,7 @@
 <div id="for_frame">
     {!! Former::select('frame')->label(trans('objednavka.form_frame'))->required()->options(array(
             trans('objednavka.form_frame_black') => array('value'=>'čierny'),
-            trans('objednavka.form_frame_white') => array('value'=>'svetly'),
+            trans('objednavka.form_frame_white') => array('value'=>'svetlý'),
     ))->help('<a href="#" class="underline" data-toggle="modal" data-target="#previewFrames"><i class="fa fa-info-circle"></i> '.trans('objednavka.form_frame_help').'</a>'); !!}
 </div>
 <div id="for_printed">

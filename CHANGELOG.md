@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.42.2] - 2022-01-31
+### Fixed
+- always fill in purpose in JIRA request in order
+- diacritic in frame variants in order form
+
 ## [2.42.1] - 2022-01-30
 ### Fixed
 - broken authors page in czech language

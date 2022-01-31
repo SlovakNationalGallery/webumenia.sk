@@ -157,6 +157,13 @@ function()
             }
 
             $type = (Request::input('format') == 'digitálna reprodukcia') ? 'digitálna' : 'tlačená';
+            $purpose = ($order->purpose) ? $order->purpose : $order->frame;
+
+            // @TODO: remove this after EEA fix accepting empty purpose
+            if (empty($purpose)) {
+                $purpose =  'účel';
+            }
+            // /@TODO
 
             //poslat objednavku do Jiry
             $client = new GuzzleHttp\Client();
@@ -168,7 +175,7 @@ function()
                     'contactPerson' => $order->name,
                     'email' => $order->email,
                     'kindOfPurpose' => $order->purpose_kind,
-                    'purpose' => $order->purpose."\n".$order->frame,
+                    'purpose' => $purpose,
                     'medium' => 'Iné',
                     'address' => $order->address,
                     'phone' => $order->phone,
