@@ -6,7 +6,8 @@
 
 @layer base {
     html {
-        /* Set rem size to 14px */
+        /* Set rem size to match body font size */
+        /* TODO remove !important after retiring Bootstrap */
         font-size: 14px !important;
     }
 }
