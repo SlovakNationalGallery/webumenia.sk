@@ -109,8 +109,8 @@
                     </flickity>
                 </tab-panel>
 
-                <tab-panel v-slot="{ active }">
-                    <flickity :resize-once="active" :options="{ cellAlign: 'left', contain: true, pageDots: false }">
+                <tab-panel v-slot="{ active }" class="tw-relative">
+                    <flickity :resize-once="active" :options="{ cellAlign: 'left', contain: true, pageDots: false, prevNextButtons: false }">
                         @foreach($articles as $a)
                             <div class="tw-w-104 tw-mr-4">
                                 <a href="{{ route('frontend.article.detail', $a->slug) }}">
@@ -133,6 +133,23 @@
                             <p>Na Webe umenia je ďalších viac<br/> ako {{ $articlesRemainingCount }} článkov</p>
                             <a class="tw-mt-5 tw-underline tw-decoration-gray-300 tw-decoration-3 tw-underline-offset-4 hover:tw-transition-colors hover:tw-decoration-current" href="{{ route('frontend.article.index') }}">Zobraziť ďalšie články</a>
                         </div>
+
+                        <template v-slot:custom-ui="{ next, previous, selectedIndex, slides }">
+                            <div class="tw-absolute tw-inset-y-0 tw-inset-x-4 md:tw--inset-x-7 tw-flex tw-items-center tw-justify-between tw-pointer-events-none">
+                                <button
+                                    v-on:click="previous"
+                                    :disabled="selectedIndex === 0"
+                                    class="tw-pointer-events-auto tw-rounded-full tw-bg-gray-300 tw-bg-opacity-60 hover:tw-bg-opacity-90 disabled:hover:tw-bg-opacity-60 disabled:tw-opacity-30 tw-transition tw-w-10 tw-h-10 sm:tw-w-14 sm:tw-h-14 tw-flex tw-items-center tw-justify-center tw-text-xl">
+                                    <i class="fa icon-arrow-left"></i>
+                                </button>
+                                <button
+                                    v-on:click="next"
+                                    :disabled="selectedIndex === slides.length - 1"
+                                    class="tw-pointer-events-auto tw-rounded-full tw-bg-gray-300 tw-bg-opacity-60 hover:tw-bg-opacity-90 disabled:hover:tw-bg-opacity-60 disabled:tw-opacity-30 tw-transition tw-w-10 tw-h-10 sm:tw-w-14 sm:tw-h-14 tw-flex tw-items-center tw-justify-center tw-text-xl">
+                                    <i class="fa icon-arrow-right"></i>
+                                </button>
+                            </div>
+                        </template>
                     </flickity>
                 </tab-panel>
             </div>
