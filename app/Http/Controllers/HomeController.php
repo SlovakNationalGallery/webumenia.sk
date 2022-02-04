@@ -23,6 +23,7 @@ class HomeController extends Controller
 
         $collections = Collection::query()
             ->with(['translations', 'user'])
+            ->withCount('items')
             ->published()
             ->orderBy('published_at', 'desc')
             ->take(5)
