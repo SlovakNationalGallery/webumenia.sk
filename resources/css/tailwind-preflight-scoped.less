@@ -1,0 +1,20 @@
+/*
+This file generates the tailwind-preflight-scoped.css file -- Tailwind base styles,
+limited to our .tailwind-rules scope.
+
+To re-generate the css file, simply add
+
+    .less('resources/css/tailwind-preflight.less', 'public/css')
+
+to mix and run `npm run production`.
+
+More about Preflight: https://tailwindcss.com/docs/preflight
+
+This LESS file and the CSS can be removed (and replaced) by enabling standard
+Preflight (in tailwind.config.js), once we get rid of Bootstrap.
+
+*/
+
+.tailwind-rules {
+    @import (less) '../../node_modules/tailwindcss/src/css/preflight.css';
+}
