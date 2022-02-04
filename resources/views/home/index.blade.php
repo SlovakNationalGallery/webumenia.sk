@@ -38,19 +38,34 @@
                 </tab>
                 @endforeach
             </div>
-            @php
-                $articles = App\Article::query()
-                    ->with(['translations', 'category'])
-                    ->published()
-                    ->orderBy('published_date', 'desc')
-                    ->limit(5)
-                    ->get();
-
-                $articlesCount = App\Article::published()->count();
-                $articlesRemainingCount = floor(($articlesCount - 5) / 10) * 10; // Round down to nearest 10
-
-            @endphp
             <div class="tw-mt-8">
+                <tab-panel v-slot="{ active }">
+                    <flickity :resize-once="active" :options="{ cellAlign: 'left', contain: true, pageDots: false }">
+                        @foreach($collections as $c)
+                            <div class="tw-w-104 tw-mr-4">
+                                <a href="{{ route('frontend.collection.detail', $c->id) }}">
+                                    <img src="{{ $c->getThumbnailImage() }}" class="tw-object-cover tw-h-48 tw-transition-opacity tw-duration-300 hover:tw-opacity-80">
+                                </a>
+                                <span class="tw-mt-5 tw-inline-block tw-bg-gray-200 tw-px-3 tw-py-1">
+                                    {{ Str::ucfirst($c->type ?? "kolekcia") }}
+                                </span>
+                                <h4 class="tw-mt-3 tw-text-xl tw-text-black tw-font-semibold tw-truncate">
+                                    <a href="{{ route('frontend.collection.detail', $c->id) }}">
+                                        {{ $c->name }}
+                                    </a>
+                                </h4>
+                                <div class="tw-mt-3 tw-text-gray-600 tw-truncate">
+                                    {{ $c->published_at->format('d. m. Y') }} ∙ {{ $c->user->name }}
+                                </div>
+                            </div>
+                        @endforeach
+                        <div class="tw-w-full sm:tw-w-104 tw-h-full tw-bg-gray-200 tw-text-center tw-flex tw-flex-col tw-justify-center tw-text-xl tw-text-black tw-font-semibold">
+                            <p>Na Webe umenia je ďalších viac<br/> ako {{ $collectionsRemainingCount }} kolekcií</p>
+                            <a class="tw-mt-5 tw-underline tw-decoration-gray-300 tw-decoration-3 tw-underline-offset-4 hover:tw-transition-colors hover:tw-decoration-current" href="{{ route('frontend.collection.index') }}">Zobraziť ďalšie kolekcie</a>
+                        </div>
+                    </flickity>
+                </tab-panel>
+
                 <tab-panel v-slot="{ active }">
                     <flickity :resize-once="active" :options="{ cellAlign: 'left', contain: true, pageDots: false }">
                         @foreach($articles as $a)
@@ -71,7 +86,7 @@
                                 </div>
                             </div>
                         @endforeach
-                        <div class="tw-w-104 tw-h-full tw-bg-gray-200 tw-text-center tw-flex tw-flex-col tw-justify-center tw-text-xl tw-text-black tw-font-semibold">
+                        <div class="tw-w-full sm:tw-w-104 tw-h-full tw-bg-gray-200 tw-text-center tw-flex tw-flex-col tw-justify-center tw-text-xl tw-text-black tw-font-semibold">
                             <p>Na Webe umenia je ďalších viac<br/> ako {{ $articlesRemainingCount }} článkov</p>
                             <a class="tw-mt-5 tw-underline tw-decoration-gray-300 tw-decoration-3 tw-underline-offset-4 hover:tw-transition-colors hover:tw-decoration-current" href="{{ route('frontend.article.index') }}">Zobraziť ďalšie články</a>
                         </div>
