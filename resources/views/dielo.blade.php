@@ -425,14 +425,15 @@
     <div class="container">
         <div class="row">
             <div class="{{ $item->has_colors ? 'col-sm-6 pr-sm-5' : 'col-xs-12'}}" id="related-by-metadata">
-                <div class="h-8rem">
-                    <h3>
-                        {{ utrans('dielo.more-items_related-artworks') }}
-                        <br>
-                        <span class="grey lh-4rem">
+                <div class="tailwind-rules">
+                    <div class="tw-h-24 tw-text-xl">
+                        <h3 class="tw-mt-6">
+                            {{ utrans('dielo.more-items_related-artworks') }}
+                        </h3>
+                        <span class="tw-text-gray-500 tw-font-semibold tw-inline-block tw-mt-2">
                             {{ trans('dielo.more-items_related-artworks_by-data') }}
                         </span>
-                    </h3>
+                    </div>
                 </div>
                 <div class="isotope-container">
                     @foreach ($similar_items as $similar_item)
@@ -448,9 +449,11 @@
             </div>
             @if ($item->has_colors)
             <div class="col-sm-6 pl-sm-5" id="related-by-color">
-                <div class="h-8rem">
-                    <h3 class="mb-1">{{ utrans('dielo.more-items_similar-colors') }}</h3>
-                    @include('components.color_list', ['colors' => $item->getColors()])
+                <div class="tailwind-rules">
+                    <div class="tw-h-24 tw-text-xl">
+                        <h3 class="tw-mt-6 tw-mb-1">{{ utrans('dielo.more-items_similar-colors') }}</h3>
+                        @include('components.color_list', ['colors' => $item->getColors()])
+                    </div>
                 </div>
                 <div class="isotope-container" data-fetch-url="{{ route('dielo.colorrelated', ['id' => $item->id]) }}">
                 </div>

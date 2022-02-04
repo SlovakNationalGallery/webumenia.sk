@@ -28,13 +28,13 @@
 
 /* Height Scale */
 
-.h1 { height: 1rem; }
-.h2 { height: 2rem; }
-.h3 { height: 4rem; }
-.h4 { height: 8rem; }
-.h5 { height: 16rem; }
-.h6 { height: 32rem; }
-.h7 { height: 64rem; }
+.h1 { height: 10px; }
+.h2 { height: 20px; }
+.h3 { height: 40px; }
+.h4 { height: 80px; }
+.h5 { height: 160px; }
+.h6 { height: 320px; }
+.h7 { height: 640px; }
 
 /* Height Percentages - Based off of height of parent */
 
