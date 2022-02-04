@@ -10,4 +10,16 @@
         /* TODO remove !important after retiring Bootstrap */
         font-size: 14px !important;
     }
+
+    /* Theme defaults */
+    /* Once Bootstrap is removed, the applied classes here can be moved to <body> */
+    .tailwind-rules {
+        @apply tw-text-gray-800;
+    }
+}
+
+@layer utilities {
+    [v-cloak] {
+        @apply tw-hidden
+    }
 }
