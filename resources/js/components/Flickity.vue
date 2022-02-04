@@ -1,6 +1,15 @@
 <template>
     <div>
-        <slot />
+        <div ref="carousel">
+            <slot></slot>
+        </div>
+        <slot
+            name="custom-ui"
+            :next="next"
+            :previous="previous"
+            :selectedIndex="selectedIndex"
+            :slides="slides"
+        ></slot>
     </div>
 </template>
 
@@ -18,10 +27,32 @@ export default {
     data() {
         return {
             hasBeenResizedOnce: this.resizeOnce,
+            slides: [],
+            selectedIndex: null,
         }
     },
     mounted() {
-        this.flickity = new Flickity(this.$el, this.options)
+        const vm = this
+        this.flickity = new Flickity(this.$refs.carousel, {
+            on: {
+                ready() {
+                    vm.slides = this.slides
+                    vm.selectedIndex = this.selectedIndex
+                },
+                change(index) {
+                    vm.selectedIndex = index
+                }
+            },
+            ...this.options
+        })
+    },
+    methods: {
+        next() {
+            this.flickity.next()
+        },
+        previous() {
+            this.flickity.previous()
+        },
     },
     watch: {
         resizeOnce(shouldResize) {
