@@ -27,6 +27,12 @@ module.exports = {
           800: '#333',
         },
       },
+      spacing: {
+        '104': '26rem',
+      },
+      textDecorationThickness: {
+        3: '3px',
+      }
     },
   },
   plugins: [],
