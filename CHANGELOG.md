@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
-#### Added
+### Added
 - "latest content" section for new homepage
 
 ## [2.43.0] - 2022-02-04
