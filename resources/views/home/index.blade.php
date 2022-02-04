@@ -27,16 +27,27 @@
     <div class="tailwind-rules container">
         <h2 class="tw-text-2xl tw-font-semibold">Nový obsah</h2>
 
-        <tabs-controller v-cloak>
-            <div class="tw-flex tw-text-4xl tw-font-semibold tw-mt-8 tw-space-x-8">
-                @foreach(['Kolekcie', 'Články'] as $tab)
-                <tab v-slot="{ active }">
-                    <button :class="[
-                        'tw-transition-colors tw-underline tw-underline-offset-8 tw-decoration-3',
-                        !active && 'tw-text-gray-500'
-                    ]">{{ $tab }}</button>
-                </tab>
-                @endforeach
+        <tabs-controller v-cloak v-slot="{ activeIndex }">
+            <div class="tw-flex tw-items-end">
+                <div class="tw-flex tw-text-4xl tw-font-semibold tw-mt-8 tw-space-x-8 tw-grow">
+                    @foreach(['Kolekcie', 'Články'] as $tab)
+                    <tab v-slot="{ active }">
+                        <button :class="[
+                            'tw-transition-colors tw-underline tw-underline-offset-8 tw-decoration-3',
+                            !active && 'tw-text-gray-500'
+                        ]">{{ $tab }}</button>
+                    </tab>
+                    @endforeach
+                </div>
+
+                <a v-if="activeIndex === 0" href="{{ route('frontend.collection.index') }}" class="tw-hidden sm:tw-inline-block tw-border-gray-300 tw-border tw-px-4 tw-py-2 hover:tw-bg-gray-300 hover:tw-border-gray-400 tw-transition tw-duration-300">
+                    Všetky kolekcie
+                    <i class="fa icon-arrow-right tw-ml-4 tw-font-semibold"></i>
+                </a>
+                <a v-if="activeIndex === 1" href="{{ route('frontend.article.index') }}" class="tw-hidden sm:tw-inline-block tw-border-gray-300 tw-border tw-px-4 tw-py-2 hover:tw-bg-gray-300 hover:tw-border-gray-400 tw-transition tw-duration-300">
+                    Všetky články
+                    <i class="fa icon-arrow-right tw-ml-4 tw-font-semibold"></i>
+                </a>
             </div>
             <div class="tw-mt-8">
                 <tab-panel v-slot="{ active }">
@@ -47,6 +58,7 @@
                                     <a href="{{ route('frontend.collection.detail', $c->id) }}">
                                         <img src="{{ $c->getThumbnailImage() }}" class="tw-object-cover tw-h-48 tw-transition-opacity tw-duration-300 hover:tw-opacity-80">
                                     </a>
+
                                     <div class="tw-absolute tw-inset-0 tw-pointer-events-none tw-text-right">
                                         <div class="tw-inline-block tw-relative tw-m-4">
                                             <svg viewBox="0 0 106 28" class="tw-absolute tw-inset-0 tw-fill-transparent" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
