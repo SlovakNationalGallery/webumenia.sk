@@ -47,10 +47,10 @@ class ItemRepository extends AbstractRepository
         'title' => './/dc:title',
         'subject_place' => './/dc:subject.place',
         'relation_isPartOf' => './/dc:relation.isPartOf',
-        'creator' => './/dc:creator',
         'authorities' => [
-            null => './/dc:creator[starts-with(.,"urn:")]',
+            null => './/dc:creator[starts-with(.,"urn:") and following-sibling::dc:creator.role[1] != "pôvodné určenie/formerly attributed to"]',
             'id' => '.',
+            'name' => './following-sibling::dc:creator[1]',
             'role' => './following-sibling::dc:creator.role[1]',
         ],
         'rights' => './/dc:rights',

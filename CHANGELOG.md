@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Changed
+- delete formerly attributed authors
+- do not harvest formerly attributed authors
 
 ## [2.42.2] - 2022-01-31
 ### Fixed
