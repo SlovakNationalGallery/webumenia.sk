@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- "frameColor" to JIRA request in order process
 
 ## [2.43.0] - 2022-02-04
 ### Added
