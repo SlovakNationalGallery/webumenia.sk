@@ -351,6 +351,13 @@ class Item extends Model implements IndexableModel, TranslatableContract
             ->keys();
     }
 
+    public function getMergedAuthorityNamesAndAuthors()
+    {
+        return $this->authorities
+            ->pluck('name')
+            ->merge($this->getAuthorsWithoutAuthority());
+    }
+
     public function getFirstAuthorAttribute($value)
     {
         $authors_array = $this->makeArray($this->author);
@@ -653,7 +660,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
         return [
             'id' => $this->id,
             'identifier' => $this->identifier,
-            'author' => $this->makeArray($this->author),
+            'author' => $this->makeArray($this->getMergedAuthorityNamesAndAuthors()->toArray()),
             'tag' => $this->tagNames(), // @TODO translate model
             'date_earliest' => $this->date_earliest,
             'date_latest' => $this->date_latest,

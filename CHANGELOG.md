@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- use authority matcher in item indexing
 
 ## [2.43.0] - 2022-02-04
 ### Added

@@ -131,6 +131,23 @@ class ItemTest extends TestCase
         );
     }
 
+    public function testMergedAuthorityNamesAndAuthors()
+    {
+        $authority = factory(Authority::class)->create([
+            'name' => 'Boudník, Vladimír',
+        ]);
+
+        $item = factory(Item::class)->make([
+            'author' => 'Philips Wouwerman; Vladimír Boudník'
+        ]);
+        $item->authorities()->attach($authority);
+
+        $authors = $item->getMergedAuthorityNamesAndAuthors();
+        $this->assertCount(2, $authors);
+        $this->assertEquals('Boudník, Vladimír', $authors[0]);
+        $this->assertEquals('Philips Wouwerman', $authors[1]);
+    }
+
     protected function createFreeItem() {
         return factory(Item::class)->make([
             'gallery' => 'Slovenská národná galéria, SNG',
