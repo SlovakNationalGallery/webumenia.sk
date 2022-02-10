@@ -14,7 +14,6 @@ public/sitemap.xml
 .env.testing
 .phpunit.result.cache
 /public/css/admin.css
-/public/css/mail
 /public/css/style.css
 /public/css/app-tailwind.css
 /public/fonts
