@@ -61,11 +61,7 @@
 
                                     <div class="tw-absolute tw-inset-0 tw-pointer-events-none tw-text-right">
                                         <div class="tw-inline-block tw-relative tw-m-4">
-                                            <svg viewBox="0 0 106 28" class="tw-absolute tw-inset-0 tw-fill-transparent" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M100 23.1818V26C100 26.5523 99.5523 27 99 27H2C1.44772 27 1 26.5523 1 26V7C1 6.44772 1.44772 6 2 6H4" stroke="black"/>
-                                                <rect x="4" width="98" height="20" rx="1" fill="black" fill-opacity="0.6"/>
-                                                <path d="M102 4H104C104.552 4 105 4.44772 105 5V22C105 22.5523 104.552 23 104 23H8C7.44771 23 7 22.5523 7 22V20.15" stroke="black"/>
-                                            </svg>
+                                            <img class="tw-absolute tw-inset-0" src="{{ asset('images/collection-items-count.svg') }}" />
                                             <div class="tw-text-white tw-text-sm tw-relative px-3">
                                                 {{ $c->items_count }} diel v kolekcii
                                             </div>
