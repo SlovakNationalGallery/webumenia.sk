@@ -90,12 +90,6 @@ class ItemMapperTest extends TestCase
             'title' => ['Flámska rodina'],
             'subject_place' => [],
             'relation_isPartOf' => ['samostatné dielo'],
-            'creator' => [
-                'urn:svk:psi:per:sng:0000001922',
-                'Daullé, Jean',
-                'urn:svk:psi:per:sng:0000010816',
-                'Teniers, David',
-            ],
             'creator_role' => [],
             'rights' => [
                 '1',
@@ -128,6 +122,13 @@ class ItemMapperTest extends TestCase
                 '21. storočie, 1. polovica, 2019 (zväčšenina)',
             ],
             'contributor' => ['Čičo, Martin'],
+            'authorities' => [
+                [
+                    'id' => ['urn:svk:psi:per:sng:0000001922'],
+                    'name' => ['Daullé, Jean'],
+                    'role' => ['autor/author'],
+                ],
+            ],
         ];
 
         $mapped = $mapper->map($row);
@@ -137,7 +138,7 @@ class ItemMapperTest extends TestCase
             'identifier' => 'G 10044',
             'date_earliest' => '1760',
             'date_latest' => '1760',
-            'author' => 'Daullé, Jean; Teniers, David',
+            'author' => 'Daullé, Jean',
             'related_work_order' => 0,
             'related_work_total' => 0,
             'img_url' => 'http://www.webumenia.sk/oai-pmh/getimage/SVK:SNG.G_10044',
