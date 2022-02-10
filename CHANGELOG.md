@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - "frameColor" to JIRA request in order process
 - use authority matcher in item indexing
+- "latest content" section for new homepage
 
 ### Changed
 - delete formerly attributed authors

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <slot></slot>
+        <slot :activeIndex="activeIndex"></slot>
     </div>
 </template>
 
