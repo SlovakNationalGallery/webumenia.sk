@@ -46,7 +46,8 @@ mix
     .postCss('resources/css/app-tailwind.css', 'public/css', [
         require('tailwindcss')
     ])
-
+    
+    .disableSuccessNotifications()
     .options({
         processCssUrls: !process.env.MIX_SKIP_CSS_URL_PROCESSING
     });
