@@ -3,12 +3,12 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 ### Added
+- "frameColor" to JIRA request in order process
 - use authority matcher in item indexing
 
 ### Changed
 - delete formerly attributed authors
 - do not harvest formerly attributed authors
-
 
 ## [2.43.0] - 2022-02-04
 ### Added
