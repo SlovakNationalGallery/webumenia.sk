@@ -142,10 +142,10 @@ class ItemTest extends TestCase
         ]);
         $item->authorities()->attach($authority);
 
-        $authors = $item->getMergedAuthorityNamesAndAuthors();
-        $this->assertCount(2, $authors);
-        $this->assertEquals('Boudník, Vladimír', $authors[0]);
-        $this->assertEquals('Philips Wouwerman', $authors[1]);
+        $data = $item->getIndexedData('sk');
+        $this->assertCount(2, $data['author']);
+        $this->assertEquals('Boudník, Vladimír', $data['author'][0]);
+        $this->assertEquals('Philips Wouwerman', $data['author'][1]);
     }
 
     protected function createFreeItem() {
