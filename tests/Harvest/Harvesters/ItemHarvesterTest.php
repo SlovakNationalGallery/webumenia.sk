@@ -198,20 +198,11 @@ class ItemHarvesterTest extends TestCase
             'title' => ['Flámska rodina'],
             'subject_place' => [],
             'relation_isPartOf' => ['samostatné dielo'],
-            'creator' => [
-                'urn:svk:psi:per:sng:0000001922',
-                'Daullé, Jean',
-                'urn:svk:psi:per:sng:0000010816',
-                'Teniers, David',
-            ],
             'authorities' => [
                 [
                     'id' => ['urn:svk:psi:per:sng:0000001922'],
+                    'name' => ['Daullé, Jean'],
                     'role' => ['autor/author'],
-                ],
-                [
-                    'id' => ['urn:svk:psi:per:sng:0000010816'],
-                    'role' => ['iné/other'],
                 ],
             ],
             'rights' => [
