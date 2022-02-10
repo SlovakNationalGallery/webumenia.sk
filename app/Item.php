@@ -650,10 +650,15 @@ class Item extends Model implements IndexableModel, TranslatableContract
             }, $unserialized);
         };
 
+        $authors = $this->authorities
+            ->pluck('name')
+            ->merge($this->getAuthorsWithoutAuthority())
+            ->toArray();
+
         return [
             'id' => $this->id,
             'identifier' => $this->identifier,
-            'author' => $this->makeArray($this->author),
+            'author' => $this->makeArray($authors),
             'tag' => $this->tagNames(), // @TODO translate model
             'date_earliest' => $this->date_earliest,
             'date_latest' => $this->date_latest,
