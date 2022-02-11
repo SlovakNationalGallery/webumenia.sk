@@ -17,6 +17,7 @@
         <!-- CSS are placed here -->
         <script src="https://use.fontawesome.com/73587c90bb.js"></script>
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="{{ mix('/css/app-tailwind.css') }}" />
         {!! Html::style('css/sb-admin.css') !!}
         {!! Html::style('css/ladda-themeless.min.css') !!}
         {!! Html::style('css/bootstrap-wysihtml5.css') !!}
