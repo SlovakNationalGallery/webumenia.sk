@@ -287,7 +287,8 @@ class PnpKarasekImporter extends AbstractImporter
 
     protected function getItemImageFilenameFormat(array $record)
     {
-        return $this->getSlug($record['Inventární číslo:']);
+        $slug = $this->getSlug($record['Inventární číslo:']);
+        return sprintf('%s{_*,}', $slug);
     }
 
     protected function getSlug($identifier)
