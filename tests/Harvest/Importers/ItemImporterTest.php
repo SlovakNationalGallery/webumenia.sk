@@ -51,7 +51,6 @@ class ItemImporterTest extends TestCase
         $importer = $this->initImporter($row);
         $item = factory(Item::class)->create(['id' => 'SVK:SNG.G_10044']);
         factory(Authority::class)->create(['id' => 1922]);
-        factory(Authority::class)->create(['id' => 10816]);
         $authority = factory(Authority::class)->create(['id' => 'to_be_detached']);
         $item->authorities()->attach($authority);
 
@@ -62,7 +61,7 @@ class ItemImporterTest extends TestCase
 
         $item = $importer->import($row, $result = new Progress());
 
-        $this->assertCount(2, $item->authorities);
+        $this->assertCount(1, $item->authorities);
         $this->assertFalse($item->authorities->contains(function (Authority $authority) {
             return $authority->id === 'to_be_detached';
         }));
@@ -73,19 +72,14 @@ class ItemImporterTest extends TestCase
         $row = $this->getData();
         $importer = $this->initImporter($row);
         factory(Authority::class)->create(['id' => 1922]);
-        factory(Authority::class)->create(['id' => 10816]);
 
         $item = $importer->import($row, $result = new Progress());
 
-        $this->assertCount(2, $item->authorities);
+        $this->assertCount(1, $item->authorities);
         $author = $item->authorities->first(function (Authority $authority) {
             return $authority->id == 1922;
         });
-        $other = $item->authorities->first(function (Authority $authority) {
-            return $authority->id == 10816;
-        });
         $this->assertEquals('autor/author', $author->pivot->role);
-        $this->assertEquals('iné/other', $other->pivot->role);
     }
 
     public function testImportNonExistingAuthority()
@@ -182,20 +176,11 @@ class ItemImporterTest extends TestCase
             'title' => ['Flámska rodina'],
             'subject_place' => [],
             'relation_isPartOf' => ['samostatné dielo'],
-            'creator' => [
-                'urn:svk:psi:per:sng:0000001922',
-                'Daullé, Jean',
-                'urn:svk:psi:per:sng:0000010816',
-                'Teniers, David',
-            ],
             'authorities' => [
                 [
                     'id' => ['urn:svk:psi:per:sng:0000001922'],
+                    'name' => ['Daullé, Jean'],
                     'role' => ['autor/author'],
-                ],
-                [
-                    'id' => ['urn:svk:psi:per:sng:0000010816'],
-                    'role' => ['iné/other'],
                 ],
             ],
             'rights' => [
@@ -256,7 +241,7 @@ class ItemImporterTest extends TestCase
                 'identifier' => 'G 10044',
                 'date_earliest' => '1760',
                 'date_latest' => '1760',
-                'author' => 'Daullé, Jean; Teniers, David',
+                'author' => 'Daullé, Jean',
                 'related_work_order' => 0,
                 'related_work_total' => 0,
                 'img_url' => 'http://www.webumenia.sk/oai-pmh/getimage/SVK:SNG.G_10044',
@@ -333,23 +318,19 @@ class ItemImporterTest extends TestCase
             ->method('map')
             ->withConsecutive(
                 [$row['authorities'][0]],
-                [$row['authorities'][1]]
             )
             ->willReturnOnConsecutiveCalls(
-                ['role' => 'autor/author'],
-                ['role' => 'iné/other']
+                ['role' => 'autor/author']
             )
         ;
         $authorityMapperMock
-            ->expects($this->exactly(2))
+            ->expects($this->once())
             ->method('map')
             ->withConsecutive(
-                [$row['authorities'][0]],
-                [$row['authorities'][1]]
+                [$row['authorities'][0]]
             )
             ->willReturnOnConsecutiveCalls(
-                ['id' => 1922],
-                ['id' => 10816]
+                ['id' => 1922]
             )
         ;
 

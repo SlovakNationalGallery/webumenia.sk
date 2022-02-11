@@ -54,10 +54,6 @@
                         @php
                             $authors = $item->authorities
                                 ->toBase()
-                                ->reject(function ($author) {
-                                    if (is_string($author)) return false;
-                                    return $author->pivot->role === 'pôvodné určenie/formerly attributed to';
-                                })
                                 ->merge($item->getAuthorsWithoutAuthority());
                         @endphp
 

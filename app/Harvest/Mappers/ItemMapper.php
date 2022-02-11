@@ -96,9 +96,10 @@ class ItemMapper extends AbstractMapper
     }
 
     public function mapAuthor(array $row) {
-        return array_filter($row['creator'], function ($creator) {
-            return !str_contains($creator, 'urn:');
-        });
+        return collect($row['authorities'])
+            ->pluck('name')
+            ->flatten()
+            ->toArray();
     }
 
     public function mapDateEarliest(array $row) {

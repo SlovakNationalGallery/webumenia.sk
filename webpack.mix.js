@@ -46,12 +46,8 @@ mix
     .postCss('resources/css/app-tailwind.css', 'public/css', [
         require('tailwindcss')
     ])
-
-    // E-mail themes are expected in resources/ but Mix does not save outside of public/
-    // https://github.com/laravel-mix/laravel-mix/issues/1228
-    .less('resources/less/mail/default.less', 'public/css/mail')
-    .copy('public/css/mail', 'resources/views/vendor/mail/html/themes')
-
+    
+    .disableSuccessNotifications()
     .options({
         processCssUrls: !process.env.MIX_SKIP_CSS_URL_PROCESSING
     });
