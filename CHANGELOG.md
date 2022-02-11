@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.44.1] - 2022-02-11
+### Fixed
+- missing authorities during reindex
+
 ## [2.44.0] - 2022-02-01
 ### Added
 - "frameColor" to JIRA request in order process
