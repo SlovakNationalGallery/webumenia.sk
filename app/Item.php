@@ -653,12 +653,14 @@ class Item extends Model implements IndexableModel, TranslatableContract
         $authors = $this->authorities
             ->pluck('name')
             ->merge($this->getAuthorsWithoutAuthority())
+            ->filter() // hotfix: names should be filled
+            ->values()
             ->toArray();
 
         return [
             'id' => $this->id,
             'identifier' => $this->identifier,
-            'author' => $this->makeArray($authors),
+            'author' => $authors,
             'tag' => $this->tagNames(), // @TODO translate model
             'date_earliest' => $this->date_earliest,
             'date_latest' => $this->date_latest,
