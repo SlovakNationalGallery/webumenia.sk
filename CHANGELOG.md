@@ -2,7 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
-### Fixed - 2022-02-13
+
+## [2.44.2] - 2022-02-13
+### Fixed
 - empty authority names
 
 ## [2.44.1] - 2022-02-11
