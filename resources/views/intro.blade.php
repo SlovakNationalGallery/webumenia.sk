@@ -38,14 +38,14 @@
             <a href="{!! $slide->url !!}" class="outer-box" data-id="{!! $slide->id !!}" >
                 <div class="inner-box-shadow" >
                     <h1>{!! $slide->title !!}</h1>
-                    @if ($slide->subtitle)
-                        <h2>{!! $slide->subtitle !!}</h2>
+                    @if ($slide->excerpt)
+                        <h2>{!! $slide->excerpt !!}</h2>
                     @endif
                 </div>
                 <div class="inner-box">
                     <h1>{!! $slide->title !!}</h1>
-                    @if ($slide->subtitle)
-                        <h2>{!! $slide->subtitle !!}</h2>
+                    @if ($slide->excerpt)
+                        <h2>{!! $slide->excerpt !!}</h2>
                     @endif
                 </div>
             </a>
