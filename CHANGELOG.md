@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- homepage carousel not showing subtitle/excerpt
 
 ## [2.44.2] - 2022-02-13
 ### Fixed
