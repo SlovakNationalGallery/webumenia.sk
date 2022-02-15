@@ -3,7 +3,7 @@
 namespace App\Importers;
 
 use App\Repositories\IFileRepository;
-use Illuminate\Contracts\Translation\Translator;
+use Illuminate\Translation\Translator;
 use Illuminate\Support\Str;
 
 class OglImporter extends AbstractImporter
@@ -64,7 +64,12 @@ class OglImporter extends AbstractImporter
     }
 
     protected function hydrateWorkType(array $record, $locale) {
-        return $this->translateAttribute("work_type", $record['Skupina'], $locale);
+        $workType = config('demus.work_type')[$record['Skupina']];
+        if ($locale !== 'cs') {
+            $workType = $this->translateAttribute("work_type", $workType, $locale);
+        }
+
+        return $workType;
     }
 
     protected function hydrateTopic(array $record, $locale) {
@@ -109,10 +114,10 @@ class OglImporter extends AbstractImporter
 
     protected function translateAttribute($attribute, $key, $locale)
     {
-        if (!$this->translator->hasForLocale("importer.demus.$attribute.$key", $locale)) {
+        if (!$this->translator->hasForLocale("importer.cs.$attribute.$key", $locale)) {
             return null;
         }
 
-        return $this->translator->get("importer.demus.$attribute.$key", [], $locale);
+        return $this->translator->get("importer.cs.$attribute.$key", [], $locale);
     }
 }
