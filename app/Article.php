@@ -51,9 +51,11 @@ class Article extends Model implements TranslatableContract
         'collection',
         'workshop',
         'virtual_exhibition',
+        'activities',
     ];
 
     public static $eduAgeGroups = [
+        'all-ages',
         '3-6',
         '7-10',
         '11-15',
