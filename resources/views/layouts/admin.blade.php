@@ -28,6 +28,7 @@
         {!! Html::style('css/jquery-ui/jquery-ui.css') !!}
         {!! Html::style('/css/vue/vue-select.css') !!}
         {!! Html::style(mix('/css/admin.css')) !!}
+        @livewireStyles
 </head>
 
 <body>
@@ -191,6 +192,7 @@
     </div>
 
     <!-- Core JavaScript Files -->
+    @livewireScripts
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
     {!! Html::script('js/bootstrap.min.js') !!}
