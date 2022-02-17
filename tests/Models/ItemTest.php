@@ -148,6 +148,27 @@ class ItemTest extends TestCase
         $this->assertEquals('Philips Wouwerman', $data['author'][1]);
     }
 
+    public function testAuthorsWithAuthoritiesAttribute()
+    {
+        $item = factory(Item::class)->make([
+            'author' => 'Philips Wouwerman; Vladimír Boudník; Mikuláš Galanda'
+        ]);
+        $authority = factory(Authority::class)->create([
+            'name' => 'Boudník, Vladimír',
+        ]);
+        $item->authorities()->attach($authority);
+
+        $data = $item->authors_with_authorities;
+        $this->assertCount(3, $data);
+
+        $this->assertEquals('Boudník, Vladimír', $data[0]->name);
+        $this->assertInstanceOf(Authority::class, $data[0]->authority);
+        $this->assertEquals($authority->id, $data[0]->authority->id);
+
+        $this->assertEquals('Philips Wouwerman', $data[1]->name);
+        $this->assertObjectNotHasAttribute('authority', $data[1]);
+    }
+
     protected function createFreeItem() {
         return factory(Item::class)->make([
             'gallery' => 'Slovenská národná galéria, SNG',
