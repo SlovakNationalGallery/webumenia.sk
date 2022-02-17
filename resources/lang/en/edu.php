@@ -15,9 +15,11 @@ return [
       'collection' => 'collection',
       'workshop' => 'workshop',
       'virtual_exhibition' => 'virtual exhibition',
+      'activities' => 'activities',
     ],
-    
+
     'age_group' => [
+      'all-ages' => 'all ages',
       '3-6' => '3—6 years',
       '7-10' => '7—10 years',
       '11-15' => '11—15 years',

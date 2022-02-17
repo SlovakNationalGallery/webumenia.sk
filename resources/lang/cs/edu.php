@@ -15,9 +15,11 @@ return [
       'collection' => 'kolekce',
       'workshop' => 'workshop',
       'virtual_exhibition' => 'virtuální prohlídka',
+      'activities' => 'aktivity',
     ],
-    
+
     'age_group' => [
+      'all-ages' => 'bez omezení',
       '3-6' => '3—6 let',
       '7-10' => '7—10 let',
       '11-15' => '11—15 let',
