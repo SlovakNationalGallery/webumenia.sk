@@ -4,14 +4,13 @@
     <div class="tailwind-rules">
         <div class="tw-container tw-max-w-screen-md tw-pt-12 mx-auto">
             @if ($errors->any())
-                <div class="alert alert-danger">
-                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <x-admin.alert danger>
                     <ul>
                         @foreach ($errors->all() as $error)
                             <li class="error">{{ $error }}</li>
                         @endforeach
                     </ul>
-                </div>
+                </x-admin.alert>
             @endif
 
             <x-admin.form :model="$featuredArtwork">
