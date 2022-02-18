@@ -13,7 +13,7 @@
                 </x-admin.alert>
             @endif
 
-            <x-admin.form :model="$featuredArtwork">
+            <x-admin.form :model="$artwork">
                 <x-admin.label value="Dielo" />
                 <query-string v-slot="qs" class="sm:tw-w-2/3">
                     <autocomplete v-bind:remote="{ url: '/katalog/suggestions?search=%QUERY' }"
@@ -31,22 +31,22 @@
                     </autocomplete>
                 </query-string>
 
-                @if ($item)
+                @if ($artwork->item)
                     <div class="tw-grid sm:tw-grid-cols-3 tw-gap-x-8 tw-mt-8">
-                        <img src="{{ $item->getImagePath() }}" class="tw-object-contain tw-rounded-md" />
+                        <img src="{{ $artwork->item->getImagePath() }}" class="tw-object-contain tw-rounded-md" />
                         <div class="tw-col-span-2">
                             <x-admin.label for="title" value="Názov" />
-                            <x-admin.input id="title" name="title" :value="old('title', $featuredArtwork->title)"
-                                :placeholder="$item->title" />
+                            <x-admin.input id="title" name="title" :value="old('title', $artwork->title)"
+                                :placeholder="$artwork->item->title" />
 
                             <x-admin.label for="author" value="Autori" class="tw-mt-4" />
-                            @foreach ($authorLinks as $a)
+                            @foreach ($artwork->authorLinks as $a)
                                 <x-admin.a href="{{ $a->url }}">{{ $a->label }}</x-admin.a>
                                 {{ $loop->last ? '' : ', ' }}
                             @endforeach
 
                             <x-admin.label for="metadata" value="Metadáta" class="tw-mt-4" />
-                            @foreach ($metadataLinks as $m)
+                            @foreach ($artwork->metadataLinks as $m)
                                 @if ($m->url)
                                     <x-admin.a href="{{ $m->url }}">{{ $m->label }}</x-admin.a>{{ $loop->last ? '' : ', ' }}
                                 @else
@@ -57,18 +57,18 @@
                         <div class="tw-col-span-3 tw-mt-4">
                             <x-admin.label for="description" value="Popis" class="tw-mt-4" />
                             <textarea id="description" name="description"
-                                class="wysiwyg">{{ old('description', $featuredArtwork->description) }}</textarea>
+                                class="wysiwyg">{{ old('description', $artwork->description) }}</textarea>
                         </div>
                         <div class="tw-col-span-3 tw-mt-8">
                             <x-admin.checkbox id="is_published" name="is_published"
-                                :checked="old('is_published', $featuredArtwork->is_published)" />
+                                :checked="old('is_published', $artwork->is_published)" />
                             <label for="is_published" class="tw-select-none tw-ml-1 tw-font-normal">Publikovať</label>
-                            @if ($featuredArtwork->is_published)
-                                <span class="tw-text-gray-300">{{ $featuredArtwork->published_at }}</span>
+                            @if ($artwork->is_published)
+                                <p class="tw-text-gray-400">Publikované {{ $artwork->published_at }}</p>
                             @endif
                         </div>
 
-                        <input type="hidden" name="item_id" value="{{ $item->id }}" />
+                        <input type="hidden" name="item_id" value="{{ $artwork->item->id }}" />
                     </div>
                     <div class="tw-text-center tw-mt-8">
                         <x-admin.button primary>
