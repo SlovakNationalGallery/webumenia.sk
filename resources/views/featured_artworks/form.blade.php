@@ -56,17 +56,19 @@
                         </div>
                         <div class="tw-col-span-3 tw-mt-4">
                             <x-admin.label for="description" value="Popis" class="tw-mt-4" />
-                            <textarea id="description"
+                            <textarea id="description" name="description"
                                 class="wysiwyg">{{ old('description', $featuredArtwork->description) }}</textarea>
                         </div>
                         <div class="tw-col-span-3 tw-mt-8">
-                            <x-admin.checkbox id="publish" name="publish"
-                                :checked="old('publish', $featuredArtwork->is_published)" />
-                            <label for="publish" class="tw-select-none tw-ml-1 tw-font-normal">Publikovať</label>
+                            <x-admin.checkbox id="is_published" name="is_published"
+                                :checked="old('is_published', $featuredArtwork->is_published)" />
+                            <label for="is_published" class="tw-select-none tw-ml-1 tw-font-normal">Publikovať</label>
                             @if ($featuredArtwork->is_published)
                                 <span class="tw-text-gray-300">{{ $featuredArtwork->published_at }}</span>
                             @endif
                         </div>
+
+                        <input type="hidden" name="item_id" value="{{ $item->id }}" />
                     </div>
                     <div class="tw-text-center tw-mt-8">
                         <x-admin.button primary>
