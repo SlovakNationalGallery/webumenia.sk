@@ -6,6 +6,7 @@
         :label="optionLabel"
         :clearable="false"
         :value="value"
+        :placeholder="placeholder"
         v-on:input="(value) => $emit('input', value)"
     >
         <template v-slot:option="option">
@@ -30,6 +31,7 @@ export default {
         remote: Object,
         optionLabel: String,
         value: String,
+        placeholder: String,
     },
     data() {
         return {
