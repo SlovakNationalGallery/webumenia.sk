@@ -74,10 +74,6 @@
 		</div>
 	@endif
 
-	<div class="alert alert-warning text-center" role="alert">
-		(✖╭╮✖) ospravedlňujeme sa, ale zoom obrázkov momentálne nie je dostupný.
-	</div>
-
 @if (session('scena_ai_key') ?? config('services.scena_ai.key'))
 	<scena-ai-popup key-id="{{ session('scena_ai_key') ?? config('services.scena_ai.key') }}" id="scena-ai"></scena-ai-popup>
 	<script src="https://widget.scena.ai/app.js"></script>
