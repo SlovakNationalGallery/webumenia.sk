@@ -1,106 +1,80 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="col-xs-12 pt-5 tailwind-rules">
-        <autocomplete :remote="{ url: '/katalog/suggestions?search=%QUERY' }" option-label="id">
-            <template v-slot:option="option">
-                <div class="tw-flex">
-                    <img :src="option.image" class="tw-h-16 tw-w-16 tw-object-cover">
-                    <div class="tw-px-4 tw-py-2 tw-max-w-full tw-truncate">
-                        <h4 class="tw-font-semibold">@{{ option.title }}</h4>
-                        <span>@{{ option.author }} ∙ @{{ option.id }}</span>
-                    </div>
+    <div class="tailwind-rules">
+        <div class="tw-container tw-max-w-screen-md tw-pt-12 mx-auto">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li class="error">{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
-            </template>
-        </autocomplete>
-    </div>
+            @endif
 
-    {{-- @if (isset($featuredPiece))
-    {!! Form::model($featuredPiece, ['route' => ['featured-pieces.update', $featuredPiece], 'method' => 'patch', 'files' => true]) !!}
-@else
-    {!! Form::open(['route' => 'featured-pieces.store', 'files' => true]) !!}
-@endif
+            <x-admin.form :model="$featuredArtwork">
+                <x-admin.label value="Dielo" />
+                <query-string v-slot="qs" class="sm:tw-w-2/3">
+                    <autocomplete v-bind:remote="{ url: '/katalog/suggestions?search=%QUERY' }"
+                        placeholder="Zadaj názov, autora, ..." value="{{ request('itemId') }}"
+                        v-on:input="({id}) => qs.set('itemId', id)" option-label="id">
+                        <template v-slot:option="option">
+                            <div class="tw-flex">
+                                <img :src="option.image" class="tw-h-16 tw-w-16 tw-object-cover">
+                                <div class="tw-px-4 tw-py-2 tw-max-w-full tw-truncate">
+                                    <h4 class="tw-font-semibold">@{{ option.title }}</h4>
+                                    <span>@{{ option.author }} ∙ @{{ option.id }}</span>
+                                </div>
+                            </div>
+                        </template>
+                    </autocomplete>
+                </query-string>
 
-<div class="col-xs-12">
-    @if (Session::has('message'))
-        <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
-    @endif
+                @if ($item)
+                    <div class="tw-grid sm:tw-grid-cols-3 tw-gap-x-8 tw-mt-8">
+                        <img src="{{ $item->getImagePath() }}" class="tw-object-contain tw-rounded-md" />
+                        <div class="tw-col-span-2">
+                            <x-admin.label for="title" value="Názov" />
+                            <x-admin.input id="title" name="title" :value="old('title', $featuredArtwork->title)"
+                                :placeholder="$item->title" />
 
+                            <x-admin.label for="author" value="Autori" class="tw-mt-4" />
+                            @foreach ($authorsWithUrls as $a)
+                                <x-admin.a href="{{ $a->url }}">{{ $a->name }}</x-admin.a>
+                            @endforeach
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <a href="#" class="close" data-dismiss="alert">&times;</a>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li class="error">{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-</div>
+                            <x-admin.label for="metadata" value="Metadáta" class="tw-mt-4" />
+                            <x-admin.input id="metadata" name="metadata"
+                                :value="old('metadata', $featuredArtwork->metadata)" :placeholder="$defaultMetadata"
+                                class="sm:tw-w-2/3" />
 
-<div class="col-xs-12">
-    <div class="form-group">
-    {{ Form::label('title', 'Nadpis') }}
-    {{ Form::textarea('title', null, ['class' => 'form-control', 'rows' => '2']) }}
-    </div>
-</div>
-
-<div class="col-xs-12">
-    <div class="form-group">
-    {{ Form::label('excerpt', 'Text') }}
-    {{ Form::textarea('excerpt', null, ['class' => 'form-control', 'rows' => '4']) }}
-    </div>
-</div>
-
-<div class="col-xs-12">
-    <div class="form-group">
-    {{ Form::label('url', 'URL') }}
-    {{ Form::text('url', null, ['class' => 'form-control', 'placeholder' => 'http://']) }}
-    </div>
-</div>
-
-<div class="col-md-4">
-    <div class="form-group">
-        {{ Form::label('image', 'Obrázok') }}
-        @if (isset($featuredPiece) && $featuredPiece->hasMedia('image'))
-        <div class="pb-4">
-            {{ $featuredPiece->getFirstMedia('image')->img()->attributes(['width' => '200', 'height' => null]) }}
-        </div>
-        @endif
-        {{ Form::file('image') }}
-        <p>min. šírka 1200px</p>
-    </div>
-</div>
-
-<div class="col-md-4">
-    <div class="form-group">
-        {{ Form::label('type', 'Typ') }}
-        <div class="radio">
-            <label>
-                {{ Form::radio('type', 'article', true) }}
-                článok
-            </label>
-        </div>
-        <div class="radio">
-            <label>
-                {{ Form::radio('type', 'collection') }}
-                kolekcia
-            </label>
+                        </div>
+                        <div class="tw-col-span-3 tw-mt-4">
+                            <x-admin.label for="description" value="Popis" class="tw-mt-4" />
+                            <textarea id="description"
+                                class="wysiwyg">{{ old('description', $featuredArtwork->description) }}</textarea>
+                        </div>
+                        <div class="tw-col-span-3 tw-mt-8">
+                            <x-admin.checkbox id="publish" name="publish"
+                                :checked="old('publish', $featuredArtwork->is_published)" />
+                            <label for="publish" class="tw-select-none tw-ml-1 tw-font-normal">Publikovať</label>
+                            @if ($featuredArtwork->is_published)
+                                <span class="tw-text-gray-300">{{ $featuredArtwork->published_at }}</span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="tw-text-center tw-mt-8">
+                        <x-admin.button primary>
+                            Uložiť
+                        </x-admin.button>
+                        <x-admin.button :link="route('featured-artworks.index')">
+                            Zrušiť
+                        </x-admin.button>
+                    </div>
+                @endif
+            </x-admin.form>
         </div>
     </div>
-    <div class="form-group">
-        {{ Form::label('publish', 'Publikovaný') }}<br>
-        {{ Form::hidden('publish', '0') }}
-        {{ Form::checkbox('publish', '1', null, ['class' => 'checkbox']) }}
-    </div>
-</div>
-
-<div class="col-md-12 text-center">
-    {{ Form::submit('Uložiť', ['class' => 'btn btn-primary']) }}
-    <a href="{{ route('featured-pieces.index') }}" class="btn btn-default ml-2">Zrušiť</a>
-</div>
-
-{!! Form::close() !!} --}}
-
 @endsection
