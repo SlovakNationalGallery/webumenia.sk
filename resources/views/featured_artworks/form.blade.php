@@ -41,15 +41,19 @@
                                 :placeholder="$item->title" />
 
                             <x-admin.label for="author" value="Autori" class="tw-mt-4" />
-                            @foreach ($authorsWithUrls as $a)
-                                <x-admin.a href="{{ $a->url }}">{{ $a->name }}</x-admin.a>
+                            @foreach ($authorLinks as $a)
+                                <x-admin.a href="{{ $a->url }}">{{ $a->label }}</x-admin.a>
+                                {{ $loop->last ? '' : ', ' }}
                             @endforeach
 
                             <x-admin.label for="metadata" value="Metadáta" class="tw-mt-4" />
-                            <x-admin.input id="metadata" name="metadata"
-                                :value="old('metadata', $featuredArtwork->metadata)" :placeholder="$defaultMetadata"
-                                class="sm:tw-w-2/3" />
-
+                            @foreach ($metadataLinks as $m)
+                                @if ($m->url)
+                                    <x-admin.a href="{{ $m->url }}">{{ $m->label }}</x-admin.a>{{ $loop->last ? '' : ', ' }}
+                                @else
+                                    {{ $m->label }}{{ $loop->last ? '' : ', ' }}
+                                @endif
+                            @endforeach
                         </div>
                         <div class="tw-col-span-3 tw-mt-4">
                             <x-admin.label for="description" value="Popis" class="tw-mt-4" />
