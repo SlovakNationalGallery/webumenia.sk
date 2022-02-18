@@ -4,6 +4,9 @@
         :options="options"
         :filterable="false"
         :label="optionLabel"
+        :clearable="false"
+        :value="value"
+        v-on:input="(value) => $emit('input', value)"
     >
         <template v-slot:option="option">
             <slot name="option" v-bind="option"> {{ option.id }}aaa </slot>
@@ -26,6 +29,7 @@ export default {
     props: {
         remote: Object,
         optionLabel: String,
+        value: String,
     },
     data() {
         return {
