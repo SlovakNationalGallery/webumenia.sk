@@ -1,24 +1,24 @@
+<template>
+    <div >
+        <slot :call="call"></slot>
+    </div>
+</template>
+
 <script>
+
 // Component for passing messages between Vue and Livewire.
-// Must be placed at root of Livewire component (so that it gets wire:id attribute), or passed instanceId
+// Must be placed at root of Livewire component (so that it gets wire:id attribute)
 
 export default {
-    props: {
-        instanceId: String,
+    methods: {
+        call(methodName, ...args) {
+            this.target[methodName](args)
+        }
     },
     computed: {
         target() {
-            const instanceId = this.instanceId || this.$attrs["wire:id"]
-            return window.livewire.find(instanceId)
-        },
-    },
-    render() {
-        return this.$scopedSlots.default({
-            call: (methodName, ...args) => this.target[methodName](...args),
-            set: (propertyName, value) => {
-                this.target[propertyName] = value
-            },
-        })
-    },
+            return window.livewire.find(this.$attrs['wire:id'])
+        }
+    }
 }
 </script>
