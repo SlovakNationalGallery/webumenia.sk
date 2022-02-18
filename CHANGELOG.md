@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.45.0] - 2022-02-18
+### Added
+- age group "all" and media type "activities" to edu article tags
+
+### Fixed
+- homepage carousel not showing subtitle/excerpt
+
 ## [2.44.2] - 2022-02-13
 ### Fixed
 - empty authority names
