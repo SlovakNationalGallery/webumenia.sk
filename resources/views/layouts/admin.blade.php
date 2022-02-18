@@ -110,8 +110,11 @@
                         <li class="uppercase text-sm font-semibold text-muted pl-4 pt-4 border-b-0">
                             Homepage
                         </li>
-                        <li class="mb-4 border-b-0">
-                            <a href="{{ route('featured-pieces.index') }}"><i class="fa fa-image fa-fw"></i> Odporúčaný obsah</a>
+                        <li class="border-b-0">
+                            <a href="{{ route('featured-pieces.index') }}"><i class="fa fa-newspaper-o fa-fw"></i> Odporúčaný obsah</a>
+                        </li>
+                        <li class="border-b-0 mb-4">
+                            <a href="{{ route('featured-artworks.index') }}"><i class="fa fa-image fa-fw"></i> Vybrané diela</a>
                         </li>
                         @endcan
                         @can('administer')
