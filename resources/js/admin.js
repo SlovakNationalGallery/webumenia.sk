@@ -8,5 +8,6 @@ Vue.component('admin-links-input', require('./components/admin/LinksInput.vue').
 Vue.component('autocomplete', require('./components/Autocomplete.vue').default);
 Vue.component('linked-combos', require('./components/vue/linked-combos').default);
 Vue.component('livewire-vue-adaptor', require('./components/LivewireVueAdaptor.vue').default);
+Vue.component('query-string', require('./components/QueryString.vue').default);
 
 new Vue({ el: '#wrapper' })
