@@ -75,7 +75,12 @@
 	@endif
 
 	<div class="alert alert-warning text-center" role="alert">
-		(✖╭╮✖) ospravedlňujeme sa, ale zoom obrázkov momentálne nie je dostupný.
+		<span class="mr-3">(✖╭╮✖)</span>
+		@if(LaravelLocalization::getCurrentLocale() == 'en')
+			Images in high resolution (zoom) are not available at the moment. We are sorry for the inconvenience.
+		@else
+			Ospravedlňujeme sa, ale zoom obrázkov momentálne nie je dostupný.
+		@endif
 	</div>
 
 @if (session('scena_ai_key') ?? config('services.scena_ai.key'))
