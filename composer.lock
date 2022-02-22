@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f82626e9acf50d26b9fabc1f53140414",
+    "content-hash": "4bc4aa945b1afcb324f103a80c2f9222",
     "packages": [
         {
             "name": "anahkiasen/former",
@@ -217,24 +217,25 @@
         },
         {
             "name": "babenkoivan/elastic-adapter",
-            "version": "v1.17.0",
+            "version": "v2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/babenkoivan/elastic-adapter.git",
-                "reference": "6e6461c6988cf1bc655fcec2c2aa2beeb3163f55"
+                "reference": "16179d073785070984122eeaaa3f57651c673dec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/babenkoivan/elastic-adapter/zipball/6e6461c6988cf1bc655fcec2c2aa2beeb3163f55",
-                "reference": "6e6461c6988cf1bc655fcec2c2aa2beeb3163f55",
+                "url": "https://api.github.com/repos/babenkoivan/elastic-adapter/zipball/16179d073785070984122eeaaa3f57651c673dec",
+                "reference": "16179d073785070984122eeaaa3f57651c673dec",
                 "shasum": ""
             },
             "require": {
                 "elasticsearch/elasticsearch": "^7.3",
-                "php": "^7.2 || ^8.0"
+                "php": "^7.3 || ^8.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.16",
+                "friendsofphp/php-cs-fixer": "^3.0",
+                "orchestra/testbench": "^6.20",
                 "phpstan/phpstan": "^0.12.32",
                 "phpunit/phpunit": "^9.5"
             },
@@ -264,19 +265,19 @@
             ],
             "support": {
                 "issues": "https://github.com/babenkoivan/elastic-adapter/issues",
-                "source": "https://github.com/babenkoivan/elastic-adapter/tree/v1.17.0"
+                "source": "https://github.com/babenkoivan/elastic-adapter/tree/v2.4.0"
             },
             "funding": [
                 {
-                    "url": "https://www.buymeacoffee.com/ivanbabenko",
-                    "type": "buymeacoffee"
+                    "url": "https://ko-fi.com/ivanbabenko",
+                    "type": "ko-fi"
                 },
                 {
                     "url": "https://paypal.me/babenkoi",
                     "type": "paypal"
                 }
             ],
-            "time": "2021-07-19T17:33:35+00:00"
+            "time": "2022-02-20T11:46:46+00:00"
         },
         {
             "name": "babenkoivan/elastic-client",
@@ -351,25 +352,25 @@
         },
         {
             "name": "babenkoivan/elastic-scout-driver",
-            "version": "v1.6.0",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/babenkoivan/elastic-scout-driver.git",
-                "reference": "2f7751085f385c17154a29f3553071d3be1ca205"
+                "reference": "db324d805bdf6a5b61f1c0c1fde2c9cc9d614320"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/babenkoivan/elastic-scout-driver/zipball/2f7751085f385c17154a29f3553071d3be1ca205",
-                "reference": "2f7751085f385c17154a29f3553071d3be1ca205",
+                "url": "https://api.github.com/repos/babenkoivan/elastic-scout-driver/zipball/db324d805bdf6a5b61f1c0c1fde2c9cc9d614320",
+                "reference": "db324d805bdf6a5b61f1c0c1fde2c9cc9d614320",
                 "shasum": ""
             },
             "require": {
-                "babenkoivan/elastic-adapter": "^1.13",
+                "babenkoivan/elastic-adapter": "^2.0",
                 "babenkoivan/elastic-client": "^1.2",
-                "php": "^7.2 || ^8.0"
+                "php": "^7.3 || ^8.0"
             },
             "require-dev": {
-                "babenkoivan/elastic-migrations": "^1.4",
+                "babenkoivan/elastic-migrations": "^2.0",
                 "friendsofphp/php-cs-fixer": "^3.0",
                 "laravel/legacy-factories": "^1.1",
                 "laravel/scout": "^9.0",
@@ -411,7 +412,7 @@
             ],
             "support": {
                 "issues": "https://github.com/babenkoivan/elastic-scout-driver/issues",
-                "source": "https://github.com/babenkoivan/elastic-scout-driver/tree/v1.6.0"
+                "source": "https://github.com/babenkoivan/elastic-scout-driver/tree/v2.0.0"
             },
             "funding": [
                 {
@@ -423,30 +424,30 @@
                     "type": "paypal"
                 }
             ],
-            "time": "2021-08-09T21:09:19+00:00"
+            "time": "2021-10-05T17:13:51+00:00"
         },
         {
             "name": "babenkoivan/elastic-scout-driver-plus",
-            "version": "v2.4.0",
+            "version": "v3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/babenkoivan/elastic-scout-driver-plus.git",
-                "reference": "ede25afff02a7e4e06622f86a9e89b91e92f46d2"
+                "reference": "b3a39ddfd4c57624b0aeab4626c7251cc535a14d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/babenkoivan/elastic-scout-driver-plus/zipball/ede25afff02a7e4e06622f86a9e89b91e92f46d2",
-                "reference": "ede25afff02a7e4e06622f86a9e89b91e92f46d2",
+                "url": "https://api.github.com/repos/babenkoivan/elastic-scout-driver-plus/zipball/b3a39ddfd4c57624b0aeab4626c7251cc535a14d",
+                "reference": "b3a39ddfd4c57624b0aeab4626c7251cc535a14d",
                 "shasum": ""
             },
             "require": {
-                "babenkoivan/elastic-adapter": "^1.17",
-                "babenkoivan/elastic-scout-driver": "^1.4.0",
-                "php": "^7.2 || ^8.0"
+                "babenkoivan/elastic-adapter": "^2.4",
+                "babenkoivan/elastic-scout-driver": "^2.0",
+                "php": "^7.3 || ^8.0"
             },
             "require-dev": {
-                "babenkoivan/elastic-migrations": "^1.4",
-                "friendsofphp/php-cs-fixer": "^2.16",
+                "babenkoivan/elastic-migrations": "^2.0",
+                "friendsofphp/php-cs-fixer": "^3.0",
                 "laravel/legacy-factories": "^1.1",
                 "laravel/scout": "^9.0",
                 "orchestra/testbench": "^6.12",
@@ -487,19 +488,19 @@
             ],
             "support": {
                 "issues": "https://github.com/babenkoivan/elastic-scout-driver-plus/issues",
-                "source": "https://github.com/babenkoivan/elastic-scout-driver-plus/tree/v2.4.0"
+                "source": "https://github.com/babenkoivan/elastic-scout-driver-plus/tree/v3.4.0"
             },
             "funding": [
                 {
-                    "url": "https://www.buymeacoffee.com/ivanbabenko",
-                    "type": "buymeacoffee"
+                    "url": "https://ko-fi.com/ivanbabenko",
+                    "type": "ko-fi"
                 },
                 {
                     "url": "https://paypal.me/babenkoi",
                     "type": "paypal"
                 }
             ],
-            "time": "2021-08-05T18:42:04+00:00"
+            "time": "2022-02-20T16:59:55+00:00"
         },
         {
             "name": "barryvdh/laravel-form-bridge",

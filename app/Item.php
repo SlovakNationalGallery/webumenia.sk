@@ -12,7 +12,7 @@ use Astrotomic\Translatable\Translatable;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Chelout\RelationshipEvents\Concerns\HasBelongsToManyEvents;
 use ElasticScoutDriverPlus\Builders\BoolQueryBuilder;
-use ElasticScoutDriverPlus\QueryDsl;
+use ElasticScoutDriverPlus\Searchable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
@@ -21,7 +21,6 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\URL;
 use Intervention\Image\Constraint;
 use Intervention\Image\Image;
-use Laravel\Scout\Searchable;
 use Primal\Color\Parser;
 use Symfony\Component\Validator\Constraints\Valid;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -33,7 +32,6 @@ class Item extends Model implements IndexableModel, TranslatableContract
     use HasFactory;
     use Searchable;
     use Translatable;
-    use QueryDsl;
 
     const ARTWORKS_DIR = '/images/diela/';
 
