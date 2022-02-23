@@ -57,7 +57,7 @@ class OglImporter extends AbstractImporter
     protected function getItemImageFilenameFormat(array $record) {
         $filename = sprintf('%s%s', $record['Rada_S'], str_pad($record['PorC_S'], 5, '0', STR_PAD_LEFT));
         if ($record['Lomeni_S'] != '_') {
-            $filename = sprintf('%s_%s', $filename, $record['Lomeni_S']);
+            $filename = sprintf('%s%s', $filename, $record['Lomeni_S']);
         }
 
         return $filename . '{_*,}';
