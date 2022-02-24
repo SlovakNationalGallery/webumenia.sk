@@ -10,7 +10,7 @@
         v-on:input="(value) => $emit('input', value)"
     >
         <template v-slot:option="option">
-            <slot name="option" v-bind="option"> {{ option.id }}aaa </slot>
+            <slot name="option" v-bind="option">{{ option.id }}</slot>
         </template>
     </v-select>
 </template>
