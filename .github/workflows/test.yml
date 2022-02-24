@@ -11,11 +11,18 @@ jobs:
         run: cp .env.example .env
       - name: Warm up stack (and pull images to prevent them from being cached)
         run: docker-compose up -d mysql elasticsearch redis
+        # https://github.com/satackey/action-docker-layer-caching/issues/55#issuecomment-763418185
+      - name: Set MONTH var for cache key
+        run: echo "MONTH=$(date +%m)" >> $GITHUB_ENV
       - uses: satackey/action-docker-layer-caching@v0.0.11
         # Ignore the failure of a step and avoid terminating the job.
         # https://github.com/satackey/action-docker-layer-caching#docker-compose
         continue-on-error: true
+        with:
+          key: ${{ github.workflow }}-${{ env.MONTH }}-{hash}
+          restore-keys: |
+            ${{ github.workflow }}-${{ env.MONTH }}-
       - name: Build docker image
-        run: docker-compose build php 
+        run: docker-compose build php
       - name: Test
         run: docker-compose run -e MIX_SKIP_CSS_URL_PROCESSING=1 php bash -c "npm run production && vendor/bin/phpunit"
