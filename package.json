@@ -10,6 +10,7 @@
         "production": "mix --production"
     },
     "devDependencies": {
+        "@prettier/plugin-php": "^0.18.2",
         "autoprefixer": "^10.4.2",
         "cross-env": "^5.1",
         "jquery": "^3.5.0",
@@ -19,6 +20,7 @@
         "less-loader": "^5.0.0",
         "livewire-vue": "^0.3.1",
         "postcss": "^8.4.5",
+        "prettier": "^2.5.1",
         "resolve-url-loader": "^3.1.2",
         "sass": "^1.15.2",
         "sass-loader": "^7.1.0",
