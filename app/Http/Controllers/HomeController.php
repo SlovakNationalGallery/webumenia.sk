@@ -4,12 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use App\Collection;
+use App\FeaturedPiece;
 
 class HomeController extends Controller
 {
     public function index()
     {
         // TODO caching
+        $featuredPiece = FeaturedPiece::query()
+            ->published()
+            ->with('media')
+            ->orderBy('updated_at', 'desc')
+            ->first();
 
         $articles = Article::query()
             ->with(['translations', 'category'])
@@ -33,6 +39,7 @@ class HomeController extends Controller
         $collectionsRemainingCount = floor(($collectionsTotalCount - 5) / 10) * 10; // Round down to nearest 10
 
         return view('home.index')->with(compact([
+            'featuredPiece',
             'articles',
             'articlesRemainingCount',
             'collections',
