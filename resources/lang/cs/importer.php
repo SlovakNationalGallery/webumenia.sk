@@ -2,23 +2,6 @@
 
 return [
     'demus' => [
-        'work_type' => [
-            'Ar' => 'architektura',
-            'Bi' => 'bibliofilie',
-            'Dř' => 'dřevo',
-            'Fo' => 'fotografie',
-            'Gr' => 'grafika',
-            'Gu' => 'grafický design',
-            'Ji' => 'jiné',
-            'Ke' => 'keramika',
-            'Ko' => 'kovy',
-            'Kr' => 'kresba',
-            'Ob' => 'obrazy',
-            'Sk' => 'sklo',
-            'So' => 'sochy',
-            'Šp' => 'šperky',
-            'Te' => 'textil',
-        ],
         'measurement_replacements' => [
             'a' => 'výška hlavní části',
             'a.' => 'výška hlavní části',
