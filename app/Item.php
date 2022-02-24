@@ -351,6 +351,24 @@ class Item extends Model implements IndexableModel, TranslatableContract
             ->keys();
     }
 
+    public function getAuthorsWithAuthoritiesAttribute()
+    {
+        $authorities = $this
+            ->authorities
+            ->map(fn ($authority) => (object) [
+                'name' => $authority->name,
+                'authority' => $authority
+            ]);
+
+        $authors = $this
+            ->getAuthorsWithoutAuthority()
+            ->map(fn ($author) => (object) [
+                'name' => $author
+            ]);
+
+        return $authorities->concat($authors);
+    }
+
     public function getFirstAuthorAttribute($value)
     {
         $authors_array = $this->makeArray($this->author);

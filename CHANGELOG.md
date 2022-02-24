@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- Featured Artworks back-end section
+- new Tailwind component for back-end/admin
+
 ### Changed
 - font loading (fix for Source Serif Pro)
 

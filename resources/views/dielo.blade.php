@@ -51,13 +51,7 @@
                 <div class="col-md-10 col-md-offset-1 text-center content-section mb-3">
                     <h1 class="nadpis-dielo" itemprop="name">{{ $item->title }}</h1>
                     <h2 class="inline">
-                        @php
-                            $authors = $item->authorities
-                                ->toBase()
-                                ->merge($item->getAuthorsWithoutAuthority());
-                        @endphp
-
-                        @foreach($authors as $author)
+                        @foreach($item->authors_with_authorities as $author)
                             @include('components.item_author')@if (!$loop->last), @endif
                         @endforeach
                     </h2>
