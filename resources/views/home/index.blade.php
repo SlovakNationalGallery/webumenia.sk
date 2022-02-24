@@ -25,7 +25,27 @@
 
 @section('content')
     <div class="tailwind-rules">
-        <div class="tw-container tw-mx-auto tw-px-6 tw-max-w-screen-xl">
+
+        @if ($featuredPiece)
+            <div class="tw-relative">
+                {{ $featuredPiece->image->img()->attributes(['class' => 'tw-object-cover tw-absolute tw-h-full tw-w-full', 'width' => null, 'height' => null]) }}
+                <div class="tw-absolute tw-inset-0 tw-bg-gradient-to-r tw-from-black/70 tw-to-black/40 md:tw-to-black/0">
+                </div>
+                <div
+                    class="tw-container tw-mx-auto tw-px-6 tw-max-w-screen-xl tw-relative tw-pt-60 tw-pb-8 md:tw-pb-20 tw-text-white">
+                    <h2 class="md:tw-text-2xl tw-font-semibold">Odporúčame</h2>
+                    <h3 class="tw-mt-4 md:tw-mt-6 tw-text-3xl md:tw-text-6xl tw-font-semibold">{{ $featuredPiece->title }}</h3>
+                    <p class="tw-mt-5 tw-font-serif md:tw-text-xl tw-max-w-lg tw-leading-relaxed">{{ $featuredPiece->excerpt }}</p>
+                    <a href="{{ $featuredPiece->url }}"
+                        class="tw-inline-block tw-mt-3 md:tw-mt-6 tw-text-sm tw-border-gray-300 tw-border tw-px-4 tw-py-2 hover:tw-bg-white hover:tw-border-gray-400 tw-transition tw-duration-300">
+                        {{ $featuredPiece->is_collection ? 'Prejsť na kolekciu' : 'Prejsť na článok' }}
+                        <i class="fa icon-arrow-right tw-ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        @endif
+
+        <div class="tw-container tw-mx-auto tw-px-6 tw-pt-6 tw-max-w-screen-xl">
             <h2 class="md:tw-text-2xl tw-font-semibold">Nový obsah</h2>
 
             <tabs-controller v-cloak v-slot="{ activeIndex }">

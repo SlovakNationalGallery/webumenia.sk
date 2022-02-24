@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class FeaturedPiece extends Model implements HasMedia
 {
@@ -29,6 +30,21 @@ class FeaturedPiece extends Model implements HasMedia
     public function scopePublished($query)
     {
         return $query->where('publish', '=', 1);
+    }
+
+    public function getImageAttribute(): ?Media
+    {
+        return $this->getFirstMedia('image');
+    }
+
+    public function getIsCollectionAttribute(): bool
+    {
+        return $this->type === 'collection';
+    }
+
+    public function getIsArticleAttribute(): bool
+    {
+        return $this->type === 'article';
     }
 
     public function registerMediaCollections(): void
