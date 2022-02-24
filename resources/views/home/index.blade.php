@@ -30,48 +30,56 @@
         <tabs-controller v-cloak v-slot="{ activeIndex }">
             <div class="tw-flex tw-items-end">
                 <div class="tw-flex tw-text-4xl tw-font-semibold tw-mt-8 tw-space-x-8 tw-grow">
-                    @foreach(['Kolekcie', 'Články'] as $tab)
-                    <tab v-slot="{ active }">
-                        <button :class="[
+                    @foreach (['Kolekcie', 'Články'] as $tab)
+                        <tab v-slot="{ active }">
+                            <button
+                                :class="[
                             'tw-transition-colors tw-underline tw-underline-offset-8 tw-decoration-3',
                             !active && 'tw-text-gray-500'
                         ]">{{ $tab }}</button>
-                    </tab>
+                        </tab>
                     @endforeach
                 </div>
 
-                <a v-if="activeIndex === 0" href="{{ route('frontend.collection.index') }}" class="tw-hidden sm:tw-inline-block tw-border-gray-300 tw-border tw-px-4 tw-py-2 hover:tw-bg-gray-300 hover:tw-border-gray-400 tw-transition tw-duration-300">
-                    Všetky kolekcie
-                    <i class="fa icon-arrow-right tw-ml-4"></i>
-                </a>
-                <a v-if="activeIndex === 1" href="{{ route('frontend.article.index') }}" class="tw-hidden sm:tw-inline-block tw-border-gray-300 tw-border tw-px-4 tw-py-2 hover:tw-bg-gray-300 hover:tw-border-gray-400 tw-transition tw-duration-300">
-                    Všetky články
-                    <i class="fa icon-arrow-right tw-ml-4"></i>
-                </a>
+
+                <transition enter-active-class="tw-transition tw-duration-150" enter-class="tw-opacity-0"
+                    enter-to-class="tw-opacity-100" leave-active-class="tw-transition tw-duration-150"
+                    leave-class="tw-opacity-100" leave-to-class="tw-opacity-0" mode="out-in">
+                    <a key="0" v-if="activeIndex === 0" href="{{ route('frontend.collection.index') }}"
+                        class="tw-hidden sm:tw-inline-block tw-border-gray-300 tw-border tw-px-4 tw-py-2 hover:tw-bg-gray-300 hover:tw-border-gray-400 tw-transition tw-duration-300">
+                        Všetky kolekcie
+                        <i class="fa icon-arrow-right tw-ml-4"></i>
+                    </a>
+                    <a key="1" v-if="activeIndex === 1" href="{{ route('frontend.article.index') }}"
+                        class="tw-hidden sm:tw-inline-block tw-border-gray-300 tw-border tw-px-4 tw-py-2 hover:tw-bg-gray-300 hover:tw-border-gray-400 tw-transition tw-duration-300">
+                        Všetky články
+                        <i class="fa icon-arrow-right tw-ml-4"></i>
+                    </a>
+                </transition>
             </div>
             <div class="tw-mt-8">
                 <tab-panel v-slot="{ active }" class="tw-relative">
-                    <flickity :resize-once="active" :options="{ cellAlign: 'left', contain: true, pageDots: false, prevNextButtons: false }">
-                        @foreach($collections as $c)
+                    <flickity :resize-once="active"
+                        :options="{ cellAlign: 'left', contain: true, pageDots: false, prevNextButtons: false, freeScroll: true }">
+                        @foreach ($collections as $c)
                             <div class="tw-w-104 tw-mr-4">
                                 <div class="tw-relative">
                                     <a href="{{ route('frontend.collection.detail', $c->id) }}">
-                                        <img src="{{ $c->getThumbnailImage() }}" class="tw-object-cover tw-h-48 tw-transition-opacity tw-duration-300 hover:tw-opacity-80">
+                                        <img src="{{ $c->getThumbnailImage() }}"
+                                            class="tw-object-cover tw-h-48 tw-transition-opacity tw-duration-300 hover:tw-opacity-80">
                                     </a>
 
                                     <div class="tw-absolute tw-inset-0 tw-pointer-events-none tw-text-right">
                                         <div class="tw-inline-block tw-relative tw-m-4">
-                                            <img class="tw-absolute tw-inset-0" src="{{ asset('images/collection-items-count.svg') }}" />
+                                            <img class="tw-absolute tw-inset-0"
+                                                src="{{ asset('images/collection-items-count.svg') }}" />
                                             <div class="tw-text-white tw-text-sm tw-relative px-3">
                                                 {{ $c->items_count }} diel v kolekcii
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <span class="tw-mt-5 tw-inline-block tw-bg-gray-200 tw-px-3 tw-py-1">
-                                    {{ Str::ucfirst($c->type ?? "kolekcia") }}
-                                </span>
-                                <h4 class="tw-mt-3 tw-text-xl tw-text-black tw-font-semibold tw-truncate">
+                                <h4 class="tw-mt-5 tw-text-xl tw-text-black tw-font-semibold tw-truncate">
                                     <a href="{{ route('frontend.collection.detail', $c->id) }}">
                                         {{ $c->name }}
                                     </a>
@@ -79,24 +87,26 @@
                                 <div class="tw-mt-3 tw-text-gray-600 tw-truncate">
                                     {{ $c->published_at->format('d. m. Y') }} ∙ {{ $c->user->name }}
                                 </div>
+                                <span class="tw-mt-3 tw-inline-block tw-bg-gray-200 tw-px-3 tw-py-1">
+                                    {{ Str::ucfirst($c->type ?? 'kolekcia') }}
+                                </span>
                             </div>
                         @endforeach
-                        <div class="tw-w-full sm:tw-w-104 tw-h-full tw-bg-gray-200 tw-text-center tw-flex tw-flex-col tw-justify-center tw-text-xl tw-text-black tw-font-semibold">
-                            <p>Na Webe umenia je ďalších viac<br/> ako {{ $collectionsRemainingCount }} kolekcií</p>
-                            <a class="tw-mt-5 tw-underline tw-decoration-gray-300 tw-decoration-3 tw-underline-offset-4 hover:tw-transition-colors hover:tw-decoration-current" href="{{ route('frontend.collection.index') }}">Zobraziť ďalšie kolekcie</a>
+                        <div
+                            class="tw-w-full sm:tw-w-104 tw-h-full tw-bg-gray-200 tw-text-center tw-flex tw-flex-col tw-justify-center tw-text-xl tw-text-black tw-font-semibold">
+                            <p>Na Webe umenia je ďalších viac<br /> ako {{ $collectionsRemainingCount }} kolekcií</p>
+                            <a class="tw-mt-5 tw-underline tw-decoration-gray-300 tw-decoration-3 tw-underline-offset-4 hover:tw-transition-colors hover:tw-decoration-current"
+                                href="{{ route('frontend.collection.index') }}">Zobraziť ďalšie kolekcie</a>
                         </div>
 
                         <template v-slot:custom-ui="{ next, previous, selectedIndex, slides }">
-                            <div class="tw-absolute tw-inset-y-0 tw-inset-x-4 md:tw--inset-x-7 tw-flex tw-items-center tw-justify-between tw-pointer-events-none">
-                                <button
-                                    v-on:click="previous"
-                                    :disabled="selectedIndex === 0"
+                            <div
+                                class="tw-absolute tw-inset-y-0 tw-inset-x-4 md:tw--inset-x-7 tw-flex tw-items-center tw-justify-between tw-pointer-events-none">
+                                <button v-on:click="previous" :disabled="selectedIndex === 0"
                                     class="tw-pointer-events-auto tw-rounded-full tw-bg-gray-300 tw-bg-opacity-60 hover:tw-bg-opacity-90 disabled:hover:tw-bg-opacity-60 disabled:tw-opacity-30 tw-transition tw-w-10 tw-h-10 sm:tw-w-14 sm:tw-h-14 tw-flex tw-items-center tw-justify-center tw-text-xl">
                                     <i class="fa icon-arrow-left"></i>
                                 </button>
-                                <button
-                                    v-on:click="next"
-                                    :disabled="selectedIndex === slides.length - 1"
+                                <button v-on:click="next" :disabled="selectedIndex === slides.length - 1"
                                     class="tw-pointer-events-auto tw-rounded-full tw-bg-gray-300 tw-bg-opacity-60 hover:tw-bg-opacity-90 disabled:hover:tw-bg-opacity-60 disabled:tw-opacity-30 tw-transition tw-w-10 tw-h-10 sm:tw-w-14 sm:tw-h-14 tw-flex tw-items-center tw-justify-center tw-text-xl">
                                     <i class="fa icon-arrow-right"></i>
                                 </button>
@@ -106,16 +116,15 @@
                 </tab-panel>
 
                 <tab-panel v-slot="{ active }" class="tw-relative">
-                    <flickity :resize-once="active" :options="{ cellAlign: 'left', contain: true, pageDots: false, prevNextButtons: false }">
-                        @foreach($articles as $a)
+                    <flickity :resize-once="active"
+                        :options="{ cellAlign: 'left', contain: true, pageDots: false, prevNextButtons: false, freeScroll: true }">
+                        @foreach ($articles as $a)
                             <div class="tw-w-104 tw-mr-4">
                                 <a href="{{ route('frontend.article.detail', $a->slug) }}">
-                                    <img src="{{ $a->getThumbnailImage() }}" class="tw-object-cover tw-h-48 tw-transition-opacity tw-duration-300 hover:tw-opacity-80">
+                                    <img src="{{ $a->getThumbnailImage() }}"
+                                        class="tw-object-cover tw-h-48 tw-transition-opacity tw-duration-300 hover:tw-opacity-80">
                                 </a>
-                                <span class="tw-mt-5 tw-inline-block tw-bg-gray-200 tw-px-3 tw-py-1">
-                                    {{ Str::ucfirst($a->category->name ?? "článok") }}
-                                </span>
-                                <h4 class="tw-mt-3 tw-text-xl tw-text-black tw-font-semibold tw-truncate">
+                                <h4 class="tw-mt-5 tw-text-xl tw-text-black tw-font-semibold tw-truncate">
                                     <a href="{{ route('frontend.article.detail', $a->slug) }}">
                                         {{ $a->title }}
                                     </a>
@@ -123,24 +132,26 @@
                                 <div class="tw-mt-3 tw-text-gray-600 tw-truncate">
                                     {{ $a->published_date->format('d. m. Y') }} ∙ {{ $a->author }}
                                 </div>
+                                <span class="tw-mt-3 tw-inline-block tw-bg-gray-200 tw-px-3 tw-py-1">
+                                    {{ Str::ucfirst($a->category->name ?? 'článok') }}
+                                </span>
                             </div>
                         @endforeach
-                        <div class="tw-w-full sm:tw-w-104 tw-h-full tw-bg-gray-200 tw-text-center tw-flex tw-flex-col tw-justify-center tw-text-xl tw-text-black tw-font-semibold">
-                            <p>Na Webe umenia je ďalších viac<br/> ako {{ $articlesRemainingCount }} článkov</p>
-                            <a class="tw-mt-5 tw-underline tw-decoration-gray-300 tw-decoration-3 tw-underline-offset-4 hover:tw-transition-colors hover:tw-decoration-current" href="{{ route('frontend.article.index') }}">Zobraziť ďalšie články</a>
+                        <div
+                            class="tw-w-full sm:tw-w-104 tw-h-full tw-bg-gray-200 tw-text-center tw-flex tw-flex-col tw-justify-center tw-text-xl tw-text-black tw-font-semibold">
+                            <p>Na Webe umenia je ďalších viac<br /> ako {{ $articlesRemainingCount }} článkov</p>
+                            <a class="tw-mt-5 tw-underline tw-decoration-gray-300 tw-decoration-3 tw-underline-offset-4 hover:tw-transition-colors hover:tw-decoration-current"
+                                href="{{ route('frontend.article.index') }}">Zobraziť ďalšie články</a>
                         </div>
 
                         <template v-slot:custom-ui="{ next, previous, selectedIndex, slides }">
-                            <div class="tw-absolute tw-inset-y-0 tw-inset-x-4 md:tw--inset-x-7 tw-flex tw-items-center tw-justify-between tw-pointer-events-none">
-                                <button
-                                    v-on:click="previous"
-                                    :disabled="selectedIndex === 0"
+                            <div
+                                class="tw-absolute tw-inset-y-0 tw-inset-x-4 md:tw--inset-x-7 tw-flex tw-items-center tw-justify-between tw-pointer-events-none">
+                                <button v-on:click="previous" :disabled="selectedIndex === 0"
                                     class="tw-pointer-events-auto tw-rounded-full tw-bg-gray-300 tw-bg-opacity-60 hover:tw-bg-opacity-90 disabled:hover:tw-bg-opacity-60 disabled:tw-opacity-30 tw-transition tw-w-10 tw-h-10 sm:tw-w-14 sm:tw-h-14 tw-flex tw-items-center tw-justify-center tw-text-xl">
                                     <i class="fa icon-arrow-left"></i>
                                 </button>
-                                <button
-                                    v-on:click="next"
-                                    :disabled="selectedIndex === slides.length - 1"
+                                <button v-on:click="next" :disabled="selectedIndex === slides.length - 1"
                                     class="tw-pointer-events-auto tw-rounded-full tw-bg-gray-300 tw-bg-opacity-60 hover:tw-bg-opacity-90 disabled:hover:tw-bg-opacity-60 disabled:tw-opacity-30 tw-transition tw-w-10 tw-h-10 sm:tw-w-14 sm:tw-h-14 tw-flex tw-items-center tw-justify-center tw-text-xl">
                                     <i class="fa icon-arrow-right"></i>
                                 </button>
