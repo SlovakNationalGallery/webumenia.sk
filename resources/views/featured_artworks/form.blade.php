@@ -41,14 +41,14 @@
 
                             <x-admin.label for="author" value="Autori" class="tw-mt-4" />
                             @foreach ($artwork->authorLinks as $a)
-                                <x-admin.a href="{{ $a->url }}">{{ $a->label }}</x-admin.a>
+                                <x-admin.link href="{{ $a->url }}">{{ $a->label }}</x-admin.a>
                                 {{ $loop->last ? '' : ', ' }}
                             @endforeach
 
                             <x-admin.label for="metadata" value="Metadáta" class="tw-mt-4" />
                             @foreach ($artwork->metadataLinks as $m)
                                 @if ($m->url)
-                                    <x-admin.a href="{{ $m->url }}">{{ $m->label }}</x-admin.a>{{ $loop->last ? '' : ', ' }}
+                                    <x-admin.link href="{{ $m->url }}">{{ $m->label }}</x-admin.a>{{ $loop->last ? '' : ', ' }}
                                 @else
                                     {{ $m->label }}{{ $loop->last ? '' : ', ' }}
                                 @endif
