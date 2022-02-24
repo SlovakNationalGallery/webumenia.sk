@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Changed
+- font loading (fix for Source Serif Pro)
 
 ## [2.45.0] - 2022-02-18
 ### Added
