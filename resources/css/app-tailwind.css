@@ -1,5 +1,6 @@
 @import 'tailwindcss/base';
 @import './tailwind-preflight-scoped.css';
+@import './fonts.css';
 
 @tailwind components;
 @tailwind utilities;
