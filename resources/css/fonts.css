@@ -1,0 +1,273 @@
+@font-face {
+  font-family: "Source Serif Pro";
+  font-weight: 200;
+  font-display: swap;
+  font-style: normal;
+  font-stretch: normal;
+  src: url("../fonts/SourceSerifPro/WOFF2/TTF/SourceSerifPro-ExtraLight.ttf.woff2")
+      format("woff2"),
+    url("../fonts/SourceSerifPro/WOFF/OTF/SourceSerifPro-ExtraLight.otf.woff")
+      format("woff"),
+    url("../fonts/SourceSerifPro/OTF/SourceSerifPro-ExtraLight.otf")
+      format("opentype"),
+    url("../fonts/SourceSerifPro/TTF/SourceSerifPro-ExtraLight.ttf")
+      format("truetype");
+}
+
+@font-face {
+  font-family: "Source Serif Pro";
+  font-weight: 200;
+  font-display: swap;
+  font-style: italic;
+  font-stretch: normal;
+  src: url("../fonts/SourceSerifPro/WOFF2/TTF/SourceSerifPro-ExtraLightIt.ttf.woff2")
+      format("woff2"),
+    url("../fonts/SourceSerifPro/WOFF/OTF/SourceSerifPro-ExtraLightIt.otf.woff")
+      format("woff"),
+    url("../fonts/SourceSerifPro/OTF/SourceSerifPro-ExtraLightIt.otf")
+      format("opentype"),
+    url("../fonts/SourceSerifPro/TTF/SourceSerifPro-ExtraLightIt.ttf")
+      format("truetype");
+}
+
+@font-face {
+  font-family: "Source Serif Pro";
+  font-weight: 300;
+  font-display: swap;
+  font-style: normal;
+  font-stretch: normal;
+  src: url("../fonts/SourceSerifPro/WOFF2/TTF/SourceSerifPro-Light.ttf.woff2")
+      format("woff2"),
+    url("../fonts/SourceSerifPro/WOFF/OTF/SourceSerifPro-Light.otf.woff")
+      format("woff"),
+    url("../fonts/SourceSerifPro/OTF/SourceSerifPro-Light.otf")
+      format("opentype"),
+    url("../fonts/SourceSerifPro/TTF/SourceSerifPro-Light.ttf")
+      format("truetype");
+}
+
+@font-face {
+  font-family: "Source Serif Pro";
+  font-weight: 300;
+  font-display: swap;
+  font-style: italic;
+  font-stretch: normal;
+  src: url("../fonts/SourceSerifPro/WOFF2/TTF/SourceSerifPro-LightIt.ttf.woff2")
+      format("woff2"),
+    url("../fonts/SourceSerifPro/WOFF/OTF/SourceSerifPro-LightIt.otf.woff")
+      format("woff"),
+    url("../fonts/SourceSerifPro/OTF/SourceSerifPro-LightIt.otf")
+      format("opentype"),
+    url("../fonts/SourceSerifPro/TTF/SourceSerifPro-LightIt.ttf")
+      format("truetype");
+}
+
+@font-face {
+  font-family: "Source Serif Pro";
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+  font-stretch: normal;
+  src: url("../fonts/SourceSerifPro/WOFF2/TTF/SourceSerifPro-Regular.ttf.woff2")
+      format("woff2"),
+    url("../fonts/SourceSerifPro/WOFF/OTF/SourceSerifPro-Regular.otf.woff")
+      format("woff"),
+    url("../fonts/SourceSerifPro/OTF/SourceSerifPro-Regular.otf")
+      format("opentype"),
+    url("../fonts/SourceSerifPro/TTF/SourceSerifPro-Regular.ttf")
+      format("truetype");
+}
+
+@font-face {
+  font-family: "Source Serif Pro";
+  font-weight: 400;
+  font-display: swap;
+  font-style: italic;
+  font-stretch: normal;
+  src: url("../fonts/SourceSerifPro/WOFF2/TTF/SourceSerifPro-It.ttf.woff2")
+      format("woff2"),
+    url("../fonts/SourceSerifPro/WOFF/OTF/SourceSerifPro-It.otf.woff")
+      format("woff"),
+    url("../fonts/SourceSerifPro/OTF/SourceSerifPro-It.otf") format("opentype"),
+    url("../fonts/SourceSerifPro/TTF/SourceSerifPro-It.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Source Serif Pro";
+  font-weight: 600;
+  font-display: swap;
+  font-style: normal;
+  font-stretch: normal;
+  src: url("../fonts/SourceSerifPro/WOFF2/TTF/SourceSerifPro-Semibold.ttf.woff2")
+      format("woff2"),
+    url("../fonts/SourceSerifPro/WOFF/OTF/SourceSerifPro-Semibold.otf.woff")
+      format("woff"),
+    url("../fonts/SourceSerifPro/OTF/SourceSerifPro-Semibold.otf")
+      format("opentype"),
+    url("../fonts/SourceSerifPro/TTF/SourceSerifPro-Semibold.ttf")
+      format("truetype");
+}
+
+@font-face {
+  font-family: "Source Serif Pro";
+  font-weight: 600;
+  font-display: swap;
+  font-style: italic;
+  font-stretch: normal;
+  src: url("../fonts/SourceSerifPro/WOFF2/TTF/SourceSerifPro-SemiboldIt.ttf.woff2")
+      format("woff2"),
+    url("../fonts/SourceSerifPro/WOFF/OTF/SourceSerifPro-SemiboldIt.otf.woff")
+      format("woff"),
+    url("../fonts/SourceSerifPro/OTF/SourceSerifPro-SemiboldIt.otf")
+      format("opentype"),
+    url("../fonts/SourceSerifPro/TTF/SourceSerifPro-SemiboldIt.ttf")
+      format("truetype");
+}
+
+@font-face {
+  font-family: "Source Serif Pro";
+  font-weight: 700;
+  font-style: normal;
+  font-stretch: normal;
+  src: url("../fonts/SourceSerifPro/WOFF2/TTF/SourceSerifPro-Bold.ttf.woff2")
+      format("woff2"),
+    url("../fonts/SourceSerifPro/WOFF/OTF/SourceSerifPro-Bold.otf.woff")
+      format("woff"),
+    url("../fonts/SourceSerifPro/OTF/SourceSerifPro-Bold.otf")
+      format("opentype"),
+    url("../fonts/SourceSerifPro/TTF/SourceSerifPro-Bold.ttf")
+      format("truetype");
+}
+
+@font-face {
+  font-family: "Source Serif Pro";
+  font-weight: 700;
+  font-display: swap;
+  font-style: italic;
+  font-stretch: normal;
+  src: url("../fonts/SourceSerifPro/WOFF2/TTF/SourceSerifPro-BoldIt.ttf.woff2")
+      format("woff2"),
+    url("../fonts/SourceSerifPro/WOFF/OTF/SourceSerifPro-BoldIt.otf.woff")
+      format("woff"),
+    url("../fonts/SourceSerifPro/OTF/SourceSerifPro-BoldIt.otf")
+      format("opentype"),
+    url("../fonts/SourceSerifPro/TTF/SourceSerifPro-BoldIt.ttf")
+      format("truetype");
+}
+
+@font-face {
+  font-family: "Source Serif Pro";
+  font-weight: 900;
+  font-display: swap;
+  font-style: normal;
+  font-stretch: normal;
+  src: url("../fonts/SourceSerifPro/WOFF2/TTF/SourceSerifPro-Black.ttf.woff2")
+      format("woff2"),
+    url("../fonts/SourceSerifPro/WOFF/OTF/SourceSerifPro-Black.otf.woff")
+      format("woff"),
+    url("../fonts/SourceSerifPro/OTF/SourceSerifPro-Black.otf")
+      format("opentype"),
+    url("../fonts/SourceSerifPro/TTF/SourceSerifPro-Black.ttf")
+      format("truetype");
+}
+
+@font-face {
+  font-family: "Source Serif Pro";
+  font-weight: 900;
+  font-display: swap;
+  font-style: italic;
+  font-stretch: normal;
+  src: url("../fonts/SourceSerifPro/WOFF2/TTF/SourceSerifPro-BlackIt.ttf.woff2")
+      format("woff2"),
+    url("../fonts/SourceSerifPro/WOFF/OTF/SourceSerifPro-BlackIt.otf.woff")
+      format("woff"),
+    url("../fonts/SourceSerifPro/OTF/SourceSerifPro-BlackIt.otf")
+      format("opentype"),
+    url("../fonts/SourceSerifPro/TTF/SourceSerifPro-BlackIt.ttf")
+      format("truetype");
+}
+
+@font-face {
+  font-family: "GTWalsheim";
+  src: url("../fonts/GT-Walsheim/GT-Walsheim-Regular.eot");
+  src: url("../fonts/GT-Walsheim/GT-Walsheim-Regular.eot?#iefix")
+      format("embedded-opentype"),
+    url("../fonts/GT-Walsheim/GT-Walsheim-Regular.woff2") format("woff2"),
+    url("../fonts/GT-Walsheim/GT-Walsheim-Regular.woff") format("woff"),
+    url("../fonts/GT-Walsheim/GT-Walsheim-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "GTWalsheim";
+  src: url("../fonts/GT-Walsheim/GT-Walsheim-Regular-Oblique.eot");
+  src: url("../fonts/GT-Walsheim/GT-Walsheim-Regular-Oblique.eot?#iefix")
+      format("embedded-opentype"),
+    url("../fonts/GT-Walsheim/GT-Walsheim-Regular-Oblique.woff2")
+      format("woff2"),
+    url("../fonts/GT-Walsheim/GT-Walsheim-Regular-Oblique.woff") format("woff"),
+    url("../fonts/GT-Walsheim/GT-Walsheim-Regular-Oblique.ttf")
+      format("truetype");
+  font-weight: normal;
+  font-style: oblique;
+}
+
+@font-face {
+  font-family: "GTWalsheim";
+  src: url("../fonts/GT-Walsheim/GT-Walsheim-Bold.eot");
+  src: url("../fonts/GT-Walsheim/GT-Walsheim-Bold.eot?#iefix")
+      format("embedded-opentype"),
+    url("../fonts/GT-Walsheim/GT-Walsheim-Bold.woff2") format("woff2"),
+    url("../fonts/GT-Walsheim/GT-Walsheim-Bold.woff") format("woff"),
+    url("../fonts/GT-Walsheim/GT-Walsheim-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "GTWalsheim";
+  src: url("../fonts/GT-Walsheim/GT-Walsheim-Medium.eot");
+  src: url("../fonts/GT-Walsheim/GT-Walsheim-Medium.eot?#iefix")
+      format("embedded-opentype"),
+    url("../fonts/GT-Walsheim/GT-Walsheim-Medium.woff2") format("woff2"),
+    url("../fonts/GT-Walsheim/GT-Walsheim-Medium.woff") format("woff"),
+    url("../fonts/GT-Walsheim/GT-Walsheim-Medium.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "GTWalsheim";
+  src: url("../fonts/GT-Walsheim/GT-Walsheim-Light.eot");
+  src: url("../fonts/GT-Walsheim/GT-Walsheim-Light.eot?#iefix")
+      format("embedded-opentype"),
+    url("../fonts/GT-Walsheim/GT-Walsheim-Light.woff2") format("woff2"),
+    url("../fonts/GT-Walsheim/GT-Walsheim-Light.woff") format("woff"),
+    url("../fonts/GT-Walsheim/GT-Walsheim-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "GTWalsheim";
+  src: url("../fonts/GT-Walsheim/GT-Walsheim-Thin.eot");
+  src: url("../fonts/GT-Walsheim/GT-Walsheim-Thin.eot?#iefix")
+      format("embedded-opentype"),
+    url("../fonts/GT-Walsheim/GT-Walsheim-Thin.woff2") format("woff2"),
+    url("../fonts/GT-Walsheim/GT-Walsheim-Thin.woff") format("woff"),
+    url("../fonts/GT-Walsheim/GT-Walsheim-Thin.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "sng";
+  src: url("../fonts/sng.eot");
+  src: url("../fonts/sng.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/sng.woff") format("woff"),
+    url("../fonts/sng.ttf") format("truetype"),
+    url("../fonts/sng.svg") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
