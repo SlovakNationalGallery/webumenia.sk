@@ -15,6 +15,9 @@
     .tailwind-rules {
         @apply tw-text-base tw-text-gray-800;
     }
+    .tailwind-rules.admin {
+        @apply tw-text-sm;
+    }
 }
 
 @layer utilities {

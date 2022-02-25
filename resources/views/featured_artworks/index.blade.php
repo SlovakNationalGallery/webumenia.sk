@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-    <div class="tailwind-rules">
+    <div class="tailwind-rules admin">
         <div class="tw-container tw-mx-auto tw-pt-12">
 
             @if (session('message'))
@@ -18,7 +18,7 @@
             <h1 class="tw-text-4xl tw-border-b tw-pb-3">Vybrané diela</h1>
 
             <div class="mt-4 tw-rounded-md tw-overflow-hidden tw-border tw-shadow">
-                <div class="tw-px-4 tw-py-4 tw-bg-gray-100 tw-border-b">
+                <div class="tw-px-4 tw-py-3 tw-bg-gray-100 tw-border-b">
                     <x-admin.button btn primary outline :link="route('featured-artworks.create')">
                         <i class="fa fa-plus"></i> Vytvoriť
                     </x-admin.button>
@@ -57,7 +57,7 @@
                                             @if ($a->id == $lastPublishedId)
                                                 <br />
                                                 <span
-                                                    class="tw-inline-block tw-text-sm tw-font-medium tw-bg-sky-400 tw-text-white tw-px-1 tw-rounded">Najnovšie</span>
+                                                    class="tw-inline-block tw-text-xs tw-font-semibold tw-bg-sky-400 tw-text-white tw-px-1 tw-rounded">Najnovšie</span>
                                             @endif
                                         @endif
                                     </td>
@@ -68,7 +68,7 @@
                                             </x-admin.button>
                                             <x-admin.link-with-confirmation
                                                 action="{{ route('featured-artworks.destroy', $a) }}" method="DELETE"
-                                                class="tw-font-medium tw-rounded active:tw-shadow-inner tw-inline-block tw-py-1 tw-px-2 tw-text-sm tw-border tw-text-[#d9534f] hover:tw-text-white tw-border-[#d43f3a] hover:tw-bg-[#d2322d] hover:tw-border-[#ac2925]"
+                                                class="tw-font-medium tw-rounded active:tw-shadow-inner tw-inline-block tw-py-1 tw-px-2 tw-text-xs tw-border tw-text-[#d9534f] hover:tw-text-white tw-border-[#d43f3a] hover:tw-bg-[#d2322d] hover:tw-border-[#ac2925]"
                                                 message="Naozaj to chceš zmazať?">
                                                 Zmazať
                                             </x-admin.link-with-confirmation>
