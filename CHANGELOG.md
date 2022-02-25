@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Changed
 - font loading (fix for Source Serif Pro)
+- Tailwind scale to start from 1rem = 16px
 
 ## [2.45.0] - 2022-02-18
 ### Added
