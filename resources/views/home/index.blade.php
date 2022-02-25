@@ -26,7 +26,7 @@
 @section('content')
     <div class="tailwind-rules">
         <div class="tw-container tw-mx-auto tw-px-6 tw-max-w-screen-xl">
-            <h2 class="tw-text-lg md:tw-text-2xl tw-font-semibold">Nový obsah</h2>
+            <h2 class="md:tw-text-2xl tw-font-semibold">Nový obsah</h2>
 
             <tabs-controller v-cloak v-slot="{ activeIndex }">
                 <div class="tw-flex tw-items-end">
@@ -46,14 +46,14 @@
                         enter-to-class="tw-opacity-100" leave-active-class="tw-transition tw-duration-150"
                         leave-class="tw-opacity-100" leave-to-class="tw-opacity-0" mode="out-in">
                         <a key="0" v-if="activeIndex === 0" href="{{ route('frontend.collection.index') }}"
-                            class="tw-hidden sm:tw-inline-block tw-border-gray-300 tw-border tw-px-4 tw-py-2 hover:tw-bg-gray-300 hover:tw-border-gray-400 tw-transition tw-duration-300">
+                            class="tw-hidden sm:tw-inline-block tw-text-sm tw-border-gray-300 tw-border tw-px-4 tw-py-2 hover:tw-bg-gray-300 hover:tw-border-gray-400 tw-transition tw-duration-300">
                             Všetky kolekcie
-                            <i class="fa icon-arrow-right tw-ml-4"></i>
+                            <i class="fa icon-arrow-right tw-ml-1 tw-mr-2"></i>
                         </a>
                         <a key="1" v-if="activeIndex === 1" href="{{ route('frontend.article.index') }}"
-                            class="tw-hidden sm:tw-inline-block tw-border-gray-300 tw-border tw-px-4 tw-py-2 hover:tw-bg-gray-300 hover:tw-border-gray-400 tw-transition tw-duration-300">
+                            class="tw-hidden sm:tw-inline-block tw-text-sm tw-border-gray-300 tw-border tw-px-4 tw-py-2 hover:tw-bg-gray-300 hover:tw-border-gray-400 tw-transition tw-duration-300">
                             Všetky články
-                            <i class="fa icon-arrow-right tw-ml-4"></i>
+                            <i class="fa icon-arrow-right tw-ml-1 tw-mr-2"></i>
                         </a>
                     </transition>
                 </div>
@@ -62,7 +62,7 @@
                         <flickity :resize-once="active"
                             :options="{ cellAlign: 'left', contain: true, pageDots: false, prevNextButtons: false, freeScroll: true }">
                             @foreach ($collections as $c)
-                                <div class="tw-w-80 md:tw-w-1/3 xl:tw-w-1/4 tw-pr-4">
+                                <div class="tw-w-72 md:tw-w-1/3 xl:tw-w-1/4 tw-pr-4">
                                     <div class="tw-relative">
                                         <a href="{{ route('frontend.collection.detail', $c->id) }}">
                                             <img src="{{ $c->getThumbnailImage() }}"
@@ -79,15 +79,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <h4 class="tw-mt-5 tw-text-xl tw-text-black tw-font-semibold tw-truncate">
+                                    <h4 class="tw-mt-4 tw-text-lg tw-text-black tw-font-semibold tw-truncate">
                                         <a href="{{ route('frontend.collection.detail', $c->id) }}">
                                             {{ $c->name }}
                                         </a>
                                     </h4>
-                                    <div class="tw-mt-3 tw-text-gray-600 tw-truncate">
+                                    <div class="tw-mt-2 tw-text-sm tw-text-gray-600 tw-truncate">
                                         {{ $c->published_at->format('d. m. Y') }} ∙ {{ $c->user->name }}
                                     </div>
-                                    <span class="tw-mt-3 tw-inline-block tw-bg-gray-200 tw-px-3 tw-py-1">
+                                    <span class="tw-mt-2 tw-inline-block tw-text-sm tw-bg-gray-200 tw-px-3 tw-py-1">
                                         {{ Str::ucfirst($c->type ?? 'kolekcia') }}
                                     </span>
                                 </div>
@@ -119,20 +119,20 @@
                         <flickity :resize-once="active"
                             :options="{ cellAlign: 'left', contain: true, pageDots: false, prevNextButtons: false, freeScroll: true }">
                             @foreach ($articles as $a)
-                                <div class="tw-w-80 md:tw-w-1/3 xl:tw-w-1/4 tw-pr-4">
+                                <div class="tw-w-72 md:tw-w-1/3 xl:tw-w-1/4 tw-pr-4">
                                     <a href="{{ route('frontend.article.detail', $a->slug) }}">
                                         <img src="{{ $a->getThumbnailImage() }}"
                                             class="tw-object-cover tw-h-48 tw-transition-opacity tw-duration-300 hover:tw-opacity-80">
                                     </a>
-                                    <h4 class="tw-mt-5 tw-text-xl tw-text-black tw-font-semibold tw-truncate">
+                                    <h4 class="tw-mt-4 tw-text-lg tw-text-black tw-font-semibold tw-truncate">
                                         <a href="{{ route('frontend.article.detail', $a->slug) }}">
                                             {{ $a->title }}
                                         </a>
                                     </h4>
-                                    <div class="tw-mt-3 tw-text-gray-600 tw-truncate">
+                                    <div class="tw-mt-2 tw-text-sm tw-text-gray-600 tw-truncate">
                                         {{ $a->published_date->format('d. m. Y') }} ∙ {{ $a->author }}
                                     </div>
-                                    <span class="tw-mt-3 tw-inline-block tw-bg-gray-200 tw-px-3 tw-py-1">
+                                    <span class="tw-mt-2 tw-inline-block tw-text-sm tw-bg-gray-200 tw-px-3 tw-py-1">
                                         {{ Str::ucfirst($a->category->name ?? 'článok') }}
                                     </span>
                                 </div>

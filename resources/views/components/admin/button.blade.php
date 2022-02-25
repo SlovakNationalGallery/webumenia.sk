@@ -19,7 +19,7 @@ $class = [
 ];
 
 if ($sm) {
-    $class[] = 'tw-py-1 tw-px-2 tw-text-sm';
+    $class[] = 'tw-py-1 tw-px-2 tw-text-xs';
 } else {
     $class[] = 'tw-py-2 tw-px-4';
 }
