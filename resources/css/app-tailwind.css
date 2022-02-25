@@ -1,25 +1,27 @@
-@import "tailwindcss/base";
-@import "./tailwind-preflight-scoped.css";
+@import 'tailwindcss/base';
+@import './tailwind-preflight-scoped.css';
 
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
     html {
-        /* Set rem size to match body font size */
-        /* TODO remove !important after retiring Bootstrap */
-        font-size: 14px !important;
+        /* TODO remove after retiring Bootstrap */
+        font-size: 16px !important;
     }
 
     /* Theme defaults */
     /* Once Bootstrap is removed, the applied classes here can be moved to <body> */
     .tailwind-rules {
-        @apply tw-text-gray-800;
+        @apply tw-text-base tw-text-gray-800;
+    }
+    .tailwind-rules.admin {
+        @apply tw-text-sm;
     }
 }
 
 @layer utilities {
     [v-cloak] {
-        @apply tw-hidden
+        @apply tw-hidden;
     }
 }

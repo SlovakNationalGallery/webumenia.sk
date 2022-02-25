@@ -5,7 +5,7 @@ namespace App\Importers;
 use App\Import;
 use App\ImportRecord;
 use App\Repositories\IFileRepository;
-use Illuminate\Contracts\Translation\Translator;
+use Illuminate\Translation\Translator;
 use Illuminate\Support\Str;
 
 class PnpKarasekImporter extends AbstractImporter
@@ -32,228 +32,9 @@ class PnpKarasekImporter extends AbstractImporter
         'gallery:cs' => 'Památník národního písemnictví, PNP',
     ];
 
-    protected $workTypeTranslations = [
-        'sk' => [
-            'malba' => 'maľba',
-            'kresba' => 'kresba',
-            'grafika' => 'grafika',
-            'busta' => 'busta',
-            'socha' => 'socha',
-            'akvarel' => 'akvarel',
-            'kvaš' => 'gvaš',
-            'plastika' => 'plastika',
-            'pastel' => 'pastel',
-        ],
-        'en' => [
-            'malba' => 'painting',
-            'kresba' => 'drawing',
-            'grafika' => 'graphics',
-            'busta' => 'bust',
-            'socha' => 'statue',
-            'akvarel' => 'watercolor',
-            'kvaš' => 'gouache',
-            'plastika' => 'sculpture',
-            'pastel' => 'pastel',
-        ],
-    ];
-
-    protected $topicTranslations = [
-        'sk' => [
-            'krajina' => 'krajina',
-            'figurální' => 'figurálny',
-            'autoportrét' => 'autoportrét',
-            'fauna' => 'fauna',
-            'portrét' => 'portrét',
-            'architektura' => 'architektúra',
-            'město' => 'mesto',
-            'žánr' => 'žáner',
-            'marina' => 'marína',
-            'zátiší' => 'zátišie',
-            'kostým' => 'kostým',
-            'náboženský' => 'náboženský',
-            'mytologický' => 'mytologický',
-            'alegorický' => 'alegorický',
-            'veduta' => 'veduta',
-            'divadlo' => 'divadlo',
-            'dekorativní' => 'dekoratívny',
-            'alegorie' => 'alegória',
-            'církevní' => 'cirkevný',
-            'historický' => 'historický',
-            'karikatura' => 'karikatúra',
-            'ornamentální' => 'ornamentálny',
-        ],
-        'en' => [
-            'krajina' => 'landscape',
-            'figurální' => 'figural',
-            'autoportrét' => 'self-portrait',
-            'fauna' => 'fauna',
-            'portrét' => 'portrait',
-            'architektura' => 'architecture',
-            'město' => 'city',
-            'žánr' => 'genre',
-            'marina' => 'marine',
-            'zátiší' => 'still life',
-            'kostým' => 'costume',
-            'náboženský' => 'religious',
-            'mytologický' => 'mythological',
-            'alegorický' => 'allegorical',
-            'veduta' => 'veduta',
-            'divadlo' => 'theater',
-            'dekorativní' => 'decorative',
-            'alegorie' => 'allegory',
-            'církevní' => 'religious',
-            'historický' => 'historical',
-            'karikatura' => 'caricature',
-            'ornamentální' => 'ornamental',
-        ],
-    ];
-
-    protected $mediumTranslations = [
-        'sk' => [
-            'plátno' => 'plátno',
-            'papír' => 'papier',
-            'lepenka na dřevě' => 'lepenka na dreve',
-            'lepenka' => 'lepenka',
-            'olej' => 'olej',
-            'plátno na lepence' => 'plátno na lepenke',
-            'deska' => 'doska',
-            'karton' => 'kartón',
-            'sádra patinovaná na keramiku' => 'sadra patinovaná na keramiku',
-            'pálená hlína' => 'pálená hlina',
-            'plátno na překližce' => 'plátno na preglejke',
-            'dřevo' => 'drevo',
-            'plá' => 'plátno',
-            'pergamen' => 'pergamen',
-            'papír modrošedý' => 'papier modrošedý',
-            'polokarton' => 'polokartón',
-            'patinovaná sádra' => 'patinovaná sadra',
-            'balicí papír' => 'baliaci papier',
-            'bronz' => 'bronz',
-            'vápenec' => 'vápenec',
-        ],
-        'en' => [
-            'plátno' => 'canvas',
-            'papír' => 'paper',
-            'lepenka na dřevě' => 'paperboard on wood',
-            'lepenka' => 'paperboard',
-            'olej' => 'oil',
-            'plátno na lepence' => 'canvas on paperboard',
-            'deska' => 'board',
-            'karton' => 'cardboard',
-            'sádra patinovaná na keramiku' => 'gypsum patinated on ceramics',
-            'pálená hlína' => 'fired clay',
-            'plátno na překližce' => 'canvas on plywood',
-            'dřevo' => 'wood',
-            'plá' => 'canvas',
-            'pergamen' => 'parchment',
-            'papír modrošedý' => 'blue-gray paper',
-            'polokarton' => 'half cardboard',
-            'patinovaná sádra' => 'patinated gypsum',
-            'balicí papír' => 'wrapping paper',
-            'bronz' => 'bronze',
-            'vápenec' => 'limestone',
-        ],
-    ];
-
-    protected $techniqueTranslations = [
-        'sk' => [
-            'olej' => 'olej',
-            'akvarel' => 'akvarel',
-            'lepenka' => 'lepenka',
-            'tempera' => 'tempera',
-            'plastika' => 'plastika',
-            'kombinovaná technika' => 'kombinovaná technika',
-            'dřevoryt' => 'drevoryt',
-            'tónovaná akvatinta s leptem' => 'tónovaná akvatinta s leptom',
-            'barevný' => 'farebný',
-            'mezzotinta' => 'mezzotinta',
-            'dřevořez' => 'drevorez',
-            'mědiryt' => 'medirytina',
-            'kolorovaný' => 'kolorovaný',
-            'rytina' => 'rytina',
-            'kresba štětcem' => 'kresba štětcom',
-            'tinta' => 'tinta',
-            'kresba křídou' => 'kresba kríedou',
-            'kresba uhlem' => 'kresba uhľom',
-            'kolorováno' => 'kolorované',
-            'černá tinta' => 'čierna tinta',
-            'perokresba' => 'perokresba',
-            'kresba tužkou' => 'kresba ceruzou',
-            'křídou' => 'kriedou',
-            'lavírováno' => 'lavírované',
-            'akvatinta' => 'akvatinta',
-            'litografie' => 'litografia',
-            'suchá jehla' => 'suchá ihla',
-            'černá křída' => 'čierna krieda',
-            'heliogravura' => 'heliogravúra',
-            'lept' => 'lept',
-            'pero' => 'pero',
-            'štětec' => 'štětec',
-            'grafit' => 'grafit',
-            'rudka' => 'rudka',
-            'lavírovaná' => 'lavírovaná',
-            'kolorovaná tuš' => 'kolorovaný tuš',
-            'kvaš' => 'gvaš',
-            'barevná křída' => 'farebná krieda',
-            'tužka' => 'ceruza',
-            'pastel' => 'pastel',
-            'tuš' => 'tuš',
-            'běloba' => 'beloba',
-            'křída' => 'krieda',
-            'uhel' => 'uhoľ',
-            'bílá křída' => 'biela krieda',
-            'linoryt' => 'linoryt',
-            'linořez' => 'linorez',
-        ],
-        'en' => [
-            'olej' => 'oil',
-            'akvarel' => 'watercolor',
-            'lepenka' => 'cardboard',
-            'tempera' => 'tempera',
-            'plastika' => 'plastic',
-            'kombinovaná technika' => 'combined technique',
-            'dřevoryt' => 'woodcut',
-            'tónovaná akvatinta s leptem' => 'tinted aquatint with etching',
-            'barevný' => 'color',
-            'mezzotinta' => 'mezzotint',
-            'dřevořez' => 'woodcut',
-            'mědiryt' => 'copperplate',
-            'kolorovaný' => 'colored',
-            'rytina' => 'engraving',
-            'kresba štětcem' => 'brush drawing',
-            'tinta' => 'tinta',
-            'kresba křídou' => 'chalk drawing',
-            'kresba uhlem' => 'charcoal drawing',
-            'kolorováno' => 'colored',
-            'černá tinta' => 'black tinta',
-            'perokresba' => 'line drawing',
-            'kresba tužkou' => 'pencil drawing',
-            'křídou' => 'chalk',
-            'lavírováno' => 'wash',
-            'akvatinta' => 'aquatint',
-            'litografie' => 'lithography',
-            'suchá jehla' => 'drypoint',
-            'černá křída' => 'black chalk',
-            'heliogravura' => 'heliogravure',
-            'lept' => 'lept',
-            'pero' => 'but',
-            'štětec' => 'brush',
-            'grafit' => 'graphite',
-            'rudka' => 'rudka',
-            'lavírovaná' => 'wash',
-            'kolorovaná tuš' => 'colored ink',
-            'kvaš' => 'gouache',
-            'barevná křída' => 'colored chalk',
-            'tužka' => 'pencil',
-            'pastel' => 'pastel',
-            'tuš' => 'ink',
-            'běloba' => 'white',
-            'křída' => 'chalk',
-            'uhel' => 'coal',
-            'bílá křída' => 'white chalk',
-            'linoryt' => 'linocut',
-            'linořez' => 'linocut',
-        ],
+    protected $workTypeReplacements = [
+        'Malba' => 'malířství',
+        'Socha' => 'sochařství',
     ];
 
     protected $counter;
@@ -274,7 +55,7 @@ class PnpKarasekImporter extends AbstractImporter
         return parent::import($import, $file);
     }
 
-    public function importSingle(array $record, Import $import, ImportRecord $import_record)
+    protected function importSingle(array $record, Import $import, ImportRecord $import_record)
     {
         $this->counter++;
         return parent::importSingle($record, $import, $import_record);
@@ -296,27 +77,28 @@ class PnpKarasekImporter extends AbstractImporter
         return strtr($identifier, ' ', '_');
     }
 
-    public function hydrateWorkType(array $record, $locale)
+    protected function hydrateWorkType(array $record, $locale)
     {
-        return $this->translateSingle($record['Výtvarný druh:'], 'workTypeTranslations', $locale);
+        $workType = $this->workTypeReplacements[$record['Výtvarný druh:']] ?? $record['Výtvarný druh:'];
+        return $this->translateSingle($workType, 'work_type', $locale);
     }
 
-    public function hydrateTopic(array $record, $locale)
+    protected function hydrateTopic(array $record, $locale)
     {
-        return $this->translateMultiple($record['Námět:'], 'topicTranslations', $locale);
+        return $this->translateMultiple($record['Námět:'], 'topic', $locale);
     }
 
-    public function hydrateMedium(array $record, $locale)
+    protected function hydrateMedium(array $record, $locale)
     {
-        return $this->translateSingle($record['Materiál:'], 'mediumTranslations', $locale);
+        return $this->translateSingle($record['Materiál:'], 'medium', $locale);
     }
 
-    public function hydrateTechnique(array $record, $locale)
+    protected function hydrateTechnique(array $record, $locale)
     {
-        return $this->translateMultiple($record['Technika:'], 'techniqueTranslations', $locale);
+        return $this->translateMultiple($record['Technika:'], 'technique', $locale);
     }
 
-    public function hydrateAdditionals(array $record, $locale)
+    protected function hydrateAdditionals(array $record, $locale)
     {
         if ($locale !== 'cs') {
             return null;
@@ -340,13 +122,19 @@ class PnpKarasekImporter extends AbstractImporter
             return null;
         }
 
-        $single = Str::lower($single);
+        $single = Str::of($single)
+            ->lower()
+            ->trim();
 
         if ($locale === 'cs') {
             return $single;
         }
 
-        return $this->{$map}[$locale][$single];
+        if (!$this->translator->hasForLocale("importer.cs.$map.$single", $locale)) {
+            return null;
+        }
+
+        return $this->translator->get("importer.cs.$map.$single", [], $locale);
     }
 
     protected function translateMultiple($multiple, $map, $locale)
@@ -355,11 +143,14 @@ class PnpKarasekImporter extends AbstractImporter
             return null;
         }
 
-        $exploded = explode(',', $multiple);
-        $translated = array_map(function ($single) use ($map, $locale) {
-            $single = trim($single);
-            return $this->translateSingle($single, $map, $locale);
-        }, $exploded);
-        return implode('; ', $translated);
+        return Str::of($multiple)
+            ->explode(',')
+            ->map(function ($single) use ($map, $locale) {
+                return $this->translateSingle($single, $map, $locale);
+            })
+            ->reject(function ($single) {
+                return $single === null;
+            })
+            ->implode('; ');
     }
 }

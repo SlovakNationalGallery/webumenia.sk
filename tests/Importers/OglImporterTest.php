@@ -71,19 +71,9 @@ class OglImporterTest extends TestCase
             'Skupina' => 'Ob',
         ]);
         $item = $this->importSingle($data);
-        $this->assertEquals('obrazy', $item->getTranslationOrFail('cs')->work_type);
+        $this->assertEquals('malířství', $item->getTranslationOrFail('cs')->work_type);
         $this->assertEquals('maliarstvo', $item->getTranslationOrFail('sk')->work_type);
-        $this->assertEquals(null, $item->getTranslationOrFail('en')->work_type);
-    }
-
-    public function testWorkTypeWithoutTranslation() {
-        $data = $this->getData([
-            'Skupina' => 'not translated',
-        ]);
-        $item = $this->importSingle($data);
-        $this->assertEquals(null, $item->getTranslationOrFail('cs')->work_type);
-        $this->assertEquals(null, $item->getTranslationOrFail('sk')->work_type);
-        $this->assertEquals(null, $item->getTranslationOrFail('en')->work_type);
+        $this->assertEquals('painting', $item->getTranslationOrFail('en')->work_type);
     }
 
     public function testMeasurement() {
