@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.46.0] - 2022-02-25
 ### Added
 - Featured Artworks back-end section
 - new Tailwind component for back-end/admin
