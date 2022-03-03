@@ -21,8 +21,9 @@ public/sitemap.xml
 /public/js/*LICENSE.txt
 /public/js/app.js
 /public/js/admin.js
-/public/js/vendor.js
 /public/js/manifest.js
+/public/js/vendor.js
+/public/js/zoom.js
 /public/storage
 /public/vendor/laravel-filemanager
 mix-manifest.json

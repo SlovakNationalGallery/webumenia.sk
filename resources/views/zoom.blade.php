@@ -20,8 +20,6 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="{{ mix('/css/style.css') }}" />
-
-  {{-- JS --}}
 </head>
 <body class="template-zoom">
   @include('components.zoomviewer', [
@@ -30,10 +28,9 @@
     'fullIIPImgURLs' => $fullIIPImgURLs,
   ])
 
-  @livewireScripts
   <script type="text/javascript" src="{{ mix('/js/manifest.js') }}"></script>
   <script type="text/javascript" src="{{ mix('/js/vendor.js') }}"></script>
-  <script type="text/javascript" src="{{ mix('/js/app.js') }}"></script>
+  <script type="text/javascript" src="{{ mix('/js/zoom.js') }}"></script>
 
   @yield('javascript')
 </body>
