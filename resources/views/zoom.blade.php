@@ -22,7 +22,6 @@
   <link rel="stylesheet" type="text/css" href="{{ mix('/css/style.css') }}" />
 
   {{-- JS --}}
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
 <body class="template-zoom">
   @include('components.zoomviewer', [
@@ -30,6 +29,11 @@
     'index' => $index,
     'fullIIPImgURLs' => $fullIIPImgURLs,
   ])
+
+  @livewireScripts
+  <script type="text/javascript" src="{{ mix('/js/manifest.js') }}"></script>
+  <script type="text/javascript" src="{{ mix('/js/vendor.js') }}"></script>
+  <script type="text/javascript" src="{{ mix('/js/app.js') }}"></script>
 
   @yield('javascript')
 </body>

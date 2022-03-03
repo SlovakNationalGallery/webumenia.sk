@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Changed
+- Openseadragon version to 3.0.0
 
 ## [2.46.0] - 2022-02-25
 ### Added

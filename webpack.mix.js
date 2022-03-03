@@ -33,6 +33,7 @@ mix
         'lazysizes/plugins/unveilhooks/ls.unveilhooks',
         'lazysizes/plugins/respimg/ls.respimg',
         'livewire-vue',
+        'openseadragon',
         'selectize',
         'typeahead.js/dist/typeahead.bundle',
         'vue-select',
@@ -46,7 +47,7 @@ mix
     .postCss('resources/css/app-tailwind.css', 'public/css', [
         require('tailwindcss')
     ])
-    
+
     .disableSuccessNotifications()
     .options({
         processCssUrls: !process.env.MIX_SKIP_CSS_URL_PROCESSING

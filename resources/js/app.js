@@ -2,6 +2,8 @@ require('./bootstrap')
 require( 'slick-carousel');
 require('selectize')
 
+window.OpenSeadragon = require('openseadragon');
+
 const jQueryBridget = require('jquery-bridget')
 const Isotope = require('isotope-layout')
 const InfiniteScroll = require('infinite-scroll')
