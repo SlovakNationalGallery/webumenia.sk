@@ -6,18 +6,23 @@
 @tailwind utilities;
 
 @layer base {
+    /* Resets that are not covered by Preflight */
+    /* TODO remove after retiring Bootstrap */
     html {
-        /* TODO remove after retiring Bootstrap */
         font-size: 16px !important;
+    }
+
+    .tailwind-rules a:hover, .tailwind-rules a:focus {
+        @apply tw-text-inherit tw-decoration-inherit;
     }
 
     /* Theme defaults */
     /* Once Bootstrap is removed, the applied classes here can be moved to <body> */
     .tailwind-rules {
-        @apply tw-text-base tw-text-gray-800;
+        @apply tw-text-base tw-text-gray-800 tw-font-sans;
     }
     .tailwind-rules.admin {
-        @apply tw-text-sm;
+        @apply tw-text-sm tw-font-[Arial];
     }
 }
 
