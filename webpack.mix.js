@@ -21,6 +21,7 @@ mix
     .extract([
         'bootstrap/dist/js/bootstrap',
         'flickity',
+        'flickity-imagesloaded',
         'clipboard',
         'date-fns',
         'imagesloaded',
