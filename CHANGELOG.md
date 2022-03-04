@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Added
 - "featured piece" front-end component
+- "featured artwork" front-end component
 
 ### Changed
 - Openseadragon version to 3.0.0

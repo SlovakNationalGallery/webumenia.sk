@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use App\Collection;
+use App\FeaturedArtwork;
 use App\FeaturedPiece;
 
 class HomeController extends Controller
@@ -14,6 +15,11 @@ class HomeController extends Controller
         $featuredPiece = FeaturedPiece::query()
             ->published()
             ->with('media')
+            ->orderBy('updated_at', 'desc')
+            ->first();
+
+        $featuredArtwork = FeaturedArtwork::query()
+            ->published()
             ->orderBy('updated_at', 'desc')
             ->first();
 
@@ -40,6 +46,7 @@ class HomeController extends Controller
 
         return view('home.index')->with(compact([
             'featuredPiece',
+            'featuredArtwork',
             'articles',
             'articlesRemainingCount',
             'collections',
