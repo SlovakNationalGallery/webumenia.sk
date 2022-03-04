@@ -88,7 +88,7 @@
             </div>
         @endif
 
-        <div class="tw-container tw-mx-auto tw-px-6 tw-pt-6 tw-max-w-screen-xl">
+        <div class="tw-container tw-mx-auto tw-px-6 tw-py-6 tw-max-w-screen-xl">
             <h2 class="md:tw-text-2xl tw-font-semibold">Nový obsah</h2>
 
             <tabs-controller v-cloak v-slot="{ activeIndex }">
@@ -225,8 +225,52 @@
                 </div>
             </tabs-controller>
         </div>
+        @php
+            $featuredAuthor = \App\Authority::find(11436);
+        @endphp
+        <div class="tw-py-6 tw-mb-6 tw-bg-gray-200">
+            <div class="tw-container tw-mx-auto tw-px-6 tw-max-w-screen-xl">
+                <h2 class="tw-font-semibold">Autor týždňa</h2>
+                <h2 class="tw-mt-2 tw-font-semibold tw-text-3xl md:tw-text-4xl">
+                    <a href="{{ route('frontend.author.detail', $featuredAuthor) }}"
+                        class="tw-cursor-pointer tw-underline tw-underline-offset-4 tw-decoration-gray-300 hover:tw-decoration-current tw-transition-colors">
+                        {{ $featuredAuthor->formated_name }}
+                    </a>
+                </h2>
+                <div class="tw-mt-3">
+                    @foreach ($featuredAuthor->roles as $role)
+                        <a
+                            href="{{ route('frontend.author.index', ['role' => $role]) }}"
+                            class="tw-cursor-pointer">{{ $role }}</a>{{ $loop->last ? '' : ', ' }}
+                    @endforeach
+                </div>
+                <div class="tw-mt-3 tw-text-gray-500">
+                    {{ $featuredAuthor->birth_date }} {{ $featuredAuthor->birth_place }}
+                    @if ($featuredAuthor->death_year)
+                        &mdash; {{ $featuredAuthor->death_date }} {{ $featuredAuthor->death_place }}
+                    @endif
+                </div>
+                <a href="{{ route('frontend.author.detail', $featuredAuthor) }}"
+                    class="tw-inline-block tw-mt-6 tw-text-sm tw-border-gray-300 tw-border tw-px-4 tw-py-2 hover:tw-bg-white hover:tw-border-gray-400 hover:tw-text-gray-800 tw-transition tw-duration-300">
+                    Zobraziť <strong>{{ $featuredAuthor->items->count() }}</strong> diel autora
+                    <i class="fa icon-arrow-right tw-ml-2"></i>
+                </a>
 
-        {{-- spacer --}}
-        <div class="tw-mb-96"></div>
+                <x-home.carousel class="tw-mt-6" images-loaded>
+                    @foreach ($featuredAuthor->items as $item)
+                        <a href="{{ route('dielo', ['id' => $item]) }}" class="tw-w-max tw-ml-4 first:tw-ml-0">
+                            <x-item_image
+                                :id="$item->id"
+                                src="{{ route('dielo.nahlad', ['id' => $item->id, 'width' => 70]) }}"
+                                class="tw-h-56" />
+                        </a>
+                    @endforeach
+                </x-home.carousel>
+                <a href="{{ route('frontend.author.index') }}"
+                    class="tw-mt-6 tw-inline-block tw-cursor-pointer tw-underline tw-underline-offset-4 tw-decoration-gray-300 hover:tw-decoration-current tw-transition-colors">
+                    zobraziť ďalších autorov
+                </a>
+            </div>
+        </div>
     </div>
 @stop
