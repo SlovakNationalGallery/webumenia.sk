@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - "featured piece" front-end component
 
+### Changed
+- Openseadragon version to 3.0.0
+
 ## [2.46.0] - 2022-02-25
 ### Added
 - Featured Artworks back-end section
