@@ -34,13 +34,56 @@
                 <div
                     class="tw-container tw-mx-auto tw-px-6 tw-max-w-screen-xl tw-relative tw-pt-60 tw-pb-8 md:tw-pb-20 tw-text-white">
                     <h2 class="md:tw-text-2xl tw-font-semibold">Odporúčame</h2>
-                    <h3 class="tw-mt-4 md:tw-mt-6 tw-text-3xl md:tw-text-6xl tw-font-semibold">{{ $featuredPiece->title }}</h3>
-                    <p class="tw-mt-5 tw-font-serif md:tw-text-xl tw-max-w-lg tw-leading-relaxed">{{ $featuredPiece->excerpt }}</p>
+                    <h3 class="tw-mt-4 md:tw-mt-6 tw-text-3xl md:tw-text-6xl tw-font-semibold">
+                        {{ $featuredPiece->title }}
+                    </h3>
+                    <p class="tw-mt-5 tw-font-serif md:tw-text-xl tw-max-w-lg tw-leading-relaxed">
+                        {{ $featuredPiece->excerpt }}</p>
                     <a href="{{ $featuredPiece->url }}"
-                        class="tw-inline-block tw-mt-3 md:tw-mt-6 tw-text-sm tw-border-gray-300 tw-border tw-px-4 tw-py-2 hover:tw-bg-white hover:tw-border-gray-400 tw-transition tw-duration-300">
+                        class="tw-inline-block tw-mt-3 md:tw-mt-6 tw-text-sm tw-border-gray-300 tw-border tw-px-4 tw-py-2 hover:tw-bg-white hover:tw-border-gray-400 hover:tw-text-gray-800 tw-transition tw-duration-300">
                         {{ $featuredPiece->is_collection ? 'Prejsť na kolekciu' : 'Prejsť na článok' }}
                         <i class="fa icon-arrow-right tw-ml-2"></i>
                     </a>
+                </div>
+            </div>
+        @endif
+        @if ($featuredArtwork)
+            <div class="tw-text-white tw-bg-gray-800 tw-py-8 lg:tw-py-16">
+                <div class="tw-container tw-mx-auto tw-px-6 tw-max-w-screen-xl tw-grid lg:tw-grid-cols-2 lg:tw-gap-x-14">
+                    <div class="lg:tw-order-1 tw-text-center">
+                        <a href="{{ route('dielo', ['id' => $featuredArtwork->item->id]) }}" class="tw-inline-block">
+                            <x-item_image :id="$featuredArtwork->item->id" class="tw-max-h-80 lg:tw-max-h-[32rem]" />
+                        </a>
+                    </div>
+                    <h2 class="lg:tw-text-2xl tw-font-semibold tw-mt-6 tw-mb-2 lg:tw-mt-0 lg:tw-mb-6 lg:tw-col-span-2">
+                        Dielo dňa
+                    </h2>
+                    <div>
+                        <h3 class="tw-text-3xl lg:tw-text-4xl">{{ $featuredArtwork->title }}</h3>
+                        <div class="tw-text-sm tw-mt-2 lg:tw-text-lg lg:tw-mt-3">
+                            @foreach ($featuredArtwork->author_links as $l)
+                                <a href="{{ $l->url }}" class="hover:tw-underline">{{ $l->label }}</a>
+                            @endforeach
+                        </div>
+                        <div class="tw-text-sm tw-text-gray-500 lg:tw-text-lg">
+                            @foreach ($featuredArtwork->metadataLinks as $m)
+                                @if ($m->url)
+                                    <a href="{{ $m->url }}"
+                                        class="hover:tw-underline">{{ $m->label }}</a>{{ $loop->last ? '' : ', ' }}
+                                @else
+                                    {{ $m->label }}{{ $loop->last ? '' : ', ' }}
+                                @endif
+                            @endforeach
+                        </div>
+                        <div class="tw-hidden lg:tw-block tw-mt-4 tw-font-serif tw-text-xl tw-leading-relaxed">
+                            {!! $featuredArtwork->description !!}
+                        </div>
+                        <a href="{{ route('dielo', ['id' => $featuredArtwork->item->id]) }}"
+                            class="tw-inline-block tw-mt-6 tw-text-sm tw-border-gray-300 tw-border tw-px-4 tw-py-2 hover:tw-bg-white hover:tw-border-gray-400 hover:tw-text-gray-800 tw-transition tw-duration-300">
+                            Viac o diele
+                            <i class="fa icon-arrow-right tw-ml-2"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         @endif
