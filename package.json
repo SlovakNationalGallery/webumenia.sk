@@ -36,6 +36,7 @@
         "date-fns": "^2.25.0",
         "debounce": "1.2.0",
         "flickity": "^2.2.1",
+        "flickity-imagesloaded": "^2.0.0",
         "imagesloaded": "^4.1.4",
         "infinite-scroll": "^3.0.6",
         "isotope-layout": "^3.0.6",
