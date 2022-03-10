@@ -262,7 +262,10 @@
                             <x-item_image
                                 :id="$item->id"
                                 src="{{ route('dielo.nahlad', ['id' => $item->id, 'width' => 70]) }}"
-                                class="tw-h-56" />
+                                class="tw-h-56"
+                                onload="this.onload=null;this.sizes=Math.ceil(this.getBoundingClientRect().width/window.innerWidth*100)+'vw';"
+                                sizes="1px"
+                            />
                         </a>
                     @endforeach
                 </x-home.carousel>
