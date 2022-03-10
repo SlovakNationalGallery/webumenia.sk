@@ -228,35 +228,45 @@
         @php
             $featuredAuthor = \App\Authority::find(11436);
         @endphp
-        <div class="tw-py-6 tw-mb-6 tw-bg-gray-200">
-            <div class="tw-container tw-mx-auto tw-px-6 tw-max-w-screen-xl">
-                <h2 class="tw-font-semibold">Autor týždňa</h2>
-                <h2 class="tw-mt-2 tw-font-semibold tw-text-3xl md:tw-text-4xl">
-                    <a href="{{ route('frontend.author.detail', $featuredAuthor) }}"
-                        class="tw-cursor-pointer tw-underline tw-underline-offset-4 tw-decoration-gray-300 hover:tw-decoration-current tw-transition-colors">
-                        {{ $featuredAuthor->formated_name }}
-                    </a>
-                </h2>
-                <div class="tw-mt-3">
-                    @foreach ($featuredAuthor->roles as $role)
-                        <a
-                            href="{{ route('frontend.author.index', ['role' => $role]) }}"
-                            class="tw-cursor-pointer">{{ $role }}</a>{{ $loop->last ? '' : ', ' }}
-                    @endforeach
+        <div class="tw-py-6 lg:tw-py-16 tw-mb-6 tw-bg-gray-200">
+            <div class="tw-container tw-mx-auto tw-px-6 tw-max-w-screen-xl lg:tw-grid lg:tw-grid-cols-2 tw-gap-x-6">
+                <div class="flex">
+                    <img src="{{ $featuredAuthor->getImagePath() }}" class="tw-hidden lg:tw-block tw-mt-14 tw-mr-6 tw-w-52 tw-h-52 tw-rounded-full" alt="{{ $featuredAuthor->formated_name }}">
+                    <div>
+                        <h2 class="tw-font-semibold lg:tw-text-2xl">Autor týždňa</h2>
+                        <h2 class="tw-mt-2 lg:tw-mt-6 tw-font-semibold tw-text-3xl lg:tw-text-4xl">
+                            <a href="{{ route('frontend.author.detail', $featuredAuthor) }}"
+                                class="tw-cursor-pointer tw-underline tw-underline-offset-4 tw-decoration-gray-300 hover:tw-decoration-current tw-transition-colors">
+                                {{ $featuredAuthor->formated_name }}
+                            </a>
+                        </h2>
+                        <div class="tw-mt-3 lg:tw-text-lg">
+                            @foreach ($featuredAuthor->roles as $role)
+                                <a
+                                    href="{{ route('frontend.author.index', ['role' => $role]) }}"
+                                    class="tw-cursor-pointer">{{ $role }}</a>{{ $loop->last ? '' : ', ' }}
+                            @endforeach
+                        </div>
+                        <div class="tw-mt-3 tw-text-gray-500 lg:tw-text-lg">
+                            {{ $featuredAuthor->birth_date }} {{ $featuredAuthor->birth_place }}
+                            @if ($featuredAuthor->death_year)
+                                &mdash; {{ $featuredAuthor->death_date }} {{ $featuredAuthor->death_place }}
+                            @endif
+                        </div>
+                        <a href="{{ route('frontend.author.detail', $featuredAuthor) }}"
+                            class="tw-inline-block tw-mt-6 tw-text-sm tw-border-gray-300 tw-border tw-px-4 tw-py-2 hover:tw-bg-white hover:tw-border-gray-400 hover:tw-text-gray-800 tw-transition tw-duration-300">
+                            Zobraziť <strong>{{ $featuredAuthor->items->count() }} diel</strong> od autora
+                            <i class="fa icon-arrow-right tw-ml-2"></i>
+                        </a>
+                        <br/>
+                        <a href="{{ route('frontend.author.index') }}"
+                            class="tw-hidden lg:tw-inline-block tw-mt-6 tw-text-sm tw-cursor-pointer tw-underline tw-underline-offset-4 tw-decoration-gray-300 hover:tw-decoration-current tw-transition-colors">
+                            zobraziť ďalších autorov
+                        </a>
+                    </div>
                 </div>
-                <div class="tw-mt-3 tw-text-gray-500">
-                    {{ $featuredAuthor->birth_date }} {{ $featuredAuthor->birth_place }}
-                    @if ($featuredAuthor->death_year)
-                        &mdash; {{ $featuredAuthor->death_date }} {{ $featuredAuthor->death_place }}
-                    @endif
-                </div>
-                <a href="{{ route('frontend.author.detail', $featuredAuthor) }}"
-                    class="tw-inline-block tw-mt-6 tw-text-sm tw-border-gray-300 tw-border tw-px-4 tw-py-2 hover:tw-bg-white hover:tw-border-gray-400 hover:tw-text-gray-800 tw-transition tw-duration-300">
-                    Zobraziť <strong>{{ $featuredAuthor->items->count() }}</strong> diel autora
-                    <i class="fa icon-arrow-right tw-ml-2"></i>
-                </a>
 
-                <x-home.carousel class="tw-mt-6" images-loaded>
+                <x-home.carousel class="tw-mt-6 lg:tw-mt-14" images-loaded>
                     @foreach ($featuredAuthor->items as $item)
                         <a href="{{ route('dielo', ['id' => $item]) }}" class="tw-w-max tw-ml-4 first:tw-ml-0">
                             <x-item_image
@@ -270,7 +280,7 @@
                     @endforeach
                 </x-home.carousel>
                 <a href="{{ route('frontend.author.index') }}"
-                    class="tw-mt-6 tw-inline-block tw-cursor-pointer tw-underline tw-underline-offset-4 tw-decoration-gray-300 hover:tw-decoration-current tw-transition-colors">
+                    class="lg:tw-hidden tw-mt-6 tw-inline-block tw-cursor-pointer tw-underline tw-underline-offset-4 tw-decoration-gray-300 hover:tw-decoration-current tw-transition-colors">
                     zobraziť ďalších autorov
                 </a>
             </div>
