@@ -12,7 +12,8 @@
         font-size: 16px !important;
     }
 
-    .tailwind-rules a:hover, .tailwind-rules a:focus {
+    .tailwind-rules a:hover,
+    .tailwind-rules a:focus {
         @apply tw-text-inherit tw-decoration-inherit;
     }
 
@@ -22,7 +23,8 @@
         @apply tw-text-base tw-text-gray-800 tw-font-sans;
     }
     .tailwind-rules.admin {
-        @apply tw-text-sm tw-font-[Arial];
+        @apply tw-text-sm;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
 }
 
