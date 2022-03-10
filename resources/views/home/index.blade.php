@@ -195,9 +195,6 @@
                 </div>
             </tabs-controller>
         </div>
-        @php
-            $featuredAuthor = \App\Authority::find(11436);
-        @endphp
         <div class="tw-py-6 lg:tw-py-16 tw-mb-6 tw-bg-gray-200">
             <div class="tw-container tw-mx-auto tw-px-6 tw-max-w-screen-xl lg:tw-grid lg:tw-grid-cols-2 tw-gap-x-6">
                 <div class="flex">
