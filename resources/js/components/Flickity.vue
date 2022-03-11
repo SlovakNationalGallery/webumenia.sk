@@ -14,11 +14,12 @@
 </template>
 
 <script>
-import Flickity from "flickity-imagesloaded"
+import Flickity from 'flickity-imagesloaded';
 
 export default {
     props: {
         options: Object,
+        viewportClass: String,
 
         // Call resize() on Flickity instance when this prop changes to true for the first time.
         // Useful when Flickity is initialized hidden
@@ -29,38 +30,42 @@ export default {
             hasBeenResizedOnce: this.resizeOnce,
             slides: [],
             selectedIndex: null,
-        }
+        };
     },
     mounted() {
-        const vm = this
+        const vm = this;
         this.flickity = new Flickity(this.$refs.carousel, {
             on: {
                 ready() {
-                    vm.slides = this.slides
-                    vm.selectedIndex = this.selectedIndex
+                    vm.slides = this.slides;
+                    vm.selectedIndex = this.selectedIndex;
+
+                    if (vm.viewportClass) {
+                        this.viewport.classList.add(...vm.viewportClass.split(' '));
+                    }
                 },
                 change(index) {
-                    vm.selectedIndex = index
-                }
+                    vm.selectedIndex = index;
+                },
             },
-            ...this.options
-        })
+            ...this.options,
+        });
     },
     methods: {
         next() {
-            this.flickity.next()
+            this.flickity.next();
         },
         previous() {
-            this.flickity.previous()
+            this.flickity.previous();
         },
     },
     watch: {
         resizeOnce(shouldResize) {
-            if (!shouldResize) return
-            if (this.hasBeenResizedOnce) return
+            if (!shouldResize) return;
+            if (this.hasBeenResizedOnce) return;
 
-            this.flickity.resize()
+            this.flickity.resize();
         },
     },
-}
+};
 </script>
