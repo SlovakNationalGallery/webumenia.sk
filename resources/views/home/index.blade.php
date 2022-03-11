@@ -137,7 +137,7 @@
                         <x-home.carousel v-bind:resize-once="active"
                             button-container-class="tw-h-48">
                             @foreach ($collections as $c)
-                                <div class="tw-w-72 tw-pl-4 first:tw-pl-0 md:tw-w-1/3">
+                                <div class="tw-mr-4 tw-w-72 md:tw-w-[25rem]">
                                     <div class="tw-relative tw-bg-sky-400">
                                         <a href="{{ route('frontend.collection.detail', $c->id) }}">
                                             <img src="{{ $c->getThumbnailImage() }}"
@@ -167,7 +167,7 @@
                                 </div>
                             @endforeach
                             <div
-                                class="tw-ml-4 tw-flex tw-h-48 tw-w-full tw-flex-col tw-justify-center tw-bg-gray-200 tw-text-center tw-text-xl tw-font-semibold tw-text-black md:tw-w-1/3">
+                                class="tw-flex tw-h-48 tw-w-72 tw-flex-col tw-justify-center tw-bg-gray-200 tw-text-center tw-text-xl tw-font-semibold tw-text-black md:tw-w-[25rem]">
                                 <p>Na Webe umenia je ďalších viac<br /> ako
                                     {{ $collectionsRemainingCount }} kolekcií</p>
                                 <a class="tw-mt-5 tw-underline tw-decoration-gray-300 tw-decoration-3 tw-underline-offset-4 hover:tw-decoration-current hover:tw-transition-colors"
@@ -181,7 +181,7 @@
                         <x-home.carousel v-bind:resize-once="active"
                             button-container-class="tw-h-48">
                             @foreach ($articles as $a)
-                                <div class="tw-w-72 tw-pl-4 first:tw-pl-0 md:tw-w-1/3">
+                                <div class="tw-mr-4 tw-w-72 md:tw-w-[25rem]">
                                     <a href="{{ route('frontend.article.detail', $a->slug) }}"
                                         class="tw-block tw-bg-sky-400">
                                         <img src="{{ $a->getThumbnailImage() }}"
@@ -205,7 +205,7 @@
                                 </div>
                             @endforeach
                             <div
-                                class="tw-ml-4 tw-flex tw-h-48 tw-w-full tw-flex-col tw-justify-center tw-bg-gray-200 tw-text-center tw-text-xl tw-font-semibold tw-text-black md:tw-w-1/3">
+                                class="tw-flex tw-h-48 tw-w-72 tw-flex-col tw-justify-center tw-bg-gray-200 tw-text-center tw-text-xl tw-font-semibold tw-text-black md:tw-w-[25rem]">
                                 <p>Na Webe umenia je ďalších viac<br /> ako
                                     {{ $articlesRemainingCount }} článkov</p>
                                 <a class="tw-mt-5 tw-underline tw-decoration-gray-300 tw-decoration-3 tw-underline-offset-4 hover:tw-decoration-current hover:tw-transition-colors"
