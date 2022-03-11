@@ -48,6 +48,10 @@ class Item extends Model implements IndexableModel, TranslatableContract
     public static $filterables = [
         'author',
         'topic',
+        'work_type',
+        'medium',
+        'technique',
+        'gallery',
         'additionals.category.keyword',
         'additionals.frontend.keyword',
         'additionals.set.keyword',

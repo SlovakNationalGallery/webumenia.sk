@@ -20,11 +20,8 @@ class ItemController extends Controller
         $q = (string)$request->get('q');
 
         try {
-            $builder = Query::bool();
-            $this->searchQuery($q, $builder)
-                ->filterQuery($filter, $builder);
-
-            $query = $builder->buildQuery();
+            $query = $this->createQueryBuilder($q, $filter)
+                ->buildQuery();
         } catch (QueryBuilderException $e) {
             $query = ['match_all' => new \stdClass];
         }
@@ -38,48 +35,8 @@ class ItemController extends Controller
                 $searchRequest->sort($field, $direction);
             });
 
-        $items = $searchRequest->paginate($size);
-        $items->setCollection($items->models());
-        $items->appends($request->query());
-
-        return $items;
-    }
-
-    protected function searchQuery($query, $builder)
-    {
-        if (!$query) {
-            return $this;
-        }
-
-        foreach (['title', 'description'] as $field) {
-            $match = Query::match()
-                ->field($field)
-                ->query($query);
-            $builder->should($match);
-        }
-
-        return $this;
-    }
-
-    protected function filterQuery($filter,  $builder)
-    {
-        foreach ($filter as $field => $value) {
-            if (is_string($value) && in_array($field, Item::$filterables, true)) {
-                $builder->filter(['term' => [$field => $value]]);
-            } else if (is_array($value) && in_array($field, Item::$rangeables, true)) {
-                $range = collect($value)
-                    ->only(['lt', 'lte', 'gt', 'gte'])
-                    ->transform(function ($value) {
-                        return (string)$value;
-                    })
-                    ->all();
-                $builder->filter(['range' => [$field => $range]]);
-            } else {
-                throw new \Exception;
-            }
-        }
-
-        return $this;
+        return $searchRequest->paginate($size)
+            ->onlyDocuments();
     }
 
     public function aggregations(Request $request)
@@ -92,11 +49,8 @@ class ItemController extends Controller
         $q = (string)$request->get('q');
 
         try {
-            $builder = Query::bool();
-            $this->searchQuery($q, $builder)
-                ->filterQuery($filter, $builder);
-
-            $query = $builder->buildQuery();
+            $query = $this->createQueryBuilder($q, $filter)
+                ->buildQuery();
         } catch (QueryBuilderException $e) {
             $query = ['match_all' => new \stdClass];
         }
@@ -146,13 +100,53 @@ class ItemController extends Controller
 
     public function detail(Request $request, $id)
     {
-        $query = Query::ids()->values([(string)$id]);
+        $filter = (array)$request->get('filter');
+        $q = (string)$request->get('q');
+
+        try {
+            $query = $this->createQueryBuilder($q, $filter)
+                ->must(Query::ids()->values([$id]))
+                ->buildQuery();
+        } catch (QueryBuilderException $e) {
+            $query = Query::ids()->values([$id]);
+        }
+
         $items = Item::searchQuery($query)->execute();
 
         if (!$items->total()) {
-            abort(404);
+            return response()->json(['message' => 'Not found'], 404);
         }
 
-        return $items->models()->first();
+        return $items->documents()->first();
+    }
+
+    protected function createQueryBuilder($q, $filter)
+    {
+        $builder = Query::bool();
+
+        if ($q) {
+            $query = Query::multiMatch()
+                ->fields(['title.*', 'description.*'])
+                ->query($q);
+            $builder->must($query);
+        }
+
+        foreach ($filter as $field => $value) {
+            if (is_string($value) && in_array($field, Item::$filterables, true)) {
+                $builder->filter(['term' => [$field => $value]]);
+            } else if (is_array($value) && in_array($field, Item::$rangeables, true)) {
+                $range = collect($value)
+                    ->only(['lt', 'lte', 'gt', 'gte'])
+                    ->transform(function ($value) {
+                        return (string)$value;
+                    })
+                    ->all();
+                $builder->filter(['range' => [$field => $range]]);
+            } else {
+                throw new \Exception;
+            }
+        }
+
+        return $builder;
     }
 }
