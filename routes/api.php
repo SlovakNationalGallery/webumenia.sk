@@ -1,7 +1,8 @@
 <?php
 
-use Api\SharedUserCollectionController;
 use Illuminate\Support\Facades\Route;
+use Api\SharedUserCollectionController;
+use App\Http\Controllers\Api\ItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::resource('/shared-user-collections', SharedUserCollectionController::class)
     ->names('api.shared-user-collections')
     ->parameters(['shared-user-collections' => 'collection:public_id']);
+
+Route::get('items', [ItemController::class, 'index']);
+Route::get('items/aggregations', [ItemController::class, 'aggregations']);
+Route::get('items/{id}', [ItemController::class, 'detail']);

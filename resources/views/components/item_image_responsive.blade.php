@@ -16,14 +16,9 @@
           <a href="{!! $url !!}">
         @endif
               <div class="ratio-box" style="padding-bottom: {{ ($ratio) * 100 }}%;">
-                  <img sizes="auto"
+                  <x-item_image :id="$item->id"
+                      sizes="auto"
                       class="lazyload"
-                      src="{!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'600']) !!}"
-                      srcset="{!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'600']) !!} 600w,
-                      {!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'220']) !!} 220w,
-                      {!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'300']) !!} 300w,
-                      {!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'600']) !!} 600w,
-                      {!! route('dielo.nahlad', ['id' => $item->id, 'width'=>'800']) !!} 800w"
                       style="object-fit:contain; width:100%; max-height:{!! $limitHeight !!}"
                       alt="{{ $item->getTitleWithAuthors() }} " />
               </div>

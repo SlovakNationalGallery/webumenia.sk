@@ -16,10 +16,12 @@ mix
     // JavaScript
     .js('resources/js/app.js', 'public/js')
     .js('resources/js/admin.js', 'public/js')
+    .js('resources/js/zoom.js', 'public/js')
     .vue()
     .extract([
         'bootstrap/dist/js/bootstrap',
         'flickity',
+        'flickity-imagesloaded',
         'clipboard',
         'date-fns',
         'imagesloaded',
@@ -43,13 +45,11 @@ mix
     // CSS
     .less('resources/less/admin.less', 'public/css')
     .less('resources/less/style.less', 'public/css')
-    .postCss('resources/css/app-tailwind.css', 'public/css', [
-        require('tailwindcss')
-    ])
-    
+    .postCss('resources/css/app-tailwind.css', 'public/css', [require('tailwindcss')])
+
     .disableSuccessNotifications()
     .options({
-        processCssUrls: !process.env.MIX_SKIP_CSS_URL_PROCESSING
+        processCssUrls: !process.env.MIX_SKIP_CSS_URL_PROCESSING,
     });
 
 if (mix.inProduction()) {

@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import Flickity from "flickity"
+import Flickity from "flickity-imagesloaded"
 
 export default {
     props: {

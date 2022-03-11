@@ -16,6 +16,10 @@ module.exports = {
                     400: '#37bcf1',
                 },
             },
+            fontFamily: {
+              "sans": ["GTWalsheim", "sans-serif"],
+              "serif": ["Source Serif Pro", "Minion", "Georgia", "Times New Roman", "Times", "serif"],
+            },
             textDecorationThickness: {
                 3: '3px',
             },

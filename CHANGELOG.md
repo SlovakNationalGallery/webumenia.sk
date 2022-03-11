@@ -3,6 +3,17 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.47.0] - 2022-03-11
+### Added
+- "featured piece" front-end component
+- "featured artwork" front-end component
+- "featured author" front-end component
+- Ukrainian flag glow
+- OpenAPI preparation
+
+### Changed
+- Openseadragon version to 3.0.0
+
 ## [2.46.0] - 2022-02-25
 ### Added
 - Featured Artworks back-end section
