@@ -1,0 +1,52 @@
+// .form-control.ukraine::after {
+.ukraine {
+    & #search {
+        background-color: white !important;
+
+        &:focus {
+            box-shadow: none;
+            border-color: #888888;
+        }
+    }
+
+    &:focus-within::before,
+    &:focus-within::after {
+        opacity: .5;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        height: 15px;
+        top: 10px;
+        left: 15px;
+        right: 15px;
+        box-shadow: 0px 0px 5px 2px #0057b7;
+
+        transition: opacity 0.15s ease-in-out;
+        opacity: 0;
+
+        @media(min-width: @screen-sm-min) {
+            top: 0px;
+            box-shadow: 0px 0px 10px 3px #0057b7;
+        }
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        height: 13px;
+        bottom: 10px;
+        left: 15px;
+        right: 15px;
+        box-shadow: 0px 0px 5px 2px #ffd700;
+
+        transition: opacity 0.15s ease-in-out;
+        opacity: 0;
+
+        @media(min-width: @screen-sm-min) {
+            bottom: 0px;
+            box-shadow: 0px 0px 10px 3px #ffd700;
+        }
+    }
+}

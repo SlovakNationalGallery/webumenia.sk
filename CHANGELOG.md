@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file[^1].
 - "featured piece" front-end component
 - "featured artwork" front-end component
 - "featured author" front-end component
+- Ukrainian flag glow
 
 ### Changed
 - Openseadragon version to 3.0.0
