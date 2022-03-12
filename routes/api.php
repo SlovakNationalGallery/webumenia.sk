@@ -19,6 +19,8 @@ Route::resource('/shared-user-collections', SharedUserCollectionController::clas
     ->names('api.shared-user-collections')
     ->parameters(['shared-user-collections' => 'collection:public_id']);
 
-Route::get('items', [ItemController::class, 'index']);
-Route::get('items/aggregations', [ItemController::class, 'aggregations']);
-Route::get('items/{id}', [ItemController::class, 'detail']);
+Route::prefix('v1')->group(function () {
+    Route::get('items', [ItemController::class, 'index']);
+    Route::get('items/aggregations', [ItemController::class, 'aggregations']);
+    Route::get('items/{id}', [ItemController::class, 'detail']);
+});
