@@ -13,17 +13,66 @@ class OglImporterTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testId() {
+    public function testId()
+    {
         $data = $this->getData([
             'Rada_S' => 'rada_s',
             'Lomeni_S' => 'lomeni_s',
-            'PorC_S' => 123
+            'PorC_S' => 123,
         ]);
         $item = $this->importSingle($data);
         $this->assertEquals('CZE:OGL.rada_s_123-lomeni_s', $item->id);
     }
 
-    public function testTechniqueSimple() {
+    public function testIdentifier()
+    {
+        $data = $this->getData([
+            'Rada_S' => 'rada_s',
+            'Lomeni_S' => 'lomeni_s',
+            'PorC_S' => 123,
+        ]);
+        $item = $this->importSingle($data);
+        $this->assertEquals('rada_s 123/lomeni_s', $item->identifier);
+    }
+
+    public function testMediumSimple()
+    {
+        $data = $this->getData([
+            'Materiál' => 'dřevo',
+            'MatSpec' => '',
+        ]);
+        $item = $this->importSingle($data);
+        $this->assertEquals('dřevo', $item->getTranslationOrFail('cs')->medium);
+        $this->assertEquals('drevo', $item->getTranslationOrFail('sk')->medium);
+        $this->assertEquals('wood', $item->getTranslationOrFail('en')->medium);
+    }
+
+    public function testMediumFirstOmitted()
+    {
+        $data = $this->getData([
+            'Materiál' => '',
+            'MatSpec' => 'not translated',
+        ]);
+        $item = $this->importSingle($data);
+        $this->assertEquals('not translated', $item->getTranslationOrFail('cs')->medium);
+        $this->assertEquals(null, $item->getTranslationOrFail('sk')->medium);
+        $this->assertEquals(null, $item->getTranslationOrFail('en')->medium);
+    }
+
+    public function testMediumCompound()
+    {
+        $data = $this->getData([
+            'Materiál' => 'dřevo',
+            'MatSpec' => 'not translated',
+        ]);
+        $item = $this->importSingle($data);
+        $this->assertEquals('dřevo, not translated', $item->getTranslationOrFail('cs')->medium);
+        $this->assertEquals('drevo', $item->getTranslationOrFail('sk')->medium);
+        $this->assertEquals('wood', $item->getTranslationOrFail('en')->medium);
+    }
+
+    public function testTechniqueSimple()
+    {
         $data = $this->getData([
             'Technika' => 'lití',
             'TechSpec' => '',
@@ -34,18 +83,26 @@ class OglImporterTest extends TestCase
         $this->assertEquals(null, $item->getTranslationOrFail('en')->technique);
     }
 
-    public function testTechniqueCompound() {
+    public function testTechniqueCompound()
+    {
         $data = $this->getData([
             'Technika' => 'lakování',
             'TechSpec' => 'železné háčky',
         ]);
         $item = $this->importSingle($data);
-        $this->assertEquals('lakování, železné háčky', $item->getTranslationOrFail('cs')->technique);
-        $this->assertEquals('lakovanie, železné háčiky', $item->getTranslationOrFail('sk')->technique);
+        $this->assertEquals(
+            'lakování, železné háčky',
+            $item->getTranslationOrFail('cs')->technique
+        );
+        $this->assertEquals(
+            'lakovanie, železné háčiky',
+            $item->getTranslationOrFail('sk')->technique
+        );
         $this->assertEquals(null, $item->getTranslationOrFail('en')->technique);
     }
 
-    public function testTechniqueWithoutTranslation() {
+    public function testTechniqueWithoutTranslation()
+    {
         $data = $this->getData([
             'Technika' => 'not translated',
             'TechSpec' => '',
@@ -56,7 +113,8 @@ class OglImporterTest extends TestCase
         $this->assertEquals(null, $item->getTranslationOrFail('en')->technique);
     }
 
-    public function testTopicWithoutTranslation() {
+    public function testTopicWithoutTranslation()
+    {
         $data = $this->getData([
             'Námět' => 'not translated',
         ]);
@@ -66,7 +124,8 @@ class OglImporterTest extends TestCase
         $this->assertEquals(null, $item->getTranslationOrFail('en')->topic);
     }
 
-    public function testWorkType() {
+    public function testWorkType()
+    {
         $data = $this->getData([
             'Skupina' => 'Ob',
         ]);
@@ -76,14 +135,24 @@ class OglImporterTest extends TestCase
         $this->assertEquals('painting', $item->getTranslationOrFail('en')->work_type);
     }
 
-    public function testMeasurement() {
+    public function testMeasurement()
+    {
         $data = $this->getData([
             'SlužF' => 'v=140cm; s=125cm; vr=141cm; sr=127,3cm; hr=3,3cm',
         ]);
         $item = $this->importSingle($data);
-        $this->assertEquals('celková výška/délka 140 cm; šířka 125 cm; výška s rámem 141 cm; šířka s rámem 127,3 cm; hloubka s rámem 3,3 cm', $item->getTranslationOrFail('cs')->measurement);
-        $this->assertEquals('celková výška/dĺžka 140 cm; šírka 125 cm; výška s rámom 141 cm; šírka s rámom 127,3 cm; hĺbka s rámom 3,3 cm', $item->getTranslationOrFail('sk')->measurement);
-        $this->assertEquals('overall height/length 140 cm; width 125 cm; height with frame 141 cm; width with frame 127,3 cm; depth with frame 3,3 cm', $item->getTranslationOrFail('en')->measurement);
+        $this->assertEquals(
+            'celková výška/délka 140 cm; šířka 125 cm; výška s rámem 141 cm; šířka s rámem 127,3 cm; hloubka s rámem 3,3 cm',
+            $item->getTranslationOrFail('cs')->measurement
+        );
+        $this->assertEquals(
+            'celková výška/dĺžka 140 cm; šírka 125 cm; výška s rámom 141 cm; šírka s rámom 127,3 cm; hĺbka s rámom 3,3 cm',
+            $item->getTranslationOrFail('sk')->measurement
+        );
+        $this->assertEquals(
+            'overall height/length 140 cm; width 125 cm; height with frame 141 cm; width with frame 127,3 cm; depth with frame 3,3 cm',
+            $item->getTranslationOrFail('en')->measurement
+        );
     }
 
     protected function importSingle(array $data)
