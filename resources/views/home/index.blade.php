@@ -58,7 +58,7 @@
                             class="tw-inline-block">
                             <x-item_image :id="$featuredArtwork->item->id"
                                 alt="{{ $featuredArtwork->title }}"
-                                class=" tw-max-h-80 lg:tw-max-h-[32rem]" />
+                                class="tw-max-h-80 lg:tw-max-h-[32rem]" />
                         </a>
                     </div>
                     <h2
@@ -105,11 +105,13 @@
                     <div class="tw-flex tw-grow tw-space-x-4">
                         @foreach (['Kolekcie', 'Články'] as $tab)
                             <tab v-slot="{ active }">
+                                {{-- blade-formatter-disable --}}
                                 <button
                                     :class="[
-                            'tw-transition-colors tw-font-semibold tw-text-2xl md:tw-text-4xl',
-                            !active && 'tw-text-gray-300 hover:tw-underline tw-underline-offset-[5px] md:tw-underline-offset-8 tw-decoration-[3px]'
-                        ]">{{ $tab }}</button>
+                                        'tw-transition-colors tw-font-semibold tw-text-2xl md:tw-text-4xl',
+                                        !active && 'tw-text-gray-300 hover:tw-underline tw-underline-offset-[5px] md:tw-underline-offset-8 tw-decoration-[3px]'
+                                    ]">{{ $tab }}</button>
+                            {{-- blade-formatter-enable --}}
                             </tab>
                         @endforeach
                     </div>
@@ -145,7 +147,7 @@
                                         </a>
 
                                         <div
-                                            class="tw-pointer-events-none tw-absolute tw-right-6 tw-top-6 tw-bg-black/60 tw-px-1.5 tw-rounded-sm tw-text-right tw-text-sm tw-text-white">
+                                            class="tw-pointer-events-none tw-absolute tw-right-6 tw-top-6 tw-rounded-sm tw-bg-black/60 tw-px-1.5 tw-text-right tw-text-sm tw-text-white">
                                             {{ $c->items_count }} diel v kolekcii
                                         </div>
                                     </div>
