@@ -21,6 +21,7 @@
     /* Once Bootstrap is removed, the applied classes here can be moved to <body> */
     .tailwind-rules {
         @apply tw-text-base tw-text-gray-800 tw-font-sans;
+        word-break: keep-all;
     }
     .tailwind-rules.admin {
         @apply tw-text-sm;
