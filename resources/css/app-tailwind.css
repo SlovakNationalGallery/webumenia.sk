@@ -20,8 +20,9 @@
     /* Theme defaults */
     /* Once Bootstrap is removed, the applied classes here can be moved to <body> */
     .tailwind-rules {
-        @apply tw-text-base tw-text-gray-800 tw-font-sans;
+        @apply keep-all tw-text-base tw-text-gray-800 tw-font-sans;
     }
+
     .tailwind-rules.admin {
         @apply tw-text-sm;
         font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -31,5 +32,9 @@
 @layer utilities {
     [v-cloak] {
         @apply tw-hidden;
+    }
+
+    .keep-all {
+        word-break: keep-all;
     }
 }
