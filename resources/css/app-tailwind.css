@@ -18,8 +18,8 @@
 
     .tailwind-rules a:hover,
     .tailwind-rules a:focus {
+        @apply tw-decoration-inherit;
         color: initial;
-        text-decoration: initial;
     }
 
     /* Theme defaults */
