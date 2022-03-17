@@ -17,13 +17,7 @@ class FeaturedPiece extends Model implements HasMedia
         static::saved(fn() => Cache::forget('home.featured-piece'));
     }
 
-    protected $fillable = [
-        'title',
-        'excerpt',
-        'url',
-        'publish',
-        'type',
-    ];
+    protected $fillable = ['title', 'excerpt', 'url', 'publish', 'type'];
 
     public static $rules = [
         'title' => 'required',
@@ -55,8 +49,7 @@ class FeaturedPiece extends Model implements HasMedia
 
     public function registerMediaCollections(): void
     {
-        $this
-            ->addMediaCollection('image')
+        $this->addMediaCollection('image')
             ->singleFile()
             ->withResponsiveImages();
     }
