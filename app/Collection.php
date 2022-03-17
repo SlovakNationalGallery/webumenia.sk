@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\JoinClause;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\URL;
 
 class Collection extends Model implements TranslatableContract
@@ -16,6 +17,11 @@ class Collection extends Model implements TranslatableContract
     use Translatable;
 
     use HasHeaderImage;
+
+    protected static function booted()
+    {
+        static::saved(fn() => Cache::forget('home.collections'));
+    }
 
     function getArtworksDirAttribute()
     {
