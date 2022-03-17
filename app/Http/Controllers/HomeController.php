@@ -10,6 +10,7 @@ use App\FeaturedArtwork;
 use App\FeaturedPiece;
 use App\Filter\ItemFilter;
 use App\Item;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
@@ -32,15 +33,36 @@ class HomeController extends Controller
                 ->first();
         });
 
-        $featuredAuthor = Cache::remember('home.featured-author', now()->addDays(7), function () {
-            return Authority::query()
-                ->with(['translations', 'items'])
-                ->where('has_image', true)
-                ->where('type', 'person')
-                ->has('items', '>', 3)
-                ->inRandomOrder()
-                ->first();
-        });
+        [$featuredAuthor, $featuredAuthorItems] = Cache::remember(
+            'home.featured-author',
+            now()->addDays(7),
+            function () {
+                $author = Authority::query()
+                    ->with(['translations'])
+                    ->withCount('items')
+                    ->where('has_image', true)
+                    ->where('type', 'person')
+                    ->whereHas(
+                        'items',
+                        function (Builder $query) {
+                            $query->has('images');
+                        },
+                        '>=',
+                        3
+                    )
+                    ->inRandomOrder()
+                    ->first();
+
+                $items = $author
+                    ->items()
+                    ->has('images')
+                    ->inRandomOrder()
+                    ->limit(10)
+                    ->get();
+
+                return [$author, $items];
+            }
+        );
 
         [$articles, $articlesRemainingCount] = Cache::rememberForever('home.articles', function () {
             $articles = Article::query()
@@ -81,6 +103,7 @@ class HomeController extends Controller
                 'featuredPiece',
                 'featuredArtwork',
                 'featuredAuthor',
+                'featuredAuthorItems',
                 'articles',
                 'articlesRemainingCount',
                 'collections',
