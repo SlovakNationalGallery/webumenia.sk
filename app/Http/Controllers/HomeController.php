@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use App\Article;
 use App\Authority;
 use App\Collection;
+use App\Elasticsearch\Repositories\ItemRepository;
 use App\FeaturedArtwork;
 use App\FeaturedPiece;
+use App\Filter\ItemFilter;
+use App\Item;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
@@ -51,6 +55,7 @@ class HomeController extends Controller
 
         $collectionsTotalCount = Collection::published()->count();
         $collectionsRemainingCount = floor(($collectionsTotalCount - 5) / 10) * 10; // Round down to nearest 10
+        $countsBlurb = $this->getCountsBlurbData();
 
         return view('home.index')->with(
             compact([
@@ -61,7 +66,56 @@ class HomeController extends Controller
                 'articlesRemainingCount',
                 'collections',
                 'collectionsRemainingCount',
+                'countsBlurb',
             ])
         );
+    }
+
+    private function getCountsBlurbData()
+    {
+        [$itemsCount, $choices] = Cache::remember('home.counts', now()->addDays(3), function () {
+            $galleriesCount = 15;
+            $authoritiesCount = Authority::count();
+            $itemsCount = Item::count();
+            $highResItemsCount = Item::withExists('images')->count();
+
+            $itemRepository = app(ItemRepository::class);
+            $freeItemsCount = $itemRepository->count((new ItemFilter())->setIsFree(true));
+
+            return [
+                $itemsCount,
+                [
+                    [
+                        trans('intro.from_galleries_start'),
+                        route('frontend.info'),
+                        $galleriesCount,
+                        trans('intro.from_galleries_end'),
+                    ],
+                    [
+                        trans('intro.from_authors_start'),
+                        route('frontend.author.index'),
+                        $authoritiesCount,
+                        trans('intro.from_authors_end'),
+                    ],
+                    [
+                        trans('intro.in_high_res_start'),
+                        route('frontend.catalog.index', ['has_iip' => true]),
+                        $highResItemsCount,
+                        trans('intro.in_high_res_end'),
+                    ],
+                    [
+                        trans('intro.are_free_start'),
+                        route('frontend.catalog.index', ['is_free' => true]),
+                        $freeItemsCount,
+                        trans('intro.are_free_end'),
+                    ],
+                ],
+            ];
+        });
+
+        return (object) [
+            'parts' => $choices[array_rand($choices)],
+            'itemsCount' => $itemsCount,
+        ];
     }
 }

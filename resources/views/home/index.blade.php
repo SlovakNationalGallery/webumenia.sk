@@ -49,6 +49,24 @@
                 </div>
             </div>
         @endif
+
+        {{-- Counts blurb --}}
+        <div class="tw-bg-gray-200">
+            <div
+                class="tw-container tw-mx-auto tw-grid tw-max-w-screen-xl tw-px-6 tw-py-5 tw-text-gray-500 lg:tw-py-10">
+                <p class="tw-text-center lg:tw-text-2xl">
+                    {{ utrans('intro.definition_start') }}
+                    <a href="{{ route('frontend.catalog.index') }}"
+                        class="tw-font-bold tw-text-gray-800 hover:tw-underline">{!! formatNum($countsBlurb->itemsCount) !!}</a>
+                    {{ trans('intro.definition_end') }}<br>
+                    {{ $countsBlurb->parts[0] }}
+                    <a href="{{ $countsBlurb->parts[1] }}"
+                        class="tw-font-bold tw-text-gray-800 hover:tw-underline">{{ formatNum($countsBlurb->parts[2]) }}</a>
+                    {{ $countsBlurb->parts[3] }}
+                </p>
+            </div>
+        </div>
+
         @if ($featuredArtwork)
             <div class="tw-bg-gray-800 tw-text-white">
                 <div
