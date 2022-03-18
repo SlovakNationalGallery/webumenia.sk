@@ -14,6 +14,7 @@ return array(
     'item_download'      => 'download',
 
     'item_attr_dating'         => 'date',
+    'item_attr_style_period'   => 'style period',
     'item_attr_measurements'   => 'measurements',
     'item_attr_work_type'      => 'work type',
     'item_attr_object_type'    => 'object type',

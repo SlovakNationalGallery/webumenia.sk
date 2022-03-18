@@ -124,6 +124,12 @@
                                     </time>
                                 </td>
                             </tr>
+                            @if (!empty($item->style_period))
+                            <tr>
+                                <td class="atribut">{{ trans('dielo.item_attr_style_period') }}:</td>
+                                <td>{{ $item->style_period }}</td>
+                            </tr>
+                            @endif
                             @if (!empty($item->measurements))
                             <tr>
                                 <td class="atribut">{{ trans('dielo.item_attr_measurements') }}:</td>

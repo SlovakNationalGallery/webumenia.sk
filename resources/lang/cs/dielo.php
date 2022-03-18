@@ -14,6 +14,7 @@ return array(
     'item_download'      => 'stáhnout',
 
     'item_attr_dating'         => 'datace',
+    'item_attr_style_period'   => 'období / výtvarný směr',
     'item_attr_measurements'   => 'rozměry',
     'item_attr_work_type'      => 'výtvarný druh',
     'item_attr_object_type'    => 'typ objektu',
