@@ -6,6 +6,11 @@ use Illuminate\Support\Carbon;
 
 trait Publishable
 {
+    public function initializePublishableTrait()
+    {
+        $this->casts['is_published'] = 'boolean';
+    }
+
     public function getIsPublishedAttribute()
     {
         return !!$this->published_at;
