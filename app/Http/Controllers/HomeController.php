@@ -53,6 +53,10 @@ class HomeController extends Controller
                     ->inRandomOrder()
                     ->first();
 
+                if (!$author) {
+                    return [null, null];
+                }
+
                 $items = $author
                     ->items()
                     ->has('images')
