@@ -19,14 +19,6 @@ class FeaturedPiece extends Model implements HasMedia
 
     protected $fillable = ['title', 'excerpt', 'url', 'publish', 'type'];
 
-    public static $rules = [
-        'title' => 'required',
-        'url' => 'required',
-        'publish' => 'boolean',
-        'image' => 'image|dimensions:min_width=1200',
-        'type' => 'required|in:article,collection',
-    ];
-
     public function scopePublished($query)
     {
         return $query->where('publish', '=', 1);

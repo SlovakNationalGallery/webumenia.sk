@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 
 class FeaturedPieceController extends Controller
 {
+    private static $rules = [
+        'title' => 'required',
+        'url' => 'required',
+        'publish' => 'boolean',
+        'image' => 'image|dimensions:min_width=1200',
+        'type' => 'required|in:article,collection',
+    ];
+
     public function index()
     {
         $featuredPieces = FeaturedPiece::orderBy('id', 'desc')
@@ -25,7 +33,7 @@ class FeaturedPieceController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate(FeaturedPiece::$rules);
+        $request->validate(self::$rules);
 
         $featuredPiece = FeaturedPiece::create($request->input());
         if ($request->hasFile('image')) {
@@ -46,7 +54,7 @@ class FeaturedPieceController extends Controller
 
     public function update(Request $request, FeaturedPiece $featuredPiece)
     {
-        $request->validate(FeaturedPiece::$rules);
+        $request->validate(self::$rules);
 
         $featuredPiece->update($request->input());
         if ($request->hasFile('image')) {
