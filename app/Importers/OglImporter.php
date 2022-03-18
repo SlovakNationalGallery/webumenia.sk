@@ -29,6 +29,8 @@ class OglImporter extends AbstractImporter
         'state_edition:sk' => 'Původnost',
         'title:cs' => 'Titul',
         'title:sk' => 'Titul',
+        'current_location:cs' => 'AktLokace',
+        'current_location:sk' => 'AktLokace',
     ];
 
     protected $defaults = [
