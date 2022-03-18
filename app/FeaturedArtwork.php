@@ -2,12 +2,14 @@
 
 namespace App;
 
+use App\Concerns\Publishable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Cache;
 
 class FeaturedArtwork extends Model
 {
+    use Publishable;
+
     protected static function booted()
     {
         static::saved(fn() => Cache::forget('home.featured-artwork'));
@@ -18,28 +20,6 @@ class FeaturedArtwork extends Model
     public function item()
     {
         return $this->belongsTo(Item::class);
-    }
-
-    public function getIsPublishedAttribute()
-    {
-        return !!$this->published_at;
-    }
-
-    public function setIsPublishedAttribute(bool $isPublished)
-    {
-        if ($this->is_published === $isPublished) {
-            return;
-        }
-        if (!$isPublished) {
-            return $this->attributes['published_at'] = null;
-        }
-
-        $this->attributes['published_at'] = Carbon::now();
-    }
-
-    public function scopePublished($query)
-    {
-        return $query->where('published_at', '<=', Carbon::now());
     }
 
     public function getAuthorLinksAttribute()
