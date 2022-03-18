@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 ### Added
-- item style period
+- item style period, current location
 
 ## [2.47.0] - 2022-03-11
 ### Added

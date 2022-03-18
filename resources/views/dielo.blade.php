@@ -242,6 +242,12 @@
                                 <td><a href="{{ URL::to('katalog?gallery=' . $item->gallery) }}">{{ $item->gallery }}</a></td>
                             </tr>
                             @endif
+                            @if (!empty($item->current_location))
+                            <tr>
+                                <td class="atribut">{{ trans('dielo.item_attr_current_location') }}:</td>
+                                <td>{{ $item->current_location }}</td>
+                            </tr>
+                            @endif
                             @if (!empty($item->contributor))
                             <tr>
                                 <td class="atribut">{{ trans('dielo.item_attr_contributor') }}:</td>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddStylePeriodToItemTranslationsTable extends Migration
+class AddStylePeriodAndCurrentLocationToItemTranslationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,6 +15,7 @@ class AddStylePeriodToItemTranslationsTable extends Migration
     {
         Schema::table('item_translations', function (Blueprint $table) {
             $table->string('style_period')->nullable();
+            $table->string('current_location')->nullable();
         });
     }
 
@@ -26,7 +27,7 @@ class AddStylePeriodToItemTranslationsTable extends Migration
     public function down()
     {
         Schema::table('item_translations', function (Blueprint $table) {
-            $table->dropColumn('style_period');
+            $table->dropColumn(['style_period', 'current_location']);
         });
     }
 }
