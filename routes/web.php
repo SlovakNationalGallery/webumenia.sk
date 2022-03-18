@@ -41,69 +41,10 @@ Route::group([
 ],
 function()
 {
+    Route::get('/', 'HomeController@index');
     Route::get('leto', function () {
 
         return redirect('kolekcia/25');
-    });
-
-    Route::get('/', function (
-        AuthorityRepository $authorityRepository,
-        ItemRepository $itemRepository
-    ) {
-        $choices = [
-            [
-                trans('intro.from_galleries_start'),
-                route('frontend.info'),
-                formatNum(15),
-                trans('intro.from_galleries_end'),
-            ],
-            [
-                trans('intro.from_authors_start'),
-                route('frontend.author.index'),
-                formatNum($authorityRepository->count()),
-                trans('intro.from_authors_end'),
-            ],
-            [
-                trans('intro.in_high_res_start'),
-                route('frontend.catalog.index', ['has_iip' => true]),
-                formatNum($itemRepository->count((new ItemFilter)->setHasIip(true))),
-                trans('intro.in_high_res_end'),
-            ],
-            [
-                trans('intro.are_free_start'),
-                route('frontend.catalog.index', ['is_free' => true]),
-                formatNum($itemRepository->count((new ItemFilter)->setIsFree(true))),
-                trans('intro.are_free_end'),
-            ],
-        ];
-
-        $choice = $choices[array_rand($choices)];
-        $subtitle = vsprintf('%s <strong><a href="%s">%s</a></strong> %s', $choice);
-        $slides = Slide::published()->with('media')->orderBy('id', 'desc')->get();
-        $articles = Article::with(['translations', 'category'])
-            ->promoted()
-            ->published()
-            ->orderBy('published_date', 'desc')
-            ->limit(12)
-            ->get();
-        $itemCount = $itemRepository->count();
-
-        return view('intro', [
-            'subtitle' => $subtitle,
-            'slides' => $slides,
-            'articles' => $articles,
-            'itemCount' => $itemCount,
-        ]);
-    });
-
-    Route::get('slideClicked', function () {
-        $slide = Slide::find(Request::input('id'));
-        if ($slide) {
-            $slide->click_count += 1;
-            $slide->save();
-
-            return Response::json(['status' => 'success']);
-        }
     });
 
     Route::get('objednavka', function () {
@@ -379,7 +320,6 @@ Route::group(array('middleware' => 'guest'), function () {
 });
 
 Route::group(['middleware' => ['auth', 'can:edit']], function () {
-    Route::get('/new-home', 'HomeController@index');
     Route::get('admin', 'AdminController@index');
     Route::get('logout', 'AuthController@logout');
     Route::get('imports/launch/{id}', 'ImportController@launch');

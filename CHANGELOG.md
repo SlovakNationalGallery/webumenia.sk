@@ -17,6 +17,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - some styling issues with new Openseadragon
 - disabled global Bootstrap `<a>` styles 
+- default home page to new home page
 
 ## [2.47.0] - 2022-03-11
 ### Added

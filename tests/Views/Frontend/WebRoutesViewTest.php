@@ -19,12 +19,6 @@ class WebRoutesViewTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testGetSlideClicked()
-    {
-        $response = $this->get('/slideClicked');
-        $response->assertStatus(200);
-    }
-
     public function testGetOrder()
     {
         $response = $this->get('/objednavka');
