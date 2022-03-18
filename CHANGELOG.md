@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file[^1].
  
 ### Fixed
 - some styling issues with new Openseadragon
+- disabled global Bootstrap `<a>` styles 
 
 ## [2.47.0] - 2022-03-11
 ### Added

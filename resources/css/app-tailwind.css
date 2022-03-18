@@ -16,12 +16,6 @@
         transition: unset;
     }
 
-    .tailwind-rules a:hover,
-    .tailwind-rules a:focus {
-        @apply tw-decoration-inherit;
-        color: initial;
-    }
-
     /* Theme defaults */
     /* Once Bootstrap is removed, the applied classes here can be moved to <body> */
     .tailwind-rules {
