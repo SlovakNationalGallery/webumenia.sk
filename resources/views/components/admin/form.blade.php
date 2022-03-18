@@ -1,3 +1,3 @@
-{!! Form::model($model, compact('url', 'method')) !!}
+{!! Form::model($model, compact('url', 'method', 'files')) !!}
     {{ $slot }}
 {!! Form::close() !!}
