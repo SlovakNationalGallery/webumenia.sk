@@ -32,7 +32,7 @@
                     class="tw-absolute tw-inset-0 tw-bg-gradient-to-r tw-from-black/50 tw-to-black/20 md:tw-to-black/0">
                 </div>
                 <div
-                    class="tw-container tw-mx-auto tw-max-w-screen-xl tw-py-8 tw-px-6 tw-text-white md:tw-py-20">
+                    class="tw-container tw-relative tw-mx-auto tw-max-w-screen-xl tw-py-8 tw-px-6 tw-text-white md:tw-py-20">
                     <h2 class="tw-mt-36 tw-font-semibold tw-drop-shadow md:tw-mt-48 md:tw-text-lg">
                         Odporúčame</h2>
                     <h3 class="tw-mt-4 tw-text-3xl tw-font-semibold tw-drop-shadow md:tw-text-6xl">
@@ -40,12 +40,10 @@
                     </h3>
                     <p
                         class="tw-mt-5 tw-max-w-lg tw-font-serif tw-leading-relaxed tw-drop-shadow md:tw-text-xl">
-                        {{ $featuredPiece->excerpt }}</p>
-                    <a href="{{ $featuredPiece->url }}"
-                        class="tw-relative tw-mt-3 tw-inline-block tw-border tw-border-gray-300 tw-px-4 tw-py-2 tw-text-sm tw-transition tw-duration-300 hover:tw-border-gray-400 hover:tw-bg-white hover:tw-text-gray-800 md:tw-mt-6">
-                        {{ $featuredPiece->is_collection ? 'Prejsť na kolekciu' : 'Prejsť na článok' }}
-                        <i class="fa icon-arrow-right tw-ml-2"></i>
-                    </a>
+                        {{ $featuredPiece->excerpt }}
+                    </p>
+                    <livewire:home.tracked-featured-piece-button :featured-piece="$featuredPiece"
+                        class="tw-mt-3 md:tw-mt-6" />
                 </div>
             </div>
         @endif
