@@ -3,16 +3,24 @@
 namespace App;
 
 use App\Concerns\DelegatesAttributes;
+use App\Concerns\Publishable;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class ShuffledItem extends Model
+class ShuffledItem extends Model implements HasMedia
 {
     use DelegatesAttributes;
+    use InteractsWithMedia;
+    use Publishable;
 
     protected $delegated = [
         'title' => 'item',
         'dating_formatted' => 'item',
     ];
+
+    protected $fillable = ['is_published', 'item_id', 'image'];
 
     public function item()
     {
@@ -29,5 +37,17 @@ class ShuffledItem extends Model
                     : route('frontend.catalog.index', ['author' => $a->name]),
             ]
         );
+    }
+
+    public function getImageAttribute(): ?Media
+    {
+        return $this->getFirstMedia('image');
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('image')
+            ->singleFile()
+            ->withResponsiveImages();
     }
 }

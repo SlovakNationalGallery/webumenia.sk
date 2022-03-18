@@ -13,7 +13,7 @@
                 </x-admin.alert>
             @endif
 
-            <x-admin.form :model="$shuffledItem">
+            <x-admin.form :model="$shuffledItem" files>
                 <x-admin.label value="Dielo" />
                 <query-string v-slot="qs" class="sm:tw-w-2/3">
                     <autocomplete v-bind:remote="{ url: '/katalog/suggestions?search=%QUERY' }"
@@ -32,13 +32,18 @@
                 </query-string>
 
                 @if ($shuffledItem->item)
-                    <div
-                        class="tw-mt-2 tw-grid tw-rounded-md tw-border tw-shadow sm:tw-w-2/3 sm:tw-grid-cols-3">
-                        <a href="{{ route('dielo', $shuffledItem->item) }}">
+                    <div class="tw-mt-2 tw-flex tw-rounded-md tw-border tw-shadow md:tw-w-2/3">
+                        <a href="{{ route('dielo', $shuffledItem->item) }}"
+                            class="tw-inline-block tw-h-32 tw-w-1/3">
                             <img src="{{ $shuffledItem->item->getImagePath() }}"
-                                class="tw-h-32 tw-w-full tw-rounded-tl-md tw-rounded-bl-md tw-object-cover" />
+                                class="tw-h-full tw-w-full tw-rounded-tl-md tw-rounded-bl-md tw-object-cover" />
                         </a>
-                        <div class="p-4 tw-col-span-2 tw-space-y-1">
+                        <div class="tw-col-span-2 tw-space-y-1 tw-py-2 tw-px-4">
+                            <h2 class="tw-text-lg hover:tw-underline">
+                                <a href="{{ route('dielo', $shuffledItem->item) }}">
+                                    {{ $shuffledItem->title }}
+                                </a>
+                            </h2>
                             <div>
                                 @foreach ($shuffledItem->authorLinks as $a)
                                     <x-admin.link href="{{ $a->url }}">
@@ -46,13 +51,38 @@
                                     </x-admin.link>{{ $loop->last ? '' : ', ' }}
                                 @endforeach
                             </div>
-                            <h2 class="tw-font-bold">
-                                <x-admin.link href="{{ route('dielo', $shuffledItem->item) }}">
-                                    {{ $shuffledItem->title }}
-                                </x-admin.link>
-                            </h2>
                             <div>{{ $shuffledItem->dating_formatted }}</div>
                         </div>
+
+                        <input type="hidden" name="item_id" value="{{ $shuffledItem->item->id }}" />
+                    </div>
+                    <div class="tw-mt-8 tw-w-1/3">
+                        <x-admin.label for="image" value="Obrázok" />
+                        @if ($shuffledItem->hasMedia('image'))
+                            {{ $shuffledItem->image->img()->attributes(['class' => 'tw-w-64 tw-rounded-md']) }}
+                        @endif
+                        <input id="image" name="image" type="file" class="tw-mt-2" />
+                    </div>
+
+                    <div class="tw-mt-8">
+                        <x-admin.checkbox id="is_published" name="is_published"
+                            :checked="old('is_published', $shuffledItem->is_published)" />
+                        <label for="is_published"
+                            class="tw-ml-1 tw-select-none tw-font-normal">Publikovať</label>
+                        @if ($shuffledItem->is_published)
+                            <p class="tw-text-gray-400">Publikované
+                                {{ $shuffledItem->published_at }}
+                            </p>
+                        @endif
+                    </div>
+
+                    <div class="tw-mt-8 tw-text-center">
+                        <x-admin.button primary>
+                            Uložiť
+                        </x-admin.button>
+                        <x-admin.button :link="route('shuffled-items.index')">
+                            Zrušiť
+                        </x-admin.button>
                     </div>
 
                     {{-- <x-admin.label for="author" value="Autori" class="tw-mt-4" />
@@ -70,36 +100,16 @@
                                         {{ $m->label }}{{ $loop->last ? '' : ', ' }}
                                 @endif
                             @endforeach --}}
-        </div>
-        {{-- <div class="tw-col-span-3 tw-mt-4">
+
+                    {{-- <div class="tw-col-span-3 tw-mt-4">
                             <x-admin.label for="description" value="Popis" class="tw-mt-4" />
                             <textarea id="description" name="description"
                                 class="wysiwyg">{{ old('description', $shuffledItem->description) }}</textarea>
                         </div>
-                        <div class="tw-col-span-3 tw-mt-8">
-                            <x-admin.checkbox id="is_published" name="is_published"
-                                :checked="old('is_published', $shuffledItem->is_published)" />
-                            <label for="is_published"
-                                class="tw-ml-1 tw-select-none tw-font-normal">Publikovať</label>
-                            @if ($shuffledItem->is_published)
-                                <p class="tw-text-gray-400">Publikované
-                                    {{ $shuffledItem->published_at }}
-                                </p>
-                            @endif
-                        </div>
 
-                        <input type="hidden" name="item_id" value="{{ $shuffledItem->item->id }}" />
-                    </div>
-                    <div class="tw-mt-8 tw-text-center">
-                        <x-admin.button primary>
-                            Uložiť
-                        </x-admin.button>
-                        <x-admin.button :link="route('featured-artworks.index')">
-                            Zrušiť
-                        </x-admin.button>
                     </div> --}}
-        @endif
-        </x-admin.form>
-    </div>
+                @endif
+            </x-admin.form>
+        </div>
     </div>
 @endsection

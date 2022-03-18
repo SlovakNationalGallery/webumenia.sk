@@ -11,6 +11,8 @@ class ShuffledItemController extends Controller
 {
     private static $rules = [
         'item_id' => 'required',
+        'image' => ['image', 'dimensions:min_width=1200'],
+        'is_published' => 'required',
     ];
 
     // public function index()
@@ -32,6 +34,7 @@ class ShuffledItemController extends Controller
         $item = $request->query('itemId') ? Item::find($request->query('itemId')) : null;
 
         $shuffledItem = new ShuffledItem();
+
         $request->whenHas('itemId', function ($itemId) use ($shuffledItem) {
             $shuffledItem->item = Item::findOrFail($itemId);
         });
@@ -39,28 +42,27 @@ class ShuffledItemController extends Controller
         return view('shuffled-items.form', compact('shuffledItem'));
     }
 
-    // public function edit(FeaturedArtwork $featuredArtwork)
-    // {
-    //     return view('featured_artworks.form', [
-    //         'artwork' => $featuredArtwork,
-    //     ]);
-    // }
+    public function edit(ShuffledItem $shuffledItem)
+    {
+        return view('shuffled-items.form', compact('shuffledItem'));
+    }
 
-    // public function store(Request $request)
-    // {
-    //     $request->validate(self::$rules);
-    //     $featuredArtwork = FeaturedArtwork::create(
-    //         array_merge($request->input(), [
-    //             'is_published' => $request->boolean('is_published'),
-    //         ])
-    //     );
+    public function store(Request $request)
+    {
+        // 'image' parameter is required when creating
+        $rules = array_merge_recursive(self::$rules, ['image' => ['required']]);
 
-    //     return redirect()
-    //         ->route('featured-artworks.index')
-    //         ->with('message', "Vybrané dielo \"{$featuredArtwork->title}\" bolo vytvorené");
-    // }
+        $request->validate($rules);
+        $shuffledItem = ShuffledItem::create($request->input());
+        $shuffledItem->addMediaFromRequest('image')->toMediaCollection('image');
 
-    // public function update(Request $request, FeaturedArtwork $featuredArtwork)
+        return redirect()->route('shuffled-items.edit', $shuffledItem);
+        // TODO
+        // ->route('shuffled-items.index')
+        // ->with('message', "Vybrané dielo \"{$featuredArtwork->title}\" bolo vytvorené");
+    }
+
+    // public function update(Request $request, ShuffledItem $shuffledItem)
     // {
     //     $request->validate(self::$rules);
 
@@ -69,6 +71,9 @@ class ShuffledItemController extends Controller
     //             'is_published' => $request->boolean('is_published'),
     //         ])
     //     );
+    //     $request->whenHas('image', function () use ($shuffledItem) {
+    //         $shuffledItem->addMediaFromRequest('image')->toMediaCollection('image');
+    //     });
 
     //     return redirect()
     //         ->route('featured-artworks.index')
