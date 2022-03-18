@@ -100,6 +100,16 @@ class OglImporter extends AbstractImporter
         return $topic;
     }
 
+    protected function hydrateStylePeriod(array $record, $locale)
+    {
+        $stylePeriod = $record['Podskup'];
+        if ($locale !== 'cs') {
+            $stylePeriod = $this->translateAttribute('style_period', $stylePeriod, $locale);
+        }
+
+        return $stylePeriod;
+    }
+
     protected function hydrateTechnique(array $record, $locale)
     {
         $technika = $record['Technika'];

@@ -155,6 +155,31 @@ class OglImporterTest extends TestCase
         );
     }
 
+    public function testStylePeriod()
+    {
+        $data = $this->getData([
+            'Podskup' => 'České umění 20. st.',
+        ]);
+        $item = $this->importSingle($data);
+        $this->assertEquals('České umění 20. st.', $item->getTranslationOrFail('cs')->style_period);
+        $this->assertEquals(
+            'České umenie 20. st.',
+            $item->getTranslationOrFail('sk')->style_period
+        );
+        $this->assertEquals(null, $item->getTranslationOrFail('en')->style_period);
+    }
+
+    public function testStylePeriodWithoutTranslation()
+    {
+        $data = $this->getData([
+            'Podskup' => 'not translated',
+        ]);
+        $item = $this->importSingle($data);
+        $this->assertEquals('not translated', $item->getTranslationOrFail('cs')->style_period);
+        $this->assertEquals(null, $item->getTranslationOrFail('sk')->style_period);
+        $this->assertEquals(null, $item->getTranslationOrFail('en')->style_period);
+    }
+
     protected function importSingle(array $data)
     {
         $records = new \ArrayIterator([$data]);
