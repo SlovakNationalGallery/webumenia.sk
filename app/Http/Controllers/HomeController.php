@@ -116,7 +116,7 @@ class HomeController extends Controller
     private function getCountsBlurbData()
     {
         $choices = Cache::remember('home.counts', now()->addDays(3), function () {
-            $galleriesCount = 15;
+            $galleriesCount = count(config('galleries'));
             $authoritiesCount = Authority::count();
             $itemsCount = Item::count();
             $highResItemsCount = Item::withExists('images')->count();
