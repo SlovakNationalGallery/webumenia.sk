@@ -61,11 +61,13 @@
                         <x-admin.label for="image" value="Obrázok" />
                         <croppr src="{{ $shuffledItem->item->getImagePath() }}"
                             class="md:tw-w-2/3"
-                            :default-value='{ "x": 0.085, "y": 0.146, "width": 0.5, "height": 0.375 }'
-                            :aspect-ratio="16/9" v-slot="{ value }">
+                            :default-value="{{ Js::from($shuffledItem->crop) }}"
+                            :aspect-ratio=" 16/9" v-slot="{ value }">
                             <input type="hidden" name="crop" :value="JSON.stringify(value)" />
                         </croppr>
 
+                        <input type="hidden" name="crop_url"
+                            value="{{ URL::to($shuffledItem->item->getImagePath()) }}" />
 
                     </div>
 

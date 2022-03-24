@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Item;
 use App\ShuffledItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class ShuffledItemController extends Controller
 {
     private static $rules = [
         'item_id' => 'required',
-        'image' => ['image', 'dimensions:min_width=1200'],
+        'crop' => 'required|json',
+        'crop_url' => 'required|url',
         'is_published' => 'required',
     ];
 
@@ -49,12 +51,10 @@ class ShuffledItemController extends Controller
 
     public function store(Request $request)
     {
-        // 'image' parameter is required when creating
-        $rules = array_merge_recursive(self::$rules, ['image' => ['required']]);
+        $request->validate(self::$rules);
 
-        $request->validate($rules);
         $shuffledItem = ShuffledItem::create($request->input());
-        $shuffledItem->addMediaFromRequest('image')->toMediaCollection('image');
+        $shuffledItem->addMediaFromUrl($request->input('crop_url'))->toMediaCollection('image');
 
         return redirect()->route('shuffled-items.edit', $shuffledItem);
         // TODO
@@ -62,23 +62,23 @@ class ShuffledItemController extends Controller
         // ->with('message', "Vybrané dielo \"{$featuredArtwork->title}\" bolo vytvorené");
     }
 
-    // public function update(Request $request, ShuffledItem $shuffledItem)
-    // {
-    //     $request->validate(self::$rules);
+    public function update(Request $request, ShuffledItem $shuffledItem)
+    {
+        $request->validate(self::$rules);
+        $request->merge(['crop' => json_decode($request->input('crop'))]);
 
-    //     $featuredArtwork->update(
-    //         array_merge($request->input(), [
-    //             'is_published' => $request->boolean('is_published'),
-    //         ])
-    //     );
-    //     $request->whenHas('image', function () use ($shuffledItem) {
-    //         $shuffledItem->addMediaFromRequest('image')->toMediaCollection('image');
-    //     });
+        $shuffledItem->update($request->input());
 
-    //     return redirect()
-    //         ->route('featured-artworks.index')
-    //         ->with('message', "Vybrané dielo \"{$featuredArtwork->title}\" bolo upravené");
-    // }
+        if ($shuffledItem->wasChanged('crop')) {
+            $shuffledItem->addMediaFromUrl($request->input('crop_url'))->toMediaCollection('image');
+        }
+
+        return redirect()
+            ->route('shuffled-items.edit', $shuffledItem)
+            // TODO
+            //     ->route('shuffled-items.index')
+            ->with('message', 'Dielo bolo upravené');
+    }
 
     // public function destroy(FeaturedArtwork $featuredArtwork)
     // {

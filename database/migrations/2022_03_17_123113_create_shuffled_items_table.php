@@ -14,6 +14,7 @@ return new class extends Migration {
                 ->foreign('item_id')
                 ->references('id')
                 ->on('items');
+            $table->json('crop');
             $table->dateTime('published_at')->nullable();
             $table->timestamps();
         });

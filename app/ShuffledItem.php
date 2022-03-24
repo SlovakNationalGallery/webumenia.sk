@@ -15,12 +15,16 @@ class ShuffledItem extends Model implements HasMedia
     use InteractsWithMedia;
     use Publishable;
 
+    protected $casts = [
+        'crop' => 'array',
+    ];
+
     protected $delegated = [
         'title' => 'item',
         'dating_formatted' => 'item',
     ];
 
-    protected $fillable = ['is_published', 'item_id', 'image'];
+    protected $fillable = ['is_published', 'item_id', 'crop'];
 
     public function item()
     {
@@ -37,11 +41,6 @@ class ShuffledItem extends Model implements HasMedia
                     : route('frontend.catalog.index', ['author' => $a->name]),
             ]
         );
-    }
-
-    public function getImageAttribute(): ?Media
-    {
-        return $this->getFirstMedia('image');
     }
 
     public function registerMediaCollections(): void
