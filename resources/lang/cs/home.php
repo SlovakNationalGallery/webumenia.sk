@@ -32,7 +32,7 @@ return [
             'default_type' => 'kolekce',
             'promo_slide' => [
                 'line_1' => 'Na Webe umenia je dalších více',
-                'line_2' => 'než :count kolekcií',
+                'line_2' => 'než :count kolekcí',
                 'link' => 'Zobrazit další kolekce',
             ],
         ],
@@ -42,7 +42,7 @@ return [
             'default_type' => 'článek',
             'promo_slide' => [
                 'line_1' => 'Na Webe umenia je dalších více',
-                'line_2' => 'než :count článkov',
+                'line_2' => 'než :count článků',
                 'link' => 'Zobrazit další články',
             ],
         ],
@@ -50,7 +50,7 @@ return [
 
     'featured_author' => [
         'title' => 'Autor týdne',
-        'button_author' => 'Zobrazit <strong>:count diel</strong> od autora',
+        'button_author' => 'Zobrazit <strong>:count děl</strong> od autora',
         'button_more' => 'zobrazit další autory',
     ],
 ];
