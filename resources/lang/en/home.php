@@ -14,43 +14,43 @@ return [
     'show_more_articles' => 'more articles',
 
     'featured_piece' => [
-        'title' => 'Odporúčame',
-        'button_collection' => 'Prejsť na kolekciu',
-        'button_article' => 'Prejsť na článok',
+        'title' => 'We recommend',
+        'button_collection' => 'Explore collection',
+        'button_article' => 'Read more',
     ],
 
     'featured_artwork' => [
-        'title' => 'Dielo dňa',
-        'button' => 'Viac o diele',
+        'title' => 'Artwork of the day',
+        'button' => 'Learn more',
     ],
 
     'latest_content' => [
         'collections' => [
-            'tab' => 'Kolekcie',
-            'button' => 'Všetky kolekcie',
-            'item_count_suffix' => 'v kolekcii',
-            'default_type' => 'kolekcia',
+            'tab' => 'Collections',
+            'button' => 'More collections',
+            'item_count_suffix' => 'in the collection',
+            'default_type' => 'collection',
             'promo_slide' => [
-                'line_1' => 'Na Webe umenia je ďalších viac',
-                'line_2' => 'ako :count kolekcií',
-                'link' => 'Zobraziť ďalšie kolekcie',
+                'line_1' => 'Discover more than :count collections',
+                'line_2' => 'on Web umenia',
+                'link' => 'Browse more collections',
             ],
         ],
         'articles' => [
-            'tab' => 'Články',
-            'button' => 'Všetky články',
-            'default_type' => 'článok',
+            'tab' => 'Articles',
+            'button' => 'More articles',
+            'default_type' => 'article',
             'promo_slide' => [
-                'line_1' => 'Na Webe umenia je ďalších viac',
-                'line_2' => 'ako :count článkov',
-                'link' => 'Zobraziť ďalšie články',
+                'line_1' => 'Discover more than :count articles',
+                'line_2' => 'on Web umenia',
+                'link' => 'Browse more articles',
             ],
         ],
     ],
 
     'featured_author' => [
-        'title' => 'Autor týždňa',
-        'button_author' => 'Zobraziť <strong>:count diel</strong> od autora',
-        'button_more' => 'zobraziť ďalších autorov',
+        'title' => 'Artist of the week',
+        'button_author' => 'Browse <strong>:count artworks</strong> by the artist',
+        'button_more' => 'Show more artists',
     ],
 ];
