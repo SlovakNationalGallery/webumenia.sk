@@ -31,8 +31,7 @@ return [
             'item_count_suffix' => 'in the collection',
             'default_type' => 'collection',
             'promo_slide' => [
-                'line_1' => 'Discover more than :count collections',
-                'line_2' => 'on Web umenia',
+                'claim' => 'Discover more than :count collections <br /> on Web umenia',
                 'link' => 'Browse more collections',
             ],
         ],
@@ -41,8 +40,7 @@ return [
             'button' => 'More articles',
             'default_type' => 'article',
             'promo_slide' => [
-                'line_1' => 'Discover more than :count articles',
-                'line_2' => 'on Web umenia',
+                'claim' => 'Discover more than :count articles <br /> on Web umenia',
                 'link' => 'Browse more articles',
             ],
         ],

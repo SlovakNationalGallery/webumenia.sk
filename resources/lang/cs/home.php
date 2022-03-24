@@ -31,8 +31,7 @@ return [
             'item_count_suffix' => 'v kolekci',
             'default_type' => 'kolekce',
             'promo_slide' => [
-                'line_1' => 'Na Webe umenia je dalších více',
-                'line_2' => 'než :count kolekcí',
+                'claim' => 'Na Webe umenia je dalších více <br /> než :count kolekcí',
                 'link' => 'Zobrazit další kolekce',
             ],
         ],
@@ -41,8 +40,7 @@ return [
             'button' => 'Všechny články',
             'default_type' => 'článek',
             'promo_slide' => [
-                'line_1' => 'Na Webe umenia je dalších více',
-                'line_2' => 'než :count článků',
+                'claim' => 'Na Webe umenia je dalších více <br /> než :count článků',
                 'link' => 'Zobrazit další články',
             ],
         ],

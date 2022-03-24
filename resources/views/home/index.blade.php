@@ -185,11 +185,7 @@
                             @endforeach
                             <div
                                 class="tw-flex tw-h-48 tw-w-72 tw-flex-col tw-justify-center tw-bg-gray-200 tw-text-center tw-text-xl tw-font-semibold tw-text-black md:tw-w-[25rem]">
-                                <p>
-                                    {{ trans('home.latest_content.collections.promo_slide.line_1') }}
-                                    <br />
-                                    {{ trans('home.latest_content.collections.promo_slide.line_2', ['count' => $collectionsRemainingCount]) }}
-                                </p>
+                                <p>{!! trans('home.latest_content.collections.promo_slide.claim', ['count' => $collectionsRemainingCount]) !!}</p>
                                 <a class="tw-mt-5 tw-underline tw-decoration-gray-300 tw-decoration-[3px] tw-underline-offset-4 hover:tw-decoration-current hover:tw-transition-colors"
                                     href="{{ route('frontend.collection.index') }}">{{ trans('home.latest_content.collections.promo_slide.link') }}</a>
                             </div>
@@ -225,11 +221,7 @@
                             @endforeach
                             <div
                                 class="tw-flex tw-h-48 tw-w-72 tw-flex-col tw-justify-center tw-bg-gray-200 tw-text-center tw-text-xl tw-font-semibold tw-text-black md:tw-w-[25rem]">
-                                <p>
-                                    {{ trans('home.latest_content.articles.promo_slide.line_1') }}
-                                    <br />
-                                    {{ trans('home.latest_content.articles.promo_slide.line_2', ['count' => $articlesRemainingCount]) }}
-                                </p>
+                                <p>{!! trans('home.latest_content.articles.promo_slide.claim', ['count' => $articlesRemainingCount]) !!}</p>
                                 <a class="tw-mt-5 tw-underline tw-decoration-gray-300 tw-decoration-[3px] tw-underline-offset-4 hover:tw-decoration-current hover:tw-transition-colors"
                                     href="{{ route('frontend.article.index') }}">{{ trans('home.latest_content.articles.promo_slide.link') }}</a>
                             </div>
