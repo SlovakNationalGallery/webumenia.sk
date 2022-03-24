@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.48.0] - 2022-03-25
 ### Added
 - global word-break:keep-all
 - "counts blurb" to new homepage
