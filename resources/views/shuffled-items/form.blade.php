@@ -56,12 +56,17 @@
 
                         <input type="hidden" name="item_id" value="{{ $shuffledItem->item->id }}" />
                     </div>
-                    <div class="tw-mt-8 tw-w-1/3">
+
+                    <div class="tw-mt-8">
                         <x-admin.label for="image" value="Obrázok" />
-                        @if ($shuffledItem->hasMedia('image'))
-                            {{ $shuffledItem->image->img()->attributes(['class' => 'tw-w-64 tw-rounded-md']) }}
-                        @endif
-                        <input id="image" name="image" type="file" class="tw-mt-2" />
+                        <croppr src="{{ $shuffledItem->item->getImagePath() }}"
+                            class="md:tw-w-2/3"
+                            :default-value='{ "x": 0.085, "y": 0.146, "width": 0.5, "height": 0.375 }'
+                            :aspect-ratio="16/9" v-slot="{ value }">
+                            <input type="hidden" name="crop" :value="JSON.stringify(value)" />
+                        </croppr>
+
+
                     </div>
 
                     <div class="tw-mt-8">
