@@ -268,7 +268,7 @@
                         </div>
                         <a href="{{ route('frontend.author.detail', $featuredAuthor) }}"
                             class="tw-mt-6 tw-inline-block tw-border tw-border-gray-300 tw-px-4 tw-py-2 tw-text-sm tw-transition tw-duration-300 hover:tw-border-gray-400 hover:tw-bg-white hover:tw-text-gray-800">
-                            Zobraziť <strong>{{ $featuredAuthor->items->count() }} diel</strong> od
+                            Zobraziť <strong>{{ $featuredAuthor->items_count }} diel</strong> od
                             autora
                             <i class="fa icon-arrow-right tw-ml-2"></i>
                         </a>
@@ -282,7 +282,7 @@
 
                 <x-home.carousel class="tw-mt-6 lg:tw-mt-12" images-loaded
                     button-container-class="tw-h-56">
-                    @foreach ($featuredAuthor->items as $item)
+                    @foreach ($featuredAuthorItems as $item)
                         <a href="{{ route('dielo', ['id' => $item]) }}"
                             class="tw-ml-4 tw-w-max first:tw-ml-0">
                             <x-item_image :id="$item->id"

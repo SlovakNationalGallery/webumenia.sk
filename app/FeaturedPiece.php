@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -10,6 +11,11 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 class FeaturedPiece extends Model implements HasMedia
 {
     use InteractsWithMedia;
+
+    protected static function booted()
+    {
+        static::saved(fn() => Cache::forget('home.featured-piece'));
+    }
 
     protected $fillable = [
         'title',

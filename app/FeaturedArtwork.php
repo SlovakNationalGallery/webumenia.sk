@@ -4,9 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Cache;
 
 class FeaturedArtwork extends Model
 {
+    protected static function booted()
+    {
+        static::saved(fn() => Cache::forget('home.featured-artwork'));
+    }
+
     protected $fillable = [
         'is_published',
         'item',

@@ -10,51 +10,92 @@ use App\FeaturedArtwork;
 use App\FeaturedPiece;
 use App\Filter\ItemFilter;
 use App\Item;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        // TODO caching
-        $featuredPiece = FeaturedPiece::query()
-            ->published()
-            ->with('media')
-            ->orderBy('updated_at', 'desc')
-            ->first();
+        $featuredPiece = Cache::rememberForever('home.featured-piece', function () {
+            return FeaturedPiece::query()
+                ->published()
+                ->with('media')
+                ->orderBy('updated_at', 'desc')
+                ->first();
+        });
 
-        $featuredArtwork = FeaturedArtwork::query()
-            ->published()
-            ->orderBy('updated_at', 'desc')
-            ->first();
+        $featuredArtwork = Cache::rememberForever('home.featured-artwork', function () {
+            return FeaturedArtwork::query()
+                ->with(['item.authorities', 'item.translations'])
+                ->published()
+                ->orderBy('updated_at', 'desc')
+                ->first();
+        });
 
-        $featuredAuthor = Authority::query()
-            ->where('has_image', true)
-            ->where('type', 'person')
-            ->has('items', '>', 3)
-            ->inRandomOrder()
-            ->first();
+        [$featuredAuthor, $featuredAuthorItems] = Cache::remember(
+            'home.featured-author',
+            now()->addDays(7),
+            function () {
+                $author = Authority::query()
+                    ->with(['translations'])
+                    ->withCount('items')
+                    ->where('has_image', true)
+                    ->where('type', 'person')
+                    ->whereHas(
+                        'items',
+                        function (Builder $query) {
+                            $query->has('images');
+                        },
+                        '>=',
+                        3
+                    )
+                    ->inRandomOrder()
+                    ->first();
 
-        $articles = Article::query()
-            ->with(['translations', 'category'])
-            ->published()
-            ->orderBy('published_date', 'desc')
-            ->limit(5)
-            ->get();
+                $items = $author
+                    ->items()
+                    ->has('images')
+                    ->inRandomOrder()
+                    ->limit(10)
+                    ->get();
 
-        $articlesTotalCount = Article::published()->count();
-        $articlesRemainingCount = floor(($articlesTotalCount - 5) / 10) * 10; // Round down to nearest 10
+                return [$author, $items];
+            }
+        );
 
-        $collections = Collection::query()
-            ->with(['translations', 'user'])
-            ->withCount('items')
-            ->published()
-            ->orderBy('published_at', 'desc')
-            ->take(5)
-            ->get();
+        [$articles, $articlesRemainingCount] = Cache::rememberForever('home.articles', function () {
+            $articles = Article::query()
+                ->with(['translations', 'category'])
+                ->published()
+                ->orderBy('published_date', 'desc')
+                ->limit(5)
+                ->get();
 
-        $collectionsTotalCount = Collection::published()->count();
-        $collectionsRemainingCount = floor(($collectionsTotalCount - 5) / 10) * 10; // Round down to nearest 10
+            $totalCount = Article::published()->count();
+            $remainingCount = floor(($totalCount - 5) / 10) * 10; // Round down to nearest 10
+
+            return [$articles, $remainingCount];
+        });
+
+        [$collections, $collectionsRemainingCount] = Cache::rememberForever(
+            'home.collections',
+            function () {
+                $collections = Collection::query()
+                    ->with(['translations', 'user'])
+                    ->withCount('items')
+                    ->published()
+                    ->orderBy('published_at', 'desc')
+                    ->take(5)
+                    ->get();
+
+                $totalCount = Collection::published()->count();
+                $remainingCount = floor(($totalCount - 5) / 10) * 10; // Round down to nearest 10
+
+                return [$collections, $remainingCount];
+            }
+        );
+
         $countsBlurb = $this->getCountsBlurbData();
 
         return view('home.index')->with(
@@ -62,6 +103,7 @@ class HomeController extends Controller
                 'featuredPiece',
                 'featuredArtwork',
                 'featuredAuthor',
+                'featuredAuthorItems',
                 'articles',
                 'articlesRemainingCount',
                 'collections',

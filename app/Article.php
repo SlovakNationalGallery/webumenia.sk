@@ -10,6 +10,7 @@ use Astrotomic\Translatable\Translatable;
 use Illuminate\Support\Facades\URL;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Validation\Rule;
 
 class Article extends Model implements TranslatableContract
@@ -19,6 +20,11 @@ class Article extends Model implements TranslatableContract
     use \Conner\Tagging\Taggable;
 
     use HasHeaderImage;
+
+    protected static function booted()
+    {
+        static::saved(fn() => Cache::forget('home.articles'));
+    }
 
     function getArtworksDirAttribute()
     {
