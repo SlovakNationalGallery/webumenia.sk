@@ -73,7 +73,7 @@ class HomeController extends Controller
 
     private function getCountsBlurbData()
     {
-        [$itemsCount, $choices] = Cache::remember('home.counts', now()->addDays(3), function () {
+        $choices = Cache::remember('home.counts', now()->addDays(3), function () {
             $galleriesCount = 15;
             $authoritiesCount = Authority::count();
             $itemsCount = Item::count();
@@ -83,39 +83,37 @@ class HomeController extends Controller
             $freeItemsCount = $itemRepository->count((new ItemFilter())->setIsFree(true));
 
             return [
-                $itemsCount,
                 [
-                    [
-                        trans('intro.from_galleries_start'),
-                        route('frontend.info'),
-                        $galleriesCount,
-                        trans('intro.from_galleries_end'),
-                    ],
-                    [
-                        trans('intro.from_authors_start'),
-                        route('frontend.author.index'),
-                        $authoritiesCount,
-                        trans('intro.from_authors_end'),
-                    ],
-                    [
-                        trans('intro.in_high_res_start'),
-                        route('frontend.catalog.index', ['has_iip' => true]),
-                        $highResItemsCount,
-                        trans('intro.in_high_res_end'),
-                    ],
-                    [
-                        trans('intro.are_free_start'),
-                        route('frontend.catalog.index', ['is_free' => true]),
-                        $freeItemsCount,
-                        trans('intro.are_free_end'),
-                    ],
+                    'start' => trans('intro.from_galleries_start'),
+                    'url' => route('frontend.info'),
+                    'count' => $galleriesCount,
+                    'end' => trans('intro.from_galleries_end'),
+                    'itemsCount' => $itemsCount,
+                ],
+                [
+                    'start' => trans('intro.from_authors_start'),
+                    'url' => route('frontend.author.index'),
+                    'count' => $authoritiesCount,
+                    'end' => trans('intro.from_authors_end'),
+                    'itemsCount' => $itemsCount,
+                ],
+                [
+                    'start' => trans('intro.in_high_res_start'),
+                    'url' => route('frontend.catalog.index', ['has_iip' => true]),
+                    'count' => $highResItemsCount,
+                    'end' => trans('intro.in_high_res_end'),
+                    'itemsCount' => $itemsCount,
+                ],
+                [
+                    'start' => trans('intro.are_free_start'),
+                    'url' => route('frontend.catalog.index', ['is_free' => true]),
+                    'count' => $freeItemsCount,
+                    'end' => trans('intro.are_free_end'),
+                    'itemsCount' => $itemsCount,
                 ],
             ];
         });
 
-        return (object) [
-            'parts' => $choices[array_rand($choices)],
-            'itemsCount' => $itemsCount,
-        ];
+        return (object) $choices[array_rand($choices)];
     }
 }

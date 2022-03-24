@@ -57,12 +57,12 @@
                 <p class="tw-text-center lg:tw-text-2xl">
                     {{ utrans('intro.definition_start') }}
                     <a href="{{ route('frontend.catalog.index') }}"
-                        class="tw-font-bold tw-text-gray-800 hover:tw-underline">{!! formatNum($countsBlurb->itemsCount) !!}</a>
+                        class="tw-font-bold tw-text-gray-800 hover:tw-underline">{{ formatNum($countsBlurb->itemsCount) }}</a>
                     {{ trans('intro.definition_end') }}<br>
-                    {{ $countsBlurb->parts[0] }}
-                    <a href="{{ $countsBlurb->parts[1] }}"
-                        class="tw-font-bold tw-text-gray-800 hover:tw-underline">{{ formatNum($countsBlurb->parts[2]) }}</a>
-                    {{ $countsBlurb->parts[3] }}
+                    {{ $countsBlurb->start }}
+                    <a href="{{ $countsBlurb->url }}"
+                        class="tw-font-bold tw-text-gray-800 hover:tw-underline">{{ formatNum($countsBlurb->count) }}</a>
+                    {{ $countsBlurb->end }}
                 </p>
             </div>
         </div>
