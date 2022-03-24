@@ -60,7 +60,7 @@ class MakeSitemap extends Command
         /*** MISC ****/
         $sitemap_misc = App::make("sitemap");
 
-        $sitemap_misc->add(URL::to(''), $this->getLastModified('intro.blade.php'), '1.0', 'weekly');
+        $sitemap_misc->add(URL::to(''), $this->getLastModified('home/index.blade.php'), '1.0', 'weekly');
         $sitemap_misc->add(URL::to('informacie'), $this->getLastModified('informacie.blade.php'), '0.8');
 
         $sitemap_misc->store('xml', self::SITEMAPS_DIR . 'misc');
