@@ -17,11 +17,15 @@ module.exports = {
                 },
             },
             fontFamily: {
-              "sans": ["GTWalsheim", "sans-serif"],
-              "serif": ["Source Serif Pro", "Minion", "Georgia", "Times New Roman", "Times", "serif"],
-            },
-            textDecorationThickness: {
-                3: '3px',
+                sans: ['GTWalsheim', 'sans-serif'],
+                serif: [
+                    'Source Serif Pro',
+                    'Minion',
+                    'Georgia',
+                    'Times New Roman',
+                    'Times',
+                    'serif',
+                ],
             },
         },
     },
@@ -30,4 +34,4 @@ module.exports = {
     corePlugins: {
         preflight: false, // TODO Not needed. Re-enable after switching from Bootstrap
     },
-};
+}

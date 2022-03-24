@@ -25,42 +25,62 @@
 
 @section('content')
     <div class="tailwind-rules">
-
         @if ($featuredPiece)
             <div class="tw-relative">
                 {{ $featuredPiece->image->img()->attributes(['class' => 'tw-object-cover tw-absolute tw-h-full tw-w-full', 'width' => null, 'height' => null]) }}
                 <div
-                    class="tw-absolute tw-inset-0 tw-bg-gradient-to-r tw-from-black/70 tw-to-black/40 md:tw-to-black/0">
+                    class="tw-absolute tw-inset-0 tw-bg-gradient-to-r tw-from-black/50 tw-to-black/20 md:tw-to-black/0">
                 </div>
                 <div
-                    class="tw-container tw-relative tw-mx-auto tw-max-w-screen-xl tw-px-6 tw-pt-60 tw-pb-8 tw-text-white md:tw-pb-20">
-                    <h2 class="tw-font-semibold md:tw-text-2xl">Odporúčame</h2>
-                    <h3 class="tw-mt-4 tw-text-3xl tw-font-semibold md:tw-mt-6 md:tw-text-6xl">
+                    class="tw-container tw-mx-auto tw-max-w-screen-xl tw-py-8 tw-px-6 tw-text-white md:tw-py-20">
+                    <h2 class="tw-mt-36 tw-font-semibold tw-drop-shadow md:tw-mt-48 md:tw-text-lg">
+                        Odporúčame</h2>
+                    <h3 class="tw-mt-4 tw-text-3xl tw-font-semibold tw-drop-shadow md:tw-text-6xl">
                         {{ $featuredPiece->title }}
                     </h3>
-                    <p class="tw-mt-5 tw-max-w-lg tw-font-serif tw-leading-relaxed md:tw-text-xl">
+                    <p
+                        class="tw-mt-5 tw-max-w-lg tw-font-serif tw-leading-relaxed tw-drop-shadow md:tw-text-xl">
                         {{ $featuredPiece->excerpt }}</p>
                     <a href="{{ $featuredPiece->url }}"
-                        class="tw-mt-3 tw-inline-block tw-border tw-border-gray-300 tw-px-4 tw-py-2 tw-text-sm tw-transition tw-duration-300 hover:tw-border-gray-400 hover:tw-bg-white hover:tw-text-gray-800 md:tw-mt-6">
+                        class="tw-relative tw-mt-3 tw-inline-block tw-border tw-border-gray-300 tw-px-4 tw-py-2 tw-text-sm tw-transition tw-duration-300 hover:tw-border-gray-400 hover:tw-bg-white hover:tw-text-gray-800 md:tw-mt-6">
                         {{ $featuredPiece->is_collection ? 'Prejsť na kolekciu' : 'Prejsť na článok' }}
                         <i class="fa icon-arrow-right tw-ml-2"></i>
                     </a>
                 </div>
             </div>
         @endif
+
+        {{-- Counts blurb --}}
+        <div class="tw-bg-gray-200">
+            <div
+                class="tw-container tw-mx-auto tw-grid tw-max-w-screen-xl tw-px-6 tw-py-5 tw-text-gray-500 lg:tw-py-10">
+                <p class="tw-text-center lg:tw-text-2xl">
+                    {{ utrans('intro.definition_start') }}
+                    <a href="{{ route('frontend.catalog.index') }}"
+                        class="tw-font-bold tw-text-gray-800 hover:tw-underline">{{ formatNum($countsBlurb->itemsCount) }}</a>
+                    {{ trans('intro.definition_end') }}<br>
+                    {{ $countsBlurb->start }}
+                    <a href="{{ $countsBlurb->url }}"
+                        class="tw-font-bold tw-text-gray-800 hover:tw-underline">{{ formatNum($countsBlurb->count) }}</a>
+                    {{ $countsBlurb->end }}
+                </p>
+            </div>
+        </div>
+
         @if ($featuredArtwork)
-            <div class="tw-bg-gray-800 tw-py-8 tw-text-white lg:tw-py-16">
+            <div class="tw-bg-gray-800 tw-text-white">
                 <div
-                    class="tw-container tw-mx-auto tw-grid tw-max-w-screen-xl tw-px-6 lg:tw-grid-cols-2 lg:tw-gap-x-14">
+                    class="tw-container tw-mx-auto tw-grid tw-max-w-screen-xl tw-px-6 tw-py-8 md:tw-pt-20 md:tw-pb-16 lg:tw-grid-cols-2 lg:tw-gap-x-14">
                     <div class="tw-text-center lg:tw-order-1">
                         <a href="{{ route('dielo', ['id' => $featuredArtwork->item->id]) }}"
                             class="tw-inline-block">
                             <x-item_image :id="$featuredArtwork->item->id"
+                                alt="{{ $featuredArtwork->title }}"
                                 class="tw-max-h-80 lg:tw-max-h-[32rem]" />
                         </a>
                     </div>
                     <h2
-                        class="tw-mt-6 tw-mb-2 tw-font-semibold lg:tw-col-span-2 lg:tw-mt-0 lg:tw-mb-6 lg:tw-text-2xl">
+                        class="tw-mt-6 tw-mb-4 tw-font-semibold lg:tw-col-span-2 lg:tw-mt-0 lg:tw-text-lg">
                         Dielo dňa
                     </h2>
                     <div>
@@ -95,19 +115,21 @@
             </div>
         @endif
 
-        <div class="tw-container tw-mx-auto tw-max-w-screen-xl tw-px-6 tw-py-6">
-            <h2 class="tw-font-semibold md:tw-text-2xl">Nový obsah</h2>
+        <div class="tw-container tw-mx-auto tw-max-w-screen-xl tw-px-6 tw-py-8 md:tw-py-16">
+            <h2 class="tw-font-semibold md:tw-text-lg">Nový obsah</h2>
 
-            <tabs-controller v-cloak v-slot="{ activeIndex }">
+            <tabs-controller v-cloak v-slot="{ activeIndex }" class="tw-mt-4">
                 <div class="tw-flex tw-items-end">
-                    <div class="tw-mt-2 tw-flex tw-grow tw-space-x-4 md:tw-mt-4">
+                    <div class="tw-flex tw-grow tw-space-x-4">
                         @foreach (['Kolekcie', 'Články'] as $tab)
                             <tab v-slot="{ active }">
+                                {{-- blade-formatter-disable --}}
                                 <button
                                     :class="[
-                            'tw-transition-colors tw-font-semibold tw-text-2xl md:tw-text-4xl tw-underline tw-underline-offset-[5px] md:tw-underline-offset-8 tw-decoration-3',
-                            !active && 'tw-text-gray-300'
-                        ]">{{ $tab }}</button>
+                                        'tw-transition-colors tw-font-semibold tw-text-2xl md:tw-text-4xl',
+                                        !active && 'tw-text-gray-300 hover:tw-underline tw-underline-offset-[5px] md:tw-underline-offset-8 tw-decoration-[3px]'
+                                    ]">{{ $tab }}</button>
+                            {{-- blade-formatter-enable --}}
                             </tab>
                         @endforeach
                     </div>
@@ -130,49 +152,45 @@
                         </a>
                     </transition>
                 </div>
-                <div class="tw-mt-6 md:tw-mt-8">
+                <div class="tw-mt-6">
                     <tab-panel v-slot="{ active }" class="tw-relative">
-                        <x-home.carousel v-bind:resize-once="active">
+                        <x-home.carousel v-bind:resize-once="active"
+                            button-container-class="tw-h-48">
                             @foreach ($collections as $c)
-                                <div class="tw-w-72 tw-pr-4 md:tw-w-1/3 xl:tw-w-1/4">
-                                    <div class="tw-relative">
+                                <div class="tw-mr-4 tw-w-72 md:tw-w-[25rem]">
+                                    <div class="tw-relative tw-bg-sky-400">
                                         <a href="{{ route('frontend.collection.detail', $c->id) }}">
                                             <img src="{{ $c->getThumbnailImage() }}"
                                                 class="tw-h-48 tw-object-cover tw-transition-opacity tw-duration-300 hover:tw-opacity-80">
                                         </a>
 
                                         <div
-                                            class="tw-pointer-events-none tw-absolute tw-inset-0 tw-text-right">
-                                            <div class="tw-relative tw-m-4 tw-inline-block">
-                                                <img class="tw-absolute tw-inset-0"
-                                                    src="{{ asset('images/collection-items-count.svg') }}" />
-                                                <div class="px-3 tw-relative tw-text-sm tw-text-white">
-                                                    {{ $c->items_count }} diel v kolekcii
-                                                </div>
-                                            </div>
+                                            class="tw-pointer-events-none tw-absolute tw-right-6 tw-top-6 tw-rounded-sm tw-bg-black/60 tw-px-1.5 tw-text-right tw-text-sm tw-text-white">
+                                            {{ $c->items_count }} diel v kolekcii
                                         </div>
                                     </div>
+                                    <span class="tw-mt-4 tw-inline-block tw-text-sm tw-text-gray-600">
+                                        {{ Str::ucfirst($c->type ?? 'kolekcia') }}
+                                    </span>
                                     <h4
-                                        class="tw-mt-4 tw-truncate tw-text-lg tw-font-semibold tw-text-black">
-                                        <a href="{{ route('frontend.collection.detail', $c->id) }}">
+                                        class="tw-truncate tw-text-lg tw-font-semibold tw-leading-tight tw-text-black">
+                                        <a href="{{ route('frontend.collection.detail', $c->id) }}"
+                                            title="{{ $c->name }}">
                                             {{ $c->name }}
                                         </a>
                                     </h4>
                                     <div class="tw-mt-2 tw-truncate tw-text-sm tw-text-gray-600">
-                                        {{ $c->published_at->format('d. m. Y') }} ∙
-                                        {{ $c->user->name }}
+                                        <a
+                                            href="{{ route('frontend.collection.index', ['author' => $c->user->name]) }}">{{ $c->user->name }}</a>
+                                        ∙ {{ $c->published_at->format('d. m. Y') }}
                                     </div>
-                                    <span
-                                        class="tw-mt-2 tw-inline-block tw-bg-gray-200 tw-px-3 tw-py-1 tw-text-sm">
-                                        {{ Str::ucfirst($c->type ?? 'kolekcia') }}
-                                    </span>
                                 </div>
                             @endforeach
                             <div
-                                class="tw-flex tw-h-full tw-w-full tw-flex-col tw-justify-center tw-bg-gray-200 tw-text-center tw-text-xl tw-font-semibold tw-text-black md:tw-w-1/3 xl:tw-w-1/4">
+                                class="tw-flex tw-h-48 tw-w-72 tw-flex-col tw-justify-center tw-bg-gray-200 tw-text-center tw-text-xl tw-font-semibold tw-text-black md:tw-w-[25rem]">
                                 <p>Na Webe umenia je ďalších viac<br /> ako
                                     {{ $collectionsRemainingCount }} kolekcií</p>
-                                <a class="tw-mt-5 tw-underline tw-decoration-gray-300 tw-decoration-3 tw-underline-offset-4 hover:tw-decoration-current hover:tw-transition-colors"
+                                <a class="tw-mt-5 tw-underline tw-decoration-gray-300 tw-decoration-[3px] tw-underline-offset-4 hover:tw-decoration-current hover:tw-transition-colors"
                                     href="{{ route('frontend.collection.index') }}">Zobraziť ďalšie
                                     kolekcie</a>
                             </div>
@@ -180,34 +198,37 @@
                     </tab-panel>
 
                     <tab-panel v-slot="{ active }" class="tw-relative">
-                        <x-home.carousel v-bind:resize-once="active">
+                        <x-home.carousel v-bind:resize-once="active"
+                            button-container-class="tw-h-48">
                             @foreach ($articles as $a)
-                                <div class="tw-w-72 tw-pr-4 md:tw-w-1/3 xl:tw-w-1/4">
-                                    <a href="{{ route('frontend.article.detail', $a->slug) }}">
+                                <div class="tw-mr-4 tw-w-72 md:tw-w-[25rem]">
+                                    <a href="{{ route('frontend.article.detail', $a->slug) }}"
+                                        class="tw-block tw-bg-sky-400">
                                         <img src="{{ $a->getThumbnailImage() }}"
                                             class="tw-h-48 tw-object-cover tw-transition-opacity tw-duration-300 hover:tw-opacity-80">
                                     </a>
+                                    <span class="tw-mt-4 tw-inline-block tw-text-sm tw-text-gray-600">
+                                        {{ Str::ucfirst($c->type ?? 'kolekcia') }}
+                                    </span>
                                     <h4
-                                        class="tw-mt-4 tw-truncate tw-text-lg tw-font-semibold tw-text-black">
-                                        <a href="{{ route('frontend.article.detail', $a->slug) }}">
+                                        class="tw-truncate tw-text-lg tw-font-semibold tw-leading-tight tw-text-black">
+                                        <a href="{{ route('frontend.article.detail', $a->slug) }}"
+                                            title="{{ $a->title }}">
                                             {{ $a->title }}
                                         </a>
                                     </h4>
                                     <div class="tw-mt-2 tw-truncate tw-text-sm tw-text-gray-600">
-                                        {{ $a->published_date->format('d. m. Y') }} ∙
-                                        {{ $a->author }}
+                                        <a
+                                            href="{{ route('frontend.article.index', ['author' => $a->author]) }}">{{ $a->author }}</a>
+                                        ∙ {{ $a->published_date->format('d. m. Y') }}
                                     </div>
-                                    <span
-                                        class="tw-mt-2 tw-inline-block tw-bg-gray-200 tw-px-3 tw-py-1 tw-text-sm">
-                                        {{ Str::ucfirst($a->category->name ?? 'článok') }}
-                                    </span>
                                 </div>
                             @endforeach
                             <div
-                                class="tw-flex tw-h-full tw-w-full tw-flex-col tw-justify-center tw-bg-gray-200 tw-text-center tw-text-xl tw-font-semibold tw-text-black md:tw-w-1/3 xl:tw-w-1/4">
+                                class="tw-flex tw-h-48 tw-w-72 tw-flex-col tw-justify-center tw-bg-gray-200 tw-text-center tw-text-xl tw-font-semibold tw-text-black md:tw-w-[25rem]">
                                 <p>Na Webe umenia je ďalších viac<br /> ako
                                     {{ $articlesRemainingCount }} článkov</p>
-                                <a class="tw-mt-5 tw-underline tw-decoration-gray-300 tw-decoration-3 tw-underline-offset-4 hover:tw-decoration-current hover:tw-transition-colors"
+                                <a class="tw-mt-5 tw-underline tw-decoration-gray-300 tw-decoration-[3px] tw-underline-offset-4 hover:tw-decoration-current hover:tw-transition-colors"
                                     href="{{ route('frontend.article.index') }}">Zobraziť ďalšie
                                     články</a>
                             </div>
@@ -216,37 +237,38 @@
                 </div>
             </tabs-controller>
         </div>
-        <div class="tw-mb-6 tw-bg-gray-200 tw-py-6 lg:tw-py-16">
+        <div class="tw-bg-gray-200">
             <div
-                class="tw-container tw-mx-auto tw-max-w-screen-xl tw-gap-x-6 tw-px-6 lg:tw-grid lg:tw-grid-cols-2">
+                class="tw-container tw-mx-auto tw-max-w-screen-xl tw-gap-x-6 tw-px-6 tw-py-8 md:tw-py-16 lg:tw-grid lg:tw-grid-cols-2">
                 <div class="flex">
                     <img src="{{ $featuredAuthor->getImagePath() }}"
-                        class="tw-mt-14 tw-mr-6 tw-hidden tw-h-52 tw-w-52 tw-rounded-full lg:tw-block"
+                        class="tw-mt-12 tw-mr-6 tw-hidden tw-h-52 tw-w-52 tw-rounded-full lg:tw-block"
                         alt="{{ $featuredAuthor->formated_name }}">
                     <div>
-                        <h2 class="tw-font-semibold lg:tw-text-2xl">Autor týždňa</h2>
-                        <h2 class="tw-mt-2 tw-text-3xl tw-font-semibold lg:tw-mt-6 lg:tw-text-4xl">
+                        <h2 class="tw-font-semibold lg:tw-text-lg">Autor týždňa</h2>
+                        <h3 class="tw-mt-4 tw-text-3xl tw-font-semibold lg:tw-text-4xl">
                             <a href="{{ route('frontend.author.detail', $featuredAuthor) }}"
-                                class="tw-cursor-pointer tw-underline tw-decoration-gray-300 tw-underline-offset-4 tw-transition-colors hover:tw-decoration-current">
+                                class="tw-underline tw-decoration-gray-300 tw-underline-offset-4 tw-transition-colors hover:tw-decoration-current">
                                 {{ $featuredAuthor->formated_name }}
                             </a>
-                        </h2>
-                        <div class="tw-mt-3 lg:tw-text-lg">
+                        </h3>
+                        <div class="tw-mt-3 lg:tw-text-lg lg:tw-leading-snug">
                             @foreach ($featuredAuthor->roles as $role)
                                 <a href="{{ route('frontend.author.index', ['role' => $role]) }}"
-                                    class="tw-cursor-pointer">{{ $role }}</a>{{ $loop->last ? '' : ', ' }}
+                                    class="tw-cursor-pointer hover:tw-underline">{{ $role }}</a>{{ $loop->last ? '' : ', ' }}
                             @endforeach
                         </div>
                         <div class="tw-mt-3 tw-text-gray-500 lg:tw-text-lg">
-                            {{ $featuredAuthor->birth_date }} {{ $featuredAuthor->birth_place }}
+                            {{ Str::replace('.', '. ', $featuredAuthor->birth_date) }}
+                            {{ $featuredAuthor->birth_place }}
                             @if ($featuredAuthor->death_year)
-                                &mdash; {{ $featuredAuthor->death_date }}
+                                &mdash; {{ Str::replace('.', '. ', $featuredAuthor->death_date) }}
                                 {{ $featuredAuthor->death_place }}
                             @endif
                         </div>
                         <a href="{{ route('frontend.author.detail', $featuredAuthor) }}"
                             class="tw-mt-6 tw-inline-block tw-border tw-border-gray-300 tw-px-4 tw-py-2 tw-text-sm tw-transition tw-duration-300 hover:tw-border-gray-400 hover:tw-bg-white hover:tw-text-gray-800">
-                            Zobraziť <strong>{{ $featuredAuthor->items->count() }} diel</strong> od
+                            Zobraziť <strong>{{ $featuredAuthor->items_count }} diel</strong> od
                             autora
                             <i class="fa icon-arrow-right tw-ml-2"></i>
                         </a>
@@ -258,8 +280,9 @@
                     </div>
                 </div>
 
-                <x-home.carousel class="tw-mt-6 lg:tw-mt-14" images-loaded>
-                    @foreach ($featuredAuthor->items as $item)
+                <x-home.carousel class="tw-mt-6 lg:tw-mt-12" images-loaded
+                    button-container-class="tw-h-56">
+                    @foreach ($featuredAuthorItems as $item)
                         <a href="{{ route('dielo', ['id' => $item]) }}"
                             class="tw-ml-4 tw-w-max first:tw-ml-0">
                             <x-item_image :id="$item->id"
@@ -276,5 +299,6 @@
                 </a>
             </div>
         </div>
+
     </div>
 @stop
