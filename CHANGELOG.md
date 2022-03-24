@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Added
 - global word-break:keep-all
+- "counts blurb" to new homepage
 
 ### Changed
 - resolve api route name conflicts
