@@ -74,7 +74,7 @@
                             <div class="v-center min-h-3em">
                                 <span>
                                     {{trans('kolekcie.collections_items_count')}} <a
-                                       href="#artworks">{{trans_choice('general.artworks_counted', $collection->items->count()])}}</a>
+                                       href="#artworks">{{trans_choice('general.artworks_counted', $collection->items->count())}}</a>
                                 </span>
                             </div>
                         </div>
