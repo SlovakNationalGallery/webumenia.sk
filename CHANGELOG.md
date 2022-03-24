@@ -3,7 +3,14 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 ### Added
+- global word-break:keep-all
 - "counts blurb" to new homepage
+
+### Changed
+- resolve api route name conflicts
+ 
+### Fixed
+- some styling issues with new Openseadragon
 
 ## [2.47.0] - 2022-03-11
 ### Added

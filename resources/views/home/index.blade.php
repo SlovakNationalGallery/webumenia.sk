@@ -190,7 +190,7 @@
                                 class="tw-flex tw-h-48 tw-w-72 tw-flex-col tw-justify-center tw-bg-gray-200 tw-text-center tw-text-xl tw-font-semibold tw-text-black md:tw-w-[25rem]">
                                 <p>Na Webe umenia je ďalších viac<br /> ako
                                     {{ $collectionsRemainingCount }} kolekcií</p>
-                                <a class="tw-mt-5 tw-underline tw-decoration-gray-300 tw-decoration-3 tw-underline-offset-4 hover:tw-decoration-current hover:tw-transition-colors"
+                                <a class="tw-mt-5 tw-underline tw-decoration-gray-300 tw-decoration-[3px] tw-underline-offset-4 hover:tw-decoration-current hover:tw-transition-colors"
                                     href="{{ route('frontend.collection.index') }}">Zobraziť ďalšie
                                     kolekcie</a>
                             </div>
@@ -228,7 +228,7 @@
                                 class="tw-flex tw-h-48 tw-w-72 tw-flex-col tw-justify-center tw-bg-gray-200 tw-text-center tw-text-xl tw-font-semibold tw-text-black md:tw-w-[25rem]">
                                 <p>Na Webe umenia je ďalších viac<br /> ako
                                     {{ $articlesRemainingCount }} článkov</p>
-                                <a class="tw-mt-5 tw-underline tw-decoration-gray-300 tw-decoration-3 tw-underline-offset-4 hover:tw-decoration-current hover:tw-transition-colors"
+                                <a class="tw-mt-5 tw-underline tw-decoration-gray-300 tw-decoration-[3px] tw-underline-offset-4 hover:tw-decoration-current hover:tw-transition-colors"
                                     href="{{ route('frontend.article.index') }}">Zobraziť ďalšie
                                     články</a>
                             </div>
