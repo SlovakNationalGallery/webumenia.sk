@@ -130,31 +130,31 @@ class HomeController extends Controller
 
             return [
                 [
-                    'start' => trans('intro.from_galleries_start'),
+                    'start' => trans('home.from_galleries_start'),
                     'url' => route('frontend.info'),
                     'count' => $galleriesCount,
-                    'end' => trans('intro.from_galleries_end'),
+                    'end' => trans('home.from_galleries_end'),
                     'itemsCount' => $itemsCount,
                 ],
                 [
-                    'start' => trans('intro.from_authors_start'),
+                    'start' => trans('home.from_authors_start'),
                     'url' => route('frontend.author.index'),
                     'count' => $authoritiesCount,
-                    'end' => trans('intro.from_authors_end'),
+                    'end' => trans('home.from_authors_end'),
                     'itemsCount' => $itemsCount,
                 ],
                 [
-                    'start' => trans('intro.in_high_res_start'),
+                    'start' => trans('home.in_high_res_start'),
                     'url' => route('frontend.catalog.index', ['has_iip' => true]),
                     'count' => $highResItemsCount,
-                    'end' => trans('intro.in_high_res_end'),
+                    'end' => trans('home.in_high_res_end'),
                     'itemsCount' => $itemsCount,
                 ],
                 [
-                    'start' => trans('intro.are_free_start'),
+                    'start' => trans('home.are_free_start'),
                     'url' => route('frontend.catalog.index', ['is_free' => true]),
                     'count' => $freeItemsCount,
-                    'end' => trans('intro.are_free_end'),
+                    'end' => trans('home.are_free_end'),
                     'itemsCount' => $itemsCount,
                 ],
             ];
