@@ -14,43 +14,43 @@ return [
     'show_more_articles' => 'více článků',
 
     'featured_piece' => [
-        'title' => 'Odporúčame',
-        'button_collection' => 'Prejsť na kolekciu',
-        'button_article' => 'Prejsť na článok',
+        'title' => 'Doporučujeme',
+        'button_collection' => 'Přejít na kolekci',
+        'button_article' => 'Přejít na článek',
     ],
 
     'featured_artwork' => [
-        'title' => 'Dielo dňa',
-        'button' => 'Viac o diele',
+        'title' => 'Dílo dne',
+        'button' => 'Více o díle',
     ],
 
     'latest_content' => [
         'collections' => [
-            'tab' => 'Kolekcie',
-            'button' => 'Všetky kolekcie',
-            'item_count_suffix' => 'v kolekcii',
-            'default_type' => 'kolekcia',
+            'tab' => 'Kolekce',
+            'button' => 'Všechny kolekce',
+            'item_count_suffix' => 'v kolekci',
+            'default_type' => 'kolekce',
             'promo_slide' => [
-                'line_1' => 'Na Webe umenia je ďalších viac',
-                'line_2' => 'ako :count kolekcií',
-                'link' => 'Zobraziť ďalšie kolekcie',
+                'line_1' => 'Na Webe umenia je dalších více',
+                'line_2' => 'než :count kolekcií',
+                'link' => 'Zobrazit další kolekce',
             ],
         ],
         'articles' => [
             'tab' => 'Články',
-            'button' => 'Všetky články',
-            'default_type' => 'článok',
+            'button' => 'Všechny články',
+            'default_type' => 'článek',
             'promo_slide' => [
-                'line_1' => 'Na Webe umenia je ďalších viac',
-                'line_2' => 'ako :count článkov',
-                'link' => 'Zobraziť ďalšie články',
+                'line_1' => 'Na Webe umenia je dalších více',
+                'line_2' => 'než :count článkov',
+                'link' => 'Zobrazit další články',
             ],
         ],
     ],
 
     'featured_author' => [
-        'title' => 'Autor týždňa',
-        'button_author' => 'Zobraziť <strong>:count diel</strong> od autora',
-        'button_more' => 'zobraziť ďalších autorov',
+        'title' => 'Autor týdne',
+        'button_author' => 'Zobrazit <strong>:count diel</strong> od autora',
+        'button_more' => 'zobrazit další autory',
     ],
 ];
