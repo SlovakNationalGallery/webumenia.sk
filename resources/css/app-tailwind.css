@@ -13,7 +13,7 @@
     }
 
     .tailwind-rules a {
-        transition: unset;
+        transition: inherit;
     }
 
     /* Theme defaults */
