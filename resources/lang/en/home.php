@@ -25,6 +25,7 @@ return [
     ],
 
     'latest_content' => [
+        'title' => 'Latest',
         'collections' => [
             'tab' => 'Collections',
             'button' => 'More collections',

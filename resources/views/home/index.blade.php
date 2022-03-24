@@ -115,7 +115,9 @@
 
         {{-- Latest content --}}
         <div class="tw-container tw-mx-auto tw-max-w-screen-xl tw-px-6 tw-py-8 md:tw-py-16">
-            <h2 class="tw-font-semibold md:tw-text-lg">Nový obsah</h2>
+            <h2 class="tw-font-semibold md:tw-text-lg">
+                {{ trans('home.latest_content.collections.title') }}
+            </h2>
 
             <tabs-controller v-cloak v-slot="{ activeIndex }" class="tw-mt-4">
                 <div class="tw-flex tw-items-end">

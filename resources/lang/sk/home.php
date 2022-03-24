@@ -25,6 +25,7 @@ return [
     ],
 
     'latest_content' => [
+        'title' => 'Nový obsah',
         'collections' => [
             'tab' => 'Kolekcie',
             'button' => 'Všetky kolekcie',
