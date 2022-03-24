@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Changed
+- galleries list to come from a config file
 
 ## [2.48.0] - 2022-03-25
 ### Added
