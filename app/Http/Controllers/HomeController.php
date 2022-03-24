@@ -130,32 +130,32 @@ class HomeController extends Controller
 
             return [
                 [
-                    'start' => trans('home.from_galleries_start'),
+                    'start_lang_string' => 'home.from_galleries_start',
                     'url' => route('frontend.info'),
                     'count' => $galleriesCount,
-                    'end' => trans('home.from_galleries_end'),
-                    'itemsCount' => $itemsCount,
+                    'end_lang_string' => 'home.from_galleries_end',
+                    'items_count' => $itemsCount,
                 ],
                 [
-                    'start' => trans('home.from_authors_start'),
+                    'start_lang_string' => 'home.from_authors_start',
                     'url' => route('frontend.author.index'),
                     'count' => $authoritiesCount,
-                    'end' => trans('home.from_authors_end'),
-                    'itemsCount' => $itemsCount,
+                    'end_lang_string' => 'home.from_authors_end',
+                    'items_count' => $itemsCount,
                 ],
                 [
-                    'start' => trans('home.in_high_res_start'),
+                    'start_lang_string' => 'home.in_high_res_start',
                     'url' => route('frontend.catalog.index', ['has_iip' => true]),
                     'count' => $highResItemsCount,
-                    'end' => trans('home.in_high_res_end'),
-                    'itemsCount' => $itemsCount,
+                    'end_lang_string' => 'home.in_high_res_end',
+                    'items_count' => $itemsCount,
                 ],
                 [
-                    'start' => trans('home.are_free_start'),
+                    'start_lang_string' => 'home.are_free_start',
                     'url' => route('frontend.catalog.index', ['is_free' => true]),
                     'count' => $freeItemsCount,
-                    'end' => trans('home.are_free_end'),
-                    'itemsCount' => $itemsCount,
+                    'end_lang_string' => 'home.are_free_end',
+                    'items_count' => $itemsCount,
                 ],
             ];
         });

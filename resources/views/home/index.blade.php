@@ -53,14 +53,14 @@
             <div
                 class="tw-container tw-mx-auto tw-grid tw-max-w-screen-xl tw-px-6 tw-py-5 tw-text-gray-500 lg:tw-py-10">
                 <p class="tw-text-center lg:tw-text-2xl">
-                    {{ utrans('intro.definition_start') }}
+                    {{ utrans('home.definition_start') }}
                     <a href="{{ route('frontend.catalog.index') }}"
-                        class="tw-font-bold tw-text-gray-800 hover:tw-underline">{{ formatNum($countsBlurb->itemsCount) }}</a>
-                    {{ trans('intro.definition_end') }}<br>
-                    {{ $countsBlurb->start }}
+                        class="tw-font-bold tw-text-gray-800 hover:tw-underline">{{ formatNum($countsBlurb->items_count) }}</a>
+                    {{ trans('home.definition_end') }}<br>
+                    {{ trans($countsBlurb->start_lang_string) }}
                     <a href="{{ $countsBlurb->url }}"
                         class="tw-font-bold tw-text-gray-800 hover:tw-underline">{{ formatNum($countsBlurb->count) }}</a>
-                    {{ $countsBlurb->end }}
+                    {{ trans($countsBlurb->end_lang_string) }}
                 </p>
             </div>
         </div>
