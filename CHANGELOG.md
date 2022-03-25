@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - global word-break:keep-all
 - authority matching in importers
+
 ### Changed
 - resolve api route name conflicts
 
