@@ -11,8 +11,10 @@
 |
 */
 
+use App\Item;
 use App\Redirect;
 use App\SharedUserCollection;
+use App\ShuffledItem;
 use Illuminate\Support\Str;
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
@@ -25,7 +27,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(\App\Item::class, function (Faker\Generator $faker) {
+$factory->define(Item::class, function (Faker\Generator $faker) {
     return [
         'id' => $faker->unique()->lexify,
         'work_type' => $faker->word,
@@ -57,7 +59,7 @@ $factory->define(\App\Item::class, function (Faker\Generator $faker) {
 
 $factory->define(\App\ItemImage::class, function (Faker\Generator $faker) {
     return [
-        'iipimg_url' => $faker->url,
+        'iipimg_url' => join('/', ['', ...$faker->words(3)]),
     ];
 });
 
@@ -164,5 +166,11 @@ $factory->define(Redirect::class, function (Faker\Generator $faker) {
         'source_url' => $faker->unique()->word,
         'target_url' => $faker->word,
         'is_enabled' => true,
+    ];
+});
+
+$factory->define(ShuffledItem::class, function (Faker\Generator $faker) {
+    return [
+        'item_id' => factory(Item::class),
     ];
 });
