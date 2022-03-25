@@ -68,53 +68,58 @@
 
                         <input type="hidden" name="crop_url"
                             value="{{ URL::to($shuffledItem->item->getImagePath()) }}" />
-
                     </div>
 
                     <div class="tw-mt-8">
-                        <x-admin.checkbox id="is_published" name="is_published"
-                            :checked="old('is_published', $shuffledItem->is_published)" />
-                        <label for="is_published"
-                            class="tw-ml-1 tw-select-none tw-font-normal">Publikovať</label>
-                        @if ($shuffledItem->is_published)
-                            <p class="tw-text-gray-400">Publikované
-                                {{ $shuffledItem->published_at }}
-                            </p>
-                        @endif
-                    </div>
-
-                    <div class="tw-mt-8 tw-text-center">
-                        <x-admin.button primary>
-                            Uložiť
-                        </x-admin.button>
-                        <x-admin.button :link="route('shuffled-items.index')">
-                            Zrušiť
-                        </x-admin.button>
-                    </div>
-
-                    {{-- <x-admin.label for="author" value="Autori" class="tw-mt-4" />
-                            @foreach ($shuffledItem->authorLinks as $a)
-                                <x-admin.link href="{{ $a->url }}">{{ $a->label }}</x-admin.a>
-                                    {{ $loop->last ? '' : ', ' }}
-                            @endforeach
-
-                            <x-admin.label for="metadata" value="Metadáta" class="tw-mt-4" />
-                            @foreach ($shuffledItem->metadataLinks as $m)
-                                @if ($m->url)
-                                    <x-admin.link href="{{ $m->url }}">{{ $m->label }}
-                                        </x-admin.a>{{ $loop->last ? '' : ', ' }}
-                                    @else
-                                        {{ $m->label }}{{ $loop->last ? '' : ', ' }}
-                                @endif
-                            @endforeach --}}
-
-                    {{-- <div class="tw-col-span-3 tw-mt-4">
-                            <x-admin.label for="description" value="Popis" class="tw-mt-4" />
-                            <textarea id="description" name="description"
-                                class="wysiwyg">{{ old('description', $shuffledItem->description) }}</textarea>
+                        <x-admin.label value="Filtre" />
+                        <div class="tw-grid tw-grid-cols-3 tw-gap-x-4">
+                            <div class="tw-flex tw-flex-col tw-space-y-2">
+                                <x-admin.select name="type">
+                                    <option value="volvo">Volvo</option>
+                                    <option value="saab">Saab</option>
+                                    <option value="mercedes">Mercedes</option>
+                                    <option value="audi">Audi</option>
+                                </x-admin.select>
+                                <x-admin.select name="hodnota">
+                                    <option value="volvo">Volvo</option>
+                                    <option value="saab">Saab</option>
+                                    <option value="mercedes">Mercedes</option>
+                                    <option value="audi">Audi</option>
+                                </x-admin.select>
+                                <x-admin.input placeholder="label" />
+                            </div>
+                            <div
+                                class="tw-flex tw-items-center tw-justify-center tw-rounded tw-border tw-py-14">
+                                <x-admin.button sm outline>+ Pridať</x-admin.button>
+                            </div>
+                            <div class="tw-rounded tw-border">&nbsp;</div>
+                        </div>
+                        <div class="tw-mt-4 tw-flex tw-flex-col tw-items-center tw-space-y-2">
+                            <span class="tw-text-xs">13 výsledkov</span>
+                            <x-admin.button sm outline>🗙 Zmazať</x-admin.button>
                         </div>
 
-                    </div> --}}
+                        <div class="tw-mt-8">
+                            <x-admin.checkbox id="is_published" name="is_published"
+                                :checked="old('is_published', $shuffledItem->is_published)" />
+                            <label for="is_published"
+                                class="tw-ml-1 tw-select-none tw-font-normal">Publikovať</label>
+                            @if ($shuffledItem->is_published)
+                                <p class="tw-text-gray-400">Publikované
+                                    {{ $shuffledItem->published_at }}
+                                </p>
+                            @endif
+                        </div>
+
+                        <div class="tw-mt-8 tw-text-center">
+                            <x-admin.button primary>
+                                Uložiť
+                            </x-admin.button>
+                            <x-admin.button :link="route('shuffled-items.index')">
+                                Zrušiť
+                            </x-admin.button>
+                        </div>
+                    </div>
                 @endif
             </x-admin.form>
         </div>

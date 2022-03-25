@@ -1,1 +1,1 @@
-<input {!! $attributes->merge(['class' => 'tw-block tw-w-full tw-py-2 tw-px-4 tw-shadow-inner focus:tw-shadow-[inset_0_1px_1px_rgb(0,0,0,0.2),0_0_8px_rgb(102,175,233,0.6)] focus:tw-outline-none tw-border tw-border-gray-300 focus:tw-border-sky-400 tw-rounded-md']) !!}>
+<input {!! $attributes->merge(['class' => 'tw-block tw-w-full tw-px-3 tw-py-1.5 tw-shadow-inner focus:tw-shadow-[inset_0_1px_1px_rgb(0,0,0,0.2),0_0_8px_rgb(102,175,233,0.6)] focus:tw-outline-none tw-border tw-border-gray-300 focus:tw-border-sky-400 tw-rounded-md']) !!}>
