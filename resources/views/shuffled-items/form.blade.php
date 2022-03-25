@@ -65,9 +65,6 @@
                             :aspect-ratio=" 16/9" v-slot="{ value }">
                             <input type="hidden" name="crop" :value="JSON.stringify(value)" />
                         </croppr>
-
-                        <input type="hidden" name="crop_url"
-                            value="{{ URL::to($shuffledItem->item->getImagePath()) }}" />
                     </div>
 
                     <div class="tw-mt-8">
