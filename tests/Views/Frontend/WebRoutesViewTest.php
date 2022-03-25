@@ -13,15 +13,9 @@ class WebRoutesViewTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testGetIntro()
+    public function testGetHome()
     {
         $response = $this->get('/');
-        $response->assertStatus(200);
-    }
-
-    public function testGetSlideClicked()
-    {
-        $response = $this->get('/slideClicked');
         $response->assertStatus(200);
     }
 

@@ -13,7 +13,7 @@
        count-layout='none' target='_blank' data-toggle="tooltip" title="{{ trans('general.share_pinterest') }}">
         <i class='fa fa-pinterest fa-lg'></i>
     </a>
-    <a href='mailto:?subject={{ $title }}, {{trans('informacie.info_gallery_SNG') }}&body={{ $url }}'
+    <a href='mailto:?subject={{ $title }}, {{ trans('informacie.galleries.SNG') }}&body={{ $url }}'
        style="font-size:0.9em" target='_blank' class="no-border" data-toggle="tooltip"
        title="{{ trans('general.share_mail') }}">
         <i class='fa fa-envelope fa-lg'></i>

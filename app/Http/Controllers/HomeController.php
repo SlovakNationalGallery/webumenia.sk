@@ -53,6 +53,10 @@ class HomeController extends Controller
                     ->inRandomOrder()
                     ->first();
 
+                if (!$author) {
+                    return [null, null];
+                }
+
                 $items = $author
                     ->items()
                     ->has('images')
@@ -116,7 +120,7 @@ class HomeController extends Controller
     private function getCountsBlurbData()
     {
         $choices = Cache::remember('home.counts', now()->addDays(3), function () {
-            $galleriesCount = 15;
+            $galleriesCount = count(config('galleries'));
             $authoritiesCount = Authority::count();
             $itemsCount = Item::count();
             $highResItemsCount = Item::withExists('images')->count();
@@ -126,32 +130,32 @@ class HomeController extends Controller
 
             return [
                 [
-                    'start' => trans('intro.from_galleries_start'),
+                    'start_lang_string' => 'home.from_galleries_start',
                     'url' => route('frontend.info'),
                     'count' => $galleriesCount,
-                    'end' => trans('intro.from_galleries_end'),
-                    'itemsCount' => $itemsCount,
+                    'end_lang_string' => 'home.from_galleries_end',
+                    'items_count' => $itemsCount,
                 ],
                 [
-                    'start' => trans('intro.from_authors_start'),
+                    'start_lang_string' => 'home.from_authors_start',
                     'url' => route('frontend.author.index'),
                     'count' => $authoritiesCount,
-                    'end' => trans('intro.from_authors_end'),
-                    'itemsCount' => $itemsCount,
+                    'end_lang_string' => 'home.from_authors_end',
+                    'items_count' => $itemsCount,
                 ],
                 [
-                    'start' => trans('intro.in_high_res_start'),
+                    'start_lang_string' => 'home.in_high_res_start',
                     'url' => route('frontend.catalog.index', ['has_iip' => true]),
                     'count' => $highResItemsCount,
-                    'end' => trans('intro.in_high_res_end'),
-                    'itemsCount' => $itemsCount,
+                    'end_lang_string' => 'home.in_high_res_end',
+                    'items_count' => $itemsCount,
                 ],
                 [
-                    'start' => trans('intro.are_free_start'),
+                    'start_lang_string' => 'home.are_free_start',
                     'url' => route('frontend.catalog.index', ['is_free' => true]),
                     'count' => $freeItemsCount,
-                    'end' => trans('intro.are_free_end'),
-                    'itemsCount' => $itemsCount,
+                    'end_lang_string' => 'home.are_free_end',
+                    'items_count' => $itemsCount,
                 ],
             ];
         });

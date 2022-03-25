@@ -3,7 +3,12 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
-## [2.48.0] - 2022-03-25
+## [2.49.0] - 2022-03-25
+### Changed
+- galleries list to come from a config file
+- default home page to new home page
+
+## [2.48.0] - 2022-03-24
 ### Added
 - global word-break:keep-all
 - "counts blurb" to new homepage
@@ -11,10 +16,10 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Changed
 - resolve api route name conflicts
- 
+
 ### Fixed
 - some styling issues with new Openseadragon
-- disabled global Bootstrap `<a>` styles 
+- disabled global Bootstrap `<a>` styles
 
 ## [2.47.0] - 2022-03-11
 ### Added
