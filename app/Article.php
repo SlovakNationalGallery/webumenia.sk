@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App;
 
 use App\Concerns\HasHeaderImage;
@@ -10,6 +8,7 @@ use Astrotomic\Translatable\Translatable;
 use Illuminate\Support\Facades\URL;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Validation\Rule;
 
 class Article extends Model implements TranslatableContract
@@ -20,6 +19,11 @@ class Article extends Model implements TranslatableContract
 
     use HasHeaderImage;
 
+    protected static function booted()
+    {
+        static::saved(fn() => Cache::forget('home.articles'));
+    }
+
     function getArtworksDirAttribute()
     {
         return '/images/clanky/';
@@ -27,15 +31,9 @@ class Article extends Model implements TranslatableContract
 
     public $translatedAttributes = ['title', 'summary', 'content'];
 
-    protected $fillable = [
-        'published_date',
-    ];
+    protected $fillable = ['published_date'];
 
-    protected $dates = [
-        'created_at',
-        'updated_at',
-        'published_date'
-    ];
+    protected $dates = ['created_at', 'updated_at', 'published_date'];
 
     protected $casts = [
         'edu_media_types' => 'array',
@@ -54,13 +52,7 @@ class Article extends Model implements TranslatableContract
         'activities',
     ];
 
-    public static $eduAgeGroups = [
-        'all-ages',
-        '3-6',
-        '7-10',
-        '11-15',
-        '16-19',
-    ];
+    public static $eduAgeGroups = ['all-ages', '3-6', '7-10', '11-15', '16-19'];
 
     public static function getValidationRules()
     {
@@ -105,17 +97,17 @@ class Article extends Model implements TranslatableContract
         $string = strip_tags($string);
         $string = $string;
         $string = substr($string, 0, $length);
-        return substr($string, 0, strrpos($string, ' ')) . " ...";
+        return substr($string, 0, strrpos($string, ' ')) . ' ...';
     }
 
     public function getTitleColorAttribute($value)
     {
-        return (!empty($value)) ? $value : '#fff';
+        return !empty($value) ? $value : '#fff';
     }
 
     public function getTitleShadowAttribute($value)
     {
-        return (!empty($value)) ? $value : '#777';
+        return !empty($value) ? $value : '#777';
     }
 
     public function scopePublished($query)
@@ -125,10 +117,7 @@ class Article extends Model implements TranslatableContract
 
     public function getContentImages()
     {
-        return array_merge(
-            parseUrls($this->summary),
-            parseUrls($this->content)
-        );
+        return array_merge(parseUrls($this->summary), parseUrls($this->content));
     }
 
     public function scopePromoted($query)
@@ -143,10 +132,11 @@ class Article extends Model implements TranslatableContract
             $this->attributes['published_date'] = $current_time->toDateTimeString();
         }
 
-        $this->attributes['publish'] = (bool)$value;
+        $this->attributes['publish'] = (bool) $value;
     }
 
-    public function getReadingTimeAttribute(){
+    public function getReadingTimeAttribute()
+    {
         return getEstimatedReadingTime($this->summary . ' ' . $this->content, \App::getLocale());
     }
 }

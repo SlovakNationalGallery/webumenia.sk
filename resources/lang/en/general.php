@@ -25,9 +25,9 @@ return array(
     'clear_color'      => 'clear color',
     'public_domain'    => 'public domain',
     'artworks'         => 'artworks',
-    'artworks_counted' => '{0}    :artworks_count artworks
-                          |{1}    :artworks_count artwork
-                          |[2,*]:artworks_count artworks',
+    'artworks_counted' => '{0}    :count artworks
+                          |{1}    :count artwork
+                          |[2,*]:count artworks',
 
     "share"              => "share",
     "share_facebook"     => "share on facebook",

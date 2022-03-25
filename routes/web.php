@@ -41,69 +41,10 @@ Route::group([
 ],
 function()
 {
+    Route::get('/', 'HomeController@index');
     Route::get('leto', function () {
 
         return redirect('kolekcia/25');
-    });
-
-    Route::get('/', function (
-        AuthorityRepository $authorityRepository,
-        ItemRepository $itemRepository
-    ) {
-        $choices = [
-            [
-                trans('intro.from_galleries_start'),
-                route('frontend.info'),
-                formatNum(15),
-                trans('intro.from_galleries_end'),
-            ],
-            [
-                trans('intro.from_authors_start'),
-                route('frontend.author.index'),
-                formatNum($authorityRepository->count()),
-                trans('intro.from_authors_end'),
-            ],
-            [
-                trans('intro.in_high_res_start'),
-                route('frontend.catalog.index', ['has_iip' => true]),
-                formatNum($itemRepository->count((new ItemFilter)->setHasIip(true))),
-                trans('intro.in_high_res_end'),
-            ],
-            [
-                trans('intro.are_free_start'),
-                route('frontend.catalog.index', ['is_free' => true]),
-                formatNum($itemRepository->count((new ItemFilter)->setIsFree(true))),
-                trans('intro.are_free_end'),
-            ],
-        ];
-
-        $choice = $choices[array_rand($choices)];
-        $subtitle = vsprintf('%s <strong><a href="%s">%s</a></strong> %s', $choice);
-        $slides = Slide::published()->with('media')->orderBy('id', 'desc')->get();
-        $articles = Article::with(['translations', 'category'])
-            ->promoted()
-            ->published()
-            ->orderBy('published_date', 'desc')
-            ->limit(12)
-            ->get();
-        $itemCount = $itemRepository->count();
-
-        return view('intro', [
-            'subtitle' => $subtitle,
-            'slides' => $slides,
-            'articles' => $articles,
-            'itemCount' => $itemCount,
-        ]);
-    });
-
-    Route::get('slideClicked', function () {
-        $slide = Slide::find(Request::input('id'));
-        if ($slide) {
-            $slide->click_count += 1;
-            $slide->save();
-
-            return Response::json(['status' => 'success']);
-        }
     });
 
     Route::get('objednavka', function () {
@@ -341,93 +282,7 @@ function()
         $items_for_reproduction_total =  formatNum($itemRepository->count((new ItemFilter)->setIsForReproduction(true)));
         $items_for_reproduction_sample = $items_for_reproduction_search->getCollection();
 
-        $galleries = [
-            [
-                'id'          => 'SNG',
-                'lang_string' => 'informacie.info_gallery_SNG',
-                'url'         => 'katalog?gallery=Slovenská národná galéria, SNG',
-            ],
-            [
-                'id'          => 'OGD',
-                'lang_string' => 'informacie.info_gallery_OGD',
-                'url'         => 'katalog?gallery=Oravská galéria, OGD',
-            ],
-            [
-                'id'          => 'GNZ',
-                'lang_string' => 'informacie.info_gallery_GNZ',
-                'url'         => 'katalog?gallery=Galéria umenia Ernesta Zmetáka, GNZ',
-            ],
-            [
-                'id'          => 'GPB',
-                'lang_string' => 'informacie.info_gallery_GPB',
-                'url'         => 'katalog?gallery=Liptovská galéria Petra Michala Bohúňa, GPB',
-            ],
-            [
-                'id'          => 'GMB',
-                'lang_string' => 'informacie.info_gallery_GMB',
-                'url'         => 'katalog?gallery=Galéria mesta Bratislavy, GMB',
-            ],
-            [
-                'id'          => 'GBT',
-                'lang_string' => 'informacie.info_gallery_GBT',
-                'url'         => 'katalog?gallery=Galéria+Miloša+Alexandra+Bazovského, GBT',
-            ],
-            [
-                'id'          => 'NGN',
-                'lang_string' => 'informacie.info_gallery_NGN',
-                'url'         => 'katalog?gallery=Nitrianska+galéria, NGN',
-            ],
-            [
-                'id'          => 'SGB',
-                'lang_string' => 'informacie.info_gallery_SGB',
-                'url'         => 'katalog?gallery=Stredoslovenská galéria, SGB',
-            ],
-            [
-                'id'          => 'GUS',
-                'lang_string' => 'informacie.info_gallery_GUS',
-                'url'         => 'katalog?gallery=Galéria umelcov Spiša, GUS',
-            ],
-            [
-                'id'          => 'VSG',
-                'lang_string' => 'informacie.info_gallery_VSG',
-                'url'         => 'katalog?gallery=Východoslovenská+galéria%2C+VSG',
-            ],
-            [
-                'id'          => 'TGP',
-                'lang_string' => 'informacie.info_gallery_TGP',
-                'url'         => 'katalog?gallery=Tatranská+galéria%2C+TGP',
-            ],
-            [
-                'id'          => 'PGU',
-                'lang_string' => 'informacie.info_gallery_PGU',
-                'url'         => 'katalog?gallery=Považská+galéria+umenia%2C+PGU',
-            ],
-            [
-                'id'          => 'SGP',
-                'lang_string' => 'informacie.info_gallery_SGP',
-                'url'         => 'katalog?gallery=Šarišská+galéria%2C+SGP',
-            ],
-            [
-                'id'          => 'KGC',
-                'lang_string' => 'informacie.info_gallery_KGC',
-                'url'         => 'katalog?gallery=Kysucká%20galéria,%20KGC',
-            ],
-            [
-                'id'          => 'MG',
-                'lang_string' => 'informacie.info_gallery_MG',
-                'url'         => 'katalog?gallery=Moravská galerie, MG',
-            ],
-            [
-                'id'          => 'PNP',
-                'lang_string' => 'informacie.info_gallery_PNP',
-                'url'         => 'katalog?gallery=Památník+národního+písemnictví%2C+PNP',
-            ],
-            [
-                'id'          => 'RG',
-                'lang_string' => 'informacie.info_gallery_4RG',
-                'url'         => 'katalog?gallery=Galerie+moderního+umění+v+Roudnici+nad+Labem',
-            ],
-        ];
+        $galleries = config('galleries');
 
         return view('informacie', compact(
             'galleries',
@@ -465,7 +320,6 @@ Route::group(array('middleware' => 'guest'), function () {
 });
 
 Route::group(['middleware' => ['auth', 'can:edit']], function () {
-    Route::get('/new-home', 'HomeController@index');
     Route::get('admin', 'AdminController@index');
     Route::get('logout', 'AuthController@logout');
     Route::get('imports/launch/{id}', 'ImportController@launch');

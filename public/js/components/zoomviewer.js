@@ -83,6 +83,17 @@ $("document").ready(function() {
 
     viewer = OpenSeadragon(OSDOptions);
 
+    viewer.addHandler('open', function (event) {
+      const referenceStrip = event.eventSource.referenceStrip;
+      if (!referenceStrip) return;
+
+      // Highlight selected referenceStrip panel
+      $(referenceStrip.panels).each(function () {
+        $(this).removeClass('selected');
+      });
+      $(referenceStrip.currentSelected).addClass('selected');
+    });
+
     viewer.addHandler('page', function (event) {
       isLoaded = false;
       $('.currentpage #index').html( event.page + 1 );

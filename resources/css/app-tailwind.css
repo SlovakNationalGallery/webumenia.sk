@@ -12,9 +12,8 @@
         font-size: 16px !important;
     }
 
-    .tailwind-rules a:hover,
-    .tailwind-rules a:focus {
-        @apply tw-text-inherit tw-decoration-inherit;
+    .tailwind-rules a {
+        transition: inherit;
     }
 
     /* Theme defaults */

@@ -26,10 +26,10 @@ return array(
     'clear_color'      => 'zrušiť farbu',
     'public_domain'    => 'voľné dielo',
     'artworks'         => 'diela',
-    'artworks_counted' => '{0}    :artworks_count diel
-                          |{1}    :artworks_count dielo
-                          |[2,4]  :artworks_count diela
-                          |[5,*]:artworks_count diel',
+    'artworks_counted' => '{0}    :count diel
+                          |{1}    :count dielo
+                          |[2,4]  :count diela
+                          |[5,*]:count diel',
 
     "share"              => "zdieľať",
     "share_facebook"     => "zdieľať na facebooku",
