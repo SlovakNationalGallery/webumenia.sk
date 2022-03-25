@@ -13,7 +13,6 @@ class ShuffledItemController extends Controller
     private static $rules = [
         'item_id' => 'required',
         'crop' => 'required|json',
-        'crop_url' => 'required|url',
         'is_published' => 'required',
     ];
 
@@ -54,7 +53,7 @@ class ShuffledItemController extends Controller
         $request->validate(self::$rules);
 
         $shuffledItem = ShuffledItem::create($request->input());
-        $shuffledItem->addMediaFromUrl($request->input('crop_url'))->toMediaCollection('image');
+        $shuffledItem->addMediaFromUrl($shuffledItem->crop_url)->toMediaCollection('image');
 
         return redirect()->route('shuffled-items.edit', $shuffledItem);
         // TODO
@@ -70,7 +69,7 @@ class ShuffledItemController extends Controller
         $shuffledItem->update($request->input());
 
         if ($shuffledItem->wasChanged('crop')) {
-            $shuffledItem->addMediaFromUrl($request->input('crop_url'))->toMediaCollection('image');
+            $shuffledItem->addMediaFromUrl($shuffledItem->crop_url)->toMediaCollection('image');
         }
 
         return redirect()
