@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
-## [2.49.0] - 2022-03-24
+## [2.49.0] - 2022-03-25
 ### Changed
 - galleries list to come from a config file
 - default home page to new home page
