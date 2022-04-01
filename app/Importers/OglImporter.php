@@ -29,6 +29,8 @@ class OglImporter extends AbstractImporter
         'state_edition:sk' => 'Původnost',
         'title:cs' => 'Titul',
         'title:sk' => 'Titul',
+        'current_location:cs' => 'AktLokace',
+        'current_location:sk' => 'AktLokace',
     ];
 
     protected $defaults = [
@@ -98,6 +100,16 @@ class OglImporter extends AbstractImporter
         }
 
         return $topic;
+    }
+
+    protected function hydrateStylePeriod(array $record, $locale)
+    {
+        $stylePeriod = $record['Podskup'];
+        if ($locale !== 'cs') {
+            $stylePeriod = $this->translateAttribute('style_period', $stylePeriod, $locale);
+        }
+
+        return $stylePeriod;
     }
 
     protected function hydrateTechnique(array $record, $locale)
