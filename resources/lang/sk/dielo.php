@@ -14,6 +14,7 @@ return array(
     'item_download'      => 'stiahnuť',
 
     'item_attr_dating'         => 'datovanie',
+    'item_attr_style_period'   => 'obdobie / výtvarný smer',
     'item_attr_measurements'   => 'miery',
     'item_attr_work_type'      => 'výtvarný druh',
     'item_attr_object_type'    => 'typ objektu',
@@ -27,6 +28,7 @@ return array(
     'item_attr_integrity_work' => 'integrita s dielami',
     'item_attr_inscription'    => 'značenie',
     'item_attr_gallery'        => 'inštitúcia',
+    'item_attr_current_location' => 'aktuálna lokácia',
     'item_attr_contributor'    => 'kurátor',
     'item_attr_identifier'     => 'inventárne číslo',
     'item_attr_licence'        => 'licencia',

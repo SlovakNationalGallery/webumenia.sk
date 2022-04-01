@@ -27,6 +27,8 @@ class OglImporter extends AbstractImporter
         'state_edition:sk' => 'Původnost',
         'title:cs' => 'Titul',
         'title:sk' => 'Titul',
+        'current_location:cs' => 'AktLokace',
+        'current_location:sk' => 'AktLokace',
     ];
 
     protected $defaults = [
@@ -45,7 +47,7 @@ class OglImporter extends AbstractImporter
 
     protected function getItemId(array $record)
     {
-        $id = sprintf('CZE:OGL.%s_%s', $record['Rada_S'], (int) $record['PorC_S']);
+        $id = sprintf('CZE:OGL.%s_%s', $record['Rada_S'], $record['PorC_S']);
         if ($record['Lomeni_S'] != '_') {
             $id = sprintf('%s-%s', $id, $record['Lomeni_S']);
         }
@@ -65,6 +67,16 @@ class OglImporter extends AbstractImporter
         }
 
         return $filename . '{_*,}';
+    }
+
+    protected function hydrateIdentifier(array $record)
+    {
+        $identifier = sprintf('%s %s', $record['Rada_S'], $record['PorC_S']);
+        if ($record['Lomeni_S'] != '_') {
+            $identifier = sprintf('%s/%s', $identifier, $record['Lomeni_S']);
+        }
+
+        return $identifier;
     }
 
     protected function hydrateWorkType(array $record, $locale)
@@ -87,11 +99,21 @@ class OglImporter extends AbstractImporter
         return $topic;
     }
 
+    protected function hydrateStylePeriod(array $record, $locale)
+    {
+        $stylePeriod = $record['Podskup'];
+        if ($locale !== 'cs') {
+            $stylePeriod = $this->translateAttribute('style_period', $stylePeriod, $locale);
+        }
+
+        return $stylePeriod;
+    }
+
     protected function hydrateTechnique(array $record, $locale)
     {
         $technika = $record['Technika'];
         if ($locale !== 'cs') {
-            $technika = $this->translateAttribute('technique', $record['Technika'], $locale);
+            $technika = $this->translateAttribute('technique', $technika, $locale);
         }
 
         if (!$record['TechSpec']) {
@@ -103,11 +125,32 @@ class OglImporter extends AbstractImporter
             $techSpec = $this->translateAttribute('technique', $techSpec, $locale);
         }
 
-        if (!$technika || !$techSpec) {
-            return null;
+        return collect([$technika, $techSpec])
+            ->filter()
+            ->join(', ') ?:
+            null;
+    }
+
+    protected function hydrateMedium(array $record, $locale)
+    {
+        $material = $record['Materiál'];
+        if ($locale !== 'cs') {
+            $material = $this->translateAttribute('medium', $record['Materiál'], $locale);
         }
 
-        return "$technika, $techSpec";
+        if (!$record['MatSpec']) {
+            return $material;
+        }
+
+        $matSpec = $record['MatSpec'];
+        if ($locale !== 'cs') {
+            $matSpec = $this->translateAttribute('medium', $record['MatSpec'], $locale);
+        }
+
+        return collect([$material, $matSpec])
+            ->filter()
+            ->join(', ') ?:
+            null;
     }
 
     protected function hydrateMeasurement(array $record, $locale)
