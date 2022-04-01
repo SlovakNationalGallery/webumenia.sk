@@ -18,10 +18,18 @@ return new class extends Migration {
             $table->dateTime('published_at')->nullable();
             $table->timestamps();
         });
+
+        Schema::create('shuffled_item_translations', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('shuffled_item_id');
+            $table->string('locale')->index();
+            $table->json('filters');
+        });
     }
 
     public function down()
     {
+        Schema::dropIfExists('shuffled_items_translations');
         Schema::dropIfExists('shuffled_items');
     }
 };

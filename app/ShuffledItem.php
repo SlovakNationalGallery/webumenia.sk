@@ -3,18 +3,22 @@
 namespace App;
 
 use App\Concerns\Publishable;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class ShuffledItem extends Model implements HasMedia
+class ShuffledItem extends Model implements HasMedia, TranslatableContract
 {
-    use DelegatesAttributes;
+    use Translatable;
     use HasFactory;
     use InteractsWithMedia;
     use Publishable;
+
+    public $translatedAttributes = ['filters'];
 
     protected $casts = [
         'crop' => 'array',

@@ -66,6 +66,8 @@ class ShuffledItemController extends Controller
         $request->validate(self::$rules);
         $request->merge(['crop' => json_decode($request->input('crop'))]);
 
+        // Delete translations so that removed filters are deleted
+        $shuffledItem->deleteTranslations();
         $shuffledItem->update($request->input());
 
         if ($shuffledItem->wasChanged('crop')) {

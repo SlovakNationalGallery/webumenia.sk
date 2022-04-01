@@ -71,18 +71,20 @@
                         <x-admin.label value="Filtre" />
                         <x-admin.tabs
                             :tabs="collect(config('translatable.locales'))->map(fn ($l) => Str::upper($l))">
-                            @foreach (config('translatable.locales') as $index => $locale)
-                                <x-slot :name='"tab_$index"'>
-                                    <list-manager v-slot="list">
+                            @foreach (config('translatable.locales') as $tabIndex => $locale)
+                                <x-slot :name='"tab_$tabIndex"'>
+                                    <list-manager v-slot="list"
+                                        v-bind:value="{{ Js::from($shuffledItem->translateOrNew($locale)->filters ?? []) }}">
                                         <div>
                                             <admin.shuffle-item-filter
-                                                v-for="(filter, filterIndex) in list.items"
-                                                v-bind:key="filter.id"
+                                                v-for=" (filter, filterIndex) in list.items"
+                                                v-bind:key="filter.id" v-bind:value="filter"
                                                 v-slot="{ url, selectableAttributes, attributes }">
                                                 <div>
                                                     <x-admin.label value="URL" />
                                                     <x-admin.input
                                                         placeholder="{{ LaravelLocalization::getLocalizedURL($locale, 'katalog/...') }}"
+                                                        v-bind:name="'{{ $locale }}[filters][' + filterIndex + '][url]'"
                                                         v-bind:value="url.value"
                                                         v-on:input="url.onChange" />
 
@@ -90,11 +92,13 @@
                                                         value="Filtre" />
                                                     <div
                                                         class="tw-mt-2 tw-grid tw-grid-cols-3 tw-gap-x-4">
-                                                        <div v-for="(attribute, index) in attributes"
-                                                            v-bind:key="index"
+                                                        <div v-for="(attribute, attributeIndex) in attributes"
+                                                            v-bind:key="attributeIndex"
                                                             class="tw-flex tw-flex-col tw-space-y-2">
-                                                            <x-admin.select name="type"
-                                                                v-on:input="attributes[index].onSelect">
+                                                            <x-admin.select
+                                                                v-bind:name="'{{ $locale }}[filters][' + filterIndex + '][attributes][' + attributeIndex + '][name]'"
+                                                                v-bind:value="attribute.name"
+                                                                v-on:input="attribute.onSelect">
                                                                 <option>...</option>
                                                                 <option
                                                                     v-for="sa in selectableAttributes"
@@ -104,7 +108,8 @@
                                                                 </option>
                                                             </x-admin.select>
                                                             <x-admin.input
-                                                                v-bind:value="attributes[index].defaultValue" />
+                                                                v-bind:value="attribute.value || attribute.defaultValue"
+                                                                v-bind:name="'{{ $locale }}[filters][' + filterIndex + '][attributes][' + attributeIndex + '][label]'" />
                                                         </div>
                                                     </div>
                                                     <div
