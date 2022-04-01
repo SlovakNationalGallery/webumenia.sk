@@ -61,7 +61,7 @@ class ShuffledItem extends Model implements HasMedia
 
         // Turn into FIF=abc&WID=def ...
         $urlParams = collect($iipParams)
-            ->map(fn($name, $value) => join('=', [$value, $name]))
+            ->map(fn($value, $name) => join('=', [$name, $value]))
             ->values()
             ->join('&');
 
