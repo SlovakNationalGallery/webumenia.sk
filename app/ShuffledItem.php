@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Concerns\DelegatesAttributes;
 use App\Concerns\Publishable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,11 +18,6 @@ class ShuffledItem extends Model implements HasMedia
 
     protected $casts = [
         'crop' => 'array',
-    ];
-
-    protected $delegated = [
-        'title' => 'item',
-        'dating_formatted' => 'item',
     ];
 
     protected $fillable = ['is_published', 'item_id', 'crop'];
@@ -71,6 +65,16 @@ class ShuffledItem extends Model implements HasMedia
     public function getImageAttribute(): ?Media
     {
         return $this->getFirstMedia('image');
+    }
+
+    public function getTitleAttribute()
+    {
+        return $this->item->title;
+    }
+
+    public function getDatingFormattedAttribute()
+    {
+        return $this->item->dating_formatted;
     }
 
     public function registerMediaCollections(): void
