@@ -69,36 +69,67 @@
 
                     <div class="tw-mt-8">
                         <x-admin.label value="Filtre" />
-                        <div class="tw-grid tw-grid-cols-3 tw-gap-x-4">
-                            <div class="tw-flex tw-flex-col tw-space-y-2">
-                                <x-admin.select name="type">
-                                    <option value="volvo">Volvo</option>
-                                    <option value="saab">Saab</option>
-                                    <option value="mercedes">Mercedes</option>
-                                    <option value="audi">Audi</option>
-                                </x-admin.select>
-                                <x-admin.select name="hodnota">
-                                    <option value="volvo">Volvo</option>
-                                    <option value="saab">Saab</option>
-                                    <option value="mercedes">Mercedes</option>
-                                    <option value="audi">Audi</option>
-                                </x-admin.select>
-                                <x-admin.input placeholder="label" />
-                            </div>
-                            <div
-                                class="tw-flex tw-items-center tw-justify-center tw-rounded tw-border tw-py-14">
-                                <x-admin.button sm outline>+ Pridať</x-admin.button>
-                            </div>
-                            <div class="tw-rounded tw-border">&nbsp;</div>
-                        </div>
-                        <div class="tw-mt-4 tw-flex tw-flex-col tw-items-center tw-space-y-2">
-                            <span class="tw-text-xs">13 výsledkov</span>
-                            <x-admin.button sm outline>🗙 Zmazať</x-admin.button>
-                        </div>
+                        <x-admin.tabs
+                            :tabs="collect(config('translatable.locales'))->map(fn ($l) => Str::upper($l))">
+                            @foreach (config('translatable.locales') as $index => $locale)
+                                <x-slot :name='"tab_$index"'>
+                                    <list-manager v-slot="list">
+                                        <div>
+                                            <admin.shuffle-item-filter
+                                                v-for="(filter, filterIndex) in list.items"
+                                                v-bind:key="filter.id"
+                                                v-slot="{ url, selectableAttributes, attributes }">
+                                                <div>
+                                                    <x-admin.label value="URL" />
+                                                    <x-admin.input
+                                                        placeholder="{{ LaravelLocalization::getLocalizedURL($locale, 'katalog/...') }}"
+                                                        v-bind:value="url.value"
+                                                        v-on:input="url.onChange" />
+
+                                                    <x-admin.label class="tw-mt-4"
+                                                        value="Filtre" />
+                                                    <div
+                                                        class="tw-mt-2 tw-grid tw-grid-cols-3 tw-gap-x-4">
+                                                        <div v-for="(attribute, index) in attributes"
+                                                            v-bind:key="index"
+                                                            class="tw-flex tw-flex-col tw-space-y-2">
+                                                            <x-admin.select name="type"
+                                                                v-on:input="attributes[index].onSelect">
+                                                                <option>...</option>
+                                                                <option
+                                                                    v-for="sa in selectableAttributes"
+                                                                    v-bind:key="sa.value"
+                                                                    v-bind:value="sa.value">
+                                                                    @{{ sa.label }}
+                                                                </option>
+                                                            </x-admin.select>
+                                                            <x-admin.input
+                                                                v-bind:value="attributes[index].defaultValue" />
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        class="tw-mt-2 tw-flex tw-flex-col tw-items-center tw-space-y-2">
+                                                        <x-admin.button type="button" sm outline
+                                                            v-on:click="list.delete(filterIndex)">
+                                                            🗙 Zmazať
+                                                        </x-admin.button>
+                                                    </div>
+                                                </div>
+                                            </admin.shuffle-item-filter>
+
+                                            <x-admin.button type="button" sm outline
+                                                class="tw-mt-4" v-on:click="list.push()">
+                                                + Pridať
+                                            </x-admin.button>
+                                        </div>
+                                    </list-manager>
+                                </x-slot>
+                            @endforeach
+                        </x-admin.tabs>
 
                         <div class="tw-mt-8">
                             <x-admin.checkbox id="is_published" name="is_published"
-                                :checked="old('is_published', $shuffledItem->is_published)" />
+                                :checked="old(' is_published', $shuffledItem->is_published)" />
                             <label for="is_published"
                                 class="tw-ml-1 tw-select-none tw-font-normal">Publikovať</label>
                             @if ($shuffledItem->is_published)
@@ -122,3 +153,4 @@
         </div>
     </div>
 @endsection
+
