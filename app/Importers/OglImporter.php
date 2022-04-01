@@ -2,8 +2,6 @@
 
 namespace App\Importers;
 
-use App\Repositories\IFileRepository;
-use Illuminate\Translation\Translator;
 use Illuminate\Support\Str;
 
 class OglImporter extends AbstractImporter
@@ -40,9 +38,8 @@ class OglImporter extends AbstractImporter
 
     public static $name = 'ogl';
 
-    public function __construct(IFileRepository $repository, Translator $translator)
+    protected function init()
     {
-        parent::__construct($repository, $translator);
         $this->sanitizers[] = function ($value) {
             return empty_to_null($value);
         };

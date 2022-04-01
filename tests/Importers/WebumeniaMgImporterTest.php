@@ -5,6 +5,7 @@ namespace Tests\Importers;
 use App\Import;
 use App\Repositories\CsvRepository;
 use App\Importers\WebumeniaMgImporter;
+use App\Matchers\AuthorityMatcher;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -13,87 +14,100 @@ class WebumeniaMgImporterTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testId() {
+    public function testId()
+    {
         $data = $this->fakeData([
             'Rada_S' => 'rada_s',
             'Lomeni_S' => 'lomeni_s',
-            'PorC_S' => 123
+            'PorC_S' => 123,
         ]);
         $items = $this->importSingle($data);
         $this->assertEquals('CZE:MG.rada_s_123-lomeni_s', $items[0]->id);
     }
 
-    public function testDating() {
+    public function testDating()
+    {
         $data = $this->fakeData();
         $items = $this->importSingle($data);
         $this->assertEquals($data['Datace'], $items[0]->dating);
     }
 
-    public function testDateEarliest() {
+    public function testDateEarliest()
+    {
         $data = $this->fakeData();
         $items = $this->importSingle($data);
         $this->assertEquals($data['RokOd'], $items[0]->date_earliest);
     }
 
-    public function testDateLatest() {
+    public function testDateLatest()
+    {
         $data = $this->fakeData();
         $items = $this->importSingle($data);
         $this->assertEquals($data['Do'], $items[0]->date_latest);
     }
 
-    public function testPlace() {
+    public function testPlace()
+    {
         $data = $this->fakeData();
         $items = $this->importSingle($data);
         $this->assertEquals($data['MístoVz'], $items[0]->place);
     }
 
-    public function testInscription() {
+    public function testInscription()
+    {
         $data = $this->fakeData();
         $items = $this->importSingle($data);
         $this->assertEquals($data['Sign'], $items[0]->inscription);
     }
 
-    public function testStateEdition() {
+    public function testStateEdition()
+    {
         $data = $this->fakeData();
         $items = $this->importSingle($data);
         $this->assertEquals($data['Původnost'], $items[0]->state_edition);
     }
 
-    public function testAuthor() {
+    public function testAuthor()
+    {
         $data = $this->fakeData();
         $items = $this->importSingle($data);
         $this->assertEquals($data['Autor'], $items[0]->author);
     }
 
-    public function testTitle() {
+    public function testTitle()
+    {
         $data = $this->fakeData();
         $items = $this->importSingle($data);
         $this->assertEquals($data['Titul'], $items[0]->title);
     }
 
-    public function testTopic() {
+    public function testTopic()
+    {
         $data = $this->fakeData();
         $items = $this->importSingle($data);
         $this->assertEquals($data['Námět'], $items[0]->topic);
     }
 
-    public function testGallery() {
+    public function testGallery()
+    {
         $data = $this->fakeData();
         $items = $this->importSingle($data);
         $this->assertEquals('Moravská galerie, MG', $items[0]->gallery);
     }
 
-    public function testIdentifier() {
+    public function testIdentifier()
+    {
         $data = $this->fakeData([
             'Rada_S' => 'rada_s',
             'Lomeni_S' => 'lomeni_s',
-            'PorC_S' => 123
+            'PorC_S' => 123,
         ]);
         $items = $this->importSingle($data);
         $this->assertEquals('rada_s 123/lomeni_s', $items[0]->identifier);
     }
 
-    public function testMedium() {
+    public function testMedium()
+    {
         $data = $this->fakeData([
             'Materiál' => 'material',
             'MatSpec' => 'matspec',
@@ -102,7 +116,8 @@ class WebumeniaMgImporterTest extends TestCase
         $this->assertEquals('material, matspec', $items[0]->medium);
     }
 
-    public function testTechnique() {
+    public function testTechnique()
+    {
         $data = $this->fakeData([
             'Technika' => 'technika',
             'TechSpec' => 'techspec',
@@ -111,36 +126,48 @@ class WebumeniaMgImporterTest extends TestCase
         $this->assertEquals('technika, techspec', $items[0]->technique);
     }
 
-    public function testRelationshipType() {
+    public function testRelationshipType()
+    {
         $data = $this->fakeData(['Okolnosti' => 'BB']);
         $items = $this->importSingle($data);
         $this->assertEquals('zo súboru', $items[0]->relationship_type);
     }
 
-    public function testWorkType() {
+    public function testWorkType()
+    {
         $data = $this->fakeData(['Skupina' => 'Ar']);
         $items = $this->importSingle($data);
         $this->assertEquals('architektúra', $items[0]->work_type);
     }
 
-    public function testRelatedWork() {
+    public function testRelatedWork()
+    {
         $data = $this->fakeData(['Okolnosti' => 'BB']);
         $items = $this->importSingle($data);
         $this->assertEquals('Bienále Brno', $items[0]->related_work);
     }
 
-    public function testMeasurement() {
+    public function testMeasurement()
+    {
         $data = $this->fakeData(['Služ' => 's=4,6cm; d=6cm; a=2cm']);
         $items = $this->importSingle($data);
-        $this->assertEquals('šírka 4,6 cm; dĺžka 6 cm; výška hlavnej časti 2 cm', $items[0]->measurement);
+        $this->assertEquals(
+            'šírka 4,6 cm; dĺžka 6 cm; výška hlavnej časti 2 cm',
+            $items[0]->measurement
+        );
     }
 
-    protected function importSingle(array $data) {
+    protected function importSingle(array $data)
+    {
         $records = new \ArrayIterator([$data]);
         $repositoryMock = $this->createMock(CsvRepository::class);
         $repositoryMock->method('getFiltered')->willReturn($records);
 
-        $importer = new WebumeniaMgImporter($repositoryMock, $this->app->get(Translator::class));
+        $importer = new WebumeniaMgImporter(
+            $this->app->get(AuthorityMatcher::class),
+            $repositoryMock,
+            $this->app->get(Translator::class)
+        );
         $import = Import::create();
         $file = ['basename' => '', 'path' => ''];
         $items = $importer->import($import, $file);
@@ -151,7 +178,8 @@ class WebumeniaMgImporterTest extends TestCase
         return $items;
     }
 
-    protected function fakeData(array $data = []) {
+    protected function fakeData(array $data = [])
+    {
         $plus2TValidator = function ($value) {
             return $value !== 'ODPIS';
         };

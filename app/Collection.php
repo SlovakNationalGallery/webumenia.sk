@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\JoinClause;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\URL;
 
 class Collection extends Model implements TranslatableContract
@@ -17,33 +18,36 @@ class Collection extends Model implements TranslatableContract
 
     use HasHeaderImage;
 
+    protected static function booted()
+    {
+        static::saved(fn() => Cache::forget('home.collections'));
+    }
+
     function getArtworksDirAttribute()
     {
         return '/images/kolekcie/';
     }
 
-    public $translatedAttributes = ['name','type', 'text'];
+    public $translatedAttributes = ['name', 'type', 'text'];
 
-    public static $rules = array(
+    public static $rules = [
         'sk.name' => 'required',
         'sk.text' => 'required',
-    );
+    ];
 
-    public static $sortable = array(
+    public static $sortable = [
         'published_at' => 'sortable.published_at',
         'updated_at' => 'sortable.updated_at',
-        'name'       => 'sortable.title',
-    );
+        'name' => 'sortable.title',
+    ];
 
-    protected $dates = array(
-        'created_at',
-        'updated_at',
-        'published_at'
-    );
+    protected $dates = ['created_at', 'updated_at', 'published_at'];
 
     public function items()
     {
-        return $this->belongsToMany(\App\Item::class, 'collection_item', 'collection_id', 'item_id')->withPivot('order')->orderBy('order', 'asc');
+        return $this->belongsToMany(\App\Item::class, 'collection_item', 'collection_id', 'item_id')
+            ->withPivot('order')
+            ->orderBy('order', 'asc');
     }
 
     public function user()
@@ -53,8 +57,9 @@ class Collection extends Model implements TranslatableContract
 
     public function getPreviewItems()
     {
-
-        return $this->items()->limit(10)->get();
+        return $this->items()
+            ->limit(10)
+            ->get();
     }
 
     public function getUrl()
@@ -67,7 +72,9 @@ class Collection extends Model implements TranslatableContract
         $striped_string = strip_tags(br2nl($string));
         $string = $striped_string;
         $string = substr($string, 0, $length);
-        return ($striped_string > $string) ? substr($string, 0, strrpos($string, ' ')) . " ..." : $string;
+        return $striped_string > $string
+            ? substr($string, 0, strrpos($string, ' ')) . ' ...'
+            : $string;
     }
 
     public function getContentImages()
@@ -82,12 +89,12 @@ class Collection extends Model implements TranslatableContract
 
     public function getTitleColorAttribute($value)
     {
-        return (!empty($value)) ? $value : '#fff';
+        return !empty($value) ? $value : '#fff';
     }
 
     public function getTitleShadowAttribute($value)
     {
-        return (!empty($value)) ? $value : '#777';
+        return !empty($value) ? $value : '#777';
     }
 
     public function scopeOrderByTranslation(Builder $query, $column, $dir = 'asc', $locale = null)
@@ -96,7 +103,8 @@ class Collection extends Model implements TranslatableContract
 
         return $query
             ->join('collection_translations as t', function ($join) use ($locale) {
-                $join->on('collections.id', '=', 't.collection_id')
+                $join
+                    ->on('collections.id', '=', 't.collection_id')
                     ->where(function ($query) use ($locale) {
                         $query->where('t.locale', '=', $locale);
 
@@ -116,9 +124,14 @@ class Collection extends Model implements TranslatableContract
         return $query->orWhere(function ($query) use ($locale, $alias) {
             $query->where("$alias.locale", '=', $this->getFallbackLocale());
 
-            $withTranslation = self::whereHas('translations', function (Builder $q) use ($locale, $alias) {
+            $withTranslation = self::whereHas('translations', function (Builder $q) use (
+                $locale,
+                $alias
+            ) {
                 $q->where($this->getLocaleKey(), '=', $locale);
-            })->pluck('id')->toArray();
+            })
+                ->pluck('id')
+                ->toArray();
 
             if ($withTranslation) {
                 $query->whereNotIn("$alias.collection_id", $withTranslation);
@@ -126,7 +139,8 @@ class Collection extends Model implements TranslatableContract
         });
     }
 
-    public function getReadingTimeAttribute(){
-        return getEstimatedReadingTime($this->text, \App::getLocale() );
+    public function getReadingTimeAttribute()
+    {
+        return getEstimatedReadingTime($this->text, \App::getLocale());
     }
 }

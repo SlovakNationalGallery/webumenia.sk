@@ -4,6 +4,7 @@ namespace Tests\Importers;
 
 use App\Import;
 use App\Importers\PnpKarasekImporter;
+use App\Matchers\AuthorityMatcher;
 use App\Repositories\CsvRepository;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -13,7 +14,8 @@ class PnpKarasekImporterTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testId() {
+    public function testId()
+    {
         $data = $this->getData([
             'Inventární číslo:' => 'IO 221',
         ]);
@@ -21,7 +23,8 @@ class PnpKarasekImporterTest extends TestCase
         $this->assertEquals('CZE:PNP.IO_221', $item->id);
     }
 
-    public function testWorkType() {
+    public function testWorkType()
+    {
         $data = $this->getData([
             'Výtvarný druh:' => 'Malba',
         ]);
@@ -31,7 +34,8 @@ class PnpKarasekImporterTest extends TestCase
         $this->assertEquals('painting', $item->getTranslationOrFail('en')->work_type);
     }
 
-    public function testTopic() {
+    public function testTopic()
+    {
         $data = $this->getData([
             'Námět:' => 'Architektura, portrét',
         ]);
@@ -41,7 +45,8 @@ class PnpKarasekImporterTest extends TestCase
         $this->assertEquals('architecture; portrait', $item->getTranslationOrFail('en')->topic);
     }
 
-    public function testTopicWithoutTranslation() {
+    public function testTopicWithoutTranslation()
+    {
         $data = $this->getData([
             'Námět:' => 'not translated',
         ]);
@@ -51,7 +56,8 @@ class PnpKarasekImporterTest extends TestCase
         $this->assertEquals(null, $item->getTranslationOrFail('en')->topic);
     }
 
-    public function testMedium() {
+    public function testMedium()
+    {
         $data = $this->getData([
             'Materiál:' => 'Papír',
         ]);
@@ -61,7 +67,8 @@ class PnpKarasekImporterTest extends TestCase
         $this->assertEquals('paper', $item->getTranslationOrFail('en')->medium);
     }
 
-    public function testMediumWithoutTranslation() {
+    public function testMediumWithoutTranslation()
+    {
         $data = $this->getData([
             'Materiál:' => 'not translated',
         ]);
@@ -71,7 +78,8 @@ class PnpKarasekImporterTest extends TestCase
         $this->assertEquals(null, $item->getTranslationOrFail('en')->medium);
     }
 
-    public function testTechnique() {
+    public function testTechnique()
+    {
         $data = $this->getData([
             'Technika:' => 'Mědiryt, lept',
         ]);
@@ -81,7 +89,8 @@ class PnpKarasekImporterTest extends TestCase
         $this->assertEquals('copperplate; etching', $item->getTranslationOrFail('en')->technique);
     }
 
-    public function testTechniqueWithoutTranslation() {
+    public function testTechniqueWithoutTranslation()
+    {
         $data = $this->getData([
             'Technika:' => 'not translated',
         ]);
@@ -97,7 +106,11 @@ class PnpKarasekImporterTest extends TestCase
         $repositoryMock = $this->createMock(CsvRepository::class);
         $repositoryMock->method('getFiltered')->willReturn($records);
 
-        $importer = new PnpKarasekImporter($repositoryMock, $this->app->get(Translator::class));
+        $importer = new PnpKarasekImporter(
+            $this->app->get(AuthorityMatcher::class),
+            $repositoryMock,
+            $this->app->get(Translator::class)
+        );
         $import = Import::create();
         $file = ['basename' => '', 'path' => ''];
         $items = $importer->import($import, $file);

@@ -4,6 +4,7 @@ namespace Tests\Importers;
 
 use App\Import;
 use App\Importers\OglImporter;
+use App\Matchers\AuthorityMatcher;
 use App\Repositories\CsvRepository;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -186,7 +187,11 @@ class OglImporterTest extends TestCase
         $repositoryMock = $this->createMock(CsvRepository::class);
         $repositoryMock->method('getFiltered')->willReturn($records);
 
-        $importer = new OglImporter($repositoryMock, $this->app->get(Translator::class));
+        $importer = new OglImporter(
+            $this->app->get(AuthorityMatcher::class),
+            $repositoryMock,
+            $this->app->get(Translator::class)
+        );
         $import = Import::create();
         $file = ['basename' => '', 'path' => ''];
         $items = $importer->import($import, $file);

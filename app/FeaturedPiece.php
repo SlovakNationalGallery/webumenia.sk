@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -11,13 +12,12 @@ class FeaturedPiece extends Model implements HasMedia
 {
     use InteractsWithMedia;
 
-    protected $fillable = [
-        'title',
-        'excerpt',
-        'url',
-        'publish',
-        'type',
-    ];
+    protected static function booted()
+    {
+        static::saved(fn() => Cache::forget('home.featured-piece'));
+    }
+
+    protected $fillable = ['title', 'excerpt', 'url', 'publish', 'type'];
 
     public static $rules = [
         'title' => 'required',
@@ -49,8 +49,7 @@ class FeaturedPiece extends Model implements HasMedia
 
     public function registerMediaCollections(): void
     {
-        $this
-            ->addMediaCollection('image')
+        $this->addMediaCollection('image')
             ->singleFile()
             ->withResponsiveImages();
     }

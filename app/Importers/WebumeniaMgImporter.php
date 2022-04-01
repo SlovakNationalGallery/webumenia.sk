@@ -1,12 +1,8 @@
 <?php
 
-
 namespace App\Importers;
 
-
 use App\Import;
-use App\Repositories\IFileRepository;
-use Illuminate\Contracts\Translation\Translator;
 
 class WebumeniaMgImporter extends MgImporter
 {
@@ -110,34 +106,44 @@ class WebumeniaMgImporter extends MgImporter
         'kresba perem, lavírování' => 'pero, lavírovanie',
     ];
 
-    public function __construct(IFileRepository $repository, Translator $translator) {
-        parent::__construct($repository, $translator);
-
+    protected function init()
+    {
         $this->filters['with_iip'] = function (array $record) {
             $image_filename_format = $this->getItemImageFilenameFormat($record);
-            return !empty($this->getImageJp2Paths($this->import, $this->csv_file['basename'], $image_filename_format));
+            return !empty(
+                $this->getImageJp2Paths(
+                    $this->import,
+                    $this->csv_file['basename'],
+                    $image_filename_format
+                )
+            );
         };
 
         unset($this->mapping['RokAkv'], $this->mapping['DatExp']);
     }
 
-    public function import(Import $import, array $file) {
+    public function import(Import $import, array $file)
+    {
         $this->import = $import;
         $this->csv_file = $file;
         return parent::import($import, $file);
     }
 
-    protected function hydrateTechnique(array $record) {
+    protected function hydrateTechnique(array $record)
+    {
         $technique = parent::hydrateTechnique($record);
         return strtr($technique, static::$cz_technique_replacements);
     }
 
-    protected function hydrateWorkType(array $record) {
-        return (isset(static::$cz_work_types_spec[$record['Skupina']])) ? static::$cz_work_types_spec[$record['Skupina']] : '';
+    protected function hydrateWorkType(array $record)
+    {
+        return isset(static::$cz_work_types_spec[$record['Skupina']])
+            ? static::$cz_work_types_spec[$record['Skupina']]
+            : '';
     }
 
-    protected function hydrateRelationshipType(array $record) {
+    protected function hydrateRelationshipType(array $record)
+    {
         return self::isBiennial($record) ? 'zo súboru' : '';
     }
-
 }

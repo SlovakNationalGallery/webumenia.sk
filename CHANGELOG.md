@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - item style period, current location
 
+## [2.49.0] - 2022-03-25
+### Changed
+- galleries list to come from a config file
+- default home page to new home page
+
+## [2.48.0] - 2022-03-24
+### Added
+- global word-break:keep-all
+- authority matching in importers
+- "counts blurb" to new homepage
+- performance tweaks to new homepage
+
+### Changed
+- resolve api route name conflicts
+
+### Fixed
+- some styling issues with new Openseadragon
+- disabled global Bootstrap `<a>` styles
+
 ## [2.47.0] - 2022-03-11
 ### Added
 - "featured piece" front-end component
