@@ -2,8 +2,6 @@
 
 namespace App\Importers;
 
-use App\Repositories\IFileRepository;
-use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Support\Str;
 
 class GmuRnlImporter extends AbstractImporter
@@ -37,9 +35,8 @@ class GmuRnlImporter extends AbstractImporter
 
     protected static $name = 'gml-rnl';
 
-    public function __construct(IFileRepository $repository, Translator $translator)
+    protected function init()
     {
-        parent::__construct($repository, $translator);
         $this->sanitizers[] = function ($value) {
             return empty_to_null($value);
         };
@@ -57,7 +54,7 @@ class GmuRnlImporter extends AbstractImporter
         return sprintf(
             '%s_%d{_*,}',
             $record['Řada'],
-            (int)Str::after($record['Inventární '], $record['Řada'])
+            (int) Str::after($record['Inventární '], $record['Řada'])
         );
     }
 

@@ -4,6 +4,7 @@ namespace Tests\Importers;
 
 use App\Import;
 use App\Importers\GmuRnlImporter;
+use App\Matchers\AuthorityMatcher;
 use App\Repositories\CsvRepository;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -42,7 +43,10 @@ class GmuRnlImporterTest extends TestCase
         $this->assertEquals('litografie', $item->technique);
         $this->assertEquals('celková výška/dĺžka 52cm; šírka 84cm', $item->measurement);
         $this->assertEquals('Město', $item->topic);
-        $this->assertEquals('vpravo dole v ploše tisku: Gotthard Kuehl/Dresden 02', $item->inscription);
+        $this->assertEquals(
+            'vpravo dole v ploše tisku: Gotthard Kuehl/Dresden 02',
+            $item->inscription
+        );
         $this->assertEquals('grafika', $item->work_type);
         $this->assertSame(null, $item->acquisition_date);
     }
@@ -53,7 +57,11 @@ class GmuRnlImporterTest extends TestCase
         $repositoryMock = $this->createMock(CsvRepository::class);
         $repositoryMock->method('getFiltered')->willReturn($records);
 
-        $importer = new GmuRnlImporter($repositoryMock, $this->app->get(Translator::class));
+        $importer = new GmuRnlImporter(
+            $this->app->get(AuthorityMatcher::class),
+            $repositoryMock,
+            $this->app->get(Translator::class)
+        );
         $import = Import::create();
         $file = ['basename' => '', 'path' => ''];
         $items = $importer->import($import, $file);

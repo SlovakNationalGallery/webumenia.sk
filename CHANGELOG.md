@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [2.48.0] - 2022-03-24
 ### Added
 - global word-break:keep-all
+- authority matching in importers
 - "counts blurb" to new homepage
 - performance tweaks to new homepage
 

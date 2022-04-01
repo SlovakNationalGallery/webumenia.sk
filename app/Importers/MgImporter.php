@@ -1,14 +1,9 @@
 <?php
 
-
 namespace App\Importers;
 
-
-use App\Repositories\IFileRepository;
-use Illuminate\Contracts\Translation\Translator;
-
-class MgImporter extends AbstractImporter {
-
+class MgImporter extends AbstractImporter
+{
     protected $options = [
         'delimiter' => ';',
         'enclosure' => '"',
@@ -97,9 +92,8 @@ class MgImporter extends AbstractImporter {
 
     protected static $name = 'mg';
 
-    public function __construct(IFileRepository $repository, Translator $translator) {
-        parent::__construct($repository, $translator);
-
+    protected function init()
+    {
         $this->filters[] = function (array $record) {
             return $record['Plus2T'] != 'ODPIS';
         };
@@ -109,8 +103,9 @@ class MgImporter extends AbstractImporter {
         };
     }
 
-    protected function getItemId(array $record) {
-        $id = sprintf('CZE:MG.%s_%s', $record['Rada_S'], (int)$record['PorC_S']);
+    protected function getItemId(array $record)
+    {
+        $id = sprintf('CZE:MG.%s_%s', $record['Rada_S'], (int) $record['PorC_S']);
         if ($record['Lomeni_S'] != '_') {
             $id = sprintf('%s-%s', $id, $record['Lomeni_S']);
         }
@@ -118,8 +113,13 @@ class MgImporter extends AbstractImporter {
         return $id;
     }
 
-    protected function getItemImageFilenameFormat(array $record) {
-        $filename = sprintf('%s%s', $record['Rada_S'], str_pad($record['PorC_S'], 6, '0', STR_PAD_LEFT));
+    protected function getItemImageFilenameFormat(array $record)
+    {
+        $filename = sprintf(
+            '%s%s',
+            $record['Rada_S'],
+            str_pad($record['PorC_S'], 6, '0', STR_PAD_LEFT)
+        );
         if ($record['Lomeni_S'] != '_') {
             $filename = sprintf('%s-%s', $filename, $record['Lomeni_S']);
         }
@@ -127,8 +127,9 @@ class MgImporter extends AbstractImporter {
         return $filename . '{_*,}';
     }
 
-    protected function hydrateIdentifier(array $record) {
-        $identifier = sprintf('%s %s', $record['Rada_S'], (int)$record['PorC_S']);
+    protected function hydrateIdentifier(array $record)
+    {
+        $identifier = sprintf('%s %s', $record['Rada_S'], (int) $record['PorC_S']);
         if ($record['Lomeni_S'] != '_') {
             $identifier = sprintf('%s/%s', $identifier, $record['Lomeni_S']);
         }
@@ -136,31 +137,46 @@ class MgImporter extends AbstractImporter {
         return $identifier;
     }
 
-    protected function hydrateMedium(array $record) {
-        return isset($record['Materiál']) && isset($record['MatSpec']) ? ($record['Materiál'] . ', ' . $record['MatSpec']) : $record['Materiál'];
+    protected function hydrateMedium(array $record)
+    {
+        return isset($record['Materiál']) && isset($record['MatSpec'])
+            ? $record['Materiál'] . ', ' . $record['MatSpec']
+            : $record['Materiál'];
     }
 
-    protected function hydrateTechnique(array $record) {
-        return ($record['TechSpec']) ? ($record['Technika'] . ', ' . $record['TechSpec']) : $record['Technika'];
+    protected function hydrateTechnique(array $record)
+    {
+        return $record['TechSpec']
+            ? $record['Technika'] . ', ' . $record['TechSpec']
+            : $record['Technika'];
     }
 
-    protected function hydrateWorkType(array $record) {
-        return (isset(static::$cz_work_types_spec[$record['Skupina']])) ? static::$cz_work_types_spec[$record['Skupina']] : 'nespecifikované';
+    protected function hydrateWorkType(array $record)
+    {
+        return isset(static::$cz_work_types_spec[$record['Skupina']])
+            ? static::$cz_work_types_spec[$record['Skupina']]
+            : 'nespecifikované';
     }
 
-    protected function hydrateRelationshipType(array $record) {
+    protected function hydrateRelationshipType(array $record)
+    {
         return self::isBiennial($record) ? 'ze souboru' : '';
     }
 
-    protected function hydrateRelatedWork(array $record) {
+    protected function hydrateRelatedWork(array $record)
+    {
         return self::isBiennial($record) ? 'Bienále Brno' : '';
     }
 
-    protected function hydrateMeasurement(array $record) {
-        return (!empty($record['Služ']) && $record['Služ'] != '=') ? strtr($record['Služ'], static::$cz_measurement_replacements)  : '';
+    protected function hydrateMeasurement(array $record)
+    {
+        return !empty($record['Služ']) && $record['Služ'] != '='
+            ? strtr($record['Služ'], static::$cz_measurement_replacements)
+            : '';
     }
 
-    protected static function isBiennial(array $record) {
+    protected static function isBiennial(array $record)
+    {
         return strpos($record['Okolnosti'], 'BB') !== false;
     }
 }
