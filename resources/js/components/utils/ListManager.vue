@@ -1,15 +1,16 @@
 <script>
 export default {
     props: {
-        // NOTE default items must have an `id` parameter
-        defaultItems: {
+        value: {
             type: Array,
+            default: () => [],
         },
     },
     data() {
         return {
-            id: 0,
-            items: this.defaultItems || [],
+            id: this.value.length,
+            // Add an `id` to defaultItems
+            items: this.value.map((item, index) => ({ id: index, ...item })),
         }
     },
     render() {

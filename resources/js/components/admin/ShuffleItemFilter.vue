@@ -13,13 +13,16 @@ const RecognizedAttributes = [
 
 export default {
     props: {
-        defaultValue: Object,
+        value: Object,
     },
     data() {
-        const defaultValue = this.defaultValue || {}
+        const value = this.value
+
         return {
-            url: defaultValue.url || null,
-            selectedAttributes: defaultValue.selectedAttributes || [null, null, null],
+            url: value.url || null,
+            selectedAttributes: value.attributes
+                ? value.attributes.map(({ name }) => name)
+                : [null, null, null],
         }
     },
     computed: {
@@ -56,6 +59,8 @@ export default {
                     this.selectedAttributes = [...this.selectedAttributes]
                 },
                 defaultValue: this.defaults[this.selectedAttributes[index]],
+                name: this.selectedAttributes[index],
+                value: this.value.attributes ? this.value.attributes[index].label : null,
             })),
         })
     },
