@@ -23,18 +23,32 @@ class NewsletterSignupForm extends Component
 
         Newsletter::subscribePending(
             $this->email,
+            [], // no merge fields
+            'webumenia-newsletter',
+            [
+                'marketing_permissions' => [
+                    [
+                        'marketing_permission_id' => config(
+                            'newsletter.lists.webumenia-newsletter.marketing_permissions.default'
+                        ),
+                        'enabled' => true,
+                    ],
+                ],
+            ]
         );
 
         if (!Newsletter::lastActionSucceeded()) {
             $this->addError('subscription', Newsletter::getLastError());
             return;
-        };
+        }
 
         $this->success = true;
         Cookie::queue(
             'newsletterSubscribedAt',
-             Date::now()->toIso8601String(),
-             Date::now()->addYears(10)->diffInMinutes()
+            Date::now()->toIso8601String(),
+            Date::now()
+                ->addYears(10)
+                ->diffInMinutes()
         );
         $this->emit('trackNewsletterSignup', 'signupSuccessful', $this->variant);
     }
