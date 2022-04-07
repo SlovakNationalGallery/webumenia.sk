@@ -50,7 +50,7 @@ class ShuffleItemsFilterForm extends Component
         );
     }
 
-    private function getAttributesFromUrl(string $url): array
+    private function getAttributesFromUrl(?string $url): array
     {
         $parsedUrl = parse_url($url);
 

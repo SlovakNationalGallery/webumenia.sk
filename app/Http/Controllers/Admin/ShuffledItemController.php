@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Item;
 use App\ShuffledItem;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 
 class ShuffledItemController extends Controller
 {
@@ -14,6 +13,9 @@ class ShuffledItemController extends Controller
         'item_id' => 'required',
         'crop' => 'required|json',
         'is_published' => 'required',
+        '*.filters.*.url' => 'url|required',
+        '*.filters.*.attributes.*.name' => 'string|required',
+        '*.filters.*.attributes.*.label' => 'string|required',
     ];
 
     // public function index()

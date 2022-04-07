@@ -74,7 +74,7 @@
                             @foreach (config('translatable.locales') as $tabIndex => $locale)
                                 <x-slot :name='"tab_$tabIndex"'>
                                     <livewire:admin.shuffle-items-filter-form
-                                        :filters="$shuffledItem->translateOrNew($locale)->filters ?? []"
+                                        :filters="old($locale . '.filters') ?? $shuffledItem->translateOrNew($locale)->filters ?? []"
                                         :locale="$locale" />
                                 </x-slot>
                             @endforeach
