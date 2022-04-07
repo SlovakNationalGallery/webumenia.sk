@@ -73,61 +73,9 @@
                             :tabs="collect(config('translatable.locales'))->map(fn ($l) => Str::upper($l))">
                             @foreach (config('translatable.locales') as $tabIndex => $locale)
                                 <x-slot :name='"tab_$tabIndex"'>
-                                    <list-manager v-slot="list"
-                                        v-bind:value="{{ Js::from($shuffledItem->translateOrNew($locale)->filters ?? []) }}">
-                                        <div>
-                                            <admin.shuffle-item-filter
-                                                v-for=" (filter, filterIndex) in list.items"
-                                                v-bind:key="filter.id" v-bind:value="filter"
-                                                v-slot="{ url, selectableAttributes, attributes }">
-                                                <div>
-                                                    <x-admin.label value="URL" />
-                                                    <x-admin.input
-                                                        placeholder="{{ LaravelLocalization::getLocalizedURL($locale, 'katalog/...') }}"
-                                                        v-bind:name="'{{ $locale }}[filters][' + filterIndex + '][url]'"
-                                                        v-bind:value="url.value"
-                                                        v-on:input="url.onChange" />
-
-                                                    <x-admin.label class="tw-mt-4"
-                                                        value="Filtre" />
-                                                    <div
-                                                        class="tw-mt-2 tw-grid tw-grid-cols-3 tw-gap-x-4">
-                                                        <div v-for="(attribute, attributeIndex) in attributes"
-                                                            v-bind:key="attributeIndex"
-                                                            class="tw-flex tw-flex-col tw-space-y-2">
-                                                            <x-admin.select
-                                                                v-bind:name="'{{ $locale }}[filters][' + filterIndex + '][attributes][' + attributeIndex + '][name]'"
-                                                                v-bind:value="attribute.name"
-                                                                v-on:input="attribute.onSelect">
-                                                                <option>...</option>
-                                                                <option
-                                                                    v-for="sa in selectableAttributes"
-                                                                    v-bind:key="sa.value"
-                                                                    v-bind:value="sa.value">
-                                                                    @{{ sa.label }}
-                                                                </option>
-                                                            </x-admin.select>
-                                                            <x-admin.input
-                                                                v-bind:value="attribute.value || attribute.defaultValue"
-                                                                v-bind:name="'{{ $locale }}[filters][' + filterIndex + '][attributes][' + attributeIndex + '][label]'" />
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        class="tw-mt-2 tw-flex tw-flex-col tw-items-center tw-space-y-2">
-                                                        <x-admin.button type="button" sm outline
-                                                            v-on:click="list.delete(filterIndex)">
-                                                            🗙 Zmazať
-                                                        </x-admin.button>
-                                                    </div>
-                                                </div>
-                                            </admin.shuffle-item-filter>
-
-                                            <x-admin.button type="button" sm outline
-                                                class="tw-mt-4" v-on:click="list.push()">
-                                                + Pridať
-                                            </x-admin.button>
-                                        </div>
-                                    </list-manager>
+                                    <livewire:admin.shuffle-items-filter-form
+                                        :filters="$shuffledItem->translateOrNew($locale)->filters ?? []"
+                                        :locale="$locale" />
                                 </x-slot>
                             @endforeach
                         </x-admin.tabs>
@@ -158,4 +106,3 @@
         </div>
     </div>
 @endsection
-
