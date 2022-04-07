@@ -123,7 +123,7 @@ class HomeController extends Controller
             $galleriesCount = count(config('galleries'));
             $authoritiesCount = Authority::count();
             $itemsCount = Item::count();
-            $highResItemsCount = Item::withExists('images')->count();
+            $highResItemsCount = Item::whereHas('images')->count();
 
             $itemRepository = app(ItemRepository::class);
             $freeItemsCount = $itemRepository->count((new ItemFilter())->setIsFree(true));
