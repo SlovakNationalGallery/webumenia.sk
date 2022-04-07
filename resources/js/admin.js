@@ -1,8 +1,11 @@
+import Vue from 'vue'
+import 'livewire-vue'
 import { Lang } from 'laravel-vue-lang'
 
+window.Vue = Vue
+Vue.use(Lang, { fallback: 'sk' })
+
 window.debounce = require('debounce')
-window.Vue = require('vue').default
-window.Vue.use(Lang, { fallback: 'sk' })
 
 Vue.component('admin-links-input', require('./components/admin/LinksInput.vue').default)
 Vue.component('autocomplete', require('./components/Autocomplete.vue').default)
