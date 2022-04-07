@@ -46,8 +46,7 @@ return [
              * You can get a list of your permissions with this command: "php artisan newsletter:permissions"
              */
             'marketing_permissions' => [
-                // 'email' => '2a4819ebc7',
-                // 'customized_online_advertising' => '4256fc7dc5',
+                'default' => '1e03249552', // i.e. "Súhlasím"
             ],
 
         ],

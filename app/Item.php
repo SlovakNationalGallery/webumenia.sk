@@ -90,6 +90,8 @@ class Item extends Model implements IndexableModel, TranslatableContract
         'relationship_type',
         'related_work',
         'additionals',
+        'style_period',
+        'current_location',
     ];
 
     protected $fillable = array(
@@ -125,6 +127,8 @@ class Item extends Model implements IndexableModel, TranslatableContract
         'contributor',
         'acquisition_date',
         'additionals',
+        'style_period',
+        'current_location',
     );
 
     protected $dates = array(

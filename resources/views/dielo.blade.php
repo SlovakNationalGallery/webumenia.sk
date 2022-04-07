@@ -124,6 +124,12 @@
                                     </time>
                                 </td>
                             </tr>
+                            @if (!empty($item->style_period))
+                            <tr>
+                                <td class="atribut">{{ trans('dielo.item_attr_style_period') }}:</td>
+                                <td>{{ $item->style_period }}</td>
+                            </tr>
+                            @endif
                             @if (!empty($item->measurements))
                             <tr>
                                 <td class="atribut">{{ trans('dielo.item_attr_measurements') }}:</td>
@@ -234,6 +240,12 @@
                             <tr>
                                 <td class="atribut">{{ trans('dielo.item_attr_gallery') }}:</td>
                                 <td><a href="{{ URL::to('katalog?gallery=' . $item->gallery) }}">{{ $item->gallery }}</a></td>
+                            </tr>
+                            @endif
+                            @if (!empty($item->current_location))
+                            <tr>
+                                <td class="atribut">{{ trans('dielo.item_attr_current_location') }}:</td>
+                                <td>{{ $item->current_location }}</td>
                             </tr>
                             @endif
                             @if (!empty($item->contributor))

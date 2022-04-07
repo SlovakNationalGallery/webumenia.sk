@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.50.0] - 2022-04-07
+### Added
+- item style period, current location
+- authority matching in importers
+
+### Fixed
+- newsletter sign-up to include marketing permissions
+
 ## [2.49.0] - 2022-03-25
 ### Changed
 - galleries list to come from a config file

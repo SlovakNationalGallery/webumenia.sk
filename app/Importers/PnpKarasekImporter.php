@@ -4,8 +4,6 @@ namespace App\Importers;
 
 use App\Import;
 use App\ImportRecord;
-use App\Repositories\IFileRepository;
-use Illuminate\Translation\Translator;
 use Illuminate\Support\Str;
 
 class PnpKarasekImporter extends AbstractImporter
@@ -41,9 +39,8 @@ class PnpKarasekImporter extends AbstractImporter
 
     protected static $name = 'pnp_karasek';
 
-    public function __construct(IFileRepository $repository, Translator $translator)
+    protected function init()
     {
-        parent::__construct($repository, $translator);
         $this->sanitizers[] = function ($value) {
             return empty_to_null($value);
         };
@@ -63,7 +60,7 @@ class PnpKarasekImporter extends AbstractImporter
 
     protected function getItemId(array $record)
     {
-        return sprintf("CZE:PNP.%s", $this->getSlug($record['Inventární číslo:']));
+        return sprintf('CZE:PNP.%s', $this->getSlug($record['Inventární číslo:']));
     }
 
     protected function getItemImageFilenameFormat(array $record)
@@ -79,7 +76,8 @@ class PnpKarasekImporter extends AbstractImporter
 
     protected function hydrateWorkType(array $record, $locale)
     {
-        $workType = $this->workTypeReplacements[$record['Výtvarný druh:']] ?? $record['Výtvarný druh:'];
+        $workType =
+            $this->workTypeReplacements[$record['Výtvarný druh:']] ?? $record['Výtvarný druh:'];
         return $this->translateSingle($workType, 'work_type', $locale);
     }
 

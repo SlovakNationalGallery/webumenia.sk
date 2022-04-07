@@ -41,7 +41,7 @@ class PnpTrienaleImporter extends AbstractImporter
         ],
         'en' => [
             'grafika' => 'graphics',
-        ]
+        ],
     ];
 
     protected $mediumTranslations = [
@@ -50,7 +50,7 @@ class PnpTrienaleImporter extends AbstractImporter
         ],
         'en' => [
             'papír' => 'paper',
-        ]
+        ],
     ];
 
     protected $techniqueTranslations = [
@@ -88,9 +88,8 @@ class PnpTrienaleImporter extends AbstractImporter
 
     protected static $name = 'pnp_trienale';
 
-    public function __construct(IFileRepository $repository, Translator $translator)
+    protected function init()
     {
-        parent::__construct($repository, $translator);
         $this->sanitizers[] = function ($value) {
             return empty_to_null($value);
         };
@@ -110,7 +109,7 @@ class PnpTrienaleImporter extends AbstractImporter
 
     protected function getItemId(array $record)
     {
-        return sprintf("CZE:PNP.%s", $this->getSlug($record['Inventární číslo:']));
+        return sprintf('CZE:PNP.%s', $this->getSlug($record['Inventární číslo:']));
     }
 
     protected function getItemImageFilenameFormat(array $record)
@@ -120,11 +119,7 @@ class PnpTrienaleImporter extends AbstractImporter
 
     protected function getSlug($identifier)
     {
-        return preg_replace(
-            '#^(\d+)/(\d+)/([A-Z]+)\s+-\s+(\d+)#',
-            '$1_$2_$3-$4',
-            $identifier
-        );
+        return preg_replace('#^(\d+)/(\d+)/([A-Z]+)\s+-\s+(\d+)#', '$1_$2_$3-$4', $identifier);
     }
 
     public function hydrateWorkType(array $record, $locale)

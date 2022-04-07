@@ -6,14 +6,14 @@ use App\Import;
 use App\ImportRecord;
 use App\Item;
 use App\ItemImage;
+use App\Matchers\AuthorityMatcher;
 use App\Repositories\IFileRepository;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Exception\LogicException;
 
-
-abstract class AbstractImporter implements IImporter {
-
+abstract class AbstractImporter implements IImporter
+{
     /** @var callable[] */
     protected $sanitizers = [];
 
@@ -25,6 +25,9 @@ abstract class AbstractImporter implements IImporter {
 
     /** @var array */
     protected $defaults = [];
+
+    /** @var AuthorityMatcher */
+    protected $authorityMatcher;
 
     /** @var IFileRepository */
     protected $repository;
@@ -46,19 +49,25 @@ abstract class AbstractImporter implements IImporter {
     /** @var string */
     protected static $name;
 
-    /**
-     * @param IFileRepository $repository
-     */
-    public function __construct(IFileRepository $repository, Translator $translator) {
+    public function __construct(
+        AuthorityMatcher $authorityMatcher,
+        IFileRepository $repository,
+        Translator $translator
+    ) {
         if (static::$name === null) {
-            throw new LogicException(sprintf(
-                '%s needs to define its $name static property',
-                get_class($this)
-            ));
+            throw new LogicException(
+                sprintf('%s needs to define its $name static property', get_class($this))
+            );
         }
 
+        $this->authorityMatcher = $authorityMatcher;
         $this->repository = $repository;
         $this->translator = $translator;
+        $this->init();
+    }
+
+    protected function init()
+    {
     }
 
     /**
@@ -99,12 +108,12 @@ abstract class AbstractImporter implements IImporter {
                 $items[] = $item;
                 $import_record->imported_items++;
             } catch (\Exception $e) {
-                $import->status=Import::STATUS_ERROR;
+                $import->status = Import::STATUS_ERROR;
                 $import->save();
 
                 $import_record->wrong_items++;
-                $import_record->status=Import::STATUS_ERROR;
-                $import_record->error_message=$e->getMessage();
+                $import_record->status = Import::STATUS_ERROR;
+                $import_record->error_message = $e->getMessage();
                 app('sentry')->captureException($e);
 
                 break;
@@ -117,17 +126,19 @@ abstract class AbstractImporter implements IImporter {
             $import_record->status = Import::STATUS_COMPLETED;
         }
 
-        $import_record->completed_at=date('Y-m-d H:i:s');
+        $import_record->completed_at = date('Y-m-d H:i:s');
         $import_record->save();
 
         return $items;
     }
 
-    public static function getName() {
+    public static function getName()
+    {
         return static::$name;
     }
 
-    public function getOptions() {
+    public function getOptions()
+    {
         return $this->options;
     }
 
@@ -137,7 +148,8 @@ abstract class AbstractImporter implements IImporter {
      * @param ImportRecord $importRecord
      * @return Item|null
      */
-    protected function importSingle(array $record, Import $import, ImportRecord $import_record) {
+    protected function importSingle(array $record, Import $import, ImportRecord $import_record)
+    {
         $item = $this->createItem($record);
 
         $image_filename_format = $this->getItemImageFilenameFormat($record);
@@ -172,6 +184,19 @@ abstract class AbstractImporter implements IImporter {
             $import_record->imported_iip++;
         }
 
+        $ids = $this->authorityMatcher
+            ->matchAll($item)
+            ->filter(function ($authorities) {
+                return $authorities->count() === 1;
+            })
+            ->flatten()
+            ->pluck('id');
+
+        $changes = $item->authorities()->syncWithoutDetaching($ids);
+        $item
+            ->authorities()
+            ->updateExistingPivot($changes['attached'], ['automatically_matched' => true]);
+
         return $item;
     }
 
@@ -182,7 +207,8 @@ abstract class AbstractImporter implements IImporter {
      * @param string $filename
      * @return ImportRecord
      */
-    protected function createImportRecord($import_id, $status, $started_at, $filename) {
+    protected function createImportRecord($import_id, $status, $started_at, $filename)
+    {
         $import_record = new ImportRecord();
         $import_record->import_id = $import_id;
         $import_record->status = $status;
@@ -199,7 +225,8 @@ abstract class AbstractImporter implements IImporter {
      * @param array $record
      * @return Item
      */
-    protected function createItem(array $record) {
+    protected function createItem(array $record)
+    {
         $id = $this->getItemId($record);
 
         $item = Item::firstOrNew(['id' => $id]);
@@ -219,7 +246,8 @@ abstract class AbstractImporter implements IImporter {
      * @param mixed $value
      * @return mixed
      */
-    protected function sanitize($value) {
+    protected function sanitize($value)
+    {
         foreach ($this->sanitizers as $sanitizer) {
             $value = $sanitizer($value);
         }
@@ -231,7 +259,8 @@ abstract class AbstractImporter implements IImporter {
      * @param Item $item
      * @param array $record
      */
-    protected function mapFields(Item $item, array $record) {
+    protected function mapFields(Item $item, array $record)
+    {
         foreach ($this->mapping as $property => $column) {
             if (isset($record[$column])) {
                 $item->$property = $record[$column];
@@ -243,7 +272,8 @@ abstract class AbstractImporter implements IImporter {
      * @param Item $item
      * @param array $record
      */
-    protected function applyCustomHydrators(Item $item, array $record) {
+    protected function applyCustomHydrators(Item $item, array $record)
+    {
         foreach ($item->getFillable() as $key) {
             $method_name = sprintf('hydrate%s', Str::camel($key));
             if (method_exists($this, $method_name)) {
@@ -255,7 +285,7 @@ abstract class AbstractImporter implements IImporter {
                             $item->translateOrNew($locale)->$key = $value;
                         }
                     }
-                // other attribute
+                    // other attribute
                 } else {
                     $item->$key = $this->$method_name($record);
                 }
@@ -266,7 +296,8 @@ abstract class AbstractImporter implements IImporter {
     /**
      * @param Item $item
      */
-    protected function setDefaultValues(Item $item) {
+    protected function setDefaultValues(Item $item)
+    {
         $useTranslationFallback = $item->getUseTranslationFallback();
         $item->setUseTranslationFallback(false);
         foreach ($this->defaults as $key => $default) {
@@ -282,13 +313,16 @@ abstract class AbstractImporter implements IImporter {
      * @param string $csv_filename
      * @param string $image_filename_format
      */
-    protected function getImageJpgPaths(Import $import, $csv_filename, $image_filename_format) {
-        $path = storage_path(sprintf(
-            'app/import/%s/%s/%s.{jpg,jpeg,JPG,JPEG}',
-            $import->dir_path,
-            pathinfo($csv_filename, PATHINFO_FILENAME),
-            $image_filename_format
-        ));
+    protected function getImageJpgPaths(Import $import, $csv_filename, $image_filename_format)
+    {
+        $path = storage_path(
+            sprintf(
+                'app/import/%s/%s/%s.{jpg,jpeg,JPG,JPEG}',
+                $import->dir_path,
+                pathinfo($csv_filename, PATHINFO_FILENAME),
+                $image_filename_format
+            )
+        );
 
         return glob($path, GLOB_BRACE);
     }
@@ -299,7 +333,8 @@ abstract class AbstractImporter implements IImporter {
      * @param string $image_filename_format
      * @return string
      */
-    protected function getImageJp2Paths(Import $import, $csv_filename, $image_filename_format) {
+    protected function getImageJp2Paths(Import $import, $csv_filename, $image_filename_format)
+    {
         $path = sprintf(
             '%s/%s/%s/%s.jp2',
             config('importers.iip_base_path'),
@@ -315,7 +350,8 @@ abstract class AbstractImporter implements IImporter {
      * @param string $jp2_path
      * @return string
      */
-    protected function getImageJp2RelativePath($jp2_path) {
+    protected function getImageJp2RelativePath($jp2_path)
+    {
         return mb_substr($jp2_path, mb_strlen(config('importers.iip_base_path')) + 1);
     }
 }
