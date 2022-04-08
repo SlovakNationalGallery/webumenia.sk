@@ -28,7 +28,6 @@
         {!! Html::style('css/jquery-ui/jquery-ui.css') !!}
         {!! Html::style('/css/vue/vue-select.css') !!}
         {!! Html::style(mix('/css/admin.css')) !!}
-        @livewireStyles
 </head>
 
 <body>
@@ -214,7 +213,6 @@
     {!! Html::script('js/modernizr.custom.js') !!}
     {!! Html::script('js/selectize.min.js') !!}
 
-    @livewireScripts
     <script type="text/javascript" src="{{ mix('/js/manifest.js') }}"></script>
     <script type="text/javascript" src="{{ mix('/js/vendor.js') }}"></script>
     <script type="text/javascript" src="{{ mix('/js/admin.js') }}"></script>
