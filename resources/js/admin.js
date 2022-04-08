@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import 'livewire-vue'
+import { Lang } from 'laravel-vue-lang'
+
+Vue.use(Lang, { fallback: 'sk' })
 
 window.Vue = Vue
 window.debounce = require('debounce')
@@ -12,5 +15,9 @@ Vue.component('croppr', require('./components/Croppr.vue').default)
 Vue.component('tabs-controller', require('./components/TabsController.vue').default)
 Vue.component('tab', require('./components/Tab.vue').default)
 Vue.component('tab-panel', require('./components/TabPanel.vue').default)
+Vue.component(
+    'admin.shuffle-item-filters',
+    require('./components/admin/ShuffleItemFilters.vue').default
+)
 
 new Vue({ el: '#wrapper' })

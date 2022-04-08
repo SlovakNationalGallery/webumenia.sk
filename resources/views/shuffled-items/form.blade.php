@@ -74,9 +74,56 @@
 
                         @foreach (config('translatable.locales') as $tabIndex => $locale)
                             <x-slot :name='"tab_$tabIndex"'>
-                                <livewire:admin.shuffle-items-filter-form :filters="old($locale . '.filters') ??
-                                    ($shuffledItem->translateOrNew($locale)->filters ?? [])"
-                                    :locale="$locale" />
+                                <admin.shuffle-item-filters
+                                    v-bind:value="{{ Js::from(old($locale . '.filters') ?? ($shuffledItem->translateOrNew($locale)->filters ?? [])) }}"
+                                    v-slot="{ filters, add, remove }">
+                                    <div>
+                                        <div v-for="(filter, filterIndex) in filters">
+                                            <x-admin.label value="URL" />
+                                            <x-admin.input
+                                                placeholder="{{ LaravelLocalization::getLocalizedURL($locale, 'katalog/...') }}"
+                                                v-bind:name="`{{ $locale }}[filters][${filterIndex}][url]`"
+                                                v-bind:value="filter.url"
+                                                v-on:input="filter.onUrlInput" />
+
+                                            <x-admin.label class="tw-mt-4" value="Filtre" />
+
+                                            <div class="tw-mt-2 tw-grid tw-grid-cols-3 tw-gap-x-4">
+                                                <div v-for="(attribute, attributeIndex) in filter.attributes"
+                                                    class="tw-flex tw-flex-col tw-space-y-2">
+
+                                                    <x-admin.select
+                                                        v-bind:name="`{{ $locale }}[filters][${filterIndex}][attributes][${attributeIndex}][name]`"
+                                                        v-bind:value="attribute.name"
+                                                        v-on:change="attribute.onNameChange">
+                                                        <option>...</option>
+                                                        <option v-for="ac in filter.attributeChoices"
+                                                            v-bind:value="ac.value">
+                                                            @{{ ac.translation }}</option>
+
+                                                    </x-admin.select>
+
+                                                    <x-admin.input
+                                                        v-bind:name="`{{ $locale }}[filters][${filterIndex}][attributes][${attributeIndex}][label]`"
+                                                        v-bind:value="attribute.label"
+                                                        v-on:input="attribute.onLabelInput" />
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="tw-mt-2 tw-flex tw-flex-col tw-items-center tw-space-y-2">
+                                                <x-admin.button type="button" sm outline
+                                                    v-on:click="remove(filter)">
+                                                    🗙 Zmazať
+                                                </x-admin.button>
+                                            </div>
+                                        </div>
+
+                                        <x-admin.button type="button" sm outline class="tw-mt-4"
+                                            v-on:click="add">
+                                            + Pridať
+                                        </x-admin.button>
+                                    </div>
+                                </admin.shuffle-item-filters>
                             </x-slot>
                         @endforeach
                         </x-admin.tabs>
