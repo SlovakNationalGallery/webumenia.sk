@@ -49,13 +49,13 @@
                                         <table class="tw-min-w-full">
                                             <tbody class="tw-bg-white">
                                                 @foreach (config('translatable.locales') as $locale)
-                                                    @if ($si->{"filters:$locale")
+                                                    @if (optional($si->translate($locale))->filters)
                                                         <tr class="tw-border-b tw-border-gray-200">
                                                             <th colspan="3" scope="colgroup"
                                                                 class="tw-px-2 tw-py-1 tw-text-left tw-text-xs tw-font-semibold tw-text-gray-300">
                                                                 {{ Str::upper($locale) }}</th>
                                                         </tr>
-                                                        @foreach ($si->{"filters:$locale" as $filter)
+                                                        @foreach ($si->{"filters:$locale"} as $filter)
                                                             <tr class="tw-border-t tw-border-gray-300">
                                                                 @foreach ($filter['attributes'] as $attribute)
                                                                     <td
@@ -83,8 +83,7 @@
                                     </td>
                                     <td class="tw-p-2 tw-align-top">
                                         <div class="tw-flex tw-gap-2">
-                                            <x-admin.button outline primary sm
-                                                :link="route('shuffled-items.edit', $si)">
+                                            <x-admin.button outline primary sm :link="route('shuffled-items.edit', $si)">
                                                 Upraviť
                                             </x-admin.button>
                                             <x-admin.link-with-confirmation
