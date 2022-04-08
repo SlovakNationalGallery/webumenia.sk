@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- back-end for shuffled items
 
 ## [2.50.0] - 2022-04-07
 ### Added
