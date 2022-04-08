@@ -21,7 +21,7 @@
                         v-on:input="({id}) => qs.set('itemId', id)" option-label="id">
                         <template v-slot:option="option">
                             <div class="tw-flex">
-                                <img :src="option.image" class="tw-h-16 tw-w-16 tw-object-cover">
+                                <img v-bind:src="option.image" class="tw-h-16 tw-w-16 tw-object-cover">
                                 <div class="tw-max-w-full tw-truncate tw-px-4 tw-py-2">
                                     <h4 class="tw-font-semibold">@{{ option.title }}</h4>
                                     <span>@{{ option.author }} ∙ @{{ option.id }}</span>
@@ -61,28 +61,28 @@
                         <x-admin.label for="image" value="Obrázok" />
                         <croppr src="{{ $shuffledItem->item->getImagePath() }}"
                             class="md:tw-w-2/3"
-                            :default-value="{{ Js::from($shuffledItem->crop) }}"
-                            :aspect-ratio=" 16/9" v-slot="{ value }">
-                            <input type="hidden" name="crop" :value="JSON.stringify(value)" />
+                            v-bind:default-value="{{ Js::from($shuffledItem->crop) }}"
+                            v-bind:aspect-ratio="16 / 9" v-slot="{ value }">
+                            <input type="hidden" name="crop" v-bind:value="JSON.stringify(value)" />
                         </croppr>
                     </div>
 
                     <div class="tw-mt-8">
                         <x-admin.label value="Filtre" />
-                        <x-admin.tabs
-                            :tabs="collect(config('translatable.locales'))->map(fn ($l) => Str::upper($l))">
-                            @foreach (config('translatable.locales') as $tabIndex => $locale)
-                                <x-slot :name='"tab_$tabIndex"'>
-                                    <livewire:admin.shuffle-items-filter-form
-                                        :filters="old($locale . '.filters') ?? $shuffledItem->translateOrNew($locale)->filters ?? []"
-                                        :locale="$locale" />
-                                </x-slot>
-                            @endforeach
+                        {{-- blade-formatter-disable-next-line --}}
+                        <x-admin.tabs :tabs="collect(config('translatable.locales'))->map(fn($l) => Str::upper($l))">
+
+                        @foreach (config('translatable.locales') as $tabIndex => $locale)
+                            <x-slot :name='"tab_$tabIndex"'>
+                                <livewire:admin.shuffle-items-filter-form :filters="old($locale . '.filters') ??
+                                    ($shuffledItem->translateOrNew($locale)->filters ?? [])"
+                                    :locale="$locale" />
+                            </x-slot>
+                        @endforeach
                         </x-admin.tabs>
 
                         <div class="tw-mt-8">
-                            <x-admin.checkbox id="is_published" name="is_published"
-                                :checked="old(' is_published', $shuffledItem->is_published)" />
+                            <x-admin.checkbox id="is_published" name="is_published" :checked="old(' is_published', $shuffledItem->is_published)" />
                             <label for="is_published"
                                 class="tw-ml-1 tw-select-none tw-font-normal">Publikovať</label>
                             @if ($shuffledItem->is_published)
