@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import 'livewire-vue'
 import { Lang } from 'laravel-vue-lang'
 
 Vue.use(Lang, { fallback: 'sk' })
