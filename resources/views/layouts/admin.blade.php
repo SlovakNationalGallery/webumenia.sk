@@ -111,6 +111,9 @@
                             Homepage
                         </li>
                         <li class="border-b-0">
+                            <a href="{{ route('shuffled-items.index') }}"><i class="fa fa-random fa-fw"></i> Náhodné diela</a>
+                        </li>
+                        <li class="border-b-0">
                             <a href="{{ route('featured-pieces.index') }}"><i class="fa fa-newspaper-o fa-fw"></i> Odporúčaný obsah</a>
                         </li>
                         <li class="border-b-0 mb-4">
