@@ -11,7 +11,7 @@ class ShuffledItemController extends Controller
 {
     private static $rules = [
         'item_id' => 'required',
-        'crop' => 'required|json',
+        'crop' => 'json|required',
         'is_published' => 'required',
         '*.filters.*.url' => 'url|required',
         '*.filters.*.attributes.*.name' => 'string|required',
@@ -49,6 +49,7 @@ class ShuffledItemController extends Controller
     public function store(Request $request)
     {
         $request->validate(self::$rules);
+        $request->merge(['crop' => json_decode($request->input('crop'))]);
 
         $shuffledItem = ShuffledItem::create($request->input());
         $shuffledItem->addMediaFromUrl($shuffledItem->crop_url)->toMediaCollection('image');
