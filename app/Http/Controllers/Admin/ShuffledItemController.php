@@ -18,19 +18,15 @@ class ShuffledItemController extends Controller
         '*.filters.*.attributes.*.label' => 'string|required',
     ];
 
-    // public function index()
-    // {
-    //     return view('featured_artworks.index', [
-    //         'artworks' => FeaturedArtwork::query()
-    //             ->with('item')
-    //             ->orderBy('id', 'desc')
-    //             ->get(),
-    //         'lastPublishedId' => FeaturedArtwork::query()
-    //             ->published()
-    //             ->orderBy('published_at', 'desc')
-    //             ->value('id'),
-    //     ]);
-    // }
+    public function index()
+    {
+        return view('shuffled-items.index', [
+            'shuffledItems' => ShuffledItem::query()
+                ->with(['item', 'media', 'translations'])
+                ->orderBy('id', 'desc')
+                ->get(),
+        ]);
+    }
 
     public function create(Request $request)
     {
@@ -57,10 +53,9 @@ class ShuffledItemController extends Controller
         $shuffledItem = ShuffledItem::create($request->input());
         $shuffledItem->addMediaFromUrl($shuffledItem->crop_url)->toMediaCollection('image');
 
-        return redirect()->route('shuffled-items.edit', $shuffledItem);
-        // TODO
-        // ->route('shuffled-items.index')
-        // ->with('message', "Vybrané dielo \"{$featuredArtwork->title}\" bolo vytvorené");
+        return redirect()
+            ->route('shuffled-items.index')
+            ->with('message', 'Náhodné dielo bolo vytvorené');
     }
 
     public function update(Request $request, ShuffledItem $shuffledItem)
@@ -77,18 +72,16 @@ class ShuffledItemController extends Controller
         }
 
         return redirect()
-            ->route('shuffled-items.edit', $shuffledItem)
-            // TODO
-            //     ->route('shuffled-items.index')
+            ->route('shuffled-items.index')
             ->with('message', 'Dielo bolo upravené');
     }
 
-    // public function destroy(FeaturedArtwork $featuredArtwork)
-    // {
-    //     $featuredArtwork->delete();
+    public function destroy(ShuffledItem $shuffledItem)
+    {
+        $shuffledItem->delete();
 
-    //     return redirect()
-    //         ->route('featured-artworks.index')
-    //         ->with('message', 'Odporúčané dielo bolo zmazané');
-    // }
+        return redirect()
+            ->route('shuffled-items.index')
+            ->with('message', 'Náhodné dielo bolo zmazané');
+    }
 }
