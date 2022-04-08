@@ -483,10 +483,6 @@ class Item extends Model implements IndexableModel, TranslatableContract
         return $formated;
     }
 
-    public function getDatingFormattedAttribute() {
-        return $this->getDatingFormated();
-    }
-
     public function getWorkTypesAttribute()
     {
         return $this->unserializeTrees($this->work_type);

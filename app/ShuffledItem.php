@@ -78,7 +78,7 @@ class ShuffledItem extends Model implements HasMedia, TranslatableContract
 
     public function getDatingFormattedAttribute()
     {
-        return $this->item->dating_formatted;
+        return $this->item->getDatingFormated();
     }
 
     public function registerMediaCollections(): void
