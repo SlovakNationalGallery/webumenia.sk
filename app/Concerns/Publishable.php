@@ -14,7 +14,11 @@ trait Publishable
 
     public function getIsPublishedAttribute()
     {
-        return (bool) optional($this->published_at)->isPast();
+        if (is_null($this->published_at)) {
+            return false;
+        }
+
+        return $this->published_at->isPast();
     }
 
     public function setIsPublishedAttribute(bool $isPublished)
