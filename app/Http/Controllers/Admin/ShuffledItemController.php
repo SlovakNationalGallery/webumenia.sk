@@ -41,8 +41,12 @@ class ShuffledItemController extends Controller
         return view('shuffled-items.form', compact('shuffledItem'));
     }
 
-    public function edit(ShuffledItem $shuffledItem)
+    public function edit(Request $request, ShuffledItem $shuffledItem)
     {
+        $request->whenHas('itemId', function ($itemId) use ($shuffledItem) {
+            $shuffledItem->item = Item::findOrFail($itemId);
+        });
+
         return view('shuffled-items.form', compact('shuffledItem'));
     }
 
