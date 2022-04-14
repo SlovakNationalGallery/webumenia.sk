@@ -28,6 +28,7 @@ import { Lang } from 'laravel-vue-lang';
 window.Vue = Vue
 Vue.use(Lang, { fallback: 'sk' })
 
+Vue.component('featured-piece-click-tracker', require('./components/FeaturedPieceClickTracker.vue').default);
 Vue.component('filter-sort-by', require('./components/filter/SortBy.vue').default);
 Vue.component('filter-checkbox', require('./components/filter/Checkbox.vue').default);
 Vue.component('filter-custom-select', require('./components/filter/CustomSelect.vue').default);

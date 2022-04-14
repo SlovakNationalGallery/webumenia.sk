@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Api\SharedUserCollectionController;
+use Api\TrackFeaturedPieceClick;
 use App\Http\Controllers\Api\ItemController;
 
 /*
@@ -18,6 +19,8 @@ use App\Http\Controllers\Api\ItemController;
 Route::resource('/shared-user-collections', SharedUserCollectionController::class)
     ->names('api.shared-user-collections')
     ->parameters(['shared-user-collections' => 'collection:public_id']);
+
+Route::post('/track-featured-piece-click', TrackFeaturedPieceClick::class);
 
 Route::prefix('v1')->group(function () {
     Route::get('items', [ItemController::class, 'index']);
