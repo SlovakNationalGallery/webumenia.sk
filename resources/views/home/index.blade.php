@@ -81,8 +81,7 @@
                     <div class="tw-text-center lg:tw-order-1">
                         <a href="{{ route('dielo', ['id' => $featuredArtwork->item->id]) }}"
                             class="tw-inline-block">
-                            <x-item_image :id="$featuredArtwork->item->id"
-                                alt="{{ $featuredArtwork->title }}"
+                            <x-item_image :id="$featuredArtwork->item->id" alt="{{ $featuredArtwork->title }}"
                                 class="tw-max-h-80 lg:tw-max-h-[32rem]" />
                         </a>
                     </div>
@@ -137,7 +136,7 @@
                         @foreach ([trans('home.latest_content.collections.tab'), trans('home.latest_content.articles.tab')] as $tab)
                             <tab v-slot="{ active }">
                                 <button
-                                    :class="['tw-transition-colors tw-font-semibold tw-text-2xl md:tw-text-4xl',
+                                    v-bind:class="['tw-transition-colors tw-font-semibold tw-text-2xl md:tw-text-4xl',
                                         !active && 'tw-text-gray-300 hover:tw-underline tw-underline-offset-[5px] md:tw-underline-offset-8 tw-decoration-[3px]'
                                     ]">{{ $tab }}</button>
                             </tab>
