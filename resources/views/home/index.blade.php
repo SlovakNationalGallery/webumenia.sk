@@ -25,6 +25,56 @@
 
 @section('content')
     <div class="tailwind-rules">
+        <div class="tw-flex tw-flex-col tw-items-center tw-bg-green-900 tw-px-6 tw-text-white">
+            <h1 class="tw-mt-20 tw-text-center tw-text-3xl tw-drop-shadow-lg">Objavuj cesty umením</h1>
+            <div class="tw-mt-2 tw-text-center tw-drop-shadow">
+                Na Webe umenia nájdeš tisíce kombinácií výtvarných techník, žánrov a motívov.
+            </div>
+
+            <div class="tw-mt-6 tw-px-8">
+                <div class="tw-bg-black/40 tw-p-4">
+                    <div class="tw-text-xs tw-text-white/40">
+                        výtvarný druh
+                    </div>
+                    <div class="tw-text-sm tw-text-white">
+                        maliarstvo
+                    </div>
+                    <div class="tw-mt-2.5 tw-text-xs tw-text-white/40">
+                        kľúčové slovo
+                    </div>
+                    <div class="tw-text-sm tw-text-white">
+                        horizont
+                    </div>
+                    <div class="tw-mt-2.5 tw-text-xs tw-text-white/40">
+                        inštitúcia
+                    </div>
+                    <div class="tw-text-sm tw-text-white">
+                        Národní galerie v Prahe
+                    </div>
+                </div>
+                <button
+                    class="tw-group tw-w-full tw-bg-sky-300 tw-py-2 tw-text-center tw-text-xs tw-text-black tw-transition-colors hover:tw-bg-sky-200">
+                    <i
+                        class="fa fa-repeat tw-mr-2 tw--ml-4 tw-transition-transform group-hover:tw-rotate-45"></i>
+                    Zamiešaj
+                </button>
+
+                <x-home.button href="TODO" class="tw-mt-6 tw-w-full tw-text-center">
+                    Pozri podobné diela
+                </x-home.button>
+            </div>
+
+            <div class="tw-mt-10 tw-flex tw-flex-wrap tw-gap-x-1 tw-text-xs tw-text-white/60">
+                <span>Antonín Chittussi</span>
+                <span class="tw-font-bold">Západ – Côte de la Gale</span>
+                <span>1880</span>
+            </div>
+            <div class="pb-4 tw-mt-2 tw-text-center tw-text-xs">
+                <a href="TODO"
+                    class="tw-text-white/60 tw-underline tw-decoration-2 tw-underline-offset-2 tw-transition-colors hover:tw-text-white">Zobraziť
+                    dielo</a>
+            </div>
+        </div>
         @if ($featuredPiece)
             <div class="tw-relative">
                 {{ $featuredPiece->image->img()->attributes(['class' => 'tw-object-cover tw-absolute tw-h-full tw-w-full', 'width' => null, 'height' => null]) }}
