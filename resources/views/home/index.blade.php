@@ -48,11 +48,10 @@
                             class="tw-prose-invert prose-p:tw-mb-4 tw-mt-5 tw-max-w-lg tw-font-serif tw-leading-relaxed tw-drop-shadow md:tw-text-xl">
                             {!! $featuredPiece->excerpt !!}
                         </div>
-                        <a href="{{ $featuredPiece->url }}" v-on:click.once.prevent="track"
-                            class="tw-mt-3 tw-inline-block tw-border tw-border-gray-300 tw-px-4 tw-py-2 tw-text-sm tw-transition tw-duration-300 hover:tw-border-gray-400 hover:tw-bg-white hover:tw-text-gray-800 md:tw-mt-6">
+                        <x-home.button href="{{ $featuredPiece->url }}"
+                            v-on:click.once.prevent="track" class="tw-mt-3 md:tw-mt-6">
                             {{ $featuredPiece->is_collection? trans('home.featured_piece.button_collection'): trans('home.featured_piece.button_article') }}
-                            <i class="fa icon-arrow-right tw-ml-2"></i>
-                        </a>
+                        </x-home.button>
                     </div>
                 </featured-piece-click-tracker>
             </div>
@@ -117,11 +116,10 @@
                             class="tw-prose-invert prose-p:tw-mb-4 tw-mt-4 tw-hidden tw-font-serif tw-text-xl tw-leading-relaxed lg:tw-block">
                             {!! $featuredArtwork->description !!}
                         </div>
-                        <a href="{{ route('dielo', ['id' => $featuredArtwork->item->id]) }}"
-                            class="tw-mt-6 tw-inline-block tw-border tw-border-gray-300 tw-px-4 tw-py-2 tw-text-sm tw-transition tw-duration-300 hover:tw-border-gray-400 hover:tw-bg-white hover:tw-text-gray-800">
-                            {{ trans('home.featured_artwork.button') }}
-                            <i class="fa icon-arrow-right tw-ml-2"></i>
-                        </a>
+                        <x-home.button
+                            href="{{ route('dielo', ['id' => $featuredArtwork->item->id]) }}"
+                            class="tw-mt-6">{{ trans('home.featured_artwork.button') }}
+                        </x-home.button>
                     </div>
                 </div>
             </div>
@@ -279,11 +277,11 @@
                                     {{ $featuredAuthor->death_place }}
                                 @endif
                             </div>
-                            <a href="{{ route('frontend.author.detail', $featuredAuthor) }}"
-                                class="tw-mt-6 tw-inline-block tw-border tw-border-gray-300 tw-px-4 tw-py-2 tw-text-sm tw-transition tw-duration-300 hover:tw-border-gray-400 hover:tw-bg-white hover:tw-text-gray-800">
+                            <x-home.button
+                                href="{{ route('frontend.author.detail', $featuredAuthor) }}"
+                                class="tw-mt-6">
                                 {!! trans('home.featured_author.button_author', ['count' => $featuredAuthor->items_count]) !!}
-                                <i class="fa icon-arrow-right tw-ml-2"></i>
-                            </a>
+                            </x-home.button>
                             <br />
                             <a href="{{ route('frontend.author.index') }}"
                                 class="tw-mt-6 tw-hidden tw-cursor-pointer tw-text-sm tw-underline tw-decoration-gray-300 tw-underline-offset-4 tw-transition-colors hover:tw-decoration-current lg:tw-inline-block">
