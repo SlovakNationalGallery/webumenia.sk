@@ -92,7 +92,11 @@
                         {{ trans('home.featured_artwork.title') }}
                     </h2>
                     <div>
-                        <h3 class="tw-text-3xl lg:tw-text-4xl">{{ $featuredArtwork->title }}</h3>
+                        <h3 class="tw-text-3xl lg:tw-text-4xl">
+                            <a href="{{ route('dielo', ['id' => $featuredArtwork->item->id]) }}">
+                                {{ $featuredArtwork->title }}
+                            </a>
+                        </h3>
                         <div class="tw-mt-2 tw-text-sm lg:tw-mt-3 lg:tw-text-lg">
                             @foreach ($featuredArtwork->author_links as $l)
                                 <a href="{{ $l->url }}"
