@@ -114,7 +114,7 @@
                             @endforeach
                         </div>
                         <div
-                            class="tw-mt-4 tw-hidden tw-font-serif tw-text-xl tw-leading-relaxed lg:tw-block">
+                            class="tw-prose-invert prose-p:tw-mb-4 tw-mt-4 tw-hidden tw-font-serif tw-text-xl tw-leading-relaxed lg:tw-block">
                             {!! $featuredArtwork->description !!}
                         </div>
                         <a href="{{ route('dielo', ['id' => $featuredArtwork->item->id]) }}"

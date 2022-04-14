@@ -29,7 +29,7 @@ module.exports = {
             },
         },
     },
-    plugins: [],
+    plugins: [require('@tailwindcss/typography')],
     prefix: 'tw-',
     corePlugins: {
         preflight: false, // TODO Not needed. Re-enable after switching from Bootstrap
