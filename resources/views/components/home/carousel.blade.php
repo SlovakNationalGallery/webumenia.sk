@@ -12,7 +12,7 @@ $options = [
 @endphp
 
 <div class="tw--mx-6 tw-overflow-hidden tw-px-6">
-    <flickity v-bind:options={{ Illuminate\Support\Js::from($options) }}
+    <flickity v-bind:options={{ Js::from($options) }}
         viewport-class="tw-overflow-visible xl:tw-overflow-hidden"
         {{ $attributes->merge(['class' => 'tw-relative']) }}>
         {{ $slot }}

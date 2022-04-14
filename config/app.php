@@ -170,6 +170,7 @@ return array(
         'Gate' => Illuminate\Support\Facades\Gate::class,
         'Hash' => Illuminate\Support\Facades\Hash::class,
         'Input' => Illuminate\Support\Facades\Input::class,
+        'Js' => Illuminate\Support\Js::class,
         'Lang' => Illuminate\Support\Facades\Lang::class,
         'Log' => Illuminate\Support\Facades\Log::class,
         'Mail' => Illuminate\Support\Facades\Mail::class,
@@ -211,6 +212,6 @@ return array(
 
     'old_url' => 'http://stary.webumenia.sk',
 
-    'iip_private' => env('IIP_PRIVATE'),
-    'iip_public' => env('IIP_PUBLIC'),
+    'iip_private' => env('IIP_PRIVATE', 'http://127.0.0.1:8002'),
+    'iip_public' => env('IIP_PUBLIC', 'https://img.webumenia.sk'),
 );

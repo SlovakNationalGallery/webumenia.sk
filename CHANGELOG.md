@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.51.0] - 2022-04-14
+### Added
+- back-end for shuffled items
+
+### Fixed
+- "high res" items count on home page
+
 ## [2.50.0] - 2022-04-07
 ### Added
 - item style period, current location

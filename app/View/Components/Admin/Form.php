@@ -14,23 +14,35 @@ class Form extends Component
 
     public string $method;
 
+    public bool $files;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(Model $model, ?string $url = null, ?string $method = null)
-    {
+    public function __construct(
+        Model $model,
+        ?string $url = null,
+        ?string $method = null,
+        ?bool $files = false
+    ) {
         $this->model = $model;
         $this->url = $this->buildUrl($url);
         $this->method = $this->buildMethod($method);
+        $this->files = $files;
     }
 
-    private function buildUrl(?string $url): string {
-        if ($url) return $url;
+    private function buildUrl(?string $url): string
+    {
+        if ($url) {
+            return $url;
+        }
 
         // Try to guess url from model class
-        $routeName = Str::of(class_basename($this->model))->plural()->kebab();
+        $routeName = Str::of(class_basename($this->model))
+            ->plural()
+            ->kebab();
 
         if ($this->model->exists) {
             return route("$routeName.update", [$this->model]);
@@ -39,10 +51,15 @@ class Form extends Component
         return route("$routeName.store");
     }
 
-    private function buildMethod(?string $method): string {
-        if ($method) return $method;
+    private function buildMethod(?string $method): string
+    {
+        if ($method) {
+            return $method;
+        }
 
-        if ($this->model->exists) return 'patch';
+        if ($this->model->exists) {
+            return 'patch';
+        }
 
         return 'post';
     }

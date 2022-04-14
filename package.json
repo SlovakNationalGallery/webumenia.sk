@@ -11,7 +11,7 @@
     },
     "devDependencies": {
         "@prettier/plugin-php": "^0.18.2",
-        "@shufo/prettier-plugin-blade": "^1.1.8",
+        "@shufo/prettier-plugin-blade": "^1.2.4",
         "autoprefixer": "^10.4.2",
         "cross-env": "^5.1",
         "jquery": "^3.5.0",
@@ -34,6 +34,7 @@
         "bootstrap": "^3.4.1",
         "clipboard": "^2.0.6",
         "corejs-typeahead": "^1.3.1",
+        "croppr": "^2.3.1",
         "date-fns": "^2.25.0",
         "debounce": "1.2.0",
         "flickity": "^2.2.1",
