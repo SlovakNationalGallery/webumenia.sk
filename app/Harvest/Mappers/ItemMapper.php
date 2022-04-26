@@ -172,7 +172,7 @@ class ItemMapper extends AbstractMapper
     }
 
     public function mapContributor(array $row) {
-        return $row['contributor'][0] ?: null;
+        return $row['contributor'][0] ?? null;
     }
 
     public function mapWorkLevel() {}
