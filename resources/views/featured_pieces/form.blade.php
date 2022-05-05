@@ -36,7 +36,7 @@
 <div class="col-xs-12">
     <div class="form-group">
     {{ Form::label('excerpt', 'Text') }}
-    {{ Form::textarea('excerpt', null, ['class' => 'form-control', 'rows' => '4']) }}
+    {{ Form::textarea('excerpt', null, ['class' => 'form-control wysiwyg']) }}
     </div>
 </div>
 

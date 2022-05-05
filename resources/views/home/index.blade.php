@@ -44,10 +44,10 @@
                                 {{ $featuredPiece->title }}
                             </a>
                         </h3>
-                        <p
-                            class="tw-mt-5 tw-max-w-lg tw-font-serif tw-leading-relaxed tw-drop-shadow md:tw-text-xl">
-                            {{ $featuredPiece->excerpt }}
-                        </p>
+                        <div
+                            class="tw-prose-invert prose-p:tw-mb-4 tw-mt-5 tw-max-w-lg tw-font-serif tw-leading-relaxed tw-drop-shadow md:tw-text-xl">
+                            {!! $featuredPiece->excerpt !!}
+                        </div>
                         <a href="{{ $featuredPiece->url }}" v-on:click.once.prevent="track"
                             class="tw-mt-3 tw-inline-block tw-border tw-border-gray-300 tw-px-4 tw-py-2 tw-text-sm tw-transition tw-duration-300 hover:tw-border-gray-400 hover:tw-bg-white hover:tw-text-gray-800 md:tw-mt-6">
                             {{ $featuredPiece->is_collection? trans('home.featured_piece.button_collection'): trans('home.featured_piece.button_article') }}
@@ -114,7 +114,7 @@
                             @endforeach
                         </div>
                         <div
-                            class="tw-mt-4 tw-hidden tw-font-serif tw-text-xl tw-leading-relaxed lg:tw-block">
+                            class="tw-prose-invert prose-p:tw-mb-4 tw-mt-4 tw-hidden tw-font-serif tw-text-xl tw-leading-relaxed lg:tw-block">
                             {!! $featuredArtwork->description !!}
                         </div>
                         <a href="{{ route('dielo', ['id' => $featuredArtwork->item->id]) }}"
