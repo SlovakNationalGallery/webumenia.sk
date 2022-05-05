@@ -20,7 +20,7 @@ return [
     ],
 
     'featured_artwork' => [
-        'title' => 'Artwork of the day',
+        'title' => 'Artwork of the week',
         'button' => 'Learn more',
     ],
 
