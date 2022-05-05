@@ -25,11 +25,11 @@
 
 @section('content')
     <div class="tailwind-rules">
-        <div class="tw-flex tw-flex-col tw-items-center tw-bg-green-900 tw-px-6 tw-text-white">
+        <div class="tw-flex tw-flex-col tw-items-center tw-bg-green-900 tw-p-6 tw-text-white md:tw-p-8">
             <h1 class="tw-mt-20 tw-text-center tw-text-3xl tw-drop-shadow-lg md:tw-mt-56 md:tw-text-6xl">
                 Objavuj cesty umením
             </h1>
-            <div class="tw-text-center tw-drop-shadow">
+            <div class="tw-max-w-5xl tw-text-center tw-drop-shadow">
                 <div class="tw-mt-2 md:tw-hidden">
                     Na Webe umenia nájdeš tisíce kombinácií výtvarných techník, žánrov a motívov.
                 </div>
@@ -39,64 +39,79 @@
                 </div>
             </div>
 
-            <div
-                class="tw-mt-6 tw-flex tw-w-full tw-max-w-xs tw-flex-col tw-items-stretch tw-px-4 md:tw-mt-12 md:tw-max-w-3xl">
-                <div class="tw-justify-items-stretch md:tw-flex">
-                    <div
-                        class="tw-grid tw-grow tw-grid-cols-1 tw-gap-2.5 tw-bg-black/40 tw-p-4 md:tw-grid-cols-3">
-                        <div>
-                            <div class="tw-text-xs tw-text-white/40">
-                                výtvarný druh
+            <div class="tw-mt-6 tw-self-stretch md:tw-mt-12">
+                <div class="tw-mx-auto tw-flex tw-w-60 tw-flex-col md:tw-w-auto md:tw-max-w-3xl">
+                    <div class="tw-flex tw-flex-col tw-items-stretch">
+                        <div class="tw-justify-items-stretch md:tw-flex">
+                            <div
+                                class="tw-grid tw-grow tw-grid-cols-1 tw-gap-2.5 tw-bg-black/40 tw-p-4 md:tw-grid-cols-3">
+                                <div>
+                                    <div class="tw-text-xs tw-text-white/40">
+                                        výtvarný druh
+                                    </div>
+                                    <div
+                                        class="tw-whitespace-nowrap tw-text-sm tw-text-white md:tw-text-lg">
+                                        maliarstvo
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="tw-text-xs tw-text-white/40">
+                                        kľúčové slovo
+                                    </div>
+                                    <div
+                                        class="tw-whitespace-nowrap tw-text-sm tw-text-white md:tw-text-lg">
+                                        horizont
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="tw-text-xs tw-text-white/40">
+                                        inštitúcia
+                                    </div>
+                                    <div
+                                        class="tw-whitespace-nowrap tw-text-sm tw-text-white md:tw-text-lg">
+                                        Národní galerie v Prahe
+                                    </div>
+                                </div>
                             </div>
-                            <div class="tw-text-sm tw-text-white">
-                                maliarstvo
-                            </div>
+                            <button
+                                class="tw-group tw-w-full tw-basis-0 tw-bg-sky-300 tw-px-4 tw-py-2 tw-text-center tw-text-xs tw-text-black tw-transition-colors hover:tw-bg-sky-400 md:tw-px-6 md:tw-text-sm">
+                                <i
+                                    class="fa fa-repeat tw-mr-2 tw--ml-4 tw-transition-transform group-hover:tw-rotate-45 md:tw-mx-0"></i>
+                                Zamiešaj
+                            </button>
                         </div>
-                        <div>
-                            <div class="tw-text-xs tw-text-white/40">
-                                kľúčové slovo
-                            </div>
-                            <div class="tw-text-sm tw-text-white">
-                                horizont
-                            </div>
-                        </div>
-                        <div>
-                            <div class="tw-text-xs tw-text-white/40">
-                                inštitúcia
-                            </div>
-                            <div class="tw-text-sm tw-text-white">
-                                Národní galerie v Prahe
-                            </div>
-                        </div>
+
                     </div>
-                    <button
-                        class="tw-group px-4 tw-w-full tw-basis-0 tw-bg-sky-300 tw-py-2 tw-text-center tw-text-xs tw-text-black tw-transition-colors hover:tw-bg-sky-400">
-                        <i
-                            class="fa fa-repeat tw-mr-2 tw--ml-4 tw-transition-transform group-hover:tw-rotate-45 md:tw-mx-0"></i>
-                        Zamiešaj
-                    </button>
-                </div>
 
-
-            </div>
-            <div class="tw-mt-6 tw-flex tw-flex-col tw-items-center md:tw-mt-16 md:tw-flex-row">
-                <x-home.button href="TODO" class="tw-text-center">
-                    Pozri podobné diela
-                </x-home.button>
-
-                <div class="tw-mt-10 tw-flex tw-flex-wrap tw-gap-x-1 tw-text-xs tw-text-white/60">
-                    <span>Antonín Chittussi</span>
-                    <span class="tw-font-bold">Západ – Côte de la Gale</span>
-                    <span>1880</span>
-                </div>
-                <div class="pb-4 tw-mt-2 tw-text-center tw-text-xs">
-                    <a href="TODO"
-                        class="tw-text-white/60 tw-underline tw-decoration-2 tw-underline-offset-2 tw-transition-colors hover:tw-text-white">Zobraziť
-                        dielo</a>
+                    <x-home.button href="TODO"
+                        class="tw-mt-6 tw-self-stretch tw-text-center md:tw-hidden">
+                        Pozri podobné diela
+                    </x-home.button>
                 </div>
             </div>
 
+            <div class="tw-mt-10 tw-grid tw-self-stretch md:tw-mt-16 md:tw-grid-cols-3">
+                <div class="tw-col-start-2 tw-hidden tw-text-center md:tw-block">
+                    <x-home.button href="TODO" class="tw-self-stretch tw-text-center">
+                        Pozri podobné diela
+                    </x-home.button>
+                </div>
+                <div
+                    class="tw-flex tw-flex-col tw-items-center tw-text-xs md:tw-mt-2 md:tw-flex-col md:tw-items-end md:tw-text-sm">
+                    <div
+                        class="tw-flex tw-flex-wrap tw-gap-x-1 tw-text-white/60 md:tw-flex-col md:tw-items-end">
+                        <span>Antonín Chittussi</span>
+                        <span class="tw-font-bold">Západ – Côte de la Gale</span>
+                        <span>1880</span>
+                    </div>
+                    <div class="tw-mt-2 tw-text-center">
+                        <a href="TODO"
+                            class="tw-text-white/60 tw-underline tw-decoration-2 tw-underline-offset-2 tw-transition-colors hover:tw-text-white">Zobraziť
+                            dielo</a>
+                    </div>
+                </div>
 
+            </div>
         </div>
         @if ($featuredPiece)
             <div class="tw-relative">
