@@ -25,94 +25,120 @@
 
 @section('content')
     <div class="tailwind-rules">
-        <div class="tw-flex tw-flex-col tw-items-center tw-bg-green-900 tw-p-6 tw-text-white md:tw-p-8">
-            <h1 class="tw-mt-20 tw-text-center tw-text-3xl tw-drop-shadow-lg md:tw-mt-56 md:tw-text-6xl">
-                Objavuj cesty umením
-            </h1>
-            <div class="tw-max-w-5xl tw-text-center tw-drop-shadow">
-                <div class="tw-mt-2 md:tw-hidden">
-                    Na Webe umenia nájdeš tisíce kombinácií výtvarných techník, žánrov a motívov.
-                </div>
-                <div class="tw-mt-2 tw-hidden tw-text-2xl md:tw-block">
-                    Pozri ako sa dajú kombinovať výtvarné druhy, autori alebo motívy. V&nbsp;dielach
-                    môžeš ďalej sám vyhľadávať tisícky ďalších kombinácií.
-                </div>
+        <div class="tw-relative">
+            <img xsrc="https://www.webumenia.sk/dielo/nahlad/SVK:TMP.686/800"
+                xsrc="https://www.webumenia.sk/dielo/nahlad/SVK:SNG.G_14172/800"
+                src="https://www.webumenia.sk/dielo/nahlad/SVK:SNG.G_14173/800"
+                class="tw-absolute tw-h-full tw-w-full tw-object-cover">
+            <div
+                class="tw-absolute tw-inset-x-0 tw-bottom-0 tw-h-1/2 tw-bg-gradient-to-b tw-from-black/0 tw-to-black/60 md:tw-h-1/3 md:tw-to-black/50">
             </div>
+            <div class="tw-relative tw-flex tw-flex-col tw-items-center tw-p-6 tw-text-white md:tw-p-8">
+                <h1
+                    class="tw-mt-20 tw-text-center tw-text-3xl tw-drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] md:tw-mt-56 md:tw-text-6xl md:tw-drop-shadow-[0_4px_3px_rgba(0,0,0,0.5)]">
+                    Objavuj cesty umením
+                </h1>
+                <div class="tw-max-w-5xl tw-text-center">
+                    <p
+                        class="tw-mt-2 tw-drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] md:tw-mt-6 md:tw-text-2xl">
+                        Nájdi tisíce kombinácií výtvarných techník, žánrov a motívov
+                    </p>
+                </div>
 
-            <div class="tw-mt-6 tw-self-stretch md:tw-mt-12">
-                <div class="tw-mx-auto tw-flex tw-w-60 tw-flex-col md:tw-w-auto md:tw-max-w-3xl">
-                    <div class="tw-flex tw-flex-col tw-items-stretch">
-                        <div class="tw-justify-items-stretch md:tw-flex">
-                            <div
-                                class="tw-grid tw-grow tw-grid-cols-1 tw-gap-2.5 tw-bg-black/40 tw-p-4 md:tw-grid-cols-3">
-                                <div>
-                                    <div class="tw-text-xs tw-text-white/40">
-                                        výtvarný druh
+                <div class="tw-mt-6 tw-self-stretch md:tw-mt-10">
+                    <div class="tw-mx-auto tw-flex tw-w-60 tw-flex-col md:tw-w-auto md:tw-max-w-3xl">
+                        <div class="tw-flex tw-flex-col tw-items-stretch">
+                            <div class="tw-justify-items-stretch md:tw-flex">
+                                <div
+                                    class="tw-grid tw-grow tw-grid-cols-1 tw-gap-2.5 tw-bg-black/80 tw-p-4 tw-shadow md:tw-grid-cols-3">
+                                    <div>
+                                        <div class="tw-text-xs tw-text-white/40">
+                                            výtvarný druh
+                                        </div>
+                                        <div
+                                            class="tw-whitespace-nowrap tw-text-sm tw-text-white md:tw-text-lg">
+                                            maliarstvo
+                                        </div>
                                     </div>
-                                    <div
-                                        class="tw-whitespace-nowrap tw-text-sm tw-text-white md:tw-text-lg">
-                                        maliarstvo
+                                    <div>
+                                        <div class="tw-text-xs tw-text-white/40">
+                                            kľúčové slovo
+                                        </div>
+                                        <div
+                                            class="tw-whitespace-nowrap tw-text-sm tw-text-white md:tw-text-lg">
+                                            horizont
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="tw-text-xs tw-text-white/40">
+                                            inštitúcia
+                                        </div>
+                                        <div
+                                            class="tw-whitespace-nowrap tw-text-sm tw-text-white md:tw-text-lg">
+                                            Národní galerie v Prahe
+                                        </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <div class="tw-text-xs tw-text-white/40">
-                                        kľúčové slovo
-                                    </div>
-                                    <div
-                                        class="tw-whitespace-nowrap tw-text-sm tw-text-white md:tw-text-lg">
-                                        horizont
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="tw-text-xs tw-text-white/40">
-                                        inštitúcia
-                                    </div>
-                                    <div
-                                        class="tw-whitespace-nowrap tw-text-sm tw-text-white md:tw-text-lg">
-                                        Národní galerie v Prahe
-                                    </div>
-                                </div>
+                                <button
+                                    class="tw-group tw-w-full tw-basis-0 tw-bg-sky-300 tw-px-4 tw-py-2 tw-text-center tw-text-xs tw-text-black tw-transition-colors hover:tw-bg-sky-400 md:tw-px-6 md:tw-text-sm">
+                                    <i
+                                        class="fa fa-repeat tw-mr-2 tw--ml-4 tw-transition-transform group-hover:tw-rotate-45 md:tw-mx-0"></i>
+                                    Zamiešaj
+                                </button>
                             </div>
-                            <button
-                                class="tw-group tw-w-full tw-basis-0 tw-bg-sky-300 tw-px-4 tw-py-2 tw-text-center tw-text-xs tw-text-black tw-transition-colors hover:tw-bg-sky-400 md:tw-px-6 md:tw-text-sm">
-                                <i
-                                    class="fa fa-repeat tw-mr-2 tw--ml-4 tw-transition-transform group-hover:tw-rotate-45 md:tw-mx-0"></i>
-                                Zamiešaj
-                            </button>
+
                         </div>
 
+                        <x-home.button href="TODO"
+                            class="tw-mt-6 tw-self-stretch tw-bg-white/10 tw-text-center md:tw-hidden">
+                            Pozri podobné diela
+                        </x-home.button>
                     </div>
-
-                    <x-home.button href="TODO"
-                        class="tw-mt-6 tw-self-stretch tw-text-center md:tw-hidden">
-                        Pozri podobné diela
-                    </x-home.button>
                 </div>
-            </div>
 
-            <div class="tw-mt-10 tw-grid tw-self-stretch md:tw-mt-16 md:tw-grid-cols-3">
-                <div class="tw-col-start-2 tw-hidden tw-text-center md:tw-block">
-                    <x-home.button href="TODO" class="tw-self-stretch tw-text-center">
-                        Pozri podobné diela
-                    </x-home.button>
-                </div>
-                <div
-                    class="tw-flex tw-flex-col tw-items-center tw-text-xs md:tw-mt-2 md:tw-flex-col md:tw-items-end md:tw-text-sm">
+                <div class="tw-mt-10 tw-grid tw-self-stretch md:tw-mt-16 md:tw-grid-cols-3">
+                    <div class="tw-col-start-2 tw-hidden tw-text-center md:tw-block">
+                        <x-home.button href="TODO"
+                            class="tw-self-stretch tw-bg-white/10 tw-text-center">
+                            Pozri podobné diela
+                        </x-home.button>
+                    </div>
                     <div
-                        class="tw-flex tw-flex-wrap tw-gap-x-1 tw-text-white/60 md:tw-flex-col md:tw-items-end">
-                        <span>Antonín Chittussi</span>
-                        <span class="tw-font-bold">Západ – Côte de la Gale</span>
-                        <span>1880</span>
+                        class="tw-flex tw-flex-col tw-items-center tw-text-xs md:tw-mt-2 md:tw-flex-col md:tw-items-end md:tw-text-sm">
+                        <div
+                            class="tw-flex tw-flex-wrap tw-gap-x-1 tw-text-white/60 md:tw-flex-col md:tw-items-end">
+                            <span>Antonín Chittussi</span>
+                            <span class="tw-font-bold">Západ – Côte de la Gale</span>
+                            <span>1880</span>
+                        </div>
+                        <div class="tw-mt-2 tw-text-center">
+                            <a href="TODO"
+                                class="tw-text-white/60 tw-underline tw-decoration-2 tw-underline-offset-2 tw-transition-colors hover:tw-text-white">Zobraziť
+                                dielo</a>
+                        </div>
                     </div>
-                    <div class="tw-mt-2 tw-text-center">
-                        <a href="TODO"
-                            class="tw-text-white/60 tw-underline tw-decoration-2 tw-underline-offset-2 tw-transition-colors hover:tw-text-white">Zobraziť
-                            dielo</a>
-                    </div>
-                </div>
 
+                </div>
             </div>
         </div>
+
+        {{-- Counts blurb --}}
+        <div class="tw-bg-gray-200">
+            <div
+                class="tw-container tw-mx-auto tw-grid tw-max-w-screen-xl tw-px-6 tw-py-5 tw-text-gray-500 lg:tw-py-10">
+                <p class="tw-text-center lg:tw-text-2xl">
+                    {{ utrans('home.definition_start') }}
+                    <a href="{{ route('frontend.catalog.index') }}"
+                        class="tw-font-bold tw-text-gray-800 hover:tw-underline">{{ formatNum($countsBlurb->items_count) }}</a>
+                    {{ trans('home.definition_end') }}<br>
+                    {{ trans($countsBlurb->start_lang_string) }}
+                    <a href="{{ $countsBlurb->url }}"
+                        class="tw-font-bold tw-text-gray-800 hover:tw-underline">{{ formatNum($countsBlurb->count) }}</a>
+                    {{ trans($countsBlurb->end_lang_string) }}
+                </p>
+            </div>
+        </div>
+
         @if ($featuredPiece)
             <div class="tw-relative">
                 {{ $featuredPiece->image->img()->attributes(['class' => 'tw-object-cover tw-absolute tw-h-full tw-w-full', 'width' => null, 'height' => null]) }}
@@ -137,30 +163,13 @@
                             {!! $featuredPiece->excerpt !!}
                         </div>
                         <x-home.button href="{{ $featuredPiece->url }}"
-                            v-on:click.once.prevent="track" class="tw-mt-3 md:tw-mt-6">
+                            v-on:click.once.prevent="track" class="tw-mt-3 tw-bg-white/10 md:tw-mt-6">
                             {{ $featuredPiece->is_collection? trans('home.featured_piece.button_collection'): trans('home.featured_piece.button_article') }}
                         </x-home.button>
                     </div>
                 </featured-piece-click-tracker>
             </div>
         @endif
-
-        {{-- Counts blurb --}}
-        <div class="tw-bg-gray-200">
-            <div
-                class="tw-container tw-mx-auto tw-grid tw-max-w-screen-xl tw-px-6 tw-py-5 tw-text-gray-500 lg:tw-py-10">
-                <p class="tw-text-center lg:tw-text-2xl">
-                    {{ utrans('home.definition_start') }}
-                    <a href="{{ route('frontend.catalog.index') }}"
-                        class="tw-font-bold tw-text-gray-800 hover:tw-underline">{{ formatNum($countsBlurb->items_count) }}</a>
-                    {{ trans('home.definition_end') }}<br>
-                    {{ trans($countsBlurb->start_lang_string) }}
-                    <a href="{{ $countsBlurb->url }}"
-                        class="tw-font-bold tw-text-gray-800 hover:tw-underline">{{ formatNum($countsBlurb->count) }}</a>
-                    {{ trans($countsBlurb->end_lang_string) }}
-                </p>
-            </div>
-        </div>
 
         @if ($featuredArtwork)
             <div class="tw-bg-gray-800 tw-text-white">
