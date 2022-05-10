@@ -69,4 +69,20 @@ return [
         'id' => '4RG',
         'name' => 'Galerie moderního umění v Roudnici nad Labem',
     ],
+    [
+        'id' => 'GMUHK',
+        'name' => 'Galerie moderního umění v Hradci Králové',
+    ],
+    [
+        'id' => 'TGM',
+        'name' => 'Turčianska galéria',
+    ],
+    [
+        'id' => 'GJK',
+        'name' => 'Galéria Jána Koniarka',
+    ],
+    [
+        'id' => 'MVL',
+        'name' => 'Múzeum Vojtecha Löfflera',
+    ],
 ];
