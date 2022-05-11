@@ -4,14 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Validator;
 
-use App\Http\Requests;
-use Carbon\Carbon;
-
-use App\Item;
 use App\Import;
-use App\ImportRecord;
 use App\Jobs\ImportCsv;
-use App\Repositories\CsvRepository;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Translation\Translator;
@@ -102,8 +96,7 @@ class ImportController extends Controller
             return redirect()->route('import.index');
         }
 
-        $importer = new $import->class_name(new CsvRepository(), $this->translator);
-        $options = $importer->getOptions();
+        $options = $import->class_name::getOptions();
 
         return view('imports.form')->with(['import' => $import, 'options' => $options]);
     }
