@@ -7,8 +7,8 @@ use App\Importers\AbstractImporter;
 use App\Importers\IImporter;
 use App\Repositories\CsvRepository;
 
-
 use App\Jobs\Job;
+use App\Matchers\AuthorityMatcher;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -35,7 +35,7 @@ class ImportCsv extends Job implements ShouldQueue
      *
      * @return void
      */
-    public function handle(Translator $translator)
+    public function handle(AuthorityMatcher $authorityMatcher, Translator $translator)
     {
         $this->import->status = Import::STATUS_IN_PROGRESS;
         $this->import->save();
@@ -45,7 +45,11 @@ class ImportCsv extends Job implements ShouldQueue
             if (!$reflection->isInstantiable()) {
                 throw new \Exception('Class is not instantiable');
             }
-            $importer = new $this->import->class_name(new CsvRepository(), $translator);
+            $importer = new $this->import->class_name(
+                $authorityMatcher,
+                new CsvRepository(),
+                $translator
+            );
         } catch (\Exception $e) {
             if (\App::runningInConsole()) {
                 echo "Nenašiel sa importer pre dané ID.\n";
@@ -78,7 +82,5 @@ class ImportCsv extends Job implements ShouldQueue
     public function failed()
     {
         // @todo - handle fail (send notification?)
-
     }
-
 }
