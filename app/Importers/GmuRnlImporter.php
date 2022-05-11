@@ -25,7 +25,7 @@ class GmuRnlImporter extends AbstractImporter
         'gallery:sk' => 'Galerie moderního umění v Roudnici nad Labem',
     ];
 
-    protected $options = [
+    protected static $options = [
         'delimiter' => ';',
         'enclosure' => '"',
         'escape' => '\\',

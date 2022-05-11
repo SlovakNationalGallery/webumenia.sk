@@ -39,7 +39,7 @@ abstract class AbstractImporter implements IImporter
     protected $image_max_size = 800;
 
     /** @var array */
-    protected $options = [
+    protected static $options = [
         'delimiter' => ',',
         'enclosure' => '"',
         'escape' => '\\',
@@ -96,7 +96,7 @@ abstract class AbstractImporter implements IImporter
         $records = $this->repository->getFiltered(
             storage_path(sprintf('app/%s', $file['path'])),
             $this->filters,
-            $this->options
+            static::$options
         );
 
         $items = [];
@@ -137,9 +137,9 @@ abstract class AbstractImporter implements IImporter
         return static::$name;
     }
 
-    public function getOptions()
+    public static function getOptions()
     {
-        return $this->options;
+        return static::$options;
     }
 
     /**

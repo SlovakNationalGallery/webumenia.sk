@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 
 class OglImporter extends AbstractImporter
 {
-    protected $options = [
+    protected static $options = [
         'delimiter' => ';',
         'enclosure' => '"',
         'escape' => '\\',

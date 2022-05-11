@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.51.2] - 2022-05-11
+### Fixed
+- constructing importers
+
 ## [2.51.1] - 2022-04-26
 ### Fixed
 - item contributor mapping
