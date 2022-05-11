@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Importers;
 
 use App\Import;
@@ -23,5 +22,5 @@ interface IImporter
     /**
      * @return array
      */
-    public function getOptions();
+    public static function getOptions();
 }

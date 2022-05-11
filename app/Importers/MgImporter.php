@@ -4,7 +4,7 @@ namespace App\Importers;
 
 class MgImporter extends AbstractImporter
 {
-    protected $options = [
+    protected static $options = [
         'delimiter' => ';',
         'enclosure' => '"',
         'escape' => '\\',
