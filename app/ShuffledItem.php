@@ -47,7 +47,7 @@ class ShuffledItem extends Model implements HasMedia, TranslatableContract
     {
         $iipParams = [
             'FIF' => $this->item->images()->first()->iipimg_url,
-            'WID' => 1600, // Max size
+            'WID' => 1920, // Max size
             'RGN' => join(',', [
                 $this->crop['x'],
                 $this->crop['y'],
