@@ -51,6 +51,23 @@ const items = [
             srcset: 'http://127.0.0.1:8000/storage/media/12/responsive-images/file___media_library_original_1600_900.jpeg 1600w, http://127.0.0.1:8000/storage/media/12/responsive-images/file___media_library_original_1338_752.jpeg 1338w, http://127.0.0.1:8000/storage/media/12/responsive-images/file___media_library_original_1119_629.jpeg 1119w, http://127.0.0.1:8000/storage/media/12/responsive-images/file___media_library_original_937_527.jpeg 937w, http://127.0.0.1:8000/storage/media/12/responsive-images/file___media_library_original_783_440.jpeg 783w, http://127.0.0.1:8000/storage/media/12/responsive-images/file___media_library_original_655_368.jpeg 655w, http://127.0.0.1:8000/storage/media/12/responsive-images/file___media_library_original_548_308.jpeg 548w, http://127.0.0.1:8000/storage/media/12/responsive-images/file___media_library_original_459_258.jpeg 459w, http://127.0.0.1:8000/storage/media/12/responsive-images/file___media_library_original_384_216.jpeg 384w, http://127.0.0.1:8000/storage/media/12/responsive-images/file___media_library_original_321_180.jpeg 321w, http://127.0.0.1:8000/storage/media/12/responsive-images/file___media_library_original_268_150.jpeg 268w, http://127.0.0.1:8000/storage/media/12/responsive-images/file___media_library_original_224_126.jpeg 224w, http://127.0.0.1:8000/storage/media/12/responsive-images/file___media_library_original_188_105.jpeg 188w, http://127.0.0.1:8000/storage/media/12/responsive-images/file___media_library_original_157_88.jpeg 157w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgMTYwMCA5MDAiPgoJPGltYWdlIHdpZHRoPSIxNjAwIiBoZWlnaHQ9IjkwMCIgeGxpbms6aHJlZj0iZGF0YTppbWFnZS9qcGVnO2Jhc2U2NCwvOWovNEFBUVNrWkpSZ0FCQVFFQVlBQmdBQUQvL2dBN1ExSkZRVlJQVWpvZ1oyUXRhbkJsWnlCMk1TNHdJQ2gxYzJsdVp5QkpTa2NnU2xCRlJ5QjJPVEFwTENCeGRXRnNhWFI1SUQwZ09UQUsvOXNBUXdBREFnSURBZ0lEQXdNREJBTURCQVVJQlFVRUJBVUtCd2NHQ0F3S0RBd0xDZ3NMRFE0U0VBME9FUTRMQ3hBV0VCRVRGQlVWRlF3UEZ4Z1dGQmdTRkJVVS85c0FRd0VEQkFRRkJBVUpCUVVKRkEwTERSUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVLzhBQUVRZ0FFZ0FnQXdFaUFBSVJBUU1SQWYvRUFCOEFBQUVGQVFFQkFRRUJBQUFBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUUFBSUJBd01DQkFNRkJRUUVBQUFCZlFFQ0F3QUVFUVVTSVRGQkJoTlJZUWNpY1JReWdaR2hDQ05Dc2NFVlV0SHdKRE5pY29JSkNoWVhHQmthSlNZbktDa3FORFUyTnpnNU9rTkVSVVpIU0VsS1UxUlZWbGRZV1ZwalpHVm1aMmhwYW5OMGRYWjNlSGw2ZzRTRmhvZUlpWXFTazVTVmxwZVltWnFpbzZTbHBxZW9xYXF5czdTMXRyZTR1YnJDdzhURnhzZkl5Y3JTMDlUVjF0ZlkyZHJoNHVQazVlYm42T25xOGZMejlQWDI5L2o1K3YvRUFCOEJBQU1CQVFFQkFRRUJBUUVBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUkFBSUJBZ1FFQXdRSEJRUUVBQUVDZHdBQkFnTVJCQVVoTVFZU1FWRUhZWEVUSWpLQkNCUkNrYUd4d1Frak0xTHdGV0p5MFFvV0pEVGhKZkVYR0JrYUppY29LU28xTmpjNE9UcERSRVZHUjBoSlNsTlVWVlpYV0ZsYVkyUmxabWRvYVdwemRIVjJkM2g1ZW9LRGhJV0doNGlKaXBLVGxKV1dsNWlabXFLanBLV21wNmlwcXJLenRMVzJ0N2k1dXNMRHhNWEd4OGpKeXRMVDFOWFcxOWpaMnVMajVPWG01K2pwNnZMejlQWDI5L2o1K3YvYUFBd0RBUUFDRVFNUkFEOEErdGJlK2p0NFFaWENnZHlhc1ErSTdHWmhHbHdqTjZacjVGK0lIeHZ2N3l4VzN0SkRHejhaQnJ6ZTMrS2V0K0hyeUo1THhwSkNjNDNWODIrWmFIdWM4WHNmWlh4YThRTnAyaFN0YnVBK0t4UGc1NHBON3BMbTVsRzhIdlhoZXFmRnVYeERwU0xjRWtsZWMxUTBMNGt4NkJiTUJONVlKOWFoUms1QTZrYkhtWGlWaUkwT1Qxcmo1M1o5WGkzTVc2ZFRSUlc4dHpLbHNkN2Evd0RIc3RjbDR0ZGx5QXhIME5GRlhUM1JsUDRXZi8vWiI+Cgk8L2ltYWdlPgo8L3N2Zz4= 32w',
         },
     },
+    {
+        id: 16,
+        filters: [
+            {
+                url: 'https://www.webumenia.sk/katalog?work_type=grafika&object_type=autorsk%C3%BD+album&medium=kart%C3%B3n&years-range=-470%2C2021',
+                attributes: [
+                    { label: 'v\u00fdtvarn\u00fd druh', value: 'grafika' },
+                    { label: 'typ diela', value: 'autorsk\u00fd album' },
+                    { label: 'materi\u00e1l', value: 'kart\u00f3n' },
+                ],
+            },
+        ],
+        img: {
+            src: 'http://127.0.0.1:8000/storage/media/13/file.jpeg',
+            srcset: 'http://127.0.0.1:8000/storage/media/13/responsive-images/file___media_library_original_1600_900.jpeg 1600w, http://127.0.0.1:8000/storage/media/13/responsive-images/file___media_library_original_1338_752.jpeg 1338w, http://127.0.0.1:8000/storage/media/13/responsive-images/file___media_library_original_1120_630.jpeg 1120w, http://127.0.0.1:8000/storage/media/13/responsive-images/file___media_library_original_937_527.jpeg 937w, http://127.0.0.1:8000/storage/media/13/responsive-images/file___media_library_original_783_440.jpeg 783w, http://127.0.0.1:8000/storage/media/13/responsive-images/file___media_library_original_655_368.jpeg 655w, http://127.0.0.1:8000/storage/media/13/responsive-images/file___media_library_original_548_308.jpeg 548w, http://127.0.0.1:8000/storage/media/13/responsive-images/file___media_library_original_459_258.jpeg 459w, http://127.0.0.1:8000/storage/media/13/responsive-images/file___media_library_original_384_216.jpeg 384w, http://127.0.0.1:8000/storage/media/13/responsive-images/file___media_library_original_321_180.jpeg 321w, http://127.0.0.1:8000/storage/media/13/responsive-images/file___media_library_original_268_150.jpeg 268w, http://127.0.0.1:8000/storage/media/13/responsive-images/file___media_library_original_224_126.jpeg 224w, http://127.0.0.1:8000/storage/media/13/responsive-images/file___media_library_original_188_105.jpeg 188w, http://127.0.0.1:8000/storage/media/13/responsive-images/file___media_library_original_157_88.jpeg 157w, data:image/svg+xml;base64,PCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHg9IjAiCiB5PSIwIiB2aWV3Qm94PSIwIDAgMTYwMCA5MDAiPgoJPGltYWdlIHdpZHRoPSIxNjAwIiBoZWlnaHQ9IjkwMCIgeGxpbms6aHJlZj0iZGF0YTppbWFnZS9qcGVnO2Jhc2U2NCwvOWovNEFBUVNrWkpSZ0FCQVFFQVlBQmdBQUQvL2dBN1ExSkZRVlJQVWpvZ1oyUXRhbkJsWnlCMk1TNHdJQ2gxYzJsdVp5QkpTa2NnU2xCRlJ5QjJPVEFwTENCeGRXRnNhWFI1SUQwZ09UQUsvOXNBUXdBREFnSURBZ0lEQXdNREJBTURCQVVJQlFVRUJBVUtCd2NHQ0F3S0RBd0xDZ3NMRFE0U0VBME9FUTRMQ3hBV0VCRVRGQlVWRlF3UEZ4Z1dGQmdTRkJVVS85c0FRd0VEQkFRRkJBVUpCUVVKRkEwTERSUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVRkJRVUZCUVVGQlFVLzhBQUVRZ0FFZ0FnQXdFaUFBSVJBUU1SQWYvRUFCOEFBQUVGQVFFQkFRRUJBQUFBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUUFBSUJBd01DQkFNRkJRUUVBQUFCZlFFQ0F3QUVFUVVTSVRGQkJoTlJZUWNpY1JReWdaR2hDQ05Dc2NFVlV0SHdKRE5pY29JSkNoWVhHQmthSlNZbktDa3FORFUyTnpnNU9rTkVSVVpIU0VsS1UxUlZWbGRZV1ZwalpHVm1aMmhwYW5OMGRYWjNlSGw2ZzRTRmhvZUlpWXFTazVTVmxwZVltWnFpbzZTbHBxZW9xYXF5czdTMXRyZTR1YnJDdzhURnhzZkl5Y3JTMDlUVjF0ZlkyZHJoNHVQazVlYm42T25xOGZMejlQWDI5L2o1K3YvRUFCOEJBQU1CQVFFQkFRRUJBUUVBQUFBQUFBQUJBZ01FQlFZSENBa0tDLy9FQUxVUkFBSUJBZ1FFQXdRSEJRUUVBQUVDZHdBQkFnTVJCQVVoTVFZU1FWRUhZWEVUSWpLQkNCUkNrYUd4d1Frak0xTHdGV0p5MFFvV0pEVGhKZkVYR0JrYUppY29LU28xTmpjNE9UcERSRVZHUjBoSlNsTlVWVlpYV0ZsYVkyUmxabWRvYVdwemRIVjJkM2g1ZW9LRGhJV0doNGlKaXBLVGxKV1dsNWlabXFLanBLV21wNmlwcXJLenRMVzJ0N2k1dXNMRHhNWEd4OGpKeXRMVDFOWFcxOWpaMnVMajVPWG01K2pwNnZMejlQWDI5L2o1K3YvYUFBd0RBUUFDRVFNUkFEOEEvT1hWVldTVXN0Vy9DR2hqVzlVUzNadHVUV1pjTXp2Z2NpdTMrSFdtWXZFdXZNVk5wN212TXhVM1RveWNkem93OFZLb2xMWWg4WCtGRzhQWEN4NXlwNzFpd3hBY0d2VWZIZG11clJwTUprSlVkTTE1amRNdHU3RGQwcmd3RmVWV211ZmZxZFdNcHhoVWZKc1lzWEx0Vy9wRWpwQzIxaXYwTkZGZXBWK0ZuQkRjMGJtYVEyM0xzZnhyazc1aVpEeWV0RkZZWWJxYXozUi8vOWs9Ij4KCTwvaW1hZ2U+Cjwvc3ZnPg== 32w',
+        },
+    },
 ]
 
 // https://stackoverflow.com/a/2450976
@@ -89,6 +106,11 @@ export default {
             url: initialFilter.url,
         }
     },
+    computed: {
+        nextItemIndex() {
+            return (this.itemIndex + 1) % this.items.length
+        },
+    },
     // props: {
     //     id: {
     //         type: Number,
@@ -104,17 +126,14 @@ export default {
             isShuffling: this.isShuffling,
             filterAttributes: this.filterAttributes,
             url: this.url,
-            img: {
-                ...this.shuffledItems[this.itemIndex].img,
-                classList: this.imgClassList,
-            },
+            img: this.shuffledItems[this.itemIndex].img,
+            nextImg: this.shuffledItems[this.nextItemIndex].img,
             shuffle: () => {
                 if (this.isShuffling) return
 
                 this.isShuffling = true
 
-                const nextItemIndex = (this.itemIndex + 1) % this.items.length
-                const nextItem = this.shuffledItems[nextItemIndex]
+                const nextItem = this.shuffledItems[this.nextItemIndex]
                 const nextFilter =
                     nextItem.filters[Math.floor(Math.random() * (nextItem.filters.length - 1))]
 
@@ -139,7 +158,7 @@ export default {
 
                 // Replace image slightly after the filter shuffle has settled
                 setTimeout(() => {
-                    this.itemIndex = nextItemIndex
+                    this.itemIndex = this.nextItemIndex
 
                     this.isShuffling = false
                 }, 3000)

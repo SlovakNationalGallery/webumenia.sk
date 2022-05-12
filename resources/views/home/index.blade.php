@@ -27,11 +27,15 @@
     <div class="tailwind-rules">
         <home.shuffle-orchestrator v-slot="orchestrator">
             <div class="tw-relative tw-overflow-hidden">
-
                 <img onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});"
                     sizes="1px" v-bind:srcset="orchestrator.img.srcset"
                     v-bind:src="orchestrator.img.src"
-                    v-bind:class="['tw-absolute tw-h-full tw-w-full tw-object-cover tw-transition-all tw-scale-[1.005] tw-duration-700', {'tw-blur tw-scale-100 tw-ease-in': orchestrator.isShuffling }]">
+                    v-bind:class="['tw-absolute tw-h-full tw-w-full tw-object-cover tw-transition-all tw-scale-[1.005] tw-duration-700 tw-ease-in', {'tw-blur tw-scale-100': orchestrator.isShuffling }]">
+
+                <img onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});"
+                    sizes="1px" v-bind:srcset="orchestrator.nextImg.srcset"
+                    v-bind:src="orchestrator.nextImg.src"
+                    class="tw-invisible tw-absolute tw-h-full tw-w-full tw-scale-[1.005] tw-object-cover">
 
                 {{-- Partial bottom overlay (for readability) --}}
                 <div v-cloak
@@ -51,11 +55,13 @@
                     <div class="tw-max-w-5xl tw-text-center">
                         <p
                             class="tw-mt-2 tw-drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] md:tw-mt-6 md:tw-text-2xl">
-                            Nájdi tisíce kombinácií výtvarných techník, žánrov a motívov
+                            Nájdi tisíce kombinácií výtvarných techník,
+                            <br class="sm:tw-hidden" />
+                            žánrov a&nbsp;motívov
                         </p>
                     </div>
 
-                    <div class="tw-mt-6 tw-self-stretch md:tw-mt-10">
+                    <div class="tw-mt-6 tw-self-stretch md:tw-mt-10" v-cloak>
                         <div
                             class="tw-mx-auto tw-flex tw-w-60 tw-flex-col md:tw-w-auto md:tw-max-w-3xl">
                             <div class="tw-flex tw-flex-col tw-items-stretch">
@@ -91,7 +97,7 @@
                         </div>
                     </div>
 
-                    <div class="tw-mt-10 tw-grid tw-self-stretch md:tw-mt-16 md:tw-grid-cols-3">
+                    <div class="tw-mt-10 tw-grid tw-self-stretch md:tw-mt-20 md:tw-grid-cols-3">
                         <div class="tw-col-start-2 tw-hidden tw-text-center md:tw-block">
                             <x-home.button v-bind:href="orchestrator.url"
                                 v-bind:class="['tw-self-stretch tw-bg-white/10 tw-text-center disabled:tw-opacity-40', {'tw-opacity-40 tw-pointer-events-none': orchestrator.isShuffling}]">
