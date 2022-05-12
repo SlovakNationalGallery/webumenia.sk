@@ -25,22 +25,22 @@
 
 @section('content')
     <div class="tailwind-rules">
-        <home.shuffle-orchestrator v-slot="orchestrator" v-cloak>
+        <home.shuffle-orchestrator v-slot="orchestrator">
             <div class="tw-relative tw-overflow-hidden">
 
                 <img onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});"
                     sizes="1px" v-bind:srcset="orchestrator.img.srcset"
                     v-bind:src="orchestrator.img.src"
-                    v-bind:class="['tw-absolute tw-h-full tw-w-full tw-object-cover tw-transition-all', {'tw-blur': orchestrator.isShuffling }]">
+                    v-bind:class="['tw-absolute tw-h-full tw-w-full tw-object-cover tw-transition-all tw-scale-[1.005] tw-duration-700', {'tw-blur tw-scale-100 tw-ease-in': orchestrator.isShuffling }]">
 
                 {{-- Partial bottom overlay (for readability) --}}
-                <div
+                <div v-cloak
                     class="tw-absolute tw-inset-x-0 tw-bottom-0 tw-h-1/2 tw-bg-gradient-to-b tw-from-black/0 tw-to-black/60 md:tw-h-1/3 md:tw-to-black/50">
                 </div>
 
                 {{-- Full overlay for transitions --}}
-                <div
-                    v-bind:class="['tw-absolute tw-inset-0 tw-transition-all', {'tw-bg-black/50': orchestrator.isShuffling }]">
+                <div v-cloak
+                    v-bind:class="['tw-absolute tw-inset-0 tw-transition-all tw-bg-black tw-duration-500', orchestrator.isShuffling ? 'tw-opacity-50' : 'tw-opacity-0']">
                 </div>
                 <div
                     class="tw-relative tw-flex tw-flex-col tw-items-center tw-p-6 tw-text-white md:tw-p-8">
@@ -62,13 +62,14 @@
                                 <div class="tw-justify-items-stretch md:tw-flex">
                                     <div
                                         class="tw-grid tw-grow tw-grid-cols-1 tw-gap-2.5 tw-bg-black/80 tw-p-4 tw-shadow md:tw-grid-cols-3">
-                                        <div v-for="filterAttribute in orchestrator.filterAttributes"
+                                        <div v-cloak
+                                            v-for="filterAttribute in orchestrator.filterAttributes"
                                             v-bind:key="filterAttribute.label + filterAttribute.value">
                                             <div class="tw-text-xs tw-text-white/40">
                                                 @{{ filterAttribute.label }}
                                             </div>
                                             <div
-                                                v-bind:class="['tw-whitespace-nowrap tw-text-sm md:tw-text-lg tw-text-white', {'tw-opacity-40': orchestrator.isShuffling }]">
+                                                v-bind:class="['tw-whitespace-nowrap tw-transition-opacity tw-text-sm md:tw-text-base tw-text-white', {'tw-opacity-40': orchestrator.isShuffling }]">
                                                 @{{ filterAttribute.value }}
                                             </div>
                                         </div>
@@ -84,7 +85,7 @@
                             </div>
 
                             <x-home.button v-bind:href="orchestrator.url"
-                                class="tw-mt-6 tw-self-stretch tw-bg-white/10 tw-text-center md:tw-hidden">
+                                v-bind:class="['tw-mt-6 tw-self-stretch tw-bg-white/10 tw-text-center md:tw-hidden', {'tw-opacity-40 tw-pointer-events-none': orchestrator.isShuffling}]">
                                 Pozri podobné diela
                             </x-home.button>
                         </div>
@@ -93,12 +94,12 @@
                     <div class="tw-mt-10 tw-grid tw-self-stretch md:tw-mt-16 md:tw-grid-cols-3">
                         <div class="tw-col-start-2 tw-hidden tw-text-center md:tw-block">
                             <x-home.button v-bind:href="orchestrator.url"
-                                class="tw-self-stretch tw-bg-white/10 tw-text-center">
+                                v-bind:class="['tw-self-stretch tw-bg-white/10 tw-text-center disabled:tw-opacity-40', {'tw-opacity-40 tw-pointer-events-none': orchestrator.isShuffling}]">
                                 Pozri podobné diela
                             </x-home.button>
                         </div>
                         <div
-                            class="tw-flex tw-flex-col tw-items-center tw-text-xs md:tw-mt-2 md:tw-flex-col md:tw-items-end md:tw-text-sm">
+                            v-bind:class="['tw-flex tw-flex-col tw-items-center tw-text-xs md:tw-mt-2 md:tw-items-end md:tw-text-sm tw-transition-opacity', {'tw-opacity-40 tw-pointer-events-none': orchestrator.isShuffling}]">
                             <div
                                 class="tw-flex tw-flex-wrap tw-gap-x-1 tw-text-white/60 md:tw-flex-col md:tw-items-end">
                                 <span>Antonín Chittussi</span>

@@ -108,33 +108,38 @@ export default {
                 ...this.shuffledItems[this.itemIndex].img,
                 classList: this.imgClassList,
             },
-            overlay: {
-                classList: this.overlayClassList,
-            },
             shuffle: () => {
                 if (this.isShuffling) return
 
                 this.isShuffling = true
 
+                const nextItemIndex = (this.itemIndex + 1) % this.items.length
+                const nextItem = this.shuffledItems[nextItemIndex]
+                const nextFilter =
+                    nextItem.filters[Math.floor(Math.random() * (nextItem.filters.length - 1))]
+
+                // Start shuffling filters
                 const shuffledFilters = shuffle(this.items.flatMap((si) => si.filters))
                 let shuffledFiltersIndex = 0
 
                 const filterShuffle = setInterval(() => {
-                    ;(this.filterAttributes = shuffle(
+                    this.filterAttributes = shuffle(
                         shuffledFilters[shuffledFiltersIndex].attributes
-                    )), // TODO make this so that the combinations don't repeat
-                        (shuffledFiltersIndex = (shuffledFiltersIndex + 1) % shuffledFilters.length)
+                    )
+                    shuffledFiltersIndex = (shuffledFiltersIndex + 1) % shuffledFilters.length
                 }, 300)
 
+                // Settle filters
                 setTimeout(() => {
+                    this.filterAttributes = nextFilter.attributes
+                    this.url = nextFilter.url
+
                     clearInterval(filterShuffle)
-                    this.itemIndex = (this.itemIndex + 1) % this.items.length
+                }, 2700)
 
-                    const item = this.shuffledItems[this.itemIndex]
-                    const filterIndex = Math.floor(Math.random() * (item.filters.length - 1))
-
-                    this.filterAttributes = item.filters[filterIndex].attributes
-                    this.url = item.filters[filterIndex].url
+                // Replace image slightly after the filter shuffle has settled
+                setTimeout(() => {
+                    this.itemIndex = nextItemIndex
 
                     this.isShuffling = false
                 }, 3000)
