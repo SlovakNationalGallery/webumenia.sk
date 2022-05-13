@@ -12,10 +12,6 @@ return array(
     'order_alert'   => '<strong> Upozornění: </strong> <br> Tištěné reprodukce, které mají být provedeny do Vánočních svátků, je možné objednat do <strong>9. prosince</strong>.<br> Objednávky vytvořené po tomto termínu budou vyhotoveny <strong>až po svátcích</strong>.',
     'order_title' => 'Objednávka',
     'order_content' => '
-                        <p>Chcete-li si objednat nejen tištěné, ale i digitální reprodukce, udělejte prosím <strong>zvlášť objednávku pro každý typ</strong>.</p>
-                        <p>Přejete-li si různé rozměry pro jednotlivé tištěné reprodukce, uveďte je prosím v položce <strong>Poznámka</strong>.</p>
-                        <p>Standardní lhůta vyřízení objednávky je <strong>42 dní</strong> pro reprodukce s rámem nebo paspartou a <strong>30 dní</strong> pro reprodukce bez rámu nebo pasparty.</p>
-                        <p>Momentálně je možné vyzvednout reprodukce pouze osobně v <a href="https://www.sng.sk/sk/bratislava/navsteva/kde-nas-najdete/knihkupectvo-ex-libris" target="_blank" class="underline">knihkupectví Ex Libris</a> v prostorách SNG na Náměstí Ľ. Štúra 4 v Bratislavě nebo v pokladně <a href="https://www.sng.sk/sk/zvolen/navsteva/kde-nas-najdete" target="_blank" class="underline">Zvolenského zámku – Námestie SNP 594/1</a>.</p>
                         <p>Po odeslání objednávky Vám pošleme <strong>potvrzující e-mail s podrobnějšími informacemi</strong>.</p>
                         <p>Všechny důležité informace naleznete na stránce <a href="https://www.webumenia.sk/cs/reprodukcie" target="_blank" class="underline">reprodukce</a>.</p>',
     'order_none'    => 'Nemáte v košíku žiadne diela',
