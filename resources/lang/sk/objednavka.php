@@ -13,12 +13,8 @@ return array(
     'order_alert'   => '<strong>Upozornenie:</strong><br>Tlačené reprodukcie, ktoré majú byť vyhotovené do vianočných sviatkov, je možné objednať do <strong>9. decembra</strong>.<br> Objednávky vytvorené po tomto termíne budú vyhotovené <strong>až po sviatkoch</strong>.',
     'order_title' => 'Objednávka',
     'order_content' => '
-                        <p>Ak máte záujem o tlačené aj digitálne reprodukcie, vytvorte prosím <strong>zvlášť objednávku</strong> pre každý typ.</p>
-                        <p>Ak si prajete rôzne rozmery pre jednotlivé tlačené reprodukcie, uveďte ich prosím v položke <strong>Poznámka</strong>.</p>
-                        <p>Štandardná lehota na vybavenie objednávky je <strong>42 dní</strong> pre tlačené reprodukcie s paspartou alebo rámom a <strong>30 dní</strong> pre tlačené reprodukcie bez pasparty alebo rámu.</p>
-                        <p>Tlačené reprodukcie je momentálne možné vyzdvihnúť len osobne v&nbsp;kníhkupectve <a href="https://goo.gl/maps/3Uf4S" target="_blank" class="underline">Ex Libris v priestoroch SNG na Námestí Ľ. Štúra 4 v Bratislave</a>  alebo v pokladni <a href="https://goo.gl/maps/MPRy6Qdwm8s" target="_blank" class="underline">Zvolenského zámku - Námestie SNP 594/1</a>. </p>
-                        <p>Po odoslaní objednávky Vám pošleme <strong>potvrdzujúci e-mail</strong> s podrobnejšími informáciami o objednávke.</p>
-                        <p>Všetky dôležité informácie nájdete na stránke <a href="https://www.webumenia.sk/reprodukcie" target="_blank" class="underline">reprodukcie</a>.</p>',
+                        <p>Po odoslaní objednávky Vám pošleme <strong>potvrdzujúci e-mail</strong> s podrobnejšími informáciami.</p>
+                        <p>Všetky dôležité informácie nájdete aj na stránke <strong><a href="https://www.webumenia.sk/reprodukcie" target="_blank" class="underline">reprodukcie</a></strong>.</p>',
     'order_none'    => 'Nemáte v košíku žiadne diela',
     'order_remove'  => 'odstrániť',
     'order_warning' => 'Toto dielo momentálne nemáme zdigitalizované v dostatočnej kvalite, preto nieje možné objednať si tlačenú reprodukciu.',
