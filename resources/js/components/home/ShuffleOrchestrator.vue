@@ -146,7 +146,7 @@ export default {
                         shuffledFilters[shuffledFiltersIndex].attributes
                     )
                     shuffledFiltersIndex = (shuffledFiltersIndex + 1) % shuffledFilters.length
-                }, 300)
+                }, 400)
 
                 // Settle filters
                 setTimeout(() => {

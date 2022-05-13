@@ -68,15 +68,38 @@
                                 <div class="tw-justify-items-stretch md:tw-flex">
                                     <div
                                         class="tw-grid tw-grow tw-grid-cols-1 tw-gap-2.5 tw-bg-black/80 tw-p-4 tw-shadow md:tw-grid-cols-3">
+
                                         <div v-cloak
-                                            v-for="filterAttribute in orchestrator.filterAttributes"
-                                            v-bind:key="filterAttribute.label + filterAttribute.value">
-                                            <div class="tw-text-xs tw-text-white/40">
-                                                @{{ filterAttribute.label }}
-                                            </div>
-                                            <div
-                                                v-bind:class="['tw-whitespace-nowrap tw-transition-opacity tw-text-sm md:tw-text-base tw-text-white', {'tw-opacity-40': orchestrator.isShuffling }]">
-                                                @{{ filterAttribute.value }}
+                                            v-for="filterAttribute, filterAttributeIndex in orchestrator.filterAttributes"
+                                            v-bind:key="filterAttributeIndex">
+
+                                            {{-- invisible text for spacing --}}
+                                            <div class="tw-relative">
+                                                <div class="tw-invisible tw-text-xs">
+                                                    @{{ filterAttribute.label }}
+                                                </div>
+                                                <div
+                                                    class="tw-invisible tw-whitespace-nowrap tw-text-sm tw-text-white md:tw-text-base">
+                                                    @{{ filterAttribute.value }}
+                                                </div>
+                                                <transition v-bind:duration="300"
+                                                    enter-class="tw-opacity-0"
+                                                    enter-to-class="tw-opacity-100"
+                                                    enter-active-class="tw-transition-opacity tw-duration-300"
+                                                    leave-class="tw-opacity-100"
+                                                    leave-to-class="tw-opacity-0"
+                                                    leave-active-class="tw-transition-opacity tw-duration-300">
+                                                    <div v-bind:key="filterAttribute.label + filterAttribute.value"
+                                                        class="tw-absolute tw-inset-0">
+                                                        <div class="tw-text-xs tw-text-white/40">
+                                                            @{{ filterAttribute.label }}
+                                                        </div>
+                                                        <div
+                                                            v-bind:class="['tw-whitespace-nowrap tw-transition-opacity tw-text-sm md:tw-text-base tw-text-white', {'tw-opacity-40': orchestrator.isShuffling }]">
+                                                            @{{ filterAttribute.value }}
+                                                        </div>
+                                                    </div>
+                                                </transition>
                                             </div>
                                         </div>
                                     </div>
