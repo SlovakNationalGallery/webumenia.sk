@@ -31,20 +31,30 @@
                 <div
                     class="tw-absolute tw-inset-0 tw-bg-gradient-to-r tw-from-black/50 tw-to-black/20 md:tw-to-black/0">
                 </div>
-                <div
-                    class="tw-container tw-relative tw-mx-auto tw-max-w-screen-xl tw-py-8 tw-px-6 tw-text-white md:tw-py-20">
-                    <h2 class="tw-mt-36 tw-font-semibold tw-drop-shadow md:tw-mt-48 md:tw-text-lg">
-                        {{ trans('home.featured_piece.title') }}</h2>
-                    <h3 class="tw-mt-4 tw-text-3xl tw-font-semibold tw-drop-shadow md:tw-text-6xl">
-                        {{ $featuredPiece->title }}
-                    </h3>
-                    <p
-                        class="tw-mt-5 tw-max-w-lg tw-font-serif tw-leading-relaxed tw-drop-shadow md:tw-text-xl">
-                        {{ $featuredPiece->excerpt }}
-                    </p>
-                    <livewire:home.tracked-featured-piece-button :featured-piece="$featuredPiece"
-                        class="tw-mt-3 md:tw-mt-6" />
-                </div>
+
+                <featured-piece-click-tracker v-bind:id="{{ $featuredPiece->id }}"
+                    url="{{ $featuredPiece->url }}" v-slot="{ track }">
+                    <div
+                        class="tw-container tw-relative tw-mx-auto tw-max-w-screen-xl tw-py-8 tw-px-6 tw-text-white md:tw-py-20">
+                        <h2 class="tw-mt-36 tw-font-semibold tw-drop-shadow md:tw-mt-48 md:tw-text-lg">
+                            {{ trans('home.featured_piece.title') }}
+                        </h2>
+                        <h3 class="tw-mt-4 tw-text-3xl tw-font-semibold tw-drop-shadow md:tw-text-6xl">
+                            <a href="{{ $featuredPiece->url }}" v-on:click.once.prevent="track">
+                                {{ $featuredPiece->title }}
+                            </a>
+                        </h3>
+                        <div
+                            class="tw-prose-invert prose-p:tw-mb-4 tw-mt-5 tw-max-w-lg tw-font-serif tw-leading-relaxed tw-drop-shadow md:tw-text-xl">
+                            {!! $featuredPiece->excerpt !!}
+                        </div>
+                        <a href="{{ $featuredPiece->url }}" v-on:click.once.prevent="track"
+                            class="tw-mt-3 tw-inline-block tw-border tw-border-gray-300 tw-px-4 tw-py-2 tw-text-sm tw-transition tw-duration-300 hover:tw-border-gray-400 hover:tw-bg-white hover:tw-text-gray-800 md:tw-mt-6">
+                            {{ $featuredPiece->is_collection? trans('home.featured_piece.button_collection'): trans('home.featured_piece.button_article') }}
+                            <i class="fa icon-arrow-right tw-ml-2"></i>
+                        </a>
+                    </div>
+                </featured-piece-click-tracker>
             </div>
         @endif
 
@@ -82,7 +92,11 @@
                         {{ trans('home.featured_artwork.title') }}
                     </h2>
                     <div>
-                        <h3 class="tw-text-3xl lg:tw-text-4xl">{{ $featuredArtwork->title }}</h3>
+                        <h3 class="tw-text-3xl lg:tw-text-4xl">
+                            <a href="{{ route('dielo', ['id' => $featuredArtwork->item->id]) }}">
+                                {{ $featuredArtwork->title }}
+                            </a>
+                        </h3>
                         <div class="tw-mt-2 tw-text-sm lg:tw-mt-3 lg:tw-text-lg">
                             @foreach ($featuredArtwork->author_links as $l)
                                 <a href="{{ $l->url }}"
@@ -100,7 +114,7 @@
                             @endforeach
                         </div>
                         <div
-                            class="tw-mt-4 tw-hidden tw-font-serif tw-text-xl tw-leading-relaxed lg:tw-block">
+                            class="tw-prose-invert prose-p:tw-mb-4 tw-mt-4 tw-hidden tw-font-serif tw-text-xl tw-leading-relaxed lg:tw-block">
                             {!! $featuredArtwork->description !!}
                         </div>
                         <a href="{{ route('dielo', ['id' => $featuredArtwork->item->id]) }}"

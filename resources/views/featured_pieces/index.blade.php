@@ -51,7 +51,7 @@
                                 @endif
                             <td>
                                 <strong>{{ $piece->title }}</strong><br>
-                                {{ $piece->excerpt }}
+                                {!! strip_tags($piece->excerpt) !!}
                             </td>
                             <td>
                                 @datetime($piece->created_at)

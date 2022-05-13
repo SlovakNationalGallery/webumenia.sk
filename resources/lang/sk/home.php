@@ -20,7 +20,7 @@ return [
     ],
 
     'featured_artwork' => [
-        'title' => 'Dielo dňa',
+        'title' => 'Dielo týždňa',
         'button' => 'Viac o diele',
     ],
 

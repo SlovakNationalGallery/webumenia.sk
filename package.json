@@ -12,6 +12,7 @@
     "devDependencies": {
         "@prettier/plugin-php": "^0.18.2",
         "@shufo/prettier-plugin-blade": "^1.2.4",
+        "@tailwindcss/typography": "^0.5.2",
         "autoprefixer": "^10.4.2",
         "cross-env": "^5.1",
         "jquery": "^3.5.0",
