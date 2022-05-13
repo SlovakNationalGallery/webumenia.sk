@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.53.0] - 2022-05-13
 ### Changed
 - temporarily removed print reproductions
 
