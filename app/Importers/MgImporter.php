@@ -36,6 +36,7 @@ class MgImporter extends AbstractImporter {
         'author' => 'neurčený autor',
         'topic' => '',
         'relationship_type' => '',
+        'description' => '',
     ];
 
     protected static $cz_work_types_spec = [
