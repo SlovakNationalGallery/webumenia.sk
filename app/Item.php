@@ -553,7 +553,6 @@ class Item extends Model implements IndexableModel, TranslatableContract
             'Galéria Miloša Alexandra Bazovského, GBT',
             'Galéria umelcov Spiša, GUS',
             'Východoslovenská galéria, VSG',
-            'Památník národního písemnictví, PNP',
         ])) {
             return self::FREE_NEVER;
         }
