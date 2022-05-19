@@ -26,13 +26,17 @@ return array(
         'SGB' => 'Stredoslovenská galéria',
         'GUS' => 'Galéria umelcov Spiša',
         'VSG' => 'Východoslovenská galéria',
-        'MG' => 'Moravská galerie',
         'TGP' => 'Tatranská galéria',
         'PGU' => 'Považská galéria umenia',
         'SGP' => 'Šariššská galéria v Prešove',
-        'KGC' => 'Kysucká galerie v Oščadnici',
+        'KGC' => 'Kysucká galéria v Oščadnici',
+        'TGM' => 'Turčianska galéria v Martině',
+        'GJK' => 'Galéria Jána Koniarka v Trnavě',
+        'MVL' => 'Muzeum Vojtecha Löfflera',
         'PNP' => 'Památník národního písemnictví',
+        'MG' => 'Moravská galerie',
         '4RG' => 'Galerie moderního umění v Roudnici nad Labem',
+        'GMUHK' => 'Galerie moderního umění v Hradci Králové',
     ],
 
     'mozete_heading'               => 'U nás lze',
@@ -56,16 +60,16 @@ return array(
     'more-items_connect_col2_lead'       => 'jsme otevřeni <strong>dalším <br>formám&nbsp;spolupráce</strong>.',
     'more-items_connect_col2_p'          => 'Pokud víte o některém z děl nebo autorů více informací, případně jste na jeho profilu u nás nenašli fotografii, budeme rádi, když nám pomůžete s jejich doplněním. Napište nám na <a href="mailto:lab@sng.sk">lab@sng.sk</a>, rádi se s vámi spojíme.',
     'more-items_connect_col3_lead'       => 'web umenia realizuje <br>kolektiv <strong><a href="http://lab.sng.sk/" target="_blank" class="strong">lab.SNG</a></strong>',
-    'more-items_connect_col3_ul-content' => '<li><strong>Michal Čudrnák</strong> vedoucí lab.SNG, autor článků</li>
-                                             <li><strong>Lukáš Štepanovský</strong> editor obsahu, autor článků, UX designér</li>
+    'more-items_connect_col3_ul-content' => '<li><strong>Michal Čudrnák</strong> vedoucí lab.SNG</li>
+                                             <li><strong>Lukáš Štepanovský</strong> editor obsahu, UX designér</li>
                                              <li><strong>Igor Rjabinin</strong> vývojář</li>
                                              <li><strong>Rastislav Chynoranský</strong> vývojář</li>
                                              <li><strong>Ernest Walzel</strong> vývojář</li>
-                                             <li><strong>Martin Havala</strong> vývojář</li>
-                                             <li><strong>Andrej Bilec</strong> vývojář</li>
-                                             <li><strong>Zuzana Koblišková</strong> editorka obsahu, autorka článků</li>
-                                             <li><strong>Gabriel Balkó</strong> kontrolor kvality, editor obsahu</li>
-                                             <li><strong>Karin Vicianová</strong> kontrolorka kvality, editorka obsahu</li>
+                                             <li><strong>Gorazd Ratulovský</strong> UX designér</li>
+                                             <li><strong>Katarína Buzová</strong> UX výzkum</li>
+                                             <li><strong>Zuzana Koblišková</strong> editorka obsahu</li>
+                                             <li><strong>Gabriel Balkó</strong> kontrolor kvality, správce reprodukcí</li>
+                                             <li><strong>Karin Vicianová</strong> kontrolorka kvality</li>
                                              <li><strong>Jana Šuchová</strong> editorka obsahu</li>
                                              <li><strong>Vladimír Hergott</strong> správce CEDVU</li>
                                              <li><strong>Braňo Matis</strong> grafický designér</li>',
