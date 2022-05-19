@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Changed
 - tracking of featured piece clicks from Livewire to Vue
 - FeaturedPiece supports rich formatting
+- Information page with updated data
 
 ## [2.51.1] - 2022-04-26
 ### Fixed
