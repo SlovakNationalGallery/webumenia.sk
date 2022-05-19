@@ -49,7 +49,7 @@
                 <div
                     class="tw-relative tw-flex tw-flex-col tw-items-center tw-p-6 tw-text-white md:tw-p-8">
                     <h1
-                        class="tw-mt-20 tw-text-center tw-text-3xl tw-drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] md:tw-mt-56 md:tw-text-6xl md:tw-drop-shadow-[0_4px_3px_rgba(0,0,0,0.5)]">
+                        class="tw-mt-20 tw-text-center tw-text-3xl tw-drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] md:tw-mt-40 md:tw-text-6xl md:tw-drop-shadow-[0_4px_3px_rgba(0,0,0,0.5)]">
                         Objavuj cesty umením
                     </h1>
                     <div class="tw-max-w-5xl tw-text-center">
@@ -70,7 +70,7 @@
                                         class="tw-grid tw-grow tw-grid-cols-1 tw-gap-2.5 tw-bg-black/80 tw-p-4 tw-shadow md:tw-grid-cols-3">
 
                                         <div v-cloak
-                                            v-for="filterAttribute, filterAttributeIndex in orchestrator.filterAttributes"
+                                            v-for="filterAttribute, filterAttributeIndex in orchestrator.filter.attributes"
                                             v-bind:key="filterAttributeIndex">
 
                                             {{-- invisible text for spacing --}}
@@ -113,7 +113,7 @@
 
                             </div>
 
-                            <x-home.button v-bind:href="orchestrator.url"
+                            <x-home.button v-bind:href="orchestrator.filter.url"
                                 v-bind:class="['tw-mt-6 tw-self-stretch tw-bg-white/10 tw-text-center md:tw-hidden', {'tw-opacity-40 tw-pointer-events-none': orchestrator.isShuffling}]">
                                 Pozri podobné diela
                             </x-home.button>
@@ -121,22 +121,42 @@
                     </div>
 
                     <div class="tw-mt-10 tw-grid tw-self-stretch md:tw-mt-20 md:tw-grid-cols-3">
-                        <div class="tw-col-start-2 tw-hidden tw-text-center md:tw-block">
-                            <x-home.button v-bind:href="orchestrator.url"
+                        <div class="tw-col-start-2 tw-hidden tw-text-center md:tw-block md:tw-pb-24">
+                            <x-home.button v-bind:href="orchestrator.filter.url"
                                 v-bind:class="['tw-self-stretch tw-bg-white/10 tw-text-center disabled:tw-opacity-40', {'tw-opacity-40 tw-pointer-events-none': orchestrator.isShuffling}]">
                                 Pozri podobné diela
                             </x-home.button>
                         </div>
                         <div
-                            v-bind:class="['tw-flex tw-flex-col tw-items-center tw-text-xs md:tw-mt-2 md:tw-items-end md:tw-text-sm tw-transition-opacity', {'tw-opacity-40 tw-pointer-events-none': orchestrator.isShuffling}]">
-                            <div
-                                class="tw-flex tw-flex-wrap tw-gap-x-1 tw-text-white/60 md:tw-flex-col md:tw-items-end">
-                                <span>Antonín Chittussi</span>
-                                <span class="tw-font-bold">Západ – Côte de la Gale</span>
-                                <span>1880</span>
+                            v-bind:class="['tw-flex tw-flex-col tw-items-center tw-text-xs md:tw-self-end md:tw-items-end md:tw-text-sm tw-transition-opacity', {'tw-opacity-40 tw-pointer-events-none': orchestrator.isShuffling}]">
+                            <div class="tw-relative">
+                                <div
+                                    class="tw-invisible tw-flex tw-flex-wrap tw-gap-x-1 tw-text-white/60 md:tw-flex-col md:tw-items-end">
+                                    <span>@{{ orchestrator.item.authors }}</span>
+                                    <span class="tw-font-bold">@{{ orchestrator.item.title }}</span>
+                                    <span>@{{ orchestrator.item.dating }}</span>
+                                </div>
+                                <transition v-bind:duration="300" enter-class="tw-opacity-0"
+                                    enter-to-class="tw-opacity-100"
+                                    enter-active-class="tw-transition-opacity tw-duration-300"
+                                    leave-class="tw-opacity-100" leave-to-class="tw-opacity-0"
+                                    leave-active-class="tw-transition-opacity tw-duration-300">
+                                    <div
+                                        class="tw-absolute tw-inset-0 tw-flex tw-flex-wrap tw-gap-x-1 tw-text-white/60 md:tw-flex-col md:tw-items-end">
+                                        <span>@{{ orchestrator.item.authors }}</span>
+                                        <span class="tw-font-bold">@{{ orchestrator.item.title }}</span>
+                                        <span>@{{ orchestrator.item.dating }}</span>
+                                    </div>
+                                </transition>
                             </div>
+                            {{-- <div
+                                class="tw-flex tw-flex-wrap tw-gap-x-1 tw-text-white/60 md:tw-flex-col md:tw-items-end">
+                                <span>@{{ orchestrator.item.authors }}</span>
+                                <span class="tw-font-bold">@{{ orchestrator.item.title }}</span>
+                                <span>@{{ orchestrator.item.dating }}</span>
+                            </div> --}}
                             <div class="tw-mt-2 tw-text-center">
-                                <a href="TODO"
+                                <a v-bind:href="orchestrator.item.url"
                                     class="tw-text-white/60 tw-underline tw-decoration-2 tw-underline-offset-2 tw-transition-colors hover:tw-text-white">Zobraziť
                                     dielo</a>
                             </div>
