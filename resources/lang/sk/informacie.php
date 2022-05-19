@@ -60,16 +60,16 @@ return array(
     'more-items_connect_col2_lead'       => 'sme otvorení <strong>ďalším <br>formám&nbsp;spolupráce</strong>.',
     'more-items_connect_col2_p'          => 'Ak viete o niektorom z diel alebo autorov viac informácií, alebo ste na jeho profile u nás nenašli fotografiu, budeme radi ak nám pomôžete pri ich doplnení. Napíšte nám na <a href="mailto:lab@sng.sk">lab@sng.sk</a>, spojíme sa s vami.',
     'more-items_connect_col3_lead'       => 'web umenia realizuje <br>kolektív <strong><a href="http://lab.sng.sk/" target="_blank" class="strong">lab.SNG</a></strong>',
-    'more-items_connect_col3_ul-content' => '<li><strong>Michal Čudrnák</strong> vedúci lab.SNG, autor článkov</li>
-                                             <li><strong>Lukáš Štepanovský</strong> editor obsahu, autor článkov, UX dizajnér</li>
+    'more-items_connect_col3_ul-content' => '<li><strong>Michal Čudrnák</strong> vedúci lab.SNG</li>
+                                             <li><strong>Lukáš Štepanovský</strong> editor obsahu, UX dizajnér</li>
                                              <li><strong>Igor Rjabinin</strong> vývojár</li>
                                              <li><strong>Rastislav Chynoranský</strong> vývojár</li>
                                              <li><strong>Ernest Walzel</strong> vývojár</li>
-                                             <li><strong>Martin Havala</strong> vývojár</li>
-                                             <li><strong>Andrej Bilec</strong> vývojár</li>
-                                             <li><strong>Zuzana Koblišková</strong> editorka obsahu, autorka článkov</li>
-                                             <li><strong>Gabriel Balkó</strong> kontrolór kvality, editor obsahu</li>
-                                             <li><strong>Karin Vicianová</strong> kontrolórka kvality, editorka obsahu</li>
+                                             <li><strong>Gorazd Ratulovský</strong> UX dizajnér</li>
+                                             <li><strong>Katarína Buzová</strong> UX výskumníčka</li>
+                                             <li><strong>Zuzana Koblišková</strong> editorka obsahu</li>
+                                             <li><strong>Gabriel Balkó</strong> kontrolór kvality, správca reprodukcií</li>
+                                             <li><strong>Karin Vicianová</strong> kontrolórka kvality</li>
                                              <li><strong>Jana Šuchová</strong> editorka obsahu</li>
                                              <li><strong>Vladimír Hergott</strong> správca CEDVU</li>
                                              <li><strong>Braňo Matis</strong> grafický dizajnér</li>',
