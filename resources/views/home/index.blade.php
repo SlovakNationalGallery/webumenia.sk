@@ -25,11 +25,12 @@
 
 @section('content')
     <div class="tailwind-rules">
-        <home.shuffle-orchestrator v-slot="orchestrator">
+        <home.shuffle-orchestrator v-bind:items="{{ Js::from($shuffledItems) }}"
+            v-slot="orchestrator">
             <div class="tw-relative tw-overflow-hidden">
                 <img onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});"
-                    sizes="1px" v-bind:srcset="orchestrator.img.srcset"
-                    v-bind:src="orchestrator.img.src"
+                    sizes="1px" v-bind:srcset="orchestrator.item.img.srcset"
+                    v-bind:src="orchestrator.item.img.src"
                     v-bind:class="['tw-absolute tw-h-full tw-w-full tw-object-cover tw-transition-all tw-scale-[1.005] tw-duration-700 tw-ease-in', {'tw-blur tw-scale-100': orchestrator.isShuffling }]">
 
                 <img onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});"
