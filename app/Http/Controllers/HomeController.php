@@ -12,41 +12,23 @@ use App\Filter\ItemFilter;
 use App\Item;
 use App\ShuffledItem;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $shuffledItems = ShuffledItem::query()
-            ->withTranslation()
-            ->with(['translations', 'media', 'item', 'item.authorities', 'item.translations'])
-            ->published()
-            ->get()
-            ->map(
-                fn($si) => [
-                    'id' => $si->id,
-                    'authorLinks' => $si->author_links,
-                    'title' => $si->title,
-                    'url' => route('item.show', $si->item),
-                    'datingFormatted' => $si->dating_formatted,
-                    'filters' => collect($si->filters)->map(
-                        fn($f) => [
-                            'url' => $f['url'],
-                            'attributes' => collect($f['attributes'])->map(
-                                fn($a) => [
-                                    'label' => trans('item.' . $a['name']),
-                                    'value' => $a['label'],
-                                ]
-                            ),
-                        ]
-                    ),
-                    'img' => [
-                        'src' => $si->getFirstMedia('image')->getUrl(),
-                        'srcset' => $si->getFirstMedia('image')->getSrcset(),
-                    ],
-                ]
-            );
+        $locale = App::currentLocale();
+
+        $shuffledItems = Cache::rememberForever("home.shuffled-items.$locale", function () {
+            return ShuffledItem::query()
+                ->withTranslation()
+                ->with(['media', 'item', 'item.authorities', 'item.translations'])
+                ->published()
+                ->get()
+                ->map(fn($si) => $si->toShuffleOrchestratorItem());
+        });
 
         $featuredPiece = Cache::rememberForever('home.featured-piece', function () {
             return FeaturedPiece::query()
