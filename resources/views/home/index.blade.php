@@ -50,14 +50,14 @@
                     class="tw-relative tw-flex tw-flex-col tw-items-center tw-p-6 tw-text-white md:tw-p-8">
                     <h1
                         class="tw-mt-20 tw-text-center tw-text-3xl tw-drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] md:tw-mt-40 md:tw-text-6xl md:tw-drop-shadow-[0_4px_3px_rgba(0,0,0,0.5)]">
-                        Objavuj cesty umením
+                        {{ trans('home.shuffled_item.tagline') }}
                     </h1>
                     <div class="tw-max-w-5xl tw-text-center">
                         <p
                             class="tw-mt-2 tw-drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] md:tw-mt-6 md:tw-text-2xl">
-                            Nájdi tisíce kombinácií výtvarných techník,
+                            {{ trans('home.shuffled_item.subtitle.0') }}
                             <br class="sm:tw-hidden" />
-                            žánrov a&nbsp;motívov
+                            {!! trans('home.shuffled_item.subtitle.1') !!}
                         </p>
                     </div>
 
@@ -107,7 +107,7 @@
                                         class="tw-group tw-w-full tw-basis-0 tw-bg-sky-300 tw-px-4 tw-py-2 tw-text-center tw-text-xs tw-text-black tw-transition-colors hover:tw-bg-sky-400 md:tw-px-6 md:tw-text-sm">
                                         <i
                                             class="fa fa-repeat tw-mr-2 tw--ml-4 tw-transition-transform group-hover:tw-rotate-45 md:tw-mx-0"></i>
-                                        Zamiešaj
+                                        {{ trans('home.shuffled_item.button_shuffle') }}
                                     </button>
                                 </div>
 
@@ -115,7 +115,7 @@
 
                             <x-home.button v-bind:href="orchestrator.filter.url"
                                 v-bind:class="['tw-mt-6 tw-self-stretch tw-bg-white/10 tw-text-center md:tw-hidden', {'tw-opacity-40 tw-pointer-events-none': orchestrator.isShuffling}]">
-                                Pozri podobné diela
+                                {{ trans('home.shuffled_item.more_like_this') }}
                             </x-home.button>
                         </div>
                     </div>
@@ -124,7 +124,7 @@
                         <div class="tw-col-start-2 tw-hidden tw-text-center md:tw-block md:tw-pb-24">
                             <x-home.button v-bind:href="orchestrator.filter.url"
                                 v-bind:class="['tw-self-stretch tw-bg-white/10 tw-text-center disabled:tw-opacity-40', {'tw-opacity-40 tw-pointer-events-none': orchestrator.isShuffling}]">
-                                Pozri podobné diela
+                                {{ trans('home.shuffled_item.more_like_this') }}
                             </x-home.button>
                         </div>
                         <div
@@ -157,8 +157,9 @@
                             </div> --}}
                             <div class="tw-mt-2 tw-text-center">
                                 <a v-bind:href="orchestrator.item.url"
-                                    class="tw-text-white/60 tw-underline tw-decoration-2 tw-underline-offset-2 tw-transition-colors hover:tw-text-white">Zobraziť
-                                    dielo</a>
+                                    class="tw-text-white/60 tw-underline tw-decoration-2 tw-underline-offset-2 tw-transition-colors hover:tw-text-white">
+                                    {{ trans('home.shuffled_item.go_to_item') }}
+                                </a>
                             </div>
                         </div>
 
