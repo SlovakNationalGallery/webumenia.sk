@@ -72,34 +72,18 @@
                                             v-for="filterAttribute, filterAttributeIndex in orchestrator.filter.attributes"
                                             v-bind:key="filterAttributeIndex">
 
-                                            {{-- invisible text for spacing --}}
-                                            <div class="tw-relative">
-                                                <div class="tw-invisible tw-text-xs">
-                                                    @{{ filterAttribute.label }}
-                                                </div>
-                                                <div
-                                                    class="tw-invisible tw-whitespace-nowrap tw-text-sm tw-text-white md:tw-text-base">
-                                                    @{{ filterAttribute.value }}
-                                                </div>
-                                                <transition v-bind:duration="300"
-                                                    enter-class="tw-opacity-0"
-                                                    enter-to-class="tw-opacity-100"
-                                                    enter-active-class="tw-transition-opacity tw-duration-300"
-                                                    leave-class="tw-opacity-100"
-                                                    leave-to-class="tw-opacity-0"
-                                                    leave-active-class="tw-transition-opacity tw-duration-300">
-                                                    <div v-bind:key="filterAttribute.label + filterAttribute.value"
-                                                        class="tw-absolute tw-inset-0">
-                                                        <div class="tw-text-xs tw-text-white/40">
-                                                            @{{ filterAttribute.label }}
-                                                        </div>
-                                                        <div
-                                                            v-bind:class="['tw-whitespace-nowrap tw-transition-opacity tw-text-sm md:tw-text-base tw-text-white', {'tw-opacity-40': orchestrator.isShuffling }]">
-                                                            @{{ filterAttribute.value }}
-                                                        </div>
+                                            <home.transition-in-place
+                                                v-bind:transition-key="filterAttribute.label + filterAttribute.value">
+                                                <div>
+                                                    <div class="tw-text-xs tw-text-white/40">
+                                                        @{{ filterAttribute.label }}
                                                     </div>
-                                                </transition>
-                                            </div>
+                                                    <div
+                                                        v-bind:class="['tw-whitespace-nowrap tw-transition-opacity tw-text-sm md:tw-text-base tw-text-white', {'tw-opacity-40': orchestrator.isShuffling }]">
+                                                        @{{ filterAttribute.value }}
+                                                    </div>
+                                                </div>
+                                            </home.transition-in-place>
                                         </div>
                                     </div>
                                     <button v-on:click="orchestrator.shuffle"
@@ -128,32 +112,16 @@
                         </div>
                         <div
                             v-bind:class="['tw-flex tw-flex-col tw-items-center tw-text-xs md:tw-self-end md:tw-items-end md:tw-text-sm tw-transition-opacity', {'tw-opacity-40 tw-pointer-events-none': orchestrator.isShuffling}]">
-                            <div class="tw-relative">
+                            <home.transition-in-place v-bind:transition-key="orchestrator.item.url"
+                                class="tw-self-stretch">
                                 <div
-                                    class="tw-invisible tw-flex tw-flex-wrap tw-gap-x-1 tw-text-white/60 md:tw-flex-col md:tw-items-end">
+                                    class="tw-flex tw-flex-wrap tw-gap-x-1 tw-text-white/60 md:tw-flex-col md:tw-flex-nowrap md:tw-items-end md:tw-justify-end">
                                     <span>@{{ orchestrator.item.authors }}</span>
                                     <span class="tw-font-bold">@{{ orchestrator.item.title }}</span>
                                     <span>@{{ orchestrator.item.dating }}</span>
                                 </div>
-                                <transition v-bind:duration="300" enter-class="tw-opacity-0"
-                                    enter-to-class="tw-opacity-100"
-                                    enter-active-class="tw-transition-opacity tw-duration-300"
-                                    leave-class="tw-opacity-100" leave-to-class="tw-opacity-0"
-                                    leave-active-class="tw-transition-opacity tw-duration-300">
-                                    <div
-                                        class="tw-absolute tw-inset-0 tw-flex tw-flex-wrap tw-gap-x-1 tw-text-white/60 md:tw-flex-col md:tw-items-end">
-                                        <span>@{{ orchestrator.item.authors }}</span>
-                                        <span class="tw-font-bold">@{{ orchestrator.item.title }}</span>
-                                        <span>@{{ orchestrator.item.dating }}</span>
-                                    </div>
-                                </transition>
-                            </div>
-                            {{-- <div
-                                class="tw-flex tw-flex-wrap tw-gap-x-1 tw-text-white/60 md:tw-flex-col md:tw-items-end">
-                                <span>@{{ orchestrator.item.authors }}</span>
-                                <span class="tw-font-bold">@{{ orchestrator.item.title }}</span>
-                                <span>@{{ orchestrator.item.dating }}</span>
-                            </div> --}}
+                            </home.transition-in-place>
+
                             <div class="tw-mt-2 tw-text-center">
                                 <a v-bind:href="orchestrator.item.url"
                                     class="tw-text-white/60 tw-underline tw-decoration-2 tw-underline-offset-2 tw-transition-colors hover:tw-text-white">

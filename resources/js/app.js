@@ -34,6 +34,7 @@ Vue.component('filter-checkbox', require('./components/filter/Checkbox.vue').def
 Vue.component('filter-custom-select', require('./components/filter/CustomSelect.vue').default);
 Vue.component('flickity', require('./components/Flickity.vue').default);
 Vue.component('home.shuffle-orchestrator', require('./components/home/ShuffleOrchestrator.vue').default);
+Vue.component('home.transition-in-place', require('./components/home/TransitionInPlace.vue').default);
 Vue.component('tabs-controller', require('./components/TabsController.vue').default);
 Vue.component('tab', require('./components/Tab.vue').default);
 Vue.component('tab-panel', require('./components/TabPanel.vue').default);
