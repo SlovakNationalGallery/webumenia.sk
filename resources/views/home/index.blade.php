@@ -25,115 +25,119 @@
 
 @section('content')
     <div class="tailwind-rules">
-        <home.shuffle-orchestrator v-bind:items="{{ Js::from($shuffledItems) }}"
-            v-slot="orchestrator">
-            <div class="tw-relative tw-overflow-hidden">
-                <img onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});"
-                    sizes="1px" v-bind:srcset="orchestrator.item.img.srcset"
-                    v-bind:src="orchestrator.item.img.src"
-                    v-bind:class="['tw-absolute tw-h-full tw-w-full tw-object-cover tw-transition-all tw-scale-[1.005] tw-duration-700 tw-ease-in', {'tw-blur tw-scale-100': orchestrator.isShuffling }]">
+        @if ($shuffledItems->count() > 0)
+            <home.shuffle-orchestrator v-bind:items="{{ Js::from($shuffledItems) }}"
+                v-slot="orchestrator">
+                <div class="tw-relative tw-overflow-hidden">
+                    <img onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});"
+                        sizes="1px" v-bind:srcset="orchestrator.item.img.srcset"
+                        v-bind:src="orchestrator.item.img.src"
+                        v-bind:class="['tw-absolute tw-h-full tw-w-full tw-object-cover tw-transition-all tw-scale-[1.005] tw-duration-700 tw-ease-in', {'tw-blur tw-scale-100': orchestrator.isShuffling }]">
 
-                <img onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});"
-                    sizes="1px" v-bind:srcset="orchestrator.nextImg.srcset"
-                    v-bind:src="orchestrator.nextImg.src"
-                    class="tw-invisible tw-absolute tw-h-full tw-w-full tw-scale-[1.005] tw-object-cover">
+                    <img onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});"
+                        sizes="1px" v-bind:srcset="orchestrator.nextImg.srcset"
+                        v-bind:src="orchestrator.nextImg.src"
+                        class="tw-invisible tw-absolute tw-h-full tw-w-full tw-scale-[1.005] tw-object-cover">
 
-                {{-- Partial bottom overlay (for readability) --}}
-                <div v-cloak
-                    class="tw-absolute tw-inset-x-0 tw-bottom-0 tw-h-1/2 tw-bg-gradient-to-b tw-from-black/0 tw-to-black/60 md:tw-h-1/3 md:tw-to-black/50">
-                </div>
-
-                {{-- Full overlay for transitions --}}
-                <div v-cloak
-                    v-bind:class="['tw-absolute tw-inset-0 tw-transition-all tw-bg-black tw-duration-500', orchestrator.isShuffling ? 'tw-opacity-50' : 'tw-opacity-0']">
-                </div>
-                <div
-                    class="tw-relative tw-flex tw-flex-col tw-items-center tw-p-6 tw-text-white md:tw-p-8">
-                    <h1
-                        class="tw-mt-20 tw-text-center tw-text-3xl tw-drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] md:tw-mt-40 md:tw-text-6xl md:tw-drop-shadow-[0_4px_3px_rgba(0,0,0,0.5)]">
-                        {{ trans('home.shuffled_item.tagline') }}
-                    </h1>
-                    <div class="tw-max-w-5xl tw-text-center">
-                        <p
-                            class="tw-mt-2 tw-drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] md:tw-mt-6 md:tw-text-2xl">
-                            {!! trans('home.shuffled_item.subtitle') !!}
-                        </p>
+                    {{-- Partial bottom overlay (for readability) --}}
+                    <div v-cloak
+                        class="tw-absolute tw-inset-x-0 tw-bottom-0 tw-h-1/2 tw-bg-gradient-to-b tw-from-black/0 tw-to-black/60 md:tw-h-1/3 md:tw-to-black/50">
                     </div>
 
-                    <div class="tw-mt-6 tw-self-stretch md:tw-mt-10" v-cloak>
-                        <div
-                            class="tw-mx-auto tw-flex tw-w-60 tw-flex-col md:tw-w-auto md:tw-max-w-3xl">
-                            <div class="tw-flex tw-flex-col tw-items-stretch">
-                                <div class="tw-justify-items-stretch md:tw-flex">
-                                    <div
-                                        class="tw-grid tw-grow tw-grid-cols-1 tw-gap-2.5 tw-bg-black/80 tw-p-4 tw-shadow md:tw-grid-cols-3">
+                    {{-- Full overlay for transitions --}}
+                    <div v-cloak
+                        v-bind:class="['tw-absolute tw-inset-0 tw-transition-all tw-bg-black tw-duration-500', orchestrator.isShuffling ? 'tw-opacity-50' : 'tw-opacity-0']">
+                    </div>
+                    <div
+                        class="tw-relative tw-flex tw-flex-col tw-items-center tw-p-6 tw-text-white md:tw-p-8">
+                        <h1
+                            class="tw-mt-20 tw-text-center tw-text-3xl tw-drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] md:tw-mt-40 md:tw-text-6xl md:tw-drop-shadow-[0_4px_3px_rgba(0,0,0,0.5)]">
+                            {{ trans('home.shuffled_item.tagline') }}
+                        </h1>
+                        <div class="tw-max-w-5xl tw-text-center">
+                            <p
+                                class="tw-mt-2 tw-drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] md:tw-mt-6 md:tw-text-2xl">
+                                {!! trans('home.shuffled_item.subtitle') !!}
+                            </p>
+                        </div>
 
-                                        <div v-cloak
-                                            v-for="filterAttribute, filterAttributeIndex in orchestrator.filter.attributes"
-                                            v-bind:key="filterAttributeIndex">
+                        <div class="tw-mt-6 tw-self-stretch md:tw-mt-10" v-cloak>
+                            <div
+                                class="tw-mx-auto tw-flex tw-w-60 tw-flex-col md:tw-w-auto md:tw-max-w-3xl">
+                                <div class="tw-flex tw-flex-col tw-items-stretch">
+                                    <div class="tw-justify-items-stretch md:tw-flex">
+                                        <div
+                                            class="tw-grid tw-grow tw-grid-cols-1 tw-gap-2.5 tw-bg-black/80 tw-p-4 tw-shadow md:tw-grid-cols-3">
 
-                                            <home.transition-in-place
-                                                v-bind:transition-key="filterAttribute.label + filterAttribute.value">
-                                                <div>
-                                                    <div class="tw-text-xs tw-text-white/40">
-                                                        @{{ filterAttribute.label }}
+                                            <div v-cloak
+                                                v-for="filterAttribute, filterAttributeIndex in orchestrator.filter.attributes"
+                                                v-bind:key="filterAttributeIndex">
+
+                                                <home.transition-in-place
+                                                    v-bind:transition-key="filterAttribute.label + filterAttribute.value">
+                                                    <div>
+                                                        <div class="tw-text-xs tw-text-white/40">
+                                                            @{{ filterAttribute.label }}
+                                                        </div>
+                                                        <div
+                                                            v-bind:class="['tw-whitespace-nowrap tw-transition-opacity tw-text-sm md:tw-text-base tw-text-white', {'tw-opacity-40': orchestrator.isShuffling }]">
+                                                            @{{ filterAttribute.value }}
+                                                        </div>
                                                     </div>
-                                                    <div
-                                                        v-bind:class="['tw-whitespace-nowrap tw-transition-opacity tw-text-sm md:tw-text-base tw-text-white', {'tw-opacity-40': orchestrator.isShuffling }]">
-                                                        @{{ filterAttribute.value }}
-                                                    </div>
-                                                </div>
-                                            </home.transition-in-place>
+                                                </home.transition-in-place>
+                                            </div>
                                         </div>
+                                        <button v-on:click="orchestrator.shuffle"
+                                            class="tw-group tw-w-full tw-basis-0 tw-bg-sky-300 tw-px-4 tw-py-2 tw-text-center tw-text-xs tw-text-black tw-transition-colors hover:tw-bg-sky-400 md:tw-px-6 md:tw-text-sm">
+                                            <i
+                                                class="fa fa-repeat tw-mr-2 tw--ml-4 tw-transition-transform group-hover:tw-rotate-45 md:tw-mx-0"></i>
+                                            {{ trans('home.shuffled_item.button_shuffle') }}
+                                        </button>
                                     </div>
-                                    <button v-on:click="orchestrator.shuffle"
-                                        class="tw-group tw-w-full tw-basis-0 tw-bg-sky-300 tw-px-4 tw-py-2 tw-text-center tw-text-xs tw-text-black tw-transition-colors hover:tw-bg-sky-400 md:tw-px-6 md:tw-text-sm">
-                                        <i
-                                            class="fa fa-repeat tw-mr-2 tw--ml-4 tw-transition-transform group-hover:tw-rotate-45 md:tw-mx-0"></i>
-                                        {{ trans('home.shuffled_item.button_shuffle') }}
-                                    </button>
+
                                 </div>
 
-                            </div>
-
-                            <x-home.button v-bind:href="orchestrator.filter.url"
-                                v-bind:class="['tw-mt-6 tw-self-stretch tw-bg-white/10 tw-text-center md:tw-hidden', {'tw-opacity-40 tw-pointer-events-none': orchestrator.isShuffling}]">
-                                {{ trans('home.shuffled_item.more_like_this') }}
-                            </x-home.button>
-                        </div>
-                    </div>
-
-                    <div class="tw-mt-10 tw-grid tw-self-stretch md:tw-mt-20 md:tw-grid-cols-3">
-                        <div class="tw-col-start-2 tw-hidden tw-text-center md:tw-block md:tw-pb-24">
-                            <x-home.button v-bind:href="orchestrator.filter.url"
-                                v-bind:class="['tw-self-stretch tw-bg-white/10 tw-text-center disabled:tw-opacity-40', {'tw-opacity-40 tw-pointer-events-none': orchestrator.isShuffling}]">
-                                {{ trans('home.shuffled_item.more_like_this') }}
-                            </x-home.button>
-                        </div>
-                        <div
-                            v-bind:class="['tw-flex tw-flex-col tw-items-center tw-text-xs md:tw-self-end md:tw-items-end md:tw-text-sm tw-transition-opacity', {'tw-opacity-40 tw-pointer-events-none': orchestrator.isShuffling}]">
-                            <home.transition-in-place v-bind:transition-key="orchestrator.item.url"
-                                class="tw-self-stretch">
-                                <div
-                                    class="tw-flex tw-flex-wrap tw-gap-x-1 tw-text-white/60 md:tw-flex-col md:tw-flex-nowrap md:tw-items-end md:tw-justify-end">
-                                    <span>@{{ orchestrator.item.authors }}</span>
-                                    <span class="tw-font-bold">@{{ orchestrator.item.title }}</span>
-                                    <span>@{{ orchestrator.item.dating }}</span>
-                                </div>
-                            </home.transition-in-place>
-
-                            <div class="tw-mt-2 tw-text-center">
-                                <a v-bind:href="orchestrator.item.url"
-                                    class="tw-text-white/60 tw-underline tw-decoration-2 tw-underline-offset-2 tw-transition-colors hover:tw-text-white">
-                                    {{ trans('home.shuffled_item.go_to_item') }}
-                                </a>
+                                <x-home.button v-bind:href="orchestrator.filter.url"
+                                    v-bind:class="['tw-mt-6 tw-self-stretch tw-bg-white/10 tw-text-center md:tw-hidden', {'tw-opacity-40 tw-pointer-events-none': orchestrator.isShuffling}]">
+                                    {{ trans('home.shuffled_item.more_like_this') }}
+                                </x-home.button>
                             </div>
                         </div>
 
+                        <div class="tw-mt-10 tw-grid tw-self-stretch md:tw-mt-20 md:tw-grid-cols-3">
+                            <div
+                                class="tw-col-start-2 tw-hidden tw-text-center md:tw-block md:tw-pb-24">
+                                <x-home.button v-bind:href="orchestrator.filter.url"
+                                    v-bind:class="['tw-self-stretch tw-bg-white/10 tw-text-center disabled:tw-opacity-40', {'tw-opacity-40 tw-pointer-events-none': orchestrator.isShuffling}]">
+                                    {{ trans('home.shuffled_item.more_like_this') }}
+                                </x-home.button>
+                            </div>
+                            <div
+                                v-bind:class="['tw-flex tw-flex-col tw-items-center tw-text-xs md:tw-self-end md:tw-items-end md:tw-text-sm tw-transition-opacity', {'tw-opacity-40 tw-pointer-events-none': orchestrator.isShuffling}]">
+                                <home.transition-in-place v-bind:transition-key="orchestrator.item.url"
+                                    class="tw-self-stretch">
+                                    <div
+                                        class="tw-flex tw-flex-wrap tw-justify-center tw-gap-x-1 tw-text-white/60 md:tw-flex-col md:tw-flex-nowrap md:tw-items-end md:tw-justify-end md:tw-text-right">
+                                        <span
+                                            class="md:tw-whitespace-nowrap">@{{ orchestrator.item.authors }}</span>
+                                        <span class="tw-font-bold">@{{ orchestrator.item.title }}</span>
+                                        <span>@{{ orchestrator.item.dating }}</span>
+                                    </div>
+                                </home.transition-in-place>
+
+                                <div class="tw-mt-2 tw-text-center">
+                                    <a v-bind:href="orchestrator.item.url"
+                                        class="tw-text-white/60 tw-underline tw-decoration-2 tw-underline-offset-2 tw-transition-colors hover:tw-text-white">
+                                        {{ trans('home.shuffled_item.go_to_item') }}
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
-            </div>
-        </home.shuffle-orchestrator>
+            </home.shuffle-orchestrator>
+        @endif
 
         {{-- Counts blurb --}}
         <div class="tw-bg-gray-200">
