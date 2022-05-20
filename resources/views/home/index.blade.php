@@ -56,9 +56,7 @@
                     <div class="tw-max-w-5xl tw-text-center">
                         <p
                             class="tw-mt-2 tw-drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] md:tw-mt-6 md:tw-text-2xl">
-                            {{ trans('home.shuffled_item.subtitle.0') }}
-                            <br class="sm:tw-hidden" />
-                            {!! trans('home.shuffled_item.subtitle.1') !!}
+                            {!! trans('home.shuffled_item.subtitle') !!}
                         </p>
                     </div>
 
