@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - front-end components for "shuffle" items
 
+### Changed
+- whole featured piece home section to be clickable
+
 ## [2.54.0] - 2022-05-19
 ### Changed
 - Removed PNP from downloadable items
