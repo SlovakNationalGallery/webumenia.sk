@@ -113,17 +113,13 @@
                                 </x-home.button>
                             </div>
                             <div
-                                v-bind:class="['tw-flex tw-flex-col tw-items-center tw-text-xs md:tw-self-end md:tw-items-end md:tw-text-sm tw-transition-opacity', {'tw-opacity-40 tw-pointer-events-none': orchestrator.isShuffling}]">
-                                <home.transition-in-place v-bind:transition-key="orchestrator.item.url"
-                                    class="tw-self-stretch">
-                                    <div
-                                        class="tw-flex tw-flex-wrap tw-justify-center tw-gap-x-1 tw-text-white/60 md:tw-flex-col md:tw-flex-nowrap md:tw-items-end md:tw-justify-end md:tw-text-right">
-                                        <span
-                                            class="md:tw-whitespace-nowrap">@{{ orchestrator.item.authors }}</span>
-                                        <span class="tw-font-bold">@{{ orchestrator.item.title }}</span>
-                                        <span>@{{ orchestrator.item.dating }}</span>
-                                    </div>
-                                </home.transition-in-place>
+                                v-bind:class="['tw-flex tw-flex-col tw-items-center tw-text-xs md:tw-self-end md:tw-items-end md:tw-text-sm tw-transition-opacity tw-duration-500', {'tw-opacity-0 tw-pointer-events-none': orchestrator.isShuffling}]">
+                                <div
+                                    class="tw-flex tw-flex-wrap tw-justify-center tw-gap-x-1 tw-text-white/60 md:tw-flex-col md:tw-flex-nowrap md:tw-items-end md:tw-justify-end md:tw-text-right">
+                                    <span>@{{ orchestrator.item.authors }}</span>
+                                    <span class="tw-font-bold">@{{ orchestrator.item.title }}</span>
+                                    <span>@{{ orchestrator.item.dating }}</span>
+                                </div>
 
                                 <div class="tw-mt-2 tw-text-center">
                                     <a v-bind:href="orchestrator.item.url"
