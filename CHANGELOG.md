@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- front-end components for "shuffle" items
 
 ## [2.54.0] - 2022-05-19
 ### Changed
