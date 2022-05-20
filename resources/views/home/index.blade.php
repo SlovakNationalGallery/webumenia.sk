@@ -167,21 +167,23 @@
                 <featured-piece-click-tracker v-bind:id="{{ $featuredPiece->id }}"
                     url="{{ $featuredPiece->url }}" v-slot="{ track }">
                     <div
-                        class="tw-container tw-relative tw-mx-auto tw-max-w-screen-xl tw-py-8 tw-px-6 tw-text-white md:tw-py-20">
+                        class="tw-container tw-relative tw-mx-auto tw-flex tw-max-w-screen-xl tw-flex-col tw-items-start tw-py-8 tw-px-6 tw-text-white md:tw-py-20">
+                        <a href="{{ $featuredPiece->url }}" v-on:click.once.prevent="track"
+                            class="tw-absolute tw-inset-0"></a>
+
                         <h2 class="tw-mt-36 tw-font-semibold tw-drop-shadow md:tw-mt-48 md:tw-text-lg">
                             {{ trans('home.featured_piece.title') }}
                         </h2>
                         <h3 class="tw-mt-4 tw-text-3xl tw-font-semibold tw-drop-shadow md:tw-text-6xl">
-                            <a href="{{ $featuredPiece->url }}" v-on:click.once.prevent="track">
-                                {{ $featuredPiece->title }}
-                            </a>
+                            {{ $featuredPiece->title }}
                         </h3>
                         <div
                             class="tw-prose-invert tw-mt-5 tw-max-w-lg tw-font-serif tw-leading-relaxed tw-drop-shadow prose-p:tw-mb-4 md:tw-text-xl">
                             {!! $featuredPiece->excerpt !!}
                         </div>
                         <x-home.button href="{{ $featuredPiece->url }}"
-                            v-on:click.once.prevent="track" class="tw-mt-3 tw-bg-white/10 md:tw-mt-6">
+                            v-on:click.once.prevent="track"
+                            class="tw-relative tw-mt-3 tw-bg-white/10 md:tw-mt-6">
                             {{ $featuredPiece->is_collection? trans('home.featured_piece.button_collection'): trans('home.featured_piece.button_article') }}
                         </x-home.button>
                     </div>
