@@ -37,7 +37,7 @@ class ShuffledItemTest extends TestCase
         ]);
 
         $this->assertEquals(
-            'http://127.0.0.1:8002/?FIF=/path/to/image.jp2&WID=1600&RGN=0.5,0.6,0.7,0.8&CVT=jpeg',
+            'http://127.0.0.1:8002/?FIF=/path/to/image.jp2&WID=1920&RGN=0.5,0.6,0.7,0.8&CVT=jpeg',
             $shuffledItem->crop_url
         );
     }
