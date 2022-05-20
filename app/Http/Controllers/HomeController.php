@@ -21,8 +21,11 @@ class HomeController extends Controller
     {
         $locale = App::currentLocale();
 
-        $shuffledItems = Cache::rememberForever("home.shuffled-items.$locale", function () {
+        $shuffledItems = Cache::rememberForever("home.shuffled-items.$locale", function () use (
+            $locale
+        ) {
             return ShuffledItem::query()
+                ->translatedIn($locale)
                 ->withTranslation()
                 ->with(['media', 'item', 'item.authorities', 'item.translations'])
                 ->published()
