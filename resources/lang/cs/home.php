@@ -13,6 +13,14 @@ return [
     'are_free_end' => 'autorsky volných',
     'show_more_articles' => 'více článků',
 
+    'shuffled_item' => [
+        'tagline' => 'Objevuj cesty uměním',
+        'subtitle' => 'Najdi tisíce kombinací výtvarných technik, žánrů a&nbsp;motivů',
+        'button_shuffle' => 'Zamíchej',
+        'more_like_this' => 'Viz podobná díla',
+        'go_to_item' => 'Zobrazit dílo',
+    ],
+
     'featured_piece' => [
         'title' => 'Doporučujeme',
         'button_collection' => 'Přejít na kolekci',
