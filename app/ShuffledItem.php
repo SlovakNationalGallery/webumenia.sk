@@ -43,7 +43,7 @@ class ShuffledItem extends Model implements HasMedia, TranslatableContract
             'id' => $this->id,
             'authorLinks' => $this->author_links,
             'title' => $this->title,
-            'url' => route('item.show', $this->item),
+            'url' => route('dielo', $this->item),
             'datingFormatted' => $this->dating_formatted,
             'filters' => collect($this->filters)->map(
                 fn($f) => [
