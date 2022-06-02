@@ -29,15 +29,15 @@
             <home.shuffle-orchestrator v-bind:items="{{ Js::from($shuffledItems) }}"
                 v-slot="orchestrator">
                 <div class="tw-relative tw-overflow-hidden">
-                    <img onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});"
-                        sizes="1px" v-bind:srcset="orchestrator.item.img.srcset"
+                    <img v-bind:class="['tw-absolute tw-h-full tw-w-full tw-object-cover tw-transition-all tw-scale-[1.005] tw-duration-700 tw-ease-in', {'tw-blur tw-scale-100': orchestrator.isShuffling }]"
                         v-bind:src="orchestrator.item.img.src"
-                        v-bind:class="['tw-absolute tw-h-full tw-w-full tw-object-cover tw-transition-all tw-scale-[1.005] tw-duration-700 tw-ease-in', {'tw-blur tw-scale-100': orchestrator.isShuffling }]">
+                        v-bind:srcset="orchestrator.item.img.srcset"
+                        sizes="(max-width: 480px) 250vw, (max-width: 640px) 150vw, 100vw" />
 
-                    <img onload="window.requestAnimationFrame(function(){if(!(size=getBoundingClientRect().width))return;onload=null;sizes=Math.ceil(size/window.innerWidth*100)+'vw';});"
-                        sizes="1px" v-bind:srcset="orchestrator.nextImg.srcset"
+                    <img class="tw-invisible tw-absolute tw-h-full tw-w-full tw-scale-[1.005] tw-object-cover"
                         v-bind:src="orchestrator.nextImg.src"
-                        class="tw-invisible tw-absolute tw-h-full tw-w-full tw-scale-[1.005] tw-object-cover">
+                        v-bind:srcset="orchestrator.nextImg.srcset"
+                        sizes="(max-width: 480px) 250vw, (max-width: 640px) 150vw, 100vw" />
 
                     {{-- Partial bottom overlay (for readability) --}}
                     <div v-cloak
