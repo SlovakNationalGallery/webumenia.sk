@@ -113,17 +113,22 @@
                                 </x-home.button>
                             </div>
                             <div
-                                v-bind:class="['tw-flex tw-flex-col tw-items-center tw-text-xs md:tw-self-end md:tw-items-end md:tw-text-sm tw-transition-opacity tw-duration-500', {'tw-opacity-0 tw-pointer-events-none': orchestrator.isShuffling}]">
+                                v-bind:class="['tw-text-white/60 tw-flex tw-flex-col tw-items-center tw-text-xs md:tw-self-end md:tw-items-end md:tw-text-sm tw-transition-opacity tw-duration-500', {'tw-opacity-0 tw-pointer-events-none': orchestrator.isShuffling}]">
                                 <div
-                                    class="tw-flex tw-flex-wrap tw-justify-center tw-gap-x-1 tw-text-white/60 md:tw-flex-col md:tw-flex-nowrap md:tw-items-end md:tw-justify-end md:tw-text-right">
+                                    class="tw-hidden tw-flex-col tw-items-end tw-justify-end tw-gap-x-1 tw-text-right md:tw-flex">
                                     <span>@{{ orchestrator.item.authors }}</span>
-                                    <span class="tw-font-bold">@{{ orchestrator.item.title }}</span>
+                                    <strong>@{{ orchestrator.item.title }}</strong>
+                                    <span>@{{ orchestrator.item.dating }}</span>
+                                </div>
+                                <div class="text-center tw-justify-center md:tw-hidden">
+                                    <span>@{{ orchestrator.item.authors }},</span>
+                                    <strong>@{{ orchestrator.item.title }}</strong>,
                                     <span>@{{ orchestrator.item.dating }}</span>
                                 </div>
 
                                 <div class="tw-mt-2 tw-text-center">
                                     <a v-bind:href="orchestrator.item.url"
-                                        class="tw-text-white/60 tw-underline tw-decoration-2 tw-underline-offset-2 tw-transition-colors hover:tw-text-white">
+                                        class="tw-underline tw-decoration-2 tw-underline-offset-2 tw-transition-colors hover:tw-text-white">
                                         {{ trans('home.shuffled_item.go_to_item') }}
                                     </a>
                                 </div>
