@@ -67,7 +67,7 @@
                                 <div class="tw-flex tw-flex-col tw-items-stretch">
                                     <div class="tw-justify-items-stretch md:tw-flex">
                                         <div
-                                            class="tw-grid tw-grow tw-grid-cols-1 tw-gap-2.5 tw-bg-black/80 tw-p-4 tw-shadow md:tw-grid-cols-3">
+                                            class="tw-grid tw-grow tw-grid-cols-1 tw-gap-2.5 tw-bg-black/60 tw-p-4 tw-shadow md:tw-grid-cols-3">
 
                                             <div v-cloak
                                                 v-for="filterAttribute, filterAttributeIndex in orchestrator.filter.attributes"
