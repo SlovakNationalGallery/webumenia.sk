@@ -1,7 +1,8 @@
 <script>
 // Shuffles an array
 // https://stackoverflow.com/a/2450976
-function shuffle(array) {
+function shuffle(inputArray) {
+    const array = [...inputArray] // Do not mutate the original array
     let currentIndex = array.length,
         randomIndex
 
@@ -86,7 +87,7 @@ export default {
 
                     this.filter = {
                         ...this.filter,
-                        attributes: shuffle([...shuffledFilters[shuffledFiltersIndex].attributes]),
+                        attributes: shuffle(shuffledFilters[shuffledFiltersIndex].attributes),
                     }
 
                     await sleep(400)
