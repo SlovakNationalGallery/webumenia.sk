@@ -11,8 +11,8 @@ function shuffle(array) {
         randomIndex = Math.floor(Math.random() * currentIndex)
         currentIndex--
 
-            // And swap it with the current element.
-            ;[array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]]
+        // And swap it with the current element.
+        ;[array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]]
     }
 
     return array
@@ -23,7 +23,7 @@ function pickRandom(array) {
 }
 
 async function sleep(timeInMs) {
-    await new Promise(r => setTimeout(r, timeInMs));
+    await new Promise((r) => setTimeout(r, timeInMs))
 }
 
 export default {
@@ -49,7 +49,8 @@ export default {
             return (this.itemIndex + 1) % this.items.length
         },
         item() {
-            const { title, authorLinks, datingFormatted, url, img } = this.shuffledItems[this.itemIndex]
+            const { title, authorLinks, datingFormatted, url, img } =
+                this.shuffledItems[this.itemIndex]
             return {
                 title,
                 authors: authorLinks.map((al) => al.label).join(', '),
@@ -85,7 +86,7 @@ export default {
 
                     this.filter = {
                         ...this.filter,
-                        attributes: shuffle(shuffledFilters[shuffledFiltersIndex].attributes),
+                        attributes: shuffle([...shuffledFilters[shuffledFiltersIndex].attributes]),
                     }
 
                     await sleep(400)
