@@ -10,13 +10,29 @@ use App\FeaturedArtwork;
 use App\FeaturedPiece;
 use App\Filter\ItemFilter;
 use App\Item;
+use App\ShuffledItem;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
     public function index()
     {
+        $locale = App::currentLocale();
+
+        $shuffledItems = Cache::rememberForever("home.shuffled-items.$locale", function () use (
+            $locale
+        ) {
+            return ShuffledItem::query()
+                ->translatedIn($locale)
+                ->withTranslation()
+                ->with(['media', 'item', 'item.authorities', 'item.translations'])
+                ->published()
+                ->get()
+                ->map(fn($si) => $si->toShuffleOrchestratorItem());
+        });
+
         $featuredPiece = Cache::rememberForever('home.featured-piece', function () {
             return FeaturedPiece::query()
                 ->published()
@@ -104,6 +120,7 @@ class HomeController extends Controller
 
         return view('home.index')->with(
             compact([
+                'shuffledItems',
                 'featuredPiece',
                 'featuredArtwork',
                 'featuredAuthor',

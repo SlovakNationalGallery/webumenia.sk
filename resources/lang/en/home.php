@@ -13,6 +13,14 @@ return [
     'are_free_end' => 'in public domain',
     'show_more_articles' => 'more articles',
 
+    'shuffled_item' => [
+        'tagline' => "Discover art's branching pathways",
+        'subtitle' => 'Thousands of techniques, genres and&nbsp;motifs to&nbsp;explore',
+        'button_shuffle' => 'Shuffle',
+        'more_like_this' => 'More artworks like this',
+        'go_to_item' => 'Display artwork',
+    ],
+
     'featured_piece' => [
         'title' => 'We recommend',
         'button_collection' => 'Explore collection',
