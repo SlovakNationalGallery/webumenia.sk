@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.55.0] - 2022-06-03
 ### Added
 - front-end components for "shuffle" items
 
@@ -12,7 +14,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Changed
 - Removed PNP from downloadable items
 - Information page with updated data
--
+
 ## [2.53.0] - 2022-05-13
 ### Changed
 - temporarily removed print reproductions
