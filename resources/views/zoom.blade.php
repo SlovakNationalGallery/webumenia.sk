@@ -40,7 +40,7 @@
             $fullIIPImgURLs = [...$fullIIPImgURLs, ...$fullIIPImgURLs, ...$fullIIPImgURLs];
         @endphp
 
-        <zoom-viewer class="tw-h-screen tw-overflow-hidden tw-bg-green-300"
+        <zoom-viewer v-cloak class="tw-h-screen tw-overflow-hidden tw-bg-green-300"
             :tile-sources={{ Js::from($fullIIPImgURLs) }}
             v-slot="{ thumbnailUrls, page, methods }">
 
@@ -82,13 +82,31 @@
                         </div>
                     </div>
 
-                    {{-- Page indicator --}}
-                    <div class="tw-hidden tw-justify-center md:tw-flex">
+                    {{-- Bottom indicators --}}
+                    <div class="tw-relative">
+
+                        {{-- Page indicator --}}
+                        <div class="tw-ml-32 tw-hidden tw-justify-center md:tw-flex">
+                            <div
+                                class="tw-bg-white tw-px-4 tw-py-2 tw-opacity-70 tw-transition-opacity hover:tw-opacity-90">
+                                @{{ page + 1 }} / @{{ thumbnailUrls.length }}
+                            </div>
+                        </div>
+
+                        {{-- Copyright indicator --}}
                         <div
-                            class="tw-bg-white tw-px-4 tw-py-2 tw-opacity-70 tw-transition-opacity hover:tw-opacity-90">
-                            @{{ page + 1 }} / @{{ thumbnailUrls.length }}
+                            class="tw-absolute tw-inset-y-0 tw-right-0 tw-flex tw-items-center tw-bg-white tw-px-4 tw-py-2 tw-text-sm tw-opacity-70 tw-transition-opacity hover:tw-opacity-90">
+                            @if ($item->isFree())
+                                <img alt="Creative Commons License"
+                                    class="tw-mr-1.5 tw-h-4 tw-opacity-70"
+                                    src="/images/license/zero.svg">
+                                {{ trans('general.public_domain') }}
+                            @else
+                                &copy; {!! $item->gallery !!}
+                            @endif
                         </div>
                     </div>
+
                 </div>
 
                 {{-- Reference strip --}}
