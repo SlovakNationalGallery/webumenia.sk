@@ -6,12 +6,34 @@
 </template>
 
 <script>
+const OpenSeadragon = require('openseadragon')
+
 export default {
     props: ['tileSources'],
     data() {
         return {
             page: 0,
         }
+    },
+    mounted() {
+        this.viewer = OpenSeadragon({
+            id: 'viewer',
+            showNavigationControl: false,
+            showNavigator: false,
+            visibilityRatio: 1,
+            minZoomLevel: 0,
+            defaultZoomLevel: 0,
+            autoResize: false,
+            sequenceMode: this.tileSources.length > 1,
+            tileSources: this.tileSources,
+            showNavigationControl: false,
+            showSequenceControl: false,
+        })
+    },
+    watch: {
+        page(page) {
+            this.viewer.goToPage(page)
+        },
     },
     computed: {
         thumbnailUrls() {
@@ -22,8 +44,12 @@ export default {
                 setPage: (page) => (this.page = page),
                 nextPage: () => this.page++,
                 previousPage: () => this.page--,
-                zoomIn: () => {},
-                zoomOut: () => {},
+                zoomIn: () => {
+                    //TODO
+                },
+                zoomOut: () => {
+                    //TODO
+                },
             }
         },
     },
