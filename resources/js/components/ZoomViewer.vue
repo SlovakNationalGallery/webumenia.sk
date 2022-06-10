@@ -49,7 +49,7 @@ export default {
             tileSources: this.tileSources,
         })
 
-        this.viewer.addHandler('pan', this.resetAutoHideTimer)
+        this.viewer.addHandler('viewport-change', this.resetAutoHideTimer)
 
         this.resetAutoHideTimer()
     },
