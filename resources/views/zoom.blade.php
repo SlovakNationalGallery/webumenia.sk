@@ -25,11 +25,11 @@
     <link rel="stylesheet" type="text/css" href="{{ mix('/css/style.css') }}" />
 </head>
 
-<body class="tailwind-rules tw-bg-white">
+<body class="tailwind-rules">
     <div id="app">
-        <zoom-viewer v-cloak class="tw-h-screen tw-overflow-hidden tw-bg-white"
-            :tile-sources={{ Js::from($fullIIPImgURLs) }}
-            v-slot="{ thumbnailUrls, page, methods, showControls, sequenceMode }">
+        <zoom-viewer v-cloak class="tw-h-screen tw-overflow-hidden tw-outline-none"
+            :tile-sources={{ Js::from($fullIIPImgURLs) }} :initial-index="{{ $index }}"
+            v-slot=" { thumbnailUrls, page, methods, showControls, sequenceMode }">
 
             <div
                 class="tw-pointer-events-none tw-absolute tw-inset-0 tw-flex tw-flex-col md:tw-flex-row">
