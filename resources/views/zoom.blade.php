@@ -35,7 +35,8 @@
                 class="tw-pointer-events-none tw-absolute tw-inset-0 tw-flex tw-flex-col md:tw-flex-row">
 
                 {{-- Controls --}}
-                <div class="tw-flex tw-h-full tw-flex-col tw-justify-between tw-p-6 md:tw-w-full">
+                <div
+                    class="tw-flex tw-h-full tw-flex-col tw-justify-between tw-p-4 md:tw-w-full md:tw-p-6">
 
                     {{-- Top buttons --}}
                     <div class="tw-flex tw-justify-between">
@@ -78,19 +79,17 @@
                         </Transition>
                     </div>
 
-                    {{-- Bottom indicators --}}
-                    <div class="tw-relative tw-h-10">
-
+                    <div class="tw-flex tw-justify-end">
                         {{-- Copyright indicator --}}
                         <div
-                            class="tw-pointer-events-auto tw-absolute tw-inset-y-0 tw-right-0 tw-flex tw-items-center tw-bg-white tw-px-4 tw-py-2 tw-text-sm tw-opacity-70 tw-transition-opacity hover:tw-opacity-90">
+                            class="tw-pointer-events-auto tw-flex tw-cursor-pointer tw-items-center tw-bg-white tw-px-4 tw-py-2.5 tw-text-xs tw-opacity-50 tw-transition-opacity hover:tw-opacity-90 md:tw-text-sm">
                             @if ($item->isFree())
                                 <img alt="Creative Commons License"
-                                    class="tw-mr-1.5 tw-h-4 tw-opacity-70"
+                                    class="tw-mr-1.5 tw-h-3 tw-opacity-50"
                                     src="/images/license/zero.svg">
                                 {{ trans('general.public_domain') }}
                             @else
-                                &copy; {!! $item->gallery !!}
+                                &copy; {{ $item->gallery }}
                             @endif
                         </div>
                     </div>
@@ -119,7 +118,7 @@
                 leave-to-class="tw-opacity-0">
 
                 <div v-if="sequenceMode && showControls"
-                    class="tw-absolute tw-inset-x-0 tw-bottom-6 tw-hidden tw-justify-center md:tw-flex">
+                    class="tw-pointer-events-none tw-absolute tw-inset-x-0 tw-bottom-6 tw-hidden tw-justify-center md:tw-flex">
                     <div
                         class="tw-pointer-events-auto tw-bg-white tw-px-4 tw-py-2 tw-opacity-70 tw-transition-opacity hover:tw-opacity-90">
                         @{{ page + 1 }} / @{{ thumbnailUrls.length }}
