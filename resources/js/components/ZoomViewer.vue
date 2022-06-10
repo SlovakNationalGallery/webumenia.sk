@@ -19,10 +19,13 @@ const ZoomPerClick = 2
 const ControlsAutoHideAfterMs = 3000
 
 export default {
-    props: ['tileSources'],
+    props: {
+        tileSources: Array,
+        initialIndex: Number,
+    },
     data() {
         return {
-            page: 0,
+            page: this.initialIndex || 0,
             showControls: true,
         }
     },
@@ -40,6 +43,7 @@ export default {
     mounted() {
         this.viewer = OpenSeadragon({
             id: 'viewer',
+            initialPage: this.page,
             showNavigationControl: false,
             showNavigator: false,
             showSequenceControl: false,
@@ -48,6 +52,9 @@ export default {
             sequenceMode: this.sequenceMode,
             tileSources: this.tileSources,
         })
+
+        // Hide browser-imposed outline
+        this.viewer.canvas.classList.add('tw-outline-none')
 
         this.viewer.addHandler('viewport-change', this.resetAutoHideTimer)
 
