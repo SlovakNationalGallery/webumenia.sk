@@ -25,16 +25,17 @@
     <link rel="stylesheet" type="text/css" href="{{ mix('/css/style.css') }}" />
 </head>
 
-<body class="tailwind-rules">
+<body class="tailwind-rules tw-bg-white">
     <div id="app">
-        <zoom-viewer v-cloak class="tw-h-screen tw-overflow-hidden"
+        <zoom-viewer v-cloak class="tw-h-screen tw-overflow-hidden tw-bg-white"
             :tile-sources={{ Js::from($fullIIPImgURLs) }}
             v-slot="{ thumbnailUrls, page, methods, showControls, sequenceMode }">
 
-            <div class="tw-pointer-events-none tw-absolute tw-inset-0 tw-flex">
+            <div
+                class="tw-pointer-events-none tw-absolute tw-inset-0 tw-flex tw-flex-col md:tw-flex-row">
 
                 {{-- Controls --}}
-                <div class="tw-flex tw-w-full tw-flex-col tw-justify-between tw-p-6">
+                <div class="tw-flex tw-h-full tw-flex-col tw-justify-between tw-p-6 md:tw-w-full">
 
                     {{-- Top buttons --}}
                     <div class="tw-flex tw-justify-between">
@@ -52,7 +53,8 @@
                             leave-active-class="tw-transition-opacity tw-duration-1000"
                             leave-to-class="tw-opacity-0">
 
-                            <div v-if="showControls" class="tw-space-x-1.5 tw-text-lg">
+                            <div v-if="showControls"
+                                class="tw-hidden tw-space-x-1.5 tw-text-lg md:tw-block">
                                 <button v-on:click="methods.zoomIn"
                                     class="tw-pointer-events-auto tw-h-10 tw-w-10 tw-bg-white tw-opacity-70 tw-transition-opacity hover:tw-opacity-90 active:tw-bg-white disabled:tw-opacity-30">
                                     <i class="fa fa-plus"></i>
@@ -94,35 +96,36 @@
                     </div>
                 </div>
 
-                {{-- Page indicator --}}
-                <Transition enter-class="tw-opacity-0"
-                    enter-active-class="tw-transition-opacity tw-duration-300"
-                    leave-active-class="tw-transition-opacity tw-duration-1000"
-                    leave-to-class="tw-opacity-0">
-
-                    <div v-if="sequenceMode && showControls"
-                        class="tw-absolute tw-inset-x-0 tw-bottom-6 tw-hidden tw-justify-center md:tw-flex">
-                        <div
-                            class="tw-pointer-events-auto tw-bg-white tw-px-4 tw-py-2 tw-opacity-70 tw-transition-opacity hover:tw-opacity-90">
-                            @{{ page + 1 }} / @{{ thumbnailUrls.length }}
-                        </div>
-                    </div>
-                </Transition>
-
                 {{-- Reference strip --}}
-                <Transition enter-class="tw--ml-32 tw-translate-x-full"
+                <Transition
+                    enter-class="tw--mt-20 tw-translate-y-full md:tw-mt-auto md:tw--ml-32 md:tw-translate-y-0 md:tw-translate-x-full"
                     enter-active-class="tw-transition-all tw-duration-300"
                     leave-active-class="tw-transition-all tw-duration-1000"
-                    leave-to-class="tw--ml-32 tw-translate-x-full">
+                    leave-to-class="tw--mt-20 tw-translate-y-full md:tw-mt-auto md:tw--ml-32 md:tw-translate-y-0 md:tw-translate-x-full">
 
                     <div v-dragscroll v-show="showControls" v-if="sequenceMode"
-                        class="tw-pointer-events-auto tw-flex tw-h-24 tw-flex-shrink-0 tw-overflow-auto tw-bg-white tw-bg-opacity-70 md:tw-h-full md:tw-w-32 md:tw-flex-col">
+                        class="tw-pointer-events-auto tw-flex tw-h-20 tw-flex-shrink-0 tw-overflow-auto tw-bg-white tw-bg-opacity-70 md:tw-h-full md:tw-w-32 md:tw-flex-col">
                         <img v-for="src, index in thumbnailUrls" :key="index" :src="src"
                             v-on:click="methods.setPage(index)"
                             :class="['tw-h-full md:tw-h-auto tw-p-2 md:tw-px-4 tw-border tw-cursor-pointer tw-transition-colors tw-border-sky-300', page === index ? 'tw-border-opacity-100' : 'tw-border-transparent hover:tw-border-sky-300/30']" />
                     </div>
                 </Transition>
             </div>
+
+            {{-- Page indicator --}}
+            <Transition enter-class="tw-opacity-0"
+                enter-active-class="tw-transition-opacity tw-duration-300"
+                leave-active-class="tw-transition-opacity tw-duration-1000"
+                leave-to-class="tw-opacity-0">
+
+                <div v-if="sequenceMode && showControls"
+                    class="tw-absolute tw-inset-x-0 tw-bottom-6 tw-hidden tw-justify-center md:tw-flex">
+                    <div
+                        class="tw-pointer-events-auto tw-bg-white tw-px-4 tw-py-2 tw-opacity-70 tw-transition-opacity hover:tw-opacity-90">
+                        @{{ page + 1 }} / @{{ thumbnailUrls.length }}
+                    </div>
+                </div>
+            </Transition>
         </zoom-viewer>
     </div>
 
