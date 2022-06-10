@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Changed
+- zoom viewer to use custom controls
 
 ## [2.55.0] - 2022-06-03
 ### Added
