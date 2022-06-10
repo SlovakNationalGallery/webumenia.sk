@@ -27,22 +27,9 @@
 
 <body class="tailwind-rules">
     <div id="app">
-        {{-- @include('components.zoomviewer', [
-      'item' => $item,
-      'index' => $index,
-      'fullIIPImgURLs' => $fullIIPImgURLs,
-      ]) --}}
-
-
-
-
-        @php
-            $fullIIPImgURLs = [...$fullIIPImgURLs, ...$fullIIPImgURLs, ...$fullIIPImgURLs];
-        @endphp
-
         <zoom-viewer v-cloak class="tw-h-screen tw-overflow-hidden"
             :tile-sources={{ Js::from($fullIIPImgURLs) }}
-            v-slot="{ thumbnailUrls, page, methods }">
+            v-slot="{ thumbnailUrls, page, methods, showControls }">
 
             <div class="tw-pointer-events-none tw-absolute tw-inset-0 tw-flex">
 
@@ -53,46 +40,43 @@
                     <div class="tw-flex tw-justify-between">
 
                         {{-- Back button --}}
-                        <a class="tw-group tw-pointer-events-auto tw-flex tw-items-center tw-justify-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-text-sm tw-uppercase tw-tracking-widest tw-opacity-70 tw-transition hover:tw-border-gray-400 hover:tw-bg-white hover:tw-text-gray-800 hover:tw-opacity-90"
+                        <a class="tw-pointer-events-auto tw-flex tw-h-10 tw-items-center tw-justify-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-text-sm tw-uppercase tw-tracking-widest tw-opacity-70 tw-transition hover:tw-border-gray-400 hover:tw-bg-white hover:tw-text-gray-800 hover:tw-opacity-90"
                             href={{ $item->getUrl() }}>
-                            <i
-                                class="fa fa-arrow-left tw-mr-2 -tw-ml-1.5 tw-align-[-0.05rem] tw-transition-transform group-hover:tw--translate-x-0.5"></i>
+                            <i class="fa fa-arrow-left tw-mr-2 -tw-ml-1.5 tw-align-[-0.05rem]"></i>
                             {{ trans('general.back') }}
                         </a>
 
                         {{-- Control buttons --}}
-                        <div class="tw-space-x-1.5 tw-text-lg">
-                            <button v-on:click="methods.zoomIn"
-                                class="tw-pointer-events-auto tw-h-10 tw-w-10 tw-bg-white tw-opacity-70 tw-transition hover:tw-bg-white/90 hover:tw-text-gray-800 hover:tw-opacity-90 active:tw-bg-white disabled:tw-opacity-30">
-                                <i class="fa fa-plus"></i>
-                            </button>
-                            <button v-on:click="methods.zoomOut"
-                                class="tw-pointer-events-auto tw-h-10 tw-w-10 tw-bg-white tw-opacity-70 tw-transition hover:tw-bg-white/90 hover:tw-text-gray-800 hover:tw-opacity-90 active:tw-bg-white disabled:tw-opacity-30">
-                                <i class="fa fa-minus"></i>
-                            </button>
-                            <button v-on:click="methods.previousPage" :disabled="page === 0"
-                                class="tw-pointer-events-auto tw-h-10 tw-w-10 tw-bg-white tw-opacity-70 tw-transition hover:tw-bg-white/90 hover:tw-text-gray-800 hover:tw-opacity-90 active:tw-bg-white disabled:tw-opacity-30">
-                                <i class="fa fa-arrow-up"></i>
-                            </button>
-                            <button v-on:click="methods.nextPage"
-                                :disabled="page === thumbnailUrls.length - 1"
-                                class="tw-pointer-events-auto tw-h-10 tw-w-10 tw-bg-white tw-opacity-70 tw-transition hover:tw-bg-white/90 hover:tw-text-gray-800 hover:tw-opacity-90 active:tw-bg-white disabled:tw-opacity-30">
-                                <i class="fa fa-arrow-down"></i>
-                            </button>
-                        </div>
+                        <Transition enter-class="tw-opacity-0"
+                            enter-active-class="tw-transition-opacity tw-duration-300"
+                            leave-active-class="tw-transition-opacity tw-duration-1000"
+                            leave-to-class="tw-opacity-0">
+
+                            <div v-if="showControls" class="tw-space-x-1.5 tw-text-lg">
+                                <button v-on:click="methods.zoomIn"
+                                    class="tw-pointer-events-auto tw-h-10 tw-w-10 tw-bg-white tw-opacity-70 tw-transition hover:tw-bg-white/90 hover:tw-text-gray-800 hover:tw-opacity-90 active:tw-bg-white disabled:tw-opacity-30">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                                <button v-on:click="methods.zoomOut"
+                                    class="tw-pointer-events-auto tw-h-10 tw-w-10 tw-bg-white tw-opacity-70 tw-transition hover:tw-bg-white/90 hover:tw-text-gray-800 hover:tw-opacity-90 active:tw-bg-white disabled:tw-opacity-30">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                                <button v-on:click="methods.previousPage" :disabled="page === 0"
+                                    class="tw-pointer-events-auto tw-h-10 tw-w-10 tw-bg-white tw-opacity-70 tw-transition hover:tw-bg-white/90 hover:tw-text-gray-800 hover:tw-opacity-90 active:tw-bg-white disabled:tw-opacity-30">
+                                    <i class="fa fa-arrow-up"></i>
+                                </button>
+                                <button v-on:click="methods.nextPage"
+                                    :disabled="page === thumbnailUrls.length - 1"
+                                    class="tw-pointer-events-auto tw-h-10 tw-w-10 tw-bg-white tw-opacity-70 tw-transition hover:tw-bg-white/90 hover:tw-text-gray-800 hover:tw-opacity-90 active:tw-bg-white disabled:tw-opacity-30">
+                                    <i class="fa fa-arrow-down"></i>
+                                </button>
+                            </div>
+
+                        </Transition>
                     </div>
 
                     {{-- Bottom indicators --}}
-                    <div class="tw-relative">
-
-                        {{-- Page indicator --}}
-                        <div
-                            class="tw-pointer-events-auto tw-ml-32 tw-hidden tw-justify-center md:tw-flex">
-                            <div
-                                class="tw-bg-white tw-px-4 tw-py-2 tw-opacity-70 tw-transition-opacity hover:tw-opacity-90">
-                                @{{ page + 1 }} / @{{ thumbnailUrls.length }}
-                            </div>
-                        </div>
+                    <div class="tw-relative tw-h-10">
 
                         {{-- Copyright indicator --}}
                         <div
@@ -107,16 +91,36 @@
                             @endif
                         </div>
                     </div>
-
                 </div>
+
+                {{-- Page indicator --}}
+                <Transition enter-class="tw-opacity-0"
+                    enter-active-class="tw-transition-opacity tw-duration-300"
+                    leave-active-class="tw-transition-opacity tw-duration-1000"
+                    leave-to-class="tw-opacity-0">
+
+                    <div v-if="showControls"
+                        class="tw-absolute tw-inset-x-0 tw-bottom-6 tw-hidden tw-justify-center md:tw-flex">
+                        <div
+                            class="tw-pointer-events-auto tw-bg-white tw-px-4 tw-py-2 tw-opacity-70 tw-transition-opacity hover:tw-opacity-90">
+                            @{{ page + 1 }} / @{{ thumbnailUrls.length }}
+                        </div>
+                    </div>
+                </Transition>
 
                 {{-- Reference strip --}}
-                <div v-dragscroll
-                    class="tw-pointer-events-auto tw-flex tw-h-24 tw-flex-shrink-0 tw-overflow-auto tw-bg-white tw-bg-opacity-70 md:tw-h-full md:tw-w-32 md:tw-flex-col">
-                    <img v-for="src, index in thumbnailUrls" :key="index" :src="src"
-                        v-on:click="methods.setPage(index)"
-                        :class="['tw-h-full md:tw-h-auto tw-p-2 md:tw-px-4 tw-border tw-cursor-pointer tw-transition-colors tw-border-sky-300', page === index ? 'tw-border-opacity-100' : 'tw-border-transparent hover:tw-border-sky-300/30']" />
-                </div>
+                <Transition enter-class="tw--ml-32 tw-translate-x-full"
+                    enter-active-class="tw-transition-all tw-duration-300"
+                    leave-active-class="tw-transition-all tw-duration-1000"
+                    leave-to-class="tw--ml-32 tw-translate-x-full">
+
+                    <div v-dragscroll v-show="showControls"
+                        class="tw-pointer-events-auto tw-flex tw-h-24 tw-flex-shrink-0 tw-overflow-auto tw-bg-white tw-bg-opacity-70 md:tw-h-full md:tw-w-32 md:tw-flex-col">
+                        <img v-for="src, index in thumbnailUrls" :key="index" :src="src"
+                            v-on:click="methods.setPage(index)"
+                            :class="['tw-h-full md:tw-h-auto tw-p-2 md:tw-px-4 tw-border tw-cursor-pointer tw-transition-colors tw-border-sky-300', page === index ? 'tw-border-opacity-100' : 'tw-border-transparent hover:tw-border-sky-300/30']" />
+                    </div>
+                </Transition>
             </div>
         </zoom-viewer>
     </div>

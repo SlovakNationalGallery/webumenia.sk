@@ -1,20 +1,39 @@
 <template>
-    <div class="tw-relative">
+    <div class="tw-relative" @mousemove="resetAutoHideTimer">
         <div id="viewer" class="tw-absolute tw-inset-0"></div>
-        <slot :thumbnailUrls="thumbnailUrls" :page="page" :methods="methods" />
+        <slot
+            :thumbnailUrls="thumbnailUrls"
+            :page="page"
+            :methods="methods"
+            :showControls="showControls"
+        />
     </div>
 </template>
 
 <script>
+import { debounce } from 'debounce'
 const OpenSeadragon = require('openseadragon')
 
 const ZoomPerClick = 2
+const ControlsAutoHideAfterMs = 3000
 
 export default {
     props: ['tileSources'],
     data() {
         return {
             page: 0,
+            showControls: true,
+        }
+    },
+    created() {
+        const hideControlsDebounced = debounce(
+            () => (this.showControls = false),
+            ControlsAutoHideAfterMs
+        )
+
+        this.resetAutoHideTimer = () => {
+            this.showControls = true
+            hideControlsDebounced()
         }
     },
     mounted() {
@@ -22,15 +41,16 @@ export default {
             id: 'viewer',
             showNavigationControl: false,
             showNavigator: false,
+            showSequenceControl: false,
             visibilityRatio: 1,
             minZoomLevel: 0,
-            defaultZoomLevel: 0,
-            autoResize: false,
             sequenceMode: this.tileSources.length > 1,
             tileSources: this.tileSources,
-            showNavigationControl: false,
-            showSequenceControl: false,
         })
+
+        this.viewer.addHandler('pan', this.resetAutoHideTimer)
+
+        this.resetAutoHideTimer()
     },
     watch: {
         page(page) {
