@@ -6,6 +6,7 @@
             :page="page"
             :methods="methods"
             :showControls="showControls"
+            :sequenceMode="sequenceMode"
         />
     </div>
 </template>
@@ -44,7 +45,7 @@ export default {
             showSequenceControl: false,
             visibilityRatio: 1,
             minZoomLevel: 0,
-            sequenceMode: this.tileSources.length > 1,
+            sequenceMode: this.sequenceMode,
             tileSources: this.tileSources,
         })
 
@@ -60,6 +61,9 @@ export default {
     computed: {
         thumbnailUrls() {
             return this.tileSources.map((ts) => ts.replace(/\.dzi$/, '_files/0/0_0.jpg'))
+        },
+        sequenceMode() {
+            return this.tileSources.length > 1
         },
         methods() {
             return {
