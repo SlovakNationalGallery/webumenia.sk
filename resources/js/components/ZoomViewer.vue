@@ -8,6 +8,8 @@
 <script>
 const OpenSeadragon = require('openseadragon')
 
+const ZoomPerClick = 2
+
 export default {
     props: ['tileSources'],
     data() {
@@ -45,10 +47,12 @@ export default {
                 nextPage: () => this.page++,
                 previousPage: () => this.page--,
                 zoomIn: () => {
-                    //TODO
+                    this.viewer.viewport.zoomBy(ZoomPerClick)
+                    this.viewer.viewport.applyConstraints()
                 },
                 zoomOut: () => {
-                    //TODO
+                    this.viewer.viewport.zoomBy(1 / ZoomPerClick)
+                    this.viewer.viewport.applyConstraints()
                 },
             }
         },
