@@ -1,5 +1,5 @@
 <template>
-    <div class="tw-relative" @mousemove="resetAutoHideTimer">
+    <div @mousemove="resetAutoHideTimer">
         <div id="viewer" class="tw-absolute tw-inset-0"></div>
         <slot
             :thumbnailUrls="thumbnailUrls"
