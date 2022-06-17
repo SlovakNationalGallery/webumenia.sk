@@ -1,5 +1,5 @@
 <template>
-    <div @mousemove="resetAutoHideTimer">
+    <div @mousemove="resetAutoHideTimer" @touchstart="resetAutoHideTimer">
         <div id="viewer" class="tw-absolute tw-inset-0"></div>
         <slot
             :thumbnailUrls="thumbnailUrls"
@@ -55,8 +55,6 @@ export default {
 
         // Hide browser-imposed outline
         this.viewer.canvas.classList.add('tw-outline-none')
-
-        this.viewer.addHandler('viewport-change', this.resetAutoHideTimer)
 
         this.resetAutoHideTimer()
     },
