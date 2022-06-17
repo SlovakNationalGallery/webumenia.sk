@@ -27,7 +27,7 @@
 
 <body class="tailwind-rules">
     <div id="app">
-        <zoom-viewer v-cloak class="tw-h-screen tw-overflow-hidden tw-outline-none"
+        <zoom-viewer v-cloak class="tw-absolute tw-inset-0 tw-overflow-hidden tw-outline-none"
             :tile-sources={{ Js::from($fullIIPImgURLs) }} :initial-index="{{ $index }}"
             v-slot=" { thumbnailUrls, page, methods, showControls, sequenceMode }">
 
