@@ -229,10 +229,6 @@
 @stop
 
 @section('javascript')
-    @include('components.artwork_carousel_js', [
-        'slick_query' => '.artworks-preview',
-    ])
-
     <script>
         $(function() {
             $('.popup').on('click', function(e) {
