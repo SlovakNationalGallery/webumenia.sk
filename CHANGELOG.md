@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.56.0] - 2022-06-23
+### Changed
+- zoom viewer to use custom controls
+
 ## [2.55.0] - 2022-06-03
 ### Added
 - front-end components for "shuffle" items

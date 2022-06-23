@@ -74,6 +74,15 @@
 		</div>
 	@endif
 
+	<div class="alert alert-info" role="alert">
+		<div class="row">
+			<div class="col-md-offset-2 col-md-8 text-center">
+				Pripravujeme zlepšenia webových stránok a digitálnych služieb SNG. 
+				Ak nám chcete pomôcť, <a href="https://forms.gle/KfmnWAsR5e1vhsry8" class="underline">vyplňte prosím dotazník</a>.
+			</div>
+		</div>
+	</div>
+
 @if (session('scena_ai_key') ?? config('services.scena_ai.key'))
 	<scena-ai-popup key-id="{{ session('scena_ai_key') ?? config('services.scena_ai.key') }}" id="scena-ai"></scena-ai-popup>
 	<script src="https://widget.scena.ai/app.js"></script>
