@@ -16,6 +16,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [2.56.0] - 2022-06-23
 ### Changed
 - zoom viewer to use custom controls
+- reproductions page using Tailwind CSS
 
 ## [2.55.0] - 2022-06-03
 ### Added
