@@ -40,7 +40,8 @@
                     </h3>
                 </div>
 
-                <div class="tw-mt-8 tw-grid tw-gap-y-4 tw-gap-x-6 tw-self-stretch md:tw-grid-cols-2">
+                <div
+                    class="tw-mt-8 tw-grid tw-grid-cols-2 tw-gap-y-4 tw-gap-x-4 tw-self-stretch md:tw-gap-x-6">
                     <a href="/images/reprodukcie/full/digirepro-1.jpg" class="popup">
                         <img class="tw-w-full" src="/images/reprodukcie/digirepro-1.jpg"
                             alt="{{ trans('reprodukcie.digital_example_1') }}">
@@ -73,7 +74,7 @@
                     {{ trans('reprodukcie.digital_choice') }}
                 </h3>
 
-                <x-reproductions.carousel class="tw-mt-6 tw-self-stretch">
+                <x-reproductions.carousel class="tw-mt-6">
                     @foreach ($items as $item)
                         <a href="{{ route('dielo', ['id' => $item]) }}"
                             class="tw-ml-4 tw-w-max first:tw-ml-0">
@@ -189,8 +190,8 @@
                     {{ trans('reprodukcie.print_recommended') }}
                 </h3>
 
-                <x-reproductions.carousel class="tw-mt-6 tw-self-stretch">
-                    @foreach ($items as $item)
+                <x-reproductions.carousel class="tw-mt-6">
+                    @foreach ($items_recommended as $item)
                         <a href="{{ route('dielo', ['id' => $item]) }}"
                             class="tw-ml-4 tw-w-max first:tw-ml-0">
                             <x-item_image :id="$item->id"
