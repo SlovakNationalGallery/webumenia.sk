@@ -8,7 +8,7 @@ return array(
     |--------------------------------------------------------------------------
     */
     'title'             => 'Reproductions',
-    'lead'              => 'On Web umenia you can order reproductions of <br><strong>:total artworks</strong> from the collections of the <strong>Slovak National Gallery</strong><br>in <a href="#print"><strong>print</strong></a> or <a href="#digital"><strong>digital</strong></a> formats.',
+    'lead'              => 'On Web umenia you can order reproductions of <br><strong>:total artworks</strong> from the collections of the <strong>Slovak National Gallery</strong><br>in <a href="#digital">digital</a> or <a href="#print">print</a> formats.',
     'info_title'        => 'Good to know',
     'print_heading'     => 'Printed reproductions',
     'print_body'        => '<p>You can order a printed reproduction by clicking the <strong>order reproduction</strong> button on the artwork detail page. The artwork will then be added to the cart.</p>
