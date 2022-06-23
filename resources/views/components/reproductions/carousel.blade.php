@@ -9,7 +9,7 @@ $options = [
 ];
 @endphp
 
-<div class="tw-w-full tw-px-6">
+<div class="tw-w-full">
     <flickity v-bind:options={{ Js::from($options) }}
         viewport-class="tw-overflow-visible lg:tw-overflow-hidden"
         {{ $attributes->merge(['class' => 'tw-relative']) }}>
