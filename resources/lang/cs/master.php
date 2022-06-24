@@ -8,7 +8,7 @@ return array(
     |--------------------------------------------------------------------------
     */
 
-    'meta_description'   => 'Web umění je on-line katalog výtvarných děl ze sbírek slovenských galerií. Najdete zde základní informace o dílech a jejich autorech, ale i původní články, videa a kolekce.',
+    'meta_description'   => 'Web umění je on-line katalog výtvarných děl ze sbírek slovenských galerií. Najdete zde základní informace o dílech, autorech, ale i články, videa a kolekce.',
     'artworks'           => 'díla',
     'collections'        => 'kolekce',
     'authors'            => 'autoři',

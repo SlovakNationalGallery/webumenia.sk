@@ -8,7 +8,7 @@ return array(
     |--------------------------------------------------------------------------
     */
 
-    'meta_description'   => 'Web umenia is an on-line catalog of artworks from collections of Slovak galleries. Here you can find information about artworks and artists as well as articles and thematic collections.',
+    'meta_description'   => 'Web umenia is an on-line catalog of artworks from Slovak galleries. Find information about artworks and artists as well as articles and thematic collections.',
     'artworks'           => 'artworks',
     'collections'        => 'collections',
     'authors'            => 'artists',
