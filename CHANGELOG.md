@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Changed
+- narrow down Item detail collections to published
 
 ## [2.56.0] - 2022-06-23
 ### Changed

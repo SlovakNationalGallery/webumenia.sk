@@ -186,6 +186,11 @@ class Item extends Model implements IndexableModel, TranslatableContract
         return $this->belongsToMany(\App\Collection::class, 'collection_item', 'item_id', 'collection_id');
     }
 
+    public function getPublishedCollectionsAttribute()
+    {
+        return $this->collections()->published();
+    }
+
     public function record()
     {
         return $this->hasOne(\App\SpiceHarvesterRecord::class, 'item_id');

@@ -278,12 +278,12 @@
                                 </td>
                             </tr>
                             @endif
-                            @if ($item->collections->count())
+                            @if ($item->published_collections->count())
                             <tr>
                                 <td class="atribut">{{ trans('dielo.item_attr_collections') }}:</td>
                                 <td>
                                     <div class="expandable multiline">
-                                        @foreach ($item->collections as $collection)
+                                        @foreach ($item->published_collections as $collection)
                                         <a href="{{ $collection->getUrl() }}">{{ $collection->name }}</a><br/>
                                         @endforeach
                                     </div>
