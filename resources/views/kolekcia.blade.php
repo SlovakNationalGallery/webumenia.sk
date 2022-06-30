@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('og')
-@if (!$collection->publish)
+@if (!$collection->is_published)
 <meta name="robots" content="noindex, nofollow">
 @endif
 <meta property="og:title" content="{!! $collection->name !!}" />
