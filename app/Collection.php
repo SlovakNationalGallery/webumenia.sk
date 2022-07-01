@@ -3,9 +3,9 @@
 namespace App;
 
 use App\Concerns\HasHeaderImage;
+use App\Concerns\Publishable;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\JoinClause;
@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\URL;
 
 class Collection extends Model implements TranslatableContract
 {
-    use Translatable;
-
     use HasHeaderImage;
+    use Publishable;
+    use Translatable;
 
     protected static function booted()
     {
@@ -80,11 +80,6 @@ class Collection extends Model implements TranslatableContract
     public function getContentImages()
     {
         return parseUrls($this->text);
-    }
-
-    public function scopePublished($query)
-    {
-        return $query->where('published_at', '<', Carbon::now());
     }
 
     public function getTitleColorAttribute($value)

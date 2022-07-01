@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file[^1].
 ### Changed
 - narrow down Item detail collections to published
 
+### Fixed
+- indexing for published Collections
+
 ## [2.56.0] - 2022-06-23
 ### Changed
 - zoom viewer to use custom controls
