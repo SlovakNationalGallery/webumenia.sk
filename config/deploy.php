@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Default deployment strategy
@@ -50,10 +49,7 @@ return [
         ],
 
         // Code and composer vendors are ready but nothing is built.
-        'build' => [
-            'npm:install',
-            'npm:production',
-        ],
+        'build' => ['npm:install', 'npm:production'],
 
         // Deployment is done but not live yet (before symlink)
         'ready' => [
@@ -66,9 +62,7 @@ return [
         ],
 
         // Deployment is done and live
-        'done' => [
-            'fpm:reload',
-        ],
+        'done' => ['fpm:reload'],
 
         // Deployment succeeded.
         'success' => [
@@ -81,9 +75,7 @@ return [
         ],
 
         // After a deployment has been rolled back.
-        'rollback' => [
-            'fpm:reload',
-        ],
+        'rollback' => ['fpm:reload'],
     ],
 
     /*
@@ -116,16 +108,13 @@ return [
             'storage',
             'resources/fonts',
         ],
-        'shared_files' => [
-            '.env',
-            'public/sitemap.xml',
-        ],
+        'shared_files' => ['.env', 'public/sitemap.xml'],
         'writable_dirs' => [
             'bootstrap/cache',
             'storage',
             'storage/app',
             'storage/app/public',
-            'storage/app/public/media',
+            // 'storage/app/public/media', do not enable ACL for this directory, see WEBUMENIA-1843
             'storage/framework',
             'storage/framework/cache',
             'storage/framework/sessions',
@@ -158,7 +147,7 @@ return [
             'hostname' => 'webumenia.sk',
             'deploy_path' => '/var/www/webumenia.sk',
             'user' => 'lab_sng',
-            'branch' => 'master'
+            'branch' => 'master',
         ],
         'test' => [
             'hostname' => 'webumenia.sk',
@@ -166,9 +155,7 @@ return [
             'user' => 'lab_sng',
             'writable_mode' => 'chmod',
             'writable_chmod_mode' => '775',
-            'writable_dirs' => [
-                'bootstrap/cache',
-            ],
+            'writable_dirs' => ['bootstrap/cache'],
         ],
     ],
 
@@ -214,5 +201,4 @@ return [
     */
 
     'custom_deployer_file' => false,
-
 ];
