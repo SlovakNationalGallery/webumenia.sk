@@ -283,7 +283,7 @@
                                 <td class="atribut">{{ trans('dielo.item_attr_collections') }}:</td>
                                 <td>
                                     <div class="expandable multiline">
-                                        @foreach ($item->published_collections as $collection)
+                                        @foreach ($item->published_collections->get() as $collection)
                                         <a href="{{ $collection->getUrl() }}">{{ $collection->name }}</a><br/>
                                         @endforeach
                                     </div>
