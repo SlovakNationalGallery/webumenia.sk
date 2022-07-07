@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.58.0] - 2022-07-07
+### Changed
+- reproductions page using Tailwind CSS
+- meta description to fit under 160 characters
+
 ## [2.57.1] - 2022-07-04
 - fix getting published collections
 
