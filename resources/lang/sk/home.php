@@ -17,7 +17,7 @@ return [
         'tagline' => 'Objavuj cesty umením',
         'subtitle' => 'Nájdi tisíce kombinácií výtvarných techník, žánrov a&nbsp;motívov',
         'button_shuffle' => 'Zamiešaj',
-        'more_like_this' => 'Pozri podobné diela',
+        'more_like_this' => 'Pozri diela',
         'go_to_item' => 'Zobraziť dielo',
     ],
 
