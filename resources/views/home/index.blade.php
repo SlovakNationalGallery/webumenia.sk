@@ -98,7 +98,7 @@
                                 </div>
 
                                 <x-home.button v-bind:href="orchestrator.filter.url"
-                                    v-bind:class="['tw-mt-6 tw-self-stretch tw-bg-white/10 tw-text-center md:tw-hidden', {'tw-opacity-40 tw-pointer-events-none': orchestrator.isShuffling}]">
+                                    v-bind:class="['tw-mt-6 tw-self-stretch tw-bg-white tw-text-gray-800 hover:tw-bg-gray-300 tw-text-center md:tw-hidden', {'tw-opacity-0 tw-pointer-events-none': orchestrator.isShuffling}]">
                                     {{ trans('home.shuffled_item.more_like_this') }}
                                 </x-home.button>
                             </div>
@@ -106,9 +106,11 @@
 
                         <div class="tw-mt-10 tw-grid tw-self-stretch md:tw-mt-20 md:tw-grid-cols-3">
                             <div
-                                class="tw-col-start-2 tw-hidden tw-text-center md:tw-block md:tw-pb-24">
+                                v-bind:class="['tw-col-start-2 tw-hidden tw-text-center md:tw-block md:tw-pb-24 tw-transition-all tw-duration-300',
+                                    { 'tw-opacity-0 tw-pointer-events-none tw-scale-95': orchestrator.isShuffling }
+                                ]">
                                 <x-home.button v-bind:href="orchestrator.filter.url"
-                                    v-bind:class="['tw-self-stretch tw-bg-white/10 tw-text-center disabled:tw-opacity-40', {'tw-opacity-40 tw-pointer-events-none': orchestrator.isShuffling}]">
+                                    class="tw-bg-white tw-text-gray-800 hover:tw-bg-gray-300">
                                     {{ trans('home.shuffled_item.more_like_this') }}
                                 </x-home.button>
                             </div>
