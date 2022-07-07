@@ -2,7 +2,10 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.58.0] - 2022-07-07
 ### Changed
+- reproductions page using Tailwind CSS
 - meta description to fit under 160 characters
 
 ## [2.57.1] - 2022-07-04
@@ -18,7 +21,6 @@ All notable changes to this project will be documented in this file[^1].
 ## [2.56.0] - 2022-06-23
 ### Changed
 - zoom viewer to use custom controls
-- reproductions page using Tailwind CSS
 
 ## [2.55.0] - 2022-06-03
 ### Added
