@@ -33,16 +33,29 @@ export default {
             type: Array,
             required: true,
         },
+        initialItemId: {
+            type: Number,
+        },
     },
     data() {
         const shuffledItems = shuffle(this.items)
-        const initialFilter = pickRandom(shuffledItems[0].filters)
+
+        // Allow picking the first item from prop
+        const initialItemIndex = (() => {
+            if (this.initialItemId === undefined) return 0
+
+            const initialItemIndex = shuffledItems.findIndex(
+                (item) => item.id === this.initialItemId
+            )
+
+            return initialItemIndex > -1 ? initialItemIndex : 0
+        })()
 
         return {
             shuffledItems,
-            itemIndex: 0,
+            itemIndex: initialItemIndex,
+            filter: pickRandom(shuffledItems[initialItemIndex].filters),
             isShuffling: false,
-            filter: initialFilter,
         }
     },
     computed: {

@@ -82,9 +82,12 @@
                                         @endif
                                     </td>
                                     <td class="tw-p-2 tw-align-top">
-                                        <div class="tw-flex tw-gap-2">
+                                        <div class="tw-flex tw-gap-1">
                                             <x-admin.button outline primary sm :link="route('shuffled-items.edit', $si)">
                                                 Upraviť
+                                            </x-admin.button>
+                                            <x-admin.button outline success sm :link="route('home', ['shuffleItemId' => $si->id])">
+                                                Na webe
                                             </x-admin.button>
                                             <x-admin.link-with-confirmation
                                                 action="{{ route('shuffled-items.destroy', $si) }}"

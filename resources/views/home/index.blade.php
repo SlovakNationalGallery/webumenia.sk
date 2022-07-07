@@ -27,6 +27,7 @@
     <div class="tailwind-rules">
         @if ($shuffledItems->count() > 0)
             <home.shuffle-orchestrator v-bind:items="{{ Js::from($shuffledItems) }}"
+                @if (request()->has('shuffleItemId')) v-bind:initial-item-id="{{ request('shuffleItemId') }}" @endif
                 v-slot="orchestrator">
                 <div class="tw-relative tw-overflow-hidden">
                     <img v-bind:class="['tw-absolute tw-h-full tw-w-full tw-object-cover tw-transition-all tw-scale-[1.005] tw-duration-700 tw-ease-in', {'tw-blur tw-scale-100': orchestrator.isShuffling }]"
@@ -142,9 +143,7 @@
                 </div>
             </home.shuffle-orchestrator>
         @endif
-
-        {{-- Counts blurb --}}
-        <div class="tw-bg-gray-200">
+        {{-- Counts blurb --}} <div class="tw-bg-gray-200">
             <div
                 class="tw-container tw-mx-auto tw-grid tw-max-w-screen-xl tw-px-6 tw-py-5 tw-text-gray-500 lg:tw-py-10">
                 <p class="tw-text-center lg:tw-text-2xl">
