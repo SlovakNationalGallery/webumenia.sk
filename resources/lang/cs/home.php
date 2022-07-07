@@ -15,7 +15,7 @@ return [
 
     'shuffled_item' => [
         'tagline' => 'Objevuj cesty uměním',
-        'subtitle' => 'Najdi tisíce kombinací výtvarných technik, žánrů a&nbsp;motivů',
+        'subtitle' => 'Najdi tisíce kombinací výtvarných technik, materiálů a&nbsp;motivů',
         'button_shuffle' => 'Zamíchej',
         'more_like_this' => 'Viz díla',
         'go_to_item' => 'Zobrazit dílo',
