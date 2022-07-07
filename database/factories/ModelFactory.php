@@ -16,6 +16,7 @@ use App\Redirect;
 use App\SharedUserCollection;
 use App\ShuffledItem;
 use Illuminate\Support\Str;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
@@ -173,4 +174,8 @@ $factory->define(ShuffledItem::class, function (Faker\Generator $faker) {
     return [
         'item_id' => factory(Item::class),
     ];
+});
+
+$factory->define(Media::class, function (Faker\Generator $faker) {
+    return ['disk' => 'media'];
 });
