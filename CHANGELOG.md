@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Changed
 - meta description to fit under 160 characters
+- front-page latest content (articles & collections) to display in two rows
 
 ## [2.57.1] - 2022-07-04
 - fix getting published collections

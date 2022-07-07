@@ -247,118 +247,98 @@
                 {{ trans('home.latest_content.collections.title') }}
             </h2>
 
-            <tabs-controller v-cloak v-slot="{ activeIndex }" class="tw-mt-4">
-                <div class="tw-flex tw-items-end">
-                    <div class="tw-flex tw-grow tw-space-x-4">
-                        @foreach ([trans('home.latest_content.collections.tab'), trans('home.latest_content.articles.tab')] as $tab)
-                            <tab v-slot="{ active }">
-                                <button
-                                    v-bind:class="['tw-transition-colors tw-font-semibold tw-text-2xl md:tw-text-4xl',
-                                        !active && 'tw-text-gray-300 hover:tw-underline tw-underline-offset-[5px] md:tw-underline-offset-8 tw-decoration-[3px]'
-                                    ]">{{ $tab }}</button>
-                            </tab>
-                        @endforeach
+            <div class="tw-mt-4 tw-flex tw-items-end tw-justify-between">
+                <h3 class="tw-text-2xl tw-font-semibold md:tw-text-4xl">
+                    {{ trans('home.latest_content.collections.tab') }}
+                </h3>
+
+                <x-home.button href="{{ route('frontend.collection.index') }}"
+                    class="tw-hidden hover:tw-bg-gray-300 sm:tw-inline-block">
+                    {{ trans('home.latest_content.collections.button') }}
+                </x-home.button>
+            </div>
+            <x-home.carousel class="tw-mt-6" button-container-class="tw-h-48">
+                @foreach ($collections as $c)
+                    <div class="tw-mr-4 tw-w-72 md:tw-w-[25rem]">
+                        <div class="tw-relative tw-bg-sky-400">
+                            <a href="{{ route('frontend.collection.detail', $c->id) }}">
+                                <img src="{{ $c->getThumbnailImage() }}"
+                                    class="tw-h-48 tw-object-cover tw-transition-opacity tw-duration-300 hover:tw-opacity-80">
+                            </a>
+
+                            <div
+                                class="tw-pointer-events-none tw-absolute tw-right-6 tw-top-6 tw-rounded-sm tw-bg-black/60 tw-px-1.5 tw-text-right tw-text-sm tw-text-white">
+                                {{ trans_choice('general.artworks_counted', $c->items_count) }}
+                                {{ trans('home.latest_content.collections.item_count_suffix') }}
+                            </div>
+                        </div>
+                        <span class="tw-mt-4 tw-inline-block tw-text-sm tw-text-gray-600">
+                            {{ Str::ucfirst($c->type ?? trans('home.latest_content.collections.default_type')) }}
+                        </span>
+                        <h4
+                            class="tw-truncate tw-text-lg tw-font-semibold tw-leading-tight tw-text-black">
+                            <a href="{{ route('frontend.collection.detail', $c->id) }}"
+                                title="{{ $c->name }}">
+                                {{ $c->name }}
+                            </a>
+                        </h4>
+                        <div class="tw-mt-2 tw-truncate tw-text-sm tw-text-gray-600">
+                            <a
+                                href="{{ route('frontend.collection.index', ['author' => $c->user->name]) }}">{{ $c->user->name }}</a>
+                            ∙ {{ $c->published_at->format('d. m. Y') }}
+                        </div>
                     </div>
-
-                    <transition enter-active-class="tw-transition tw-duration-150"
-                        enter-class="tw-opacity-0" enter-to-class="tw-opacity-100"
-                        leave-active-class="tw-transition tw-duration-150" leave-class="tw-opacity-100"
-                        leave-to-class="tw-opacity-0" mode="out-in">
-                        <a key="0" v-if="activeIndex === 0"
-                            href="{{ route('frontend.collection.index') }}"
-                            class="tw-hidden tw-border tw-border-gray-300 tw-px-4 tw-py-2 tw-text-sm tw-transition tw-duration-300 hover:tw-border-gray-400 hover:tw-bg-gray-300 sm:tw-inline-block">
-                            {{ trans('home.latest_content.collections.button') }}
-                            <i class="fa icon-arrow-right tw-ml-1 tw-mr-2"></i>
-                        </a>
-                        <a key="1" v-if="activeIndex === 1"
-                            href="{{ route('frontend.article.index') }}"
-                            class="tw-hidden tw-border tw-border-gray-300 tw-px-4 tw-py-2 tw-text-sm tw-transition tw-duration-300 hover:tw-border-gray-400 hover:tw-bg-gray-300 sm:tw-inline-block">
-                            {{ trans('home.latest_content.articles.button') }}
-                            <i class="fa icon-arrow-right tw-ml-1 tw-mr-2"></i>
-                        </a>
-                    </transition>
+                @endforeach
+                <div
+                    class="tw-flex tw-h-48 tw-w-72 tw-flex-col tw-justify-center tw-bg-gray-200 tw-text-center tw-text-xl tw-font-semibold tw-text-black md:tw-w-[25rem]">
+                    <p>{!! trans('home.latest_content.collections.promo_slide.claim', ['count' => $collectionsRemainingCount]) !!}</p>
+                    <a class="tw-mt-5 tw-underline tw-decoration-gray-300 tw-decoration-[3px] tw-underline-offset-4 hover:tw-decoration-current hover:tw-transition-colors"
+                        href="{{ route('frontend.collection.index') }}">{{ trans('home.latest_content.collections.promo_slide.link') }}</a>
                 </div>
-                <div class="tw-mt-6">
-                    <tab-panel v-slot="{ active }" class="tw-relative">
-                        <x-home.carousel v-bind:resize-once="active"
-                            button-container-class="tw-h-48">
-                            @foreach ($collections as $c)
-                                <div class="tw-mr-4 tw-w-72 md:tw-w-[25rem]">
-                                    <div class="tw-relative tw-bg-sky-400">
-                                        <a href="{{ route('frontend.collection.detail', $c->id) }}">
-                                            <img src="{{ $c->getThumbnailImage() }}"
-                                                class="tw-h-48 tw-object-cover tw-transition-opacity tw-duration-300 hover:tw-opacity-80">
-                                        </a>
+            </x-home.carousel>
 
-                                        <div
-                                            class="tw-pointer-events-none tw-absolute tw-right-6 tw-top-6 tw-rounded-sm tw-bg-black/60 tw-px-1.5 tw-text-right tw-text-sm tw-text-white">
-                                            {{ trans_choice('general.artworks_counted', $c->items_count) }}
-                                            {{ trans('home.latest_content.collections.item_count_suffix') }}
-                                        </div>
-                                    </div>
-                                    <span class="tw-mt-4 tw-inline-block tw-text-sm tw-text-gray-600">
-                                        {{ Str::ucfirst($c->type ?? trans('home.latest_content.collections.default_type')) }}
-                                    </span>
-                                    <h4
-                                        class="tw-truncate tw-text-lg tw-font-semibold tw-leading-tight tw-text-black">
-                                        <a href="{{ route('frontend.collection.detail', $c->id) }}"
-                                            title="{{ $c->name }}">
-                                            {{ $c->name }}
-                                        </a>
-                                    </h4>
-                                    <div class="tw-mt-2 tw-truncate tw-text-sm tw-text-gray-600">
-                                        <a
-                                            href="{{ route('frontend.collection.index', ['author' => $c->user->name]) }}">{{ $c->user->name }}</a>
-                                        ∙ {{ $c->published_at->format('d. m. Y') }}
-                                    </div>
-                                </div>
-                            @endforeach
-                            <div
-                                class="tw-flex tw-h-48 tw-w-72 tw-flex-col tw-justify-center tw-bg-gray-200 tw-text-center tw-text-xl tw-font-semibold tw-text-black md:tw-w-[25rem]">
-                                <p>{!! trans('home.latest_content.collections.promo_slide.claim', ['count' => $collectionsRemainingCount]) !!}</p>
-                                <a class="tw-mt-5 tw-underline tw-decoration-gray-300 tw-decoration-[3px] tw-underline-offset-4 hover:tw-decoration-current hover:tw-transition-colors"
-                                    href="{{ route('frontend.collection.index') }}">{{ trans('home.latest_content.collections.promo_slide.link') }}</a>
-                            </div>
-                        </x-home.carousel>
-                    </tab-panel>
+            <div class="tw-mt-8 tw-flex tw-items-end tw-justify-between">
+                <h3 class="tw-text-2xl tw-font-semibold md:tw-text-4xl">
+                    {{ trans('home.latest_content.articles.tab') }}
+                </h3>
 
-                    <tab-panel v-slot="{ active }" class="tw-relative">
-                        <x-home.carousel v-bind:resize-once="active"
-                            button-container-class="tw-h-48">
-                            @foreach ($articles as $a)
-                                <div class="tw-mr-4 tw-w-72 md:tw-w-[25rem]">
-                                    <a href="{{ route('frontend.article.detail', $a->slug) }}"
-                                        class="tw-block tw-bg-sky-400">
-                                        <img src="{{ $a->getThumbnailImage() }}"
-                                            class="tw-h-48 tw-object-cover tw-transition-opacity tw-duration-300 hover:tw-opacity-80">
-                                    </a>
-                                    <span class="tw-mt-4 tw-inline-block tw-text-sm tw-text-gray-600">
-                                        {{ Str::ucfirst($c->type ?? trans('home.latest_content.articles.default_type')) }}
-                                    </span>
-                                    <h4
-                                        class="tw-truncate tw-text-lg tw-font-semibold tw-leading-tight tw-text-black">
-                                        <a href="{{ route('frontend.article.detail', $a->slug) }}"
-                                            title="{{ $a->title }}">
-                                            {{ $a->title }}
-                                        </a>
-                                    </h4>
-                                    <div class="tw-mt-2 tw-truncate tw-text-sm tw-text-gray-600">
-                                        <a
-                                            href="{{ route('frontend.article.index', ['author' => $a->author]) }}">{{ $a->author }}</a>
-                                        ∙ {{ $a->published_date->format('d. m. Y') }}
-                                    </div>
-                                </div>
-                            @endforeach
-                            <div
-                                class="tw-flex tw-h-48 tw-w-72 tw-flex-col tw-justify-center tw-bg-gray-200 tw-text-center tw-text-xl tw-font-semibold tw-text-black md:tw-w-[25rem]">
-                                <p>{!! trans('home.latest_content.articles.promo_slide.claim', ['count' => $articlesRemainingCount]) !!}</p>
-                                <a class="tw-mt-5 tw-underline tw-decoration-gray-300 tw-decoration-[3px] tw-underline-offset-4 hover:tw-decoration-current hover:tw-transition-colors"
-                                    href="{{ route('frontend.article.index') }}">{{ trans('home.latest_content.articles.promo_slide.link') }}</a>
-                            </div>
-                        </x-home.carousel>
-                    </tab-panel>
+                <x-home.button href="{{ route('frontend.collection.index') }}"
+                    class="tw-hidden hover:tw-bg-gray-300 sm:tw-inline-block">
+                    {{ trans('home.latest_content.articles.button') }}
+                </x-home.button>
+            </div>
+            <x-home.carousel class="tw-mt-6" button-container-class="tw-h-48">
+                @foreach ($articles as $a)
+                    <div class="tw-mr-4 tw-w-72 md:tw-w-[25rem]">
+                        <a href="{{ route('frontend.article.detail', $a->slug) }}"
+                            class="tw-block tw-bg-sky-400">
+                            <img src="{{ $a->getThumbnailImage() }}"
+                                class="tw-h-48 tw-object-cover tw-transition-opacity tw-duration-300 hover:tw-opacity-80">
+                        </a>
+                        <span class="tw-mt-4 tw-inline-block tw-text-sm tw-text-gray-600">
+                            {{ Str::ucfirst($c->type ?? trans('home.latest_content.articles.default_type')) }}
+                        </span>
+                        <h4
+                            class="tw-truncate tw-text-lg tw-font-semibold tw-leading-tight tw-text-black">
+                            <a href="{{ route('frontend.article.detail', $a->slug) }}"
+                                title="{{ $a->title }}">
+                                {{ $a->title }}
+                            </a>
+                        </h4>
+                        <div class="tw-mt-2 tw-truncate tw-text-sm tw-text-gray-600">
+                            <a
+                                href="{{ route('frontend.article.index', ['author' => $a->author]) }}">{{ $a->author }}</a>
+                            ∙ {{ $a->published_date->format('d. m. Y') }}
+                        </div>
+                    </div>
+                @endforeach
+                <div
+                    class="tw-flex tw-h-48 tw-w-72 tw-flex-col tw-justify-center tw-bg-gray-200 tw-text-center tw-text-xl tw-font-semibold tw-text-black md:tw-w-[25rem]">
+                    <p>{!! trans('home.latest_content.articles.promo_slide.claim', ['count' => $articlesRemainingCount]) !!}</p>
+                    <a class="tw-mt-5 tw-underline tw-decoration-gray-300 tw-decoration-[3px] tw-underline-offset-4 hover:tw-decoration-current hover:tw-transition-colors"
+                        href="{{ route('frontend.article.index') }}">{{ trans('home.latest_content.articles.promo_slide.link') }}</a>
                 </div>
-            </tabs-controller>
+            </x-home.carousel>
         </div>
 
         @if ($featuredAuthor)
