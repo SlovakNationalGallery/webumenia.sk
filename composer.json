@@ -22,7 +22,6 @@
         "chelout/laravel-relationship-events": "^1.0.0",
         "doctrine/dbal": "^2.5",
         "elasticsearch/elasticsearch": "^7.2",
-        "fruitcake/laravel-cors": "^2.0",
         "google/recaptcha": "^1.2",
         "guzzlehttp/guzzle": "^7.2",
         "guzzlehttp/psr7": "^1.7",
