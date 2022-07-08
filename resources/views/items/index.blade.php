@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-diela | 
+diela |
 @parent
 @stop
 
@@ -27,13 +27,13 @@ diela |
             {!! Form::open(['url' => 'collection/fill']) !!}
             <div class="panel-heading">
                 <a href="{!! route('item.create') !!}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Vytvoriť</a>
-                <a href="{!! URL::to('item/backup') !!}" class="btn btn-primary btn-outline"><i class="fa fa-floppy-o"></i> Zazálohovať</a> 
+                <a href="{!! URL::to('item/backup') !!}" class="btn btn-primary btn-outline"><i class="fa fa-floppy-o"></i> Zazálohovať</a>
                 <a href="{!! URL::to('item/reindex') !!}" class="btn btn-primary btn-outline"><i class="fa fa-refresh"></i> Reindexovať search</a>
                 <a href="{!! URL::to('item/geodata') !!}" class="btn btn-primary btn-outline"><i class="fa fa-globe"></i> Doplniť geo dáta</a></div>
                 <div class="panel-heading">
-                Akcie pre vybraté: 
-                    {!! Form::select('collection', $collections); !!} 
-                    {!! Form::submit('Pridať do kolekcie', array('class' => 'btn btn-info btn-xs btn-outline')) !!} | <a href="#" id="refreshSelected" class="btn btn-warning btn-xs btn-outline">Refresh z OAI-PMH</a> 
+                Akcie pre vybraté:
+                    {!! Form::select('collection', $collections); !!}
+                    {!! Form::submit('Pridať do kolekcie', array('class' => 'btn btn-info btn-xs btn-outline')) !!} | <a href="#" id="refreshSelected" class="btn btn-warning btn-xs btn-outline">Refresh z OAI-PMH</a>
                     | <a href="#" id="deleteSelected" class="btn btn-danger btn-xs btn-outline">Zmazať</a>
             </div>
             <!-- /.panel-heading -->
@@ -66,7 +66,7 @@ diela |
 			                <td>{!! $i->dating !!}</td>
 			                <td>{!! $i->work_type !!}</td>
 			                <td class="action">
-                                {!! link_to_action('ItemController@show', 'Detail', array($i->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', )) !!}&nbsp;{!! link_to_action('ItemController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!} <br>
+                                {!! link_to_action('App\Http\Controllers\ItemController@show', 'Detail', array($i->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', )) !!}&nbsp;{!! link_to_action('App\Http\Controllers\ItemController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!} <br>
                                 <a href="{!! $i->getUrl() !!}" class="btn btn-success btn-xs btn-outline" target="_blank">Na webe</a>
                                 <a href="{!! $i->getOaiUrl() !!}" class="btn btn-warning btn-xs btn-outline" target="_blank">OAI záznam</a>
                             </td>
@@ -81,7 +81,7 @@ diela |
                     @else
                         {!! ($items->count()!=0) ? $items->render() : '' !!}
                     @endif
-                    
+
                 </div>
 
 
