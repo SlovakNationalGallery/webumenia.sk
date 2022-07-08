@@ -26,12 +26,12 @@
     </section>
     @endif
 
-    <section class="catalog" data-searchd-engine="{!! Config::get('app.searchd_id') !!}">
+    <section class="catalog">
         <div class="container content-section">
             <div class="row content-section">
                 <div class="col-xs-6">
                     @if (!empty($search))
-                        <h4 class="inline">{{ utrans('katalog.catalog_found_artworks') }} &bdquo;{{ $search }}&ldquo; (<span data-searchd-total-hits>{{ $total }}</span>) </h4>
+                        <h4 class="inline">{{ utrans('katalog.catalog_found_artworks') }} &bdquo;{{ $search }}&ldquo; ({{ $total }}) </h4>
                     @else
                         <h4 class="inline">{{ formatNum($total) }} {{ trans_choice('katalog.catalog_artworks', $total) }} </h4>
                     @endif
