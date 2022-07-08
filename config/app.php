@@ -205,9 +205,6 @@ return array(
         'pass' => env('JIRA_PASSWORD'),
     ),
 
-    'searchd_id' => 'your_id',
-    'searchd_id_autocomplete' => 'your_id',
-
     'google_recaptcha_secret' => env('GOOGLE_RECAPTCHA_SECRET'),
 
     'old_url' => 'http://stary.webumenia.sk',
