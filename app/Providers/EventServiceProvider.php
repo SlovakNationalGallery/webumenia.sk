@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Authority;
 use App\Item;
+use App\Observers\AuthorityObserver;
+use App\Observers\ItemObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
