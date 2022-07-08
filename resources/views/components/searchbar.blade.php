@@ -2,7 +2,6 @@
     'url' => 'katalog',
     'method' => 'get',
     'class' => 'navbar-form right-inner-addon ukraine',
-    'data-searchd-engine' => config('app.searchd_id_autocomplete'),
 ]) !!}
 <i class="fa fa-search"></i>
 {!! Form::text('search', request()->get('search'), [
