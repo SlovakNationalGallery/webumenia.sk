@@ -58,7 +58,7 @@
                             </td>
 			                <td class="text-center">{!! ($i->promote) ? '<i class="fa fa-check text-success"></i>' : ''  !!}</td>
 			                <td>
-                                {!! link_to_action('ArticleController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}
+                                {!! link_to_action('App\Http\Controllers\ArticleController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}
                                 <a href="{!! $i->getUrl() !!}" class="btn btn-success btn-xs btn-outline" target="_blank">Na webe</a>
                                 {!! Form::open(array('method' => 'DELETE', 'route' => array('article.destroy', $i->id), 'class' => 'visible-xs-inline')) !!}
                                     {!! Form::submit('Zmazať', array('class' => 'btn btn-danger btn-xs btn-outline')) !!}

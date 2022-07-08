@@ -54,9 +54,9 @@ CSV Imports |
 			                <td>{!! ($i->completed_at) ? $i->completed_at->format('d.m.Y H:i') : '' !!}</td>
 			                <td>
                                 {!! Form::open(array('method' => 'DELETE', 'route' => array('imports.destroy', $i->id), 'class' => 'visible-xs-inline form-inline')) !!}
-                                {!! link_to_action('ImportController@launch', 'Spustiť', array($i->id), array('class' => 'btn btn-success btn-xs btn-outline', )) !!}
-                                {!! link_to_action('ImportController@show', 'Detail', array($i->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', )) !!}
-                                {!! link_to_action('ImportController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}
+                                {!! link_to_action('App\Http\Controllers\ImportController@launch', 'Spustiť', array($i->id), array('class' => 'btn btn-success btn-xs btn-outline', )) !!}
+                                {!! link_to_action('App\Http\Controllers\ImportController@show', 'Detail', array($i->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', )) !!}
+                                {!! link_to_action('App\Http\Controllers\ImportController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}
                                     {!! Form::submit('Zmazať', array('class' => 'btn btn-danger btn-xs btn-outline')) !!}
                                 {!! Form::close() !!}
                             </td>
