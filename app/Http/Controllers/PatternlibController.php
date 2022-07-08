@@ -2,60 +2,53 @@
 
 namespace App\Http\Controllers;
 
-use League\Flysystem\Adapter\Local;
+use Illuminate\Support\Str;
 use League\Flysystem\Filesystem;
+use League\Flysystem\Local\LocalFilesystemAdapter;
+use League\Flysystem\StorageAttributes;
 
 class PatternlibController extends Controller
 {
-
     /** @var \League\Flysystem\Filesystem */
     protected $fs;
 
-
     public function __construct()
     {
-        $adapter  = new Local(resource_path('views/components'));
+        $adapter = new LocalFilesystemAdapter(resource_path('views/components'));
         $this->fs = new Filesystem($adapter);
     }
 
-
     public function getIndex()
     {
-        $files = $this->fs->listContents('/', true);
-
-        $result = [];
-        foreach ($files as $file) {
-            // Do not process directories
-            if ($file['type'] === 'dir') continue;
-
-            $blade = $file['filename'].'.blade.php';
-            if ($file['extension'] === 'json' && $this->fs->has($blade) && $this->fs->has($file['basename'])) {
-                $result[] = array_merge($this->processJson($file), [
-                    'include_path' => 'components.'.$file['filename'],
-                    'source_code'  => $this->fs->read($blade),
-                ]);
-            }
-        }
+        $components = $this->fs
+            ->listContents('/', true)
+            ->filter(
+                fn(StorageAttributes $a) => $a->isFile() &&
+                    Str::endsWith($a->path(), '.json') &&
+                    $this->fs->has(Str::replaceLast('.json', '.blade.php', $a->path()))
+            )
+            ->map(
+                fn(StorageAttributes $a) => array_merge($this->processJson($a), [
+                    'include_path' => 'components.' . basename($a->path(), '.json'),
+                    'source_code' => $this->fs->read(
+                        Str::replaceLast('.json', '.blade.php', $a->path())
+                    ),
+                ])
+            );
 
         return view('patternlib', [
-           'components' => $result,
+            'components' => $components,
         ]);
     }
-
 
     /**
      * Looks for 'data_calls' as well as `include_js` index and mutates the decoded json accordingly.
      *
-     * @param Array $file Array like object with file metadata. https://flysystem.thephpleague.com/docs/usage/filesystem-api/#list-contents
-     *
-     * @return array
-     *
-     * @throws \League\Flysystem\FileNotFoundException
      * @warning this function uses `eval()` http://php.net/manual/en/function.eval.php
      */
-    private function processJson($file)
+    private function processJson(StorageAttributes $file)
     {
-        $array = json_decode($this->fs->read($file['basename']), true);
+        $array = json_decode($this->fs->read($file->path()), true);
 
         if (isset($array['data_calls']) && is_array($array['data_calls'])) {
             foreach ($array['data_calls'] as $key => $call) {
@@ -64,12 +57,15 @@ class PatternlibController extends Controller
             }
         }
 
-        if (isset($array['include_js']) && (bool)$array['include_js'] === true) {
-            $js_filename = $file['filename'].'_js.blade.php';
-            if ($this->fs->has($js_filename)) { // first check for _js.blade.php
-                $array['include_path_js'] = 'components.'.$file['filename'].'_js';
-            } else { // otherwise use the static js file within js/components/
-                $js_filename = $file['filename'].'.js';
+        if (isset($array['include_js']) && (bool) $array['include_js'] === true) {
+            $js_filename = Str::replaceLast('.json', '_js.blade.php', $file->path());
+            if ($this->fs->has($js_filename)) {
+                // first check for _js.blade.php
+                $array['include_path_js'] =
+                    'components.' . basename($file->path(), '.json') . '_js';
+            } else {
+                // otherwise use the static js file within js/components/
+                $js_filename = $file->path() . '.js';
                 $array['js_asset'] = $js_filename;
             }
         }
