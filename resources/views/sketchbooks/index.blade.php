@@ -56,7 +56,7 @@
                             </td>
                             <td>{!! $i->publish !!}</td>
 			                <td>
-                                {!! link_to_action('SketchbookController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}
+                                {!! link_to_action('App\Http\Controllers\SketchbookController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}
                                 {!! Form::open(array('method' => 'DELETE', 'route' => array('sketchbook.destroy', $i->id), 'class' => 'visible-xs-inline')) !!}
                                     {!! Form::submit('Zmazať', array('class' => 'btn btn-danger btn-xs btn-outline')) !!}
                                 {!! Form::close() !!}
