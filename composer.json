@@ -25,13 +25,13 @@
         "fruitcake/laravel-cors": "^2.0",
         "google/recaptcha": "^1.2",
         "graham-campbell/throttle": "^8.1",
-        "guzzlehttp/guzzle": "^7.0.1",
+        "guzzlehttp/guzzle": "^7.2",
         "guzzlehttp/psr7": "^1.7",
         "intervention/image": "^2.7",
-        "laravel/framework": "^9.0",
+        "laravel/framework": "^9.19",
         "laravel/legacy-factories": "^1.1",
         "laravel/scout": "^9.2",
-        "laravel/tinker": "^2.0",
+        "laravel/tinker": "^2.7",
         "laravelcollective/html": "^6.2",
         "league/color-extractor": "dev-master",
         "league/csv": "^8.0",
@@ -51,12 +51,12 @@
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
+        "fakerphp/faker": "^1.19",
         "filp/whoops": "~2.0",
-        "fzaninotto/faker": "^1.7",
         "laravel/browser-kit-testing": "^6.2",
-        "mockery/mockery": "^1",
+        "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^6.1",
-        "phpunit/phpunit": "^9.0"
+        "phpunit/phpunit": "^9.5.10"
     },
     "config": {
         "github-protocols": ["https"],
