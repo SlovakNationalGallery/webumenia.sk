@@ -1,5 +1,5 @@
 const mix = require('laravel-mix');
-require('laravel-vue-lang/mix');
+const path = require('path');
 
 /*
  |--------------------------------------------------------------------------
@@ -40,7 +40,23 @@ mix
         'vue-select',
         'vue',
     ])
-    .lang()
+
+    // For laravel-vue-lang
+    .webpackConfig({
+		resolve: {
+			alias: {
+				'@lang': path.resolve('./lang'),
+			},
+		},
+        module: {
+			rules: [
+				{
+					test: /lang.+\.(php)$/,
+					loader: 'php-array-loader',
+				},
+			],
+		},
+    })
 
     // CSS
     .less('resources/less/admin.less', 'public/css')
