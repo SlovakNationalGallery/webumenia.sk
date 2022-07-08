@@ -35,7 +35,6 @@
         "league/csv": "^8.0",
         "livewire/livewire": "^2.7",
         "mcamara/laravel-localization": "1.7.*",
-        "predis/predis": "^1.1",
         "primal/color": "^1.0",
         "rap2hpoutre/laravel-log-viewer": "dev-master",
         "rtconner/laravel-tagging": "^4.1",
