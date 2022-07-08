@@ -12,33 +12,45 @@ use Throwable;
 
 class Handler extends ExceptionHandler
 {
+    /**
+     * A list of exception types with their corresponding custom log levels.
+     *
+     * @var array<class-string<\Throwable>, \Psr\Log\LogLevel::*>
+     */
+    protected $levels = [
+        //
+    ];
 
     /**
-     * A list of the exception types that should not be reported.
+     * A list of the exception types that are not reported.
      *
-     * @var array
+     * @var array<int, class-string<\Throwable>>
      */
     protected $dontReport = [
         AuthorizationException::class,
         ValidationException::class,
-        'Symfony\Component\HttpKernel\Exception\HttpException'
+        'Symfony\Component\HttpKernel\Exception\HttpException',
     ];
 
     /**
-     * Report or log an exception.
+     * A list of the inputs that are never flashed to the session on validation exceptions.
      *
-     * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
+     * @var array<int, string>
+     */
+    protected $dontFlash = ['current_password', 'password', 'password_confirmation'];
+
+    /**
+     * Register the exception handling callbacks for the application.
      *
-     * @param  \Throwable  $e
      * @return void
      */
-    public function report(Throwable $exception)
+    public function register()
     {
-        if (app()->bound('sentry') && $this->shouldReport($exception)) {
-            app('sentry')->captureException($exception);
-        }
-
-        parent::report($exception);
+        $this->reportable(function (Throwable $e) {
+            if (app()->bound('sentry')) {
+                app('sentry')->captureException($e);
+            }
+        });
     }
 
     /**
@@ -51,15 +63,12 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $e)
     {
         if ($e instanceof NotFoundHttpException) {
-
             $resolvedUrl = $this->resolveOldUrl($request);
             if ($resolvedUrl) {
                 return redirect($resolvedUrl, 301);
             }
 
-            $filter = (new ItemFilter)
-                ->setHasImage(true)
-                ->setHasIip(true);
+            $filter = (new ItemFilter())->setHasImage(true)->setHasIip(true);
             $item = app(ItemRepository::class)
                 ->getRandom(1, $filter)
                 ->getCollection()
@@ -74,15 +83,19 @@ class Handler extends ExceptionHandler
         return parent::render($request, $e);
     }
 
-
-    private function resolveOldUrl($request) {
+    private function resolveOldUrl($request)
+    {
         if ($request->is('cedvuweb/image/*')) {
             $id = $request->get('id');
             if (!empty($id)) {
                 return Item::getImagePathForId($id);
             }
-        } elseif ($request->is('web/guest/*') || $request->is('web/ogd/*') || $request->is('web/gmb/*') || $request->is('web/gnz/*'))
-        {
+        } elseif (
+            $request->is('web/guest/*') ||
+            $request->is('web/ogd/*') ||
+            $request->is('web/gmb/*') ||
+            $request->is('web/gnz/*')
+        ) {
             $filter_lookup = [
                 'author' => 'au',
                 'work_type' => 'wt',
@@ -101,7 +114,7 @@ class Handler extends ExceptionHandler
             ];
             $uri = $request->path();
             $params = http_build_query($request->all());
-            $uri = (!$params) ? $uri : $uri.'/'.$params;
+            $uri = !$params ? $uri : $uri . '/' . $params;
             $uri = str_replace('results?', 'results/', $uri);
             $parts = explode('/', $uri);
             $action = $parts[2];
@@ -117,12 +130,12 @@ class Handler extends ExceptionHandler
                     break;
 
                 case 'detail':
-                    $id_array = array_filter($parts, function($part) {
-                      return fnmatch('SVK:*', $part);
+                    $id_array = array_filter($parts, function ($part) {
+                        return fnmatch('SVK:*', $part);
                     });
                     $id = reset($id_array);
                     $item = Item::find($id);
-                    if ($item){
+                    if ($item) {
                         return $item->getUrl();
                     }
                     break;
@@ -132,11 +145,11 @@ class Handler extends ExceptionHandler
                     $query = urldecode($query);
                     parse_str($query, $output);
                     // $query = preg_replace("/(\w+)[=]/", " ", $query); // vymaze slova konciace "=" alebo ":" -> napr "au:"
-                    $query = (isSet($output['query'])) ? $output['query'] : '';
+                    $query = isset($output['query']) ? $output['query'] : '';
                     if (preg_match_all('/\s*([^:]+):(.*)/', $query, $matches)) {
-                       $apply_filters = array();
-                       $filters = array_combine ( $matches[1], $matches[2] );
-                       foreach ($filters as $filter => $value) {
+                        $apply_filters = [];
+                        $filters = array_combine($matches[1], $matches[2]);
+                        foreach ($filters as $filter => $value) {
                             if (in_array($filter, $filter_lookup)) {
                                 $filter = array_search($filter, $filter_lookup);
                                 switch ($filter) {
@@ -163,17 +176,17 @@ class Handler extends ExceptionHandler
                                         break;
                                 }
                             }
-                       }
-                       if (!empty($apply_filters)) {
+                        }
+                        if (!empty($apply_filters)) {
                             return 'katalog?' . http_build_query($apply_filters);
-                       }
-                       $query = implode(' ', $filters);
+                        }
+                        $query = implode(' ', $filters);
                     }
                     $query = $value = str_to_alphanumeric($query, ' ');
                     return 'katalog?search=' . urlencode($query);
                     break;
 
-                case (array_key_exists($action, $work_type_lookup)):
+                case array_key_exists($action, $work_type_lookup):
                     $work_type = $work_type_lookup[$action];
                     return url('katalog?work_type=' . $work_type);
                     break;
