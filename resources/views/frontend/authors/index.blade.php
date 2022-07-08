@@ -33,7 +33,7 @@
             <div class="row content-section">
                 <div class="col-xs-6">
                     @if (!empty($search))
-                        <h4 class="inline">{{ utrans('authority.authors_found') }} &bdquo;{!! $search !!}&ldquo; (<span data-searchd-total-hits>{{ $total }}</span>) </h4>
+                        <h4 class="inline">{{ utrans('authority.authors_found') }} &bdquo;{!! $search !!}&ldquo; ({{ $total }}) </h4>
                     @else
                         <h4 class="inline">{{ formatNum($total) }} {{ trans('authority.authors_counted') }}</h4>
                     @endif
@@ -58,9 +58,7 @@
                         </div>
                         <div class="col-sm-4 col-xs-8">
                             <div class="author-title">
-                                <a href="{!! $author->getUrl() !!}" {!! (!empty($search))  ?
-                        'data-searchd-result="title/'.$author->id.'" data-searchd-title="'. $author->formatedName.'"'
-                        : '' !!}>
+                                <a href="{!! $author->getUrl() !!}">
                                     <strong>{!! $author->formatedName !!}</strong>
                                 </a>
                             </div>
