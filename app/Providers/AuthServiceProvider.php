@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Gate;
 class AuthServiceProvider extends ServiceProvider
 {
     /**
-     * The policy mappings for the application.
+     * The model to policy mappings for the application.
      *
-     * @var array
+     * @var array<class-string, class-string>
      */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
@@ -30,7 +30,9 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('edit', function ($user) {
-            if ($user->role === 'admin') return true;
+            if ($user->role === 'admin') {
+                return true;
+            }
             return $user->role === 'editor';
         });
     }
