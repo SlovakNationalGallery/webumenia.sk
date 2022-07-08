@@ -24,7 +24,6 @@
         "elasticsearch/elasticsearch": "^7.2",
         "fruitcake/laravel-cors": "^2.0",
         "google/recaptcha": "^1.2",
-        "graham-campbell/throttle": "^8.1",
         "guzzlehttp/guzzle": "^7.2",
         "guzzlehttp/psr7": "^1.7",
         "intervention/image": "^2.7",
