@@ -11,17 +11,47 @@
 |
 */
 
-use App\Article;
 use App\Collection;
-use App\Elasticsearch\Repositories\AuthorityRepository;
 use App\Elasticsearch\Repositories\ItemRepository;
 use App\Filter\ItemFilter;
+use App\Http\Controllers\Admin\FeaturedArtworkController;
+use App\Http\Controllers\Admin\FeaturedPieceController;
+use App\Http\Controllers\Admin\ShuffledItemController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\AuthorityController;
+use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\ClanokController;
+use App\Http\Controllers\CollectionController;
+use App\Http\Controllers\EducationalArticleController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ImageController;
+use App\Http\Controllers\ImportController;
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\KolekciaController;
+use App\Http\Controllers\NoticeController;
+use App\Http\Controllers\PatternlibController;
+use App\Http\Controllers\RedirectController;
+use App\Http\Controllers\SharedUserCollectionController;
+use App\Http\Controllers\SketchbookController;
+use App\Http\Controllers\SkicareController;
+use App\Http\Controllers\SpiceHarvesterController;
+use App\Http\Controllers\UserCollectionController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ZoomController;
 use App\Item;
 use App\Notice;
 use App\Order;
-use App\FeaturedPiece as Slide;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use Rap2hpoutre\LaravelLogViewer\LogViewerController;
 
 Route::group(['domain' => 'media.webumenia.{tld}'], function () {
     Route::get('/', function ($tld) {
@@ -41,7 +71,7 @@ Route::group([
 ],
 function()
 {
-    Route::get('/', 'HomeController@index');
+    Route::get('/', [HomeController::class, 'index']);
     Route::get('leto', function () {
 
         return redirect('kolekcia/25');
@@ -143,11 +173,11 @@ function()
         return view('dakujeme');
     });
 
-    Route::get('dielo/{id}/zoom', 'ZoomController@getIndex')->name('item.zoom');
+    Route::get('dielo/{id}/zoom', [ZoomController::class, 'getIndex'])->name('item.zoom');
 
-    Route::get('ukaz_skicare', 'SkicareController@index');
-    Route::get('skicare', 'SkicareController@getList');
-    Route::get('dielo/{id}/skicar', 'SkicareController@getZoom');
+    Route::get('ukaz_skicare', [SkicareController::class, 'index']);
+    Route::get('skicare', [SkicareController::class, 'getList']);
+    Route::get('dielo/{id}/skicar', [SkicareController::class, 'getZoom']);
 
     Route::get('dielo/{id}/objednat', function ($id) {
 
@@ -247,32 +277,32 @@ function()
         ]);
     })->name('dielo.colorrelated');
 
-    Route::get('dielo/nahlad/{id}/{width}/{height?}', 'ImageController@resize')->where('width', '[0-9]+')->where('height', '[0-9]+')->name('dielo.nahlad');
-    Route::get('image/{id}/download', 'ImageController@download')->name('image.download');
+    Route::get('dielo/nahlad/{id}/{width}/{height?}', [ImageController::class, 'resize'])->where('width', '[0-9]+')->where('height', '[0-9]+')->name('dielo.nahlad');
+    Route::get('image/{id}/download', [ImageController::class, 'download'])->name('image.download');
 
-    Route::get('patternlib', 'PatternlibController@getIndex')->name('frontend.patternlib.index');
+    Route::get('patternlib', [PatternlibController::class, 'getIndex'])->name('frontend.patternlib.index');
 
-    Route::get('katalog', 'CatalogController@getIndex')->name('frontend.catalog.index');
-    Route::get('katalog/suggestions', 'CatalogController@getSuggestions')->name('frontend.catalog.suggestions');
-    Route::get('katalog/random', 'CatalogController@getRandom')->name('frontend.catalog.random');
+    Route::get('katalog', [CatalogController::class, 'getIndex'])->name('frontend.catalog.index');
+    Route::get('katalog/suggestions', [CatalogController::class, 'getSuggestions'])->name('frontend.catalog.suggestions');
+    Route::get('katalog/random', [CatalogController::class, 'getRandom'])->name('frontend.catalog.random');
 
-    Route::match(array('GET', 'POST'), 'autori', 'AuthorController@getIndex')->name('frontend.author.index');
-    Route::match(array('GET', 'POST'), 'autori/suggestions', 'AuthorController@getSuggestions')->name('frontend.author.suggestions');
-    Route::get('autor/{id}', 'AuthorController@getDetail')->name('frontend.author.detail');
+    Route::match(array('GET', 'POST'), 'autori', [AuthorController::class, 'getIndex'])->name('frontend.author.index');
+    Route::match(array('GET', 'POST'), 'autori/suggestions', [AuthorController::class, 'getSuggestions'])->name('frontend.author.suggestions');
+    Route::get('autor/{id}', [AuthorController::class, 'getDetail'])->name('frontend.author.detail');
 
-    Route::match(array('GET', 'POST'), 'clanky', 'ClanokController@getIndex')->name('frontend.article.index');
-    Route::match(array('GET', 'POST'), 'clanky/suggestions', 'ClanokController@getSuggestions');
-    Route::get('clanok/{slug}', 'ClanokController@getDetail')->name('frontend.article.detail');
+    Route::match(array('GET', 'POST'), 'clanky', [ClanokController::class, 'getIndex'])->name('frontend.article.index');
+    Route::match(array('GET', 'POST'), 'clanky/suggestions', [ClanokController::class, 'getSuggestions']);
+    Route::get('clanok/{slug}', [ClanokController::class, 'getDetail'])->name('frontend.article.detail');
 
-    Route::match(array('GET', 'POST'), 'kolekcie', 'KolekciaController@getIndex')->name('frontend.collection.index');
-    Route::match(array('GET', 'POST'), 'kolekcie/suggestions', 'KolekciaController@getSuggestions')->name('frontend.collection.suggestions');
-    Route::get('kolekcia/{slug}', 'KolekciaController@getDetail')->name('frontend.collection.detail');
-    Route::get('oblubene', 'UserCollectionController@show')->name('frontend.user-collection.show');
-    Route::resource('oblubene', 'SharedUserCollectionController')
+    Route::match(array('GET', 'POST'), 'kolekcie', [KolekciaController::class, 'getIndex'])->name('frontend.collection.index');
+    Route::match(array('GET', 'POST'), 'kolekcie/suggestions', [KolekciaController::class, 'getSuggestions'])->name('frontend.collection.suggestions');
+    Route::get('kolekcia/{slug}', [KolekciaController::class, 'getDetail'])->name('frontend.collection.detail');
+    Route::get('oblubene', [UserCollectionController::class, 'show'])->name('frontend.user-collection.show');
+    Route::resource('oblubene', SharedUserCollectionController::class)
         ->names('frontend.shared-user-collections')
         ->parameters(['oblubene' => 'collection:public_id'])
         ->except('index');
-    Route::resource('edu', 'EducationalArticleController')
+    Route::resource('edu', EducationalArticleController::class)
         ->names('frontend.educational-article')
         ->parameters(['edu' => 'article:slug']);
 
@@ -315,23 +345,23 @@ function()
 });
 
 Route::group(array('middleware' => 'guest'), function () {
-    Route::get('login', 'AuthController@getLogin');
-    Route::post('login', 'AuthController@postLogin');
+    Route::get('login', [AuthController::class, 'getLogin']);
+    Route::post('login', [AuthController::class, 'postLogin']);
 });
 
 Route::group(['middleware' => ['auth', 'can:edit']], function () {
-    Route::get('admin', 'AdminController@index');
-    Route::get('logout', 'AuthController@logout');
-    Route::get('imports/launch/{id}', 'ImportController@launch');
-    Route::resource('imports', 'ImportController');
-    Route::get('item/search', 'ItemController@search');
+    Route::get('admin', [AdminController::class, 'index']);
+    Route::get('logout', [AuthController::class, 'logout']);
+    Route::get('imports/launch/{id}', [ImportController::class, 'launch']);
+    Route::resource('imports', ImportController::class);
+    Route::get('item/search', [ItemController::class, 'search']);
 
-    Route::get('item', 'ItemController@index')->name('item.index');
-    Route::get('item/{id}/show', 'ItemController@show')->name('item.show');
-    Route::match(['get', 'post'], 'item/create', 'ItemController@create')->name('item.create');
-    Route::match(['get', 'post'], 'item/{id}/edit', 'ItemController@edit')->name('item.edit');
+    Route::get('item', [ItemController::class, 'index'])->name('item.index');
+    Route::get('item/{id}/show', [ItemController::class, 'show'])->name('item.show');
+    Route::match(['get', 'post'], 'item/create', [ItemController::class, 'create'])->name('item.create');
+    Route::match(['get', 'post'], 'item/{id}/edit', [ItemController::class, 'edit'])->name('item.edit');
 
-    Route::post('item/destroySelected', 'ItemController@destroySelected');
+    Route::post('item/destroySelected', [ItemController::class, 'destroySelected']);
 });
 
 Route::group(['middleware' => ['auth', 'can:edit']], function () {
@@ -373,12 +403,12 @@ Route::group(['middleware' => ['auth', 'can:edit']], function () {
         return Redirect::to($item->getUrl());
     });
 
-    Route::resource('article', 'ArticleController');
-    Route::get('collection/{collection_id}/detach/{item_id}', 'CollectionController@detach');
-    Route::post('collection/fill', 'CollectionController@fill');
-    Route::post('collection/sort', 'CollectionController@sort');
-    Route::resource('collection', 'CollectionController');
-    Route::resource('user', 'UserController');
+    Route::resource('article', ArticleController::class);
+    Route::get('collection/{collection_id}/detach/{item_id}', [CollectionController::class, 'detach']);
+    Route::post('collection/fill', [CollectionController::class, 'fill']);
+    Route::post('collection/sort', [CollectionController::class, 'sort']);
+    Route::resource('collection', CollectionController::class);
+    Route::resource('user', UserController::class);
 
     Route::group(['prefix' => 'laravel-filemanager'], function () {
         \UniSharp\LaravelFilemanager\Lfm::routes();
@@ -386,24 +416,24 @@ Route::group(['middleware' => ['auth', 'can:edit']], function () {
 });
 
 Route::group(['middleware' => ['auth', 'can:administer']], function () {
-    Route::resource('featured-pieces', 'Admin\FeaturedPieceController');
-    Route::resource('featured-artworks', 'Admin\FeaturedArtworkController');
-    Route::resource('shuffled-items', 'Admin\ShuffledItemController');
-    Route::get('harvests/launch/{id}', 'SpiceHarvesterController@launch');
-    Route::get('harvests/harvestFailed/{id}', 'SpiceHarvesterController@harvestFailed');
-    Route::get('harvests/orphaned/{id}', 'SpiceHarvesterController@orphaned');
-    Route::get('harvests/{record_id}/refreshRecord/', 'SpiceHarvesterController@refreshRecord');
-    Route::resource('harvests', 'SpiceHarvesterController');
-    Route::get('item/backup', 'ItemController@backup');
-    Route::get('item/geodata', 'ItemController@geodata');
-    Route::post('item/refreshSelected', 'ItemController@refreshSelected');
-    Route::get('item/reindex', 'ItemController@reindex');
-    Route::get('authority/reindex', 'AuthorityController@reindex');
-    Route::post('authority/destroySelected', 'AuthorityController@destroySelected');
-    Route::get('authority/search', 'AuthorityController@search');
-    Route::resource('authority', 'AuthorityController');
-    Route::resource('sketchbook', 'SketchbookController');
-    Route::resource('notices', 'NoticeController');
-    Route::resource('redirects', 'RedirectController');
-    Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+    Route::resource('featured-pieces', FeaturedPieceController::class);
+    Route::resource('featured-artworks', FeaturedArtworkController::class);
+    Route::resource('shuffled-items', ShuffledItemController::class);
+    Route::get('harvests/launch/{id}', [SpiceHarvesterController::class, 'launch']);
+    Route::get('harvests/harvestFailed/{id}', [SpiceHarvesterController::class, 'harvestFailed']);
+    Route::get('harvests/orphaned/{id}', [SpiceHarvesterController::class, 'orphaned']);
+    Route::get('harvests/{record_id}/refreshRecord/', [SpiceHarvesterController::class, 'refreshRecord']);
+    Route::resource('harvests', SpiceHarvesterController::class);
+    Route::get('item/backup', [ItemController::class, 'backup']);
+    Route::get('item/geodata', [ItemController::class, 'geodata']);
+    Route::post('item/refreshSelected', [ItemController::class, 'refreshSelected']);
+    Route::get('item/reindex', [ItemController::class, 'reindex']);
+    Route::get('authority/reindex', [AuthorityController::class, 'reindex']);
+    Route::post('authority/destroySelected', [AuthorityController::class, 'destroySelected']);
+    Route::get('authority/search', [AuthorityController::class, 'search']);
+    Route::resource('authority', AuthorityController::class);
+    Route::resource('sketchbook', SketchbookController::class);
+    Route::resource('notices', NoticeController::class);
+    Route::resource('redirects', RedirectController::class);
+    Route::get('logs', [LogViewerController::class, 'index']);
 });
