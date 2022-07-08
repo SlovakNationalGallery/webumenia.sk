@@ -1,8 +1,8 @@
-FROM php:7.4-fpm
+FROM php:8.1-fpm
 
 ARG WITH_XDEBUG=false
 
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - \
     && apt-get update -y && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
@@ -19,6 +19,10 @@ RUN docker-php-ext-configure gd --with-jpeg \
     zip \
     exif
 
+RUN pecl install redis \
+    &&  docker-php-ext-enable redis \
+    &&  rm -rf /tmp/pear
+
 RUN echo "memory_limit=512M" > $PHP_INI_DIR/conf.d/memory-limit.ini
 
 
@@ -33,7 +37,7 @@ RUN if [ $WITH_XDEBUG = "true" ] ; then \
     fi ;
 
 # Install php dependencies
-COPY --from=composer:1.8 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.3.9 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
 
