@@ -543,8 +543,7 @@ class Item extends Model
 
     public function getLocationsAttribute()
     {
-        $locations =
-            collect([
+        return collect([
                 '#^UPM/211/.*#' => 'LIGHT DEPO',
                 '#^UPM/211/B(\d+)/.*#' => 'LIGHT DEPO / BOX $1',
                 '#^UPM/210/.*#' => 'BLACK DEPO',
@@ -561,13 +560,8 @@ class Item extends Model
                 }
             })
             ->filter()
-            ->values();
-
-        if (!$locations->isEmpty()) {
-            $locations->push($this->location);
-        }
-
-        return $locations->toArray();
+            ->values()
+            ->toArray();
     }
 
     public function setLat($value)
