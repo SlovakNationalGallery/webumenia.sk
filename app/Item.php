@@ -41,6 +41,7 @@ class Item extends Model
         'len so zoom' => 'has_iip',
         'len voľné' => 'is_free',
         'zo súboru' => 'related_work',
+        'výstava' => 'exhibition',
     );
 
     public static $sortable = array(
@@ -541,6 +542,21 @@ class Item extends Model
         $this->attributes['technique'] = $value ?: '';
     }
 
+    public function getExhibitionAttribute()
+    {
+        return collect([
+                '#^UPM/211/.*#' => 'LIGHT DEPO',
+                '#^UPM/210/.*#' => 'BLACK DEPO',
+                '#^UPM/110/.*#' => 'Jeskyně: Panorama designu',
+                '#^UPM/203/D/.*#' => 'Design 2000+',
+                '#^UPM/204/.*#' => 'Fashion 2000+',
+                '#^UPM/203/POSTMODERNA$#' => 'Postmoderna',
+            ])
+            ->first(function ($pattern) {
+                return preg_match($pattern, $this->location);
+            });
+    }
+
     public function getLocationsAttribute()
     {
         $locations =
@@ -871,6 +887,7 @@ class Item extends Model
                 'view_count' => $this->view_count,
                 'color_descriptor' => $this->color_descriptor,
                 'location' => $this->locations,
+                'exhibition' => $this->exhibition,
             ];
 
             return $client->index([

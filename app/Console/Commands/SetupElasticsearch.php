@@ -60,7 +60,7 @@ class SetupElasticsearch extends Command
                 $res = $client->delete('http://'.$host.'/'.$index_name);
                 echo $res->getBody() . "\n";
             }
-        } 
+        }
 
         // ********* INDEX
 
@@ -169,11 +169,11 @@ class SetupElasticsearch extends Command
                     "type": "string",
                     "analyzer": "ascii_folding"
                   },
-                  "stemmed": { 
+                  "stemmed": {
                     "type":     "string",
                     "analyzer": "slovencina"
                   },
-                  "suggest": { 
+                  "suggest": {
                     "type":     "string",
                     "analyzer": "autocomplete",
                     "search_analyzer": "ascii_folding"
@@ -184,15 +184,15 @@ class SetupElasticsearch extends Command
                 "type": "string",
                 "index": "not_analyzed",
                 "fields": {
-                  "folded": { 
+                  "folded": {
                     "type":     "string",
                     "analyzer": "ascii_folding"
                   },
-                  "stemmed": { 
+                  "stemmed": {
                     "type":     "string",
                     "analyzer": "slovencina"
                   },
-                  "suggest": { 
+                  "suggest": {
                     "type":     "string",
                     "analyzer": "autocomplete",
                     "search_analyzer": "ascii_folding"
@@ -203,7 +203,7 @@ class SetupElasticsearch extends Command
                 "type": "string",
                 "analyzer": "ascii_folding",
                 "fields": {
-                  "stemmed": { 
+                  "stemmed": {
                     "type":     "string",
                     "analyzer": "slovencina"
                   }
@@ -248,7 +248,7 @@ class SetupElasticsearch extends Command
                     "type": "string",
                     "analyzer": "ascii_folding"
                   },
-                  "stemmed": { 
+                  "stemmed": {
                     "type":     "string",
                     "analyzer": "slovencina"
                   }
@@ -277,6 +277,10 @@ class SetupElasticsearch extends Command
                 }
               },
               "location": {
+                "type": "string",
+                "index": "not_analyzed"
+              },
+              "exhibition": {
                 "type": "string",
                 "index": "not_analyzed"
               },
@@ -355,7 +359,7 @@ class SetupElasticsearch extends Command
                     "type": "string",
                     "analyzer": "ascii_folding"
                   },
-                  "suggest": { 
+                  "suggest": {
                     "type":     "string",
                     "analyzer": "autocomplete",
                     "search_analyzer": "ascii_folding"
@@ -370,7 +374,7 @@ class SetupElasticsearch extends Command
                     "type": "string",
                     "analyzer": "ascii_folding"
                   },
-                  "suggest": { 
+                  "suggest": {
                     "type":     "string",
                     "analyzer": "autocomplete",
                     "search_analyzer": "ascii_folding"
@@ -385,7 +389,7 @@ class SetupElasticsearch extends Command
                     "type": "string",
                     "analyzer": "ascii_folding"
                   },
-                  "suggest": { 
+                  "suggest": {
                     "type":     "string",
                     "analyzer": "autocomplete",
                     "search_analyzer": "ascii_folding"
@@ -396,7 +400,7 @@ class SetupElasticsearch extends Command
                 "type": "string",
                 "analyzer": "ascii_folding",
                 "fields": {
-                  "stemmed": { 
+                  "stemmed": {
                     "type":     "string",
                     "analyzer": "slovencina"
                   }

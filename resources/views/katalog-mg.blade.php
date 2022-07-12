@@ -58,7 +58,7 @@
                         {!! Form::select('medium', array('' => '') + $mediums, @$input['medium'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_medium'))) !!}
                 </div>
                 <div  class="col-md-4 col-xs-6 bottom-space">
-                        {!! Form::select('location', array('' => '') + $locations, @$input['location'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_location'))) !!}
+                        {!! Form::select('exhibition', array('' => '') + $exhibitions, @$input['exhibition'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_location'))) !!}
                 </div>
                 <div class="col-md-2 col-md-offset-4 col-xs-4 col-xs-offset-2 ">
                         <div class="checkbox">
@@ -81,13 +81,13 @@
             @php ($year_range = explode(',', Input::get('year-range','')))
             <div class="row">
                 <div class="col-xs-6 col-sm-1 text-left text-sm-right year-range">
-                        <span class="sans" id="from_year">{!! !empty($input['year-range']) ? $year_range[0] : App\Item::sliderMin() !!}</span> 
+                        <span class="sans" id="from_year">{!! !empty($input['year-range']) ? $year_range[0] : App\Item::sliderMin() !!}</span>
                 </div>
                 <div class="col-xs-6 col-sm-1 col-sm-push-10 text-right text-sm-left year-range">
                         <span class="sans" id="until_year">{!! !empty($input['year-range']) ? $year_range[1] : App\Item::sliderMax() !!}</span>
                 </div>
                 <div class="col-sm-10 col-sm-pull-1 year-range">
-                        <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="{!! App\Item::sliderMin() !!}" data-slider-max="{!! App\Item::sliderMax() !!}" data-slider-step="5" data-slider-value="[{!! !empty($input['year-range']) ? $input['year-range'] : App\Item::sliderMin().','.App\Item::sliderMax() !!}]"/> 
+                        <input id="year-range" name="year-range" type="text" class="span2" data-slider-min="{!! App\Item::sliderMin() !!}" data-slider-max="{!! App\Item::sliderMax() !!}" data-slider-step="5" data-slider-value="[{!! !empty($input['year-range']) ? $input['year-range'] : App\Item::sliderMin().','.App\Item::sliderMax() !!}]"/>
                 </div>
             </div>
             {!! Form::hidden('sort_by', @$input['sort_by'], ['id'=>'sort_by']) !!}
@@ -312,7 +312,7 @@ $(document).ready(function(){
         return false;
     });
 
-    
+
     var $carousel = $('.mgCarousel').flickity({
       wrapAround: true,
       percentPosition: false

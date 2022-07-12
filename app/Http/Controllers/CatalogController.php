@@ -365,6 +365,7 @@ class CatalogController extends Controller
         $techniques = Item::listValues('technique', $params);
         $mediums = Item::listValues('medium', $params);
         $locations = Item::listValues('location', $params);
+        $exhibitions = Item::listValues('exhibition', $params);
 
         $queries = DB::getQueryLog();
         $last_query = end($queries);
@@ -374,37 +375,37 @@ class CatalogController extends Controller
                 'title' => 'Light<br>Depo',
                 'subtitle' => '',
                 'image_path' => asset('images/mg/intro/LightDepo.jpg'),
-                'url' => '/katalog?location=LIGHT+DEPO',
+                'url' => '/katalog?exhibition=LIGHT+DEPO',
             ]),
             new \App\Slide([
                 'title' => 'Black<br>Depo',
                 'subtitle' => '',
                 'image_path' => asset('images/mg/intro/BlackDepo.jpg'),
-                'url' => '/katalog?location=BLACK+DEPO',
+                'url' => '/katalog?exhibition=BLACK+DEPO',
             ]),
             new \App\Slide([
                 'title' => 'Design<br>2000+',
                 'subtitle' => '',
                 'image_path' => asset('images/mg/intro/Design2000.jpg'),
-                'url' => '/katalog?location=Design+2000%2B',
+                'url' => '/katalog?exhibition=Design+2000%2B',
             ]),
             new \App\Slide([
                 'title' => 'Fashion<br>2000+',
                 'subtitle' => '',
                 'image_path' => asset('images/mg/intro/Fashion2000.jpg'),
-                'url' => '/katalog?location=Fashion+2000%2B',
+                'url' => '/katalog?exhibition=Fashion+2000%2B',
             ]),
             new \App\Slide([
                 'title' => 'Jeskyně:<br>Panorama designu',
                 'subtitle' => '',
                 'image_path' => asset('images/mg/intro/Jeskyne.jpg'),
-                'url' => '/katalog?location=Jeskyně%3A+Panorama+designu',
+                'url' => '/katalog?exhibition=Jeskyně%3A+Panorama+designu',
             ]),
             new \App\Slide([
                 'title' => '<br>Postmoderna',
                 'subtitle' => '',
                 'image_path' => asset('images/mg/intro/Postmoderna.jpg'),
-                'url' => '/katalog?location=Postmoderna',
+                'url' => '/katalog?exhibition=Postmoderna',
             ]),
             new \App\Slide([
                 'title' => 'Archiv<br>a sbírka<br>Jiřího<br>Valocha',
@@ -463,7 +464,7 @@ class CatalogController extends Controller
             'input' => $input,
             'paginator' => $paginator,
             'mediums' => $mediums,
-            'locations' => $locations,
+            'exhibitions' => $exhibitions,
             'slides' => $slides,
         ));
     }
