@@ -66,13 +66,18 @@ Route::get('/items', function (Request $request) use ($wrapDocument) {
 });
 
 Route::get('/items/{id}', function (Request $request, $id) use ($wrapDocument) {
+    $item = Item::findOrFail($id);
+
     $response = app(Client::class)->get([
         'index' => config('bouncy.index'),
         'type' => Item::ES_TYPE,
         'id' => $id,
     ]);
 
-    return response()->json($wrapDocument($response))
+    $wrapped = $wrapDocument($response);
+    $wrapped['model']['description'] = $item->description;
+
+    return response()->json($wrapped)
         ->withHeaders([
             'Access-Control-Allow-Origin' => '*',
             'Access-Control-Allow-Methods' => '*',
