@@ -58,7 +58,7 @@
                         {!! Form::select('medium', array('' => '') + $mediums, @$input['medium'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_medium'))) !!}
                 </div>
                 <div  class="col-md-4 col-xs-6 bottom-space">
-                        {!! Form::select('location', array('' => '') + $locations, @$input['location'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_location'))) !!}
+                        {!! Form::select('exhibition', array('' => '') + $exhibitions, @$input['exhibition'], array('class'=> 'custom-select form-control', 'data-placeholder' => trans('katalog.filters_location'))) !!}
                 </div>
                 <div class="col-md-2 col-md-offset-4 col-xs-4 col-xs-offset-2 ">
                         <div class="checkbox">
