@@ -14,6 +14,7 @@ class MgFotoImporter extends MgImporter {
         'RokVzDo' => 'date_latest',
         'Původnost' => 'state_edition',
         'Autor' => 'author',
+        'AktLokace' => 'location',
     ];
 
     protected $defaults = [
