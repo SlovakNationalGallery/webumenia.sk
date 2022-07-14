@@ -1,26 +1,28 @@
 <?php
 
-
-
 namespace App\Console\Commands;
 
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\URL;
+use App\Article;
+use App\Authority;
+use App\Collection;
+use App\Item;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
+use Spatie\Sitemap\Sitemap;
+use Spatie\Sitemap\SitemapIndex;
+use Spatie\Sitemap\Tags\Url as SitemapUrl;
 
 class MakeSitemap extends Command
 {
     const SITEMAPS_DIR = 'sitemaps/';
     protected $max_entries = 50000; // max entries per sitemap. according google spec max is 50 000
     protected $available_models = [
-        'Article',
-        'Authority',
-        'Collection',
-        'Item',
+        Article::class,
+        Authority::class,
+        Collection::class,
+        Item::class,
     ];
 
     /**
@@ -57,52 +59,39 @@ class MakeSitemap extends Command
     {
         $this->info('Spúšťam generovanie sitemap. Bude to chvíľu trvať.');
 
-        /*** MISC ****/
-        $sitemap_misc = App::make("sitemap");
+        // Miscelaneous
+        Sitemap::create()
+            ->add(
+                SitemapUrl::create('/')
+                    ->setLastModificationDate($this->getLastModified('home/index.blade.php'))
+                    ->setChangeFrequency(SitemapUrl::CHANGE_FREQUENCY_DAILY)
+                    ->setPriority(1)
+            )
+            ->add(
+                SitemapUrl::create('/informacie')
+                    ->setLastModificationDate($this->getLastModified('informacie.blade.php'))
+                    ->setChangeFrequency(SitemapUrl::CHANGE_FREQUENCY_YEARLY)
+                    ->setPriority(0.8)
+            )
+            ->writeToFile(public_path(self::SITEMAPS_DIR . 'misc.xml'));
 
-        $sitemap_misc->add(URL::to(''), $this->getLastModified('home/index.blade.php'), '1.0', 'weekly');
-        $sitemap_misc->add(URL::to('informacie'), $this->getLastModified('informacie.blade.php'), '0.8');
-
-        $sitemap_misc->store('xml', self::SITEMAPS_DIR . 'misc');
         $this->addSitemap(self::SITEMAPS_DIR . 'misc');
 
-        /**** vytvorit sitemapy pre kazdy (povoleny) model *****/
+        // Model-based sitemaps
         foreach ($this->available_models as $model) {
             $this->makeSitemapForModel($model);
         }
 
-        $sitemap = App::make("sitemap");
-        foreach ($this->sitemaps as $sitemap_name) {
-            $sitemap->addSitemap(URL::to($sitemap_name));
+        $sitemapIndex = SitemapIndex::create();
+        foreach ($this->sitemaps as $sitemap) {
+            $sitemapIndex->add(URL::to($sitemap));
         }
-        $sitemap->store('sitemapindex', 'sitemap');
-        $this->comment('sitemap');
 
-        $this->info('Sitemapa bola vegernerovaná úspešne.');
-    }
+        $sitemapIndex->writeToFile(public_path('sitemap.xml'));
 
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return array(
-            // array('example', InputArgument::REQUIRED, 'An example argument.'),
-        );
-    }
+        $this->comment('sitemap.xml');
 
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return array(
-            // array('example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null),
-        );
+        $this->info('Sitemapa bola vygernerovaná úspešne.');
     }
 
     private function addSitemap($sitemap_name)
@@ -112,43 +101,64 @@ class MakeSitemap extends Command
         $this->comment($sitemap_name);
     }
 
-    private function makeSitemapForModel($model, $priority = null, $freq = null)
-    {
-        $i = 0;
-        $sitemap_count = 0;
-        $sitemap = App::make("sitemap");
-        $namespaced_model = '\App\\'. $model;
+    private function makeSitemapForModel(
+        $model,
+        $priority = 0.5, // Default according to https://www.sitemaps.org/protocol.html
+        $freq = SitemapUrl::CHANGE_FREQUENCY_WEEKLY
+    ) {
+        $entryCounter = 0;
+        $sitemapPartNumber = 1;
+        $sitemap = Sitemap::create();
 
-        $namespaced_model::chunk(200, function ($entries) use (&$sitemap, &$i, &$sitemap_count, &$model, &$priority, &$freq) {
-            foreach ($entries as $entry) {
-                // preskocit clanky a kolekcie, ktore niesu vypublikovane
-                if (($model == 'Article' || $model == 'Collection') && (!$entry->publish)) {
-                    continue;
-                }
-                $images = [];
-                if ($entry->has_image) {
-                    $images[] = ['url' => URL::to($entry->getImagePath()), 'title' => $entry->title];
-                }
-                $sitemap->add($entry->getUrl(), $entry->updated_at, $priority, $freq, $images);
-                $i++;
-                if ($i >= $this->max_entries) {
-                    $sitemap_name = self::SITEMAPS_DIR . Str::plural(strtolower($model)) . '-' . ($sitemap_count+1);
-                    $sitemap->store('xml', $sitemap_name);
-                    $this->addSitemap($sitemap_name);
-                    $sitemap = App::make("sitemap"); // vytvori nanovo
-                    $sitemap_count++;
-                    $i = 0;
-                }
+        foreach ($model::lazy() as $entry) {
+            // Skip unpublished entries
+            if ($model == Article::class && !$entry->publish) {
+                continue;
             }
-        });
 
-        // treba ulozit poslednu sitemapu
-        if ($i > 0) {
-            $sitemap_name = self::SITEMAPS_DIR . Str::plural(strtolower($model)) . '-' . ($sitemap_count+1);
-            $sitemap->store('xml', $sitemap_name);
-            $this->addSitemap($sitemap_name);
+            if ($model == Collection::class && !$entry->is_published) {
+                continue;
+            }
+
+            $url = SitemapUrl::create($entry->getUrl())
+                ->setLastModificationDate($entry->updated_at)
+                ->setPriority($priority)
+                ->setChangeFrequency($freq);
+
+            if ($entry->has_image) {
+                $url->addImage($entry->getImagePath());
+            }
+
+            $sitemap->add($url);
+            $entryCounter++;
+
+            // Write & "rotate" the sitemap once we have reached limit
+            if ($entryCounter >= $this->max_entries) {
+                $this->writeSitemapForModel($sitemap, $model, $sitemapPartNumber);
+
+                // Create a new sitemap instance & reset counter
+                $sitemap = Sitemap::create();
+                $sitemapPartNumber++;
+                $entryCounter = 0;
+            }
         }
 
+        // Write last part
+        $this->writeSitemapForModel($sitemap, $model, $sitemapPartNumber);
+    }
+
+    private function writeSitemapForModel(Sitemap $sitemap, $model, int $partNumber): void
+    {
+        $fileName =
+            Str::of($model)
+                ->classBasename()
+                ->plural()
+                ->lower() .
+            '-' .
+            $partNumber;
+
+        $sitemap->writeToFile(public_path(self::SITEMAPS_DIR . $fileName . '.xml'));
+        $this->addSitemap(self::SITEMAPS_DIR . $fileName);
     }
 
     private function getLastModified($file)

@@ -24,7 +24,6 @@
         "elasticsearch/elasticsearch": "^7.2",
         "google/recaptcha": "^1.2",
         "guzzlehttp/guzzle": "^7.2",
-        "guzzlehttp/psr7": "^1.7",
         "intervention/image": "^2.7",
         "laravel/framework": "^9.19",
         "laravel/legacy-factories": "^1.1",
@@ -43,6 +42,7 @@
         "spatie/laravel-medialibrary": "^9.7",
         "spatie/laravel-missing-page-redirector": "^2.7",
         "spatie/laravel-newsletter": "^4.10",
+        "spatie/laravel-sitemap": "^6.2",
         "symfony/templating": "^5.2",
         "unisharp/laravel-filemanager": "^2.2"
     },
