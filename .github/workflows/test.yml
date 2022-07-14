@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Set .env file
-        run: cp .env.example .env
+        run: cp .env.testing.example .env
       - name: Warm up stack (and pull images to prevent them from being cached)
         run: docker-compose up -d mysql elasticsearch redis
         # https://github.com/satackey/action-docker-layer-caching/issues/55#issuecomment-763418185
