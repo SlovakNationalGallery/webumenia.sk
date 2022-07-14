@@ -4,12 +4,12 @@ namespace Tests\Feature;
 
 use App\Item;
 use App\SharedUserCollection;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class SharedUserCollectionsApiTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
     public function testShow()
     {
