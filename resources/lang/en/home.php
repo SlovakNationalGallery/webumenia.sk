@@ -15,9 +15,9 @@ return [
 
     'shuffled_item' => [
         'tagline' => "Discover art's branching pathways",
-        'subtitle' => 'Thousands of techniques, genres and&nbsp;motifs to&nbsp;explore',
+        'subtitle' => 'Thousands of techniques, genres and&nbsp;media to&nbsp;explore',
         'button_shuffle' => 'Shuffle',
-        'more_like_this' => 'More artworks like this',
+        'more_like_this' => 'More artworks',
         'go_to_item' => 'Display artwork',
     ],
 

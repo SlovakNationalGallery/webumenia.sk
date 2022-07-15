@@ -41,7 +41,7 @@ Route::group([
 ],
 function()
 {
-    Route::get('/', 'HomeController@index');
+    Route::get('/', 'HomeController@index')->name('home');
     Route::get('leto', function () {
 
         return redirect('kolekcia/25');
