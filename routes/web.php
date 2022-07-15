@@ -211,14 +211,14 @@ function()
 
     });
 
-    Route::get('dielo/{id}/stiahnut', ['middleware' => 'throttle:5,1', function ($id) {
+    Route::get('dielo/{id}/stiahnut', function ($id) {
         $item = Item::findOrFail($id);
         if ($item->images->isEmpty()) {
             abort(404);
         }
 
         return redirect()->route('image.download', ['id' => $item->images->first()->id]);
-    }]);
+    })->middleware('throttle:downloads');
 
     Route::get('dielo/{id}', function ($id, ItemRepository $itemRepository) {
         /** @var Item $item */
