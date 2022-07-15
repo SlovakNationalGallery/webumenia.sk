@@ -27,6 +27,7 @@
     <div class="tailwind-rules">
         @if ($shuffledItems->count() > 0)
             <home.shuffle-orchestrator v-bind:items="{{ Js::from($shuffledItems) }}"
+                @if (request()->has('shuffleItemId')) v-bind:initial-item-id="{{ request('shuffleItemId') }}" @endif
                 v-slot="orchestrator">
                 <div class="tw-relative tw-overflow-hidden">
                     <img v-bind:class="['tw-absolute tw-h-full tw-w-full tw-object-cover tw-transition-all tw-scale-[1.005] tw-duration-700 tw-ease-in', {'tw-blur tw-scale-100': orchestrator.isShuffling }]"
@@ -81,7 +82,8 @@
                                                         </div>
                                                         <div
                                                             v-bind:class="['tw-whitespace-nowrap tw-transition-opacity tw-text-sm md:tw-text-base tw-text-white', {'tw-opacity-40': orchestrator.isShuffling }]">
-                                                            @{{ filterAttribute.value }}
+                                                            <a :href="filterAttribute.url"
+                                                                class="hover:tw-underline">@{{ filterAttribute.value }}</a>
                                                         </div>
                                                     </div>
                                                 </home.transition-in-place>
@@ -98,7 +100,7 @@
                                 </div>
 
                                 <x-home.button v-bind:href="orchestrator.filter.url"
-                                    v-bind:class="['tw-mt-6 tw-self-stretch tw-bg-white/10 tw-text-center md:tw-hidden', {'tw-opacity-40 tw-pointer-events-none': orchestrator.isShuffling}]">
+                                    v-bind:class="['tw-mt-6 tw-self-stretch tw-bg-white tw-text-gray-800 hover:tw-bg-gray-300 tw-text-center md:tw-hidden', {'tw-opacity-0 tw-pointer-events-none': orchestrator.isShuffling}]">
                                     {{ trans('home.shuffled_item.more_like_this') }}
                                 </x-home.button>
                             </div>
@@ -106,14 +108,16 @@
 
                         <div class="tw-mt-10 tw-grid tw-self-stretch md:tw-mt-20 md:tw-grid-cols-3">
                             <div
-                                class="tw-col-start-2 tw-hidden tw-text-center md:tw-block md:tw-pb-24">
+                                v-bind:class="['tw-col-start-2 tw-hidden tw-text-center md:tw-block md:tw-pb-24 tw-transition-all tw-duration-300',
+                                    { 'tw-opacity-0 tw-pointer-events-none tw-scale-95': orchestrator.isShuffling }
+                                ]">
                                 <x-home.button v-bind:href="orchestrator.filter.url"
-                                    v-bind:class="['tw-self-stretch tw-bg-white/10 tw-text-center disabled:tw-opacity-40', {'tw-opacity-40 tw-pointer-events-none': orchestrator.isShuffling}]">
+                                    class="tw-bg-white tw-text-gray-800 hover:tw-bg-gray-300">
                                     {{ trans('home.shuffled_item.more_like_this') }}
                                 </x-home.button>
                             </div>
                             <div
-                                v-bind:class="['tw-text-white/60 tw-flex tw-flex-col tw-items-center tw-text-xs md:tw-self-end md:tw-items-end md:tw-text-sm tw-transition-opacity tw-duration-500', {'tw-opacity-0 tw-pointer-events-none': orchestrator.isShuffling}]">
+                                v-bind:class="['tw-text-white/80 tw-flex tw-flex-col tw-items-center tw-text-xs md:tw-self-end md:tw-items-end md:tw-text-sm tw-transition-opacity tw-duration-500', {'tw-opacity-0 tw-pointer-events-none': orchestrator.isShuffling}]">
                                 <div
                                     class="tw-hidden tw-flex-col tw-items-end tw-justify-end tw-gap-x-1 tw-text-right md:tw-flex">
                                     <span>@{{ orchestrator.item.authors }}</span>
@@ -139,9 +143,7 @@
                 </div>
             </home.shuffle-orchestrator>
         @endif
-
-        {{-- Counts blurb --}}
-        <div class="tw-bg-gray-200">
+        {{-- Counts blurb --}} <div class="tw-bg-gray-200">
             <div
                 class="tw-container tw-mx-auto tw-grid tw-max-w-screen-xl tw-px-6 tw-py-5 tw-text-gray-500 lg:tw-py-10">
                 <p class="tw-text-center lg:tw-text-2xl">

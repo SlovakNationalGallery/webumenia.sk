@@ -8,6 +8,7 @@ use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -51,6 +52,7 @@ class ShuffledItem extends Model implements HasMedia, TranslatableContract
                     'attributes' => collect($f['attributes'])->map(
                         fn($a) => [
                             'label' => trans('item.' . $a['name']),
+                            'url' => $this->getFilterAttributeUrl($a, $f['url']),
                             'value' => $a['label'],
                         ]
                     ),
@@ -123,5 +125,17 @@ class ShuffledItem extends Model implements HasMedia, TranslatableContract
         $this->addMediaCollection('image')
             ->singleFile()
             ->withResponsiveImages();
+    }
+
+    private function getFilterAttributeUrl($attribute, $filterUrl): ?string
+    {
+        if (!Str::contains($filterUrl, '?')) {
+            return null;
+        }
+
+        [$baseUrl, $encodedQuery] = explode('?', $filterUrl, 2);
+        parse_str($encodedQuery, $queryParameters);
+
+        return $baseUrl . "?{$attribute['name']}=" . urlencode($attribute['label']);
     }
 }

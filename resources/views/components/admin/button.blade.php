@@ -2,12 +2,13 @@
     'outline' => false,
     'primary' => false,
     'danger' => false,
+    'success' => false,
     'sm' => false,
     'link' => null,
 ])
 
 @php
-$defaultColor = !$primary && !$danger;
+$defaultColor = !$primary && !$danger && !$success;
 $defaultSize = $sm == false;
 
 $class = [
@@ -32,6 +33,9 @@ if ($outline) {
     if ($danger) {
         $class[] = 'tw-text-[#d9534f] hover:tw-text-white tw-border-[#d43f3a] hover:tw-bg-[#d2322d] hover:tw-border-[#ac2925]';
     }
+    if ($success) {
+        $class[] = 'tw-text-[#5cb85c] hover:tw-text-white tw-border-[#4cae4c] hover:tw-bg-[#47a447] hover:tw-border-[#398439]';
+    }
     if ($defaultColor) {
         $class[] = 'tw-border-gray-300 hover:tw-bg-gray-200';
     }
@@ -41,6 +45,9 @@ if ($outline) {
     }
     if ($danger) {
         $class[] = 'tw-text-white tw-bg-[#d9534f] hover:tw-text-white tw-border-[#d43f3a] hover:tw-bg-[#d2322d] hover:tw-border-[#ac2925]';
+    }
+    if ($success) {
+        $class[] = 'tw-text-white tw-bg-[#5cb85c] hover:tw-text-white tw-border-[#4cae4c] hover:tw-bg-[#47a447] hover:tw-border-[#398439]';
     }
     if ($defaultColor) {
         $class[] = 'tw-border-gray-300 tw-border hover:tw-bg-gray-200';
