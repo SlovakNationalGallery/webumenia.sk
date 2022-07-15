@@ -48,6 +48,7 @@
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
+        "deployer/deployer": "v7.x",
         "fakerphp/faker": "^1.19",
         "filp/whoops": "~2.0",
         "laravel/browser-kit-testing": "^6.2",
