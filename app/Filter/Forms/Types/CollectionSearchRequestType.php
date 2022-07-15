@@ -13,7 +13,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CollectionSearchRequestType extends AbstractType
 {
-
     public function __construct()
     {
     }
@@ -25,11 +24,12 @@ class CollectionSearchRequestType extends AbstractType
             /** @var CollectionSearchRequest $searchRequest */
             $searchRequest = $event->getData();
 
-            $collections = $this::prepareCollections($searchRequest);
+            $collections = $this::prepareCollections($searchRequest)->get();
 
             $getChoiceOptions = function ($attribute) use ($searchRequest, $collections) {
-
-                $choices = $collections->get()->countBy($attribute)
+                $choices = $collections
+                    // ->get()
+                    ->countBy($attribute)
                     ->sort()
                     ->reverse()
                     ->mapWithKeys(function ($count, $item) {
@@ -51,7 +51,6 @@ class CollectionSearchRequestType extends AbstractType
                 ];
             };
 
-
             $form
                 ->add('author', ChoiceType::class, $getChoiceOptions('author'))
                 ->add('type', ChoiceType::class, $getChoiceOptions('type'))
@@ -60,8 +59,8 @@ class CollectionSearchRequestType extends AbstractType
                     'placeholder' => 'sorting.published_at', // $searchRequest->getSearch() !== null ? 'sorting.relevance' : 'sorting.updated_at',
                     'choices' => [
                         'sorting.title' => 'name',
-                        'sorting.updated_at' => 'updated_at'
-                    ]
+                        'sorting.updated_at' => 'updated_at',
+                    ],
                 ]);
         });
 
@@ -94,24 +93,10 @@ class CollectionSearchRequestType extends AbstractType
 
     public static function prepareCollections(CollectionSearchRequest $searchRequest)
     {
-        $locale = app()->getLocale();
-
-        $collections = Collection::published()
-            ->join('users', 'users.id', '=', 'collections.user_id')
-            ->leftJoin('collection_translations', function ($join) use ($locale) {
-                $join->on('collections.id', '=', 'collection_translations.collection_id')
-                    ->where('locale', $locale);
-            })
-            ->select(
-                'collections.*',
-                'users.name as author',
-                'collection_translations.type as type',
-                'collection_translations.name as name'
-            );
+        $collections = Collection::published()->with(['translations', 'items', 'user']);
 
         if ($searchRequest->getAuthor()) {
-            $collections
-                ->where('users.name', $searchRequest->getAuthor());
+            $collections->where('users.name', $searchRequest->getAuthor());
         }
         if ($searchRequest->getType()) {
             $collections->where('type', '=', $searchRequest->getType());
