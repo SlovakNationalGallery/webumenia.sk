@@ -26,7 +26,7 @@ We are committed to providing a welcoming and inspiring community for all and ex
 This software is built with the [Laravel framework](http://laravel.com/).
 
 It requires
-* PHP 7.4.x with the following extensions: exif, gd, pdo_mysql, zip
+* PHP 8.1
 * MySQL 5.7
 * Elasticsearch 7.3
 
