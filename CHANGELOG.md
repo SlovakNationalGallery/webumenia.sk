@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- Authority link labels to be optional
 
 ## [2.59.0] - 2022-07-15
 ### Changed
