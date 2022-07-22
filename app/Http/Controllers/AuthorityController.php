@@ -130,27 +130,44 @@ class AuthorityController extends Controller
      */
     public function update(HttpRequest $request, $id)
     {
-        $request->validate(array_merge(
-            Authority::$rules, 
-            [
-                'externalLinks.*.url' => Link::$rules['url'],
-                'externalLinks.*.label' => Link::$rules['label'],
-                'sourceLinks.*.url' => Link::$rules['url'],
-                'sourceLinks.*.label' => Link::$rules['label'],
-            ]
-        ));
+        $request->validate(
+            array_merge(Authority::$rules, [
+                'externalLinks.*.url' => 'url|required',
+                'externalLinks.*.label' => 'string|nullable',
+                'sourceLinks.*.url' => 'url|required',
+                'sourceLinks.*.label' => 'string|nullable',
+            ])
+        );
 
         $authority = Authority::findOrFail($id);
         $authority->fill($request->input());
         $authority->save();
 
         $links = collect()
-            ->merge(collect($request->input('externalLinks', []))->map(function($link) {
-                return Link::updateOrCreate(['id' => $link['id']], array_merge($link, ['type' => 'external']));
-            }))
-            ->merge(collect($request->input('sourceLinks', []))->map(function($link) {
-                return Link::updateOrCreate(['id' => $link['id']], array_merge($link, ['type' => 'source']));
-            }));
+            ->merge(
+                collect($request->input('externalLinks', []))->map(function ($link) {
+                    return Link::updateOrCreate(
+                        ['id' => $link['id']],
+                        [
+                            'url' => $link['url'],
+                            'label' => $link['label'] ?? parse_url($link['url'])['host'],
+                            'type' => 'external',
+                        ]
+                    );
+                })
+            )
+            ->merge(
+                collect($request->input('sourceLinks', []))->map(function ($link) {
+                    return Link::updateOrCreate(
+                        ['id' => $link['id']],
+                        [
+                            'url' => $link['url'],
+                            'label' => $link['label'] ?? parse_url($link['url'])['host'],
+                            'type' => 'source',
+                        ]
+                    );
+                })
+            );
 
         $authority->links()->saveMany($links);
         $authority->links()->whereNotIn('id', collect($links)->pluck('id'))->delete();

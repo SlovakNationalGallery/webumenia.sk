@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.59.1] - 2022-07-22
+### Fixed
+- Authority link labels to be optional
+
 ## [2.59.0] - 2022-07-15
 ### Changed
 - front-page latest content (articles & collections) to display in two rows

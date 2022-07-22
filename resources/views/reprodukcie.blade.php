@@ -27,6 +27,8 @@
             <section id="digital"
                 class="tw-container tw-flex tw-max-w-screen-xl tw-flex-col tw-items-center tw-px-6">
                 <div class="lg:tw-w-8/12">
+                    @include('components.notice', compact('notice'))
+
                     <h2 class="tw-my-5 tw-text-center tw-text-2xl">
                         {{ trans('reprodukcie.digital_heading') }}
                     </h2>
@@ -98,8 +100,6 @@
             <section id="print"
                 class="tw-container tw-flex tw-max-w-screen-xl tw-flex-col tw-items-center tw-px-6">
                 <div class="lg:tw-w-8/12">
-                    @include('components.notice', compact('notice'))
-
                     <h2 class="tw-my-5 tw-text-center tw-text-2xl">
                         {{ trans('reprodukcie.print_heading') }}
                     </h2>
