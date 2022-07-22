@@ -435,37 +435,38 @@ class ItemRepository extends TranslatableRepository
     public function reindexAllLocales(): int
     {
         $processedCount = 0;
-        $locales = collect($this->locales);
 
-        $this
-            ->modelClass::with(['images', 'authorities', 'translations', 'tagged'])
-            ->chunk(1000, function($items) use (&$locales, &$processedCount) {
-                $processedCount += $items->count();
+        $this->modelClass
+            ::with(['images', 'authorities', 'translations', 'tagged'])
+            ->lazy()
+            ->tap(function () use (&$processedCount) {
+                $processedCount++;
+            })
+            ->crossJoin(collect($this->locales))
+            ->flatMap(function ($item_locale) {
+                [$item, $locale] = $item_locale;
 
-                $locales->flatMap(function ($locale) use ($items) {
-                    return $items->flatMap(function ($item) use ($locale) {
-                        return [
-                            // Action
-                            [
-                                'index' => [
-                                    '_index' => $this->getLocalizedIndexName($locale),
-                                    '_id' => $item->getKey(),
-                                ]
-                            ],
+                return [
+                    // Action
+                    [
+                        'index' => [
+                            '_index' => $this->getLocalizedIndexName($locale),
+                            '_id' => $item->getKey(),
+                        ],
+                    ],
 
-                            // Data
-                            $item->getIndexedData($locale)
-                        ];
-                    });
-                })
-                ->pipe(function ($bulkIndexBody) use (&$processedCount) {
-                    $this->elasticsearch->bulk(['body' => $bulkIndexBody->toArray()]);
+                    // Data
+                    $item->getIndexedData($locale),
+                ];
+            })
+            ->chunk(1000)
+            ->each(function ($operations) use (&$processedCount) {
+                $this->elasticsearch->bulk(['body' => $operations]);
 
-                    // Progress report
-                    if (app()->runningInConsole()) {
-                        echo date('h:i:s'). " " . $processedCount . "\n";
-                    }
-                });
+                // Progress report
+                if (app()->runningInConsole()) {
+                    echo date('h:i:s') . ' ' . $processedCount . "\n";
+                }
             });
 
         return $processedCount;
