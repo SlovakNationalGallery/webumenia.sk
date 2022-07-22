@@ -45,6 +45,7 @@ use App\Item;
 use App\Notice;
 use App\Order;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
@@ -226,9 +227,12 @@ function()
         if (empty($item)) {
             abort(404);
         }
+
         $item->timestamps = false;
-        $item->view_count += 1;
-        $item->save();
+        $item->view_count++;
+        $item->last_viewed_at = Date::now();
+        $item->saveQuietly(); // Do not sync to search
+
         $previous = $next = false;
 
         $similar_items = $itemRepository->getSimilar(12, $item)->getCollection();

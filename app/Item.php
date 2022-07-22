@@ -764,15 +764,6 @@ class Item extends Model implements IndexableModel, TranslatableContract
         ];
     }
 
-    public function incrementViewCount($save = true)
-    {
-        $this->timestamps = false;
-        $this->view_count++;
-        if ($save) {
-            $this->save();
-        }
-    }
-
     public function getUseTranslationFallback()
     {
         return $this->useTranslationFallback;
