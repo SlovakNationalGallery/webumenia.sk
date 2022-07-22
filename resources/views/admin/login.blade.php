@@ -13,7 +13,7 @@ login |
 				<h3 class="panel-title">Prosím prihláste sa</h3>
 			</div>
 			<div class="panel-body">
-				{!! Form::open(array('action' => 'AuthController@postLogin', 'method' => 'post', 'id' => 'loginForm')) !!}
+				{!! Form::open(array('action' => 'App\Http\Controllers\AuthController@postLogin', 'method' => 'post', 'id' => 'loginForm')) !!}
 					@if($errors->any())
 		                <div class="alert alert-danger">
 		                    <a href="#" class="close" data-dismiss="alert">&times;</a>

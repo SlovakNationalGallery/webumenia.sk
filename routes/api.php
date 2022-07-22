@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Api\SharedUserCollectionController;
-use Api\TrackFeaturedPieceClick;
 use App\Http\Controllers\Api\ItemController;
+use App\Http\Controllers\Api\SharedUserCollectionController;
+use App\Http\Controllers\Api\TrackFeaturedPieceClick;
 
 /*
 |--------------------------------------------------------------------------

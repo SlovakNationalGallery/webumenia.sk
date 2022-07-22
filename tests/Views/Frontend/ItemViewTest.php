@@ -23,9 +23,11 @@ class ItemViewTest extends TestCase
         $item = factory(Item::class)->create();
         $publishedCollection = factory(Collection::class)->create([
             'is_published' => true,
+            'name' => 'a published collection',
         ]);
         $unpublishedCollection = factory(Collection::class)->create([
             'is_published' => false,
+            'name' => 'an unpublished collection',
         ]);
 
         $publishedCollection->items()->save($item);

@@ -13,13 +13,11 @@ class RemoveDuplicationsInAuthorityItem extends Migration
      */
     public function up()
     {
-        DB::transaction(function () {
-            DB::statement('CREATE TABLE authority_item_temp SELECT * FROM authority_item GROUP BY authority_id, item_id');
-            Schema::rename('authority_item', 'authority_item_junk');
-            Schema::rename('authority_item_temp', 'authority_item');
-            Schema::table('authority_item', function (Blueprint $table) {
-                $table->primary(['authority_id', 'item_id']);
-            });
+        DB::statement('CREATE TABLE authority_item_temp SELECT * FROM authority_item GROUP BY authority_id, item_id');
+        Schema::rename('authority_item', 'authority_item_junk');
+        Schema::rename('authority_item_temp', 'authority_item');
+        Schema::table('authority_item', function (Blueprint $table) {
+            $table->primary(['authority_id', 'item_id']);
         });
     }
 
