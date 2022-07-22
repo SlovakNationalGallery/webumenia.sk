@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.60.0] - 2022-07-22
+### Changed
+- Laravel version to 9
+- PHP to 8.1
+- lorisleiva/laravel-deployer to deployer/deployer
+- laravelium/sitemap to spatie/laravel-sitemap
+
 ## [2.59.1] - 2022-07-22
 ### Fixed
 - Authority link labels to be optional
@@ -11,12 +18,6 @@ All notable changes to this project will be documented in this file[^1].
 ### Changed
 - front-page latest content (articles & collections) to display in two rows
 - various details for shuffled items
-
-### Changed
-- Laravel version to 9
-- PHP to 8.1
-- lorisleiva/laravel-deployer to deployer/deployer
-- laravelium/sitemap to spatie/laravel-sitemap
 
 ## [2.58.0] - 2022-07-07
 ### Changed
