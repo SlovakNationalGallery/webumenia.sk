@@ -46,13 +46,30 @@ class KolekciaController extends Controller
             ['value' => 'name', 'text' => trans('kolekcie.filter.sorting.name')],
         ]);
 
+        $collections = $collections
+            ->withCount('items')
+            ->with('user')
+            ->withTranslation()
+            ->paginate(18);
+
+        $previewItems = $collections
+            ->getCollection()
+            ->map(fn($c) => $c->items()->limit(10))
+            ->reduce(function ($query, $nextQuery) {
+                if (is_null($query)) {
+                    return $nextQuery;
+                }
+                return $query->unionAll($nextQuery);
+            }, null)
+            ->withTranslation()
+            ->get()
+            ->groupBy('pivot.collection_id');
+
         return view('frontend.collection.index', [
-            'collections' => $collections
-                ->with('user', 'items', 'items.translations')
-                ->withTranslation()
-                ->paginate(18),
+            'collections' => $collections,
             'filterOptions' => $filterOptions,
             'sortingOptions' => $sortingOptions,
+            'previewItems' => $previewItems,
             'sortBy' => $sortBy,
         ]);
     }

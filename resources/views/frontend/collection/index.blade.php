@@ -106,7 +106,7 @@
                     {{--  {!! $collection->author !!} &nbsp;&middot;&nbsp; --}}
                     {!! $collection->created_at->format('d. m. Y') !!} &nbsp;&middot;&nbsp;
                     {!! $collection->user->name !!} &nbsp;&middot;&nbsp;
-                    {!! $collection->items->count() !!} {{ trans('kolekcie.collections_artworks') }}
+                    {{ $collection->items_count }} {{ trans('kolekcie.collections_artworks') }}
                 </div>
                 <div>
                     {!! $collection->getShortTextAttribute($collection->text, 350) !!}
@@ -117,7 +117,7 @@
                 @include('components.artwork_carousel', [
                 'slick_target' => "artworks-preview",
                 'slick_variant' => "small",
-                'items' => $collection->items->take(10),
+                'items' => $previewItems[$collection->id] ?? []
                 ])
             </div>
         </div>
