@@ -24,10 +24,28 @@
 
 @section('content')
 
-@formStart($form, ['attr' => ['class' => 'js-filter-form filter-form']])
-
-@include('frontend.collection.form')
-
+<section class="filters">
+    <div class="container content-section">
+        <div class="expandable">
+            <div class="row">
+                <div class="col-md-push-2 col-md-4 col-xs-6">
+                    <filter-custom-select
+                        name="author"
+                        placeholder="{{ trans('kolekcie.filter.author') }}"
+                        :options="{{ $filterOptions['author'] }}"
+                    />
+                </div>
+                <div class="col-md-push-2 col-md-4 col-xs-6">
+                    <filter-custom-select
+                        name="category"
+                        placeholder="{{ trans('kolekcie.filter.type') }}"
+                        :options="{{ $filterOptions['type'] }}"
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <section class="collections">
     <div class="container">
         <div class="row content-section">
@@ -63,7 +81,11 @@
         </div>
     </div> --}}
     <div class="col-xs-6 text-right">
-        @formRow($form['sort_by'], ['attr' => ['class' => 'js-dropdown-select']])
+        <filter-sort-by
+            label="{{ trans('general.sort_by') }}"
+            initial-value="{{ $sortBy }}"
+            :options="{{ $sortingOptions }}"
+        />
     </div>
     </div>
     <div class="kolekcie">
@@ -95,7 +117,7 @@
                 @include('components.artwork_carousel', [
                 'slick_target' => "artworks-preview",
                 'slick_variant' => "small",
-                'items' => $collection->getPreviewItems(),
+                'items' => $collection->items->take(10),
                 ])
             </div>
         </div>
@@ -110,8 +132,6 @@
     </div>
     </div>
 </section>
-@formEnd($form, ['render_rest' => false])
-
 
 @stop
 
@@ -120,40 +140,4 @@
 {!! Html::script('js/components/artwork_carousel.js') !!}
 {!! Html::script('js/jquery.dropdown-select.js') !!}
 
-<script type="text/javascript">
-    $(document).ready(function(){
-
-        $("form").submit(function(){
-            $(this).find('input[name], select[name]').each(function(){
-                if (!$(this).val()){
-                    $(this).data('name', $(this).attr('name'));
-                    $(this).removeAttr('name');
-                }
-            });
-        });
-
-        $('.js-filter-form').each(function () {
-            var $filterForm = $(this);
-            $filterForm.find('select, input:not([type=hidden])').change(function () {
-                $filterForm.submit();
-            });
-        });
-
-        $('.js-dropdown-select').dropdownSelect();
-
-        $(".js-custom-select").selectize({
-            plugins: ['remove_button'],
-            // maxItems: 2,
-            maxItems: 1,
-            placeholder: $(this).attr('data-placeholder'),
-            mode: 'multi',
-            render: {
-                item: function(data, escape) {
-                    return '<div class="selected-item">'  + '<span class="color">'+this.settings.placeholder+': </span>' +  data.text.replace(/\(.*?\)/g, "") + '</div>';
-                }
-            }
-        });
-    });
-
-</script>
 @stop

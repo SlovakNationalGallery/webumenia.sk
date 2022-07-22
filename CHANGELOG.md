@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Changed
+- KolekciaController to optimize queries
 
 ## [2.60.0] - 2022-07-22
 ### Changed
