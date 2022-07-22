@@ -117,7 +117,7 @@
                 @include('components.artwork_carousel', [
                 'slick_target' => "artworks-preview",
                 'slick_variant' => "small",
-                'items' => $collection->getPreviewItems(),
+                'items' => $collection->items->take(10),
                 ])
             </div>
         </div>
