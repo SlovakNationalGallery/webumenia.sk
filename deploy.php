@@ -41,5 +41,8 @@ task('build', function () {
     run('{{bin/npm}} run production');
 });
 
+// Override default route:cache task for mcamara/laravel-localization
+task('artisan:route:cache', artisan('route:trans:cache'));
+
 after('deploy:vendors', 'build');
 after('deploy:failed', 'deploy:unlock');
