@@ -16,6 +16,17 @@ diela |
             <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
         @endif
 
+        @if($errors->any())
+        <div class="alert alert-danger">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li class="error">{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+
     </div>
     <!-- /.col-lg-12 -->
 </div>
@@ -31,10 +42,27 @@ diela |
                 <a href="{!! URL::to('item/reindex') !!}" class="btn btn-primary btn-outline"><i class="fa fa-refresh"></i> Reindexovať search</a>
                 <a href="{!! URL::to('item/geodata') !!}" class="btn btn-primary btn-outline"><i class="fa fa-globe"></i> Doplniť geo dáta</a></div>
                 <div class="panel-heading">
-                Akcie pre vybraté:
-                    {!! Form::select('collection', $collections); !!}
-                    {!! Form::submit('Pridať do kolekcie', array('class' => 'btn btn-info btn-xs btn-outline')) !!} | <a href="#" id="refreshSelected" class="btn btn-warning btn-xs btn-outline">Refresh z OAI-PMH</a>
-                    | <a href="#" id="deleteSelected" class="btn btn-danger btn-xs btn-outline">Zmazať</a>
+                    <h5>Akcie pre vybraté:</h5>
+                    <div class="row">
+                        <div class="col-xs-5 pr-0">
+                            {!! Form::select('collection', $collections, old('collection'), ['id' => 'collection']); !!}
+                        </div>
+                        <div class="col-xs-2 pl-1">
+                            {!! Form::submit('Pridať do kolekcie', array('class' => 'mt-1 btn btn-info btn-sm btn-outline')) !!}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-5 pr-0">
+                            {!! Form::select('tags[]', $tags, old('tags'), ['multiple' => 'multiple', 'id' => 'tags']) !!}
+                        </div>
+                        <div class="col-xs-2 pl-1">
+                            <button type="button" id="addTagsToSelected" class="mt-1 btn btn-info btn-sm btn-outline">Pridať tagy</a>
+                        </div>
+                    </div>
+
+                    <a href="#" id="refreshSelected" class="btn btn-warning btn-sm btn-outline">Refresh z OAI-PMH</a>
+                    |
+                    <a href="#" id="deleteSelected" class="btn btn-danger btn-sm btn-outline">Zmazať</a>
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -130,6 +158,21 @@ $('#refreshSelected').on('click', function(e){
     e.preventDefault();
     $form.attr("action","{!! URL::to('item/refreshSelected') !!}");
     $form.trigger('submit');
+});
+
+$('#addTagsToSelected').on('click', function(e){
+    e.preventDefault();
+
+    var $form = $(this).closest('form');
+    $form.attr("action", @js(route('item-tags.store')));
+    $form.trigger('submit');
+});
+
+$("#collection").selectize();
+$("#tags").selectize({
+    plugins: ['remove_button'],
+    persist: false, // Throw away de-selected created items
+    create: true, 	// Allow creation of new items
 });
 </script>
 @stop
