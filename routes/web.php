@@ -16,6 +16,7 @@ use App\Elasticsearch\Repositories\ItemRepository;
 use App\Filter\ItemFilter;
 use App\Http\Controllers\Admin\FeaturedArtworkController;
 use App\Http\Controllers\Admin\FeaturedPieceController;
+use App\Http\Controllers\Admin\ItemTagsController;
 use App\Http\Controllers\Admin\ShuffledItemController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ArticleController;
@@ -361,6 +362,7 @@ Route::group(['middleware' => ['auth', 'can:edit']], function () {
     Route::get('item/search', [ItemController::class, 'search']);
 
     Route::get('item', [ItemController::class, 'index'])->name('item.index');
+    Route::resource('item/tags', ItemTagsController::class)->names('item-tags');
     Route::get('item/{id}/show', [ItemController::class, 'show'])->name('item.show');
     Route::match(['get', 'post'], 'item/create', [ItemController::class, 'create'])->name('item.create');
     Route::match(['get', 'post'], 'item/{id}/edit', [ItemController::class, 'edit'])->name('item.edit');
