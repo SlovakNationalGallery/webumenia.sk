@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- Mass tagging feature in admin
+
 ### Changed
 - KolekciaController to optimize queries
 - Item view count is indexed every 24 hours instead of immediately
