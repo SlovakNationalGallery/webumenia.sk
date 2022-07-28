@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Collection;
+use App\Item;
 use Illuminate\Contracts\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 use Illuminate\Support\Facades\Response;
@@ -52,18 +54,24 @@ class KolekciaController extends Controller
             ->withTranslation()
             ->paginate(18);
 
-        $previewItems = $collections
-            ->getCollection()
-            ->map(fn($c) => $c->items()->limit(10))
-            ->reduce(function ($query, $nextQuery) {
-                if (is_null($query)) {
-                    return $nextQuery;
-                }
-                return $query->unionAll($nextQuery);
-            }, null)
-            ->withTranslation()
-            ->get()
-            ->groupBy('pivot.collection_id');
+        $previewItems = $collections->isNotEmpty()
+            ? $collections
+                ->getCollection()
+                ->map(
+                    fn($c) => $c
+                        ->items()
+                        ->withTranslation()
+                        ->limit(10)
+                )
+                ->reduce(function ($query, $nextQuery) {
+                    if (is_null($query)) {
+                        return $nextQuery;
+                    }
+                    return $query->unionAll($nextQuery);
+                }, null)
+                ->get()
+                ->groupBy('pivot.collection_id')
+            : collect();
 
         return view('frontend.collection.index', [
             'collections' => $collections,
