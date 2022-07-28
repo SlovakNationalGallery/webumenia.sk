@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Changed
 - KolekciaController to optimize queries
+- Item view count is indexed every 24 hours instead of immediately
 
 ### Fixed
 - sorting of collection items
