@@ -9,6 +9,7 @@ use App\IntegerRange;
 use App\Item;
 use App\SearchResult;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Session;
 use Primal\Color\Color;
@@ -432,12 +433,17 @@ class ItemRepository extends TranslatableRepository
         return $body;
     }
 
-    public function reindexAllLocales(): int
+    public function reindexAllLocales(Carbon $viewedSince = null): int
     {
         $processedCount = 0;
 
-        $this->modelClass
-            ::with(['images', 'authorities', 'translations', 'tagged'])
+        $query = $this->modelClass::with(['images', 'authorities', 'translations', 'tagged']);
+
+        if ($viewedSince) {
+            $query->where('last_viewed_at', '>=', $viewedSince);
+        }
+
+        $query
             ->lazy()
             ->tap(function () use (&$processedCount) {
                 $processedCount++;
@@ -470,6 +476,11 @@ class ItemRepository extends TranslatableRepository
             });
 
         return $processedCount;
+    }
+
+    public function reindexAllViewedSince(Carbon $viewedSince): int
+    {
+        return $this->reindexAllLocales($viewedSince);
     }
 
     protected function getIndexConfig(string $locale  = null): array
