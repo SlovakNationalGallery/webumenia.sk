@@ -182,7 +182,8 @@
 	          // entity: this.attr('data-entity'),
 	          entity: $('#sortable').attr('data-entity'),
 	          id: $('#sortable').attr('data-id'),
-	          ids: this.toArray()
+	          ids: this.toArray(),
+	          _token: @js(csrf_token())
 	      }, function (data) {
 	          if('success'==data.result){
 	              // for (id in data.orders) {

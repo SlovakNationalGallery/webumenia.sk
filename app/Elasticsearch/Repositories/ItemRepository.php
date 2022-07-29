@@ -9,6 +9,7 @@ use App\IntegerRange;
 use App\Item;
 use App\SearchResult;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Session;
 use Primal\Color\Color;
@@ -432,43 +433,54 @@ class ItemRepository extends TranslatableRepository
         return $body;
     }
 
-    public function reindexAllLocales(): int
+    public function reindexAllLocales(Carbon $viewedSince = null): int
     {
         $processedCount = 0;
-        $locales = collect($this->locales);
 
-        $this
-            ->modelClass::with(['images', 'authorities', 'translations', 'tagged'])
-            ->chunk(1000, function($items) use (&$locales, &$processedCount) {
-                $processedCount += $items->count();
+        $query = $this->modelClass::with(['images', 'authorities', 'translations', 'tagged']);
 
-                $locales->flatMap(function ($locale) use ($items) {
-                    return $items->flatMap(function ($item) use ($locale) {
-                        return [
-                            // Action
-                            [
-                                'index' => [
-                                    '_index' => $this->getLocalizedIndexName($locale),
-                                    '_id' => $item->getKey(),
-                                ]
-                            ],
+        if ($viewedSince) {
+            $query->where('last_viewed_at', '>=', $viewedSince);
+        }
 
-                            // Data
-                            $item->getIndexedData($locale)
-                        ];
-                    });
-                })
-                ->pipe(function ($bulkIndexBody) use (&$processedCount) {
-                    $this->elasticsearch->bulk(['body' => $bulkIndexBody->toArray()]);
+        $query
+            ->lazy()
+            ->tap(function () use (&$processedCount) {
+                $processedCount++;
+            })
+            ->crossJoin(collect($this->locales))
+            ->flatMap(function ($item_locale) {
+                [$item, $locale] = $item_locale;
 
-                    // Progress report
-                    if (app()->runningInConsole()) {
-                        echo date('h:i:s'). " " . $processedCount . "\n";
-                    }
-                });
+                return [
+                    // Action
+                    [
+                        'index' => [
+                            '_index' => $this->getLocalizedIndexName($locale),
+                            '_id' => $item->getKey(),
+                        ],
+                    ],
+
+                    // Data
+                    $item->getIndexedData($locale),
+                ];
+            })
+            ->chunk(1000)
+            ->each(function ($operations) use (&$processedCount) {
+                $this->elasticsearch->bulk(['body' => $operations]);
+
+                // Progress report
+                if (app()->runningInConsole()) {
+                    echo date('h:i:s') . ' ' . $processedCount . "\n";
+                }
             });
 
         return $processedCount;
+    }
+
+    public function reindexAllViewedSince(Carbon $viewedSince): int
+    {
+        return $this->reindexAllLocales($viewedSince);
     }
 
     protected function getIndexConfig(string $locale  = null): array

@@ -529,7 +529,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
             return $str;
         }
 
-        $array = explode($delimiter, $str);
+        $array = explode($delimiter, $str ?? '');
         $array = array_map(function ($value) {
             return trim($value);
         }, $array);
@@ -762,15 +762,6 @@ class Item extends Model implements IndexableModel, TranslatableContract
                 })
                 ->values(),
         ];
-    }
-
-    public function incrementViewCount($save = true)
-    {
-        $this->timestamps = false;
-        $this->view_count++;
-        if ($save) {
-            $this->save();
-        }
     }
 
     public function getUseTranslationFallback()

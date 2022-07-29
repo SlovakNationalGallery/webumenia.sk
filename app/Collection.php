@@ -55,13 +55,6 @@ class Collection extends Model implements TranslatableContract
         return $this->belongsTo(\App\User::class);
     }
 
-    public function getPreviewItems()
-    {
-        return $this->items()
-            ->limit(10)
-            ->get();
-    }
-
     public function getUrl()
     {
         return URL::to('kolekcia/' . $this->attributes['id']);

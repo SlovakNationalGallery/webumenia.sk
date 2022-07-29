@@ -2,80 +2,84 @@
 
 namespace App\Http\Controllers;
 
-use App\Authority;
 use App\Collection;
-use App\Filter\CollectionSearchRequest;
-use App\Filter\Contracts\Filter;
-use App\Filter\Forms\Types\CollectionSearchRequestType;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Request;
+use App\Item;
+use Illuminate\Contracts\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request as FacadesRequest;
 use Illuminate\Support\Facades\Response;
-use Symfony\Component\Form\FormFactoryInterface;
 
 class KolekciaController extends Controller
 {
-
-    public function getIndex()
+    public function getIndex(Request $request)
     {
+        $collections = Collection::query()->published();
 
-        $per_page = 18;
-        if (Request::has('sort_by') && array_key_exists(Request::input('sort_by'), Collection::$sortable)) {
-            $sort_by = Request::input('sort_by');
-        } else {
-            $sort_by = 'published_at';
+        // Filtering
+        if ($request->has('category')) {
+            $collections->whereTranslation('type', $request->input('category'));
+        }
+        if ($request->has('author')) {
+            $collections->whereRelation('user', 'name', $request->input('author'));
         }
 
-        $searchRequest = new CollectionSearchRequest();
-        $this->createSearchRequestForm($searchRequest)->handleRequest();
-        $searchRequestForm = $this->createSearchRequestForm($searchRequest);
-        $currentPage = Paginator::resolveCurrentPage();
+        $filterOptions = $this->buildFilterOptions($collections, $request);
 
-        $collections = CollectionSearchRequestType::prepareCollections($searchRequest);
+        // Sorting
+        $sortBy = $request->input('sort_by', 'published_at');
 
-        if ($sort_by == 'name') {
-            $collections = $collections->orderBy('name', 'asc');
-        } else {
-            $collections = $collections->orderBy($sort_by, 'desc');
+        if ($sortBy === 'published_at') {
+            $collections->orderBy('published_at', 'desc');
+        }
+        if ($sortBy === 'updated_at') {
+            $collections->orderBy('updated_at', 'desc');
+        }
+        if ($sortBy === 'name') {
+            $collections->orderByTranslation('name', 'asc');
         }
 
-        $total = $collections->count();
+        $sortingOptions = collect([
+            [
+                'value' => 'published_at',
+                'text' => trans('kolekcie.filter.sorting.published_at'),
+            ],
+            ['value' => 'updated_at', 'text' => trans('kolekcie.filter.sorting.updated_at')],
+            ['value' => 'name', 'text' => trans('kolekcie.filter.sorting.name')],
+        ]);
 
-        $paginator = new LengthAwarePaginator(
-            $collections,
-            $total,
-            $per_page,
-            $currentPage,
-            ['path' => sprintf('/%s', request()->path())]
-        );
-        // populate filter with input data
-        $this->createSearchRequestForm($searchRequest)->handleRequest();
+        $collections = $collections
+            ->withCount('items')
+            ->with('user')
+            ->withTranslation()
+            ->paginate(18);
+
+        $previewItems = $collections->isNotEmpty()
+            ? $collections
+                ->getCollection()
+                ->map(
+                    fn($c) => $c
+                        ->items()
+                        ->withTranslation()
+                        ->limit(10)
+                )
+                ->reduce(function ($query, $nextQuery) {
+                    if (is_null($query)) {
+                        return $nextQuery;
+                    }
+                    return $query->unionAll($nextQuery);
+                }, null)
+                ->get()
+                ->groupBy('pivot.collection_id')
+            : collect();
 
         return view('frontend.collection.index', [
-            'collections' => $collections->paginate($per_page),
-            'sort_by' => $sort_by,
-            'form' => $searchRequestForm->createView(),
-
-            'paginator' => $paginator,
-            'total' => $total,
-            'searchRequest' => $searchRequest,
+            'collections' => $collections,
+            'filterOptions' => $filterOptions,
+            'sortingOptions' => $sortingOptions,
+            'previewItems' => $previewItems,
+            'sortBy' => $sortBy,
         ]);
-    }
-
-    protected function createSearchRequestForm($searchRequest)
-    {
-        return $this->getFormFactory()
-            ->createNamedBuilder('', CollectionSearchRequestType::class, $searchRequest, [
-                'allow_extra_fields' => true,
-            ])
-            ->getForm();
-    }
-
-    protected function getFormFactory()
-    {
-        return app(FormFactoryInterface::class);
     }
 
     public function getDetail($id)
@@ -88,31 +92,75 @@ class KolekciaController extends Controller
         $collection->view_count += 1;
         $collection->save();
 
-        return view('kolekcia', array('collection' => $collection));
+        return view('kolekcia', ['collection' => $collection]);
     }
 
     public function getSuggestions()
     {
-        $q = (Request::has('search')) ? str_to_alphanumeric(Request::input('search')) : 'null';
+        $q = FacadesRequest::has('search')
+            ? str_to_alphanumeric(FacadesRequest::input('search'))
+            : 'null';
 
-        $result = Collection::published()->whereTranslationLike('name', '%' . $q . '%')->limit(5)->get();
+        $result = Collection::published()
+            ->whereTranslationLike('name', '%' . $q . '%')
+            ->limit(5)
+            ->get();
 
-        $data = array();
-        $data['results'] = array();
+        $data = [];
+        $data['results'] = [];
         $data['count'] = 0;
 
         foreach ($result as $key => $hit) {
             $data['count']++;
-            $params = array(
+            $params = [
                 'name' => $hit->name,
                 'author' => $hit->user->name,
                 'items' => $hit->items->count(),
                 'url' => $hit->getUrl(),
                 'image' => $hit->getResizedImage(70),
-            );
+            ];
             $data['results'][] = array_merge($params);
         }
 
         return Response::json($data);
+    }
+
+    private function buildFilterOptions(EloquentBuilder $collectionsQuery, Request $request)
+    {
+        return [
+            'type' => $collectionsQuery
+                ->clone()
+                ->listsTranslations('type')
+                ->groupBy('type')
+                ->select('type as value')
+                ->selectRaw('count(type) as count')
+                ->orderByDesc('count')
+                ->orderBy('value')
+                ->get()
+                ->map(
+                    fn($row) => [
+                        'value' => $row->value,
+                        'text' => "{$row->value} ($row->count)",
+                        'selected' => $request->input('category') === $row->value,
+                    ]
+                ),
+
+            'author' => $collectionsQuery
+                ->clone()
+                ->leftJoin('users as u', 'u.id', '=', 'collections.user_id')
+                ->select('u.name as value')
+                ->selectRaw('count(u.name) as count')
+                ->groupBy('u.id')
+                ->orderBy('count', 'desc')
+                ->orderBy('value', 'asc')
+                ->get()
+                ->map(
+                    fn($row) => [
+                        'value' => $row->value,
+                        'text' => "{$row->value} ({$row->count})",
+                        'selected' => $request->input('author') === $row->value,
+                    ]
+                ),
+        ];
     }
 }
