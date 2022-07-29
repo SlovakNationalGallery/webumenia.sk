@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file[^1].
 ### Changed
 - KolekciaController to optimize queries
 
+### Fixed
+- Item admin form to not show 'item.' prefix in choices
+
 ## [2.60.0] - 2022-07-22
 ### Changed
 - Laravel version to 9
