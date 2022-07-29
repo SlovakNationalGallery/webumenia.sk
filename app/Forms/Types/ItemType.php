@@ -28,12 +28,14 @@ class ItemType extends AbstractType
             ])
             ->add('description_user_id', ChoiceType::class, [
                 'choices' => User::pluck('id', 'username'),
+                'choice_translation_domain' => false
             ])
             ->add('identifier')
             ->add('author')
 
             ->add('tags', ChoiceType::class, [
                 'choices' => Item::existingTags()->pluck('name', 'name')->toArray(),
+                'choice_translation_domain' => false,
                 'multiple' => true,
                 'mapped' => false,
                 'required' => false,
