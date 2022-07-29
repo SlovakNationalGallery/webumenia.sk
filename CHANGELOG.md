@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.61.0] - 2022-07-29
 ### Added
 - Mass tagging feature in admin
 
@@ -11,8 +13,6 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Fixed
 - sorting of collection items
-
-### Fixed
 - Item admin form to not show 'item.' prefix in choices
 
 ## [2.60.0] - 2022-07-22
