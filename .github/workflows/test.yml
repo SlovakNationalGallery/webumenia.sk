@@ -4,25 +4,64 @@ on: push
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    name: Test
+    runs-on: ubuntu-20.04
+
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_DATABASE: webumenia_test
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+        ports:
+          - 3306
+
+      elasticsearch:
+        image: slovaknationalgallery/elasticsearch-webumenia:7.3.1
+        env:
+          discovery.type: single-node
+        ports:
+          - 9200
+
     steps:
       - uses: actions/checkout@v2
-      - name: Set .env file
-        run: cp .env.testing.example .env
-      - name: Warm up stack (and pull images to prevent them from being cached)
-        run: docker-compose up -d mysql elasticsearch redis
-        # https://github.com/satackey/action-docker-layer-caching/issues/55#issuecomment-763418185
-      - name: Set MONTH var for cache key
-        run: echo "MONTH=$(date +%m)" >> $GITHUB_ENV
-      - uses: satackey/action-docker-layer-caching@v0.0.11
-        # Ignore the failure of a step and avoid terminating the job.
-        # https://github.com/satackey/action-docker-layer-caching#docker-compose
-        continue-on-error: true
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
         with:
-          key: ${{ github.workflow }}-${{ env.MONTH }}-{hash}
-          restore-keys: |
-            ${{ github.workflow }}-${{ env.MONTH }}-
-      - name: Build docker image
-        run: docker-compose build php
+          php-version: '8.1'
+
+      - name: Get Composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - name: Cache Composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: composer-
+      - run: composer install --prefer-dist
+
+      - name: Get npm cache directory
+        id: npm-cache
+        run: echo "::set-output name=dir::$(npm config get cache)"
+      - uses: actions/cache@v3
+        with:
+          path: ${{ steps.npm-cache.outputs.dir }}
+          key: node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: node-
+      - run: npm ci
+
+      - name: Build assets
+        run: npm run production
+        env:
+          MIX_SKIP_CSS_URL_PROCESSING: 1
+
       - name: Test
-        run: docker-compose run -e MIX_SKIP_CSS_URL_PROCESSING=1 php bash -c "npm run production && php artisan test"
+        run: php artisan test
+        env:
+          APP_KEY: SomeRandomStringSomeRandomString
+          DB_PORT: ${{ job.services.mysql.ports[3306] }}
+          DB_USERNAME: root
+          DB_DATABASE: webumenia_test
+          ES_PORT: ${{ job.services.elasticsearch.ports[9200] }}
