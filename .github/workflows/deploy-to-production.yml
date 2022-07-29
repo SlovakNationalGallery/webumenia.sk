@@ -1,0 +1,29 @@
+name: Deploy "master" branch to production
+
+on:
+  push:
+    branches:
+      - master
+
+concurrency: production_environment
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+
+      - name: Deploy
+        uses: deployphp/action@v1
+        with:
+          private-key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
+          known-hosts: ${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}
+          deployer-version: 7.0.0-rc.8
+          dep: deploy production
