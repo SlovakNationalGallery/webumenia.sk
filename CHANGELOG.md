@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- Saving shuffled items
 
 ## [2.61.0] - 2022-07-29
 ### Added
