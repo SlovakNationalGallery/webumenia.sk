@@ -53,7 +53,7 @@ class ShuffledItemController extends Controller
     public function store(Request $request)
     {
         $request->validate(self::$rules);
-        $request->merge(['crop' => json_decode($request->input('crop'))]);
+        $request->merge(['crop' => json_decode($request->input('crop'), true)]);
 
         $shuffledItem = ShuffledItem::create($request->input());
         $shuffledItem->addMediaFromUrl($shuffledItem->crop_url)->toMediaCollection('image');
@@ -66,7 +66,7 @@ class ShuffledItemController extends Controller
     public function update(Request $request, ShuffledItem $shuffledItem)
     {
         $request->validate(self::$rules);
-        $request->merge(['crop' => json_decode($request->input('crop'))]);
+        $request->merge(['crop' => json_decode($request->input('crop'), true)]);
 
         // Delete translations so that removed filters are deleted
         $shuffledItem->deleteTranslations();
