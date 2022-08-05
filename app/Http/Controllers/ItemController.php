@@ -70,7 +70,12 @@ class ItemController extends Controller
         }
 
         $collections = Collection::listsTranslations('name')->pluck('name', 'id')->toArray();
-        return view('items.index', array('items' => $results, 'collections' => $collections, 'search' => $search));
+        return view('items.index', [
+            'items' => $results,
+            'collections' => $collections,
+            'tags' => Item::existingTags()->pluck('name', 'name'),
+            'search' => $search,
+        ]);
     }
 
     /**

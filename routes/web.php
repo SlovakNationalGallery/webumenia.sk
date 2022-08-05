@@ -359,7 +359,7 @@ Route::group(['middleware' => ['auth', 'can:edit']], function () {
     Route::get('logout', [AuthController::class, 'logout']);
     Route::get('imports/launch/{id}', [ImportController::class, 'launch']);
     Route::resource('imports', ImportController::class);
-    Route::get('item/search', [ItemController::class, 'search']);
+    Route::get('item/search', [ItemController::class, 'search'])->name('item.search');
 
     Route::get('item', [ItemController::class, 'index'])->name('item.index');
     Route::resource('item/tags', ItemTagsController::class)->names('item-tags');

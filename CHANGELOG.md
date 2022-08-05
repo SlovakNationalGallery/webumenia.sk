@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.61.1] - 2022-08-05
+### Fixed
+- Saving shuffled items
+- items search in admin
+
 ## [2.61.0] - 2022-07-29
 ### Added
 - Mass tagging feature in admin

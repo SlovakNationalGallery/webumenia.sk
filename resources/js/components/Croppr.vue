@@ -25,9 +25,13 @@ export default {
             aspectRatio: this.aspectRatio ? 1 / this.aspectRatio : undefined,
             returnMode: 'ratio',
             onInitialize: (instance) => {
-                if (!this.defaultValue) return
+                if (!this.defaultValue) {
+                    // Set slot value to the library-default value
+                    this.value = instance.getValue("ratio")
+                    return
+                }
 
-                // Set to an initial value if provided
+                // Set to a provided default value
                 // NOTE: Right now only works with 'ratio' values
                 instance.resizeTo(
                     instance.imageEl.clientWidth * this.defaultValue.width,
