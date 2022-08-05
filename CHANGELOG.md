@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Changed
+- MySQL database to enabled strict mode
+
+### Fixed
+- tests & harvesters to work with MySQL strict mode
 
 ## [2.61.1] - 2022-08-05
 ### Fixed
