@@ -178,5 +178,14 @@ $factory->define(ShuffledItem::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(Media::class, function (Faker\Generator $faker) {
-    return ['disk' => 'media'];
+    return [
+        'disk' => 'media',
+        'name' => $faker->word,
+        'file_name' => $faker->word,
+        'size' => $faker->randomNumber,
+        'manipulations' => [],
+        'custom_properties' => [],
+        'generated_conversions' => [],
+        'responsive_images' => [],
+    ];
 });
