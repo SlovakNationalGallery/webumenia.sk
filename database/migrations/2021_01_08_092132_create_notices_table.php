@@ -27,13 +27,13 @@ class CreateNoticesTable extends Migration
             $table->integer('notice_id')->unsigned();
             $table->string('locale')->index();
             $table->text('content')->nullable();
-        
+
             $table->unique(['notice_id', 'locale']);
             $table->foreign('notice_id')->references('id')->on('notices')->onDelete('cascade');
         });
 
         DB::statement(
-            'INSERT INTO notices (publish, alert_class, created_at, updated_at) VALUES (false, "warning", NOW(), NOW())'
+            'INSERT INTO notices (publish, alert_class, updated_by, created_at, updated_at) VALUES (false, "warning", "unknown", NOW(), NOW())'
         );
     }
 
