@@ -98,7 +98,11 @@ abstract class AbstractHarvester
             }
 
             $this->importer->import($row, $progress);
-            $record->datestamp = Carbon::parse(Arr::get($row, 'datestamp.0'));
+
+            if (Arr::get($row, 'datestamp.0')) {
+                $record->datestamp = Carbon::parse(Arr::get($row, 'datestamp.0'));
+            }
+            
         }, $progress);
     }
 
