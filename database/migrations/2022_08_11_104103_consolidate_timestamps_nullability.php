@@ -28,13 +28,27 @@ return new class extends Migration {
      */
     public function up()
     {
+        // Standard created_at / updated_at timestamps
         foreach ($this->tables as $table) {
-            DB::statement("
+            DB::unprepared("
+                UPDATE $table SET created_at = '1000-01-01 00:00:00' WHERE created_at = 0;
+                UPDATE $table SET updated_at = '1000-01-01 00:00:00' WHERE updated_at = 0;
+
                 ALTER TABLE $table
                 MODIFY COLUMN created_at timestamp NULL,
                 MODIFY COLUMN updated_at timestamp NULL;
+
+                UPDATE $table SET created_at = NULL WHERE created_at = '1000-01-01 00:00:00';
+                UPDATE $table SET updated_at = NULL WHERE updated_at = '1000-01-01 00:00:00';
             ");
         }
+
+        // Other timestamps
+        DB::unprepared("
+            UPDATE spice_harvester_harvests SET initiated = '1000-01-01 00:00:00' WHERE initiated = 0;
+            ALTER TABLE spice_harvester_harvests MODIFY COLUMN initiated datetime NULL;
+            UPDATE spice_harvester_harvests SET initiated = NULL WHERE initiated = '1000-01-01 00:00:00';
+        ");
 
         DB::unprepared("
             UPDATE spice_harvester_records SET datestamp = '1000-01-01 00:00:00' WHERE datestamp = 0;
@@ -58,8 +72,16 @@ return new class extends Migration {
             ALTER TABLE spice_harvester_records MODIFY COLUMN datestamp datetime NOT NULL;
         ");
 
+        DB::unprepared("
+            UPDATE spice_harvester_harvests SET initiated = '0000-00-00 00:00:00' WHERE initiated IS NULL;
+            ALTER TABLE spice_harvester_harvests MODIFY COLUMN initiated datetime NOT NULL;
+        ");
+
         foreach ($this->tables as $table) {
-            DB::statement("
+            DB::unprepared("
+                UPDATE $table SET created_at = '0000-00-00 00:00:00' WHERE created_at IS NULL;
+                UPDATE $table SET updated_at = '0000-00-00 00:00:00' WHERE updated_at IS NULL;
+
                 ALTER TABLE $table
                 MODIFY COLUMN created_at timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
                 MODIFY COLUMN updated_at timestamp NOT NULL DEFAULT '0000-00-00 00:00:00';
