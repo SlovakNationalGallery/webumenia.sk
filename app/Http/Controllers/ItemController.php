@@ -45,7 +45,15 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::orderBy('updated_at', 'DESC')->paginate(100);
+        $items = Item::orderBy('updated_at', 'DESC');
+
+        if (Request::has('collection_id')) {
+            $items->whereHas('collections', function ($query) {
+                $query->where('collections.id', Request::get('collection_id'));
+            });
+        }
+
+        $items = $items->paginate(100);
         // $collections = Collection::orderBy('order', 'ASC')->get();
         $collections = Collection::listsTranslations('name')->pluck('name', 'id')->toArray();
         $tags = Item::existingTags()->pluck('name','name');
