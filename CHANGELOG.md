@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.62.0] - 2022-08-12
+### Added
+- item filtering by collection_id (in admin)
+
 ## [2.61.1] - 2022-08-05
 ### Fixed
 - Saving shuffled items
