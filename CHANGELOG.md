@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- importer role
+- import permissions
 
 ## [2.63.0] - 2022-08-19
 ### Added
