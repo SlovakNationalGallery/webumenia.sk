@@ -8,7 +8,13 @@ class ItemImageMapper extends AbstractMapper
 {
     protected $modelClass = ItemImage::class;
 
-    public function mapIipimgUrl(array $row) {
+    public function mapId()
+    {
+        return null;
+    }
+
+    public function mapIipimgUrl(array $row)
+    {
         if (isset($row['iipimg_url'][0])) {
             return $row['iipimg_url'][0];
         }

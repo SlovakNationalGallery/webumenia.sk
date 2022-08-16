@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Changed
+- reimport item images during harvest
 
 ## [2.62.0] - 2022-08-12
 ### Added

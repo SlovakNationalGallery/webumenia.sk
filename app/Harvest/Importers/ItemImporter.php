@@ -15,7 +15,7 @@ class ItemImporter extends AbstractImporter
     protected $modelClass = Item::class;
 
     protected $conditions = [
-        'images' => ['iipimg_url'],
+        'images' => ['id'],
         'collections' => ['id'],
         'authorities' => ['id'],
     ];
@@ -38,16 +38,17 @@ class ItemImporter extends AbstractImporter
         ];
     }
 
-    public function getModelId(array $row) {
+    public function getModelId(array $row)
+    {
         return $this->mapper->mapId($row);
     }
 
-    protected function processHasMany(Model $model, $field, array $relatedRows, $allowDelete = true) {
-        $allowDelete &= !in_array($field, ['images']);
-        parent::processHasMany($model, $field, $relatedRows, $allowDelete);
-    }
-
-    protected function processBelongsToMany(Model $model, $field, array $relatedRows, $allowCreate = true) {
+    protected function processBelongsToMany(
+        Model $model,
+        $field,
+        array $relatedRows,
+        $allowCreate = true
+    ) {
         $allowCreate &= !in_array($field, ['authorities', 'collections']);
         parent::processBelongsToMany($model, $field, $relatedRows, $allowCreate);
     }
