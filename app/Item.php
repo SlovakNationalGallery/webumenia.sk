@@ -65,6 +65,9 @@ class Item extends Model implements IndexableModel, TranslatableContract
     ];
 
     public static $sortables = [
+        'date_earliest',
+        'date_latest',
+        'view_count',
         'additionals.order',
     ];
 
