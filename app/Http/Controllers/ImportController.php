@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Validator;
 use App\Import;
 use App\Jobs\ImportCsv;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Translation\Translator;
 
@@ -26,7 +28,16 @@ class ImportController extends Controller
      */
     public function index()
     {
-        $imports = Import::orderBy('created_at', 'DESC')->paginate(10);
+        Gate::authorize('import');
+
+        if (Gate::allows('administer')) {
+            $imports = Import::orderBy('created_at', 'desc')->paginate(20);
+        } else {
+            $imports = Import::where('user_id', '=', Auth::user()->id)
+                ->orderBy('created_at', 'desc')
+                ->paginate(20);
+        }
+
         return view('imports.index')->with('imports', $imports);
     }
 
@@ -37,7 +48,11 @@ class ImportController extends Controller
      */
     public function create()
     {
-        return view('imports.form');
+        Gate::authorize('administer');
+
+        return view('imports.form')->with([
+            'can_update' => true,
+        ]);
     }
 
     /**
@@ -47,24 +62,28 @@ class ImportController extends Controller
      */
     public function store()
     {
+        Gate::authorize('administer');
+
         $input = Request::all();
 
         $rules = Import::$rules;
         $v = Validator::make($input, $rules);
 
         if ($v->passes()) {
-
-            $import = new Import;
+            $import = new Import();
             $import->name = Request::input('name');
             $import->class_name = Request::input('class_name');
             $import->dir_path = Request::input('dir_path');
             $import->iip_dir_path = Request::input('iip_dir_path');
+            $import->user_id = Request::input('user_id');
             $import->save();
 
             return redirect()->route('imports.index');
         }
 
-        return back()->withInput()->withErrors($v);
+        return back()
+            ->withInput()
+            ->withErrors($v);
     }
 
     /**
@@ -75,10 +94,14 @@ class ImportController extends Controller
      */
     public function show($id)
     {
-        $import = Import::with(['records' => function($query) {
-            $query->orderBy('id', 'desc');
-            $query->take(50);
-        }])->find($id);
+        Gate::authorize('import');
+
+        $import = Import::with([
+            'records' => function ($query) {
+                $query->orderBy('id', 'desc');
+                $query->take(50);
+            },
+        ])->find($id);
         return view('imports.show')->with('import', $import);
     }
 
@@ -98,7 +121,11 @@ class ImportController extends Controller
 
         $options = $import->class_name::getOptions();
 
-        return view('imports.form')->with(['import' => $import, 'options' => $options]);
+        return view('imports.form')->with([
+            'import' => $import,
+            'options' => $options,
+            'can_update' => Gate::check('administer'),
+        ]);
     }
 
     /**
@@ -112,23 +139,24 @@ class ImportController extends Controller
         $v = Validator::make(Request::all(), Import::$rules);
 
         if ($v->passes()) {
-            $input = Arr::except(Request::all(), array('_method'));
-
-            $import = Import::find($id);
-            $import->name = Request::input('name');
-            $import->class_name = Request::input('class_name');
-            $import->dir_path = Request::input('dir_path');
-            $import->iip_dir_path = Request::input('iip_dir_path');
-            $import->save();
+            if (Gate::check('administer')) {
+                $import = Import::find($id);
+                $import->name = Request::input('name');
+                $import->class_name = Request::input('class_name');
+                $import->dir_path = Request::input('dir_path');
+                $import->iip_dir_path = Request::input('iip_dir_path');
+                $import->user_id = Request::input('user_id');
+                $import->save();
+            }
 
             if (Request::hasFile('file')) {
                 $file = Request::file('file');
-                $path_to_save = 'import/' . $import->dir_path . '/' . $file->getClientOriginalName();
+                $path_to_save =
+                    'import/' . $import->dir_path . '/' . $file->getClientOriginalName();
                 \Storage::put($path_to_save, \File::get($file));
             }
 
-
-            \Session::flash('message', 'Import <code>'.$import->name.'</code> bol upravený');
+            \Session::flash('message', 'Import <code>' . $import->name . '</code> bol upravený');
             return redirect()->route('imports.index');
         }
 
@@ -143,11 +171,14 @@ class ImportController extends Controller
      */
     public function destroy($id)
     {
+        Gate::authorize('administer');
+
         $import = Import::find($id);
         $name = $import->name;
         $import->delete();
-        return redirect()->route('imports.index')->with('message', 'Import <code>'.$name.'</code>  bol zmazaný');
-        ;
+        return redirect()
+            ->route('imports.index')
+            ->with('message', 'Import <code>' . $name . '</code>  bol zmazaný');
     }
 
     /**
@@ -159,6 +190,7 @@ class ImportController extends Controller
      */
     public function launch($id)
     {
+        Gate::authorize('import');
 
         // run in queue
         $import = Import::find($id);
@@ -168,9 +200,8 @@ class ImportController extends Controller
 
         $this->dispatch(new ImportCsv($import));
 
-        return redirect()->route('imports.index')->with('message', 'Import <code>'.$import->name.'</code> bol spustený');
-
+        return redirect()
+            ->route('imports.index')
+            ->with('message', 'Import <code>' . $import->name . '</code> bol spustený');
     }
-
-
 }

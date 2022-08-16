@@ -83,25 +83,30 @@
         <div class="panel-body">
 			<div class="form-group">
 			{!! Form::label('name', 'Názov') !!}
-			{!! Form::text('name', Request::old('name'), array('class' => 'form-control', 'placeholder' => '')) !!}
+			{!! Form::text('name', Request::old('name'), array('class' => 'form-control', 'placeholder' => '', 'disabled' => !$can_update)) !!}
 			</div>
 
 			<div class="form-group">
 			{!! Form::label('class_name', 'Trieda') !!}
-			{!! Form::text('class_name', Request::old('class_name'), array('class' => 'form-control', 'placeholder' => '')) !!}
+			{!! Form::text('class_name', Request::old('class_name'), array('class' => 'form-control', 'placeholder' => '', 'disabled' => !$can_update)) !!}
 			</div>
 
 			<div class="form-group">
 			{!! Form::label('dir_path', 'Priečinok') !!}
 			<div class="input-group">
 				<div class="input-group-addon">/storage/app/import/</div>
-				{!! Form::text('dir_path', Request::old('dir_path'), array('class' => 'form-control', 'placeholder' => '')) !!}
+				{!! Form::text('dir_path', Request::old('dir_path'), array('class' => 'form-control', 'placeholder' => '', 'disabled' => !$can_update)) !!}
 			</div>
 			</div>
 
 			<div class="form-group">
 			{!! Form::label('iip_dir_path', 'IIP Priečinok (nepovinné)') !!}
-			{!! Form::text('iip_dir_path', Request::old('iip_dir_path'), array('class' => 'form-control', 'placeholder' => '/mnt/DG_PUBLIC_IS/MGHQ')) !!}
+			{!! Form::text('iip_dir_path', Request::old('iip_dir_path'), array('class' => 'form-control', 'placeholder' => '/mnt/DG_PUBLIC_IS/MGHQ', 'disabled' => !$can_update)) !!}
+			</div>
+
+			<div class="form-group">
+			{!! Form::label('user_id', 'Používateľ') !!}
+			{!! Form::select('user_id', App\User::pluck('name', 'id')->prepend(null, null), Request::old('user_id', isset($import) ? $import->user_id : null), array('class' => 'form-control', 'disabled' => !$can_update)) !!}
 			</div>
         </div>
     </div>
