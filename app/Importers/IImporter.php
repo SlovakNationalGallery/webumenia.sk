@@ -4,15 +4,14 @@ namespace App\Importers;
 
 use App\Import;
 use App\Item;
+use SplFileInfo;
 
 interface IImporter
 {
     /**
-     * @param Import $import
-     * @param array $file
      * @return Item[]
      */
-    public function import(Import $import, array $file);
+    public function import(Import $import, SplFileInfo $file);
 
     /**
      * @return string

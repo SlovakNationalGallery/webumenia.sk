@@ -5,6 +5,7 @@ namespace App\Importers;
 use App\Import;
 use App\ImportRecord;
 use Illuminate\Support\Str;
+use SplFileInfo;
 
 class PnpKarasekImporter extends AbstractImporter
 {
@@ -46,7 +47,7 @@ class PnpKarasekImporter extends AbstractImporter
         };
     }
 
-    public function import(Import $import, array $file)
+    public function import(Import $import, SplFileInfo $file)
     {
         $this->counter = 0;
         return parent::import($import, $file);

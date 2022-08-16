@@ -2,9 +2,8 @@
 
 namespace App\Repositories;
 
-
-interface IFileRepository {
-
+interface IFileRepository
+{
     /**
      * @param string $file
      * @return \Iterator

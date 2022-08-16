@@ -4,48 +4,27 @@ namespace App\Repositories;
 
 use League\Csv\Reader;
 
-class CsvRepository implements IFileRepository {
-
-    public function getAll($file, array $options = []) {
+class CsvRepository implements IFileRepository
+{
+    public function getAll($file, array $options = [])
+    {
         $reader = $this->createReader($file, $options);
-
-        $headers = $reader->fetchOne();
-        $headers = $this->uniquifyHeaders($headers);
-        $records = $reader->setOffset(1)->fetchAssoc($headers);
-
-        return $records;
+        $reader->setHeaderOffset(0);
+        return $reader->getRecords();
     }
 
-    public function getFiltered($file, array $filters, array $options = []) {
+    public function getFiltered($file, array $filters, array $options = [])
+    {
         $all = $this->getAll($file, $options);
         return $this->filter($all, $filters);
-    }
-
-    /**
-     * @param array $headers
-     * @return array
-     */
-    protected function uniquifyHeaders(array $headers) {
-        $used = [];
-        $uniquified = [];
-
-        foreach ($headers as $h => $header) {
-            for ($i = 0; isset($used[$header]); $i++) {
-                $header = sprintf('%s_%s', $headers[$h], $i);
-            }
-
-            $used[$header] = true;
-            $uniquified[] = $header;
-        }
-
-        return $uniquified;
     }
 
     /**
      * @param string $file
      * @return Reader
      */
-    protected function createReader($file, array $options = []) {
+    protected function createReader($file, array $options = [])
+    {
         $reader = Reader::createFromPath($file, 'r');
 
         if (isset($options['delimiter'])) {
@@ -60,17 +39,13 @@ class CsvRepository implements IFileRepository {
             $reader->setEscape($options['escape']);
         }
 
-        if (isset($options['newline'])) {
-            $reader->setNewline($options['newline']);
-        }
-
         if (isset($options['input_encoding'])) {
-            if (!$reader->isActiveStreamFilter()) {
+            if (!$reader->supportsStreamFilterOnRead()) {
                 throw new \LogicException('Stream filter is not active');
             }
 
             $conversionFilter = $this->getConversionFilter($options['input_encoding']);
-            $reader->appendStreamFilter($conversionFilter);
+            $reader->addStreamFilter($conversionFilter);
         }
 
         return $reader;
@@ -80,7 +55,8 @@ class CsvRepository implements IFileRepository {
      * @param string $input_encoding
      * @return string
      */
-    protected function getConversionFilter($input_encoding) {
+    protected function getConversionFilter($input_encoding)
+    {
         return sprintf('convert.iconv.%s/UTF-8', $input_encoding);
     }
 
@@ -88,7 +64,8 @@ class CsvRepository implements IFileRepository {
      * @param \Iterator $records
      * @return \Iterator
      */
-    protected function filter(\Iterator $records, array $filters) {
+    protected function filter(\Iterator $records, array $filters)
+    {
         return new \CallbackFilterIterator($records, function ($current, $key) use ($filters) {
             foreach ($filters as $filter) {
                 if (!$filter($current, $key)) {

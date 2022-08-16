@@ -10,6 +10,7 @@ use App\Matchers\AuthorityMatcher;
 use App\Repositories\IFileRepository;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Support\Str;
+use SplFileInfo;
 use Symfony\Component\Console\Exception\LogicException;
 
 abstract class AbstractImporter implements IImporter
@@ -82,19 +83,19 @@ abstract class AbstractImporter implements IImporter
      */
     abstract protected function getItemImageFilenameFormat(array $record);
 
-    public function import(Import $import, array $file)
+    public function import(Import $import, SplFileInfo $file)
     {
         $import_record = $this->createImportRecord(
             $import->id,
             Import::STATUS_IN_PROGRESS,
             date('Y-m-d H:i:s'),
-            $file['basename']
+            $file->getBasename()
         );
 
         $import_record->save();
 
         $records = $this->repository->getFiltered(
-            storage_path(sprintf('app/%s', $file['path'])),
+            storage_path(sprintf('app/%s', $file->getPathname())),
             $this->filters,
             static::$options
         );
