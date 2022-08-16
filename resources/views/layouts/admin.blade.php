@@ -135,16 +135,20 @@
                             <a href="{!! route('redirects.index') !!}"><i class="fa fa-external-link fa-fw"></i> Presmerovania</a>
                         </li>
                         @endcan
-                        @can('administer')
+                        @can('import')
                         <li>
                             <a href="#"><i class="fa fa-download fa-fw"></i> Import<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                                @can('administer')
                                 <li>
                                     <a href="{!! URL::to('harvests') !!}">Spice Harvester</a>
                                 </li>
+                                @endcan
+                                @can('import')
                                 <li>
                                     <a href="{!! URL::to('imports') !!}">CSV Import</a>
                                 </li>
+                                @endcan
                             </ul>
                         </li>
                         @endcan
