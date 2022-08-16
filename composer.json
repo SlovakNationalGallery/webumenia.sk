@@ -31,7 +31,7 @@
         "laravel/tinker": "^2.7",
         "laravelcollective/html": "^6.3",
         "league/color-extractor": "dev-master",
-        "league/csv": "^8.0",
+        "league/csv": "^9.6.2",
         "livewire/livewire": "^2.7",
         "mcamara/laravel-localization": "1.7.*",
         "primal/color": "^1.0",
