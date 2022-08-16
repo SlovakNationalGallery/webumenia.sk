@@ -354,13 +354,18 @@ Route::group(array('middleware' => 'guest'), function () {
     Route::post('login', [AuthController::class, 'postLogin']);
 });
 
-Route::group(['middleware' => ['auth', 'can:edit']], function () {
+Route::group(['middleware' => ['auth']], function () {
     Route::get('admin', [AdminController::class, 'index']);
     Route::get('logout', [AuthController::class, 'logout']);
-    Route::get('imports/launch/{id}', [ImportController::class, 'launch']);
-    Route::resource('imports', ImportController::class);
-    Route::get('item/search', [ItemController::class, 'search'])->name('item.search');
+});
 
+Route::group(['middleware' => ['auth', 'can:import']], function () {
+    Route::resource('imports', ImportController::class);
+    Route::get('imports/launch/{id}', [ImportController::class, 'launch']);
+});
+
+Route::group(['middleware' => ['auth', 'can:edit']], function () {
+    Route::get('item/search', [ItemController::class, 'search'])->name('item.search');
     Route::get('item', [ItemController::class, 'index'])->name('item.index');
     Route::resource('item/tags', ItemTagsController::class)->names('item-tags');
     Route::get('item/{id}/show', [ItemController::class, 'show'])->name('item.show');
