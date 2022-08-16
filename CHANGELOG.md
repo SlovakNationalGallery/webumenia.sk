@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Changed
+- delete title, order from item images
+- order item images by iipimg_url
 
 ## [2.62.0] - 2022-08-12
 ### Added

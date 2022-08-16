@@ -202,7 +202,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     public function images()
     {
-        return $this->hasMany(ItemImage::class)->orderBy('order');
+        return $this->hasMany(ItemImage::class)->orderBy('iipimg_url');
     }
 
     public function getImages() {
