@@ -76,7 +76,11 @@ class Import extends Model
             ->filter(
                 fn(FileAttributes $attributes) => Str::afterLast($attributes->path(), '.') === 'csv'
             )
-            ->map(fn(FileAttributes $attributes) => new SplFileInfo($attributes->path()))
+            ->map(
+                fn(FileAttributes $attributes) => new SplFileInfo(
+                    storage_path('app/' . $attributes->path())
+                )
+            )
             ->toArray();
     }
 }

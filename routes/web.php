@@ -357,11 +357,8 @@ Route::group(array('middleware' => 'guest'), function () {
 Route::group(['middleware' => ['auth']], function () {
     Route::get('admin', [AdminController::class, 'index']);
     Route::get('logout', [AuthController::class, 'logout']);
-});
-
-Route::group(['middleware' => ['auth', 'can:import']], function () {
     Route::resource('imports', ImportController::class);
-    Route::get('imports/launch/{id}', [ImportController::class, 'launch']);
+    Route::get('imports/{import}/launch', [ImportController::class, 'launch']);
 });
 
 Route::group(['middleware' => ['auth', 'can:edit']], function () {
@@ -373,9 +370,6 @@ Route::group(['middleware' => ['auth', 'can:edit']], function () {
     Route::match(['get', 'post'], 'item/{id}/edit', [ItemController::class, 'edit'])->name('item.edit');
 
     Route::post('item/destroySelected', [ItemController::class, 'destroySelected']);
-});
-
-Route::group(['middleware' => ['auth', 'can:edit']], function () {
 
     Route::post('dielo/{id}/addTags', function($id)
     {

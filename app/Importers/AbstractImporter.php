@@ -10,10 +10,11 @@ use App\Matchers\AuthorityMatcher;
 use App\Repositories\IFileRepository;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Support\Str;
+use League\Flysystem\FileAttributes;
 use SplFileInfo;
 use Symfony\Component\Console\Exception\LogicException;
 
-abstract class AbstractImporter implements IImporter
+abstract class AbstractImporter
 {
     /** @var callable[] */
     protected $sanitizers = [];
@@ -95,7 +96,7 @@ abstract class AbstractImporter implements IImporter
         $import_record->save();
 
         $records = $this->repository->getFiltered(
-            storage_path(sprintf('app/%s', $file->getPathname())),
+            $file->getPathname(),
             $this->filters,
             static::$options
         );
