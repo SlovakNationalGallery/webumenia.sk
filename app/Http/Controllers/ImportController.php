@@ -21,12 +21,11 @@ class ImportController extends Controller
     public function __construct(Translator $translator)
     {
         $this->translator = $translator;
+        $this->authorizeResource(Import::class, 'import');
     }
 
     public function index()
     {
-        Gate::authorize('viewAny', Import::class);
-
         $imports = Import::orderBy('created_at', 'desc');
 
         if (Gate::denies('viewAll', Import::class)) {
@@ -38,8 +37,6 @@ class ImportController extends Controller
 
     public function create()
     {
-        Gate::authorize('create', Import::class);
-
         return view('imports.form')->with([
             'disabled_metadata_fields' => false,
         ]);
@@ -47,8 +44,6 @@ class ImportController extends Controller
 
     public function store()
     {
-        Gate::authorize('create', Import::class);
-
         $input = Request::all();
 
         $rules = Import::$rules;
@@ -73,8 +68,6 @@ class ImportController extends Controller
 
     public function show(Import $import)
     {
-        Gate::authorize('view', $import);
-
         return view('imports.show')->with([
             'import' => $import,
             'records' => $import
@@ -87,8 +80,6 @@ class ImportController extends Controller
 
     public function edit(Import $import)
     {
-        Gate::authorize('update', $import);
-
         $options = $import->class_name::getOptions();
 
         return view('imports.form')->with([
@@ -100,8 +91,6 @@ class ImportController extends Controller
 
     public function update(Import $import)
     {
-        Gate::authorize('update', $import);
-
         if (Gate::allows('updateMetadata', $import)) {
             $v = Validator::make(Request::all(), Import::$rules);
             if ($v->passes()) {
@@ -132,8 +121,6 @@ class ImportController extends Controller
 
     public function destroy(Import $import)
     {
-        Gate::authorize('delete', $import);
-
         $name = $import->name;
         $import->delete();
         return redirect()
