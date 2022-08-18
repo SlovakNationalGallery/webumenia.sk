@@ -30,13 +30,13 @@ class ImportController extends Controller
     {
         Gate::authorize('import');
 
-        if (Gate::allows('administer')) {
-            $imports = Import::orderBy('created_at', 'desc')->paginate(20);
-        } else {
-            $imports = Import::where('user_id', '=', Auth::user()->id)
-                ->orderBy('created_at', 'desc')
-                ->paginate(20);
-        }
+        $imports = Import::orderBy('created_at', 'desc');
+
+        if (Gate::denies('administer')) {
+            $imports->where('user_id', Auth::user()->id);
+        } 
+
+        $imports->paginate(20);
 
         return view('imports.index')->with('imports', $imports);
     }
