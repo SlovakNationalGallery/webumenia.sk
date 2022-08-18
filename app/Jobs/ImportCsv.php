@@ -60,7 +60,7 @@ class ImportCsv extends Job implements ShouldQueue
 
         foreach ($this->import->files as $file) {
             if (\App::runningInConsole()) {
-                echo "Spúšťa sa import pre {$file->getPathname()}.\n";
+                echo "Spúšťa sa import pre {$file->getBasename()}.\n";
             }
             $importer->import($this->import, $file);
         }
