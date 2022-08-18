@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - item sortables
 
+### Changed
+- delete title, order from item images
+- order item images by iipimg_url
+
+### Fixed
+- saving item after deletion during harvest
+
 ## [2.62.0] - 2022-08-12
 ### Added
 - item filtering by collection_id (in admin)
