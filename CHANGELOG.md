@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- item sortables
+
 ### Changed
 - delete title, order from item images
 - order item images by iipimg_url
