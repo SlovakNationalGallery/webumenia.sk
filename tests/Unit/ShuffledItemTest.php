@@ -53,6 +53,12 @@ class ShuffledItemTest extends TestCase
                     'attributes' => [['name' => 'object_type', 'label' => 'easel painting']],
                 ],
             ],
+            'crop' => [
+                'x' => 0.5,
+                'y' => 0.6,
+                'width' => 0.7,
+                'height' => 0.8,
+            ],
         ]);
         $media = factory(Media::class)->create([
             'model_type' => ShuffledItem::class,

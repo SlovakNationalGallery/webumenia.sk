@@ -20,8 +20,8 @@ class CreateArticleTranslationsTable extends Migration
 
             // translatable attributes
             $table->string('title')->default('');
-            $table->text('summary')->default('');
-            $table->text('content')->default('');
+            $table->text('summary');
+            $table->text('content');
 
             $table->unique(['article_id','locale']);
             $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
