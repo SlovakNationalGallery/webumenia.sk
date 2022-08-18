@@ -116,6 +116,8 @@ abstract class AbstractHarvester
             $model->delete();
         }
         $record->delete();
+        // refresh relations after soft-deleting record
+        $record->refresh();
     }
 
     /**

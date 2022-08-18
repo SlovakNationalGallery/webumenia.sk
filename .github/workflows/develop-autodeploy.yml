@@ -5,7 +5,7 @@ on:
     branches:
       - develop
 
-concurrency: production_environment
+concurrency: testing_environment
 
 jobs:
   deploy:

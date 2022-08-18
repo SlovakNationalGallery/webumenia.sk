@@ -2,11 +2,21 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- item sortables
+
 ### Changed
 - MySQL database to enabled strict mode
+- delete title, order from item images
+- order item images by iipimg_url
 
 ### Fixed
 - tests & harvesters to work with MySQL strict mode
+- saving item after deletion during harvest
+
+## [2.62.0] - 2022-08-12
+### Added
+- item filtering by collection_id (in admin)
 
 ## [2.61.1] - 2022-08-05
 ### Fixed
