@@ -166,8 +166,13 @@ class AuthorityController extends Controller
         $authority->links()->saveMany($links);
         $authority->links()->whereNotIn('id', collect($links)->pluck('id'))->delete();
 
-         // ulozit primarny obrazok. do databazy netreba ukladat. nazov=id
-        if ($request->has('primary_image')) {
+        if ($request->get('clear_primary_image')) {
+            $authority->removeImage();
+            $authority->has_image = false;
+            $authority->save();
+        }
+
+        if ($request->has('primary_image') && !$request->get('clear_primary_image')) {
             $this->uploadImage($authority);
         }
 

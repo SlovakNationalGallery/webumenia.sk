@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Added
 - item sortables
+- clear image functionality for authorities in admin
 
 ### Changed
 - MySQL database to enabled strict mode
