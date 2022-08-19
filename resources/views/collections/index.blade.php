@@ -58,10 +58,14 @@ kolekcie |
 			                <td>
                                 {!! link_to_action('App\Http\Controllers\CollectionController@show', 'Detail', array($i->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', )) !!}
                                 {!! link_to_action('App\Http\Controllers\CollectionController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}
+                                {!! link_to_action('App\Http\Controllers\ItemController@index', 'Diela', ['collection_id' => $i->id], array('class' => 'btn btn-primary btn-xs btn-outline')) !!}
                                 <a href="{!! $i->getUrl() !!}" class="btn btn-success btn-xs btn-outline" target="_blank">Na webe</a>
-                                {!! Form::open(array('method' => 'DELETE', 'route' => array('collection.destroy', $i->id), 'class' => 'visible-xs-inline')) !!}
-                                    {!! Form::submit('Zmazať', array('class' => 'btn btn-danger btn-xs btn-outline')) !!}
-                                {!! Form::close() !!}
+                                <x-admin.link-with-confirmation
+                                    action="{{ route('collection.destroy', $i->id) }}" method="DELETE"
+                                    class="btn btn-danger btn-xs btn-outline"
+                                    message="Naozaj to chceš zmazať?">
+                                    Zmazať
+                                </x-admin.link-with-confirmation>
 
                             </td>
 			            </tr>

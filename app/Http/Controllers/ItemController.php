@@ -45,19 +45,21 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::orderBy('updated_at', 'DESC');
+        $items = Item::query();
+        $collection = null;
 
         if (Request::has('collection_id')) {
-            $items->whereHas('collections', function ($query) {
-                $query->where('collections.id', Request::get('collection_id'));
-            });
+            $collection = Collection::findOrFail(Request::get('collection_id'));
+            $items = $collection->items();
         }
+
+        $items = $items->orderBy('updated_at', 'DESC');
 
         $items = $items->paginate(100);
         // $collections = Collection::orderBy('order', 'ASC')->get();
         $collections = Collection::listsTranslations('name')->pluck('name', 'id')->toArray();
         $tags = Item::existingTags()->pluck('name','name');
-        return view('items.index', array('items' => $items, 'collections' => $collections, 'tags' => $tags));
+        return view('items.index', compact('items', 'collections', 'tags', 'collection'));
     }
 
     /**
