@@ -354,13 +354,15 @@ Route::group(array('middleware' => 'guest'), function () {
     Route::post('login', [AuthController::class, 'postLogin']);
 });
 
-Route::group(['middleware' => ['auth', 'can:edit']], function () {
+Route::group(['middleware' => ['auth']], function () {
     Route::get('admin', [AdminController::class, 'index']);
     Route::get('logout', [AuthController::class, 'logout']);
-    Route::get('imports/launch/{id}', [ImportController::class, 'launch']);
     Route::resource('imports', ImportController::class);
-    Route::get('item/search', [ItemController::class, 'search'])->name('item.search');
+    Route::get('imports/{import}/launch', [ImportController::class, 'launch']);
+});
 
+Route::group(['middleware' => ['auth', 'can:edit']], function () {
+    Route::get('item/search', [ItemController::class, 'search'])->name('item.search');
     Route::get('item', [ItemController::class, 'index'])->name('item.index');
     Route::resource('item/tags', ItemTagsController::class)->names('item-tags');
     Route::get('item/{id}/show', [ItemController::class, 'show'])->name('item.show');
@@ -368,9 +370,6 @@ Route::group(['middleware' => ['auth', 'can:edit']], function () {
     Route::match(['get', 'post'], 'item/{id}/edit', [ItemController::class, 'edit'])->name('item.edit');
 
     Route::post('item/destroySelected', [ItemController::class, 'destroySelected']);
-});
-
-Route::group(['middleware' => ['auth', 'can:edit']], function () {
 
     Route::post('dielo/{id}/addTags', function($id)
     {

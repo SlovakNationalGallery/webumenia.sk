@@ -3,13 +3,14 @@
 namespace App\Importers;
 
 use App\Import;
+use SplFileInfo;
 
 class WebumeniaMgImporter extends MgImporter
 {
     /** @var Import */
     protected $import;
 
-    /** @var array */
+    /** @var SplFileInfo */
     protected $csv_file;
 
     protected $mapping = [
@@ -113,7 +114,7 @@ class WebumeniaMgImporter extends MgImporter
             return !empty(
                 $this->getImageJp2Paths(
                     $this->import,
-                    $this->csv_file['basename'],
+                    $this->csv_file->getBasename(),
                     $image_filename_format
                 )
             );
@@ -122,7 +123,7 @@ class WebumeniaMgImporter extends MgImporter
         unset($this->mapping['RokAkv'], $this->mapping['DatExp']);
     }
 
-    public function import(Import $import, array $file)
+    public function import(Import $import, SplFileInfo $file)
     {
         $this->import = $import;
         $this->csv_file = $file;
