@@ -28,9 +28,11 @@ CSV Imports |
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
+            @can('administer')
             <div class="panel-heading">
                 <a href="{!! route('imports.create') !!}" class="btn btn-primary btn-outline"><i class="fa fa-plus"></i> Pridať</a>
             </div>
+            @endcan
             <!-- /.panel-heading -->
             <div class="panel-body">
             	<table class="table table-hover">
@@ -53,12 +55,14 @@ CSV Imports |
 			                <td><span class="h4"><span class="label label-{!! $i->status_class !!}">{!! $i->status !!}</span></span></td>
 			                <td>{!! ($i->completed_at) ? $i->completed_at->format('d.m.Y H:i') : '' !!}</td>
 			                <td>
-                                {!! Form::open(array('method' => 'DELETE', 'route' => array('imports.destroy', $i->id), 'class' => 'visible-xs-inline form-inline')) !!}
                                 {!! link_to_action('App\Http\Controllers\ImportController@launch', 'Spustiť', array($i->id), array('class' => 'btn btn-success btn-xs btn-outline', )) !!}
                                 {!! link_to_action('App\Http\Controllers\ImportController@show', 'Detail', array($i->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', )) !!}
                                 {!! link_to_action('App\Http\Controllers\ImportController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}
+                                @can('administer')
+                                {!! Form::open(array('method' => 'DELETE', 'route' => array('imports.destroy', $i->id), 'class' => 'visible-xs-inline form-inline')) !!}
                                     {!! Form::submit('Zmazať', array('class' => 'btn btn-danger btn-xs btn-outline')) !!}
                                 {!! Form::close() !!}
+                                @endcan
                             </td>
 			            </tr>
 						@endforeach

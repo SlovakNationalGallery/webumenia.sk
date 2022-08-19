@@ -6,8 +6,12 @@ use Illuminate\Support\Facades\Validator;
 
 use App\Import;
 use App\Jobs\ImportCsv;
-use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Translation\Translator;
 
 class ImportController extends Controller
@@ -17,34 +21,27 @@ class ImportController extends Controller
     public function __construct(Translator $translator)
     {
         $this->translator = $translator;
+        $this->authorizeResource(Import::class, 'import');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
     public function index()
     {
-        $imports = Import::orderBy('created_at', 'DESC')->paginate(10);
-        return view('imports.index')->with('imports', $imports);
+        $imports = Import::orderBy('created_at', 'desc');
+
+        if (Gate::denies('viewAll', Import::class)) {
+            $imports = $imports->where('user_id', Auth::user()->id);
+        }
+
+        return view('imports.index')->with('imports', $imports->paginate(20));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
     public function create()
     {
-        return view('imports.form');
+        return view('imports.form')->with([
+            'disabled_metadata_fields' => false,
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
     public function store()
     {
         $input = Request::all();
@@ -53,124 +50,97 @@ class ImportController extends Controller
         $v = Validator::make($input, $rules);
 
         if ($v->passes()) {
-
-            $import = new Import;
+            $import = new Import();
             $import->name = Request::input('name');
             $import->class_name = Request::input('class_name');
             $import->dir_path = Request::input('dir_path');
             $import->iip_dir_path = Request::input('iip_dir_path');
+            $import->user_id = Request::input('user_id');
             $import->save();
 
             return redirect()->route('imports.index');
         }
 
-        return back()->withInput()->withErrors($v);
+        return back()
+            ->withInput()
+            ->withErrors($v);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
+    public function show(Import $import)
     {
-        $import = Import::with(['records' => function($query) {
-            $query->orderBy('id', 'desc');
-            $query->take(50);
-        }])->find($id);
-        return view('imports.show')->with('import', $import);
+        return view('imports.show')->with([
+            'import' => $import,
+            'records' => $import
+                ->records()
+                ->orderBy('id', 'desc')
+                ->take(50)
+                ->get(),
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
+    public function edit(Import $import)
     {
-        $import = Import::find($id);
-
-        if (is_null($import)) {
-            return redirect()->route('import.index');
-        }
-
         $options = $import->class_name::getOptions();
 
-        return view('imports.form')->with(['import' => $import, 'options' => $options]);
+        return view('imports.form')->with([
+            'import' => $import,
+            'options' => $options,
+            'disabled_metadata_fields' => Gate::denies('updateMetadata', $import),
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function update($id)
+    public function update(Import $import)
     {
-        $v = Validator::make(Request::all(), Import::$rules);
-
-        if ($v->passes()) {
-            $input = Arr::except(Request::all(), array('_method'));
-
-            $import = Import::find($id);
-            $import->name = Request::input('name');
-            $import->class_name = Request::input('class_name');
-            $import->dir_path = Request::input('dir_path');
-            $import->iip_dir_path = Request::input('iip_dir_path');
-            $import->save();
-
-            if (Request::hasFile('file')) {
-                $file = Request::file('file');
-                $path_to_save = 'import/' . $import->dir_path . '/' . $file->getClientOriginalName();
-                \Storage::put($path_to_save, \File::get($file));
+        if (Gate::allows('updateMetadata', $import)) {
+            $v = Validator::make(Request::all(), Import::$rules);
+            if ($v->passes()) {
+                $import->name = Request::input('name');
+                $import->class_name = Request::input('class_name');
+                $import->dir_path = Request::input('dir_path');
+                $import->iip_dir_path = Request::input('iip_dir_path');
+                $import->user_id = Request::input('user_id');
+                $import->save();
+            } else {
+                return back()->withErrors($v);
             }
-
-
-            \Session::flash('message', 'Import <code>'.$import->name.'</code> bol upravený');
-            return redirect()->route('imports.index');
         }
 
-        return back()->withErrors($v);
+        if (Gate::allows('updateFile', $import) && Request::hasFile('file')) {
+            $file = Request::file('file');
+            $path_to_save = sprintf(
+                'import/%s/%s',
+                $import->dir_path,
+                $file->getClientOriginalName()
+            );
+            Storage::put($path_to_save, File::get($file));
+        }
+
+        Session::flash('message', 'Import <code>' . $import->name . '</code> bol upravený');
+        return redirect()->route('imports.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
+    public function destroy(Import $import)
     {
-        $import = Import::find($id);
         $name = $import->name;
         $import->delete();
-        return redirect()->route('imports.index')->with('message', 'Import <code>'.$name.'</code>  bol zmazaný');
-        ;
+        return redirect()
+            ->route('imports.index')
+            ->with('message', 'Import <code>' . $name . '</code>  bol zmazaný');
     }
 
-    /**
-     * Launch the import
-     *
-     * @param  /App/Import $import
-     * @param  CSV file $file
-     * @return Response
-     */
-    public function launch($id)
+    public function launch(Import $import)
     {
+        Gate::authorize('launch', $import);
 
         // run in queue
-        $import = Import::find($id);
         $import->status = Import::STATUS_QUEUED;
         $import->started_at = date('Y-m-d H:i:s');
         $import->save();
 
         $this->dispatch(new ImportCsv($import));
 
-        return redirect()->route('imports.index')->with('message', 'Import <code>'.$import->name.'</code> bol spustený');
-
+        return redirect()
+            ->route('imports.index')
+            ->with('message', 'Import <code>' . $import->name . '</code> bol spustený');
     }
-
-
 }

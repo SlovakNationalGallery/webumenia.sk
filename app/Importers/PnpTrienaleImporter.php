@@ -4,9 +4,8 @@ namespace App\Importers;
 
 use App\Import;
 use App\ImportRecord;
-use App\Repositories\IFileRepository;
-use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Support\Str;
+use SplFileInfo;
 
 class PnpTrienaleImporter extends AbstractImporter
 {
@@ -95,7 +94,7 @@ class PnpTrienaleImporter extends AbstractImporter
         };
     }
 
-    public function import(Import $import, array $file)
+    public function import(Import $import, SplFileInfo $file)
     {
         $this->counter = 0;
         return parent::import($import, $file);

@@ -83,7 +83,7 @@
 	                			<th class="text-right"># IIP obrázkov</th>
 	                		</tr>
 	                	</thead>
-	                	@foreach ($import->records as $record)
+	                	@foreach ($records as $record)
 	                		@if ($record->status=='error')
 	                			<tr class="danger">
 	                		@elseif ($record->status=='in progress')

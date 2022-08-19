@@ -1,32 +1,34 @@
 <?php
 
-
-
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use League\Flysystem\FileAttributes;
+use League\Flysystem\StorageAttributes;
+use SplFileInfo;
 
 class Import extends Model
 {
-
-    const STATUS_NEW         = 'new';
-    const STATUS_QUEUED      = 'queued';
+    const STATUS_NEW = 'new';
+    const STATUS_QUEUED = 'queued';
     const STATUS_IN_PROGRESS = 'in progress';
-    const STATUS_COMPLETED   = 'completed';
-    const STATUS_ERROR       = 'error';
+    const STATUS_COMPLETED = 'completed';
+    const STATUS_ERROR = 'error';
     // const STATUS_KILLED      = 'killed';
 
-    public static $rules = array(
+    public static $rules = [
         'name' => 'required',
         'class_name' => 'required',
-    );
-
-    protected $dates = [
-        'created_at',
-        'updated_at',
-        'started_at',
-        'completed_at',
     ];
+
+    protected $dates = ['created_at', 'updated_at', 'started_at', 'completed_at'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function records()
     {
@@ -69,8 +71,16 @@ class Import extends Model
 
     public function getFilesAttribute()
     {
-        $files = \Storage::listContents('import/' . $this->dir_path);
-        $csv_files = array_filter($files, function ($object) { return (isSet($object['extension']) && $object['extension'] === 'csv'); });
-        return $csv_files;
+        return Storage::listContents('import/' . $this->dir_path)
+            ->filter(fn(StorageAttributes $attributes) => $attributes->isFile())
+            ->filter(
+                fn(FileAttributes $attributes) => Str::afterLast($attributes->path(), '.') === 'csv'
+            )
+            ->map(
+                fn(FileAttributes $attributes) => new SplFileInfo(
+                    storage_path('app/' . $attributes->path())
+                )
+            )
+            ->toArray();
     }
 }
