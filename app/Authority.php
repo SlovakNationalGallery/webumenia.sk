@@ -134,27 +134,49 @@ class Authority extends Model implements IndexableModel, TranslatableContract
 
     public function getCollectionsCountAttribute()
     {
-        if (!Cache::has('authority_collections_count')) {
-            $authority_collections_count = $this->join('authority_item', 'authority_item.authority_id', '=', 'authorities.id')->join('collection_item', 'collection_item.item_id', '=', 'authority_item.item_id')->where('authorities.id', '=', $this->id)->select('collection_item.collection_id')->distinct()->count();
-            Cache::put('authority_collections_count', $authority_collections_count, 3600);
-        }
-
-        return Cache::get('authority_collections_count');
+        return Cache::remember(
+            "authority.{$this->id}.collections_count",
+            now()->addHours(1),
+            fn() => $this->join(
+                'authority_item',
+                'authority_item.authority_id',
+                '=',
+                'authorities.id'
+            )
+                ->join('collection_item', 'collection_item.item_id', '=', 'authority_item.item_id')
+                ->where('authorities.id', '=', $this->id)
+                ->select('collection_item.collection_id')
+                ->distinct()
+                ->count()
+        );
     }
 
     public function getTagsAttribute()
     {
-        if (!Cache::has('authority_tags')) {
-            $tags = $this->join('authority_item', 'authority_item.authority_id', '=', 'authorities.id')
-                            ->join('tagging_tagged', function ($join) {
-                                $join->on('tagging_tagged.taggable_id', '=', 'authority_item.item_id');
-                                $join->on('tagging_tagged.taggable_type', '=', DB::raw("'Item'"));
-                            })->where('authorities.id', '=', $this->id)->groupBy('tagging_tagged.tag_name')->select('tagging_tagged.tag_name', DB::raw('count(tagging_tagged.tag_name) as pocet'))->orderBy('pocet', 'desc')->limit(10)->get();
-            $authority_tags = $tags->pluck('tag_name');
-            Cache::put('authority_tags', $authority_tags, 3600);
-        }
-
-        return Cache::get('authority_tags');
+        return Cache::remember(
+            "authority.{$this->id}.tags",
+            now()->addHours(1),
+            fn() => $this->join(
+                'authority_item',
+                'authority_item.authority_id',
+                '=',
+                'authorities.id'
+            )
+                ->join('tagging_tagged', function ($join) {
+                    $join->on('tagging_tagged.taggable_id', '=', 'authority_item.item_id');
+                    $join->on('tagging_tagged.taggable_type', '=', DB::raw("'Item'"));
+                })
+                ->where('authorities.id', '=', $this->id)
+                ->groupBy('tagging_tagged.tag_name')
+                ->select(
+                    'tagging_tagged.tag_name',
+                    DB::raw('count(tagging_tagged.tag_name) as pocet')
+                )
+                ->orderBy('pocet', 'desc')
+                ->limit(10)
+                ->get()
+                ->pluck('tag_name')
+        );
     }
 
     public function getFormatedNameAttribute()
