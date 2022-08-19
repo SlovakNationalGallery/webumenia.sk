@@ -14,7 +14,6 @@ return new class extends Migration {
     {
         Schema::table('item_images', function (Blueprint $table) {
             $table->index(['item_id']);
-            $table->index(['iipimg_url']);
         });
     }
 
@@ -26,7 +25,6 @@ return new class extends Migration {
     public function down()
     {
         Schema::table('item_images', function (Blueprint $table) {
-            $table->dropIndex(['iipimg_url']);
             $table->dropIndex(['item_id']);
         });
     }
