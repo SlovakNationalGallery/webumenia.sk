@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- item_images indexes
+
 ### Added
 - importer role
 - import permissions
