@@ -54,7 +54,7 @@ return [
             'collation' => 'utf8_slovak_ci',
             'prefix' => '',
             'prefix_indexes' => true,
-            'strict' => true,
+            'strict' => false,
             'engine' => null,
             'options' => extension_loaded('pdo_mysql')
                 ? array_filter([
