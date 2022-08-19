@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Added
 - item sortables
+- filter items by collection in admin
+- confirm collection delete
 
 ### Changed
 - MySQL database to enabled strict mode
