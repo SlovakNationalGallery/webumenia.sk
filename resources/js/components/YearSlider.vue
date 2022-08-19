@@ -75,8 +75,8 @@ export default {
         return {
             yearRange: this.from && this.to ? [this.from, this.to] : [this.min, this.max],
 
-            // Use values if they were carried over from URL query
-            touched: this.from && this.to ? true : false,
+            // Marked as touched if the values have already been changed
+            touched: this.from === this.min && this.to === this.max ? false : true,
         }
     },
 }
