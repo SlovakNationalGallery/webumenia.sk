@@ -10,7 +10,12 @@ diela |
 
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">Diela</h1>
+        <h1 class="page-header">
+            Diela
+            @isset($collection)
+                z kolekcie {{ $collection->name }}
+            @endisset
+        </h1>
 
         @if (Session::has('message'))
             <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
