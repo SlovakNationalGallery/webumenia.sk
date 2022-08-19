@@ -12,9 +12,9 @@ diela |
     <div class="col-lg-12">
         <h1 class="page-header">
             Diela
-            @if ($collection)
+            @isset($collection)
                 z kolekcie {{ $collection->name }}
-            @endif
+            @endisset
         </h1>
 
         @if (Session::has('message'))
