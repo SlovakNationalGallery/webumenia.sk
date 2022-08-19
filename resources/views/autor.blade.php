@@ -38,8 +38,10 @@
                         <div class="content-section">
                             {!! trans_choice('authority.artworks', $author->items_count, ['artworks_url' => route('frontend.catalog.index', ['author' => $author->name]), 'artworks_count' => $author->items_count]) !!}
                             <br/>
+                            @if($author->collections_count > 0)
                             {!! trans_choice('authority.collections', $author->collections_count, ['collections_count' => $author->collections_count] ) !!}
                             <br/>
+                            @endif
                             {!! trans_choice('authority.views', $author->view_count, ['view_count' => $author->view_count]) !!}
                             <br/>
                             @include('components.share_buttons', [
