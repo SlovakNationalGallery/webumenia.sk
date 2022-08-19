@@ -53,7 +53,7 @@ class ItemController extends Controller
             $items = $collection->items();
         }
 
-        $items = $items->orderBy('updated_at', 'DESC');
+        $items->orderBy('updated_at', 'DESC');
 
         $items = $items->paginate(100);
         // $collections = Collection::orderBy('order', 'ASC')->get();
