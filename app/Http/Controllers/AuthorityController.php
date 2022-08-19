@@ -146,26 +146,20 @@ class AuthorityController extends Controller
         $links = collect()
             ->merge(
                 collect($request->input('externalLinks', []))->map(function ($link) {
-                    return Link::updateOrCreate(
-                        ['id' => $link['id']],
-                        [
-                            'url' => $link['url'],
-                            'label' => $link['label'] ?? parse_url($link['url'])['host'],
-                            'type' => 'external',
-                        ]
-                    );
+                    return Link::findOrNew($link['id'])->fill([
+                        'url' => $link['url'],
+                        'label' => $link['label'] ?? parse_url($link['url'])['host'],
+                        'type' => 'external',
+                    ]);
                 })
             )
             ->merge(
                 collect($request->input('sourceLinks', []))->map(function ($link) {
-                    return Link::updateOrCreate(
-                        ['id' => $link['id']],
-                        [
-                            'url' => $link['url'],
-                            'label' => $link['label'] ?? parse_url($link['url'])['host'],
-                            'type' => 'source',
-                        ]
-                    );
+                    return Link::findOrNew($link['id'])->fill([
+                        'url' => $link['url'],
+                        'label' => $link['label'] ?? parse_url($link['url'])['host'],
+                        'type' => 'source',
+                    ]);
                 })
             );
 

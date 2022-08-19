@@ -65,6 +65,9 @@ class Item extends Model implements IndexableModel, TranslatableContract
     ];
 
     public static $sortables = [
+        'date_earliest',
+        'date_latest',
+        'view_count',
         'additionals.order',
     ];
 
@@ -202,7 +205,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     public function images()
     {
-        return $this->hasMany(ItemImage::class)->orderBy('order');
+        return $this->hasMany(ItemImage::class)->orderBy('iipimg_url');
     }
 
     public function getImages() {

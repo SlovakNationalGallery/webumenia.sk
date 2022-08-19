@@ -26,10 +26,11 @@ class AdminItemFormTest extends BrowserKitTestCase
             __DIR__,
             DIRECTORY_SEPARATOR,
             'test.jpeg'
-        );  
+        );
 
         $this->visit('/item/create')
             ->attach($filename, 'item[primary_image]')
+            ->type('nobody', 'item[author]')
             ->press('Uložiť')
             ->seePageIs('/item');
     }

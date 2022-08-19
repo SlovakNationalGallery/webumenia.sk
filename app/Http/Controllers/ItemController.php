@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use App\SpiceHarvesterRecord;
 use Illuminate\Support\Facades\App;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Illuminate\Support\Facades\Validator;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormInterface;
@@ -143,7 +143,9 @@ class ItemController extends Controller
         $item = $form->getData();
         $form->handleRequest();
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
+            Validator::make(Request::all(), ['item.author' => 'required'])->validate();
+
             $authorities = [];
 
             $json = json_decode($form['item_authorities']->getData()?:"[]");

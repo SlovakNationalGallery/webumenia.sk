@@ -93,8 +93,7 @@ class ItemHarvesterTest extends TestCase
         ]);
 
         $harvest = factory(SpiceHarvesterHarvest::class)->create();
-        $record = factory(SpiceHarvesterRecord::class)->create();
-        $record->harvest()->associate($harvest);
+        $record = factory(SpiceHarvesterRecord::class)->create(['harvest_id' => $harvest->id]);
 
         $row = $this->getItemRow();
         $repositoryMock = $this->createMock(ItemRepository::class);
@@ -234,7 +233,7 @@ class ItemHarvesterTest extends TestCase
                 '18. storočie, polovica, 1760',
             ],
             'datestamp' => ['2017-08-28T14:00:23.769Z'],
-            'contributor' => 'Čičo, Martin'
+            'contributor' => ['Čičo, Martin'],
         ];
     }
 }

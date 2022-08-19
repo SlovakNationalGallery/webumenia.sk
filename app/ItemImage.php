@@ -12,10 +12,8 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 class ItemImage extends Model
 {
     protected $fillable = [
-        'title',
         'iipimg_url',
         'item_id',
-        'order',
     ];
 
     public function item() {
@@ -37,15 +35,6 @@ class ItemImage extends Model
             urlencode($this->iipimg_url),
             $maxSize
         );
-    }
-
-    public function save(array $options = []) {
-        if ($this->order === null && $this->item) {
-            $max = $this->item->images()->max('order');
-            $this->order = $max !== null ? $max + 1 : 0;
-        }
-
-        return parent::save($options);
     }
 
     public function getIipimgUrl() {

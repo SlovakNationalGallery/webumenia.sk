@@ -8,6 +8,7 @@ use App\Harvest\Progress;
 use App\SpiceHarvesterHarvest;
 use App\SpiceHarvesterRecord;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 
 abstract class AbstractHarvester
 {
@@ -97,7 +98,11 @@ abstract class AbstractHarvester
             }
 
             $this->importer->import($row, $progress);
-            $record->datestamp = Arr::get($row, 'datestamp.0', null);
+
+            if (Arr::get($row, 'datestamp.0')) {
+                $record->datestamp = Carbon::parse(Arr::get($row, 'datestamp.0'));
+            }
+            
         }, $progress);
     }
 
@@ -111,6 +116,8 @@ abstract class AbstractHarvester
             $model->delete();
         }
         $record->delete();
+        // refresh relations after soft-deleting record
+        $record->refresh();
     }
 
     /**

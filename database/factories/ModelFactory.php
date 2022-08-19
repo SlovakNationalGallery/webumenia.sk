@@ -23,6 +23,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'username' => $faker->userName,
         'name' => $faker->name,
         'email' => $faker->safeEmail,
+        'role' => 'editor',
         'password' => bcrypt(Str::random(10)),
         'remember_token' => Str::random(10),
     ];
@@ -177,5 +178,14 @@ $factory->define(ShuffledItem::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(Media::class, function (Faker\Generator $faker) {
-    return ['disk' => 'media'];
+    return [
+        'disk' => 'media',
+        'name' => $faker->word,
+        'file_name' => $faker->word,
+        'size' => $faker->randomNumber,
+        'manipulations' => [],
+        'custom_properties' => [],
+        'generated_conversions' => [],
+        'responsive_images' => [],
+    ];
 });
