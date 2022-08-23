@@ -138,7 +138,6 @@ $factory->define(App\Collection::class, function (Faker\Generator $faker) {
         'name' => $faker->word,
         'type' => $faker->word,
         'text' => $faker->sentence,
-        'order' => $faker->randomNumber,
     ];
 });
 
