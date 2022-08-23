@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - year slider to ignore its values if it was not touched
 - authority collection counts
+- artwork detail image stretched when in slick
 
 ## [2.64.0] - 2022-08-19
 ### Fixed
