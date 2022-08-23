@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- year slider to ignore its values if it was not touched
+- authority collection counts
 
 ## [2.64.0] - 2022-08-19
 ### Fixed
