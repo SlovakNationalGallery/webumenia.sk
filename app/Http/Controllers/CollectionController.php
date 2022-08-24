@@ -74,7 +74,6 @@ class CollectionController extends Controller
             if (Request::has('title_shadow')) {
                 $collection->title_shadow = Request::input('title_shadow');
             }
-            $collection->order = Collection::max('order') + 1;
             if (Request::has('user_id') && Gate::allows('administer')) {
                 $collection->user_id = Request::input('user_id');
             } else {
@@ -161,7 +160,6 @@ class CollectionController extends Controller
             if (Request::has('title_shadow')) {
                 $collection->title_shadow = Request::input('title_shadow');
             }
-            $collection->order = Request::input('order');
             $collection->save();
 
             if (Request::hasFile('main_image')) {
