@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- empty state of /objednavka page
 
 ## [2.64.1] - 2022-08-25
 ### Fixed
