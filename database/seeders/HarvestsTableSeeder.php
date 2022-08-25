@@ -25,6 +25,7 @@ class HarvestsTableSeeder extends Seeder {
                 'metadata_prefix' => 'oai_dc',
                 'set_spec' => 'Europeana SNG',
                 'set_name' => 'Europeana SNG',
+                'type' => 'App\Harvest\Harvesters\ItemHarvester',
                 'set_description' => 'Europeana set from SNG',
                 'status' => 'queued',
                 'status_messages' => '',
