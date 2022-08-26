@@ -631,9 +631,12 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     public function scopeRelated($query, Item $item)
     {
-        return $query->whereTranslation('related_work', $item->related_work)
-            ->where('author', '=', $item->author)
-            ->orderBy('related_work_order');
+        $relatedIds = Item::search()
+            ->where('related_work', $item->related_work)
+            ->whereIn('author', $this->makeArray($item->author))
+            ->keys();
+
+        return $query->whereIn('id', $relatedIds)->orderBy('related_work_order');
     }
 
     public function getAuthorsWithLinks()
