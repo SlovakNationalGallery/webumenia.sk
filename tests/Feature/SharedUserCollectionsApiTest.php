@@ -13,7 +13,9 @@ class SharedUserCollectionsApiTest extends TestCase
 
     public function testShow()
     {
-        $items = factory(Item::class, 2)->create();
+        $items = Item::factory()
+            ->count(2)
+            ->create();
         $collection = SharedUserCollection::factory()->create([
             'name' => 'name',
             'author' => 'author',

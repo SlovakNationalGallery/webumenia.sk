@@ -42,7 +42,9 @@ class SharedUserCollectionsTest extends TestCase
 
     public function testUpdateTokenIsNecessaryForEditing()
     {
-        $items = factory(Item::class, 2)->create();
+        $items =         Item::factory()
+        ->count(2)
+->create();
         $collection = SharedUserCollection::factory()->create([
             'items' => $items->map->only('id'),
         ]);

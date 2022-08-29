@@ -14,7 +14,9 @@ class ItemTest extends TestCase
     public function testSearch()
     {
         $editor = User::factory()->create(['role' => 'editor']);
-        $items = factory(Item::class, 2)->create();
+        $items = Item::factory()
+            ->count(2)
+            ->create();
 
         $this->actingAs($editor)
             ->get(route('item.search', ['search' => $items[0]->id]))

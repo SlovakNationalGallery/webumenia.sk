@@ -40,7 +40,7 @@ Druhým príkladom je ďalšie putovanie po rieke, tentoraz po Dunaji, ktorý bo
         ];
 
         foreach ($collections as $collection) {
-            $items = factory(Item::class, 5)->create();
+            $items = Item::factory()->count(5)->create();
             Collection::factory()
                 ->create($collection)
                 ->items()
