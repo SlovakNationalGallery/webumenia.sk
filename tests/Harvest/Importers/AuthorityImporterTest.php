@@ -42,7 +42,7 @@ class AuthorityImporterTest extends TestCase
 
     public function testExistingButNotRelatedYet()
     {
-        factory(Nationality::class)->create([
+        Nationality::factory()->create([
             'id' => 12277,
             'code' => 'Slovensko',
         ]);

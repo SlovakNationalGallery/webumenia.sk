@@ -57,12 +57,6 @@ $factory->define(\App\Link::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(\App\Nationality::class, function (Faker\Generator $faker) {
-    return [
-        'code' => $faker->word,
-    ];
-});
-
 $factory->define(\App\AuthorityRelationship::class, function (Faker\Generator $faker) {
     return [
         'authority_id' => $faker->randomNumber,
