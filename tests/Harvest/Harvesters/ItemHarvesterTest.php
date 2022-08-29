@@ -32,7 +32,7 @@ class ItemHarvesterTest extends TestCase
         ]);
         $harvester = new ItemHarvester($repositoryMock, $importerMock);
 
-        $harvest = factory(SpiceHarvesterHarvest::class)->create([
+        $harvest = SpiceHarvesterHarvest::factory()->create([
             'type' => 'item',
         ]);
         $record = factory(SpiceHarvesterRecord::class)->create([
@@ -79,7 +79,7 @@ class ItemHarvesterTest extends TestCase
 
         $harvester = new ItemHarvester($repositoryMock, $importerMock);
 
-        $harvest = factory(SpiceHarvesterHarvest::class)->make([
+        $harvest = SpiceHarvesterHarvest::factory()->make([
             'type' => 'item',
             'status' => SpiceHarvesterHarvest::STATUS_QUEUED,
         ]);
@@ -98,7 +98,7 @@ class ItemHarvesterTest extends TestCase
             'name' => 'Test Name',
         ]);
 
-        $harvest = factory(SpiceHarvesterHarvest::class)->create();
+        $harvest = SpiceHarvesterHarvest::factory()->create();
         $record = factory(SpiceHarvesterRecord::class)->create(['harvest_id' => $harvest->id]);
 
         $row = $this->getItemRow();

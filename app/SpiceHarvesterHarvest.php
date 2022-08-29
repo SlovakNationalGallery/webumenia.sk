@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace App;
 
 use App\Harvest\Progress;
@@ -10,16 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 use App\Harvest\Harvesters\AuthorityHarvester;
 use App\Harvest\Harvesters\GmuhkItemHarvester;
 use App\Harvest\Harvesters\ItemHarvester;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class SpiceHarvesterHarvest extends Model
 {
+    use HasFactory;
 
-    const STATUS_QUEUED      = 'queued';
+    const STATUS_QUEUED = 'queued';
     const STATUS_IN_PROGRESS = 'in progress';
-    const STATUS_COMPLETED   = 'completed';
-    const STATUS_ERROR       = 'error';
-    const STATUS_DELETED     = 'deleted';
-    const STATUS_KILLED      = 'killed';
+    const STATUS_COMPLETED = 'completed';
+    const STATUS_ERROR = 'error';
+    const STATUS_DELETED = 'deleted';
+    const STATUS_KILLED = 'killed';
 
     public static $types = [
         ItemHarvester::class => 'Dielo',
@@ -27,15 +27,15 @@ class SpiceHarvesterHarvest extends Model
         AuthorityHarvester::class => 'Autorita',
     ];
 
-    protected $appends = array('from');
+    protected $appends = ['from'];
     public static $datum;
     public static $cron_statuses = ['manual' => 'Manual', 'daily' => 'Daily', 'weekly' => 'Weekly'];
     // public static $cron_status;
 
-    public static $rules = array(
+    public static $rules = [
         'base_url' => 'required',
         'metadata_prefix' => 'required',
-        );
+    ];
 
     public function records()
     {

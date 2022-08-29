@@ -48,20 +48,6 @@ $factory->define(Item::class, function (Faker\Generator $faker) {
     ];
 });
 
-
-$factory->define(\App\SpiceHarvesterHarvest::class, function (Faker\Generator $faker) {
-    return [
-        'type' => 'item',
-        'base_url' => $faker->url,
-        'metadata_prefix' => $faker->word,
-        'set_spec' => $faker->word,
-        'set_name' => $faker->word,
-        'set_description' => $faker->word,
-        'status_messages' => $faker->sentence,
-        'initiated' => $faker->date,
-    ];
-});
-
 $factory->define(\App\SpiceHarvesterRecord::class, function (Faker\Generator $faker) {
     return [
         'type' => 'item',
@@ -93,7 +79,6 @@ $factory->define(\App\AuthorityRelationship::class, function (Faker\Generator $f
         'type' => $faker->word,
     ];
 });
-
 
 $factory->define(Media::class, function (Faker\Generator $faker) {
     return [

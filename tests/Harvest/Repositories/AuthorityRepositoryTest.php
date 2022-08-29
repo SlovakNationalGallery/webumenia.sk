@@ -10,7 +10,8 @@ use Tests\TestCase;
 
 class AuthorityRepositoryTest extends TestCase
 {
-    public function testRows() {
+    public function testRows()
+    {
         $endpointFactoryMock = $this->getMockBuilder(EndpointFactory::class)
             ->setMethods(['createHttpAdapter'])
             ->getMock();
@@ -21,7 +22,7 @@ class AuthorityRepositoryTest extends TestCase
 
         $itemRepository = new AuthorityRepository($endpointFactoryMock);
 
-        $harvest = factory(SpiceHarvesterHarvest::class)->make(['base_url' => true]);
+        $harvest = SpiceHarvesterHarvest::factory()->make(['base_url' => true]);
         $rows = $itemRepository->getAll($harvest)->data;
 
         $rows = iterator_to_array($rows);
