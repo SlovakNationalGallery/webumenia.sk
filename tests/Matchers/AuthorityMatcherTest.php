@@ -14,7 +14,7 @@ class AuthorityMatcherTest extends TestCase
 
     public function testMatchAll()
     {
-        $authority = factory(Authority::class)->create([
+        $authority = Authority::factory()->create([
             'name' => 'Wouwerman, Philips',
             'birth_year' => null,
             'death_year' => null,
@@ -33,12 +33,12 @@ class AuthorityMatcherTest extends TestCase
 
     public function testMatch()
     {
-        factory(Authority::class)->create([
+        Authority::factory()->create([
             'name' => 'Wouwerman, Philips',
             'birth_year' => null,
             'death_year' => null,
         ]);
-        factory(Authority::class)->create([
+        Authority::factory()->create([
             'name' => 'Caullery - následovník, Louis',
             'birth_year' => null,
             'death_year' => null,
@@ -55,12 +55,12 @@ class AuthorityMatcherTest extends TestCase
 
     public function testMatch_DuplicateExists()
     {
-        factory(Authority::class)->create([
+        Authority::factory()->create([
             'name' => 'Wouwerman, Philips',
             'birth_year' => null,
             'death_year' => null,
         ]);
-        factory(Authority::class)->create([
+        Authority::factory()->create([
             'name' => 'Wouwerman, Philips',
             'birth_year' => null,
             'death_year' => null,
@@ -77,12 +77,12 @@ class AuthorityMatcherTest extends TestCase
 
     public function testMatch_DuplicateAndRelationAlreadyExists()
     {
-        $related = factory(Authority::class)->create([
+        $related = Authority::factory()->create([
             'name' => 'Wouwerman, Philips',
             'birth_year' => null,
             'death_year' => null,
         ]);
-        factory(Authority::class)->create([
+        Authority::factory()->create([
             'name' => 'Wouwerman, Philips',
             'birth_year' => null,
             'death_year' => null,
@@ -100,7 +100,7 @@ class AuthorityMatcherTest extends TestCase
 
     public function testMatch_Name()
     {
-        $authority = factory(Authority::class)->create([
+        $authority = Authority::factory()->create([
             'name' => 'Rembrandt van Rijn',
             'birth_year' => null,
             'death_year' => null,
@@ -118,7 +118,7 @@ class AuthorityMatcherTest extends TestCase
 
     public function testMatch_SwappedName()
     {
-        $authority = factory(Authority::class)->create([
+        $authority = Authority::factory()->create([
             'name' => 'Wouwerman, Philips',
             'birth_year' => null,
             'death_year' => null,

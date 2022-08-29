@@ -15,7 +15,8 @@ class AuthorityRepositoryTest extends TestCase
 
     public function testCount()
     {
-        factory(Authority::class, 5)
+        Authority::factory()
+            ->count(5)
             ->make()
             ->each(function (Authority $authority) {
                 $this->repository->index($authority);
@@ -28,7 +29,8 @@ class AuthorityRepositoryTest extends TestCase
 
     public function testSearch()
     {
-        factory(Authority::class, 5)
+        Authority::factory()
+            ->count(5)
             ->make()
             ->each(function (Authority $authority) {
                 $this->repository->index($authority);

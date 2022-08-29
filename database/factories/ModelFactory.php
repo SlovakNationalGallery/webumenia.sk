@@ -48,28 +48,6 @@ $factory->define(Item::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(\App\Authority::class, function (Faker\Generator $faker) {
-    return [
-        'id' => $faker->unique()->lexify,
-        'type' => 'person',
-        'type_organization' => $faker->word,
-        'name' => $faker->name,
-        'sex' => $faker->word,
-        'biography' => $faker->text,
-        'birth_place' => $faker->word,
-        'birth_date' => $faker->year,
-        'death_place' => $faker->word,
-        'death_date' => $faker->year,
-        'birth_year' => $faker->year,
-        'death_year' => $faker->year,
-        'has_image' => $faker->boolean,
-        'view_count' => $faker->randomNumber,
-        'image_source_url' => $faker->url,
-        'image_source_label' => $faker->word,
-        'created_at' => $faker->date,
-        'updated_at' => $faker->date,
-    ];
-});
 
 $factory->define(\App\SpiceHarvesterHarvest::class, function (Faker\Generator $faker) {
     return [

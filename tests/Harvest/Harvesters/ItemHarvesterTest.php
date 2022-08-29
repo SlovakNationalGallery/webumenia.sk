@@ -93,7 +93,7 @@ class ItemHarvesterTest extends TestCase
         $item = Item::factory()->create([
             'id' => 'SVK:SNG.G_10044',
         ]);
-        $authority = factory(Authority::class)->create([
+        $authority = Authority::factory()->create([
             'id' => 1922,
             'name' => 'Test Name',
         ]);

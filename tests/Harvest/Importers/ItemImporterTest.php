@@ -57,8 +57,8 @@ class ItemImporterTest extends TestCase
         $row = $this->getData();
         $importer = $this->initImporter($row);
         $item = Item::factory()->create(['id' => 'SVK:SNG.G_10044']);
-        factory(Authority::class)->create(['id' => 1922]);
-        $authority = factory(Authority::class)->create(['id' => 'to_be_detached']);
+        Authority::factory()->create(['id' => 1922]);
+        $authority = Authority::factory()->create(['id' => 'to_be_detached']);
         $item->authorities()->attach($authority);
 
         $item->load('authorities');
@@ -82,7 +82,7 @@ class ItemImporterTest extends TestCase
     {
         $row = $this->getData();
         $importer = $this->initImporter($row);
-        factory(Authority::class)->create(['id' => 1922]);
+        Authority::factory()->create(['id' => 1922]);
 
         $item = $importer->import($row, $result = new Progress());
 
@@ -99,7 +99,7 @@ class ItemImporterTest extends TestCase
         // were repeatedly created by harvester and therefore
         // after saving related model, the relation was multiplied
 
-        $authority = factory(Authority::class)->make(['id' => 1922]);
+        $authority = Authority::factory()->make(['id' => 1922]);
 
         $row = $this->getData();
 

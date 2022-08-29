@@ -19,7 +19,7 @@ class AuthorityObserverTest extends TestCase
         $repositoryMock = $this->createMock(AuthorityRepository::class);
         $this->app->instance(AuthorityRepository::class, $repositoryMock);
 
-        $authority = factory(Authority::class)->make();
+        $authority = Authority::factory()->make();
 
         $repositoryMock
             ->expects($this->once())
@@ -38,7 +38,7 @@ class AuthorityObserverTest extends TestCase
         $repositoryMock = $this->createMock(AuthorityRepository::class);
         $this->app->instance(AuthorityRepository::class, $repositoryMock);
 
-        $authority = factory(Authority::class)->create();
+        $authority = Authority::factory()->create();
 
         $repositoryMock
             ->expects($this->once())
@@ -57,7 +57,7 @@ class AuthorityObserverTest extends TestCase
         $this->app->instance(AuthorityRepository::class, $authorityRepository);
         $this->app->instance(ItemRepository::class, $itemRepository);
 
-        $authority = factory(Authority::class)->create();
+        $authority = Authority::factory()->create();
         $item = Item::factory()->create();
 
         $itemElasticsearchMock
@@ -91,7 +91,7 @@ class AuthorityObserverTest extends TestCase
         $this->app->instance(AuthorityRepository::class, $repository);
         $this->app->instance(ItemRepository::class, $itemRepository);
 
-        $authority = factory(Authority::class)->create();
+        $authority = Authority::factory()->create();
         $item = Item::factory()->create();
         $item->authorities()->attach($authority);
 
@@ -127,7 +127,7 @@ class AuthorityObserverTest extends TestCase
 
         $item0 = Item::factory()->create();
         $item1 = Item::factory()->create();
-        $authority = factory(Authority::class)->create();
+        $authority = Authority::factory()->create();
         $authority->items()->attach($item0);
 
         $itemElasticsearchMock

@@ -57,7 +57,7 @@ class ItemObserverTest extends TestCase
         $this->app->instance(AuthorityRepository::class, $authorityRepository);
         $this->app->instance(ItemRepository::class, $itemRepository);
 
-        $authority = factory(Authority::class)->create();
+        $authority = Authority::factory()->create();
         $item = Item::factory()->create();
 
         $itemElasticsearchMock
@@ -91,7 +91,7 @@ class ItemObserverTest extends TestCase
         $this->app->instance(AuthorityRepository::class, $repository);
         $this->app->instance(ItemRepository::class, $itemRepository);
 
-        $authority = factory(Authority::class)->create();
+        $authority = Authority::factory()->create();
         $item = Item::factory()->create();
         $item->authorities()->attach($authority);
 
@@ -125,8 +125,8 @@ class ItemObserverTest extends TestCase
         $this->app->instance(AuthorityRepository::class, $repository);
         $this->app->instance(ItemRepository::class, $itemRepository);
 
-        $authority0 = factory(Authority::class)->create();
-        $authority1 = factory(Authority::class)->create();
+        $authority0 = Authority::factory()->create();
+        $authority1 = Authority::factory()->create();
         $item = Item::factory()->create();
         $item->authorities()->attach($authority0);
 

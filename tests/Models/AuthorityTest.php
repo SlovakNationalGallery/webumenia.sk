@@ -19,9 +19,10 @@ class AuthorityTest extends TestCase
         $client = $this->createMock(Client::class);
         $repository = new AuthorityRepository(['sk'], $client);
 
-        $authority = factory(Authority::class)->create();
+        $authority = Authority::factory()->create();
 
-        $client->expects($this->once())
+        $client
+            ->expects($this->once())
             ->method('get')
             ->with([
                 'index' => $repository->getLocalizedIndexName('sk'),
@@ -41,9 +42,10 @@ class AuthorityTest extends TestCase
         $client = $this->createMock(Client::class);
         $repository = new AuthorityRepository(['sk'], $client);
 
-        $authority = factory(Authority::class)->create(['roles' => 'foo']);
+        $authority = Authority::factory()->create(['roles' => 'foo']);
 
-        $client->expects($this->once())
+        $client
+            ->expects($this->once())
             ->method('get')
             ->with([
                 'index' => $repository->getLocalizedIndexName('sk'),
@@ -63,9 +65,10 @@ class AuthorityTest extends TestCase
         $client = $this->createMock(Client::class);
         $repository = new AuthorityRepository(['sk'], $client);
 
-        $authority = factory(Authority::class)->create(['roles' => ['foo', 'bar']]);
+        $authority = Authority::factory()->create(['roles' => ['foo', 'bar']]);
 
-        $client->expects($this->once())
+        $client
+            ->expects($this->once())
             ->method('get')
             ->with([
                 'index' => $repository->getLocalizedIndexName('sk'),

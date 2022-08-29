@@ -6,6 +6,7 @@ use App\Contracts\IndexableModel;
 use Chelout\RelationshipEvents\Concerns\HasBelongsToManyEvents;
 use Astrotomic\Translatable\Translatable;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
@@ -17,6 +18,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
 {
     use Translatable;
     use HasBelongsToManyEvents;
+    use HasFactory;
 
     protected $table = 'authorities';
     protected $keyType = 'string';
@@ -28,10 +30,10 @@ class Authority extends Model implements IndexableModel, TranslatableContract
         'biography',
         'roles',
         'birth_place',
-        'death_place'
+        'death_place',
     ];
 
-    protected $fillable = array(
+    protected $fillable = [
         'id',
         'type',
         'type_organization',
@@ -47,16 +49,13 @@ class Authority extends Model implements IndexableModel, TranslatableContract
         'image_source_url',
         'image_source_label',
         'roles',
-    );
+    ];
 
-    protected $dates = array(
-        'created_at',
-        'updated_at',
-    );
+    protected $dates = ['created_at', 'updated_at'];
 
-    protected $with = array('nationalities', 'names');
+    protected $with = ['nationalities', 'names'];
 
-    protected $guarded = array();
+    protected $guarded = [];
 
     protected $observables = [
         'belongsToManyAttaching',
@@ -71,9 +70,9 @@ class Authority extends Model implements IndexableModel, TranslatableContract
         'belongsToManyUpdatedExistingPivot',
     ];
 
-    public static $rules = array(
+    public static $rules = [
         'name' => 'required',
-    );
+    ];
 
     public $incrementing = false;
 
@@ -94,7 +93,12 @@ class Authority extends Model implements IndexableModel, TranslatableContract
 
     public function relationships()
     {
-        return $this->belongsToMany(\App\Authority::class, 'authority_relationships', 'authority_id', 'related_authority_id')->withPivot('type');
+        return $this->belongsToMany(
+            \App\Authority::class,
+            'authority_relationships',
+            'authority_id',
+            'related_authority_id'
+        )->withPivot('type');
     }
 
     public function items()
@@ -126,8 +130,8 @@ class Authority extends Model implements IndexableModel, TranslatableContract
     {
         $query->whereRaw(
             'case when instr(name, ", ") then ' .
-            'concat(substring_index(name, ", ", -1), " ", substring_index(name, ", ", 1)) = ? ' .
-            'else name = ? end',
+                'concat(substring_index(name, ", ", -1), " ", substring_index(name, ", ", 1)) = ? ' .
+                'else name = ? end',
             [$name, $name]
         );
     }
@@ -192,7 +196,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
     public function getFormatedNamesAttribute()
     {
         $names = $this->names->pluck('name');
-        $return_names = array();
+        $return_names = [];
         foreach ($names as $name) {
             $return_names[] = formatName($name);
         }
@@ -202,17 +206,24 @@ class Authority extends Model implements IndexableModel, TranslatableContract
 
     public function getPlacesAttribute($html = false)
     {
-        $places = array_merge([
-            $this->birth_place,
-            $this->death_place,
-            ], $this->events->pluck('place')->all());
+        $places = array_merge(
+            [$this->birth_place, $this->death_place],
+            $this->events->pluck('place')->all()
+        );
 
         return array_values(array_filter(array_unique($places)));
     }
 
     public function getImagePath($full = false, $resize = false)
     {
-        return self::getImagePathForId($this->id, $this->has_image, $this->sex, $this->death_year, $full, $resize);
+        return self::getImagePathForId(
+            $this->id,
+            $this->has_image,
+            $this->sex,
+            $this->death_year,
+            $full,
+            $resize
+        );
     }
 
     public function removeImage()
@@ -229,16 +240,24 @@ class Authority extends Model implements IndexableModel, TranslatableContract
 
     public function getOaiUrl()
     {
-        return Config::get('app.old_url').'/oai-pmh/authority?verb=GetRecord&metadataPrefix=ulan&identifier='.$this->id;
+        return Config::get('app.old_url') .
+            '/oai-pmh/authority?verb=GetRecord&metadataPrefix=ulan&identifier=' .
+            $this->id;
     }
 
     public static function detailUrl($authority_id)
     {
-        return URL::to('autor/'.$authority_id);
+        return URL::to('autor/' . $authority_id);
     }
 
-    public static function getImagePathForId($id, $has_image, $sex = 'male', $death_year = null, $full = false, $resize = false)
-    {
+    public static function getImagePathForId(
+        $id,
+        $has_image,
+        $sex = 'male',
+        $death_year = null,
+        $full = false,
+        $resize = false
+    ) {
         if (!$has_image && !$full) {
             return self::getNoImage($sex, $death_year);
         }
@@ -249,7 +268,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
         $transformedWorkArtID = hashcode((string) $id);
         $workArtIdInt = abs(intval32bits($transformedWorkArtID));
         $tmpValue = $workArtIdInt;
-        $dirsInLevels = array();
+        $dirsInLevels = [];
 
         $galleryDir = substr($id, 4, 3);
 
@@ -261,11 +280,11 @@ class Authority extends Model implements IndexableModel, TranslatableContract
         $path = implode('/', $dirsInLevels);
 
         // adresar obrazkov workartu sa bude volat presne ako id, kde je ':' nahradena '_'
-        $trans = array(':' => '_', ' ' => '_');
+        $trans = [':' => '_', ' ' => '_'];
         $file = strtr($id, $trans);
 
-        $relative_path = self::ARTWORKS_DIR."$galleryDir/$path/$file/";
-        $full_path = public_path().$relative_path;
+        $relative_path = self::ARTWORKS_DIR . "$galleryDir/$path/$file/";
+        $full_path = public_path() . $relative_path;
 
         // ak priecinky este neexistuju - vytvor ich
         if ($full && !file_exists($full_path)) {
@@ -274,17 +293,19 @@ class Authority extends Model implements IndexableModel, TranslatableContract
 
         // dd($full_path . "$file.jpeg");
         if ($full) {
-            $result_path = $full_path."$file.jpeg";
+            $result_path = $full_path . "$file.jpeg";
         } else {
-            if (file_exists($full_path."$file.jpeg")) {
-                $result_path = $relative_path."$file.jpeg";
+            if (file_exists($full_path . "$file.jpeg")) {
+                $result_path = $relative_path . "$file.jpeg";
 
                 if ($resize) {
-                    if (!file_exists($full_path."$file.$resize.jpeg")) {
-                        $img = \Image::make($full_path."$file.jpeg")->fit($resize)->sharpen(7);
-                        $img->save($full_path."$file.$resize.jpeg");
+                    if (!file_exists($full_path . "$file.$resize.jpeg")) {
+                        $img = \Image::make($full_path . "$file.jpeg")
+                            ->fit($resize)
+                            ->sharpen(7);
+                        $img->save($full_path . "$file.$resize.jpeg");
                     }
-                    $result_path = $relative_path."$file.$resize.jpeg";
+                    $result_path = $relative_path . "$file.$resize.jpeg";
                 }
             } else {
                 $result_path = self::getNoImage($sex, $death_year);
@@ -296,9 +317,13 @@ class Authority extends Model implements IndexableModel, TranslatableContract
 
     private static function getNoImage($sex = 'male', $death_year = null)
     {
-        $filename = "no-image";
-        if ($sex) $filename .= "-$sex";
-        if ($death_year !== null) $filename .= "-dead";
+        $filename = 'no-image';
+        if ($sex) {
+            $filename .= "-$sex";
+        }
+        if ($death_year !== null) {
+            $filename .= '-dead';
+        }
         return "/images/no-image/autori/$filename.svg";
     }
 
@@ -321,18 +346,22 @@ class Authority extends Model implements IndexableModel, TranslatableContract
             'birth_year' => $this->birth_year,
             'death_year' => $this->death_year,
             'sex' => $this->sex,
-            'has_image' => (boolean) $this->has_image,
+            'has_image' => (bool) $this->has_image,
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
             'items_count' => $this->items()->count(),
-            'items_with_images_count' => $this->items()->hasImage()->count(),
-            'biography' => (!empty($translation->biography)) ? strip_tags($translation->biography) : '',
+            'items_with_images_count' => $this->items()
+                ->hasImage()
+                ->count(),
+            'biography' => !empty($translation->biography)
+                ? strip_tags($translation->biography)
+                : '',
             'birth_place' => $translation->birth_place,
             'death_place' => $translation->death_place,
         ];
     }
 
     /* pre atributy vo viacerych jazykoch
-    napr. "štúdium/study" alebo "učiteľ/teacher" */
+     napr. "štúdium/study" alebo "učiteľ/teacher" */
     public static function formatMultiAttribute($atttribute, $index = 0)
     {
         $atttribute = explode('/', $atttribute);
@@ -341,14 +370,16 @@ class Authority extends Model implements IndexableModel, TranslatableContract
             $index = 1;
         }
 
-        return (isSet($atttribute[$index])) ? $atttribute[$index] : null;
+        return isset($atttribute[$index]) ? $atttribute[$index] : null;
     }
 
     public function getAssociativeRelationships()
     {
-        $associative_relationships = array();
+        $associative_relationships = [];
         foreach ($this->relationships as $relationship) {
-            $associative_relationships[self::formatMultiAttribute($relationship->pivot->type)][] = $relationship;
+            $associative_relationships[
+                self::formatMultiAttribute($relationship->pivot->type)
+            ][] = $relationship;
         }
 
         return $associative_relationships;
@@ -356,7 +387,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
 
     public function setBiographyAttribute($value)
     {
-        $this->attributes['biography'] = ($value) ?: '';
+        $this->attributes['biography'] = $value ?: '';
     }
 
     public function incrementViewCount($save = true)

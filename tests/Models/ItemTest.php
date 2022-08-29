@@ -25,7 +25,7 @@ class ItemTest extends TestCase
     {
         $item = $this->createFreeItem();
         $item->date_latest = date('Y');
-        $authority = factory(Authority::class)->make(['death_year' => 2000]);
+        $authority = Authority::factory()->make(['death_year' => 2000]);
         $item->authorities->add($authority);
 
         $this->assertEquals((new \DateTime('2071-01-01'))->getTimestamp(), $item->freeFrom());
@@ -35,7 +35,7 @@ class ItemTest extends TestCase
     {
         $item = $this->createFreeItem();
         $item->date_latest = date('Y');
-        $authority = factory(Authority::class)->make(['death_year' => null]);
+        $authority = Authority::factory()->make(['death_year' => null]);
         $item->authorities->add($authority);
 
         $this->assertTrue($item->isFree());
@@ -58,7 +58,7 @@ class ItemTest extends TestCase
     {
         $item = $this->createFreeItem();
         $item->date_latest = date('Y');
-        $authority = factory(Authority::class)->make(['death_year' => date('Y')]);
+        $authority = Authority::factory()->make(['death_year' => date('Y')]);
         $item->authorities->add($authority);
         $this->assertFalse($item->isFree());
     }
@@ -140,7 +140,7 @@ class ItemTest extends TestCase
 
     public function testMergedAuthorityNamesAndAuthors()
     {
-        $authority = factory(Authority::class)->create([
+        $authority = Authority::factory()->create([
             'name' => 'Boudník, Vladimír',
         ]);
 
@@ -160,7 +160,7 @@ class ItemTest extends TestCase
         $item = Item::factory()->make([
             'author' => 'Philips Wouwerman; Vladimír Boudník; Mikuláš Galanda',
         ]);
-        $authority = factory(Authority::class)->create([
+        $authority = Authority::factory()->create([
             'name' => 'Boudník, Vladimír',
         ]);
         $item->authorities()->attach($authority);
