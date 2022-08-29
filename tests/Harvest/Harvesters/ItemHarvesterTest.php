@@ -35,7 +35,7 @@ class ItemHarvesterTest extends TestCase
         $harvest = SpiceHarvesterHarvest::factory()->create([
             'type' => 'item',
         ]);
-        $record = factory(SpiceHarvesterRecord::class)->create([
+        $record = SpiceHarvesterRecord::factory()->create([
             'failed_at' => $this->faker->dateTime,
             'harvest_id' => $harvest->id,
             'error_message' => 'error',
@@ -99,7 +99,7 @@ class ItemHarvesterTest extends TestCase
         ]);
 
         $harvest = SpiceHarvesterHarvest::factory()->create();
-        $record = factory(SpiceHarvesterRecord::class)->create(['harvest_id' => $harvest->id]);
+        $record = SpiceHarvesterRecord::factory()->create(['harvest_id' => $harvest->id]);
 
         $row = $this->getItemRow();
         $repositoryMock = $this->createMock(ItemRepository::class);

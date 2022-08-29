@@ -48,15 +48,6 @@ $factory->define(Item::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(\App\SpiceHarvesterRecord::class, function (Faker\Generator $faker) {
-    return [
-        'type' => 'item',
-        'identifier' => $faker->word,
-        'item_id' => $faker->word,
-        'datestamp' => $faker->date,
-    ];
-});
-
 $factory->define(\App\Link::class, function (Faker\Generator $faker) {
     return [
         'url' => $faker->url,
