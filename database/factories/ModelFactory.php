@@ -94,12 +94,6 @@ $factory->define(\App\AuthorityRelationship::class, function (Faker\Generator $f
     ];
 });
 
-$factory->define(SharedUserCollection::class, function (Faker\Generator $faker) {
-    return [
-        'name' => $faker->word,
-    ];
-});
-
 $factory->define(ShuffledItem::class, function (Faker\Generator $faker) {
     return [
         'item_id' => factory(Item::class),
