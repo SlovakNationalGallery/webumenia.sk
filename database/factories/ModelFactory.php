@@ -48,15 +48,6 @@ $factory->define(Item::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(\App\Link::class, function (Faker\Generator $faker) {
-    return [
-        'url' => $faker->url,
-        'label' => $faker->sentence,
-        'linkable_type' => $faker->word,
-        'linkable_id' => $faker->randomNumber,
-    ];
-});
-
 $factory->define(\App\AuthorityRelationship::class, function (Faker\Generator $faker) {
     return [
         'authority_id' => $faker->randomNumber,
