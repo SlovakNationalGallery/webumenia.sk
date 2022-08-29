@@ -16,6 +16,7 @@ All notable changes to this project will be documented in this file[^1].
 - database seeders: article and collection
 - use entity instead of harvester class in records type
 - gender sensitive roles + format affected files
+- migrate factories to laravel 8
 
 ## [2.64.1] - 2022-08-25
 ### Fixed
