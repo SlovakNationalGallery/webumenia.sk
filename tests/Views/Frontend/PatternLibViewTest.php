@@ -18,7 +18,7 @@ class PatternLibViewTest extends TestCase
     {
         Article::factory()->create();
         $item = Item::factory()->create();
-        $image = factory(ItemImage::class)->make(['iipimg_url' => true]);
+        $image = ItemImage::factory()->make(['iipimg_url' => true]);
         $item->images()->save($image);
 
         $itemRepositoryMock = $this->createMock(ItemRepository::class);

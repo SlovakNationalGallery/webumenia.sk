@@ -59,7 +59,7 @@ class WebRoutesViewTest extends TestCase
             'gallery' => 'Slovenská národná galéria, SNG',
             'author' => 'neznámy',
         ]);
-        $image = factory(ItemImage::class)->make([
+        $image = ItemImage::factory()->make([
             'iipimg_url' => true,
         ]);
         $item->images()->save($image);

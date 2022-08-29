@@ -15,7 +15,7 @@ class ZoomViewTest extends BrowserKitTestCase
     {
         $item = Item::factory()->create();
 
-        $image = factory(ItemImage::class)->make();
+        $image = ItemImage::factory()->make();
         $image->item()->associate($item);
         $image->save();
 
@@ -36,7 +36,7 @@ class ZoomViewTest extends BrowserKitTestCase
                 'author' => 'some_author',
             ]);
 
-            $image = factory(ItemImage::class)->make();
+            $image = ItemImage::factory()->make();
             $image->item()->associate($item);
             $image->save();
 
@@ -52,6 +52,7 @@ class ZoomViewTest extends BrowserKitTestCase
 
     public function testPrioritizedMultipleImages()
     {
+        $count = 2;
         $item = Item::factory()->create([
             'related_work' => 'some_related_work',
             'related_work_order' => 2,
@@ -64,14 +65,15 @@ class ZoomViewTest extends BrowserKitTestCase
             'author' => 'some_author',
         ]);
 
-        factory(ItemImage::class, $count = 2)
+        ItemImage::factory()
+            ->count(2)
             ->make()
             ->each(function (ItemImage $image) use ($item) {
                 $image->item()->associate($item);
                 $image->save();
             });
 
-        $related_item_image = factory(ItemImage::class)->make();
+        $related_item_image = ItemImage::factory()->make();
         $related_item_image->item()->associate($related_item);
         $related_item_image->save();
 

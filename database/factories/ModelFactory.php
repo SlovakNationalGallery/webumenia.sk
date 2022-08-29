@@ -48,12 +48,6 @@ $factory->define(Item::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(\App\ItemImage::class, function (Faker\Generator $faker) {
-    return [
-        'iipimg_url' => join('/', ['', ...$faker->words(3)]),
-    ];
-});
-
 $factory->define(\App\Authority::class, function (Faker\Generator $faker) {
     return [
         'id' => $faker->unique()->lexify,

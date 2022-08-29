@@ -3,7 +3,7 @@
 
 namespace App;
 
-
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class ItemImage extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'iipimg_url',
         'item_id',

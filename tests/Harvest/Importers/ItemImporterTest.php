@@ -31,7 +31,7 @@ class ItemImporterTest extends TestCase
         $row = $this->getData();
         $importer = $this->initImporter($row);
         $item = Item::factory()->create(['id' => 'SVK:SNG.G_10044']);
-        $image = factory(ItemImage::class)->make(['iipimg_url' => 'to_keep']);
+        $image = ItemImage::factory()->make(['iipimg_url' => 'to_keep']);
         $item->images()->save($image);
 
         $item->load('images');

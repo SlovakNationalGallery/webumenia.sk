@@ -22,7 +22,7 @@ class ShuffledItemTest extends TestCase
     {
         $item = Item::factory()->create();
         $item->images()->save(
-            factory(ItemImage::class)->make([
+            ItemImage::factory()->make([
                 'iipimg_url' => '/path/to/image.jp2',
             ])
         );
