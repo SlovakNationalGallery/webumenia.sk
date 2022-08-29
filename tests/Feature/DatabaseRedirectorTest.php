@@ -19,7 +19,7 @@ class DatabaseRedirectorTest extends TestCase
      */
     public function test_it_will_redirect_for_enabled_rules()
     {
-        $redirect = factory(Redirect::class)->create();
+        $redirect = Redirect::factory()->create();
 
         $this->get($redirect->source_url)
             ->assertStatus(Response::HTTP_FOUND)

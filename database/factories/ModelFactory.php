@@ -100,14 +100,6 @@ $factory->define(SharedUserCollection::class, function (Faker\Generator $faker) 
     ];
 });
 
-$factory->define(Redirect::class, function (Faker\Generator $faker) {
-    return [
-        'source_url' => $faker->unique()->word,
-        'target_url' => $faker->word,
-        'is_enabled' => true,
-    ];
-});
-
 $factory->define(ShuffledItem::class, function (Faker\Generator $faker) {
     return [
         'item_id' => factory(Item::class),
