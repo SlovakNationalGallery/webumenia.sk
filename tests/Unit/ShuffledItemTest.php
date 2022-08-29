@@ -27,7 +27,7 @@ class ShuffledItemTest extends TestCase
             ])
         );
 
-        $shuffledItem = factory(ShuffledItem::class)->create([
+        $shuffledItem = ShuffledItem::factory()->create([
             'item_id' => $item->id,
             'crop' => [
                 'x' => 0.5,
@@ -45,7 +45,7 @@ class ShuffledItemTest extends TestCase
 
     public function test_toShuffleOrchestratorItem()
     {
-        $shuffledItem = factory(ShuffledItem::class)->create([
+        $shuffledItem = ShuffledItem::factory()->create([
             'filters' => [
                 [
                     'url' =>

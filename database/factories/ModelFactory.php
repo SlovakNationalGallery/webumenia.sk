@@ -94,11 +94,6 @@ $factory->define(\App\AuthorityRelationship::class, function (Faker\Generator $f
     ];
 });
 
-$factory->define(ShuffledItem::class, function (Faker\Generator $faker) {
-    return [
-        'item_id' => factory(Item::class),
-    ];
-});
 
 $factory->define(Media::class, function (Faker\Generator $faker) {
     return [
