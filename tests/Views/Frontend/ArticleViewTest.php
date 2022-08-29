@@ -24,7 +24,7 @@ class ArticleViewTest extends TestCase
 
     public function testGetDetail()
     {
-        $article = factory(Article::class)->create();
+        $article = Article::factory()->create();
         $response = $this->get(sprintf('/clanok/%s', $article->slug));
         $response->assertStatus(200);
     }

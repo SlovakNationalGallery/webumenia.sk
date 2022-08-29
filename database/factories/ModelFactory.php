@@ -122,21 +122,6 @@ $factory->define(\App\AuthorityRelationship::class, function (Faker\Generator $f
     ];
 });
 
-$factory->define(App\Article::class, function (Faker\Generator $faker) {
-    return [
-        'author' => $faker->name,
-        'slug' => $faker->unique()->word,
-        'title' => $faker->word,
-        'summary' => $faker->sentence,
-        'content' => $faker->sentence,
-        'main_image' => $faker->word,
-        'title_color' => $faker->hexColor,
-        'title_shadow' => $faker->hexColor,
-        'promote' => $faker->boolean,
-        'publish' => true,
-    ];
-});
-
 $factory->define(SharedUserCollection::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->word,

@@ -100,7 +100,7 @@ class ArticlesTableSeeder extends Seeder
         ];
 
         foreach ($articles as $article) {
-            factory(Article::class)->create($article);
+            Article::factory()->create($article);
         }
     }
 }
