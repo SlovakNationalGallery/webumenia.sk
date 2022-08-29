@@ -19,8 +19,8 @@ class AuthorityMatcherTest extends TestCase
             'birth_year' => null,
             'death_year' => null,
         ]);
-        $item = factory(Item::class)->create([
-            'author' => 'Wouwerman, Philips'
+        $item = Item::factory()->create([
+            'author' => 'Wouwerman, Philips',
         ]);
 
         $matcher = new AuthorityMatcher();
@@ -43,8 +43,8 @@ class AuthorityMatcherTest extends TestCase
             'birth_year' => null,
             'death_year' => null,
         ]);
-        $item = factory(Item::class)->create([
-            'author' => 'Wouwerman, Philips'
+        $item = Item::factory()->create([
+            'author' => 'Wouwerman, Philips',
         ]);
 
         $matcher = new AuthorityMatcher();
@@ -65,8 +65,8 @@ class AuthorityMatcherTest extends TestCase
             'birth_year' => null,
             'death_year' => null,
         ]);
-        $item = factory(Item::class)->create([
-            'author' => 'Wouwerman, Philips'
+        $item = Item::factory()->create([
+            'author' => 'Wouwerman, Philips',
         ]);
 
         $matcher = new AuthorityMatcher();
@@ -87,8 +87,8 @@ class AuthorityMatcherTest extends TestCase
             'birth_year' => null,
             'death_year' => null,
         ]);
-        $item = factory(Item::class)->create([
-            'author' => 'Wouwerman, Philips'
+        $item = Item::factory()->create([
+            'author' => 'Wouwerman, Philips',
         ]);
         $item->authorities()->attach($related);
 
@@ -105,8 +105,8 @@ class AuthorityMatcherTest extends TestCase
             'birth_year' => null,
             'death_year' => null,
         ]);
-        $item = factory(Item::class)->create([
-            'author' => 'Rembrandt van Rijn'
+        $item = Item::factory()->create([
+            'author' => 'Rembrandt van Rijn',
         ]);
 
         $matcher = new AuthorityMatcher();
@@ -123,8 +123,8 @@ class AuthorityMatcherTest extends TestCase
             'birth_year' => null,
             'death_year' => null,
         ]);
-        $item = factory(Item::class)->create([
-            'author' => 'Philips Wouwerman'
+        $item = Item::factory()->create([
+            'author' => 'Philips Wouwerman',
         ]);
 
         $matcher = new AuthorityMatcher();

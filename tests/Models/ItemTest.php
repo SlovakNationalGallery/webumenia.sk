@@ -11,8 +11,9 @@ class ItemTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testFreeFromDateLatest() {
-        $item = factory(Item::class)->make([
+    public function testFreeFromDateLatest()
+    {
+        $item = Item::factory()->make([
             'gallery' => 'Slovenská národná galéria, SNG',
             'date_latest' => 2000,
         ]);
@@ -20,7 +21,8 @@ class ItemTest extends TestCase
         $this->assertEquals((new \DateTime('2131-01-01'))->getTimestamp(), $item->freeFrom());
     }
 
-    public function testFreeFromAuthorityDeathYear() {
+    public function testFreeFromAuthorityDeathYear()
+    {
         $item = $this->createFreeItem();
         $item->date_latest = date('Y');
         $authority = factory(Authority::class)->make(['death_year' => 2000]);
@@ -29,7 +31,8 @@ class ItemTest extends TestCase
         $this->assertEquals((new \DateTime('2071-01-01'))->getTimestamp(), $item->freeFrom());
     }
 
-    public function testFreeFromAuthorityDeathYearNull() {
+    public function testFreeFromAuthorityDeathYearNull()
+    {
         $item = $this->createFreeItem();
         $item->date_latest = date('Y');
         $authority = factory(Authority::class)->make(['death_year' => null]);
@@ -38,18 +41,21 @@ class ItemTest extends TestCase
         $this->assertTrue($item->isFree());
     }
 
-    public function testIsFree() {
+    public function testIsFree()
+    {
         $item = $this->createFreeItem();
         $this->assertTrue($item->isFree());
     }
 
-    public function testIsFreeGallery() {
+    public function testIsFreeGallery()
+    {
         $item = $this->createFreeItem();
         $item->gallery = '';
         $this->assertFalse($item->isFree());
     }
 
-    public function testIsFreeAuthorDeathYearNow() {
+    public function testIsFreeAuthorDeathYearNow()
+    {
         $item = $this->createFreeItem();
         $item->date_latest = date('Y');
         $authority = factory(Authority::class)->make(['death_year' => date('Y')]);
@@ -57,7 +63,8 @@ class ItemTest extends TestCase
         $this->assertFalse($item->isFree());
     }
 
-    public function testIsFreeDateLatestNow() {
+    public function testIsFreeDateLatestNow()
+    {
         $item = $this->createFreeItem();
         $item->date_latest = date('Y');
         $this->assertTrue($item->isFree());
@@ -66,7 +73,7 @@ class ItemTest extends TestCase
     public function testGetIndexedDataFallbackLocale()
     {
         /** @var Item $item */
-        $item = factory(Item::class)->make([
+        $item = Item::factory()->make([
             'title' => 'Názov',
             'title:en' => 'Title',
             'description' => 'Popis',
@@ -80,7 +87,7 @@ class ItemTest extends TestCase
     public function testMakeArrayEmpty()
     {
         /** @var Item $item */
-        $item = factory(Item::class)->make();
+        $item = Item::factory()->make();
         $array = $item->makeArray('');
         $this->assertEquals([], $array);
     }
@@ -88,7 +95,7 @@ class ItemTest extends TestCase
     public function testMakeArrayTrimmed()
     {
         /** @var Item $item */
-        $item = factory(Item::class)->make();
+        $item = Item::factory()->make();
         $array = $item->makeArray(' first ; second ');
         $this->assertEquals(['first', 'second'], $array);
     }
@@ -96,8 +103,8 @@ class ItemTest extends TestCase
     public function testWorkTypes()
     {
         /** @var Item $item */
-        $item = factory(Item::class)->make([
-            'work_type' => 'kresba, prípravná, návrh; iné médiá, album'
+        $item = Item::factory()->make([
+            'work_type' => 'kresba, prípravná, návrh; iné médiá, album',
         ]);
         $workTypes = $item->work_types;
         $this->assertEquals(
@@ -114,7 +121,7 @@ class ItemTest extends TestCase
                     [
                         'name' => 'návrh',
                         'path' => 'kresba/prípravná/návrh',
-                    ]
+                    ],
                 ],
                 [
                     [
@@ -124,8 +131,8 @@ class ItemTest extends TestCase
                     [
                         'name' => 'album',
                         'path' => 'iné médiá/album',
-                    ]
-                ]
+                    ],
+                ],
             ],
             $workTypes
         );
@@ -137,8 +144,8 @@ class ItemTest extends TestCase
             'name' => 'Boudník, Vladimír',
         ]);
 
-        $item = factory(Item::class)->make([
-            'author' => 'Philips Wouwerman; Vladimír Boudník'
+        $item = Item::factory()->make([
+            'author' => 'Philips Wouwerman; Vladimír Boudník',
         ]);
         $item->authorities()->attach($authority);
 
@@ -150,8 +157,8 @@ class ItemTest extends TestCase
 
     public function testAuthorsWithAuthoritiesAttribute()
     {
-        $item = factory(Item::class)->make([
-            'author' => 'Philips Wouwerman; Vladimír Boudník; Mikuláš Galanda'
+        $item = Item::factory()->make([
+            'author' => 'Philips Wouwerman; Vladimír Boudník; Mikuláš Galanda',
         ]);
         $authority = factory(Authority::class)->create([
             'name' => 'Boudník, Vladimír',
@@ -169,11 +176,12 @@ class ItemTest extends TestCase
         $this->assertObjectNotHasAttribute('authority', $data[1]);
     }
 
-    protected function createFreeItem() {
-        return factory(Item::class)->make([
+    protected function createFreeItem()
+    {
+        return Item::factory()->make([
             'gallery' => 'Slovenská národná galéria, SNG',
             'author' => 'neznámy',
-            'date_latest' => 1 // CE
+            'date_latest' => 1, // CE
         ]);
     }
 }

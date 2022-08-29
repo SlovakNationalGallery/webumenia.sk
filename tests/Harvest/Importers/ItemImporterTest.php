@@ -19,52 +19,63 @@ class ItemImporterTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testImport() {
+    public function testImport()
+    {
         $row = $this->getData();
         $importer = $this->initImporter($row);
         $importer->import($row, $result = new Progress());
     }
 
-    public function testKeepImages() {
+    public function testKeepImages()
+    {
         $row = $this->getData();
         $importer = $this->initImporter($row);
-        $item = factory(Item::class)->create(['id' => 'SVK:SNG.G_10044']);
+        $item = Item::factory()->create(['id' => 'SVK:SNG.G_10044']);
         $image = factory(ItemImage::class)->make(['iipimg_url' => 'to_keep']);
         $item->images()->save($image);
 
         $item->load('images');
-        $this->assertTrue($item->images->contains(function (ItemImage $image) {
-            return $image->iipimg_url === 'to_keep';
-        }));
+        $this->assertTrue(
+            $item->images->contains(function (ItemImage $image) {
+                return $image->iipimg_url === 'to_keep';
+            })
+        );
 
         $item->load('images');
         $item = $importer->import($row, $result = new Progress());
 
         $this->assertCount(3, $item->images);
-        $this->assertTrue($item->images->contains(function (ItemImage $image) {
-            return $image->iipimg_url === 'to_keep';
-        }));
+        $this->assertTrue(
+            $item->images->contains(function (ItemImage $image) {
+                return $image->iipimg_url === 'to_keep';
+            })
+        );
     }
 
-    public function testDetachRelations() {
+    public function testDetachRelations()
+    {
         $row = $this->getData();
         $importer = $this->initImporter($row);
-        $item = factory(Item::class)->create(['id' => 'SVK:SNG.G_10044']);
+        $item = Item::factory()->create(['id' => 'SVK:SNG.G_10044']);
         factory(Authority::class)->create(['id' => 1922]);
         $authority = factory(Authority::class)->create(['id' => 'to_be_detached']);
         $item->authorities()->attach($authority);
 
         $item->load('authorities');
-        $this->assertTrue($item->authorities->contains(function (Authority $authority) {
-            return $authority->id === 'to_be_detached';
-        }));
+        $this->assertTrue(
+            $item->authorities->contains(function (Authority $authority) {
+                return $authority->id === 'to_be_detached';
+            })
+        );
 
         $item = $importer->import($row, $result = new Progress());
 
         $this->assertCount(1, $item->authorities);
-        $this->assertFalse($item->authorities->contains(function (Authority $authority) {
-            return $authority->id === 'to_be_detached';
-        }));
+        $this->assertFalse(
+            $item->authorities->contains(function (Authority $authority) {
+                return $authority->id === 'to_be_detached';
+            })
+        );
     }
 
     public function testImportAuthorityPivotData()
@@ -92,7 +103,7 @@ class ItemImporterTest extends TestCase
 
         $row = $this->getData();
 
-        for ($i = 2; $i--;) {
+        for ($i = 2; $i--; ) {
             $importer = $this->initImporter($row);
             $item = $importer->import($row, new Progress());
             $count = $item->authorities->count();
@@ -107,7 +118,8 @@ class ItemImporterTest extends TestCase
         $this->assertEquals(1, $count);
     }
 
-    protected function getData() {
+    protected function getData()
+    {
         // @todo faker
         return [
             'status' => [],
@@ -117,7 +129,7 @@ class ItemImporterTest extends TestCase
                 'http://www.webumenia.sk/oai-pmh/getimage/SVK:SNG.G_10044',
                 'G 10044',
                 'http://www.webumenia.sk:8080/webutils/resolveurl/SVK:SNG.G_10044/IMAGES',
-//                'http://www.webumenia.sk:8080/webutils/resolveurl/SVK:SNG.G_10044/L2_WEB',
+                //                'http://www.webumenia.sk:8080/webutils/resolveurl/SVK:SNG.G_10044/L2_WEB',
             ],
             'title_translated' => [
                 [
@@ -157,7 +169,7 @@ class ItemImporterTest extends TestCase
                 [
                     'lang' => ['sk'],
                     'format_medium' => ['kartón, zahnedlý'],
-                ]
+                ],
             ],
             'subject' => [
                 [
@@ -183,15 +195,11 @@ class ItemImporterTest extends TestCase
                     'role' => ['autor/author'],
                 ],
             ],
-            'rights' => [
-                '1',
-                'publikovať/public',
+            'rights' => ['1', 'publikovať/public'],
+            'description' => ['vpravo dole gravé J.Daullé..', 'vľavo dole peint Teniers'],
+            'extent' => [
+                'šírka 50.0 cm, šírka 47.6 cm, výška 39.0 cm, výška 37.0 cm, hĺbka 5.0 cm ()',
             ],
-            'description' => [
-                'vpravo dole gravé J.Daullé..',
-                'vľavo dole peint Teniers',
-            ],
-            'extent' => ['šírka 50.0 cm, šírka 47.6 cm, výška 39.0 cm, výška 37.0 cm, hĺbka 5.0 cm ()'],
             'gallery' => ['Slovenská národná galéria, SNG'],
             'credit' => [
                 [
@@ -207,10 +215,7 @@ class ItemImporterTest extends TestCase
                     'credit' => ['Dar ze Sbírky Linea'],
                 ],
             ],
-            'created' => [
-                '1760/1760',
-                '18. storočie, polovica, 1760',
-            ],
+            'created' => ['1760/1760', '18. storočie, polovica, 1760'],
             'datestamp' => ['2017-08-28T14:00:23.769Z'],
             'images' => [
                 [
@@ -224,13 +229,14 @@ class ItemImporterTest extends TestCase
         ];
     }
 
-    protected function initImporter(array $row) {
+    protected function initImporter(array $row)
+    {
         $importer = new ItemImporter(
-            $itemMapperMock = $this->createMock(ItemMapper::class),
-            $itemImageMapperMock = $this->createMock(ItemImageMapper::class),
-            $collectionItemMapperMock = $this->createMock(CollectionItemMapper::class),
-            $authorityItemMapperMock = $this->createMock(AuthorityItemMapper::class),
-            $authorityMapperMock = $this->createMock(BaseAuthorityMapper::class)
+            ($itemMapperMock = $this->createMock(ItemMapper::class)),
+            ($itemImageMapperMock = $this->createMock(ItemImageMapper::class)),
+            ($collectionItemMapperMock = $this->createMock(CollectionItemMapper::class)),
+            ($authorityItemMapperMock = $this->createMock(AuthorityItemMapper::class)),
+            ($authorityMapperMock = $this->createMock(BaseAuthorityMapper::class))
         );
         $itemMapperMock
             ->expects($this->once())
@@ -251,7 +257,8 @@ class ItemImporterTest extends TestCase
                 'medium:sk' => 'kartón, zahnedlý',
                 'subject:sk' => null,
                 'topic:sk' => 'figurálna kompozícia',
-                'measurement:sk' => 'šírka 50.0 cm, šírka 47.6 cm, výška 39.0 cm, výška 37.0 cm, hĺbka 5.0 cm ()',
+                'measurement:sk' =>
+                    'šírka 50.0 cm, šírka 47.6 cm, výška 39.0 cm, výška 37.0 cm, hĺbka 5.0 cm ()',
                 'inscription:sk' => 'vpravo dole gravé J.Daullé..; vľavo dole peint Teniers',
                 'place:sk' => null,
                 'gallery:sk' => 'Slovenská národná galéria, SNG',
@@ -290,21 +297,16 @@ class ItemImporterTest extends TestCase
                 'relationship_type:cs' => null,
                 'related_work:cs' => null,
                 'work_level:cs' => null,
-            ])
-        ;
+            ]);
         $itemMapperMock
             ->expects($this->once())
             ->method('mapId')
             ->with($row)
-            ->willReturn('SVK:SNG.G_10044')
-        ;
+            ->willReturn('SVK:SNG.G_10044');
         $itemImageMapperMock
             ->expects($this->exactly(2))
             ->method('map')
-            ->withConsecutive(
-                [$row['images'][0]],
-                [$row['images'][1]]
-            )
+            ->withConsecutive([$row['images'][0]], [$row['images'][1]])
             ->willReturnOnConsecutiveCalls(
                 [
                     'iipimg_url' => '/SNGBA/X100/SNG--G_23--1_2--_2013_02_20_--L2_WEB.jp2',
@@ -312,27 +314,16 @@ class ItemImporterTest extends TestCase
                 [
                     'iipimg_url' => '/SNGBA/X100/SNG--G_23--2vz_2--_2013_02_28_--L2_WEB.jp2',
                 ]
-            )
-        ;
+            );
         $authorityItemMapperMock
             ->method('map')
-            ->withConsecutive(
-                [$row['authorities'][0]],
-            )
-            ->willReturnOnConsecutiveCalls(
-                ['role' => 'autor/author']
-            )
-        ;
+            ->withConsecutive([$row['authorities'][0]])
+            ->willReturnOnConsecutiveCalls(['role' => 'autor/author']);
         $authorityMapperMock
             ->expects($this->once())
             ->method('map')
-            ->withConsecutive(
-                [$row['authorities'][0]]
-            )
-            ->willReturnOnConsecutiveCalls(
-                ['id' => 1922]
-            )
-        ;
+            ->withConsecutive([$row['authorities'][0]])
+            ->willReturnOnConsecutiveCalls(['id' => 1922]);
 
         return $importer;
     }

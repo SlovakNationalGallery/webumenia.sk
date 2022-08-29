@@ -20,7 +20,7 @@ class ShuffledItemTest extends TestCase
      */
     public function test_crop_url()
     {
-        $item = factory(Item::class)->create();
+        $item = Item::factory()->create();
         $item->images()->save(
             factory(ItemImage::class)->make([
                 'iipimg_url' => '/path/to/image.jp2',

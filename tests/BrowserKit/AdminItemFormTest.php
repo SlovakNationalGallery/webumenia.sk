@@ -34,7 +34,7 @@ class AdminItemFormTest extends BrowserKitTestCase
 
     public function testEdit()
     {
-        $item = factory(Item::class)->create();
+        $item = Item::factory()->create();
 
         $this->visit(sprintf('/item/%s/edit', $item->id))
             ->press('Uložiť')
@@ -43,7 +43,7 @@ class AdminItemFormTest extends BrowserKitTestCase
 
     public function testAddImage()
     {
-        $item = factory(Item::class)->create();
+        $item = Item::factory()->create();
 
         $form = $this->visit(sprintf('/item/%s/edit', $item->id))->getForm('Uložiť');
         $url = 'http://some-url.coml';

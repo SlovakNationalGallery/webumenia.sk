@@ -19,14 +19,16 @@ class ItemObserverTest extends TestCase
         $repositoryMock = $this->createMock(ItemRepository::class);
         $this->app->instance(ItemRepository::class, $repositoryMock);
 
-        $item = factory(Item::class)->make();
+        $item = Item::factory()->make();
 
         $repositoryMock
             ->expects($this->once())
             ->method('indexAllLocales')
-            ->with($this->callback(function (Item $fresh) use ($item) {
-                return $item->is($fresh);
-            }));
+            ->with(
+                $this->callback(function (Item $fresh) use ($item) {
+                    return $item->is($fresh);
+                })
+            );
 
         $item->save();
     }
@@ -36,7 +38,7 @@ class ItemObserverTest extends TestCase
         $repositoryMock = $this->createMock(ItemRepository::class);
         $this->app->instance(ItemRepository::class, $repositoryMock);
 
-        $item = factory(Item::class)->create();
+        $item = Item::factory()->create();
 
         $repositoryMock
             ->expects($this->once())
@@ -56,26 +58,26 @@ class ItemObserverTest extends TestCase
         $this->app->instance(ItemRepository::class, $itemRepository);
 
         $authority = factory(Authority::class)->create();
-        $item = factory(Item::class)->create();
+        $item = Item::factory()->create();
 
         $itemElasticsearchMock
             ->expects($this->once())
             ->method('index')
-            ->with($this->callback(
-                function (array $params) use ($authority) {
+            ->with(
+                $this->callback(function (array $params) use ($authority) {
                     return 1 === count($params['body']['authority_id']) &&
                         $authority->id === $params['body']['authority_id'][0];
-                }
-            ));
+                })
+            );
 
         $authorityElasticsearchMock
             ->expects($this->once())
             ->method('index')
-            ->with($this->callback(
-                function (array $params) {
+            ->with(
+                $this->callback(function (array $params) {
                     return 1 === $params['body']['items_count'];
-                }
-            ));
+                })
+            );
 
         $item->authorities()->attach($authority);
     }
@@ -90,26 +92,26 @@ class ItemObserverTest extends TestCase
         $this->app->instance(ItemRepository::class, $itemRepository);
 
         $authority = factory(Authority::class)->create();
-        $item = factory(Item::class)->create();
+        $item = Item::factory()->create();
         $item->authorities()->attach($authority);
 
         $itemElasticsearchMock
             ->expects($this->once())
             ->method('index')
-            ->with($this->callback(
-                function (array $params) {
+            ->with(
+                $this->callback(function (array $params) {
                     return 0 === count($params['body']['authority_id']);
-                }
-            ));
+                })
+            );
 
         $authorityElasticsearchMock
             ->expects($this->once())
             ->method('index')
-            ->with($this->callback(
-                function (array $params) {
+            ->with(
+                $this->callback(function (array $params) {
                     return 0 === $params['body']['items_count'];
-                }
-            ));
+                })
+            );
 
         $item->authorities()->detach($authority);
     }
@@ -125,37 +127,37 @@ class ItemObserverTest extends TestCase
 
         $authority0 = factory(Authority::class)->create();
         $authority1 = factory(Authority::class)->create();
-        $item = factory(Item::class)->create();
+        $item = Item::factory()->create();
         $item->authorities()->attach($authority0);
 
         $itemElasticsearchMock
             ->expects($this->at(1))
             ->method('index')
-            ->with($this->callback(
-                function (array $params) use ($authority1) {
+            ->with(
+                $this->callback(function (array $params) use ($authority1) {
                     return 1 === count($params['body']['authority_id']) &&
                         $authority1->id === $params['body']['authority_id'][0];
-                }
-            ));
+                })
+            );
 
         $authorityElasticsearchMock
             ->expects($this->at(0))
             ->method('index')
-            ->with($this->callback(
-                function (array $params) use ($authority0) {
+            ->with(
+                $this->callback(function (array $params) use ($authority0) {
                     return $authority0->id === $params['body']['id'] &&
                         0 === $params['body']['items_count'];
-                }
-            ));
+                })
+            );
         $authorityElasticsearchMock
             ->expects($this->at(1))
             ->method('index')
-            ->with($this->callback(
-                function (array $params) use ($authority1) {
+            ->with(
+                $this->callback(function (array $params) use ($authority1) {
                     return $authority1->id === $params['body']['id'] &&
                         1 === $params['body']['items_count'];
-                }
-            ));
+                })
+            );
 
         $item->authorities()->sync([$authority1->id]);
     }

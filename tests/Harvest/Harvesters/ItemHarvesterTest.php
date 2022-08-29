@@ -30,10 +30,7 @@ class ItemHarvesterTest extends TestCase
         $repositoryMock->method('getRow')->willReturn([
             'identifier' => [],
         ]);
-        $harvester = new ItemHarvester(
-            $repositoryMock,
-            $importerMock
-        );
+        $harvester = new ItemHarvester($repositoryMock, $importerMock);
 
         $harvest = factory(SpiceHarvesterHarvest::class)->create([
             'type' => 'item',
@@ -41,7 +38,7 @@ class ItemHarvesterTest extends TestCase
         $record = factory(SpiceHarvesterRecord::class)->create([
             'failed_at' => $this->faker->dateTime,
             'harvest_id' => $harvest->id,
-            'error_message' => 'error'
+            'error_message' => 'error',
         ]);
 
         $harvester->harvestFailed($harvest);
@@ -53,29 +50,38 @@ class ItemHarvesterTest extends TestCase
 
     public function testHarvestNoRows()
     {
-        $repositoryMock = $this->createMock(ItemRepository::class, [], [
-            $this->createMock(EndpointFactory::class)
-        ]);
-        $importerMock = $this->createMock(ItemImporter::class, [], [
-            $this->createMock(ItemMapper::class),
-            $this->createMock(ItemImageMapper::class),
-            $this->createMock(CollectionItemMapper::class),
-            $this->createMock(AuthorityItemMapper::class),
-            $this->createMock(AuthorityMapper::class),
-        ]);
+        $repositoryMock = $this->createMock(
+            ItemRepository::class,
+            [],
+            [$this->createMock(EndpointFactory::class)]
+        );
+        $importerMock = $this->createMock(
+            ItemImporter::class,
+            [],
+            [
+                $this->createMock(ItemMapper::class),
+                $this->createMock(ItemImageMapper::class),
+                $this->createMock(CollectionItemMapper::class),
+                $this->createMock(AuthorityItemMapper::class),
+                $this->createMock(AuthorityMapper::class),
+            ]
+        );
 
-        $repositoryMock->expects($this->once())
+        $repositoryMock
+            ->expects($this->once())
             ->method('getAll')
-            ->willReturn((object) [
-                'total' => 0,
-                'data' => []
-            ]);
+            ->willReturn(
+                (object) [
+                    'total' => 0,
+                    'data' => [],
+                ]
+            );
 
         $harvester = new ItemHarvester($repositoryMock, $importerMock);
 
         $harvest = factory(SpiceHarvesterHarvest::class)->make([
             'type' => 'item',
-            'status' => SpiceHarvesterHarvest::STATUS_QUEUED
+            'status' => SpiceHarvesterHarvest::STATUS_QUEUED,
         ]);
         $harvester->harvest($harvest);
 
@@ -84,12 +90,12 @@ class ItemHarvesterTest extends TestCase
 
     public function testHarvestDoesNotOverwriteAuthorityAttributes()
     {
-        $item = factory(Item::class)->create([
+        $item = Item::factory()->create([
             'id' => 'SVK:SNG.G_10044',
         ]);
         $authority = factory(Authority::class)->create([
             'id' => 1922,
-            'name' => 'Test Name'
+            'name' => 'Test Name',
         ]);
 
         $harvest = factory(SpiceHarvesterHarvest::class)->create();
@@ -99,7 +105,8 @@ class ItemHarvesterTest extends TestCase
         $repositoryMock = $this->createMock(ItemRepository::class);
         $repositoryMock->method('getRow')->willReturn($row);
 
-        $this->app->when(ItemHarvester::class)
+        $this->app
+            ->when(ItemHarvester::class)
             ->needs(ItemRepository::class)
             ->give(function () use ($repositoryMock) {
                 return $repositoryMock;
@@ -178,7 +185,7 @@ class ItemHarvesterTest extends TestCase
                 [
                     'lang' => ['sk'],
                     'format_medium' => ['kartón, zahnedlý'],
-                ]
+                ],
             ],
             'subject' => [
                 [
@@ -204,15 +211,11 @@ class ItemHarvesterTest extends TestCase
                     'role' => ['autor/author'],
                 ],
             ],
-            'rights' => [
-                '1',
-                'publikovať/public',
+            'rights' => ['1', 'publikovať/public'],
+            'description' => ['vpravo dole gravé J.Daullé..', 'vľavo dole peint Teniers'],
+            'extent' => [
+                'šírka 50.0 cm, šírka 47.6 cm, výška 39.0 cm, výška 37.0 cm, hĺbka 5.0 cm ()',
             ],
-            'description' => [
-                'vpravo dole gravé J.Daullé..',
-                'vľavo dole peint Teniers',
-            ],
-            'extent' => ['šírka 50.0 cm, šírka 47.6 cm, výška 39.0 cm, výška 37.0 cm, hĺbka 5.0 cm ()'],
             'gallery' => ['Slovenská národná galéria, SNG'],
             'credit' => [
                 [
@@ -228,10 +231,7 @@ class ItemHarvesterTest extends TestCase
                     'credit' => ['Dar ze Sbírky Linea'],
                 ],
             ],
-            'created' => [
-                '1760/1760',
-                '18. storočie, polovica, 1760',
-            ],
+            'created' => ['1760/1760', '18. storočie, polovica, 1760'],
             'datestamp' => ['2017-08-28T14:00:23.769Z'],
             'contributor' => ['Čičo, Martin'],
         ];
