@@ -122,14 +122,6 @@ $factory->define(\App\AuthorityRelationship::class, function (Faker\Generator $f
     ];
 });
 
-$factory->define(App\Collection::class, function (Faker\Generator $faker) {
-    return [
-        'name' => $faker->word,
-        'type' => $faker->word,
-        'text' => $faker->sentence,
-    ];
-});
-
 $factory->define(App\Article::class, function (Faker\Generator $faker) {
     return [
         'author' => $faker->name,

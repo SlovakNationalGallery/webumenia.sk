@@ -7,6 +7,7 @@ use App\Concerns\Publishable;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Facades\Cache;
@@ -17,6 +18,7 @@ class Collection extends Model implements TranslatableContract
     use HasHeaderImage;
     use Publishable;
     use Translatable;
+    use HasFactory;
 
     protected static function booted()
     {
