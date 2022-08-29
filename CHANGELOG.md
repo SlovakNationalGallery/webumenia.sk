@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Changed
 - author to gender inclusive variant
 - database seeders: article and collection
+
 ## [2.64.1] - 2022-08-25
 ### Fixed
 - year slider to ignore its values if it was not touched

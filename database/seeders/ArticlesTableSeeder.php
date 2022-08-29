@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Article;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
 class ArticlesTableSeeder extends Seeder
@@ -15,12 +16,6 @@ class ArticlesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        DB::table('articles')->truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-
-        $now = date('Y-m-d H:i:s');
-
         $articles = [
             [
                 'category_id' => 3,
@@ -42,9 +37,7 @@ class ArticlesTableSeeder extends Seeder
                     <p><a href="/katalog?search=&author=&work_type=&tag=&gallery=&topic=&technique=litografia&has_image=1&year-range=600%2C2015">Litografia</a> dnes napriek pretrvávajúcemu záujmu o sieťotlač a ďalšie klasické techniky (napríklad tlač kovovými literami z výšky) uniká pozornosti dizajnérov. Čiastočne sa to dá pochopiť jej absolútnou nekompatibilitou s digitálnym procesom tvorby - jediný spôsob ako urobiť transfer na kameň (okrem voľnej kresby rukou) je prostredníctvom kopírovacieho papiera. No napriek tomu má ešte litografia šancu uplatniť sa. Práve kresba rukou a s ňou spojená voľnosť pri tvorbe písma, či typografických plagátov, môže byť vynikajúca zámienka na workshop pre študentov. Stačí len pohľadať u niekoho v ateliéri zaprášený litografický kameň.</p>',
                 'promote' => true,
                 'publish' => true,
-                'published_date' => $now,
-                'created_at' => $now,
-                'updated_at' => $now,
+                'published_date' => Date::now(),
             ],
             [
                 'category_id' => 1,
@@ -64,9 +57,7 @@ class ArticlesTableSeeder extends Seeder
                     ',
                 'promote' => true,
                 'publish' => true,
-                'published_date' => $now,
-                'created_at' => $now,
-                'updated_at' => $now,
+                'published_date' => Date::now(),
             ],
             [
                 'category_id' => 2,
@@ -84,9 +75,7 @@ class ArticlesTableSeeder extends Seeder
                     ',
                 'promote' => true,
                 'publish' => true,
-                'published_date' => $now,
-                'created_at' => $now,
-                'updated_at' => $now,
+                'published_date' => Date::now(),
             ],
             [
                 'category_id' => null,
@@ -106,9 +95,7 @@ class ArticlesTableSeeder extends Seeder
                     ',
                 'promote' => true,
                 'publish' => true,
-                'published_date' => $now,
-                'created_at' => $now,
-                'updated_at' => $now,
+                'published_date' => Date::now(),
             ],
         ];
 

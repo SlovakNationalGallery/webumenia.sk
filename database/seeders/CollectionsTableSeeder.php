@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Collection;
 use App\Item;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
 class CollectionsTableSeeder extends Seeder
@@ -16,12 +17,6 @@ class CollectionsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        DB::table('collections')->truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-
-        $now = date('Y-m-d H:i:s');
-
         $collections = [
             [
                 'name' => 'Krajina na obzore – najstaršie pohľady',
@@ -32,7 +27,7 @@ class CollectionsTableSeeder extends Seeder
             [
                 'name' => 'Povolanie krajinár',
                 'type' => 'sekcia',
-                'published_at' => $now,
+                'published_at' => Date::now(),
                 'text' =>
                     'V priebehu 19. storočia dosiahlo krajinárstvo i umelci krajinári spoločenské docenenie aj akademické potvrdenie. Dokladajú to tiež výstavy organizované napríklad viedenskou akadémiou a od roku 1840 aj peštianskym výtvarným salónom, kde sa popri tradičných žánroch portréte a historickej maľbe objavuje stále populárnejšia „domáca“ krajina. Táto sekcia predstavuje najvýznamnejších umelcov - krajinárov pracujúcich v jednotlivých médiách v priebehu celého storočia.',
             ],
