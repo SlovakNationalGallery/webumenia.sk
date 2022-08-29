@@ -18,17 +18,6 @@ use App\ShuffledItem;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
-    return [
-        'username' => $faker->userName,
-        'name' => $faker->name,
-        'email' => $faker->safeEmail,
-        'role' => 'editor',
-        'password' => bcrypt(Str::random(10)),
-        'remember_token' => Str::random(10),
-    ];
-});
-
 $factory->define(Item::class, function (Faker\Generator $faker) {
     return [
         'id' => $faker->unique()->lexify,

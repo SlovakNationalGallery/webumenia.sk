@@ -13,11 +13,10 @@ class ItemTest extends TestCase
 
     public function testSearch()
     {
-        $editor = factory(User::class)->create(['role' => 'editor']);
+        $editor = User::factory()->create(['role' => 'editor']);
         $items = factory(Item::class, 2)->create();
 
-        $this
-        ->actingAs($editor)
+        $this->actingAs($editor)
             ->get(route('item.search', ['search' => $items[0]->id]))
             ->assertStatus(200)
             ->assertSeeText($items[0]->id)

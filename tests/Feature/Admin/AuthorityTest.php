@@ -14,7 +14,7 @@ class AuthorityTest extends TestCase
     public function testLinkLabelsAreGeneratedFromUrlAsFallback()
     {
         $authority = factory(Authority::class)->create();
-        $user = factory(User::class)->create(['role' => 'admin']);
+        $user = User::factory()->create(['role' => 'admin']);
 
         $this->actingAs($user)->put(
             route('authority.update', $authority),

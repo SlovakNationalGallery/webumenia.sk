@@ -25,7 +25,7 @@ class CollectionViewTest extends TestCase
 
     public function testGetDetail()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
         $collection = factory(Collection::class)->make();
         $collection->user()->associate($user);
         $collection->save();

@@ -11,8 +11,9 @@ class CollectionViewTest extends BrowserKitTestCase
 {
     use RefreshDatabase;
 
-    public function testIndexSortedByName() {
-        $user = factory(User::class)->create();
+    public function testIndexSortedByName()
+    {
+        $user = User::factory()->create();
 
         $collectionB = factory(Collection::class)->create([
             'name' => 'b',
@@ -33,8 +34,9 @@ class CollectionViewTest extends BrowserKitTestCase
         $this->assertEquals($data['collections'][1]->id, $collectionB->id);
     }
 
-    public function testIndexSortedByNameTranslationFallback() {
-        $user = factory(User::class)->create();
+    public function testIndexSortedByNameTranslationFallback()
+    {
+        $user = User::factory()->create();
 
         $collectionB = factory(Collection::class)->create([
             'name' => 'b',
