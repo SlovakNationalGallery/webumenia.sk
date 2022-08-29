@@ -48,14 +48,6 @@ $factory->define(Item::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(\App\AuthorityRelationship::class, function (Faker\Generator $faker) {
-    return [
-        'authority_id' => $faker->randomNumber,
-        'related_authority_id' => $faker->randomNumber,
-        'type' => $faker->word,
-    ];
-});
-
 $factory->define(Media::class, function (Faker\Generator $faker) {
     return [
         'disk' => 'media',

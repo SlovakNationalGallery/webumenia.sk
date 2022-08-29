@@ -56,7 +56,7 @@ class AuthorityImporterTest extends TestCase
 
     public function testRelatedButNotExisting()
     {
-        factory(AuthorityRelationship::class)->create([
+        AuthorityRelationship::factory()->create([
             'authority_id' => 954,
             'related_authority_id' => 1000162,
             'type' => '',
