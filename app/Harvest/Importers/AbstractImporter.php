@@ -26,7 +26,8 @@ abstract class AbstractImporter
     /** @var array */
     protected $conditions = [];
 
-    public function __construct(AbstractMapper $mapper) {
+    public function __construct(AbstractMapper $mapper)
+    {
         $this->mapper = $mapper;
     }
 
@@ -41,13 +42,14 @@ abstract class AbstractImporter
      * @param Progress $result
      * @return Model
      */
-    public function import(array $row, Progress $result) {
+    public function import(array $row, Progress $result)
+    {
         $class = $this->modelClass;
         /** @var Model $model */
         if ($model = $class::find($this->getModelId($row))) {
             $result->incrementUpdated();
         } else {
-            $model = new $class;
+            $model = new $class();
             $result->incrementInserted();
         }
 
@@ -58,11 +60,17 @@ abstract class AbstractImporter
         return $model->setRelations([]);
     }
 
+    public function getModelClass()
+    {
+        return $this->modelClass;
+    }
+
     /**
      * @param Model $model
      * @param array $row
      */
-    protected function upsertModel(Model $model, array $row) {
+    protected function upsertModel(Model $model, array $row)
+    {
         $data = $this->mapper->map($row);
         $model->forceFill($data);
         $model->save();
@@ -72,7 +80,8 @@ abstract class AbstractImporter
      * @param Model $model
      * @param array $row
      */
-    protected function upsertRelated(Model $model, array $row) {
+    protected function upsertRelated(Model $model, array $row)
+    {
         $fields = array_keys($this->conditions);
         foreach ($fields as $field) {
             if (!isset($row[$field])) {
@@ -95,7 +104,8 @@ abstract class AbstractImporter
      * @param array $relatedRows
      * @param boolean $allowDelete
      */
-    protected function processHasMany(Model $model, $field, array $relatedRows, $allowDelete = true) {
+    protected function processHasMany(Model $model, $field, array $relatedRows, $allowDelete = true)
+    {
         /** @var HasMany|MorphMany $relation */
         $relation = $model->$field();
 
@@ -124,7 +134,12 @@ abstract class AbstractImporter
      * @param array $relatedRows
      * @param boolean $allowCreate
      */
-    protected function processBelongsToMany(Model $model, $field, array $relatedRows, $allowCreate = true) {
+    protected function processBelongsToMany(
+        Model $model,
+        $field,
+        array $relatedRows,
+        $allowCreate = true
+    ) {
         /** @var BelongsToMany $relation */
         $relation = $model->$field();
         $relatedModelClass = get_class($relation->getRelated());
@@ -140,7 +155,7 @@ abstract class AbstractImporter
                 continue;
             }
 
-            $relatedModel = $relatedModel ?: new $relatedModelClass;
+            $relatedModel = $relatedModel ?: new $relatedModelClass();
             $relatedModel->forceFill($data);
 
             $pivotData = [];
@@ -150,7 +165,7 @@ abstract class AbstractImporter
 
             if (!$this->existsPivotRecord($model, $field, $relatedModel)) {
                 $relation->save($relatedModel, $pivotData);
-            } else if ($pivotData) {
+            } elseif ($pivotData) {
                 $relation->updateExistingPivot($relatedModel->getKey(), $pivotData);
             }
 
@@ -172,7 +187,8 @@ abstract class AbstractImporter
      * @param Model $relatedModel
      * @return bool
      */
-    protected function existsPivotRecord(Model $model, $field, Model $relatedModel) {
+    protected function existsPivotRecord(Model $model, $field, Model $relatedModel)
+    {
         $relation = $model->$field();
         $relatedKeyName = $relation->getQualifiedRelatedPivotKeyName();
         $relatedKeyName = explode('.', $relatedKeyName);
@@ -186,7 +202,8 @@ abstract class AbstractImporter
      * @param array $data
      * @return array
      */
-    protected function getConditions($field, array $data) {
+    protected function getConditions($field, array $data)
+    {
         $conditions = array_flip($this->conditions[$field]);
         foreach ($conditions as $name => $condition) {
             $conditions[$name] = $data[$name];
@@ -199,7 +216,8 @@ abstract class AbstractImporter
      * @param array $row
      * @return array
      */
-    protected function getData(array $row) {
+    protected function getData(array $row)
+    {
         return $this->mapper->map($row);
     }
 }

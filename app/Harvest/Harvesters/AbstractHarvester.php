@@ -15,14 +15,19 @@ abstract class AbstractHarvester
     /** @var AbstractImporter */
     protected $importer;
 
-    public function __construct(AbstractRepository $repository, AbstractImporter $importer) {
+    public function __construct(AbstractRepository $repository, AbstractImporter $importer)
+    {
         $this->repository = $repository;
         $this->importer = $importer;
     }
 
-    public function harvestFailed(SpiceHarvesterHarvest $harvest) {
+    public function harvestFailed(SpiceHarvesterHarvest $harvest)
+    {
         $harvest->process(function (Progress $progress) use ($harvest) {
-            $failed = $harvest->records()->failed()->get();
+            $failed = $harvest
+                ->records()
+                ->failed()
+                ->get();
             $progress->setTotal(count($failed));
 
             foreach ($failed as $record) {
@@ -40,7 +45,12 @@ abstract class AbstractHarvester
      * @param \DateTime|null $to
      * @param array $only_ids
      */
-    public function harvest(SpiceHarvesterHarvest $harvest, \DateTime $from = null, \DateTime $to = null, array $only_ids = []) {
+    public function harvest(
+        SpiceHarvesterHarvest $harvest,
+        \DateTime $from = null,
+        \DateTime $to = null,
+        array $only_ids = []
+    ) {
         $harvest->process(function (Progress $progress) use ($harvest, $from, $to, $only_ids) {
             if ($only_ids) {
                 $total = count($only_ids);
@@ -62,7 +72,7 @@ abstract class AbstractHarvester
 
                 $record = SpiceHarvesterRecord::firstOrNew([
                     'identifier' => $modelId,
-                    'type' => $harvest->type,
+                    'type' => $this->importer->getModelClass(),
                 ]);
                 $record->harvest()->associate($harvest);
                 $record->item_id = $modelId;
@@ -80,7 +90,11 @@ abstract class AbstractHarvester
      * @param Progress $progress
      * @param array|null $row
      */
-    public function harvestRecord(SpiceHarvesterRecord $record, Progress $progress, array $row = null) {
+    public function harvestRecord(
+        SpiceHarvesterRecord $record,
+        Progress $progress,
+        array $row = null
+    ) {
         $record->process(function () use ($record, $progress, $row) {
             if ($row === null) {
                 $row = $this->repository->getRow($record);
@@ -102,14 +116,14 @@ abstract class AbstractHarvester
             if (Arr::get($row, 'datestamp.0')) {
                 $record->datestamp = Carbon::parse(Arr::get($row, 'datestamp.0'));
             }
-            
         }, $progress);
     }
 
     /**
      * @param SpiceHarvesterRecord $record
      */
-    protected function deleteRecord(SpiceHarvesterRecord $record) {
+    protected function deleteRecord(SpiceHarvesterRecord $record)
+    {
         // @todo polymorphic item
         $model = $record->item;
         if ($model) {
@@ -124,7 +138,8 @@ abstract class AbstractHarvester
      * @param array $row
      * @return bool
      */
-    protected function isForDeletion(array $row) {
+    protected function isForDeletion(array $row)
+    {
         return Arr::get($row, 'status.0', null) === 'deleted';
     }
 
@@ -132,7 +147,8 @@ abstract class AbstractHarvester
      * @param array $row
      * @return bool
      */
-    protected function isExcluded(array $row) {
+    protected function isExcluded(array $row)
+    {
         return false;
     }
 }
