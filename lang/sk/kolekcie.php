@@ -15,7 +15,7 @@ return array(
     'collections_artworks'          => 'diel',
     'collections_items_count'       => 'Kolekcia obsahuje',
     'filter' => [
-        'author' => 'autor',
+        'author' => 'autor / autorka',
         'type' => 'kategória',
         'sort_by' => 'zoradiť podľa',
         'sorting' => [
