@@ -24,7 +24,7 @@ return [
     'description_user_id' => 'popis - autor',
     'description_source_link' => 'popis - link na zdroj',
     'identifier' => 'inventární číslo',
-    'author' => 'autor',
+    'author' => 'autor / autorka',
     'item_authorities' => 'autoři - vztahy',
     'tags' => 'tagy',
     'tag' => 'tag',
@@ -55,7 +55,7 @@ return [
             'newest' => 'datování – od najnovějšího',
             'oldest' => 'datování – od najstaršího',
             'view_count' => 'počtu vidění',
-            'random' => 'náhodného pořadí'
+            'random' => 'náhodného pořadí',
         ],
         'title_generator' => [
             'search' => 'výsledky vyhledávání pro: ":value"',

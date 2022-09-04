@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Fixed
 - database seeders
+
+### Changed
+- author to gender inclusive variant
+
 ## [2.64.1] - 2022-08-25
 ### Fixed
 - year slider to ignore its values if it was not touched

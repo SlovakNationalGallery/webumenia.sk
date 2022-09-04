@@ -4,7 +4,7 @@ return array(
     'count' => 'článek|články|článků',
     'no_results' => 'momentálně žádné články',
     'filter' => [
-        'author' => 'autor',
+        'author' => 'autor / autorka',
         'category' => 'kategorie',
         'sort_by' => [
             'date_desc' => 'data',
