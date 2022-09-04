@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\SpiceHarvesterHarvest;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +16,7 @@ class HarvestsTableSeeder extends Seeder
      */
     public function run()
     {
-        $hasrvests = [
+        $harvesters = [
             [
                 'base_url' => 'http://www.webumenia.sk/oai-pmh/',
                 'metadata_prefix' => 'oai_dc',
@@ -29,6 +30,8 @@ class HarvestsTableSeeder extends Seeder
             ],
         ];
 
-        DB::table('spice_harvester_harvests')->insert($hasrvests);
+        foreach ($harvesters as $harvester) {
+            factory(SpiceHarvesterHarvest::class)->create($harvester);
+        }
     }
 }
