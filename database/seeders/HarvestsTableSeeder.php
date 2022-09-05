@@ -2,11 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\SpiceHarvesterHarvest;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
-class HarvestsTableSeeder extends Seeder {
-
+class HarvestsTableSeeder extends Seeder
+{
     /**
      * Run the database seeds.
      *
@@ -14,12 +16,7 @@ class HarvestsTableSeeder extends Seeder {
      */
     public function run()
     {
-
-        DB::table('spice_harvester_harvests')->truncate();
-
-        $now = date("Y-m-d H:i:s");
-
-        $hasrvests = [
+        $harvesters = [
             [
                 'base_url' => 'http://www.webumenia.sk/oai-pmh/',
                 'metadata_prefix' => 'oai_dc',
@@ -29,14 +26,12 @@ class HarvestsTableSeeder extends Seeder {
                 'set_description' => 'Europeana set from SNG',
                 'status' => 'queued',
                 'status_messages' => '',
-                'initiated' => $now,
-                'created_at' => $now,
-                'updated_at' => $now
-            ]
+                'initiated' => Date::now(),
+            ],
         ];
 
-        DB::table('spice_harvester_harvests')->insert($hasrvests);
-
+        foreach ($harvesters as $harvester) {
+            factory(SpiceHarvesterHarvest::class)->create($harvester);
+        }
     }
-
 }
