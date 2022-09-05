@@ -18,13 +18,13 @@ class SpiceHarvesterHarvestFactory extends Factory
     {
         return [
             'type' => 'item',
-            'base_url' => $this->faker->url,
-            'metadata_prefix' => $this->faker->word,
-            'set_spec' => $this->faker->word,
-            'set_name' => $this->faker->word,
-            'set_description' => $this->faker->word,
-            'status_messages' => $this->faker->sentence,
-            'initiated' => $this->faker->date,
+            'base_url' => fake()->url,
+            'metadata_prefix' => fake()->word,
+            'set_spec' => fake()->word,
+            'set_name' => fake()->word,
+            'set_description' => fake()->word,
+            'status_messages' => fake()->sentence,
+            'initiated' => fake()->date,
         ];
     }
 }

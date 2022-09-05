@@ -17,10 +17,10 @@ class LinkFactory extends Factory
     public function definition()
     {
         return [
-            'url' => $this->faker->url,
-            'label' => $this->faker->sentence,
-            'linkable_type' => $this->faker->word,
-            'linkable_id' => $this->faker->randomNumber,
+            'url' => fake()->url,
+            'label' => fake()->sentence,
+            'linkable_type' => fake()->word,
+            'linkable_id' => fake()->randomNumber,
         ];
     }
 }

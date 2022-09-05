@@ -17,8 +17,7 @@ class ItemImageFactory extends Factory
     public function definition()
     {
         return [
-            'iipimg_url' => join('/', ['', ...$this->faker->words(3)]),
+            'iipimg_url' => join('/', ['', ...fake()->words(3)]),
         ];
-    
     }
 }

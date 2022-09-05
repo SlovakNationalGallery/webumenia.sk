@@ -17,8 +17,8 @@ class RedirectFactory extends Factory
     public function definition()
     {
         return [
-            'source_url' => $this->faker->unique()->word,
-            'target_url' => $this->faker->word,
+            'source_url' => fake()->unique()->word,
+            'target_url' => fake()->word,
             'is_enabled' => true,
         ];
     }

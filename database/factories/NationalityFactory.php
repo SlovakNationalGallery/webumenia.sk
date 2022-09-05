@@ -17,7 +17,7 @@ class NationalityFactory extends Factory
     public function definition()
     {
         return [
-            'code' => $this->faker->word,
+            'code' => fake()->word,
         ];
     }
 }

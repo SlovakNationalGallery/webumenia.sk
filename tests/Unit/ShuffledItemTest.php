@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use App\Item;
 use App\ItemImage;
 use App\ShuffledItem;
+use Database\Factories\MediaFactory;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Tests\TestCase;
@@ -60,7 +61,7 @@ class ShuffledItemTest extends TestCase
                 'height' => 0.8,
             ],
         ]);
-        $media = factory(Media::class)->create([
+        $media = MediaFactory::new()->create([
             'model_type' => ShuffledItem::class,
             'model_id' => $shuffledItem->id,
             'collection_name' => 'image',

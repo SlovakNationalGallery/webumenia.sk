@@ -18,9 +18,9 @@ class SpiceHarvesterRecordFactory extends Factory
     {
         return [
             'type' => 'item',
-            'identifier' => $this->faker->word,
-            'item_id' => $this->faker->word,
-            'datestamp' => $this->faker->date,
+            'identifier' => fake()->word,
+            'item_id' => fake()->word,
+            'datestamp' => fake()->date,
         ];
     }
 }

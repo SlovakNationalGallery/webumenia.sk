@@ -17,16 +17,16 @@ class ArticleFactory extends Factory
     public function definition()
     {
         return [
-            'author' => $this->faker->name,
-            'slug' => $this->faker->unique()->word,
-            'title' => $this->faker->word,
-            'summary' => $this->faker->sentence,
-            'content' => $this->faker->sentence,
-            'main_image' => $this->faker->word,
-            'title_color' => $this->faker->hexColor,
-            'title_shadow' => $this->faker->hexColor,
-            'promote' => $this->faker->boolean,
-            'publish' => true,    
+            'author' => fake()->name,
+            'slug' => fake()->unique()->word,
+            'title' => fake()->word,
+            'summary' => fake()->sentence,
+            'content' => fake()->sentence,
+            'main_image' => fake()->word,
+            'title_color' => fake()->hexColor,
+            'title_shadow' => fake()->hexColor,
+            'promote' => fake()->boolean,
+            'publish' => true,
         ];
     }
 }

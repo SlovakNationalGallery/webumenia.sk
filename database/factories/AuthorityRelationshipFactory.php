@@ -17,9 +17,9 @@ class AuthorityRelationshipFactory extends Factory
     public function definition()
     {
         return [
-            'authority_id' => $this->faker->randomNumber,
-            'related_authority_id' => $this->faker->randomNumber,
-            'type' => $this->faker->word,
+            'authority_id' => fake()->randomNumber,
+            'related_authority_id' => fake()->randomNumber,
+            'type' => fake()->word,
         ];
     }
 }
