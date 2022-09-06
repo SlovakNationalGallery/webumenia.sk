@@ -58,7 +58,7 @@ return array(
 
     'authors'             => 'autori',
     'authors_found'       => 'nájdení autori pre',
-    'authors_counted'     => 'autorov',
+    'authors_counted'     => 'autorov a autoriek',
     'authors_none'        => 'momentálne žiadni autori',    
     'roles'               => 'role',
     'role'=>[
