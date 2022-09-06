@@ -1,7 +1,9 @@
 @extends('layouts.master')
 
 @section('title')
-    @if ($title) {{ $title }} | @endif
+    @if ($title)
+        {{ $title }} |
+    @endif
     {{ trans('authority.authors') }} |
     @parent
 @stop
@@ -33,15 +35,19 @@
             <div class="row content-section">
                 <div class="col-xs-6">
                     @if (!empty($search))
-                        <h4 class="inline">{{ utrans('authority.authors_found') }} &bdquo;{!! $search !!}&ldquo; ({{ $total }}) </h4>
+                        <h4 class="inline">{{ utrans('authority.authors_found') }}
+                            &bdquo;{!! $search !!}&ldquo; ({{ $total }}) </h4>
                     @else
-                        <h4 class="inline">{{ formatNum($total) }} {{ trans('authority.authors_counted') }}</h4>
+                        <h4 class="inline">{{ formatNum($total) }}
+                            {{ trans('authority.authors_counted') }}</h4>
                     @endif
                     @if ($paginator->count() == 0)
                         <p class="text-center">{{ utrans('authority.authors_none') }}</p>
                     @endif
                     @if ($hasFilters)
-                        <a class="btn btn-sm btn-default btn-outline  sans" href="{!! URL::to('autori')!!}">{{ trans('general.clear_filters') }} <i class="icon-cross"></i></a>
+                        <a class="btn btn-sm btn-default sans btn-outline"
+                            href="{!! URL::to('autori') !!}">{{ trans('general.clear_filters') }} <i
+                                class="icon-cross"></i></a>
                     @endif
                 </div>
                 <div class="col-xs-6 text-right">
@@ -53,7 +59,8 @@
                     <div class="row author">
                         <div class="col-sm-2 col-xs-4">
                             <a href="{!! $author->getUrl() !!}">
-                                <img src="{!! $author->getImagePath() !!}" class="img-responsive img-circle" alt="{{ $author->name }}">
+                                <img src="{!! $author->getImagePath() !!}" class="img-responsive img-circle"
+                                    alt="{{ $author->name }}">
                             </a>
                         </div>
                         <div class="col-sm-4 col-xs-8">
@@ -65,12 +72,13 @@
                             <div>
                                 {!! $author->birth_year !!} {!! $author->birth_place !!}
                                 @if ($author->death_year)
-                                &ndash; {!! $author->death_year !!} {!! $author->death_place !!}
+                                    &ndash; {!! $author->death_year !!} {!! $author->death_place !!}
                                 @endif
                             </div>
                             <div>
                                 @foreach ($author->roles as $i => $role)
-                                    <a href="{!! route('frontend.author.index', ['role' => $role]) !!}"><strong>{!! trans_choice($role, $author->sex) !!}</strong></a>{!! ($i+1 < count($author->roles) ? ', ' : '') !!}
+                                    <a
+                                        href="{!! route('frontend.author.index', ['role' => $role]) !!}"><strong>{!! trans_choice($role, $author->sex) !!}</strong></a>{!! $i + 1 < count($author->roles) ? ', ' : '' !!}
                                 @endforeach
                             </div>
                             <div>
@@ -78,9 +86,9 @@
                             </div>
                         </div>
                         <div class="clearfix visible-xs bottom-space"></div>
-                        <div class="col-sm-6" >
+                        <div class="col-sm-6">
                             @include('components.artwork_carousel', [
-                                'slick_target' => "artworks-preview",
+                                'slick_target' => 'artworks-preview',
                                 'items' => $author->previewItems,
                             ])
                         </div>
@@ -107,13 +115,11 @@
     {!! Html::script('js/jquery.dropdown-select.js') !!}
 
     <script type="text/javascript">
+        $(document).ready(function() {
 
-        $(document).ready(function(){
-
-            $("form").submit(function()
-            {
-                $(this).find('input[name], select[name]').each(function(){
-                    if (!$(this).val()){
+            $("form").submit(function() {
+                $(this).find('input[name], select[name]').each(function() {
+                    if (!$(this).val()) {
                         $(this).data('name', $(this).attr('name'));
                         $(this).removeAttr('name');
                     }
@@ -124,9 +130,9 @@
                 $(this).closest('form').submit();
             });
 
-            $('.js-filter-form').each(function () {
+            $('.js-filter-form').each(function() {
                 var $filterForm = $(this);
-                $filterForm.find('select, input:not([type=hidden])').change(function () {
+                $filterForm.find('select, input:not([type=hidden])').change(function() {
                     $filterForm.submit();
                 });
             });
@@ -140,11 +146,12 @@
                 mode: 'multi',
                 render: {
                     item: function(data, escape) {
-                        return '<div class="item">'  + '<span class="color">'+this.settings.placeholder+': </span>' +  data.text.replace(/\(.*?\)/g, "") + '</div>';
+                        return '<div class="item">' + '<span class="color">' + this
+                            .settings.placeholder + ': </span>' + data.text.replace(
+                                /\(.*?\)/g, "") + '</div>';
                     }
                 }
             });
         });
-
     </script>
 @stop
