@@ -31,8 +31,8 @@
 <p class="lead">
     <span class="hidden"> | {{ utrans('authority.roles') }}:</span>
     @foreach ($author->roles as $role)
-        <a href="{{ route('frontend.author.index', ['role' => $role]) }}">
-            <strong itemprop="{{ $author->isCorporateBody() ? 'knowsAbout' : 'jobTitle' }}">{{ $role }}</strong>
+        <a href="{{ route('frontend.author.index', ['role' => $role]) }}"> 
+            <strong itemprop="{{ $author->isCorporateBody() ? 'knowsAbout' : 'jobTitle' }}">{{ trans_choice($role, $author->sex) }}</strong>
         </a>{{ !$loop->last ? ', ' : '' }}
     @endforeach
 </p>
