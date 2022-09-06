@@ -477,7 +477,7 @@
                 'item_url' => $item->getUrl(), 
                 'free_url' => URL::to('katalog?is_free=1'),
                 'author' => $item->author,
-                'name' => $item->title,
+                'title' => $item->title,
                 'date' => $item->getDatingFormated(),
                 'owner' => $item->gallery,
                 ] ) !!}
