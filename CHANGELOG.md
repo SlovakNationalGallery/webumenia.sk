@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Changed
 - author to gender inclusive variant
 - database seeders: article and collection
+- use entity instead of harvester class in records type
 
 ## [2.64.1] - 2022-08-25
 ### Fixed

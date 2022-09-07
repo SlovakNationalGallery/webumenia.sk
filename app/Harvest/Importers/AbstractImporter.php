@@ -58,6 +58,11 @@ abstract class AbstractImporter
         return $model->setRelations([]);
     }
 
+    public function getModelClass()
+    {
+        return $this->modelClass;
+    }
+
     /**
      * @param Model $model
      * @param array $row
