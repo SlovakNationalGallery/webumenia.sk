@@ -19,6 +19,7 @@ return array(
     'filters_medium'         => 'materiál',
     'filters_place'          => 'místo vzniku',
     'filters_location'       => 'lokace',
+    'filters_exhibition'     => 'výstava',
     'filters_has_image'      => 'jen s obrázkem',
     'filters_has_iip'        => 'jen se zoom',
     'filters_is_free'        => 'jen volné',
