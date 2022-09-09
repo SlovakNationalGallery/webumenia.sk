@@ -36,11 +36,11 @@ class Item extends Model
         'materiál' => 'medium',
         'technika' => 'technique',
         'lokalita' => 'place',
-        'umiestnenie' => 'location',
         'len s obrázkom' => 'has_image',
         'len so zoom' => 'has_iip',
         'len voľné' => 'is_free',
         'zo súboru' => 'related_work',
+        'lokace' => 'location',
         'výstava' => 'exhibition',
     );
 
@@ -92,7 +92,7 @@ class Item extends Model
         'author' => 'required',
         'title' => 'required',
         'dating' => 'required',
-        );
+    );
 
     // protected $appends = array('measurements');
 
@@ -102,12 +102,12 @@ class Item extends Model
 
     protected $mappingProperties = array(
         'title' => [
-          'type' => 'string',
-          "analyzer" => "standard",
+            'type' => 'string',
+            "analyzer" => "standard",
         ],
         'author' => [
-          'type' => 'string',
-          "analyzer" => "standard",
+            'type' => 'string',
+            "analyzer" => "standard",
         ],
     );
 
@@ -142,11 +142,11 @@ class Item extends Model
         });
 
         static::deleted(function ($item) {
-             $item->getElasticClient()->delete([
+            $item->getElasticClient()->delete([
                 'index' => Config::get('bouncy.index'),
                 'type' => $item::ES_TYPE,
                 'id' => $item->id,
-             ]);
+            ]);
         });
     }
 
@@ -178,7 +178,6 @@ class Item extends Model
     public function getImagePath($full = false)
     {
         return self::getImagePathForId($this->id, $full);
-
     }
 
     public function removeImage()
@@ -216,7 +215,7 @@ class Item extends Model
 
     public function getOaiUrl()
     {
-        return Config::get('app.old_url').'/oai-pmh/?verb=GetRecord&metadataPrefix=oai_dc&identifier='.$this->id;
+        return Config::get('app.old_url') . '/oai-pmh/?verb=GetRecord&metadataPrefix=oai_dc&identifier=' . $this->id;
     }
 
     public function similarByColor($size = 10)
@@ -250,16 +249,17 @@ class Item extends Model
         // $params["sort"][] = "_score";
         // $params["sort"][] = "has_image";
         $params["query"] = [
-            "bool"=> [
+            "bool" => [
                 "must" => [
-                    ["more_like_this"=> [
-                        "fields" => [
-                            "author.folded","title","title.stemmed","description.stemmed", "tag.folded", "place", "technique"
-                        ],
-                        "ids" => [$this->attributes['id']],
-                        "min_term_freq" => 1,
-                        "minimum_should_match" => 3,
-                        "min_word_length" => 3,
+                    [
+                        "more_like_this" => [
+                            "fields" => [
+                                "author.folded", "title", "title.stemmed", "description.stemmed", "tag.folded", "place", "technique"
+                            ],
+                            "ids" => [$this->attributes['id']],
+                            "min_term_freq" => 1,
+                            "minimum_should_match" => 3,
+                            "min_word_length" => 3,
                         ]
                     ]
                 ],
@@ -269,12 +269,13 @@ class Item extends Model
                     // 	],
                     // ],
                     // ["terms"=> [ "authority_id" => $this->relatedAuthorityIds() ] ],
-                    ["term"=> [ "has_image" => [
+                    ["term" => [
+                        "has_image" => [
                             "value" => true,
                             "boost" => 10
-                            ]
-                    ] ],
-                    ["term"=> [ "has_iip" => true ]]
+                        ]
+                    ]],
+                    ["term" => ["has_iip" => true]]
                 ]
             ]
         ];
@@ -303,8 +304,8 @@ class Item extends Model
         $galleryDir = substr($id, 4, 3);
 
         for ($i = 0; $i < $levels; $i++) {
-                $dirsInLevels[$i] = $tmpValue % $dirsPerLevel;
-                $tmpValue = $tmpValue / $dirsPerLevel;
+            $dirsInLevels[$i] = $tmpValue % $dirsPerLevel;
+            $tmpValue = $tmpValue / $dirsPerLevel;
         }
 
         $path = implode("/", $dirsInLevels);
@@ -402,12 +403,12 @@ class Item extends Model
     public static function sliderMin()
     {
         $table_name = with(new static)->getTable();
-        if (Cache::has($table_name.'.slider_min')) {
-            $slider_min =  Cache::get($table_name.'.slider_min');
+        if (Cache::has($table_name . '.slider_min')) {
+            $slider_min =  Cache::get($table_name . '.slider_min');
         } else {
             $min_year = self::min('date_earliest');
-            $slider_min = floor($min_year / 100)*100;
-            Cache::put($table_name.'.slider_min', $slider_min, 60);
+            $slider_min = floor($min_year / 100) * 100;
+            Cache::put($table_name . '.slider_min', $slider_min, 60);
         }
         return $slider_min;
     }
@@ -514,9 +515,9 @@ class Item extends Model
     public function getDatingFormated()
     {
         $count_digits = preg_match_all("/[0-9]/", $this->dating);
-        if (($count_digits<2) && !empty($this->date_earliest)) {
+        if (($count_digits < 2) && !empty($this->date_earliest)) {
             $formated = $this->date_earliest;
-            if (!empty($this->date_latest) && $this->date_latest!=$this->date_earliest) {
+            if (!empty($this->date_latest) && $this->date_latest != $this->date_earliest) {
                 $formated .= "&ndash;" . $this->date_latest;
             }
             return $formated;
@@ -545,45 +546,31 @@ class Item extends Model
     public function getExhibitionAttribute()
     {
         return collect([
-                '#^UPM/211/.*#' => 'LIGHT DEPO',
-                '#^UPM/210/.*#' => 'BLACK DEPO',
-                '#^UPM/110/.*#' => 'Jeskyně: Panorama designu',
-                '#^UPM/203/D/.*#' => 'Design 2000+',
-                '#^UPM/204/.*#' => 'Fashion 2000+',
-                '#^UPM/203/POSTMODERNA$#' => 'Postmoderna',
-            ])
+            '#^UPM/211/.*#' => 'LIGHT DEPO',
+            '#^UPM/210/.*#' => 'BLACK DEPO',
+            '#^UPM/110/.*#' => 'Jeskyně: Panorama designu',
+            '#^UPM/203/D/.*#' => 'Design 2000+',
+            '#^UPM/204/.*#' => 'Fashion 2000+',
+            '#^UPM/203/POSTMODERNA$#' => 'Postmoderna',
+        ])
             ->first(function ($pattern) {
-                return preg_match($pattern, $this->location);
+                return preg_match($pattern, $this->attributes['location']);
             });
     }
 
-    public function getLocationsAttribute()
+    public function getLocationAttribute()
     {
-        $locations =
-            collect([
-                '#^UPM/211/.*#' => 'LIGHT DEPO',
-                '#^UPM/211/B(\d+)/.*#' => 'LIGHT DEPO / BOX $1',
-                '#^UPM/210/.*#' => 'BLACK DEPO',
-                '#^UPM/210/([A-Z])/B(\d+)/.*#' => 'BLACK DEPO / BOX $1$2',
-                '#^UPM/110/.*#' => 'Jeskyně: Panorama designu',
-                '#^UPM/203/D/.*#' => 'Design 2000+',
-                '#^UPM/203/D/(.*?)/.*#' => 'Design 2000+ / $1',
-                '#^UPM/204/.*#' => 'Fashion 2000+',
-                '#^UPM/203/POSTMODERNA$#' => 'Postmoderna',
-            ])
-            ->map(function ($replacement, $pattern) {
-                if (preg_match($pattern, $this->location)) {
-                    return preg_replace($pattern, $replacement, $this->location);
-                }
-            })
-            ->filter()
-            ->values();
-
-        if (!$locations->isEmpty()) {
-            $locations->push($this->location);
+        foreach ([
+            '#^UPM/211/B(\d+)/.*#' => 'BOX $1',
+            '#^UPM/210/([A-Z])/B(\d+)/.*#' => 'BOX $1$2',
+            '#^UPM/203/D/(.*?)/.*#' => '$1',
+        ] as $pattern => $replacement) {
+            if (preg_match($pattern, $this->attributes['location'])) {
+                return preg_replace($pattern, $replacement, $this->attributes['location']);
+            }
         }
 
-        return $locations->toArray();
+        return null;
     }
 
     public function setLat($value)
@@ -627,9 +614,9 @@ class Item extends Model
         $json_params = '
 		{
 		 "aggs" : {
-		    "'.$attribute.'" : {
+		    "' . $attribute . '" : {
 		        "terms" : {
-		          "field" : "'.$attribute.'",
+		          "field" : "' . $attribute . '",
 		          "size": 5000
 		        }
 		    }
@@ -638,24 +625,23 @@ class Item extends Model
 		';
         $params = array_merge(json_decode($json_params, true), $search_params);
         $result = Elastic::search([
-                'index' => Config::get('bouncy.index'),
-                'search_type' => 'count',
-                'type' => self::ES_TYPE,
-                'body'  => $params
-            ]);
+            'index' => Config::get('bouncy.index'),
+            'search_type' => 'count',
+            'type' => self::ES_TYPE,
+            'body'  => $params
+        ]);
         $buckets = $result['aggregations'][$attribute]['buckets'];
 
         $return_list = array();
         foreach ($buckets as $bucket) {
             // dd($bucket);
             $single_value = $bucket['key'];
-            if ($attribute=='author') {
+            if ($attribute == 'author') {
                 $single_value = preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $single_value);
             }
             $return_list[$bucket['key']] = "$single_value ({$bucket['doc_count']})";
         }
         return $return_list;
-
     }
 
     /**
@@ -668,8 +654,7 @@ class Item extends Model
         $limit_according_item_dating = $copyright_length + 60; // 60 = 80 (max_life_lenght) - 20 (start_of_publishing)
 
         // skontrolovat, ci dielo patri institucii, ktora povoluje "volne diela"
-        if (!(
-            $this->attributes['gallery'] == 'Slovenská národná galéria, SNG' ||
+        if (!($this->attributes['gallery'] == 'Slovenská národná galéria, SNG' ||
             $this->attributes['gallery'] == 'Oravská galéria, OGD' ||
             $this->attributes['gallery'] == 'Liptovská galéria Petra Michala Bohúňa, GPB' ||
             $this->attributes['gallery'] == 'Galéria umenia Ernesta Zmetáka, GNZ' ||
@@ -715,7 +700,7 @@ class Item extends Model
 
     private function relatedAuthorityIds()
     {
-        $ids=array();
+        $ids = array();
         foreach ($this->authorities as $authority) {
             $ids[] = $authority->id;
         }
@@ -745,7 +730,8 @@ class Item extends Model
             ->orderBy('related_work_order');
     }
 
-    public function publicDownload($order = null) {
+    public function publicDownload($order = null)
+    {
         if (!$this->isFree()) {
             return false;
         }
@@ -769,7 +755,7 @@ class Item extends Model
 
         header('Set-Cookie: fileDownload=true; path=/');
         $url = 'http://imi.sng.cust.eea.sk/publicIS/fcgi-bin/iipsrv.fcgi?FIF=' . $image->iipimg_url . '&CVT=JPG';
-        $filename = $this->attributes['id'].'.jpg';
+        $filename = $this->attributes['id'] . '.jpg';
 
         set_time_limit(0);
         $ch = curl_init();
@@ -805,27 +791,27 @@ class Item extends Model
         $not_authorities_with_link = array();
         foreach ($this->authorities as $authority) {
             if ($authority->pivot->role != 'autor/author') {
-                $not_authorities_with_link[] = '<a class="underline" href="'. $authority->getUrl() .'">'. $authority->formated_name .'</a>'
-                    .' &ndash; ' . Authority::formatMultiAttribute($authority->pivot->role);
+                $not_authorities_with_link[] = '<a class="underline" href="' . $authority->getUrl() . '">' . $authority->formated_name . '</a>'
+                    . ' &ndash; ' . Authority::formatMultiAttribute($authority->pivot->role);
             } else {
-                $authorities_with_link[] = '<span itemprop="creator" itemscope itemtype="http://schema.org/Person"><a class="underline" href="'. $authority->getUrl() .'" itemprop="sameAs"><span itemprop="name">'. $authority->formated_name .'</span></a></span>';
+                $authorities_with_link[] = '<span itemprop="creator" itemscope itemtype="http://schema.org/Person"><a class="underline" href="' . $authority->getUrl() . '" itemprop="sameAs"><span itemprop="name">' . $authority->formated_name . '</span></a></span>';
             }
-            $used_authorities[]= trim($authority->name, ', ');
+            $used_authorities[] = trim($authority->name, ', ');
         }
         $authors_all = DB::table('authority_item')->where('item_id', $this->attributes['id'])->get();
         foreach ($authors_all as $author) {
             if (!in_array($author->name, $used_authorities) && !empty($author->name)) {
-                $link = '<a class="underline" href="'. url_to('katalog', ['author' => $author->name]) .'">'. preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $author->name) .'</a>';
+                $link = '<a class="underline" href="' . url_to('katalog', ['author' => $author->name]) . '">' . preg_replace('/^([^,]*),\s*(.*)$/', '$2 $1', $author->name) . '</a>';
                 if ($author->role != 'autor/author') {
                     $link .= ' &ndash; ' . Authority::formatMultiAttribute($author->role);
                 }
                 $authorities_with_link[] = $link;
-                $used_authorities[]= trim($author->name, ', ');
+                $used_authorities[] = trim($author->name, ', ');
             }
         }
         foreach ($this->authors as $author_unformated => $author) {
             if (!in_array($author_unformated, $used_authorities)) {
-                $authorities_with_link[] = '<a class="underline" href="'. url_to('katalog', ['author' => $author_unformated]) .'">'. $author .'</a>';
+                $authorities_with_link[] = '<a class="underline" href="' . url_to('katalog', ['author' => $author_unformated]) . '">' . $author . '</a>';
             }
         }
 
@@ -845,62 +831,64 @@ class Item extends Model
         });
     }
 
-    public function hasZoomableImages() {
+    public function hasZoomableImages()
+    {
         return !$this->getZoomableImages()->isEmpty();
     }
 
     // alias for preserving backward compatibility
-    public function getHasIipAttribute() {
+    public function getHasIipAttribute()
+    {
         return $this->hasZoomableImages();
     }
 
     public function index()
     {
-            $client =  $this->getElasticClient();
+        $client =  $this->getElasticClient();
 
-            $clean = true;
+        $clean = true;
 
-            $data = [
-                'id' => $this->attributes['id'],
-                'identifier' => $this->attributes['identifier'],
-                'title' => $this->attributes['title'],
-                'author' => $this->makeArray($this->attributes['author'], $clean),
-                'description' => (!empty($this->attributes['description'])) ? strip_tags($this->attributes['description']) : '',
-                'work_type' => $this->work_types,
-                'topic' => $this->makeArray($this->attributes['topic'], $clean),
-                'tag' => $this->tagNames(),
-                'place' => $this->makeArray($this->attributes['place'], $clean),
-                'measurement' => $this->measurments,
-                'dating' => $this->dating,
-                'date_earliest' => $this->attributes['date_earliest'],
-                'date_latest' => $this->attributes['date_latest'],
-                'medium' => $this->clean($this->attributes['medium']),
-                'technique' => $this->makeArray($this->attributes['technique'], $clean),
-                'gallery' => $this->attributes['gallery'],
-                'updated_at' => $this->attributes['updated_at'],
-                'created_at' => $this->attributes['created_at'],
-                'has_image' => (bool)$this->has_image,
-                'has_iip' => (bool)$this->hasZoomableImages(),
-                'is_free' => $this->isFree(),
-                'related_work' => $this->related_work,
-                'authority_id' => $this->relatedAuthorityIds(),
-                'view_count' => $this->view_count,
-                'color_descriptor' => $this->color_descriptor,
-                'location' => $this->locations,
-                'exhibition' => $this->exhibition,
-            ];
+        $data = [
+            'id' => $this->attributes['id'],
+            'identifier' => $this->attributes['identifier'],
+            'title' => $this->attributes['title'],
+            'author' => $this->makeArray($this->attributes['author'], $clean),
+            'description' => (!empty($this->attributes['description'])) ? strip_tags($this->attributes['description']) : '',
+            'work_type' => $this->work_types,
+            'topic' => $this->makeArray($this->attributes['topic'], $clean),
+            'tag' => $this->tagNames(),
+            'place' => $this->makeArray($this->attributes['place'], $clean),
+            'measurement' => $this->measurments,
+            'dating' => $this->dating,
+            'date_earliest' => $this->attributes['date_earliest'],
+            'date_latest' => $this->attributes['date_latest'],
+            'medium' => $this->clean($this->attributes['medium']),
+            'technique' => $this->makeArray($this->attributes['technique'], $clean),
+            'gallery' => $this->attributes['gallery'],
+            'updated_at' => $this->attributes['updated_at'],
+            'created_at' => $this->attributes['created_at'],
+            'has_image' => (bool)$this->has_image,
+            'has_iip' => (bool)$this->hasZoomableImages(),
+            'is_free' => $this->isFree(),
+            'related_work' => $this->related_work,
+            'authority_id' => $this->relatedAuthorityIds(),
+            'view_count' => $this->view_count,
+            'color_descriptor' => $this->color_descriptor,
+            'location' => $this->location,
+            'exhibition' => $this->exhibition,
+        ];
 
-            return $client->index([
-                'index' => Config::get('bouncy.index'),
-                'type' =>  self::ES_TYPE,
-                'id' => $this->attributes['id'],
-                'body' => $data,
-            ]);
+        return $client->index([
+            'index' => Config::get('bouncy.index'),
+            'type' =>  self::ES_TYPE,
+            'id' => $this->attributes['id'],
+            'body' => $data,
+        ]);
     }
 
     public static function getSortedLabelKey($sort_by = null)
     {
-        if ($sort_by==null) {
+        if ($sort_by == null) {
             $sort_by = Input::get('sort_by');
         }
 
@@ -912,12 +900,11 @@ class Item extends Model
 
         $labelKey = self::$sortable[$sort_by];
 
-        if (Input::has('search') && head(self::$sortable)==$labelKey) {
+        if (Input::has('search') && head(self::$sortable) == $labelKey) {
             return 'relevancie';
         }
 
         return $labelKey;
-
     }
 
     public static function random($size = 1, $custom_parameters = [])
@@ -956,7 +943,8 @@ class Item extends Model
         return $items->total();
     }
 
-    public function getColorsUsed($type = null) {
+    public function getColorsUsed($type = null)
+    {
         $colors_used = [];
 
         for ($i = 0; $i < count($this->color_descriptor) / 4; $i++) {
