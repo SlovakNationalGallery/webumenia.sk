@@ -40,11 +40,10 @@ return array(
     'more-items_related-artworks_by-data' => 'podle názvu, autora / autorky, tagů...',
     'more-items_similar-colors' => 'díla s podobnými barvami',
 
-    'modal_license_body-content'        => '<p><strong>Vámi zvolené dílo by se mělo v krátkém čase začít automaticky stahovat.</strong></p>
+    'modal_license_body-header'            => '<p><strong>Vámi zvolené dílo by se mělo v krátkém čase začít automaticky stahovat.</strong></p>
                                             <p>Digitální reprodukce volných děl na této stránce jsou přístupné jako <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" class="underline">verejné vlastníctvo (public domain)</a>. Můžete si je volně stáhnout ve vysokém rozlišení a využívat k soukromým i komerčním účelům &ndash; kopírovat, sdílet i upravovat.</p>
-                                            <p>Při dalším šíření prosíme uvést:</p>
-                                            <pre><code>:author - :title, :date, :owner, :item_url</code></pre>
-                                            <p>Pokud plánujete využít reprodukce ke komerčním účelům, prosíme informujte o Vašich plánech dopředu, naši odborníci Vám mohou poradit. </p>
+                                            <p>Při dalším šíření prosíme uvést:</p>',
+    'modal_license_body-footer'         =>  '<p>Pokud plánujete využít reprodukce ke komerčním účelům, prosíme informujte o Vašich plánech dopředu, naši odborníci Vám mohou poradit. </p>
                                             <p><a class="underline" href=":free_url">Všechna díla volná ke stažení najdete zde.</a></p>',
     'modal_downloadfail_header-content' => 'Nastala chyba',
     'modal_downloadfail_body-content'   => '<p>Vámi zvolené dílo nebylo nyní možné stáhnout. Zkuste to prosím později.</p>  =

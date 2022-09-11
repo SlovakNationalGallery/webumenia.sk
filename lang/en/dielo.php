@@ -40,11 +40,10 @@ return array(
     'more-items_related-artworks_by-data' => 'by title, artist, tags...',
     'more-items_similar-colors' => 'artworks with similar colours',
 
-    'modal_license_body-content'        => '<p><strong>Your selected artwork should start downloading automatically.</strong></p>
+    'modal_license_body-header'        => '<p><strong>Your selected artwork should start downloading automatically.</strong></p>
                                             <p>Downloadable digital reproductions of artworks on Web umenia are available as <a href="https://creativecommons.org/publicdomain/mark/1.0/" target="_blank" class="underline">public domain</a>. You can download them in high resolution and use them for both private and commercial use &ndash; i.e. copy, modify and share freely.</p>
-                                            <p>When sharing, please include:</p>
-                                            <pre><code>:author - :title, :date, :owner, :item_url</code></pre>
-                                            <p>If you intend to use the reproduction for commercial purpose, please inform us in advance, our experts can offer advice.</p>
+                                            <p>When sharing, please include:</p>',
+    'modal_license_body-footer'         => '<p>If you intend to use the reproduction for commercial purpose, please inform us in advance, our experts can offer advice.</p>
                                             <p><a class="underline" href=":free_url">You can find all downloadable artworks here.</a></p>',
     'modal_downloadfail_header-content' => 'An error has occured',
     'modal_downloadfail_body-content'   => '<p>Your selected artwork could not be downloaded at this time. Please try again later.</p>
