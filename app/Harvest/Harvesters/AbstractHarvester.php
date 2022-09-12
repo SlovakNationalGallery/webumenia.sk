@@ -62,7 +62,7 @@ abstract class AbstractHarvester
 
                 $record = SpiceHarvesterRecord::firstOrNew([
                     'identifier' => $modelId,
-                    'type' => $harvest->type,
+                    'type' => $this->importer->getModelClass(),
                 ]);
                 $record->harvest()->associate($harvest);
                 $record->item_id = $modelId;

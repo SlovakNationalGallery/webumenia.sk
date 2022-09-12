@@ -26,7 +26,7 @@
                     @endif
 
                     @include('components.notice', compact('notice'))
-                    
+
                     <h2 class="bottom-space text-center">{{ trans('objednavka.order_title') }}</h2>
                     {!! trans('objednavka.order_content') !!}
 
@@ -37,155 +37,161 @@
 </section>
 
 <section class="order content-section">
-        <div class="container">
+    <div class="container">
+        @if ($items->count() == 0)
             <div class="row">
-            	<div class="col-xs-12 col-md-10">
-            		<!-- <h3>Diela: </h3> -->
-
-
-{!!
-  Former::open()->route('objednavka.post')->class('form-bordered form-horizontal')->id('order')->rules(App\Order::$rules);
-!!}
-
-<div class="form-group required has-feedback"><label for="pids" class="control-label col-lg-2 col-sm-4">{{ trans('objednavka.form_title') }}</label>
-    <div class="col-lg-8 col-sm-8">
-            @if ($items->count() == 0)
-                <p class="text-center">{{ trans('objednavka.order_none') }}</p>
-            @endif
-
-            @foreach ($items as $i=>$item)
-                <div class="media">
-                    <a href="{!! $item->getUrl() !!}" class="pull-left">
-                        <img src="{!! $item->getImagePath() !!}" class="media-object" style="max-width: 80px; ">
-                    </a>
-                    <div class="media-body">
-                        <a href="{!! $item->getUrl() !!}">
-                            <em>{!! implode(', ', $item->authors) !!}</em> <br> <strong>{!! $item->title !!}</strong> (<em>{!! $item->getDatingFormated() !!}</em>)
-                        </a><br>
-                        <p class="item"><a href="{!! URL::to('dielo/' . $item->id . '/odstranit') !!}" class="underline"><i class="fa fa-times"></i> {{ trans('objednavka.order_remove') }}</a></span>
-                        @if ($item->images->isEmpty())
-                            <br><span class="bg-warning">{{ trans('objednavka.order_warning') }}</span>
-                        @endif
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="alert alert-info">
+                        {{ trans('objednavka.order_none') }}
                     </div>
                 </div>
-            @endforeach
-
-            @if($errors->any())
-                <div class="alert alert-danger">
-                    <a href="#" class="close" data-dismiss="alert">&times;</a>
-                    {!! implode('', $errors->all('<li class="error">:message</li>')) !!}
-                </div>
-            @endif
-
-    </div>
-</div>
-
-{!! Former::hidden('pids')->value(implode(', ', Session::get('cart',array()))); !!}
-{!! Former::text('name')->label(trans('objednavka.form_name'))->required(); !!}
-{!! Former::text('address')->label(trans('objednavka.form_address')); !!}
-{!! Former::text('email')->label(trans('objednavka.form_email'))->required(); !!}
-{!! Former::text('phone')->label(trans('objednavka.form_phone'))->required(); !!}
-
-@if ($allow_printed_reproductions)
-
-    {!! Former::select('format')->label(trans('objednavka.form_format'))->required()->options([
-        trans('objednavka.form_format_for-download') => [
-                'digitálna reprodukcia' => ['value'=>trans('objednavka.form_format_digital')]
-        ],
-    ]); !!}
-
-@else
-
-    {!! Former::select('format')->label('Formát')->required()->options([
-        trans('objednavka.form_format_for-download') => [
-                'digitálna reprodukcia' => ['value'=>trans('objednavka.form_format_digital')]
-        ],
-    ]); !!}
-
-@endif
-
-
-{{-- {!! Former::select('format')->label(trans('objednavka.form_format'))->required()->options(array(
-    trans('objednavka.form_format_for-print') => array(
-        'do A4: samostatná reprodukcia 25 €/ks' => array(
-            'value'=>trans('objednavka.form_format_a4')
-        ),
-        'do A3+: samostatná reprodukcia 35 €/ks' => array('value'=>trans('objednavka.form_format_a3')),
-        ),
-    trans('objednavka.form_format_for-download') => array(
-        'digitálna reprodukcia' => array('value'=>trans('objednavka.form_format_digital'))
-        ),
-)); !!}
- --}}
-
-{{-- ak digitalna --}}
-<div id="ucel">
-    <div class="alert alert-info col-lg-offset-2 col-md-offset-4" role="alert">
-        {!! trans('objednavka.form_purpose-alert') !!}
-        @if ($allow_printed_reproductions)
-            <br><strong>{!! trans('objednavka.form_purpose-alert-print') !!}</strong>
-        @endif
-    </div>
-    {!! Former::select('purpose_kind')->label(trans('objednavka.form_purpose-label'))->required()->options([
-            trans('objednavka.form_purpose_private') => ['value'=> 'Súkromný'],
-            trans('objednavka.form_purpose_commercial') => ['value'=> 'Komerčný'],
-            trans('objednavka.form_purpose_research') => ['value'=> 'Výskumný'],
-            trans('objednavka.form_purpose_education') => ['value'=> 'Edukačný'],
-            trans('objednavka.form_purpose_exhibition') => ['value'=> 'Výstava'],
-        ]); !!}
-    {!! Former::textarea('purpose')->label(trans('objednavka.form_purpose-info'))->required(); !!}
-</div>
-{{-- /ak digitalna --}}
-
-{{-- ak nie digitalna --}}
-<div id="for_frame">
-    {!! Former::select('frame')->label(trans('objednavka.form_frame'))->required()->options(array(
-            trans('objednavka.form_frame_black') => array('value'=>'čierny'),
-            trans('objednavka.form_frame_white') => array('value'=>'svetlý'),
-    ))->help('<a href="#" class="underline" data-toggle="modal" data-target="#previewFrames"><i class="fa fa-info-circle"></i> '.trans('objednavka.form_frame_help').'</a>'); !!}
-</div>
-<div id="for_printed">
-    {!! Former::select('delivery_point')->label(trans('objednavka.form_delivery-point'))->required()->options(array(
-            trans('objednavka.form_delivery-point_exlibris') => array('value'=>'Kníhkupectvo Ex Libris v SNG'),
-            trans('objednavka.form_delivery-point_zvolen') => array('value'=>'Zvolenský zámok'),
-    )); !!}
-</div>
-{{-- /ak nie digitalna --}}
-
-{{-- ak digitalna --}}
-<div id="poster_alert">
-    <div class="alert alert-info col-lg-offset-2 col-md-offset-4" role="alert">
-        {!! trans('objednavka.form_purpose-alert-poster') !!}
-    </div>
-</div>
-{{-- /ak digitalna --}}
-
-
-
-{!! Former::textarea('note')->label(trans('objednavka.form_note')); !!}
-
-<div class="form-group">
-    <div class="col-lg-2 col-sm-4">&nbsp;</div>
-    <div class="col-lg-10 col-sm-8">
-        <div class="checkbox">
-            <input id="terms_and_conditions" name="terms_and_conditions" type="checkbox" value="1" required>
-            <label for="terms_and_conditions">
-              {!! trans('objednavka.form_terms_and_conditions') !!}
-              <sup>*</sup>
-            </label>
-        </div>
-    </div>
-</div>
-
-
-{!! Former::actions(Form::submit(trans('objednavka.form_order'), array('class'=>'btn btn-default btn-outline  uppercase sans')) ) !!}
-
-{!!Former::close();!!}
-
-
-
             </div>
-        </div>
+        @else
+            <div class="row">
+                <div class="col-xs-12 col-md-10">
+
+                {!!
+                Former::open()->route('objednavka.post')->class('form-bordered form-horizontal')->id('order')->rules(App\Order::$rules);
+                !!}
+
+                <div class="form-group required has-feedback"><label for="pids" class="control-label col-lg-2 col-sm-4">{{ trans('objednavka.form_title') }}</label>
+                    <div class="col-lg-8 col-sm-8">
+                            @if ($items->count() == 0)
+                                <p class="text-center">{{ trans('objednavka.order_none') }}</p>
+                            @endif
+
+                            @foreach ($items as $i=>$item)
+                                <div class="media">
+                                    <a href="{!! $item->getUrl() !!}" class="pull-left">
+                                        <img src="{!! $item->getImagePath() !!}" class="media-object" style="max-width: 80px; ">
+                                    </a>
+                                    <div class="media-body">
+                                        <a href="{!! $item->getUrl() !!}">
+                                            <em>{!! implode(', ', $item->authors) !!}</em> <br> <strong>{!! $item->title !!}</strong> (<em>{!! $item->getDatingFormated() !!}</em>)
+                                        </a><br>
+                                        <p class="item"><a href="{!! URL::to('dielo/' . $item->id . '/odstranit') !!}" class="underline"><i class="fa fa-times"></i> {{ trans('objednavka.order_remove') }}</a></span>
+                                        @if ($item->images->isEmpty())
+                                            <br><span class="bg-warning">{{ trans('objednavka.order_warning') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                            @endforeach
+
+                            @if($errors->any())
+                                <div class="alert alert-danger">
+                                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                    {!! implode('', $errors->all('<li class="error">:message</li>')) !!}
+                                </div>
+                            @endif
+
+                    </div>
+                </div>
+
+                {!! Former::hidden('pids')->value(implode(', ', Session::get('cart',array()))); !!}
+                {!! Former::text('name')->label(trans('objednavka.form_name'))->required(); !!}
+                {!! Former::text('address')->label(trans('objednavka.form_address')); !!}
+                {!! Former::text('email')->label(trans('objednavka.form_email'))->required(); !!}
+                {!! Former::text('phone')->label(trans('objednavka.form_phone'))->required(); !!}
+
+                @if ($allow_printed_reproductions)
+
+                    {!! Former::select('format')->label(trans('objednavka.form_format'))->required()->options([
+                        trans('objednavka.form_format_for-download') => [
+                                'digitálna reprodukcia' => ['value'=>trans('objednavka.form_format_digital')]
+                        ],
+                    ]); !!}
+
+                @else
+
+                    {!! Former::select('format')->label('Formát')->required()->options([
+                        trans('objednavka.form_format_for-download') => [
+                                'digitálna reprodukcia' => ['value'=>trans('objednavka.form_format_digital')]
+                        ],
+                    ]); !!}
+
+                @endif
+
+
+                {{-- {!! Former::select('format')->label(trans('objednavka.form_format'))->required()->options(array(
+                    trans('objednavka.form_format_for-print') => array(
+                        'do A4: samostatná reprodukcia 25 €/ks' => array(
+                            'value'=>trans('objednavka.form_format_a4')
+                        ),
+                        'do A3+: samostatná reprodukcia 35 €/ks' => array('value'=>trans('objednavka.form_format_a3')),
+                        ),
+                    trans('objednavka.form_format_for-download') => array(
+                        'digitálna reprodukcia' => array('value'=>trans('objednavka.form_format_digital'))
+                        ),
+                )); !!}
+                --}}
+
+                {{-- ak digitalna --}}
+                <div id="ucel">
+                    <div class="alert alert-info col-lg-offset-2 col-md-offset-4" role="alert">
+                        {!! trans('objednavka.form_purpose-alert') !!}
+                        @if ($allow_printed_reproductions)
+                            <br><strong>{!! trans('objednavka.form_purpose-alert-print') !!}</strong>
+                        @endif
+                    </div>
+                    {!! Former::select('purpose_kind')->label(trans('objednavka.form_purpose-label'))->required()->options([
+                            trans('objednavka.form_purpose_private') => ['value'=> 'Súkromný'],
+                            trans('objednavka.form_purpose_commercial') => ['value'=> 'Komerčný'],
+                            trans('objednavka.form_purpose_research') => ['value'=> 'Výskumný'],
+                            trans('objednavka.form_purpose_education') => ['value'=> 'Edukačný'],
+                            trans('objednavka.form_purpose_exhibition') => ['value'=> 'Výstava'],
+                        ]); !!}
+                    {!! Former::textarea('purpose')->label(trans('objednavka.form_purpose-info'))->required(); !!}
+                </div>
+                {{-- /ak digitalna --}}
+
+                {{-- ak nie digitalna --}}
+                <div id="for_frame">
+                    {!! Former::select('frame')->label(trans('objednavka.form_frame'))->required()->options(array(
+                            trans('objednavka.form_frame_black') => array('value'=>'čierny'),
+                            trans('objednavka.form_frame_white') => array('value'=>'svetlý'),
+                    ))->help('<a href="#" class="underline" data-toggle="modal" data-target="#previewFrames"><i class="fa fa-info-circle"></i> '.trans('objednavka.form_frame_help').'</a>'); !!}
+                </div>
+                <div id="for_printed">
+                    {!! Former::select('delivery_point')->label(trans('objednavka.form_delivery-point'))->required()->options(array(
+                            trans('objednavka.form_delivery-point_exlibris') => array('value'=>'Kníhkupectvo Ex Libris v SNG'),
+                            trans('objednavka.form_delivery-point_zvolen') => array('value'=>'Zvolenský zámok'),
+                    )); !!}
+                </div>
+                {{-- /ak nie digitalna --}}
+
+                {{-- ak digitalna --}}
+                <div id="poster_alert">
+                    <div class="alert alert-info col-lg-offset-2 col-md-offset-4" role="alert">
+                        {!! trans('objednavka.form_purpose-alert-poster') !!}
+                    </div>
+                </div>
+                {{-- /ak digitalna --}}
+
+
+
+                {!! Former::textarea('note')->label(trans('objednavka.form_note')); !!}
+
+                <div class="form-group">
+                    <div class="col-lg-2 col-sm-4">&nbsp;</div>
+                    <div class="col-lg-10 col-sm-8">
+                        <div class="checkbox">
+                            <input id="terms_and_conditions" name="terms_and_conditions" type="checkbox" value="1" required>
+                            <label for="terms_and_conditions">
+                            {!! trans('objednavka.form_terms_and_conditions') !!}
+                            <sup>*</sup>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
+                {!! Former::actions(Form::submit(trans('objednavka.form_order'), array('class'=>'btn btn-default btn-outline  uppercase sans')) ) !!}
+
+                {!!Former::close();!!}
+
+                </div>
+            </div>
+        @endif
     </div>
 </section>
 
