@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - database seeders
 - empty state of /objednavka page
+- orders.purpose column type (hotfix)
 
 ### Changed
 - author to gender inclusive variant
