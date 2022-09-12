@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Fixed
 - database seeders
+- empty state of /objednavka page
 
 ### Changed
 - author to gender inclusive variant
