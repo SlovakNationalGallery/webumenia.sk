@@ -1,5 +1,9 @@
 @php
 
+if (isset($id)) {
+  $article = App\Article::where('id',  $id)->firstOrFail();
+}
+
 $url = $url ?? $article->getUrl();
 $showEduTags = $showEduTags ?? false;
     

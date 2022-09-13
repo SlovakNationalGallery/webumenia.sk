@@ -8,6 +8,7 @@ use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Blade;
 
 class ClanokController extends Controller
 {
@@ -89,6 +90,12 @@ class ClanokController extends Controller
         return Response::json($data);
     }
 
+    public static function replaceTags($content) {
+        $squareTags = array("[x-article_thumbnail", "/]");
+        $angleTags = array("<x-article_thumbnail", "/>");
+        return str_replace($squareTags, $angleTags, $content);
+    }
+
     public function getDetail($slug)
     {
         // dd($slug);
@@ -98,6 +105,7 @@ class ClanokController extends Controller
         }
         $article->view_count += 1;
         $article->save();
+        $article->content = Blade::render($this->replaceTags("$article->content"));
 
         return view('frontend.articles.show', array('article'=>$article));
 
