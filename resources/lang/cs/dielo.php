@@ -29,7 +29,7 @@ return array(
     'item_attr_identifier'     => 'inventární číslo',
     'item_attr_licence'        => 'licence',
     'item_attr_place'          => 'místo vzniku',
-    'item_attr_location'       => 'lokace',
+    'item_attr_box'            => 'lokace',
     'item_attr_exhibition'     => 'výstava',
     'item_attr_acquisition_date' => 'datum akvizice',
 

@@ -6,65 +6,65 @@ use Illuminate\Console\Command;
 
 class SetupElasticsearch extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'es:setup';
+  /**
+   * The name and signature of the console command.
+   *
+   * @var string
+   */
+  protected $signature = 'es:setup';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Create Elasticsearch index and types with proper mapping.';
+  /**
+   * The console command description.
+   *
+   * @var string
+   */
+  protected $description = 'Create Elasticsearch index and types with proper mapping.';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
+  /**
+   * Create a new command instance.
+   *
+   * @return void
+   */
+  public function __construct()
+  {
+    parent::__construct();
+  }
+
+  /**
+   * Execute the console command.
+   *
+   * @return mixed
+   */
+  public function handle()
+  {
+    $client = new \GuzzleHttp\Client(['http_errors' => false]);
+
+    $host = 'localhost:9200';
+    $hosts = config('elasticsearch.hosts');
+    if (!empty($hosts)) {
+      $host = reset($hosts);
+      $this->comment('Your ES host is: ' . $host);
+    }
+    $index_name = 'webumenia';
+    $index_name = $this->ask('What is the index name?', $index_name);
+    if (!$index_name) {
+      $index_name = 'webumenia';
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function handle()
-    {
-        $client = new \GuzzleHttp\Client(['http_errors' => false]);
 
-        $host = 'localhost:9200';
-        $hosts = config('elasticsearch.hosts');
-        if (!empty($hosts)) {
-          $host = reset($hosts);
-          $this->comment('Your ES host is: ' . $host);
-        }
-        $index_name = 'webumenia';
-        $index_name = $this->ask('What is the index name?', $index_name);
-        if (!$index_name) {
-            $index_name = 'webumenia';
-        }
+    $res = $client->head('http://' . $host . '/' . $index_name);
 
+    if ($res->getStatusCode() == 200) {
+      if ($this->confirm('It already exist. Do you want to delete it? [y|N]')) {
+        $this->comment('Removing...');
+        $res = $client->delete('http://' . $host . '/' . $index_name);
+        echo $res->getBody() . "\n";
+      }
+    }
 
-        $res = $client->head('http://'.$host.'/'.$index_name);
+    // ********* INDEX
 
-        if ($res->getStatusCode() == 200) {
-            if ($this->confirm('It already exist. Do you want to delete it? [y|N]')) {
-                $this->comment('Removing...');
-                $res = $client->delete('http://'.$host.'/'.$index_name);
-                echo $res->getBody() . "\n";
-            }
-        }
-
-        // ********* INDEX
-
-        $json_params_create_index = '
+    $json_params_create_index = '
         {
           "settings": {
             "index.version.created": 1070499,
@@ -137,19 +137,19 @@ class SetupElasticsearch extends Command
         }
         ';
 
-        $this->comment('Creating...');
-        $res = $client->put('http://'.$host.'/'.$index_name, [
-            'json' => json_decode($json_params_create_index, true),
-        ]);
-        echo $res->getBody() . "\n";
+    $this->comment('Creating...');
+    $res = $client->put('http://' . $host . '/' . $index_name, [
+      'json' => json_decode($json_params_create_index, true),
+    ]);
+    echo $res->getBody() . "\n";
 
-        if ($res->getStatusCode() == 200) {
-            $this->info('Index ' . $index_name . ' was created');
-        }
+    if ($res->getStatusCode() == 200) {
+      $this->info('Index ' . $index_name . ' was created');
+    }
 
-        // ********* ITEMS
+    // ********* ITEMS
 
-        $json_params_create_items = '
+    $json_params_create_items = '
         {
           "items": {
             "properties": {
@@ -280,6 +280,10 @@ class SetupElasticsearch extends Command
                 "type": "string",
                 "index": "not_analyzed"
               },
+              "box": {
+                "type": "string",
+                "index": "not_analyzed"
+              },
               "exhibition": {
                 "type": "string",
                 "index": "not_analyzed"
@@ -323,19 +327,19 @@ class SetupElasticsearch extends Command
         }
         ';
 
-        $this->comment('Creating type "items"...');
-        $res = $client->put('http://'.$host.'/'.$index_name .'/_mapping/items', [
-            'json' => json_decode($json_params_create_items, true),
-        ]);
-        echo $res->getBody() . "\n";
+    $this->comment('Creating type "items"...');
+    $res = $client->put('http://' . $host . '/' . $index_name . '/_mapping/items', [
+      'json' => json_decode($json_params_create_items, true),
+    ]);
+    echo $res->getBody() . "\n";
 
-        if ($res->getStatusCode() == 200) {
-            $this->info('Type "items" was created');
-        }
+    if ($res->getStatusCode() == 200) {
+      $this->info('Type "items" was created');
+    }
 
-        // ********* AUTHORITIES
+    // ********* AUTHORITIES
 
-        $json_params_create_authorities = '
+    $json_params_create_authorities = '
         {
           "authorities": {
             "properties": {
@@ -477,20 +481,16 @@ class SetupElasticsearch extends Command
         }
         ';
 
-        $this->comment('Creating type "authorities"...');
-        $res = $client->put('http://'.$host.'/'.$index_name .'/_mapping/authorities', [
-            'json' => json_decode($json_params_create_authorities, true),
-        ]);
-        echo $res->getBody() . "\n";
+    $this->comment('Creating type "authorities"...');
+    $res = $client->put('http://' . $host . '/' . $index_name . '/_mapping/authorities', [
+      'json' => json_decode($json_params_create_authorities, true),
+    ]);
+    echo $res->getBody() . "\n";
 
-        if ($res->getStatusCode() == 200) {
-            $this->info('Type "authorities" was created');
-        }
-
-        $this->info('Done');
-
-
-
-
+    if ($res->getStatusCode() == 200) {
+      $this->info('Type "authorities" was created');
     }
+
+    $this->info('Done');
+  }
 }

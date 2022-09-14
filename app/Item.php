@@ -40,7 +40,7 @@ class Item extends Model
         'len so zoom' => 'has_iip',
         'len voľné' => 'is_free',
         'zo súboru' => 'related_work',
-        'lokace' => 'location',
+        'lokace' => 'box',
         'výstava' => 'exhibition',
     );
 
@@ -114,14 +114,6 @@ class Item extends Model
     protected $casts = array(
         'color_descriptor' => 'json',
     );
-
-    protected $locationMap = [
-        'UPM' => [
-            '211' => [
-                'B01' => 'Jaroslav Brychta a jeho vliv',
-            ]
-        ]
-    ];
 
     // ELASTIC SEARCH INDEX
     public static function boot()
@@ -554,19 +546,19 @@ class Item extends Model
             '#^UPM/203/POSTMODERNA$#' => 'Postmoderna',
         ])
             ->first(function ($pattern) {
-                return preg_match($pattern, $this->attributes['location']);
+                return preg_match($pattern, $this->location);
             });
     }
 
-    public function getLocationAttribute()
+    public function getBoxAttribute()
     {
         foreach ([
             '#^UPM/211/B(\d+)/.*#' => 'BOX $1',
             '#^UPM/210/([A-Z])/B(\d+)/.*#' => 'BOX $1$2',
             '#^UPM/203/D/(.*?)/.*#' => '$1',
         ] as $pattern => $replacement) {
-            if (preg_match($pattern, $this->attributes['location'])) {
-                return preg_replace($pattern, $replacement, $this->attributes['location']);
+            if (preg_match($pattern, $this->location)) {
+                return preg_replace($pattern, $replacement, $this->location);
             }
         }
 
@@ -876,6 +868,7 @@ class Item extends Model
             'color_descriptor' => $this->color_descriptor,
             'location' => $this->location,
             'exhibition' => $this->exhibition,
+            'box' => $this->box,
         ];
 
         return $client->index([

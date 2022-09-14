@@ -39,7 +39,7 @@ class CatalogController extends Controller
 
         $per_page = 18;
         $page   = Paginator::resolveCurrentPage() ?: 1;
-        $max_pages = floor(50000/$per_page); // ES max_result_window = 50000
+        $max_pages = floor(50000 / $per_page); // ES max_result_window = 50000
         if ($page > $max_pages) $page = $max_pages;
         $offset = ($page * $per_page) - $per_page;
 
@@ -117,8 +117,9 @@ class CatalogController extends Controller
                     $params['query']['bool']['filter']['and'][]['term'][$filter] = $value;
                 }
             }
-            if (!empty($input['year-range']) &&
-                $input['year-range'] != Item::sliderMin().','.Item::sliderMax() //nezmenena hodnota
+            if (
+                !empty($input['year-range']) &&
+                $input['year-range'] != Item::sliderMin() . ',' . Item::sliderMax() //nezmenena hodnota
             ) {
                 $range = explode(',', $input['year-range']);
                 $params['query']['bool']['filter']['and'][]['range']['date_earliest']['gte'] = (isset($range[0])) ? $range[0] : Item::sliderMin();
@@ -151,7 +152,8 @@ class CatalogController extends Controller
                 ];
 
                 $params['min_score'] = pow(10, -4);
-            } catch (\InvalidArgumentException $e) {}
+            } catch (\InvalidArgumentException $e) {
+            }
         } else {
             $color = false;
         }
@@ -211,7 +213,7 @@ class CatalogController extends Controller
 
         $per_page = 18;
         $page   = Paginator::resolveCurrentPage() ?: 1;
-        $max_pages = floor(50000/$per_page); // ES max_result_window = 50000
+        $max_pages = floor(50000 / $per_page); // ES max_result_window = 50000
         if ($page > $max_pages) $page = $max_pages;
         $offset = ($page * $per_page) - $per_page;
 
@@ -253,7 +255,7 @@ class CatalogController extends Controller
 
 							      { "match": {
 							          "identifier": {
-							            "query": "'.$search.'",
+							            "query": "' . $search . '",
 							            "boost": 10
 							          }
 							        }
@@ -261,18 +263,18 @@ class CatalogController extends Controller
 
 							      { "match": {
 							          "author.folded": {
-							            "query": "'.$search.'",
+							            "query": "' . $search . '",
 							            "boost": 5
 							          }
 							        }
 							      },
 
-							      { "match": { "title":          "'.$search.'" }},
-							      { "match": { "title.folded":          "'.$search.'" }},
-							      { "match": { "title.stemmed": "'.$search.'" }},
+							      { "match": { "title":          "' . $search . '" }},
+							      { "match": { "title.folded":          "' . $search . '" }},
+							      { "match": { "title.stemmed": "' . $search . '" }},
 							      { "match": {
 							        "title.stemmed": {
-							          "query": "'.$search.'",
+							          "query": "' . $search . '",
 							          "analyzer" : "slovencina_synonym"
 							        }
 							      }
@@ -280,14 +282,14 @@ class CatalogController extends Controller
 
 							      { "match": {
 							          "tag.folded": {
-							            "query": "'.$search.'",
+							            "query": "' . $search . '",
 							            "boost": 1
 							          }
 							        }
 							      },
 							      { "match": {
 							          "tag.stemmed": {
-							            "query": "'.$search.'",
+							            "query": "' . $search . '",
 							            "boost": 1
 							          }
 							        }
@@ -295,21 +297,21 @@ class CatalogController extends Controller
 
 							      { "match": {
 							          "description": {
-							            "query": "'.$search.'",
+							            "query": "' . $search . '",
 							            "boost": 1
 							          }
 							        }
 							      },
 							      { "match": {
 							          "description.stemmed": {
-							            "query": "'.$search.'",
+							            "query": "' . $search . '",
 							            "boost": 0.9
 							          }
 							        }
 							      },
 							      { "match": {
 							          "description.stemmed": {
-							            "query": "'.$search.'",
+							            "query": "' . $search . '",
 							            "analyzer" : "slovencina_synonym",
 							            "boost": 0.5
 							          }
@@ -318,7 +320,7 @@ class CatalogController extends Controller
 
 							      { "match": {
 							          "place.folded": {
-							            "query": "'.$search.'",
+							            "query": "' . $search . '",
 							            "boost": 1
 							          }
 							        }
@@ -341,8 +343,9 @@ class CatalogController extends Controller
                     $params['query']['filtered']['filter']['and'][]['term'][$filter] = $value;
                 }
             }
-            if (!empty($input['year-range']) &&
-                $input['year-range'] != Item::sliderMin().','.Item::sliderMax() //nezmenena hodnota
+            if (
+                !empty($input['year-range']) &&
+                $input['year-range'] != Item::sliderMin() . ',' . Item::sliderMax() //nezmenena hodnota
             ) {
                 $range = explode(',', $input['year-range']);
                 $params['query']['filtered']['filter']['and'][]['range']['date_earliest']['gte'] = (isset($range[0])) ? $range[0] : Item::sliderMin();
@@ -374,37 +377,37 @@ class CatalogController extends Controller
             //     'title' => 'Light<br>Depo',
             //     'subtitle' => '',
             //     'image_path' => asset('images/mg/intro/LightDepo.jpg'),
-            //     'url' => '/katalog?location=LIGHT+DEPO',
+            //     'url' => '/katalog?exhibition=LIGHT+DEPO',
             // ]),
             // new \App\Slide([
             //     'title' => 'Black<br>Depo',
             //     'subtitle' => '',
             //     'image_path' => asset('images/mg/intro/BlackDepo.jpg'),
-            //     'url' => '/katalog?location=BLACK+DEPO',
+            //     'url' => '/katalog?exhibition=BLACK+DEPO',
             // ]),
             // new \App\Slide([
             //     'title' => 'Design<br>2000+',
             //     'subtitle' => '',
             //     'image_path' => asset('images/mg/intro/Design2000.jpg'),
-            //     'url' => '/katalog?location=Design+2000%2B',
+            //     'url' => '/katalog?exhibition=Design+2000%2B',
             // ]),
             // new \App\Slide([
             //     'title' => 'Fashion<br>2000+',
             //     'subtitle' => '',
             //     'image_path' => asset('images/mg/intro/Fashion2000.jpg'),
-            //     'url' => '/katalog?location=Fashion+2000%2B',
+            //     'url' => '/katalog?exhibition=Fashion+2000%2B',
             // ]),
             // new \App\Slide([
             //     'title' => 'Jeskyně:<br>Panorama designu',
             //     'subtitle' => '',
             //     'image_path' => asset('images/mg/intro/Jeskyne.jpg'),
-            //     'url' => '/katalog?location=Jeskyně%3A+Panorama+designu',
+            //     'url' => '/katalog?exhibition=Jeskyně%3A+Panorama+designu',
             // ]),
             // new \App\Slide([
             //     'title' => '<br>Postmoderna',
             //     'subtitle' => '',
             //     'image_path' => asset('images/mg/intro/Postmoderna.jpg'),
-            //     'url' => '/katalog?location=Postmoderna',
+            //     'url' => '/katalog?exhibition=Postmoderna',
             // ]),
             new \App\Slide([
                 'title' => 'Archiv<br>a sbírka<br>Jiřího<br>Valocha',
@@ -473,21 +476,21 @@ class CatalogController extends Controller
         $q = (Input::has('search')) ? str_to_alphanumeric(Input::get('search')) : 'null';
 
         $params = [
-                'index' => Config::get('bouncy.index'),
-                'type' => Item::ES_TYPE,
-                'body' => array(
-                    'query' => array(
-                        'multi_match' => array(
-                            'query' => $q,
-                            'type' => 'cross_fields',
-                            // 'fuzziness' =>  2,
-                            // 'slop'       =>  2,
-                            'fields' => array('identifier', 'title.suggest', 'author.suggest'),
-                            'operator' => 'and',
-                        ),
+            'index' => Config::get('bouncy.index'),
+            'type' => Item::ES_TYPE,
+            'body' => array(
+                'query' => array(
+                    'multi_match' => array(
+                        'query' => $q,
+                        'type' => 'cross_fields',
+                        // 'fuzziness' =>  2,
+                        // 'slop'       =>  2,
+                        'fields' => array('identifier', 'title.suggest', 'author.suggest'),
+                        'operator' => 'and',
                     ),
-                    'size' => '10',
                 ),
+                'size' => '10',
+            ),
         ];
 
         if (Config::get('request.domain') == 'mg') {
@@ -539,5 +542,4 @@ class CatalogController extends Controller
 
         return response()->json($result_item);
     }
-
 }
