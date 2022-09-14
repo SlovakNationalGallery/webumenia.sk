@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - item detail view to eliminate N+1 queries
 
+### Updated
+- migrate factories to laravel 8 + style factories
+
 ## [2.65.0] - 2022-09-12
 ### Fixed
 - database seeders
@@ -16,7 +19,6 @@ All notable changes to this project will be documented in this file[^1].
 - database seeders: article and collection
 - use entity instead of harvester class in records type
 - gender sensitive roles + format affected files
-- migrate factories to laravel 8
 
 ## [2.64.1] - 2022-08-25
 ### Fixed
