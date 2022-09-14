@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- item detail view to eliminate N+1 queries
 
 ## [2.65.0] - 2022-09-12
 ### Fixed
