@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - item detail view to eliminate N+1 queries
 
+### Updated
+- migrate factories to laravel 8 + style factories
+
 ## [2.65.0] - 2022-09-12
 ### Fixed
 - database seeders

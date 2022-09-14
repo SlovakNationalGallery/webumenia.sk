@@ -14,19 +14,16 @@ class AdminItemFormTest extends BrowserKitTestCase
     /** @var User */
     protected $user;
 
-    public function setUp(): void {
+    public function setUp(): void
+    {
         parent::setUp();
-        $this->user = factory(User::class)->create(['role' => 'admin']);
+        $this->user = User::factory()->create(['role' => 'admin']);
         $this->actingAs($this->user);
     }
 
-    public function testCreate() {
-        $filename = sprintf(
-            "%s%s%s",
-            __DIR__,
-            DIRECTORY_SEPARATOR,
-            'test.jpeg'
-        );
+    public function testCreate()
+    {
+        $filename = sprintf('%s%s%s', __DIR__, DIRECTORY_SEPARATOR, 'test.jpeg');
 
         $this->visit('/item/create')
             ->attach($filename, 'item[primary_image]')
@@ -35,19 +32,20 @@ class AdminItemFormTest extends BrowserKitTestCase
             ->seePageIs('/item');
     }
 
-    public function testEdit() {
-        $item = factory(Item::class)->create();
+    public function testEdit()
+    {
+        $item = Item::factory()->create();
 
         $this->visit(sprintf('/item/%s/edit', $item->id))
             ->press('Uložiť')
             ->seePageIs('/item');
     }
 
-    public function testAddImage() {
-        $item = factory(Item::class)->create();
+    public function testAddImage()
+    {
+        $item = Item::factory()->create();
 
-        $form = $this->visit(sprintf('/item/%s/edit', $item->id))
-            ->getForm('Uložiť');
+        $form = $this->visit(sprintf('/item/%s/edit', $item->id))->getForm('Uložiť');
         $url = 'http://some-url.coml';
         $values = $form->getPhpValues();
         $values['item']['images'][0]['iipimg_url'] = $url;

@@ -16,13 +16,14 @@ class PatternLibViewTest extends TestCase
 
     public function testGetIndex()
     {
-        factory(Article::class)->create();
-        $item = factory(Item::class)->create();
-        $image = factory(ItemImage::class)->make(['iipimg_url' => true]);
+        Article::factory()->create();
+        $item = Item::factory()->create();
+        $image = ItemImage::factory()->make(['iipimg_url' => true]);
         $item->images()->save($image);
 
         $itemRepositoryMock = $this->createMock(ItemRepository::class);
-        $itemRepositoryMock->expects($this->exactly(2))
+        $itemRepositoryMock
+            ->expects($this->exactly(2))
             ->method('getRandom')
             ->willReturn(new SearchResult(collect([$item]), 0));
         $this->app->instance(ItemRepository::class, $itemRepositoryMock);

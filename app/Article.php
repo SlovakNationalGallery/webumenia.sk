@@ -7,6 +7,7 @@ use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Support\Facades\URL;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Validation\Rule;
@@ -14,6 +15,7 @@ use Illuminate\Validation\Rule;
 class Article extends Model implements TranslatableContract
 {
     use Translatable;
+    use HasFactory;
 
     use \Conner\Tagging\Taggable;
 

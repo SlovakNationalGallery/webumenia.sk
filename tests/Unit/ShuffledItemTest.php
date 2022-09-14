@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use App\Item;
 use App\ItemImage;
 use App\ShuffledItem;
+use Database\Factories\MediaFactory;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Tests\TestCase;
@@ -20,14 +21,14 @@ class ShuffledItemTest extends TestCase
      */
     public function test_crop_url()
     {
-        $item = factory(Item::class)->create();
+        $item = Item::factory()->create();
         $item->images()->save(
-            factory(ItemImage::class)->make([
+            ItemImage::factory()->make([
                 'iipimg_url' => '/path/to/image.jp2',
             ])
         );
 
-        $shuffledItem = factory(ShuffledItem::class)->create([
+        $shuffledItem = ShuffledItem::factory()->create([
             'item_id' => $item->id,
             'crop' => [
                 'x' => 0.5,
@@ -45,7 +46,7 @@ class ShuffledItemTest extends TestCase
 
     public function test_toShuffleOrchestratorItem()
     {
-        $shuffledItem = factory(ShuffledItem::class)->create([
+        $shuffledItem = ShuffledItem::factory()->create([
             'filters' => [
                 [
                     'url' =>
@@ -60,7 +61,7 @@ class ShuffledItemTest extends TestCase
                 'height' => 0.8,
             ],
         ]);
-        $media = factory(Media::class)->create([
+        $media = MediaFactory::new()->create([
             'model_type' => ShuffledItem::class,
             'model_id' => $shuffledItem->id,
             'collection_name' => 'image',

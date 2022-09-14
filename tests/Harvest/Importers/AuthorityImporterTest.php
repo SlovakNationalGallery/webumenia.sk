@@ -28,10 +28,11 @@ class AuthorityImporterTest extends TestCase
         $this->app->instance(Client::class, $this->createMock(Client::class));
     }
 
-    public function testUpdateRelated() {
-        factory(Authority::class)->create(['id' => 1000162]);
-        factory(Authority::class)->create(['id' => 1000168]);
-        factory(Authority::class)->create(['id' => 11680]);
+    public function testUpdateRelated()
+    {
+        Authority::factory()->create(['id' => 1000162]);
+        Authority::factory()->create(['id' => 1000168]);
+        Authority::factory()->create(['id' => 11680]);
 
         $row = $this->getData();
         $importer = $this->initImporter($row);
@@ -39,8 +40,9 @@ class AuthorityImporterTest extends TestCase
         $authority = $importer->import($row, new Progress());
     }
 
-    public function testExistingButNotRelatedYet() {
-        factory(Nationality::class)->create([
+    public function testExistingButNotRelatedYet()
+    {
+        Nationality::factory()->create([
             'id' => 12277,
             'code' => 'Slovensko',
         ]);
@@ -52,8 +54,9 @@ class AuthorityImporterTest extends TestCase
         $this->assertEquals(1, $authority->nationalities->count());
     }
 
-    public function testRelatedButNotExisting() {
-        factory(AuthorityRelationship::class)->create([
+    public function testRelatedButNotExisting()
+    {
+        AuthorityRelationship::factory()->create([
             'authority_id' => 954,
             'related_authority_id' => 1000162,
             'type' => '',
@@ -66,7 +69,8 @@ class AuthorityImporterTest extends TestCase
         $this->assertEquals(0, $authority->relationships->count());
     }
 
-    protected function getData() {
+    protected function getData()
+    {
         return [
             'identifier' => ['954'],
             'datestamp' => ['2015-02-16T22:55:34Z'],
@@ -118,20 +122,25 @@ class AuthorityImporterTest extends TestCase
             'links' => [
                 [
                     'url' => ['http://example.org/'],
-                ]
+                ],
             ],
         ];
     }
 
-    protected function initImporter(array $row) {
+    protected function initImporter(array $row)
+    {
         $importer = new AuthorityImporter(
-            $authorityMapperMock = $this->createMock(AuthorityMapper::class),
-            $authorityEventMapperMock = $this->createMock(AuthorityEventMapper::class),
-            $authorityNameMapperMock = $this->createMock(AuthorityNameMapper::class),
-            $authorityNationalityMapperMock = $this->createMock(AuthorityNationalityMapper::class),
-            $authorityRelationshipMapperMock = $this->createMock(AuthorityRelationshipMapper::class),
-            $nationalityMapperMock = $this->createMock(NationalityMapper::class),
-            $relatedAuthorityMapperMock = $this->createMock(RelatedAuthorityMapper::class)
+            ($authorityMapperMock = $this->createMock(AuthorityMapper::class)),
+            ($authorityEventMapperMock = $this->createMock(AuthorityEventMapper::class)),
+            ($authorityNameMapperMock = $this->createMock(AuthorityNameMapper::class)),
+            ($authorityNationalityMapperMock = $this->createMock(
+                AuthorityNationalityMapper::class
+            )),
+            ($authorityRelationshipMapperMock = $this->createMock(
+                AuthorityRelationshipMapper::class
+            )),
+            ($nationalityMapperMock = $this->createMock(NationalityMapper::class)),
+            ($relatedAuthorityMapperMock = $this->createMock(RelatedAuthorityMapper::class))
         );
 
         $authorityMapperMock
@@ -187,9 +196,7 @@ class AuthorityImporterTest extends TestCase
             ->expects($this->exactly(1))
             ->method('map')
             ->withConsecutive([$row['nationalities'][0]])
-            ->willReturnOnConsecutiveCalls(
-                ['prefered' => false]
-            );
+            ->willReturnOnConsecutiveCalls(['prefered' => false]);
         $authorityRelationshipMapperMock
             ->method('map')
             ->withConsecutive(
@@ -207,12 +214,10 @@ class AuthorityImporterTest extends TestCase
             ->expects($this->exactly(1))
             ->method('map')
             ->withConsecutive([$row['nationalities'][0]])
-            ->willReturnOnConsecutiveCalls(
-                [
-                    'id' => 12277,
-                    'code' => 'Slovensko',
-                ]
-            );
+            ->willReturnOnConsecutiveCalls([
+                'id' => 12277,
+                'code' => 'Slovensko',
+            ]);
         $relatedAuthorityMapperMock
             ->expects($this->exactly(3))
             ->method('map')
@@ -221,11 +226,7 @@ class AuthorityImporterTest extends TestCase
                 [$row['relationships'][1]],
                 [$row['relationships'][2]]
             )
-            ->willReturnOnConsecutiveCalls(
-                ['id' => 1000162],
-                ['id' => 1000168],
-                ['id' => 11680]
-            );
+            ->willReturnOnConsecutiveCalls(['id' => 1000162], ['id' => 1000168], ['id' => 11680]);
 
         return $importer;
     }
