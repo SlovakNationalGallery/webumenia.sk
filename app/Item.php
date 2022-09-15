@@ -565,6 +565,35 @@ class Item extends Model
         return null;
     }
 
+    public function getLocationsAttribute()
+    {
+        $locations =
+            collect([
+                '#^UPM/211/.*#' => 'LIGHT DEPO',
+                '#^UPM/211/B(\d+)/.*#' => 'LIGHT DEPO / BOX $1',
+                '#^UPM/210/.*#' => 'BLACK DEPO',
+                '#^UPM/210/([A-Z])/B(\d+)/.*#' => 'BLACK DEPO / BOX $1$2',
+                '#^UPM/110/.*#' => 'Jeskyně: Panorama designu',
+                '#^UPM/203/D/.*#' => 'Design 2000+',
+                '#^UPM/203/D/(.*?)/.*#' => 'Design 2000+ / $1',
+                '#^UPM/204/.*#' => 'Fashion 2000+',
+                '#^UPM/203/POSTMODERNA$#' => 'Postmoderna',
+            ])
+            ->map(function ($replacement, $pattern) {
+                if (preg_match($pattern, $this->location)) {
+                    return preg_replace($pattern, $replacement, $this->location);
+                }
+            })
+            ->filter()
+            ->values();
+
+        if (!$locations->isEmpty()) {
+            $locations->push($this->location);
+        }
+
+        return $locations->toArray();
+    }
+
     public function setLat($value)
     {
         $this->attributes['lat'] = $value ?: null;
@@ -866,7 +895,7 @@ class Item extends Model
             'authority_id' => $this->relatedAuthorityIds(),
             'view_count' => $this->view_count,
             'color_descriptor' => $this->color_descriptor,
-            'location' => $this->location,
+            'location' => $this->locations,
             'exhibition' => $this->exhibition,
             'box' => $this->box,
         ];
