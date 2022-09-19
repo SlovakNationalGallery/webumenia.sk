@@ -22,7 +22,9 @@ $showEduTags = $showEduTags ?? false;
                 </div>
             @endif
             <div class="tw-pb-2 tw-text-2xl tw-font-semibold">
-                {{ $article->title }}
+                <a href="{{ $url }}">
+                    {{ $article->title }}
+                </a>
             </div>
             <div class="tw-pb-4 tw-text-base tw-text-gray-600">
                 <span class="hover:tw-underline">
