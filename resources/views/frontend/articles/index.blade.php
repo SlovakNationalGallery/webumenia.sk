@@ -29,7 +29,7 @@
     </div>
 </section>
 
-<section class="articles bg-light-grey">
+<section class="bg-light-grey">
     <div class="container">
         <div class="row content-section">
             <div class="col-xs-6">
@@ -49,21 +49,16 @@
             </div>
             @endif
         </div>
-        <div class="row content-section">
-            @foreach ($articles as $i=>$article)
-                <div class="col-sm-6 col-xs-12 bottom-space">
-                    @include('components.article_thumbnail', [
-                        'article' => $article
-                    ])
-                </div>
-                @if ($i % 2 == 1)
-                    <div class="clearfix"></div>
-                @endif
-            @endforeach
-        </div>
-        <div class="row text-center">
+    </div>
+    <div class="tailwind-rules">
+        @foreach ($articles as $article)
+            @include('components.article_thumbnail_index', [
+                    'article' => $article
+                ])
+        @endforeach
+    </div>
+    <div class="row text-center">
             {{ $articles->links() }}
         </div>
-    </div>
 </section>
 @endsection
