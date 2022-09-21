@@ -91,8 +91,8 @@ class ClanokController extends Controller
     }
 
     public static function replaceTags($content) {
-        $squareTags = array("[x-article_thumbnail", "/]");
-        $angleTags = array("<x-article_thumbnail", "/>");
+        $squareTags = array("[x-article_thumbnail", "[x-collection_thumbnail", "/]");
+        $angleTags = array("<x-article_thumbnail", "<x-collection_thumbnail" ,"/>");
         return str_replace($squareTags, $angleTags, $content);
     }
 

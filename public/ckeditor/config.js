@@ -17,6 +17,7 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'forms' },
 		{ name: 'wuSlick' },
 		{ name: 'thumbnail' },
+		{ name: 'collection' },
 		{ name: 'tools' },
 		{ name: 'document',	   groups: [ 'mode', 'document', 'doctools' ] },
 		{ name: 'others' },
@@ -37,7 +38,7 @@ CKEDITOR.editorConfig = function( config ) {
 
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
-	config.extraPlugins = 'slick,thumbnail';
+	config.extraPlugins = 'slick,thumbnail,collection';
 	config.allowedContent = true;
 	config.embed_provider = '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}';
 
