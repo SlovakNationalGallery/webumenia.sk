@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - article category on homepage
 
+### Added
+- default Scout config to enable Scout search functionality
+
 ## [2.67.0] - 2022-10-04
 ### Fixed
 - lazy loading items for reindex
