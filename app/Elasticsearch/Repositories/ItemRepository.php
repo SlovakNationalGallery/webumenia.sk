@@ -445,27 +445,28 @@ class ItemRepository extends TranslatableRepository
 
         $query
             ->lazy()
-            ->tap(function () use (&$processedCount) {
+            ->tapEach(function () use (&$processedCount) {
                 $processedCount++;
             })
-            ->crossJoin(collect($this->locales))
-            ->flatMap(function ($item_locale) {
-                [$item, $locale] = $item_locale;
+            ->flatMap(function (Item $item) {
+                $operations = [];
 
-                return [
+                foreach ($this->locales as $locale) {
                     // Action
-                    [
+                    $operations[] = [
                         'index' => [
                             '_index' => $this->getLocalizedIndexName($locale),
                             '_id' => $item->getKey(),
                         ],
-                    ],
+                    ];
 
                     // Data
-                    $item->getIndexedData($locale),
-                ];
+                    $operations[] = $item->getIndexedData($locale);
+                }
+
+                return $operations;
             })
-            ->chunk(1000)
+            ->chunk(2 * count($this->locales) * 200)
             ->each(function ($operations) use (&$processedCount) {
                 $this->elasticsearch->bulk(['body' => $operations]);
 
