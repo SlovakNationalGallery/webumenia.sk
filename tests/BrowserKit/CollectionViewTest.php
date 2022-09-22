@@ -11,15 +11,16 @@ class CollectionViewTest extends BrowserKitTestCase
 {
     use RefreshDatabase;
 
-    public function testIndexSortedByName() {
-        $user = factory(User::class)->create();
+    public function testIndexSortedByName()
+    {
+        $user = User::factory()->create();
 
-        $collectionB = factory(Collection::class)->create([
+        $collectionB = Collection::factory()->create([
             'name' => 'b',
             'published_at' => '2000-01-01 00:00:00',
             'user_id' => $user->id,
         ]);
-        $collectionA = factory(Collection::class)->create([
+        $collectionA = Collection::factory()->create([
             'name' => 'a',
             'published_at' => '2000-01-01 00:00:00',
             'user_id' => $user->id,
@@ -33,15 +34,16 @@ class CollectionViewTest extends BrowserKitTestCase
         $this->assertEquals($data['collections'][1]->id, $collectionB->id);
     }
 
-    public function testIndexSortedByNameTranslationFallback() {
-        $user = factory(User::class)->create();
+    public function testIndexSortedByNameTranslationFallback()
+    {
+        $user = User::factory()->create();
 
-        $collectionB = factory(Collection::class)->create([
+        $collectionB = Collection::factory()->create([
             'name' => 'b',
             'published_at' => '2000-01-01 00:00:00',
             'user_id' => $user->id,
         ]);
-        $collectionC = factory(Collection::class)->create([
+        $collectionC = Collection::factory()->create([
             'name' => 'a',
             'name:en' => 'c',
             'published_at' => '2000-01-01 00:00:00',

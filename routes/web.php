@@ -236,8 +236,20 @@ function()
 
         $previous = $next = false;
 
-        $similar_items = $itemRepository->getSimilar(12, $item)->getCollection();
-        $related_items = (!empty($item->related_work)) ? Item::related($item)->get() : null;
+        $similar_items = Item::with('translations')
+            ->whereIn(
+                'id',
+                $itemRepository
+                    ->getSimilar(12, $item)
+                    ->getCollection()
+                    ->pluck('id')
+            )
+            ->get();
+        $related_items = !empty($item->related_work)
+            ? Item::with('translations')
+                ->related($item)
+                ->get()
+            : null;
 
         if (Request::has('collection')) {
             $collection = Collection::find((int) Request::input('collection'));
@@ -245,7 +257,9 @@ function()
                 $items = $collection->items->pluck('id')->all();
                 $previousId = getPrevVal($items, $id);
                 if ($previousId) {
-                    $previous = Item::find($previousId)->getUrl(['collection' => $collection->id]);
+                    $previous = Item::find($previousId)->getUrl([
+                        'collection' => $collection->id,
+                    ]);
                 }
                 $nextId = getNextVal($items, $id);
                 if ($nextId) {
@@ -262,23 +276,34 @@ function()
                 'media' => $item->mediums,
                 'technique' => $item->technique,
                 'related_work' => $item->related_work,
-            ]
+            ],
         ];
 
-        return view('dielo', compact(
-            'item',
-            'similar_items',
-            'related_items',
-            'previous',
-            'next',
-            'gtm_data_layer'
-        ));
+        return view(
+            'dielo',
+            compact(
+                'item',
+                'similar_items',
+                'related_items',
+                'previous',
+                'next',
+                'gtm_data_layer'
+            )
+        );
     })->name('dielo');
 
     Route::get('dielo/{id}/colorrelated', function ($id, ItemRepository $itemRepository) {
         $item = Item::findOrFail($id);
         return view('dielo-colorrelated', [
-            'similar_by_color' => $itemRepository->getSimilarByColor(12, $item)->getCollection(),
+            'similar_by_color' => Item::with('translations')
+                ->whereIn(
+                    'id',
+                    $itemRepository
+                        ->getSimilarByColor(12, $item)
+                        ->getCollection()
+                        ->pluck('id')
+                )
+                ->get(),
         ]);
     })->name('dielo.colorrelated');
 

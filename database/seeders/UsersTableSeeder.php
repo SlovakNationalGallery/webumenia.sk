@@ -39,7 +39,7 @@ class UsersTableSeeder extends Seeder
         ];
 
         foreach ($users as $user) {
-            factory(User::class)->create($user);
+            User::factory()->create($user);
         }
     }
 }

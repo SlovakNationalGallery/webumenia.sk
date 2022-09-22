@@ -13,19 +13,19 @@ class ItemViewTest extends TestCase
 
     public function testGetItemDetail()
     {
-        $item = factory(Item::class)->create();
+        $item = Item::factory()->create();
         $response = $this->get("/dielo/{$item->id}");
         $response->assertStatus(200);
     }
 
     public function testListsAssociatedPublishedCollections()
     {
-        $item = factory(Item::class)->create();
-        $publishedCollection = factory(Collection::class)->create([
+        $item = Item::factory()->create();
+        $publishedCollection = Collection::factory()->create([
             'is_published' => true,
             'name' => 'a published collection',
         ]);
-        $unpublishedCollection = factory(Collection::class)->create([
+        $unpublishedCollection = Collection::factory()->create([
             'is_published' => false,
             'name' => 'an unpublished collection',
         ]);

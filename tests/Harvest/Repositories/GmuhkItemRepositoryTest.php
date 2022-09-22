@@ -10,7 +10,8 @@ use Tests\TestCase;
 
 class GmuhkItemRepositoryTest extends TestCase
 {
-    public function testAll() {
+    public function testAll()
+    {
         $endpointFactoryMock = $this->getMockBuilder(EndpointFactory::class)
             ->setMethods(['createHttpAdapter'])
             ->getMock();
@@ -21,7 +22,7 @@ class GmuhkItemRepositoryTest extends TestCase
 
         $itemRepository = new GmuhkItemRepository($endpointFactoryMock);
 
-        $harvest = factory(SpiceHarvesterHarvest::class)->make();
+        $harvest = SpiceHarvesterHarvest::factory()->make();
         $rows = $itemRepository->getAll($harvest)->data;
 
         $rows = iterator_to_array($rows);
@@ -38,7 +39,9 @@ class GmuhkItemRepositoryTest extends TestCase
             'technique' => ['lept'],
             'medium' => ['papír'],
             'measurement' => ['vd.=160mm; sd.=162mm; v.=373mm; s.=303mm'],
-            'image' => ['https://files.khk.museion.cz/GMUHK/Výtvarné umění/G/SUB_1/G0259/G0259-003_primary.jpg'],
+            'image' => [
+                'https://files.khk.museion.cz/GMUHK/Výtvarné umění/G/SUB_1/G0259/G0259-003_primary.jpg',
+            ],
             'work_type' => ['publikacePredmetu:GMUHK:151:G'],
         ];
         $this->assertEquals($expected, $rows[0]);

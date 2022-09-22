@@ -23,31 +23,40 @@ class AuthorityHarvesterTest extends TestCase
 
     public function testTryHarvestNoRows()
     {
-        $repositoryMock = $this->createMock(AuthorityRepository::class, [], [
-            $this->createMock(EndpointFactory::class)
-        ]);
-        $importerMock = $this->createMock(AuthorityImporter::class, [], [
-            $this->createMock(AuthorityMapper::class),
-            $this->createMock(AuthorityEventMapper::class),
-            $this->createMock(AuthorityNameMapper::class),
-            $this->createMock(AuthorityNationalityMapper::class),
-            $this->createMock(AuthorityRelationshipMapper::class),
-            $this->createMock(NationalityMapper::class),
-            $this->createMock(RelatedAuthorityMapper::class),
-        ]);
+        $repositoryMock = $this->createMock(
+            AuthorityRepository::class,
+            [],
+            [$this->createMock(EndpointFactory::class)]
+        );
+        $importerMock = $this->createMock(
+            AuthorityImporter::class,
+            [],
+            [
+                $this->createMock(AuthorityMapper::class),
+                $this->createMock(AuthorityEventMapper::class),
+                $this->createMock(AuthorityNameMapper::class),
+                $this->createMock(AuthorityNationalityMapper::class),
+                $this->createMock(AuthorityRelationshipMapper::class),
+                $this->createMock(NationalityMapper::class),
+                $this->createMock(RelatedAuthorityMapper::class),
+            ]
+        );
 
-        $repositoryMock->expects($this->once())
+        $repositoryMock
+            ->expects($this->once())
             ->method('getAll')
-            ->willReturn((object) [
-                'total' => 0,
-                'data' => []
-            ]);
+            ->willReturn(
+                (object) [
+                    'total' => 0,
+                    'data' => [],
+                ]
+            );
 
         $harvester = new AuthorityHarvester($repositoryMock, $importerMock);
 
-        $harvest = factory(SpiceHarvesterHarvest::class)->make([
+        $harvest = SpiceHarvesterHarvest::factory()->make([
             'type' => 'author',
-            'status' => SpiceHarvesterHarvest::STATUS_QUEUED
+            'status' => SpiceHarvesterHarvest::STATUS_QUEUED,
         ]);
         $harvester->harvest($harvest);
 

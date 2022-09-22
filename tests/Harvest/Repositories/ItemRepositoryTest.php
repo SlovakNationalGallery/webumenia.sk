@@ -10,7 +10,8 @@ use Tests\TestCase;
 
 class ItemRepositoryTest extends TestCase
 {
-    public function testRows() {
+    public function testRows()
+    {
         $endpointFactoryMock = $this->getMockBuilder(EndpointFactory::class)
             ->setMethods(['createHttpAdapter'])
             ->getMock();
@@ -21,7 +22,7 @@ class ItemRepositoryTest extends TestCase
 
         $itemRepository = new ItemRepository($endpointFactoryMock);
 
-        $harvest = factory(SpiceHarvesterHarvest::class)->make(['base_url' => true]);
+        $harvest = SpiceHarvesterHarvest::factory()->make(['base_url' => true]);
         $rows = $itemRepository->getAll($harvest)->data;
 
         $rows = iterator_to_array($rows);
@@ -88,7 +89,7 @@ class ItemRepositoryTest extends TestCase
                 [
                     'lang' => ['sk'],
                     'format_medium' => ['kartón, zahnedlý'],
-                ]
+                ],
             ],
             'subject' => [
                 [
@@ -114,15 +115,11 @@ class ItemRepositoryTest extends TestCase
                     'role' => ['autor/author'],
                 ],
             ],
-            'rights' => [
-                '1',
-                'publikovať/public',
+            'rights' => ['1', 'publikovať/public'],
+            'description' => ['vpravo dole gravé J.Daullé..', 'vľavo dole peint Teniers'],
+            'extent' => [
+                'šírka 50.0 cm, šírka 47.6 cm, výška 39.0 cm, výška 37.0 cm, hĺbka 5.0 cm ()',
             ],
-            'description' => [
-                'vpravo dole gravé J.Daullé..',
-                'vľavo dole peint Teniers',
-            ],
-            'extent' => ['šírka 50.0 cm, šírka 47.6 cm, výška 39.0 cm, výška 37.0 cm, hĺbka 5.0 cm ()'],
             'gallery' => ['Slovenská národná galéria, SNG'],
             'credit' => [
                 [
@@ -138,10 +135,7 @@ class ItemRepositoryTest extends TestCase
                     'credit' => ['Dar ze Sbírky Linea'],
                 ],
             ],
-            'created' => [
-                '1760/1760',
-                '18. storočie, polovica, 1760',
-            ],
+            'created' => ['1760/1760', '18. storočie, polovica, 1760'],
             'datestamp' => ['2017-08-28T14:00:23.769Z'],
             'contributor' => ['Čičo, Martin'],
         ];

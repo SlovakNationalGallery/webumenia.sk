@@ -31,7 +31,7 @@ class HarvestsTableSeeder extends Seeder
         ];
 
         foreach ($harvesters as $harvester) {
-            factory(SpiceHarvesterHarvest::class)->create($harvester);
+            SpiceHarvesterHarvest::factory()->create($harvester);
         }
     }
 }
