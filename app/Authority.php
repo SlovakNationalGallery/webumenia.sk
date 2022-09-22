@@ -3,9 +3,11 @@
 namespace App;
 
 use App\Contracts\IndexableModel;
+use App\Elasticsearch\Repositories\AuthorityRepository;
 use Chelout\RelationshipEvents\Concerns\HasBelongsToManyEvents;
 use Astrotomic\Translatable\Translatable;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+use ElasticScoutDriverPlus\Searchable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
@@ -19,6 +21,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
     use Translatable;
     use HasBelongsToManyEvents;
     use HasFactory;
+    use Searchable;
 
     protected $table = 'authorities';
     protected $keyType = 'string';
@@ -141,7 +144,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
         return Cache::remember(
             "authority.{$this->id}.collections_count",
             now()->addHours(1),
-            fn() => $this->join(
+            fn () => $this->join(
                 'authority_item',
                 'authority_item.authority_id',
                 '=',
@@ -160,7 +163,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
         return Cache::remember(
             "authority.{$this->id}.tags",
             now()->addHours(1),
-            fn() => $this->join(
+            fn () => $this->join(
                 'authority_item',
                 'authority_item.authority_id',
                 '=',
@@ -357,6 +360,8 @@ class Authority extends Model implements IndexableModel, TranslatableContract
                 : '',
             'birth_place' => $translation->birth_place,
             'death_place' => $translation->death_place,
+            'birth_date' => $this->birth_date,
+            'death_date' => $this->death_date,
         ];
     }
 
@@ -377,9 +382,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
     {
         $associative_relationships = [];
         foreach ($this->relationships as $relationship) {
-            $associative_relationships[
-                self::formatMultiAttribute($relationship->pivot->type)
-            ][] = $relationship;
+            $associative_relationships[self::formatMultiAttribute($relationship->pivot->type)][] = $relationship;
         }
 
         return $associative_relationships;
@@ -402,5 +405,10 @@ class Authority extends Model implements IndexableModel, TranslatableContract
     public function isCorporateBody()
     {
         return $this->type === 'corporate body';
+    }
+
+    public function searchableAs()
+    {
+        return app(AuthorityRepository::class)->getLocalizedIndexName();
     }
 }

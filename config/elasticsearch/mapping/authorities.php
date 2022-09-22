@@ -32,6 +32,9 @@ $mapping = [
         'birth_year' => [
             'type' => 'integer',
         ],
+        'birth_date' => [
+            'type' => 'keyword',
+        ],
         'created_at' => [
             'type' => 'date',
             'format' => 'yyyy-MM-dd HH:mm:ss'
@@ -41,6 +44,9 @@ $mapping = [
         ],
         'death_year' => [
             'type' => 'integer',
+        ],
+        'death_date' => [
+            'type' => 'keyword',
         ],
         'has_image' => [
             'type' => 'boolean'
