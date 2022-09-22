@@ -170,6 +170,11 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     protected $useTranslationFallback;
 
+    public function getCitation()
+    {
+        return $this->author . ' - ' . $this->title . ', ' . $this->getDatingFormated() . ', ' . $this->gallery . ', ' . $this->getUrl();
+    }
+
     public static function loadValidatorMetadata(ClassMetadata $metadata) {
         $metadata->addGetterConstraint('images', new Valid());
     }

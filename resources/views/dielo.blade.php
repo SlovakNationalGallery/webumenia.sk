@@ -40,10 +40,6 @@
 </section>
 @endif
 
-@php
-    $citation = $item->author . ' - ' . $item->title . ', ' . $item->getDatingFormated() . ', ' . $item->gallery . ', ' . $item->getUrl();
-@endphp
-
 <section class="item top-section" itemscope itemtype="http://schema.org/VisualArtwork">
     <div class="item-body">
         <div class="container">
@@ -479,9 +475,9 @@
             <div class="modal-body">
                 {!! trans('dielo.modal_license_body-header') !!}
                 <div>
-                    <pre><code>{{ $citation }}</code></pre>
+                    <pre><code>{{ $item->getCitation() }}</code></pre>
                 </div>
-                @include('components.copy_button', ['text' => $citation])
+                @include('components.copy_button', ['text' => $item->getCitation()])
                 {!! trans('dielo.modal_license_body-footer', ['free_url' => URL::to('katalog?is_free=1')]) !!}
             </div>
             <div class="modal-footer">
