@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- lazy loading items for reindex
 
 ## [2.66.0] - 2022-09-22
 ### Fixed
