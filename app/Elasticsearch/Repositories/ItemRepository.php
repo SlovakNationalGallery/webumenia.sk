@@ -466,6 +466,7 @@ class ItemRepository extends TranslatableRepository
 
                 return $operations;
             })
+            // chunk size = 2 operations * number of locales * 200 items
             ->chunk(2 * count($this->locales) * 200)
             ->each(function ($operations) use (&$processedCount) {
                 $this->elasticsearch->bulk(['body' => $operations]);
