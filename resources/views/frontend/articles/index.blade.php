@@ -50,13 +50,9 @@
             @endif
         </div>
     </div>
-    <div class="tailwind-rules">
         @foreach ($articles as $article)
-            @include('components.article_thumbnail_index', [
-                    'article' => $article
-                ])
+            <x-article_thumbnail_index :article="$article" />
         @endforeach
-    </div>
     <div class="row text-center">
             {{ $articles->links() }}
         </div>

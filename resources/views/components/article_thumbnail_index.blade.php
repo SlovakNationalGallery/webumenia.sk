@@ -1,9 +1,9 @@
-@php
+@props([
+    'article' => NULL,
+    'url' => $article->getUrl(),
+    'showEduTags' => false,
+    ])
 
-$url = $url ?? $article->getUrl();
-$showEduTags = $showEduTags ?? false;
-
-@endphp
 <div class="tailwind-rules">
     <div
         class="tw-container tw-mx-auto tw-flex tw-h-[30rem] tw-max-w-screen-xl tw-flex-wrap tw-px-6 tw-py-4 md:tw-h-[25.75rem] md:tw-flex-nowrap">

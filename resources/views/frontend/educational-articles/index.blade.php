@@ -78,18 +78,13 @@
             </div>
             @endif
         </div>
-        <div class="row content-section">
             @foreach ($articles as $i => $article)
-                <div class="col-sm-6 col-xs-12 bottom-space">
-                      @include('components.article_thumbnail_index', [
-                            'article' => $article,
-                            'url' => route('frontend.educational-article.show', $article->slug),
-                            'showEduTags' => true,
-                        ])
-                    </div>
-                @if ($i % 2 == 1)
-                    <div class="clearfix"></div>
-                @endif
+                <x-article_thumbnail_index 
+                        :article="$article" 
+                        :url="route('frontend.educational-article.show', $article->slug)" 
+                        showEduTags
+                    />                    
+                </div>
             @endforeach
         </div>
         <div class="row text-center">
