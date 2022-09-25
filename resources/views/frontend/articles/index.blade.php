@@ -51,7 +51,7 @@
         </div>
     </div>
         @foreach ($articles as $article)
-            <x-article_thumbnail_index :article="$article" />
+            <x-article_thumbnail :article="$article" />
         @endforeach
     <div class="row text-center">
             {{ $articles->links() }}

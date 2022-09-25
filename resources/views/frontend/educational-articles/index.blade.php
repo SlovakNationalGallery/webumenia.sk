@@ -79,7 +79,7 @@
             @endif
         </div>
             @foreach ($articles as $i => $article)
-                <x-article_thumbnail_index 
+                <x-article_thumbnail 
                         :article="$article" 
                         :url="route('frontend.educational-article.show', $article->slug)" 
                         showEduTags
