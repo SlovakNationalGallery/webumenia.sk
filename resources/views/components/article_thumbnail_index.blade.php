@@ -29,7 +29,7 @@
             <div class="tw-pb-4 tw-text-base tw-text-gray-600">
                 <span class="hover:tw-underline">
                     {{ $article->author }}</span> &nbsp;&middot;&nbsp;
-                {{ $article->created_at->format('d. m. Y') }}
+                    @dateShort($article->created_at)
             </div>
             <div class="tw-mb-9 tw-min-h-0 tw-overflow-hidden tw-text-xl tw-font-serif">
                 {{ strip_tags(html_entity_decode($article->summary)) }}
