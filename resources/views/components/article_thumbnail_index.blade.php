@@ -31,7 +31,7 @@
                     {{ $article->author }}</span> &nbsp;&middot;&nbsp;
                     @dateShort($article->created_at)
             </div>
-            <div class="tw-mb-9 tw-min-h-0 tw-overflow-hidden tw-text-xl tw-font-serif">
+            <div class="tw-mb-9 tw-flex-1 tw-min-h-0 tw-overflow-hidden tw-text-xl tw-font-serif tw-text-transparent tw-bg-clip-text tw-bg-gradient-to-b tw-from-gray-800 tw-via-gray-800 tw-to-white">
                 {{ strip_tags(html_entity_decode($article->summary)) }}
             </div>
             <div class="tw-text-sm tw-text-gray-600">
