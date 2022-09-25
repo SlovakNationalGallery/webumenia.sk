@@ -10,7 +10,7 @@
         <div class="tw-h-1/3 tw-w-full md:tw-h-full md:tw-w-1/2">
             @if ($article->main_image)
                 <a href="{{ $url }}" class="tw-h-full">
-                    <img src="{!! $article->getThumbnailImage() !!}"
+                    <img src="{{ $article->getThumbnailImage() }}"
                         class="tw-h-full tw-w-full tw-object-cover" alt="{{ $article->title }}">
                 </a>
             @endif
@@ -29,7 +29,7 @@
             <div class="tw-pb-4 tw-text-base tw-text-gray-600">
                 <span class="hover:tw-underline">
                     {{ $article->author }}</span> &nbsp;&middot;&nbsp;
-                {!! $article->created_at->format('d. m. Y') !!}
+                {{ $article->created_at->format('d. m. Y') }}
             </div>
             <div class="tw-mb-9 tw-min-h-0 tw-overflow-hidden tw-text-xl tw-font-serif">
                 {{ strip_tags(html_entity_decode($article->summary)) }}
