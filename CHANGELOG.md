@@ -11,13 +11,15 @@ All notable changes to this project will be documented in this file[^1].
 - artwork info to citation note on download
 - import iip images command
 
+### Changed
+- display start and end date with roles on authors page
+
 ## [2.66.0] - 2022-09-22
 ### Fixed
 - item detail view to eliminate N+1 queries
 
 ### Updated
 - migrate factories to laravel 8 + style factories
-- display start and end date with roles on authors page
 
 ## [2.65.0] - 2022-09-12
 ### Fixed
