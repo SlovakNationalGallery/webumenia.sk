@@ -172,7 +172,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     public function getCitation()
     {
-        return $this->author . ' - ' . $this->title . ', ' . $this->getDatingFormated() . ', ' . $this->gallery . ', ' . $this->getUrl();
+        return $this->getTitleWithAuthors() . ', ' . $this->getDatingFormated() . ', ' . $this->gallery . ', ' . $this->getUrl();
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata) {
