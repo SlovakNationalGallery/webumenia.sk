@@ -8,6 +8,8 @@ use App\Filter\Generators\AuthorityTitleGenerator;
 use App\Filter\Generators\ItemTitleGenerator;
 use App\Harvest\Importers\ItemImporter;
 use App\Harvest\Mappers\BaseAuthorityMapper;
+use App\Http\Resources\Api\V2\AuthorityResource;
+use App\Http\Resources\Api\V2\ItemResource;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
@@ -55,6 +57,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrap();
+        AuthorityResource::withoutWrapping();
+        ItemResource::withoutWrapping();
 
         Blade::directive('date', function ($expression) {
             return $this->formatDate($expression, 'LL');

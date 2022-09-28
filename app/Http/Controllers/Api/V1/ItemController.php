@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\V1;
 
-use App\Authority;
 use App\Http\Controllers\Controller;
 use App\Item;
-use ElasticAdapter\Documents\Document;
 use ElasticAdapter\Search\Aggregation;
 use ElasticAdapter\Search\Bucket;
 use ElasticScoutDriverPlus\Exceptions\QueryBuilderException;
@@ -119,29 +117,7 @@ class ItemController extends Controller
             return response()->json(['message' => 'Not found'], 404);
         }
 
-        $document = $items->documents()->first();
-
-        if (!$document) {
-            abort(404);
-        }
-
-        $document = $document->toArray();
-        $query = Query::ids()->values($document['content']['authority_id']);
-        $document['content']['authorities'] = Authority::searchQuery($query)
-            ->execute()
-            ->documents()
-            ->map(function (Document $document) {
-                $document = $document->toArray();
-                $document['content']['image_path'] = Authority::getImagePathForId(
-                    $document['id'],
-                    $document['content']['has_image'],
-                    $document['content']['sex'],
-                    $document['content']['death_year']
-                );
-                return $document;
-            });
-
-        return $document;
+        return $items->documents()->first();
     }
 
     protected function createQueryBuilder($q, $filter)

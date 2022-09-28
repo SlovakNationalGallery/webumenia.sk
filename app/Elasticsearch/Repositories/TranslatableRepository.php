@@ -51,7 +51,8 @@ abstract class TranslatableRepository extends AbstractRepository
 
     public function search(SearchRequest $request, $locale = null): SearchResult
     {
-        if ($request->getSearchWindowSize() > $this->getMaxResultWindowConfig($locale)) {
+        if ($request->getSearchWindowSize() > $this->getMaxResultWindowConfig($locale))
+        {
             Log::warning("Search request size ({$request->getSearchWindowSize()}) is larger than index.max_result_window. Returning empty set.");
             return $this->createEmptySearchResult();
         }

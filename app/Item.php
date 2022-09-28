@@ -417,6 +417,17 @@ class Item extends Model implements IndexableModel, TranslatableContract
         return $authorities->concat($authors);
     }
 
+
+    public function getUniqueAuthorsWithAuthorityNames()
+    {
+        return $this->authorities
+            ->pluck('name')
+            ->merge($this->getAuthorsWithoutAuthority())
+            ->filter() // hotfix: names should be filled
+            ->values()
+            ->toArray();
+    }
+
     public function getFirstAuthorAttribute($value)
     {
         $authors_array = $this->makeArray($this->author);
@@ -715,17 +726,10 @@ class Item extends Model implements IndexableModel, TranslatableContract
             }, $unserialized);
         };
 
-        $authors = $this->authorities
-            ->pluck('name')
-            ->merge($this->getAuthorsWithoutAuthority())
-            ->filter() // hotfix: names should be filled
-            ->values()
-            ->toArray();
-
         return [
             'id' => $this->id,
             'identifier' => $this->identifier,
-            'author' => $authors,
+            'author' => $this->getUniqueAuthorsWithAuthorityNames(),
             'tag' => $this->tagNames(), // @TODO translate model
             'date_earliest' => $this->date_earliest,
             'date_latest' => $this->date_latest,
