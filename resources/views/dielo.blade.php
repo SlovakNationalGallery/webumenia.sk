@@ -473,8 +473,12 @@
                 <img src="{{ URL::asset('images/license/cc.svg') }}" alt="Creative Commons">
             </div>
             <div class="modal-body">
-                {!! trans('dielo.modal_license_body-content', ['item_url' => $item->getUrl(), 'free_url' =>
-                URL::to('katalog?is_free=1')] ) !!}
+                {!! trans('dielo.modal_license_body-header') !!}
+                <div>
+                    <pre><code>{{ $item->getCitation() }}</code></pre>
+                </div>
+                @include('components.copy_button', ['text' => $item->getCitation()])
+                {!! trans('dielo.modal_license_body-footer', ['free_url' => URL::to('katalog?is_free=1')]) !!}
             </div>
             <div class="modal-footer">
                 <div class="text-center"><button type="button" data-dismiss="modal"
