@@ -363,10 +363,10 @@ class Authority extends Model implements IndexableModel, TranslatableContract
     public static function formatEventDates($start_date, $end_date)
     {
         if (!$start_date && !$end_date) return "";
-        if (!$start_date) return ": " . $end_date;
-        if (!$end_date) return ": " . $start_date;
-        if  ($start_date === $end_date) return ": " . $start_date;
-        return ": " . $start_date . " - " . $end_date;
+        if (!$start_date) return $end_date;
+        if (!$end_date) return $start_date;
+        if ($start_date === $end_date) return $start_date;
+        return $start_date . " - " . $end_date;
     }
 
     /* pre atributy vo viacerych jazykoch
@@ -380,6 +380,27 @@ class Authority extends Model implements IndexableModel, TranslatableContract
         }
 
         return isset($atttribute[$index]) ? $atttribute[$index] : null;
+    }
+
+    public static function formatActivity($activity)
+    {
+        $ommitedActivities = ["pôsobenie", 'activity'];
+        if(in_array($activity, $ommitedActivities))
+        {
+            $activity = null;
+        }
+        return $activity;
+    }
+
+    public static function formatEvent($event)
+    {
+        $activity = self::formatActivity(self::formatMultiAttribute($event->event));
+        $event_dates = self::formatEventDates($event->start_date, $event->end_date);
+
+        if(!$activity && !$event_dates) return "";
+        if(!$activity) return add_brackets($event_dates);
+        if(!$event_dates) return add_brackets($activity);
+        return add_brackets($activity . ": " . $event_dates);
     }
 
     public function getAssociativeRelationships()
