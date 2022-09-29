@@ -22,14 +22,15 @@
                     {{ $article->category->name }}
                 </div>
             @endif
-            <div class="text-2xl tw-pb-2 tw-font-semibold md:tw-text-4xl">
+            <div class="tw-pb-2 tw-text-2xl tw-font-semibold md:tw-text-4xl">
                 <a href="{{ $url }}">
                     {{ $article->title }}
                 </a>
             </div>
             <div class="tw-pb-4 tw-text-sm tw-text-gray-600 md:tw-text-base">
-                <span class="hover:tw-underline">
-                    {{ $article->author }}</span> &nbsp;&middot;&nbsp;
+                <a href="{{ route('frontend.article.index', ['author' => $article->author]) }}">
+                    {{ $article->author }}</a>
+                &nbsp;&middot;&nbsp;
                 @dateShort($article->created_at)
             </div>
             <div
