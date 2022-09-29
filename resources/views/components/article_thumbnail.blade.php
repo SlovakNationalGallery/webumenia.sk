@@ -35,7 +35,7 @@
                 @dateShort($article->created_at)
             </div>
             <div
-                class="tw-mb-9 tw-min-h-0 tw-flex-1 tw-overflow-hidden tw-bg-gradient-to-br tw-from-gray-800 tw-via-gray-800 tw-to-white tw-bg-clip-text tw-font-serif tw-text-base tw-text-transparent md:tw-text-xl">
+                class="tw-mb-9 tw-min-h-0 tw-flex-1 tw-overflow-hidden tw-bg-gradient-to-b tw-from-gray-800 tw-via-gray-800 tw-to-white tw-bg-clip-text tw-font-serif tw-text-base tw-text-transparent md:tw-text-xl">
                 {{ strip_tags(html_entity_decode($article->summary)) }}
             </div>
             <div class="tw-text-sm tw-text-gray-600 md:tw-text-base">
