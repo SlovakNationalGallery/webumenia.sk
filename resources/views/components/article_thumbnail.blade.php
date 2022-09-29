@@ -1,5 +1,5 @@
 @props([
-    'article' => null,
+    'article',
     'url' => $article->getUrl(),
     'showEduTags' => false,
 ])
