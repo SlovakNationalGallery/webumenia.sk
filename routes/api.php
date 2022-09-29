@@ -30,5 +30,5 @@ Route::prefix('v1')->group(function () {
 });
 
 Route::prefix('v2')->group(function () {
-    Route::get('items/{id}', [V2ItemController::class, 'detail']);
+    Route::get('items/{id}', [V2ItemController::class, 'show']);
 });
