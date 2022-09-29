@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\ItemController;
 use App\Http\Controllers\Api\SharedUserCollectionController;
 use App\Http\Controllers\Api\TrackFeaturedPieceClick;
+use App\Http\Controllers\Api\V1\ItemController as V1ItemController;
+use App\Http\Controllers\Api\V2\ItemController as V2ItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,11 @@ Route::resource('/shared-user-collections', SharedUserCollectionController::clas
 Route::post('/track-featured-piece-click', TrackFeaturedPieceClick::class);
 
 Route::prefix('v1')->group(function () {
-    Route::get('items', [ItemController::class, 'index']);
-    Route::get('items/aggregations', [ItemController::class, 'aggregations']);
-    Route::get('items/{id}', [ItemController::class, 'detail']);
+    Route::get('items', [V1ItemController::class, 'index']);
+    Route::get('items/aggregations', [V1ItemController::class, 'aggregations']);
+    Route::get('items/{id}', [V1ItemController::class, 'detail']);
+});
+
+Route::prefix('v2')->group(function () {
+    Route::get('items/{id}', [V2ItemController::class, 'show']);
 });
