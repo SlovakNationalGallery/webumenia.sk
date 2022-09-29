@@ -28,7 +28,8 @@
                 </a>
             </div>
             <div class="tw-pb-4 tw-text-sm tw-text-gray-600 md:tw-text-base">
-                <a href="{{ route('frontend.article.index', ['author' => $article->author]) }}">
+                <a class="hover:tw-underline"
+                    href="{{ route('frontend.article.index', ['author' => $article->author]) }}">
                     {{ $article->author }}</a>
                 &nbsp;&middot;&nbsp;
                 @dateShort($article->created_at)
