@@ -8,7 +8,7 @@ use App\Item;
 
 class ItemController extends Controller
 {
-    public function detail($id)
+    public function show($id)
     {
         $item = Item::findOrFail($id);
         return new ItemResource($item);
