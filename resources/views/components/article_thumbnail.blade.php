@@ -1,16 +1,14 @@
-@props([
-    'article',
-    'url' => $article->getUrl(),
-    'showEduTags' => false,
-])
+@props(['article', 'url' => $article->getUrl(), 'showEduTags' => false])
 
 <div class="tailwind-rules">
     <div
         class="tw-container tw-mx-auto tw-flex tw-h-[30rem] tw-max-w-screen-xl tw-flex-wrap tw-px-6 tw-py-4 md:tw-h-[25.75rem] md:tw-flex-nowrap">
         <div class="tw-h-1/3 tw-w-full md:tw-h-full md:tw-w-1/2">
             @if ($article->main_image)
-                <a href="{{ $url }}" class="tw-h-full">
-                    <img src="{{ $article->getThumbnailImage() }}"
+                <a href="{{ $url }}">
+                    <img srcset="{{ $article->getHeaderImageSrcsetAttribute() }}"
+                        src="{{ $article->getThumbnailImage() }}"
+                        sizes="(max-width: 768w) 100vw, 50vw"
                         class="tw-h-full tw-w-full tw-object-cover" alt="{{ $article->title }}">
                 </a>
             @endif
