@@ -19,7 +19,7 @@
             class="tw-flex tw-h-2/3 tw-w-full tw-flex-col tw-pt-4 md:tw-box-border md:tw-h-full md:tw-max-h-full md:tw-w-1/2 md:tw-px-12 md:tw-py-10">
             @if ($article->category?->name)
                 <div class="tw-pb-3 tw-text-sm tw-font-medium tw-text-gray-600 md:tw-text-lg">
-                    {{ $article->category->name }}
+                    {{ Str::ucfirst($article->category->name) }}
                 </div>
             @endif
             <div class="tw-pb-2 tw-text-2xl tw-font-semibold md:tw-text-4xl">
