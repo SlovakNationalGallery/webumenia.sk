@@ -48,15 +48,9 @@
             </div>
             <div class="modal-body text-left">
                 <code>{{ $url }}</code>
-                <a href="#"
-                   class="pull-right js-copy"
-                   data-message="{{ trans('general.copied_to_clipboard') }}"
-                   data-url="{{ $url }}"
-                   data-toggle="tooltip"
-                   data-trigger="manual"
-                   data-container="body"
-                   title="{{ trans('general.copy') }}"
-                ><i class="fa fa-clipboard" aria-hidden="true"></i> {{ trans('general.copy') }}</a>
+                <div class="pull-right">
+                @include('components.copy_button', ['text' => $url])
+                </div>
             </div>
             <div class="modal-footer">
                 <div class="text-center"><button type="button" data-dismiss="modal"

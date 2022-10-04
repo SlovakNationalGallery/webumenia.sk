@@ -1,10 +1,8 @@
-function copyToClipboard(url, message, el) {
-    var $temp = $("<input>");
-    $("#shareLink").append($temp);
-    $temp.val(url).select();
-    var successful = document.execCommand("copy");
-    $temp.remove();
-    var msg = successful ? message : 'Whoops, not copied...';
+async function copyToClipboard(url, message, el) {
+    var msg = 'Whoops, not copied...';
+    await navigator.clipboard.writeText(url).then(() => {
+      msg = message;
+    });
     el.attr('data-original-title', msg).tooltip('show');
     setTimeout(function () {
       el.tooltip('hide');

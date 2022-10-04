@@ -27,6 +27,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\OaiPmhDownloadImages::class,
         \App\Console\Commands\MigrateTags::class,
         \App\Console\Commands\ImportCsv::class,
+        \App\Console\Commands\ImportIipImages::class,
         \App\Console\Commands\ItemsExtractColors::class,
         \App\Console\Commands\MatchAuthorities::class,
         \App\Console\Commands\MediaLibraryRegenerateResponsiveImages::class,
