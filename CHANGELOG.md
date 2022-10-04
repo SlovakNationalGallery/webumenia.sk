@@ -5,8 +5,9 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - lazy loading items for reindex
 
-### Added 
+### Added
 - artwork info to citation note on download
+- import iip images command
 
 ## [2.66.0] - 2022-09-22
 ### Fixed
