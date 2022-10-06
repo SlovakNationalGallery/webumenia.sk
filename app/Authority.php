@@ -374,26 +374,6 @@ class Authority extends Model implements IndexableModel, TranslatableContract
         return isset($atttribute[$index]) ? $atttribute[$index] : null;
     }
 
-    public function formatEvent($event)
-    {
-        $activityTranslation = self::formatMultiAttribute($event->event);
-        $filteredActivity = in_array($activityTranslation, ['pôsobenie', 'activity'])
-            ? null
-            : $activityTranslation;
-        $event_dates = self::formatEventDates($event->start_date, $event->end_date);
-
-        if (!$filteredActivity && !$event_dates) {
-            return '';
-        }
-        if (!$filteredActivity) {
-            return add_brackets($event_dates);
-        }
-        if (!$event_dates) {
-            return add_brackets($filteredActivity);
-        }
-        return add_brackets($filteredActivity . ': ' . $event_dates);
-    }
-
     public function getAssociativeRelationships()
     {
         $associative_relationships = [];
