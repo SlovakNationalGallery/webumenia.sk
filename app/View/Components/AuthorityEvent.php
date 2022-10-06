@@ -7,7 +7,7 @@ use App\Authority;
 
 class AuthorityEvent extends Component
 {
-    public static function formatEventDates($start_date, $end_date)
+   private function formatEventDates($start_date, $end_date)
     {
         if (!$start_date && !$end_date) {
             return '';
