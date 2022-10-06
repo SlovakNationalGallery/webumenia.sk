@@ -360,7 +360,6 @@ class Authority extends Model implements IndexableModel, TranslatableContract
         ];
     }
 
-
     /* pre atributy vo viacerych jazykoch
      napr. "štúdium/study" alebo "učiteľ/teacher" */
     public static function formatMultiAttribute($atttribute, $index = 0)
