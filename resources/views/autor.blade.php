@@ -85,8 +85,7 @@
                         <div class="events">
                             <h4 class="top-space">{{ utrans('authority.places') }}</h4>
                             @foreach ($author->events as $i=>$event)
-                                <strong><a href="{!! route('frontend.author.index', ['place' => $event->place]) !!}">{!! $event->place !!}</a></strong> 
-                                    {{$author->formatEvent($event)}}{{ ($i+1 < $author->events->count()) ? ', ' : '' }}
+                                <x-authority-event :event="$event" :count="$author->events->count()" :i="$i" />        
                             @endforeach
                         </div>
                     @endif

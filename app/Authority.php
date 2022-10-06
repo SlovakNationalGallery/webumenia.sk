@@ -360,22 +360,6 @@ class Authority extends Model implements IndexableModel, TranslatableContract
         ];
     }
 
-    public static function formatEventDates($start_date, $end_date)
-    {
-        if (!$start_date && !$end_date) {
-            return '';
-        }
-        if (!$start_date) {
-            return $end_date;
-        }
-        if (!$end_date) {
-            return $start_date;
-        }
-        if ($start_date === $end_date) {
-            return $start_date;
-        }
-        return $start_date . ' - ' . $end_date;
-    }
 
     /* pre atributy vo viacerych jazykoch
      napr. "štúdium/study" alebo "učiteľ/teacher" */
