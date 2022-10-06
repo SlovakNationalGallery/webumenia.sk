@@ -136,7 +136,7 @@ trait HasHeaderImage
 
         if (!file_exists($preview_full_path)) {
             try {
-                \Image::make($full_path)->fit(1200, 480)->save($preview_full_path);
+                \Image::make($full_path)->fit(600, 250)->save($preview_full_path);
             } catch (\Exception $e) {
                 app('sentry')->captureException($e);
             }
