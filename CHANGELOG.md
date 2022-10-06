@@ -10,6 +10,8 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - artwork info to citation note on download
 - import iip images command
+- article thumbnail according to the new design
+
 
 ## [2.66.0] - 2022-09-22
 ### Fixed
@@ -17,7 +19,6 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Updated
 - migrate factories to laravel 8 + style factories
-- article thumbnail according to the new design
 
 ## [2.65.0] - 2022-09-12
 ### Fixed
