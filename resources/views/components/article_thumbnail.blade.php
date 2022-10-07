@@ -8,7 +8,7 @@
                 <a href="{{ $url }}">
                     <img srcset="{{ $article->getHeaderImageSrcsetAttribute() }}"
                         src="{{ $article->getThumbnailImage() }}"
-                        sizes="(max-width: 768w) 100vw, 50vw"
+                        sizes="(max-width: 768w) 100vw, 150vw"
                         class="tw-h-full tw-w-full tw-object-cover" alt="{{ $article->title }}">
                 </a>
             @endif
