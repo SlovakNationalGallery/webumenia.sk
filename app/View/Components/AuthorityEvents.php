@@ -5,9 +5,9 @@ namespace App\View\Components;
 use Illuminate\View\Component;
 use App\Authority;
 
-class AuthorityEvent extends Component
+class AuthorityEvents extends Component
 {
-   private function formatEventDates($start_date, $end_date)
+    private function formatEventDates($start_date, $end_date)
     {
         if (!$start_date && !$end_date) {
             return '';
@@ -50,6 +50,6 @@ class AuthorityEvent extends Component
      */
     public function render()
     {
-        return view('components.authority-event');
+        return view('components.authority-events');
     }
 }

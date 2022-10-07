@@ -84,9 +84,7 @@
                     @if ( $author->events->count() > 0)
                         <div class="events">
                             <h4 class="top-space">{{ utrans('authority.places') }}</h4>
-                            @foreach ($author->events as $i=>$event)
-                                <x-authority-event :event="$event" :count="$author->events->count()" :i="$i" />        
-                            @endforeach
+                            <x-authority-events :author="$author" />
                         </div>
                     @endif
                     @if ($author->sourceLinks->count() > 0)
