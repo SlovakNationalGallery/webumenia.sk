@@ -84,9 +84,7 @@
                     @if ( $author->events->count() > 0)
                         <div class="events">
                             <h4 class="top-space">{{ utrans('authority.places') }}</h4>
-                            @foreach ($author->events as $i=>$event)
-                                <strong><a href="{!! route('frontend.author.index', ['place' => $event->place]) !!}">{!! $event->place !!}</a></strong> {!! add_brackets(App\Authority::formatMultiAttribute($event->event)) !!}{{ ($i+1 < $author->events->count()) ? ', ' : '' }}
-                            @endforeach
+                            <x-authority-events :author="$author" />
                         </div>
                     @endif
                     @if ($author->sourceLinks->count() > 0)
