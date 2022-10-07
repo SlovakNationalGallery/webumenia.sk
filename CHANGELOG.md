@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Updated
+- queue config in .env.example
 
 ## [2.67.0] - 2022-10-04
 ### Fixed
