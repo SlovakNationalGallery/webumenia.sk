@@ -29,7 +29,7 @@ module.exports = {
             },
         },
     },
-    plugins: [require('@tailwindcss/typography')],
+    plugins: [require('@tailwindcss/typography'), require('@tailwindcss/line-clamp')],
     prefix: 'tw-',
     corePlugins: {
         preflight: false, // TODO Not needed. Re-enable after switching from Bootstrap

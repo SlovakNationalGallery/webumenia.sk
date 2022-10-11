@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     'title' => 'články',
     'count' => 'článok|články|článkov',
     'no_results' => 'momentálne žiadne články',
@@ -10,6 +10,7 @@ return array(
         'sort_by' => [
             'date_desc' => 'dátumu',
             'date_asc' => 'dátumu od najstaršieho',
-        ]
-    ]
-);
+        ],
+    ],
+    'we_recommend' => 'odporúčame',
+];
