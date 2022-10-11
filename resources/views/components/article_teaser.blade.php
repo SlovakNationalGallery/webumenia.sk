@@ -1,9 +1,9 @@
 @props(['article'])
 
 <div class="tailwind-rules">
-    <div class="tw-max-w-full tw-justify-center tw-align-middle file:tw-flex">
+    <div class="tw-max-w-full tw-justify-center tw-align-middle tw-font-normal file:tw-flex">
         <div class="tw-bg-gray-200 tw-p-6 md:tw-pt-4">
-            <div class="tw-mb-3 tw-text-base tw-font-semibold">
+            <div class="tw-mb-3 tw-text-base tw-font-medium">
                 {{ trans('articles.we_recommend') }}
             </div>
             <div
@@ -20,14 +20,13 @@
                     @endif
                 </div>
                 <div class="tw-flex tw-w-full tw-flex-col md:tw-box-border md:tw-w-1/2 md:tw-pl-6">
-                    <div class="tw-pt-3 tw-pb-1 tw-text-2xl tw-font-semibold md:tw-pt-0">
+                    <div class="tw-pt-4 tw-pb-1 tw-text-2xl tw-font-semibold md:tw-pt-0">
                         {{-- TODO: Remove tw-border once we remove conflicting css classes --}}
                         <a href="{{ $article->getUrl() }}" class="!tw-border-0">
                             {{ $article->title }}
                         </a>
                     </div>
-                    <div
-                        class="tw-pb-4 tw-text-sm tw-font-semibold tw-text-gray-600 md:tw-text-base">
+                    <div class="tw-pb-4 tw-text-sm tw-text-gray-600 md:tw-text-base">
                         {{ $article->author }}
                     </div>
                     <div
