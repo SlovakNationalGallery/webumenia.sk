@@ -12,5 +12,5 @@ return [
             'date_asc' => 'dátumu od najstaršieho',
         ],
     ],
-    'we_recommend' => 'odporúčame',
+    'we_recommend' => 'Odporúčame',
 ];
