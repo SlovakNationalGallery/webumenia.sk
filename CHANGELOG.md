@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+- parse article teaser from admin
 
 ## [2.67.0] - 2022-10-04
 ### Fixed

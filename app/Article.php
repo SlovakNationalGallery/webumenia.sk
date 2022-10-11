@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Article extends Model implements TranslatableContract
 {
@@ -140,5 +143,20 @@ class Article extends Model implements TranslatableContract
     public function getReadingTimeAttribute()
     {
         return getEstimatedReadingTime($this->summary . ' ' . $this->content, \App::getLocale());
+    }
+
+    public function getParsedContent()
+    {
+        $content = Str::of($this->content)->replaceMatches("/\[x-article_teaser id=&#39;.*&#39;\/\]/", function ($match) {
+            if (empty($match[0])) return '';
+            $id = Str::of($match[0])->between("id=&#39;","&#39;");
+            $article = Article::find($id);
+
+            if(!$article) return '';
+            
+            $article_teaser = Blade::render('<x-article_teaser :article="$article" :url="$url" />', ['article' => $article, 'url' => route('frontend.educational-article.show', $article->slug)]);
+            return $article_teaser;
+        });
+        return $content;
     }
 }

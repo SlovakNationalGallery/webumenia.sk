@@ -108,7 +108,7 @@
             </div>
             <div class="row">
                 <div class="col-md-8 col-md-push-2 long-text">
-                    {!! $article->content !!}
+                    {!! $article->getParsedContent() !!}
                 </div>
             </div>
             @unless (Cookie::has('newsletterSubscribedAt'))
