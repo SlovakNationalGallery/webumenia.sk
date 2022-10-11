@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [2.68.0] - 2022-10-13
 ### Added
 - default Scout config to enable Scout search functionality
+- parse article teaser from admin
 
 ### Changed
 - display start and end date with roles on authors page
