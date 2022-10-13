@@ -2,8 +2,13 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
-### Updated
+### Fixed
+- article category on homepage
+- Item::related scope to match catalog search query
 - queue config in .env.example
+
+### Added
+- default Scout config to enable Scout search functionality
 
 ## [2.67.0] - 2022-10-04
 ### Fixed
