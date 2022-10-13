@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.68.0] - 2022-10-13
 ### Fixed
 - article category on homepage
 - Item::related scope to match catalog search query
