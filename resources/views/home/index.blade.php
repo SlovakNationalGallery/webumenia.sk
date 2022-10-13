@@ -318,7 +318,7 @@
                                 class="tw-h-48 tw-object-cover tw-transition-opacity tw-duration-300 hover:tw-opacity-80">
                         </a>
                         <span class="tw-mt-4 tw-inline-block tw-text-sm tw-text-gray-600">
-                            {{ Str::ucfirst($c->type ?? trans('home.latest_content.articles.default_type')) }}
+                            {{ Str::ucfirst($a->category?->name ?? trans('home.latest_content.articles.default_type')) }}
                         </span>
                         <h4
                             class="tw-truncate tw-text-lg tw-font-semibold tw-leading-tight tw-text-black">

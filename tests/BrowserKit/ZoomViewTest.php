@@ -2,14 +2,17 @@
 
 namespace Tests\BrowserKit;
 
+use App\Elasticsearch\Repositories\ItemRepository;
 use App\Item;
 use App\ItemImage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\BrowserKitTestCase;
+use Tests\RecreateSearchIndex;
+use Tests\TestCase;
 
-class ZoomViewTest extends BrowserKitTestCase
+class ZoomViewTest extends TestCase
 {
     use RefreshDatabase;
+    use RecreateSearchIndex;
 
     public function testMultipleImages()
     {
@@ -19,11 +22,10 @@ class ZoomViewTest extends BrowserKitTestCase
         $image->item()->associate($item);
         $image->save();
 
-        $response = $this->route('get', 'item.zoom', ['id' => $item->id]);
-        $data = $response->original->getData();
+        $response = $this->get(route('item.zoom', ['id' => $item->id]));
 
-        $this->assertCount(1, $data['fullIIPImgURLs']);
-        $this->assertEquals(0, $data['index']);
+        $this->assertCount(1, $response['fullIIPImgURLs']);
+        $this->assertEquals(0, $response['index']);
     }
 
     public function testRelatedItems()
@@ -43,11 +45,13 @@ class ZoomViewTest extends BrowserKitTestCase
             $related_items[] = $item;
         }
 
-        $response = $this->route('get', 'item.zoom', ['id' => $related_items[0]->id]);
-        $data = $response->original->getData();
+        // Ensure all data is indexed
+        app(ItemRepository::class)->refreshIndex();
 
-        $this->assertCount($count, $data['fullIIPImgURLs']);
-        $this->assertEquals(0, $data['index']);
+        $response = $this->get(route('item.zoom', ['id' => $related_items[0]->id]));
+
+        $this->assertCount($count, $response['fullIIPImgURLs']);
+        $this->assertEquals(0, $response['index']);
     }
 
     public function testPrioritizedMultipleImages()
@@ -77,10 +81,9 @@ class ZoomViewTest extends BrowserKitTestCase
         $related_item_image->item()->associate($related_item);
         $related_item_image->save();
 
-        $response = $this->route('get', 'item.zoom', ['id' => $item->id]);
-        $data = $response->original->getData();
+        $response = $this->get(route('item.zoom', ['id' => $item->id]));
 
-        $this->assertCount($count, $data['fullIIPImgURLs']);
-        $this->assertEquals(0, $data['index']);
+        $this->assertCount($count, $response['fullIIPImgURLs']);
+        $this->assertEquals(0, $response['index']);
     }
 }
