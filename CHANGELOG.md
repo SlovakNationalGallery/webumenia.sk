@@ -4,13 +4,16 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 
 ## [2.68.0] - 2022-10-13
+### Added
+- default Scout config to enable Scout search functionality
+
+### Changed
+- display start and end date with roles on authors page
+
 ### Fixed
 - article category on homepage
 - Item::related scope to match catalog search query
 - queue config in .env.example
-
-### Added
-- default Scout config to enable Scout search functionality
 
 ## [2.67.0] - 2022-10-04
 ### Fixed
@@ -27,7 +30,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - item detail view to eliminate N+1 queries
 
-### Updated
+### Changed
 - migrate factories to laravel 8 + style factories
 
 ## [2.65.0] - 2022-09-12
