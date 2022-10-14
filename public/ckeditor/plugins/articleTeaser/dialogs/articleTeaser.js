@@ -27,7 +27,7 @@ CKEDITOR.dialog.add('articleTeaserDialog', function (editor) {
             var dialog = this
             var articleId = dialog.getValueOf('tab-basic', 'id')
 
-            editor.insertHtml(`[x-article_teaser id='${articleId}'/]`)
+            editor.insertHtml(`[article_teaser id=${articleId}/]`)
         },
     }
 })
