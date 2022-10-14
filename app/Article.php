@@ -144,7 +144,7 @@ class Article extends Model implements TranslatableContract
         return getEstimatedReadingTime($this->summary . ' ' . $this->content, \App::getLocale());
     }
 
-    public function getParsedContent()
+    public function getParsedContentAttribute()
     {
         $content = Str::of($this->content)->replaceMatches("/\[x-article_teaser id=&#39;.*&#39;\/\]/", function ($match) {
             if (empty($match[0])) return '';
