@@ -153,7 +153,7 @@ class Article extends Model implements TranslatableContract
 
             if(!$article) return '';
             
-            $article_teaser = Blade::render('<x-article_teaser :article="$article" :url="$url" />', ['article' => $article, 'url' => route('frontend.educational-article.show', $article->slug)]);
+            $article_teaser = Blade::render('<x-article_teaser :article="$article" :url="$url" />', ['article' => $article, 'url' => $article->getUrl()]);
             return $article_teaser;
         });
         return $content;
