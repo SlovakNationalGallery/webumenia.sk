@@ -146,9 +146,9 @@ class Article extends Model implements TranslatableContract
 
     public function getParsedContentAttribute()
     {
-        $content = Str::of($this->content)->replaceMatches("/\[x-article_teaser id=&#39;.*&#39;\/\]/", function ($match) {
-            if (empty($match[0])) return '';
-            $id = Str::of($match[0])->between("id=&#39;","&#39;");
+        $content = Str::of(html_entity_decode($this->content))->replaceMatches("/\[article_teaser id=(.*?)\/\]/", function ($match) {
+            if (empty($match[1])) return '';
+            $id = Str::of($match[1]);
             $article = Article::find($id);
 
             if(!$article) return '';
