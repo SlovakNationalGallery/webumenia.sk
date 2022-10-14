@@ -1,11 +1,3 @@
-function prepareSrcSet(basePath) {
-    return `${basePath.replace('WIDTH', 600)} 600w,
-			${basePath.replace('WIDTH', 220)} 220w,
-			${basePath.replace('WIDTH', 300)} 300w,
-			${basePath.replace('WIDTH', 600)} 600w,
-			${basePath.replace('WIDTH', 800)} 800w`
-}
-
 CKEDITOR.dialog.add('articleTeaserDialog', function (editor) {
     return {
         // Basic properties of the dialog window: title, minimum size.
