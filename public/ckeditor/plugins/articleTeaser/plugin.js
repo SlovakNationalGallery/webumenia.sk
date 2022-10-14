@@ -2,7 +2,7 @@
 CKEDITOR.plugins.add('articleTeaser', {
     // Register the icons.
     icons: 'articleTeaser',
-    lang: 'sk,en,cs',
+    lang: 'sk',
 
     // The plugin initialization logic goes inside this method.
     init: function (editor) {
