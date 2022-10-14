@@ -342,7 +342,7 @@ class Authority extends Model implements IndexableModel, TranslatableContract
             'related_name' => $this->relationships()->pluck('name'),
             'nationality' => $this->nationalities()->pluck('code'),
             'place' => $this->places,
-            'role' => $this->roles,
+            'role' => $translation->roles,
             'birth_year' => $this->birth_year,
             'death_year' => $this->death_year,
             'sex' => $this->sex,
