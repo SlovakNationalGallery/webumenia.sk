@@ -5,6 +5,7 @@ Disallow: */stiahnut
 Disallow: */objednat
 Disallow: /objednavka
 Disallow: /patternlib
+Disallow: /katalog-new
 Disallow: */katalog?*color=*
 Disallow: */dielo/*/colorrelated
 Crawl-Delay: 5
