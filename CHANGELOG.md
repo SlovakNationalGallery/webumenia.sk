@@ -6,7 +6,6 @@ All notable changes to this project will be documented in this file[^1].
 - indexing of Authority roles
 
 ### Added 
-
 - parse article teaser from admin
 
 ## [2.68.0] - 2022-10-13
