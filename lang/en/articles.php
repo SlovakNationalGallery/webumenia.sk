@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     'title' => 'articles',
     'count' => 'article|articles',
     'no_results' => 'currently no articles',
@@ -10,6 +10,7 @@ return array(
         'sort_by' => [
             'date_desc' => 'date',
             'date_asc' => 'date, oldest first',
-        ]
-    ]
-);
+        ],
+    ],
+    'we_recommend' => 'We recommend',
+];

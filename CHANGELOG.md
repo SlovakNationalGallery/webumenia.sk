@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - indexing of Authority roles
 
+### Added 
+- parse article teaser from admin
+
 ## [2.68.0] - 2022-10-13
 ### Added
 - default Scout config to enable Scout search functionality
