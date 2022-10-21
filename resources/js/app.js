@@ -24,6 +24,11 @@ require('./components/newsletter-signup-form-tracker')
 import Vue from 'vue'
 import 'livewire-vue'
 import { Lang } from 'laravel-vue-lang';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faCaretDown, faCaretUp, faRotateLeft } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faCaretDown, faCaretUp, faRotateLeft)
 
 
 window.Vue = Vue
