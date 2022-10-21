@@ -24,14 +24,20 @@ require('./components/newsletter-signup-form-tracker')
 import Vue from 'vue'
 import 'livewire-vue'
 import { Lang } from 'laravel-vue-lang';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faCaretDown, faCaretUp, faRotateLeft } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faCaretDown, faCaretUp, faRotateLeft)
 
 window.Vue = Vue
 Vue.use(Lang, { fallback: 'sk' })
-
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('featured-piece-click-tracker', require('./components/FeaturedPieceClickTracker.vue').default);
 Vue.component('filter-sort-by', require('./components/filter/SortBy.vue').default);
 Vue.component('filter-checkbox', require('./components/filter/Checkbox.vue').default);
 Vue.component('filter-custom-select', require('./components/filter/CustomSelect.vue').default);
+Vue.component('filter-new-custom-select', require('./components/filter/NewCustomSelect.vue').default);
 Vue.component('flickity', require('./components/Flickity.vue').default);
 Vue.component('home.shuffle-orchestrator', require('./components/home/ShuffleOrchestrator.vue').default);
 Vue.component('home.transition-in-place', require('./components/home/TransitionInPlace.vue').default);
