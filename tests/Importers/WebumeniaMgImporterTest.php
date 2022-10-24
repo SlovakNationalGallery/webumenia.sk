@@ -6,8 +6,10 @@ use App\Import;
 use App\Repositories\CsvRepository;
 use App\Importers\WebumeniaMgImporter;
 use App\Matchers\AuthorityMatcher;
+use GuzzleHttp\Psr7\UploadedFile;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
 use SplFileInfo;
 use Tests\TestCase;
 
@@ -180,11 +182,17 @@ class WebumeniaMgImporterTest extends TestCase
 
     protected function fakeData(array $data = [])
     {
+        $storage = Storage::fake('DG_PUBLIC_IS');
+        $storage->put('rada_s000123-lomeni_s.jp2', '');
+
         $plus2TValidator = function ($value) {
             return $value !== 'ODPIS';
         };
 
         return $data + [
+            'Rada_S' => 'rada_s',
+            'Lomeni_S' => 'lomeni_s',
+            'PorC_S' => 123,
             'Datace' => $this->faker->sentence,
             'RokOd' => $this->faker->year,
             'Do' => $this->faker->year,
@@ -195,8 +203,6 @@ class WebumeniaMgImporterTest extends TestCase
             'Titul' => $this->faker->sentence,
             'Námět' => $this->faker->sentence,
             'Plus2T' => $this->faker->valid($plus2TValidator)->text,
-            'Rada_S' => $this->faker->randomLetter,
-            'PorC_S' => $this->faker->randomNumber,
             'Materiál' => $this->faker->sentence,
             'MatSpec' => $this->faker->sentence,
             'TechSpec' => $this->faker->sentence,
@@ -204,7 +210,6 @@ class WebumeniaMgImporterTest extends TestCase
             'Skupina' => $this->faker->lexify('??'),
             'Služ' => $this->faker->sentence,
             'Okolnosti' => $this->faker->text,
-            'Lomeni_S' => $this->faker->bothify('##?'),
         ];
     }
 }

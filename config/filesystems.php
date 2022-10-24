@@ -28,6 +28,12 @@ return [
     */
 
     'disks' => [
+        'DG_PUBLIC_IS' => [
+            'driver' => 'local',
+            'root' => env('DG_PUBLIC_IS_PATH', storage_path()),
+            'throw' => true,
+        ],
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
@@ -42,17 +48,17 @@ return [
             'throw' => true,
         ],
 
+        'import' => [
+            'driver' => 'local',
+            'root' => storage_path('app/import'),
+            'throw' => true,
+        ],
+
         'media' => [
             'driver' => 'local',
             'root' => public_path('storage/media'),
             'url' => env('APP_URL') . '/storage/media',
             'visibility' => 'public',
-            'throw' => true,
-        ],
-
-        'iip_images' => [
-            'driver' => 'local',
-            'root' => env('IIP_BASE_PATH'),
             'throw' => true,
         ],
 

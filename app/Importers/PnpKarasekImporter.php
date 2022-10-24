@@ -4,6 +4,8 @@ namespace App\Importers;
 
 use App\Import;
 use App\ImportRecord;
+use App\Item;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use SplFileInfo;
 
@@ -47,16 +49,16 @@ class PnpKarasekImporter extends AbstractImporter
         };
     }
 
-    public function import(Import $import, SplFileInfo $file)
+    public function import(Import $import, SplFileInfo $file): array
     {
         $this->counter = 0;
         return parent::import($import, $file);
     }
 
-    protected function importSingle(array $record, Import $import, ImportRecord $import_record)
+    protected function importSingle(array $record, ImportRecord $import_record): Item
     {
         $this->counter++;
-        return parent::importSingle($record, $import, $import_record);
+        return parent::importSingle($record, $import_record);
     }
 
     protected function getItemId(array $record)
@@ -64,10 +66,21 @@ class PnpKarasekImporter extends AbstractImporter
         return sprintf('CZE:PNP.%s', $this->getSlug($record['Inventární číslo:']));
     }
 
-    protected function getItemImageFilenameFormat(array $record)
+    protected function getItemImageFilenameFormat(array $record): string
     {
         $slug = $this->getSlug($record['Inventární číslo:']);
-        return sprintf('%s{_*,}', $slug);
+        return sprintf('%s(_.*)?', preg_quote($slug));
+    }
+
+    protected function getJp2Files(
+        ImportRecord $import_record,
+        string $image_filename_format
+    ): Collection {
+        return $import_record
+            ->files()
+            ->filter(
+                fn($file) => preg_match(sprintf('#^%s\.jp2$#', $image_filename_format), $file)
+            );
     }
 
     protected function getSlug($identifier)

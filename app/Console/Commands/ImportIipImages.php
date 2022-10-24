@@ -16,7 +16,7 @@ class ImportIipImages extends Command
     public function handle()
     {
         $dir = $this->argument('dir');
-        $files = Storage::disk('iip_images')
+        $files = Storage::disk('DG_PUBLIC_IS')
             ->listContents($dir)
             ->sortByPath();
 

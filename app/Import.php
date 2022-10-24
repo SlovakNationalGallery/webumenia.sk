@@ -2,11 +2,10 @@
 
 namespace App;
 
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
-use League\Flysystem\FileAttributes;
-use League\Flysystem\StorageAttributes;
 use SplFileInfo;
 
 class Import extends Model
@@ -69,18 +68,19 @@ class Import extends Model
         return 'default';
     }
 
-    public function getFilesAttribute()
+    public function storage(): Filesystem
     {
-        return Storage::listContents('import/' . $this->dir_path)
-            ->filter(fn(StorageAttributes $attributes) => $attributes->isFile())
-            ->filter(
-                fn(FileAttributes $attributes) => Str::afterLast($attributes->path(), '.') === 'csv'
-            )
-            ->map(
-                fn(FileAttributes $attributes) => new SplFileInfo(
-                    storage_path('app/' . $attributes->path())
-                )
-            )
-            ->toArray();
+        return Storage::disk($this->disk);
+    }
+
+    public function files(): Collection
+    {
+        $files = $this->storage()->files($this->dir_path);
+        return collect($files)->map(fn(string $file) => new SplFileInfo($file));
+    }
+
+    public function readStream(SplFileInfo $file)
+    {
+        return $this->storage()->readStream($file);
     }
 }

@@ -6,26 +6,22 @@ use League\Csv\Reader;
 
 class CsvRepository implements IFileRepository
 {
-    public function getAll($file, array $options = [])
+    public function getAll($resource, array $options = []): \Iterator
     {
-        $reader = $this->createReader($file, $options);
+        $reader = $this->createReader($resource, $options);
         $reader->setHeaderOffset(0);
         return $reader->getRecords();
     }
 
-    public function getFiltered($file, array $filters, array $options = [])
+    public function getFiltered($resource, array $filters, array $options = []): \Iterator
     {
-        $all = $this->getAll($file, $options);
+        $all = $this->getAll($resource, $options);
         return $this->filter($all, $filters);
     }
 
-    /**
-     * @param string $file
-     * @return Reader
-     */
-    protected function createReader($file, array $options = [])
+    protected function createReader($resource, array $options = []): Reader
     {
-        $reader = Reader::createFromPath($file, 'r');
+        $reader = Reader::createFromStream($resource);
 
         if (isset($options['delimiter'])) {
             $reader->setDelimiter($options['delimiter']);
@@ -51,20 +47,12 @@ class CsvRepository implements IFileRepository
         return $reader;
     }
 
-    /**
-     * @param string $input_encoding
-     * @return string
-     */
-    protected function getConversionFilter($input_encoding)
+    protected function getConversionFilter(string $input_encoding): string
     {
         return sprintf('convert.iconv.%s/UTF-8', $input_encoding);
     }
 
-    /**
-     * @param \Iterator $records
-     * @return \Iterator
-     */
-    protected function filter(\Iterator $records, array $filters)
+    protected function filter(\Iterator $records, array $filters): \Iterator
     {
         return new \CallbackFilterIterator($records, function ($current, $key) use ($filters) {
             foreach ($filters as $filter) {
