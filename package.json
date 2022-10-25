@@ -12,6 +12,7 @@
     "devDependencies": {
         "@prettier/plugin-php": "^0.18.2",
         "@shufo/prettier-plugin-blade": "^1.2.4",
+        "@tailwindcss/custom-forms": "^0.2.1",
         "@tailwindcss/typography": "^0.5.2",
         "autoprefixer": "^10.4.2",
         "cross-env": "^5.1",
@@ -26,6 +27,7 @@
         "resolve-url-loader": "^3.1.2",
         "sass": "^1.15.2",
         "sass-loader": "^7.1.0",
+        "tailwind-scrollbar": "^2.1.0-preview.0",
         "tailwindcss": "^3.0.15",
         "vue": "^2.6.12",
         "vue-loader": "^15.9.8",

@@ -25,11 +25,11 @@
         <!-- TODO: Position modal with js: https://css-tricks.com/popping-hidden-overflow/ -->
         <div
             v-if="opened"
-            class="tw-w-[20rem] tw-h-[30rem] tw-border-2 tw-p-6 tw-bg-white tw-border-gray-800 tw-z-10 tw-absolute tw-top-36"
+            class="tw-w-[20rem] tw-h-[30rem] tw-flex tw-flex-col tw-border-2 tw-items-start tw-p-6 tw-bg-white tw-border-gray-800 tw-z-10 tw-absolute tw-top-36"
         >
-            <!-- <Options :options="mockOptions" :placeholder="placeholder" /> -->
+            <Options :options="mockOptions" :placeholder="placeholder" />
             <button
-                :class="`tw-bg-white tw-px-4 tw-font-normal tw-py-1.5 tw-text-sm tw-border tw-border-gray-300 hover:tw-border-gray-800`"
+                :class="`tw-bg-white tw-mb-6 tw-mt-5 tw-px-4 tw-font-normal tw-py-1.5 tw-text-sm tw-border tw-border-gray-300 hover:tw-border-gray-800`"
             >
                 <div class="tw-flex">
                     <div class="tw-pr-2 tw-flex tw-items-center">
@@ -46,8 +46,9 @@
 </template>
 
 <script>
-//import Options from './Options.vue'
 import '@fortawesome/vue-fontawesome'
+import Options from './Options.vue'
+import mockOptions from './mock.json'
 
 export default {
     props: {
@@ -56,6 +57,11 @@ export default {
         active: Boolean,
         opened: Boolean,
     },
-    // components: { Options },
+    data() {
+        return {
+            mockOptions: mockOptions,
+        }
+    },
+    components: { Options },
 }
 </script>

@@ -29,7 +29,12 @@ module.exports = {
             },
         },
     },
-    plugins: [require('@tailwindcss/typography'), require('@tailwindcss/line-clamp')],
+    plugins: [
+        require('@tailwindcss/typography'),
+        require('@tailwindcss/line-clamp'),
+        require('@tailwindcss/custom-forms'),
+        require('tailwind-scrollbar')({ nocompatible: true }),
+    ],
     prefix: 'tw-',
     corePlugins: {
         preflight: false, // TODO Not needed. Re-enable after switching from Bootstrap

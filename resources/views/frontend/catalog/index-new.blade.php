@@ -15,7 +15,7 @@
                 <filter-new-custom-select name="filter vanilla" placeholder="Simple dummy text" />
             </div>
         </div>
-        <filter-new-mobile-custom-select opened />
+        <filter-new-mobile-custom-select placeholder="Simple dummy text" />
     </section>
 
 @stop
