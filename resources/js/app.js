@@ -26,9 +26,9 @@ import 'livewire-vue'
 import { Lang } from 'laravel-vue-lang';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faCaretDown, faCaretUp, faRotateLeft } from '@fortawesome/free-solid-svg-icons'
+import { faCaretDown, faCaretUp, faRotateLeft, faChevronLeft, faXmark, faCaretRight, faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
 
-library.add(faCaretDown, faCaretUp, faRotateLeft)
+library.add(faCaretDown, faCaretUp, faRotateLeft, faChevronLeft, faXmark, faCaretRight, faMagnifyingGlass)
 
 window.Vue = Vue
 Vue.use(Lang, { fallback: 'sk' })
@@ -38,6 +38,7 @@ Vue.component('filter-sort-by', require('./components/filter/SortBy.vue').defaul
 Vue.component('filter-checkbox', require('./components/filter/Checkbox.vue').default);
 Vue.component('filter-custom-select', require('./components/filter/CustomSelect.vue').default);
 Vue.component('filter-new-custom-select', require('./components/filter/NewCustomSelect.vue').default);
+Vue.component('filter-new-mobile-custom-select', require('./components/filter/NewMobileCustomSelect.vue').default);
 Vue.component('flickity', require('./components/Flickity.vue').default);
 Vue.component('home.shuffle-orchestrator', require('./components/home/ShuffleOrchestrator.vue').default);
 Vue.component('home.transition-in-place', require('./components/home/TransitionInPlace.vue').default);
