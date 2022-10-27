@@ -6,7 +6,7 @@ use App\Import;
 use App\Repositories\CsvRepository;
 use App\Importers\WebumeniaMgImporter;
 use App\Matchers\AuthorityMatcher;
-use GuzzleHttp\Psr7\UploadedFile;
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
@@ -16,6 +16,14 @@ use Tests\TestCase;
 class WebumeniaMgImporterTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected Filesystem $storage;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->storage = Storage::fake('DG_PUBLIC_IS');
+    }
 
     public function testId()
     {
@@ -182,8 +190,7 @@ class WebumeniaMgImporterTest extends TestCase
 
     protected function fakeData(array $data = [])
     {
-        $storage = Storage::fake('DG_PUBLIC_IS');
-        $storage->put('rada_s000123-lomeni_s.jp2', '');
+        $this->storage->put('rada_s000123-lomeni_s.jp2', '');
 
         $plus2TValidator = function ($value) {
             return $value !== 'ODPIS';

@@ -8,12 +8,19 @@ use App\Matchers\AuthorityMatcher;
 use App\Repositories\CsvRepository;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
 use SplFileInfo;
 use Tests\TestCase;
 
 class OglImporterTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        Storage::fake('DG_PUBLIC_IS');
+    }
 
     public function testId()
     {
