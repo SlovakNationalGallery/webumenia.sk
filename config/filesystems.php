@@ -28,12 +28,6 @@ return [
     */
 
     'disks' => [
-        'DG_PUBLIC_IS' => [
-            'driver' => 'local',
-            'root' => env('DG_PUBLIC_IS_PATH', storage_path()),
-            'throw' => true,
-        ],
-
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),

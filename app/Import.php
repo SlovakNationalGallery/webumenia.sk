@@ -24,10 +24,6 @@ class Import extends Model
 
     protected $dates = ['created_at', 'updated_at', 'started_at', 'completed_at'];
 
-    protected $attributes = [
-        'disk' => 'import',
-    ];
-
     public function user()
     {
         return $this->belongsTo(User::class);

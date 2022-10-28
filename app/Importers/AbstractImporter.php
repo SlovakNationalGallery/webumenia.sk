@@ -10,7 +10,6 @@ use App\Repositories\IFileRepository;
 use DateTime;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use SplFileInfo;
 use Symfony\Component\Console\Exception\LogicException;
@@ -263,9 +262,8 @@ abstract class AbstractImporter
             $import_record->import->iip_dir_path,
             pathinfo($import_record->filename, PATHINFO_FILENAME)
         );
-        $files = Storage::disk('DG_PUBLIC_IS')->files($dir);
-        return collect($files)
-            ->map(fn(string $file) => new SplFileInfo($file))
+        return $import_record->import
+            ->files($dir)
             ->filter(
                 fn(SplFileInfo $file) => preg_match(
                     sprintf('#^%s\.jp2$#', $image_filename_format),

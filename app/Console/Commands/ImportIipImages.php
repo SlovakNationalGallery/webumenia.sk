@@ -16,7 +16,7 @@ class ImportIipImages extends Command
     public function handle()
     {
         $dir = $this->argument('dir');
-        $files = Storage::disk('DG_PUBLIC_IS')
+        $files = Storage::disk('import')
             ->listContents($dir)
             ->sortByPath();
 
@@ -53,11 +53,7 @@ class ImportIipImages extends Command
         }
 
         $this->output->writeln(
-            sprintf(
-                'Imported %d image(s), %d already existing',
-                $imported,
-                $alreadyExisting
-            )
+            sprintf('Imported %d image(s), %d already existing', $imported, $alreadyExisting)
         );
     }
 }
