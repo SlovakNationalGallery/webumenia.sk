@@ -76,15 +76,15 @@ abstract class AbstractImporter
 
     abstract protected function getItemImageFilenameFormat(array $record): string;
 
-    public function import(Import $import, SplFileInfo $file): array
+    public function import(ImportRecord $import_record, $stream): array
     {
-        $import_record = $import->records()->create([
-            'status' => Import::STATUS_IN_PROGRESS,
-            'started_at' => new DateTime(),
-            'filename' => $file->getBasename(),
-        ]);
+        $import_record
+            ->fill([
+                'status' => ImportRecord::STATUS_IN_PROGRESS,
+                'started_at' => new DateTime(),
+            ])
+            ->save();
 
-        $stream = $import->readStream($file);
         $records = $this->repository->getFiltered($stream, $this->filters, static::$options);
 
         $items = [];
@@ -96,11 +96,11 @@ abstract class AbstractImporter
                     $import_record->imported_items++;
                 }
             } catch (\Exception $e) {
-                $import->status = Import::STATUS_ERROR;
-                $import->save();
+                $import_record->import->status = Import::STATUS_ERROR;
+                $import_record->import->save();
 
                 $import_record->wrong_items++;
-                $import_record->status = Import::STATUS_ERROR;
+                $import_record->status = ImportRecord::STATUS_ERROR;
                 $import_record->error_message = $e->getMessage();
                 app('sentry')->captureException($e);
 
@@ -110,8 +110,8 @@ abstract class AbstractImporter
             }
         }
 
-        if ($import_record->status != Import::STATUS_ERROR) {
-            $import_record->status = Import::STATUS_COMPLETED;
+        if ($import_record->status != ImportRecord::STATUS_ERROR) {
+            $import_record->status = ImportRecord::STATUS_COMPLETED;
         }
 
         $import_record->completed_at = new DateTime();
@@ -257,13 +257,8 @@ abstract class AbstractImporter
         ImportRecord $import_record,
         string $image_filename_format
     ): Collection {
-        $dir = sprintf(
-            '%s/%s',
-            $import_record->import->iip_dir_path,
-            pathinfo($import_record->filename, PATHINFO_FILENAME)
-        );
-        return $import_record->import
-            ->files($dir)
+        return $import_record
+            ->iipFiles()
             ->filter(
                 fn(SplFileInfo $file) => preg_match(
                     sprintf('#^%s\.jp2$#', $image_filename_format),

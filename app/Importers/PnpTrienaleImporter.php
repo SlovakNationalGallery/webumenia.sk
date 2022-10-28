@@ -2,11 +2,9 @@
 
 namespace App\Importers;
 
-use App\Import;
 use App\ImportRecord;
 use App\Item;
 use Illuminate\Support\Str;
-use SplFileInfo;
 
 class PnpTrienaleImporter extends AbstractImporter
 {
@@ -95,10 +93,10 @@ class PnpTrienaleImporter extends AbstractImporter
         };
     }
 
-    public function import(Import $import, SplFileInfo $file): array
+    public function import(ImportRecord $import_record, $stream): array
     {
         $this->counter = 0;
-        return parent::import($import, $file);
+        return parent::import($import_record, $stream);
     }
 
     protected function importSingle(array $record, ImportRecord $import_record): ?Item

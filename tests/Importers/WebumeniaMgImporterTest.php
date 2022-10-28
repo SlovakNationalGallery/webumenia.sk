@@ -5,25 +5,16 @@ namespace Tests\Importers;
 use App\Import;
 use App\Repositories\CsvRepository;
 use App\Importers\WebumeniaMgImporter;
+use App\ImportRecord;
 use App\Matchers\AuthorityMatcher;
-use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Storage;
 use SplFileInfo;
 use Tests\TestCase;
 
 class WebumeniaMgImporterTest extends TestCase
 {
     use RefreshDatabase;
-
-    protected Filesystem $storage;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->storage = Storage::fake('DG_PUBLIC_IS');
-    }
 
     public function testId()
     {
@@ -179,10 +170,11 @@ class WebumeniaMgImporterTest extends TestCase
             $repositoryMock,
             $this->app->get(Translator::class)
         );
-        $import = Import::create();
-        $items = $importer->import($import, new SplFileInfo(''));
 
-        $this->assertEquals('', $import->records()->first()->error_message);
+        $import_record = $this->createImportRecordMock();
+        $items = $importer->import($import_record, stream: null);
+
+        $this->assertEquals('', $import_record->import->records()->first()->error_message);
         $this->assertCount(1, $items);
 
         return $items;
@@ -190,8 +182,6 @@ class WebumeniaMgImporterTest extends TestCase
 
     protected function fakeData(array $data = [])
     {
-        $this->storage->put('rada_s000123-lomeni_s.jp2', '');
-
         $plus2TValidator = function ($value) {
             return $value !== 'ODPIS';
         };
@@ -218,5 +208,18 @@ class WebumeniaMgImporterTest extends TestCase
             'Služ' => $this->faker->sentence,
             'Okolnosti' => $this->faker->text,
         ];
+    }
+
+    protected function createImportRecordMock(): ImportRecord
+    {
+        $import_record = $this->createPartialMock(ImportRecord::class, ['getTable', 'iipFiles']);
+        $import_record->method('getTable')->willReturn('import_records');
+        $import_record
+            ->method('iipFiles')
+            ->willReturn(collect([new SplFileInfo('rada_s000123-lomeni_s.jp2')]));
+        $import_record->filename = 'filename.csv';
+        $import_record->import()->associate(Import::create());
+        $import_record->save();
+        return $import_record;
     }
 }

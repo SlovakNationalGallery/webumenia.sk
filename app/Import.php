@@ -15,7 +15,6 @@ class Import extends Model
     const STATUS_IN_PROGRESS = 'in progress';
     const STATUS_COMPLETED = 'completed';
     const STATUS_ERROR = 'error';
-    // const STATUS_KILLED      = 'killed';
 
     public static $rules = [
         'name' => 'required',
@@ -68,19 +67,19 @@ class Import extends Model
         return 'default';
     }
 
-    public function storage(): Filesystem
+    public function files(string $dir = null): Collection
     {
-        return Storage::disk($this->disk);
-    }
-
-    public function files(): Collection
-    {
-        $files = $this->storage()->files($this->dir_path);
+        $files = $this->storage()->files($dir ?? $this->dir_path);
         return collect($files)->map(fn(string $file) => new SplFileInfo($file));
     }
 
     public function readStream(SplFileInfo $file)
     {
         return $this->storage()->readStream($file);
+    }
+
+    protected function storage(): Filesystem
+    {
+        return Storage::disk('import');
     }
 }

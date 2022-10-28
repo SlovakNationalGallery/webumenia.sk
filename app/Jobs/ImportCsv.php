@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Import;
+use App\ImportRecord;
 use App\Repositories\CsvRepository;
 use App\Jobs\Job;
 use App\Matchers\AuthorityMatcher;
@@ -66,7 +67,11 @@ class ImportCsv extends Job implements ShouldQueue
                     echo "Spúšťa sa import pre {$file->getBasename()}.\n";
                 }
 
-                $importer->import($this->import, $file);
+                $import_record = $this->import->records()->create([
+                    'filename' => $file->getBasename(),
+                ]);
+                $stream = $import_record->readStream($file);
+                $importer->import($import_record, $stream);
             });
 
         if ($this->import->status != Import::STATUS_ERROR) {

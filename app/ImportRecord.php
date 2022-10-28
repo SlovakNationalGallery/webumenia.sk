@@ -8,9 +8,18 @@ use SplFileInfo;
 
 class ImportRecord extends Model
 {
+    const STATUS_NEW = 'new';
+    const STATUS_IN_PROGRESS = 'in progress';
+    const STATUS_COMPLETED = 'completed';
+    const STATUS_ERROR = 'error';
+
     protected $fillable = ['status', 'started_at', 'filename'];
 
     protected $dates = ['created_at', 'updated_at', 'started_at', 'completed_at'];
+
+    protected $attributes = [
+        'status' => self::STATUS_NEW,
+    ];
 
     public function import()
     {
@@ -24,12 +33,21 @@ class ImportRecord extends Model
             $this->import->dir_path,
             pathinfo($this->filename, PATHINFO_FILENAME)
         );
-        $files = $this->import->storage()->files($dir);
-        return collect($files)->map(fn(string $file) => new SplFileInfo($file));
+        return $this->import->files($dir);
+    }
+
+    public function iipFiles(): Collection
+    {
+        $dir = sprintf(
+            '%s/%s',
+            $this->import->iip_dir_path,
+            pathinfo($this->filename, PATHINFO_FILENAME)
+        );
+        return $this->import->files($dir);
     }
 
     public function readStream(SplFileInfo $file)
     {
-        return $this->import->storage()->readStream($file);
+        return $this->import->readStream($file);
     }
 }

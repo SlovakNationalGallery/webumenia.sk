@@ -2,12 +2,9 @@
 
 namespace App\Importers;
 
-use App\Import;
 use App\ImportRecord;
 use App\Item;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use SplFileInfo;
 
 class PnpKarasekImporter extends AbstractImporter
 {
@@ -49,10 +46,10 @@ class PnpKarasekImporter extends AbstractImporter
         };
     }
 
-    public function import(Import $import, SplFileInfo $file): array
+    public function import(ImportRecord $import_record, $stream): array
     {
         $this->counter = 0;
-        return parent::import($import, $file);
+        return parent::import($import_record, $stream);
     }
 
     protected function importSingle(array $record, ImportRecord $import_record): Item
@@ -70,17 +67,6 @@ class PnpKarasekImporter extends AbstractImporter
     {
         $slug = $this->getSlug($record['Inventární číslo:']);
         return sprintf('%s(_.*)?', preg_quote($slug));
-    }
-
-    protected function getJp2Files(
-        ImportRecord $import_record,
-        string $image_filename_format
-    ): Collection {
-        return $import_record
-            ->files()
-            ->filter(
-                fn($file) => preg_match(sprintf('#^%s\.jp2$#', $image_filename_format), $file)
-            );
     }
 
     protected function getSlug($identifier)
