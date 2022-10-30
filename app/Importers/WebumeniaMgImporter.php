@@ -2,17 +2,11 @@
 
 namespace App\Importers;
 
-use App\Import;
-use SplFileInfo;
+use App\ImportRecord;
+use App\Item;
 
 class WebumeniaMgImporter extends MgImporter
 {
-    /** @var Import */
-    protected $import;
-
-    /** @var SplFileInfo */
-    protected $csv_file;
-
     protected $mapping = [
         'acquisition_date' => 'RokAkv',
         'copyright_expires' => 'DatExp',
@@ -109,25 +103,19 @@ class WebumeniaMgImporter extends MgImporter
 
     protected function init()
     {
-        $this->filters['with_iip'] = function (array $record) {
-            $image_filename_format = $this->getItemImageFilenameFormat($record);
-            return !empty(
-                $this->getImageJp2Paths(
-                    $this->import,
-                    $this->csv_file->getBasename(),
-                    $image_filename_format
-                )
-            );
-        };
-
         unset($this->mapping['RokAkv'], $this->mapping['DatExp']);
     }
 
-    public function import(Import $import, SplFileInfo $file)
+    protected function importSingle(array $record, ImportRecord $import_record): ?Item
     {
-        $this->import = $import;
-        $this->csv_file = $file;
-        return parent::import($import, $file);
+        $image_filename_format = $this->getItemImageFilenameFormat($record);
+        $files = $this->getJp2Files($import_record, $image_filename_format);
+
+        if ($files->isEmpty()) {
+            return null;
+        }
+
+        return parent::importSingle($record, $import_record);
     }
 
     protected function hydrateTechnique(array $record)

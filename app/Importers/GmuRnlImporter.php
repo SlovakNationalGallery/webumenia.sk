@@ -49,11 +49,11 @@ class GmuRnlImporter extends AbstractImporter
         return sprintf('CZE:4RG.%s', $id);
     }
 
-    protected function getItemImageFilenameFormat(array $record)
+    protected function getItemImageFilenameFormat(array $record): string
     {
         return sprintf(
-            '%s_%d{_*,}',
-            $record['Řada'],
+            '%s_%d(_.*)?',
+            preg_quote($record['Řada']),
             (int) Str::after($record['Inventární '], $record['Řada'])
         );
     }

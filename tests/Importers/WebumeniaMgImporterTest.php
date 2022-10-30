@@ -5,6 +5,7 @@ namespace Tests\Importers;
 use App\Import;
 use App\Repositories\CsvRepository;
 use App\Importers\WebumeniaMgImporter;
+use App\ImportRecord;
 use App\Matchers\AuthorityMatcher;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -169,10 +170,11 @@ class WebumeniaMgImporterTest extends TestCase
             $repositoryMock,
             $this->app->get(Translator::class)
         );
-        $import = Import::create();
-        $items = $importer->import($import, new SplFileInfo(''));
 
-        $this->assertEquals('', $import->records()->first()->error_message);
+        $import_record = $this->createImportRecordMock();
+        $items = $importer->import($import_record, stream: null);
+
+        $this->assertEquals('', $import_record->import->records()->first()->error_message);
         $this->assertCount(1, $items);
 
         return $items;
@@ -185,6 +187,9 @@ class WebumeniaMgImporterTest extends TestCase
         };
 
         return $data + [
+            'Rada_S' => 'rada_s',
+            'Lomeni_S' => 'lomeni_s',
+            'PorC_S' => 123,
             'Datace' => $this->faker->sentence,
             'RokOd' => $this->faker->year,
             'Do' => $this->faker->year,
@@ -195,8 +200,6 @@ class WebumeniaMgImporterTest extends TestCase
             'Titul' => $this->faker->sentence,
             'Námět' => $this->faker->sentence,
             'Plus2T' => $this->faker->valid($plus2TValidator)->text,
-            'Rada_S' => $this->faker->randomLetter,
-            'PorC_S' => $this->faker->randomNumber,
             'Materiál' => $this->faker->sentence,
             'MatSpec' => $this->faker->sentence,
             'TechSpec' => $this->faker->sentence,
@@ -204,7 +207,19 @@ class WebumeniaMgImporterTest extends TestCase
             'Skupina' => $this->faker->lexify('??'),
             'Služ' => $this->faker->sentence,
             'Okolnosti' => $this->faker->text,
-            'Lomeni_S' => $this->faker->bothify('##?'),
         ];
+    }
+
+    protected function createImportRecordMock(): ImportRecord
+    {
+        $import_record = $this->createPartialMock(ImportRecord::class, ['getTable', 'iipFiles']);
+        $import_record->method('getTable')->willReturn('import_records');
+        $import_record
+            ->method('iipFiles')
+            ->willReturn(collect([new SplFileInfo('rada_s000123-lomeni_s.jp2')]));
+        $import_record->filename = 'filename.csv';
+        $import_record->import()->associate(Import::create());
+        $import_record->save();
+        return $import_record;
     }
 }

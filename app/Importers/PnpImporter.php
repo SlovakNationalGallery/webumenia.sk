@@ -31,8 +31,9 @@ class PnpImporter extends AbstractImporter
         return sprintf("CZE:PNP-%s", $id);
     }
 
-    protected function getItemImageFilenameFormat(array $record) {
+    protected function getItemImageFilenameFormat(array $record): string
+    {
         $id = strtr($record['Inventární číslo:'], ' /', '_-');
-        return sprintf("PNP--%s", $id);
+        return preg_quote(sprintf("PNP--%s", $id));
     }
 }

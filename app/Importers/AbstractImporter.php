@@ -5,12 +5,12 @@ namespace App\Importers;
 use App\Import;
 use App\ImportRecord;
 use App\Item;
-use App\ItemImage;
 use App\Matchers\AuthorityMatcher;
 use App\Repositories\IFileRepository;
+use DateTime;
 use Illuminate\Contracts\Translation\Translator;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use League\Flysystem\FileAttributes;
 use SplFileInfo;
 use Symfony\Component\Console\Exception\LogicException;
 
@@ -72,49 +72,35 @@ abstract class AbstractImporter
     {
     }
 
-    /**
-     * @param array $record
-     * @return mixed
-     */
     abstract protected function getItemId(array $record);
 
-    /**
-     * @param array $record
-     * @return string
-     */
-    abstract protected function getItemImageFilenameFormat(array $record);
+    abstract protected function getItemImageFilenameFormat(array $record): string;
 
-    public function import(Import $import, SplFileInfo $file)
+    public function import(ImportRecord $import_record, $stream): array
     {
-        $import_record = $this->createImportRecord(
-            $import->id,
-            Import::STATUS_IN_PROGRESS,
-            date('Y-m-d H:i:s'),
-            $file->getBasename()
-        );
+        $import_record
+            ->fill([
+                'status' => ImportRecord::STATUS_IN_PROGRESS,
+                'started_at' => new DateTime(),
+            ])
+            ->save();
 
-        $import_record->save();
-
-        $records = $this->repository->getFiltered(
-            $file->getPathname(),
-            $this->filters,
-            static::$options
-        );
+        $records = $this->repository->getFiltered($stream, $this->filters, static::$options);
 
         $items = [];
-
         foreach ($records as $record) {
             try {
-                $item = $this->importSingle($record, $import, $import_record);
-                $item->push();
-                $items[] = $item;
-                $import_record->imported_items++;
+                if ($item = $this->importSingle($record, $import_record)) {
+                    $item->push();
+                    $items[] = $item;
+                    $import_record->imported_items++;
+                }
             } catch (\Exception $e) {
-                $import->status = Import::STATUS_ERROR;
-                $import->save();
+                $import_record->import->status = Import::STATUS_ERROR;
+                $import_record->import->save();
 
                 $import_record->wrong_items++;
-                $import_record->status = Import::STATUS_ERROR;
+                $import_record->status = ImportRecord::STATUS_ERROR;
                 $import_record->error_message = $e->getMessage();
                 app('sentry')->captureException($e);
 
@@ -124,67 +110,50 @@ abstract class AbstractImporter
             }
         }
 
-        if ($import_record->status != Import::STATUS_ERROR) {
-            $import_record->status = Import::STATUS_COMPLETED;
+        if ($import_record->status != ImportRecord::STATUS_ERROR) {
+            $import_record->status = ImportRecord::STATUS_COMPLETED;
         }
 
-        $import_record->completed_at = date('Y-m-d H:i:s');
+        $import_record->completed_at = new DateTime();
         $import_record->save();
 
         return $items;
     }
 
-    public static function getName()
+    public static function getName(): string
     {
         return static::$name;
     }
 
-    public static function getOptions()
+    public static function getOptions(): array
     {
         return static::$options;
     }
 
-    /**
-     * @param array $record
-     * @param Import $import
-     * @param ImportRecord $importRecord
-     * @return Item|null
-     */
-    protected function importSingle(array $record, Import $import, ImportRecord $import_record)
+    protected function importSingle(array $record, ImportRecord $import_record): ?Item
     {
         $item = $this->createItem($record);
 
         $image_filename_format = $this->getItemImageFilenameFormat($record);
 
-        $jpg_paths = $this->getImageJpgPaths(
-            $import,
-            $import_record->filename,
-            $image_filename_format
-        );
-
-        foreach ($jpg_paths as $jpg_path) {
-            $item->saveImage($jpg_path);
-            $import_record->imported_images++;
+        $jpgFile = $this->getJpgFile($import_record, $image_filename_format);
+        if ($jpgFile) {
+            $stream = $import_record->readStream($jpgFile);
+            $item->saveImage($stream);
+            $import_record->imported_images = 1;
         }
 
-        $jp2_paths = $this->getImageJp2Paths(
-            $import,
-            $import_record->filename,
-            $image_filename_format
-        );
-
-        foreach ($jp2_paths as $jp2_path) {
-            $jp2_relative_path = $this->getImageJp2RelativePath($jp2_path);
-            if ($image = ItemImage::where('iipimg_url', $jp2_relative_path)->first()) {
-                continue;
-            }
-
-            $image = new ItemImage();
-            $image->item_id = $item->getKey();
-            $item->images->add($image);
-            $image->iipimg_url = $jp2_relative_path;
-            $import_record->imported_iip++;
-        }
+        $this->getJp2Files($import_record, $image_filename_format)
+            ->filter(
+                fn(SplFileInfo $jp2File) => !$item
+                    ->images()
+                    ->where('iipimg_url', $jp2File)
+                    ->first()
+            )
+            ->each(function (SplFileInfo $jp2File) use ($item, $import_record) {
+                $item->images()->create(['iipimg_url' => $jp2File]);
+                $import_record->imported_iip++;
+            });
 
         $ids = $this->authorityMatcher
             ->matchAll($item)
@@ -202,32 +171,7 @@ abstract class AbstractImporter
         return $item;
     }
 
-    /**
-     * @param int $import_id
-     * @param string $status
-     * @param string $started_at
-     * @param string $filename
-     * @return ImportRecord
-     */
-    protected function createImportRecord($import_id, $status, $started_at, $filename)
-    {
-        $import_record = new ImportRecord();
-        $import_record->import_id = $import_id;
-        $import_record->status = $status;
-        $import_record->started_at = $started_at;
-        $import_record->filename = $filename;
-        $import_record->imported_items = 0;
-        $import_record->skipped_items = 0;
-        $import_record->user_id = 0;
-
-        return $import_record;
-    }
-
-    /**
-     * @param array $record
-     * @return Item
-     */
-    protected function createItem(array $record)
+    protected function createItem(array $record): Item
     {
         $id = $this->getItemId($record);
 
@@ -244,10 +188,6 @@ abstract class AbstractImporter
         return $item;
     }
 
-    /**
-     * @param mixed $value
-     * @return mixed
-     */
     protected function sanitize($value)
     {
         foreach ($this->sanitizers as $sanitizer) {
@@ -257,11 +197,7 @@ abstract class AbstractImporter
         return $value;
     }
 
-    /**
-     * @param Item $item
-     * @param array $record
-     */
-    protected function mapFields(Item $item, array $record)
+    protected function mapFields(Item $item, array $record): void
     {
         foreach ($this->mapping as $property => $column) {
             if (isset($record[$column])) {
@@ -270,11 +206,7 @@ abstract class AbstractImporter
         }
     }
 
-    /**
-     * @param Item $item
-     * @param array $record
-     */
-    protected function applyCustomHydrators(Item $item, array $record)
+    protected function applyCustomHydrators(Item $item, array $record): void
     {
         foreach ($item->getFillable() as $key) {
             $method_name = sprintf('hydrate%s', Str::camel($key));
@@ -295,10 +227,7 @@ abstract class AbstractImporter
         }
     }
 
-    /**
-     * @param Item $item
-     */
-    protected function setDefaultValues(Item $item)
+    protected function setDefaultValues(Item $item): void
     {
         $useTranslationFallback = $item->getUseTranslationFallback();
         $item->setUseTranslationFallback(false);
@@ -310,50 +239,31 @@ abstract class AbstractImporter
         $item->setUseTranslationFallback($useTranslationFallback);
     }
 
-    /**
-     * @param Import $import
-     * @param string $csv_filename
-     * @param string $image_filename_format
-     */
-    protected function getImageJpgPaths(Import $import, $csv_filename, $image_filename_format)
-    {
-        $path = storage_path(
-            sprintf(
-                'app/import/%s/%s/%s.{jpg,jpeg,JPG,JPEG}',
-                $import->dir_path,
-                pathinfo($csv_filename, PATHINFO_FILENAME),
-                $image_filename_format
-            )
-        );
-
-        return glob($path, GLOB_BRACE);
+    protected function getJpgFile(
+        ImportRecord $import_record,
+        string $image_filename_format
+    ): ?SplFileInfo {
+        return $import_record
+            ->files()
+            ->first(
+                fn(SplFileInfo $file) => preg_match(
+                    sprintf('#^%s\.(jpg|jpeg)$#i', $image_filename_format),
+                    $file->getBasename()
+                )
+            );
     }
 
-    /**
-     * @param Import $import
-     * @param string $csv_filename
-     * @param string $image_filename_format
-     * @return string
-     */
-    protected function getImageJp2Paths(Import $import, $csv_filename, $image_filename_format)
-    {
-        $path = sprintf(
-            '%s/%s/%s/%s.jp2',
-            config('importers.iip_base_path'),
-            $import->iip_dir_path,
-            pathinfo($csv_filename, PATHINFO_FILENAME),
-            $image_filename_format
-        );
-
-        return glob($path, GLOB_BRACE);
-    }
-
-    /**
-     * @param string $jp2_path
-     * @return string
-     */
-    protected function getImageJp2RelativePath($jp2_path)
-    {
-        return mb_substr($jp2_path, mb_strlen(config('importers.iip_base_path')) + 1);
+    protected function getJp2Files(
+        ImportRecord $import_record,
+        string $image_filename_format
+    ): Collection {
+        return $import_record
+            ->iipFiles()
+            ->filter(
+                fn(SplFileInfo $file) => preg_match(
+                    sprintf('#^%s\.jp2$#', $image_filename_format),
+                    $file->getBasename()
+                )
+            );
     }
 }
