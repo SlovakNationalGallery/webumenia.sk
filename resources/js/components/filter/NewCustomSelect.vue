@@ -1,10 +1,11 @@
 <template>
     <div class="tw-min-w-max">
         <button
-            :class="`tw-bg-white tw-border tw-border-gray-300
-             hover:tw-border-gray-800 ${active ? '!tw-border-gray-800 tw-border-1' : ''} ${
-                opened ? '!tw-border-gray-800 tw-border-2' : ''
-            } tw-text-lg tw-font-bold tw-py-3.5 tw-px-4`"
+            class="tw-bg-white tw-border hover:tw-border-gray-800 tw-border-gray-300 tw-text-lg tw-font-bold tw-py-3.5 tw-px-4"
+            :class="{
+                'tw-border-gray-800 tw-border-1': active,
+                'tw-border-gray-800 tw-border-2': opened,
+            }"
         >
             <div class="tw-flex">
                 <span>{{ name }}</span>
@@ -20,7 +21,7 @@
         >
             <Options :options="mockOptions" :placeholder="placeholder" />
             <button
-                :class="`tw-bg-white tw-mb-6 tw-mt-5 tw-px-4 tw-font-normal tw-py-1.5 tw-text-sm tw-border tw-border-gray-300 hover:tw-border-gray-800`"
+                class="tw-bg-white tw-mb-6 tw-mt-5 tw-px-4 tw-font-normal tw-py-1.5 tw-text-sm tw-border tw-border-gray-300 hover:tw-border-gray-800"
             >
                 <div class="tw-flex">
                     <div class="tw-pr-2 tw-flex tw-items-center">
