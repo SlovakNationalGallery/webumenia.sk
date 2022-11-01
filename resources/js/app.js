@@ -24,15 +24,10 @@ require('./components/newsletter-signup-form-tracker')
 import Vue from 'vue'
 import 'livewire-vue'
 import { Lang } from 'laravel-vue-lang';
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faCaretDown, faCaretUp, faRotateLeft, faChevronLeft, faXmark, faCaretRight, faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
 
-library.add(faCaretDown, faCaretUp, faRotateLeft, faChevronLeft, faXmark, faCaretRight, faMagnifyingGlass)
 
 window.Vue = Vue
 Vue.use(Lang, { fallback: 'sk' })
-Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('featured-piece-click-tracker', require('./components/FeaturedPieceClickTracker.vue').default);
 Vue.component('filter-sort-by', require('./components/filter/SortBy.vue').default);
 Vue.component('filter-checkbox', require('./components/filter/Checkbox.vue').default);

@@ -9,20 +9,11 @@
             <div class="tw-flex">
                 <span>{{ name }}</span>
                 <div class="tw-pl-4 tw-flex tw-items-center">
-                    <font-awesome-icon
-                        v-if="opened"
-                        icon="fa-solid fa-caret-up"
-                        class="tw-text-sky-400"
-                    />
-                    <font-awesome-icon
-                        v-else
-                        icon="fa-solid fa-caret-down"
-                        class="tw-text-gray-800"
-                    />
+                    <i v-if="opened" class="fa fa-caret-up tw-text-sky-400" />
+                    <i v-else class="fa fa-caret-down" />
                 </div>
             </div>
         </button>
-        <!-- TODO: Position modal with js: https://css-tricks.com/popping-hidden-overflow/ -->
         <div
             v-if="opened"
             class="tw-w-[20rem] tw-h-[30rem] tw-flex tw-flex-col tw-border-2 tw-items-start tw-p-6 tw-bg-white tw-border-gray-800 tw-z-10 tw-absolute tw-top-36"
@@ -33,10 +24,7 @@
             >
                 <div class="tw-flex">
                     <div class="tw-pr-2 tw-flex tw-items-center">
-                        <font-awesome-icon
-                            icon="fa-solid fa-rotate-left"
-                            class="tw-text-gray-800"
-                        />
+                        <i class="fa fa-rotate-left" />
                     </div>
                     <span>zrušiť výber</span>
                 </div>
@@ -46,7 +34,6 @@
 </template>
 
 <script>
-import '@fortawesome/vue-fontawesome'
 import Options from './Options.vue'
 import mockOptions from './mock.json'
 
