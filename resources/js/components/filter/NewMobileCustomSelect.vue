@@ -5,14 +5,11 @@
             <div class="tw-ml-4 tw-mr-6 tw-mb-5 tw-mt-6">
                 <div class="tw-flex tw-justify-between">
                     <div v-if="opened" class="tw-flex tw-space-x-3 tw-items-center">
-                        <font-awesome-icon
-                            icon="fa-solid fa-chevron-left"
-                            class="tw-text-gray-800"
-                        />
+                        <i class="fa fa-chevron-left tw-text-gray-800" />
                         <span>autor/autorka</span>
                     </div>
                     <div v-else>Filter diel</div>
-                    <font-awesome-icon icon="fa-solid fa-xmark" class="tw-text-gray-800" />
+                    <i class="fa fa-close" />
                 </div>
             </div>
             <div v-if="opened" class="tw-px-4 tw-flex tw-flex-1 tw-min-h-0">
@@ -25,10 +22,7 @@
                 >
                     <div class="tw-flex tw-justify-between">
                         <span> autor / autorka </span>
-                        <font-awesome-icon
-                            icon="fa-solid fa-caret-right"
-                            class="tw-text-gray-800"
-                        />
+                        <i class="fa fa-caret-right" />
                     </div>
                 </button>
             </div>
@@ -44,7 +38,6 @@
 <script>
 import mockOptions from './mock.json'
 import Options from './Options.vue'
-import '@fortawesome/vue-fontawesome'
 
 export default {
     props: {

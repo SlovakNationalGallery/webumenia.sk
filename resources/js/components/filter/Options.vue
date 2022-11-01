@@ -7,7 +7,7 @@
                 :placeholder="placeholder"
             />
             <div class="tw-flex tw-items-center tw-mr-2">
-                <font-awesome-icon icon="fa-solid fa-magnifying-glass" class="tw-text-gray-800" />
+                <i class="fa fa-search"></i>
             </div>
         </div>
         <div
@@ -37,8 +37,6 @@
 </template>
 
 <script>
-import '@fortawesome/vue-fontawesome'
-
 export default {
     props: {
         placeholder: String,
