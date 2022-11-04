@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - indexing of Authority roles
 
+### Changed
+- refactored import files
+
 ### Added 
 - parse article teaser from admin
 

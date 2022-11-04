@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
@@ -10,6 +11,8 @@ use SplFileInfo;
 
 class Import extends Model
 {
+    use HasFactory;
+
     const STATUS_NEW = 'new';
     const STATUS_QUEUED = 'queued';
     const STATUS_IN_PROGRESS = 'in progress';
@@ -67,6 +70,11 @@ class Import extends Model
         return 'default';
     }
 
+    public function csvFiles(): Collection
+    {
+        return $this->files()->filter(fn(SplFileInfo $file) => $file->getExtension() === 'csv');
+    }
+
     public function files(string $dir = null): Collection
     {
         $files = $this->storage()->files($dir ?? $this->dir_path);
@@ -76,6 +84,16 @@ class Import extends Model
     public function readStream(SplFileInfo $file)
     {
         return $this->storage()->readStream($file);
+    }
+
+    public function fileSize(SplFileInfo $file)
+    {
+        return $this->storage()->size($file);
+    }
+
+    public function lastModified(SplFileInfo $file)
+    {
+        return $this->storage()->lastModified($file);
     }
 
     protected function storage(): Filesystem
