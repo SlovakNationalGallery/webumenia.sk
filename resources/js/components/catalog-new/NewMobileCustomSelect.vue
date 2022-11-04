@@ -41,7 +41,7 @@ import Options from './Options.vue'
 
 export default {
     props: {
-        name: String,
+        filterName: String,
         placeholder: String,
         active: Boolean,
         opened: Boolean,

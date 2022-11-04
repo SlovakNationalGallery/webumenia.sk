@@ -32,8 +32,8 @@ Vue.component('featured-piece-click-tracker', require('./components/FeaturedPiec
 Vue.component('filter-sort-by', require('./components/filter/SortBy.vue').default);
 Vue.component('filter-checkbox', require('./components/filter/Checkbox.vue').default);
 Vue.component('filter-custom-select', require('./components/filter/CustomSelect.vue').default);
-Vue.component('filter-new-custom-select', require('./components/filter/NewCustomSelect.vue').default);
-Vue.component('filter-new-mobile-custom-select', require('./components/filter/NewMobileCustomSelect.vue').default);
+Vue.component('filter-new-custom-select', require('./components/catalog-new/NewCustomSelect.vue').default);
+Vue.component('filter-new-mobile-custom-select', require('./components/catalog-new/NewMobileCustomSelect.vue').default);
 Vue.component('flickity', require('./components/Flickity.vue').default);
 Vue.component('home.shuffle-orchestrator', require('./components/home/ShuffleOrchestrator.vue').default);
 Vue.component('home.transition-in-place', require('./components/home/TransitionInPlace.vue').default);

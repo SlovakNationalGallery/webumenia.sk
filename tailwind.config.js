@@ -32,7 +32,7 @@ module.exports = {
     plugins: [
         require('@tailwindcss/typography'),
         require('@tailwindcss/line-clamp'),
-        require('@tailwindcss/custom-forms'),
+        require('@tailwindcss/forms'),
         require('tailwind-scrollbar')({ nocompatible: true }),
     ],
     prefix: 'tw-',

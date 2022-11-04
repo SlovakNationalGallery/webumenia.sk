@@ -2,7 +2,7 @@
     <div class="tw-flex tw-flex-col tw-flex-1">
         <div class="tw-flex tw-border tw-border-gray-800 tw-mb-6">
             <input
-                class="tw-px-2 focus:tw-outline-none tw-placeholder-gray-800 tw-font-medium tw-text-gray-800 tw-text-sm tw-py-1 tw-w-full"
+                class="tw-px-2 tw-border-none focus:tw-ring-0 focus:tw-outline-none tw-placeholder-gray-800 tw-font-medium tw-text-gray-800 tw-text-sm tw-py-1 tw-w-full"
                 type="text"
                 :placeholder="placeholder"
             />
@@ -16,12 +16,15 @@
             <label
                 v-for="option in options"
                 :for="option.value"
-                :class="`tw-flex tw-items-center ${
-                    option.selected ? 'tw-bg-gray-200' : ''
-                } hover:tw-bg-gray-200`"
+                :class="[
+                    'tw-flex tw-items-center',
+                    {
+                        'tw-bg-gray-200': option.selected,
+                    },
+                ]"
             >
                 <input
-                    class="focus:tw-outline-none tw-form-checkbox tw-border tw-border-gray-200 tw-m-2 tw-p-1 tw-h-4 tw-w-4"
+                    class="focus:tw-ring-0 focus:tw-ring-offset-0 focus:tw-outline-none tw-form-checkbox tw-border-gray-200 tw-m-2 tw-p-1 tw-h-4 tw-w-4"
                     type="checkbox"
                     :key="option.value"
                     :id="option.value"
