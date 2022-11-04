@@ -84,6 +84,16 @@
 					<div class="col-md-6">
 						@formRow($form['lng'])
 					</div>
+					<div class="col-md-12 tailwind-rules">
+						<div
+							class="tw--mt-2 tw-mb-4 tw-flex tw-space-x-1 tw-text-xs tw-text-gray-400">
+							<i class="fa fa-info-circle"></i>
+							<span>GPS súradnice sa na webe momentálne nezobrazujú:</span>
+							<x-admin.link href="https://jira.sng.sk/browse/WEBUMENIA-1911">
+								WEBUMENIA-1911
+							</x-admin.link>
+						</div>
+					</div>
 					<div class="col-md-6">
 						@formRow($form['related_work_order'])
 					</div>

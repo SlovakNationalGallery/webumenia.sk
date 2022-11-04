@@ -336,9 +336,6 @@
                             @endif
                         </tbody>
                     </table>
-                    @if (!empty($item->lat) && ($item->lat > 0))
-                    <div id="small-map"></div>
-                    @endif
 
                     <div class="col-md-12 text-center">
                         <user-collections-favourite-button
@@ -524,12 +521,6 @@
     dataLayer.push(@json($gtm_data_layer));
 </script>
 
-@if (!empty($item->lat) && ($item->lat > 0))
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVG26BxGY9yhjCFbviWRgZsvxSlikOnIM&callback=initMap" async
-        defer></script>
-{{ Html::script('js/gmaps.js') }}
-@endif
-
 <script type="text/javascript">
     function leftArrowPressed() {
         var left=document.getElementById("left");
@@ -598,72 +589,6 @@
         });
     });
 </script>
-
-@if (!empty($item->lat) && ($item->lat > 0))
-<script type="text/javascript">
-    var map;
-    function initMap(){
-
-        map = new GMaps({
-            el: '#small-map',
-            lat: 48.705862,
-            lng: 19.855629,
-            zoom: 6,
-            zoomControl : true,
-            zoomControlOpt: {
-                style : "SMALL",
-                position: "TOP_LEFT"
-            },
-            panControl : false,
-            streetViewControl : false,
-            mapTypeControl: false,
-            overviewMapControl: false,
-            scrollwheel: false,
-            scaleControl: false
-            });
-        var styles = [
-            {
-              stylers: [
-                { hue: "#484224" },
-                { saturation: -20 }
-              ]
-            }, {
-                featureType: "road",
-                elementType: "geometry",
-                stylers: [
-                    { lightness: 100 },
-                    { visibility: "off" }
-              ]
-            }, {
-                featureType: "road",
-                elementType: "labels",
-                stylers: [
-                    { visibility: "off" }
-              ]
-            }
-        ];
-
-        map.addStyle({
-            styledMapName:"Styled Map",
-            styles: light_style,
-            mapTypeId: "map_style"
-        });
-
-        map.setStyle("map_style");
-
-        map.addMarker({
-            lat: {{ $item->lat }},
-            lng: {{ $item->lng }},
-            // icon: "/images/x.map.svg",
-            title: 'Značka pre dielo {{ $item->title }}',
-            infoWindow: {
-              content: '<p>{{ $item->place }}</p>'
-            }
-        });
-
-    };
-</script>
-@endif
 
 @if (Auth::check())
 @include('includes.add_tags_form_js')
