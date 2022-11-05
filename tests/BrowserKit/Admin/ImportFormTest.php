@@ -30,10 +30,7 @@ class ImportFormTest extends BrowserKitTestCase
 
     public function testEdit()
     {
-        $item = Import::factory()->create([
-            'name' => 'name',
-            'class_name' => WebumeniaMgImporter::class,
-        ]);
+        $item = Import::factory()->create();
 
         $this->visit(sprintf('/imports/%s/edit', $item->id))
             ->press('Uložiť')
