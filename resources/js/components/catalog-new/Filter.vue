@@ -51,8 +51,27 @@ export default {
                 : this.urlQuery[filterName].splice(this.urlQuery[filterName].indexOf(value), 1)
         },
         toggleSelect(filterName) {
-            this.openedFilter = filterName === this.openedFilter ? null : filterName;
-        }
+            this.openedFilter = filterName === this.openedFilter ? null : filterName
+        },
+        updateUrlQuery() {
+            const url = new URL(window.location.href)
+            Object.keys(this.urlQuery).forEach((filterName) => {
+                const filterValues = this.urlQuery[filterName]
+                filterValues.length
+                    ? url.searchParams.set(filterName, filterValues)
+                    : url.searchParams.delete(filterName)
+            })
+            url.searchParams.delete('page')
+            window.history.replaceState(null, null, url)
+        },
+    },
+    watch: {
+        urlQuery: {
+            handler() {
+                this.updateUrlQuery()
+            },
+            deep: true,
+        },
     },
     provide() {
         return {
