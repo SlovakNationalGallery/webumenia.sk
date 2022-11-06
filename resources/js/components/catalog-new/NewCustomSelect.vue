@@ -17,7 +17,7 @@
             </div>
         </button>
         <div
-            v-if="controller.openedFilter"
+            v-if="controller.openedFilter === filterName"
             v-on-clickaway="() => controller.toggleSelect(filterName)"
             class="tw-w-[20rem] tw-h-[30rem] tw-flex tw-flex-col tw-border-2 tw-items-start tw-p-6 tw-bg-white tw-border-gray-800 tw-z-10 tw-absolute tw-top-36"
         >

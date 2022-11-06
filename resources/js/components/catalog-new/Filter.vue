@@ -1,6 +1,6 @@
 <template>
     <div class="tw-relative">
-        <slot />
+        <slot :filters="filters"/>
     </div>
 </template>
 
@@ -26,6 +26,10 @@ export default {
                     list: this.authors.map((author) => ({ ...author, checked: false })),
                     search: null,
                 },
+                someOtherFilter: { 
+                    list: [],
+                    search: null,
+                }
             },
         }
     },

@@ -29,12 +29,12 @@
                 <Options :filterName="this.controller.openedFilter" :placeholder="placeholder" />
             </div>
             <div class="tw-w-full tw-flex-1 tw-flex tw-flex-col tw-overflow-auto tw-min-h-0" v-else>
-                <button
-                    @click="controller.setOpenedFilter('authors')"
+                <button v-for="filterName in Object.keys(filters)"
+                    @click="controller.setOpenedFilter(filterName)"
                     class="tw-w-full tw-border-b tw-font-medium tw-border-gray-200 tw-px-4 tw-py-5"
                 >
                     <div class="tw-flex tw-justify-between">
-                        <span>authors</span>
+                        <span>{{filterName}}</span>
                         <i class="fa fa-caret-right" />
                     </div>
                 </button>
@@ -53,9 +53,8 @@ import Options from './Options.vue'
 
 export default {
     props: {
-        filterName: String,
-        placeholder: String,
-        active: Boolean,
+        filters: Object,
+        placeholder: String
     },
     inject: {
         controller: {
