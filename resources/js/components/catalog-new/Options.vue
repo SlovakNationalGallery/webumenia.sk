@@ -33,9 +33,8 @@
                     type="checkbox"
                     :key="option.id"
                     :id="option.id"
-                    :value="option.name"
                     @change="
-                        controller.addParameterToUrlQuery(filterName, option.id, !option.checked)
+                        controller.addParameterToUrlQuery(filterName, option.name, !option.checked)
                     "
                     :checked="option.checked"
                 />

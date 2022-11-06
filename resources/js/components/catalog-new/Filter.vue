@@ -43,11 +43,11 @@ export default {
         setOpenedFilter(name) {
             this.openedFilter = name
         },
-        addParameterToUrlQuery(filterName, id, value) {
-            const index = this.filters[filterName].list.findIndex((el) => el.id === id)
+        addParameterToUrlQuery(filterName, name, value) {
+            const index = this.filters[filterName].list.findIndex((el) => el.name === name)
             this.filters[filterName].list[index].checked = value
             value
-                ? this.urlQuery[filterName].push(id)
+                ? this.urlQuery[filterName].push(name)
                 : this.urlQuery[filterName].splice(this.urlQuery[filterName].indexOf(value), 1)
         },
         toggleSelect(filterName) {
