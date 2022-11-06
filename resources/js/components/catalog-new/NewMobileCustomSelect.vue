@@ -1,27 +1,40 @@
 <template>
-    <div class="md:tw-hidden tw-flex tw-h-full tw-w-full tw-flex-col tw-fixed tw-top-0 tw-z-30">
+    <div
+        :class="`${
+            !this.controller.isExtendedOpen ? 'tw-hidden ' : ' '
+        } md:tw-hidden tw-flex tw-h-full tw-w-full tw-flex-col tw-fixed tw-top-0 tw-z-30`"
+    >
         <div class="tw-min-w-full tw-h-10 tw-shrink-0 tw-opacity-40 tw-left-0 tw-bg-gray-800" />
         <div class="tw-w-full tw-flex tw-flex-1 tw-overflow-auto tw-bg-white tw-flex-col">
             <div class="tw-ml-4 tw-mr-6 tw-mb-5 tw-mt-6">
                 <div class="tw-flex tw-justify-between">
-                    <div v-if="opened" class="tw-flex tw-space-x-3 tw-items-center">
-                        <i class="fa fa-chevron-left tw-text-gray-800" />
-                        <span>autor/autorka</span>
+                    <div
+                        v-if="!this.controller.openedFilter"
+                        class="tw-flex tw-space-x-3 tw-items-center"
+                    >
+                        <span>Filter diel</span>
                     </div>
-                    <div v-else>Filter diel</div>
-                    <i class="fa fa-close" />
+                    <div v-else>
+                        <button @click="controller.setOpenedFilter(null)">
+                            <i class="fa fa-chevron-left tw-text-gray-800" />
+                        </button>
+                        <span>{{ this.controller.openedFilter }}</span>
+                    </div>
+                    <button @click="controller.toggleIsExtendedOpen()">
+                        <i class="fa fa-close" />
+                    </button>
                 </div>
             </div>
-            <div v-if="opened" class="tw-px-4 tw-flex tw-flex-1 tw-min-h-0">
-                <Options :options="mockOptions" :placeholder="placeholder" />
+            <div v-if="this.controller.openedFilter" class="tw-px-4 tw-flex tw-flex-1 tw-min-h-0">
+                <Options :filterName="this.controller.openedFilter" :placeholder="placeholder" />
             </div>
             <div class="tw-w-full tw-flex-1 tw-flex tw-flex-col tw-overflow-auto tw-min-h-0" v-else>
                 <button
-                    v-for="i in 15"
+                    @click="controller.setOpenedFilter('authors')"
                     class="tw-w-full tw-border-b tw-font-medium tw-border-gray-200 tw-px-4 tw-py-5"
                 >
                     <div class="tw-flex tw-justify-between">
-                        <span> autor / autorka </span>
+                        <span>authors</span>
                         <i class="fa fa-caret-right" />
                     </div>
                 </button>
@@ -36,7 +49,6 @@
 </template>
 
 <script>
-import mockOptions from './mock.json'
 import Options from './Options.vue'
 
 export default {
@@ -44,12 +56,11 @@ export default {
         filterName: String,
         placeholder: String,
         active: Boolean,
-        opened: Boolean,
     },
-    data() {
-        return {
-            mockOptions: mockOptions,
-        }
+    inject: {
+        controller: {
+            from: 'filterController',
+        },
     },
     components: { Options },
 }

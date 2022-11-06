@@ -7,6 +7,7 @@ use App\Filter\Forms\Types\ItemSearchRequestType;
 use App\Filter\Generators\ItemTitleGenerator;
 use App\Filter\ItemFilter;
 use App\Filter\ItemSearchRequest;
+use App\Authority;
 use App\Item;
 
 class CatalogController extends AbstractSearchRequestController
@@ -22,6 +23,12 @@ class CatalogController extends AbstractSearchRequestController
         ItemTitleGenerator $titleGenerator
     ) {
         parent::__construct($repository, $titleGenerator);
+    }
+
+    public function getIndexNew()
+    {
+        $authors = Authority::latest()->take(10)->get();
+        return view('frontend.catalog.index-new',['authors' => $authors]);
     }
 
     public function getSuggestionsData()
