@@ -50,7 +50,7 @@
             @endif
             </div>
 
-            @if ( isset($import) && !empty($import->files))
+            @if ( isset($import) && !empty($import->csvFiles()))
             <div class="form-group top-space">
             {!! Form::label('files', 'Aktuálne CSV súbory:') !!}
             <table class="table">
@@ -59,11 +59,11 @@
                     <th>dátum nahratia</th>
                     <th class="text-right">velkosť</th>
                 </tr>
-                @foreach ($import->files as $file)
+                @foreach ($import->csvFiles() as $file)
                     <tr>
                         <td>{{ $file->getBasename() }}</td>
-                        <td>{{ \Carbon\Carbon::createFromTimestamp($file->getMTime()) }}</td>
-                        <td class="text-right">{{ formatBytes($file->getSize()) }}</td>
+                        <td>{{ \Carbon\Carbon::createFromTimestamp($import->lastModified($file)) }}</td>
+                        <td class="text-right">{{ formatBytes($import->fileSize($file)) }}</td>
                     </tr>
                 @endforeach
             </table>

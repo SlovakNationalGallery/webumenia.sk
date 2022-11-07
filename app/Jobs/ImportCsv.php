@@ -59,20 +59,17 @@ class ImportCsv extends Job implements ShouldQueue
             return;
         }
 
-        $this->import
-            ->files()
-            ->filter(fn(SplFileInfo $file) => $file->getExtension() === 'csv')
-            ->each(function (SplFileInfo $file) use ($importer) {
-                if (app()->runningInConsole()) {
-                    echo "Spúšťa sa import pre {$file->getBasename()}.\n";
-                }
+        $this->import->csvFiles()->each(function (SplFileInfo $file) use ($importer) {
+            if (app()->runningInConsole()) {
+                echo "Spúšťa sa import pre {$file->getBasename()}.\n";
+            }
 
-                $import_record = $this->import->records()->create([
-                    'filename' => $file->getBasename(),
-                ]);
-                $stream = $import_record->readStream($file);
-                $importer->import($import_record, $stream);
-            });
+            $import_record = $this->import->records()->create([
+                'filename' => $file->getBasename(),
+            ]);
+            $stream = $import_record->readStream($file);
+            $importer->import($import_record, $stream);
+        });
 
         if ($this->import->status != Import::STATUS_ERROR) {
             $this->import->status = Import::STATUS_COMPLETED;

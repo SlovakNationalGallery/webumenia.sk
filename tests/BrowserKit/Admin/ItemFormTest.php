@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\BrowserKit;
+namespace Tests\BrowserKit\Admin;
 
 use App\Item;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\BrowserKitTestCase;
 
-class AdminItemFormTest extends BrowserKitTestCase
+class ItemFormTest extends BrowserKitTestCase
 {
     use RefreshDatabase;
 
