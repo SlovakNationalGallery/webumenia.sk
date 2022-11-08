@@ -2,21 +2,22 @@
 
 namespace App;
 
+use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
-use League\Flysystem\FileAttributes;
-use League\Flysystem\StorageAttributes;
 use SplFileInfo;
 
 class Import extends Model
 {
+    use HasFactory;
+
     const STATUS_NEW = 'new';
     const STATUS_QUEUED = 'queued';
     const STATUS_IN_PROGRESS = 'in progress';
     const STATUS_COMPLETED = 'completed';
     const STATUS_ERROR = 'error';
-    // const STATUS_KILLED      = 'killed';
 
     public static $rules = [
         'name' => 'required',
@@ -69,18 +70,34 @@ class Import extends Model
         return 'default';
     }
 
-    public function getFilesAttribute()
+    public function csvFiles(): Collection
     {
-        return Storage::listContents('import/' . $this->dir_path)
-            ->filter(fn(StorageAttributes $attributes) => $attributes->isFile())
-            ->filter(
-                fn(FileAttributes $attributes) => Str::afterLast($attributes->path(), '.') === 'csv'
-            )
-            ->map(
-                fn(FileAttributes $attributes) => new SplFileInfo(
-                    storage_path('app/' . $attributes->path())
-                )
-            )
-            ->toArray();
+        return $this->files()->filter(fn(SplFileInfo $file) => $file->getExtension() === 'csv');
+    }
+
+    public function files(string $dir = null): Collection
+    {
+        $files = $this->storage()->files($dir ?? $this->dir_path);
+        return collect($files)->map(fn(string $file) => new SplFileInfo($file));
+    }
+
+    public function readStream(SplFileInfo $file)
+    {
+        return $this->storage()->readStream($file);
+    }
+
+    public function fileSize(SplFileInfo $file)
+    {
+        return $this->storage()->size($file);
+    }
+
+    public function lastModified(SplFileInfo $file)
+    {
+        return $this->storage()->lastModified($file);
+    }
+
+    protected function storage(): Filesystem
+    {
+        return Storage::disk('import');
     }
 }

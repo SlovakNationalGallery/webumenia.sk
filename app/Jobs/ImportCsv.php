@@ -3,16 +3,16 @@
 namespace App\Jobs;
 
 use App\Import;
-use App\Importers\AbstractImporter;
-use App\Importers\IImporter;
+use App\ImportRecord;
 use App\Repositories\CsvRepository;
-
 use App\Jobs\Job;
 use App\Matchers\AuthorityMatcher;
+use DateTime;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use SplFileInfo;
 
 class ImportCsv extends Job implements ShouldQueue
 {
@@ -38,6 +38,7 @@ class ImportCsv extends Job implements ShouldQueue
     public function handle(AuthorityMatcher $authorityMatcher, Translator $translator)
     {
         $this->import->status = Import::STATUS_IN_PROGRESS;
+        $this->import->started_at = new DateTime();
         $this->import->save();
 
         try {
@@ -51,25 +52,30 @@ class ImportCsv extends Job implements ShouldQueue
                 $translator
             );
         } catch (\Exception $e) {
-            if (\App::runningInConsole()) {
+            if (app()->runningInConsole()) {
                 echo "Nenašiel sa importer pre dané ID.\n";
             }
             app('sentry')->captureException($e);
             return;
         }
 
-        foreach ($this->import->files as $file) {
-            if (\App::runningInConsole()) {
+        $this->import->csvFiles()->each(function (SplFileInfo $file) use ($importer) {
+            if (app()->runningInConsole()) {
                 echo "Spúšťa sa import pre {$file->getBasename()}.\n";
             }
-            $importer->import($this->import, $file);
-        }
+
+            $import_record = $this->import->records()->create([
+                'filename' => $file->getBasename(),
+            ]);
+            $stream = $import_record->readStream($file);
+            $importer->import($import_record, $stream);
+        });
 
         if ($this->import->status != Import::STATUS_ERROR) {
             $this->import->status = Import::STATUS_COMPLETED;
         }
 
-        $this->import->completed_at = date('Y-m-d H:i:s');
+        $this->import->completed_at = new DateTime();
         $this->import->save();
     }
 

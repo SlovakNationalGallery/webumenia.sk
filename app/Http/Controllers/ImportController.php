@@ -134,7 +134,6 @@ class ImportController extends Controller
 
         // run in queue
         $import->status = Import::STATUS_QUEUED;
-        $import->started_at = date('Y-m-d H:i:s');
         $import->save();
 
         $this->dispatch(new ImportCsv($import));

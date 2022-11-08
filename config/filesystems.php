@@ -42,17 +42,17 @@ return [
             'throw' => true,
         ],
 
+        'import' => [
+            'driver' => 'local',
+            'root' => storage_path('app/import'),
+            'throw' => true,
+        ],
+
         'media' => [
             'driver' => 'local',
             'root' => public_path('storage/media'),
             'url' => env('APP_URL') . '/storage/media',
             'visibility' => 'public',
-            'throw' => true,
-        ],
-
-        'iip_images' => [
-            'driver' => 'local',
-            'root' => env('IIP_BASE_PATH'),
             'throw' => true,
         ],
 

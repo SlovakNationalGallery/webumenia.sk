@@ -8,7 +8,6 @@ use App\Matchers\AuthorityMatcher;
 use App\Repositories\CsvRepository;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use SplFileInfo;
 use Tests\TestCase;
 
 class GmuRnlImporterTest extends TestCase
@@ -64,7 +63,10 @@ class GmuRnlImporterTest extends TestCase
             $this->app->get(Translator::class)
         );
         $import = Import::create();
-        $items = $importer->import($import, new SplFileInfo(''));
+        $import_record = $import->records()->create([
+            'filename' => 'filename.csv',
+        ]);
+        $items = $importer->import($import_record, stream: null);
 
         $this->assertEquals('', $import->records()->first()->error_message);
         $this->assertCount(1, $items);

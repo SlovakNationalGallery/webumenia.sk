@@ -113,7 +113,7 @@ class MgImporter extends AbstractImporter
         return $id;
     }
 
-    protected function getItemImageFilenameFormat(array $record)
+    protected function getItemImageFilenameFormat(array $record): string
     {
         $filename = sprintf(
             '%s%s',
@@ -124,7 +124,7 @@ class MgImporter extends AbstractImporter
             $filename = sprintf('%s-%s', $filename, $record['Lomeni_S']);
         }
 
-        return $filename . '{_*,}';
+        return sprintf('%s(_.*)?', preg_quote($filename));
     }
 
     protected function hydrateIdentifier(array $record)
