@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.69.0] - 2022-11-08
 ### Fixed
 - indexing of Authority roles
 
