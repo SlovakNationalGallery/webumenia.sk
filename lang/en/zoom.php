@@ -9,4 +9,5 @@ return array(
     */
 
     'title'     => 'zoom',
+    'unavailable' => 'Artwork zoom is temporarily unavailable due to technical problems. We are working to resolve the issue as quickly as possible.'
 );
