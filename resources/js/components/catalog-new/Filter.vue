@@ -15,10 +15,13 @@ export default {
     components: { NewCustomSelect, NewMobileCustomSelect },
     data() {
         return {
-            currentRoute: window.location.href,
             openedFilter: null,
             isExtendedOpen: true,
-            filters: {
+        }
+    },
+    computed: {
+        filters() {
+            return {
                 authors: {
                     list: this.authors.map((author) => ({
                         ...author,
@@ -26,60 +29,42 @@ export default {
                     })),
                 },
                 someOtherFilter: { list: [] },
-            },
-        }
+            }
+        },
     },
     methods: {
         isSelectedMultiSelect(filterName, name) {
-            const urlQuery = this.getUrlQuery()
+            const urlQuery = this.$route.query
             return urlQuery[filterName] && urlQuery[filterName].includes(name)
         },
         toggleIsExtendedOpen() {
             this.isExtendedOpen = !this.isExtendedOpen
         },
         clearSelection(filterName) {
-            this.filters[filterName].list.map((el) => (el.checked = false))
+            const { [filterName]: removedFilterName, ...queryWithoutFilterName } = this.$route.query  
+            this.$router.push({
+                path: 'katalog-new',
+                query: queryWithoutFilterName,
+            })
             this.filters[filterName].search = null
             this.openedFilter = null
-            this.urlQuery[filterName] = []
         },
         setOpenedFilter(name) {
             this.openedFilter = name
         },
-        getUrlQuery() {
-            const url = new URL(window.location.href)
-            const query = {}
-            url.searchParams.forEach((value, key) => {
-                query[key] ? query[key].push(value) : (query[key] = [value])
-            })
-            return query
-        },
-        updateUrlQuery(query) {
-            const url = new URL(window.location.href)
-            Object.keys(query).map((key) => {
-                url.searchParams.delete(key)
-                query[key].map((value) => url.searchParams.append(key, value))
-            })
-            url.searchParams.delete('page')
-            window.history.pushState(null, null, url)
-        },
         handleChangeMultiSelect(filterName, value, selected) {
-            const urlQuery = this.getUrlQuery()
+            const urlQuery = this.$route.query
             const filterNameVals = urlQuery[filterName] || []
 
-            this.updateUrlQuery({
-                ...urlQuery,
-                [filterName]: selected
-                    ? [...filterNameVals, value]
-                    : filterNameVals.filter((filterNameVal) => value !== filterNameVal),
+            this.$router.push({
+                path: 'katalog-new',
+                query: {
+                    ...urlQuery,
+                    [filterName]: selected
+                        ? [...filterNameVals, value]
+                        : filterNameVals.filter((filterNameVal) => value !== filterNameVal),
+                },
             })
-
-            this.filters.authors = {
-                list: this.authors.map((author) => ({
-                    ...author,
-                    checked: this.isSelectedMultiSelect('authors', author.name),
-                })),
-            }
         },
         toggleSelect(filterName) {
             this.openedFilter = filterName === this.openedFilter ? null : filterName

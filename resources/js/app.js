@@ -22,8 +22,21 @@ require('./components/newsletter-signup-form-tracker')
 
 // Vue components
 import Vue from 'vue'
+import VueRouter from 'vue-router'
 import 'livewire-vue'
 import { Lang } from 'laravel-vue-lang';
+
+Vue.use(VueRouter)
+
+
+const routes = [
+    { path: '/katalog-new/{}', component: require('./components/catalog-new/Filter.vue').default },
+]  
+
+const router = new VueRouter({
+    mode: 'history',
+    routes
+});
 
 
 
@@ -66,4 +79,4 @@ Vue.component('color-slider', require('./components/vue/color-slider').default);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
- new Vue({ el: '#app' });
+ new Vue({ el: '#app', router });
