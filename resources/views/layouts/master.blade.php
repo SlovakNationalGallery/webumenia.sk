@@ -81,10 +81,6 @@
 
 	<!-- Content -->
 	<div id="app">
-		<div class="alert alert-warning text-center" role="alert">
-		  {{ trans('zoom.unavailable') }}
-		</div>
-
 		@sectionMissing('main-navigation')
 			@include('components.nav_bar')
 		@endif
