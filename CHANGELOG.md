@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+## [2.70.0] - 2022-11-08
+### Added
+- Temporary outage notice
+- new catalog "kitchen sink" page (work-in-progress)
+
 ## [2.69.0] - 2022-11-08
 ### Fixed
 - indexing of Authority roles
@@ -10,7 +15,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Changed
 - refactored import files
 
-### Added 
+### Added
 - parse article teaser from admin
 
 ## [2.68.0] - 2022-10-13
