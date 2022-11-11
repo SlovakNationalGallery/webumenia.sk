@@ -9,4 +9,5 @@ return array(
     */
 
     'title'     => 'zoom',
+    'unavailable' => 'Zoom obrázkov nie je z technických príčin dočasne dostupný. Na odstránení problému intenzívne pracujeme.'
 );
