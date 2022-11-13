@@ -4,7 +4,7 @@
             <input
                 class="tw-px-2 tw-border-none focus:tw-ring-0 focus:tw-outline-none tw-placeholder-gray-800 tw-font-medium tw-text-gray-800 tw-text-sm tw-py-1 tw-w-full"
                 type="text"
-                v-model="controller.filters[filterName].search"
+                v-model="search"
                 :placeholder="placeholder"
             />
             <div class="tw-flex tw-items-center tw-mr-2">
@@ -16,9 +16,7 @@
         >
             <label
                 v-for="option in controller.filters[filterName].list.filter((item) =>
-                    controller.filters[filterName].search
-                        ? item.name.includes(controller.filters[filterName].search)
-                        : true
+                    search ? item.name.includes(search) : true
                 )"
                 :for="option.id"
                 :class="[
@@ -51,6 +49,11 @@ export default {
     props: {
         filterName: String,
         placeholder: String,
+    },
+    data() {
+        return {
+            search: '',
+        }
     },
     inject: {
         controller: {
