@@ -1,6 +1,6 @@
 <template>
     <div class="tw-relative">
-        <slot :filters="filters" />
+        <slot />
     </div>
 </template>
 

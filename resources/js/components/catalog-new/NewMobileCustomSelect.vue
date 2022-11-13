@@ -29,12 +29,21 @@
                 <Options :filterName="this.controller.openedFilter" :placeholder="placeholder" />
             </div>
             <div class="tw-w-full tw-flex-1 tw-flex tw-flex-col tw-overflow-auto tw-min-h-0" v-else>
-                <button v-for="filterName in Object.keys(filters)"
-                    @click="controller.setOpenedFilter(filterName)"
+                <button
+                    @click="controller.setOpenedFilter('authors')"
                     class="tw-w-full tw-border-b tw-font-medium tw-border-gray-200 tw-px-4 tw-py-5"
                 >
                     <div class="tw-flex tw-justify-between">
-                        <span>{{filterName}}</span>
+                        <span>{{"authors"}}</span>
+                        <i class="fa fa-caret-right" />
+                    </div>
+                </button>
+                <button
+                    @click="controller.setOpenedFilter('someOtherFilter')"
+                    class="tw-w-full tw-border-b tw-font-medium tw-border-gray-200 tw-px-4 tw-py-5"
+                >
+                    <div class="tw-flex tw-justify-between">
+                        <span>{{"someOtherFilter"}}</span>
                         <i class="fa fa-caret-right" />
                     </div>
                 </button>
