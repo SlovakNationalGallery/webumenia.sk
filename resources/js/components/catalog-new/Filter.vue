@@ -34,17 +34,41 @@ export default {
                 someOtherFilter: { list: [] },
             }
         },
+        checkboxes() {
+            return {
+                has_image: {
+                    title: 'Len s obrázkom',
+                    checked: this.isSelectedCheckbox('has_image'),
+                },
+                has_iip: {
+                    title: 'Len so zoomom',
+                    checked: this.isSelectedCheckbox('has_iip'),
+                },
+                has_text: {
+                    title: 'Len s textom',
+                    checked: this.isSelectedCheckbox('has_text'),
+                },
+                is_free: {
+                    title: 'Len voľné',
+                    checked: this.isSelectedCheckbox('is_free'),
+                },
+            }
+        },
     },
     methods: {
         isSelectedMultiSelect(filterName, name) {
             const urlQuery = this.$route.query
             return urlQuery[filterName] && urlQuery[filterName].includes(name)
         },
+        isSelectedCheckbox(checkboxName) {
+            const urlQuery = this.$route.query
+            return urlQuery[checkboxName]
+        },
         toggleIsExtendedOpen() {
             this.isExtendedOpen = !this.isExtendedOpen
         },
         clearSelection(filterName) {
-            const { [filterName]: removedFilterName, ...queryWithoutFilterName } = this.$route.query  
+            const { [filterName]: removedFilterName, ...queryWithoutFilterName } = this.$route.query
             this.$router.push({
                 query: queryWithoutFilterName,
             })
@@ -54,7 +78,20 @@ export default {
         setOpenedFilter(name) {
             this.openedFilter = name
         },
-        handleMultiSelectChange(filterName, selectedValues) {
+        handleChangeCheckbox(checkboxName, selected) {
+            const { [checkboxName]: removedCheckboxName, ...queryWithoutCheckboxName } =
+                this.$route.query
+
+            this.$router.push({
+                path: 'katalog-new',
+                query: selected
+                    ? { ...queryWithoutCheckboxName, [checkboxName]: 1 }
+                    : {
+                          ...queryWithoutCheckboxName,
+                      },
+            })
+        },
+        handleChangeMultiSelect(filterName, value, selected) {
             const urlQuery = this.$route.query
             this.$router.push({
                 query: {
