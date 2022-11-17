@@ -12,6 +12,20 @@
                     <filter-new-custom-select :filter-name="'someOtherFilter'"
                         placeholder="Napíšte meno autora / autorky">
                 </div>
+                <filter-show-more>
+                <div>
+                    <filter-new-custom-select :filter-name="'authors'"
+                        placeholder="Napíšte meno autora / autorky">
+                </div>
+                <div>
+                    <filter-new-custom-select :filter-name="'authors'"
+                        placeholder="Napíšte meno autora / autorky">
+                </div>
+                <div>
+                    <filter-new-custom-select :filter-name="'authors'"
+                        placeholder="Napíšte meno autora / autorky">
+                </div>
+                </filter-show-more>
             </div>
             <div
                 class="tw-invisible tw-space-x-3 tw-bg-gray-200 tw-px-16 tw-pt-4 tw-pb-5 md:tw-visible md:tw-flex">
