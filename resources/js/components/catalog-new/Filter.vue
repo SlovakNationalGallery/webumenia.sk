@@ -87,8 +87,8 @@ export default {
                 query: selected
                     ? { ...queryWithoutCheckboxName, [checkboxName]: 1 }
                     : {
-                          ...queryWithoutCheckboxName,
-                      },
+                        ...queryWithoutCheckboxName,
+                    },
             })
         },
         handleChangeMultiSelect(filterName, value, selected) {
