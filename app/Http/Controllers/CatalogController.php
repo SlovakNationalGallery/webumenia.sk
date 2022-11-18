@@ -7,7 +7,6 @@ use App\Filter\Forms\Types\ItemSearchRequestType;
 use App\Filter\Generators\ItemTitleGenerator;
 use App\Filter\ItemFilter;
 use App\Filter\ItemSearchRequest;
-use App\Authority;
 use App\Item;
 
 class CatalogController extends AbstractSearchRequestController

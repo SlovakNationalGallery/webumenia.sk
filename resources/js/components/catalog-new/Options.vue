@@ -32,7 +32,17 @@
                     :key="option.id"
                     :id="option.id"
                     @change="
-                        controller.handleMultiSelectChange(filterName, option.name, !option.checked)
+                        controller.handleMultiSelectChange(
+                            filterName,
+                            controller.filters[filterName].list
+                                .map((item) => {
+                                    return item.id === option.id
+                                        ? { ...item, checked: !item.checked }
+                                        : item
+                                })
+                                .filter((option) => option.checked)
+                                .map((option) => option.name)
+                        )
                     "
                     :checked="option.checked"
                 />

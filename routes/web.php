@@ -314,7 +314,7 @@ function()
     Route::get('patternlib', [PatternlibController::class, 'getIndex'])->name('frontend.patternlib.index');
 
     Route::get('katalog', [CatalogController::class, 'getIndex'])->name('frontend.catalog.index');
-    Route::resource('katalog-new', NewCatalogController::class)->name('*', 'frontend.catalog-new');
+    Route::resource('katalog-new', NewCatalogController::class)->names('frontend.catalog-new');
 
     Route::get('katalog/suggestions', [CatalogController::class, 'getSuggestions'])->name('frontend.catalog.suggestions');
     Route::get('katalog/random', [CatalogController::class, 'getRandom'])->name('frontend.catalog.random');

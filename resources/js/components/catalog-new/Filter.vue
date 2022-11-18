@@ -53,13 +53,10 @@ export default {
         },
         handleMultiSelectChange(filterName, selectedValues) {
             const urlQuery = this.$route.query
-
             this.$router.push({
                 query: {
                     ...urlQuery,
-                    [filterName]: selected
-                        ? [...filterNameVals, value]
-                        : filterNameVals.filter((filterNameVal) => value !== filterNameVal),
+                    [filterName]: selectedValues
                 },
             })
         },
