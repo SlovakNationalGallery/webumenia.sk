@@ -32,7 +32,7 @@
                     :key="option.id"
                     :id="option.id"
                     @change="
-                        controller.handleChangeMultiSelect(filterName, option.name, !option.checked)
+                        controller.handleMultiSelectChange(filterName, option.name, !option.checked)
                     "
                     :checked="option.checked"
                 />

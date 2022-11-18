@@ -28,14 +28,8 @@ import { Lang } from 'laravel-vue-lang';
 
 Vue.use(VueRouter)
 
-
-const routes = [
-    { path: '/katalog-new/{}', component: require('./components/catalog-new/Filter.vue').default },
-]  
-
 const router = new VueRouter({
     mode: 'history',
-    routes
 });
 
 

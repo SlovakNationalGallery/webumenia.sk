@@ -43,7 +43,6 @@ export default {
         clearSelection(filterName) {
             const { [filterName]: removedFilterName, ...queryWithoutFilterName } = this.$route.query  
             this.$router.push({
-                path: 'katalog-new',
                 query: queryWithoutFilterName,
             })
             this.filters[filterName].search = null
@@ -52,12 +51,10 @@ export default {
         setOpenedFilter(name) {
             this.openedFilter = name
         },
-        handleChangeMultiSelect(filterName, value, selected) {
+        handleMultiSelectChange(filterName, selectedValues) {
             const urlQuery = this.$route.query
-            const filterNameVals = urlQuery[filterName] || []
 
             this.$router.push({
-                path: 'katalog-new',
                 query: {
                     ...urlQuery,
                     [filterName]: selected

@@ -3,7 +3,7 @@
         <button
             class="tw-bg-white tw-border hover:tw-border-gray-800 tw-border-gray-300 tw-text-lg tw-font-bold tw-py-3.5 tw-px-4"
             :class="{
-                'tw-border-gray-800 tw-border-1': active,
+                'tw-border-gray-800': active,
                 'tw-border-gray-800 tw-border-2': controller.openedFilter === filterName,
             }"
             @click="controller.toggleSelect(filterName)"
@@ -11,7 +11,10 @@
             <div class="tw-flex">
                 <span>{{ filterName }}</span>
                 <div class="tw-pl-4 tw-flex tw-items-center">
-                    <i v-if="controller.openedFilter === filterName" class="fa fa-caret-up tw-text-sky-400" />
+                    <i
+                        v-if="controller.openedFilter === filterName"
+                        class="fa fa-caret-up tw-text-sky-400"
+                    />
                     <i v-else class="fa fa-caret-down" />
                 </div>
             </div>
@@ -39,10 +42,12 @@
 
 <script>
 import Options from './Options.vue'
-import { mixin as clickaway } from 'vue-clickaway'
+import { directive as onClickaway } from 'vue-clickaway'
 
 export default {
-    mixins: [clickaway],
+    directives: {
+        onClickaway: onClickaway,
+    },
     props: {
         filterName: String,
         placeholder: String,

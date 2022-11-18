@@ -1,8 +1,9 @@
 <template>
     <div
-        :class="`${
-            !this.controller.isExtendedOpen ? 'tw-hidden ' : ' '
-        } md:tw-hidden tw-flex tw-h-full tw-w-full tw-flex-col tw-fixed tw-top-0 tw-z-30`"
+        :class="{
+            'tw-hidden': !this.controller.isExtendedOpen,
+        }"
+        class="md:tw-hidden tw-flex tw-h-full tw-w-full tw-flex-col tw-fixed tw-top-0 tw-z-30"
     >
         <div class="tw-min-w-full tw-h-10 tw-shrink-0 tw-opacity-40 tw-left-0 tw-bg-gray-800" />
         <div class="tw-w-full tw-flex tw-flex-1 tw-overflow-auto tw-bg-white tw-flex-col">
@@ -34,7 +35,7 @@
                     class="tw-w-full tw-border-b tw-font-medium tw-border-gray-200 tw-px-4 tw-py-5"
                 >
                     <div class="tw-flex tw-justify-between">
-                        <span>{{"authors"}}</span>
+                        <span>{{ 'authors' }}</span>
                         <i class="fa fa-caret-right" />
                     </div>
                 </button>
@@ -43,7 +44,7 @@
                     class="tw-w-full tw-border-b tw-font-medium tw-border-gray-200 tw-px-4 tw-py-5"
                 >
                     <div class="tw-flex tw-justify-between">
-                        <span>{{"someOtherFilter"}}</span>
+                        <span>{{ 'someOtherFilter' }}</span>
                         <i class="fa fa-caret-right" />
                     </div>
                 </button>
@@ -63,7 +64,7 @@ import Options from './Options.vue'
 export default {
     props: {
         filters: Object,
-        placeholder: String
+        placeholder: String,
     },
     inject: {
         controller: {

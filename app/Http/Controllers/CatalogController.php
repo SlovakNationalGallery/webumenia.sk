@@ -25,12 +25,6 @@ class CatalogController extends AbstractSearchRequestController
         parent::__construct($repository, $titleGenerator);
     }
 
-    public function getIndexNew()
-    {
-        $authors = Authority::latest()->take(10)->get();
-        return view('frontend.catalog.index-new',['authors' => $authors]);
-    }
-
     public function getSuggestionsData()
     {
         return parent::getSuggestionsData()->each(function (Item $item) {
