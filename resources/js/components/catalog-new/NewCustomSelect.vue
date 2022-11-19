@@ -1,5 +1,5 @@
 <template>
-    <div class="tw-min-w-max">
+    <div class="tw-min-w-max md:tw-pb-2">
         <button
             class="tw-bg-white tw-border hover:tw-border-gray-800 tw-border-gray-300 tw-text-lg tw-font-bold tw-py-3.5 tw-px-4"
             :class="{

@@ -1,6 +1,6 @@
 <template>
     <div class="tw-relative">
-        <slot />
+        <slot :isExtendedOpen="isExtendedOpen"/>
     </div>
 </template>
 
@@ -78,7 +78,7 @@ export default {
         setOpenedFilter(name) {
             this.openedFilter = name
         },
-        handleChangeCheckbox(checkboxName, selected) {
+        handleCheckboxChange(checkboxName, selected) {
             const { [checkboxName]: removedCheckboxName, ...queryWithoutCheckboxName } =
                 this.$route.query
 
