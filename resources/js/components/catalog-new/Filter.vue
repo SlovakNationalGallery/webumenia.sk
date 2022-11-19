@@ -91,7 +91,7 @@ export default {
                     },
             })
         },
-        handleChangeMultiSelect(filterName, value, selected) {
+        handleMultiSelectChange(filterName, selectedValues) {
             const urlQuery = this.$route.query
             this.$router.push({
                 query: {
