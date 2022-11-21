@@ -4,10 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory;
     public static $roles = ['admin', 'editor', 'importer'];
 
     protected $fillable = ['name', 'email', 'role', 'username'];
