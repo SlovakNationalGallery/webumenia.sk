@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- laravel sanctum authentication
+
+### Changed
+- disable rate limiter for users in api
 
 ## [2.70.0] - 2022-11-08
 ### Added
