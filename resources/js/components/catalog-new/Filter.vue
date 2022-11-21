@@ -56,7 +56,7 @@ export default {
     methods: {
         getSort() {
             const urlQuery = this.$route.query
-            return urlQuery["sort"] || "updated_at"
+            return urlQuery['sort'] || 'updated_at'
         },
         toggleIsExtendedOpen() {
             this.isExtendedOpen = !this.isExtendedOpen
@@ -78,20 +78,18 @@ export default {
         setOpenedFilter(name) {
             this.openedFilter = name
         },
-        handleSort(event) {
-            const { "sort": sort, ...queryWithoutSort } =
-                this.$route.query
-            const value = event.target[event.target.selectedIndex].value
+        handleSort(sortValue) {
+            const { sort: sort, ...queryWithoutSort } = this.$route.query
             this.$router.push({
                 path: 'katalog-new',
-                query: value === "updated_at"
-                    ? { ...queryWithoutSort }
-                    : {
-                        ...queryWithoutSort,
-                        sort: value
-                    },
+                query:
+                    sortValue === 'updated_at'
+                        ? { ...queryWithoutSort }
+                        : {
+                              ...queryWithoutSort,
+                              sort: sortValue,
+                          },
             })
-            
         },
         handleCheckboxChange(checkboxName, selected) {
             this.$router.push({
