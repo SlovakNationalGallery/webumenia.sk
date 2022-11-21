@@ -13,9 +13,15 @@
             :key="controller.checkboxes[checkboxName].title"
             :id="controller.checkboxes[checkboxName].title"
         />
-        <span class="tw-font-normal tw-text-base">{{
-            controller.checkboxes[checkboxName].title
-        }}</span>
+        <span
+            :class="[
+                'tw-font-normal tw-text-base',
+                {
+                    '!tw-font-semibold': controller.checkboxes[checkboxName].checked,
+                },
+            ]"
+            >{{ controller.checkboxes[checkboxName].title }}</span
+        >
     </label>
 </template>
 

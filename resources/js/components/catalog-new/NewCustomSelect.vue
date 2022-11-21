@@ -9,7 +9,10 @@
             @click="controller.toggleSelect(filterName)"
         >
             <div class="tw-flex">
-                <span>{{ filterName }}</span>
+                <span class="tw-font-semibold"
+                    >{{ filterName }}
+                    <span class="tw-font-bold">{{ this.selectedCount }}</span>
+                </span>
                 <div class="tw-pl-4 tw-flex tw-items-center">
                     <i
                         v-if="controller.openedFilter === filterName"
@@ -52,6 +55,15 @@ export default {
         filterName: String,
         placeholder: String,
         active: Boolean,
+    },
+    computed: {
+        selectedCount() {
+            const count = this.controller.filters[this.filterName].list.reduce(
+                (acc, currentItem) => (currentItem.checked ? acc + 1 : acc),
+                0
+            )
+            return count ? `(${count})` : ''
+        },
     },
     inject: {
         controller: {

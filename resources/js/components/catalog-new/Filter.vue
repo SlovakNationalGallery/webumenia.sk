@@ -1,6 +1,6 @@
 <template>
     <div class="tw-relative">
-        <slot :isExtendedOpen="isExtendedOpen"/>
+        <slot :isExtendedOpen="isExtendedOpen" />
     </div>
 </template>
 
@@ -54,6 +54,9 @@ export default {
                 },
             }
         },
+        lengthOfLabelItems() {
+            return Object.values(this.filters).filter((filterName) => filterName.list.some((item) => item.checked)).length
+        },
     },
     methods: {
         isSelectedMultiSelect(filterName, name) {
@@ -72,8 +75,12 @@ export default {
             this.$router.push({
                 query: queryWithoutFilterName,
             })
-            this.filters[filterName].search = null
             this.openedFilter = null
+        },
+        clearAllSelection() {
+            this.$router.push({
+                query: {},
+            })
         },
         setOpenedFilter(name) {
             this.openedFilter = name
@@ -87,8 +94,8 @@ export default {
                 query: selected
                     ? { ...queryWithoutCheckboxName, [checkboxName]: 1 }
                     : {
-                        ...queryWithoutCheckboxName,
-                    },
+                          ...queryWithoutCheckboxName,
+                      },
             })
         },
         handleMultiSelectChange(filterName, selectedValues) {
@@ -96,7 +103,7 @@ export default {
             this.$router.push({
                 query: {
                     ...urlQuery,
-                    [filterName]: selectedValues
+                    [filterName]: selectedValues,
                 },
             })
         },
