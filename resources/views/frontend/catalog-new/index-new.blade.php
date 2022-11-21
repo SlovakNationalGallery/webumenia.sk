@@ -40,6 +40,7 @@
                 <filter-new-selected-labels>
                 </filter-new-selected-labels>
             </div>
+            <filter-new-sort />
             <filter-new-mobile-custom-select placeholder="Simple dummy text" />
         </filter-new>
     </section>

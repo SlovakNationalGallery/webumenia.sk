@@ -41,6 +41,9 @@ export default {
                         : this.$route.query.authors,
             }
         },
+        sort() {
+            return this.getSort()
+        },
         filters() {
             return {
                 authors: this.authors.map((author) => ({
@@ -51,6 +54,10 @@ export default {
         },
     },
     methods: {
+        getSort() {
+            const urlQuery = this.$route.query
+            return urlQuery["sort"] || "updated_at"
+        },
         toggleIsExtendedOpen() {
             this.isExtendedOpen = !this.isExtendedOpen
         },
@@ -70,6 +77,21 @@ export default {
         },
         setOpenedFilter(name) {
             this.openedFilter = name
+        },
+        handleSort(event) {
+            const { "sort": sort, ...queryWithoutSort } =
+                this.$route.query
+            const value = event.target[event.target.selectedIndex].value
+            this.$router.push({
+                path: 'katalog-new',
+                query: value === "updated_at"
+                    ? { ...queryWithoutSort }
+                    : {
+                        ...queryWithoutSort,
+                        sort: value
+                    },
+            })
+            
         },
         handleCheckboxChange(checkboxName, selected) {
             this.$router.push({
