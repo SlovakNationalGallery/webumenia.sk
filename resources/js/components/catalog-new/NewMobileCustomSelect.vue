@@ -49,12 +49,11 @@
                     </div>
                 </button>
                 <div class="tw-py-2">
-                <NewCustomCheckbox :checkbox-name="'has_image'" />
-                <NewCustomCheckbox :checkbox-name="'has_iip'"/>
-                <NewCustomCheckbox :checkbox-name="'is_free'"/>
-                <NewCustomCheckbox :checkbox-name="'has_text'"/>
+                    <NewCustomCheckbox :checkbox-name="'has_image'" />
+                    <NewCustomCheckbox :checkbox-name="'has_iip'" />
+                    <NewCustomCheckbox :checkbox-name="'is_free'" />
+                    <NewCustomCheckbox :checkbox-name="'has_text'" />
                 </div>
-
             </div>
             <div
                 class="tw-w-full tw-bg-white tw-shadow-lg tw-flex tw-pb-6 tw-drop-shadow-[0_-2px_13px_rgba(0,0,0,0.1)]"
@@ -67,7 +66,7 @@
 
 <script>
 import Options from './Options.vue'
-import NewCustomCheckbox from './NewCustomCheckbox.vue';
+import NewCustomCheckbox from './NewCustomCheckbox.vue'
 
 export default {
     props: {
