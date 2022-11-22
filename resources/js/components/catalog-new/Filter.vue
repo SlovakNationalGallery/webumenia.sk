@@ -90,7 +90,6 @@ export default {
                 this.$route.query
 
             this.$router.push({
-                path: 'katalog-new',
                 query: selected
                     ? { ...queryWithoutCheckboxName, [checkboxName]: 1 }
                     : {
