@@ -20,6 +20,9 @@ export default {
         }
     },
     computed: {
+        selectedValues() {
+            return this.$route.query
+        },
         filters() {
             return {
                 authors: {
@@ -59,6 +62,9 @@ export default {
                     [filterName]: selectedValues
                 },
             })
+        },
+        closeOpenedFilter() {
+            this.openedFilter = null
         },
         toggleSelect(filterName) {
             this.openedFilter = filterName === this.openedFilter ? null : filterName

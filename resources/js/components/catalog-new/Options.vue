@@ -15,9 +15,7 @@
             class="tw-bg-white tw-flex-1 tw-flex tw-flex-col md:tw-max-h-80 md:tw-min-h-80 tw-pr-3 tw-scrollbar tw-scrollbar-w-1 tw-scrollbar-track-rounded tw-scrollbar-thumb-rounded tw-scrollbar-thumb-gray-600 tw-scrollbar-track-gray-200 tw-overflow-auto"
         >
             <label
-                v-for="option in controller.filters[filterName].list.filter((item) =>
-                    search ? item.name.includes(search) : true
-                )"
+                v-for="option in filteredOptions"
                 :for="option.id"
                 :class="[
                     'tw-flex tw-items-center',
@@ -32,17 +30,18 @@
                     :key="option.id"
                     :id="option.id"
                     @change="
-                        controller.handleMultiSelectChange(
-                            filterName,
-                            controller.filters[filterName].list
-                                .map((item) => {
-                                    return item.id === option.id
-                                        ? { ...item, checked: !item.checked }
-                                        : item
-                                })
-                                .filter((option) => option.checked)
-                                .map((option) => option.name)
-                        )
+                        (e) =>
+                            controller.handleMultiSelectChange(
+                                filterName,
+                                e.target.checked
+                                    ? [
+                                          ...(controller.selectedValues[filterName] || []),
+                                          option.name,
+                                      ]
+                                    : controller.selectedValues[filterName].filter(
+                                          (selectedOption) => selectedOption !== option.name
+                                      )
+                            )
                     "
                     :checked="option.checked"
                 />
@@ -64,6 +63,13 @@ export default {
         return {
             search: '',
         }
+    },
+    computed: {
+        filteredOptions() {
+            return this.controller.filters[this.filterName].list.filter((item) =>
+                this.search ? item.name.includes(this.search) : true
+            )
+        },
     },
     inject: {
         controller: {
