@@ -1,8 +1,8 @@
 <template>
-    <div @click.stop class="tw-flex tw-flex-col tw-flex-1 tw-min-w-full">
+    <div class="tw-flex tw-flex-col tw-flex-1 tw-min-w-full">
         <div class="tw-flex tw-border tw-border-gray-800 tw-mb-6">
             <input
-                class="tw-px-2 tw-border-none focus:tw-ring-0 focus:tw-outline-none tw-placeholder-gray-800 tw-font-medium tw-text-gray-800 tw-text-sm tw-py-1 tw-w-full"
+                class="tw-px-2 tw-border-none focus:tw-ring-0 focus:tw-outline-none tw-placeholder-gray-800 tw-font-semibold tw-text-gray-800 tw-text-sm tw-py-1 tw-w-full"
                 type="text"
                 v-model="search"
                 :placeholder="placeholder"
@@ -46,7 +46,7 @@
                     :checked="option.checked"
                 />
                 <span class="tw-font-normal tw-text-base"
-                    >{{ option.name }} <span class="tw-font-medium">({{ option.count }})</span>
+                    >{{ option.name }} <span class="tw-font-semibold">({{ option.count }})</span>
                 </span>
             </label>
         </div>
@@ -66,9 +66,12 @@ export default {
     },
     computed: {
         filteredOptions() {
-            return this.controller.filters[this.filterName].list.filter((item) =>
-                this.search ? item.name.includes(this.search) : true
-            )
+            return this.controller.filters[this.filterName]
+                .filter((item) => (this.search ? item.name.includes(this.search) : true))
+                .map((option) => ({
+                    ...option,
+                    checked: (this.controller.selectedValues[this.filterName] || []).includes(option.name),
+                }))
         },
     },
     inject: {

@@ -1,6 +1,6 @@
 <template>
     <div class="tw-relative">
-        <slot />
+        <slot :isExtendedOpen="isExtendedOpen" />
     </div>
 </template>
 
@@ -20,46 +20,83 @@ export default {
         }
     },
     computed: {
+        selectedOptionsAsLabels() {
+            return Object.entries(this.selectedValues)
+                .filter(([filterName, _]) => Object.keys(this.filters).includes(filterName))
+                .map(([filterName, filterValues]) =>
+                    (filterValues || []).map((filterValue) => ({
+                        value: filterValue,
+                        filterName,
+                        type: 'string',
+                    }))
+                )
+                .flat()
+        },
         selectedValues() {
-            return this.$route.query
+            return {
+                ...this.$route.query,
+                authors:
+                    typeof this.$route.query.authors === 'string'
+                        ? [this.$route.query.authors]
+                        : this.$route.query.authors,
+            }
+        },
+        sort() {
+            return this.$route.query['sort']
         },
         filters() {
             return {
-                authors: {
-                    list: this.authors.map((author) => ({
+                authors: this.authors.map((author) => ({
                         ...author,
-                        checked: this.isSelectedMultiSelect('authors', author.name),
                     })),
-                },
-                someOtherFilter: { list: [] },
+                someOtherFilter: [],
             }
         },
     },
     methods: {
-        isSelectedMultiSelect(filterName, name) {
-            const urlQuery = this.$route.query
-            return urlQuery[filterName] && urlQuery[filterName].includes(name)
-        },
         toggleIsExtendedOpen() {
             this.isExtendedOpen = !this.isExtendedOpen
         },
         clearSelection(filterName) {
-            const { [filterName]: removedFilterName, ...queryWithoutFilterName } = this.$route.query  
             this.$router.push({
-                query: queryWithoutFilterName,
+                query: {
+                    ...this.$route.query,
+                    [filterName]: undefined,
+                },
             })
-            this.filters[filterName].search = null
             this.openedFilter = null
+        },
+        clearAllSelections() {
+            this.$router.push({
+                query: {},
+            })
         },
         setOpenedFilter(name) {
             this.openedFilter = name
+        },
+        handleSortChange(sortValue) {
+            this.$router.push({
+                path: 'katalog-new',
+                query: {
+                    ...this.$route.query,
+                    sort: sortValue || undefined
+                }
+            })
+        },
+        handleCheckboxChange(checkboxName, selected) {
+            this.$router.push({
+                query: {
+                    ...this.$route.query,
+                    [checkboxName]: selected || undefined,
+                },
+            })
         },
         handleMultiSelectChange(filterName, selectedValues) {
             const urlQuery = this.$route.query
             this.$router.push({
                 query: {
                     ...urlQuery,
-                    [filterName]: selectedValues
+                    [filterName]: selectedValues,
                 },
             })
         },

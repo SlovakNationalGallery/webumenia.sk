@@ -42,7 +42,11 @@ Vue.component('filter-checkbox', require('./components/filter/Checkbox.vue').def
 Vue.component('filter-custom-select', require('./components/filter/CustomSelect.vue').default);
 Vue.component('filter-new', require('./components/catalog-new/Filter.vue').default);
 Vue.component('filter-new-custom-select', require('./components/catalog-new/NewCustomSelect.vue').default);
+Vue.component('filter-new-custom-checkbox', require('./components/catalog-new/NewCustomCheckbox.vue').default);
+Vue.component('filter-new-selected-labels', require('./components/catalog-new/NewSelectedLabels.vue').default);
+Vue.component('filter-new-sort', require('./components/catalog-new/NewSort.vue').default);
 Vue.component('filter-new-mobile-custom-select', require('./components/catalog-new/NewMobileCustomSelect.vue').default);
+Vue.component('filter-show-more', require('./components/catalog-new/ShowMore.vue').default);
 Vue.component('flickity', require('./components/Flickity.vue').default);
 Vue.component('home.shuffle-orchestrator', require('./components/home/ShuffleOrchestrator.vue').default);
 Vue.component('home.transition-in-place', require('./components/home/TransitionInPlace.vue').default);
