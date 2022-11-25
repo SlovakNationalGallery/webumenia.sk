@@ -34,53 +34,18 @@
 
 <script>
 export default {
+    props: {
+        options: Array,
+    },
     data() {
         return {
             isOpen: false,
         }
     },
     computed: {
-        options() {
-            return [
-                {
-                    value: null,
-                    text: 'podľa poslednej zmeny',
-                },
-                {
-                    value: 'created_at',
-                    text: 'dátumu pridania',
-                },
-                {
-                    value: 'title',
-                    text: 'názvu',
-                },
-                {
-                    value: 'author',
-                    text: 'autora',
-                },
-                {
-                    value: 'newest',
-                    text: 'dotovania - od najnovšieho',
-                },
-                {
-                    value: 'oldest',
-                    text: 'dotovania - od najstaršieho',
-                },
-                {
-                    value: 'view_count',
-                    text: 'počtu videní',
-                },
-                {
-                    value: 'random',
-                    text: 'náhodného poradia',
-                },
-            ]
-        },
         selectedOptionValue() {
-            return (
-                this.options.find((sortItem) => this.controller.sort === sortItem.value).value ||
-                'podľa poslednej zmeny'
-            )
+            const selectedOption = this.options.find((sortItem) => this.controller.sort === sortItem.value)
+            return selectedOption ? selectedOption.value : 'podľa poslednej zmeny'
         },
         selectableOptions() {
             return this.options.filter((sortItem) => this.controller.sort !== sortItem.value)
