@@ -45,7 +45,7 @@ export default {
     computed: {
         selectedOptionValue() {
             const selectedOption = this.options.find((sortItem) => this.controller.sort === sortItem.value)
-            return selectedOption ? selectedOption.value : 'podľa poslednej zmeny'
+            return selectedOption ? selectedOption.text : 'podľa poslednej zmeny'
         },
         selectableOptions() {
             return this.options.filter((sortItem) => this.controller.sort !== sortItem.value)

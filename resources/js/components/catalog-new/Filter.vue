@@ -54,10 +54,6 @@ export default {
         },
     },
     methods: {
-        getSort() {
-            const urlQuery = this.$route.query
-            return urlQuery['sort'] || 'updated_at'
-        },
         toggleIsExtendedOpen() {
             this.isExtendedOpen = !this.isExtendedOpen
         },
@@ -109,9 +105,6 @@ export default {
         },
         toggleSelect(filterName) {
             this.openedFilter = filterName === this.openedFilter ? null : filterName
-        },
-        closeOpenedFilter() {
-            this.openedFilter = null
         },
     },
     provide() {
