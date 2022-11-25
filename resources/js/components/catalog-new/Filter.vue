@@ -41,6 +41,9 @@ export default {
                         : this.$route.query.authors,
             }
         },
+        sort() {
+            return this.$route.query['sort']
+        },
         filters() {
             return {
                 authors: this.authors.map((author) => ({
@@ -71,6 +74,15 @@ export default {
         setOpenedFilter(name) {
             this.openedFilter = name
         },
+        handleSortChange(sortValue) {
+            this.$router.push({
+                path: 'katalog-new',
+                query: {
+                    ...this.$route.query,
+                    sort: sortValue || undefined
+                }
+            })
+        },
         handleCheckboxChange(checkboxName, selected) {
             this.$router.push({
                 query: {
@@ -93,9 +105,6 @@ export default {
         },
         toggleSelect(filterName) {
             this.openedFilter = filterName === this.openedFilter ? null : filterName
-        },
-        closeOpenedFilter() {
-            this.openedFilter = null
         },
     },
     provide() {

@@ -40,6 +40,40 @@
                 <filter-new-selected-labels>
                 </filter-new-selected-labels>
             </div>
+            <filter-new-sort :options="[
+                    {
+                        value: null,
+                        text: 'podľa poslednej zmeny',
+                    },
+                    {
+                        value: 'created_at',
+                        text: 'dátumu pridania',
+                    },
+                    {
+                        value: 'title',
+                        text: 'názvu',
+                    },
+                    {
+                        value: 'author',
+                        text: 'autora',
+                    },
+                    {
+                        value: 'newest',
+                        text: 'dotovania - od najnovšieho',
+                    },
+                    {
+                        value: 'oldest',
+                        text: 'dotovania - od najstaršieho',
+                    },
+                    {
+                        value: 'view_count',
+                        text: 'počtu videní',
+                    },
+                    {
+                        value: 'random',
+                        text: 'náhodného poradia',
+                    },
+                ]" />
             <filter-new-mobile-custom-select placeholder="Simple dummy text" />
         </filter-new>
     </section>
