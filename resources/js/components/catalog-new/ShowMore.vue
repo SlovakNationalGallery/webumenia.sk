@@ -6,10 +6,10 @@
         >
             <div class="tw-flex tw-justify-center">
                 <div class="tw-pr-4 tw-flex tw-items-center">
-                    <i v-if="controller.isExtended" class="fa fa-minus" />
-                    <i v-else class="fa fa-sliders" />
+                    <i v-if="controller.isExtended" class="fa fa-minus"></i>
+                    <i v-else class="fa fa-sliders"></i>
                 </div>
-                <span>{{ controller.isExtended ? 'skryť ďalšie filter' : 'všetky filtre' }}</span>
+                <span>{{ controller.isExtendedOpen ? 'skryť ďalšie filtre' : 'všetky filtre' }}</span>
             </div>
         </button>
     </div>

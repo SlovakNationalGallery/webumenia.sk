@@ -17,12 +17,12 @@
                     </div>
                     <div v-else>
                         <button @click="controller.setOpenedFilter(null)">
-                            <i class="fa fa-chevron-left tw-text-gray-800" />
+                            <i class="fa fa-chevron-left tw-text-gray-800"></i>
                         </button>
                         <span>{{ this.controller.openedFilter }}</span>
                     </div>
                     <button @click="controller.toggleIsExtendedOpen()">
-                        <i class="fa fa-close" />
+                        <i class="fa fa-close"></i>
                     </button>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                 >
                     <div class="tw-flex tw-justify-between">
                         <span>{{ 'authors' }}</span>
-                        <i class="fa fa-caret-right" />
+                        <i class="fa fa-caret-right"></i>
                     </div>
                 </button>
                 <button
@@ -45,14 +45,14 @@
                 >
                     <div class="tw-flex tw-justify-between">
                         <span>{{ 'someOtherFilter' }}</span>
-                        <i class="fa fa-caret-right" />
+                        <i class="fa fa-caret-right"></i>
                     </div>
                 </button>
                 <div class="tw-py-2">
-                    <NewCustomCheckbox :checkbox-name="'has_image'" />
-                    <NewCustomCheckbox :checkbox-name="'has_iip'" />
-                    <NewCustomCheckbox :checkbox-name="'is_free'" />
-                    <NewCustomCheckbox :checkbox-name="'has_text'" />
+                    <NewCustomCheckbox title="Len s obrázkom" name="has_image" />
+                    <NewCustomCheckbox title="Len so zoomom" name="has_iip" />
+                    <NewCustomCheckbox title="Len voľné" name="is_free" />
+                    <NewCustomCheckbox title="Len s textom" name="has_text" />
                 </div>
             </div>
             <div

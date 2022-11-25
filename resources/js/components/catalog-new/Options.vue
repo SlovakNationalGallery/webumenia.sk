@@ -1,5 +1,5 @@
 <template>
-    <div @click.stop class="tw-flex tw-flex-col tw-flex-1 tw-min-w-full">
+    <div class="tw-flex tw-flex-col tw-flex-1 tw-min-w-full">
         <div class="tw-flex tw-border tw-border-gray-800 tw-mb-6">
             <input
                 class="tw-px-2 tw-border-none focus:tw-ring-0 focus:tw-outline-none tw-placeholder-gray-800 tw-font-semibold tw-text-gray-800 tw-text-sm tw-py-1 tw-w-full"

@@ -37,25 +37,18 @@ export default {
         checkboxes() {
             return {
                 has_image: {
-                    title: 'Len s obrázkom',
                     checked: this.isSelectedCheckbox('has_image'),
                 },
                 has_iip: {
-                    title: 'Len so zoomom',
                     checked: this.isSelectedCheckbox('has_iip'),
                 },
                 has_text: {
-                    title: 'Len s textom',
                     checked: this.isSelectedCheckbox('has_text'),
                 },
                 is_free: {
-                    title: 'Len voľné',
                     checked: this.isSelectedCheckbox('is_free'),
                 },
             }
-        },
-        lengthOfLabelItems() {
-            return Object.values(this.filters).filter((filterName) => filterName.list.some((item) => item.checked)).length
         },
     },
     methods: {
@@ -71,13 +64,15 @@ export default {
             this.isExtendedOpen = !this.isExtendedOpen
         },
         clearSelection(filterName) {
-            const { [filterName]: removedFilterName, ...queryWithoutFilterName } = this.$route.query
             this.$router.push({
-                query: queryWithoutFilterName,
+                query: {
+                    ...this.$route.query,
+                    [filterName]: undefined,
+                },
             })
             this.openedFilter = null
         },
-        clearAllSelection() {
+        clearAllSelections() {
             this.$router.push({
                 query: {},
             })
@@ -86,15 +81,11 @@ export default {
             this.openedFilter = name
         },
         handleCheckboxChange(checkboxName, selected) {
-            const { [checkboxName]: removedCheckboxName, ...queryWithoutCheckboxName } =
-                this.$route.query
-
             this.$router.push({
-                query: selected
-                    ? { ...queryWithoutCheckboxName, [checkboxName]: 1 }
-                    : {
-                          ...queryWithoutCheckboxName,
-                      },
+                query: {
+                    ...this.$route.query,
+                    [checkboxName]: selected || undefined,
+                },
             })
         },
         handleMultiSelectChange(filterName, selectedValues) {
@@ -111,6 +102,9 @@ export default {
         },
         toggleSelect(filterName) {
             this.openedFilter = filterName === this.openedFilter ? null : filterName
+        },
+        closeOpenedFilter() {
+            this.openedFilter = null
         },
     },
     provide() {
