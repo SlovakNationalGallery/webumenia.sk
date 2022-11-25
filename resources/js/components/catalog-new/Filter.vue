@@ -42,7 +42,8 @@ export default {
             }
         },
         sort() {
-            return this.getSort()
+            const urlQuery = this.$route.query
+            return urlQuery['sort']
         },
         filters() {
             return {
@@ -78,17 +79,13 @@ export default {
         setOpenedFilter(name) {
             this.openedFilter = name
         },
-        handleSort(sortValue) {
-            const { sort: sort, ...queryWithoutSort } = this.$route.query
+        handleSortChange(sortValue) {
             this.$router.push({
                 path: 'katalog-new',
-                query:
-                    sortValue === 'updated_at'
-                        ? { ...queryWithoutSort }
-                        : {
-                              ...queryWithoutSort,
-                              sort: sortValue,
-                          },
+                query: {
+                    ...this.$route.query,
+                    sort: sortValue || undefined
+                }
             })
         },
         handleCheckboxChange(checkboxName, selected) {

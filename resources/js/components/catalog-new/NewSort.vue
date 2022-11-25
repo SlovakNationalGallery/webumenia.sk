@@ -6,7 +6,7 @@
                 <a
                     class="tw-font-bold tw-underline tw-decoration-2 tw-underline-offset-4"
                     @click="toggleIsOpen()"
-                    >{{ selectedOption.text }}<span class="caret"></span>
+                    >{{ selectedOptionValue }}<span class="caret"></span>
                 </a>
                 <div
                     v-if="isOpen"
@@ -17,7 +17,7 @@
                             class="tw-pl-2 hover:tw-bg-gray-200"
                             v-for="option in selectableOptions"
                         >
-                            <a class="tw-w-full tw-block" @click="handleSort(option.value)">{{
+                            <a class="tw-w-full tw-block" @click="handleSortChange(option.value)">{{
                                 option.text
                             }}</a>
                         </li>
@@ -43,7 +43,7 @@ export default {
         options() {
             return [
                 {
-                    value: 'updated_at',
+                    value: null,
                     text: 'podľa poslednej zmeny',
                 },
                 {
@@ -76,8 +76,11 @@ export default {
                 },
             ]
         },
-        selectedOption() {
-            return this.options.find((sortItem) => this.controller.sort === sortItem.value)
+        selectedOptionValue() {
+            return (
+                this.options.find((sortItem) => this.controller.sort === sortItem.value).value ||
+                'podľa poslednej zmeny'
+            )
         },
         selectableOptions() {
             return this.options.filter((sortItem) => this.controller.sort !== sortItem.value)
@@ -87,9 +90,9 @@ export default {
         toggleIsOpen() {
             this.isOpen = !this.isOpen
         },
-        handleSort(sortValue) {
+        handleSortChange(sortValue) {
             this.toggleIsOpen()
-            this.controller.handleSort(sortValue)
+            this.controller.handleSortChange(sortValue)
         },
     },
     inject: {
