@@ -42,8 +42,7 @@ export default {
             }
         },
         sort() {
-            const urlQuery = this.$route.query
-            return urlQuery['sort']
+            return this.$route.query['sort']
         },
         filters() {
             return {
