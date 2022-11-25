@@ -66,9 +66,12 @@ export default {
     },
     computed: {
         filteredOptions() {
-            return this.controller.filters[this.filterName].list.filter((item) =>
-                this.search ? item.name.includes(this.search) : true
-            )
+            return this.controller.filters[this.filterName]
+                .filter((item) => (this.search ? item.name.includes(this.search) : true))
+                .map((option) => ({
+                    ...option,
+                    checked: (this.controller.selectedValues[this.filterName] || []).includes(option.name),
+                }))
         },
     },
     inject: {

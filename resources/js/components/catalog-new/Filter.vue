@@ -43,29 +43,14 @@ export default {
         },
         filters() {
             return {
-                authors: {
-                    list: this.authors.map((author) => ({
+                authors: this.authors.map((author) => ({
                         ...author,
-                        checked: this.isSelectedMultiSelect('authors', author.name),
                     })),
-                },
-                someOtherFilter: { list: [] },
-            }
-        },
-        checkboxes() {
-            return {
-                has_image: this.selectedValues['has_image'],
-                has_iip: this.selectedValues['has_iip'],
-                has_text: this.selectedValues['has_text'],
-                is_free: this.selectedValues['is_free'],
+                someOtherFilter: { },
             }
         },
     },
     methods: {
-        isSelectedMultiSelect(filterName, name) {
-            const urlQuery = this.selectedValues
-            return urlQuery[filterName] && urlQuery[filterName].includes(name)
-        },
         toggleIsExtendedOpen() {
             this.isExtendedOpen = !this.isExtendedOpen
         },
