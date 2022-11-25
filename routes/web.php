@@ -40,6 +40,7 @@ use App\Http\Controllers\SketchbookController;
 use App\Http\Controllers\SkicareController;
 use App\Http\Controllers\SpiceHarvesterController;
 use App\Http\Controllers\UserCollectionController;
+use App\Http\Controllers\NewCatalogController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ZoomController;
 use App\Item;
@@ -313,7 +314,7 @@ function()
     Route::get('patternlib', [PatternlibController::class, 'getIndex'])->name('frontend.patternlib.index');
 
     Route::get('katalog', [CatalogController::class, 'getIndex'])->name('frontend.catalog.index');
-    Route::get('katalog-new', fn () => view('frontend.catalog.index-new'));
+    Route::resource('katalog-new', NewCatalogController::class)->names('frontend.catalog-new');
 
     Route::get('katalog/suggestions', [CatalogController::class, 'getSuggestions'])->name('frontend.catalog.suggestions');
     Route::get('katalog/random', [CatalogController::class, 'getRandom'])->name('frontend.catalog.random');
