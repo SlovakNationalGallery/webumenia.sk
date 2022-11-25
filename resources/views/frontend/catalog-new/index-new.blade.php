@@ -25,6 +25,8 @@
                 </div>
                 <filter-show-more class="tw-visible tw-pt-4 md:tw-hidden" />
             </div>
+            <filter-new-mobile-custom-select v-if="isExtendedOpen" placeholder="Simple dummy text">
+            </filter-new-mobile-custom-select>
             <div
                 class="tw-invisible tw-space-x-3 tw-bg-gray-200 tw-px-16 tw-pt-4 tw-pb-5 md:tw-visible md:tw-flex">
                 <filter-new-custom-checkbox title="Len s obrázkom" name="has_image">
@@ -74,7 +76,6 @@
                         text: 'náhodného poradia',
                     },
                 ]" />
-            <filter-new-mobile-custom-select placeholder="Simple dummy text" />
         </filter-new>
     </section>
 
