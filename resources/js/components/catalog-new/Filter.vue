@@ -46,7 +46,7 @@ export default {
                 authors: this.authors.map((author) => ({
                         ...author,
                     })),
-                someOtherFilter: { },
+                someOtherFilter: [],
             }
         },
     },
