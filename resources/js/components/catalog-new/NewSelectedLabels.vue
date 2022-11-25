@@ -18,7 +18,7 @@
             </button>
         </template>
         <button
-            v-if="lenOfSelectedOptions"
+            v-if="isAnythingSelected"
             class="tw-min-w-max tw-bg-white tw-px-4 tw-font-normal tw-py-1.5 tw-text-sm tw-border tw-border-gray-300 hover:tw-border-gray-800"
             @click="controller.clearAllSelections()"
         >
@@ -42,11 +42,8 @@ export default {
                 )
             )
         },
-        lenOfSelectedOptions() {
-            return Object.entries(this.selectedOptions).reduce(
-                (acc, [filterName, selectedOptions]) => acc + selectedOptions.length,
-                0
-            )
+        isAnythingSelected() {
+            return Object.keys(this.controller.selectedOptionsAsLabels).length
         },
     },
     inject: {

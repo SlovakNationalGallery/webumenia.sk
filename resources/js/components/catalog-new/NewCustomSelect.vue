@@ -9,8 +9,9 @@
             @click="controller.toggleSelect(name)"
         >
             <div class="tw-flex">
-                <span>{{ name }}
-                    <span class="tw-font-bold">{{ this.selectedCount }}</span>
+                <span
+                    >{{ name }}
+                    <span v-if="this.selectedCount" class="tw-font-bold">({{ this.selectedCount }})</span>
                 </span>
                 <div class="tw-pl-4 tw-flex tw-items-center">
                     <i
@@ -59,11 +60,7 @@ export default {
     computed: {
         selectedCount() {
             const selectedValues = this.controller.selectedValues[this.name]
-            if (typeof selectedValues === "string") {
-                return "(1)"
-            }
-
-            return selectedValues && selectedValues.length ? `(${selectedValues.length})` : ''
+            return selectedValues ? selectedValues.length : 0
         },
     },
     inject: {

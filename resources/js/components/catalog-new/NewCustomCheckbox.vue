@@ -3,13 +3,8 @@
         <input
             class="focus:tw-ring-0 focus:tw-ring-offset-0 focus:tw-outline-none tw-form-checkbox tw-border-gray-200 tw-m-2 tw-p-1 tw-h-4 tw-w-4"
             type="checkbox"
-            @change="
-                controller.handleCheckboxChange(
-                    name,
-                    !controller.checkboxes[name].checked
-                )
-            "
-            :checked="controller.checkboxes[name].checked"
+            @change="(e) => controller.handleCheckboxChange(name, e.target.checked)"
+            :checked="controller.checkboxes[name]"
             :key="title"
             :id="title"
         />
@@ -17,7 +12,7 @@
             :class="[
                 'tw-text-base',
                 {
-                    'tw-font-semibold': controller.checkboxes[name].checked,
+                    'tw-font-semibold': controller.checkboxes[name],
                 },
             ]"
             >{{ title }}</span

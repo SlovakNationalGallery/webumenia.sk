@@ -20,8 +20,26 @@ export default {
         }
     },
     computed: {
+        selectedOptionsAsLabels() {
+            return Object.entries(this.selectedValues)
+                .filter(([filterName, _]) => Object.keys(this.filters).includes(filterName))
+                .map(([filterName, filterValues]) =>
+                    (filterValues || []).map((filterValue) => ({
+                        value: filterValue,
+                        filterName,
+                        type: 'string',
+                    }))
+                )
+                .flat()
+        },
         selectedValues() {
-            return this.$route.query
+            return {
+                ...this.$route.query,
+                authors:
+                    typeof this.$route.query.authors === 'string'
+                        ? [this.$route.query.authors]
+                        : this.$route.query.authors,
+            }
         },
         filters() {
             return {
@@ -36,29 +54,17 @@ export default {
         },
         checkboxes() {
             return {
-                has_image: {
-                    checked: this.isSelectedCheckbox('has_image'),
-                },
-                has_iip: {
-                    checked: this.isSelectedCheckbox('has_iip'),
-                },
-                has_text: {
-                    checked: this.isSelectedCheckbox('has_text'),
-                },
-                is_free: {
-                    checked: this.isSelectedCheckbox('is_free'),
-                },
+                has_image: this.selectedValues['has_image'],
+                has_iip: this.selectedValues['has_iip'],
+                has_text: this.selectedValues['has_text'],
+                is_free: this.selectedValues['is_free'],
             }
         },
     },
     methods: {
         isSelectedMultiSelect(filterName, name) {
-            const urlQuery = this.$route.query
+            const urlQuery = this.selectedValues
             return urlQuery[filterName] && urlQuery[filterName].includes(name)
-        },
-        isSelectedCheckbox(checkboxName) {
-            const urlQuery = this.$route.query
-            return urlQuery[checkboxName]
         },
         toggleIsExtendedOpen() {
             this.isExtendedOpen = !this.isExtendedOpen
