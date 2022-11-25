@@ -11,7 +11,9 @@
             <div class="tw-flex">
                 <span
                     >{{ name }}
-                    <span v-if="this.selectedCount" class="tw-font-bold">({{ this.selectedCount }})</span>
+                    <span v-if="this.selectedCount" class="tw-font-bold"
+                        >({{ this.selectedCount }})</span
+                    >
                 </span>
                 <div class="tw-pl-4 tw-flex tw-items-center">
                     <i

@@ -9,7 +9,9 @@
                     <i v-if="controller.isExtended" class="fa fa-minus"></i>
                     <i v-else class="fa fa-sliders"></i>
                 </div>
-                <span>{{ controller.isExtendedOpen ? 'skryť ďalšie filtre' : 'všetky filtre' }}</span>
+                <span>{{
+                    controller.isExtendedOpen ? 'skryť ďalšie filtre' : 'všetky filtre'
+                }}</span>
             </div>
         </button>
     </div>

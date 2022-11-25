@@ -47,8 +47,8 @@ export default {
         filters() {
             return {
                 authors: this.authors.map((author) => ({
-                        ...author,
-                    })),
+                    ...author,
+                })),
                 someOtherFilter: [],
             }
         },
@@ -79,8 +79,8 @@ export default {
                 path: 'katalog-new',
                 query: {
                     ...this.$route.query,
-                    sort: sortValue || undefined
-                }
+                    sort: sortValue || undefined,
+                },
             })
         },
         handleCheckboxChange(checkboxName, selected) {

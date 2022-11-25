@@ -1,7 +1,5 @@
 <template>
-    <div
-        class="md:tw-hidden tw-flex tw-h-full tw-w-full tw-flex-col tw-fixed tw-top-0 tw-z-30"
-    >
+    <div class="md:tw-hidden tw-flex tw-h-full tw-w-full tw-flex-col tw-fixed tw-top-0 tw-z-30">
         <div class="tw-min-w-full tw-h-10 tw-shrink-0 tw-opacity-40 tw-left-0 tw-bg-gray-800" />
         <div class="tw-w-full tw-flex tw-flex-1 tw-overflow-auto tw-bg-white tw-flex-col">
             <div class="tw-ml-4 tw-mr-6 tw-mb-5 tw-mt-6">
@@ -23,7 +21,11 @@
                     </button>
                 </div>
             </div>
-            <div @click.stop v-if="this.controller.openedFilter" class="tw-px-4 tw-flex tw-flex-1 tw-min-h-0">
+            <div
+                @click.stop
+                v-if="this.controller.openedFilter"
+                class="tw-px-4 tw-flex tw-flex-1 tw-min-h-0"
+            >
                 <Options :filterName="this.controller.openedFilter" :placeholder="placeholder" />
             </div>
             <div class="tw-w-full tw-flex-1 tw-flex tw-flex-col tw-overflow-auto tw-min-h-0" v-else>

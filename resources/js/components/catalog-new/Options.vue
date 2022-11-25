@@ -70,7 +70,9 @@ export default {
                 .filter((item) => (this.search ? item.name.includes(this.search) : true))
                 .map((option) => ({
                     ...option,
-                    checked: (this.controller.selectedValues[this.filterName] || []).includes(option.name),
+                    checked: (this.controller.selectedValues[this.filterName] || []).includes(
+                        option.name
+                    ),
                 }))
         },
     },
