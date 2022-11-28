@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- date_earliest and date_latest in ItemResource
+
+### Fixed
+- mapping of item dating in harvester
 
 ## [2.70.0] - 2022-11-08
 ### Added
