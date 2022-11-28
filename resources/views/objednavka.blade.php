@@ -67,7 +67,7 @@
                                     </a>
                                     <div class="media-body">
                                         <a href="{!! $item->getUrl() !!}">
-                                            <em>{!! implode(', ', $item->authors) !!}</em> <br> <strong>{!! $item->title !!}</strong> (<em>{!! $item->getDatingFormated() !!}</em>)
+                                            <em>{!! implode(', ', $item->authors) !!}</em> <br> <strong>{!! $item->title !!}</strong> (<em>{!! $item->getDatingFormated($single_line = true) !!}</em>)
                                         </a><br>
                                         <p class="item"><a href="{!! URL::to('dielo/' . $item->id . '/odstranit') !!}" class="underline"><i class="fa fa-times"></i> {{ trans('objednavka.order_remove') }}</a></span>
                                         @if ($item->images->isEmpty())
