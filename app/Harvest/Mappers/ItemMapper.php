@@ -126,7 +126,7 @@ class ItemMapper extends AbstractMapper
         });
 
         if ($datings) {
-            return implode("\n", $datings);
+            return implode('; ', $datings);
         } elseif (isset($row['created'][0])) {
             return $row['created'][0];
         }

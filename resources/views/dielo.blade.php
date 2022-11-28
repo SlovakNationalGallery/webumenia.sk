@@ -120,7 +120,7 @@
                                 <td class="atribut">{{ trans('dielo.item_attr_dating') }}:</td>
                                 <td>
                                     <time itemprop="dateCreated" datetime="{{ $item->date_earliest }}">
-                                        {!!nl2br($item->getDatingFormated($single_line = false)) !!}
+                                        {!! nl2br($item->getDatingFormated(true)) !!}
                                     </time>
                                 </td>
                             </tr>

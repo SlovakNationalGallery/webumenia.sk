@@ -489,7 +489,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
         return $value;
     }
 
-    public function getDatingFormated($single_line = true)
+    public function getDatingFormated($multi_line = false)
     {
         $count_digits = preg_match_all("/[0-9]/", $this->dating);
         if (($count_digits<2) && !empty($this->date_earliest)) {
@@ -503,8 +503,8 @@ class Item extends Model implements IndexableModel, TranslatableContract
             "/" => "–", 
             "-" => "–",
         ];
-        if ($single_line) {
-           $trans["\n"] = "; ";
+        if ($multi_line) {
+           $trans["; "] = "\n";
         }
         $formated = preg_replace('/^([0-9]*) \s*([a-zA-Z]*)$/', '$2 $1', $this->dating);
         $parts = explode('/', $formated);

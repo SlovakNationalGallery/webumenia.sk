@@ -26,7 +26,7 @@
         <a href="{{ $url }}">
             @if( !isset($hide_authors) ) <em>{!! implode(', ', $item->authorsFormatted) !!}</em><br> @endif
             @if( !isset($hide_title) ) <strong>{!! $item->title !!}</strong><br> @endif
-            @if( !isset($hide_dating) ) <em>{!! nl2br($item->getDatingFormated($single_line = true)) !!}</em> @endif
+            @if( !isset($hide_dating) ) <em>{!! nl2br($item->getDatingFormated(true)) !!}</em> @endif
         </a>
     </div>
 </div>
