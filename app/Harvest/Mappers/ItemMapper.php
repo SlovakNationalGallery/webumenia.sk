@@ -125,13 +125,8 @@ class ItemMapper extends AbstractMapper
             return str_contains($dating, ', ');
         });
 
-        $datings = array_map(function($dating) {
-            $dating = explode(', ', $dating);
-            return end($dating);
-        }, $datings);
-
         if ($datings) {
-            return implode(', ', $datings);
+            return implode("\n", $datings);
         } elseif (isset($row['created'][0])) {
             return $row['created'][0];
         }

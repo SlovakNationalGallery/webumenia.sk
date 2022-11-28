@@ -153,7 +153,8 @@ class ItemMapperTest extends TestCase
             'inscription:sk' => 'vpravo dole gravé J.Daullé..; vľavo dole peint Teniers',
             'place:sk' => null,
             'gallery:sk' => 'Slovenská národná galéria, SNG',
-            'dating:sk' => '1760 (originál), 2019 (zväčšenina)',
+            'dating:sk' => '18. storočie, polovica, 1760 (originál)
+21. storočie, 1. polovica, 2019 (zväčšenina)',
             'relationship_type:sk' => 'samostatné dielo',
             'related_work:sk' => null,
             'work_level:sk' => null,
