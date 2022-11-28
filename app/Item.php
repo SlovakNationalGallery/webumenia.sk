@@ -489,7 +489,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
         return $value;
     }
 
-    public function getDatingFormated($single_line = false)
+    public function getDatingFormated($single_line = true)
     {
         $count_digits = preg_match_all("/[0-9]/", $this->dating);
         if (($count_digits<2) && !empty($this->date_earliest)) {
