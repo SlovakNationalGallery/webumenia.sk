@@ -19,6 +19,8 @@ class ItemResource extends JsonResource
             'title' => $this->title,
             'authors' => $this->getUniqueAuthorsWithAuthorityNames(),
             'dating' => $this->dating,
+            'date_earliest' => $this->date_earliest,
+            'date_latest' => $this->date_latest,
             'description' => $this->description,
             'authorities' => AuthorityResource::collection($this->authorities),
         ];
