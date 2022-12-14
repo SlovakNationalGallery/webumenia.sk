@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Storage;
 use SplFileInfo;
 
 class ImportRecord extends Model
@@ -43,7 +44,8 @@ class ImportRecord extends Model
             $this->import->iip_dir_path,
             pathinfo($this->filename, PATHINFO_FILENAME)
         );
-        return $this->import->files($dir);
+        $files = Storage::disk('import_iip')->files($dir);
+        return collect($files)->map(fn(string $file) => new SplFileInfo($file));
     }
 
     public function readStream(SplFileInfo $file)

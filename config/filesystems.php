@@ -48,6 +48,12 @@ return [
             'throw' => true,
         ],
 
+        'import_iip' => [
+            'driver' => 'scoped',
+            'disk' => 'import',
+            'prefix' => env('DISK_IMPORT_IIP_PREFIX', '.'),
+        ],
+
         'media' => [
             'driver' => 'local',
             'root' => public_path('storage/media'),
