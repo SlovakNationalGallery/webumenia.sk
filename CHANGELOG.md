@@ -4,9 +4,11 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Added
 - date_earliest and date_latest in ItemResource
+- import_iip disk
 
 ### Fixed
 - mapping of item dating in harvester
+- prefixing of iipimg_url
 
 ## [2.70.0] - 2022-11-08
 ### Added
