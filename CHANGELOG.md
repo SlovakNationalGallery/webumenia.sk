@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- imported images count
 
 ## [2.71.0] - 2022-12-17
 ### Added

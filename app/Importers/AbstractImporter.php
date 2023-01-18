@@ -140,7 +140,7 @@ abstract class AbstractImporter
         if ($jpgFile) {
             $stream = $import_record->readStream($jpgFile);
             $item->saveImage($stream);
-            $import_record->imported_images = 1;
+            $import_record->imported_images++;
         }
 
         $this->getJp2Files($import_record, $image_filename_format)
