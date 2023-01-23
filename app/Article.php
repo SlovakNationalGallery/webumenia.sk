@@ -146,16 +146,42 @@ class Article extends Model implements TranslatableContract
 
     public function getParsedContentAttribute()
     {
-        $content = Str::of(html_entity_decode($this->content))->replaceMatches("/\[article_teaser id=(.*?)\]/", function ($match) {
-            if (empty($match[1])) return '';
-            $id = Str::of($match[1]);
-            $article = Article::published()->find($id);
+        $content = Str::of(html_entity_decode($this->content))
+            ->replaceMatches('/\[article_teaser id=(.*?)\]/', function ($match) {
+                if (empty($match[1])) {
+                    return '';
+                }
+                $id = Str::of($match[1]);
+                $article = Article::published()->find($id);
 
-            if(!$article) return '';
-            
-            $article_teaser = Blade::render('<x-article_teaser :article="$article" />', ['article' => $article]);
-            return $article_teaser;
-        });
+                if (!$article) {
+                    return '';
+                }
+
+                $article_teaser = Blade::render('<x-article_teaser :article="$article" />', [
+                    'article' => $article,
+                ]);
+                return $article_teaser;
+            })
+            ->replaceMatches('/\[collection_teaser id=(.*?)\]/', function ($match) {
+                if (empty($match[1])) {
+                    return '';
+                }
+                $id = Str::of($match[1]);
+                $collection = Collection::published()->find($id);
+
+                if (!$collection) {
+                    return '';
+                }
+
+                $collection_teaser = Blade::render(
+                    '<x-collection_teaser :collection="$collection" />',
+                    [
+                        'collection' => $collection,
+                    ]
+                );
+                return $collection_teaser;
+            });
         return $content;
     }
 }
