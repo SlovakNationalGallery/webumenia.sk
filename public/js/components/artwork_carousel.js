@@ -3,7 +3,7 @@ $(document).ready(function(){
     lazyLoad: 'progressive',
     slide: 'a',
     variableWidth: true,
-    infinite: false
+    infinite: true
   });
   $(".multiple-views").slick({
     lazyLoad: 'progressive',
