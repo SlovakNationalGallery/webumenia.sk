@@ -30,7 +30,8 @@
                 "felixfbecker.php-debug",
                 "bmewburn.vscode-intelephense-client",
                 "esbenp.prettier-vscode",
-                "bradlc.vscode-tailwindcss"
+                "bradlc.vscode-tailwindcss",
+                "cjhowe7.laravel-blade"
             ]
         }
     },
