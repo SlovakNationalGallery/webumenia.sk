@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - imported images count
 
+### Added
+- infinite scroll to artworks carousel 
+
 ## [2.71.0] - 2022-12-17
 ### Added
 - date_earliest and date_latest in ItemResource
