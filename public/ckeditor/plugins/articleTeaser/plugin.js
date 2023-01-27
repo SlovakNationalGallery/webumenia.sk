@@ -6,6 +6,8 @@ CKEDITOR.plugins.add('articleTeaser', {
 
     // The plugin initialization logic goes inside this method.
     init: function (editor) {
+        editor.addContentsCss(this.path + 'css/teaser.css');
+        // Define an editor command that opens our dialog window.
         editor.addCommand('articleTeaser', new CKEDITOR.dialogCommand('articleTeaserDialog'))
 
         // Create a toolbar button that executes the above command.

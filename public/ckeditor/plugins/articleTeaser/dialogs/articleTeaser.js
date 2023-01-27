@@ -20,14 +20,24 @@ CKEDITOR.dialog.add('articleTeaserDialog', function (editor) {
                             editor.lang.articleTeaser.idRequired
                         ), // true
                     },
+                    {
+                        type: 'radio',
+                        id: 'type',
+                        label: 'Type',
+                        items: [
+                            ['Článok', 'article'],
+                            ['Kolekcia', 'collection'],
+                        ],
+                        default: 'article',
+                    },
                 ],
             },
         ],
         onOk: function () {
             var dialog = this
             var articleId = dialog.getValueOf('tab-basic', 'id')
-
-            editor.insertHtml(`[article_teaser id=${articleId}]`)
+            var type = dialog.getValueOf('tab-basic', 'type')
+            editor.insertHtml(`[article_teaser id=${articleId} type=${type}]`)
         },
     }
 })
