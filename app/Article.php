@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Concerns\HasHeaderImage;
+use App\View\Components\Teaser;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Support\Facades\URL;
@@ -146,43 +147,11 @@ class Article extends Model implements TranslatableContract
 
     public function getParsedContentAttribute()
     {
-        $content = Str::of(html_entity_decode($this->content))
-            ->replaceMatches('/\[article_teaser id=(.*?) type=(.*?)\]/', function ($match) {
-                if (empty($match[1])) {
-                    return '';
-                }
-                
-                $id = Str::of($match[1]);
-                $article = Article::published()->find($id);
-
-                if (!$article) {
-                    return '';
-                }
-
-                $article_teaser = Blade::render('<x-article_teaser :article="$article" />', [
-                    'article' => $article,
-                ]);
-                return $article_teaser;
-            })
-            ->replaceMatches('/\[collection_teaser id=(.*?)\]/', function ($match) {
-                if (empty($match[1])) {
-                    return '';
-                }
-                $id = Str::of($match[1]);
-                $collection = Collection::published()->find($id);
-
-                if (!$collection) {
-                    return '';
-                }
-
-                $collection_teaser = Blade::render(
-                    '<x-collection_teaser :collection="$collection" />',
-                    [
-                        'collection' => $collection,
-                    ]
-                );
-                return $collection_teaser;
-            });
-        return $content;
+        return Str::of(html_entity_decode($this->content))->replaceMatches(
+            '/\[teaser id=(.*?) type=(.*?)\]/',
+            function ($match) {
+                return Teaser::buildFromMarkup($match)->render();
+            }
+        );
     }
 }
