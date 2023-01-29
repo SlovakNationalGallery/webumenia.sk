@@ -26,9 +26,8 @@ class Teaser extends Component
 
     public static function buildFromMarkup($match): Teaser
     {
-        $id = (int)$match[1];
+        $id = (int) $match[1];
         $type = Str::of($match[2]);
-
 
         if (empty($id) || empty($type)) {
             return '';
