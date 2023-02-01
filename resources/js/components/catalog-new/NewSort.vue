@@ -45,12 +45,12 @@ export default {
     computed: {
         selectedOptionValue() {
             const selectedOption = this.options.find(
-                (sortItem) => this.controller.sort === sortItem.value
+                (sortItem) => this.controller.data.selectedValues.sort === sortItem.value
             )
             return selectedOption ? selectedOption.text : 'podľa poslednej zmeny'
         },
         selectableOptions() {
-            return this.options.filter((sortItem) => this.controller.sort !== sortItem.value)
+            return this.options.filter((sortItem) => this.controller.data.selectedValues.sort !== sortItem.value)
         },
     },
     methods: {

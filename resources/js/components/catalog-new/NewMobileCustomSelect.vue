@@ -5,7 +5,7 @@
             <div class="tw-ml-4 tw-mr-6 tw-mb-5 tw-mt-6">
                 <div class="tw-flex tw-justify-between">
                     <div
-                        v-if="!this.controller.openedFilter"
+                        v-if="!this.controller.data.openedFilter"
                         class="tw-flex tw-space-x-3 tw-items-center"
                     >
                         <span>Filter diel</span>
@@ -14,7 +14,7 @@
                         <button @click="controller.setOpenedFilter(null)">
                             <i class="fa fa-chevron-left tw-text-gray-800"></i>
                         </button>
-                        <span>{{ this.controller.openedFilter }}</span>
+                        <span>{{ this.controller.data.openedFilter }}</span>
                     </div>
                     <button @click="controller.toggleIsExtendedOpen">
                         <i class="fa fa-close"></i>
@@ -23,10 +23,10 @@
             </div>
             <div
                 @click.stop
-                v-if="this.controller.openedFilter"
+                v-if="this.controller.data.openedFilter"
                 class="tw-px-4 tw-flex tw-flex-1 tw-min-h-0"
             >
-                <Options :filterName="this.controller.openedFilter" :placeholder="placeholder" />
+                <Options :filterName="this.controller.data.openedFilter" :placeholder="placeholder" />
             </div>
             <div class="tw-w-full tw-flex-1 tw-flex tw-flex-col tw-overflow-auto tw-min-h-0" v-else>
                 <button

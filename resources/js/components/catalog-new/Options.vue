@@ -35,10 +35,10 @@
                                 filterName,
                                 e.target.checked
                                     ? [
-                                          ...(controller.selectedValues[filterName] || []),
+                                          ...(controller.data.selectedValues[filterName] || []),
                                           option.name,
                                       ]
-                                    : controller.selectedValues[filterName].filter(
+                                    : controller.data.selectedValues[filterName].filter(
                                           (selectedOption) => selectedOption !== option.name
                                       )
                             )
@@ -66,11 +66,11 @@ export default {
     },
     computed: {
         filteredOptions() {
-            return this.controller.filters[this.filterName]
+            return this.controller.data.filters[this.filterName]
                 .filter((item) => (this.search ? item.name.includes(this.search) : true))
                 .map((option) => ({
                     ...option,
-                    checked: (this.controller.selectedValues[this.filterName] || []).includes(
+                    checked: (this.controller.data.selectedValues[this.filterName] || []).includes(
                         option.name
                     ),
                 }))

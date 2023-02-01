@@ -8,8 +8,27 @@
 import NewCustomSelect from './NewCustomSelect.vue'
 import NewMobileCustomSelect from './NewMobileCustomSelect.vue'
 
+import queryString from 'query-string'
+//TODO: import axios from 'axios'
+
+function getParsedUrl() {
+    return queryString.parseUrl(window.location.href, {
+        arrayFormat: 'bracket',
+    })
+}
+
+function stringifyUrl({ url, query }) {
+    return queryString.stringifyUrl(
+        { url, query },
+        {
+            arrayFormat: 'bracket',
+        }
+    )
+}
+
 export default {
     props: {
+        //TODO: remove once we have api
         authors: Array,
     },
     components: { NewCustomSelect, NewMobileCustomSelect },
@@ -17,11 +36,21 @@ export default {
         return {
             openedFilter: null,
             isExtendedOpen: true,
+            isFetching: false,
+            artworks: [],
+            filters: {},
+            query: {
+                authors: [],
+                ...getParsedUrl().query,
+            },
         }
+    },
+    async created() {
+        this.fetchData()
     },
     computed: {
         selectedOptionsAsLabels() {
-            return Object.entries(this.selectedValues)
+            return Object.entries(this.query)
                 .filter(([filterName, _]) => Object.keys(this.filters).includes(filterName))
                 .map(([filterName, filterValues]) =>
                     (filterValues || []).map((filterValue) => ({
@@ -32,73 +61,41 @@ export default {
                 )
                 .flat()
         },
-        selectedValues() {
-            return {
-                ...this.$route.query,
-                authors:
-                    typeof this.$route.query.authors === 'string'
-                        ? [this.$route.query.authors]
-                        : this.$route.query.authors,
-            }
-        },
-        sort() {
-            return this.$route.query['sort']
-        },
-        filters() {
-            return {
-                authors: this.authors.map((author) => ({
-                    ...author,
-                })),
-                someOtherFilter: [],
-            }
-        },
     },
     methods: {
         toggleIsExtendedOpen() {
             this.isExtendedOpen = !this.isExtendedOpen
         },
         clearSelection(filterName) {
-            this.$router.push({
-                query: {
-                    ...this.$route.query,
-                    [filterName]: undefined,
-                },
-            })
+            this.query = {
+                ...this.query,
+                [filterName]: undefined,
+            }
             this.openedFilter = null
         },
         clearAllSelections() {
-            this.$router.push({
-                query: {},
-            })
+            this.query = {}
         },
         setOpenedFilter(name) {
             this.openedFilter = name
         },
         handleSortChange(sortValue) {
-            this.$router.push({
-                path: 'katalog-new',
-                query: {
-                    ...this.$route.query,
-                    sort: sortValue || undefined,
-                },
-            })
+            this.query = {
+                ...this.query,
+                sort: sortValue || undefined,
+            }
         },
         handleCheckboxChange(checkboxName, selected) {
-            this.$router.push({
-                query: {
-                    ...this.$route.query,
-                    [checkboxName]: selected || undefined,
-                },
-            })
+            this.query = {
+                ...this.query,
+                [checkboxName]: selected || undefined,
+            }
         },
         handleMultiSelectChange(filterName, selectedValues) {
-            const urlQuery = this.$route.query
-            this.$router.push({
-                query: {
-                    ...urlQuery,
-                    [filterName]: selectedValues,
-                },
-            })
+            this.query = {
+                ...this.query,
+                [filterName]: selectedValues,
+            }
         },
         closeOpenedFilter() {
             this.openedFilter = null
@@ -106,10 +103,78 @@ export default {
         toggleSelect(filterName) {
             this.openedFilter = filterName === this.openedFilter ? null : filterName
         },
+        async fetchData() {
+            this.isFetching = true
+
+            try {
+                this.filters['authors'] = this.authors
+                // TODO: Fetch options
+                // TODO: Fetch artworks
+                this.isFetching = false
+            } catch (e) {
+                this.isFetching = false
+                throw e
+            }
+        },
+    },
+    watch: {
+        query(newQuery) {
+            this.fetchData()
+
+            const { url } = getParsedUrl()
+
+            const newUrl = queryString.stringifyUrl(
+                {
+                    url,
+                    query: { ...newQuery },
+                },
+                {
+                    arrayFormat: 'bracket',
+                }
+            )
+
+            window.history.replaceState(
+                newUrl,
+                '', // unused param
+                newUrl
+            )
+        },
     },
     provide() {
+        const data = {}
+
+        Object.defineProperty(data, 'selectedValues', {
+            enumerable: true,
+            get: () => this.query,
+        })
+
+        Object.defineProperty(data, 'openedFilter', {
+            enumerable: true,
+            get: () => this.openedFilter,
+        })
+
+        Object.defineProperty(data, 'selectedOptionsAsLabels', {
+            enumerable: true,
+            get: () => this.selectedOptionsAsLabels,
+        })
+
+        Object.defineProperty(data, 'filters', {
+            enumerable: true,
+            get: () => this.filters,
+        })
+
         return {
-            filterController: this,
+            filterController: {
+                handleCheckboxChange: this.handleCheckboxChange,
+                handleSortChange: this.handleSortChange,
+                handleMultiSelectChange: this.handleMultiSelectChange,
+                toggleIsExtendedOpen: this.toggleIsExtendedOpen,
+                toggleSelect: this.toggleSelect,
+                closeOpenedFilter: this.closeOpenedFilter,
+                clearSelection: this.clearSelection,
+                clearAllSelections: this.clearAllSelections,
+                data,
+            },
         }
     },
 }

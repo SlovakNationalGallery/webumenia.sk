@@ -4,7 +4,7 @@
             class="tw-bg-white tw-border hover:tw-border-gray-800 tw-border-gray-300 tw-text-lg tw-font-bold tw-py-3.5 tw-px-4"
             :class="{
                 'tw-border-gray-800': active,
-                'tw-border-gray-800 tw-border-2': controller.openedFilter === name,
+                'tw-border-gray-800 tw-border-2': controller.data.openedFilter === name,
             }"
             @click="controller.toggleSelect(name)"
         >
@@ -17,7 +17,7 @@
                 </span>
                 <div class="tw-pl-4 tw-flex tw-items-center">
                     <i
-                        v-if="controller.openedFilter === name"
+                        v-if="controller.data.openedFilter === name"
                         class="fa fa-caret-up tw-text-sky-400"
                     ></i>
                     <i v-else class="fa fa-caret-down"></i>
@@ -26,7 +26,7 @@
         </button>
         <div
             @click.stop
-            v-if="controller.openedFilter === name"
+            v-if="controller.data.openedFilter === name"
             v-on-clickaway="controller.closeOpenedFilter"
             class="tw-w-[20rem] tw-h-[30rem] tw-flex tw-flex-col tw-border-2 tw-items-start tw-p-6 tw-bg-white tw-border-gray-800 tw-z-10 tw-absolute tw-top-36"
         >
@@ -61,7 +61,7 @@ export default {
     },
     computed: {
         selectedCount() {
-            const selectedValues = this.controller.selectedValues[this.name]
+            const selectedValues = this.controller.data.selectedValues[this.name]
             return selectedValues ? selectedValues.length : 0
         },
     },

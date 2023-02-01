@@ -2,11 +2,11 @@
     <div class="tw-flex tw-space-x-3 tw-overflow-x-auto">
         <button
             class="tw-min-w-max tw-py-1 tw-px-1.5 tw-bg-gray-300 tw-flex tw-items-center"
-            v-for="option in controller.selectedOptionsAsLabels"
+            v-for="option in controller.data.selectedOptionsAsLabels"
             @click="
                 controller.handleMultiSelectChange(
                     option.filterName,
-                    controller.selectedValues[option.filterName].filter(
+                    controller.data.selectedValues[option.filterName].filter(
                         (selectedOption) => selectedOption !== option.value
                     )
                 )
@@ -34,7 +34,7 @@
 export default {
     computed: {
         isAnythingSelected() {
-            return Object.keys(this.controller.selectedOptionsAsLabels).length
+            return Object.keys(this.controller.data.selectedOptionsAsLabels).length
         },
     },
     inject: {
