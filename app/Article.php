@@ -147,9 +147,13 @@ class Article extends Model implements TranslatableContract
     public function getParsedContentAttribute()
     {
         return Str::of(html_entity_decode($this->content))->replaceMatches(
-            '/\[teaser id=(.*?) type=(.*?)\]/',
+            '/\[teaser.*?\]/',
             function ($match) {
-                return Teaser::buildFromMarkup($match)->render();
+                $teaser = Teaser::buildFromMarkup($match[0]);
+                if (empty($teaser)) {
+                    return '';
+                }
+                return $teaser->render();
             }
         );
     }

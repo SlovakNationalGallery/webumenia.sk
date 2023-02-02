@@ -6,7 +6,6 @@ use App\Article;
 use App\Collection;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\View\Component;
-use Illuminate\Support\Str;
 
 class Teaser extends Component
 {
@@ -24,15 +23,16 @@ class Teaser extends Component
         $this->id = $id;
     }
 
-    public static function buildFromMarkup($match): Teaser
+    public static function buildFromMarkup($markup): ?Teaser
     {
-        $id = (int) $match[1];
-        $type = Str::of($match[2]);
+        $matches = [];
+        preg_match('/id=(.+?) type=(article|collection)/', $markup, $matches);
 
-        if (empty($id) || empty($type)) {
-            return '';
+        if (empty($matches)) {
+            return null;
         }
 
+        [$_, $id, $type] = $matches;
         return new Teaser($id, $type);
     }
 
@@ -40,16 +40,22 @@ class Teaser extends Component
     {
         if ($this->type === 'article') {
             $article = Article::published()->find($this->id);
+            if (empty($article)) {
+                return '';
+            }
             return Blade::render('<x-article_teaser :article="$article" />', [
                 'article' => $article,
             ]);
-        } elseif ($this->type === 'collection') {
+        }
+        if ($this->type === 'collection') {
             $collection = Collection::published()->find($this->id);
+            if (empty($collection)) {
+                return '';
+            }
             return Blade::render('<x-collection_teaser :collection="$collection" />', [
                 'collection' => $collection,
             ]);
-        } else {
-            return '';
         }
+        return '';
     }
 }
