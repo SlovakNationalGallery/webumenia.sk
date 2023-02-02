@@ -33,7 +33,7 @@
             <Options :placeholder="placeholder" :filterName="name" />
             <button
                 class="tw-bg-white tw-mb-6 tw-mt-5 tw-px-4 tw-font-normal tw-py-1.5 tw-text-sm tw-border tw-border-gray-300 hover:tw-border-gray-800"
-                @click="controller.clearSelection(name)"
+                @click="controller.clearFilterSelection(name)"
             >
                 <div class="tw-flex">
                     <div class="tw-pr-2 tw-flex tw-items-center">

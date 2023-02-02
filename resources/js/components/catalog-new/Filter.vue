@@ -66,7 +66,7 @@ export default {
         toggleIsExtendedOpen() {
             this.isExtendedOpen = !this.isExtendedOpen
         },
-        clearSelection(filterName) {
+        clearFilterSelection(filterName) {
             this.query = {
                 ...this.query,
                 [filterName]: undefined,
@@ -82,13 +82,15 @@ export default {
         handleSortChange(sortValue) {
             this.query = {
                 ...this.query,
-                sort: sortValue || undefined,
+                sort: sortValue,
             }
         },
-        handleCheckboxChange(checkboxName, selected) {
+        handleCheckboxChange(e) {
+            const { name, checked } = e.target
+
             this.query = {
                 ...this.query,
-                [checkboxName]: selected || undefined,
+                [name]: checked || undefined,
             }
         },
         handleMultiSelectChange(filterName, selectedValues) {
@@ -107,7 +109,7 @@ export default {
             this.isFetching = true
 
             try {
-                this.filters['authors'] = this.authors
+                this.filters = { ...this.filters, authors: this.authors }
                 // TODO: Fetch options
                 // TODO: Fetch artworks
                 this.isFetching = false
@@ -171,7 +173,7 @@ export default {
                 toggleIsExtendedOpen: this.toggleIsExtendedOpen,
                 toggleSelect: this.toggleSelect,
                 closeOpenedFilter: this.closeOpenedFilter,
-                clearSelection: this.clearSelection,
+                clearFilterSelection: this.clearFilterSelection,
                 clearAllSelections: this.clearAllSelections,
                 data,
             },
