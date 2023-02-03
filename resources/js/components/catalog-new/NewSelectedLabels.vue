@@ -3,14 +3,7 @@
         <button
             class="tw-min-w-max tw-py-1 tw-px-1.5 tw-bg-gray-300 tw-flex tw-items-center"
             v-for="option in selectedOptionsAsLabels"
-            @click="
-                handleMultiSelectChange(
-                    option.filterName,
-                    selectedValues[option.filterName].filter(
-                        (selectedOption) => selectedOption !== option.value
-                    )
-                )
-            "
+            @click="removeSelection(option)"
         >
             <span class="tw-text-xs tw-font-semibold tw-pr-3">{{ option.value }}</span>
             <i class="fa fa-close"></i>
@@ -36,7 +29,7 @@ export default {
         selectedOptionsAsLabels: Array,
         selectedValues: Object,
         clearAllSelections: Function,
-        handleMultiSelectChange: Function,
+        removeSelection: Function,
     },
     computed: {
         isAnythingSelected() {

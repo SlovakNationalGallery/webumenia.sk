@@ -1,28 +1,4 @@
-<template>
-    <div class="tw-relative">
-        <slot 
-            :isExtendedOpen="isExtendedOpen" 
-            :query="query"
-            :filters="filters"
-            :openedFilter="this.openedFilter"
-            :toggleIsExtendedOpen="this.toggleIsExtendedOpen" 
-            :toggleSelect="this.toggleSelect"
-            :handleSortChange="this.handleSortChange"
-            :handleCheckboxChange="this.handleCheckboxChange"
-            :handleMultiSelectChange="this.handleMultiSelectChange"
-            :closeOpenedFilter="this.closeOpenedFilter"
-            :selectedOptionsAsLabels="this.selectedOptionsAsLabels"
-            :clearAllSelections="this.clearAllSelections"
-            :clearFilterSelection="this.clearFilterSelection"
-            >
-        </slot>
-    </div>
-</template>
-
 <script>
-import NewCustomSelect from './NewCustomSelect.vue'
-import NewMobileCustomSelect from './NewMobileCustomSelect.vue'
-
 import queryString from 'query-string'
 //TODO: import axios from 'axios'
 
@@ -46,7 +22,6 @@ export default {
         //TODO: remove once we have api
         authors: Array,
     },
-    components: { NewCustomSelect, NewMobileCustomSelect },
     data() {
         return {
             openedFilter: null,
@@ -101,6 +76,7 @@ export default {
             }
         },
         handleCheckboxChange(e) {
+            console.log(e)
             const { name, checked } = e.target
 
             this.query = {
@@ -108,10 +84,26 @@ export default {
                 [name]: checked || undefined,
             }
         },
-        handleMultiSelectChange(filterName, selectedValues) {
+        removeSelection({ filterName: name, value }) {
             this.query = {
                 ...this.query,
-                [filterName]: selectedValues,
+                [name]: this.query[name].filter((v) => v !== value),
+            };
+        },
+        handleMultiSelectChange(e) {
+            const { name, checked, value } = e.target
+            if (checked) {
+                // Add to query
+                this.query = {
+                    ...this.query,
+                    [name]: [...this.query[name], value],
+                }
+                return
+            }
+            // Remove from query
+            this.query = {
+                ...this.query,
+                [name]: this.query[name].filter((v) => v !== value),
             }
         },
         closeOpenedFilter() {
@@ -156,6 +148,24 @@ export default {
                 newUrl
             )
         },
+    },
+    render() {
+        return this.$scopedSlots.default({
+            isExtendedOpen: this.isExtendedOpen,
+            query: this.query,
+            filters: this.filters,
+            openedFilter: this.openedFilter,
+            toggleIsExtendedOpen: this.toggleIsExtendedOpen,
+            toggleSelect: this.toggleSelect,
+            handleSortChange: this.handleSortChange,
+            handleCheckboxChange: this.handleCheckboxChange,
+            handleMultiSelectChange: this.handleMultiSelectChange,
+            closeOpenedFilter: this.closeOpenedFilter,
+            selectedOptionsAsLabels: this.selectedOptionsAsLabels,
+            clearAllSelections: this.clearAllSelections,
+            clearFilterSelection: this.clearFilterSelection,
+            removeSelection: this.removeSelection
+        })
     },
 }
 </script>

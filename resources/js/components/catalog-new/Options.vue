@@ -29,17 +29,9 @@
                     type="checkbox"
                     :key="option.id"
                     :id="option.id"
-                    @change="
-                        (e) =>
-                            handleMultiSelectChange(
-                                filterName,
-                                e.target.checked
-                                    ? [...(selectedValues || []), option.name]
-                                    : (selectedValues || []).filter(
-                                          (selectedOption) => selectedOption !== option.name
-                                      )
-                            )
-                    "
+                    @change="handleMultiSelectChange"
+                    :value="option.name"
+                    :name="filterName"
                     :checked="option.checked"
                 />
                 <span class="tw-font-normal tw-text-base"
