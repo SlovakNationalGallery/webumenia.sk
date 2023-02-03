@@ -2,11 +2,11 @@
     <div class="tw-flex tw-space-x-3 tw-overflow-x-auto">
         <button
             class="tw-min-w-max tw-py-1 tw-px-1.5 tw-bg-gray-300 tw-flex tw-items-center"
-            v-for="option in controller.data.selectedOptionsAsLabels"
+            v-for="option in selectedOptionsAsLabels"
             @click="
-                controller.handleMultiSelectChange(
+                handleMultiSelectChange(
                     option.filterName,
-                    controller.data.selectedValues[option.filterName].filter(
+                    selectedValues[option.filterName].filter(
                         (selectedOption) => selectedOption !== option.value
                     )
                 )
@@ -18,7 +18,7 @@
         <button
             v-if="isAnythingSelected"
             class="tw-min-w-max tw-bg-white tw-px-4 tw-font-normal tw-py-1.5 tw-text-sm tw-border tw-border-gray-300 hover:tw-border-gray-800"
-            @click="controller.clearAllSelections()"
+            @click="clearAllSelections()"
         >
             <div class="tw-flex">
                 <div class="tw-pr-2 tw-flex tw-items-center">
@@ -32,14 +32,15 @@
 
 <script>
 export default {
+    props: {
+        selectedOptionsAsLabels: Array,
+        selectedValues: Object,
+        clearAllSelections: Function,
+        handleMultiSelectChange: Function,
+    },
     computed: {
         isAnythingSelected() {
-            return Object.keys(this.controller.data.selectedOptionsAsLabels).length
-        },
-    },
-    inject: {
-        controller: {
-            from: 'filterController',
+            return Object.keys(this.selectedOptionsAsLabels).length
         },
     },
 }

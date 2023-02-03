@@ -4,9 +4,9 @@
             class="tw-bg-white tw-border hover:tw-border-gray-800 tw-border-gray-300 tw-text-lg tw-font-bold tw-py-3.5 tw-px-4"
             :class="{
                 'tw-border-gray-800': active,
-                'tw-border-gray-800 tw-border-2': controller.data.openedFilter === name,
+                'tw-border-gray-800 tw-border-2': openedFilter === name,
             }"
-            @click="controller.toggleSelect(name)"
+            @click="toggleSelect(name)"
         >
             <div class="tw-flex">
                 <span
@@ -16,24 +16,27 @@
                     >
                 </span>
                 <div class="tw-pl-4 tw-flex tw-items-center">
-                    <i
-                        v-if="controller.data.openedFilter === name"
-                        class="fa fa-caret-up tw-text-sky-400"
-                    ></i>
+                    <i v-if="openedFilter === name" class="fa fa-caret-up tw-text-sky-400"></i>
                     <i v-else class="fa fa-caret-down"></i>
                 </div>
             </div>
         </button>
         <div
             @click.stop
-            v-if="controller.data.openedFilter === name"
-            v-on-clickaway="controller.closeOpenedFilter"
+            v-if="openedFilter === name"
+            v-on-clickaway="closeOpenedFilter"
             class="tw-w-[20rem] tw-h-[30rem] tw-flex tw-flex-col tw-border-2 tw-items-start tw-p-6 tw-bg-white tw-border-gray-800 tw-z-10 tw-absolute tw-top-36"
         >
-            <Options :placeholder="placeholder" :filterName="name" />
+            <Options
+                :placeholder="placeholder"
+                :filterName="name"
+                :handleMultiSelectChange="handleMultiSelectChange"
+                :selectedValues="selectedValues"
+                :filter="filter"
+            />
             <button
                 class="tw-bg-white tw-mb-6 tw-mt-5 tw-px-4 tw-font-normal tw-py-1.5 tw-text-sm tw-border tw-border-gray-300 hover:tw-border-gray-800"
-                @click="controller.clearFilterSelection(name)"
+                @click="clearFilterSelection(name)"
             >
                 <div class="tw-flex">
                     <div class="tw-pr-2 tw-flex tw-items-center">
@@ -58,16 +61,17 @@ export default {
         name: String,
         placeholder: String,
         active: Boolean,
+        openedFilter: String,
+        selectedValues: Array,
+        filter: Array,
+        clearFilterSelection: Function,
+        closeOpenedFilter: Function,
+        toggleSelect: Function,
+        handleMultiSelectChange: Function,
     },
     computed: {
         selectedCount() {
-            const selectedValues = this.controller.data.selectedValues[this.name]
-            return selectedValues ? selectedValues.length : 0
-        },
-    },
-    inject: {
-        controller: {
-            from: 'filterController',
+            return this.selectedValues ? this.selectedValues.length : 0
         },
     },
     components: { Options },

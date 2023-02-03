@@ -1,6 +1,21 @@
 <template>
     <div class="tw-relative">
-        <slot :isExtendedOpen="isExtendedOpen" />
+        <slot 
+            :isExtendedOpen="isExtendedOpen" 
+            :query="query"
+            :filters="filters"
+            :openedFilter="this.openedFilter"
+            :toggleIsExtendedOpen="this.toggleIsExtendedOpen" 
+            :toggleSelect="this.toggleSelect"
+            :handleSortChange="this.handleSortChange"
+            :handleCheckboxChange="this.handleCheckboxChange"
+            :handleMultiSelectChange="this.handleMultiSelectChange"
+            :closeOpenedFilter="this.closeOpenedFilter"
+            :selectedOptionsAsLabels="this.selectedOptionsAsLabels"
+            :clearAllSelections="this.clearAllSelections"
+            :clearFilterSelection="this.clearFilterSelection"
+            >
+        </slot>
     </div>
 </template>
 

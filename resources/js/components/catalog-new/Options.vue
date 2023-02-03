@@ -31,14 +31,11 @@
                     :id="option.id"
                     @change="
                         (e) =>
-                            controller.handleMultiSelectChange(
+                            handleMultiSelectChange(
                                 filterName,
                                 e.target.checked
-                                    ? [
-                                          ...(controller.data.selectedValues[filterName] || []),
-                                          option.name,
-                                      ]
-                                    : controller.data.selectedValues[filterName].filter(
+                                    ? [...(selectedValues || []), option.name]
+                                    : (selectedValues || []).filter(
                                           (selectedOption) => selectedOption !== option.name
                                       )
                             )
@@ -58,6 +55,9 @@ export default {
     props: {
         filterName: String,
         placeholder: String,
+        selectedValues: Array,
+        handleMultiSelectChange: Function,
+        filter: Array,
     },
     data() {
         return {
@@ -66,19 +66,12 @@ export default {
     },
     computed: {
         filteredOptions() {
-            return this.controller.data.filters[this.filterName]
+            return this.filter
                 .filter((item) => (this.search ? item.name.includes(this.search) : true))
                 .map((option) => ({
                     ...option,
-                    checked: this.controller.data.selectedValues[this.filterName].includes(
-                        option.name
-                    ),
+                    checked: (this.selectedValues || []).includes(option.name),
                 }))
-        },
-    },
-    inject: {
-        controller: {
-            from: 'filterController',
         },
     },
 }

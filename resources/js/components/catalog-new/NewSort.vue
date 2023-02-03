@@ -17,9 +17,11 @@
                             class="tw-pl-2 hover:tw-bg-gray-200"
                             v-for="option in selectableOptions"
                         >
-                            <a class="tw-w-full tw-block" @click="handleSortChange(option.value)">{{
-                                option.text
-                            }}</a>
+                            <a
+                                class="tw-w-full tw-block"
+                                @click="onSortChange(option.value)"
+                                >{{ option.text }}</a
+                            >
                         </li>
                     </ul>
                 </div>
@@ -36,6 +38,8 @@
 export default {
     props: {
         options: Array,
+        sort: String,
+        handleSortChange: Function,
     },
     data() {
         return {
@@ -44,27 +48,20 @@ export default {
     },
     computed: {
         selectedOptionValue() {
-            const selectedOption = this.options.find(
-                (sortItem) => this.controller.data.selectedValues.sort === sortItem.value
-            )
+            const selectedOption = this.options.find((sortItem) => this.sort === sortItem.value)
             return selectedOption ? selectedOption.text : 'podľa poslednej zmeny'
         },
         selectableOptions() {
-            return this.options.filter((sortItem) => this.controller.data.selectedValues.sort !== sortItem.value)
+            return this.options.filter((sortItem) => this.sort !== sortItem.value)
         },
     },
     methods: {
         toggleIsOpen() {
             this.isOpen = !this.isOpen
         },
-        handleSortChange(sortValue) {
+        onSortChange(sortValue) {
             this.toggleIsOpen()
-            this.controller.handleSortChange(sortValue)
-        },
-    },
-    inject: {
-        controller: {
-            from: 'filterController',
+            this.handleSortChange(sortValue)
         },
     },
 }
