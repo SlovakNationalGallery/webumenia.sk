@@ -157,42 +157,5 @@ export default {
             )
         },
     },
-    provide() {
-        const data = {}
-
-        Object.defineProperty(data, 'selectedValues', {
-            enumerable: true,
-            get: () => this.query,
-        })
-
-        Object.defineProperty(data, 'openedFilter', {
-            enumerable: true,
-            get: () => this.openedFilter,
-        })
-
-        Object.defineProperty(data, 'selectedOptionsAsLabels', {
-            enumerable: true,
-            get: () => this.selectedOptionsAsLabels,
-        })
-
-        Object.defineProperty(data, 'filters', {
-            enumerable: true,
-            get: () => this.filters,
-        })
-
-        return {
-            filterController: {
-                handleCheckboxChange: this.handleCheckboxChange,
-                handleSortChange: this.handleSortChange,
-                handleMultiSelectChange: this.handleMultiSelectChange,
-                toggleIsExtendedOpen: this.toggleIsExtendedOpen,
-                toggleSelect: this.toggleSelect,
-                closeOpenedFilter: this.closeOpenedFilter,
-                clearFilterSelection: this.clearFilterSelection,
-                clearAllSelections: this.clearAllSelections,
-                data,
-            },
-        }
-    },
 }
 </script>

@@ -4,33 +4,32 @@
         <div class="tw-w-full tw-flex tw-flex-1 tw-overflow-auto tw-bg-white tw-flex-col">
             <div class="tw-ml-4 tw-mr-6 tw-mb-5 tw-mt-6">
                 <div class="tw-flex tw-justify-between">
-                    <div
-                        v-if="!this.controller.data.openedFilter"
-                        class="tw-flex tw-space-x-3 tw-items-center"
-                    >
+                    <div v-if="!openedFilter" class="tw-flex tw-space-x-3 tw-items-center">
                         <span>Filter diel</span>
                     </div>
                     <div v-else>
-                        <button @click="controller.setOpenedFilter(null)">
+                        <button @click="toggleSelect('authors')">
                             <i class="fa fa-chevron-left tw-text-gray-800"></i>
                         </button>
-                        <span>{{ this.controller.data.openedFilter }}</span>
+                        <span>{{ openedFilter }}</span>
                     </div>
-                    <button @click="controller.toggleIsExtendedOpen">
+                    <button @click="toggleIsExtendedOpen">
                         <i class="fa fa-close"></i>
                     </button>
                 </div>
             </div>
-            <div
-                @click.stop
-                v-if="this.controller.data.openedFilter"
-                class="tw-px-4 tw-flex tw-flex-1 tw-min-h-0"
-            >
-                <Options :filterName="this.controller.data.openedFilter" :placeholder="placeholder" />
+            <div v-if="openedFilter" class="tw-px-4 tw-flex tw-flex-1 tw-min-h-0">
+                <Options
+                    placeholder=""
+                    :filterName="openedFilter"
+                    :handleMultiSelectChange="handleMultiSelectChange"
+                    :selectedValues="selectedValues"
+                    :filter="filters[openedFilter]"
+                />
             </div>
             <div class="tw-w-full tw-flex-1 tw-flex tw-flex-col tw-overflow-auto tw-min-h-0" v-else>
                 <button
-                    @click="controller.setOpenedFilter('authors')"
+                    @click="toggleSelect('authors')"
                     class="tw-w-full tw-border-b tw-font-medium tw-border-gray-200 tw-px-4 tw-py-5"
                 >
                     <div class="tw-flex tw-justify-between">
@@ -38,20 +37,31 @@
                         <i class="fa fa-caret-right"></i>
                     </div>
                 </button>
-                <button
-                    @click="controller.setOpenedFilter('someOtherFilter')"
-                    class="tw-w-full tw-border-b tw-font-medium tw-border-gray-200 tw-px-4 tw-py-5"
-                >
-                    <div class="tw-flex tw-justify-between">
-                        <span>{{ 'someOtherFilter' }}</span>
-                        <i class="fa fa-caret-right"></i>
-                    </div>
-                </button>
                 <div class="tw-py-2">
-                    <NewCustomCheckbox title="Len s obrázkom" name="has_image" />
-                    <NewCustomCheckbox title="Len so zoomom" name="has_iip" />
-                    <NewCustomCheckbox title="Len voľné" name="is_free" />
-                    <NewCustomCheckbox title="Len s textom" name="has_text" />
+                    <NewCustomCheckbox
+                        :handleCheckboxChange="handleCheckboxChange"
+                        :checkboxValue="Boolean(query['has_image'])"
+                        title="Len s obrázkom"
+                        name="has_image"
+                    />
+                    <NewCustomCheckbox
+                        :handleCheckboxChange="handleCheckboxChange"
+                        :checkboxValue="Boolean(query['has_iip'])"
+                        title="Len so zoomom"
+                        name="has_iip"
+                    />
+                    <NewCustomCheckbox
+                        :handleCheckboxChange="handleCheckboxChange"
+                        :checkboxValue="Boolean(query['is_free'])"
+                        title="Len voľné"
+                        name="is_free"
+                    />
+                    <NewCustomCheckbox
+                        :handleCheckboxChange="handleCheckboxChange"
+                        :checkboxValue="Boolean(query['has_text'])"
+                        title="Len s textom"
+                        name="has_text"
+                    />
                 </div>
             </div>
             <div
@@ -71,11 +81,14 @@ export default {
     props: {
         filters: Object,
         placeholder: String,
-    },
-    inject: {
-        controller: {
-            from: 'filterController',
-        },
+        isExtendedOpen: Boolean,
+        openedFilter: String,
+        toggleIsExtendedOpen: Function,
+        toggleSelect: Function,
+        handleMultiSelectChange: Function,
+        handleCheckboxChange: Function,
+        query: Object,
+        filters: Object,
     },
     components: { Options, NewCustomCheckbox },
 }
