@@ -40,27 +40,31 @@
                 <div class="tw-py-2">
                     <NewCustomCheckbox
                         :handleCheckboxChange="handleCheckboxChange"
-                        :checkboxValue="Boolean(query['has_image'])"
+                        :checked="Boolean(query['has_iip'])"
                         title="Len s obrázkom"
                         name="has_image"
+                        id="has_image_mobile"
                     />
                     <NewCustomCheckbox
                         :handleCheckboxChange="handleCheckboxChange"
-                        :checkboxValue="Boolean(query['has_iip'])"
+                        :checked="Boolean(query['has_iip'])"
                         title="Len so zoomom"
                         name="has_iip"
+                        id="has_iip_mobile"
                     />
                     <NewCustomCheckbox
                         :handleCheckboxChange="handleCheckboxChange"
-                        :checkboxValue="Boolean(query['is_free'])"
+                        :checked="Boolean(query['is_free'])"
                         title="Len voľné"
                         name="is_free"
+                        id="is_free_mobile"
                     />
                     <NewCustomCheckbox
                         :handleCheckboxChange="handleCheckboxChange"
-                        :checkboxValue="Boolean(query['has_text'])"
+                        :checked="Boolean(query['has_text'])"
                         title="Len s textom"
                         name="has_text"
+                        id="has_text_mobile"
                     />
                 </div>
             </div>
