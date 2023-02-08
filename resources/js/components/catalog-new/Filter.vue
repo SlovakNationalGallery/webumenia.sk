@@ -76,7 +76,6 @@ export default {
             }
         },
         handleCheckboxChange(e) {
-            console.log(e)
             const { name, checked } = e.target
 
             this.query = {

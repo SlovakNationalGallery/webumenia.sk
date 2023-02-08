@@ -43,16 +43,20 @@
                 <div
                     class="tw-invisible tw-space-x-3 tw-bg-gray-200 tw-px-16 tw-pt-4 tw-pb-5 md:tw-visible md:tw-flex">
                     <filter-new-custom-checkbox @change="handleCheckboxChange"
-                        :checked="Boolean(query['has_image'])" title="Len s obrázkom" name="has_image" id="has_image_desktop">
+                        :checked="Boolean(query['has_image'])" title="Len s obrázkom" name="has_image"
+                        id="has_image_desktop">
                     </filter-new-custom-checkbox>
                     <filter-new-custom-checkbox @change="handleCheckboxChange"
-                        :checked="Boolean(query['has_iip'])" title="Len so zoomom" name="has_iip" id="has_iip_desktop">
+                        :checked="Boolean(query['has_iip'])" title="Len so zoomom" name="has_iip"
+                        id="has_iip_desktop">
                     </filter-new-custom-checkbox>
                     <filter-new-custom-checkbox @change="handleCheckboxChange"
-                        :checked="Boolean(query['is_free'])" title="Len voľné" name="is_free" id="is_free_desktop">
+                        :checked="Boolean(query['is_free'])" title="Len voľné" name="is_free"
+                        id="is_free_desktop">
                     </filter-new-custom-checkbox>
                     <filter-new-custom-checkbox @change="handleCheckboxChange"
-                        :checked="Boolean(query['has_text'])" title="Len s textom" name="has_text" id="has_text_desktop">
+                        :checked="Boolean(query['has_text'])" title="Len s textom" name="has_text"
+                        id="has_text_desktop">
                     </filter-new-custom-checkbox>
                 </div>
                 <div class="tw-invisible tw-bg-gray-200 tw-px-16 tw-pb-16 md:tw-visible">
@@ -62,39 +66,39 @@
                     </filter-new-selected-labels>
                 </div>
                 <filter-new-sort :sort="query.sort" :handle-sort-change="handleSortChange" :options="[
-                                                                    {
-                                                                        value: null,
-                                                                        text: 'podľa poslednej zmeny',
-                                                                    },
-                                                                    {
-                                                                        value: 'created_at',
-                                                                        text: 'dátumu pridania',
-                                                                    },
-                                                                    {
-                                                                        value: 'title',
-                                                                        text: 'názvu',
-                                                                    },
-                                                                    {
-                                                                        value: 'author',
-                                                                        text: 'autora',
-                                                                    },
-                                                                    {
-                                                                        value: 'newest',
-                                                                        text: 'dotovania - od najnovšieho',
-                                                                    },
-                                                                    {
-                                                                        value: 'oldest',
-                                                                        text: 'dotovania - od najstaršieho',
-                                                                    },
-                                                                    {
-                                                                        value: 'view_count',
-                                                                        text: 'počtu videní',
-                                                                    },
-                                                                    {
-                                                                        value: 'random',
-                                                                        text: 'náhodného poradia',
-                                                                    },
-                                                                ]" />
+                                                                        {
+                                                                            value: null,
+                                                                            text: 'podľa poslednej zmeny',
+                                                                        },
+                                                                        {
+                                                                            value: 'created_at',
+                                                                            text: 'dátumu pridania',
+                                                                        },
+                                                                        {
+                                                                            value: 'title',
+                                                                            text: 'názvu',
+                                                                        },
+                                                                        {
+                                                                            value: 'author',
+                                                                            text: 'autora',
+                                                                        },
+                                                                        {
+                                                                            value: 'newest',
+                                                                            text: 'dotovania - od najnovšieho',
+                                                                        },
+                                                                        {
+                                                                            value: 'oldest',
+                                                                            text: 'dotovania - od najstaršieho',
+                                                                        },
+                                                                        {
+                                                                            value: 'view_count',
+                                                                            text: 'počtu videní',
+                                                                        },
+                                                                        {
+                                                                            value: 'random',
+                                                                            text: 'náhodného poradia',
+                                                                        },
+                                                                    ]" />
             </div>
         </filter-new>
     </section>
