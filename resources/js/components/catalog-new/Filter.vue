@@ -65,17 +65,18 @@ export default {
             this.openedFilter = null
         },
         clearAllSelections() {
-            this.query = {}
+            this.query = {
+                authors: [],
+                color: null,
+            }
         },
         setOpenedFilter(name) {
             this.openedFilter = name
         },
         handleColorChange(color) {
-            if (this.query.color !== color) {
-                this.query = {
-                    ...this.query,
-                    color: color,
-                }
+            this.query = {
+                ...this.query,
+                color: color,
             }
         },
         handleSortChange(sortValue) {
@@ -96,7 +97,7 @@ export default {
             this.query = {
                 ...this.query,
                 [name]: this.query[name].filter((v) => v !== value),
-            };
+            }
         },
         handleMultiSelectChange(e) {
             const { name, checked, value } = e.target
@@ -173,7 +174,7 @@ export default {
             selectedOptionsAsLabels: this.selectedOptionsAsLabels,
             clearAllSelections: this.clearAllSelections,
             clearFilterSelection: this.clearFilterSelection,
-            removeSelection: this.removeSelection
+            removeSelection: this.removeSelection,
         })
     },
 }

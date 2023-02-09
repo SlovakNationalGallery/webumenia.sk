@@ -19,7 +19,7 @@
                                     class="tw-absolute tw-top-36 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                     <filter-new-options filter-name="authors"
                                         placeholder="Napíšte meno autora / autorky"
-                                        :handle-multi-select-change="handleMultiSelectChange"
+                                        @change="handleMultiSelectChange"
                                         :selected-values="query['authors']"
                                         :filter="filters['authors']">
                                     </filter-new-options>
@@ -47,7 +47,7 @@
                                     <div
                                         class="tw-border-2 tw-border-gray-800 tw-bg-white tw-px-8 tw-py-16">
                                         <filter-new-color-slider :color="query['color']"
-                                            :handle-color-change="handleColorChange">
+                                            @change="handleColorChange">
                                         </filter-new-color-slider>
                                     </div>
                                 </div>

@@ -3,7 +3,7 @@
         <button
             class="tw-border tw-border-gray-300 tw-bg-white tw-py-3.5 tw-px-4 tw-text-lg tw-font-bold hover:tw-border-gray-800"
             :class="{
-                'tw-border-gray-800': selectedCount,
+                'tw-border-gray-800': active,
                 'tw-border-gray-800 tw-border-2': openedFilter === name,
             }"
             @click="toggleSelect(name)"
@@ -31,6 +31,7 @@ export default {
     },
     props: {
         name: String,
+        active: Boolean,
         openedFilter: String,
         toggleSelect: Function,
         closeOpenedFilter: Function,

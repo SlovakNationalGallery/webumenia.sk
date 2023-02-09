@@ -34,7 +34,6 @@ import tinycolor from 'tinycolor2'
 export default {
     props: {
         color: String,
-        handleColorChange: Function,
     },
     methods: {
         getHue() {
@@ -46,19 +45,19 @@ export default {
             return lightness
         },
         hueColorFn(hue) {
-            return "hsl(" + hue + ", 80%, 50%)";
+            return 'hsl(' + hue + ', 80%, 50%)'
         },
         lightnessColorFn(lightness) {
-            return "hsl(" + this.getHue() + ",80% ," + lightness * 100 + "%)";
+            return 'hsl(' + this.getHue() + ',80% ,' + lightness * 100 + '%)'
         },
         hueChange(hue) {
             const color = tinycolor(`hsl(${hue}, 0.8, ${this.getLightness() || 0.5})`).toHex()
-            this.handleColorChange(color)
+            this.$emit('change', color)
         },
 
         lightnessChange(lightness) {
             const color = tinycolor(`hsl(${this.getHue()}, 80%, ${lightness * 100}%)`).toHex()
-            this.handleColorChange(color)
+            this.$emit('change', color)
         },
         lightnessBgColorFn() {
             return {
