@@ -24,7 +24,6 @@ export default {
     },
     data() {
         return {
-            openedFilter: null,
             isExtendedOpen: true,
             isFetching: false,
             artworks: [],
@@ -70,9 +69,6 @@ export default {
                 color: null,
             }
         },
-        setOpenedFilter(name) {
-            this.openedFilter = name
-        },
         handleColorChange(color) {
             this.query = {
                 ...this.query,
@@ -114,12 +110,6 @@ export default {
                 ...this.query,
                 [name]: this.query[name].filter((v) => v !== value),
             }
-        },
-        closeOpenedFilter() {
-            this.openedFilter = null
-        },
-        toggleSelect(filterName) {
-            this.openedFilter = filterName === this.openedFilter ? null : filterName
         },
         async fetchData() {
             this.isFetching = true
@@ -165,12 +155,10 @@ export default {
             filters: this.filters,
             openedFilter: this.openedFilter,
             toggleIsExtendedOpen: this.toggleIsExtendedOpen,
-            toggleSelect: this.toggleSelect,
             handleSortChange: this.handleSortChange,
             handleCheckboxChange: this.handleCheckboxChange,
             handleMultiSelectChange: this.handleMultiSelectChange,
             handleColorChange: this.handleColorChange,
-            closeOpenedFilter: this.closeOpenedFilter,
             selectedOptionsAsLabels: this.selectedOptionsAsLabels,
             clearAllSelections: this.clearAllSelections,
             clearFilterSelection: this.clearFilterSelection,

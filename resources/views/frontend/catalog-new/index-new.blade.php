@@ -3,61 +3,66 @@
 @section('content')
     <section class="tailwind-rules">
         <filter-new :authors="{{ $authors }}"
-            v-slot="{ isExtendedOpen, openedFilter, handleMultiSelectChange, selectedOptionsAsLabels, toggleIsExtendedOpen, handleSortChange, handleColorChange, handleCheckboxChange, clearFilterSelection, toggleSelect, closeOpenedFilter, clearAllSelections, removeSelection, query, filters }">
+            v-slot="{ isExtendedOpen, toggleIsExtendedOpen, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, filters }">
             <div class="tw-relative">
                 <div class="tw-bg-gray-200 tw-p-16 md:tw-pb-0">
-                    <div class="tw-flex tw-gap-x-3 tw-overflow-x-auto md:tw-flex-wrap">
-                        <filter-new-popover :close-opened-filter="closeOpenedFilter"
-                            :toggle-select="toggleSelect" :opened-filter="openedFilter" name="authors">
-                            <template #popover-label>
-                                <filter-new-custom-select-popover-label name="authors"
-                                    :selected-values="query['authors']">
-                                </filter-new-custom-select-popover-label>
-                            </template>
-                            <template #body>
-                                <div
-                                    class="tw-absolute tw-top-36 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                    <filter-new-options filter-name="authors"
-                                        placeholder="Napíšte meno autora / autorky"
-                                        @change="handleMultiSelectChange"
-                                        :selected-values="query['authors']"
-                                        :filter="filters['authors']">
-                                    </filter-new-options>
-                                    <button
-                                        class="tw-mb-6 tw-mt-5 tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
-                                        @click="clear-selection('authors')">
-                                        <div class="tw-flex">
-                                            <div class="tw-flex tw-items-center tw-pr-2">
-                                                <i class="fa fa-rotate-left"></i>
-                                            </div>
-                                            <span>zrušiť výber</span>
-                                        </div>
-                                    </button>
-                                </div>
-                            </template>
-                        </filter-new-popover>
-                        <filter-new-popover :close-opened-filter="closeOpenedFilter"
-                            :toggle-select="toggleSelect" :opened-filter="openedFilter" name="color">
-                            <template #popover-label>
-                                <span>color</span>
-                            </template>
-                            <template #body>
-                                <div
-                                    class="tw-absolute tw-left-0 tw-top-36 tw-z-10 tw-w-screen tw-px-16">
+                    <filter-new-popover-group-controller
+                        v-slot="{openedFilter, closeOpenedFilter, toggleSelect}">
+                        <div class="tw-flex tw-gap-x-3 tw-overflow-x-auto md:tw-flex-wrap">
+                            <filter-new-popover :close-opened-filter="closeOpenedFilter"
+                                :toggle-select="toggleSelect" :opened-filter="openedFilter"
+                                name="authors">
+                                <template #popover-label>
+                                    <filter-new-custom-select-popover-label name="authors"
+                                        :selected-values="query['authors']">
+                                    </filter-new-custom-select-popover-label>
+                                </template>
+                                <template #body>
                                     <div
-                                        class="tw-border-2 tw-border-gray-800 tw-bg-white tw-px-8 tw-py-16">
-                                        <filter-new-color-slider :color="query['color']"
-                                            @change="handleColorChange">
-                                        </filter-new-color-slider>
+                                        class="tw-absolute tw-top-36 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
+                                        <filter-new-options filter-name="authors"
+                                            placeholder="Napíšte meno autora / autorky"
+                                            @change="handleMultiSelectChange"
+                                            :selected-values="query['authors']"
+                                            :filter="filters['authors']">
+                                        </filter-new-options>
+                                        <button
+                                            class="tw-mb-6 tw-mt-5 tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
+                                            @click="clear-selection('authors')">
+                                            <div class="tw-flex">
+                                                <div class="tw-flex tw-items-center tw-pr-2">
+                                                    <i class="fa fa-rotate-left"></i>
+                                                </div>
+                                                <span>zrušiť výber</span>
+                                            </div>
+                                        </button>
                                     </div>
-                                </div>
-                            </template>
-                        </filter-new-popover>
-                        <filter-show-more class="tw-hidden md:tw-block"
-                            :is-extended-open="isExtendedOpen"
-                            :toggle-is-extended-open="toggleIsExtendedOpen">
-                        </filter-show-more>
-                    </div>
+                                </template>
+                            </filter-new-popover>
+                            <filter-new-popover v-if="isExtendedOpen"
+                                :close-opened-filter="closeOpenedFilter" :toggle-select="toggleSelect"
+                                :opened-filter="openedFilter" name="color">
+                                <template #popover-label>
+                                    <span>color</span>
+                                </template>
+                                <template #body>
+                                    <div
+                                        class="tw-absolute tw-left-0 tw-top-36 tw-z-10 tw-w-screen tw-px-16">
+                                        <div
+                                            class="tw-border-2 tw-border-gray-800 tw-bg-white tw-px-8 tw-py-16">
+                                            <filter-new-color-slider :color="query['color']"
+                                                @change="handleColorChange">
+                                            </filter-new-color-slider>
+                                        </div>
+                                    </div>
+                                </template>
+                            </filter-new-popover>
+                            <filter-show-more class="tw-hidden md:tw-block"
+                                :is-extended-open="isExtendedOpen"
+                                :toggle-is-extended-open="toggleIsExtendedOpen">
+                            </filter-show-more>
+                        </div>
+                    </filter-new-popover-group-controller>
                     <filter-show-more class="tw-visible tw-pt-4 md:tw-hidden"
                         :is-extended-open="isExtendedOpen"
                         :toggle-is-extended-open="toggleIsExtendedOpen">
