@@ -31,6 +31,7 @@ export default {
             filters: {},
             query: {
                 authors: [],
+                color: null,
                 ...getParsedUrl().query,
             },
         }
@@ -68,6 +69,14 @@ export default {
         },
         setOpenedFilter(name) {
             this.openedFilter = name
+        },
+        handleColorChange(color) {
+            if (this.query.color !== color) {
+                this.query = {
+                    ...this.query,
+                    color: color,
+                }
+            }
         },
         handleSortChange(sortValue) {
             this.query = {
@@ -159,6 +168,7 @@ export default {
             handleSortChange: this.handleSortChange,
             handleCheckboxChange: this.handleCheckboxChange,
             handleMultiSelectChange: this.handleMultiSelectChange,
+            handleColorChange: this.handleColorChange,
             closeOpenedFilter: this.closeOpenedFilter,
             selectedOptionsAsLabels: this.selectedOptionsAsLabels,
             clearAllSelections: this.clearAllSelections,
