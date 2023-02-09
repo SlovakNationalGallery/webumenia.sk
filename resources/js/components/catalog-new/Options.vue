@@ -29,20 +29,9 @@
                     type="checkbox"
                     :key="option.id"
                     :id="option.id"
-                    @change="
-                        (e) =>
-                            controller.handleMultiSelectChange(
-                                filterName,
-                                e.target.checked
-                                    ? [
-                                          ...(controller.selectedValues[filterName] || []),
-                                          option.name,
-                                      ]
-                                    : controller.selectedValues[filterName].filter(
-                                          (selectedOption) => selectedOption !== option.name
-                                      )
-                            )
-                    "
+                    @change="handleMultiSelectChange"
+                    :value="option.name"
+                    :name="filterName"
                     :checked="option.checked"
                 />
                 <span class="tw-font-normal tw-text-base"
@@ -58,6 +47,9 @@ export default {
     props: {
         filterName: String,
         placeholder: String,
+        selectedValues: Array,
+        handleMultiSelectChange: Function,
+        filter: Array,
     },
     data() {
         return {
@@ -66,19 +58,12 @@ export default {
     },
     computed: {
         filteredOptions() {
-            return this.controller.filters[this.filterName]
+            return this.filter
                 .filter((item) => (this.search ? item.name.includes(this.search) : true))
                 .map((option) => ({
                     ...option,
-                    checked: (this.controller.selectedValues[this.filterName] || []).includes(
-                        option.name
-                    ),
+                    checked: (this.selectedValues || []).includes(option.name),
                 }))
-        },
-    },
-    inject: {
-        controller: {
-            from: 'filterController',
         },
     },
 }

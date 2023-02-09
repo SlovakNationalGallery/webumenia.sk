@@ -4,15 +4,14 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Fixed
 - imported images count
-
-### Added
-- infinite scroll to artworks carousel 
-
-### Fixed
 - proper collection translation of sort collection by name
 
 ### Added
+- infinite scroll to artworks carousel 
 - ability to parse collection teasers into articles
+
+### Changed
+- Filter controller architecture
 
 ## [2.71.0] - 2022-12-17
 ### Added
