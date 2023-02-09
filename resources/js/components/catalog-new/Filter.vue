@@ -17,6 +17,9 @@ function stringifyUrl({ url, query }) {
     )
 }
 
+const singleItemFilters = ['color']
+
+
 export default {
     props: {
         //TODO: remove once we have api
@@ -43,11 +46,15 @@ export default {
             return Object.entries(this.query)
                 .filter(([filterName, _]) => Object.keys(this.filters).includes(filterName))
                 .map(([filterName, filterValues]) =>
-                    (filterValues || []).map((filterValue) => ({
-                        value: filterValue,
-                        filterName,
-                        type: 'string',
-                    }))
+                    singleItemFilters.includes(filterName) && filterValues
+                        ? {
+                              value: filterValues,
+                              filterName,
+                          }
+                        : (filterValues || []).map((filterValue) => ({
+                              value: filterValue,
+                              filterName,
+                          }))
                 )
                 .flat()
         },
@@ -90,6 +97,14 @@ export default {
             }
         },
         removeSelection({ filterName: name, value }) {
+            if (singleItemFilters.includes(name)) {
+                this.query = {
+                    ...this.query,
+                    [name]: undefined,
+                }
+                return
+            }
+            
             this.query = {
                 ...this.query,
                 [name]: this.query[name].filter((v) => v !== value),
@@ -115,7 +130,7 @@ export default {
             this.isFetching = true
 
             try {
-                this.filters = { ...this.filters, authors: this.authors }
+                this.filters = { ...this.filters, authors: this.authors, color: '' }
                 // TODO: Fetch options
                 // TODO: Fetch artworks
                 this.isFetching = false
