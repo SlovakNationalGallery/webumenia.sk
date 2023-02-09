@@ -7,10 +7,10 @@
             <div class="tw-relative">
                 <div class="tw-bg-gray-200 tw-p-16 md:tw-pb-0">
                     <filter-new-popover-group-controller
-                        v-slot="{openedFilter, closeOpenedFilter, toggleSelect}">
+                        v-slot="{openedFilter, closeOpenedPopover, togglePopover}">
                         <div class="tw-flex tw-gap-x-3 tw-overflow-x-auto md:tw-flex-wrap">
-                            <filter-new-popover :close-opened-filter="closeOpenedFilter"
-                                :toggle-select="toggleSelect" :opened-filter="openedFilter"
+                            <filter-new-popover :close-opened-filter="closeOpenedPopover"
+                                :toggle-popover="togglePopover" :opened-filter="openedFilter"
                                 name="authors">
                                 <template #popover-label>
                                     <filter-new-custom-select-popover-label name="authors"
@@ -40,7 +40,7 @@
                                 </template>
                             </filter-new-popover>
                             <filter-new-popover v-if="isExtendedOpen"
-                                :close-opened-filter="closeOpenedFilter" :toggle-select="toggleSelect"
+                                :close-opened-filter="closeOpenedPopover" :toggle-popover="togglePopover"
                                 :opened-filter="openedFilter" name="color">
                                 <template #popover-label>
                                     <span>color</span>

@@ -6,7 +6,7 @@
                 'tw-border-gray-800': active,
                 'tw-border-gray-800 tw-border-2': openedFilter === name,
             }"
-            @click="toggleSelect(name)"
+            @click="togglePopover(name)"
         >
             <div class="tw-flex">
                 <slot name="popover-label"></slot>
@@ -33,7 +33,7 @@ export default {
         name: String,
         active: Boolean,
         openedFilter: String,
-        toggleSelect: Function,
+        togglePopover: Function,
         closeOpenedFilter: Function,
     },
 }

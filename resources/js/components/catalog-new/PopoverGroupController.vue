@@ -6,18 +6,18 @@ export default {
         }
     },
     methods: {
-        toggleSelect(filterName) {
+        togglePopover(filterName) {
             this.openedFilter = filterName === this.openedFilter ? null : filterName
         },
-        closeOpenedFilter() {
+        closeOpenedPopover() {
             this.openedFilter = null
         },
     },
     render() {
         return this.$scopedSlots.default({
             openedFilter: this.openedFilter,
-            toggleSelect: this.toggleSelect,
-            closeOpenedFilter: this.closeOpenedFilter,
+            togglePopover: this.togglePopover,
+            closeOpenedPopover: this.closeOpenedPopover,
         })
     },
 }
