@@ -6,7 +6,6 @@
             :name="name"
             @change="$emit('change', $event)"
             :checked="checked"
-            :key="id"
             :id="id"
         />
         <span
