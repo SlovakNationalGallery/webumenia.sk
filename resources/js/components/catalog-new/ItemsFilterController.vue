@@ -13,8 +13,15 @@ function stringifyUrl({ url, query }) {
         { url, query },
         {
             arrayFormat: 'bracket',
+            skipNull: true,
         }
     )
+}
+
+const singleItemFilters = ['color']
+const emptyQuery = {
+    authors: [],
+    color: null,
 }
 
 export default {
@@ -24,15 +31,11 @@ export default {
     },
     data() {
         return {
-            openedFilter: null,
             isExtendedOpen: true,
             isFetching: false,
             artworks: [],
             filters: {},
-            query: {
-                authors: [],
-                ...getParsedUrl().query,
-            },
+            query: { ...emptyQuery, ...getParsedUrl().query },
         }
     },
     async created() {
@@ -41,14 +44,19 @@ export default {
     computed: {
         selectedOptionsAsLabels() {
             return Object.entries(this.query)
-                .filter(([filterName, _]) => Object.keys(this.filters).includes(filterName))
-                .map(([filterName, filterValues]) =>
-                    (filterValues || []).map((filterValue) => ({
+                .filter(([filterName, _]) => ['authors', 'color'].includes(filterName))
+                .map(([filterName, filterValues]) => {
+                    if (singleItemFilters.includes(filterName) && filterValues) {
+                        return {
+                            value: filterValues,
+                            filterName,
+                        }
+                    }
+                    return (filterValues || []).map((filterValue) => ({
                         value: filterValue,
                         filterName,
-                        type: 'string',
                     }))
-                )
+                })
                 .flat()
         },
     },
@@ -59,15 +67,17 @@ export default {
         clearFilterSelection(filterName) {
             this.query = {
                 ...this.query,
-                [filterName]: undefined,
+                [filterName]: emptyQuery[filterName],
             }
-            this.openedFilter = null
         },
         clearAllSelections() {
-            this.query = {}
+            this.query = { ...emptyQuery }
         },
-        setOpenedFilter(name) {
-            this.openedFilter = name
+        handleColorChange(color) {
+            this.query = {
+                ...this.query,
+                color: color,
+            }
         },
         handleSortChange(sortValue) {
             this.query = {
@@ -84,10 +94,18 @@ export default {
             }
         },
         removeSelection({ filterName: name, value }) {
+            if (singleItemFilters.includes(name)) {
+                this.query = {
+                    ...this.query,
+                    [name]: emptyQuery[name],
+                }
+                return
+            }
+
             this.query = {
                 ...this.query,
                 [name]: this.query[name].filter((v) => v !== value),
-            };
+            }
         },
         handleMultiSelectChange(e) {
             const { name, checked, value } = e.target
@@ -104,12 +122,6 @@ export default {
                 ...this.query,
                 [name]: this.query[name].filter((v) => v !== value),
             }
-        },
-        closeOpenedFilter() {
-            this.openedFilter = null
-        },
-        toggleSelect(filterName) {
-            this.openedFilter = filterName === this.openedFilter ? null : filterName
         },
         async fetchData() {
             this.isFetching = true
@@ -131,15 +143,7 @@ export default {
 
             const { url } = getParsedUrl()
 
-            const newUrl = queryString.stringifyUrl(
-                {
-                    url,
-                    query: { ...newQuery },
-                },
-                {
-                    arrayFormat: 'bracket',
-                }
-            )
+            const newUrl = stringifyUrl({ url, query: { ...newQuery } })
 
             window.history.replaceState(
                 newUrl,
@@ -153,17 +157,15 @@ export default {
             isExtendedOpen: this.isExtendedOpen,
             query: this.query,
             filters: this.filters,
-            openedFilter: this.openedFilter,
             toggleIsExtendedOpen: this.toggleIsExtendedOpen,
-            toggleSelect: this.toggleSelect,
             handleSortChange: this.handleSortChange,
             handleCheckboxChange: this.handleCheckboxChange,
             handleMultiSelectChange: this.handleMultiSelectChange,
-            closeOpenedFilter: this.closeOpenedFilter,
+            handleColorChange: this.handleColorChange,
             selectedOptionsAsLabels: this.selectedOptionsAsLabels,
             clearAllSelections: this.clearAllSelections,
             clearFilterSelection: this.clearFilterSelection,
-            removeSelection: this.removeSelection
+            removeSelection: this.removeSelection,
         })
     },
 }

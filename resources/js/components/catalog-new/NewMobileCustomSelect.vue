@@ -4,27 +4,27 @@
         <div class="tw-w-full tw-flex tw-flex-1 tw-overflow-auto tw-bg-white tw-flex-col">
             <div class="tw-ml-4 tw-mr-6 tw-mb-5 tw-mt-6">
                 <div class="tw-flex tw-justify-between">
-                    <div v-if="!openedFilter" class="tw-flex tw-space-x-3 tw-items-center">
+                    <div v-if="!openedPopover" class="tw-flex tw-space-x-3 tw-items-center">
                         <span>Filter diel</span>
                     </div>
                     <div v-else>
                         <button @click="toggleSelect('authors')">
                             <i class="fa fa-chevron-left tw-text-gray-800"></i>
                         </button>
-                        <span>{{ openedFilter }}</span>
+                        <span>{{ openedPopover }}</span>
                     </div>
                     <button @click="toggleIsExtendedOpen">
                         <i class="fa fa-close"></i>
                     </button>
                 </div>
             </div>
-            <div v-if="openedFilter" class="tw-px-4 tw-flex tw-flex-1 tw-min-h-0">
+            <div v-if="openedPopover" class="tw-px-4 tw-flex tw-flex-1 tw-min-h-0">
                 <Options
                     placeholder=""
-                    :filterName="openedFilter"
+                    :filterName="openedPopover"
                     :handleMultiSelectChange="handleMultiSelectChange"
                     :selectedValues="selectedValues"
-                    :filter="filters[openedFilter]"
+                    :filter="filters[openedPopover]"
                 />
             </div>
             <div class="tw-w-full tw-flex-1 tw-flex tw-flex-col tw-overflow-auto tw-min-h-0" v-else>
@@ -86,7 +86,7 @@ export default {
         filters: Object,
         placeholder: String,
         isExtendedOpen: Boolean,
-        openedFilter: String,
+        openedPopover: String,
         toggleIsExtendedOpen: Function,
         toggleSelect: Function,
         handleMultiSelectChange: Function,
