@@ -6,8 +6,7 @@
             v-slot="{ isExtendedOpen, toggleIsExtendedOpen, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, filters }">
             <div class="tw-relative">
                 <div class="tw-bg-gray-200 tw-p-16 md:tw-pb-0">
-                    <filter-new-popover-group-controller
-                        v-slot="{openedPopover, closeOpenedPopover, togglePopover}">
+                    <filter-new-popover-group-controller>
                         <div class="tw-flex tw-gap-x-3 tw-overflow-x-auto md:tw-flex-wrap">
                             <filter-new-popover name="authors">
                                 <template #popover-label>
@@ -26,7 +25,7 @@
                                         </filter-new-options>
                                         <button
                                             class="tw-mb-6 tw-mt-5 tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
-                                            @click="clear-selection('authors')">
+                                            @click="clearFilterSelection('authors')">
                                             <div class="tw-flex">
                                                 <div class="tw-flex tw-items-center tw-pr-2">
                                                     <i class="fa fa-rotate-left"></i>

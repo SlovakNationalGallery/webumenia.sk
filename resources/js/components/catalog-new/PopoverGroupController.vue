@@ -18,7 +18,7 @@ export default {
     },
     provide() {
         return {
-            provided: this.provided,
+            popoverGroupControllerData: this.provided,
             togglePopover: this.togglePopover,
             closeOpenedPopover: this.closeOpenedPopover,
         }

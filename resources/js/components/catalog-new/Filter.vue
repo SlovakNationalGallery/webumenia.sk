@@ -13,11 +13,16 @@ function stringifyUrl({ url, query }) {
         { url, query },
         {
             arrayFormat: 'bracket',
+            skipNull: true,
         }
     )
 }
 
 const singleItemFilters = ['color']
+const emptyQuery = {
+    authors: [],
+    color: null,
+}
 
 export default {
     props: {
@@ -30,11 +35,7 @@ export default {
             isFetching: false,
             artworks: [],
             filters: {},
-            query: {
-                authors: [],
-                color: null,
-                ...getParsedUrl().query,
-            },
+            query: { ...emptyQuery, ...getParsedUrl().query },
         }
     },
     async created() {
@@ -65,15 +66,11 @@ export default {
         clearFilterSelection(filterName) {
             this.query = {
                 ...this.query,
-                [filterName]: undefined,
+                [filterName]: emptyQuery[filterName],
             }
-            this.openedPopover = null
         },
         clearAllSelections() {
-            this.query = {
-                authors: [],
-                color: null,
-            }
+            this.query = { ...emptyQuery }
         },
         handleColorChange(color) {
             this.query = {
@@ -145,15 +142,7 @@ export default {
 
             const { url } = getParsedUrl()
 
-            const newUrl = queryString.stringifyUrl(
-                {
-                    url,
-                    query: { ...newQuery },
-                },
-                {
-                    arrayFormat: 'bracket',
-                }
-            )
+            const newUrl = stringifyUrl({url, query: {...newQuery}})
 
             window.history.replaceState(
                 newUrl,
@@ -167,7 +156,6 @@ export default {
             isExtendedOpen: this.isExtendedOpen,
             query: this.query,
             filters: this.filters,
-            openedPopover: this.openedPopover,
             toggleIsExtendedOpen: this.toggleIsExtendedOpen,
             handleSortChange: this.handleSortChange,
             handleCheckboxChange: this.handleCheckboxChange,

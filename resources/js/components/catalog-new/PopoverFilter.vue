@@ -4,19 +4,19 @@
             class="tw-border tw-border-gray-300 tw-bg-white tw-py-3.5 tw-px-4 tw-text-lg tw-font-bold hover:tw-border-gray-800"
             :class="{
                 'tw-border-gray-800': active,
-                'tw-border-gray-800 tw-border-2': provided.openedPopover === name,
+                'tw-border-gray-800 tw-border-2': popoverGroupControllerData.openedPopover === name,
             }"
             @click="togglePopover(name)"
         >
             <div class="tw-flex">
                 <slot name="popover-label"></slot>
                 <div class="tw-flex tw-items-center tw-pl-4">
-                    <i v-if="provided.openedPopover === name" class="fa fa-caret-up tw-text-sky-400"></i>
+                    <i v-if="popoverGroupControllerData.openedPopover === name" class="fa fa-caret-up tw-text-sky-400"></i>
                     <i v-else class="fa fa-caret-down"></i>
                 </div>
             </div>
         </button>
-        <div @click.stop v-if="provided.openedPopover === name" v-on-clickaway="closeOpenedPopover">
+        <div @click.stop v-if="popoverGroupControllerData.openedPopover === name" v-on-clickaway="closeOpenedPopover">
             <slot name="body"></slot>
         </div>
     </div>
@@ -33,6 +33,6 @@ export default {
         name: String,
         active: Boolean,
     },
-    inject: ['provided', 'togglePopover', 'closeOpenedPopover'],
+    inject: ['popoverGroupControllerData', 'togglePopover', 'closeOpenedPopover'],
 }
 </script>
