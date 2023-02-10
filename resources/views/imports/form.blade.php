@@ -94,7 +94,7 @@
             <div class="form-group">
             {!! Form::label('dir_path', 'Priečinok') !!}
             <div class="input-group">
-                <div class="input-group-addon">/storage/app/import/</div>
+                <div class="input-group-addon">{{ $import->disk }}</div>
                 {!! Form::text('dir_path', Request::old('dir_path'), array('class' => 'form-control', 'placeholder' => '', 'disabled' => $disabled_metadata_fields)) !!}
             </div>
             </div>
