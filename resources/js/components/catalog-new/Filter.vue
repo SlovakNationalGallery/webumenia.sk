@@ -45,17 +45,18 @@ export default {
         selectedOptionsAsLabels() {
             return Object.entries(this.query)
                 .filter(([filterName, _]) => ['authors', 'color'].includes(filterName))
-                .map(([filterName, filterValues]) =>
-                    singleItemFilters.includes(filterName) && filterValues
-                        ? {
-                              value: filterValues,
-                              filterName,
-                          }
-                        : (filterValues || []).map((filterValue) => ({
-                              value: filterValue,
-                              filterName,
-                          }))
-                )
+                .map(([filterName, filterValues]) => {
+                    if (singleItemFilters.includes(filterName) && filterValues) {
+                        return {
+                            value: filterValues,
+                            filterName,
+                        }
+                    }
+                    return (filterValues || []).map((filterValue) => ({
+                        value: filterValue,
+                        filterName,
+                    }))
+                })
                 .flat()
         },
     },
@@ -142,7 +143,7 @@ export default {
 
             const { url } = getParsedUrl()
 
-            const newUrl = stringifyUrl({url, query: {...newQuery}})
+            const newUrl = stringifyUrl({ url, query: { ...newQuery } })
 
             window.history.replaceState(
                 newUrl,
