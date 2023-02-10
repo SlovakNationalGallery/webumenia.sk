@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -98,6 +99,11 @@ class Import extends Model
 
     protected function storage(): Filesystem
     {
-        return Storage::disk('import');
+        return Storage::disk($this->disk);
+    }
+
+    public function disk(): Attribute
+    {
+        return Attribute::get(fn ($value) => $value ?? 'import');
     }
 }
