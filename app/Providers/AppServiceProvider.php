@@ -8,9 +8,14 @@ use App\Filter\Generators\AuthorityTitleGenerator;
 use App\Filter\Generators\ItemTitleGenerator;
 use App\Harvest\Importers\ItemImporter;
 use App\Harvest\Mappers\BaseAuthorityMapper;
+use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
+use League\Flysystem\Filesystem;
+use League\Flysystem\WebDAV\WebDAVAdapter;
+use Sabre\DAV\Client;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 
@@ -64,6 +69,16 @@ class AppServiceProvider extends ServiceProvider
         });
         Blade::directive('datetime', function ($expression) {
             return $this->formatDate($expression, 'L LT');
+        });
+        Storage::extend('webdav', function ($app, $config) {
+            $client = new Client([
+                'baseUri' => $config['base_uri'],
+                'userName' => $config['username'],
+                'password' => $config['password'],
+            ]);
+            $adapter = new WebDAVAdapter($client, $config['prefix'] ?? '');
+            $driver = new Filesystem($adapter);
+            return new FilesystemAdapter($driver, $adapter, $config);
         });
     }
 

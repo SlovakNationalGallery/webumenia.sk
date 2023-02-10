@@ -32,6 +32,7 @@
         "league/color-extractor": "dev-master",
         "league/csv": "^9.6.2",
         "league/flysystem-path-prefixing": "^3.0",
+        "league/flysystem-webdav": "^3.0",
         "livewire/livewire": "^2.7",
         "mcamara/laravel-localization": "1.7.*",
         "primal/color": "^1.0",
