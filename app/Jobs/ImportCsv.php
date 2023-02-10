@@ -69,6 +69,9 @@ class ImportCsv extends Job implements ShouldQueue
             ]);
             $stream = $import_record->readStream($file);
             $importer->import($import_record, $stream);
+            if (is_resource($stream)) {
+                fclose($stream);
+            }
         });
 
         if ($this->import->status != Import::STATUS_ERROR) {

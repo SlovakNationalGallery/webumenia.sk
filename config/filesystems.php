@@ -49,9 +49,11 @@ return [
         ],
 
         'import_iip' => [
-            'driver' => 'scoped',
-            'disk' => 'import',
-            'prefix' => env('DISK_IMPORT_IIP_PREFIX', '.'),
+            'driver' => 'webdav',
+            'base_uri' => env('DISK_IMPORT_IIP_BASE_URI'),
+            'username' => env('DISK_IMPORT_IIP_USERNAME'),
+            'password' => env('DISK_IMPORT_IIP_PASSWORD'),
+            'prefix' => env('DISK_IMPORT_IIP_PREFIX'),
         ],
 
         'media' => [

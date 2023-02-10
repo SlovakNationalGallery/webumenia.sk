@@ -1,27 +1,46 @@
-<template>
-    <div class="tw-relative">
-        <slot :isExtendedOpen="isExtendedOpen" />
-    </div>
-</template>
-
 <script>
-import NewCustomSelect from './NewCustomSelect.vue'
-import NewMobileCustomSelect from './NewMobileCustomSelect.vue'
+import queryString from 'query-string'
+//TODO: import axios from 'axios'
+
+function getParsedUrl() {
+    return queryString.parseUrl(window.location.href, {
+        arrayFormat: 'bracket',
+    })
+}
+
+function stringifyUrl({ url, query }) {
+    return queryString.stringifyUrl(
+        { url, query },
+        {
+            arrayFormat: 'bracket',
+        }
+    )
+}
 
 export default {
     props: {
+        //TODO: remove once we have api
         authors: Array,
     },
-    components: { NewCustomSelect, NewMobileCustomSelect },
     data() {
         return {
             openedFilter: null,
             isExtendedOpen: true,
+            isFetching: false,
+            artworks: [],
+            filters: {},
+            query: {
+                authors: [],
+                ...getParsedUrl().query,
+            },
         }
+    },
+    async created() {
+        this.fetchData()
     },
     computed: {
         selectedOptionsAsLabels() {
-            return Object.entries(this.selectedValues)
+            return Object.entries(this.query)
                 .filter(([filterName, _]) => Object.keys(this.filters).includes(filterName))
                 .map(([filterName, filterValues]) =>
                     (filterValues || []).map((filterValue) => ({
@@ -32,73 +51,59 @@ export default {
                 )
                 .flat()
         },
-        selectedValues() {
-            return {
-                ...this.$route.query,
-                authors:
-                    typeof this.$route.query.authors === 'string'
-                        ? [this.$route.query.authors]
-                        : this.$route.query.authors,
-            }
-        },
-        sort() {
-            return this.$route.query['sort']
-        },
-        filters() {
-            return {
-                authors: this.authors.map((author) => ({
-                    ...author,
-                })),
-                someOtherFilter: [],
-            }
-        },
     },
     methods: {
         toggleIsExtendedOpen() {
             this.isExtendedOpen = !this.isExtendedOpen
         },
-        clearSelection(filterName) {
-            this.$router.push({
-                query: {
-                    ...this.$route.query,
-                    [filterName]: undefined,
-                },
-            })
+        clearFilterSelection(filterName) {
+            this.query = {
+                ...this.query,
+                [filterName]: undefined,
+            }
             this.openedFilter = null
         },
         clearAllSelections() {
-            this.$router.push({
-                query: {},
-            })
+            this.query = {}
         },
         setOpenedFilter(name) {
             this.openedFilter = name
         },
         handleSortChange(sortValue) {
-            this.$router.push({
-                path: 'katalog-new',
-                query: {
-                    ...this.$route.query,
-                    sort: sortValue || undefined,
-                },
-            })
+            this.query = {
+                ...this.query,
+                sort: sortValue,
+            }
         },
-        handleCheckboxChange(checkboxName, selected) {
-            this.$router.push({
-                query: {
-                    ...this.$route.query,
-                    [checkboxName]: selected || undefined,
-                },
-            })
+        handleCheckboxChange(e) {
+            const { name, checked } = e.target
+
+            this.query = {
+                ...this.query,
+                [name]: checked || undefined,
+            }
         },
-        handleMultiSelectChange(filterName, selectedValues) {
-            const urlQuery = this.$route.query
-            this.$router.push({
-                query: {
-                    ...urlQuery,
-                    [filterName]: selectedValues,
-                },
-            })
+        removeSelection({ filterName: name, value }) {
+            this.query = {
+                ...this.query,
+                [name]: this.query[name].filter((v) => v !== value),
+            };
+        },
+        handleMultiSelectChange(e) {
+            const { name, checked, value } = e.target
+            if (checked) {
+                // Add to query
+                this.query = {
+                    ...this.query,
+                    [name]: [...this.query[name], value],
+                }
+                return
+            }
+            // Remove from query
+            this.query = {
+                ...this.query,
+                [name]: this.query[name].filter((v) => v !== value),
+            }
         },
         closeOpenedFilter() {
             this.openedFilter = null
@@ -106,11 +111,60 @@ export default {
         toggleSelect(filterName) {
             this.openedFilter = filterName === this.openedFilter ? null : filterName
         },
+        async fetchData() {
+            this.isFetching = true
+
+            try {
+                this.filters = { ...this.filters, authors: this.authors }
+                // TODO: Fetch options
+                // TODO: Fetch artworks
+                this.isFetching = false
+            } catch (e) {
+                this.isFetching = false
+                throw e
+            }
+        },
     },
-    provide() {
-        return {
-            filterController: this,
-        }
+    watch: {
+        query(newQuery) {
+            this.fetchData()
+
+            const { url } = getParsedUrl()
+
+            const newUrl = queryString.stringifyUrl(
+                {
+                    url,
+                    query: { ...newQuery },
+                },
+                {
+                    arrayFormat: 'bracket',
+                }
+            )
+
+            window.history.replaceState(
+                newUrl,
+                '', // unused param
+                newUrl
+            )
+        },
+    },
+    render() {
+        return this.$scopedSlots.default({
+            isExtendedOpen: this.isExtendedOpen,
+            query: this.query,
+            filters: this.filters,
+            openedFilter: this.openedFilter,
+            toggleIsExtendedOpen: this.toggleIsExtendedOpen,
+            toggleSelect: this.toggleSelect,
+            handleSortChange: this.handleSortChange,
+            handleCheckboxChange: this.handleCheckboxChange,
+            handleMultiSelectChange: this.handleMultiSelectChange,
+            closeOpenedFilter: this.closeOpenedFilter,
+            selectedOptionsAsLabels: this.selectedOptionsAsLabels,
+            clearAllSelections: this.clearAllSelections,
+            clearFilterSelection: this.clearFilterSelection,
+            removeSelection: this.removeSelection
+        })
     },
 }
 </script>

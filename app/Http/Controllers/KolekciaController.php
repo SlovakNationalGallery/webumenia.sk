@@ -45,7 +45,7 @@ class KolekciaController extends Controller
                 'text' => trans('kolekcie.filter.sorting.published_at'),
             ],
             ['value' => 'updated_at', 'text' => trans('kolekcie.filter.sorting.updated_at')],
-            ['value' => 'name', 'text' => trans('kolekcie.filter.sorting.name')],
+            ['value' => 'name', 'text' => trans('kolekcie.filter.sorting.title')],
         ]);
 
         $collections = $collections
