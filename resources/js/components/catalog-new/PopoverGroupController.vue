@@ -2,23 +2,29 @@
 export default {
     data() {
         return {
-            openedPopover: null,
+            provided: {
+                openedPopover: null,
+            },
         }
     },
     methods: {
         togglePopover(filterName) {
-            this.openedPopover = filterName === this.openedPopover ? null : filterName
+            this.provided.openedPopover =
+                filterName === this.provided.openedPopover ? null : filterName
         },
         closeOpenedPopover() {
-            this.openedPopover = null
+            this.provided.openedPopover = null
         },
     },
-    render() {
-        return this.$scopedSlots.default({
-            openedPopover: this.openedPopover,
+    provide() {
+        return {
+            provided: this.provided,
             togglePopover: this.togglePopover,
             closeOpenedPopover: this.closeOpenedPopover,
-        })
+        }
     },
+    render() {
+        return this.$scopedSlots.default({})
+    }
 }
 </script>

@@ -19,7 +19,6 @@ function stringifyUrl({ url, query }) {
 
 const singleItemFilters = ['color']
 
-
 export default {
     props: {
         //TODO: remove once we have api
@@ -44,7 +43,7 @@ export default {
     computed: {
         selectedOptionsAsLabels() {
             return Object.entries(this.query)
-                .filter(([filterName, _]) => Object.keys(this.filters).includes(filterName))
+                .filter(([filterName, _]) => ['authors', 'color'].includes(filterName))
                 .map(([filterName, filterValues]) =>
                     singleItemFilters.includes(filterName) && filterValues
                         ? {
@@ -104,7 +103,7 @@ export default {
                 }
                 return
             }
-            
+
             this.query = {
                 ...this.query,
                 [name]: this.query[name].filter((v) => v !== value),
@@ -130,7 +129,7 @@ export default {
             this.isFetching = true
 
             try {
-                this.filters = { ...this.filters, authors: this.authors, color: '' }
+                this.filters = { ...this.filters, authors: this.authors }
                 // TODO: Fetch options
                 // TODO: Fetch artworks
                 this.isFetching = false

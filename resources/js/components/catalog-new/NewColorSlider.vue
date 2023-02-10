@@ -7,8 +7,6 @@
                 :min="0"
                 :max="360"
                 :step="1"
-                :dotSize="24"
-                :height="16"
                 @change="hueChange"
             />
         </div>
@@ -18,8 +16,6 @@
                 :pointerColorFn="lightnessColorFn"
                 @change="lightnessChange"
                 :value="getLightness()"
-                :height="16"
-                :dotSize="24"
                 :min="0"
                 :step="0.01"
                 :max="1"
