@@ -2,9 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+## [2.72.1] - 2023-02-10
 ### Added
 - `disk` property to Imports
-
 
 ## [2.72.0] - 2023-02-10
 ### Fixed
