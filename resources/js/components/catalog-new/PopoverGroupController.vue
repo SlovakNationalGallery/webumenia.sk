@@ -2,20 +2,20 @@
 export default {
     data() {
         return {
-            openedFilter: null,
+            openedPopover: null,
         }
     },
     methods: {
         togglePopover(filterName) {
-            this.openedFilter = filterName === this.openedFilter ? null : filterName
+            this.openedPopover = filterName === this.openedPopover ? null : filterName
         },
         closeOpenedPopover() {
-            this.openedFilter = null
+            this.openedPopover = null
         },
     },
     render() {
         return this.$scopedSlots.default({
-            openedFilter: this.openedFilter,
+            openedPopover: this.openedPopover,
             togglePopover: this.togglePopover,
             closeOpenedPopover: this.closeOpenedPopover,
         })

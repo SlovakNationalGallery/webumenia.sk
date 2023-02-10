@@ -7,10 +7,10 @@
             <div class="tw-relative">
                 <div class="tw-bg-gray-200 tw-p-16 md:tw-pb-0">
                     <filter-new-popover-group-controller
-                        v-slot="{openedFilter, closeOpenedPopover, togglePopover}">
+                        v-slot="{openedPopover, closeOpenedPopover, togglePopover}">
                         <div class="tw-flex tw-gap-x-3 tw-overflow-x-auto md:tw-flex-wrap">
-                            <filter-new-popover :close-opened-filter="closeOpenedPopover"
-                                :toggle-popover="togglePopover" :opened-filter="openedFilter"
+                            <filter-new-popover :close-opened-popover="closeOpenedPopover"
+                                :toggle-popover="togglePopover" :opened-popover="openedPopover"
                                 name="authors">
                                 <template #popover-label>
                                     <filter-new-custom-select-popover-label name="authors"
@@ -40,8 +40,8 @@
                                 </template>
                             </filter-new-popover>
                             <filter-new-popover v-if="isExtendedOpen"
-                                :close-opened-filter="closeOpenedPopover" :toggle-popover="togglePopover"
-                                :opened-filter="openedFilter" name="color">
+                                :close-opened-popover="closeOpenedPopover" :toggle-popover="togglePopover"
+                                :opened-popover="openedPopover" name="color">
                                 <template #popover-label>
                                     <span>color</span>
                                 </template>
@@ -69,7 +69,7 @@
                     </filter-show-more>
                 </div>
                 {{-- <filter-new-mobile-custom-select :is-extended-open="isExtendedOpen"
-                    :opened-filter="openedFilter" :handle-multi-select-change="handleMultiSelectChange"
+                    :opened-popover="openedPopover" :handle-multi-select-change="handleMultiSelectChange"
                     :toggle-is-extended-open="toggleIsExtendedOpen"
                     :handle-checkbox-change="handleCheckboxChange"
                     :clear-filter-selection="clearFilterSelection" :toggle-select="toggleSelect"

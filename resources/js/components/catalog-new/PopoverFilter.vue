@@ -4,19 +4,19 @@
             class="tw-border tw-border-gray-300 tw-bg-white tw-py-3.5 tw-px-4 tw-text-lg tw-font-bold hover:tw-border-gray-800"
             :class="{
                 'tw-border-gray-800': active,
-                'tw-border-gray-800 tw-border-2': openedFilter === name,
+                'tw-border-gray-800 tw-border-2': openedPopover === name,
             }"
             @click="togglePopover(name)"
         >
             <div class="tw-flex">
                 <slot name="popover-label"></slot>
                 <div class="tw-flex tw-items-center tw-pl-4">
-                    <i v-if="openedFilter === name" class="fa fa-caret-up tw-text-sky-400"></i>
+                    <i v-if="openedPopover === name" class="fa fa-caret-up tw-text-sky-400"></i>
                     <i v-else class="fa fa-caret-down"></i>
                 </div>
             </div>
         </button>
-        <div @click.stop v-if="openedFilter === name" v-on-clickaway="closeOpenedFilter">
+        <div @click.stop v-if="openedPopover === name" v-on-clickaway="closeOpenedPopover">
             <slot name="body"></slot>
         </div>
     </div>
@@ -32,9 +32,9 @@ export default {
     props: {
         name: String,
         active: Boolean,
-        openedFilter: String,
+        openedPopover: String,
         togglePopover: Function,
-        closeOpenedFilter: Function,
+        closeOpenedPopover: Function,
     },
 }
 </script>

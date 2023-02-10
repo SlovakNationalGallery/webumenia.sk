@@ -68,7 +68,7 @@ export default {
                 ...this.query,
                 [filterName]: undefined,
             }
-            this.openedFilter = null
+            this.openedPopover = null
         },
         clearAllSelections() {
             this.query = {
@@ -168,7 +168,7 @@ export default {
             isExtendedOpen: this.isExtendedOpen,
             query: this.query,
             filters: this.filters,
-            openedFilter: this.openedFilter,
+            openedPopover: this.openedPopover,
             toggleIsExtendedOpen: this.toggleIsExtendedOpen,
             handleSortChange: this.handleSortChange,
             handleCheckboxChange: this.handleCheckboxChange,
