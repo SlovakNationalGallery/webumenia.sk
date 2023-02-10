@@ -70,6 +70,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('datetime', function ($expression) {
             return $this->formatDate($expression, 'L LT');
         });
+
         Storage::extend('webdav', function ($app, $config) {
             $client = new Client([
                 'baseUri' => $config['base_uri'],
@@ -80,6 +81,9 @@ class AppServiceProvider extends ServiceProvider
             $driver = new Filesystem($adapter);
             return new FilesystemAdapter($driver, $adapter, $config);
         });
+        if (app()->environment(['local', 'testing'])) {
+            Storage::fake('import_iip');
+        }
     }
 
 
