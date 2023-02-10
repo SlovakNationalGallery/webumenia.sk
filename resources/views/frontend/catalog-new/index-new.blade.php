@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="tailwind-rules">
-        <filter-new :authors="{{ $authors }}"
+        <filter-new-items-controller :authors="{{ $authors }}"
             v-slot="{ isExtendedOpen, toggleIsExtendedOpen, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, filters }">
             <div class="tw-relative">
                 <div class="tw-bg-gray-200 tw-p-16 md:tw-pb-0">
@@ -132,7 +132,7 @@
                                 ]">
                 </filter-new-sort>
             </div>
-        </filter-new>
+        </filter-new-items-controller>
     </section>
 
 @stop

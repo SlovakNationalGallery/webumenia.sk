@@ -33,7 +33,7 @@ Vue.component('featured-piece-click-tracker', require('./components/FeaturedPiec
 Vue.component('filter-sort-by', require('./components/filter/SortBy.vue').default);
 Vue.component('filter-checkbox', require('./components/filter/Checkbox.vue').default);
 Vue.component('filter-custom-select', require('./components/filter/CustomSelect.vue').default);
-Vue.component('filter-new', require('./components/catalog-new/Filter.vue').default);
+Vue.component('filter-new-items-controller', require('./components/catalog-new/ItemsFilterController.vue').default);
 Vue.component('filter-new-popover', require('./components/catalog-new/PopoverFilter.vue').default);
 Vue.component('filter-new-custom-select-popover-label', require('./components/catalog-new/NewCustomSelectPopoverLabel.vue').default);
 Vue.component('filter-new-options', require('./components/catalog-new/Options.vue').default);

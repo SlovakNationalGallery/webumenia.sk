@@ -1,6 +1,6 @@
 <template>
-    <span
-        >{{ name }}
+    <span>
+        {{ name }}
         <span v-if="this.selectedCount" class="tw-font-bold">({{ this.selectedCount }})</span>
     </span>
 </template>

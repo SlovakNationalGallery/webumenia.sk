@@ -97,7 +97,7 @@ export default {
             if (singleItemFilters.includes(name)) {
                 this.query = {
                     ...this.query,
-                    [name]: undefined,
+                    [name]: emptyQuery[name],
                 }
                 return
             }
