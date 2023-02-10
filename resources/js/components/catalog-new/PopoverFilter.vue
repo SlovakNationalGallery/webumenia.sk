@@ -6,7 +6,7 @@
                 'tw-border-gray-800': active,
                 'tw-border-gray-800 tw-border-2': openedPopover === name,
             }"
-            @click="togglePopover(name)"
+            @click="$emit('toggle', name)"
         >
             <div class="tw-flex">
                 <slot name="popover-label"></slot>
@@ -16,7 +16,7 @@
                 </div>
             </div>
         </button>
-        <div @click.stop v-if="openedPopover === name" v-on-clickaway="closeOpenedPopover">
+        <div @click.stop v-if="openedPopover === name" v-on-clickaway="() => $emit('close')">
             <slot name="body"></slot>
         </div>
     </div>
@@ -33,8 +33,6 @@ export default {
         name: String,
         active: Boolean,
         openedPopover: String,
-        togglePopover: Function,
-        closeOpenedPopover: Function,
     },
 }
 </script>

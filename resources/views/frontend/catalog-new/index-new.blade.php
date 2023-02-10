@@ -9,9 +9,8 @@
                     <filter-new-popover-group-controller
                         v-slot="{openedPopover, closeOpenedPopover, togglePopover}">
                         <div class="tw-flex tw-gap-x-3 tw-overflow-x-auto md:tw-flex-wrap">
-                            <filter-new-popover :close-opened-popover="closeOpenedPopover"
-                                :toggle-popover="togglePopover" :opened-popover="openedPopover"
-                                name="authors">
+                            <filter-new-popover :opened-popover="openedPopover" @toggle="togglePopover"
+                                @close="closeOpenedPopover" name="authors">
                                 <template #popover-label>
                                     <filter-new-custom-select-popover-label name="authors"
                                         :selected-values="query['authors']">
@@ -39,9 +38,8 @@
                                     </div>
                                 </template>
                             </filter-new-popover>
-                            <filter-new-popover v-if="isExtendedOpen"
-                                :close-opened-popover="closeOpenedPopover" :toggle-popover="togglePopover"
-                                :opened-popover="openedPopover" name="color">
+                            <filter-new-popover v-if="isExtendedOpen" @close="closeOpenedPopover"
+                                @toggle="togglePopover" :opened-popover="openedPopover" name="color">
                                 <template #popover-label>
                                     <span>color</span>
                                 </template>
