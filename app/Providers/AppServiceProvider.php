@@ -81,9 +81,6 @@ class AppServiceProvider extends ServiceProvider
             $driver = new Filesystem($adapter);
             return new FilesystemAdapter($driver, $adapter, $config);
         });
-        if (app()->environment(['local', 'testing'])) {
-            Storage::fake('import_iip');
-        }
     }
 
 
