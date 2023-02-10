@@ -2,16 +2,19 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.72.0] - 2023-02-10
 ### Fixed
 - imported images count
 - proper collection translation of sort collection by name
 
 ### Added
-- infinite scroll to artworks carousel 
+- infinite scroll to artworks carousel
 - ability to parse collection teasers into articles
 
 ### Changed
 - Filter controller architecture
+- connection to IIP via WebDAV
 
 ## [2.71.0] - 2022-12-17
 ### Added
