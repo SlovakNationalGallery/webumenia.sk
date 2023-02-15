@@ -18,10 +18,11 @@ function stringifyUrl({ url, query }) {
     )
 }
 
-const singleItemFilters = ['color']
+const singleItemFilters = ['color', 'yearRange']
 const emptyQuery = {
     authors: [],
     color: null,
+    yearRange: null,
 }
 
 export default {
@@ -44,7 +45,7 @@ export default {
     computed: {
         selectedOptionsAsLabels() {
             return Object.entries(this.query)
-                .filter(([filterName, _]) => ['authors', 'color'].includes(filterName))
+                .filter(([filterName, _]) => ['authors', 'color', 'yearRange'].includes(filterName))
                 .map(([filterName, filterValues]) => {
                     if (singleItemFilters.includes(filterName) && filterValues) {
                         return {
@@ -77,6 +78,12 @@ export default {
             this.query = {
                 ...this.query,
                 color: color,
+            }
+        },
+        handleYearRangeChange(interval) {
+            this.query = {
+                ...this.query,
+                yearRange: interval || undefined,
             }
         },
         handleSortChange(sortValue) {
@@ -127,7 +134,12 @@ export default {
             this.isFetching = true
 
             try {
-                this.filters = { ...this.filters, authors: this.authors }
+                //TODO: Year range from BE
+                this.filters = {
+                    ...this.filters,
+                    authors: this.authors,
+                    yearRange: { min: -1000, max: 2023 },
+                }
                 // TODO: Fetch options
                 // TODO: Fetch artworks
                 this.isFetching = false
@@ -159,6 +171,7 @@ export default {
             filters: this.filters,
             toggleIsExtendedOpen: this.toggleIsExtendedOpen,
             handleSortChange: this.handleSortChange,
+            handleYearRangeChange: this.handleYearRangeChange,
             handleCheckboxChange: this.handleCheckboxChange,
             handleMultiSelectChange: this.handleMultiSelectChange,
             handleColorChange: this.handleColorChange,
