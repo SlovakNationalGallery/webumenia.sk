@@ -3,7 +3,7 @@
 @section('content')
     <section class="tailwind-rules">
         <filter-new-items-controller :authors="{{ $authors }}"
-            v-slot="{ isExtendedOpen, toggleIsExtendedOpen, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, filters }">
+            v-slot="{ isExtendedOpen, toggleIsExtendedOpen, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, filters }">
             <div class="tw-relative">
                 <div class="tw-bg-gray-200 tw-p-16 md:tw-pb-0">
                     <filter-new-popover-group-controller>
@@ -48,6 +48,26 @@
                                             <filter-new-color-slider :color="query['color']"
                                                 @change="handleColorChange">
                                             </filter-new-color-slider>
+                                        </div>
+                                    </div>
+                                </template>
+                            </filter-new-popover>
+                            <filter-new-popover name="yearRange" v-if="isExtendedOpen">
+                                <template #popover-label>
+                                    <span>year range</span>
+                                </template>
+                                <template #body>
+                                    <div
+                                        class="tw-absolute tw-left-0 tw-top-36 tw-z-10 tw-w-screen tw-px-16">
+                                        <div class="tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
+                                            <filter-new-year-slider
+                                                :default-from="Number(query.yearFrom)"
+                                                :default-to="Number(query.yearTo)"
+                                                @change="handleYearRangeChange"
+                                                :min="filters.yearMin"
+                                                :max="filters.yearMax"
+                                                >
+                                            </filter-new-year-slider>
                                         </div>
                                     </div>
                                 </template>
