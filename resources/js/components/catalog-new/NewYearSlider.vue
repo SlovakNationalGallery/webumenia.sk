@@ -10,8 +10,8 @@
                     :duration="0"
                     :dotSize="16"
                     lazy
-                    @drag-end="handleChange"
-                    @dragging="updateValue"
+                    @drag-end="$emit('change', value)"
+                    @dragging="value = { from: $event[0], to: $event[1] }"
                 >
                 </slider>
             </div>
@@ -22,7 +22,7 @@
                     maxlength="5"
                     pattern="[-]?[0-9]{1,4}"
                     step="5"
-                    @change="handleChange"
+                    @change="$emit('change', value)"
                     v-model.lazy="value.from"
                 />
             </div>
@@ -31,7 +31,7 @@
                     maxlength="5"
                     pattern="[-]?[0-9]{1,4}"
                     step="5"
-                    @change="handleChange"
+                    @change="$emit('change', value)"
                     v-model.lazy="value.to"
                 />
             </div>
@@ -52,19 +52,9 @@ export default {
     components: {
         slider: VueSlider,
     },
-    methods: {
-        handleChange() {
-            this.$emit('change', this.value)
-        },
-        updateValue(eventValue) {
-            const value = { from: eventValue[0] || null, to: eventValue[1] || null }
-            this.value = value
-        },
-    },
     data() {
         return {
             value: { from: this.defaultFrom || this.min, to: this.defaultTo || this.max },
-            touched: this.from === this.min && this.to === this.max ? false : true,
         }
     },
 }
