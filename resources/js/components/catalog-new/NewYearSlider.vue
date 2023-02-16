@@ -3,24 +3,17 @@
         <div>
             <div>
                 <slider
-                    v-model="value"
+                    :value="[value.from, value.to]"
                     :min="min || 0"
                     :max="max || 30"
                     tooltip="none"
                     :duration="0"
                     :dotSize="16"
                     lazy
-                    @change="handleChange"
                     @drag-end="handleChange"
                     @dragging="updateValue"
                 >
                 </slider>
-                <fieldset :disabled="!touched">
-                    <input
-                        type="hidden"
-                        v-bind:value="value.join(',')"
-                    />
-                </fieldset>
             </div>
         </div>
         <div class="tw-flex tw-justify-between">
@@ -29,8 +22,8 @@
                     maxlength="5"
                     pattern="[-]?[0-9]{1,4}"
                     step="5"
-                    @change="touched = true"
-                    v-model.lazy="value[0]"
+                    @change="handleChange"
+                    v-model.lazy="value.from"
                 />
             </div>
             <div>
@@ -38,8 +31,8 @@
                     maxlength="5"
                     pattern="[-]?[0-9]{1,4}"
                     step="5"
-                    @change="touched = true"
-                    v-model.lazy="value[1]"
+                    @change="handleChange"
+                    v-model.lazy="value.to"
                 />
             </div>
         </div>
@@ -61,20 +54,16 @@ export default {
     },
     methods: {
         handleChange() {
-            this.touched = true
-            const from = this.value?.[0] || null
-            const to = this.value?.[1] || null
-            this.$emit('change', {from, to})
+            this.$emit('change', this.value)
         },
-        updateValue(value) {
+        updateValue(eventValue) {
+            const value = { from: eventValue[0] || null, to: eventValue[1] || null }
             this.value = value
         },
     },
     data() {
-
         return {
-            value: [this.defaultFrom || this.min, this.defaultTo || this.max],
-            // Marked as touched if the values have already been changed
+            value: { from: this.defaultFrom || this.min, to: this.defaultTo || this.max },
             touched: this.from === this.min && this.to === this.max ? false : true,
         }
     },

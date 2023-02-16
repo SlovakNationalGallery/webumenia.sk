@@ -83,12 +83,11 @@ export default {
                 color: color,
             }
         },
-        handleYearRangeChange(yearRange) {
-            const { from: yearFrom, to: yearTo } = yearRange
+        handleYearRangeChange(yearRangeValue) {
             this.query = {
                 ...this.query,
-                yearFrom,
-                yearTo,
+                yearFrom: yearRangeValue.from,
+                yearTo: yearRangeValue.to,
             }
         },
         handleSortChange(sortValue) {
@@ -144,7 +143,7 @@ export default {
                     ...this.filters,
                     authors: this.authors,
                     yearMin: -1000,
-                    yearMax: 2023
+                    yearMax: 2023,
                 }
                 // TODO: Fetch options
                 // TODO: Fetch artworks
