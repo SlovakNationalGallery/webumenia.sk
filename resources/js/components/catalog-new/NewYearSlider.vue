@@ -3,7 +3,7 @@
         <div>
             <div>
                 <slider
-                    v-model="yearRange"
+                    v-model="value"
                     :min="min || 0"
                     :max="max || 30"
                     tooltip="none"
@@ -12,13 +12,13 @@
                     lazy
                     @change="handleChange"
                     @drag-end="handleChange"
-                    @dragging="updateYearRange"
+                    @dragging="updateValue"
                 >
                 </slider>
                 <fieldset :disabled="!touched">
                     <input
                         type="hidden"
-                        v-bind:value="yearRange.join(',')"
+                        v-bind:value="value.join(',')"
                     />
                 </fieldset>
             </div>
@@ -30,7 +30,7 @@
                     pattern="[-]?[0-9]{1,4}"
                     step="5"
                     @change="touched = true"
-                    v-model.lazy="yearRange[0]"
+                    v-model.lazy="value[0]"
                 />
             </div>
             <div>
@@ -39,7 +39,7 @@
                     pattern="[-]?[0-9]{1,4}"
                     step="5"
                     @change="touched = true"
-                    v-model.lazy="yearRange[1]"
+                    v-model.lazy="value[1]"
                 />
             </div>
         </div>
@@ -62,18 +62,18 @@ export default {
     methods: {
         handleChange() {
             this.touched = true
-            const from = this.yearRange?.[0] || null
-            const to = this.yearRange?.[1] || null
+            const from = this.value?.[0] || null
+            const to = this.value?.[1] || null
             this.$emit('change', {from, to})
         },
-        updateYearRange(yearRange) {
-            this.yearRange = yearRange
+        updateValue(value) {
+            this.value = value
         },
     },
     data() {
 
         return {
-            yearRange: this.defaultFrom && this.defaultTo ? [this.defaultFrom, this.defaultTo] : [this.min, this.max],
+            value: [this.defaultFrom || this.min, this.defaultTo || this.max],
             // Marked as touched if the values have already been changed
             touched: this.from === this.min && this.to === this.max ? false : true,
         }

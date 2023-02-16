@@ -18,11 +18,12 @@ function stringifyUrl({ url, query }) {
     )
 }
 
-const singleItemFilters = ['color', 'yearRange']
+const singleItemFilters = ['color', 'yearFrom', 'yearTo']
 const emptyQuery = {
     authors: [],
     color: null,
-    yearRange: null,
+    yearFrom: null,
+    yearTo: null,
 }
 
 export default {
@@ -45,7 +46,9 @@ export default {
     computed: {
         selectedOptionsAsLabels() {
             return Object.entries(this.query)
-                .filter(([filterName, _]) => ['authors', 'color', 'yearRange'].includes(filterName))
+                .filter(([filterName, _]) =>
+                    ['authors', 'color', 'yearFrom', 'yearTo'].includes(filterName)
+                )
                 .map(([filterName, filterValues]) => {
                     if (singleItemFilters.includes(filterName) && filterValues) {
                         return {
@@ -81,9 +84,11 @@ export default {
             }
         },
         handleYearRangeChange(yearRange) {
+            const { from: yearFrom, to: yearTo } = yearRange
             this.query = {
                 ...this.query,
-                yearRange,
+                yearFrom,
+                yearTo,
             }
         },
         handleSortChange(sortValue) {
@@ -138,7 +143,8 @@ export default {
                 this.filters = {
                     ...this.filters,
                     authors: this.authors,
-                    yearRange: { min: -1000, max: 2023 },
+                    yearMin: -1000,
+                    yearMax: 2023
                 }
                 // TODO: Fetch options
                 // TODO: Fetch artworks
