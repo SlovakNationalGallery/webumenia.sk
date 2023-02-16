@@ -59,11 +59,14 @@
                                 <template #body>
                                     <div
                                         class="tw-absolute tw-left-0 tw-top-36 tw-z-10 tw-w-screen tw-px-16">
-                                        <div
-                                            class="tw-border-2 tw-border-gray-800 tw-bg-white tw-px-8 tw-py-16">
-                                            <filter-new-year-slider :year-range="query['yearRange']"
-                                                name="yearRange" @change="handleYearRangeChange"
-                                                :filter="filters['yearRange']">
+                                        <div class="tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
+                                            <filter-new-year-slider
+                                                :default-from="query['yearRange']['from']"
+                                                :default-to="query['yearRange']['to']"
+                                                @change="handleYearRangeChange"
+                                                :min="filters['yearRange']['min']"
+                                                :max="filters['yearRange']['max']"
+                                                >
                                             </filter-new-year-slider>
                                         </div>
                                     </div>

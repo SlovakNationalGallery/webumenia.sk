@@ -80,10 +80,10 @@ export default {
                 color: color,
             }
         },
-        handleYearRangeChange(interval) {
+        handleYearRangeChange(yearRange) {
             this.query = {
                 ...this.query,
-                yearRange: interval || undefined,
+                yearRange,
             }
         },
         handleSortChange(sortValue) {
