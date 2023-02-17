@@ -6,8 +6,9 @@
             v-slot="{ isExtendedOpen, toggleIsExtendedOpen, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, filters }">
             <div class="tw-relative">
                 <div class="tw-bg-gray-200 tw-p-16 md:tw-pb-0">
+                    {{-- Desktop filter --}}
                     <filter-new-popover-group-controller>
-                        <div class="tw-flex tw-gap-x-3 tw-overflow-x-auto md:tw-flex-wrap">
+                        <div class="tw-hidden tw-gap-x-3 tw-overflow-x-auto md:tw-flex md:tw-flex-wrap">
                             <filter-new-popover name="authors">
                                 <template #popover-label>
                                     <filter-new-custom-select-popover-label name="authors"
@@ -78,19 +79,92 @@
                             </filter-show-more>
                         </div>
                     </filter-new-popover-group-controller>
+                    {{-- Mobile filter --}}
+                    <filter-new-popover-group-controller>
+                        <div class="tw-relative md:tw-hidden">
+                            <div class="tw-flex tw-gap-x-3 tw-overflow-x-auto">
+                                <filter-new-disclosure-button name="authors"
+                                    @click="toggleIsExtendedOpen">
+                                    <filter-new-custom-select-popover-label name="authors"
+                                        :selected-values="query['authors']">
+                                    </filter-new-custom-select-popover-label>
+                                </filter-new-disclosure-button>
+                            </div>
+                            <filter-new-disclosure-filter-wrapper v-if="isExtendedOpen"
+                                @close="toggleIsExtendedOpen">
+                                <template #filter-list>
+                                    <div
+                                        class="tw-flex tw-w-full tw-flex-1 tw-flex-col tw-overflow-auto tw-bg-white">
+                                        <div class="tw-ml-4 tw-mr-6 tw-mb-5 tw-mt-6">
+                                            <span>Filter diel</span>
+                                            <button @click="toggleIsExtendedOpen">
+                                                <i class="fa fa-close"></i>
+                                            </button>                                
+                                        </div>
+                                        <filter-new-disclosure-list-button name="authors">
+                                            <filter-new-custom-select-popover-label name="authors"
+                                                :selected-values="query['authors']">
+                                            </filter-new-custom-select-popover-label>
+                                        </filter-new-disclosure-list-button>
+                                        <div
+                                            class="tw-flex tw-min-h-0 tw-w-full tw-flex-1 tw-flex-col tw-overflow-auto">
+                                            <div class="tw-py-2">
+                                                <filter-new-custom-checkbox
+                                                    @change="handleCheckboxChange"
+                                                    :checked="Boolean(query['has_image'])"
+                                                    title="Len s obrázkom" name="has_image"
+                                                    id="has_image_desktop">
+                                                </filter-new-custom-checkbox>
+                                                <filter-new-custom-checkbox
+                                                    @change="handleCheckboxChange"
+                                                    :checked="Boolean(query['has_iip'])"
+                                                    title="Len so zoomom" name="has_iip"
+                                                    id="has_iip_desktop">
+                                                </filter-new-custom-checkbox>
+                                                <filter-new-custom-checkbox
+                                                    @change="handleCheckboxChange"
+                                                    :checked="Boolean(query['is_free'])"
+                                                    title="Len voľné" name="is_free"
+                                                    id="is_free_desktop">
+                                                </filter-new-custom-checkbox>
+                                                <filter-new-custom-checkbox
+                                                    @change="handleCheckboxChange"
+                                                    :checked="Boolean(query['has_text'])"
+                                                    title="Len s textom" name="has_text"
+                                                    id="has_text_desktop">
+                                                </filter-new-custom-checkbox>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                                <template #filter-content>
+                                    <filter-new-disclosure-filter-content name="authors" @close="toggleIsExtendedOpen">
+                                        <template #header-label>
+                                            <filter-new-custom-select-popover-label name="authors"
+                                                :selected-values="query['authors']">
+                                            </filter-new-custom-select-popover-label>    
+                                        </template>
+                                        <template #body>
+                                            <div
+                                                class="tw-flex tw-min-h-0 tw-w-full tw-flex-1 tw-flex-col tw-overflow-auto">
+                                                <filter-new-options filter-name="authors"
+                                                    placeholder="Napíšte meno autora / autorky"
+                                                    @change="handleMultiSelectChange"
+                                                    :selected-values="query['authors']"
+                                                    :filter="filters['authors']">
+                                                </filter-new-options>
+                                            </div>
+                                        </template>
+                                    </filter-new-disclosure-filter-content>
+                                </template>
+                            </filter-new-disclosure-filter-wrapper>
+                        </div>
+                    </filter-new-popover-group-controller>
                     <filter-show-more class="tw-visible tw-pt-4 md:tw-hidden"
                         :is-extended-open="isExtendedOpen"
                         :toggle-is-extended-open="toggleIsExtendedOpen">
                     </filter-show-more>
                 </div>
-                {{-- <filter-new-mobile-custom-select :is-extended-open="isExtendedOpen"
-                    :opened-popover="openedPopover" :handle-multi-select-change="handleMultiSelectChange"
-                    :toggle-is-extended-open="toggleIsExtendedOpen"
-                    :handle-checkbox-change="handleCheckboxChange"
-                    :clear-filter-selection="clearFilterSelection" :toggle-select="toggleSelect"
-                    :query="query" :filters="filters" v-if="isExtendedOpen"
-                    placeholder="Simple dummy text">
-                </filter-new-mobile-custom-select> --}}
                 <div
                     class="tw-invisible tw-space-x-3 tw-bg-gray-200 tw-px-16 tw-pt-4 tw-pb-5 md:tw-visible md:tw-flex">
                     <filter-new-custom-checkbox @change="handleCheckboxChange"
