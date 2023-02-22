@@ -46,7 +46,7 @@ Vue.component('filter-disclosure-button', require('./components/catalog-new/Disc
 Vue.component('filter-disclosure-list-button', require('./components/catalog-new/DisclosureFilterListButton.vue').default);
 Vue.component('filter-disclosure-modal', require('./components/catalog-new/DisclosureFilterModal.vue').default);
 Vue.component('filter-disclosure-view', require('./components/catalog-new/DisclosureFilterView.vue').default);
-Vue.component('filter-disclosure-controller', require('./components/catalog-new/FilterModalController.vue').default);
+Vue.component('filter-disclosure-controller', require('./components/catalog-new/DisclosureModalController.vue').default);
 Vue.component('filter-new-popover-group-controller', require('./components/catalog-new/PopoverGroupController.vue').default);
 Vue.component('filter-show-more', require('./components/catalog-new/ShowMore.vue').default);
 Vue.component('flickity', require('./components/Flickity.vue').default);
