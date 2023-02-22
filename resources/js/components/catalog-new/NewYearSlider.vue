@@ -1,24 +1,51 @@
 <template>
     <div>
-        <div>
-            <div>
-                <slider
-                    :value="[value.from, value.to]"
-                    :min="min || 0"
-                    :max="max || 30"
-                    tooltip="none"
-                    :duration="0"
-                    :dotSize="16"
-                    lazy
-                    @drag-end="$emit('change', value)"
-                    @dragging="value = { from: $event[0], to: $event[1] }"
-                >
-                </slider>
-            </div>
+        <div class="tw-flex tw-justify-end">
+            <button
+                @click="handleReset"
+                class="tw-flex tw-items-center tw-border tw-border-gray-300 tw-py-1 tw-px-1.5"
+            >
+                <div class="tw-flex tw-items-center tw-pr-2 tw-text-xs">
+                    <i class="fa fa-rotate-left"></i>
+                </div>
+                <span class="tw-text-sm">resetovať</span>
+            </button>
         </div>
-        <div class="tw-flex tw-justify-between">
+        <div class="tw-mt-6">
+            <slider
+                :value="[value.from, value.to]"
+                :min="min || 0"
+                :max="max || 30"
+                tooltip="none"
+                :duration="0"
+                :dotSize="24"
+                :height="2"
+                lazy
+                @drag-end="$emit('change', value)"
+                @dragging="value = { from: $event[0], to: $event[1] }"
+            >
+                <template #dot>
+                    <svg
+                        width="24"
+                        height="25"
+                        viewBox="0 0 24 25"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <circle cx="12" cy="12.6421" r="12" class="tw-fill-sky-300" />
+                        <path opacity="0.4" d="M9 6.64209V18.6421" stroke="black" />
+                        <path opacity="0.4" d="M15 6.64209V18.6421" stroke="black" />
+                    </svg>
+                </template>
+                <template #process="{ style }">
+                    <div class="vue-slider-process tw-bg-sky-300" :style="style"></div>
+                </template>
+            </slider>
+        </div>
+        <div class="tw-flex tw-justify-between tw-mt-4">
             <div>
                 <input
+                    class="tw-py-2 tw-pl-2 tw-w-14 tw-font-bold tw-text-sm tw-border tw-border-gray-300"
                     maxlength="5"
                     pattern="[-]?[0-9]{1,4}"
                     step="5"
@@ -28,6 +55,7 @@
             </div>
             <div>
                 <input
+                    class="tw-text-right tw-pr-2 tw-py-2 tw-w-14 tw-font-bold tw-text-sm tw-border tw-border-gray-300"
                     maxlength="5"
                     pattern="[-]?[0-9]{1,4}"
                     step="5"
@@ -51,6 +79,12 @@ export default {
     },
     components: {
         slider: VueSlider,
+    },
+    methods: {
+        handleReset() {
+            this.value = { from: this.min, to: this.max }
+            this.$emit('reset')
+        },
     },
     data() {
         return {
