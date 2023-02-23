@@ -23,6 +23,7 @@
                 lazy
                 @drag-end="$emit('change', value)"
                 @dragging="value = { from: $event[0], to: $event[1] }"
+                class="tw-cursor-pointer"
             >
                 <template #dot>
                     <svg
@@ -83,7 +84,7 @@ export default {
     methods: {
         handleReset() {
             this.value = { from: this.min, to: this.max }
-            this.$emit('reset')
+            this.$emit('change', { from: null, to: null })
         },
     },
     data() {

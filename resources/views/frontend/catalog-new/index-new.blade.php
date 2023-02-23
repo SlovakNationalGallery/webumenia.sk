@@ -59,14 +59,12 @@
                                 <template #body>
                                     <div class="tw-absolute tw-top-36 tw-z-10">
                                         <div
-                                            class="tw-w-[27.5rem] tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6 tw-pt-4">
+                                            class="tw-w-[28rem] tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6 tw-pt-4">
                                             <filter-new-year-slider
                                                 :default-from="Number(query.yearFrom)"
-                                                :default-to="Number(query.yearTo)" @reset="() => {
-                                                        clearFilterSelection('yearFrom')
-                                                        clearFilterSelection('yearTo')
-                                                    }" @change="handleYearRangeChange"
-                                                :min="filters.yearMin" :max="filters.yearMax">
+                                                :default-to="Number(query.yearTo)"
+                                                @change="handleYearRangeChange" :min="filters.yearMin"
+                                                :max="filters.yearMax">
                                             </filter-new-year-slider>
                                         </div>
                                     </div>
