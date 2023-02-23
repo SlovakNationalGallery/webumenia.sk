@@ -2,7 +2,7 @@
 export default {
     data() {
         return {
-            view: null
+            view: null,
         }
     },
     methods: {
@@ -11,13 +11,13 @@ export default {
         },
         close() {
             this.view = null
-        }
+        },
     },
     render() {
         return this.$scopedSlots.default({
             view: this.view,
             goTo: this.goTo,
-            close: this.close
+            close: this.close,
         })
     },
 }

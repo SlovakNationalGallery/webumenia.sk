@@ -10,9 +10,9 @@
         <div
             class="tw-flex tw-w-full tw-bg-white tw-pb-6 tw-shadow-lg tw-drop-shadow-[0_-2px_13px_rgba(0,0,0,0.1)]"
         >
-        <button class="tw-m-4 tw-w-full tw-bg-sky-300 tw-p-4" @click="$emit('close')">
-            zobraziť výsledky
-        </button>
+            <button class="tw-m-4 tw-w-full tw-bg-sky-300 tw-p-4" @click="$emit('close')">
+                zobraziť výsledky
+            </button>
         </div>
     </div>
 </template>
