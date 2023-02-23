@@ -78,17 +78,17 @@
                         </div>
                     </filter-new-popover-group-controller>
                     {{-- Mobile Filter --}}
-                    <filter-disclosure-controller v-slot="fm">
+                    <filter-disclosure-controller v-slot="dc">
                         <div class="tw-relative md:tw-hidden">
                             <div class="tw-flex tw-gap-x-3 tw-overflow-x-auto">
-                                <filter-disclosure-button name="authors" @click="fm.goTo('authors')">
+                                <filter-disclosure-button name="authors" @click="dc.goTo('authors')">
                                     <filter-new-custom-select-popover-label name="authors"
                                         :selected-values="query['authors']">
                                     </filter-new-custom-select-popover-label>
                                 </filter-disclosure-button>
                             </div>
                             <div class="tw-min-w-max tw-pt-4">
-                                <button @click="fm.goTo('index')"
+                                <button @click="dc.goTo('index')"
                                     class="tw-w-full tw-border tw-border-gray-300 tw-py-3.5 tw-px-4 tw-text-lg tw-font-bold hover:tw-border-gray-800">
                                     <div class="tw-flex tw-justify-center">
                                         <div class="tw-flex tw-items-center tw-pr-4">
@@ -98,13 +98,13 @@
                                     </div>
                                 </button>
                             </div>
-                            <filter-disclosure-modal v-if="fm.view !== null" @close="fm.close()">
-                                <filter-disclosure-view v-if="fm.view === 'index'" @close="fm.close()">
+                            <filter-disclosure-modal v-if="dc.view !== null" @close="dc.close">
+                                <filter-disclosure-view v-if="dc.view === 'index'" @close="dc.close">
                                     <template #header>
                                         <span>Filter diel</span>
                                     </template>
                                     <template #body>
-                                        <filter-disclosure-list-button @click="fm.goTo('authors')">
+                                        <filter-disclosure-list-button @click="dc.goTo('authors')">
                                             <filter-new-custom-select-popover-label name="authors"
                                                 :selected-values="query['authors']">
                                             </filter-new-custom-select-popover-label>
@@ -138,9 +138,9 @@
                                         </div>
                                     </template>
                                 </filter-disclosure-view>
-                                <filter-disclosure-view v-if="fm.view === 'authors'" @close="fm.close()">
+                                <filter-disclosure-view v-if="dc.view === 'authors'" @close="dc.close">
                                     <template #header>
-                                        <button @click="fm.goTo('index')">
+                                        <button @click="dc.goTo('index')">
                                             <i class="fa fa-chevron-left tw-text-gray-800"></i>
                                         </button>
                                         <filter-new-custom-select-popover-label name="authors"
