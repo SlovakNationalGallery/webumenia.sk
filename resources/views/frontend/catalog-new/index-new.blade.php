@@ -57,16 +57,14 @@
                                     <span>year range</span>
                                 </template>
                                 <template #body>
-                                    <div
-                                        class="tw-absolute tw-left-0 tw-top-36 tw-z-10 tw-w-screen tw-px-16">
-                                        <div class="tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
+                                    <div class="tw-absolute tw-top-36 tw-z-10">
+                                        <div
+                                            class="tw-w-[28rem] tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6 tw-pt-4">
                                             <filter-new-year-slider
                                                 :default-from="Number(query.yearFrom)"
                                                 :default-to="Number(query.yearTo)"
-                                                @change="handleYearRangeChange"
-                                                :min="filters.yearMin"
-                                                :max="filters.yearMax"
-                                                >
+                                                @change="handleYearRangeChange" :min="filters.yearMin"
+                                                :max="filters.yearMax">
                                             </filter-new-year-slider>
                                         </div>
                                     </div>
