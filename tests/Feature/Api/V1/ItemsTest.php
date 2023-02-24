@@ -43,4 +43,14 @@ class ItemsTest extends TestCase
         ]);
     }
 
+    public function test_multi_terms_filtering()
+    {
+        $url = route('api.v1.items.index', [
+            'filter[topic]' => ['spring', 'summer'],
+        ]);
+
+        $this->getJson($url)->assertJson([
+            'total' => 2,
+        ]);
+    }
 }
