@@ -23,11 +23,13 @@ Route::resource('/shared-user-collections', SharedUserCollectionController::clas
 
 Route::post('/track-featured-piece-click', TrackFeaturedPieceClick::class);
 
-Route::prefix('v1')->group(function () {
-    Route::get('items', [V1ItemController::class, 'index']);
-    Route::get('items/aggregations', [V1ItemController::class, 'aggregations']);
-    Route::get('items/{id}', [V1ItemController::class, 'detail']);
-});
+Route::prefix('v1')
+    ->name('api.v1.')
+    ->group(function () {
+        Route::get('items', [V1ItemController::class, 'index'])->name('items.index');
+        Route::get('items/aggregations', [V1ItemController::class, 'aggregations']);
+        Route::get('items/{id}', [V1ItemController::class, 'detail'])->name('items.show');
+    });
 
 Route::prefix('v2')->group(function () {
     Route::get('items/{id}', [V2ItemController::class, 'show']);
