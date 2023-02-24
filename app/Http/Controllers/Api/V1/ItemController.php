@@ -133,7 +133,13 @@ class ItemController extends Controller
         foreach ($filter as $field => $value) {
             if (is_string($value) && in_array($field, Item::$filterables, true)) {
                 $builder->filter(['term' => [$field => $value]]);
-            } elseif (is_array($value) && in_array($field, Item::$rangeables, true)) {
+                continue;
+            }
+            if (is_array($value) && in_array($field, Item::$filterables, true)) {
+                $builder->filter(['terms' => [$field => $value]]);
+                continue;
+            }
+            if (is_array($value) && in_array($field, Item::$rangeables, true)) {
                 $range = collect($value)
                     ->only(['lt', 'lte', 'gt', 'gte'])
                     ->transform(function ($value) {
@@ -141,8 +147,7 @@ class ItemController extends Controller
                     })
                     ->all();
                 $builder->filter(['range' => [$field => $range]]);
-            } else {
-                throw new \Exception();
+                continue;
             }
         }
 
