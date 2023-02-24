@@ -14,16 +14,15 @@ class ItemController extends Controller
 {
     public function index(Request $request)
     {
-        $filter = (array)$request->get('filter');
-        $sort = (array)$request->get('sort');
-        $size = (int)$request->get('size', 1);
-        $q = (string)$request->get('q');
+        $filter = (array) $request->get('filter');
+        $sort = (array) $request->get('sort');
+        $size = (int) $request->get('size', 1);
+        $q = (string) $request->get('q');
 
         try {
-            $query = $this->createQueryBuilder($q, $filter)
-                ->buildQuery();
+            $query = $this->createQueryBuilder($q, $filter)->buildQuery();
         } catch (QueryBuilderException $e) {
-            $query = ['match_all' => new \stdClass];
+            $query = ['match_all' => new \stdClass()];
         }
 
         $searchRequest = Item::searchQuery($query);
@@ -35,24 +34,22 @@ class ItemController extends Controller
                 $searchRequest->sort($field, $direction);
             });
 
-        return $searchRequest->paginate($size)
-            ->onlyDocuments();
+        return $searchRequest->paginate($size)->onlyDocuments();
     }
 
     public function aggregations(Request $request)
     {
-        $filter = (array)$request->get('filter');
-        $terms = (array)($request->get('terms'));
-        $min = (array)$request->get('min');
-        $max = (array)$request->get('max');
-        $size = (int)$request->get('size', 1);
-        $q = (string)$request->get('q');
+        $filter = (array) $request->get('filter');
+        $terms = (array) $request->get('terms');
+        $min = (array) $request->get('min');
+        $max = (array) $request->get('max');
+        $size = (int) $request->get('size', 1);
+        $q = (string) $request->get('q');
 
         try {
-            $query = $this->createQueryBuilder($q, $filter)
-                ->buildQuery();
+            $query = $this->createQueryBuilder($q, $filter)->buildQuery();
         } catch (QueryBuilderException $e) {
-            $query = ['match_all' => new \stdClass];
+            $query = ['match_all' => new \stdClass()];
         }
 
         $searchRequest = Item::searchQuery($query);
@@ -62,7 +59,7 @@ class ItemController extends Controller
                 'terms' => [
                     'field' => $field,
                     'size' => $size,
-                ]
+                ],
             ]);
         }
 
@@ -70,7 +67,7 @@ class ItemController extends Controller
             $searchRequest->aggregate($agg, [
                 'min' => [
                     'field' => $field,
-                ]
+                ],
             ]);
         }
 
@@ -78,30 +75,32 @@ class ItemController extends Controller
             $searchRequest->aggregate($agg, [
                 'max' => [
                     'field' => $field,
-                ]
+                ],
             ]);
         }
 
         $searchResult = $searchRequest->execute();
-        return response()->json($searchResult->aggregations()->map(function (Aggregation $aggregation) {
-            $raw = $aggregation->raw();
-            if (array_key_exists('value', $raw)) {
-                return $raw['value'];
-            }
+        return response()->json(
+            $searchResult->aggregations()->map(function (Aggregation $aggregation) {
+                $raw = $aggregation->raw();
+                if (array_key_exists('value', $raw)) {
+                    return $raw['value'];
+                }
 
-            return $aggregation->buckets()->map(function (Bucket $bucket) {
-                return [
-                    'value' => $bucket->key(),
-                    'count' => $bucket->docCount(),
-                ];
-            });
-        }));
+                return $aggregation->buckets()->map(function (Bucket $bucket) {
+                    return [
+                        'value' => $bucket->key(),
+                        'count' => $bucket->docCount(),
+                    ];
+                });
+            })
+        );
     }
 
     public function detail(Request $request, $id)
     {
-        $filter = (array)$request->get('filter');
-        $q = (string)$request->get('q');
+        $filter = (array) $request->get('filter');
+        $q = (string) $request->get('q');
 
         try {
             $query = $this->createQueryBuilder($q, $filter)
@@ -134,16 +133,16 @@ class ItemController extends Controller
         foreach ($filter as $field => $value) {
             if (is_string($value) && in_array($field, Item::$filterables, true)) {
                 $builder->filter(['term' => [$field => $value]]);
-            } else if (is_array($value) && in_array($field, Item::$rangeables, true)) {
+            } elseif (is_array($value) && in_array($field, Item::$rangeables, true)) {
                 $range = collect($value)
                     ->only(['lt', 'lte', 'gt', 'gte'])
                     ->transform(function ($value) {
-                        return (string)$value;
+                        return (string) $value;
                     })
                     ->all();
                 $builder->filter(['range' => [$field => $range]]);
             } else {
-                throw new \Exception;
+                throw new \Exception();
             }
         }
 
