@@ -30,12 +30,12 @@
                     :key="option.id"
                     :id="option.id"
                     @change="$emit('change', $event)"
-                    :value="option.name"
+                    :value="option.value"
                     :name="filterName"
                     :checked="option.checked"
                 />
                 <span class="tw-font-normal tw-text-base"
-                    >{{ option.name }} <span class="tw-font-semibold">({{ option.count }})</span>
+                    >{{ option.value }} <span class="tw-font-semibold">({{ option.count }})</span>
                 </span>
             </label>
         </div>
@@ -58,10 +58,10 @@ export default {
     computed: {
         filteredOptions() {
             return this.filter
-                .filter((item) => (this.search ? item.name.includes(this.search) : true))
+                .filter((item) => (this.search ? item.value.includes(this.search) : true))
                 .map((option) => ({
                     ...option,
-                    checked: (this.selectedValues || []).includes(option.name),
+                    checked: (this.selectedValues || []).includes(option.value),
                 }))
         },
     },

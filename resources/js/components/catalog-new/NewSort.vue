@@ -1,7 +1,7 @@
 <template>
     <div>
-        <span class="tw-font-semibold"
-            >Zobrazujem <span class="tw-font-bold">12000</span> diel, zoradené podľa
+        <span class="tw-font-semibold">
+            Zobrazujem <span class="tw-font-bold">12000</span> diel, zoradené podľa
             <div class="tw-inline-block">
                 <a
                     class="tw-font-bold tw-underline tw-decoration-2 tw-underline-offset-4"
@@ -17,10 +17,8 @@
                             class="tw-pl-2 hover:tw-bg-gray-200"
                             v-for="option in selectableOptions"
                         >
-                            <a
-                                class="tw-w-full tw-block"
-                                @click="onSortChange(option.value)"
-                                >{{ option.text }}</a
+                            <a class="tw-w-full tw-block" @click="onSortChange(option.value)">
+                                {{ option.text }}</a
                             >
                         </li>
                     </ul>
@@ -29,8 +27,8 @@
             . Alebo skús aj
             <a class="tw-font-bold tw-underline tw-decoration-2 tw-underline-offset-4"
                 >náhodný výber</a
-            ></span
-        >
+            >
+        </span>
     </div>
 </template>
 

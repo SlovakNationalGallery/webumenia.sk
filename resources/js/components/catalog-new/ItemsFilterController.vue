@@ -1,43 +1,40 @@
 <script>
-import queryString from 'query-string'
-//TODO: import axios from 'axios'
+import qs from 'qs'
+import axios from 'axios'
 
 function getParsedUrl() {
-    return queryString.parseUrl(window.location.href, {
+    return qs.parse(window.location.search, {
         arrayFormat: 'bracket',
+        ignoreQueryPrefix: true,
     })
 }
 
 function stringifyUrl({ url, query }) {
-    return queryString.stringifyUrl(
-        { url, query },
-        {
-            arrayFormat: 'bracket',
-            skipNull: true,
-        }
-    )
+    return url + '?' + qs.stringify({ ...query }, { skipNulls: true, arrayFormat: 'brackets' })
 }
 
-const singleItemFilters = ['color', 'yearFrom', 'yearTo']
-const emptyQuery = {
-    authors: [],
+const SIZE = 50
+const SINGLE_ITEM_FILTERS = ['color', 'yearFrom', 'yearTo']
+
+const EMPTY_QUERY = {
+    author: [],
     color: null,
     yearFrom: null,
     yearTo: null,
 }
 
+const DEFAULT_TERMS = {
+    author: 'author',
+}
+
 export default {
-    props: {
-        //TODO: remove once we have api
-        authors: Array,
-    },
     data() {
         return {
             isExtendedOpen: true,
             isFetching: false,
             artworks: [],
             filters: {},
-            query: { ...emptyQuery, ...getParsedUrl().query },
+            query: { ...EMPTY_QUERY, ...getParsedUrl().filter },
         }
     },
     async created() {
@@ -47,10 +44,10 @@ export default {
         selectedOptionsAsLabels() {
             return Object.entries(this.query)
                 .filter(([filterName, _]) =>
-                    ['authors', 'color', 'yearFrom', 'yearTo'].includes(filterName)
+                    ['author', 'color', 'yearFrom', 'yearTo'].includes(filterName)
                 )
                 .map(([filterName, filterValues]) => {
-                    if (singleItemFilters.includes(filterName) && filterValues) {
+                    if (SINGLE_ITEM_FILTERS.includes(filterName) && filterValues) {
                         return {
                             value: filterValues,
                             filterName,
@@ -71,11 +68,11 @@ export default {
         clearFilterSelection(filterName) {
             this.query = {
                 ...this.query,
-                [filterName]: emptyQuery[filterName],
+                [filterName]: EMPTY_QUERY[filterName],
             }
         },
         clearAllSelections() {
-            this.query = { ...emptyQuery }
+            this.query = { ...EMPTY_QUERY }
         },
         handleColorChange(color) {
             this.query = {
@@ -105,10 +102,10 @@ export default {
             }
         },
         removeSelection({ filterName: name, value }) {
-            if (singleItemFilters.includes(name)) {
+            if (SINGLE_ITEM_FILTERS.includes(name)) {
                 this.query = {
                     ...this.query,
-                    [name]: emptyQuery[name],
+                    [name]: EMPTY_QUERY[name],
                 }
                 return
             }
@@ -139,14 +136,34 @@ export default {
 
             try {
                 //TODO: Year range from BE
+                const filters = await axios
+                    .get(
+                        stringifyUrl({
+                            url: '/api/v1/items/aggregations',
+                            query: {
+                                filter: this.query,
+                                terms: DEFAULT_TERMS,
+                                size: SIZE,
+                            },
+                        })
+                    )
+                    .then(({ data }) => data)
+
                 this.filters = {
                     ...this.filters,
-                    authors: this.authors,
+                    ...filters,
                     yearMin: -1000,
                     yearMax: 2023,
                 }
-                // TODO: Fetch options
-                // TODO: Fetch artworks
+
+                this.artworks = await axios
+                    .get(
+                        stringifyUrl({
+                            url: '/api/v1/items',
+                            query: { filter: this.query, size: SIZE },
+                        })
+                    )
+                    .then(({ data }) => data)
                 this.isFetching = false
             } catch (e) {
                 this.isFetching = false
@@ -157,10 +174,10 @@ export default {
     watch: {
         query(newQuery) {
             this.fetchData()
-
-            const { url } = getParsedUrl()
-
-            const newUrl = stringifyUrl({ url, query: { ...newQuery } })
+            const newUrl = stringifyUrl({
+                url: window.location.pathname,
+                query: { filter: { ...newQuery } },
+            })
 
             window.history.replaceState(
                 newUrl,
@@ -174,6 +191,7 @@ export default {
             isExtendedOpen: this.isExtendedOpen,
             query: this.query,
             filters: this.filters,
+            artworks: this.artworks,
             toggleIsExtendedOpen: this.toggleIsExtendedOpen,
             handleSortChange: this.handleSortChange,
             handleYearRangeChange: this.handleYearRangeChange,
