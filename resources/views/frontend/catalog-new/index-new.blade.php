@@ -217,10 +217,19 @@
                                         text: 'náhodného poradia',
                                     },
                                 ]">
+                    <span v-if="artworks.total === 1">Zobrazujem <span
+                            class="tw-font-bold">@{{ 1 }}</span>
+                        dielo, zoradené podľa</span>
+                    <span v-else-if="artworks.total < 5">Zobrazujem <span
+                            class="tw-font-bold">@{{ artworks['total'] }}</span> diela, zoradené
+                        podľa</span>
+                    <span v-else>Zobrazujem <span class="tw-font-bold">@{{ artworks['total'] }}</span>
+                        diel, zoradených
+                        podľa</span>
                 </filter-new-sort>
                 <div v-for="artwork in artworks.data">
                     @{{ artwork.id }}
-                </div>    
+                </div>
             </div>
         </filter-new-items-controller>
     </section>
