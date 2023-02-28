@@ -12,8 +12,8 @@ function getParsedUrl() {
 function stringifyUrl({ url, query }) {
     const newQuery = {
         filter: {
-            date_earliest: { lte: query.filter.yearFrom },
-            date_earliest: { gte: query.filter.yearTo },
+            date_earliest: { lte: query.filter.yearTo },
+            date_latest: { gte: query.filter.yearFrom },
             author: query.filter.author,
         },
         terms: query.terms,
