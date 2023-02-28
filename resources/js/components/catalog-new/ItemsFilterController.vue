@@ -10,7 +10,16 @@ function getParsedUrl() {
 }
 
 function stringifyUrl({ url, query }) {
-    return url + '?' + qs.stringify({ ...query }, { skipNulls: true, arrayFormat: 'brackets' })
+    const newQuery = {
+        filter: {
+            date_earliest: { lte: query.filter.yearFrom },
+            date_earliest: { gte: query.filter.yearTo },
+            author: query.filter.author,
+        },
+        terms: query.terms,
+        size: query.size,
+    }
+    return url + '?' + qs.stringify(newQuery, { skipNulls: true, arrayFormat: 'brackets' })
 }
 
 const SIZE = 50
@@ -23,7 +32,7 @@ const EMPTY_QUERY = {
     yearTo: null,
 }
 
-const DEFAULT_TERMS = {
+const TERMS = {
     author: 'author',
 }
 
@@ -142,7 +151,7 @@ export default {
                             url: '/api/v1/items/aggregations',
                             query: {
                                 filter: this.query,
-                                terms: DEFAULT_TERMS,
+                                terms: TERMS,
                                 size: SIZE,
                             },
                         })
@@ -160,7 +169,10 @@ export default {
                     .get(
                         stringifyUrl({
                             url: '/api/v1/items',
-                            query: { filter: this.query, size: SIZE },
+                            query: {
+                                filter: this.query,
+                                size: SIZE,
+                            },
                         })
                     )
                     .then(({ data }) => data)
