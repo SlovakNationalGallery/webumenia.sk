@@ -99,61 +99,77 @@
                                 </button>
                             </div>
                             <filter-disclosure-modal v-if="dc.view !== null" @close="dc.close">
-                                <filter-disclosure-view v-if="dc.view === 'index'" @close="dc.close">
-                                    <template #header>
-                                        <span>Filter diel</span>
-                                    </template>
-                                    <template #body>
-                                        <filter-disclosure-list-button @click="dc.goTo('author')">
+                                <template #body>
+                                    <filter-disclosure-view v-if="dc.view === 'index'"
+                                        @close="dc.close">
+                                        <template #header>
+                                            <span>Filter diel</span>
+                                        </template>
+                                        <template #body>
+                                            <filter-disclosure-list-button @click="dc.goTo('author')">
+                                                <filter-new-custom-select-popover-label name="author"
+                                                    :selected-values="query['author']">
+                                                </filter-new-custom-select-popover-label>
+                                            </filter-disclosure-list-button>
+                                            <div
+                                                class="tw-flex tw-min-h-0 tw-w-full tw-flex-1 tw-flex-col tw-overflow-auto tw-py-2">
+                                                <filter-new-custom-checkbox
+                                                    @change="handleCheckboxChange"
+                                                    :checked="Boolean(query['has_image'])"
+                                                    title="Len s obrázkom" name="has_image"
+                                                    id="has_image_desktop">
+                                                </filter-new-custom-checkbox>
+                                                <filter-new-custom-checkbox
+                                                    @change="handleCheckboxChange"
+                                                    :checked="Boolean(query['has_iip'])"
+                                                    title="Len so zoomom" name="has_iip"
+                                                    id="has_iip_desktop">
+                                                </filter-new-custom-checkbox>
+                                                <filter-new-custom-checkbox
+                                                    @change="handleCheckboxChange"
+                                                    :checked="Boolean(query['is_free'])"
+                                                    title="Len voľné" name="is_free"
+                                                    id="is_free_desktop">
+                                                </filter-new-custom-checkbox>
+                                                <filter-new-custom-checkbox
+                                                    @change="handleCheckboxChange"
+                                                    :checked="Boolean(query['has_text'])"
+                                                    title="Len s textom" name="has_text"
+                                                    id="has_text_desktop">
+                                                </filter-new-custom-checkbox>
+                                            </div>
+                                        </template>
+                                    </filter-disclosure-view>
+                                    <filter-disclosure-view v-if="dc.view === 'author'"
+                                        @close="dc.close">
+                                        <template #header>
+                                            <button @click="dc.goTo('index')">
+                                                <i class="fa fa-chevron-left tw-text-gray-800"></i>
+                                            </button>
                                             <filter-new-custom-select-popover-label name="author"
                                                 :selected-values="query['author']">
                                             </filter-new-custom-select-popover-label>
-                                        </filter-disclosure-list-button>
-                                        <div
-                                            class="tw-flex tw-min-h-0 tw-w-full tw-flex-1 tw-flex-col tw-overflow-auto tw-py-2">
-                                            <filter-new-custom-checkbox @change="handleCheckboxChange"
-                                                :checked="Boolean(query['has_image'])"
-                                                title="Len s obrázkom" name="has_image"
-                                                id="has_image_desktop">
-                                            </filter-new-custom-checkbox>
-                                            <filter-new-custom-checkbox @change="handleCheckboxChange"
-                                                :checked="Boolean(query['has_iip'])"
-                                                title="Len so zoomom" name="has_iip"
-                                                id="has_iip_desktop">
-                                            </filter-new-custom-checkbox>
-                                            <filter-new-custom-checkbox @change="handleCheckboxChange"
-                                                :checked="Boolean(query['is_free'])" title="Len voľné"
-                                                name="is_free" id="is_free_desktop">
-                                            </filter-new-custom-checkbox>
-                                            <filter-new-custom-checkbox @change="handleCheckboxChange"
-                                                :checked="Boolean(query['has_text'])"
-                                                title="Len s textom" name="has_text"
-                                                id="has_text_desktop">
-                                            </filter-new-custom-checkbox>
-                                        </div>
-                                    </template>
-                                </filter-disclosure-view>
-                                <filter-disclosure-view v-if="dc.view === 'author'" @close="dc.close">
-                                    <template #header>
-                                        <button @click="dc.goTo('index')">
-                                            <i class="fa fa-chevron-left tw-text-gray-800"></i>
-                                        </button>
-                                        <filter-new-custom-select-popover-label name="author"
-                                            :selected-values="query['author']">
-                                        </filter-new-custom-select-popover-label>
-                                    </template>
-                                    <template #body>
-                                        <div
-                                            class="tw-flex tw-min-h-0 tw-w-full tw-flex-1 tw-flex-col tw-overflow-auto">
-                                            <filter-new-options filter-name="author"
-                                                placeholder="Napíšte meno autora / autorky"
-                                                @change="handleMultiSelectChange"
-                                                :selected-values="query['author']"
-                                                :filter="filters['author']">
-                                            </filter-new-options>
-                                        </div>
-                                    </template>
-                                </filter-disclosure-view>
+                                        </template>
+                                        <template #body>
+                                            <div
+                                                class="tw-flex tw-min-h-0 tw-w-full tw-flex-1 tw-flex-col tw-overflow-auto">
+                                                <filter-new-options filter-name="author"
+                                                    placeholder="Napíšte meno autora / autorky"
+                                                    @change="handleMultiSelectChange"
+                                                    :selected-values="query['author']"
+                                                    :filter="filters['author']">
+                                                </filter-new-options>
+                                            </div>
+                                        </template>
+                                    </filter-disclosure-view>
+                                </template #body>
+                                <template #footer>
+                                    <button class="tw-m-4 tw-w-full tw-bg-sky-300 tw-p-4"
+                                        @click="dc.close">
+                                        zobraziť výsledky <span
+                                            class="tw-font-bold">(@{{ artworks.total }})</span>
+                                    </button>
+                                </template>
                             </filter-disclosure-modal>
                         </div>
                     </filter-disclosure-controller>
