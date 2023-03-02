@@ -70,9 +70,4 @@ class ItemsTest extends TestCase
             'total' => 1,
         ]);
     }
-
-        $this->getJson($url)->assertJson([
-            'total' => 1,
-        ]);
-    }
 }
