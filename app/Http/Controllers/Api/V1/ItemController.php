@@ -12,6 +12,37 @@ use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
+
+    private $filterables = [
+        'author',
+        'topic',
+        'work_type',
+        'medium',
+        'technique',
+        'gallery',
+        'has_image',
+        'has_iip',
+        'has_test',
+        'is_free',
+        'additionals.category.keyword',
+        'additionals.frontend.keyword',
+        'additionals.set.keyword',
+        'additionals.location.keyword',
+    ];
+
+    private $rangeables = [
+        'date_earliest',
+        'date_latest',
+        'additionals.order',
+    ];
+
+    private $sortables = [
+        'date_earliest',
+        'date_latest',
+        'view_count',
+        'additionals.order',
+    ];
+
     public function index(Request $request)
     {
         $filter = (array) $request->get('filter');
@@ -28,7 +59,7 @@ class ItemController extends Controller
         $searchRequest = Item::searchQuery($query);
 
         collect($sort)
-            ->only(Item::$sortables)
+            ->only($this->sortables)
             ->intersect(['asc', 'desc'])
             ->each(function ($direction, $field) use ($searchRequest) {
                 $searchRequest->sort($field, $direction);
@@ -131,7 +162,7 @@ class ItemController extends Controller
         }
 
         foreach ($filter as $field => $value) {
-            if (is_string($value) && in_array($field, Item::$filterables, true)) {
+            if (is_string($value) && in_array($field, $this->filterables, true)) {
                 if ($value === 'false') {
                     $value = false;
                 }
@@ -141,11 +172,11 @@ class ItemController extends Controller
                 $builder->filter(['term' => [$field => $value]]);
                 continue;
             }
-            if (is_array($value) && in_array($field, Item::$filterables, true)) {
+            if (is_array($value) && in_array($field, $this->filterables, true)) {
                 $builder->filter(['terms' => [$field => $value]]);
                 continue;
             }
-            if (is_array($value) && in_array($field, Item::$rangeables, true)) {
+            if (is_array($value) && in_array($field, $this->rangeables, true)) {
                 $range = collect($value)
                     ->only(['lt', 'lte', 'gt', 'gte'])
                     ->transform(function ($value) {

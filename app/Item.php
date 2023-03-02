@@ -45,36 +45,6 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     protected $keyType = 'string';
 
-    public static $filterables = [
-        'author',
-        'topic',
-        'work_type',
-        'medium',
-        'technique',
-        'gallery',
-        'has_image',
-        'has_iip',
-        'has_test',
-        'is_free',
-        'additionals.category.keyword',
-        'additionals.frontend.keyword',
-        'additionals.set.keyword',
-        'additionals.location.keyword',
-    ];
-
-    public static $rangeables = [
-        'date_earliest',
-        'date_latest',
-        'additionals.order',
-    ];
-
-    public static $sortables = [
-        'date_earliest',
-        'date_latest',
-        'view_count',
-        'additionals.order',
-    ];
-
     public $translatedAttributes = [
         'title',
         'description',
