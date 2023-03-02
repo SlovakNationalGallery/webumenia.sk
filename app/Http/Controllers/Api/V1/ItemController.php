@@ -132,6 +132,12 @@ class ItemController extends Controller
 
         foreach ($filter as $field => $value) {
             if (is_string($value) && in_array($field, Item::$filterables, true)) {
+                if ($value === 'false') {
+                    $value = false;
+                }
+                if ($value === 'true') {
+                    $value = true;
+                }
                 $builder->filter(['term' => [$field => $value]]);
                 continue;
             }
