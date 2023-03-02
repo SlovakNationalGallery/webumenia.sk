@@ -120,7 +120,7 @@ class ItemRepository extends TranslatableRepository
             $musts[] = [
                 'bool' => [
                     'must' => [
-                        $this->buildHueRangeQuery($hsl->hue, $diff),
+                        self::buildHueRangeQuery($hsl->hue, $diff),
                         [
                             'range' => [
                                 'hsl.s' => [
@@ -269,45 +269,50 @@ class ItemRepository extends TranslatableRepository
         return $query;
     }
 
-    protected function addColorQuery(array $query, ?Color $color): array
+    public static function buildBoolQueryForColor(Color $color)
     {
-        if (!$color) {
-            return $query;
-        }
-
         $diff = 15;
         $hsl = $color->toHSL();
-        $query['bool']['filter'][]['nested'] = [
-            'path' => 'hsl',
-            'query' => [
-                'bool' => [
-                    'must' => [
-                        $this->buildHueRangeQuery($hsl->hue, $diff),
-                        [
-                            'range' => [
-                                'hsl.s' => [
-                                    'gte' => $hsl->saturation - $diff,
-                                    'lte' => $hsl->saturation + $diff,
-                                ]
+        return [
+            'bool' => [
+                'must' => [
+                    self::buildHueRangeQuery($hsl->hue, $diff),
+                    [
+                        'range' => [
+                            'hsl.s' => [
+                                'gte' => $hsl->saturation - $diff,
+                                'lte' => $hsl->saturation + $diff,
                             ]
-                        ],
-                        [
-                            'range' => [
-                                'hsl.l' => [
-                                    'gte' => $hsl->luminance - $diff,
-                                    'lte' => $hsl->luminance + $diff,
-                                ]
+                        ]
+                    ],
+                    [
+                        'range' => [
+                            'hsl.l' => [
+                                'gte' => $hsl->luminance - $diff,
+                                'lte' => $hsl->luminance + $diff,
                             ]
                         ]
                     ]
                 ]
             ]
         ];
+    }
+
+    protected function addColorQuery(array $query, ?Color $color): array
+    {
+        if (!$color) {
+            return $query;
+        }
+
+        $query['bool']['filter'][]['nested'] = [
+            'path' => 'hsl',
+            'query' => self::buildBoolQueryForColor($color)
+        ];
 
         return $query;
     }
 
-    protected function buildHueRangeQuery(float $hue, float $diff): array
+    private static function buildHueRangeQuery(float $hue, float $diff): array
     {
         if ($hue < $diff) {
             return [
