@@ -74,15 +74,6 @@
 		</div>
 	@endif
 
-	<div class="alert alert-warning text-center" role="alert">
-		<span class="mr-3">(✖╭╮✖)</span>
-		@if(LaravelLocalization::getCurrentLocale() == 'en')
-			Images in high resolution (zoom) are not available at the moment. We are sorry for the inconvenience.
-		@else
-			Ospravedlňujeme sa, ale zoom obrázkov momentálne nie je dostupný.
-		@endif
-	</div>
-
 @if (session('scena_ai_key') ?? config('services.scena_ai.key'))
 	<scena-ai-popup key-id="{{ session('scena_ai_key') ?? config('services.scena_ai.key') }}" id="scena-ai"></scena-ai-popup>
 	<script src="https://widget.scena.ai/app.js"></script>
