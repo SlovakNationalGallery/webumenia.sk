@@ -34,7 +34,8 @@ function stringifyUrl({ url, params }) {
     return url + '?' + qs.stringify(newQuery, { skipNulls: true, arrayFormat: 'brackets' })
 }
 
-const SIZE = 1000
+const SIZE_ARTWORK = 30
+const SIZE_AGG = 1000
 const SINGLE_ITEM_FILTERS = ['color', 'yearFrom', 'yearTo']
 const YEAR_RANGE = { min: { yearMin: 'date_earliest' }, max: { yearMax: 'date_latest' } }
 const SORT_DIRECTIONS = {
@@ -195,7 +196,7 @@ export default {
                             params: {
                                 filter: this.query,
                                 terms: TERMS,
-                                size: SIZE,
+                                size: SIZE_AGG,
                             },
                         })
                     )
@@ -212,7 +213,7 @@ export default {
                             url: '/api/v1/items',
                             params: {
                                 filter: this.query,
-                                size: SIZE,
+                                size: SIZE_ARTWORK,
                             },
                         })
                     )
