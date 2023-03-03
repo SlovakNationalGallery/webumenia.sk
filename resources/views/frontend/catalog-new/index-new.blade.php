@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="tailwind-rules">
-        <filter-new-items-controller
+        <filter-new-items-controller :year-min="-475" :year-max="2023"
             v-slot="{ isExtendedOpen, toggleIsExtendedOpen, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, filters, artworks }">
             <div class="tw-relative">
                 <div class="tw-bg-gray-200 tw-p-16 md:tw-pb-0">
@@ -233,8 +233,7 @@
                                         text: 'náhodného poradia',
                                     },
                                 ]">
-                    <span v-if="artworks.total === 1">Zobrazujem <span
-                            class="tw-font-bold">1</span>
+                    <span v-if="artworks.total === 1">Zobrazujem <span class="tw-font-bold">1</span>
                         dielo, zoradené podľa</span>
                     <span v-else-if="artworks.total < 5">Zobrazujem <span
                             class="tw-font-bold">@{{ artworks['total'] }}</span> diela, zoradené

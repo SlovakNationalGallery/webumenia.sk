@@ -11,7 +11,8 @@ function getParsedUrl() {
 
 function stringifyUrl({ url, params }) {
     const { filter, size, terms, yearRange } = params
-    const { yearFrom, yearTo, author, color, is_free, has_image, has_iip, has_text, sort } = filter || {}
+    const { yearFrom, yearTo, author, color, is_free, has_image, has_iip, has_text, sort } =
+        filter || {}
 
     const newQuery = {
         filter: {
@@ -34,10 +35,9 @@ function stringifyUrl({ url, params }) {
     return url + '?' + qs.stringify(newQuery, { skipNulls: true, arrayFormat: 'brackets' })
 }
 
-const SIZE_ARTWORK = 30
-const SIZE_AGG = 1000
+const PAGE_SIZE = 30
+const AGGREGATION_SIZE = 1000
 const SINGLE_ITEM_FILTERS = ['color', 'yearFrom', 'yearTo']
-const YEAR_RANGE = { min: { yearMin: 'date_earliest' }, max: { yearMax: 'date_latest' } }
 const SORT_DIRECTIONS = {
     date_earliest: 'desc',
     date_latest: 'asc',
@@ -45,7 +45,7 @@ const SORT_DIRECTIONS = {
     author: 'asc',
     title: 'asc',
     view_count: 'desc',
-    random: 'asc'
+    random: 'asc',
 }
 const EMPTY_QUERY = {
     author: [],
@@ -53,11 +53,15 @@ const EMPTY_QUERY = {
     yearFrom: null,
     yearTo: null,
 }
-const TERMS = {
+const AGGREGATION_TERMS = {
     author: 'author',
 }
 
 export default {
+    props: {
+        yearMin: Number,
+        yearMax: Number,
+    },
     data() {
         return {
             isExtendedOpen: true,
@@ -68,7 +72,6 @@ export default {
         }
     },
     async created() {
-        this.fetchYearRange()
         this.fetchData()
     },
     computed: {
@@ -162,28 +165,6 @@ export default {
                 [name]: this.query[name].filter((v) => v !== value),
             }
         },
-        async fetchYearRange() {
-            this.isFetching = true
-            try {
-                const yearRange = await axios
-                    .get(
-                        stringifyUrl({
-                            url: '/api/v1/items/aggregations',
-                            params: {
-                                yearRange: YEAR_RANGE,
-                            },
-                        })
-                    )
-                    .then(({ data }) => data)
-                this.filters = {
-                    ...this.filters,
-                    ...yearRange,
-                }
-            } catch (e) {
-                this.isFetching = false
-                throw e
-            }
-        },
         async fetchData() {
             this.isFetching = true
 
@@ -195,8 +176,8 @@ export default {
                             url: '/api/v1/items/aggregations',
                             params: {
                                 filter: this.query,
-                                terms: TERMS,
-                                size: SIZE_AGG,
+                                terms: AGGREGATION_TERMS,
+                                size: AGGREGATION_SIZE,
                             },
                         })
                     )
@@ -205,6 +186,8 @@ export default {
                 this.filters = {
                     ...this.filters,
                     ...filters,
+                    yearMin: this.yearMin,
+                    yearMax: this.yearMax
                 }
 
                 this.artworks = await axios
@@ -213,7 +196,7 @@ export default {
                             url: '/api/v1/items',
                             params: {
                                 filter: this.query,
-                                size: SIZE_ARTWORK,
+                                size: PAGE_SIZE,
                             },
                         })
                     )
