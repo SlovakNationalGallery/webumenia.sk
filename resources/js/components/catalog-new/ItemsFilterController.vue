@@ -9,36 +9,49 @@ function getParsedUrl() {
     })
 }
 
-function stringifyUrl({ url, query }) {
+function stringifyUrl({ url, params }) {
+    const { filter, size, terms, yearRange } = params
+    const { yearFrom, yearTo, author, color, is_free, has_image, has_iip, has_text, sort } = filter || {}
+
     const newQuery = {
         filter: {
-            date_earliest: { lte: query.filter?.yearTo },
-            date_latest: { gte: query.filter?.yearFrom },
-            author: query.filter?.author,
-            color: query.filter?.color,
-            is_free: query.filter?.is_free,
-            has_image: query.filter?.has_image,
-            has_iip: query.filter?.has_iip,
-            has_text: query.filter?.has_test,
+            date_earliest: { lte: yearTo },
+            date_latest: { gte: yearFrom },
+            author: author,
+            color: color,
+            is_free: is_free,
+            has_image: has_image,
+            has_iip: has_iip,
+            has_text: has_text,
         },
-        terms: query.terms,
-        size: query.size,
-        ...query.yearRange,
+        sort: {
+            [sort]: SORT_DIRECTIONS[sort],
+        },
+        terms,
+        size,
+        ...yearRange,
     }
     return url + '?' + qs.stringify(newQuery, { skipNulls: true, arrayFormat: 'brackets' })
 }
 
-const SIZE = 50
+const SIZE = 1000
 const SINGLE_ITEM_FILTERS = ['color', 'yearFrom', 'yearTo']
 const YEAR_RANGE = { min: { yearMin: 'date_earliest' }, max: { yearMax: 'date_latest' } }
-
+const SORT_DIRECTIONS = {
+    date_earliest: 'desc',
+    date_latest: 'asc',
+    created_at: 'asc',
+    author: 'asc',
+    title: 'asc',
+    view_count: 'desc',
+    random: 'asc'
+}
 const EMPTY_QUERY = {
     author: [],
     color: null,
     yearFrom: null,
     yearTo: null,
 }
-
 const TERMS = {
     author: 'author',
 }
@@ -155,7 +168,7 @@ export default {
                     .get(
                         stringifyUrl({
                             url: '/api/v1/items/aggregations',
-                            query: {
+                            params: {
                                 yearRange: YEAR_RANGE,
                             },
                         })
@@ -163,7 +176,7 @@ export default {
                     .then(({ data }) => data)
                 this.filters = {
                     ...this.filters,
-                    ...yearRange
+                    ...yearRange,
                 }
             } catch (e) {
                 this.isFetching = false
@@ -179,7 +192,7 @@ export default {
                     .get(
                         stringifyUrl({
                             url: '/api/v1/items/aggregations',
-                            query: {
+                            params: {
                                 filter: this.query,
                                 terms: TERMS,
                                 size: SIZE,
@@ -197,7 +210,7 @@ export default {
                     .get(
                         stringifyUrl({
                             url: '/api/v1/items',
-                            query: {
+                            params: {
                                 filter: this.query,
                                 size: SIZE,
                             },
@@ -216,7 +229,7 @@ export default {
             this.fetchData()
             const newUrl = stringifyUrl({
                 url: window.location.pathname,
-                query: { filter: { ...newQuery } },
+                params: { filter: { ...newQuery } },
             })
 
             window.history.replaceState(

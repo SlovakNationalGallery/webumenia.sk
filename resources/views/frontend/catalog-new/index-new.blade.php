@@ -217,12 +217,12 @@
                                         text: 'autora',
                                     },
                                     {
-                                        value: 'newest',
-                                        text: 'dotovania - od najnovšieho',
+                                        value: 'date_earliest',
+                                        text: 'datovanie - od najnovšieho',
                                     },
                                     {
-                                        value: 'oldest',
-                                        text: 'dotovania - od najstaršieho',
+                                        value: 'date_latest',
+                                        text: 'datovanie - od najstaršieho',
                                     },
                                     {
                                         value: 'view_count',
