@@ -41,6 +41,10 @@ class ItemController extends Controller
     private $sortables = [
         'date_earliest',
         'date_latest',
+        'updated_at',
+        'created_at',
+        'title',
+        'author',
         'view_count',
         'additionals.order',
     ];
