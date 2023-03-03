@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Elasticsearch\Repositories\ItemRepository;
 use App\Http\Controllers\Controller;
 use App\Item;
 use ElasticAdapter\Search\Aggregation;
@@ -9,6 +10,7 @@ use ElasticAdapter\Search\Bucket;
 use ElasticScoutDriverPlus\Exceptions\QueryBuilderException;
 use ElasticScoutDriverPlus\Support\Query;
 use Illuminate\Http\Request;
+use Primal\Color\Parser as ColorParser;
 
 class ItemController extends Controller
 {
@@ -162,6 +164,15 @@ class ItemController extends Controller
         }
 
         foreach ($filter as $field => $value) {
+            if ($field === 'color') {
+                $color = ColorParser::parse($value);
+                $colorQuery = Query::nested()
+                    ->path('hsl')
+                    ->query(ItemRepository::buildBoolQueryForColor($color));
+
+                $builder->filter($colorQuery);
+                continue;
+            }
             if (is_string($value) && in_array($field, $this->filterables, true)) {
                 if ($value === 'false') {
                     $value = false;

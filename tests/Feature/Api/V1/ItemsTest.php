@@ -70,4 +70,28 @@ class ItemsTest extends TestCase
             'total' => 1,
         ]);
     }
+
+    public function test_filtering_by_color()
+    {
+        Item::factory()->create(['colors' => ['#ff0000' => 1]]);
+        Item::factory()->create(['colors' => ['#fe0000' => 1]]);
+        $different = Item::factory()->create(['colors' => ['#0000ff' => 1]]);
+
+        app(ItemRepository::class)->refreshIndex();
+
+        $url = route('api.v1.items.index', [
+            'filter[color]' => 'ff0000',
+        ]);
+
+        $response = $this->getJson($url);
+
+        $this->assertNotContains(
+            $different->id,
+            collect($response['data'])->pluck('id')
+        );
+
+        $response->assertJson([
+            'total' => 2,
+        ]);
+    }
 }

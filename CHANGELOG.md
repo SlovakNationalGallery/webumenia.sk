@@ -4,7 +4,8 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Added
 - multi-term filtering to /api/v1/items
-- support for boolean filter values in /api/v1/items
+- boolean filtering in /api/v1/items
+- color filtering in /api/v1/items
 
 ## [2.72.1] - 2023-02-10
 ### Added
