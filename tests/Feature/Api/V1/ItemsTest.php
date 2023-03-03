@@ -80,6 +80,7 @@ class ItemsTest extends TestCase
         app(ItemRepository::class)->refreshIndex();
 
         $url = route('api.v1.items.index', [
+            'size' => 10,
             'filter[color]' => 'ff0000',
         ]);
 
@@ -93,5 +94,25 @@ class ItemsTest extends TestCase
         $response->assertJson([
             'total' => 2,
         ]);
+    }
+
+    public function test_sorting()
+    {
+        Item::factory()->create(['title' => 'zebra']);
+        Item::factory()->create(['title' => 'aardvark']);
+        Item::factory()->create(['title' => 'cat']);
+        app(ItemRepository::class)->refreshIndex();
+
+        $url = route('api.v1.items.index', [
+            'size' => 10,
+            'sort[title]' => 'asc',
+        ]);
+
+        $response = $this->getJson($url);
+
+        $this->assertEquals(
+            collect(['aardvark', 'cat', 'zebra']),
+            collect($response['data'])->pluck('content.title')
+        );
     }
 }
