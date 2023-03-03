@@ -15,6 +15,7 @@ function stringifyUrl({ url, query }) {
             date_earliest: { lte: query.filter.yearTo },
             date_latest: { gte: query.filter.yearFrom },
             author: query.filter.author,
+            color: query.filter.color
         },
         terms: query.terms,
         size: query.size,
