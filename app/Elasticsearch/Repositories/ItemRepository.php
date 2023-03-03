@@ -21,6 +21,39 @@ class ItemRepository extends TranslatableRepository
 
     protected $index = 'items';
 
+    public static function buildRandomSortQuery(array $query, $firstPage = true): array
+    {
+
+        if ($firstPage) {
+            $seed = mt_rand();
+            Session::put('ItemRepository::random-seed', $seed);
+        }
+
+        $seed = $seed ?? Session::get('ItemRepository::random-seed', mt_rand());
+
+        return [
+            'function_score' => [
+                'query' => $query,
+                'functions' => [
+                    [
+                        'random_score' => [
+                            'seed' => $seed,
+                            'field' => '_seq_no'
+                        ],
+                    ],
+                    [
+                        "field_value_factor" => [
+                            "field" => "has_image",
+                            "factor" => 10
+                        ]
+                    ]
+                ],
+                "boost_mode" => "sum",
+            ],
+
+        ];
+    }
+
     public function getSuggestions(int $size, string $search, string $locale = null): SearchResult
     {
         $response = $this->elasticsearch->search([
@@ -373,43 +406,10 @@ class ItemRepository extends TranslatableRepository
     protected function addSort(array $body, SearchRequest $request): array
     {
         $sortBy = $request->getSortBy();
-        $from = $request->getFrom();
 
         if ($sortBy === 'random') {
-
-            if (!isset($from) || $from == 0) {
-                $seed = mt_rand();
-                session(['random-seed' => $seed]);
-            } else {
-                $seed = session('random-seed', mt_rand());
-            }
-            $q =  isset($body['query']) ? $body['query'] : ['match_all' => new \stdClass];
-
-            $body['query'] = [
-                'function_score' => [
-                    'query' => $q,
-                    'functions' => [
-                        [
-                            'random_score' => [
-                                'seed' => $seed,
-                                'field' => '_seq_no'
-                            ],
-                        ],
-                        [
-                            "field_value_factor" => [
-                                "field" => "has_image",
-                                "factor" => 10
-                            ]
-                        ]
-                    ],
-                    "boost_mode" => "sum",
-                ],
-
-            ];
-
+            $body['query'] = self::buildRandomSortQuery($body['query'] ?? ['match_all' => new \stdClass], $request->getFrom() === 0);
             return $body;
-        } else {
-            Session::forget('random-seed');
         }
 
         if ($sortBy === null) {
