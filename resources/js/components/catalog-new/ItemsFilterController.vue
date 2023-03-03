@@ -12,23 +12,25 @@ function getParsedUrl() {
 function stringifyUrl({ url, query }) {
     const newQuery = {
         filter: {
-            date_earliest: { lte: query.filter.yearTo },
-            date_latest: { gte: query.filter.yearFrom },
-            author: query.filter.author,
-            color: query.filter.color,
-            is_free: query.filter.is_free,
-            has_image: query.filter.has_image,
-            has_iip: query.filter.has_iip,
-            has_text: query.filter.has_test
+            date_earliest: { lte: query.filter?.yearTo },
+            date_latest: { gte: query.filter?.yearFrom },
+            author: query.filter?.author,
+            color: query.filter?.color,
+            is_free: query.filter?.is_free,
+            has_image: query.filter?.has_image,
+            has_iip: query.filter?.has_iip,
+            has_text: query.filter?.has_test,
         },
         terms: query.terms,
         size: query.size,
+        ...query.yearRange,
     }
     return url + '?' + qs.stringify(newQuery, { skipNulls: true, arrayFormat: 'brackets' })
 }
 
 const SIZE = 50
 const SINGLE_ITEM_FILTERS = ['color', 'yearFrom', 'yearTo']
+const YEAR_RANGE = { min: { yearMin: 'date_earliest' }, max: { yearMax: 'date_latest' } }
 
 const EMPTY_QUERY = {
     author: [],
@@ -52,6 +54,7 @@ export default {
         }
     },
     async created() {
+        this.fetchYearRange()
         this.fetchData()
     },
     computed: {
@@ -145,6 +148,28 @@ export default {
                 [name]: this.query[name].filter((v) => v !== value),
             }
         },
+        async fetchYearRange() {
+            this.isFetching = true
+            try {
+                const yearRange = await axios
+                    .get(
+                        stringifyUrl({
+                            url: '/api/v1/items/aggregations',
+                            query: {
+                                yearRange: YEAR_RANGE,
+                            },
+                        })
+                    )
+                    .then(({ data }) => data)
+                this.filters = {
+                    ...this.filters,
+                    ...yearRange
+                }
+            } catch (e) {
+                this.isFetching = false
+                throw e
+            }
+        },
         async fetchData() {
             this.isFetching = true
 
@@ -166,8 +191,6 @@ export default {
                 this.filters = {
                     ...this.filters,
                     ...filters,
-                    yearMin: -1000,
-                    yearMax: 2023,
                 }
 
                 this.artworks = await axios
