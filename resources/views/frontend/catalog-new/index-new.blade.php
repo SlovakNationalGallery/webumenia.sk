@@ -234,7 +234,7 @@
                                     },
                                 ]">
                     <span v-if="artworks.total === 1">Zobrazujem <span
-                            class="tw-font-bold">@{{ 1 }}</span>
+                            class="tw-font-bold">1</span>
                         dielo, zoradené podľa</span>
                     <span v-else-if="artworks.total < 5">Zobrazujem <span
                             class="tw-font-bold">@{{ artworks['total'] }}</span> diela, zoradené
