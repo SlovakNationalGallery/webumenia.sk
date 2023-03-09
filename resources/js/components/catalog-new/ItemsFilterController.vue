@@ -36,7 +36,7 @@ function stringifyUrl({ url, params }) {
 }
 
 const PAGE_SIZE = 30
-const AGGREGATION_SIZE = 1000
+const AGGREGATIONS_SIZE = 1000
 const SINGLE_ITEM_FILTERS = ['color', 'yearFrom', 'yearTo']
 const SORT_DIRECTIONS = {
     date_earliest: 'desc',
