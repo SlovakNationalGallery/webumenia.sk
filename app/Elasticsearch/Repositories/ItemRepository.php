@@ -23,13 +23,9 @@ class ItemRepository extends TranslatableRepository
 
     public static function buildRandomSortQuery(array $query, $firstPage = true): array
     {
-
         if ($firstPage) {
-            $seed = mt_rand();
-            Session::put('ItemRepository::random-seed', $seed);
+            Session::put('ItemRepository::random-seed', mt_rand());
         }
-
-        $seed = $seed ?? Session::get('ItemRepository::random-seed', mt_rand());
 
         return [
             'function_score' => [
@@ -37,7 +33,7 @@ class ItemRepository extends TranslatableRepository
                 'functions' => [
                     [
                         'random_score' => [
-                            'seed' => $seed,
+                            'seed' => Session::get('ItemRepository::random-seed'),
                             'field' => '_seq_no'
                         ],
                     ],

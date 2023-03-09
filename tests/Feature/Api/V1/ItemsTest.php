@@ -5,6 +5,7 @@ namespace Tests\Feature\Api\V1;
 use App\Elasticsearch\Repositories\ItemRepository;
 use App\Item;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Mockery;
 use Tests\RecreateSearchIndex;
 use Tests\TestCase;
 
@@ -113,6 +114,25 @@ class ItemsTest extends TestCase
         $this->assertEquals(
             collect(['aardvark', 'cat', 'zebra']),
             collect($response['data'])->pluck('content.title')
+        );
+    }
+
+    public function test_random_sort()
+    {
+        Item::factory()->count(5)->create(['has_image' => true]); // Images are required for random sort
+        app(ItemRepository::class)->refreshIndex();
+
+        $url = route('api.v1.items.index', [
+            'size' => 5,
+            'sort[random]' => 'asc',
+        ]);
+
+        $response1 = $this->getJson($url);
+        $response2 = $this->getJson($url);
+
+        $this->assertNotSame(
+            collect($response1['data'])->pluck('id'),
+            collect($response2['data'])->pluck('id'),
         );
     }
 }
