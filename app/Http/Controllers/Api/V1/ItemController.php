@@ -62,6 +62,10 @@ class ItemController extends Controller
             $query = ['match_all' => new \stdClass()];
         }
 
+        if (array_key_exists('random', $sort)) {
+            $query = ItemRepository::buildRandomSortQuery($query, $request->get('page') === null);
+        }
+
         $searchRequest = Item::searchQuery($query);
 
         collect($sort)
