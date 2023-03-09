@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+## [2.73.0] - 2023-03-09
 ### Added
 - multi-term filtering to /api/v1/items
 - boolean filtering in /api/v1/items
