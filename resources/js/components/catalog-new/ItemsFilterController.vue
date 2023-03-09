@@ -13,8 +13,17 @@ function stringifyUrl({ url, query }) {
         { url, query },
         {
             arrayFormat: 'bracket',
+            skipNull: true,
         }
     )
+}
+
+const singleItemFilters = ['color', 'yearFrom', 'yearTo']
+const emptyQuery = {
+    authors: [],
+    color: null,
+    yearFrom: null,
+    yearTo: null,
 }
 
 export default {
@@ -24,15 +33,11 @@ export default {
     },
     data() {
         return {
-            openedFilter: null,
             isExtendedOpen: true,
             isFetching: false,
             artworks: [],
             filters: {},
-            query: {
-                authors: [],
-                ...getParsedUrl().query,
-            },
+            query: { ...emptyQuery, ...getParsedUrl().query },
         }
     },
     async created() {
@@ -41,14 +46,21 @@ export default {
     computed: {
         selectedOptionsAsLabels() {
             return Object.entries(this.query)
-                .filter(([filterName, _]) => Object.keys(this.filters).includes(filterName))
-                .map(([filterName, filterValues]) =>
-                    (filterValues || []).map((filterValue) => ({
+                .filter(([filterName, _]) =>
+                    ['authors', 'color', 'yearFrom', 'yearTo'].includes(filterName)
+                )
+                .map(([filterName, filterValues]) => {
+                    if (singleItemFilters.includes(filterName) && filterValues) {
+                        return {
+                            value: filterValues,
+                            filterName,
+                        }
+                    }
+                    return (filterValues || []).map((filterValue) => ({
                         value: filterValue,
                         filterName,
-                        type: 'string',
                     }))
-                )
+                })
                 .flat()
         },
     },
@@ -59,15 +71,24 @@ export default {
         clearFilterSelection(filterName) {
             this.query = {
                 ...this.query,
-                [filterName]: undefined,
+                [filterName]: emptyQuery[filterName],
             }
-            this.openedFilter = null
         },
         clearAllSelections() {
-            this.query = {}
+            this.query = { ...emptyQuery }
         },
-        setOpenedFilter(name) {
-            this.openedFilter = name
+        handleColorChange(color) {
+            this.query = {
+                ...this.query,
+                color: color,
+            }
+        },
+        handleYearRangeChange(yearRangeValue) {
+            this.query = {
+                ...this.query,
+                yearFrom: yearRangeValue.from,
+                yearTo: yearRangeValue.to,
+            }
         },
         handleSortChange(sortValue) {
             this.query = {
@@ -84,10 +105,18 @@ export default {
             }
         },
         removeSelection({ filterName: name, value }) {
+            if (singleItemFilters.includes(name)) {
+                this.query = {
+                    ...this.query,
+                    [name]: emptyQuery[name],
+                }
+                return
+            }
+
             this.query = {
                 ...this.query,
                 [name]: this.query[name].filter((v) => v !== value),
-            };
+            }
         },
         handleMultiSelectChange(e) {
             const { name, checked, value } = e.target
@@ -105,17 +134,17 @@ export default {
                 [name]: this.query[name].filter((v) => v !== value),
             }
         },
-        closeOpenedFilter() {
-            this.openedFilter = null
-        },
-        toggleSelect(filterName) {
-            this.openedFilter = filterName === this.openedFilter ? null : filterName
-        },
         async fetchData() {
             this.isFetching = true
 
             try {
-                this.filters = { ...this.filters, authors: this.authors }
+                //TODO: Year range from BE
+                this.filters = {
+                    ...this.filters,
+                    authors: this.authors,
+                    yearMin: -1000,
+                    yearMax: 2023,
+                }
                 // TODO: Fetch options
                 // TODO: Fetch artworks
                 this.isFetching = false
@@ -131,15 +160,7 @@ export default {
 
             const { url } = getParsedUrl()
 
-            const newUrl = queryString.stringifyUrl(
-                {
-                    url,
-                    query: { ...newQuery },
-                },
-                {
-                    arrayFormat: 'bracket',
-                }
-            )
+            const newUrl = stringifyUrl({ url, query: { ...newQuery } })
 
             window.history.replaceState(
                 newUrl,
@@ -153,17 +174,16 @@ export default {
             isExtendedOpen: this.isExtendedOpen,
             query: this.query,
             filters: this.filters,
-            openedFilter: this.openedFilter,
             toggleIsExtendedOpen: this.toggleIsExtendedOpen,
-            toggleSelect: this.toggleSelect,
             handleSortChange: this.handleSortChange,
+            handleYearRangeChange: this.handleYearRangeChange,
             handleCheckboxChange: this.handleCheckboxChange,
             handleMultiSelectChange: this.handleMultiSelectChange,
-            closeOpenedFilter: this.closeOpenedFilter,
+            handleColorChange: this.handleColorChange,
             selectedOptionsAsLabels: this.selectedOptionsAsLabels,
             clearAllSelections: this.clearAllSelections,
             clearFilterSelection: this.clearFilterSelection,
-            removeSelection: this.removeSelection
+            removeSelection: this.removeSelection,
         })
     },
 }

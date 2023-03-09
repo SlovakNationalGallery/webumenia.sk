@@ -29,7 +29,7 @@
                     type="checkbox"
                     :key="option.id"
                     :id="option.id"
-                    @change="handleMultiSelectChange"
+                    @change="$emit('change', $event)"
                     :value="option.name"
                     :name="filterName"
                     :checked="option.checked"
@@ -48,7 +48,6 @@ export default {
         filterName: String,
         placeholder: String,
         selectedValues: Array,
-        handleMultiSelectChange: Function,
         filter: Array,
     },
     data() {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Elasticsearch\Repositories\ItemRepository;
 use App\Http\Controllers\Controller;
 use App\Item;
 use ElasticAdapter\Search\Aggregation;
@@ -9,50 +10,79 @@ use ElasticAdapter\Search\Bucket;
 use ElasticScoutDriverPlus\Exceptions\QueryBuilderException;
 use ElasticScoutDriverPlus\Support\Query;
 use Illuminate\Http\Request;
+use Primal\Color\Parser as ColorParser;
 
 class ItemController extends Controller
 {
+
+    private $filterables = [
+        'author',
+        'topic',
+        'work_type',
+        'medium',
+        'technique',
+        'gallery',
+        'has_image',
+        'has_iip',
+        'has_test',
+        'is_free',
+        'additionals.category.keyword',
+        'additionals.frontend.keyword',
+        'additionals.set.keyword',
+        'additionals.location.keyword',
+    ];
+
+    private $rangeables = [
+        'date_earliest',
+        'date_latest',
+        'additionals.order',
+    ];
+
+    private $sortables = [
+        'date_earliest',
+        'date_latest',
+        'view_count',
+        'additionals.order',
+    ];
+
     public function index(Request $request)
     {
-        $filter = (array)$request->get('filter');
-        $sort = (array)$request->get('sort');
-        $size = (int)$request->get('size', 1);
-        $q = (string)$request->get('q');
+        $filter = (array) $request->get('filter');
+        $sort = (array) $request->get('sort');
+        $size = (int) $request->get('size', 1);
+        $q = (string) $request->get('q');
 
         try {
-            $query = $this->createQueryBuilder($q, $filter)
-                ->buildQuery();
+            $query = $this->createQueryBuilder($q, $filter)->buildQuery();
         } catch (QueryBuilderException $e) {
-            $query = ['match_all' => new \stdClass];
+            $query = ['match_all' => new \stdClass()];
         }
 
         $searchRequest = Item::searchQuery($query);
 
         collect($sort)
-            ->only(Item::$sortables)
+            ->only($this->sortables)
             ->intersect(['asc', 'desc'])
             ->each(function ($direction, $field) use ($searchRequest) {
                 $searchRequest->sort($field, $direction);
             });
 
-        return $searchRequest->paginate($size)
-            ->onlyDocuments();
+        return $searchRequest->paginate($size)->onlyDocuments();
     }
 
     public function aggregations(Request $request)
     {
-        $filter = (array)$request->get('filter');
-        $terms = (array)($request->get('terms'));
-        $min = (array)$request->get('min');
-        $max = (array)$request->get('max');
-        $size = (int)$request->get('size', 1);
-        $q = (string)$request->get('q');
+        $filter = (array) $request->get('filter');
+        $terms = (array) $request->get('terms');
+        $min = (array) $request->get('min');
+        $max = (array) $request->get('max');
+        $size = (int) $request->get('size', 1);
+        $q = (string) $request->get('q');
 
         try {
-            $query = $this->createQueryBuilder($q, $filter)
-                ->buildQuery();
+            $query = $this->createQueryBuilder($q, $filter)->buildQuery();
         } catch (QueryBuilderException $e) {
-            $query = ['match_all' => new \stdClass];
+            $query = ['match_all' => new \stdClass()];
         }
 
         $searchRequest = Item::searchQuery($query);
@@ -62,7 +92,7 @@ class ItemController extends Controller
                 'terms' => [
                     'field' => $field,
                     'size' => $size,
-                ]
+                ],
             ]);
         }
 
@@ -70,7 +100,7 @@ class ItemController extends Controller
             $searchRequest->aggregate($agg, [
                 'min' => [
                     'field' => $field,
-                ]
+                ],
             ]);
         }
 
@@ -78,30 +108,32 @@ class ItemController extends Controller
             $searchRequest->aggregate($agg, [
                 'max' => [
                     'field' => $field,
-                ]
+                ],
             ]);
         }
 
         $searchResult = $searchRequest->execute();
-        return response()->json($searchResult->aggregations()->map(function (Aggregation $aggregation) {
-            $raw = $aggregation->raw();
-            if (array_key_exists('value', $raw)) {
-                return $raw['value'];
-            }
+        return response()->json(
+            $searchResult->aggregations()->map(function (Aggregation $aggregation) {
+                $raw = $aggregation->raw();
+                if (array_key_exists('value', $raw)) {
+                    return $raw['value'];
+                }
 
-            return $aggregation->buckets()->map(function (Bucket $bucket) {
-                return [
-                    'value' => $bucket->key(),
-                    'count' => $bucket->docCount(),
-                ];
-            });
-        }));
+                return $aggregation->buckets()->map(function (Bucket $bucket) {
+                    return [
+                        'value' => $bucket->key(),
+                        'count' => $bucket->docCount(),
+                    ];
+                });
+            })
+        );
     }
 
     public function detail(Request $request, $id)
     {
-        $filter = (array)$request->get('filter');
-        $q = (string)$request->get('q');
+        $filter = (array) $request->get('filter');
+        $q = (string) $request->get('q');
 
         try {
             $query = $this->createQueryBuilder($q, $filter)
@@ -132,18 +164,38 @@ class ItemController extends Controller
         }
 
         foreach ($filter as $field => $value) {
-            if (is_string($value) && in_array($field, Item::$filterables, true)) {
+            if ($field === 'color') {
+                $color = ColorParser::parse($value);
+                $colorQuery = Query::nested()
+                    ->path('hsl')
+                    ->query(ItemRepository::buildBoolQueryForColor($color));
+
+                $builder->filter($colorQuery);
+                continue;
+            }
+            if (is_string($value) && in_array($field, $this->filterables, true)) {
+                if ($value === 'false') {
+                    $value = false;
+                }
+                if ($value === 'true') {
+                    $value = true;
+                }
                 $builder->filter(['term' => [$field => $value]]);
-            } else if (is_array($value) && in_array($field, Item::$rangeables, true)) {
+                continue;
+            }
+            if (is_array($value) && in_array($field, $this->filterables, true)) {
+                $builder->filter(['terms' => [$field => $value]]);
+                continue;
+            }
+            if (is_array($value) && in_array($field, $this->rangeables, true)) {
                 $range = collect($value)
                     ->only(['lt', 'lte', 'gt', 'gte'])
                     ->transform(function ($value) {
-                        return (string)$value;
+                        return (string) $value;
                     })
                     ->all();
                 $builder->filter(['range' => [$field => $range]]);
-            } else {
-                throw new \Exception;
+                continue;
             }
         }
 

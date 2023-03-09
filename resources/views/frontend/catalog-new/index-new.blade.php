@@ -2,44 +2,167 @@
 
 @section('content')
     <section class="tailwind-rules">
-        <filter-new :authors="{{ $authors }}"
-            v-slot="{ isExtendedOpen, openedFilter, handleMultiSelectChange, selectedOptionsAsLabels, toggleIsExtendedOpen, handleSortChange, handleCheckboxChange, clearFilterSelection, toggleSelect, closeOpenedFilter, clearAllSelections, removeSelection, query, filters }">
+        <filter-new-items-controller :authors="{{ $authors }}"
+            v-slot="{ isExtendedOpen, toggleIsExtendedOpen, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, filters }">
             <div class="tw-relative">
                 <div class="tw-bg-gray-200 tw-p-16 md:tw-pb-0">
-                    <div class="tw-flex tw-gap-x-3 tw-overflow-x-auto md:tw-flex-wrap">
-                        <filter-new-custom-select :close-opened-filter="closeOpenedFilter"
-                            :opened-filter="openedFilter"
-                            :handle-multi-select-change="handleMultiSelectChange"
-                            :clear-filter-selection="clearFilterSelection" :filter="filters['authors']"
-                            :toggle-select="toggleSelect" :selected-values="query['authors']"
-                            name="authors" placeholder="Napíšte meno autora / autorky">
-                        </filter-new-custom-select>
-                        <filter-new-custom-select :close-opened-filter="closeOpenedFilter"
-                            :opened-filter="openedFilter"
-                            :handle-multi-select-change="handleMultiSelectChange"
-                            :clear-filter-selection="clearFilterSelection" :filter="filters['authors']"
-                            :toggle-select="toggleSelect" :selected-values="query['authors']"
-                            name="authors" v-if="isExtendedOpen"
-                            placeholder="Napíšte meno autora / autorky">
-                        </filter-new-custom-select>
-                        <filter-show-more class="tw-hidden md:tw-block"
-                            :is-extended-open="isExtendedOpen"
-                            :toggle-is-extended-open="toggleIsExtendedOpen">
-                        </filter-show-more>
-                    </div>
-                    <filter-show-more class="tw-visible tw-pt-4 md:tw-hidden"
-                        :is-extended-open="isExtendedOpen"
-                        :toggle-is-extended-open="toggleIsExtendedOpen">
-                    </filter-show-more>
+                    {{-- Desktop filter --}}
+                    <filter-new-popover-group-controller>
+                        <div class="tw-hidden tw-gap-x-3 tw-overflow-x-auto md:tw-flex md:tw-flex-wrap">
+                            <filter-new-popover name="authors">
+                                <template #popover-label>
+                                    <filter-new-custom-select-popover-label name="authors"
+                                        :selected-values="query['authors']">
+                                    </filter-new-custom-select-popover-label>
+                                </template>
+                                <template #body>
+                                    <div
+                                        class="tw-absolute tw-top-36 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
+                                        <filter-new-options filter-name="authors"
+                                            placeholder="Napíšte meno autora / autorky"
+                                            @change="handleMultiSelectChange"
+                                            :selected-values="query['authors']"
+                                            :filter="filters['authors']">
+                                        </filter-new-options>
+                                        <button
+                                            class="tw-mb-6 tw-mt-5 tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
+                                            @click="clearFilterSelection('authors')">
+                                            <div class="tw-flex">
+                                                <div class="tw-flex tw-items-center tw-pr-2">
+                                                    <i class="fa fa-rotate-left"></i>
+                                                </div>
+                                                <span>zrušiť výber</span>
+                                            </div>
+                                        </button>
+                                    </div>
+                                </template>
+                            </filter-new-popover>
+                            <filter-new-popover v-if="isExtendedOpen" name="color">
+                                <template #popover-label>
+                                    <span>color</span>
+                                </template>
+                                <template #body>
+                                    <div
+                                        class="tw-absolute tw-left-0 tw-top-36 tw-z-10 tw-w-screen tw-px-16">
+                                        <div
+                                            class="tw-border-2 tw-border-gray-800 tw-bg-white tw-px-8 tw-py-16">
+                                            <filter-new-color-slider :color="query['color']"
+                                                @change="handleColorChange">
+                                            </filter-new-color-slider>
+                                        </div>
+                                    </div>
+                                </template>
+                            </filter-new-popover>
+                            <filter-new-popover name="yearRange" v-if="isExtendedOpen">
+                                <template #popover-label>
+                                    <span>year range</span>
+                                </template>
+                                <template #body>
+                                    <div class="tw-absolute tw-top-36 tw-z-10">
+                                        <div
+                                            class="tw-w-[28rem] tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6 tw-pt-4">
+                                            <filter-new-year-slider
+                                                :default-from="Number(query.yearFrom)"
+                                                :default-to="Number(query.yearTo)"
+                                                @change="handleYearRangeChange" :min="filters.yearMin"
+                                                :max="filters.yearMax">
+                                            </filter-new-year-slider>
+                                        </div>
+                                    </div>
+                                </template>
+                            </filter-new-popover>
+                            <filter-show-more class="tw-hidden md:tw-block"
+                                :is-extended-open="isExtendedOpen"
+                                :toggle-is-extended-open="toggleIsExtendedOpen">
+                            </filter-show-more>
+                        </div>
+                    </filter-new-popover-group-controller>
+                    {{-- Mobile Filter --}}
+                    <filter-disclosure-controller v-slot="dc">
+                        <div class="tw-relative md:tw-hidden">
+                            <div class="tw-flex tw-gap-x-3 tw-overflow-x-auto">
+                                <filter-disclosure-button name="authors" @click="dc.goTo('authors')">
+                                    <filter-new-custom-select-popover-label name="authors"
+                                        :selected-values="query['authors']">
+                                    </filter-new-custom-select-popover-label>
+                                </filter-disclosure-button>
+                            </div>
+                            <div class="tw-min-w-max tw-pt-4">
+                                <button @click="dc.goTo('index')"
+                                    class="tw-w-full tw-border tw-border-gray-300 tw-py-3.5 tw-px-4 tw-text-lg tw-font-bold hover:tw-border-gray-800">
+                                    <div class="tw-flex tw-justify-center">
+                                        <div class="tw-flex tw-items-center tw-pr-4">
+                                            <i class="fa fa-sliders"></i>
+                                        </div>
+                                        <span>všetky filtre</span>
+                                    </div>
+                                </button>
+                            </div>
+                            <filter-disclosure-modal v-if="dc.view !== null" @close="dc.close">
+                                <filter-disclosure-view v-if="dc.view === 'index'" @close="dc.close">
+                                    <template #header>
+                                        <span>Filter diel</span>
+                                    </template>
+                                    <template #body>
+                                        <filter-disclosure-list-button @click="dc.goTo('authors')">
+                                            <filter-new-custom-select-popover-label name="authors"
+                                                :selected-values="query['authors']">
+                                            </filter-new-custom-select-popover-label>
+                                        </filter-disclosure-list-button>
+                                        <div
+                                            class="tw-flex tw-min-h-0 tw-w-full tw-flex-1 tw-flex-col tw-overflow-auto tw-py-2">
+                                            <filter-new-custom-checkbox
+                                                @change="handleCheckboxChange"
+                                                :checked="Boolean(query['has_image'])"
+                                                title="Len s obrázkom" name="has_image"
+                                                id="has_image_desktop">
+                                            </filter-new-custom-checkbox>
+                                            <filter-new-custom-checkbox
+                                                @change="handleCheckboxChange"
+                                                :checked="Boolean(query['has_iip'])"
+                                                title="Len so zoomom" name="has_iip"
+                                                id="has_iip_desktop">
+                                            </filter-new-custom-checkbox>
+                                            <filter-new-custom-checkbox
+                                                @change="handleCheckboxChange"
+                                                :checked="Boolean(query['is_free'])"
+                                                title="Len voľné" name="is_free"
+                                                id="is_free_desktop">
+                                            </filter-new-custom-checkbox>
+                                            <filter-new-custom-checkbox
+                                                @change="handleCheckboxChange"
+                                                :checked="Boolean(query['has_text'])"
+                                                title="Len s textom" name="has_text"
+                                                id="has_text_desktop">
+                                            </filter-new-custom-checkbox>
+                                        </div>
+                                    </template>
+                                </filter-disclosure-view>
+                                <filter-disclosure-view v-if="dc.view === 'authors'" @close="dc.close">
+                                    <template #header>
+                                        <button @click="dc.goTo('index')">
+                                            <i class="fa fa-chevron-left tw-text-gray-800"></i>
+                                        </button>
+                                        <filter-new-custom-select-popover-label name="authors"
+                                            :selected-values="query['authors']">
+                                        </filter-new-custom-select-popover-label>
+                                    </template>
+                                    <template #body>
+                                        <div
+                                            class="tw-flex tw-min-h-0 tw-w-full tw-flex-1 tw-flex-col tw-overflow-auto">
+                                            <filter-new-options filter-name="authors"
+                                                placeholder="Napíšte meno autora / autorky"
+                                                @change="handleMultiSelectChange"
+                                                :selected-values="query['authors']"
+                                                :filter="filters['authors']">
+                                            </filter-new-options>
+                                        </div>
+                                    </template>
+                                </filter-disclosure-view>
+                            </filter-disclosure-modal>
+                        </div>
+                    </filter-disclosure-controller>
                 </div>
-                <filter-new-mobile-custom-select :is-extended-open="isExtendedOpen"
-                    :opened-filter="openedFilter" :handle-multi-select-change="handleMultiSelectChange"
-                    :toggle-is-extended-open="toggleIsExtendedOpen"
-                    :handle-checkbox-change="handleCheckboxChange"
-                    :clear-filter-selection="clearFilterSelection" :toggle-select="toggleSelect"
-                    :query="query" :filters="filters" v-if="isExtendedOpen"
-                    placeholder="Simple dummy text">
-                </filter-new-mobile-custom-select>
                 <div
                     class="tw-invisible tw-space-x-3 tw-bg-gray-200 tw-px-16 tw-pt-4 tw-pb-5 md:tw-visible md:tw-flex">
                     <filter-new-custom-checkbox @change="handleCheckboxChange"
@@ -66,41 +189,42 @@
                     </filter-new-selected-labels>
                 </div>
                 <filter-new-sort :sort="query.sort" :handle-sort-change="handleSortChange" :options="[
-                                                                        {
-                                                                            value: null,
-                                                                            text: 'podľa poslednej zmeny',
-                                                                        },
-                                                                        {
-                                                                            value: 'created_at',
-                                                                            text: 'dátumu pridania',
-                                                                        },
-                                                                        {
-                                                                            value: 'title',
-                                                                            text: 'názvu',
-                                                                        },
-                                                                        {
-                                                                            value: 'author',
-                                                                            text: 'autora',
-                                                                        },
-                                                                        {
-                                                                            value: 'newest',
-                                                                            text: 'dotovania - od najnovšieho',
-                                                                        },
-                                                                        {
-                                                                            value: 'oldest',
-                                                                            text: 'dotovania - od najstaršieho',
-                                                                        },
-                                                                        {
-                                                                            value: 'view_count',
-                                                                            text: 'počtu videní',
-                                                                        },
-                                                                        {
-                                                                            value: 'random',
-                                                                            text: 'náhodného poradia',
-                                                                        },
-                                                                    ]" />
+                                    {
+                                        value: null,
+                                        text: 'podľa poslednej zmeny',
+                                    },
+                                    {
+                                        value: 'created_at',
+                                        text: 'dátumu pridania',
+                                    },
+                                    {
+                                        value: 'title',
+                                        text: 'názvu',
+                                    },
+                                    {
+                                        value: 'author',
+                                        text: 'autora',
+                                    },
+                                    {
+                                        value: 'newest',
+                                        text: 'dotovania - od najnovšieho',
+                                    },
+                                    {
+                                        value: 'oldest',
+                                        text: 'dotovania - od najstaršieho',
+                                    },
+                                    {
+                                        value: 'view_count',
+                                        text: 'počtu videní',
+                                    },
+                                    {
+                                        value: 'random',
+                                        text: 'náhodného poradia',
+                                    },
+                                ]">
+                </filter-new-sort>
             </div>
-        </filter-new>
+        </filter-new-items-controller>
     </section>
 
 @stop
