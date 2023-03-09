@@ -1,35 +1,66 @@
 <script>
-import queryString from 'query-string'
-//TODO: import axios from 'axios'
+import qs from 'qs'
+import axios from 'axios'
 
 function getParsedUrl() {
-    return queryString.parseUrl(window.location.href, {
+    return qs.parse(window.location.search, {
         arrayFormat: 'bracket',
+        ignoreQueryPrefix: true,
     })
 }
 
-function stringifyUrl({ url, query }) {
-    return queryString.stringifyUrl(
-        { url, query },
-        {
-            arrayFormat: 'bracket',
-            skipNull: true,
-        }
-    )
+function stringifyUrl({ url, params }) {
+    const { filter, size, terms, yearRange } = params
+    const { yearFrom, yearTo, author, color, is_free, has_image, has_iip, has_text, sort } =
+        filter || {}
+
+    const newQuery = {
+        filter: {
+            date_earliest: { lte: yearTo },
+            date_latest: { gte: yearFrom },
+            author: author,
+            color: color,
+            is_free: is_free,
+            has_image: has_image,
+            has_iip: has_iip,
+            has_text: has_text,
+        },
+        sort: {
+            [sort]: SORT_DIRECTIONS[sort],
+        },
+        terms,
+        size,
+        ...yearRange,
+    }
+    return url + '?' + qs.stringify(newQuery, { skipNulls: true, arrayFormat: 'brackets' })
 }
 
-const singleItemFilters = ['color', 'yearFrom', 'yearTo']
-const emptyQuery = {
-    authors: [],
+const PAGE_SIZE = 30
+const AGGREGATIONS_SIZE = 1000
+const SINGLE_ITEM_FILTERS = ['color', 'yearFrom', 'yearTo']
+const SORT_DIRECTIONS = {
+    date_earliest: 'desc',
+    date_latest: 'asc',
+    created_at: 'asc',
+    author: 'asc',
+    title: 'asc',
+    view_count: 'desc',
+    random: 'asc',
+}
+const EMPTY_QUERY = {
+    author: [],
     color: null,
     yearFrom: null,
     yearTo: null,
 }
+const AGGREGATION_TERMS = {
+    author: 'author',
+}
 
 export default {
     props: {
-        //TODO: remove once we have api
-        authors: Array,
+        yearMin: Number,
+        yearMax: Number,
     },
     data() {
         return {
@@ -37,7 +68,7 @@ export default {
             isFetching: false,
             artworks: [],
             filters: {},
-            query: { ...emptyQuery, ...getParsedUrl().query },
+            query: { ...EMPTY_QUERY, ...getParsedUrl().filter },
         }
     },
     async created() {
@@ -47,10 +78,10 @@ export default {
         selectedOptionsAsLabels() {
             return Object.entries(this.query)
                 .filter(([filterName, _]) =>
-                    ['authors', 'color', 'yearFrom', 'yearTo'].includes(filterName)
+                    ['author', 'color', 'yearFrom', 'yearTo'].includes(filterName)
                 )
                 .map(([filterName, filterValues]) => {
-                    if (singleItemFilters.includes(filterName) && filterValues) {
+                    if (SINGLE_ITEM_FILTERS.includes(filterName) && filterValues) {
                         return {
                             value: filterValues,
                             filterName,
@@ -71,11 +102,11 @@ export default {
         clearFilterSelection(filterName) {
             this.query = {
                 ...this.query,
-                [filterName]: emptyQuery[filterName],
+                [filterName]: EMPTY_QUERY[filterName],
             }
         },
         clearAllSelections() {
-            this.query = { ...emptyQuery }
+            this.query = { ...EMPTY_QUERY }
         },
         handleColorChange(color) {
             this.query = {
@@ -105,10 +136,10 @@ export default {
             }
         },
         removeSelection({ filterName: name, value }) {
-            if (singleItemFilters.includes(name)) {
+            if (SINGLE_ITEM_FILTERS.includes(name)) {
                 this.query = {
                     ...this.query,
-                    [name]: emptyQuery[name],
+                    [name]: EMPTY_QUERY[name],
                 }
                 return
             }
@@ -139,14 +170,37 @@ export default {
 
             try {
                 //TODO: Year range from BE
+                const filters = await axios
+                    .get(
+                        stringifyUrl({
+                            url: '/api/v1/items/aggregations',
+                            params: {
+                                filter: this.query,
+                                terms: AGGREGATION_TERMS,
+                                size: AGGREGATION_SIZE,
+                            },
+                        })
+                    )
+                    .then(({ data }) => data)
+
                 this.filters = {
                     ...this.filters,
-                    authors: this.authors,
-                    yearMin: -1000,
-                    yearMax: 2023,
+                    ...filters,
+                    yearMin: this.yearMin,
+                    yearMax: this.yearMax
                 }
-                // TODO: Fetch options
-                // TODO: Fetch artworks
+
+                this.artworks = await axios
+                    .get(
+                        stringifyUrl({
+                            url: '/api/v1/items',
+                            params: {
+                                filter: this.query,
+                                size: PAGE_SIZE,
+                            },
+                        })
+                    )
+                    .then(({ data }) => data)
                 this.isFetching = false
             } catch (e) {
                 this.isFetching = false
@@ -157,10 +211,10 @@ export default {
     watch: {
         query(newQuery) {
             this.fetchData()
-
-            const { url } = getParsedUrl()
-
-            const newUrl = stringifyUrl({ url, query: { ...newQuery } })
+            const newUrl = stringifyUrl({
+                url: window.location.pathname,
+                params: { filter: { ...newQuery } },
+            })
 
             window.history.replaceState(
                 newUrl,
@@ -174,6 +228,7 @@ export default {
             isExtendedOpen: this.isExtendedOpen,
             query: this.query,
             filters: this.filters,
+            artworks: this.artworks,
             toggleIsExtendedOpen: this.toggleIsExtendedOpen,
             handleSortChange: this.handleSortChange,
             handleYearRangeChange: this.handleYearRangeChange,
