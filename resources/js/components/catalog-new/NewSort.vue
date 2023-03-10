@@ -6,7 +6,16 @@
                 <a
                     class="tw-font-bold tw-underline tw-decoration-2 tw-underline-offset-4"
                     @click="toggleIsOpen()"
-                    >{{ selectedOptionValue }}<span class="caret"></span>
+                    >{{ selectedOptionValue
+                    }}<svg
+                        class="tw-inline tw-w-4 tw-h-4 tw-fill-current"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 256 256"
+                    >
+                        <path
+                            d="M216.49,104.49l-80,80a12,12,0,0,1-17,0l-80-80a12,12,0,0,1,17-17L128,159l71.51-71.52a12,12,0,0,1,17,17Z"
+                        ></path>
+                    </svg>
                 </a>
                 <div
                     v-if="isOpen"
@@ -17,9 +26,9 @@
                             class="tw-pl-2 hover:tw-bg-gray-200"
                             v-for="option in selectableOptions"
                         >
-                            <a class="tw-w-full tw-block" @click="onSortChange(option.value)">
-                                {{ option.text }}</a
-                            >
+                            <a class="tw-w-full tw-block" @click="onSortChange(option.value)">{{
+                                option.text
+                            }}</a>
                         </li>
                     </ul>
                 </div>
