@@ -177,7 +177,7 @@ export default {
                             params: {
                                 filter: this.query,
                                 terms: AGGREGATION_TERMS,
-                                size: AGGREGATION_SIZE,
+                                size: AGGREGATIONS_SIZE,
                             },
                         })
                     )
