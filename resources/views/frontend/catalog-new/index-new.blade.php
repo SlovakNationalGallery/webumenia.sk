@@ -247,9 +247,7 @@
                         diel, zoradených
                         podľa</span>
                 </filter-new-sort>
-                <div v-for="artwork in artworks.data">
-                    @{{ artwork.id }}
-                </div>
+                <filter-masonry></filter-masonry>
             </div>
         </filter-new-items-controller>
     </section>
