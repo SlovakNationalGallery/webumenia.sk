@@ -247,7 +247,7 @@
                         diel, zoradených
                         podľa</span>
                 </filter-new-sort>
-                <filter-masonry></filter-masonry>
+                <filter-masonry url="https://www.webumenia.sk/dielo/nahlad/" :artworks="artworks.data"></filter-masonry>
             </div>
         </filter-new-items-controller>
     </section>

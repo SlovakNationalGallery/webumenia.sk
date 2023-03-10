@@ -65,6 +65,7 @@ export default {
             artworks: [],
             filters: {},
             query: { ...EMPTY_QUERY, ...getParsedUrl().filter },
+            page: null,
         }
     },
     async created() {

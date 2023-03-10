@@ -1,37 +1,25 @@
 <template>
-    <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 160 }'>
-        <div class="grid-item"></div>
-        <div class="grid-item grid-item--width2 grid-item--height2"></div>
-        <div class="grid-item grid-item--height3"></div>
-        <div class="grid-item grid-item--height2"></div>
-        <div class="grid-item grid-item--width3"></div>
-        <div class="grid-item"></div>
-        <div class="grid-item"></div>
-        <div class="grid-item grid-item--height2"></div>
-        <div class="grid-item grid-item--width2 grid-item--height3"></div>
-        <div class="grid-item"></div>
-        <div class="grid-item grid-item--height2"></div>
-        <div class="grid-item"></div>
-        <div class="grid-item grid-item--width2 grid-item--height2"></div>
-        <div class="grid-item grid-item--width2"></div>
-        <div class="grid-item"></div>
-        <div class="grid-item grid-item--height2"></div>
-        <div class="grid-item"></div>
-        <div class="grid-item"></div>
-        <div class="grid-item grid-item--height3"></div>
-        <div class="grid-item grid-item--height2"></div>
-        <div class="grid-item"></div>
-        <div class="grid-item"></div>
-        <div class="grid-item grid-item--height2"></div>
+    <div>
+        <div v-masonry="containerId" transition-duration="0.3s" item-selector=".item">
+            <div v-masonry-tile class="item tw-w-1/3" v-for="artwork in artworks">
+                <img :src="`${url}${artwork.id}/600`" />
+                <span>{{ artwork.content.title }}</span>
+            </div>
+        </div>
+        <div>
+            <button>show more</button>
+        </div>
     </div>
 </template>
 
 <script>
-import Masonry from 'masonry-layout'
+import { VueMasonryPlugin } from 'vue-masonry'
+Vue.use(VueMasonryPlugin)
 
 export default {
     props: {
         artworks: Array,
+        url: String,
     },
     methods: {},
 }

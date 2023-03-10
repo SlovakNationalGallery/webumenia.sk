@@ -26,7 +26,6 @@ import 'livewire-vue'
 import { Lang } from 'laravel-vue-lang';
 
 
-
 window.Vue = Vue
 Vue.use(Lang, { fallback: 'sk' })
 Vue.component('featured-piece-click-tracker', require('./components/FeaturedPieceClickTracker.vue').default);
