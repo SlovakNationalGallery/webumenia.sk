@@ -58,10 +58,6 @@ const AGGREGATION_TERMS = {
 }
 
 export default {
-    props: {
-        yearMin: Number,
-        yearMax: Number,
-    },
     data() {
         return {
             isExtendedOpen: true,
@@ -186,8 +182,6 @@ export default {
                 this.filters = {
                     ...this.filters,
                     ...filters,
-                    yearMin: this.yearMin,
-                    yearMax: this.yearMax
                 }
 
                 this.artworks = await axios

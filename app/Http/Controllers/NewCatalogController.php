@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Authority;
+use App\Item;
+use Illuminate\Support\Facades\Cache;
 
 class NewCatalogController extends Controller
 {
@@ -14,7 +15,19 @@ class NewCatalogController extends Controller
      */
     public function index()
     {
-        $authors = Authority::latest()->take(10)->get();
-        return view('frontend.catalog-new.index-new',['authors' => $authors]);
+        $authors = Authority::latest()
+            ->take(10)
+            ->get();
+
+        $yearLimits = Cache::remember(
+            'items.year-limits',
+            now()->addHours(1),
+            fn() => Item::getYearLimits()
+        );
+
+        return view('frontend.catalog-new.index-new', [
+            'authors' => $authors,
+            'yearLimits' => $yearLimits,
+        ]);
     }
 }
