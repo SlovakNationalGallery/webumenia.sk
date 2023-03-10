@@ -5,7 +5,6 @@ namespace Tests\Feature\Api\V1;
 use App\Elasticsearch\Repositories\ItemRepository;
 use App\Item;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Mockery;
 use Tests\RecreateSearchIndex;
 use Tests\TestCase;
 
