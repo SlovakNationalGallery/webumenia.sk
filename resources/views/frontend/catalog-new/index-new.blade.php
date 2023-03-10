@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="tailwind-rules">
-        <filter-new-items-controller :year-min="-475" :year-max="2023"
+        <filter-new-items-controller
             v-slot="{ isExtendedOpen, toggleIsExtendedOpen, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, filters, artworks }">
             <div class="tw-relative">
                 <div class="tw-bg-gray-200 tw-p-16 md:tw-pb-0">
@@ -64,8 +64,9 @@
                                             <filter-new-year-slider
                                                 :default-from="Number(query.yearFrom)"
                                                 :default-to="Number(query.yearTo)"
-                                                @change="handleYearRangeChange" :min="filters.yearMin"
-                                                :max="filters.yearMax">
+                                                :min="{{ $yearLimits['min'] ?? 0 }}"
+                                                :max="{{ $yearLimits['max'] ?? now()->year }}"
+                                                @change="handleYearRangeChange">
                                             </filter-new-year-slider>
                                         </div>
                                     </div>

@@ -11,8 +11,8 @@ use App\Matchers\AuthorityMatcher;
 use Astrotomic\Translatable\Translatable;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Chelout\RelationshipEvents\Concerns\HasBelongsToManyEvents;
-use ElasticScoutDriverPlus\Builders\BoolQueryBuilder;
 use ElasticScoutDriverPlus\Searchable;
+use ElasticScoutDriverPlus\Support\Query;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
@@ -147,6 +147,31 @@ class Item extends Model implements IndexableModel, TranslatableContract
     public function getCitation()
     {
         return $this->getTitleWithAuthors() . ', ' . $this->getDatingFormated() . ', ' . $this->gallery . ', ' . $this->getUrl();
+    }
+
+    // Get limits from elastic, because date_earliest and date_latest 
+    // are not indexed in DB
+    public static function getYearLimits()
+    {
+        $searchResult = self::searchQuery(Query::matchAll())
+            ->size(false)
+            ->aggregate('min', [
+                'min' => [
+                    'field' => 'date_earliest',
+                ],
+            ])
+            ->aggregate('max', [
+                'max' => [
+                    'field' => 'date_latest',
+                ],
+            ])
+            ->execute()
+            ->raw();
+
+        return [
+            'min' => $searchResult['aggregations']['min']['value'],
+            'max' => $searchResult['aggregations']['max']['value'],
+        ];
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata) {
