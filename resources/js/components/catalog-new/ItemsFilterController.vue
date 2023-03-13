@@ -10,7 +10,7 @@ function getParsedUrl() {
 }
 
 function stringifyUrl({ url, params }) {
-    const { filter, size, terms, yearRange } = params
+    const { filter, size, terms, yearRange, page } = params
     const { yearFrom, yearTo, author, color, is_free, has_image, has_iip, has_text, sort } =
         filter || {}
 
@@ -28,6 +28,7 @@ function stringifyUrl({ url, params }) {
         sort: {
             [sort]: SORT_DIRECTIONS[sort],
         },
+        page,
         terms,
         size,
         ...yearRange,
@@ -162,11 +163,12 @@ export default {
                 [name]: this.query[name].filter((v) => v !== value),
             }
         },
+        incrementPage() {
+            this.page = this.page ? this.page + 1 : 2
+        },
         async fetchData() {
             this.isFetching = true
-
             try {
-                //TODO: Year range from BE
                 const filters = await axios
                     .get(
                         stringifyUrl({
@@ -185,17 +187,25 @@ export default {
                     ...filters,
                 }
 
-                this.artworks = await axios
+                const fetchedArtworks = await axios
                     .get(
                         stringifyUrl({
                             url: '/api/v1/items',
                             params: {
                                 filter: this.query,
                                 size: PAGE_SIZE,
+                                page: this.page,
                             },
                         })
                     )
                     .then(({ data }) => data)
+
+                if (this.page) {
+                    this.artworks = [...this.artworks, ...fetchedArtworks.data]
+                } else {
+                    this.artworks = fetchedArtworks.data
+                }
+
                 this.isFetching = false
             } catch (e) {
                 this.isFetching = false
@@ -204,6 +214,11 @@ export default {
         },
     },
     watch: {
+        page(newPage, oldPage) {
+            if (newPage > oldPage) {
+                this.fetchData()
+            }
+        },
         query(newQuery) {
             this.fetchData()
             const newUrl = stringifyUrl({
@@ -222,9 +237,11 @@ export default {
         return this.$scopedSlots.default({
             isExtendedOpen: this.isExtendedOpen,
             query: this.query,
+            page: this.page,
             filters: this.filters,
             artworks: this.artworks,
             toggleIsExtendedOpen: this.toggleIsExtendedOpen,
+            incrementPage: this.incrementPage,
             handleSortChange: this.handleSortChange,
             handleYearRangeChange: this.handleYearRangeChange,
             handleCheckboxChange: this.handleCheckboxChange,

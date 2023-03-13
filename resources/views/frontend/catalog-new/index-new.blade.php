@@ -3,7 +3,7 @@
 @section('content')
     <section class="tailwind-rules">
         <filter-new-items-controller
-            v-slot="{ isExtendedOpen, toggleIsExtendedOpen, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, filters, artworks }">
+            v-slot="{ isExtendedOpen, toggleIsExtendedOpen, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, filters, artworks, page }">
             <div class="tw-relative">
                 <div class="tw-bg-gray-200 tw-py-6 tw-px-4 md:tw-p-16 md:tw-pb-0">
                     {{-- Desktop filter --}}
@@ -27,8 +27,9 @@
                                         <button
                                             class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
                                             @click="clearFilterSelection('author')">
-                                            <svg class="tw-mr-1.5 tw-w-4 tw-h-4 tw-fill-current"
-                                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+                                            <svg class="tw-mr-1.5 tw-h-4 tw-w-4 tw-fill-current"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 256 256">
                                                 <path
                                                     d="M228,128a100,100,0,0,1-98.66,100H128a99.39,99.39,0,0,1-68.62-27.29,12,12,0,0,1,16.48-17.45,76,76,0,1,0-1.57-109c-.13.13-.25.25-.39.37L54.89,92H72a12,12,0,0,1,0,24H24a12,12,0,0,1-12-12V56a12,12,0,0,1,24,0V76.72L57.48,57.06A100,100,0,0,1,228,128Z">
                                                 </path>
@@ -95,7 +96,8 @@
                                 <button @click="dc.goTo('index')"
                                     class="tw-w-full tw-border tw-border-gray-300 tw-py-2 tw-px-3 tw-font-medium hover:tw-border-gray-800">
                                     <div class="tw-flex tw-justify-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="tw-w-6 tw-h-6 tw-fill-current" viewBox="0 0 256 256">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="tw-h-6 tw-w-6 tw-fill-current" viewBox="0 0 256 256">
                                             <path
                                                 d="M40,92H70.06a36,36,0,0,0,67.88,0H216a12,12,0,0,0,0-24H137.94a36,36,0,0,0-67.88,0H40a12,12,0,0,0,0,24Zm64-24A12,12,0,1,1,92,80,12,12,0,0,1,104,68Zm112,96H201.94a36,36,0,0,0-67.88,0H40a12,12,0,0,0,0,24h94.06a36,36,0,0,0,67.88,0H216a12,12,0,0,0,0-24Zm-48,24a12,12,0,1,1,12-12A12,12,0,0,1,168,188Z">
                                             </path>
@@ -118,56 +120,62 @@
                                             </filter-disclosure-list-button>
                                             <div
                                                 class="tw-flex tw-min-h-0 tw-w-full tw-flex-1 tw-flex-col tw-overflow-auto tw-py-2">
-                                                <filter-new-custom-checkbox @change="handleCheckboxChange"
+                                                <filter-new-custom-checkbox
+                                                    @change="handleCheckboxChange"
                                                     :checked="Boolean(query['has_image'])"
                                                     title="Len s obrázkom" name="has_image"
                                                     id="has_image_desktop">
                                                 </filter-new-custom-checkbox>
-                                                <filter-new-custom-checkbox @change="handleCheckboxChange"
+                                                <filter-new-custom-checkbox
+                                                    @change="handleCheckboxChange"
                                                     :checked="Boolean(query['has_iip'])"
                                                     title="Len so zoomom" name="has_iip"
                                                     id="has_iip_desktop">
                                                 </filter-new-custom-checkbox>
-                                                <filter-new-custom-checkbox @change="handleCheckboxChange"
-                                                    :checked="Boolean(query['is_free'])" title="Len voľné"
-                                                    name="is_free" id="is_free_desktop">
+                                                <filter-new-custom-checkbox
+                                                    @change="handleCheckboxChange"
+                                                    :checked="Boolean(query['is_free'])"
+                                                    title="Len voľné" name="is_free"
+                                                    id="is_free_desktop">
                                                 </filter-new-custom-checkbox>
-                                                <filter-new-custom-checkbox @change="handleCheckboxChange"
+                                                <filter-new-custom-checkbox
+                                                    @change="handleCheckboxChange"
                                                     :checked="Boolean(query['has_text'])"
                                                     title="Len s textom" name="has_text"
                                                     id="has_text_desktop">
                                                 </filter-new-custom-checkbox>
                                             </div>
-                                    </template>
-                                </filter-disclosure-view>
-                                <filter-disclosure-view v-if="dc.view === 'author'" @close="dc.close"
-                                    @reset="clearFilterSelection('author')">
-                                    <template #header>
-                                        <div class="tw-flex tw-items-center">
-                                            <button @click="dc.goTo('index')" class="tw-pr-2">
-                                                <svg xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 256 256"
-                                                    class="tw-h-6 tw-w-6 tw-fill-current">
-                                                    <path
-                                                        d="M168.49,199.51a12,12,0,0,1-17,17l-80-80a12,12,0,0,1,0-17l80-80a12,12,0,0,1,17,17L97,128Z">
-                                                    </path>
-                                                </svg> </button>
-                                            <filter-new-custom-select-popover-label name="author"
-                                                :selected-values="query['author']">
-                                            </filter-new-custom-select-popover-label>
-                                    </template>
-                                    <template #body>
-                                        <div
-                                            class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                            <filter-new-options filter-name="author"
-                                                placeholder="Napíšte meno autora / autorky"
-                                                @change="handleMultiSelectChange"
-                                                :selected-values="query['author']"
-                                                :filter="filters['author']">
-                                            </filter-new-options>
-                                        </div>
-                                    </template>
-                                </filter-disclosure-view>
+                                        </template>
+                                    </filter-disclosure-view>
+                                    <filter-disclosure-view v-if="dc.view === 'author'"
+                                        @close="dc.close" @reset="clearFilterSelection('author')">
+                                        <template #header>
+                                            <div class="tw-flex tw-items-center">
+                                                <button @click="dc.goTo('index')"
+                                                    class="tw-pr-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 256 256"
+                                                        class="tw-h-6 tw-w-6 tw-fill-current">
+                                                        <path
+                                                            d="M168.49,199.51a12,12,0,0,1-17,17l-80-80a12,12,0,0,1,0-17l80-80a12,12,0,0,1,17,17L97,128Z">
+                                                        </path>
+                                                    </svg> </button>
+                                                <filter-new-custom-select-popover-label name="author"
+                                                    :selected-values="query['author']">
+                                                </filter-new-custom-select-popover-label>
+                                        </template>
+                                        <template #body>
+                                            <div
+                                                class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
+                                                <filter-new-options filter-name="author"
+                                                    placeholder="Napíšte meno autora / autorky"
+                                                    @change="handleMultiSelectChange"
+                                                    :selected-values="query['author']"
+                                                    :filter="filters['author']">
+                                                </filter-new-options>
+                                            </div>
+                                        </template>
+                                    </filter-disclosure-view>
                                 </template #body>
                                 <template #footer>
                                     <button class="tw-m-4 tw-w-full tw-bg-sky-300 tw-p-4"
@@ -247,7 +255,8 @@
                         diel, zoradených
                         podľa</span>
                 </filter-new-sort>
-                <filter-masonry url="https://www.webumenia.sk/dielo/nahlad/" :artworks="artworks.data"></filter-masonry>
+                <filter-masonry url="https://www.webumenia.sk/dielo/nahlad/" :page="page"
+                    @click="incrementPage" :artworks="artworks"></filter-masonry>
             </div>
         </filter-new-items-controller>
     </section>

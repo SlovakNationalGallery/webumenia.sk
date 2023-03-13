@@ -7,7 +7,7 @@
             </div>
         </div>
         <div>
-            <button>show more</button>
+            <button @click="$emit('click')">show more</button>
         </div>
     </div>
 </template>
@@ -20,7 +20,7 @@ export default {
     props: {
         artworks: Array,
         url: String,
+        page: Number
     },
-    methods: {},
 }
 </script>
