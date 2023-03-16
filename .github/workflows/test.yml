@@ -17,7 +17,7 @@ jobs:
           - 3306
 
       elasticsearch:
-        image: slovaknationalgallery/elasticsearch-webumenia:7.3.1
+        image: ghcr.io/slovaknationalgallery/elasticsearch-webumenia:7.3.1
         env:
           discovery.type: single-node
         ports:
