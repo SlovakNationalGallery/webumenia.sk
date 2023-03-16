@@ -183,6 +183,7 @@ export default {
                     .then(({ data }) => data)
 
                 if (replaceArtworks) {
+                    this.page = null
                     this.artworks = fetchedArtworks.data
                     const filters = await axios
                         .get(
@@ -235,6 +236,7 @@ export default {
     render() {
         return this.$scopedSlots.default({
             isExtendedOpen: this.isExtendedOpen,
+            isFetching: this.isFetching,
             query: this.query,
             page: this.page,
             filters: this.filters,

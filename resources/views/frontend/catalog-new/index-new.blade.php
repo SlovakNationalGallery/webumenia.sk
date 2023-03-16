@@ -2,8 +2,8 @@
 
 @section('content')
     <section class="tailwind-rules">
-        <filter-new-items-controller
-            v-slot="{ isExtendedOpen, toggleIsExtendedOpen, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, filters, artworks, page }">
+        <filter-new-items-controller 
+            v-slot="{ isExtendedOpen, isFetching, toggleIsExtendedOpen, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, incrementPage, clearFilterSelection, clearAllSelections, removeSelection, query, filters, artworks, page }">
             <div class="tw-relative">
                 <div class="tw-bg-gray-200 tw-py-6 tw-px-4 md:tw-p-16 md:tw-pb-0">
                     {{-- Desktop filter --}}
@@ -213,51 +213,57 @@
                     </filter-new-selected-labels>
                 </div>
                 <div class="tw-px-4 md:tw-p-16">
-                <filter-new-sort :sort="query.sort" :handle-sort-change="handleSortChange" :options="[
-                                    {
-                                        value: null,
-                                        text: 'podľa poslednej zmeny',
-                                    },
-                                    {
-                                        value: 'created_at',
-                                        text: 'dátumu pridania',
-                                    },
-                                    {
-                                        value: 'title',
-                                        text: 'názvu',
-                                    },
-                                    {
-                                        value: 'author',
-                                        text: 'autora',
-                                    },
-                                    {
-                                        value: 'date_earliest',
-                                        text: 'datovanie - od najnovšieho',
-                                    },
-                                    {
-                                        value: 'date_latest',
-                                        text: 'datovanie - od najstaršieho',
-                                    },
-                                    {
-                                        value: 'view_count',
-                                        text: 'počtu videní',
-                                    },
-                                    {
-                                        value: 'random',
-                                        text: 'náhodného poradia',
-                                    },
-                                ]">
-                    <span v-if="artworks.total === 1">Zobrazujem <span class="tw-font-bold">1</span>
-                        dielo, zoradené podľa</span>
-                    <span v-else-if="artworks.total < 5">Zobrazujem <span
-                            class="tw-font-bold">@{{ artworks['total'] }}</span> diela, zoradené
-                        podľa</span>
-                    <span v-else>Zobrazujem <span class="tw-font-bold">@{{ artworks['total'] }}</span>
-                        diel, zoradených
-                        podľa</span>
-                </filter-new-sort>
-                <filter-masonry url="https://www.webumenia.sk/dielo/nahlad/" :page="page"
-                    @click="incrementPage" :artworks="artworks"></filter-masonry>
+                    <filter-new-sort :sort="query.sort" :handle-sort-change="handleSortChange" :options="[
+                                        {
+                                            value: null,
+                                            text: 'podľa poslednej zmeny',
+                                        },
+                                        {
+                                            value: 'created_at',
+                                            text: 'dátumu pridania',
+                                        },
+                                        {
+                                            value: 'title',
+                                            text: 'názvu',
+                                        },
+                                        {
+                                            value: 'author',
+                                            text: 'autora',
+                                        },
+                                        {
+                                            value: 'date_earliest',
+                                            text: 'datovanie - od najnovšieho',
+                                        },
+                                        {
+                                            value: 'date_latest',
+                                            text: 'datovanie - od najstaršieho',
+                                        },
+                                        {
+                                            value: 'view_count',
+                                            text: 'počtu videní',
+                                        },
+                                        {
+                                            value: 'random',
+                                            text: 'náhodného poradia',
+                                        },
+                                    ]">
+                        <span v-if="artworks.total === 1">Zobrazujem <span
+                                class="tw-font-bold">1</span>
+                            dielo, zoradené podľa</span>
+                        <span v-else-if="artworks.total < 5">Zobrazujem <span
+                                class="tw-font-bold">@{{ artworks['total'] }}</span> diela, zoradené
+                            podľa</span>
+                        <span v-else>Zobrazujem <span
+                                class="tw-font-bold">@{{ artworks['total'] }}</span>
+                            diel, zoradených
+                            podľa</span>
+                    </filter-new-sort>
+                    <div class="tw-min-h-screen">
+                        <transition appear name="fade">
+                            <filter-masonry v-if="!isFetching || page" class="tw-transition-opacity" url="https://www.webumenia.sk/dielo/nahlad/"
+                                :page="page" @click="incrementPage" :artworks="artworks"></filter-masonry>
+                        </transition>
+                    </div>
                 </div>
             </div>
         </filter-new-items-controller>

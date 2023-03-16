@@ -1,8 +1,17 @@
 <template>
     <div>
-        <div v-masonry="containerId" transition-duration="0.3s" item-selector=".item">
-            <div v-masonry-tile class="item tw-w-1/3 tw-p-2" v-for="artwork in artworks">
-                <img :src="`${url}${artwork.id}/600`" />
+        <div v-masonry transition-duration="0" item-selector=".item">
+            <div
+                v-masonry-tile
+                class="item tw-w-1/3 tw-p-2"
+                v-for="artwork in artworks"
+                :key="artwork.id"
+            >
+                <ArtworkImage
+                    :src="`${url}${artwork.id}`"
+                    :ratio="artwork.content.image_ratio"
+                    :hsl="artwork.content.hsl"
+                ></ArtworkImage>
                 <span>{{ artwork.content.title }}</span>
             </div>
         </div>
@@ -14,6 +23,8 @@
 
 <script>
 import { VueMasonryPlugin } from 'vue-masonry'
+import ArtworkImage from './ArtworkImage.vue'
+
 Vue.use(VueMasonryPlugin)
 
 export default {
@@ -22,5 +33,6 @@ export default {
         url: String,
         page: Number,
     },
+    components: { ArtworkImage },
 }
 </script>
