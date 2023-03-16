@@ -259,10 +259,9 @@
                             podľa</span>
                     </filter-new-sort>
                     <div class="tw-min-h-screen">
-                        <transition appear name="fade">
-                            <filter-masonry v-if="!isFetching || page" class="tw-transition-opacity" url="https://www.webumenia.sk/dielo/nahlad/"
-                                :page="page" @click="incrementPage" :artworks="artworks"></filter-masonry>
-                        </transition>
+                        <filter-masonry v-if="!isFetching || page" :key="JSON.stringify(query)"
+                            url="https://www.webumenia.sk/dielo/nahlad/" :page="page"
+                            @loadmore="incrementPage" :artworks="artworks"></filter-masonry>
                     </div>
                 </div>
             </div>

@@ -16,7 +16,9 @@
             </div>
         </div>
         <div>
-            <button @click="$emit('click')">show more</button>
+            <button :class="{ 'tw-invisible': this.page }" ref="more" @click="$emit('loadmore')">
+                show more
+            </button>
         </div>
     </div>
 </template>
@@ -32,6 +34,21 @@ export default {
         artworks: Array,
         url: String,
         page: Number,
+    },
+    mounted() {
+        const options = {
+            rootMargin: '0px',
+            threshold: 1.0,
+        }
+        this.observer = new IntersectionObserver(this.handleObserver.bind(this), options)
+        this.observer.observe(this.$refs.more)
+    },
+    methods: {
+        handleObserver() {
+            if (this.page) {
+                this.$emit('loadmore')
+            }
+        },
     },
     components: { ArtworkImage },
 }
