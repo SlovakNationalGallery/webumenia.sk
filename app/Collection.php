@@ -43,7 +43,9 @@ class Collection extends Model implements TranslatableContract
         'name' => 'sortable.title',
     ];
 
-    protected $dates = ['created_at', 'updated_at', 'published_at'];
+    protected $casts = [
+        'published_at' => 'datetime',
+    ];
 
     public function items()
     {

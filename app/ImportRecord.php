@@ -16,7 +16,10 @@ class ImportRecord extends Model
 
     protected $fillable = ['status', 'started_at', 'filename'];
 
-    protected $dates = ['created_at', 'updated_at', 'started_at', 'completed_at'];
+    protected $casts = [
+        'started_at' => 'datetime',
+        'completed_at' => 'datetime',
+    ];
 
     protected $attributes = [
         'status' => self::STATUS_NEW,
