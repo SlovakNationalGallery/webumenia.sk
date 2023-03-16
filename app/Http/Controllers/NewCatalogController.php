@@ -22,7 +22,6 @@ class NewCatalogController extends Controller
         );
 
         return view('frontend.catalog-new.index-new', [
-            'authors' => $authors,
             'yearLimits' => $yearLimits,
         ]);
     }
