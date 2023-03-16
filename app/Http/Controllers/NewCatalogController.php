@@ -15,10 +15,6 @@ class NewCatalogController extends Controller
      */
     public function index()
     {
-        $authors = Authority::latest()
-            ->take(10)
-            ->get();
-
         $yearLimits = Cache::remember(
             'items.year-limits',
             now()->addHours(1),
