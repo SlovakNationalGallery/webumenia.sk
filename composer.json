@@ -53,10 +53,10 @@
         "deployer/deployer": "v7.x",
         "fakerphp/faker": "^1.19",
         "filp/whoops": "~2.0",
-        "laravel/browser-kit-testing": "^6.2",
+        "laravel/browser-kit-testing": "^7.0",
         "mockery/mockery": "^1.4.4",
-        "nunomaduro/collision": "^6.1",
-        "phpunit/phpunit": "^9.5.10",
+        "nunomaduro/collision": "^7.0",
+        "phpunit/phpunit": "^10.0",
         "spatie/laravel-ignition": "^2.0"
     },
     "config": {

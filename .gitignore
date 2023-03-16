@@ -12,7 +12,7 @@ Thumbs.db
 public/sitemap.xml
 .env
 .env.testing
-.phpunit.result.cache
+.phpunit.cache
 /public/css/admin.css
 /public/css/style.css
 /public/css/app-tailwind.css
