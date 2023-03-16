@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-masonry="containerId" transition-duration="0.3s" item-selector=".item">
-            <div v-masonry-tile class="item tw-w-1/3" v-for="artwork in artworks">
+            <div v-masonry-tile class="item tw-w-1/3 tw-p-2" v-for="artwork in artworks">
                 <img :src="`${url}${artwork.id}/600`" />
                 <span>{{ artwork.content.title }}</span>
             </div>

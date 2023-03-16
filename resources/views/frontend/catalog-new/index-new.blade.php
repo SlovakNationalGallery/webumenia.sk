@@ -212,6 +212,7 @@
                         :selected-options-as-labels="selectedOptionsAsLabels" :selected-values="query">
                     </filter-new-selected-labels>
                 </div>
+                <div class="tw-px-4 md:tw-p-16">
                 <filter-new-sort :sort="query.sort" :handle-sort-change="handleSortChange" :options="[
                                     {
                                         value: null,
@@ -257,6 +258,7 @@
                 </filter-new-sort>
                 <filter-masonry url="https://www.webumenia.sk/dielo/nahlad/" :page="page"
                     @click="incrementPage" :artworks="artworks"></filter-masonry>
+                </div>
             </div>
         </filter-new-items-controller>
     </section>
