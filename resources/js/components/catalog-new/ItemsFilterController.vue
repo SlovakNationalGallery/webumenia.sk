@@ -70,7 +70,7 @@ export default {
         }
     },
     async created() {
-        this.fetchData()
+        this.fetchData({ replaceArtworks: true })
     },
     computed: {
         selectedOptionsAsLabels() {
@@ -166,27 +166,9 @@ export default {
         incrementPage() {
             this.page = this.page ? this.page + 1 : 2
         },
-        async fetchData() {
+        async fetchData({ replaceArtworks }) {
             this.isFetching = true
             try {
-                const filters = await axios
-                    .get(
-                        stringifyUrl({
-                            url: '/api/v1/items/aggregations',
-                            params: {
-                                filter: this.query,
-                                terms: AGGREGATION_TERMS,
-                                size: AGGREGATIONS_SIZE,
-                            },
-                        })
-                    )
-                    .then(({ data }) => data)
-
-                this.filters = {
-                    ...this.filters,
-                    ...filters,
-                }
-
                 const fetchedArtworks = await axios
                     .get(
                         stringifyUrl({
@@ -200,10 +182,27 @@ export default {
                     )
                     .then(({ data }) => data)
 
-                if (this.page) {
-                    this.artworks = [...this.artworks, ...fetchedArtworks.data]
-                } else {
+                if (replaceArtworks) {
                     this.artworks = fetchedArtworks.data
+                    const filters = await axios
+                        .get(
+                            stringifyUrl({
+                                url: '/api/v1/items/aggregations',
+                                params: {
+                                    filter: this.query,
+                                    terms: AGGREGATION_TERMS,
+                                    size: AGGREGATIONS_SIZE,
+                                },
+                            })
+                        )
+                        .then(({ data }) => data)
+
+                    this.filters = {
+                        ...this.filters,
+                        ...filters,
+                    }
+                } else {
+                    this.artworks = [...this.artworks, ...fetchedArtworks.data]
                 }
 
                 this.isFetching = false
@@ -216,11 +215,11 @@ export default {
     watch: {
         page(newPage, oldPage) {
             if (newPage > oldPage) {
-                this.fetchData()
+                this.fetchData({ replaceArtworks: false })
             }
         },
         query(newQuery) {
-            this.fetchData()
+            this.fetchData({ replaceArtworks: true })
             const newUrl = stringifyUrl({
                 url: window.location.pathname,
                 params: { filter: { ...newQuery } },

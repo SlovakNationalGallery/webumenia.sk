@@ -20,7 +20,7 @@ export default {
     props: {
         artworks: Array,
         url: String,
-        page: Number
+        page: Number,
     },
 }
 </script>
