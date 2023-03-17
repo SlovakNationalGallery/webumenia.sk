@@ -16,7 +16,7 @@
         "astrotomic/laravel-translatable": "^11.3",
         "babenkoivan/elastic-scout-driver": "^2.0",
         "babenkoivan/elastic-scout-driver-plus": "^3.4",
-        "barryvdh/laravel-form-bridge": "^0.6",
+        "barryvdh/laravel-form-bridge": "^0.7",
         "caseyamcl/phpoaipmh": "dev-master",
         "chelout/laravel-relationship-events": "^2.0",
         "doctrine/dbal": "^3.0",
@@ -63,7 +63,8 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
-            "composer/package-versions-deprecated": true
+            "composer/package-versions-deprecated": true,
+            "php-http/discovery": true
         }
     },
     "extra": {
