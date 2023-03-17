@@ -2,8 +2,8 @@
 
 @section('content')
     <section class="tailwind-rules">
-        <filter-new-items-controller 
-            v-slot="{ isExtendedOpen, isFetching, toggleIsExtendedOpen, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, incrementPage, clearFilterSelection, clearAllSelections, removeSelection, query, filters, artworks, page }">
+        <filter-new-items-controller
+            v-slot="{ isExtendedOpen, isFetchingArtworks, toggleIsExtendedOpen, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, loadMore, clearFilterSelection, clearAllSelections, removeSelection, query, aggregations, artworks, page }">
             <div class="tw-relative">
                 <div class="tw-bg-gray-200 tw-py-6 tw-px-4 md:tw-p-16 md:tw-pb-0">
                     {{-- Desktop filter --}}
@@ -22,7 +22,7 @@
                                             placeholder="Napíšte meno autora / autorky"
                                             @change="handleMultiSelectChange"
                                             :selected-values="query['author']"
-                                            :filter="filters['author']">
+                                            :filter="aggregations['author']">
                                         </filter-new-options>
                                         <button
                                             class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
@@ -171,7 +171,7 @@
                                                     placeholder="Napíšte meno autora / autorky"
                                                     @change="handleMultiSelectChange"
                                                     :selected-values="query['author']"
-                                                    :filter="filters['author']">
+                                                    :filter="aggregations['author']">
                                                 </filter-new-options>
                                             </div>
                                         </template>
@@ -259,9 +259,33 @@
                             podľa</span>
                     </filter-new-sort>
                     <div class="tw-min-h-screen">
-                        <filter-masonry v-if="!isFetching || page" :key="JSON.stringify(query)"
-                            url="https://www.webumenia.sk/dielo/nahlad/" :page="page"
-                            @loadmore="incrementPage" :artworks="artworks"></filter-masonry>
+                        <div v-masonry transition-duration="0" item-selector=".item">
+                            <div
+                                v-masonry-tile
+                                class="item tw-w-1/3 tw-p-2"
+                                v-for="artwork in artworks"
+                                :key="artwork.id"
+                            >
+                                <filter-artwork-image
+                                    name="artwork-image"
+                                    :src="'https://www.webumenia.sk/dielo/nahlad/' + artwork.id"
+                                    :aspect-ratio="artwork.content.image_ratio"
+                                    :placeholder-color-hsl="artwork.content.hsl[0]"
+                                ></filter-artwork-image>
+                                <span>@{{ artwork.content.title }}</span>
+                            </div>
+                        </div>
+                        <filter-masonry v-if="!isFetchingArtworks || page" :page="page"
+                            @loadmore="loadMore" :is-fetching-artworks="isFetchingArtworks">
+                            <template #loading-message>
+                                <slot>loading...</slot>
+                            </template>
+                            <template #load-more-button>
+                                <button v-if="!page" @click="loadMore">
+                                    show more
+                                </button>
+                            </template>
+                        </filter-masonry>
                     </div>
                 </div>
             </div>

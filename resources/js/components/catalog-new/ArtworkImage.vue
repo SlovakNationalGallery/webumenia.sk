@@ -4,9 +4,9 @@
         <div
             :class="[{ 'tw-hidden': this.isLoaded }, 'tw-w-full tw-saturate-50']"
             :style="{
-                'aspect-ratio': ratio || 1,
-                'background-color': hsl.length
-                    ? `hsl(${hsl[0].h}, ${hsl[0].s}%, ${hsl[0].l}%)`
+                'aspect-ratio': aspectRatio || 1,
+                'background-color': placeholderColorHsl
+                    ? `hsl(${placeholderColorHsl.h}, ${placeholderColorHsl.s}%, ${placeholderColorHsl.l}%)`
                     : '#cdcdcd',
             }"
         ></div>
@@ -17,8 +17,8 @@
 export default {
     props: {
         src: String,
-        ratio: Number,
-        hsl: Array,
+        aspectRatio: Number,
+        placeholderColorHsl: Object,
     },
     data() {
         return {

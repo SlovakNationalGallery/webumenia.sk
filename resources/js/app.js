@@ -24,6 +24,8 @@ require('./components/newsletter-signup-form-tracker')
 import Vue from 'vue'
 import 'livewire-vue'
 import { Lang } from 'laravel-vue-lang';
+import { VueMasonryPlugin } from 'vue-masonry'
+Vue.use(VueMasonryPlugin)
 
 
 window.Vue = Vue
@@ -49,6 +51,7 @@ Vue.component('filter-disclosure-controller', require('./components/catalog-new/
 Vue.component('filter-new-popover-group-controller', require('./components/catalog-new/PopoverGroupController.vue').default);
 Vue.component('filter-show-more', require('./components/catalog-new/ShowMore.vue').default);
 Vue.component('filter-masonry', require('./components/catalog-new/ArtworksMasonry.vue').default);
+Vue.component('filter-artwork-image', require('./components/catalog-new/ArtworkImage.vue').default);
 Vue.component('flickity', require('./components/Flickity.vue').default);
 Vue.component('home.shuffle-orchestrator', require('./components/home/ShuffleOrchestrator.vue').default);
 Vue.component('home.transition-in-place', require('./components/home/TransitionInPlace.vue').default);
