@@ -260,22 +260,17 @@
                     </filter-new-sort>
                     <div class="tw-min-h-screen">
                         <div v-masonry transition-duration="0" item-selector=".item">
-                            <div
-                                v-masonry-tile
-                                class="item tw-w-1/3 tw-p-2"
-                                v-for="artwork in artworks"
-                                :key="artwork.id"
-                            >
-                                <filter-artwork-image
-                                    name="artwork-image"
-                                    :src="'https://www.webumenia.sk/dielo/nahlad/' + artwork.id"
+                            <div v-masonry-tile class="item tw-w-1/3 tw-p-2" v-for="artwork in artworks"
+                                :key="artwork.id">
+                                <filter-artwork-image name="artwork-image" :artwork-id="artwork.id"
+                                    preview-url-template="{{ route('dielo.nahlad', ['id' => '__ARTWORK_ID__', 'width' => '__WIDTH__']) }}"
                                     :aspect-ratio="artwork.content.image_ratio"
-                                    :placeholder-color-hsl="artwork.content.hsl[0]"
-                                ></filter-artwork-image>
+                                    :placeholder-color-hsl="artwork.content.hsl[0]">
+                                </filter-artwork-image>
                                 <span>@{{ artwork.content.title }}</span>
                             </div>
                         </div>
-                        <filter-masonry v-if="!isFetchingArtworks || page" :page="page"
+                        <filter-infinite-scroll v-if="!isFetchingArtworks || page" :page="page"
                             @loadmore="loadMore" :is-fetching-artworks="isFetchingArtworks">
                             <template #loading-message>
                                 <slot>loading...</slot>
@@ -285,7 +280,7 @@
                                     show more
                                 </button>
                             </template>
-                        </filter-masonry>
+                        </filter-infinite-scroll>
                     </div>
                 </div>
             </div>

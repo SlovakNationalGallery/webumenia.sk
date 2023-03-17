@@ -1,6 +1,6 @@
 <template>
     <div>
-        <img :class="{ 'tw-hidden': !this.isLoaded }" @load="onImgLoad" :src="`${src}/600`" />
+        <img :class="{ 'tw-hidden': !this.isLoaded }" @load="onImgLoad" :src="`${imageSrc}/600`" />
         <div
             :class="[{ 'tw-hidden': this.isLoaded }, 'tw-w-full tw-saturate-50']"
             :style="{
@@ -16,7 +16,8 @@
 <script>
 export default {
     props: {
-        src: String,
+        artworkId: String,
+        previewUrlTemplate: String,
         aspectRatio: Number,
         placeholderColorHsl: Object,
     },
@@ -25,9 +26,17 @@ export default {
             isLoaded: false,
         }
     },
+    computed: {
+        imageSrc() {
+            return this.getUrlFromTemplate(this.previewUrlTemplate)
+        },
+    },
     methods: {
         onImgLoad() {
             this.isLoaded = true
+        },
+        getUrlFromTemplate(template) {
+            return template.replace('__ARTWORK_ID__', this.artworkId).replace('__WIDTH__', 600)
         },
     },
 }

@@ -50,7 +50,7 @@ Vue.component('filter-disclosure-view', require('./components/catalog-new/Disclo
 Vue.component('filter-disclosure-controller', require('./components/catalog-new/DisclosureModalController.vue').default);
 Vue.component('filter-new-popover-group-controller', require('./components/catalog-new/PopoverGroupController.vue').default);
 Vue.component('filter-show-more', require('./components/catalog-new/ShowMore.vue').default);
-Vue.component('filter-masonry', require('./components/catalog-new/ArtworksMasonry.vue').default);
+Vue.component('filter-infinite-scroll', require('./components/catalog-new/InfiniteScroll.vue').default);
 Vue.component('filter-artwork-image', require('./components/catalog-new/ArtworkImage.vue').default);
 Vue.component('flickity', require('./components/Flickity.vue').default);
 Vue.component('home.shuffle-orchestrator', require('./components/home/ShuffleOrchestrator.vue').default);
