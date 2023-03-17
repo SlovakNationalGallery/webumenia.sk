@@ -1,6 +1,6 @@
 <template>
     <div>
-        <img :class="{ 'tw-hidden': !this.isLoaded }" @load="onImgLoad" :src="`${imageSrc}/600`" />
+        <img :class="{ 'tw-hidden': !this.isLoaded }" @load="onImgLoad" :src="imageSrc" />
         <div
             :class="[{ 'tw-hidden': this.isLoaded }, 'tw-w-full tw-saturate-50']"
             :style="{
