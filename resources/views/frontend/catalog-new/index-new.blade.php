@@ -66,8 +66,8 @@
                                         <div
                                             class="tw-w-[28rem] tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6 tw-pt-4">
                                             <filter-new-year-slider
-                                                :default-from="Number(query.yearFrom)"
-                                                :default-to="Number(query.yearTo)"
+                                                :default-from="Number(query.yearRange?.from)"
+                                                :default-to="Number(query.yearRange?.to)"
                                                 :min="{{ $yearLimits['min'] ?? 0 }}"
                                                 :max="{{ $yearLimits['max'] ?? now()->year }}"
                                                 @change="handleYearRangeChange">

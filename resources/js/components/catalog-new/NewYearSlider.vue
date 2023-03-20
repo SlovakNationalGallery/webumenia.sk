@@ -90,7 +90,7 @@ export default {
     methods: {
         handleReset() {
             this.value = { from: this.min, to: this.max }
-            this.$emit('change', { from: null, to: null })
+            this.$emit('change')
         },
     },
     data() {
