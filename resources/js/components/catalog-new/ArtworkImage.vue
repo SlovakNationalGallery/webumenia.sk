@@ -36,7 +36,7 @@ export default {
             this.isLoaded = true
         },
         getUrlFromTemplate(template) {
-            return template.replace('__ARTWORK_ID__', this.artworkId).replace('__WIDTH__', 600)
+            return template.replace('__ARTWORK_ID__', this.artworkId)
         },
     },
 }

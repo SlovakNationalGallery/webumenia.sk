@@ -3,7 +3,7 @@
         <div v-if="isFetchingArtworks">
             <slot name="loading-message"></slot>
         </div>
-        <div v-show="!isFetchingArtworks" ref="load-more-waypoint">
+        <div v-show="!isFetchingArtworks" class="tw-flex tw-justify-center" ref="load-more-waypoint">
             <slot name="load-more-button"></slot>
         </div>
     </div>
