@@ -260,14 +260,40 @@
                     </filter-new-sort>
                     <div class="tw-min-h-screen">
                         <div v-masonry transition-duration="0" item-selector=".item">
-                            <div v-masonry-tile class="item tw-w-1/3 tw-p-2" v-for="artwork in artworks"
+                            <div v-masonry-tile class="item tw-w-full md:tw-w-1/3 tw-p-2" v-for="artwork in artworks"
                                 :key="artwork.id">
-                                <catalog.artwork-image name="artwork-image" :artwork-id="artwork.id"
+                                <filter-artwork-tile name="artwork-image" :artwork-id="artwork.id"
                                     preview-url-template="{{ route('dielo.nahlad', ['id' => '__ARTWORK_ID__', 'width' => '600']) }}"
+                                    preview-src-set-template="{!! route('dielo.nahlad', ['id' => '__ARTWORK_ID__', 'width'=> '600']) !!} 600w,
+                                        {!! route('dielo.nahlad', ['id' => '__ARTWORK_ID__', 'width'=>'220']) !!} 220w,
+                                        {!! route('dielo.nahlad', ['id' => '__ARTWORK_ID__', 'width'=>'300']) !!} 300w,
+                                        {!! route('dielo.nahlad', ['id' => '__ARTWORK_ID__', 'width'=>'600']) !!} 600w,
+                                        {!! route('dielo.nahlad', ['id' => '__ARTWORK_ID__', 'width'=>'800']) !!} 800w"
+                                    artwork-url-template="{{ route('dielo', ['id' => '__ARTWORK_ID__']) }}"
+                                    zoom-url-template="{{ route('item.zoom', ['id' => '__ARTWORK_ID__']) }}"
+                                    :has_iip="artwork.content.has_iip"
                                     :aspect-ratio="artwork.content.image_ratio"
-                                    :placeholder-color-hsl="artwork.content.hsl[0]">
-                                </catalog.artwork-image>
-                                <span>@{{ artwork.content.title }}</span>
+                                    :author="artwork.content.author[0]" :title="artwork.content.title"
+                                    :dating="artwork.content.dating"
+                                    :placeholder-color-hsl="artwork.content.hsl[0]"
+                                    >
+                                    <template #favourite-button>
+                                        <user-collections-favourite-button
+                                            label-add="{{ utrans('general.item_add_to_favourites') }}"
+                                            label-remove="{{ utrans('general.item_remove_from_favourites') }}"
+                                            :id="artwork.id" is-detail
+                                            >
+                                            <template #icon="{ isFavourite }">
+                                                <span v-if="isFavourite">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="tw-w-5 tw-h-5 tw-fill-current" viewBox="0 0 256 256"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"></path></svg>
+                                                </span>
+                                                <span v-else>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="tw-w-5 tw-h-5 tw-fill-current" viewBox="0 0 256 256"><path d="M243,96.05a20,20,0,0,0-17.26-13.72l-57-4.93-22.3-53.14h0a20,20,0,0,0-36.82,0L87.29,77.4l-57,4.93A20,20,0,0,0,18.87,117.4l43.32,37.8-13,56.24A20,20,0,0,0,79,233.1l49-29.76,49,29.76a20,20,0,0,0,29.8-21.66l-13-56.24,43.32-37.8A20,20,0,0,0,243,96.05Zm-66.75,42.62a20,20,0,0,0-6.35,19.63l11.39,49.32-42.94-26.08a19.9,19.9,0,0,0-20.7,0L74.71,207.62,86.1,158.3a20,20,0,0,0-6.35-19.63L41.66,105.44,91.8,101.1a19.92,19.92,0,0,0,16.69-12.19L128,42.42l19.51,46.49A19.92,19.92,0,0,0,164.2,101.1l50.14,4.34Z"></path></svg>
+                                                </span>
+                                            </template>
+                                        </user-collections-favourite-button>
+                                    </template>
+                                </filter-artwork-tile>
                             </div>
                         </div>
                         <catalog.infinite-scroll class="tw-mt-10" :page="page"
