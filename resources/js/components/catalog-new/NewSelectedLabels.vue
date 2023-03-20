@@ -5,7 +5,21 @@
             v-for="option in selectedOptionsAsLabels"
             @click="removeSelection(option)"
         >
-            <span class="tw-text-xs tw-font-semibold tw-pr-1.5">{{ option.value }}</span>
+            <span
+                v-if="option.filterName === 'color'"
+                class="tw-text-xs tw-font-semibold tw-pr-1.5 tw-flex tw-items-center tw-uppercase"
+                ><div
+                    class="tw-h-4 tw-w-4 tw-inline-block tw-mr-1.5"
+                    :style="{ 'background-color': `#${option.value}`, 'border-radius': '30px' }"
+                ></div>
+                #{{ option.value }}</span
+            >
+            <span
+                v-else-if="option.filterName === 'yearRange'"
+                class="tw-text-xs tw-font-semibold tw-pr-1.5"
+                >{{ option.value.from }} - {{ option.value.to }}</span
+            >
+            <span v-else class="tw-text-xs tw-font-semibold tw-pr-1.5">{{ option.value }}</span>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="tw-w-4 tw-h-4 tw-fill-current"
