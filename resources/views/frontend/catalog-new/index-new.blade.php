@@ -48,9 +48,8 @@
                                     <div
                                         class="tw-absolute tw-left-0 tw-top-36 tw-z-10 tw-w-screen tw-px-16">
                                         <div
-                                            class="tw-border-2 tw-border-gray-800 tw-bg-white tw-px-8 tw-py-16">
-                                            <filter-new-color-slider :color="query['color']"
-                                                @change="handleColorChange">
+                                            class="tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6 tw-pt-4">
+                                            <filter-new-color-slider :default-color="query['color']" @change="handleColorChange">
                                             </filter-new-color-slider>
                                         </div>
                                     </div>
