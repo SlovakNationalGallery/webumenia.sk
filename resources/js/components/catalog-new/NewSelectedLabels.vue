@@ -77,11 +77,7 @@ export default {
         selectedValues: Object,
         clearAllSelections: Function,
         removeSelection: Function,
-    },
-    computed: {
-        isAnythingSelected() {
-            return Object.keys(this.selectedOptionsAsLabels).length
-        },
+        isAnythingSelected: Boolean
     },
 }
 </script>

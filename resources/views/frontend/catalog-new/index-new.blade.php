@@ -3,7 +3,7 @@
 @section('content')
     <section class="tailwind-rules">
         <filter-new-items-controller
-            v-slot="{ isExtendedOpen, isFetchingArtworks, toggleIsExtendedOpen, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, loadMore, clearFilterSelection, clearAllSelections, removeSelection, query, aggregations, artworks, page, last_page }">
+            v-slot="{ isAnythingSelected, isExtendedOpen, isFetchingArtworks, toggleIsExtendedOpen, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, loadMore, clearFilterSelection, clearAllSelections, removeSelection, query, filters, artworks, page, last_page }">
             <div class="tw-relative">
                 <div class="tw-bg-gray-200 tw-py-6 tw-px-4 md:tw-p-16 md:tw-pb-0">
                     {{-- Desktop filter --}}
@@ -139,10 +139,24 @@
                             </div>
                             <filter-disclosure-modal v-if="dc.view !== null" @close="dc.close">
                                 <template #body>
-                                    <filter-disclosure-view v-if="dc.view === 'index'" @close="dc.close"
-                                        @reset="clearAllSelections">
+                                    <filter-disclosure-view v-if="dc.view === 'index'"
+                                        @close="dc.close">
                                         <template #header>
                                             <span class="tw-text-lg tw-font-semibold">Filter diel</span>
+                                        </template>
+                                        <template v-if="isAnythingSelected" #reset-button>
+                                            <button
+                                                class="tw-mr-3 tw-flex tw-min-w-max tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
+                                                @click="clearAllSelections">
+                                                <svg class="tw-mr-1.5 tw-h-4 tw-w-4 tw-fill-current"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 256 256">
+                                                    <path
+                                                        d="M228,128a100,100,0,0,1-98.66,100H128a99.39,99.39,0,0,1-68.62-27.29,12,12,0,0,1,16.48-17.45,76,76,0,1,0-1.57-109c-.13.13-.25.25-.39.37L54.89,92H72a12,12,0,0,1,0,24H24a12,12,0,0,1-12-12V56a12,12,0,0,1,24,0V76.72L57.48,57.06A100,100,0,0,1,228,128Z">
+                                                    </path>
+                                                </svg>
+                                                <span>zrušiť celý výber</span>
+                                            </button>
                                         </template>
                                         <template #body>
                                             <filter-disclosure-list-button @click="dc.goTo('author')">
@@ -242,7 +256,7 @@
                                         </template>
                                     </filter-disclosure-view>
                                     <filter-disclosure-view v-if="dc.view === 'author'"
-                                        @close="dc.close" @reset="clearFilterSelection('author')">
+                                        @close="dc.close">
                                         <template #header>
                                             <div class="tw-flex tw-items-center">
                                                 <button @click="dc.goTo('index')"
@@ -257,6 +271,20 @@
                                                 <filter-new-custom-select-popover-label name="author"
                                                     :selected-values="query['author']">
                                                 </filter-new-custom-select-popover-label>
+                                        </template>
+                                        <template v-if="query.author.length" #reset-button>
+                                            <button
+                                                class="tw-mr-3 tw-flex tw-min-w-max tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
+                                                @click="clearFilterSelection('author')">
+                                                <svg class="tw-mr-1.5 tw-h-4 tw-w-4 tw-fill-current"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 256 256">
+                                                    <path
+                                                        d="M228,128a100,100,0,0,1-98.66,100H128a99.39,99.39,0,0,1-68.62-27.29,12,12,0,0,1,16.48-17.45,76,76,0,1,0-1.57-109c-.13.13-.25.25-.39.37L54.89,92H72a12,12,0,0,1,0,24H24a12,12,0,0,1-12-12V56a12,12,0,0,1,24,0V76.72L57.48,57.06A100,100,0,0,1,228,128Z">
+                                                    </path>
+                                                </svg>
+                                                <span>zrušiť výber</span>
+                                            </button>
                                         </template>
                                         <template #body>
                                             <div
@@ -301,8 +329,8 @@
                     </filter-new-custom-checkbox>
                 </div>
                 <div class="tw-hidden tw-bg-gray-200 tw-px-16 tw-pb-16 md:tw-block">
-                    <filter-new-selected-labels :remove-selection="removeSelection"
-                        :clear-all-selections="clearAllSelections"
+                    <filter-new-selected-labels :is-anything-selected="Boolean(isAnythingSelected)"
+                        :remove-selection="removeSelection" :clear-all-selections="clearAllSelections"
                         :selected-options-as-labels="selectedOptionsAsLabels" :selected-values="query">
                     </filter-new-selected-labels>
                 </div>
