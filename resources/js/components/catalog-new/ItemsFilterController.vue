@@ -8,7 +8,13 @@ function getParsedFilterFromUrl() {
         ignoreQueryPrefix: true,
     })
     const { date_earliest, date_latest, ...rest } = parsedUrl?.filter || {}
-    return { ...rest, yearRange: (date_earliest && date_latest) ? { to: date_earliest?.lte, to: date_latest?.gte } : null }
+    return {
+        ...rest,
+        yearRange:
+            date_earliest && date_latest
+                ? { to: date_earliest?.lte, from: date_latest?.gte }
+                : null,
+    }
 }
 
 function stringifyUrl({ url, params }) {

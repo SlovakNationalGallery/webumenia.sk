@@ -1,5 +1,5 @@
 <template>
-    <div class="tw-mt-6">
+    <div>
         <slider
             tooltip="none"
             :value="getHue()"
@@ -77,6 +77,11 @@ export default {
     },
     components: {
         slider: VueSlider,
+    },
+    watch: {
+        defaultColor(newDefaultColor) {
+            this.color = newDefaultColor
+        },
     },
     methods: {
         getHue() {

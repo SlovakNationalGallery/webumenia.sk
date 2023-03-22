@@ -49,7 +49,25 @@
                                         class="tw-absolute tw-left-0 tw-top-36 tw-z-10 tw-w-screen tw-px-16">
                                         <div
                                             class="tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6 tw-pt-4">
-                                            <filter-new-color-slider :default-color="query['color']" @change="handleColorChange">
+                                            <div v-if="query.color" class="tw-flex tw-justify-end">
+                                                <button
+                                                    @click="handleColorChange(null)"
+                                                    class="tw-flex tw-mb-2 tw-text-sm tw-items-center tw-border tw-border-gray-300 tw-py-1 tw-px-1.5"
+                                                >
+                                                    <svg
+                                                        class="tw-mr-1.5 tw-w-4 tw-h-4 tw-fill-current"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 256 256"
+                                                    >
+                                                        <path
+                                                            d="M228,128a100,100,0,0,1-98.66,100H128a99.39,99.39,0,0,1-68.62-27.29,12,12,0,0,1,16.48-17.45,76,76,0,1,0-1.57-109c-.13.13-.25.25-.39.37L54.89,92H72a12,12,0,0,1,0,24H24a12,12,0,0,1-12-12V56a12,12,0,0,1,24,0V76.72L57.48,57.06A100,100,0,0,1,228,128Z"
+                                                        ></path>
+                                                    </svg>
+                                                    <span>resetovať</span>
+                                                </button>
+                                            </div>
+                                            <filter-new-color-slider :default-color="query['color']"
+                                                @change="handleColorChange">
                                             </filter-new-color-slider>
                                         </div>
                                     </div>
@@ -64,6 +82,23 @@
                                     <div class="tw-absolute tw-top-36 tw-z-10">
                                         <div
                                             class="tw-w-[28rem] tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6 tw-pt-4">
+                                            <div v-if="query.yearRange" class="tw-flex tw-justify-end">
+                                                <button
+                                                    @click="handleYearRangeChange(null)"
+                                                    class="tw-flex tw-mb-3 tw-text-sm tw-items-center tw-border tw-border-gray-300 tw-py-1 tw-px-1.5"
+                                                >
+                                                    <svg
+                                                        class="tw-mr-1.5 tw-w-4 tw-h-4 tw-fill-current"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 256 256"
+                                                    >
+                                                        <path
+                                                            d="M228,128a100,100,0,0,1-98.66,100H128a99.39,99.39,0,0,1-68.62-27.29,12,12,0,0,1,16.48-17.45,76,76,0,1,0-1.57-109c-.13.13-.25.25-.39.37L54.89,92H72a12,12,0,0,1,0,24H24a12,12,0,0,1-12-12V56a12,12,0,0,1,24,0V76.72L57.48,57.06A100,100,0,0,1,228,128Z"
+                                                        ></path>
+                                                    </svg>
+                                                    <span>resetovať</span>
+                                                </button>
+                                            </div>                                            
                                             <filter-new-year-slider
                                                 :default-from="Number(query.yearRange?.from)"
                                                 :default-to="Number(query.yearRange?.to)"
@@ -117,6 +152,73 @@
                                                     :selected-values="query['authors']">
                                                 </filter-new-custom-select-popover-label>
                                             </filter-disclosure-list-button>
+                                            <filter-disclosure-inline-list-button>
+                                                <template #header>
+                                                    <div class="tw-font-sm tw-font-semibold">rok<span
+                                                            class="tw-ml-2"
+                                                            v-if="query.yearRange">(@{{ query.yearRange.from }}
+                                                            - @{{ query.yearRange.to }})</div>
+                                                </template>
+                                                <template #filter-body>
+                                                    <filter-new-year-slider
+                                                        :default-from="Number(query.yearRange?.from)"
+                                                        :default-to="Number(query.yearRange?.to)"
+                                                        :min="{{ $yearLimits['min'] ?? 0 }}"
+                                                        :max="{{ $yearLimits['max'] ?? now()->year }}"
+                                                        @change="handleYearRangeChange">
+                                                    </filter-new-year-slider>
+                                                    <div v-if="query.yearRange" class="tw-flex tw-justify-center">
+                                                        <button
+                                                            @click="handleYearRangeChange(null)"
+                                                            class="tw-flex tw-mt-2.5 tw-text-sm tw-items-center tw-border tw-border-gray-300 tw-py-1 tw-px-1.5"
+                                                        >
+                                                            <svg
+                                                                class="tw-mr-1.5 tw-w-4 tw-h-4 tw-fill-current"
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                viewBox="0 0 256 256"
+                                                            >
+                                                                <path
+                                                                    d="M228,128a100,100,0,0,1-98.66,100H128a99.39,99.39,0,0,1-68.62-27.29,12,12,0,0,1,16.48-17.45,76,76,0,1,0-1.57-109c-.13.13-.25.25-.39.37L54.89,92H72a12,12,0,0,1,0,24H24a12,12,0,0,1-12-12V56a12,12,0,0,1,24,0V76.72L57.48,57.06A100,100,0,0,1,228,128Z"
+                                                                ></path>
+                                                            </svg>
+                                                            <span>resetovať</span>
+                                                        </button>
+                                                    </div>                                            
+                                                </template>
+                                            </filter-disclosure-inline-list-button>
+                                            <filter-disclosure-inline-list-button>
+                                                <template #header>
+                                                    <div
+                                                        class="tw-font-sm tw-flex tw-items-center tw-gap-2 tw-font-semibold">
+                                                        color<div v-if="query['color']" class="tw-inline-block tw-h-4 tw-w-4"
+                                                            :style="{'background': `#${query['color']}`}">
+                                                        </div>
+                                                    </div>
+                                                </template>
+                                                <template #filter-body>
+                                                    <filter-new-color-slider
+                                                        :default-color="query['color']"
+                                                        @change="handleColorChange">
+                                                    </filter-new-color-slider>
+                                                    <div v-if="query.color" class="tw-flex tw-justify-center">
+                                                        <button
+                                                            @click="handleColorChange(null)"
+                                                            class="tw-flex tw-mt-4 tw-text-sm tw-items-center tw-border tw-border-gray-300 tw-py-1 tw-px-1.5"
+                                                        >
+                                                            <svg
+                                                                class="tw-mr-1.5 tw-w-4 tw-h-4 tw-fill-current"
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                viewBox="0 0 256 256"
+                                                            >
+                                                                <path
+                                                                    d="M228,128a100,100,0,0,1-98.66,100H128a99.39,99.39,0,0,1-68.62-27.29,12,12,0,0,1,16.48-17.45,76,76,0,1,0-1.57-109c-.13.13-.25.25-.39.37L54.89,92H72a12,12,0,0,1,0,24H24a12,12,0,0,1-12-12V56a12,12,0,0,1,24,0V76.72L57.48,57.06A100,100,0,0,1,228,128Z"
+                                                                ></path>
+                                                            </svg>
+                                                            <span>resetovať</span>
+                                                        </button>
+                                                    </div>
+                                                </template>
+                                            </filter-disclosure-inline-list-button>
                                             <div
                                                 class="tw-flex tw-min-h-0 tw-w-full tw-flex-1 tw-flex-col tw-overflow-auto tw-py-2">
                                                 <filter-new-custom-checkbox
