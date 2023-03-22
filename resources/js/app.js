@@ -45,6 +45,7 @@ Vue.component('filter-new-custom-checkbox', require('./components/catalog-new/Ne
 Vue.component('filter-new-selected-labels', require('./components/catalog-new/NewSelectedLabels.vue').default);
 Vue.component('filter-new-sort', require('./components/catalog-new/NewSort.vue').default);
 Vue.component('filter-disclosure-button', require('./components/catalog-new/DisclosureFilterButton.vue').default);
+Vue.component('filter-disclosure-inline-list-button', require('./components/catalog-new/DisclosureFilterInlineListButton.vue').default);
 Vue.component('filter-disclosure-list-button', require('./components/catalog-new/DisclosureFilterListButton.vue').default);
 Vue.component('filter-disclosure-modal', require('./components/catalog-new/DisclosureFilterModal.vue').default);
 Vue.component('filter-disclosure-view', require('./components/catalog-new/DisclosureFilterView.vue').default);
