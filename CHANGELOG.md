@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- artwork map styling
+
 ### Added
 - additional sortables in /api/v1/items
 
