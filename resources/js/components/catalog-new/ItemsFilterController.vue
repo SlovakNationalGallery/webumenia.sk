@@ -54,7 +54,7 @@ const EMPTY_QUERY = {
     yearFrom: null,
     yearTo: null,
 }
-const AGGREGATION_TERMS = {
+const AGGREGATIONS_TERMS = {
     author: 'author',
 }
 
@@ -168,7 +168,6 @@ export default {
             this.page = this.page ? this.page + 1 : 2
         },
         async fetchAggregations() {
-            this.isFetchingAggregations = true
             try {
                 const aggregations = await axios
                         .get(
@@ -176,7 +175,7 @@ export default {
                                 url: '/api/v1/items/aggregations',
                                 params: {
                                     filter: this.query,
-                                    terms: AGGREGATION_TERMS,
+                                    terms: AGGREGATIONS_TERMS,
                                     size: AGGREGATIONS_SIZE,
                                 },
                             })
@@ -188,12 +187,10 @@ export default {
                         ...aggregations,
                     }
             } catch (e) {
-                this.isFetchingAggregations = false
                 throw e
             }
-            this.isFetchingAggregations = false
         },
-        async fetchArtworks({ appendArtworks }) {
+        async fetchArtworks({ append }) {
             this.isFetchingArtworks = true
             try {
                 const fetchedArtworks = await axios
@@ -209,24 +206,26 @@ export default {
                     )
                     .then(({ data }) => data)
 
-                    this.artworks = appendArtworks ? [...this.artworks, ...fetchedArtworks.data] : fetchedArtworks.data
+                    this.artworks = append ? [...this.artworks, ...fetchedArtworks.data] : fetchedArtworks.data
                     this.isFetchingArtworks = false
             } catch (e) {
                 this.isFetchingArtworks = false
                 throw e
+            } finally {
+                this.isFetchingArtworks = false
             }
         },
     },
     watch: {
         page(newPage, oldPage) {
             if (newPage > oldPage) {
-                this.fetchArtworks({ appendArtworks: true })
+                this.fetchArtworks({ append: true })
             }
         },
         query(newQuery) {
             this.page = null
             this.fetchAggregations()
-            this.fetchArtworks({ appendArtworks: false })
+            this.fetchArtworks({ append: false })
             const newUrl = stringifyUrl({
                 url: window.location.pathname,
                 params: { filter: { ...newQuery } },
@@ -243,7 +242,6 @@ export default {
         return this.$scopedSlots.default({
             isExtendedOpen: this.isExtendedOpen,
             isFetchingArtworks: this.isFetchingArtworks,
-            isFetchingAggregations: this.isFetchingAggregations,
             query: this.query,
             page: this.page,
             aggregations: this.aggregations,

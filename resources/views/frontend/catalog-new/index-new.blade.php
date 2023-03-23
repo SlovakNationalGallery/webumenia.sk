@@ -262,25 +262,27 @@
                         <div v-masonry transition-duration="0" item-selector=".item">
                             <div v-masonry-tile class="item tw-w-1/3 tw-p-2" v-for="artwork in artworks"
                                 :key="artwork.id">
-                                <filter-artwork-image name="artwork-image" :artwork-id="artwork.id"
+                                <catalog.artwork-image name="artwork-image" :artwork-id="artwork.id"
                                     preview-url-template="{{ route('dielo.nahlad', ['id' => '__ARTWORK_ID__', 'width' => '600']) }}"
                                     :aspect-ratio="artwork.content.image_ratio"
                                     :placeholder-color-hsl="artwork.content.hsl[0]">
-                                </filter-artwork-image>
+                                </catalog.artwork-image>
                                 <span>@{{ artwork.content.title }}</span>
                             </div>
                         </div>
-                        <filter-infinite-scroll class="tw-mt-10" v-if="!isFetchingArtworks || page" :page="page"
-                            @loadmore="loadMore" :is-fetching-artworks="isFetchingArtworks">
+                        <catalog.infinite-scroll class="tw-mt-10" :page="page"
+                            @loadmore="loadMore" :is-loading="isFetchingArtworks">
                             <template #loading-message>
-                                <slot>loading...</slot>
+                                <div class="tw-py-2.5 tw-px-8 tw-border tw-text-sm tw-border-gray-400 hover:tw-border-gray-700">
+                                    loading...
+                                </div>
                             </template>
                             <template #load-more-button>
                                 <button v-if="!page" @click="loadMore" class="tw-py-2.5 tw-px-8 tw-border tw-text-sm tw-border-gray-400 hover:tw-border-gray-700">
                                     show more
                                 </button>
                             </template>
-                        </filter-infinite-scroll>
+                        </catalog.infinite-scroll>
                     </div>
                 </div>
             </div>
