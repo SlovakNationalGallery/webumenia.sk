@@ -23,11 +23,11 @@ require('./components/newsletter-signup-form-tracker')
 // Vue components
 import Vue from 'vue'
 import 'livewire-vue'
+import { VueMasonryPlugin } from 'vue-masonry'
 import { Lang } from 'laravel-vue-lang';
 
-
-
 window.Vue = Vue
+Vue.use(VueMasonryPlugin)
 Vue.use(Lang, { fallback: 'sk' })
 Vue.component('featured-piece-click-tracker', require('./components/FeaturedPieceClickTracker.vue').default);
 Vue.component('filter-sort-by', require('./components/filter/SortBy.vue').default);
@@ -49,6 +49,8 @@ Vue.component('filter-disclosure-view', require('./components/catalog-new/Disclo
 Vue.component('filter-disclosure-controller', require('./components/catalog-new/DisclosureModalController.vue').default);
 Vue.component('filter-new-popover-group-controller', require('./components/catalog-new/PopoverGroupController.vue').default);
 Vue.component('filter-show-more', require('./components/catalog-new/ShowMore.vue').default);
+Vue.component('catalog.infinite-scroll', require('./components/catalog-new/InfiniteScroll.vue').default);
+Vue.component('catalog.artwork-image', require('./components/catalog-new/ArtworkImage.vue').default);
 Vue.component('flickity', require('./components/Flickity.vue').default);
 Vue.component('home.shuffle-orchestrator', require('./components/home/ShuffleOrchestrator.vue').default);
 Vue.component('home.transition-in-place', require('./components/home/TransitionInPlace.vue').default);

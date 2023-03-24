@@ -10,7 +10,7 @@ function getParsedUrl() {
 }
 
 function stringifyUrl({ url, params }) {
-    const { filter, size, terms, yearRange } = params
+    const { filter, size, terms, yearRange, page } = params
     const { yearFrom, yearTo, author, color, is_free, has_image, has_iip, has_text, sort } =
         filter || {}
 
@@ -28,6 +28,7 @@ function stringifyUrl({ url, params }) {
         sort: {
             [sort]: SORT_DIRECTIONS[sort],
         },
+        page,
         terms,
         size,
         ...yearRange,
@@ -53,7 +54,7 @@ const EMPTY_QUERY = {
     yearFrom: null,
     yearTo: null,
 }
-const AGGREGATION_TERMS = {
+const AGGREGATIONS_TERMS = {
     author: 'author',
 }
 
@@ -61,14 +62,16 @@ export default {
     data() {
         return {
             isExtendedOpen: true,
-            isFetching: false,
+            isFetchingArtworks: false,
             artworks: [],
-            filters: {},
+            aggregations: {},
             query: { ...EMPTY_QUERY, ...getParsedUrl().filter },
+            page: null,
         }
     },
     async created() {
-        this.fetchData()
+        this.fetchAggregations()
+        this.fetchArtworks({ replaceArtworks: true })
     },
     computed: {
         selectedOptionsAsLabels() {
@@ -161,50 +164,68 @@ export default {
                 [name]: this.query[name].filter((v) => v !== value),
             }
         },
-        async fetchData() {
-            this.isFetching = true
-
+        loadMore() {
+            this.page = this.page ? this.page + 1 : 2
+        },
+        async fetchAggregations() {
             try {
-                //TODO: Year range from BE
-                const filters = await axios
+                const aggregations = await axios
                     .get(
                         stringifyUrl({
                             url: '/api/v1/items/aggregations',
                             params: {
                                 filter: this.query,
-                                terms: AGGREGATION_TERMS,
+                                terms: AGGREGATIONS_TERMS,
                                 size: AGGREGATIONS_SIZE,
                             },
                         })
                     )
                     .then(({ data }) => data)
 
-                this.filters = {
-                    ...this.filters,
-                    ...filters,
+                this.aggregations = {
+                    ...this.aggregations,
+                    ...aggregations,
                 }
-
-                this.artworks = await axios
+            } catch (e) {
+                throw e
+            }
+        },
+        async fetchArtworks({ append }) {
+            this.isFetchingArtworks = true
+            try {
+                const fetchedArtworks = await axios
                     .get(
                         stringifyUrl({
                             url: '/api/v1/items',
                             params: {
                                 filter: this.query,
                                 size: PAGE_SIZE,
+                                page: this.page,
                             },
                         })
                     )
                     .then(({ data }) => data)
-                this.isFetching = false
+
+                this.artworks = append
+                    ? [...this.artworks, ...fetchedArtworks.data]
+                    : fetchedArtworks.data
             } catch (e) {
-                this.isFetching = false
                 throw e
+            } finally {
+                this.isFetchingArtworks = false
             }
         },
     },
     watch: {
+        page(newPage, oldPage) {
+            if (newPage > oldPage) {
+                this.fetchArtworks({ append: true })
+            }
+        },
         query(newQuery) {
-            this.fetchData()
+            this.page = null
+            this.fetchAggregations()
+            this.fetchArtworks({ append: false })
             const newUrl = stringifyUrl({
                 url: window.location.pathname,
                 params: { filter: { ...newQuery } },
@@ -220,10 +241,13 @@ export default {
     render() {
         return this.$scopedSlots.default({
             isExtendedOpen: this.isExtendedOpen,
+            isFetchingArtworks: this.isFetchingArtworks,
             query: this.query,
-            filters: this.filters,
+            page: this.page,
+            aggregations: this.aggregations,
             artworks: this.artworks,
             toggleIsExtendedOpen: this.toggleIsExtendedOpen,
+            loadMore: this.loadMore,
             handleSortChange: this.handleSortChange,
             handleYearRangeChange: this.handleYearRangeChange,
             handleCheckboxChange: this.handleCheckboxChange,
