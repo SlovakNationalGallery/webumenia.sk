@@ -13,6 +13,7 @@
     }],
     "require": {
         "php": "^8.1",
+        "anahkiasen/former": "^4.8",
         "astrotomic/laravel-translatable": "^11.3",
         "babenkoivan/elastic-scout-driver": "^2.0",
         "babenkoivan/elastic-scout-driver-plus": "^3.4",
