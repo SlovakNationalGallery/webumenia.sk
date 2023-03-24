@@ -40,7 +40,7 @@ class BladeRendererEngine extends AbstractRendererEngine
         $cacheKey = $view->vars[self::CACHE_KEY_VAR];
 
         $variables['__env'] = view();
-        return $this->engine->get($this->resources[$cacheKey][$blockName], $variables);
+        return $this->engine->get((string) $this->resources[$cacheKey][$blockName], $variables);
     }
 
     /**
