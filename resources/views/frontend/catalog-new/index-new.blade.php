@@ -272,16 +272,20 @@
                         </div>
                         <catalog.infinite-scroll class="tw-mt-10" :page="page"
                             @loadmore="loadMore" :is-loading="isFetchingArtworks">
-                            <template #loading-message>
-                                <div class="tw-py-2.5 tw-px-8 tw-border tw-text-sm tw-border-gray-400 hover:tw-border-gray-700">
-                                    loading...
-                                </div>
-                            </template>
-                            <template #load-more-button>
-                                <button v-if="!page" @click="loadMore" class="tw-py-2.5 tw-px-8 tw-border tw-text-sm tw-border-gray-400 hover:tw-border-gray-700">
-                                    show more
-                                </button>
-                            </template>
+                                <template #loading-message>
+                                    <div class="tw-flex tw-justify-center">
+                                        <div class="tw-py-2.5 tw-px-8 tw-border tw-text-sm tw-border-gray-400 hover:tw-border-gray-700">
+                                            loading...
+                                        </div>
+                                    </div>
+                                </template>
+                                <template #load-more-button>
+                                    <div class="tw-flex tw-justify-center">
+                                        <button v-if="!page" @click="loadMore" class="tw-py-2.5 tw-px-8 tw-border tw-text-sm tw-border-gray-400 hover:tw-border-gray-700">
+                                            show more
+                                        </button>
+                                    </div>
+                                </template>
                         </catalog.infinite-scroll>
                     </div>
                 </div>

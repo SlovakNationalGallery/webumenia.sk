@@ -1,9 +1,9 @@
 <template>
     <div>
-        <div class="tw-flex tw-justify-center" v-if="isLoading">
+        <div v-if="isLoading">
             <slot name="loading-message"></slot>
         </div>
-        <div v-show="!isLoading" class="tw-flex tw-justify-center" ref="load-more-waypoint">
+        <div v-show="!isLoading" ref="load-more-waypoint">
             <slot name="load-more-button"></slot>
         </div>
     </div>

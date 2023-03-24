@@ -170,22 +170,22 @@ export default {
         async fetchAggregations() {
             try {
                 const aggregations = await axios
-                        .get(
-                            stringifyUrl({
-                                url: '/api/v1/items/aggregations',
-                                params: {
-                                    filter: this.query,
-                                    terms: AGGREGATIONS_TERMS,
-                                    size: AGGREGATIONS_SIZE,
-                                },
-                            })
-                        )
-                        .then(({ data }) => data)
+                    .get(
+                        stringifyUrl({
+                            url: '/api/v1/items/aggregations',
+                            params: {
+                                filter: this.query,
+                                terms: AGGREGATIONS_TERMS,
+                                size: AGGREGATIONS_SIZE,
+                            },
+                        })
+                    )
+                    .then(({ data }) => data)
 
-                    this.aggregations = {
-                        ...this.aggregations,
-                        ...aggregations,
-                    }
+                this.aggregations = {
+                    ...this.aggregations,
+                    ...aggregations,
+                }
             } catch (e) {
                 throw e
             }
@@ -206,10 +206,10 @@ export default {
                     )
                     .then(({ data }) => data)
 
-                    this.artworks = append ? [...this.artworks, ...fetchedArtworks.data] : fetchedArtworks.data
-                    this.isFetchingArtworks = false
+                this.artworks = append
+                    ? [...this.artworks, ...fetchedArtworks.data]
+                    : fetchedArtworks.data
             } catch (e) {
-                this.isFetchingArtworks = false
                 throw e
             } finally {
                 this.isFetchingArtworks = false
