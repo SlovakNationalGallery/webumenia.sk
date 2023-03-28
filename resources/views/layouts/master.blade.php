@@ -56,7 +56,7 @@
 </head>
 
 <body id="page-top">
-
+@routes
 @include('googletagmanager::body')
 
 <div id="fb-root"></div>

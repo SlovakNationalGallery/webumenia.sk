@@ -45,6 +45,7 @@
         "spatie/laravel-newsletter": "^4.10",
         "spatie/laravel-sitemap": "^6.2",
         "symfony/templating": "^5.2",
+        "tightenco/ziggy": "^1.5",
         "unisharp/laravel-filemanager": "^2.5"
     },
     "require-dev": {
