@@ -13,7 +13,7 @@ class ItemRepositoryTest extends TestCase
     public function testRows()
     {
         $endpointFactoryMock = $this->getMockBuilder(EndpointFactory::class)
-            ->setMethods(['createHttpAdapter'])
+            ->onlyMethods(['createHttpAdapter'])
             ->getMock();
         $httpAdapterMock = $this->createMock(HttpAdapterInterface::class);
         $authorityXml = file_get_contents(__DIR__ . '/item.xml');

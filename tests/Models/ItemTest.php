@@ -173,7 +173,7 @@ class ItemTest extends TestCase
         $this->assertEquals($authority->id, $data[0]->authority->id);
 
         $this->assertEquals('Philips Wouwerman', $data[1]->name);
-        $this->assertObjectNotHasAttribute('authority', $data[1]);
+        $this->assertFalse(property_exists($data[1], 'authority'));
     }
 
     protected function createFreeItem()

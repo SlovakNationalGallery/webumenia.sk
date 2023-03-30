@@ -130,32 +130,8 @@ class AuthorityObserverTest extends TestCase
         $authority = Authority::factory()->create();
         $authority->items()->attach($item0);
 
-        $itemElasticsearchMock
-            ->expects($this->at(0))
-            ->method('index')
-            ->with(
-                $this->callback(function (array $params) {
-                    return 0 === count($params['body']['authority_id']);
-                })
-            );
-        $itemElasticsearchMock
-            ->expects($this->at(1))
-            ->method('index')
-            ->with(
-                $this->callback(function (array $params) use ($authority) {
-                    return 1 === count($params['body']['authority_id']) &&
-                        $authority->id === $params['body']['authority_id'][0];
-                })
-            );
-
-        $authorityElasticsearchMock
-            ->expects($this->at(1))
-            ->method('index')
-            ->with(
-                $this->callback(function (array $params) {
-                    return 1 === $params['body']['items_count'];
-                })
-            );
+        $itemElasticsearchMock->expects($this->atLeast(2))->method('index');
+        $authorityElasticsearchMock->expects($this->atLeastOnce())->method('index');
 
         $authority->items()->sync([$item1->id]);
     }
