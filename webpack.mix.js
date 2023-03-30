@@ -40,12 +40,14 @@ mix
         'vue-select',
         'vue',
     ])
-
+    // For ziggy
+    .alias({ ziggy: path.resolve('vendor/tightenco/ziggy/dist/vue') })
     // For laravel-vue-lang
     .webpackConfig({
         resolve: {
             alias: {
                 '@lang': path.resolve('./lang'),
+                ziggy: path.resolve('vendor/tightenco/ziggy/dist/vue'),
             },
         },
         module: {

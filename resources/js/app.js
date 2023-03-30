@@ -22,6 +22,7 @@ require('./components/newsletter-signup-form-tracker')
 
 // Vue components
 import Vue from 'vue'
+import { ZiggyVue } from 'ziggy';
 import 'livewire-vue'
 import { VueMasonryPlugin } from 'vue-masonry'
 import { Lang } from 'laravel-vue-lang';
@@ -50,7 +51,7 @@ Vue.component('filter-disclosure-controller', require('./components/catalog-new/
 Vue.component('filter-new-popover-group-controller', require('./components/catalog-new/PopoverGroupController.vue').default);
 Vue.component('filter-show-more', require('./components/catalog-new/ShowMore.vue').default);
 Vue.component('catalog.infinite-scroll', require('./components/catalog-new/InfiniteScroll.vue').default);
-Vue.component('catalog.artwork-image', require('./components/catalog-new/ArtworkImage.vue').default);
+Vue.component('catalog.artwork-image-controller', require('./components/catalog-new/ArtworkImageController.vue').default);
 Vue.component('flickity', require('./components/Flickity.vue').default);
 Vue.component('home.shuffle-orchestrator', require('./components/home/ShuffleOrchestrator.vue').default);
 Vue.component('home.transition-in-place', require('./components/home/TransitionInPlace.vue').default);
@@ -81,4 +82,5 @@ Vue.component('color-slider', require('./components/vue/color-slider').default);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.prototype.$route = route;
  new Vue({ el: '#app' });

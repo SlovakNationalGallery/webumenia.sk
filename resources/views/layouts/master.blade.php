@@ -56,7 +56,8 @@
 </head>
 
 <body id="page-top">
-
+{{-- Add ziggy routes --}}
+@routes
 @include('googletagmanager::body')
 
 <div id="fb-root"></div>

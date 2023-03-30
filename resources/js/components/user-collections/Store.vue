@@ -1,9 +1,3 @@
-<template>
-    <div>
-        <slot :sharedCollections="sharedCollections" :items="items"></slot>
-    </div>
-</template>
-
 <script>
 export default {
     data() {
@@ -28,6 +22,14 @@ export default {
                 present: items.length > 0,
             }
         },
-    }
+    },
+    render() {
+        return this.$scopedSlots.default({
+            items: this.items,
+            sharedCollections: this.sharedCollections,
+            toggleItem: this.store.toggleItem.bind(this.store),
+            hasItem: this.store.hasItem.bind(this.store),
+        })
+    },
 }
 </script>
