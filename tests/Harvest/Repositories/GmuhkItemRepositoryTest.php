@@ -13,7 +13,7 @@ class GmuhkItemRepositoryTest extends TestCase
     public function testAll()
     {
         $endpointFactoryMock = $this->getMockBuilder(EndpointFactory::class)
-            ->setMethods(['createHttpAdapter'])
+            ->onlyMethods(['createHttpAdapter'])
             ->getMock();
         $httpAdapterMock = $this->createMock(HttpAdapterInterface::class);
         $xml = file_get_contents(__DIR__ . '/gmuhk_item.xml');
