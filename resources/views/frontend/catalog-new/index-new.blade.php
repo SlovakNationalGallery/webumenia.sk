@@ -271,19 +271,19 @@
                                                     @load="ic.onImgLoad"
                                                     :src="$route('dielo.nahlad', {id: artwork.id, width: 220})"
                                                     :src-set="`${$route('dielo.nahlad', {id: artwork.id, width: 600})} 600w,
-                                                                        ${$route('dielo.nahlad', {id: artwork.id, width: 220})} 220w,
-                                                                        ${$route('dielo.nahlad', {id: artwork.id, width: 300})} 300w,
-                                                                        ${$route('dielo.nahlad', {id: artwork.id, width: 600})} 600w,
-                                                                        ${$route('dielo.nahlad', {id: artwork.id, width: 880})} 800w`"
+                                                                            ${$route('dielo.nahlad', {id: artwork.id, width: 220})} 220w,
+                                                                            ${$route('dielo.nahlad', {id: artwork.id, width: 300})} 300w,
+                                                                            ${$route('dielo.nahlad', {id: artwork.id, width: 600})} 600w,
+                                                                            ${$route('dielo.nahlad', {id: artwork.id, width: 880})} 800w`"
                                                     sizes="(max-width: 768px) 250vw, 100vw" />
                                             </a>
                                             <div :class="[{'tw-hidden': ic.isLoaded }, 'tw-w-full tw-saturate-50 tw-bg-gray-300']"
                                                 :style="{
-                                                                        'aspect-ratio': artwork.content.image_ratio || 1,
-                                                                        'background-color': artwork.content.hsl[0]
-                                                                            ? `hsl(${artwork.content.hsl[0].h}, ${artwork.content.hsl[0].s}%, ${artwork.content.hsl[0].l}%)`
-                                                                            : undefined,
-                                                                    }"></div>
+                                                                            'aspect-ratio': artwork.content.image_ratio || 1,
+                                                                            'background-color': artwork.content.hsl[0]
+                                                                                ? `hsl(${artwork.content.hsl[0].h}, ${artwork.content.hsl[0].s}%, ${artwork.content.hsl[0].l}%)`
+                                                                                : undefined,
+                                                                        }"></div>
                                         </div>
                                     </catalog.artwork-image-controller>
                                     <div class="tw-mt-6 tw-flex">
@@ -296,7 +296,7 @@
                                                 class="tw-pb-2 tw-text-base tw-font-normal tw-leading-5">@{{ artwork.content.dating }}</a>
                                         </div>
                                         <div class="tw-flex tw-items-start tw-gap-4">
-                                            <favourite-controller v-slot="{ toggleItem, hasItem }">
+                                            <user-collections-store v-slot="{ toggleItem, hasItem }">
                                                 <button @click="toggleItem(artwork.id)">
                                                     <svg v-if="hasItem(artwork.id)"
                                                         xmlns="http://www.w3.org/2000/svg"
@@ -314,7 +314,7 @@
                                                         </path>
                                                     </svg>
                                                 </button>
-                                            </favourite-controller>
+                                            </user-collections-store>
                                             <a v-if="artwork.content.has_iip"
                                                 :href="$route('item.zoom', {id: artwork.id})">
                                                 <svg class="tw-h-5 tw-w-5 tw-fill-current"
