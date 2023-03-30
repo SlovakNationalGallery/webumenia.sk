@@ -29,7 +29,6 @@ import { Lang } from 'laravel-vue-lang';
 
 window.Vue = Vue
 Vue.use(VueMasonryPlugin)
-Vue.use(ZiggyVue)
 Vue.use(Lang, { fallback: 'sk' })
 Vue.component('featured-piece-click-tracker', require('./components/FeaturedPieceClickTracker.vue').default);
 Vue.component('filter-sort-by', require('./components/filter/SortBy.vue').default);
@@ -84,4 +83,5 @@ Vue.component('color-slider', require('./components/vue/color-slider').default);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.prototype.$route = route;
  new Vue({ el: '#app' });

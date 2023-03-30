@@ -266,15 +266,15 @@
                                 <div name="artwork-image">
                                     <catalog.artwork-image-controller v-slot="ic">
                                         <div>
-                                            <a :href="route('dielo', {id: artwork.id})">
+                                            <a :href="$route('dielo', {id: artwork.id})">
                                                 <img :class="{'tw-hidden': !ic.isLoaded }"
                                                     @load="ic.onImgLoad"
-                                                    :src="route('dielo.nahlad', {id: artwork.id, width: 220})"
-                                                    :src-set="`${route('dielo.nahlad', {id: artwork.id, width: 600})} 600w,
-                                                                        ${route('dielo.nahlad', {id: artwork.id, width: 220})} 220w,
-                                                                        ${route('dielo.nahlad', {id: artwork.id, width: 300})} 300w,
-                                                                        ${route('dielo.nahlad', {id: artwork.id, width: 600})} 600w,
-                                                                        ${route('dielo.nahlad', {id: artwork.id, width: 880})} 800w`"
+                                                    :src="$route('dielo.nahlad', {id: artwork.id, width: 220})"
+                                                    :src-set="`${$route('dielo.nahlad', {id: artwork.id, width: 600})} 600w,
+                                                                        ${$route('dielo.nahlad', {id: artwork.id, width: 220})} 220w,
+                                                                        ${$route('dielo.nahlad', {id: artwork.id, width: 300})} 300w,
+                                                                        ${$route('dielo.nahlad', {id: artwork.id, width: 600})} 600w,
+                                                                        ${$route('dielo.nahlad', {id: artwork.id, width: 880})} 800w`"
                                                     sizes="(max-width: 768px) 250vw, 100vw" />
                                             </a>
                                             <div :class="[{'tw-hidden': ic.isLoaded }, 'tw-w-full tw-saturate-50 tw-bg-gray-300']"
@@ -288,17 +288,17 @@
                                     </catalog.artwork-image-controller>
                                     <div class="tw-mt-6 tw-flex">
                                         <div class="tw-flex tw-grow tw-flex-col">
-                                            <a :href="route('dielo', {id: artwork.id})"
+                                            <a :href="$route('dielo', {id: artwork.id})"
                                                 class="tw-pb-2 tw-text-lg tw-font-light tw-italic tw-leading-5">@{{ artwork.content.author[0] }}</a>
-                                            <a :href="route('dielo', {id: artwork.id})"
+                                            <a :href="$route('dielo', {id: artwork.id})"
                                                 class="tw-pb-2 tw-text-lg tw-font-medium tw-leading-5">@{{ artwork.content.title }}</a>
-                                            <a :href="route('dielo', {id: artwork.id})"
+                                            <a :href="$route('dielo', {id: artwork.id})"
                                                 class="tw-pb-2 tw-text-base tw-font-normal tw-leading-5">@{{ artwork.content.dating }}</a>
                                         </div>
                                         <div class="tw-flex tw-items-start tw-gap-4">
-                                            <favourite-controller v-slot="{ store }">
-                                                <button @click="store.toggleItem(artwork.id)">
-                                                    <svg v-if="store.hasItem(artwork.id)"
+                                            <favourite-controller v-slot="{ toggleItem, hasItem }">
+                                                <button @click="toggleItem(artwork.id)">
+                                                    <svg v-if="hasItem(artwork.id)"
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         class="tw-h-5 tw-w-5 tw-fill-current"
                                                         viewBox="0 0 256 256">
@@ -316,7 +316,7 @@
                                                 </button>
                                             </favourite-controller>
                                             <a v-if="artwork.content.has_iip"
-                                                :href="route('item.zoom', {id: artwork.id})">
+                                                :href="$route('item.zoom', {id: artwork.id})">
                                                 <svg class="tw-h-5 tw-w-5 tw-fill-current"
                                                     xmlns="http://www.w3.org/2000/svg"
                                                     viewBox="0 0 256 256">

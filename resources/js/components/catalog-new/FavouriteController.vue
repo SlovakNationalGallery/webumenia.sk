@@ -9,7 +9,8 @@ export default {
     },
     render() {
         return this.$scopedSlots.default({
-            store: this.store,
+            toggleItem: this.store.toggleItem.bind(this.store),
+            hasItem: this.store.hasItem.bind(this.store),
         })
     },
 }
