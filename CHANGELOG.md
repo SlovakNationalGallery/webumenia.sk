@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Changed
 - upgrade to Laravel 10
+- upgrade to PHPUnit 10
 
 ### Added
 - additional sortables in /api/v1/items
