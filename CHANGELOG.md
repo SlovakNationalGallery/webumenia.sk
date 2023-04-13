@@ -2,16 +2,18 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
-### Fixed
-- artwork map styling
+
+## [2.74.0] - 2023-04-13
+### Added
+- additional sortables in /api/v1/items
+- spatie/laravel-ignition
 
 ### Changed
 - upgrade to Laravel 10
 - upgrade to PHPUnit 10
 
-### Added
-- additional sortables in /api/v1/items
-- spatie/laravel-ignition
+### Fixed
+- artwork map styling
 
 ## [2.73.0] - 2023-03-09
 ### Added
