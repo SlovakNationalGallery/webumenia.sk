@@ -17,12 +17,14 @@ use App\Nationality;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\Harvest\FakeRecordFactory;
 use Tests\TestCase;
+use Tests\WithoutSearchIndexing;
 
 class AuthorityImporterTest extends TestCase
 {
     private AuthorityImporter $importer;
 
     use RefreshDatabase;
+    use WithoutSearchIndexing;
 
     protected function setUp(): void
     {

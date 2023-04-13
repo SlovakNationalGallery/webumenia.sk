@@ -9,7 +9,8 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
     /** @var \Faker\Generator */
     protected $faker;
 
-    protected function setUp(): void {
+    protected function setUp(): void
+    {
         parent::setUp();
 
         if ($this->faker === null) {
@@ -28,6 +29,10 @@ abstract class TestCase extends \Illuminate\Foundation\Testing\TestCase
 
         if (isset($uses[RecreateSearchIndex::class])) {
             $this->recreateSearchIndex();
+        }
+
+        if (isset($uses[WithoutSearchIndexing::class])) {
+            $this->disableModelSearchIndexing();
         }
 
         return $uses;
