@@ -15,12 +15,14 @@ use App\ItemImage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\Harvest\FakeRecordFactory;
 use Tests\TestCase;
+use Tests\WithoutSearchIndexing;
 
 class ItemImporterTest extends TestCase
 {
     private ItemImporter $importer;
 
     use RefreshDatabase;
+    use WithoutSearchIndexing;
 
     protected function setUp(): void
     {
