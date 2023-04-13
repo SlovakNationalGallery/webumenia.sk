@@ -51,8 +51,6 @@ class Authority extends Model implements IndexableModel, TranslatableContract
         'roles',
     ];
 
-    protected $dates = ['created_at', 'updated_at'];
-
     protected $with = ['nationalities', 'names'];
 
     protected $guarded = [];

@@ -25,7 +25,10 @@ class Import extends Model
         'class_name' => 'required',
     ];
 
-    protected $dates = ['created_at', 'updated_at', 'started_at', 'completed_at'];
+    protected $casts = [
+        'started_at' => 'datetime',
+        'completed_at' => 'datetime',
+    ];
 
     public function user()
     {
@@ -104,6 +107,6 @@ class Import extends Model
 
     public function disk(): Attribute
     {
-        return Attribute::get(fn ($value) => $value ?? 'import');
+        return Attribute::get(fn($value) => $value ?? 'import');
     }
 }

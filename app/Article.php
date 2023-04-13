@@ -37,13 +37,12 @@ class Article extends Model implements TranslatableContract
 
     protected $fillable = ['published_date'];
 
-    protected $dates = ['created_at', 'updated_at', 'published_date'];
-
     protected $casts = [
         'edu_media_types' => 'array',
         'edu_target_age_groups' => 'array',
         'edu_keywords' => 'array',
         'edu_suitable_for_home' => 'boolean',
+        'published_date' => 'datetime',
     ];
 
     public static $eduMediaTypes = [

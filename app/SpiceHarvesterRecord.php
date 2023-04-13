@@ -16,7 +16,9 @@ class SpiceHarvesterRecord extends Model
     use HasFactory;
     
     protected $softDelete = true;
-    protected $dates = ['deleted_at'];
+    protected $casts = [
+        'deleted_at' => 'datetime',
+    ];
     protected $fillable = [
         'identifier',
         'type',

@@ -53,7 +53,7 @@ class MigrateElasticsearch extends Command
 
         if ($this->option('now')) {
             foreach($repositoryClasses as $repositoryClass) {
-                MigrateElasticsearchIndexJob::dispatchNow($repositoryClass, [$this, 'comment']);
+                MigrateElasticsearchIndexJob::dispatchSync($repositoryClass, [$this, 'comment']);
             }
             return;
         }

@@ -5,8 +5,12 @@ All notable changes to this project will be documented in this file[^1].
 ### Fixed
 - artwork map styling
 
+### Changed
+- upgrade to Laravel 10
+
 ### Added
 - additional sortables in /api/v1/items
+- spatie/laravel-ignition
 
 ## [2.73.0] - 2023-03-09
 ### Added

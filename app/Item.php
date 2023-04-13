@@ -108,11 +108,6 @@ class Item extends Model implements IndexableModel, TranslatableContract
         'current_location',
     );
 
-    protected $dates = array(
-        'created_at',
-        'updated_at',
-    );
-
     public static $rules = array(
         'author' => 'required',
         'date_earliest' => 'required',
