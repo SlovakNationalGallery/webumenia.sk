@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Changed
+- spatie/laravel-newsletter to drewm/mailchimp-api
+
+### Fixed
+- newsletter subscription form
 
 ## [2.74.0] - 2023-04-13
 ### Added
