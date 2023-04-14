@@ -2,10 +2,10 @@
 
 namespace App\Http\Livewire;
 
+use DrewM\MailChimp\MailChimp;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Date;
 use Livewire\Component;
-use Spatie\Newsletter\NewsletterFacade as Newsletter;
 
 class NewsletterSignupForm extends Component
 {
@@ -20,25 +20,25 @@ class NewsletterSignupForm extends Component
     public function subscribe()
     {
         $this->validate();
+        $mailChimp = new MailChimp(config('mailchimp.apiKey'));
+        $listId = config('mailchimp.lists.webumenia-newsletter.id');
 
-        Newsletter::subscribePending(
-            $this->email,
-            [], // no merge fields
-            'webumenia-newsletter',
-            [
-                'marketing_permissions' => [
-                    [
-                        'marketing_permission_id' => config(
-                            'newsletter.lists.webumenia-newsletter.marketing_permissions.default'
-                        ),
-                        'enabled' => true,
-                    ],
+        $mailChimp->post("lists/{$listId}/members", [
+            'email_address' => $this->email,
+            'status' => 'pending',
+            'email_type' => 'html',
+            'marketing_permissions' => [
+                [
+                    'marketing_permission_id' => config(
+                        'mailchimp.lists.webumenia-newsletter.marketing_permissions.default'
+                    ),
+                    'enabled' => true,
                 ],
-            ]
-        );
+            ],
+        ]);
 
-        if (!Newsletter::lastActionSucceeded()) {
-            $this->addError('subscription', Newsletter::getLastError());
+        if (!$mailChimp->success()) {
+            $this->addError('subscription', $mailChimp->getLastError());
             return;
         }
 

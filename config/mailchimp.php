@@ -1,14 +1,6 @@
 <?php
 
 return [
-
-    /*
-     * The driver to use to interact with MailChimp API.
-     * You may use "log" or "null" to prevent calling the
-     * API directly from your environment.
-     */
-    'driver' => env('MAILCHIMP_DRIVER', 'api'),
-
     /*
      * The API key of a MailChimp account. You can find yours at
      * https://us10.admin.mailchimp.com/account/api-key-popup/.
@@ -16,15 +8,9 @@ return [
     'apiKey' => env('MAILCHIMP_APIKEY'),
 
     /*
-     * The listName to use when no listName has been specified in a method.
-     */
-    'defaultListName' => 'webumenia-newsletter',
-
-    /*
      * Here you can define properties of the lists.
      */
     'lists' => [
-
         /*
          * This key is used to identify this list. It can be used
          * as the listName parameter provided in the various methods.
@@ -33,28 +19,19 @@ return [
          * as many lists as you want.
          */
         'webumenia-newsletter' => [
-
             /*
              * A MailChimp list id. Check the MailChimp docs if you don't know
              * how to get this value:
              * http://kb.mailchimp.com/lists/managing-subscribers/find-your-list-id.
              */
-            'id' => env('MAILCHIMP_LIST_ID', '1d7d3f54f9'),
+            'id' => env('NEWSLETTER_LIST_ID', '1d7d3f54f9'),
 
             /*
              * The GDPR marketing permissions of this audience.
-             * You can get a list of your permissions with this command: "php artisan newsletter:permissions"
              */
             'marketing_permissions' => [
                 'default' => '1e03249552', // i.e. "Súhlasím"
             ],
-
         ],
     ],
-
-    /*
-     * If you're having trouble with https connections, set this to false.
-     */
-    'ssl' => true,
-
 ];
