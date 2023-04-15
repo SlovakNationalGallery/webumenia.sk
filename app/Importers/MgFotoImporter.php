@@ -15,6 +15,7 @@ class MgFotoImporter extends MgImporter {
         'Původnost' => 'state_edition',
         'Autor' => 'author',
         'AktLokace' => 'location',
+        'Popis' => 'description',
     ];
 
     protected $defaults = [
@@ -123,5 +124,21 @@ class MgFotoImporter extends MgImporter {
         } else {
             return 'bez názvu';
         }
+    }
+
+    protected function hydrateRelatedWork(array $record) {
+        if ($record['Okolnosti'] === 'Archiv negativù Dagmar Hochové') {
+            return $record['Okolnosti'];
+        }
+
+        return '';
+    }
+
+    protected function hydrateRelationshipType(array $record) {
+        if ($record['Okolnosti'] === 'Archiv negativù Dagmar Hochové') {
+            return 'ze souboru';
+        }
+
+        return '';
     }
 }
