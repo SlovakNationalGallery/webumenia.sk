@@ -127,7 +127,7 @@ class MgFotoImporter extends MgImporter {
     }
 
     protected function hydrateRelatedWork(array $record) {
-        if ($record['Okolnosti'] === 'Archiv negativù Dagmar Hochové') {
+        if ($record['Okolnosti'] === 'Archiv negativů Dagmar Hochové') {
             return $record['Okolnosti'];
         }
 
@@ -135,7 +135,7 @@ class MgFotoImporter extends MgImporter {
     }
 
     protected function hydrateRelationshipType(array $record) {
-        if ($record['Okolnosti'] === 'Archiv negativù Dagmar Hochové') {
+        if ($record['Okolnosti'] === 'Archiv negativů Dagmar Hochové') {
             return 'ze souboru';
         }
 

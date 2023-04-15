@@ -374,6 +374,12 @@ class CatalogController extends Controller
 
         $slides = collect([
             // new \App\Slide([
+            //     'title' => 'Archiv negativů<br>Dagmar Hochové',
+            //     'subtitle' => '',
+            //     'image_path' => asset('images/mg/intro/dagmar_hochova.jpeg'),
+            //     'url' => '/katalog?related_work=Archiv+negativů+Dagmar+Hochové',
+            // ]),
+            // new \App\Slide([
             //     'title' => 'Light<br>Depo',
             //     'subtitle' => '',
             //     'image_path' => asset('images/mg/intro/LightDepo.jpg'),
