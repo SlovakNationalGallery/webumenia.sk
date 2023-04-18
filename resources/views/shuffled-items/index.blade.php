@@ -60,7 +60,7 @@
                                                                 @foreach ($filter['attributes'] as $attribute)
                                                                     <td
                                                                         class="tw-whitespace-nowrap tw-py-2 tw-px-2 tw-text-xs tw-font-medium tw-text-gray-900">
-                                                                        <span class="font-semibold">
+                                                                        <span class="tw-font-semibold">
                                                                             {{ trans('item.' . $attribute['name'], [], $locale) }}</span>
                                                                         <br />{{ $attribute['label'] }}
                                                                     </td>

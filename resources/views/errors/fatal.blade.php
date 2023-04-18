@@ -13,7 +13,7 @@
                 <div class="col-md-8 col-md-offset-2 content-section">
                     <div class="text-center">
                         {{-- <h1>ERROR 500</h1> --}}
-                        <h2 class="top-margin uppercase">{{ trans('fatal.h2') }}</h2>
+                        <h2 class="top-margin tw-uppercase">{{ trans('fatal.h2') }}</h2>
                         <p>{{ trans('fatal.paragraph') }}</p>
                         <a href="/dielo/SVK:SNG.K_17703"><img src="/images/errors/error.fatal.jpeg" alt="Oznámenie: NedorozUMENIE" class="img-responsive img-dielo"></a>
                         <p>
@@ -21,7 +21,7 @@
                         </p>
 
                         <h3><a href="{!!URL::to('/')!!}" class="btn btn-default btn-lg btn-outline sans"> {{ trans('general.return_home') }}</a></h3>
-                        
+
                     </div>
                 </div>
             </div>

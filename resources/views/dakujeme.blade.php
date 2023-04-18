@@ -4,7 +4,7 @@
 @stop
 
 @section('title')
-{{ trans('dakujeme.title') }} | 
+{{ trans('dakujeme.title') }} |
 @parent
 @stop
 
@@ -20,7 +20,7 @@
                 <div class="col-md-8 col-md-offset-2 text-center">
                     	<h2 class="bottom-space">{{ utrans('dakujeme.title') }}!</h2>
                         <p>{{ trans('dakujeme.paragraph') }}</p>
-                        <a href="{!! URL::to('/') !!}" class="btn btn-default btn-outline  uppercase sans">{{ trans('dakujeme.button') }}</a>
+                        <a href="{!! URL::to('/') !!}" class="btn btn-default btn-outline tw-uppercase sans">{{ trans('dakujeme.button') }}</a>
                 </div>
             </div>
         </div>

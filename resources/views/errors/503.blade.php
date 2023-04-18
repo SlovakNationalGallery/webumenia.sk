@@ -12,7 +12,7 @@
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 content-section">
                     <div class="text-center">
-                        <h2 class="top-margin uppercase">{{ trans('maintenance.h2') }}</h2>
+                        <h2 class="top-margin tw-uppercase">{{ trans('maintenance.h2') }}</h2>
                         <p>{{ trans('maintenance.paragraph') }}</p>
                         <a href="/dielo/SVK:SNG.UP-DK_1104"><img src="/images/errors/error.maintenance.jpeg" alt="Sezónni robotníci. Oprava trate" class="img-responsive img-dielo"></a>
                         <p>

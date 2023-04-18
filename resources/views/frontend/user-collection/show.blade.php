@@ -10,11 +10,11 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <h2 class="bottom-space text-center font-semibold">
+            <h2 class="bottom-space text-center tw-font-semibold">
                 {{ trans('user-collection.title') }} <span class="badge badge-primary badge-sup">beta</span>
             </h2>
 
-            <div class="text-lg mt-5">
+            <div class="tw-text-lg mt-5">
                 @if($items->isNotEmpty())
                     <p>{{ trans('user-collection.content-intro') }}</p>
                     <p>{{ trans('user-collection.content-usage') }}</p>
@@ -35,7 +35,7 @@
     <div :class="{ 'bg-gray-300': store.sharedCollections.present }" class="mt-5 py-5">
         <div class="container">
             <template v-if="store.sharedCollections.present">
-                <h2 class="font-semibold text-center m-0">Tvoje výbery</h2>
+                <h2 class="tw-font-semibold text-center m-0">Tvoje výbery</h2>
 
                 <div class="row mt-4">
                     <div class="col-md-6 col-md-offset-3">
@@ -54,7 +54,7 @@
             </template>
 
             <div v-if="store.items.present" v-cloak class="text-center mt-5">
-                <a class="btn btn-dark font-light p-3 px-5" href="{{ route('frontend.shared-user-collections.create', ['ids' => request()->ids ] ) }}">
+                <a class="btn btn-dark tw-font-light p-3 px-5" href="{{ route('frontend.shared-user-collections.create', ['ids' => request()->ids ] ) }}">
                     {{ trans('user-collection.share') }}
                 </a>
 

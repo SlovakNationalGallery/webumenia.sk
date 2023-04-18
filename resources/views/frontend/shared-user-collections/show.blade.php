@@ -19,7 +19,7 @@
 
 @section('content')
 <div class="container pt-5 mt-5">
-    <div class="mb-5 pb-5 text-lg text-muted">
+    <div class="mb-5 pb-5 tw-text-lg text-muted">
         <p>
             Výber diel z <a href="{{ config('app.url') }}" class="underline">Webu <i class="fa fa-search color"></i> umenia</a>.
         </p>
@@ -32,7 +32,7 @@
         :items="$items"
         disabled
     />
-    <div class="pb-5 my-5 text-center text-lg text-muted">
+    <div class="pb-5 my-5 text-center tw-text-lg text-muted">
         <p>
             Vytvor a zdieľaj vlastný výber výtvarných diel na <a href="{{ config('app.url') }}" class="underline">Webe umenia</a>.
         </p>

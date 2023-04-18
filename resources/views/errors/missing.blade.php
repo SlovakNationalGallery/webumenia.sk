@@ -13,7 +13,7 @@
                 <div class="col-md-8 col-md-offset-2">
                     <div class="text-center">
                         <h1>{{ trans('missing.h1') }}</h1>
-                        <h2 class="uppercase">{{ trans('missing.h2') }}</h2>
+                        <h2 class="tw-uppercase">{{ trans('missing.h2') }}</h2>
                         @if ($item)
                             <p>{{ trans('missing.paragraph_item') }}</p>
 

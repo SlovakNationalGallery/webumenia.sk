@@ -1,104 +1,102 @@
 .inline_input {
-  position: relative;
-  display: inline-block;
-  line-height: @line-height-base;
-  &.text-4xl {
-    @font-size: 72px;
-
-    font-size: @font-size * .7;
-    line-height: 1.1;
-
-    @media(min-width: @screen-sm-min) {
-      font-size: @font-size;
-      line-height: 1.2;
-    }
-  }
-
-  &.text-xl {
-    @font-size: @font-size-h2;
-    font-size: @font-size * .8;
-
-    @media(min-width: @screen-sm-min) {
-      font-size: @font-size;
-    }
-  }
-
-  &.text-lg {
-    @font-size: @font-size-content;
-
-    font-size: @font-size * .8;
-    line-height: @line-height-content;
-
-    @media(min-width: @screen-sm-min) {
-      font-size: @font-size;
-    }
-  }
-
-  &.font-serif {
-    font-family: @font-family-serif;
-  }
-
-  & > &__pencil {
-    display: none;
-  }
-
-  &:hover > &__pencil {
-    display: block;
-    position: absolute;
-    text-align: center;
-    top: -10px;
-    right: -30px;
-    color: @light;
-    background-color: @dark;
-    padding-top: 4px;
-    font-size: 15px;
-    line-height: 15px;
-    width: 24px;
-    height: 24px;
-  }
-
-  & > &__spacer {
+    position: relative;
     display: inline-block;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-  }
+    line-height: @line-height-base;
+    &.tw-text-4xl {
+        @font-size: 72px;
 
-  & > &__textarea-wrapper {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+        font-size: @font-size * 0.7;
+        line-height: 1.1;
 
-
-    & > textarea {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      resize: none;
-      border: none;
-      padding: 0;
-      outline: none;
-
-      border-bottom: 1px solid transparent;
-
-      .text-center& {
-        text-align: center;
-      }
-
-      .border& {
-        border-bottom-color: @mid-grey;
-      }
-
-      &:hover {
-        border-bottom-color: @dark;
-      }
-
-      &:focus {
-        border-bottom-color: @dark;
-        background-color: @lighter-grey;
-      }
+        @media (min-width: @screen-sm-min) {
+            font-size: @font-size;
+            line-height: 1.2;
+        }
     }
-  }
 
+    &.tw-text-xl {
+        @font-size: @font-size-h2;
+        font-size: @font-size * 0.8;
+
+        @media (min-width: @screen-sm-min) {
+            font-size: @font-size;
+        }
+    }
+
+    &.text-lg {
+        @font-size: @font-size-content;
+
+        font-size: @font-size * 0.8;
+        line-height: @line-height-content;
+
+        @media (min-width: @screen-sm-min) {
+            font-size: @font-size;
+        }
+    }
+
+    &.font-serif {
+        font-family: @font-family-serif;
+    }
+
+    & > &__pencil {
+        display: none;
+    }
+
+    &:hover > &__pencil {
+        display: block;
+        position: absolute;
+        text-align: center;
+        top: -10px;
+        right: -30px;
+        color: @light;
+        background-color: @dark;
+        padding-top: 4px;
+        font-size: 15px;
+        line-height: 15px;
+        width: 24px;
+        height: 24px;
+    }
+
+    & > &__spacer {
+        display: inline-block;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    & > &__textarea-wrapper {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        & > textarea {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            resize: none;
+            border: none;
+            padding: 0;
+            outline: none;
+
+            border-bottom: 1px solid transparent;
+
+            .text-center& {
+                text-align: center;
+            }
+
+            .border& {
+                border-bottom-color: @mid-grey;
+            }
+
+            &:hover {
+                border-bottom-color: @dark;
+            }
+
+            &:focus {
+                border-bottom-color: @dark;
+                background-color: @lighter-grey;
+            }
+        }
+    }
 }

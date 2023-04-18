@@ -1,8 +1,10 @@
 <template>
     <div v-if="name">
-        <div class="flex font-semibold underline">
-            <h4 class="text-lg m-0 flex-grow bg-gray-400 mr-2 font-semibold">
-                <a :href="shareUrl"><strong>{{ name }}</strong></a>
+        <div class="flex tw-font-semibold underline">
+            <h4 class="tw-text-lg m-0 flex-grow bg-gray-400 mr-2 tw-font-semibold">
+                <a :href="shareUrl"
+                    ><strong>{{ name }}</strong></a
+                >
             </h4>
             <div class="hidden-xs">
                 <a :href="editUrl" class="mr-3">upraviť</a>
@@ -18,7 +20,7 @@
             <span v-if="author" class="mx-1"> · </span>
             {{ itemsCount }} {{ itemsCountWord }}
         </div>
-        <div class="mt-2 underline font-semibold visible-xs-block">
+        <div class="mt-2 underline tw-font-semibold visible-xs-block">
             <a :href="editUrl" class="mr-3">upraviť</a>
             <copy-to-clipboard-link :value="shareUrl" :successText="copySuccessText">
                 kopírovať odkaz
@@ -38,7 +40,7 @@ export default {
         'apiUrlTemplate',
         'shareUrlTemplate',
         'editUrlTemplate',
-        'copySuccessText'
+        'copySuccessText',
     ],
     data() {
         return {
@@ -50,23 +52,23 @@ export default {
     },
     mounted() {
         fetch(this.apiUrl)
-            .then(response => response.json())
-            .then(response => {
-                this.name = response.name;
-                this.author = response.author;
-                this.itemsCount = response.items_count;
+            .then((response) => response.json())
+            .then((response) => {
+                this.name = response.name
+                this.author = response.author
+                this.itemsCount = response.items_count
                 this.createdAt = formatDate(parseISODate(response.created_at), 'dd. MM. yyyy')
-            });
+            })
     },
     computed: {
         apiUrl() {
-            return this.getUrlFromTemplate(this.apiUrlTemplate);
+            return this.getUrlFromTemplate(this.apiUrlTemplate)
         },
         shareUrl() {
-            return this.getUrlFromTemplate(this.shareUrlTemplate);
+            return this.getUrlFromTemplate(this.shareUrlTemplate)
         },
         editUrl() {
-            return this.getUrlFromTemplate(this.editUrlTemplate);
+            return this.getUrlFromTemplate(this.editUrlTemplate)
         },
         itemsCountWord() {
             if (this.itemsCount === 1) return 'dielo'
@@ -78,9 +80,8 @@ export default {
         getUrlFromTemplate(template) {
             return template
                 .replace('__PUBLIC_ID__', this.publicId)
-                .replace('__UPDATE_TOKEN__', this.updateToken);
-        }
-    }
+                .replace('__UPDATE_TOKEN__', this.updateToken)
+        },
+    },
 }
-
 </script>
