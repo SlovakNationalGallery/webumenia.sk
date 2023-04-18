@@ -22,7 +22,7 @@
                 @else
                     <div class="text-center text-muted">
                         <p>{{ trans('user-collection.empty') }}</p>
-                        <img src="{{ asset('/images/no-image/diela/no-image-o.jpg') }}" class="w-50" />
+                        <img src="{{ asset('/images/no-image/diela/no-image-o.jpg') }}" class="tw-w-1/2" />
                         <p>{{ trans('user-collection.empty_hint') }}&nbsp;<i class="fa fa-star-o"></i>.</p>
                     </div>
                 @endif

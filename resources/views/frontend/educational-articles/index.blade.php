@@ -52,7 +52,7 @@
     </div>
 </section>
 
-<section class="articles bg-light-grey">
+<section class="articles tw-bg-gray-100">
     <div class="container">
         <div class="row mt-5">
             <div class="col-md-8 col-md-push-2 col-lg-6 col-lg-push-3 text-muted text-md-lg">

@@ -4,6 +4,7 @@ module.exports = {
         extend: {
             colors: {
                 gray: {
+                    100: '#f0f0f0',
                     200: '#ededed',
                     300: '#cdcdcd',
                     500: '#969696',
@@ -25,6 +26,9 @@ module.exports = {
                     'Times',
                     'serif',
                 ],
+            },
+            minHeight: {
+                12: '3em',
             },
         },
     },

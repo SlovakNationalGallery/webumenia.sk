@@ -1,4 +1,4 @@
-@import "bootstrap/variables.less";
+@import 'bootstrap/variables.less';
 
 /*
   These classes provide forwards compatibility with Bootstrap 4 Utilities,
@@ -8,64 +8,6 @@
 */
 
 /*
-  Sizing
-  https://getbootstrap.com/docs/4.1/utilities/sizing/
-*/
-.w-25 {width: 25% !important;}
-.w-50 {width: 50% !important;}
-.w-75 {width: 75% !important;}
-.w-100 {width: 100% !important;}
-.w-auto {width: auto !important;}
-
-.h-25 {height: 25% !important;}
-.h-50 {height: 50% !important;}
-.h-75 {height: 75% !important;}
-.h-100 {height: 100% !important;}
-.h-auto {height: auto !important;}
-
-.mw-100 {max-width: 100% !important;}
-.mh-100 {max-height: 100% !important;}
-
-
-/*
-  Position
-  https://getbootstrap.com/docs/4.1/utilities/position/
-*/
-
-.position-static {position: static !important;}
-.position-relative {position: relative !important;}
-.position-absolute {position: absolute !important;}
-.position-fixed {position: fixed !important;}
-.position-sticky {
-  position: -webkit-sticky !important;
-  position: sticky !important;
-}
-
-.fixed-top {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 1030;
-}
-.fixed-bottom {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1030;
-}
-
-@supports ((position: -webkit-sticky) or (position: sticky)) {
-  .sticky-top {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    z-index: 1020;
-  }
-}
-
-/*
   Spacing
   https://getbootstrap.com/docs/4.1/utilities/spacing/
 */
@@ -73,28 +15,28 @@
 @spacer: 10px;
 
 @sizes: {
-  0: 0;
-  1: 0.25 * @spacer;
-  2: 0.5 * @spacer;
-  3: 1 * @spacer;
-  4: 1.5 * @spacer;
-  5: 3 * @spacer;
-  auto: auto;
-}
+    0: 0;
+    1: 0.25 * @spacer;
+    2: 0.5 * @spacer;
+    3: 1 * @spacer;
+    4: 1.5 * @spacer;
+    5: 3 * @spacer;
+    auto: auto;
+};
 
 @breakpoints: {
-  xs: 0;
-  md: @screen-md-min;
-  lg: @screen-lg-min;
-}
+    xs: 0;
+    md: @screen-md-min;
+    lg: @screen-lg-min;
+};
 
 @properties: {
-  m: margin;
-  p: padding;
-}
+    m: margin;
+    p: padding;
+};
 
 each(@breakpoints, .(@minWidth, @breakpointName) {
-  // Do not include breakpoint name in class for 'xs' variant
+  // Do not include breakpoint name in class for  xs  variant
   @breakpoint: e(if((@breakpointName = xs), '', '-@{breakpointName}'));
 
   @media(min-width: @minWidth) {
