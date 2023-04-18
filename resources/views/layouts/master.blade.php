@@ -32,7 +32,7 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 		<link rel="stylesheet" type="text/css" href="{{ mix('/css/app-tailwind.css') }}" />
 		<link rel="stylesheet" type="text/css" href="{{ mix('/css/style.css') }}" />
-		{!! Html::style('css/magnific-popup.css') !!}
+		{!! Html::style('css/plugins/magnific-popup.css') !!}
 		@livewireStyles
 
 		{{-- JS --}}
