@@ -1,23 +1,19 @@
 // out: ../style.css, compress: true
 
 @import 'bootstrap/bootstrap.less';
-// @import "font-awesome/font-awesome.less";
 
-//@import "variables.less";
-@import 'responsive-align.less';
 @import '../css/fonts.css';
-@import 'icons.less';
-@import 'bootstrap-slider.less';
-// @import "chosen.less";
-@import 'awesome-bootstrap-checkbox.less';
-@import 'selectize/selectize.bootstrap3.less';
-@import 'typeahead.less';
-@import 'custom.less';
-@import 'dielo.less';
+@import 'partials/icons.less';
+@import 'plugins/bootstrap-slider.less';
+@import 'plugins/awesome-bootstrap-checkbox.less';
+@import 'plugins/selectize/selectize.bootstrap3.less';
+@import 'plugins/typeahead.less';
 
-// atomic helper classes
-@import '_bootstrap4utilities.less';
-@import 'img-responsive.less';
+@import 'partials/custom.less';
+@import 'partials/dielo.less';
+
+@import 'partials/bootstrap4utilities.less';
+@import 'partials/img-responsive.less';
 
 // component modules
 @import 'components/language-switch.less';
@@ -29,10 +25,10 @@
 @import 'components/inline-input.less';
 @import 'components/ukraine-glow.less';
 
-@import 'content.less';
+@import 'partials/content.less';
 
 // slick + content slick
 @import '~flickity/css/flickity.css';
 @import '~slick-carousel/slick/slick.css';
-@import './slick-theme.less';
-@import './content-slick.less';
+@import 'plugins/slick/theme.less';
+@import 'plugins/slick/content.less';
