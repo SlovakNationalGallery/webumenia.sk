@@ -22,11 +22,11 @@
         {!! Html::style('css/admin/ladda-themeless.min.css') !!}
         {!! Html::style('css/admin/bootstrap-wysihtml5.css') !!}
         {!! Html::style('css/admin/bootstrap-colorpicker.min.css') !!}
-        {!! Html::style('css/plugins/selectize.css') !!}
-        {!! Html::style('css/plugins/selectize.bootstrap3.css') !!}
-        {!! Html::style('css/plugins/bootstrap-switch.css') !!}
-        {!! Html::style('css/jquery-ui/jquery-ui.css') !!}
-        {!! Html::style('/css/vue/vue-select.css') !!}
+        {!! Html::style('css/admin/selectize.css') !!}
+        {!! Html::style('css/admin/selectize.bootstrap3.css') !!}
+        {!! Html::style('css/admin/bootstrap-switch.css') !!}
+        {!! Html::style('css/admin/jquery-ui.min.css') !!}
+        {!! Html::style('css/admin/vue-select.css') !!}
         {!! Html::style(mix('/css/admin.css')) !!}
 </head>
 
