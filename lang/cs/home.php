@@ -57,7 +57,7 @@ return [
 
     'featured_author' => [
         'title' => 'Autor týdne',
-        'button_author' => 'Zobrazit <strong>:count děl</strong> od autora',
+        'button_artworks' => 'Zobrazit <strong>:count děl</strong> od autora',
         'button_more' => 'zobrazit další autory',
     ],
 ];

@@ -376,9 +376,9 @@
                                 @endif
                             </div>
                             <x-home.button
-                                href="{{ route('frontend.author.detail', $featuredAuthor) }}"
+                                href="{{ route('frontend.catalog.index', ['author' => $featuredAuthor->name]) }}"
                                 class="tw-mt-6">
-                                {!! trans('home.featured_author.button_author', ['count' => $featuredAuthor->items_count]) !!}
+                                {!! trans('home.featured_author.button_artworks', ['count' => $featuredAuthor->items_count]) !!}
                             </x-home.button>
                             <br />
                             <a href="{{ route('frontend.author.index') }}"
