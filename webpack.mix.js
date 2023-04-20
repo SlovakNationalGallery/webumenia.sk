@@ -1,5 +1,5 @@
-const mix = require('laravel-mix');
-const path = require('path');
+const mix = require('laravel-mix')
+const path = require('path')
 
 /*
  |--------------------------------------------------------------------------
@@ -61,15 +61,14 @@ mix
     })
 
     // CSS
-    .less('resources/less/admin.less', 'public/css')
-    .less('resources/less/style.less', 'public/css')
-    .postCss('resources/css/app-tailwind.css', 'public/css', [require('tailwindcss')])
+    .less('resources/less/admin.less', 'public/css', [require('tailwindcss')])
+    .less('resources/less/style.less', 'public/css', [require('tailwindcss')])
 
     .disableSuccessNotifications()
     .options({
         processCssUrls: !process.env.MIX_SKIP_CSS_URL_PROCESSING,
-    });
+    })
 
 if (mix.inProduction()) {
-    mix.version();
+    mix.version()
 }
