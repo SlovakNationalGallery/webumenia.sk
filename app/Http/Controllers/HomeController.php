@@ -75,7 +75,7 @@ class HomeController extends Controller
 
                 $items = $author
                     ->items()
-                    ->has('images')
+                    ->where('has_image', true)
                     ->inRandomOrder()
                     ->limit(10)
                     ->get();
