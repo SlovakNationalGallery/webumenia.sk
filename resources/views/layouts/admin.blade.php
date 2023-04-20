@@ -18,15 +18,6 @@
         <script src="https://use.fontawesome.com/73587c90bb.js"></script>
         <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="{{ mix('/css/app-tailwind.css') }}" />
-        {!! Html::style('css/admin/sb-admin.css') !!}
-        {!! Html::style('css/admin/ladda-themeless.min.css') !!}
-        {!! Html::style('css/admin/bootstrap-wysihtml5.css') !!}
-        {!! Html::style('css/admin/bootstrap-colorpicker.min.css') !!}
-        {!! Html::style('css/admin/selectize.css') !!}
-        {!! Html::style('css/admin/selectize.bootstrap3.css') !!}
-        {!! Html::style('css/admin/bootstrap-switch.css') !!}
-        {!! Html::style('css/admin/jquery-ui.min.css') !!}
-        {!! Html::style('css/admin/vue-select.css') !!}
         {!! Html::style(mix('/css/admin.css')) !!}
 </head>
 
