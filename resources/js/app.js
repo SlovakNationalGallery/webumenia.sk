@@ -83,4 +83,4 @@ Vue.component('color-slider', require('./components/vue/color-slider').default);
  */
 
 Vue.prototype.$route = route;
- new Vue({ el: '#app' });
+new Vue({ el: '#app' });

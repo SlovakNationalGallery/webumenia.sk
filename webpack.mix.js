@@ -1,5 +1,5 @@
-const mix = require('laravel-mix');
-const path = require('path');
+const mix = require('laravel-mix')
+const path = require('path')
 
 /*
  |--------------------------------------------------------------------------
@@ -17,7 +17,16 @@ mix
     .js('resources/js/app.js', 'public/js')
     .js('resources/js/admin.js', 'public/js')
     .js('resources/js/zoom.js', 'public/js')
-    .vue()
+    .vue({
+        version: 3,
+        options: {
+            compilerOptions: {
+                compatConfig: {
+                    MODE: 2,
+                },
+            },
+        },
+    })
     .extract([
         'bootstrap/dist/js/bootstrap',
         'flickity',
@@ -47,6 +56,7 @@ mix
         resolve: {
             alias: {
                 '@lang': path.resolve('./lang'),
+                vue: '@vue/compat',
                 ziggy: path.resolve('vendor/tightenco/ziggy/dist/vue'),
             },
         },
@@ -68,8 +78,8 @@ mix
     .disableSuccessNotifications()
     .options({
         processCssUrls: !process.env.MIX_SKIP_CSS_URL_PROCESSING,
-    });
+    })
 
 if (mix.inProduction()) {
-    mix.version();
+    mix.version()
 }
