@@ -15,7 +15,7 @@ public/sitemap.xml
 .phpunit.cache
 /public/css/admin.css
 /public/css/style.css
-/public/css/tailwind.css
+/public/css/app-tailwind.css
 /public/fonts
 /public/hot
 /public/js/*LICENSE.txt
