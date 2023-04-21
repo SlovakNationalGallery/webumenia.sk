@@ -137,8 +137,8 @@
                                     </div>
                                 </button>
                             </div>
-                            <filter-disclosure-modal v-if="dc.view !== null" @close="dc.close">
-                                <template #body>
+                            <x-filter.disclosure_modal v-if="dc.view !== null" @close="dc.close">
+                                <x-slot:body>
                                     <filter-disclosure-view v-if="dc.view === 'index'"
                                         @close="dc.close">
                                         <template #header>
@@ -298,15 +298,15 @@
                                             </div>
                                         </template>
                                     </filter-disclosure-view>
-                                </template #body>
-                                <template #footer>
+                                </x-slot>
+                                <x-slot:footer>
                                     <button class="tw-m-4 tw-w-full tw-bg-sky-300 tw-p-4"
                                         @click="dc.close">
                                         zobraziť výsledky <span
                                             class="tw-font-bold">(@{{ artworks.total }})</span>
                                     </button>
-                                </template>
-                            </filter-disclosure-modal>
+                                </x-slot>
+                            </x-filter.disclosure-modal>
                         </div>
                     </filter-disclosure-controller>
                 </div>
