@@ -57,7 +57,7 @@ return [
 
     'featured_author' => [
         'title' => 'Artist of the week',
-        'button_author' => 'Browse <strong>:count artworks</strong> by the artist',
+        'button_artworks' => 'Browse <strong>:count artworks</strong> by the artist',
         'button_more' => 'Show more artists',
     ],
 ];
