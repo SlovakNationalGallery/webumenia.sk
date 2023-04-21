@@ -139,13 +139,14 @@
                             </div>
                             <x-filter.disclosure_modal v-if="dc.view !== null" @close="dc.close">
                                 <x-slot:body>
-                                    <filter-disclosure-view v-if="dc.view === 'index'"
+                                    <x-filter.disclosure_view v-if="dc.view === 'index'"
                                         @close="dc.close">
-                                        <template #header>
+                                        <x-slot:header>
                                             <span class="tw-text-lg tw-font-semibold">Filter diel</span>
-                                        </template>
-                                        <template v-if="selectedOptionsAsLabels.length" #reset-button>
+                                        </x-slot>
+                                        <x-slot:reset_button>
                                             <button
+                                                v-if="selectedOptionsAsLabels.length"
                                                 class="tw-mr-3 tw-flex tw-min-w-max tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
                                                 @click="clearAllSelections">
                                                 <svg class="tw-mr-1.5 tw-h-4 tw-w-4 tw-fill-current"
@@ -157,8 +158,8 @@
                                                 </svg>
                                                 <span>zrušiť celý výber</span>
                                             </button>
-                                        </template>
-                                        <template #body>
+                                        </x-slot>
+                                        <x-slot:body>
                                             <x-filter.disclosure_list_button @click="dc.goTo('author')">
                                                 <filter-new-custom-select-popover-label name="author"
                                                     :selected-values="query['author']">
@@ -253,11 +254,11 @@
                                                     id="has_text_desktop">
                                                 </filter-new-custom-checkbox>
                                             </div>
-                                        </template>
-                                    </filter-disclosure-view>
-                                    <filter-disclosure-view v-if="dc.view === 'author'"
+                                        </x-slot>
+                                    </x-filter.disclosure_view>
+                                    <x-filter.disclosure_view v-if="dc.view === 'author'"
                                         @close="dc.close">
-                                        <template #header>
+                                        <x-slot:header>
                                             <div class="tw-flex tw-items-center">
                                                 <button @click="dc.goTo('index')"
                                                     class="tw-pr-2">
@@ -271,9 +272,11 @@
                                                 <filter-new-custom-select-popover-label name="author"
                                                     :selected-values="query['author']">
                                                 </filter-new-custom-select-popover-label>
-                                        </template>
-                                        <template v-if="query.author.length" #reset-button>
+                                            </div>
+                                        </x-slot>
+                                        <x-slot:reset_button>
                                             <button
+                                                v-if="query.author.length"
                                                 class="tw-mr-3 tw-flex tw-min-w-max tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
                                                 @click="clearFilterSelection('author')">
                                                 <svg class="tw-mr-1.5 tw-h-4 tw-w-4 tw-fill-current"
@@ -285,8 +288,8 @@
                                                 </svg>
                                                 <span>zrušiť výber</span>
                                             </button>
-                                        </template>
-                                        <template #body>
+                                        </x-slot>
+                                        <x-slot:body>
                                             <div
                                                 class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
                                                 <filter-new-options filter-name="author"
@@ -296,8 +299,8 @@
                                                     :filter="aggregations['author']">
                                                 </filter-new-options>
                                             </div>
-                                        </template>
-                                    </filter-disclosure-view>
+                                        </x-slot>
+                                    </x-filter.disclosure_view>
                                 </x-slot>
                                 <x-slot:footer>
                                     <button class="tw-m-4 tw-w-full tw-bg-sky-300 tw-p-4"
