@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Changed
+- Vue version to v3 migration build
+
 ### Fixed
 - homepage featured author images query
 
