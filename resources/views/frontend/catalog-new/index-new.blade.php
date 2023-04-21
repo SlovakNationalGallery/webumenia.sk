@@ -118,11 +118,11 @@
                     <filter-disclosure-controller v-slot="dc">
                         <div class="tw-relative md:tw-hidden">
                             <div class="tw-flex tw-gap-x-3 tw-overflow-x-auto">
-                                <filter-disclosure-button name="author" @click="dc.goTo('author')">
+                                <x-filter.disclosure_button @click="dc.goTo('author')">
                                     <filter-new-custom-select-popover-label name="author"
                                         :selected-values="query['author']">
                                     </filter-new-custom-select-popover-label>
-                                </filter-disclosure-button>
+                                </x-filter.disclosure_button>
                             </div>
                             <div class="tw-min-w-max tw-pt-4">
                                 <button @click="dc.goTo('index')"
