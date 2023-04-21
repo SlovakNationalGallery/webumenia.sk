@@ -30,7 +30,7 @@
 		<!-- CSS are placed here -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-		<link rel="stylesheet" type="text/css" href="{{ mix('/css/app-tailwind.css') }}" />
+		<link rel="stylesheet" type="text/css" href="{{ mix('/css/tailwind.css') }}" />
 		<link rel="stylesheet" type="text/css" href="{{ mix('/css/style.css') }}" />
 		@livewireStyles
 
