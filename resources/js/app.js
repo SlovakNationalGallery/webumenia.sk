@@ -36,6 +36,7 @@ Vue.component('filter-checkbox', require('./components/filter/Checkbox.vue').def
 Vue.component('filter-custom-select', require('./components/filter/CustomSelect.vue').default);
 Vue.component('filter-new-items-controller', require('./components/catalog-new/ItemsFilterController.vue').default);
 Vue.component('filter-new-popover', require('./components/catalog-new/PopoverFilter.vue').default);
+Vue.component('filter-new-popover.group-controller', require('./components/catalog-new/PopoverGroupController.vue').default);
 Vue.component('filter-new-custom-select-popover-label', require('./components/catalog-new/NewCustomSelectPopoverLabel.vue').default);
 Vue.component('filter-new-options', require('./components/catalog-new/Options.vue').default);
 Vue.component('filter-new-color-slider', require('./components/catalog-new/NewColorSlider.vue').default);
@@ -48,7 +49,6 @@ Vue.component('filter-disclosure-list-button', require('./components/catalog-new
 Vue.component('filter-disclosure-modal', require('./components/catalog-new/DisclosureFilterModal.vue').default);
 Vue.component('filter-disclosure-view', require('./components/catalog-new/DisclosureFilterView.vue').default);
 Vue.component('filter-disclosure-controller', require('./components/catalog-new/DisclosureModalController.vue').default);
-Vue.component('filter-new-popover-group-controller', require('./components/catalog-new/PopoverGroupController.vue').default);
 Vue.component('filter-show-more', require('./components/catalog-new/ShowMore.vue').default);
 Vue.component('catalog.infinite-scroll', require('./components/catalog-new/InfiniteScroll.vue').default);
 Vue.component('catalog.artwork-image-controller', require('./components/catalog-new/ArtworkImageController.vue').default);
@@ -83,4 +83,4 @@ Vue.component('color-slider', require('./components/vue/color-slider').default);
  */
 
 Vue.prototype.$route = route;
- new Vue({ el: '#app' });
+new Vue({ el: '#app' });
