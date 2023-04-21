@@ -7,7 +7,7 @@
             <div class="tw-relative">
                 <div class="tw-bg-gray-200 tw-py-6 tw-px-4 md:tw-p-16 md:tw-pb-0">
                     {{-- Desktop filter --}}
-                    <filter-new-popover-group-controller>
+                    <filter-new-popover.group-controller>
                         <div class="tw-hidden tw-gap-x-3 tw-overflow-x-auto md:tw-flex md:tw-flex-wrap">
                             <filter-new-popover name="author">
                                 <template #popover-label>
@@ -81,7 +81,7 @@
                                 :toggle-is-extended-open="toggleIsExtendedOpen">
                             </filter-show-more>
                         </div>
-                    </filter-new-popover-group-controller>
+                    </filter-new-popover.group-controller>
                     {{-- Mobile Filter --}}
                     <filter-disclosure-controller v-slot="dc">
                         <div class="tw-relative md:tw-hidden">

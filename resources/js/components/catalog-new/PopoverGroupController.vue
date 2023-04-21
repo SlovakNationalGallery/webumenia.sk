@@ -1,3 +1,7 @@
+<template>
+    <slot></slot>
+</template>
+
 <script>
 export default {
     data() {
@@ -23,8 +27,5 @@ export default {
             closeOpenedPopover: this.closeOpenedPopover,
         }
     },
-    render() {
-        return this.$scopedSlots.default({})
-    }
 }
 </script>
