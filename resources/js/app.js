@@ -44,7 +44,6 @@ Vue.component('filter-new-year-slider', require('./components/catalog-new/NewYea
 Vue.component('filter-new-custom-checkbox', require('./components/catalog-new/NewCustomCheckbox.vue').default);
 Vue.component('filter-new-sort', require('./components/catalog-new/NewSort.vue').default);
 Vue.component('filter-disclosure-inline-list-button', require('./components/catalog-new/DisclosureFilterInlineListButton.vue').default);
-Vue.component('filter-disclosure-view', require('./components/catalog-new/DisclosureFilterView.vue').default);
 Vue.component('filter-disclosure-controller', require('./components/catalog-new/DisclosureModalController.vue').default);
 Vue.component('filter-show-more', require('./components/catalog-new/ShowMore.vue').default);
 Vue.component('catalog.infinite-scroll', require('./components/catalog-new/InfiniteScroll.vue').default);
