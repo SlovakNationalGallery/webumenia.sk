@@ -159,11 +159,11 @@
                                             </button>
                                         </template>
                                         <template #body>
-                                            <filter-disclosure-list-button @click="dc.goTo('author')">
+                                            <x-filter.disclosure_list_button @click="dc.goTo('author')">
                                                 <filter-new-custom-select-popover-label name="author"
                                                     :selected-values="query['author']">
                                                 </filter-new-custom-select-popover-label>
-                                            </filter-disclosure-list-button>
+                                            </x-filter.disclosure_list_button>
                                             <filter-disclosure-inline-list-button>
                                                 <template #header>
                                                     <div class="tw-font-sm tw-font-semibold">rok<span
