@@ -81,9 +81,6 @@ export default {
         this.fetchArtworks({ replaceArtworks: true })
     },
     computed: {
-        isAnythingSelected() {
-            return Object.keys(this.selectedOptionsAsLabels).length
-        },
         selectedOptionsAsLabels() {
             return Object.entries(this.query)
                 .filter(([filterName, _]) => ['author', 'color', 'yearRange'].includes(filterName))
@@ -250,7 +247,6 @@ export default {
         return this.$scopedSlots.default({
             isExtendedOpen: this.isExtendedOpen,
             isFetchingArtworks: this.isFetchingArtworks,
-            isAnythingSelected: this.isAnythingSelected,
             query: this.query,
             page: this.page,
             last_page: this.last_page,
