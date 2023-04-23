@@ -1,6 +1,7 @@
 <template>
     <LottieAnimation
         ref="empty-artwork"
+        :loop="true"
         :animationData="emptyAnimation"
     ></LottieAnimation>
 </template>
