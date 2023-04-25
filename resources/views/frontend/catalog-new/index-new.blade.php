@@ -407,7 +407,7 @@
                     <filter-new-sort :sort="query.sort" :handle-sort-change="handleSortChange" :options="[
                                             {
                                                 value: null,
-                                                text: 'podľa poslednej zmeny',
+                                                text: 'poslednej zmeny',
                                             },
                                             {
                                                 value: 'created_at',
@@ -440,14 +440,14 @@
                                         ]">
                         <span v-if="artworks.total === 1">Zobrazujem <span
                                 class="tw-font-bold">1</span>
-                            dielo, zoradené podľa</span>
+                            dielo, zoradené podľa&nbsp</span>
                         <span v-else-if="artworks.total < 5">Zobrazujem <span
                                 class="tw-font-bold">@{{ artworks.total }}</span> diela, zoradené
                             podľa</span>
                         <span v-else>Zobrazujem <span
                                 class="tw-font-bold">@{{ artworks.total }}</span>
                             diel, zoradených
-                            podľa</span>
+                            podľa&nbsp</span>
                     </filter-new-sort>
                     {{-- Artwork Masonry --}}
                     <div class="tw-min-h-screen">
