@@ -370,111 +370,111 @@
                                             </button>
                                         </x-slot>
                                         <x-slot:body>
-                                            <x-filter.disclosure_list_button @click="dc.goTo('author')">
-                                                <filter-new-custom-select-popover-label name="author"
-                                                    :selected-values="query['author']">
-                                                </filter-new-custom-select-popover-label>
-                                            </x-filter.disclosure_list_button>
-                                            <x-filter.disclosure_list_button @click="dc.goTo('work_type')">
-                                                <filter-new-custom-select-popover-label name="work_type"
-                                                    :selected-values="query['work_type']">
-                                                </filter-new-custom-select-popover-label>
-                                            </x-filter.disclosure_list_button>
-                                            <x-filter.disclosure_list_button @click="dc.goTo('object_type')">
-                                                <filter-new-custom-select-popover-label name="object_type"
-                                                    :selected-values="query['object_type']">
-                                                </filter-new-custom-select-popover-label>
-                                            </x-filter.disclosure_list_button>
-                                            <x-filter.disclosure_list_button @click="dc.goTo('tag')">
-                                                <filter-new-custom-select-popover-label name="tag"
-                                                    :selected-values="query['tag']">
-                                                </filter-new-custom-select-popover-label>
-                                            </x-filter.disclosure_list_button>
-                                            <x-filter.disclosure_list_button @click="dc.goTo('gallery')">
-                                                <filter-new-custom-select-popover-label name="gallery"
-                                                    :selected-values="query['gallery']">
-                                                </filter-new-custom-select-popover-label>
-                                            </x-filter.disclosure_list_button>
-                                            <x-filter.disclosure_list_button @click="dc.goTo('technique')">
-                                                <filter-new-custom-select-popover-label name="technique"
-                                                    :selected-values="query['technique']">
-                                                </filter-new-custom-select-popover-label>
-                                            </x-filter.disclosure_list_button>
-                                            <x-filter.disclosure_list_button @click="dc.goTo('topic')">
-                                                <filter-new-custom-select-popover-label name="topic"
-                                                    :selected-values="query['topic']">
-                                                </filter-new-custom-select-popover-label>
-                                            </x-filter.disclosure_list_button>
-                                            <x-filter.disclosure_list_button @click="dc.goTo('medium')">
-                                                <filter-new-custom-select-popover-label name="medium"
-                                                    :selected-values="query['medium']">
-                                                </filter-new-custom-select-popover-label>
-                                            </x-filter.disclosure_list_button>
-                                            <filter-disclosure-inline-list-button>
-                                                <template #header>
-                                                    <div class="tw-font-sm tw-font-semibold">rok<span
-                                                            class="tw-ml-2"
-                                                            v-if="query.yearRange">(@{{ query.yearRange.from }}
-                                                            - @{{ query.yearRange.to }})</div>
-                                                </template>
-                                                <template #filter-body>
-                                                    <filter-new-year-slider
-                                                        :default-from="Number(query.yearRange?.from)"
-                                                        :default-to="Number(query.yearRange?.to)"
-                                                        :min="{{ $yearLimits['min'] ?? 0 }}"
-                                                        :max="{{ $yearLimits['max'] ?? now()->year }}"
-                                                        @change="handleYearRangeChange">
-                                                    </filter-new-year-slider>
-                                                    <div v-if="query.yearRange"
-                                                        class="tw-flex tw-justify-center">
-                                                        <button @click="handleYearRangeChange(null)"
-                                                            class="tw-mt-2.5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-py-1 tw-px-1.5 tw-text-sm">
-                                                            <svg class="tw-mr-1.5 tw-h-4 tw-w-4 tw-fill-current"
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                viewBox="0 0 256 256">
-                                                                <path
-                                                                    d="M228,128a100,100,0,0,1-98.66,100H128a99.39,99.39,0,0,1-68.62-27.29,12,12,0,0,1,16.48-17.45,76,76,0,1,0-1.57-109c-.13.13-.25.25-.39.37L54.89,92H72a12,12,0,0,1,0,24H24a12,12,0,0,1-12-12V56a12,12,0,0,1,24,0V76.72L57.48,57.06A100,100,0,0,1,228,128Z">
-                                                                </path>
-                                                            </svg>
-                                                            <span>resetovať</span>
-                                                        </button>
-                                                    </div>
-                                                </template>
-                                            </filter-disclosure-inline-list-button>
-                                            <filter-disclosure-inline-list-button>
-                                                <template #header>
-                                                    <div
-                                                        class="tw-font-sm tw-flex tw-items-center tw-gap-2 tw-font-semibold">
-                                                        color<div v-if="query['color']"
-                                                            class="tw-inline-block tw-h-4 tw-w-4"
-                                                            :style="{'background': `#${query['color']}`}">
+                                            <div class="tw-h-[calc(100vh-17.5rem)] tw-overflow-auto tw-flex tw-flex-col">
+                                                <x-filter.disclosure_list_button @click="dc.goTo('author')">
+                                                    <filter-new-custom-select-popover-label name="author"
+                                                        :selected-values="query['author']">
+                                                    </filter-new-custom-select-popover-label>
+                                                </x-filter.disclosure_list_button>
+                                                <x-filter.disclosure_list_button @click="dc.goTo('work_type')">
+                                                    <filter-new-custom-select-popover-label name="work_type"
+                                                        :selected-values="query['work_type']">
+                                                    </filter-new-custom-select-popover-label>
+                                                </x-filter.disclosure_list_button>
+                                                <x-filter.disclosure_list_button @click="dc.goTo('object_type')">
+                                                    <filter-new-custom-select-popover-label name="object_type"
+                                                        :selected-values="query['object_type']">
+                                                    </filter-new-custom-select-popover-label>
+                                                </x-filter.disclosure_list_button>
+                                                <x-filter.disclosure_list_button @click="dc.goTo('tag')">
+                                                    <filter-new-custom-select-popover-label name="tag"
+                                                        :selected-values="query['tag']">
+                                                    </filter-new-custom-select-popover-label>
+                                                </x-filter.disclosure_list_button>
+                                                <x-filter.disclosure_list_button @click="dc.goTo('gallery')">
+                                                    <filter-new-custom-select-popover-label name="gallery"
+                                                        :selected-values="query['gallery']">
+                                                    </filter-new-custom-select-popover-label>
+                                                </x-filter.disclosure_list_button>
+                                                <x-filter.disclosure_list_button @click="dc.goTo('technique')">
+                                                    <filter-new-custom-select-popover-label name="technique"
+                                                        :selected-values="query['technique']">
+                                                    </filter-new-custom-select-popover-label>
+                                                </x-filter.disclosure_list_button>
+                                                <x-filter.disclosure_list_button @click="dc.goTo('topic')">
+                                                    <filter-new-custom-select-popover-label name="topic"
+                                                        :selected-values="query['topic']">
+                                                    </filter-new-custom-select-popover-label>
+                                                </x-filter.disclosure_list_button>
+                                                <x-filter.disclosure_list_button @click="dc.goTo('medium')">
+                                                    <filter-new-custom-select-popover-label name="medium"
+                                                        :selected-values="query['medium']">
+                                                    </filter-new-custom-select-popover-label>
+                                                </x-filter.disclosure_list_button>
+                                                <filter-disclosure-inline-list-button>
+                                                    <template #header>
+                                                        <div class="tw-font-sm tw-font-semibold">rok<span
+                                                                class="tw-ml-2"
+                                                                v-if="query.yearRange">(@{{ query.yearRange.from }}
+                                                                - @{{ query.yearRange.to }})</div>
+                                                    </template>
+                                                    <template #filter-body>
+                                                        <filter-new-year-slider
+                                                            :default-from="Number(query.yearRange?.from)"
+                                                            :default-to="Number(query.yearRange?.to)"
+                                                            :min="{{ $yearLimits['min'] ?? 0 }}"
+                                                            :max="{{ $yearLimits['max'] ?? now()->year }}"
+                                                            @change="handleYearRangeChange">
+                                                        </filter-new-year-slider>
+                                                        <div v-if="query.yearRange"
+                                                            class="tw-flex tw-justify-center">
+                                                            <button @click="handleYearRangeChange(null)"
+                                                                class="tw-mt-2.5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-py-1 tw-px-1.5 tw-text-sm">
+                                                                <svg class="tw-mr-1.5 tw-h-4 tw-w-4 tw-fill-current"
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    viewBox="0 0 256 256">
+                                                                    <path
+                                                                        d="M228,128a100,100,0,0,1-98.66,100H128a99.39,99.39,0,0,1-68.62-27.29,12,12,0,0,1,16.48-17.45,76,76,0,1,0-1.57-109c-.13.13-.25.25-.39.37L54.89,92H72a12,12,0,0,1,0,24H24a12,12,0,0,1-12-12V56a12,12,0,0,1,24,0V76.72L57.48,57.06A100,100,0,0,1,228,128Z">
+                                                                    </path>
+                                                                </svg>
+                                                                <span>resetovať</span>
+                                                            </button>
                                                         </div>
-                                                    </div>
-                                                </template>
-                                                <template #filter-body>
-                                                    <filter-new-color-slider
-                                                        :default-color="query['color']"
-                                                        @change="handleColorChange">
-                                                    </filter-new-color-slider>
-                                                    <div v-if="query.color"
-                                                        class="tw-flex tw-justify-center">
-                                                        <button @click="handleColorChange(null)"
-                                                            class="tw-mt-4 tw-flex tw-items-center tw-border tw-border-gray-300 tw-py-1 tw-px-1.5 tw-text-sm">
-                                                            <svg class="tw-mr-1.5 tw-h-4 tw-w-4 tw-fill-current"
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                viewBox="0 0 256 256">
-                                                                <path
-                                                                    d="M228,128a100,100,0,0,1-98.66,100H128a99.39,99.39,0,0,1-68.62-27.29,12,12,0,0,1,16.48-17.45,76,76,0,1,0-1.57-109c-.13.13-.25.25-.39.37L54.89,92H72a12,12,0,0,1,0,24H24a12,12,0,0,1-12-12V56a12,12,0,0,1,24,0V76.72L57.48,57.06A100,100,0,0,1,228,128Z">
-                                                                </path>
-                                                            </svg>
-                                                            <span>resetovať</span>
-                                                        </button>
-                                                    </div>
-                                                </template>
-                                            </filter-disclosure-inline-list-button>
-                                            <div
-                                                class="tw-flex tw-min-h-0 tw-w-full tw-flex-1 tw-flex-col tw-overflow-auto tw-py-2">
+                                                    </template>
+                                                </filter-disclosure-inline-list-button>
+                                                <filter-disclosure-inline-list-button>
+                                                    <template #header>
+                                                        <div
+                                                            class="tw-font-sm tw-flex tw-items-center tw-gap-2 tw-font-semibold">
+                                                            color<div v-if="query['color']"
+                                                                class="tw-inline-block tw-h-4 tw-w-4"
+                                                                :style="{'background': `#${query['color']}`}">
+                                                            </div>
+                                                        </div>
+                                                    </template>
+                                                    <template #filter-body>
+                                                        <filter-new-color-slider
+                                                            :default-color="query['color']"
+                                                            @change="handleColorChange">
+                                                        </filter-new-color-slider>
+                                                        <div v-if="query.color"
+                                                            class="tw-flex tw-justify-center">
+                                                            <button @click="handleColorChange(null)"
+                                                                class="tw-mt-4 tw-flex tw-items-center tw-border tw-border-gray-300 tw-py-1 tw-px-1.5 tw-text-sm">
+                                                                <svg class="tw-mr-1.5 tw-h-4 tw-w-4 tw-fill-current"
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    viewBox="0 0 256 256">
+                                                                    <path
+                                                                        d="M228,128a100,100,0,0,1-98.66,100H128a99.39,99.39,0,0,1-68.62-27.29,12,12,0,0,1,16.48-17.45,76,76,0,1,0-1.57-109c-.13.13-.25.25-.39.37L54.89,92H72a12,12,0,0,1,0,24H24a12,12,0,0,1-12-12V56a12,12,0,0,1,24,0V76.72L57.48,57.06A100,100,0,0,1,228,128Z">
+                                                                    </path>
+                                                                </svg>
+                                                                <span>resetovať</span>
+                                                            </button>
+                                                        </div>
+                                                    </template>
+                                                </filter-disclosure-inline-list-button>
                                                 <filter-new-custom-checkbox
+                                                    class="tw-pt-2"
                                                     @change="handleCheckboxChange"
                                                     :checked="Boolean(query['has_image'])"
                                                     title="Len s obrázkom" name="has_image"
@@ -493,6 +493,7 @@
                                                     id="is_free_desktop">
                                                 </filter-new-custom-checkbox>
                                                 <filter-new-custom-checkbox
+                                                    class="tw-pb-2"
                                                     @change="handleCheckboxChange"
                                                     :checked="Boolean(query['has_text'])"
                                                     title="Len s textom" name="has_text"

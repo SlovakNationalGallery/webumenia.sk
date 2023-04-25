@@ -13,7 +13,7 @@
             </button>
         </div>
     </div>
-    <div class="tw-flex tw-grow tw-h-40 tw-flex-col">
+    <div class="tw-flex tw-grow tw-flex-col">
         {{ $body }}
     </div>
 </div>
