@@ -3,7 +3,7 @@
 @section('content')
     <section class="tailwind-rules">
         <filter-new-items-controller
-            v-slot="{ isAnythingSelected, isExtendedOpen, isFetchingArtworks, toggleIsExtendedOpen, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, loadMore, clearFilterSelection, clearAllSelections, removeSelection, query, aggregations, artworks, page, last_page }">
+            v-slot="{ isExtendedOpen, loadMore, isFetchingArtworks, toggleIsExtendedOpen, handleSelectRandomly, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, page,  aggregations, artworks, last_page }">
             <div class="tw-relative">
                 <div class="tw-bg-gray-200 tw-py-6 tw-px-4 md:tw-p-16 md:tw-pb-0">
                     {{-- Desktop filter --}}
@@ -438,16 +438,26 @@
                                                 text: 'náhodného poradia',
                                             },
                                         ]">
-                        <span v-if="artworks.total === 1">Zobrazujem <span
-                                class="tw-font-bold">1</span>
-                            dielo, zoradené podľa&nbsp</span>
-                        <span v-else-if="artworks.total < 5">Zobrazujem <span
-                                class="tw-font-bold">@{{ artworks.total }}</span> diela, zoradené
-                            podľa</span>
-                        <span v-else>Zobrazujem <span
-                                class="tw-font-bold">@{{ artworks.total }}</span>
-                            diel, zoradených
-                            podľa&nbsp</span>
+                        <template #artwork-counter>
+                            <span v-if="artworks.total === 1">Zobrazujem <span
+                                    class="tw-font-bold">1</span>
+                                dielo, zoradené podľa&nbsp</span>
+                            <span v-else-if="artworks.total < 5">Zobrazujem <span
+                                    class="tw-font-bold">@{{ artworks.total }}</span> diela, zoradené
+                                podľa&nbsp</span>
+                            <span v-else>Zobrazujem <span
+                                    class="tw-font-bold">@{{ artworks.total }}</span>
+                                diel, zoradených
+                                podľa&nbsp</span>
+                        </template>
+                        <template #random-select>
+                            <span>
+                            . Alebo skús aj
+                            <button @click="handleSelectRandomly" class="tw-font-bold tw-underline tw-decoration-2 tw-underline-offset-4"
+                                >náhodný výber</button
+                            >
+                            </span>       
+                        </template>
                     </filter-new-sort>
                     {{-- Artwork Masonry --}}
                     <div class="tw-min-h-screen">

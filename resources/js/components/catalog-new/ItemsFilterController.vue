@@ -8,19 +8,21 @@ function getParsedFilterFromUrl() {
         ignoreQueryPrefix: true,
     })
     const { date_earliest, date_latest, ...rest } = parsedUrl?.filter || {}
+    const { sort } = parsedUrl || {}
+
     return {
         ...rest,
         yearRange:
             date_earliest && date_latest
                 ? { to: date_earliest?.lte, from: date_latest?.gte }
                 : null,
+        sort: sort && Object.keys(sort)[0],
     }
 }
 
 function stringifyUrl({ url, params }) {
     const { filter, size, terms, page } = params
-    const { yearRange, author, color, is_free, has_image, has_iip, has_text, sort } =
-        filter || {}
+    const { yearRange, author, color, is_free, has_image, has_iip, has_text, sort } = filter || {}
 
     const newQuery = {
         filter: {
@@ -72,8 +74,8 @@ export default {
             artworks: [],
             last_page: 1,
             aggregations: {},
-            query: { ...EMPTY_QUERY, ...getParsedFilterFromUrl().filter },
-            page: null
+            query: { ...EMPTY_QUERY, ...getParsedFilterFromUrl() },
+            page: null,
         }
     },
     async created() {
@@ -119,10 +121,11 @@ export default {
             }
         },
         handleYearRangeChange(yearRangeValue) {
-            this.query = {
-                ...this.query,
-                yearRange: yearRangeValue,
-            }
+            console.log(yearRangeValue)
+            // this.query = {
+            //     ...this.query,
+            //     yearRange: yearRangeValue,
+            // }
         },
         handleSortChange(sortValue) {
             this.query = {
@@ -170,6 +173,13 @@ export default {
         },
         loadMore() {
             this.page = this.page ? this.page + 1 : 2
+        },
+        handleSelectRandomly() {
+            this.query = {
+                ...EMPTY_QUERY,
+                sort: { random: SORT_DIRECTIONS['random'] },
+                has_image: 'asc',
+            }
         },
         async fetchAggregations() {
             try {
@@ -259,6 +269,7 @@ export default {
             handleCheckboxChange: this.handleCheckboxChange,
             handleMultiSelectChange: this.handleMultiSelectChange,
             handleColorChange: this.handleColorChange,
+            handleSelectRandomly: this.handleSelectRandomly,
             selectedOptionsAsLabels: this.selectedOptionsAsLabels,
             clearAllSelections: this.clearAllSelections,
             clearFilterSelection: this.clearFilterSelection,
