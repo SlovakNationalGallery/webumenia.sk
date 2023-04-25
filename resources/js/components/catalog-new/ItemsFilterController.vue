@@ -121,11 +121,10 @@ export default {
             }
         },
         handleYearRangeChange(yearRangeValue) {
-            console.log(yearRangeValue)
-            // this.query = {
-            //     ...this.query,
-            //     yearRange: yearRangeValue,
-            // }
+            this.query = {
+                 ...this.query,
+                 yearRange: yearRangeValue,
+            }
         },
         handleSortChange(sortValue) {
             this.query = {
