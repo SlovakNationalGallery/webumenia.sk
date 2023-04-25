@@ -177,8 +177,8 @@ export default {
         handleSelectRandomly() {
             this.query = {
                 ...EMPTY_QUERY,
-                sort: { random: SORT_DIRECTIONS['random'] },
-                has_image: 'asc',
+                sort: 'random',
+                has_image: true,
             }
         },
         async fetchAggregations() {
