@@ -16,7 +16,7 @@
                         <rect x="47.8652" y="72.7769" width="20" height="20" transform="rotate(-20 47.8652 72.7769)" fill="black"/>
                     </svg>
                 </div>
-                <div class="col-lg-7 pr-lg-0 pl-lg-2">
+                <div class="col-lg-7 lg:pr-0 lg:pl-2">
                     <livewire:newsletter-signup-form variant="bottom-modal" />
                 </div>
             </div>

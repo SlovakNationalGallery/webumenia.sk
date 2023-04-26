@@ -426,7 +426,7 @@
     @endif
     <div class="container">
         <div class="row">
-            <div class="{{ $item->has_colors ? 'col-sm-6 pr-sm-5' : 'col-xs-12'}}" id="related-by-metadata">
+            <div class="{{ $item->has_colors ? 'col-sm-6 sm:tw-pr-12' : 'col-xs-12'}}" id="related-by-metadata">
                 <div class="tailwind-rules">
                     <div class="tw-h-20 tw-text-lg">
                         <h3 class="tw-mt-5">
