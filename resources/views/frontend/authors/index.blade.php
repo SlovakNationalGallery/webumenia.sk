@@ -59,7 +59,7 @@
                     <div class="row author">
                         <div class="col-sm-2 col-xs-4">
                             <a href="{!! $author->getUrl() !!}">
-                                <img src="{!! $author->getImagePath() !!}" class="img-responsive img-circle"
+                                <img src="{!! $author->getImagePath() !!}" class="img-responsive tw-rounded-full"
                                     alt="{{ $author->name }}">
                             </a>
                         </div>

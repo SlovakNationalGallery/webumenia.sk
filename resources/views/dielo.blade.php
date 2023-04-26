@@ -103,12 +103,12 @@
                         <div class="col-sm-12">
                             @if ($previous)
                             <a href="{{ $previous }}" id="left" class="nav-arrow left">&larr;<span
-                                      class="sr-only">{{ trans('dielo.item_previous-work') }}</span></a>
+                                      class="tw-sr-only">{{ trans('dielo.item_previous-work') }}</span></a>
                             @endif
 
                             @if ($next)
                             <a href="{{ $next }}" id="right" class="nav-arrow right">&rarr;<span
-                                      class="sr-only">{{ trans('dielo.item_next-work') }}</span></a>
+                                      class="tw-sr-only">{{ trans('dielo.item_next-work') }}</span></a>
                             @endif
                         </div>
                     </div>
