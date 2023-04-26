@@ -333,6 +333,26 @@
                                         :selected-values="query['author']">
                                     </filter-new-custom-select-popover-label>
                                 </x-filter.disclosure_button>
+                                <x-filter.disclosure_button @click="dc.goTo('work_type')">
+                                    <filter-new-custom-select-popover-label name="work_type"
+                                        :selected-values="query['work_type']">
+                                    </filter-new-custom-select-popover-label>
+                                </x-filter.disclosure_button>
+                                <x-filter.disclosure_button @click="dc.goTo('object_type')">
+                                    <filter-new-custom-select-popover-label name="object_type"
+                                        :selected-values="query['object_type']">
+                                    </filter-new-custom-select-popover-label>
+                                </x-filter.disclosure_button>
+                                <x-filter.disclosure_button @click="dc.goTo('tag')">
+                                    <filter-new-custom-select-popover-label name="tag"
+                                        :selected-values="query['tag']">
+                                    </filter-new-custom-select-popover-label>
+                                </x-filter.disclosure_button>
+                                <x-filter.disclosure_button @click="dc.goTo('gallery')">
+                                    <filter-new-custom-select-popover-label name="gallery"
+                                        :selected-values="query['gallery']">
+                                    </filter-new-custom-select-popover-label>
+                                </x-filter.disclosure_button>
                             </div>
                             <div class="tw-min-w-max tw-pt-4">
                                 <button @click="dc.goTo('index')"
