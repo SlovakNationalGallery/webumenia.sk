@@ -36,7 +36,7 @@
                         <h4 class="inline">{{ formatNum($total) }} {{ trans_choice('katalog.catalog_artworks', $total) }} </h4>
                     @endif
                     @if ($paginator->count() == 0)
-                        <p class="text-center">{{ utrans('katalog.catalog_no_artworks') }}</p>
+                        <p class="tw-text-center">{{ utrans('katalog.catalog_no_artworks') }}</p>
                     @endif
                     @if ($hasFilters)
                         <a class="btn btn-sm btn-default btn-outline  sans" href="{{ URL::to('katalog') }}">{{ trans('general.clear_filters') }}  <i class="icon-cross"></i></a>
@@ -45,7 +45,7 @@
                         <a class="btn btn-sm btn-default btn-outline sans" href="{{ $urlWithoutColor }}" id="clear_color">{{ trans('general.clear_color') }} <span class="picked-color" style="background-color: {{ $form['color']->vars['value'] }};">&nbsp;</span> <i class="icon-cross"></i></a>
                     @endif
                 </div>
-                <div class="col-xs-6 text-right">
+                <div class="col-xs-6 tw-text-right">
                     @formRow($form['sort_by'], ['attr' => ['class' => 'js-dropdown-select']])
                 </div>
             </div>
@@ -61,7 +61,7 @@
                         @endforeach
 
                     </div>
-                    <div class="col-sm-12 text-center">
+                    <div class="col-sm-12 tw-text-center">
 
                         {!! $paginator->appends(@Request::except('page'))->render() !!}
                         @include('components.load_more', ['paginator' => $paginator, 'isotopeContainerSelector' => '#iso'])

@@ -3,6 +3,9 @@ module.exports = {
     theme: {
         extend: {
             colors: {
+                amber: {
+                    100: '#fcf8e3',
+                },
                 gray: {
                     100: '#f0f0f0',
                     200: '#ededed',
@@ -10,6 +13,12 @@ module.exports = {
                     500: '#969696',
                     600: '#777',
                     800: '#333',
+                },
+                green: {
+                    800: '#3c763d',
+                },
+                red: {
+                    800: '#a94442',
                 },
                 sky: {
                     300: '#66ccf4',

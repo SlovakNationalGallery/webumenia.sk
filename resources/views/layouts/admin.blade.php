@@ -98,7 +98,7 @@
                         </li>
                         @endcan
                         @can('administer')
-                        <li class="tw-uppercase tw-text-sm tw-font-semibold text-muted pl-4 pt-4 tw-border-b-0">
+                        <li class="tw-uppercase tw-text-sm tw-font-semibold tw-text-gray-600 pl-4 pt-4 tw-border-b-0">
                             Homepage
                         </li>
                         <li class="tw-border-b-0">

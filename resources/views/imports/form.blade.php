@@ -57,13 +57,13 @@
                 <tr>
                     <th>názov súboru</th>
                     <th>dátum nahratia</th>
-                    <th class="text-right">velkosť</th>
+                    <th class= "tw-text-right">velkosť</th>
                 </tr>
                 @foreach ($import->csvFiles() as $file)
                     <tr>
                         <td>{{ $file->getBasename() }}</td>
                         <td>{{ \Carbon\Carbon::createFromTimestamp($import->lastModified($file)) }}</td>
-                        <td class="text-right">{{ formatBytes($import->fileSize($file)) }}</td>
+                        <td class= "tw-text-right">{{ formatBytes($import->fileSize($file)) }}</td>
                     </tr>
                 @endforeach
             </table>
@@ -113,7 +113,7 @@
 </div>
 
 
-<div class="col-md-12 text-center">
+<div class="col-md-12 tw-text-center">
     {!! Form::submit('Uložiť', array('class' => 'btn btn-primary')) !!} &nbsp;
     {!! link_to_route('imports.index', 'Zrušiť', null, array('class' => 'btn btn-default')) !!}
 </div>

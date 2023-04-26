@@ -115,7 +115,7 @@
 	</div>
 </div>
 
-<div class="col-md-12 text-center">
+<div class="col-md-12 tw-text-center">
 	@formWidget($form['save'], ['attr' => ['class' => 'btn btn-default']])
 	@if(isset($item) && $item->record)
 		<a href="{!!URL::to('harvests/'.$item->record->id.'/refreshRecord')!!}" class="btn btn-warning">Obnoviť z OAI</a>
@@ -164,7 +164,7 @@ $(document).ready(function(){
 			option: function(item, escape) {
 				return '<div class="selected-item">' + item.name.replace(/\(.*?\)/g, "") + '</div>';
 			}
-		},	
+		},
 		loadThrottle: 300,
 		load: function(query, callback) {
 			if (!query.length) return callback();

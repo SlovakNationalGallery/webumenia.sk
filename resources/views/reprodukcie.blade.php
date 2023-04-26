@@ -220,7 +220,7 @@
                             aria-hidden="true">&times;</span><span
                             class="sr-only">Close</span></button>
                     <img src="" class="imagepreview" style="width: 100%;">
-                    <p class="text-center top-space imagetitle"></p>
+                    <p class="tw-text-center top-space imagetitle"></p>
                 </div>
             </div>
         </div>

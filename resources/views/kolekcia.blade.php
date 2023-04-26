@@ -53,7 +53,7 @@
 <section class="collection content-header my-5">
     <div class="collection-header">
         <div class="container">
-            <div class="row text-center">
+            <div class="row tw-text-center">
                 <div class="col-md-8 col-md-push-2">
                     <div class="row">
                         @if ($collection->items->count() != 0)
@@ -146,7 +146,7 @@
         <div class="container">
             <div class="row">
                 @if ($collection->items->count() == 0)
-                    <p class="text-center">{{ utrans('katalog.catalog_no_artworks') }}</p>
+                    <p class="tw-text-center">{{ utrans('katalog.catalog_no_artworks') }}</p>
                 @endif
                 <div class="isotope">
                     @foreach ($collection->items as $item)

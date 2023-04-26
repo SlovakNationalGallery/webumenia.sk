@@ -10,7 +10,7 @@
 <section class="info underlined-links">
     <div class="container">
         <div class="row content-section">
-            <div class="col-md-12 text-center">
+            <div class="col-md-12 tw-text-center">
                     <h1>{{ utrans('informacie.info_heading') }}</h1>
             </div>
         </div>
@@ -21,14 +21,14 @@
                 <p>{!! utrans('informacie.info_p') !!}</p>
 
             </div>
-            <div class="col-md-8 text-center">
+            <div class="col-md-8 tw-text-center">
                 {!! file_get_contents(public_path('images/gallery-map.svg')) !!}
             </div>
         </div>
         <div class="row bottom-space galleries">
             @foreach(array_chunk($galleries, ceil(count($galleries)/3)) as $chunk)
                 <div class="col-md-4">
-                    <ul class="list-unstyled lead">
+                    <ul class="tw-pl-0 tw-list-none lead">
                     @foreach($chunk as $gallery)
                         <li><a href="{{ route('frontend.catalog.index', ['gallery' => $gallery['name']]) }}" id="{{ $gallery['id'] }}">{!! trans('informacie.galleries.' . $gallery['id']) !!}</a></li>
                     @endforeach
@@ -41,7 +41,7 @@
 <section class="mozete underlined-links">
     <div class="container">
         <div class="row content-section">
-            <div class="col-md-12 text-center mid-grey">
+            <div class="col-md-12 tw-text-center mid-grey">
                     <h2 class="inherit">{{ utrans('informacie.mozete_heading') }}</h2>
             </div>
         </div>
@@ -86,7 +86,7 @@
 <section class="mozete more-items">
     <div class="container">
         <div class="row top-space bottom-space">
-            <div class="col-xs-12 text-center">
+            <div class="col-xs-12 tw-text-center">
                 <h3>{{ utrans('informacie.more-items_heading') }}</h3>
             </div>
         </div>
@@ -99,7 +99,7 @@
             </div>
         </div>
         <div class="row content-section">
-            <div class="col-sm-12 text-center">
+            <div class="col-sm-12 tw-text-center">
                 <a href="{{ route('frontend.catalog.index', ['is_for_reproduction' => 1]) }}" class="btn btn-default btn-outline sans" >{{ trans('informacie.more-items_button') }} <strong>{{ $items_for_reproduction_total }}</strong>  <i class="fa fa-chevron-right "></i></a>
             </div>
         </div>
@@ -117,7 +117,7 @@
 <section class="mozete more-items underlined-links">
     <div class="container">
         <div class="row content-section"><!-- top-space bottom-space -->
-            <div class="col-md-12 text-center mid-grey">
+            <div class="col-md-12 tw-text-center mid-grey">
                 <h2>{{ utrans('informacie.more-items_connect_heading') }}</h2>
             </div>
         </div>
@@ -142,7 +142,7 @@
                 <p class="lead">
                     {!! utrans('informacie.more-items_connect_col3_lead') !!}
                 </p>
-                <ul class="list-lab list-unstyled">
+                <ul class="list-lab tw-pl-0 tw-list-none">
                     {!! trans('informacie.more-items_connect_col3_ul-content') !!}
                 </ul>
             </div>

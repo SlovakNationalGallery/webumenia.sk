@@ -52,7 +52,7 @@ presmerovanie |
     </div>
 </div>
 
-<div class="col-md-12 text-center">
+<div class="col-md-12 tw-text-center">
     {!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp;
     {!! link_to_route('redirects.index', 'Zrušiť', null, array('class' => 'btn btn-default')) !!}
 </div>
@@ -62,7 +62,7 @@ presmerovanie |
 <div class="tw-clear-both"></div>
 
 <hr>
-<div class="text-center small">
+<div class="tw-text-center small">
     URL vpisovať v relatívnom tvare + je možné používať paramtre
     (<a class="small" href="https://github.com/spatie/laravel-missing-page-redirector#usage" target="_blank">dokumentácia</a>)<br>
     napr.

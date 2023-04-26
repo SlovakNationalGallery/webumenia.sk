@@ -90,7 +90,7 @@
 					<div class="form-group">
 						{!! Form::label('edu_media_types', 'Formát') !!}
 						{!! Form::select('edu_media_types', $eduMediaTypesOptions, old('edu_media_types'), ['class' => 'select', 'multiple' => 'multiple', 'name' => 'edu_media_types[]']) !!}
-						<p class="text-muted">Vyplnením tohto poľa sa článok zaradí do sekcie Vzdelávanie.</p>
+						<p class="tw-text-gray-600">Vyplnením tohto poľa sa článok zaradí do sekcie Vzdelávanie.</p>
 					</div>
 				</div>
 				<div class="col-md-12">
@@ -160,7 +160,7 @@
 		{!! Form::checkbox('promote', '1', @$input['promote']) !!}
 	</div>
 </div>
-<div class="col-md-12 text-center">
+<div class="col-md-12 tw-text-center">
 	{!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp;
 	{!! link_to_route('article.index', 'Zrušiť', null, array('class' => 'btn btn-default')) !!}
 </div>

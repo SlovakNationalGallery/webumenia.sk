@@ -35,7 +35,7 @@
             <div class="col-xs-6">
                 <h4 class="inline">{{ $articles->total() }} {{ trans_choice('articles.count', $articles->total()) }}</h4>
             </div>
-            <div class="col-xs-6 text-right">
+            <div class="col-xs-6 tw-text-right">
                 <filter-sort-by
                     label="{{ trans('general.sort_by') }}"
                     initial-value="{{ $sortBy }}"
@@ -45,7 +45,7 @@
 
             @if($articles->isEmpty())
             <div class="col-xs-12">
-                <p class="text-center">{{ utrans('articles.no_results') }}</p>
+                <p class="tw-text-center">{{ utrans('articles.no_results') }}</p>
             </div>
             @endif
         </div>
@@ -61,7 +61,7 @@
                 @endif
             @endforeach
         </div>
-        <div class="row text-center">
+        <div class="row tw-text-center">
             {{ $articles->links() }}
         </div>
     </div>

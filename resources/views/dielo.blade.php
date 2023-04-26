@@ -48,7 +48,7 @@
                 <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert"
                             aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
                 @endif
-                <div class="col-md-10 col-md-offset-1 text-center content-section mb-3">
+                <div class="col-md-10 col-md-offset-1 tw-text-center content-section mb-3">
                     <h1 class="nadpis-dielo" itemprop="name">{{ $item->title }}</h1>
                     <h2 class="inline">
                         @foreach($item->authors_with_authorities as $author)
@@ -58,7 +58,7 @@
                 </div>
             </div>
             <div class="row img-dielo">
-                <div class="col-md-8 text-center">
+                <div class="col-md-8 tw-text-center">
                     @if ($item->has_iip)
                     @php
                     list($width, $height) = getimagesize(public_path() . $item->getImagePath());
@@ -113,7 +113,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 text-left">
+                <div class="col-md-4 tw-text-left">
                     <table class="table attributes">
                         <tbody>
                             <tr>
@@ -340,7 +340,7 @@
                     <div id="small-map"></div>
                     @endif
 
-                    <div class="col-md-12 text-center">
+                    <div class="col-md-12 tw-text-center">
                         <user-collections-favourite-button
                             label-add="{{ utrans('general.item_add_to_favourites') }}"
                             label-remove="{{ utrans('general.item_remove_from_favourites') }}"
@@ -469,7 +469,7 @@
 <div tabindex="-1" class="modal fade" id="license" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header text-center">
+            <div class="modal-header tw-text-center">
                 <img src="{{ URL::asset('images/license/cc.svg') }}" alt="Creative Commons">
             </div>
             <div class="modal-body">
@@ -481,7 +481,7 @@
                 {!! trans('dielo.modal_license_body-footer', ['free_url' => URL::to('katalog?is_free=1')]) !!}
             </div>
             <div class="modal-footer">
-                <div class="text-center"><button type="button" data-dismiss="modal"
+                <div class="tw-text-center"><button type="button" data-dismiss="modal"
                             class="btn btn-default btn-outline tw-uppercase sans">{{ trans('general.close') }}</button>
                 </div>
             </div>
@@ -492,14 +492,14 @@
 <div tabindex="-1" class="modal fade" id="downloadfail" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header text-center">
+            <div class="modal-header tw-text-center">
                 {!! trans('dielo.modal_downloadfail_header-content') !!}
             </div>
             <div class="modal-body">
                 {!! trans('dielo.modal_downloadfail_body-content') !!}
             </div>
             <div class="modal-footer">
-                <div class="text-center"><button type="button" data-dismiss="modal"
+                <div class="tw-text-center"><button type="button" data-dismiss="modal"
                             class="btn btn-default btn-outline tw-uppercase sans">{{ trans('general.close') }}</button>
                 </div>
             </div>

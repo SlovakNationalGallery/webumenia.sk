@@ -10,12 +10,12 @@
     @csrf
 
     <div class="row">
-        <div class="col-sm-10 col-sm-offset-1 text-center">
+        <div class="col-sm-10 col-sm-offset-1 tw-text-center">
             <inline-input
                 name="name"
                 placeholder="Nazvi svoj výber" {{-- TODO i18n --}}
                 value="{{ old('name', $collection->name ?? null) }}"
-                class="tw-text-4xl text-center"
+                class="tw-text-4xl tw-text-center"
                 :disabled="@json($disabled)"
                 :focused="@json($creating)"
                 spellcheck="false"
@@ -42,7 +42,7 @@
                 name="description"
                 placeholder="Stručne popíš svoj výber. Môžeš priblížiť jeho tému, príbeh, súvislosti medzi dielami alebo emócie, ktoré ťa viedli práve k tejto selekcii." {{-- TODO i18n --}}
                 value="{{ old('description', $collection->description ?? null) }}"
-                class="mt-5 pb-2 tw-text-lg font-serif text-center"
+                class="mt-5 pb-2 tw-text-lg font-serif tw-text-center"
                 :disabled="@json($disabled)"
                 spellcheck="false"
                 v-on:focus="form.setEditing(true)"
@@ -51,7 +51,7 @@
     </div>
     @if (!$disabled)
         <div class="row mt-5" style="height:110px" v-cloak>
-            <div class="col-sm-6 col-sm-offset-3 text-center">
+            <div class="col-sm-6 col-sm-offset-3 tw-text-center">
                 <transition
                     enter-active-class="animated fadeInDown faster"
                     leave-active-class="animated fadeOut faster"

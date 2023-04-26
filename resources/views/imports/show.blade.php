@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <title>Detail {!! $import->name !!}</title>  
+  <title>Detail {!! $import->name !!}</title>
 </head>
 <body>
             <div class="modal-header">
@@ -47,7 +47,7 @@
 								<td>vytvorený:</td>
 								<td>{!! ($import->created_at) ? $import->created_at->format('d.m.Y h:i') : '' !!}</td>
 							</tr>
-							{{--  
+							{{--
 							<tr>
 								<td>Naposledy spustený:</td>
 								<td>{!! ($import->lastRecord) ? $import->initiated->format('d.m.Y h:i') : '' !!}</td>
@@ -59,12 +59,12 @@
 							<tr>
 								<td>Status:</td>
 								<td>{!! $import->status !!}</td>
-							</tr>							
+							</tr>
 							<tr>
 								<td>Status správa:</td>
 								<td>{!! nl2br($import->status_messages) !!}</td>
-							</tr>							
-							--}}							
+							</tr>
+							--}}
 	                    </tbody>
 	                </table>
 
@@ -77,10 +77,10 @@
 	                			<th>status</th>
 	                			<th>začiatok</th>
 	                			<th>koniec</th>
-	                			<th class="text-right"># diel</th>
-	                			<th class="text-right"># chybných diel</th>
-	                			<th class="text-right"># obrázkov</th>
-	                			<th class="text-right"># IIP obrázkov</th>
+	                			<th class= "tw-text-right"># diel</th>
+	                			<th class= "tw-text-right"># chybných diel</th>
+	                			<th class= "tw-text-right"># obrázkov</th>
+	                			<th class= "tw-text-right"># IIP obrázkov</th>
 	                		</tr>
 	                	</thead>
 	                	@foreach ($records as $record)
@@ -95,15 +95,15 @@
 	                			<td>
 	                				{{ $record->status }}
 	                				@if ($record->error_message)
-	                					<i class="fa fa-exclamation-triangle text-danger pointer" aria-hidden="true" data-toggle="popover" data-content="{{ $record->error_message }}"></i>
+	                					<i class="fa fa-exclamation-triangle tw-text-red-800 pointer" aria-hidden="true" data-toggle="popover" data-content="{{ $record->error_message }}"></i>
 	                				@endif
 	                			</td>
 	                			<td>{{ ($record->started_at) ? $record->started_at->format('d.m.Y G:i') : '' }}</td>
 	                			<td>{{ ($record->completed_at) ? $record->completed_at->format('d.m.Y G:i') : '' }}</td>
-	                			<td class="text-right">{{ $record->imported_items }}</td>
-	                			<td class="text-right">{{ $record->wrong_items }}</td>
-	                			<td class="text-right">{{ $record->imported_images }}</td>
-	                			<td class="text-right">{{ $record->imported_iip }}</td>
+	                			<td class= "tw-text-right">{{ $record->imported_items }}</td>
+	                			<td class= "tw-text-right">{{ $record->wrong_items }}</td>
+	                			<td class= "tw-text-right">{{ $record->imported_images }}</td>
+	                			<td class= "tw-text-right">{{ $record->imported_iip }}</td>
 	                		</tr>
 	                	@endforeach
 	                </table>

@@ -2,7 +2,7 @@
     <div class="col-md-6">
         @if ($success)
             <h3 class="tw-text-5xl mt-4 pt-1 tw-font-semibold animated fadeInDown md:tw-hidden">{{ __('general.newsletter_sign_up.success') }}</h3>
-            <h3 class="text-center mt-5 tw-text-6xl tw-font-semibold animated tada fast tw-hidden md:tw-block">{{ __('general.newsletter_sign_up.success') }}</h3>
+            <h3 class="tw-text-center mt-5 tw-text-6xl tw-font-semibold animated tada fast tw-hidden md:tw-block">{{ __('general.newsletter_sign_up.success') }}</h3>
         @elseif ($errors->any())
             <h3 class="tw-text-4xl tw-font-semibold animated headShake">{{ __('general.newsletter_sign_up.error') }}</h3>
         @else
@@ -28,7 +28,7 @@
                         <button type="submit" class="btn btn-black tw-font-light" @if ($success) disabled @endif>
                             <span wire:loading.remove>
                                 @if ($success)
-                                    <i class="fa fa-check text-success"></i> {{ __('general.newsletter_sign_up.button.success') }}
+                                    <i class="fa fa-check tw-text-green-800"></i> {{ __('general.newsletter_sign_up.button.success') }}
                                 @else
                                     {{ __('general.newsletter_sign_up.button.initial') }}
                                 @endif

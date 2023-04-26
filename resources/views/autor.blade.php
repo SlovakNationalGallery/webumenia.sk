@@ -33,7 +33,7 @@
     <div class="container">
         <div class="attributes">
             <div class="row">
-                <div class="col-sm-4 text-center extra-padding top-space">
+                <div class="col-sm-4 tw-text-center extra-padding top-space">
                         <img src="{!! $author->getImagePath() !!}" class="img-responsive img-circle" alt="{{ $author->name }}"  itemprop="image">
                         <div class="content-section">
                             {!! trans_choice('authority.artworks', $author->items_count, ['artworks_url' => route('frontend.catalog.index', ['author' => $author->name]), 'artworks_count' => $author->items_count]) !!}
@@ -76,7 +76,7 @@
                     @endif
 
                     {{-- @if ( $author->biography) --}}
-                    <div class="text-left biography">
+                    <div class="tw-text-left biography">
                         {!!  $author->biography !!}
                     </div>
                     {{-- @endif --}}
@@ -90,7 +90,7 @@
                     @if ($author->sourceLinks->count() > 0)
                         <div class="links">
                             <h4 class="top-space">{{ utrans('authority.source_links') }}</h4>
-                            <ul class="list-unstyled">
+                            <ul class="tw-pl-0 tw-list-none">
                                 @foreach($author->sourceLinks as $link)
                                     <li>
                                         @if($link->url)
@@ -106,7 +106,7 @@
                     @if ($author->externalLinks->count() > 0)
                         <div class="links">
                             <h4 class="top-space">{{ utrans('authority.external_links') }}</h4>
-                            <ul class="list-unstyled">
+                            <ul class="tw-pl-0 tw-list-none">
                                 @foreach($author->externalLinks as $link)
                                     <li>
                                         @if($link->url)
@@ -159,7 +159,7 @@
 <section class="author preview detail">
     <div class="container">
         <div class="row content-section">
-            <div class="col-xs-12 text-center">
+            <div class="col-xs-12 tw-text-center">
                 <h3>{{ trans_choice('authority.artworks_by_artist', $author->sex) }}</h3>
             </div>
         </div>{{-- row --}}
@@ -173,7 +173,7 @@
             </div>
         </div>{{-- row --}}
         <div class="row content-section">
-            <div class="col-sm-12 text-center">
+            <div class="col-sm-12 tw-text-center">
                 <a href="{!! route('frontend.catalog.index', ['author' => $author->name]) !!}" class="btn btn-default btn-outline sans" >{!! trans_choice('authority.button_show-all-artworks', $author->items_count, ['artworks_count' => $author->items_count])!!} <i class="fa fa-chevron-right "></i></a>
             </div>
         </div>

@@ -20,14 +20,14 @@
                         <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
                     @endif
                     @if (strtotime('now') < strtotime('2019-12-24'))
-                        <div class="alert alert-warning text-center" role="alert">
+                        <div class="alert alert-warning tw-text-center" role="alert">
                             {!! trans('objednavka.order_alert') !!}
                         </div>
                     @endif
 
                     @include('components.notice', compact('notice'))
 
-                    <h2 class="bottom-space text-center">{{ trans('objednavka.order_title') }}</h2>
+                    <h2 class="bottom-space tw-text-center">{{ trans('objednavka.order_title') }}</h2>
                     {!! trans('objednavka.order_content') !!}
 
                 </div>
@@ -57,7 +57,7 @@
                 <div class="form-group required has-feedback"><label for="pids" class="control-label col-lg-2 col-sm-4">{{ trans('objednavka.form_title') }}</label>
                     <div class="col-lg-8 col-sm-8">
                             @if ($items->count() == 0)
-                                <p class="text-center">{{ trans('objednavka.order_none') }}</p>
+                                <p class="tw-text-center">{{ trans('objednavka.order_none') }}</p>
                             @endif
 
                             @foreach ($items as $i=>$item)
@@ -71,7 +71,7 @@
                                         </a><br>
                                         <p class="item"><a href="{!! URL::to('dielo/' . $item->id . '/odstranit') !!}" class="underline"><i class="fa fa-times"></i> {{ trans('objednavka.order_remove') }}</a></span>
                                         @if ($item->images->isEmpty())
-                                            <br><span class="bg-warning">{{ trans('objednavka.order_warning') }}</span>
+                                            <br><span class="tw-bg-amber-100">{{ trans('objednavka.order_warning') }}</span>
                                         @endif
                                     </div>
                                 </div>
@@ -199,20 +199,20 @@
 <div tabindex="-1" class="modal fade" id="previewFrames" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header text-center">
+            <div class="modal-header tw-text-center">
                 <h1>{{ trans('objednavka.modal_frame_colors') }}</h1>
             </div>
             <div class="modal-body">
                 <p>
                     <img src="/images/frames.jpg" alt="frames preview" class="img-responsive">
                 </p>
-                <p class="text-left">
+                <p class="tw-text-left">
                     {{ trans('objednavka.modal_frame_availability') }}<br>
                     {{ trans('objednavka.modal_frame_multiple') }}
                 </p>
             </div>
             <div class="modal-footer">
-                <div class="text-center"><button type="button" data-dismiss="modal" class="btn btn-default btn-outline sans">{{ trans('general.close') }}</button></div>
+                <div class="tw-text-center"><button type="button" data-dismiss="modal" class="btn btn-default btn-outline sans">{{ trans('general.close') }}</button></div>
             </div>
         </div>
     </div>

@@ -55,7 +55,7 @@
 <section class="articles tw-bg-gray-100">
     <div class="container">
         <div class="row mt-5">
-            <div class="col-md-8 col-md-push-2 col-lg-6 col-lg-push-3 text-muted text-md-lg">
+            <div class="col-md-8 col-md-push-2 col-lg-6 col-lg-push-3 tw-text-gray-600 text-md-lg">
                 Motivačné aktivity a&nbsp;metodické texty pre&nbsp;pedagógov prepájajú umenie a&nbsp;kultúru s&nbsp;ďalšími oblasťami poznania aj&nbsp;bežného života.
                 Aktivity sú&nbsp;vhodné pre&nbsp;deti od&nbsp;3&nbsp;rokov až&nbsp;po&nbsp;dospelých, realizovateľné v&nbsp;škole aj&nbsp;v&nbsp;domácom prostredí.
             </div>
@@ -64,7 +64,7 @@
             <div class="col-xs-6">
                 <h4 class="inline">{{ $articles->total() }} {{ trans_choice('articles.count', $articles->total()) }}</h4>
             </div>
-            <div class="col-xs-6 text-right">
+            <div class="col-xs-6 tw-text-right">
                 <filter-sort-by
                     label="{{ trans('general.sort_by') }}"
                     initial-value="{{ $sortBy }}"
@@ -74,7 +74,7 @@
 
             @if($articles->isEmpty())
             <div class="col-xs-12">
-                <p class="text-center">{{ utrans('articles.no_results') }}</p>
+                <p class="tw-text-center">{{ utrans('articles.no_results') }}</p>
             </div>
             @endif
         </div>
@@ -92,7 +92,7 @@
                 @endif
             @endforeach
         </div>
-        <div class="row text-center">
+        <div class="row tw-text-center">
             {{ $articles->links() }}
         </div>
     </div>

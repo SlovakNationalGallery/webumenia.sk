@@ -105,7 +105,7 @@
 	</div>
 </div>
 @endcan
-<div class="col-md-12 text-center">
+<div class="col-md-12 tw-text-center">
 	{!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp;
 	{!! link_to_route('collection.index', 'Zrušiť', null, array('class' => 'btn btn-default')) !!}
 </div>
@@ -123,10 +123,10 @@
 		{!! Form::hidden('collection', $collection->id) !!}
 		</div>
 	</div>
-	<div class="col-md-1 text-right">
+	<div class="col-md-1 tw-text-right">
 		<button type="submit" class="btn btn-default" id="add_event"><i class="fa fa-plus"></i> pridať</button>
 	</div>
-	<div class="col-md-6 text-center"><span class="tw-hidden loader"><i class="fa fa-refresh fa-spin fa-lg"></i> čakaj</span></div>
+	<div class="col-md-6 tw-text-center"><span class="tw-hidden loader"><i class="fa fa-refresh fa-spin fa-lg"></i> čakaj</span></div>
 	{!!Form::close() !!}
 
 	<div class="tw-clear-both"></div>

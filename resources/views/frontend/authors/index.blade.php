@@ -42,7 +42,7 @@
                             {{ trans('authority.authors_counted') }}</h4>
                     @endif
                     @if ($paginator->count() == 0)
-                        <p class="text-center">{{ utrans('authority.authors_none') }}</p>
+                        <p class="tw-text-center">{{ utrans('authority.authors_none') }}</p>
                     @endif
                     @if ($hasFilters)
                         <a class="btn btn-sm btn-default sans btn-outline"
@@ -50,7 +50,7 @@
                                 class="icon-cross"></i></a>
                     @endif
                 </div>
-                <div class="col-xs-6 text-right">
+                <div class="col-xs-6 tw-text-right">
                     @formRow($form['sort_by'], ['attr' => ['class' => 'js-dropdown-select']])
                 </div>
             </div>
@@ -95,7 +95,7 @@
                     </div>
                 @endforeach
                 <div class="row">
-                    <div class="col-sm-12 text-center">
+                    <div class="col-sm-12 tw-text-center">
                         {!! $paginator->appends(@Request::except('page'))->render() !!}
                     </div>
                 </div>

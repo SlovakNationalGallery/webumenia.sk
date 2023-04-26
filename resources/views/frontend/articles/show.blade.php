@@ -58,7 +58,7 @@
 <section class="article content-header my-5">
     <div class="article-header">
         <div class="container">
-            <div class="row text-center">
+            <div class="row tw-text-center">
                 <div class="col-md-8 col-md-push-2">
                     <div class="row">
                         <div class="col-sm-4">
@@ -97,7 +97,7 @@
                     {!! $article->summary !!}
 
                     <!-- share -->
-                    <div class="text-center">
+                    <div class="tw-text-center">
                         @include('components.share_buttons', [
                             'title' => $article->title,
                             'url' => $article->getUrl(),

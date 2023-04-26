@@ -37,7 +37,7 @@
                             <th>Nadpis</th>
                             <th>Vytvorený</th>
                             <th>Publikovaný</th>
-                            <th class="text-right">Počet kliknutí</th>
+                            <th class= "tw-text-right">Počet kliknutí</th>
                             <th>Akcie</th>
                         </tr>
                     </thead>
@@ -56,8 +56,8 @@
                             <td>
                                 @datetime($piece->created_at)
                             </td>
-                            <td>@if ($piece->publish) <i class="fa fa-check text-success"></i> @endif</td>
-                            <td class="text-right">
+                            <td>@if ($piece->publish) <i class="fa fa-check tw-text-green-800"></i> @endif</td>
+                            <td class= "tw-text-right">
                                 {{ $piece->click_count }}
                             </td>
                             <td>

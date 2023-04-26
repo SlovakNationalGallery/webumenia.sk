@@ -17,7 +17,7 @@
                 @if (Session::has('message'))
                     <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
                 @endif
-                <div class="col-md-8 col-md-offset-2 text-center">
+                <div class="col-md-8 col-md-offset-2 tw-text-center">
                     	<h2 class="bottom-space">{{ utrans('dakujeme.title') }}!</h2>
                         <p>{{ trans('dakujeme.paragraph') }}</p>
                         <a href="{!! URL::to('/') !!}" class="btn btn-default btn-outline tw-uppercase sans">{{ trans('dakujeme.button') }}</a>

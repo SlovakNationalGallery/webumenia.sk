@@ -93,7 +93,7 @@ diela |
                                 </div>
                             </td>
 			                <td>{!! $i->id !!}</td>
-                            <td class="text-center"><img src="{!! $i->getImagePath() !!}" alt="" class="img-responsive nahlad"></td>
+                            <td class="tw-text-center"><img src="{!! $i->getImagePath() !!}" alt="" class="img-responsive nahlad"></td>
 			                <td>{!! $i->title !!}</td>
 			                <td>{!! $i->author !!}</td>
 			                <td>{!! $i->dating !!}</td>
@@ -108,7 +108,7 @@ diela |
                     </tbody>
                 </table>
 
-                <div class="text-center">
+                <div class="tw-text-center">
                     @if (!empty($search))
                         {!! $items->appends(array('search' => $search))->render() !!}
                     @else

@@ -52,8 +52,8 @@ presmerovania |
                             <td>
                                 @datetime($redirect->created_at)
                             </td>
-                            <td class="text-center">{!! ($redirect->is_enabled) ? '<i class="fa fa-check text-success"></i>' : '' !!}</td>
-                            <td  class="text-center">
+                            <td class="tw-text-center">{!! ($redirect->is_enabled) ? '<i class="fa fa-check tw-text-green-800"></i>' : '' !!}</td>
+                            <td  class="tw-text-center">
                                 {!! $redirect->counter !!}
                             </td>
                             <td>

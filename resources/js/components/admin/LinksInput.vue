@@ -14,7 +14,7 @@
                     <input :id="`${collectionName}_${index}_label`" type="text" :name="`${collectionName}[${index}][label]`" v-model="link.label" class="form-control form_link" placeholder="wikipédia">
                 </div>
             </div>
-            <div class="col-md-2 text-right">
+            <div class="col-md-2 tw-text-right">
               <div class="form-group">
                 <label class="force-block">&nbsp;</label> <!-- spacer -->
                 <a class="btn btn-danger btn-outline" @click.prevent="links.splice(index, 1)"><i class="fa-times fa"></i> zmazať</a>

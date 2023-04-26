@@ -69,7 +69,7 @@
 	}(document, 'script', 'facebook-jssdk'));</script>
 
 	@if (App::environment() != 'production')
-		<div id="alert-non-production" class="alert alert-warning text-center" role="alert">
+		<div id="alert-non-production" class="alert alert-warning tw-text-center" role="alert">
 		  Pozor! Toto nieje ostrý web. Prostredie: <strong>{!! App::environment() !!}</strong>
 		</div>
 	@endif

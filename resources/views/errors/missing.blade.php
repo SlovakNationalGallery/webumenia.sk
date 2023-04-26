@@ -11,7 +11,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    <div class="text-center">
+                    <div class="tw-text-center">
                         <h1>{{ trans('missing.h1') }}</h1>
                         <h2 class="tw-uppercase">{{ trans('missing.h2') }}</h2>
                         @if ($item)

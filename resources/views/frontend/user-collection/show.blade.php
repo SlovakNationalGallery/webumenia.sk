@@ -10,7 +10,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <h2 class="bottom-space text-center tw-font-semibold">
+            <h2 class="bottom-space tw-text-center tw-font-semibold">
                 {{ trans('user-collection.title') }} <span class="badge badge-primary badge-sup">beta</span>
             </h2>
 
@@ -20,7 +20,7 @@
                     <p>{{ trans('user-collection.content-usage') }}</p>
                     <p>{{ trans('user-collection.share-info') }}</p>
                 @else
-                    <div class="text-center text-muted">
+                    <div class="tw-text-center tw-text-gray-600">
                         <p>{{ trans('user-collection.empty') }}</p>
                         <img src="{{ asset('/images/no-image/diela/no-image-o.jpg') }}" class="tw-w-1/2" />
                         <p>{{ trans('user-collection.empty_hint') }}&nbsp;<i class="fa fa-star-o"></i>.</p>
@@ -35,7 +35,7 @@
     <div :class="{ 'bg-gray-300': store.sharedCollections.present }" class="mt-5 py-5">
         <div class="container">
             <template v-if="store.sharedCollections.present">
-                <h2 class="tw-font-semibold text-center m-0">Tvoje výbery</h2>
+                <h2 class="tw-font-semibold tw-text-center m-0">Tvoje výbery</h2>
 
                 <div class="row mt-4">
                     <div class="col-md-6 col-md-offset-3">
@@ -53,12 +53,12 @@
                 </div>
             </template>
 
-            <div v-if="store.items.present" v-cloak class="text-center mt-5">
+            <div v-if="store.items.present" v-cloak class="tw-text-center mt-5">
                 <a class="btn btn-dark tw-font-light p-3 px-5" href="{{ route('frontend.shared-user-collections.create', ['ids' => request()->ids ] ) }}">
                     {{ trans('user-collection.share') }}
                 </a>
 
-                <div class="text-muted mt-5 mb-5">
+                <div class="tw-text-gray-600 mt-5 mb-5">
                     <p class="mb-0">Do výberu sa vložia všetky aktuálne obľúbené diela.</p>
                     <p v-if="store.sharedCollections.present" class="mt-1 mb-0">Diela v ostatných výberoch ostanú zachované.</p>
                 </div>
@@ -76,7 +76,7 @@
                 {{ trans('user-collection.clear') }}
             </user-collections-clear-button>
         </div>
-        <div class="col-xs-6 text-right">
+        <div class="col-xs-6 tw-text-right">
             {{-- @TODO --}}
             {{-- @formRow($form['sort_by'], ['attr' => ['class' => 'js-dropdown-select']]) --}}
         </div>
@@ -93,7 +93,7 @@
             @endforeach
             </div>
         </div>
-        <div class="col-sm-12 text-center">
+        <div class="col-sm-12 tw-text-center">
             @include('components.load_more', ['paginator' => $items, 'isotopeContainerSelector' => '.isotope'])
         </div>
     </div>

@@ -50,13 +50,13 @@
                             <td>{!! ($i->category) ? $i->category->name : '' !!}</td>
 			                <td>{!! $i->author !!}</td>
                             <td>@datetime($i->created_at)</td>
-                            <td class="text-center">
+                            <td class="tw-text-center">
                                 @if($i->publish)
-                                    <i class="fa fa-check text-success"></i><br/>
+                                    <i class="fa fa-check tw-text-green-800"></i><br/>
                                     <small>od @dateShort($i->published_date) </small>
                                 @endif
                             </td>
-			                <td class="text-center">{!! ($i->promote) ? '<i class="fa fa-check text-success"></i>' : ''  !!}</td>
+			                <td class="tw-text-center">{!! ($i->promote) ? '<i class="fa fa-check tw-text-green-800"></i>' : ''  !!}</td>
 			                <td>
                                 {!! link_to_action('App\Http\Controllers\ArticleController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}
                                 <a href="{!! $i->getUrl() !!}" class="btn btn-success btn-xs btn-outline" target="_blank">Na webe</a>
@@ -70,7 +70,7 @@
                     </tbody>
                 </table>
 
-                <div class="text-center"><?php echo $articles->render(); ?></div>
+                <div class="tw-text-center"><?php echo $articles->render(); ?></div>
 
 
             </div>

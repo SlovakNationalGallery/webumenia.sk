@@ -131,7 +131,7 @@
       <!-- /.row (nested) -->
       <div class="row">
 
-        <div class="col-md-offset-4 col-md-4 text-center">
+        <div class="col-md-offset-4 col-md-4 tw-text-center">
           <div id="image-editor">
             <div class="cropit-image-preview-container">
               <div class="cropit-image-preview"></div>
@@ -163,7 +163,7 @@
   <!-- /.panel -->
 </div>
 
-<div class="col-md-12 text-center">
+<div class="col-md-12 tw-text-center">
   {!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp;
   @if(isset($authority) && $authority->record)
     <a href="{!!URL::to('harvests/'.$authority->record->id.'/refreshRecord')!!}" class="btn btn-warning">Obnoviť z OAI</a>

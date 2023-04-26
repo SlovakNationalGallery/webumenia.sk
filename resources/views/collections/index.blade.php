@@ -49,9 +49,9 @@ kolekcie |
 			                <td>{!! $i->user->name !!}</td>
 			                <td>{!! $i->items()->count(); !!}</td>
                             <td>@datetime($i->created_at)</td>
-                            <td class="text-center">
+                            <td class="tw-text-center">
                                 @if($i->published_at)
-                                    <i class="fa fa-check text-success"></i><br/>
+                                    <i class="fa fa-check tw-text-green-800"></i><br/>
                                     <small>od @dateShort($i->published_at)</small>
                                 @endif
                             </td>
@@ -73,7 +73,7 @@ kolekcie |
                     </tbody>
                 </table>
 
-                <div class="text-center"><?php echo $collections->render(); ?></div>
+                <div class="tw-text-center"><?php echo $collections->render(); ?></div>
 
 
             </div>

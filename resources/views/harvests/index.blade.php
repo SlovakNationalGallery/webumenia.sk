@@ -40,7 +40,7 @@ Spice Harvester |
                             <th>Status</th>
                             <th></th>
                             <th>Cron</th>
-                            <th class="text-right">Akcie</th>
+                            <th class= "tw-text-right">Akcie</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -59,7 +59,7 @@ Spice Harvester |
                                 {!! nl2br(htmlspecialchars($h->status_messages)) !!}<br>
                             </td>
                             <td>{!! $h->cron_status !!}</td>
-			                <td class="text-right">
+			                <td class= "tw-text-right">
                                 {!! Form::open(array('method' => 'DELETE', 'route' => array('harvests.destroy', $h->id), 'class' => 'tw-inline md:tw-hidden form-inline')) !!}
                                 {!! link_to_action('App\Http\Controllers\SpiceHarvesterController@show', 'Detail', array($h->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', )) !!}
                                 {!! link_to_action('App\Http\Controllers\SpiceHarvesterController@edit', 'Upraviť', array($h->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}
@@ -76,7 +76,7 @@ Spice Harvester |
                     </tbody>
                 </table>
 
-                <div class="text-center">
+                <div class="tw-text-center">
                     {!! $harvests->appends(@Request::except('page'))->render() !!}
                 </div>
 

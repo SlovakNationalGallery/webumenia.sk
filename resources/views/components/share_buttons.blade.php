@@ -43,17 +43,17 @@
 <div tabindex="-1" class="modal fade" id="shareLink" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header text-center">
+            <div class="modal-header tw-text-center">
                 {{ trans('general.share_link') }}
             </div>
-            <div class="modal-body text-left">
+            <div class="modal-body tw-text-left">
                 <code>{{ $url }}</code>
                 <div class="tw-float-right">
                 @include('components.copy_button', ['text' => $url])
                 </div>
             </div>
             <div class="modal-footer">
-                <div class="text-center"><button type="button" data-dismiss="modal"
+                <div class="tw-text-center"><button type="button" data-dismiss="modal"
                         class="btn btn-default btn-outline tw-uppercase sans">{{ trans('general.close') }}</button></div>
             </div>
         </div>

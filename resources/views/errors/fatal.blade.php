@@ -11,7 +11,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 content-section">
-                    <div class="text-center">
+                    <div class="tw-text-center">
                         {{-- <h1>ERROR 500</h1> --}}
                         <h2 class="top-margin tw-uppercase">{{ trans('fatal.h2') }}</h2>
                         <p>{{ trans('fatal.paragraph') }}</p>
