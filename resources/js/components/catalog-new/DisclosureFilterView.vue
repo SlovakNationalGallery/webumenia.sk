@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white tw-h-screen">
+    <div class="tw-bg-white tw-h-screen">
         <div class="tw-mx-4 tw-my-6 tw-flex tw-justify-between tw-items-end">
             <slot name="header"></slot>
             <div class="tw-flex">

@@ -32,14 +32,14 @@
 </div>
 
 <user-collections-store v-slot="store">
-    <div :class="{ 'bg-gray-300': store.sharedCollections.present }" class="mt-5 py-5">
+    <div :class="{ 'tw-bg-gray-100': store.sharedCollections.present }" class="mt-5 py-5">
         <div class="container">
             <template v-if="store.sharedCollections.present">
                 <h2 class="tw-font-semibold tw-text-center m-0">Tvoje výbery</h2>
 
                 <div class="row mt-4">
                     <div class="col-md-6 col-md-offset-3">
-                        <div class="bg-white p-4 mt-4" v-for="collection in store.sharedCollections.all" :key="collection.publicId">
+                        <div class="tw-bg-white p-4 mt-4" v-for="collection in store.sharedCollections.all" :key="collection.publicId">
                             <user-collections-shared-collection
                                     :public-id="collection.publicId"
                                     :update-token="collection.updateToken"

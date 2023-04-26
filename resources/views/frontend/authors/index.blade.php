@@ -146,7 +146,7 @@
                 mode: 'multi',
                 render: {
                     item: function(data, escape) {
-                        return '<div class="item">' + '<span class="color">' + this
+                        return '<div class="item">' + '<span class="tw-text-sky-300">' + this
                             .settings.placeholder + ': </span>' + data.text.replace(
                                 /\(.*?\)/g, "") + '</div>';
                     }

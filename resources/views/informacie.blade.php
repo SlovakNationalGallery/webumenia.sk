@@ -41,7 +41,7 @@
 <section class="mozete underlined-links">
     <div class="container">
         <div class="row content-section">
-            <div class="col-md-12 tw-text-center mid-grey">
+            <div class="col-md-12 tw-text-center tw-text-grey-300">
                     <h2 class="inherit">{{ utrans('informacie.mozete_heading') }}</h2>
             </div>
         </div>
@@ -72,12 +72,12 @@
 
         </div>
         <div class="row top-space">
-            <div class="col-md-4 dib">
-                <a href="{!! URL::to('katalog?is_free=' . '1') !!}" class="inherit lead tw-float-left no-border"><i class="icon-arrow-right"></i> &nbsp; {{ trans('informacie.mozete_free_artworks') }}</a>
+            <div class="col-md-4 tw-inline-block">
+                <a href="{!! URL::to('katalog?is_free=' . '1') !!}" class="inherit lead tw-float-left tw-border-none"><i class="icon-arrow-right"></i> &nbsp; {{ trans('informacie.mozete_free_artworks') }}</a>
             </div>
-            <div class="col-md-4 dib"></div>
-            <div class="col-md-4 dib">
-                <a href="{!! URL::to('reprodukcie#print') !!}" class="inherit lead tw-float-left no-border"><i class="icon-arrow-right"></i> &nbsp; {{ trans('informacie.general_reproduction_prices') }}</a>
+            <div class="col-md-4 tw-inline-block"></div>
+            <div class="col-md-4 tw-inline-block">
+                <a href="{!! URL::to('reprodukcie#print') !!}" class="inherit lead tw-float-left tw-border-none"><i class="icon-arrow-right"></i> &nbsp; {{ trans('informacie.general_reproduction_prices') }}</a>
             </div>
         </div>
 
@@ -105,7 +105,7 @@
         </div>
     </div>
 </section>
-<section class="bg-blue">
+<section class="tw-bg-sky-300">
     <div class="container">
         <div class="row py-5">
             <div class="col-lg-8 col-lg-offset-2">
@@ -117,7 +117,7 @@
 <section class="mozete more-items underlined-links">
     <div class="container">
         <div class="row content-section"><!-- top-space bottom-space -->
-            <div class="col-md-12 tw-text-center mid-grey">
+            <div class="col-md-12 tw-text-center tw-text-grey-300">
                 <h2>{{ utrans('informacie.more-items_connect_heading') }}</h2>
             </div>
         </div>

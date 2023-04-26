@@ -129,7 +129,7 @@
                 mode: 'multi',
                 render: {
                     item: function(data, escape) {
-                        return '<div class="selected-item">'  + '<span class="color">'+this.settings.placeholder+': </span>' +  data.text.replace(/\(.*?\)/g, "") + '</div>';
+                        return '<div class="selected-item">'  + '<span class="tw-text-sky-300">'+this.settings.placeholder+': </span>' +  data.text.replace(/\(.*?\)/g, "") + '</div>';
                     }
                 }
             });

@@ -21,7 +21,7 @@
 <div class="container pt-5 mt-5">
     <div class="mb-5 pb-5 tw-text-lg tw-text-gray-600">
         <p>
-            Výber diel z <a href="{{ config('app.url') }}" class="underline">Webu <i class="fa fa-search color"></i> umenia</a>.
+            Výber diel z <a href="{{ config('app.url') }}" class="underline">Webu <i class="fa fa-search tw-text-sky-300"></i> umenia</a>.
         </p>
         <p class="mt-3">
             Inšpirované výstavou <a href="https://medium.com/sng-online/vystava-sedmicky/home" class="underline">Sedmičky v SNG</a>.

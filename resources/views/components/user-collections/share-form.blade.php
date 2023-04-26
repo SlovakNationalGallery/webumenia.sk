@@ -61,7 +61,7 @@
                         uložiť úpravy {{-- TODO i18n --}}
                     </button>
                     @if (!$creating)
-                    <div v-else class="row bg-gray-300 py-5">
+                    <div v-else class="row tw-bg-gray-100 py-5">
                         <h5 class="tw-text-xl tw-font-semibold mt-0 mb-4">
                             @if (session('user-collection-created'))Výborne! @endif
                             Zdieľaj svoj výber s ostatnými:

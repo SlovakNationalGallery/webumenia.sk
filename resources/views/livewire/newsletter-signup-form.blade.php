@@ -1,4 +1,4 @@
-<div class="row text-black">
+<div class="row tw-text-black">
     <div class="col-md-6">
         @if ($success)
             <h3 class="tw-text-5xl mt-4 pt-1 tw-font-semibold animated fadeInDown md:tw-hidden">{{ __('general.newsletter_sign_up.success') }}</h3>
@@ -18,7 +18,7 @@
                 <form wire:submit.prevent="subscribe" class="input-group mt-4">
                     <input
                         type="email"
-                        class="form-control bg-light no-border placeholder:tw-text-black {{ $success ? 'text-gray-500' : '' }}"
+                        class="form-control tw-bg-white tw-border-none placeholder:tw-text-black {{ $success ? 'tw-text-gray-500' : '' }}"
                         placeholder="@"
                         required
                         @if ($success) readonly @endif
@@ -37,7 +37,7 @@
                         </button>
                     </span>
                 </form>
-                <div class="tw-text-sm mt-3 md:tw-mb-0 text-dark">
+                <div class="tw-text-sm mt-3 md:tw-mb-0 tw-text-gray-800">
                     {!! __('general.newsletter_sign_up.privacy_policy.blurb') !!}
                     <a href="https://www.sng.sk/sk/o-galerii/dokumenty/gdpr" target="_blank" class="underline">{{ __('general.newsletter_sign_up.privacy_policy.link') }}</a>.
                 </div>

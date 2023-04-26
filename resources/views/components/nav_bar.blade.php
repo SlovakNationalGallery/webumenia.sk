@@ -10,7 +10,7 @@
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                 <i class="fa fa-bars fa-2x"></i>
             </button>
-            <a class="navbar-brand no-border tw-hidden md:tw-inline first-part" href="{!! URL::to('') !!}">
+            <a class="navbar-brand tw-border-none tw-hidden md:tw-inline first-part" href="{!! URL::to('') !!}">
                 web
             </a>
 
@@ -18,7 +18,7 @@
                 'search' => isSet($search) ? $search : '',
             ])
 
-            <a class="navbar-brand no-border tw-hidden md:tw-inline second-part" href="{!! URL::to('') !!}">
+            <a class="navbar-brand tw-border-none tw-hidden md:tw-inline second-part" href="{!! URL::to('') !!}">
                 umenia
             </a>
         </div>

@@ -53,87 +53,6 @@ html {
     height: 100%;
 }
 
-// Atomic Utility Classes
-.relative {
-    position: relative;
-}
-
-.flex {
-    display: flex;
-}
-
-.flex-grow {
-    flex-grow: 1;
-}
-
-// Text Colors
-.light-grey {
-    color: @light-grey;
-}
-.dark-grey {
-    color: @dark-grey;
-}
-.mid-grey {
-    color: @mid-grey;
-}
-.grey,
-.text-gray-500 {
-    color: @grey;
-}
-.primary {
-    color: @primary;
-}
-.dark,
-.text-dark {
-    color: @dark;
-}
-.light {
-    color: @light;
-}
-.red {
-    color: @red;
-}
-.color {
-    color: @primary-color;
-}
-.black,
-.text-black {
-    color: @black;
-}
-.text-success {
-    color: @brand-success;
-}
-
-.hover\:text-black:hover {
-    color: @black;
-}
-
-// Text Decoration
-.hover\:no-underline:hover {
-    text-decoration: none;
-}
-
-// Background Colors
-.bg-light {
-    background-color: @light !important;
-}
-.bg-dark {
-    background-color: @dark !important;
-}
-.bg-blue {
-    background-color: @primary-color !important;
-}
-.bg-gray-300 {
-    background-color: @light-grey;
-}
-.bg-white {
-    background-color: @white;
-}
-
-.no-border {
-    border: none !important;
-}
-
 strong {
     font-weight: 600;
 }
@@ -393,10 +312,6 @@ p.tagline {
 
 // ************************************************************************
 
-.dib {
-    display: inline-block;
-}
-
 @media (max-width: @screen-xs-max) {
     .header-body {
         padding-bottom: 0px;
@@ -504,8 +419,8 @@ a.license {
     }
 }
 
-table a:not(.btn):not(.readmore-js-toggle):not(.no-border),
-.attributes a:not(.btn):not(.readmore-js-toggle):not(.no-border),
+table a:not(.btn):not(.readmore-js-toggle):not(.tw-border-none),
+.attributes a:not(.btn):not(.readmore-js-toggle):not(.tw-border-none),
 a.underline,
 .underline a {
     border-bottom: 1px solid @link-undeline-color;

@@ -1,32 +1,32 @@
 <div class="container-fluid {!! isSet($class)? $class:'' !!} share-buttons">
     <a href='https://www.facebook.com/sharer/sharer.php?u={{ $url }}'
-       target='_blank' class="no-border" data-toggle="tooltip" title="{{ trans('general.share_facebook') }}">
+       target='_blank' class="tw-border-none" data-toggle="tooltip" title="{{ trans('general.share_facebook') }}">
         <i class='fa fa-facebook fa-lg'></i>
     </a>
 
     <a href='https://twitter.com/intent/tweet?text={{ $title }}&url={{ $url }}'
-       target='_blank' class="no-border" data-toggle="tooltip" title='{{ trans('general.share_twitter') }}'>
+       target='_blank' class="tw-border-none" data-toggle="tooltip" title='{{ trans('general.share_twitter') }}'>
         <i class='fa fa-twitter fa-lg'></i>
     </a>
 
-    <a href='//www.pinterest.com/pin/create/button/?url={{ $url }}&media={{ $img }}' class='pin-it-button no-border'
+    <a href='//www.pinterest.com/pin/create/button/?url={{ $url }}&media={{ $img }}' class='pin-it-button tw-border-none'
        count-layout='none' target='_blank' data-toggle="tooltip" title="{{ trans('general.share_pinterest') }}">
         <i class='fa fa-pinterest fa-lg'></i>
     </a>
     <a href='mailto:?subject={{ $title }}, {{ trans('informacie.galleries.SNG') }}&body={{ $url }}'
-       style="font-size:0.9em" target='_blank' class="no-border" data-toggle="tooltip"
+       style="font-size:0.9em" target='_blank' class="tw-border-none" data-toggle="tooltip"
        title="{{ trans('general.share_mail') }}">
         <i class='fa fa-envelope fa-lg'></i>
     </a>
     <span data-toggle="tooltip" title="{{ trans('general.copy_url') }}">
-    <a href="#shareLink" style='cursor:pointer' data-toggle="modal" class="no-border" data-target="#shareLink">
+    <a href="#shareLink" style='cursor:pointer' data-toggle="modal" class="tw-border-none" data-target="#shareLink">
         <i class='fa fa-link fa-lg'></i>
     </a>
     </span>
 
     @isset($citation)
     <button
-        class="btn btn-outline no-border"
+        class="btn btn-outline tw-border-none"
         data-toggle="tooltip"
         data-trigger="hover"
         title="{{ trans('general.copy_citation') }}"

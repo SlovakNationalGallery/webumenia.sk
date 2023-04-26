@@ -61,7 +61,7 @@
                         @endif
                 </div>
                 <div class="col-sm-8 popis">
-                    <a href="{!! str_contains(URL::previous(), '/autori') ?  URL::previous() : URL::to('/autori') !!} " class="inherit no-border"><i class="icon-arrow-left"></i> {{ utrans('authority.back-to-artists') }}</a>
+                    <a href="{!! str_contains(URL::previous(), '/autori') ?  URL::previous() : URL::to('/autori') !!} " class="inherit tw-border-none"><i class="icon-arrow-left"></i> {{ utrans('authority.back-to-artists') }}</a>
                     <h1 itemprop="name">{!! $author->formatedName !!}</h1>
                     @if ( $author->names->count() > 0)
                         <p class="lead">{{ trans('authority.alternative_names') }} <em>{!! implode("</em>, <em>", $author->formatedNames) !!}</em></p>
@@ -135,7 +135,7 @@
                             @foreach ($author->getAssociativeRelationships() as $type => $relatedAutorities)
                                 <td>
                                 @foreach ($relatedAutorities as $relatedAuthority)
-                                    <a href="{{ $relatedAuthority->id }}" class="no-border"
+                                    <a href="{{ $relatedAuthority->id }}" class="tw-border-none"
                                        itemprop="{{ $author->isCorporateBody() ?
                                                     ($relatedAuthority->isCorporateBody() ? 'knowsAbout' : 'member') :
                                                     ($relatedAuthority->isCorporateBody() ? 'memberOf' : 'knows') }}">

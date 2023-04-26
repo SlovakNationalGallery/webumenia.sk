@@ -114,7 +114,7 @@
             @unless (Cookie::has('newsletterSubscribedAt'))
             <div class="row my-5">
                 <div class="col-md-8 col-md-push-2">
-                    <div class="bg-blue tw-p-8 md:tw-p-12">
+                    <div class="tw-bg-sky-300 tw-p-8 md:tw-p-12">
                         <div class="md:tw-mx-2">
                             <livewire:newsletter-signup-form />
                         </div>

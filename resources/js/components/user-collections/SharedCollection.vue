@@ -1,7 +1,7 @@
 <template>
     <div v-if="name">
-        <div class="flex tw-font-semibold underline">
-            <h4 class="tw-text-lg m-0 flex-grow bg-gray-400 mr-2 tw-font-semibold">
+        <div class="tw-flex tw-font-semibold underline">
+            <h4 class="tw-text-lg m-0 tw-grow bg-gray-400 mr-2 tw-font-semibold">
                 <a :href="shareUrl"
                     ><strong>{{ name }}</strong></a
                 >
@@ -13,7 +13,7 @@
                 </copy-to-clipboard-link>
             </div>
         </div>
-        <div class="text-gray-500 mt-3">
+        <div class="tw-text-gray-500 mt-3">
             <span class="tw-hidden md:tw-inline">{{ createdAt }}</span>
             <span class="mx-1 tw-hidden md:tw-inline"> · </span>
             {{ author }}

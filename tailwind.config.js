@@ -7,23 +7,30 @@ module.exports = {
                     100: '#fcf8e3',
                 },
                 gray: {
-                    100: '#f0f0f0',
-                    200: '#ededed',
-                    300: '#cdcdcd',
-                    500: '#969696',
+                    50: '#f5f5f5', // @lighter-grey
+                    100: '#f0f0f0', // @light-grey
+                    200: '#ededed', //
+                    300: '#cdcdcd', // @mid-grey
+                    500: '#969696', // @grey
                     600: '#777',
-                    800: '#333',
+                    700: '#5b5d5c',
+                    800: '#333', // @gray-dark
+                    900: '#222', // @gray-darker
                 },
                 green: {
-                    800: '#3c763d',
+                    800: '#3c763d', // @brand-success
                 },
                 red: {
+                    500: '#ce2525',
                     800: '#a94442',
                 },
                 sky: {
-                    300: '#66ccf4',
+                    300: '#66ccf4', // @primary-color
                     400: '#37bcf1',
                 },
+                stone: {
+                    700: '#484224',
+                }
             },
             fontFamily: {
                 sans: ['GTWalsheim', 'sans-serif'],
