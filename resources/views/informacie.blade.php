@@ -73,11 +73,11 @@
         </div>
         <div class="row top-space">
             <div class="col-md-4 dib">
-                <a href="{!! URL::to('katalog?is_free=' . '1') !!}" class="inherit lead pull-left no-border"><i class="icon-arrow-right"></i> &nbsp; {{ trans('informacie.mozete_free_artworks') }}</a>
+                <a href="{!! URL::to('katalog?is_free=' . '1') !!}" class="inherit lead tw-float-left no-border"><i class="icon-arrow-right"></i> &nbsp; {{ trans('informacie.mozete_free_artworks') }}</a>
             </div>
             <div class="col-md-4 dib"></div>
             <div class="col-md-4 dib">
-                <a href="{!! URL::to('reprodukcie#print') !!}" class="inherit lead pull-left no-border"><i class="icon-arrow-right"></i> &nbsp; {{ trans('informacie.general_reproduction_prices') }}</a>
+                <a href="{!! URL::to('reprodukcie#print') !!}" class="inherit lead tw-float-left no-border"><i class="icon-arrow-right"></i> &nbsp; {{ trans('informacie.general_reproduction_prices') }}</a>
             </div>
         </div>
 

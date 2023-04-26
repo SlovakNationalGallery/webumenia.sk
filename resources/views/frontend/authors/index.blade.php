@@ -85,7 +85,7 @@
                                 {!! trans_choice('authority.artworks', $author->items_count, ['artworks_url' => route('frontend.catalog.index', ['author' => $author->name]), 'artworks_count' => $author->items_count]) !!}
                             </div>
                         </div>
-                        <div class="clearfix md:tw-hidden bottom-space"></div>
+                        <div class="tw-clear-both md:tw-hidden bottom-space"></div>
                         <div class="col-sm-6">
                             @include('components.artwork_carousel', [
                                 'slick_target' => 'artworks-preview',

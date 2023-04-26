@@ -11,7 +11,7 @@
     ])
 
     <div class="item-title">
-        <div class="pull-right">
+        <div class="tw-float-right">
             <user-collections-favourite-button
                 label-add="{{ utrans('general.item_add_to_favourites') }}"
                 label-remove="{{ utrans('general.item_remove_from_favourites') }}"

@@ -59,7 +59,7 @@ presmerovanie |
 
 {!! Form::close() !!}
 
-<div class="clearfix"></div>
+<div class="tw-clear-both"></div>
 
 <hr>
 <div class="text-center small">

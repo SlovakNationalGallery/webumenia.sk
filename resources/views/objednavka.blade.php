@@ -62,7 +62,7 @@
 
                             @foreach ($items as $i=>$item)
                                 <div class="media">
-                                    <a href="{!! $item->getUrl() !!}" class="pull-left">
+                                    <a href="{!! $item->getUrl() !!}" class="tw-float-left">
                                         <img src="{!! $item->getImagePath() !!}" class="media-object" style="max-width: 80px; ">
                                     </a>
                                     <div class="media-body">

@@ -88,7 +88,7 @@
                     ])
                 </div>
                 @if ($i % 2 == 1)
-                    <div class="clearfix"></div>
+                    <div class="tw-clear-both"></div>
                 @endif
             @endforeach
         </div>

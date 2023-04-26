@@ -104,7 +104,7 @@
 					</div>
 				</div>
 				<div class="col-md-6">
-					
+
 				</div>
 				<div class="col-md-12">
 					<div class="form-group">
@@ -167,7 +167,7 @@
 {!!Form::close() !!}
 
 
-<div class="clearfix"></div>
+<div class="tw-clear-both"></div>
 
 
 @stop

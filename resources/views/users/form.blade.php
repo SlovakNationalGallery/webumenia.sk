@@ -67,7 +67,7 @@
 
 {!!Form::close() !!}
 
-<div class="clearfix"></div>
+<div class="tw-clear-both"></div>
 
 
 @stop

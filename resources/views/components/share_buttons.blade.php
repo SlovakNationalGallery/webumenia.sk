@@ -48,7 +48,7 @@
             </div>
             <div class="modal-body text-left">
                 <code>{{ $url }}</code>
-                <div class="pull-right">
+                <div class="tw-float-right">
                 @include('components.copy_button', ['text' => $url])
                 </div>
             </div>
