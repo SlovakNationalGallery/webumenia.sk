@@ -58,7 +58,7 @@ presmerovania |
                             </td>
                             <td>
                                 {!! link_to_action('App\Http\Controllers\RedirectController@edit', 'Upraviť', array($redirect->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}
-                                {!! Form::open(array('method' => 'DELETE', 'route' => array('redirects.destroy', $redirect->id), 'class' => 'visible-xs-inline')) !!}
+                                {!! Form::open(array('method' => 'DELETE', 'route' => array('redirects.destroy', $redirect->id), 'class' => 'tw-inline md:tw-hidden')) !!}
                                     {!! Form::submit('Zmazať', array('class' => 'btn btn-danger btn-xs btn-outline')) !!}
                                 {!! Form::close() !!}
                             </td>

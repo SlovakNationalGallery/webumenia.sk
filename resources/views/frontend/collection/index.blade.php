@@ -112,7 +112,7 @@
                     {!! $collection->getShortTextAttribute($collection->text, 350) !!}
                 </div>
             </div>
-            <div class="clearfix visible-xs bottom-space"></div>
+            <div class="clearfix md:tw-hidden bottom-space"></div>
             <div class="col-sm-6">
                 @include('components.artwork_carousel', [
                 'slick_target' => "artworks-preview",

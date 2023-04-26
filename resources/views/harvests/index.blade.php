@@ -60,7 +60,7 @@ Spice Harvester |
                             </td>
                             <td>{!! $h->cron_status !!}</td>
 			                <td class="text-right">
-                                {!! Form::open(array('method' => 'DELETE', 'route' => array('harvests.destroy', $h->id), 'class' => 'visible-xs-inline form-inline')) !!}
+                                {!! Form::open(array('method' => 'DELETE', 'route' => array('harvests.destroy', $h->id), 'class' => 'tw-inline md:tw-hidden form-inline')) !!}
                                 {!! link_to_action('App\Http\Controllers\SpiceHarvesterController@show', 'Detail', array($h->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', )) !!}
                                 {!! link_to_action('App\Http\Controllers\SpiceHarvesterController@edit', 'Upraviť', array($h->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}
                                     {!! Form::submit('Zmazať', array('class' => 'btn btn-danger btn-xs btn-outline')) !!}

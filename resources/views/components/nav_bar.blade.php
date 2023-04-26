@@ -10,7 +10,7 @@
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                 <i class="fa fa-bars fa-2x"></i>
             </button>
-            <a class="navbar-brand no-border hidden-xs first-part" href="{!! URL::to('') !!}">
+            <a class="navbar-brand no-border tw-hidden md:tw-inline first-part" href="{!! URL::to('') !!}">
                 web
             </a>
 
@@ -18,14 +18,14 @@
                 'search' => isSet($search) ? $search : '',
             ])
 
-            <a class="navbar-brand no-border hidden-xs second-part" href="{!! URL::to('') !!}">
+            <a class="navbar-brand no-border tw-hidden md:tw-inline second-part" href="{!! URL::to('') !!}">
                 umenia
             </a>
         </div>
 
         <div class="collapse navbar-collapse navbar-main-collapse">
             <ul class="nav navbar-nav">
-                <li class="visible-xs {{ Request::is('/') ? 'active' : '' }}">
+                <li class="md:tw-hidden {{ Request::is('/') ? 'active' : '' }}">
                     <a href="/">Web umenia</a>
                 </li>
                 <li class="{{ Route::is('frontend.catalog.index', 'dielo') ? 'active' : '' }}">

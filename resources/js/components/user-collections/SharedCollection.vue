@@ -6,7 +6,7 @@
                     ><strong>{{ name }}</strong></a
                 >
             </h4>
-            <div class="hidden-xs">
+            <div class="tw-hidden md:tw-block">
                 <a :href="editUrl" class="mr-3">upraviť</a>
                 <copy-to-clipboard-link :value="shareUrl" :successText="copySuccessText">
                     kopírovať odkaz
@@ -14,13 +14,13 @@
             </div>
         </div>
         <div class="text-gray-500 mt-3">
-            <span class="hidden-xs">{{ createdAt }}</span>
-            <span class="mx-1 hidden-xs"> · </span>
+            <span class="tw-hidden md:tw-inline">{{ createdAt }}</span>
+            <span class="mx-1 tw-hidden md:tw-inline"> · </span>
             {{ author }}
             <span v-if="author" class="mx-1"> · </span>
             {{ itemsCount }} {{ itemsCountWord }}
         </div>
-        <div class="mt-2 underline tw-font-semibold visible-xs-block">
+        <div class="mt-2 underline tw-font-semibold md:tw-hidden">
             <a :href="editUrl" class="mr-3">upraviť</a>
             <copy-to-clipboard-link :value="shareUrl" :successText="copySuccessText">
                 kopírovať odkaz

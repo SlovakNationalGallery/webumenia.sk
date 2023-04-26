@@ -49,7 +49,7 @@
 			                <td>
                                 {{-- {!! link_to_action('App\Http\Controllers\UserController@show', 'Detail', array($i->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', )) !!}  --}}
                                 {!! link_to_action('App\Http\Controllers\UserController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}
-                                {!! Form::open(array('method' => 'DELETE', 'route' => array('user.destroy', $i->id), 'class' => 'visible-xs-inline')) !!}
+                                {!! Form::open(array('method' => 'DELETE', 'route' => array('user.destroy', $i->id), 'class' => 'tw-inline md:tw-hidden')) !!}
                                     {!! Form::submit('Zmazať', array('class' => 'btn btn-danger btn-xs btn-outline')) !!}
                                 {!! Form::close() !!}
                             </td>
