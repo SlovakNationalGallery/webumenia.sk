@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-    <div class="tailwind-rules admin">
+    <div class="admin">
         <div class="tw-container tw-mx-auto tw-pt-12">
 
             @if (session('message'))

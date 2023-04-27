@@ -427,15 +427,13 @@
     <div class="container">
         <div class="row">
             <div class="{{ $item->has_colors ? 'col-sm-6 sm:tw-pr-12' : 'col-xs-12'}}" id="related-by-metadata">
-                <div class="tailwind-rules">
-                    <div class="tw-h-20 tw-text-lg">
-                        <h3 class="tw-mt-5">
-                            {{ utrans('dielo.more-items_related-artworks') }}
-                        </h3>
-                        <span class="tw-text-gray-500 tw-font-semibold tw-inline-block tw-mt-1">
-                            {{ trans('dielo.more-items_related-artworks_by-data') }}
-                        </span>
-                    </div>
+                <div class="tw-h-20 tw-text-lg">
+                    <h3 class="tw-mt-5">
+                        {{ utrans('dielo.more-items_related-artworks') }}
+                    </h3>
+                    <span class="tw-text-gray-500 tw-font-semibold tw-inline-block tw-mt-1">
+                        {{ trans('dielo.more-items_related-artworks_by-data') }}
+                    </span>
                 </div>
                 <div class="isotope-container">
                     @foreach ($similar_items as $similar_item)
@@ -451,11 +449,9 @@
             </div>
             @if ($item->has_colors)
             <div class="col-sm-6 pl-sm-5" id="related-by-color">
-                <div class="tailwind-rules">
-                    <div class="tw-h-20 tw-text-lg">
-                        <h3 class="tw-mt-5 tw-mb-1">{{ utrans('dielo.more-items_similar-colors') }}</h3>
-                        @include('components.color_list', ['colors' => $item->getColors()])
-                    </div>
+                <div class="tw-h-20 tw-text-lg">
+                    <h3 class="tw-mt-5 tw-mb-1">{{ utrans('dielo.more-items_similar-colors') }}</h3>
+                    @include('components.color_list', ['colors' => $item->getColors()])
                 </div>
                 <div class="isotope-container" data-fetch-url="{{ route('dielo.colorrelated', ['id' => $item->id]) }}">
                 </div>

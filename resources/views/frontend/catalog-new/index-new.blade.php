@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-    <section class="tailwind-rules">
+    <section>
         <filter-new-items-controller
             v-slot="{ isExtendedOpen, isFetchingArtworks, toggleIsExtendedOpen, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, loadMore, clearFilterSelection, clearAllSelections, removeSelection, query, aggregations, artworks, page }">
             <div class="tw-relative">
