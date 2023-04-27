@@ -40,12 +40,18 @@ return [
     'filter' => [
         'year_from' => 'od roku',
         'year_to' => 'do roku',
+        'year' => 'rok',
         'has_image' => 'jen s obrázkem',
         'has_iip' => 'jen se zoom',
         'has_text' => 'jen s textem',
         'is_free' => 'jen volné',
         'color' => 'farba',
         'sort_by' => 'podle',
+        'placeholder' => [
+            'name_human' => 'Zadej jméno',
+            'name_object' => 'Zadej název',
+            'tag' => 'Zadej pojem',
+        ],
         'sorting' => [
             'created_at' => 'data přidání',
             'title' => 'názvu',

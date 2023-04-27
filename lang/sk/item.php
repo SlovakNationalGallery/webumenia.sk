@@ -37,9 +37,15 @@ return [
     'primary_image' => 'hlavný obrázok',
     'images' => 'obrázky',
     'iipimg_url' => 'IIP URL',
+    'placeholder' => [
+        'name_human' => 'Zadaj meno',
+        'name_object' => 'Zadaj názov',
+        'tag' => 'Zadaj pojem',
+    ],
     'filter' => [
         'year_from' => 'od roku',
         'year_to' => 'do roku',
+        'year' => 'rok',
         'has_image' => 'len s obrázkom',
         'has_iip' => 'len so zoom',
         'has_text' => 'len s textom',

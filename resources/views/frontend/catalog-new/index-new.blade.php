@@ -12,7 +12,8 @@
                             class="tw-hidden tw-gap-x-3 tw-overflow-x-auto md:tw-flex md:tw-flex-wrap md:tw-overflow-visible">
                             <filter-new-popover name="author">
                                 <template #popover-label>
-                                    <filter-new-custom-select-popover-label name="author"
+                                    <filter-new-custom-select-popover-label
+                                        name="{{ utrans('item.author') }}"
                                         :selected-values="query['author']">
                                     </filter-new-custom-select-popover-label>
                                 </template>
@@ -20,7 +21,7 @@
                                     <div
                                         class="tw-absolute tw-z-10 tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                         <filter-new-options filter-name="author"
-                                            placeholder="Napíšte meno autora / autorky"
+                                            placeholder="{{ utrans('item.filter.placeholder.name_human') }}"
                                             @change="handleMultiSelectChange"
                                             :selected-values="query['author']"
                                             :filter="aggregations['author']">
@@ -189,17 +190,16 @@
                             </filter-new-popover>
                             <filter-new-popover name="work_type">
                                 <template #popover-label>
-                                    <filter-new-custom-select-popover-label name="work_type"
-                                        :selected-values="query['work_type']">
+                                    <filter-new-custom-select-popover-label
+                                        name="{{ utrans('item.work_type') }}" :selected-values="query['work_type']">
                                     </filter-new-custom-select-popover-label>
                                 </template>
                                 <template #body>
                                     <div
                                         class="tw-absolute tw-top-36 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                         <filter-new-options filter-name="work_type"
-                                            placeholder="Napíšte meno autora / autorky"
-                                            @change="handleMultiSelectChange"
-                                            :selected-values="query['work_type']"
+                                            placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
+                                            @change="handleMultiSelectChange" :selected-values="query['work_type']"
                                             :filter="aggregations['work_type']">
                                         </filter-new-options>
                                         <button
@@ -219,17 +219,16 @@
                             </filter-new-popover>
                             <filter-new-popover name="object_type">
                                 <template #popover-label>
-                                    <filter-new-custom-select-popover-label name="object_type"
-                                        :selected-values="query['object_type']">
+                                    <filter-new-custom-select-popover-label
+                                        name="{{ utrans('item.object_type') }}" :selected-values="query['object_type']">
                                     </filter-new-custom-select-popover-label>
                                 </template>
                                 <template #body>
                                     <div
                                         class="tw-absolute tw-top-36 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                         <filter-new-options filter-name="object_type"
-                                            placeholder="Napíšte meno autora / autorky"
-                                            @change="handleMultiSelectChange"
-                                            :selected-values="query['object_type']"
+                                            placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
+                                            @change="handleMultiSelectChange" :selected-values="query['object_type']"
                                             :filter="aggregations['object_type']">
                                         </filter-new-options>
                                         <button
@@ -249,17 +248,16 @@
                             </filter-new-popover>
                             <filter-new-popover name="tag">
                                 <template #popover-label>
-                                    <filter-new-custom-select-popover-label name="tag"
-                                        :selected-values="query['tag']">
+                                    <filter-new-custom-select-popover-label
+                                        name="{{ utrans('item.tag') }}" :selected-values="query['tag']">
                                     </filter-new-custom-select-popover-label>
                                 </template>
                                 <template #body>
                                     <div
                                         class="tw-absolute tw-top-36 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                         <filter-new-options filter-name="tag"
-                                            placeholder="Napíšte meno autora / autorky"
-                                            @change="handleMultiSelectChange"
-                                            :selected-values="query['tag']"
+                                            placeholder="{{ utrans('item.filter.placeholder.tag') }}"
+                                            @change="handleMultiSelectChange" :selected-values="query['tag']"
                                             :filter="aggregations['tag']">
                                         </filter-new-options>
                                         <button
@@ -279,17 +277,16 @@
                             </filter-new-popover>
                             <filter-new-popover name="gallery">
                                 <template #popover-label>
-                                    <filter-new-custom-select-popover-label name="gallery"
-                                        :selected-values="query['gallery']">
+                                    <filter-new-custom-select-popover-label
+                                        name="{{ utrans('item.gallery') }}" :selected-values="query['gallery']">
                                     </filter-new-custom-select-popover-label>
                                 </template>
                                 <template #body>
                                     <div
                                         class="tw-absolute tw-top-36 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                         <filter-new-options filter-name="gallery"
-                                            placeholder="Napíšte meno autora / autorky"
-                                            @change="handleMultiSelectChange"
-                                            :selected-values="query['gallery']"
+                                            placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
+                                            @change="handleMultiSelectChange" :selected-values="query['gallery']"
                                             :filter="aggregations['gallery']">
                                         </filter-new-options>
                                         <button
@@ -309,17 +306,16 @@
                             </filter-new-popover>
                             <filter-new-popover v-if="isExtendedOpen" name="technique">
                                 <template #popover-label>
-                                    <filter-new-custom-select-popover-label name="technique"
-                                        :selected-values="query['technique']">
+                                    <filter-new-custom-select-popover-label
+                                        name="{{ utrans('item.technique') }}" :selected-values="query['technique']">
                                     </filter-new-custom-select-popover-label>
                                 </template>
                                 <template #body>
                                     <div
                                         class="tw-absolute tw-top-36 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                         <filter-new-options filter-name="technique"
-                                            placeholder="Napíšte meno autora / autorky"
-                                            @change="handleMultiSelectChange"
-                                            :selected-values="query['technique']"
+                                            placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
+                                            @change="handleMultiSelectChange" :selected-values="query['technique']"
                                             :filter="aggregations['technique']">
                                         </filter-new-options>
                                         <button
@@ -339,17 +335,16 @@
                             </filter-new-popover>
                             <filter-new-popover v-if="isExtendedOpen" name="topic">
                                 <template #popover-label>
-                                    <filter-new-custom-select-popover-label name="topic"
-                                        :selected-values="query['topic']">
+                                    <filter-new-custom-select-popover-label
+                                        name="{{ utrans('item.topic') }}" :selected-values="query['topic']">
                                     </filter-new-custom-select-popover-label>
                                 </template>
                                 <template #body>
                                     <div
                                         class="tw-absolute tw-top-36 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                         <filter-new-options filter-name="topic"
-                                            placeholder="Napíšte meno autora / autorky"
-                                            @change="handleMultiSelectChange"
-                                            :selected-values="query['topic']"
+                                            placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
+                                            @change="handleMultiSelectChange" :selected-values="query['topic']"
                                             :filter="aggregations['topic']">
                                         </filter-new-options>
                                         <button
@@ -369,17 +364,16 @@
                             </filter-new-popover>
                             <filter-new-popover v-if="isExtendedOpen" name="medium">
                                 <template #popover-label>
-                                    <filter-new-custom-select-popover-label name="medium"
-                                        :selected-values="query['medium']">
+                                    <filter-new-custom-select-popover-label
+                                        name="{{ utrans('item.medium') }}" :selected-values="query['medium']">
                                     </filter-new-custom-select-popover-label>
                                 </template>
                                 <template #body>
                                     <div
                                         class="tw-absolute tw-top-36 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                         <filter-new-options filter-name="medium"
-                                            placeholder="Napíšte meno autora / autorky"
-                                            @change="handleMultiSelectChange"
-                                            :selected-values="query['medium']"
+                                            placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
+                                            @change="handleMultiSelectChange" :selected-values="query['medium']"
                                             :filter="aggregations['medium']">
                                         </filter-new-options>
                                         <button
@@ -400,7 +394,7 @@
                             <filter-new-popover v-if="isExtendedOpen" name="color">
                                 <template #popover-label>
                                     <div class="tw-flex tw-items-center tw-gap-2 tw-font-semibold">
-                                        color<div v-if="query['color']"
+                                        {{ utrans('item.filter.color') }}<div v-if="query['color']"
                                             class="tw-inline-block tw-h-4 tw-w-4" :style="{'background': `#${query['color']}`}">
                                         </div>
                                     </div>
@@ -425,8 +419,8 @@
                             </filter-new-popover>
                             <filter-new-popover name="yearRange" v-if="isExtendedOpen">
                                 <template #popover-label>
-                                    <div class="tw-font-sm tw-font-semibold">rok<span
-                                            class="tw-ml-2"
+                                    <div class="tw-font-sm tw-font-semibold">
+                                        {{ utrans('item.filter.year') }}<span class="tw-ml-2"
                                             v-if="query.yearRange">(@{{ query.yearRange.from }}
                                             - @{{ query.yearRange.to }})</div>
                                 </template>
@@ -459,28 +453,28 @@
                         <div class="tw-relative md:tw-hidden">
                             <div class="tw-flex tw-gap-x-3 tw-overflow-x-auto">
                                 <x-filter.disclosure_button @click="dc.goTo('author')">
-                                    <filter-new-custom-select-popover-label name="author"
-                                        :selected-values="query['author']">
+                                    <filter-new-custom-select-popover-label
+                                        name="{{ utrans('item.author') }}" :selected-values="query['author']">
                                     </filter-new-custom-select-popover-label>
                                 </x-filter.disclosure_button>
                                 <x-filter.disclosure_button @click="dc.goTo('work_type')">
-                                    <filter-new-custom-select-popover-label name="work_type"
-                                        :selected-values="query['work_type']">
+                                    <filter-new-custom-select-popover-label
+                                        name="{{ utrans('item.work_type') }}" :selected-values="query['work_type']">
                                     </filter-new-custom-select-popover-label>
                                 </x-filter.disclosure_button>
                                 <x-filter.disclosure_button @click="dc.goTo('object_type')">
-                                    <filter-new-custom-select-popover-label name="object_type"
-                                        :selected-values="query['object_type']">
+                                    <filter-new-custom-select-popover-label
+                                        name="{{ utrans('object_type') }}" :selected-values="query['object_type']">
                                     </filter-new-custom-select-popover-label>
                                 </x-filter.disclosure_button>
                                 <x-filter.disclosure_button @click="dc.goTo('tag')">
-                                    <filter-new-custom-select-popover-label name="tag"
-                                        :selected-values="query['tag']">
+                                    <filter-new-custom-select-popover-label
+                                        name="{{ utrans('item.tag') }}" :selected-values="query['tag']">
                                     </filter-new-custom-select-popover-label>
                                 </x-filter.disclosure_button>
                                 <x-filter.disclosure_button @click="dc.goTo('gallery')">
-                                    <filter-new-custom-select-popover-label name="gallery"
-                                        :selected-values="query['gallery']">
+                                    <filter-new-custom-select-popover-label
+                                        name="{{ utrans('item.gallery') }}" :selected-values="query['gallery']">
                                     </filter-new-custom-select-popover-label>
                                 </x-filter.disclosure_button>
                             </div>
@@ -515,50 +509,57 @@
                                             <div
                                                 class="tw-flex tw-h-[calc(100vh-15rem)] tw-flex-col tw-overflow-auto">
                                                 <x-filter.disclosure_list_button @click="dc.goTo('author')">
-                                                    <filter-new-custom-select-popover-label name="author"
+                                                    <filter-new-custom-select-popover-label
+                                                        name="{{ utrans('item.author') }}"
                                                         :selected-values="query['author']">
                                                     </filter-new-custom-select-popover-label>
                                                 </x-filter.disclosure_list_button>
                                                 <x-filter.disclosure_list_button @click="dc.goTo('work_type')">
-                                                    <filter-new-custom-select-popover-label name="work_type"
+                                                    <filter-new-custom-select-popover-label
+                                                        name="{{ utrans('item.work_type') }}"
                                                         :selected-values="query['work_type']">
                                                     </filter-new-custom-select-popover-label>
                                                 </x-filter.disclosure_list_button>
                                                 <x-filter.disclosure_list_button
                                                     @click="dc.goTo('object_type')">
-                                                    <filter-new-custom-select-popover-label name="object_type"
+                                                    <filter-new-custom-select-popover-label
+                                                        name="{{ utrans('item.object_type') }}"
                                                         :selected-values="query['object_type']">
                                                     </filter-new-custom-select-popover-label>
                                                 </x-filter.disclosure_list_button>
                                                 <x-filter.disclosure_list_button @click="dc.goTo('tag')">
-                                                    <filter-new-custom-select-popover-label name="tag"
-                                                        :selected-values="query['tag']">
+                                                    <filter-new-custom-select-popover-label
+                                                        name="{{ utrans('item.tag') }}" :selected-values="query['tag']">
                                                     </filter-new-custom-select-popover-label>
                                                 </x-filter.disclosure_list_button>
                                                 <x-filter.disclosure_list_button @click="dc.goTo('gallery')">
-                                                    <filter-new-custom-select-popover-label name="gallery"
+                                                    <filter-new-custom-select-popover-label
+                                                        name="{{ utrans('item.gallery') }}"
                                                         :selected-values="query['gallery']">
                                                     </filter-new-custom-select-popover-label>
                                                 </x-filter.disclosure_list_button>
                                                 <x-filter.disclosure_list_button @click="dc.goTo('technique')">
-                                                    <filter-new-custom-select-popover-label name="technique"
+                                                    <filter-new-custom-select-popover-label
+                                                        name="{{ utrans('item.technique') }}"
                                                         :selected-values="query['technique']">
                                                     </filter-new-custom-select-popover-label>
                                                 </x-filter.disclosure_list_button>
                                                 <x-filter.disclosure_list_button @click="dc.goTo('topic')">
-                                                    <filter-new-custom-select-popover-label name="topic"
-                                                        :selected-values="query['topic']">
+                                                    <filter-new-custom-select-popover-label
+                                                        name="{{ utrans('item.topic') }}" :selected-values="query['topic']">
                                                     </filter-new-custom-select-popover-label>
                                                 </x-filter.disclosure_list_button>
                                                 <x-filter.disclosure_list_button @click="dc.goTo('medium')">
-                                                    <filter-new-custom-select-popover-label name="medium"
+                                                    <filter-new-custom-select-popover-label
+                                                        name="{{ utrans('item.medium') }}"
                                                         :selected-values="query['medium']">
                                                     </filter-new-custom-select-popover-label>
                                                 </x-filter.disclosure_list_button>
                                                 <filter-disclosure-inline-list-button>
                                                     <template #header>
                                                         <div class="tw-font-sm tw-font-semibold">
-                                                            rok<span class="tw-ml-2"
+                                                            {{ utrans('item.filter.year') }}<span
+                                                                class="tw-ml-2"
                                                                 v-if="query.yearRange">(@{{ query.yearRange.from }}
                                                                 - @{{ query.yearRange.to }})</div>
                                                     </template>
@@ -581,7 +582,8 @@
                                                     <template #header>
                                                         <div
                                                             class="tw-font-sm tw-flex tw-items-center tw-gap-2 tw-font-semibold">
-                                                            color<div v-if="query['color']"
+                                                            {{ utrans('item.filter.color') }}<div
+                                                                v-if="query['color']"
                                                                 class="tw-inline-block tw-h-4 tw-w-4"
                                                                 :style="{'background': `#${query['color']}`}">
                                                             </div>
@@ -603,20 +605,23 @@
                                                 </filter-disclosure-inline-list-button>
                                                 <filter-new-custom-checkbox class="tw-pt-2"
                                                     @change="handleCheckboxChange" :checked="Boolean(query['has_image'])"
-                                                    title="Len s obrázkom" name="has_image"
-                                                    id="has_image_desktop">
+                                                    title="{{ utrans('item.filter.has_image') }}"
+                                                    name="has_image" id="has_image_desktop">
                                                 </filter-new-custom-checkbox>
                                                 <filter-new-custom-checkbox @change="handleCheckboxChange"
-                                                    :checked="Boolean(query['has_iip'])" title="Len so zoomom" name="has_iip"
-                                                    id="has_iip_desktop">
+                                                    :checked="Boolean(query['has_iip'])"
+                                                    title="{{ utrans('item.filter.has_iip') }}"
+                                                    name="has_iip" id="has_iip_desktop">
                                                 </filter-new-custom-checkbox>
                                                 <filter-new-custom-checkbox @change="handleCheckboxChange"
-                                                    :checked="Boolean(query['is_free'])" title="Len voľné" name="is_free"
-                                                    id="is_free_desktop">
+                                                    :checked="Boolean(query['is_free'])"
+                                                    title="{{ utrans('item.filter.is_free') }}"
+                                                    name="is_free" id="is_free_desktop">
                                                 </filter-new-custom-checkbox>
                                                 <filter-new-custom-checkbox class="tw-pb-2"
                                                     @change="handleCheckboxChange" :checked="Boolean(query['has_text'])"
-                                                    title="Len s textom" name="has_text" id="has_text_desktop">
+                                                    title="{{ utrans('item.filter.has_text') }}"
+                                                    name="has_text" id="has_text_desktop">
                                                 </filter-new-custom-checkbox>
                                             </div>
                                         @endslot
@@ -626,8 +631,8 @@
                                             <div class="tw-flex tw-items-center">
                                                 <x-filter.view_header_button @click="dc.goTo('index')">
                                                 </x-filter.view_header_button>
-                                                <filter-new-custom-select-popover-label name="author"
-                                                    :selected-values="query['author']">
+                                                <filter-new-custom-select-popover-label
+                                                    name="{{ utrans('item.author') }}" :selected-values="query['author']">
                                                 </filter-new-custom-select-popover-label>
                                             </div>
                                         @endslot
@@ -643,7 +648,7 @@
                                             <div
                                                 class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
                                                 <filter-new-options filter-name="author"
-                                                    placeholder="Napíšte meno autora / autorky"
+                                                    placeholder="{{ utrans('item.filter.placeholder.name_human') }}"
                                                     @change="handleMultiSelectChange" :selected-values="query['author']"
                                                     :filter="aggregations['author']">
                                                 </filter-new-options>
@@ -656,8 +661,8 @@
                                             <div class="tw-flex tw-items-center">
                                                 <x-filter.view_header_button @click="dc.goTo('index')">
                                                 </x-filter.view_header_button>
-                                                <filter-new-custom-select-popover-label name="work_type"
-                                                    :selected-values="query['work_type']">
+                                                <filter-new-custom-select-popover-label
+                                                    name="{{ utrans('item.work_type') }}" :selected-values="query['work_type']">
                                                 </filter-new-custom-select-popover-label>
                                             </div>
                                         @endslot
@@ -673,7 +678,7 @@
                                             <div
                                                 class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
                                                 <filter-new-options filter-name="work_type"
-                                                    placeholder="Napíšte meno autora / autorky"
+                                                    placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                     @change="handleMultiSelectChange" :selected-values="query['work_type']"
                                                     :filter="aggregations['work_type']">
                                                 </filter-new-options>
@@ -686,7 +691,8 @@
                                             <div class="tw-flex tw-items-center">
                                                 <x-filter.view_header_button @click="dc.goTo('index')">
                                                 </x-filter.view_header_button>
-                                                <filter-new-custom-select-popover-label name="object_type"
+                                                <filter-new-custom-select-popover-label
+                                                    name="{{ utrans('item.object_type') }}"
                                                     :selected-values="query['object_type']">
                                                 </filter-new-custom-select-popover-label>
                                             </div>
@@ -703,7 +709,7 @@
                                             <div
                                                 class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
                                                 <filter-new-options filter-name="object_type"
-                                                    placeholder="Napíšte meno autora / autorky"
+                                                    placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                     @change="handleMultiSelectChange" :selected-values="query['object_type']"
                                                     :filter="aggregations['object_type']">
                                                 </filter-new-options>
@@ -715,8 +721,8 @@
                                             <div class="tw-flex tw-items-center">
                                                 <x-filter.view_header_button @click="dc.goTo('index')">
                                                 </x-filter.view_header_button>
-                                                <filter-new-custom-select-popover-label name="tag"
-                                                    :selected-values="query['tag']">
+                                                <filter-new-custom-select-popover-label
+                                                    name="{{ utrans('item.tag') }}" :selected-values="query['tag']">
                                                 </filter-new-custom-select-popover-label>
                                             </div>
                                         @endslot
@@ -731,7 +737,7 @@
                                             <div
                                                 class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
                                                 <filter-new-options filter-name="tag"
-                                                    placeholder="Napíšte meno autora / autorky"
+                                                    placeholder="{{ utrans('item.filter.placeholder.tag') }}"
                                                     @change="handleMultiSelectChange" :selected-values="query['tag']"
                                                     :filter="aggregations['tag']">
                                                 </filter-new-options>
@@ -744,8 +750,8 @@
                                             <div class="tw-flex tw-items-center">
                                                 <x-filter.view_header_button @click="dc.goTo('index')">
                                                 </x-filter.view_header_button>
-                                                <filter-new-custom-select-popover-label name="gallery"
-                                                    :selected-values="query['gallery']">
+                                                <filter-new-custom-select-popover-label
+                                                    name="{{ utrans('item.gallery') }}" :selected-values="query['gallery']">
                                                 </filter-new-custom-select-popover-label>
                                             </div>
                                         @endslot
@@ -761,7 +767,7 @@
                                             <div
                                                 class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
                                                 <filter-new-options filter-name="gallery"
-                                                    placeholder="Napíšte meno autora / autorky"
+                                                    placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                     @change="handleMultiSelectChange" :selected-values="query['gallery']"
                                                     :filter="aggregations['gallery']">
                                                 </filter-new-options>
@@ -774,8 +780,8 @@
                                             <div class="tw-flex tw-items-center">
                                                 <x-filter.view_header_button @click="dc.goTo('index')">
                                                 </x-filter.view_header_button>
-                                                <filter-new-custom-select-popover-label name="technique"
-                                                    :selected-values="query['technique']">
+                                                <filter-new-custom-select-popover-label
+                                                    name="{{ utrans('item.technique') }}" :selected-values="query['technique']">
                                                 </filter-new-custom-select-popover-label>
                                             </div>
                                         @endslot
@@ -791,7 +797,7 @@
                                             <div
                                                 class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
                                                 <filter-new-options filter-name="technique"
-                                                    placeholder="Napíšte meno autora / autorky"
+                                                    placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                     @change="handleMultiSelectChange" :selected-values="query['technique']"
                                                     :filter="aggregations['technique']">
                                                 </filter-new-options>
@@ -803,8 +809,8 @@
                                             <div class="tw-flex tw-items-center">
                                                 <x-filter.view_header_button @click="dc.goTo('index')">
                                                 </x-filter.view_header_button>
-                                                <filter-new-custom-select-popover-label name="topic"
-                                                    :selected-values="query['topic']">
+                                                <filter-new-custom-select-popover-label
+                                                    name="{{ utrans('item.topic') }}" :selected-values="query['topic']">
                                                 </filter-new-custom-select-popover-label>
                                             </div>
                                         @endslot
@@ -819,9 +825,13 @@
                                         @slot('body')
                                             <div
                                                 class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                <filter-new-options filter-name="topic"
+                                                <filter-new-options filter-name="topic" <<<<<<< HEAD
                                                     placeholder="Napíšte meno autora / autorky"
-                                                    @change="handleMultiSelectChange" :selected-values="query['topic']"
+                                                    @change="handleMultiSelectChange"
+                                                    :selected-values="query['topic']"=======placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
+                                                    @change="handleMultiSelectChange" :selected-values="query['topic']">>>>>>>
+                                                    fa5fa6a4 (feat: add translations to filter buttons and
+                                                    popovers/view)
                                                     :filter="aggregations['topic']">
                                                 </filter-new-options>
                                             </div>
@@ -832,8 +842,8 @@
                                             <div class="tw-flex tw-items-center">
                                                 <x-filter.view_header_button @click="dc.goTo('index')">
                                                 </x-filter.view_header_button>
-                                                <filter-new-custom-select-popover-label name="medium"
-                                                    :selected-values="query['medium']">
+                                                <filter-new-custom-select-popover-label
+                                                    name="{{ utrans('item.medium') }}" :selected-values="query['medium']">
                                                 </filter-new-custom-select-popover-label>
                                             </div>
                                         @endslot
@@ -849,7 +859,7 @@
                                             <div
                                                 class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
                                                 <filter-new-options filter-name="medium"
-                                                    placeholder="Napíšte meno autora / autorky"
+                                                    placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                     @change="handleMultiSelectChange" :selected-values="query['medium']"
                                                     :filter="aggregations['medium']">
                                                 </filter-new-options>
@@ -869,16 +879,20 @@
                 </div>
                 <div class="tw-hidden tw-space-x-6 tw-bg-gray-200 tw-px-16 tw-pt-4 tw-pb-5 md:tw-flex">
                     <filter-new-custom-checkbox @change="handleCheckboxChange" :checked="Boolean(query['has_image'])"
-                        title="Len s obrázkom" name="has_image" id="has_image_desktop">
+                        title="{{ utrans('item.filter.has_image') }}" name="has_image"
+                        id="has_image_desktop">
                     </filter-new-custom-checkbox>
                     <filter-new-custom-checkbox @change="handleCheckboxChange" :checked="Boolean(query['has_iip'])"
-                        title="Len so zoomom" name="has_iip" id="has_iip_desktop">
+                        title="{{ utrans('item.filter.has_iip') }}" name="has_iip"
+                        id="has_iip_desktop">
                     </filter-new-custom-checkbox>
                     <filter-new-custom-checkbox @change="handleCheckboxChange" :checked="Boolean(query['is_free'])"
-                        title="Len voľné" name="is_free" id="is_free_desktop">
+                        title="{{ utrans('item.filter.is_free') }}" name="is_free"
+                        id="is_free_desktop">
                     </filter-new-custom-checkbox>
                     <filter-new-custom-checkbox @change="handleCheckboxChange" :checked="Boolean(query['has_text'])"
-                        title="Len s textom" name="has_text" id="has_text_desktop">
+                        title="{{ utrans('item.filter.has_text') }}" name="has_text"
+                        id="has_text_desktop">
                     </filter-new-custom-checkbox>
                 </div>
                 {{-- Selected labels --}}
@@ -889,7 +903,8 @@
                             v-for="option in selectedOptionsAsLabels" @click="removeSelection(option)">
                             <span v-if="option.filterName === 'color'"
                                 class="tw-flex tw-items-center tw-pr-1.5 tw-text-xs tw-font-semibold tw-uppercase">
-                                <div class="tw-mr-1.5 tw-inline-block tw-h-4 tw-w-4" :style="{ 'background-color': `#${option.value}`, 'border-radius': '30px' }">
+                                <div class="tw-mr-1.5 tw-inline-block tw-h-4 tw-w-4"
+                                    :style="{ 'background-color': `#${option.value}`, 'border-radius': '30px' }">
                                 </div>
                                 @{{ option.value }}
                             </span>
@@ -919,7 +934,8 @@
                                     class="tw-font-bold">1</span>
                                 dielo, zoradené podľa&nbsp</span>
                             <span v-else-if="artworks.total < 5">Zobrazujem <span
-                                    class="tw-font-bold">@{{ artworks.total }}</span> diela, zoradené
+                                    class="tw-font-bold">@{{ artworks.total }}</span> diela,
+                                zoradené
                                 podľa&nbsp</span>
                             <span v-else>Zobrazujem <span
                                     class="tw-font-bold">@{{ artworks.total }}</span>

@@ -40,12 +40,18 @@ return [
     'filter' => [
         'year_from' => 'from year',
         'year_to' => 'to year',
+        'year' => 'rok',
         'has_image' => 'only with image',
         'has_iip' => 'only zoomable',
         'has_text' => 'only with text',
         'is_free' => 'only public domain',
         'color' => 'color',
         'sort_by' => 'sort by',
+        'placeholder' => [
+            'name_human' => 'Type a name',
+            'name_object' => 'Type a name',
+            'tag' => 'Type a term',
+        ],
         'sorting' => [
             'created_at' => 'date added',
             'relevance' => 'relevance',
