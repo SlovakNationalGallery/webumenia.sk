@@ -198,7 +198,7 @@
                                     <div
                                         class="tw-absolute tw-top-36 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                         <filter-new-options filter-name="work_type"
-                                            placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
+                                            placeholder="{{ utrans('item.filter.placeholder.term') }}"
                                             @change="handleMultiSelectChange" :selected-values="query['work_type']"
                                             :filter="aggregations['work_type']">
                                         </filter-new-options>
@@ -227,7 +227,7 @@
                                     <div
                                         class="tw-absolute tw-top-36 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                         <filter-new-options filter-name="object_type"
-                                            placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
+                                            placeholder="{{ utrans('item.filter.placeholder.term') }}"
                                             @change="handleMultiSelectChange" :selected-values="query['object_type']"
                                             :filter="aggregations['object_type']">
                                         </filter-new-options>
@@ -256,7 +256,7 @@
                                     <div
                                         class="tw-absolute tw-top-36 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                         <filter-new-options filter-name="tag"
-                                            placeholder="{{ utrans('item.filter.placeholder.tag') }}"
+                                            placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                             @change="handleMultiSelectChange" :selected-values="query['tag']"
                                             :filter="aggregations['tag']">
                                         </filter-new-options>
@@ -678,7 +678,7 @@
                                             <div
                                                 class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
                                                 <filter-new-options filter-name="work_type"
-                                                    placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
+                                                    placeholder="{{ utrans('item.filter.placeholder.term') }}"
                                                     @change="handleMultiSelectChange" :selected-values="query['work_type']"
                                                     :filter="aggregations['work_type']">
                                                 </filter-new-options>
@@ -709,7 +709,7 @@
                                             <div
                                                 class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
                                                 <filter-new-options filter-name="object_type"
-                                                    placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
+                                                    placeholder="{{ utrans('item.filter.placeholder.term') }}"
                                                     @change="handleMultiSelectChange" :selected-values="query['object_type']"
                                                     :filter="aggregations['object_type']">
                                                 </filter-new-options>
@@ -737,7 +737,7 @@
                                             <div
                                                 class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
                                                 <filter-new-options filter-name="tag"
-                                                    placeholder="{{ utrans('item.filter.placeholder.tag') }}"
+                                                    placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                     @change="handleMultiSelectChange" :selected-values="query['tag']"
                                                     :filter="aggregations['tag']">
                                                 </filter-new-options>

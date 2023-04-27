@@ -40,7 +40,7 @@ return [
     'placeholder' => [
         'name_human' => 'Zadaj meno',
         'name_object' => 'Zadaj názov',
-        'tag' => 'Zadaj pojem',
+        'term' => 'Zadaj pojem',
     ],
     'filter' => [
         'year_from' => 'od roku',

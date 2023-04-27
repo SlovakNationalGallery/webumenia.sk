@@ -50,7 +50,7 @@ return [
         'placeholder' => [
             'name_human' => 'Zadej jméno',
             'name_object' => 'Zadej název',
-            'tag' => 'Zadej pojem',
+            'term' => 'Zadej pojem',
         ],
         'sorting' => [
             'created_at' => 'data přidání',

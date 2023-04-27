@@ -50,7 +50,7 @@ return [
         'placeholder' => [
             'name_human' => 'Type a name',
             'name_object' => 'Type a name',
-            'tag' => 'Type a term',
+            'term' => 'Type a term',
         ],
         'sorting' => [
             'created_at' => 'date added',
