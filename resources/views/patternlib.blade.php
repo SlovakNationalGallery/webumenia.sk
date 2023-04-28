@@ -60,7 +60,7 @@ Pattern Library | @parent
                             <p>{{$component['usage_notes']}}</p>
                             @endif
 
-                            <a href="#" class="btn btn-default btn-outline sans" onclick="toggle_source(event);"><i class="fa fa-code"></i> Show source</a>
+                            <a href="#" class="btn btn-default btn-outline tw-font-sans" onclick="toggle_source(event);"><i class="fa fa-code"></i> Show source</a>
                             <pre class="js-source pre-scrollable tw-hidden" v-pre><code class="html">{{$component['source_code']}}</code></pre>
                         </div>
                     </div>

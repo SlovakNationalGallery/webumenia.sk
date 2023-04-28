@@ -20,7 +20,7 @@
             @formWidget($form['years-range'])
         </div>
         <div class="row" style="padding-top: 20px;">
-            <div  class="col-sm-12 tw-text-center alphabet sans">
+            <div  class="col-sm-12 tw-text-center alphabet tw-font-sans">
                 @formWidget($form['first_letter'])
             </div>
         </div>

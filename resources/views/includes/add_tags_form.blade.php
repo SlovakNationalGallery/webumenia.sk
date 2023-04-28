@@ -1,6 +1,6 @@
 <!-- user input for new tags -->
 <div class="btn-tags">
-    <button id="btn-add-tags" class="btn btn-default btn-outline sans">
+    <button id="btn-add-tags" class="btn btn-default btn-outline tw-font-sans">
         <i class="fa fa-plus"></i> pridať ďalšie tagy
     </button>
 </div>

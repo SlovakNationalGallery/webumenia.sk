@@ -45,7 +45,7 @@
                         <p class="tw-text-center">{{ utrans('authority.authors_none') }}</p>
                     @endif
                     @if ($hasFilters)
-                        <a class="btn btn-sm btn-default sans btn-outline"
+                        <a class="btn btn-sm btn-default tw-font-sans btn-outline"
                             href="{!! URL::to('autori') !!}">{{ trans('general.clear_filters') }} <i
                                 class="icon-cross"></i></a>
                     @endif

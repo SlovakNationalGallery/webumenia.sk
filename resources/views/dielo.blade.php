@@ -349,12 +349,12 @@
                         ></user-collections-favourite-button>
                         @if ($item->isForReproduction())
                         <a href="{{ URL::to('dielo/' . $item->id . '/objednat')  }}"
-                           class="btn btn-cta btn-default btn-outline sans tw-w-full"><i class="fa fa-shopping-cart"></i>
+                           class="btn btn-cta btn-default btn-outline tw-font-sans tw-w-full"><i class="fa fa-shopping-cart"></i>
                             {{ trans('dielo.item_order') }} </a>
                         @endif
                         @if ($item->isFree() && !$item->images->isEmpty())
                         <a href="{{ URL::to('dielo/' . $item->id . '/stiahnut')  }}"
-                           class="btn btn-cta btn-default btn-outline sans tw-w-full" id="download"><i
+                           class="btn btn-cta btn-default btn-outline tw-font-sans tw-w-full" id="download"><i
                                class="fa fa-download"></i>
                             {{ trans('dielo.item_download') }} </a>
                         @endif
@@ -478,7 +478,7 @@
             </div>
             <div class="modal-footer">
                 <div class="tw-text-center"><button type="button" data-dismiss="modal"
-                            class="btn btn-default btn-outline tw-uppercase sans">{{ trans('general.close') }}</button>
+                            class="btn btn-default btn-outline tw-uppercase tw-font-sans">{{ trans('general.close') }}</button>
                 </div>
             </div>
         </div>
@@ -496,7 +496,7 @@
             </div>
             <div class="modal-footer">
                 <div class="tw-text-center"><button type="button" data-dismiss="modal"
-                            class="btn btn-default btn-outline tw-uppercase sans">{{ trans('general.close') }}</button>
+                            class="btn btn-default btn-outline tw-uppercase tw-font-sans">{{ trans('general.close') }}</button>
                 </div>
             </div>
         </div>

@@ -60,7 +60,7 @@
                 <p class="tw-text-center">{{ utrans('kolekcie.collections_no_collections') }}</p>
                 @endif
                 {{--  @if (count(Request::all()) > 0)
-                    <a class="btn btn-sm btn-default btn-outline  sans" href="{!! URL::to('kolekcie')!!}">zrušiť filtre <i class="icon-cross"></i></a>
+                    <a class="btn btn-sm btn-default btn-outline tw-font-sans" href="{!! URL::to('kolekcie')!!}">zrušiť filtre <i class="icon-cross"></i></a>
                 @endif --}}
             </div>
             {{-- <div class="col-xs-6 tw-text-right">

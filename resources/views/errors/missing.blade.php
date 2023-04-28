@@ -24,7 +24,7 @@
                         @else
                             <p>{{ trans('missing.paragraph_noitem') }}</p>
                         @endif
-                        <h3><a href="{!!URL::to('/')!!}" class="btn btn-default btn-lg btn-outline sans"> {{ trans('general.return_home') }}</a></h3>
+                        <h3><a href="{!!URL::to('/')!!}" class="btn btn-default btn-lg btn-outline tw-font-sans"> {{ trans('general.return_home') }}</a></h3>
                     </div>
                 </div>
             </div>

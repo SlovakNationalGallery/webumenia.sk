@@ -2,7 +2,7 @@
     <a
         v-if="isDetail"
         v-on:click="store.toggleItem(id)"
-        class="btn btn-cta btn-default btn-outline sans tw-w-full"
+        class="btn btn-cta btn-default btn-outline tw-font-sans tw-w-full"
     >
         <i class="fa" :class="[store.hasItem(id) ? 'fa-star' : 'fa-star-o']"></i>
         {{ label }}

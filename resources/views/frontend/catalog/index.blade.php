@@ -39,10 +39,10 @@
                         <p class="tw-text-center">{{ utrans('katalog.catalog_no_artworks') }}</p>
                     @endif
                     @if ($hasFilters)
-                        <a class="btn btn-sm btn-default btn-outline  sans" href="{{ URL::to('katalog') }}">{{ trans('general.clear_filters') }}  <i class="icon-cross"></i></a>
+                        <a class="btn btn-sm btn-default btn-outline tw-font-sans" href="{{ URL::to('katalog') }}">{{ trans('general.clear_filters') }}  <i class="icon-cross"></i></a>
                     @endif
                     @if ($form['color']->vars['value'])
-                        <a class="btn btn-sm btn-default btn-outline sans" href="{{ $urlWithoutColor }}" id="clear_color">{{ trans('general.clear_color') }} <span class="picked-color" style="background-color: {{ $form['color']->vars['value'] }};">&nbsp;</span> <i class="icon-cross"></i></a>
+                        <a class="btn btn-sm btn-default btn-outline tw-font-sans" href="{{ $urlWithoutColor }}" id="clear_color">{{ trans('general.clear_color') }} <span class="picked-color" style="background-color: {{ $form['color']->vars['value'] }};">&nbsp;</span> <i class="icon-cross"></i></a>
                     @endif
                 </div>
                 <div class="col-xs-6 tw-text-right">

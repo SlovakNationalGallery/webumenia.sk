@@ -2,7 +2,7 @@
     <div class="range-slider py-3">
         <div class="col-xs-6 col-sm-1 tw-text-left sm:tw-text-right">
             <input
-                class="sans range-slider-from"
+                class="tw-font-tw-font-sans range-slider-from"
                 maxlength="5"
                 pattern="[-]?[0-9]{1,4}"
                 step="5"
@@ -12,7 +12,7 @@
         </div>
         <div class="col-xs-6 col-sm-1 col-sm-push-10 tw-text-right sm:tw-text-left">
             <input
-                class="sans range-slider-to"
+                class="tw-font-sans range-slider-to"
                 maxlength="5"
                 pattern="[-]?[0-9]{1,4}"
                 step="5"

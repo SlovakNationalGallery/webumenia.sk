@@ -185,7 +185,7 @@
                 </div>
 
 
-                {!! Former::actions(Form::submit(trans('objednavka.form_order'), array('class'=>'btn btn-default btn-outline tw-uppercase sans')) ) !!}
+                {!! Former::actions(Form::submit(trans('objednavka.form_order'), array('class'=>'btn btn-default btn-outline tw-uppercase tw-font-sans')) ) !!}
 
                 {!!Former::close();!!}
 
@@ -212,7 +212,7 @@
                 </p>
             </div>
             <div class="modal-footer">
-                <div class="tw-text-center"><button type="button" data-dismiss="modal" class="btn btn-default btn-outline sans">{{ trans('general.close') }}</button></div>
+                <div class="tw-text-center"><button type="button" data-dismiss="modal" class="btn btn-default btn-outline tw-font-sans">{{ trans('general.close') }}</button></div>
             </div>
         </div>
     </div>

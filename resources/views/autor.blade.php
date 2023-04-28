@@ -174,7 +174,7 @@
         </div>{{-- row --}}
         <div class="row content-section">
             <div class="col-sm-12 tw-text-center">
-                <a href="{!! route('frontend.catalog.index', ['author' => $author->name]) !!}" class="btn btn-default btn-outline sans" >{!! trans_choice('authority.button_show-all-artworks', $author->items_count, ['artworks_count' => $author->items_count])!!} <i class="fa fa-chevron-right "></i></a>
+                <a href="{!! route('frontend.catalog.index', ['author' => $author->name]) !!}" class="btn btn-default btn-outline tw-font-sans" >{!! trans_choice('authority.button_show-all-artworks', $author->items_count, ['artworks_count' => $author->items_count])!!} <i class="fa fa-chevron-right "></i></a>
             </div>
         </div>
 
