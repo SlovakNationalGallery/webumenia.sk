@@ -8,7 +8,7 @@
                 <div class="tw-bg-gray-200 tw-py-6 tw-px-4 md:tw-p-16 md:tw-pb-0">
                     {{-- Desktop filter --}}
                     <filter-new-popover.group-controller>
-                        <div class="tw-hidden tw-gap-x-3 tw-overflow-x-auto md:tw-flex md:tw-flex-wrap">
+                        <div class="tw-hidden tw-gap-x-3 tw-overflow-x-auto md:tw-overflow-visible md:tw-flex md:tw-flex-wrap">
                             <filter-new-popover name="author">
                                 <template #popover-label>
                                     <filter-new-custom-select-popover-label name="author"
@@ -17,7 +17,7 @@
                                 </template>
                                 <template #body>
                                     <div
-                                        class="tw-absolute tw-top-36 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
+                                        class="tw-absolute tw-mt-4 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                         <filter-new-options filter-name="author"
                                             placeholder="Napíšte meno autora / autorky"
                                             @change="handleMultiSelectChange"
@@ -47,7 +47,7 @@
                                 </template>
                                 <template #body>
                                     <div
-                                        class="tw-absolute tw-top-36 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
+                                        class="tw-absolute tw-mt-4 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                         <filter-new-options filter-name="work_type"
                                             placeholder="Napíšte meno autora / autorky"
                                             @change="handleMultiSelectChange"
@@ -77,7 +77,7 @@
                                 </template>
                                 <template #body>
                                     <div
-                                        class="tw-absolute tw-top-36 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
+                                        class="tw-absolute tw-mt-4 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                         <filter-new-options filter-name="object_type"
                                             placeholder="Napíšte meno autora / autorky"
                                             @change="handleMultiSelectChange"
@@ -107,7 +107,7 @@
                                 </template>
                                 <template #body>
                                     <div
-                                        class="tw-absolute tw-top-36 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
+                                        class="tw-absolute tw-mt-4 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                         <filter-new-options filter-name="tag"
                                             placeholder="Napíšte meno autora / autorky"
                                             @change="handleMultiSelectChange"
@@ -137,7 +137,7 @@
                                 </template>
                                 <template #body>
                                     <div
-                                        class="tw-absolute tw-top-36 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
+                                        class="tw-absolute tw-mt-4 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                         <filter-new-options filter-name="gallery"
                                             placeholder="Napíšte meno autora / autorky"
                                             @change="handleMultiSelectChange"
@@ -167,7 +167,7 @@
                                 </template>
                                 <template #body>
                                     <div
-                                        class="tw-absolute tw-top-36 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
+                                        class="tw-absolute tw-mt-4 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                         <filter-new-options filter-name="technique"
                                             placeholder="Napíšte meno autora / autorky"
                                             @change="handleMultiSelectChange"
@@ -197,7 +197,7 @@
                                 </template>
                                 <template #body>
                                     <div
-                                        class="tw-absolute tw-top-36 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
+                                        class="tw-absolute tw-mt-4 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                         <filter-new-options filter-name="topic"
                                             placeholder="Napíšte meno autora / autorky"
                                             @change="handleMultiSelectChange"
@@ -227,7 +227,7 @@
                                 </template>
                                 <template #body>
                                     <div
-                                        class="tw-absolute tw-top-36 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
+                                        class="tw-absolute tw-mt-4 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                         <filter-new-options filter-name="medium"
                                             placeholder="Napíšte meno autora / autorky"
                                             @change="handleMultiSelectChange"
@@ -291,7 +291,7 @@
                                             - @{{ query.yearRange.to }})</div>
                                 </template>
                                 <template #body>
-                                    <div class="tw-absolute tw-top-36 tw-z-10">
+                                    <div class="tw-absolute tw-mt-4 tw-z-10">
                                         <div
                                             class="tw-w-[28rem] tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6 tw-pt-4">
                                             <div v-if="query.yearRange" class="tw-flex tw-justify-end">
