@@ -43,6 +43,7 @@ return [
         'term' => 'Zadaj pojem',
     ],
     'filter' => [
+        'extended_filter' => 'rozšírený filter',
         'year_from' => 'od roku',
         'year_to' => 'do roku',
         'year' => 'rok',

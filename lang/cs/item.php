@@ -38,6 +38,7 @@ return [
     'images' => 'obrázky',
     'iipimg_url' => 'IIP URL',
     'filter' => [
+        'extended_filter' => 'rozšířený filtr',
         'year_from' => 'od roku',
         'year_to' => 'do roku',
         'year' => 'rok',

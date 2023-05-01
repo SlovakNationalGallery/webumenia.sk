@@ -38,6 +38,7 @@ return [
     'images' => 'imges',
     'iipimg_url' => 'IIP URL',
     'filter' => [
+        'extended_filter' => 'extended filter',
         'year_from' => 'from year',
         'year_to' => 'to year',
         'year' => 'rok',
