@@ -53,7 +53,7 @@ export default {
     computed: {
         selectedOptionValue() {
             const selectedOption = this.options.find((sortItem) => this.sort === sortItem.value)
-            return selectedOption ? selectedOption.text : 'poslednej zmeny'
+            return selectedOption ? selectedOption.text : this.options[0].text
         },
         selectableOptions() {
             return this.options.filter((sortItem) => this.sort !== sortItem.value)
