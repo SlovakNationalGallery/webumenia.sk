@@ -39,6 +39,10 @@ return [
     'iipimg_url' => 'IIP URL',
     'filter' => [
         'extended_filter' => 'rozšířený filtr',
+        'displaying' => 'zobrazeno',
+        'artworks_sorted_by' => '{1}dílo seřazené podle|[2, 4]díla seřazené podle |[5,*]děl seřazených podle',
+        'try_also' => 'vyzkoušej také',
+        'random_search' => 'náhodný výběr.',
         'year_from' => 'od roku',
         'year_to' => 'do roku',
         'year' => 'rok',

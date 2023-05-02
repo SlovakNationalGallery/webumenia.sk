@@ -44,6 +44,10 @@ return [
     ],
     'filter' => [
         'extended_filter' => 'rozšírený filter',
+        'displaying' => 'zobrazujem',
+        'artworks_sorted_by' => '{1}dielo zoradené podľa|[2, 4]diela zoradené podľa |[5,*] diel zoradených podľa',
+        'try_also' => 'vyskúšaj tiež',
+        'random_search' => 'náhodný výber.',
         'year_from' => 'od roku',
         'year_to' => 'do roku',
         'year' => 'rok',

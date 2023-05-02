@@ -275,8 +275,8 @@ export default {
                 this.last_page = fetchedArtworks.last_page
                 this.total = fetchedArtworks.total
                 this.artworks = append
-                    ? [...this.artworks, ...fetchedArtworks.data]
-                    : fetchedArtworks.data
+                    ? [...this.artworks, ...fetchedArtworks]
+                    : fetchedArtworks
             } catch (e) {
                 throw e
             } finally {
@@ -313,6 +313,7 @@ export default {
             query: this.query,
             page: this.page,
             last_page: this.last_page,
+            total: this.total,
             aggregations: this.aggregations,
             artworks: this.artworks,
             toggleIsExtendedOpen: this.toggleIsExtendedOpen,

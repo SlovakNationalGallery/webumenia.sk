@@ -3,7 +3,7 @@
 @section('content')
     <section class="tailwind-rules">
         <filter-new-items-controller
-            v-slot="{ isExtendedOpen, loadMore, isFetchingArtworks, toggleIsExtendedOpen, handleSelectRandomly, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, page,  aggregations, artworks, last_page }">
+            v-slot="{ isExtendedOpen, loadMore, isFetchingArtworks, toggleIsExtendedOpen, handleSelectRandomly, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, page, aggregations, artworks, last_page, total }">
             <div class="tw-relative">
                 <div class="tw-bg-gray-200 tw-py-6 tw-px-4 md:tw-p-16 md:tw-pb-0">
                     {{-- Desktop filter --}}
@@ -869,7 +869,7 @@
                                 @slot('footer')
                                     <button class="tw-m-4 tw-w-full tw-bg-sky-300 tw-p-4" @click="dc.close">
                                         zobraziť výsledky <span
-                                            class="tw-font-bold">(@{{ artworks.total }})</span>
+                                            class="tw-font-bold">(@{{ total }})</span>
                                     </button>
                                 @endslot
                                 </x-filter.disclosure-modal>
@@ -929,17 +929,10 @@
                 <div class="tw-px-4 md:tw-p-16">
                     <filter-new-sort :sort="query . sort" :handle-sort-change="handleSortChange" :options="[{ value: null, text: 'poslednej zmeny'}, { value: 'created_at', text: 'dátumu pridania',},  { value: 'title', text: 'názvu', }, { value: 'author', text: 'autora', }, { value: 'date_earliest', text: 'datovanie - od najnovšieho', }, { value: 'date_latest', text: 'datovanie - od najstaršieho' }, { value: 'view_count', text: 'počtu videní' }, { value: 'random', text: 'náhodného poradia' }]">
                         <template #artwork-counter>
-                            <span v-if="artworks.total === 1">Zobrazujem <span
-                                    class="tw-font-bold">1</span>
-                                dielo, zoradené podľa&nbsp</span>
-                            <span v-else-if="artworks.total < 5">Zobrazujem <span
-                                    class="tw-font-bold">@{{ artworks.total }}</span> diela,
-                                zoradené
-                                podľa&nbsp</span>
-                            <span v-else>Zobrazujem <span
-                                    class="tw-font-bold">@{{ artworks.total }}</span>
-                                diel, zoradených
-                                podľa&nbsp</span>
+                            <span>{{ utrans('item.filter.displaying') }}</span>
+                            <span v-if="total === 1"><span class="tw-font-bold">1</span> {{ trans_choice('item.filter.artworks_sorted_by','1')}} </span>
+                            <span v-else-if="total < 5"><span class="tw-font-bold">@{{ total }}</span> {{ trans_choice('item.filter.artworks_sorted_by','2')}} </span>
+                            <span v-else><span class="tw-font-bold">@{{ total }}</span> {{ trans_choice('item.filter.artworks_sorted_by','5')}} </span>
                         </template>
                         <template #random-select>
                             <span>
@@ -954,7 +947,7 @@
                     <div class="tw-min-h-screen">
                         <div v-masonry transition-duration="0" item-selector=".item">
                             <div v-masonry-tile class="item tw-w-full tw-p-2 md:tw-w-1/3"
-                                v-for="artwork in artworks" :key="artwork . id">
+                                v-for="artwork in artworks" :key="artwork.id">
                                 <div name="artwork-image">
                                     <catalog.artwork-image-controller v-slot="ic">
                                         <div>
