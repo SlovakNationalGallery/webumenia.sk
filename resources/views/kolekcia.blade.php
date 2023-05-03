@@ -124,7 +124,7 @@
     <div class="collection-body">
         <div class="container">
             <div class="row">
-                <div class="col-md-8 col-md-offset-2 bottom-space description long-text">
+                <div class="col-md-8 col-md-offset-2 tw-mb-5 description long-text">
                     {!! $collection->text !!}
                 </div>
             </div>

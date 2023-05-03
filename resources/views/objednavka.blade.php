@@ -27,7 +27,7 @@
 
                     @include('components.notice', compact('notice'))
 
-                    <h2 class="bottom-space tw-text-center">{{ trans('objednavka.order_title') }}</h2>
+                    <h2 class="tw-mb-5 tw-text-center">{{ trans('objednavka.order_title') }}</h2>
                     {!! trans('objednavka.order_content') !!}
 
                 </div>

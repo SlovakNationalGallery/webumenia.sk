@@ -51,7 +51,7 @@
         </div>
         <div class="row content-section">
             @foreach ($articles as $i=>$article)
-                <div class="col-sm-6 col-xs-12 bottom-space">
+                <div class="col-sm-6 col-xs-12 tw-mb-5">
                     @include('components.article_thumbnail', [
                         'article' => $article
                     ])

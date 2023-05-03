@@ -68,9 +68,9 @@
 	                    </tbody>
 	                </table>
 
-	                <h4 class="modal-title top-space">História</h4>
+	                <h4 class="modal-title tw-mt-5">História</h4>
 
-	                <table class="table table-condensed top-space">
+	                <table class="table table-condensed tw-mt-5">
 	                	<thead>
 	                		<tr>
 	                			<th>súbor</th>

@@ -6,28 +6,28 @@
     <div class="container content-section">
         <div class="expandable">
             <div class="row">
-                <div class="col-md-3 col-xs-6 bottom-space">
+                <div class="col-md-3 col-xs-6 tw-mb-5">
                     @formWidget($form['author'], ['attr' => ['class' => 'js-custom-select']])
                 </div>
-                <div class="col-md-3 col-xs-6 bottom-space">
+                <div class="col-md-3 col-xs-6 tw-mb-5">
                     @formWidget($form['work_type'], ['attr' => ['class' => 'js-custom-select']])
                 </div>
-                <div class="col-md-3 col-xs-6 bottom-space">
+                <div class="col-md-3 col-xs-6 tw-mb-5">
                     @formWidget($form['object_type'], ['attr' => ['class' => 'js-custom-select']])
                 </div>
-                <div class="col-md-3 col-xs-6 bottom-space">
+                <div class="col-md-3 col-xs-6 tw-mb-5">
                     @formWidget($form['tag'], ['attr' => ['class' => 'js-custom-select']])
                 </div>
-                <div class="col-md-3 col-xs-6 bottom-space">
+                <div class="col-md-3 col-xs-6 tw-mb-5">
                     @formWidget($form['topic'], ['attr' => ['class' => 'js-custom-select']])
                 </div>
-                <div class="col-md-3 col-xs-6 bottom-space">
+                <div class="col-md-3 col-xs-6 tw-mb-5">
                     @formWidget($form['technique'], ['attr' => ['class' => 'js-custom-select']])
                 </div>
-                <div class="col-md-3 col-xs-6 bottom-space">
+                <div class="col-md-3 col-xs-6 tw-mb-5">
                     @formWidget($form['medium'], ['attr' => ['class' => 'js-custom-select']])
                 </div>
-                <div class="col-md-3 col-xs-6 bottom-space">
+                <div class="col-md-3 col-xs-6 tw-mb-5">
                     @formWidget($form['gallery'], ['attr' => ['class' => 'js-custom-select']])
                 </div>
                 <div class="col-md-3 col-xs-6">

@@ -29,7 +29,7 @@
 
 	<div class="col-md-6">
 
-		<ul class="nav nav-tabs top-space" role="tablist">
+		<ul class="nav nav-tabs tw-mt-5" role="tablist">
 			@foreach (config('translatable.locales') as $locale)
 				<li role="presentation" class="{{ ($locale == app()->getLocale()) ? 'active' : '' }}">
 					<a href="#{{ $locale }}" aria-controls="{{ $locale }}" role="tab" data-toggle="tab">{{ strtoupper($locale) }}</a>
@@ -37,7 +37,7 @@
 			@endforeach
 		</ul>
 
-		<div class="tab-content top-space">
+		<div class="tab-content tw-mt-5">
 		@php FormRenderer::setTheme($form['translations'], 'item_translation') @endphp
 		@foreach ($form['translations'] as $translation)
 				<div role="tabpanel" class="tab-pane {{ ($translation->vars['value']->locale == app()->getLocale()) ? 'active' : '' }}" id="{{ $translation->vars['value']->locale }}">
@@ -47,11 +47,11 @@
 		</div>
 	</div>
 	<div class="col-md-6">
-		<ul class="nav nav-tabs top-space" role="tablist">
+		<ul class="nav nav-tabs tw-mt-5" role="tablist">
 			<li role="presentation" class="active"><a>non-translatable attributes</a></li>
 		</ul>
 
-		<div class="tab-content top-space">
+		<div class="tab-content tw-mt-5">
 			<div role="tabpanel" class="tab-pane active">
 				<div class="row">
 					<div class="col-md-12">

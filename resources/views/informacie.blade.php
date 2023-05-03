@@ -14,7 +14,7 @@
                     <h1>{{ utrans('informacie.info_heading') }}</h1>
             </div>
         </div>
-        <div class="row bottom-space">
+        <div class="row tw-mb-5">
             <div class="col-md-4">
 
                 <p class="lead">{!! utrans('informacie.info_p_lead') !!}</p>
@@ -25,7 +25,7 @@
                 {!! file_get_contents(public_path('images/gallery-map.svg')) !!}
             </div>
         </div>
-        <div class="row bottom-space galleries">
+        <div class="row tw-mb-5 galleries">
             @foreach(array_chunk($galleries, ceil(count($galleries)/3)) as $chunk)
                 <div class="col-md-4">
                     <ul class="tw-pl-0 tw-list-none lead">
@@ -71,7 +71,7 @@
             </div>
 
         </div>
-        <div class="row top-space">
+        <div class="row tw-mt-5">
             <div class="col-md-4 tw-inline-block">
                 <a href="{!! URL::to('katalog?is_free=' . '1') !!}" class="inherit lead tw-float-left tw-border-none"><i class="icon-arrow-right"></i> &nbsp; {{ trans('informacie.mozete_free_artworks') }}</a>
             </div>
@@ -85,7 +85,7 @@
 </section>
 <section class="mozete more-items">
     <div class="container">
-        <div class="row top-space bottom-space">
+        <div class="row tw-my-5">
             <div class="col-xs-12 tw-text-center">
                 <h3>{{ utrans('informacie.more-items_heading') }}</h3>
             </div>
@@ -116,12 +116,12 @@
 </section>
 <section class="mozete more-items underlined-links">
     <div class="container">
-        <div class="row content-section"><!-- top-space bottom-space -->
+        <div class="row content-section"><!-- tw-my-5 -->
             <div class="col-md-12 tw-text-center tw-text-grey-300">
                 <h2>{{ utrans('informacie.more-items_connect_heading') }}</h2>
             </div>
         </div>
-        <div class="row bottom-space">
+        <div class="row tw-mb-5">
             <div class="col-md-4">
                 <p class="lead">
                     {!! utrans('informacie.more-items_connect_col1_lead') !!}

@@ -33,7 +33,7 @@
     <div class="container">
         <div class="attributes">
             <div class="row">
-                <div class="col-sm-4 tw-text-center extra-padding top-space">
+                <div class="col-sm-4 tw-text-center extra-padding tw-mt-5">
                         <img src="{!! $author->getImagePath() !!}" class="img-responsive tw-rounded-full" alt="{{ $author->name }}"  itemprop="image">
                         <div class="content-section">
                             {!! trans_choice('authority.artworks', $author->items_count, ['artworks_url' => route('frontend.catalog.index', ['author' => $author->name]), 'artworks_count' => $author->items_count]) !!}
@@ -83,13 +83,13 @@
 
                     @if ( $author->events->count() > 0)
                         <div class="events">
-                            <h4 class="top-space">{{ utrans('authority.places') }}</h4>
+                            <h4 class="tw-mt-5">{{ utrans('authority.places') }}</h4>
                             <x-authority-events :author="$author" />
                         </div>
                     @endif
                     @if ($author->sourceLinks->count() > 0)
                         <div class="links">
-                            <h4 class="top-space">{{ utrans('authority.source_links') }}</h4>
+                            <h4 class="tw-mt-5">{{ utrans('authority.source_links') }}</h4>
                             <ul class="tw-pl-0 tw-list-none">
                                 @foreach($author->sourceLinks as $link)
                                     <li>
@@ -105,7 +105,7 @@
                     @endif
                     @if ($author->externalLinks->count() > 0)
                         <div class="links">
-                            <h4 class="top-space">{{ utrans('authority.external_links') }}</h4>
+                            <h4 class="tw-mt-5">{{ utrans('authority.external_links') }}</h4>
                             <ul class="tw-pl-0 tw-list-none">
                                 @foreach($author->externalLinks as $link)
                                     <li>
@@ -121,7 +121,7 @@
                     @endif
 
                     @if ( $author->relationships->count() > 0)
-                    <h4 class="top-space">{{ utrans('authority.relationships') }}</h4>
+                    <h4 class="tw-mt-5">{{ utrans('authority.relationships') }}</h4>
                     <table class="table table-condensed relationships">
                         <thead>
                             <tr>

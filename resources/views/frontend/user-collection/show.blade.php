@@ -10,7 +10,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <h2 class="bottom-space tw-text-center tw-font-semibold">
+            <h2 class="tw-mb-5 tw-text-center tw-font-semibold">
                 {{ trans('user-collection.title') }} <span class="badge badge-primary badge-sup">beta</span>
             </h2>
 

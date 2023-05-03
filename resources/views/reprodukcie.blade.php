@@ -218,7 +218,7 @@
                             aria-hidden="true">&times;</span><span
                             class="tw-sr-only">Close</span></button>
                     <img src="" class="imagepreview" style="width: 100%;">
-                    <p class="tw-text-center top-space imagetitle"></p>
+                    <p class="tw-text-center tw-mt-5 imagetitle"></p>
                 </div>
             </div>
         </div>

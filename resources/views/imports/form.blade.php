@@ -8,7 +8,7 @@
     {!! Form::open(['route' => 'imports.store', 'files'=>true]) !!}
 @endif
 
-<div class="col-md-12 top-space">
+<div class="col-md-12 tw-mt-5">
     @if (Session::has('message'))
         <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
     @endif
@@ -51,7 +51,7 @@
             </div>
 
             @if ( isset($import) && !empty($import->csvFiles()))
-            <div class="form-group top-space">
+            <div class="form-group tw-mt-5">
             {!! Form::label('files', 'Aktuálne CSV súbory:') !!}
             <table class="table">
                 <tr>

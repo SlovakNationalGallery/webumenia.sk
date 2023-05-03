@@ -370,7 +370,7 @@
             </div>
             <div class="row">
                 @if (!empty($item->description))
-                <div class="col-lg-8 col-md-10 long-text medium description bottom-space  col-md-push-1 col-lg-push-2"
+                <div class="col-lg-8 col-md-10 long-text medium description tw-mb-5  col-md-push-1 col-lg-push-2"
                      itemprop="description">
                     <div class="long_expandable">
                         {!! $item->description !!}

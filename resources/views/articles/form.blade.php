@@ -27,13 +27,13 @@
 <div class="col-md-12">
 
 	<!-- Nav tabs -->
-	<ul class="nav nav-tabs top-space" role="tablist">
+	<ul class="nav nav-tabs tw-mt-5" role="tablist">
 		@foreach (\Config::get('translatable.locales') as $i=>$locale)
 			<li role="presentation" class="{{ ($i==0) ? 'active' : '' }}"><a href="#{{ $locale }}" aria-controls="{{ $locale }}" role="tab" data-toggle="tab">{{ strtoupper($locale) }}</a></li>
 		@endforeach
 	</ul>
 
-	<div class="tab-content top-space">
+	<div class="tab-content tw-mt-5">
 		@foreach (\Config::get('translatable.locales') as $i=>$locale)
 	    	<div role="tabpanel" class="tab-pane  {{ ($i==0) ? 'active' : '' }}" id="{{ $locale }}">
 				<div class="form-group">

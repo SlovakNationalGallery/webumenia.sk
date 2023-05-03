@@ -112,7 +112,7 @@
                     {!! $collection->getShortTextAttribute($collection->text, 350) !!}
                 </div>
             </div>
-            <div class="tw-clear-both md:tw-hidden bottom-space"></div>
+            <div class="tw-clear-both md:tw-hidden tw-mb-5"></div>
             <div class="col-sm-6">
                 @include('components.artwork_carousel', [
                 'slick_target' => "artworks-preview",
