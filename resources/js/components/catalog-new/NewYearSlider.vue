@@ -1,7 +1,7 @@
 <template>
     <div>
         <slider
-            :value="[value.from, value.to]"
+            :model-value="[value.from, value.to]"
             :min="min || 0"
             :max="max || 30"
             tooltip="none"
