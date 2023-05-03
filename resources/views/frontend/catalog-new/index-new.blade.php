@@ -390,7 +390,7 @@
                                             </button>
                                         </x-slot>
                                         <x-slot:body>
-                                            <div class="tw-h-[calc(100vh-17.5rem)] tw-overflow-auto tw-flex tw-flex-col">
+                                            <div class="tw-h-[calc(100vh-15rem)] tw-overflow-auto tw-flex tw-flex-col">
                                                 <x-filter.disclosure_list_button @click="dc.goTo('author')">
                                                     <filter-new-custom-select-popover-label name="author"
                                                         :selected-values="query['author']">

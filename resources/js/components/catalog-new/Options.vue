@@ -20,7 +20,7 @@
             </div>
         </div>
         <div
-            class="tw-bg-white tw-h-[calc(100vh-17.5rem)] tw-flex tw-flex-col md:tw-max-h-80 md:tw-min-h-80 md:tw-px-0 md:tw-pr-3 tw-scrollbar tw-scrollbar-w-1 tw-scrollbar-track-rounded tw-scrollbar-thumb-rounded tw-scrollbar-thumb-gray-600 tw-scrollbar-track-gray-200 tw-overflow-auto"
+            class="tw-bg-white tw-h-[calc(100vh-15rem)] tw-flex tw-flex-col md:tw-max-h-80 md:tw-min-h-80 md:tw-px-0 md:tw-pr-3 tw-scrollbar tw-scrollbar-w-1 tw-scrollbar-track-rounded tw-scrollbar-thumb-rounded tw-scrollbar-thumb-gray-600 tw-scrollbar-track-gray-200 tw-overflow-auto"
         >
             <label
                 v-for="option in filteredOptions"
