@@ -64,9 +64,10 @@ export default {
             isExtendedOpen: true,
             isFetchingArtworks: false,
             artworks: [],
+            last_page: 1,
             aggregations: {},
             query: { ...EMPTY_QUERY, ...getParsedUrl().filter },
-            page: null,
+            page: 1,
         }
     },
     async created() {
@@ -206,6 +207,7 @@ export default {
                     )
                     .then(({ data }) => data)
 
+                this.last_page = fetchedArtworks.last_page
                 this.artworks = append
                     ? [...this.artworks, ...fetchedArtworks.data]
                     : fetchedArtworks.data
@@ -223,7 +225,7 @@ export default {
             }
         },
         query(newQuery) {
-            this.page = null
+            this.page = 1
             this.fetchAggregations()
             this.fetchArtworks({ append: false })
             const newUrl = stringifyUrl({
@@ -244,6 +246,7 @@ export default {
             isFetchingArtworks: this.isFetchingArtworks,
             query: this.query,
             page: this.page,
+            last_page: this.last_page,
             aggregations: this.aggregations,
             artworks: this.artworks,
             toggleIsExtendedOpen: this.toggleIsExtendedOpen,
