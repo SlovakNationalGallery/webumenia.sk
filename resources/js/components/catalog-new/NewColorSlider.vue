@@ -2,7 +2,7 @@
     <div>
         <slider
             tooltip="none"
-            :value="getHue()"
+            :model-value="getHue()"
             :min="0"
             :max="360"
             :duration="0"
@@ -32,7 +32,7 @@
         <slider
             v-if="color"
             tooltip="none"
-            :value="getLightness()"
+            :model-value="getLightness()"
             :min="0"
             :max="1"
             :interval="0.01"
