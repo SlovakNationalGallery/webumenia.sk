@@ -3,7 +3,7 @@
 @section('content')
     <section>
         <filter-new-items-controller
-            v-slot="{ isExtendedOpen, isFetchingArtworks, toggleIsExtendedOpen, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, loadMore, clearFilterSelection, clearAllSelections, removeSelection, query, aggregations, artworks, page }">
+            v-slot="{ isExtendedOpen, isFetchingArtworks, toggleIsExtendedOpen, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, loadMore, clearFilterSelection, clearAllSelections, removeSelection, query, aggregations, artworks, page, last_page }">
             <div class="tw-relative">
                 <div class="tw-bg-gray-200 tw-py-6 tw-px-4 md:tw-p-16 md:tw-pb-0">
                     {{-- Desktop filter --}}
@@ -251,10 +251,10 @@
                                 class="tw-font-bold">1</span>
                             dielo, zoradené podľa</span>
                         <span v-else-if="artworks.total < 5">Zobrazujem <span
-                                class="tw-font-bold">@{{ artworks['total'] }}</span> diela, zoradené
+                                class="tw-font-bold">@{{ artworks.total }}</span> diela, zoradené
                             podľa</span>
                         <span v-else>Zobrazujem <span
-                                class="tw-font-bold">@{{ artworks['total'] }}</span>
+                                class="tw-font-bold">@{{ artworks.total }}</span>
                             diel, zoradených
                             podľa</span>
                     </filter-new-sort>
@@ -330,7 +330,7 @@
                                 </div>
                             </div>
                         </div>
-                        <catalog.infinite-scroll class="tw-mt-10" :page="page"
+                        <catalog.infinite-scroll v-if="last_page > page" class="tw-mt-10" :page="page"
                             @loadmore="loadMore" :is-loading="isFetchingArtworks">
                             <template #loading-message>
                                 <div class="tw-flex tw-justify-center">
@@ -342,7 +342,7 @@
                             </template>
                             <template #load-more-button>
                                 <div class="tw-flex tw-justify-center">
-                                    <button v-if="!page" @click="loadMore"
+                                    <button v-if="page === 1" @click="loadMore"
                                         class="tw-border tw-border-gray-400 tw-py-2.5 tw-px-8 tw-text-sm hover:tw-border-gray-700">
                                         show more
                                     </button>
