@@ -22,13 +22,36 @@ function getParsedFilterFromUrl() {
 
 function stringifyUrl({ url, params }) {
     const { filter, size, terms, page } = params
-    const { yearRange, author, color, is_free, has_image, has_iip, has_text, sort } = filter || {}
+    const {
+        yearRange,
+        author,
+        gallery,
+        technique,
+        tag,
+        work_type,
+        object_type,
+        topic,
+        medium,
+        color,
+        is_free,
+        has_image,
+        has_iip,
+        has_text,
+        sort,
+    } = filter || {}
 
     const newQuery = {
         filter: {
             date_earliest: { lte: yearRange?.to },
             date_latest: { gte: yearRange?.from },
             author: author,
+            work_type: work_type,
+            object_type: object_type,
+            tag: tag,
+            technique: technique,
+            topic: topic,
+            gallery: gallery,
+            medium: medium,
             color: color,
             is_free: is_free,
             has_image: has_image,
@@ -59,11 +82,25 @@ const SORT_DIRECTIONS = {
 }
 const EMPTY_QUERY = {
     author: [],
+    work_type: [],
+    object_type: [],
+    topic: [],
+    gallery: [],
+    technique: [],
+    medium: [],
+    tag: [],
     color: null,
     yearRange: null,
 }
 const AGGREGATIONS_TERMS = {
     author: 'author',
+    work_type: 'work_type',
+    topic: 'topic',
+    object_type: 'object_type',
+    tag: 'tag',
+    medium: 'medium',
+    technique: 'technique',
+    gallery: 'gallery',
 }
 
 export default {
@@ -85,7 +122,20 @@ export default {
     computed: {
         selectedOptionsAsLabels() {
             return Object.entries(this.query)
-                .filter(([filterName, _]) => ['author', 'color', 'yearRange'].includes(filterName))
+                .filter(([filterName, _]) =>
+                    [
+                        'author',
+                        'technique',
+                        'topic',
+                        'medium',
+                        'work_type',
+                        'object_type',
+                        'tag',
+                        'gallery',
+                        'color',
+                        'yearRange',
+                    ].includes(filterName)
+                )
                 .map(([filterName, filterValues]) => {
                     if (SINGLE_ITEM_FILTERS.includes(filterName) && filterValues) {
                         return {
