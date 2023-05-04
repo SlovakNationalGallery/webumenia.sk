@@ -61,6 +61,6 @@
         "vue-dragscroll": "^3.0.1",
         "vue-masonry": "^0.12.0",
         "vue-select": "^3.11.2",
-        "vue-slider-component": "^3.2.11"
+        "vue-slider-component": "^4.1.0-beta.7"
     }
 }
