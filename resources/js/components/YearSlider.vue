@@ -24,7 +24,7 @@
         <div class="col-xs-12 col-sm-10 col-sm-pull-1">
             <div class="pt-1" :id="name + '-slider'">
                 <slider
-                    v-model="yearRange"
+                    :model-value="yearRange"
                     :min="min || 0"
                     :max="max || 30"
                     tooltip="none"
