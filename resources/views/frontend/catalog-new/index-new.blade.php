@@ -768,37 +768,15 @@
                             class="tw-min-w-max tw-flex tw-items-center tw-bg-white tw-leading-none tw-px-1.5 tw-font-normal tw-py-1.5 tw-text-sm tw-border tw-border-gray-300 hover:tw-border-gray-800"
                             @click="clearAllSelections()"
                         >
-                            <svg
-                                class="tw-mr-1.5"
-                                width="12"
-                                height="11"
-                                viewBox="0 0 12 11"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <g clip-path="url(#clip0_4429_21389)">
-                                    <path
-                                        d="M0.879761 1.83337V4.58337H3.62976"
-                                        stroke="black"
-                                        stroke-width="1.2"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    />
-                                    <path
-                                        d="M2.03018 6.875C2.32736 7.7185 2.89062 8.44258 3.6351 8.93813C4.37958 9.43368 5.26495 9.67385 6.1578 9.62246C7.05065 9.57107 7.90261 9.23091 8.58532 8.65322C9.26803 8.07553 9.7445 7.29161 9.94295 6.41958C10.1414 5.54755 10.0511 4.63464 9.68555 3.81842C9.32004 3.00219 8.69917 2.32686 7.91648 1.89418C7.13378 1.4615 6.23167 1.29491 5.34607 1.41951C4.46047 1.54411 3.63935 1.95315 3.00643 2.585L0.879761 4.58333"
-                                        stroke="black"
-                                        stroke-width="1.2"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    />
-                                </g>
-                                <defs>
-                                    <clipPath id="clip0_4429_21389">
-                                        <rect width="11" height="11" fill="white" transform="translate(0.421387)" />
-                                    </clipPath>
-                                </defs>
-                            </svg>
-                            <span>resetovať</span>
+                        <svg
+                            class="tw-mr-1.5 tw-h-4 tw-w-4 tw-fill-current"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 256 256">
+                            <path
+                                d="M228,128a100,100,0,0,1-98.66,100H128a99.39,99.39,0,0,1-68.62-27.29,12,12,0,0,1,16.48-17.45,76,76,0,1,0-1.57-109c-.13.13-.25.25-.39.37L54.89,92H72a12,12,0,0,1,0,24H24a12,12,0,0,1-12-12V56a12,12,0,0,1,24,0V76.72L57.48,57.06A100,100,0,0,1,228,128Z">
+                            </path>
+                        </svg>
+                        <span>resetovať</span>
                         </button>
                     </div>
                 </div>
