@@ -9,7 +9,7 @@
             :dotSize="24"
             :height="12"
             :process="false"
-            :railStyle="hueBgColorFn()"
+            :railStyle="hueBgColor()"
             lazy
             class="tw-cursor-pointer"
             @dragging="hueChange"
@@ -23,7 +23,7 @@
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                 >
-                    <circle cx="12" cy="12.6421" r="12" :fill="hueColorFn(getHue())" />
+                    <circle cx="12" cy="12.6421" r="12" :fill="hueColor(getHue())" />
                     <path opacity="0.4" d="M9 6.64209V18.6421" stroke="black" />
                     <path opacity="0.4" d="M15 6.64209V18.6421" stroke="black" />
                 </svg>
@@ -40,7 +40,7 @@
             :dotSize="24"
             :height="12"
             :process="false"
-            :railStyle="lightnessBgColorFn()"
+            :railStyle="lightnessBgColor()"
             lazy
             class="tw-cursor-pointer tw-mt-3"
             @dragging="lightnessChange"
@@ -92,11 +92,8 @@ export default {
             const lightness = tinycolor(this.color)?.toHsl()?.l
             return lightness
         },
-        hueColorFn(hue) {
+        hueColor(hue) {
             return 'hsl(' + hue + ', 80%, 50%)'
-        },
-        lightnessColorFn(lightness) {
-            return 'hsl(' + this.getHue() + ',80% ,' + lightness + '%)'
         },
         hueChange(hue) {
             this.color = tinycolor(`hsl(${hue}, 0.8, ${this.getLightness() || 0.5})`).toHex()
@@ -104,13 +101,13 @@ export default {
         lightnessChange(lightness) {
             this.color = tinycolor(`hsl(${this.getHue()}, 80%, ${lightness * 100}%)`).toHex()
         },
-        hueBgColorFn() {
+        hueBgColor() {
             return {
                 background:
                     'linear-gradient(to right, #d82626 0%, #d8d826 17%, #26d826 33%, #26d8d8 50%, #2626d8 67%, #d826d8 83%, #d82626 100%)',
             }
         },
-        lightnessBgColorFn() {
+        lightnessBgColor() {
             return {
                 background:
                     'linear-gradient(to right, hsl(' +
