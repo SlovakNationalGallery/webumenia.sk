@@ -3,7 +3,7 @@
 @section('content')
     <section class="tailwind-rules">
         <filter-new-items-controller
-            v-slot="{ isExtendedOpen, loadMore, isFetchingArtworks, toggleIsExtendedOpen, handleSelectRandomly, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, page,  aggregations, artworks, last_page }">
+            v-slot="{ isExtendedOpen, loadMore, isFetchingArtworks, toggleIsExtendedOpen, handleSelectRandomly, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, page,  aggregations, artworks, last_page, artworks_total }">
             <div class="tw-relative">
                 <div class="tw-relative tw-min-h-[calc(100vh-14rem)]">
                     <div class="tw-bg-gray-200 tw-py-6 tw-px-4 md:tw-p-16 md:tw-pb-0">
@@ -668,7 +668,7 @@
                                         <button class="tw-m-4 tw-w-full tw-bg-sky-300 tw-p-4"
                                             @click="dc.close">
                                             zobraziť výsledky <span
-                                                class="tw-font-bold">(@{{ artworks.total }})</span>
+                                                class="tw-font-bold">(@{{ artworks_total }})</span>
                                         </button>
                                     @endslot
                                     </x-filter.disclosure-modal>
@@ -739,16 +739,16 @@
                                 <filter-new-sort :sort="query . sort" :handle-sort-change="handleSortChange"
                                     :options="[{ value: null, text: 'poslednej zmeny'}, { value: 'created_at', text: 'dátumu pridania',},  { value: 'title', text: 'názvu', }, { value: 'author', text: 'autora', }, { value: 'date_earliest', text: 'datovanie - od najnovšieho', }, { value: 'date_latest', text: 'datovanie - od najstaršieho' }, { value: 'view_count', text: 'počtu videní' }, { value: 'random', text: 'náhodného poradia' }]">
                                     <template #artwork-counter>
-                                        <span v-if="artworks.total === 1">Zobrazujem <span
+                                        <span v-if="artworks_total === 1">Zobrazujem <span
                                                 class="tw-font-bold">1</span>
                                             dielo, zoradené podľa&nbsp</span>
-                                        <span v-else-if="artworks.total < 5">Zobrazujem <span
-                                                class="tw-font-bold">@{{ artworks.total }}</span>
+                                        <span v-else-if="artworks_total < 5">Zobrazujem <span
+                                                class="tw-font-bold">@{{ artworks_total }}</span>
                                             diela,
                                             zoradené
                                             podľa&nbsp</span>
                                         <span v-else>Zobrazujem <span
-                                                class="tw-font-bold">@{{ artworks.total }}</span>
+                                                class="tw-font-bold">@{{ artworks_total }}</span>
                                             diel, zoradených
                                             podľa&nbsp</span>
                                     </template>
