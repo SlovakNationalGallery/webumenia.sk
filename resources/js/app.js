@@ -42,12 +42,8 @@ Vue.component('filter-new-options', require('./components/catalog-new/Options.vu
 Vue.component('filter-new-color-slider', require('./components/catalog-new/NewColorSlider.vue').default);
 Vue.component('filter-new-year-slider', require('./components/catalog-new/NewYearSlider.vue').default);
 Vue.component('filter-new-custom-checkbox', require('./components/catalog-new/NewCustomCheckbox.vue').default);
-Vue.component('filter-new-selected-labels', require('./components/catalog-new/NewSelectedLabels.vue').default);
 Vue.component('filter-new-sort', require('./components/catalog-new/NewSort.vue').default);
-Vue.component('filter-disclosure-button', require('./components/catalog-new/DisclosureFilterButton.vue').default);
-Vue.component('filter-disclosure-list-button', require('./components/catalog-new/DisclosureFilterListButton.vue').default);
-Vue.component('filter-disclosure-modal', require('./components/catalog-new/DisclosureFilterModal.vue').default);
-Vue.component('filter-disclosure-view', require('./components/catalog-new/DisclosureFilterView.vue').default);
+Vue.component('filter-disclosure-inline-list-button', require('./components/catalog-new/DisclosureFilterInlineListButton.vue').default);
 Vue.component('filter-disclosure-controller', require('./components/catalog-new/DisclosureModalController.vue').default);
 Vue.component('filter-show-more', require('./components/catalog-new/ShowMore.vue').default);
 Vue.component('catalog.infinite-scroll', require('./components/catalog-new/InfiniteScroll.vue').default);

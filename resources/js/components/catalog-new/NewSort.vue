@@ -1,7 +1,7 @@
 <template>
     <div>
         <span class="tw-font-semibold">
-            <slot></slot>
+            <slot name="artwork-counter"></slot>
             <div class="tw-inline-block">
                 <a
                     class="tw-font-bold tw-underline tw-decoration-2 tw-underline-offset-4"
@@ -33,10 +33,7 @@
                     </ul>
                 </div>
             </div>
-            . Alebo skús aj
-            <a class="tw-font-bold tw-underline tw-decoration-2 tw-underline-offset-4"
-                >náhodný výber</a
-            >
+            <slot name="random-select"></slot>
         </span>
     </div>
 </template>
@@ -56,7 +53,7 @@ export default {
     computed: {
         selectedOptionValue() {
             const selectedOption = this.options.find((sortItem) => this.sort === sortItem.value)
-            return selectedOption ? selectedOption.text : 'podľa poslednej zmeny'
+            return selectedOption ? selectedOption.text : 'poslednej zmeny'
         },
         selectableOptions() {
             return this.options.filter((sortItem) => this.sort !== sortItem.value)

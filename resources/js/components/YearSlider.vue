@@ -70,7 +70,6 @@ export default {
             this.yearRange = yearRange
         },
     },
-    computed: {},
     data() {
         return {
             yearRange: this.from && this.to ? [this.from, this.to] : [this.min, this.max],

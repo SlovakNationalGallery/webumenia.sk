@@ -2,23 +2,58 @@
 import qs from 'qs'
 import axios from 'axios'
 
-function getParsedUrl() {
-    return qs.parse(window.location.search, {
+function getParsedFilterFromUrl() {
+    const parsedUrl = qs.parse(window.location.search, {
         arrayFormat: 'bracket',
         ignoreQueryPrefix: true,
     })
+    const { date_earliest, date_latest, ...rest } = parsedUrl?.filter || {}
+    const { sort } = parsedUrl || {}
+
+    return {
+        ...rest,
+        yearRange: (() => {
+            if (!date_earliest || !date_latest) {
+                return null
+            }
+            return { to: date_earliest?.lte, from: date_latest?.gte }
+        })(),
+        sort: sort && Object.keys(sort)[0],
+    }
 }
 
 function stringifyUrl({ url, params }) {
-    const { filter, size, terms, yearRange, page } = params
-    const { yearFrom, yearTo, author, color, is_free, has_image, has_iip, has_text, sort } =
-        filter || {}
+    const { filter, size, terms, page } = params
+    const {
+        yearRange,
+        author,
+        gallery,
+        technique,
+        tag,
+        work_type,
+        object_type,
+        topic,
+        medium,
+        color,
+        is_free,
+        has_image,
+        has_iip,
+        has_text,
+        sort,
+    } = filter || {}
 
     const newQuery = {
         filter: {
-            date_earliest: { lte: yearTo },
-            date_latest: { gte: yearFrom },
+            date_earliest: { lte: yearRange?.to },
+            date_latest: { gte: yearRange?.from },
             author: author,
+            work_type: work_type,
+            object_type: object_type,
+            tag: tag,
+            technique: technique,
+            topic: topic,
+            gallery: gallery,
+            medium: medium,
             color: color,
             is_free: is_free,
             has_image: has_image,
@@ -31,14 +66,13 @@ function stringifyUrl({ url, params }) {
         page,
         terms,
         size,
-        ...yearRange,
     }
     return url + '?' + qs.stringify(newQuery, { skipNulls: true, arrayFormat: 'brackets' })
 }
 
 const PAGE_SIZE = 30
 const AGGREGATIONS_SIZE = 1000
-const SINGLE_ITEM_FILTERS = ['color', 'yearFrom', 'yearTo']
+const SINGLE_ITEM_FILTERS = ['color', 'yearRange']
 const SORT_DIRECTIONS = {
     date_earliest: 'desc',
     date_latest: 'asc',
@@ -50,23 +84,37 @@ const SORT_DIRECTIONS = {
 }
 const EMPTY_QUERY = {
     author: [],
+    work_type: [],
+    object_type: [],
+    topic: [],
+    gallery: [],
+    technique: [],
+    medium: [],
+    tag: [],
     color: null,
-    yearFrom: null,
-    yearTo: null,
+    yearRange: null,
 }
 const AGGREGATIONS_TERMS = {
     author: 'author',
+    work_type: 'work_type',
+    topic: 'topic',
+    object_type: 'object_type',
+    tag: 'tag',
+    medium: 'medium',
+    technique: 'technique',
+    gallery: 'gallery',
 }
 
 export default {
     data() {
         return {
-            isExtendedOpen: true,
+            isExtendedOpen: false,
             isFetchingArtworks: false,
             artworks: [],
             last_page: 1,
+            total: null,
             aggregations: {},
-            query: { ...EMPTY_QUERY, ...getParsedUrl().filter },
+            query: { ...EMPTY_QUERY, ...getParsedFilterFromUrl() },
             page: 1,
         }
     },
@@ -78,7 +126,18 @@ export default {
         selectedOptionsAsLabels() {
             return Object.entries(this.query)
                 .filter(([filterName, _]) =>
-                    ['author', 'color', 'yearFrom', 'yearTo'].includes(filterName)
+                    [
+                        'author',
+                        'technique',
+                        'topic',
+                        'medium',
+                        'work_type',
+                        'object_type',
+                        'tag',
+                        'gallery',
+                        'color',
+                        'yearRange',
+                    ].includes(filterName)
                 )
                 .map(([filterName, filterValues]) => {
                     if (SINGLE_ITEM_FILTERS.includes(filterName) && filterValues) {
@@ -117,8 +176,7 @@ export default {
         handleYearRangeChange(yearRangeValue) {
             this.query = {
                 ...this.query,
-                yearFrom: yearRangeValue.from,
-                yearTo: yearRangeValue.to,
+                yearRange: yearRangeValue,
             }
         },
         handleSortChange(sortValue) {
@@ -166,7 +224,14 @@ export default {
             }
         },
         loadMore() {
-            this.page = this.page ? this.page + 1 : 2
+            this.page++
+        },
+        handleSelectRandomly() {
+            this.query = {
+                ...EMPTY_QUERY,
+                sort: 'random',
+                has_image: true,
+            }
         },
         async fetchAggregations() {
             try {
@@ -208,6 +273,7 @@ export default {
                     .then(({ data }) => data)
 
                 this.last_page = fetchedArtworks.last_page
+                this.total = fetchedArtworks.total
                 this.artworks = append
                     ? [...this.artworks, ...fetchedArtworks.data]
                     : fetchedArtworks.data
@@ -256,6 +322,7 @@ export default {
             handleCheckboxChange: this.handleCheckboxChange,
             handleMultiSelectChange: this.handleMultiSelectChange,
             handleColorChange: this.handleColorChange,
+            handleSelectRandomly: this.handleSelectRandomly,
             selectedOptionsAsLabels: this.selectedOptionsAsLabels,
             clearAllSelections: this.clearAllSelections,
             clearFilterSelection: this.clearFilterSelection,
