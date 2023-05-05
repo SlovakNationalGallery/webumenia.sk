@@ -732,7 +732,8 @@
                                     <empty-artworks-animation></empty-artworks-animation>
                                 </div>
                                 <span class="tw-mt-10">Uuups, nič sme nenašli :(</span>
-                                <button @click="handleSelectRandomly" class="tw-font-bold tw-underline tw-underline-offset-8">skús náhodný
+                                <button @click="handleSelectRandomly"
+                                    class="tw-font-bold tw-underline tw-underline-offset-8">skús náhodný
                                     výber</a>
                             </div>
                             <div v-else class="tw-px-4 md:tw-p-16">
