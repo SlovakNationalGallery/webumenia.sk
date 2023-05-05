@@ -9,7 +9,7 @@
             :dotSize="24"
             :height="12"
             :process="false"
-            :railStyle="hueBgColor()"
+            :railStyle="{'background': 'linear-gradient(to right, #d82626 0%, #d8d826 17%, #26d826 33%, #26d8d8 50%, #2626d8 67%, #d826d8 83%, #d82626 100%)'}"
             lazy
             class="tw-cursor-pointer"
             @dragging="hueChange"
@@ -100,12 +100,6 @@ export default {
         },
         lightnessChange(lightness) {
             this.color = tinycolor(`hsl(${this.getHue()}, 80%, ${lightness * 100}%)`).toHex()
-        },
-        hueBgColor() {
-            return {
-                background:
-                    'linear-gradient(to right, #d82626 0%, #d8d826 17%, #26d826 33%, #26d8d8 50%, #2626d8 67%, #d826d8 83%, #d82626 100%)',
-            }
         },
         lightnessBgColor() {
             return {

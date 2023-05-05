@@ -12,10 +12,12 @@ function getParsedFilterFromUrl() {
 
     return {
         ...rest,
-        yearRange:
-            date_earliest && date_latest
-                ? { to: date_earliest?.lte, from: date_latest?.gte }
-                : null,
+        yearRange: (() => {
+            if (!date_earliest || !date_latest) {
+                return null
+            }
+            return { to: date_earliest?.lte, from: date_latest?.gte }
+        })(),
         sort: sort && Object.keys(sort)[0],
     }
 }
@@ -172,8 +174,8 @@ export default {
         },
         handleYearRangeChange(yearRangeValue) {
             this.query = {
-                 ...this.query,
-                 yearRange: yearRangeValue,
+                ...this.query,
+                yearRange: yearRangeValue,
             }
         },
         handleSortChange(sortValue) {
