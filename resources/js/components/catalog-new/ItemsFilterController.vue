@@ -112,9 +112,10 @@ export default {
             isFetchingArtworks: false,
             artworks: [],
             last_page: 1,
+            total: null,
             aggregations: {},
             query: { ...EMPTY_QUERY, ...getParsedFilterFromUrl() },
-            page: null,
+            page: 1,
         }
     },
     async created() {
@@ -223,7 +224,7 @@ export default {
             }
         },
         loadMore() {
-            this.page = this.page ? this.page + 1 : 2
+            this.page++
         },
         handleSelectRandomly() {
             this.query = {
@@ -272,6 +273,7 @@ export default {
                     .then(({ data }) => data)
 
                 this.last_page = fetchedArtworks.last_page
+                this.total = fetchedArtworks.total
                 this.artworks = append
                     ? [...this.artworks, ...fetchedArtworks.data]
                     : fetchedArtworks.data

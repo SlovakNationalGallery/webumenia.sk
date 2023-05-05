@@ -734,8 +734,8 @@
                                     <catalog.artwork-image-controller v-slot="ic">
                                         <div>
                                             <a :href="$route('dielo', {id: artwork.id})">
-                                                <img :class="{'tw-hidden': !ic.isLoaded }" @load="ic.onImgLoad"
-                                                    :src="$route('dielo.nahlad', {id: artwork.id, width: 220})" :src-set="`${$route('dielo.nahlad', {id: artwork.id, width: 600})} 600w, ${$route('dielo.nahlad', {id: artwork.id, width: 220})} 220w, ${$route('dielo.nahlad', {id: artwork.id, width: 300})} 300w, ${$route('dielo.nahlad', {id: artwork.id, width: 600})} 600w, ${$route('dielo.nahlad', {id: artwork.id, width: 880})} 800w`"
+                                                <img :class="[{'tw-hidden': !ic.isLoaded }, 'tw-w-full']" @load="ic.onImgLoad"
+                                                    :src="$route('dielo.nahlad', {id: artwork.id, width: 220})" :srcset="`${$route('dielo.nahlad', {id: artwork.id, width: 600})} 600w, ${$route('dielo.nahlad', {id: artwork.id, width: 220})} 220w, ${$route('dielo.nahlad', {id: artwork.id, width: 300})} 300w, ${$route('dielo.nahlad', {id: artwork.id, width: 600})} 600w, ${$route('dielo.nahlad', {id: artwork.id, width: 800})} 800w`"
                                                     sizes="(max-width: 768px) 250vw, 100vw">
                                             </a>
                                             <div :class="[{'tw-hidden': ic.isLoaded }, 'tw-w-full tw-saturate-50 tw-bg-gray-300']" :style="{'aspect-ratio': artwork.content.image_ratio || 1, 'background-color': artwork.content.hsl[0] ? `hsl(${artwork.content.hsl[0].h}, ${artwork.content.hsl[0].s}%, ${artwork.content.hsl[0].l}%)` : undefined}">
