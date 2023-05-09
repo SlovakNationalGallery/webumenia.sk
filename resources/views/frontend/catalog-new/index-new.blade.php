@@ -729,7 +729,9 @@
                             <div v-if="artworks.length === 0"
                                 class="tw-flex tw-w-full tw-flex-col tw-items-center tw-justify-center tw-py-40 tw-text-lg">
                                 <div class="tw-w-72">
-                                    <empty-artworks-animation></empty-artworks-animation>
+                                    <lottie-player autoplay loop mode="normal"
+                                        src="{{ asset('animations/empty.json') }}">
+                                    </lottie-player>
                                 </div>
                                 <span class="tw-mt-10">Uuups, nič sme nenašli :(</span>
                                 <button @click="handleSelectRandomly"
