@@ -106,6 +106,9 @@ const AGGREGATIONS_TERMS = {
 }
 
 export default {
+    props: {
+        locale: String,
+    },
     data() {
         return {
             isExtendedOpen: false,
@@ -123,6 +126,11 @@ export default {
         this.fetchArtworks({ replaceArtworks: true })
     },
     computed: {
+        apiHeaders() {
+            return {
+                'Accept-Language': this.locale,
+            }
+        },
         selectedOptionsAsLabels() {
             return Object.entries(this.query)
                 .filter(([filterName, _]) =>
@@ -244,7 +252,8 @@ export default {
                                 terms: AGGREGATIONS_TERMS,
                                 size: AGGREGATIONS_SIZE,
                             },
-                        })
+                        }),
+                        { headers: this.apiHeaders }
                     )
                     .then(({ data }) => data)
 
@@ -268,7 +277,8 @@ export default {
                                 size: PAGE_SIZE,
                                 page: this.page,
                             },
-                        })
+                        }),
+                        { headers: this.apiHeaders }
                     )
                     .then(({ data }) => data)
 
