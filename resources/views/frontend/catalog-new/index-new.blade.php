@@ -844,9 +844,11 @@
                                     </div>
                                 </template>
                             </catalog.infinite-scroll>
+                            <div class="tw-mt-10 tw-flex tw-justify-center tw-text-sm" v-else>
+                                That's all Folks!
+                            </div>
                         </div>
                     </div>
-                </div>
         </filter-new-items-controller>
     </section>
 
