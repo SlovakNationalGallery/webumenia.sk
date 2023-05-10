@@ -37,11 +37,6 @@ return [
     'primary_image' => 'hlavný obrázok',
     'images' => 'obrázky',
     'iipimg_url' => 'IIP URL',
-    'placeholder' => [
-        'name_human' => 'Zadaj meno',
-        'name_object' => 'Zadaj názov',
-        'term' => 'Zadaj pojem',
-    ],
     'filter' => [
         'extended_filter' => 'rozšírený filter',
         'displaying' => 'zobrazujem',
@@ -57,6 +52,11 @@ return [
         'is_free' => 'len voľné',
         'color' => 'farba',
         'sort_by' => 'podľa',
+        'placeholder' => [
+            'name_human' => 'Zadaj meno',
+            'name_object' => 'Zadaj názov',
+            'term' => 'Zadaj pojem',
+        ],    
         'sorting' => [
             'created_at' => 'dátumu pridania',
             'title' => 'názvu',

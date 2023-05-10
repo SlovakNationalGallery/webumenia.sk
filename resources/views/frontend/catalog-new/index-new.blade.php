@@ -44,176 +44,15 @@
                                     <div
                                         class="tw-absolute tw-z-10 tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                         <filter-new-options filter-name="work_type"
-                                            placeholder="Napíšte meno autora / autorky"
-                                            @change="handleMultiSelectChange" :selected-values="query['work_type']"
-                                            :filter="aggregations['work_type']">
-                                        </filter-new-options>
-                                        <x-filter.reset_button
-                                            class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
-                                            @click="clearFilterSelection('work_type')">
-                                            zrušiť výber
-                                        </x-filter.reset_button>
-                                    </div>
-                                </template>
-                            </filter-new-popover>
-                            <filter-new-popover name="object_type">
-                                <template #popover-label>
-                                    <filter-new-custom-select-popover-label name="object_type"
-                                        :selected-values="query['object_type']">
-                                    </filter-new-custom-select-popover-label>
-                                </template>
-                                <template #body>
-                                    <div
-                                        class="tw-absolute tw-z-10 tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                        <filter-new-options filter-name="object_type"
-                                            placeholder="Napíšte meno autora / autorky"
-                                            @change="handleMultiSelectChange" :selected-values="query['object_type']"
-                                            :filter="aggregations['object_type']">
-                                        </filter-new-options>
-                                        <x-filter.reset_button
-                                            class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
-                                            @click="clearFilterSelection('object_type')">
-                                            zrušiť výber
-                                        </x-filter.reset_button>
-                                    </div>
-                                </template>
-                            </filter-new-popover>
-                            <filter-new-popover name="tag">
-                                <template #popover-label>
-                                    <filter-new-custom-select-popover-label name="tag"
-                                        :selected-values="query['tag']">
-                                    </filter-new-custom-select-popover-label>
-                                </template>
-                                <template #body>
-                                    <div
-                                        class="tw-absolute tw-z-10 tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                        <filter-new-options filter-name="tag"
-                                            placeholder="Napíšte meno autora / autorky"
-                                            @change="handleMultiSelectChange" :selected-values="query['tag']"
-                                            :filter="aggregations['tag']">
-                                        </filter-new-options>
-                                        <x-filter.reset_button
-                                            class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
-                                            @click="clearFilterSelection('tag')">
-                                            zrušiť výber
-                                        </x-filter.reset_button>
-                                    </div>
-                                </template>
-                            </filter-new-popover>
-                            <filter-new-popover name="gallery">
-                                <template #popover-label>
-                                    <filter-new-custom-select-popover-label name="gallery"
-                                        :selected-values="query['gallery']">
-                                    </filter-new-custom-select-popover-label>
-                                </template>
-                                <template #body>
-                                    <div
-                                        class="tw-absolute tw-z-10 tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                        <filter-new-options filter-name="gallery"
-                                            placeholder="Napíšte meno autora / autorky"
-                                            @change="handleMultiSelectChange" :selected-values="query['gallery']"
-                                            :filter="aggregations['gallery']">
-                                        </filter-new-options>
-                                        <x-filter.reset_button
-                                            class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
-                                            @click="clearFilterSelection('gallery')">
-                                            zrušiť výber
-                                        </x-filter.reset_button>
-                                    </div>
-                                </template>
-                            </filter-new-popover>
-                            <filter-new-popover v-if="isExtendedOpen" name="technique">
-                                <template #popover-label>
-                                    <filter-new-custom-select-popover-label name="technique"
-                                        :selected-values="query['technique']">
-                                    </filter-new-custom-select-popover-label>
-                                </template>
-                                <template #body>
-                                    <div
-                                        class="tw-absolute tw-z-10 tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                        <filter-new-options filter-name="technique"
-                                            placeholder="Napíšte meno autora / autorky"
-                                            @change="handleMultiSelectChange" :selected-values="query['technique']"
-                                            :filter="aggregations['technique']">
-                                        </filter-new-options>
-                                        <x-filter.reset_button
-                                            class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
-                                            @click="clearFilterSelection('technique')">
-                                            zrušiť výber
-                                        </x-filter.reset_button>
-                                    </div>
-                                </template>
-                            </filter-new-popover>
-                            <filter-new-popover v-if="isExtendedOpen" name="topic">
-                                <template #popover-label>
-                                    <filter-new-custom-select-popover-label name="topic"
-                                        :selected-values="query['topic']">
-                                    </filter-new-custom-select-popover-label>
-                                </template>
-                                <template #body>
-                                    <div
-                                        class="tw-absolute tw-z-10 tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                        <filter-new-options filter-name="topic"
-                                            placeholder="Napíšte meno autora / autorky"
-                                            @change="handleMultiSelectChange" :selected-values="query['topic']"
-                                            :filter="aggregations['topic']">
-                                        </filter-new-options>
-                                        <x-filter.reset_button
-                                            class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
-                                            @click="clearFilterSelection('topic')">
-                                            zrušiť výber
-                                        </x-filter.reset_button>
-                                    </div>
-                                </template>
-                            </filter-new-popover>
-                            <filter-new-popover v-if="isExtendedOpen" name="medium">
-                                <template #popover-label>
-                                    <filter-new-custom-select-popover-label name="medium"
-                                        :selected-values="query['medium']">
-                                    </filter-new-custom-select-popover-label>
-                                </template>
-                                <template #body>
-                                    <div
-                                        class="tw-absolute tw-z-10 tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                        <filter-new-options filter-name="medium"
-                                            placeholder="Napíšte meno autora / autorky"
-                                            @change="handleMultiSelectChange" :selected-values="query['medium']"
-                                            :filter="aggregations['medium']">
-                                        </filter-new-options>
-                                        <x-filter.reset_button
-                                            class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
-                                            @click="clearFilterSelection('medium')">
-                                            zrušiť výber
-                                        </x-filter.reset_button>
-                                    </div>
-                                </template>
-                            </filter-new-popover>
-                            <filter-new-popover name="work_type">
-                                <template #popover-label>
-                                    <filter-new-custom-select-popover-label
-                                        name="{{ utrans('item.work_type') }}" :selected-values="query['work_type']">
-                                    </filter-new-custom-select-popover-label>
-                                </template>
-                                <template #body>
-                                    <div
-                                        class="tw-absolute tw-top-36 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                        <filter-new-options filter-name="work_type"
                                             placeholder="{{ trans('item.filter.placeholder.term') }}"
                                             @change="handleMultiSelectChange" :selected-values="query['work_type']"
                                             :filter="aggregations['work_type']">
                                         </filter-new-options>
-                                        <button
+                                        <x-filter.reset_button
                                             class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
                                             @click="clearFilterSelection('work_type')">
-                                            <svg class="tw-mr-1.5 tw-h-4 tw-w-4 tw-fill-current"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 256 256">
-                                                <path
-                                                    d="M228,128a100,100,0,0,1-98.66,100H128a99.39,99.39,0,0,1-68.62-27.29,12,12,0,0,1,16.48-17.45,76,76,0,1,0-1.57-109c-.13.13-.25.25-.39.37L54.89,92H72a12,12,0,0,1,0,24H24a12,12,0,0,1-12-12V56a12,12,0,0,1,24,0V76.72L57.48,57.06A100,100,0,0,1,228,128Z">
-                                                </path>
-                                            </svg>
-                                            <span>zrušiť výber</span>
-                                        </button>
+                                            zrušiť výber
+                                        </x-filter.reset_button>
                                     </div>
                                 </template>
                             </filter-new-popover>
@@ -225,24 +64,17 @@
                                 </template>
                                 <template #body>
                                     <div
-                                        class="tw-absolute tw-top-36 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
+                                        class="tw-absolute tw-z-10 tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                         <filter-new-options filter-name="object_type"
                                             placeholder="{{ trans('item.filter.placeholder.term') }}"
                                             @change="handleMultiSelectChange" :selected-values="query['object_type']"
                                             :filter="aggregations['object_type']">
                                         </filter-new-options>
-                                        <button
+                                        <x-filter.reset_button
                                             class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
                                             @click="clearFilterSelection('object_type')">
-                                            <svg class="tw-mr-1.5 tw-h-4 tw-w-4 tw-fill-current"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 256 256">
-                                                <path
-                                                    d="M228,128a100,100,0,0,1-98.66,100H128a99.39,99.39,0,0,1-68.62-27.29,12,12,0,0,1,16.48-17.45,76,76,0,1,0-1.57-109c-.13.13-.25.25-.39.37L54.89,92H72a12,12,0,0,1,0,24H24a12,12,0,0,1-12-12V56a12,12,0,0,1,24,0V76.72L57.48,57.06A100,100,0,0,1,228,128Z">
-                                                </path>
-                                            </svg>
-                                            <span>zrušiť výber</span>
-                                        </button>
+                                            zrušiť výber
+                                        </x-filter.reset_button>
                                     </div>
                                 </template>
                             </filter-new-popover>
@@ -254,24 +86,17 @@
                                 </template>
                                 <template #body>
                                     <div
-                                        class="tw-absolute tw-top-36 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
+                                        class="tw-absolute tw-z-10 tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                         <filter-new-options filter-name="tag"
-                                            placeholder="{{ trans('item.filter.placeholder.name_object') }}"
+                                            placeholder="{{ trans('item.filter.placeholder.term') }}"
                                             @change="handleMultiSelectChange" :selected-values="query['tag']"
                                             :filter="aggregations['tag']">
                                         </filter-new-options>
-                                        <button
+                                        <x-filter.reset_button
                                             class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
                                             @click="clearFilterSelection('tag')">
-                                            <svg class="tw-mr-1.5 tw-h-4 tw-w-4 tw-fill-current"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 256 256">
-                                                <path
-                                                    d="M228,128a100,100,0,0,1-98.66,100H128a99.39,99.39,0,0,1-68.62-27.29,12,12,0,0,1,16.48-17.45,76,76,0,1,0-1.57-109c-.13.13-.25.25-.39.37L54.89,92H72a12,12,0,0,1,0,24H24a12,12,0,0,1-12-12V56a12,12,0,0,1,24,0V76.72L57.48,57.06A100,100,0,0,1,228,128Z">
-                                                </path>
-                                            </svg>
-                                            <span>zrušiť výber</span>
-                                        </button>
+                                            zrušiť výber
+                                        </x-filter.reset_button>
                                     </div>
                                 </template>
                             </filter-new-popover>
@@ -283,24 +108,17 @@
                                 </template>
                                 <template #body>
                                     <div
-                                        class="tw-absolute tw-top-36 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
+                                        class="tw-absolute tw-z-10 tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                         <filter-new-options filter-name="gallery"
                                             placeholder="{{ trans('item.filter.placeholder.name_object') }}"
                                             @change="handleMultiSelectChange" :selected-values="query['gallery']"
                                             :filter="aggregations['gallery']">
                                         </filter-new-options>
-                                        <button
+                                        <x-filter.reset_button
                                             class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
                                             @click="clearFilterSelection('gallery')">
-                                            <svg class="tw-mr-1.5 tw-h-4 tw-w-4 tw-fill-current"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 256 256">
-                                                <path
-                                                    d="M228,128a100,100,0,0,1-98.66,100H128a99.39,99.39,0,0,1-68.62-27.29,12,12,0,0,1,16.48-17.45,76,76,0,1,0-1.57-109c-.13.13-.25.25-.39.37L54.89,92H72a12,12,0,0,1,0,24H24a12,12,0,0,1-12-12V56a12,12,0,0,1,24,0V76.72L57.48,57.06A100,100,0,0,1,228,128Z">
-                                                </path>
-                                            </svg>
-                                            <span>zrušiť výber</span>
-                                        </button>
+                                            zrušiť výber
+                                        </x-filter.reset_button>
                                     </div>
                                 </template>
                             </filter-new-popover>
@@ -312,24 +130,17 @@
                                 </template>
                                 <template #body>
                                     <div
-                                        class="tw-absolute tw-top-36 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
+                                        class="tw-absolute tw-z-10 tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                         <filter-new-options filter-name="technique"
                                             placeholder="{{ trans('item.filter.placeholder.name_object') }}"
                                             @change="handleMultiSelectChange" :selected-values="query['technique']"
                                             :filter="aggregations['technique']">
                                         </filter-new-options>
-                                        <button
+                                        <x-filter.reset_button
                                             class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
                                             @click="clearFilterSelection('technique')">
-                                            <svg class="tw-mr-1.5 tw-h-4 tw-w-4 tw-fill-current"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 256 256">
-                                                <path
-                                                    d="M228,128a100,100,0,0,1-98.66,100H128a99.39,99.39,0,0,1-68.62-27.29,12,12,0,0,1,16.48-17.45,76,76,0,1,0-1.57-109c-.13.13-.25.25-.39.37L54.89,92H72a12,12,0,0,1,0,24H24a12,12,0,0,1-12-12V56a12,12,0,0,1,24,0V76.72L57.48,57.06A100,100,0,0,1,228,128Z">
-                                                </path>
-                                            </svg>
-                                            <span>zrušiť výber</span>
-                                        </button>
+                                            zrušiť výber
+                                        </x-filter.reset_button>
                                     </div>
                                 </template>
                             </filter-new-popover>
@@ -341,24 +152,17 @@
                                 </template>
                                 <template #body>
                                     <div
-                                        class="tw-absolute tw-top-36 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
+                                        class="tw-absolute tw-z-10 tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                         <filter-new-options filter-name="topic"
                                             placeholder="{{ trans('item.filter.placeholder.name_object') }}"
                                             @change="handleMultiSelectChange" :selected-values="query['topic']"
                                             :filter="aggregations['topic']">
                                         </filter-new-options>
-                                        <button
+                                        <x-filter.reset_button
                                             class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
                                             @click="clearFilterSelection('topic')">
-                                            <svg class="tw-mr-1.5 tw-h-4 tw-w-4 tw-fill-current"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 256 256">
-                                                <path
-                                                    d="M228,128a100,100,0,0,1-98.66,100H128a99.39,99.39,0,0,1-68.62-27.29,12,12,0,0,1,16.48-17.45,76,76,0,1,0-1.57-109c-.13.13-.25.25-.39.37L54.89,92H72a12,12,0,0,1,0,24H24a12,12,0,0,1-12-12V56a12,12,0,0,1,24,0V76.72L57.48,57.06A100,100,0,0,1,228,128Z">
-                                                </path>
-                                            </svg>
-                                            <span>zrušiť výber</span>
-                                        </button>
+                                            zrušiť výber
+                                        </x-filter.reset_button>
                                     </div>
                                 </template>
                             </filter-new-popover>
@@ -370,24 +174,17 @@
                                 </template>
                                 <template #body>
                                     <div
-                                        class="tw-absolute tw-top-36 tw-z-10 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
+                                        class="tw-absolute tw-z-10 tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                         <filter-new-options filter-name="medium"
                                             placeholder="{{ trans('item.filter.placeholder.name_object') }}"
                                             @change="handleMultiSelectChange" :selected-values="query['medium']"
                                             :filter="aggregations['medium']">
                                         </filter-new-options>
-                                        <button
+                                        <x-filter.reset_button
                                             class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
                                             @click="clearFilterSelection('medium')">
-                                            <svg class="tw-mr-1.5 tw-h-4 tw-w-4 tw-fill-current"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 256 256">
-                                                <path
-                                                    d="M228,128a100,100,0,0,1-98.66,100H128a99.39,99.39,0,0,1-68.62-27.29,12,12,0,0,1,16.48-17.45,76,76,0,1,0-1.57-109c-.13.13-.25.25-.39.37L54.89,92H72a12,12,0,0,1,0,24H24a12,12,0,0,1-12-12V56a12,12,0,0,1,24,0V76.72L57.48,57.06A100,100,0,0,1,228,128Z">
-                                                </path>
-                                            </svg>
-                                            <span>zrušiť výber</span>
-                                        </button>
+                                            zrušiť výber
+                                        </x-filter.reset_button>
                                     </div>
                                 </template>
                             </filter-new-popover>
@@ -736,7 +533,7 @@
                                             <div
                                                 class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
                                                 <filter-new-options filter-name="tag"
-                                                    placeholder="{{ trans('item.filter.placeholder.name_object') }}"
+                                                    placeholder="{{ trans('item.filter.placeholder.term') }}"
                                                     @change="handleMultiSelectChange" :selected-values="query['tag']"
                                                     :filter="aggregations['tag']">
                                                 </filter-new-options>
@@ -898,8 +695,7 @@
                             v-for="option in selectedOptionsAsLabels" @click="removeSelection(option)">
                             <span v-if="option.filterName === 'color'"
                                 class="tw-flex tw-items-center tw-pr-1.5 tw-text-xs tw-font-semibold tw-uppercase">
-                                <div class="tw-mr-1.5 tw-inline-block tw-h-4 tw-w-4"
-                                    :style="{ 'background-color': `#${option.value}`, 'border-radius': '30px' }">
+                                <div class="tw-mr-1.5 tw-inline-block tw-h-4 tw-w-4" :style="{ 'background-color': `#${option.value}`, 'border-radius': '30px' }">
                                 </div>
                                 @{{ option.value }}
                             </span>
