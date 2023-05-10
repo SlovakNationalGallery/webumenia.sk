@@ -936,10 +936,9 @@
                         </template>
                         <template #random-select>
                             <span>
-                                . Alebo skús aj
+                                . {{ utrans('item.filter.try_also') }}
                                 <button @click="handleSelectRandomly"
-                                    class="tw-font-bold tw-underline tw-decoration-2 tw-underline-offset-4">náhodný
-                                    výber</button>
+                                    class="tw-font-bold tw-underline tw-decoration-2 tw-underline-offset-4">{{ trans('item.filter.random_search') }}</button>
                             </span>
                         </template>
                     </filter-new-sort>

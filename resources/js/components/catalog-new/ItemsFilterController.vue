@@ -275,8 +275,8 @@ export default {
                 this.last_page = fetchedArtworks.last_page
                 this.total = fetchedArtworks.total
                 this.artworks = append
-                    ? [...this.artworks, ...fetchedArtworks]
-                    : fetchedArtworks
+                    ? [...this.artworks, ...fetchedArtworks.data]
+                    : fetchedArtworks.data
             } catch (e) {
                 throw e
             } finally {

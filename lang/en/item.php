@@ -42,7 +42,7 @@ return [
         'displaying' => 'displaying',
         'artworks_sorted_by' => '{1}artwork sorted by|[2,*]artworks sorted by',
         'try_also' => 'you can also try',
-        'random search' => 'a random search.',
+        'random_search' => 'a random search.',
         'year_from' => 'from year',
         'year_to' => 'to year',
         'year' => 'rok',
