@@ -112,7 +112,7 @@ export default {
             isFetchingArtworks: false,
             artworks: [],
             last_page: 1,
-            total: null,
+            artworks_total: null,
             aggregations: {},
             query: { ...EMPTY_QUERY, ...getParsedFilterFromUrl() },
             page: 1,
@@ -273,7 +273,7 @@ export default {
                     .then(({ data }) => data)
 
                 this.last_page = fetchedArtworks.last_page
-                this.total = fetchedArtworks.total
+                this.artworks_total = fetchedArtworks.total
                 this.artworks = append
                     ? [...this.artworks, ...fetchedArtworks.data]
                     : fetchedArtworks.data
@@ -315,6 +315,7 @@ export default {
             last_page: this.last_page,
             aggregations: this.aggregations,
             artworks: this.artworks,
+            artworks_total: this.artworks_total,
             toggleIsExtendedOpen: this.toggleIsExtendedOpen,
             loadMore: this.loadMore,
             handleSortChange: this.handleSortChange,

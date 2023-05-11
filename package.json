@@ -35,6 +35,7 @@
         "vue-loader": "^16.8.3"
     },
     "dependencies": {
+        "@lottiefiles/lottie-player": "^1.7.1",
         "@tailwindcss/line-clamp": "^0.4.2",
         "axios": "^1.2.6",
         "bootstrap": "^3.4.1",
