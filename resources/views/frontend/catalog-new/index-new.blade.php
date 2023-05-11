@@ -199,7 +199,7 @@
                                     </template>
                                     <template #body>
                                         <div
-                                            class="tw-absolute tw-left-0 tw-top-36 tw-z-10 tw-w-screen tw-px-16">
+                                            class="tw-mt-4 tw-w-screen tw-px-16">
                                             <div
                                                 class="tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6 tw-pt-4">
                                                 <div v-if="query.color" class="tw-flex tw-justify-end">
