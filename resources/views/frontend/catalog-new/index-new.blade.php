@@ -738,114 +738,118 @@
                                     class="tw-font-bold tw-underline tw-underline-offset-8">skús náhodný
                                     výber</a>
                             </div>
-                            <div v-else class="tw-px-4 md:tw-p-16">
-                                <filter-new-sort :sort="query . sort" :handle-sort-change="handleSortChange"
-                                    :options="[{ value: null, text: 'poslednej zmeny'}, { value: 'created_at', text: 'dátumu pridania',},  { value: 'title', text: 'názvu', }, { value: 'author', text: 'autora', }, { value: 'date_earliest', text: 'datovanie - od najnovšieho', }, { value: 'date_latest', text: 'datovanie - od najstaršieho' }, { value: 'view_count', text: 'počtu videní' }, { value: 'random', text: 'náhodného poradia' }]">
-                                    <template #artwork-counter>
-                                        <span v-if="artworks_total === 1">Zobrazujem <span
-                                                class="tw-font-bold">1</span>
-                                            dielo, zoradené podľa&nbsp</span>
-                                        <span v-else-if="artworks_total < 5">Zobrazujem <span
-                                                class="tw-font-bold">@{{ artworks_total }}</span>
-                                            diela,
-                                            zoradené
-                                            podľa&nbsp</span>
-                                        <span v-else>Zobrazujem <span
-                                                class="tw-font-bold">@{{ artworks_total }}</span>
-                                            diel, zoradených
-                                            podľa&nbsp</span>
-                                    </template>
-                                    <template #random-select>
-                                        <span>
-                                            . Alebo skús aj
-                                            <button @click="handleSelectRandomly"
-                                                class="tw-font-bold tw-underline tw-decoration-2 tw-underline-offset-4">náhodný
-                                                výber</button>
-                                        </span>
-                                    </template>
-                                </filter-new-sort>
-                            </div>
-                            {{-- Artwork Masonry --}}
-                            <div v-masonry transition-duration="0" item-selector=".item">
-                                <div v-masonry-tile class="item tw-w-full tw-p-2 md:tw-w-1/3"
-                                    v-for="artwork in artworks" :key="artwork . id">
-                                    <div name="artwork-image">
-                                        <catalog.artwork-image-controller v-slot="ic">
-                                            <div>
-                                                <a :href="$route('dielo', {id: artwork.id})">
-                                                    <img :class="[{'tw-hidden': !ic.isLoaded }, 'tw-w-full']" @load="ic.onImgLoad"
-                                                        :src="$route('dielo.nahlad', {id: artwork.id, width: 220})" :srcset="`${$route('dielo.nahlad', {id: artwork.id, width: 600})} 600w, ${$route('dielo.nahlad', {id: artwork.id, width: 220})} 220w, ${$route('dielo.nahlad', {id: artwork.id, width: 300})} 300w, ${$route('dielo.nahlad', {id: artwork.id, width: 600})} 600w, ${$route('dielo.nahlad', {id: artwork.id, width: 800})} 800w`"
-                                                        sizes="(max-width: 768px) 250vw, 100vw">
-                                                </a>
-                                                <div :class="[{'tw-hidden': ic.isLoaded }, 'tw-w-full tw-saturate-50 tw-bg-gray-300']" :style="{'aspect-ratio': artwork.content.image_ratio || 1, 'background-color': artwork.content.hsl[0] ? `hsl(${artwork.content.hsl[0].h}, ${artwork.content.hsl[0].s}%, ${artwork.content.hsl[0].l}%)` : undefined}">
+                            <div v-else>
+                                <div class="tw-px-4 md:tw-p-16">
+                                    <filter-new-sort :sort="query . sort" :handle-sort-change="handleSortChange"
+                                        :options="[{ value: null, text: 'poslednej zmeny'}, { value: 'created_at', text: 'dátumu pridania',},  { value: 'title', text: 'názvu', }, { value: 'author', text: 'autora', }, { value: 'date_earliest', text: 'datovanie - od najnovšieho', }, { value: 'date_latest', text: 'datovanie - od najstaršieho' }, { value: 'view_count', text: 'počtu videní' }, { value: 'random', text: 'náhodného poradia' }]">
+                                        <template #artwork-counter>
+                                            <span v-if="artworks_total === 1">Zobrazujem <span
+                                                    class="tw-font-bold">1</span>
+                                                dielo, zoradené podľa&nbsp</span>
+                                            <span v-else-if="artworks_total < 5">Zobrazujem <span
+                                                    class="tw-font-bold">@{{ artworks_total }}</span>
+                                                diela,
+                                                zoradené
+                                                podľa&nbsp</span>
+                                            <span v-else>Zobrazujem <span
+                                                    class="tw-font-bold">@{{ artworks_total }}</span>
+                                                diel, zoradených
+                                                podľa&nbsp</span>
+                                        </template>
+                                        <template #random-select>
+                                            <span>
+                                                . Alebo skús aj
+                                                <button @click="handleSelectRandomly"
+                                                    class="tw-font-bold tw-underline tw-decoration-2 tw-underline-offset-4">náhodný
+                                                    výber</button>
+                                            </span>
+                                        </template>
+                                    </filter-new-sort>
+                                </div>
+                                {{-- Artwork Masonry --}}
+                                <div v-masonry transition-duration="0" item-selector=".item">
+                                    <div v-masonry-tile class="item tw-w-full tw-p-2 md:tw-w-1/3"
+                                        v-for="artwork in artworks" :key="artwork . id">
+                                        <div name="artwork-image">
+                                            <catalog.artwork-image-controller v-slot="ic">
+                                                <div>
+                                                    <a :href="$route('dielo', {id: artwork.id})">
+                                                        <img :class="[{'tw-hidden': !ic.isLoaded }, 'tw-w-full']" @load="ic.onImgLoad"
+                                                            :src="$route('dielo.nahlad', {id: artwork.id, width: 220})" :srcset="`${$route('dielo.nahlad', {id: artwork.id, width: 600})} 600w, ${$route('dielo.nahlad', {id: artwork.id, width: 220})} 220w, ${$route('dielo.nahlad', {id: artwork.id, width: 300})} 300w, ${$route('dielo.nahlad', {id: artwork.id, width: 600})} 600w, ${$route('dielo.nahlad', {id: artwork.id, width: 800})} 800w`"
+                                                            sizes="(max-width: 768px) 250vw, 100vw">
+                                                    </a>
+                                                    <div :class="[{'tw-hidden': ic.isLoaded }, 'tw-w-full tw-saturate-50 tw-bg-gray-300']" :style="{'aspect-ratio': artwork.content.image_ratio || 1, 'background-color': artwork.content.hsl[0] ? `hsl(${artwork.content.hsl[0].h}, ${artwork.content.hsl[0].s}%, ${artwork.content.hsl[0].l}%)` : undefined}">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </catalog.artwork-image-controller>
-                                        <div class="tw-mt-6 tw-flex">
-                                            <div class="tw-flex tw-grow tw-flex-col">
-                                                <a :href="$route('dielo', {id: artwork.id})"
-                                                    class="tw-pb-2 tw-text-lg tw-font-light tw-italic tw-leading-5">@{{ artwork.content.author[0] }}</a>
-                                                <a :href="$route('dielo', {id: artwork.id})"
-                                                    class="tw-pb-2 tw-text-lg tw-font-medium tw-leading-5">@{{ artwork.content.title }}</a>
-                                                <a :href="$route('dielo', {id: artwork.id})"
-                                                    class="tw-pb-2 tw-text-base tw-font-normal tw-leading-5">@{{ artwork.content.dating }}</a>
-                                            </div>
-                                            <div class="tw-flex tw-items-start tw-gap-4">
-                                                <user-collections-store
-                                                    v-slot="{ toggleItem, hasItem }">
-                                                    <button @click="toggleItem(artwork.id)">
-                                                        <svg v-if="hasItem(artwork.id)"
+                                            </catalog.artwork-image-controller>
+                                            <div class="tw-mt-6 tw-flex">
+                                                <div class="tw-flex tw-grow tw-flex-col">
+                                                    <a :href="$route('dielo', {id: artwork.id})"
+                                                        class="tw-pb-2 tw-text-lg tw-font-light tw-italic tw-leading-5">@{{ artwork.content.author[0] }}</a>
+                                                    <a :href="$route('dielo', {id: artwork.id})"
+                                                        class="tw-pb-2 tw-text-lg tw-font-medium tw-leading-5">@{{ artwork.content.title }}</a>
+                                                    <a :href="$route('dielo', {id: artwork.id})"
+                                                        class="tw-pb-2 tw-text-base tw-font-normal tw-leading-5">@{{ artwork.content.dating }}</a>
+                                                </div>
+                                                <div class="tw-flex tw-items-start tw-gap-4">
+                                                    <user-collections-store
+                                                        v-slot="{ toggleItem, hasItem }">
+                                                        <button @click="toggleItem(artwork.id)">
+                                                            <svg v-if="hasItem(artwork.id)"
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                class="tw-h-5 tw-w-5 tw-fill-current"
+                                                                viewBox="0 0 256 256">
+                                                                <path
+                                                                    d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z">
+                                                                </path>
+                                                            </svg>
+                                                            <svg v-else
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                class="tw-h-5 tw-w-5 tw-fill-current"
+                                                                viewBox="0 0 256 256">
+                                                                <path
+                                                                    d="M243,96.05a20,20,0,0,0-17.26-13.72l-57-4.93-22.3-53.14h0a20,20,0,0,0-36.82,0L87.29,77.4l-57,4.93A20,20,0,0,0,18.87,117.4l43.32,37.8-13,56.24A20,20,0,0,0,79,233.1l49-29.76,49,29.76a20,20,0,0,0,29.8-21.66l-13-56.24,43.32-37.8A20,20,0,0,0,243,96.05Zm-66.75,42.62a20,20,0,0,0-6.35,19.63l11.39,49.32-42.94-26.08a19.9,19.9,0,0,0-20.7,0L74.71,207.62,86.1,158.3a20,20,0,0,0-6.35-19.63L41.66,105.44,91.8,101.1a19.92,19.92,0,0,0,16.69-12.19L128,42.42l19.51,46.49A19.92,19.92,0,0,0,164.2,101.1l50.14,4.34Z">
+                                                                </path>
+                                                            </svg>
+                                                        </button>
+                                                    </user-collections-store>
+                                                    <a v-if="artwork.content.has_iip"
+                                                        :href="$route('item.zoom', {id: artwork.id})">
+                                                        <svg class="tw-h-5 tw-w-5 tw-fill-current"
                                                             xmlns="http://www.w3.org/2000/svg"
-                                                            class="tw-h-5 tw-w-5 tw-fill-current"
                                                             viewBox="0 0 256 256">
                                                             <path
-                                                                d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z">
+                                                                d="M156,112a12,12,0,0,1-12,12H124v20a12,12,0,0,1-24,0V124H80a12,12,0,0,1,0-24h20V80a12,12,0,0,1,24,0v20h20A12,12,0,0,1,156,112Zm76.49,120.49a12,12,0,0,1-17,0L168,185a92.12,92.12,0,1,1,17-17l47.54,47.53A12,12,0,0,1,232.49,232.49ZM112,180a68,68,0,1,0-68-68A68.08,68.08,0,0,0,112,180Z">
                                                             </path>
                                                         </svg>
-                                                        <svg v-else xmlns="http://www.w3.org/2000/svg"
-                                                            class="tw-h-5 tw-w-5 tw-fill-current"
-                                                            viewBox="0 0 256 256">
-                                                            <path
-                                                                d="M243,96.05a20,20,0,0,0-17.26-13.72l-57-4.93-22.3-53.14h0a20,20,0,0,0-36.82,0L87.29,77.4l-57,4.93A20,20,0,0,0,18.87,117.4l43.32,37.8-13,56.24A20,20,0,0,0,79,233.1l49-29.76,49,29.76a20,20,0,0,0,29.8-21.66l-13-56.24,43.32-37.8A20,20,0,0,0,243,96.05Zm-66.75,42.62a20,20,0,0,0-6.35,19.63l11.39,49.32-42.94-26.08a19.9,19.9,0,0,0-20.7,0L74.71,207.62,86.1,158.3a20,20,0,0,0-6.35-19.63L41.66,105.44,91.8,101.1a19.92,19.92,0,0,0,16.69-12.19L128,42.42l19.51,46.49A19.92,19.92,0,0,0,164.2,101.1l50.14,4.34Z">
-                                                            </path>
-                                                        </svg>
-                                                    </button>
-                                                </user-collections-store>
-                                                <a v-if="artwork.content.has_iip" :href="$route('item.zoom', {id: artwork.id})">
-                                                    <svg class="tw-h-5 tw-w-5 tw-fill-current"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        viewBox="0 0 256 256">
-                                                        <path
-                                                            d="M156,112a12,12,0,0,1-12,12H124v20a12,12,0,0,1-24,0V124H80a12,12,0,0,1,0-24h20V80a12,12,0,0,1,24,0v20h20A12,12,0,0,1,156,112Zm76.49,120.49a12,12,0,0,1-17,0L168,185a92.12,92.12,0,1,1,17-17l47.54,47.53A12,12,0,0,1,232.49,232.49ZM112,180a68,68,0,1,0-68-68A68.08,68.08,0,0,0,112,180Z">
-                                                        </path>
-                                                    </svg>
-                                                </a>
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <catalog.infinite-scroll v-if="last_page > page" class="tw-mt-10"
-                                :page="page" @loadmore="loadMore" :is-loading="isFetchingArtworks">
-                                <template #loading-message>
-                                    <div class="tw-flex tw-justify-center">
-                                        <div
-                                            class="tw-border tw-border-gray-400 tw-py-2.5 tw-px-8 tw-text-sm hover:tw-border-gray-700">
-                                            loading...
+                                <catalog.infinite-scroll v-if="last_page > page" class="tw-mt-10"
+                                    :page="page" @loadmore="loadMore" :is-loading="isFetchingArtworks">
+                                    <template #loading-message>
+                                        <div class="tw-flex tw-justify-center">
+                                            <div
+                                                class="tw-border tw-border-gray-400 tw-py-2.5 tw-px-8 tw-text-sm hover:tw-border-gray-700">
+                                                loading...
+                                            </div>
                                         </div>
-                                    </div>
-                                </template>
-                                <template #load-more-button>
-                                    <div class="tw-flex tw-justify-center">
-                                        <button v-if="page === 1" @click="loadMore"
-                                            class="tw-border tw-border-gray-400 tw-py-2.5 tw-px-8 tw-text-sm hover:tw-border-gray-700">
-                                            show more
-                                        </button>
-                                    </div>
-                                </template>
-                            </catalog.infinite-scroll>
-                            <div class="tw-mt-10 tw-flex tw-justify-center tw-text-sm" v-else>
-                                That's all Folks!
+                                    </template>
+                                    <template #load-more-button>
+                                        <div class="tw-flex tw-justify-center">
+                                            <button v-if="page === 1" @click="loadMore"
+                                                class="tw-border tw-border-gray-400 tw-py-2.5 tw-px-8 tw-text-sm hover:tw-border-gray-700">
+                                                show more
+                                            </button>
+                                        </div>
+                                    </template>
+                                </catalog.infinite-scroll>
+                                <div class="tw-mt-10 tw-flex tw-justify-center tw-text-sm" v-else>
+                                    That's all Folks!
+                                </div>
                             </div>
                         </div>
                     </div>
