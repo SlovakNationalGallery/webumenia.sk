@@ -1,7 +1,6 @@
 <template>
     <div class="tw-pb-2">
         <div
-            ref="button"
             class="tw-border tw-border-transparent"
             :class="{
                 'tw-border-gray-800': isOpen,
