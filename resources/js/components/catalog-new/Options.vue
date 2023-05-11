@@ -26,14 +26,14 @@
                 v-for="option in filteredOptions"
                 :for="option.id"
                 :class="[
-                    'tw-flex tw-items-center md:tw-px-2 tw-px-4 tw-my-0',
+                    'tw-flex md:tw-px-2 tw-px-4 tw-my-2',
                     {
                         'tw-bg-gray-200': option.checked,
                     },
                 ]"
             >
                 <input
-                    class="focus:tw-ring-0 focus:tw-ring-offset-0 focus:tw-outline-none tw-form-checkbox tw-border-gray-300 tw-mr-3 tw-my-2 tw-h-6 tw-w-6"
+                    class="focus:tw-ring-0 focus:tw-ring-offset-0 focus:tw-outline-none tw-form-checkbox tw-border-gray-300 tw-m-0 tw-mr-3 tw-h-6 tw-w-6"
                     type="checkbox"
                     :key="option.id"
                     :id="option.id"
