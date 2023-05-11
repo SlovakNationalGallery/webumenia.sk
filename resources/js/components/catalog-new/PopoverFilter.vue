@@ -1,6 +1,7 @@
 <template>
-    <div class="tw-pb-2 tw-relative">
+    <div class="tw-pb-2">
         <button
+            ref="button"
             class="tw-border tw-border-gray-300 tw-bg-white tw-py-3.5 tw-px-4 tw-text-lg tw-font-bold hover:tw-border-gray-800"
             :class="{
                 'tw-border-gray-800': active,
@@ -34,14 +35,17 @@
                 </div>
             </div>
         </button>
-        <div @click.stop v-if="isOpen" v-on-clickaway="closeOpenedPopover">
-            <slot name="body"></slot>
+        <div ref="body" class="tw-z-50">
+            <div @click.stop v-if="isOpen" v-on-clickaway="closeOpenedPopover" id="popover">
+                <slot name="body"></slot>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 import { directive as onClickaway } from 'vue-clickaway'
+import { createPopper } from '@popperjs/core'
 
 export default {
     directives: {
@@ -55,6 +59,21 @@ export default {
         isOpen() {
             return this.popoverGroupControllerData.openedPopover === this.name
         },
+    },
+    data() {
+        return {
+            popper: null,
+        }
+    },
+    mounted() {
+        const button = this.$refs.button
+        const body = this.$refs.body
+        this.popper = createPopper(button, body, {
+            placement: 'bottom-start',
+        })
+    },
+    updated() {
+        this.popper.update()
     },
     inject: ['popoverGroupControllerData', 'togglePopover', 'closeOpenedPopover'],
 }
