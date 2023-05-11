@@ -1,7 +1,7 @@
 <template>
     <div class="tw-pb-2">
         <button
-            :id="`${name}-popover-button`"
+            ref="button"
             class="tw-border tw-border-gray-300 tw-bg-white tw-py-3.5 tw-px-4 tw-text-lg tw-font-bold hover:tw-border-gray-800"
             :class="{
                 'tw-border-gray-800': active,
@@ -35,7 +35,7 @@
                 </div>
             </div>
         </button>
-        <div :id="`${name}-popover-body`" class="tw-z-50">
+        <div ref="body" class="tw-z-50">
             <div @click.stop v-if="isOpen" v-on-clickaway="closeOpenedPopover" id="popover">
                 <slot name="body"></slot>
             </div>
@@ -66,8 +66,8 @@ export default {
         }
     },
     mounted() {
-        const button = document.querySelector(`#${this.name}-popover-button`)
-        const body = document.querySelector(`#${this.name}-popover-body`)
+        const button = this.$refs.button
+        const body = this.$refs.body
         this.popper = createPopper(button, body, {
             placement: 'bottom-start',
         })
