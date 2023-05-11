@@ -10,7 +10,7 @@
                         {{-- Desktop filter --}}
                         <filter-new-popover.group-controller>
                             <div
-                                class="tw-hidden tw-gap-x-3 tw-overflow-x-auto md:tw-flex md:tw-flex-wrap md:tw-overflow-visible">
+                                class="tw-z-50 tw-hidden tw-gap-x-3 tw-overflow-x-auto md:tw-flex md:tw-flex-wrap md:tw-overflow-visible">
                                 <filter-new-popover name="author">
                                     <template #popover-label>
                                         <filter-new-custom-select-popover-label name="author"
@@ -724,7 +724,7 @@
                         </div>
                     </div>
                     <div class="tw-min-h-screen">
-                        <div class="tw-px-4 md:tw-p-16">
+                        <div class="tw-px-4 md:tw-px-16 md:tw-py-10">
                             <div v-if="artworks.length === 0"
                                 class="tw-flex tw-w-full tw-flex-col tw-items-center tw-justify-center tw-py-40 tw-text-lg">
                                 <div class="tw-w-72">
@@ -738,7 +738,7 @@
                                     výber</a>
                             </div>
                             <div v-else>
-                                <div class="tw-px-4 md:tw-p-16">
+                                <div class="tw-px-2 tw-py-6 md:tw-pb-8 md:tw-pt-0">
                                     <filter-new-sort :sort="query . sort" :handle-sort-change="handleSortChange"
                                         :options="[{ value: null, text: 'poslednej zmeny'}, { value: 'created_at', text: 'dátumu pridania',},  { value: 'title', text: 'názvu', }, { value: 'author', text: 'autora', }, { value: 'date_earliest', text: 'datovanie - od najnovšieho', }, { value: 'date_latest', text: 'datovanie - od najstaršieho' }, { value: 'view_count', text: 'počtu videní' }, { value: 'random', text: 'náhodného poradia' }]">
                                         <template #artwork-counter>
