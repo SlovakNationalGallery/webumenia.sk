@@ -250,7 +250,7 @@
                         {{-- Mobile Filter --}}
                         <filter-disclosure-controller v-slot="dc">
                             <div class="tw-relative md:tw-hidden">
-                                <div class="tw-flex tw-gap-x-3 tw-overflow-x-auto">
+                                <div class="tw-flex tw-gap-x-3 tw-overflow-x-auto tw-pb-4">
                                     <x-filter.disclosure_button @click="dc.goTo('author')">
                                         <filter-new-custom-select-popover-label name="author"
                                             :selected-values="query['author']">
@@ -277,7 +277,7 @@
                                         </filter-new-custom-select-popover-label>
                                     </x-filter.disclosure_button>
                                 </div>
-                                <div class="tw-min-w-max tw-pt-4">
+                                <div class="tw-min-w-max">
                                     <button @click="dc.goTo('index')"
                                         class="tw-w-full tw-border tw-border-gray-300 tw-py-2 tw-px-3 tw-font-medium hover:tw-border-gray-800">
                                         <div class="tw-flex tw-justify-center">
