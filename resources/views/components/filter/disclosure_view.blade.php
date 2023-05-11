@@ -1,6 +1,6 @@
 <div
     {{ $attributes->except('@close')->merge(['class' => 'tw-grow tw-bg-white tw-flex tw-flex-col']) }}>
-    <div class="tw-mx-4 tw-my-6 tw-flex tw-items-end tw-justify-between">
+    <div class="tw-mx-4 tw-my-6 tw-flex tw-items-center tw-justify-between">
         {{ $header }}
         <div class="tw-flex">
             {{ $reset_button }}
