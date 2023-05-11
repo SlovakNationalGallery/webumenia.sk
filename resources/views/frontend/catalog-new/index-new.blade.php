@@ -426,7 +426,7 @@
                                         <x-filter.disclosure_view v-if="dc.view === 'author'"
                                             @close="dc.close">
                                             @slot('header')
-                                                <div class="tw-flex tw-items-center">
+                                                <div class="tw-flex tw-items-center tw-py-0.5">
                                                     <x-filter.view_header_button @click="dc.goTo('index')">
                                                     </x-filter.view_header_button>
                                                     <filter-new-custom-select-popover-label name="author"
@@ -456,7 +456,7 @@
                                         <x-filter.disclosure_view v-if="dc.view === 'work_type'"
                                             @close="dc.close">
                                             @slot('header')
-                                                <div class="tw-flex tw-items-center">
+                                                <div class="tw-flex tw-items-center tw-py-0.5">
                                                     <x-filter.view_header_button @click="dc.goTo('index')">
                                                     </x-filter.view_header_button>
                                                     <filter-new-custom-select-popover-label name="work_type"
@@ -486,7 +486,7 @@
                                         <x-filter.disclosure_view v-if="dc.view === 'object_type'"
                                             @close="dc.close">
                                             @slot('header')
-                                                <div class="tw-flex tw-items-center">
+                                                <div class="tw-flex tw-items-center tw-py-0.5">
                                                     <x-filter.view_header_button @click="dc.goTo('index')">
                                                     </x-filter.view_header_button>
                                                     <filter-new-custom-select-popover-label name="object_type"
@@ -516,7 +516,7 @@
                                         <x-filter.disclosure_view v-if="dc.view === 'tag'"
                                             @close="dc.close">
                                             @slot('header')
-                                                <div class="tw-flex tw-items-center">
+                                                <div class="tw-flex tw-items-center tw-py-0.5">
                                                     <x-filter.view_header_button @click="dc.goTo('index')">
                                                     </x-filter.view_header_button>
                                                     <filter-new-custom-select-popover-label name="tag"
@@ -546,7 +546,7 @@
                                         <x-filter.disclosure_view v-if="dc.view === 'gallery'"
                                             @close="dc.close">
                                             @slot('header')
-                                                <div class="tw-flex tw-items-center">
+                                                <div class="tw-flex tw-items-center tw-py-0.5">
                                                     <x-filter.view_header_button @click="dc.goTo('index')">
                                                     </x-filter.view_header_button>
                                                     <filter-new-custom-select-popover-label name="gallery"
@@ -576,7 +576,7 @@
                                         <x-filter.disclosure_view v-if="dc.view === 'technique'"
                                             @close="dc.close">
                                             @slot('header')
-                                                <div class="tw-flex tw-items-center">
+                                                <div class="tw-flex tw-items-center tw-py-0.5">
                                                     <x-filter.view_header_button @click="dc.goTo('index')">
                                                     </x-filter.view_header_button>
                                                     <filter-new-custom-select-popover-label name="technique"
@@ -606,7 +606,7 @@
                                         <x-filter.disclosure_view v-if="dc.view === 'topic'"
                                             @close="dc.close">
                                             @slot('header')
-                                                <div class="tw-flex tw-items-center">
+                                                <div class="tw-flex tw-items-center tw-py-0.5">
                                                     <x-filter.view_header_button @click="dc.goTo('index')">
                                                     </x-filter.view_header_button>
                                                     <filter-new-custom-select-popover-label name="topic"
@@ -636,7 +636,7 @@
                                         <x-filter.disclosure_view v-if="dc.view === 'medium'"
                                             @close="dc.close">
                                             @slot('header')
-                                                <div class="tw-flex tw-items-center">
+                                                <div class="tw-flex tw-items-center tw-py-0.5">
                                                     <x-filter.view_header_button @click="dc.goTo('index')">
                                                     </x-filter.view_header_button>
                                                     <filter-new-custom-select-popover-label name="medium"
