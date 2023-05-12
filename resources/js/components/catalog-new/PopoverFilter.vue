@@ -1,5 +1,5 @@
 <template>
-    <div class="tw-pb-2">
+    <div class="tw-pb-2 tw-z-10">
         <button
             ref="button"
             class="tw-border tw-border-gray-300 tw-bg-white tw-py-3.5 tw-px-4 tw-text-lg tw-font-bold hover:tw-border-gray-800"
@@ -35,7 +35,7 @@
                 </div>
             </div>
         </button>
-        <div ref="body" class="tw-z-50">
+        <div ref="body">
             <div @click.stop v-if="isOpen" v-on-clickaway="closeOpenedPopover" id="popover">
                 <slot name="body"></slot>
             </div>
