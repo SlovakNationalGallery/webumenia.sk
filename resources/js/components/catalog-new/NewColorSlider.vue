@@ -9,9 +9,13 @@
             :dotSize="24"
             :height="12"
             :process="false"
-            :railStyle="{'background': 'linear-gradient(to right, #d82626 0%, #d8d826 17%, #26d826 33%, #26d8d8 50%, #2626d8 67%, #d826d8 83%, #d82626 100%)'}"
+            :railStyle="{
+                background:
+                    'linear-gradient(to right, #d82626 0%, #d8d826 17%, #26d826 33%, #26d8d8 50%, #2626d8 67%, #d826d8 83%, #d82626 100%)',
+            }"
             lazy
             class="tw-cursor-pointer"
+            @update:model-value="hueChange"
             @dragging="hueChange"
             @change="$emit('change', color)"
         >
@@ -43,6 +47,7 @@
             :railStyle="lightnessBgColor()"
             lazy
             class="tw-cursor-pointer tw-mt-3"
+            @update:model-value="lightnessChange"
             @dragging="lightnessChange"
             @change="$emit('change', color)"
         >

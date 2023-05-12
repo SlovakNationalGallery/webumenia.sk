@@ -8,7 +8,7 @@
             :duration="0"
             :dotSize="24"
             :height="2"
-            lazy
+            @update:model-value="value = { from: $event[0], to: $event[1] }"
             @drag-end="$emit('change', value)"
             @dragging="value = { from: $event[0], to: $event[1] }"
             class="tw-cursor-pointer"
