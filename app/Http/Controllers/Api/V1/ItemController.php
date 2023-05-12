@@ -14,7 +14,6 @@ use Primal\Color\Parser as ColorParser;
 
 class ItemController extends Controller
 {
-
     private $filterables = [
         'author',
         'topic',
@@ -32,11 +31,7 @@ class ItemController extends Controller
         'additionals.location.keyword',
     ];
 
-    private $rangeables = [
-        'date_earliest',
-        'date_latest',
-        'additionals.order',
-    ];
+    private $rangeables = ['date_earliest', 'date_latest', 'additionals.order'];
 
     private $sortables = [
         'date_earliest',
@@ -75,7 +70,25 @@ class ItemController extends Controller
                 $searchRequest->sort($field, $direction);
             });
 
-        return $searchRequest->paginate($size)->onlyDocuments();
+        $response = $searchRequest
+            ->paginate($size)
+            ->onlyDocuments()
+            ->toArray();
+
+        return [
+            ...$response,
+            'data' => collect($response['data'])->map(
+                fn($document) => [
+                    ...$document,
+                    'content' => [
+                        ...$document['content'],
+                        'authors_formatted' => collect($document['content']['author'])->map(
+                            fn($author) => formatName($author)
+                        ),
+                    ],
+                ]
+            ),
+        ];
     }
 
     public function aggregations(Request $request)
