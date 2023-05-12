@@ -25,6 +25,9 @@
                                                 @change="handleMultiSelectChange"
                                                 :selected-values="query['author']"
                                                 :filter="aggregations['author']">
+                                                <template #search-icon
+                                                    class="tw-h-4 tw-w-4 tw-fill-current">
+                                                </template>
                                             </filter-new-options>
                                             <x-filter.reset_button
                                                 class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
@@ -32,6 +35,14 @@
                                                 zrušiť výber
                                             </x-filter.reset_button>
                                         </div>
+                                    </template>
+                                    <template #opened-icon>
+                                        <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
+                                        </x-icons.caret-up>
+                                    </template>
+                                    <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
+                                        <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
+                                        </x-icons.caret-down>
                                     </template>
                                 </filter-new-popover>
                                 <filter-new-popover name="work_type">
@@ -47,6 +58,9 @@
                                                 placeholder="Napíšte meno autora / autorky"
                                                 @change="handleMultiSelectChange" :selected-values="query['work_type']"
                                                 :filter="aggregations['work_type']">
+                                                <template #search-icon
+                                                    class="tw-h-4 tw-w-4 tw-fill-current">
+                                                </template>
                                             </filter-new-options>
                                             <x-filter.reset_button
                                                 class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
@@ -54,6 +68,14 @@
                                                 zrušiť výber
                                             </x-filter.reset_button>
                                         </div>
+                                    </template>
+                                    <template #opened-icon>
+                                        <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
+                                        </x-icons.caret-up>
+                                    </template>
+                                    <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
+                                        <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
+                                        </x-icons.caret-down>
                                     </template>
                                 </filter-new-popover>
                                 <filter-new-popover name="object_type">
@@ -69,6 +91,9 @@
                                                 placeholder="Napíšte meno autora / autorky"
                                                 @change="handleMultiSelectChange" :selected-values="query['object_type']"
                                                 :filter="aggregations['object_type']">
+                                                <template #search-icon
+                                                    class="tw-h-4 tw-w-4 tw-fill-current">
+                                                </template>
                                             </filter-new-options>
                                             <x-filter.reset_button
                                                 class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
@@ -76,6 +101,14 @@
                                                 zrušiť výber
                                             </x-filter.reset_button>
                                         </div>
+                                    </template>
+                                    <template #opened-icon>
+                                        <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
+                                        </x-icons.caret-up>
+                                    </template>
+                                    <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
+                                        <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
+                                        </x-icons.caret-down>
                                     </template>
                                 </filter-new-popover>
                                 <filter-new-popover name="tag">
@@ -91,6 +124,9 @@
                                                 placeholder="Napíšte meno autora / autorky"
                                                 @change="handleMultiSelectChange" :selected-values="query['tag']"
                                                 :filter="aggregations['tag']">
+                                                <template #search-icon
+                                                    class="tw-h-4 tw-w-4 tw-fill-current">
+                                                </template>
                                             </filter-new-options>
                                             <x-filter.reset_button
                                                 class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
@@ -98,6 +134,14 @@
                                                 zrušiť výber
                                             </x-filter.reset_button>
                                         </div>
+                                    </template>
+                                    <template #opened-icon>
+                                        <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
+                                        </x-icons.caret-up>
+                                    </template>
+                                    <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
+                                        <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
+                                        </x-icons.caret-down>
                                     </template>
                                 </filter-new-popover>
                                 <filter-new-popover name="gallery">
@@ -113,6 +157,9 @@
                                                 placeholder="Napíšte meno autora / autorky"
                                                 @change="handleMultiSelectChange" :selected-values="query['gallery']"
                                                 :filter="aggregations['gallery']">
+                                                <template #search-icon
+                                                    class="tw-h-4 tw-w-4 tw-fill-current">
+                                                </template>
                                             </filter-new-options>
                                             <x-filter.reset_button
                                                 class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
@@ -120,6 +167,14 @@
                                                 zrušiť výber
                                             </x-filter.reset_button>
                                         </div>
+                                    </template>
+                                    <template #opened-icon>
+                                        <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
+                                        </x-icons.caret-up>
+                                    </template>
+                                    <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
+                                        <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
+                                        </x-icons.caret-down>
                                     </template>
                                 </filter-new-popover>
                                 <filter-new-popover v-if="isExtendedOpen" name="technique">
@@ -135,6 +190,9 @@
                                                 placeholder="Napíšte meno autora / autorky"
                                                 @change="handleMultiSelectChange" :selected-values="query['technique']"
                                                 :filter="aggregations['technique']">
+                                                <template #search-icon
+                                                    class="tw-h-4 tw-w-4 tw-fill-current">
+                                                </template>
                                             </filter-new-options>
                                             <x-filter.reset_button
                                                 class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
@@ -142,6 +200,14 @@
                                                 zrušiť výber
                                             </x-filter.reset_button>
                                         </div>
+                                    </template>
+                                    <template #opened-icon>
+                                        <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
+                                        </x-icons.caret-up>
+                                    </template>
+                                    <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
+                                        <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
+                                        </x-icons.caret-down>
                                     </template>
                                 </filter-new-popover>
                                 <filter-new-popover v-if="isExtendedOpen" name="topic">
@@ -157,6 +223,9 @@
                                                 placeholder="Napíšte meno autora / autorky"
                                                 @change="handleMultiSelectChange" :selected-values="query['topic']"
                                                 :filter="aggregations['topic']">
+                                                <template #search-icon
+                                                    class="tw-h-4 tw-w-4 tw-fill-current">
+                                                </template>
                                             </filter-new-options>
                                             <x-filter.reset_button
                                                 class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
@@ -164,6 +233,14 @@
                                                 zrušiť výber
                                             </x-filter.reset_button>
                                         </div>
+                                    </template>
+                                    <template #opened-icon>
+                                        <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
+                                        </x-icons.caret-up>
+                                    </template>
+                                    <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
+                                        <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
+                                        </x-icons.caret-down>
                                     </template>
                                 </filter-new-popover>
                                 <filter-new-popover v-if="isExtendedOpen" name="medium">
@@ -179,6 +256,9 @@
                                                 placeholder="Napíšte meno autora / autorky"
                                                 @change="handleMultiSelectChange" :selected-values="query['medium']"
                                                 :filter="aggregations['medium']">
+                                                <template #search-icon
+                                                    class="tw-h-4 tw-w-4 tw-fill-current">
+                                                </template>
                                             </filter-new-options>
                                             <x-filter.reset_button
                                                 class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
@@ -186,6 +266,14 @@
                                                 zrušiť výber
                                             </x-filter.reset_button>
                                         </div>
+                                    </template>
+                                    <template #opened-icon>
+                                        <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
+                                        </x-icons.caret-up>
+                                    </template>
+                                    <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
+                                        <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
+                                        </x-icons.caret-down>
                                     </template>
                                 </filter-new-popover>
                                 <filter-new-popover v-if="isExtendedOpen" name="color">
@@ -244,6 +332,15 @@
                                 </filter-new-popover>
                                 <filter-show-more class="tw-hidden md:tw-block" :is-extended-open="isExtendedOpen"
                                     :toggle-is-extended-open="toggleIsExtendedOpen">
+                                    <template #more-icon>
+                                        <x-icons.minus class="tw-h-6 tw-w-6 tw-fill-current">
+                                        </x-icons.minus>
+                                    </template>
+                                    <template #less-icon>
+                                        <x-icons.sliders-horizontal
+                                            class="tw-h-6 tw-w-6 tw-fill-current">
+                                        </x-icons.sliders-horizontal>
+                                    </template>
                                 </filter-show-more>
                             </div>
                         </filter-new-popover.group-controller>
@@ -280,14 +377,11 @@
                                 <div class="tw-flex tw-gap-1">
                                     <button @click="dc.goTo('index')"
                                         class="tw-w-full tw-border tw-border-gray-300 tw-py-2 tw-px-3 tw-font-medium hover:tw-border-gray-800">
-                                        <div class="tw-flex tw-justify-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                class="tw-h-6 tw-w-6 tw-fill-current"
-                                                viewBox="0 0 256 256">
-                                                <path
-                                                    d="M40,92H70.06a36,36,0,0,0,67.88,0H216a12,12,0,0,0,0-24H137.94a36,36,0,0,0-67.88,0H40a12,12,0,0,0,0,24Zm64-24A12,12,0,1,1,92,80,12,12,0,0,1,104,68Zm112,96H201.94a36,36,0,0,0-67.88,0H40a12,12,0,0,0,0,24h94.06a36,36,0,0,0,67.88,0H216a12,12,0,0,0,0-24Zm-48,24a12,12,0,1,1,12-12A12,12,0,0,1,168,188Z">
-                                                </path>
-                                            </svg> <span class="tw-font-semibold">rozšírený
+                                        <div class="tw-flex tw-justify-center tw-gap-1">
+                                            <x-icons.sliders-horizontal
+                                                class="tw-h-6 tw-w-6 tw-fill-current">
+                                            </x-icons.sliders-horizontal>
+                                            <span class="tw-font-semibold">rozšírený
                                                 filter</span>
                                         </div>
                                     </button>
@@ -376,6 +470,17 @@
                                                                 </x-filter.reset_button>
                                                             </div>
                                                         </template>
+                                                        <template #opened-icon>
+                                                            <x-icons.caret-up
+                                                                class="tw-h-4 tw-w-4 tw-fill-sky-300">
+                                                            </x-icons.caret-up>
+                                                        </template>
+                                                        <template #closed-icon
+                                                            class="tw-h-4 tw-w-4 tw-fill-current">
+                                                            <x-icons.caret-down
+                                                                class="tw-h-4 tw-w-4 tw-fill-current">
+                                                            </x-icons.caret-down>
+                                                        </template>
                                                     </filter-disclosure-inline-list-button>
                                                     <filter-disclosure-inline-list-button>
                                                         <template #header>
@@ -399,6 +504,17 @@
                                                                     resetovať
                                                                 </x-filter.reset_button>
                                                             </div>
+                                                        </template>
+                                                        <template #opened-icon>
+                                                            <x-icons.caret-up
+                                                                class="tw-fill-sky-30 tw-h-4 tw-w-4">
+                                                            </x-icons.caret-up>
+                                                        </template>
+                                                        <template #closed-icon
+                                                            class="tw-h-4 tw-w-4 tw-fill-current">
+                                                            <x-icons.caret-down
+                                                                class="tw-h-4 tw-w-4 tw-fill-current">
+                                                            </x-icons.caret-down>
                                                         </template>
                                                     </filter-disclosure-inline-list-button>
                                                     <filter-new-custom-checkbox class="tw-pt-2"
@@ -448,6 +564,9 @@
                                                         placeholder="Napíšte meno autora / autorky"
                                                         @change="handleMultiSelectChange" :selected-values="query['author']"
                                                         :filter="aggregations['author']">
+                                                        <template #search-icon
+                                                            class="tw-h-4 tw-w-4 tw-fill-current">
+                                                        </template>
                                                     </filter-new-options>
                                                 </div>
                                             @endslot
@@ -478,6 +597,9 @@
                                                         placeholder="Napíšte meno autora / autorky"
                                                         @change="handleMultiSelectChange" :selected-values="query['work_type']"
                                                         :filter="aggregations['work_type']">
+                                                        <template #search-icon
+                                                            class="tw-h-4 tw-w-4 tw-fill-current">
+                                                        </template>
                                                     </filter-new-options>
                                                 </div>
                                             @endslot
@@ -508,6 +630,9 @@
                                                         placeholder="Napíšte meno autora / autorky"
                                                         @change="handleMultiSelectChange" :selected-values="query['object_type']"
                                                         :filter="aggregations['object_type']">
+                                                        <template #search-icon
+                                                            class="tw-h-4 tw-w-4 tw-fill-current">
+                                                        </template>
                                                     </filter-new-options>
                                                 </div>
                                             @endslot
@@ -538,6 +663,9 @@
                                                         placeholder="Napíšte meno autora / autorky"
                                                         @change="handleMultiSelectChange" :selected-values="query['tag']"
                                                         :filter="aggregations['tag']">
+                                                        <template #search-icon
+                                                            class="tw-h-4 tw-w-4 tw-fill-current">
+                                                        </template>
                                                     </filter-new-options>
                                                 </div>
                                             @endslot
@@ -568,6 +696,9 @@
                                                         placeholder="Napíšte meno autora / autorky"
                                                         @change="handleMultiSelectChange" :selected-values="query['gallery']"
                                                         :filter="aggregations['gallery']">
+                                                        <template #search-icon
+                                                            class="tw-h-4 tw-w-4 tw-fill-current">
+                                                        </template>
                                                     </filter-new-options>
                                                 </div>
                                             @endslot
@@ -598,6 +729,9 @@
                                                         placeholder="Napíšte meno autora / autorky"
                                                         @change="handleMultiSelectChange" :selected-values="query['technique']"
                                                         :filter="aggregations['technique']">
+                                                        <template #search-icon
+                                                            class="tw-h-4 tw-w-4 tw-fill-current">
+                                                        </template>
                                                     </filter-new-options>
                                                 </div>
                                             @endslot
@@ -628,6 +762,9 @@
                                                         placeholder="Napíšte meno autora / autorky"
                                                         @change="handleMultiSelectChange" :selected-values="query['topic']"
                                                         :filter="aggregations['topic']">
+                                                        <template #search-icon
+                                                            class="tw-h-4 tw-w-4 tw-fill-current">
+                                                        </template>
                                                     </filter-new-options>
                                                 </div>
                                             @endslot
@@ -658,6 +795,9 @@
                                                         placeholder="Napíšte meno autora / autorky"
                                                         @change="handleMultiSelectChange" :selected-values="query['medium']"
                                                         :filter="aggregations['medium']">
+                                                        <template #search-icon
+                                                            class="tw-h-4 tw-w-4 tw-fill-current">
+                                                        </template>
                                                     </filter-new-options>
                                                 </div>
                                             @endslot
@@ -734,7 +874,8 @@
                                 </div>
                                 <span class="tw-mt-10">Uuups, nič sme nenašli :(</span>
                                 <button @click="handleSelectRandomly"
-                                    class="tw-font-bold tw-underline tw-underline-offset-8">skús náhodný
+                                    class="tw-font-bold tw-underline tw-underline-offset-8">skús
+                                    náhodný
                                     výber</a>
                             </div>
                             <div v-else>
@@ -762,6 +903,11 @@
                                                     class="tw-font-bold tw-underline tw-decoration-2 tw-underline-offset-4">náhodný
                                                     výber</button>
                                             </span>
+                                        </template>
+                                        <template #icon>
+                                            <x-icons.caret-down
+                                                class="tw-inline tw-h-4 tw-w-4 tw-fill-current">
+                                            </x-icons.caret-down>
                                         </template>
                                     </filter-new-sort>
                                 </div>
@@ -854,5 +1000,4 @@
                     </div>
         </filter-new-items-controller>
     </section>
-
 @stop

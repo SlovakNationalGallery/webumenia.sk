@@ -8,22 +8,14 @@
                     class="tw-font-bold tw-underline tw-decoration-2 tw-underline-offset-4"
                     @click="toggleIsOpen()"
                 >
-                    {{ selectedOptionValue
-                    }}<svg
-                        class="tw-inline tw-w-4 tw-h-4 tw-fill-current"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 256 256"
-                    >
-                        <path
-                            d="M216.49,104.49l-80,80a12,12,0,0,1-17,0l-80-80a12,12,0,0,1,17-17L128,159l71.51-71.52a12,12,0,0,1,17,17Z"
-                        ></path>
-                    </svg>
+                    {{ selectedOptionValue }}
+                    <slot name="icon"></slot>
                 </button>
                 <div ref="body" class="tw-z-10">
                     <div
                         v-if="isOpen"
                         v-on-clickaway="toggleIsOpen"
-                        class="tw-mt-2 tw-p-4 tw-bg-white tw-border-2 tw-border-gray-800 tw-w-80"
+                        class="tw-absolute tw-p-4 tw-bg-white tw-z-10 tw-border-2 tw-border-gray-800 tw-w-80"
                     >
                         <ul>
                             <li

@@ -5,26 +5,8 @@
             @click="toggleOpen"
         >
             <slot name="header"></slot>
-            <svg
-                v-if="isOpen"
-                xmlns="http://www.w3.org/2000/svg"
-                class="tw-h-4 tw-w-4 tw-fill-current"
-                viewBox="0 0 256 256"
-            >
-                <path
-                    d="M216.49,168.49a12,12,0,0,1-17,0L128,97,56.49,168.49a12,12,0,0,1-17-17l80-80a12,12,0,0,1,17,0l80,80A12,12,0,0,1,216.49,168.49Z"
-                ></path>
-            </svg>
-            <svg
-                v-else
-                xmlns="http://www.w3.org/2000/svg"
-                class="tw-h-4 tw-w-4 tw-fill-current"
-                viewBox="0 0 256 256"
-            >
-                <path
-                    d="M216.49,104.49l-80,80a12,12,0,0,1-17,0l-80-80a12,12,0,0,1,17-17L128,159l71.51-71.52a12,12,0,0,1,17,17Z"
-                ></path>
-            </svg>
+            <slot v-if="isOpen" name="opened-icon"></slot>
+            <slot v-else name="closed-icon"></slot>
         </button>
         <div v-if="isOpen" class="tw-px-4 tw-pb-6">
             <slot name="filter-body"></slot>
