@@ -10,7 +10,7 @@
                         {{-- Desktop filter --}}
                         <filter-new-popover.group-controller>
                             <div
-                                class="tw-z-50 tw-hidden tw-gap-x-3 tw-overflow-x-auto md:tw-flex md:tw-flex-wrap md:tw-overflow-visible">
+                                class="tw-hidden tw-gap-x-3 tw-overflow-x-auto md:tw-flex md:tw-flex-wrap md:tw-overflow-visible">
                                 <filter-new-popover name="author">
                                     <template #popover-label>
                                         <filter-new-custom-select-popover-label name="author"
