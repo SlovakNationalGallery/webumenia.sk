@@ -1,5 +1,5 @@
 <template>
-    <div class="tw-min-w-max">
+    <div class="tw-flex">
         <button
             @click="toggleIsExtendedOpen"
             class="tw-border tw-w-full tw-justify-center hover:tw-border-gray-800 tw-border-gray-300 tw-text-lg tw-font-bold tw-py-2.5 tw-px-4 tw-flex tw-items-center"
