@@ -35,6 +35,8 @@
         "vue-loader": "^16.8.3"
     },
     "dependencies": {
+        "@lottiefiles/lottie-player": "^1.7.1",
+        "@popperjs/core": "^2.11.7",
         "@tailwindcss/line-clamp": "^0.4.2",
         "axios": "^1.2.6",
         "bootstrap": "^3.4.1",
@@ -61,6 +63,6 @@
         "vue-dragscroll": "^3.0.1",
         "vue-masonry": "^0.12.0",
         "vue-select": "^3.11.2",
-        "vue-slider-component": "^3.2.11"
+        "vue-slider-component": "^4.1.0-beta.7"
     }
 }

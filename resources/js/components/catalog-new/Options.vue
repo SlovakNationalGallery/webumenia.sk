@@ -20,20 +20,20 @@
             </div>
         </div>
         <div
-            class="tw-bg-white tw-flex-1 tw-flex tw-flex-col md:tw-max-h-80 md:tw-min-h-80 md:tw-px-0 md:tw-pr-3 tw-scrollbar tw-scrollbar-w-1 tw-scrollbar-track-rounded tw-scrollbar-thumb-rounded tw-scrollbar-thumb-gray-600 tw-scrollbar-track-gray-200 tw-overflow-auto"
+            class="tw-bg-white tw-h-[calc(100vh-15rem)] tw-flex tw-flex-col md:tw-max-h-80 md:tw-min-h-80 md:tw-px-0 md:tw-pr-3 tw-scrollbar tw-scrollbar-w-1 tw-scrollbar-track-rounded tw-scrollbar-thumb-rounded tw-scrollbar-thumb-gray-600 tw-scrollbar-track-gray-200 tw-overflow-auto"
         >
             <label
                 v-for="option in filteredOptions"
                 :for="option.id"
                 :class="[
-                    'tw-flex tw-items-center md:tw-px-2 tw-px-4 tw-my-0',
+                    'tw-flex md:tw-px-2 tw-px-4 tw-my-2',
                     {
                         'tw-bg-gray-200': option.checked,
                     },
                 ]"
             >
                 <input
-                    class="focus:tw-ring-0 focus:tw-ring-offset-0 focus:tw-outline-none tw-form-checkbox tw-border-gray-300 tw-mr-3 tw-my-2 tw-h-6 tw-w-6"
+                    class="focus:tw-ring-0 focus:tw-ring-offset-0 focus:tw-outline-none tw-form-checkbox tw-border-gray-300 tw-m-0 tw-mr-3 tw-h-6 tw-w-6"
                     type="checkbox"
                     :key="option.id"
                     :id="option.id"
