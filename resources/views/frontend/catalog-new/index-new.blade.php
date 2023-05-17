@@ -761,42 +761,42 @@
                                                                 v-on-clickaway="pc.closeOpenedPopover"
                                                                 class="tw-w-80 tw-border-2 tw-border-gray-800 tw-bg-white tw-p-4">
                                                                 <ul>
-                                                                    <li class="tw-pl-2 hover:tw-bg-gray-200"
+                                                                    <li class="tw-pl-2 tw-py-0.5 hover:tw-bg-gray-200"
                                                                         @click="handleSortChange('created_at');pc.closeOpenedPopover()"
                                                                         v-if="query.sort !== 'created_at'">
                                                                         created_at
                                                                     </li>
-                                                                    <li class="tw-pl-2 hover:tw-bg-gray-200"
+                                                                    <li class="tw-pl-2 tw-py-0.5 hover:tw-bg-gray-200"
                                                                         @click="handleSortChange('title');pc.closeOpenedPopover()"
                                                                         v-if="query.sort !== 'title'">
                                                                         title
                                                                     </li>
-                                                                    <li class="tw-pl-2 hover:tw-bg-gray-200"
+                                                                    <li class="tw-pl-2 tw-py-0.5 hover:tw-bg-gray-200"
                                                                         @click="handleSortChange('author');pc.closeOpenedPopover()"
                                                                         v-if="query.sort !== 'author'">
                                                                         author
                                                                     </li>
-                                                                    <li class="tw-pl-2 hover:tw-bg-gray-200"
+                                                                    <li class="tw-pl-2 tw-py-0.5 hover:tw-bg-gray-200"
                                                                         @click="handleSortChange('date_earliest');pc.closeOpenedPopover()"
                                                                         v-if="query.sort !== 'date_earliest'">
                                                                         date_earliest
                                                                     </li>
-                                                                    <li class="tw-pl-2 hover:tw-bg-gray-200"
+                                                                    <li class="tw-pl-2 tw-py-0.5 hover:tw-bg-gray-200"
                                                                         @click="handleSortChange('date_latest');pc.closeOpenedPopover()"
                                                                         v-if="query.sort !== 'date_latest'">
                                                                         date_latest
                                                                     </li>
-                                                                    <li class="tw-pl-2 hover:tw-bg-gray-200"
+                                                                    <li class="tw-pl-2 tw-py-0.5 hover:tw-bg-gray-200"
                                                                         @click="handleSortChange('view_count');pc.closeOpenedPopover()"
                                                                         v-if="query.sort !== 'view_count'">
                                                                         view_count
                                                                     </li>
-                                                                    <li class="tw-pl-2 hover:tw-bg-gray-200"
+                                                                    <li class="tw-pl-2 tw-py-0.5 hover:tw-bg-gray-200"
                                                                         @click="handleSortChange('random');pc.closeOpenedPopover()"
                                                                         v-if="query.sort !== 'random'">
                                                                         random
                                                                     </li>
-                                                                    <li class="tw-pl-2 hover:tw-bg-gray-200"
+                                                                    <li class="tw-pl-2 tw-py-0.5 hover:tw-bg-gray-200"
                                                                         @click="handleSortChange(null);pc.closeOpenedPopover()"
                                                                         v-if="!query.sort">
                                                                         last_change

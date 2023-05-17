@@ -19,7 +19,7 @@
                 v-for="option in sc.options"
                 :for="option.id"
                 :class="[
-                    'tw-flex md:tw-px-2 tw-px-4 tw-my-2',
+                    'tw-flex md:tw-px-2 tw-px-4 tw-my-0.5 tw-py-1 hover:tw-bg-gray-200',
                     {
                         'tw-bg-gray-200': option.checked,
                     },
