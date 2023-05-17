@@ -277,7 +277,7 @@
                                         </filter-new-custom-select-popover-label>
                                     </x-filter.disclosure_button>
                                 </div>
-                                <div class="tw-pr-4">
+                                <div class="tw-flex tw-gap-1">
                                     <button @click="dc.goTo('index')"
                                         class="tw-w-full tw-border tw-border-gray-300 tw-py-2 tw-px-3 tw-font-medium hover:tw-border-gray-800">
                                         <div class="tw-flex tw-justify-center">
@@ -301,7 +301,7 @@
                                             @endslot
                                             @slot('reset_button')
                                                 <x-filter.reset_button
-                                                    class="tw-mr-3 tw-flex tw-min-w-max tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
+                                                    class="tw-mr-3 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
                                                     v-if="selectedOptionsAsLabels.length"
                                                     @click="clearAllSelections">
                                                     zrušiť celý výber
@@ -435,7 +435,7 @@
                                             @endslot
                                             @slot('reset_button')
                                                 <x-filter.reset_button
-                                                    class="tw-mr-3 tw-flex tw-min-w-max tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
+                                                    class="tw-mr-3 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
                                                     v-if="query.author.length"
                                                     @click="clearFilterSelection('author')">
                                                     zrušiť výber
@@ -465,7 +465,7 @@
                                             @endslot
                                             @slot('reset_button')
                                                 <x-filter.reset_button
-                                                    class="tw-mr-3 tw-flex tw-min-w-max tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
+                                                    class="tw-mr-3 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
                                                     v-if="query.work_type.length"
                                                     @click="clearFilterSelection('work_type')">
                                                     zrušiť výber
@@ -495,7 +495,7 @@
                                             @endslot
                                             @slot('reset_button')
                                                 <x-filter.reset_button
-                                                    class="tw-mr-3 tw-flex tw-min-w-max tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
+                                                    class="tw-mr-3 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
                                                     v-if="query.object_type.length"
                                                     @click="clearFilterSelection('object_type')">
                                                     zrušiť výber
@@ -525,7 +525,7 @@
                                             @endslot
                                             @slot('reset_button')
                                                 <x-filter.reset_button
-                                                    class="tw-mr-3 tw-flex tw-min-w-max tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
+                                                    class="tw-mr-3 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
                                                     v-if="query.tag.length"
                                                     @click="clearFilterSelection('tag')">
                                                     zrušiť výber
@@ -555,7 +555,7 @@
                                             @endslot
                                             @slot('reset_button')
                                                 <x-filter.reset_button
-                                                    class="tw-mr-3 tw-flex tw-min-w-max tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
+                                                    class="tw-mr-3 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
                                                     v-if="query.gallery.length"
                                                     @click="clearFilterSelection('gallery')">
                                                     zrušiť výber
@@ -585,7 +585,7 @@
                                             @endslot
                                             @slot('reset_button')
                                                 <x-filter.reset_button
-                                                    class="tw-mr-3 tw-flex tw-min-w-max tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
+                                                    class="tw-mr-3 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
                                                     v-if="query.technique.length"
                                                     @click="clearFilterSelection('technique')">
                                                     zrušiť výber
@@ -615,7 +615,7 @@
                                             @endslot
                                             @slot('reset_button')
                                                 <x-filter.reset_button
-                                                    class="tw-mr-3 tw-flex tw-min-w-max tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
+                                                    class="tw-mr-3 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
                                                     v-if="query.topic.length"
                                                     @click="clearFilterSelection('topic')">
                                                     zrušiť výber
@@ -645,7 +645,7 @@
                                             @endslot
                                             @slot('reset_button')
                                                 <x-filter.reset_button
-                                                    class="tw-mr-3 tw-flex tw-min-w-max tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
+                                                    class="tw-mr-3 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
                                                     v-if="query.medium.length"
                                                     @click="clearFilterSelection('medium')">
                                                     zrušiť výber
@@ -693,7 +693,7 @@
                     <div class="tw-hidden tw-h-8 tw-bg-gray-200 tw-px-16 tw-pb-16 md:tw-block">
                         <div class="tw-flex tw-space-x-3 tw-overflow-x-auto">
                             <button
-                                class="tw-flex tw-min-w-max tw-items-center tw-bg-gray-300 tw-py-1 tw-px-1.5"
+                                class="tw-flex tw-whitespace-nowrap tw-items-center tw-bg-gray-300 tw-py-1 tw-px-1.5"
                                 v-for="option in selectedOptionsAsLabels"
                                 @click="removeSelection(option)">
                                 <span v-if="option.filterName === 'color'"
@@ -717,7 +717,7 @@
                                 </svg>
                             </button>
                             <x-filter.reset_button v-if="selectedOptionsAsLabels.length"
-                                class="tw-flex tw-min-w-max tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1.5 tw-text-sm tw-font-normal tw-leading-none hover:tw-border-gray-800"
+                                class="tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1.5 tw-text-sm tw-font-normal tw-leading-none hover:tw-border-gray-800"
                                 @click="clearAllSelections">
                                 resetovať
                             </x-filter.reset_button>
