@@ -743,7 +743,7 @@
                                                                 <div v-if="sc.isOpen"
                                                                     class="tw-w-80 tw-border-2 tw-border-gray-800 tw-bg-white tw-p-4">
                                                                     <ul>
-                                                                        <li class="tw-pl-2 hover:tw-bg-gray-200"
+                                                                        <li class="tw-pl-2 hover:tw-bg-gray-200 tw-py-0.5"
                                                                             v-for="option in sc.selectableOptions">
                                                                             <a class="tw-block tw-w-full"
                                                                                 @click="sc.onSortChange(option.value)">@{{ option.text }}</a>
