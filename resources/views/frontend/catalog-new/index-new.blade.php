@@ -6,7 +6,7 @@
             v-slot="{ isExtendedOpen, loadMore, isFetchingArtworks, toggleIsExtendedOpen, handleSelectRandomly, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, page,  aggregations, artworks, last_page, artworks_total }">
             <div class="tw-relative">
                 <div class="tw-relative tw-min-h-[calc(100vh-14rem)]">
-                    <div class="tw-bg-gray-200 tw-py-6 tw-px-4 md:tw-p-16 md:tw-pb-0">
+                    <div class="tw-bg-gray-200 tw-py-6 tw-px-4 md:tw-p-16 md:tw-pt-12 md:tw-pb-0">
                         {{-- Desktop filter --}}
                         <filter-new-popover.group-controller>
                             <div
@@ -675,7 +675,7 @@
                         </filter-disclosure-controller>
                     </div>
                     <div
-                        class="tw-hidden tw-space-x-6 tw-bg-gray-200 tw-px-16 tw-pt-4 tw-pb-5 md:tw-flex">
+                        class="tw-hidden tw-space-x-6 tw-bg-gray-200 tw-px-16 tw-pt-4 tw-pb-2 md:tw-flex">
                         <filter-new-custom-checkbox @change="handleCheckboxChange" :checked="Boolean(query['has_image'])"
                             title="Len s obrázkom" name="has_image" id="has_image_desktop">
                         </filter-new-custom-checkbox>
@@ -690,7 +690,7 @@
                         </filter-new-custom-checkbox>
                     </div>
                     {{-- Selected labels --}}
-                    <div class="tw-hidden tw-bg-gray-200 tw-px-16 tw-pb-16 md:tw-block">
+                    <div class="tw-hidden tw-bg-gray-200 tw-px-16 tw-pb-16 tw-h-8 md:tw-block">
                         <div class="tw-flex tw-space-x-3 tw-overflow-x-auto">
                             <button
                                 class="tw-flex tw-min-w-max tw-items-center tw-bg-gray-300 tw-py-1 tw-px-1.5"
