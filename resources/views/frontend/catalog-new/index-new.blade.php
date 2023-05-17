@@ -272,7 +272,7 @@
                                         </filter-new-custom-select-popover-label>
                                     </x-filter.disclosure_button>
                                 </div>
-                                <div class="tw-flex tw-gap-1">
+                                <div class="tw-flex tw-pr-4">
                                     <button @click="dc.goTo('index')"
                                         class="tw-w-full tw-border tw-border-gray-300 tw-py-2 tw-px-3 tw-font-medium hover:tw-border-gray-800">
                                         <div class="tw-flex tw-justify-center tw-gap-1">
@@ -353,9 +353,10 @@
                                                                     - @{{ query.yearRange.to }})</div>
                                                         @endslot
                                                         @slot('body')
-                                                            <filter-new-year-slider :default-from="Number(query.yearRange?.from)"
-                                                                :default-to="Number(query.yearRange?.to)" :min="{{ $yearLimits['min'] ?? 0 }}"
-                                                                :max="{{ $yearLimits['max'] ?? now()->year }}" @change="handleYearRangeChange">
+                                                            <filter-new-year-slider class="tw-px-4"
+                                                                :default-from="Number(query.yearRange?.from)" :default-to="Number(query.yearRange?.to)"
+                                                                :min="{{ $yearLimits['min'] ?? 0 }}" :max="{{ $yearLimits['max'] ?? now()->year }}"
+                                                                @change="handleYearRangeChange">
                                                             </filter-new-year-slider>
                                                             <div v-if="query.yearRange"
                                                                 class="tw-flex tw-justify-center">
@@ -378,8 +379,8 @@
                                                             </div>
                                                         @endslot
                                                         @slot('body')
-                                                            <filter-new-color-slider :default-color="query['color']"
-                                                                @change="handleColorChange">
+                                                            <filter-new-color-slider class="tw-px-4"
+                                                                :default-color="query['color']" @change="handleColorChange">
                                                             </filter-new-color-slider>
                                                             <div v-if="query.color"
                                                                 class="tw-flex tw-justify-center">
