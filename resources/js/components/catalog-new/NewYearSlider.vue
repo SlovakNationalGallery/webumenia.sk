@@ -6,7 +6,7 @@
             :max="max || 30"
             tooltip="none"
             :duration="0"
-            :dotSize="24"
+            :dotSize="44"
             :height="2"
             @update:model-value="value = { from: $event[0], to: $event[1] }"
             @drag-end="$emit('change', value)"
@@ -14,17 +14,19 @@
             class="tw-cursor-pointer"
         >
             <template #dot>
-                <svg
-                    width="24"
-                    height="25"
-                    viewBox="0 0 24 25"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <circle cx="12" cy="12.6421" r="12" class="tw-fill-sky-300" />
-                    <path opacity="0.4" d="M9 6.64209V18.6421" stroke="black" />
-                    <path opacity="0.4" d="M15 6.64209V18.6421" stroke="black" />
-                </svg>
+                <div class="tw-flex tw-h-full tw-w-full tw-justify-center tw-items-center">
+                    <svg
+                        width="24"
+                        height="25"
+                        viewBox="0 0 24 25"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <circle cx="12" cy="12.6421" r="12" class="tw-fill-sky-300" />
+                        <path opacity="0.4" d="M9 6.64209V18.6421" stroke="black" />
+                        <path opacity="0.4" d="M15 6.64209V18.6421" stroke="black" />
+                    </svg>
+                </div>
             </template>
             <template #process="{ style }">
                 <div class="vue-slider-process tw-bg-sky-300" :style="style"></div>
