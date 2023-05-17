@@ -6,7 +6,7 @@
             v-slot="{ isExtendedOpen, loadMore, isFetchingArtworks, toggleIsExtendedOpen, handleSelectRandomly, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, page,  aggregations, artworks, last_page, artworks_total }">
             <div class="tw-relative">
                 <div class="tw-relative tw-min-h-[calc(100vh-14rem)]">
-                    <div class="tw-bg-gray-200 tw-py-6 tw-px-4 md:tw-p-16 md:tw-pt-12 md:tw-pb-0">
+                    <div class="tw-bg-gray-200 tw-py-6 tw-pl-4 md:tw-p-16 md:tw-pt-12 md:tw-pb-0">
                         {{-- Desktop filter --}}
                         <filter-new-popover.group-controller>
                             <div
@@ -250,7 +250,7 @@
                         {{-- Mobile Filter --}}
                         <filter-disclosure-controller v-slot="dc">
                             <div class="tw-relative md:tw-hidden">
-                                <div class="tw-flex tw-gap-x-3 tw-overflow-x-auto tw-pb-4">
+                                <div class="tw-flex tw-gap-x-3 tw-overflow-x-auto tw-pb-4 tw-pr-4">
                                     <x-filter.disclosure_button @click="dc.goTo('author')">
                                         <filter-new-custom-select-popover-label name="author"
                                             :selected-values="query['author']">
@@ -277,7 +277,7 @@
                                         </filter-new-custom-select-popover-label>
                                     </x-filter.disclosure_button>
                                 </div>
-                                <div class="tw-min-w-max">
+                                <div class="tw-pr-4">
                                     <button @click="dc.goTo('index')"
                                         class="tw-w-full tw-border tw-border-gray-300 tw-py-2 tw-px-3 tw-font-medium hover:tw-border-gray-800">
                                         <div class="tw-flex tw-justify-center">
@@ -690,7 +690,7 @@
                         </filter-new-custom-checkbox>
                     </div>
                     {{-- Selected labels --}}
-                    <div class="tw-hidden tw-bg-gray-200 tw-px-16 tw-pb-16 tw-h-8 md:tw-block">
+                    <div class="tw-hidden tw-h-8 tw-bg-gray-200 tw-px-16 tw-pb-16 md:tw-block">
                         <div class="tw-flex tw-space-x-3 tw-overflow-x-auto">
                             <button
                                 class="tw-flex tw-min-w-max tw-items-center tw-bg-gray-300 tw-py-1 tw-px-1.5"
