@@ -15,7 +15,9 @@ class ItemsTest extends TestCase
 
     public function test_no_filters_applied()
     {
-        Item::factory()->count(3)->create();
+        Item::factory()
+            ->count(3)
+            ->create();
         app(ItemRepository::class)->refreshIndex();
 
         $url = route('api.v1.items.index');
@@ -86,10 +88,7 @@ class ItemsTest extends TestCase
 
         $response = $this->getJson($url);
 
-        $this->assertNotContains(
-            $different->id,
-            collect($response['data'])->pluck('id')
-        );
+        $this->assertNotContains($different->id, collect($response['data'])->pluck('id'));
 
         $response->assertJson([
             'total' => 2,
@@ -118,7 +117,9 @@ class ItemsTest extends TestCase
 
     public function test_random_sort()
     {
-        Item::factory()->count(5)->create(['has_image' => true]); // Images are required for random sort
+        Item::factory()
+            ->count(5)
+            ->create(['has_image' => true]); // Images are required for random sort
         app(ItemRepository::class)->refreshIndex();
 
         $url = route('api.v1.items.index', [
@@ -131,7 +132,24 @@ class ItemsTest extends TestCase
 
         $this->assertNotSame(
             collect($response1['data'])->pluck('id'),
-            collect($response2['data'])->pluck('id'),
+            collect($response2['data'])->pluck('id')
+        );
+    }
+
+    public function test_formatted_authors()
+    {
+        Item::factory()->create(['author' => 'Věšín, Jaroslav']);
+        app(ItemRepository::class)->refreshIndex();
+
+        $url = route('api.v1.items.index', [
+            'size' => 1,
+        ]);
+
+        $response = $this->getJson($url);
+
+        $this->assertEquals(
+            'Jaroslav Věšín',
+            $response['data'][0]['content']['authors_formatted'][0]
         );
     }
 }

@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- authors_formatted field to /api/v1/items
 
 ## [2.75.0] - 2023-05-11
 ### Changed
