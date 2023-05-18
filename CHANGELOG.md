@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - authors_formatted field to /api/v1/items
 
+### Changed
+- Google Maps API key to be included from env variable
+
 ## [2.75.0] - 2023-05-11
 ### Changed
 - Vue version to v3 migration build
