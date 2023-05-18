@@ -525,7 +525,7 @@
 </script>
 
 @if (!empty($item->lat) && ($item->lat > 0))
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVG26BxGY9yhjCFbviWRgZsvxSlikOnIM&callback=initMap" async
+<script src="https://maps.googleapis.com/maps/api/js?callback=initMap&key={{ config('services.google_maps.key') }}" async
         defer></script>
 {{ Html::script('js/gmaps.js') }}
 @endif
