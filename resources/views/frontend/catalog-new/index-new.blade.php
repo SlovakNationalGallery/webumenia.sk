@@ -777,7 +777,10 @@
                                                             :src="$route('dielo.nahlad', {id: artwork.id, width: 220})" :srcset="`${$route('dielo.nahlad', {id: artwork.id, width: 600})} 600w, ${$route('dielo.nahlad', {id: artwork.id, width: 220})} 220w, ${$route('dielo.nahlad', {id: artwork.id, width: 300})} 300w, ${$route('dielo.nahlad', {id: artwork.id, width: 600})} 600w, ${$route('dielo.nahlad', {id: artwork.id, width: 800})} 800w`"
                                                             sizes="(max-width: 768px) 250vw, 100vw">
                                                     </a>
-                                                    <div :class="[{'tw-hidden': ic.isLoaded }, 'tw-w-full tw-saturate-50 tw-bg-gray-300']" :style="{'aspect-ratio': artwork.content.image_ratio || 1, 'background-color': artwork.content.hsl[0] ? `hsl(${artwork.content.hsl[0].h}, ${artwork.content.hsl[0].s}%, ${artwork.content.hsl[0].l}%)` : undefined}">
+                                                    <div :class="[{'tw-hidden': ic.isLoaded }, 'tw-w-full tw-saturate-50 tw-bg-gray-300 tw-flex tw-items-center tw-justify-center']" :style="{'aspect-ratio': artwork.content.image_ratio || 1, 'background-color': artwork.content.hsl[0] ? `hsl(${artwork.content.hsl[0].h}, ${artwork.content.hsl[0].s}%, ${artwork.content.hsl[0].l}%)` : undefined}">
+                                                        <x-icons.arrows-clockwise
+                                                            class="tw-h-4 tw-w-4 tw-animate-spin tw-fill-white tw-mix-blend-difference">
+                                                        </x-icons.arrows-clockwise>
                                                     </div>
                                                 </div>
                                             </catalog.artwork-image-controller>
