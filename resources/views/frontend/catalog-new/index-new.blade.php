@@ -3,349 +3,393 @@
 @section('content')
     <section class="tailwind-rules">
         <filter-new-items-controller locale="{{ app()->getLocale() }}"
-            v-slot="{ isExtendedOpen, loadMore, isFetchingArtworks, toggleIsExtendedOpen, handleSelectRandomly, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, page,  aggregations, artworks, last_page, artworks_total }">
+            v-slot="{ loadMore, isFetchingArtworks, handleSelectRandomly, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, page,  aggregations, artworks, last_page, artworks_total }">
             <div class="tw-relative">
                 <div class="tw-relative tw-min-h-[calc(100vh-14rem)]">
                     <div class="tw-bg-gray-200 tw-py-6 tw-pl-4 md:tw-p-16 md:tw-pt-12 md:tw-pb-0">
                         {{-- Desktop filter --}}
                         <filter-new-popover.group-controller>
-                            <div
-                                class="tw-hidden tw-gap-x-3 tw-overflow-x-auto md:tw-flex md:tw-flex-wrap md:tw-overflow-visible">
-                                <filter-new-popover name="author">
-                                    <template #popover-label>
-                                        <filter-new-custom-select-popover-label name="author"
-                                            :selected-values="query['author']">
-                                        </filter-new-custom-select-popover-label>
-                                    </template>
-                                    <template #body>
-                                        <div
-                                            class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                            <filter-new-options filter-name="author"
-                                                placeholder="Napíšte meno autora / autorky"
-                                                @change="handleMultiSelectChange"
-                                                :selected-values="query['author']"
-                                                :filter="aggregations['author']">
-                                                <template #search-icon
-                                                    class="tw-h-4 tw-w-4 tw-fill-current">
-                                                </template>
-                                            </filter-new-options>
-                                            <x-filter.reset_button
-                                                class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
-                                                @click="clearFilterSelection('author')">
-                                                zrušiť výber
-                                            </x-filter.reset_button>
-                                        </div>
-                                    </template>
-                                    <template #opened-icon>
-                                        <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
-                                        </x-icons.caret-up>
-                                    </template>
-                                    <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
-                                        <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
-                                        </x-icons.caret-down>
-                                    </template>
-                                </filter-new-popover>
-                                <filter-new-popover name="work_type">
-                                    <template #popover-label>
-                                        <filter-new-custom-select-popover-label name="work_type"
-                                            :selected-values="query['work_type']">
-                                        </filter-new-custom-select-popover-label>
-                                    </template>
-                                    <template #body>
-                                        <div
-                                            class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                            <filter-new-options filter-name="work_type"
-                                                placeholder="Napíšte meno autora / autorky"
-                                                @change="handleMultiSelectChange" :selected-values="query['work_type']"
-                                                :filter="aggregations['work_type']">
-                                                <template #search-icon
-                                                    class="tw-h-4 tw-w-4 tw-fill-current">
-                                                </template>
-                                            </filter-new-options>
-                                            <x-filter.reset_button
-                                                class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
-                                                @click="clearFilterSelection('work_type')">
-                                                zrušiť výber
-                                            </x-filter.reset_button>
-                                        </div>
-                                    </template>
-                                    <template #opened-icon>
-                                        <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
-                                        </x-icons.caret-up>
-                                    </template>
-                                    <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
-                                        <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
-                                        </x-icons.caret-down>
-                                    </template>
-                                </filter-new-popover>
-                                <filter-new-popover name="object_type">
-                                    <template #popover-label>
-                                        <filter-new-custom-select-popover-label name="object_type"
-                                            :selected-values="query['object_type']">
-                                        </filter-new-custom-select-popover-label>
-                                    </template>
-                                    <template #body>
-                                        <div
-                                            class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                            <filter-new-options filter-name="object_type"
-                                                placeholder="Napíšte meno autora / autorky"
-                                                @change="handleMultiSelectChange" :selected-values="query['object_type']"
-                                                :filter="aggregations['object_type']">
-                                                <template #search-icon
-                                                    class="tw-h-4 tw-w-4 tw-fill-current">
-                                                </template>
-                                            </filter-new-options>
-                                            <x-filter.reset_button
-                                                class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
-                                                @click="clearFilterSelection('object_type')">
-                                                zrušiť výber
-                                            </x-filter.reset_button>
-                                        </div>
-                                    </template>
-                                    <template #opened-icon>
-                                        <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
-                                        </x-icons.caret-up>
-                                    </template>
-                                    <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
-                                        <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
-                                        </x-icons.caret-down>
-                                    </template>
-                                </filter-new-popover>
-                                <filter-new-popover name="tag">
-                                    <template #popover-label>
-                                        <filter-new-custom-select-popover-label name="tag"
-                                            :selected-values="query['tag']">
-                                        </filter-new-custom-select-popover-label>
-                                    </template>
-                                    <template #body>
-                                        <div
-                                            class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                            <filter-new-options filter-name="tag"
-                                                placeholder="Napíšte meno autora / autorky"
-                                                @change="handleMultiSelectChange" :selected-values="query['tag']"
-                                                :filter="aggregations['tag']">
-                                                <template #search-icon
-                                                    class="tw-h-4 tw-w-4 tw-fill-current">
-                                                </template>
-                                            </filter-new-options>
-                                            <x-filter.reset_button
-                                                class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
-                                                @click="clearFilterSelection('tag')">
-                                                zrušiť výber
-                                            </x-filter.reset_button>
-                                        </div>
-                                    </template>
-                                    <template #opened-icon>
-                                        <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
-                                        </x-icons.caret-up>
-                                    </template>
-                                    <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
-                                        <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
-                                        </x-icons.caret-down>
-                                    </template>
-                                </filter-new-popover>
-                                <filter-new-popover name="gallery">
-                                    <template #popover-label>
-                                        <filter-new-custom-select-popover-label name="gallery"
-                                            :selected-values="query['gallery']">
-                                        </filter-new-custom-select-popover-label>
-                                    </template>
-                                    <template #body>
-                                        <div
-                                            class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                            <filter-new-options filter-name="gallery"
-                                                placeholder="Napíšte meno autora / autorky"
-                                                @change="handleMultiSelectChange" :selected-values="query['gallery']"
-                                                :filter="aggregations['gallery']">
-                                                <template #search-icon
-                                                    class="tw-h-4 tw-w-4 tw-fill-current">
-                                                </template>
-                                            </filter-new-options>
-                                            <x-filter.reset_button
-                                                class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
-                                                @click="clearFilterSelection('gallery')">
-                                                zrušiť výber
-                                            </x-filter.reset_button>
-                                        </div>
-                                    </template>
-                                    <template #opened-icon>
-                                        <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
-                                        </x-icons.caret-up>
-                                    </template>
-                                    <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
-                                        <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
-                                        </x-icons.caret-down>
-                                    </template>
-                                </filter-new-popover>
-                                <filter-new-popover v-if="isExtendedOpen" name="technique">
-                                    <template #popover-label>
-                                        <filter-new-custom-select-popover-label name="technique"
-                                            :selected-values="query['technique']">
-                                        </filter-new-custom-select-popover-label>
-                                    </template>
-                                    <template #body>
-                                        <div
-                                            class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                            <filter-new-options filter-name="technique"
-                                                placeholder="Napíšte meno autora / autorky"
-                                                @change="handleMultiSelectChange" :selected-values="query['technique']"
-                                                :filter="aggregations['technique']">
-                                                <template #search-icon
-                                                    class="tw-h-4 tw-w-4 tw-fill-current">
-                                                </template>
-                                            </filter-new-options>
-                                            <x-filter.reset_button
-                                                class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
-                                                @click="clearFilterSelection('technique')">
-                                                zrušiť výber
-                                            </x-filter.reset_button>
-                                        </div>
-                                    </template>
-                                    <template #opened-icon>
-                                        <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
-                                        </x-icons.caret-up>
-                                    </template>
-                                    <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
-                                        <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
-                                        </x-icons.caret-down>
-                                    </template>
-                                </filter-new-popover>
-                                <filter-new-popover v-if="isExtendedOpen" name="topic">
-                                    <template #popover-label>
-                                        <filter-new-custom-select-popover-label name="topic"
-                                            :selected-values="query['topic']">
-                                        </filter-new-custom-select-popover-label>
-                                    </template>
-                                    <template #body>
-                                        <div
-                                            class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                            <filter-new-options filter-name="topic"
-                                                placeholder="Napíšte meno autora / autorky"
-                                                @change="handleMultiSelectChange" :selected-values="query['topic']"
-                                                :filter="aggregations['topic']">
-                                                <template #search-icon
-                                                    class="tw-h-4 tw-w-4 tw-fill-current">
-                                                </template>
-                                            </filter-new-options>
-                                            <x-filter.reset_button
-                                                class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
-                                                @click="clearFilterSelection('topic')">
-                                                zrušiť výber
-                                            </x-filter.reset_button>
-                                        </div>
-                                    </template>
-                                    <template #opened-icon>
-                                        <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
-                                        </x-icons.caret-up>
-                                    </template>
-                                    <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
-                                        <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
-                                        </x-icons.caret-down>
-                                    </template>
-                                </filter-new-popover>
-                                <filter-new-popover v-if="isExtendedOpen" name="medium">
-                                    <template #popover-label>
-                                        <filter-new-custom-select-popover-label name="medium"
-                                            :selected-values="query['medium']">
-                                        </filter-new-custom-select-popover-label>
-                                    </template>
-                                    <template #body>
-                                        <div
-                                            class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                            <filter-new-options filter-name="medium"
-                                                placeholder="Napíšte meno autora / autorky"
-                                                @change="handleMultiSelectChange" :selected-values="query['medium']"
-                                                :filter="aggregations['medium']">
-                                                <template #search-icon
-                                                    class="tw-h-4 tw-w-4 tw-fill-current">
-                                                </template>
-                                            </filter-new-options>
-                                            <x-filter.reset_button
-                                                class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
-                                                @click="clearFilterSelection('medium')">
-                                                zrušiť výber
-                                            </x-filter.reset_button>
-                                        </div>
-                                    </template>
-                                    <template #opened-icon>
-                                        <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
-                                        </x-icons.caret-up>
-                                    </template>
-                                    <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
-                                        <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
-                                        </x-icons.caret-down>
-                                    </template>
-                                </filter-new-popover>
-                                <filter-new-popover v-if="isExtendedOpen" name="color">
-                                    <template #popover-label>
-                                        <div class="tw-flex tw-items-center tw-gap-2 tw-font-semibold">
-                                            color<div v-if="query['color']"
-                                                class="tw-inline-block tw-h-4 tw-w-4"
-                                                :style="{'background': `#${query['color']}`}">
-                                            </div>
-                                        </div>
-                                    </template>
-                                    <template #body>
-                                        <div class="tw-mt-4 tw-w-screen tw-px-16">
+                            <filter-new-popover name="author">
+                                <template #popover-label>
+                                    <filter-new-custom-select-popover-label name="author"
+                                        :selected-values="query['author']">
+                                    </filter-new-custom-select-popover-label>
+                                </template>
+                                <template #body>
+                                    <div
+                                        class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
+                                        <x-filter.options filter-name="author"
+                                            placeholder="Napíšte meno autora / autorky"
+                                            @change="handleMultiSelectChange" v-bind:selected-values="query['author']"
+                                            v-bind:filter="aggregations['author']">
+                                        </x-filter.options>
+                                        <x-filter.reset_button
+                                            class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
+                                            @click="clearFilterSelection('author')">
+                                            zrušiť výber
+                                        </x-filter.reset_button>
+                                    </div>
+                                </template>
+                                <template #opened-icon>
+                                    <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
+                                    </x-icons.caret-up>
+                                </template>
+                                <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
+                                    <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
+                                    </x-icons.caret-down>
+                                </template>
+                            </filter-new-popover>
+
+                            <filter-new-popover name="topic">
+                                <template #popover-label>
+                                    <filter-new-custom-select-popover-label name="topic"
+                                        :selected-values="query['topic']">
+                                    </filter-new-custom-select-popover-label>
+                                </template>
+                                <template #body>
+                                    <div
+                                        class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
+                                        <x-filter.options filter-name="topic"
+                                            placeholder="Napíšte meno autora / autorky"
+                                            @change="handleMultiSelectChange" v-bind:selected-values="query['topic']"
+                                            v-bind:filter="aggregations['topic']">
+                                        </x-filter.options>
+                                        <x-filter.reset_button
+                                            class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
+                                            @click="clearFilterSelection('topic')">
+                                            zrušiť výber
+                                        </x-filter.reset_button>
+                                    </div>
+                                </template>
+                                <template #opened-icon>
+                                    <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
+                                    </x-icons.caret-up>
+                                </template>
+                                <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
+                                    <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
+                                    </x-icons.caret-down>
+                                </template>
+                            </filter-new-popover>
+
+                            {{-- <toggle-controller v-slot="tc">
+                                <div
+                                    class="tw-hidden tw-gap-x-3 tw-overflow-x-auto md:tw-flex md:tw-flex-wrap md:tw-overflow-visible">
+                                    <filter-new-popover name="author">
+                                        <template #popover-label>
+                                            <filter-new-custom-select-popover-label name="author"
+                                                :selected-values="query['author']">
+                                            </filter-new-custom-select-popover-label>
+                                        </template>
+                                        <template #body>
                                             <div
-                                                class="tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6 tw-pt-4">
-                                                <div v-if="query.color" class="tw-flex tw-justify-end">
-                                                    <x-filter.reset_button
-                                                        @click="handleColorChange(null)"
-                                                        class="tw-mb-2 tw-flex tw-items-center tw-border tw-border-gray-300 tw-py-1 tw-px-1.5 tw-text-sm">
-                                                        resetovať
-                                                    </x-filter.reset_button>
-                                                </div>
-                                                <filter-new-color-slider :default-color="query['color']"
-                                                    @change="handleColorChange">
-                                                </filter-new-color-slider>
+                                                class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
+                                                <x-filter.options filter-name="author"
+                                                    placeholder="Napíšte meno autora / autorky"
+                                                    @change="handleMultiSelectChange" v-bind:selected-values="query['author']"
+                                                    v-bind:filter="aggregations['author']">
+                                                </x-filter.options>
+                                                <x-filter.reset_button
+                                                    class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
+                                                    @click="clearFilterSelection('author')">
+                                                    zrušiť výber
+                                                </x-filter.reset_button>
                                             </div>
-                                        </div>
-                                    </template>
-                                </filter-new-popover>
-                                <filter-new-popover name="yearRange" v-if="isExtendedOpen">
-                                    <template #popover-label>
-                                        <div class="tw-font-sm tw-font-semibold">rok<span
-                                                class="tw-ml-2"
-                                                v-if="query.yearRange">(@{{ query.yearRange.from }}
-                                                - @{{ query.yearRange.to }})</div>
-                                    </template>
-                                    <template #body>
-                                        <div class="tw-mt-4">
+                                        </template>
+                                        <template #opened-icon>
+                                            <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
+                                            </x-icons.caret-up>
+                                        </template>
+                                        <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
+                                            <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
+                                            </x-icons.caret-down>
+                                        </template>
+                                    </filter-new-popover>
+                                    <filter-new-popover name="work_type">
+                                        <template #popover-label>
+                                            <filter-new-custom-select-popover-label name="work_type"
+                                                :selected-values="query['work_type']">
+                                            </filter-new-custom-select-popover-label>
+                                        </template>
+                                        <template #body>
                                             <div
-                                                class="tw-w-[28rem] tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6 tw-pt-4">
-                                                <div v-if="query.yearRange"
-                                                    class="tw-flex tw-justify-end">
-                                                    <x-filter.reset_button
-                                                        @click="handleYearRangeChange(null)"
-                                                        class="tw-mb-3 tw-flex tw-items-center tw-border tw-border-gray-300 tw-py-1 tw-px-1.5 tw-text-sm">
-                                                        resetovať
-                                                    </x-filter.reset_button>
-                                                </div>
-                                                <filter-new-year-slider :default-from="Number(query.yearRange?.from)"
-                                                    :default-to="Number(query.yearRange?.to)" :min="{{ $yearLimits['min'] ?? 0 }}"
-                                                    :max="{{ $yearLimits['max'] ?? now()->year }}" @change="handleYearRangeChange">
-                                                </filter-new-year-slider>
+                                                class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
+                                                <x-filter.options filter-name="work_type"
+                                                    placeholder="Napíšte meno autora / autorky"
+                                                    @change="handleMultiSelectChange" :selected-values="query['work_type']"
+                                                    :filter="aggregations['work_type']">
+                                                </x-filter.options>
+                                                <x-filter.reset_button
+                                                    class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
+                                                    @click="clearFilterSelection('work_type')">
+                                                    zrušiť výber
+                                                </x-filter.reset_button>
                                             </div>
-                                        </div>
-                                    </template>
-                                </filter-new-popover>
-                                <filter-show-more class="tw-hidden md:tw-block" :is-extended-open="isExtendedOpen"
-                                    :toggle-is-extended-open="toggleIsExtendedOpen">
-                                    <template #more-icon>
-                                        <x-icons.minus class="tw-h-6 tw-w-6 tw-fill-current">
-                                        </x-icons.minus>
-                                    </template>
-                                    <template #less-icon>
-                                        <x-icons.sliders-horizontal
-                                            class="tw-h-6 tw-w-6 tw-fill-current">
-                                        </x-icons.sliders-horizontal>
-                                    </template>
-                                </filter-show-more>
-                            </div>
+                                        </template>
+                                        <template #opened-icon>
+                                            <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
+                                            </x-icons.caret-up>
+                                        </template>
+                                        <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
+                                            <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
+                                            </x-icons.caret-down>
+                                        </template>
+                                    </filter-new-popover>
+                                    <filter-new-popover name="object_type">
+                                        <template #popover-label>
+                                            <filter-new-custom-select-popover-label name="object_type"
+                                                :selected-values="query['object_type']">
+                                            </filter-new-custom-select-popover-label>
+                                        </template>
+                                        <template #body>
+                                            <div
+                                                class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
+                                                <x-filter.options filter-name="object_type"
+                                                    placeholder="Napíšte meno autora / autorky"
+                                                    @change="handleMultiSelectChange" :selected-values="query['object_type']"
+                                                    :filter="aggregations['object_type']">
+                                                </x-filter.options>
+                                                <x-filter.reset_button
+                                                    class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
+                                                    @click="clearFilterSelection('object_type')">
+                                                    zrušiť výber
+                                                </x-filter.reset_button>
+                                            </div>
+                                        </template>
+                                        <template #opened-icon>
+                                            <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
+                                            </x-icons.caret-up>
+                                        </template>
+                                        <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
+                                            <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
+                                            </x-icons.caret-down>
+                                        </template>
+                                    </filter-new-popover>
+                                    <filter-new-popover name="tag">
+                                        <template #popover-label>
+                                            <filter-new-custom-select-popover-label name="tag"
+                                                :selected-values="query['tag']">
+                                            </filter-new-custom-select-popover-label>
+                                        </template>
+                                        <template #body>
+                                            <div
+                                                class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
+                                                <x-filter.options filter-name="tag"
+                                                    placeholder="Napíšte meno autora / autorky"
+                                                    @change="handleMultiSelectChange" :selected-values="query['tag']"
+                                                    :filter="aggregations['tag']">
+                                                </x-filter.options>
+                                                <x-filter.reset_button
+                                                    class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
+                                                    @click="clearFilterSelection('tag')">
+                                                    zrušiť výber
+                                                </x-filter.reset_button>
+                                            </div>
+                                        </template>
+                                        <template #opened-icon>
+                                            <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
+                                            </x-icons.caret-up>
+                                        </template>
+                                        <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
+                                            <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
+                                            </x-icons.caret-down>
+                                        </template>
+                                    </filter-new-popover>
+                                    <filter-new-popover name="gallery">
+                                        <template #popover-label>
+                                            <filter-new-custom-select-popover-label name="gallery"
+                                                :selected-values="query['gallery']">
+                                            </filter-new-custom-select-popover-label>
+                                        </template>
+                                        <template #body>
+                                            <div
+                                                class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
+                                                <x-filter.options filter-name="gallery"
+                                                    placeholder="Napíšte meno autora / autorky"
+                                                    @change="handleMultiSelectChange" :selected-values="query['gallery']"
+                                                    :filter="aggregations['gallery']">
+                                                </x-filter.options>
+                                                <x-filter.reset_button
+                                                    class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
+                                                    @click="clearFilterSelection('gallery')">
+                                                    zrušiť výber
+                                                </x-filter.reset_button>
+                                            </div>
+                                        </template>
+                                        <template #opened-icon>
+                                            <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
+                                            </x-icons.caret-up>
+                                        </template>
+                                        <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
+                                            <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
+                                            </x-icons.caret-down>
+                                        </template>
+                                    </filter-new-popover>
+                                    <filter-new-popover v-if="tc.isOpen" name="technique">
+                                        <template #popover-label>
+                                            <filter-new-custom-select-popover-label name="technique"
+                                                :selected-values="query['technique']">
+                                            </filter-new-custom-select-popover-label>
+                                        </template>
+                                        <template #body>
+                                            <div
+                                                class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
+                                                <x-filter.options filter-name="technique"
+                                                    placeholder="Napíšte meno autora / autorky"
+                                                    @change="handleMultiSelectChange" v-bind:selected-values="query['technique']"
+                                                    v-bind:filter="aggregations['technique']">
+                                                </x-filter.options>
+                                                <x-filter.reset_button
+                                                    class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
+                                                    @click="clearFilterSelection('technique')">
+                                                    zrušiť výber
+                                                </x-filter.reset_button>
+                                            </div>
+                                        </template>
+                                        <template #opened-icon>
+                                            <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
+                                            </x-icons.caret-up>
+                                        </template>
+                                        <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
+                                            <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
+                                            </x-icons.caret-down>
+                                        </template>
+                                    </filter-new-popover>
+                                    <filter-new-popover v-if="tc.isOpen" name="topic">
+                                        <template #popover-label>
+                                            <filter-new-custom-select-popover-label name="topic"
+                                                :selected-values="query['topic']">
+                                            </filter-new-custom-select-popover-label>
+                                        </template>
+                                        <template #body>
+                                            <div
+                                                class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
+                                                <x-filter.options filter-name="topic"
+                                                    placeholder="Napíšte meno autora / autorky"
+                                                    @change="handleMultiSelectChange" :selected-values="query['topic']"
+                                                    :filter="aggregations['topic']">
+                                                </x-filter.options>
+                                                <x-filter.reset_button
+                                                    class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
+                                                    @click="clearFilterSelection('topic')">
+                                                    zrušiť výber
+                                                </x-filter.reset_button>
+                                            </div>
+                                        </template>
+                                        <template #opened-icon>
+                                            <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
+                                            </x-icons.caret-up>
+                                        </template>
+                                        <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
+                                            <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
+                                            </x-icons.caret-down>
+                                        </template>
+                                    </filter-new-popover>
+                                    <filter-new-popover v-if="tc.isOpen" name="medium">
+                                        <template #popover-label>
+                                            <filter-new-custom-select-popover-label name="medium"
+                                                :selected-values="query['medium']">
+                                            </filter-new-custom-select-popover-label>
+                                        </template>
+                                        <template #body>
+                                            <div
+                                                class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
+                                                <x-filter.options filter-name="medium"
+                                                    placeholder="Napíšte meno autora / autorky"
+                                                    @change="handleMultiSelectChange" :selected-values="query['medium']"
+                                                    :filter="aggregations['medium']">
+                                                </x-filter.options>
+                                                <x-filter.reset_button
+                                                    class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
+                                                    @click="clearFilterSelection('medium')">
+                                                    zrušiť výber
+                                                </x-filter.reset_button>
+                                            </div>
+                                        </template>
+                                        <template #opened-icon>
+                                            <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
+                                            </x-icons.caret-up>
+                                        </template>
+                                        <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
+                                            <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
+                                            </x-icons.caret-down>
+                                        </template>
+                                    </filter-new-popover>
+                                    <filter-new-popover v-if="tc.isOpen" name="color">
+                                        <template #popover-label>
+                                            <div
+                                                class="tw-flex tw-items-center tw-gap-2 tw-font-semibold">
+                                                color<div v-if="query['color']"
+                                                    class="tw-inline-block tw-h-4 tw-w-4"
+                                                    :style="{'background': `#${query['color']}`}">
+                                                </div>
+                                            </div>
+                                        </template>
+                                        <template #body>
+                                            <div class="tw-mt-4 tw-w-screen tw-px-16">
+                                                <div
+                                                    class="tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6 tw-pt-4">
+                                                    <div v-if="query.color"
+                                                        class="tw-flex tw-justify-end">
+                                                        <x-filter.reset_button
+                                                            @click="handleColorChange(null)"
+                                                            class="tw-mb-2 tw-flex tw-items-center tw-border tw-border-gray-300 tw-py-1 tw-px-1.5 tw-text-sm">
+                                                            resetovať
+                                                        </x-filter.reset_button>
+                                                    </div>
+                                                    <filter-new-color-slider :default-color="query['color']"
+                                                        @change="handleColorChange">
+                                                    </filter-new-color-slider>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </filter-new-popover>
+                                    <filter-new-popover name="yearRange" v-if="tc.isOpen">
+                                        <template #popover-label>
+                                            <div class="tw-font-sm tw-font-semibold">rok<span
+                                                    class="tw-ml-2"
+                                                    v-if="query.yearRange">(@{{ query.yearRange.from }}
+                                                    - @{{ query.yearRange.to }})</div>
+                                        </template>
+                                        <template #body>
+                                            <div class="tw-mt-4">
+                                                <div
+                                                    class="tw-w-[28rem] tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6 tw-pt-4">
+                                                    <div v-if="query.yearRange"
+                                                        class="tw-flex tw-justify-end">
+                                                        <x-filter.reset_button
+                                                            @click="handleYearRangeChange(null)"
+                                                            class="tw-mb-3 tw-flex tw-items-center tw-border tw-border-gray-300 tw-py-1 tw-px-1.5 tw-text-sm">
+                                                            resetovať
+                                                        </x-filter.reset_button>
+                                                    </div>
+                                                    <filter-new-year-slider :default-from="Number(query.yearRange?.from)"
+                                                        :default-to="Number(query.yearRange?.to)" :min="{{ $yearLimits['min'] ?? 0 }}"
+                                                        :max="{{ $yearLimits['max'] ?? now()->year }}"
+                                                        @change="handleYearRangeChange">
+                                                    </filter-new-year-slider>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </filter-new-popover>
+                                    <div class="tw-flex tw-gap-1">
+                                        <button @click="tc.toggle"
+                                            class="tw-flex tw-w-full tw-items-center tw-justify-center tw-border tw-border-gray-300 tw-py-2.5 tw-px-4 tw-text-lg tw-font-bold hover:tw-border-gray-800">
+                                            <div class="tw-flex tw-items-center tw-pr-4">
+                                                <x-icons.minus v-if="tc.isOpen"
+                                                    class="tw-h-6 tw-w-6 tw-fill-current">
+                                                </x-icons.minus>
+                                                <x-icons.sliders-horizontal
+                                                    class="tw-h-6 tw-w-6 tw-fill-current" v-else>
+                                                </x-icons.sliders-horizontal>
+                                            </div>
+                                            <span class="tw-font-semibold">@{{ tc.isOpen ? 'skryť ďalšie filtre' : 'všetky filtre' }}</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </toggle-controller> --}}
                         </filter-new-popover.group-controller>
                         {{-- Mobile Filter --}}
-                        <filter-disclosure-controller v-slot="dc">
+                        {{-- <filter-disclosure-controller v-slot="dc">
                             <div class="tw-relative md:tw-hidden">
                                 <div class="tw-flex tw-gap-x-3 tw-overflow-x-auto tw-pb-4 tw-pr-4">
                                     <x-filter.disclosure_button @click="dc.goTo('author')">
@@ -448,18 +492,17 @@
                                                             :selected-values="query['medium']">
                                                         </filter-new-custom-select-popover-label>
                                                     </x-filter.disclosure_list_button>
-                                                    <filter-disclosure-inline-list-button>
-                                                        <template #header>
+                                                    <x-filter.disclosure_inline_list_button>
+                                                        @slot('header')
                                                             <div class="tw-font-sm tw-font-semibold">
                                                                 rok<span class="tw-ml-2"
                                                                     v-if="query.yearRange">(@{{ query.yearRange.from }}
                                                                     - @{{ query.yearRange.to }})</div>
-                                                        </template>
-                                                        <template #filter-body>
+                                                        @endslot
+                                                        @slot('body')
                                                             <filter-new-year-slider :default-from="Number(query.yearRange?.from)"
                                                                 :default-to="Number(query.yearRange?.to)" :min="{{ $yearLimits['min'] ?? 0 }}"
-                                                                :max="{{ $yearLimits['max'] ?? now()->year }}"
-                                                                @change="handleYearRangeChange">
+                                                                :max="{{ $yearLimits['max'] ?? now()->year }}" @change="handleYearRangeChange">
                                                             </filter-new-year-slider>
                                                             <div v-if="query.yearRange"
                                                                 class="tw-flex tw-justify-center">
@@ -469,21 +512,10 @@
                                                                     resetovať
                                                                 </x-filter.reset_button>
                                                             </div>
-                                                        </template>
-                                                        <template #opened-icon>
-                                                            <x-icons.caret-up
-                                                                class="tw-h-4 tw-w-4 tw-fill-sky-300">
-                                                            </x-icons.caret-up>
-                                                        </template>
-                                                        <template #closed-icon
-                                                            class="tw-h-4 tw-w-4 tw-fill-current">
-                                                            <x-icons.caret-down
-                                                                class="tw-h-4 tw-w-4 tw-fill-current">
-                                                            </x-icons.caret-down>
-                                                        </template>
-                                                    </filter-disclosure-inline-list-button>
-                                                    <filter-disclosure-inline-list-button>
-                                                        <template #header>
+                                                        @endslot
+                                                    </x-filter.disclosure_inline_list_button>
+                                                    <x-filter.disclosure_inline_list_button>
+                                                        @slot('header')
                                                             <div
                                                                 class="tw-font-sm tw-flex tw-items-center tw-gap-2 tw-font-semibold">
                                                                 color<div v-if="query['color']"
@@ -491,8 +523,8 @@
                                                                     :style="{'background': `#${query['color']}`}">
                                                                 </div>
                                                             </div>
-                                                        </template>
-                                                        <template #filter-body>
+                                                        @endslot
+                                                        @slot('body')
                                                             <filter-new-color-slider :default-color="query['color']"
                                                                 @change="handleColorChange">
                                                             </filter-new-color-slider>
@@ -504,19 +536,8 @@
                                                                     resetovať
                                                                 </x-filter.reset_button>
                                                             </div>
-                                                        </template>
-                                                        <template #opened-icon>
-                                                            <x-icons.caret-up
-                                                                class="tw-fill-sky-30 tw-h-4 tw-w-4">
-                                                            </x-icons.caret-up>
-                                                        </template>
-                                                        <template #closed-icon
-                                                            class="tw-h-4 tw-w-4 tw-fill-current">
-                                                            <x-icons.caret-down
-                                                                class="tw-h-4 tw-w-4 tw-fill-current">
-                                                            </x-icons.caret-down>
-                                                        </template>
-                                                    </filter-disclosure-inline-list-button>
+                                                        @endslot
+                                                    </x-filter.disclosure_inline_list_button>
                                                     <filter-new-custom-checkbox class="tw-pt-2"
                                                         @change="handleCheckboxChange" :checked="Boolean(query['has_image'])"
                                                         title="Len s obrázkom" name="has_image"
@@ -560,14 +581,14 @@
                                             @slot('body')
                                                 <div
                                                     class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                    <filter-new-options filter-name="author"
+                                                    <x-filter.options filter-name="author"
                                                         placeholder="Napíšte meno autora / autorky"
                                                         @change="handleMultiSelectChange" :selected-values="query['author']"
                                                         :filter="aggregations['author']">
                                                         <template #search-icon
                                                             class="tw-h-4 tw-w-4 tw-fill-current">
                                                         </template>
-                                                    </filter-new-options>
+                                                    </x-filter.options>
                                                 </div>
                                             @endslot
                                         </x-filter.disclosure_view>
@@ -593,14 +614,14 @@
                                             @slot('body')
                                                 <div
                                                     class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                    <filter-new-options filter-name="work_type"
+                                                    <x-filter.options filter-name="work_type"
                                                         placeholder="Napíšte meno autora / autorky"
                                                         @change="handleMultiSelectChange" :selected-values="query['work_type']"
                                                         :filter="aggregations['work_type']">
                                                         <template #search-icon
                                                             class="tw-h-4 tw-w-4 tw-fill-current">
                                                         </template>
-                                                    </filter-new-options>
+                                                    </x-filter.options>
                                                 </div>
                                             @endslot
                                         </x-filter.disclosure_view>
@@ -626,14 +647,14 @@
                                             @slot('body')
                                                 <div
                                                     class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                    <filter-new-options filter-name="object_type"
+                                                    <x-filter.options filter-name="object_type"
                                                         placeholder="Napíšte meno autora / autorky"
                                                         @change="handleMultiSelectChange" :selected-values="query['object_type']"
                                                         :filter="aggregations['object_type']">
                                                         <template #search-icon
                                                             class="tw-h-4 tw-w-4 tw-fill-current">
                                                         </template>
-                                                    </filter-new-options>
+                                                    </x-filter.options>
                                                 </div>
                                             @endslot
                                         </x-filter.disclosure_view>
@@ -659,14 +680,14 @@
                                             @slot('body')
                                                 <div
                                                     class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                    <filter-new-options filter-name="tag"
+                                                    <x-filter.options filter-name="tag"
                                                         placeholder="Napíšte meno autora / autorky"
                                                         @change="handleMultiSelectChange" :selected-values="query['tag']"
                                                         :filter="aggregations['tag']">
                                                         <template #search-icon
                                                             class="tw-h-4 tw-w-4 tw-fill-current">
                                                         </template>
-                                                    </filter-new-options>
+                                                    </x-filter.options>
                                                 </div>
                                             @endslot
                                         </x-filter.disclosure_view>
@@ -692,14 +713,14 @@
                                             @slot('body')
                                                 <div
                                                     class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                    <filter-new-options filter-name="gallery"
+                                                    <x-filter.options filter-name="gallery"
                                                         placeholder="Napíšte meno autora / autorky"
                                                         @change="handleMultiSelectChange" :selected-values="query['gallery']"
                                                         :filter="aggregations['gallery']">
                                                         <template #search-icon
                                                             class="tw-h-4 tw-w-4 tw-fill-current">
                                                         </template>
-                                                    </filter-new-options>
+                                                    </x-filter.options>
                                                 </div>
                                             @endslot
                                         </x-filter.disclosure_view>
@@ -725,14 +746,14 @@
                                             @slot('body')
                                                 <div
                                                     class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                    <filter-new-options filter-name="technique"
+                                                    <x-filter.options filter-name="technique"
                                                         placeholder="Napíšte meno autora / autorky"
                                                         @change="handleMultiSelectChange" :selected-values="query['technique']"
                                                         :filter="aggregations['technique']">
                                                         <template #search-icon
                                                             class="tw-h-4 tw-w-4 tw-fill-current">
                                                         </template>
-                                                    </filter-new-options>
+                                                    </x-filter.options>
                                                 </div>
                                             @endslot
                                         </x-filter.disclosure_view>
@@ -758,14 +779,14 @@
                                             @slot('body')
                                                 <div
                                                     class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                    <filter-new-options filter-name="topic"
+                                                    <x-filter.options filter-name="topic"
                                                         placeholder="Napíšte meno autora / autorky"
                                                         @change="handleMultiSelectChange" :selected-values="query['topic']"
                                                         :filter="aggregations['topic']">
                                                         <template #search-icon
                                                             class="tw-h-4 tw-w-4 tw-fill-current">
                                                         </template>
-                                                    </filter-new-options>
+                                                    </x-filter.options>
                                                 </div>
                                             @endslot
                                         </x-filter.disclosure_view>
@@ -791,14 +812,14 @@
                                             @slot('body')
                                                 <div
                                                     class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                    <filter-new-options filter-name="medium"
+                                                    <x-filter.options filter-name="medium"
                                                         placeholder="Napíšte meno autora / autorky"
                                                         @change="handleMultiSelectChange" :selected-values="query['medium']"
                                                         :filter="aggregations['medium']">
                                                         <template #search-icon
                                                             class="tw-h-4 tw-w-4 tw-fill-current">
                                                         </template>
-                                                    </filter-new-options>
+                                                    </x-filter.options>
                                                 </div>
                                             @endslot
                                         </x-filter.disclosure_view>
@@ -812,7 +833,7 @@
                                     @endslot
                                     </x-filter.disclosure-modal>
                             </div>
-                        </filter-disclosure-controller>
+                        </filter-disclosure-controller> --}}
                     </div>
                     <div
                         class="tw-hidden tw-space-x-6 tw-bg-gray-200 tw-px-16 tw-pt-4 tw-pb-2 md:tw-flex">

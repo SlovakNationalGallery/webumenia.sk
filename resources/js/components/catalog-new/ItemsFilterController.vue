@@ -111,7 +111,6 @@ export default {
     },
     data() {
         return {
-            isExtendedOpen: false,
             isFetchingArtworks: false,
             artworks: [],
             last_page: 1,
@@ -163,9 +162,6 @@ export default {
         },
     },
     methods: {
-        toggleIsExtendedOpen() {
-            this.isExtendedOpen = !this.isExtendedOpen
-        },
         clearFilterSelection(filterName) {
             this.query = {
                 ...this.query,
@@ -318,7 +314,6 @@ export default {
     },
     render() {
         return this.$scopedSlots.default({
-            isExtendedOpen: this.isExtendedOpen,
             isFetchingArtworks: this.isFetchingArtworks,
             query: this.query,
             page: this.page,
@@ -326,7 +321,6 @@ export default {
             aggregations: this.aggregations,
             artworks: this.artworks,
             artworks_total: this.artworks_total,
-            toggleIsExtendedOpen: this.toggleIsExtendedOpen,
             loadMore: this.loadMore,
             handleSortChange: this.handleSortChange,
             handleYearRangeChange: this.handleYearRangeChange,
