@@ -211,8 +211,8 @@ export default {
                 [name]: this.query[name].filter((v) => v !== value),
             }
         },
-        handleMultiSelectChange(e) {
-            const { name, checked, value } = e.target
+        handleMultiSelectChange(name, e) {
+            const { checked, value } = e.target
             if (checked) {
                 // Add to query
                 this.query = {

@@ -18,16 +18,13 @@
                                 <template #body>
                                     <div
                                         class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                        <x-filter.options filter-name="author"
-                                            placeholder="Napíšte meno autora / autorky"
-                                            @change="handleMultiSelectChange" v-bind:selected-values="query['author']"
-                                            v-bind:filter="aggregations['author']">
-                                        </x-filter.options>
-                                        <x-filter.reset_button
-                                            class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
-                                            @click="clearFilterSelection('author')">
-                                            zrušiť výber
-                                        </x-filter.reset_button>
+                                        <x-filter.options
+                                            search-placeholder="Napíšte meno autora / autorky"
+                                            v-bind:options="aggregations['author']"
+                                            v-bind:selected="query['author']"
+                                            v-on:change="e => handleMultiSelectChange('author', e)"
+                                            v-on:reset="clearFilterSelection('author')"
+                                        />
                                     </div>
                                 </template>
                                 <template #opened-icon>
@@ -51,7 +48,8 @@
                                         class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                         <x-filter.options filter-name="topic"
                                             placeholder="Napíšte meno autora / autorky"
-                                            @change="handleMultiSelectChange" v-bind:selected-values="query['topic']"
+                                            @change="handleMultiSelectChange"
+                                            v-bind:selected-values="query['topic']"
                                             v-bind:filter="aggregations['topic']">
                                         </x-filter.options>
                                         <x-filter.reset_button
