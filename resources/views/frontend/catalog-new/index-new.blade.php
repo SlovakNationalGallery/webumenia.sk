@@ -9,67 +9,7 @@
                     <div class="tw-bg-gray-200 tw-py-6 tw-pl-4 md:tw-p-16 md:tw-pt-12 md:tw-pb-0">
                         {{-- Desktop filter --}}
                         <filter-new-popover.group-controller>
-                            <filter-new-popover name="author">
-                                <template #popover-label>
-                                    <filter-new-custom-select-popover-label name="author"
-                                        :selected-values="query['author']">
-                                    </filter-new-custom-select-popover-label>
-                                </template>
-                                <template #body>
-                                    <div
-                                        class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                        <x-filter.options
-                                            search-placeholder="Napíšte meno autora / autorky"
-                                            v-bind:options="aggregations['author']"
-                                            v-bind:selected="query['author']"
-                                            v-on:change="e => handleMultiSelectChange('author', e)"
-                                            v-on:reset="clearFilterSelection('author')"
-                                        />
-                                    </div>
-                                </template>
-                                <template #opened-icon>
-                                    <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
-                                    </x-icons.caret-up>
-                                </template>
-                                <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
-                                    <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
-                                    </x-icons.caret-down>
-                                </template>
-                            </filter-new-popover>
-
-                            <filter-new-popover name="topic">
-                                <template #popover-label>
-                                    <filter-new-custom-select-popover-label name="topic"
-                                        :selected-values="query['topic']">
-                                    </filter-new-custom-select-popover-label>
-                                </template>
-                                <template #body>
-                                    <div
-                                        class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                        <x-filter.options filter-name="topic"
-                                            placeholder="Napíšte meno autora / autorky"
-                                            @change="handleMultiSelectChange"
-                                            v-bind:selected-values="query['topic']"
-                                            v-bind:filter="aggregations['topic']">
-                                        </x-filter.options>
-                                        <x-filter.reset_button
-                                            class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
-                                            @click="clearFilterSelection('topic')">
-                                            zrušiť výber
-                                        </x-filter.reset_button>
-                                    </div>
-                                </template>
-                                <template #opened-icon>
-                                    <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
-                                    </x-icons.caret-up>
-                                </template>
-                                <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
-                                    <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
-                                    </x-icons.caret-down>
-                                </template>
-                            </filter-new-popover>
-
-                            {{-- <toggle-controller v-slot="tc">
+                            <toggle-controller v-slot="tc">
                                 <div
                                     class="tw-hidden tw-gap-x-3 tw-overflow-x-auto md:tw-flex md:tw-flex-wrap md:tw-overflow-visible">
                                     <filter-new-popover name="author">
@@ -81,16 +21,38 @@
                                         <template #body>
                                             <div
                                                 class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                                <x-filter.options filter-name="author"
-                                                    placeholder="Napíšte meno autora / autorky"
-                                                    @change="handleMultiSelectChange" v-bind:selected-values="query['author']"
-                                                    v-bind:filter="aggregations['author']">
-                                                </x-filter.options>
-                                                <x-filter.reset_button
-                                                    class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
-                                                    @click="clearFilterSelection('author')">
-                                                    zrušiť výber
-                                                </x-filter.reset_button>
+                                                <x-filter.options
+                                                    search-placeholder="Napíšte meno autora / autorky"
+                                                    v-bind:options="aggregations['author']"
+                                                    v-bind:selected="query['author']"
+                                                    v-on:change="e => handleMultiSelectChange('author', e)"
+                                                    v-on:reset="clearFilterSelection('author')" />
+                                            </div>
+                                        </template>
+                                        <template #opened-icon>
+                                            <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
+                                            </x-icons.caret-up>
+                                        </template>
+                                        <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
+                                            <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
+                                            </x-icons.caret-down>
+                                        </template>
+                                    </filter-new-popover>
+                                    <filter-new-popover name="topic">
+                                        <template #popover-label>
+                                            <filter-new-custom-select-popover-label name="topic"
+                                                :selected-values="query['topic']">
+                                            </filter-new-custom-select-popover-label>
+                                        </template>
+                                        <template #body>
+                                            <div
+                                                class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
+                                                <x-filter.options
+                                                    search-placeholder="Napíšte meno autora / autorky"
+                                                    v-bind:options="aggregations['topic']"
+                                                    v-bind:selected="query['topic']"
+                                                    v-on:change="e => handleMultiSelectChange('topic', e)"
+                                                    v-on:reset="clearFilterSelection('topic')" />
                                             </div>
                                         </template>
                                         <template #opened-icon>
@@ -111,16 +73,12 @@
                                         <template #body>
                                             <div
                                                 class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                                <x-filter.options filter-name="work_type"
-                                                    placeholder="Napíšte meno autora / autorky"
-                                                    @change="handleMultiSelectChange" :selected-values="query['work_type']"
-                                                    :filter="aggregations['work_type']">
-                                                </x-filter.options>
-                                                <x-filter.reset_button
-                                                    class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
-                                                    @click="clearFilterSelection('work_type')">
-                                                    zrušiť výber
-                                                </x-filter.reset_button>
+                                                <x-filter.options
+                                                    search-placeholder="Napíšte meno autora / autorky"
+                                                    v-bind:options="aggregations['work_type']"
+                                                    v-bind:selected="query['work_type']"
+                                                    v-on:change="e => handleMultiSelectChange('work_type', e)"
+                                                    v-on:reset="clearFilterSelection('work_type')" />
                                             </div>
                                         </template>
                                         <template #opened-icon>
@@ -141,16 +99,12 @@
                                         <template #body>
                                             <div
                                                 class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                                <x-filter.options filter-name="object_type"
-                                                    placeholder="Napíšte meno autora / autorky"
-                                                    @change="handleMultiSelectChange" :selected-values="query['object_type']"
-                                                    :filter="aggregations['object_type']">
-                                                </x-filter.options>
-                                                <x-filter.reset_button
-                                                    class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
-                                                    @click="clearFilterSelection('object_type')">
-                                                    zrušiť výber
-                                                </x-filter.reset_button>
+                                                <x-filter.options
+                                                    search-placeholder="Napíšte meno autora / autorky"
+                                                    v-bind:options="aggregations['object_type']"
+                                                    v-bind:selected="query['object_type']"
+                                                    v-on:change="e => handleMultiSelectChange('object_type', e)"
+                                                    v-on:reset="clearFilterSelection('object_type')" />
                                             </div>
                                         </template>
                                         <template #opened-icon>
@@ -171,16 +125,12 @@
                                         <template #body>
                                             <div
                                                 class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                                <x-filter.options filter-name="tag"
-                                                    placeholder="Napíšte meno autora / autorky"
-                                                    @change="handleMultiSelectChange" :selected-values="query['tag']"
-                                                    :filter="aggregations['tag']">
-                                                </x-filter.options>
-                                                <x-filter.reset_button
-                                                    class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
-                                                    @click="clearFilterSelection('tag')">
-                                                    zrušiť výber
-                                                </x-filter.reset_button>
+                                                <x-filter.options
+                                                    search-placeholder="Napíšte meno autora / autorky"
+                                                    v-bind:options="aggregations['tag']"
+                                                    v-bind:selected="query['tag']"
+                                                    v-on:change="e => handleMultiSelectChange('tag', e)"
+                                                    v-on:reset="clearFilterSelection('tag')" />
                                             </div>
                                         </template>
                                         <template #opened-icon>
@@ -201,16 +151,12 @@
                                         <template #body>
                                             <div
                                                 class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                                <x-filter.options filter-name="gallery"
-                                                    placeholder="Napíšte meno autora / autorky"
-                                                    @change="handleMultiSelectChange" :selected-values="query['gallery']"
-                                                    :filter="aggregations['gallery']">
-                                                </x-filter.options>
-                                                <x-filter.reset_button
-                                                    class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
-                                                    @click="clearFilterSelection('gallery')">
-                                                    zrušiť výber
-                                                </x-filter.reset_button>
+                                                <x-filter.options
+                                                    search-placeholder="Napíšte meno autora / autorky"
+                                                    v-bind:options="aggregations['gallery']"
+                                                    v-bind:selected="query['gallery']"
+                                                    v-on:change="e => handleMultiSelectChange('gallery', e)"
+                                                    v-on:reset="clearFilterSelection('gallery')" />
                                             </div>
                                         </template>
                                         <template #opened-icon>
@@ -231,16 +177,12 @@
                                         <template #body>
                                             <div
                                                 class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                                <x-filter.options filter-name="technique"
-                                                    placeholder="Napíšte meno autora / autorky"
-                                                    @change="handleMultiSelectChange" v-bind:selected-values="query['technique']"
-                                                    v-bind:filter="aggregations['technique']">
-                                                </x-filter.options>
-                                                <x-filter.reset_button
-                                                    class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
-                                                    @click="clearFilterSelection('technique')">
-                                                    zrušiť výber
-                                                </x-filter.reset_button>
+                                                <x-filter.options
+                                                    search-placeholder="Napíšte meno autora / autorky"
+                                                    v-bind:options="aggregations['technique']"
+                                                    v-bind:selected="query['technique']"
+                                                    v-on:change="e => handleMultiSelectChange('technique', e)"
+                                                    v-on:reset="clearFilterSelection('technique')" />
                                             </div>
                                         </template>
                                         <template #opened-icon>
@@ -261,16 +203,12 @@
                                         <template #body>
                                             <div
                                                 class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                                <x-filter.options filter-name="topic"
-                                                    placeholder="Napíšte meno autora / autorky"
-                                                    @change="handleMultiSelectChange" :selected-values="query['topic']"
-                                                    :filter="aggregations['topic']">
-                                                </x-filter.options>
-                                                <x-filter.reset_button
-                                                    class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
-                                                    @click="clearFilterSelection('topic')">
-                                                    zrušiť výber
-                                                </x-filter.reset_button>
+                                                <x-filter.options
+                                                    search-placeholder="Napíšte meno autora / autorky"
+                                                    v-bind:options="aggregations['topic']"
+                                                    v-bind:selected="query['topic']"
+                                                    v-on:change="e => handleMultiSelectChange('topic', e)"
+                                                    v-on:reset="clearFilterSelection('topic')" />
                                             </div>
                                         </template>
                                         <template #opened-icon>
@@ -291,16 +229,12 @@
                                         <template #body>
                                             <div
                                                 class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                                <x-filter.options filter-name="medium"
-                                                    placeholder="Napíšte meno autora / autorky"
-                                                    @change="handleMultiSelectChange" :selected-values="query['medium']"
-                                                    :filter="aggregations['medium']">
-                                                </x-filter.options>
-                                                <x-filter.reset_button
-                                                    class="tw-mb-6 tw-mt-5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-py-1.5 tw-text-sm tw-font-normal hover:tw-border-gray-800"
-                                                    @click="clearFilterSelection('medium')">
-                                                    zrušiť výber
-                                                </x-filter.reset_button>
+                                                <x-filter.options
+                                                    search-placeholder="Napíšte meno autora / autorky"
+                                                    v-bind:options="aggregations['medium']"
+                                                    v-bind:selected="query['medium']"
+                                                    v-on:change="e => handleMultiSelectChange('medium', e)"
+                                                    v-on:reset="clearFilterSelection('medium')" />
                                             </div>
                                         </template>
                                         <template #opened-icon>
@@ -369,25 +303,28 @@
                                             </div>
                                         </template>
                                     </filter-new-popover>
-                                    <div class="tw-flex tw-gap-1">
-                                        <button @click="tc.toggle"
-                                            class="tw-flex tw-w-full tw-items-center tw-justify-center tw-border tw-border-gray-300 tw-py-2.5 tw-px-4 tw-text-lg tw-font-bold hover:tw-border-gray-800">
-                                            <div class="tw-flex tw-items-center tw-pr-4">
-                                                <x-icons.minus v-if="tc.isOpen"
-                                                    class="tw-h-6 tw-w-6 tw-fill-current">
-                                                </x-icons.minus>
-                                                <x-icons.sliders-horizontal
-                                                    class="tw-h-6 tw-w-6 tw-fill-current" v-else>
-                                                </x-icons.sliders-horizontal>
-                                            </div>
-                                            <span class="tw-font-semibold">@{{ tc.isOpen ? 'skryť ďalšie filtre' : 'všetky filtre' }}</span>
-                                        </button>
+                                    <div class="tw-flex tw-gap-1 tw-pb-2">
+                                        <div class="tw-border tw-border-transparent">
+                                            <button @click="tc.toggle"
+                                                class="tw-flex tw-w-full tw-items-center tw-justify-center tw-border tw-border-gray-300 tw-py-2.5 tw-px-4 tw-text-lg tw-font-bold hover:tw-border-gray-800">
+                                                <div class="tw-flex tw-items-center tw-pr-4">
+                                                    <x-icons.minus v-if="tc.isOpen"
+                                                        class="tw-h-6 tw-w-6 tw-fill-current">
+                                                    </x-icons.minus>
+                                                    <x-icons.sliders-horizontal
+                                                        class="tw-h-6 tw-w-6 tw-fill-current" v-else>
+                                                    </x-icons.sliders-horizontal>
+                                                </div>
+                                                <span
+                                                    class="tw-font-semibold">@{{ tc.isOpen ? 'skryť ďalšie filtre' : 'všetky filtre' }}</span>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </toggle-controller> --}}
+                            </toggle-controller>
                         </filter-new-popover.group-controller>
                         {{-- Mobile Filter --}}
-                        {{-- <filter-disclosure-controller v-slot="dc">
+                        <filter-disclosure-controller v-slot="dc">
                             <div class="tw-relative md:tw-hidden">
                                 <div class="tw-flex tw-gap-x-3 tw-overflow-x-auto tw-pb-4 tw-pr-4">
                                     <x-filter.disclosure_button @click="dc.goTo('author')">
@@ -569,9 +506,7 @@
                                                 </div>
                                             @endslot
                                             @slot('reset_button')
-                                                <x-filter.reset_button
-                                                    class="tw-mr-3 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
-                                                    v-if="query.author.length"
+                                                <x-filter.reset_button v-if="query.author.length"
                                                     @click="clearFilterSelection('author')">
                                                     zrušiť výber
                                                 </x-filter.reset_button>
@@ -579,14 +514,12 @@
                                             @slot('body')
                                                 <div
                                                     class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                    <x-filter.options filter-name="author"
-                                                        placeholder="Napíšte meno autora / autorky"
-                                                        @change="handleMultiSelectChange" :selected-values="query['author']"
-                                                        :filter="aggregations['author']">
-                                                        <template #search-icon
-                                                            class="tw-h-4 tw-w-4 tw-fill-current">
-                                                        </template>
-                                                    </x-filter.options>
+                                                    <x-filter.options
+                                                        search-placeholder="Napíšte meno autora / autorky"
+                                                        v-bind:options="aggregations['object_type']"
+                                                        v-bind:selected="query['object_type']"
+                                                        v-on:change="e => handleMultiSelectChange('object_type', e)"
+                                                        v-on:reset="clearFilterSelection('object_type')" />
                                                 </div>
                                             @endslot
                                         </x-filter.disclosure_view>
@@ -612,14 +545,12 @@
                                             @slot('body')
                                                 <div
                                                     class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                    <x-filter.options filter-name="work_type"
-                                                        placeholder="Napíšte meno autora / autorky"
-                                                        @change="handleMultiSelectChange" :selected-values="query['work_type']"
-                                                        :filter="aggregations['work_type']">
-                                                        <template #search-icon
-                                                            class="tw-h-4 tw-w-4 tw-fill-current">
-                                                        </template>
-                                                    </x-filter.options>
+                                                    <x-filter.options
+                                                        search-placeholder="Napíšte meno autora / autorky"
+                                                        v-bind:options="aggregations['work_type']"
+                                                        v-bind:selected="query['work_type']"
+                                                        v-on:change="e => handleMultiSelectChange('work_type', e)"
+                                                        v-on:reset="clearFilterSelection('work_type')" />
                                                 </div>
                                             @endslot
                                         </x-filter.disclosure_view>
@@ -645,14 +576,12 @@
                                             @slot('body')
                                                 <div
                                                     class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                    <x-filter.options filter-name="object_type"
-                                                        placeholder="Napíšte meno autora / autorky"
-                                                        @change="handleMultiSelectChange" :selected-values="query['object_type']"
-                                                        :filter="aggregations['object_type']">
-                                                        <template #search-icon
-                                                            class="tw-h-4 tw-w-4 tw-fill-current">
-                                                        </template>
-                                                    </x-filter.options>
+                                                    <x-filter.options
+                                                        search-placeholder="Napíšte meno autora / autorky"
+                                                        v-bind:options="aggregations['object_type']"
+                                                        v-bind:selected="query['object_type']"
+                                                        v-on:change="e => handleMultiSelectChange('object_type', e)"
+                                                        v-on:reset="clearFilterSelection('object_type')" />
                                                 </div>
                                             @endslot
                                         </x-filter.disclosure_view>
@@ -668,9 +597,7 @@
                                                 </div>
                                             @endslot
                                             @slot('reset_button')
-                                                <x-filter.reset_button
-                                                    class="tw-mr-3 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
-                                                    v-if="query.tag.length"
+                                                <x-filter.reset_button v-if="query.tag.length"
                                                     @click="clearFilterSelection('tag')">
                                                     zrušiť výber
                                                 </x-filter.reset_button>
@@ -678,14 +605,12 @@
                                             @slot('body')
                                                 <div
                                                     class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                    <x-filter.options filter-name="tag"
-                                                        placeholder="Napíšte meno autora / autorky"
-                                                        @change="handleMultiSelectChange" :selected-values="query['tag']"
-                                                        :filter="aggregations['tag']">
-                                                        <template #search-icon
-                                                            class="tw-h-4 tw-w-4 tw-fill-current">
-                                                        </template>
-                                                    </x-filter.options>
+                                                    <x-filter.options
+                                                        search-placeholder="Napíšte meno autora / autorky"
+                                                        v-bind:options="aggregations['tag']"
+                                                        v-bind:selected="query['tag']"
+                                                        v-on:change="e => handleMultiSelectChange('tag', e)"
+                                                        v-on:reset="clearFilterSelection('tag')" />
                                                 </div>
                                             @endslot
                                         </x-filter.disclosure_view>
@@ -702,24 +627,19 @@
                                             @endslot
                                             @slot('reset_button')
                                                 <x-filter.reset_button
-                                                    class="tw-mr-3 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
+                                                    class="tw-mr-3 tw-flex tw-min-w-max tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
                                                     v-if="query.gallery.length"
                                                     @click="clearFilterSelection('gallery')">
                                                     zrušiť výber
                                                 </x-filter.reset_button>
                                             @endslot
                                             @slot('body')
-                                                <div
-                                                    class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                    <x-filter.options filter-name="gallery"
-                                                        placeholder="Napíšte meno autora / autorky"
-                                                        @change="handleMultiSelectChange" :selected-values="query['gallery']"
-                                                        :filter="aggregations['gallery']">
-                                                        <template #search-icon
-                                                            class="tw-h-4 tw-w-4 tw-fill-current">
-                                                        </template>
-                                                    </x-filter.options>
-                                                </div>
+                                                <x-filter.options
+                                                    search-placeholder="Napíšte meno autora / autorky"
+                                                    v-bind:options="aggregations['gallery']"
+                                                    v-bind:selected="query['gallery']"
+                                                    v-on:change="e => handleMultiSelectChange('gallery', e)"
+                                                    v-on:reset="clearFilterSelection('gallery')" />
                                             @endslot
                                         </x-filter.disclosure_view>
                                         <x-filter.disclosure_view v-if="dc.view === 'technique'"
@@ -734,9 +654,7 @@
                                                 </div>
                                             @endslot
                                             @slot('reset_button')
-                                                <x-filter.reset_button
-                                                    class="tw-mr-3 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
-                                                    v-if="query.technique.length"
+                                                <x-filter.reset_button v-if="query.technique.length"
                                                     @click="clearFilterSelection('technique')">
                                                     zrušiť výber
                                                 </x-filter.reset_button>
@@ -744,14 +662,12 @@
                                             @slot('body')
                                                 <div
                                                     class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                    <x-filter.options filter-name="technique"
-                                                        placeholder="Napíšte meno autora / autorky"
-                                                        @change="handleMultiSelectChange" :selected-values="query['technique']"
-                                                        :filter="aggregations['technique']">
-                                                        <template #search-icon
-                                                            class="tw-h-4 tw-w-4 tw-fill-current">
-                                                        </template>
-                                                    </x-filter.options>
+                                                    <x-filter.options
+                                                        search-placeholder="Napíšte meno autora / autorky"
+                                                        v-bind:options="aggregations['technique']"
+                                                        v-bind:selected="query['technique']"
+                                                        v-on:change="e => handleMultiSelectChange('technique', e)"
+                                                        v-on:reset="clearFilterSelection('technique')" />
                                                 </div>
                                             @endslot
                                         </x-filter.disclosure_view>
@@ -777,14 +693,12 @@
                                             @slot('body')
                                                 <div
                                                     class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                    <x-filter.options filter-name="topic"
-                                                        placeholder="Napíšte meno autora / autorky"
-                                                        @change="handleMultiSelectChange" :selected-values="query['topic']"
-                                                        :filter="aggregations['topic']">
-                                                        <template #search-icon
-                                                            class="tw-h-4 tw-w-4 tw-fill-current">
-                                                        </template>
-                                                    </x-filter.options>
+                                                    <x-filter.options
+                                                        search-placeholder="Napíšte meno autora / autorky"
+                                                        v-bind:options="aggregations['topic']"
+                                                        v-bind:selected="query['topic']"
+                                                        v-on:change="e => handleMultiSelectChange('topic', e)"
+                                                        v-on:reset="clearFilterSelection('topic')" />
                                                 </div>
                                             @endslot
                                         </x-filter.disclosure_view>
@@ -810,14 +724,12 @@
                                             @slot('body')
                                                 <div
                                                     class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                    <x-filter.options filter-name="medium"
-                                                        placeholder="Napíšte meno autora / autorky"
-                                                        @change="handleMultiSelectChange" :selected-values="query['medium']"
-                                                        :filter="aggregations['medium']">
-                                                        <template #search-icon
-                                                            class="tw-h-4 tw-w-4 tw-fill-current">
-                                                        </template>
-                                                    </x-filter.options>
+                                                    <x-filter.options
+                                                        search-placeholder="Napíšte meno autora / autorky"
+                                                        v-bind:options="aggregations['medium']"
+                                                        v-bind:selected="query['medium']"
+                                                        v-on:change="e => handleMultiSelectChange('medium', e)"
+                                                        v-on:reset="clearFilterSelection('medium')" />
                                                 </div>
                                             @endslot
                                         </x-filter.disclosure_view>
@@ -831,7 +743,7 @@
                                     @endslot
                                     </x-filter.disclosure-modal>
                             </div>
-                        </filter-disclosure-controller> --}}
+                        </filter-disclosure-controller>
                     </div>
                     <div
                         class="tw-hidden tw-space-x-6 tw-bg-gray-200 tw-px-16 tw-pt-4 tw-pb-2 md:tw-flex">
@@ -852,7 +764,7 @@
                     <div class="tw-hidden tw-h-8 tw-bg-gray-200 tw-px-16 tw-pb-16 md:tw-block">
                         <div class="tw-flex tw-space-x-3 tw-overflow-x-auto">
                             <button
-                                class="tw-flex tw-whitespace-nowrap tw-items-center tw-bg-gray-300 tw-py-1 tw-px-1.5"
+                                class="tw-flex tw-items-center tw-whitespace-nowrap tw-bg-gray-300 tw-py-1 tw-px-1.5"
                                 v-for="option in selectedOptionsAsLabels"
                                 @click="removeSelection(option)">
                                 <span v-if="option.filterName === 'color'"
@@ -1017,6 +929,7 @@
                             </div>
                         </div>
                     </div>
+                </div>
         </filter-new-items-controller>
     </section>
 @stop

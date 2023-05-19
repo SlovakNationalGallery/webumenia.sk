@@ -6,7 +6,7 @@
                 type="text"
                 v-on:input="sc.onSearchInput"
                 :value="sc.search"
-                placeholder={{ $attributes->get('search-placeholder') }}
+                placeholder="{{ $attributes->get('search-placeholder') }}"
             />
             <div class="tw-flex tw-items-center tw-mr-3">
                 <x-icons.magnifying-glass class="tw-h-4 tw-w-4 tw-fill-current" />
@@ -41,6 +41,6 @@
         </div>
     </div>
 </search-controller>
-<x-filter.reset_button class="tw-mb-6 tw-mt-5" @click="{{ $attributes->get('v-on:reset') }}">
+<x-filter.reset_button class="tw-hidden md:tw-flex tw-gap-1 tw-mb-6 tw-mt-5" @click="{{ $attributes->get('v-on:reset') }}">
     zrušiť výber
 </x-filter.reset_button>

@@ -39,7 +39,6 @@ Vue.component('filter-new-items-controller', require('./components/catalog-new/I
 Vue.component('filter-new-popover', require('./components/catalog-new/PopoverFilter.vue').default);
 Vue.component('filter-new-popover.group-controller', require('./components/catalog-new/PopoverGroupController.vue').default);
 Vue.component('filter-new-custom-select-popover-label', require('./components/catalog-new/NewCustomSelectPopoverLabel.vue').default);
-Vue.component('filter-new-options', require('./components/catalog-new/Options.vue').default);
 Vue.component('filter-new-color-slider', require('./components/catalog-new/NewColorSlider.vue').default);
 Vue.component('filter-new-year-slider', require('./components/catalog-new/NewYearSlider.vue').default);
 Vue.component('filter-new-custom-checkbox', require('./components/catalog-new/NewCustomCheckbox.vue').default);
