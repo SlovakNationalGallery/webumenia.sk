@@ -36,7 +36,6 @@ Vue.component('filter-sort-by', require('./components/filter/SortBy.vue').defaul
 Vue.component('filter-checkbox', require('./components/filter/Checkbox.vue').default);
 Vue.component('filter-custom-select', require('./components/filter/CustomSelect.vue').default);
 Vue.component('filter-new-items-controller', require('./components/catalog-new/ItemsFilterController.vue').default);
-Vue.component('filter-new-popover', require('./components/catalog-new/PopoverFilter.vue').default);
 Vue.component('filter-new-popover.group-controller', require('./components/catalog-new/PopoverGroupController.vue').default);
 Vue.component('filter-new-custom-select-popover-label', require('./components/catalog-new/NewCustomSelectPopoverLabel.vue').default);
 Vue.component('filter-new-color-slider', require('./components/catalog-new/NewColorSlider.vue').default);
@@ -45,6 +44,8 @@ Vue.component('filter-new-custom-checkbox', require('./components/catalog-new/Ne
 Vue.component('filter-new-sort', require('./components/catalog-new/NewSort.vue').default);
 Vue.component('toggle-controller', require('./components/catalog-new/ToggleController.vue').default);
 Vue.component('search-controller', require('./components/catalog-new/SearchController.vue').default);
+Vue.component('popover-controller', require('./components/catalog-new/PopoverController.vue').default);
+Vue.component('clickaway-wrapper', require('./components/catalog-new/ClickawayWrapper.vue').default);
 Vue.component('filter-disclosure-controller', require('./components/catalog-new/DisclosureModalController.vue').default);
 Vue.component('catalog.infinite-scroll', require('./components/catalog-new/InfiniteScroll.vue').default);
 Vue.component('catalog.artwork-image-controller', require('./components/catalog-new/ArtworkImageController.vue').default);

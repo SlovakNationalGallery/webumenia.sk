@@ -12,13 +12,14 @@
                             <toggle-controller v-slot="tc">
                                 <div
                                     class="tw-hidden tw-gap-x-3 tw-overflow-x-auto md:tw-flex md:tw-flex-wrap md:tw-overflow-visible">
-                                    <filter-new-popover name="author">
-                                        <template #popover-label>
+                                    <x-filter.popover name="author">
+                                        @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="author"
                                                 :selected-values="query['author']">
                                             </filter-new-custom-select-popover-label>
-                                        </template>
-                                        <template #body>
+                                            </template>
+                                        @endslot
+                                        @slot('body')
                                             <div
                                                 class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                 <x-filter.options
@@ -28,49 +29,16 @@
                                                     v-on:change="e => handleMultiSelectChange('author', e)"
                                                     v-on:reset="clearFilterSelection('author')" />
                                             </div>
-                                        </template>
-                                        <template #opened-icon>
-                                            <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
-                                            </x-icons.caret-up>
-                                        </template>
-                                        <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
-                                            <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
-                                            </x-icons.caret-down>
-                                        </template>
-                                    </filter-new-popover>
-                                    <filter-new-popover name="topic">
-                                        <template #popover-label>
-                                            <filter-new-custom-select-popover-label name="topic"
-                                                :selected-values="query['topic']">
-                                            </filter-new-custom-select-popover-label>
-                                        </template>
-                                        <template #body>
-                                            <div
-                                                class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                                <x-filter.options
-                                                    search-placeholder="Napíšte meno autora / autorky"
-                                                    v-bind:options="aggregations['topic']"
-                                                    v-bind:selected="query['topic']"
-                                                    v-on:change="e => handleMultiSelectChange('topic', e)"
-                                                    v-on:reset="clearFilterSelection('topic')" />
-                                            </div>
-                                        </template>
-                                        <template #opened-icon>
-                                            <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
-                                            </x-icons.caret-up>
-                                        </template>
-                                        <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
-                                            <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
-                                            </x-icons.caret-down>
-                                        </template>
-                                    </filter-new-popover>
-                                    <filter-new-popover name="work_type">
-                                        <template #popover-label>
+                                        @endslot
+                                    </x-filter.popover>
+                                    <x-filter.popover name="work_type">
+                                        @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="work_type"
                                                 :selected-values="query['work_type']">
                                             </filter-new-custom-select-popover-label>
-                                        </template>
-                                        <template #body>
+                                            </template>
+                                        @endslot
+                                        @slot('body')
                                             <div
                                                 class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                 <x-filter.options
@@ -80,23 +48,16 @@
                                                     v-on:change="e => handleMultiSelectChange('work_type', e)"
                                                     v-on:reset="clearFilterSelection('work_type')" />
                                             </div>
-                                        </template>
-                                        <template #opened-icon>
-                                            <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
-                                            </x-icons.caret-up>
-                                        </template>
-                                        <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
-                                            <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
-                                            </x-icons.caret-down>
-                                        </template>
-                                    </filter-new-popover>
-                                    <filter-new-popover name="object_type">
-                                        <template #popover-label>
+                                        @endslot
+                                    </x-filter.popover>
+                                    <x-filter.popover name="object_type">
+                                        @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="object_type"
                                                 :selected-values="query['object_type']">
                                             </filter-new-custom-select-popover-label>
-                                        </template>
-                                        <template #body>
+                                            </template>
+                                        @endslot
+                                        @slot('body')
                                             <div
                                                 class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                 <x-filter.options
@@ -106,23 +67,16 @@
                                                     v-on:change="e => handleMultiSelectChange('object_type', e)"
                                                     v-on:reset="clearFilterSelection('object_type')" />
                                             </div>
-                                        </template>
-                                        <template #opened-icon>
-                                            <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
-                                            </x-icons.caret-up>
-                                        </template>
-                                        <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
-                                            <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
-                                            </x-icons.caret-down>
-                                        </template>
-                                    </filter-new-popover>
-                                    <filter-new-popover name="tag">
-                                        <template #popover-label>
+                                        @endslot
+                                    </x-filter.popover>
+                                    <x-filter.popover name="tag">
+                                        @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="tag"
                                                 :selected-values="query['tag']">
                                             </filter-new-custom-select-popover-label>
-                                        </template>
-                                        <template #body>
+                                            </template>
+                                        @endslot
+                                        @slot('body')
                                             <div
                                                 class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                 <x-filter.options
@@ -132,23 +86,16 @@
                                                     v-on:change="e => handleMultiSelectChange('tag', e)"
                                                     v-on:reset="clearFilterSelection('tag')" />
                                             </div>
-                                        </template>
-                                        <template #opened-icon>
-                                            <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
-                                            </x-icons.caret-up>
-                                        </template>
-                                        <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
-                                            <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
-                                            </x-icons.caret-down>
-                                        </template>
-                                    </filter-new-popover>
-                                    <filter-new-popover name="gallery">
-                                        <template #popover-label>
+                                        @endslot
+                                    </x-filter.popover>
+                                    <x-filter.popover name="gallery">
+                                        @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="gallery"
                                                 :selected-values="query['gallery']">
                                             </filter-new-custom-select-popover-label>
-                                        </template>
-                                        <template #body>
+                                            </template>
+                                        @endslot
+                                        @slot('body')
                                             <div
                                                 class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                 <x-filter.options
@@ -158,23 +105,16 @@
                                                     v-on:change="e => handleMultiSelectChange('gallery', e)"
                                                     v-on:reset="clearFilterSelection('gallery')" />
                                             </div>
-                                        </template>
-                                        <template #opened-icon>
-                                            <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
-                                            </x-icons.caret-up>
-                                        </template>
-                                        <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
-                                            <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
-                                            </x-icons.caret-down>
-                                        </template>
-                                    </filter-new-popover>
-                                    <filter-new-popover v-if="tc.isOpen" name="technique">
-                                        <template #popover-label>
+                                        @endslot
+                                    </x-filter.popover>
+                                    <x-filter.popover v-if="tc.isOpen" name="technique">
+                                        @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="technique"
                                                 :selected-values="query['technique']">
                                             </filter-new-custom-select-popover-label>
-                                        </template>
-                                        <template #body>
+                                            </template>
+                                        @endslot
+                                        @slot('body')
                                             <div
                                                 class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                 <x-filter.options
@@ -184,23 +124,16 @@
                                                     v-on:change="e => handleMultiSelectChange('technique', e)"
                                                     v-on:reset="clearFilterSelection('technique')" />
                                             </div>
-                                        </template>
-                                        <template #opened-icon>
-                                            <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
-                                            </x-icons.caret-up>
-                                        </template>
-                                        <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
-                                            <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
-                                            </x-icons.caret-down>
-                                        </template>
-                                    </filter-new-popover>
-                                    <filter-new-popover v-if="tc.isOpen" name="topic">
-                                        <template #popover-label>
+                                        @endslot
+                                    </x-filter.popover>
+                                    <x-filter.popover v-if="tc.isOpen" name="topic">
+                                        @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="topic"
                                                 :selected-values="query['topic']">
                                             </filter-new-custom-select-popover-label>
-                                        </template>
-                                        <template #body>
+                                            </template>
+                                        @endslot
+                                        @slot('body')
                                             <div
                                                 class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                 <x-filter.options
@@ -210,23 +143,16 @@
                                                     v-on:change="e => handleMultiSelectChange('topic', e)"
                                                     v-on:reset="clearFilterSelection('topic')" />
                                             </div>
-                                        </template>
-                                        <template #opened-icon>
-                                            <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
-                                            </x-icons.caret-up>
-                                        </template>
-                                        <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
-                                            <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
-                                            </x-icons.caret-down>
-                                        </template>
-                                    </filter-new-popover>
-                                    <filter-new-popover v-if="tc.isOpen" name="medium">
-                                        <template #popover-label>
+                                        @endslot
+                                    </x-filter.popover>
+                                    <x-filter.popover v-if="tc.isOpen" name="medium">
+                                        @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="medium"
                                                 :selected-values="query['medium']">
                                             </filter-new-custom-select-popover-label>
-                                        </template>
-                                        <template #body>
+                                            </template>
+                                        @endslot
+                                        @slot('body')
                                             <div
                                                 class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                 <x-filter.options
@@ -236,32 +162,20 @@
                                                     v-on:change="e => handleMultiSelectChange('medium', e)"
                                                     v-on:reset="clearFilterSelection('medium')" />
                                             </div>
-                                        </template>
-                                        <template #opened-icon>
-                                            <x-icons.caret-up class="tw-h-4 tw-w-4 tw-fill-sky-300">
-                                            </x-icons.caret-up>
-                                        </template>
-                                        <template #closed-icon class="tw-h-4 tw-w-4 tw-fill-current">
-                                            <x-icons.caret-down class="tw-h-4 tw-w-4 tw-fill-current">
-                                            </x-icons.caret-down>
-                                        </template>
-                                    </filter-new-popover>
-                                    <filter-new-popover v-if="tc.isOpen" name="color">
-                                        <template #popover-label>
-                                            <div
-                                                class="tw-flex tw-items-center tw-gap-2 tw-font-semibold">
-                                                color<div v-if="query['color']"
-                                                    class="tw-inline-block tw-h-4 tw-w-4"
-                                                    :style="{'background': `#${query['color']}`}">
-                                                </div>
-                                            </div>
-                                        </template>
-                                        <template #body>
+                                        @endslot
+                                    </x-filter.popover>
+                                    <x-filter.popover v-if="tc.isOpen" name="color">
+                                        @slot('popover_label')
+                                            <filter-new-custom-select-popover-label name="color"
+                                                :selected-values="query['color']">
+                                            </filter-new-custom-select-popover-label>
+                                            </template>
+                                        @endslot
+                                        @slot('body')
                                             <div class="tw-mt-4 tw-w-screen tw-px-16">
                                                 <div
                                                     class="tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6 tw-pt-4">
-                                                    <div v-if="query.color"
-                                                        class="tw-flex tw-justify-end">
+                                                    <div v-if="query.color" class="tw-flex tw-justify-end">
                                                         <x-filter.reset_button
                                                             @click="handleColorChange(null)"
                                                             class="tw-mb-2 tw-flex tw-items-center tw-border tw-border-gray-300 tw-py-1 tw-px-1.5 tw-text-sm">
@@ -273,16 +187,16 @@
                                                     </filter-new-color-slider>
                                                 </div>
                                             </div>
-                                        </template>
-                                    </filter-new-popover>
-                                    <filter-new-popover name="yearRange" v-if="tc.isOpen">
-                                        <template #popover-label>
-                                            <div class="tw-font-sm tw-font-semibold">rok<span
-                                                    class="tw-ml-2"
-                                                    v-if="query.yearRange">(@{{ query.yearRange.from }}
-                                                    - @{{ query.yearRange.to }})</div>
-                                        </template>
-                                        <template #body>
+                                        @endslot
+                                    </x-filter.popover>
+                                    <x-filter.popover v-if="tc.isOpen" name="yearRange">
+                                        @slot('popover_label')
+                                            <filter-new-custom-select-popover-label name="yearRange"
+                                                :selected-values="query['yearRange']">
+                                            </filter-new-custom-select-popover-label>
+                                            </template>
+                                        @endslot
+                                        @slot('body')
                                             <div class="tw-mt-4">
                                                 <div
                                                     class="tw-w-[28rem] tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6 tw-pt-4">
@@ -296,13 +210,12 @@
                                                     </div>
                                                     <filter-new-year-slider :default-from="Number(query.yearRange?.from)"
                                                         :default-to="Number(query.yearRange?.to)" :min="{{ $yearLimits['min'] ?? 0 }}"
-                                                        :max="{{ $yearLimits['max'] ?? now()->year }}"
-                                                        @change="handleYearRangeChange">
+                                                        :max="{{ $yearLimits['max'] ?? now()->year }}" @change="handleYearRangeChange">
                                                     </filter-new-year-slider>
                                                 </div>
                                             </div>
-                                        </template>
-                                    </filter-new-popover>
+                                        @endslot
+                                    </x-filter.popover>
                                     <div class="tw-flex tw-gap-1 tw-pb-2">
                                         <div class="tw-border tw-border-transparent">
                                             <button @click="tc.toggle"
