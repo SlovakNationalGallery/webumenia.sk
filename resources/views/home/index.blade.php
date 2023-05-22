@@ -265,7 +265,7 @@
                         <div class="tw-relative tw-bg-sky-400">
                             <a href="{{ route('frontend.collection.detail', $c->id) }}">
                                 <img src="{{ $c->getThumbnailImage() }}"
-                                    class="tw-h-48 tw-object-cover tw-transition-opacity tw-duration-300 hover:tw-opacity-80">
+                                    class="tw-h-48 tw-object-cover tw-transition-opacity tw-duration-300 hover:tw-opacity-80 tw-max-w-full">
                             </a>
 
                             <div
@@ -315,7 +315,7 @@
                         <a href="{{ route('frontend.article.detail', $a->slug) }}"
                             class="tw-block tw-bg-sky-400">
                             <img src="{{ $a->getThumbnailImage() }}"
-                                class="tw-h-48 tw-object-cover tw-transition-opacity tw-duration-300 hover:tw-opacity-80">
+                                class="tw-h-48 tw-object-cover tw-transition-opacity tw-duration-300 hover:tw-opacity-80 tw-max-w-full">
                         </a>
                         <span class="tw-mt-4 tw-inline-block tw-text-sm tw-text-gray-600">
                             {{ Str::ucfirst($a->category?->name ?? trans('home.latest_content.articles.default_type')) }}
