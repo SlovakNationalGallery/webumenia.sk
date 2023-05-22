@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-    <section class="tailwind-rules">
+    <section class="tailwind-rules tw-break-keep">
         <filter-new-items-controller locale="{{ app()->getLocale() }}"
             v-slot="{ isExtendedOpen, loadMore, isFetchingArtworks, toggleIsExtendedOpen, handleSelectRandomly, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, page,  aggregations, artworks, last_page, artworks_total }">
             <div class="tw-relative">

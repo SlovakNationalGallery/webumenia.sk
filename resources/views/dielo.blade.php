@@ -427,7 +427,7 @@
     <div class="container">
         <div class="row">
             <div class="{{ $item->has_colors ? 'col-sm-6 pr-sm-5' : 'col-xs-12'}}" id="related-by-metadata">
-                <div class="tailwind-rules">
+                <div class="tailwind-rules tw-break-keep">
                     <div class="tw-h-20 tw-text-lg">
                         <h3 class="tw-mt-5">
                             {{ utrans('dielo.more-items_related-artworks') }}
@@ -451,7 +451,7 @@
             </div>
             @if ($item->has_colors)
             <div class="col-sm-6 pl-sm-5" id="related-by-color">
-                <div class="tailwind-rules">
+                <div class="tailwind-rules tw-break-keep">
                     <div class="tw-h-20 tw-text-lg">
                         <h3 class="tw-mt-5 tw-mb-1">{{ utrans('dielo.more-items_similar-colors') }}</h3>
                         @include('components.color_list', ['colors' => $item->getColors()])

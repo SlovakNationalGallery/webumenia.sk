@@ -24,7 +24,7 @@
 @stop
 
 @section('content')
-    <div class="tailwind-rules">
+    <div class="tailwind-rules tw-break-keep">
         @if ($shuffledItems->count() > 0)
             <home.shuffle-orchestrator v-bind:items="{{ Js::from($shuffledItems) }}"
                 @if (request()->has('shuffleItemId')) v-bind:initial-item-id="{{ request('shuffleItemId') }}" @endif

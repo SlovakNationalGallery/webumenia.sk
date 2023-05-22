@@ -7,7 +7,7 @@
 
 @section('content')
 
-    <div class="tailwind-rules">
+    <div class="tailwind-rules tw-break-keep">
         <div class="tw-flex tw-flex-col tw-items-center tw-pb-16">
             <div class="tw-relative tw-flex tw-w-full tw-justify-center tw-bg-gray-300">
                 <img src="{{ asset('/images/reprodukcie/pracovisko.jpg') }}"
