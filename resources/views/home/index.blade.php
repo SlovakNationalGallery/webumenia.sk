@@ -81,9 +81,9 @@
                                                             @{{ filterAttribute.label }}
                                                         </div>
                                                         <div
-                                                            v-bind:class="['tw-whitespace-nowrap tw-transition-opacity tw-text-sm md:tw-text-base tw-text-white', {'tw-opacity-40': orchestrator.isShuffling }]">
+                                                            v-bind:class="['tw-whitespace-nowrap tw-transition-opacity tw-text-sm md:tw-text-base', {'tw-opacity-40': orchestrator.isShuffling }]">
                                                             <a :href="filterAttribute.url"
-                                                                class="hover:tw-underline">@{{ filterAttribute.value }}</a>
+                                                                class="hover:tw-underline tw-text-white">@{{ filterAttribute.value }}</a>
                                                         </div>
                                                     </div>
                                                 </home.transition-in-place>
