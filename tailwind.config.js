@@ -41,6 +41,6 @@ module.exports = {
     ],
     prefix: 'tw-',
     corePlugins: {
-        preflight: false, // TODO Not needed. Re-enable after switching from Bootstrap
+        // preflight: false,
     },
 }
