@@ -6,7 +6,7 @@
 @formStart($form)
 
 @formErrors($form)
-<div class="tailwind-rules admin">
+<div class="tailwind-rules tw-font-admin">
 	<div class="mx-auto tw-container tw-max-w-screen-md tw-pt-12">
 		@if ($errors->any())
 			<x-admin.alert danger>
@@ -164,7 +164,7 @@ $(document).ready(function(){
 			option: function(item, escape) {
 				return '<div class="selected-item">' + item.name.replace(/\(.*?\)/g, "") + '</div>';
 			}
-		},	
+		},
 		loadThrottle: 300,
 		load: function(query, callback) {
 			if (!query.length) return callback();

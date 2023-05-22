@@ -17,6 +17,7 @@ module.exports = {
                 },
             },
             fontFamily: {
+                admin: ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
                 sans: ['GTWalsheim', 'sans-serif'],
                 serif: [
                     'Source Serif Pro',
