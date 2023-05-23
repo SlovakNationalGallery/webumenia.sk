@@ -33,6 +33,7 @@ module.exports = {
                 }
             },
             fontFamily: {
+                admin: ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
                 sans: ['GTWalsheim', 'sans-serif'],
                 serif: [
                     'Source Serif Pro',
@@ -50,12 +51,11 @@ module.exports = {
     },
     plugins: [
         require('@tailwindcss/typography'),
-        require('@tailwindcss/line-clamp'),
         require('@tailwindcss/forms'),
         require('tailwind-scrollbar')({ nocompatible: true }),
     ],
     prefix: 'tw-',
     corePlugins: {
-        preflight: false, // TODO Not needed. Re-enable after switching from Bootstrap
+        // preflight: false,
     },
 }

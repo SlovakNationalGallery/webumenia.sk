@@ -7,14 +7,15 @@
 
 @section('content')
 
-    <div class="tw-flex tw-flex-col tw-items-center tw-pb-16">
-        <div class="tw-relative tw-flex tw-w-full tw-justify-center tw-bg-gray-300">
-            <img src="{{ asset('/images/reprodukcie/pracovisko.jpg') }}"
-                class="tw-absolute tw-h-full tw-w-full tw-object-cover">
-            <h1
-                class="mx-4 tw-relative tw-my-40 tw-text-5xl tw-text-white md:tw-my-52 md:tw-text-6xl">
-                {{ utrans('reprodukcie.title') }}</h1>
-        </div>
+    <div class="tailwind-rules tw-break-keep">
+        <div class="tw-flex tw-flex-col tw-items-center tw-pb-16">
+            <div class="tw-relative tw-flex tw-w-full tw-justify-center tw-bg-gray-300">
+                <img src="{{ asset('/images/reprodukcie/pracovisko.jpg') }}"
+                    class="tw-absolute tw-h-full tw-w-full tw-object-cover">
+                <h1
+                    class="mx-4 tw-relative tw-my-40 tw-text-5xl tw-text-white md:tw-my-52 md:tw-text-6xl">
+                    {{ utrans('reprodukcie.title') }}</h1>
+            </div>
 
         <div
             class="tw-mt-12 tw-text-center tw-text-gray-600 tw-underline-offset-4 tw-transition-colors prose-a:tw-underline prose-a:tw-decoration-gray-300 hover:prose-a:tw-decoration-gray-800 prose-strong:tw-text-gray-800 md:tw-w-8/12 lg:tw-text-2xl">

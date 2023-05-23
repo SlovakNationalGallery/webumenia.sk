@@ -24,15 +24,16 @@
 @stop
 
 @section('content')
-    @if ($shuffledItems->count() > 0)
-        <home.shuffle-orchestrator v-bind:items="{{ Js::from($shuffledItems) }}"
-            @if (request()->has('shuffleItemId')) v-bind:initial-item-id="{{ request('shuffleItemId') }}" @endif
-            v-slot="orchestrator">
-            <div class="tw-relative tw-overflow-hidden">
-                <img v-bind:class="['tw-absolute tw-h-full tw-w-full tw-object-cover tw-transition-all tw-scale-[1.005] tw-duration-700 tw-ease-in', {'tw-blur tw-scale-100': orchestrator.isShuffling }]"
-                    v-bind:src="orchestrator.item.img.src"
-                    v-bind:srcset="orchestrator.item.img.srcset"
-                    sizes="(max-width: 480px) 250vw, (max-width: 640px) 150vw, 100vw" />
+    <div class="tailwind-rules tw-break-keep">
+        @if ($shuffledItems->count() > 0)
+            <home.shuffle-orchestrator v-bind:items="{{ Js::from($shuffledItems) }}"
+                @if (request()->has('shuffleItemId')) v-bind:initial-item-id="{{ request('shuffleItemId') }}" @endif
+                v-slot="orchestrator">
+                <div class="tw-relative tw-overflow-hidden">
+                    <img v-bind:class="['tw-absolute tw-h-full tw-w-full tw-object-cover tw-transition-all tw-scale-[1.005] tw-duration-700 tw-ease-in', {'tw-blur tw-scale-100': orchestrator.isShuffling }]"
+                        v-bind:src="orchestrator.item.img.src"
+                        v-bind:srcset="orchestrator.item.img.srcset"
+                        sizes="(max-width: 480px) 250vw, (max-width: 640px) 150vw, 100vw" />
 
                 <img class="tw-invisible tw-absolute tw-h-full tw-w-full tw-scale-[1.005] tw-object-cover"
                     v-bind:src="orchestrator.nextImg.src"
@@ -73,28 +74,28 @@
                                             v-for="filterAttribute, filterAttributeIndex in orchestrator.filter.attributes"
                                             v-bind:key="filterAttributeIndex">
 
-                                            <home.transition-in-place
-                                                v-bind:transition-key="filterAttribute.label + filterAttribute.value">
-                                                <div>
-                                                    <div class="tw-text-xs tw-text-white/40">
-                                                        @{{ filterAttribute.label }}
+                                                <home.transition-in-place
+                                                    v-bind:transition-key="filterAttribute.label + filterAttribute.value">
+                                                    <div>
+                                                        <div class="tw-text-xs tw-text-white/40">
+                                                            @{{ filterAttribute.label }}
+                                                        </div>
+                                                        <div
+                                                            v-bind:class="['tw-whitespace-nowrap tw-transition-opacity tw-text-sm md:tw-text-base', {'tw-opacity-40': orchestrator.isShuffling }]">
+                                                            <a :href="filterAttribute.url"
+                                                                class="hover:tw-underline tw-text-white">@{{ filterAttribute.value }}</a>
+                                                        </div>
                                                     </div>
-                                                    <div
-                                                        v-bind:class="['tw-whitespace-nowrap tw-transition-opacity tw-text-sm md:tw-text-base tw-text-white', {'tw-opacity-40': orchestrator.isShuffling }]">
-                                                        <a :href="filterAttribute.url"
-                                                            class="hover:tw-underline">@{{ filterAttribute.value }}</a>
-                                                    </div>
-                                                </div>
-                                            </home.transition-in-place>
+                                                </home.transition-in-place>
+                                            </div>
                                         </div>
+                                        <button v-on:click="orchestrator.shuffle"
+                                            class="tw-group tw-w-full tw-basis-0 tw-bg-sky-300 tw-px-4 tw-py-2 tw-text-center tw-text-xs tw-text-black tw-transition-colors hover:tw-bg-sky-400 md:tw-px-6 md:tw-text-sm">
+                                            <i
+                                                class="fa fa-repeat tw-mr-2 tw--ml-4 tw-transition-transform group-hover:tw-rotate-45 md:tw-mx-0"></i>
+                                            {{ trans('home.shuffled_item.button_shuffle') }}
+                                        </button>
                                     </div>
-                                    <button v-on:click="orchestrator.shuffle"
-                                        class="tw-group tw-w-full tw-basis-0 tw-bg-sky-300 tw-px-4 tw-py-2 tw-text-center tw-text-xs tw-text-black tw-transition-colors hover:tw-bg-sky-400 md:tw-px-6 md:tw-text-sm">
-                                        <i
-                                            class="fa fa-repeat tw-mr-2 tw--ml-4 tw-transition-transform group-hover:tw-rotate-45 md:tw-mx-0"></i>
-                                        {{ trans('home.shuffled_item.button_shuffle') }}
-                                    </button>
-                                </div>
 
                             </div>
 
@@ -253,19 +254,19 @@
                 {{ trans('home.latest_content.collections.tab') }}
             </h3>
 
-            <x-home.button href="{{ route('frontend.collection.index') }}"
-                class="tw-hidden hover:tw-bg-gray-300 sm:tw-inline-block">
-                {{ trans('home.latest_content.collections.button') }}
-            </x-home.button>
-        </div>
-        <x-home.carousel class="tw-mt-6" button-container-class="tw-h-48">
-            @foreach ($collections as $c)
-                <div class="tw-mr-4 tw-w-72 md:tw-w-[25rem]">
-                    <div class="tw-relative tw-bg-sky-400">
-                        <a href="{{ route('frontend.collection.detail', $c->id) }}">
-                            <img src="{{ $c->getThumbnailImage() }}"
-                                class="tw-h-48 tw-object-cover tw-transition-opacity tw-duration-300 hover:tw-opacity-80">
-                        </a>
+                <x-home.button href="{{ route('frontend.collection.index') }}"
+                    class="tw-hidden hover:tw-bg-gray-300 sm:tw-inline-block">
+                    {{ trans('home.latest_content.collections.button') }}
+                </x-home.button>
+            </div>
+            <x-home.carousel class="tw-mt-6" button-container-class="tw-h-48">
+                @foreach ($collections as $c)
+                    <div class="tw-mr-4 tw-w-72 md:tw-w-[25rem]">
+                        <div class="tw-relative tw-bg-sky-400">
+                            <a href="{{ route('frontend.collection.detail', $c->id) }}">
+                                <img src="{{ $c->getThumbnailImage() }}"
+                                    class="tw-h-48 tw-object-cover tw-transition-opacity tw-duration-300 hover:tw-opacity-80 tw-max-w-full">
+                            </a>
 
                         <div
                             class="tw-pointer-events-none tw-absolute tw-right-6 tw-top-6 tw-rounded-sm tw-bg-black/60 tw-px-1.5 tw-text-right tw-text-sm tw-text-white">
@@ -303,44 +304,44 @@
                 {{ trans('home.latest_content.articles.tab') }}
             </h3>
 
-            <x-home.button href="{{ route('frontend.collection.index') }}"
-                class="tw-hidden hover:tw-bg-gray-300 sm:tw-inline-block">
-                {{ trans('home.latest_content.articles.button') }}
-            </x-home.button>
-        </div>
-        <x-home.carousel class="tw-mt-6" button-container-class="tw-h-48">
-            @foreach ($articles as $a)
-                <div class="tw-mr-4 tw-w-72 md:tw-w-[25rem]">
-                    <a href="{{ route('frontend.article.detail', $a->slug) }}"
-                        class="tw-block tw-bg-sky-400">
-                        <img src="{{ $a->getThumbnailImage() }}"
-                            class="tw-h-48 tw-object-cover tw-transition-opacity tw-duration-300 hover:tw-opacity-80">
-                    </a>
-                    <span class="tw-mt-4 tw-inline-block tw-text-sm tw-text-gray-600">
-                        {{ Str::ucfirst($a->category?->name ?? trans('home.latest_content.articles.default_type')) }}
-                    </span>
-                    <h4
-                        class="tw-truncate tw-text-lg tw-font-semibold tw-leading-tight tw-text-black">
-                        <a href="{{ route('frontend.article.detail', $a->slug) }}"
-                            title="{{ $a->title }}">
-                            {{ $a->title }}
-                        </a>
-                    </h4>
-                    <div class="tw-mt-2 tw-truncate tw-text-sm tw-text-gray-600">
-                        <a
-                            href="{{ route('frontend.article.index', ['author' => $a->author]) }}">{{ $a->author }}</a>
-                        ∙ {{ $a->published_date->format('d. m. Y') }}
-                    </div>
-                </div>
-            @endforeach
-            <div
-                class="tw-flex tw-h-48 tw-w-72 tw-flex-col tw-justify-center tw-bg-gray-200 tw-text-center tw-text-xl tw-font-semibold tw-text-black md:tw-w-[25rem]">
-                <p>{!! trans('home.latest_content.articles.promo_slide.claim', ['count' => $articlesRemainingCount]) !!}</p>
-                <a class="tw-mt-5 tw-underline tw-decoration-gray-300 tw-decoration-[3px] tw-underline-offset-4 hover:tw-decoration-current hover:tw-transition-colors"
-                    href="{{ route('frontend.article.index') }}">{{ trans('home.latest_content.articles.promo_slide.link') }}</a>
+                <x-home.button href="{{ route('frontend.collection.index') }}"
+                    class="tw-hidden hover:tw-bg-gray-300 sm:tw-inline-block">
+                    {{ trans('home.latest_content.articles.button') }}
+                </x-home.button>
             </div>
-        </x-home.carousel>
-    </div>
+            <x-home.carousel class="tw-mt-6" button-container-class="tw-h-48">
+                @foreach ($articles as $a)
+                    <div class="tw-mr-4 tw-w-72 md:tw-w-[25rem]">
+                        <a href="{{ route('frontend.article.detail', $a->slug) }}"
+                            class="tw-block tw-bg-sky-400">
+                            <img src="{{ $a->getThumbnailImage() }}"
+                                class="tw-h-48 tw-object-cover tw-transition-opacity tw-duration-300 hover:tw-opacity-80 tw-max-w-full">
+                        </a>
+                        <span class="tw-mt-4 tw-inline-block tw-text-sm tw-text-gray-600">
+                            {{ Str::ucfirst($a->category?->name ?? trans('home.latest_content.articles.default_type')) }}
+                        </span>
+                        <h4
+                            class="tw-truncate tw-text-lg tw-font-semibold tw-leading-tight tw-text-black">
+                            <a href="{{ route('frontend.article.detail', $a->slug) }}"
+                                title="{{ $a->title }}">
+                                {{ $a->title }}
+                            </a>
+                        </h4>
+                        <div class="tw-mt-2 tw-truncate tw-text-sm tw-text-gray-600">
+                            <a
+                                href="{{ route('frontend.article.index', ['author' => $a->author]) }}">{{ $a->author }}</a>
+                            ∙ {{ $a->published_date->format('d. m. Y') }}
+                        </div>
+                    </div>
+                @endforeach
+                <div
+                    class="tw-flex tw-h-48 tw-w-72 tw-flex-col tw-justify-center tw-bg-gray-200 tw-text-center tw-text-xl tw-font-semibold tw-text-black md:tw-w-[25rem]">
+                    <p>{!! trans('home.latest_content.articles.promo_slide.claim', ['count' => $articlesRemainingCount]) !!}</p>
+                    <a class="tw-mt-5 tw-underline tw-decoration-gray-300 tw-decoration-[3px] tw-underline-offset-4 hover:tw-decoration-current hover:tw-transition-colors"
+                        href="{{ route('frontend.article.index') }}">{{ trans('home.latest_content.articles.promo_slide.link') }}</a>
+                </div>
+            </x-home.carousel>
+        </div>
 
     @if ($featuredAuthor)
         <div class="tw-bg-gray-200">

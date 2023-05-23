@@ -6,7 +6,7 @@
 @formStart($form)
 
 @formErrors($form)
-<div class="admin">
+<div class="tailwind-rules tw-break-keep tw-font-admin tw-text-sm">
 	<div class="mx-auto tw-container tw-max-w-screen-md tw-pt-12">
 		@if ($errors->any())
 			<x-admin.alert danger>

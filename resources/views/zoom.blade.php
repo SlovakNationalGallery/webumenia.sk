@@ -25,7 +25,7 @@
     <link rel="stylesheet" type="text/css" href="{{ mix('/css/style.css') }}" />
 </head>
 
-<body>
+<body class="tailwind-rules tw-break-keep">
     <div id="app">
         <zoom-viewer v-cloak class="tw-absolute tw-inset-0 tw-overflow-hidden tw-outline-none"
             :tile-sources={{ Js::from($fullIIPImgURLs) }} :initial-index="{{ $index }}"
