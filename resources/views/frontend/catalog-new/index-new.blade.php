@@ -6,7 +6,7 @@
             v-slot="{ isExtendedOpen, loadMore, isFetchingArtworks, toggleIsExtendedOpen, handleSelectRandomly, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, page,  aggregations, artworks, last_page, artworks_total }">
             <div class="tw-relative">
                 <div class="tw-relative tw-min-h-[calc(100vh-14rem)]">
-                    <div class="tw-bg-gray-200 tw-py-6 tw-px-4 md:tw-p-16 md:tw-pb-0">
+                    <div class="tw-bg-gray-200 tw-py-6 tw-pl-4 md:tw-p-16 md:tw-pt-12 md:tw-pb-0">
                         {{-- Desktop filter --}}
                         <filter-new-popover.group-controller>
                             <div
@@ -250,7 +250,7 @@
                         {{-- Mobile Filter --}}
                         <filter-disclosure-controller v-slot="dc">
                             <div class="tw-relative md:tw-hidden">
-                                <div class="tw-flex tw-gap-x-3 tw-overflow-x-auto tw-pb-4">
+                                <div class="tw-flex tw-gap-x-3 tw-overflow-x-auto tw-pb-4 tw-pr-4">
                                     <x-filter.disclosure_button @click="dc.goTo('author')">
                                         <filter-new-custom-select-popover-label name="author"
                                             :selected-values="query['author']">
@@ -277,7 +277,7 @@
                                         </filter-new-custom-select-popover-label>
                                     </x-filter.disclosure_button>
                                 </div>
-                                <div class="tw-min-w-max">
+                                <div class="tw-flex tw-gap-1">
                                     <button @click="dc.goTo('index')"
                                         class="tw-w-full tw-border tw-border-gray-300 tw-py-2 tw-px-3 tw-font-medium hover:tw-border-gray-800">
                                         <div class="tw-flex tw-justify-center">
@@ -301,7 +301,7 @@
                                             @endslot
                                             @slot('reset_button')
                                                 <x-filter.reset_button
-                                                    class="tw-mr-3 tw-flex tw-min-w-max tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
+                                                    class="tw-mr-3 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
                                                     v-if="selectedOptionsAsLabels.length"
                                                     @click="clearAllSelections">
                                                     zrušiť celý výber
@@ -435,7 +435,7 @@
                                             @endslot
                                             @slot('reset_button')
                                                 <x-filter.reset_button
-                                                    class="tw-mr-3 tw-flex tw-min-w-max tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
+                                                    class="tw-mr-3 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
                                                     v-if="query.author.length"
                                                     @click="clearFilterSelection('author')">
                                                     zrušiť výber
@@ -465,7 +465,7 @@
                                             @endslot
                                             @slot('reset_button')
                                                 <x-filter.reset_button
-                                                    class="tw-mr-3 tw-flex tw-min-w-max tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
+                                                    class="tw-mr-3 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
                                                     v-if="query.work_type.length"
                                                     @click="clearFilterSelection('work_type')">
                                                     zrušiť výber
@@ -495,7 +495,7 @@
                                             @endslot
                                             @slot('reset_button')
                                                 <x-filter.reset_button
-                                                    class="tw-mr-3 tw-flex tw-min-w-max tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
+                                                    class="tw-mr-3 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
                                                     v-if="query.object_type.length"
                                                     @click="clearFilterSelection('object_type')">
                                                     zrušiť výber
@@ -525,7 +525,7 @@
                                             @endslot
                                             @slot('reset_button')
                                                 <x-filter.reset_button
-                                                    class="tw-mr-3 tw-flex tw-min-w-max tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
+                                                    class="tw-mr-3 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
                                                     v-if="query.tag.length"
                                                     @click="clearFilterSelection('tag')">
                                                     zrušiť výber
@@ -555,7 +555,7 @@
                                             @endslot
                                             @slot('reset_button')
                                                 <x-filter.reset_button
-                                                    class="tw-mr-3 tw-flex tw-min-w-max tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
+                                                    class="tw-mr-3 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
                                                     v-if="query.gallery.length"
                                                     @click="clearFilterSelection('gallery')">
                                                     zrušiť výber
@@ -585,7 +585,7 @@
                                             @endslot
                                             @slot('reset_button')
                                                 <x-filter.reset_button
-                                                    class="tw-mr-3 tw-flex tw-min-w-max tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
+                                                    class="tw-mr-3 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
                                                     v-if="query.technique.length"
                                                     @click="clearFilterSelection('technique')">
                                                     zrušiť výber
@@ -615,7 +615,7 @@
                                             @endslot
                                             @slot('reset_button')
                                                 <x-filter.reset_button
-                                                    class="tw-mr-3 tw-flex tw-min-w-max tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
+                                                    class="tw-mr-3 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
                                                     v-if="query.topic.length"
                                                     @click="clearFilterSelection('topic')">
                                                     zrušiť výber
@@ -645,7 +645,7 @@
                                             @endslot
                                             @slot('reset_button')
                                                 <x-filter.reset_button
-                                                    class="tw-mr-3 tw-flex tw-min-w-max tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
+                                                    class="tw-mr-3 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
                                                     v-if="query.medium.length"
                                                     @click="clearFilterSelection('medium')">
                                                     zrušiť výber
@@ -675,7 +675,7 @@
                         </filter-disclosure-controller>
                     </div>
                     <div
-                        class="tw-hidden tw-space-x-6 tw-bg-gray-200 tw-px-16 tw-pt-4 tw-pb-5 md:tw-flex">
+                        class="tw-hidden tw-space-x-6 tw-bg-gray-200 tw-px-16 tw-pt-4 tw-pb-2 md:tw-flex">
                         <filter-new-custom-checkbox @change="handleCheckboxChange" :checked="Boolean(query['has_image'])"
                             title="Len s obrázkom" name="has_image" id="has_image_desktop">
                         </filter-new-custom-checkbox>
@@ -690,10 +690,10 @@
                         </filter-new-custom-checkbox>
                     </div>
                     {{-- Selected labels --}}
-                    <div class="tw-hidden tw-bg-gray-200 tw-px-16 tw-pb-16 md:tw-block">
+                    <div class="tw-hidden tw-h-8 tw-bg-gray-200 tw-px-16 tw-pb-16 md:tw-block">
                         <div class="tw-flex tw-space-x-3 tw-overflow-x-auto">
                             <button
-                                class="tw-flex tw-min-w-max tw-items-center tw-bg-gray-300 tw-py-1 tw-px-1.5"
+                                class="tw-flex tw-whitespace-nowrap tw-items-center tw-bg-gray-300 tw-py-1 tw-px-1.5"
                                 v-for="option in selectedOptionsAsLabels"
                                 @click="removeSelection(option)">
                                 <span v-if="option.filterName === 'color'"
@@ -717,7 +717,7 @@
                                 </svg>
                             </button>
                             <x-filter.reset_button v-if="selectedOptionsAsLabels.length"
-                                class="tw-flex tw-min-w-max tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1.5 tw-text-sm tw-font-normal tw-leading-none hover:tw-border-gray-800"
+                                class="tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1.5 tw-text-sm tw-font-normal tw-leading-none hover:tw-border-gray-800"
                                 @click="clearAllSelections">
                                 resetovať
                             </x-filter.reset_button>
@@ -777,7 +777,7 @@
                                                             :src="$route('dielo.nahlad', {id: artwork.id, width: 220})" :srcset="`${$route('dielo.nahlad', {id: artwork.id, width: 600})} 600w, ${$route('dielo.nahlad', {id: artwork.id, width: 220})} 220w, ${$route('dielo.nahlad', {id: artwork.id, width: 300})} 300w, ${$route('dielo.nahlad', {id: artwork.id, width: 600})} 600w, ${$route('dielo.nahlad', {id: artwork.id, width: 800})} 800w`"
                                                             sizes="(max-width: 768px) 250vw, 100vw">
                                                     </a>
-                                                    <div :class="[{'tw-hidden': ic.isLoaded }, 'tw-w-full tw-saturate-50 tw-bg-gray-300']" :style="{'aspect-ratio': artwork.content.image_ratio || 1, 'background-color': artwork.content.hsl[0] ? `hsl(${artwork.content.hsl[0].h}, ${artwork.content.hsl[0].s}%, ${artwork.content.hsl[0].l}%)` : undefined}">
+                                                    <div :class="[{'tw-hidden': ic.isLoaded }, 'tw-w-full tw-saturate-50 tw-bg-gray-300 tw-flex tw-items-center tw-justify-center']" :style="{'aspect-ratio': artwork.content.image_ratio || 7/8, 'background-color': artwork.content.hsl[0] ? `hsl(${artwork.content.hsl[0].h}, ${artwork.content.hsl[0].s}%, ${artwork.content.hsl[0].l}%)` : undefined}">
                                                     </div>
                                                 </div>
                                             </catalog.artwork-image-controller>
