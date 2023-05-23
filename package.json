@@ -37,7 +37,6 @@
     "dependencies": {
         "@lottiefiles/lottie-player": "^1.7.1",
         "@popperjs/core": "^2.11.7",
-        "@tailwindcss/line-clamp": "^0.4.2",
         "axios": "^1.2.6",
         "bootstrap": "^3.4.1",
         "clipboard": "^2.0.6",
