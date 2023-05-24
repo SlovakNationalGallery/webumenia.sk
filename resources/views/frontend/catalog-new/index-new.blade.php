@@ -724,9 +724,9 @@
                             </div>
                             <div v-else>
                                 <div class="tw-px-2 tw-py-6 md:tw-pb-8 md:tw-pt-0">
-                                    <filter-new-sort :sort="query . sort" :handle-sort-change="handleSortChange"
-                                        :options="[{ value: null, text: 'poslednej zmeny'}, { value: 'created_at', text: 'dátumu pridania',},  { value: 'title', text: 'názvu', }, { value: 'author', text: 'autora', }, { value: 'date_earliest', text: 'datovanie - od najnovšieho', }, { value: 'date_latest', text: 'datovanie - od najstaršieho' }, { value: 'view_count', text: 'počtu videní' }, { value: 'random', text: 'náhodného poradia' }]">
-                                        <template #artwork-counter>
+                                    <sort-controller :sort="query . sort" :handle-sort-change="handleSortChange"
+                                        :options="[{ value: null, text: 'poslednej zmeny'}, { value: 'created_at', text: 'dátumu pridania',},  { value: 'title', text: 'názvu', }, { value: 'author', text: 'autora', }, { value: 'date_earliest', text: 'datovanie - od najnovšieho', }, { value: 'date_latest', text: 'datovanie - od najstaršieho' }, { value: 'view_count', text: 'počtu videní' }, { value: 'random', text: 'náhodného poradia' }]" v-slot="sc">
+                                        <span class="tw-font-semibold">
                                             <span v-if="artworks_total === 1">Zobrazujem <span
                                                     class="tw-font-bold">1</span>
                                                 dielo, zoradené podľa&nbsp</span>
@@ -739,21 +739,43 @@
                                                     class="tw-font-bold">@{{ artworks_total }}</span>
                                                 diel, zoradených
                                                 podľa&nbsp</span>
-                                        </template>
-                                        <template #random-select>
+                                            <popper-controller name="sort" v-slot="popperController">
+                                                <span class="tw-font-semibold">
+                                                    <div class="tw-z-10 tw-inline-block">
+                                                        <button id="button-sort"
+                                                            class="tw-font-bold tw-underline tw-decoration-2 tw-underline-offset-4"
+                                                            @click="sc.toggleIsOpen()">
+                                                            @{{ sc.selectedOptionValue }}
+                                                            <x-icons.caret-down
+                                                                class="tw-inline tw-h-4 tw-w-4 tw-fill-current">
+                                                            </x-icons.caret-down>
+                                                        </button>
+                                                        <div id="body-sort" class="tw-z-10">
+                                                            <clickaway-wrapper v-if="sc.isOpen"
+                                                                :on-clickaway="sc . toggleIsOpen">
+                                                                <div v-if="sc.isOpen"
+                                                                    class="tw-absolute tw-w-80 tw-border-2 tw-border-gray-800 tw-bg-white tw-p-4">
+                                                                    <ul>
+                                                                        <li class="tw-pl-2 hover:tw-bg-gray-200"
+                                                                            v-for="option in sc.selectableOptions">
+                                                                            <a class="tw-block tw-w-full"
+                                                                                @click="sc.onSortChange(option.value)">@{{ option.text }}</a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </clickaway-wrapper>
+                                                        </div>
+                                                    </div>
+                                                </span>
+                                            </popper-controller>
                                             <span>
                                                 . Alebo skús aj
                                                 <button @click="handleSelectRandomly"
                                                     class="tw-font-bold tw-underline tw-decoration-2 tw-underline-offset-4">náhodný
                                                     výber</button>
                                             </span>
-                                        </template>
-                                        <template #icon>
-                                            <x-icons.caret-down
-                                                class="tw-inline tw-h-4 tw-w-4 tw-fill-current">
-                                            </x-icons.caret-down>
-                                        </template>
-                                    </filter-new-sort>
+                                        </span>
+                                    </sort-controller>
                                 </div>
                                 {{-- Artwork Masonry --}}
                                 <div v-masonry transition-duration="0" item-selector=".item">

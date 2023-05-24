@@ -45,6 +45,8 @@ Vue.component('filter-new-sort', require('./components/catalog-new/NewSort.vue')
 Vue.component('toggle-controller', require('./components/catalog-new/ToggleController.vue').default);
 Vue.component('search-controller', require('./components/catalog-new/SearchController.vue').default);
 Vue.component('popover-controller', require('./components/catalog-new/PopoverController.vue').default);
+Vue.component('popper-controller', require('./components/catalog-new/PopperController.vue').default);
+Vue.component('sort-controller', require('./components/catalog-new/SortController.vue').default);
 Vue.component('clickaway-wrapper', require('./components/catalog-new/ClickawayWrapper.vue').default);
 Vue.component('filter-disclosure-controller', require('./components/catalog-new/DisclosureModalController.vue').default);
 Vue.component('catalog.infinite-scroll', require('./components/catalog-new/InfiniteScroll.vue').default);
