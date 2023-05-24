@@ -12,7 +12,9 @@
                             <toggle-controller v-slot="tc">
                                 <div
                                     class="tw-hidden tw-gap-x-3 tw-overflow-x-auto md:tw-flex md:tw-flex-wrap md:tw-overflow-visible">
-                                    <x-filter.popover v-bind:is-active="query.author && query.author.length > 0" name="author">
+                                    <x-filter.popover
+                                        v-bind:is-active="query.author && query.author.length > 0"
+                                        name="author">
                                         @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="author"
                                                 :selected-values="query['author']">
@@ -31,7 +33,8 @@
                                             </div>
                                         @endslot
                                     </x-filter.popover>
-                                    <x-filter.popover v-bind:is-active="query.work_type.length > 0" name="work_type">
+                                    <x-filter.popover v-bind:is-active="query.work_type.length > 0"
+                                        name="work_type">
                                         @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="work_type"
                                                 :selected-values="query['work_type']">
@@ -50,7 +53,9 @@
                                             </div>
                                         @endslot
                                     </x-filter.popover>
-                                    <x-filter.popover v-bind:is-active="query.object_type && query.object_type.length > 0" name="object_type">
+                                    <x-filter.popover
+                                        v-bind:is-active="query.object_type && query.object_type.length > 0"
+                                        name="object_type">
                                         @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="object_type"
                                                 :selected-values="query['object_type']">
@@ -69,7 +74,8 @@
                                             </div>
                                         @endslot
                                     </x-filter.popover>
-                                    <x-filter.popover v-bind:is-active="query.tag.length > 0" name="tag">
+                                    <x-filter.popover v-bind:is-active="query.tag.length > 0"
+                                        name="tag">
                                         @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="tag"
                                                 :selected-values="query['tag']">
@@ -88,7 +94,8 @@
                                             </div>
                                         @endslot
                                     </x-filter.popover>
-                                    <x-filter.popover v-bind:is-active="query.object_type.length > 0" name="gallery">
+                                    <x-filter.popover v-bind:is-active="query.object_type.length > 0"
+                                        name="gallery">
                                         @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="gallery"
                                                 :selected-values="query['gallery']">
@@ -107,7 +114,8 @@
                                             </div>
                                         @endslot
                                     </x-filter.popover>
-                                    <x-filter.popover v-bind:is-active="query.technique.length > 0" v-if="tc.isOpen" name="technique">
+                                    <x-filter.popover v-bind:is-active="query.technique.length > 0"
+                                        v-if="tc.isOpen" name="technique">
                                         @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="technique"
                                                 :selected-values="query['technique']">
@@ -126,7 +134,8 @@
                                             </div>
                                         @endslot
                                     </x-filter.popover>
-                                    <x-filter.popover v-bind:is-active="query.topic.length > 0" v-if="tc.isOpen" name="topic">
+                                    <x-filter.popover v-bind:is-active="query.topic.length > 0"
+                                        v-if="tc.isOpen" name="topic">
                                         @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="topic"
                                                 :selected-values="query['topic']">
@@ -145,7 +154,8 @@
                                             </div>
                                         @endslot
                                     </x-filter.popover>
-                                    <x-filter.popover v-bind:is-active="query.medium.length > 0" v-if="tc.isOpen" name="medium">
+                                    <x-filter.popover v-bind:is-active="query.medium.length > 0"
+                                        v-if="tc.isOpen" name="medium">
                                         @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="medium"
                                                 :selected-values="query['medium']">
@@ -164,7 +174,8 @@
                                             </div>
                                         @endslot
                                     </x-filter.popover>
-                                    <x-filter.popover v-bind:is-active="query.color" v-if="tc.isOpen" name="color">
+                                    <x-filter.popover v-bind:is-active="query.color" v-if="tc.isOpen"
+                                        name="color">
                                         @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="color"
                                                 :selected-values="query['color']">
@@ -189,7 +200,8 @@
                                             </div>
                                         @endslot
                                     </x-filter.popover>
-                                    <x-filter.popover v-bind:is-active="query.yearRange" v-if="tc.isOpen" name="yearRange">
+                                    <x-filter.popover v-bind:is-active="query.yearRange"
+                                        v-if="tc.isOpen" name="yearRange">
                                         @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="yearRange"
                                                 :selected-values="query['yearRange']">
@@ -286,8 +298,7 @@
                                                 <span class="tw-text-lg tw-font-semibold">Filter diel</span>
                                             @endslot
                                             @slot('reset_button')
-                                                <x-filter.reset_button
-                                                    class="tw-mr-3 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
+                                                <x-filter.reset_button class="tw-mr-3"
                                                     v-if="selectedOptionsAsLabels.length"
                                                     @click="clearAllSelections">
                                                     zrušiť celý výber
@@ -410,16 +421,15 @@
                                         <x-filter.disclosure_view v-if="dc.view === 'author'"
                                             @close="dc.close">
                                             @slot('header')
-                                                <div class="tw-flex tw-items-center tw-py-0.5">
-                                                    <x-filter.view_header_button @click="dc.goTo('index')">
-                                                    </x-filter.view_header_button>
+                                                <x-filter.view_header_button @click="dc.goTo('index')">
                                                     <filter-new-custom-select-popover-label name="author"
                                                         :selected-values="query['author']">
                                                     </filter-new-custom-select-popover-label>
-                                                </div>
+                                                </x-filter.view_header_button>
                                             @endslot
                                             @slot('reset_button')
-                                                <x-filter.reset_button v-if="query.author.length"
+                                                <x-filter.reset_button class="tw-mr-3"
+                                                    v-if="query.author.length"
                                                     @click="clearFilterSelection('author')">
                                                     zrušiť výber
                                                 </x-filter.reset_button>
@@ -429,27 +439,24 @@
                                                     class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
                                                     <x-filter.options
                                                         search-placeholder="Napíšte meno autora / autorky"
-                                                        v-bind:options="aggregations['object_type']"
-                                                        v-bind:selected="query['object_type']"
-                                                        v-on:change="e => handleMultiSelectChange('object_type', e)"
-                                                        v-on:reset="clearFilterSelection('object_type')" />
+                                                        v-bind:options="aggregations['author']"
+                                                        v-bind:selected="query['author']"
+                                                        v-on:change="e => handleMultiSelectChange('author', e)"
+                                                        v-on:reset="clearFilterSelection('author')" />
                                                 </div>
                                             @endslot
                                         </x-filter.disclosure_view>
                                         <x-filter.disclosure_view v-if="dc.view === 'work_type'"
                                             @close="dc.close">
                                             @slot('header')
-                                                <div class="tw-flex tw-items-center tw-py-0.5">
-                                                    <x-filter.view_header_button @click="dc.goTo('index')">
-                                                    </x-filter.view_header_button>
+                                                <x-filter.view_header_button @click="dc.goTo('index')">
                                                     <filter-new-custom-select-popover-label name="work_type"
                                                         :selected-values="query['work_type']">
                                                     </filter-new-custom-select-popover-label>
-                                                </div>
+                                                </x-filter.view_header_button>
                                             @endslot
                                             @slot('reset_button')
-                                                <x-filter.reset_button
-                                                    class="tw-mr-3 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
+                                                <x-filter.reset_button class="tw-mr-3"
                                                     v-if="query.work_type.length"
                                                     @click="clearFilterSelection('work_type')">
                                                     zrušiť výber
@@ -470,17 +477,14 @@
                                         <x-filter.disclosure_view v-if="dc.view === 'object_type'"
                                             @close="dc.close">
                                             @slot('header')
-                                                <div class="tw-flex tw-items-center tw-py-0.5">
-                                                    <x-filter.view_header_button @click="dc.goTo('index')">
-                                                    </x-filter.view_header_button>
+                                                <x-filter.view_header_button @click="dc.goTo('index')">
                                                     <filter-new-custom-select-popover-label name="object_type"
                                                         :selected-values="query['object_type']">
                                                     </filter-new-custom-select-popover-label>
-                                                </div>
+                                                </x-filter.view_header_button>
                                             @endslot
                                             @slot('reset_button')
-                                                <x-filter.reset_button
-                                                    class="tw-mr-3 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
+                                                <x-filter.reset_button class="tw-mr-3"
                                                     v-if="query.object_type.length"
                                                     @click="clearFilterSelection('object_type')">
                                                     zrušiť výber
@@ -501,16 +505,15 @@
                                         <x-filter.disclosure_view v-if="dc.view === 'tag'"
                                             @close="dc.close">
                                             @slot('header')
-                                                <div class="tw-flex tw-items-center tw-py-0.5">
-                                                    <x-filter.view_header_button @click="dc.goTo('index')">
-                                                    </x-filter.view_header_button>
+                                                <x-filter.view_header_button @click="dc.goTo('index')">
                                                     <filter-new-custom-select-popover-label name="tag"
                                                         :selected-values="query['tag']">
                                                     </filter-new-custom-select-popover-label>
-                                                </div>
+                                                </x-filter.view_header_button>
                                             @endslot
                                             @slot('reset_button')
-                                                <x-filter.reset_button v-if="query.tag.length"
+                                                <x-filter.reset_button class="tw-mr-3"
+                                                    v-if="query.tag.length"
                                                     @click="clearFilterSelection('tag')">
                                                     zrušiť výber
                                                 </x-filter.reset_button>
@@ -530,17 +533,14 @@
                                         <x-filter.disclosure_view v-if="dc.view === 'gallery'"
                                             @close="dc.close">
                                             @slot('header')
-                                                <div class="tw-flex tw-items-center tw-py-0.5">
-                                                    <x-filter.view_header_button @click="dc.goTo('index')">
-                                                    </x-filter.view_header_button>
+                                                <x-filter.view_header_button @click="dc.goTo('index')">
                                                     <filter-new-custom-select-popover-label name="gallery"
                                                         :selected-values="query['gallery']">
                                                     </filter-new-custom-select-popover-label>
-                                                </div>
+                                                </x-filter.view_header_button>
                                             @endslot
                                             @slot('reset_button')
-                                                <x-filter.reset_button
-                                                    class="tw-mr-3 tw-flex tw-min-w-max tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
+                                                <x-filter.reset_button class="tw-mr-3"
                                                     v-if="query.gallery.length"
                                                     @click="clearFilterSelection('gallery')">
                                                     zrušiť výber
@@ -558,16 +558,15 @@
                                         <x-filter.disclosure_view v-if="dc.view === 'technique'"
                                             @close="dc.close">
                                             @slot('header')
-                                                <div class="tw-flex tw-items-center tw-py-0.5">
-                                                    <x-filter.view_header_button @click="dc.goTo('index')">
-                                                    </x-filter.view_header_button>
+                                                <x-filter.view_header_button @click="dc.goTo('index')">
                                                     <filter-new-custom-select-popover-label name="technique"
                                                         :selected-values="query['technique']">
                                                     </filter-new-custom-select-popover-label>
-                                                </div>
+                                                </x-filter.view_header_button>
                                             @endslot
                                             @slot('reset_button')
-                                                <x-filter.reset_button v-if="query.technique.length"
+                                                <x-filter.reset_button class="tw-mr-3"
+                                                    v-if="query.technique.length"
                                                     @click="clearFilterSelection('technique')">
                                                     zrušiť výber
                                                 </x-filter.reset_button>
@@ -587,17 +586,14 @@
                                         <x-filter.disclosure_view v-if="dc.view === 'topic'"
                                             @close="dc.close">
                                             @slot('header')
-                                                <div class="tw-flex tw-items-center tw-py-0.5">
-                                                    <x-filter.view_header_button @click="dc.goTo('index')">
-                                                    </x-filter.view_header_button>
+                                                <x-filter.view_header_button @click="dc.goTo('index')">
                                                     <filter-new-custom-select-popover-label name="topic"
                                                         :selected-values="query['topic']">
                                                     </filter-new-custom-select-popover-label>
-                                                </div>
+                                                </x-filter.view_header_button>
                                             @endslot
                                             @slot('reset_button')
-                                                <x-filter.reset_button
-                                                    class="tw-mr-3 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
+                                                <x-filter.reset_button class="tw-mr-3"
                                                     v-if="query.topic.length"
                                                     @click="clearFilterSelection('topic')">
                                                     zrušiť výber
@@ -618,17 +614,14 @@
                                         <x-filter.disclosure_view v-if="dc.view === 'medium'"
                                             @close="dc.close">
                                             @slot('header')
-                                                <div class="tw-flex tw-items-center tw-py-0.5">
-                                                    <x-filter.view_header_button @click="dc.goTo('index')">
-                                                    </x-filter.view_header_button>
+                                                <x-filter.view_header_button @click="dc.goTo('index')">
                                                     <filter-new-custom-select-popover-label name="medium"
                                                         :selected-values="query['medium']">
                                                     </filter-new-custom-select-popover-label>
-                                                </div>
+                                                </x-filter.view_header_button>
                                             @endslot
                                             @slot('reset_button')
-                                                <x-filter.reset_button
-                                                    class="tw-mr-3 tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1 tw-text-sm tw-font-semibold hover:tw-border-gray-800"
+                                                <x-filter.reset_button class="tw-mr-3"
                                                     v-if="query.medium.length"
                                                     @click="clearFilterSelection('medium')">
                                                     zrušiť výber
