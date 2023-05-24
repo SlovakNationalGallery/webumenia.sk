@@ -19,7 +19,6 @@
                                             <filter-new-custom-select-popover-label name="author"
                                                 :selected-values="query['author']">
                                             </filter-new-custom-select-popover-label>
-                                            </template>
                                         @endslot
                                         @slot('body')
                                             <div
@@ -39,7 +38,6 @@
                                             <filter-new-custom-select-popover-label name="work_type"
                                                 :selected-values="query['work_type']">
                                             </filter-new-custom-select-popover-label>
-                                            </template>
                                         @endslot
                                         @slot('body')
                                             <div
@@ -60,7 +58,6 @@
                                             <filter-new-custom-select-popover-label name="object_type"
                                                 :selected-values="query['object_type']">
                                             </filter-new-custom-select-popover-label>
-                                            </template>
                                         @endslot
                                         @slot('body')
                                             <div
@@ -80,7 +77,6 @@
                                             <filter-new-custom-select-popover-label name="tag"
                                                 :selected-values="query['tag']">
                                             </filter-new-custom-select-popover-label>
-                                            </template>
                                         @endslot
                                         @slot('body')
                                             <div
@@ -100,7 +96,6 @@
                                             <filter-new-custom-select-popover-label name="gallery"
                                                 :selected-values="query['gallery']">
                                             </filter-new-custom-select-popover-label>
-                                            </template>
                                         @endslot
                                         @slot('body')
                                             <div
@@ -120,7 +115,6 @@
                                             <filter-new-custom-select-popover-label name="technique"
                                                 :selected-values="query['technique']">
                                             </filter-new-custom-select-popover-label>
-                                            </template>
                                         @endslot
                                         @slot('body')
                                             <div
@@ -140,7 +134,6 @@
                                             <filter-new-custom-select-popover-label name="topic"
                                                 :selected-values="query['topic']">
                                             </filter-new-custom-select-popover-label>
-                                            </template>
                                         @endslot
                                         @slot('body')
                                             <div
@@ -160,7 +153,6 @@
                                             <filter-new-custom-select-popover-label name="medium"
                                                 :selected-values="query['medium']">
                                             </filter-new-custom-select-popover-label>
-                                            </template>
                                         @endslot
                                         @slot('body')
                                             <div
@@ -180,7 +172,6 @@
                                             <filter-new-custom-select-popover-label name="color"
                                                 :selected-values="query['color']">
                                             </filter-new-custom-select-popover-label>
-                                            </template>
                                         @endslot
                                         @slot('body')
                                             <div class="tw-mt-4 tw-w-screen tw-px-16">
@@ -206,7 +197,6 @@
                                             <filter-new-custom-select-popover-label name="yearRange"
                                                 :selected-values="query['yearRange']">
                                             </filter-new-custom-select-popover-label>
-                                            </template>
                                         @endslot
                                         @slot('body')
                                             <div class="tw-mt-4">
