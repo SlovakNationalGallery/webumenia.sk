@@ -754,7 +754,7 @@
                                                             <clickaway-wrapper v-if="sc.isOpen"
                                                                 :on-clickaway="sc . toggleIsOpen">
                                                                 <div v-if="sc.isOpen"
-                                                                    class="tw-absolute tw-w-80 tw-border-2 tw-border-gray-800 tw-bg-white tw-p-4">
+                                                                    class="tw-w-80 tw-border-2 tw-border-gray-800 tw-bg-white tw-p-4">
                                                                     <ul>
                                                                         <li class="tw-pl-2 hover:tw-bg-gray-200"
                                                                             v-for="option in sc.selectableOptions">
