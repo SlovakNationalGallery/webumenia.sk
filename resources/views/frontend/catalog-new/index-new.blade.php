@@ -169,9 +169,12 @@
                                     <x-filter.popover v-bind:is-active="query.color" v-if="tc.isOpen"
                                         name="color">
                                         @slot('popover_label')
-                                            <filter-new-custom-select-popover-label name="color"
-                                                :selected-values="query['color']">
-                                            </filter-new-custom-select-popover-label>
+                                            <div
+                                                class="tw-flex tw-items-center tw-gap-2 tw-text-sm tw-font-semibold md:tw-text-base">
+                                                color<div v-if="query['color']"
+                                                    class="tw-inline-block tw-h-4 tw-w-4" :style="{'background': `#${query['color']}`}">
+                                                </div>
+                                            </div>
                                         @endslot
                                         @slot('body')
                                             <div class="tw-mt-4 tw-w-screen tw-px-16">
@@ -194,9 +197,10 @@
                                     <x-filter.popover v-bind:is-active="query.yearRange"
                                         v-if="tc.isOpen" name="yearRange">
                                         @slot('popover_label')
-                                            <filter-new-custom-select-popover-label name="yearRange"
-                                                :selected-values="query['yearRange']">
-                                            </filter-new-custom-select-popover-label>
+                                            <div class="tw-text-sm tw-font-semibold md:tw-text-base">
+                                                rok<span class="tw-ml-2"
+                                                    v-if="query.yearRange">(@{{ query.yearRange.from }}
+                                                    - @{{ query.yearRange.to }})</div>
                                         @endslot
                                         @slot('body')
                                             <div class="tw-mt-4">
