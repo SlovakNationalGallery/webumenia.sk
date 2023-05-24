@@ -219,7 +219,7 @@
                                     <div class="tw-flex tw-gap-1 tw-pb-2">
                                         <div class="tw-border tw-border-transparent">
                                             <button @click="tc.toggle"
-                                                class="tw-flex tw-w-full tw-items-center tw-justify-center tw-border tw-border-gray-300 tw-py-2.5 tw-px-4 tw-text-lg tw-font-bold hover:tw-border-gray-800">
+                                                class="tw-flex tw-w-full tw-items-center tw-justify-center tw-border tw-border-gray-300 tw-py-2.5 tw-px-4 tw-text-base tw-font-bold hover:tw-border-gray-800">
                                                 <div class="tw-flex tw-items-center tw-pr-4">
                                                     <x-icons.minus v-if="tc.isOpen"
                                                         class="tw-h-6 tw-w-6 tw-fill-current">
