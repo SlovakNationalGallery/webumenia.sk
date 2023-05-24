@@ -2,6 +2,7 @@
 export default {
     props: {
         name: String,
+        isActive: Boolean,
     },
     computed: {
         isOpen() {
@@ -15,6 +16,7 @@ export default {
             isOpen: this.isOpen,
             togglePopover: this.togglePopover,
             closeOpenedPopover: this.closeOpenedPopover,
+            isActive: this.isActive
         })
     },
 }

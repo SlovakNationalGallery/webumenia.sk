@@ -12,7 +12,7 @@
                             <toggle-controller v-slot="tc">
                                 <div
                                     class="tw-hidden tw-gap-x-3 tw-overflow-x-auto md:tw-flex md:tw-flex-wrap md:tw-overflow-visible">
-                                    <x-filter.popover name="author">
+                                    <x-filter.popover v-bind:is-active="query.author && query.author.length > 0" name="author">
                                         @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="author"
                                                 :selected-values="query['author']">
@@ -31,7 +31,7 @@
                                             </div>
                                         @endslot
                                     </x-filter.popover>
-                                    <x-filter.popover name="work_type">
+                                    <x-filter.popover v-bind:is-active="query.work_type.length > 0" name="work_type">
                                         @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="work_type"
                                                 :selected-values="query['work_type']">
@@ -50,7 +50,7 @@
                                             </div>
                                         @endslot
                                     </x-filter.popover>
-                                    <x-filter.popover name="object_type">
+                                    <x-filter.popover v-bind:is-active="query.object_type && query.object_type.length > 0" name="object_type">
                                         @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="object_type"
                                                 :selected-values="query['object_type']">
@@ -69,7 +69,7 @@
                                             </div>
                                         @endslot
                                     </x-filter.popover>
-                                    <x-filter.popover name="tag">
+                                    <x-filter.popover v-bind:is-active="query.tag.length > 0" name="tag">
                                         @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="tag"
                                                 :selected-values="query['tag']">
@@ -88,7 +88,7 @@
                                             </div>
                                         @endslot
                                     </x-filter.popover>
-                                    <x-filter.popover name="gallery">
+                                    <x-filter.popover v-bind:is-active="query.object_type.length > 0" name="gallery">
                                         @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="gallery"
                                                 :selected-values="query['gallery']">
@@ -107,7 +107,7 @@
                                             </div>
                                         @endslot
                                     </x-filter.popover>
-                                    <x-filter.popover v-if="tc.isOpen" name="technique">
+                                    <x-filter.popover v-bind:is-active="query.technique.length > 0" v-if="tc.isOpen" name="technique">
                                         @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="technique"
                                                 :selected-values="query['technique']">
@@ -126,7 +126,7 @@
                                             </div>
                                         @endslot
                                     </x-filter.popover>
-                                    <x-filter.popover v-if="tc.isOpen" name="topic">
+                                    <x-filter.popover v-bind:is-active="query.topic.length > 0" v-if="tc.isOpen" name="topic">
                                         @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="topic"
                                                 :selected-values="query['topic']">
@@ -145,7 +145,7 @@
                                             </div>
                                         @endslot
                                     </x-filter.popover>
-                                    <x-filter.popover v-if="tc.isOpen" name="medium">
+                                    <x-filter.popover v-bind:is-active="query.medium.length > 0" v-if="tc.isOpen" name="medium">
                                         @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="medium"
                                                 :selected-values="query['medium']">
@@ -164,7 +164,7 @@
                                             </div>
                                         @endslot
                                     </x-filter.popover>
-                                    <x-filter.popover v-if="tc.isOpen" name="color">
+                                    <x-filter.popover v-bind:is-active="query.color" v-if="tc.isOpen" name="color">
                                         @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="color"
                                                 :selected-values="query['color']">
@@ -189,7 +189,7 @@
                                             </div>
                                         @endslot
                                     </x-filter.popover>
-                                    <x-filter.popover v-if="tc.isOpen" name="yearRange">
+                                    <x-filter.popover v-bind:is-active="query.yearRange" v-if="tc.isOpen" name="yearRange">
                                         @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="yearRange"
                                                 :selected-values="query['yearRange']">

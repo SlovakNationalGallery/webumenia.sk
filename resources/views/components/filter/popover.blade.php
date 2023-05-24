@@ -4,7 +4,7 @@
             <div class="tw-border tw-border-transparent" :class="{'tw-border-gray-800': pc.isOpen}">
                 <button :id="`button-${pc.name}`"
                     class="tw-border tw-border-gray-300 tw-bg-white tw-py-2.5 tw-px-4 tw-text-lg tw-font-bold hover:tw-border-gray-800"
-                    :class="{'tw-border-gray-800': pc.active || pc.isOpen}"
+                    v-bind:class="{'tw-border-gray-800': pc.isActive|| pc.isOpen}"
                     @click="pc.togglePopover(pc.name)">
                     <div class="tw-flex">
                         {{ $popover_label }}
