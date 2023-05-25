@@ -1,4 +1,4 @@
-<search-controller {{ $attributes->only(['v-bind:options', 'v-bind:selected']) }} v-slot="sc">
+<filter-search-controller {{ $attributes->only(['v-bind:options', 'v-bind:selected']) }} v-slot="sc">
     <div class="tw-flex tw-flex-col tw-flex-1 tw-min-w-full">
         <div class="tw-flex tw-border tw-border-gray-800 tw-mb-6 tw-mx-4 md:tw-mx-0">
             <input
@@ -40,7 +40,7 @@
             </label>
         </div>
     </div>
-</search-controller>
+</filter-search-controller>
 <x-filter.reset_button class="tw-hidden md:tw-flex tw-gap-1 tw-mb-6 tw-mt-5" @click="{{ $attributes->get('v-on:reset') }}">
     zrušiť výber
 </x-filter.reset_button>

@@ -710,7 +710,7 @@
                             </div>
                             <div v-else>
                                 <div class="tw-px-2 tw-py-6 md:tw-pb-8 md:tw-pt-0">
-                                    <sort-controller :sort="query . sort" :handle-sort-change="handleSortChange"
+                                    <filter-sort-controller :sort="query . sort" :handle-sort-change="handleSortChange"
                                         :options="[{ value: null, text: 'poslednej zmeny'}, { value: 'created_at', text: 'dátumu pridania',},  { value: 'title', text: 'názvu', }, { value: 'author', text: 'autora', }, { value: 'date_earliest', text: 'datovanie - od najnovšieho', }, { value: 'date_latest', text: 'datovanie - od najstaršieho' }, { value: 'view_count', text: 'počtu videní' }, { value: 'random', text: 'náhodného poradia' }]" v-slot="sc">
                                         <span class="tw-font-semibold">
                                             <span v-if="artworks_total === 1">Zobrazujem <span
@@ -759,7 +759,7 @@
                                                     výber</button>
                                             </span>
                                         </span>
-                                    </sort-controller>
+                                    </filter-sort-controller>
                                 </div>
                                 {{-- Artwork Masonry --}}
                                 <div v-masonry transition-duration="0" item-selector=".item">

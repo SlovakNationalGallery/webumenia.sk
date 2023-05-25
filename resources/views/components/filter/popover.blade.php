@@ -1,4 +1,4 @@
-<popover-controller v-slot="pc" {{ $attributes }}>
+<filter.popover-controller v-slot="pc" {{ $attributes }}>
     <popper-controller :name="pc.name" v-slot="popperController">
         <div class="tw-pb-2">
             <div class="tw-border tw-border-transparent" :class="{'tw-border-gray-800': pc.isOpen}">
@@ -24,4 +24,4 @@
             </div>
         </div>
     </popper-controller>
-</popover-controller>
+</filter.popover-controller>
