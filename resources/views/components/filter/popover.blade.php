@@ -18,11 +18,9 @@
                 </button>
             </div>
             <div :id="`body-${pc . name}`" class="tw-z-10">
-                <clickaway-wrapper v-if="pc.isOpen" :on-clickaway="pc . closeOpenedPopover">
-                    <div>
-                        {{ $body }}
-                    </div>
-                </clickaway-wrapper>
+                <div v-if="pc.isOpen" v-on-clickaway="pc.closeOpenedPopover">
+                    {{ $body }}
+                </div>
             </div>
         </div>
     </popper-controller>

@@ -27,6 +27,7 @@ import 'livewire-vue'
 import * as LottiePlayer from "@lottiefiles/lottie-player";
 import { VueMasonryPlugin } from 'vue-masonry'
 import { Lang } from 'laravel-vue-lang';
+import { directive as onClickaway } from 'vue-clickaway'
 
 window.Vue = Vue
 Vue.use(VueMasonryPlugin)
@@ -47,7 +48,6 @@ Vue.component('search-controller', require('./components/catalog-new/SearchContr
 Vue.component('popover-controller', require('./components/catalog-new/PopoverController.vue').default);
 Vue.component('popper-controller', require('./components/catalog-new/PopperController.vue').default);
 Vue.component('sort-controller', require('./components/catalog-new/SortController.vue').default);
-Vue.component('clickaway-wrapper', require('./components/catalog-new/ClickawayWrapper.vue').default);
 Vue.component('catalog.infinite-scroll', require('./components/catalog-new/InfiniteScroll.vue').default);
 Vue.component('catalog.artwork-image-controller', require('./components/catalog-new/ArtworkImageController.vue').default);
 Vue.component('flickity', require('./components/Flickity.vue').default);
@@ -81,4 +81,5 @@ Vue.component('color-slider', require('./components/vue/color-slider').default);
  */
 
 Vue.prototype.$route = route;
+Vue.directive('onClickaway', onClickaway)
 new Vue({ el: '#app' });
