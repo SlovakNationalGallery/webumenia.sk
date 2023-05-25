@@ -183,7 +183,7 @@
                                                     <div v-if="query.color" class="tw-flex tw-justify-end">
                                                         <x-filter.reset_button
                                                             @click="handleColorChange(null)"
-                                                            class="tw-mb-2 tw-flex tw-items-center tw-border tw-border-gray-300 tw-py-1 tw-px-1.5 tw-text-sm">
+                                                            class="tw-mb-2">
                                                             resetovať
                                                         </x-filter.reset_button>
                                                     </div>
@@ -210,7 +210,7 @@
                                                         class="tw-flex tw-justify-end">
                                                         <x-filter.reset_button
                                                             @click="handleYearRangeChange(null)"
-                                                            class="tw-mb-3 tw-flex tw-items-center tw-border tw-border-gray-300 tw-py-1 tw-px-1.5 tw-text-sm">
+                                                            class="tw-mb-3">
                                                             resetovať
                                                         </x-filter.reset_button>
                                                     </div>
@@ -361,7 +361,7 @@
                                                                 class="tw-flex tw-justify-center">
                                                                 <x-filter.reset_button
                                                                     @click="handleYearRangeChange(null)"
-                                                                    class="tw-mt-2.5 tw-flex tw-items-center tw-border tw-border-gray-300 tw-py-1 tw-px-1.5 tw-text-sm">
+                                                                    class="tw-mt-2.5">
                                                                     resetovať
                                                                 </x-filter.reset_button>
                                                             </div>
@@ -385,7 +385,7 @@
                                                                 class="tw-flex tw-justify-center">
                                                                 <x-filter.reset_button
                                                                     @click="handleColorChange(null)"
-                                                                    class="tw-mt-4 tw-flex tw-items-center tw-border tw-border-gray-300 tw-py-1 tw-px-1.5 tw-text-sm">
+                                                                    class="tw-mt-4">
                                                                     resetovať
                                                                 </x-filter.reset_button>
                                                             </div>
@@ -688,8 +688,7 @@
                                 </svg>
                             </button>
                             <x-filter.reset_button v-if="selectedOptionsAsLabels.length"
-                                class="tw-flex tw-items-center tw-border tw-border-gray-300 tw-bg-white tw-px-1.5 tw-py-1.5 tw-text-sm tw-font-normal tw-leading-none hover:tw-border-gray-800"
-                                @click="clearAllSelections">
+                                @click="clearAllSelections" sm>
                                 resetovať
                             </x-filter.reset_button>
                         </div>
