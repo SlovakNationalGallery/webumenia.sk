@@ -162,6 +162,12 @@ export default {
         },
     },
     methods: {
+        isFilterEmpty(filterName) {
+            return (
+                this.query[filterName].length ||
+                (this.aggregations[filterName] && this.aggregations[filterName].length > 0)
+            )
+        },
         clearFilterSelection(filterName) {
             this.query = {
                 ...this.query,
@@ -321,6 +327,7 @@ export default {
             aggregations: this.aggregations,
             artworks: this.artworks,
             artworks_total: this.artworks_total,
+            isFilterEmpty: this.isFilterEmpty,
             loadMore: this.loadMore,
             handleSortChange: this.handleSortChange,
             handleYearRangeChange: this.handleYearRangeChange,
