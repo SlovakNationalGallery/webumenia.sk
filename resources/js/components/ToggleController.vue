@@ -2,17 +2,17 @@
 export default {
     data() {
         return {
-            isOpen: false,
+            isOn: false,
         }
     },
     methods: {
         toggle() {
-            this.isOpen = !this.isOpen
+            this.isOn = !this.isOn
         },
     },
     render() {
         return this.$scopedSlots.default({
-            isOpen: this.isOpen,
+            isOn: this.isOn,
             toggle: this.toggle,
         })
     },

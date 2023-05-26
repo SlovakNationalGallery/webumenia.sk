@@ -110,7 +110,7 @@
                                         @endslot
                                     </x-filter.popover>
                                     <x-filter.popover v-bind:is-active="query.technique.length > 0"
-                                        v-if="tc.isOpen" name="technique">
+                                        v-if="tc.isOn" name="technique">
                                         @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="technique"
                                                 :selected-values="query['technique']">
@@ -129,7 +129,7 @@
                                         @endslot
                                     </x-filter.popover>
                                     <x-filter.popover v-bind:is-active="query.topic.length > 0"
-                                        v-if="tc.isOpen" name="topic">
+                                        v-if="tc.isOn" name="topic">
                                         @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="topic"
                                                 :selected-values="query['topic']">
@@ -148,7 +148,7 @@
                                         @endslot
                                     </x-filter.popover>
                                     <x-filter.popover v-bind:is-active="query.medium.length > 0"
-                                        v-if="tc.isOpen" name="medium">
+                                        v-if="tc.isOn" name="medium">
                                         @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="medium"
                                                 :selected-values="query['medium']">
@@ -166,7 +166,7 @@
                                             </div>
                                         @endslot
                                     </x-filter.popover>
-                                    <x-filter.popover v-bind:is-active="query.color" v-if="tc.isOpen"
+                                    <x-filter.popover v-bind:is-active="query.color" v-if="tc.isOn"
                                         name="color">
                                         @slot('popover_label')
                                             <div
@@ -195,7 +195,7 @@
                                         @endslot
                                     </x-filter.popover>
                                     <x-filter.popover v-bind:is-active="query.yearRange"
-                                        v-if="tc.isOpen" name="yearRange">
+                                        v-if="tc.isOn" name="yearRange">
                                         @slot('popover_label')
                                             <div class="tw-text-sm tw-font-semibold md:tw-text-base">
                                                 rok<span class="tw-ml-2"
@@ -227,7 +227,7 @@
                                             <button @click="tc.toggle"
                                                 class="tw-flex tw-w-full tw-items-center tw-justify-center tw-border tw-border-gray-300 tw-py-2.5 tw-px-4 tw-text-base tw-font-bold hover:tw-border-gray-800">
                                                 <div class="tw-flex tw-items-center tw-pr-4">
-                                                    <x-icons.minus v-if="tc.isOpen"
+                                                    <x-icons.minus v-if="tc.isOn"
                                                         class="tw-h-6 tw-w-6 tw-fill-current">
                                                     </x-icons.minus>
                                                     <x-icons.sliders-horizontal
@@ -235,7 +235,7 @@
                                                     </x-icons.sliders-horizontal>
                                                 </div>
                                                 <span
-                                                    class="tw-font-semibold">@{{ tc.isOpen ? 'skryť ďalšie filtre' : 'všetky filtre' }}</span>
+                                                    class="tw-font-semibold">@{{ tc.isOn ? 'skryť ďalšie filtre' : 'všetky filtre' }}</span>
                                             </button>
                                         </div>
                                     </div>
