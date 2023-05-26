@@ -12,7 +12,7 @@
                             <toggle-controller v-slot="tc">
                                 <div
                                     class="tw-hidden tw-gap-x-3 tw-gap-y-2 tw-overflow-x-auto md:tw-flex md:tw-flex-wrap md:tw-overflow-visible">
-                                    <x-filter.popover
+                                    <x-filter.search_popover
                                         v-bind:is-active="query.author && query.author.length > 0"
                                         name="author">
                                         @slot('popover_label')
@@ -23,7 +23,7 @@
                                         @slot('body')
                                             <div
                                                 class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                                <x-filter.options
+                                                <x-filter.search_options
                                                     search-placeholder="Napíšte meno autora / autorky"
                                                     v-bind:options="aggregations['author']"
                                                     v-bind:selected="query['author']"
@@ -31,8 +31,8 @@
                                                     v-on:reset="clearFilterSelection('author')" />
                                             </div>
                                         @endslot
-                                    </x-filter.popover>
-                                    <x-filter.popover v-bind:is-active="query.work_type.length > 0"
+                                    </x-filter.search_popover>
+                                    <x-filter.search_popover v-bind:is-active="query.work_type.length > 0"
                                         name="work_type">
                                         @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="work_type"
@@ -42,7 +42,7 @@
                                         @slot('body')
                                             <div
                                                 class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                                <x-filter.options
+                                                <x-filter.search_options
                                                     search-placeholder="Napíšte meno autora / autorky"
                                                     v-bind:options="aggregations['work_type']"
                                                     v-bind:selected="query['work_type']"
@@ -50,8 +50,8 @@
                                                     v-on:reset="clearFilterSelection('work_type')" />
                                             </div>
                                         @endslot
-                                    </x-filter.popover>
-                                    <x-filter.popover
+                                    </x-filter.search_popover>
+                                    <x-filter.search_popover
                                         v-bind:is-active="query.object_type && query.object_type.length > 0"
                                         name="object_type">
                                         @slot('popover_label')
@@ -62,7 +62,7 @@
                                         @slot('body')
                                             <div
                                                 class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                                <x-filter.options
+                                                <x-filter.search_options
                                                     search-placeholder="Napíšte meno autora / autorky"
                                                     v-bind:options="aggregations['object_type']"
                                                     v-bind:selected="query['object_type']"
@@ -70,8 +70,8 @@
                                                     v-on:reset="clearFilterSelection('object_type')" />
                                             </div>
                                         @endslot
-                                    </x-filter.popover>
-                                    <x-filter.popover v-bind:is-active="query.tag.length > 0"
+                                    </x-filter.search_popover>
+                                    <x-filter.search_popover v-bind:is-active="query.tag.length > 0"
                                         name="tag">
                                         @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="tag"
@@ -81,7 +81,7 @@
                                         @slot('body')
                                             <div
                                                 class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                                <x-filter.options
+                                                <x-filter.search_options
                                                     search-placeholder="Napíšte meno autora / autorky"
                                                     v-bind:options="aggregations['tag']"
                                                     v-bind:selected="query['tag']"
@@ -89,8 +89,8 @@
                                                     v-on:reset="clearFilterSelection('tag')" />
                                             </div>
                                         @endslot
-                                    </x-filter.popover>
-                                    <x-filter.popover v-bind:is-active="query.object_type.length > 0"
+                                    </x-filter.search_popover>
+                                    <x-filter.search_popover v-bind:is-active="query.object_type.length > 0"
                                         name="gallery">
                                         @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="gallery"
@@ -100,7 +100,7 @@
                                         @slot('body')
                                             <div
                                                 class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                                <x-filter.options
+                                                <x-filter.search_options
                                                     search-placeholder="Napíšte meno autora / autorky"
                                                     v-bind:options="aggregations['gallery']"
                                                     v-bind:selected="query['gallery']"
@@ -108,8 +108,8 @@
                                                     v-on:reset="clearFilterSelection('gallery')" />
                                             </div>
                                         @endslot
-                                    </x-filter.popover>
-                                    <x-filter.popover v-bind:is-active="query.technique.length > 0"
+                                    </x-filter.search_popover>
+                                    <x-filter.search_popover v-bind:is-active="query.technique.length > 0"
                                         v-if="tc.isOn" name="technique">
                                         @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="technique"
@@ -119,7 +119,7 @@
                                         @slot('body')
                                             <div
                                                 class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                                <x-filter.options
+                                                <x-filter.search_options
                                                     search-placeholder="Napíšte meno autora / autorky"
                                                     v-bind:options="aggregations['technique']"
                                                     v-bind:selected="query['technique']"
@@ -127,8 +127,8 @@
                                                     v-on:reset="clearFilterSelection('technique')" />
                                             </div>
                                         @endslot
-                                    </x-filter.popover>
-                                    <x-filter.popover v-bind:is-active="query.topic.length > 0"
+                                    </x-filter.search_popover>
+                                    <x-filter.search_popover v-bind:is-active="query.topic.length > 0"
                                         v-if="tc.isOn" name="topic">
                                         @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="topic"
@@ -138,7 +138,7 @@
                                         @slot('body')
                                             <div
                                                 class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                                <x-filter.options
+                                                <x-filter.search_options
                                                     search-placeholder="Napíšte meno autora / autorky"
                                                     v-bind:options="aggregations['topic']"
                                                     v-bind:selected="query['topic']"
@@ -146,8 +146,8 @@
                                                     v-on:reset="clearFilterSelection('topic')" />
                                             </div>
                                         @endslot
-                                    </x-filter.popover>
-                                    <x-filter.popover v-bind:is-active="query.medium.length > 0"
+                                    </x-filter.search_popover>
+                                    <x-filter.search_popover v-bind:is-active="query.medium.length > 0"
                                         v-if="tc.isOn" name="medium">
                                         @slot('popover_label')
                                             <filter-new-custom-select-popover-label name="medium"
@@ -157,7 +157,7 @@
                                         @slot('body')
                                             <div
                                                 class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
-                                                <x-filter.options
+                                                <x-filter.search_options
                                                     search-placeholder="Napíšte meno autora / autorky"
                                                     v-bind:options="aggregations['medium']"
                                                     v-bind:selected="query['medium']"
@@ -165,8 +165,8 @@
                                                     v-on:reset="clearFilterSelection('medium')" />
                                             </div>
                                         @endslot
-                                    </x-filter.popover>
-                                    <x-filter.popover v-bind:is-active="query.color" v-if="tc.isOn"
+                                    </x-filter.search_popover>
+                                    <x-filter.search_popover v-bind:is-active="query.color" v-if="tc.isOn"
                                         name="color">
                                         @slot('popover_label')
                                             <div
@@ -193,8 +193,8 @@
                                                 </div>
                                             </div>
                                         @endslot
-                                    </x-filter.popover>
-                                    <x-filter.popover v-bind:is-active="query.yearRange"
+                                    </x-filter.search_popover>
+                                    <x-filter.search_popover v-bind:is-active="query.yearRange"
                                         v-if="tc.isOn" name="yearRange">
                                         @slot('popover_label')
                                             <div class="tw-text-sm tw-font-semibold md:tw-text-base">
@@ -221,7 +221,7 @@
                                                 </div>
                                             </div>
                                         @endslot
-                                    </x-filter.popover>
+                                    </x-filter.search_popover>
                                     <div class="tw-flex tw-gap-1 tw-pb-2">
                                         <div class="tw-border tw-border-transparent">
                                             <button @click="tc.toggle"
@@ -431,7 +431,7 @@
                                             @slot('body')
                                                 <div
                                                     class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                    <x-filter.options
+                                                    <x-filter.search_options
                                                         search-placeholder="Napíšte meno autora / autorky"
                                                         v-bind:options="aggregations['author']"
                                                         v-bind:selected="query['author']"
@@ -459,7 +459,7 @@
                                             @slot('body')
                                                 <div
                                                     class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                    <x-filter.options
+                                                    <x-filter.search_options
                                                         search-placeholder="Napíšte meno autora / autorky"
                                                         v-bind:options="aggregations['work_type']"
                                                         v-bind:selected="query['work_type']"
@@ -487,7 +487,7 @@
                                             @slot('body')
                                                 <div
                                                     class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                    <x-filter.options
+                                                    <x-filter.search_options
                                                         search-placeholder="Napíšte meno autora / autorky"
                                                         v-bind:options="aggregations['object_type']"
                                                         v-bind:selected="query['object_type']"
@@ -515,7 +515,7 @@
                                             @slot('body')
                                                 <div
                                                     class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                    <x-filter.options
+                                                    <x-filter.search_options
                                                         search-placeholder="Napíšte meno autora / autorky"
                                                         v-bind:options="aggregations['tag']"
                                                         v-bind:selected="query['tag']"
@@ -541,7 +541,7 @@
                                                 </x-filter.reset_button>
                                             @endslot
                                             @slot('body')
-                                                <x-filter.options
+                                                <x-filter.search_options
                                                     search-placeholder="Napíšte meno autora / autorky"
                                                     v-bind:options="aggregations['gallery']"
                                                     v-bind:selected="query['gallery']"
@@ -568,7 +568,7 @@
                                             @slot('body')
                                                 <div
                                                     class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                    <x-filter.options
+                                                    <x-filter.search_options
                                                         search-placeholder="Napíšte meno autora / autorky"
                                                         v-bind:options="aggregations['technique']"
                                                         v-bind:selected="query['technique']"
@@ -596,7 +596,7 @@
                                             @slot('body')
                                                 <div
                                                     class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                    <x-filter.options
+                                                    <x-filter.search_options
                                                         search-placeholder="Napíšte meno autora / autorky"
                                                         v-bind:options="aggregations['topic']"
                                                         v-bind:selected="query['topic']"
@@ -624,7 +624,7 @@
                                             @slot('body')
                                                 <div
                                                     class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                    <x-filter.options
+                                                    <x-filter.search_options
                                                         search-placeholder="Napíšte meno autora / autorky"
                                                         v-bind:options="aggregations['medium']"
                                                         v-bind:selected="query['medium']"
