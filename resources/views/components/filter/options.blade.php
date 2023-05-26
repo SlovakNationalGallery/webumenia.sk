@@ -41,6 +41,6 @@
         </div>
     </div>
 </filter-search-controller>
-<x-filter.reset_button class="tw-hidden md:tw-flex tw-gap-1 tw-mb-6 tw-mt-5" @click="{{ $attributes->get('v-on:reset') }}">
+<x-filter.reset_button class="tw-hidden md:tw-flex tw-mb-6 tw-mt-5" @click="{{ $attributes->get('v-on:reset') }}">
     zrušiť výber
 </x-filter.reset_button>

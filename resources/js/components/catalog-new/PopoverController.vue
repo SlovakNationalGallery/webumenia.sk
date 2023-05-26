@@ -1,8 +1,41 @@
+<template>
+    <div ref="button">
+        <slot
+            name="button"
+            :popoverName="name"
+            :isOpen="isOpen"
+            :togglePopover="togglePopover"
+        ></slot>
+    </div>
+    <div ref="body" class="tw-z-10">
+        <slot
+            name="body"
+            :isOpen="this.isOpen"
+            :closeOpenedPopover="this.closeOpenedPopover"
+        ></slot>
+    </div>
+</template>
 <script>
+import { createPopper } from '@popperjs/core'
 export default {
     props: {
         name: String,
         isActive: Boolean,
+    },
+    data() {
+        return {
+            popper: null,
+        }
+    },
+    mounted() {
+        const button = this.$refs.button
+        const body = this.$refs.body
+        this.popper = createPopper(button, body, {
+            placement: 'bottom-start',
+        })
+    },
+    updated() {
+        this.popper.update()
     },
     computed: {
         isOpen() {
@@ -10,14 +43,5 @@ export default {
         },
     },
     inject: ['popoverGroupControllerData', 'togglePopover', 'closeOpenedPopover'],
-    render() {
-        return this.$scopedSlots.default({
-            name: this.name,
-            isOpen: this.isOpen,
-            togglePopover: this.togglePopover,
-            closeOpenedPopover: this.closeOpenedPopover,
-            isActive: this.isActive
-        })
-    },
 }
 </script>
