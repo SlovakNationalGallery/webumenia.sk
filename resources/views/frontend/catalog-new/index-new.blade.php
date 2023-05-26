@@ -272,7 +272,7 @@
                                         </filter-new-custom-select-popover-label>
                                     </x-filter.disclosure_button>
                                 </div>
-                                <div class="tw-flex tw-gap-1">
+                                <div class="tw-flex tw-pr-4">
                                     <button @click="dc.goTo('index')"
                                         class="tw-w-full tw-border tw-border-gray-300 tw-py-2 tw-px-3 tw-font-medium hover:tw-border-gray-800">
                                         <div class="tw-flex tw-justify-center tw-gap-1">
@@ -353,9 +353,10 @@
                                                                     - @{{ query.yearRange.to }})</div>
                                                         @endslot
                                                         @slot('body')
-                                                            <filter-new-year-slider :default-from="Number(query.yearRange?.from)"
-                                                                :default-to="Number(query.yearRange?.to)" :min="{{ $yearLimits['min'] ?? 0 }}"
-                                                                :max="{{ $yearLimits['max'] ?? now()->year }}" @change="handleYearRangeChange">
+                                                            <filter-new-year-slider class="tw-px-4"
+                                                                :default-from="Number(query.yearRange?.from)" :default-to="Number(query.yearRange?.to)"
+                                                                :min="{{ $yearLimits['min'] ?? 0 }}" :max="{{ $yearLimits['max'] ?? now()->year }}"
+                                                                @change="handleYearRangeChange">
                                                             </filter-new-year-slider>
                                                             <div v-if="query.yearRange"
                                                                 class="tw-flex tw-justify-center">
@@ -378,8 +379,8 @@
                                                             </div>
                                                         @endslot
                                                         @slot('body')
-                                                            <filter-new-color-slider :default-color="query['color']"
-                                                                @change="handleColorChange">
+                                                            <filter-new-color-slider class="tw-px-4"
+                                                                :default-color="query['color']" @change="handleColorChange">
                                                             </filter-new-color-slider>
                                                             <div v-if="query.color"
                                                                 class="tw-flex tw-justify-center">
@@ -761,42 +762,42 @@
                                                                 v-on-clickaway="pc.closeOpenedPopover"
                                                                 class="tw-w-80 tw-border-2 tw-border-gray-800 tw-bg-white tw-p-4">
                                                                 <ul>
-                                                                    <li class="tw-pl-2 hover:tw-bg-gray-200"
+                                                                    <li class="tw-pl-2 tw-py-0.5 hover:tw-bg-gray-200"
                                                                         @click="handleSortChange('created_at');pc.closeOpenedPopover()"
                                                                         v-if="query.sort !== 'created_at'">
                                                                         created_at
                                                                     </li>
-                                                                    <li class="tw-pl-2 hover:tw-bg-gray-200"
+                                                                    <li class="tw-pl-2 tw-py-0.5 hover:tw-bg-gray-200"
                                                                         @click="handleSortChange('title');pc.closeOpenedPopover()"
                                                                         v-if="query.sort !== 'title'">
                                                                         title
                                                                     </li>
-                                                                    <li class="tw-pl-2 hover:tw-bg-gray-200"
+                                                                    <li class="tw-pl-2 tw-py-0.5 hover:tw-bg-gray-200"
                                                                         @click="handleSortChange('author');pc.closeOpenedPopover()"
                                                                         v-if="query.sort !== 'author'">
                                                                         author
                                                                     </li>
-                                                                    <li class="tw-pl-2 hover:tw-bg-gray-200"
+                                                                    <li class="tw-pl-2 tw-py-0.5 hover:tw-bg-gray-200"
                                                                         @click="handleSortChange('date_earliest');pc.closeOpenedPopover()"
                                                                         v-if="query.sort !== 'date_earliest'">
                                                                         date_earliest
                                                                     </li>
-                                                                    <li class="tw-pl-2 hover:tw-bg-gray-200"
+                                                                    <li class="tw-pl-2 tw-py-0.5 hover:tw-bg-gray-200"
                                                                         @click="handleSortChange('date_latest');pc.closeOpenedPopover()"
                                                                         v-if="query.sort !== 'date_latest'">
                                                                         date_latest
                                                                     </li>
-                                                                    <li class="tw-pl-2 hover:tw-bg-gray-200"
+                                                                    <li class="tw-pl-2 tw-py-0.5 hover:tw-bg-gray-200"
                                                                         @click="handleSortChange('view_count');pc.closeOpenedPopover()"
                                                                         v-if="query.sort !== 'view_count'">
                                                                         view_count
                                                                     </li>
-                                                                    <li class="tw-pl-2 hover:tw-bg-gray-200"
+                                                                    <li class="tw-pl-2 tw-py-0.5 hover:tw-bg-gray-200"
                                                                         @click="handleSortChange('random');pc.closeOpenedPopover()"
                                                                         v-if="query.sort !== 'random'">
                                                                         random
                                                                     </li>
-                                                                    <li class="tw-pl-2 hover:tw-bg-gray-200"
+                                                                    <li class="tw-pl-2 tw-py-0.5 hover:tw-bg-gray-200"
                                                                         @click="handleSortChange(null);pc.closeOpenedPopover()"
                                                                         v-if="!query.sort">
                                                                         last_change
