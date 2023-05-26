@@ -33,4 +33,8 @@ return [
     'scena_ai' => [
         'key' => env('SCENA_AI_KEY'),
     ],
+
+    'google_maps' => [
+        'key' => env('GOOGLE_MAPS_KEY'),
+    ],
 ];

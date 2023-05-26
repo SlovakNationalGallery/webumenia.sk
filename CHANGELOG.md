@@ -2,8 +2,13 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.76.0] - 2023-05-25
 ### Added
 - authors_formatted field to /api/v1/items
+
+### Changed
+- Google Maps API key to be included from env variable
 
 ## [2.75.0] - 2023-05-11
 ### Changed

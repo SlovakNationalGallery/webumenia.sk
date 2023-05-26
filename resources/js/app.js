@@ -27,6 +27,7 @@ import 'livewire-vue'
 import * as LottiePlayer from "@lottiefiles/lottie-player";
 import { VueMasonryPlugin } from 'vue-masonry'
 import { Lang } from 'laravel-vue-lang';
+import { directive as onClickaway } from 'vue-clickaway'
 
 window.Vue = Vue
 Vue.use(VueMasonryPlugin)
@@ -36,17 +37,15 @@ Vue.component('filter-sort-by', require('./components/filter/SortBy.vue').defaul
 Vue.component('filter-checkbox', require('./components/filter/Checkbox.vue').default);
 Vue.component('filter-custom-select', require('./components/filter/CustomSelect.vue').default);
 Vue.component('filter-new-items-controller', require('./components/catalog-new/ItemsFilterController.vue').default);
-Vue.component('filter-new-popover', require('./components/catalog-new/PopoverFilter.vue').default);
 Vue.component('filter-new-popover.group-controller', require('./components/catalog-new/PopoverGroupController.vue').default);
 Vue.component('filter-new-custom-select-popover-label', require('./components/catalog-new/NewCustomSelectPopoverLabel.vue').default);
-Vue.component('filter-new-options', require('./components/catalog-new/Options.vue').default);
 Vue.component('filter-new-color-slider', require('./components/catalog-new/NewColorSlider.vue').default);
 Vue.component('filter-new-year-slider', require('./components/catalog-new/NewYearSlider.vue').default);
 Vue.component('filter-new-custom-checkbox', require('./components/catalog-new/NewCustomCheckbox.vue').default);
-Vue.component('filter-new-sort', require('./components/catalog-new/NewSort.vue').default);
-Vue.component('filter-disclosure-inline-list-button', require('./components/catalog-new/DisclosureFilterInlineListButton.vue').default);
 Vue.component('filter-disclosure-controller', require('./components/catalog-new/DisclosureModalController.vue').default);
-Vue.component('filter-show-more', require('./components/catalog-new/ShowMore.vue').default);
+Vue.component('toggle-controller', require('./components/ToggleController.vue').default);
+Vue.component('filter-search-options-controller', require('./components/catalog-new/SearchOptionsController.vue').default);
+Vue.component('filter-popover-controller', require('./components/catalog-new/PopoverController.vue').default);
 Vue.component('catalog.infinite-scroll', require('./components/catalog-new/InfiniteScroll.vue').default);
 Vue.component('catalog.artwork-image-controller', require('./components/catalog-new/ArtworkImageController.vue').default);
 Vue.component('flickity', require('./components/Flickity.vue').default);
@@ -80,4 +79,5 @@ Vue.component('color-slider', require('./components/vue/color-slider').default);
  */
 
 Vue.prototype.$route = route;
+Vue.directive('onClickaway', onClickaway)
 new Vue({ el: '#app' });
