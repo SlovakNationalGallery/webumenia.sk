@@ -3,7 +3,7 @@
         <div class="tw-border"
             v-bind:class="pc.isOpen ?'tw-border-gray-800' : 'tw-border-transparent'">
             <button
-                class="tw-border tw-bg-white tw-py-2.5 tw-px-4 tw-text-lg tw-font-bold hover:tw-border-gray-800"
+                class="tw-border tw-bg-white tw-py-2.5 tw-px-4 hover:tw-border-gray-800"
                 v-bind:class="(pc.isOpen || {{ $attributes->get('v-bind:is-active') }}) ?'tw-border-gray-800' : 'tw-border-gray-300'"
                 @click="pc.togglePopover(pc.popoverName)">
                 <div class="tw-flex">
