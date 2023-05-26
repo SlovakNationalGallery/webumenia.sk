@@ -47,7 +47,6 @@ Vue.component('toggle-controller', require('./components/ToggleController.vue').
 Vue.component('filter-search-controller', require('./components/catalog-new/SearchController.vue').default);
 Vue.component('filter-popover-controller', require('./components/catalog-new/PopoverController.vue').default);
 Vue.component('popper-controller', require('./components/PopperController.vue').default);
-Vue.component('filter-sort-controller', require('./components/catalog-new/SortController.vue').default);
 Vue.component('catalog.infinite-scroll', require('./components/catalog-new/InfiniteScroll.vue').default);
 Vue.component('catalog.artwork-image-controller', require('./components/catalog-new/ArtworkImageController.vue').default);
 Vue.component('flickity', require('./components/Flickity.vue').default);

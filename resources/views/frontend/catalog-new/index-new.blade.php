@@ -11,7 +11,7 @@
                         <filter-new-popover.group-controller>
                             <toggle-controller v-slot="tc">
                                 <div
-                                    class="tw-hidden tw-gap-x-3 tw-overflow-x-auto md:tw-flex md:tw-flex-wrap md:tw-overflow-visible">
+                                    class="tw-hidden tw-gap-x-3 tw-gap-y-2 tw-overflow-x-auto md:tw-flex md:tw-flex-wrap md:tw-overflow-visible">
                                     <x-filter.popover
                                         v-bind:is-active="query.author && query.author.length > 0"
                                         name="author">
@@ -710,61 +710,111 @@
                             </div>
                             <div v-else>
                                 <div class="tw-px-2 tw-py-6 md:tw-pb-8 md:tw-pt-0">
-                                    <filter-sort-controller v-bind:sort="query.sort" :handle-sort-change="handleSortChange"
-                                        :options="[{ value: null, text: 'poslednej zmeny'}, { value: 'created_at', text: 'dátumu pridania',},  { value: 'title', text: 'názvu', }, { value: 'author', text: 'autora', }, { value: 'date_earliest', text: 'datovanie - od najnovšieho', }, { value: 'date_latest', text: 'datovanie - od najstaršieho' }, { value: 'view_count', text: 'počtu videní' }, { value: 'random', text: 'náhodného poradia' }]" v-slot="sc">
+                                    <span class="tw-font-semibold">
+                                        <span v-if="artworks_total === 1">Zobrazujem <span
+                                                class="tw-font-bold">1</span>
+                                            dielo, zoradené podľa&nbsp</span>
+                                        <span v-else-if="artworks_total < 5">Zobrazujem
+                                            <span class="tw-font-bold">@{{ artworks_total }}</span>
+                                            diela,
+                                            zoradené
+                                            podľa&nbsp</span>
+                                        <span v-else>Zobrazujem <span
+                                                class="tw-font-bold">@{{ artworks_total }}</span>
+                                            diel, zoradených
+                                            podľa&nbsp</span>
                                         <span class="tw-font-semibold">
-                                            <span v-if="artworks_total === 1">Zobrazujem <span
-                                                    class="tw-font-bold">1</span>
-                                                dielo, zoradené podľa&nbsp</span>
-                                            <span v-else-if="artworks_total < 5">Zobrazujem
-                                                <span
-                                                    class="tw-font-bold">@{{ artworks_total }}</span>
-                                                diela,
-                                                zoradené
-                                                podľa&nbsp</span>
-                                            <span v-else>Zobrazujem <span
-                                                    class="tw-font-bold">@{{ artworks_total }}</span>
-                                                diel, zoradených
-                                                podľa&nbsp</span>
-                                            <span class="tw-font-semibold">
-                                                <div class="tw-z-10 tw-inline-block">
-                                                    <filter-new-popover.group-controller>
-                                                        <filter-popover-controller name="sort">
-                                                            <template #button="pc">
-                                                                <button id="button-sort"
-                                                                    class="tw-font-bold tw-underline tw-decoration-2 tw-underline-offset-4"
-                                                                    @click="pc.togglePopover('sort')">
-                                                                    @{{ sc.selectedOptionValue }}
-                                                                    <x-icons.caret-down
-                                                                        class="tw-inline tw-h-4 tw-w-4 tw-fill-current">
-                                                                    </x-icons.caret-down>
-                                                                </button>
-                                                            </template>
-                                                            <template #body="pc">
-                                                                <div v-if="pc.isOpen"
-                                                                    v-on-clickaway="sc.toggleIsOpen"
-                                                                    class="tw-w-80 tw-border-2 tw-border-gray-800 tw-bg-white tw-p-4">
-                                                                    <ul>
-                                                                        <li class="tw-pl-2 hover:tw-bg-gray-200"
-                                                                            v-for="option in sc.selectableOptions">
-                                                                            <a class="tw-block tw-w-full"
-                                                                                @click="sc.onSortChange(option.value);pc.closeOpenedPopover()">@{{ option.text }}</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </template>
-                                                        </filter-popover-controller>
-                                                    </filter-new-popover.group-controller>
-                                                </div>
-                                            </span>
-                                            <span>
-                                                . Alebo skús aj
-                                                <button @click="handleSelectRandomly"
-                                                    class="tw-font-bold tw-underline tw-decoration-2 tw-underline-offset-4">náhodný
-                                                    výber</button>
-                                            </span>
+                                            <div class="tw-z-10 tw-inline-block">
+                                                <filter-new-popover.group-controller>
+                                                    <filter-popover-controller name="sort">
+                                                        <template #button="pc">
+                                                            <button id="button-sort"
+                                                                class="tw-font-bold tw-underline tw-decoration-2 tw-underline-offset-4"
+                                                                @click="pc.togglePopover('sort')">
+                                                                <span
+                                                                    v-if="query.sort === 'created_at' ">dátumu
+                                                                    pridania</span>
+                                                                <span
+                                                                    v-else-if="query.sort === 'title' ">názvu</span>
+                                                                <span
+                                                                    v-else-if="query.sort === 'author' ">autora</span>
+                                                                <span
+                                                                    v-else-if="query.sort === 'date_earliest' ">datovanie
+                                                                    - od najnovšieho</span>
+                                                                <span
+                                                                    v-else-if="query.sort === 'date_latest' ">datovanie
+                                                                    - od najstaršieho</span>
+                                                                <span
+                                                                    v-else-if="query.sort === 'view_count' ">počtu
+                                                                    videní</span>
+                                                                <span
+                                                                    v-else-if="query.sort === 'random' ">náhodného
+                                                                    poradia</span>
+                                                                <span v-else>poslednej zmeny</span>
+                                                                <x-icons.caret-down
+                                                                    class="tw-inline tw-h-4 tw-w-4 tw-fill-current">
+                                                                </x-icons.caret-down>
+                                                            </button>
+                                                        </template>
+                                                        <template #body="pc">
+                                                            <div v-if="pc.isOpen"
+                                                                v-on-clickaway="pc.closeOpenedPopover"
+                                                                class="tw-w-80 tw-border-2 tw-border-gray-800 tw-bg-white tw-p-4">
+                                                                <ul>
+                                                                    <li class="tw-pl-2 hover:tw-bg-gray-200"
+                                                                        @click="handleSortChange('created_at');pc.closeOpenedPopover()"
+                                                                        v-if="query.sort !== 'created_at'">
+                                                                        created_at
+                                                                    </li>
+                                                                    <li class="tw-pl-2 hover:tw-bg-gray-200"
+                                                                        @click="handleSortChange('title');pc.closeOpenedPopover()"
+                                                                        v-if="query.sort !== 'title'">
+                                                                        title
+                                                                    </li>
+                                                                    <li class="tw-pl-2 hover:tw-bg-gray-200"
+                                                                        @click="handleSortChange('author');pc.closeOpenedPopover()"
+                                                                        v-if="query.sort !== 'author'">
+                                                                        author
+                                                                    </li>
+                                                                    <li class="tw-pl-2 hover:tw-bg-gray-200"
+                                                                        @click="handleSortChange('date_earliest');pc.closeOpenedPopover()"
+                                                                        v-if="query.sort !== 'date_earliest'">
+                                                                        date_earliest
+                                                                    </li>
+                                                                    <li class="tw-pl-2 hover:tw-bg-gray-200"
+                                                                        @click="handleSortChange('date_latest');pc.closeOpenedPopover()"
+                                                                        v-if="query.sort !== 'date_latest'">
+                                                                        date_latest
+                                                                    </li>
+                                                                    <li class="tw-pl-2 hover:tw-bg-gray-200"
+                                                                        @click="handleSortChange('view_count');pc.closeOpenedPopover()"
+                                                                        v-if="query.sort !== 'view_count'">
+                                                                        view_count
+                                                                    </li>
+                                                                    <li class="tw-pl-2 hover:tw-bg-gray-200"
+                                                                        @click="handleSortChange('random');pc.closeOpenedPopover()"
+                                                                        v-if="query.sort !== 'random'">
+                                                                        random
+                                                                    </li>
+                                                                    <li class="tw-pl-2 hover:tw-bg-gray-200"
+                                                                        @click="handleSortChange(null);pc.closeOpenedPopover()"
+                                                                        v-if="!query.sort">
+                                                                        last_change
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </template>
+                                                    </filter-popover-controller>
+                                                </filter-new-popover.group-controller>
+                                            </div>
                                         </span>
-                                    </filter-sort-controller>
+                                        <span>
+                                            . Alebo skús aj
+                                            <button @click="handleSelectRandomly"
+                                                class="tw-font-bold tw-underline tw-decoration-2 tw-underline-offset-4">náhodný
+                                                výber</button>
+                                        </span>
+                                    </span>
                                 </div>
                                 {{-- Artwork Masonry --}}
                                 <div v-masonry transition-duration="0" item-selector=".item">

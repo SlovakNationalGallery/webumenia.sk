@@ -20,7 +20,6 @@ import { createPopper } from '@popperjs/core'
 export default {
     props: {
         name: String,
-        isActive: Boolean,
     },
     data() {
         return {
