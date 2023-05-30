@@ -6,7 +6,7 @@
             :min="0"
             :max="360"
             :duration="0"
-            :dotSize="24"
+            :dotSize="44"
             :height="12"
             :process="false"
             :railStyle="{
@@ -20,17 +20,19 @@
             @change="$emit('change', color)"
         >
             <template #dot>
-                <svg
-                    width="24"
-                    height="25"
-                    viewBox="0 0 24 25"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <circle cx="12" cy="12.6421" r="12" :fill="hueColor(getHue())" />
-                    <path opacity="0.4" d="M9 6.64209V18.6421" stroke="black" />
-                    <path opacity="0.4" d="M15 6.64209V18.6421" stroke="black" />
-                </svg>
+                <div class="tw-flex tw-h-full tw-w-full tw-justify-center tw-items-center">
+                    <svg
+                        width="24"
+                        height="25"
+                        viewBox="0 0 24 25"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <circle cx="12" cy="12.6421" r="12" :fill="hueColor(getHue())" />
+                        <path opacity="0.4" d="M9 6.64209V18.6421" stroke="black" />
+                        <path opacity="0.4" d="M15 6.64209V18.6421" stroke="black" />
+                    </svg>
+                </div>
             </template>
         </slider>
         <slider
@@ -41,7 +43,7 @@
             :max="1"
             :interval="0.01"
             :duration="0"
-            :dotSize="24"
+            :dotSize="44"
             :height="12"
             :process="false"
             :railStyle="lightnessBgColor()"
@@ -52,17 +54,19 @@
             @change="$emit('change', color)"
         >
             <template #dot>
-                <svg
-                    width="24"
-                    height="25"
-                    viewBox="0 0 24 25"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <circle cx="12" cy="12.6421" r="12" :fill="`#${color}`" />
-                    <path opacity="0.4" d="M9 6.64209V18.6421" stroke="black" />
-                    <path opacity="0.4" d="M15 6.64209V18.6421" stroke="black" />
-                </svg>
+                <div class="tw-flex tw-h-full tw-w-full tw-justify-center tw-items-center">
+                    <svg
+                        width="24"
+                        height="25"
+                        viewBox="0 0 24 25"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <circle cx="12" cy="12.6421" r="12" :fill="`#${color}`" />
+                        <path opacity="0.4" d="M9 6.64209V18.6421" stroke="black" />
+                        <path opacity="0.4" d="M15 6.64209V18.6421" stroke="black" />
+                    </svg>
+                </div>
             </template>
         </slider>
     </div>
