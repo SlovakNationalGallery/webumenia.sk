@@ -3,7 +3,7 @@
 @section('content')
     <section class="tailwind-rules">
         <filter-new-items-controller locale="{{ app()->getLocale() }}"
-            v-slot="{ loadMore, hasFilterOptions, isFetchingArtworks, handleSelectRandomly, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, page,  aggregations, artworks, last_page, artworks_total }">
+            v-slot="{ loadMore, hasError, hasFilterOptions, isFetchingArtworks, handleSelectRandomly, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, page,  aggregations, artworks, last_page, artworks_total }">
             <div class="tw-relative">
                 <div class="tw-relative tw-min-h-[calc(100vh-14rem)]">
                     <div class="tw-bg-gray-200">
@@ -748,7 +748,16 @@
                     </div>
                     <div
                         class="tw-mx-auto tw-min-h-screen tw-max-w-screen-2xl tw-px-4 md:tw-px-6 md:tw-py-10">
-                        <div v-if="artworks.length === 0"
+                        <div v-if="hasError"
+                            class="tw-flex tw-w-full tw-flex-col tw-items-center tw-justify-center tw-py-40 tw-text-lg">
+                            <span>Uuups, niečo sa pokazilo :( skús</span>
+                            <reload-controller v-slot="rc">
+                                <button class="tw-inline-block" @click="rc.reload">obnoviť
+                                    stránku.</button>
+                            </reload-controller>
+                        </div>
+
+                        <div v-else-if="artworks.length === 0"
                             class="tw-flex tw-w-full tw-flex-col tw-items-center tw-justify-center tw-py-40 tw-text-lg">
                             <div class="tw-w-72">
                                 <lottie-player autoplay loop mode="normal"
