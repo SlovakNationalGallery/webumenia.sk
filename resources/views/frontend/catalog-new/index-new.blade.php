@@ -843,7 +843,7 @@
                             </div>
                             {{-- Artwork Masonry --}}
                             <div v-masonry transition-duration="0" item-selector=".item"
-                                gutter=".gutter-sizer" :percentPosition="true">
+                                gutter=".gutter-sizer">
                                 <div class="gutter-sizer md:tw-w-8 2xl:tw-w-16"></div>
                                 <div class="grid-sizer"></div>
                                 <div v-masonry-tile
