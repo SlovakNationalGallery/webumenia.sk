@@ -752,11 +752,10 @@
                             class="tw-flex tw-w-full tw-flex-col tw-items-center tw-justify-center tw-py-40 tw-text-lg">
                             <span>Uuups, niečo sa pokazilo :( skús</span>
                             <reload-controller v-slot="rc">
-                                <button class="tw-inline-block" @click="rc.reload">obnoviť
+                                <button class="tw-inline-block tw-underline" @click="rc.reload">obnoviť
                                     stránku.</button>
                             </reload-controller>
                         </div>
-
                         <div v-else-if="artworks.length === 0"
                             class="tw-flex tw-w-full tw-flex-col tw-items-center tw-justify-center tw-py-40 tw-text-lg">
                             <div class="tw-w-72">
