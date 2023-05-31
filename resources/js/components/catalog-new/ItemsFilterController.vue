@@ -162,7 +162,7 @@ export default {
         },
     },
     methods: {
-        isFilterEmpty(filterName) {
+        hasFilterOptions(filterName) {
             return (
                 this.query[filterName].length ||
                 (this.aggregations[filterName] && this.aggregations[filterName].length > 0)
@@ -327,7 +327,7 @@ export default {
             aggregations: this.aggregations,
             artworks: this.artworks,
             artworks_total: this.artworks_total,
-            isFilterEmpty: this.isFilterEmpty,
+            hasFilterOptions: this.hasFilterOptions,
             loadMore: this.loadMore,
             handleSortChange: this.handleSortChange,
             handleYearRangeChange: this.handleYearRangeChange,
