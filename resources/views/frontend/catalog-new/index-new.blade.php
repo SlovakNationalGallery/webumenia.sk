@@ -845,7 +845,6 @@
                             <div v-masonry transition-duration="0" item-selector=".item"
                                 gutter=".gutter-sizer">
                                 <div class="gutter-sizer md:tw-w-8 2xl:tw-w-16"></div>
-                                <div class="grid-sizer"></div>
                                 <div v-masonry-tile
                                     class="item tw-w-full tw-p-2 tw-pb-4 md:tw-w-[calc(33.3333%-1.375rem)] md:tw-p-0 md:tw-pb-6 2xl:tw-w-[calc(33.3333%-2.75rem)] 2xl:tw-pb-10"
                                     v-for="artwork in artworks" :key="artwork . id">
