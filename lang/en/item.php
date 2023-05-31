@@ -38,14 +38,25 @@ return [
     'images' => 'imges',
     'iipimg_url' => 'IIP URL',
     'filter' => [
+        'extended_filter' => 'extended filter',
+        'displaying' => 'displaying',
+        'artworks_sorted_by' => '{1}artwork sorted by|[2,*]artworks sorted by',
+        'try_also' => 'you can also try',
+        'random_search' => 'a random search.',
         'year_from' => 'from year',
         'year_to' => 'to year',
+        'year' => 'rok',
         'has_image' => 'only with image',
         'has_iip' => 'only zoomable',
         'has_text' => 'only with text',
         'is_free' => 'only public domain',
         'color' => 'color',
         'sort_by' => 'sort by',
+        'placeholder' => [
+            'name_human' => 'Type a name',
+            'name_object' => 'Type a name',
+            'term' => 'Type a term',
+        ],
         'sorting' => [
             'created_at' => 'date added',
             'relevance' => 'relevance',
@@ -53,7 +64,7 @@ return [
             'newest' => 'date – from newest',
             'oldest' => 'date – from oldest',
             'view_count' => 'views',
-            'random' => 'random order'
+            'random' => 'random order',
         ],
         'title_generator' => [
             'search' => 'search results for: ":value"',
