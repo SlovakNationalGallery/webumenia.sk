@@ -26,7 +26,7 @@
                                                 <div
                                                     class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                     <x-filter.search_options
-                                                        search-placeholder="{{utrans('item.filter.placeholder.name_human')}}"
+                                                        search-placeholder="{{ utrans('item.filter.placeholder.name_human') }}"
                                                         v-bind:options="aggregations['author']"
                                                         v-bind:selected="query['author']"
                                                         v-on:change="e => handleMultiSelectChange('author', e)"
@@ -47,7 +47,7 @@
                                                 <div
                                                     class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                     <x-filter.search_options
-                                                        search-placeholder="{{utrans('item.filter.placeholder.term')}}"
+                                                        search-placeholder="{{ utrans('item.filter.placeholder.term') }}"
                                                         v-bind:options="aggregations['work_type']"
                                                         v-bind:selected="query['work_type']"
                                                         v-on:change="e => handleMultiSelectChange('work_type', e)"
@@ -68,7 +68,7 @@
                                                 <div
                                                     class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                     <x-filter.search_options
-                                                        search-placeholder="{{utrans('item.filter.placeholder.term')}}"
+                                                        search-placeholder="{{ utrans('item.filter.placeholder.term') }}"
                                                         v-bind:options="aggregations['object_type']"
                                                         v-bind:selected="query['object_type']"
                                                         v-on:change="e => handleMultiSelectChange('object_type', e)"
@@ -87,7 +87,7 @@
                                                 <div
                                                     class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                     <x-filter.search_options
-                                                        search-placeholder="{{utrans('item.filter.placeholder.name_object')}}"
+                                                        search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                         v-bind:options="aggregations['tag']"
                                                         v-bind:selected="query['tag']"
                                                         v-on:change="e => handleMultiSelectChange('tag', e)"
@@ -106,7 +106,7 @@
                                                 <div
                                                     class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                     <x-filter.search_options
-                                                        search-placeholder="{{utrans('item.filter.placeholder.name_object')}}"
+                                                        search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                         v-bind:options="aggregations['gallery']"
                                                         v-bind:selected="query['gallery']"
                                                         v-on:change="e => handleMultiSelectChange('gallery', e)"
@@ -128,7 +128,7 @@
                                                 <div
                                                     class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                     <x-filter.search_options
-                                                        search-placeholder="{{utrans('item.filter.placeholder.name_object')}}"
+                                                        search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                         v-bind:options="aggregations['technique']"
                                                         v-bind:selected="query['technique']"
                                                         v-on:change="e => handleMultiSelectChange('technique', e)"
@@ -148,7 +148,7 @@
                                                 <div
                                                     class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                     <x-filter.search_options
-                                                        search-placeholder="{{utrans('item.filter.placeholder.name_object')}}"
+                                                        search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                         v-bind:options="aggregations['topic']"
                                                         v-bind:selected="query['topic']"
                                                         v-on:change="e => handleMultiSelectChange('topic', e)"
@@ -168,7 +168,7 @@
                                                 <div
                                                     class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                     <x-filter.search_options
-                                                        search-placeholder="{{utrans('item.filter.placeholder.name_object')}}"
+                                                        search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                         v-bind:options="aggregations['medium']"
                                                         v-bind:selected="query['medium']"
                                                         v-on:change="e => handleMultiSelectChange('medium', e)"
@@ -462,7 +462,7 @@
                                                     <div
                                                         class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
                                                         <x-filter.search_options
-                                                            search-placeholder="{{utrans('item.filter.placeholder.name_human')}}"
+                                                            search-placeholder="{{ utrans('item.filter.placeholder.name_human') }}"
                                                             v-bind:options="aggregations['author']"
                                                             v-bind:selected="query['author']"
                                                             v-on:change="e => handleMultiSelectChange('author', e)"
@@ -491,7 +491,7 @@
                                                     <div
                                                         class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
                                                         <x-filter.search_options
-                                                            search-placeholder="{{utrans('item.filter.placeholder.term')}}"
+                                                            search-placeholder="{{ utrans('item.filter.placeholder.term') }}"
                                                             v-bind:options="aggregations['work_type']"
                                                             v-bind:selected="query['work_type']"
                                                             v-on:change="e => handleMultiSelectChange('work_type', e)"
@@ -519,7 +519,7 @@
                                                     <div
                                                         class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
                                                         <x-filter.search_options
-                                                            search-placeholder="{{utrans('item.filter.placeholder.term')}}"
+                                                            search-placeholder="{{ utrans('item.filter.placeholder.term') }}"
                                                             v-bind:options="aggregations['object_type']"
                                                             v-bind:selected="query['object_type']"
                                                             v-on:change="e => handleMultiSelectChange('object_type', e)"
@@ -548,7 +548,7 @@
                                                     <div
                                                         class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
                                                         <x-filter.search_options
-                                                            search-placeholder="{{utrans('item.filter.placeholder.name_object')}}"
+                                                            search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                             v-bind:options="aggregations['tag']"
                                                             v-bind:selected="query['tag']"
                                                             v-on:change="e => handleMultiSelectChange('tag', e)"
@@ -575,7 +575,7 @@
                                                 @endslot
                                                 @slot('body')
                                                     <x-filter.search_options
-                                                        search-placeholder="{{utrans('item.filter.placeholder.name_object')}}"
+                                                        search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                         v-bind:options="aggregations['gallery']"
                                                         v-bind:selected="query['gallery']"
                                                         v-on:change="e => handleMultiSelectChange('gallery', e)"
@@ -603,7 +603,7 @@
                                                     <div
                                                         class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
                                                         <x-filter.search_options
-                                                            search-placeholder="{{utrans('item.filter.placeholder.name_object')}}"
+                                                            search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                             v-bind:options="aggregations['technique']"
                                                             v-bind:selected="query['technique']"
                                                             v-on:change="e => handleMultiSelectChange('technique', e)"
@@ -632,7 +632,7 @@
                                                     <div
                                                         class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
                                                         <x-filter.search_options
-                                                            search-placeholder="{{utrans('item.filter.placeholder.name_object')}}"
+                                                            search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                             v-bind:options="aggregations['topic']"
                                                             v-bind:selected="query['topic']"
                                                             v-on:change="e => handleMultiSelectChange('topic', e)"
@@ -661,7 +661,7 @@
                                                     <div
                                                         class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
                                                         <x-filter.search_options
-                                                            search-placeholder="{{utrans('item.filter.placeholder.name_object')}}"
+                                                            search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                             v-bind:options="aggregations['medium']"
                                                             v-bind:selected="query['medium']"
                                                             v-on:change="e => handleMultiSelectChange('medium', e)"
@@ -774,20 +774,21 @@
                                                             class="tw-font-bold tw-underline tw-decoration-2 tw-underline-offset-4"
                                                             @click="pc.togglePopover('sort')">
                                                             <span
-                                                                v-if="query.sort === 'created_at' ">{{trans('sortable.created_at')}}</span>
+                                                                v-if="query.sort === 'created_at' ">{{ trans('sortable.created_at') }}</span>
                                                             <span
-                                                                v-else-if="query.sort === 'title' ">{{trans('sortable.title')}}</span>
+                                                                v-else-if="query.sort === 'title' ">{{ trans('sortable.title') }}</span>
                                                             <span
-                                                                v-else-if="query.sort === 'author' ">{{trans('sortable.author')}}</span>
+                                                                v-else-if="query.sort === 'author' ">{{ trans('sortable.author') }}</span>
                                                             <span
-                                                                v-else-if="query.sort === 'date_earliest' ">{{trans('sortable.date_earliest')}}</span>
+                                                                v-else-if="query.sort === 'date_earliest' ">{{ trans('sortable.date_earliest') }}</span>
                                                             <span
-                                                                v-else-if="query.sort === 'date_latest' ">{{trans('sortable.date_latest')}}</span>
+                                                                v-else-if="query.sort === 'date_latest' ">{{ trans('sortable.date_latest') }}</span>
                                                             <span
-                                                                v-else-if="query.sort === 'view_count' ">{{trans('sortable.view_count')}}</span>
+                                                                v-else-if="query.sort === 'view_count' ">{{ trans('sortable.view_count') }}</span>
                                                             <span
-                                                                v-else-if="query.sort === 'random' ">{{trans('sortable.random')}}</span>
-                                                            <span v-else>{{trans('sortable.updated_at')}}</span>
+                                                                v-else-if="query.sort === 'random' ">{{ trans('sortable.random') }}</span>
+                                                            <span
+                                                                v-else>{{ trans('sortable.updated_at') }}</span>
                                                             <x-icons.caret-down
                                                                 class="tw-inline tw-h-4 tw-w-4 tw-fill-current">
                                                             </x-icons.caret-down>
