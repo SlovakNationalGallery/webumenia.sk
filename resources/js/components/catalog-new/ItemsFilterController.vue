@@ -266,6 +266,7 @@ export default {
                 }
             } catch (e) {
                 this.hasError = true
+                throw e
             }
         },
         async fetchArtworks({ append }) {
@@ -292,6 +293,7 @@ export default {
                     : fetchedArtworks.data
             } catch (e) {
                 this.hasError = true
+                throw e
             } finally {
                 this.isFetchingArtworks = false
             }
