@@ -780,9 +780,9 @@
                                                             <span
                                                                 v-else-if="query.sort === 'author' ">{{ trans('sortable.author') }}</span>
                                                             <span
-                                                                v-else-if="query.sort === 'date_earliest' ">{{ trans('sortable.date_earliest') }}</span>
+                                                                v-else-if="query.sort === 'date_earliest' ">{{ trans('sortable.oldest') }}</span>
                                                             <span
-                                                                v-else-if="query.sort === 'date_latest' ">{{ trans('sortable.date_latest') }}</span>
+                                                                v-else-if="query.sort === 'date_latest' ">{{ trans('sortable.newest') }}</span>
                                                             <span
                                                                 v-else-if="query.sort === 'view_count' ">{{ trans('sortable.view_count') }}</span>
                                                             <span
@@ -802,42 +802,42 @@
                                                                 <li class="tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
                                                                     @click="handleSortChange('created_at');pc.closeOpenedPopover()"
                                                                     v-if="query.sort !== 'created_at'">
-                                                                    created_at
+                                                                    {{ trans('sortable.created_at') }}
                                                                 </li>
                                                                 <li class="tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
                                                                     @click="handleSortChange('title');pc.closeOpenedPopover()"
                                                                     v-if="query.sort !== 'title'">
-                                                                    title
+                                                                    {{ trans('sortable.title') }}
                                                                 </li>
                                                                 <li class="tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
                                                                     @click="handleSortChange('author');pc.closeOpenedPopover()"
                                                                     v-if="query.sort !== 'author'">
-                                                                    author
+                                                                    {{ trans('sortable.author') }}
                                                                 </li>
                                                                 <li class="tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
                                                                     @click="handleSortChange('date_earliest');pc.closeOpenedPopover()"
                                                                     v-if="query.sort !== 'date_earliest'">
-                                                                    date_earliest
+                                                                    {{ trans('sortable.oldest') }}
                                                                 </li>
                                                                 <li class="tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
                                                                     @click="handleSortChange('date_latest');pc.closeOpenedPopover()"
                                                                     v-if="query.sort !== 'date_latest'">
-                                                                    date_latest
+                                                                    {{ trans('sortable.newest') }}
                                                                 </li>
                                                                 <li class="tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
                                                                     @click="handleSortChange('view_count');pc.closeOpenedPopover()"
                                                                     v-if="query.sort !== 'view_count'">
-                                                                    view_count
+                                                                    {{ trans('sortable.view_count') }}
                                                                 </li>
                                                                 <li class="tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
                                                                     @click="handleSortChange('random');pc.closeOpenedPopover()"
                                                                     v-if="query.sort !== 'random'">
-                                                                    random
+                                                                    {{ trans('sortable.random') }}
                                                                 </li>
                                                                 <li class="tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
                                                                     @click="handleSortChange(null);pc.closeOpenedPopover()"
                                                                     v-if="!query.sort">
-                                                                    last_change
+                                                                    {{ trans('sortable.last_change') }}
                                                                 </li>
                                                             </ul>
                                                         </div>
