@@ -45,7 +45,7 @@ return [
         'random_search' => 'a random search.',
         'year_from' => 'from year',
         'year_to' => 'to year',
-        'year' => 'rok',
+        'year' => 'year',
         'has_image' => 'only with image',
         'has_iip' => 'only zoomable',
         'has_text' => 'only with text',
