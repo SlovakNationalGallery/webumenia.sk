@@ -14,8 +14,7 @@
                                 <toggle-controller v-slot="tc">
                                     <div
                                         class="tw-hidden tw-gap-x-3 tw-gap-y-2 tw-overflow-x-auto md:tw-flex md:tw-flex-wrap md:tw-overflow-visible">
-                                        <x-filter.search_popover
-                                            v-if="hasFilterOptions('author')"
+                                        <x-filter.search_popover v-if="hasFilterOptions('author')"
                                             v-bind:is-active="query.author && query.author.length > 0"
                                             name="author">
                                             @slot('popover_label')
@@ -35,8 +34,7 @@
                                                 </div>
                                             @endslot
                                         </x-filter.search_popover>
-                                        <x-filter.search_popover
-                                            v-if="hasFilterOptions('work_type')"
+                                        <x-filter.search_popover v-if="hasFilterOptions('work_type')"
                                             v-bind:is-active="query.work_type.length > 0"
                                             name="work_type">
                                             @slot('popover_label')
@@ -56,9 +54,8 @@
                                                 </div>
                                             @endslot
                                         </x-filter.search_popover>
-                                        <x-filter.search_popover
-                                            v-if="hasFilterOptions('object_type')"
-                                            v-bind:is-active="query.object_type && query.object_type.length > 0"
+                                        <x-filter.search_popover v-if="hasFilterOptions('object_type')"
+                                            v-bind:is-active="query.object_type.length > 0"
                                             name="object_type">
                                             @slot('popover_label')
                                                 <filter-new-custom-select-popover-label name="object_type"
@@ -77,9 +74,8 @@
                                                 </div>
                                             @endslot
                                         </x-filter.search_popover>
-                                        <x-filter.search_popover
-                                            v-if="hasFilterOptions('tag')" v-bind:is-active="query.tag.length > 0"
-                                            name="tag">
+                                        <x-filter.search_popover v-if="hasFilterOptions('tag')"
+                                            v-bind:is-active="query.tag.length > 0" name="tag">
                                             @slot('popover_label')
                                                 <filter-new-custom-select-popover-label name="tag"
                                                     :selected-values="query['tag']">
@@ -97,10 +93,8 @@
                                                 </div>
                                             @endslot
                                         </x-filter.search_popover>
-                                        <x-filter.search_popover
-                                            v-if="hasFilterOptions('object_type')"
-                                            v-bind:is-active="query.object_type.length > 0"
-                                            name="gallery">
+                                        <x-filter.search_popover v-if="hasFilterOptions('gallery')"
+                                            v-bind:is-active="query.gallery.length > 0" name="gallery">
                                             @slot('popover_label')
                                                 <filter-new-custom-select-popover-label name="gallery"
                                                     :selected-values="query['gallery']">
@@ -141,8 +135,7 @@
                                         </x-filter.search_popover>
                                         <x-filter.search_popover
                                             v-if="hasFilterOptions('topic') && tc.isOn"
-                                            v-bind:is-active="query.topic.length > 0"
-                                            name="topic">
+                                            v-bind:is-active="query.topic.length > 0" name="topic">
                                             @slot('popover_label')
                                                 <filter-new-custom-select-popover-label name="topic"
                                                     :selected-values="query['topic']">
@@ -162,8 +155,7 @@
                                         </x-filter.search_popover>
                                         <x-filter.search_popover
                                             v-if="hasFilterOptions('medium') && tc.isOn"
-                                            v-bind:is-active="query.medium.length > 0"
-                                            name="medium">
+                                            v-bind:is-active="query.medium.length > 0" name="medium">
                                             @slot('popover_label')
                                                 <filter-new-custom-select-popover-label name="medium"
                                                     :selected-values="query['medium']">
@@ -181,8 +173,7 @@
                                                 </div>
                                             @endslot
                                         </x-filter.search_popover>
-                                        <x-filter.search_popover
-                                            v-bind:is-active="query.color"
+                                        <x-filter.search_popover v-bind:is-active="query.color"
                                             v-if="tc.isOn" name="color">
                                             @slot('popover_label')
                                                 <div
@@ -212,8 +203,7 @@
                                                 </div>
                                             @endslot
                                         </x-filter.search_popover>
-                                        <x-filter.search_popover
-                                            v-bind:is-active="query.yearRange"
+                                        <x-filter.search_popover v-bind:is-active="query.yearRange"
                                             v-if="tc.isOn" name="yearRange">
                                             @slot('popover_label')
                                                 <div class="tw-text-sm tw-font-semibold md:tw-text-base">
