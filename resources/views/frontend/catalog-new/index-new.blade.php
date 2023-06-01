@@ -437,7 +437,7 @@
                                                         </filter-new-custom-checkbox>
                                                         <filter-new-custom-checkbox class="tw-pb-2"
                                                             @change="handleCheckboxChange" :checked="Boolean(query['has_text'])"
-                                                            title="{{ utrans('item.filter_has_text') }}"
+                                                            title="{{ utrans('item.filter.has_text') }}"
                                                             name="has_text" id="has_text_desktop">
                                                         </filter-new-custom-checkbox>
                                                     </div>
@@ -925,7 +925,7 @@
                                     <div class="tw-flex tw-justify-center">
                                         <div
                                             class="tw-border tw-border-gray-400 tw-py-2.5 tw-px-8 tw-text-sm hover:tw-border-gray-700">
-                                            {{ trans('item.filter.loading')}}
+                                            {{ trans('item.filter.loading') }}
                                         </div>
                                     </div>
                                 </template>
@@ -933,7 +933,7 @@
                                     <div class="tw-flex tw-justify-center">
                                         <button v-if="page === 1" @click="loadMore"
                                             class="tw-border tw-border-gray-400 tw-py-2.5 tw-px-8 tw-text-sm hover:tw-border-gray-700">
-                                            {{ trans('general.filter.show_more')}}
+                                            {{ trans('general.filter.show_more') }}
                                         </button>
                                     </div>
                                 </template>
