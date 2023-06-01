@@ -18,8 +18,8 @@
                                             v-bind:is-active="query.author && query.author.length > 0"
                                             name="author">
                                             @slot('popover_label')
-                                                <filter-new-custom-select-popover-label name="author"
-                                                    :selected-values="query['author']">
+                                                <filter-new-custom-select-popover-label
+                                                    name="{{ trans('item.author') }}" :selected-values="query['author']">
                                                 </filter-new-custom-select-popover-label>
                                             @endslot
                                             @slot('body')
@@ -38,8 +38,8 @@
                                             v-bind:is-active="query.work_type.length > 0"
                                             name="work_type">
                                             @slot('popover_label')
-                                                <filter-new-custom-select-popover-label name="work_type"
-                                                    :selected-values="query['work_type']">
+                                                <filter-new-custom-select-popover-label
+                                                    name="{{ trans('item.work_type') }}" :selected-values="query['work_type']">
                                                 </filter-new-custom-select-popover-label>
                                             @endslot
                                             @slot('body')
@@ -58,7 +58,8 @@
                                             v-bind:is-active="query.object_type.length > 0"
                                             name="object_type">
                                             @slot('popover_label')
-                                                <filter-new-custom-select-popover-label name="object_type"
+                                                <filter-new-custom-select-popover-label
+                                                    name="{{ trans('item.object_type') }}"
                                                     :selected-values="query['object_type']">
                                                 </filter-new-custom-select-popover-label>
                                             @endslot
@@ -77,8 +78,8 @@
                                         <x-filter.search_popover v-if="hasFilterOptions('tag')"
                                             v-bind:is-active="query.tag.length > 0" name="tag">
                                             @slot('popover_label')
-                                                <filter-new-custom-select-popover-label name="tag"
-                                                    :selected-values="query['tag']">
+                                                <filter-new-custom-select-popover-label
+                                                    name="{{ trans('item.tag') }}" :selected-values="query['tag']">
                                                 </filter-new-custom-select-popover-label>
                                             @endslot
                                             @slot('body')
@@ -96,8 +97,8 @@
                                         <x-filter.search_popover v-if="hasFilterOptions('gallery')"
                                             v-bind:is-active="query.gallery.length > 0" name="gallery">
                                             @slot('popover_label')
-                                                <filter-new-custom-select-popover-label name="gallery"
-                                                    :selected-values="query['gallery']">
+                                                <filter-new-custom-select-popover-label
+                                                    name="{{ trans('item.gallery') }}" :selected-values="query['gallery']">
                                                 </filter-new-custom-select-popover-label>
                                             @endslot
                                             @slot('body')
@@ -117,8 +118,8 @@
                                             v-bind:is-active="query.technique.length > 0"
                                             name="technique">
                                             @slot('popover_label')
-                                                <filter-new-custom-select-popover-label name="technique"
-                                                    :selected-values="query['technique']">
+                                                <filter-new-custom-select-popover-label
+                                                    name="{{ trans('item.technique') }}" :selected-values="query['technique']">
                                                 </filter-new-custom-select-popover-label>
                                             @endslot
                                             @slot('body')
@@ -137,8 +138,8 @@
                                             v-if="hasFilterOptions('topic') && tc.isOn"
                                             v-bind:is-active="query.topic.length > 0" name="topic">
                                             @slot('popover_label')
-                                                <filter-new-custom-select-popover-label name="topic"
-                                                    :selected-values="query['topic']">
+                                                <filter-new-custom-select-popover-label
+                                                    name="{{ trans('item.topic') }}" :selected-values="query['topic']">
                                                 </filter-new-custom-select-popover-label>
                                             @endslot
                                             @slot('body')
@@ -157,8 +158,8 @@
                                             v-if="hasFilterOptions('medium') && tc.isOn"
                                             v-bind:is-active="query.medium.length > 0" name="medium">
                                             @slot('popover_label')
-                                                <filter-new-custom-select-popover-label name="medium"
-                                                    :selected-values="query['medium']">
+                                                <filter-new-custom-select-popover-label
+                                                    name="{{ trans('item.medium') }}" :selected-values="query['medium']">
                                                 </filter-new-custom-select-popover-label>
                                             @endslot
                                             @slot('body')
@@ -178,7 +179,7 @@
                                             @slot('popover_label')
                                                 <div
                                                     class="tw-flex tw-items-center tw-gap-2 tw-text-sm tw-font-semibold md:tw-text-base">
-                                                    color<div v-if="query['color']"
+                                                    {{ trans('item.filter.color') }}<div v-if="query['color']"
                                                         class="tw-inline-block tw-h-4 tw-w-4"
                                                         :style="{'background': `#${query['color']}`}">
                                                     </div>
@@ -207,7 +208,7 @@
                                             v-if="tc.isOn" name="yearRange">
                                             @slot('popover_label')
                                                 <div class="tw-text-sm tw-font-semibold md:tw-text-base">
-                                                    rok<span class="tw-ml-2"
+                                                    {{ trans('item.filter.year') }}<span class="tw-ml-2"
                                                         v-if="query.yearRange">(@{{ query.yearRange.from }}
                                                         - @{{ query.yearRange.to }})</div>
                                             @endslot
@@ -258,28 +259,30 @@
                                 <div class="tw-relative md:tw-hidden">
                                     <div class="tw-flex tw-gap-x-3 tw-overflow-x-auto tw-pb-4 tw-pr-4">
                                         <x-filter.disclosure_button @click="dc.goTo('author')">
-                                            <filter-new-custom-select-popover-label name="author"
-                                                :selected-values="query['author']">
+                                            <filter-new-custom-select-popover-label
+                                                name="{{ trans('item.author') }}" :selected-values="query['author']">
                                             </filter-new-custom-select-popover-label>
                                         </x-filter.disclosure_button>
                                         <x-filter.disclosure_button @click="dc.goTo('work_type')">
-                                            <filter-new-custom-select-popover-label name="work_type"
+                                            <filter-new-custom-select-popover-label
+                                                name="{{ trans('item.work_type') }}"
                                                 :selected-values="query['work_type']">
                                             </filter-new-custom-select-popover-label>
                                         </x-filter.disclosure_button>
                                         <x-filter.disclosure_button @click="dc.goTo('object_type')">
-                                            <filter-new-custom-select-popover-label name="object_type"
+                                            <filter-new-custom-select-popover-label
+                                                name="{{ trans('item.object_type') }}"
                                                 :selected-values="query['object_type']">
                                             </filter-new-custom-select-popover-label>
                                         </x-filter.disclosure_button>
                                         <x-filter.disclosure_button @click="dc.goTo('tag')">
-                                            <filter-new-custom-select-popover-label name="tag"
-                                                :selected-values="query['tag']">
+                                            <filter-new-custom-select-popover-label
+                                                name="{{ trans('item.tag') }}" :selected-values="query['tag']">
                                             </filter-new-custom-select-popover-label>
                                         </x-filter.disclosure_button>
                                         <x-filter.disclosure_button @click="dc.goTo('gallery')">
-                                            <filter-new-custom-select-popover-label name="gallery"
-                                                :selected-values="query['gallery']">
+                                            <filter-new-custom-select-popover-label
+                                                name="{{ trans('item.gallery') }}" :selected-values="query['gallery']">
                                             </filter-new-custom-select-popover-label>
                                         </x-filter.disclosure_button>
                                     </div>
@@ -333,7 +336,8 @@
                                                         </x-filter.disclosure_list_button>
                                                         <x-filter.disclosure_list_button
                                                             @click="dc.goTo('tag')">
-                                                            <filter-new-custom-select-popover-label name="tag"
+                                                            <filter-new-custom-select-popover-label
+                                                                name="{{ trans('item.tag') }}"
                                                                 :selected-values="query['tag']">
                                                             </filter-new-custom-select-popover-label>
                                                         </x-filter.disclosure_list_button>
@@ -351,7 +355,8 @@
                                                         </x-filter.disclosure_list_button>
                                                         <x-filter.disclosure_list_button
                                                             @click="dc.goTo('topic')">
-                                                            <filter-new-custom-select-popover-label name="topic"
+                                                            <filter-new-custom-select-popover-label
+                                                                name="{{ trans('item.topic') }}"
                                                                 :selected-values="query['topic']">
                                                             </filter-new-custom-select-popover-label>
                                                         </x-filter.disclosure_list_button>
@@ -435,7 +440,8 @@
                                                 @close="dc.close">
                                                 @slot('header')
                                                     <x-filter.view_header_button @click="dc.goTo('index')">
-                                                        <filter-new-custom-select-popover-label name="author"
+                                                        <filter-new-custom-select-popover-label
+                                                            name="{{ trans('item.author') }}"
                                                             :selected-values="query['author']">
                                                         </filter-new-custom-select-popover-label>
                                                     </x-filter.view_header_button>
@@ -463,7 +469,8 @@
                                                 @close="dc.close">
                                                 @slot('header')
                                                     <x-filter.view_header_button @click="dc.goTo('index')">
-                                                        <filter-new-custom-select-popover-label name="work_type"
+                                                        <filter-new-custom-select-popover-label
+                                                            name="{{ trans('item.work_type') }}"
                                                             :selected-values="query['work_type']">
                                                         </filter-new-custom-select-popover-label>
                                                     </x-filter.view_header_button>
@@ -519,8 +526,8 @@
                                                 @close="dc.close">
                                                 @slot('header')
                                                     <x-filter.view_header_button @click="dc.goTo('index')">
-                                                        <filter-new-custom-select-popover-label name="tag"
-                                                            :selected-values="query['tag']">
+                                                        <filter-new-custom-select-popover-label
+                                                            name="{{ trans('item.tag') }}" :selected-values="query['tag']">
                                                         </filter-new-custom-select-popover-label>
                                                     </x-filter.view_header_button>
                                                 @endslot
@@ -547,7 +554,8 @@
                                                 @close="dc.close">
                                                 @slot('header')
                                                     <x-filter.view_header_button @click="dc.goTo('index')">
-                                                        <filter-new-custom-select-popover-label name="gallery"
+                                                        <filter-new-custom-select-popover-label
+                                                            name="{{ trans('item.gallery') }}"
                                                             :selected-values="query['gallery']">
                                                         </filter-new-custom-select-popover-label>
                                                     </x-filter.view_header_button>
@@ -572,7 +580,8 @@
                                                 @close="dc.close">
                                                 @slot('header')
                                                     <x-filter.view_header_button @click="dc.goTo('index')">
-                                                        <filter-new-custom-select-popover-label name="technique"
+                                                        <filter-new-custom-select-popover-label
+                                                            name="{{ trans('item.technique') }}"
                                                             :selected-values="query['technique']">
                                                         </filter-new-custom-select-popover-label>
                                                     </x-filter.view_header_button>
@@ -600,7 +609,8 @@
                                                 @close="dc.close">
                                                 @slot('header')
                                                     <x-filter.view_header_button @click="dc.goTo('index')">
-                                                        <filter-new-custom-select-popover-label name="topic"
+                                                        <filter-new-custom-select-popover-label
+                                                            name="{{ trans('item.topic') }}"
                                                             :selected-values="query['topic']">
                                                         </filter-new-custom-select-popover-label>
                                                     </x-filter.view_header_button>
@@ -628,7 +638,8 @@
                                                 @close="dc.close">
                                                 @slot('header')
                                                     <x-filter.view_header_button @click="dc.goTo('index')">
-                                                        <filter-new-custom-select-popover-label name="medium"
+                                                        <filter-new-custom-select-popover-label
+                                                            name="{{ trans('item.medium') }}"
                                                             :selected-values="query['medium']">
                                                         </filter-new-custom-select-popover-label>
                                                     </x-filter.view_header_button>
