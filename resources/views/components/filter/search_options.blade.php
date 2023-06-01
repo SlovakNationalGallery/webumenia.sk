@@ -1,5 +1,5 @@
 <filter-search-options-controller {{ $attributes->only(['v-bind:options', 'v-bind:selected']) }} v-slot="sc">
-    <div class="tw-flex tw-flex-col tw-flex-1 tw-min-w-full">
+    <div class="tw-flex tw-flex-col tw-flex-1 tw-w-full">
         <div class="tw-flex tw-border tw-border-gray-800 tw-mb-6 tw-mx-4 md:tw-mx-0">
             <input
                 class="tw-px-4 tw-border-none tw-leading-none focus:tw-ring-0 focus:tw-outline-none tw-placeholder-gray-800 tw-font-semibold tw-text-gray-800 tw-text-sm tw-py-2 tw-w-full"
@@ -34,7 +34,7 @@
                     :checked="option.checked"
                     @change="{{ $attributes->get('v-on:change') }}"
                 />
-                <span class="tw-font-normal tw-text-base"
+                <span class="tw-font-normal tw-inline-block tw-text-base tw-break-words tw-min-w-0"
                     >@{{ option.value }} <span class="tw-font-semibold">(@{{ option.count }})</span>
                 </span>
             </label>
