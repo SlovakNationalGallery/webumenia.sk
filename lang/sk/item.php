@@ -57,17 +57,6 @@ return [
             'name_object' => 'Zadaj názov',
             'term' => 'Zadaj pojem',
         ],    
-        'sorting' => [
-            'created_at' => 'dátumu pridania',
-            'title' => 'názvu',
-            'relevance' => 'relevancie',
-            'updated_at' => 'poslednej zmeny',
-            'author' => 'autora',
-            'newest' => 'datovania – od najnovšieho',
-            'oldest' => 'datovania – od najstaršieho',
-            'view_count' => 'počtu videní',
-            'random' => 'náhodného poradia',
-        ],
         'title_generator' => [
             'search' => 'výsledky vyhľadávania pre: ":value"',
             'author' => 'autor: :value',

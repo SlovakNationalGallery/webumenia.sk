@@ -774,25 +774,20 @@
                                                             class="tw-font-bold tw-underline tw-decoration-2 tw-underline-offset-4"
                                                             @click="pc.togglePopover('sort')">
                                                             <span
-                                                                v-if="query.sort === 'created_at' ">dátumu
-                                                                pridania</span>
+                                                                v-if="query.sort === 'created_at' ">{{trans('sortable.created_at')}}</span>
                                                             <span
-                                                                v-else-if="query.sort === 'title' ">názvu</span>
+                                                                v-else-if="query.sort === 'title' ">{{trans('sortable.title')}}</span>
                                                             <span
-                                                                v-else-if="query.sort === 'author' ">autora</span>
+                                                                v-else-if="query.sort === 'author' ">{{trans('sortable.author')}}</span>
                                                             <span
-                                                                v-else-if="query.sort === 'date_earliest' ">datovanie
-                                                                - od najnovšieho</span>
+                                                                v-else-if="query.sort === 'date_earliest' ">{{trans('sortable.date_earliest')}}</span>
                                                             <span
-                                                                v-else-if="query.sort === 'date_latest' ">datovanie
-                                                                - od najstaršieho</span>
+                                                                v-else-if="query.sort === 'date_latest' ">{{trans('sortable.date_latest')}}</span>
                                                             <span
-                                                                v-else-if="query.sort === 'view_count' ">počtu
-                                                                videní</span>
+                                                                v-else-if="query.sort === 'view_count' ">{{trans('sortable.view_count')}}</span>
                                                             <span
-                                                                v-else-if="query.sort === 'random' ">náhodného
-                                                                poradia</span>
-                                                            <span v-else>poslednej zmeny</span>
+                                                                v-else-if="query.sort === 'random' ">{{trans('sortable.random')}}</span>
+                                                            <span v-else>{{trans('sortable.updated_at')}}</span>
                                                             <x-icons.caret-down
                                                                 class="tw-inline tw-h-4 tw-w-4 tw-fill-current">
                                                             </x-icons.caret-down>
