@@ -38,6 +38,8 @@ return [
     'images' => 'imges',
     'iipimg_url' => 'IIP URL',
     'filter' => [
+        'show_extended' => 'all filters',
+        'hide_extended' => 'hide additional filters',
         'extended_filter' => 'extended filter',
         'displaying' => 'displaying',
         'artworks_sorted_by' => '{1}artwork sorted by|[2,*]artworks sorted by',

@@ -38,6 +38,8 @@ return [
     'images' => 'obrázky',
     'iipimg_url' => 'IIP URL',
     'filter' => [
+        'show_extended' => 'všetky filtre',
+        'hide_extended' => 'skryť ďalšie filtre',
         'extended_filter' => 'rozšírený filter',
         'displaying' => 'zobrazujem',
         'artworks_sorted_by' => '{1}dielo zoradené podľa|[2, 4]diela zoradené podľa |[5,*] diel zoradených podľa',
