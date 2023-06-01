@@ -925,7 +925,7 @@
                                     <div class="tw-flex tw-justify-center">
                                         <div
                                             class="tw-border tw-border-gray-400 tw-py-2.5 tw-px-8 tw-text-sm hover:tw-border-gray-700">
-                                            loading...
+                                            {{ trans('item.filter.loading')}}
                                         </div>
                                     </div>
                                 </template>
@@ -933,7 +933,7 @@
                                     <div class="tw-flex tw-justify-center">
                                         <button v-if="page === 1" @click="loadMore"
                                             class="tw-border tw-border-gray-400 tw-py-2.5 tw-px-8 tw-text-sm hover:tw-border-gray-700">
-                                            show more
+                                            {{ trans('general.filter.show_more')}}
                                         </button>
                                     </div>
                                 </template>

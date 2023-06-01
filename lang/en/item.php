@@ -38,6 +38,8 @@ return [
     'images' => 'imges',
     'iipimg_url' => 'IIP URL',
     'filter' => [
+        'show_more' => 'show more',
+        'loading' => 'loading...',
         'show_extended' => 'all filters',
         'hide_extended' => 'hide additional filters',
         'extended_filter' => 'extended filter',
