@@ -298,8 +298,8 @@
                                                 <x-icons.sliders-horizontal
                                                     class="tw-h-6 tw-w-6 tw-fill-current">
                                                 </x-icons.sliders-horizontal>
-                                                <span class="tw-font-semibold">rozšírený
-                                                    filter</span>
+                                                <span
+                                                    class="tw-font-semibold">{{ trans('item.filter.extended_filter') }}</span>
                                             </div>
                                         </button>
                                     </div>
