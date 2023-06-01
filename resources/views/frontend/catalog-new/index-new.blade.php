@@ -39,7 +39,8 @@
                                             name="work_type">
                                             @slot('popover_label')
                                                 <filter-new-custom-select-popover-label
-                                                    name="{{ trans('item.work_type') }}" :selected-values="query['work_type']">
+                                                    name="{{ trans('item.work_type') }}"
+                                                    :selected-values="query['work_type']">
                                                 </filter-new-custom-select-popover-label>
                                             @endslot
                                             @slot('body')
@@ -119,7 +120,8 @@
                                             name="technique">
                                             @slot('popover_label')
                                                 <filter-new-custom-select-popover-label
-                                                    name="{{ trans('item.technique') }}" :selected-values="query['technique']">
+                                                    name="{{ trans('item.technique') }}"
+                                                    :selected-values="query['technique']">
                                                 </filter-new-custom-select-popover-label>
                                             @endslot
                                             @slot('body')
@@ -179,7 +181,8 @@
                                             @slot('popover_label')
                                                 <div
                                                     class="tw-flex tw-items-center tw-gap-2 tw-text-sm tw-font-semibold md:tw-text-base">
-                                                    {{ trans('item.filter.color') }}<div v-if="query['color']"
+                                                    {{ trans('item.filter.color') }}<div
+                                                        v-if="query['color']"
                                                         class="tw-inline-block tw-h-4 tw-w-4"
                                                         :style="{'background': `#${query['color']}`}">
                                                     </div>
@@ -208,7 +211,8 @@
                                             v-if="tc.isOn" name="yearRange">
                                             @slot('popover_label')
                                                 <div class="tw-text-sm tw-font-semibold md:tw-text-base">
-                                                    {{ trans('item.filter.year') }}<span class="tw-ml-2"
+                                                    {{ trans('item.filter.year') }}<span
+                                                        class="tw-ml-2"
                                                         v-if="query.yearRange">(@{{ query.yearRange.from }}
                                                         - @{{ query.yearRange.to }})</div>
                                             @endslot
@@ -282,7 +286,8 @@
                                         </x-filter.disclosure_button>
                                         <x-filter.disclosure_button @click="dc.goTo('gallery')">
                                             <filter-new-custom-select-popover-label
-                                                name="{{ trans('item.gallery') }}" :selected-values="query['gallery']">
+                                                name="{{ trans('item.gallery') }}"
+                                                :selected-values="query['gallery']">
                                             </filter-new-custom-select-popover-label>
                                         </x-filter.disclosure_button>
                                     </div>
@@ -415,23 +420,23 @@
                                                         </x-filter.disclosure_inline_list_button>
                                                         <filter-new-custom-checkbox class="tw-pt-2"
                                                             @change="handleCheckboxChange" :checked="Boolean(query['has_image'])"
-                                                            title="Len s obrázkom" name="has_image"
-                                                            id="has_image_desktop">
+                                                            title="{{ utrans('item.filter.has_image') }}"
+                                                            name="has_image" id="has_image_desktop">
                                                         </filter-new-custom-checkbox>
                                                         <filter-new-custom-checkbox
                                                             @change="handleCheckboxChange" :checked="Boolean(query['has_iip'])"
-                                                            title="Len so zoomom" name="has_iip"
-                                                            id="has_iip_desktop">
+                                                            title="{{ utrans('item.filter.has_iip') }}"
+                                                            name="has_iip" id="has_iip_desktop">
                                                         </filter-new-custom-checkbox>
                                                         <filter-new-custom-checkbox
                                                             @change="handleCheckboxChange" :checked="Boolean(query['is_free'])"
-                                                            title="Len voľné" name="is_free"
-                                                            id="is_free_desktop">
+                                                            title="{{ utrans('item.filter.is_free') }}"
+                                                            name="is_free" id="is_free_desktop">
                                                         </filter-new-custom-checkbox>
                                                         <filter-new-custom-checkbox class="tw-pb-2"
                                                             @change="handleCheckboxChange" :checked="Boolean(query['has_text'])"
-                                                            title="Len s textom" name="has_text"
-                                                            id="has_text_desktop">
+                                                            title="{{ utrans('item.filter_has_text') }}"
+                                                            name="has_text" id="has_text_desktop">
                                                         </filter-new-custom-checkbox>
                                                     </div>
                                                 @endslot
@@ -527,7 +532,8 @@
                                                 @slot('header')
                                                     <x-filter.view_header_button @click="dc.goTo('index')">
                                                         <filter-new-custom-select-popover-label
-                                                            name="{{ trans('item.tag') }}" :selected-values="query['tag']">
+                                                            name="{{ trans('item.tag') }}"
+                                                            :selected-values="query['tag']">
                                                         </filter-new-custom-select-popover-label>
                                                     </x-filter.view_header_button>
                                                 @endslot
@@ -678,20 +684,20 @@
                         <div
                             class="tw-mx-auto tw-hidden tw-max-w-screen-2xl tw-space-x-6 tw-bg-gray-200 tw-px-6 tw-pt-4 tw-pb-2 md:tw-flex">
                             <filter-new-custom-checkbox @change="handleCheckboxChange"
-                                :checked="Boolean(query['has_image'])" title="Len s obrázkom" name="has_image"
-                                id="has_image_desktop">
+                                :checked="Boolean(query['has_image'])" title="{{ utrans('item.filter.has_image') }}"
+                                name="has_image" id="has_image_desktop">
                             </filter-new-custom-checkbox>
                             <filter-new-custom-checkbox @change="handleCheckboxChange"
-                                :checked="Boolean(query['has_iip'])" title="Len so zoomom" name="has_iip"
-                                id="has_iip_desktop">
+                                :checked="Boolean(query['has_iip'])" title="{{ utrans('item.filter.has_iip') }}"
+                                name="has_iip" id="has_iip_desktop">
                             </filter-new-custom-checkbox>
                             <filter-new-custom-checkbox @change="handleCheckboxChange"
-                                :checked="Boolean(query['is_free'])" title="Len voľné" name="is_free"
-                                id="is_free_desktop">
+                                :checked="Boolean(query['is_free'])" title="{{ utrans('item.filter.is_free') }}"
+                                name="is_free" id="is_free_desktop">
                             </filter-new-custom-checkbox>
                             <filter-new-custom-checkbox @change="handleCheckboxChange"
-                                :checked="Boolean(query['has_text'])" title="Len s textom" name="has_text"
-                                id="has_text_desktop">
+                                :checked="Boolean(query['has_text'])" title="{{ utrans('item.filter.has_text') }}"
+                                name="has_text" id="has_text_desktop">
                             </filter-new-custom-checkbox>
                         </div>
                         {{-- Selected labels --}}
