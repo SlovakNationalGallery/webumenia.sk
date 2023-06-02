@@ -327,19 +327,22 @@
                                                         <x-filter.disclosure_list_button
                                                             @click="dc.goTo('author')">
                                                             <filter-new-custom-select-popover-label
-                                                                name="author" :selected-values="query['author']">
+                                                                name="{{ trans('item.author') }}"
+                                                                :selected-values="query['author']">
                                                             </filter-new-custom-select-popover-label>
                                                         </x-filter.disclosure_list_button>
                                                         <x-filter.disclosure_list_button
                                                             @click="dc.goTo('work_type')">
                                                             <filter-new-custom-select-popover-label
-                                                                name="work_type" :selected-values="query['work_type']">
+                                                                name="{{ trans('item.work_type') }}"
+                                                                :selected-values="query['work_type']">
                                                             </filter-new-custom-select-popover-label>
                                                         </x-filter.disclosure_list_button>
                                                         <x-filter.disclosure_list_button
                                                             @click="dc.goTo('object_type')">
                                                             <filter-new-custom-select-popover-label
-                                                                name="object_type" :selected-values="query['object_type']">
+                                                                name="{{ trans('item.object_type') }}"
+                                                                :selected-values="query['object_type']">
                                                             </filter-new-custom-select-popover-label>
                                                         </x-filter.disclosure_list_button>
                                                         <x-filter.disclosure_list_button
@@ -352,13 +355,15 @@
                                                         <x-filter.disclosure_list_button
                                                             @click="dc.goTo('gallery')">
                                                             <filter-new-custom-select-popover-label
-                                                                name="gallery" :selected-values="query['gallery']">
+                                                                name="{{ trans('item.gallery') }}"
+                                                                :selected-values="query['gallery']">
                                                             </filter-new-custom-select-popover-label>
                                                         </x-filter.disclosure_list_button>
                                                         <x-filter.disclosure_list_button
                                                             @click="dc.goTo('technique')">
                                                             <filter-new-custom-select-popover-label
-                                                                name="technique" :selected-values="query['technique']">
+                                                                name="{{ trans('item.technique') }}"
+                                                                :selected-values="query['technique']">
                                                             </filter-new-custom-select-popover-label>
                                                         </x-filter.disclosure_list_button>
                                                         <x-filter.disclosure_list_button
@@ -371,13 +376,15 @@
                                                         <x-filter.disclosure_list_button
                                                             @click="dc.goTo('medium')">
                                                             <filter-new-custom-select-popover-label
-                                                                name="medium" :selected-values="query['medium']">
+                                                                name="{{ trans('item.medium') }}"
+                                                                :selected-values="query['medium']">
                                                             </filter-new-custom-select-popover-label>
                                                         </x-filter.disclosure_list_button>
                                                         <x-filter.disclosure_inline_list_button>
                                                             @slot('header')
                                                                 <div class="tw-font-sm tw-font-semibold">
-                                                                    rok<span class="tw-ml-2"
+                                                                    {{ trans('item.filter.year') }}<span
+                                                                        class="tw-ml-2"
                                                                         v-if="query.yearRange">(@{{ query.yearRange.from }}
                                                                         - @{{ query.yearRange.to }})</div>
                                                             @endslot
@@ -401,7 +408,8 @@
                                                             @slot('header')
                                                                 <div
                                                                     class="tw-font-sm tw-flex tw-items-center tw-gap-2 tw-font-semibold">
-                                                                    color<div v-if="query['color']"
+                                                                    {{ trans('item.filter.color') }}<div
+                                                                        v-if="query['color']"
                                                                         class="tw-inline-block tw-h-4 tw-w-4"
                                                                         :style="{'background': `#${query['color']}`}">
                                                                     </div>
