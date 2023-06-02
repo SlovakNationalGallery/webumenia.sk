@@ -311,7 +311,8 @@
                                             <x-filter.disclosure_view v-if="dc.view === 'index'"
                                                 @close="dc.close">
                                                 @slot('header')
-                                                    <span class="tw-text-lg tw-font-semibold">Filter diel</span>
+                                                    <span
+                                                        class="tw-text-lg tw-font-semibold">{{ trans('item.filter.title') }}</span>
                                                 @endslot
                                                 @slot('reset_button')
                                                     <x-filter.reset_button class="tw-mr-3"
@@ -675,7 +676,7 @@
                                         @slot('footer')
                                             <button class="tw-m-4 tw-w-full tw-bg-sky-300 tw-p-4"
                                                 @click="dc.close">
-                                                zobraziť výsledky <span
+                                                {{ trans('item.filter.show_results') }} <span
                                                     class="tw-font-bold">(@{{ artworks_total }})</span>
                                             </button>
                                         @endslot
@@ -755,18 +756,18 @@
                         <div v-else>
                             <div class="tw-px-2 tw-py-6 md:tw-px-0 md:tw-pb-8 md:tw-pt-0">
                                 <span class="tw-font-semibold">
-                                    <span v-if="artworks_total === 1">Zobrazujem <span
-                                            class="tw-font-bold">1</span>
-                                        dielo, zoradené podľa&nbsp</span>
-                                    <span v-else-if="artworks_total < 5">Zobrazujem
+                                    <span v-if="artworks_total === 1"><span
+                                            class="tw-capitalize">{{ trans_choice('item.filter.displaying', 1) }}
+                                        </span><span class="tw-font-bold">1</span>
+                                        {{ trans_choice('item.filter.artworks_sorted_by', 1) }}</span>
+                                    <span v-else-if="artworks_total < 5"><span
+                                            class="tw-capitalize">{{ trans_choice('item.filter.displaying', 4) }}</span>
                                         <span class="tw-font-bold">@{{ artworks_total }}</span>
-                                        diela,
-                                        zoradené
-                                        podľa&nbsp</span>
-                                    <span v-else>Zobrazujem <span
-                                            class="tw-font-bold">@{{ artworks_total }}</span>
-                                        diel, zoradených
-                                        podľa&nbsp</span>
+                                        {{ trans_choice('item.filter.artworks_sorted_by', 4) }}</span>
+                                    <span v-else><span
+                                            class="tw-capitalize">{{ trans_choice('item.filter.displaying', 5) }}</span>
+                                        <span class="tw-font-bold">@{{ artworks_total }}</span>
+                                        {{ trans_choice('item.filter.artworks_sorted_by', 5) }}</span>
                                     <span class="tw-font-semibold">
                                         <div class="tw-z-10 tw-inline-block">
                                             <filter-new-popover.group-controller>
@@ -849,10 +850,9 @@
                                         </div>
                                     </span>
                                     <span>
-                                        . Alebo skús aj
+                                        {{ utrans('item.filter.try_also') }}
                                         <button @click="handleSelectRandomly"
-                                            class="tw-font-bold tw-underline tw-decoration-2 tw-underline-offset-4">náhodný
-                                            výber</button>
+                                            class="tw-font-bold tw-underline tw-decoration-2 tw-underline-offset-4">{{ trans('item.filter.random_search') }}</button>
                                     </span>
                                 </span>
                             </div>
