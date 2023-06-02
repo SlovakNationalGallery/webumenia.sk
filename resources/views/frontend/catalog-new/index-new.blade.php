@@ -197,7 +197,7 @@
                                                             <x-filter.reset_button
                                                                 @click="handleColorChange(null)"
                                                                 class="tw-mb-2">
-                                                                resetovať
+                                                                {{ trans('item.filter.clear') }}
                                                             </x-filter.reset_button>
                                                         </div>
                                                         <filter-new-color-slider :default-color="query['color']"
@@ -225,7 +225,7 @@
                                                             <x-filter.reset_button
                                                                 @click="handleYearRangeChange(null)"
                                                                 class="tw-mb-3">
-                                                                resetovať
+                                                                {{ trans('item.filter.clear') }}
                                                             </x-filter.reset_button>
                                                         </div>
                                                         <filter-new-year-slider :default-from="Number(query.yearRange?.from)"
@@ -318,7 +318,7 @@
                                                     <x-filter.reset_button class="tw-mr-3"
                                                         v-if="selectedOptionsAsLabels.length"
                                                         @click="clearAllSelections">
-                                                        zrušiť celý výber
+                                                        {{ trans('item.filter.clear_all') }}
                                                     </x-filter.reset_button>
                                                 @endslot
                                                 @slot('body')
@@ -392,7 +392,7 @@
                                                                     <x-filter.reset_button
                                                                         @click="handleYearRangeChange(null)"
                                                                         class="tw-mt-2.5">
-                                                                        resetovať
+                                                                        {{ trans('item.filter.clear') }}
                                                                     </x-filter.reset_button>
                                                                 </div>
                                                             @endslot
@@ -416,7 +416,7 @@
                                                                     <x-filter.reset_button
                                                                         @click="handleColorChange(null)"
                                                                         class="tw-mt-4">
-                                                                        resetovať
+                                                                        {{ trans('item.filter.clear') }}
                                                                     </x-filter.reset_button>
                                                                 </div>
                                                             @endslot
@@ -458,7 +458,7 @@
                                                     <x-filter.reset_button class="tw-mr-3"
                                                         v-if="query.author.length"
                                                         @click="clearFilterSelection('author')">
-                                                        zrušiť výber
+                                                        {{ trans('item.filter.clear') }}
                                                     </x-filter.reset_button>
                                                 @endslot
                                                 @slot('body')
@@ -487,7 +487,7 @@
                                                     <x-filter.reset_button class="tw-mr-3"
                                                         v-if="query.work_type.length"
                                                         @click="clearFilterSelection('work_type')">
-                                                        zrušiť výber
+                                                        {{ trans('item.filter.clear') }}
                                                     </x-filter.reset_button>
                                                 @endslot
                                                 @slot('body')
@@ -515,7 +515,7 @@
                                                     <x-filter.reset_button class="tw-mr-3"
                                                         v-if="query.object_type.length"
                                                         @click="clearFilterSelection('object_type')">
-                                                        zrušiť výber
+                                                        {{ trans('item.filter.clear') }}
                                                     </x-filter.reset_button>
                                                 @endslot
                                                 @slot('body')
@@ -544,7 +544,7 @@
                                                     <x-filter.reset_button class="tw-mr-3"
                                                         v-if="query.tag.length"
                                                         @click="clearFilterSelection('tag')">
-                                                        zrušiť výber
+                                                        {{ trans('item.filter.clear') }}
                                                     </x-filter.reset_button>
                                                 @endslot
                                                 @slot('body')
@@ -573,7 +573,7 @@
                                                     <x-filter.reset_button class="tw-mr-3"
                                                         v-if="query.gallery.length"
                                                         @click="clearFilterSelection('gallery')">
-                                                        zrušiť výber
+                                                        {{ trans('item.filter.clear') }}
                                                     </x-filter.reset_button>
                                                 @endslot
                                                 @slot('body')
@@ -599,7 +599,7 @@
                                                     <x-filter.reset_button class="tw-mr-3"
                                                         v-if="query.technique.length"
                                                         @click="clearFilterSelection('technique')">
-                                                        zrušiť výber
+                                                        {{ trans('item.filter.clear') }}
                                                     </x-filter.reset_button>
                                                 @endslot
                                                 @slot('body')
@@ -628,7 +628,7 @@
                                                     <x-filter.reset_button class="tw-mr-3"
                                                         v-if="query.topic.length"
                                                         @click="clearFilterSelection('topic')">
-                                                        zrušiť výber
+                                                        {{ trans('item.filter.clear') }}
                                                     </x-filter.reset_button>
                                                 @endslot
                                                 @slot('body')
@@ -657,7 +657,7 @@
                                                     <x-filter.reset_button class="tw-mr-3"
                                                         v-if="query.medium.length"
                                                         @click="clearFilterSelection('medium')">
-                                                        zrušiť výber
+                                                        {{ trans('item.filter.clear') }}
                                                     </x-filter.reset_button>
                                                 @endslot
                                                 @slot('body')
@@ -733,7 +733,7 @@
                                 </button>
                                 <x-filter.reset_button v-if="selectedOptionsAsLabels.length"
                                     @click="clearAllSelections" sm>
-                                    resetovať
+                                    {{ trans('item.filter.clear') }}
                                 </x-filter.reset_button>
                             </div>
                         </div>
@@ -751,7 +751,8 @@
                                 class="tw-mt-10">{{ utrans('item.filter.nothing_found') }}</span>
                             <button @click="handleSelectRandomly"
                                 class="tw-font-bold tw-underline tw-underline-offset-8">
-                                {{ utrans('item.filter.try_also') }} {{ trans('item.filter.random_search') }}</a>
+                                {{ utrans('item.filter.try_also') }}
+                                {{ trans('item.filter.random_search') }}</a>
                         </div>
                         <div v-else>
                             <div class="tw-px-2 tw-py-6 md:tw-px-0 md:tw-pb-8 md:tw-pt-0">

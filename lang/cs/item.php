@@ -38,6 +38,8 @@ return [
     'images' => 'obrázky',
     'iipimg_url' => 'IIP URL',
     'filter' => [
+        'clear' => 'zrušit výběr',
+        'clear_all' => 'zrušit celý výběr',
         'nothing_found' => 'hmm, nic jsme nenašli.',       
         'title' => 'filtr děl',
         'show_results' => 'show results',
