@@ -312,7 +312,7 @@
                                                 @close="dc.close">
                                                 @slot('header')
                                                     <span
-                                                        class="tw-text-lg tw-font-semibold">{{ trans('item.filter.title') }}</span>
+                                                        class="tw-text-lg tw-font-semibold">{{ utrans('item.filter.title') }}</span>
                                                 @endslot
                                                 @slot('reset_button')
                                                     <x-filter.reset_button class="tw-mr-3"
@@ -747,11 +747,11 @@
                                     src="{{ asset('animations/empty.json') }}">
                                 </lottie-player>
                             </div>
-                            <span class="tw-mt-10">Uuups, nič sme nenašli :(</span>
+                            <span
+                                class="tw-mt-10">{{ utrans('item.filter.nothing_found') }}</span>
                             <button @click="handleSelectRandomly"
-                                class="tw-font-bold tw-underline tw-underline-offset-8">skús
-                                náhodný
-                                výber</a>
+                                class="tw-font-bold tw-underline tw-underline-offset-8">
+                                {{ utrans('item.filter.try_also') }} {{ trans('item.filter.random_search') }}</a>
                         </div>
                         <div v-else>
                             <div class="tw-px-2 tw-py-6 md:tw-px-0 md:tw-pb-8 md:tw-pt-0">
