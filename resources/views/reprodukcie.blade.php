@@ -94,7 +94,7 @@
                     ({{ $total }})
                 </x-reproductions.button>
             </section>
-
+            {{--
             <hr class="tw-my-12 tw-w-full tw-border-t">
 
             <section id="print"
@@ -207,7 +207,7 @@
                     {{ trans('reprodukcie.more-items_button') }}
                     ({{ $total }})
                 </x-reproductions.button>
-            </section>
+            </section> --}}
         </div>
     </div>
 
