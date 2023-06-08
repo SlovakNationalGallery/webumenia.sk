@@ -40,7 +40,9 @@ return [
     'filter' => [
         'clear' => 'zrušit výběr',
         'clear_all' => 'zrušit celý výběr',
-        'nothing_found' => 'hmm, nic jsme nenašli.',       
+        'nothing_found' => 'hmm, nic jsme nenašli.',      
+        'something_went_wrong' => 'ups, něco se pokazilo.',
+        'refresh_page' => 'obnovit stránku',   
         'title' => 'filtr děl',
         'show_results' => 'show results',
         'show_more' => 'ukaž více',

@@ -750,10 +750,10 @@
                         class="tw-mx-auto tw-min-h-screen tw-max-w-screen-2xl tw-px-4 md:tw-px-6 md:tw-py-10">
                         <div v-if="hasError"
                             class="tw-flex tw-w-full tw-flex-col tw-items-center tw-justify-center tw-py-40 tw-text-lg">
-                            <span>Uuups, niečo sa pokazilo :( skús</span>
+                            <span>{{ utrans('item.filter.something_went_wrong') }}.</span>
                             <reload-controller v-slot="rc">
-                                <button class="tw-inline-block tw-underline" @click="rc.reload">obnoviť
-                                    stránku.</button>
+                                <button class="tw-inline-block tw-underline"
+                                    @click="rc.reload">{{ trans('item.filter.refresh_page') }}</button>
                             </reload-controller>
                         </div>
                         <div v-else-if="artworks.length === 0"
