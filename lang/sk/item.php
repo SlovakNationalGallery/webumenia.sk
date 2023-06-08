@@ -41,6 +41,8 @@ return [
         'clear' => 'zrušiť výber',
         'clear_all' => 'zrušiť celý výber',
         'nothing_found' => 'hmm, nič sme nenašli.',
+        'something_went_wrong' => 'ups, niečo sa pokazilo.',
+        'refresh_page' => 'obnoviť stránku',   
         'title' => 'filter diel',
         'show_results' => 'zobraziť výsledky',
         'show_more' => 'ukáž viac',
