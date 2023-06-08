@@ -18,15 +18,15 @@
                                             v-bind:is-active="query.author && query.author.length > 0"
                                             name="author">
                                             @slot('popover_label')
-                                                <filter-new-custom-select-popover-label name="author"
-                                                    :selected-values="query['author']">
+                                                <filter-new-custom-select-popover-label
+                                                    name="{{ trans('item.author') }}" :selected-values="query['author']">
                                                 </filter-new-custom-select-popover-label>
                                             @endslot
                                             @slot('body')
                                                 <div
                                                     class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                     <x-filter.search_options
-                                                        search-placeholder="Napíšte meno autora / autorky"
+                                                        search-placeholder="{{ utrans('item.filter.placeholder.name_human') }}"
                                                         v-bind:options="aggregations['author']"
                                                         v-bind:selected="query['author']"
                                                         v-on:change="e => handleMultiSelectChange('author', e)"
@@ -38,7 +38,8 @@
                                             v-bind:is-active="query.work_type.length > 0"
                                             name="work_type">
                                             @slot('popover_label')
-                                                <filter-new-custom-select-popover-label name="work_type"
+                                                <filter-new-custom-select-popover-label
+                                                    name="{{ trans('item.work_type') }}"
                                                     :selected-values="query['work_type']">
                                                 </filter-new-custom-select-popover-label>
                                             @endslot
@@ -46,7 +47,7 @@
                                                 <div
                                                     class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                     <x-filter.search_options
-                                                        search-placeholder="Napíšte meno autora / autorky"
+                                                        search-placeholder="{{ utrans('item.filter.placeholder.term') }}"
                                                         v-bind:options="aggregations['work_type']"
                                                         v-bind:selected="query['work_type']"
                                                         v-on:change="e => handleMultiSelectChange('work_type', e)"
@@ -58,7 +59,8 @@
                                             v-bind:is-active="query.object_type.length > 0"
                                             name="object_type">
                                             @slot('popover_label')
-                                                <filter-new-custom-select-popover-label name="object_type"
+                                                <filter-new-custom-select-popover-label
+                                                    name="{{ trans('item.object_type') }}"
                                                     :selected-values="query['object_type']">
                                                 </filter-new-custom-select-popover-label>
                                             @endslot
@@ -66,7 +68,7 @@
                                                 <div
                                                     class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                     <x-filter.search_options
-                                                        search-placeholder="Napíšte meno autora / autorky"
+                                                        search-placeholder="{{ utrans('item.filter.placeholder.term') }}"
                                                         v-bind:options="aggregations['object_type']"
                                                         v-bind:selected="query['object_type']"
                                                         v-on:change="e => handleMultiSelectChange('object_type', e)"
@@ -77,15 +79,15 @@
                                         <x-filter.search_popover v-if="hasFilterOptions('tag')"
                                             v-bind:is-active="query.tag.length > 0" name="tag">
                                             @slot('popover_label')
-                                                <filter-new-custom-select-popover-label name="tag"
-                                                    :selected-values="query['tag']">
+                                                <filter-new-custom-select-popover-label
+                                                    name="{{ trans('item.tag') }}" :selected-values="query['tag']">
                                                 </filter-new-custom-select-popover-label>
                                             @endslot
                                             @slot('body')
                                                 <div
                                                     class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                     <x-filter.search_options
-                                                        search-placeholder="Napíšte meno autora / autorky"
+                                                        search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                         v-bind:options="aggregations['tag']"
                                                         v-bind:selected="query['tag']"
                                                         v-on:change="e => handleMultiSelectChange('tag', e)"
@@ -96,15 +98,15 @@
                                         <x-filter.search_popover v-if="hasFilterOptions('gallery')"
                                             v-bind:is-active="query.gallery.length > 0" name="gallery">
                                             @slot('popover_label')
-                                                <filter-new-custom-select-popover-label name="gallery"
-                                                    :selected-values="query['gallery']">
+                                                <filter-new-custom-select-popover-label
+                                                    name="{{ trans('item.gallery') }}" :selected-values="query['gallery']">
                                                 </filter-new-custom-select-popover-label>
                                             @endslot
                                             @slot('body')
                                                 <div
                                                     class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                     <x-filter.search_options
-                                                        search-placeholder="Napíšte meno autora / autorky"
+                                                        search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                         v-bind:options="aggregations['gallery']"
                                                         v-bind:selected="query['gallery']"
                                                         v-on:change="e => handleMultiSelectChange('gallery', e)"
@@ -117,7 +119,8 @@
                                             v-bind:is-active="query.technique.length > 0"
                                             name="technique">
                                             @slot('popover_label')
-                                                <filter-new-custom-select-popover-label name="technique"
+                                                <filter-new-custom-select-popover-label
+                                                    name="{{ trans('item.technique') }}"
                                                     :selected-values="query['technique']">
                                                 </filter-new-custom-select-popover-label>
                                             @endslot
@@ -125,7 +128,7 @@
                                                 <div
                                                     class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                     <x-filter.search_options
-                                                        search-placeholder="Napíšte meno autora / autorky"
+                                                        search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                         v-bind:options="aggregations['technique']"
                                                         v-bind:selected="query['technique']"
                                                         v-on:change="e => handleMultiSelectChange('technique', e)"
@@ -137,15 +140,15 @@
                                             v-if="hasFilterOptions('topic') && tc.isOn"
                                             v-bind:is-active="query.topic.length > 0" name="topic">
                                             @slot('popover_label')
-                                                <filter-new-custom-select-popover-label name="topic"
-                                                    :selected-values="query['topic']">
+                                                <filter-new-custom-select-popover-label
+                                                    name="{{ trans('item.topic') }}" :selected-values="query['topic']">
                                                 </filter-new-custom-select-popover-label>
                                             @endslot
                                             @slot('body')
                                                 <div
                                                     class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                     <x-filter.search_options
-                                                        search-placeholder="Napíšte meno autora / autorky"
+                                                        search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                         v-bind:options="aggregations['topic']"
                                                         v-bind:selected="query['topic']"
                                                         v-on:change="e => handleMultiSelectChange('topic', e)"
@@ -157,15 +160,15 @@
                                             v-if="hasFilterOptions('medium') && tc.isOn"
                                             v-bind:is-active="query.medium.length > 0" name="medium">
                                             @slot('popover_label')
-                                                <filter-new-custom-select-popover-label name="medium"
-                                                    :selected-values="query['medium']">
+                                                <filter-new-custom-select-popover-label
+                                                    name="{{ trans('item.medium') }}" :selected-values="query['medium']">
                                                 </filter-new-custom-select-popover-label>
                                             @endslot
                                             @slot('body')
                                                 <div
                                                     class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                     <x-filter.search_options
-                                                        search-placeholder="Napíšte meno autora / autorky"
+                                                        search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                         v-bind:options="aggregations['medium']"
                                                         v-bind:selected="query['medium']"
                                                         v-on:change="e => handleMultiSelectChange('medium', e)"
@@ -178,7 +181,8 @@
                                             @slot('popover_label')
                                                 <div
                                                     class="tw-flex tw-items-center tw-gap-2 tw-text-sm tw-font-semibold md:tw-text-base">
-                                                    color<div v-if="query['color']"
+                                                    {{ trans('item.filter.color') }}<div
+                                                        v-if="query['color']"
                                                         class="tw-inline-block tw-h-4 tw-w-4"
                                                         :style="{'background': `#${query['color']}`}">
                                                     </div>
@@ -193,7 +197,7 @@
                                                             <x-filter.reset_button
                                                                 @click="handleColorChange(null)"
                                                                 class="tw-mb-2">
-                                                                resetovať
+                                                                {{ trans('item.filter.clear') }}
                                                             </x-filter.reset_button>
                                                         </div>
                                                         <filter-new-color-slider :default-color="query['color']"
@@ -207,7 +211,8 @@
                                             v-if="tc.isOn" name="yearRange">
                                             @slot('popover_label')
                                                 <div class="tw-text-sm tw-font-semibold md:tw-text-base">
-                                                    rok<span class="tw-ml-2"
+                                                    {{ trans('item.filter.year') }}<span
+                                                        class="tw-ml-2"
                                                         v-if="query.yearRange">(@{{ query.yearRange.from }}
                                                         - @{{ query.yearRange.to }})</div>
                                             @endslot
@@ -220,7 +225,7 @@
                                                             <x-filter.reset_button
                                                                 @click="handleYearRangeChange(null)"
                                                                 class="tw-mb-3">
-                                                                resetovať
+                                                                {{ trans('item.filter.clear') }}
                                                             </x-filter.reset_button>
                                                         </div>
                                                         <filter-new-year-slider :default-from="Number(query.yearRange?.from)"
@@ -235,7 +240,7 @@
                                         <div class="tw-flex tw-gap-1 tw-pb-2">
                                             <div class="tw-border tw-border-transparent">
                                                 <button @click="tc.toggle"
-                                                    class="tw-flex tw-w-full tw-items-center tw-justify-center tw-border tw-border-gray-300 tw-py-2.5 tw-px-4 tw-text-base tw-font-bold hover:tw-border-gray-800">
+                                                    class="tw-flex tw-w-full tw-items-center tw-justify-center tw-border tw-border-gray-300 tw-py-2.5 tw-px-4 tw-text-base tw-font-semibold hover:tw-border-gray-800">
                                                     <div class="tw-flex tw-items-center tw-pr-4">
                                                         <x-icons.minus v-if="tc.isOn"
                                                             class="tw-h-6 tw-w-6 tw-fill-current">
@@ -246,7 +251,9 @@
                                                         </x-icons.sliders-horizontal>
                                                     </div>
                                                     <span
-                                                        class="tw-font-semibold">@{{ tc.isOn ? 'skryť ďalšie filtre' : 'všetky filtre' }}</span>
+                                                        v-if="tc.isOn">{{ trans('item.filter.hide_extended') }}</span>
+                                                    <span v-else>
+                                                        {{ trans('item.filter.show_extended') }}</span>
                                                 </button>
                                             </div>
                                         </div>
@@ -258,27 +265,30 @@
                                 <div class="tw-relative md:tw-hidden">
                                     <div class="tw-flex tw-gap-x-3 tw-overflow-x-auto tw-pb-4 tw-pr-4">
                                         <x-filter.disclosure_button @click="dc.goTo('author')">
-                                            <filter-new-custom-select-popover-label name="author"
-                                                :selected-values="query['author']">
+                                            <filter-new-custom-select-popover-label
+                                                name="{{ trans('item.author') }}" :selected-values="query['author']">
                                             </filter-new-custom-select-popover-label>
                                         </x-filter.disclosure_button>
                                         <x-filter.disclosure_button @click="dc.goTo('work_type')">
-                                            <filter-new-custom-select-popover-label name="work_type"
+                                            <filter-new-custom-select-popover-label
+                                                name="{{ trans('item.work_type') }}"
                                                 :selected-values="query['work_type']">
                                             </filter-new-custom-select-popover-label>
                                         </x-filter.disclosure_button>
                                         <x-filter.disclosure_button @click="dc.goTo('object_type')">
-                                            <filter-new-custom-select-popover-label name="object_type"
+                                            <filter-new-custom-select-popover-label
+                                                name="{{ trans('item.object_type') }}"
                                                 :selected-values="query['object_type']">
                                             </filter-new-custom-select-popover-label>
                                         </x-filter.disclosure_button>
                                         <x-filter.disclosure_button @click="dc.goTo('tag')">
-                                            <filter-new-custom-select-popover-label name="tag"
-                                                :selected-values="query['tag']">
+                                            <filter-new-custom-select-popover-label
+                                                name="{{ trans('item.tag') }}" :selected-values="query['tag']">
                                             </filter-new-custom-select-popover-label>
                                         </x-filter.disclosure_button>
                                         <x-filter.disclosure_button @click="dc.goTo('gallery')">
-                                            <filter-new-custom-select-popover-label name="gallery"
+                                            <filter-new-custom-select-popover-label
+                                                name="{{ trans('item.gallery') }}"
                                                 :selected-values="query['gallery']">
                                             </filter-new-custom-select-popover-label>
                                         </x-filter.disclosure_button>
@@ -290,8 +300,8 @@
                                                 <x-icons.sliders-horizontal
                                                     class="tw-h-6 tw-w-6 tw-fill-current">
                                                 </x-icons.sliders-horizontal>
-                                                <span class="tw-font-semibold">rozšírený
-                                                    filter</span>
+                                                <span
+                                                    class="tw-font-semibold">{{ trans('item.filter.extended_filter') }}</span>
                                             </div>
                                         </button>
                                     </div>
@@ -301,13 +311,14 @@
                                             <x-filter.disclosure_view v-if="dc.view === 'index'"
                                                 @close="dc.close">
                                                 @slot('header')
-                                                    <span class="tw-text-lg tw-font-semibold">Filter diel</span>
+                                                    <span
+                                                        class="tw-text-lg tw-font-semibold">{{ utrans('item.filter.title') }}</span>
                                                 @endslot
                                                 @slot('reset_button')
                                                     <x-filter.reset_button class="tw-mr-3"
                                                         v-if="selectedOptionsAsLabels.length"
                                                         @click="clearAllSelections">
-                                                        zrušiť celý výber
+                                                        {{ trans('item.filter.clear_all') }}
                                                     </x-filter.reset_button>
                                                 @endslot
                                                 @slot('body')
@@ -316,55 +327,64 @@
                                                         <x-filter.disclosure_list_button
                                                             @click="dc.goTo('author')">
                                                             <filter-new-custom-select-popover-label
-                                                                name="author" :selected-values="query['author']">
+                                                                name="{{ trans('item.author') }}"
+                                                                :selected-values="query['author']">
                                                             </filter-new-custom-select-popover-label>
                                                         </x-filter.disclosure_list_button>
                                                         <x-filter.disclosure_list_button
                                                             @click="dc.goTo('work_type')">
                                                             <filter-new-custom-select-popover-label
-                                                                name="work_type" :selected-values="query['work_type']">
+                                                                name="{{ trans('item.work_type') }}"
+                                                                :selected-values="query['work_type']">
                                                             </filter-new-custom-select-popover-label>
                                                         </x-filter.disclosure_list_button>
                                                         <x-filter.disclosure_list_button
                                                             @click="dc.goTo('object_type')">
                                                             <filter-new-custom-select-popover-label
-                                                                name="object_type" :selected-values="query['object_type']">
+                                                                name="{{ trans('item.object_type') }}"
+                                                                :selected-values="query['object_type']">
                                                             </filter-new-custom-select-popover-label>
                                                         </x-filter.disclosure_list_button>
                                                         <x-filter.disclosure_list_button
                                                             @click="dc.goTo('tag')">
-                                                            <filter-new-custom-select-popover-label name="tag"
+                                                            <filter-new-custom-select-popover-label
+                                                                name="{{ trans('item.tag') }}"
                                                                 :selected-values="query['tag']">
                                                             </filter-new-custom-select-popover-label>
                                                         </x-filter.disclosure_list_button>
                                                         <x-filter.disclosure_list_button
                                                             @click="dc.goTo('gallery')">
                                                             <filter-new-custom-select-popover-label
-                                                                name="gallery" :selected-values="query['gallery']">
+                                                                name="{{ trans('item.gallery') }}"
+                                                                :selected-values="query['gallery']">
                                                             </filter-new-custom-select-popover-label>
                                                         </x-filter.disclosure_list_button>
                                                         <x-filter.disclosure_list_button
                                                             @click="dc.goTo('technique')">
                                                             <filter-new-custom-select-popover-label
-                                                                name="technique" :selected-values="query['technique']">
+                                                                name="{{ trans('item.technique') }}"
+                                                                :selected-values="query['technique']">
                                                             </filter-new-custom-select-popover-label>
                                                         </x-filter.disclosure_list_button>
                                                         <x-filter.disclosure_list_button
                                                             @click="dc.goTo('topic')">
-                                                            <filter-new-custom-select-popover-label name="topic"
+                                                            <filter-new-custom-select-popover-label
+                                                                name="{{ trans('item.topic') }}"
                                                                 :selected-values="query['topic']">
                                                             </filter-new-custom-select-popover-label>
                                                         </x-filter.disclosure_list_button>
                                                         <x-filter.disclosure_list_button
                                                             @click="dc.goTo('medium')">
                                                             <filter-new-custom-select-popover-label
-                                                                name="medium" :selected-values="query['medium']">
+                                                                name="{{ trans('item.medium') }}"
+                                                                :selected-values="query['medium']">
                                                             </filter-new-custom-select-popover-label>
                                                         </x-filter.disclosure_list_button>
                                                         <x-filter.disclosure_inline_list_button>
                                                             @slot('header')
                                                                 <div class="tw-font-sm tw-font-semibold">
-                                                                    rok<span class="tw-ml-2"
+                                                                    {{ trans('item.filter.year') }}<span
+                                                                        class="tw-ml-2"
                                                                         v-if="query.yearRange">(@{{ query.yearRange.from }}
                                                                         - @{{ query.yearRange.to }})</div>
                                                             @endslot
@@ -379,7 +399,7 @@
                                                                     <x-filter.reset_button
                                                                         @click="handleYearRangeChange(null)"
                                                                         class="tw-mt-2.5">
-                                                                        resetovať
+                                                                        {{ trans('item.filter.clear') }}
                                                                     </x-filter.reset_button>
                                                                 </div>
                                                             @endslot
@@ -388,7 +408,8 @@
                                                             @slot('header')
                                                                 <div
                                                                     class="tw-font-sm tw-flex tw-items-center tw-gap-2 tw-font-semibold">
-                                                                    color<div v-if="query['color']"
+                                                                    {{ trans('item.filter.color') }}<div
+                                                                        v-if="query['color']"
                                                                         class="tw-inline-block tw-h-4 tw-w-4"
                                                                         :style="{'background': `#${query['color']}`}">
                                                                     </div>
@@ -403,30 +424,30 @@
                                                                     <x-filter.reset_button
                                                                         @click="handleColorChange(null)"
                                                                         class="tw-mt-4">
-                                                                        resetovať
+                                                                        {{ trans('item.filter.clear') }}
                                                                     </x-filter.reset_button>
                                                                 </div>
                                                             @endslot
                                                         </x-filter.disclosure_inline_list_button>
                                                         <filter-new-custom-checkbox class="tw-pt-2"
                                                             @change="handleCheckboxChange" :checked="Boolean(query['has_image'])"
-                                                            title="Len s obrázkom" name="has_image"
-                                                            id="has_image_desktop">
+                                                            title="{{ utrans('item.filter.has_image') }}"
+                                                            name="has_image" id="has_image_desktop">
                                                         </filter-new-custom-checkbox>
                                                         <filter-new-custom-checkbox
                                                             @change="handleCheckboxChange" :checked="Boolean(query['has_iip'])"
-                                                            title="Len so zoomom" name="has_iip"
-                                                            id="has_iip_desktop">
+                                                            title="{{ utrans('item.filter.has_iip') }}"
+                                                            name="has_iip" id="has_iip_desktop">
                                                         </filter-new-custom-checkbox>
                                                         <filter-new-custom-checkbox
                                                             @change="handleCheckboxChange" :checked="Boolean(query['is_free'])"
-                                                            title="Len voľné" name="is_free"
-                                                            id="is_free_desktop">
+                                                            title="{{ utrans('item.filter.is_free') }}"
+                                                            name="is_free" id="is_free_desktop">
                                                         </filter-new-custom-checkbox>
                                                         <filter-new-custom-checkbox class="tw-pb-2"
                                                             @change="handleCheckboxChange" :checked="Boolean(query['has_text'])"
-                                                            title="Len s textom" name="has_text"
-                                                            id="has_text_desktop">
+                                                            title="{{ utrans('item.filter.has_text') }}"
+                                                            name="has_text" id="has_text_desktop">
                                                         </filter-new-custom-checkbox>
                                                     </div>
                                                 @endslot
@@ -435,7 +456,8 @@
                                                 @close="dc.close">
                                                 @slot('header')
                                                     <x-filter.view_header_button @click="dc.goTo('index')">
-                                                        <filter-new-custom-select-popover-label name="author"
+                                                        <filter-new-custom-select-popover-label
+                                                            name="{{ trans('item.author') }}"
                                                             :selected-values="query['author']">
                                                         </filter-new-custom-select-popover-label>
                                                     </x-filter.view_header_button>
@@ -444,14 +466,14 @@
                                                     <x-filter.reset_button class="tw-mr-3"
                                                         v-if="query.author.length"
                                                         @click="clearFilterSelection('author')">
-                                                        zrušiť výber
+                                                        {{ trans('item.filter.clear') }}
                                                     </x-filter.reset_button>
                                                 @endslot
                                                 @slot('body')
                                                     <div
                                                         class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
                                                         <x-filter.search_options
-                                                            search-placeholder="Napíšte meno autora / autorky"
+                                                            search-placeholder="{{ utrans('item.filter.placeholder.name_human') }}"
                                                             v-bind:options="aggregations['author']"
                                                             v-bind:selected="query['author']"
                                                             v-on:change="e => handleMultiSelectChange('author', e)"
@@ -463,7 +485,8 @@
                                                 @close="dc.close">
                                                 @slot('header')
                                                     <x-filter.view_header_button @click="dc.goTo('index')">
-                                                        <filter-new-custom-select-popover-label name="work_type"
+                                                        <filter-new-custom-select-popover-label
+                                                            name="{{ trans('item.work_type') }}"
                                                             :selected-values="query['work_type']">
                                                         </filter-new-custom-select-popover-label>
                                                     </x-filter.view_header_button>
@@ -472,14 +495,14 @@
                                                     <x-filter.reset_button class="tw-mr-3"
                                                         v-if="query.work_type.length"
                                                         @click="clearFilterSelection('work_type')">
-                                                        zrušiť výber
+                                                        {{ trans('item.filter.clear') }}
                                                     </x-filter.reset_button>
                                                 @endslot
                                                 @slot('body')
                                                     <div
                                                         class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
                                                         <x-filter.search_options
-                                                            search-placeholder="Napíšte meno autora / autorky"
+                                                            search-placeholder="{{ utrans('item.filter.placeholder.term') }}"
                                                             v-bind:options="aggregations['work_type']"
                                                             v-bind:selected="query['work_type']"
                                                             v-on:change="e => handleMultiSelectChange('work_type', e)"
@@ -500,14 +523,14 @@
                                                     <x-filter.reset_button class="tw-mr-3"
                                                         v-if="query.object_type.length"
                                                         @click="clearFilterSelection('object_type')">
-                                                        zrušiť výber
+                                                        {{ trans('item.filter.clear') }}
                                                     </x-filter.reset_button>
                                                 @endslot
                                                 @slot('body')
                                                     <div
                                                         class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
                                                         <x-filter.search_options
-                                                            search-placeholder="Napíšte meno autora / autorky"
+                                                            search-placeholder="{{ utrans('item.filter.placeholder.term') }}"
                                                             v-bind:options="aggregations['object_type']"
                                                             v-bind:selected="query['object_type']"
                                                             v-on:change="e => handleMultiSelectChange('object_type', e)"
@@ -519,7 +542,8 @@
                                                 @close="dc.close">
                                                 @slot('header')
                                                     <x-filter.view_header_button @click="dc.goTo('index')">
-                                                        <filter-new-custom-select-popover-label name="tag"
+                                                        <filter-new-custom-select-popover-label
+                                                            name="{{ trans('item.tag') }}"
                                                             :selected-values="query['tag']">
                                                         </filter-new-custom-select-popover-label>
                                                     </x-filter.view_header_button>
@@ -528,14 +552,14 @@
                                                     <x-filter.reset_button class="tw-mr-3"
                                                         v-if="query.tag.length"
                                                         @click="clearFilterSelection('tag')">
-                                                        zrušiť výber
+                                                        {{ trans('item.filter.clear') }}
                                                     </x-filter.reset_button>
                                                 @endslot
                                                 @slot('body')
                                                     <div
                                                         class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
                                                         <x-filter.search_options
-                                                            search-placeholder="Napíšte meno autora / autorky"
+                                                            search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                             v-bind:options="aggregations['tag']"
                                                             v-bind:selected="query['tag']"
                                                             v-on:change="e => handleMultiSelectChange('tag', e)"
@@ -547,7 +571,8 @@
                                                 @close="dc.close">
                                                 @slot('header')
                                                     <x-filter.view_header_button @click="dc.goTo('index')">
-                                                        <filter-new-custom-select-popover-label name="gallery"
+                                                        <filter-new-custom-select-popover-label
+                                                            name="{{ trans('item.gallery') }}"
                                                             :selected-values="query['gallery']">
                                                         </filter-new-custom-select-popover-label>
                                                     </x-filter.view_header_button>
@@ -556,12 +581,12 @@
                                                     <x-filter.reset_button class="tw-mr-3"
                                                         v-if="query.gallery.length"
                                                         @click="clearFilterSelection('gallery')">
-                                                        zrušiť výber
+                                                        {{ trans('item.filter.clear') }}
                                                     </x-filter.reset_button>
                                                 @endslot
                                                 @slot('body')
                                                     <x-filter.search_options
-                                                        search-placeholder="Napíšte meno autora / autorky"
+                                                        search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                         v-bind:options="aggregations['gallery']"
                                                         v-bind:selected="query['gallery']"
                                                         v-on:change="e => handleMultiSelectChange('gallery', e)"
@@ -572,7 +597,8 @@
                                                 @close="dc.close">
                                                 @slot('header')
                                                     <x-filter.view_header_button @click="dc.goTo('index')">
-                                                        <filter-new-custom-select-popover-label name="technique"
+                                                        <filter-new-custom-select-popover-label
+                                                            name="{{ trans('item.technique') }}"
                                                             :selected-values="query['technique']">
                                                         </filter-new-custom-select-popover-label>
                                                     </x-filter.view_header_button>
@@ -581,14 +607,14 @@
                                                     <x-filter.reset_button class="tw-mr-3"
                                                         v-if="query.technique.length"
                                                         @click="clearFilterSelection('technique')">
-                                                        zrušiť výber
+                                                        {{ trans('item.filter.clear') }}
                                                     </x-filter.reset_button>
                                                 @endslot
                                                 @slot('body')
                                                     <div
                                                         class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
                                                         <x-filter.search_options
-                                                            search-placeholder="Napíšte meno autora / autorky"
+                                                            search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                             v-bind:options="aggregations['technique']"
                                                             v-bind:selected="query['technique']"
                                                             v-on:change="e => handleMultiSelectChange('technique', e)"
@@ -600,7 +626,8 @@
                                                 @close="dc.close">
                                                 @slot('header')
                                                     <x-filter.view_header_button @click="dc.goTo('index')">
-                                                        <filter-new-custom-select-popover-label name="topic"
+                                                        <filter-new-custom-select-popover-label
+                                                            name="{{ trans('item.topic') }}"
                                                             :selected-values="query['topic']">
                                                         </filter-new-custom-select-popover-label>
                                                     </x-filter.view_header_button>
@@ -609,14 +636,14 @@
                                                     <x-filter.reset_button class="tw-mr-3"
                                                         v-if="query.topic.length"
                                                         @click="clearFilterSelection('topic')">
-                                                        zrušiť výber
+                                                        {{ trans('item.filter.clear') }}
                                                     </x-filter.reset_button>
                                                 @endslot
                                                 @slot('body')
                                                     <div
                                                         class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
                                                         <x-filter.search_options
-                                                            search-placeholder="Napíšte meno autora / autorky"
+                                                            search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                             v-bind:options="aggregations['topic']"
                                                             v-bind:selected="query['topic']"
                                                             v-on:change="e => handleMultiSelectChange('topic', e)"
@@ -628,7 +655,8 @@
                                                 @close="dc.close">
                                                 @slot('header')
                                                     <x-filter.view_header_button @click="dc.goTo('index')">
-                                                        <filter-new-custom-select-popover-label name="medium"
+                                                        <filter-new-custom-select-popover-label
+                                                            name="{{ trans('item.medium') }}"
                                                             :selected-values="query['medium']">
                                                         </filter-new-custom-select-popover-label>
                                                     </x-filter.view_header_button>
@@ -637,14 +665,14 @@
                                                     <x-filter.reset_button class="tw-mr-3"
                                                         v-if="query.medium.length"
                                                         @click="clearFilterSelection('medium')">
-                                                        zrušiť výber
+                                                        {{ trans('item.filter.clear') }}
                                                     </x-filter.reset_button>
                                                 @endslot
                                                 @slot('body')
                                                     <div
                                                         class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
                                                         <x-filter.search_options
-                                                            search-placeholder="Napíšte meno autora / autorky"
+                                                            search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
                                                             v-bind:options="aggregations['medium']"
                                                             v-bind:selected="query['medium']"
                                                             v-on:change="e => handleMultiSelectChange('medium', e)"
@@ -656,7 +684,7 @@
                                         @slot('footer')
                                             <button class="tw-m-4 tw-w-full tw-bg-sky-300 tw-p-4"
                                                 @click="dc.close">
-                                                zobraziť výsledky <span
+                                                {{ trans('item.filter.show_results') }} <span
                                                     class="tw-font-bold">(@{{ artworks_total }})</span>
                                             </button>
                                         @endslot
@@ -667,20 +695,20 @@
                         <div
                             class="tw-mx-auto tw-hidden tw-max-w-screen-2xl tw-space-x-6 tw-bg-gray-200 tw-px-6 tw-pt-4 tw-pb-2 md:tw-flex">
                             <filter-new-custom-checkbox @change="handleCheckboxChange"
-                                :checked="Boolean(query['has_image'])" title="Len s obrázkom" name="has_image"
-                                id="has_image_desktop">
+                                :checked="Boolean(query['has_image'])" title="{{ utrans('item.filter.has_image') }}"
+                                name="has_image" id="has_image_desktop">
                             </filter-new-custom-checkbox>
                             <filter-new-custom-checkbox @change="handleCheckboxChange"
-                                :checked="Boolean(query['has_iip'])" title="Len so zoomom" name="has_iip"
-                                id="has_iip_desktop">
+                                :checked="Boolean(query['has_iip'])" title="{{ utrans('item.filter.has_iip') }}"
+                                name="has_iip" id="has_iip_desktop">
                             </filter-new-custom-checkbox>
                             <filter-new-custom-checkbox @change="handleCheckboxChange"
-                                :checked="Boolean(query['is_free'])" title="Len voľné" name="is_free"
-                                id="is_free_desktop">
+                                :checked="Boolean(query['is_free'])" title="{{ utrans('item.filter.is_free') }}"
+                                name="is_free" id="is_free_desktop">
                             </filter-new-custom-checkbox>
                             <filter-new-custom-checkbox @change="handleCheckboxChange"
-                                :checked="Boolean(query['has_text'])" title="Len s textom" name="has_text"
-                                id="has_text_desktop">
+                                :checked="Boolean(query['has_text'])" title="{{ utrans('item.filter.has_text') }}"
+                                name="has_text" id="has_text_desktop">
                             </filter-new-custom-checkbox>
                         </div>
                         {{-- Selected labels --}}
@@ -713,7 +741,7 @@
                                 </button>
                                 <x-filter.reset_button v-if="selectedOptionsAsLabels.length"
                                     @click="clearAllSelections" sm>
-                                    resetovať
+                                    {{ trans('item.filter.clear') }}
                                 </x-filter.reset_button>
                             </div>
                         </div>
@@ -727,27 +755,28 @@
                                     src="{{ asset('animations/empty.json') }}">
                                 </lottie-player>
                             </div>
-                            <span class="tw-mt-10">Uuups, nič sme nenašli :(</span>
+                            <span
+                                class="tw-mt-10">{{ utrans('item.filter.nothing_found') }}</span>
                             <button @click="handleSelectRandomly"
-                                class="tw-font-bold tw-underline tw-underline-offset-8">skús
-                                náhodný
-                                výber</a>
+                                class="tw-font-bold tw-underline tw-underline-offset-8">
+                                {{ utrans('item.filter.try_also') }}
+                                {{ trans('item.filter.random_search') }}</a>
                         </div>
                         <div v-else>
                             <div class="tw-px-2 tw-py-6 md:tw-px-0 md:tw-pb-8 md:tw-pt-0">
                                 <span class="tw-font-semibold">
-                                    <span v-if="artworks_total === 1">Zobrazujem <span
-                                            class="tw-font-bold">1</span>
-                                        dielo, zoradené podľa&nbsp</span>
-                                    <span v-else-if="artworks_total < 5">Zobrazujem
+                                    <span v-if="artworks_total === 1"><span
+                                            class="tw-capitalize">{{ trans_choice('item.filter.displaying', 1) }}
+                                        </span><span class="tw-font-bold">1</span>
+                                        {{ trans_choice('item.filter.artworks_sorted_by', 1) }}</span>
+                                    <span v-else-if="artworks_total < 5"><span
+                                            class="tw-capitalize">{{ trans_choice('item.filter.displaying', 4) }}</span>
                                         <span class="tw-font-bold">@{{ artworks_total }}</span>
-                                        diela,
-                                        zoradené
-                                        podľa&nbsp</span>
-                                    <span v-else>Zobrazujem <span
-                                            class="tw-font-bold">@{{ artworks_total }}</span>
-                                        diel, zoradených
-                                        podľa&nbsp</span>
+                                        {{ trans_choice('item.filter.artworks_sorted_by', 4) }}</span>
+                                    <span v-else><span
+                                            class="tw-capitalize">{{ trans_choice('item.filter.displaying', 5) }}</span>
+                                        <span class="tw-font-bold">@{{ artworks_total }}</span>
+                                        {{ trans_choice('item.filter.artworks_sorted_by', 5) }}</span>
                                     <span class="tw-font-semibold">
                                         <div class="tw-z-10 tw-inline-block">
                                             <filter-new-popover.group-controller>
@@ -757,25 +786,21 @@
                                                             class="tw-font-bold tw-underline tw-decoration-2 tw-underline-offset-4"
                                                             @click="pc.togglePopover('sort')">
                                                             <span
-                                                                v-if="query.sort === 'created_at' ">dátumu
-                                                                pridania</span>
+                                                                v-if="query.sort === 'created_at' ">{{ trans('sortable.created_at') }}</span>
                                                             <span
-                                                                v-else-if="query.sort === 'title' ">názvu</span>
+                                                                v-else-if="query.sort === 'title' ">{{ trans('sortable.title') }}</span>
                                                             <span
-                                                                v-else-if="query.sort === 'author' ">autora</span>
+                                                                v-else-if="query.sort === 'author' ">{{ trans('sortable.author') }}</span>
                                                             <span
-                                                                v-else-if="query.sort === 'date_earliest' ">datovanie
-                                                                - od najnovšieho</span>
+                                                                v-else-if="query.sort === 'date_earliest' ">{{ trans('sortable.oldest') }}</span>
                                                             <span
-                                                                v-else-if="query.sort === 'date_latest' ">datovanie
-                                                                - od najstaršieho</span>
+                                                                v-else-if="query.sort === 'date_latest' ">{{ trans('sortable.newest') }}</span>
                                                             <span
-                                                                v-else-if="query.sort === 'view_count' ">počtu
-                                                                videní</span>
+                                                                v-else-if="query.sort === 'view_count' ">{{ trans('sortable.view_count') }}</span>
                                                             <span
-                                                                v-else-if="query.sort === 'random' ">náhodného
-                                                                poradia</span>
-                                                            <span v-else>poslednej zmeny</span>
+                                                                v-else-if="query.sort === 'random' ">{{ trans('sortable.random') }}</span>
+                                                            <span
+                                                                v-else>{{ trans('sortable.updated_at') }}</span>
                                                             <x-icons.caret-down
                                                                 class="tw-inline tw-h-4 tw-w-4 tw-fill-current">
                                                             </x-icons.caret-down>
@@ -789,42 +814,42 @@
                                                                 <li class="tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
                                                                     @click="handleSortChange('created_at');pc.closeOpenedPopover()"
                                                                     v-if="query.sort !== 'created_at'">
-                                                                    created_at
+                                                                    {{ trans('sortable.created_at') }}
                                                                 </li>
                                                                 <li class="tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
                                                                     @click="handleSortChange('title');pc.closeOpenedPopover()"
                                                                     v-if="query.sort !== 'title'">
-                                                                    title
+                                                                    {{ trans('sortable.title') }}
                                                                 </li>
                                                                 <li class="tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
                                                                     @click="handleSortChange('author');pc.closeOpenedPopover()"
                                                                     v-if="query.sort !== 'author'">
-                                                                    author
+                                                                    {{ trans('sortable.author') }}
                                                                 </li>
                                                                 <li class="tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
                                                                     @click="handleSortChange('date_earliest');pc.closeOpenedPopover()"
                                                                     v-if="query.sort !== 'date_earliest'">
-                                                                    date_earliest
+                                                                    {{ trans('sortable.oldest') }}
                                                                 </li>
                                                                 <li class="tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
                                                                     @click="handleSortChange('date_latest');pc.closeOpenedPopover()"
                                                                     v-if="query.sort !== 'date_latest'">
-                                                                    date_latest
+                                                                    {{ trans('sortable.newest') }}
                                                                 </li>
                                                                 <li class="tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
                                                                     @click="handleSortChange('view_count');pc.closeOpenedPopover()"
                                                                     v-if="query.sort !== 'view_count'">
-                                                                    view_count
+                                                                    {{ trans('sortable.view_count') }}
                                                                 </li>
                                                                 <li class="tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
                                                                     @click="handleSortChange('random');pc.closeOpenedPopover()"
                                                                     v-if="query.sort !== 'random'">
-                                                                    random
+                                                                    {{ trans('sortable.random') }}
                                                                 </li>
                                                                 <li class="tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
                                                                     @click="handleSortChange(null);pc.closeOpenedPopover()"
                                                                     v-if="!query.sort">
-                                                                    last_change
+                                                                    {{ trans('sortable.last_change') }}
                                                                 </li>
                                                             </ul>
                                                         </div>
@@ -834,10 +859,9 @@
                                         </div>
                                     </span>
                                     <span>
-                                        . Alebo skús aj
+                                        {{ utrans('item.filter.try_also') }}
                                         <button @click="handleSelectRandomly"
-                                            class="tw-font-bold tw-underline tw-decoration-2 tw-underline-offset-4">náhodný
-                                            výber</button>
+                                            class="tw-font-bold tw-underline tw-decoration-2 tw-underline-offset-4">{{ trans('item.filter.random_search') }}</button>
                                     </span>
                                 </span>
                             </div>
@@ -910,7 +934,7 @@
                                     <div class="tw-flex tw-justify-center">
                                         <div
                                             class="tw-border tw-border-gray-400 tw-py-2.5 tw-px-8 tw-text-sm hover:tw-border-gray-700">
-                                            loading...
+                                            {{ trans('item.filter.loading') }}
                                         </div>
                                     </div>
                                 </template>
@@ -918,7 +942,7 @@
                                     <div class="tw-flex tw-justify-center">
                                         <button v-if="page === 1" @click="loadMore"
                                             class="tw-border tw-border-gray-400 tw-py-2.5 tw-px-8 tw-text-sm hover:tw-border-gray-700">
-                                            show more
+                                            {{ trans('general.filter.show_more') }}
                                         </button>
                                     </div>
                                 </template>
