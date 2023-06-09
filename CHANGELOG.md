@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- image_ratio field to /api/v2/items/{id}
+
+### Changed
+- Authority#has_image to cast to boolean
 
 ## [2.76.0] - 2023-05-25
 ### Added
