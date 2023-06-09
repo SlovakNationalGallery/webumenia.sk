@@ -23,6 +23,7 @@ class ItemsTest extends TestCase
             'date_earliest' => 2000,
             'date_latest' => 2010,
             'description' => 'test_description',
+            'image_ratio' => 1.5,
         ]);
         $item->authorities()->attach($authority);
 
@@ -51,6 +52,7 @@ class ItemsTest extends TestCase
                 'date_earliest' => 2000,
                 'date_latest' => 2010,
                 'description' => 'test_description',
+                'image_ratio' => 1.5,
             ],
         ]);
     }
