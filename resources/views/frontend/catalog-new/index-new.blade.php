@@ -275,15 +275,14 @@
                                                 :selected-values="query['work_type']">
                                             </filter-new-custom-select-popover-label>
                                         </x-filter.disclosure_button>
-                                        <x-filter.disclosure_button @click="dc.goTo('object_type')">
-                                            <filter-new-custom-select-popover-label
-                                                name="{{ trans('item.object_type') }}"
-                                                :selected-values="query['object_type']">
-                                            </filter-new-custom-select-popover-label>
-                                        </x-filter.disclosure_button>
                                         <x-filter.disclosure_button @click="dc.goTo('tag')">
                                             <filter-new-custom-select-popover-label
                                                 name="{{ trans('item.tag') }}" :selected-values="query['tag']">
+                                            </filter-new-custom-select-popover-label>
+                                        </x-filter.disclosure_button>
+                                        <x-filter.disclosure_button @click="dc.goTo('topic')">
+                                            <filter-new-custom-select-popover-label
+                                                name="{{ trans('item.topic') }}" :selected-values="query['topic']">
                                             </filter-new-custom-select-popover-label>
                                         </x-filter.disclosure_button>
                                         <x-filter.disclosure_button @click="dc.goTo('gallery')">
@@ -339,17 +338,17 @@
                                                             </filter-new-custom-select-popover-label>
                                                         </x-filter.disclosure_list_button>
                                                         <x-filter.disclosure_list_button
-                                                            @click="dc.goTo('topic')">
-                                                            <filter-new-custom-select-popover-label
-                                                                name="{{ trans('item.topic') }}"
-                                                                :selected-values="query['topic']">
-                                                            </filter-new-custom-select-popover-label>
-                                                        </x-filter.disclosure_list_button>
-                                                        <x-filter.disclosure_list_button
                                                             @click="dc.goTo('tag')">
                                                             <filter-new-custom-select-popover-label
                                                                 name="{{ trans('item.tag') }}"
                                                                 :selected-values="query['tag']">
+                                                            </filter-new-custom-select-popover-label>
+                                                        </x-filter.disclosure_list_button>
+                                                        <x-filter.disclosure_list_button
+                                                            @click="dc.goTo('topic')">
+                                                            <filter-new-custom-select-popover-label
+                                                                name="{{ trans('item.topic') }}"
+                                                                :selected-values="query['topic']">
                                                             </filter-new-custom-select-popover-label>
                                                         </x-filter.disclosure_list_button>
                                                         <x-filter.disclosure_list_button
