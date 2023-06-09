@@ -25,6 +25,7 @@ class ItemController extends Controller
         'has_iip',
         'has_test',
         'is_free',
+        'tag',
         'additionals.category.keyword',
         'additionals.frontend.keyword',
         'additionals.set.keyword',
