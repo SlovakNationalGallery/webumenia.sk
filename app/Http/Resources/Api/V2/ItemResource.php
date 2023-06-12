@@ -23,6 +23,7 @@ class ItemResource extends JsonResource
             'date_latest' => $this->date_latest,
             'description' => $this->description,
             'authorities' => AuthorityResource::collection($this->authorities),
+            'image_ratio' => $this->image_ratio,
         ];
     }
 }

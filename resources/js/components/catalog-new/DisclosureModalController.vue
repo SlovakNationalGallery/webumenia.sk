@@ -8,9 +8,11 @@ export default {
     methods: {
         goTo(view) {
             this.view = view
+            document.body.style.overflow = 'hidden'
         },
         close() {
             this.view = null
+            document.body.style.overflow = 'auto'
         },
     },
     render() {

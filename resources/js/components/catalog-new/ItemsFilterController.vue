@@ -112,6 +112,7 @@ export default {
     data() {
         return {
             isFetchingArtworks: false,
+            hasError: false,
             artworks: [],
             last_page: 1,
             artworks_total: null,
@@ -264,6 +265,7 @@ export default {
                     ...aggregations,
                 }
             } catch (e) {
+                this.hasError = true
                 throw e
             }
         },
@@ -290,6 +292,7 @@ export default {
                     ? [...this.artworks, ...fetchedArtworks.data]
                     : fetchedArtworks.data
             } catch (e) {
+                this.hasError = true
                 throw e
             } finally {
                 this.isFetchingArtworks = false
@@ -321,6 +324,7 @@ export default {
     render() {
         return this.$scopedSlots.default({
             isFetchingArtworks: this.isFetchingArtworks,
+            hasError: this.hasError,
             query: this.query,
             page: this.page,
             last_page: this.last_page,
