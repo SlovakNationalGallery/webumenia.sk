@@ -145,7 +145,7 @@
         @endif
         {{-- Counts blurb --}} <div class="tw-bg-gray-200">
             <div
-                class="tw-container tw-mx-auto tw-grid tw-max-w-screen-2xl tw-px-6 tw-py-5 tw-text-gray-500 lg:tw-py-10">
+                class="tw-container tw-mx-auto tw-grid tw-max-w-screen-2xl tw-px-6 tw-py-5 tw-text-gray-500 md:tw-px-8 lg:tw-py-10">
                 <p class="tw-text-center lg:tw-text-2xl">
                     {{ utrans('home.definition_start') }}
                     <a href="{{ route('frontend.catalog.index') }}"
@@ -169,7 +169,7 @@
                 <featured-piece-click-tracker v-bind:id="{{ $featuredPiece->id }}"
                     url="{{ $featuredPiece->url }}" v-slot="{ track }">
                     <div
-                        class="tw-container tw-relative tw-mx-auto tw-flex tw-max-w-screen-2xl tw-flex-col tw-items-start tw-py-8 tw-px-6 tw-text-white md:tw-py-20">
+                        class="tw-container tw-relative tw-mx-auto tw-flex tw-max-w-screen-2xl tw-flex-col tw-items-start tw-py-8 tw-px-6 tw-text-white md:tw-px-8 md:tw-py-20">
                         <a href="{{ $featuredPiece->url }}" v-on:click.once.prevent="track"
                             class="tw-absolute tw-inset-0"></a>
 
@@ -244,7 +244,7 @@
         @endif
 
         {{-- Latest content --}}
-        <div class="tw-container tw-mx-auto tw-max-w-screen-2xl tw-px-6 tw-py-8 md:tw-py-16">
+        <div class="tw-container tw-mx-auto tw-max-w-screen-2xl tw-px-6 tw-py-8 md:tw-py-16 md:tw-px-8">
             <h2 class="tw-font-semibold md:tw-text-lg">
                 {{ trans('home.latest_content.collections.title') }}
             </h2>
@@ -346,7 +346,7 @@
         @if ($featuredAuthor)
             <div class="tw-bg-gray-200">
                 <div
-                    class="tw-container tw-mx-auto tw-max-w-screen-2xl tw-gap-x-6 tw-px-6 tw-py-8 md:tw-py-16 lg:tw-grid lg:tw-grid-cols-2">
+                    class="tw-container tw-mx-auto tw-max-w-screen-2xl tw-gap-x-6 tw-px-6 tw-py-8 md:tw-py-16 md:tw-px-8 lg:tw-grid lg:tw-grid-cols-2">
                     <div class="flex">
                         <img src="{{ $featuredAuthor->getImagePath() }}"
                             class="tw-mt-12 tw-mr-6 tw-hidden tw-h-52 tw-w-52 tw-rounded-full lg:tw-block"
