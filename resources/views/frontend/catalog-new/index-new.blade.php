@@ -8,7 +8,7 @@
                 <div class="tw-relative tw-min-h-[calc(100vh-14rem)]">
                     <div class="tw-bg-gray-200">
                         <div
-                            class="tw-mx-auto tw-max-w-screen-2xl tw-py-6 tw-pl-4 md:tw-p-6 md:tw-pt-12 md:tw-pb-0">
+                            class="tw-mx-auto tw-max-w-screen-2xl tw-py-6 tw-pl-4 md:tw-p-6 md:tw-px-8 md:tw-pt-12 md:tw-pb-0">
                             {{-- Desktop filter --}}
                             <filter-new-popover.group-controller>
                                 <toggle-controller v-slot="tc">
@@ -692,7 +692,7 @@
                             </filter-disclosure-controller>
                         </div>
                         <div
-                            class="tw-mx-auto tw-hidden tw-max-w-screen-2xl tw-space-x-6 tw-bg-gray-200 tw-px-6 tw-pt-4 tw-pb-2 md:tw-flex">
+                            class="tw-mx-auto tw-hidden tw-max-w-screen-2xl tw-space-x-6 tw-bg-gray-200 tw-px-6 tw-pt-4 tw-pb-2 md:tw-flex md:tw-px-8">
                             <filter-new-custom-checkbox @change="handleCheckboxChange"
                                 :checked="Boolean(query['has_image'])" title="{{ utrans('item.filter.has_image') }}"
                                 name="has_image" id="has_image_desktop">
@@ -712,7 +712,7 @@
                         </div>
                         {{-- Selected labels --}}
                         <div
-                            class="tw-mx-auto tw-hidden tw-h-8 tw-max-w-screen-2xl tw-bg-gray-200 tw-px-6 tw-pb-16 md:tw-block">
+                            class="tw-mx-auto tw-hidden tw-h-8 tw-max-w-screen-2xl tw-bg-gray-200 tw-px-6 tw-pb-16 md:tw-block md:tw-px-8">
                             <div class="tw-flex tw-space-x-3 tw-overflow-x-auto">
                                 <button
                                     class="tw-flex tw-items-center tw-whitespace-nowrap tw-bg-gray-300 tw-py-1 tw-px-1.5"
@@ -746,7 +746,7 @@
                         </div>
                     </div>
                     <div
-                        class="tw-mx-auto tw-min-h-screen tw-max-w-screen-2xl tw-px-4 md:tw-px-6 md:tw-py-10">
+                        class="tw-mx-auto tw-min-h-screen tw-max-w-screen-2xl tw-px-4 md:tw-px-8 md:tw-py-10">
                         <div v-if="hasError"
                             class="tw-flex tw-w-full tw-flex-col tw-items-center tw-justify-center tw-py-40 tw-text-lg">
                             <span>{{ utrans('item.filter.something_went_wrong') }}.</span>
