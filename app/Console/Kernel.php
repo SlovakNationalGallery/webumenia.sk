@@ -31,6 +31,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\ItemsExtractColors::class,
         \App\Console\Commands\MatchAuthorities::class,
         \App\Console\Commands\MediaLibraryRegenerateResponsiveImages::class,
+        \App\Console\Commands\GenerateImageRatios::class,
     ];
 
     /**
