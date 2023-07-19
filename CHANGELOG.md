@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- images:generate-ratios command
 
 ## [2.78.0] - 2023-07-21
 ### Added
