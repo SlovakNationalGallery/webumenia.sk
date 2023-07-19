@@ -53,6 +53,7 @@ class ItemsTest extends TestCase
                 'date_latest' => 2010,
                 'description' => 'test_description',
                 'image_ratio' => 1.5,
+                'images_zoom' => []
             ],
         ]);
     }
