@@ -15,6 +15,8 @@ class ItemResource extends JsonResource
      */
     public function toArray($request)
     {
+        $this->loadMissing('images');
+    
         return [
             'id' => $this->id,
             'title' => $this->title,
