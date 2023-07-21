@@ -15,8 +15,6 @@ class ItemResource extends JsonResource
      */
     public function toArray($request)
     {
-        $this->loadMissing('images');
-    
         return [
             'id' => $this->id,
             'title' => $this->title,
@@ -27,8 +25,8 @@ class ItemResource extends JsonResource
             'description' => $this->description,
             'authorities' => AuthorityResource::collection($this->authorities),
             'image_ratio' => $this->image_ratio,
-            'images_zoom' => $this->images->map(function (ItemImage $image) {
-                return $image->getDeepZoomUrl();
+            'images' => $this->images->map(function (ItemImage $image) {
+                return ['deep_zoom_url' => $image->getDeepZoomUrl()];
             }),
         ];
     }

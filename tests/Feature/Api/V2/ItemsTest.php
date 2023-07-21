@@ -7,6 +7,7 @@ use App\Item;
 use App\ItemImage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Illuminate\Support\Facades\Config;
 
 class ItemsTest extends TestCase
 {
@@ -31,11 +32,7 @@ class ItemsTest extends TestCase
         $item_image->item()->associate($item);
         $item_image->save();
 
-        $image_zoom = sprintf(
-            '%s/zoom/?path=%s.dzi',
-            config('app.iip_public'),
-            urlencode('test_iipimg_url')
-        );
+        Config::set('app.iip_public', 'https://img.test.sk');
 
         $this->getJson('/api/v2/items/test_id')->assertExactJson([
             'data' => [
@@ -63,7 +60,11 @@ class ItemsTest extends TestCase
                 'date_latest' => 2010,
                 'description' => 'test_description',
                 'image_ratio' => 1.5,
-                'images_zoom' => [$image_zoom],
+                'images' => [
+                    [
+                        'deep_zoom_url' => 'https://img.test.sk/zoom/?path=test_iipimg_url.dzi',
+                    ],
+                ],
             ],
         ]);
     }
