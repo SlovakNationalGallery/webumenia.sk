@@ -12,13 +12,14 @@ class GenerateImageRatios extends Command
 
     public function handle()
     {
-        $itemsCount = Item::count();
+        $itemsWithoutImageRatioQuery = Item::whereNull('image_ratio');
+        $itemsCount = $itemsWithoutImageRatioQuery->count();
         $this->output->progressStart($itemsCount);
 
         $chunkSize = 100;
         $count = 0;
 
-        Item::chunk($chunkSize, function ($items) use (&$count) {
+        $itemsWithoutImageRatioQuery->chunk($chunkSize, function ($items) use (&$count) {
             foreach ($items as $item) {
                 if (!$item->hasImageForId($item->id)) {
                     continue;
