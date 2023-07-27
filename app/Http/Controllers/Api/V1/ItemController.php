@@ -5,11 +5,10 @@ namespace App\Http\Controllers\Api\V1;
 use App\Elasticsearch\Repositories\ItemRepository;
 use App\Http\Controllers\Controller;
 use App\Item;
-use ElasticAdapter\Search\Aggregation;
-use ElasticAdapter\Search\Bucket;
 use ElasticScoutDriverPlus\Exceptions\QueryBuilderException;
 use ElasticScoutDriverPlus\Support\Query;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Primal\Color\Parser as ColorParser;
 
 class ItemController extends Controller
@@ -101,55 +100,58 @@ class ItemController extends Controller
         $size = (int) $request->get('size', 1);
         $q = (string) $request->get('q');
 
-        try {
-            $query = $this->createQueryBuilder($q, $filter)->buildQuery();
-        } catch (QueryBuilderException $e) {
-            $query = ['match_all' => new \stdClass()];
-        }
-
-        $searchRequest = Item::searchQuery($query);
+        $aggregations = [];
 
         foreach ($terms as $agg => $field) {
-            $searchRequest->aggregate($agg, [
-                'terms' => [
-                    'field' => $field,
-                    'size' => $size,
-                ],
-            ]);
+            $aggregations[$agg]['aggregations']['filtered']['terms'] = [
+                'field' => $field,
+                'size' => $size,
+            ];
         }
 
         foreach ($min as $agg => $field) {
-            $searchRequest->aggregate($agg, [
-                'min' => [
-                    'field' => $field,
-                ],
-            ]);
+            $aggregations[$agg]['aggregations']['filtered']['min'] = [
+                'field' => $field,
+            ];
         }
 
         foreach ($max as $agg => $field) {
-            $searchRequest->aggregate($agg, [
-                'max' => [
-                    'field' => $field,
-                ],
-            ]);
+            $aggregations[$agg]['aggregations']['filtered']['max'] = [
+                'field' => $field,
+            ];
         }
 
-        $searchResult = $searchRequest->execute();
-        return response()->json(
-            $searchResult->aggregations()->map(function (Aggregation $aggregation) {
-                $raw = $aggregation->raw();
-                if (array_key_exists('value', $raw)) {
-                    return $raw['value'];
+        // Add filter terms to each aggregation
+        foreach (array_keys($aggregations) as $term) {
+            $aggregations[$term]['filter'] = $this->createQueryBuilder(
+                $q,
+                Arr::except($filter, $term)
+            )->buildQuery();
+        }
+
+        $searchRequest = Item::searchQuery()
+            ->size(0)
+            ->aggregateRaw([
+                'all_items' => [
+                    'global' => (object) [],
+                    'aggregations' => (object) $aggregations,
+                ],
+            ]);
+
+        return collect(Arr::get($searchRequest->execute()->raw(), 'aggregations.all_items'))
+            ->only(array_keys($aggregations))
+            ->map(function (array $aggregation) {
+                if (Arr::has($aggregation, 'filtered.value')) {
+                    return Arr::get($aggregation, 'filtered.value');
                 }
 
-                return $aggregation->buckets()->map(function (Bucket $bucket) {
-                    return [
-                        'value' => $bucket->key(),
-                        'count' => $bucket->docCount(),
-                    ];
-                });
-            })
-        );
+                return collect(Arr::get($aggregation, 'filtered.buckets'))->map(
+                    fn(array $bucket) => [
+                        'value' => $bucket['key'],
+                        'count' => $bucket['doc_count'],
+                    ]
+                );
+            });
     }
 
     public function detail(Request $request, $id)
@@ -176,6 +178,10 @@ class ItemController extends Controller
 
     protected function createQueryBuilder($q, $filter)
     {
+        if (empty($q) && empty($filter)) {
+            return Query::matchAll();
+        }
+
         $builder = Query::bool();
 
         if ($q) {

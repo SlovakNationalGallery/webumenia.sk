@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - images:generate-ratios command
 
+### Changed
+- behaviour for /api/v1/items/aggregations so that facet doesn't filter itself
+
 ## [2.78.0] - 2023-07-21
 ### Added
 - images->deep_zoom_url to /api/v2/items/{id}
