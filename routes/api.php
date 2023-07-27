@@ -27,7 +27,9 @@ Route::prefix('v1')
     ->name('api.v1.')
     ->group(function () {
         Route::get('items', [V1ItemController::class, 'index'])->name('items.index');
-        Route::get('items/aggregations', [V1ItemController::class, 'aggregations']);
+        Route::get('items/aggregations', [V1ItemController::class, 'aggregations'])->name(
+            'items.aggregations'
+        );
         Route::get('items/{id}', [V1ItemController::class, 'detail'])->name('items.show');
     });
 
