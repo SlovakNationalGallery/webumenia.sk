@@ -42,7 +42,8 @@ class ItemsAggregationsTest extends TestCase
 
     private function getAggregations(array $params = [])
     {
-        $url = route('api.v1.items.aggregations', $params);
+        $defaultParams = ['size' => 10];
+        $url = route('api.v1.items.aggregations', array_merge($defaultParams, $params));
         return $this->getJson($url);
     }
 
@@ -67,6 +68,15 @@ class ItemsAggregationsTest extends TestCase
             'author' => [['value' => 'Wouwerman, Philips', 'count' => 1]],
         ]);
     }
+    public function test_filtered_faced_does_not_affect_itself()
+    {
+        $this->getAggregations([
+            'filter' => ['topic' => ['summer']],
+            'terms' => ['topic' => 'topic'],
+        ])->assertExactJson([
+            'topic' => [['value' => 'spring', 'count' => 1], ['value' => 'summer', 'count' => 1]],
+        ]);
+    }
 
     public function test_gets_min_and_max()
     {
@@ -84,6 +94,7 @@ class ItemsAggregationsTest extends TestCase
         $this->assertCount(
             1,
             $this->getAggregations([
+                'size' => null, // reset to default
                 'terms' => ['topic' => 'topic'],
             ])['topic']
         );
