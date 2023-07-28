@@ -100,30 +100,30 @@ class ItemController extends Controller
         $size = (int) $request->get('size', 1);
         $q = (string) $request->get('q');
 
-        $aggregations = [];
+        $aggregationsQuery = [];
 
         foreach ($terms as $agg => $field) {
-            $aggregations[$agg]['aggregations']['filtered']['terms'] = [
+            $aggregationsQuery[$agg]['aggregations']['filtered']['terms'] = [
                 'field' => $field,
                 'size' => $size,
             ];
         }
 
         foreach ($min as $agg => $field) {
-            $aggregations[$agg]['aggregations']['filtered']['min'] = [
+            $aggregationsQuery[$agg]['aggregations']['filtered']['min'] = [
                 'field' => $field,
             ];
         }
 
         foreach ($max as $agg => $field) {
-            $aggregations[$agg]['aggregations']['filtered']['max'] = [
+            $aggregationsQuery[$agg]['aggregations']['filtered']['max'] = [
                 'field' => $field,
             ];
         }
 
         // Add filter terms to each aggregation
-        foreach (array_keys($aggregations) as $term) {
-            $aggregations[$term]['filter'] = $this->createQueryBuilder(
+        foreach (array_keys($aggregationsQuery) as $term) {
+            $aggregationsQuery[$term]['filter'] = $this->createQueryBuilder(
                 $q,
                 Arr::except($filter, $term)
             )->buildQuery();
@@ -134,12 +134,14 @@ class ItemController extends Controller
             ->aggregateRaw([
                 'all_items' => [
                     'global' => (object) [],
-                    'aggregations' => (object) $aggregations,
+                    'aggregations' => (object) $aggregationsQuery,
                 ],
             ]);
 
-        return collect(Arr::get($searchRequest->execute()->raw(), 'aggregations.all_items'))
-            ->only(array_keys($aggregations))
+        $searchResponse = collect(
+            Arr::get($searchRequest->execute()->raw(), 'aggregations.all_items')
+        )
+            ->only(array_keys($aggregationsQuery))
             ->map(function (array $aggregation) {
                 if (Arr::has($aggregation, 'filtered.value')) {
                     return Arr::get($aggregation, 'filtered.value');
@@ -152,6 +154,21 @@ class ItemController extends Controller
                     ]
                 );
             });
+
+        // Ensure filtered (i.e. selected) terms are included in the response
+        foreach ($filter as $term => $value) {
+            if (!Arr::has($terms, $term)) {
+                continue;
+            }
+
+            foreach (array_reverse(Arr::wrap($value)) as $value) {
+                if (!$searchResponse[$term]->contains('value', $value)) {
+                    $searchResponse[$term]->prepend(['value' => $value, 'count' => 0])->pop();
+                }
+            }
+        }
+
+        return $searchResponse;
     }
 
     public function detail(Request $request, $id)
