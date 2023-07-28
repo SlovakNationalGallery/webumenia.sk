@@ -25,7 +25,7 @@ class ItemsAggregationsTest extends TestCase
 
         Item::factory()->createMany([
             [
-                'author' => 'Wouwerman, Philips',
+                'author' => 'Galanda, Mikuláš',
                 'topic' => 'spring',
                 'date_earliest' => 1000,
             ],
@@ -55,7 +55,10 @@ class ItemsAggregationsTest extends TestCase
     public function test_shows_terms()
     {
         $this->getAggregations(['terms' => ['my_author' => 'author']])->assertExactJson([
-            'my_author' => [['value' => 'Wouwerman, Philips', 'count' => 2]],
+            'my_author' => [
+                ['value' => 'Galanda, Mikuláš', 'count' => 1],
+                ['value' => 'Wouwerman, Philips', 'count' => 1],
+            ],
         ]);
     }
 
@@ -106,5 +109,15 @@ class ItemsAggregationsTest extends TestCase
                 'size' => 2,
             ])['topic']
         );
+    }
+
+    public function test_selected_facet_value_is_always_present()
+    {
+        $this->getAggregations([
+            'filter' => ['topic' => ['spring'], 'author' => ['Wouwerman, Philips']],
+            'terms' => ['topic' => 'topic', 'author' => 'author'],
+        ])
+            ->assertJsonFragment(['value' => 'spring', 'count' => 0])
+            ->assertJsonFragment(['value' => 'Wouwerman, Philips', 'count' => 0]);
     }
 }
