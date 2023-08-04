@@ -29,4 +29,7 @@ public/sitemap.xml
 mix-manifest.json
 npm-debug.log
 /resources/views/vendor/mail/html/themes
-
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/playwright/.auth/

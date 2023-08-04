@@ -76,19 +76,6 @@
                     {{ trans('reprodukcie.digital_choice') }}
                 </h3>
 
-                <x-reproductions.carousel class="tw-mt-6">
-                    @foreach ($items as $item)
-                        <a href="{{ route('dielo', ['id' => $item]) }}"
-                            class="tw-ml-4 tw-w-max first:tw-ml-0">
-                            <x-item_image :id="$item->id"
-                                src="{{ route('dielo.nahlad', ['id' => $item->id, 'width' => 70]) }}"
-                                class="tw-h-48"
-                                onload="this.onload=null;this.sizes=Math.ceil(this.getBoundingClientRect().width/window.innerWidth*100)+'vw';"
-                                sizes="1px" />
-                        </a>
-                    @endforeach
-                </x-reproductions.carousel>
-
                 <x-reproductions.button :href="route('frontend.catalog.index', ['is_for_reproduction' => 1])" class="tw-mt-8 tw-inline-block">
                     {{ trans('reprodukcie.more-items_button') }}
                     ({{ $total }})

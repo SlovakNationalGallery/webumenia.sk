@@ -1,0 +1,25 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "npm",
+            "script": "dev",
+            "label": "npm: dev",
+            "problemMatcher": []
+        },
+        {
+            "type": "npm",
+            "script": "watch",
+            "label": "npm: watch",
+            "isBackground": true,
+            "problemMatcher": []
+        },
+        {
+            "type": "shell",
+            "command": "php artisan serve",
+            "label": "artisan: serve",
+            "isBackground": true,
+            "problemMatcher": []
+        }
+    ]
+}

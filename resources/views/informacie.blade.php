@@ -90,14 +90,6 @@
                 <h3>{{ utrans('informacie.more-items_heading') }}</h3>
             </div>
         </div>
-        <div class="row">
-            <div class="col-xs-12">
-                @include('components.artwork_carousel', [
-                    'slick_target' => "artworks-preview",
-                    'items' => $items_for_reproduction_sample,
-                ])
-            </div>
-        </div>
         <div class="row content-section">
             <div class="col-sm-12 text-center">
                 <a href="{{ route('frontend.catalog.index', ['is_for_reproduction' => 1]) }}" class="btn btn-default btn-outline sans" >{{ trans('informacie.more-items_button') }} <strong>{{ $items_for_reproduction_total }}</strong>  <i class="fa fa-chevron-right "></i></a>

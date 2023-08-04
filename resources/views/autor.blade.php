@@ -35,7 +35,7 @@
             <div class="row">
                 <div class="col-sm-4 text-center extra-padding top-space">
                         <img src="{!! $author->getImagePath() !!}" class="img-responsive img-circle" alt="{{ $author->name }}"  itemprop="image">
-                        <div class="content-section">
+                        <div class="content-section" data-playwright-mask>
                             {!! trans_choice('authority.artworks', $author->items_count, ['artworks_url' => route('frontend.catalog.index', ['author' => $author->name]), 'artworks_count' => $author->items_count]) !!}
                             <br/>
                             @if($author->collections_count > 0)

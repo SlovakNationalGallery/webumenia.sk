@@ -89,11 +89,9 @@
         // start with isotype even before document is ready
         $('.isotope-wrapper').each(function(){
             var $container = $('#iso', this);
-            spravGrid($container);
         });
 
         $(window).resize(function() {
-            spravGrid($container);
         });
 
         $(document).ready(function(){

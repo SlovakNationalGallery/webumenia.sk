@@ -1,15 +1,15 @@
 {
-    "tabWidth": 4,
-    "printWidth": 100,
-    "singleQuote": true,
-    "semi": false,
-    "sortTailwindcssClasses": true,
-    "overrides": [
-        {
-            "files": "*.yml",
-            "options": {
-                "tabWidth": 2
-            }
-        }
-    ]
+  "tabWidth": 4,
+  "printWidth": 100,
+  "singleQuote": true,
+  "semi": false,
+  "sortTailwindcssClasses": true,
+  "overrides": [
+    {
+      "files": ["*.yml", "*.json"],
+      "options": {
+        "tabWidth": 2
+      }
+    }
+  ]
 }

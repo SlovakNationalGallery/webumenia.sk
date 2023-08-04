@@ -51,9 +51,10 @@ abstract class TranslatableRepository extends AbstractRepository
 
     public function search(SearchRequest $request, $locale = null): SearchResult
     {
-        if ($request->getSearchWindowSize() > $this->getMaxResultWindowConfig($locale))
-        {
-            Log::warning("Search request size ({$request->getSearchWindowSize()}) is larger than index.max_result_window. Returning empty set.");
+        if ($request->getSearchWindowSize() > $this->getMaxResultWindowConfig($locale)) {
+            Log::warning(
+                "Search request size ({$request->getSearchWindowSize()}) is larger than index.max_result_window. Returning empty set."
+            );
             return $this->createEmptySearchResult();
         }
 
@@ -74,7 +75,7 @@ abstract class TranslatableRepository extends AbstractRepository
             'body' => $body,
         ]);
 
-        return (int)$response['count'];
+        return (int) $response['count'];
     }
 
     /**
@@ -98,18 +99,28 @@ abstract class TranslatableRepository extends AbstractRepository
         ]);
     }
 
-    public function getMinimum(string $attribute, Filter $filter = null, string $locale = null): ?int
-    {
+    public function getMinimum(
+        string $attribute,
+        Filter $filter = null,
+        string $locale = null
+    ): ?int {
         return $this->getExtreme('min', $attribute, $filter, $locale);
     }
 
-    public function getMaximum(string $attribute, Filter $filter = null, string $locale = null): ?int
-    {
+    public function getMaximum(
+        string $attribute,
+        Filter $filter = null,
+        string $locale = null
+    ): ?int {
         return $this->getExtreme('max', $attribute, $filter, $locale);
     }
 
-    public function getExtreme(string $extreme, string $attribute, Filter $filter = null, string $locale = null): ?int
-    {
+    public function getExtreme(
+        string $extreme,
+        string $attribute,
+        Filter $filter = null,
+        string $locale = null
+    ): ?int {
         $query = $this->buildQueryFromFilter($filter);
         $body = $query ? ['query' => $query] : [];
         $body['aggs']['extreme'][$extreme]['field'] = $attribute;
@@ -132,11 +143,11 @@ abstract class TranslatableRepository extends AbstractRepository
                 'query' => [
                     'function_score' => [
                         'query' => $this->buildQueryFromFilter($filter),
-                        'random_score' => new \stdClass,
-                        'boost_mode' => 'replace',
-                    ]
-                ]
-            ]
+                        // 'random_score' => new \stdClass,
+                        // 'boost_mode' => 'replace',
+                    ],
+                ],
+            ],
         ]);
 
         return $this->createSearchResult($response);
@@ -162,10 +173,12 @@ abstract class TranslatableRepository extends AbstractRepository
 
     public function deleteIndex(string $locale = null): void
     {
-        $indexName = $this->version ? $this->getVersionedIndexName($locale) : $this->fetchVersionedIndexName($locale);
+        $indexName = $this->version
+            ? $this->getVersionedIndexName($locale)
+            : $this->fetchVersionedIndexName($locale);
 
         $this->elasticsearch->indices()->delete([
-            'index' => $indexName
+            'index' => $indexName,
         ]);
     }
 
@@ -173,14 +186,16 @@ abstract class TranslatableRepository extends AbstractRepository
     {
         $this->elasticsearch->indices()->create([
             'index' => $this->getLocalizedIndexName($locale),
-            'body' => $this->getIndexConfig($locale)
+            'body' => $this->getIndexConfig($locale),
         ]);
     }
 
     public function createIndexAlias(string $locale = null): void
     {
         $aliasName = $this->getIndexAliasName($locale);
-        $indexName = $this->version ? $this->getVersionedIndexName($locale) : $this->fetchVersionedIndexName($locale);
+        $indexName = $this->version
+            ? $this->getVersionedIndexName($locale)
+            : $this->fetchVersionedIndexName($locale);
 
         $this->elasticsearch->indices()->putAlias([
             'index' => $indexName,
@@ -192,14 +207,14 @@ abstract class TranslatableRepository extends AbstractRepository
     {
         $this->elasticsearch->indices()->putMapping([
             'index' => $this->getLocalizedIndexName($locale),
-            'body' => $this->getMappingConfig($locale)
+            'body' => $this->getMappingConfig($locale),
         ]);
     }
 
     public function refreshIndex(string $locale = null): void
     {
         $this->elasticsearch->indices()->refresh([
-            'index' => $this->getLocalizedIndexName($locale)
+            'index' => $this->getLocalizedIndexName($locale),
         ]);
     }
 
@@ -247,24 +262,21 @@ abstract class TranslatableRepository extends AbstractRepository
 
     public function getLocalizedIndexName(string $locale = null): string
     {
-        if ($this->version) return $this->getVersionedIndexName($locale);
+        if ($this->version) {
+            return $this->getVersionedIndexName($locale);
+        }
         return $this->getIndexAliasName($locale);
     }
 
     public function getIndexAliasName(string $locale = null): string
     {
-        return sprintf(
-            '%s_%s_%s',
-            $this->prefix,
-            $this->index,
-            $this->getLocale($locale)
-        );
+        return sprintf('%s_%s_%s', $this->prefix, $this->index, $this->getLocale($locale));
     }
 
     public function indexExists(string $locale = null): bool
     {
         return $this->elasticsearch->indices()->exists([
-            'index' => $this->getLocalizedIndexName($locale)
+            'index' => $this->getLocalizedIndexName($locale),
         ]);
     }
 
@@ -281,11 +293,12 @@ abstract class TranslatableRepository extends AbstractRepository
 
     public function fetchVersionedIndexName(string $locale = null): string
     {
-        return array_keys($this->elasticsearch->indices()->get([
-            'index' => $this->getIndexAliasName($locale)
-        ]))[0];
+        return array_keys(
+            $this->elasticsearch->indices()->get([
+                'index' => $this->getIndexAliasName($locale),
+            ])
+        )[0];
     }
-
 
     protected function getLocale(string $locale = null): string
     {
@@ -297,7 +310,11 @@ abstract class TranslatableRepository extends AbstractRepository
         return Arr::get($this->getIndexConfig($locale), 'settings.max_result_window');
     }
 
-    abstract public function getSuggestions(int $size, string $search, string $locale = null): SearchResult;
+    abstract public function getSuggestions(
+        int $size,
+        string $search,
+        string $locale = null
+    ): SearchResult;
 
     abstract public function reindexAllLocales(): int;
 

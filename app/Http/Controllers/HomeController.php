@@ -66,7 +66,7 @@ class HomeController extends Controller
                         '>=',
                         3
                     )
-                    ->inRandomOrder()
+                    // ->inRandomOrder()
                     ->first();
 
                 if (!$author) {
@@ -76,7 +76,7 @@ class HomeController extends Controller
                 $items = $author
                     ->items()
                     ->where('has_image', true)
-                    ->inRandomOrder()
+                    // ->inRandomOrder()
                     ->limit(10)
                     ->get();
 
@@ -177,6 +177,6 @@ class HomeController extends Controller
             ];
         });
 
-        return (object) $choices[array_rand($choices)];
+        return (object) $choices[0];
     }
 }
