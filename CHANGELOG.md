@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Added
+- images:generate-ratios command
+
+## [2.78.0] - 2023-07-21
+### Added
+- images->deep_zoom_url to /api/v2/items/{id}
 
 ## [2.77.0] - 2023-06-09
 ### Added

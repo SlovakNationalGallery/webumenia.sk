@@ -10,7 +10,7 @@ class ItemController extends Controller
 {
     public function show($id)
     {
-        $item = Item::findOrFail($id);
+        $item = Item::with('images')->findOrFail($id);
         return new ItemResource($item);
     }
 }
