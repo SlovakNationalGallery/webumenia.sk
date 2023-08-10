@@ -28,7 +28,7 @@ class ItemsTest extends TestCase
             'image_ratio' => 1.5,
         ]);
 
-        $item->authorities()->attach($authority);
+        $item->authorities()->attach($authority, ['role' => 'autor/author']);
         $item_image->item()->associate($item);
         $item_image->save();
 
@@ -51,6 +51,7 @@ class ItemsTest extends TestCase
                             'death_place',
                             'image_path',
                         ]),
+                        'role' => 'autor',
                         'image_path' => $authority->getImagePath(),
                     ],
                 ],

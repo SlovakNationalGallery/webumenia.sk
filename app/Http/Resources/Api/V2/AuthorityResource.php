@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Api\V2;
 
+use App\Authority;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class AuthorityResource extends JsonResource
@@ -23,6 +24,7 @@ class AuthorityResource extends JsonResource
             'death_place' => $this->death_place,
             'birth_date' => $this->birth_date,
             'death_date' => $this->death_date,
+            'role' => Authority::formatMultiAttribute($this->pivot->role),
             'image_path' => $this->getImagePath(),
         ];
     }
