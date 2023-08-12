@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
@@ -55,5 +56,15 @@ class ImportRecord extends Model
     public function readStream(SplFileInfo $file)
     {
         return $this->import->readStream($file);
+    }
+
+    public function lastModified(SplFileInfo $file)
+    {
+        return $this->import->lastModified($file);
+    }
+
+    public function scopeCompleted(Builder $query)
+    {
+        $query->where('status', self::STATUS_COMPLETED);
     }
 }
