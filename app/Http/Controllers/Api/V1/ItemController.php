@@ -102,21 +102,21 @@ class ItemController extends Controller
 
         $aggregationsQuery = [];
 
-        foreach ($terms as $agg => $field) {
-            $aggregationsQuery[$agg]['aggregations']['filtered']['terms'] = [
+        foreach ($terms as $aggregationName => $field) {
+            $aggregationsQuery[$aggregationName]['aggregations']['filtered']['terms'] = [
                 'field' => $field,
                 'size' => $size,
             ];
         }
 
-        foreach ($min as $agg => $field) {
-            $aggregationsQuery[$agg]['aggregations']['filtered']['min'] = [
+        foreach ($min as $aggregationName => $field) {
+            $aggregationsQuery[$aggregationName]['aggregations']['filtered']['min'] = [
                 'field' => $field,
             ];
         }
 
-        foreach ($max as $agg => $field) {
-            $aggregationsQuery[$agg]['aggregations']['filtered']['max'] = [
+        foreach ($max as $aggregationName => $field) {
+            $aggregationsQuery[$aggregationName]['aggregations']['filtered']['max'] = [
                 'field' => $field,
             ];
         }
@@ -131,7 +131,7 @@ class ItemController extends Controller
         }
 
         $searchRequest = Item::searchQuery()
-            ->size(0)
+            ->size(0) // No documents are needed, only aggregations
             ->aggregateRaw([
                 'all_items' => [
                     'global' => (object) [],
@@ -162,7 +162,7 @@ class ItemController extends Controller
                 continue;
             }
 
-            foreach (array_reverse(Arr::wrap($value)) as $value) {
+            foreach (Arr::wrap($value) as $value) {
                 if (!$searchResponse[$term]->contains('value', $value)) {
                     $searchResponse[$term]->prepend(['value' => $value, 'count' => 0])->pop();
                 }
