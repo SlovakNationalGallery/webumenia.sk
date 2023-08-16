@@ -122,6 +122,7 @@ class ItemController extends Controller
         }
 
         // Add filter terms to each aggregation
+        // Based on https://madewithlove.com/blog/faceted-search-using-elasticsearch/
         foreach (array_keys($aggregationsQuery) as $term) {
             $aggregationsQuery[$term]['filter'] = $this->createQueryBuilder(
                 $q,
