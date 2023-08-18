@@ -124,9 +124,19 @@ class ItemController extends Controller
         // Add filter terms to each aggregation
         // Based on https://madewithlove.com/blog/faceted-search-using-elasticsearch/
         foreach (array_keys($aggregationsQuery) as $term) {
+            $termFilter = Arr::except($filter, $term);
+
+            // Additionally exclude date_latest for date_earliest and vice versa
+            if ($term === 'date_earliest') {
+                $termFilter = Arr::except($termFilter, 'date_latest');
+            }
+            if ($term === 'date_latest') {
+                $termFilter = Arr::except($termFilter, 'date_earliest');
+            }
+
             $aggregationsQuery[$term]['filter'] = $this->createQueryBuilder(
                 $q,
-                Arr::except($filter, $term)
+                $termFilter
             )->buildQuery();
         }
 
