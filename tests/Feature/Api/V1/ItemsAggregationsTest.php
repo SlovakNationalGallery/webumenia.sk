@@ -28,11 +28,13 @@ class ItemsAggregationsTest extends TestCase
                 'author' => 'Galanda, Mikuláš',
                 'topic' => 'spring',
                 'date_earliest' => 1000,
+                'date_latest' => 1000,
             ],
             [
                 'author' => 'Wouwerman, Philips',
                 'topic' => 'summer',
                 'date_earliest' => 2000,
+                'date_latest' => 2000,
             ],
         ]);
 
@@ -78,6 +80,23 @@ class ItemsAggregationsTest extends TestCase
             'terms' => ['topic' => 'topic'],
         ])->assertExactJson([
             'topic' => [['value' => 'spring', 'count' => 1], ['value' => 'summer', 'count' => 1]],
+        ]);
+    }
+
+    public function test_filtered_date_field_does_not_affect_other_date_fields()
+    {
+        $this->getAggregations([
+            'filter' => ['date_earliest' => ['gte' => 2000]],
+            'terms' => ['date_latest' => 'date_latest'],
+        ])->assertExactJson([
+            'date_latest' => [['value' => 1000, 'count' => 1], ['value' => 2000, 'count' => 1]],
+        ]);
+
+        $this->getAggregations([
+            'filter' => ['date_latest' => ['gte' => 2000]],
+            'terms' => ['date_earliest' => 'date_earliest'],
+        ])->assertExactJson([
+            'date_earliest' => [['value' => 1000, 'count' => 1], ['value' => 2000, 'count' => 1]],
         ]);
     }
 
