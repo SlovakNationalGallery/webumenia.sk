@@ -129,14 +129,4 @@ class ItemsAggregationsTest extends TestCase
             ])['topic']
         );
     }
-
-    public function test_selected_facet_value_is_always_present()
-    {
-        $this->getAggregations([
-            'filter' => ['topic' => ['spring'], 'author' => ['Wouwerman, Philips']],
-            'terms' => ['topic' => 'topic', 'author' => 'author'],
-        ])
-            ->assertJsonFragment(['value' => 'spring', 'count' => 0])
-            ->assertJsonFragment(['value' => 'Wouwerman, Philips', 'count' => 0]);
-    }
 }

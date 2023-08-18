@@ -126,7 +126,7 @@ class ItemController extends Controller
         foreach (array_keys($aggregationsQuery) as $term) {
             $termFilter = Arr::except($filter, $term);
 
-            // Additionally exclude date_latest for date_earliest and vice versa
+            // Exclude date_latest for date_earliest and vice versa
             if ($term === 'date_earliest') {
                 $termFilter = Arr::except($termFilter, 'date_latest');
             }
@@ -149,9 +149,7 @@ class ItemController extends Controller
                 ],
             ]);
 
-        $searchResponse = collect(
-            Arr::get($searchRequest->execute()->raw(), 'aggregations.all_items')
-        )
+        return collect(Arr::get($searchRequest->execute()->raw(), 'aggregations.all_items'))
             ->only(array_keys($aggregationsQuery))
             ->map(function (array $aggregation) {
                 if (Arr::has($aggregation, 'filtered.value')) {
@@ -165,21 +163,6 @@ class ItemController extends Controller
                     ]
                 );
             });
-
-        // Ensure filtered (i.e. selected) terms are included in the response
-        foreach ($filter as $term => $value) {
-            if (!Arr::has($terms, $term)) {
-                continue;
-            }
-
-            foreach (Arr::wrap($value) as $value) {
-                if (!$searchResponse[$term]->contains('value', $value)) {
-                    $searchResponse[$term]->prepend(['value' => $value, 'count' => 0])->pop();
-                }
-            }
-        }
-
-        return $searchResponse;
     }
 
     public function detail(Request $request, $id)
