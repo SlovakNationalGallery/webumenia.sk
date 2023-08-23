@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Changed
 - behaviour for /api/v1/items/aggregations so that facet doesn't filter itself
+- display published date on collection index
 
 ## [2.78.0] - 2023-07-21
 ### Added
