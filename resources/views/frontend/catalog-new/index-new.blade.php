@@ -883,8 +883,8 @@
                                                                     </li>
                                                                     <li class="tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
                                                                         @click="handleSortChange(null);pc.closeOpenedPopover()"
-                                                                        v-if="!query.sort">
-                                                                        {{ trans('sortable.last_change') }}
+                                                                        v-if="query.sort">
+                                                                        {{ trans('sortable.updated_at') }}
                                                                     </li>
                                                                 </ul>
                                                             </div>
