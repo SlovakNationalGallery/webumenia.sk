@@ -1,4 +1,4 @@
-<filter-search-options-controller {{ $attributes->only(['v-bind:options', 'v-bind:selected']) }}
+<filter-search-options-controller {{ $attributes->only(['v-bind:options', 'v-bind:selected',  'v-bind:formatter']) }}
     v-slot="sc">
     <div class="tw-flex tw-w-full tw-flex-1 tw-flex-col">
         <div class="tw-mx-4 tw-mb-6 tw-flex tw-border tw-border-gray-800 md:tw-mx-0">
@@ -19,7 +19,7 @@
                     type="checkbox" :key="option . id" :id="option . id" :value="option . value"
                     :checked="option . checked" @change="{{ $attributes->get('v-on:change') }}" />
                 <span
-                    class="tw-inline-block tw-min-w-0 tw-break-words tw-text-base tw-font-normal">@{{ option.value }}
+                    class="tw-inline-block tw-min-w-0 tw-break-words tw-text-base tw-font-normal">@{{ sc.formatter ? sc.formatter(option.value) : option.value }}
                     <span class="tw-font-semibold">(@{{ option.count }})</span>
                 </span>
             </label>

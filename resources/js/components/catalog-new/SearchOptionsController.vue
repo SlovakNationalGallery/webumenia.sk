@@ -1,6 +1,6 @@
 <script>
 export default {
-    props: ['options', 'selected'],
+    props: ['options', 'selected', 'formatter'],
     data() {
         return {
             search: '',
@@ -32,6 +32,7 @@ export default {
             search: this.search,
             onSearchInput: (e) => (this.search = e.target.value),
             options: this.filteredOptions,
+            formatter: this.formatter,
         })
     },
 }
