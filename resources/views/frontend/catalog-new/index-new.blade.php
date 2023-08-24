@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-    <section class="tailwind-rules">
+    <section class="tailwind-rules" v-cloak>
         <filter-new-items-controller locale="{{ app()->getLocale() }}"
             v-slot="{ loadMore, hasError, hasFilterOptions, isFetchingArtworks, handleSelectRandomly, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, page,  aggregations, artworks, last_page, artworks_total }">
             <div class="tw-relative">
@@ -764,7 +764,8 @@
                         </div>
                     </div>
                     <div
-                        class="tw-mx-auto tw-min-h-screen tw-max-w-screen-2xl tw-px-4 md:tw-px-8 md:tw-py-10">
+                        class="tw-mx-auto tw-min-h-screen tw-max-w-screen-2xl tw-px-4 md:tw-px-8 md:tw-py-10"
+                        v-if="!(artworks.length === 0 && isFetchingArtworks)">
                         <div v-if="hasError"
                             class="tw-flex tw-w-full tw-flex-col tw-items-center tw-justify-center tw-py-40 tw-text-lg">
                             <span>{{ utrans('item.filter.something_went_wrong') }}.</span>
