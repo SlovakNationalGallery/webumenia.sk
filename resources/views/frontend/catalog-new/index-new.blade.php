@@ -3,7 +3,7 @@
 @section('content')
     <section class="tailwind-rules">
         <filter-new-items-controller locale="{{ app()->getLocale() }}"
-            v-slot="{ loadMore, hasError, hasFilterOptions, isFetchingArtworks, handleSelectRandomly, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, page,  aggregations, artworks, last_page, artworks_total }">
+            v-slot="{ loadMore, hasError, hasFilterOptions, isFetchingArtworks, handleSelectRandomly, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, page,  aggregations, artworks, last_page, artworks_total, formatAuthor }">
             <div class="tw-relative">
                 <div class="tw-relative tw-min-h-[calc(100vh-14rem)]">
                     <div class="tw-bg-gray-200">
@@ -28,6 +28,7 @@
                                                     <x-filter.search_options
                                                         search-placeholder="{{ utrans('item.filter.placeholder.name_human') }}"
                                                         v-bind:options="aggregations['author']"
+                                                        v-bind:formatter="formatAuthor"
                                                         v-bind:selected="query['author']"
                                                         v-on:change="e => handleMultiSelectChange('author', e)"
                                                         v-on:reset="clearFilterSelection('author')" />
@@ -478,6 +479,7 @@
                                                         <x-filter.search_options
                                                             search-placeholder="{{ utrans('item.filter.placeholder.name_human') }}"
                                                             v-bind:options="aggregations['author']"
+                                                            v-bind:formatter="formatAuthor"
                                                             v-bind:selected="query['author']"
                                                             v-on:change="e => handleMultiSelectChange('author', e)"
                                                             v-on:reset="clearFilterSelection('author')" />
@@ -725,7 +727,7 @@
                                     class="tw-flex tw-space-x-3 tw-pb-4">
                                     <button
                                         class="tw-flex tw-items-center tw-whitespace-nowrap tw-bg-gray-300 tw-py-1 tw-px-1.5"
-                                        v-for="option in selectedOptionsAsLabels" :key="option . value"
+                                        v-for="option in selectedOptionsAsLabels"
                                         @click="removeSelection(option)">
                                         <span v-if="option.filterName === 'color'"
                                             class="tw-flex tw-items-center tw-pr-1.5 tw-text-xs tw-font-semibold tw-uppercase">
@@ -739,7 +741,7 @@
                                             -
                                             @{{ option.value.to }}</span>
                                         <span v-else
-                                            class="tw-pr-1.5 tw-text-xs tw-font-semibold">@{{ option.value }}</span>
+                                            class="tw-pr-1.5 tw-text-xs tw-font-semibold">@{{ formatAuthor(option.value) }}</span>
                                         <svg xmlns="http://www.w3.org/2000/svg"
                                             class="tw-h-4 tw-w-4 tw-fill-current" viewBox="0 0 256 256">
                                             <path
@@ -753,11 +755,11 @@
                                     enter-active-class="tw-transition tw-duration-150"
                                     leave-active-class="tw-transition tw-duration-150"
                                     class="mb-4">
-                                    <x-filter.reset_button key="reset_button"
-                                        v-if="selectedOptionsAsLabels.length"
+                                    <x-filter.reset_button v-if="selectedOptionsAsLabels.length"
                                         @click="clearAllSelections" sm>
                                         <span
-                                            class="tw-whitespace-nowrap">{{ trans('item.filter.clear') }}</span>
+                                            class="tw-whitespace-nowrap">{{ trans('item.filter.clear') }}
+                                        </span>
                                     </x-filter.reset_button>
                                 </transition>
                             </div>
@@ -924,14 +926,14 @@
                                                 </div>
                                             </div>
                                         </catalog.artwork-image-controller>
-                                        <div class="tw-mt-6 tw-flex">
+                                        <div class="tw-mt-6 tw-flex tw-gap-3">
                                             <div class="tw-flex tw-grow tw-flex-col">
                                                 <a :href="$route('dielo', {id: artwork.id})"
-                                                    class="tw-pb-2 tw-text-lg tw-font-light tw-italic tw-leading-5">@{{ artwork.content.author[0] }}</a>
+                                                    class="tw-pb-1.5 tw-text-lg tw-font-light tw-italic">@{{ artwork.content.authors_formatted.join(', ') }}</a>
                                                 <a :href="$route('dielo', {id: artwork.id})"
-                                                    class="tw-pb-2 tw-text-lg tw-font-medium tw-leading-5">@{{ artwork.content.title }}</a>
+                                                    class="tw-pb-2 tw-text-lg">@{{ artwork.content.title }}</a>
                                                 <a :href="$route('dielo', {id: artwork.id})"
-                                                    class="tw-text-base tw-font-normal tw-leading-5">@{{ artwork.content.dating }}</a>
+                                                    class="tw-text-base tw-font-light">@{{ artwork.content.dating }}</a>
                                             </div>
                                             <div class="tw-flex tw-items-start tw-gap-4">
                                                 <user-collections-store

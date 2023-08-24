@@ -72,6 +72,10 @@ function stringifyUrl({ url, params }) {
     return url + '?' + qs.stringify(newQuery, { skipNulls: true, arrayFormat: 'brackets' })
 }
 
+function formatAuthor(author) {
+    return author.replace('/^([^,]*),\s*(.*)$/', '$2 $1')
+}
+
 const PAGE_SIZE = 30
 const AGGREGATIONS_SIZE = 1000
 const SINGLE_ITEM_FILTERS = ['color', 'yearRange']
@@ -347,6 +351,7 @@ export default {
             clearAllSelections: this.clearAllSelections,
             clearFilterSelection: this.clearFilterSelection,
             removeSelection: this.removeSelection,
+            formatAuthor,
         })
     },
 }
