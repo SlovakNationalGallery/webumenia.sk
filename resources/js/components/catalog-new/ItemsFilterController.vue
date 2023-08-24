@@ -23,7 +23,7 @@ function getParsedFilterFromUrl() {
 }
 
 function stringifyUrl({ url, params }) {
-    const { filter, size, terms, page } = params
+    const { filter, size, terms, page, min, max } = params
     const {
         yearRange,
         author,
@@ -63,6 +63,8 @@ function stringifyUrl({ url, params }) {
         sort: {
             [sort]: SORT_DIRECTIONS[sort],
         },
+        min,
+        max,
         page,
         terms,
         size,
@@ -254,6 +256,8 @@ export default {
                                 filter: this.query,
                                 terms: AGGREGATIONS_TERMS,
                                 size: AGGREGATIONS_SIZE,
+                                min: { date_earliest: 'date_earliest' },
+                                max: { date_latest: 'date_latest' },
                             },
                         }),
                         { headers: this.apiHeaders }

@@ -144,31 +144,6 @@ class Item extends Model implements IndexableModel, TranslatableContract
         return $this->getTitleWithAuthors() . ', ' . $this->getDatingFormated() . ', ' . $this->gallery . ', ' . $this->getUrl();
     }
 
-    // Get limits from elastic, because date_earliest and date_latest 
-    // are not indexed in DB
-    public static function getYearLimits()
-    {
-        $searchResult = self::searchQuery(Query::matchAll())
-            ->size(false)
-            ->aggregate('min', [
-                'min' => [
-                    'field' => 'date_earliest',
-                ],
-            ])
-            ->aggregate('max', [
-                'max' => [
-                    'field' => 'date_latest',
-                ],
-            ])
-            ->execute()
-            ->raw();
-
-        return [
-            'min' => $searchResult['aggregations']['min']['value'],
-            'max' => $searchResult['aggregations']['max']['value'],
-        ];
-    }
-
     public static function loadValidatorMetadata(ClassMetadata $metadata) {
         $metadata->addGetterConstraint('images', new Valid());
     }
