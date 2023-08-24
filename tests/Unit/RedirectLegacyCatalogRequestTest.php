@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use App\Http\Middleware\RedirectLegacyCatalogRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class RedirectLegacyCatalogRequestTest extends TestCase
@@ -39,7 +40,7 @@ class RedirectLegacyCatalogRequestTest extends TestCase
 
         $response = $middleware->handle($request, function () {});
 
-        $expectedQuery = http_build_query([
+        $expectedQuery = [
             'filter' => [
                 'author' => ['Vodrážka, Jaroslav'],
                 'work_type' => ['maliarstvo'],
@@ -56,20 +57,26 @@ class RedirectLegacyCatalogRequestTest extends TestCase
                 'date_latest' => ['gte' => '1533'],
                 'date_earliest' => ['lte' => '1912'],
                 'color' => '38E619',
-                'credit' => 'súkromná zbierka',
-                'related_work' => 'B. Němcová, Babička, Bratislava 1965',
+                'credit' => ['súkromná zbierka'],
+                'related_work' => ['B. Němcová, Babička, Bratislava 1965'],
                 'is_for_reproduction' => 'false',
-                'contributor' => 'Hanáková, Petra',
+                'contributor' => ['Hanáková, Petra'],
             ],
             'q' => 'jaroslav',
             'sort' => ['created_at' => 'desc'],
-        ]);
+        ];
 
         $this->assertEquals($response->getStatusCode(), 302);
-        $this->assertEquals(
-            $response->headers->get('location'),
-            $request->url() . '?' . $expectedQuery
-        );
+
+        [$responseLocationUrl, $responseLocationQueryString] = Str::of(
+            $response->headers->get('location')
+        )->split('/\?/');
+
+        // Parse string query so we can ignore the order of query parameters
+        parse_str($responseLocationQueryString, $responseLocationQuery);
+
+        $this->assertEquals($request->url(), $responseLocationUrl);
+        $this->assertEquals($expectedQuery, $responseLocationQuery);
     }
 
     public function test_ignores_new_request_format(): void
