@@ -22,7 +22,7 @@ class ItemController extends Controller
         'gallery',
         'has_image',
         'has_iip',
-        'has_test',
+        'has_text',
         'is_free',
         'tag',
         'additionals.category.keyword',
