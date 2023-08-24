@@ -765,7 +765,7 @@
                     </div>
                     <div
                         class="tw-mx-auto tw-min-h-screen tw-max-w-screen-2xl tw-px-4 md:tw-px-8 md:tw-py-10"
-                        v-if="!(artworks.length === 0 && isFetchingArtworks)">
+                        v-if="artworks.length || !isFetchingArtworks">
                         <div v-if="hasError"
                             class="tw-flex tw-w-full tw-flex-col tw-items-center tw-justify-center tw-py-40 tw-text-lg">
                             <span>{{ utrans('item.filter.something_went_wrong') }}.</span>
