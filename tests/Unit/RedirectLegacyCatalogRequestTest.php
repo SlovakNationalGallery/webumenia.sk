@@ -28,6 +28,11 @@ class RedirectLegacyCatalogRequestTest extends TestCase
             'has_text' => '1',
             'years_range' => '1533,1912',
             'color' => '38E619',
+            'credit' => 'súkromná zbierka',
+            'related_work' => 'B. Němcová, Babička, Bratislava 1965',
+            'is_for_reproduction' => 'false',
+            'contributor' => 'Hanáková, Petra',
+            'search' => 'jaroslav',
             'sort_by' => 'created_at',
         ]);
         $request = Request::create("/katalog?$legacyQuery");
@@ -48,11 +53,16 @@ class RedirectLegacyCatalogRequestTest extends TestCase
                 'has_iip' => 'true',
                 'is_free' => 'true',
                 'has_text' => 'true',
-                'late_latest' => ['gte' => '1533'],
+                'date_latest' => ['gte' => '1533'],
                 'date_earliest' => ['lte' => '1912'],
                 'color' => '38E619',
-                'sort' => ['created_at' => 'asc'],
+                'credit' => 'súkromná zbierka',
+                'related_work' => 'B. Němcová, Babička, Bratislava 1965',
+                'is_for_reproduction' => 'false',
+                'contributor' => 'Hanáková, Petra',
             ],
+            'q' => 'jaroslav',
+            'sort' => ['created_at' => 'desc'],
         ]);
 
         $this->assertEquals($response->getStatusCode(), 302);
