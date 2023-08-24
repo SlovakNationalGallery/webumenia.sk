@@ -229,10 +229,10 @@
                                                             </x-filter.reset_button>
                                                         </div>
                                                         <filter-new-year-slider
-                                                            v-bind:default-from="Number(query.yearRange?.from)"
-                                                            v-bind:default-to="Number(query.yearRange?.to)"
-                                                            v-bind:min="Number(aggregations.date_earliest) - 5"
-                                                            v-bind:max="Math.min(Number(aggregations.date_latest) + 5, new Date().getFullYear())"
+                                                            v-bind:default-from="query.yearRange?.from"
+                                                            v-bind:default-to="query.yearRange?.to"
+                                                            v-bind:min="aggregations.date_earliest - 5"
+                                                            v-bind:max="Math.min(aggregations.date_latest + 5, new Date().getFullYear())"
                                                             v-on:change="handleYearRangeChange">
                                                         </filter-new-year-slider>
                                                     </div>
@@ -391,10 +391,10 @@
                                                             @endslot
                                                             @slot('body')
                                                                 <filter-new-year-slider class="tw-px-4"
-                                                                    v-bind:default-from="Number(query.yearRange?.from)"
-                                                                    v-bind:default-to="Number(query.yearRange?.to)"
-                                                                    v-bind:min="Number(aggregations.date_earliest) - 5"
-                                                                    v-bind:max="Math.min(Number(aggregations.date_latest) + 5, new Date().getFullYear())"
+                                                                    v-bind:default-from="query.yearRange?.from"
+                                                                    v-bind:default-to="query.yearRange?.to"
+                                                                    v-bind:min="aggregations.date_earliest - 5"
+                                                                    v-bind:max="Math.min(aggregations.date_latest + 5, new Date().getFullYear())"
                                                                     v-on:change="handleYearRangeChange">
                                                                 </filter-new-year-slider>
                                                                 <div v-if="query.yearRange"
