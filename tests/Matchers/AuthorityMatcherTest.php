@@ -142,9 +142,18 @@ class AuthorityMatcherTest extends TestCase
         $this->assertEquals('Rembrandt van Rijn', $parsed['name']);
     }
 
-    public function testParseNameWithAltName()
+    public function testParseNameWithAltNameInBrackets()
     {
         $author = 'Toyen (Marie Čermínová)';
+        $parsed = AuthorityMatcher::parse($author);
+
+        $this->assertEquals('Toyen', $parsed['name']);
+        $this->assertEquals('Marie Čermínová', $parsed['alt_name']);
+    }
+
+    public function testParseNameWithAltNameAfterSlash()
+    {
+        $author = 'Toyen /Marie Čermínová';
         $parsed = AuthorityMatcher::parse($author);
 
         $this->assertEquals('Toyen', $parsed['name']);
