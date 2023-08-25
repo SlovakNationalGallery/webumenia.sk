@@ -73,7 +73,7 @@ function stringifyUrl({ url, params }) {
 }
 
 function formatAuthor(author) {
-    return author.replace('/^([^,]*),\s*(.*)$/', '$2 $1')
+    return author.replace(/^([^,]*),\s*(.*)$/, '$2 $1')
 }
 
 const PAGE_SIZE = 30
