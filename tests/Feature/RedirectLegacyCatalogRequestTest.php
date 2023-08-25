@@ -1,20 +1,22 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature;
 
-use App\Http\Middleware\RedirectLegacyCatalogRequest;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Str;
+use App\Facades\Experiment;
 use Tests\TestCase;
 
 class RedirectLegacyCatalogRequestTest extends TestCase
 {
-    // TODO move this into a 'feature test' and test the whole request
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        Experiment::set('new-catalog');
+    }
+
     public function test_redirects_to_new_catalog_url(): void
     {
-        $middleware = new RedirectLegacyCatalogRequest();
-        $legacyQuery = http_build_query([
+        $legacyQuery = [
             'author' => 'Vodrážka, Jaroslav',
             'work_type' => 'maliarstvo',
             'object_type' => 'závesný obraz',
@@ -35,10 +37,9 @@ class RedirectLegacyCatalogRequestTest extends TestCase
             'contributor' => 'Hanáková, Petra',
             'search' => 'jaroslav',
             'sort_by' => 'created_at',
-        ]);
-        $request = Request::create("/katalog?$legacyQuery");
+        ];
 
-        $response = $middleware->handle($request, function () {});
+        $response = $this->get(route('frontend.catalog.index', $legacyQuery));
 
         $expectedQuery = [
             'filter' => [
@@ -66,29 +67,18 @@ class RedirectLegacyCatalogRequestTest extends TestCase
             'sort' => ['created_at' => 'desc'],
         ];
 
-        $this->assertEquals($response->getStatusCode(), 302);
+        ksort($expectedQuery['filter']);
 
-        [$responseLocationUrl, $responseLocationQueryString] = Str::of(
-            $response->headers->get('location')
-        )->split('/\?/');
-
-        // Parse string query so we can ignore the order of query parameters
-        parse_str($responseLocationQueryString, $responseLocationQuery);
-
-        $this->assertEquals($request->url(), $responseLocationUrl);
-        $this->assertEquals($expectedQuery, $responseLocationQuery);
+        $response->assertStatus(302);
+        $response->assertRedirectToRoute('frontend.catalog.index', $expectedQuery);
     }
 
-    public function test_ignores_new_request_format(): void
+    public function test_does_not_change_new_request_format(): void
     {
-        $middleware = new RedirectLegacyCatalogRequest();
-        $query = http_build_query([
+        $query = [
             'filter' => ['topic' => ['summer']],
-        ]);
-        $request = Request::create("/katalog?$query");
+        ];
 
-        $response = $middleware->handle($request, fn() => new Response());
-
-        $this->assertEquals($response->getStatusCode(), 200);
+        $this->get(route('frontend.catalog.index', $query))->assertOk();
     }
 }
