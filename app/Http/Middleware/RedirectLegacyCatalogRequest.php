@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Facades\Experiment;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -41,6 +42,10 @@ class RedirectLegacyCatalogRequest
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if (!Experiment::is('new-catalog')) {
+            return $next($request);
+        }
+
         if ($request->getQueryString() === null || !$this->isLegacyCatalogRequest($request)) {
             return $next($request);
         }
