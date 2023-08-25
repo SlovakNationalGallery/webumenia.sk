@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file[^1].
 ### Added
 - images:generate-ratios command
 - admin:are you sure popup
+- SetExperiments middleware for setting experiment flags from anywhere
+- RedirectLegacyCatalogRequest middleware for handling "legacy" catalog requests in new catalog
+- 'hidden' catalog fields to V1 API filterables
 
 ### Changed
 - behaviour for /api/v1/items/aggregations so that facet doesn't filter itself
