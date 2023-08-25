@@ -21,7 +21,7 @@ return array(
     'newest'                  => 'datovania – od najnovšieho',
     'oldest'                  => 'datovania – od najstaršieho',
     'view_count'              => 'počtu videní',
-    'random'                  => 'náhodne',    
+    'random'                  => 'náhodne',
     // in model authority
     'name'                    => 'mena',
     'items_count'             => 'počtu diel',
