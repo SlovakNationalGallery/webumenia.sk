@@ -1,4 +1,6 @@
 <script>
+import { formatNum } from "../../formatters"
+
 export default {
     props: ['options', 'selected', 'formatter'],
     data() {
@@ -32,6 +34,7 @@ export default {
             search: this.search,
             onSearchInput: (e) => (this.search = e.target.value),
             options: this.filteredOptions,
+            count: formatNum(this.filteredOptions.length),
             formatter: this.formatter,
         })
     },

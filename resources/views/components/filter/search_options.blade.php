@@ -20,7 +20,7 @@
                     :checked="option . checked" @change="{{ $attributes->get('v-on:change') }}" />
                 <span
                     class="tw-inline-block tw-min-w-0 tw-break-words tw-text-base tw-font-normal">@{{ sc.formatter ? sc.formatter(option.value) : option.value }}
-                    <span class="tw-font-semibold">(@{{ option.count }})</span>
+                    <span class="tw-font-semibold">(@{{ sc.count }})</span>
                 </span>
             </label>
             <div v-else class="tw-flex tw-flex-col tw-items-center tw-justify-center tw-gap-4">

@@ -3,7 +3,7 @@
 @section('content')
     <section class="tailwind-rules" v-cloak>
         <filter-new-items-controller locale="{{ app()->getLocale() }}"
-            v-slot="{ loadMore, hasError, hasFilterOptions, isFetchingArtworks, handleSelectRandomly, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, page,  aggregations, artworks, last_page, artworks_total, formatAuthor }">
+            v-slot="{ loadMore, hasError, hasFilterOptions, isFetchingArtworks, handleSelectRandomly, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, page,  aggregations, artworks, last_page, artworks_total, artworks_total_formatted, formatAuthor }">
             <div class="tw-relative">
                 <div class="tw-relative tw-min-h-[calc(100vh-14rem)]">
                     <div class="tw-bg-gray-200">
@@ -690,7 +690,7 @@
                                             <button class="tw-m-4 tw-w-full tw-bg-sky-300 tw-p-4"
                                                 @click="dc.close">
                                                 {{ trans('item.filter.show_results') }} <span
-                                                    class="tw-font-bold">(@{{ artworks_total }})</span>
+                                                    class="tw-font-bold">(@{{ artworks_total_formatted }})</span>
                                             </button>
                                         @endslot
                                         </x-filter.disclosure-modal>
@@ -799,11 +799,11 @@
                                         {{ trans_choice('item.filter.artworks_sorted_by', 1) }}</span>
                                     <span v-else-if="artworks_total < 5"><span
                                             class="tw-capitalize">{{ trans_choice('item.filter.displaying', 4) }}</span>
-                                        <span class="tw-font-bold">@{{ artworks_total }}</span>
+                                        <span class="tw-font-bold">@{{ artworks_total_formatted }}</span>
                                         {{ trans_choice('item.filter.artworks_sorted_by', 4) }}</span>
                                     <span v-else><span
                                             class="tw-capitalize">{{ trans_choice('item.filter.displaying', 5) }}</span>
-                                        <span class="tw-font-bold">@{{ artworks_total }}</span>
+                                        <span class="tw-font-bold">@{{ artworks_total_formatted }}</span>
                                         {{ trans_choice('item.filter.artworks_sorted_by', 5) }}</span>
                                     <span class="tw-font-semibold">
                                         <div class="tw-z-10 tw-inline-block">
