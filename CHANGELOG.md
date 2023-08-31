@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file[^1].
 ## [Unreleased]
 ### Added
 - images:generate-ratios command
+- admin:are you sure popup
 
 ### Changed
 - behaviour for /api/v1/items/aggregations so that facet doesn't filter itself
