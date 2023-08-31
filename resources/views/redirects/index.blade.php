@@ -58,9 +58,12 @@ presmerovania |
                             </td>
                             <td>
                                 {!! link_to_action('App\Http\Controllers\RedirectController@edit', 'Upraviť', array($redirect->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}
-                                {!! Form::open(array('method' => 'DELETE', 'route' => array('redirects.destroy', $redirect->id), 'class' => 'visible-xs-inline')) !!}
-                                    {!! Form::submit('Zmazať', array('class' => 'btn btn-danger btn-xs btn-outline')) !!}
-                                {!! Form::close() !!}
+                                <x-admin.link-with-confirmation
+                                    action="{{ route('redirects.destroy', $i->id) }}" method="DELETE"
+                                    class="btn btn-danger btn-xs btn-outline"
+                                    message="Naozaj to chceš zmazať?">
+                                    Zmazať
+                                </x-admin.link-with-confirmation>   
                             </td>
                         </tr>
                         @endforeach

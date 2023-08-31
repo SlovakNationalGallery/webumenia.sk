@@ -59,9 +59,12 @@ CSV Imports |
                                 {!! link_to_action('App\Http\Controllers\ImportController@show', 'Detail', array($i->id), array('class' => 'btn btn-primary btn-detail btn-xs btn-outline', )) !!}
                                 {!! link_to_action('App\Http\Controllers\ImportController@edit', 'Upraviť', array($i->id), array('class' => 'btn btn-primary btn-xs btn-outline')) !!}
                                 @can('administer')
-                                {!! Form::open(array('method' => 'DELETE', 'route' => array('imports.destroy', $i->id), 'class' => 'visible-xs-inline form-inline')) !!}
-                                    {!! Form::submit('Zmazať', array('class' => 'btn btn-danger btn-xs btn-outline')) !!}
-                                {!! Form::close() !!}
+                                <x-admin.link-with-confirmation
+                                    action="{{ route('imports.destroy', $i->id) }}" method="DELETE"
+                                    class="btn btn-danger btn-xs btn-outline"
+                                    message="Naozaj to chceš zmazať?">
+                                    Zmazať
+                                </x-admin.link-with-confirmation>
                                 @endcan
                             </td>
 			            </tr>
