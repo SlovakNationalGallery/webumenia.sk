@@ -1,7 +1,6 @@
 <script>
 import qs from 'qs'
 import axios from 'axios'
-import { formatNum, formatAuthor } from "../../formatters"
 
 function getParsedFilterFromUrl() {
     const parsedUrl = qs.parse(window.location.search, {
@@ -336,7 +335,6 @@ export default {
             aggregations: this.aggregations,
             artworks: this.artworks,
             artworks_total: this.artworks_total,
-            artwork_total_formatted: formatNum(this.artworks_total ?? 0),
             hasFilterOptions: this.hasFilterOptions,
             loadMore: this.loadMore,
             handleSortChange: this.handleSortChange,
@@ -349,7 +347,6 @@ export default {
             clearAllSelections: this.clearAllSelections,
             clearFilterSelection: this.clearFilterSelection,
             removeSelection: this.removeSelection,
-            formatAuthor: formatAuthor,
         })
     },
 }
