@@ -24,9 +24,9 @@ class CollectionController extends Controller
     public function index()
     {
         if (Gate::allows('administer')) {
-            $collections = Collection::orderBy('created_at', 'desc')->with(['user'])->paginate(20);
+            $collections = Collection::orderBy('created_at', 'desc')->with(['user'])->get();
         } else {
-            $collections = Collection::where('user_id', '=', Auth::user()->id)->orderBy('published_at', 'desc')->with(['user'])->paginate(20);
+            $collections = Collection::where('user_id', '=', Auth::user()->id)->orderBy('published_at', 'desc')->with(['user'])->get();
         }
 
         return view('collections.index')->with('collections', $collections);

@@ -76,10 +76,6 @@
                             @endforeach
                         </tbody>
                     </table>
-
-                    <div class="text-center"><?php echo $articles->render(); ?></div>
-
-
                 </div>
                 <!-- /.panel-body -->
             </div>

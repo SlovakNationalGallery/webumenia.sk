@@ -73,9 +73,6 @@ kolekcie |
                     </tbody>
                 </table>
 
-                <div class="text-center"><?php echo $collections->render(); ?></div>
-
-
             </div>
             <!-- /.panel-body -->
         </div>
