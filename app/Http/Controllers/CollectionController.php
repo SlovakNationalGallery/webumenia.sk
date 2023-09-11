@@ -24,9 +24,14 @@ class CollectionController extends Controller
     public function index()
     {
         if (Gate::allows('administer')) {
-            $collections = Collection::orderBy('created_at', 'desc')->with(['user'])->get();
+            $collections = Collection::orderBy('created_at', 'desc')
+                ->with(['user'])
+                ->get();
         } else {
-            $collections = Collection::where('user_id', '=', Auth::user()->id)->orderBy('published_at', 'desc')->with(['user'])->get();
+            $collections = Collection::where('user_id', '=', Auth::user()->id)
+                ->orderBy('published_at', 'desc')
+                ->with(['user'])
+                ->get();
         }
 
         return view('collections.index')->with('collections', $collections);
@@ -59,9 +64,11 @@ class CollectionController extends Controller
 
             // store translatable attributes
             foreach (\Config::get('translatable.locales') as $i => $locale) {
-                if (hasTranslationValue($locale, $collection->translatedAttributes)){
+                if (hasTranslationValue($locale, $collection->translatedAttributes)) {
                     foreach ($collection->translatedAttributes as $attribute) {
-                        $collection->translateOrNew($locale)->$attribute = Request::input($locale . '.' . $attribute);
+                        $collection->translateOrNew($locale)->$attribute = Request::input(
+                            $locale . '.' . $attribute
+                        );
                     }
                 }
             }
@@ -89,7 +96,9 @@ class CollectionController extends Controller
             return Redirect::route('collection.index');
         }
 
-        return Redirect::back()->withInput()->withErrors($v);
+        return Redirect::back()
+            ->withInput()
+            ->withErrors($v);
     }
 
     /**
@@ -136,14 +145,16 @@ class CollectionController extends Controller
         $v = Validator::make(Request::all(), Collection::$rules);
 
         if ($v->passes()) {
-            $input = Arr::except(Request::all(), array('_method'));
+            $input = Arr::except(Request::all(), ['_method']);
 
             $collection = Collection::find($id);
 
             foreach (\Config::get('translatable.locales') as $i => $locale) {
-                if (hasTranslationValue($locale, $collection->translatedAttributes)){
+                if (hasTranslationValue($locale, $collection->translatedAttributes)) {
                     foreach ($collection->translatedAttributes as $attribute) {
-                        $collection->translateOrNew($locale)->$attribute = Request::input($locale . '.' . $attribute);
+                        $collection->translateOrNew($locale)->$attribute = Request::input(
+                            $locale . '.' . $attribute
+                        );
                     }
                 }
             }
@@ -166,7 +177,10 @@ class CollectionController extends Controller
                 $this->uploadMainImage($collection);
             }
 
-            Session::flash('message', 'Kolekcia <code>' . $collection->name . '</code> bola upravená');
+            Session::flash(
+                'message',
+                'Kolekcia <code>' . $collection->name . '</code> bola upravená'
+            );
 
             return Redirect::route('collection.index');
         }
@@ -208,7 +222,9 @@ class CollectionController extends Controller
                 }
             }
 
-            return Redirect::back()->withMessage('Do kolekcie ' . $collection->name . ' bolo pridaných ' . count($items) . ' diel');
+            return Redirect::back()->withMessage(
+                'Do kolekcie ' . $collection->name . ' bolo pridaných ' . count($items) . ' diel'
+            );
         } else {
             return Redirect::back()->withMessage('Chyba: zvolená kolekcia nebola nájdená. ');
         }
@@ -219,7 +235,13 @@ class CollectionController extends Controller
         $collection = Collection::find($collection_id);
         $collection->items()->detach($item_id);
 
-        return Redirect::back()->withMessage('Z kolekcie <strong>' . $collection->name . '</strong> bolo odstrádené dielo <code>' . $item_id . '</code>');
+        return Redirect::back()->withMessage(
+            'Z kolekcie <strong>' .
+                $collection->name .
+                '</strong> bolo odstrádené dielo <code>' .
+                $item_id .
+                '</code>'
+        );
     }
 
     private function uploadMainImage($collection)
