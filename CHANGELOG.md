@@ -30,6 +30,7 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Changed
 - Authority#has_image to cast to boolean
+- Change font sizes on article, collection
 
 ## [2.76.0] - 2023-05-25
 ### Added
