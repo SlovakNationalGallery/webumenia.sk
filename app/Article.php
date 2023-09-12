@@ -13,11 +13,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Article extends Model implements TranslatableContract
 {
     use Translatable;
     use HasFactory;
+    use SoftDeletes;
 
     use \Conner\Tagging\Taggable;
 

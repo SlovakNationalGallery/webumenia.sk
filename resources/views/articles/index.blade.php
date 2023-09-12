@@ -66,7 +66,7 @@
                                             class="btn btn-success btn-xs btn-outline"
                                             target="_blank">Na webe</a>
                                         <x-admin.link-with-confirmation
-                                            action="{{ route('collection.destroy', $i->id) }}"
+                                            action="{{ route('article.destroy', $i->id) }}"
                                             method="DELETE" class="btn btn-danger btn-xs btn-outline"
                                             message="Naozaj to chceš zmazať?">
                                             Zmazať
