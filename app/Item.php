@@ -37,8 +37,8 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     const COPYRIGHT_LENGTH = 70;
     const GUESSED_AUTHORISM_TIMESPAN = 60;
-    const FREE_ALWAYS = 0;
     const FREE_NEVER = PHP_INT_MAX;
+    const UNKNOWN_AUTHOR_THRESHOLD = 1940;
     const TREE_DELIMITER = '/';
 
     const COLOR_AMOUNT_THRESHOLD = 0.03;
@@ -578,7 +578,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
         }
 
         if ($this->isAuthorUnknown()) {
-            return self::FREE_ALWAYS;
+            return self::UNKNOWN_AUTHOR_THRESHOLD;
         }
 
         return $yearToTimestamp($freeFromYear);

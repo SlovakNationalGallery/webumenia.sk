@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Changed
 - behaviour for /api/v1/items/aggregations so that facet doesn't filter itself
 - display published date on collection index
-
+- change the public domain status of artworks with unknown author to free only if made before 1940
 ## [2.78.0] - 2023-07-21
 ### Added
 - images->deep_zoom_url to /api/v2/items/{id}
