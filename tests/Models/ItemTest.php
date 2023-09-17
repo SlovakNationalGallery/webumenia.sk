@@ -6,10 +6,12 @@ use App\Authority;
 use App\Item;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Tests\WithoutSearchIndexing;
 
 class ItemTest extends TestCase
 {
     use RefreshDatabase;
+    use WithoutSearchIndexing;
 
     public function testFreeFromDateLatest()
     {
@@ -183,5 +185,45 @@ class ItemTest extends TestCase
             'author' => 'neznámy',
             'date_latest' => 1, // CE
         ]);
+    }
+
+    public function testSyncMatchedAuthorities()
+    {
+        $authorities = Authority::factory()
+            ->count(5)
+            ->create();
+        $item = Item::factory()->create();
+        $item->authorities()->sync([
+            // present in matched authorities
+            $authorities[0]->id => ['role' => 'author', 'automatically_matched' => true],
+            $authorities[1]->id => ['role' => 'author', 'automatically_matched' => false],
+            // missing from matched authorities
+            $authorities[2]->id => ['role' => 'author', 'automatically_matched' => true],
+            $authorities[3]->id => ['role' => 'author', 'automatically_matched' => false],
+        ]);
+
+        $item->syncMatchedAuthorities(
+            collect([
+                $authorities[0]->id => ['role' => 'after'],
+                $authorities[1]->id => ['role' => 'after'],
+                $authorities[4]->id => ['role' => 'after'],
+            ])
+        );
+
+        $item->refresh();
+        $this->assertCount(4, $item->authorities);
+        $this->assertEquals(
+            [
+                $authorities[0]->id => ['role' => 'after', 'automatically_matched' => true],
+                $authorities[1]->id => ['role' => 'after', 'automatically_matched' => true],
+                $authorities[3]->id => ['role' => 'author', 'automatically_matched' => false],
+                $authorities[4]->id => ['role' => 'after', 'automatically_matched' => true],
+            ],
+            $item->authorities
+                ->pluck('pivot')
+                ->keyBy('authority_id')
+                ->map->only(['role', 'automatically_matched'])
+                ->toArray()
+        );
     }
 }

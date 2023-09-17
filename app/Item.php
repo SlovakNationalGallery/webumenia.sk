@@ -180,7 +180,12 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     public function authorities()
     {
-        return $this->belongsToMany(\App\Authority::class, 'authority_item', 'item_id', 'authority_id')->withPivot('role');
+        return $this->belongsToMany(
+            \App\Authority::class,
+            'authority_item',
+            'item_id',
+            'authority_id'
+        )->withPivot(['role', 'automatically_matched']);
     }
 
     public function collections()
@@ -797,5 +802,23 @@ class Item extends Model implements IndexableModel, TranslatableContract
     public function getImageUrlAttribute()
     {
         return sprintf('%s%s', config('app.url'), $this->getImagePath());
+    }
+
+    public function syncMatchedAuthorities(\Illuminate\Support\Collection $idsWithPivotData)
+    {
+        $idsToDetach = $this->authorities
+            ->filter(fn(Authority $authority) => $authority->pivot->automatically_matched)
+            ->pluck('id')
+            ->diff($idsWithPivotData->keys());
+
+        $this->authorities()->detach($idsToDetach);
+        $this->authorities()->syncWithoutDetaching(
+            $idsWithPivotData->map(
+                fn($pivotData) => [
+                    'automatically_matched' => true,
+                    ...$pivotData,
+                ]
+            )
+        );
     }
 }
