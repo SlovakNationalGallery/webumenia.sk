@@ -307,6 +307,7 @@ function()
         }
         $item->timestamps = false;
         $item->view_count += 1;
+        Item::getEventDispatcher()->forget('eloquent.updated: ' . Item::class);
         $item->save();
         $previous = $next = false;
 
