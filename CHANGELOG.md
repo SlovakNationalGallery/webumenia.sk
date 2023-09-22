@@ -8,6 +8,9 @@ All notable changes to this project will be documented in this file[^1].
 - RedirectLegacyCatalogRequest middleware for handling "legacy" catalog requests in new catalog
 - 'hidden' catalog fields to V1 API filterables
 
+### Changed
+- add soft deletes to articles
+
 ## [2.79.0] - 2023-08-31
 ### Added
 - images:generate-ratios command
@@ -15,7 +18,7 @@ All notable changes to this project will be documented in this file[^1].
 ### Changed
 - behaviour for /api/v1/items/aggregations so that facet doesn't filter itself
 - display published date on collection index
-- add soft deletes to articles
+- remove pagination from collections and articles in admin
 
 ## [2.78.0] - 2023-07-21
 ### Added
