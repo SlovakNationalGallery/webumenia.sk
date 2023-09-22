@@ -215,7 +215,7 @@ class ItemTest extends TestCase
         $this->assertEquals(
             [
                 $authorities[0]->id => ['role' => 'after', 'automatically_matched' => true],
-                $authorities[1]->id => ['role' => 'after', 'automatically_matched' => true],
+                $authorities[1]->id => ['role' => 'after', 'automatically_matched' => false],
                 $authorities[3]->id => ['role' => 'author', 'automatically_matched' => false],
                 $authorities[4]->id => ['role' => 'after', 'automatically_matched' => true],
             ],

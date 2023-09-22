@@ -806,19 +806,22 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     public function syncMatchedAuthorities(\Illuminate\Support\Collection $idsWithPivotData)
     {
-        $idsToDetach = $this->authorities
-            ->filter(fn(Authority $authority) => $authority->pivot->automatically_matched)
-            ->pluck('id')
-            ->diff($idsWithPivotData->keys());
+        // Detach automatically-matched authorities that no longer match
+        $this->authorities()
+            ->wherePivot('automatically_matched', true)
+            ->whereNotIn('id', $idsWithPivotData->keys())
+            ->detach();
 
-        $this->authorities()->detach($idsToDetach);
-        $this->authorities()->syncWithoutDetaching(
-            $idsWithPivotData->map(
-                fn($pivotData) => [
-                    'automatically_matched' => true,
-                    ...$pivotData,
-                ]
-            )
-        );
+        // Update existing pivot data
+        foreach ($idsWithPivotData as $id => $pivotData) {
+            $this->authorities()->updateExistingPivot($id, $pivotData);
+        }
+
+        // Create new authorities
+        $existingIds = $this->authorities()->pluck('id');
+        $newIds = $idsWithPivotData->keys()->diff($existingIds);
+        $this->authorities()
+            ->withPivotValue('automatically_matched', true)
+            ->attach($idsWithPivotData->only($newIds));
     }
 }
