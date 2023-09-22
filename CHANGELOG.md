@@ -10,6 +10,8 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Changed
 - add soft deletes to articles
+- remove pagination from collections and articles in admin
+- Change font sizes on article, collection
 
 ## [2.79.0] - 2023-08-31
 ### Added
@@ -18,7 +20,6 @@ All notable changes to this project will be documented in this file[^1].
 ### Changed
 - behaviour for /api/v1/items/aggregations so that facet doesn't filter itself
 - display published date on collection index
-- remove pagination from collections and articles in admin
 
 ## [2.78.0] - 2023-07-21
 ### Added
@@ -30,7 +31,6 @@ All notable changes to this project will be documented in this file[^1].
 
 ### Changed
 - Authority#has_image to cast to boolean
-- Change font sizes on article, collection
 
 ## [2.76.0] - 2023-05-25
 ### Added
