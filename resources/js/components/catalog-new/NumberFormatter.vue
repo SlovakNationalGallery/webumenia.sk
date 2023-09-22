@@ -1,10 +1,9 @@
 <template>
     {{
         value
-            .toLocaleString('en-US', {
+            .toLocaleString('sk-SK', {
                 useGrouping: true,
             })
-            .replace(/,/g, ' ')
     }}
 </template>
 <script>
