@@ -2,7 +2,7 @@
 
 namespace App\Harvest\Importers;
 
-use App\Harvest\Importers\AbstractImporter;
+use App\Authority;
 use App\Harvest\Mappers\GmuhkItemMapper;
 use App\Harvest\Progress;
 use App\Item;
@@ -39,16 +39,19 @@ class GmuhkItemImporter extends AbstractImporter
             }
         }
 
-        $ids = $this->authorityMatcher
+        $matches = $this->authorityMatcher
             ->matchAll($item)
             ->filter(function ($authorities) {
                 return $authorities->count() === 1;
             })
-            ->flatten()
-            ->pluck('id');
+            ->map->first()
+            ->mapWithKeys(
+                fn(Authority $authority, $author) => [
+                    $authority->id => ['role' => AuthorityMatcher::parse($author)['alt_name']],
+                ]
+            );
 
-        $changes = $item->authorities()->syncWithoutDetaching($ids);
-        $item->authorities()->updateExistingPivot($changes['attached'], ['automatically_matched' => true]);
+        $item->syncMatchedAuthorities($matches);
 
         return $item;
     }
