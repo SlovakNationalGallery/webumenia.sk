@@ -84,6 +84,17 @@ return [
             'related_work' => 'ze souboru: :value',
             'years' => 'v letech :from — :to',
         ],
+        'sorting' => [
+            'created_at' => 'data přidání',
+            'title' => 'názvu',
+            'relevance' => 'relevancie',
+            'updated_at' => 'poslední změny',
+            'author' => 'autora',
+            'newest' => 'datování – od najnovějšího',
+            'oldest' => 'datování – od najstaršího',
+            'view_count' => 'počtu vidění',
+            'random' => 'náhodného pořadí',
+        ],
     ],
     'importer' => [
         'work_type' => [

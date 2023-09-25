@@ -7,6 +7,7 @@ use App\ImportRecord;
 use App\Item;
 use App\Matchers\AuthorityMatcher;
 use App\Repositories\IFileRepository;
+use Carbon\Carbon;
 use DateTime;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Support\Collection;
@@ -138,9 +139,17 @@ abstract class AbstractImporter
 
         $jpgFile = $this->getJpgFile($import_record, $image_filename_format);
         if ($jpgFile) {
-            $stream = $import_record->readStream($jpgFile);
-            $item->saveImage($stream);
-            $import_record->imported_images++;
+            $lastModified = $import_record->lastModified($jpgFile);
+            $lastStartedAt = $import_record->import
+                ->records()
+                ->completed()
+                ->max('started_at');
+
+            if (Carbon::createFromTimestamp($lastModified) > Carbon::make($lastStartedAt)) {
+                $stream = $import_record->readStream($jpgFile);
+                $item->saveImage($stream);
+                $import_record->imported_images++;
+            }
         }
 
         $this->getJp2Files($import_record, $image_filename_format)

@@ -10,12 +10,21 @@ export default {
         filteredOptions() {
             // TODO better matching algorithm?
             const query = this.search.toLowerCase()
-            return this.options
-                .filter((option) => option.value.toLowerCase().includes(query))
-                .map((option) => ({
+            const optionsWithSelected = [
+                ...this.options.map((option) => ({
                     ...option,
                     checked: this.selected.includes(option.value),
-                }))
+                })),
+                ...this.selected
+                    .filter((queryItem) =>
+                        this.options.every((option) => option.value !== queryItem)
+                    )
+                    .map((selected) => ({ value: selected, count: 0, checked: true })),
+            ]
+
+            return optionsWithSelected.filter((option) =>
+                option.value.toLowerCase().includes(query)
+            )
         },
     },
     render() {

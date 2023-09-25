@@ -184,4 +184,53 @@ class FakeRecordFactory
             $overrides
         );
     }
+
+    public static function buildGmuhkItem($overrides = [])
+    {
+        return array_merge(
+            [
+                'datestamp' => [
+                    '2023-06-19T20:54:07Z',
+                ],
+                'id' => [
+                    'oai:khk.museion.cz:GMUHK~publikacePredmetu~F0007/006',
+                ],
+                'identifier' => [
+                    'F 7/6',
+                ],
+                'author' => [
+                    'Milan Langer; Jaroslav Chmelík; Miroslav Podhrázský (fotograf)',
+                ],
+                'title' => [
+                    'Sólo pro léto IV, Výloha Módního domu DON v Hradci Králové',
+                ],
+                'dating' => [
+                    '(1989)',
+                ],
+                'date_earliest' => [
+                    '1989-01-01',
+                ],
+                'date_latest' => [
+                    '1989-12-31',
+                ],
+                'technique' => [],
+                'medium' => [
+                    'diapozitiv; negativ; digitální data; pozitiv',
+                ],
+                'measurement' => [
+                    'v.=45mm; s.=60mm; vp.=210mm; sp.=149mm',
+                ],
+                'gallery' => [
+                    'Galerie moderního umění v Hradci Králové',
+                ],
+                'image' => [
+                    'https://files.khk.museion.cz/GMUHK/Výtvarné umění/F/SUB_1/F0007_006/F0007_006-001 Sólo pro léto_primary.jpg',
+                ],
+                'work_type' => [
+                    'publikacePredmetu:GMUHK:151:F:Fo',
+                ],
+            ],
+            $overrides
+        );
+    }
 }
