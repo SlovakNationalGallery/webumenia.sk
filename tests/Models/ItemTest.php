@@ -187,43 +187,75 @@ class ItemTest extends TestCase
         ]);
     }
 
-    public function testSyncMatchedAuthorities()
+    public function testSyncMatchedAuthoritiesUpdatesExisting()
     {
-        $authorities = Authority::factory()
-            ->count(5)
-            ->create();
         $item = Item::factory()->create();
+        [$authority1, $authority2] = Authority::factory()
+            ->count(2)
+            ->create();
         $item->authorities()->sync([
-            // present in matched authorities
-            $authorities[0]->id => ['role' => 'author', 'automatically_matched' => true],
-            $authorities[1]->id => ['role' => 'author', 'automatically_matched' => false],
-            // missing from matched authorities
-            $authorities[2]->id => ['role' => 'author', 'automatically_matched' => true],
-            $authorities[3]->id => ['role' => 'author', 'automatically_matched' => false],
+            $authority1->id => ['role' => 'author', 'automatically_matched' => true],
+            $authority2->id => ['role' => 'author', 'automatically_matched' => false],
         ]);
 
-        $item->syncMatchedAuthorities(
-            collect([
-                $authorities[0]->id => ['role' => 'after'],
-                $authorities[1]->id => ['role' => 'after'],
-                $authorities[4]->id => ['role' => 'after'],
-            ])
-        );
+        $item->syncMatchedAuthorities([
+            $authority1->id => ['role' => 'new-role-1'],
+            $authority2->id => ['role' => 'new-role-2'],
+        ]);
 
-        $item->refresh();
-        $this->assertCount(4, $item->authorities);
-        $this->assertEquals(
-            [
-                $authorities[0]->id => ['role' => 'after', 'automatically_matched' => true],
-                $authorities[1]->id => ['role' => 'after', 'automatically_matched' => false],
-                $authorities[3]->id => ['role' => 'author', 'automatically_matched' => false],
-                $authorities[4]->id => ['role' => 'after', 'automatically_matched' => true],
-            ],
-            $item->authorities
-                ->pluck('pivot')
-                ->keyBy('authority_id')
-                ->map->only(['role', 'automatically_matched'])
-                ->toArray()
-        );
+        $this->assertDatabaseHas('authority_item', [
+            'authority_id' => $authority1->id,
+            'item_id' => $item->id,
+            'role' => 'new-role-1',
+            'automatically_matched' => true,
+        ]);
+        $this->assertDatabaseHas('authority_item', [
+            'authority_id' => $authority2->id,
+            'item_id' => $item->id,
+            'role' => 'new-role-2',
+            'automatically_matched' => false,
+        ]);
+    }
+
+    public function testSyncMatchedAuthoritiesDeletesOnlyAutomaticallyMatched()
+    {
+        $item = Item::factory()->create();
+        [$authority1, $authority2] = Authority::factory()
+            ->count(2)
+            ->create();
+        $item->authorities()->sync([
+            $authority1->id => ['automatically_matched' => true, 'role' => 'author'],
+            $authority2->id => ['automatically_matched' => false, 'role' => 'author'],
+        ]);
+
+        $item->syncMatchedAuthorities([]);
+
+        $this->assertDatabaseMissing('authority_item', [
+            'authority_id' => $authority1->id,
+            'item_id' => $item->id,
+        ]);
+        $this->assertDatabaseHas('authority_item', [
+            'authority_id' => $authority2->id,
+            'item_id' => $item->id,
+            'role' => 'author',
+            'automatically_matched' => false,
+        ]);
+    }
+
+    public function testSyncMatchedAuthoritiesAddsNew()
+    {
+        $item = Item::factory()->create();
+        $authority = Authority::factory()->create();
+
+        $item->syncMatchedAuthorities([
+            $authority->id => ['role' => 'author'],
+        ]);
+
+        $this->assertDatabaseHas('authority_item', [
+            'authority_id' => $authority->id,
+            'item_id' => $item->id,
+            'role' => 'author',
+            'automatically_matched' => true,
+        ]);
     }
 }
