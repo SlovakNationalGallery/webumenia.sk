@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Facades\DB;
 
 abstract class AbstractImporter
 {
@@ -109,8 +110,11 @@ abstract class AbstractImporter
         foreach ($relatedRows as $relatedRow) {
             $data = $this->mappers[$field]->map($relatedRow);
             $conditions = $this->getConditions($field, $data);
-            $instance = $model->$field()->firstOrNew($conditions);
-            $instance->forceFill($data);
+            $query = $model->$field();
+            foreach ($conditions as $column => $value) {
+                $query->where(DB::raw("BINARY $column"), $value);
+            }
+            $instance = $query->firstOrNew()->forceFill($data);
             $instance->save();
             $updateIds[] = $instance->getKey();
         }
@@ -139,7 +143,11 @@ abstract class AbstractImporter
         foreach ($relatedRows as $relatedRow) {
             $data = $this->mappers[$field]->map($relatedRow);
             $conditions = $this->getConditions($field, $data);
-            $relatedModel = $relatedModelClass::where($conditions)->first();
+            $query = $relatedModelClass::query();
+            foreach ($conditions as $column => $value) {
+                $query->where(DB::raw("BINARY $column"), $value);
+            }
+            $relatedModel = $query->first();
 
             if (!$relatedModel && !$allowCreate) {
                 continue;
