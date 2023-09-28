@@ -110,7 +110,7 @@ class RedirectLegacyCatalogRequest
             }
         });
 
-        if ($query['filter']) {
+        if (Arr::get($query, 'filter')) {
             // make URL easier to test
             ksort($query['filter']);
         }

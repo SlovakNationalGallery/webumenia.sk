@@ -8,7 +8,7 @@ function getParsedFilterFromUrl() {
         ignoreQueryPrefix: true,
     })
     const { date_earliest, date_latest, ...rest } = parsedUrl?.filter || {}
-    const { sort } = parsedUrl || {}
+    const { sort, q } = parsedUrl || {}
 
     return {
         ...rest,
@@ -19,6 +19,7 @@ function getParsedFilterFromUrl() {
             return { to: date_earliest?.lte, from: date_latest?.gte }
         })(),
         sort: sort && Object.keys(sort)[0],
+        q
     }
 }
 
@@ -40,6 +41,7 @@ function stringifyUrl({ url, params }) {
         has_iip,
         has_text,
         sort,
+        q,
     } = filter || {}
 
     const newQuery = {
@@ -68,6 +70,7 @@ function stringifyUrl({ url, params }) {
         page,
         terms,
         size,
+        q
     }
     return url + '?' + qs.stringify(newQuery, { skipNulls: true, arrayFormat: 'brackets' })
 }
