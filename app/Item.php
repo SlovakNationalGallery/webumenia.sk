@@ -779,8 +779,9 @@ class Item extends Model implements IndexableModel, TranslatableContract
         return sprintf('%s%s', config('app.url'), $this->getImagePath());
     }
 
-    public function syncMatchedAuthorities(\Illuminate\Support\Collection $idsWithPivotData)
+    public function syncMatchedAuthorities(\Illuminate\Support\Collection|array $idsWithPivotData)
     {
+        $idsWithPivotData = collect($idsWithPivotData);
         // Detach automatically-matched authorities that no longer match
         $this->authorities()
             ->wherePivot('automatically_matched', true)
