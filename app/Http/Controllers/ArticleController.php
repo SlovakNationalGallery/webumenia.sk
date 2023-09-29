@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Session;
 
 class ArticleController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +16,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::orderBy('created_at', 'desc')->paginate(20);
+        $articles = Article::orderBy('created_at', 'desc')->get();
         return view('articles.index')->with('articles', $articles);
     }
 
@@ -40,13 +39,15 @@ class ArticleController extends Controller
     {
         $request->validate(Article::getValidationRules());
 
-        $article = new Article;
+        $article = new Article();
 
         // store translatable attributes
         foreach (\Config::get('translatable.locales') as $i => $locale) {
-            if (hasTranslationValue($locale, $article->translatedAttributes)){
+            if (hasTranslationValue($locale, $article->translatedAttributes)) {
                 foreach ($article->translatedAttributes as $attribute) {
-                    $article->translateOrNew($locale)->$attribute = $request->input($locale . '.' . $attribute);
+                    $article->translateOrNew($locale)->$attribute = $request->input(
+                        $locale . '.' . $attribute
+                    );
                 }
             }
         }
@@ -69,7 +70,7 @@ class ArticleController extends Controller
         if ($request->has('title_shadow')) {
             $article->title_shadow = $request->input('title_shadow');
         }
-        
+
         $article->save();
 
         if ($request->hasFile('main_image')) {
@@ -105,10 +106,10 @@ class ArticleController extends Controller
             return Redirect::route('article.index');
         }
 
-        return view('articles.form', array_merge(
-            $this->buildSelectOptions(),
-            ['article' => $article]
-        ));
+        return view(
+            'articles.form',
+            array_merge($this->buildSelectOptions(), ['article' => $article])
+        );
     }
 
     /**
@@ -123,9 +124,11 @@ class ArticleController extends Controller
 
         // update translatable attributes
         foreach (\Config::get('translatable.locales') as $i => $locale) {
-            if (hasTranslationValue($locale, $article->translatedAttributes)){
+            if (hasTranslationValue($locale, $article->translatedAttributes)) {
                 foreach ($article->translatedAttributes as $attribute) {
-                    $article->translateOrNew($locale)->$attribute = $request->input($locale . '.' . $attribute);
+                    $article->translateOrNew($locale)->$attribute = $request->input(
+                        $locale . '.' . $attribute
+                    );
                 }
             }
         }
@@ -166,9 +169,8 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         Article::find($id)->delete();
-        return Redirect::route('article.index')->with('message', 'Článok bol zmazaný');;
+        return Redirect::route('article.index')->with('message', 'Článok bol zmazaný');
     }
-
 
     private function uploadMainImage($article, $request)
     {
@@ -180,26 +182,31 @@ class ArticleController extends Controller
     private function buildSelectOptions()
     {
         return [
-            'eduMediaTypesOptions' => collect(Article::$eduMediaTypes)
-                ->reduce(function ($options, $value) {
-                    $options[$value] = trans("edu.media_type.$value");
-                    return $options;
-                 }),
-            'eduAgeGroupsOptions' => collect(Article::$eduAgeGroups)
-                ->reduce(function ($options, $value) {
-                    $options[$value] = trans("edu.age_group.$value");
-                    return $options;
-                 }),
-            'eduKeywordsOptions' => Article::all()
-                ->pluck('edu_keywords')
-                ->filter()
-                ->flatten()
-                ->unique()
-                ->sort()
-                ->reduce(function ($options, $value) {
-                    $options[$value] = $value;
-                    return $options;
-                 }) ?? collect(),
+            'eduMediaTypesOptions' => collect(Article::$eduMediaTypes)->reduce(function (
+                $options,
+                $value
+            ) {
+                $options[$value] = trans("edu.media_type.$value");
+                return $options;
+            }),
+            'eduAgeGroupsOptions' => collect(Article::$eduAgeGroups)->reduce(function (
+                $options,
+                $value
+            ) {
+                $options[$value] = trans("edu.age_group.$value");
+                return $options;
+            }),
+            'eduKeywordsOptions' =>
+                Article::all()
+                    ->pluck('edu_keywords')
+                    ->filter()
+                    ->flatten()
+                    ->unique()
+                    ->sort()
+                    ->reduce(function ($options, $value) {
+                        $options[$value] = $value;
+                        return $options;
+                    }) ?? collect(),
         ];
     }
 }

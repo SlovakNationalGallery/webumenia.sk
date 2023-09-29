@@ -37,8 +37,8 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     const COPYRIGHT_LENGTH = 70;
     const GUESSED_AUTHORISM_TIMESPAN = 60;
-    const FREE_ALWAYS = 0;
     const FREE_NEVER = PHP_INT_MAX;
+    const UNKNOWN_AUTHOR_THRESHOLD = 1940;
     const TREE_DELIMITER = '/';
 
     const COLOR_AMOUNT_THRESHOLD = 0.03;
@@ -155,7 +155,12 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
     public function authorities()
     {
-        return $this->belongsToMany(\App\Authority::class, 'authority_item', 'item_id', 'authority_id')->withPivot('role');
+        return $this->belongsToMany(
+            \App\Authority::class,
+            'authority_item',
+            'item_id',
+            'authority_id'
+        )->withPivot(['role', 'automatically_matched']);
     }
 
     public function collections()
@@ -578,7 +583,7 @@ class Item extends Model implements IndexableModel, TranslatableContract
         }
 
         if ($this->isAuthorUnknown()) {
-            return self::FREE_ALWAYS;
+            return self::UNKNOWN_AUTHOR_THRESHOLD;
         }
 
         return $yearToTimestamp($freeFromYear);
@@ -772,5 +777,27 @@ class Item extends Model implements IndexableModel, TranslatableContract
     public function getImageUrlAttribute()
     {
         return sprintf('%s%s', config('app.url'), $this->getImagePath());
+    }
+
+    public function syncMatchedAuthorities(\Illuminate\Support\Collection|array $idsWithPivotData)
+    {
+        $idsWithPivotData = collect($idsWithPivotData);
+        // Detach automatically-matched authorities that no longer match
+        $this->authorities()
+            ->wherePivot('automatically_matched', true)
+            ->whereNotIn('id', $idsWithPivotData->keys())
+            ->detach();
+
+        // Update existing pivot data
+        foreach ($idsWithPivotData as $id => $pivotData) {
+            $this->authorities()->updateExistingPivot($id, $pivotData);
+        }
+
+        // Create new authorities
+        $existingIds = $this->authorities()->pluck('id');
+        $newIds = $idsWithPivotData->keys()->diff($existingIds);
+        $this->authorities()
+            ->withPivotValue('automatically_matched', true)
+            ->attach($idsWithPivotData->only($newIds));
     }
 }

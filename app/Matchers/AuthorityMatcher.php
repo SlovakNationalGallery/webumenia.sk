@@ -102,11 +102,11 @@ class AuthorityMatcher
         }
 
         return [
-            'surname' => $matches['surname'],
-            'alt_surname' => trim($matches['alt_surname'], '()'),
-            'role' => ltrim($matches['role'], ' -'),
-            'name' => $matches['name'],
-            'alt_name' => trim($matches['alt_name'] ?? '', '()/'),
+            'surname' => $matches['surname'] ?: null,
+            'alt_surname' => trim($matches['alt_surname'], '()') ?: null,
+            'role' => ltrim($matches['role'], ' -') ?: null,
+            'name' => $matches['name'] ?: null,
+            'alt_name' => trim($matches['alt_name'] ?? '', '()/') ?: null,
         ];
     }
 }
