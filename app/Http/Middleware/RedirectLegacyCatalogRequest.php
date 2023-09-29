@@ -110,7 +110,10 @@ class RedirectLegacyCatalogRequest
             }
         });
 
-        ksort($query['filter']); // make URL easier to test
+        if (Arr::get($query, 'filter')) {
+            // make URL easier to test
+            ksort($query['filter']);
+        }
 
         $queryString = Str::of(http_build_query($query));
         return redirect($request->url() . '?' . $queryString);
