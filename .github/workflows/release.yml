@@ -2,9 +2,6 @@ name: Create a release
 
 on:
   push:
-    branches:
-      #   - master
-      - WEBUMENIA-2012-automate-release-creations
     tags:
       #   - '*.*.*'
       - 'test-*'
