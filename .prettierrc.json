@@ -3,5 +3,13 @@
     "printWidth": 100,
     "singleQuote": true,
     "semi": false,
-    "sortTailwindcssClasses": true
+    "sortTailwindcssClasses": true,
+    "overrides": [
+        {
+            "files": "*.yml",
+            "options": {
+                "tabWidth": 2
+            }
+        }
+    ]
 }
