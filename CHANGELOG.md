@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+## [2.80.0] - 2023-09-29
+
 ### Added
 - admin:are you sure popup
 - SetExperiments middleware for setting experiment flags from anywhere
