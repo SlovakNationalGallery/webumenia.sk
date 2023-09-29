@@ -8,7 +8,6 @@ on:
 
 jobs:
   release:
-    # if: ${{ github.ref == 'refs/heads/master'  }}
     if: ${{ github.ref == 'refs/heads/WEBUMENIA-2012-automate-release-creations'  }}
     runs-on: ubuntu-latest
     steps:
