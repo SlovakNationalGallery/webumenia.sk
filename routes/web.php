@@ -13,6 +13,7 @@
 
 use App\Collection;
 use App\Elasticsearch\Repositories\ItemRepository;
+use App\Facades\Experiment;
 use App\Filter\ItemFilter;
 use App\Http\Controllers\Admin\FeaturedArtworkController;
 use App\Http\Controllers\Admin\FeaturedPieceController;
@@ -43,6 +44,7 @@ use App\Http\Controllers\UserCollectionController;
 use App\Http\Controllers\NewCatalogController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ZoomController;
+use App\Http\Middleware\RedirectLegacyCatalogRequest;
 use App\Item;
 use App\Notice;
 use App\Order;
@@ -313,8 +315,17 @@ function()
 
     Route::get('patternlib', [PatternlibController::class, 'getIndex'])->name('frontend.patternlib.index');
 
-    Route::get('katalog', [CatalogController::class, 'getIndex'])->name('frontend.catalog.index');
-    Route::resource('katalog-new', NewCatalogController::class)->names('frontend.catalog-new');
+    Route::get('katalog', function () {
+        if (Experiment::is('new-catalog')) {
+            return app(NewCatalogController::class)->index();
+        }
+
+        return app(CatalogController::class)->getIndex();
+    })
+        ->middleware(RedirectLegacyCatalogRequest::class)
+        ->name('frontend.catalog.index');
+        
+    Route::resource('katalog-new', NewCatalogController::class)->names('frontend.catalog-new'); // TODO remove after release
 
     Route::get('katalog/suggestions', [CatalogController::class, 'getSuggestions'])->name('frontend.catalog.suggestions');
     Route::get('katalog/random', [CatalogController::class, 'getRandom'])->name('frontend.catalog.random');

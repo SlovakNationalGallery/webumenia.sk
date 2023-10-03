@@ -15,14 +15,6 @@ class NewCatalogController extends Controller
      */
     public function index()
     {
-        $yearLimits = Cache::remember(
-            'items.year-limits',
-            now()->addHours(1),
-            fn() => Item::getYearLimits()
-        );
-
-        return view('frontend.catalog-new.index-new', [
-            'yearLimits' => $yearLimits,
-        ]);
+        return view('frontend.catalog-new.index-new');
     }
 }

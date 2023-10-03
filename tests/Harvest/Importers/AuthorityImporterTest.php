@@ -88,4 +88,22 @@ class AuthorityImporterTest extends TestCase
         $authority = $this->importer->import($row, new Progress());
         $this->assertEquals(0, $authority->relationships->count());
     }
+
+    public function testAccentSensitivity()
+    {
+        $row = FakeRecordFactory::buildAuthority([
+            'names' => [
+                [
+                    'name' => ['Mařák, Július'],
+                    'prefered' => [false],
+                ],
+                [
+                    'name' => ['Marak, Julius'],
+                    'prefered' => [false],
+                ],
+            ],
+        ]);
+        $authority = $this->importer->import($row, new Progress());
+        $this->assertCount(2, $authority->names);
+    }
 }

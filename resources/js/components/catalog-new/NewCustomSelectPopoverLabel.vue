@@ -1,5 +1,5 @@
 <template>
-    <span class="tw-font-semibold tw-text-base tw-flex tw-gap-1">
+    <span class="tw-font-semibold tw-text-base tw-flex tw-whitespace-nowrap tw-gap-1">
         {{ name }}
         <span class="tw-inline-block tw-w-4">
             <span v-if="this.selectedCount" class="tw-font-bold">({{ this.selectedCount }})</span>

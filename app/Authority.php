@@ -72,6 +72,10 @@ class Authority extends Model implements IndexableModel, TranslatableContract
         'name' => 'required',
     ];
 
+    protected $casts = [
+        'has_image' => 'boolean',
+    ];
+
     public $incrementing = false;
 
     public function nationalities()

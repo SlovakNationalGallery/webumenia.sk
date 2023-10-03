@@ -44,10 +44,13 @@ Vue.component('filter-new-year-slider', require('./components/catalog-new/NewYea
 Vue.component('filter-new-custom-checkbox', require('./components/catalog-new/NewCustomCheckbox.vue').default);
 Vue.component('filter-disclosure-controller', require('./components/catalog-new/DisclosureModalController.vue').default);
 Vue.component('toggle-controller', require('./components/ToggleController.vue').default);
+Vue.component('reload-controller', require('./components/ReloadController.vue').default);
 Vue.component('filter-search-options-controller', require('./components/catalog-new/SearchOptionsController.vue').default);
 Vue.component('filter-popover-controller', require('./components/catalog-new/PopoverController.vue').default);
 Vue.component('catalog.infinite-scroll', require('./components/catalog-new/InfiniteScroll.vue').default);
 Vue.component('catalog.artwork-image-controller', require('./components/catalog-new/ArtworkImageController.vue').default);
+Vue.component('catalog.number-formatter', require('./components/catalog-new/NumberFormatter.vue').default);
+Vue.component('catalog.author-formatter', require('./components/catalog-new/AuthorFormatter.vue').default);
 Vue.component('flickity', require('./components/Flickity.vue').default);
 Vue.component('home.shuffle-orchestrator', require('./components/home/ShuffleOrchestrator.vue').default);
 Vue.component('home.transition-in-place', require('./components/home/TransitionInPlace.vue').default);

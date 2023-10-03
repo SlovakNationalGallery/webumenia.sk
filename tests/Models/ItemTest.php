@@ -6,10 +6,12 @@ use App\Authority;
 use App\Item;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Tests\WithoutSearchIndexing;
 
 class ItemTest extends TestCase
 {
     use RefreshDatabase;
+    use WithoutSearchIndexing;
 
     public function testFreeFromDateLatest()
     {
@@ -182,6 +184,78 @@ class ItemTest extends TestCase
             'gallery' => 'Slovenská národná galéria, SNG',
             'author' => 'neznámy',
             'date_latest' => 1, // CE
+        ]);
+    }
+
+    public function testSyncMatchedAuthoritiesUpdatesExisting()
+    {
+        $item = Item::factory()->create();
+        [$authority1, $authority2] = Authority::factory()
+            ->count(2)
+            ->create();
+        $item->authorities()->sync([
+            $authority1->id => ['role' => 'author', 'automatically_matched' => true],
+            $authority2->id => ['role' => 'author', 'automatically_matched' => false],
+        ]);
+
+        $item->syncMatchedAuthorities([
+            $authority1->id => ['role' => 'new-role-1'],
+            $authority2->id => ['role' => 'new-role-2'],
+        ]);
+
+        $this->assertDatabaseHas('authority_item', [
+            'authority_id' => $authority1->id,
+            'item_id' => $item->id,
+            'role' => 'new-role-1',
+            'automatically_matched' => true,
+        ]);
+        $this->assertDatabaseHas('authority_item', [
+            'authority_id' => $authority2->id,
+            'item_id' => $item->id,
+            'role' => 'new-role-2',
+            'automatically_matched' => false,
+        ]);
+    }
+
+    public function testSyncMatchedAuthoritiesDeletesOnlyAutomaticallyMatched()
+    {
+        $item = Item::factory()->create();
+        [$authority1, $authority2] = Authority::factory()
+            ->count(2)
+            ->create();
+        $item->authorities()->sync([
+            $authority1->id => ['automatically_matched' => true, 'role' => 'author'],
+            $authority2->id => ['automatically_matched' => false, 'role' => 'author'],
+        ]);
+
+        $item->syncMatchedAuthorities([]);
+
+        $this->assertDatabaseMissing('authority_item', [
+            'authority_id' => $authority1->id,
+            'item_id' => $item->id,
+        ]);
+        $this->assertDatabaseHas('authority_item', [
+            'authority_id' => $authority2->id,
+            'item_id' => $item->id,
+            'role' => 'author',
+            'automatically_matched' => false,
+        ]);
+    }
+
+    public function testSyncMatchedAuthoritiesAddsNew()
+    {
+        $item = Item::factory()->create();
+        $authority = Authority::factory()->create();
+
+        $item->syncMatchedAuthorities([
+            $authority->id => ['role' => 'author'],
+        ]);
+
+        $this->assertDatabaseHas('authority_item', [
+            'authority_id' => $authority->id,
+            'item_id' => $item->id,
+            'role' => 'author',
+            'automatically_matched' => true,
         ]);
     }
 }

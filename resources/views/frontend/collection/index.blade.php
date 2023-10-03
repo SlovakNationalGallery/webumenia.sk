@@ -104,7 +104,7 @@
                 </div>
                 <div class="collection-meta tw-text-gray-500 ">
                     {{--  {!! $collection->author !!} &nbsp;&middot;&nbsp; --}}
-                    {!! $collection->created_at->format('d. m. Y') !!} &nbsp;&middot;&nbsp;
+                    {!! $collection->published_at->format('d. m. Y') !!} &nbsp;&middot;&nbsp;
                     {!! $collection->user->name !!} &nbsp;&middot;&nbsp;
                     {{ $collection->items_count }} {{ trans('kolekcie.collections_artworks') }}
                 </div>

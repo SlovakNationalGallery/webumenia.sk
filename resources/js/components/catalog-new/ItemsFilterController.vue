@@ -8,7 +8,7 @@ function getParsedFilterFromUrl() {
         ignoreQueryPrefix: true,
     })
     const { date_earliest, date_latest, ...rest } = parsedUrl?.filter || {}
-    const { sort } = parsedUrl || {}
+    const { sort, q } = parsedUrl || {}
 
     return {
         ...rest,
@@ -19,11 +19,12 @@ function getParsedFilterFromUrl() {
             return { to: date_earliest?.lte, from: date_latest?.gte }
         })(),
         sort: sort && Object.keys(sort)[0],
+        q
     }
 }
 
 function stringifyUrl({ url, params }) {
-    const { filter, size, terms, page } = params
+    const { filter, size, terms, page, min, max } = params
     const {
         yearRange,
         author,
@@ -40,6 +41,7 @@ function stringifyUrl({ url, params }) {
         has_iip,
         has_text,
         sort,
+        q,
     } = filter || {}
 
     const newQuery = {
@@ -63,9 +65,12 @@ function stringifyUrl({ url, params }) {
         sort: {
             [sort]: SORT_DIRECTIONS[sort],
         },
+        min,
+        max,
         page,
         terms,
         size,
+        q
     }
     return url + '?' + qs.stringify(newQuery, { skipNulls: true, arrayFormat: 'brackets' })
 }
@@ -112,6 +117,7 @@ export default {
     data() {
         return {
             isFetchingArtworks: false,
+            hasError: false,
             artworks: [],
             last_page: 1,
             artworks_total: null,
@@ -162,6 +168,12 @@ export default {
         },
     },
     methods: {
+        hasFilterOptions(filterName) {
+            return (
+                this.query[filterName].length ||
+                (this.aggregations[filterName] && this.aggregations[filterName].length > 0)
+            )
+        },
         clearFilterSelection(filterName) {
             this.query = {
                 ...this.query,
@@ -247,6 +259,8 @@ export default {
                                 filter: this.query,
                                 terms: AGGREGATIONS_TERMS,
                                 size: AGGREGATIONS_SIZE,
+                                min: { date_earliest: 'date_earliest' },
+                                max: { date_latest: 'date_latest' },
                             },
                         }),
                         { headers: this.apiHeaders }
@@ -258,6 +272,7 @@ export default {
                     ...aggregations,
                 }
             } catch (e) {
+                this.hasError = true
                 throw e
             }
         },
@@ -284,6 +299,7 @@ export default {
                     ? [...this.artworks, ...fetchedArtworks.data]
                     : fetchedArtworks.data
             } catch (e) {
+                this.hasError = true
                 throw e
             } finally {
                 this.isFetchingArtworks = false
@@ -315,12 +331,14 @@ export default {
     render() {
         return this.$scopedSlots.default({
             isFetchingArtworks: this.isFetchingArtworks,
+            hasError: this.hasError,
             query: this.query,
             page: this.page,
             last_page: this.last_page,
             aggregations: this.aggregations,
             artworks: this.artworks,
             artworks_total: this.artworks_total,
+            hasFilterOptions: this.hasFilterOptions,
             loadMore: this.loadMore,
             handleSortChange: this.handleSortChange,
             handleYearRangeChange: this.handleYearRangeChange,

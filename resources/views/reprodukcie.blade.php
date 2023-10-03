@@ -89,13 +89,13 @@
                 @endforeach
             </x-reproductions.carousel>
 
-            <x-reproductions.button :href="route('frontend.catalog.index', ['is_for_reproduction' => 1])" class="tw-mt-8 tw-inline-block">
-                {{ trans('reprodukcie.more-items_button') }}
-                ({{ $total }})
-            </x-reproductions.button>
-        </section>
-
-        <hr class="tw-my-12 tw-w-full tw-border-t">
+                <x-reproductions.button :href="route('frontend.catalog.index', ['is_for_reproduction' => 1])" class="tw-mt-8 tw-inline-block">
+                    {{ trans('reprodukcie.more-items_button') }}
+                    ({{ $total }})
+                </x-reproductions.button>
+            </section>
+            {{--
+            <hr class="tw-my-12 tw-w-full tw-border-t">
 
         <section id="print"
             class="tw-container tw-flex tw-max-w-screen-xl tw-flex-col tw-items-center tw-px-6">
@@ -203,11 +203,12 @@
                 @endforeach
             </x-reproductions.carousel>
 
-            <x-reproductions.button :href="route('frontend.catalog.index', ['is_for_reproduction' => 1])" class="tw-mt-8 tw-inline-block">
-                {{ trans('reprodukcie.more-items_button') }}
-                ({{ $total }})
-            </x-reproductions.button>
-        </section>
+                <x-reproductions.button :href="route('frontend.catalog.index', ['is_for_reproduction' => 1])" class="tw-mt-8 tw-inline-block">
+                    {{ trans('reprodukcie.more-items_button') }}
+                    ({{ $total }})
+                </x-reproductions.button>
+            </section> --}}
+        </div>
     </div>
 
     {{-- modal for image preview --}}
