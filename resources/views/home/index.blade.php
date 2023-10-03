@@ -124,7 +124,7 @@
                                     <strong>@{{ orchestrator.item.title }}</strong>
                                     <span>@{{ orchestrator.item.dating }}</span>
                                 </div>
-                                <div class="text-center tw-justify-center md:tw-hidden">
+                                <div class="tw-text-center tw-justify-center md:tw-hidden">
                                     <span>@{{ orchestrator.item.authors }},</span>
                                     <strong>@{{ orchestrator.item.title }}</strong>,
                                     <span>@{{ orchestrator.item.dating }}</span>

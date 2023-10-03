@@ -137,7 +137,7 @@
         'title' => $collection->name,
         'url' => $collection->getUrl(),
         'img' => URL::to($collection->header_image_src),
-        'class' => 'text-center mb-5'
+        'class' => 'tw-text-center mb-5'
     ])
 </section>
 
