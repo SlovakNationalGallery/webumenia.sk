@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-    <section class="tailwind-rules" v-cloak>
+    <section class="tailwind-rules tw-break-keep" v-cloak>
         <filter-new-items-controller locale="{{ app()->getLocale() }}"
             v-slot="{ loadMore, hasError, hasFilterOptions, isFetchingArtworks, handleSelectRandomly, handleMultiSelectChange, selectedOptionsAsLabels, handleSortChange, handleColorChange, handleYearRangeChange, handleCheckboxChange, clearFilterSelection, clearAllSelections, removeSelection, query, page,  aggregations, artworks, last_page, artworks_total }">
             <div class="tw-relative">
