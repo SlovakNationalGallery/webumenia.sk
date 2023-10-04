@@ -530,7 +530,8 @@
                                                 @slot('header')
                                                     <x-filter.view_header_button @click="dc.goTo('index')">
                                                         <filter-new-custom-select-popover-label
-                                                            name="object_type" :selected-values="query['object_type']">
+                                                            name="{{ trans('item.object_type') }}"
+                                                            :selected-values="query['object_type']">
                                                         </filter-new-custom-select-popover-label>
                                                     </x-filter.view_header_button>
                                                 @endslot
@@ -877,42 +878,42 @@
                                                                 class="tw-w-80 tw-border-2 tw-border-gray-800 tw-bg-white tw-p-4">
 
                                                                 <ul>
-                                                                    <li class="tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
+                                                                    <li class="tw-cursor-pointer tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
                                                                         @click="handleSortChange('created_at');pc.closeOpenedPopover()"
                                                                         v-if="query.sort !== 'created_at'">
                                                                         {{ trans('sortable.created_at') }}
                                                                     </li>
-                                                                    <li class="tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
+                                                                    <li class="tw-cursor-pointer tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
                                                                         @click="handleSortChange('title');pc.closeOpenedPopover()"
                                                                         v-if="query.sort !== 'title'">
                                                                         {{ trans('sortable.title') }}
                                                                     </li>
-                                                                    <li class="tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
+                                                                    <li class="tw-cursor-pointer tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
                                                                         @click="handleSortChange('author');pc.closeOpenedPopover()"
                                                                         v-if="query.sort !== 'author'">
                                                                         {{ trans('sortable.author') }}
                                                                     </li>
-                                                                    <li class="tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
+                                                                    <li class="tw-cursor-pointer tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
                                                                         @click="handleSortChange('date_earliest');pc.closeOpenedPopover()"
                                                                         v-if="query.sort !== 'date_earliest'">
                                                                         {{ trans('sortable.oldest') }}
                                                                     </li>
-                                                                    <li class="tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
+                                                                    <li class="tw-cursor-pointer tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
                                                                         @click="handleSortChange('date_latest');pc.closeOpenedPopover()"
                                                                         v-if="query.sort !== 'date_latest'">
                                                                         {{ trans('sortable.newest') }}
                                                                     </li>
-                                                                    <li class="tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
+                                                                    <li class="tw-cursor-pointer tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
                                                                         @click="handleSortChange('view_count');pc.closeOpenedPopover()"
                                                                         v-if="query.sort !== 'view_count'">
                                                                         {{ trans('sortable.view_count') }}
                                                                     </li>
-                                                                    <li class="tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
+                                                                    <li class="tw-cursor-pointer tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
                                                                         @click="handleSortChange('random');pc.closeOpenedPopover()"
                                                                         v-if="query.sort !== 'random'">
                                                                         {{ trans('sortable.random') }}
                                                                     </li>
-                                                                    <li class="tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
+                                                                    <li class="tw-cursor-pointer tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
                                                                         @click="handleSortChange(null);pc.closeOpenedPopover()"
                                                                         v-if="query.sort">
                                                                         {{ trans('sortable.updated_at') }}
