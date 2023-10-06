@@ -25,7 +25,6 @@ add('shared_dirs', [
 host('test')
     ->set('hostname', 'webumenia.sk')
     ->set('remote_user', 'lab_sng')
-    ->set('branch', 'develop')
     ->set('deploy_path', '/var/www/test.webumenia.sk');
 
 host('production')

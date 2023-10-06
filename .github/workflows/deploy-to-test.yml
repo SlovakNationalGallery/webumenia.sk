@@ -1,4 +1,4 @@
-name: Deploy "develop" branch
+name: Deploy "develop" branch to test instance
 
 on:
   push:
@@ -26,4 +26,4 @@ jobs:
           private-key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
           known-hosts: ${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}
           deployer-version: 7.0.0-rc.8
-          dep: deploy test
+          dep: deploy test --branch develop
