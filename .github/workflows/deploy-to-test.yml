@@ -8,7 +8,10 @@ on:
 concurrency: deploy_test
 
 jobs:
+  test:
+    uses: ./.github/workflows/_test.yml
   deploy:
+    needs: test
     name: Deploy
     runs-on: ubuntu-20.04
 
