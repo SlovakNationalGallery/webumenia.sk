@@ -1,9 +1,9 @@
-name: Deploy "master" branch to production
+name: Deploy latest version tag to production
 
 on:
   push:
-    branches:
-      - master
+    tags:
+      - '*.*.*'
 
 concurrency: production_environment
 
@@ -26,4 +26,4 @@ jobs:
           private-key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
           known-hosts: ${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}
           deployer-version: 7.0.0-rc.8
-          dep: deploy production
+          dep: deploy production --tag ${{ github.ref }}

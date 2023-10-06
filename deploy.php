@@ -31,7 +31,6 @@ host('test')
 host('production')
     ->set('hostname', 'webumenia.sk')
     ->set('remote_user', 'lab_sng')
-    ->set('branch', 'master')
     ->set('deploy_path', '/var/www/webumenia.sk');
 
 // Tasks
