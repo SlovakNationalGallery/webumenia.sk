@@ -429,7 +429,7 @@
             <div class="{{ $item->has_colors ? 'col-sm-6 pr-sm-5' : 'col-xs-12'}}" id="related-by-metadata">
                 <div class="tailwind-rules tw-break-keep">
                     <div class="tw-h-20 tw-text-lg">
-                        <h3 class="tw-mt-5">
+                        <h3 class="tw-mt-5 tw-mb-0">
                             {{ utrans('dielo.more-items_related-artworks') }}
                         </h3>
                         <span class="tw-text-gray-500 tw-font-semibold tw-inline-block tw-mt-1">
