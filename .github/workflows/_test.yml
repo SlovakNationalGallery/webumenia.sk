@@ -1,6 +1,7 @@
-name: Test on push
+name: Test
 
-on: push
+on:
+  workflow_call:
 
 jobs:
   test:
