@@ -1,5 +1,6 @@
 <script>
 import { matchSorter } from 'match-sorter'
+import { formatAuthorName } from './formatters'
 
 export default {
     props: ['options', 'selected'],
@@ -22,7 +23,7 @@ export default {
                     .map((selected) => ({ value: selected, count: 0, checked: true })),
             ]
             return matchSorter(optionsWithSelected, this.search, {
-                keys: [(option) => option.value.replace(/^([^,]*),\s*(.*)$/, '$2 $1')],
+                keys: [(option) => formatAuthorName(option.value)],
             })
         },
     },
