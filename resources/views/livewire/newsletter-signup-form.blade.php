@@ -13,12 +13,12 @@
     <div class="col-md-6">
         <div class="row">
             <div class="col-md-11 col-md-push-1">
-                <div class="tw-text-lg pb-md-1">{!! __('general.newsletter_sign_up.subtitle') !!}</div>
+                <div class="tw-text-base pb-md-1">{!! __('general.newsletter_sign_up.subtitle') !!}</div>
 
                 <form wire:submit.prevent="subscribe" class="input-group mt-4">
                     <input
                         type="email"
-                        class="form-control bg-light no-border placeholder:tw-text-black {{ $success ? 'text-gray-500' : '' }}"
+                        class="form-control bg-light no-border placeholder:!tw-text-black {{ $success ? 'text-gray-500' : '' }}"
                         placeholder="@"
                         required
                         @if ($success) readonly @endif

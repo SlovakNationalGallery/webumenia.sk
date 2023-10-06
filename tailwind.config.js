@@ -30,7 +30,6 @@ module.exports = {
             },
             fontSize: {
                 'sm': '12px',
-                'lg': '16px'
             },
             minHeight: {
                 12: '3em',

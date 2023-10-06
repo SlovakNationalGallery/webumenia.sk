@@ -13,7 +13,7 @@
                 <img src="{{ asset('/images/reprodukcie/pracovisko.jpg') }}"
                     class="tw-absolute tw-h-full tw-w-full tw-object-cover">
                 <h1
-                    class="mx-4 tw-relative tw-my-40 tw-text-5xl tw-text-white md:tw-my-52 md:tw-text-6xl">
+                    class="mx-4 tw-relative tw-my-40 tw-text-5xl tw-text-white md:tw-my-52 md:tw-text-6xl tw-font-normal">
                     {{ utrans('reprodukcie.title') }}</h1>
             </div>
 
@@ -37,7 +37,7 @@
                         {!! trans('reprodukcie.digital_body') !!}
                     </div>
 
-                    <h3 class="tw-mt-10 tw-text-center tw-text-lg tw-text-gray-600">
+                    <h3 class="tw-mt-10 tw-text-center tw-text-lg tw-text-gray-600 tw-mb-0">
                         {{ trans('reprodukcie.digital_examples') }}
                     </h3>
                 </div>
@@ -63,16 +63,16 @@
                 </div>
 
                 <div class="tw-mt-10 tw-text-gray-600 lg:tw-w-8/12">
-                    <h3 class="tw-text-center tw-text-lg">
+                    <h3 class="tw-text-center tw-text-lg tw-m-0">
                         {{ trans('reprodukcie.info_title') }}
                     </h3>
                     <div
-                        class="tw-mt-5 tw-font-serif prose-ul:tw-ml-5 prose-ul:tw-list-disc prose-li:tw-mb-2">
+                        class="tw-mt-5 tw-font-serif prose-ul:tw-ml-5 prose-ul:tw-list-disc prose-li:tw-mb-2 tw-text-base">
                         {!! trans('reprodukcie.digital_list') !!}
                     </div>
                 </div>
 
-                <h3 class="tw-mt-10 tw-text-center tw-text-lg tw-text-gray-600">
+                <h3 class="tw-mt-10 tw-text-center tw-text-lg tw-text-gray-600 tw-mb-0">
                     {{ trans('reprodukcie.digital_choice') }}
                 </h3>
 
