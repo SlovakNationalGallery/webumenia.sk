@@ -1,11 +1,10 @@
-name: Deploy latest version tag to production
+name: Deploy latest release to production
 
 on:
-  push:
-    tags:
-      - '*.*.*'
+  release:
+    types: [released]
 
-concurrency: production_environment
+concurrency: deploy_production
 
 jobs:
   deploy:
@@ -26,4 +25,4 @@ jobs:
           private-key: ${{ secrets.DEPLOY_SSH_PRIVATE_KEY }}
           known-hosts: ${{ secrets.DEPLOY_SSH_KNOWN_HOSTS }}
           deployer-version: 7.0.0-rc.8
-          dep: deploy production --tag ${{ github.ref }}
+          dep: deploy production
