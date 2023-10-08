@@ -1,19 +1,21 @@
-name: Deploy "master" branch to production
+name: Deploy latest release to production
 
 on:
-  push:
-    branches:
-      - master
+  release:
+    types: [released]
 
-concurrency: production_environment
+concurrency: deploy_production
 
 jobs:
+  test:
+    uses: ./.github/workflows/_test.yml
   deploy:
+    needs: test
     name: Deploy
     runs-on: ubuntu-20.04
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2

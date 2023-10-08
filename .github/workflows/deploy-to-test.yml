@@ -1,19 +1,22 @@
-name: Deploy "develop" branch
+name: Deploy "develop" branch to test instance
 
 on:
   push:
     branches:
       - develop
 
-concurrency: testing_environment
+concurrency: deploy_test
 
 jobs:
+  test:
+    uses: ./.github/workflows/_test.yml
   deploy:
+    needs: test
     name: Deploy
     runs-on: ubuntu-20.04
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
