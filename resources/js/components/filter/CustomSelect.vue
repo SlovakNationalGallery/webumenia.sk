@@ -14,11 +14,11 @@ export default {
         placeholder: String,
 
         //Expects the shape of [{value: string | number, text: string, selected: boolean }]
-        options: Object, 
+        options: Object,
     },
     mounted() {
         const { placeholder, name } = this;
-    
+
         $(this.$refs.select).selectize({
             plugins: ["remove_button"],
             placeholder,
@@ -26,7 +26,7 @@ export default {
             mode: "multi",
             render: {
                 item: (data, escape) => (
-                    `<div class="selected-item"><span class="color">${placeholder}: </span>${data.text.replace(/\(.*?\)/g, "")}</div>`
+                    `<div class="selected-item"><span class="tw-text-sky-300">${placeholder}: </span>${data.text.replace(/\(.*?\)/g, "")}</div>`
                 )
             },
             onChange: (value) => addParameterToQuery(name, value)

@@ -4,7 +4,7 @@
             ref="input"
             type="text"
             readonly
-            class="form-control input-sm bg-light"
+            class="form-control input-sm tw-bg-white"
             :value="value"
             v-on:focus="(e) => e.target.select()"
         />

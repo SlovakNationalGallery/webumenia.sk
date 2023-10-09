@@ -11,7 +11,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 content-section">
-                    <div class="text-center">
+                    <div class="tw-text-center">
                         {{-- <h1>ERROR 500</h1> --}}
                         <h2 class="top-margin tw-uppercase">{{ trans('fatal.h2') }}</h2>
                         <p>{{ trans('fatal.paragraph') }}</p>
@@ -20,7 +20,7 @@
                             <a href="/dielo/SVK:SNG.K_17703">{!! trans('fatal.image_caption') !!}</a>
                         </p>
 
-                        <h3><a href="{!!URL::to('/')!!}" class="btn btn-default btn-lg btn-outline sans"> {{ trans('general.return_home') }}</a></h3>
+                        <h3><a href="{!!URL::to('/')!!}" class="btn btn-default btn-lg btn-outline tw-font-sans"> {{ trans('general.return_home') }}</a></h3>
 
                     </div>
                 </div>

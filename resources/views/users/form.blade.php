@@ -60,14 +60,14 @@
 	</div>
 </div>
 
-<div class="col-md-12 text-center">
+<div class="col-md-12 tw-text-center">
 	{!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp;
 	{!! link_to_route('user.index', 'Zrušiť', null, array('class' => 'btn btn-default')) !!}
 </div>
 
 {!!Form::close() !!}
 
-<div class="clearfix"></div>
+<div class="tw-clear-both"></div>
 
 
 @stop

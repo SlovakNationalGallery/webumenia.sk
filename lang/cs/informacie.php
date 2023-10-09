@@ -78,25 +78,25 @@ return array(
     'modal_table-content'   => '<thead>
                                     <tr>
                                         <th></th>
-                                        <th class="text-right">do formátu A4</th>
-                                        <th class="text-right">od A4 do A3+</th>
+                                        <th class= "tw-text-right">do formátu A4</th>
+                                        <th class= "tw-text-right">od A4 do A3+</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td><strong>samostatná reprodukce</strong></td>
-                                        <td class="text-right">25 €</td>
-                                        <td class="text-right">35 €</td>
+                                        <td class= "tw-text-right">25 €</td>
+                                        <td class= "tw-text-right">35 €</td>
                                     </tr>
                                     <tr>
                                         <td><strong>reprodukce s paspartou</strong></td>
-                                        <td class="text-right">35 €</td>
-                                        <td class="text-right">50 €</td>
+                                        <td class= "tw-text-right">35 €</td>
+                                        <td class= "tw-text-right">50 €</td>
                                     </tr>
                                     <tr>
                                         <td><strong>s paspartou a rámem</strong></td>
-                                        <td class="text-right">40 €</td>
-                                        <td class="text-right">60 €</td>
+                                        <td class= "tw-text-right">40 €</td>
+                                        <td class= "tw-text-right">60 €</td>
                                     </tr>
                                 </tbody>',
     'modal_unavailable'         => 'z technických dôvodov dočasne pozastavené',

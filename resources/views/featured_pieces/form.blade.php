@@ -83,7 +83,7 @@
     </div>
 </div>
 
-<div class="col-md-12 text-center">
+<div class="col-md-12 tw-text-center">
     {{ Form::submit('Uložiť', ['class' => 'btn btn-primary']) }}
     <a href="{{ route('featured-pieces.index') }}" class="btn btn-default ml-2">Zrušiť</a>
 </div>

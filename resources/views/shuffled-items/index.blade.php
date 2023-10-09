@@ -77,7 +77,7 @@
                                     </td>
                                     <td class="tw-p-2 tw-align-top">
                                         @if ($si->is_published)
-                                            <i class="fa fa-check text-success"></i>
+                                            <i class="fa fa-check tw-text-green-800"></i>
                                             @datetime($si->published_at)
                                         @endif
                                     </td>

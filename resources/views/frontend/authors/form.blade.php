@@ -3,16 +3,16 @@
 <section class="filters">
     <div class="container content-section">
         <div class="row">
-            <div  class="col-md-3 col-xs-6 bottom-space">
+            <div  class="col-md-3 col-xs-6 tw-mb-5">
                 @formWidget($form['role'], ['attr' => ['class' => 'js-custom-select']])
             </div>
-            <div  class="col-md-3 col-xs-6 bottom-space">
+            <div  class="col-md-3 col-xs-6 tw-mb-5">
                 @formWidget($form['nationality'], ['attr' => ['class' => 'js-custom-select']])
             </div>
-            <div  class="col-md-3 col-xs-6 bottom-space">
+            <div  class="col-md-3 col-xs-6 tw-mb-5">
                 @formWidget($form['place'], ['attr' => ['class' => 'js-custom-select']])
             </div>
-            <div  class="col-md-3 col-xs-6 bottom-space">
+            <div  class="col-md-3 col-xs-6 tw-mb-5">
                 @formWidget($form['sex'], ['attr' => ['class' => 'js-custom-select']])
             </div>
         </div>
@@ -20,7 +20,7 @@
             @formWidget($form['years-range'])
         </div>
         <div class="row" style="padding-top: 20px;">
-            <div  class="col-sm-12 text-center alphabet sans">
+            <div  class="col-sm-12 tw-text-center alphabet tw-font-sans">
                 @formWidget($form['first_letter'])
             </div>
         </div>

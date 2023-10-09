@@ -33,8 +33,8 @@
     <div class="container">
         <div class="attributes">
             <div class="row">
-                <div class="col-sm-4 text-center extra-padding top-space">
-                        <img src="{!! $author->getImagePath() !!}" class="img-responsive img-circle" alt="{{ $author->name }}"  itemprop="image">
+                <div class="col-sm-4 tw-text-center extra-padding tw-mt-5">
+                        <img src="{!! $author->getImagePath() !!}" class="img-responsive tw-rounded-full" alt="{{ $author->name }}"  itemprop="image">
                         <div class="content-section">
                             {!! trans_choice('authority.artworks', $author->items_count, ['artworks_url' => route('frontend.catalog.index', ['author' => $author->name]), 'artworks_count' => $author->items_count]) !!}
                             <br/>
@@ -61,7 +61,7 @@
                         @endif
                 </div>
                 <div class="col-sm-8 popis">
-                    <a href="{!! str_contains(URL::previous(), '/autori') ?  URL::previous() : URL::to('/autori') !!} " class="inherit no-border"><i class="icon-arrow-left"></i> {{ utrans('authority.back-to-artists') }}</a>
+                    <a href="{!! str_contains(URL::previous(), '/autori') ?  URL::previous() : URL::to('/autori') !!} " class="inherit tw-border-none"><i class="icon-arrow-left"></i> {{ utrans('authority.back-to-artists') }}</a>
                     <h1 itemprop="name">{!! $author->formatedName !!}</h1>
                     @if ( $author->names->count() > 0)
                         <p class="lead">{{ trans('authority.alternative_names') }} <em>{!! implode("</em>, <em>", $author->formatedNames) !!}</em></p>
@@ -76,21 +76,21 @@
                     @endif
 
                     {{-- @if ( $author->biography) --}}
-                    <div class="text-left biography">
+                    <div class="tw-text-left biography">
                         {!!  $author->biography !!}
                     </div>
                     {{-- @endif --}}
 
                     @if ( $author->events->count() > 0)
                         <div class="events">
-                            <h4 class="top-space">{{ utrans('authority.places') }}</h4>
+                            <h4 class="tw-mt-5">{{ utrans('authority.places') }}</h4>
                             <x-authority-events :author="$author" />
                         </div>
                     @endif
                     @if ($author->sourceLinks->count() > 0)
                         <div class="links">
-                            <h4 class="top-space">{{ utrans('authority.source_links') }}</h4>
-                            <ul class="list-unstyled">
+                            <h4 class="tw-mt-5">{{ utrans('authority.source_links') }}</h4>
+                            <ul class="tw-pl-0 tw-list-none">
                                 @foreach($author->sourceLinks as $link)
                                     <li>
                                         @if($link->url)
@@ -105,8 +105,8 @@
                     @endif
                     @if ($author->externalLinks->count() > 0)
                         <div class="links">
-                            <h4 class="top-space">{{ utrans('authority.external_links') }}</h4>
-                            <ul class="list-unstyled">
+                            <h4 class="tw-mt-5">{{ utrans('authority.external_links') }}</h4>
+                            <ul class="tw-pl-0 tw-list-none">
                                 @foreach($author->externalLinks as $link)
                                     <li>
                                         @if($link->url)
@@ -121,7 +121,7 @@
                     @endif
 
                     @if ( $author->relationships->count() > 0)
-                    <h4 class="top-space">{{ utrans('authority.relationships') }}</h4>
+                    <h4 class="tw-mt-5">{{ utrans('authority.relationships') }}</h4>
                     <table class="table table-condensed relationships">
                         <thead>
                             <tr>
@@ -135,7 +135,7 @@
                             @foreach ($author->getAssociativeRelationships() as $type => $relatedAutorities)
                                 <td>
                                 @foreach ($relatedAutorities as $relatedAuthority)
-                                    <a href="{{ $relatedAuthority->id }}" class="no-border"
+                                    <a href="{{ $relatedAuthority->id }}" class="tw-border-none"
                                        itemprop="{{ $author->isCorporateBody() ?
                                                     ($relatedAuthority->isCorporateBody() ? 'knowsAbout' : 'member') :
                                                     ($relatedAuthority->isCorporateBody() ? 'memberOf' : 'knows') }}">
@@ -159,7 +159,7 @@
 <section class="author preview detail">
     <div class="container">
         <div class="row content-section">
-            <div class="col-xs-12 text-center">
+            <div class="col-xs-12 tw-text-center">
                 <h3>{{ trans_choice('authority.artworks_by_artist', $author->sex) }}</h3>
             </div>
         </div>{{-- row --}}
@@ -173,8 +173,8 @@
             </div>
         </div>{{-- row --}}
         <div class="row content-section">
-            <div class="col-sm-12 text-center">
-                <a href="{!! route('frontend.catalog.index', ['author' => $author->name]) !!}" class="btn btn-default btn-outline sans" >{!! trans_choice('authority.button_show-all-artworks', $author->items_count, ['artworks_count' => $author->items_count])!!} <i class="fa fa-chevron-right "></i></a>
+            <div class="col-sm-12 tw-text-center">
+                <a href="{!! route('frontend.catalog.index', ['author' => $author->name]) !!}" class="btn btn-default btn-outline tw-font-sans" >{!! trans_choice('authority.button_show-all-artworks', $author->items_count, ['artworks_count' => $author->items_count])!!} <i class="fa fa-chevron-right "></i></a>
             </div>
         </div>
 

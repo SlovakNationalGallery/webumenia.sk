@@ -107,7 +107,7 @@ $("document").ready(function() {
                         }
                         format_years += ')';
                     }
-                    return '<p  data-searchd-result="title/'+data.id+'" data-searchd-title="'+data.value+'"><img src="'+data.image+'" class="preview img-circle" />' + data.name + '<br> ' + format_years + '</p>';
+                    return '<p  data-searchd-result="title/'+data.id+'" data-searchd-title="'+data.value+'"><img src="'+data.image+'" class="preview tw-rounded-full" />' + data.name + '<br> ' + format_years + '</p>';
                 }
             }
         },

@@ -5,13 +5,13 @@
     >
         <div
             v-show="show && !closed"
-            class="bg-blue tw-fixed tw-left-0 tw-bottom-0 tw-right-0"
+            class="tw-bg-sky-300 tw-fixed tw-left-0 tw-bottom-0 tw-right-0"
             style="z-index: 2"
         >
             <div class="container">
                 <button
                     @click="close"
-                    class="tw-absolute tw-right-0 tw-top-0 btn btn-link hover:text-black py-3"
+                    class="tw-absolute tw-right-0 tw-top-0 btn btn-link hover:tw-text-black py-3"
                     style="z-index: 3"
                 >
                     <svg

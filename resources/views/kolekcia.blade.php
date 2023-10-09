@@ -53,7 +53,7 @@
 <section class="collection content-header my-5">
     <div class="collection-header">
         <div class="container">
-            <div class="row text-center">
+            <div class="row tw-text-center">
                 <div class="col-md-8 col-md-push-2">
                     <div class="row">
                         @if ($collection->items->count() != 0)
@@ -124,7 +124,7 @@
     <div class="collection-body">
         <div class="container">
             <div class="row">
-                <div class="col-md-8 col-md-offset-2 bottom-space description long-text">
+                <div class="col-md-8 col-md-offset-2 tw-mb-5 description long-text">
                     {!! $collection->text !!}
                 </div>
             </div>
@@ -137,7 +137,7 @@
         'title' => $collection->name,
         'url' => $collection->getUrl(),
         'img' => URL::to($collection->header_image_src),
-        'class' => 'text-center mb-5'
+        'class' => 'tw-text-center mb-5'
     ])
 </section>
 
@@ -146,7 +146,7 @@
         <div class="container">
             <div class="row">
                 @if ($collection->items->count() == 0)
-                    <p class="text-center">{{ utrans('katalog.catalog_no_artworks') }}</p>
+                    <p class="tw-text-center">{{ utrans('katalog.catalog_no_artworks') }}</p>
                 @endif
                 <div class="isotope">
                     @foreach ($collection->items as $item)
@@ -161,8 +161,8 @@
             @unless (Cookie::has('newsletterSubscribedAt'))
             <div class="row my-5">
                 <div class="col-md-8 col-md-push-2">
-                    <div class="bg-blue p-4 p-md-5">
-                        <div class="mx-md-2">
+                    <div class="tw-bg-sky-300 tw-p-8 md:tw-p-12">
+                        <div class="md:tw-mx-2">
                             <livewire:newsletter-signup-form />
                         </div>
                     </div>

@@ -35,7 +35,7 @@
             <div class="col-xs-6">
                 <h4 class="inline">{{ $articles->total() }} {{ trans_choice('articles.count', $articles->total()) }}</h4>
             </div>
-            <div class="col-xs-6 text-right">
+            <div class="col-xs-6 tw-text-right">
                 <filter-sort-by
                     label="{{ trans('general.sort_by') }}"
                     initial-value="{{ $sortBy }}"
@@ -45,23 +45,23 @@
 
             @if($articles->isEmpty())
             <div class="col-xs-12">
-                <p class="text-center">{{ utrans('articles.no_results') }}</p>
+                <p class="tw-text-center">{{ utrans('articles.no_results') }}</p>
             </div>
             @endif
         </div>
         <div class="row content-section">
             @foreach ($articles as $i=>$article)
-                <div class="col-sm-6 col-xs-12 bottom-space">
+                <div class="col-sm-6 col-xs-12 tw-mb-5">
                     @include('components.article_thumbnail', [
                         'article' => $article
                     ])
                 </div>
                 @if ($i % 2 == 1)
-                    <div class="clearfix"></div>
+                    <div class="tw-clear-both"></div>
                 @endif
             @endforeach
         </div>
-        <div class="row text-center">
+        <div class="row tw-text-center">
             {{ $articles->links() }}
         </div>
     </div>

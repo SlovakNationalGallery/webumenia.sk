@@ -51,7 +51,7 @@
                                     </td>
                                     <td class="tw-p-2 tw-align-top">
                                         @if ($a->is_published)
-                                            <i class="fa fa-check text-success"></i>
+                                            <i class="fa fa-check tw-text-green-800"></i>
                                             @datetime($a->published_at)
 
                                             @if ($a->id == $lastPublishedId)

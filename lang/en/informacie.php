@@ -78,25 +78,25 @@ return array(
     'modal_table-content'   => '<thead>
                                     <tr>
                                         <th></th>
-                                        <th class="text-right">A4 size</th>
-                                        <th class="text-right">from A4 to A3+</th>
+                                        <th class= "tw-text-right">A4 size</th>
+                                        <th class= "tw-text-right">from A4 to A3+</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td><strong>reproduction without passepartout and frame</strong></td>
-                                        <td class="text-right">25 €</td>
-                                        <td class="text-right">35 €</td>
+                                        <td class= "tw-text-right">25 €</td>
+                                        <td class= "tw-text-right">35 €</td>
                                     </tr>
                                     <tr>
                                         <td><strong>reproduction in passepartout</strong></td>
-                                        <td class="text-right">35 €</td>
-                                        <td class="text-right">50 €</td>
+                                        <td class= "tw-text-right">35 €</td>
+                                        <td class= "tw-text-right">50 €</td>
                                     </tr>
                                     <tr>
                                         <td><strong>reproduction in passepartout and frame</strong></td>
-                                        <td class="text-right">40 €</td>
-                                        <td class="text-right">60 €</td>
+                                        <td class= "tw-text-right">40 €</td>
+                                        <td class= "tw-text-right">60 €</td>
                                     </tr>
                                 </tbody>',
     'modal_unavailable'         => 'temporarily unavailable for technical reasons',

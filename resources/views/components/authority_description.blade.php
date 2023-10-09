@@ -33,7 +33,7 @@
 </p>
 @if ($author->roles)
     <p class="lead">
-        <span class="hidden"> | {{ utrans('authority.roles') }}:</span>
+        <span class="tw-hidden"> | {{ utrans('authority.roles') }}:</span>
         @foreach ($author->roles as $role)
             <a href="{{ route('frontend.author.index', ['role' => $role]) }}">
                 <strong

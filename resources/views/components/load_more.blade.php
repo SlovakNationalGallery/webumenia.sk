@@ -9,7 +9,7 @@
     </a>
     <div class="page-load-status" style="display: none">
         <p class="infinite-scroll-request" id="infscr-loading"><i class="fa fa-refresh fa-spin fa-lg"></i></p>
-        <p class="infinite-scroll-last text-muted">{{ utrans('katalog.catalog_finished') }}</p>
+        <p class="infinite-scroll-last tw-text-gray-600">{{ utrans('katalog.catalog_finished') }}</p>
         <p class="infinite-scroll-error">{{ utrans('katalog.catalog_finished') }}</p>
     </div>
 
