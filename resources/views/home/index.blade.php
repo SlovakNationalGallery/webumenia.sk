@@ -52,12 +52,12 @@
                     <div
                         class="tw-relative tw-flex tw-flex-col tw-items-center tw-p-6 tw-text-white md:tw-p-8">
                         <h1
-                            class="tw-mt-20 tw-text-center tw-text-3xl tw-drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] md:tw-mt-40 md:tw-text-6xl md:tw-drop-shadow-[0_4px_3px_rgba(0,0,0,0.5)]">
+                            class="tw-mt-20 tw-text-center tw-text-3xl tw-mb-0 tw-font-normal tw-drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] md:tw-mt-40 md:tw-text-6xl md:tw-drop-shadow-[0_4px_3px_rgba(0,0,0,0.5)]">
                             {{ trans('home.shuffled_item.tagline') }}
                         </h1>
                         <div class="tw-max-w-5xl tw-text-center">
                             <p
-                                class="tw-mt-2 tw-drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] md:tw-mt-6 md:tw-text-2xl">
+                                class="tw-mt-2 tw-mb-0 tw-drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] md:tw-mt-6 md:tw-text-2xl">
                                 {!! trans('home.shuffled_item.subtitle') !!}
                             </p>
                         </div>
@@ -90,7 +90,7 @@
                                             </div>
                                         </div>
                                         <button v-on:click="orchestrator.shuffle"
-                                            class="tw-group tw-w-full tw-basis-0 tw-bg-sky-300 tw-px-4 tw-py-2 tw-text-center tw-text-xs tw-text-black tw-transition-colors hover:tw-bg-sky-400 md:tw-px-6 md:tw-text-sm">
+                                            class="tw-group tw-w-full tw-basis-0 tw-bg-sky-300 tw-px-4 tw-py-2 tw-text-center tw-text-xs tw-text-black tw-transition-colors hover:tw-bg-sky-400 md:tw-px-6 md:tw-text-[14px]">
                                             <i
                                                 class="fa fa-repeat tw-mr-2 tw--ml-4 tw-transition-transform group-hover:tw-rotate-45 md:tw-mx-0"></i>
                                             {{ trans('home.shuffled_item.button_shuffle') }}
@@ -117,7 +117,7 @@
                                 </x-home.button>
                             </div>
                             <div
-                                v-bind:class="['tw-text-white/80 tw-flex tw-flex-col tw-items-center tw-text-xs md:tw-self-end md:tw-items-end md:tw-text-sm tw-transition-opacity tw-duration-500', {'tw-opacity-0 tw-pointer-events-none': orchestrator.isShuffling}]">
+                                v-bind:class="['tw-text-white/80 tw-flex tw-flex-col tw-items-center tw-text-xs md:tw-self-end md:tw-items-end md:tw-text-[14px] tw-transition-opacity tw-duration-500', {'tw-opacity-0 tw-pointer-events-none': orchestrator.isShuffling}]">
                                 <div
                                     class="tw-hidden tw-flex-col tw-items-end tw-justify-end tw-gap-x-1 tw-text-right md:tw-flex">
                                     <span>@{{ orchestrator.item.authors }}</span>
@@ -132,7 +132,7 @@
 
                                 <div class="tw-mt-2 tw-text-center">
                                     <a v-bind:href="orchestrator.item.url"
-                                        class="tw-underline tw-decoration-2 tw-underline-offset-2 tw-transition-colors hover:tw-text-white">
+                                        class="tw-underline tw-decoration-2 tw-underline-offset-2 tw-transition-colors tw-text-white/80 hover:tw-text-white">
                                         {{ trans('home.shuffled_item.go_to_item') }}
                                     </a>
                                 </div>
