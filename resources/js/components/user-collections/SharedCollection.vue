@@ -1,7 +1,7 @@
 <template>
     <div v-if="name">
         <div class="tw-flex tw-font-semibold underline">
-            <h4 class="tw-text-lg m-0 tw-grow bg-gray-400 mr-2 tw-font-semibold">
+            <h4 class="tw-text-base m-0 tw-grow bg-gray-400 mr-2 tw-font-semibold">
                 <a :href="shareUrl"
                     ><strong>{{ name }}</strong></a
                 >

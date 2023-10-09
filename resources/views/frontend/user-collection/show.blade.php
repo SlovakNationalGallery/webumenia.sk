@@ -14,7 +14,7 @@
                 {{ trans('user-collection.title') }} <span class="badge badge-primary badge-sup">beta</span>
             </h2>
 
-            <div class="tw-text-lg mt-5">
+            <div class="tw-text-base mt-5">
                 @if($items->isNotEmpty())
                     <p>{{ trans('user-collection.content-intro') }}</p>
                     <p>{{ trans('user-collection.content-usage') }}</p>

@@ -29,7 +29,7 @@
     </div>
 </section>
 
-<section class="articles tw-bg-gray-100">
+<section class="articles bg-light-grey">
     <div class="container">
         <div class="row content-section">
             <div class="col-xs-6">

@@ -1,4 +1,7 @@
 <script>
+import { matchSorter } from 'match-sorter'
+import { formatAuthorName } from './formatters'
+
 export default {
     props: ['options', 'selected'],
     data() {
@@ -8,8 +11,6 @@ export default {
     },
     computed: {
         filteredOptions() {
-            // TODO better matching algorithm?
-            const query = this.search.toLowerCase()
             const optionsWithSelected = [
                 ...this.options.map((option) => ({
                     ...option,
@@ -21,10 +22,9 @@ export default {
                     )
                     .map((selected) => ({ value: selected, count: 0, checked: true })),
             ]
-
-            return optionsWithSelected.filter((option) =>
-                option.value.toLowerCase().includes(query)
-            )
+            return matchSorter(optionsWithSelected, this.search, {
+                keys: [(option) => formatAuthorName(option.value)],
+            })
         },
     },
     render() {

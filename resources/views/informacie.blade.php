@@ -21,7 +21,7 @@
                 <p>{!! utrans('informacie.info_p') !!}</p>
 
             </div>
-            <div class="col-md-8 tw-text-center">
+            <div class="col-md-8 tw-flex tw-justify-center">
                 {!! file_get_contents(public_path('images/gallery-map.svg')) !!}
             </div>
         </div>

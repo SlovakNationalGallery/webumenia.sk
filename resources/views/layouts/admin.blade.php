@@ -16,8 +16,8 @@
 
         <!-- CSS are placed here -->
         <script src="https://use.fontawesome.com/73587c90bb.js"></script>
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="{{ mix('/css/tailwind.css') }}" />
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
         {!! Html::style(mix('/css/admin.css')) !!}
 </head>
 

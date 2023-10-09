@@ -19,7 +19,7 @@
 
 @section('content')
 <div class="container pt-5 mt-5">
-    <div class="mb-5 pb-5 tw-text-lg tw-text-gray-600">
+    <div class="mb-5 pb-5 tw-text-base tw-text-gray-600">
         <p>
             Výber diel z <a href="{{ config('app.url') }}" class="underline">Webu <i class="fa fa-search tw-text-sky-300"></i> umenia</a>.
         </p>
