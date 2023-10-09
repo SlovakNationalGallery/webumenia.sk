@@ -52,7 +52,7 @@
                                     <td>{!! $i->user->name !!}</td>
                                     <td>{!! $i->items()->count() !!}</td>
                                     <td>@datetime($i->created_at)</td>
-                                    <td class="tw-text-center">
+                                    <td class="text-center">
                                         @if ($i->published_at)
                                             <i class="fa fa-check text-success"></i><br />
                                             <small>od @dateShort($i->published_at)</small>

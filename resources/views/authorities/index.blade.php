@@ -66,7 +66,7 @@ autority |
                     </tbody>
                 </table>
 
-                <div class="tw-text-center">
+                <div class="text-center">
                     @if (!empty($search))
                         {!! $authorities->appends(array('search' => $search))->render() !!}
                     @else

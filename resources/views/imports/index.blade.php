@@ -80,7 +80,7 @@
                         </tbody>
                     </table>
 
-                    <div class="tw-text-center">
+                    <div class="text-center">
                         {!! $imports->appends(@Request::except('page'))->render() !!}
                     </div>
 

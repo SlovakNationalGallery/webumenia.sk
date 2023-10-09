@@ -8,7 +8,7 @@
     {!! Form::open(['route' => 'imports.store', 'files'=>true]) !!}
 @endif
 
-<div class="col-md-12 tw-mt-5">
+<div class="col-md-12 top-space">
     @if (Session::has('message'))
         <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
     @endif
@@ -51,19 +51,19 @@
             </div>
 
             @if ( isset($import) && !empty($import->csvFiles()))
-            <div class="form-group tw-mt-5">
+            <div class="form-group top-space">
             {!! Form::label('files', 'Aktuálne CSV súbory:') !!}
             <table class="table">
                 <tr>
                     <th>názov súboru</th>
                     <th>dátum nahratia</th>
-                    <th class= "tw-text-right">velkosť</th>
+                    <th class="text-right">velkosť</th>
                 </tr>
                 @foreach ($import->csvFiles() as $file)
                     <tr>
                         <td>{{ $file->getBasename() }}</td>
                         <td>{{ \Carbon\Carbon::createFromTimestamp($import->lastModified($file)) }}</td>
-                        <td class= "tw-text-right">{{ formatBytes($import->fileSize($file)) }}</td>
+                        <td class="text-right">{{ formatBytes($import->fileSize($file)) }}</td>
                     </tr>
                 @endforeach
             </table>
@@ -113,7 +113,7 @@
 </div>
 
 
-<div class="col-md-12 tw-text-center">
+<div class="col-md-12 text-center">
     {!! Form::submit('Uložiť', array('class' => 'btn btn-primary')) !!} &nbsp;
     {!! link_to_route('imports.index', 'Zrušiť', null, array('class' => 'btn btn-default')) !!}
 </div>

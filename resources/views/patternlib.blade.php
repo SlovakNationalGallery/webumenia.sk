@@ -34,7 +34,7 @@ Pattern Library | @parent
                             <h2 class="panel-title">{{$component['name']}}</h2>
                         </div>
                         <div class="panel-body">
-                            <div class="tw-clear-both">
+                            <div class="clearfix">
                                 <div class="tw-relative {{ isset($component['wrapper_classes']) ? $component['wrapper_classes'] : '' }}">
                                     @include($component['include_path'], $component['data'])
                                     @if (isset($component['include_path_js']))
@@ -60,8 +60,8 @@ Pattern Library | @parent
                             <p>{{$component['usage_notes']}}</p>
                             @endif
 
-                            <a href="#" class="btn btn-default btn-outline tw-font-sans" onclick="toggle_source(event);"><i class="fa fa-code"></i> Show source</a>
-                            <pre class="js-source pre-scrollable tw-hidden" v-pre><code class="html">{{$component['source_code']}}</code></pre>
+                            <a href="#" class="btn btn-default btn-outline sans" onclick="toggle_source(event);"><i class="fa fa-code"></i> Show source</a>
+                            <pre class="js-source pre-scrollable hidden" v-pre><code class="html">{{$component['source_code']}}</code></pre>
                         </div>
                     </div>
                 </div>

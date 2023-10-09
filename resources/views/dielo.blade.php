@@ -48,7 +48,7 @@
                 <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert"
                             aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
                 @endif
-                <div class="col-md-10 col-md-offset-1 tw-text-center content-section mb-3">
+                <div class="col-md-10 col-md-offset-1 text-center content-section mb-3">
                     <h1 class="nadpis-dielo" itemprop="name">{{ $item->title }}</h1>
                     <h2 class="inline">
                         @foreach($item->authors_with_authorities as $author)
@@ -58,7 +58,7 @@
                 </div>
             </div>
             <div class="row img-dielo">
-                <div class="col-md-8 tw-text-center">
+                <div class="col-md-8 text-center">
                     @if ($item->has_iip)
                     @php
                     list($width, $height) = getimagesize(public_path() . $item->getImagePath());
@@ -103,17 +103,17 @@
                         <div class="col-sm-12">
                             @if ($previous)
                             <a href="{{ $previous }}" id="left" class="nav-arrow left">&larr;<span
-                                      class="tw-sr-only">{{ trans('dielo.item_previous-work') }}</span></a>
+                                      class="sr-only">{{ trans('dielo.item_previous-work') }}</span></a>
                             @endif
 
                             @if ($next)
                             <a href="{{ $next }}" id="right" class="nav-arrow right">&rarr;<span
-                                      class="tw-sr-only">{{ trans('dielo.item_next-work') }}</span></a>
+                                      class="sr-only">{{ trans('dielo.item_next-work') }}</span></a>
                             @endif
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 tw-text-left">
+                <div class="col-md-4 text-left">
                     <table class="table attributes">
                         <tbody>
                             <tr>
@@ -293,9 +293,9 @@
                             @if ($item->isFree() && !$item->images->isEmpty())
                             <tr>
                                 <td class="atribut">{{ trans('dielo.item_attr_licence') }}:</td>
-                                {{-- <td><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs" target="_blank" class="tw-border-none"><img alt="Creative Commons License" style="border-width:0; padding-top: 2px;"  src="/images/license/by-nc-sa.svg" title="Creative Commons BY-NC-SA 4.0" data-toggle="tooltip"></a></td> --}}
+                                {{-- <td><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs" target="_blank" class="no-border"><img alt="Creative Commons License" style="border-width:0; padding-top: 2px;"  src="/images/license/by-nc-sa.svg" title="Creative Commons BY-NC-SA 4.0" data-toggle="tooltip"></a></td> --}}
                                 <td><a rel="license" href="{{URL::to('katalog?is_free=' . '1')}}" target="_blank"
-                                       class="tw-border-none license" title="Public Domain" data-toggle="tooltip"><img
+                                       class="no-border license" title="Public Domain" data-toggle="tooltip"><img
                                              alt="Creative Commons License" style="height: 20px; width: auto"
                                              src="{{ asset('/images/license/zero.svg') }}">
                                         {{ trans('general.public_domain') }}</a>
@@ -340,7 +340,7 @@
                     <div id="small-map"></div>
                     @endif
 
-                    <div class="col-md-12 tw-text-center">
+                    <div class="col-md-12 text-center">
                         <user-collections-favourite-button
                             label-add="{{ utrans('general.item_add_to_favourites') }}"
                             label-remove="{{ utrans('general.item_remove_from_favourites') }}"
@@ -349,12 +349,12 @@
                         ></user-collections-favourite-button>
                         @if ($item->isForReproduction())
                         <a href="{{ URL::to('dielo/' . $item->id . '/objednat')  }}"
-                           class="btn btn-cta btn-default btn-outline tw-font-sans tw-w-full"><i class="fa fa-shopping-cart"></i>
+                           class="btn btn-cta btn-default btn-outline sans tw-w-full"><i class="fa fa-shopping-cart"></i>
                             {{ trans('dielo.item_order') }} </a>
                         @endif
                         @if ($item->isFree() && !$item->images->isEmpty())
                         <a href="{{ URL::to('dielo/' . $item->id . '/stiahnut')  }}"
-                           class="btn btn-cta btn-default btn-outline tw-font-sans tw-w-full" id="download"><i
+                           class="btn btn-cta btn-default btn-outline sans tw-w-full" id="download"><i
                                class="fa fa-download"></i>
                             {{ trans('dielo.item_download') }} </a>
                         @endif
@@ -370,7 +370,7 @@
             </div>
             <div class="row">
                 @if (!empty($item->description))
-                <div class="col-lg-8 col-md-10 long-text medium description tw-mb-5  col-md-push-1 col-lg-push-2"
+                <div class="col-lg-8 col-md-10 long-text medium description bottom-space  col-md-push-1 col-lg-push-2"
                      itemprop="description">
                     <div class="long_expandable">
                         {!! $item->description !!}
@@ -404,7 +404,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <h3 class="underlined-links mb-4 mt-5">
-                        <span class="tw-text-gray-500">{{ $item->relationship_type }}: </span>
+                        <span class="grey">{{ $item->relationship_type }}: </span>
                         <a href="{{ route('frontend.catalog.index', ['related_work' => $item->related_work, 'author' => $item->first_author]) }}"
                            itemprop="isPartOf">{{ $item->related_work }}</a>
                         @if ($item->related_work_order)
@@ -426,14 +426,16 @@
     @endif
     <div class="container">
         <div class="row">
-            <div class="{{ $item->has_colors ? 'col-sm-6 sm:tw-pr-12' : 'col-xs-12'}}" id="related-by-metadata">
-                <div class="tw-h-20 tw-text-lg">
-                    <h3 class="tw-mt-5 tw-mb-0">
-                        {{ utrans('dielo.more-items_related-artworks') }}
-                    </h3>
-                    <span class="tw-text-gray-500 tw-font-semibold tw-inline-block tw-mt-1">
-                        {{ trans('dielo.more-items_related-artworks_by-data') }}
-                    </span>
+            <div class="{{ $item->has_colors ? 'col-sm-6 pr-sm-5' : 'col-xs-12'}}" id="related-by-metadata">
+                <div class="tailwind-rules tw-break-keep">
+                    <div class="tw-h-20 tw-text-lg">
+                        <h3 class="tw-mt-5 tw-mb-0">
+                            {{ utrans('dielo.more-items_related-artworks') }}
+                        </h3>
+                        <span class="tw-text-gray-500 tw-font-semibold tw-inline-block tw-mt-1">
+                            {{ trans('dielo.more-items_related-artworks_by-data') }}
+                        </span>
+                    </div>
                 </div>
                 <div class="isotope-container">
                     @foreach ($similar_items as $similar_item)
@@ -449,9 +451,11 @@
             </div>
             @if ($item->has_colors)
             <div class="col-sm-6 pl-sm-5" id="related-by-color">
-                <div class="tw-h-20 tw-text-lg">
-                    <h3 class="tw-mt-5 tw-mb-1">{{ utrans('dielo.more-items_similar-colors') }}</h3>
-                    @include('components.color_list', ['colors' => $item->getColors()])
+                <div class="tailwind-rules tw-break-keep">
+                    <div class="tw-h-20 tw-text-lg">
+                        <h3 class="tw-mt-5 tw-mb-1">{{ utrans('dielo.more-items_similar-colors') }}</h3>
+                        @include('components.color_list', ['colors' => $item->getColors()])
+                    </div>
                 </div>
                 <div class="isotope-container" data-fetch-url="{{ route('dielo.colorrelated', ['id' => $item->id]) }}">
                 </div>
@@ -465,7 +469,7 @@
 <div tabindex="-1" class="modal fade" id="license" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header tw-text-center">
+            <div class="modal-header text-center">
                 <img src="{{ URL::asset('images/license/cc.svg') }}" alt="Creative Commons">
             </div>
             <div class="modal-body">
@@ -477,8 +481,8 @@
                 {!! trans('dielo.modal_license_body-footer', ['free_url' => URL::to('katalog?is_free=1')]) !!}
             </div>
             <div class="modal-footer">
-                <div class="tw-text-center"><button type="button" data-dismiss="modal"
-                            class="btn btn-default btn-outline tw-uppercase tw-font-sans">{{ trans('general.close') }}</button>
+                <div class="text-center"><button type="button" data-dismiss="modal"
+                            class="btn btn-default btn-outline tw-uppercase sans">{{ trans('general.close') }}</button>
                 </div>
             </div>
         </div>
@@ -488,15 +492,15 @@
 <div tabindex="-1" class="modal fade" id="downloadfail" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header tw-text-center">
+            <div class="modal-header text-center">
                 {!! trans('dielo.modal_downloadfail_header-content') !!}
             </div>
             <div class="modal-body">
                 {!! trans('dielo.modal_downloadfail_body-content') !!}
             </div>
             <div class="modal-footer">
-                <div class="tw-text-center"><button type="button" data-dismiss="modal"
-                            class="btn btn-default btn-outline tw-uppercase tw-font-sans">{{ trans('general.close') }}</button>
+                <div class="text-center"><button type="button" data-dismiss="modal"
+                            class="btn btn-default btn-outline tw-uppercase sans">{{ trans('general.close') }}</button>
                 </div>
             </div>
         </div>

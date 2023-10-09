@@ -67,15 +67,15 @@
 
 @endif
 
-<div class="col-md-12 tw-text-center">
-	{!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp;
+<div class="col-md-12 text-center">
+	{!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp; 
 	{!! link_to_route('sketchbook.index', 'Zrušiť', null, array('class' => 'btn btn-default')) !!}
 	{!!Form::close() !!}
 </div>
 
 
 
-<div class="tw-clear-both"></div>
+<div class="clearfix"></div>
 
 
 @stop

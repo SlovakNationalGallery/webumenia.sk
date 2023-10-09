@@ -3,34 +3,18 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                amber: {
-                    100: '#fcf8e3',
-                },
                 gray: {
-                    50: '#f5f5f5', // @lighter-grey
-                    100: '#f0f0f0', // @light-grey
-                    200: '#ededed', //
-                    300: '#cdcdcd', // @mid-grey
-                    500: '#969696', // @grey
+                    100: '#f0f0f0',
+                    200: '#ededed',
+                    300: '#cdcdcd',
+                    500: '#969696',
                     600: '#777',
-                    700: '#5b5d5c',
-                    800: '#333', // @gray-dark
-                    900: '#222', // @gray-darker
-                },
-                green: {
-                    800: '#3c763d', // @brand-success
-                },
-                red: {
-                    500: '#ce2525',
-                    800: '#a94442',
+                    800: '#333',
                 },
                 sky: {
-                    300: '#66ccf4', // @primary-color
+                    300: '#66ccf4',
                     400: '#37bcf1',
                 },
-                stone: {
-                    700: '#484224',
-                }
             },
             fontFamily: {
                 admin: ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],

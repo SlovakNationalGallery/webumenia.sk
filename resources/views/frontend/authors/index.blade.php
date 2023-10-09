@@ -42,15 +42,15 @@
                             {{ trans('authority.authors_counted') }}</h4>
                     @endif
                     @if ($paginator->count() == 0)
-                        <p class="tw-text-center">{{ utrans('authority.authors_none') }}</p>
+                        <p class="text-center">{{ utrans('authority.authors_none') }}</p>
                     @endif
                     @if ($hasFilters)
-                        <a class="btn btn-sm btn-default tw-font-sans btn-outline"
+                        <a class="btn btn-sm btn-default sans btn-outline"
                             href="{!! URL::to('autori') !!}">{{ trans('general.clear_filters') }} <i
                                 class="icon-cross"></i></a>
                     @endif
                 </div>
-                <div class="col-xs-6 tw-text-right">
+                <div class="col-xs-6 text-right">
                     @formRow($form['sort_by'], ['attr' => ['class' => 'js-dropdown-select']])
                 </div>
             </div>
@@ -59,7 +59,7 @@
                     <div class="row author">
                         <div class="col-sm-2 col-xs-4">
                             <a href="{!! $author->getUrl() !!}">
-                                <img src="{!! $author->getImagePath() !!}" class="img-responsive tw-rounded-full"
+                                <img src="{!! $author->getImagePath() !!}" class="img-responsive img-circle"
                                     alt="{{ $author->name }}">
                             </a>
                         </div>
@@ -85,7 +85,7 @@
                                 {!! trans_choice('authority.artworks', $author->items_count, ['artworks_url' => route('frontend.catalog.index', ['author' => $author->name]), 'artworks_count' => $author->items_count]) !!}
                             </div>
                         </div>
-                        <div class="tw-clear-both md:tw-hidden tw-mb-5"></div>
+                        <div class="clearfix visible-xs bottom-space"></div>
                         <div class="col-sm-6">
                             @include('components.artwork_carousel', [
                                 'slick_target' => 'artworks-preview',
@@ -95,7 +95,7 @@
                     </div>
                 @endforeach
                 <div class="row">
-                    <div class="col-sm-12 tw-text-center">
+                    <div class="col-sm-12 text-center">
                         {!! $paginator->appends(@Request::except('page'))->render() !!}
                     </div>
                 </div>
@@ -146,7 +146,7 @@
                 mode: 'multi',
                 render: {
                     item: function(data, escape) {
-                        return '<div class="item">' + '<span class="tw-text-sky-300">' + this
+                        return '<div class="item">' + '<span class="color">' + this
                             .settings.placeholder + ': </span>' + data.text.replace(
                                 /\(.*?\)/g, "") + '</div>';
                     }

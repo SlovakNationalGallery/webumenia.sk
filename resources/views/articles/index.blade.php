@@ -53,13 +53,13 @@
                                     <td>{!! $i->category ? $i->category->name : '' !!}</td>
                                     <td>{!! $i->author !!}</td>
                                     <td>@datetime($i->created_at)</td>
-                                    <td class="tw-text-center">
+                                    <td class="text-center">
                                         @if ($i->publish)
                                             <i class="fa fa-check text-success"></i><br />
                                             <small>od @dateShort($i->published_date) </small>
                                         @endif
                                     </td>
-                                    <td class="tw-text-center">{!! $i->promote ? '<i class="fa fa-check text-success"></i>' : '' !!}</td>
+                                    <td class="text-center">{!! $i->promote ? '<i class="fa fa-check text-success"></i>' : '' !!}</td>
                                     <td>
                                         {!! link_to_action('App\Http\Controllers\ArticleController@edit', 'Upraviť', [$i->id], ['class' => 'btn btn-primary btn-xs btn-outline']) !!}
                                         <a href="{!! $i->getUrl() !!}"

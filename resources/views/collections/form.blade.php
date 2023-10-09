@@ -35,13 +35,13 @@
 <div class="col-md-12">
 
 	<!-- Nav tabs -->
-	<ul class="nav nav-tabs tw-mt-5" role="tablist">
+	<ul class="nav nav-tabs top-space" role="tablist">
 		@foreach (\Config::get('translatable.locales') as $i=>$locale)
 			<li role="presentation" class="{{ ($i==0) ? 'active' : '' }}"><a href="#{{ $locale }}" aria-controls="{{ $locale }}" role="tab" data-toggle="tab">{{ strtoupper($locale) }}</a></li>
 		@endforeach
 	</ul>
 
-	<div class="tab-content tw-mt-5">
+	<div class="tab-content top-space">
 		@foreach (\Config::get('translatable.locales') as $i=>$locale)
 			<div role="tabpanel" class="tab-pane  {{ ($i==0) ? 'active' : '' }}" id="{{ $locale }}">
 				<div class="form-group">
@@ -105,7 +105,7 @@
 	</div>
 </div>
 @endcan
-<div class="col-md-12 tw-text-center">
+<div class="col-md-12 text-center">
 	{!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp;
 	{!! link_to_route('collection.index', 'Zrušiť', null, array('class' => 'btn btn-default')) !!}
 </div>
@@ -123,13 +123,13 @@
 		{!! Form::hidden('collection', $collection->id) !!}
 		</div>
 	</div>
-	<div class="col-md-1 tw-text-right">
+	<div class="col-md-1 text-right">
 		<button type="submit" class="btn btn-default" id="add_event"><i class="fa fa-plus"></i> pridať</button>
 	</div>
-	<div class="col-md-6 tw-text-center"><span class="tw-hidden loader"><i class="fa fa-refresh fa-spin fa-lg"></i> čakaj</span></div>
+	<div class="col-md-6 text-center"><span class="hidden loader"><i class="fa fa-refresh fa-spin fa-lg"></i> čakaj</span></div>
 	{!!Form::close() !!}
 
-	<div class="tw-clear-both"></div>
+	<div class="clearfix"></div>
 
 	<ul class="list-group" id="sortable" data-entity="item"  data-id="{!! $collection->id !!}">
 		@foreach ($collection->items as $item)
@@ -138,7 +138,7 @@
 				<img src="{!! $item->getImagePath(); !!}" alt="náhľad" class="nahlad" >
 				{!! $item->id !!}
 				<a href="{!! URL::to('item/' . $item->id . '/edit' ) !!}">{!! $item->author !!} - {!! $item->title !!}</a>
-			<span class="tw-float-right vertical-center">
+			<span class="pull-right vertical-center">
 			    {{-- <a href="#"><i class="fa fa-arrow-up"></i></a> --}}
 				{{-- <a href="#"><i class="fa fa-arrow-down"></i></a> --}}
 				<a href="{!! URL::to('collection/'.$collection->id.'/detach/'.$item->id) !!}" class="btn btn-danger btn-xs btn-outline" >zmazať</a>
@@ -152,7 +152,7 @@
 	@endif
 </div>
 
-<div class="tw-clear-both"></div>
+<div class="clearfix"></div>
 
 
 @stop

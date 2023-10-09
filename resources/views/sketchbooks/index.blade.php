@@ -48,7 +48,7 @@
                             @foreach ($sketchbooks as $i)
                                 <tr>
                                     <td>{!! $i->order !!}</td>
-                                    <td class="tw-text-center"><img src="{!! $i->item->getImagePath() !!}" alt=""
+                                    <td class="text-center"><img src="{!! $i->item->getImagePath() !!}" alt=""
                                             class="img-responsive nahlad"></td>
                                     <td><a href="{!! $i->item->getUrl() !!}"
                                             target="_blank">{!! $i->item_id !!}</a></td>

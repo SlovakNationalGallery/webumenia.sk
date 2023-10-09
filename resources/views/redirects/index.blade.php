@@ -55,8 +55,8 @@
                                     <td>
                                         @datetime($redirect->created_at)
                                     </td>
-                                    <td class="tw-text-center">{!! $redirect->is_enabled ? '<i class="fa fa-check text-success"></i>' : '' !!}</td>
-                                    <td class="tw-text-center">
+                                    <td class="text-center">{!! $redirect->is_enabled ? '<i class="fa fa-check text-success"></i>' : '' !!}</td>
+                                    <td class="text-center">
                                         {!! $redirect->counter !!}
                                     </td>
                                     <td>

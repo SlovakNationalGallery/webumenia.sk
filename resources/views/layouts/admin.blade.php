@@ -28,7 +28,7 @@
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
-                    <span class="tw-sr-only">Toggle navigation</span>
+                    <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -98,7 +98,7 @@
                         </li>
                         @endcan
                         @can('administer')
-                        <li class="tw-uppercase tw-text-sm tw-font-semibold tw-text-gray-600 pl-4 pt-4 tw-border-b-0">
+                        <li class="tw-uppercase tw-text-sm tw-font-semibold text-muted pl-4 pt-4 tw-border-b-0">
                             Homepage
                         </li>
                         <li class="tw-border-b-0">

@@ -24,7 +24,7 @@
 @stop
 
 @section('content')
-    <div class="tailwind-rules">
+    <div class="tailwind-rules tw-break-keep">
         @if ($shuffledItems->count() > 0)
             <home.shuffle-orchestrator v-bind:items="{{ Js::from($shuffledItems) }}"
                 @if (request()->has('shuffleItemId')) v-bind:initial-item-id="{{ request('shuffleItemId') }}" @endif
@@ -81,9 +81,9 @@
                                                             @{{ filterAttribute.label }}
                                                         </div>
                                                         <div
-                                                            v-bind:class="['tw-whitespace-nowrap tw-transition-opacity tw-text-sm md:tw-text-base tw-text-white', {'tw-opacity-40': orchestrator.isShuffling }]">
+                                                            v-bind:class="['tw-whitespace-nowrap tw-transition-opacity tw-text-sm md:tw-text-base', {'tw-opacity-40': orchestrator.isShuffling }]">
                                                             <a :href="filterAttribute.url"
-                                                                class="hover:tw-underline">@{{ filterAttribute.value }}</a>
+                                                                class="hover:tw-underline tw-text-white">@{{ filterAttribute.value }}</a>
                                                         </div>
                                                     </div>
                                                 </home.transition-in-place>
@@ -124,7 +124,7 @@
                                     <strong>@{{ orchestrator.item.title }}</strong>
                                     <span>@{{ orchestrator.item.dating }}</span>
                                 </div>
-                                <div class="tw-text-center tw-justify-center md:tw-hidden">
+                                <div class="text-center tw-justify-center md:tw-hidden">
                                     <span>@{{ orchestrator.item.authors }},</span>
                                     <strong>@{{ orchestrator.item.title }}</strong>,
                                     <span>@{{ orchestrator.item.dating }}</span>
@@ -265,7 +265,7 @@
                         <div class="tw-relative tw-bg-sky-400">
                             <a href="{{ route('frontend.collection.detail', $c->id) }}">
                                 <img src="{{ $c->getThumbnailImage() }}"
-                                    class="tw-h-48 tw-object-cover tw-transition-opacity tw-duration-300 hover:tw-opacity-80">
+                                    class="tw-h-48 tw-object-cover tw-transition-opacity tw-duration-300 hover:tw-opacity-80 tw-max-w-full">
                             </a>
 
                             <div
@@ -315,7 +315,7 @@
                         <a href="{{ route('frontend.article.detail', $a->slug) }}"
                             class="tw-block tw-bg-sky-400">
                             <img src="{{ $a->getThumbnailImage() }}"
-                                class="tw-h-48 tw-object-cover tw-transition-opacity tw-duration-300 hover:tw-opacity-80">
+                                class="tw-h-48 tw-object-cover tw-transition-opacity tw-duration-300 hover:tw-opacity-80 tw-max-w-full">
                         </a>
                         <span class="tw-mt-4 tw-inline-block tw-text-gray-600">
                             {{ Str::ucfirst($a->category?->name ?? trans('home.latest_content.articles.default_type')) }}

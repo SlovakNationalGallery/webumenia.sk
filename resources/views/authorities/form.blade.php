@@ -8,7 +8,7 @@
   {!! Form::open(['route' => 'authority.store', 'files'=>true]) !!}
 @endif
 
-<div class="col-md-12 tw-mt-5">
+<div class="col-md-12 top-space">
   @if (Session::has('message'))
     <div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>{!! Session::get('message') !!}</div>
   @endif
@@ -50,13 +50,13 @@
         <div class="col-md-12">
 
           <!-- Nav tabs -->
-          <ul class="nav nav-tabs tw-mt-5" role="tablist">
+          <ul class="nav nav-tabs top-space" role="tablist">
             @foreach (\Config::get('translatable.locales') as $i=>$locale)
             <li role="presentation" class="{{ ($i==0) ? 'active' : '' }}"><a href="#{{ $locale }}" aria-controls="{{ $locale }}" role="tab" data-toggle="tab">{{ strtoupper($locale) }}</a></li>
             @endforeach
           </ul>
 
-          <div class="tab-content tw-mt-5">
+          <div class="tab-content top-space">
             @foreach (\Config::get('translatable.locales') as $i=>$locale)
             <div role="tabpanel" class="tab-pane  {{ ($i==0) ? 'active' : '' }}" id="{{ $locale }}">
 
@@ -131,7 +131,7 @@
       <!-- /.row (nested) -->
       <div class="row">
 
-        <div class="col-md-offset-4 col-md-4 tw-text-center">
+        <div class="col-md-offset-4 col-md-4 text-center">
           <div id="image-editor">
             <div class="cropit-image-preview-container">
               <div class="cropit-image-preview"></div>
@@ -163,7 +163,7 @@
   <!-- /.panel -->
 </div>
 
-<div class="col-md-12 tw-text-center">
+<div class="col-md-12 text-center">
   {!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp;
   @if(isset($authority) && $authority->record)
     <a href="{!!URL::to('harvests/'.$authority->record->id.'/refreshRecord')!!}" class="btn btn-warning">Obnoviť z OAI</a>

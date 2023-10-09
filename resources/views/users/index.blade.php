@@ -64,7 +64,7 @@
                         </tbody>
                     </table>
 
-                    <div class="tw-text-center"><?php echo $users->render(); ?></div>
+                    <div class="text-center"><?php echo $users->render(); ?></div>
 
 
                 </div>

@@ -58,7 +58,7 @@
 <section class="article content-header my-5">
     <div class="article-header">
         <div class="container">
-            <div class="row tw-text-center">
+            <div class="row text-center">
                 <div class="col-md-8 col-md-push-2">
                     <div class="row">
                         <div class="col-sm-4">
@@ -97,7 +97,7 @@
                     {!! $article->summary !!}
 
                     <!-- share -->
-                    <div class="tw-text-center">
+                    <div class="text-center">
                         @include('components.share_buttons', [
                             'title' => $article->title,
                             'url' => $article->getUrl(),
@@ -114,8 +114,8 @@
             @unless (Cookie::has('newsletterSubscribedAt'))
             <div class="row my-5">
                 <div class="col-md-8 col-md-push-2">
-                    <div class="tw-bg-sky-300 tw-p-8 md:tw-p-12">
-                        <div class="md:tw-mx-2">
+                    <div class="bg-blue p-4 p-md-5">
+                        <div class="mx-md-2">
                             <livewire:newsletter-signup-form />
                         </div>
                     </div>

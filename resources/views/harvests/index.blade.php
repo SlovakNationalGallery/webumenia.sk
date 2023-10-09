@@ -90,7 +90,7 @@
                         </tbody>
                     </table>
 
-                    <div class="tw-text-center">
+                    <div class="text-center">
                         {!! $harvests->appends(@Request::except('page'))->render() !!}
                     </div>
 

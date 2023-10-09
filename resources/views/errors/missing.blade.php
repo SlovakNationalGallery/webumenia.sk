@@ -11,7 +11,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
-                    <div class="tw-text-center">
+                    <div class="text-center">
                         <h1>{{ trans('missing.h1') }}</h1>
                         <h2 class="tw-uppercase">{{ trans('missing.h2') }}</h2>
                         @if ($item)
@@ -24,7 +24,7 @@
                         @else
                             <p>{{ trans('missing.paragraph_noitem') }}</p>
                         @endif
-                        <h3><a href="{!!URL::to('/')!!}" class="btn btn-default btn-lg btn-outline tw-font-sans"> {{ trans('general.return_home') }}</a></h3>
+                        <h3><a href="{!!URL::to('/')!!}" class="btn btn-default btn-lg btn-outline sans"> {{ trans('general.return_home') }}</a></h3>
                     </div>
                 </div>
             </div>

@@ -65,9 +65,9 @@
     </div>
 </div>
 
-<div class="col-md-12 tw-mt-5">
+<div class="col-md-12 top-space">
     <input class="btn btn-primary" type="submit" value="Uložiť">
-    <p class="tw-mt-5">Posledná zmena: {{ $notice->updated_at }} ({{ $notice->updated_by }})</p>
+    <p class="top-space">Posledná zmena: {{ $notice->updated_at }} ({{ $notice->updated_by }})</p>
 </div>
 
 {!! Form::close() !!}

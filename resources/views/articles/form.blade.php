@@ -27,13 +27,13 @@
 <div class="col-md-12">
 
 	<!-- Nav tabs -->
-	<ul class="nav nav-tabs tw-mt-5" role="tablist">
+	<ul class="nav nav-tabs top-space" role="tablist">
 		@foreach (\Config::get('translatable.locales') as $i=>$locale)
 			<li role="presentation" class="{{ ($i==0) ? 'active' : '' }}"><a href="#{{ $locale }}" aria-controls="{{ $locale }}" role="tab" data-toggle="tab">{{ strtoupper($locale) }}</a></li>
 		@endforeach
 	</ul>
 
-	<div class="tab-content tw-mt-5">
+	<div class="tab-content top-space">
 		@foreach (\Config::get('translatable.locales') as $i=>$locale)
 	    	<div role="tabpanel" class="tab-pane  {{ ($i==0) ? 'active' : '' }}" id="{{ $locale }}">
 				<div class="form-group">
@@ -90,7 +90,7 @@
 					<div class="form-group">
 						{!! Form::label('edu_media_types', 'Formát') !!}
 						{!! Form::select('edu_media_types', $eduMediaTypesOptions, old('edu_media_types'), ['class' => 'select', 'multiple' => 'multiple', 'name' => 'edu_media_types[]']) !!}
-						<p class="tw-text-gray-600">Vyplnením tohto poľa sa článok zaradí do sekcie Vzdelávanie.</p>
+						<p class="text-muted">Vyplnením tohto poľa sa článok zaradí do sekcie Vzdelávanie.</p>
 					</div>
 				</div>
 				<div class="col-md-12">
@@ -104,7 +104,7 @@
 					</div>
 				</div>
 				<div class="col-md-6">
-
+					
 				</div>
 				<div class="col-md-12">
 					<div class="form-group">
@@ -160,14 +160,14 @@
 		{!! Form::checkbox('promote', '1', @$input['promote']) !!}
 	</div>
 </div>
-<div class="col-md-12 tw-text-center">
+<div class="col-md-12 text-center">
 	{!! Form::submit('Uložiť', array('class' => 'btn btn-default')) !!} &nbsp;
 	{!! link_to_route('article.index', 'Zrušiť', null, array('class' => 'btn btn-default')) !!}
 </div>
 {!!Form::close() !!}
 
 
-<div class="tw-clear-both"></div>
+<div class="clearfix"></div>
 
 
 @stop

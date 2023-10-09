@@ -57,13 +57,13 @@
                 <h4 class="inline">{!! $collections->total() !!} {{ trans('kolekcie.collections_collections') }}</h4>
                 @endif
                 @if ($collections->count() == 0)
-                <p class="tw-text-center">{{ utrans('kolekcie.collections_no_collections') }}</p>
+                <p class="text-center">{{ utrans('kolekcie.collections_no_collections') }}</p>
                 @endif
                 {{--  @if (count(Request::all()) > 0)
-                    <a class="btn btn-sm btn-default btn-outline tw-font-sans" href="{!! URL::to('kolekcie')!!}">zrušiť filtre <i class="icon-cross"></i></a>
+                    <a class="btn btn-sm btn-default btn-outline  sans" href="{!! URL::to('kolekcie')!!}">zrušiť filtre <i class="icon-cross"></i></a>
                 @endif --}}
             </div>
-            {{-- <div class="col-xs-6 tw-text-right">
+            {{-- <div class="col-xs-6 text-right">
                 <div class="dropdown">
                   <a class="dropdown-toggle" type="button" id="dropdownSortBy" data-toggle="dropdown" aria-expanded="true">
                     {{ trans('general.sort_by') }} {!! trans(App\Collection::$sortable[$sort_by]) !!}
@@ -80,7 +80,7 @@
             </ul>
         </div>
     </div> --}}
-    <div class="col-xs-6 tw-text-right">
+    <div class="col-xs-6 text-right">
         <filter-sort-by
             label="{{ trans('general.sort_by') }}"
             initial-value="{{ $sortBy }}"
@@ -102,7 +102,7 @@
                         <strong>{!! $collection->name !!}</strong>
                     </a>
                 </div>
-                <div class="collection-meta tw-text-gray-500 ">
+                <div class="collection-meta grey">
                     {{--  {!! $collection->author !!} &nbsp;&middot;&nbsp; --}}
                     {!! $collection->published_at->format('d. m. Y') !!} &nbsp;&middot;&nbsp;
                     {!! $collection->user->name !!} &nbsp;&middot;&nbsp;
@@ -112,7 +112,7 @@
                     {!! $collection->getShortTextAttribute($collection->text, 350) !!}
                 </div>
             </div>
-            <div class="tw-clear-both md:tw-hidden tw-mb-5"></div>
+            <div class="clearfix visible-xs bottom-space"></div>
             <div class="col-sm-6">
                 @include('components.artwork_carousel', [
                 'slick_target' => "artworks-preview",
@@ -123,7 +123,7 @@
         </div>
         @endforeach
         <div class="row">
-            <div class="col-sm-12 tw-text-center">
+            <div class="col-sm-12 text-center">
                 {!! $collections->appends(@Request::except('page'))->render() !!}
             </div>
         </div>
