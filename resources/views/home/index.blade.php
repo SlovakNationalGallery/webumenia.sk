@@ -173,10 +173,10 @@
                         <a href="{{ $featuredPiece->url }}" v-on:click.once.prevent="track"
                             class="tw-absolute tw-inset-0"></a>
 
-                        <h2 class="tw-mt-36 tw-font-semibold tw-drop-shadow md:tw-mt-48 md:tw-text-lg">
+                        <h2 class="tw-mt-36 tw-font-semibold tw-drop-shadow md:tw-mt-48 md:tw-text-lg tw-mb-0">
                             {{ trans('home.featured_piece.title') }}
                         </h2>
-                        <h3 class="tw-mt-4 tw-text-3xl tw-font-semibold tw-drop-shadow md:tw-text-6xl">
+                        <h3 class="tw-mt-4 tw-text-3xl tw-font-semibold tw-drop-shadow md:tw-text-6xl tw-mb-0">
                             {{ $featuredPiece->title }}
                         </h3>
                         <div
@@ -185,7 +185,7 @@
                         </div>
                         <x-home.button href="{{ $featuredPiece->url }}"
                             v-on:click.once.prevent="track"
-                            class="tw-relative tw-mt-3 tw-bg-white/10 md:tw-mt-6">
+                            class="tw-relative tw-mt-3 tw-bg-white/10 md:tw-mt-6 tw-text-white">
                             {{ $featuredPiece->is_collection? trans('home.featured_piece.button_collection'): trans('home.featured_piece.button_article') }}
                         </x-home.button>
                     </div>
@@ -209,22 +209,22 @@
                         {{ trans('home.featured_artwork.title') }}
                     </h2>
                     <div>
-                        <h3 class="tw-text-3xl lg:tw-text-4xl">
-                            <a href="{{ route('dielo', ['id' => $featuredArtwork->item->id]) }}">
+                        <h3 class="tw-text-3xl lg:tw-text-4xl tw-my-0">
+                            <a href="{{ route('dielo', ['id' => $featuredArtwork->item->id]) }}" class="tw-text-inherit">
                                 {{ $featuredArtwork->title }}
                             </a>
                         </h3>
                         <div class="tw-mt-2 tw-text-sm lg:tw-mt-3 lg:tw-text-lg">
                             @foreach ($featuredArtwork->author_links as $l)
                                 <a href="{{ $l->url }}"
-                                    class="hover:tw-underline">{{ $l->label }}</a>
+                                    class="hover:tw-underline tw-text-inherit">{{ $l->label }}</a>
                             @endforeach
                         </div>
                         <div class="tw-text-sm tw-text-gray-500 lg:tw-text-lg">
                             @foreach ($featuredArtwork->metadataLinks as $m)
                                 @if ($m->url)
                                     <a href="{{ $m->url }}"
-                                        class="hover:tw-underline">{{ $m->label }}</a>{{ $loop->last ? '' : ', ' }}
+                                        class="hover:tw-underline tw-text-inherit">{{ $m->label }}</a>{{ $loop->last ? '' : ', ' }}
                                 @else
                                     {{ $m->label }}{{ $loop->last ? '' : ', ' }}
                                 @endif
