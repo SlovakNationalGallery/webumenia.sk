@@ -245,12 +245,12 @@
 
         {{-- Latest content --}}
         <div class="tw-container tw-mx-auto tw-max-w-screen-2xl tw-px-6 tw-py-8 md:tw-py-16 md:tw-px-8">
-            <h2 class="tw-font-semibold md:tw-text-lg">
+            <h2 class="tw-font-semibold md:tw-text-lg tw-m-0">
                 {{ trans('home.latest_content.collections.title') }}
             </h2>
 
             <div class="tw-mt-4 tw-flex tw-items-end tw-justify-between">
-                <h3 class="tw-text-2xl tw-font-semibold md:tw-text-4xl">
+                <h3 class="tw-text-2xl tw-font-semibold md:tw-text-4xl tw-m-0">
                     {{ trans('home.latest_content.collections.tab') }}
                 </h3>
 
@@ -274,18 +274,18 @@
                                 {{ trans('home.latest_content.collections.item_count_suffix') }}
                             </div>
                         </div>
-                        <span class="tw-mt-4 tw-inline-block tw-text-sm tw-text-gray-600">
+                        <span class="tw-mt-4 tw-inline-block tw-text-gray-600">
                             {{ Str::ucfirst($c->type ?? trans('home.latest_content.collections.default_type')) }}
                         </span>
                         <h4
-                            class="tw-truncate tw-text-lg tw-font-semibold tw-leading-tight tw-text-black">
+                            class="tw-truncate tw-text-lg tw-font-semibold tw-leading-tight tw-text-black tw-m-0">
                             <a href="{{ route('frontend.collection.detail', $c->id) }}"
-                                title="{{ $c->name }}">
+                                title="{{ $c->name }}" class="tw-text-inherit">
                                 {{ $c->name }}
                             </a>
                         </h4>
-                        <div class="tw-mt-2 tw-truncate tw-text-sm tw-text-gray-600">
-                            <a
+                        <div class="tw-mt-2 tw-truncate tw-text-gray-600">
+                            <a class="tw-text-inherit"
                                 href="{{ route('frontend.collection.index', ['author' => $c->user->name]) }}">{{ $c->user->name }}</a>
                             ∙ {{ $c->published_at->format('d. m. Y') }}
                         </div>
@@ -300,7 +300,7 @@
             </x-home.carousel>
 
             <div class="tw-mt-8 tw-flex tw-items-end tw-justify-between">
-                <h3 class="tw-text-2xl tw-font-semibold md:tw-text-4xl">
+                <h3 class="tw-text-2xl tw-font-semibold md:tw-text-4xl tw-m-0">
                     {{ trans('home.latest_content.articles.tab') }}
                 </h3>
 
@@ -317,18 +317,18 @@
                             <img src="{{ $a->getThumbnailImage() }}"
                                 class="tw-h-48 tw-object-cover tw-transition-opacity tw-duration-300 hover:tw-opacity-80 tw-max-w-full">
                         </a>
-                        <span class="tw-mt-4 tw-inline-block tw-text-sm tw-text-gray-600">
+                        <span class="tw-mt-4 tw-inline-block tw-text-gray-600">
                             {{ Str::ucfirst($a->category?->name ?? trans('home.latest_content.articles.default_type')) }}
                         </span>
                         <h4
-                            class="tw-truncate tw-text-lg tw-font-semibold tw-leading-tight tw-text-black">
+                            class="tw-truncate tw-text-lg tw-font-semibold tw-leading-tight tw-text-black tw-m-0">
                             <a href="{{ route('frontend.article.detail', $a->slug) }}"
                                 title="{{ $a->title }}">
                                 {{ $a->title }}
                             </a>
                         </h4>
-                        <div class="tw-mt-2 tw-truncate tw-text-sm tw-text-gray-600">
-                            <a
+                        <div class="tw-mt-2 tw-truncate tw-text-gray-600">
+                            <a class="tw-text-inherit"
                                 href="{{ route('frontend.article.index', ['author' => $a->author]) }}">{{ $a->author }}</a>
                             ∙ {{ $a->published_date->format('d. m. Y') }}
                         </div>
@@ -352,9 +352,9 @@
                             class="tw-mt-12 tw-mr-6 tw-hidden tw-h-52 tw-w-52 tw-rounded-full lg:tw-block"
                             alt="{{ $featuredAuthor->formated_name }}">
                         <div>
-                            <h2 class="tw-font-semibold lg:tw-text-lg">
+                            <h2 class="tw-font-semibold lg:tw-text-lg tw-m-0">
                                 {{ trans('home.featured_author.title') }}</h2>
-                            <h3 class="tw-mt-4 tw-text-3xl tw-font-semibold lg:tw-text-4xl">
+                            <h3 class="tw-mt-4 tw-text-3xl tw-font-semibold lg:tw-text-4xl tw-mb-0">
                                 <a href="{{ route('frontend.author.detail', $featuredAuthor) }}"
                                     class="tw-underline tw-decoration-gray-300 tw-underline-offset-4 tw-transition-colors hover:tw-decoration-current">
                                     {{ $featuredAuthor->formated_name }}
@@ -382,7 +382,7 @@
                             </x-home.button>
                             <br />
                             <a href="{{ route('frontend.author.index') }}"
-                                class="tw-mt-6 tw-hidden tw-cursor-pointer tw-text-sm tw-underline tw-decoration-gray-300 tw-underline-offset-4 tw-transition-colors hover:tw-decoration-current lg:tw-inline-block">
+                                class="tw-mt-6 tw-hidden tw-cursor-pointer tw-underline tw-decoration-gray-300 tw-underline-offset-4 tw-transition-colors hover:tw-decoration-current lg:tw-inline-block">
                                 {{ trans('home.featured_author.button_more') }}
                             </a>
                         </div>
