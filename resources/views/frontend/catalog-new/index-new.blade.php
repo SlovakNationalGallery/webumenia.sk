@@ -173,7 +173,7 @@
                                                     {{ trans('item.filter.color') }}<div
                                                         v-if="query.color"
                                                         class="tw-inline-block tw-h-4 tw-w-4"
-                                                        :style="{'background': `#${query.color}`}">
+                                                        v-bind:style="{'background': `#${query.color}`}">
                                                     </div>
                                                 </div>
                                             @endslot
@@ -189,8 +189,9 @@
                                                                 {{ trans('item.filter.clear') }}
                                                             </x-filter.reset_button>
                                                         </div>
-                                                        <filter-new-color-slider :default-color="query.color"
-                                                            @change="handleColorChange">
+                                                        <filter-new-color-slider
+                                                            v-bind:default-color="query.color"
+                                                            v-on:change="handleColorChange">
                                                         </filter-new-color-slider>
                                                     </div>
                                                 </div>
@@ -432,14 +433,14 @@
                                                                         {{ trans('item.filter.color') }}<div
                                                                             v-if="query.color"
                                                                             class="tw-inline-block tw-h-4 tw-w-4"
-                                                                            :style="{'background': `#${query.color}`}">
+                                                                            v-bind:style="{'background': `#${query.color}`}">
                                                                         </div>
                                                                     </div>
                                                                 @endslot
                                                                 @slot('body')
                                                                     <filter-new-color-slider class="tw-px-4"
-                                                                        :default-color="query.color"
-                                                                        @change="handleColorChange">
+                                                                        v-bind:default-color="query.color"
+                                                                        v-on:change="handleColorChange">
                                                                     </filter-new-color-slider>
                                                                     <div v-if="query.color"
                                                                         class="tw-flex tw-justify-center">
@@ -452,25 +453,25 @@
                                                                 @endslot
                                                             </x-filter.disclosure_inline_list_button>
                                                             <filter-new-custom-checkbox class="tw-pt-2"
-                                                                @change="handleCheckboxChange"
+                                                                v-on:change="handleCheckboxChange"
                                                                 v-bind:checked="Boolean(query.has_image)"
                                                                 title="{{ utrans('item.filter.has_image') }}"
                                                                 name="has_image" id="has_image_desktop">
                                                             </filter-new-custom-checkbox>
                                                             <filter-new-custom-checkbox
-                                                                @change="handleCheckboxChange"
+                                                                v-on:change="handleCheckboxChange"
                                                                 v-bind:checked="Boolean(query.has_iip)"
                                                                 title="{{ utrans('item.filter.has_iip') }}"
                                                                 name="has_iip" id="has_iip_desktop">
                                                             </filter-new-custom-checkbox>
                                                             <filter-new-custom-checkbox
-                                                                @change="handleCheckboxChange"
+                                                                v-on:change="handleCheckboxChange"
                                                                 v-bind:checked="Boolean(query.is_free)"
                                                                 title="{{ utrans('item.filter.is_free') }}"
                                                                 name="is_free" id="is_free_desktop">
                                                             </filter-new-custom-checkbox>
                                                             <filter-new-custom-checkbox class="tw-pb-2"
-                                                                @change="handleCheckboxChange"
+                                                                v-on:change="handleCheckboxChange"
                                                                 v-bind:checked="Boolean(query.has_text)"
                                                                 title="{{ utrans('item.filter.has_text') }}"
                                                                 name="has_text" id="has_text_desktop">
@@ -734,7 +735,8 @@
                                                     v-on:click="dc.close">
                                                     {{ trans('item.filter.show_results') }}
                                                     <span class="tw-font-bold">
-                                                        (<catalog.number-formatter value="artworks_total">
+                                                        (<catalog.number-formatter
+                                                            v-bind:value="artworks_total">
                                                         </catalog.number-formatter>)
                                                     </span>
                                                 </button>
@@ -746,19 +748,23 @@
                         </div>
                         <div
                             class="tw-mx-auto tw-hidden tw-max-w-screen-2xl tw-space-x-6 tw-bg-gray-200 tw-px-6 tw-pt-4 tw-pb-2 md:tw-flex md:tw-px-8">
-                            <filter-new-custom-checkbox @change="handleCheckboxChange" :checked="Boolean(query.has_image)"
+                            <filter-new-custom-checkbox v-on:change="handleCheckboxChange"
+                                v-bind:checked="Boolean(query.has_image)"
                                 title="{{ utrans('item.filter.has_image') }}" name="has_image"
                                 id="has_image_desktop">
                             </filter-new-custom-checkbox>
-                            <filter-new-custom-checkbox @change="handleCheckboxChange" :checked="Boolean(query.has_iip)"
+                            <filter-new-custom-checkbox v-on:change="handleCheckboxChange"
+                                v-bind:checked="Boolean(query.has_iip)"
                                 title="{{ utrans('item.filter.has_iip') }}" name="has_iip"
                                 id="has_iip_desktop">
                             </filter-new-custom-checkbox>
-                            <filter-new-custom-checkbox @change="handleCheckboxChange" :checked="Boolean(query.is_free)"
+                            <filter-new-custom-checkbox v-on:change="handleCheckboxChange"
+                                v-bind:checked="Boolean(query.is_free)"
                                 title="{{ utrans('item.filter.is_free') }}" name="is_free"
                                 id="is_free_desktop">
                             </filter-new-custom-checkbox>
-                            <filter-new-custom-checkbox @change="handleCheckboxChange" :checked="Boolean(query.has_text)"
+                            <filter-new-custom-checkbox v-on:change="handleCheckboxChange"
+                                v-bind:checked="Boolean(query.has_text)"
                                 title="{{ utrans('item.filter.has_text') }}" name="has_text"
                                 id="has_text_desktop">
                             </filter-new-custom-checkbox>
@@ -779,7 +785,7 @@
                                         <span v-if="option.filterName === 'color'"
                                             class="tw-flex tw-items-center tw-pr-1.5 tw-text-xs tw-font-semibold tw-uppercase">
                                             <div class="tw-mr-1.5 tw-inline-block tw-h-4 tw-w-4"
-                                                :style="{ 'background-color': `#${option.value}`, 'border-radius': '30px' }">
+                                                v-bind:style="{ 'background-color': `#${option.value}`, 'border-radius': '30px' }">
                                             </div>
                                             @{{ option.value }}
                                         </span>
@@ -971,26 +977,29 @@
                                 <div class="gutter-sizer md:tw-w-8 2xl:tw-w-16"></div>
                                 <div v-masonry-tile
                                     class="item tw-w-full tw-p-2 tw-pb-4 md:tw-w-[calc(33.3333%-1.375rem)] md:tw-p-0 md:tw-pb-6 2xl:tw-w-[calc(33.3333%-2.75rem)] 2xl:tw-pb-10"
-                                    v-for="artwork in artworks" :key="artwork . id">
+                                    v-for="artwork in artworks" v-bind:key="artwork.id">
                                     <div name="artwork-image">
                                         <catalog.artwork-image-controller v-slot="ic">
                                             <div>
-                                                <a :href="$route('dielo', {id: artwork.id})">
-                                                    <img :class="[{'tw-hidden': !ic.isLoaded }, 'tw-w-full']" @load="ic.onImgLoad"
-                                                        :src="$route('dielo.nahlad', {id: artwork.id, width: 220})" :srcset="`${$route('dielo.nahlad', {id: artwork.id, width: 600})} 600w, ${$route('dielo.nahlad', {id: artwork.id, width: 220})} 220w, ${$route('dielo.nahlad', {id: artwork.id, width: 300})} 300w, ${$route('dielo.nahlad', {id: artwork.id, width: 600})} 600w, ${$route('dielo.nahlad', {id: artwork.id, width: 800})} 800w`"
+                                                <a v-bind:href="$route('dielo', {id: artwork.id})">
+                                                    <img v-bind:class="[{'tw-hidden': !ic.isLoaded }, 'tw-w-full']"
+                                                        v-on:load="ic.onImgLoad"
+                                                        v-bind:src="$route('dielo.nahlad', {id: artwork.id, width: 220})"
+                                                        v-bind:srcset="`${$route('dielo.nahlad', {id: artwork.id, width: 600})} 600w, ${$route('dielo.nahlad', {id: artwork.id, width: 220})} 220w, ${$route('dielo.nahlad', {id: artwork.id, width: 300})} 300w, ${$route('dielo.nahlad', {id: artwork.id, width: 600})} 600w, ${$route('dielo.nahlad', {id: artwork.id, width: 800})} 800w`"
                                                         sizes="(max-width: 768px) 250vw, 100vw">
                                                 </a>
-                                                <div :class="[{'tw-hidden': ic.isLoaded }, 'tw-w-full tw-saturate-50 tw-bg-gray-300 tw-flex tw-items-center tw-justify-center']" :style="{'aspect-ratio': artwork.content.image_ratio || 7/8, 'background-color': artwork.content.hsl[0] ? `hsl(${artwork.content.hsl[0].h}, ${artwork.content.hsl[0].s}%, ${artwork.content.hsl[0].l}%)` : undefined}">
+                                                <div v-bind:class="[{'tw-hidden': ic.isLoaded }, 'tw-w-full tw-saturate-50 tw-bg-gray-300 tw-flex tw-items-center tw-justify-center']"
+                                                    v-bind:style="{'aspect-ratio': artwork.content.image_ratio || 7/8, 'background-color': artwork.content.hsl[0] ? `hsl(${artwork.content.hsl[0].h}, ${artwork.content.hsl[0].s}%, ${artwork.content.hsl[0].l}%)` : undefined}">
                                                 </div>
                                             </div>
                                         </catalog.artwork-image-controller>
                                         <div class="tw-mt-6 tw-flex tw-gap-3">
                                             <div class="tw-flex tw-grow tw-flex-col">
-                                                <a :href="$route('dielo', {id: artwork.id})"
+                                                <a v-bind:href="$route('dielo', {id: artwork.id})"
                                                     class="tw-pb-1.5 tw-text-lg tw-font-light tw-italic">@{{ artwork.content.authors_formatted.join(', ') }}</a>
-                                                <a :href="$route('dielo', {id: artwork.id})"
+                                                <a v-bind:href="$route('dielo', {id: artwork.id})"
                                                     class="tw-pb-2 tw-text-lg">@{{ artwork.content.title }}</a>
-                                                <a :href="$route('dielo', {id: artwork.id})"
+                                                <a v-bind:href="$route('dielo', {id: artwork.id})"
                                                     class="tw-text-base tw-font-light">@{{ artwork.content.dating }}</a>
                                             </div>
                                             <div class="tw-flex tw-items-start tw-gap-4">
@@ -1014,7 +1023,8 @@
                                                         </svg>
                                                     </button>
                                                 </user-collections-store>
-                                                <a v-if="artwork.content.has_iip" :href="$route('item.zoom', {id: artwork.id})">
+                                                <a v-if="artwork.content.has_iip"
+                                                    v-bind:href="$route('item.zoom', {id: artwork.id})">
                                                     <svg class="tw-h-5 tw-w-5 tw-fill-current"
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         viewBox="0 0 256 256">
@@ -1029,7 +1039,8 @@
                                 </div>
                             </div>
                             <catalog.infinite-scroll v-if="last_page > page" class="tw-mt-10"
-                                :page="page" @loadmore="loadMore" :is-loading="isFetchingArtworks">
+                                v-bind:page="page" v-on:loadmore="loadMore"
+                                v-bind:is-loading="isFetchingArtworks">
                                 <template #loading-message>
                                     <div class="tw-flex tw-justify-center">
                                         <div
