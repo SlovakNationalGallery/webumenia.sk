@@ -20,8 +20,8 @@
     </template>
     <template #body="pc">
         <transition enter-from-class="tw-opacity-0" leave-to-class="tw-opacity-0"
-            enter-active-class="tw-transition tw-duration-300"
-            leave-active-class="tw-transition tw-duration-300">
+            enter-active-class="tw-transition tw-duration-100"
+            leave-active-class="tw-transition tw-duration-100">
             <div v-if="pc.isOpen" v-on-clickaway="pc.closeOpenedPopover">
                 {{ $body }}
             </div>
