@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- total counts for /api/v1/items
 
 ## [2.82.0] - 2023-10-19
 ### Changed
