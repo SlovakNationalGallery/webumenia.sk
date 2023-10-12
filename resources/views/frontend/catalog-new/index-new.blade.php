@@ -19,7 +19,8 @@
                                             name="author">
                                             @slot('popover_label')
                                                 <filter-new-custom-select-popover-label
-                                                    name="{{ trans('item.author') }}" :selected-values="query['author']">
+                                                    name="{{ trans('item.author') }}"
+                                                    v-bind:selected-values="query.author">
                                                 </filter-new-custom-select-popover-label>
                                             @endslot
                                             @slot('body')
@@ -27,8 +28,8 @@
                                                     class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                     <x-filter.search_options
                                                         search-placeholder="{{ utrans('item.filter.placeholder.name_human') }}"
-                                                        v-bind:options="aggregations['author']"
-                                                        v-bind:selected="query['author']"
+                                                        v-bind:options="aggregations.author"
+                                                        v-bind:selected="query.author"
                                                         v-on:change="e => handleMultiSelectChange('author', e)"
                                                         v-on:reset="clearFilterSelection('author')">
                                                         @slot('label')
@@ -46,7 +47,7 @@
                                             @slot('popover_label')
                                                 <filter-new-custom-select-popover-label
                                                     name="{{ trans('item.work_type') }}"
-                                                    :selected-values="query['work_type']">
+                                                    v-bind:selected-values="query.work_type">
                                                 </filter-new-custom-select-popover-label>
                                             @endslot
                                             @slot('body')
@@ -54,8 +55,8 @@
                                                     class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                     <x-filter.search_options
                                                         search-placeholder="{{ utrans('item.filter.placeholder.term') }}"
-                                                        v-bind:options="aggregations['work_type']"
-                                                        v-bind:selected="query['work_type']"
+                                                        v-bind:options="aggregations.work_type"
+                                                        v-bind:selected="query.work_type"
                                                         v-on:change="e => handleMultiSelectChange('work_type', e)"
                                                         v-on:reset="clearFilterSelection('work_type')" />
                                                 </div>
@@ -65,7 +66,8 @@
                                             v-bind:is-active="query.tag.length > 0" name="tag">
                                             @slot('popover_label')
                                                 <filter-new-custom-select-popover-label
-                                                    name="{{ trans('item.tag') }}" :selected-values="query['tag']">
+                                                    name="{{ trans('item.tag') }}"
+                                                    v-bind:selected-values="query.tag">
                                                 </filter-new-custom-select-popover-label>
                                             @endslot
                                             @slot('body')
@@ -73,8 +75,8 @@
                                                     class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                     <x-filter.search_options
                                                         search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
-                                                        v-bind:options="aggregations['tag']"
-                                                        v-bind:selected="query['tag']"
+                                                        v-bind:options="aggregations.tag"
+                                                        v-bind:selected="query.tag"
                                                         v-on:change="e => handleMultiSelectChange('tag', e)"
                                                         v-on:reset="clearFilterSelection('tag')" />
                                                 </div>
@@ -84,7 +86,8 @@
                                             v-bind:is-active="query.topic.length > 0" name="topic">
                                             @slot('popover_label')
                                                 <filter-new-custom-select-popover-label
-                                                    name="{{ trans('item.topic') }}" :selected-values="query['topic']">
+                                                    name="{{ trans('item.topic') }}"
+                                                    v-bind:selected-values="query.topic">
                                                 </filter-new-custom-select-popover-label>
                                             @endslot
                                             @slot('body')
@@ -92,8 +95,8 @@
                                                     class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                     <x-filter.search_options
                                                         search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
-                                                        v-bind:options="aggregations['topic']"
-                                                        v-bind:selected="query['topic']"
+                                                        v-bind:options="aggregations.topic"
+                                                        v-bind:selected="query.topic"
                                                         v-on:change="e => handleMultiSelectChange('topic', e)"
                                                         v-on:reset="clearFilterSelection('topic')" />
                                                 </div>
@@ -103,7 +106,8 @@
                                             v-bind:is-active="query.gallery.length > 0" name="gallery">
                                             @slot('popover_label')
                                                 <filter-new-custom-select-popover-label
-                                                    name="{{ trans('item.gallery') }}" :selected-values="query['gallery']">
+                                                    name="{{ trans('item.gallery') }}"
+                                                    v-bind:selected-values="query.gallery">
                                                 </filter-new-custom-select-popover-label>
                                             @endslot
                                             @slot('body')
@@ -111,8 +115,8 @@
                                                     class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                     <x-filter.search_options
                                                         search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
-                                                        v-bind:options="aggregations['gallery']"
-                                                        v-bind:selected="query['gallery']"
+                                                        v-bind:options="aggregations.gallery"
+                                                        v-bind:selected="query.gallery"
                                                         v-on:change="e => handleMultiSelectChange('gallery', e)"
                                                         v-on:reset="clearFilterSelection('gallery')" />
                                                 </div>
@@ -125,7 +129,7 @@
                                             @slot('popover_label')
                                                 <filter-new-custom-select-popover-label
                                                     name="{{ trans('item.technique') }}"
-                                                    :selected-values="query['technique']">
+                                                    v-bind:selected-values="query.technique">
                                                 </filter-new-custom-select-popover-label>
                                             @endslot
                                             @slot('body')
@@ -133,8 +137,8 @@
                                                     class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                     <x-filter.search_options
                                                         search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
-                                                        v-bind:options="aggregations['technique']"
-                                                        v-bind:selected="query['technique']"
+                                                        v-bind:options="aggregations.technique"
+                                                        v-bind:selected="query.technique"
                                                         v-on:change="e => handleMultiSelectChange('technique', e)"
                                                         v-on:reset="clearFilterSelection('technique')" />
                                                 </div>
@@ -145,7 +149,8 @@
                                             v-bind:is-active="query.medium.length > 0" name="medium">
                                             @slot('popover_label')
                                                 <filter-new-custom-select-popover-label
-                                                    name="{{ trans('item.medium') }}" :selected-values="query['medium']">
+                                                    name="{{ trans('item.medium') }}"
+                                                    v-bind:selected-values="query.medium">
                                                 </filter-new-custom-select-popover-label>
                                             @endslot
                                             @slot('body')
@@ -153,8 +158,8 @@
                                                     class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                     <x-filter.search_options
                                                         search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
-                                                        v-bind:options="aggregations['medium']"
-                                                        v-bind:selected="query['medium']"
+                                                        v-bind:options="aggregations.medium"
+                                                        v-bind:selected="query.medium"
                                                         v-on:change="e => handleMultiSelectChange('medium', e)"
                                                         v-on:reset="clearFilterSelection('medium')" />
                                                 </div>
@@ -166,9 +171,9 @@
                                                 <div
                                                     class="tw-flex tw-items-center tw-gap-2 tw-text-sm tw-font-semibold md:tw-text-base">
                                                     {{ trans('item.filter.color') }}<div
-                                                        v-if="query['color']"
+                                                        v-if="query.color"
                                                         class="tw-inline-block tw-h-4 tw-w-4"
-                                                        :style="{'background': `#${query['color']}`}">
+                                                        v-bind:style="{'background': `#${query.color}`}">
                                                     </div>
                                                 </div>
                                             @endslot
@@ -179,13 +184,14 @@
                                                         <div v-if="query.color"
                                                             class="tw-flex tw-justify-end">
                                                             <x-filter.reset_button
-                                                                @click="handleColorChange(null)"
+                                                                v-on:click="handleColorChange(null)"
                                                                 class="tw-mb-2">
                                                                 {{ trans('item.filter.clear') }}
                                                             </x-filter.reset_button>
                                                         </div>
-                                                        <filter-new-color-slider :default-color="query['color']"
-                                                            @change="handleColorChange">
+                                                        <filter-new-color-slider
+                                                            v-bind:default-color="query.color"
+                                                            v-on:change="handleColorChange">
                                                         </filter-new-color-slider>
                                                     </div>
                                                 </div>
@@ -198,7 +204,7 @@
                                             @slot('popover_label')
                                                 <filter-new-custom-select-popover-label
                                                     name="{{ trans('item.object_type') }}"
-                                                    :selected-values="query['object_type']">
+                                                    v-bind:selected-values="query.object_type">
                                                 </filter-new-custom-select-popover-label>
                                             @endslot
                                             @slot('body')
@@ -206,8 +212,8 @@
                                                     class="tw-mt-4 tw-flex tw-h-[30rem] tw-w-[20rem] tw-flex-col tw-items-start tw-border-2 tw-border-gray-800 tw-bg-white tw-p-6">
                                                     <x-filter.search_options
                                                         search-placeholder="{{ utrans('item.filter.placeholder.term') }}"
-                                                        v-bind:options="aggregations['object_type']"
-                                                        v-bind:selected="query['object_type']"
+                                                        v-bind:options="aggregations.object_type"
+                                                        v-bind:selected="query.object_type"
                                                         v-on:change="e => handleMultiSelectChange('object_type', e)"
                                                         v-on:reset="clearFilterSelection('object_type')" />
                                                 </div>
@@ -229,7 +235,7 @@
                                                         <div v-if="query.yearRange"
                                                             class="tw-flex tw-justify-end">
                                                             <x-filter.reset_button
-                                                                @click="handleYearRangeChange(null)"
+                                                                v-on:click="handleYearRangeChange(null)"
                                                                 class="tw-mb-3">
                                                                 {{ trans('item.filter.clear') }}
                                                             </x-filter.reset_button>
@@ -247,7 +253,7 @@
                                         </x-filter.search_popover>
                                         <div class="tw-flex tw-gap-1 tw-pb-2">
                                             <div class="tw-border tw-border-transparent">
-                                                <button @click="tc.toggle"
+                                                <button v-on:click="tc.toggle"
                                                     class="tw-flex tw-w-full tw-items-center tw-justify-center tw-border tw-border-gray-300 tw-py-2.5 tw-px-4 tw-text-base tw-font-semibold hover:tw-border-gray-800">
                                                     <div class="tw-flex tw-items-center tw-pr-4">
                                                         <x-icons.minus v-if="tc.isOn"
@@ -272,36 +278,39 @@
                             <filter-disclosure-controller v-slot="dc">
                                 <div class="tw-relative md:tw-hidden">
                                     <div class="tw-flex tw-gap-x-3 tw-overflow-x-auto tw-pb-4 tw-pr-4">
-                                        <x-filter.disclosure_button @click="dc.goTo('author')">
+                                        <x-filter.disclosure_button v-on:click="dc.goTo('author')">
                                             <filter-new-custom-select-popover-label
-                                                name="{{ trans('item.author') }}" :selected-values="query['author']">
+                                                name="{{ trans('item.author') }}"
+                                                v-bind:selected-values="query.author">
                                             </filter-new-custom-select-popover-label>
                                         </x-filter.disclosure_button>
-                                        <x-filter.disclosure_button @click="dc.goTo('work_type')">
+                                        <x-filter.disclosure_button v-on:click="dc.goTo('work_type')">
                                             <filter-new-custom-select-popover-label
                                                 name="{{ trans('item.work_type') }}"
-                                                :selected-values="query['work_type']">
+                                                v-bind:selected-values="query.work_type">
                                             </filter-new-custom-select-popover-label>
                                         </x-filter.disclosure_button>
-                                        <x-filter.disclosure_button @click="dc.goTo('tag')">
+                                        <x-filter.disclosure_button v-on:click="dc.goTo('tag')">
                                             <filter-new-custom-select-popover-label
-                                                name="{{ trans('item.tag') }}" :selected-values="query['tag']">
+                                                name="{{ trans('item.tag') }}"
+                                                v-bind:selected-values="query.tag">
                                             </filter-new-custom-select-popover-label>
                                         </x-filter.disclosure_button>
-                                        <x-filter.disclosure_button @click="dc.goTo('topic')">
+                                        <x-filter.disclosure_button v-on:click="dc.goTo('topic')">
                                             <filter-new-custom-select-popover-label
-                                                name="{{ trans('item.topic') }}" :selected-values="query['topic']">
+                                                name="{{ trans('item.topic') }}"
+                                                v-bind:selected-values="query.topic">
                                             </filter-new-custom-select-popover-label>
                                         </x-filter.disclosure_button>
-                                        <x-filter.disclosure_button @click="dc.goTo('gallery')">
+                                        <x-filter.disclosure_button v-on:click="dc.goTo('gallery')">
                                             <filter-new-custom-select-popover-label
                                                 name="{{ trans('item.gallery') }}"
-                                                :selected-values="query['gallery']">
+                                                v-bind:selected-values="query.gallery">
                                             </filter-new-custom-select-popover-label>
                                         </x-filter.disclosure_button>
                                     </div>
                                     <div class="tw-flex tw-pr-4">
-                                        <button @click="dc.goTo('index')"
+                                        <button v-on:click="dc.goTo('index')"
                                             class="tw-w-full tw-border tw-border-gray-300 tw-py-2 tw-px-3 tw-font-medium hover:tw-border-gray-800">
                                             <div class="tw-flex tw-justify-center tw-gap-1">
                                                 <x-icons.sliders-horizontal
@@ -312,422 +321,471 @@
                                             </div>
                                         </button>
                                     </div>
-                                    <x-filter.disclosure_modal v-if="dc.view !== null"
-                                        @close="dc.close">
-                                        @slot('body')
-                                            <x-filter.disclosure_view v-if="dc.view === 'index'"
-                                                @close="dc.close">
-                                                @slot('header')
-                                                    <span
-                                                        class="tw-text-lg tw-font-semibold">{{ utrans('item.filter.title') }}</span>
-                                                @endslot
-                                                @slot('reset_button')
-                                                    <x-filter.reset_button class="tw-mr-3"
-                                                        v-if="selectedOptionsAsLabels.length"
-                                                        @click="clearAllSelections">
-                                                        {{ trans('item.filter.clear_all') }}
-                                                    </x-filter.reset_button>
-                                                @endslot
-                                                @slot('body')
-                                                    <div
-                                                        class="tw-flex tw-h-[calc(100vh-15rem)] tw-flex-col tw-overflow-auto">
-                                                        <x-filter.disclosure_list_button
-                                                            @click="dc.goTo('author')">
-                                                            <filter-new-custom-select-popover-label
-                                                                name="{{ trans('item.author') }}"
-                                                                :selected-values="query['author']">
-                                                            </filter-new-custom-select-popover-label>
-                                                        </x-filter.disclosure_list_button>
-                                                        <x-filter.disclosure_list_button
-                                                            @click="dc.goTo('work_type')">
-                                                            <filter-new-custom-select-popover-label
-                                                                name="{{ trans('item.work_type') }}"
-                                                                :selected-values="query['work_type']">
-                                                            </filter-new-custom-select-popover-label>
-                                                        </x-filter.disclosure_list_button>
-                                                        <x-filter.disclosure_list_button
-                                                            @click="dc.goTo('tag')">
-                                                            <filter-new-custom-select-popover-label
-                                                                name="{{ trans('item.tag') }}"
-                                                                :selected-values="query['tag']">
-                                                            </filter-new-custom-select-popover-label>
-                                                        </x-filter.disclosure_list_button>
-                                                        <x-filter.disclosure_list_button
-                                                            @click="dc.goTo('topic')">
-                                                            <filter-new-custom-select-popover-label
-                                                                name="{{ trans('item.topic') }}"
-                                                                :selected-values="query['topic']">
-                                                            </filter-new-custom-select-popover-label>
-                                                        </x-filter.disclosure_list_button>
-                                                        <x-filter.disclosure_list_button
-                                                            @click="dc.goTo('gallery')">
-                                                            <filter-new-custom-select-popover-label
-                                                                name="{{ trans('item.gallery') }}"
-                                                                :selected-values="query['gallery']">
-                                                            </filter-new-custom-select-popover-label>
-                                                        </x-filter.disclosure_list_button>
-                                                        <x-filter.disclosure_list_button
-                                                            @click="dc.goTo('technique')">
-                                                            <filter-new-custom-select-popover-label
-                                                                name="{{ trans('item.technique') }}"
-                                                                :selected-values="query['technique']">
-                                                            </filter-new-custom-select-popover-label>
-                                                        </x-filter.disclosure_list_button>
-                                                        <x-filter.disclosure_list_button
-                                                            @click="dc.goTo('medium')">
-                                                            <filter-new-custom-select-popover-label
-                                                                name="{{ trans('item.medium') }}"
-                                                                :selected-values="query['medium']">
-                                                            </filter-new-custom-select-popover-label>
-                                                        </x-filter.disclosure_list_button>
-                                                        <x-filter.disclosure_list_button
-                                                            @click="dc.goTo('object_type')">
-                                                            <filter-new-custom-select-popover-label
-                                                                name="{{ trans('item.object_type') }}"
-                                                                :selected-values="query['object_type']">
-                                                            </filter-new-custom-select-popover-label>
-                                                        </x-filter.disclosure_list_button>
-                                                        <x-filter.disclosure_inline_list_button>
+                                    <transition enter-from-class="tw-opacity-0"
+                                        leave-to-class="tw-opacity-0"
+                                        enter-active-class="tw-transition tw-duration-100"
+                                        leave-active-class="tw-transition tw-duration-100">
+                                        <x-filter.disclosure_modal v-if="dc.view !== null"
+                                            v-on:close="dc.close">
+                                            @slot('body')
+                                                <div class="tw-h-full tw-bg-white">
+                                                    <transition mode="out-in"
+                                                        enter-from-class="tw-opacity-0"
+                                                        leave-to-class="tw-opacity-0"
+                                                        enter-active-class="tw-transition tw-duration-100"
+                                                        leave-active-class="tw-transition tw-duration-100">
+                                                        <x-filter.disclosure_view v-if="dc.view === 'index'"
+                                                            v-on:close="dc.close">
                                                             @slot('header')
-                                                                <div class="tw-font-sm tw-font-semibold">
-                                                                    {{ trans('item.filter.year') }}<span
-                                                                        class="tw-ml-2"
-                                                                        v-if="query.yearRange">(@{{ query.yearRange.from }}
-                                                                        - @{{ query.yearRange.to }})</div>
+                                                                <span
+                                                                    class="tw-text-lg tw-font-semibold">{{ utrans('item.filter.title') }}</span>
+                                                            @endslot
+                                                            @slot('reset_button')
+                                                                <x-filter.reset_button class="tw-mr-3"
+                                                                    v-if="selectedOptionsAsLabels.length"
+                                                                    v-on:click="clearAllSelections">
+                                                                    {{ trans('item.filter.clear_all') }}
+                                                                </x-filter.reset_button>
                                                             @endslot
                                                             @slot('body')
-                                                                <filter-new-year-slider class="tw-px-4"
-                                                                    v-bind:default-from="query.yearRange?.from"
-                                                                    v-bind:default-to="query.yearRange?.to"
-                                                                    v-bind:min="aggregations.date_earliest - 5"
-                                                                    v-bind:max="Math.min(aggregations.date_latest + 5, new Date().getFullYear())"
-                                                                    v-on:change="handleYearRangeChange">
-                                                                </filter-new-year-slider>
-                                                                <div v-if="query.yearRange"
-                                                                    class="tw-flex tw-justify-center">
-                                                                    <x-filter.reset_button
-                                                                        @click="handleYearRangeChange(null)"
-                                                                        class="tw-mt-2.5">
-                                                                        {{ trans('item.filter.clear') }}
-                                                                    </x-filter.reset_button>
-                                                                </div>
-                                                            @endslot
-                                                        </x-filter.disclosure_inline_list_button>
-                                                        <x-filter.disclosure_inline_list_button>
-                                                            @slot('header')
                                                                 <div
-                                                                    class="tw-font-sm tw-flex tw-items-center tw-gap-2 tw-font-semibold">
-                                                                    {{ trans('item.filter.color') }}<div
-                                                                        v-if="query['color']"
-                                                                        class="tw-inline-block tw-h-4 tw-w-4"
-                                                                        :style="{'background': `#${query['color']}`}">
-                                                                    </div>
+                                                                    class="tw-flex tw-h-[calc(100vh-15rem)] tw-flex-col tw-overflow-auto">
+                                                                    <x-filter.disclosure_list_button
+                                                                        v-on:click="dc.goTo('author')">
+                                                                        <filter-new-custom-select-popover-label
+                                                                            name="{{ trans('item.author') }}"
+                                                                            v-bind:selected-values="query.author">
+                                                                        </filter-new-custom-select-popover-label>
+                                                                    </x-filter.disclosure_list_button>
+                                                                    <x-filter.disclosure_list_button
+                                                                        v-on:click="dc.goTo('work_type')">
+                                                                        <filter-new-custom-select-popover-label
+                                                                            name="{{ trans('item.work_type') }}"
+                                                                            v-bind:selected-values="query.work_type">
+                                                                        </filter-new-custom-select-popover-label>
+                                                                    </x-filter.disclosure_list_button>
+                                                                    <x-filter.disclosure_list_button
+                                                                        v-on:click="dc.goTo('tag')">
+                                                                        <filter-new-custom-select-popover-label
+                                                                            name="{{ trans('item.tag') }}"
+                                                                            v-bind:selected-values="query.tag">
+                                                                        </filter-new-custom-select-popover-label>
+                                                                    </x-filter.disclosure_list_button>
+                                                                    <x-filter.disclosure_list_button
+                                                                        v-on:click="dc.goTo('topic')">
+                                                                        <filter-new-custom-select-popover-label
+                                                                            name="{{ trans('item.topic') }}"
+                                                                            v-bind:selected-values="query.topic">
+                                                                        </filter-new-custom-select-popover-label>
+                                                                    </x-filter.disclosure_list_button>
+                                                                    <x-filter.disclosure_list_button
+                                                                        v-on:click="dc.goTo('gallery')">
+                                                                        <filter-new-custom-select-popover-label
+                                                                            name="{{ trans('item.gallery') }}"
+                                                                            v-bind:selected-values="query.gallery">
+                                                                        </filter-new-custom-select-popover-label>
+                                                                    </x-filter.disclosure_list_button>
+                                                                    <x-filter.disclosure_list_button
+                                                                        v-on:click="dc.goTo('technique')">
+                                                                        <filter-new-custom-select-popover-label
+                                                                            name="{{ trans('item.technique') }}"
+                                                                            v-bind:selected-values="query.technique">
+                                                                        </filter-new-custom-select-popover-label>
+                                                                    </x-filter.disclosure_list_button>
+                                                                    <x-filter.disclosure_list_button
+                                                                        v-on:click="dc.goTo('medium')">
+                                                                        <filter-new-custom-select-popover-label
+                                                                            name="{{ trans('item.medium') }}"
+                                                                            v-bind:selected-values="query.medium">
+                                                                        </filter-new-custom-select-popover-label>
+                                                                    </x-filter.disclosure_list_button>
+                                                                    <x-filter.disclosure_list_button
+                                                                        v-on:click="dc.goTo('object_type')">
+                                                                        <filter-new-custom-select-popover-label
+                                                                            name="{{ trans('item.object_type') }}"
+                                                                            v-bind:selected-values="query.object_type">
+                                                                        </filter-new-custom-select-popover-label>
+                                                                    </x-filter.disclosure_list_button>
+                                                                    <x-filter.disclosure_inline_list_button>
+                                                                        @slot('header')
+                                                                            <div
+                                                                                class="tw-font-sm tw-font-semibold">
+                                                                                {{ trans('item.filter.year') }}<span
+                                                                                    class="tw-ml-2"
+                                                                                    v-if="query.yearRange">(@{{ query.yearRange.from }}
+                                                                                    - @{{ query.yearRange.to }})</div>
+                                                                        @endslot
+                                                                        @slot('body')
+                                                                            <filter-new-year-slider
+                                                                                class="tw-px-4"
+                                                                                v-bind:default-from="query.yearRange?.from"
+                                                                                v-bind:default-to="query.yearRange?.to"
+                                                                                v-bind:min="aggregations.date_earliest - 5"
+                                                                                v-bind:max="Math.min(aggregations.date_latest + 5, new Date().getFullYear())"
+                                                                                v-on:change="handleYearRangeChange">
+                                                                            </filter-new-year-slider>
+                                                                            <div v-if="query.yearRange"
+                                                                                class="tw-flex tw-justify-center">
+                                                                                <x-filter.reset_button
+                                                                                    v-on:click="handleYearRangeChange(null)"
+                                                                                    class="tw-mt-2.5">
+                                                                                    {{ trans('item.filter.clear') }}
+                                                                                </x-filter.reset_button>
+                                                                            </div>
+                                                                        @endslot
+                                                                    </x-filter.disclosure_inline_list_button>
+                                                                    <x-filter.disclosure_inline_list_button>
+                                                                        @slot('header')
+                                                                            <div
+                                                                                class="tw-font-sm tw-flex tw-items-center tw-gap-2 tw-font-semibold">
+                                                                                {{ trans('item.filter.color') }}
+                                                                                <div v-if="query.color"
+                                                                                    class="tw-inline-block tw-h-4 tw-w-4"
+                                                                                    v-bind:style="{'background': `#${query.color}`}">
+                                                                                </div>
+                                                                            </div>
+                                                                        @endslot
+                                                                        @slot('body')
+                                                                            <filter-new-color-slider
+                                                                                class="tw-px-4"
+                                                                                v-bind:default-color="query.color"
+                                                                                v-on:change="handleColorChange">
+                                                                            </filter-new-color-slider>
+                                                                            <div v-if="query.color"
+                                                                                class="tw-flex tw-justify-center">
+                                                                                <x-filter.reset_button
+                                                                                    v-on:click="handleColorChange(null)"
+                                                                                    class="tw-mt-4">
+                                                                                    {{ trans('item.filter.clear') }}
+                                                                                </x-filter.reset_button>
+                                                                            </div>
+                                                                        @endslot
+                                                                    </x-filter.disclosure_inline_list_button>
+                                                                    <filter-new-custom-checkbox
+                                                                        class="tw-pt-2"
+                                                                        v-on:change="handleCheckboxChange"
+                                                                        v-bind:checked="Boolean(query.has_image)"
+                                                                        title="{{ utrans('item.filter.has_image') }}"
+                                                                        name="has_image" id="has_image_desktop">
+                                                                    </filter-new-custom-checkbox>
+                                                                    <filter-new-custom-checkbox
+                                                                        v-on:change="handleCheckboxChange"
+                                                                        v-bind:checked="Boolean(query.has_iip)"
+                                                                        title="{{ utrans('item.filter.has_iip') }}"
+                                                                        name="has_iip" id="has_iip_desktop">
+                                                                    </filter-new-custom-checkbox>
+                                                                    <filter-new-custom-checkbox
+                                                                        v-on:change="handleCheckboxChange"
+                                                                        v-bind:checked="Boolean(query.is_free)"
+                                                                        title="{{ utrans('item.filter.is_free') }}"
+                                                                        name="is_free" id="is_free_desktop">
+                                                                    </filter-new-custom-checkbox>
+                                                                    <filter-new-custom-checkbox
+                                                                        class="tw-pb-2"
+                                                                        v-on:change="handleCheckboxChange"
+                                                                        v-bind:checked="Boolean(query.has_text)"
+                                                                        title="{{ utrans('item.filter.has_text') }}"
+                                                                        name="has_text" id="has_text_desktop">
+                                                                    </filter-new-custom-checkbox>
                                                                 </div>
+                                                            @endslot
+                                                        </x-filter.disclosure_view>
+                                                        <x-filter.disclosure_view
+                                                            v-if="dc.view === 'author'"
+                                                            v-on:close="dc.close">
+                                                            @slot('header')
+                                                                <x-filter.view_header_button
+                                                                    v-on:click="dc.goTo('index')">
+                                                                    <filter-new-custom-select-popover-label
+                                                                        name="{{ trans('item.author') }}"
+                                                                        v-bind:selected-values="query.author">
+                                                                    </filter-new-custom-select-popover-label>
+                                                                </x-filter.view_header_button>
+                                                            @endslot
+                                                            @slot('reset_button')
+                                                                <x-filter.reset_button class="tw-mr-3"
+                                                                    v-if="query.author.length"
+                                                                    v-on:click="clearFilterSelection('author')">
+                                                                    {{ trans('item.filter.clear') }}
+                                                                </x-filter.reset_button>
                                                             @endslot
                                                             @slot('body')
-                                                                <filter-new-color-slider class="tw-px-4"
-                                                                    :default-color="query['color']" @change="handleColorChange">
-                                                                </filter-new-color-slider>
-                                                                <div v-if="query.color"
-                                                                    class="tw-flex tw-justify-center">
-                                                                    <x-filter.reset_button
-                                                                        @click="handleColorChange(null)"
-                                                                        class="tw-mt-4">
-                                                                        {{ trans('item.filter.clear') }}
-                                                                    </x-filter.reset_button>
+                                                                <div
+                                                                    class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
+                                                                    <x-filter.search_options
+                                                                        search-placeholder="{{ utrans('item.filter.placeholder.name_human') }}"
+                                                                        v-bind:options="aggregations.author"
+                                                                        v-bind:selected="query.author"
+                                                                        v-on:change="e => handleMultiSelectChange('author', e)"
+                                                                        v-on:reset="clearFilterSelection('author')">
+                                                                        @slot('label')
+                                                                            <catalog.author-formatter
+                                                                                v-bind:value="option.value">
+                                                                            </catalog.author-formatter>
+                                                                        @endslot
+                                                                    </x-filter.search_options>
                                                                 </div>
                                                             @endslot
-                                                        </x-filter.disclosure_inline_list_button>
-                                                        <filter-new-custom-checkbox class="tw-pt-2"
-                                                            @change="handleCheckboxChange" :checked="Boolean(query['has_image'])"
-                                                            title="{{ utrans('item.filter.has_image') }}"
-                                                            name="has_image" id="has_image_desktop">
-                                                        </filter-new-custom-checkbox>
-                                                        <filter-new-custom-checkbox
-                                                            @change="handleCheckboxChange" :checked="Boolean(query['has_iip'])"
-                                                            title="{{ utrans('item.filter.has_iip') }}"
-                                                            name="has_iip" id="has_iip_desktop">
-                                                        </filter-new-custom-checkbox>
-                                                        <filter-new-custom-checkbox
-                                                            @change="handleCheckboxChange" :checked="Boolean(query['is_free'])"
-                                                            title="{{ utrans('item.filter.is_free') }}"
-                                                            name="is_free" id="is_free_desktop">
-                                                        </filter-new-custom-checkbox>
-                                                        <filter-new-custom-checkbox class="tw-pb-2"
-                                                            @change="handleCheckboxChange" :checked="Boolean(query['has_text'])"
-                                                            title="{{ utrans('item.filter.has_text') }}"
-                                                            name="has_text" id="has_text_desktop">
-                                                        </filter-new-custom-checkbox>
-                                                    </div>
-                                                @endslot
-                                            </x-filter.disclosure_view>
-                                            <x-filter.disclosure_view v-if="dc.view === 'author'"
-                                                @close="dc.close">
-                                                @slot('header')
-                                                    <x-filter.view_header_button @click="dc.goTo('index')">
-                                                        <filter-new-custom-select-popover-label
-                                                            name="{{ trans('item.author') }}"
-                                                            :selected-values="query['author']">
-                                                        </filter-new-custom-select-popover-label>
-                                                    </x-filter.view_header_button>
-                                                @endslot
-                                                @slot('reset_button')
-                                                    <x-filter.reset_button class="tw-mr-3"
-                                                        v-if="query.author.length"
-                                                        @click="clearFilterSelection('author')">
-                                                        {{ trans('item.filter.clear') }}
-                                                    </x-filter.reset_button>
-                                                @endslot
-                                                @slot('body')
-                                                    <div
-                                                        class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                        <x-filter.search_options
-                                                            search-placeholder="{{ utrans('item.filter.placeholder.name_human') }}"
-                                                            v-bind:options="aggregations['author']"
-                                                            v-bind:selected="query['author']"
-                                                            v-on:change="e => handleMultiSelectChange('author', e)"
-                                                            v-on:reset="clearFilterSelection('author')">
-                                                            @slot('label')
-                                                                <catalog.author-formatter
-                                                                    v-bind:value="option.value">
-                                                                </catalog.author-formatter>
+                                                        </x-filter.disclosure_view>
+                                                        <x-filter.disclosure_view
+                                                            v-if="dc.view === 'work_type'"
+                                                            v-on:close="dc.close">
+                                                            @slot('header')
+                                                                <x-filter.view_header_button
+                                                                    v-on:click="dc.goTo('index')">
+                                                                    <filter-new-custom-select-popover-label
+                                                                        name="{{ trans('item.work_type') }}"
+                                                                        v-bind:selected-values="query.work_type">
+                                                                    </filter-new-custom-select-popover-label>
+                                                                </x-filter.view_header_button>
                                                             @endslot
-                                                        </x-filter.search_options>
-                                                    </div>
-                                                @endslot
-                                            </x-filter.disclosure_view>
-                                            <x-filter.disclosure_view v-if="dc.view === 'work_type'"
-                                                @close="dc.close">
-                                                @slot('header')
-                                                    <x-filter.view_header_button @click="dc.goTo('index')">
-                                                        <filter-new-custom-select-popover-label
-                                                            name="{{ trans('item.work_type') }}"
-                                                            :selected-values="query['work_type']">
-                                                        </filter-new-custom-select-popover-label>
-                                                    </x-filter.view_header_button>
-                                                @endslot
-                                                @slot('reset_button')
-                                                    <x-filter.reset_button class="tw-mr-3"
-                                                        v-if="query.work_type.length"
-                                                        @click="clearFilterSelection('work_type')">
-                                                        {{ trans('item.filter.clear') }}
-                                                    </x-filter.reset_button>
-                                                @endslot
-                                                @slot('body')
-                                                    <div
-                                                        class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                        <x-filter.search_options
-                                                            search-placeholder="{{ utrans('item.filter.placeholder.term') }}"
-                                                            v-bind:options="aggregations['work_type']"
-                                                            v-bind:selected="query['work_type']"
-                                                            v-on:change="e => handleMultiSelectChange('work_type', e)"
-                                                            v-on:reset="clearFilterSelection('work_type')" />
-                                                    </div>
-                                                @endslot
-                                            </x-filter.disclosure_view>
-                                            <x-filter.disclosure_view v-if="dc.view === 'object_type'"
-                                                @close="dc.close">
-                                                @slot('header')
-                                                    <x-filter.view_header_button @click="dc.goTo('index')">
-                                                        <filter-new-custom-select-popover-label
-                                                            name="{{ trans('item.object_type') }}"
-                                                            :selected-values="query['object_type']">
-                                                        </filter-new-custom-select-popover-label>
-                                                    </x-filter.view_header_button>
-                                                @endslot
-                                                @slot('reset_button')
-                                                    <x-filter.reset_button class="tw-mr-3"
-                                                        v-if="query.object_type.length"
-                                                        @click="clearFilterSelection('object_type')">
-                                                        {{ trans('item.filter.clear') }}
-                                                    </x-filter.reset_button>
-                                                @endslot
-                                                @slot('body')
-                                                    <div
-                                                        class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                        <x-filter.search_options
-                                                            search-placeholder="{{ utrans('item.filter.placeholder.term') }}"
-                                                            v-bind:options="aggregations['object_type']"
-                                                            v-bind:selected="query['object_type']"
-                                                            v-on:change="e => handleMultiSelectChange('object_type', e)"
-                                                            v-on:reset="clearFilterSelection('object_type')" />
-                                                    </div>
-                                                @endslot
-                                            </x-filter.disclosure_view>
-                                            <x-filter.disclosure_view v-if="dc.view === 'tag'"
-                                                @close="dc.close">
-                                                @slot('header')
-                                                    <x-filter.view_header_button @click="dc.goTo('index')">
-                                                        <filter-new-custom-select-popover-label
-                                                            name="{{ trans('item.tag') }}"
-                                                            :selected-values="query['tag']">
-                                                        </filter-new-custom-select-popover-label>
-                                                    </x-filter.view_header_button>
-                                                @endslot
-                                                @slot('reset_button')
-                                                    <x-filter.reset_button class="tw-mr-3"
-                                                        v-if="query.tag.length"
-                                                        @click="clearFilterSelection('tag')">
-                                                        {{ trans('item.filter.clear') }}
-                                                    </x-filter.reset_button>
-                                                @endslot
-                                                @slot('body')
-                                                    <div
-                                                        class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                        <x-filter.search_options
-                                                            search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
-                                                            v-bind:options="aggregations['tag']"
-                                                            v-bind:selected="query['tag']"
-                                                            v-on:change="e => handleMultiSelectChange('tag', e)"
-                                                            v-on:reset="clearFilterSelection('tag')" />
-                                                    </div>
-                                                @endslot
-                                            </x-filter.disclosure_view>
-                                            <x-filter.disclosure_view v-if="dc.view === 'gallery'"
-                                                @close="dc.close">
-                                                @slot('header')
-                                                    <x-filter.view_header_button @click="dc.goTo('index')">
-                                                        <filter-new-custom-select-popover-label
-                                                            name="{{ trans('item.gallery') }}"
-                                                            :selected-values="query['gallery']">
-                                                        </filter-new-custom-select-popover-label>
-                                                    </x-filter.view_header_button>
-                                                @endslot
-                                                @slot('reset_button')
-                                                    <x-filter.reset_button class="tw-mr-3"
-                                                        v-if="query.gallery.length"
-                                                        @click="clearFilterSelection('gallery')">
-                                                        {{ trans('item.filter.clear') }}
-                                                    </x-filter.reset_button>
-                                                @endslot
-                                                @slot('body')
-                                                    <x-filter.search_options
-                                                        search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
-                                                        v-bind:options="aggregations['gallery']"
-                                                        v-bind:selected="query['gallery']"
-                                                        v-on:change="e => handleMultiSelectChange('gallery', e)"
-                                                        v-on:reset="clearFilterSelection('gallery')" />
-                                                @endslot
-                                            </x-filter.disclosure_view>
-                                            <x-filter.disclosure_view v-if="dc.view === 'technique'"
-                                                @close="dc.close">
-                                                @slot('header')
-                                                    <x-filter.view_header_button @click="dc.goTo('index')">
-                                                        <filter-new-custom-select-popover-label
-                                                            name="{{ trans('item.technique') }}"
-                                                            :selected-values="query['technique']">
-                                                        </filter-new-custom-select-popover-label>
-                                                    </x-filter.view_header_button>
-                                                @endslot
-                                                @slot('reset_button')
-                                                    <x-filter.reset_button class="tw-mr-3"
-                                                        v-if="query.technique.length"
-                                                        @click="clearFilterSelection('technique')">
-                                                        {{ trans('item.filter.clear') }}
-                                                    </x-filter.reset_button>
-                                                @endslot
-                                                @slot('body')
-                                                    <div
-                                                        class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                        <x-filter.search_options
-                                                            search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
-                                                            v-bind:options="aggregations['technique']"
-                                                            v-bind:selected="query['technique']"
-                                                            v-on:change="e => handleMultiSelectChange('technique', e)"
-                                                            v-on:reset="clearFilterSelection('technique')" />
-                                                    </div>
-                                                @endslot
-                                            </x-filter.disclosure_view>
-                                            <x-filter.disclosure_view v-if="dc.view === 'topic'"
-                                                @close="dc.close">
-                                                @slot('header')
-                                                    <x-filter.view_header_button @click="dc.goTo('index')">
-                                                        <filter-new-custom-select-popover-label
-                                                            name="{{ trans('item.topic') }}"
-                                                            :selected-values="query['topic']">
-                                                        </filter-new-custom-select-popover-label>
-                                                    </x-filter.view_header_button>
-                                                @endslot
-                                                @slot('reset_button')
-                                                    <x-filter.reset_button class="tw-mr-3"
-                                                        v-if="query.topic.length"
-                                                        @click="clearFilterSelection('topic')">
-                                                        {{ trans('item.filter.clear') }}
-                                                    </x-filter.reset_button>
-                                                @endslot
-                                                @slot('body')
-                                                    <div
-                                                        class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                        <x-filter.search_options
-                                                            search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
-                                                            v-bind:options="aggregations['topic']"
-                                                            v-bind:selected="query['topic']"
-                                                            v-on:change="e => handleMultiSelectChange('topic', e)"
-                                                            v-on:reset="clearFilterSelection('topic')" />
-                                                    </div>
-                                                @endslot
-                                            </x-filter.disclosure_view>
-                                            <x-filter.disclosure_view v-if="dc.view === 'medium'"
-                                                @close="dc.close">
-                                                @slot('header')
-                                                    <x-filter.view_header_button @click="dc.goTo('index')">
-                                                        <filter-new-custom-select-popover-label
-                                                            name="{{ trans('item.medium') }}"
-                                                            :selected-values="query['medium']">
-                                                        </filter-new-custom-select-popover-label>
-                                                    </x-filter.view_header_button>
-                                                @endslot
-                                                @slot('reset_button')
-                                                    <x-filter.reset_button class="tw-mr-3"
-                                                        v-if="query.medium.length"
-                                                        @click="clearFilterSelection('medium')">
-                                                        {{ trans('item.filter.clear') }}
-                                                    </x-filter.reset_button>
-                                                @endslot
-                                                @slot('body')
-                                                    <div
-                                                        class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
-                                                        <x-filter.search_options
-                                                            search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
-                                                            v-bind:options="aggregations['medium']"
-                                                            v-bind:selected="query['medium']"
-                                                            v-on:change="e => handleMultiSelectChange('medium', e)"
-                                                            v-on:reset="clearFilterSelection('medium')" />
-                                                    </div>
-                                                @endslot
-                                            </x-filter.disclosure_view>
-                                        @endslot
-                                        @slot('footer')
-                                            <button class="tw-m-4 tw-w-full tw-bg-sky-300 tw-p-4"
-                                                @click="dc.close">
-                                                {{ trans('item.filter.show_results') }} <span
-                                                    class="tw-font-bold">(
-                                                    <catalog.number-formatter v-bind:value="artworks_total">
-                                                    </catalog.number-formatter>)
-                                                </span>
-                                            </button>
-                                        @endslot
-                                        </x-filter.disclosure-modal>
+                                                            @slot('reset_button')
+                                                                <x-filter.reset_button class="tw-mr-3"
+                                                                    v-if="query.work_type.length"
+                                                                    v-on:click="clearFilterSelection('work_type')">
+                                                                    {{ trans('item.filter.clear') }}
+                                                                </x-filter.reset_button>
+                                                            @endslot
+                                                            @slot('body')
+                                                                <div
+                                                                    class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
+                                                                    <x-filter.search_options
+                                                                        search-placeholder="{{ utrans('item.filter.placeholder.term') }}"
+                                                                        v-bind:options="aggregations.work_type"
+                                                                        v-bind:selected="query.work_type"
+                                                                        v-on:change="e => handleMultiSelectChange('work_type', e)"
+                                                                        v-on:reset="clearFilterSelection('work_type')">
+                                                                    </x-filter.search_options>
+                                                                </div>
+                                                            @endslot
+                                                        </x-filter.disclosure_view>
+                                                        <x-filter.disclosure_view
+                                                            v-if="dc.view === 'object_type'"
+                                                            v-on:close="dc.close">
+                                                            @slot('header')
+                                                                <x-filter.view_header_button
+                                                                    v-on:click="dc.goTo('index')">
+                                                                    <filter-new-custom-select-popover-label
+                                                                        name="object_type"
+                                                                        v-bind:selected-values="query.object_type">
+                                                                    </filter-new-custom-select-popover-label>
+                                                                </x-filter.view_header_button>
+                                                            @endslot
+                                                            @slot('reset_button')
+                                                                <x-filter.reset_button class="tw-mr-3"
+                                                                    v-if="query.object_type.length"
+                                                                    v-on:click="clearFilterSelection('object_type')">
+                                                                    {{ trans('item.filter.clear') }}
+                                                                </x-filter.reset_button>
+                                                            @endslot
+                                                            @slot('body')
+                                                                <div
+                                                                    class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
+                                                                    <x-filter.search_options
+                                                                        search-placeholder="{{ utrans('item.filter.placeholder.term') }}"
+                                                                        v-bind:options="aggregations.object_type"
+                                                                        v-bind:selected="query.object_type"
+                                                                        v-on:change="e => handleMultiSelectChange('object_type', e)"
+                                                                        v-on:reset="clearFilterSelection('object_type')">
+                                                                    </x-filter.search_options>
+                                                                </div>
+                                                            @endslot
+                                                        </x-filter.disclosure_view>
+                                                        <x-filter.disclosure_view v-if="dc.view === 'tag'"
+                                                            v-on:close="dc.close">
+                                                            @slot('header')
+                                                                <x-filter.view_header_button
+                                                                    v-on:click="dc.goTo('index')">
+                                                                    <filter-new-custom-select-popover-label
+                                                                        name="{{ trans('item.tag') }}"
+                                                                        v-bind:selected-values="query.tag">
+                                                                    </filter-new-custom-select-popover-label>
+                                                                </x-filter.view_header_button>
+                                                            @endslot
+                                                            @slot('reset_button')
+                                                                <x-filter.reset_button class="tw-mr-3"
+                                                                    v-if="query.tag.length"
+                                                                    v-on:click="clearFilterSelection('tag')">
+                                                                    {{ trans('item.filter.clear') }}
+                                                                </x-filter.reset_button>
+                                                            @endslot
+                                                            @slot('body')
+                                                                <div
+                                                                    class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
+                                                                    <x-filter.search_options
+                                                                        search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
+                                                                        v-bind:options="aggregations.tag"
+                                                                        v-bind:selected="query.tag"
+                                                                        v-on:change="e => handleMultiSelectChange('tag', e)"
+                                                                        v-on:reset="clearFilterSelection('tag')">
+                                                                    </x-filter.search_options>
+                                                                </div>
+                                                            @endslot
+                                                        </x-filter.disclosure_view>
+                                                        <x-filter.disclosure_view
+                                                            v-if="dc.view === 'gallery'"
+                                                            v-on:close="dc.close">
+                                                            @slot('header')
+                                                                <x-filter.view_header_button
+                                                                    v-on:click="dc.goTo('index')">
+                                                                    <filter-new-custom-select-popover-label
+                                                                        name="{{ trans('item.gallery') }}"
+                                                                        v-bind:selected-values="query.gallery">
+                                                                    </filter-new-custom-select-popover-label>
+                                                                </x-filter.view_header_button>
+                                                            @endslot
+                                                            @slot('reset_button')
+                                                                <x-filter.reset_button class="tw-mr-3"
+                                                                    v-if="query.gallery.length"
+                                                                    v-on:click="clearFilterSelection('gallery')">
+                                                                    {{ trans('item.filter.clear') }}
+                                                                </x-filter.reset_button>
+                                                            @endslot
+                                                            @slot('body')
+                                                                <x-filter.search_options
+                                                                    search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
+                                                                    v-bind:options="aggregations.gallery"
+                                                                    v-bind:selected="query.gallery"
+                                                                    v-on:change="e => handleMultiSelectChange('gallery', e)"
+                                                                    v-on:reset="clearFilterSelection('gallery')">
+                                                                </x-filter.search_options>
+                                                            @endslot
+                                                        </x-filter.disclosure_view>
+                                                        <x-filter.disclosure_view
+                                                            v-if="dc.view === 'technique'"
+                                                            v-on:close="dc.close">
+                                                            @slot('header')
+                                                                <x-filter.view_header_button
+                                                                    v-on:click="dc.goTo('index')">
+                                                                    <filter-new-custom-select-popover-label
+                                                                        name="{{ trans('item.technique') }}"
+                                                                        v-bind:selected-values="query.technique">
+                                                                    </filter-new-custom-select-popover-label>
+                                                                </x-filter.view_header_button>
+                                                            @endslot
+                                                            @slot('reset_button')
+                                                                <x-filter.reset_button class="tw-mr-3"
+                                                                    v-if="query.technique.length"
+                                                                    v-on:click="clearFilterSelection('technique')">
+                                                                    {{ trans('item.filter.clear') }}
+                                                                </x-filter.reset_button>
+                                                            @endslot
+                                                            @slot('body')
+                                                                <div
+                                                                    class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
+                                                                    <x-filter.search_options
+                                                                        search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
+                                                                        v-bind:options="aggregations.technique"
+                                                                        v-bind:selected="query.technique"
+                                                                        v-on:change="e => handleMultiSelectChange('technique', e)"
+                                                                        v-on:reset="clearFilterSelection('technique')">
+                                                                    </x-filter.search_options>
+                                                                </div>
+                                                            @endslot
+                                                        </x-filter.disclosure_view>
+                                                        <x-filter.disclosure_view v-if="dc.view === 'topic'"
+                                                            v-on:close="dc.close">
+                                                            @slot('header')
+                                                                <x-filter.view_header_button
+                                                                    v-on:click="dc.goTo('index')">
+                                                                    <filter-new-custom-select-popover-label
+                                                                        name="{{ trans('item.topic') }}"
+                                                                        v-bind:selected-values="query.topic">
+                                                                    </filter-new-custom-select-popover-label>
+                                                                </x-filter.view_header_button>
+                                                            @endslot
+                                                            @slot('reset_button')
+                                                                <x-filter.reset_button class="tw-mr-3"
+                                                                    v-if="query.topic.length"
+                                                                    v-on:click="clearFilterSelection('topic')">
+                                                                    {{ trans('item.filter.clear') }}
+                                                                </x-filter.reset_button>
+                                                            @endslot
+                                                            @slot('body')
+                                                                <div
+                                                                    class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
+                                                                    <x-filter.search_options
+                                                                        search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
+                                                                        v-bind:options="aggregations.topic"
+                                                                        v-bind:selected="query.topic"
+                                                                        v-on:change="e => handleMultiSelectChange('topic', e)"
+                                                                        v-on:reset="clearFilterSelection('topic')">
+                                                                    </x-filter.search_options>
+                                                                </div>
+                                                            @endslot
+                                                        </x-filter.disclosure_view>
+                                                        <x-filter.disclosure_view
+                                                            v-if="dc.view === 'medium'"
+                                                            v-on:close="dc.close">
+                                                            @slot('header')
+                                                                <x-filter.view_header_button
+                                                                    v-on:click="dc.goTo('index')">
+                                                                    <filter-new-custom-select-popover-label
+                                                                        name="{{ trans('item.medium') }}"
+                                                                        v-bind:selected-values="query.medium">
+                                                                    </filter-new-custom-select-popover-label>
+                                                                </x-filter.view_header_button>
+                                                            @endslot
+                                                            @slot('reset_button')
+                                                                <x-filter.reset_button class="tw-mr-3"
+                                                                    v-if="query.medium.length"
+                                                                    v-on:click="clearFilterSelection('medium')">
+                                                                    {{ trans('item.filter.clear') }}
+                                                                </x-filter.reset_button>
+                                                            @endslot
+                                                            @slot('body')
+                                                                <div
+                                                                    class="tw-inset-x-0 tw-box-border tw-flex tw-min-h-0 tw-flex-1 tw-flex-col tw-overflow-auto">
+                                                                    <x-filter.search_options
+                                                                        search-placeholder="{{ utrans('item.filter.placeholder.name_object') }}"
+                                                                        v-bind:options="aggregations.medium"
+                                                                        v-bind:selected="query.medium"
+                                                                        v-on:change="e => handleMultiSelectChange('medium', e)"
+                                                                        v-on:reset="clearFilterSelection('medium')">
+                                                                    </x-filter.search_options>
+                                                                </div>
+                                                            @endslot
+                                                        </x-filter.disclosure_view>
+                                                    </transition>
+                                                </div>
+                                            @endslot
+                                            @slot('footer')
+                                                <button class="tw-m-4 tw-w-full tw-bg-sky-300 tw-p-4"
+                                                    v-on:click="dc.close">
+                                                    {{ trans('item.filter.show_results') }}
+                                                    <span class="tw-font-bold">
+                                                        (<catalog.number-formatter
+                                                            v-bind:value="artworks_total">
+                                                        </catalog.number-formatter>)
+                                                    </span>
+                                                </button>
+                                            @endslot
+                                            </x-filter.disclosure-modal>
+                                    </transition>
                                 </div>
                             </filter-disclosure-controller>
                         </div>
                         <div
                             class="tw-mx-auto tw-hidden tw-max-w-screen-2xl tw-space-x-6 tw-bg-gray-200 tw-px-6 tw-pt-4 tw-pb-2 md:tw-flex md:tw-px-8">
-                            <filter-new-custom-checkbox @change="handleCheckboxChange"
-                                :checked="Boolean(query['has_image'])" title="{{ utrans('item.filter.has_image') }}"
-                                name="has_image" id="has_image_desktop">
+                            <filter-new-custom-checkbox v-on:change="handleCheckboxChange"
+                                v-bind:checked="Boolean(query.has_image)"
+                                title="{{ utrans('item.filter.has_image') }}" name="has_image"
+                                id="has_image_desktop">
                             </filter-new-custom-checkbox>
-                            <filter-new-custom-checkbox @change="handleCheckboxChange"
-                                :checked="Boolean(query['has_iip'])" title="{{ utrans('item.filter.has_iip') }}"
-                                name="has_iip" id="has_iip_desktop">
+                            <filter-new-custom-checkbox v-on:change="handleCheckboxChange"
+                                v-bind:checked="Boolean(query.has_iip)"
+                                title="{{ utrans('item.filter.has_iip') }}" name="has_iip"
+                                id="has_iip_desktop">
                             </filter-new-custom-checkbox>
-                            <filter-new-custom-checkbox @change="handleCheckboxChange"
-                                :checked="Boolean(query['is_free'])" title="{{ utrans('item.filter.is_free') }}"
-                                name="is_free" id="is_free_desktop">
+                            <filter-new-custom-checkbox v-on:change="handleCheckboxChange"
+                                v-bind:checked="Boolean(query.is_free)"
+                                title="{{ utrans('item.filter.is_free') }}" name="is_free"
+                                id="is_free_desktop">
                             </filter-new-custom-checkbox>
-                            <filter-new-custom-checkbox @change="handleCheckboxChange"
-                                :checked="Boolean(query['has_text'])" title="{{ utrans('item.filter.has_text') }}"
-                                name="has_text" id="has_text_desktop">
+                            <filter-new-custom-checkbox v-on:change="handleCheckboxChange"
+                                v-bind:checked="Boolean(query.has_text)"
+                                title="{{ utrans('item.filter.has_text') }}" name="has_text"
+                                id="has_text_desktop">
                             </filter-new-custom-checkbox>
                         </div>
                         {{-- Selected labels --}}
@@ -736,17 +794,17 @@
                             <div class="tw-flex tw-w-full tw-space-x-3 tw-overflow-x-auto">
                                 <transition-group enter-from-class="tw-opacity-0"
                                     leave-to-class="tw-opacity-0"
-                                    enter-active-class="tw-transition tw-duration-150"
-                                    leave-active-class="tw-transition tw-duration-150"
+                                    enter-active-class="tw-transition tw-duration-100"
+                                    leave-active-class="tw-transition tw-duration-100"
                                     class="tw-flex tw-space-x-3 tw-pb-4">
                                     <button
                                         class="tw-flex tw-items-center tw-whitespace-nowrap tw-bg-gray-300 tw-py-1 tw-px-1.5"
                                         v-for="option in selectedOptionsAsLabels"
-                                        @click="removeSelection(option)">
+                                        v-on:click="removeSelection(option)">
                                         <span v-if="option.filterName === 'color'"
                                             class="tw-flex tw-items-center tw-pr-1.5 tw-text-xs tw-font-semibold tw-uppercase">
                                             <div class="tw-mr-1.5 tw-inline-block tw-h-4 tw-w-4"
-                                                :style="{ 'background-color': `#${option.value}`, 'border-radius': '30px' }">
+                                                v-bind:style="{ 'background-color': `#${option.value}`, 'border-radius': '30px' }">
                                             </div>
                                             @{{ option.value }}
                                         </span>
@@ -772,11 +830,11 @@
                                 </transition-group>
                                 <transition enter-from-class="tw-opacity-0"
                                     leave-to-class="tw-opacity-0"
-                                    enter-active-class="tw-transition tw-duration-150"
-                                    leave-active-class="tw-transition tw-duration-150"
+                                    enter-active-class="tw-transition tw-duration-100"
+                                    leave-active-class="tw-transition tw-duration-100"
                                     class="mb-4">
                                     <x-filter.reset_button v-if="selectedOptionsAsLabels.length"
-                                        @click="clearAllSelections" sm>
+                                        v-on:click="clearAllSelections" sm>
                                         <span
                                             class="tw-whitespace-nowrap">{{ trans('item.filter.clear') }}
                                         </span>
@@ -792,7 +850,7 @@
                             <span>{{ utrans('item.filter.something_went_wrong') }}.</span>
                             <reload-controller v-slot="rc">
                                 <button class="tw-inline-block tw-underline"
-                                    @click="rc.reload">{{ trans('item.filter.refresh_page') }}</button>
+                                    v-on:click="rc.reload">{{ trans('item.filter.refresh_page') }}</button>
                             </reload-controller>
                         </div>
                         <div v-else-if="artworks.length === 0"
@@ -804,7 +862,7 @@
                             </div>
                             <span
                                 class="tw-mt-10">{{ utrans('item.filter.nothing_found') }}</span>
-                            <button @click="handleSelectRandomly"
+                            <button v-on:click="handleSelectRandomly"
                                 class="tw-font-bold tw-underline tw-underline-offset-8">
                                 {{ utrans('item.filter.try_also') }}
                                 {{ trans('item.filter.random_search') }}</a>
@@ -837,12 +895,12 @@
                                                     <template #button="pc">
                                                         <button id="button-sort"
                                                             class="tw-font-bold tw-underline tw-decoration-2 tw-underline-offset-4"
-                                                            @click="pc.togglePopover('sort')">
+                                                            v-on:click="pc.togglePopover('sort')">
                                                             <transition
                                                                 enter-from-class="tw-opacity-0"
                                                                 leave-to-class="tw-opacity-0"
-                                                                enter-active-class="tw-transition tw-duration-150"
-                                                                leave-active-class="tw-transition tw-duration-150"
+                                                                enter-active-class="tw-duration-50 tw-transition"
+                                                                leave-active-class="tw-duration-50 tw-transition"
                                                                 mode="out-in">
                                                                 <span
                                                                     v-if="query.sort === 'created_at' ">{{ trans('sortable.created_at') }}</span>
@@ -870,51 +928,50 @@
                                                     <template #body="pc">
                                                         <transition enter-from-class="tw-opacity-0"
                                                             leave-to-class="tw-opacity-0"
-                                                            enter-active-class="tw-transition tw-duration-300"
-                                                            leave-active-class="tw-transition tw-duration-300">
-
+                                                            enter-active-class="tw-transition tw-duration-100"
+                                                            leave-active-class="tw-transition tw-duration-100">
                                                             <div v-if="pc.isOpen"
                                                                 v-on-clickaway="pc.closeOpenedPopover"
                                                                 class="tw-w-80 tw-border-2 tw-border-gray-800 tw-bg-white tw-p-4">
 
                                                                 <ul>
                                                                     <li class="tw-cursor-pointer tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
-                                                                        @click="handleSortChange('created_at');pc.closeOpenedPopover()"
+                                                                        v-on:click="handleSortChange('created_at');pc.closeOpenedPopover()"
                                                                         v-if="query.sort !== 'created_at'">
                                                                         {{ trans('sortable.created_at') }}
                                                                     </li>
                                                                     <li class="tw-cursor-pointer tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
-                                                                        @click="handleSortChange('title');pc.closeOpenedPopover()"
+                                                                        v-on:click="handleSortChange('title');pc.closeOpenedPopover()"
                                                                         v-if="query.sort !== 'title'">
                                                                         {{ trans('sortable.title') }}
                                                                     </li>
                                                                     <li class="tw-cursor-pointer tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
-                                                                        @click="handleSortChange('author');pc.closeOpenedPopover()"
+                                                                        v-on:click="handleSortChange('author');pc.closeOpenedPopover()"
                                                                         v-if="query.sort !== 'author'">
                                                                         {{ trans('sortable.author') }}
                                                                     </li>
                                                                     <li class="tw-cursor-pointer tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
-                                                                        @click="handleSortChange('date_earliest');pc.closeOpenedPopover()"
+                                                                        v-on:click="handleSortChange('date_earliest');pc.closeOpenedPopover()"
                                                                         v-if="query.sort !== 'date_earliest'">
                                                                         {{ trans('sortable.oldest') }}
                                                                     </li>
                                                                     <li class="tw-cursor-pointer tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
-                                                                        @click="handleSortChange('date_latest');pc.closeOpenedPopover()"
+                                                                        v-on:click="handleSortChange('date_latest');pc.closeOpenedPopover()"
                                                                         v-if="query.sort !== 'date_latest'">
                                                                         {{ trans('sortable.newest') }}
                                                                     </li>
                                                                     <li class="tw-cursor-pointer tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
-                                                                        @click="handleSortChange('view_count');pc.closeOpenedPopover()"
+                                                                        v-on:click="handleSortChange('view_count');pc.closeOpenedPopover()"
                                                                         v-if="query.sort !== 'view_count'">
                                                                         {{ trans('sortable.view_count') }}
                                                                     </li>
                                                                     <li class="tw-cursor-pointer tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
-                                                                        @click="handleSortChange('random');pc.closeOpenedPopover()"
+                                                                        v-on:click="handleSortChange('random');pc.closeOpenedPopover()"
                                                                         v-if="query.sort !== 'random'">
                                                                         {{ trans('sortable.random') }}
                                                                     </li>
                                                                     <li class="tw-cursor-pointer tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
-                                                                        @click="handleSortChange(null);pc.closeOpenedPopover()"
+                                                                        v-on:click="handleSortChange(null);pc.closeOpenedPopover()"
                                                                         v-if="query.sort">
                                                                         {{ trans('sortable.updated_at') }}
                                                                     </li>
@@ -928,7 +985,7 @@
                                     </span>
                                     <span>
                                         {{ utrans('item.filter.try_also') }}
-                                        <button @click="handleSelectRandomly"
+                                        <button v-on:click="handleSelectRandomly"
                                             class="tw-font-bold tw-underline tw-decoration-2 tw-underline-offset-4">{{ trans('item.filter.random_search') }}</button>
                                     </span>
                                 </span>
@@ -939,32 +996,35 @@
                                 <div class="gutter-sizer md:tw-w-8 2xl:tw-w-16"></div>
                                 <div v-masonry-tile
                                     class="item tw-w-full tw-p-2 tw-pb-4 md:tw-w-[calc(33.3333%-1.375rem)] md:tw-p-0 md:tw-pb-6 2xl:tw-w-[calc(33.3333%-2.75rem)] 2xl:tw-pb-10"
-                                    v-for="artwork in artworks" :key="artwork . id">
+                                    v-for="artwork in artworks" v-bind:key="artwork.id">
                                     <div name="artwork-image">
                                         <catalog.artwork-image-controller v-slot="ic">
                                             <div>
-                                                <a :href="$route('dielo', {id: artwork.id})">
-                                                    <img :class="[{'tw-hidden': !ic.isLoaded }, 'tw-w-full']" @load="ic.onImgLoad"
-                                                        :src="$route('dielo.nahlad', {id: artwork.id, width: 220})" :srcset="`${$route('dielo.nahlad', {id: artwork.id, width: 600})} 600w, ${$route('dielo.nahlad', {id: artwork.id, width: 220})} 220w, ${$route('dielo.nahlad', {id: artwork.id, width: 300})} 300w, ${$route('dielo.nahlad', {id: artwork.id, width: 600})} 600w, ${$route('dielo.nahlad', {id: artwork.id, width: 800})} 800w`"
+                                                <a v-bind:href="$route('dielo', {id: artwork.id})">
+                                                    <img v-bind:class="[{'tw-hidden': !ic.isLoaded }, 'tw-w-full']"
+                                                        v-on:load="ic.onImgLoad"
+                                                        v-bind:src="$route('dielo.nahlad', {id: artwork.id, width: 220})"
+                                                        v-bind:srcset="`${$route('dielo.nahlad', {id: artwork.id, width: 600})} 600w, ${$route('dielo.nahlad', {id: artwork.id, width: 220})} 220w, ${$route('dielo.nahlad', {id: artwork.id, width: 300})} 300w, ${$route('dielo.nahlad', {id: artwork.id, width: 600})} 600w, ${$route('dielo.nahlad', {id: artwork.id, width: 800})} 800w`"
                                                         sizes="(max-width: 768px) 250vw, 100vw">
                                                 </a>
-                                                <div :class="[{'tw-hidden': ic.isLoaded }, 'tw-w-full tw-saturate-50 tw-bg-gray-300 tw-flex tw-items-center tw-justify-center']" :style="{'aspect-ratio': artwork.content.image_ratio || 7/8, 'background-color': artwork.content.hsl[0] ? `hsl(${artwork.content.hsl[0].h}, ${artwork.content.hsl[0].s}%, ${artwork.content.hsl[0].l}%)` : undefined}">
+                                                <div v-bind:class="[{'tw-hidden': ic.isLoaded }, 'tw-w-full tw-saturate-50 tw-bg-gray-300 tw-flex tw-items-center tw-justify-center']"
+                                                    v-bind:style="{'aspect-ratio': artwork.content.image_ratio || 7/8, 'background-color': artwork.content.hsl[0] ? `hsl(${artwork.content.hsl[0].h}, ${artwork.content.hsl[0].s}%, ${artwork.content.hsl[0].l}%)` : undefined}">
                                                 </div>
                                             </div>
                                         </catalog.artwork-image-controller>
                                         <div class="tw-mt-6 tw-flex tw-gap-3">
                                             <div class="tw-flex tw-grow tw-flex-col">
-                                                <a :href="$route('dielo', {id: artwork.id})"
+                                                <a v-bind:href="$route('dielo', {id: artwork.id})"
                                                     class="tw-pb-1.5 tw-text-lg tw-font-light tw-italic">@{{ artwork.content.authors_formatted.join(', ') }}</a>
-                                                <a :href="$route('dielo', {id: artwork.id})"
+                                                <a v-bind:href="$route('dielo', {id: artwork.id})"
                                                     class="tw-pb-2 tw-text-lg">@{{ artwork.content.title }}</a>
-                                                <a :href="$route('dielo', {id: artwork.id})"
+                                                <a v-bind:href="$route('dielo', {id: artwork.id})"
                                                     class="tw-text-base tw-font-light">@{{ artwork.content.dating }}</a>
                                             </div>
                                             <div class="tw-flex tw-items-start tw-gap-4">
                                                 <user-collections-store
                                                     v-slot="{ toggleItem, hasItem }">
-                                                    <button @click="toggleItem(artwork.id)">
+                                                    <button v-on:click="toggleItem(artwork.id)">
                                                         <svg v-if="hasItem(artwork.id)"
                                                             xmlns="http://www.w3.org/2000/svg"
                                                             class="tw-h-5 tw-w-5 tw-fill-current"
@@ -982,7 +1042,8 @@
                                                         </svg>
                                                     </button>
                                                 </user-collections-store>
-                                                <a v-if="artwork.content.has_iip" :href="$route('item.zoom', {id: artwork.id})">
+                                                <a v-if="artwork.content.has_iip"
+                                                    v-bind:href="$route('item.zoom', {id: artwork.id})">
                                                     <svg class="tw-h-5 tw-w-5 tw-fill-current"
                                                         xmlns="http://www.w3.org/2000/svg"
                                                         viewBox="0 0 256 256">
@@ -997,7 +1058,8 @@
                                 </div>
                             </div>
                             <catalog.infinite-scroll v-if="last_page > page" class="tw-mt-10"
-                                :page="page" @loadmore="loadMore" :is-loading="isFetchingArtworks">
+                                v-bind:page="page" v-on:loadmore="loadMore"
+                                v-bind:is-loading="isFetchingArtworks">
                                 <template #loading-message>
                                     <div class="tw-flex tw-justify-center">
                                         <div
@@ -1008,7 +1070,7 @@
                                 </template>
                                 <template #load-more-button>
                                     <div class="tw-flex tw-justify-center">
-                                        <button v-if="page === 1" @click="loadMore"
+                                        <button v-if="page === 1" v-on:click="loadMore"
                                             class="tw-border tw-border-gray-400 tw-py-2.5 tw-px-8 tw-text-sm hover:tw-border-gray-700">
                                             {{ trans('general.filter.show_more') }}
                                         </button>
