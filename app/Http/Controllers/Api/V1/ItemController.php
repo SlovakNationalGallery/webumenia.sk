@@ -66,6 +66,7 @@ class ItemController extends Controller
         }
 
         $searchRequest = Item::searchQuery($query);
+        $searchRequest->trackTotalHits(true);
 
         $sorts = collect($sort)
             ->only($this->sortables)
