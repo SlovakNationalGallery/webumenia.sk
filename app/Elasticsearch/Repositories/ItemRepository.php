@@ -50,6 +50,16 @@ class ItemRepository extends TranslatableRepository
         ];
     }
 
+    public static function buildDefaultSortQuery() {
+        return [
+            '_score',
+            ['has_image' => ['order' => 'desc']],
+            ['has_iip' => ['order' => 'desc']],
+            ['updated_at' => ['order' => 'desc']],
+            ['created_at' => ['order' => 'desc']],
+        ];
+    }
+
     public function getSuggestions(int $size, string $search, string $locale = null): SearchResult
     {
         $response = $this->elasticsearch->search([
@@ -409,13 +419,7 @@ class ItemRepository extends TranslatableRepository
         }
 
         if ($sortBy === null) {
-            $body['sort'] = [
-                '_score',
-                ['has_image' => ['order' => 'desc']],
-                ['has_iip' => ['order' => 'desc']],
-                ['updated_at' => ['order' => 'desc']],
-                ['created_at' => ['order' => 'desc']],
-            ];
+            $body['sort'] = self::buildDefaultSortQuery();
             return $body;
         }
 

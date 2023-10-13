@@ -917,7 +917,9 @@
                                                                 <span
                                                                     v-else-if="query.sort === 'random' ">{{ trans('sortable.random') }}</span>
                                                                 <span
-                                                                    v-else>{{ trans('sortable.updated_at') }}</span>
+                                                                    v-else-if="query.sort === 'updated_at'">{{ trans('sortable.updated_at') }}</span>
+                                                                <span
+                                                                    v-else>{{ trans('sortable.relevance') }}</span>
                                                             </transition>
                                                             <x-icons.caret-down
                                                                 class="tw-inline tw-h-4 tw-w-4 tw-fill-current">
@@ -971,9 +973,14 @@
                                                                         {{ trans('sortable.random') }}
                                                                     </li>
                                                                     <li class="tw-cursor-pointer tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
+                                                                        v-on:click="handleSortChange('updated_at');pc.closeOpenedPopover()"
+                                                                        v-if="query.sort !== 'updated_at'">
+                                                                        {{ trans('sortable.updated_at') }}
+                                                                    </li>
+                                                                    <li class="tw-cursor-pointer tw-py-0.5 tw-pl-2 hover:tw-bg-gray-200"
                                                                         v-on:click="handleSortChange(null);pc.closeOpenedPopover()"
                                                                         v-if="query.sort">
-                                                                        {{ trans('sortable.updated_at') }}
+                                                                        {{ trans('sortable.relevance') }}
                                                                     </li>
                                                                 </ul>
                                                             </div>
