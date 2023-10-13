@@ -19,7 +19,7 @@ function getParsedFilterFromUrl() {
             return { to: date_earliest?.lte, from: date_latest?.gte }
         })(),
         sort: sort && Object.keys(sort)[0],
-        q
+        q,
     }
 }
 
@@ -70,7 +70,7 @@ function stringifyUrl({ url, params }) {
         page,
         terms,
         size,
-        q
+        q,
     }
     return url + '?' + qs.stringify(newQuery, { skipNulls: true, arrayFormat: 'brackets' })
 }
@@ -85,6 +85,7 @@ const SORT_DIRECTIONS = {
     author: 'asc',
     title: 'asc',
     view_count: 'desc',
+    updated_at: 'desc',
     random: 'asc',
 }
 const EMPTY_QUERY = {
