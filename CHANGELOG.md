@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
 
+### Changed
+- default sort for /api/v1/items
+
 ## [2.81.0] - 2023-10-12
 ### Changed
 - deploy actions to deploy to prod from a release

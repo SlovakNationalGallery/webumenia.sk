@@ -67,12 +67,17 @@ class ItemController extends Controller
 
         $searchRequest = Item::searchQuery($query);
 
-        collect($sort)
+        $sorts = collect($sort)
             ->only($this->sortables)
-            ->intersect(['asc', 'desc'])
-            ->each(function ($direction, $field) use ($searchRequest) {
-                $searchRequest->sort($field, $direction);
-            });
+            ->filter(fn($direction) => in_array($direction, ['asc', 'desc']));
+
+        $sorts->each(function ($direction, $field) use ($searchRequest) {
+            $searchRequest->sort($field, $direction);
+        });
+
+        if ($sorts->isEmpty()) {
+            $searchRequest->sortRaw(ItemRepository::buildDefaultSortQuery());
+        }
 
         $response = $searchRequest
             ->paginate($size)
