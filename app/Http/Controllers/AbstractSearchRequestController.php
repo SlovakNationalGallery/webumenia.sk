@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Elasticsearch\Repositories\TranslatableRepository;
+use App\Filter\Contracts\Filter;
 use App\Filter\Contracts\SearchRequest;
-use App\Filter\Contracts\TitleGenerator;
 use Astrotomic\Translatable\Contracts\Translatable;
 use Barryvdh\Form\CreatesForms;
 use Illuminate\Pagination\Paginator;
@@ -20,21 +20,20 @@ abstract class AbstractSearchRequestController extends Controller
 
     protected $repository;
 
-    protected $titleGenerator;
-
     protected $searchRequestClass;
 
     protected $searchRequestFormClass;
 
     protected $indexView;
 
-    public function __construct(
-        TranslatableRepository $repository,
-        TitleGenerator $titleGenerator
-    ) {
+    protected $titleAttributes;
+
+    public function __construct(TranslatableRepository $repository) 
+    {
         $this->repository = $repository;
-        $this->titleGenerator = $titleGenerator;
     }
+
+    abstract protected function generateTitle(Filter $filter);
 
     public function getIndex()
     {
@@ -78,7 +77,7 @@ abstract class AbstractSearchRequestController extends Controller
             'hasFilters' => (bool)$this->repository->buildQueryFromFilter($searchRequest),
             'searchRequest' => $searchRequest,
             'form' => $searchRequestForm->createView(),
-            'title' => $this->titleGenerator->generate($searchRequest),
+            'title' => $this->generateTitle($searchRequest),
             'urlWithoutColor' => route(request()->route()->getName(), Arr::except(request()->query(), ['color'])),
             'untranslated' => $collection->contains(function (Translatable $translatable) {
                 return !$translatable->hasTranslation();
