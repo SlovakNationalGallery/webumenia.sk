@@ -79,8 +79,8 @@ const PAGE_SIZE = 30
 const AGGREGATIONS_SIZE = 1000
 const SINGLE_ITEM_FILTERS = ['color', 'yearRange']
 const SORT_DIRECTIONS = {
-    date_earliest: 'desc',
-    date_latest: 'asc',
+    date_earliest: 'asc',
+    date_latest: 'desc',
     created_at: 'asc',
     author: 'asc',
     title: 'asc',
