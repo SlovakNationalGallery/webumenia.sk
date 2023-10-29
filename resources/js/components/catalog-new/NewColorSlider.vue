@@ -15,9 +15,9 @@
             }"
             lazy
             class="tw-cursor-pointer"
-            @update:model-value="hueChange"
-            @dragging="hueChange"
-            @change="$emit('change', color)"
+            @update:model-value="hueUpdate"
+            @dragging="hueUpdate"
+            @change="hueChange"
         >
             <template #dot>
                 <div class="tw-flex tw-h-full tw-w-full tw-justify-center tw-items-center">
@@ -49,9 +49,9 @@
             :railStyle="lightnessBgColor()"
             lazy
             class="tw-cursor-pointer tw-mt-3"
-            @update:model-value="lightnessChange"
-            @dragging="lightnessChange"
-            @change="$emit('change', color)"
+            @update:model-value="lightnessUpdate"
+            @dragging="lightnessUpdate"
+            @change="lightnessChange"
         >
             <template #dot>
                 <div class="tw-flex tw-h-full tw-w-full tw-justify-center tw-items-center">
@@ -104,11 +104,19 @@ export default {
         hueColor(hue) {
             return 'hsl(' + hue + ', 80%, 50%)'
         },
+        hueUpdate(hue) {
+            this.color = tinycolor(`hsl(${hue}, 0.8, ${this.getLightness() || 0.5})`).toHex()
+        },
+        lightnessUpdate(lightness) {
+            this.color = tinycolor(`hsl(${this.getHue()}, 80%, ${lightness * 100}%)`).toHex()
+        },
         hueChange(hue) {
             this.color = tinycolor(`hsl(${hue}, 0.8, ${this.getLightness() || 0.5})`).toHex()
+            this.$emit('change', newColor)
         },
         lightnessChange(lightness) {
             this.color = tinycolor(`hsl(${this.getHue()}, 80%, ${lightness * 100}%)`).toHex()
+            this.$emit('change', newColor)
         },
         lightnessBgColor() {
             return {
