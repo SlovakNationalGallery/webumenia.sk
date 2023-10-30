@@ -39,6 +39,12 @@ abstract class AbstractImporter
 
     /**
      * @param array $row
+     * @return string
+     */
+    abstract function getIdentifier(array $row);
+
+    /**
+     * @param array $row
      * @param Progress $result
      * @return Model
      */

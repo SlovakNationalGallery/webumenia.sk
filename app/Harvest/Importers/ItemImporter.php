@@ -42,6 +42,10 @@ class ItemImporter extends AbstractImporter
         return $this->mapper->mapId($row);
     }
 
+    public function getIdentifier(array $row) {
+        return $this->getModelId($row);
+    }
+
     protected function processHasMany(Model $model, $field, array $relatedRows, $allowDelete = true) {
         $allowDelete &= !in_array($field, ['images']);
         parent::processHasMany($model, $field, $relatedRows, $allowDelete);
