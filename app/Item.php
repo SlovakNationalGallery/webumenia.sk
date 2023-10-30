@@ -236,9 +236,9 @@ class Item extends Model implements IndexableModel, TranslatableContract
         return $url;
     }
 
-    public function getOaiUrl()
+    public function getOaiUrlAttribute(): ?string
     {
-        return Config::get('app.old_url').'/oai-pmh/?verb=GetRecord&metadataPrefix=oai_dc&identifier='.$this->id;
+        return $this->record?->url;
     }
 
     /**

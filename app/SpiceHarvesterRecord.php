@@ -56,4 +56,15 @@ class SpiceHarvesterRecord extends Model
             }
         }
     }
+
+    public function getUrlAttribute(): string
+    {
+        $query = http_build_query([
+            'identifier' => $this->identifier,
+            'metadataPrefix' => $this->harvest->metadata_prefix,
+            'verb' => 'GetRecord',
+        ]);
+
+        return "{$this->harvest->base_url}?$query";
+    }
 }

@@ -222,8 +222,6 @@ return [
 
     'google_recaptcha_secret' => env('GOOGLE_RECAPTCHA_SECRET'),
 
-    'old_url' => 'http://stary.webumenia.sk',
-
     'iip_private' => env('IIP_PRIVATE', 'http://127.0.0.1:8002'),
     'iip_public' => env('IIP_PUBLIC', 'https://img.webumenia.sk'),
 ];

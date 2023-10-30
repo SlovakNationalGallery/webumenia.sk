@@ -31,7 +31,9 @@ class AuthorityController extends Controller
      */
     public function index()
     {
-        $authorities = Authority::orderBy('updated_at', 'DESC')->paginate(100);
+        $authorities = Authority::with(['record.harvest'])
+            ->orderBy('updated_at', 'DESC')
+            ->paginate(100);
         return view('authorities.index', array('authorities' => $authorities));
     }
 
