@@ -45,11 +45,14 @@ class GmuhkItemImporter extends AbstractImporter
                 return $authorities->count() === 1;
             })
             ->map->first()
-            ->mapWithKeys(
-                fn(Authority $authority, $author) => [
-                    $authority->id => ['role' => AuthorityMatcher::parse($author)['alt_name']],
-                ]
-            );
+            ->mapWithKeys(function(Authority $authority, $author) {
+                $pivotData = [];
+                if ($role = AuthorityMatcher::parse($author)['alt_name']) {
+                    $pivotData['role'] = $role;
+                }
+
+                return [$authority->id => $pivotData];
+            });
 
         $item->syncMatchedAuthorities($matches);
 

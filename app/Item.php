@@ -790,7 +790,9 @@ class Item extends Model implements IndexableModel, TranslatableContract
 
         // Update existing pivot data
         foreach ($idsWithPivotData as $id => $pivotData) {
-            $this->authorities()->updateExistingPivot($id, $pivotData);
+            if ($pivotData) {
+                $this->authorities()->updateExistingPivot($id, $pivotData);
+            }
         }
 
         // Create new authorities

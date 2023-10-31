@@ -258,4 +258,40 @@ class ItemTest extends TestCase
             'automatically_matched' => true,
         ]);
     }
+
+    public function testSyncMatchedAuthoritiesCreatesWithoutPivotData()
+    {
+        $item = Item::factory()->create();
+        $authority = Authority::factory()->create();
+
+        $item->syncMatchedAuthorities([
+            $authority->id => [],
+        ]);
+
+        $this->assertDatabaseHas('authority_item', [
+            'authority_id' => $authority->id,
+            'item_id' => $item->id,
+            'role' => null,
+            'automatically_matched' => true,
+        ]);
+    }
+
+    public function testSyncMatchedAuthoritiesUpdatesWithoutPivotData()
+    {
+        $item = Item::factory()->create();
+        $authority = Authority::factory()->create();
+        $item->authorities()->sync([
+            $authority->id => ['role' => 'author'],
+        ]);
+
+        $item->syncMatchedAuthorities([
+            $authority->id => [],
+        ]);
+
+        $this->assertDatabaseHas('authority_item', [
+            'authority_id' => $authority->id,
+            'item_id' => $item->id,
+            'role' => 'author',
+        ]);
+    }
 }
