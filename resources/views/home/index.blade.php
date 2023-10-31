@@ -117,7 +117,7 @@
                                 </x-home.button>
                             </div>
                             <div
-                                v-bind:class="['tw-text-white/80 tw-flex tw-flex-col tw-items-center tw-text-xs md:tw-self-end md:tw-items-end md:tw-text-[14px] tw-transition-opacity tw-duration-500', {'tw-opacity-0 tw-pointer-events-none': orchestrator.isShuffling}]">
+                                v-bind:class="['tw-text-white/80 tw-flex tw-flex-col tw-items-center tw-text-xs md:tw-self-end md:tw-items-end md:tw-text-[14px] md:tw-leading-5 tw-transition-opacity tw-duration-500', {'tw-opacity-0 tw-pointer-events-none': orchestrator.isShuffling}]">
                                 <div
                                     class="tw-hidden tw-flex-col tw-items-end tw-justify-end tw-gap-x-1 tw-text-right md:tw-flex">
                                     <span>@{{ orchestrator.item.authors }}</span>
@@ -145,8 +145,8 @@
         @endif
         {{-- Counts blurb --}} <div class="tw-bg-gray-200">
             <div
-                class="tw-container tw-mx-auto tw-grid tw-max-w-screen-2xl tw-px-6 tw-py-5 tw-text-gray-500 md:tw-px-8 lg:tw-py-10">
-                <p class="tw-text-center lg:tw-text-2xl">
+                class="tw-container tw-mx-auto tw-grid tw-max-w-screen-2xl tw-px-6 tw-py-5 tw-text-gray-500 md:tw-px-8 lg:tw-py-10 tw-leading-6">
+                <p class="tw-text-center lg:tw-text-2xl tw-mb-0">
                     {{ utrans('home.definition_start') }}
                     <a href="{{ route('frontend.catalog.index') }}"
                         class="tw-font-bold tw-text-gray-800 hover:tw-underline">{{ formatNum($countsBlurb->items_count) }}</a>
