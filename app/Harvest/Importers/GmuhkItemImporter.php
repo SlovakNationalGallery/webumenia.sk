@@ -47,7 +47,7 @@ class GmuhkItemImporter extends AbstractImporter
             ->map->first()
             ->mapWithKeys(
                 fn(Authority $authority, $author) => [
-                    $authority->id => ['role' => AuthorityMatcher::parse($author)['alt_name']],
+                    $authority->id => ['role' => AuthorityMatcher::parse($author)['alt_name'] ?? 'autor/author'],
                 ]
             );
 
