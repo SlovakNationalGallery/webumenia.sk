@@ -42,7 +42,7 @@
                     <div class="tw-flex tw-justify-between">
 
                         {{-- Back button --}}
-                        <a class="tw-pointer-events-auto tw-flex tw-h-10 tw-items-center tw-justify-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-text-sm tw-uppercase tw-tracking-widest tw-opacity-70 tw-transition hover:tw-border-gray-400 hover:tw-bg-white hover:tw-text-gray-800 hover:tw-opacity-90"
+                        <a class="tw-pointer-events-auto tw-flex tw-h-10 tw-items-center tw-justify-center tw-border tw-border-gray-300 tw-bg-white tw-px-4 tw-text-[14px] tw-uppercase tw-tracking-widest tw-opacity-70 tw-transition hover:tw-border-gray-400 hover:tw-bg-white hover:tw-text-gray-800 hover:tw-opacity-90"
                             href={{ $item->getUrl() }}>
                             <i class="fa fa-arrow-left tw-mr-2 -tw-ml-1.5 tw-align-[-0.05rem]"></i>
                             {{ trans('general.back') }}
@@ -82,7 +82,7 @@
                     <div class="tw-flex tw-justify-end">
                         {{-- Copyright indicator --}}
                         <div
-                            class="tw-pointer-events-auto tw-flex tw-cursor-pointer tw-items-center tw-bg-white tw-px-4 tw-py-2.5 tw-text-xs tw-opacity-50 tw-transition-opacity hover:tw-opacity-90 md:tw-text-sm">
+                            class="tw-pointer-events-auto tw-flex tw-cursor-pointer tw-items-center tw-bg-white tw-px-4 tw-py-2.5 tw-text-sm tw-opacity-50 tw-transition-opacity hover:tw-opacity-90 md:tw-text-[14px]">
                             @if ($item->isFree())
                                 <img alt="Creative Commons License"
                                     class="tw-mr-1.5 tw-h-3 tw-opacity-50"
