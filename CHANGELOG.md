@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+
+## [2.84.0] - 2023-11-02
 ### Changed
 - title generators to turn them into controller methods
 
