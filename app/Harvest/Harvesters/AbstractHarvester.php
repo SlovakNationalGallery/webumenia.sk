@@ -40,16 +40,11 @@ abstract class AbstractHarvester
      * @param \DateTime|null $to
      * @param array $only_ids
      */
-    public function harvest(SpiceHarvesterHarvest $harvest, \DateTime $from = null, \DateTime $to = null, array $only_ids = []) {
-        $harvest->process(function (Progress $progress) use ($harvest, $from, $to, $only_ids) {
-            if ($only_ids) {
-                $total = count($only_ids);
-                $rows = $this->repository->getRowsById($harvest, $only_ids);
-            } else {
-                $result = $this->repository->getAll($harvest, $from, $to);
-                $total = $result->total;
-                $rows = $result->data;
-            }
+    public function harvest(SpiceHarvesterHarvest $harvest, \DateTime $from = null, \DateTime $to = null) {
+        $harvest->process(function (Progress $progress) use ($harvest, $from, $to) {
+            $result = $this->repository->getAll($harvest, $from, $to);
+            $total = $result->total;
+            $rows = $result->data;
 
             $progress->setTotal($total);
 
@@ -61,7 +56,7 @@ abstract class AbstractHarvester
                 }
 
                 $record = SpiceHarvesterRecord::firstOrNew([
-                    'identifier' => $modelId,
+                    'identifier' => $this->importer->getIdentifier($row),
                     'type' => $this->importer->getModelClass(),
                 ]);
                 $record->harvest()->associate($harvest);

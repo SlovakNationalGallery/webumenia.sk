@@ -74,25 +74,10 @@ abstract class AbstractRepository
      */
     public function getRow(SpiceHarvesterRecord $harvesterRecord) {
         $endpoint = $this->endpointFactory->createEndpoint($harvesterRecord->harvest);
-        $record = $endpoint->getRecord($harvesterRecord->item_id, $harvesterRecord->harvest->metadata_prefix);
+        $record = $endpoint->getRecord($harvesterRecord->identifier, $harvesterRecord->harvest->metadata_prefix);
 
         $row = $this->getDataRecursively($record, $this->fieldMap);
         return $row[0];
-    }
-
-    /**
-     * @param SpiceHarvesterRecord $record
-     * @return array
-     */
-    public function getRowsById(SpiceHarvesterHarvest $harvest, array $only_ids) {
-        $endpoint = $this->endpointFactory->createEndpoint($harvest);
-
-        foreach ($only_ids as $id) {
-            $record = $endpoint->getRecord($id, $harvest->metadata_prefix);
-            $row = $this->getDataRecursively($record, $this->fieldMap);
-            yield $row[0];
-        }
-
     }
 
     /**
