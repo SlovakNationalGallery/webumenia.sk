@@ -51,10 +51,6 @@ class AuthorityImporter extends AbstractImporter
         return $this->mapper->mapId($row);
     }
 
-    public function getIdentifier(array $row) {
-        return $this->getModelId($row);
-    }
-
     protected function upsertModel(Model $model, array $row) {
         if ($model->exists) {
             unset($row['biography']);

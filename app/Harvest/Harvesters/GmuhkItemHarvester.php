@@ -2,7 +2,6 @@
 
 namespace App\Harvest\Harvesters;
 
-use App\Harvest\Harvesters\AbstractHarvester;
 use App\Harvest\Importers\GmuhkItemImporter;
 use App\Harvest\Repositories\GmuhkItemRepository;
 
