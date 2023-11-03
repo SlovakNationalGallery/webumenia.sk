@@ -8,7 +8,6 @@ use Astrotomic\Translatable\Translatable;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -156,44 +155,6 @@ class Authority extends Model implements IndexableModel, TranslatableContract
                 ->distinct()
                 ->count()
         );
-    }
-
-    // TODO WEBUMENIA-2037
-    // Workaround for missing CS translations
-    public function getRolesFormattedAttribute()
-    {
-        $roles = collect($this->roles);
-
-        if (App::isLocale('en')) {
-            return $roles->filter();
-        }
-
-        if (App::isLocale('cs')) {
-            $skRoles = $this->getTranslation('sk')->roles;
-            $enRoles = $this->getTranslation('en')->roles;
-
-            $reconstructedOriginalRoles = collect($skRoles)
-                ->zip($enRoles)
-                ->map(function ($pair) {
-                    [$sk, $en] = $pair;
-                    if ($en === null) {
-                        return $sk;
-                    }
-                    return $pair->join('/');
-                });
-
-            return $reconstructedOriginalRoles
-                ->map(function ($role) {
-                    $translationKey = config("authorityRoles.{$role}");
-                    if ($translationKey === null) {
-                        return null;
-                    }
-                    return trans($translationKey);
-                })
-                ->filter();
-        }
-
-        return $roles->map(fn($role) => trans_choice($role, $this->sex));
     }
 
     public function getTagsAttribute()
