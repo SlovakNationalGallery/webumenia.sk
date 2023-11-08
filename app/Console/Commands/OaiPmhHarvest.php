@@ -7,7 +7,6 @@ use App\SpiceHarvesterHarvest;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 
 class OaiPmhHarvest extends Command
 {
@@ -51,10 +50,8 @@ class OaiPmhHarvest extends Command
         $from = $this->option('start_date') ? new Carbon($this->option('start_date')) : null;
         $to = $this->option('end_date') ? new Carbon($this->option('end_date')) : null;
         $all = $this->option('all');
-        $only_ids = ($this->option('only_ids')) ? explode(',', $this->option('only_ids')) : [];
 
-
-        dispatch(new HarvestJob($harvest, $from, $to, $all, $only_ids));
+        dispatch(new HarvestJob($harvest, $from, $to, $all));
         $this->comment("Dokoncene");
     }
 
@@ -80,7 +77,6 @@ class OaiPmhHarvest extends Command
         return array(
             array('id', null, InputOption::VALUE_OPTIONAL, 'Spice Harvester harvest ID.', null),
             array('all', null, InputOption::VALUE_OPTIONAL, 'Re-harvest all records.', false),
-            array('only_ids', null, InputOption::VALUE_OPTIONAL, 'Harvest only records with IDs (comma-separated).', ''),
             array('start_date', null, InputOption::VALUE_OPTIONAL, 'Specify start date in YYYY-MM-DD.', null),
             array('end_date', null, InputOption::VALUE_OPTIONAL, 'Specify end date in YYYY-MM-DD.', null),
         );

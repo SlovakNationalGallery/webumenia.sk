@@ -4,8 +4,6 @@ use App\Elasticsearch\Repositories\AuthorityRepository;
 use App\Elasticsearch\Repositories\ItemRepository;
 use App\Filter\Forms\Types\AuthoritySearchRequestType;
 use App\Filter\Forms\Types\ItemSearchRequestType;
-use App\Filter\Generators\AuthorityTitleGenerator;
-use App\Filter\Generators\ItemTitleGenerator;
 use App\Harvest\Importers\ItemImporter;
 use App\Harvest\Mappers\BaseAuthorityMapper;
 use Illuminate\Filesystem\FilesystemAdapter;
@@ -16,8 +14,6 @@ use Illuminate\Support\ServiceProvider;
 use League\Flysystem\Filesystem;
 use League\Flysystem\WebDAV\WebDAVAdapter;
 use Sabre\DAV\Client;
-use Symfony\Component\PropertyAccess\PropertyAccess;
-use Symfony\Component\PropertyAccess\PropertyAccessor;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,14 +28,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(PropertyAccessor::class, function () {
-            return PropertyAccess::createPropertyAccessor();
-        });
-
         $this->app->singleton(AuthorityRepository::class);
         $this->app->singleton(ItemRepository::class);
-        $this->app->singleton(AuthorityTitleGenerator::class);
-        $this->app->singleton(ItemTitleGenerator::class);
         $this->app->bind(AuthoritySearchRequestType::class);
         $this->app->bind(ItemSearchRequestType::class);
 

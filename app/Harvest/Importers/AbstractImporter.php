@@ -35,7 +35,16 @@ abstract class AbstractImporter
      * @param array $row
      * @return mixed
      */
-    abstract function getModelId(array $row);
+    abstract public function getModelId(array $row);
+
+    /**
+     * @param array $row
+     * @return string
+     */
+    public function getIdentifier(array $row)
+    {
+        return $this->getModelId($row);
+    }
 
     /**
      * @param array $row

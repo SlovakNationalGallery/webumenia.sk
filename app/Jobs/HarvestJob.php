@@ -24,7 +24,7 @@ class HarvestJob extends Job implements ShouldQueue
     /** @var array */
     protected $only_ids;
 
-    public function __construct(SpiceHarvesterHarvest $harvest, \DateTime $from = null, \DateTime $to = null, $all = false, $only_ids = []) {
+    public function __construct(SpiceHarvesterHarvest $harvest, \DateTime $from = null, \DateTime $to = null, $all = false) {
         $this->harvest = $harvest;
         if ($all) {
             $from = null;
@@ -33,7 +33,6 @@ class HarvestJob extends Job implements ShouldQueue
         $this->all = $all;
         $this->from = $from;
         $this->to = $to;
-        $this->only_ids = $only_ids;
 
         $harvest->enqueue();
     }
@@ -43,7 +42,7 @@ class HarvestJob extends Job implements ShouldQueue
             $this->from = (new Carbon($this->harvest->completed))->subDay();
         }
 
-        $spiceHarvesterService->harvest($this->harvest, $this->from, $this->to, $this->only_ids);
+        $spiceHarvesterService->harvest($this->harvest, $this->from, $this->to);
     }
 
     public function failed() {

@@ -22,9 +22,9 @@ export default {
                     )
                     .map((selected) => ({ value: selected, count: 0, checked: true })),
             ]
-            return matchSorter(optionsWithSelected, this.search, {
+            return this.search ? matchSorter(optionsWithSelected, this.search, {
                 keys: [(option) => formatAuthorName(option.value)],
-            })
+            }) : optionsWithSelected
         },
     },
     render() {

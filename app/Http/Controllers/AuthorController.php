@@ -6,8 +6,8 @@ use App\Authority;
 use App\Elasticsearch\Repositories\AuthorityRepository;
 use App\Elasticsearch\Repositories\ItemRepository;
 use App\Filter\AuthoritySearchRequest;
+use App\Filter\Contracts\Filter;
 use App\Filter\Forms\Types\AuthoritySearchRequestType;
-use App\Filter\Generators\AuthorityTitleGenerator;
 use Illuminate\Pagination\AbstractPaginator;
 
 class AuthorController extends AbstractSearchRequestController
@@ -20,12 +20,9 @@ class AuthorController extends AbstractSearchRequestController
 
     protected $itemRepository;
 
-    public function __construct(
-        AuthorityRepository $repository,
-        AuthorityTitleGenerator $titleGenerator,
-        ItemRepository $itemRepository
-    ) {
-        parent::__construct($repository, $titleGenerator);
+    public function __construct(AuthorityRepository $repository, ItemRepository $itemRepository)
+    {
+        parent::__construct($repository);
         $this->itemRepository = $itemRepository;
     }
 
@@ -73,5 +70,26 @@ class AuthorController extends AbstractSearchRequestController
             $authority->previewItems = $this->itemRepository->getPreviewItems(10, $authority);
         });
         return $data;
+    }
+
+    protected function generateTitle(Filter $filter)
+    {
+        $attributes = collect(['role', 'nationality', 'place', 'years', 'first_letter']);
+
+        return $attributes
+            ->filter(fn($attribute) => $filter->get($attribute) !== null)
+            ->map(function ($attribute) use ($filter) {
+                $value = $filter->get($attribute);
+
+                if ($attribute === 'years') {
+                    return trans('authority.filter.title_generator.' . $attribute, [
+                        'from' => $value->getFrom(),
+                        'to' => $value->getTo(),
+                    ]);
+                }
+
+                return trans('authority.filter.title_generator.' . $attribute, ['value' => $value]);
+            })
+            ->implode(" \u{2022} ");
     }
 }

@@ -45,7 +45,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items = Item::query();
+        $items = Item::query()->with(['record.harvest']);
         $collection = null;
 
         if (Request::has('collection_id')) {
