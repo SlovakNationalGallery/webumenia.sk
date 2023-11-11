@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file[^1].
 
 ## [Unreleased]
+### Fixed
+- redundant commas from authority details
+
+## [2.84.0] - 2023-11-02
+### Changed
+- title generators to turn them into controller methods
 
 ## [2.83.0] - 2023-10-26
 ### Fixed

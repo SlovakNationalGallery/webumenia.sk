@@ -24,6 +24,11 @@ class GmuhkItemImporter extends AbstractImporter
         return $this->mapper->mapId($row);
     }
 
+    public function getIdentifier(array $row)
+    {
+        return $row['id'][0];
+    }
+
     public function import(array $row, Progress $result) {
         $item = parent::import($row, $result);
 
@@ -47,7 +52,7 @@ class GmuhkItemImporter extends AbstractImporter
             ->map->first()
             ->mapWithKeys(
                 fn(Authority $authority, $author) => [
-                    $authority->id => ['role' => AuthorityMatcher::parse($author)['alt_name']],
+                    $authority->id => ['role' => AuthorityMatcher::parse($author)['alt_name'] ?? 'autor/author'],
                 ]
             );
 
