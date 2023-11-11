@@ -39,7 +39,6 @@ module.exports = {
     },
     plugins: [
         require('@tailwindcss/typography'),
-        require('@tailwindcss/forms'),
         require('tailwind-scrollbar')({ nocompatible: true }),
     ],
     prefix: 'tw-',
