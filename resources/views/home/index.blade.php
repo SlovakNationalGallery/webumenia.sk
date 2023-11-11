@@ -50,12 +50,12 @@
                         v-bind:class="['tw-absolute tw-inset-0 tw-transition-all tw-bg-black tw-duration-500', orchestrator.isShuffling ? 'tw-opacity-50' : 'tw-opacity-0']">
                     </div>
                     <div
-                        class="tw-relative tw-flex tw-flex-col tw-items-center tw-p-6 tw-text-white md:tw-p-8">
+                        class="tw-relative tw-flex tw-flex-col tw-items-center tw-p-6 md:tw-p-8">
                         <h1
-                            class="tw-mt-20 tw-text-center tw-text-3xl tw-mb-0 tw-font-normal tw-drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] md:tw-mt-40 md:tw-text-6xl md:tw-drop-shadow-[0_4px_3px_rgba(0,0,0,0.5)]">
+                            class="tw-mt-20 tw-text-center tw-text-3xl tw-mb-0 tw-font-normal tw-text-white tw-drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] md:tw-mt-40 md:tw-text-6xl md:tw-drop-shadow-[0_4px_3px_rgba(0,0,0,0.5)]">
                             {{ trans('home.shuffled_item.tagline') }}
                         </h1>
-                        <div class="tw-max-w-5xl tw-text-center">
+                        <div class="tw-max-w-5xl tw-text-center tw-text-white">
                             <p
                                 class="tw-mt-2 tw-mb-0 tw-drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)] md:tw-mt-6 md:tw-text-2xl">
                                 {!! trans('home.shuffled_item.subtitle') !!}
@@ -92,7 +92,7 @@
                                         <button v-on:click="orchestrator.shuffle"
                                             class="tw-group tw-w-full tw-basis-0 tw-bg-sky-300 tw-px-4 tw-py-2 tw-text-center tw-text-xs tw-text-black tw-transition-colors hover:tw-bg-sky-400 md:tw-px-6 md:tw-text-[14px]">
                                             <i
-                                                class="fa fa-repeat tw-mr-2 tw--ml-4 tw-transition-transform group-hover:tw-rotate-45 md:tw-mx-0"></i>
+                                                class="fa fa-repeat tw-mr-2 tw--ml-4 tw-transition-transform group-hover:tw-rotate-45 md:tw-mx-0 tw-pb-1"></i>
                                             {{ trans('home.shuffled_item.button_shuffle') }}
                                         </button>
                                     </div>
@@ -100,7 +100,7 @@
                                 </div>
 
                                 <x-home.button v-bind:href="orchestrator.filter.url"
-                                    v-bind:class="['tw-mt-6 tw-self-stretch tw-bg-white tw-text-gray-800 hover:tw-bg-gray-300 tw-text-center md:tw-hidden', {'tw-opacity-0 tw-pointer-events-none': orchestrator.isShuffling}]">
+                                    v-bind:class="['tw-mt-6 tw-self-stretch tw-bg-white hover:tw-bg-gray-300 tw-text-center md:tw-hidden', {'tw-opacity-0 tw-pointer-events-none': orchestrator.isShuffling}]">
                                     {{ trans('home.shuffled_item.more_like_this') }}
                                 </x-home.button>
                             </div>
@@ -112,7 +112,7 @@
                                     { 'tw-opacity-0 tw-pointer-events-none tw-scale-95': orchestrator.isShuffling }
                                 ]">
                                 <x-home.button v-bind:href="orchestrator.filter.url"
-                                    class="tw-bg-white tw-text-gray-800 hover:tw-bg-gray-300">
+                                    class="tw-bg-white hover:tw-bg-gray-300">
                                     {{ trans('home.shuffled_item.more_like_this') }}
                                 </x-home.button>
                             </div>
@@ -121,7 +121,7 @@
                                 <div
                                     class="tw-hidden tw-flex-col tw-items-end tw-justify-end tw-gap-x-1 tw-text-right md:tw-flex">
                                     <span>@{{ orchestrator.item.authors }}</span>
-                                    <strong>@{{ orchestrator.item.title }}</strong>
+                                    <strong class="tw-font-bold">@{{ orchestrator.item.title }}</strong>
                                     <span>@{{ orchestrator.item.dating }}</span>
                                 </div>
                                 <div class="text-center tw-justify-center md:tw-hidden">
