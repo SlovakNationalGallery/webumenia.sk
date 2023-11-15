@@ -8,9 +8,10 @@ use App\Item;
 
 class ItemController extends Controller
 {
-    public function show($id)
+    public function show($ids)
     {
-        $item = Item::with('images')->findOrFail($id);
-        return new ItemResource($item);
+        $idsArray = explode(',', $ids);
+        $items = Item::with('images')->whereIn('id', $idsArray)->get();
+        return ItemResource::collection($items);
     }
 }
