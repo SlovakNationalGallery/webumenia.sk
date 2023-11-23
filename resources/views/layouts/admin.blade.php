@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="SNG, Igor Rjabinin">
+        <meta name="robots" content="noindex, nofollow">
 
         <title>
             @section('title')
